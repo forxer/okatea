@@ -2,4 +2,6 @@
 /oktPrepend.php
 /oktConf/connexion.php
 /oktCache/minify/minify_*
+/oktCache/modulesRepositoriesInfos.php
 /oktCache/static.php
+/oktCache/versions
