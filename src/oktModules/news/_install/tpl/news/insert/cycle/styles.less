@@ -1,0 +1,40 @@
+
+@import "common";
+
+#news_list_insert
+{
+	.post {
+		margin-bottom: 2em;
+		clear: both;
+	}
+
+	.odd {}
+	.even {}
+
+	.post-title a {
+		color: @clickable_color;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		text-align: left;
+		font-weight: bold;
+		text-decoration: none;
+		font-size: 1.1em;
+
+		&:hover {
+			color: @clickable_hover_color;
+		}
+	}
+	.post-content {
+		text-align: justify;
+	}
+
+	.read-more-link-wrapper {
+		text-align: right;
+		margin: 0;
+		padding: 0;
+	}
+
+	.read-more-link {
+		.commonLink();
+	}
+}

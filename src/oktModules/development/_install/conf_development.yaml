@@ -1,0 +1,11 @@
+
+debug_bar:
+  admin: true
+  public: false
+  tabs:
+    super_globales: true
+    app: true
+    logs: true
+    db: true
+    tools: true
+  holmes: false

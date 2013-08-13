@@ -1,0 +1,37 @@
+
+@import "common";
+
+#galleries_list {
+	.clearfix();
+}
+	.gallery {
+		width: 215px;
+		float: left;
+
+		padding: 0.2em;
+		margin: 0.5em;
+
+		border: 1px solid @main_border_color;
+
+		text-align: center;
+		min-height: 215px;
+
+		.border-radius(6px);
+	}
+		.gallery .gallery-title {
+			background-color: @fourth_background_color;
+			color: @fourth_text_color;
+
+			margin: 0;
+			padding: .5em;
+
+			.border-radius(6px);
+		}
+		.gallery .gallery-title a {
+			text-decoration: none;
+			color: @fourth_text_color;
+		}
+
+		.gallery img {
+			.commonImage();
+		}

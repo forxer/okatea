@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_news" label="Drop table %s" string="{{PREFIX}}mod_news">
+		<test eq="eq" value="{{PREFIX}}mod_news" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news">SHOW TABLES LIKE '{{PREFIX}}mod_news'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_news`
+	</action>
+
+	<action id="drop_mod_news_locales" label="Drop table %s" string="{{PREFIX}}mod_news_locales">
+		<test eq="eq" value="{{PREFIX}}mod_news_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_news_locales`
+	</action>
+
+	<action id="drop_mod_news_permissions" label="Drop table %s" string="{{PREFIX}}mod_news_permissions">
+		<test eq="eq" value="{{PREFIX}}mod_news_permissions" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_news_permissions'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_news_permissions`
+	</action>
+
+	<action id="drop_mod_news_categories" label="Drop table %s" string="{{PREFIX}}mod_news_categories">
+		<test eq="eq" value="{{PREFIX}}mod_news_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_news_categories`
+	</action>
+
+	<action id="drop_mod_news_categories_locales" label="Drop table %s" string="{{PREFIX}}mod_news_categories_locales">
+		<test eq="eq" value="{{PREFIX}}mod_news_categories_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_news_categories_locales`
+	</action>
+
+</database>

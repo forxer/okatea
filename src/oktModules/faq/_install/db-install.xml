@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<!-- mod_faq -->
+	<action id="mod_faq" label="Create table %s" string="{{PREFIX}}mod_faq">
+		<test eq="neq" value="{{PREFIX}}mod_faq" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_faq">SHOW TABLES LIKE '{{PREFIX}}mod_faq'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_faq` (
+			`id` 				INT(10) 	UNSIGNED	NOT NULL AUTO_INCREMENT,
+			`cat_id`			INT(10) 	UNSIGNED  	NULL,
+			`active` 			TINYINT(1) 	UNSIGNED	NOT NULL DEFAULT 0,
+			`images` 			TEXT 					NULL,
+			`files` 			TEXT 					NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_faq_active` (`active`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_faq_locales -->
+	<action id="mod_faq_locales" label="Create table %s" string="{{PREFIX}}mod_faq_locales">
+		<test eq="neq" value="{{PREFIX}}mod_faq_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_faq_locales">SHOW TABLES LIKE '{{PREFIX}}mod_faq_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_faq_locales` (
+			`faq_id` 				INT(10) 	UNSIGNED	NOT NULL,
+			`language` 				CHAR(5) 				NOT NULL,
+			`title` 				VARCHAR(255) 			NULL,
+			`title_tag` 			VARCHAR(255) 			NULL,
+			`title_seo` 			VARCHAR(255) 			NULL,
+			`slug` 					VARCHAR(255) 			NULL,
+			`content` 				TEXT 					NULL,
+			`meta_description` 		VARCHAR(255) 			NULL,
+			`meta_keywords` 		TEXT 					NULL,
+			`words` 				TEXT 					NULL,
+
+			PRIMARY KEY (`faq_id`,`language`),
+			KEY `{{PREFIX}}mod_faq_locales_slug` (`slug`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_faq_cat -->
+	<action id="mod_faq_cat" label="Create table %s" string="{{PREFIX}}mod_faq_cat">
+		<test eq="neq" value="{{PREFIX}}mod_faq_cat" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_faq_cat">SHOW TABLES LIKE '{{PREFIX}}mod_faq_cat'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_faq_cat` (
+			`id` 				INT(10) 	UNSIGNED	NOT NULL AUTO_INCREMENT,
+			`active` 			TINYINT(1) 	UNSIGNED	NOT NULL DEFAULT 0,
+			`ord` 				INT(10) 	UNSIGNED	NOT NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_faq_cat_active` (`active`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_faq_cat_locales -->
+	<action id="mod_faq_cat_locales" label="Create table %s" string="{{PREFIX}}mod_faq_cat_locales">
+		<test eq="neq" value="{{PREFIX}}mod_faq_cat_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_faq_cat_locales">SHOW TABLES LIKE '{{PREFIX}}mod_faq_cat_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_faq_cat_locales` (
+			`cat_id` 				INT(10) 	UNSIGNED	NOT NULL,
+			`language` 				CHAR(5) 				NOT NULL,
+			`title` 				VARCHAR(255) 			NULL,
+
+			PRIMARY KEY (`cat_id`,`language`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+
+<!-- UPDATE -->
+
+	<action id="add_mod_faq_title_seo" label="Add field %s" string="{{PREFIX}}mod_faq.title_seo" process="update">
+		<test eq="neq" value="title_seo" label="Field %s exists"
+		string="{{PREFIX}}mod_faq.title_seo" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_faq` LIKE 'title_seo'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_faq` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
+	</action>
+
+</database>

@@ -1,0 +1,21 @@
+name: 
+  fr: 'Devis'
+  en: 'Estimate'
+name_seo:
+  fr: 'Devis'
+  en: 'Estimate'
+title: 
+  fr: 'Devis'
+meta_description: 
+  fr: ''
+meta_keywords: 
+  fr: ''
+templates:
+  form:
+    default: default
+    usables: {}
+public_estimate_url: 
+  fr: 'devis'
+
+public_estimate_page: 'oktPublic_estimate.php'
+

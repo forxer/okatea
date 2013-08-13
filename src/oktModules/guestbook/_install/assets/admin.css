@@ -1,0 +1,45 @@
+/* Livre d'or
+----------------------------------------------------------*/
+
+.signature-box {
+	margin: 0 0 1em 0;
+}
+
+.signature-title {
+	margin: 0;
+	padding: 0.2em;
+}
+.signature {
+	margin: 0 0 0 1em;
+}
+
+.signature-infos {
+	float: right;
+	margin: 0 1em 1em 1em;
+	padding: 0.5em;
+}
+
+.signature h4 {
+	margin: 0;
+}
+
+.signature ul {
+	margin-bottom: 0;
+}
+
+.signature .message {}
+
+
+.signature-actions {
+	padding: 0.5em;
+	clear: both;
+}
+.signature-actions ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.signature-actions li {
+	display: inline;
+	margin-right: 1.5em;
+}

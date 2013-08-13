@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_estimate" label="Drop table %s" string="{{PREFIX}}mod_estimate">
+		<test eq="eq" value="{{PREFIX}}mod_estimate" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_estimate">SHOW TABLES LIKE '{{PREFIX}}mod_estimate'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_estimate`
+	</action>
+
+	<action id="drop_mod_estimate_products" label="Drop table %s" string="{{PREFIX}}mod_estimate_products">
+		<test eq="eq" value="{{PREFIX}}mod_estimate_products" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_estimate_products">SHOW TABLES LIKE '{{PREFIX}}mod_estimate_products'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_estimate_products`
+	</action>
+
+	<action id="drop_mod_estimate_accessories" label="Drop table %s" string="{{PREFIX}}mod_estimate_accessories">
+		<test eq="eq" value="{{PREFIX}}mod_estimate_accessories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_estimate_accessories">SHOW TABLES LIKE '{{PREFIX}}mod_estimate_accessories'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_estimate_accessories`
+	</action>
+
+</database>

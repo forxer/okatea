@@ -1,0 +1,130 @@
+<?php
+/**
+ * @ingroup okt_module_recaptcha
+* @brief La classe principale du module recaptcha
+*
+*/
+
+
+class module_recaptcha extends oktModule
+{
+	protected function prepend()
+	{
+		# chargement des principales locales
+		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+
+		# permissions
+		$this->okt->addPerm('recaptcha_config', __('m_recaptacha_perm_config'), 'configuration');
+
+		# config
+		$this->config = $this->okt->newConfig('conf_recaptcha');
+
+		# enregistrement dans la pile de captcha disponibles
+		$this->okt->page->addCaptcha('recaptcha',__('reCaptcha'), array(
+
+			# behaviors page contact
+			'publicModuleContactControllerFormCheckValues' => array('module_recaptcha','publicControllerFormCheckValues'),
+			'publicModuleContactTplFormBottom' => array('module_recaptcha','publicTplFormBottom'),
+
+			# behaviors livre d'or
+			'publicModuleGuestbookControllerFormCheckValues' => array('module_recaptcha','publicControllerFormCheckValues'),
+			'publicModuleGuestbookTplFormBottom' => array('module_recaptcha','publicTplFormBottom')
+		));
+	}
+
+	protected function prepend_admin()
+	{
+		# on détermine si on est actuellement sur ce module
+		$this->onThisModule();
+
+		# chargement des locales admin
+		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+
+		# on ajoutent un item au menu admin
+		if (!defined('OKT_DISABLE_MENU'))
+		{
+			$this->okt->page->configSubMenu->add(
+				__('reCaptcha'),
+				'module.php?m=recaptcha&amp;action=index',
+				ON_RECAPTCHA_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+				30,
+				$this->okt->checkPerm('recaptcha_config'),
+				null
+			);
+		}
+	}
+
+
+	/*
+	 * Behaviors
+	 */
+
+	/**
+	 * Vérification du captcha
+	 *
+	 * @param object $okt
+	 */
+	public static function publicControllerFormCheckValues($okt, $sName)
+	{
+		if($sName == "recaptcha"){
+			require_once dirname(__FILE__).'/recaptcha-php-1.11/recaptchalib.php';
+
+			$resp = recaptcha_check_answer(
+				html::escapeHTML($okt->recaptcha->config->privatekey),
+				$_SERVER["REMOTE_ADDR"],
+				$_POST["recaptcha_challenge_field"],
+				$_POST["recaptcha_response_field"]
+			);
+
+			if (!$resp->is_valid) {
+				$okt->error->set(__('m_recaptcha_error'));
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		else {
+			return true;
+		}
+	}
+
+	/**
+	 * Affichage du captcha côté public
+	 *
+	 * @param object $okt
+	 * @param string $sName
+	 */
+	public static function publicTplFormBottom($okt, $sName)
+	{
+		if($sName == "recaptcha"){
+			$aAcceptedLanguages = array('en','nl','fr','de','pt','ru','es','tr');
+
+			if (in_array($okt->user->language,$aAcceptedLanguages)) {
+				$sLanguage = $okt->user->language;
+			}
+			elseif (in_array($okt->config->language,$aAcceptedLanguages)) {
+				$sLanguage = $okt->config->language;
+			}
+			else {
+				$sLanguage = 'en';
+			}
+
+			echo '<script type="text/javascript">
+			//<![CDATA[
+
+			var RecaptchaOptions = {
+				theme: "'.$okt->recaptcha->config->theme.'",
+				lang: "'.$sLanguage.'"
+			};
+
+			//]]>
+			</script>';
+
+			require_once dirname(__FILE__).'/recaptcha-php-1.11/recaptchalib.php';
+
+			echo recaptcha_get_html(html::escapeHTML($okt->recaptcha->config->publickey));
+		}
+	}
+
+} # class

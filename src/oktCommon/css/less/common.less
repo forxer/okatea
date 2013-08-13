@@ -1,0 +1,170 @@
+
+@import "definitions";
+
+@import "mixins";
+
+@import "button";
+
+@import "forms";
+
+@import "pagination";
+
+
+.commonLink() {
+	color: @clickable_color;
+	text-decoration: underline;
+
+	&:hover {
+		color: @clickable_hover_color;
+		text-decoration: none;
+	}
+}
+
+.commonImage {
+	.opacity(0.8);
+	.border-radius(6px);
+	border: 2px solid @clickable_border_color;
+	.transition(~"border linear .2s, opacity linear .2s");
+
+	&:hover {
+		.opacity(1);
+		border: 2px solid @clickable_hover_border_color;
+	}
+}
+
+.commonScrollTop() {
+	clear: both;
+	text-align: right;
+
+	a {
+		.commonLink();
+	}
+}
+
+.commonFiltersControl() {
+	a {
+		.commonLink();
+
+		background: transparent url(@{common_url}/img/ico/preview.png) no-repeat 0 50%;
+		padding-left: 20px;
+	}
+}
+
+.commonFiltersForm() {
+	.commonFormElements();
+
+	.filters-init {
+		.commonLink();
+		font-style: italic;
+	}
+}
+
+#ariane {
+	a {
+		.commonLink();
+	}
+}
+
+.goBack {
+	font-style: italic;
+	text-align: right;
+	a {
+		.commonLink();
+	}
+}
+
+.note {
+	display: block;
+	font-size: 0.9em;
+	color: @third_text_color;
+}
+
+.commonErrorBox,
+.commonSuccessBox {
+	margin: 20px;
+	padding: 1px;
+	position: relative;
+
+	font-weight: bold;
+
+	.border-radius(3px);
+
+	p, ul {
+		display: block;
+		margin: 0;
+		padding: 8px 20px 7px 10px;
+
+		.border-radius(3px);
+	}
+}
+
+.commonErrorBox {
+	background-color: #d29191;
+
+	.gradient(#d29191, #d29191, #bb5e5e);
+	.box-shadow(0px 0px 6px rgba(244,187,187,0.7));
+
+	p, ul {
+		display: block;
+		margin: 0;
+
+		color: #745050;
+		text-shadow: 1px 1px 0px #eaadad;
+		background-color: #f4baba;
+
+		.gradient(#f4baba, #f4baba, #db7f7f);
+		.box-shadow(inset 0px 1px 0px #f7d0d0);
+	}
+
+	ul {
+		padding-left: 2em;
+	}
+}
+
+.commonSuccessBox {
+	background-color: #c6cdaa;
+
+	.gradient(#c6cdaa, #c6cdaa, #a8ae8e);
+	.box-shadow(0px 0px 6px rgba(223,230,198,0.7));
+
+	p, ul {
+		display: block;
+		margin: 0;
+
+		color: #676b5b;
+		text-shadow: 1px 1px 0px #d6dcc3;
+		background-color: #e2e8c9;
+
+		.gradient(#e2e8c9, #e2e8c9, #c1c8a7);
+		.box-shadow(inset 0px 1px 0px #ebf0da);
+	}
+
+	ul {
+		padding-left: 2em;
+	}
+}
+
+
+// Colonnes
+
+.two-cols, .three-cols, .four-cols {
+	.clearfix();
+}
+.two-cols .col, .three-cols .col, .four-cols .col {
+	float: left;
+	margin-right: 1%;
+	//padding: 1px 0;
+}
+
+.two-cols .col {
+	width: 48%;
+}
+.three-cols .col {
+	width: 32%;
+}
+.four-cols .col {
+	width: 24%;
+}
+
+
+@import "overload";

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_galleries" label="Drop table %s" string="{{PREFIX}}mod_galleries">
+		<test eq="eq" value="{{PREFIX}}mod_galleries" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_galleries">SHOW TABLES LIKE '{{PREFIX}}mod_galleries'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_galleries`
+	</action>
+
+	<action id="drop_mod_galleries_locales" label="Drop table %s" string="{{PREFIX}}mod_galleries_locales">
+		<test eq="eq" value="{{PREFIX}}mod_galleries_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_galleries_locales">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_galleries_locales`
+	</action>
+
+	<action id="drop_mod_galleries_items" label="Drop table %s" string="{{PREFIX}}mod_galleries_items">
+		<test eq="eq" value="{{PREFIX}}mod_galleries_items" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_galleries_items">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_items'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_galleries_items`
+	</action>
+
+	<action id="drop_mod_galleries_items_locales" label="Drop table %s" string="{{PREFIX}}mod_galleries_items_locales">
+		<test eq="eq" value="{{PREFIX}}mod_galleries_items_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_galleries_items_locales">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_items_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_galleries_items_locales`
+	</action>
+
+</database>

@@ -1,0 +1,82 @@
+name:
+  fr: Pages
+  en: Pages
+name_seo:
+  fr: 
+  en: 
+title:
+  fr: Pages
+  en: Pages
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+enable_metas: true
+enable_show_link: true
+enable_ariane: false
+enable_filters: true
+enable_group_perms: false
+enable_rte: tinymce_advanced
+perms:
+  - 0
+admin_dysplay_style: list
+admin_filters_style: dialog
+admin_default_order_by: title
+admin_default_order_direction: ASC
+admin_default_nb_per_page: 10
+public_default_order_by: title
+public_default_order_direction: ASC
+public_default_nb_per_page: 5
+public_truncat_char: 0
+insert_truncat_char: 0
+lightbox_type: fancybox
+categories:
+  enable: false
+  descriptions: false
+  rte: ''
+images:
+  enable: true
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  width_min_2: 0
+  height_min_2: 0
+  resize_type_min_2: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: cc
+files:
+  enable: false
+  number: 3
+  allowed_exts: 'txt,pdf'
+templates:
+  list:
+    default: default
+    usables: {}
+  item:
+    default: default
+    usables: {}
+  insert:
+    default: default
+    usables: {}
+  feed:
+    default: rss
+    usables: {}
+public_list_url:
+  fr: pages
+  en: pages
+public_feed_url:
+  fr: pages/rss
+  en: pages/rss
+public_page_url:
+  fr: page
+  en: page
+public_list_file: oktPublic_pages_list.php
+public_feed_file: oktPublic_pages_feed.php
+public_page_file: oktPublic_pages_item.php

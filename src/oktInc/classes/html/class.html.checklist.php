@@ -1,0 +1,173 @@
+<?php
+/**
+ * @class checkList
+ * @ingroup okt_classes_html
+ * @brief Permet de construire et d'afficher facilement une liste de vérifications.
+ *
+ */
+
+class checkList
+{
+	/**
+	 * Liste des varifications.
+	 * @var array
+	 */
+	private $check;
+
+	/**
+	 * URL de l'image ok.
+	 * @var string
+	 */
+	public $img_on;
+
+	/**
+	 * URL de l'image erreur.
+	 * @var string
+	 */
+	public $img_off;
+
+	/**
+	 * URL de l'image avertissement.
+	 * @var string
+	 */
+	public $img_wrn;
+
+	/**
+	 * Constucteur.
+	 *
+	 * @param	string	img_on		URL de l'image ok
+	 * @param	string	img_off		URL de l'image erreur
+	 * @param	string 	img_wrn		URL de l'image avertissement
+	 * @return void
+	 */
+	public function __construct($img_on='',$img_off='',$img_wrn='')
+	{
+		$this->check = array();
+
+		$this->img_on = $img_on;
+		$this->img_off = $img_off;
+		$this->img_wrn = $img_wrn;
+	}
+
+	/**
+	 * Permet d'ajouter un élément à la liste de vérification.
+	 *
+	 * @param	string	name	Le nom de l'élément
+	 * @param	mixed	test	Test de l'élément, TRUE pour ok, FALSE pour échec ou NULL pour avertissement
+	 * @param	string	on		Le texte si succès
+	 * @param	string	off		Le texte si échec
+	 * @return void
+	 */
+	public function addItem($name,$test,$on,$off)
+	{
+		$this->check[$name] = array(
+			'test' => (($test === null) ? null : (boolean) $test),
+			'on' => $on,
+			'off' => $off
+		);
+	}
+
+	/**
+	 * Indique si tous les tests sont passés avec succès.
+	 *
+	 * @return boolean
+	 */
+	public function checkAll()
+	{
+		foreach ($this->check as $v)
+		{
+			if ($v['test'] === false) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Indique si un élément en particulier passe son test avec succès.
+	 *
+	 * @return boolean
+	 */
+	public function checkItem($name)
+	{
+		if (!empty($this->check[$name])) {
+			return $this->check[$name]['test'];
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Indique si il y a des avertissements.
+	 *
+	 * @return boolean
+	 */
+	public function checkWarnings()
+	{
+		foreach ($this->check as $v)
+		{
+			if ($v['test'] === null) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Affiche le HTML de la liste de vérifications.
+	 *
+	 * @param	string	$bloc		Le masque de formatage du bloc de la liste
+	 * @param	string	$item		Le masque de formatage d'un élément de la liste
+	 * @return string
+	 */
+	public function getHTML($bloc='<ul class="checklist">%s</ul>', $item='<li>%s</li>')
+	{
+		$res = '';
+		foreach ($this->check as $k => $v)
+		{
+			if ($v['test'] === null) {
+				$res .= sprintf($item, $this->getImageWrn().' '.$v['off']);
+			}
+			elseif ($v['test'] == false) {
+				$res .= sprintf($item, $this->getImageOff().' '.$v['off']);
+			}
+			elseif ($v['test']) {
+				$res .= sprintf($item, $this->getImageOn().' '.$v['on']);
+			}
+		}
+
+		return sprintf($bloc, $res);
+	}
+
+	public function getLegend($bloc='<ul class="checklistlegend">%s</ul>', $item='<li>%s</li>')
+	{
+		$res = '';
+
+		$res .= sprintf($item, $this->getImageOn().' '.__('c_c_checklist_valid'));
+
+		$res .= sprintf($item, $this->getImageWrn().' '.__('c_c_checklist_warning'));
+
+		$res .= sprintf($item, $this->getImageOff().' '.__('c_c_checklist_error'));
+
+		return sprintf($bloc, $res);
+	}
+
+	protected function getImageOn()
+	{
+		return !empty($this->img_on) ? '<img src="'.$this->img_on.'" alt="'.__('c_c_checklist_valid').'" />' : '';
+	}
+
+	protected function getImageWrn()
+	{
+		return !empty($this->img_wrn) ? '<img src="'.$this->img_wrn.'" alt="'.__('c_c_checklist_warning').'" />' : '';
+	}
+
+	protected function getImageOff()
+	{
+		return !empty($this->img_off) ? '<img src="'.$this->img_off.'" alt="'.__('c_c_checklist_error').'" />' : '';
+	}
+
+}

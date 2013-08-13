@@ -1,0 +1,84 @@
+name:
+  fr: Actualités
+  en: News
+name_seo:
+  fr: 
+  en: 
+title:
+  fr: Actualités
+  en: News
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+enable_metas: true
+enable_show_link: true
+enable_ariane: true
+enable_filters: true
+enable_group_perms: false
+enable_rte: ''
+perms:
+  - 0
+admin_dysplay_style: list
+admin_filters_style: dialog
+admin_default_order_by: created_at
+admin_default_order_direction: DESC
+admin_default_nb_per_page: 10
+public_default_order_by: created_at
+public_default_order_direction: DESC
+public_default_nb_per_page: 5
+public_display_date: true
+public_display_author: false
+public_truncat_char: 0
+insert_truncat_char: 200
+lightbox_type: fancybox
+categories:
+  enable: false
+  descriptions: false
+  rte: ''
+images:
+  enable: true
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  width_min_2: 0
+  height_min_2: 0
+  resize_type_min_2: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: cc
+files:
+  enable: false
+  number: 3
+  allowed_exts: 'txt,pdf'
+templates:
+  list:
+    default: default
+    usables: {}
+  item:
+    default: default
+    usables: {}
+  insert:
+    default: default
+    usables: {}
+  feed:
+    default: rss
+    usables: {}
+public_list_url:
+  fr: actualites
+  en: actualites
+public_feed_url:
+  fr: actualites/rss
+  en: actualites/rss
+public_post_url:
+  fr: actualite
+  en: actualite
+public_list_file: oktPublic_news_list.php
+public_feed_file: oktPublic_news_feed.php
+public_post_file: oktPublic_news_item.php

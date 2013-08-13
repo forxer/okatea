@@ -1,0 +1,14 @@
+CHANGELOG and HISTORY ( we try )                               module_guestbook
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+1.0
+! first public release

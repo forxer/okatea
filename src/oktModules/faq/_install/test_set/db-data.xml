@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+
+	<!-- questions exemples -->
+	<action id="firstquestions" label="Creation des questions exemples">
+	INSERT INTO `{{PREFIX}}mod_faq`
+		(`id`, `cat_id`, `active`, `images`, `files`)
+	VALUES
+		(1, 1, 1, 'a:1:{i:1;a:22:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:52:"D:\\www\\okatea_project\\upload/modules/faq/img/1/1.jpg";s:7:"img_url";s:46:"/okatea_project/upload/modules/faq/img/1/1.jpg";s:9:"img_width";i:800;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800" height="600"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:56:"D:\\www\\okatea_project\\upload/modules/faq/img/1/min-1.jpg";s:7:"min_url";s:50:"/okatea_project/upload/modules/faq/img/1/min-1.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200" height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:55:"D:\\www\\okatea_project\\upload/modules/faq/img/1/sq-1.jpg";s:10:"square_url";s:49:"/okatea_project/upload/modules/faq/img/1/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}}', 'a:2:{s:2:"fr";a:0:{}s:2:"en";a:0:{}}'),
+		(2, 1, 1, 'a:4:{i:1;a:22:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:52:"D:\\www\\okatea_project\\upload/modules/faq/img/2/1.jpg";s:7:"img_url";s:46:"/okatea_project/upload/modules/faq/img/2/1.jpg";s:9:"img_width";i:800;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800" height="600"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:56:"D:\\www\\okatea_project\\upload/modules/faq/img/2/min-1.jpg";s:7:"min_url";s:50:"/okatea_project/upload/modules/faq/img/2/min-1.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200" height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:55:"D:\\www\\okatea_project\\upload/modules/faq/img/2/sq-1.jpg";s:10:"square_url";s:49:"/okatea_project/upload/modules/faq/img/2/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}i:2;a:22:{s:8:"img_name";s:5:"2.jpg";s:8:"img_file";s:52:"D:\\www\\okatea_project\\upload/modules/faq/img/2/2.jpg";s:7:"img_url";s:46:"/okatea_project/upload/modules/faq/img/2/2.jpg";s:9:"img_width";i:800;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800" height="600"";s:8:"min_name";s:9:"min-2.jpg";s:8:"min_file";s:56:"D:\\www\\okatea_project\\upload/modules/faq/img/2/min-2.jpg";s:7:"min_url";s:50:"/okatea_project/upload/modules/faq/img/2/min-2.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200" height="150"";s:11:"square_name";s:8:"sq-2.jpg";s:11:"square_file";s:55:"D:\\www\\okatea_project\\upload/modules/faq/img/2/sq-2.jpg";s:10:"square_url";s:49:"/okatea_project/upload/modules/faq/img/2/sq-2.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}i:3;a:22:{s:8:"img_name";s:5:"3.jpg";s:8:"img_file";s:52:"D:\\www\\okatea_project\\upload/modules/faq/img/2/3.jpg";s:7:"img_url";s:46:"/okatea_project/upload/modules/faq/img/2/3.jpg";s:9:"img_width";i:800;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800" height="600"";s:8:"min_name";s:9:"min-3.jpg";s:8:"min_file";s:56:"D:\\www\\okatea_project\\upload/modules/faq/img/2/min-3.jpg";s:7:"min_url";s:50:"/okatea_project/upload/modules/faq/img/2/min-3.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200" height="150"";s:11:"square_name";s:8:"sq-3.jpg";s:11:"square_file";s:55:"D:\\www\\okatea_project\\upload/modules/faq/img/2/sq-3.jpg";s:10:"square_url";s:49:"/okatea_project/upload/modules/faq/img/2/sq-3.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}i:4;a:22:{s:8:"img_name";s:5:"4.jpg";s:8:"img_file";s:52:"D:\\www\\okatea_project\\upload/modules/faq/img/2/4.jpg";s:7:"img_url";s:46:"/okatea_project/upload/modules/faq/img/2/4.jpg";s:9:"img_width";i:800;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800" height="600"";s:8:"min_name";s:9:"min-4.jpg";s:8:"min_file";s:56:"D:\\www\\okatea_project\\upload/modules/faq/img/2/min-4.jpg";s:7:"min_url";s:50:"/okatea_project/upload/modules/faq/img/2/min-4.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200" height="150"";s:11:"square_name";s:8:"sq-4.jpg";s:11:"square_file";s:55:"D:\\www\\okatea_project\\upload/modules/faq/img/2/sq-4.jpg";s:10:"square_url";s:49:"/okatea_project/upload/modules/faq/img/2/sq-4.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}}', 'a:2:{s:2:"fr";a:0:{}s:2:"en";a:0:{}}'),
+		(3, 2, 1, NULL, 'a:2:{s:2:"fr";a:0:{}s:2:"en";a:0:{}}');
+	</action>
+
+	<!-- questions locales exemples -->
+	<action id="firstquestionslocales" label="Creation des locales des questions exemples">
+		INSERT INTO `{{PREFIX}}mod_faq_locales` (`faq_id`, `language`, `title`, `title_tag`, `slug`, `content`, `meta_description`, `meta_keywords`, `words`) VALUES
+		(1, 'fr', 'comment faire ?', NULL, 'comment-faire', 'bonne question...', NULL, NULL, 'comment faire bonne question'),
+		(1, 'en', 'How to do ?', NULL, 'how-to-do', 'good question...', NULL, NULL, 'how good question'),
+		(2, 'fr', 'Peut-on poser une question ?', NULL, 'peut-on-poser-une-question', 'Oui, bien sûr', NULL, NULL, 'peut poser une question oui bien sûr'),
+		(2, 'en', 'Can I ask a question ?', NULL, 'can-i-ask-a-question', 'Yes, of course', NULL, NULL, 'can ask question yes course'),
+		(3, 'fr', 'Une question exemple', NULL, 'une-question-exemple', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean volutpat, velit vel venenatis rhoncus, enim ligula condimentum erat, sit amet pretium massa lorem ultricies mauris. Praesent non auctor mauris. Ut iaculis semper laoreet. Ut a imperdiet massa. In nec massa quis arcu iaculis varius eget a erat. Cras sagittis nulla sed felis laoreet lacinia. Ut ac ante nisl, id tincidunt dolor. Integer mattis adipiscing velit, eu lobortis urna euismod eu! Praesent congue justo in odio aliquet ut laoreet lorem laoreet. Suspendisse quis tortor quis ligula egestas posuere.', NULL, NULL, 'une question exemple lorem ipsum dolor sit amet consectetur adipiscing elit aenean volutpat velit vel venenatis rhoncus enim ligula condimentum erat sit amet pretium massa lorem ultricies mauris praesent non auctor mauris iaculis semper laoreet imperdiet massa nec massa quis arcu iaculis varius eget erat cras sagittis nulla sed felis laoreet lacinia ante nisl tincidunt dolor integer mattis adipiscing velit lobortis urna euismod praesent congue justo odio aliquet laoreet lorem laoreet suspendisse quis tortor quis ligula egestas posuere'),
+		(3, 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	</action>
+
+	<!-- catégories exemples -->
+	<action id="firstcat" label="Creation des categories exemples">
+		INSERT INTO `{{PREFIX}}mod_faq_cat` (`id`, `active`, `ord`) VALUES
+		(1, 1, 1),
+		(2, 1, 2);
+	</action>
+
+	<!-- questions locales exemples -->
+	<action id="firstcatlocales" label="Creation des locales des categories exemples">
+		INSERT INTO `modules_mod_faq_cat_locales` (`cat_id`, `language`, `title`) VALUES
+		(1, 'fr', 'Catégorie 1'),
+		(1, 'en', 'Category 1'),
+		(2, 'fr', 'Catégorie 2'),
+		(2, 'en', 'Category 2');
+	</action>
+
+</database>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="truncate_mod_catalog_products" label="Truncate table %s" string="{{PREFIX}}mod_catalog_products">
+		<test eq="eq" value="{{PREFIX}}mod_catalog_products" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_catalog_products">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_products'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_catalog_products`
+	</action>
+
+	<action id="truncate_mod_catalog_categories" label="Truncate table %s" string="{{PREFIX}}mod_catalog_categories">
+		<test eq="eq" value="{{PREFIX}}mod_catalog_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_catalog_categories">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_categories'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_catalog_categories`
+	</action>
+
+</database>

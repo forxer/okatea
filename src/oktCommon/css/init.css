@@ -1,0 +1,281 @@
+/**
+ * Feuille de style d'initialisation des styles
+ *
+ */
+
+/* Reset
+----------------------------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+	v2.0 | 20110126
+	License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* Eléments
+----------------------------------------------------------*/
+
+body {
+	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
+	font-size: 81.3%;
+}
+.ui-widget {
+	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
+	font-size: 1em;
+}
+
+
+/* Les titres */
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+h2 {
+	font-size: 1.3em;
+	margin: 0.83em 0;
+}
+
+h3 {
+	font-size: 1.17em;
+	margin: 1em 0;
+}
+
+h4 {
+	font-size: 1em;
+	margin: 1.33em 0;
+}
+
+h5 {
+	font-size: 0.83em;
+	margin: 1.67em 0;
+}
+
+h6 {
+	font-size: 0.67em;
+	margin: 2.33em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	display: block;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+}
+
+/* Les liens */
+a, a:link, a:visited {
+	text-decoration: underline;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+}
+
+a { outline: none; }
+a:focus { outline: thin dotted; }
+a:active { outline: none; }
+
+/* Les images en général */
+img, a img {
+	border: none;
+	vertical-align: middle;
+}
+
+/* Les paragraphes */
+p {
+	display: block;
+	margin: 1em 0;
+	line-height: 1.7;
+}
+
+/* Listes */
+ul, ol {
+	display: block;
+	margin: 1em 0 1em 1.5em;
+}
+
+li {
+	display: list-item;
+	margin: 0.2em 0;
+}
+
+/* Listes à puce */
+ul {
+	list-style-type: disc;
+}
+
+/* Listes ordonnées */
+ol {
+	list-style-type: decimal;
+}
+
+/* Listes de définitions */
+dl {
+	display: block;
+	margin: 1em 0;
+}
+dt {
+	display: block;
+	margin: 0 0 6px 18px; 
+	font-weight: normal;
+}
+dd {
+	display: block;
+	margin-left: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+
+/* Les listes imbriques n'ont pas de marge verticales */
+ul ul, ul ol, ul dl, ol ul, ol ol, ol dl, dl ul, dl ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* Le 2me niveau des listes à puce utilisent un cercle */
+ol ul, ul ul {
+	list-style-type: circle;
+}
+
+/* Le 3me niveau (et suivant) des listes à puce utilisent un carré */
+ol ol ul, ol ul ul, ul ol ul, ul ul ul {
+	list-style-type: square;
+}
+
+/* Les barres horizontales */
+hr {}
+
+/* Les citations */
+blockquote, q {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+}
+blockquote em, q em {
+	font-style: normal;
+}
+blockquote {
+	display: block;
+	margin: 1em 1.5em;
+}
+cite {}
+
+/* Les textes pré-formatés */
+code, pre, tt, kbd, samp, var {
+	font-family: monaco, "Courier New", Courier, monospace;
+	font-size: 1.1em;
+	white-space: pre-wrap;
+}
+pre.debug {
+	width: 95%;
+	overflow: auto;
+	line-height: normal;
+	border: 1px solid #ccc;
+	background: #333;
+	color: #fff;
+}
+pre.changelog {
+	background: inherit;
+	color: inherit;
+	border: none;
+	width: auto;
+}
+
+/* Emphases */
+em {
+	font-style: italic;
+}
+
+/* Forte emphase */
+strong {
+	font-weight: bold;
+}
+
+/* Abréviations et acronymes */
+abbr, acronym {
+	border-bottom: 1px dotted #f1f1f1;
+}
+
+/* Inlines */
+q:before {
+	content: open-quote;
+}
+q:after {
+	content: close-quote;
+}
+b, strong {
+	font-weight: bolder;
+}
+i, cite, em, var, dfn {
+	font-style: italic;
+}
+u, ins {
+	text-decoration: underline;
+}
+s, strike, del {
+	text-decoration: line-through;
+}
+blink {
+	text-decoration: blink;
+}
+big {
+	font-size: larger;
+}
+small {
+	font-size: smaller;
+}
+sub {
+	vertical-align: sub;
+	font-size: smaller;
+	line-height: normal;
+}
+sup {
+	vertical-align: super;
+	font-size: smaller;
+	line-height: normal;
+}
+nobr {
+	white-space: nowrap;
+}

@@ -1,0 +1,46 @@
+name: '##module_name_fr##'
+title: '##module_name_fr##'
+meta_description: ''
+meta_keywords: ''
+
+enable_metas: true
+enable_show_link: true
+enable_rte: ''
+
+lightbox_type: 'fancybox'
+
+admin_dysplay_style: 'list'
+admin_filters_style: 'dialog'
+
+admin_default_order_by: 'title'
+admin_default_order_direction: 'DESC'
+admin_default_nb_per_page: 6
+
+public_default_order_by: 'title'
+public_default_order_direction: 'DESC'
+public_default_nb_per_page: 5
+
+images:
+  enable: true
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: 'cc'
+
+files:
+  enable: false
+  number: 3
+  allowed_exts: 'txt,pdf'
+
+
+public_list_url: '##module_url_id_fr##s'
+public_item_url: '##module_url_id_fr##'
+
+public_list_file: 'oktPublic_##module_id##_list.php'
+public_item_file: 'oktPublic_##module_id##_item.php'

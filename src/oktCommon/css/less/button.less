@@ -1,0 +1,33 @@
+
+button {
+	display: inline-block;
+	.ie7-inline-block();
+
+	padding: 4px 12px;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+
+	color: @clickable_color;
+	background-color: @clickable_background_color;
+	border: 1px solid @clickable_border_color;
+
+	.border-radius(@input_border_radius);
+
+	.transition(~"color linear .2s, background-color linear .2s, border linear .2s");
+
+	&:hover {
+		color: @clickable_hover_color;
+		background-color: @clickable_hover_background_color;
+		border: 1px solid @clickable_hover_border_color;
+	}
+	&:focus {
+		.tab-focus();
+	}
+	&.active,
+	&:active {
+		color: @clickable_active_color;
+		background-color: @clickable_active_background_color;
+		border: 1px solid @clickable_active_border_color;
+	}
+}

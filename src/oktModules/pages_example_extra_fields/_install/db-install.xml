@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="add_mod_pages_checkbox" label="Add field %s" string="{{PREFIX}}mod_pages.checkbox">
+		<test eq="neq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.checkbox" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'checkbox'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` ADD `checkbox` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 AFTER `tpl`
+	</action>
+
+	<action id="add_mod_pages_date" label="Add field %s" string="{{PREFIX}}mod_pages.date">
+		<test eq="neq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.date" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'date'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` ADD `date` DATE NULL DEFAULT NULL AFTER `checkbox`
+	</action>
+
+	<action id="add_mod_pages_required" label="Add field %s" string="{{PREFIX}}mod_pages.required">
+		<test eq="neq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.required" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'required'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` ADD `required` VARCHAR(255) NOT NULL AFTER `date`
+	</action>
+
+	<action id="add_mod_pages_locales_multilangue" label="Add field %s" string="{{PREFIX}}mod_pages_locales.multilangue">
+		<test eq="neq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages_locales.multilangue" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages_locales` LIKE 'multilangue'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages_locales` ADD `multilangue` VARCHAR(255) NULL AFTER `words`
+	</action>
+
+	<action id="add_mod_pages_locales_editor" label="Add field %s" string="{{PREFIX}}mod_pages_locales.editor">
+		<test eq="neq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages_locales.editor" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages_locales` LIKE 'editor'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages_locales` ADD `editor` TEXT NULL AFTER `multilangue`
+	</action>
+
+
+
+</database>

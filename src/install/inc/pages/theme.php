@@ -1,0 +1,235 @@
+<?php
+/**
+ * Choix du thème
+ *
+ * @addtogroup Okatea
+ * @subpackage Install interface
+ *
+ */
+
+if (!defined('OKT_INSTAL_PROCESS')) die;
+
+
+/* Initialisations
+------------------------------------------------------------*/
+
+# Inclusion du prepend
+require_once dirname(__FILE__).'/../../../oktInc/prepend.php';
+
+# Locales
+l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/install');
+l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.themes');
+
+# Themes object
+$oThemes = new oktThemes($okt, OKT_THEMES_PATH);
+
+# Liste des thèmes présents
+$aInstalledThemes = $oThemes->getThemesAdminList();
+
+# Liste des dépôts de thèmes
+$aThemesRepositories = array();
+if ($okt->config->themes_repositories_enabled)
+{
+	$aRepositories = $okt->config->themes_repositories;
+	$aThemesRepositories = $oThemes->getRepositoriesInfos($aRepositories);
+}
+
+# Tri par ordre alphabétique des listes de thème
+uasort($aInstalledThemes, array('oktThemes','sortThemesList'));
+
+foreach ($aThemesRepositories as $repo_name=>$themes) {
+	uasort($aThemesRepositories[$repo_name], array('oktThemes','sortThemesList'));
+}
+
+$p_theme = !empty($_REQUEST['p_theme']) && isset($aInstalledThemes[$_REQUEST['p_theme']]) ? $_REQUEST['p_theme'] : 'default';
+
+
+# Eventuels fichiers à copier
+$bHasCssFiles = (file_exists(OKT_ROOT_PATH.'/css') && util::dirHasFiles(OKT_ROOT_PATH.'/css'));
+$bHasImgFiles = (file_exists(OKT_ROOT_PATH.'/images') && util::dirHasFiles(OKT_ROOT_PATH.'/images'));
+
+
+/* Traitements
+------------------------------------------------------------*/
+
+# formulaire envoyé, on enregistre et on passent à l'étape suivante
+if (!empty($_POST['sended']) && !empty($_POST['p_theme']) && isset($aInstalledThemes[$_POST['p_theme']]))
+{
+	try
+	{
+		$okt->config->write(array('theme'=>$_POST['p_theme']));
+
+		if (!empty($_POST['p_copy_css']) && $bHasCssFiles) {
+			util::rcopy(OKT_ROOT_PATH.'/css', OKT_THEMES_PATH.'/'.$_POST['p_theme'].'/css');
+		}
+
+		if (!empty($_POST['p_copy_img']) && $bHasImgFiles) {
+			util::rcopy(OKT_ROOT_PATH.'/images', OKT_THEMES_PATH.'/'.$_POST['p_theme'].'/images');
+		}
+
+		$_SESSION['okt_install_theme'] = $_POST['p_theme'];
+
+		http::redirect('index.php?step='.$stepper->getNextStep());
+	}
+	catch (InvalidArgumentException $e)
+	{
+		$okt->error->set(__('c_c_error_writing_configuration'));
+		$okt->error->set($e->getMessage());
+
+	}
+}
+
+# Theme upload
+else if ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config->themes_repositories_enabled))
+{
+	try
+	{
+		$repository = urldecode($_GET['repository']);
+		$theme = urldecode($_GET['theme']);
+		$url = urldecode($aThemesRepositories[$repository][$theme]['href']);
+
+		$dest = OKT_THEMES_PATH.'/'.basename($url);
+
+		try
+		{
+			$client = netHttp::initClient($url,$path);
+			$client->setUserAgent('Okatea');
+			$client->useGzip(false);
+			$client->setPersistReferers(false);
+			$client->setOutput($dest);
+			$client->get($path);
+		}
+		catch( Exception $e) {
+			throw new Exception(__('An error occurred while downloading the file.'));
+		}
+
+		unset($client);
+
+		$ret_code = $oThemes->installPackage($dest, $oThemes);
+
+		http::redirect('index.php?step=theme&p_theme='.$theme);
+	}
+	catch (Exception $e) {
+		$okt->error->set($e->getMessage());
+	}
+}
+else if (!empty($_POST['bootstrap']))
+{
+	try {
+		$theme = $oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));
+
+		http::redirect('index.php?step='.$stepper->getCurrentStep().'&p_theme='.$theme);
+	}
+	catch (Exception $e) {
+		$okt->error->set($e->getMessage());
+	}
+}
+
+
+# bootstrap a dedicated theme
+//if (!isset($aInstalledThemes[$okt->config->domain])) {
+//	$p_theme = $oThemes->bootstrapTheme($okt->config->domain);
+//	http::redirect('index.php?step=theme&p_theme='.$p_theme);
+//}
+
+
+/* Affichage
+------------------------------------------------------------*/
+
+
+# strToSlug
+$oHtmlPage->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
+
+
+# En-tête
+$title = __('i_theme_title');
+require OKT_INSTAL_DIR.'/header.php'; ?>
+
+<form action="index.php" method="post">
+	<ul id="themes_list_choice" class="checklist">
+		<?php foreach ($aInstalledThemes as $aTheme) : ?>
+		<li><?php echo form::radio(array('p_theme','p_theme_'.$aTheme['id']), $aTheme['id'], ($p_theme == $aTheme['id'])) ?> <label for="p_theme_<?php echo $aTheme['id'] ?>"><?php echo $aTheme['name'] ?></label></li>
+		<?php endforeach; ?>
+	</ul>
+
+	<?php if ($bHasCssFiles) : ?>
+		<p><?php echo form::checkbox('p_copy_css', 1, 1) ?>
+		<label for="p_copy_css"><?php printf(__('i_theme_copy_css'), $okt->config->app_path.'css') ?></label></p>
+	<?php endif; ?>
+
+	<?php if ($bHasImgFiles) : ?>
+		<p><?php echo form::checkbox('p_copy_img', 1, 1) ?>
+		<label for="p_copy_img"><?php printf(__('i_theme_copy_img'), $okt->config->app_path.'images') ?></label></p>
+	<?php endif; ?>
+
+	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
+	<input type="hidden" name="sended" value="1" />
+	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
+</form>
+
+<div id="add_theme_repo_content">
+	<h3 id="add_theme_repo_title"><?php _e('c_a_themes_add_theme_from_remote_repository') ?></h3>
+
+<?php if (!$okt->config->themes_repositories_enabled) : ?>
+	<p><?php _e('c_a_themes_repositories_themes_disabled') ?></p>
+
+<?php elseif (!empty($aThemesRepositories)) : ?>
+	<?php foreach($aThemesRepositories as $repo_name=>$aThemes) : ?>
+
+	<h4><?php echo html::escapeHTML($repo_name).' ('.oktThemes::pluralizethemesCount(count($aThemes)).')'; ?></h4>
+
+	<table class="common">
+		<caption><?php printf('c_a_themes_list_themes_available_%s', html::escapeHTML($repo_name)) ?></caption>
+		<thead><tr>
+			<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
+			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
+			<th scope="col" class="small"><?php _e('c_c_action_Add') ?></th>
+		</tr></thead>
+		<tbody>
+		<?php $line_count = 0;
+		foreach ($aThemes as $aTheme) :
+			$td_class = $line_count%2 == 0 ? 'even' : 'odd';
+			$line_count++; ?>
+		<tr>
+			<th scope="row" class="<?php echo $td_class; ?> fake-td">
+			<?php echo html::escapeHTML($aTheme['name']) ?>
+			<?php echo !empty($aTheme['info']) ? '<br />'.html::escapeHTML($aTheme['info']) : ''; ?>
+			</th>
+			<td class="<?php echo $td_class; ?> center"><?php echo html::escapeHTML($aTheme['version']) ?></td>
+			<td class="<?php echo $td_class; ?> center"><a href="index.php?step=theme&amp;repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($aTheme['id']) ?>" class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
+		</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php endforeach; ?>
+<?php else : ?>
+	<p><?php _e('c_a_themes_no_repository_themes_defined') ?></p>
+<?php endif; ?>
+</div><!-- #add_theme_repo_content -->
+
+<div id="add_theme_bootstrap">
+	<h3 id="add_theme_bootstrap_title"><?php _e('c_a_themes_bootstrap_title') ?></h3>
+
+	<div id="add_theme_bootstrap_content">
+		<p><?php _e('c_a_themes_bootstrap_feature_description') ?></p>
+
+		<form action="index.php" method="post">
+
+			<div class="two-cols">
+				<p class="field col"><label for="bootstrap_theme_name" class="required" title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_name'); ?></label>
+				<?php echo form::text('bootstrap_theme_name', 60, 255, ''); ?></p>
+
+				<p class="field col"><label for="bootstrap_theme_id" title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_id'); ?></label>
+				<?php echo form::text('bootstrap_theme_id', 60, 255, ''); ?></p>
+			</div>
+
+			<p><?php echo form::hidden(array('step'), $stepper->getCurrentStep()) ?>
+			<?php echo form::hidden('bootstrap', 1) ?>
+			<?php echo adminPage::formtoken() ?>
+			<input type="submit" value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" /></p>
+		</form>
+	</div>
+</div><!-- #add_theme_bootstrap -->
+
+<?php # Pied de page
+require OKT_INSTAL_DIR.'/footer.php'; ?>

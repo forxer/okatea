@@ -1,0 +1,165 @@
+name:
+  fr: Galeries
+  en: Galleries
+name_seo:
+  fr: 
+  en: 
+title:
+  fr: Galeries
+  en: Galleries
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+enable_metas: true
+enable_gal_password: false
+enable_show_link: true
+enable_ariane: true
+enable_rte: ''
+enable_gal_rte: ''
+enable_zip_upload: true
+enable_multiple_upload: false
+multiple_upload_type: 'plupload'
+gal_image_type: 1
+dysplay_clic_gal_image: enter
+dysplay_clic_items_image: image
+lightbox_type: fancybox
+images:
+  enable: true
+  number: 1
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  width_min_2: 0
+  height_min_2: 0
+  resize_type_min_2: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: cc
+images_gal:
+  enable: true
+  number: 1
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  width_min_2: 0
+  height_min_2: 0
+  resize_type_min_2: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: cc
+templates:
+  list:
+    default: default
+    usables: {}
+  gallery:
+    default: default
+    usables: {}
+  item:
+    default: default
+    usables: {}
+skitter_options:
+  velocity: 1
+  interval: 2500
+  animation: null
+  navigation: true
+  label: true
+  hideTools: false
+  numbers: true
+  thumbs: false
+  dots: false
+  animateNumberOut: { backgroundColor: '#333333', color: '#ffffff' }
+  animateNumberOver: { backgroundColor: '#000000', color: '#ffffff' }
+  animateNumberActive: { backgroundColor: '#cc3333', color: '#ffffff' }
+galleria_options:
+  autoplay: 0
+  lightbox: false
+  overlayOpacity: 0.85
+  overlayBackground: '#0b0b0b'
+  transition: slide
+  transitionSpeed: 200
+  showInfo: true
+  showCounter: true
+  showImagenav: true
+  width: 620
+  height: 320
+galleriffic_options:
+  delay: 3000
+  numThumbs: 20
+  maxPagesToShow: 7
+  enableTopPager: false
+  enableBottomPager: true
+  renderSSControls: true
+  renderNavControls: true
+  enableKeyboardNavigation: true
+  autoStart: false
+  defaultTransitionDuration: 1000
+flexslider_options:
+  animation: fade
+  slideDirection: horizontal
+  slideshow: true
+  slideshowSpeed: 7000
+  animationDuration: 600
+  directionNav: true
+  controlNav: true
+  keyboardNav: true
+  mousewheel: false
+  prevText: previous
+  nextText: Next
+  pausePlay: false
+  randomize: true
+  slideToStart: 0
+  animationLoop: true
+  pauseOnAction: true
+  pauseOnHover: false
+bxslider_options:
+  mode: horizontal
+  speed: 500
+  infiniteLoop: true
+  controls: true
+  startingSlide: 0
+  randomStart: false
+  hideControlOnEnd: false
+  captions: false
+  easing: ''
+  auto: false
+  pause: 3000
+  autoControls: false
+  autoDelay: 0
+  autoDirection: next
+  autoHover: false
+  autoStart: true
+  pager: false
+  pagerType: full
+  pagerLocation: bottom
+  pagerShortSeparator: /
+  displaySlideQty: 1
+  moveSlideQty: 1
+  ticker: false
+  tickerSpeed: 5000
+  tickerDirection: next
+  tickerHover: false
+public_list_url:
+  fr: galeries
+  en: galleries
+public_feed_url:
+  fr: /galeries
+  en: ''
+public_gallery_url:
+  fr: galerie
+  en: gallery
+public_item_url:
+  fr: galeries
+  en: galleries
+public_list_file: oktPublic_galleries_list.php
+public_feed_file: oktPublic_galleries_feed.php
+public_gallery_file: oktPublic_galleries_gallery.php
+public_item_file: oktPublic_galleries_item.php

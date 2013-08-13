@@ -1,0 +1,57 @@
+<?php
+/**
+ * @class oktDb
+ * @ingroup okt_classes_core
+ * @brief Le gestionnaire de base de données.
+ *
+ */
+
+class oktDb extends oktMysqli
+{
+	/**
+	 * Stored instance for Singleton pattern.
+	 *
+	 * @var object mysql
+	 */
+	protected static $instance;
+
+	/**
+	 * Retourne l'instance de la classe. Singleton pattern.
+	 *
+	 */
+	public static function getInstance()
+	{
+		if (!isset(self::$instance))
+		{
+			$oMysql = new oktDb();
+
+			$oMysql->init(OKT_DB_USER, OKT_DB_PWD, OKT_DB_HOST, OKT_DB_NAME, OKT_DB_PREFIX);
+
+			self::$instance = $oMysql;
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor disabled for Singleton pattern.
+	 */
+	private function __construct() { }
+
+	/**
+	 * Unable to use this in Singleton pattern.
+	 */
+	public function __clone()
+	{
+		trigger_error('Clone is not allowed.', E_USER_ERROR);
+	}
+
+	/**
+	 * Unable to use this in Singleton pattern.
+	 */
+	public function __wakeup()
+	{
+		trigger_error('Unserializing is not allowed.', E_USER_ERROR);
+	}
+
+} # class

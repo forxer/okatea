@@ -1,0 +1,23 @@
+name:
+  fr: '##module_name_fr##'
+  en: '##module_name##'
+
+name_seo:
+  fr: ''
+  en: ''
+
+title:
+  fr: '##module_name_fr##'
+  en: '##module_name##'
+
+meta_description:
+  fr: ''
+  en: ''
+
+meta_keywords:
+  fr: ''
+  en: ''
+
+public_url:
+  fr: '##module_url_id_fr##'
+  en: '##module_url_id##'

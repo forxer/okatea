@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database>
+	<action id="disable_foreign_keys" label="Disable foreign keys constraints">
+		SET FOREIGN_KEY_CHECKS = 0
+	</action>
+
+	<action id="truncate_mod_partners" label="Truncate table %s" string="{{PREFIX}}mod_partners">
+		<test eq="eq" value="{{PREFIX}}mod_partners" label="Table %s doesn't exist" type="wrn"
+		string="{{PREFIX}}mod_partners">SHOW TABLES LIKE '{{PREFIX}}mod_partners'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_partners`
+	</action>
+
+	<action id="truncate_mod_partners_locales" label="Truncate table %s" string="{{PREFIX}}mod_partners_locales">
+		<test eq="eq" value="{{PREFIX}}mod_partners_locales" label="Table %s doesn't exist" type="wrn"
+		string="{{PREFIX}}mod_partners_locales">SHOW TABLES LIKE '{{PREFIX}}mod_partners_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_partners_locales`
+	</action>
+
+	<action id="truncate_mod_partners_categories_locales" label="Truncate table %s" string="{{PREFIX}}mod_partners_categories_locales">
+		<test eq="eq" value="{{PREFIX}}mod_partners_categories_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_partners_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_partners_categories_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_partners_categories_locales`
+	</action>
+
+	<action id="truncate_mod_partners_categories" label="Truncate table %s" string="{{PREFIX}}mod_partners_categories">
+		<test eq="eq" value="{{PREFIX}}mod_partners_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_partners_categories">SHOW TABLES LIKE '{{PREFIX}}mod_partners_categories'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_partners_categories`
+	</action>
+
+	<action id="enable_foreign_keys" label="Enable foreign keys constraints">
+		SET FOREIGN_KEY_CHECKS = 1
+	</action>
+</database>

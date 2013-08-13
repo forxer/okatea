@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+<!-- INSTALL -->
+
+	<!-- mod_users_fields -->
+	<action id="mod_users_fields" label="Create table %s" string="{{PREFIX}}mod_users_fields">
+		<test eq="neq" value="{{PREFIX}}mod_users_fields" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_users_fields">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_users_fields` (
+			`id` 				SERIAL,
+			`status` 			TINYINT(1) 	UNSIGNED		NOT NULL,
+			`register_status` 	TINYINT(1) 	UNSIGNED		NOT NULL,
+			`user_editable` 	TINYINT(1) 	UNSIGNED		NOT NULL,
+			`type` 				TINYINT(1) 	UNSIGNED		NOT NULL,
+			`ord` 				INT(10) 	UNSIGNED		NOT NULL,
+			`html_id` 			VARCHAR(255) 				NOT NULL,
+			`options`	 		TEXT 						NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_users_fields_idx_status` (`status`),
+			KEY `{{PREFIX}}mod_users_fields_idx_register_status` (`register_status`),
+			KEY `{{PREFIX}}mod_users_fields_idx_user_editable` (`user_editable`),
+			KEY `{{PREFIX}}mod_users_fields_idx_ord` (`ord`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_users_fields_locales -->
+	<action id="mod_users_fields_locales" label="Create table %s" string="{{PREFIX}}mod_users_fields_locales">
+		<test eq="neq" value="{{PREFIX}}mod_users_fields_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_users_fields_locales">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_users_fields_locales` (
+			`field_id`			INT(11)						NOT NULL,
+			`language`			VARCHAR(10)					NOT NULL,
+			`title`				VARCHAR(255)				NOT NULL,
+			`value`				TEXT						NULL,
+			`description`		TEXT						NULL,
+
+			PRIMARY KEY (`field_id`,`language`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_users_fields_values -->
+	<action id="mod_users_fields_values" label="Create table %s" string="{{PREFIX}}mod_users_fields_values">
+		<test eq="neq" value="{{PREFIX}}mod_users_fields_values" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_users_fields_values">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields_values'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_users_fields_values` (
+			`user_id`			INT(11)						NOT NULL,
+			`field_id`			INT(11)						NOT NULL,
+			`value`				TEXT						NULL,
+
+			PRIMARY KEY (`user_id`,`field_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+
+
+</database>

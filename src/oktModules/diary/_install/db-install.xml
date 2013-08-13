@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+<!-- INSTALL -->
+
+	<!-- mod_diary -->
+	<action id="mod_diary" label="Create table %s" string="{{PREFIX}}mod_diary">
+		<test eq="neq" value="{{PREFIX}}mod_diary" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_diary">SHOW TABLES LIKE '{{PREFIX}}mod_diary'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_diary` (
+			`id` 					SERIAL,
+
+			`visibility` 			TINYINT(1) 		UNSIGNED	NOT NULL DEFAULT 0,
+
+			`title` 				VARCHAR(255) 				NULL,
+			`date` 					DATE						NULL,
+			`date_end` 				DATE						NULL,
+			`slug` 					VARCHAR(255) 				NOT NULL,
+			`title_tag` 			VARCHAR(255) 				NULL,
+			`title_seo` 			VARCHAR(255) 				NULL,
+
+			`description` 			TEXT 						NULL,
+
+			`disponibility`			TINYINT(1) 		UNSIGNED	NULL,
+			`color` 				CHAR(6) 					NULL,
+
+			`created_at` 			DATETIME 					NULL,
+			`updated_at` 			DATETIME 					NULL,
+
+			`images` 				TEXT 						NULL,
+			`files` 				TEXT 						NULL,
+
+			`meta_description` 		VARCHAR(255) 				NULL,
+			`meta_keywords` 		TEXT 						NULL,
+
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `{{PREFIX}}mod_diary_u_slug` (`slug`),
+			KEY `{{PREFIX}}mod_diary_idx_visibility` (`visibility`),
+			KEY `{{PREFIX}}mod_diary_idx_disponibility` (`disponibility`),
+			KEY `{{PREFIX}}mod_diary_idx_date` (`date`),
+			KEY `{{PREFIX}}mod_diary_idx_date_end` (`date_end`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+<!-- UPDATE -->
+
+	<action id="add_mod_diary_disponibility" label="Add field %s" string="{{PREFIX}}mod_diary.disponibility">
+		<test eq="neq" value="disponibility" label="Field %s exists"
+		string="{{PREFIX}}mod_diary.disponibility" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_diary` LIKE 'disponibility'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_diary` ADD `disponibility` TINYINT(1) UNSIGNED NULL AFTER `description`
+	</action>
+
+	<action id="add_mod_diary_title_seo" label="Add field %s" string="{{PREFIX}}mod_diary.title_seo" process="update">
+		<test eq="neq" value="title_seo" label="Field %s exists"
+		string="{{PREFIX}}mod_diary.title_seo" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_diary` LIKE 'title_seo'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_diary` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
+	</action>
+
+	<action id="add_mod_diary_date_end" label="Add field %s" string="{{PREFIX}}mod_diary.date_end" process="update">
+		<test eq="neq" value="date_end" label="Field %s exists"
+		string="{{PREFIX}}mod_diary.date_end" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_diary` LIKE 'date_end'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_diary` ADD `date_end` DATE NULL AFTER `date`
+	</action>
+
+	<action id="change_mod_diary_metadescription" label="Change field %s" string="{{PREFIX}}mod_diary.metadescription" process="update">
+		<test eq="eq" value="metadescription" label="Field %s exists"
+		string="{{PREFIX}}mod_diary.metadescription" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_diary` LIKE 'metadescription'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_diary` CHANGE `metadescription` `meta_description` VARCHAR(255) NULL
+	</action>
+
+	<action id="change_mod_diary_metakeywords" label="Change field %s" string="{{PREFIX}}mod_diary.metakeywords" process="update">
+		<test eq="eq" value="metakeywords" label="Field %s exists"
+		string="{{PREFIX}}mod_diary.metakeywords" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_diary` LIKE 'metakeywords'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_diary` CHANGE `metakeywords` `meta_keywords` VARCHAR(255) NULL
+	</action>
+</database>

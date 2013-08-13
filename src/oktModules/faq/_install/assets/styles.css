@@ -1,0 +1,219 @@
+/**
+ * Feuille de style pour le module faq coté public
+ *
+ * 	- Filtres d'affichages
+ * 	- Liste questions
+ * 	- Article
+ * 	- Colonnes
+ * 	- Pagination
+ *
+ */
+
+
+/* Filtres d'affichages
+----------------------------------------------------------*/
+
+#filter-control a {
+	background: transparent url(preview.png) no-repeat 0 40%;
+	padding-left: 20px;
+}
+
+.filters-form {}
+
+.filters-form input {
+	color: #000;
+	padding: 1px;
+}
+
+.filters-form fieldset {
+	padding: 0.5em;
+	margin-bottom: 2em;
+	border: 1px solid #5D0708;
+	border-left: none;
+	border-right: none;
+	background-color: #fdf2f2;
+}
+.filters-form legend {
+	padding: 0 0.3em;
+	color: #000000;
+}
+
+.filters-form p.field {
+	margin: 0.5em 0;
+	padding: 0;
+}
+
+.filters-form p.field label,
+.filters-form p.field .fake-label {
+	display: block;
+}
+
+
+/* Liste questions
+----------------------------------------------------------*/
+
+#questions_list {
+	width: 100%;
+}
+.question {
+	margin-bottom: 2em;
+	clear: both;
+}
+.odd {}
+.even {}
+.question-title,
+.question-title a {
+	color: #9e0c0c;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.question img {
+	border: 2px solid #5d0708;
+	float: left;
+	margin: 0 1em 1em 0;
+}
+.question-content {
+	line-height: 160%;
+	text-align: justify;
+}
+
+
+/* Question
+----------------------------------------------------------*/
+
+#question {
+}
+#question-header {
+}
+#question-title,
+#question-title a {
+	color: #9e0c0c;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+#question-body {
+}
+#question-images {
+	float: left;
+	margin: 0 1em 1em 0;
+	width: 206px;
+}
+#question-images img {
+	border: 2px solid #5d0708;
+	margin: 0 2px 2px 0;
+}
+#question-content {
+	line-height: 160%;
+	text-align: justify;
+}
+#question-footer {
+	clear: both;
+}
+#question-files {
+}
+#question-files img {
+	border: none;
+	vertical-align: middle;
+}
+
+
+/* Colonnes
+----------------------------------------------------------*/
+
+.two-cols, .three-cols, .four-cols {
+	position: static;
+	zoom: 1;
+}
+.two-cols:after, .three-cols:after, .four-cols:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.two-cols .col, .three-cols .col, .four-cols .col {
+	float: left;
+	margin-left: 1%;
+	padding: 1px 0;
+}
+
+.two-cols .col {
+	width: 48%;
+}
+.three-cols .col {
+	width: 32%;
+}
+.four-cols .col {
+	width: 24%;
+}
+
+.clearer {
+	clear: both;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatLeftEspace {
+	float: left;
+	padding: 0 1em 1em 0;
+}
+
+
+/* Pagination
+----------------------------------------------------------*/
+
+.pagination { display: inline-block; zoom: 1; }
+.pagination:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+/* required comment for clearfix to work in Opera \*/
+* html .pagination { height:1%; }
+.pagination { display:block; }
+/* end clearfix */
+
+.pagination {
+	border: 0;
+	margin: 1em 0;
+	padding: 0;
+	clear: both;
+}
+.pagination li {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	margin-right: 2px;
+	display: block;
+	float: left;
+}
+
+.pagination .active,
+.pagination a {
+	border: 1px solid #5D0708;
+	background-color: #fdf2f2;
+	color: #5D0708;
+	display: block;
+	padding: 3px 6px;
+	text-decoration: none;
+}
+.pagination .active {
+	border: 1px solid #9E0C0C;
+	background-color: #fdf2f2;
+	color: #9E0C0C;
+}
+.pagination a:hover {
+	border: 1px solid #fdf2f2;
+	background-color: #5D0708;
+	color: #fdf2f2;
+}
+
+
+/* Back to top link
+----------------------------------------------------------*/
+.scrollTop-wrapper {
+	clear: both;
+	text-align: right;
+}
+.scrollTop {
+}
+

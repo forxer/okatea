@@ -1,0 +1,66 @@
+name: Catalogue
+title: Catalogue
+meta_description: ''
+meta_keywords: ''
+
+categories_enable: false
+seo_enable: true
+enable_show_link: true
+enable_ariane: true
+enable_filters: true
+rte_enable: ''
+
+admin_dysplay_style: list
+admin_filters_style: dialog
+
+admin_default_nb_per_page: 6
+public_default_nb_per_page: 5
+
+public_truncat_char: 250
+
+lightbox_type: fancybox
+
+public_catalog_url: catalogue
+public_product_url: produit
+
+public_catalog_page: oktPublic_catalog_list.php
+public_product_page: oktPublic_catalog_item.php
+
+fields:
+  subtitle: 0
+  content_short: 0
+  price: 1
+  promo: 0
+  nouvo: 0
+  favo: 0
+
+images:
+  enable: 1
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: 'cc'
+
+files:
+  enable: 0
+  number: 3
+  allowed_exts: txt,pdf
+  
+filters:
+  admin:
+    nb_per_page: true
+    promo: true
+    nouvo: true
+    favo: true
+  public:
+    nb_per_page: true
+    promo: true
+    nouvo: true
+    favo: true
+

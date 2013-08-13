@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="truncate_mod_faq" label="Truncate table %s" string="{{PREFIX}}mod_faq">
+		<test eq="eq" value="{{PREFIX}}mod_faq" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_faq">SHOW TABLES LIKE '{{PREFIX}}mod_faq'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_faq`
+	</action>
+
+	<action id="truncate_mod_faq_locales" label="Truncate table %s" string="{{PREFIX}}mod_faq_locales">
+		<test eq="eq" value="{{PREFIX}}mod_faq_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_faq_locales">SHOW TABLES LIKE '{{PREFIX}}mod_faq_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_faq_locales`
+	</action>
+
+	<action id="truncate_mod_faq_cat" label="Truncate table %s" string="{{PREFIX}}mod_faq_cat">
+		<test eq="eq" value="{{PREFIX}}mod_faq_cat" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_faq_cat">SHOW TABLES LIKE '{{PREFIX}}mod_faq_cat'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_faq_cat`
+	</action>
+
+	<action id="truncate_mod_faq_cat_locales" label="Truncate table %s" string="{{PREFIX}}mod_faq_cat_locales">
+		<test eq="eq" value="{{PREFIX}}mod_faq_cat_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_faq_cat_locales">SHOW TABLES LIKE '{{PREFIX}}mod_faq_cat_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_faq_cat_locales`
+	</action>
+
+</database>

@@ -1,0 +1,7 @@
+
+modal: false
+closeOnEscape: true
+closeOnClick: true
+showCloseButton: true
+galleryLoop: true
+galleryCounts: true

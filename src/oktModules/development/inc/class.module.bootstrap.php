@@ -1,0 +1,532 @@
+<?php
+/**
+ * @class oktModuleInstall
+ * @ingroup okt_module_development
+ * @brief Amorçage d'un module
+ *
+ */
+
+class oktModuleBootstrap
+{
+	protected $id;
+	protected $urlId;
+	protected $urlIdFr;
+	protected $upperId;
+	protected $camelCaseId;
+
+	protected $name;
+	protected $nameFr;
+	protected $description;
+	protected $descriptionFr;
+
+	protected $author;
+	protected $version;
+	protected $licence;
+
+	protected $locales;
+
+	protected $templates_dir;
+	protected $templates = array(
+		'config'			=> '_install/conf.yaml',
+		'db-install' 		=> '_install/db-install.tpl',
+		'db-truncate' 		=> '_install/db-truncate.tpl',
+		'db-uninstall' 		=> '_install/db-uninstall.tpl',
+
+		'public_list' 		=> '_install/public/list.tpl',
+		'public_item' 		=> '_install/public/item.tpl',
+
+		'tpl_base' 			=> '_install/tpl/base.tpl',
+		'tpl_list' 			=> '_install/tpl/list.tpl',
+		'tpl_item' 			=> '_install/tpl/item.tpl',
+
+		'preview_icon' 		=> '_install/assets/preview.png',
+		'common_css' 		=> '_install/assets/styles.tpl',
+
+		'admin_index'		=> 'inc/admin/index.tpl',
+		'admin_display'		=> 'inc/admin/display.tpl',
+		'admin_config'		=> 'inc/admin/config.tpl',
+		'admin_item'		=> 'inc/admin/item.tpl',
+
+		'public_prepend_list'	=> 'inc/public/list.tpl',
+		'public_prepend_item'	=> 'inc/public/item.tpl',
+
+		'controller'		=> 'inc/class.controller.tpl',
+		'filters'			=> 'inc/class.filters.tpl',
+		'recordset' 		=> 'inc/recordset.tpl',
+
+		'locales_main_en'	=> 'locales/locales_main_en.tpl',
+		'locales_main_fr'	=> 'locales/locales_main_fr.tpl',
+		'locales_admin_en'	=> 'locales/locales_admin_en.tpl',
+		'locales_admin_fr'	=> 'locales/locales_admin_fr.tpl',
+
+		'define' 			=> '_define.tpl',
+		'admin'				=> 'admin.tpl',
+		'changelog'			=> 'changelog.tpl',
+		'header'			=> 'header.tpl',
+		'index'				=> 'index.tpl',
+		'licence_block' 	=> 'licence_block.tpl',
+		'module_handler' 	=> 'module_handler.tpl',
+	);
+
+	protected $modules_dir;
+
+	protected $dir;
+
+	protected $common_replacements = array();
+
+	protected $header;
+
+	protected $licence_block;
+
+	static protected $licencesList = array(
+//		'asf20' 	=> 'Apache License 2.0',
+//		'art' 		=> 'Artistic License/GPL',
+//	 	'epl' 		=> 'Eclipse Public License 1.0',
+		'gpl2' 		=> 'GNU General Public License v2',
+		'gpl3' 		=> 'GNU General Public License v3',
+		'lgpl' 		=> 'GNU Lesser General Public License v3',
+		'mit' 		=> 'MIT License',
+//	 	'mpl11' 	=> 'Mozilla Public License 1.1',
+//	 	'bsd' 		=> 'New BSD License',
+		'none' 		=> 'None'
+	);
+
+	/**
+	 * Constructor
+	 *
+	public function __construct()
+	{
+	}
+	 */
+
+
+	/* Building methods
+	----------------------------------------------------------*/
+
+	/**
+	 * Bootstrap the module
+	 *
+	 */
+	public function build()
+	{
+		$this->initBuilding();
+		$this->makeDirs();
+		$this->makeFiles();
+	}
+
+	protected function initBuilding()
+	{
+		$this->id = $this->getId();
+		$this->urlId = util::strToLowerURL($this->name);
+		$this->urlIdFr = util::strToLowerURL($this->nameFr);
+		$this->upperId = strtoupper($this->id);
+		$this->camelCaseId = util::strToCamelCase($this->id);
+
+		$this->dir = $this->modules_dir.'/'.$this->id;
+
+		$this->makeHeader();
+
+		$this->common_replacements = array(
+			'##header##'				=> $this->header,
+
+			'##module_id##' 			=> $this->id,
+			'##module_url_id##' 		=> $this->urlId,
+			'##module_url_id_fr##' 		=> $this->urlIdFr,
+			'##module_upper_id##' 		=> $this->upperId,
+			'##module_camel_case_id##' 	=> $this->camelCaseId,
+
+			'##module_name##' 			=> $this->name,
+			'##module_description##' 	=> $this->description,
+			'##module_name_fr##' 		=> $this->nameFr,
+			'##module_description_fr##' => $this->descriptionFr,
+
+			'##module_author##' 		=> $this->author,
+			'##module_version##' 		=> $this->version,
+
+			'##date##' 					=> date('Y-m-d'),
+			'##year##' 					=> date('Y'),
+
+			'##l10n_en_1##' 			=> $this->locales['en'][1],
+			'##l10n_en_2##' 			=> $this->locales['en'][2],
+			'##l10n_en_3##' 			=> $this->locales['en'][3],
+			'##l10n_en_4##' 			=> $this->locales['en'][4],
+			'##l10n_en_5##' 			=> $this->locales['en'][5],
+			'##l10n_en_6##' 			=> $this->locales['en'][6],
+			'##l10n_en_7##' 			=> $this->locales['en'][7],
+			'##l10n_en_8##' 			=> $this->locales['en'][8],
+			'##l10n_en_9##' 			=> $this->locales['en'][9],
+			'##l10n_en_10##' 			=> $this->locales['en'][10],
+
+			'##l10n_fr_1##' 			=> $this->locales['fr'][1],
+			'##l10n_fr_2##' 			=> $this->locales['fr'][2],
+			'##l10n_fr_3##' 			=> $this->locales['fr'][3],
+			'##l10n_fr_4##' 			=> $this->locales['fr'][4],
+			'##l10n_fr_5##' 			=> $this->locales['fr'][5],
+			'##l10n_fr_6##' 			=> $this->locales['fr'][6],
+			'##l10n_fr_7##' 			=> $this->locales['fr'][7],
+			'##l10n_fr_8##' 			=> $this->locales['fr'][8],
+			'##l10n_fr_9##' 			=> $this->locales['fr'][9],
+			'##l10n_fr_10##' 			=> $this->locales['fr'][10],
+
+			'##l10n_fr_fem##' 			=> ($this->locales['fem'] ? 'e' : '')
+		);
+	}
+
+	protected function makeHeader()
+	{
+		$this->makeLicenceBlock();
+
+		$replacements = $this->getReplacements(array(
+			'##licence_bloc##' => ($this->licence == 'none' ? '' : $this->licence_block)
+		));
+
+		$this->header = $this->replace($this->getTpl('header'),$replacements);
+	}
+
+	/**
+	 * Build the Licence Block of the module and store it
+	 *
+	 */
+	protected function makeLicenceBlock()
+	{
+		$replacements = $this->getReplacements(array(
+			'##licence##' => $this->getLicenceBlock()
+		));
+
+		$this->licence_block = $this->replace($this->getTpl('licence_block'),$replacements);
+	}
+
+	/**
+	 * Make basis directories
+	 *
+	 */
+	protected function makeDirs()
+	{
+		if (file_exists($this->dir)) {
+			throw new Exception(sprintf(__('m_development_bootstrap_module_allready_exists'),$this->id));
+		}
+
+		files::makeDir($this->dir);
+		files::makeDir($this->dir.'/_install',true);
+		files::makeDir($this->dir.'/_install/assets',true);
+		files::makeDir($this->dir.'/_install/public',true);
+		files::makeDir($this->dir.'/_install/tpl',true);
+//		files::makeDir($this->dir.'/_install/test_set',true);
+
+		files::makeDir($this->dir.'/inc',true);
+		files::makeDir($this->dir.'/inc/admin',true);
+		files::makeDir($this->dir.'/inc/public',true);
+
+		files::makeDir($this->dir.'/locales',true);
+		files::makeDir($this->dir.'/locales/fr',true);
+		files::makeDir($this->dir.'/locales/en',true);
+	}
+
+	/**
+	 * Make files
+	 *
+	 */
+	protected function makeFiles()
+	{
+		$replacements = $this->getReplacements();
+
+		$this->makeFile('db-install', 		$this->dir.'/_install/db-install.xml', $replacements);
+		$this->makeFile('db-truncate', 		$this->dir.'/_install/db-truncate.xml', $replacements);
+		$this->makeFile('db-uninstall', 	$this->dir.'/_install/db-uninstall.xml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/_install/conf_'.$this->id.'.yaml', $replacements);
+
+		copy($this->getTplPath('preview_icon'), $this->dir.'/_install/assets/preview.png');
+		$this->makeFile('common_css', 		$this->dir.'/_install/assets/styles.css', $replacements);
+
+		$this->makeFile('public_list', 		$this->dir.'/_install/public/oktPublic_'.$this->id.'_list.php', $replacements);
+		$this->makeFile('public_item', 		$this->dir.'/_install/public/oktPublic_'.$this->id.'_item.php', $replacements);
+
+		$this->makeFile('tpl_list', 		$this->dir.'/_install/tpl/'.$this->id.'_list_tpl.php', $replacements);
+		$this->makeFile('tpl_item', 		$this->dir.'/_install/tpl/'.$this->id.'_item_tpl.php', $replacements);
+
+		$this->makeFile('admin_index', 		$this->dir.'/inc/admin/index.php', $replacements);
+		$this->makeFile('admin_display', 	$this->dir.'/inc/admin/display.php', $replacements);
+		$this->makeFile('admin_config', 	$this->dir.'/inc/admin/config.php', $replacements);
+		$this->makeFile('admin_item', 		$this->dir.'/inc/admin/item.php', $replacements);
+
+		$this->makeFile('public_prepend_list', 		$this->dir.'/inc/public/list.php', $replacements);
+		$this->makeFile('public_prepend_item', 		$this->dir.'/inc/public/item.php', $replacements);
+
+		$this->makeFile('filters', 			$this->dir.'/inc/class.'.$this->id.'.filters.php', $replacements);
+		$this->makeFile('recordset', 		$this->dir.'/inc/class.'.$this->id.'.recordset.php', $replacements);
+
+		$this->makeFile('locales_main_en', 	$this->dir.'/locales/en/main.lang.php', $replacements);
+		$this->makeFile('locales_main_fr', 	$this->dir.'/locales/fr/main.lang.php', $replacements);
+		$this->makeFile('locales_admin_en', $this->dir.'/locales/en/admin.lang.php', $replacements);
+		$this->makeFile('locales_admin_fr', $this->dir.'/locales/fr/admin.lang.php', $replacements);
+
+		$this->makeFile('define', 			$this->dir.'/_define.php', $replacements);
+		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);
+		$this->makeFile('changelog', 		$this->dir.'/CHANGELOG', $replacements);
+		$this->makeFile('index', 			$this->dir.'/index.php', $replacements);
+		$this->makeFile('module_handler', 	$this->dir.'/module_handler.php', $replacements);
+	}
+
+
+	/* Licences methods
+	----------------------------------------------------------*/
+
+	static public function getLicencesList($reverse=false)
+	{
+		return ($reverse ? array_flip(self::$licencesList) : self::$licencesList);
+	}
+
+	public function getLicenceBlock()
+	{
+		if ($this->licence == 'none') {
+			return '#';
+		}
+
+		$block_replacements = array(
+	//		'asf20' 	=> array(),
+	//		'art' 		=> array(),
+	//	 	'epl' 		=> array(),
+			'gpl2' 		=> array(),
+			'gpl3' 		=> array(),
+			'lgpl' 		=> array(),
+			'mit' 		=> array(),
+	//	 	'mpl11' 	=> array(),
+	//	 	'bsd' 		=> array(),
+		);
+
+		$this->templates[$this->licence.'_block'] = 'licences/'.$this->licence.'/block.tpl';
+		return $this->tplReplace($this->licence.'_block', $block_replacements[$this->licence]);
+	}
+
+	public function makeLicenceFile()
+	{
+		if ($this->licence == 'none') {
+			return null;
+		}
+
+		$licence_replacements = array(
+	//		'asf20' 	=> array(),
+	//		'art' 		=> array(),
+	//	 	'epl' 		=> array(),
+			'gpl2' 		=> array(),
+			'gpl3' 		=> array(),
+			'lgpl' 		=> array(),
+			'mit' 		=> array(
+				'#year#' 	=> date('Y'),
+				'#author#' 	=> $this->author
+			),
+	//	 	'mpl11' 	=> array(),
+	//	 	'bsd' 		=> array(),
+		);
+
+		$this->templates[$this->licence] = 'licences/'.$this->licence.'/licence.tpl';
+		$this->makeFile($this->licence, $this->dir.'/LICENCE', $licence_replacements[$this->licence]);
+	}
+
+
+	/* getters/setters
+	----------------------------------------------------------*/
+
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	public function setName($name)
+	{
+		$this->name = $name;
+		return $this;
+	}
+
+	public function getNameFr()
+	{
+		return $this->nameFr;
+	}
+
+	public function setNameFr($name)
+	{
+		$this->nameFr = $name;
+		return $this;
+	}
+
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
+	public function setDescription($description)
+	{
+		$this->description = $description;
+		return $this;
+	}
+
+	public function getDescriptionFr()
+	{
+		return $this->descriptionFr;
+	}
+
+	public function setDescriptionFr($description)
+	{
+		$this->descriptionFr = $description;
+		return $this;
+	}
+
+	public function getAuthor()
+	{
+		return $this->author;
+	}
+
+	public function setAuthor($author)
+	{
+		$this->author = $author;
+		return $this;
+	}
+
+	public function getVersion()
+	{
+		return $this->version;
+	}
+
+	public function setVersion($version)
+	{
+		$this->version = $version;
+		return $this;
+	}
+
+	public function getLicence()
+	{
+		return $this->licence;
+	}
+
+	public function setLicence($licence)
+	{
+		if (array_key_exists($licence,self::$licencesList)) {
+			$this->licence = $licence;
+		}
+		else {
+			$this->licence = 'other';
+		}
+
+		return $this;
+	}
+
+	public function getLocales()
+	{
+		return $this->locales;
+	}
+
+	public function setLocales($locales)
+	{
+		$this->locales = $locales;
+		return $this;
+	}
+
+	public function getTemplatesDir()
+	{
+		return $this->templates_dir;
+	}
+
+	public function setTemplatesDir($templates_dir)
+	{
+		$this->templates_dir = $templates_dir;
+		return $this;
+	}
+
+	public function getModulesDir()
+	{
+		return $this->modules_dir;
+	}
+
+	public function setModulesDir($modules_dir)
+	{
+		$this->modules_dir = $modules_dir;
+		return $this;
+	}
+
+
+	/* Templates and replacement methods
+	----------------------------------------------------------*/
+
+	/**
+	 * Return content of a template file
+	 *
+	 * @param string $tpl	Template ID
+	 * @return string
+	 */
+	protected function getTpl($tpl)
+	{
+		if (!$this->tplExists($tpl)) {
+			throw new Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'),$this->templates[$tpl],$this->templates_dir));
+		}
+
+		return file_get_contents($this->getTplPath($tpl));
+	}
+
+	protected function tplExists($tpl)
+	{
+		return file_exists($this->getTplPath($tpl));
+	}
+
+	protected function getTplPath($tpl)
+	{
+		return $this->templates_dir.'/'.$this->templates[$tpl];
+	}
+
+	/**
+	 * Make replacements
+	 *
+	 * @param string $str
+	 * @param array $replacements
+	 * @return string
+	 */
+	protected function replace($str, $replacements)
+	{
+		return str_replace(array_keys($replacements),array_values($replacements),$str);
+	}
+
+	/**
+	 * Make replacement in a template file
+	 *
+	 * @param string $template_name	Template ID
+	 * @param array $replacements
+	 * @return string
+	 */
+	protected function tplReplace($template_name, $replacements=array())
+	{
+		return $this->replace($this->getTpl($template_name),$replacements);
+	}
+
+	/**
+	 * Make a file base on a template
+	 *
+	 * @param string $template_name
+	 * @param string $destination
+	 * @param array $replacements
+	 * @return integer
+	 */
+	protected function makeFile($template_name, $destination, $replacements=array())
+	{
+		return file_put_contents($destination,$this->tplReplace($template_name,$replacements));
+	}
+
+	/**
+	 * Merge common replacement with other and return it
+	 *
+	 * @param array $other_replacements
+	 * @return array
+	 */
+	protected function getReplacements($other_replacements=array())
+	{
+		return array_merge($this->common_replacements,$other_replacements);
+	}
+
+	protected function getId()
+	{
+		$id = util::strToUnderscored($this->name);
+
+		$id = preg_replace('/^([0-9_])*([a-zA-Z0-9_\x7f-\xff]+)$/', '$2', $id);
+
+		return $id;
+	}
+}
+

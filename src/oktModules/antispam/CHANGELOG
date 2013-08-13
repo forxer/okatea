@@ -1,0 +1,15 @@
+CHANGELOG and HISTORY ( we try )                                module_antispam
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+0.1
+! Première version
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_guestbook" label="Drop table %s" string="{{PREFIX}}mod_guestbook">
+		<test eq="eq" value="{{PREFIX}}mod_guestbook" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_guestbook">SHOW TABLES LIKE '{{PREFIX}}mod_guestbook'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_guestbook`
+	</action>
+
+</database>

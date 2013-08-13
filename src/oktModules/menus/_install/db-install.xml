@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+<!-- INSTALL -->
+
+	<!-- mod_menus -->
+	<action id="mod_menus" label="Create table %s" string="{{PREFIX}}mod_menus">
+		<test eq="neq" value="{{PREFIX}}mod_menus" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_menus">SHOW TABLES LIKE '{{PREFIX}}mod_menus'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_menus` (
+			`id` 				SERIAL,
+			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL,
+			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_menus_idx_active` (`active`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_menus_items -->
+	<action id="mod_menus_items" label="Create table %s" string="{{PREFIX}}mod_menus_items">
+		<test eq="neq" value="{{PREFIX}}mod_menus_items" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_menus_items">SHOW TABLES LIKE '{{PREFIX}}mod_menus_items'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_menus_items` (
+			`id` 				SERIAL,
+			`menu_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
+			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL,
+			`ord` 				BIGINT(20) 		UNSIGNED	NOT NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_menus_items_idx_menu_id` (`menu_id`),
+			KEY `{{PREFIX}}mod_menus_items_idx_active` (`active`),
+			KEY `{{PREFIX}}mod_menus_items_idx_ord` (`ord`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_menus_items_locales -->
+	<action id="mod_menus_items_locales" label="Create table %s" string="{{PREFIX}}mod_menus_items_locales">
+		<test eq="neq" value="{{PREFIX}}mod_menus_items_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_menus_items_locales">SHOW TABLES LIKE '{{PREFIX}}mod_menus_items_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_menus_items_locales` (
+			`item_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
+			`language` 			CHAR(5) 					NOT NULL,
+
+			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
+			`url` 				VARCHAR(255) 				NOT NULL DEFAULT '',
+
+			PRIMARY KEY (`item_id`,`language`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+
+<!-- UPDATE -->
+
+
+
+
+</database>

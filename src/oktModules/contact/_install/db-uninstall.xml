@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_contact_fields" label="Drop table %s" string="{{PREFIX}}mod_contact_fields">
+		<test eq="eq" value="{{PREFIX}}mod_contact_fields" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_contact_fields">SHOW TABLES LIKE '{{PREFIX}}mod_contact_fields'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_contact_fields`
+	</action>
+	
+	<action id="drop_mod_contact_fields_locales" label="Drop table %s" string="{{PREFIX}}mod_contact_fields_locales">
+		<test eq="eq" value="{{PREFIX}}mod_contact_fields_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_contact_fields_locales">SHOW TABLES LIKE '{{PREFIX}}mod_contact_fields_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_contact_fields_locales`
+	</action>
+
+</database>

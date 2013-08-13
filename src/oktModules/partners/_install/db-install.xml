@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database>
+
+	<!--mod_partners-->
+	<action id="mod_partners" label="Create table %s" string="{{PREFIX}}mod_partners">
+		<test eq="neq" value="{{PREFIX}}mod_partners" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_partners">SHOW TABLES LIKE '{{PREFIX}}mod_partners'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_partners` (
+			`id` 				SERIAL,
+			`active`			TINYINT(1)	UNSIGNED	NOT NULL DEFAULT 0,
+			`category_id` 		BIGINT	 	UNSIGNED	NULL,
+			`name`				VARCHAR(255)			NULL,
+			`logo`				TEXT					NULL,
+			`created_at`		DATETIME				NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`updated_at`		DATETIME				NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`ord`				INT(10)					NOT NULL DEFAULT 0,
+
+			KEY `{{PREFIX}}mod_partners_idx_active` (`active`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_partners_locales -->
+	<action id="mod_partners_locales" label="Create table %s" string="{{PREFIX}}mod_partners_locales">
+		<test eq="neq" value="{{PREFIX}}mod_partners_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_partners_locales">SHOW TABLES LIKE '{{PREFIX}}mod_partners_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_partners_locales`	(
+			`partner_id`			BIGINT(20) 	UNSIGNED	NOT NULL,
+			`language`				CHAR(5)					NOT NULL,
+			`description`			TEXT					NULL,
+			`url`					VARCHAR(255)			NULL,
+			`url_title`				VARCHAR(255)			NULL,
+
+			PRIMARY KEY(`partner_id`, `language`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_partners_categories -->
+	<action id="mod_partners_categories" label="Create table %s" string="{{PREFIX}}mod_partners_categories">
+		<test eq="neq" value="{{PREFIX}}mod_partners_categories" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_partners_categories">SHOW TABLES LIKE '{{PREFIX}}mod_partners_categories'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_partners_categories` (
+			`id` 				SERIAL,
+			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL,
+			`ord` 				INT(10) 		UNSIGNED	NOT NULL,
+			`parent_id` 		INT(10) 		UNSIGNED	NOT NULL,
+			`nleft` 			INT(10) 		UNSIGNED	NOT NULL,
+			`nright` 			INT(10) 		UNSIGNED	NOT NULL,
+			`level` 			INT(10) 		UNSIGNED	NOT NULL,
+
+			KEY `{{PREFIX}}mod_partners_categories_idx_active` (`active`),
+			KEY `{{PREFIX}}mod_partners_categories_idx_ord` (`ord`),
+			KEY `{{PREFIX}}mod_partners_categories_idx_parent_id` (`parent_id`),
+			KEY `{{PREFIX}}mod_partners_categories_idx_nright` (`nright`),
+			KEY `{{PREFIX}}mod_partners_categories_idx_level` (`level`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_partners_categories_locales -->
+	<action id="mod_partners_categories_locales" label="Create table %s" string="{{PREFIX}}mod_partners_categories_locales">
+		<test eq="neq" value="{{PREFIX}}mod_partners_categories_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_partners_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_partners_categories_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_partners_categories_locales` (
+			`category_id` 		BIGINT			UNSIGNED	NOT NULL,
+			`language` 			CHAR(5)						NOT NULL,
+			`name` 				VARCHAR(255) 				NOT NULL,
+
+			PRIMARY KEY (`category_id`, `language`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+</database>

@@ -1,0 +1,14 @@
+CHANGELOG and HISTORY ( we try )                             module_images_sets
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+0.1
+! first public release

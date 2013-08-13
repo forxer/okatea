@@ -1,0 +1,95 @@
+/**
+ * Feuille de style pour le module agenda coté public
+ *
+ */
+
+/* Filtres d'affichages
+----------------------------------------------------------*/
+#filters-form{}
+
+/* Agenda
+----------------------------------------------------------*/
+table#diary {
+	width: 100%;
+	vertical-align: top;
+	border-collapse: separate;
+}
+
+table#diary caption {
+	margin: 1em;
+	position: static;
+	text-indent: 0;
+}
+
+table#diary th {
+	padding: 0.3em 0.3em 0.5em 0.3em;
+}
+
+table#diary td {
+	height: 1em;
+	padding: 0.8em;
+	background-color: #f3f3f3;
+	border: 1px solid #fdfdfd;
+	vertical-align: top;
+}
+table#diary td.disabled {
+	opacity: 0.35;
+}
+table#diary td.active {
+	background-color: #F9F9F9;
+	border: 1px solid #cacaca
+}
+
+table#diary .number {
+	display: block;
+	position: relative;
+	top: -0.8em;
+	left: -0.5em;
+	margin: 0;
+	font-weight: normal;
+}
+table#diary .number a,
+table#diary .number a:link,
+table#diary .number a:visited {
+	text-decoration: none;
+}
+
+table#diary .number a:hover,
+table#diary .number a:active {
+	text-decoration: underline;
+}
+
+table#diary ul.events-list {
+	margin: 0;
+	padding: 0 0 0 0.3em;
+}
+
+/* Colonnes
+----------------------------------------------------------*/
+
+.two-cols, .three-cols, .four-cols {
+	position: static;
+	zoom: 1;
+}
+.two-cols:after, .three-cols:after, .four-cols:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.two-cols .col, .three-cols .col, .four-cols .col {
+	float: left;
+	margin-left: 1%;
+	padding: 1px 0;
+}
+
+.two-cols .col {
+	width: 48%;
+}
+.three-cols .col {
+	width: 32%;
+}
+.four-cols .col {
+	width: 24%;
+}

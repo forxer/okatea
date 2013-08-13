@@ -1,0 +1,65 @@
+name:
+  fr: 'FAQ'
+  en: 'FAQ'
+name_seo:
+  fr: ''
+  en: ''
+title:
+  fr: 'FAQ'
+  en: 'FAQ'
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+
+categories_enable: false
+enable_rte: ''
+enable_metas: true
+enable_ariane: true
+enable_filters: true
+enable_categories: true
+
+admin_dysplay_style: 'list'
+admin_filters_style: 'dialog'
+
+admin_default_order_by: 'title'
+admin_default_order_direction: 'DESC'
+admin_default_nb_per_page: 6
+
+public_default_order_by: 'title'
+public_default_order_direction: 'DESC'
+public_default_nb_per_page: 5
+
+public_truncat_char: 250
+
+lightbox_type: fancybox
+
+public_faq_url:
+  fr: faq
+  en: faq
+public_question_url:
+  fr: question
+  en: question
+
+public_faq_page: 'oktPublic_faq_list_questions.php'
+public_question_page: 'oktPublic_faq_question.php'
+
+files:
+  enable: false
+  number: 3
+  allowed_exts: gif,png,jpg,jpeg,swf,doc,docx,xls,pdf,avi,mpg,mp3
+
+images:
+  enable: true
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: 'cc'

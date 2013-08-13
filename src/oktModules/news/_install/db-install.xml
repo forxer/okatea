@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+<!-- INSTALL -->
+
+	<!-- mod_news -->
+	<action id="mod_news" label="Create table %s" string="{{PREFIX}}mod_news">
+		<test eq="neq" value="{{PREFIX}}mod_news" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news">SHOW TABLES LIKE '{{PREFIX}}mod_news'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_news` (
+			`id` 				SERIAL,
+
+			`user_id` 			BIGINT(20) 	UNSIGNED 	NOT NULL DEFAULT 0,
+			`category_id` 		BIGINT(20) 	UNSIGNED	NOT NULL,
+
+			`active` 			TINYINT(1) 	UNSIGNED	NOT NULL,
+			`selected` 			TINYINT(1) 	UNSIGNED	NOT NULL,
+
+			`created_at` 		DATETIME 				NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`updated_at` 		DATETIME 				NOT NULL DEFAULT '0000-00-00 00:00:00',
+
+			`images` 			TEXT 					NULL,
+			`files` 			TEXT 					NULL,
+
+			`tpl` 				VARCHAR(255) 			NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_news_idx_user_id` (`user_id`),
+			KEY `{{PREFIX}}mod_news_idx_category_id` (`category_id`),
+			KEY `{{PREFIX}}mod_news_idx_active` (`active`),
+			KEY `{{PREFIX}}mod_news_idx_selected` (`selected`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_news_locales -->
+	<action id="mod_news_locales" label="Create table %s" string="{{PREFIX}}mod_news_locales">
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_news_locales` (
+			`post_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
+			`language` 			CHAR(5) 					NOT NULL,
+
+			`title` 			VARCHAR(255) 			NOT NULL DEFAULT '',
+			`subtitle` 			VARCHAR(255) 			NULL,
+			`title_tag` 		VARCHAR(255) 			NULL,
+			`title_seo` 		VARCHAR(255) 			NULL,
+			`slug` 				VARCHAR(255) 			NOT NULL DEFAULT '',
+			`content` 			LONGTEXT 				NOT NULL DEFAULT '',
+
+			`meta_description` 	VARCHAR(255) 			NULL,
+			`meta_keywords` 	TEXT 					NULL,
+
+			`words` 			TEXT 					NULL,
+
+			PRIMARY KEY (`post_id`,`language`),
+			KEY `{{PREFIX}}mod_news_locales_idx_slug` (`slug`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_news_permissions -->
+	<action id="mod_news_permissions" label="Create table %s" string="{{PREFIX}}mod_news_permissions">
+		<test eq="neq" value="{{PREFIX}}mod_news_permissions" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_news_permissions'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_news_permissions` (
+			`post_id` 			BIGINT(20) 	UNSIGNED 	NOT NULL DEFAULT 0,
+			`group_id` 			BIGINT(20) 	UNSIGNED 	NOT NULL DEFAULT 0,
+
+			PRIMARY KEY (`post_id`,`group_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_news_categories -->
+	<action id="mod_news_categories" label="Create table %s" string="{{PREFIX}}mod_news_categories">
+		<test eq="neq" value="{{PREFIX}}mod_news_categories" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_news_categories` (
+			`id` 				BIGINT(20) 	UNSIGNED		NOT NULL AUTO_INCREMENT,
+			`active` 			TINYINT(1) 	UNSIGNED		NOT NULL,
+			`ord` 				INT(10) 	UNSIGNED		NOT NULL,
+			`parent_id` 		INT(10) 	UNSIGNED		NOT NULL,
+			`nleft` 			INT(10) 	UNSIGNED		NOT NULL,
+			`nright` 			INT(10) 	UNSIGNED		NOT NULL,
+			`level` 			INT(10) 	UNSIGNED		NOT NULL,
+			`tpl` 				VARCHAR(255) 				NULL,
+			`items_tpl` 		VARCHAR(255) 				NULL,
+
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}mod_news_categories_idx_active` (`active`),
+			KEY `{{PREFIX}}mod_news_categories_idx_ord` (`ord`),
+			KEY `{{PREFIX}}mod_news_categories_idx_parent_id` (`parent_id`),
+			KEY `{{PREFIX}}mod_news_categories_idx_nright` (`nright`),
+			KEY `{{PREFIX}}mod_news_categories_idx_level` (`level`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+	<!-- mod_news_categories_locales -->
+	<action id="mod_news_categories_locales" label="Create table %s" string="{{PREFIX}}mod_news_categories_locales">
+		<test eq="neq" value="{{PREFIX}}mod_news_categories_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}mod_news_categories_locales` (
+			`category_id` 		INT(10) 		UNSIGNED	NOT NULL,
+			`language` 			CHAR(5) 					NOT NULL,
+
+			`title` 			VARCHAR(255) 				NOT NULL,
+			`title_tag` 		VARCHAR(255) 				NULL,
+			`title_seo` 		VARCHAR(255) 				NULL,
+			`slug` 				VARCHAR(255) 				NOT NULL,
+			`content` 			LONGTEXT 					NULL,
+			`meta_description` 	VARCHAR(255) 				NULL,
+			`meta_keywords` 	TEXT 						NULL,
+
+			PRIMARY KEY (`category_id`,`language`),
+			KEY `{{PREFIX}}mod_news_categories_locales_idx_slug` (`slug`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
+
+<!-- UPDATE -->
+
+	<action id="add_mod_news_title_tag" label="Add field %s" string="{{PREFIX}}mod_news.title_tag" process="update">
+		<test eq="neq" value="title_tag" label="Field %s exists"
+		string="{{PREFIX}}mod_news.title_tag" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title_tag'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `title_tag` VARCHAR(255) NULL AFTER `title`
+	</action>
+
+	<action id="add_mod_news_selected" label="Add field %s" string="{{PREFIX}}mod_news.selected" process="update">
+		<test eq="neq" value="selected" label="Field %s exists"
+		string="{{PREFIX}}mod_news.selected" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'selected'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `selected` TINYINT(1) UNSIGNED NOT NULL AFTER `visibility`
+	</action>
+
+	<action id="add_mod_news_images" label="Add field %s" string="{{PREFIX}}mod_news.images" process="update">
+		<test eq="neq" value="images" label="Field %s exists"
+		string="{{PREFIX}}mod_news.images" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'images'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `images` TEXT NULL AFTER `metakeywords`
+	</action>
+
+	<action id="add_mod_news_files" label="Add field %s" string="{{PREFIX}}mod_news.files" process="update">
+		<test eq="neq" value="files" label="Field %s exists"
+		string="{{PREFIX}}mod_news.files" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'files'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `files` TEXT NULL AFTER `images`
+	</action>
+
+	<action id="change_mod_news_metadescription" label="Change field %s" string="{{PREFIX}}mod_news.metadescription" process="update">
+		<test eq="eq" value="metadescription" label="Field %s exists"
+		string="{{PREFIX}}mod_news.metadescription" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'metadescription'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` CHANGE `metadescription` `meta_description` VARCHAR(255) NULL
+	</action>
+
+	<action id="change_mod_news_metakeywords" label="Change field %s" string="{{PREFIX}}mod_news.metakeywords" process="update">
+		<test eq="eq" value="metakeywords" label="Field %s exists"
+		string="{{PREFIX}}mod_news.metakeywords" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'metakeywords'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` CHANGE `metakeywords` `meta_keywords` VARCHAR(255) NULL
+	</action>
+
+	<action id="add_mod_news_words" label="Add field %s" string="{{PREFIX}}mod_news.words" process="update">
+		<test eq="neq" value="words" label="Field %s exists"
+		string="{{PREFIX}}mod_news.words" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'words'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `words` TEXT NULL AFTER `files`
+	</action>
+
+	<action id="add_mod_news_subtitle" label="Add field %s" string="{{PREFIX}}mod_news.subtitle" process="update">
+		<test eq="neq" value="subtitle" label="Field %s exists"
+		string="{{PREFIX}}mod_news.subtitle" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'subtitle'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `subtitle` VARCHAR(255) NULL AFTER `title`
+	</action>
+
+	<action id="add_mod_news_title_seo" label="Add field %s" string="{{PREFIX}}mod_news.title_seo" process="update">
+		<test eq="neq" value="title_seo" label="Field %s exists"
+		string="{{PREFIX}}mod_news.title_seo" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title_seo'</test>
+		<test eq="neq" value="{{PREFIX}}mod_news_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
+	</action>
+
+
+
+	<action id="change_mod_news_rubrique_id_in_category_id" label="Change field %s" string="{{PREFIX}}mod_news.rubrique_id" process="update">
+		<test eq="eq" value="rubrique_id" label="Field %s does not exists"
+		string="{{PREFIX}}mod_news.rubrique_id" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'rubrique_id'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_news` CHANGE `rubrique_id` `category_id` BIGINT(20) UNSIGNED NOT NULL
+	</action>
+
+	<action id="move_mod_news_categories_locales" label="Move fields %s" string="name, slug, content" process="update">
+		<test eq="eq" value="name" label="Field %s not exists"	string="{{PREFIX}}mod_news_categories.name" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'name'
+		</test>
+		INSERT INTO `{{PREFIX}}mod_news_categories_locales`
+			(`category_id`, `language`, `title`, `slug`, `content`)
+		SELECT id, 'fr', name, slug, content FROM {{PREFIX}}mod_news_categories
+	</action>
+
+	<action id="remove_mod_news_categories_name" label="Delete field %s" string="name" process="update">
+		<test eq="eq" value="name" label="Field %s not exists"	string="{{PREFIX}}mod_news_categories.name" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'name'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news_categories DROP `name`
+	</action>
+
+	<action id="remove_mod_news_categories_slug" label="Delete field %s" string="slug" process="update">
+		<test eq="eq" value="slug" label="Field %s not exists"	string="{{PREFIX}}mod_news_categories.slug" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'slug'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news_categories DROP `slug`
+	</action>
+
+	<action id="remove_mod_news_categories_content" label="Delete field %s" string="content" process="update">
+		<test eq="eq" value="content" label="Field %s not exists"	string="{{PREFIX}}mod_news_categories.content" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'content'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news_categories DROP `content`
+	</action>
+
+
+	<action id="move_mod_news_locales" label="Move fields %s" string="title, subtitle, title_tag, title_seo, slug, content, meta_description, meta_keywords, words" process="update">
+		<test eq="eq" value="title" label="Field %s not exists"	string="{{PREFIX}}mod_news.title" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title'
+		</test>
+		INSERT INTO `{{PREFIX}}mod_news_locales`
+			(`post_id`, `language`, `title`, `subtitle`, `title_tag`, `title_seo`, `slug`, `content`, `meta_description`, `meta_keywords`, `words`)
+		SELECT id, 'fr', title, subtitle, title_tag, title_seo, slug, content, meta_description, meta_keywords, words FROM {{PREFIX}}mod_news
+	</action>
+
+	<action id="remove_mod_news_title" label="Delete field %s" string="title" process="update">
+		<test eq="eq" value="title" label="Field %s not exists"	string="{{PREFIX}}mod_news.title" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `title`
+	</action>
+
+	<action id="remove_mod_news_subtitle" label="Delete field %s" string="subtitle" process="update">
+		<test eq="eq" value="subtitle" label="Field %s not exists"	string="{{PREFIX}}mod_news.subtitle" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'subtitle'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `subtitle`
+	</action>
+
+	<action id="remove_mod_news_title_tag" label="Delete field %s" string="title_tag" process="update">
+		<test eq="eq" value="title_tag" label="Field %s not exists"	string="{{PREFIX}}mod_news.title_tag" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title_tag'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `title_tag`
+	</action>
+
+	<action id="remove_mod_news_title_seo" label="Delete field %s" string="title_seo" process="update">
+		<test eq="eq" value="title_seo" label="Field %s not exists"	string="{{PREFIX}}mod_news.title_seo" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'title_seo'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `title_seo`
+	</action>
+
+	<action id="remove_mod_news_slug" label="Delete field %s" string="slug" process="update">
+		<test eq="eq" value="slug" label="Field %s not exists"	string="{{PREFIX}}mod_news.slug" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'slug'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `slug`
+	</action>
+
+	<action id="remove_mod_news_content" label="Delete field %s" string="content" process="update">
+		<test eq="eq" value="content" label="Field %s not exists"	string="{{PREFIX}}mod_news.content" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'content'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `content`
+	</action>
+
+	<action id="remove_mod_news_meta_description" label="Delete field %s" string="meta_description" process="update">
+		<test eq="eq" value="meta_description" label="Field %s not exists"	string="{{PREFIX}}mod_news.meta_description" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'meta_description'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `meta_description`
+	</action>
+
+	<action id="remove_mod_news_meta_keywords" label="Delete field %s" string="meta_keywords" process="update">
+		<test eq="eq" value="meta_keywords" label="Field %s not exists"	string="{{PREFIX}}mod_news.meta_keywords" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'meta_keywords'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `meta_keywords`
+	</action>
+
+	<action id="remove_mod_news_words" label="Delete field %s" string="words" process="update">
+		<test eq="eq" value="words" label="Field %s not exists"	string="{{PREFIX}}mod_news.words" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'words'
+		</test>
+		ALTER TABLE {{PREFIX}}mod_news DROP `words`
+	</action>
+
+
+	<action id="add_mod_news_tpl" label="Add field %s" string="{{PREFIX}}mod_news.tpl" process="update">
+		<test eq="neq" value="tpl" label="Field %s exists"
+		string="{{PREFIX}}mod_news.tpl" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news` LIKE 'tpl'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_news` ADD `tpl` VARCHAR(255) NULL AFTER `files`
+	</action>
+
+	<action id="add_mod_news_categories_tpl" label="Add field %s" string="{{PREFIX}}mod_news_categories.tpl" process="update">
+		<test eq="neq" value="tpl" label="Field %s exists"
+		string="{{PREFIX}}mod_news_categories.tpl" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'tpl'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_news_categories` ADD `tpl` VARCHAR(255) NULL AFTER `level`
+	</action>
+
+	<action id="add_mod_news_categories_items_tpl" label="Add field %s" string="{{PREFIX}}mod_news_categories.items_tpl" process="update">
+		<test eq="neq" value="items_tpl" label="Field %s exists"
+		string="{{PREFIX}}mod_news_categories.items_tpl" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_news_categories` LIKE 'items_tpl'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_news_categories` ADD `items_tpl` VARCHAR(255) NULL AFTER `tpl`
+	</action>
+
+
+</database>

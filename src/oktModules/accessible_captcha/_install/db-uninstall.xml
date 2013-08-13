@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_accessible_captcha_question" label="Drop table %s" string="{{PREFIX}}mod_accessible_captcha_question">
+		<test eq="eq" value="{{PREFIX}}mod_accessible_captcha_question" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_accessible_captcha_question">SHOW TABLES LIKE '{{PREFIX}}mod_accessible_captcha_question'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_accessible_captcha_question`
+	</action>
+
+</database>

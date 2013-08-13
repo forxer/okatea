@@ -1,0 +1,15 @@
+CHANGELOG and HISTORY ( we try )                           module_lbl_nyromodal
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+1.0
+! first public release
+

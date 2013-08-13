@@ -1,0 +1,63 @@
+
+@import "common";
+
+.filters-control {
+	.commonFiltersControl();
+}
+
+.filters-form {
+	.commonFiltersForm();
+}
+
+.rubrique-description {}
+
+#pages_list
+{
+	width: 100%;
+
+	.page {
+		margin-bottom: 2em;
+		.clearfix();
+	}
+
+	.odd {}
+	.even {}
+
+	.page-title,
+	.page-title a {
+		.commonLink();
+		text-decoration: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		text-align: left;
+	}
+
+	.page-subtitle {
+		color: @second_text_color;
+		margin: 0;
+		padding: 0;
+	}
+
+	.page-content {
+		line-height: 160%;
+		text-align: justify;
+	}
+
+	.read-more-link-wrapper {
+		text-align: right;
+		margin: 0;
+		padding: 0;
+	}
+
+	.read-more-link {
+		.commonLink();
+	}
+}
+
+.pagination {
+	.commonPagination();
+}
+
+.scrollTop-wrapper {
+	.commonScrollTop();
+}

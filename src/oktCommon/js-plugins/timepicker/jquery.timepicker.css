@@ -1,0 +1,6 @@
+.timePickerPopup { background: #fff; border: solid 1px #ccc; width: 80px; height: 130px;  overflow: auto; z-index: 1100; }
+.timePickerPopup ul { margin: 0; padding: 0; }
+.timePickerPopup ul li { list-style: none; margin: 0; text-align: left; }
+.timePickerPopup ul li a, .timePickerPopup ul li a:visited { text-indent: 10px; padding: 4px; display: block; text-decoration: none; }
+.timePickerPopup ul li a:hover, .timePickerPopup ul li.selected a { background: #fff; }
+.endTimePicker { width: 60px; }

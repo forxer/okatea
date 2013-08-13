@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_pages_checkbox" label="Drop table %s" string="{{PREFIX}}mod_pages_checkbox">
+		<test eq="eq" value="checkbox" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.checkbox" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'checkbox'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` DROP `checkbox`
+	</action>
+
+	<action id="drop_mod_pages_date" label="Drop table %s" string="{{PREFIX}}mod_pages_date">
+		<test eq="eq" value="date" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.date" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'date'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` DROP `date`
+	</action>
+
+	<action id="drop_mod_pages_required" label="Drop table %s" string="{{PREFIX}}mod_pages_required">
+		<test eq="eq" value="required" label="Field %s exists"
+		string="{{PREFIX}}mod_pages.required" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages` LIKE 'required'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages` DROP `required`
+	</action>
+
+	<action id="drop_mod_pages_locales_multilangue" label="Drop table %s" string="{{PREFIX}}mod_pages_locales_multilangue">
+		<test eq="eq" value="multilangue" label="Field %s exists"
+		string="{{PREFIX}}mod_pages_locales.multilangue" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages_locales` LIKE 'multilangue'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages_locales` DROP `multilangue`
+	</action>
+
+	<action id="drop_mod_pages_locales_editor" label="Drop table %s" string="{{PREFIX}}mod_pages_locales_editor">
+		<test eq="eq" value="editor" label="Field %s exists"
+		string="{{PREFIX}}mod_pages_locales.editor" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}mod_pages_locales` LIKE 'editor'
+		</test>
+		ALTER TABLE `{{PREFIX}}mod_pages_locales` DROP `editor`
+	</action>
+
+</database>

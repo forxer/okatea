@@ -1,0 +1,51 @@
+<?php
+/**
+ * La page de l'éditeur de theme
+ *
+ * @addtogroup Okatea
+ *
+ */
+
+# Accès direct interdit
+if (!defined('ON_CONFIGURATION_MODULE')) die;
+define('ON_THEME_EDITOR',true);
+
+
+if (!empty($_REQUEST['new_file'])) {
+	require dirname(__FILE__).'/theme_editor/new_file.php';
+}
+else if (!empty($_REQUEST['new_template']))
+{
+	l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
+
+	$sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
+
+	$sBasicTemplate = !empty($_REQUEST['basic_template']) ? rawurldecode($_REQUEST['basic_template']) : null;
+
+	$oThemeEditor = new oktThemeEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+
+	if ($sThemeId)
+	{
+		try
+		{
+			$oThemeEditor->loadTheme($sThemeId);
+		}
+		catch (Exception $e) {
+			$okt->error->set($e->getMessage());
+			$sThemeId = null;
+		}
+	}
+	else {
+		$okt->error->set(__('c_a_te_error_choose_theme'));
+	}
+
+	if (empty($sBasicTemplate)) {
+		require dirname(__FILE__).'/theme_editor/choose_basic_template.php';
+	}
+	else {
+		require dirname(__FILE__).'/theme_editor/new_template.php';
+	}
+}
+else {
+	require dirname(__FILE__).'/theme_editor/index.php';
+}

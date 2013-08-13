@@ -1,0 +1,238 @@
+/**
+ * Feuille de style pour le module catalogue coté public
+ *
+ * 	- Filtres d'affichages
+ * 	- Liste de produits
+ * 	- Produits
+ * 	- Colonnes
+ * 	- Pagination
+ *
+ */
+
+
+/* Filtres d'affichages
+----------------------------------------------------------*/
+
+#catalog-filter-control a {
+	background: transparent url(preview.png) no-repeat 0 40%;
+	padding-left: 20px;
+}
+
+.catalog-filters-form {}
+
+.catalog-filters-form input {
+	color: #000;
+	padding: 1px;
+}
+
+.catalog-filters-form fieldset {
+	padding: 0.5em;
+	margin-bottom: 2em;
+	border: 1px solid #5D0708;
+	border-left: none;
+	border-right: none;
+	background-color: #fdf2f2;
+}
+.catalog-filters-form legend {
+	padding: 0 0.3em;
+	color: #000000;
+}
+
+.catalog-filters-form p.field {
+	margin: 0.5em 0;
+	padding: 0;
+}
+
+.catalog-filters-form p.field label,
+.catalog-filters-form p.field .fake-label {
+	display: block;
+}
+
+
+/* Liste produits
+----------------------------------------------------------*/
+
+#products_list {
+	width: 100%;
+}
+.product {
+	margin-bottom: 2em;
+	clear: both;
+	position:relative
+}
+.odd {}
+.even {}
+.product-title,
+.product-title a {
+	color: #9e0c0c;
+	margin-bottom: 0;
+}
+.product-subtitle {
+	font-style:italic
+}
+.product img {
+	border: 2px solid #5d0708;
+	float: left;
+	margin: 0 1em 1em 0;
+}
+.product-content {
+	line-height: 160%;
+}
+
+.product .promo {position:absolute; top:-10px; left:480px;  font-family:inherit; font-size:20px; color:#1648A1; /*-o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); */background-color:#F6E631; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+.product .nouveaute {position:absolute; top:-10px; left:378px;  font-family:inherit; font-size:20px; color:#fff;/* -o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); */background-color:#9E0C0C; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+.product .favoris {position:absolute; top:-10px; left:300px;  font-family:inherit; font-size:20px; color:#fff;/* -o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); */background-color:#1648A1; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+
+/* Produit
+----------------------------------------------------------*/
+
+#product {
+}
+#product-header {
+}
+#product-title,
+#product-title a {
+	color: #9e0c0c;
+	margin-bottom: 0;
+}
+#product-subtitle {
+	font-style:italic;
+	clear:both
+}
+#product-infos {
+	margin-top: 0;
+	color: #666;
+}
+#product-body {
+}
+#product-images {
+	float: left;
+	margin: 0 1em 1em 0;
+	width: 206px;
+}
+#product-images img {
+	border: 2px solid #5d0708;
+	margin: 0 2px 2px 0;
+}
+#product-content {
+	position:relative
+}
+#product-footer {
+	clear: both;
+}
+#product-files {
+}
+#product-files img {
+	border: none;
+	vertical-align: middle;
+}
+
+#product .promo {position:absolute; top:40px; left:-11px;  font-family:inherit; font-size:20px; color:#1648A1; -o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); background-color:#F6E631; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+#product .nouveaute {position:absolute; top:10px; left:-11px;  font-family:inherit; font-size:20px; color:#fff; -o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); background-color:#9E0C0C; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+#product .favoris {position:absolute; top:-10px; left:-11px;  font-family:inherit; font-size:20px; color:#fff; -o-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); background-color:#1648A1; border:2px solid #000; padding:2px 5px; line-height:1; text-shadow:#003 }
+
+
+/* Colonnes
+----------------------------------------------------------*/
+
+.two-cols, .three-cols, .four-cols {
+	position: static;
+	zoom: 1;
+}
+.two-cols:after, .three-cols:after, .four-cols:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.two-cols .col, .three-cols .col, .four-cols .col {
+	float: left;
+	margin-left: 1%;
+	padding: 1px 0;
+}
+
+.two-cols .col {
+	width: 48%;
+}
+.three-cols .col {
+	width: 32%;
+}
+.four-cols .col {
+	width: 24%;
+}
+
+.clearer {
+	clear: both;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatLeftEspace {
+	float: left;
+	padding: 0 1em 1em 0;
+}
+
+
+/* Pagination
+----------------------------------------------------------*/
+
+.pagination { display: inline-block; zoom: 1; }
+.pagination:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+/* required comment for clearfix to work in Opera \*/
+* html .pagination { height:1%; }
+.pagination { display:block; }
+/* end clearfix */
+
+.pagination {
+	border: 0;
+	margin: 1em 0;
+	padding: 0;
+	zoom: 1;
+}
+.pagination li {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	margin-right: 2px;
+	display: block;
+	float: left;
+}
+
+.pagination .active,
+.pagination a {
+	border: 1px solid #5D0708;
+	background-color: #fdf2f2;
+	color: #5D0708;
+	display: block;
+	padding: 3px 6px;
+	text-decoration: none;
+}
+.pagination .active {
+	border: 1px solid #9E0C0C;
+	background-color: #fdf2f2;
+	color: #9E0C0C;
+}
+.pagination a:hover {
+	border: 1px solid #fdf2f2;
+	background-color: #5D0708;
+	color: #fdf2f2;
+}
+
+
+/* Back to top link
+----------------------------------------------------------*/
+.scrollTop-wrapper {
+	clear: both;
+	text-align: right;
+}
+.scrollTop {
+}

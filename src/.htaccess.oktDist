@@ -1,0 +1,30 @@
+#ErrorDocument 404 /oktPublic_404.php
+
+<IfModule mod_rewrite.c>
+
+Options +FollowSymLinks
+RewriteEngine on
+
+
+# start 301 redirects
+
+#RewriteRule ^old.html$ http://www.domain.tld/new [R=301,L]
+
+# end 301 redirects
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# collez ci-dessous les regles de re-ecriture
+
+# start Okatea internal router
+
+RewriteRule ^(.+)$ index.php?$1 [QSA,L]
+RewriteRule ^$ index.php [QSA,L]
+
+#RewriteRule (.*) index.php?$1&%{QUERY_STRING}
+
+# end Okatea internal router
+
+</IfModule>

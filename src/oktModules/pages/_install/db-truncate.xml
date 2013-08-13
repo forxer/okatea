@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="truncate_mod_pages" label="Truncate table %s" string="{{PREFIX}}mod_pages">
+		<test eq="eq" value="{{PREFIX}}mod_pages" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages">SHOW TABLES LIKE '{{PREFIX}}mod_pages'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_pages`
+	</action>
+
+	<action id="truncate_mod_pages_locales" label="Truncate table %s" string="{{PREFIX}}mod_pages_locales">
+		<test eq="eq" value="{{PREFIX}}mod_pages_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_locales">SHOW TABLES LIKE '{{PREFIX}}mod_pages_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_pages_locales`
+	</action>
+
+	<action id="truncate_mod_pages_permissions" label="Truncate table %s" string="{{PREFIX}}mod_pages_permissions">
+		<test eq="eq" value="{{PREFIX}}mod_pages_permissions" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_pages_permissions'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_pages_permissions`
+	</action>
+
+	<action id="truncate_mod_pages_categories" label="Truncate table %s" string="{{PREFIX}}mod_pages_categories">
+		<test eq="eq" value="{{PREFIX}}mod_pages_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_categories">SHOW TABLES LIKE '{{PREFIX}}mod_pages_categories'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_pages_categories`
+	</action>
+
+	<action id="truncate_mod_pages_categories_locales" label="Truncate table %s" string="{{PREFIX}}mod_pages_categories_locales">
+		<test eq="eq" value="{{PREFIX}}mod_pages_categories_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_pages_categories_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_pages_categories_locales`
+	</action>
+
+</database>

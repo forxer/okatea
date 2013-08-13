@@ -1,0 +1,54 @@
+name:
+  fr: 'Partenaires'
+  en: 'Partners'
+name_seo:
+  fr: ''
+  en: ''
+title:
+  fr: 'Partenaires'
+  en: 'Partners'
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+
+enable_show_link: true
+enable_categories: false
+
+chp_name: 2
+chp_description: 1
+chp_url: 1
+chp_url_title : 1
+chp_logo: 1
+
+enable_rte: ''
+lightbox_type: ''
+
+admin_dysplay_style: 'list'
+
+admin_default_order_by: 'created_at'
+admin_default_order_direction: 'DESC'
+
+public_default_order_by: 'created_at'
+public_default_order_direction: 'DESC'
+
+public_url:
+  fr: partenaires
+  en: partners
+
+public_file: 'oktPublic_partners.php'
+
+images:
+  enable: true
+  number: 1
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: 'cc'

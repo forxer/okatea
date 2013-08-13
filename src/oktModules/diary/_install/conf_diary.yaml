@@ -1,0 +1,73 @@
+name:
+  fr: 'Agenda'
+  en: 'Diary'
+name_seo:
+  fr: ''
+  en: ''
+title:
+  fr: 'Agenda'
+  en: 'Diary'
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+
+enable_metas: true
+enable_show_link: true
+enable_rte: ''
+enable_filters: true
+
+lightbox_type: 'fancybox'
+
+admin_dysplay_style: 'list'
+admin_filters_style: 'dialog'
+
+admin_default_order_by: 'title'
+admin_default_order_direction: 'DESC'
+admin_default_nb_per_page: 6
+
+public_default_order_by: 'title'
+public_default_order_direction: 'DESC'
+public_default_nb_per_page: 5
+
+images:
+  enable: true
+  number: 4
+  width: 800
+  height: 600
+  resize_type: ratio
+  width_min: 200
+  height_min: 150
+  resize_type_min: ratio
+  square_size: 60
+  watermark_file: ''
+  watermark_position: 'cc'
+
+fields:
+  color: 0
+  disponibility: 0
+  
+filters:
+  admin:
+    year: false
+    month: false
+    nb_per_page: 5
+  public:
+    year: true
+    month: true
+
+files:
+  enable: false
+  number: 3
+  allowed_exts: 'txt,pdf'
+
+
+public_list_url:
+  fr: agenda
+  en: diary
+public_event_url:
+  fr: evenement
+  en: event
+

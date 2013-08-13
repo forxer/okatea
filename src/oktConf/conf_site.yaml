@@ -1,0 +1,100 @@
+title:
+  fr: 'Okatea project'
+desc:
+  fr: 'Another CMS experience'
+title_tag:
+  fr: ''
+meta_description:
+  fr: ''
+meta_keywords:
+  fr: ''
+schedule:
+  fr: ''
+cnil_number: ''
+address:
+  street: ''
+  street_2: ''
+  code: ''
+  city: ''
+  country: ''
+  tel: ''
+  mobile: ''
+  fax: ''
+gps:
+  lat: ''
+  long: ''
+company:
+  name: ''
+  com_name: ''
+  siret: ''
+leader:
+  name: ''
+  firstname: ''
+courriel_address: contact@localhost
+courriel_name: 'Okatea project'
+courriel_transport: mail
+courriel_smtp:
+  host: ''
+  port: 25
+  username: ''
+  password: ''
+courriel_sendmail: '/usr/sbin/exim -bs'
+courriel_theme: '0'
+theme: default
+theme_mobile: ''
+theme_tablet: ''
+public_theme: base
+enable_admin_bar: true
+admin_sidebar_position: 0
+admin_theme: redmond
+admin_compress_output: false
+language: fr
+timezone: Europe/Paris
+admin_lang_switcher: true
+app_path: /okatea_project/
+domain: localhost
+internal_router: true
+default_route:
+  class: ''
+  method: ''
+  args: ''
+custom_routes: {  }
+app_file: index.php
+public_maintenance_mode: false
+admin_maintenance_mode: false
+modules_repositories_enabled: true
+modules_repositories:
+  'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.xml'
+themes_repositories_enabled: true
+themes_repositories:
+  'Okatea themes': 'http://repository.okatea.org/themes/%VERSION%/index.xml'
+debug_enabled: true
+stop_redirect_on_error: true
+xdebug_enabled: false
+antispam_filters: 'a:0:{}'
+use_admin_lang_switcher: null
+update_enabled: true
+update_url: 'http://repository.okatea.org/packages/versions.xml'
+update_type: stable
+minify_css_admin:
+  - '%COMMON_URL%/ui-themes/%ADMIN_THEME%/jquery-ui.css'
+  - '%COMMON_URL%/css/init.css'
+  - '%COMMON_URL%/css/admin.css'
+  - '%COMMON_URL%/css/sprite.css'
+minify_js_admin:
+  - '%COMMON_URL%/js/jquery/jquery.min.js'
+  - '%COMMON_URL%/js/jquery/cookie/jquery.cookie.min.js'
+  - '%COMMON_URL%/js/jquery/metadata/jquery.metadata.min.js'
+  - '%COMMON_URL%/js/jquery/ui/jquery-ui.min.js'
+  - '%COMMON_URL%/js/jquery/validate/jquery.validate.min.js'
+  - '%COMMON_URL%/js/jquery/validate/additional-methods.min.js'
+  - '%COMMON_URL%/js/common_admin.js'
+minify_css_public: {  }
+minify_js_public: {  }
+log_admin:
+  ttl_months: 3
+news_feed:
+  enabled: false
+  url: ''
+htmlpurifier_disabled: false
+slug_type: ascii

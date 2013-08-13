@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="drop_mod_pages" label="Drop table %s" string="{{PREFIX}}mod_pages">
+		<test eq="eq" value="{{PREFIX}}mod_pages" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages">SHOW TABLES LIKE '{{PREFIX}}mod_pages'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_pages`
+	</action>
+
+	<action id="drop_mod_pages_locales" label="Drop table %s" string="{{PREFIX}}mod_pages_locales">
+		<test eq="eq" value="{{PREFIX}}mod_pages_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_locales">SHOW TABLES LIKE '{{PREFIX}}mod_pages_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_pages_locales`
+	</action>
+
+	<action id="drop_mod_pages_permissions" label="Drop table %s" string="{{PREFIX}}mod_pages_permissions">
+		<test eq="eq" value="{{PREFIX}}mod_pages_permissions" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_pages_permissions'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_pages_permissions`
+	</action>
+
+	<action id="drop_mod_pages_categories" label="Drop table %s" string="{{PREFIX}}mod_pages_categories">
+		<test eq="eq" value="{{PREFIX}}mod_pages_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_categories">SHOW TABLES LIKE '{{PREFIX}}mod_pages_categories'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_pages_categories`
+	</action>
+
+	<action id="drop_mod_pages_categories_locales" label="Drop table %s" string="{{PREFIX}}mod_pages_categories_locales">
+		<test eq="eq" value="{{PREFIX}}mod_pages_categories_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_pages_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_pages_categories_locales'</test>
+		DROP TABLE IF EXISTS `{{PREFIX}}mod_pages_categories_locales`
+	</action>
+
+</database>

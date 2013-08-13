@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="truncate_mod_news" label="Truncate table %s" string="{{PREFIX}}mod_news">
+		<test eq="eq" value="{{PREFIX}}mod_news" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news">SHOW TABLES LIKE '{{PREFIX}}mod_news'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_news`
+	</action>
+
+	<action id="truncate_mod_news_locales" label="Truncate table %s" string="{{PREFIX}}mod_news_locales">
+		<test eq="eq" value="{{PREFIX}}mod_news_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_news_locales`
+	</action>
+
+	<action id="truncate_mod_news_permissions" label="Truncate table %s" string="{{PREFIX}}mod_news_permissions">
+		<test eq="eq" value="{{PREFIX}}mod_news_permissions" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_news_permissions'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_news_permissions`
+	</action>
+
+	<action id="truncate_mod_news_categories" label="Truncate table %s" string="{{PREFIX}}mod_news_categories">
+		<test eq="eq" value="{{PREFIX}}mod_news_categories" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_news_categories`
+	</action>
+
+	<action id="truncate_mod_news_categories_locales" label="Truncate table %s" string="{{PREFIX}}mod_news_categories_locales">
+		<test eq="eq" value="{{PREFIX}}mod_news_categories_locales" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_news_categories_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories_locales'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_news_categories_locales`
+	</action>
+
+</database>

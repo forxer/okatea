@@ -1,0 +1,9 @@
+theme: 1
+
+loop: true
+transition: 'elastic'
+speed: 350
+
+slideshow: true
+slideshowauto: true
+slideshowspeed: 2500

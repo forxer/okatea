@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<database>
+
+	<action id="truncate_mod_guestbook" label="Truncate table %s" string="{{PREFIX}}mod_guestbook">
+		<test eq="eq" value="{{PREFIX}}mod_guestbook" label="Table %s doesn't exists" type="wrn"
+		string="{{PREFIX}}mod_guestbook">SHOW TABLES LIKE '{{PREFIX}}mod_guestbook'</test>
+		TRUNCATE TABLE `{{PREFIX}}mod_guestbook`
+	</action>
+
+</database>

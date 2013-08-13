@@ -1,0 +1,62 @@
+<?php
+/*
+ * Configuration de connexion à la base de données
+ */
+
+switch (OKT_ENVIRONMENT)
+{
+	/* environnement de production (serveur) */
+	case 'prod' :
+
+		define('OKT_DB_HOST',
+			'%%DB_PROD_HOST%%' # hote de la base de données
+		);
+
+		define('OKT_DB_NAME',
+			'%%DB_PROD_BASE%%' # nom de la base de données
+		);
+
+		define('OKT_DB_USER',
+			'%%DB_PROD_USER%%' # nom d'utilisateur de la base de données
+		);
+
+		define('OKT_DB_PWD',
+			'%%DB_PROD_PASS%%' # mot de passe de la base de données
+		);
+
+		define('OKT_DB_PREFIX',
+			'%%DB_PROD_PREFIX%%' # préfix des tables de la base de données
+		);
+
+		break ;
+
+	/* environnement de développement (local) */
+	case 'dev' :
+
+		define('OKT_DB_HOST',
+			'%%DB_DEV_HOST%%' # hote de la base de données
+		);
+
+		define('OKT_DB_NAME',
+			'%%DB_DEV_BASE%%' # nom de la base de données
+		);
+
+		define('OKT_DB_USER',
+			'%%DB_DEV_USER%%' # nom d'utilisateur de la base de données
+		);
+
+		define('OKT_DB_PWD',
+			'%%DB_DEV_PASS%%' # mot de passe de la base de données
+		);
+
+		define('OKT_DB_PREFIX',
+			'%%DB_DEV_PREFIX%%' # préfix des tables de la base de données
+		);
+
+		break ;
+
+
+	default :
+		die('ERREUR ENVIRONNEMENT DE CONNEXION DB (OKT_ENVIRONMENT)');
+		break ;
+}

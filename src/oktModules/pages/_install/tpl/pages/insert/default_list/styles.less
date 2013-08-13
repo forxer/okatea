@@ -1,0 +1,50 @@
+
+@import "common";
+
+
+#pages_list_insert  {
+	width: 100%;
+
+	.page {
+		margin-bottom: 2em;
+		.clearfix();
+	}
+
+	.odd {}
+	.even {}
+
+	.page-title,
+	.page-title a {
+		.commonLink();
+		text-decoration: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		text-align: left;
+	}
+
+	.page-subtitle {
+		color: @second_text_color;
+		margin: 0;
+		padding: 0;
+	}
+
+	.page-content {
+		line-height: 160%;
+		text-align: justify;
+	}
+
+	.page-images {
+		float: left;
+		margin: 0 1em 1em 0;
+
+		img {
+			.commonImage();
+		}
+	}
+
+	.read-more-link {
+		.commonLink();
+		display: block;
+		text-align: right;
+	}
+}

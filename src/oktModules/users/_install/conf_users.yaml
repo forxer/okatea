@@ -1,0 +1,66 @@
+
+enable_custom_fields: false
+
+enable_login_page: true
+enable_register_page: false
+enable_log_reg_page: false
+enable_forget_password_page: false
+enable_profile_page: false
+
+mail_new_registration: true
+validate_users_registration: true
+merge_username_email: false
+auto_log_after_registration: false
+user_choose_group: false
+default_group: 4
+
+admin_filters_style: 'dialog'
+
+admin_default_nb_per_page: 10
+public_default_nb_per_page: 10
+
+templates:
+  forgotten_password:
+    default: default
+    usables: {}
+  login:
+    default: default
+    usables: {}
+  login_register:
+    default: default
+    usables: {}
+  profile:
+    default: default
+    usables: {}
+  register:
+    default: default
+    usables: {}
+  user_bar:
+    default: default
+    usables: {}
+
+public_login_url:
+  fr: connexion
+  en: login
+public_logout_url:
+  fr: deconnexion
+  en: logout
+public_register_url:
+  fr: inscription
+  en: register
+public_log_reg_url:
+  fr: connexion-inscription
+  en: login-register
+public_forget_password_url:
+  fr: mot-de-passe-oublie
+  en: forget-password
+public_profile_url:
+  fr: profil
+  en: profile
+
+public_login_page: 'oktPublic_users_login.php'
+public_logout_page: 'oktPublic_users_logout.php'
+public_register_page: 'oktPublic_users_register.php'
+public_log_reg_page: 'oktPublic_users_log_reg.php'
+public_forget_password_page: 'oktPublic_users_forget_password.php'
+public_profile_page: 'oktPublic_users_profile.php'

@@ -1,0 +1,5 @@
+media_exclusion: ''
+media_img_m_size: 448
+media_img_s_size: 240
+media_img_t_size: 100
+media_img_title_pattern: 'Title ;; Date(%b %Y) ;; separator(, )'

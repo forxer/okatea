@@ -1,0 +1,49 @@
+
+@import "common";
+
+
+.error_box {
+	.commonErrorBox();
+}
+
+.success_box {
+	.commonSuccessBox();
+}
+
+#estimate-form
+{
+	.commonFormElements();
+
+	input[name="p_lastname"], input[name="p_firstname"],
+	input[name="p_email"], input[name="p_phone"],
+	input[name="p_start_date"], input[name="p_end_date"] {
+		width: 90%;
+	}
+
+	input.spinner { border: none; }
+	input.spinner:focus { box-shadow: none  }
+
+	.product-line {
+		.clearfix();
+		.border-radius(6px);
+		background-color: #e8e8e8;
+		margin: 0 0 2em;
+		padding: 0 .8em;
+	}
+	.product, .quantity {
+		float: left;
+		margin-left: 1%;
+		padding: 1px 0;
+	}
+	.product {
+		width: 73%;
+		select {
+			width: 90%;
+		}
+	}
+	.quantity {
+		width: 23%;
+	}
+
+}
+
