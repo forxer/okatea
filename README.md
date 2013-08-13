@@ -1,4 +1,6 @@
 okatea
 ======
 
-Another modular CMS in PHP... more infos soon.
+Another modular CMS in PHP...
+
+More infos soon.
