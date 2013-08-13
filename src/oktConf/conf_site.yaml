@@ -51,7 +51,7 @@ admin_compress_output: false
 language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
-app_path: /okatea_project/
+app_path: /okatea_project/src/
 domain: localhost
 internal_router: true
 default_route:
