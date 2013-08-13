@@ -1,0 +1,5 @@
+/.htaccess
+/oktPrepend.php
+/oktConf/connexion.php
+/oktCache/minify/minify_*
+/oktCache/static.php
