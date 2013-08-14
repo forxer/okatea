@@ -22,3 +22,12 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+# oktatea
+/src/.htaccess
+/src/oktPrepend.php
+/src/oktConf/connexion.php
+/src/oktCache/minify/minify_*
+/src/oktCache/modulesRepositoriesInfos.php
+/src/oktCache/static.php
+/src/oktCache/versions
