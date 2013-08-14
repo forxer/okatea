@@ -30,4 +30,6 @@ $RECYCLE.BIN/
 /src/oktCache/minify/minify_*
 /src/oktCache/modulesRepositoriesInfos.php
 /src/oktCache/static.php
-/src/oktCache/versions
+/src/oktCache/versions/
+
+/build/packages/
