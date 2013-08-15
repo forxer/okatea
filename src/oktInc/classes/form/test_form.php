@@ -1,7 +1,7 @@
 <?php
 
 # okatea
-require_once dirname(__FILE__).'/oktInc/public/prepend.php';
+require_once __DIR__.'/oktInc/public/prepend.php';
 
 $form = new oktForm(array(
 	'action' => 'test_form.php'

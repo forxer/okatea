@@ -20,7 +20,7 @@ class module_menus extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPermGroup('menus', __('m_menus_perm_group'));
@@ -36,7 +36,7 @@ class module_menus extends oktModule
 		$this->triggers = new oktTriggers();
 
 		# autoload
-		//$oktAutoloadPaths['menusController'] = dirname(__FILE__).'/inc/class.menus.controller.php';
+		//$oktAutoloadPaths['menusController'] = __DIR__.'/inc/class.menus.controller.php';
 
 		# config
 		$this->config = $this->okt->newConfig('conf_menus');
@@ -48,7 +48,7 @@ class module_menus extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

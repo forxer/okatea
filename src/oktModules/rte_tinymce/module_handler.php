@@ -12,7 +12,7 @@ class module_rte_tinymce extends oktModule
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPerm('rte_tinymce_config', __('m_rte_tinymce_perm_config'), 'configuration');

@@ -15,10 +15,10 @@ class module_guestbook extends oktModule
 		global $oktAutoloadPaths;
 		
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['guestbookController'] = dirname(__FILE__).'/inc/class.guestbook.controller.php';
+		$oktAutoloadPaths['guestbookController'] = __DIR__.'/inc/class.guestbook.controller.php';
 
 		# permissions
 		$this->okt->addPermGroup('guestbook', __('m_guestbook_perm_group'));
@@ -45,7 +45,7 @@ class module_guestbook extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

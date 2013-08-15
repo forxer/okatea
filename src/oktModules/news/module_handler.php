@@ -29,14 +29,14 @@ class module_news extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['newsCategories'] = dirname(__FILE__).'/inc/class.news.categories.php';
-		$oktAutoloadPaths['newsController'] = dirname(__FILE__).'/inc/class.news.controller.php';
-		$oktAutoloadPaths['newsFilters'] = dirname(__FILE__).'/inc/class.news.filters.php';
-		$oktAutoloadPaths['newsHelpers'] = dirname(__FILE__).'/inc/class.news.helpers.php';
-		$oktAutoloadPaths['newsRecordset'] = dirname(__FILE__).'/inc/class.news.recordset.php';
+		$oktAutoloadPaths['newsCategories'] = __DIR__.'/inc/class.news.categories.php';
+		$oktAutoloadPaths['newsController'] = __DIR__.'/inc/class.news.controller.php';
+		$oktAutoloadPaths['newsFilters'] = __DIR__.'/inc/class.news.filters.php';
+		$oktAutoloadPaths['newsHelpers'] = __DIR__.'/inc/class.news.helpers.php';
+		$oktAutoloadPaths['newsRecordset'] = __DIR__.'/inc/class.news.recordset.php';
 
 		# permissions
 		$this->okt->addPermGroup('news', __('m_news_perm_group'));
@@ -112,7 +112,7 @@ class module_news extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

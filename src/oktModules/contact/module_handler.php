@@ -35,11 +35,11 @@ class module_contact extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['contactController'] = dirname(__FILE__).'/inc/class.contact.controller.php';
-		$oktAutoloadPaths['contactRecordset'] = dirname(__FILE__).'/inc/class.contact.recordset.php';
+		$oktAutoloadPaths['contactController'] = __DIR__.'/inc/class.contact.controller.php';
+		$oktAutoloadPaths['contactRecordset'] = __DIR__.'/inc/class.contact.recordset.php';
 
 		# permissions
 		$this->okt->addPermGroup('contact', __('m_contact_perm_group'));
@@ -69,7 +69,7 @@ class module_contact extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

@@ -17,11 +17,11 @@ class module_##module_id## extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['##module_camel_case_id##Recordset'] = dirname(__FILE__).'/inc/class.##module_id##.recordset.php';
-		$oktAutoloadPaths['##module_camel_case_id##Filters'] = dirname(__FILE__).'/inc/class.##module_id##.filters.php';
+		$oktAutoloadPaths['##module_camel_case_id##Recordset'] = __DIR__.'/inc/class.##module_id##.recordset.php';
+		$oktAutoloadPaths['##module_camel_case_id##Filters'] = __DIR__.'/inc/class.##module_id##.filters.php';
 
 		# permissions
 		$this->okt->addPermGroup('##module_id##', __('m_##module_id##_perm_group'));
@@ -49,7 +49,7 @@ class module_##module_id## extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

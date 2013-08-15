@@ -30,10 +30,10 @@ $aPageData = new ArrayObject();
 $aPageData['aNewConf'] = array();
 
 # Inclusion des initialisations
-require dirname(__FILE__).'/site/general/init.php';
-require dirname(__FILE__).'/site/company/init.php';
-require dirname(__FILE__).'/site/emails/init.php';
-require dirname(__FILE__).'/site/seo/init.php';
+require __DIR__.'/site/general/init.php';
+require __DIR__.'/site/company/init.php';
+require __DIR__.'/site/emails/init.php';
+require __DIR__.'/site/seo/init.php';
 
 # -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSitePageInit
 $okt->triggers->callTrigger('adminConfigSitePageInit', $okt, $aPageData);
@@ -43,10 +43,10 @@ $okt->triggers->callTrigger('adminConfigSitePageInit', $okt, $aPageData);
 ----------------------------------------------------------*/
 
 # Inclusion des traitements
-require dirname(__FILE__).'/site/general/actions.php';
-require dirname(__FILE__).'/site/company/actions.php';
-require dirname(__FILE__).'/site/emails/actions.php';
-require dirname(__FILE__).'/site/seo/actions.php';
+require __DIR__.'/site/general/actions.php';
+require __DIR__.'/site/company/actions.php';
+require __DIR__.'/site/emails/actions.php';
+require __DIR__.'/site/seo/actions.php';
 
 # -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSitePageProccessing
 $okt->triggers->callTrigger('adminConfigSitePageProccessing', $okt, $aPageData);
@@ -98,7 +98,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/site/general/display.php';
+	require __DIR__.'/site/general/display.php';
 
 	$aPageData['tabs'][10]['content'] = ob_get_clean();
 
@@ -112,7 +112,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/site/company/display.php';
+	require __DIR__.'/site/company/display.php';
 
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
 
@@ -126,7 +126,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/site/emails/display.php';
+	require __DIR__.'/site/emails/display.php';
 
 	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
@@ -140,7 +140,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/site/seo/display.php';
+	require __DIR__.'/site/seo/display.php';
 
 	$aPageData['tabs'][40]['content'] = ob_get_clean();
 

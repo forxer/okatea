@@ -1,7 +1,7 @@
 <?php
 
 # fichier nécessaire pour afficher un élément
-require_once dirname(__FILE__).'/oktModules/##module_id##/inc/public/item.php';
+require_once __DIR__.'/oktModules/##module_id##/inc/public/item.php';
 
 
 # affichage du template

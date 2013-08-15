@@ -28,13 +28,13 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.tools');
 # Données de la page
 $aPageData = new ArrayObject();
 
-require dirname(__FILE__).'/tools/cache/init.php';
+require __DIR__.'/tools/cache/init.php';
 
-require dirname(__FILE__).'/tools/cleanup/init.php';
+require __DIR__.'/tools/cleanup/init.php';
 
-require dirname(__FILE__).'/tools/backup/init.php';
+require __DIR__.'/tools/backup/init.php';
 
-require dirname(__FILE__).'/tools/htaccess/init.php';
+require __DIR__.'/tools/htaccess/init.php';
 
 # -- TRIGGER CORE TOOLS PAGE : adminToolsPageInit
 $okt->triggers->callTrigger('adminToolsPageInit', $okt, $aPageData);
@@ -43,13 +43,13 @@ $okt->triggers->callTrigger('adminToolsPageInit', $okt, $aPageData);
 /* Traitements
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/tools/cache/actions.php';
+require __DIR__.'/tools/cache/actions.php';
 
-require dirname(__FILE__).'/tools/cleanup/actions.php';
+require __DIR__.'/tools/cleanup/actions.php';
 
-require dirname(__FILE__).'/tools/backup/actions.php';
+require __DIR__.'/tools/backup/actions.php';
 
-require dirname(__FILE__).'/tools/htaccess/actions.php';
+require __DIR__.'/tools/htaccess/actions.php';
 
 # -- TRIGGER CORE TOOLS PAGE : adminToolsPageProcessing
 $okt->triggers->callTrigger('adminToolsPageProcessing', $okt, $aPageData);
@@ -77,7 +77,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/tools/cache/display.php';
+	require __DIR__.'/tools/cache/display.php';
 
 	$aPageData['tabs'][10]['content'] = ob_get_clean();
 
@@ -91,7 +91,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/tools/cleanup/display.php';
+	require __DIR__.'/tools/cleanup/display.php';
 
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
 
@@ -105,7 +105,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/tools/backup/display.php';
+	require __DIR__.'/tools/backup/display.php';
 
 	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
@@ -119,7 +119,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/tools/htaccess/display.php';
+	require __DIR__.'/tools/htaccess/display.php';
 
 	$aPageData['tabs'][40]['content'] = ob_get_clean();
 

@@ -30,13 +30,13 @@ $aPageData = new ArrayObject();
 $aPageData['aNewConf'] = array();
 
 # Inclusion des initialisations
-require dirname(__FILE__).'/advanced/debug/init.php';
-require dirname(__FILE__).'/advanced/dev/init.php';
-require dirname(__FILE__).'/advanced/minify/init.php';
-require dirname(__FILE__).'/advanced/others/init.php';
-require dirname(__FILE__).'/advanced/path_url/init.php';
-require dirname(__FILE__).'/advanced/repositories/init.php';
-require dirname(__FILE__).'/advanced/update/init.php';
+require __DIR__.'/advanced/debug/init.php';
+require __DIR__.'/advanced/dev/init.php';
+require __DIR__.'/advanced/minify/init.php';
+require __DIR__.'/advanced/others/init.php';
+require __DIR__.'/advanced/path_url/init.php';
+require __DIR__.'/advanced/repositories/init.php';
+require __DIR__.'/advanced/update/init.php';
 
 # -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigPageInit
 $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
@@ -46,13 +46,13 @@ $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
 ----------------------------------------------------------*/
 
 # Inclusion des traitements
-require dirname(__FILE__).'/advanced/debug/actions.php';
-require dirname(__FILE__).'/advanced/dev/actions.php';
-require dirname(__FILE__).'/advanced/minify/actions.php';
-require dirname(__FILE__).'/advanced/others/actions.php';
-require dirname(__FILE__).'/advanced/path_url/actions.php';
-require dirname(__FILE__).'/advanced/repositories/actions.php';
-require dirname(__FILE__).'/advanced/update/actions.php';
+require __DIR__.'/advanced/debug/actions.php';
+require __DIR__.'/advanced/dev/actions.php';
+require __DIR__.'/advanced/minify/actions.php';
+require __DIR__.'/advanced/others/actions.php';
+require __DIR__.'/advanced/path_url/actions.php';
+require __DIR__.'/advanced/repositories/actions.php';
+require __DIR__.'/advanced/update/actions.php';
 
 # -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigPageProccessing
 $okt->triggers->callTrigger('adminAdvancedConfigPageProccessing', $okt, $aPageData);
@@ -99,7 +99,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/path_url/display.php';
+	require __DIR__.'/advanced/path_url/display.php';
 
 	$aPageData['tabs'][10]['content'] = ob_get_clean();
 
@@ -113,7 +113,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/repositories/display.php';
+	require __DIR__.'/advanced/repositories/display.php';
 
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
 
@@ -127,7 +127,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/minify/display.php';
+	require __DIR__.'/advanced/minify/display.php';
 
 	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
@@ -141,7 +141,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/debug/display.php';
+	require __DIR__.'/advanced/debug/display.php';
 
 	$aPageData['tabs'][40]['content'] = ob_get_clean();
 
@@ -155,7 +155,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/update/display.php';
+	require __DIR__.'/advanced/update/display.php';
 
 	$aPageData['tabs'][50]['content'] = ob_get_clean();
 
@@ -169,7 +169,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/dev/display.php';
+	require __DIR__.'/advanced/dev/display.php';
 
 	$aPageData['tabs'][60]['content'] = ob_get_clean();
 
@@ -183,7 +183,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-	require dirname(__FILE__).'/advanced/others/display.php';
+	require __DIR__.'/advanced/others/display.php';
 
 	$aPageData['tabs'][70]['content'] = ob_get_clean();
 

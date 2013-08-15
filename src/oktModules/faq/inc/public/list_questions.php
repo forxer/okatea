@@ -7,7 +7,7 @@
 
 
 # inclusion du preprend public général
-require_once dirname(__FILE__).'/../../../../oktInc/public/prepend.php';
+require_once __DIR__.'/../../../../oktInc/public/prepend.php';
 
 
 # est-ce qu'on demande une langue bien précise ?

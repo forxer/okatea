@@ -24,13 +24,13 @@ class module_partners extends oktModule
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		global $oktAutoloadPaths;
 
 		#autoload
-		$oktAutoloadPaths['partnersController'] = dirname(__FILE__).'/inc/class.partners.controller.php';
-		$oktAutoloadPaths['partnersRecordset'] = dirname(__FILE__).'/inc/class.partners.recordset.php';
+		$oktAutoloadPaths['partnersController'] = __DIR__.'/inc/class.partners.controller.php';
+		$oktAutoloadPaths['partnersRecordset'] = __DIR__.'/inc/class.partners.recordset.php';
 
 		#permissions
 		$this->okt->addPermGroup('partners', __('m_partners_perm_group'));
@@ -77,7 +77,7 @@ class module_partners extends oktModule
 	protected function prepend_admin()
 	{
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();

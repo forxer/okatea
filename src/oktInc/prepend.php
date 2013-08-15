@@ -47,7 +47,7 @@ define('OKT_START_TIME', microtime(true));
 
 
 # Inclusion des constantes systèmes
-require_once dirname(__FILE__).'/constants.php';
+require_once __DIR__.'/constants.php';
 
 
 # Inclusion de l'autoload

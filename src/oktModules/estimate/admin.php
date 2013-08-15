@@ -41,19 +41,19 @@ if (!$okt->modules->moduleExists('users'))
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require dirname(__FILE__).'/inc/admin/index.php';
+	require __DIR__.'/inc/admin/index.php';
 }
 elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products')) {
-	require dirname(__FILE__).'/inc/admin/products.php';
+	require __DIR__.'/inc/admin/products.php';
 }
 elseif ($okt->page->action === 'product' && $okt->checkPerm('estimate_products')) {
-	require dirname(__FILE__).'/inc/admin/product.php';
+	require __DIR__.'/inc/admin/product.php';
 }
 elseif ($okt->page->action === 'accessories' && $okt->checkPerm('estimate_accessories')) {
-	require dirname(__FILE__).'/inc/admin/accessories.php';
+	require __DIR__.'/inc/admin/accessories.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config')) {
-	require dirname(__FILE__).'/inc/admin/config.php';
+	require __DIR__.'/inc/admin/config.php';
 }
 else {
 	$okt->redirect('index.php');

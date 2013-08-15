@@ -5,7 +5,7 @@
 
 
 # fichier nécessaire pour afficher une liste de produits
-require_once dirname(__FILE__).'/oktModules/catalog/inc/public/list.php';
+require_once __DIR__.'/oktModules/catalog/inc/public/list.php';
 
 
 # affichage du template

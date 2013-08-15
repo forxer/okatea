@@ -603,7 +603,7 @@ class usersController extends oktController
 					$template_file = 'welcom.tpl';
 				}
 
-				$oMail->useFile(dirname(__FILE__).'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
+				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => util::getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->okt->config->app_url,
 					'USER_CN' => oktAuth::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
@@ -632,7 +632,7 @@ class usersController extends oktController
 					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>oktAuth::admin_group_id));
 					while ($rsAdministrators->fetch())
 					{
-						$oMail->useFile(dirname(__FILE__).'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
+						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => util::getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->okt->config->app_url,
 							'USER_CN' => oktAuth::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),

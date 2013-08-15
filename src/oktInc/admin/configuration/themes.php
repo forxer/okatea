@@ -27,8 +27,8 @@ $oThemes = new oktThemes($okt, OKT_THEMES_PATH);
 l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
 
 if (!$okt->page->do || $okt->page->do === 'index') {
-	require dirname(__FILE__).'/themes/index.php';
+	require __DIR__.'/themes/index.php';
 }
 elseif ($okt->page->do === 'add') {
-	require dirname(__FILE__).'/themes/add.php';
+	require __DIR__.'/themes/add.php';
 }

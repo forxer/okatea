@@ -11,7 +11,7 @@ class module_recaptcha extends oktModule
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPerm('recaptcha_config', __('m_recaptacha_perm_config'), 'configuration');
@@ -38,7 +38,7 @@ class module_recaptcha extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
@@ -67,7 +67,7 @@ class module_recaptcha extends oktModule
 	public static function publicControllerFormCheckValues($okt, $sName)
 	{
 		if($sName == "recaptcha"){
-			require_once dirname(__FILE__).'/recaptcha-php-1.11/recaptchalib.php';
+			require_once __DIR__.'/recaptcha-php-1.11/recaptchalib.php';
 
 			$resp = recaptcha_check_answer(
 				html::escapeHTML($okt->recaptcha->config->privatekey),
@@ -121,7 +121,7 @@ class module_recaptcha extends oktModule
 			//]]>
 			</script>';
 
-			require_once dirname(__FILE__).'/recaptcha-php-1.11/recaptchalib.php';
+			require_once __DIR__.'/recaptcha-php-1.11/recaptchalib.php';
 
 			echo recaptcha_get_html(html::escapeHTML($okt->recaptcha->config->publickey));
 		}

@@ -22,17 +22,17 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/modules/init.php';
+require __DIR__.'/modules/init.php';
 
 
 /* Traitements
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/modules/actions.php';
+require __DIR__.'/modules/actions.php';
 
 
 /* Affichage
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/modules/display.php';
+require __DIR__.'/modules/display.php';
 

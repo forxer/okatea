@@ -13,7 +13,7 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.gallery');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.gallery');
 
 # Récupération de la liste complète des galeries
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(

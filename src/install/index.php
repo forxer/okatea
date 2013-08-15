@@ -15,7 +15,7 @@ define('OKT_SUDO_EMAIL', 'sudo@localhost');
 @ini_set('display_errors', 'On');
 
 
-define('OKT_INSTAL_DIR',dirname(__FILE__));
+define('OKT_INSTAL_DIR',__DIR__);
 define('OKT_INSTAL_COMMON_URL','./../oktCommon');
 
 
@@ -29,14 +29,14 @@ $sDefaultLanguage = 'fr';
 
 
 # Inclusion des constantes
-require_once dirname(__FILE__).'/../oktInc/constants.php';
+require_once __DIR__.'/../oktInc/constants.php';
 
 
 # Inclusion de l'autoload
 require_once OKT_INC_PATH.'/autoload.php';
 
 
-$oktAutoloadPaths['oktStepper'] = dirname(__FILE__).'/inc/class.stepper.php';
+$oktAutoloadPaths['oktStepper'] = __DIR__.'/inc/class.stepper.php';
 
 
 # Librairies spécifiques aux pages de l'administration
@@ -152,7 +152,7 @@ $oHtmlPage->js->addScript('
 
 
 # load page from stepper
-require_once dirname(__FILE__).'/inc/'.$_SESSION['okt_install_process_type'].'Stepper.php';
+require_once __DIR__.'/inc/'.$_SESSION['okt_install_process_type'].'Stepper.php';
 
 $sCurrentPageFilename = OKT_INSTAL_DIR.'/inc/pages/'.$stepper->getCurrentStep().'.php';
 

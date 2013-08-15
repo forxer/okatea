@@ -64,14 +64,14 @@ if (!empty($_POST['simple']) || !empty($_POST['advanced']))
 		# Bootstrap a simple module
 		if (!empty($_POST['simple'])) {
 			$bootstraper = new oktModuleBootstrapSimple();
-			$bootstraper->setTemplatesDir(dirname(__FILE__).'/../../tpl/simple');
+			$bootstraper->setTemplatesDir(__DIR__.'/../../tpl/simple');
 
 		}
 		# Bootstrap an advanced module
 		else if (!empty($_POST['advanced']))
 		{
 			$bootstraper = new oktModuleBootstrapAdvanced();
-			$bootstraper->setTemplatesDir(dirname(__FILE__).'/../../tpl/advanced');
+			$bootstraper->setTemplatesDir(__DIR__.'/../../tpl/advanced');
 		}
 
 		$bootstraper

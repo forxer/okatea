@@ -13,7 +13,7 @@ if (!defined('ON_PAGES_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.post');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.post');
 
 # Données de la page
 $aPageData = new ArrayObject();

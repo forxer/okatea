@@ -14,7 +14,7 @@ if (!defined('ON_NEWS_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.display');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.display');
 
 
 /* Traitements

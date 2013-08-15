@@ -5,7 +5,7 @@
 
 
 # fichier nécessaire pour afficher une liste de questions internationalisées
-require_once dirname(__FILE__).'/oktModules/faq/inc/public/list_questions.php';
+require_once __DIR__.'/oktModules/faq/inc/public/list_questions.php';
 
 
 # affichage du template

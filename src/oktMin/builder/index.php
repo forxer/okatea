@@ -16,13 +16,13 @@ if (0 === strpos($_SERVER["SERVER_SOFTWARE"], 'Apache/')
 	$userDir = DIRECTORY_SEPARATOR . $m[1] . DIRECTORY_SEPARATOR;
 	if (false !== strpos(__FILE__, $userDir)) {
 		$sm = array();
-		$sm["//~{$m[1]}"] = dirname(dirname(__FILE__));
+		$sm["//~{$m[1]}"] = dirname(__DIR__);
 		$array = str_replace('array (', 'array(', var_export($sm, 1));
 		$symlinkOption = "\$min_symlinks = $array;";
 	}
 }
 
-require dirname(__FILE__) . '/../config.php';
+require __DIR__ . '/../config.php';
 
 require "$min_libPath/Minify/Loader.php";
 Minify_Loader::register();
@@ -232,8 +232,8 @@ Minify::serve('Page', array(
 	,'lastModifiedTime' => max(
 		// regenerate cache if any of these change
 		filemtime(__FILE__)
-		,filemtime(dirname(__FILE__) . '/../config.php')
-		,filemtime(dirname(__FILE__) . '/../lib/Minify.php')
+		,filemtime(__DIR__ . '/../config.php')
+		,filemtime(__DIR__ . '/../lib/Minify.php')
 	)
 	,'minifyAll' => true
 	,'encodeOutput' => $encodeOutput

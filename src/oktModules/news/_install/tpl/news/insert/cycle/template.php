@@ -12,7 +12,7 @@ $rsInsertPosts = $okt->news->getPosts(array(
 
 
 <?php # début Okatea : ajout du CHEMIN du fichier LESS
-$okt->page->css->addLessFile(dirname(__FILE__).'/styles.less');
+$okt->page->css->addLessFile(__DIR__.'/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 

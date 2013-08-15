@@ -127,7 +127,7 @@ if (!empty($_POST['sended']))
 		$_SESSION['okt_install_admin_password'] = $admin_password;
 
 		# Inclusion du prepend
-		require_once dirname(__FILE__).'/../../../oktInc/prepend.php';
+		require_once __DIR__.'/../../../oktInc/prepend.php';
 
 		# login
 		$okt->user->login($sudo_user,$sudo_password,1);

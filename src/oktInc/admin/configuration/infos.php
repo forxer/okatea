@@ -28,13 +28,13 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.infos');
 # Données de la page
 $aPageData = new ArrayObject();
 
-require dirname(__FILE__).'/infos/notes/init.php';
+require __DIR__.'/infos/notes/init.php';
 
-require dirname(__FILE__).'/infos/okatea/init.php';
+require __DIR__.'/infos/okatea/init.php';
 
-require dirname(__FILE__).'/infos/mysql/init.php';
+require __DIR__.'/infos/mysql/init.php';
 
-require dirname(__FILE__).'/infos/php/init.php';
+require __DIR__.'/infos/php/init.php';
 
 # -- TRIGGER CORE INFOS PAGE : adminInfosPageInit
 $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
@@ -43,13 +43,13 @@ $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
 /* Traitements
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/infos/notes/actions.php';
+require __DIR__.'/infos/notes/actions.php';
 
-require dirname(__FILE__).'/infos/okatea/actions.php';
+require __DIR__.'/infos/okatea/actions.php';
 
-require dirname(__FILE__).'/infos/php/actions.php';
+require __DIR__.'/infos/php/actions.php';
 
-require dirname(__FILE__).'/infos/mysql/actions.php';
+require __DIR__.'/infos/mysql/actions.php';
 
 # -- TRIGGER CORE INFOS PAGE : adminInfosPageProcessing
 $okt->triggers->callTrigger('adminInfosPageProcessing', $okt, $aPageData);
@@ -84,7 +84,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-		require dirname(__FILE__).'/infos/notes/display.php';
+		require __DIR__.'/infos/notes/display.php';
 
 	$aPageData['tabs'][10]['content'] = ob_get_clean();
 
@@ -98,7 +98,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-		require dirname(__FILE__).'/infos/okatea/display.php';
+		require __DIR__.'/infos/okatea/display.php';
 
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
 
@@ -112,7 +112,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-		require dirname(__FILE__).'/infos/php/display.php';
+		require __DIR__.'/infos/php/display.php';
 
 	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
@@ -126,7 +126,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	ob_start();
 
-		require dirname(__FILE__).'/infos/mysql/display.php';
+		require __DIR__.'/infos/mysql/display.php';
 
 	$aPageData['tabs'][40]['content'] = ob_get_clean();
 

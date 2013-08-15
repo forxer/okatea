@@ -14,7 +14,7 @@ if (!defined('ON_PAGES_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.categories');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.categories');
 
 # Récupération de la liste complète des rubriques
 $rsCategories = $okt->pages->categories->getCategories(array(

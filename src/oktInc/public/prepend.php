@@ -16,12 +16,12 @@
 
 
 # On inclu le fichier prepend général
-require_once dirname(__FILE__).'/../prepend.php';
+require_once __DIR__.'/../prepend.php';
 
 
 # Librairies spécifiques à la partie publique
-$oktAutoloadPaths['publicPage'] = dirname(__FILE__).'/lib.public.page.php';
-$oktAutoloadPaths['publicPager'] = dirname(__FILE__).'/lib.public.pager.php';
+$oktAutoloadPaths['publicPage'] = __DIR__.'/lib.public.page.php';
+$oktAutoloadPaths['publicPager'] = __DIR__.'/lib.public.pager.php';
 
 
 # Initialisation des pages publiques

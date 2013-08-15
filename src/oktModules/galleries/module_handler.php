@@ -24,15 +24,15 @@ class module_galleries extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['galleriesController'] = dirname(__FILE__).'/inc/class.galleries.controller.php';
-		$oktAutoloadPaths['galleriesHelpers'] = dirname(__FILE__).'/inc/class.galleries.helpers.php';
-		$oktAutoloadPaths['galleriesItems'] = dirname(__FILE__).'/inc/class.galleries.items.php';
-		$oktAutoloadPaths['galleriesItemsRecordset'] = dirname(__FILE__).'/inc/class.galleries.items.recordset.php';
-		$oktAutoloadPaths['galleriesRecordset'] = dirname(__FILE__).'/inc/class.galleries.recordset.php';
-		$oktAutoloadPaths['galleriesTree'] = dirname(__FILE__).'/inc/class.galleries.tree.php';
+		$oktAutoloadPaths['galleriesController'] = __DIR__.'/inc/class.galleries.controller.php';
+		$oktAutoloadPaths['galleriesHelpers'] = __DIR__.'/inc/class.galleries.helpers.php';
+		$oktAutoloadPaths['galleriesItems'] = __DIR__.'/inc/class.galleries.items.php';
+		$oktAutoloadPaths['galleriesItemsRecordset'] = __DIR__.'/inc/class.galleries.items.recordset.php';
+		$oktAutoloadPaths['galleriesRecordset'] = __DIR__.'/inc/class.galleries.recordset.php';
+		$oktAutoloadPaths['galleriesTree'] = __DIR__.'/inc/class.galleries.tree.php';
 
 		# permissions
 		$this->okt->addPermGroup('galleries', __('m_galleries_perm_group'));
@@ -136,7 +136,7 @@ class module_galleries extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

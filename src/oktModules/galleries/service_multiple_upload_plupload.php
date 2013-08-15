@@ -27,7 +27,7 @@
 	// usleep(5000);
 
 	# chargement d'Okatea
-	require_once dirname(__FILE__).'/../../oktInc/public/prepend.php';
+	require_once __DIR__.'/../../oktInc/public/prepend.php';
 
 
 	// Get parameters

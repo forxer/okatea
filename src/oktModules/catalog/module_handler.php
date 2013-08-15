@@ -23,12 +23,12 @@ class module_catalog extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['catalogController'] = dirname(__FILE__).'/inc/class.catalog.controller.php';
-		$oktAutoloadPaths['catalogFilters'] = dirname(__FILE__).'/inc/class.catalog.filters.php';
-		$oktAutoloadPaths['catalogRecordset'] = dirname(__FILE__).'/inc/class.catalog.recordset.php';
+		$oktAutoloadPaths['catalogController'] = __DIR__.'/inc/class.catalog.controller.php';
+		$oktAutoloadPaths['catalogFilters'] = __DIR__.'/inc/class.catalog.filters.php';
+		$oktAutoloadPaths['catalogRecordset'] = __DIR__.'/inc/class.catalog.recordset.php';
 
 		# permissions
 		$this->okt->addPermGroup('catalog', __('m_catalog_perm_group'));
@@ -81,7 +81,7 @@ class module_catalog extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

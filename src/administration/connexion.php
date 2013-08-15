@@ -20,7 +20,7 @@ define('OKT_DISABLE_MENU',true);
 # no CSRF token on admin login page
 define('OKT_SKIP_CSRF_CONFIRM', true);
 
-require dirname(__FILE__).'/../oktInc/admin/prepend.php';
+require __DIR__.'/../oktInc/admin/prepend.php';
 
 $okt->page->pageId('connexion');
 

@@ -20,7 +20,7 @@ define('ON_THEME_EDITOR',true);
 
 
 if (!empty($_REQUEST['new_file'])) {
-	require dirname(__FILE__).'/theme_editor/new_file.php';
+	require __DIR__.'/theme_editor/new_file.php';
 }
 else if (!empty($_REQUEST['new_template']))
 {
@@ -48,12 +48,12 @@ else if (!empty($_REQUEST['new_template']))
 	}
 
 	if (empty($sBasicTemplate)) {
-		require dirname(__FILE__).'/theme_editor/choose_basic_template.php';
+		require __DIR__.'/theme_editor/choose_basic_template.php';
 	}
 	else {
-		require dirname(__FILE__).'/theme_editor/new_template.php';
+		require __DIR__.'/theme_editor/new_template.php';
 	}
 }
 else {
-	require dirname(__FILE__).'/theme_editor/index.php';
+	require __DIR__.'/theme_editor/index.php';
 }

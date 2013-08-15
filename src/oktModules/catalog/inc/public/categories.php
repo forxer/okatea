@@ -7,7 +7,7 @@
 
 
 # inclusion du preprend public général
-require_once dirname(__FILE__).'/../../../../oktInc/public/prepend.php';
+require_once __DIR__.'/../../../../oktInc/public/prepend.php';
 
 # récupération de la liste des catégories actives
 $rsCategories = $okt->catalog->getCategories(array('active'=>1,'with_count'=>false));

@@ -22,12 +22,12 @@ define('OKT_FORCE_DEBUG',true);
 
 
 # Inclusion de l'éventuel prepend customisé
-if (file_exists(dirname(__FILE__).'/oktPrepend.php')) {
-	require_once dirname(__FILE__).'/oktPrepend.php';
+if (file_exists(__DIR__.'/oktPrepend.php')) {
+	require_once __DIR__.'/oktPrepend.php';
 }
 
 # Initialisation de la mécanique Okatea
-require_once dirname(__FILE__).'/oktInc/public/prepend.php';
+require_once __DIR__.'/oktInc/public/prepend.php';
 
 # Routeur activé ?
 if (!$okt->config->internal_router) {

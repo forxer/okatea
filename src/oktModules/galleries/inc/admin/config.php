@@ -14,7 +14,7 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.config');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images des éléments
 $oItemImageUploadConfig = new oktImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());

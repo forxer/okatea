@@ -20,14 +20,14 @@ class module_users extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['usersController'] = dirname(__FILE__).'/inc/class.users.controller.php';
-		$oktAutoloadPaths['usersCustomFields'] = dirname(__FILE__).'/inc/class.users.custom.fields.php';
-		$oktAutoloadPaths['usersFieldRecordset'] = dirname(__FILE__).'/inc/class.users.fields.recordset.php';
-		$oktAutoloadPaths['usersFilters'] = dirname(__FILE__).'/inc/class.users.filters.php';
-		$oktAutoloadPaths['usersHelpers'] = dirname(__FILE__).'/inc/class.users.helpers.php';
+		$oktAutoloadPaths['usersController'] = __DIR__.'/inc/class.users.controller.php';
+		$oktAutoloadPaths['usersCustomFields'] = __DIR__.'/inc/class.users.custom.fields.php';
+		$oktAutoloadPaths['usersFieldRecordset'] = __DIR__.'/inc/class.users.fields.recordset.php';
+		$oktAutoloadPaths['usersFilters'] = __DIR__.'/inc/class.users.filters.php';
+		$oktAutoloadPaths['usersHelpers'] = __DIR__.'/inc/class.users.helpers.php';
 
 		# permissions
 		$this->okt->addPermGroup('users',__('m_users_perm_group'));
@@ -66,7 +66,7 @@ class module_users extends oktModule
 	protected function prepend_admin()
 	{
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();

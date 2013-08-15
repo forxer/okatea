@@ -16,7 +16,7 @@
 
 
 # On inclu le fichier prepend général
-require_once dirname(__FILE__).'/../prepend.php';
+require_once __DIR__.'/../prepend.php';
 
 
 # init log admin
@@ -103,11 +103,11 @@ if ($okt->user->is_superadmin)
 
 
 # Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminErrors'] = dirname(__FILE__).'/libs/lib.admin.errors.php';
-$oktAutoloadPaths['adminMessages'] = dirname(__FILE__).'/libs/lib.admin.messages.php';
-$oktAutoloadPaths['adminPage'] = dirname(__FILE__).'/libs/lib.admin.page.php';
-$oktAutoloadPaths['adminPager'] = dirname(__FILE__).'/libs/lib.admin.pager.php';
-$oktAutoloadPaths['adminWarnings'] = dirname(__FILE__).'/libs/lib.admin.warnings.php';
+$oktAutoloadPaths['adminErrors'] = __DIR__.'/libs/lib.admin.errors.php';
+$oktAutoloadPaths['adminMessages'] = __DIR__.'/libs/lib.admin.messages.php';
+$oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
+$oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
+$oktAutoloadPaths['adminWarnings'] = __DIR__.'/libs/lib.admin.warnings.php';
 $oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
 $oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
 

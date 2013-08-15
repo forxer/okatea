@@ -54,19 +54,19 @@ $okt->page->addAriane($okt->diary->getName(),'module.php?m=diary');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require dirname(__FILE__).'/inc/admin/index.php';
+	require __DIR__.'/inc/admin/index.php';
 }
 elseif ($okt->page->action === 'add' && $okt->checkPerm('diary_add')) {
-	require dirname(__FILE__).'/inc/admin/event.php';
+	require __DIR__.'/inc/admin/event.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require dirname(__FILE__).'/inc/admin/event.php';
+	require __DIR__.'/inc/admin/event.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('diary_display')) {
-	require dirname(__FILE__).'/inc/admin/display.php';
+	require __DIR__.'/inc/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('diary_config')) {
-	require dirname(__FILE__).'/inc/admin/config.php';
+	require __DIR__.'/inc/admin/config.php';
 }
 else {
 	$okt->redirect('index.php');

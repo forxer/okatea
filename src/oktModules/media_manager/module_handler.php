@@ -13,10 +13,10 @@ class module_media_manager extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['oktMedia'] = dirname(__FILE__).'/inc/class.oktMedia.php';
+		$oktAutoloadPaths['oktMedia'] = __DIR__.'/inc/class.oktMedia.php';
 
 		# permissions
 		$this->okt->addPermGroup('media_manager',__('m_media_manager_perm_group'));
@@ -34,7 +34,7 @@ class module_media_manager extends oktModule
 		$this->onThisModule();
 
 		# locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

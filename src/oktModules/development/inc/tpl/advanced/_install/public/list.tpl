@@ -5,7 +5,7 @@
 
 
 # fichier nécessaire pour afficher une liste d'éléments
-require_once dirname(__FILE__).'/oktModules/##module_id##/inc/public/list.php';
+require_once __DIR__.'/oktModules/##module_id##/inc/public/list.php';
 
 
 # affichage du template

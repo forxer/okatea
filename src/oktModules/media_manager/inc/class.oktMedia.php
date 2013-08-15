@@ -81,7 +81,7 @@ class oktMedia extends filemanager
 		$this->path = OKT_UPLOAD_URL.'/modules/media_manager/';
 
 //		$this->addExclusion(DC_RC_PATH);
-//		$this->addExclusion(dirname(__FILE__).'/../');
+//		$this->addExclusion(__DIR__.'/../');
 
 		$this->exclude_pattern = $this->config->media_exclusion;
 

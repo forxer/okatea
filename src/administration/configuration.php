@@ -14,7 +14,7 @@
  *
  */
 
-require dirname(__FILE__).'/../oktInc/admin/prepend.php';
+require __DIR__.'/../oktInc/admin/prepend.php';
 
 define('ON_CONFIGURATION_MODULE', true);
 

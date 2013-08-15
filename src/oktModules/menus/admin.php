@@ -20,10 +20,10 @@ $okt->page->addAriane($okt->menus->getName(),'module.php?m=menus');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require dirname(__FILE__).'/inc/admin/index.php';
+	require __DIR__.'/inc/admin/index.php';
 }
 elseif ($okt->page->action === 'config') {
-	require dirname(__FILE__).'/inc/admin/config.php';
+	require __DIR__.'/inc/admin/config.php';
 }
 else {
 	$okt->redirect('index.php');

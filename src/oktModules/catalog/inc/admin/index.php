@@ -205,7 +205,7 @@ $okt->page->messages->success('deleted','Le produit a été supprimé.');
 
 # Affichage du résultat AJAX
 if ($bAjaxLoaded)  :
-	require dirname(__FILE__).'/productsList/productsList.php';
+	require __DIR__.'/productsList/productsList.php';
 
 else :
 
@@ -242,7 +242,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 </form>
 
 <div id="productsList">
-<?php require dirname(__FILE__).'/productsList/productsList.php'; ?>
+<?php require __DIR__.'/productsList/productsList.php'; ?>
 </div><!-- #productsList -->
 
 

@@ -14,7 +14,7 @@ class module_lbl_nyromodal_2 extends oktModule
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPerm('nyromodal_2_config', __('m_lbl_nyromodal_2_perm_config'), 'configuration');
@@ -31,7 +31,7 @@ class module_lbl_nyromodal_2 extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

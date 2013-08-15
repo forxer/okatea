@@ -12,17 +12,17 @@ class module_antispam extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['oktSpamFilter'] = dirname(__FILE__).'/inc/class.spamfilter.php';
-		$oktAutoloadPaths['oktSpamFilters'] = dirname(__FILE__).'/inc/class.spamfilters.php';
-		$oktAutoloadPaths['oktAntispam'] = dirname(__FILE__).'/inc/lib.antispam.php';
+		$oktAutoloadPaths['oktSpamFilter'] = __DIR__.'/inc/class.spamfilter.php';
+		$oktAutoloadPaths['oktSpamFilters'] = __DIR__.'/inc/class.spamfilters.php';
+		$oktAutoloadPaths['oktAntispam'] = __DIR__.'/inc/lib.antispam.php';
 
-		$oktAutoloadPaths['oktFilterIP'] = dirname(__FILE__).'/filters/class.filter.ip.php';
-		$oktAutoloadPaths['oktFilterIpLookup'] = dirname(__FILE__).'/filters/class.filter.iplookup.php';
-		$oktAutoloadPaths['oktFilterLinksLookup'] = dirname(__FILE__).'/filters/class.filter.linkslookup.php';
-		$oktAutoloadPaths['oktFilterWords'] = dirname(__FILE__).'/filters/class.filter.words.php';
+		$oktAutoloadPaths['oktFilterIP'] = __DIR__.'/filters/class.filter.ip.php';
+		$oktAutoloadPaths['oktFilterIpLookup'] = __DIR__.'/filters/class.filter.iplookup.php';
+		$oktAutoloadPaths['oktFilterLinksLookup'] = __DIR__.'/filters/class.filter.linkslookup.php';
+		$oktAutoloadPaths['oktFilterWords'] = __DIR__.'/filters/class.filter.words.php';
 
 		# permissions
 		$this->okt->addPerm('antispam',__('m_antispam_perm_global'), 'configuration');
@@ -36,7 +36,7 @@ class module_antispam extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

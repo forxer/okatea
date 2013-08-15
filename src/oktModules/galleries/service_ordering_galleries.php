@@ -7,7 +7,7 @@
 
 
 # inclusion du preprend public général
-require_once dirname(__FILE__).'/../../oktInc/admin/prepend.php';
+require_once __DIR__.'/../../oktInc/admin/prepend.php';
 
 if (!$okt->checkPerm('galleries')) {
 	exit;

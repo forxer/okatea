@@ -1,7 +1,7 @@
 <?php
 
 # fichier nécessaire pour afficher un livre d'or
-require_once dirname(__FILE__).'/oktModules/guestbook/inc/public/list.php';
+require_once __DIR__.'/oktModules/guestbook/inc/public/list.php';
 
 
 # affichage du template

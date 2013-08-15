@@ -11,17 +11,17 @@ if (!defined('ON_DEVELOPMENT_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/bootstrap/init.php';
+require __DIR__.'/bootstrap/init.php';
 
 
 /* Traitements
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/bootstrap/actions.php';
+require __DIR__.'/bootstrap/actions.php';
 
 
 /* Affichage
 ----------------------------------------------------------*/
 
-require dirname(__FILE__).'/bootstrap/display.php';
+require __DIR__.'/bootstrap/display.php';
 

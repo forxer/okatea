@@ -10,7 +10,7 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 
 
 # chargement des locales
-l10n::set(dirname(__FILE__).'/../../locales/'.$okt->user->language.'/admin.accessories');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
 
 
 /* Initialisations

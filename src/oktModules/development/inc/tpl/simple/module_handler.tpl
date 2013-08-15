@@ -11,10 +11,10 @@ class module_##module_id## extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		//l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		//l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['##module_camel_case_id##Controller'] = dirname(__FILE__).'/inc/class.##module_id##.controller.php';
+		$oktAutoloadPaths['##module_camel_case_id##Controller'] = __DIR__.'/inc/class.##module_id##.controller.php';
 
 		# config
 		$this->config = $this->okt->newConfig('conf_##module_id##');
@@ -33,7 +33,7 @@ class module_##module_id## extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

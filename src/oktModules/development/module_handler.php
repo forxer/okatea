@@ -13,14 +13,14 @@ class module_development extends oktModule
 		global $oktAutoloadPaths;
 
 		# Chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# Autoload
-		$oktAutoloadPaths['oktDebugBar'] = dirname(__FILE__).'/inc/class.oktDebugBar.php';
-		$oktAutoloadPaths['oktModuleBootstrap'] = dirname(__FILE__).'/inc/class.module.bootstrap.php';
-		$oktAutoloadPaths['oktModuleBootstrapAdvanced'] = dirname(__FILE__).'/inc/class.module.bootstrap.advanced.php';
-		$oktAutoloadPaths['oktModuleBootstrapSimple'] = dirname(__FILE__).'/inc/class.module.bootstrap.simple.php';
-		$oktAutoloadPaths['countingFilesAndLines'] = dirname(__FILE__).'/inc/class.countingFilesAndLines.php';
+		$oktAutoloadPaths['oktDebugBar'] = __DIR__.'/inc/class.oktDebugBar.php';
+		$oktAutoloadPaths['oktModuleBootstrap'] = __DIR__.'/inc/class.module.bootstrap.php';
+		$oktAutoloadPaths['oktModuleBootstrapAdvanced'] = __DIR__.'/inc/class.module.bootstrap.advanced.php';
+		$oktAutoloadPaths['oktModuleBootstrapSimple'] = __DIR__.'/inc/class.module.bootstrap.simple.php';
+		$oktAutoloadPaths['countingFilesAndLines'] = __DIR__.'/inc/class.countingFilesAndLines.php';
 
 		# permissions
 		$this->okt->addPermGroup('development', __('m_development_perm_group'));
@@ -41,7 +41,7 @@ class module_development extends oktModule
 		$this->onThisModule();
 
 		# Chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# On ajoutent un item au menu
 		if (!defined('OKT_DISABLE_MENU'))

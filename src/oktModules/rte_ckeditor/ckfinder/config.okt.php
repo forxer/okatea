@@ -13,7 +13,7 @@
  */
 
 # inclusion d'Okatea
-require_once dirname(__FILE__).'/../../../oktInc/admin/prepend.php';
+require_once __DIR__.'/../../../oktInc/admin/prepend.php';
 
 /**
  * This function must check the user session to be sure that he/she is

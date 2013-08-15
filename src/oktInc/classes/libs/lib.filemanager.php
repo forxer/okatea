@@ -50,7 +50,7 @@ class webFileManager extends filemanager_old
 		#
 		$default_fm_cf_exclusion = array (
 			# Ne pas retirer ces entrées
-			dirname(__FILE__)
+			__DIR__
 			,(defined('OKT_INC_PATH') ? OKT_INC_PATH : '/oktInc/')
 			,(defined('OKT_CONFIG_PATH') ? OKT_INC_PATH : '/oktConf/')
 

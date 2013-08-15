@@ -14,7 +14,7 @@
  *
  */
 
-require dirname(__FILE__).'/../oktInc/admin/prepend.php';
+require __DIR__.'/../oktInc/admin/prepend.php';
 
 
 # Suppression automatique des logs

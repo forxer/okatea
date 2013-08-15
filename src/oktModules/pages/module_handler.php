@@ -30,14 +30,14 @@ class module_pages extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['pagesCategories'] = dirname(__FILE__).'/inc/class.pages.categories.php';
-		$oktAutoloadPaths['pagesController'] = dirname(__FILE__).'/inc/class.pages.controller.php';
-		$oktAutoloadPaths['pagesFilters'] = dirname(__FILE__).'/inc/class.pages.filters.php';
-		$oktAutoloadPaths['pagesHelpers'] = dirname(__FILE__).'/inc/class.pages.helpers.php';
-		$oktAutoloadPaths['pagesRecordset'] = dirname(__FILE__).'/inc/class.pages.recordset.php';
+		$oktAutoloadPaths['pagesCategories'] = __DIR__.'/inc/class.pages.categories.php';
+		$oktAutoloadPaths['pagesController'] = __DIR__.'/inc/class.pages.controller.php';
+		$oktAutoloadPaths['pagesFilters'] = __DIR__.'/inc/class.pages.filters.php';
+		$oktAutoloadPaths['pagesHelpers'] = __DIR__.'/inc/class.pages.helpers.php';
+		$oktAutoloadPaths['pagesRecordset'] = __DIR__.'/inc/class.pages.recordset.php';
 
 		# permissions
 		$this->okt->addPermGroup('pages', __('m_pages_perm_group'));
@@ -110,7 +110,7 @@ class module_pages extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

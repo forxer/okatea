@@ -21,7 +21,7 @@ if ($_SESSION['okt_install_process_type'] == 'install')
 {
 	# Inclusion du prepend
 	define('OKT_SKIP_CSRF_CONFIRM', true);
-	require_once dirname(__FILE__).'/../../../oktInc/admin/prepend.php';
+	require_once __DIR__.'/../../../oktInc/admin/prepend.php';
 
 	# Locales
 	l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/install');

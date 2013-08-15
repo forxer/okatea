@@ -7,7 +7,7 @@
 
 
 # Inclusion du preprend public général
-require_once dirname(__FILE__).'/../../../../oktInc/public/prepend.php';
+require_once __DIR__.'/../../../../oktInc/public/prepend.php';
 
 # Récupération de l’article en fonction du slug
 $slug = !empty($_GET['slug']) ? $_GET['slug'] : null;

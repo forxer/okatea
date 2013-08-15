@@ -19,10 +19,10 @@ class module_images_sets extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		//$oktAutoloadPaths['imagesSetsController'] = dirname(__FILE__).'/inc/class.images_sets.controller.php';
+		//$oktAutoloadPaths['imagesSetsController'] = __DIR__.'/inc/class.images_sets.controller.php';
 
 		# t_images_setss
 		$this->t_images_sets = $this->db->prefix.'mod_images_sets';
@@ -37,7 +37,7 @@ class module_images_sets extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

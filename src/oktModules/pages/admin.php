@@ -62,28 +62,28 @@ $okt->page->addAriane($okt->pages->getName(),'module.php?m=pages');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require dirname(__FILE__).'/inc/admin/index.php';
+	require __DIR__.'/inc/admin/index.php';
 }
 elseif ($okt->page->action === 'add' && $okt->checkPerm('pages_add')) {
-	require dirname(__FILE__).'/inc/admin/post.php';
+	require __DIR__.'/inc/admin/post.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require dirname(__FILE__).'/inc/admin/post.php';
+	require __DIR__.'/inc/admin/post.php';
 }
 elseif ($okt->page->action === 'categories' && $okt->pages->config->categories['enable'] && $okt->checkPerm('pages_categories'))
 {
 	if ($okt->page->do === 'add' || $okt->page->do === 'edit') {
-		require dirname(__FILE__).'/inc/admin/category.php';
+		require __DIR__.'/inc/admin/category.php';
 	}
 	else {
-		require dirname(__FILE__).'/inc/admin/categories.php';
+		require __DIR__.'/inc/admin/categories.php';
 	}
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('pages_display')) {
-	require dirname(__FILE__).'/inc/admin/display.php';
+	require __DIR__.'/inc/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('pages_config')) {
-	require dirname(__FILE__).'/inc/admin/config.php';
+	require __DIR__.'/inc/admin/config.php';
 }
 else {
 	$okt->redirect('index.php');

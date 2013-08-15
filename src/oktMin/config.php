@@ -12,14 +12,14 @@
  */
 
 # Inclusion d'un éventuel fichier de configuration
-if (file_exists(dirname(__FILE__).'/../oktConf/config.php')) {
-	require dirname(__FILE__).'/../oktConf/config.php';
+if (file_exists(__DIR__.'/../oktConf/config.php')) {
+	require __DIR__.'/../oktConf/config.php';
 }
 
 date_default_timezone_set('Europe/Paris');
 
 # Inclusion des constantes systèmes
-require dirname(__FILE__).'/../oktInc/constants.php';
+require __DIR__.'/../oktInc/constants.php';
 
 # Inclusion de l'autoload
 require_once OKT_INC_PATH.'/autoload.php';
@@ -117,7 +117,7 @@ $min_allowDebugFlag = false;
  * To use APC/Memcache/ZendPlatform for cache storage, require the class and
  * set $min_cachePath to an instance. Example below:
  */
-//require dirname(__FILE__) . '/lib/Minify/Cache/APC.php';
+//require __DIR__ . '/lib/Minify/Cache/APC.php';
 //$min_cachePath = new Minify_Cache_APC();
 
 
@@ -238,7 +238,7 @@ $min_uploaderHoursBehind = 0;
  * Path to Minify's lib folder. If you happen to move it, change
  * this accordingly.
  */
-$min_libPath = dirname(__FILE__) . '/lib';
+$min_libPath = __DIR__ . '/lib';
 
 
 // try to disable output_compression (may not have an effect)

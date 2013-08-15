@@ -13,8 +13,8 @@ class moduleInstall_antispam extends oktModuleInstall
 			'antispam',
 		));
 
-		require_once dirname(__FILE__).'/../inc/class.spamfilter.php';
-		require_once dirname(__FILE__).'/../filters/class.filter.words.php';
+		require_once __DIR__.'/../inc/class.spamfilter.php';
+		require_once __DIR__.'/../filters/class.filter.words.php';
 
 		$_o = new oktFilterWords($this->okt);
 

@@ -32,12 +32,12 @@ class module_faq extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['faqController'] = dirname(__FILE__).'/inc/class.faq.controller.php';
-		$oktAutoloadPaths['faqFilters'] = dirname(__FILE__).'/inc/class.faq.filters.php';
-		$oktAutoloadPaths['faqRecordset'] = dirname(__FILE__).'/inc/class.faq.recordset.php';
+		$oktAutoloadPaths['faqController'] = __DIR__.'/inc/class.faq.controller.php';
+		$oktAutoloadPaths['faqFilters'] = __DIR__.'/inc/class.faq.filters.php';
+		$oktAutoloadPaths['faqRecordset'] = __DIR__.'/inc/class.faq.recordset.php';
 
 		# permissions
 		$this->okt->addPermGroup('faq', __('m_faq_perm_group'));
@@ -77,7 +77,7 @@ class module_faq extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

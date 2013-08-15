@@ -21,13 +21,13 @@ class module_diary extends oktModule
 		global $oktAutoloadPaths;
 
 		# chargement des principales locales
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/main');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['diaryController'] = dirname(__FILE__).'/inc/class.diary.controller.php';
-		$oktAutoloadPaths['diaryRecordset'] = dirname(__FILE__).'/inc/class.diary.recordset.php';
-		$oktAutoloadPaths['diaryMonthlyCalendar'] = dirname(__FILE__).'/inc/class.diary.monthly.calendar.php';
-		$oktAutoloadPaths['diaryFilters'] = dirname(__FILE__).'/inc/class.diary.filters.php';
+		$oktAutoloadPaths['diaryController'] = __DIR__.'/inc/class.diary.controller.php';
+		$oktAutoloadPaths['diaryRecordset'] = __DIR__.'/inc/class.diary.recordset.php';
+		$oktAutoloadPaths['diaryMonthlyCalendar'] = __DIR__.'/inc/class.diary.monthly.calendar.php';
+		$oktAutoloadPaths['diaryFilters'] = __DIR__.'/inc/class.diary.filters.php';
 
 		# permissions
 		$this->okt->addPermGroup('diary', __('m_diary_perm_group'));
@@ -60,7 +60,7 @@ class module_diary extends oktModule
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(dirname(__FILE__).'/locales/'.$this->okt->user->language.'/admin');
+		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un élément au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

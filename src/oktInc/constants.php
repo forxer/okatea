@@ -18,7 +18,7 @@
 /**
  * Chemin du dossier racine
  */
-define('OKT_ROOT_PATH', realpath(dirname(__FILE__).'/../'));
+define('OKT_ROOT_PATH', realpath(__DIR__.'/../'));
 
 /**
  * Chemin du dossier include

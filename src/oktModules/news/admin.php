@@ -63,25 +63,25 @@ $okt->page->addAriane($okt->news->getName(),'module.php?m=news');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require dirname(__FILE__).'/inc/admin/index.php';
+	require __DIR__.'/inc/admin/index.php';
 }
 elseif ($okt->page->action === 'add' || $okt->page->action === 'edit') {
-	require dirname(__FILE__).'/inc/admin/post.php';
+	require __DIR__.'/inc/admin/post.php';
 }
 elseif ($okt->page->action === 'categories' && $okt->news->config->categories['enable'] && $okt->checkPerm('news_categories'))
 {
 	if ($okt->page->do === 'add' || $okt->page->do === 'edit') {
-		require dirname(__FILE__).'/inc/admin/category.php';
+		require __DIR__.'/inc/admin/category.php';
 	}
 	else {
-		require dirname(__FILE__).'/inc/admin/categories.php';
+		require __DIR__.'/inc/admin/categories.php';
 	}
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('news_display')) {
-	require dirname(__FILE__).'/inc/admin/display.php';
+	require __DIR__.'/inc/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('news_config')) {
-	require dirname(__FILE__).'/inc/admin/config.php';
+	require __DIR__.'/inc/admin/config.php';
 }
 else {
 	$okt->redirect('index.php');

@@ -14,7 +14,7 @@
  *
  */
 
-require dirname(__FILE__).'/../oktInc/admin/prepend.php';
+require __DIR__.'/../oktInc/admin/prepend.php';
 
 $m = !empty($_REQUEST['m']) ? $_REQUEST['m'] : null;
 
