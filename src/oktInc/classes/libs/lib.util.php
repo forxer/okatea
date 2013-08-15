@@ -1107,8 +1107,8 @@ class util
 	 */
 	public static function getVersion()
 	{
-		if (file_exists(OKT_ROOT_PATH.'/oktDoc/VERSION')) {
-			return trim(file_get_contents(OKT_ROOT_PATH.'/oktDoc/VERSION'));
+		if (file_exists(OKT_ROOT_PATH.'/VERSION')) {
+			return trim(file_get_contents(OKT_ROOT_PATH.'/VERSION'));
 		}
 
 		return null;
