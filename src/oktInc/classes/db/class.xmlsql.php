@@ -1,4 +1,16 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Orignal file from Dotclear 2.
+ * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
+ * Licensed under the GPL version 2.0 license.
+ */
+
+
 /**
  * @class xmlsql
  * @ingroup okt_classes_db
@@ -32,7 +44,7 @@ class xmlsql
 		$this->checklist = $checklist;
 		$this->job = array();
 		$this->_current_tag_cdata = '';
-		
+
 		if ($process !== null) {
 			$this->process = $process;
 		}
@@ -78,7 +90,7 @@ class xmlsql
 			if ($test === null) {
 				$test = true;
 			}
-			
+
 			if (!empty($v['request']['process']) && $v['request']['process'] !== $this->process) {
 				continue;
 			}
@@ -97,7 +109,7 @@ class xmlsql
 					$test = false;
 					$err = $this->db->error();
 				}
-				else 
+				else
 				{
 					if ($v['test']['eq'] == 'neq') {
 						$test = ($rs->f(0) != $v['test']['value']);

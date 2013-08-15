@@ -1,11 +1,22 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Orignal file from Dotclear 2.
+ * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
+ * Licensed under the GPL version 2.0 license.
+ */
+
+
 /**
  * @class imageTools
  * @ingroup okt_classes_tools
  * @brief Outil pour le redimensionnement des images.
  *
  */
-
 
 class imageTools
 {
@@ -279,7 +290,7 @@ class imageTools
 		$this->res = $dest;
 		return true;
 	}
-	
+
 	public static function imageExiste($image, $rep, $imageDefaut="imageNonDispo.jpg")
 	{
 		if($image!="" && @fopen($rep."min-".$image, "r") )

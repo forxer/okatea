@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /**
  * @class pager
  * @ingroup okt_classes_tools
@@ -168,8 +176,8 @@ class pager
 	{
 		return (integer)$this->nb_pages;
 	}
-    
-    public function getNbElements()
+
+	public function getNbElements()
 	{
 		return (integer)$this->nb_elements;
 	}

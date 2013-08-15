@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /**
  * @class oktDefinitionsLessEditor
  * @ingroup okt_classes_themes
@@ -66,33 +74,33 @@ class oktDefinitionsLessEditor
 		'@graphics_main_background_color: '.$aValues['graphics_main_background_color'].';'."\n".
 		'@graphics_footer_address_background_color: '.$aValues['graphics_footer_address_background_color'].';'."\n".
 		'@graphics_footer_links_background_color: '.$aValues['graphics_footer_links_background_color'].';'."\n\n\n".
-		
-		
+
+
 		'//* Couleurs de la charte : menus */'."\n\n".
-		
+
 		'@graphics_menu_link_color: '.$aValues['graphics_menu_link_color'].';'."\n".
 		'@graphics_menu_link_hover_color: '.$aValues['graphics_menu_link_hover_color'].';'."\n".
 		'@graphics_menu_background_color: '.$aValues['graphics_menu_background_color'].';'."\n".
 		'@graphics_menu_background_hover_color: '.$aValues['graphics_menu_background_hover_color'].';'."\n\n\n".
-		
-		
+
+
 		'//* Couleurs de la charte : sous menus */'."\n\n".
-		
+
 		'@graphics_sub_menu_link_color: '.$aValues['graphics_sub_menu_link_color'].';'."\n".
 		'@graphics_sub_menu_link_hover_color: '.$aValues['graphics_sub_menu_link_hover_color'].';'."\n".
 		'@graphics_sub_menu_background_color: '.$aValues['graphics_sub_menu_background_color'].';'."\n".
 		'@graphics_sub_menu_background_hover_color: '.$aValues['graphics_sub_menu_background_hover_color'].';'."\n\n\n".
 
-		
+
 		'//* Couleurs de la charte : footer & divers */'."\n\n".
-		
+
 		'@graphics_footer_address: '.$aValues['graphics_footer_address'].';'."\n".
 		'@graphics_footer_address_first_child: '.$aValues['graphics_footer_address_first_child'].';'."\n".
 		'@graphics_footer_link: '.$aValues['graphics_footer_link'].';'."\n".
 		'@graphics_rubric_title: '.$aValues['graphics_rubric_title'].';'."\n".
 		'@graphics_text_shadow: '.$aValues['graphics_text_shadow'].';'."\n\n\n".
-		
-		
+
+
 		'/* Couleurs des textes */'."\n\n".
 
 		'@main_text_color: '.$aValues['main_text_color'].';'."\n".
@@ -162,23 +170,23 @@ class oktDefinitionsLessEditor
 			'graphics_main_background_color' => '#fff',
 			'graphics_footer_address_background_color' => '#fff',
 			'graphics_footer_links_background_color' => '#fff',
-			
+
 			'graphics_menu_link_color' => '#fff',
 			'graphics_menu_link_hover_color' => '#fff',
 			'graphics_menu_background_color' => '#fff',
 			'graphics_menu_background_hover_color' => '#fff',
-			
+
 			'graphics_sub_menu_link_color' => '#fff',
 			'graphics_sub_menu_link_hover_color' => '#fff',
 			'graphics_sub_menu_background_color' => '#fff',
 			'graphics_sub_menu_background_hover_color' => '#fff',
-			
+
 			'graphics_footer_address' => '#fff',
 			'graphics_footer_address_first_child' => '#fff',
 			'graphics_footer_link' => '#fff',
 			'graphics_rubric_title' => '#fff',
 			'graphics_text_shadow' => '#fff',
-			
+
 			'main_text_color' => '#333',
 			'second_text_color' => '#666',
 			'third_text_color' => '#999',
@@ -233,11 +241,11 @@ class oktDefinitionsLessEditor
 			OKT_THEMES_PATH.'/'.$sThemeId.'/css/styles.css',
 			OKT_THEMES_PATH.'/'.$sThemeId.'/css/definitions.less'
 		));
-		
+
 		# Qtip
 		$oPage->css->addFile(OKT_COMMON_URL.'/js-plugins/qtip/jquery.qtip.min.css');
 		$oPage->js->addFile(OKT_COMMON_URL.'/js-plugins/qtip/jquery.qtip.min.js');
-		
+
 		# Color picker
 		$oPage->css->addFile(OKT_COMMON_URL.'/js-plugins/spectrum/spectrum.css');
 		$oPage->js->addFile(OKT_COMMON_URL.'/js-plugins/spectrum/spectrum.js');
@@ -280,7 +288,7 @@ class oktDefinitionsLessEditor
 		}
 
 		$sReturn =
-		
+
 		'<h'.$iHeadStart.'>'.__('c_a_def_less_editor_Graphics').'</h'.$iHeadStart.'>'.
 
 		'<div class="four-cols">'.
@@ -350,14 +358,14 @@ class oktDefinitionsLessEditor
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_rubric_title">* '.__('c_a_def_less_editor_rubric_title').'</label>'.
 				form::text($this->sPostPrefix.'graphics_rubric_title', 7, 128, $aValues['graphics_rubric_title'], 'colorpicker').'</p>'.
-				
+
 				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_text_shadow">'.__('c_a_def_less_editor_text_shadow').'</label>'.
 				form::text($this->sPostPrefix.'graphics_text_shadow', 7, 128, $aValues['graphics_text_shadow'], 'colorpicker').'</p>'.
-				
+
 			'</fieldset>'.
 
 		'</div>';
-		
+
 		$sReturn .=
 
 		'<h'.$iHeadStart.'>'.__('c_a_def_less_editor_General').'</h'.$iHeadStart.'>'.

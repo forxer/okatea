@@ -1,4 +1,16 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Orignal file from Dotclear 2.
+ * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
+ * Licensed under the GPL version 2.0 license.
+ */
+
+
 /**
  * @class webFileManager
  * @ingroup okt_classes_libs

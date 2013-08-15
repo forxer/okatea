@@ -1,14 +1,22 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /** \mainpage Okatea - Content Management System
  *
  * Une autre expérience de CMS, nom de code : Okatea
  *
- * Pourquoi des nouveaux modules ? Pour être conforme aux normes du W3C. Pour être plus sécurisé. 
+ * Pourquoi des nouveaux modules ? Pour être conforme aux normes du W3C. Pour être plus sécurisé.
  * Visant à être plus faciles à intégrer, plus facile à mettre à jour. Plus modulaires. Plus facilement réutilisables.
  *
  * Pourquoi Okatea ? Les voies de la grosse commission des responsables sont impénétrables.
  *
- * Okatea est un socle sur lequel viens se greffer des modules. Il s'agit du cœur de l'application, la partie commune à tous les modules. 
+ * Okatea est un socle sur lequel viens se greffer des modules. Il s'agit du cœur de l'application, la partie commune à tous les modules.
  * De base Okatea fourni les éléments suivant :
  *
  *  - la partie administration

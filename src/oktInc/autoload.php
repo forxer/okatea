@@ -1,15 +1,22 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /**
  * @file
  * @addtogroup Okatea
  * @brief L'autoload Okatea.
  *
- * Rudimentaire : un tableau ayant pour index les noms des classes
+ * Rudimentaire mais efficace : un tableau ayant pour index les noms des classes
  * et pour valeur le chemin du fichier à inclure.
  *
  *
  */
-
 
 $oktAutoloadPaths = array();
 
@@ -91,17 +98,13 @@ $oktAutoloadPaths['oktThemeEditor']			= OKT_CLASSES_PATH.'/themes/class.oktTheme
 $oktAutoloadPaths['oktThemes']				= OKT_CLASSES_PATH.'/themes/class.oktThemes.php';
 
 # tools
-$oktAutoloadPaths['arrayTools']				= OKT_CLASSES_PATH.'/tools/class.array.tools.php';
 $oktAutoloadPaths['filemanager_old']		= OKT_CLASSES_PATH.'/tools/class.filemanager.php';
 $oktAutoloadPaths['fileUpload']				= OKT_CLASSES_PATH.'/tools/class.files.upload.php';
 $oktAutoloadPaths['filters']				= OKT_CLASSES_PATH.'/tools/class.filters.php';
-$oktAutoloadPaths['googleSpreadsheet']		= OKT_CLASSES_PATH.'/tools/class.google.spreadsheet.php';
 $oktAutoloadPaths['imageTools']				= OKT_CLASSES_PATH.'/tools/class.image.tools.php';
 $oktAutoloadPaths['iniFile']				= OKT_CLASSES_PATH.'/tools/class.ini.file.php';
-$oktAutoloadPaths['mailer']					= OKT_CLASSES_PATH.'/tools/class.mailer.php';
 $oktAutoloadPaths['nestedTree']				= OKT_CLASSES_PATH.'/tools/class.nested.tree.php';
 $oktAutoloadPaths['nestedTreei18n']			= OKT_CLASSES_PATH.'/tools/class.nested.tree.i18n.php';
-$oktAutoloadPaths['oktGoogleDocInfos']		= OKT_CLASSES_PATH.'/tools/class.okt.google.doc.infos.php';
 $oktAutoloadPaths['oktMail']				= OKT_CLASSES_PATH.'/tools/class.oktMail.php';
 $oktAutoloadPaths['oktPublicAdminBar']		= OKT_CLASSES_PATH.'/tools/class.oktPublicAdminBar.php';
 $oktAutoloadPaths['oktSimpleLogs']			= OKT_CLASSES_PATH.'/tools/class.oktSimpleLog.php';

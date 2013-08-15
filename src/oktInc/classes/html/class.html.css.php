@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /**
  * @class htmlCss
  * @ingroup okt_classes_html
@@ -82,12 +90,12 @@ class htmlCss
 	 * Ajoute un fichier à la pile des fichiers CSS
 	 *
 	 * @param $src string
-     * @param $media string
+	 * @param $media string
 	 * @return void
 	 */
 	public function addFile($src, $media='screen')
 	{
-		$this->aFilesStack[] = $src.'|'.$media;		
+		$this->aFilesStack[] = $src.'|'.$media;
 	}
 
 	/**
@@ -117,7 +125,7 @@ class htmlCss
 
 		$sHtml = '';
 		foreach ($aFiles as $sFileInfo)
-		{	
+		{
 			list($sFile, $sMedia) = explode('|', $sFileInfo);
 			if (!in_array($sFile,$aMinifyFiles)) {
 				$sHtml .= self::formatHtmlCssFile($sFile, $sMedia);

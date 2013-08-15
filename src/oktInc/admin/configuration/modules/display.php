@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
 /**
  * Page d'administration des modules (partie affichage)
  *
@@ -28,14 +36,14 @@ foreach ($aInstalledModules as $aModule)
 			'height' => 500
 		));
 	}
-    if (file_exists($aModule['root'].'/DEPENDANCE'))
+	if (file_exists($aModule['root'].'/DEPENDANCE'))
 	{
 		$okt->page->openLinkInDialog('#'.$aModule['id'].'_dependance_link',array(
 			'title' => html::escapeJS($aModule['name_l10n']." DEPENDANCE"),
 			'width' => 730,
 			'height' => 500
 		));
-	}    
+	}
 	if (file_exists($aModule['root'].'/READ_ME'))
 	{
 		$okt->page->openLinkInDialog('#'.$aModule['id'].'_readme_link',array(
@@ -133,7 +141,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				$module_links[] = '<a href="configuration.php?action=modules&amp;show_changelog='.$aModule['id'].'"'.
 				' id="'.$aModule['id'].'_changelog_link">'.__('c_a_modules_changelog').'</a>';
 			}
-            if (file_exists($aModule['root'].'/DEPENDANCE'))
+			if (file_exists($aModule['root'].'/DEPENDANCE'))
 			{
 				$module_links[] = '<a href="configuration.php?action=modules&amp;show_dependance='.$aModule['id'].'"'.
 				' id="'.$aModule['id'].'_dependance_link">'.__('c_a_modules_dependance').'</a>';
