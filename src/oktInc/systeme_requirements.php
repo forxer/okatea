@@ -40,7 +40,7 @@ $requirements[1] = array(
 # Vérification de la version PHP
 $requirements[0]['requirements'][] = array(
 	'id' 		=> 'php_version',
-	'test' 		=> version_compare(PHP_VERSION,'5.3.0','>='),
+	'test' 		=> version_compare(PHP_VERSION,'5.3.7','>='),
 	'msg_ok'	=> sprintf(__('pr_php_version_ok'),PHP_VERSION),
 	'msg_ko'	=> sprintf(__('pr_php_version_ko'),PHP_VERSION)
 );
