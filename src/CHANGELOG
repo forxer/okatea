@@ -10,5 +10,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
+1.0.RC.2
+! Okatea is released under the MIT License
+! move VERSION and CHANGELOG files from oktDoc directory to root application
+
+
 1.0.RC.1
 ! first public release
