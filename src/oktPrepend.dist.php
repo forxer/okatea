@@ -8,7 +8,10 @@
 
 
 /**
- * Initialisation d'Okatea sur la partie publique
+ * Initialisation d'Okatea.
+ * 
+ * Ce fichier est à utiliser dans un site ou une application externe. 
+ * Il permet de lancer l'initialisation d'Okatea 
  *
  * @addtogroup Okatea
  */
