@@ -15,8 +15,8 @@
 			`username` 			VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`lastname` 			VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`firstname` 		VARCHAR(255) 				NOT NULL 	DEFAULT '',
-			`password` 			VARCHAR(40) 				NOT NULL 	DEFAULT '',
-			`salt` 				VARCHAR(12) 							DEFAULT NULL,
+			`password` 			VARCHAR(255) 				NOT NULL 	DEFAULT '',
+			`salt` 				VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`email` 			VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`timezone` 			VARCHAR(255)				NOT NULL 	DEFAULT '',
 			`language` 			VARCHAR(12)				 	NOT NULL 	DEFAULT '',
@@ -57,5 +57,12 @@
 		ALTER TABLE `{{PREFIX}}core_users` ADD `active` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 AFTER `civility`
 	</action>
 
+	<action id="change_core_users_password" label="Alter field %s" string="{{PREFIX}}core_users.password" process="update">
+		ALTER TABLE `{{PREFIX}}core_users` CHANGE `password` `password` VARCHAR( 255 ) NOT NULL DEFAULT ''
+	</action>
+
+	<action id="change_core_users_salt" label="Alter field %s" string="{{PREFIX}}core_users.salt" process="update">
+		ALTER TABLE `{{PREFIX}}core_users` CHANGE `salt` `salt` VARCHAR( 255 ) NOT NULL DEFAULT ''
+	</action>
 
 </database>

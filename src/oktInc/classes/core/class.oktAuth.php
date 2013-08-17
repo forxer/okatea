@@ -8,6 +8,12 @@
 
 
 /**
+ * Require the password compat library
+ */
+require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
+
+
+/**
  * @class oktAuth
  * @ingroup okt_classes_core
  * @brief Le gestionnaire d'authentification de l'utilisateur en cours.
@@ -219,7 +225,7 @@ class oktAuth
 		# Si c'est un cookie d'un utilisateur connecté il ne devrait pas avoir déjà expiré
 		if (intval($cookie['user_id']) > 1 && intval($cookie['expiration_time']) > $iTsNow)
 		{
-			$this->authenticateUser(intval($cookie['user_id']), $cookie['password_hash'], true);
+			$this->authenticateUser(intval($cookie['user_id']), $cookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
 			if ($cookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($cookie['expiration_time']), $this->infos->f('salt')))) {
@@ -310,11 +316,10 @@ class oktAuth
 	 * Méthode d'authentification de l'utilisateur courant
 	 *
 	 * @param $user
-	 * @param $password
-	 * @param $password_is_hash
+	 * @param $password_hash
 	 * @return void
 	 */
-	public function authenticateUser($user, $password, $password_is_hash=false)
+	public function authenticateUser($user, $password_hash)
 	{
 		$query =
 		'SELECT u.*, g.*, o.logged, o.idle, o.csrf_token, o.prev_url '.
@@ -334,10 +339,7 @@ class oktAuth
 			return false;
 		}
 
-		if ($rs->isEmpty()
-			|| ($password_is_hash && $password != $rs->f('password'))
-			|| (!$password_is_hash && util::hash($password, $rs->f('salt')) != $rs->f('password')))
-		{
+		if ($rs->isEmpty() || ($password_hash != $rs->f('password'))) {
 			$this->setDefaultUser();
 		}
 		else {
@@ -438,12 +440,29 @@ class oktAuth
 			return false;
 		}
 
-		$form_password_hash = util::hash($password, $rs->salt);
+	//	$form_password_hash = util::hash($password, $rs->salt);
 
-		if ($rs->password != $form_password_hash)
+	//	if ($rs->password != $form_password_hash)
+
+		$password_hash = $rs->password;
+
+		if (password_verify($password, $password_hash))
 		{
 			$this->error->set('Mauvais mot de passe.');
 			return false;
+		}
+		else if (password_needs_rehash($password_hash, PASSWORD_DEFAULT))
+		{
+			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+			$query =
+			'UPDATE '.$this->t_users.' SET '.
+				'password=\''.$this->db->escapeStr($password_hash).'\' '.
+			'WHERE id='.$rs->id;
+
+			if (!$this->db->execute($query)) {
+				return false;
+			}
 		}
 
 		# Update the status if this is the first time the user logged in
@@ -474,7 +493,7 @@ class oktAuth
 		}
 
 		$iTsExpire = ($save_pass) ? time() + self::remember_time : time() + self::timeout_visit;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$form_password_hash.'|'.$iTsExpire.'|'.sha1($rs->salt.$form_password_hash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$password_hash.'|'.$iTsExpire.'|'.sha1($rs->salt.$password_hash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
@@ -575,7 +594,8 @@ class oktAuth
 			$new_password = util::random_key(8,true);
 			$new_password_key = util::random_key(8);
 
-			$password_hash = util::hash($new_password, $rs->salt);
+			//$password_hash = util::hash($new_password, $rs->salt);
+			$password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
 			$query =
 			'UPDATE '.$this->t_users.' SET '.

@@ -12,9 +12,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 1.0.RC.2
 # version minimum de PHP symboliquement passée à 5.3.7
+! strengthening cryptography
 ! CodeMirror 3.15
 ! Okatea is released under the MIT License
-! move VERSION and CHANGELOG files from oktDoc directory to root application
+. move VERSION and CHANGELOG files from oktDoc directory to root application
 
 
 1.0.RC.1
