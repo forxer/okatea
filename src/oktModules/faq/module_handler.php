@@ -73,8 +73,8 @@ class module_faq extends oktModule
 		));
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/faq/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/faq/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/faq/';
+		$this->upload_url = OKT_UPLOAD_URL.'/faq/';
 	}
 
 	protected function prepend_admin()

@@ -29,7 +29,7 @@ define('OKT_INC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_INC_DIR);
 /**
  * Nom et chemin du dossier upload
  */
-define('OKT_UPLOAD_DIR','upload');
+define('OKT_UPLOAD_DIR','oktUpload');
 define('OKT_UPLOAD_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_UPLOAD_DIR);
 
 /**

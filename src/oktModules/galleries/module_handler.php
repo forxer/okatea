@@ -50,8 +50,8 @@ class module_galleries extends oktModule
 		$this->t_items_locales = $this->db->prefix.'mod_galleries_items_locales';
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/galleries/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/galleries/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/galleries/';
+		$this->upload_url = OKT_UPLOAD_URL.'/galleries/';
 
 		# déclencheurs
 		$this->triggers = new oktTriggers();

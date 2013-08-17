@@ -86,8 +86,8 @@ class module_pages extends oktModule
 		));
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/pages/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/pages/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/pages/';
+		$this->upload_url = OKT_UPLOAD_URL.'/pages/';
 
 		# rubriques
 		if ($this->config->categories['enable'])

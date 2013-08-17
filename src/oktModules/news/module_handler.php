@@ -88,8 +88,8 @@ class module_news extends oktModule
 		));
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/news/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/news/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/news/';
+		$this->upload_url = OKT_UPLOAD_URL.'/news/';
 
 		# rubriques
 		if ($this->config->categories['enable'])

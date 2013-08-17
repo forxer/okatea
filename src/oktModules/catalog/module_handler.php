@@ -64,8 +64,8 @@ class module_catalog extends oktModule
 		));
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/catalog/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/catalog/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/catalog/';
+		$this->upload_url = OKT_UPLOAD_URL.'/catalog/';
 
 		# categories
 		if ($this->config->categories_enable)

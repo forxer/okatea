@@ -172,7 +172,7 @@ class oktModuleInstall extends oktModule
 		}
 
 		# suppression des fichiers d'upload
-		$sUploadDir = OKT_UPLOAD_PATH.'/modules/'.$this->id().'/';
+		$sUploadDir = OKT_UPLOAD_PATH.'/'.$this->id().'/';
 		if (file_exists($sUploadDir))
 		{
 			$this->checklist->addItem(
@@ -236,7 +236,7 @@ class oktModuleInstall extends oktModule
 		$this->loadDbFile($this->root().'/_install/db-truncate.xml');
 
 		# suppression des fichiers d'upload
-		$sUploadDir = OKT_UPLOAD_PATH.'/modules/'.$this->id().'/';
+		$sUploadDir = OKT_UPLOAD_PATH.'/'.$this->id().'/';
 		if (file_exists($sUploadDir))
 		{
 			$this->checklist->addItem(
@@ -389,7 +389,7 @@ class oktModuleInstall extends oktModule
 	{
 		return $this->forceReplaceFiles(
 			$this->root().'/_install/test_set/upload/',
-			OKT_UPLOAD_PATH.'/modules/'.$this->id().'/'
+			OKT_UPLOAD_PATH.'/'.$this->id().'/'
 		);
 	}
 

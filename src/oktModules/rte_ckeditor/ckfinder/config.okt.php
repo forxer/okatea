@@ -63,7 +63,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = OKT_UPLOAD_URL.'/modules/ckfinder/';
+$baseUrl = OKT_UPLOAD_URL.'/ckfinder/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the

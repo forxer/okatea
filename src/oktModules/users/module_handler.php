@@ -81,8 +81,8 @@ class module_users extends oktModule
 		));
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/users/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/users/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/users/';
+		$this->upload_url = OKT_UPLOAD_URL.'/users/';
 
 		# custom fieds
 		if ($this->config->enable_custom_fields) {

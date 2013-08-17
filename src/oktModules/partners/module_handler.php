@@ -58,8 +58,8 @@ class module_partners extends oktModule
 		));
 
 		#répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/partners/';
-		$this->upload_url = OKT_UPLOAD_URL.'/modules/partners/';
+		$this->upload_dir = OKT_UPLOAD_PATH.'/partners/';
+		$this->upload_url = OKT_UPLOAD_URL.'/partners/';
 
 		# initialisation arbre catégories
 		$this->tree = new nestedTree(
