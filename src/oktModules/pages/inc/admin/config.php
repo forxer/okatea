@@ -398,42 +398,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			</fieldset>
 
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-
-				<div class="lockable">
-					<p class="field"><label for="p_public_list_file"><?php _e('m_pages_config_page_list_file') ?></label>
-					<?php echo form::text('p_public_list_file', 40, 255, html::escapeHTML($okt->pages->config->public_list_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-
-					<p class="field"><label for="p_public_feed_file"><?php _e('m_pages_config_rss_file') ?></label>
-					<?php echo form::text('p_public_feed_file', 40, 255, html::escapeHTML($okt->pages->config->public_feed_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-
-					<p class="field"><label for="p_public_page_file"><?php _e('m_pages_config_page_file') ?></label>
-					<?php echo form::text('p_public_page_file', 40, 255, html::escapeHTML($okt->pages->config->public_page_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module pages
-RewriteRule ^<?php echo html::escapeHTML($okt->pages->config->public_feed_url) ?>$ <?php echo html::escapeHTML($okt->pages->config->public_feed_file) ?> [QSA,L]
-RewriteRule ^<?php echo html::escapeHTML($okt->pages->config->public_list_url) ?>/(.+)$ <?php echo html::escapeHTML($okt->pages->config->public_list_file) ?>?slug=$1 [QSA,L]
-RewriteRule ^<?php echo html::escapeHTML($okt->pages->config->public_page_url) ?>/(.+)$ <?php echo html::escapeHTML($okt->pages->config->public_page_file) ?>?slug=$1 [QSA,L]
-RewriteRule ^<?php echo html::escapeHTML($okt->pages->config->public_list_url) ?>$ <?php echo html::escapeHTML($okt->pages->config->public_list_file) ?> [QSA,L]
-# end Okatea module pages
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-
-		<?php endif; ?>
-
 		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->

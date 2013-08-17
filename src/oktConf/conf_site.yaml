@@ -53,7 +53,6 @@ timezone: Europe/Paris
 admin_lang_switcher: true
 app_path: /okatea_project/src/
 domain: localhost
-internal_router: true
 default_route:
   class: ''
   method: ''
@@ -71,7 +70,6 @@ themes_repositories:
 debug_enabled: true
 stop_redirect_on_error: true
 xdebug_enabled: false
-antispam_filters: 'a:0:{}'
 use_admin_lang_switcher: null
 update_enabled: true
 update_url: 'http://repository.okatea.org/packages/versions.xml'

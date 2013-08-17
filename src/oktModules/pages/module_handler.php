@@ -65,9 +65,25 @@ class module_pages extends oktModule
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('pagesFeed', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
+			'pagesController', 'pagesFeed'
+		));
+
+		$this->okt->router->addRoute('pagesList', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
+			'pagesController', 'pagesList'
+		));
+
+		$this->okt->router->addRoute('pagesCategory', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
+			'pagesController', 'pagesCategory'
+		));
+
+		$this->okt->router->addRoute('pagesItem', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
+			'pagesController', 'pagesItem'
+		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/pages/';
@@ -242,34 +258,6 @@ class module_pages extends oktModule
 		if ($this->filters === null || !($this->filters instanceof pagesFilters)) {
 			$this->filters = new pagesFilters($this->okt,$part);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('pagesFeed', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
-			'pagesController', 'pagesFeed'
-		));
-
-		$this->okt->router->addRoute('pagesList', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
-			'pagesController', 'pagesList'
-		));
-
-		$this->okt->router->addRoute('pagesCategory', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
-			'pagesController', 'pagesCategory'
-		));
-
-		$this->okt->router->addRoute('pagesItem', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
-			'pagesController', 'pagesItem'
-		));
 	}
 
 

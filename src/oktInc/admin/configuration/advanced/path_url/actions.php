@@ -27,11 +27,8 @@ if (!empty($_POST['form_sent']))
 	$p_domain = !empty($_POST['p_domain']) ? $_POST['p_domain'] : '';
 	$p_domain = util::formatAppPath($p_domain, false, false);
 
-	$p_internal_router = !empty($_POST['p_internal_router']) ? true : false;
-
 	$aPageData['aNewConf'] = array_merge($aPageData['aNewConf'], array(
 		'app_path' => $p_app_path,
-		'domain' => $p_domain,
-		'internal_router' => $p_internal_router
+		'domain' => $p_domain
 	));
 }

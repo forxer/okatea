@@ -41,7 +41,3 @@ $GLOBALS['__l10n']['m_news_config_url_posts_list_from_%s'] = 'URL of posts list 
 $GLOBALS['__l10n']['m_news_config_url_rss_from_%s'] = 'URL of RSS syndication from %s';
 $GLOBALS['__l10n']['m_news_config_url_post_from_%s'] = 'URL of a post from %s';
 
-$GLOBALS['__l10n']['m_news_config_posts_list_file'] = 'Files of posts list';
-$GLOBALS['__l10n']['m_news_config_rss_file'] = 'File of RSS';
-$GLOBALS['__l10n']['m_news_config_post_file'] = 'File of a post';
-

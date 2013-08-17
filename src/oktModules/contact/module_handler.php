@@ -58,9 +58,15 @@ class module_contact extends oktModule
 		$this->config->map_url = $this->okt->page->getBaseUrl().$this->config->public_map_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('contactPage', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
+			'contactController', 'contactPage'
+		));
+
+		$this->okt->router->addRoute('contactMapPage', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
+			'contactController', 'contactMapPage'
+		));
 	}
 
 	protected function prepend_admin()
@@ -112,24 +118,6 @@ class module_contact extends oktModule
 	protected function prepend_public()
 	{
 		$this->okt->page->loadCaptcha($this->config->captcha);
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('contactPage', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'contactController', 'contactPage'
-		));
-
-		$this->okt->router->addRoute('contactMapPage', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
-			'contactController', 'contactMapPage'
-		));
 	}
 
 

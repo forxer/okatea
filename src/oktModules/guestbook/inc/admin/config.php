@@ -198,7 +198,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->guestbook->config->name_seo[$aLanguage['code']]) ? html::escapeHTML($okt->guestbook->config->name_seo[$aLanguage['code']]) : '')) ?></p>
-				
+
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_seo_meta_keywords')?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->guestbook->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->guestbook->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach;?>
@@ -211,32 +211,6 @@ include OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 40, 255, html::escapeHTML(isset($okt->guestbook->config->public_url[$aLanguage['code']]) ? $okt->guestbook->config->public_url[$aLanguage['code']] : '')) ?></p>
 				<?php endforeach;?>
 			</fieldset>
-
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files')?></legend>
-				<div class="lockable">
-					<p class="field"><label for="p_public_file_<?php echo $aLanguage['code'] ?>">Fichier du livre d’or</label>
-					<?php echo form::text('p_public_file', 40, 255, html::escapeHTML($okt->guestbook->config->public_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-			<h4><?php _e('c_c_seo_rewrite_rules')?></h4>
-<pre>
-# start Okatea module guestbook
-<?php foreach ($okt->languages->list as $aLanguage) : ?>
-<?php if (isset($okt->guestbook->config->public_url[$aLanguage['code']])) : ?>
-RewriteRule ^<?php echo $aLanguage['code'].'/'.html::escapeHTML($okt->guestbook->config->public_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->guestbook->config->public_file) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php endforeach; ?>
-# end Okatea module guestbook
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-
-		<?php endif; ?>
 
 		</div><!-- #tab_seo -->
 

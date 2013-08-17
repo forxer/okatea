@@ -49,10 +49,6 @@ if ($pass_test)
 	if (!file_exists(OKT_ROOT_PATH.'/.htaccess') && file_exists(OKT_ROOT_PATH.'/.htaccess.oktDist')) {
 		copy(OKT_ROOT_PATH.'/.htaccess.oktDist', OKT_ROOT_PATH.'/.htaccess');
 	}
-
-	if (!file_exists(OKT_ROOT_PATH.'/oktPrepend.php') && file_exists(OKT_ROOT_PATH.'/oktPrepend.dist.php')) {
-		copy(OKT_ROOT_PATH.'/oktPrepend.dist.php', OKT_ROOT_PATH.'/oktPrepend.php');
-	}
 }
 
 

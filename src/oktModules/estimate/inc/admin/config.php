@@ -151,35 +151,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			</fieldset>
 
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-
-				<div class="lockable">
-					<p class="field"><label for="p_public_estimate_page"><?php _e('m_estimate_config_file') ?></label>
-					<?php echo form::text('p_public_estimate_page', 40, 255, html::escapeHTML($okt->estimate->config->public_estimate_page)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module estimate
-<?php foreach ($okt->languages->list as $aLanguage) : ?>
-<?php if (isset($okt->estimate->config->public_estimate_url[$aLanguage['code']])) : ?>
-RewriteRule ^<?php echo html::escapeHTML($okt->estimate->config->public_estimate_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->estimate->config->public_estimate_page) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php endforeach; ?>
-# end Okatea module estimate
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-		<?php endif; ?>
-
-		</div><!-- #tab_seo -->
-
 	</div><!-- #tabered -->
 
 	<p><?php echo form::hidden('m','estimate'); ?>

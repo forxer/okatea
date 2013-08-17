@@ -230,7 +230,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		$okt->page->configSubMenu->add(__('c_a_menu_router'), 'configuration.php?action=router',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'router'),
 			180,
-			$okt->config->internal_router && $okt->checkPerm('is_superadmin')
+			$okt->checkPerm('is_superadmin')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_advanced'), 'configuration.php?action=advanced',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'advanced'),

@@ -13,7 +13,7 @@ class module_guestbook extends oktModule
 	protected function prepend()
 	{
 		global $oktAutoloadPaths;
-		
+
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
@@ -31,9 +31,10 @@ class module_guestbook extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('guestbookPage', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
+			'guestbookController', 'guestbookPage'
+		));
 
 		# table
 		$this->t_guestbook = $this->db->prefix.'mod_guestbook';
@@ -88,19 +89,6 @@ class module_guestbook extends oktModule
 	protected function prepend_public()
 	{
 		$this->okt->page->loadCaptcha($this->config->captcha);
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('guestbookPage', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'guestbookController', 'guestbookPage'
-		));	
 	}
 
 	/**

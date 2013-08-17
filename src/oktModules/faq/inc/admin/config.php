@@ -228,7 +228,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->faq->config->name_seo[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->name_seo[$aLanguage['code']]) : '')) ?></p>
-				
+
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea('p_meta_keywords['.$aLanguage['code'].']', 57, 5, (isset($okt->faq->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
@@ -245,41 +245,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo form::text(array('p_public_question_url['.$aLanguage['code'].']','p_public_question_url_'.$aLanguage['code']), 40, 255, (isset($okt->faq->config->public_question_url[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->public_question_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>
-
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-
-				<div class="lockable">
-					<p class="field"><label for="p_public_faq_page"><?php _e('m_faq_questions_list_file') ?></label>
-					<?php echo form::text('p_public_faq_page', 40, 255, html::escapeHTML($okt->faq->config->public_faq_page)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-
-					<p class="field"><label for="p_public_question_page"><?php _e('m_faq_question_file') ?></label>
-					<?php echo form::text('p_public_question_page', 40, 255, html::escapeHTML($okt->faq->config->public_question_page)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module faq
-<?php foreach ($okt->languages->list as $aLanguage) : ?>
-<?php if (isset($okt->faq->config->public_faq_url[$aLanguage['code']])):?>
-RewriteRule ^<?php echo $aLanguage['code'] ?>/<?php echo html::escapeHTML($okt->faq->config->public_faq_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->faq->config->public_faq_page) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php if (isset($okt->faq->config->public_question_url[$aLanguage['code']])) : ?>
-RewriteRule ^<?php echo $aLanguage['code'] ?>/<?php echo html::escapeHTML($okt->faq->config->public_question_url[$aLanguage['code']]) ?>/(.+)$ <?php echo html::escapeHTML($okt->faq->config->public_question_page) ?>?slug=$1&amp;language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php endforeach; ?>
-# end Okatea module faq
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-
-		<?php endif; ?>
 
 		</div><!-- #tab_seo -->
 

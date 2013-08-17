@@ -40,7 +40,3 @@ $GLOBALS['__l10n']['m_news_config_tpl_feed'] = 'Modèles des flux';
 $GLOBALS['__l10n']['m_news_config_url_posts_list_from_%s'] = 'URL de la liste des articles depuis %s';
 $GLOBALS['__l10n']['m_news_config_url_rss_from_%s'] = 'URL du flux de syndication depuis %s';
 $GLOBALS['__l10n']['m_news_config_url_post_from_%s'] = 'URL d’un article depuis %s';
-
-$GLOBALS['__l10n']['m_news_config_posts_list_file'] = 'Fichier liste des articles';
-$GLOBALS['__l10n']['m_news_config_rss_file'] = 'Fichier du flux de syndication';
-$GLOBALS['__l10n']['m_news_config_post_file'] = 'Fichiers d’une article';

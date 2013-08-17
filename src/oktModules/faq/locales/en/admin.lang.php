@@ -95,9 +95,6 @@ $GLOBALS['__l10n']['m_faq_error_list_url_match_question_url_%s'] = 'The URL of t
 $GLOBALS['__l10n']['m_faq_url_questions_list_%s_%s'] = 'URL of questions list from %s in %s';
 $GLOBALS['__l10n']['m_faq_url_list_%s_%s'] = 'URL of question from %s in %s';
 
-$GLOBALS['__l10n']['m_faq_questions_list_file'] = 'Files of pages list';
-$GLOBALS['__l10n']['m_faq_question_file'] = 'File of a question';
-
 $GLOBALS['__l10n']['m_faq_Search'] = 'Search';
 
 $GLOBALS['__l10n']['m_faq_no_question_section'] = 'no question';

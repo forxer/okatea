@@ -45,9 +45,15 @@ class module_diary extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('diaryList', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
+			'diaryController', 'diaryList'
+		));
+
+		$this->okt->router->addRoute('diaryEvent', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
+			'diaryController', 'diaryEvent'
+		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/diary/';
@@ -122,24 +128,6 @@ class module_diary extends oktModule
 		if ($this->filters === null || !($this->filters instanceof diaryFilters)) {
 			$this->filters = new diaryFilters($this->config,$part);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('diaryList', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
-			'diaryController', 'diaryList'
-		));
-
-		$this->okt->router->addRoute('diaryEvent', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
-			'diaryController', 'diaryEvent'
-		));
 	}
 
 

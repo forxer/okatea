@@ -50,9 +50,35 @@ class module_users extends oktModule
 		$this->config = $this->okt->newConfig('conf_users');
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('usersLogin', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_login_url)).')$',
+			'usersController', 'usersLogin'
+		));
+
+		$this->okt->router->addRoute('usersLogout', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_logout_url)).')$',
+			'usersController', 'usersLogout'
+		));
+
+		$this->okt->router->addRoute('usersProfile', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_profile_url)).')$',
+			'usersController', 'usersProfile'
+		));
+
+		$this->okt->router->addRoute('usersRegister', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_register_url)).')$',
+			'usersController', 'usersRegister'
+		));
+
+		$this->okt->router->addRoute('usersLoginRegister', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_log_reg_url)).')$',
+			'usersController', 'usersLoginRegister'
+		));
+
+		$this->okt->router->addRoute('usersForgetPassword', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_forget_password_url)).')$',
+			'usersController', 'usersForgetPassword'
+		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/users/';
@@ -175,44 +201,6 @@ class module_users extends oktModule
 				'intitle' => __('m_users_ab_user')
 			);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('usersLogin', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_login_url)).')$',
-			'usersController', 'usersLogin'
-		));
-
-		$this->okt->router->addRoute('usersLogout', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_logout_url)).')$',
-			'usersController', 'usersLogout'
-		));
-
-		$this->okt->router->addRoute('usersProfile', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_profile_url)).')$',
-			'usersController', 'usersProfile'
-		));
-
-		$this->okt->router->addRoute('usersRegister', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_register_url)).')$',
-			'usersController', 'usersRegister'
-		));
-
-		$this->okt->router->addRoute('usersLoginRegister', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_log_reg_url)).')$',
-			'usersController', 'usersLoginRegister'
-		));
-
-		$this->okt->router->addRoute('usersForgetPassword', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_forget_password_url)).')$',
-			'usersController', 'usersForgetPassword'
-		));
 	}
 
 

@@ -29,4 +29,3 @@ $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Modèles d’affichage 
 $GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Modèles du formulaire de devis';
 
 $GLOBALS['__l10n']['m_estimate_url_from_%s_in_%s'] = 'URL de la page du devis depuis %s en %s';
-$GLOBALS['__l10n']['m_estimate_config_file'] = 'Fichier de la page du devis';

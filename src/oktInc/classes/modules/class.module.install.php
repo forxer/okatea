@@ -788,19 +788,6 @@ class oktModuleInstall extends oktModule
 		}
 	}
 
-	protected function copyPublicFiles()
-	{
-		if (is_dir($this->root().'/_install/public/'))
-		{
-			$this->checklist->addItem(
-				'public_dir',
-				$this->forceReplacePublic(),
-				'Create public files',
-				'Cannot create public files'
-			);
-		}
-	}
-
 	protected function copyAssetsFiles()
 	{
 		if (is_dir($this->root().'/_install/assets/'))
@@ -925,11 +912,6 @@ class oktModuleInstall extends oktModule
 
 		# copie des éventuels fichiers templates
 		$this->copyTplFiles();
-
-		# copie des éventuels fichiers public
-		if (!$this->okt->config->internal_router) {
-			$this->copyPublicFiles();
-		}
 
 		# création d'un répertoire common
 		$this->copyAssetsFiles();

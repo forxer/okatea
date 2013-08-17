@@ -368,69 +368,6 @@ $aEditTabs[40]['content'] =
 		endforeach;
 		$aEditTabs[40]['content'] .= '</fieldset>';
 
-		if (!$okt->config->internal_router) :
-		$aEditTabs[40]['content'] .= '<fieldset>
-				<legend>'.__('c_c_seo_public_files').'</legend>
-
-				<div class="lockable">
-						<p class="field"><label for="p_public_login_page">'.__('m_users_File_of_identification').'</label>'.
-						form::text('p_public_login_page', 40, 255, html::escapeHTML($okt->users->config->public_login_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-
-						<p class="field"><label for="p_public_logout_page">'.__('m_users_File_of_disconnection').'</label>'.
-						form::text('p_public_logout_page', 40, 255, html::escapeHTML($okt->users->config->public_logout_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-
-						<p class="field"><label for="p_public_register_page">'.__('m_users_File_of_registration').'</label>'.
-						form::text('p_public_register_page', 40, 255, html::escapeHTML($okt->users->config->public_register_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-
-						<p class="field"><label for="p_public_log_reg_page">'.__('m_users_File_of_log_reg').'</label>'.
-						form::text('p_public_log_reg_page', 40, 255, html::escapeHTML($okt->users->config->public_log_reg_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-
-						<p class="field"><label for="p_public_forget_password_page">'.__('m_users_File_forgotten_password').'</label>'.
-						form::text('p_public_forget_password_page', 40, 255, html::escapeHTML($okt->users->config->public_forget_password_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-
-						<p class="field"><label for="p_public_profile_page">'.__('m_users_File_user_profile').'</label>'.
-						form::text('p_public_profile_page', 40, 255, html::escapeHTML($okt->users->config->public_profile_page)).
-						'<span class="lockable-note">'.__('c_c_confirm_need_editing_this').'</span></p>
-				</div>
-		</fieldset>
-
-		<h4>'.__('c_c_seo_rewrite_rules').'</h4>
-<pre>
-# start Okatea module users ';
-
-	foreach ($okt->languages->list as $aLanguage) :
-		if (isset($okt->users->config->public_login_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_login_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_login_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-		if (isset($okt->users->config->public_logout_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_logout_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_logout_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-		if (isset($okt->users->config->public_register_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_register_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_register_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-		if (isset($okt->users->config->public_log_reg_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_log_reg_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_log_reg_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-		if (isset($okt->users->config->public_forget_password_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_forget_password_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_forget_password_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-		if (isset($okt->users->config->public_profile_url[$aLanguage['code']])) :
-				$aEditTabs[40]['content'] .= 'RewriteRule ^'.$aLanguage['code'].'/'.html::escapeHTML($okt->users->config->public_profile_url[$aLanguage['code']]).'$ '.html::escapeHTML($okt->users->config->public_profile_page).'?language='.$aLanguage['code'].' [QSA,L]';
-		endif;
-	endforeach;
-$aEditTabs[30]['content'] .= '# end Okatea module users
-</pre>';
-
-		if ($okt->checkPerm('tools')) :
-				$aEditTabs[40]['content'] .= '<p>'.sprintf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess').'</p>';
-		endif;
-
-endif;
 
 # -- CORE TRIGGER : adminModUsersEditDisplayTabs
 $okt->triggers->callTrigger('adminModUsersConfigTabs', $okt, $aEditTabs);
@@ -443,16 +380,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <form action="module.php" method="post">
 	<div id="tabered">
 		<ul>
-						<?php foreach ($aEditTabs as $aTabInfos) : ?>
-						<li><a href="#<?php echo $aTabInfos['id'] ?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
-						<?php endforeach; ?>
-				</ul>
+		<?php foreach ($aEditTabs as $aTabInfos) : ?>
+			<li><a href="#<?php echo $aTabInfos['id'] ?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
+		<?php endforeach; ?>
+		</ul>
 
-				<?php foreach ($aEditTabs as $sTabUrl=>$aTabInfos) : ?>
-				<div id="<?php echo $aTabInfos['id'] ?>">
-						<?php echo $aTabInfos['content'] ?>
-				</div><!-- #<?php echo $aTabInfos['id'] ?> -->
-				<?php endforeach; ?>
+		<?php foreach ($aEditTabs as $sTabUrl=>$aTabInfos) : ?>
+		<div id="<?php echo $aTabInfos['id'] ?>">
+			<?php echo $aTabInfos['content'] ?>
+		</div><!-- #<?php echo $aTabInfos['id'] ?> -->
+		<?php endforeach; ?>
 
 	</div><!-- #tabered -->
 

@@ -326,40 +326,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php endforeach; ?>
 			</fieldset>
 
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-				<div class="lockable">
-					<p class="field"><label for="p_public_file"><?php _e('m_contact_public_file') ?></label>
-					<?php echo form::text('p_public_file', 40, 255, html::escapeHTML($okt->contact->config->public_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-
-					<p class="field"><label for="p_public_map_file"><?php _e('m_contact_public_map_file') ?></label>
-					<?php echo form::text('p_public_map_file', 40, 255, html::escapeHTML($okt->contact->config->public_map_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module contact
-<?php foreach ($okt->languages->list as $aLanguage) : ?>
-<?php if (isset($okt->contact->config->public_url[$aLanguage['code']])) : ?>
-RewriteRule ^<?php echo $aLanguage['code'].'/'.html::escapeHTML($okt->contact->config->public_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->contact->config->public_file) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php if (isset($okt->contact->config->public_map_url[$aLanguage['code']])): ?>
-RewriteRule ^<?php echo $aLanguage['code'].'/'.html::escapeHTML($okt->contact->config->public_map_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->contact->config->public_map_file) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?>
-<?php endforeach; ?>
-# end Okatea module contact
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-
-		<?php endif; ?>
-
 		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->

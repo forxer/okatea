@@ -63,9 +63,20 @@ class module_galleries extends oktModule
 		$this->config->feed_url = $this->okt->config->app_path.$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('galleriesList', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
+			'galleriesController', 'galleriesList'
+		));
+
+		$this->okt->router->addRoute('galleriesGallery', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_gallery_url)).')/(.*)$',
+			'galleriesController', 'galleriesGallery'
+		));
+
+		$this->okt->router->addRoute('galleriesItem', new oktRoute(
+			'^(?:'.html::escapeHTML(implode('|',$this->config->public_item_url)).')/(.*)$',
+			'galleriesController', 'galleriesItem'
+		));
 
 		# galleries tree
 		$this->tree = new galleriesTree(
@@ -194,29 +205,6 @@ class module_galleries extends oktModule
 					$this->okt->checkPerm('galleries_config')
 				);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('galleriesList', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
-			'galleriesController', 'galleriesList'
-		));
-
-		$this->okt->router->addRoute('galleriesGallery', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_gallery_url)).')/(.*)$',
-			'galleriesController', 'galleriesGallery'
-		));
-
-		$this->okt->router->addRoute('galleriesItem', new oktRoute(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_item_url)).')/(.*)$',
-			'galleriesController', 'galleriesItem'
-		));
 	}
 
 

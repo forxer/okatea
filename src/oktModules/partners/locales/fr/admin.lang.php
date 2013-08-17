@@ -67,7 +67,6 @@ $GLOBALS['__l10n']['m_partners_category_order_edited'] = 'L’ordre des catégor
 
 # Référencement
 $GLOBALS['__l10n']['m_partners_%s_%s'] = 'URL de la page partenaires depuis %s en %s';
-$GLOBALS['__l10n']['m_partners_file'] = 'Fichier partenaires';
 
 # Affichage
 $GLOBALS['__l10n']['m_partners_display_images'] = 'Affichage des images';

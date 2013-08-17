@@ -13,8 +13,6 @@ $GLOBALS['__l10n']['c_a_config_advanced_tab_others'] = 'Other options';
 
 $GLOBALS['__l10n']['c_a_config_advanced_domain'] = 'Domain name';
 $GLOBALS['__l10n']['c_a_config_advanced_app_path'] = 'Application path from <code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_internal_router_enable'] = 'Enable internal router';
-$GLOBALS['__l10n']['c_a_config_advanced_internal_router_info'] = 'The internal router can handle URLs with a single rewrite rule and a single file to the root of the application.';
 
 $GLOBALS['__l10n']['c_a_config_advanced_repo_name'] = 'Repository name';
 $GLOBALS['__l10n']['c_a_config_advanced_repo_url'] = 'Repository URL';

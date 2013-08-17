@@ -20,22 +20,11 @@ ini_set('display_errors', 'On');
 define('OKT_FORCE_DEBUG',true);
 //*/
 
-
-# Inclusion de l'éventuel prepend customisé
-if (file_exists(__DIR__.'/oktPrepend.php')) {
-	require_once __DIR__.'/oktPrepend.php';
-}
-
 # Initialisation de la mécanique Okatea
 require_once __DIR__.'/oktInc/public/prepend.php';
 
-# Routeur activé ?
-if (!$okt->config->internal_router) {
-	$okt->page->serve404();
-}
-
 # Si on est en mode maintenance, il faut être superadmin
-elseif ($okt->config->public_maintenance_mode && !$okt->user->is_superadmin) {
+if ($okt->config->public_maintenance_mode && !$okt->user->is_superadmin) {
 	$okt->page->serve503();
 }
 
@@ -73,3 +62,6 @@ $okt->triggers->callTrigger('publicBeforeSendContent', $okt);
 
 # the end
 echo $okt->page->content;
+
+# -- CORE TRIGGER : publicAfterContentSent
+$okt->triggers->callTrigger('publicAfterContentSent', $okt);

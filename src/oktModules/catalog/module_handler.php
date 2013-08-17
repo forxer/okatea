@@ -48,9 +48,20 @@ class module_catalog extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_catalog_url;
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('catalogList', new oktRoute(
+			html::escapeHTML($this->config->public_catalog_url),
+			'catalogController', 'catalogList'
+		));
+
+		$this->okt->router->addRoute('catalogCategory', new oktRoute(
+			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
+			'catalogController', 'catalogCategory'
+		));
+
+		$this->okt->router->addRoute('catalogItem', new oktRoute(
+			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
+			'catalogController', 'catalogItem'
+		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/catalog/';
@@ -145,29 +156,6 @@ class module_catalog extends oktModule
 		if ($this->filters === null || !($this->filters instanceof catalogFilters)) {
 			$this->filters = new catalogFilters($this,$part);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('catalogList', new oktRoute(
-			html::escapeHTML($this->config->public_catalog_url),
-			'catalogController', 'catalogList'
-		));
-
-		$this->okt->router->addRoute('catalogCategory', new oktRoute(
-			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
-			'catalogController', 'catalogCategory'
-		));
-
-		$this->okt->router->addRoute('catalogItem', new oktRoute(
-			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
-			'catalogController', 'catalogItem'
-		));
 	}
 
 

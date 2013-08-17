@@ -33,8 +33,3 @@ $GLOBALS['__l10n']['m_galleries_config_url_galleries_list_%s'] = 'URL de la list
 $GLOBALS['__l10n']['m_galleries_config_url_rss_%s'] = 'URL du flux de syndication depuis %s';
 $GLOBALS['__l10n']['m_galleries_config_url_gallery_%s'] = 'URL d’une galerie depuis %s';
 $GLOBALS['__l10n']['m_galleries_config_url_item_%s'] = 'URL d’un élément depuis %s';
-
-$GLOBALS['__l10n']['m_galleries_config_galleries_list_file'] = 'Fichier liste des galeries';
-$GLOBALS['__l10n']['m_galleries_config_rss_file'] = 'Fichier du flux de syndication';
-$GLOBALS['__l10n']['m_galleries_config_gallery_file'] = 'Fichiers d’une galerie';
-$GLOBALS['__l10n']['m_galleries_config_item_file'] = 'Fichiers d’un élément';

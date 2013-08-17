@@ -29,6 +29,5 @@ $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Estimate form templates';
 
 $GLOBALS['__l10n']['m_estimate_url_from_%s_in_%s'] = 'URL of estimate form from %s';
-$GLOBALS['__l10n']['m_estimate_config_file'] = 'File of estimate form';
 
 

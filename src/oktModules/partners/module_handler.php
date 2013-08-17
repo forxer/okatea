@@ -52,9 +52,10 @@ class module_partners extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('partnersPage', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
+			'partnersController', 'partnersPage'
+		));
 
 		#répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/modules/partners/';
@@ -131,19 +132,6 @@ class module_partners extends oktModule
 					$this->okt->checkPerm('partners_config')
 				);
 		}
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('partnersPage', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'partnersController', 'partnersPage'
-		));
 	}
 
 

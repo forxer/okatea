@@ -52,8 +52,6 @@ $GLOBALS['__l10n']['m_contact_seo_contact'] = 'Page contact';
 $GLOBALS['__l10n']['m_contact_seo_map'] = 'Page plan d’accès';
 $GLOBALS['__l10n']['m_contact_url_from_%s_in_%s'] = 'URL de la page contact depuis %s en %s';
 $GLOBALS['__l10n']['m_contact_map_url_from_%s_in_%s'] = 'URL de la page du plan d’accès depuis %s en %s';
-$GLOBALS['__l10n']['m_contact_public_file'] = 'Fichier de la page contact';
-$GLOBALS['__l10n']['m_contact_public_map_file'] = 'Fichier de la page du plan d’accès';
 
 # recipients
 $GLOBALS['__l10n']['m_contact_recipients'] = 'Destinataires';

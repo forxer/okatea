@@ -47,7 +47,6 @@ $GLOBALS['__l10n']['m_partners_rich_text_editor'] = 'Rich text editor';
 
 
 $GLOBALS['__l10n']['m_partners_%s_%s'] = 'URL of partner page for %s in %s';
-$GLOBALS['__l10n']['m_partners_file'] = 'Partners file';
 
 
 $GLOBALS['__l10n']['m_partners_must_name'] = 'Missing name.';

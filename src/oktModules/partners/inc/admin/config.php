@@ -232,32 +232,6 @@ include OKT_ADMIN_HEADER_FILE; ?>
 
 			</fieldset>
 
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-
-				<div class="lockable">
-					<p class="field"><label for="p_public_file"><?php _e('m_partners_file') ?></label>
-					<?php echo form::text('p_public_file', 40, 255, html::escapeHTML($okt->partners->config->public_file)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module partners
-<?php while ($rsLocales->fetch()) : ?><?php if (isset($okt->partners->config->public_url[$aLanguage['code']])) : ?>
-RewriteRule ^<?php echo $aLanguage['code'].'/'.html::escapeHTML($okt->partners->config->public_url[$aLanguage['code']]) ?>$ <?php echo html::escapeHTML($okt->partners->config->public_file) ?>?language=<?php echo $aLanguage['code'] ?> [QSA,L]
-<?php endif; ?><?php endwhile; ?>
-# end Okatea module partners
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-
-		<?php endif; ?>
-
 		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->

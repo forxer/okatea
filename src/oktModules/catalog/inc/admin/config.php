@@ -297,35 +297,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo form::text('p_public_product_url', 40, 255, html::escapeHTML($okt->catalog->config->public_product_url)) ?></p>
 			</fieldset>
 
-		<?php if (!$okt->config->internal_router) : ?>
-			<fieldset>
-				<legend><?php _e('c_c_seo_public_files') ?></legend>
-
-				<div class="lockable">
-					<p class="field"><label for="p_public_catalog_page">Fichier liste des produits</label>
-					<?php echo form::text('p_public_catalog_page', 40, 255, html::escapeHTML($okt->catalog->config->public_catalog_page)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-
-					<p class="field"><label for="p_public_product_page">Fichier d’un produit</label>
-					<?php echo form::text('p_public_product_page', 40, 255, html::escapeHTML($okt->catalog->config->public_product_page)) ?>
-					<span class="lockable-note"><?php _e('c_c_confirm_need_editing_this') ?></span></p>
-				</div>
-			</fieldset>
-
-			<h4><?php _e('c_c_seo_rewrite_rules') ?></h4>
-<pre>
-# start Okatea module catalog
-RewriteRule ^<?php echo html::escapeHTML($okt->catalog->config->public_catalog_url) ?>/(.+)$ <?php echo html::escapeHTML($okt->catalog->config->public_catalog_page) ?>?slug=$1 [QSA,L]
-RewriteRule ^<?php echo html::escapeHTML($okt->catalog->config->public_product_url) ?>/(.+)$ <?php echo html::escapeHTML($okt->catalog->config->public_product_page) ?>?slug=$1 [QSA,L]
-RewriteRule ^<?php echo html::escapeHTML($okt->catalog->config->public_catalog_url) ?>$ <?php echo html::escapeHTML($okt->catalog->config->public_catalog_page) ?> [QSA,L]
-# end Okatea module catalog
-</pre>
-
-			<?php if ($okt->checkPerm('tools')) : ?>
-			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
-			<?php endif; ?>
-		<?php endif; ?>
-
 		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->

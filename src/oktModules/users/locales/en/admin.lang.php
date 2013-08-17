@@ -138,12 +138,6 @@ $GLOBALS['__l10n']['m_users_URL_of_registration_page_from_%s'] = 'URL of the reg
 $GLOBALS['__l10n']['m_users_URL_of_log_reg_page_from_%s'] = 'URL of the login/registration unified page from %s';
 $GLOBALS['__l10n']['m_users_URL_of_forgotten_password_page_from_%s'] = 'URL of the forgotten password page from %s';
 $GLOBALS['__l10n']['m_users_URL_of_user_profile_page_from_%s'] = 'URL of the user profile page from %s';
-$GLOBALS['__l10n']['m_users_File_of_identification'] = 'File of identification';
-$GLOBALS['__l10n']['m_users_File_of_disconnection'] = 'File of disconnection';
-$GLOBALS['__l10n']['m_users_File_of_registration'] = 'File of registration';
-$GLOBALS['__l10n']['m_users_File_of_log_reg'] = 'File of identification/registration unified';
-$GLOBALS['__l10n']['m_users_File_forgotten_password'] = 'File forgotten password';
-$GLOBALS['__l10n']['m_users_File_user_profile'] = 'File user profile';
 
 # Filtres
 $GLOBALS['__l10n']['m_users_filters_status'] = 'Status';

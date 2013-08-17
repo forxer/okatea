@@ -41,7 +41,3 @@ $GLOBALS['__l10n']['m_pages_config_url_pages_list_from_%s'] = 'URL of pages list
 $GLOBALS['__l10n']['m_pages_config_url_rss_from_%s'] = 'URL of RSS syndication from %s';
 $GLOBALS['__l10n']['m_pages_config_url_page_from_%s'] = 'URL of a page from %s';
 
-$GLOBALS['__l10n']['m_pages_config_page_list_file'] = 'Files of pages list';
-$GLOBALS['__l10n']['m_pages_config_rss_file'] = 'File of RSS';
-$GLOBALS['__l10n']['m_pages_config_page_file'] = 'File of a page';
-

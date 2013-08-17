@@ -13,8 +13,6 @@ $GLOBALS['__l10n']['c_a_config_advanced_tab_others'] = 'Autres options';
 
 $GLOBALS['__l10n']['c_a_config_advanced_domain'] = 'Nom de domaine';
 $GLOBALS['__l10n']['c_a_config_advanced_app_path'] = 'Chemins de l’application depuis <code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_internal_router_enable'] = 'Activer le routeur interne';
-$GLOBALS['__l10n']['c_a_config_advanced_internal_router_info'] = 'Le routeur interne permet de gérer les URL grâce à une seule règle de ré-écriture et un seul fichier à la racine de l’application.';
 
 $GLOBALS['__l10n']['c_a_config_advanced_repo_name'] = 'Nom du dépot';
 $GLOBALS['__l10n']['c_a_config_advanced_repo_url'] = 'URL du dépot';

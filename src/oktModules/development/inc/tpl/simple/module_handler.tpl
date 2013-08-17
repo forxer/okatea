@@ -22,9 +22,10 @@ class module_##module_id## extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		if ($this->okt->config->internal_router) {
-			$this->addRoutes();
-		}
+		$this->okt->router->addRoute('##module_camel_case_id##Page', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
+			'##module_camel_case_id##Controller', '##module_camel_case_id##Page'
+		));
 	}
 
 	protected function prepend_admin()
@@ -51,19 +52,6 @@ class module_##module_id## extends oktModule
 
 	protected function prepend_public()
 	{
-	}
-
-	/**
-	 * Définition des routes.
-	 *
-	 * @return void
-	 */
-	protected function addRoutes()
-	{
-		$this->okt->router->addRoute('##module_camel_case_id##Page', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'##module_camel_case_id##Controller', '##module_camel_case_id##Page'
-		));
 	}
 
 

@@ -105,9 +105,6 @@ $GLOBALS['__l10n']['m_faq_error_list_url_match_question_url_%s'] = 'L’URL de l
 $GLOBALS['__l10n']['m_faq_url_questions_list_%s_%s'] = 'URL de la liste de questions depuis %s en %s';
 $GLOBALS['__l10n']['m_faq_url_list_%s_%s'] = 'URL d’une question depuis %s en %s';
 
-$GLOBALS['__l10n']['m_faq_questions_list_file'] = 'Fichier liste des questions';
-$GLOBALS['__l10n']['m_faq_question_file'] = 'Fichiers d’une question';
-
 $GLOBALS['__l10n']['m_faq_Search'] = 'Recherche';
 
 $GLOBALS['__l10n']['m_faq_no_question_section'] = 'aucune question';
