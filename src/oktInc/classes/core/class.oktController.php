@@ -13,7 +13,6 @@
  * @brief Controller de base
  *
  */
-
 class oktController
 {
 	protected $okt;

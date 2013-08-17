@@ -13,7 +13,6 @@
  * @brief Permet de gérer les piles pour les CSS et de retourner le HTML résultant.
  *
  */
-
 class htmlCss
 {
 	/**

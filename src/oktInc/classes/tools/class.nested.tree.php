@@ -13,8 +13,6 @@
  * @brief Une classe pour gérer des arbres imbriqués
  *
  */
-
-
 class nestedTree
 {
 	protected $okt;

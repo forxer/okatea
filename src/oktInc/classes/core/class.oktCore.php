@@ -19,7 +19,6 @@
  *
  *
  */
-
 class oktCore
 {
 	public $cache = null; /**< Le gestionnaire de cache, instance de \ref SingleFileCache */

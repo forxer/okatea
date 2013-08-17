@@ -26,7 +26,6 @@
  *
  * 	echo $oCal->getHtml();
  */
-
 class oktMonthlyCalendar
 {
 	protected $aConfig = array(

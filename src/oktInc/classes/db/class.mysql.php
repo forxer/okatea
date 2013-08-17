@@ -14,7 +14,6 @@
  * @deprecated 1.0
  *
  */
-
 class mysql
 {
 	/**

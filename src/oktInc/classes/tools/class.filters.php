@@ -13,8 +13,6 @@
  * @brief Classe de base pour gérer des filtres de listes
  *
  */
-
-
 class filters
 {
 	protected $id;

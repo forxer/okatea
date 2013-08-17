@@ -13,7 +13,6 @@
  * @brief Le système de templating étendu de sfTemplateEngine
  *
  */
-
 class oktTemplating extends sfTemplateEngine
 {
 	protected $assignedVars = array(); /**< La pile qui contient les variables assignées pour le moteur de templates. */

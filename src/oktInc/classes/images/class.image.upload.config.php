@@ -13,7 +13,6 @@
  * @brief Aide à la configuration de l'upload des images.
  *
  */
-
 class oktImageUploadConfig
 {
 	/**

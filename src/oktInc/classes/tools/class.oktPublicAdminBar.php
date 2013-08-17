@@ -13,7 +13,6 @@
  * @brief La classe pour afficher la barre admin côté publique
  *
  */
-
 class oktPublicAdminBar
 {
 	/**

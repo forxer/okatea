@@ -13,7 +13,6 @@
  * @brief Gestion des fichiers de configuration.
  *
  */
-
 class oktConfig
 {
 	/**

@@ -13,7 +13,6 @@
  * @brief Classe de connexion MySQLi
  *
  */
-
 class oktMysqli
 {
 	/**

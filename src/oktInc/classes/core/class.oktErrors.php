@@ -13,7 +13,6 @@
  * @brief Permet de gérer des listes d'erreurs.
  *
  */
-
 class oktErrors
 {
 	/**

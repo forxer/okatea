@@ -13,7 +13,6 @@
  * @brief Le gestionnaire de déboguage.
  *
  */
-
 class oktDebug
 {
 	protected $stack;

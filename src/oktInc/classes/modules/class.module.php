@@ -13,7 +13,6 @@
  * @brief Définit un module.
  *
  */
-
 class oktModule
 {
 	/**

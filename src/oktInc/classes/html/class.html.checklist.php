@@ -13,7 +13,6 @@
  * @brief Permet de construire et d'afficher facilement une liste de vérifications.
  *
  */
-
 class checkList
 {
 	/**

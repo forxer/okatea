@@ -13,7 +13,6 @@
  * @brief Le routeur interne.
  *
  */
-
 class oktRouter
 {
 	/**

@@ -17,7 +17,6 @@
  * @brief Un gestionnaire de fichiers en ligne.
  *
  */
-
 class webFileManager extends filemanager_old
 {
 	public $p_url;

@@ -13,7 +13,6 @@
  * @brief Classe de base pour les thèmes
  *
  */
-
 class oktThemeBase
 {
 	public $url;

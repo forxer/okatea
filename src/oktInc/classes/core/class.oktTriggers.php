@@ -13,8 +13,6 @@
  * @brief Le système de gestion des déclencheurs.
  *
  */
-
-
 class oktTriggers
 {
 	protected $aStack = array(); /**< La pile qui contient les déclencheurs. */

@@ -13,7 +13,6 @@
  * @brief Le gestionnnaire de langues.
  *
  */
-
 class oktLanguages
 {
 	/**

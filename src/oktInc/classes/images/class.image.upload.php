@@ -13,7 +13,6 @@
  * @brief Outil pour l'upload des images.
  *
  */
-
 class oktImageUpload
 {
 	/**

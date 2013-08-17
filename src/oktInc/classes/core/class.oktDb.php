@@ -13,7 +13,6 @@
  * @brief Le gestionnaire de base de données.
  *
  */
-
 class oktDb extends oktMysqli
 {
 	/**

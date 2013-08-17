@@ -17,9 +17,8 @@
  * La réprésentation peut-être une simple chaine de caractère
  * ou une expression régulière.
  *
- * Le gestionnaire doit être
+ * Le gestionnaire doit être un "callable".
  */
-
 class oktRoute
 {
 	/**

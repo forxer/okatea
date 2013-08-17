@@ -15,7 +15,6 @@
  *
  * Note: Q&D
  */
-
 class htmlStack
 {
 	protected $stack = array();

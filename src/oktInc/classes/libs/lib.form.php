@@ -17,7 +17,6 @@
  * @brief Création d'éléments de formulaire HTML.
  *
  */
-
 class form
 {
 	/**

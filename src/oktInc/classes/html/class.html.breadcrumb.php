@@ -13,7 +13,6 @@
  * @brief Fil d'ariane
  *
  */
-
 class breadcrumb
 {
 	/**

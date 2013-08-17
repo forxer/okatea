@@ -13,8 +13,6 @@
  * @brief Génération d'éléments HTML
  *
  */
-
-
 class pageHtml
 {
 	/**

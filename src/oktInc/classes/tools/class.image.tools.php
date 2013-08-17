@@ -17,7 +17,6 @@
  * @brief Outil pour le redimensionnement des images.
  *
  */
-
 class imageTools
 {
 	/** @var resource	Image resource */

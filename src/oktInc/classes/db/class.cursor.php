@@ -17,7 +17,6 @@
  * @brief Cette classe permet de faciliter l'ajout et l'insertion dans la base de données.
  *
  */
-
 class cursor
 {
 	private $db;

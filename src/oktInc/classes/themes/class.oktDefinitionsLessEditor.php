@@ -13,7 +13,6 @@
  * @brief Classe de l'éditeur de fichier de définitions LESS
  *
  */
-
 class oktDefinitionsLessEditor
 {
 	protected $sPostPrefix;

@@ -13,7 +13,6 @@
  * @brief Le gestionnnaire de log administration
  *
  */
-
 class oktLogAdmin
 {
 	/**

@@ -15,8 +15,6 @@
  * templateReplacement::parseFile('chemin/fichier.tpl', array('foo'=>'bar','baz'=>'boor'));
  * templateReplacement::parse('une chaine de caractères', array('foo'=>'bar','baz'=>'boor'));
  */
-
-
 class templateReplacement
 {
 	static public $key_start_string = '%';

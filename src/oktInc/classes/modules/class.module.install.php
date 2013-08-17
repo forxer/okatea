@@ -13,7 +13,6 @@
  * @brief Installation d'un module
  *
  */
-
 class oktModuleInstall extends oktModule
 {
 	/**

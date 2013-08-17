@@ -13,7 +13,6 @@
  * @brief Classe de l'éditeur de thème
  *
  */
-
 class oktThemeEditor
 {
 	/**

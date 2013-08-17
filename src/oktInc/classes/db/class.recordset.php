@@ -23,7 +23,6 @@
  * de requêtes.
  *
  */
-
 class recordset
 {
 	/**

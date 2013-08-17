@@ -13,7 +13,6 @@
  * @brief Permet de gérer les piles pour le Javascript et de retourner le HTML résultant.
  *
  */
-
 class htmlJs
 {
 	/**

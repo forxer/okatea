@@ -13,7 +13,6 @@
  * @brief Une classe internationalisées pour gérer des arbres imbriqués
  *
  */
-
 class nestedTreei18n
 {
 	protected $okt;

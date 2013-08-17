@@ -17,7 +17,6 @@
  * dans des listes non-ordonnées selon différents paramètres.
  *
  */
-
 class htmlBlockList
 {
 	/**

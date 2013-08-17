@@ -13,7 +13,6 @@
  * @brief Utilitaires
  *
  */
-
 class util
 {
 	/*

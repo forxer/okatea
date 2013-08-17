@@ -18,7 +18,6 @@
  *
  * @TODO: for convenience we must used clearbricks filemanager
  */
-
 class filemanager_old
 {
 	var $root;

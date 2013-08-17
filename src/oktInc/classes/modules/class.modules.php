@@ -13,7 +13,6 @@
  * @brief Gestion des modules.
  *
  */
-
 class oktModules
 {
 	/**

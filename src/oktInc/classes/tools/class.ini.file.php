@@ -31,7 +31,6 @@
  * $objIni->saveFile();
  *
  */
-
 class iniFile
 {
 	/**

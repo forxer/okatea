@@ -13,7 +13,6 @@
  * @brief Le gestionnaire d'authentification de l'utilisateur en cours.
  *
  */
-
 class oktAuth
 {
 	/**

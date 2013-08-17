@@ -17,7 +17,6 @@
  * @brief Mise à jour automatisée d'Okatea
  *
  */
-
 class oktUpdate
 {
 	const ERR_FILES_CHANGED = 101;

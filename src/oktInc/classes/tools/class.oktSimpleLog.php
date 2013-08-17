@@ -13,8 +13,6 @@
  * @brief Gestion et manipulation simple de logs
  *
  */
-
-
 class oktSimpleLogs
 {
 	/**

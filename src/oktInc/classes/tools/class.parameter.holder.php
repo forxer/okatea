@@ -13,7 +13,6 @@
  * @brief Gestion et manipulation de paramètres
  *
  */
-
 class parameterHolder
 {
 	/**

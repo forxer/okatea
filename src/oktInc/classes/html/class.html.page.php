@@ -19,7 +19,6 @@
  * widgets.
  *
  */
-
 class htmlPage
 {
 	/**

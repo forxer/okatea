@@ -13,7 +13,6 @@
  * @brief Classe de gestion de templates
  *
  */
-
 class oktTemplatesSet
 {
 	/**

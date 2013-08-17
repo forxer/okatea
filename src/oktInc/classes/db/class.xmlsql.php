@@ -17,7 +17,6 @@
  * @brief Manipulation de requêtes SQL via un fichier XML
  *
  */
-
 class xmlsql
 {
 	private $job;

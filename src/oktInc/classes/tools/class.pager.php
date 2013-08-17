@@ -13,7 +13,6 @@
  * @brief Classe d'affichage de données sur plusieurs pages
  *
  */
-
 class pager
 {
 	private $env;

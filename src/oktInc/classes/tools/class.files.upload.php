@@ -13,7 +13,6 @@
  * @brief Outil pour l'upload de fichier.
  *
  */
-
 class fileUpload
 {
 	/**
