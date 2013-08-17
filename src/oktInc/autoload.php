@@ -76,8 +76,7 @@ $oktAutoloadPaths['oktImageUpload']			= OKT_CLASSES_PATH.'/images/class.image.up
 $oktAutoloadPaths['webFileManager']			= OKT_CLASSES_PATH.'/libs/lib.filemanager.php';
 $oktAutoloadPaths['form']					= OKT_CLASSES_PATH.'/libs/lib.form.php';
 $oktAutoloadPaths['formSelectOption']		= OKT_CLASSES_PATH.'/libs/lib.form.php';
-$oktAutoloadPaths['js']						= OKT_CLASSES_PATH.'/libs/lib.js.php';
-$oktAutoloadPaths['localizations']			= OKT_CLASSES_PATH.'/libs/lib.localizations.php';
+$oktAutoloadPaths['password']				= OKT_CLASSES_PATH.'/libs/lib.password.php';
 $oktAutoloadPaths['templateReplacement']	= OKT_CLASSES_PATH.'/libs/lib.template.replacement.php';
 $oktAutoloadPaths['util']					= OKT_CLASSES_PATH.'/libs/lib.util.php';
 

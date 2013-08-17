@@ -78,9 +78,6 @@ if (!empty($_POST['sended']))
 		$db->query($query);
 
 		# insertion superadmin (id 2)
-		$salt = util::random_key(12);
-		$password_hash = util::hash($sudo_password, $salt);
-
 		$query =
 		'INSERT INTO `'.OKT_DB_PREFIX.'core_users` ('.
 			'`id`, `username`, `group_id`, `salt`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
@@ -88,8 +85,8 @@ if (!empty($_POST['sended']))
 			'2, '.
 			'\''.$db->escapeStr($sudo_user).'\', '.
 			'1, '.
-			'\''.$db->escapeStr($salt).'\', '.
-			'\''.$db->escapeStr($password_hash).'\', '.
+			'\''.$db->escapeStr(util::random_key(12)).'\', '.
+			'\''.$db->escapeStr(password::hash($sudo_password, PASSWORD_DEFAULT)).'\', '.
 			'\'fr\', '.
 			'\'Europe/Paris\', '.
 			'\''.$db->escapeStr($sudo_email).'\', '.
@@ -100,9 +97,6 @@ if (!empty($_POST['sended']))
 		$db->query($query);
 
 		# insertion admin id 3
-		$salt = util::random_key(12);
-		$password_hash = util::hash($admin_password, $salt);
-
 		$query =
 		'INSERT INTO `'.OKT_DB_PREFIX.'core_users` ('.
 			'`id`, `username`, `group_id`, `salt`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
@@ -110,8 +104,8 @@ if (!empty($_POST['sended']))
 			'3, '.
 			'\''.$db->escapeStr($admin_user).'\', '.
 			'2, '.
-			'\''.$db->escapeStr($salt).'\', '.
-			'\''.$db->escapeStr($password_hash).'\', '.
+			'\''.$db->escapeStr(util::random_key(12)).'\', '.
+			'\''.$db->escapeStr(password::hash($admin_password, PASSWORD_DEFAULT)).'\', '.
 			'\'fr\', '.
 			'\'Europe/Paris\', '.
 			'\''.$db->escapeStr($admin_email).'\', '.

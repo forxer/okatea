@@ -8,12 +8,6 @@
 
 
 /**
- * Require the password compat library
- */
-require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
-
-
-/**
  * @class oktAuth
  * @ingroup okt_classes_core
  * @brief Le gestionnaire d'authentification de l'utilisateur en cours.
@@ -440,20 +434,16 @@ class oktAuth
 			return false;
 		}
 
-	//	$form_password_hash = util::hash($password, $rs->salt);
-
-	//	if ($rs->password != $form_password_hash)
-
 		$password_hash = $rs->password;
 
-		if (password_verify($password, $password_hash))
+		if (!password::verify($password, $password_hash))
 		{
 			$this->error->set('Mauvais mot de passe.');
 			return false;
 		}
-		else if (password_needs_rehash($password_hash, PASSWORD_DEFAULT))
+		else if (password::needs_rehash($password_hash, PASSWORD_DEFAULT))
 		{
-			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+			$password_hash = password::hash($password, PASSWORD_DEFAULT);
 
 			$query =
 			'UPDATE '.$this->t_users.' SET '.
@@ -594,8 +584,7 @@ class oktAuth
 			$new_password = util::random_key(8,true);
 			$new_password_key = util::random_key(8);
 
-			//$password_hash = util::hash($new_password, $rs->salt);
-			$password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+			$password_hash = password::hash($new_password, PASSWORD_DEFAULT);
 
 			$query =
 			'UPDATE '.$this->t_users.' SET '.

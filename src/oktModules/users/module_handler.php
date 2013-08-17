@@ -5,6 +5,7 @@
  *
  */
 
+
 class module_users extends oktModule
 {
 	protected $t_users;
@@ -516,8 +517,12 @@ class module_users extends oktModule
 			$aParams['group_id'] = $this->config->default_group;
 		}
 
-		$salt = util::random_key(12);
-		$password_hash = util::hash($aParams['password'], $salt);
+		/**
+		 * Require the password compat library
+		 */
+		require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
+
+		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
 		$iTime= time();
 
 		$sQuery =
@@ -532,7 +537,7 @@ class module_users extends oktModule
 			'\''.$this->db->escapeStr($aParams['lastname']).'\', '.
 			'\''.$this->db->escapeStr($aParams['firstname']).'\', '.
 			'\''.$this->db->escapeStr($password_hash).'\', '.
-			'\''.$this->db->escapeStr($salt).'\', '.
+			'\''.$this->db->escapeStr(util::random_key(12)).'\', '.
 			'\''.$this->db->escapeStr($aParams['email']).'\', '.
 			'\''.$this->db->escapeStr($aParams['timezone']).'\', '.
 			'\''.$this->db->escapeStr($aParams['language']).'\', '.
@@ -636,13 +641,12 @@ class module_users extends oktModule
 			return false;
 		}
 
-		$salt = util::random_key(12);
-		$password_hash = util::hash($aParams['password'], $salt);
+		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.
 			'password=\''.$this->db->escapeStr($password_hash).'\', '.
-			'salt=\''.$this->db->escapeStr($salt).'\' '.
+			'salt=\''.$this->db->escapeStr(util::random_key(12)).'\' '.
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
