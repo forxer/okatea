@@ -46,8 +46,8 @@ if (!$okt->languages->unique && !$okt->router->getLanguage() && !is_null($okt->r
 # Start output buffering
 ob_start();
 
-# -- CORE TRIGGER : publicBeforeController
-$okt->triggers->callTrigger('publicBeforeController', $okt);
+# -- CORE TRIGGER : publicBeforeCallingRouteHanlder
+$okt->triggers->callTrigger('publicBeforeCallingRouteHanlder', $okt);
 
 # Appel le gestionnaire de la route trouvée
 if ($okt->router->callRouteHanlder() === false) {
