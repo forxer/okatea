@@ -283,10 +283,6 @@ class oktThemes
 				file_put_contents($sThemePath.'/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents(OKT_INC_PATH.'/admin/configuration/themes/templates/oktTheme.tpl')));
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/locked_files.txt', $sThemePath.'/locked_files.txt');
 
-			# anim files
-			files::makeDir($sThemePath.'/anim');
-				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/anim/index.html');
-
 			# css files
 			files::makeDir($sThemePath.'/css');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/definitions.less.tpl', $sThemePath.'/css/definitions.less');
@@ -296,13 +292,6 @@ class oktThemes
 			# images files
 			files::makeDir($sThemePath.'/images');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/images/index.html');
-			//	copy(OKT_THEMES_PATH.'/default/images/non_dispo.jpg', $sThemePath.'/images/non_dispo.jpg');
-			//	copy(OKT_THEMES_PATH.'/default/images/logo.jpg', $sThemePath.'/images/logo.jpg');
-
-			//	files::makeDir($sThemePath.'/images/mail');
-			//		copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/images/mail/index.html');
-			//		copy(OKT_THEMES_PATH.'/default/images/mail/mail_header.jpg', $sThemePath.'/images/mail/mail_header.jpg');
-			//		copy(OKT_THEMES_PATH.'/default/images/mail/mail_footer.jpg', $sThemePath.'/images/mail/mail_footer.jpg');
 
 			# js
 			files::makeDir($sThemePath.'/js');

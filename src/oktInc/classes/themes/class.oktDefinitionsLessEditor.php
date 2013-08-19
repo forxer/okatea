@@ -67,39 +67,6 @@ class oktDefinitionsLessEditor
 		'------------------------------------------------------------*/'."\n\n\n".
 
 
-		'/* Couleurs de la charte : background */'."\n\n".
-
-		'@graphics_body_background_color: '.$aValues['graphics_body_background_color'].';'."\n".
-		'@graphics_main_background_color: '.$aValues['graphics_main_background_color'].';'."\n".
-		'@graphics_footer_address_background_color: '.$aValues['graphics_footer_address_background_color'].';'."\n".
-		'@graphics_footer_links_background_color: '.$aValues['graphics_footer_links_background_color'].';'."\n\n\n".
-
-
-		'//* Couleurs de la charte : menus */'."\n\n".
-
-		'@graphics_menu_link_color: '.$aValues['graphics_menu_link_color'].';'."\n".
-		'@graphics_menu_link_hover_color: '.$aValues['graphics_menu_link_hover_color'].';'."\n".
-		'@graphics_menu_background_color: '.$aValues['graphics_menu_background_color'].';'."\n".
-		'@graphics_menu_background_hover_color: '.$aValues['graphics_menu_background_hover_color'].';'."\n\n\n".
-
-
-		'//* Couleurs de la charte : sous menus */'."\n\n".
-
-		'@graphics_sub_menu_link_color: '.$aValues['graphics_sub_menu_link_color'].';'."\n".
-		'@graphics_sub_menu_link_hover_color: '.$aValues['graphics_sub_menu_link_hover_color'].';'."\n".
-		'@graphics_sub_menu_background_color: '.$aValues['graphics_sub_menu_background_color'].';'."\n".
-		'@graphics_sub_menu_background_hover_color: '.$aValues['graphics_sub_menu_background_hover_color'].';'."\n\n\n".
-
-
-		'//* Couleurs de la charte : footer & divers */'."\n\n".
-
-		'@graphics_footer_address: '.$aValues['graphics_footer_address'].';'."\n".
-		'@graphics_footer_address_first_child: '.$aValues['graphics_footer_address_first_child'].';'."\n".
-		'@graphics_footer_link: '.$aValues['graphics_footer_link'].';'."\n".
-		'@graphics_rubric_title: '.$aValues['graphics_rubric_title'].';'."\n".
-		'@graphics_text_shadow: '.$aValues['graphics_text_shadow'].';'."\n\n\n".
-
-
 		'/* Couleurs des textes */'."\n\n".
 
 		'@main_text_color: '.$aValues['main_text_color'].';'."\n".
@@ -165,27 +132,6 @@ class oktDefinitionsLessEditor
 	public function getDefaultValues()
 	{
 		return array(
-			'graphics_body_background_color' => '#fff',
-			'graphics_main_background_color' => '#fff',
-			'graphics_footer_address_background_color' => '#fff',
-			'graphics_footer_links_background_color' => '#fff',
-
-			'graphics_menu_link_color' => '#fff',
-			'graphics_menu_link_hover_color' => '#fff',
-			'graphics_menu_background_color' => '#fff',
-			'graphics_menu_background_hover_color' => '#fff',
-
-			'graphics_sub_menu_link_color' => '#fff',
-			'graphics_sub_menu_link_hover_color' => '#fff',
-			'graphics_sub_menu_background_color' => '#fff',
-			'graphics_sub_menu_background_hover_color' => '#fff',
-
-			'graphics_footer_address' => '#fff',
-			'graphics_footer_address_first_child' => '#fff',
-			'graphics_footer_link' => '#fff',
-			'graphics_rubric_title' => '#fff',
-			'graphics_text_shadow' => '#fff',
-
 			'main_text_color' => '#333',
 			'second_text_color' => '#666',
 			'third_text_color' => '#999',
@@ -215,13 +161,13 @@ class oktDefinitionsLessEditor
 			'clickable_hover_border_color' => '#79b7e7',
 
 			'clickable_active_color' => '#e17009',
-			'clickable_active_background_color' => '#fff',
+			'clickable_active_background_color' => '#f5f8f9',
 			'clickable_active_border_color' => '#79b7e7',
 
-			'input_color' => '#000',
-			'input_background_color' => 'transparent',
+			'input_color' => '#333',
+			'input_background_color' => '#fff',
 			'input_border_color' => '#c5dbec',
-			'input_border_radius' => '6px',
+			'input_border_radius' => '3px',
 		);
 	}
 
@@ -240,10 +186,6 @@ class oktDefinitionsLessEditor
 			OKT_THEMES_PATH.'/'.$sThemeId.'/css/styles.css',
 			OKT_THEMES_PATH.'/'.$sThemeId.'/css/definitions.less'
 		));
-
-		# Qtip
-		$oPage->css->addFile(OKT_COMMON_URL.'/js-plugins/qtip/jquery.qtip.min.css');
-		$oPage->js->addFile(OKT_COMMON_URL.'/js-plugins/qtip/jquery.qtip.min.js');
 
 		# Color picker
 		$oPage->css->addFile(OKT_COMMON_URL.'/js-plugins/spectrum/spectrum.css');
@@ -270,7 +212,6 @@ class oktDefinitionsLessEditor
 			})
 			.show()
 			.css("width","45%");
-			$("label").qtip();
 		');
 	}
 
@@ -288,85 +229,6 @@ class oktDefinitionsLessEditor
 
 		$sReturn =
 
-		'<h'.$iHeadStart.'>'.__('c_a_def_less_editor_Graphics').'</h'.$iHeadStart.'>'.
-
-		'<div class="four-cols">'.
-
-			'<fieldset class="col">'.
-				'<legend>'.__('c_a_def_less_editor_Main__graphics_colors').'</legend>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_body_background_color">* '.__('c_a_def_less_editor_body_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_body_background_color', 7, 128, $aValues['graphics_body_background_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_main_background_color">'.__('c_a_def_less_editor_main_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_main_background_color', 7, 128, $aValues['graphics_main_background_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_footer_address_background_color">* '.__('c_a_def_less_editor_footer_address_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_footer_address_background_color', 7, 128, $aValues['graphics_footer_address_background_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_footer_links_background_color">'.__('c_a_def_less_editor_footer_links_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_footer_links_background_color', 7, 128, $aValues['graphics_footer_links_background_color'], 'colorpicker').'</p>'.
-
-			'</fieldset>'.
-
-			'<fieldset class="col">'.
-				'<legend>'.__('c_a_def_less_editor_Secondary_graphics_colors').'</legend>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_menu_link_color">* '.__('c_a_def_less_editor_menu_link').'</label>'.
-				form::text($this->sPostPrefix.'graphics_menu_link_color', 7, 128, $aValues['graphics_menu_link_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_menu_link_hover_color">'.__('c_a_def_less_editor_menu_link_hover').'</label>'.
-				form::text($this->sPostPrefix.'graphics_menu_link_hover_color', 7, 128, $aValues['graphics_menu_link_hover_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_menu_background_color">'.__('c_a_def_less_editor_menu_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_menu_background_color', 7, 128, $aValues['graphics_menu_background_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_menu_background_hover_color">'.__('c_a_def_less_editor_menu_background_hover').'</label>'.
-				form::text($this->sPostPrefix.'graphics_menu_background_hover_color', 7, 128, $aValues['graphics_menu_background_hover_color'], 'colorpicker').'</p>'.
-
-			'</fieldset>'.
-
-			'<fieldset class="col">'.
-				'<legend>'.__('c_a_def_less_editor_Third_graphics_color').'</legend>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_sub_menu_link_color">'.__('c_a_def_less_editor_menu_link').'</label>'.
-				form::text($this->sPostPrefix.'graphics_sub_menu_link_color', 7, 128, $aValues['graphics_sub_menu_link_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_sub_menu_link_hover_color">'.__('c_a_def_less_editor_menu_link_hover').'</label>'.
-				form::text($this->sPostPrefix.'graphics_sub_menu_link_hover_color', 7, 128, $aValues['graphics_sub_menu_link_hover_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_sub_menu_background_color">'.__('c_a_def_less_editor_menu_background').'</label>'.
-				form::text($this->sPostPrefix.'graphics_sub_menu_background_color', 7, 128, $aValues['graphics_sub_menu_background_color'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_sub_menu_background_hover_color">'.__('c_a_def_less_editor_menu_background_hover').'</label>'.
-				form::text($this->sPostPrefix.'graphics_sub_menu_background_hover_color', 7, 128, $aValues['graphics_sub_menu_background_hover_color'], 'colorpicker').'</p>'.
-
-			'</fieldset>'.
-
-			'<fieldset class="col">'.
-				'<legend>'.__('c_a_def_less_editor_Fourth_graphics_colors').'</legend>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_footer_address">'.__('c_a_def_less_editor_footer_address').'</label>'.
-				form::text($this->sPostPrefix.'graphics_footer_address', 7, 128, $aValues['graphics_footer_address'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_footer_address_first_child">'.__('c_a_def_less_editor_footer_address_first_child').'</label>'.
-				form::text($this->sPostPrefix.'graphics_footer_address_first_child', 7, 128, $aValues['graphics_footer_address_first_child'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_footer_link">'.__('c_a_def_less_editor_footer_link').'</label>'.
-				form::text($this->sPostPrefix.'graphics_footer_link', 7, 128, $aValues['graphics_footer_link'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_rubric_title">* '.__('c_a_def_less_editor_rubric_title').'</label>'.
-				form::text($this->sPostPrefix.'graphics_rubric_title', 7, 128, $aValues['graphics_rubric_title'], 'colorpicker').'</p>'.
-
-				'<p class="field"><label for="'.$this->sPostPrefix.'graphics_text_shadow">'.__('c_a_def_less_editor_text_shadow').'</label>'.
-				form::text($this->sPostPrefix.'graphics_text_shadow', 7, 128, $aValues['graphics_text_shadow'], 'colorpicker').'</p>'.
-
-			'</fieldset>'.
-
-		'</div>';
-
-		$sReturn .=
-
 		'<h'.$iHeadStart.'>'.__('c_a_def_less_editor_General').'</h'.$iHeadStart.'>'.
 
 		'<div class="four-cols">'.
@@ -374,10 +236,10 @@ class oktDefinitionsLessEditor
 			'<fieldset class="col">'.
 				'<legend>'.__('c_a_def_less_editor_Main_colors').'</legend>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'main_title_color" title="'.__('c_a_def_less_editor_Title_main_legend').'">* '.__('c_a_def_less_editor_Title').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'main_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
 				form::text($this->sPostPrefix.'main_title_color', 7, 128, $aValues['main_title_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'main_text_color" title="'.__('c_a_def_less_editor_Text_main_legend').'">* '.__('c_a_def_less_editor_Text').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'main_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'main_text_color', 7, 128, $aValues['main_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'main_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
@@ -391,16 +253,16 @@ class oktDefinitionsLessEditor
 			'<fieldset class="col">'.
 				'<legend>'.__('c_a_def_less_editor_Secondary_colors').'</legend>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'second_title_color" title="'.__('c_a_def_less_editor_Title_second_legend').'">* '.__('c_a_def_less_editor_Title').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'second_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
 				form::text($this->sPostPrefix.'second_title_color', 7, 128, $aValues['second_title_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'second_text_color" title="'.__('c_a_def_less_editor_Text_second_legend').'">* '.__('c_a_def_less_editor_Text').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'second_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'second_text_color', 7, 128, $aValues['second_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'second_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'second_background_color', 7, 128, $aValues['second_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'second_border_color" title="'.__('c_a_def_less_editor_Border_second_legend').'">* '.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'second_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'second_border_color', 7, 128, $aValues['second_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
@@ -417,7 +279,7 @@ class oktDefinitionsLessEditor
 				'<p class="field"><label for="'.$this->sPostPrefix.'third_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'third_background_color', 7, 128, $aValues['third_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'third_border_color" title="'.__('c_a_def_less_editor_Border_third_legend').'">* '.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'third_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'third_border_color', 7, 128, $aValues['third_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
@@ -428,13 +290,13 @@ class oktDefinitionsLessEditor
 				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
 				form::text($this->sPostPrefix.'fourth_title_color', 7, 128, $aValues['fourth_title_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_text_color" title="'.__('c_a_def_less_editor_Text_fourth_legend').'">'.__('c_a_def_less_editor_Text').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'fourth_text_color', 7, 128, $aValues['fourth_text_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_background_color" title="'.__('c_a_def_less_editor_Background_fourth_legend').'">'.__('c_a_def_less_editor_Background').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'fourth_background_color', 7, 128, $aValues['fourth_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_border_color" title="'.__('c_a_def_less_editor_Border_fourth_legend').'">'.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'fourth_border_color', 7, 128, $aValues['fourth_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
@@ -450,13 +312,13 @@ class oktDefinitionsLessEditor
 			'<fieldset class="col">'.
 				'<legend>'.__('c_a_def_less_editor_Default').'</legend>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_color">* '.__('c_a_def_less_editor_Text').'</label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'clickable_color', 7, 128, $aValues['clickable_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_background_color" title="'.__('c_a_def_less_editor_Background_clickable_legend').'">* '.__('c_a_def_less_editor_Background').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'clickable_background_color', 7, 128, $aValues['clickable_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_border_color" title="'.__('c_a_def_less_editor_Border_clickable_default_legend').'">* '.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'clickable_border_color', 7, 128, $aValues['clickable_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
@@ -464,13 +326,13 @@ class oktDefinitionsLessEditor
 			'<fieldset class="col">'.
 				'<legend>'.__('c_a_def_less_editor_Hover').'</legend>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_color">* '.__('c_a_def_less_editor_Text').'</label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'clickable_hover_color', 7, 128, $aValues['clickable_hover_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_background_color" title="'.__('c_a_def_less_editor_Background_clickable_hover_legend').'">* '.__('c_a_def_less_editor_Background').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'clickable_hover_background_color', 7, 128, $aValues['clickable_hover_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_border_color" title="'.__('c_a_def_less_editor_Border_clickable_hover_legend').'">* '.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'clickable_hover_border_color', 7, 128, $aValues['clickable_hover_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
@@ -478,13 +340,13 @@ class oktDefinitionsLessEditor
 			'<fieldset class="col">'.
 				'<legend>'.__('c_a_def_less_editor_Active').'</legend>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_color">* '.__('c_a_def_less_editor_Text').'</label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_color">'.__('c_a_def_less_editor_Text').'</label>'.
 				form::text($this->sPostPrefix.'clickable_active_color', 7, 128, $aValues['clickable_active_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_background_color" title="'.__('c_a_def_less_editor_Background_clickable_active_legend').'">* '.__('c_a_def_less_editor_Background').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
 				form::text($this->sPostPrefix.'clickable_active_background_color', 7, 128, $aValues['clickable_active_background_color'], 'colorpicker').'</p>'.
 
-				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_border_color" title="'.__('c_a_def_less_editor_Border_clickable_active_legend').'">* '.__('c_a_def_less_editor_Border').' <img src="'.OKT_COMMON_URL.'/img/ico/help.png" alt="help" ></label>'.
+				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
 				form::text($this->sPostPrefix.'clickable_active_border_color', 7, 128, $aValues['clickable_active_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
