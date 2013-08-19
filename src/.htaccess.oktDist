@@ -1,4 +1,4 @@
-#ErrorDocument 404 /oktPublic_404.php
+
 
 <IfModule mod_rewrite.c>
 
@@ -12,11 +12,8 @@ RewriteEngine on
 
 # end 301 redirects
 
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# collez ci-dessous les regles de re-ecriture
 
 # start Okatea internal router
 
