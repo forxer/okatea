@@ -18,12 +18,3 @@ $GLOBALS['__l10n']['m_galleries_perm_add'] = 'Ajout d’élèments';
 $GLOBALS['__l10n']['m_galleries_perm_remove'] = 'Suppression des élèments';
 $GLOBALS['__l10n']['m_galleries_perm_display'] = 'Réglage de l’affichage';
 $GLOBALS['__l10n']['m_galleries_perm_config'] = 'Configuration du module';
-
-# Galleriffic
-$GLOBALS['__l10n']['m_galleries_Play_Slideshow'] = 'Jouer le diaporama';
-$GLOBALS['__l10n']['m_galleries_Pause_Slideshow'] = 'Arrêter le diaporama';
-$GLOBALS['__l10n']['m_galleries_Next_Photo'] = 'Photo suivante &gt;';
-$GLOBALS['__l10n']['m_galleries_Previous_Photo'] = '&lt; Photo précédente';
-$GLOBALS['__l10n']['m_galleries_Next'] = 'Suiv. &gt;';
-$GLOBALS['__l10n']['m_galleries_Prev'] = '&lt; Prec.';
-

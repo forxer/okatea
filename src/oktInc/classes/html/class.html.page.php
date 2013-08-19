@@ -541,30 +541,6 @@ class htmlPage
 	}
 
 	/**
-	 * Met en place "farbtastic"
-	 *
-	 * Voir http://acko.net/dev/farbtastic
-	 *
-	 * @param array $element
-	 * @param string $target
-	 * @return void
-	 */
-	public function farbtastic($element='#colorpicker',$target='#color')
-	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/farbtastic/farbtastic.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/farbtastic/farbtastic.js');
-
-		$this->js->addReady('
-			jQuery(\''.$element.'\').hide();
-			jQuery(\''.$element.'\').farbtastic(\''.$target.'\');
-			jQuery(\''.$target.'\')
-				.focusin(function(){jQuery(\''.$element.'\').show();})
-				.focusout(function(){jQuery(\''.$element.'\').hide();});
-		');
-	}
-
-
-	/**
 	 * Met en place "jPicker"
 	 *
 	 * Voir http://www.digitalmagicpro.com/jPicker/
@@ -714,104 +690,6 @@ class htmlPage
 					message:  "<p><img src=\"'.OKT_COMMON_URL.'/img/ajax-loader/big-circle-ball.gif\" alt=\"\" style=\"float: left; margin: 0 1em 1em 0\" /> '.__('c_c_Please_wait_txt').'</p>"
 				});
 			});
-		');
-	}
-
-	/**
-	 * Ajoute le plugin Skitter
-	 * @param string $element
-	 * @param array $user_options
-	 */
-	public function skitter($element='.box_skitter', $user_options=array())
-	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/skitter/css/skitter.styles.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/skitter/js/jquery.skitter.min.js');
-		$this->js->addFile(OKT_COMMON_URL .'/js/jquery/easing/jquery.easing.min.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/skitter/js/jquery.animate-colors-min.js');
-
-		$options = array(
-		);
-
-		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
-		}
-
-		$this->js->addReady('
-			jQuery(\''.$element.'\').skitter('.json_encode($options).');
-		');
-	}
-
-	/**
-	 * Ajoute le plugin ContentFlow
-	 */
-	public function contentflow()
-	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/contentflow/contentflow.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/contentflow/contentflow.js');
-	}
-
-	/**
-	 * Ajoute le plugin Galleria
-	 * @param $element
-	 * @param $user_options
-	 */
-	public function galleria($element = '#galleria', $user_options = array())
-	{
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/galleria/galleria.min.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/galleria/themes/classic/galleria.classic.min.js');
-
-		$options = array(
-		);
-
-		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
-		}
-
-		$this->js->addReady('
-			jQuery(\''.$element.'\').galleria('.json_encode($options).');
-		');
-	}
-
-	public function galleriffic($user_options = array())
-	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/galleriffic/galleriffic.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/galleriffic/jquery.galleriffic.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/galleriffic/jquery.opacityrollover.js');
-
-		$options = array(
-			'imageContainerSel' => '#slideshow',
-			'controlsContainerSel' => '#controls',
-			'captionContainerSel' => '#caption',
-			'loadingContainerSel' => '#loading',
-			'playLinkText' => __('m_galleries_Play_Slideshow'),
-			'pauseLinkText' => __('m_galleries_Pause_Slideshow'),
-			'prevLinkText' => __('m_galleries_Previous_Photo'),
-			'nextLinkText' => __('m_galleries_Next_Photo'),
-			'nextPageLinkText' => __('m_galleries_Next'),
-			'prevPageLinkText' => __('m_galleries_Prev')
-		);
-
-		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
-		}
-
-		$this->js->addReady('
-				var onMouseOutOpacity = 0.5;
-				$("#thumbs ul.thumbs li").opacityrollover({
-					mouseOutOpacity:   onMouseOutOpacity,
-					mouseOverOpacity:  1.0,
-					fadeSpeed:         "fast",
-					exemptionSelector: ".selected"
-				});
-
-			var gallery = $("#thumbs").galleriffic('.json_encode($options).');
-
-			gallery.onSlideChange = function(prevIndex, nextIndex) {
-				this.find("ul.thumbs").children()
-					.eq(prevIndex).fadeTo("fast", onMouseOutOpacity).end()
-					.eq(nextIndex).fadeTo("fast", 1.0);
-			};
-
 		');
 	}
 
@@ -1057,18 +935,6 @@ class htmlPage
 		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/l10n/messages_'.$options['lang'].'.js');
 
 		$this->getValidateJs($options['selector'],$options['fields']);
-	}
-
-	public function jqPlotBasis()
-	{
-		$this->js->addCCFile(OKT_COMMON_URL.'/js-plugins/jqPlot/excanvas.min.js','lt IE 9');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/jqPlot/jquery.jqplot.min.js');
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/jqPlot/jquery.jqplot.min.css');
-	}
-
-	public function jqPlotPlugin($sName)
-	{
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/jqPlot/plugins/jqplot.'.$sName.'.min.js');
 	}
 
 	public function validate($form_id=null, $fields=array(), $lang=null)
@@ -1494,75 +1360,6 @@ class htmlPage
 	public static function formatCC($str,$condition='IE')
 	{
 		return '<!--[if '.$condition.']>'."\n".$str.'<![endif]-->'."\n";
-	}
-
-
-	public static function pager($id="pager", $total="", $stepDefault=10, $aStep=array(10,20,30,40), $class="pager"){
-		ob_start();
-		?>
-			<div id="<?php echo $id ?>" class="<?php echo $class ?>">
-					<form>
-							<img src="<?php echo OKT_COMMON_URL ?>/img/ico/first.png" class="first"/>
-							<img src="<?php echo OKT_COMMON_URL ?>/img/ico/prev.png" class="prev"/>
-							<label class="pagedisplay"></label>
-							<img src="<?php echo OKT_COMMON_URL ?>/img/ico/next.png" class="next"/>
-							<img src="<?php echo OKT_COMMON_URL ?>/img/ico/last.png" class="last"/>
-							<select class="pagesize">
-									<?php foreach($aStep as $step){ ?>
-									<option <?php if($step==$stepDefault){ ?>selected="selected"<?php } ?> value="<?php echo $step ?>"><?php echo $step ?></option>
-									<?php } ?>
-							</select>
-							<?php if($total!=""){ ?>
-							<div><span class="pagetotal">0</span> <?php echo $total?></div>
-							<?php } ?>
-					</form>
-			</div>
-			<?php
-		ob_end_flush();
-	}
-
-	public static function filter($input="filter-box", $btn="filter-clear-button", $class="filter"){
-			ob_start();
-		?>
-			<div class="<?php echo $class ?>">
-					<input type="text" id="<?php echo $input ?>" name="<?php echo $input ?>" />
-					<img id="<?php echo $btn ?>" src="<?php echo OKT_COMMON_URL ?>/img/ico/cross.png" title="<?php _e('c_c_action_Cancel') ?>" alt="<?php _e('c_c_action_Cancel') ?>" />
-			</div>
-			<?php
-		ob_end_flush();
-	}
-
-	/* GESTION JQUERY UI HIGHLIGHT / ERROR */
-	public static function highlight($str, $lg=500, $id="alert_succes"){
-		ob_start();
-		?>
-		<div id="<?=$id?>" class="ui-widget" style="width: <?=$lg?>px; margin:0 auto 20px auto;">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 5px 8px;">
-				<div style="margin: 0">
-					<span class="ui-icon ui-icon-info" style="float: left; margin: 2px 8px 0 0;"></span>
-					<span style="float: left; font-size: 0.9em;"><?=$str?></span>
-				</div>
-				<div class="clearer"></div>
-			</div>
-		</div>
-		<?php
-		ob_end_flush();
-	}
-
-	public static function error($str, $lg=500, $id="alert_erreur"){
-		ob_start();
-		?>
-		<div id="<?=$id?>" class="ui-widget" style="width: <?=$lg?>px; margin: 0 auto 20px auto;">
-			<div class="ui-state-error ui-corner-all" style="padding: 5px 8px;">
-				<div style="margin: 0">
-					<span class="ui-icon ui-icon-alert" style="float: left; margin: 2px 8px 0 0;"></span>
-					<span style="float: left; font-size: 0.9em; margin-top: 2px;"><?=$str?></span>
-				</div>
-				<div class="clearer"></div>
-			</div>
-		</div>
-		<?php
-		ob_end_flush();
 	}
 
 } # class htmlPage

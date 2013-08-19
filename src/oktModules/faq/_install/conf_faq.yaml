@@ -43,9 +43,6 @@ public_question_url:
   fr: question
   en: question
 
-public_faq_page: 'oktPublic_faq_list_questions.php'
-public_question_page: 'oktPublic_faq_question.php'
-
 files:
   enable: false
   number: 3

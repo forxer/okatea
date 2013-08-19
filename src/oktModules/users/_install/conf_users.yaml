@@ -57,10 +57,3 @@ public_forget_password_url:
 public_profile_url:
   fr: profil
   en: profile
-
-public_login_page: 'oktPublic_users_login.php'
-public_logout_page: 'oktPublic_users_logout.php'
-public_register_page: 'oktPublic_users_register.php'
-public_log_reg_page: 'oktPublic_users_log_reg.php'
-public_forget_password_page: 'oktPublic_users_forget_password.php'
-public_profile_page: 'oktPublic_users_profile.php'

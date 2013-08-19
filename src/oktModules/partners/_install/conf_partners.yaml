@@ -38,8 +38,6 @@ public_url:
   fr: partenaires
   en: partners
 
-public_file: 'oktPublic_partners.php'
-
 images:
   enable: true
   number: 1

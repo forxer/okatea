@@ -58,11 +58,7 @@ from_to: 'website'
 public_url:
   fr: contact
   en: contact
-  
-public_file: 'oktPublic_contact.php'
 
 public_map_url:
   fr: plan-acces
   en: map
-  
-public_map_file: 'oktPublic_map_page.php'

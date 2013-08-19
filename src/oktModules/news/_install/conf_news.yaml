@@ -79,6 +79,3 @@ public_feed_url:
 public_post_url:
   fr: actualite
   en: actualite
-public_list_file: oktPublic_news_list.php
-public_feed_file: oktPublic_news_feed.php
-public_post_file: oktPublic_news_item.php

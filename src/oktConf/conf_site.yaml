@@ -46,7 +46,7 @@ courriel_smtp:
   password: ''
 courriel_sendmail: '/usr/sbin/exim -bs'
 courriel_theme: '0'
-theme: default
+theme: okatea
 theme_mobile: ''
 theme_tablet: ''
 public_theme: base
@@ -60,9 +60,9 @@ admin_lang_switcher: true
 app_path: /okatea_project/src/
 domain: localhost
 default_route:
-  class: ''
-  method: ''
-  args: ''
+  class: pagesController
+  method: pagesItem
+  args: home
 custom_routes: {  }
 app_file: index.php
 public_maintenance_mode: false

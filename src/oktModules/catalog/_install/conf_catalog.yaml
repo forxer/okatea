@@ -23,9 +23,6 @@ lightbox_type: fancybox
 public_catalog_url: catalogue
 public_product_url: produit
 
-public_catalog_page: oktPublic_catalog_list.php
-public_product_page: oktPublic_catalog_item.php
-
 fields:
   subtitle: 0
   content_short: 0

@@ -16,6 +16,3 @@ templates:
     usables: {}
 public_estimate_url: 
   fr: 'devis'
-
-public_estimate_page: 'oktPublic_estimate.php'
-

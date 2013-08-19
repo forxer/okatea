@@ -2,38 +2,6 @@
 /* Définitions des couleurs du thème
 ------------------------------------------------------------*/
 
-/* Couleurs de la charte : Background */
-
-@graphics_body_background_color: ;
-@graphics_main_background_color: ;
-@graphics_footer_address_background_color: ;
-@graphics_footer_links_background_color: ;
-
-
-/* Couleurs de la charte : Menus */
-
-@graphics_menu_link_color: ;
-@graphics_menu_link_hover_color: ;
-@graphics_menu_background_color: ;
-@graphics_menu_background_hover_color: ;
-
-
-/* Couleurs de la charte : Sous Menus */
-
-@graphics_sub_menu_link_color: ;
-@graphics_sub_menu_link_hover_color: ;
-@graphics_sub_menu_background_color: ;
-@graphics_sub_menu_background_hover_color: ;
-
-
-* Couleurs de la charte : Footer & Divers */
-
-@graphics_footer_address: ;
-@graphics_footer_address_first_child: ;
-@graphics_footer_link: ;
-@graphics_rubric_title: ;
-@graphics_text_shadow: ;
-
 
 /* Couleurs des textes */
 

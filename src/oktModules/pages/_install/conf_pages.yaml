@@ -77,6 +77,3 @@ public_feed_url:
 public_page_url:
   fr: page
   en: page
-public_list_file: oktPublic_pages_list.php
-public_feed_file: oktPublic_pages_feed.php
-public_page_file: oktPublic_pages_item.php
