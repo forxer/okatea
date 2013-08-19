@@ -15,7 +15,7 @@ meta_keywords:
   en: ''
 enable_metas: true
 enable_show_link: true
-enable_ariane: false
+enable_ariane: true
 enable_filters: true
 enable_group_perms: false
 enable_rte: tinymce_advanced
