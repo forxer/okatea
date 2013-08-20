@@ -7,22 +7,6 @@
 /* Layout
 ----------------------------------------------------------*/
 
-/*
-#page {}
-	#access-link {}
-	#banner {}
-	#helpers {}
-		#messages {}
-		#welcome {}
-	#main-left {}
-	#main-right {}
-		#page-title {}
-		#content {}
-	#mainMenu-left {}
-	#mainMenu-right {}
-	#footer {}
-*/
-
 #page {
 	margin: 0 2em;
 }
@@ -176,8 +160,9 @@
 }
 
 
-/* SpÃ©cificitÃ©s de la page de connexion
+/* Spécificités de la page de connexion
 ----------------------------------------------------------*/
+
 #adminpage-connexion #mainMenu{
 	display: none;
 }
@@ -195,54 +180,6 @@
 	padding: 10px;
 }
 
-
-/* SpÃ©cificitÃ©s de la page type de bien
-----------------------------------------------------------*/
-#type_bien_list table thead tr { height:25px;  }
-
-.Bien {
-	width: 600px;
-	zoom: 1;
-}
-.Bien:after {
-	content: ".";
-	clear: both;
-	display: block;
-	visibility: hidden;
-	height: 0;
-}
-
-/* SpÃ©cificitÃ©s de la page estate i18n
-----------------------------------------------------------*/
-
-.categories  { overflow:hidden;}
-
-#categoriesTree { overflow:hidden;}
-
-#viewCategoriesTree { margin-left:5px; vertical-align:middle}
-
-.categories ul { list-style:none; margin:0; padding:0; }
-
-.categories ul li ul { border-left:1px solid #ccc; margin-left:10px}
-
-.categories ul li ul li ul {margin-left:17px }
-
-.categories ul li ul li span { text-decoration: line-through; color: #ccc}
-
-
-/* SpÃ©cificitÃ©s de la page catÃ©gories estate i18n
-----------------------------------------------------------*/
-.sousCat { border-left:3px solid #ccc; margin:10px 0 0 20px; width:100%;  }
-
-.sousCat .ui-state-default { border:none;  }
-
-.sousCat label { width:30%; display: block; float: left;}
-
-
-/* SpÃ©cificitÃ©s de la page rental management
-----------------------------------------------------------*/
-
-.periodList { font-weight:normal; font-size:0.9em; color:#555; padding:0 3px; }
 
 
 /* Formulaires
@@ -415,6 +352,7 @@ p.yesno label {}
 
 .htaccess { white-space: pre; overflow-x: auto; overflow-y: hidden; width: 100%; }
 
+
 /* Tableaux
 ----------------------------------------------------------*/
 
@@ -579,6 +517,7 @@ table.diff td.diff-deletedline strong {
 		color: red;
 }
 
+
 /* Logs admin
 ----------------------------------------------------------*/
 
@@ -669,7 +608,7 @@ img.preload {
 }
 
 
-/* avertissement msie Ã  jour */
+/* avertissement msie à jour */
 #updates-notifications {
 	margin: 0.6em 35%;
 	padding: 0.2em 0.6em;
@@ -772,33 +711,6 @@ img.preload {
 #alertMsie {
 	width: 80%;
 	margin: 0 auto;
-}
-
-.mosaic {
-	float: left;
-	width: 210px;
-	height: 200px;
-	margin: 0 .8em .8em 0;
-	padding: .2em;
-	position: relative;
-}
-.mosaic .title {
-	margin: 0 0 0.5em 0;
-	padding: .3em .3em .5em .5em;
-}
-.mosaic .title a {
-	text-decoration: none;
-}
-.mosaic .actions {
-	position: absolute;
-	bottom: 0;
-}
-.mosaic .actions li {
-	display: inline;
-	margin-right: .8em;
-}
-.mosaic .note li {
-	list-style: none;
 }
 
 
@@ -1051,21 +963,6 @@ p.buttonset {
 	}
 
 
-
-
-#tool-htaccess-form textarea {
-	width: 100%;
-}
-
-/* rubriques */
-
-.nom_fichier { font-style:italic; margin-top:-10px; text-align:right}
-
-#accordionAjout, #accordionModif { width:510px; }
-
-#accordionAjout .formulaire, #accordionModif .formulaire {  overflow:hidden; padding:0 5px;}
-
-
 /*
 	Overlay ; pour personnaliser l'icone du loader
 	on peut utiliser ces sites :
@@ -1096,28 +993,6 @@ p.buttonset {
 .help {
 	margin-left:20px;
 }
-
-
-/* widgets de widgets
-----------------------------------------------------------*/
-
-/* widget dans les tabs
-.ui-tabs .ui-widget {
-	margin: 0 0 1em 0;
-}
-.ui-tabs .ui-widget .ui-widget-header {
-	margin: 0;
-	padding: 0.3em;
-}
-.ui-tabs .ui-widget .ui-widget-content>h4 {
-	margin-top: 0.3em;
-
-	}
-.ui-tabs .ui-widget .ui-widget-content {
-	margin: 0;
-	padding: 0.8em;
-}
-*/
 
 
 /* jNotify, jSuccess, jError, jOverlay

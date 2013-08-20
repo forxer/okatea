@@ -18,6 +18,13 @@
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
+
+$okt->page->css->addCss('
+	#tool-htaccess-form textarea {
+		width: 100%;
+	}
+');
+
 ?>
 
 <h3><?php _e('c_a_tools_htaccess_title') ?></h3>
