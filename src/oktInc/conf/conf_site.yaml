@@ -81,18 +81,18 @@ update_enabled: true
 update_url: 'http://repository.okatea.org/packages/versions.xml'
 update_type: stable
 minify_css_admin:
-  - '%COMMON_URL%/ui-themes/%ADMIN_THEME%/jquery-ui.css'
-  - '%COMMON_URL%/css/init.css'
-  - '%COMMON_URL%/css/admin.css'
-  - '%COMMON_URL%/css/sprite.css'
+  - '%PUBLIC_URL%/ui-themes/%ADMIN_THEME%/jquery-ui.css'
+  - '%PUBLIC_URL%/css/init.css'
+  - '%PUBLIC_URL%/css/admin.css'
+  - '%PUBLIC_URL%/css/sprite.css'
 minify_js_admin:
-  - '%COMMON_URL%/js/jquery/jquery.min.js'
-  - '%COMMON_URL%/js/jquery/cookie/jquery.cookie.min.js'
-  - '%COMMON_URL%/js/jquery/metadata/jquery.metadata.min.js'
-  - '%COMMON_URL%/js/jquery/ui/jquery-ui.min.js'
-  - '%COMMON_URL%/js/jquery/validate/jquery.validate.min.js'
-  - '%COMMON_URL%/js/jquery/validate/additional-methods.min.js'
-  - '%COMMON_URL%/js/common_admin.js'
+  - '%PUBLIC_URL%/js/jquery/jquery.min.js'
+  - '%PUBLIC_URL%/js/jquery/cookie/jquery.cookie.min.js'
+  - '%PUBLIC_URL%/js/jquery/metadata/jquery.metadata.min.js'
+  - '%PUBLIC_URL%/js/jquery/ui/jquery-ui.min.js'
+  - '%PUBLIC_URL%/js/jquery/validate/jquery.validate.min.js'
+  - '%PUBLIC_URL%/js/jquery/validate/additional-methods.min.js'
+  - '%PUBLIC_URL%/js/common_admin.js'
 minify_css_public: {  }
 minify_js_public: {  }
 log_admin:

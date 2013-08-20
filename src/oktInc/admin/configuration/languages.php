@@ -211,7 +211,7 @@ $aTimezones = dt::getZones(true,true);
 
 # Liste des icônes
 $aFlags = array();
-foreach (new DirectoryIterator(OKT_COMMON_PATH.'/img/flags/') as $oFileInfo)
+foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/img/flags/') as $oFileInfo)
 {
 	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || files::getExtension($oFileInfo->getFilename()) !== 'png') {
 		continue;
@@ -262,12 +262,12 @@ $okt->page->validate('edit-language-form',array(
 ));
 
 
-$okt->page->css->addFile(OKT_COMMON_URL.'/js-plugins/select2/select2.css');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/select2/select2.min.js');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/select2/select2.css');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/select2/select2.min.js');
 $okt->page->js->addReady('
 
 	function format(flag) {
-		return \'<img class="flag" src="'.OKT_COMMON_URL.'/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
+		return \'<img class="flag" src="'.OKT_PUBLIC_URL.'/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
 	}
 
 	$("#add_img, #edit_img").select2({
@@ -404,8 +404,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
-				<?php if (file_exists(OKT_COMMON_PATH.'/img/flags/'.$rsLanguages->img)) : ?>
-				<img src="<?php echo OKT_COMMON_URL.'/img/flags/'.$rsLanguages->img ?>" alt="" />
+				<?php if (file_exists(OKT_PUBLIC_PATH.'/img/flags/'.$rsLanguages->img)) : ?>
+				<img src="<?php echo OKT_PUBLIC_URL.'/img/flags/'.$rsLanguages->img ?>" alt="" />
 				<?php endif; ?>
 
 				<?php echo html::escapeHTML($rsLanguages->title) ?></label>

@@ -352,7 +352,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 							$cur_image_attr = $aEventImages[$i]['square_attr'];
 						}
 						else {
-							$cur_image_url = OKT_COMMON_URL.'/img/media/image.png';
+							$cur_image_url = OKT_PUBLIC_URL.'/img/media/image.png';
 							$cur_image_attr = ' width="48" height="48" ';
 						}
 
@@ -397,7 +397,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<?php # il y a un fichier ?
 				if (!empty($aEventFiles[$i])) : ?>
-					<p><a href="<?php echo $aEventFiles[$i]['url'] ?>"><img src="<?php echo OKT_COMMON_URL.'/img/media/'.$aEventFiles[$i]['type'].'.png' ?>" alt="<?php echo $aEventFiles[$i]['filename'] ?>" /></a>
+					<p><a href="<?php echo $aEventFiles[$i]['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$aEventFiles[$i]['type'].'.png' ?>" alt="<?php echo $aEventFiles[$i]['filename'] ?>" /></a>
 					<?php echo $aEventFiles[$i]['type'] ?> (<?php echo $aEventFiles[$i]['mime'] ?>)
 					- <?php echo util::l10nFileSize($aEventFiles[$i]['size']) ?></p>
 

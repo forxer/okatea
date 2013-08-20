@@ -17,9 +17,9 @@
 
 # Scripts communs
 $okt->page->js->addScript('
-	oktAdminJs.img.closeButton = "'.OKT_COMMON_URL.'/img/ico/cross.png";
-	oktAdminJs.img.plusButton = "'.OKT_COMMON_URL.'/img/ico/plus.png";
-	oktAdminJs.img.minusButton = "'.OKT_COMMON_URL.'/img/ico/minus.png";
+	oktAdminJs.img.closeButton = "'.OKT_PUBLIC_URL.'/img/ico/cross.png";
+	oktAdminJs.img.plusButton = "'.OKT_PUBLIC_URL.'/img/ico/plus.png";
+	oktAdminJs.img.minusButton = "'.OKT_PUBLIC_URL.'/img/ico/minus.png";
 	oktAdminJs.msg.close = "'.html::escapeJS(__('c_c_action_close')).'";
 	oktAdminJs.msg.plusButton = "'.html::escapeJS(__('c_c_action_show')).'";
 	oktAdminJs.msg.minusButton = "'.html::escapeJS(__('c_c_action_hide')).'";
@@ -95,7 +95,7 @@ if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
 		}
 
 		$aUserBarB[50] = '<a href="'.html::escapeHTML($sBaseUri).'switch_lang='.html::escapeHTML($aLanguage['code']).'" title="'.html::escapeHTML($aLanguage['title']).'">'.
-		'<img src="'.OKT_COMMON_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" /></a>';
+		'<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" /></a>';
 	}
 
 	unset($sBaseUri,$aLanguage);
@@ -135,7 +135,7 @@ ob_start();
 	<title><?php echo html::escapeHtml($okt->page->titleTag(' - ')) ?></title>
 	<link type="text/css" href="<?php echo $okt->config->app_path ?>oktMin/?g=css_admin" rel="stylesheet" media="screen" />
 	<?php echo $okt->page->css ?>
-	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo OKT_COMMON_URL ?>/js-plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo OKT_PUBLIC_URL ?>/js-plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>
 <body<?php if ($okt->page->hasPageId()) : ?> id="adminpage-<?php echo $okt->page->getPageId() ?>"<?php endif; ?>>
 <div id="page">

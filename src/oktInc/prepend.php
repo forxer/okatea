@@ -107,8 +107,8 @@ $okt->loadConfig();
 # URL du dossier modules
 define('OKT_MODULES_URL', $okt->config->app_path.OKT_MODULES_DIR);
 
-# URL du dossier de fichiers publics communs
-define('OKT_COMMON_URL', $okt->config->app_path.OKT_COMMON_DIR);
+# URL du dossier des fichiers publics
+define('OKT_PUBLIC_URL', $okt->config->app_path.OKT_PUBLIC_DIR);
 
 # URL du dossier upload depuis la racine
 define('OKT_UPLOAD_URL', $okt->config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);

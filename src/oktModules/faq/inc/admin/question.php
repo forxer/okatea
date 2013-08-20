@@ -313,7 +313,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 							$cur_image_attr = $post_images[$i]['square_attr'];
 						}
 						else {
-							$cur_image_url = OKT_COMMON_URL.'/img/media/image.png';
+							$cur_image_url = OKT_PUBLIC_URL.'/img/media/image.png';
 							$cur_image_attr = ' width="48" height="48" ';
 						}
 

@@ -10,7 +10,7 @@ $okt->page->css->addFile(OKT_THEME.'/modules/guestbook/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -58,8 +58,8 @@ if (!empty($aJsValidateRules))
 
 
 <?php # début Okatea : ajout jQuery UI
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/ui/jquery-ui.min.js');
-$okt->page->css->addFile(OKT_COMMON_URL.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
 # fin Okatea : ajout jQuery UI ?>
 
 

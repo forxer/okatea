@@ -16,7 +16,7 @@ $this->extend('main');
 		<ul id="lang-switcher">
 			<?php foreach ($okt->languages->list as $aLanguage) : ?>
 			<li id="lang_switcher_<?php echo html::escapeHTML($aLanguage['code']) ?>"><a href="<?php echo html::escapeHTML($aLanguage['code'].'/'.$okt->router->getPath()) ?>" title="<?php echo html::escapeHTML($aLanguage['title']) ?>"><img
-			src="<?php echo OKT_COMMON_URL.'/img/flags/'.$aLanguage['img'] ?>" alt="<?php echo html::escapeHTML($aLanguage['title']) ?>" /></a></li>
+			src="<?php echo OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'] ?>" alt="<?php echo html::escapeHTML($aLanguage['title']) ?>" /></a></li>
 			<?php endforeach; ?>
 		</ul><!-- #lang-switcher -->
 		<?php endif; # fin Okatea : affichage du switcher de langues ?>

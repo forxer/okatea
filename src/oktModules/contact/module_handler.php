@@ -1054,9 +1054,9 @@ class module_contact extends oktModule
 
 	public function genImgMail()
 	{
-		$font = OKT_COMMON_PATH.'/fonts/OpenSans/OpenSans-Regular.ttf';
+		$font = OKT_PUBLIC_PATH.'/fonts/OpenSans/OpenSans-Regular.ttf';
 		$size = ($this->config->mail_size * 72) / 96;
-		$image_src = OKT_COMMON_PATH.'/img/misc/empty.png';
+		$image_src = OKT_PUBLIC_PATH.'/img/misc/empty.png';
 
 		# Génération de l'image de base
 		list($width_orig, $height_orig) = getimagesize($image_src);

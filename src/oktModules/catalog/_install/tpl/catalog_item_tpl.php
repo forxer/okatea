@@ -10,13 +10,13 @@ $okt->page->css->addFile(OKT_THEME.'/modules/catalog/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php # début Okatea : ajout du JS de scrollToTopOfPage
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/easing/jquery.easing.min.js');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/easing/jquery.easing.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
 $okt->page->js->addReady('
 	$("a.scrollTop").scrollToTopOfPage({
 		"top": 300,					// hauteur avant affichage du lien
@@ -136,7 +136,7 @@ endif; # fin Okatea : affichage du fil d'ariane ?>
 			<?php # début Okatea : boucle sur les fichiers
 			foreach ($product->files as $i=>$file) : ?>
 
-			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_COMMON_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
+			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
 			<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
 			- <?php echo util::l10nFileSize($file['size']) ?></p>
 

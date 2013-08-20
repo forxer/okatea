@@ -464,7 +464,7 @@ if ($okt->pages->config->images['enable'])
 						$sCurImageAttr = $aPageData['images'][$i]['square_attr'];
 					}
 					else {
-						$sCurImageUrl = OKT_COMMON_URL.'/img/media/image.png';
+						$sCurImageUrl = OKT_PUBLIC_URL.'/img/media/image.png';
 						$sCurImageAttr = ' width="48" height="48" ';
 					}
 
@@ -548,7 +548,7 @@ if ($okt->pages->config->files['enable'])
 
 				<?php endforeach; ?>
 
-				<p><a href="<?php echo $aPageData['files'][$i]['url'] ?>"><img src="<?php echo OKT_COMMON_URL.'/img/media/'.$aPageData['files'][$i]['type'].'.png' ?>" alt="" /></a>
+				<p><a href="<?php echo $aPageData['files'][$i]['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$aPageData['files'][$i]['type'].'.png' ?>" alt="" /></a>
 				<?php echo $aPageData['files'][$i]['type'] ?> (<?php echo $aPageData['files'][$i]['mime'] ?>)
 				- <?php echo util::l10nFileSize($aPageData['files'][$i]['size']) ?></p>
 

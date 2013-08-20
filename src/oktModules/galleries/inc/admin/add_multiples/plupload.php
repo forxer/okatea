@@ -58,10 +58,10 @@ $rsGalleries = $okt->galleries->tree->getGalleries(array('active' => 2));
 
 
 # plupload
-$okt->page->css->addFile(OKT_COMMON_URL.'/js-plugins/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/plupload/plupload.full.js');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/plupload/jquery.ui.plupload/jquery.ui.plupload.js');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/plupload/i18n/'.$okt->user->language.'.js');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/plupload/plupload.full.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/plupload/jquery.ui.plupload/jquery.ui.plupload.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/plupload/i18n/'.$okt->user->language.'.js');
 
 $okt->page->js->addReady('
 

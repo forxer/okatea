@@ -21,7 +21,7 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -61,8 +61,8 @@ if ($okt->users->config->enable_custom_fields)
 	}
 }
 
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/jquery.validate.min.js');
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/additional-methods.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
 $okt->page->validate('edit-user-form', $aJsValidateRules);
 # fin Okatea : validation JS du formulaire ?>
 

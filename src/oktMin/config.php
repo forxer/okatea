@@ -11,15 +11,13 @@
  * START OKATEA CONFIG
  */
 
-# Inclusion d'un éventuel fichier de configuration
-if (file_exists(__DIR__.'/../oktConf/config.php')) {
-	require __DIR__.'/../oktConf/config.php';
-}
 
 date_default_timezone_set('Europe/Paris');
 
 # Inclusion des constantes systèmes
 require __DIR__.'/../oktInc/constants.php';
+
+require_once OKT_INC_PATH.'/functions.php';
 
 # Inclusion de l'autoload
 require_once OKT_INC_PATH.'/autoload.php';

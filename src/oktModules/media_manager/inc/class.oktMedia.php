@@ -55,7 +55,7 @@ class oktMedia extends filemanager
 		$this->t_media = $this->db->prefix.'mod_media';
 		$this->t_users = $this->db->prefix.'core_users';
 
-		$this->icon_img = OKT_COMMON_URL.'/img/media/%s.png';
+		$this->icon_img = OKT_PUBLIC_URL.'/img/media/%s.png';
 
 		$root = OKT_UPLOAD_PATH.'/media_manager/';
 

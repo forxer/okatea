@@ -48,7 +48,7 @@ class oktDebugBar
 		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag',
 			array('oktDebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile(OKT_COMMON_URL.'/ui-themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
 
 		$this->addFiles();
 	}
@@ -67,7 +67,7 @@ class oktDebugBar
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
 			array('oktDebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile(OKT_COMMON_URL.'/ui-themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
 
 		$this->addFiles();
 
@@ -94,15 +94,15 @@ class oktDebugBar
 	 */
 	public function addFiles()
 	{
-		$this->okt->page->js->addFile(OKT_COMMON_URL .'/js/jquery/jquery.min.js');
-		$this->okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/ui/jquery-ui.min.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL .'/js/jquery/jquery.min.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
 
-		$this->okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/syntaxhighlighter/scripts/shCore.js');
-		$this->okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/syntaxhighlighter/scripts/shBrushSql.js');
-		$this->okt->page->js->addFile(OKT_COMMON_URL.'/js-plugins/syntaxhighlighter/scripts/shBrushPhp.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/syntaxhighlighter/scripts/shCore.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/syntaxhighlighter/scripts/shBrushSql.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/syntaxhighlighter/scripts/shBrushPhp.js');
 
-		$this->okt->page->css->addFile(OKT_COMMON_URL.'/js-plugins/syntaxhighlighter/styles/shCore.css');
-		$this->okt->page->css->addFile(OKT_COMMON_URL.'/js-plugins/syntaxhighlighter/styles/shThemeEclipse.css');
+		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/syntaxhighlighter/styles/shCore.css');
+		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/syntaxhighlighter/styles/shThemeEclipse.css');
 
 		$this->okt->page->js->addScript('SyntaxHighlighter.all();');
 
@@ -177,7 +177,7 @@ class oktDebugBar
 
 		if ($this->aConfig['holmes'])
 		{
-			$this->okt->page->css->addFile(OKT_COMMON_URL.'/css/holmes/holmes.min.css');
+			$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/css/holmes/holmes.min.css');
 
 			$this->okt->page->js->addReady('
 				$("body").addClass("holmes-debug");
@@ -567,7 +567,7 @@ class oktDebugBar
 			</ul>
 			<ul>
 				<li><a href="javascript:(function(){if (!/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){alert(\'Sorry, due to security restrictions, this tool only works in Firefox\'); return false; }; if(window.jquitr){ jquitr.addThemeRoller(); } else{ jquitr = {}; jquitr.s = document.createElement(\'script\'); jquitr.s.src = \'http://jqueryui.com/themeroller/developertool/developertool.js.php\'; document.getElementsByTagName(\'head\')[0].appendChild(jquitr.s);} })();">ThemeRoller</a></li>
-				<li><a href="'.OKT_COMMON_URL.'/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
+				<li><a href="'.OKT_PUBLIC_URL.'/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
 			</ul>
 		</div><!-- #debugTools -->';
 

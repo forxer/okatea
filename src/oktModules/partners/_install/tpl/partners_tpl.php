@@ -10,7 +10,7 @@ $okt->page->css->addFile(OKT_THEME.'/modules/partners/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -50,7 +50,7 @@ if (!$rsPartners->isEmpty()) : ?>
 				$logo_attr = $aPartnerLogoInfos['min_attr'];
 			}
 			else {
-				$logo_url = OKT_COMMON_URL.'/img/media/image.png';
+				$logo_url = OKT_PUBLIC_URL.'/img/media/image.png';
 				$logo_attr = ' width="48" height="48" ';
 			}
 			?>

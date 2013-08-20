@@ -1338,7 +1338,7 @@ class util
 			$aReplacements = array(
 				'aSearch' => array(
 					'%APP_URL%',
-					'%COMMON_URL%',
+					'%PUBLIC_URL%',
 					'%THEME%',
 					'%MOBILE_THEME%',
 					'%ADMIN_THEME%',
@@ -1346,7 +1346,7 @@ class util
 				),
 				'aReplace' => array(
 					$oktConfig->app_path,
-					$oktConfig->app_path.OKT_COMMON_DIR,
+					$oktConfig->app_path.OKT_PUBLIC_DIR,
 					$oktConfig->app_path.OKT_THEMES_DIR.'/'.$oktConfig->theme,
 					$oktConfig->app_path.OKT_THEMES_DIR.'/'.$oktConfig->theme_mobile,
 					$oktConfig->admin_theme,

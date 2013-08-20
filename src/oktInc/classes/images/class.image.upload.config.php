@@ -426,7 +426,7 @@ class oktImageUploadConfig
 					{
 						$return .=
 						'<p><img src="'.$this->imageUpload->getWatermarkUploadUrl().$this->imageUpload->aConfig['watermark_file'].'" alt="" '.
-						'style="background: transparent url('.OKT_COMMON_URL.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
+						'style="background: transparent url('.OKT_PUBLIC_URL.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
 
 						'<p><a href="'.$this->sBaseUrl.'delete_watermark=1" '.
 						'onclick="return window.confirm(\''.html::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.

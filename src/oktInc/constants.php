@@ -27,12 +27,6 @@ define('OKT_INC_DIR','oktInc');
 define('OKT_INC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_INC_DIR);
 
 /**
- * Nom et chemin du dossier de fichiers publics communs
- */
-define('OKT_COMMON_DIR','oktCommon');
-define('OKT_COMMON_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_COMMON_DIR);
-
-/**
  * Nom et chemin du dossier modules
  */
 define('OKT_MODULES_DIR', 'oktModules');

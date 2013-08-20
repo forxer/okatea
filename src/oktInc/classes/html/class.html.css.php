@@ -202,7 +202,7 @@ class htmlCss
 
 			$less->setImportDir(array(
 				(isset($okt->theme->path) ? $okt->theme->path.'/css/' : null),
-				OKT_COMMON_PATH.'/css/less/'
+				OKT_PUBLIC_PATH.'/css/less/'
 			));
 
 			$less->setVariables($okt->theme->getLessVariables());

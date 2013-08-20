@@ -305,7 +305,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 								$logo_attr = $aPartnerLogoInfos['square_attr'];
 							}
 							else {
-								$logo_url = OKT_COMMON_URL.'/img/media/image.png';
+								$logo_url = OKT_PUBLIC_URL.'/img/media/image.png';
 								$logo_attr = ' width="48" height="48" ';
 							}
 

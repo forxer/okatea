@@ -100,7 +100,7 @@ $okt->page->js->addReady('
 						search: field.val()
 					},
 					beforeSend: function() {
-						field.prev().before(\'<img src="'.OKT_COMMON_URL.'/img/ajax-loader/arrow.gif" alt="Chargement, veuillez patienter…" id="ajax-loader" />\');
+						field.prev().before(\'<img src="'.OKT_PUBLIC_URL.'/img/ajax-loader/arrow.gif" alt="Chargement, veuillez patienter…" id="ajax-loader" />\');
 					},
 					success: function(data) {
 						$("#ajax-loader").fadeOut("slow",function(){
@@ -122,7 +122,7 @@ $okt->page->css->addCss('
 	margin: 0;
 }
 #search {
-	background: transparent url('.OKT_COMMON_URL.'/img/admin/preview.png) no-repeat center right;
+	background: transparent url('.OKT_PUBLIC_URL.'/img/admin/preview.png) no-repeat center right;
 }
 ');
 

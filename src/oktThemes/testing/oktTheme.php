@@ -60,10 +60,10 @@ class oktTheme extends oktThemeBase
 		}
 
 		# Ajout de jQuery
-		$this->okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 
 		# CSS
-		$this->okt->page->css->addFile(OKT_COMMON_URL.'/css/init.css');
+		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/css/init.css');
 		$this->okt->page->css->addFile(OKT_THEME.'/css/styles.css');
 
 	}

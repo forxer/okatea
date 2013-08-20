@@ -78,11 +78,11 @@ foreach ($okt->page->mainMenu->getItems() as $item)
 if ($okt->modules->moduleExists('users'))
 {
 	$roundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), 'module.php?m=users&amp;action=profil&amp;id='.$okt->user->id,
-			'<img src="'.OKT_COMMON_URL.'/img/admin/contact-new.png" alt="" />');
+			'<img src="'.OKT_PUBLIC_URL.'/img/admin/contact-new.png" alt="" />');
 }
 
 $roundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), 'index.php?logout=1',
-	'<img src="'.OKT_COMMON_URL.'/img/admin/system-log-out.png" alt="" />');
+	'<img src="'.OKT_PUBLIC_URL.'/img/admin/system-log-out.png" alt="" />');
 
 
 # -- CORE TRIGGER : adminIndexRoundaboutItems

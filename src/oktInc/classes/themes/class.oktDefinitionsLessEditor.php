@@ -188,8 +188,8 @@ class oktDefinitionsLessEditor
 		));
 
 		# Color picker
-		$oPage->css->addFile(OKT_COMMON_URL.'/js-plugins/spectrum/spectrum.css');
-		$oPage->js->addFile(OKT_COMMON_URL.'/js-plugins/spectrum/spectrum.js');
+		$oPage->css->addFile(OKT_PUBLIC_URL.'/js-plugins/spectrum/spectrum.css');
+		$oPage->js->addFile(OKT_PUBLIC_URL.'/js-plugins/spectrum/spectrum.js');
 
 		$oPage->js->addReady('
 			$(".colorpicker").spectrum({

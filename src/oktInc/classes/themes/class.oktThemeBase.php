@@ -36,7 +36,7 @@ class oktThemeBase
 		$this->path = OKT_THEME_PATH;
 
 		$this->setLessVariables(array(
-			'common_url' 	=> "'".OKT_COMMON_URL."'",
+			'public_url' 	=> "'".OKT_PUBLIC_URL."'",
 			'theme_url' 	=> "'".OKT_THEME."'"
 		));
 

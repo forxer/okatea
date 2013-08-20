@@ -302,7 +302,7 @@ class htmlPage
 			$options = array_merge($options,$user_options);
 		}
 
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/ui/i18n/jquery-ui-i18n.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\''.$GLOBALS['okt']->user->language.'\']); '.
@@ -406,7 +406,7 @@ class htmlPage
 				var oktLanguage = this;
 
 				var button = $(\'<a href="#" class="lang-switcher-button" data-lang-code="\' + oktLanguage.code + \'">\'
-				+ \'<img src="'.OKT_COMMON_URL.'/img/flags/\' + oktLanguage.img + \'" alt="\' + oktLanguage.title + \'" /></a>\')
+				+ \'<img src="'.OKT_PUBLIC_URL.'/img/flags/\' + oktLanguage.img + \'" alt="\' + oktLanguage.title + \'" /></a>\')
 				.click(function(e) {
 					switch_language(oktLanguage.code);
 					e.preventDefault();
@@ -525,8 +525,8 @@ class htmlPage
 	 */
 	public function roundabout($user_options=array(), $element='.roundabout')
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/easing/jquery.easing.min.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/roundabout/jquery.roundabout.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/easing/jquery.easing.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/roundabout/jquery.roundabout.min.js');
 
 		$options = array(
 		);
@@ -551,8 +551,8 @@ class htmlPage
 	 */
 	public function colorpicker($element='#colorpicker',$user_options=array())
 	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/jpicker/css/jPicker.min.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/jpicker/jpicker.min.js');
+		$this->css->addFile(OKT_PUBLIC_URL.'/js-plugins/jpicker/css/jPicker.min.css');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js-plugins/jpicker/jpicker.min.js');
 
 		# patch for 1.1.5 missing this property
 		# TODO : remove when it will be corrected
@@ -562,7 +562,7 @@ class htmlPage
 
 		$options = array(
 			'images' => array(
-				'clientPath' => OKT_COMMON_URL.'/js-plugins/jpicker/images/'
+				'clientPath' => OKT_PUBLIC_URL.'/js-plugins/jpicker/images/'
 			),
 			'localization' => array(
 				'text' => array(
@@ -638,8 +638,8 @@ class htmlPage
 	 */
 	public function treeview($user_options=array(), $element='.browser')
 	{
-		$this->css->addFile(OKT_COMMON_URL.'/js-plugins/treeview/jquery.treeview.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js-plugins/treeview/jquery.treeview.min.js');
+		$this->css->addFile(OKT_PUBLIC_URL.'/js-plugins/treeview/jquery.treeview.css');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js-plugins/treeview/jquery.treeview.min.js');
 
 		$options = array(
 		);
@@ -680,14 +680,14 @@ class htmlPage
 
 	public function loader($element)
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/blockUI/jquery.blockUI.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/blockUI/jquery.blockUI.min.js');
 
 		$this->js->addReady('
 			jQuery(\''.$element.'\').click(function() {
 				$.blockUI({
 					theme:    true,
 					title:    "'.__('c_c_Please_wait').'",
-					message:  "<p><img src=\"'.OKT_COMMON_URL.'/img/ajax-loader/big-circle-ball.gif\" alt=\"\" style=\"float: left; margin: 0 1em 1em 0\" /> '.__('c_c_Please_wait_txt').'</p>"
+					message:  "<p><img src=\"'.OKT_PUBLIC_URL.'/img/ajax-loader/big-circle-ball.gif\" alt=\"\" style=\"float: left; margin: 0 1em 1em 0\" /> '.__('c_c_Please_wait_txt').'</p>"
 				});
 			});
 		');
@@ -695,7 +695,7 @@ class htmlPage
 
 	public function cycle($element='#diaporama', $user_options=array())
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/cycle/jquery.cycle.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cycle/jquery.cycle.min.js');
 
 		$options = array(
 		);
@@ -711,7 +711,7 @@ class htmlPage
 
 	public function cycleLite($element='#diaporama', $user_options=array())
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/cycle/jquery.cycle.lite.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cycle/jquery.cycle.lite.min.js');
 
 		$options = array(
 		);
@@ -752,7 +752,7 @@ class htmlPage
 
 	public function strToSlug($command,$target,$user_options=array())
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/stringToSlug/jquery.stringToSlug.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/stringToSlug/jquery.stringToSlug.min.js');
 
 		$options = array(
 			'setEvents' => 'keyup keydown blur',
@@ -771,7 +771,7 @@ class htmlPage
 
 	public function toggleWithLegend($command,$target,$user_options=array())
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/toggleWithLegend/jquery.toggleWithLegend.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
 		$options = array(
 			'plain/text' => 'img_on_src: oktAdminJs.img.plusButton',
@@ -847,7 +847,7 @@ class htmlPage
 						.width((jQuery(this).width()-14) + "px");
 
 					var imgE = document.createElement("img");
-					imgE.src = "'.OKT_COMMON_URL.'/img/ico/lock.png";
+					imgE.src = "'.OKT_PUBLIC_URL.'/img/ico/lock.png";
 					imgE.style.position = "absolute";
 					imgE.style.top = "1.7em";
 					imgE.style.left = ($(this).width()+4) + "px";
@@ -875,7 +875,7 @@ class htmlPage
 
 	public function checkboxHelper($form_id,$helper_id)
 	{
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/checkboxes/jquery.checkboxes.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/checkboxes/jquery.checkboxes.min.js');
 
 		$this->js->addReady('
 			$(\'<a href="#" id="'.$helper_id.'-button-select-all">'.__('c_c_select_all').'</a>\')
@@ -914,8 +914,8 @@ class htmlPage
 
 	public function autocomplete()
 	{
-		$this->css->addFile(OKT_COMMON_URL.'/css/autocomplete/jquery.autocomplete.css');
-		$this->js->addFile(OKT_COMMON_URL.'/js/autocomplete/jquery.autocomplete.min.js');
+		$this->css->addFile(OKT_PUBLIC_URL.'/css/autocomplete/jquery.autocomplete.css');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/autocomplete/jquery.autocomplete.min.js');
 	}
 
 	public function validateForm($user_options=array())
@@ -930,9 +930,9 @@ class htmlPage
 			$options = array_merge($options,$user_options);
 		}
 
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/jquery.validate.min.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/additional-methods.min.js');
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/l10n/messages_'.$options['lang'].'.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/l10n/messages_'.$options['lang'].'.js');
 
 		$this->getValidateJs($options['selector'],$options['fields']);
 	}
@@ -943,7 +943,7 @@ class htmlPage
 			$lang = $GLOBALS['okt']->user->language;
 		}
 
-		$this->js->addFile(OKT_COMMON_URL.'/js/jquery/validate/l10n/messages_'.$lang.'.js');
+		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/l10n/messages_'.$lang.'.js');
 
 		$this->getValidateJs($form_id,$fields);
 	}
@@ -1344,10 +1344,10 @@ class htmlPage
 		}
 
 		$aThemes = array();
-		foreach (new DirectoryIterator(OKT_COMMON_PATH.'/ui-themes') as $oFileInfo)
+		foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/ui-themes') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isDir() ||
-			!file_exists(OKT_COMMON_PATH.'/ui-themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {
+			!file_exists(OKT_PUBLIC_PATH.'/ui-themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {
 				continue;
 			}
 

@@ -174,7 +174,7 @@ $okt->page->js->addReady('
 
 if (!empty($sSearch))
 {
-	$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');

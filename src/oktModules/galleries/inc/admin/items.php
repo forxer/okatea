@@ -208,7 +208,7 @@ $okt->page->css->addCSS('
 	}
 	#ajaxloader {
 		display: none;
-		background: transparent url('.OKT_COMMON_URL.'/img/ajax-loader/indicator-big.gif) no-repeat center;
+		background: transparent url('.OKT_PUBLIC_URL.'/img/ajax-loader/indicator-big.gif) no-repeat center;
 		width: 32px;
 		height: 32px;
 	}

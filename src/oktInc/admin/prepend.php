@@ -156,7 +156,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		/* visible ? */	true,
 		/* ID */ 		null,
 		/* Sub */		($okt->page->homeSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu)),
-		/* Icon */		OKT_COMMON_URL.'/img/admin/start-here.png'
+		/* Icon */		OKT_PUBLIC_URL.'/img/admin/start-here.png'
 	);
 		$okt->page->homeSubMenu->add(
 			__('c_a_menu_roundabout'),
@@ -175,7 +175,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		$okt->checkPerm('configsite'),
 		null,
 		($okt->page->configSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu)),
-		OKT_COMMON_URL.'/img/admin/network-server.png'
+		OKT_PUBLIC_URL.'/img/admin/network-server.png'
 	);
 		$okt->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',
 			(OKT_FILENAME == 'configuration.php') && (!$okt->page->action || $okt->page->action === 'site'),

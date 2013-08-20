@@ -262,7 +262,7 @@ $okt->page->css->addCSS('
 	#ajaxloader {
 		float: right;
 		display: none;
-		background: transparent url('.OKT_COMMON_URL.'/img/ajax-loader/indicator.gif) no-repeat 0 0;
+		background: transparent url('.OKT_PUBLIC_URL.'/img/ajax-loader/indicator.gif) no-repeat 0 0;
 		width: 16px;
 		height: 16px;
 	}

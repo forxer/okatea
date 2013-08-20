@@ -84,14 +84,14 @@ $okt->page->applyLbl('colorbox');
 require OKT_ADMIN_HEADER_FILE; ?>
 
 <p class="modal-box">
-	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 1) ?>" href="<?php echo OKT_COMMON_URL ?>/img/sample/chutes_la_nuit.jpg">
-	<img width="60" height="60" alt="" src="<?php echo OKT_COMMON_URL ?>/img/sample/sq-chutes_la_nuit.jpg"/></a>
+	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 1) ?>" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/chutes_la_nuit.jpg">
+	<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-chutes_la_nuit.jpg"/></a>
 
-	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 2) ?>" href="<?php echo OKT_COMMON_URL ?>/img/sample/les_chutes.jpg">
-	<img width="60" height="60" alt="" src="<?php echo OKT_COMMON_URL ?>/img/sample/sq-les_chutes.jpg"/></a>
+	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 2) ?>" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/les_chutes.jpg">
+	<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-les_chutes.jpg"/></a>
 
-	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 3) ?>" href="<?php echo OKT_COMMON_URL ?>/img/sample/chutes.jpg">
-	<img width="60" height="60" alt="" src="<?php echo OKT_COMMON_URL ?>/img/sample/sq-chutes.jpg"/></a>
+	<a class="modal" rel="test_images" title="<?php printf(__('c_c_Example_%s'), 3) ?>" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/chutes.jpg">
+	<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-chutes.jpg"/></a>
 </p>
 
 <form action="module.php" method="post">

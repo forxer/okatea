@@ -8,7 +8,7 @@ $okt->page->css->addFile(OKT_THEME.'/modules/diary/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_COMMON_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -97,7 +97,7 @@ $okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here'
 		<?php # début Okatea : boucle sur les fichiers
 		foreach ($rsEvent->files as $i=>$file) : ?>
 
-		<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_COMMON_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
+		<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
 		<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
 		- <?php echo util::l10nFileSize($file['size']) ?></p>
 

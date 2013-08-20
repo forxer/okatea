@@ -44,7 +44,7 @@ ob_start();
 
 	<link type="text/css" href="<?php echo $okt->config->app_path ?>oktMin/?g=css_admin" rel="stylesheet" media="screen" />
 	<!--[if lte IE 8]>
-	<link type="text/css" href="<?php echo OKT_COMMON_URL ?>/css/ie-pu-du-ku-c-fou.css" rel="stylesheet for IE" media="screen" />
+	<link type="text/css" href="<?php echo OKT_PUBLIC_URL ?>/css/ie-pu-du-ku-c-fou.css" rel="stylesheet for IE" media="screen" />
 	<![endif]-->
 	<?php echo $okt->page->css ?>
 

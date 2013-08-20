@@ -259,7 +259,7 @@ if (!$dir) {
 
 if ($popup) {
 	echo '<p><strong>'.sprintf(__('Choose a file to insert by clicking on %s.'),
-	'<img src="'.OKT_COMMON_URL.'/img/ico/plus.png" alt="'.__('Attach this file').'" />').'</strong></p>';
+	'<img src="'.OKT_PUBLIC_URL.'/img/ico/plus.png" alt="'.__('Attach this file').'" />').'</strong></p>';
 }
 
 $items = array_values(array_merge($dir['dirs'],$dir['files']));
@@ -404,7 +404,7 @@ function mediaItemLine($f,$i)
 	$res .= '<li class="media-action">&nbsp;';
 
 	if ($popup && !$f->d) {
-		$res .= '<a href="'.$link.'"><img src="'.OKT_COMMON_URL.'/img/ico/plus.png" alt="'.__('Insert this file').'" '.
+		$res .= '<a href="'.$link.'"><img src="'.OKT_PUBLIC_URL.'/img/ico/plus.png" alt="'.__('Insert this file').'" '.
 		'title="'.__('Insert this file').'" /></a> ';
 	}
 

@@ -34,7 +34,7 @@ $okt->page->toggleWithLegend('min_js_public_title', 'min_js_public_table');
 <p><?php _e('c_a_config_advanced_minify_replace') ?></p>
 <ul>
 	<li><?php printf(__('c_a_config_advanced_minify_replace_app_url'), $okt->config->app_host) ?></li>
-	<li><?php printf(__('c_a_config_advanced_minify_replace_common_url'), OKT_COMMON_URL) ?></li>
+	<li><?php printf(__('c_a_config_advanced_minify_replace_public_url'), OKT_PUBLIC_URL) ?></li>
 	<li><?php printf(__('c_a_config_advanced_minify_replace_theme'), $okt->config->app_path.OKT_THEMES_DIR.'/'.$okt->config->theme) ?></li>
 	<li><?php printf(__('c_a_config_advanced_minify_replace_mobile_theme'), $okt->config->app_path.OKT_THEMES_DIR.'/'.$okt->config->theme_mobile) ?></li>
 	<li><?php printf(__('c_a_config_advanced_minify_replace_admin_theme'), $okt->config->admin_theme) ?></li>
