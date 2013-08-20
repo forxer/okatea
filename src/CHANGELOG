@@ -11,17 +11,18 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.RC.3
-# deletion of old stuff
-# move /cache /conf /log and /upload dirs
+# move cache, common, conf, logs, and upload dirs
+! jQuery select2 3.4.2
+. deletion of old stuff
 
 
 1.0.RC.2
-# version minimum de PHP symboliquement passée à 5.3.7
-# deletion of old stuff
+# now require PHP >= 5.3.7
 ! strengthening cryptography
 ! CodeMirror 3.15
 ! Okatea is released under the MIT License
 . move VERSION and CHANGELOG files from oktDoc directory to root application
+. deletion of old stuff
 
 
 1.0.RC.1
