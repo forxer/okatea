@@ -111,10 +111,7 @@ define('OKT_MODULES_URL', $okt->config->app_path.OKT_MODULES_DIR);
 define('OKT_COMMON_URL', $okt->config->app_path.OKT_COMMON_DIR);
 
 # URL du dossier upload depuis la racine
-define('OKT_UPLOAD_URL', $okt->config->app_path.OKT_UPLOAD_DIR);
-
-# Chemin du fichier digests
-define('OKT_DIGESTS', OKT_INC_PATH.'/digests');
+define('OKT_UPLOAD_URL', $okt->config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
 
 
 # Définition du thème à utiliser

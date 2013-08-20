@@ -27,12 +27,6 @@ define('OKT_INC_DIR','oktInc');
 define('OKT_INC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_INC_DIR);
 
 /**
- * Nom et chemin du dossier upload
- */
-define('OKT_UPLOAD_DIR','oktUpload');
-define('OKT_UPLOAD_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_UPLOAD_DIR);
-
-/**
  * Nom et chemin du dossier de fichiers publics communs
  */
 define('OKT_COMMON_DIR','oktCommon');
@@ -51,6 +45,19 @@ define('OKT_PUBLIC_DIR', 'oktPublic');
 define('OKT_PUBLIC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_PUBLIC_DIR);
 
 /**
+ * Nom et chemin du dossier upload
+ */
+define('OKT_UPLOAD_DIR','upload');
+define('OKT_UPLOAD_PATH', OKT_PUBLIC_PATH.DIRECTORY_SEPARATOR.OKT_UPLOAD_DIR);
+
+/**
+ * Chemin du dossier des thèmes
+ */
+define('OKT_THEMES_DIR', 'oktThemes');
+define('OKT_THEMES_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_THEMES_DIR);
+
+
+/**
  * Nom et chemin du dossier cache
  */
 define('OKT_CACHE_DIR', 'cache');
@@ -62,11 +69,22 @@ define('OKT_CACHE_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CACHE_DIR);
 define('OKT_GLOBAL_CACHE_FILE', OKT_CACHE_PATH.DIRECTORY_SEPARATOR.'static.php');
 
 /**
+ * Chemin du dossier classes
+ */
+define('OKT_CLASSES_DIR', 'classes');
+define('OKT_CLASSES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CLASSES_DIR);
+
+/**
  * Chemin du dossier de configuration
  */
 define('OKT_CONFIG_DIR', 'conf');
 define('OKT_CONFIG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CONFIG_DIR);
 
+/**
+ * Chemin du dossier locales
+ */
+define('OKT_LOCALES_DIR', 'locales');
+define('OKT_LOCALES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_LOCALES_DIR);
 
 /**
  * Chemin du dossier de logs
@@ -75,25 +93,16 @@ define('OKT_LOG_DIR', 'logs');
 define('OKT_LOG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_LOG_DIR);
 
 /**
- * Chemin du dossier des thèmes
- */
-define('OKT_THEMES_DIR', 'oktThemes');
-define('OKT_THEMES_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_THEMES_DIR);
-
-/**
- * Chemin du dossier classes
- */
-define('OKT_CLASSES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.'classes');
-
-/**
- * Chemin du dossier locales
- */
-define('OKT_LOCALES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.'locales');
-
-/**
  * Chemin du dossier vendor
  */
-define('OKT_VENDOR_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.'vendor');
+define('OKT_VENDOR_DIR', 'vendor');
+define('OKT_VENDOR_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR);
+
+/**
+ * Nom et chemin du fichier digests
+ */
+define('OKT_DIGESTS', OKT_INC_PATH.DIRECTORY_SEPARATOR.'digests');
+
 
 /**
  * Nom du cookie d'identification
