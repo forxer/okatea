@@ -32,11 +32,14 @@ $RECYCLE.BIN/
 /src/oktInc/conf/conf_*.yaml
 !/src/oktInc/conf/conf_site.yaml
 
-# oktatea conf
+# oktatea cache
 /src/oktInc/cache/minify/minify_*
 /src/oktInc/cache/modulesRepositoriesInfos.php
 /src/oktInc/cache/static.php
 /src/oktInc/cache/versions/
+
+/src/oktPublic/cache/**
+!/src/oktPublic/conf/index.html
 
 # oktatea themes
 /src/oktThemes/*/modules/**
