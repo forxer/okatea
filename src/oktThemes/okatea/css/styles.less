@@ -1,0 +1,63 @@
+
+@import "common";
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 85%;
+}
+
+#page {
+	color: @main_text_color;
+	background-color: @main_background_color;
+}
+
+header {
+	color: @fourth_text_color;
+	background-color: @fourth_background_color;
+	padding: 0.3em;
+	.clearfix();
+}
+	#head {
+		float: left;
+	}
+		#head .title {
+			font-size: 1.5em;
+		}
+		#head .description {
+			font-style: italic;
+		}
+
+	#lang-switcher {
+		float: right;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+#graphic-title {
+	color: @fourth_text_color;
+	background-color: @third_background_color;
+	text-align: right;
+	font-size: 1.2em;
+	padding: 0.3em;
+}
+
+#breadcrumb {
+	background-color: @second_background_color;
+	padding: 0.3em;
+	a {
+		.commonLink();
+	}
+}
+
+
+#main {
+	width: 95%;
+	margin: 0 auto;
+}
+h1 {}
+
+footer {
+	font-size: 0.9em;
+	text-align: center;
+}
