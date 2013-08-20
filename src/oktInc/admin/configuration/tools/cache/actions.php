@@ -35,11 +35,11 @@ if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'],$aCacheFiles))
 # Suppression d'un fichier cache public
 if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'],$aPublicCacheFiles))
 {
-	if (is_dir(OKT_PUBLIC_PATH.'/'.$_GET['public_cache_file'])) {
-		files::deltree(OKT_PUBLIC_PATH.'/'.$_GET['public_cache_file']);
+	if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file'])) {
+		files::deltree(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
 	}
 	else {
-		unlink(OKT_PUBLIC_PATH.'/'.$_GET['public_cache_file']);
+		unlink(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
 	}
 
 	$okt->redirect('configuration.php?action=tools&file_deleted=1');

@@ -56,7 +56,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 	<tr>
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_PUBLIC_DIR ?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_PUBLIC_PATH.'/'.$sFile)) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_PUBLIC_PATH.'/cache/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small">
 			<ul class="actions">
 				<li>

@@ -185,7 +185,7 @@ class htmlCss
 	{
 		global $okt;
 
-		$outputFile = OKT_PUBLIC_PATH.'/'.md5($inputFile).'.css';
+		$outputFile = OKT_PUBLIC_PATH.'/cache/'.md5($inputFile).'.css';
 		$cacheFile = $outputFile.'.cache';
 
 		if (file_exists($cacheFile)) {

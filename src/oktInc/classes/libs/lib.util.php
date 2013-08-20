@@ -1224,7 +1224,7 @@ class util
 		}
 
 		$aCacheFiles = array();
-		foreach (new DirectoryIterator(OKT_PUBLIC_PATH) as $oFileInfo)
+		foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/cache') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;
@@ -1248,11 +1248,11 @@ class util
 
 		foreach ($aCacheFiles as $file)
 		{
-			if (is_dir(OKT_PUBLIC_PATH.'/'.$file)) {
-				files::deltree(OKT_PUBLIC_PATH.'/'.$file);
+			if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$file)) {
+				files::deltree(OKT_PUBLIC_PATH.'/cache/'.$file);
 			}
 			else {
-				unlink(OKT_PUBLIC_PATH.'/'.$file);
+				unlink(OKT_PUBLIC_PATH.'/cache/'.$file);
 			}
 		}
 	}
