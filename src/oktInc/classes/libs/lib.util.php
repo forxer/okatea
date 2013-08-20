@@ -700,17 +700,6 @@ class util
 	}
 
 	/**
-	 * Indique si on as un numéro de téléphone de forme française
-	 *
-	 * @param string $str
-	 * @return ?
-	 */
-	public static function isFrenchPhone($str)
-	{
-		return preg_match("#^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$#", $str);
-	}
-
-	/**
 	 * Force le téléchargement d'un fichier $fileName
 	 *
 	 * @param string $fileName
@@ -1466,80 +1455,5 @@ class util
 		}
 	}
 
-	public static function secure_string($elem, $arg_array_search=null, $arg_array_replace=null)
-	{
-		$array_search = array("€", "<pre>", "</pre>", "’");
-		$array_replace = array("&euro;", "", "", ",");
-
-		if ($arg_array_search) {
-			$array_search = array_merge($array_search , $arg_array_search);
-		}
-
-		if ($arg_array_replace) {
-			$array_replace = array_merge($array_replace , $arg_array_replace);
-		}
-
-		switch (true)
-		{
-			case is_string($elem) :
-				if (get_magic_quotes_gpc()) {
-					$elem = stripslashes($elem);
-				}
-				$elem = preg_replace('@<script[^>]*?>.*?</script>@si', '', $elem);
-				return trim(str_replace($array_search,$array_replace,$elem));
-			break;
-
-			case is_array($elem) :
-				return array_map(array(__CLASS__, 'secure_string'),$elem);
-			break;
-
-			default:
-				return $elem;
-			break;
-		}
-	}
-
-	public static function search_property($needle, $haystack, $property, $strict=false)
-	{
-		$l = count($haystack);
-
-		if ($strict)
-		{
-			for ($i=0; $i<$l;$i++)
-			{
-				if ($haystack[$i]->$property===$needle) {
-					return $i;
-				}
-			}
-		}
-		else
-		{
-			for ($i=0; $i<$l;$i++)
-			{
-				if ($haystack[$i]->$property==$needle) {
-					return $i;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/* Fonction pour vérifier une chaine */
-	public static function is_html($str)
-	{
-		return (bool)preg_match("/<[^>]+>/i", $str);
-	}
-
-	public static function filterUrl($txt, $aSearch=array())
-	{
-		$aSearch = array_merge($aSearch, array(":","(",")","[","]","/"));
-
-		$txt = str_replace($aSearch, "", $txt);
-		$txt = self::strToLowerURL($txt);
-		$txt = trim($txt, "-");
-
-		return $txt;
-	}
 
 } #class
