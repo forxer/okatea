@@ -551,8 +551,8 @@ class htmlPage
 	 */
 	public function colorpicker($element='#colorpicker',$user_options=array())
 	{
-		$this->css->addFile(OKT_PUBLIC_URL.'/js-plugins/jpicker/css/jPicker.min.css');
-		$this->js->addFile(OKT_PUBLIC_URL.'/js-plugins/jpicker/jpicker.min.js');
+		$this->css->addFile(OKT_PUBLIC_URL.'/plugins/jpicker/css/jPicker.min.css');
+		$this->js->addFile(OKT_PUBLIC_URL.'/plugins/jpicker/jpicker.min.js');
 
 		# patch for 1.1.5 missing this property
 		# TODO : remove when it will be corrected
@@ -562,7 +562,7 @@ class htmlPage
 
 		$options = array(
 			'images' => array(
-				'clientPath' => OKT_PUBLIC_URL.'/js-plugins/jpicker/images/'
+				'clientPath' => OKT_PUBLIC_URL.'/plugins/jpicker/images/'
 			),
 			'localization' => array(
 				'text' => array(
@@ -638,8 +638,8 @@ class htmlPage
 	 */
 	public function treeview($user_options=array(), $element='.browser')
 	{
-		$this->css->addFile(OKT_PUBLIC_URL.'/js-plugins/treeview/jquery.treeview.css');
-		$this->js->addFile(OKT_PUBLIC_URL.'/js-plugins/treeview/jquery.treeview.min.js');
+		$this->css->addFile(OKT_PUBLIC_URL.'/plugins/treeview/jquery.treeview.css');
+		$this->js->addFile(OKT_PUBLIC_URL.'/plugins/treeview/jquery.treeview.min.js');
 
 		$options = array(
 		);

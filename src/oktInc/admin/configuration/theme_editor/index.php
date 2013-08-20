@@ -186,29 +186,29 @@ if ($sFilename && $sMode)
 	$okt->page->addGlobalTitle($sFilename);
 
 	# CSS
-	$okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/lib/codemirror.css');
-	$okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/dialog/dialog.css');
+	$okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/lib/codemirror.css');
+	$okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/dialog/dialog.css');
 
 	# JS
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/lib/codemirror.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/lib/codemirror.js');
 
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/clike/clike.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/css/css.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/htmlmixed/htmlmixed.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/javascript/javascript.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/less/less.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/php/php.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/xml/xml.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/mode/yaml/yaml.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/clike/clike.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/css/css.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/htmlmixed/htmlmixed.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/javascript/javascript.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/less/less.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/php/php.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/xml/xml.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/mode/yaml/yaml.js');
 
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/search/search.js');
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/search/searchcursor.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/search/search.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/search/searchcursor.js');
 
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/search/match-highlighter.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/search/match-highlighter.js');
 
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/dialog/dialog.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/dialog/dialog.js');
 
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/codemirror/addon/selection/active-line.js');
+	$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/codemirror/addon/selection/active-line.js');
 
 	$okt->page->js->addScript('
 
@@ -302,8 +302,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	</p>
 
 	<div id="treecontrol" class="col right">
-		<a title="Collapse the entire tree below" href="#"><img src="<?php echo OKT_PUBLIC_URL ?>/js-plugins/treeview/images/minus.gif" /> <?php _e('c_a_te_action_collapse_all') ?></a>
-		<a title="Expand the entire tree below" href="#"><img src="<?php echo OKT_PUBLIC_URL ?>/js-plugins/treeview/images/plus.gif" /> <?php _e('c_a_te_action_expand_all') ?></a>
+		<a title="Collapse the entire tree below" href="#"><img src="<?php echo OKT_PUBLIC_URL ?>/plugins/treeview/images/minus.gif" /> <?php _e('c_a_te_action_collapse_all') ?></a>
+		<a title="Expand the entire tree below" href="#"><img src="<?php echo OKT_PUBLIC_URL ?>/plugins/treeview/images/plus.gif" /> <?php _e('c_a_te_action_expand_all') ?></a>
 	</div>
 </div>
 <div class="ui-helper-clearfix">

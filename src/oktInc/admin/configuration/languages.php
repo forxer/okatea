@@ -262,8 +262,8 @@ $okt->page->validate('edit-language-form',array(
 ));
 
 
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/js-plugins/select2/select2.css');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js-plugins/select2/select2.min.js');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/select2/select2.css');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/select2/select2.min.js');
 $okt->page->js->addReady('
 
 	function format(flag) {
