@@ -17,11 +17,7 @@ require_once OKT_CONFIG_PATH.'/connexion.php';
 
 $db = oktDb::getInstance();
 
-$oChecklist = new checkList(
-	OKT_INSTAL_COMMON_URL.'/img/ico/check_ok.png',
-	OKT_INSTAL_COMMON_URL.'/img/ico/check_ko.png',
-	OKT_INSTAL_COMMON_URL.'/img/ico/check_wrn.png'
-);
+$oChecklist = new checkList();
 
 
 /* Traitements

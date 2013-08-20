@@ -141,16 +141,6 @@ $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/ui/jquery-ui.min.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/common_admin.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/blockUI/jquery.blockUI.min.js');
 
-$oHtmlPage->js->addScript('
-	oktAdminJs.img.closeButton = "'.OKT_INSTAL_COMMON_URL.'/img/ico/cross.png";
-	oktAdminJs.img.plusButton = "'.OKT_INSTAL_COMMON_URL.'/img/ico/plus.png";
-	oktAdminJs.img.minusButton = "'.OKT_INSTAL_COMMON_URL.'/img/ico/minus.png";
-	oktAdminJs.msg.close = "'.html::escapeJS(__('c_c_action_close')).'";
-	oktAdminJs.msg.plusButton = "'.html::escapeJS(__('c_c_action_show')).'";
-	oktAdminJs.msg.minusButton = "'.html::escapeJS(__('c_c_action_hide')).'";
-');
-
-
 # load page from stepper
 require_once __DIR__.'/inc/'.$_SESSION['okt_install_process_type'].'Stepper.php';
 

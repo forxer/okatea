@@ -32,11 +32,7 @@ class oktModuleInstall extends oktModule
 	{
 		parent::__construct($okt,$modules_path);
 
-		$this->checklist = new checkList(
-			$this->okt->config->app_path.'oktCommon/img/ico/check_ok.png',
-			$this->okt->config->app_path.'oktCommon/img/ico/check_ko.png',
-			$this->okt->config->app_path.'oktCommon/img/ico/check_wrn.png'
-		);
+		$this->checklist = new checkList();
 
 		# get infos from define file
 		$this->setInfo('id', $id);

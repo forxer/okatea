@@ -1,15 +1,3 @@
-var oktAdminJs = {
-	img: {
-		closeButton: 'oktCommon/img/ico/cross.png',
-		plusButton: 'oktCommon/img/ico/plus.png',
-		minusButton: 'oktCommon/img/ico/minus.png'
-	},
-	msg: {
-		close: 'fermer',
-		plusButton: 'afficher',
-		minusButton: 'masquer'
-	}
-};
 
 // plugin pour ajouter/retirer une classe au focus
 (function($){
@@ -52,29 +40,6 @@ var oktAdminJs = {
 	};
 })(jQuery);
 
-
-// plugin pour ajouter un bouton fermer
-(function($){
-	$.fn.oktAddCloseButton = function(options) {
-		var defaults = {
-			img: 'oktCommon/img/ico/cross.png',
-			title: 'Fermer'
-		};
-
-		var opts = $.extend(defaults, options);
-
-		return this.each(function(){
-			var e = $(this);
-			$('<a href="#" title="'+opts.title+'"><img src="'+opts.img+'" alt="'+opts.title+'" /></a>')
-			.css('float','right')
-			.click(function() {
-				$(e).slideUp();
-				e.preventDefault();
-			})
-			.prependTo(e);
-		});
-	};
-})(jQuery);
 
 
 /************************************************************************

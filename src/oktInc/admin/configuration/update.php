@@ -32,11 +32,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 # mise à jour de la base de données
 if (!empty($_GET['update_db']))
 {
-	$oChecklist = new checkList(
-		$okt->config->app_path.'oktCommon/img/ico/check_ok.png',
-		$okt->config->app_path.'oktCommon/img/ico/check_ko.png',
-		$okt->config->app_path.'oktCommon/img/ico/check_wrn.png'
-	);
+	$oChecklist = new checkList();
 
 	oktUpdate::dbUpdate($oChecklist);
 

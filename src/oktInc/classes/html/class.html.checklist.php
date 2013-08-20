@@ -42,18 +42,11 @@ class checkList
 	/**
 	 * Constucteur.
 	 *
-	 * @param	string	img_on		URL de l'image ok
-	 * @param	string	img_off		URL de l'image erreur
-	 * @param	string 	img_wrn		URL de l'image avertissement
 	 * @return void
 	 */
-	public function __construct($img_on='',$img_off='',$img_wrn='')
+	public function __construct()
 	{
 		$this->check = array();
-
-		$this->img_on = $img_on;
-		$this->img_off = $img_off;
-		$this->img_wrn = $img_wrn;
 	}
 
 	/**
@@ -65,7 +58,7 @@ class checkList
 	 * @param	string	off		Le texte si échec
 	 * @return void
 	 */
-	public function addItem($name,$test,$on,$off)
+	public function addItem($name, $test, $on, $off)
 	{
 		$this->check[$name] = array(
 			'test' => (($test === null) ? null : (boolean) $test),
@@ -136,13 +129,13 @@ class checkList
 		foreach ($this->check as $k => $v)
 		{
 			if ($v['test'] === null) {
-				$res .= sprintf($item, $this->getImageWrn().' '.$v['off']);
+				$res .= sprintf($item, '<span class="span_sprite ss_error"></span> '.$v['off']);
 			}
 			elseif ($v['test'] == false) {
-				$res .= sprintf($item, $this->getImageOff().' '.$v['off']);
+				$res .= sprintf($item, '<span class="span_sprite ss_cross"></span> '.$v['off']);
 			}
 			elseif ($v['test']) {
-				$res .= sprintf($item, $this->getImageOn().' '.$v['on']);
+				$res .= sprintf($item, '<span class="span_sprite ss_tick"></span> '.$v['on']);
 			}
 		}
 
@@ -153,28 +146,13 @@ class checkList
 	{
 		$res = '';
 
-		$res .= sprintf($item, $this->getImageOn().' '.__('c_c_checklist_valid'));
+		$res .= sprintf($item, '<span class="span_sprite ss_tick"></span> '.__('c_c_checklist_valid'));
 
-		$res .= sprintf($item, $this->getImageWrn().' '.__('c_c_checklist_warning'));
+		$res .= sprintf($item, '<span class="span_sprite ss_error"></span> '.__('c_c_checklist_warning'));
 
-		$res .= sprintf($item, $this->getImageOff().' '.__('c_c_checklist_error'));
+		$res .= sprintf($item, '<span class="span_sprite ss_cross"></span> '.__('c_c_checklist_error'));
 
 		return sprintf($bloc, $res);
 	}
 
-	protected function getImageOn()
-	{
-		return !empty($this->img_on) ? '<img src="'.$this->img_on.'" alt="'.__('c_c_checklist_valid').'" />' : '';
-	}
-
-	protected function getImageWrn()
-	{
-		return !empty($this->img_wrn) ? '<img src="'.$this->img_wrn.'" alt="'.__('c_c_checklist_warning').'" />' : '';
-	}
-
-	protected function getImageOff()
-	{
-		return !empty($this->img_off) ? '<img src="'.$this->img_off.'" alt="'.__('c_c_checklist_error').'" />' : '';
-	}
-
-}
+} # class

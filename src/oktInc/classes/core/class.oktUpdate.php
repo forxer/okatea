@@ -560,13 +560,8 @@ class oktUpdate
 			return false;
 		}
 
-		if (is_null($oChecklist) || !($oChecklist instanceof checkList))
-		{
-			$oChecklist = new checkList(
-				$okt->config->app_path.'oktCommon/img/ico/check_ok.png',
-				$okt->config->app_path.'oktCommon/img/ico/check_ko.png',
-				$okt->config->app_path.'oktCommon/img/ico/check_wrn.png'
-			);
+		if (is_null($oChecklist) || !($oChecklist instanceof checkList)) {
+			$oChecklist = new checkList();
 		}
 
 		foreach (new DirectoryIterator(OKT_INC_PATH.'/sql_schema/') as $oFileInfo)

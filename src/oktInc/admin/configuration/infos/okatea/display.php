@@ -29,11 +29,7 @@ require OKT_INC_PATH.'/systeme_requirements.php';
 
 foreach ($requirements as $group)
 {
-	${'check_'.$group['group_id']} = new checkList(
-		$okt->config->app_path.'oktCommon/img/ico/check_ok.png',
-		$okt->config->app_path.'oktCommon/img/ico/check_ko.png',
-		$okt->config->app_path.'oktCommon/img/ico/check_wrn.png'
-	);
+	${'check_'.$group['group_id']} = new checkList();
 
 	foreach ($group['requirements'] as $requirement) {
 		${'check_'.$group['group_id']}->addItem($requirement['id'],$requirement['test'],$requirement['msg_ok'],$requirement['msg_ko']);

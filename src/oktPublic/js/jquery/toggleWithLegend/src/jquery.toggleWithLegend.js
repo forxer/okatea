@@ -1,22 +1,11 @@
-/*
- * 		$(document).ready(function(){
- *			$("#toggleCommand").toggleWithLegend(
- *			$("#togglable"),{
- *				img_on_src: oktAdminJs.img.plusButton,
- *				img_off_src: oktAdminJs.img.minusButton,
- *				cookie: "modules_cookie_moduleId_actionName",
- *				legend_click: true
- *			});
- *		});
- */
 
 (function($){
 	jQuery.fn.toggleWithLegend = function(target,s) {
 		var defaults = {
-			img_on_src: oktAdminJs.img.plusButton,
-			img_on_alt: oktAdminJs.msg.plusButton,
-			img_off_src: oktAdminJs.img.minusButton,
-			img_off_alt: oktAdminJs.msg.minusButton,
+			img_on_src: 'img/plus/url',
+			img_on_alt: 'show',
+			img_off_src: 'img/minus/url',
+			img_off_alt: 'hide',
 			hide: true,
 			speed: 0,
 			legend_click: false,
@@ -26,9 +15,12 @@
 		};
 		var o = jQuery.extend(defaults,s);
 
-		if (!target) { return this; }
+		if (!target) {
+			return this;
+		}
 
 		var set_cookie = o.hide ^ o.reverse_cookie;
+
 		if (o.cookie && jQuery.cookie(o.cookie)) {
 			o.hide = o.reverse_cookie;
 		}
@@ -39,7 +31,8 @@
 				img.src = o.img_on_src;
 				img.alt = o.img_on_alt;
 				target.hide(speed);
-			} else {
+			}
+			else {
 				img.src = o.img_off_src;
 				img.alt = o.img_off_alt;
 				target.show(speed);
@@ -62,26 +55,10 @@
 
 		return this.each(function() {
 
-/*
-			var img = document.createElement('img');
-			$(img).prop('src', o.img_off_src)
-			.prop('alt', o.img_off_alt)
-			.css('vertical-align','baseline');
-//*/
-
-/*
-			var img = $('<img>')
-			.prop('src', o.img_off_src)
-			.prop('alt', o.img_off_alt)
-			.css('vertical-align','baseline');
-//*/
-
-///*
 			var img = document.createElement('img');
 			img.src = o.img_off_src;
 			img.alt = o.img_off_alt;
 			$(img).css('vertical-align','baseline');
-//*/
 
 			var a = document.createElement('a');
 			a.href= '#';

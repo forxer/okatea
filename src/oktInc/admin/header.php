@@ -15,16 +15,6 @@
  */
 
 
-# Scripts communs
-$okt->page->js->addScript('
-	oktAdminJs.img.closeButton = "'.OKT_PUBLIC_URL.'/img/ico/cross.png";
-	oktAdminJs.img.plusButton = "'.OKT_PUBLIC_URL.'/img/ico/plus.png";
-	oktAdminJs.img.minusButton = "'.OKT_PUBLIC_URL.'/img/ico/minus.png";
-	oktAdminJs.msg.close = "'.html::escapeJS(__('c_c_action_close')).'";
-	oktAdminJs.msg.plusButton = "'.html::escapeJS(__('c_c_action_show')).'";
-	oktAdminJs.msg.minusButton = "'.html::escapeJS(__('c_c_action_hide')).'";
-');
-
 # récupération des erreurs du core
 if ($okt->error->notEmpty())
 {

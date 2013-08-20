@@ -774,10 +774,10 @@ class htmlPage
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
 		$options = array(
-			'plain/text' => 'img_on_src: oktAdminJs.img.plusButton',
-			'plain/text' => 'img_on_alt: oktAdminJs.msg.plusButton',
-			'plain/text' => 'img_off_src: oktAdminJs.img.minusButton',
-			'plain/text' => 'img_off_alt: oktAdminJs.msg.minusButton',
+			'img_on_src' => OKT_PUBLIC_URL.'/img/ico/plus.png',
+			'img_on_alt' => html::escapeJS(__('c_c_action_show')),
+			'img_off_src' => OKT_PUBLIC_URL.'/img/ico/minus.png',
+			'img_off_alt' => html::escapeJS(__('c_c_action_hide')),
 			'hide' => true,
 			'speed' => 0,
 			'legend_click' => true,
