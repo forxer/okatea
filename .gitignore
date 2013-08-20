@@ -28,15 +28,15 @@ $RECYCLE.BIN/
 /src/oktPrepend.php
 
 # oktatea conf
-/src/oktConf/connexion.php
-/src/oktConf/conf_*.yaml
-!/src/oktConf/conf_site.yaml
+/src/oktInc/conf/connexion.php
+/src/oktInc/conf/conf_*.yaml
+!/src/oktInc/conf/conf_site.yaml
 
 # oktatea conf
-/src/oktCache/minify/minify_*
-/src/oktCache/modulesRepositoriesInfos.php
-/src/oktCache/static.php
-/src/oktCache/versions/
+/src/oktInc/cache/minify/minify_*
+/src/oktInc/cache/modulesRepositoriesInfos.php
+/src/oktInc/cache/static.php
+/src/oktInc/cache/versions/
 
 # oktatea themes
 /src/oktThemes/*/modules/**

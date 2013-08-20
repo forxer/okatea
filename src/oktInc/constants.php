@@ -53,8 +53,8 @@ define('OKT_PUBLIC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_PUBLIC_DIR);
 /**
  * Nom et chemin du dossier cache
  */
-define('OKT_CACHE_DIR', 'oktCache');
-define('OKT_CACHE_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_CACHE_DIR);
+define('OKT_CACHE_DIR', 'cache');
+define('OKT_CACHE_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CACHE_DIR);
 
 /**
  * Nom et chemin du fichier cache global
@@ -64,15 +64,15 @@ define('OKT_GLOBAL_CACHE_FILE', OKT_CACHE_PATH.DIRECTORY_SEPARATOR.'static.php')
 /**
  * Chemin du dossier de configuration
  */
-define('OKT_CONFIG_DIR', 'oktConf');
-define('OKT_CONFIG_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_CONFIG_DIR);
+define('OKT_CONFIG_DIR', 'conf');
+define('OKT_CONFIG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CONFIG_DIR);
 
 
 /**
  * Chemin du dossier de logs
  */
-define('OKT_LOG_DIR', 'oktLog');
-define('OKT_LOG_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_LOG_DIR);
+define('OKT_LOG_DIR', 'logs');
+define('OKT_LOG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_LOG_DIR);
 
 /**
  * Chemin du dossier des thèmes

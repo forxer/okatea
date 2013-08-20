@@ -12,6 +12,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 1.0.RC.3
 # deletion of old stuff
+# move /cache /conf and /log dirs
 
 
 1.0.RC.2
