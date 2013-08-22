@@ -9,11 +9,9 @@ class moduleInstall_accessible_captcha extends oktModuleInstall
 {
 	public function install()
 	{
-		/*
 		$this->setDefaultAdminPerms(array(
 			'accessible_captcha_config',
 		));
-		*/
 	}
 
 } # class

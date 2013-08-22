@@ -167,48 +167,9 @@ class module_accessible_captcha extends oktModule
 	 */
 	public function get($sLanguageCode=null)
 	{
-		if ($this->config->local) {
-			return $this->getFromDb($sLanguageCode);
-		}
-		else {
-			return $this->getFromXml($sLanguageCode);
-		}
+		return $this->getFromDb($sLanguageCode);
 	}
 
-	protected function getFromXml($sLanguageCode=null)
-	{
-		if (is_null($sLanguageCode)) {
-			return new recordset(array());
-		}
-
-		$aIncludePath = explode(PATH_SEPARATOR,get_include_path());
-
-		foreach ($aIncludePath as $sPath)
-		{
-			if (!file_exists($sPath.'/xml/capt_quesrep_'.$sLanguageCode.'.xml')) {
-				continue;
-			}
-
-			$oXml = simplexml_load_file($sPath.'/xml/capt_quesrep_'.$sLanguageCode.'.xml');
-			break;
-		}
-
-		if (empty($oXml->cas)) {
-			return new recordset(array());
-		}
-
-		$aData = array();
-		foreach ($oXml->cas as $value)
-		{
-			$aData[] = array(
-				'question' => (string)$value->question,
-				'reponse' => (string)$value->reponse,
-				'language_code' => $sLanguageCode
-			);
-		}
-
-		return new recordset($aData);
-	}
 
 	protected function getFromDb($sLanguageCode=null)
 	{
@@ -305,7 +266,7 @@ class module_accessible_captcha extends oktModule
 	 */
 	public static function publicControllerStart($okt, $sName)
 	{
-        if($sName == "accessible_captcha"){
+		if($sName == "accessible_captcha"){
 			$okt->accessible_captcha->initQuestion();
 		}
 	}
@@ -317,7 +278,7 @@ class module_accessible_captcha extends oktModule
 	 */
 	public static function publicControllerFormCheckValues($okt, $sName)
 	{
-        if($sName == "accessible_captcha"){
+		if($sName == "accessible_captcha"){
 			$p_question = !empty($_POST['captcha_q']) ? trim($_POST['captcha_q']) : null;
 			$p_answer = !empty($_POST['captcha']) ? trim($_POST['captcha']) : null;
 
@@ -328,7 +289,7 @@ class module_accessible_captcha extends oktModule
 				return false;
 			}
 		}
-		return true;		
+		return true;
 	}
 
 	/**
@@ -339,7 +300,7 @@ class module_accessible_captcha extends oktModule
 	 */
 	public static function publicJsValidateRules($okt,$aJsValidateRules, $sName)
 	{
-        if($sName == "accessible_captcha"){
+		if($sName == "accessible_captcha"){
 			$aJsValidateRules[] = 'captcha: { required: true }';
 		}
 	}
@@ -348,11 +309,11 @@ class module_accessible_captcha extends oktModule
 	 * Affichage
 	 *
 	 * @param object $okt
-     * @param string $sName
+	 * @param string $sName
 	 */
 	public static function publicTplFormBottom($okt, $sName)
 	{
-        if($sName == "accessible_captcha"){
+		if($sName == "accessible_captcha"){
 		echo
 		'<fieldset id="accessible_captcha">'.
 		'<legend>'.__('SPAM prevention').'</legend>'.

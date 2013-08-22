@@ -15,10 +15,6 @@ if (!$okt->checkPerm('accessible_captcha_config')) {
 }
 
 
-# Use local questions ?
-$bUseLocal = $okt->accessible_captcha->config->local;
-
-
 # Les tableau ci-dessous contiendrons les textes localisés,
 # une langue par ligne avec le code langue comme index
 $aQuestions = array();
@@ -38,7 +34,7 @@ foreach ($okt->languages->list as $aLanguage)
 ----------------------------------------------------------*/
 
 # Formulaire envoyé
-if (!empty($_POST['manage_questions']) && $bUseLocal)
+if (!empty($_POST['manage_questions']))
 {
 	foreach ($okt->languages->list as $aLanguage)
 	{
@@ -65,12 +61,11 @@ if (!empty($_POST['manage_questions']) && $bUseLocal)
 # Configuration envoyée
 if (!empty($_POST['config_send']))
 {
-	$p_local = !empty($_POST['p_local']) ? true : false;
+	$p_ = !empty($_POST['p_']) ? true : false;
 
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
-			'local' => (boolean)$p_local
 		);
 
 		try
@@ -92,9 +87,7 @@ if (!empty($_POST['config_send']))
 
 
 # Récupération de la liste des questions
-if ($bUseLocal) {
-	$rsQuestions = $okt->accessible_captcha->get();
-}
+$rsQuestions = $okt->accessible_captcha->get();
 
 # Titre de la page
 $okt->page->addGlobalTitle('Accessible Captcha');
@@ -105,10 +98,8 @@ $okt->page->messages->success('edited',__('Configuration captcha edited.'));
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
+<!--
 <form action="module.php" method="post">
-
-	<p class="field"><label><?php echo form::checkbox('p_local',1,$bUseLocal) ?>
-	Utiliser les questions définie localement plutôt que les fichiers du serveur</label></p>
 
 	<p><?php echo form::hidden('m','accessible_captcha'); ?>
 	<?php echo form::hidden(array('config_send'), 1); ?>
@@ -116,9 +107,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo adminPage::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
+-->
 
-<?php # Gestion des questions
-if ($bUseLocal) : ?>
+<?php # Gestion des questions ?>
 <form action="module.php" method="post">
 
 	<?php # Boucle sur les langues
@@ -154,7 +145,6 @@ if ($bUseLocal) : ?>
 	<?php echo adminPage::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
-<?php endif; ?>
 
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>
