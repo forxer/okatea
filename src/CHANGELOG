@@ -11,7 +11,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.RC.4
-! prerequisites adjustment
+# prerequisites adjustment
+- do not delete all public files
 
 
 1.0.RC.3
