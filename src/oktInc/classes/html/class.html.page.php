@@ -123,7 +123,7 @@ class htmlPage
 	 *
 	 * @return void
 	 */
-	public function __construct($okt,$sPart=null)
+	public function __construct($okt, $sPart=null)
 	{
 		$this->okt = $okt;
 
@@ -235,7 +235,6 @@ class htmlPage
 		return !empty($this->sTitleSeo);
 	}
 
-
 	/**
 	 * Retourne le chemon de base des URL
 	 *
@@ -252,6 +251,7 @@ class htmlPage
 
 		return $str;
 	}
+
 
 	/* UI widgets
 	----------------------------------------------------------*/
@@ -272,7 +272,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -299,7 +299,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/i18n/jquery-ui-i18n.min.js');
@@ -326,7 +326,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -353,7 +353,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addScript('
@@ -384,7 +384,7 @@ class htmlPage
 	/* Others widgets
 	----------------------------------------------------------*/
 
-	public function langSwitcher($target,$placeholder)
+	public function langSwitcher($target, $placeholder)
 	{
 		global $okt;
 
@@ -427,9 +427,9 @@ class htmlPage
 				// affichage/masquage des parties
 				$("[lang]", target).each(function() {
 					if (lang == $(this).attr("lang")) {
-							$(this).show();
+						$(this).show();
 					} else {
-							$(this).hide();
+						$(this).hide();
 					}
 				});
 
@@ -438,17 +438,17 @@ class htmlPage
 
 					// Switch class "on"/"off"
 					if (lang == $(this).attr("data-lang-code")) {
-							$(this).
-							addClass("button_on").
-							removeClass("button_off").
-							addClass("ui-state-active").
-							removeClass("ui-state-default");
+						$(this).
+						addClass("button_on").
+						removeClass("button_off").
+						addClass("ui-state-active").
+						removeClass("ui-state-default");
 					} else {
-							$(this).
-							removeClass("button_on").
-							addClass("button_off").
-							removeClass("ui-state-active").
-							addClass("ui-state-default");
+						$(this).
+						removeClass("button_on").
+						addClass("button_off").
+						removeClass("ui-state-active").
+						addClass("ui-state-default");
 					}
 				});
 			}
@@ -532,7 +532,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,(array)$user_options);
+			$options = array_merge($options, (array)$user_options);
 		}
 
 		$this->js->addReady('
@@ -549,7 +549,7 @@ class htmlPage
 	 * @param array $user_options
 	 * @return void
 	 */
-	public function colorpicker($element='#colorpicker',$user_options=array())
+	public function colorpicker($element='#colorpicker', $user_options=array())
 	{
 		$this->css->addFile(OKT_PUBLIC_URL.'/plugins/jpicker/css/jPicker.min.css');
 		$this->js->addFile(OKT_PUBLIC_URL.'/plugins/jpicker/jpicker.min.js');
@@ -618,7 +618,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -645,7 +645,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -701,7 +701,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -717,7 +717,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -750,7 +750,7 @@ class htmlPage
 */
 	}
 
-	public function strToSlug($command,$target,$user_options=array())
+	public function strToSlug($command, $target, $user_options=array())
 	{
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/stringToSlug/jquery.stringToSlug.min.js');
 
@@ -761,7 +761,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -769,7 +769,7 @@ class htmlPage
 		');
 	}
 
-	public function toggleWithLegend($command,$target,$user_options=array())
+	public function toggleWithLegend($command, $target, $user_options=array())
 	{
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
@@ -787,7 +787,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addReady('
@@ -795,7 +795,7 @@ class htmlPage
 		');
 	}
 
-	public function openLinkInDialog($element='#kink_id',$user_options=array(), $htmlID = null)
+	public function openLinkInDialog($element='#kink_id', $user_options=array(), $htmlID=null)
 	{
 		static $loaded = null;
 
@@ -805,7 +805,7 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		if(is_null($loaded))
@@ -833,7 +833,7 @@ class htmlPage
 		');
 	}
 
-	public function lockable($element='.lockable',$note='.lockable-note')
+	public function lockable($element='.lockable', $note='.lockable-note')
 	{
 		$this->js->addReady('
 			jQuery(\''.$element.'\').each(function() {
@@ -873,7 +873,7 @@ class htmlPage
 		');
 	}
 
-	public function checkboxHelper($form_id,$helper_id)
+	public function checkboxHelper($form_id, $helper_id)
 	{
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/checkboxes/jquery.checkboxes.min.js');
 
@@ -927,14 +927,14 @@ class htmlPage
 		);
 
 		if (!empty($user_options)) {
-			$options = array_merge($options,$user_options);
+			$options = array_merge($options, $user_options);
 		}
 
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/l10n/messages_'.$options['lang'].'.js');
 
-		$this->getValidateJs($options['selector'],$options['fields']);
+		$this->getValidateJs($options['selector'], $options['fields']);
 	}
 
 	public function validate($form_id=null, $fields=array(), $lang=null)
@@ -945,7 +945,7 @@ class htmlPage
 
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/l10n/messages_'.$lang.'.js');
 
-		$this->getValidateJs($form_id,$fields);
+		$this->getValidateJs($form_id, $fields);
 	}
 
 	public function getValidateJs($form_id,$fields)
@@ -1017,7 +1017,7 @@ class htmlPage
 	 * @param callback $callback
 	 * @return void
 	 */
-	public function addRte($id,$name,$callback)
+	public function addRte($id, $name, $callback)
 	{
 		if (is_callable($callback))
 		{
@@ -1037,7 +1037,7 @@ class htmlPage
 	 * @param array $options
 	 * @return void
 	 */
-	public function applyRte($retId,$element=null,$options=array())
+	public function applyRte($retId, $element=null, $options=array())
 	{
 		if (isset($this->rteList[$retId])) {
 			call_user_func_array($this->rteList[$retId]['callback'],array($element,$options));
@@ -1089,7 +1089,7 @@ class htmlPage
 	 * @param string $jsLoader
 	 * @return void
 	 */
-	public function addLbl($id,$name,$callback,$jsLoader=null)
+	public function addLbl($id, $name, $callback, $jsLoader=null)
 	{
 		if (is_callable($callback))
 		{
@@ -1173,77 +1173,6 @@ class htmlPage
 	}
 
 
-	/* Gestion des paiements CB switchables
-	----------------------------------------------------------*/
-
-	/**
-	 * Ajout d'un paiement CB
-	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param callback $callback
-	 * @return void
-	 */
-	public function addCbp($id,$name,$callback)
-	{
-		if (is_callable($callback))
-		{
-			$this->cbpList[$id] = array(
-				'id' => $id,
-				'name' => $name,
-				'callback' => $callback
-			);
-		}
-	}
-
-	/**
-	 * Application d'un paiement CB donné
-	 *
-	 * @param string $cbpId
-	 * @param string $element
-	 * @param array $options
-	 * @return void
-	 */
-	public function applyCbp($cbpId, $moduleId=null, $id_item=0, $numItem=null, $price=0, $customer_email=null)
-	{
-		if (isset($this->cbpList[$cbpId])) {
-			call_user_func_array($this->cbpList[$cbpId]['callback'],array($moduleId,$id_item,$numItem,$price,$customer_email));
-		}
-	}
-
-	/**
-	 * Retourne la liste des paiements CB disponibles
-	 *
-	 * @param boolean $flip
-	 * @return array
-	 */
-	public function getCbpList($flip=false)
-	{
-		$res = array();
-
-		foreach ($this->cbpList as $id=>$cbp){
-			$res[$id] = $cbp['name'];
-		}
-
-		if ($flip) {
-			$res = array_flip($res);
-			ksort($res);
-		}
-
-		return $res;
-	}
-
-	/**
-	 * Indique si il y a des paiements CB disponibles
-	 *
-	 * @return boolean
-	 */
-	public function hasCbp()
-	{
-		return !empty($this->cbpList);
-	}
-
-
 	/* Gestion des Captcha switchables
 	----------------------------------------------------------*/
 
@@ -1255,7 +1184,7 @@ class htmlPage
 	 * @param array $aBehaviors
 	 * @return void
 	 */
-	public function addCaptcha($sId,$sName,$aBehaviors)
+	public function addCaptcha($sId, $sName, $aBehaviors)
 	{
 		if (is_array($aBehaviors) && !empty($aBehaviors))
 		{

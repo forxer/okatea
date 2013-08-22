@@ -105,7 +105,7 @@ class oktModules
 		$this->cache_id = 'modules';
 		$this->cache_repo_id = 'modules_repositories';
 
-		$this->t_modules = $okt->db->prefix.'modules';
+		$this->t_modules = $okt->db->prefix.'core_modules';
 
 		$this->path = $path;
 		$this->url = $url;

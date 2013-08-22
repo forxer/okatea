@@ -58,11 +58,11 @@ language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
 app_path: /okatea_project/src/
-domain: localhost
+domain: ''
 default_route:
-  class: pagesController
-  method: pagesItem
-  args: home
+  class: ''
+  method: ''
+  args: ''
 custom_routes: {  }
 app_file: index.php
 public_maintenance_mode: false

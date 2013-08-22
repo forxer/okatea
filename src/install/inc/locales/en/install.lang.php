@@ -84,8 +84,6 @@ $GLOBALS['__l10n']['i_supa_must_admin_email'] = 'You must enter an email address
 
 # theme
 $GLOBALS['__l10n']['i_theme_title'] = 'Theme choice';
-$GLOBALS['__l10n']['i_theme_copy_css'] = 'Copy into the theme the CSS files located in <code>%s</code>';
-$GLOBALS['__l10n']['i_theme_copy_img'] = 'Copy into the theme the images files located in <code>%s</code>';
 
 # colors
 $GLOBALS['__l10n']['i_colors_title'] = 'Theme colors';
@@ -97,9 +95,14 @@ $GLOBALS['__l10n']['i_modules_title'] = 'Installation of the first modules';
 $GLOBALS['__l10n']['i_pages_title'] = 'Creation of the first pages';
 $GLOBALS['__l10n']['i_pages_no_module_pages'] = 'The pages module is not installed, you can not create a page.';
 $GLOBALS['__l10n']['i_pages_page_title_%s'] = 'Title of page %s';
+$GLOBALS['__l10n']['i_pages_page_content_%s'] = 'Content of page %s';
 $GLOBALS['__l10n']['i_pages_page_home_%s'] = 'Set page %s as homepage';
 $GLOBALS['__l10n']['i_pages_page_no_home'] = 'No homepage yet';
 $GLOBALS['__l10n']['i_pages_add_one_more'] = 'Add one more page';
+$GLOBALS['__l10n']['i_pages_first_home_title'] = 'Home';
+$GLOBALS['__l10n']['i_pages_first_home_content'] = "Welcom to our new website.\n\nThis website is currently under construction, thank you to return later reference.";
+$GLOBALS['__l10n']['i_pages_first_about_title'] = 'About';
+$GLOBALS['__l10n']['i_pages_first_default_content'] = 'This website is currently under construction, thank you to return later reference.';
 
 # merge config
 $GLOBALS['__l10n']['i_merge_config_title'] = 'Merging configuration data';

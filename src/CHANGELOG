@@ -11,7 +11,9 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.RC.4
+# rename "modules" table in "core_modules"
 # prerequisites adjustment
+- fix install app
 - do not delete all public files
 
 

@@ -802,6 +802,7 @@ ul.smartColumns li.column ul.note li {
 	float: right;
 }
 
+.two-cols textarea,
 .two-cols input[type=text] {
 	width: 70%;
 }
@@ -809,6 +810,7 @@ ul.smartColumns li.column ul.note li {
 	width: 71%;
 }
 
+.three-cols textarea,
 .three-cols input[type=text] {
 	width: 80%;
 }
@@ -816,6 +818,7 @@ ul.smartColumns li.column ul.note li {
 	width: 82%;
 }
 
+.four-cols textarea,
 .four-cols input[type=text] {
 	width: 90%;
 }

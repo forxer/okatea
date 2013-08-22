@@ -27,7 +27,7 @@
 			(`id`, `title`, `code`, `img`, `active`, `ord`)
 		VALUES
 			(1, 'Français', 'fr', 'fr.png', 1, 1),
-			(2, 'English', 'en', 'en.png', 1, 2) ;
+			(2, 'English', 'en', 'en.png', 0, 2) ;
 	</action>
 
 	<action id="add_core_languages_active" label="Add field %s" string="{{PREFIX}}core_languages.active" process="update">

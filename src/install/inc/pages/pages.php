@@ -27,29 +27,24 @@ $bHasPagesModule = $okt->modules->moduleExists('pages');
 
 $aFirstPages = array(
 	1 => array(
-		'title' => ''
+		'title' => __('i_pages_first_home_title'),
+		'content' => __('i_pages_first_home_content')
 	),
 	2 => array(
-		'title' => ''
+		'title' => __('i_pages_first_about_title'),
+		'content' => ''
 	),
 	3 => array(
-		'title' => ''
+		'title' => '',
+		'content' => ''
 	),
 	4 => array(
-		'title' => ''
-	),
-	5 => array(
-		'title' => ''
-	),
-	6 => array(
-		'title' => ''
-	),
-	7 => array(
-		'title' => ''
+		'title' => '',
+		'content' => ''
 	)
 );
 
-$iPageHome = 0;
+$iPageHome = 1;
 
 
 /* Traitements
@@ -64,8 +59,13 @@ if (!empty($_REQUEST['getNewLine']))
 	{
 		echo
 		'<div class="two-cols page-line" id="page-line-'.$i.'">
-			<p class="col field"><label for="p_first_pages_'.$i.'_title">'.sprintf(__('i_pages_page_title_%s'), $i).'</label>'.
-			form::text(array('p_first_pages['.$i.'][title]','p_first_pages_'.$i.'_title'), 80, 255, '').'</p>'.
+			<div class="col">'.
+				'<p class="field"><label for="p_first_pages_'.$i.'_title">'.sprintf(__('i_pages_page_title_%s'), $i).'</label>'.
+				form::text(array('p_first_pages['.$i.'][title]','p_first_pages_'.$i.'_title'), 80, 255, '').'</p>'.
+
+				'<p class="field"><label for="p_first_pages_'.$i.'_content">'.sprintf(__('i_pages_page_content_%s'), $i).'</label>'.
+				form::textarea(array('p_first_pages['.$i.'][content]','p_first_pages_'.$i.'_content'), 78, 4, '').'</p>'.
+			'</div>'.
 
 			'<p class="col field" style="padding-top: 1.5em;"><label for="p_page_home_'.$i.'">'.
 			form::radio(array('p_page_home', 'p_page_home_'.$i), $i, ($iPageHome == $i)).
@@ -97,7 +97,7 @@ if (!empty($_POST['sended']))
 					array(
 						'fr' => array(
 							'title' => $aPageInfos['title'],
-							'content' => '<div id="enrichissement"><p>Site en cours d’enrichissement, merci de revenir le consulter ultérieurement.</p></div>'
+							'content' => !empty($aPageInfos['content']) ? util::nlToP($aPageInfos['content']) : __('i_pages_first_default_content')
 						)
 					),
 					array()
@@ -168,8 +168,13 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 	<div id="page-lines">
 		<?php foreach ($aFirstPages as $i=>$aPageInfos) : ?>
 		<div class="two-cols page-line" id="page-line-<?php echo $i ?>">
-			<p class="col field"><label for="p_first_pages_<?php echo $i ?>_title"><?php printf(__('i_pages_page_title_%s'), $i) ?></label>
-			<?php echo form::text(array('p_first_pages['.$i.'][title]','p_first_pages_'.$i.'_title'), 80, 255, $aPageInfos['title']) ?></p>
+			<div class="col">
+				<p class="field"><label for="p_first_pages_<?php echo $i ?>_title"><?php printf(__('i_pages_page_title_%s'), $i) ?></label>
+				<?php echo form::text(array('p_first_pages['.$i.'][title]','p_first_pages_'.$i.'_title'), 80, 255, $aPageInfos['title']) ?></p>
+
+				<p class="field"><label for="p_first_pages_<?php echo $i ?>_content"><?php printf(__('i_pages_page_content_%s'), $i) ?></label>
+				<?php echo form::textarea(array('p_first_pages['.$i.'][content]','p_first_pages_'.$i.'_content'), 78, 4, $aPageInfos['content']) ?></p>
+			</div>
 
 			<p class="col field" style="padding-top: 1.5em;"><label for="p_page_home_<?php echo $i ?>"><?php echo form::radio(array('p_page_home', 'p_page_home_'.$i), $i, ($iPageHome == $i)) ?>
 			<?php printf(__('i_pages_page_home_%s'), $i) ?></label></p>

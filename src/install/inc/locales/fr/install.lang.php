@@ -84,8 +84,6 @@ $GLOBALS['__l10n']['i_supa_must_admin_email'] = 'Vous devez saisir une adresse e
 
 # theme
 $GLOBALS['__l10n']['i_theme_title'] = 'Choix du thème';
-$GLOBALS['__l10n']['i_theme_copy_css'] = 'Copier dans le thème les fichiers CSS présents dans <code>%s</code>';
-$GLOBALS['__l10n']['i_theme_copy_img'] = 'Copier dans le thème les fichiers images présents dans <code>%s</code>';
 
 # colors
 $GLOBALS['__l10n']['i_colors_title'] = 'Couleurs du thème';
@@ -97,9 +95,15 @@ $GLOBALS['__l10n']['i_modules_title'] = 'Installation des premiers modules';
 $GLOBALS['__l10n']['i_pages_title'] = 'Créations des premieres pages';
 $GLOBALS['__l10n']['i_pages_no_module_pages'] = 'Le module pages n’est pas installé, vous ne pouvez pas créer de page.';
 $GLOBALS['__l10n']['i_pages_page_title_%s'] = 'Titre de la page %s';
+$GLOBALS['__l10n']['i_pages_page_content_%s'] = 'Contenu de la page %s';
 $GLOBALS['__l10n']['i_pages_page_home_%s'] = 'Définir la page %s comme page d’accueil';
 $GLOBALS['__l10n']['i_pages_page_no_home'] = 'Pas de page d’accueil pour le moment';
 $GLOBALS['__l10n']['i_pages_add_one_more'] = 'Ajouter une page de plus';
+$GLOBALS['__l10n']['i_pages_first_home_title'] = 'Accueil';
+$GLOBALS['__l10n']['i_pages_first_home_content'] = "Bienvenue sur notre nouveau site web.\n\nCe site web est en cours d’enrichissement, merci de revenir le consulter ultérieurement.";
+$GLOBALS['__l10n']['i_pages_first_about_title'] = 'À propos';
+$GLOBALS['__l10n']['i_pages_first_default_content'] = 'Ce site web est en cours d’enrichissement, merci de revenir le consulter ultérieurement.';
+
 
 # merge config
 $GLOBALS['__l10n']['i_merge_config_title'] = 'Fusion des données de configuration';

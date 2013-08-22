@@ -57,7 +57,7 @@ class oktModule
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->t_module = $okt->db->prefix.'modules';
+		$this->t_module = $okt->db->prefix.'core_modules';
 
 		$this->infos = array(
 			'id'			=> null,

@@ -128,6 +128,10 @@ else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config-
 /* Affichage
 ------------------------------------------------------------*/
 
+# Toggle With Legend
+$oHtmlPage->toggleWithLegend('add_module_repo_title', 'add_module_repo_content');
+
+
 # En-tête
 $title = __('i_modules_title');
 require OKT_INSTAL_DIR.'/header.php'; ?>
@@ -145,45 +149,46 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
 </form>
 
-	<h4 id="add_module_repo_title"><?php _e('c_a_modules_add_module_from_remote_repository') ?></h4>
 
-	<div id="add_module_repo_content">
-	<?php if (!$okt->config->modules_repositories_enabled) : ?>
-		<p><?php _e('c_a_modules_repositories_modules_disabled') ?></p>
+<h4 id="add_module_repo_title"><?php _e('c_a_modules_add_module_from_remote_repository') ?></h4>
 
-	<?php elseif (!empty($aModulesRepositories)) : ?>
-		<?php foreach($aModulesRepositories as $repo_name=>$modules) : ?>
+<div id="add_module_repo_content">
+<?php if (!$okt->config->modules_repositories_enabled) : ?>
+	<p><?php _e('c_a_modules_repositories_modules_disabled') ?></p>
 
-		<h5><?php echo html::escapeHTML($repo_name).' ('.oktModules::pluralizeModuleCount(count($modules)).')'; ?></h5>
+<?php elseif (!empty($aModulesRepositories)) : ?>
+	<?php foreach($aModulesRepositories as $repo_name=>$modules) : ?>
 
-		<table class="common">
-			<caption><?php printf('c_a_modules_list_modules_available_%s', html::escapeHTML($repo_name)) ?></caption>
-			<thead><tr>
-				<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
-				<th scope="col" class="center"><?php _e('c_a_modules_version') ?></th>
-				<th scope="col" class="small"><?php _e('c_c_action_Add') ?></th>
-			</tr></thead>
-			<tbody>
-			<?php $line_count = 0;
-			foreach($modules as $module) :
-				$td_class = $line_count%2 == 0 ? 'even' : 'odd';
-				$line_count++; ?>
-			<tr>
-				<th scope="row" class="<?php echo $td_class; ?> fake-td">
-				<?php echo html::escapeHTML($module['name']) ?>
-				<?php echo !empty($module['info']) ? '<br />'.html::escapeHTML($module['info']) : ''; ?>
-				</th>
-				<td class="<?php echo $td_class; ?> center"><?php echo html::escapeHTML($module['version']) ?></td>
-				<td class="<?php echo $td_class; ?> center"><a href="index.php?step=modules&amp;repository=<?php echo urlencode($repo_name) ?>&amp;module=<?php echo urlencode($module['id']) ?>" class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
-			</tr>
-			<?php endforeach; ?>
-			</tbody>
-		</table>
+	<h5><?php echo html::escapeHTML($repo_name).' ('.oktModules::pluralizeModuleCount(count($modules)).')'; ?></h5>
+
+	<table class="common">
+		<caption><?php printf('c_a_modules_list_modules_available_%s', html::escapeHTML($repo_name)) ?></caption>
+		<thead><tr>
+			<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
+			<th scope="col" class="center"><?php _e('c_a_modules_version') ?></th>
+			<th scope="col" class="small"><?php _e('c_c_action_Add') ?></th>
+		</tr></thead>
+		<tbody>
+		<?php $line_count = 0;
+		foreach($modules as $module) :
+			$td_class = $line_count%2 == 0 ? 'even' : 'odd';
+			$line_count++; ?>
+		<tr>
+			<th scope="row" class="<?php echo $td_class; ?> fake-td">
+			<?php echo html::escapeHTML($module['name']) ?>
+			<?php echo !empty($module['info']) ? '<br />'.html::escapeHTML($module['info']) : ''; ?>
+			</th>
+			<td class="<?php echo $td_class; ?> center"><?php echo html::escapeHTML($module['version']) ?></td>
+			<td class="<?php echo $td_class; ?> center"><a href="index.php?step=modules&amp;repository=<?php echo urlencode($repo_name) ?>&amp;module=<?php echo urlencode($module['id']) ?>" class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
+		</tr>
 		<?php endforeach; ?>
-	<?php else : ?>
-		<p><?php _e('c_a_modules_no_repository_modules_defined') ?></p>
-	<?php endif; ?>
-	</div>
+		</tbody>
+	</table>
+	<?php endforeach; ?>
+<?php else : ?>
+	<p><?php _e('c_a_modules_no_repository_modules_defined') ?></p>
+<?php endif; ?>
+</div>
 
 <?php # Pied de page
 require OKT_INSTAL_DIR.'/footer.php'; ?>

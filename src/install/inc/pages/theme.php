@@ -41,12 +41,8 @@ foreach ($aThemesRepositories as $repo_name=>$themes) {
 	uasort($aThemesRepositories[$repo_name], array('oktThemes','sortThemesList'));
 }
 
-$p_theme = !empty($_REQUEST['p_theme']) && isset($aInstalledThemes[$_REQUEST['p_theme']]) ? $_REQUEST['p_theme'] : 'default';
+$p_theme = !empty($_REQUEST['p_theme']) && isset($aInstalledThemes[$_REQUEST['p_theme']]) ? $_REQUEST['p_theme'] : 'okatea';
 
-
-# Eventuels fichiers à copier
-$bHasCssFiles = (file_exists(OKT_ROOT_PATH.'/css') && util::dirHasFiles(OKT_ROOT_PATH.'/css'));
-$bHasImgFiles = (file_exists(OKT_ROOT_PATH.'/images') && util::dirHasFiles(OKT_ROOT_PATH.'/images'));
 
 
 /* Traitements
@@ -58,14 +54,6 @@ if (!empty($_POST['sended']) && !empty($_POST['p_theme']) && isset($aInstalledTh
 	try
 	{
 		$okt->config->write(array('theme'=>$_POST['p_theme']));
-
-		if (!empty($_POST['p_copy_css']) && $bHasCssFiles) {
-			util::rcopy(OKT_ROOT_PATH.'/css', OKT_THEMES_PATH.'/'.$_POST['p_theme'].'/css');
-		}
-
-		if (!empty($_POST['p_copy_img']) && $bHasImgFiles) {
-			util::rcopy(OKT_ROOT_PATH.'/images', OKT_THEMES_PATH.'/'.$_POST['p_theme'].'/images');
-		}
 
 		$_SESSION['okt_install_theme'] = $_POST['p_theme'];
 
@@ -137,6 +125,10 @@ else if (!empty($_POST['bootstrap']))
 ------------------------------------------------------------*/
 
 
+# Toggle With Legend
+$oHtmlPage->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content');
+$oHtmlPage->toggleWithLegend('add_theme_bootstrap_title', 'add_theme_bootstrap');
+
 # strToSlug
 $oHtmlPage->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 
@@ -152,23 +144,15 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 		<?php endforeach; ?>
 	</ul>
 
-	<?php if ($bHasCssFiles) : ?>
-		<p><?php echo form::checkbox('p_copy_css', 1, 1) ?>
-		<label for="p_copy_css"><?php printf(__('i_theme_copy_css'), $okt->config->app_path.'css') ?></label></p>
-	<?php endif; ?>
-
-	<?php if ($bHasImgFiles) : ?>
-		<p><?php echo form::checkbox('p_copy_img', 1, 1) ?>
-		<label for="p_copy_img"><?php printf(__('i_theme_copy_img'), $okt->config->app_path.'images') ?></label></p>
-	<?php endif; ?>
-
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 	<input type="hidden" name="sended" value="1" />
 	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
 </form>
 
+
+<h3 id="add_theme_repo_title"><?php _e('c_a_themes_add_theme_from_remote_repository') ?></h3>
+
 <div id="add_theme_repo_content">
-	<h3 id="add_theme_repo_title"><?php _e('c_a_themes_add_theme_from_remote_repository') ?></h3>
 
 <?php if (!$okt->config->themes_repositories_enabled) : ?>
 	<p><?php _e('c_a_themes_repositories_themes_disabled') ?></p>
@@ -207,8 +191,10 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 <?php endif; ?>
 </div><!-- #add_theme_repo_content -->
 
+
+<h3 id="add_theme_bootstrap_title"><?php _e('c_a_themes_bootstrap_title') ?></h3>
+
 <div id="add_theme_bootstrap">
-	<h3 id="add_theme_bootstrap_title"><?php _e('c_a_themes_bootstrap_title') ?></h3>
 
 	<div id="add_theme_bootstrap_content">
 		<p><?php _e('c_a_themes_bootstrap_feature_description') ?></p>

@@ -16,7 +16,7 @@ define('OKT_SUDO_EMAIL', 'sudo@localhost');
 
 
 define('OKT_INSTAL_DIR',__DIR__);
-define('OKT_INSTAL_COMMON_URL','./../oktCommon');
+define('OKT_INSTAL_COMMON_URL','./../oktPublic');
 
 
 define('OKT_INSTAL_URL','./');

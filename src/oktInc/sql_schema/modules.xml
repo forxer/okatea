@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
-	<!-- modules -->
-	<action id="modules" label="Create table %s" string="{{PREFIX}}modules">
+	<!-- core_modules -->
+	<action id="core_modules" label="Create table %s" string="{{PREFIX}}core_modules">
 
-		<test eq="neq" value="{{PREFIX}}modules" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}modules">SHOW TABLES LIKE '{{PREFIX}}modules'</test>
+		<test eq="neq" value="{{PREFIX}}core_modules" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}core_modules">SHOW TABLES LIKE '{{PREFIX}}core_modules'</test>
 
-		CREATE TABLE `{{PREFIX}}modules` (
+		CREATE TABLE `{{PREFIX}}core_modules` (
 			`module_id` 			VARCHAR(32) 			NOT NULL,
 			`module_name` 			VARCHAR(255) 			NOT NULL,
 			`module_description` 	TEXT 					NULL,
@@ -18,16 +18,16 @@
 			`module_status` 		TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 0,
 
 			PRIMARY KEY (`module_id`),
-			INDEX `{{PREFIX}}modules_status_idx` (`module_status`)
+			INDEX `{{PREFIX}}core_modules_status_idx` (`module_status`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-	<action id="add_modules_module_updatable" label="Add field %s" string="{{PREFIX}}modules.module_updatable" process="update">
+	<action id="add_core_modules_module_updatable" label="Add field %s" string="{{PREFIX}}core_modules.module_updatable" process="update">
 		<test eq="neq" value="module_updatable" label="Field %s exists"
-		string="{{PREFIX}}modules.module_updatable" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}modules` LIKE 'module_updatable'
+		string="{{PREFIX}}core_modules.module_updatable" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}core_modules` LIKE 'module_updatable'
 		</test>
-		ALTER TABLE `{{PREFIX}}modules` ADD `module_updatable` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1
+		ALTER TABLE `{{PREFIX}}core_modules` ADD `module_updatable` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1
 	</action>
 
 </database>

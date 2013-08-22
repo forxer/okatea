@@ -17,13 +17,13 @@ $prod_host = 'sql5';
 $prod_database = 'okatea_project';
 $prod_user = 'root';
 $prod_password = '';
-$prod_prefix = 'modules_';
+$prod_prefix = 'okt_';
 
 $dev_host = 'localhost';
 $dev_database = 'okatea_project';
 $dev_user = 'root';
 $dev_password = '';
-$dev_prefix = 'modules_';
+$dev_prefix = 'okt_';
 
 $environement = (defined('OKT_ENVIRONMENT') && OKT_ENVIRONMENT == 'dev') ? 'dev': 'prod';
 
@@ -153,8 +153,19 @@ if (!empty($_POST['sended']))
 ------------------------------------------------------------*/
 
 $oHtmlPage->js->addReady('
-	oktInstallJs.focusEnvironmentPart();
-	$(\'input[name="connect"]\').click(oktInstallJs.focusEnvironmentPart);
+	function focusEnvironmentPart() {
+		if ($("#connect_prod").is(":checked")) {
+			$("#dev-part legend").removeClass("formfocus");
+			$("#prod-part legend").addClass("formfocus");
+		}
+		else if ($("#connect_dev").is(":checked")) {
+			$("#dev-part legend").addClass("formfocus");
+			$("#prod-part legend").removeClass("formfocus");
+		}
+	}
+
+	focusEnvironmentPart();
+	$(\'input[name="connect"]\').click(focusEnvironmentPart);
 ');
 
 

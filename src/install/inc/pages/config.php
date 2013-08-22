@@ -22,8 +22,8 @@ l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.site');
 l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.advanced');
 
 
-$p_title = 'Okatea project';
-$p_desc = 'Another CMS experience';
+$p_title = 'Projet Okatea';
+$p_desc = 'Un autre CMS modulaire en PHP';
 
 $p_company_name = '';
 $p_company_com_name = '';
