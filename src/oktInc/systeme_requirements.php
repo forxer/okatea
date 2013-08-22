@@ -45,12 +45,20 @@ $requirements[0]['requirements'][] = array(
 	'msg_ko'	=> sprintf(__('pr_php_version_ko'),PHP_VERSION)
 );
 
-# Vérification de la présence des fonctions MySQL
+# Vérification de la présence du module SPL
 $requirements[0]['requirements'][] = array(
-	'id' 		=> 'mysql',
-	'test' 		=> function_exists('mysql_connect'),
-	'msg_ok'	=> __('pr_mysql_ok'),
-	'msg_ko'	=> __('pr_mysql_ko')
+	'id' 		=> 'SPL',
+	'test' 		=> function_exists('spl_classes'),
+	'msg_ok'	=> __('pr_spl_ok'),
+	'msg_ko'	=> __('pr_spl_ko')
+);
+
+# Vérification de la présence des fonctions MySQLi
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'mysqli',
+	'test' 		=> function_exists('mysqli_connect'),
+	'msg_ok'	=> __('pr_mysqli_ok'),
+	'msg_ko'	=> __('pr_mysqli_ko')
 );
 
 # Vérification de la présence des fonctions MySQL
@@ -69,6 +77,54 @@ $requirements[0]['requirements'][] = array(
 	'msg_ko'	=> __('pr_xml_ko')
 );
 
+# Vérification de la présence du module mb_string
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'mb_string',
+	'test' 		=> function_exists('mb_detect_encoding'),
+	'msg_ok'	=> __('pr_mb_string_ok'),
+	'msg_ko'	=> __('pr_mb_string_ko')
+);
+
+# Vérification de la présence des fonctions json_*
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'json_encode',
+	'test' 		=> function_exists('json_encode'),
+	'msg_ok'	=> __('pr_json_encode_ok'),
+	'msg_ko'	=> __('pr_json_encode_ko')
+);
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'json_decode',
+	'test' 		=> function_exists('json_decode'),
+	'msg_ok'	=> __('pr_json_decode_ok'),
+	'msg_ko'	=> __('pr_json_decode_ko')
+);
+
+# Vérification de la prise en charge d'UTF-8 par le moteur PCRE
+function oktPcreSupportTest()
+{
+	$pcre_str = base64_decode('w6nDqMOgw6o=');
+	return @preg_match('/'.$pcre_str.'/u', $pcre_str);
+}
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'pcre',
+	'test' 		=> oktPcreSupportTest(),
+	'msg_ok'	=> __('pr_pcre_ok'),
+	'msg_ko'	=> __('pr_pcre_ko')
+);
+
+# Vérification du support pour la fonction crypt
+function oktCryptSupportTest()
+{
+	$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+	$test = crypt("password", $hash);
+	return $test == $hash;
+}
+$requirements[0]['requirements'][] = array(
+	'id' 		=> 'crypt',
+	'test' 		=> oktCryptSupportTest(),
+	'msg_ok'	=> __('pr_crypt_ok'),
+	'msg_ko'	=> __('pr_crypt_ko')
+);
 
 # Vérification de la présence du module simplexml
 $requirements[0]['requirements'][] = array(
@@ -78,45 +134,12 @@ $requirements[0]['requirements'][] = array(
 	'msg_ko'	=> __('pr_simplexml_ko')
 );
 
-# Vérification de la présence du module mb_string
-$requirements[0]['requirements'][] = array(
-	'id' 		=> 'mb_string',
-	'test' 		=> function_exists('mb_detect_encoding'),
-	'msg_ok'	=> __('pr_mb_string_ok'),
-	'msg_ko'	=> __('pr_mb_string_ko')
-);
-
-# Vérification de la présence du module mb_string
-$requirements[0]['requirements'][] = array(
-	'id' 		=> 'json_encode',
-	'test' 		=> function_exists('json_encode'),
-	'msg_ok'	=> __('pr_json_encode_ok'),
-	'msg_ko'	=> __('pr_json_encode_ko')
-);
-
 # Vérification de la présence du module iconv
 $requirements[0]['requirements'][] = array(
 	'id' 		=> 'iconv',
 	'test' 		=> function_exists('iconv') ? TRUE : NULL,
 	'msg_ok'	=> __('pr_iconv_ok'),
 	'msg_ko'	=> __('pr_iconv_ko')
-);
-
-# Vérification de la prise en charge d'UTF-8 par le moteur PCRE
-$pcre_str = base64_decode('w6nDqMOgw6o=');
-$requirements[0]['requirements'][] = array(
-	'id' 		=> 'PCRE',
-	'test' 		=> @preg_match('/'.$pcre_str.'/u', $pcre_str),
-	'msg_ok'	=> __('pr_pcre_ok'),
-	'msg_ko'	=> __('pr_pcre_ko')
-);
-
-# Vérification de la présence du module SPL
-$requirements[0]['requirements'][] = array(
-	'id' 		=> 'SPL',
-	'test' 		=> function_exists('spl_classes') ? TRUE : NULL,
-	'msg_ok'	=> __('pr_spl_ok'),
-	'msg_ko'	=> __('pr_spl_ko')
 );
 
 # Vérification de la présence de GD2
@@ -135,55 +158,55 @@ $requirements[0]['requirements'][] = array(
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktConf',
 	'test' 		=> is_writable(OKT_CONFIG_PATH),
-	'msg_ok' 	=> sprintf(__('pr_oktconf_ok'),OKT_CONFIG_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktconf_ko'),OKT_CONFIG_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktconf_ok'), OKT_CONFIG_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktconf_ko'), OKT_CONFIG_DIR)
 );
 
 # Vérification des droits sur /oktConf/conf_site.yaml
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'conf_site',
 	'test' 		=> is_writable(OKT_CONFIG_PATH.'/conf_site.yaml'),
-	'msg_ok' 	=> sprintf(__('pr_conf_site_ok'),OKT_CONFIG_DIR),
-	'msg_ko'	=> sprintf(__('pr_conf_site_ko'),OKT_CONFIG_DIR)
+	'msg_ok' 	=> sprintf(__('pr_conf_site_ok'), OKT_CONFIG_DIR),
+	'msg_ko'	=> sprintf(__('pr_conf_site_ko'), OKT_CONFIG_DIR)
 );
 
 # Vérification des droits sur /oktCache
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktCache',
 	'test' 		=> is_writable(OKT_CACHE_PATH) ? TRUE : NULL,
-	'msg_ok' 	=> sprintf(__('pr_oktcache_ok'),OKT_CACHE_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktcache_ko'),OKT_CACHE_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktcache_ok'), OKT_CACHE_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktcache_ko'), OKT_CACHE_DIR)
 );
 
 # Vérification des droits sur /oktLog
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktLog',
 	'test' 		=> is_writable(OKT_LOG_PATH) ? TRUE : NULL,
-	'msg_ok' 	=> sprintf(__('pr_oktlog_ok'),OKT_LOG_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktlog_ko'),OKT_LOG_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktlog_ok'), OKT_LOG_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktlog_ko'), OKT_LOG_DIR)
 );
 
 # Vérification des droits sur /oktModules
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktModules',
 	'test' 		=> is_writable(OKT_MODULES_PATH) ? TRUE : NULL,
-	'msg_ok' 	=> sprintf(__('pr_oktmodules_ok'),OKT_MODULES_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktmodules_ko'),OKT_MODULES_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktmodules_ok'), OKT_MODULES_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktmodules_ko'), OKT_MODULES_DIR)
 );
 
 # Vérification des droits sur /oktPublic
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktPublic',
 	'test' 		=> is_writable(OKT_PUBLIC_PATH) ? TRUE : NULL,
-	'msg_ok' 	=> sprintf(__('pr_oktpublic_ok'),OKT_PUBLIC_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktpublic_ko'),OKT_PUBLIC_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktpublic_ok'), OKT_PUBLIC_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktpublic_ko'), OKT_PUBLIC_DIR)
 );
 
 # Vérification des droits sur /oktThemes
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'oktThemes',
 	'test' 		=> is_writable(OKT_THEMES_PATH) ? TRUE : NULL,
-	'msg_ok' 	=> sprintf(__('pr_oktthemes_ok'),OKT_THEMES_DIR),
-	'msg_ko'	=> sprintf(__('pr_oktthemes_ko'),OKT_THEMES_DIR)
+	'msg_ok' 	=> sprintf(__('pr_oktthemes_ok'), OKT_THEMES_DIR),
+	'msg_ko'	=> sprintf(__('pr_oktthemes_ko'), OKT_THEMES_DIR)
 );
 

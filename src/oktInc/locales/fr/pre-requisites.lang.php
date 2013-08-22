@@ -4,10 +4,10 @@ $GLOBALS['__l10n']['pr_php'] = 'PHP';
 $GLOBALS['__l10n']['pr_dirs_and_files'] = 'Répertoires et fichiers';
 
 $GLOBALS['__l10n']['pr_php_version_ok'] = 'La version de PHP est %s.';
-$GLOBALS['__l10n']['pr_php_version_ko'] = 'La version de PHP est %s. La version 5.2.0 ou supérieure est requise.';
+$GLOBALS['__l10n']['pr_php_version_ko'] = 'La version de PHP est %s. La version 5.3.7 ou supérieure est requise.';
 
-$GLOBALS['__l10n']['pr_mysql_ok'] = 'Le module MySQL est présent.';
-$GLOBALS['__l10n']['pr_mysql_ko'] = 'Le module MySQL est absent.';
+$GLOBALS['__l10n']['pr_mysqli_ok'] = 'Le module MySQLi est présent.';
+$GLOBALS['__l10n']['pr_mysqli_ko'] = 'Le module MySQLi est absent.';
 
 $GLOBALS['__l10n']['pr_curl_ok'] = 'Le module Curl est présent.';
 $GLOBALS['__l10n']['pr_curl_ko'] = 'Le module Curl est absent.';
@@ -24,11 +24,17 @@ $GLOBALS['__l10n']['pr_mb_string_ko'] = 'Le module Multibyte String (mbstring) e
 $GLOBALS['__l10n']['pr_json_encode_ok'] = 'La fonction json_encode() est présente.';
 $GLOBALS['__l10n']['pr_json_encode_ko'] = 'La fonction json_encode() est absente.';
 
+$GLOBALS['__l10n']['pr_json_decode_ok'] = 'La fonction json_decode() est présente.';
+$GLOBALS['__l10n']['pr_json_decode_ko'] = 'La fonction json_decode() est absente.';
+
 $GLOBALS['__l10n']['pr_iconv_ok'] = 'Le module Iconv est présent.';
 $GLOBALS['__l10n']['pr_iconv_ko'] = 'Le module Iconv est absent.';
 
 $GLOBALS['__l10n']['pr_pcre_ok'] = 'Le moteur PCRE prend en charge UTF-8.';
 $GLOBALS['__l10n']['pr_pcre_ko'] = 'Le moteur PCRE ne prend pas en charge UTF-8.';
+
+$GLOBALS['__l10n']['pr_crypt_ok'] = 'Utilisation de la fonction crypt() possible.';
+$GLOBALS['__l10n']['pr_crypt_ko'] = 'L’utilisation de la fonction crypt() n’est pas possible.';
 
 $GLOBALS['__l10n']['pr_spl_ok'] = 'Le module SPL est présent.';
 $GLOBALS['__l10n']['pr_spl_ko'] = 'Le module SPL est absent.';
