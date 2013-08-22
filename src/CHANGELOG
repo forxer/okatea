@@ -10,28 +10,20 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0.RC.4
+1.0.BETA.2
+# now require PHP >= 5.3.7
+# new registerModule signature
 # rename "modules" table in "core_modules"
 # prerequisites adjustment
-- fix install app
-- do not delete all public files
-
-
-1.0.RC.3
 # move cache, common, conf, logs, and upload dirs
+! Okatea is released under the MIT License
+! strengthening cryptography by using new password_* natives functions
+! CodeMirror 3.15
 ! jQuery select2 3.4.2
 ! jQuery mousewheel 3.1.3
-. deletion of old stuff
-
-
-1.0.RC.2
-# now require PHP >= 5.3.7
-! strengthening cryptography
-! CodeMirror 3.15
-! Okatea is released under the MIT License
 . move VERSION and CHANGELOG files from oktDoc directory to root application
 . deletion of old stuff
 
 
-1.0.RC.1
+1.0.BETA.1
 ! first public release
