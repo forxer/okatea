@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Guestbook",
-	/* Description*/		"Allow to add a guestbook system",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Guestbook',
+	'desc' 			=> 'Allow to add a guestbook system',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

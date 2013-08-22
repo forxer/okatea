@@ -10,11 +10,13 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
+1.0.BETA.3
+
+
 1.0.BETA.2
 # now require PHP >= 5.3.7
 # new registerModule signature
 # rename "modules" table in "core_modules"
-# prerequisites adjustment
 # move cache, common, conf, logs, and upload dirs
 ! Okatea is released under the MIT License
 ! strengthening cryptography by using new password_* natives functions

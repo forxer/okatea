@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Development",
-	/* Description*/		"Tools for web development",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Development',
+	'desc' 			=> 'Tools for web development',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

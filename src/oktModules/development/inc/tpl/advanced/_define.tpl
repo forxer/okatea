@@ -1,9 +1,9 @@
 <?php
 ##header##
 
-$this->registerModule(
-	/* Name */				"##module_name##",
-	/* Description*/		"##module_description##",
-	/* Version */			"##module_version##",
-	/* Author */			"##module_author##"
-);
+$this->registerModule(array(
+	'name' 			=> "##module_name##",
+	'desc' 			=> "##module_description##",
+	'version' 		=> "##module_version##",
+	'author' 		=> "##module_author##"
+));

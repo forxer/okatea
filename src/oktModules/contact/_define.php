@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Contact",
-	/* Description*/		"Allow to add a contact page",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Contact',
+	'desc' 			=> 'Allow to add a contact page',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

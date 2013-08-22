@@ -5,11 +5,10 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Pages extra fields",
-	/* Description*/		"Example of adding extra fields in pages module",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1010 # ce module doit être chargé après le module pages de façon a ajouter les champs supplémentaires
-);
+$this->registerModule(array(
+	'name' 			=> 'Pages extra fields',
+	'desc' 			=> 'Example of adding extra fields in pages module',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org',
+	'priority' 		=> 1010 # ce module doit être chargé après le module pages de façon a ajouter les champs supplémentaires
+));

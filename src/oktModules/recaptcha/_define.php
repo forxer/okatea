@@ -5,10 +5,9 @@
  *
  */
 
-$this->registerModule(
-	/* Name */				"reCaptcha",
-	/* Description*/		"reCaptcha by Google",
-	/* Version */			"1.0",
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'reCaptcha',
+	'desc' 			=> 'reCaptcha by Google',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

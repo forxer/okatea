@@ -5,10 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Images sets",
-	/* Description*/		"A module to manage images sets.",
-	/* Version */			"0.1",
-	/* Author */			"okatea.org"
-);
+$this->registerModule(array(
+	'name' 			=> 'Images sets',
+	'desc' 			=> 'A module to manage images sets.',
+	'version' 		=> '0.1',
+	'author' 		=> 'okatea.org'
+));

@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Partners",
-	/* Description*/		"Allow to add a partners management system",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Partners',
+	'desc' 			=> 'Allow to add a partners management system',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

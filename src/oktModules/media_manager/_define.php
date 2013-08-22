@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Media manager",
-	/* Description*/		"Allow to add a media manager",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Media manager',
+	'desc' 			=> 'Allow to add a media manager',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

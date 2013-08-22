@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"CKEditor",
-	/* Description*/		"Allow to integrate CKEditor in Okatea",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'CKEditor',
+	'desc' 			=> 'Allow to integrate CKEditor in Okatea',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

@@ -5,10 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Menus",
-	/* Description*/		"Add a menus management system",
-	/* Version */			"1.0.RC.1",
-	/* Author */			"okatea.org"
-);
+$this->registerModule(array(
+	'name' 			=> 'Menus',
+	'desc' 			=> 'Add a menus management system',
+	'version' 		=> '0.1.BETA.1',
+	'author' 		=> 'okatea.org'
+));

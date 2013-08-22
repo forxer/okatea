@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Antispam",
-	/* Description*/		"Generic antispam",
-	/* Version */			'0.1',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Antispam',
+	'desc' 			=> 'Generic antispam',
+	'version' 		=> '0.1',
+	'author' 		=> 'okatea.org'
+));

@@ -5,10 +5,9 @@
  *
  */
 
-$this->registerModule(
-	/* Name */				"nyroModal 2",
-	/* Description*/		"Allow to integrate nyroModal 2 in Okatea",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'nyroModal 2',
+	'desc' 			=> 'Allow to integrate nyroModal 2 in Okatea',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

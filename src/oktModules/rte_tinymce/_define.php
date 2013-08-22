@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"tinyMCE",
-	/* Description*/		"Allow to integrate tinyMCE in Okatea",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'tinyMCE',
+	'desc' 			=> 'Allow to integrate tinyMCE in Okatea',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

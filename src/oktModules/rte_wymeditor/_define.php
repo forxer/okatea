@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"WYMeditor",
-	/* Description*/		"Allow to integrate WYMeditor in Okatea",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'WYMeditor',
+	'desc' 			=> 'Allow to integrate WYMeditor in Okatea',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

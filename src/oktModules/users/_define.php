@@ -5,11 +5,10 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Users",
-	/* Description*/		"Allow to manage users and groups",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			500
-);
+$this->registerModule(array(
+	'name' 			=> 'Users',
+	'desc' 			=> 'Allow to manage users and groups',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org',
+	'priority' 		=> 500 # doit être chargé assez tôt
+));

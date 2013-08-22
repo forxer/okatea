@@ -5,10 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Diary",
-	/* Description*/		"A management module calendar.",
-	/* Version */			"1.0",
-	/* Author */			"okatea.org"
-);
+$this->registerModule(array(
+	'name' 			=> 'Diary',
+	'desc' 			=> 'A management module calendar.',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

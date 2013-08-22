@@ -5,10 +5,9 @@
  *
  */
 
-$this->registerModule(
-	/* Name */				"Accessible Captcha",
-	/* Description*/		"An accessible captcha",
-	/* Version */			"1.0",
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Accessible Captcha',
+	'desc' 			=> 'An accessible captcha',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"ColorBox",
-	/* Description*/		"Allow to integrate ColorBox in Okatea",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'ColorBox',
+	'desc' 			=> 'Allow to integrate ColorBox in Okatea',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

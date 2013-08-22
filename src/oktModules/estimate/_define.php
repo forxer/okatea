@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Estimate",
-	/* Description*/		"Allow to add an estimate page",
-	/* Version */			'0.3',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Estimate',
+	'desc' 			=> 'Allow to add an estimate page',
+	'version' 		=> '0.3',
+	'author' 		=> 'okatea.org'
+));

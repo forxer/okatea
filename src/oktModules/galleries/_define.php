@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"Galleries",
-	/* Description*/		"Allow to add an images gallery system",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'Galleries',
+	'desc' 			=> 'Allow to add an images gallery system',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));

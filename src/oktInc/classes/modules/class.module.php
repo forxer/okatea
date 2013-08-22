@@ -127,27 +127,30 @@ class oktModule
 
 	/**
 	 * Cette fonction est utilisée dans les fichiers _define.php
-	 * des modules pour qu'ils soient pris en compte par le système
+	 * des modules pour qu'ils soient pris en compte par le système.
 	 *
-	 * @param string $name 				Le nom de l'extension
-	 * @param string $desc 				La description de l'extension
-	 * @param string $version 			Le numero de version de l'extension
-	 * @param string $author 			L'auteur de l'extension
-	 * @param integer $priority 		Priorité de l'extension (1000)
-	 * @param boolean $updatable		Blocage de mise à jour (true)
+	 * Cette méthode reçoit en argument un tableau de paramètres,
+	 * les paramètres possibles sont les suivants :
+	 * 	- name 		Le nom de l'extension
+	 * 	- desc 		La description de l'extension
+	 * 	- version 	Le numero de version de l'extension
+	 * 	- author 	L'auteur de l'extension ('')
+	 * 	- priority 	Priorité de l'extension (1000)
+	 * 	- updatable	Blocage de mise à jour (true)
+	 *
+	 * @param array $aParams 			Le tableau de paramètres
 	 * @return void
 	 */
-	public function registerModule($name, $desc, $version, $author='', $priority=1000, $updatable=true)
+	public function registerModule(array $aParams=array())
 	{
 		$this->setInfos(array(
-			'name'			=> $name,
 			'root'			=> $this->okt->modules->path.'/'.$this->id(),
-			'url'			=> $this->okt->modules->url.'/'.$this->id(),
-			'version'		=> $version,
-			'desc'			=> $desc,
-			'author'		=> $author,
-			'priority' 		=> (integer)$priority,
-			'updatable' 	=> (boolean)$updatable
+			'name' 			=> (!empty($aParams['name']) ? $aParams['name'] : $this->_id),
+			'desc' 			=> (!empty($aParams['desc']) ? $aParams['desc'] : null),
+			'version' 		=> (!empty($aParams['version']) ? $aParams['version'] : null),
+			'author' 		=> (!empty($aParams['author']) ? $aParams['author'] : null),
+			'priority' 		=> (!empty($aParams['priority']) ? (integer)$aParams['priority'] : 1000),
+			'updatable' 	=> (!empty($aParams['updatable']) ? (boolean)$aParams['updatable'] : true)
 		));
 	}
 

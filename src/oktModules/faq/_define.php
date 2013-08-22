@@ -5,11 +5,9 @@
  *
  */
 
-
-$this->registerModule(
-	/* Name */				"FAQ",
-	/* Description*/		"Allow to add a FAQ",
-	/* Version */			'1.0',
-	/* Author */			"okatea.org",
-	/* Priority */ 			1000
-);
+$this->registerModule(array(
+	'name' 			=> 'FAQ',
+	'desc' 			=> 'Allow to add a FAQ',
+	'version' 		=> '1.0',
+	'author' 		=> 'okatea.org'
+));
