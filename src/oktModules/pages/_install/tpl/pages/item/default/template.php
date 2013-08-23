@@ -32,13 +32,6 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->pages->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <div id="page_item">
 
 	<?php # début Okatea : affichage du sous-titre

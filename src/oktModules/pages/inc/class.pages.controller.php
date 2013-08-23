@@ -82,9 +82,6 @@ class pagesController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->pages->getName(),$this->okt->pages->config->url);
-
 		# ajout du numéro de page au title
 		if ($this->okt->pages->filters->params->page > 1) {
 			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$this->okt->pages->filters->params->page));
@@ -240,9 +237,6 @@ class pagesController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->pages->getName(),$this->okt->pages->config->url);
-
 		# ajout du numéro de page au title
 		if ($this->okt->pages->filters->params->page > 1) {
 			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$this->okt->pages->filters->params->page));
@@ -252,12 +246,15 @@ class pagesController extends oktController
 		$this->okt->page->addTitleTag(($rsCategory->title_tag != '' ? $rsCategory->title_tag : $rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		$rsPath = $this->okt->pages->categories->getPath($rsCategory->id, true, $this->okt->user->language);
-		while ($rsPath->fetch())
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-	//		$this->okt->page->addTitleTag(($rsPath->title_tag != '' ? $rsPath->title_tag : $rsPath->title));
+			$rsPath = $this->okt->pages->categories->getPath($rsCategory->id, true, $this->okt->user->language);
+			while ($rsPath->fetch())
+			{
+		//		$this->okt->page->addTitleTag(($rsPath->title_tag != '' ? $rsPath->title_tag : $rsPath->title));
 
-			$this->okt->page->breadcrumb->add($rsPath->title, pagesHelpers::getCategoryUrl($rsPath->slug));
+				$this->okt->page->breadcrumb->add($rsPath->title, pagesHelpers::getCategoryUrl($rsPath->slug));
+			}
 		}
 
 		# titre de la page
@@ -335,12 +332,6 @@ class pagesController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# title tag du module
-		//$this->okt->page->addTitleTag($this->okt->pages->getTitle());
-
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->pages->getName(),$this->okt->pages->config->url);
-
 		# si les rubriques sont activées
 		if ($this->okt->pages->config->categories['enable'] && $rsPage->category_id)
 		{
@@ -366,7 +357,9 @@ class pagesController extends oktController
 		$this->okt->page->setTitleSeo($rsPage->title_seo);
 
 		# fil d'ariane de la page
-		$this->okt->page->breadcrumb->add($rsPage->title,$rsPage->url);
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $rsPage->slug)) {
+			$this->okt->page->breadcrumb->add($rsPage->title, $rsPage->url);
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->pages->getItemTplPath($rsPage->tpl, $rsPage->category_items_tpl), array(
