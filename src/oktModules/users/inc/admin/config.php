@@ -109,13 +109,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_profile_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_login_page = !empty($_POST['p_public_login_page']) ? $_POST['p_public_login_page'] : $okt->users->config->public_login_page;
-	$p_public_logout_page = !empty($_POST['p_public_logout_page']) ? $_POST['p_public_logout_page'] : $okt->users->config->public_logout_page;
-	$p_public_register_page = !empty($_POST['p_public_register_page']) ? $_POST['p_public_register_page'] : $okt->users->config->public_register_page;
-	$p_public_log_reg_page = !empty($_POST['p_public_log_reg_page']) ? $_POST['p_public_log_reg_page'] : $okt->users->config->public_log_reg_page;
-	$p_public_forget_password_page = !empty($_POST['p_public_forget_password_page']) ? $_POST['p_public_forget_password_page'] : $okt->users->config->public_forget_password_page;
-	$p_public_profile_page = !empty($_POST['p_public_profile_page']) ? $_POST['p_public_profile_page'] : $okt->users->config->public_profile_page;
-
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
@@ -147,20 +140,13 @@ if (!empty($_POST['form_sent']))
 			'public_register_url' 			=> $p_public_register_url,
 			'public_log_reg_url' 			=> $p_public_log_reg_url,
 			'public_forget_password_url'	=> $p_public_forget_password_url,
-			'public_profile_url'			=> $p_public_profile_url,
-
-			'public_login_page' 			=> $p_public_login_page,
-			'public_logout_page' 			=> $p_public_logout_page,
-			'public_register_page' 			=> $p_public_register_page,
-			'public_log_reg_page' 			=> $p_public_log_reg_page,
-			'public_forget_password_page'	=> $p_public_forget_password_page,
-			'public_profile_page'			=> $p_public_profile_page
+			'public_profile_url'			=> $p_public_profile_url
 		);
 
 		try
 		{
-						# -- CORE TRIGGER : adminModUsersConfigProcess
-						$okt->triggers->callTrigger('adminModUsersConfigProcess', $okt);
+			# -- CORE TRIGGER : adminModUsersConfigProcess
+			$okt->triggers->callTrigger('adminModUsersConfigProcess', $okt);
 
 			$okt->users->config->write($new_conf);
 			http::redirect('module.php?m=users&action=config&updated=1');

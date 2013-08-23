@@ -58,6 +58,11 @@ class usersController extends oktController
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(__('c_c_auth_login'));
 
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add(__('c_c_auth_login'), usersHelpers::getLoginUrl());
+		}
+
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->users->getLoginTplPath(), array(
 			'user_id' => $this->sUserId,
@@ -110,6 +115,11 @@ class usersController extends oktController
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(__('c_c_auth_register'));
 
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add(__('c_c_auth_register'), usersHelpers::getRegisterUrl());
+		}
+
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->users->getRegisterTplPath(), array(
 			'aUsersGroups' => $this->getGroups(),
@@ -152,6 +162,11 @@ class usersController extends oktController
 
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
+
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->users->getLoginRegisterTplPath(), array(
@@ -212,6 +227,11 @@ class usersController extends oktController
 
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(__('c_c_auth_request_password'));
+
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add(__('c_c_auth_request_password'), usersHelpers::getForgetPasswordUrl());
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->users->getForgottenPasswordTplPath(), array(
@@ -358,7 +378,7 @@ class usersController extends oktController
 			if ($this->okt->users->config->enable_custom_fields) {
 				$this->okt->users->fields->getPostData($this->rsUserFields, $aPostedData);
 			}
-			
+
 			if ($this->okt->users->updUser($aUserProfilData))
 			{
 				# -- CORE TRIGGER : adminModUsersProfileProcess
@@ -389,6 +409,11 @@ class usersController extends oktController
 
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(__('c_c_user_profile'));
+
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add(__('c_c_user_profile'), usersHelpers::getProfileUrl());
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->users->getProfileTplPath(), array(
