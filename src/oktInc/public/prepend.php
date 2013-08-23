@@ -26,7 +26,9 @@ $oktAutoloadPaths['publicPager'] = __DIR__.'/lib.public.pager.php';
 
 # Initialisation des pages publiques
 $okt->page = new publicPage($okt);
+
 $okt->page->breadcrumb = new breadcrumb();
+$okt->page->breadcrumb->add(__('c_c_Home'), $okt->page->getBaseUrl());
 
 
 # Title tag

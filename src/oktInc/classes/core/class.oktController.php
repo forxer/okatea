@@ -27,8 +27,7 @@ class oktController
 	{
 		$this->okt = $okt;
 
-		// TODO : patch de bourin de merde ; normalement il faudrait faire des redirections vers la page demandée
-		// dans la langue demandée ; mais bon, pas l'temps...
+		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée
 		//$this->sRequestedLanguage = $this->setUserRequestLanguage();
 		if ($this->setUserRequestLanguage()) {
 			http::redirect($this->okt->page->getBaseUrl());
@@ -78,16 +77,25 @@ class oktController
 		return $sRequestedLanguage;
 	}
 
-	public function switchLanguage($urlPage, $params_after=null, $params_before=null)
+	/**
+	 * Indique si les arguments représentent la route par défaut.
+	 *
+	 * @param string $sClass
+	 * @param string $sMethod
+	 * @param string $sArgs
+	 * @return boolean
+	 */
+	public function isDefaultRoute($sClass, $sMethod, $sArgs)
 	{
-		/*if ($this->sRequestedLanguage !== false)
-		{
-			if (!empty($urlPage)) {
-				$urlPage = $urlPage[$this->sRequestedLanguage];
-			}
+		$bClass = $this->okt->config->default_route['class'] == $sClass;
+		$bMethod = $this->okt->config->default_route['method'] == $sMethod;
+		$bArgs = $this->okt->config->default_route['args'] == $sArgs;
 
-			http::redirect($this->okt->page->getBaseUrl().$params_before.$urlPage.$params_after);
-		}*/
+		if ($bClass && $bMethod && $bArgs) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

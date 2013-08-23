@@ -8,6 +8,7 @@ $GLOBALS['__l10n']['c_c_number_thousands_separator'] = ',';
 $GLOBALS['__l10n']['c_c_go_to_content'] = 'go to content';
 $GLOBALS['__l10n']['c_c_go_to_menu'] = 'go to menu';
 
+$GLOBALS['__l10n']['c_c_Home'] = 'Home';
 $GLOBALS['__l10n']['c_c_go_to_website'] = 'go to the website';
 $GLOBALS['__l10n']['c_c_administration'] = 'Administration';
 $GLOBALS['__l10n']['c_c_warning'] = 'warning';
