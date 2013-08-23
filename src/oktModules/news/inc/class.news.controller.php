@@ -28,6 +28,9 @@ class newsController extends oktController
 			}
 		}
 
+		# is default route ?
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, '');
+
 		# initialisation paramètres
 		$aNewsParams = array(
 			'active' => 1,
@@ -79,8 +82,10 @@ class newsController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+		# fil d'ariane
+		if (!$bIsDefaultRoute) {
+			$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->news->filters->params->page > 1) {
@@ -148,7 +153,7 @@ class newsController extends oktController
 
 		# récupération de la rubrique en fonction du slug
 		if (!empty($aMatches[0])) {
-			$slug = $aMatches[0];
+			$sCategorySlug = $aMatches[0];
 		}
 		else {
 			$this->serve404();
@@ -158,7 +163,7 @@ class newsController extends oktController
 		$rsCategory = $this->okt->news->categories->getCategories(array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
-			'slug' => $slug
+			'slug' => $sCategorySlug
 		));
 
 		if ($rsCategory->isEmpty()) {
@@ -175,6 +180,9 @@ class newsController extends oktController
 				$this->serve404();
 			}
 		}
+
+		# is default route ?
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug);
 
 		# formatage description rubrique
 		if (!$this->okt->news->config->categories['rte']) {
@@ -238,9 +246,6 @@ class newsController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
-
 		# ajout du numéro de page au title
 		if ($this->okt->news->filters->params->page > 1) {
 			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->news->filters->params->page));
@@ -249,10 +254,16 @@ class newsController extends oktController
 		# title tag
 		$this->okt->page->addTitleTag((!empty($rsCategory->title_tag) ? $rsCategory->title_tag : $rsCategory->title));
 
-		# ajout de la hiérarchie des rubriques au fil d'ariane
-		$rsPath = $this->okt->news->categories->getPath($rsCategory->id, true, $this->okt->user->language);
-		while ($rsPath->fetch()) {
-			$this->okt->page->breadcrumb->add($rsPath->title, newsHelpers::getCategoryUrl($rsPath->slug));
+		# fil d'ariane
+		if (!$bIsDefaultRoute)
+		{
+			$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+
+			# ajout de la hiérarchie des rubriques au fil d'ariane
+			$rsPath = $this->okt->news->categories->getPath($rsCategory->id, true, $this->okt->user->language);
+			while ($rsPath->fetch()) {
+				$this->okt->page->breadcrumb->add($rsPath->title, newsHelpers::getCategoryUrl($rsPath->slug));
+			}
 		}
 
 		# titre de la page
@@ -297,6 +308,9 @@ class newsController extends oktController
 			$this->serve404();
 		}
 
+		# is default route ?
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $sPostSlug);
+
 		# permission de lecture ?
 		if (!$this->okt->news->isPublicAccessible() || !$rsPost->isReadable())
 		{
@@ -334,7 +348,9 @@ class newsController extends oktController
 		$this->okt->page->addTitleTag($this->okt->news->getTitle());
 
 		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+		if (!$bIsDefaultRoute) {
+			$this->okt->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+		}
 
 		# si les rubriques sont activées
 		if ($this->okt->news->config->categories['enable'] && $rsPost->category_id)
@@ -343,12 +359,15 @@ class newsController extends oktController
 			$this->okt->page->addTitleTag($rsPost->category_title);
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			$rsPath = $this->okt->news->categories->getPath($rsPost->category_id, true, $this->okt->user->language);
-			while ($rsPath->fetch())
+			if (!$bIsDefaultRoute)
 			{
-				$this->okt->page->breadcrumb->add($rsPath->title, newsHelpers::getCategoryUrl($rsPath->slug));
+				$rsPath = $this->okt->news->categories->getPath($rsPost->category_id, true, $this->okt->user->language);
+				while ($rsPath->fetch())
+				{
+					$this->okt->page->breadcrumb->add($rsPath->title, newsHelpers::getCategoryUrl($rsPath->slug));
+				}
+				unset($rsPath);
 			}
-			unset($rsPath);
 		}
 
 		# title tag de la page
@@ -361,7 +380,9 @@ class newsController extends oktController
 		$this->okt->page->setTitleSeo($rsPost->title_seo);
 
 		# fil d'ariane de la page
-		$this->okt->page->breadcrumb->add($rsPost->title,$rsPost->url);
+		if (!$bIsDefaultRoute) {
+			$this->okt->page->breadcrumb->add($rsPost->title, $rsPost->url);
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render($this->okt->news->getItemTplPath($rsPost->tpl, $rsPost->category_items_tpl), array(

@@ -68,13 +68,6 @@ $this->start('head') ?>
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->news->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <?php # début Okatea : si les filtres sont activés
 if ($okt->news->config->enable_filters) : ?>
 

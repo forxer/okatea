@@ -9,7 +9,6 @@ $GLOBALS['__l10n']['m_news_config_tab_attached_files'] = 'Attached files';
 $GLOBALS['__l10n']['m_news_config_features'] = 'Features';
 $GLOBALS['__l10n']['m_news_config_enable_news_seo'] = 'Enable SEO assistance on posts';
 $GLOBALS['__l10n']['m_news_config_link_website'] = 'Display on admin view a link to the website (button "show")';
-$GLOBALS['__l10n']['m_news_config_breadcrumb'] = 'Display the breadcrumb on website';
 $GLOBALS['__l10n']['m_news_config_filters_website'] = 'Display filters on website';
 
 $GLOBALS['__l10n']['m_news_config_access_restrictions'] = 'Access restrictions';

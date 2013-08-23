@@ -72,7 +72,6 @@ if (!empty($_POST['form_sent']))
 {
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
 	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
-	$p_enable_ariane = !empty($_POST['p_enable_ariane']) ? true : false;
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 
 	$p_perms = !empty($_POST['p_perms']) && is_array($_POST['p_perms']) ? array_map('intval',$_POST['p_perms']) : array(0);
@@ -119,11 +118,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_post_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_list_file = !empty($_POST['p_public_list_file']) ? $_POST['p_public_list_file'] : $okt->news->config->public_list_file;
-	$p_public_feed_file = !empty($_POST['p_public_feed_file']) ? $_POST['p_public_feed_file'] : $okt->news->config->public_feed_file;
-	$p_public_post_file = !empty($_POST['p_public_post_file']) ? $_POST['p_public_post_file'] : $okt->news->config->public_post_file;
-
-
 	foreach ($okt->languages->list as $aLanguage)
 	{
 		if (substr($p_public_post_url[$aLanguage['code']],0,strlen($p_public_list_url[$aLanguage['code']])) == $p_public_list_url[$aLanguage['code']]) {
@@ -136,7 +130,6 @@ if (!empty($_POST['form_sent']))
 		$new_conf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_show_link' => (boolean)$p_enable_show_link,
-			'enable_ariane' => (boolean)$p_enable_ariane,
 			'enable_filters' => (boolean)$p_enable_filters,
 
 			'perms' => (array)$p_perms,
@@ -173,11 +166,7 @@ if (!empty($_POST['form_sent']))
 
 			'public_list_url' => $p_public_list_url,
 			'public_feed_url' => $p_public_feed_url,
-			'public_post_url' => $p_public_post_url,
-
-			'public_list_file' => $p_public_list_file,
-			'public_feed_file' => $p_public_feed_file,
-			'public_post_file' => $p_public_post_file
+			'public_post_url' => $p_public_post_url
 		);
 
 		try
@@ -252,9 +241,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_show_link', 1, $okt->news->config->enable_show_link) ?>
 				<?php _e('m_news_config_link_website') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_ariane', 1, $okt->news->config->enable_ariane) ?>
-				<?php _e('m_news_config_breadcrumb') ?></label></p>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_filters', 1, $okt->news->config->enable_filters) ?>
 				<?php _e('m_news_config_filters_website') ?></label></p>
