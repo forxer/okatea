@@ -32,8 +32,15 @@
 	<?php # début Okatea : ajout d'éléments à l'en-tête
 	echo $this->get('head');
 	# fin Okatea : ajout d'éléments à l'en-tête ?>
+
+	<?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag
+	$okt->triggers->callTrigger('publicBeforeHtmlHeadEndTag', $okt);
+	# fin Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag ?>
 </head>
 <body>
+<?php # début Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag
+$okt->triggers->callTrigger('publicAfterHtmlBodyStartTag', $okt);
+# fin Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag ?>
 
 <?php # début Okatea : affichage du contenu de la page
 echo $this->get('content');

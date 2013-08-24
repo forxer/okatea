@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?php echo $okt->user->language ?>"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="<?php echo $okt->user->language ?>"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="<?php echo $okt->user->language ?>"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="<?php echo $okt->user->language ?>"> <!--<![endif]-->
+<html lang="<?php echo $okt->user->language ?>">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -36,8 +33,16 @@
 	<?php # début Okatea : ajout d'éléments à l'en-tête
 	echo $this->get('head');
 	# fin Okatea : ajout d'éléments à l'en-tête ?>
+
+	<?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag
+	$okt->triggers->callTrigger('publicBeforeHtmlHeadEndTag', $okt);
+	# fin Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag ?>
 </head>
 <body>
+<?php # début Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag
+$okt->triggers->callTrigger('publicAfterHtmlBodyStartTag', $okt);
+# fin Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag ?>
+
 <?php # début Okatea : affichage du contenu de la page
 echo $this->get('content');
 # fin Okatea : affichage du contenu de la page ?>
