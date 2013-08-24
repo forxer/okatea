@@ -167,6 +167,11 @@ class guestbookController extends oktController
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo($this->okt->guestbook->getNameSeo());
 
+		# fil d'ariane de la page
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add($this->okt->guestbook->getName(), $this->okt->guestbook->config->url);
+		}
+
 		# raccourcis
 		$signaturesList->numPages = $iNumPages;
 		$signaturesList->pager = $oGuestbookPager;

@@ -1,26 +1,15 @@
-
 name:
  fr: 'Livre d’or'
  en: 'Guestbook'
- de: 'Gästebuch'
- es: 'Libro de visitas'
- 
 name_seo:
  fr: ''
  en: ''
- de: ''
- es: ''
- 
 title:
  fr: 'Livre d’or'
  en: 'Guestbook'
- de: 'Gästebuch'
- es: 'Libro de visitas'
- 
 meta_description:
  fr: ''
  en: ''
-
 meta_keywords:
  fr: ''
  en: ''
@@ -31,7 +20,7 @@ chp_mail: 2
 chp_url: 1
 chp_note: 1
 
-captcha: 'flav_captcha'
+captcha: ''
 
 nbparpage_admin: 10
 nbparpage_public: 5
@@ -43,6 +32,3 @@ autodelete_spam: 60
 public_url:
  fr: 'livre-d-or'
  en: 'guestbook'
- de: 'gastebuch'
- es: 'libro-de-visitas'
-
