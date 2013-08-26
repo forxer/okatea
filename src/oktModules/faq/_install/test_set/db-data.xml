@@ -31,7 +31,7 @@
 
 	<!-- questions locales exemples -->
 	<action id="firstcatlocales" label="Creation des locales des categories exemples">
-		INSERT INTO `modules_mod_faq_cat_locales` (`cat_id`, `language`, `title`) VALUES
+		INSERT INTO `{{PREFIX}}mod_faq_cat_locales` (`cat_id`, `language`, `title`) VALUES
 		(1, 'fr', 'Catégorie 1'),
 		(1, 'en', 'Category 1'),
 		(2, 'fr', 'Catégorie 2'),

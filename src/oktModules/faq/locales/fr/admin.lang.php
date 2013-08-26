@@ -85,7 +85,6 @@ $GLOBALS['__l10n']['m_faq_features'] = 'Fonctionnalités';
 $GLOBALS['__l10n']['m_faq_general'] = 'Général';
 $GLOBALS['__l10n']['m_faq_attached_files'] = 'Fichiers joints';
 
-$GLOBALS['__l10n']['m_faq_breadcrumb'] = 'Afficher le fil d’ariane sur la partie publique';
 $GLOBALS['__l10n']['m_faq_filters_website'] = 'Afficher les filtres sur la partie publique';
 $GLOBALS['__l10n']['m_faq_no_rich_text_editor'] = 'Il n’y a aucun éditeur de texte riche de disponible. ';
 $GLOBALS['__l10n']['m_faq_rich_text_editor'] = 'Éditeur de texte riche';

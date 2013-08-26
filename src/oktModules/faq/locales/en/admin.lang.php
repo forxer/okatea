@@ -75,7 +75,6 @@ $GLOBALS['__l10n']['m_faq_features'] = 'Features';
 $GLOBALS['__l10n']['m_faq_general'] = 'General';
 $GLOBALS['__l10n']['m_faq_attached_files'] = 'Attached files';
 
-$GLOBALS['__l10n']['m_faq_breadcrumb'] = 'Display the breadcrumb on website';
 $GLOBALS['__l10n']['m_faq_filters_website'] = 'Display filters on website';
 $GLOBALS['__l10n']['m_faq_no_rich_text_editor'] = 'There is no rich text editor available. ';
 $GLOBALS['__l10n']['m_faq_rich_text_editor'] = 'Rich text editor';

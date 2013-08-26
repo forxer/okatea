@@ -41,7 +41,6 @@ if (!empty($_POST['form_sent']))
 {
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_ariane = !empty($_POST['p_enable_ariane']) ? true : false;
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 	$p_enable_categories = !empty($_POST['p_enable_categories']) ? true : false;
 
@@ -70,9 +69,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_question_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_faq_page = !empty($_POST['p_public_faq_page']) ? $_POST['p_public_faq_page'] : $okt->faq->config->public_faq_page;
-	$p_public_question_page = !empty($_POST['p_public_question_page']) ? $_POST['p_public_question_page'] : $okt->faq->config->public_question_page;
-
 	foreach ($p_public_faq_url as $lang=>$url)
 	{
 		if (substr($p_public_question_url[$lang],0,strlen($p_public_faq_url[$lang])) == $p_public_faq_url[$lang]) {
@@ -93,21 +89,18 @@ if (!empty($_POST['form_sent']))
 
 			'enable_rte' => $p_enable_rte,
 			'enable_metas' => (boolean)$p_enable_metas,
-			'enable_ariane' => (boolean)$p_enable_ariane,
 			'enable_filters' => (boolean)$p_enable_filters,
 			'enable_categories' => (boolean)$p_enable_categories,
 
 			'public_faq_url' => $p_public_faq_url,
 			'public_question_url' => $p_public_question_url,
 
-			'public_faq_page' => $p_public_faq_page,
-			'public_question_page' => $p_public_question_page,
-
 			'files' => array(
 				'enable' => (boolean)$p_enable_files,
 				'number' => $p_number_files,
 				'allowed_exts' => $p_allowed_exts
 			),
+			
 			'images' => $aImagesConfig
 		);
 
@@ -164,24 +157,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<fieldset>
 				<legend><?php _e('m_faq_features') ?></legend>
 
-				<p class="field"><label><?php echo form::checkbox('p_enable_metas',1,$okt->faq->config->enable_metas) ?>
+				<p class="field"><label><?php echo form::checkbox('p_enable_metas', 1, $okt->faq->config->enable_metas) ?>
 				<?php _e('c_c_enable_seo_help') ?></label></p>
 
-				<p class="field"><label><?php echo form::checkbox('p_enable_ariane',1,$okt->faq->config->enable_ariane) ?>
-				<?php _e('m_faq_breadcrumb') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_filters',1,$okt->faq->config->enable_filters) ?>
+				<p class="field"><label><?php echo form::checkbox('p_enable_filters', 1, $okt->faq->config->enable_filters) ?>
 				<?php _e('m_faq_filters_website') ?></label></p>
 
-				<p class="field"><label><?php echo form::checkbox('p_enable_categories',1,$okt->faq->config->enable_categories) ?>
+				<p class="field"><label><?php echo form::checkbox('p_enable_categories', 1, $okt->faq->config->enable_categories) ?>
 				<?php _e('m_faq_enable_sections') ?></label></p>
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_enable_rte"><?php _e('m_faq_rich_text_editor') ?></label>
-				<?php echo form::select('p_enable_rte',array_merge(array('Désactivé'=>0),$okt->page->getRteList(true)),$okt->faq->config->enable_rte) ?></p>
+				<?php echo form::select('p_enable_rte',array_merge(array('Désactivé'=>0), $okt->page->getRteList(true)), $okt->faq->config->enable_rte) ?></p>
 			<?php else : ?>
 				<p><?php _e('m_faq_no_rich_text_editor') ?>
-				<?php echo form::hidden('p_enable_rte',0); ?></p>
+				<?php echo form::hidden('p_enable_rte', 0); ?></p>
 			<?php endif;?>
 			</fieldset>
 		</div><!-- #tab_general -->

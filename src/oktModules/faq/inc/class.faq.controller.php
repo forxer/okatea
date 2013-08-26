@@ -71,12 +71,14 @@ class faqController extends oktController
 		}
 		unset($count_line);
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+			$this->okt->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
+		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->faq->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$this->okt->faq->filters->params->page));
+			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->faq->filters->params->page));
 		}
 
 		# title tag du module
@@ -170,9 +172,6 @@ class faqController extends oktController
 		# récupération des fichiers
 		$faqQuestion->files = $faqQuestion->getFilesInfo();
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
-
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->faq->getTitle());
 
@@ -186,7 +185,12 @@ class faqController extends oktController
 		$this->okt->page->setTitleSeo(!empty($faqQuestion->title_seo) ? $faqQuestion->title_seo : $faqQuestion->title);
 
 		# fil d'ariane du post
-		$this->okt->page->breadcrumb->add($faqQuestion->title,$faqQuestion->url);
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		{
+			$this->okt->page->breadcrumb->add($this->okt->faq->getName(), $this->okt->faq->config->url);
+		
+			$this->okt->page->breadcrumb->add($faqQuestion->title, $faqQuestion->url);
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render('faq_question_tpl', array(

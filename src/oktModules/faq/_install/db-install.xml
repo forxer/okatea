@@ -73,12 +73,5 @@
 
 <!-- UPDATE -->
 
-	<action id="add_mod_faq_title_seo" label="Add field %s" string="{{PREFIX}}mod_faq.title_seo" process="update">
-		<test eq="neq" value="title_seo" label="Field %s exists"
-		string="{{PREFIX}}mod_faq.title_seo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_faq` LIKE 'title_seo'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_faq` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
-	</action>
 
 </database>

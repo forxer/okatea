@@ -52,13 +52,6 @@ if ($okt->faq->config->enable_filters && !$okt->faq->filters->params->show_filte
 # fin Okatea : javascript pour afficher les filtres s'ils sont repliés ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->faq->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <?php # début Okatea : si les filtres sont activés
 if ($okt->faq->config->enable_filters) : ?>
 

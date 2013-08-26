@@ -17,7 +17,6 @@ meta_keywords:
 categories_enable: false
 enable_rte: ''
 enable_metas: true
-enable_ariane: true
 enable_filters: true
 enable_categories: true
 
