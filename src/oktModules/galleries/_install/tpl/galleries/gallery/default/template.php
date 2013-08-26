@@ -32,13 +32,6 @@ $okt->page->applyLbl($okt->galleries->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->galleries->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <?php # début Okatea : affichage du titre de la galerie ?>
 <!-- <h1><?php echo html::escapeHTML($rsGallery->title) ?></h1> -->
 <?php # fin Okatea : affichage du titre de la galerie ?>

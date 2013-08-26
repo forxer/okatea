@@ -27,13 +27,6 @@ $okt->page->js->addReady('
 # fin Okatea : ajout du JS de scrollToTopOfPage ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->galleries->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <p class="goBack"><a href="<?php echo html::escapeHTML($rsItem->getGalleryUrl()) ?>">Retour</a></p>
 
 
