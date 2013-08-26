@@ -158,7 +158,7 @@ $okt->page->addButton('catalogBtSt',array(
 	'active' => ($display_style == 'mosaic')
 ));
 $okt->page->addButton('catalogBtSt',array(
-	'permission' 	=> $okt->catalog->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> 'Voir',
 	'url' 			=> html::escapeHTML($okt->catalog->config->url),
 	'sprite-icon' 	=> 'page_world'

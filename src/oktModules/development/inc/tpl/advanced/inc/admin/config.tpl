@@ -34,7 +34,6 @@ if (!empty($_GET['delete_watermark']))
 if (!empty($_POST['form_sent']))
 {
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 
 	$aImagesConfig = $oImageUploadConfig->getPostConfig();
@@ -60,7 +59,6 @@ if (!empty($_POST['form_sent']))
 	{
 		$new_conf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_rte' => $p_enable_rte,
 
 			'images' => $aImagesConfig,
@@ -134,9 +132,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label for="p_enable_metas"><?php echo form::checkbox('p_enable_metas',1,$okt->##module_id##->config->enable_metas) ?>
 				<?php _e('c_c_enable_seo_help') ?></label></p>
-
-				<p class="field"><label for="p_enable_show_link"><?php echo form::checkbox('p_enable_show_link',1,$okt->##module_id##->config->enable_show_link) ?>
-				Afficher sur l’administration le lien vers la partie publique (bouton "Voir")</label></p>
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_enable_rte">Éditeur de texte riche</label>

@@ -120,7 +120,7 @@ $okt->page->addButton('galleriesBtSt',array(
 */
 # bouton vers la liste des galeries côté public
 $okt->page->addButton('galleriesBtSt',array(
-	'permission' 	=> $okt->galleries->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
 	'url' 			=> html::escapeHTML($okt->galleries->config->url),
 	'ui-icon' 		=> 'extlink'

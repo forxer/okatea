@@ -199,7 +199,7 @@ if (!empty($iEventId))
 
 	# bouton vers l'élément côté public si publié
 	$okt->page->addButton('diaryBtSt',array(
-		'permission' 	=> $okt->diary->config->enable_show_link && ($aEventData['visibility'] ? true : false),
+		'permission' 	=> ($aEventData['visibility'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> $sEventUrl,
 		'ui-icon' 		=> 'extlink'

@@ -66,7 +66,7 @@ $rsPartners = $okt->partners->getPartners(array(
 
 # Bouton vers le module côté public
 $okt->page->addButton('partnersBtSt',array(
-	'permission' 	=> $okt->partners->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
 	'url' 			=> html::escapeHTML($okt->partners->config->url),
 	'ui-icon' 		=> 'extlink'

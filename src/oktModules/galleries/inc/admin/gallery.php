@@ -419,7 +419,7 @@ if ($iGalleryId)
 	));
 	# bouton vers la galerie côté public
 	$okt->page->addButton('galleriesGaleryBtSt',array(
-		'permission' 	=> $okt->galleries->config->enable_show_link && ($aGalleryData['db']['active'] ? true : false),
+		'permission' 	=> ($aGalleryData['db']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> galleriesHelpers::getGalleryUrl($aGalleryData['locales'][$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'

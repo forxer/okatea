@@ -351,7 +351,7 @@ if ($iCategoryId)
 	));
 	# bouton vers la catégorie côté public
 	$okt->page->addButton('pagesCatsBtSt',array(
-		'permission' 	=> $okt->pages->config->enable_show_link && ($aCategoryData['active'] ? true : false),
+		'permission' 	=> ($aCategoryData['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> pagesHelpers::getCategoryUrl($aCategoryLocalesData[$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'

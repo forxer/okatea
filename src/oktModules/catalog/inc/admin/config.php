@@ -64,7 +64,6 @@ if (!empty($_POST['form_sent']))
 {
 	$p_categories_enable = !empty($_POST['p_categories_enable']) ? true : false;
 	$p_seo_enable = !empty($_POST['p_seo_enable']) ? true : false;
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 	$p_rte_enable = !empty($_POST['p_rte_enable']) ? $_POST['p_rte_enable'] : '';
 
@@ -106,7 +105,6 @@ if (!empty($_POST['form_sent']))
 
 			'categories_enable' => (boolean)$p_categories_enable,
 			'seo_enable' => (boolean)$p_seo_enable,
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_filters' => (boolean)$p_enable_filters,
 			'rte_enable' => $p_rte_enable,
 
@@ -189,9 +187,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_seo_enable',1,$okt->catalog->config->seo_enable) ?>
 				<?php _e('c_c_enable_seo_help') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_show_link',1,$okt->catalog->config->enable_show_link) ?>
-				Afficher sur l’administration le lien vers la partie publique (bouton "Voir")</label></p>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_filters',1,$okt->catalog->config->enable_filters) ?>
 				Afficher les filtres sur la partie publique</label></p>

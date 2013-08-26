@@ -6,7 +6,6 @@ $GLOBALS['__l10n']['c_a_route_desc_partnersPage'] = 'Display page partners';
 
 $GLOBALS['__l10n']['m_partners_Categories'] = 'Categories';
 $GLOBALS['__l10n']['m_partners_Category'] = 'Category';
-$GLOBALS['__l10n']['m_partners_enable_link_website'] = 'Display on admin view a link to the website (button "show")';
 $GLOBALS['__l10n']['m_partners_enable_categories'] = 'Enable categories';
 $GLOBALS['__l10n']['m_partners_Add_a_category'] = 'Add a category';
 $GLOBALS['__l10n']['m_partners_Edit_a_category'] = 'Edit a category';

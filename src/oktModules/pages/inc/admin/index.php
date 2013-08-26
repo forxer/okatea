@@ -212,7 +212,7 @@ $okt->page->addButton('pagesBtSt',array(
 
 # Bouton vers le module côté public
 $okt->page->addButton('pagesBtSt',array(
-	'permission' 	=> $okt->pages->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
 	'url' 			=> html::escapeHTML($okt->pages->config->url),
 	'ui-icon' 		=> 'extlink'

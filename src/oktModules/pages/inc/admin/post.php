@@ -330,7 +330,7 @@ if (!empty($aPageData['post']['id']))
 	));
 	# bouton vers la page côté public si publié
 	$okt->page->addButton('pagesBtSt',array(
-		'permission' 	=> $okt->pages->config->enable_show_link && ($aPageData['post']['active'] ? true : false),
+		'permission' 	=> ($aPageData['post']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> $sPageUrl,
 		'ui-icon' 		=> 'extlink'

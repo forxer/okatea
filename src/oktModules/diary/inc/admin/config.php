@@ -39,7 +39,6 @@ if (!empty($_GET['delete_watermark']))
 if (!empty($_POST['form_sent']))
 {
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 
@@ -74,7 +73,6 @@ if (!empty($_POST['form_sent']))
 	{
 		$new_conf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_rte' => $p_enable_rte,
 			'enable_filters' => (boolean)$p_enable_filters,
 
@@ -160,9 +158,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_metas',1,$okt->diary->config->enable_metas) ?>
 				<?php _e('c_c_enable_seo_help') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_show_link',1,$okt->diary->config->enable_show_link) ?>
-				Afficher sur l’administration le lien vers la partie publique (bouton "Voir")</label></p>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_filters',1,$okt->diary->config->enable_filters) ?>
 				Afficher les filtres sur la partie publique</label></p>

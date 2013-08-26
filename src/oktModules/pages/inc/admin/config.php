@@ -71,7 +71,6 @@ if (!empty($_GET['delete_watermark']))
 if (!empty($_POST['form_sent']))
 {
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 
 	$p_perms = !empty($_POST['p_perms']) && is_array($_POST['p_perms']) ? array_map('intval',$_POST['p_perms']) : array(0);
@@ -129,7 +128,6 @@ if (!empty($_POST['form_sent']))
 	{
 		$new_conf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_filters' => (boolean)$p_enable_filters,
 
 			'perms' => (array)$p_perms,
@@ -238,9 +236,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label for="p_enable_metas"><?php echo form::checkbox('p_enable_metas', 1, $okt->pages->config->enable_metas) ?>
 				<?php _e('m_pages_config_enable_pages_seo') ?></label></p>
-
-				<p class="field"><label for="p_enable_show_link"><?php echo form::checkbox('p_enable_show_link', 1, $okt->pages->config->enable_show_link) ?>
-				<?php _e('m_pages_config_link_website') ?></label></p>
 
 				<p class="field"><label for="p_enable_filters"><?php echo form::checkbox('p_enable_filters', 1, $okt->pages->config->enable_filters) ?>
 				<?php _e('m_pages_config_filters_website') ?></label></p>

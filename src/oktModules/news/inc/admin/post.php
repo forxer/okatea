@@ -391,7 +391,7 @@ if (!empty($aPostData['post']['id']))
 	));
 	# bouton vers l'article côté public si publié
 	$okt->page->addButton('newsBtSt',array(
-		'permission' 	=> $okt->news->config->enable_show_link && ($aPostData['post']['active'] ? true : false),
+		'permission' 	=> ($aPostData['post']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> $sPostUrl,
 		'ui-icon' 		=> 'extlink'

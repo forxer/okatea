@@ -264,7 +264,7 @@ else
 	));
 	# bouton vers le produit si visible
 	$okt->page->addButton('catalogBtSt',array(
-		'permission' 	=> ($okt->catalog->config->enable_show_link && $product_data['visibility'] == 1 ? true : false),
+		'permission' 	=> ($product_data['visibility'] == 1 ? true : false),
 		'title' 		=> 'Voir',
 		'url' 			=> $prod_url,
 		'ui-icon' 		=> 'extlink'

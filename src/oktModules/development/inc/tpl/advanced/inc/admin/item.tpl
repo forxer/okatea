@@ -179,7 +179,7 @@ if (!empty($iItemId))
 
 	# bouton vers l'élément côté public si publié
 	$okt->page->addButton('##module_id##BtSt',array(
-		'permission' 	=> $okt->##module_id##->config->enable_show_link && ($aItemData['visibility'] ? true : false),
+		'permission' 	=> ($aItemData['visibility'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> $sItemUrl,
 		'ui-icon' 		=> 'extlink'

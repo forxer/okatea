@@ -89,7 +89,6 @@ if (!empty($_POST['form_sent']))
 
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
 	$p_enable_gal_password = !empty($_POST['p_enable_gal_password']) ? true : false;
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_gal_rte = !empty($_POST['p_enable_gal_rte']) ? $_POST['p_enable_gal_rte'] : '';
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 
@@ -155,7 +154,6 @@ if (!empty($_POST['form_sent']))
 
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_gal_password' => (boolean)$p_enable_gal_password,
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_gal_rte' => $p_enable_gal_rte,
 			'enable_rte' => $p_enable_rte,
 
@@ -260,9 +258,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_gal_password', 1, $okt->galleries->config->enable_gal_password) ?>
 				<?php _e('m_galleries_config_enable_password') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_show_link', 1, $okt->galleries->config->enable_show_link) ?>
-				<?php _e('m_galleries_config_link_website') ?></label></p>
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_enable_rte"><?php _e('m_galleries_config_galleries_rich_text_editor') ?></label>

@@ -108,7 +108,7 @@ $okt->page->addButton('diaryBtSt',array(
 
 # bouton vers le module côté public
 $okt->page->addButton('diaryBtSt',array(
-	'permission' 	=> $okt->diary->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_Show'),
 	'url' 			=> html::escapeHTML($okt->diary->config->url),
 	'ui-icon' 		=> 'extlink'

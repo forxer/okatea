@@ -39,7 +39,6 @@ if (!empty($_GET['delete_watermark']))
 # formulaire envoyé
 if (!empty($_POST['form_sent']))
 {
-	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
 	$p_enable_categories = !empty($_POST['p_enable_categories']) ? true : false;
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 
@@ -67,7 +66,6 @@ if (!empty($_POST['form_sent']))
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
-			'enable_show_link' => (boolean)$p_enable_show_link,
 			'enable_categories' => (boolean)$p_enable_categories,
 			'enable_rte' => $p_enable_rte,
 
@@ -143,9 +141,6 @@ include OKT_ADMIN_HEADER_FILE; ?>
 
 		<div id="tab_general">
 			<h3><?php _e('m_partners_general') ?></h3>
-
-			<p class="field"><label for="p_enable_show_link"><?php echo form::checkbox('p_enable_show_link', 1, $okt->pages->config->enable_show_link) ?>
-			<?php _e('m_partners_enable_link_website') ?></label></p>
 
 			<p class="field"><label for="p_enable_categories"><?php echo form::checkbox('p_enable_categories', 1, $okt->partners->config->enable_categories) ?>
 			<?php _e('m_partners_enable_categories') ?></label></p>

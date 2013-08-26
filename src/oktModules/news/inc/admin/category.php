@@ -350,7 +350,7 @@ if ($iCategoryId)
 	));
 	# bouton vers la catégorie côté public
 	$okt->page->addButton('newsCatsBtSt',array(
-		'permission' 	=> $okt->news->config->enable_show_link && ($aCategoryData['active'] ? true : false),
+		'permission' 	=> ($aCategoryData['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> newsHelpers::getCategoryUrl($aCategoryLocalesData[$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'

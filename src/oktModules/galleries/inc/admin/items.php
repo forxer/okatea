@@ -133,7 +133,7 @@ $okt->page->addButton('galleriesBtSt',array(
 	'ui-icon' 		=> 'script'
 ));
 $okt->page->addButton('galleriesBtSt',array(
-	'permission' 	=> $okt->galleries->config->enable_show_link && ($rsGallery->active ? true : false),
+	'permission' 	=> ($rsGallery->active ? true : false),
 	'title' 		=> __('c_c_action_show'),
 	'url' 			=> html::escapeHTML(galleriesHelpers::getGalleryUrl($rsGallery->slug)),
 	'ui-icon' 		=> 'extlink'

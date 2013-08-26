@@ -346,7 +346,7 @@ $okt->page->addButton('newsBtSt',array(
 
 # Bouton vers le module côté public
 $okt->page->addButton('newsBtSt',array(
-	'permission' 	=> $okt->news->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
 	'url' 			=> html::escapeHTML($okt->news->config->url),
 	'ui-icon' 		=> 'extlink'

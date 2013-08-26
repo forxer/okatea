@@ -294,7 +294,7 @@ if (!empty($aItemData['item']['id']))
 	));
 	# bouton vers la page côté public si publié
 	$okt->page->addButton('galleriesBtSt',array(
-		'permission' 	=> $okt->galleries->config->enable_show_link && ($aItemData['item']['active'] ? true : false),
+		'permission' 	=> ($aItemData['item']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> galleriesHelpers::getItemUrl($aItemData['locales'][$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'

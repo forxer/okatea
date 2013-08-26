@@ -23,7 +23,6 @@ $GLOBALS['__l10n']['m_partners_activate_fields'] = 'Activation des différents c
 $GLOBALS['__l10n']['m_partners_fields'] = 'Champs';
 $GLOBALS['__l10n']['m_partners_images'] = 'Images';
 $GLOBALS['__l10n']['m_partners_seo'] = 'Référencement';
-$GLOBALS['__l10n']['m_partners_enable_link_website'] = 'Afficher sur l’administration le lien vers la partie publique (bouton "Voir")';
 $GLOBALS['__l10n']['m_partners_enable_categories'] = 'Activer les catégories';
 $GLOBALS['__l10n']['m_partners_Category'] = 'Catégorie';
 

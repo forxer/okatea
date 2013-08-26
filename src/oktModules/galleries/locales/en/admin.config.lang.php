@@ -10,7 +10,6 @@ $GLOBALS['__l10n']['m_galleries_config_tab_images_galleries'] = 'Images of galle
 $GLOBALS['__l10n']['m_galleries_config_features'] = 'Features';
 $GLOBALS['__l10n']['m_galleries_config_enable_seo'] = 'Enable SEO assistance';
 $GLOBALS['__l10n']['m_galleries_config_enable_password'] = 'Enable password on galleries';
-$GLOBALS['__l10n']['m_galleries_config_link_website'] = 'Display on admin view a link to the website (button "show")';
 
 $GLOBALS['__l10n']['m_galleries_config_galleries_rich_text_editor'] = 'Rich text editor on galleries description';
 $GLOBALS['__l10n']['m_galleries_config_items_rich_text_editor'] = 'Rich text editor on legend items';

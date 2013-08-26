@@ -8,7 +8,6 @@ $GLOBALS['__l10n']['m_news_config_tab_attached_files'] = 'Fichiers joints';
 
 $GLOBALS['__l10n']['m_news_config_features'] = 'Fonctionnalités';
 $GLOBALS['__l10n']['m_news_config_enable_news_seo'] = 'Activer l’aide au référencement sur les actualités';
-$GLOBALS['__l10n']['m_news_config_link_website'] = 'Afficher sur l’administration le lien vers la partie publique (bouton "Voir")';
 $GLOBALS['__l10n']['m_news_config_filters_website'] = 'Afficher les filtres sur la partie publique';
 
 $GLOBALS['__l10n']['m_news_config_access_restrictions'] = 'Restrictions d’accès';

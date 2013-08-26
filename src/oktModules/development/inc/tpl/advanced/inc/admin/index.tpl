@@ -103,7 +103,7 @@ $okt->page->addButton('##module_id##BtSt',array(
 
 # bouton vers le module côté public
 $okt->page->addButton('##module_id##BtSt',array(
-	'permission' 	=> $okt->##module_id##->config->enable_show_link,
+	'permission' 	=> true,
 	'title' 		=> __('c_c_action_Show'),
 	'url' 			=> html::escapeHTML($okt->##module_id##->config->url),
 	'ui-icon' 		=> 'extlink'
