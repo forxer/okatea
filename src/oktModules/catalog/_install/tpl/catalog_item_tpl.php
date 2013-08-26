@@ -32,13 +32,6 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-if ($okt->catalog->config->enable_ariane) :
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-endif; # fin Okatea : affichage du fil d'ariane ?>
-
-
 <div id="product">
 	<div id="product-header" class="two-cols">
 

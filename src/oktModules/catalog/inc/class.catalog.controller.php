@@ -88,12 +88,14 @@ class catalogController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->catalog->getName(),$this->okt->catalog->config->url);
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->catalog->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$this->okt->catalog->filters->params->page));
+			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
 		}
 
 		# title tag du module
@@ -146,6 +148,9 @@ class catalogController extends oktController
 		if ($rsCategory->isEmpty()) {
 			$this->serve404();
 		}
+		
+		# route par défaut ?
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
 
 		# initialisation des paramètres
 		$aProductsParams = array(
@@ -218,28 +223,30 @@ class catalogController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->catalog->getName(),$this->okt->catalog->config->url);
-
 		# ajout du numéro de page au title
 		if ($this->okt->catalog->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$this->okt->catalog->filters->params->page));
+			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
 		}
 
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
 
-		# ajout de la hiérarchie des catégories au fil d'ariane et au title tag
-		$rsPath = $this->okt->catalog->getPath($rsCategory->id,true);
-
-		while ($rsPath->fetch())
+		# fil d'ariane
+		if (!$bIsDefaultRoute) 
 		{
-			$this->okt->page->addTitleTag($rsPath->name);
+			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
 
-			$this->okt->page->breadcrumb->add(
-				$rsPath->name,
-				$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
-			);
+			$rsPath = $this->okt->catalog->getPath($rsCategory->id,true);
+	
+			while ($rsPath->fetch())
+			{
+				$this->okt->page->addTitleTag($rsPath->name);
+	
+				$this->okt->page->breadcrumb->add(
+					$rsPath->name,
+					$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
+				);
+			}
 		}
 
 		# titre de la page
@@ -285,6 +292,9 @@ class catalogController extends oktController
 		if ($product->isEmpty()) {
 			$this->serve404();
 		}
+		
+		# route par défaut ?
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
 
 		# Formatage des données
 		if ($product->title_tag == '') {
@@ -327,8 +337,6 @@ class catalogController extends oktController
 		# Récupération des fichiers
 		$product->files = $product->getFilesInfo();
 
-		# Début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->catalog->getName(),$this->okt->catalog->config->url);
 
 		# Title tag du module
 		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
@@ -345,22 +353,26 @@ class catalogController extends oktController
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo($product->title);
 
-		# Ajout de la hiérarchie des catégories au fil d'ariane
-		if ($this->okt->catalog->config->categories_enable && $product->category_id)
+		# fil d'ariane
+		if (!$bIsDefaultRoute)
 		{
-			$rsPath = $this->okt->catalog->getPath($product->category_id,true);
-			while ($rsPath->fetch())
+			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			
+			if ($this->okt->catalog->config->categories_enable && $product->category_id)
 			{
-				$this->okt->page->breadcrumb->add(
-					$rsPath->name,
-					$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
-				);
+				$rsPath = $this->okt->catalog->getPath($product->category_id,true);
+				while ($rsPath->fetch())
+				{
+					$this->okt->page->breadcrumb->add(
+						$rsPath->name,
+						$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
+					);
+				}
+				unset($rsPath);
 			}
-			unset($rsPath);
+	
+			$this->okt->page->breadcrumb->add($product->title,$product->url);
 		}
-
-		# Fil d'ariane du produit
-		$this->okt->page->breadcrumb->add($product->title,$product->url);
 
 		# affichage du template
 		echo $this->okt->tpl->render('catalog_item_tpl', array(

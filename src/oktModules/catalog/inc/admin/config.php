@@ -65,7 +65,6 @@ if (!empty($_POST['form_sent']))
 	$p_categories_enable = !empty($_POST['p_categories_enable']) ? true : false;
 	$p_seo_enable = !empty($_POST['p_seo_enable']) ? true : false;
 	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
-	$p_enable_ariane = !empty($_POST['p_enable_ariane']) ? true : false;
 	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
 	$p_rte_enable = !empty($_POST['p_rte_enable']) ? $_POST['p_rte_enable'] : '';
 
@@ -93,9 +92,6 @@ if (!empty($_POST['form_sent']))
 	$p_public_product_url = !empty($_POST['p_public_product_url']) ? $_POST['p_public_product_url'] : '';
 	$p_public_product_url = util::formatAppPath($p_public_product_url,false,false);
 
-	$p_public_catalog_page = !empty($_POST['p_public_catalog_page']) ? $_POST['p_public_catalog_page'] : $okt->catalog->config->public_catalog_page;
-	$p_public_product_page = !empty($_POST['p_public_product_page']) ? $_POST['p_public_product_page'] : $okt->catalog->config->public_product_page;
-
 	if (substr($p_public_product_url,0,strlen($p_public_catalog_url)) == $p_public_catalog_url) {
 		$okt->error->set('L’URL de la liste des produits ne doit pas être la même que l’URL d’un produit.');
 	}
@@ -111,15 +107,11 @@ if (!empty($_POST['form_sent']))
 			'categories_enable' => (boolean)$p_categories_enable,
 			'seo_enable' => (boolean)$p_seo_enable,
 			'enable_show_link' => (boolean)$p_enable_show_link,
-			'enable_ariane' => (boolean)$p_enable_ariane,
 			'enable_filters' => (boolean)$p_enable_filters,
 			'rte_enable' => $p_rte_enable,
 
 			'public_catalog_url' => $p_public_catalog_url,
 			'public_product_url' => $p_public_product_url,
-
-			'public_catalog_page' => $p_public_catalog_page,
-			'public_product_page' => $p_public_product_page,
 
 			'fields' => array(
 				'subtitle' => (integer)$p_chp_subtitle,
@@ -200,9 +192,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_show_link',1,$okt->catalog->config->enable_show_link) ?>
 				Afficher sur l’administration le lien vers la partie publique (bouton "Voir")</label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_ariane',1,$okt->catalog->config->enable_ariane) ?>
-				Afficher le fil d’ariane sur la partie publique</label></p>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_filters',1,$okt->catalog->config->enable_filters) ?>
 				Afficher les filtres sur la partie publique</label></p>
