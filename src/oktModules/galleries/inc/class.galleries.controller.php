@@ -43,7 +43,7 @@ class galleriesController extends oktController
 		}
 		
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null))
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__))
 		{
 			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
 		}

@@ -357,7 +357,7 @@ class pagesController extends oktController
 		$this->okt->page->setTitleSeo($rsPage->title_seo);
 
 		# fil d'ariane de la page
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $rsPage->slug)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sPageSlug)) {
 			$this->okt->page->breadcrumb->add($rsPage->title, $rsPage->url);
 		}
 

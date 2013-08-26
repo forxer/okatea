@@ -85,11 +85,16 @@ class oktController
 	 * @param string $sArgs
 	 * @return boolean
 	 */
-	public function isDefaultRoute($sClass, $sMethod, $sArgs)
+	public function isDefaultRoute($sClass, $sMethod, $sArgs=null)
 	{
 		$bClass = $this->okt->config->default_route['class'] == $sClass;
 		$bMethod = $this->okt->config->default_route['method'] == $sMethod;
-		$bArgs = $this->okt->config->default_route['args'] == $sArgs;
+		
+		$bArgs = true;
+		
+		if (!is_null($sArgs)) {
+			$bArgs = $this->okt->config->default_route['args'] == $sArgs;
+		}
 
 		if ($bClass && $bMethod && $bArgs) {
 			return true;

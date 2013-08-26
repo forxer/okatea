@@ -29,7 +29,7 @@ class newsController extends oktController
 		}
 
 		# is default route ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, '');
+		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__);
 
 		# initialisation paramètres
 		$aNewsParams = array(

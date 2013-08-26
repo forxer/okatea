@@ -59,7 +59,7 @@ class usersController extends oktController
 		$this->okt->page->setTitleSeo(__('c_c_auth_login'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add(__('c_c_auth_login'), usersHelpers::getLoginUrl());
 		}
 
@@ -116,7 +116,7 @@ class usersController extends oktController
 		$this->okt->page->setTitleSeo(__('c_c_auth_register'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add(__('c_c_auth_register'), usersHelpers::getRegisterUrl());
 		}
 
@@ -164,7 +164,7 @@ class usersController extends oktController
 		$this->okt->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
 		}
 
@@ -229,7 +229,7 @@ class usersController extends oktController
 		$this->okt->page->setTitleSeo(__('c_c_auth_request_password'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add(__('c_c_auth_request_password'), usersHelpers::getForgetPasswordUrl());
 		}
 
@@ -411,7 +411,7 @@ class usersController extends oktController
 		$this->okt->page->setTitleSeo(__('c_c_user_profile'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add(__('c_c_user_profile'), usersHelpers::getProfileUrl());
 		}
 

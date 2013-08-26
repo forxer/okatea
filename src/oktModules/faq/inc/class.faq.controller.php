@@ -72,7 +72,7 @@ class faqController extends oktController
 		unset($count_line);
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
 		}
 

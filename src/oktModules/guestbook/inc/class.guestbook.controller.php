@@ -168,7 +168,7 @@ class guestbookController extends oktController
 		$this->okt->page->setTitleSeo($this->okt->guestbook->getNameSeo());
 
 		# fil d'ariane de la page
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null)) {
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add($this->okt->guestbook->getName(), $this->okt->guestbook->config->url);
 		}
 
