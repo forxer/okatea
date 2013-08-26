@@ -71,9 +71,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_map_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_file = !empty($_POST['p_public_file']) ? $_POST['p_public_file'] : $okt->contact->config->public_file;
-	$p_public_map_file = !empty($_POST['p_public_map_file']) ? $_POST['p_public_map_file'] : $okt->contact->config->public_map_file;
-
 	$p_enable_google_map = !empty($_POST['p_enable_google_map']) ? true : false;
 	$p_google_map_display = !empty($_POST['p_google_map_display']) ? $_POST['p_google_map_display'] : 'inside';
 	$p_google_map_zoom = !empty($_POST['p_google_map_zoom']) ? $_POST['p_google_map_zoom'] : 14;
@@ -108,10 +105,7 @@ if (!empty($_POST['form_sent']))
 			'meta_keywords_map' => $p_meta_keywords_map,
 
 			'public_url' => $p_public_url,
-			'public_file' => $p_public_file,
-
 			'public_map_url' => $p_public_map_url,
-			'public_map_file' => $p_public_map_file,
 
 			'google_map' => array(
 				'enable' => (boolean)$p_enable_google_map,

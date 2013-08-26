@@ -155,6 +155,11 @@ class contactController extends oktController
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->contact->getTitle());
 
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->contact->getName(), $this->okt->contact->config->url);
+		}
+
 		# titre de la page
 		$this->okt->page->setTitle($this->okt->contact->getName());
 
@@ -225,6 +230,11 @@ class contactController extends oktController
 			$sNameSeo = $this->okt->contact->config->name_seo_map[$this->okt->config->language];
 		}
 		$this->okt->page->setTitleSeo($sNameSeo);
+
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($sName, $this->okt->contact->config->map_url);
+		}
 
 		# affichage du template
 		echo $this->okt->tpl->render('contact/map/'.$this->okt->contact->config->templates['map']['default'].'/template');
