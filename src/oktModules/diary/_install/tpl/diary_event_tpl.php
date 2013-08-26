@@ -17,12 +17,6 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
-<?php # début Okatea : affichage du fil d'ariane
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-# fin Okatea : affichage du fil d'ariane ?>
-
-
 <div id="diary">
 
 	<?php # début Okatea : affichage du titre de l'évènement ?>

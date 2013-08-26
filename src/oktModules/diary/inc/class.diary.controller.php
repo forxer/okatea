@@ -31,7 +31,6 @@ class diaryController extends oktController
 			unset($aDate);
 		}
 
-
 		# initialisation calendrier
 		$oCal = new diaryMonthlyCalendar(
 			array(
@@ -93,8 +92,10 @@ class diaryController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->diary->getName(),$this->okt->diary->config->url);
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+		}
 
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->diary->getTitle());
@@ -126,7 +127,7 @@ class diaryController extends oktController
 			$this->serve404();
 		}
 
-		# récupération de l'élément
+		# récupération de l'évènement
 		$rsEvent = $this->okt->diary->getEvents(array(
 			'slug' => $slug,
 			'visibility' => 1
@@ -177,10 +178,15 @@ class diaryController extends oktController
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->diary->getTitle());
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug)) 
+		{
+			$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+			
+			$this->okt->page->breadcrumb->add($rsEvent->title, $rsEvent->getEventUrl());
+		}
 
-		# title tag de la page
+		# title tag
 		$this->okt->page->addTitleTag(($rsEvent->title_tag != '' ? $rsEvent->title_tag : $rsEvent->title));
 
 		# titre de la page
@@ -188,10 +194,6 @@ class diaryController extends oktController
 
 		# titre SEO de la page
 		$this->okt->page->setTitleSeo(!empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
-
-		# fil d'ariane de la page
-		$this->okt->page->breadcrumb->add($rsEvent->title,$rsEvent->getEventUrl());
-
 
 		# affichage du template
 		echo $this->okt->tpl->render('diary_event_tpl', array(

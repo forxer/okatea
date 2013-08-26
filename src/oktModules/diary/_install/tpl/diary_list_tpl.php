@@ -26,13 +26,6 @@ $this->start('head') ?>
 <?php $this->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
-
-<?php # début Okatea : affichage du fil d'ariane
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
-# fin Okatea : affichage du fil d'ariane ?>
-
-
 <?php # début Okatea : si les filtres sont activés
 if ($okt->diary->config->enable_filters) : ?>
 	<form action="<?php echo html::escapeHTML($okt->diary->config->url) ?> " method="get" id="filters-form">
