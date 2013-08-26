@@ -16,7 +16,6 @@ meta_keywords:
 enable_metas: true
 enable_gal_password: false
 enable_show_link: true
-enable_ariane: true
 enable_rte: ''
 enable_gal_rte: ''
 enable_zip_upload: true

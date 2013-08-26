@@ -90,7 +90,6 @@ if (!empty($_POST['form_sent']))
 	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
 	$p_enable_gal_password = !empty($_POST['p_enable_gal_password']) ? true : false;
 	$p_enable_show_link = !empty($_POST['p_enable_show_link']) ? true : false;
-	$p_enable_ariane = !empty($_POST['p_enable_ariane']) ? true : false;
 	$p_enable_gal_rte = !empty($_POST['p_enable_gal_rte']) ? $_POST['p_enable_gal_rte'] : '';
 	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 
@@ -131,12 +130,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_item_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-
-	$p_public_list_file = !empty($_POST['p_public_list_file']) ? $_POST['p_public_list_file'] : $okt->galleries->config->public_list_file;
-//	$p_public_feed_file = !empty($_POST['p_public_feed_file']) ? $_POST['p_public_feed_file'] : $okt->galleries->config->public_feed_file;
-	$p_public_gallery_file = !empty($_POST['p_public_gallery_file']) ? $_POST['p_public_gallery_file'] : $okt->galleries->config->public_gallery_file;
-	$p_public_item_file = !empty($_POST['p_public_item_file']) ? $_POST['p_public_item_file'] : $okt->galleries->config->public_item_file;
-
 	foreach ($okt->languages->list as $aLanguage)
 	{
 		if (substr($p_public_gallery_url[$aLanguage['code']],0,strlen($p_public_list_url[$aLanguage['code']])) == $p_public_list_url[$aLanguage['code']]) {
@@ -163,7 +156,6 @@ if (!empty($_POST['form_sent']))
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_gal_password' => (boolean)$p_enable_gal_password,
 			'enable_show_link' => (boolean)$p_enable_show_link,
-			'enable_ariane' => (boolean)$p_enable_ariane,
 			'enable_gal_rte' => $p_enable_gal_rte,
 			'enable_rte' => $p_enable_rte,
 
@@ -184,12 +176,7 @@ if (!empty($_POST['form_sent']))
 			'public_list_url' => $p_public_list_url,
 //			'public_feed_url' => $p_public_feed_url,
 			'public_gallery_url' => $p_public_gallery_url,
-			'public_item_url' => $p_public_item_url,
-
-			'public_list_file' => $p_public_list_file,
-//			'public_feed_file' => $p_public_feed_file,
-			'public_gallery_file' => $p_public_gallery_file,
-			'public_item_file' => $p_public_item_file
+			'public_item_url' => $p_public_item_url
 		);
 
 		try
@@ -276,9 +263,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label><?php echo form::checkbox('p_enable_show_link', 1, $okt->galleries->config->enable_show_link) ?>
 				<?php _e('m_galleries_config_link_website') ?></label></p>
-
-				<p class="field"><label><?php echo form::checkbox('p_enable_ariane', 1, $okt->galleries->config->enable_ariane) ?>
-				<?php _e('m_galleries_config_breadcrumb') ?></label></p>
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_enable_rte"><?php _e('m_galleries_config_galleries_rich_text_editor') ?></label>

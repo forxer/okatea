@@ -11,7 +11,6 @@ $GLOBALS['__l10n']['m_galleries_config_features'] = 'Fonctionnalités';
 $GLOBALS['__l10n']['m_galleries_config_enable_seo'] = 'Activer l’aide au référencement';
 $GLOBALS['__l10n']['m_galleries_config_enable_password'] = 'Activer les mots de passe sur les galeries';
 $GLOBALS['__l10n']['m_galleries_config_link_website'] = 'Afficher sur l’administration le lien vers la partie publique (bouton "Voir")';
-$GLOBALS['__l10n']['m_galleries_config_breadcrumb'] = 'Afficher le fil d’ariane sur la partie publique';
 
 $GLOBALS['__l10n']['m_galleries_config_galleries_rich_text_editor'] = 'Éditeur de texte riche sur la description des galeries';
 $GLOBALS['__l10n']['m_galleries_config_items_rich_text_editor'] = 'Éditeur de texte riche sur la légende des éléments';

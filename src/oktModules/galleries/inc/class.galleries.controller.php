@@ -41,9 +41,12 @@ class galleriesController extends oktController
 		else {
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
-
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+		
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, null))
+		{
+			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+		}
 
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->galleries->getTitle());
@@ -166,16 +169,18 @@ class galleriesController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
-
 		# title tag
 		$this->okt->page->addTitleTag((!empty($rsGallery->title_tag) ? $rsGallery->title_tag : $rsGallery->title));
 
-		# ajout de la hiérarchie des galeries au fil d'ariane et au title tag
-		$rsPath = $this->okt->galleries->tree->getPath($rsGallery->id, true, $this->okt->user->language);
-		while ($rsPath->fetch()) {
-			$this->okt->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		{
+			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+			
+			$rsPath = $this->okt->galleries->tree->getPath($rsGallery->id, true, $this->okt->user->language);
+			while ($rsPath->fetch()) {
+				$this->okt->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
+			}
 		}
 
 		# titre de la page
@@ -222,37 +227,20 @@ class galleriesController extends oktController
 		$this->okt->page->module = 'galleries';
 		$this->okt->page->action = 'item';
 
-		# début du fil d'ariane
-		$this->okt->page->breadcrumb->add($this->okt->galleries->getName(),$this->okt->galleries->config->url);
+		//$rsItem->image = $rsItem->getImagesInfo();
 
-		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->galleries->getTitle());
-
-		# Ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		$rsPath = $this->okt->galleries->tree->getPath($rsItem->gallery_id, true, $this->okt->user->language);
-		while ($rsPath->fetch())
-		{
-			$this->okt->page->addTitleTag($rsPath->title);
-
-			$this->okt->page->breadcrumb->add(
-				$rsPath->title,
-				$this->okt->page->getBaseUrl().$this->okt->galleries->config->public_gallery_url[$this->okt->user->language].'/'.$rsPath->slug
-			);
+		if ($this->okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
+			$rsItem->legend = util::nlToP($rsItem->legend);
 		}
+
+		# title tag
+		$this->okt->page->addTitleTag($this->okt->galleries->getTitle());
 
 		if ($rsItem->title_tag == '') {
 			$rsItem->title_tag = $rsItem->title;
 		}
 
 		$this->okt->page->addTitleTag($rsItem->title_tag);
-
-		$this->okt->page->breadcrumb->add($rsItem->title, $rsItem->getItemUrl());
-
-		//$rsItem->image = $rsItem->getImagesInfo();
-
-		if ($this->okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
-			$rsItem->legend = util::nlToP($rsItem->legend);
-		}
 
 		# meta description
 		if ($rsItem->meta_description != '') {
@@ -276,6 +264,22 @@ class galleriesController extends oktController
 			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
 		}
 
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug)) 
+		{
+			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+			
+			$rsPath = $this->okt->galleries->tree->getPath($rsItem->gallery_id, true, $this->okt->user->language);
+			while ($rsPath->fetch())
+			{
+				$this->okt->page->addTitleTag($rsPath->title);
+	
+				$this->okt->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
+			}
+
+			$this->okt->page->breadcrumb->add($rsItem->title, $rsItem->getItemUrl());
+		}
+		
 		# titre de la page
 		$this->okt->page->setTitle($rsItem->title);
 

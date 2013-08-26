@@ -108,52 +108,5 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-	<action id="change_mod_galleries_items_metadescription" label="Change field %s" string="{{PREFIX}}mod_galleries_items.metadescription">
-		<test eq="eq" value="metadescription" label="Field %s exists"
-		string="{{PREFIX}}mod_galleries_items.metadescription" type="wrn" process="update">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_galleries_items` LIKE 'metadescription'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_galleries_items` CHANGE `metadescription` `meta_description` VARCHAR(255) NULL
-	</action>
-
-	<action id="change_mod_galleries_items_metakeywords" label="Change field %s" string="{{PREFIX}}mod_galleries_items.metakeywords">
-		<test eq="eq" value="metakeywords" label="Field %s exists"
-		string="{{PREFIX}}mod_galleries_items.metakeywords" type="wrn" process="update">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_galleries_items` LIKE 'metakeywords'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_galleries_items` CHANGE `metakeywords` `meta_keywords` VARCHAR(255) NULL
-	</action>
-
-	<action id="change_mod_galleries_image" type="silent" process="update">
-		ALTER TABLE `{{PREFIX}}mod_galleries` CHANGE `image` `image` TEXT NULL
-	</action>
-
-	<action id="change_mod_galleries_items_image" type="silent" process="update">
-		ALTER TABLE `{{PREFIX}}mod_galleries_items` CHANGE `image` `image` TEXT NULL
-	</action>
-
-	<action id="add_mod_galleries_locked" label="Add field %s" string="{{PREFIX}}mod_galleries.locked">
-		<test eq="neq" value="locked" label="Field %s exists"
-		string="{{PREFIX}}mod_galleries.locked" type="wrn" process="update">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_galleries` LIKE 'locked'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_galleries` ADD `locked` TINYINT(1) UNSIGNED NOT NULL AFTER `active`
-	</action>
-
-	<action id="add_mod_galleries_locales_title_seo" label="Add field %s" string="{{PREFIX}}mod_galleries_locales.title_seo" process="update">
-		<test eq="neq" value="title_seo" label="Field %s exists"
-		string="{{PREFIX}}mod_galleries_locales.title_seo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_galleries_locales` LIKE 'title_seo'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_galleries_locales` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
-	</action>
-	
-	<action id="add_mod_galleries_items_locales_title_seo" label="Add field %s" string="{{PREFIX}}mod_galleries_items_locales.title_seo" process="update">
-		<test eq="neq" value="title_seo" label="Field %s exists"
-		string="{{PREFIX}}mod_galleries_items_locales.title_seo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_galleries_items_locales` LIKE 'title_seo'
-		</test>
-		ALTER TABLE `{{PREFIX}}mod_galleries_items_locales` ADD `title_seo` VARCHAR(255) NULL AFTER `title_tag`
-	</action>
 
 </database>
