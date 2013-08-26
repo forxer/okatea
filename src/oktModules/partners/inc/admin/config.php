@@ -63,8 +63,6 @@ if (!empty($_POST['form_sent']))
 		$p_public_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_file = !empty($_POST['p_public_file']) ? $_POST['p_public_file'] : $okt->partners->config->public_file;
-
 
 	if ($okt->error->isEmpty())
 	{
@@ -86,7 +84,6 @@ if (!empty($_POST['form_sent']))
 			'meta_keywords' => $p_meta_keywords,
 
 			'public_url' => $p_public_url,
-			'public_file' => $p_public_file,
 
 			'images' => $aImagesConfig
 		);

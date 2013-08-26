@@ -24,6 +24,11 @@ class partnersController extends oktController
 
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->partners->getTitle());
+		
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->partners->getName(), $this->okt->partners->config->url);
+		}
 
 		# titre de la page
 		$this->okt->page->setTitle($this->okt->partners->getName());
