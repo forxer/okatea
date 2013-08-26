@@ -126,6 +126,11 @@ class estimateController extends oktController
 		# title tag du module
 		$this->okt->page->addTitleTag($this->okt->estimate->getTitle());
 
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
+		}
+		
 		# titre de la page
 		$this->okt->page->setTitle($this->okt->estimate->getName());
 
