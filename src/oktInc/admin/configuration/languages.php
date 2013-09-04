@@ -416,21 +416,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<?php if ($rsLanguages->active) : ?>
 				- <a href="configuration.php?action=languages&amp;disable=<?php echo $rsLanguages->id ?>"
-				title="<?php printf(__('c_c_action_Disable_%s'),html::escapeHTML($rsLanguages->title)) ?>"
+				title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Disable_%s'), $rsLanguages->title)) ?>"
 				class="link_sprite ss_tick"><?php _e('c_c_action_Disable') ?></a>
 				<?php else : ?>
 				- <a href="configuration.php?action=languages&amp;enable=<?php echo $rsLanguages->id ?>"
-				title="<?php printf(__('c_c_action_Enable_%s'),html::escapeHTML($rsLanguages->title)) ?>"
+				title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Enable_%s'), $rsLanguages->title)) ?>"
 				class="link_sprite ss_cross"><?php _e('c_c_action_Enable') ?></a>
 				<?php endif; ?>
 
 				- <a href="configuration.php?action=languages&amp;id=<?php echo $rsLanguages->id ?>"
-				title="<?php printf(__('c_c_action_Edit_%s'),html::escapeHTML($rsLanguages->title)) ?>"
+				title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Edit_%s'), $rsLanguages->title)) ?>"
 				class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a>
 
 				- <a href="configuration.php?action=languages&amp;delete=<?php echo $rsLanguages->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_l10n_confirm_delete')) ?>')"
-				title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($rsLanguages->title)) ?>"
+				title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Delete_%s'), $rsLanguages->title)) ?>"
 				class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
 
 			</li>
