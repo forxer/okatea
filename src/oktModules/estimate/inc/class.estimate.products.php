@@ -134,8 +134,8 @@ class estimateProducts
 	public function getProduct($iProductId, $iActive=2)
 	{
 		return $this->getProducts(array(
-			'id'=>$iProductId,
-			'active'=>$iActive
+			'id' => $iProductId,
+			'active' => $iActive
 		));
 	}
 
