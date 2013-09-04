@@ -117,14 +117,15 @@ $okt->addPerm('usage', __('c_a_def_perm_usage'));
 $okt->addPerm('displayhelp', __('c_a_def_perm_help'));
 
 $okt->addPermGroup('configuration', __('c_a_def_perm_config'));
-	$okt->addPerm('configsite', 	__('c_a_def_perm_config_website'), 	'configuration');
-	$okt->addPerm('display', 		__('c_a_def_perm_config_display'), 	'configuration');
-	$okt->addPerm('languages', 		__('c_a_def_perm_config_local'), 	'configuration');
-	$okt->addPerm('modules', 		__('c_a_def_perm_config_modules'), 	'configuration');
-	$okt->addPerm('themes', 		__('c_a_def_perm_config_themes'), 	'configuration');
-	$okt->addPerm('permissions', 	__('c_a_def_perm_config_perms'), 	'configuration');
-	$okt->addPerm('tools', 			__('c_a_def_perm_config_tools'), 	'configuration');
-	$okt->addPerm('infos', 			__('c_a_def_perm_config_infos'), 	'configuration');
+	$okt->addPerm('configsite', 	__('c_a_def_perm_config_website'), 'configuration');
+	$okt->addPerm('display', 		__('c_a_def_perm_config_display'), 'configuration');
+	$okt->addPerm('languages', 		__('c_a_def_perm_config_local'), 'configuration');
+	$okt->addPerm('modules', 		__('c_a_def_perm_config_modules'), 'configuration');
+	$okt->addPerm('themes', 		__('c_a_def_perm_config_themes'), 'configuration');
+	$okt->addPerm('navigation', 	__('c_a_def_perm_config_navigation'), 'configuration');
+	$okt->addPerm('permissions', 	__('c_a_def_perm_config_perms'), 'configuration');
+	$okt->addPerm('tools', 			__('c_a_def_perm_config_tools'), 'configuration');
+	$okt->addPerm('infos', 			__('c_a_def_perm_config_infos'), 'configuration');
 
 
 # Initialisation des pages de l'administration
@@ -189,52 +190,57 @@ if (!defined('OKT_DISABLE_MENU'))
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_localization'), 'configuration.php?action=languages',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'languages'),
-			70,
+			60,
 			$okt->checkPerm('languages')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_modules'), 'configuration.php?action=modules',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'modules'),
-			80,
+			70,
 			$okt->checkPerm('modules')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_themes'), 'configuration.php?action=themes',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'themes' || $okt->page->action === 'theme'),
-			85,
+			80,
 			$okt->checkPerm('themes')
+		);
+		$okt->page->configSubMenu->add(__('c_a_menu_navigation'), 'configuration.php?action=navigation',
+			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'navigation' || $okt->page->action === 'navigation'),
+			90,
+			$okt->checkPerm('navigation')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_permissions'), 'configuration.php?action=permissions',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'permissions'),
-			90,
+			100,
 			$okt->checkPerm('permissions')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_tools'), 'configuration.php?action=tools',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'tools'),
-			100,
+			110,
 			$okt->checkPerm('tools')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_infos'), 'configuration.php?action=infos',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'infos'),
-			110,
+			120,
 			$okt->checkPerm('infos')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_update'), 'configuration.php?action=update',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'update'),
-			150,
+			130,
 			$okt->config->update_enabled && $okt->checkPerm('is_superadmin')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_log_admin'), 'configuration.php?action=logadmin',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'logadmin'),
-			170,
+			140,
 			$okt->checkPerm('is_superadmin')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_router'), 'configuration.php?action=router',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'router'),
-			180,
+			150,
 			$okt->checkPerm('is_superadmin')
 		);
 		$okt->page->configSubMenu->add(__('c_a_menu_advanced'), 'configuration.php?action=advanced',
 			(OKT_FILENAME == 'configuration.php') && ($okt->page->action === 'advanced'),
-			200,
+			160,
 			$okt->checkPerm('is_superadmin')
 		);
 }

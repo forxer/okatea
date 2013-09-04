@@ -39,6 +39,7 @@ $oktAutoloadPaths['oktDebug']				= OKT_CLASSES_PATH.'/core/class.oktDebug.php';
 $oktAutoloadPaths['oktErrors']				= OKT_CLASSES_PATH.'/core/class.oktErrors.php';
 $oktAutoloadPaths['oktLanguages']			= OKT_CLASSES_PATH.'/core/class.oktLanguages.php';
 $oktAutoloadPaths['oktLogAdmin']			= OKT_CLASSES_PATH.'/core/class.oktLogAdmin.php';
+$oktAutoloadPaths['oktNavigations']			= OKT_CLASSES_PATH.'/core/class.oktNavigations.php';
 $oktAutoloadPaths['oktTemplating']			= OKT_CLASSES_PATH.'/core/class.oktTemplating.php';
 $oktAutoloadPaths['oktTriggers']			= OKT_CLASSES_PATH.'/core/class.oktTriggers.php';
 $oktAutoloadPaths['oktUpdate']				= OKT_CLASSES_PATH.'/core/class.oktUpdate.php';

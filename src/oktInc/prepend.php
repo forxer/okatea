@@ -211,6 +211,10 @@ $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 	dt::setTZ($okt->user->timezone);
 
 
+# Initialisation navigations
+$okt->navigation = new oktNavigations($okt);
+
+
 # Initialisation du gestionnaire de modules
 $okt->modules = new oktModules($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 

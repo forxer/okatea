@@ -20,7 +20,7 @@ define('ON_CONFIGURATION_MODULE', true);
 
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('Configuration'),'configuration.php');
+$okt->page->addGlobalTitle(__('Configuration'), 'configuration.php');
 
 
 # inclusion du fichier requis
@@ -47,6 +47,9 @@ elseif ($okt->page->action == 'theme' && $okt->checkPerm('themes')) {
 }
 elseif ($okt->page->action == 'permissions' && $okt->checkPerm('permissions')) {
 	require OKT_INC_PATH.'/admin/configuration/permissions.php';
+}
+elseif ($okt->page->action == 'navigation' && $okt->checkPerm('navigation')) {
+	require OKT_INC_PATH.'/admin/configuration/navigation.php';
 }
 elseif ($okt->page->action == 'tools' && $okt->checkPerm('tools')) {
 	require OKT_INC_PATH.'/admin/configuration/tools.php';
