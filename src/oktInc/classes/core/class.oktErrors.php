@@ -126,7 +126,7 @@ class oktErrors
 
 	public function fatal($msg, $db_error='')
 	{
-		self::affichefatal($msg, $db_error='');
+		self::fatalScreen($msg, $db_error='');
 	}
 
 	/**
@@ -135,7 +135,7 @@ class oktErrors
 	 * @param $msg Le message d'erreur fatale
 	 * @param $db_error Le numero d'erreur
 	 */
-	public static function affichefatal($msg, $db_error='')
+	public static function fatalScreen($msg, $db_error='')
 	{
 	?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

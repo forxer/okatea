@@ -46,7 +46,7 @@ if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
 	require_once OKT_CONFIG_PATH.'/connexion.php';
 }
 else {
-	oktErrors::affichefatal('Fatal error: unable to find database connexion file !');
+	oktErrors::fatalScreen('Fatal error: unable to find database connexion file !');
 }
 
 
