@@ -60,38 +60,55 @@ if (!empty($_POST['sended']))
 		'title' => !empty($_POST['p_title']) ? $_POST['p_title'] : '',
 		'active' => !empty($_POST['p_active']) ? 1 : 0
 	);
-	
+
 	# update menu
 	if (!empty($iMenuId))
 	{
 		$aMenuData['id'] = $iMenuId;
 
-		if ($okt->navigation->updMenu($aMenuData) !== false)
+		if ($okt->navigation->checkPostMenuData($aMenuData) !== false)
 		{
-			# log admin
-			$okt->logAdmin->info(array(
-				'code' => 41,
-				'component' => 'menus',
-				'message' => 'menu #'.$iMenuId
-			));
+			try
+			{
+				$okt->navigation->updMenu($aMenuData);
 
-			$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&updated=1');
+				# log admin
+				$okt->logAdmin->info(array(
+					'code' => 41,
+					'component' => 'menus',
+					'message' => 'menu #'.$iMenuId
+				));
+
+				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&updated=1');
+			}
+			catch (Exception $e) {
+				$okt->error->set($e->getMessage());
+			}
 		}
 	}
+
 	# add menu
 	else
 	{
-		if (($iMenuId = $okt->navigation->addMenu($aMenuData)) !== false)
+		if ($okt->navigation->checkPostMenuData($aMenuData) !== false)
 		{
-			# log admin
-			$okt->logAdmin->info(array(
-				'code' => 40,
-				'component' => 'menus',
-				'message' => 'menu #'.$iMenuId
-			));
+			try
+			{
+				$iMenuId = $okt->navigation->addMenu($aMenuData);
 
-			$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&added=1');
-		}	
+				# log admin
+				$okt->logAdmin->info(array(
+					'code' => 40,
+					'component' => 'menus',
+					'message' => 'menu #'.$iMenuId
+				));
+
+				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&added=1');
+			}
+			catch (Exception $e) {
+				$okt->error->set($e->getMessage());
+			}
+		}
 	}
 }
 
@@ -129,13 +146,13 @@ if ($iMenuId)
 		'url' 			=> 'configuration.php?action=navigation&amp;do=menu',
 		'ui-icon' 		=> 'plusthick'
 	));
-	
+
 	# bouton manage items
 	$okt->page->addButton('navigationBtSt', array(
 		'permission' 	=> true,
 		'title' 		=> __('c_a_config_navigation_manage_items'),
 		'url' 			=> 'configuration.php?action=navigation&amp;do=items&amp;menu_id='.$iMenuId,
-		'ui-icon' 		=> 'plusthick'
+		'ui-icon' 		=> 'pencil'
 	));
 }
 
@@ -156,14 +173,14 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <?php endif; ?>
 
 <form id="menu-form" action="configuration.php" method="post">
-		
+
 	<div class="two-cols">
 		<p class="field col"><label for="p_title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_navigation_menu_title') ?></label>
 		<?php echo form::text('p_title', 100, 255, html::escapeHTML($aMenuData['title'])) ?>
-		
+
 		<p class="field col"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible')?></label></p>
 	</div>
-	
+
 	<p><?php echo form::hidden('action', 'navigation'); ?>
 	<?php echo form::hidden('do', 'menu'); ?>
 	<?php echo !empty($iMenuId) ? form::hidden('menu_id', $iMenuId) : ''; ?>
@@ -172,6 +189,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<input type="submit" value="<?php empty($iMenuId) ? _e('c_c_action_add') : _e('c_c_action_edit'); ?>" /></p>
 </form>
 
-	
+
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>

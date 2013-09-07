@@ -28,16 +28,26 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 # switch statut
 if (!empty($_GET['switch_status']))
 {
-	if ($okt->navigation->switchMenuStatus($_GET['switch_status']) !== false) {
+	try
+	{
+		$okt->navigation->switchMenuStatus($_GET['switch_status']);
 		$okt->redirect('configuration.php?action=navigation&do=index&switched=1');
+	}
+	catch (Exception $e) {
+		$okt->error->set($e->getMessage());
 	}
 }
 
 # suppression d'un menu
 if (!empty($_GET['delete_menu']))
 {
-	if ($okt->navigation->delMenu($_GET['delete_menu']) !== false) {
+	try
+	{
+		$okt->navigation->delMenu($_GET['delete_menu']);
 		$okt->redirect('configuration.php?action=navigation&do=index&deleted=1');
+	}
+	catch (Exception $e) {
+		$okt->error->set($e->getMessage());
 	}
 }
 
@@ -45,7 +55,21 @@ if (!empty($_GET['delete_menu']))
 /* Affichage
 ----------------------------------------------------------*/
 
-$rsMenus = $okt->navigation->getMenus(array('active'=>2));
+$rsMenus = $okt->navigation->getMenus(array(
+	'active' => 2
+));
+
+while ($rsMenus->fetch())
+{
+	if ($rsMenus->num_items > 0)
+	{
+		$rsMenus->items = $okt->navigation->getItems(array(
+			'menu_id' => $rsMenus->id,
+			'language' => $okt->user->language,
+			'active' => 2
+		));
+	}
+}
 
 # button set
 $okt->page->setButtonset('navigationBtSt', array(
@@ -98,7 +122,37 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		echo html::escapeHTML($rsMenus->title) ?></a></th>
 
 		<td class="<?php echo $td_class ?>">
-		
+			<?php if ($rsMenus->num_items == 0) : ?>
+				<p><em><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
+				_e('c_a_config_navigation_no_item') ?></a></em></p>
+
+			<?php elseif ($rsMenus->num_items == 1) : ?>
+				<p><strong><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
+				_e('c_a_config_navigation_one_item') ?></a></strong></p>
+
+				<?php if (!$rsMenus->items->isEmpty()) : ?>
+				<ul>
+					<?php while ($rsMenus->items->fetch()) : ?>
+					<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
+					<?php endwhile; ?>
+				</ul>
+				<?php endif; ?>
+
+			<?php elseif ($rsMenus->num_items > 1) : ?>
+				<p><strong><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
+				echo sprintf(__('c_a_config_navigation_%s_items'), $rsMenus->num_items) ?></a></strong></p>
+
+				<?php if (!$rsMenus->items->isEmpty()) : ?>
+				<ul>
+					<?php while ($rsMenus->items->fetch()) : ?>
+					<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
+					<?php endwhile; ?>
+				</ul>
+				<?php endif; ?>
+			<?php endif; ?>
 		</td>
 
 		<td class="<?php echo $td_class ?> small nowrap">

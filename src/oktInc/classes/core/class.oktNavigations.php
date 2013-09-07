@@ -104,16 +104,18 @@ class oktNavigations
 			$sReqPlus .= 'AND m.active=1 ';
 		}
 
-		$sQuery = 			
-		'SELECT m.id, m.title, m.active '.
+		$sQuery =
+		'SELECT m.id, m.title, m.active, COUNT(i.id) AS num_items '.
 		'FROM '.$this->t_menus.' AS m '.
+			'LEFT JOIN '.$this->t_items.' AS i ON m.id=i.menu_id '.
 		'WHERE 1 '.
-		$sReqPlus;
-		
+		$sReqPlus.' '.
+		'GROUP BY m.id ';
+
 		if (($rs = $this->db->select($sQuery)) === false) {
 			return new recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -155,14 +157,10 @@ class oktNavigations
 	 */
 	public function addMenu($aData)
 	{
-		if (!$this->checkPostMenuData($aData)) {
-			return false;
-		}
-
 		$oCursor = $this->openMenuCursor($aData);
 
 		if (!$oCursor->insert()) {
-			return false;
+			throw new Exception('Unable to insert menu into database.');
 		}
 
 		return $this->db->getLastID();
@@ -177,21 +175,31 @@ class oktNavigations
 	public function updMenu($aData)
 	{
 		if (!$this->menuExists($aData['id'])) {
-			$this->error->set(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $aData['id']));
-			return false;
-		}
-
-		if (!$this->checkPostMenuData($aData)) {
-			return false;
+			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $aData['id']));
 		}
 
 		$oCursor = $this->openMenuCursor($aData);
 
 		if (!$oCursor->update('WHERE id='.(integer)$aData['id'])) {
-			return false;
+			throw new Exception('Unable to update menu into database.');
 		}
 
-		return true;	
+		return true;
+	}
+
+	/**
+	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un menu.
+	 *
+	 * @param array $aData
+	 * @return boolean
+	 */
+	public function checkPostMenuData($aData)
+	{
+		if (empty($aData['title'])) {
+			$this->error->set(__('c_a_config_navigation_must_enter_title'));
+		}
+
+		return $this->error->isEmpty();
 	}
 
 	/**
@@ -203,8 +211,7 @@ class oktNavigations
 	public function switchMenuStatus($iMenuId)
 	{
 		if (!$this->menuExists($iMenuId)) {
-			$this->error->set(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
-			return false;
+			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 		}
 
 		$query =
@@ -213,7 +220,7 @@ class oktNavigations
 		'WHERE id='.(integer)$iMenuId;
 
 		if (!$this->db->execute($query)) {
-			return false;
+			throw new Exception('Unable to update menu into database.');
 		}
 
 		return true;
@@ -228,16 +235,26 @@ class oktNavigations
 	public function delMenu($iMenuId)
 	{
 		if (!$this->menuExists($iMenuId)) {
-			$this->error->set(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
-			return false;
+			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 		}
 
+		# first, remove items
+		$rsItems = $this->getItems(array(
+			'menu_id' => $iMenuId,
+			'active' => 2
+		));
+
+		while ($rsItems->fetch()) {
+			$this->delItem($rsItems->id);
+		}
+
+		# then, remove menu
 		$sQuery =
 		'DELETE FROM '.$this->t_menus.' '.
 		'WHERE id='.(integer)$iMenuId;
 
 		if (!$this->db->execute($sQuery)) {
-			return false;
+			throw new Exception('Unable to delete menu from database.');
 		}
 
 		$this->db->optimize($this->t_menus);
@@ -264,24 +281,6 @@ class oktNavigations
 
 		return $oCursor;
 	}
-
-	/**
-	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un menu.
-	 *
-	 * @param array $aData
-	 * @return boolean
-	 */
-	protected function checkPostMenuData($aData)
-	{
-		if (empty($aData['title'])) {
-			$this->error->set(__('c_a_config_navigation_must_enter_title'));
-		}
-
-		return $this->error->isEmpty();
-	}
-
-
-
 
 	/**
 	 * Retourne une liste d'éléments sous forme de recordset.
@@ -321,7 +320,7 @@ class oktNavigations
 			$sReqPlus .= 'AND i.active=1 ';
 		}
 
-		$sQuery = 			
+		$sQuery =
 		'SELECT i.id, i.active, i.ord, il.title, il.url '.
 		'FROM '.$this->t_items.' AS i '.
 			'LEFT JOIN '.$this->t_items_locales.' AS il ON i.id=il.item_id '.
@@ -334,11 +333,11 @@ class oktNavigations
 		else {
 			$sQuery .= 'ORDER BY i.ord ASC ';
 		}
-		
+
 		if (($rs = $this->db->select($sQuery)) === false) {
 			return new recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -351,7 +350,7 @@ class oktNavigations
 	 */
 	public function getItem($iItemId, $iActive=2)
 	{
-		return $this->getMenus(array(
+		return $this->getItems(array(
 			'id' => $iItemId,
 			'active' => $iActive
 		));
@@ -406,17 +405,18 @@ class oktNavigations
 
 		$oCursor = $this->openItemCursor($aData['item']);
 
-		$query = 'SELECT MAX(ord) FROM '.$this->t_items;
-		$rs = $this->db->select($query);
+		$sQuery = 'SELECT MAX(ord) FROM '.$this->t_items;
+		$rs = $this->db->select($sQuery);
+
 		if ($rs->isEmpty()) {
-			return false;
+			throw new Exception('Unable to retrieve max ord from database.');
 		}
 
 		$max_ord = $rs->f(0);
 		$oCursor->ord = (integer)($max_ord+1);
 
 		if (!$oCursor->insert()) {
-			return false;
+			throw new Exception('Unable to insert item into database.');
 		}
 
 		$iItemId = $this->db->getLastID();
@@ -424,6 +424,93 @@ class oktNavigations
 		$this->setItemI18n($iItemId, $aData['locales']);
 
 		return $iItemId;
+	}
+
+	/**
+	 * Suppression d'un élément donné.
+	 *
+	 * @param integer $iItemId
+	 * @return boolean
+	 */
+	public function delItem($iItemId)
+	{
+		if (!$this->itemExists($iItemId)) {
+			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+		}
+
+		$sQuery =
+		'DELETE FROM '.$this->t_items.' '.
+		'WHERE id='.(integer)$iItemId;
+
+		if (!$this->db->execute($sQuery)) {
+			throw new Exception('Unable to delete item from database.');
+		}
+
+		$this->db->optimize($this->t_items);
+
+		$sQuery =
+		'DELETE FROM '.$this->t_items_locales.' '.
+		'WHERE item_id='.(integer)$iItemId;
+
+		if (!$this->db->execute($sQuery)) {
+			throw new Exception('Unable to delete item locales from database.');
+		}
+
+		$this->db->optimize($this->t_items_locales);
+
+		return true;
+	}
+
+	/**
+	 * Définit le statut d'un élément donné.
+	 *
+	 * @param integer $iItemId
+	 * @param integer $iStatus
+	 * @return boolean
+	 */
+	public function setItemStatus($iItemId, $iStatus)
+	{
+		if (!$this->itemExists($iItemId)) {
+			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+		}
+
+		$iStatus = ($iStatus == 1) ? 1 : 0;
+
+		$query =
+		'UPDATE '.$this->t_items.' SET '.
+		'active = '.$iStatus.' '.
+		'WHERE id='.(integer)$iItemId;
+
+		if (!$this->db->execute($query)) {
+			throw new Exception('Unable to update item in database.');
+		}
+
+		return true;
+	}
+
+	/**
+	 * Met à jour la position d'un élément donné.
+	 *
+	 * @param integer $iItemId
+	 * @param integer $iPosition
+	 * @return boolean
+	 */
+	public function updItemOrder($iItemId, $iPosition)
+	{
+		if (!$this->itemExists($iItemId)) {
+			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+		}
+
+		$query =
+		'UPDATE '.$this->t_items.' SET '.
+		'ord='.(integer)$iPosition.' '.
+		'WHERE id='.(integer)$iItemId;
+
+		if (!$this->db->execute($query)) {
+			throw new Exception('Unable to update item in database.');
+		}
+
+		return true;
 	}
 
 	/**
@@ -471,7 +558,7 @@ class oktNavigations
 
 		return $oCursor;
 	}
-	
+
 	/**
 	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un élément.
 	 *
@@ -491,7 +578,7 @@ class oktNavigations
 					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
 				}
 			}
-			
+
 			if (empty($aData['locales'][$aLanguage['code']]['url']))
 			{
 				if ($this->okt->languages->unique) {
