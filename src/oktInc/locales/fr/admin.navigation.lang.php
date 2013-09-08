@@ -1,6 +1,7 @@
 <?php
 
 $GLOBALS['__l10n']['c_a_config_navigation'] = 'Menus de navigation';
+$GLOBALS['__l10n']['c_a_config_navigation_config'] = 'Configuration';
 
 $GLOBALS['__l10n']['c_a_config_navigation_menu_%s_not_exists'] = 'Le menu #%s n’existe pas.';
 $GLOBALS['__l10n']['c_a_config_navigation_item_%s_not_exists'] = 'L’élément #%s n’existe pas.';

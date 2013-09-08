@@ -1,21 +1,15 @@
 title:
   fr: 'Projet Okatea'
-  en: 'Okatea project'
 desc:
   fr: 'Un autre CMS modulaire en PHP'
-  en: 'Another modular CMS in PHP'
 title_tag:
   fr: ''
-  en: ''
 meta_description:
   fr: ''
-  en: ''
 meta_keywords:
   fr: ''
-  en: ''
 schedule:
   fr: ''
-  en: ''
 cnil_number: ''
 address:
   street: ''
@@ -102,3 +96,6 @@ news_feed:
   url: ''
 htmlpurifier_disabled: false
 slug_type: ascii
+navigation_tpl:
+  default: default
+  usables: {  }

@@ -40,6 +40,9 @@ elseif ($okt->page->do === 'items') {
 elseif ($okt->page->do === 'item') {
 	require __DIR__.'/navigation/item.php';
 }
+elseif ($okt->page->do === 'config') {
+	require __DIR__.'/navigation/config.php';
+}
 else {
 	$okt->redirect('index.php');
 }

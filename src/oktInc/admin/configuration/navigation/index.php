@@ -73,7 +73,7 @@ while ($rsMenus->fetch())
 
 # button set
 $okt->page->setButtonset('navigationBtSt', array(
-	'id' => 'menu-buttonset',
+	'id' => 'navigation-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
@@ -81,6 +81,12 @@ $okt->page->setButtonset('navigationBtSt', array(
 			'title' 		=> __('c_a_config_navigation_add_menu'),
 			'url' 			=> 'configuration.php?action=navigation&amp;do=menu',
 			'ui-icon' 		=> 'plusthick',
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_a_config_navigation_config'),
+			'url' 			=> 'configuration.php?action=navigation&amp;do=config',
+			'ui-icon' 		=> 'gear',
 		)
 	)
 ));

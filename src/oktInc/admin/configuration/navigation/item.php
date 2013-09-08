@@ -136,7 +136,7 @@ if (!empty($_POST['sended']))
 
 # button set
 $okt->page->setButtonset('navigationBtSt', array(
-	'id' => 'menu-buttonset',
+	'id' => 'navigation-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
