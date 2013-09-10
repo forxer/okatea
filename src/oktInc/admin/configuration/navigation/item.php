@@ -55,15 +55,15 @@ if (!empty($_REQUEST['item_id']))
 
 	$rsItem = $okt->navigation->getItem($aItemData['item']['id']);
 
-	if ($rsMenu->isEmpty())
+	if ($rsItem->isEmpty())
 	{
 		$okt->error->set(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
 		$aItemData['item']['id'] = null;
 	}
 	else
 	{
-		$aItemData['item']['menu_id'] = $rsMenu->menu_id;
-		$aItemData['item']['active'] = $rsMenu->active;
+		$aItemData['item']['menu_id'] = $rsItem->menu_id;
+		$aItemData['item']['active'] = $rsItem->active;
 
 		$rsItemI18n = $okt->navigation->getItemI18n($aItemData['item']['id']);
 
@@ -89,44 +89,59 @@ if (!empty($_REQUEST['item_id']))
 if (!empty($_POST['sended']))
 {
 	$aItemData['item']['active'] = !empty($_POST['p_active']) ? 1 : 0;
-	
-	
+
+
 	foreach ($okt->languages->list as $aLanguage)
 	{
 		$aItemData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
 		$aItemData['locales'][$aLanguage['code']]['url'] = !empty($_POST['p_url'][$aLanguage['code']]) ? $_POST['p_url'][$aLanguage['code']] : '';
 	}
-	
-	
+
 	# update item
 	if (!empty($aItemData['item']['id']))
 	{
-		if ($okt->navigation->updItem($aItemData) !== false)
+		if ($okt->navigation->checkPostItemData($aItemData) !== false)
 		{
-			# log admin
-			$okt->logAdmin->info(array(
-				'code' => 41,
-				'component' => 'menu item',
-				'message' => 'item #'.$aItemData['item']['id']
-			));
+			try
+			{
+				$okt->navigation->updItem($aItemData);
 
-			$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id'].'&updated=1');
+				# log admin
+				$okt->logAdmin->info(array(
+					'code' => 41,
+					'component' => 'menu item',
+					'message' => 'item #'.$aItemData['item']['id']
+				));
+
+				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id'].'&updated=1');
+			}
+			catch (Exception $e) {
+				$okt->error->set($e->getMessage());
+			}
 		}
 	}
 	# add item
 	else
 	{
-		if (($iItemId = $okt->navigation->addItem($aItemData)) !== false)
+		if ($okt->navigation->checkPostItemData($aItemData) !== false)
 		{
-			# log admin
-			$okt->logAdmin->info(array(
-				'code' => 40,
-				'component' => 'menu item',
-				'message' => 'item #'.$iItemId
-			));
+			try
+			{
+				$iItemId = $okt->navigation->addItem($aItemData);
 
-			$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId.'&added=1');
-		}	
+				# log admin
+				$okt->logAdmin->info(array(
+					'code' => 40,
+					'component' => 'menu item',
+					'message' => 'item #'.$iItemId
+				));
+
+				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId.'&added=1');
+			}
+			catch (Exception $e) {
+				$okt->error->set($e->getMessage());
+			}
+		}
 	}
 }
 
@@ -148,11 +163,11 @@ $okt->page->setButtonset('navigationBtSt', array(
 	)
 ));
 
-if (!empty($aItemData['item']['id'])) 
+if (!empty($aItemData['item']['id']))
 {
 	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_edit_item_of_%s'), $rsMenu->title));
 }
-else 
+else
 {
 	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_add_item_to_%s'), $rsMenu->title));
 }
@@ -173,7 +188,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
 <form id="item-form" action="configuration.php" method="post">
-	
+
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
@@ -181,11 +196,11 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_url') : printf(__('c_a_config_navigation_item_url_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url'])) ?></p>
-	
+
 	<?php endforeach; ?>
-	
+
 	<p class="field"><label><?php echo form::checkbox('p_active', 1, $aItemData['item']['active']) ?> <?php _e('c_c_action_visible') ?></label></p>
-	
+
 	<p><?php echo form::hidden('action', 'navigation'); ?>
 	<?php echo form::hidden('do', 'item'); ?>
 	<?php echo form::hidden('menu_id', $iMenuId); ?>
@@ -194,6 +209,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo adminPage::formtoken(); ?>
 	<input type="submit" value="<?php  _e('c_c_action_save'); ?>" /></p>
 </form>
-	
+
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>

@@ -22,15 +22,21 @@ $this->extend('main');
 		<?php endif; # fin Okatea : affichage du switcher de langues ?>
 	</header>
 
-	<?php # début Okatea : titre de la page (graphic title)
-	if ($okt->page->hasTitle()) : ?>
-	<div id="graphic-title"><?php echo html::escapeHtml($okt->page->getTitle()); ?></div>
-	<?php endif; # fin Okatea : titre de la page (graphic title) ?>
+	<nav id="main-navigation">
+		<?php echo $okt->navigation->render(4) ?>
+	</nav>
 
-	<?php # début Okatea : affichage du fil d'ariane
-	$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-	$okt->page->breadcrumb->display('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
-	# fin Okatea : affichage du fil d'ariane ?>
+	<div id="navigation-helpers">
+		<?php # début Okatea : titre de la page (graphic title)
+		if ($okt->page->hasTitle()) : ?>
+		<div id="graphic-title"><?php echo html::escapeHtml($okt->page->getTitle()); ?></div>
+		<?php endif; # fin Okatea : titre de la page (graphic title) ?>
+
+		<?php # début Okatea : affichage du fil d'ariane
+		$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
+		$okt->page->breadcrumb->display('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
+		# fin Okatea : affichage du fil d'ariane ?>
+	</div><!-- #navigation-helpers -->
 
 	<div id="main">
 

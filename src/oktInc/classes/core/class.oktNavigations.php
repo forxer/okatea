@@ -71,6 +71,57 @@ class oktNavigations
 	}
 
 	/**
+	 * Rendu d'un menu donné.
+	 *
+	 * @param mixed $mMenu
+	 * @param string $sUserTpl
+	 * @return string
+	 */
+	public function render($mMenu, $sUserTpl=null)
+	{
+		# récupération du menu
+		$aMenuParams = array(
+			'language' => $this->okt->user->language,
+			'active' => 1
+		);
+
+		if (util::isInt($mMenu)) {
+			$aMenuParams['id'] = $mMenu;
+		}
+		else {
+			$aMenuParams['title'] = $mMenu;
+		}
+
+		$rsMenu = $this->getMenus($aMenuParams);
+
+		if ($rsMenu->isEmpty()) {
+			return null;
+		}
+
+		# récupération des éléments
+		$rsItems = $this->getItems(array(
+			'menu_id' => $rsMenu->id,
+			'language' => $this->okt->user->language,
+			'active' => 1
+		));
+
+		# affichage du template
+		$sTemplate = $this->okt->config->navigation_tpl['default'];
+
+		if (!empty($sUserTpl) && in_array($sUserTpl, $this->okt->config->navigation_tpl['usables'])) {
+			$sTemplate = $sUserTpl;
+		}
+		elseif (!empty($rsMenu->tpl) && in_array($rsMenu->tpl, $this->okt->config->navigation_tpl['usables'])) {
+			$sTemplate = $rsMenu->tpl;
+		}
+
+		return $this->okt->tpl->render('navigation/'.$sTemplate.'/template', array(
+			'rsMenu' => $rsMenu,
+			'rsItems' => $rsItems
+		));
+	}
+
+	/**
 	 * Retourne une liste de menus sous forme de recordset.
 	 *
 	 * @param array $aParams
@@ -321,7 +372,7 @@ class oktNavigations
 		}
 
 		$sQuery =
-		'SELECT i.id, i.active, i.ord, il.title, il.url '.
+		'SELECT i.id, i.menu_id, i.active, i.ord, il.title, il.url '.
 		'FROM '.$this->t_items.' AS i '.
 			'LEFT JOIN '.$this->t_items_locales.' AS il ON i.id=il.item_id '.
 		'WHERE 1 '.
@@ -399,10 +450,6 @@ class oktNavigations
 	 */
 	public function addItem($aData)
 	{
-		if (!$this->checkPostItemData($aData)) {
-			return false;
-		}
-
 		$oCursor = $this->openItemCursor($aData['item']);
 
 		$sQuery = 'SELECT MAX(ord) FROM '.$this->t_items;
@@ -424,6 +471,63 @@ class oktNavigations
 		$this->setItemI18n($iItemId, $aData['locales']);
 
 		return $iItemId;
+	}
+
+	/**
+	 * Modification d'un élément.
+	 *
+	 * @param array $aData
+	 * @return integer
+	 */
+	public function updItem($aData)
+	{
+		if (!$this->itemExists($aData['item']['id'])) {
+			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aData['item']['id']));
+		}
+
+		$oCursor = $this->openItemCursor($aData['item']);
+
+		if (!$oCursor->update('WHERE id='.(integer)$aData['item']['id'])) {
+			throw new Exception('Unable to update item into database.');
+		}
+
+		$this->setItemI18n($aData['item']['id'], $aData['locales']);
+
+		return true;
+	}
+
+	/**
+	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un élément.
+	 *
+	 * @param array $aData
+	 * @return boolean
+	 */
+	public function checkPostItemData($aData)
+	{
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			if (empty($aData['locales'][$aLanguage['code']]['title']))
+			{
+				if ($this->okt->languages->unique) {
+					$this->error->set(__('c_a_config_navigation_must_enter_title'));
+				}
+				else {
+					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
+				}
+			}
+
+			if (empty($aData['locales'][$aLanguage['code']]['url']))
+			{
+				if ($this->okt->languages->unique) {
+					$this->error->set(__('c_a_config_navigation_must_enter_url'));
+				}
+				else {
+					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_url_in_%s'), $aLanguage['title']));
+				}
+			}
+		}
+
+		return $this->error->isEmpty();
 	}
 
 	/**
@@ -557,40 +661,6 @@ class oktNavigations
 		}
 
 		return $oCursor;
-	}
-
-	/**
-	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un élément.
-	 *
-	 * @param array $aData
-	 * @return boolean
-	 */
-	protected function checkPostItemData($aData)
-	{
-		foreach ($this->okt->languages->list as $aLanguage)
-		{
-			if (empty($aData['locales'][$aLanguage['code']]['title']))
-			{
-				if ($this->okt->languages->unique) {
-					$this->error->set(__('c_a_config_navigation_must_enter_title'));
-				}
-				else {
-					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
-				}
-			}
-
-			if (empty($aData['locales'][$aLanguage['code']]['url']))
-			{
-				if ($this->okt->languages->unique) {
-					$this->error->set(__('c_a_config_navigation_must_enter_url'));
-				}
-				else {
-					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_url_in_%s'), $aLanguage['title']));
-				}
-			}
-		}
-
-		return $this->error->isEmpty();
 	}
 
 } # class
