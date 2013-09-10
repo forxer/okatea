@@ -60,7 +60,7 @@ else {
 	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {
 		require __DIR__.'/inc/admin/field.php';
 	}
-	elseif ($okt->page->action === 'export' && $okt->checkPerm('m_users_perm_export')) {
+	elseif ($okt->page->action === 'export' && $okt->checkPerm('users_export')) {
 		require __DIR__.'/inc/admin/export.php';
 	}
 	elseif ($okt->page->action === 'display' && $okt->checkPerm('users_display')) {
