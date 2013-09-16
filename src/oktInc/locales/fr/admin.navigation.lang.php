@@ -25,6 +25,8 @@ $GLOBALS['__l10n']['c_a_config_navigation_edit_menu'] = 'Modifier un menu';
 $GLOBALS['__l10n']['c_a_config_navigation_no_menu'] = 'Il n’y a aucun menu.';
 $GLOBALS['__l10n']['c_a_config_navigation_menus_list'] = 'Liste des menus';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_title'] = 'Titre du menu';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_actions'] = 'Actions sur le menu';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_items_actions'] = 'Actions sur les éléments';
 
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items'] = 'Gérer les éléments';
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items_menu_%s'] = 'Gérer les éléments du menu %s';
@@ -52,5 +54,5 @@ $GLOBALS['__l10n']['c_a_config_navigation_%s_items'] = 'Il y a %s éléments dan
 $GLOBALS['__l10n']['c_a_config_navigation_item_title'] = 'Titre de l’élément';
 $GLOBALS['__l10n']['c_a_config_navigation_item_title_in_%s'] = 'Titre de l’élément en %s';
 
-$GLOBALS['__l10n']['c_a_config_navigation_item_url'] = 'URL de l’élément';
-$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s'] = 'URL de l’élément en %s';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_from_%s'] = 'URL de l’élément depuis %s';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s_from_%s'] = 'URL de l’élément en %s depuis %s';

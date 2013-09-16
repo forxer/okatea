@@ -110,8 +110,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<caption><?php _e('c_a_config_navigation_menus_list') ?></caption>
 	<thead><tr>
 		<th scope="col"><?php _e('c_a_config_navigation_menu_title') ?></th>
+		<th scope="col"><?php _e('c_a_config_navigation_menu_actions') ?></th>
 		<th scope="col"><?php _e('c_a_config_navigation_menu_items') ?></th>
-		<th scope="col"><?php _e('c_c_Actions') ?></th>
+		<th scope="col"><?php _e('c_a_config_navigation_menu_items_actions') ?></th>
 	</tr></thead>
 	<tbody>
 	<?php $count_line = 0;
@@ -127,47 +128,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="configuration.php?action=navigation&amp;do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
 		echo html::escapeHTML($rsMenus->title) ?></a></th>
 
-		<td class="<?php echo $td_class ?>">
-			<?php if ($rsMenus->num_items == 0) : ?>
-				<p><em><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
-				_e('c_a_config_navigation_no_item') ?></a></em></p>
-
-			<?php elseif ($rsMenus->num_items == 1) : ?>
-				<p><strong><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
-				_e('c_a_config_navigation_one_item') ?></a></strong></p>
-
-				<?php if (!$rsMenus->items->isEmpty()) : ?>
-				<ul>
-					<?php while ($rsMenus->items->fetch()) : ?>
-					<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
-					<?php endwhile; ?>
-				</ul>
-				<?php endif; ?>
-
-			<?php elseif ($rsMenus->num_items > 1) : ?>
-				<p><strong><a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"><?php
-				echo sprintf(__('c_a_config_navigation_%s_items'), $rsMenus->num_items) ?></a></strong></p>
-
-				<?php if (!$rsMenus->items->isEmpty()) : ?>
-				<ul>
-					<?php while ($rsMenus->items->fetch()) : ?>
-					<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
-					<?php endwhile; ?>
-				</ul>
-				<?php endif; ?>
-			<?php endif; ?>
-		</td>
-
-		<td class="<?php echo $td_class ?> small nowrap">
+		<td class="<?php echo $td_class ?> nowrap">
 			<ul class="actions">
-				<li>
-				<a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
-				</li>
 				<li>
 				<?php if ($rsMenus->active) : ?>
 				<a href="configuration.php?action=navigation&amp;do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
@@ -189,6 +151,41 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
 				class="link_sprite ss_delete"><?php _e('c_c_action_delete')?></a>
+				</li>
+			</ul>
+		</td>
+
+		<td class="<?php echo $td_class ?>">
+			<?php if ($rsMenus->num_items == 0) : ?>
+				<p><?php _e('c_a_config_navigation_no_item') ?></p>
+
+			<?php elseif ($rsMenus->num_items == 1) : ?>
+				<p><?php _e('c_a_config_navigation_one_item') ?></p>
+
+			<?php elseif ($rsMenus->num_items > 1) : ?>
+				<p><?php echo sprintf(__('c_a_config_navigation_%s_items'), $rsMenus->num_items) ?></p>
+			<?php endif; ?>
+
+			<?php if (isset($rsMenus->items) && !$rsMenus->items->isEmpty()) : ?>
+			<ul>
+				<?php while ($rsMenus->items->fetch()) : ?>
+				<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
+				<?php endwhile; ?>
+			</ul>
+			<?php endif; ?>
+		</td>
+
+		<td class="<?php echo $td_class ?>">
+			<ul class="actions">
+				<li>
+				<a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				class="link_sprite ss_application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
+				</li>
+				<li>
+				<a href="configuration.php?action=navigation&amp;do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				class="link_sprite ss_application_add"><?php _e('c_a_config_navigation_add_item')?></a>
 				</li>
 			</ul>
 		</td>

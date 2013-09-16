@@ -191,10 +191,11 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['title'])) ?></p>
 
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_url') : printf(__('c_a_config_navigation_item_url_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+	<?php $sBaseUrl = '<code>'.$okt->page->getBaseUrl($aLanguage['code']).'</code>'; ?>
+	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('c_a_config_navigation_item_url_from_%s'), $sBaseUrl) : printf(__('c_a_config_navigation_item_url_in_%s_from_%s'), $aLanguage['title'], $sBaseUrl) ?> <span class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url'])) ?></p>
 
 	<?php endforeach; ?>

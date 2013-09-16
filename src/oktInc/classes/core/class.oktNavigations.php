@@ -515,7 +515,7 @@ class oktNavigations
 					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
 				}
 			}
-
+/*
 			if (empty($aData['locales'][$aLanguage['code']]['url']))
 			{
 				if ($this->okt->languages->unique) {
@@ -525,7 +525,7 @@ class oktNavigations
 					$this->error->set(sprintf(__('c_a_config_navigation_must_enter_url_in_%s'), $aLanguage['title']));
 				}
 			}
-		}
+*/		}
 
 		return $this->error->isEmpty();
 	}
