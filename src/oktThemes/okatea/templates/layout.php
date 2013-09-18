@@ -11,6 +11,11 @@ $this->extend('main');
 			<div class="description"><?php echo html::escapeHTML(util::getSiteDescription()) ?></div>
 		</div><!-- #head -->
 
+		<ul id="access-links">
+			<li><a href="#main"><?php _e('c_c_go_to_content') ?></a></li>
+			<li><a href="#main-navigation"><?php _e('c_c_go_to_menu') ?></a></li>
+		</ul>
+
 		<?php # début Okatea : affichage du switcher de langues
 		if (!$okt->languages->unique) : ?>
 		<ul id="lang-switcher">

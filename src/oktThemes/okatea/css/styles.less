@@ -32,6 +32,36 @@ header {
 			font-style: italic;
 		}
 
+	#access-links {
+		left: 3px;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		top: 0;
+	}
+		#access-links li {
+			display: inline;
+			text-transform: none !important;
+		}
+		#access-links a,
+		#access-links a:hover,
+		#access-links a:visited {
+			background-image: none !important;
+			height: 1px;
+			left: 0;
+			overflow: hidden;
+			position: absolute;
+			top: -500px;
+			width: 1px;
+		}
+		#access-links a:active,
+		#access-links a:focus {
+			height: auto;
+			position: static;
+			width: auto;
+		}
+
 	#lang-switcher {
 		float: right;
 		margin: 0;
