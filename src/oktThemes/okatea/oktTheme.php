@@ -14,7 +14,7 @@ class oktTheme extends oktThemeBase
 
 		# CSS
 	//	$this->okt->page->css->addFile('http://fonts.googleapis.com/css?family=Petit+Formal+Script');
-		$this->okt->page->css->addFile('http://fonts.googleapis.com/css?family=Open+Sans');
+	//	$this->okt->page->css->addFile('http://fonts.googleapis.com/css?family=Open+Sans');
 		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/css/normalize.css');
 		$this->okt->page->css->addLessFile(__DIR__.'/css/styles.less');
 	}
