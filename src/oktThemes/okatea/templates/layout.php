@@ -28,7 +28,7 @@ $this->extend('main');
 	</header>
 
 	<nav id="main-navigation">
-		<?php echo $okt->navigation->render(4) ?>
+		<?php echo $okt->navigation->render('menu') ?>
 	</nav>
 
 	<div id="navigation-helpers">

@@ -59,6 +59,12 @@ $GLOBALS['__l10n']['c_c_auth_register'] = 'Register';
 $GLOBALS['__l10n']['c_c_auth_confirm_password'] = 'Confirmation';
 $GLOBALS['__l10n']['c_c_auth_register_action'] = 'register';
 
+$GLOBALS['__l10n']['c_c_auth_unknown_user'] = 'Unknown user.';
+$GLOBALS['__l10n']['c_c_auth_wrong_password'] = 'Wrong password.';
+$GLOBALS['__l10n']['c_c_auth_account_awaiting_validation'] = 'Your account is awaiting validation.';
+$GLOBALS['__l10n']['c_c_auth_unknown_email'] = 'Unknown email address.';
+$GLOBALS['__l10n']['c_c_auth_invalid_email'] = 'Invalid email address.';
+$GLOBALS['__l10n']['c_c_auth_validation_key_not_match'] = 'The validation key does not match.';
 $GLOBALS['__l10n']['c_c_auth_bad_csrf_token'] = 'Access problems with this form.';
 $GLOBALS['__l10n']['c_c_auth_restricted_access'] = 'Your session has expired or you do not have access to that part.';
 $GLOBALS['__l10n']['c_c_auth_not_logged_in'] = 'Your session has expired or you are not logged.';

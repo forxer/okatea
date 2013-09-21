@@ -54,6 +54,38 @@
 	</action>
 
 
+	<!-- default core_nav_menus -->
+	<action id="firstmenu" label="Creation du premier menu" process="install">
+		INSERT INTO `{{PREFIX}}core_nav_menus` 
+			(`id`, `title`, `active`) 
+		VALUES
+			(1, 'menu', 1);
+	</action>
+	
+	<!-- default core_nav_items -->
+	<action id="firstitems" label="Creation des premiers éléments de menu" process="install">
+		INSERT INTO `{{PREFIX}}core_nav_items` 
+			(`id`, `menu_id`, `active`, `ord`)
+		VALUES
+			(1, 1, 1, 1),
+			(2, 1, 1, 2),
+			(3, 1, 1, 3);
+	</action>
+
+	<!-- default core_nav_items_locales -->
+	<action id="firstitemslocales" label="Creation des locales des premiers éléments de menu" process="install">
+		INSERT INTO `{{PREFIX}}core_nav_items_locales` 
+			(`item_id`, `language`, `title`, `url`)
+		VALUES
+			(1, 'fr', 'Accueil', ''),
+			(1, 'en', 'Home', ''),
+			(2, 'fr', 'À propos', 'page/a-propos'),
+			(2, 'en', 'About', 'page/about'),
+			(3, 'fr', 'Contact', 'contact'),
+			(3, 'en', 'Contact', 'contact');
+	</action>
+
+
 <!-- UPDATE -->
 
 

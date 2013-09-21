@@ -16,39 +16,39 @@
 class oktAuth
 {
 	/**
-	 * Durée de la session en secondes
+	 * Durée de la session en secondes.
 	 */
 	const timeout_visit = 1800;
 
 	/**
-	 * Durée d'enregistrement du cookie
+	 * Durée d'enregistrement du cookie.
 	 *
 	 * 1209600 = 14 jours
 	 */
 	const remember_time = 1209600;
 
 	/**
-	 * Identifiant groupe utilisateurs non-vérifiés
+	 * Identifiant groupe utilisateurs non-vérifiés.
 	 */
 	const unverified_group_id = 0;
 
 	/**
-	 * Identifiant groupe utilisateurs super-admin
+	 * Identifiant groupe utilisateurs super-admin.
 	 */
 	const superadmin_group_id = 1;
 
 	/**
-	 * Identifiant groupe utilisateurs admin
+	 * Identifiant groupe utilisateurs admin.
 	 */
 	const admin_group_id = 2;
 
 	/**
-	 * Identifiant groupe utilisateurs invités
+	 * Identifiant groupe utilisateurs invités.
 	 */
 	const guest_group_id = 3;
 
 	/**
-	 * Identifiant groupe utilisateurs membres
+	 * Identifiant groupe utilisateurs membres.
 	 */
 	const member_group_id = 4;
 
@@ -62,70 +62,70 @@ class oktAuth
 	 * L'objet gestionnaire de base de données.
 	 * @var object
 	 */
-	protected $db;
+	protected $oDb;
 
 	/**
-	 * L'objet gestionnaire d'erreurs
+	 * L'objet gestionnaire d'erreurs.
 	 * @var object
 	 */
-	protected $error;
+	protected $oError;
 
 	/**
-	 * Le nom de la table users
+	 * Le nom de la table users.
 	 * @var string
 	 */
 	protected $t_users;
 
 	/**
-	 * Le nom de la table groups
+	 * Le nom de la table groups.
 	 * @var string
 	 */
 	protected $t_groups;
 
 	/**
-	 * Le nom de la table online
+	 * Le nom de la table online.
 	 * @var string
 	 */
 	protected $t_online;
 
 	/**
-	 * Le nom du cookie d'authentification
+	 * Le nom du cookie d'authentification.
 	 * @var string
 	 */
-	protected $cookie_name;
+	protected $sCookieName;
 
 	/**
-	 * Le nom du cookie de redirection après authentification
+	 * Le nom du cookie de redirection après authentification.
 	 * @var string
 	 */
-	protected $cookie_from_name;
+	protected $sCookieFromName;
 
 	/**
-	 * Le nom du cookie de langue
+	 * Le nom du cookie de langue.
 	 * @var string
 	 */
-	protected $cookie_lang_name;
+	protected $sCookieLangName;
 
 	/**
-	 * Le chemin du cookie d'authentification
+	 * Le chemin du cookie d'authentification.
 	 * @var string
 	 */
-	protected $cookie_path;
+	protected $sCookiePath;
 
 	/**
-	 * Le domaine du cookie d'authentification
+	 * Le domaine du cookie d'authentification.
 	 * @var string
 	 */
-	protected $cookie_domain;
+	protected $sCookieDomain;
 
 	/**
-	 * Cookie d'authentification sur protocole sécurisé
+	 * Cookie d'authentification sur protocole sécurisé.
 	 * @var boolean
 	 */
-	protected $cookie_secure;
+	protected $bCookieSecure;
 
 	/**
-	 * Informations utilisateur courant sous forme de recordset
+	 * Informations utilisateur courant sous forme de recordset.
 	 * @var object recordset
 	 */
 	public $infos = null;
@@ -134,54 +134,54 @@ class oktAuth
 	 * Constructeur.
 	 *
 	 * @param object $okt				Instance de l'objet oktCore
-	 * @param string $cookie_name 		Le nom du cookie d'authentification (otk_auth)
-	 * @param string $cookie_path 		Le chemin du cookie d'authentification ('/')
-	 * @param string $cookie_domain 	Le domaine du cookie d'authentification ('')
-	 * @param boolean $cookie_secure 	Cookie d'authentification sur protocole sécurisé (false)
+	 * @param string $sCookieName 		Le nom du cookie d'authentification (otk_auth)
+	 * @param string $sCookiePath 		Le chemin du cookie d'authentification ('/')
+	 * @param string $sCookieDomain 	Le domaine du cookie d'authentification ('')
+	 * @param boolean $bCookieSecure 	Cookie d'authentification sur protocole sécurisé (false)
 	 * @return void
 	 */
-	public function __construct($okt, $cookie_name='otk_auth', $cookie_from_name='otk_auth_from', $cookie_path='/', $cookie_domain='', $cookie_secure=false)
+	public function __construct($okt, $sCookieName='otk_auth', $sCookieFromName='otk_auth_from', $sCookiePath='/', $sCookieDomain='', $bCookieSecure=false)
 	{
 		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
+		$this->oDb = $okt->db;
+		$this->oError = $okt->error;
 
-		$this->t_users = $this->db->prefix.'core_users';
-		$this->t_groups = $this->db->prefix.'core_users_groups';
-		$this->t_online = $this->db->prefix.'core_users_online';
+		$this->t_users = $this->oDb->prefix.'core_users';
+		$this->t_groups = $this->oDb->prefix.'core_users_groups';
+		$this->t_online = $this->oDb->prefix.'core_users_online';
 
-		$this->cookie_name = $cookie_name;
-		$this->cookie_from_name = $cookie_from_name;
-		$this->cookie_path = $cookie_path;
-		$this->cookie_domain = $cookie_domain;
-		$this->cookie_secure = $cookie_secure;
+		$this->sCookieName = $sCookieName;
+		$this->sCookieFromName = $sCookieFromName;
+		$this->sCookiePath = $sCookiePath;
+		$this->sCookieDomain = $sCookieDomain;
+		$this->bCookieSecure = $bCookieSecure;
 	}
 
 	/**
-	 * Retourne une information de l'utilisateur courant
+	 * Retourne une information de l'utilisateur courant.
 	 *
-	 * @param string $key
+	 * @param string $sKey
 	 * @return mixed
 	 */
-	public function __get($key)
+	public function __get($sKey)
 	{
-		return $this->infos->f($key);
+		return $this->infos->f($sKey);
 	}
 
 	/**
-	 * Change la valeur d'une information de l'utilisateur courant
+	 * Change la valeur d'une information de l'utilisateur courant.
 	 *
-	 * @param string $key
-	 * @param string $value
+	 * @param string $sKey
+	 * @param string $mValue
 	 * @return void
 	 */
-	public function __set($key, $value)
+	public function __set($sKey, $mValue)
 	{
-		return $this->infos->setField($key, $value);
+		return $this->infos->setField($sKey, $mValue);
 	}
 
 	/**
-	 * Retourne toutes les informations d'un utilisateur
+	 * Retourne toutes les informations d'un utilisateur.
 	 *
 	 * @param $id
 	 * @return array
@@ -193,7 +193,7 @@ class oktAuth
 
 	/**
 	 * Authentification de l'utilisateur en cours
-	 * et definition de ses informations
+	 * et definition de ses informations.
 	 *
 	 * @return void
 	 */
@@ -203,7 +203,7 @@ class oktAuth
 		$iTsExpire = $iTsNow + self::remember_time;
 
 		# Nous supposons qu'il est un invité
-		$cookie = array(
+		$aCookie = array(
 			'user_id' => 1,
 			'password_hash' => 'Guest',
 			'expiration_time' => 0,
@@ -211,17 +211,17 @@ class oktAuth
 		);
 
 		# Si un cookie est disponible, on récupère le hash user_id et le mot de passe de lui
-		if (isset($_COOKIE[$this->cookie_name])) {
-			list($cookie['user_id'],$cookie['password_hash'],$cookie['expiration_time'],$cookie['expire_hash']) = explode('|', base64_decode($_COOKIE[$this->cookie_name]));
+		if (isset($_COOKIE[$this->sCookieName])) {
+			list($aCookie['user_id'], $aCookie['password_hash'], $aCookie['expiration_time'], $aCookie['expire_hash']) = explode('|', base64_decode($_COOKIE[$this->sCookieName]));
 		}
 
 		# Si c'est un cookie d'un utilisateur connecté il ne devrait pas avoir déjà expiré
-		if (intval($cookie['user_id']) > 1 && intval($cookie['expiration_time']) > $iTsNow)
+		if (intval($aCookie['user_id']) > 1 && intval($aCookie['expiration_time']) > $iTsNow)
 		{
-			$this->authenticateUser(intval($cookie['user_id']), $cookie['password_hash']);
+			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($cookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($cookie['expiration_time']), $this->infos->f('salt')))) {
+			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
 			}
 
@@ -233,27 +233,27 @@ class oktAuth
 			}
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
-			$iTsExpire = (intval($cookie['expiration_time']) > $iTsNow + self::timeout_visit) ? $iTsNow + self::remember_time : $iTsNow + self::timeout_visit;
+			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + self::timeout_visit) ? $iTsNow + self::remember_time : $iTsNow + self::timeout_visit;
 			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
 
 			# Mise à jour de la liste des utilisateurs en ligne
 			if ($this->infos->f('logged') == '')
 			{
-				$this->infos->set('logged',$iTsNow);
+				$this->infos->set('logged', $iTsNow);
 				$this->infos->set('csrf_token', util::random_key(40, false, true));
-				$this->infos->set('prev_url',$this->get_current_url(255));
+				$this->infos->set('prev_url', $this->get_current_url(255));
 
-				$query =
+				$sSqlQuery =
 				'REPLACE INTO '.$this->t_online.' (user_id, ident, logged, csrf_token, prev_url) '.
 				'VALUES ('.
 					$this->infos->f('id').', '.
-					'\''.$this->db->escapeStr($this->infos->f('username')).'\', '.
+					'\''.$this->oDb->escapeStr($this->infos->f('username')).'\', '.
 					$this->infos->f('logged').', '.
 					'\''.$this->infos->f('csrf_token').'\', '.
-					(($this->infos->f('prev_url') != null) ? '\''.$this->db->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
+					(($this->infos->f('prev_url') != null) ? '\''.$this->oDb->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
 				')';
 
-				if (!$this->db->execute($query)) {
+				if (!$this->oDb->execute($sSqlQuery)) {
 					return false;
 				}
 			}
@@ -262,27 +262,27 @@ class oktAuth
 				# Cas particulier: session expirée mais aucun autre utilisateur a navigué sur le site
 				if ($this->infos->f('logged') < ($iTsNow-self::timeout_visit))
 				{
-					$query =
+					$sSqlQuery =
 					'UPDATE '.$this->t_users.' SET '.
 						'last_visit='.$this->infos->f('logged').' '.
 					'WHERE id='.$this->infos->f('id');
 
-					if (!$this->db->execute($query)) {
+					if (!$this->oDb->execute($sSqlQuery)) {
 						return false;
 					}
 
-					$this->infos->set('last_visit',$this->infos->f('logged'));
+					$this->infos->set('last_visit', $this->infos->f('logged'));
 				}
 
 				# Maintenant mise à jour du moment de la connexion
-				$query =
+				$sSqlQuery =
 				'UPDATE '.$this->t_online.' SET '.
 					'logged='.$iTsNow.', '.
-					'prev_url=\''.$this->db->escapeStr($this->get_current_url(255)).'\' '.
+					'prev_url=\''.$this->oDb->escapeStr($this->get_current_url(255)).'\' '.
 					($this->infos->f('idle') == '1' ? ', idle=0' : '').
 				'WHERE user_id='.$this->infos->f('id');
 
-				if (!$this->db->execute($query)) {
+				if (!$this->oDb->execute($sSqlQuery)) {
 					return false;
 				}
 			}
@@ -306,33 +306,33 @@ class oktAuth
 	}
 
 	/**
-	 * Méthode d'authentification de l'utilisateur courant
+	 * Méthode d'authentification de l'utilisateur courant.
 	 *
-	 * @param $user
-	 * @param $password_hash
+	 * @param $mUser
+	 * @param $sPasswordHash
 	 * @return void
 	 */
-	public function authenticateUser($user, $password_hash)
+	public function authenticateUser($mUser, $sPasswordHash)
 	{
-		$query =
+		$sSqlQuery =
 		'SELECT u.*, g.*, o.logged, o.idle, o.csrf_token, o.prev_url '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
 			'LEFT JOIN '.$this->t_online.' AS o ON o.user_id=u.id '.
 		'WHERE u.active = 1 AND ';
 
-		if (util::isInt($user)) {
-			$query .= 'u.id='.(integer)$user.' ';
+		if (util::isInt($mUser)) {
+			$sSqlQuery .= 'u.id='.(integer)$mUser.' ';
 		}
 		else {
-			$query .= 'u.username=\''.$this->db->escapeStr($user).'\' ';
+			$sSqlQuery .= 'u.username=\''.$this->oDb->escapeStr($mUser).'\' ';
 		}
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (($rs = $this->oDb->select($sSqlQuery)) === false) {
 			return false;
 		}
 
-		if ($rs->isEmpty() || ($password_hash != $rs->f('password'))) {
+		if ($rs->isEmpty() || ($sPasswordHash != $rs->f('password'))) {
 			$this->setDefaultUser();
 		}
 		else {
@@ -341,23 +341,23 @@ class oktAuth
 	}
 
 	/**
-	 * Set default user informations
+	 * Set default user informations.
 	 *
 	 * @return void
 	 */
 	public function setDefaultUser()
 	{
-		$remote_addr = http::realIP();
+		$sRemoteAddr = http::realIP();
 
 		# Fetch guest user
-		$query =
+		$sSqlQuery =
 		'SELECT u.*, g.*, o.logged, o.csrf_token, o.prev_url '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
-			'LEFT JOIN '.$this->t_online.' AS o ON o.ident=\''.$this->db->escapeStr($remote_addr).'\' '.
+			'LEFT JOIN '.$this->t_online.' AS o ON o.ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\' '.
 		'WHERE u.id=1';
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (($rs = $this->oDb->select($sSqlQuery)) === false) {
 			return false;
 		}
 
@@ -376,28 +376,29 @@ class oktAuth
 			$this->infos->set('prev_url', $this->get_current_url(255));
 
 			# REPLACE INTO avoids a user having two rows in the online table
-			$query =
+			$sSqlQuery =
 			'REPLACE INTO '.$this->t_online.' (user_id, ident, logged, csrf_token, prev_url) '.
 			'VALUES ('.
 				'1,'.
-				'\''.$this->db->escapeStr($remote_addr).'\', '.
+				'\''.$this->oDb->escapeStr($sRemoteAddr).'\', '.
 				$this->infos->f('logged').', '.
 				'\''.$this->infos->f('csrf_token').'\', '.
-				(($this->infos->f('prev_url') !== null) ? '\''.$this->db->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
+				(($this->infos->f('prev_url') !== null) ? '\''.$this->oDb->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
 			')';
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 		}
-		else {
-			$query =
+		else 
+		{
+			$sSqlQuery =
 			'UPDATE '.$this->t_online.' SET '.
 				'logged='.time().', '.
-				'prev_url=\''.$this->db->escapeStr($this->get_current_url(255)).'\' '.
-			'WHERE ident=\''.$this->db->escapeStr($remote_addr).'\'';
+				'prev_url=\''.$this->oDb->escapeStr($this->get_current_url(255)).'\' '.
+			'WHERE ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\'';
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 		}
@@ -410,46 +411,46 @@ class oktAuth
 	}
 
 	/**
-	 * Perform login
+	 * Perform login.
 	 *
-	 * @param string $username
-	 * @param string $password
+	 * @param string $sUsername
+	 * @param string $sPassword
 	 * @param bollean $save_pass
 	 * @return boolean
 	 */
-	public function login($username, $password, $save_pass=false)
+	public function login($sUsername, $sPassword, $save_pass=false)
 	{
-		$query =
+		$sSqlQuery =
 		'SELECT id, group_id, password, salt '.
 			'FROM '.$this->t_users.' '.
-		'WHERE username=\''.$this->db->escapeStr($username).'\' ';
+		'WHERE username=\''.$this->oDb->escapeStr($sUsername).'\' ';
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (($rs = $this->oDb->select($sSqlQuery)) === false) {
 			return false;
 		}
 
 		if ($rs->isEmpty()) {
-			$this->error->set('Utilisateur inconnu.');
+			$this->oError->set(__('c_c_auth_unknown_user'));
 			return false;
 		}
 
-		$password_hash = $rs->password;
+		$sPasswordHash = $rs->password;
 
-		if (!password::verify($password, $password_hash))
+		if (!password::verify($sPassword, $sPasswordHash))
 		{
-			$this->error->set('Mauvais mot de passe.');
+			$this->oError->set(__('c_c_auth_wrong_password'));
 			return false;
 		}
-		else if (password::needs_rehash($password_hash, PASSWORD_DEFAULT))
+		else if (password::needs_rehash($sPasswordHash, PASSWORD_DEFAULT))
 		{
-			$password_hash = password::hash($password, PASSWORD_DEFAULT);
+			$sPasswordHash = password::hash($sPassword, PASSWORD_DEFAULT);
 
-			$query =
+			$sSqlQuery =
 			'UPDATE '.$this->t_users.' SET '.
-				'password=\''.$this->db->escapeStr($password_hash).'\' '.
+				'password=\''.$this->oDb->escapeStr($sPasswordHash).'\' '.
 			'WHERE id='.$rs->id;
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 		}
@@ -458,38 +459,38 @@ class oktAuth
 		if ($rs->group_id == self::unverified_group_id)
 		{
 			/*
-			$query =
+			$sSqlQuery =
 			'UPDATE '.$this->t_users.' SET '.
 				'group_id='.self::member_group_id.' '.
 			'WHERE id='.$rs->id;
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 			*/
 
-			$this->error->set('Votre compte est en attente de validation.');
+			$this->oError->set(__('c_c_auth_account_awaiting_validation'));
 			return false;
 		}
 
 		# Remove this user's guest entry from the online list
-		$query =
+		$sSqlQuery =
 		'DELETE FROM '.$this->t_online.' '.
-		'WHERE ident=\''.$this->db->escapeStr(http::realIP()).'\'';
+		'WHERE ident=\''.$this->oDb->escapeStr(http::realIP()).'\'';
 
-		if (!$this->db->execute($query)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			return false;
 		}
 
 		$iTsExpire = ($save_pass) ? time() + self::remember_time : time() + self::timeout_visit;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$password_hash.'|'.$iTsExpire.'|'.sha1($rs->salt.$password_hash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
 			$this->okt->logAdmin->add(array(
 				'user_id' => $rs->id,
-				'username' => $username,
+				'username' => $sUsername,
 				'code' => 10,
 				'message' => __('c_c_log_admin_message_by_form')
 			));
@@ -508,23 +509,23 @@ class oktAuth
 	 */
 	public function logout()
 	{
-		$query =
+		$sSqlQuery =
 		'DELETE FROM '.$this->t_online.' '.
 		'WHERE user_id='.$this->infos->f('id');
 
-		if (!$this->db->execute($query)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			return false;
 		}
 
 		# Update last_visit (make sure there's something to update it with)
 		if ($this->infos->f('logged') != '')
 		{
-			$query =
+			$sSqlQuery =
 			'UPDATE '.$this->t_users.' SET '.
 			'last_visit='.$this->infos->f('logged').' '.
 			'WHERE id='.$this->infos->f('id');
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 		}
@@ -544,68 +545,68 @@ class oktAuth
 		return true;
 	}
 
-
 	/**
-	 * Envoi un email avec un nouveau mot de passe à l'email $email
+	 * Envoi un email avec un nouveau mot de passe.
 	 *
-	 * @param    string    email    L'adresse email où envoyer le nouveau mot de passe
+	 * @param string $sEmail    		L'adresse email où envoyer le nouveau mot de passe
+	 * @param string $sActivateUrl		L'URL de la page de validation
 	 * @return boolean
 	 */
-	public function forgetPassword($email, $activate_page)
+	public function forgetPassword($sEmail, $sActivateUrl)
 	{
-		$email = strtolower(trim($email));
+		$sEmail = strtolower(trim($sEmail));
 
 		# validation de l'adresse fournie
-		if (!text::isEmail($email))
+		if (!text::isEmail($sEmail))
 		{
-			$this->error->set('Adresse courriel invalide.');
+			$this->oError->set(__('c_c_auth_invalid_email'));
 			return false;
 		}
 
 		# récupération des infos de l'utilisateur
-		$query =
+		$sSqlQuery =
 		'SELECT id, username, lastname, firstname, salt '.
 		'FROM '.$this->t_users.' '.
-		'WHERE email=\''.$this->db->escapeStr($email).'\'';
+		'WHERE email=\''.$this->oDb->escapeStr($sEmail).'\'';
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (($rs = $this->oDb->select($sSqlQuery)) === false) {
 			return false;
 		}
 
 		if ($rs->isEmpty()) {
-			$this->error->set('Adresse courriel inconnue.');
+			$this->oError->set(__('c_c_auth_unknown_email'));
 			return false;
 		}
 
 		while ($rs->fetch())
 		{
 			# génération du nouveau mot de passe et du code d'activation
-			$new_password = util::random_key(8,true);
-			$new_password_key = util::random_key(8);
+			$sNewPassword = util::random_key(8,true);
+			$sNewPasswordKey = util::random_key(8);
 
-			$password_hash = password::hash($new_password, PASSWORD_DEFAULT);
+			$sPasswordHash = password::hash($sNewPassword, PASSWORD_DEFAULT);
 
-			$query =
+			$sSqlQuery =
 			'UPDATE '.$this->t_users.' SET '.
-				'activate_string=\''.$password_hash.'\', '.
-				'activate_key=\''.$new_password_key.'\' '.
+				'activate_string=\''.$sPasswordHash.'\', '.
+				'activate_key=\''.$sNewPasswordKey.'\' '.
 			'WHERE id='.(integer)$rs->id;
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 
 			# Initialisation du mailer et envoi du mail
 			$oMail = new oktMail($this->okt);
 			$oMail->setFrom();
-			$oMail->message->setTo($email);
+			$oMail->message->setTo($sEmail);
 
 			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
 				'SITE_TITLE' => util::getSiteTitle(),
 				'SITE_URL' => $this->okt->config->app_url,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
-				'NEW_PASSWORD' => $new_password,
-				'ACTIVATION_URL' => $activate_page.'?action=validate_password&uid='.$rs->id.'&key='.rawurlencode($new_password_key),
+				'NEW_PASSWORD' => $sNewPassword,
+				'ACTIVATION_URL' => $sActivateUrl.'?action=validate_password&uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
 			));
 
 			$oMail->send();
@@ -615,36 +616,36 @@ class oktAuth
 	}
 
 
-	public function validatePasswordKey($user_id, $key)
+	public function validatePasswordKey($iUserId, $sKey)
 	{
 		# récupération des infos de l'utilisateur
-		$query =
+		$sSqlQuery =
 		'SELECT activate_string, activate_key '.
 		'FROM '.$this->t_users.' '.
-		'WHERE id='.(integer)$user_id.' ';
+		'WHERE id='.(integer)$iUserId.' ';
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (($rs = $this->oDb->select($sSqlQuery)) === false) {
 			return false;
 		}
 
 		if ($rs->isEmpty()) {
-			$this->error->set('Utilisateur inconnu.');
+			$this->oError->set(__('c_c_auth_unknown_user'));
 			return false;
 		}
 
-		if ($key != $rs->activate_key) {
-			$this->error->set('La clé de validation ne correspond pas.');
+		if ($sKey != $rs->activate_key) {
+			$this->oError->set(__('c_c_auth_validation_key_not_match'));
 			return false;
 		}
 
-		$query =
+		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
 			'password=\''.$rs->activate_string.'\', '.
 			'activate_string=NULL, '.
 			'activate_key=NULL '.
-		'WHERE id='.(integer)$user_id.' ';
+		'WHERE id='.(integer)$iUserId.' ';
 
-		if (!$this->db->execute($query)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			return false;
 		}
 
@@ -656,11 +657,14 @@ class oktAuth
 	----------------------------------------------------------*/
 
 	/**
-	 * Initialisation de la langue de l'utilisateur
+	 * Initialisation de la langue de l'utilisateur.
+	 *
+	 * @param string $sCookieName
+	 * @return void
 	 */
-	public function initLanguage($cookie_name='otk_language')
+	public function initLanguage($sCookieName='otk_language')
 	{
-		$this->cookie_lang_name = $cookie_name;
+		$this->sCookieLangName = $sCookieName;
 
 		$this->infos->set('language', $this->getDefaultLang());
 
@@ -668,31 +672,32 @@ class oktAuth
 	}
 
 	/**
-	 * Change la langue de l'utilisateur
+	 * Change la langue de l'utilisateur.
 	 *
+	 * @param string $sLanguage
 	 * @return void
 	 */
-	public function setUserLang($lang)
+	public function setUserLang($sLanguage)
 	{
-		if ($this->infos->f('language') === $lang) {
+		if ($this->infos->f('language') === $sLanguage) {
 			return false;
 		}
 
-		if (!$this->okt->languages->isActive($lang)) {
+		if (!$this->okt->languages->isActive($sLanguage)) {
 			return false;
 		}
 
-		$this->infos->set('language', $lang);
-		$this->setLangCookie($lang);
+		$this->infos->set('language', $sLanguage);
+		$this->setLangCookie($sLanguage);
 
 		if (!$this->infos->f('is_guest'))
 		{
-			$query =
+			$sSqlQuery =
 			'UPDATE '.$this->t_users.' SET '.
-				'language=\''.$this->db->escapeStr($lang).'\' '.
+				'language=\''.$this->oDb->escapeStr($sLanguage).'\' '.
 			'WHERE id='.(integer)$this->infos->f('id');
 
-			if (!$this->db->execute($query)) {
+			if (!$this->oDb->execute($sSqlQuery)) {
 				return false;
 			}
 		}
@@ -701,7 +706,7 @@ class oktAuth
 	}
 
 	/**
-	 * Retrouve la langue de l'utilisateur
+	 * Retrouve la langue de l'utilisateur.
 	 *
 	 * @return string
 	 */
@@ -709,8 +714,8 @@ class oktAuth
 	{
 		$sLang = '';
 
-		if (isset($_COOKIE[$this->cookie_lang_name])) {
-			$sLang = $_COOKIE[$this->cookie_lang_name];
+		if (isset($_COOKIE[$this->sCookieLangName])) {
+			$sLang = $_COOKIE[$this->sCookieLangName];
 		}
 		elseif (($acceptLanguage = http::getAcceptLanguage()) != '') {
 			$sLang = $acceptLanguage;
@@ -731,40 +736,40 @@ class oktAuth
 	/**
 	 * Set a cookie
 	 *
-	 * @param $value
-	 * @param $expire
+	 * @param $sValue
+	 * @param $iExpire
 	 * @return void
 	 */
-	public function setAuthCookie($value, $expire)
+	public function setAuthCookie($sValue, $iExpire)
 	{
-		setcookie($this->cookie_name, $value, $expire, $this->cookie_path, $this->cookie_domain, $this->cookie_secure, true);
+		setcookie($this->sCookieName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
 	}
 
 	/**
 	 * Set a cookie auth from
 	 *
-	 * @param $value
+	 * @param $sValue
 	 * @return void
 	 */
-	public function setAuthFromCookie($value)
+	public function setAuthFromCookie($sValue)
 	{
-		setcookie($this->cookie_from_name, $value, 0, $this->cookie_path, $this->cookie_domain, $this->cookie_secure, true);
+		setcookie($this->sCookieFromName, $sValue, 0, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
 	}
 
 	/**
 	 * Set a cookie lang
 	 *
-	 * @param $value
-	 * @param $expire
+	 * @param $sValue
+	 * @param $iExpire
 	 * @return void
 	 */
-	public function setLangCookie($value, $expire=null)
+	public function setLangCookie($sValue, $iExpire=null)
 	{
-		if ($expire === null) {
-			$expire = time() + self::remember_time;
+		if ($iExpire === null) {
+			$iExpire = time() + self::remember_time;
 		}
 
-		setcookie($this->cookie_lang_name, $value, $expire, $this->cookie_path, $this->cookie_domain, $this->cookie_secure, true);
+		setcookie($this->sCookieLangName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
 	}
 
 	/**
@@ -772,71 +777,42 @@ class oktAuth
 	 * <var>username</var>, <var>lastname</var>, <var>firstname</var> and
 	 * <var>displayname</var>.
 	 *
-	 * @param	username		string	User name
-	 * @param	lastname		string	User's last name
-	 * @param	firstname		string	User's first name
-	 * @param	displayname		string	User's display name
-	 * @return	string
+	 * @param string $sUsername			User name
+	 * @param string $sLastname			User's last name
+	 * @param string $sFirstname		User's first name
+	 * @param string $sDisplayName		User's display name
+	 * @return string
 	*/
-	public static function getUserCN($username, $lastname, $firstname, $displayname=null)
+	public static function getUserCN($sUsername, $sLastname, $sFirstname, $sDisplayName=null)
 	{
-		if (!empty($displayname)) {
-			return $displayname;
+		if (!empty($sDisplayName)) {
+			return $sDisplayName;
 		}
 
-		if (!empty($lastname))
+		if (!empty($sLastname))
 		{
-			if (!empty($firstname)) {
-				return $firstname.' '.$lastname;
+			if (!empty($sFirstname)) {
+				return $sFirstname.' '.$sLastname;
 			}
 
-			return $lastname;
+			return $sLastname;
 		}
-		elseif (!empty($firstname)) {
-			return $firstname;
+		elseif (!empty($sFirstname)) {
+			return $sFirstname;
 		}
 
-		return $username;
+		return $sUsername;
 	}
 
-	public function get_current_url($max_length=0)
+	public function get_current_url($iMaxLength=0)
 	{
-		$url = $this->okt->config->self_uri;
+		$sUrl = $this->okt->config->self_uri;
 
-		if ($max_length == 0 || strlen($url) <= $max_length) {
-			return $url;
+		if ($iMaxLength == 0 || strlen($sUrl) <= $iMaxLength) {
+			return $sUrl;
 		}
 
-		// We can't find a short enough url
 		return null;
-	}
-
-
-	public function genTmpId($create_new = true)
-	{
-		if (isset($_COOKIE['otk_auth_tmp_id'])) {
-			$this->infos->set('tmp_id', $_COOKIE['otk_auth_tmp_id']);
-		}
-		else
-		{
-			if ($create_new)
-			{
-				$expire = time() + self::remember_time;
-				$user_tmp_id = 'tmp_'.uniqid();
-				setcookie('otk_auth_tmp_id', $user_tmp_id, $expire, $this->cookie_path, $this->cookie_domain, $this->cookie_secure, true);
-				$this->infos->set('tmp_id', $user_tmp_id);
-			}
-			else {
-				$this->infos->set('tmp_id', '');
-			}
-		}
-	}
-
-	public function deleteTmpId()
-	{
-		$expire = time() - self::remember_time;
-		setcookie('otk_auth_tmp_id', '', $expire, $this->cookie_path, $this->cookie_domain, $this->cookie_secure, true);
-		$this->infos->set('tmp_id', '');
 	}
 
 

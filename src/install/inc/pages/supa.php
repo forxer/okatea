@@ -124,7 +124,7 @@ if (!empty($_POST['sended']))
 		require_once __DIR__.'/../../../oktInc/prepend.php';
 
 		# login
-		$okt->user->login($sudo_user,$sudo_password,1);
+		$okt->user->login($sudo_user, $sudo_password, 1);
 
 		http::redirect('index.php?step='.$stepper->getNextStep());
 	}
