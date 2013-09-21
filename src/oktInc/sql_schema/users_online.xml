@@ -2,6 +2,8 @@
 
 <database>
 
+<!-- INSTALL -->
+
 	<!-- core_users_online -->
 	<action id="core_users_online" label="Create table %s" string="{{PREFIX}}core_users_online">
 
@@ -23,5 +25,6 @@
 	</action>
 
 
+<!-- UPDATE -->
 
 </database>

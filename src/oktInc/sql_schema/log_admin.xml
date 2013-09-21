@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
+<!-- INSTALL -->
+
 	<action id="core_log_admin" label="Create table %s" string="{{PREFIX}}core_log_admin">
 
 		<test eq="neq" value="{{PREFIX}}core_log_admin" label="Table %s exists" type="wrn"
@@ -28,12 +30,8 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin ;
 	</action>
 
-	<action id="add_core_log_admin_component" label="Add field %s" string="{{PREFIX}}core_log_admin.component" process="update">
-		<test eq="neq" value="component" label="Field %s exists"
-		string="{{PREFIX}}core_log_admin.component" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}core_log_admin` LIKE 'component'
-		</test>
-		ALTER TABLE `{{PREFIX}}core_log_admin` ADD `component` VARCHAR(40) NOT NULL DEFAULT '' AFTER `type`
-	</action>
+
+<!-- UPDATE -->
+
 
 </database>

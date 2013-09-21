@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
+<!-- INSTALL -->
+
 	<!-- core_modules -->
 	<action id="core_modules" label="Create table %s" string="{{PREFIX}}core_modules">
 
@@ -22,12 +24,8 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-	<action id="add_core_modules_module_updatable" label="Add field %s" string="{{PREFIX}}core_modules.module_updatable" process="update">
-		<test eq="neq" value="module_updatable" label="Field %s exists"
-		string="{{PREFIX}}core_modules.module_updatable" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}core_modules` LIKE 'module_updatable'
-		</test>
-		ALTER TABLE `{{PREFIX}}core_modules` ADD `module_updatable` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1
-	</action>
+
+<!-- UPDATE -->
+
 
 </database>

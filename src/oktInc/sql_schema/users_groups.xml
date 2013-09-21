@@ -2,6 +2,8 @@
 
 <database>
 
+<!-- INSTALL -->
+
 	<!-- core_users_groups -->
 	<action id="core_users_groups" label="Create table %s" string="{{PREFIX}}core_users_groups">
 
@@ -27,5 +29,8 @@
 			(3, 'Invité', NULL),
 			(4, 'Membre', 'a:0:{}') ;
 	</action>
+
+
+<!-- UPDATE -->
 
 </database>

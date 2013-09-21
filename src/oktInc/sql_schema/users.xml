@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
+<!-- INSTALL -->
+
 	<!-- core_users -->
 	<action id="core_users" label="Create table %s" string="{{PREFIX}}core_users">
 
@@ -33,36 +35,6 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin ;
 	</action>
 
-	<action id="change_core_users_name_in_lastname" label="Change field %s" string="{{PREFIX}}core_users.name" process="update">
-		<test eq="eq" value="name" label="Field %s does not exists"
-		string="{{PREFIX}}core_users.name" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}core_users` LIKE 'name'
-		</test>
-		ALTER TABLE `{{PREFIX}}core_users` CHANGE `name` `lastname` VARCHAR(255) NOT NULL DEFAULT ''
-	</action>
-
-	<action id="add_core_users_civility" label="Add field %s" string="{{PREFIX}}core_users.civility" process="update">
-		<test eq="neq" value="civility" label="Field %s exists"
-		string="{{PREFIX}}core_users.civility" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}core_users` LIKE 'civility'
-		</test>
-		ALTER TABLE `{{PREFIX}}core_users` ADD `civility` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 AFTER `group_id`
-	</action>
-
-	<action id="add_core_users_active" label="Add field %s" string="{{PREFIX}}core_users.active" process="update">
-		<test eq="neq" value="active" label="Field %s exists"
-		string="{{PREFIX}}core_users.active" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}core_users` LIKE 'active'
-		</test>
-		ALTER TABLE `{{PREFIX}}core_users` ADD `active` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 AFTER `civility`
-	</action>
-
-	<action id="change_core_users_password" label="Alter field %s" string="{{PREFIX}}core_users.password" process="update">
-		ALTER TABLE `{{PREFIX}}core_users` CHANGE `password` `password` VARCHAR( 255 ) NOT NULL DEFAULT ''
-	</action>
-
-	<action id="change_core_users_salt" label="Alter field %s" string="{{PREFIX}}core_users.salt" process="update">
-		ALTER TABLE `{{PREFIX}}core_users` CHANGE `salt` `salt` VARCHAR( 255 ) NOT NULL DEFAULT ''
-	</action>
+<!-- UPDATE -->
 
 </database>
