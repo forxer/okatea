@@ -89,6 +89,9 @@ minify_js_admin:
   - '%PUBLIC_URL%/js/common_admin.js'
 minify_css_public: {  }
 minify_js_public: {  }
+user_visit:
+  timeout: 1800
+  remember_time: 1209600
 log_admin:
   ttl_months: 3
 news_feed:

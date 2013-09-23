@@ -42,6 +42,17 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 </fieldset>
 
 <fieldset>
+	<legend><?php _e('c_a_config_advanced_user_visit_session') ?></legend>
+
+	<p class="field"><label for="p_user_visit_timeout"><?php _e('c_a_config_advanced_user_visit_timeout') ?></label>
+	<?php echo form::text('p_user_visit_timeout', 10, 255, html::escapeHTML($okt->config->user_visit['timeout'])) ?></p>
+
+	<p class="field"><label for="p_user_visit_remember_time"><?php _e('c_a_config_advanced_user_visit_remember_time') ?></label>
+	<?php echo form::text('p_user_visit_remember_time', 10, 255, html::escapeHTML($okt->config->user_visit['remember_time'])) ?></p>
+
+</fieldset>
+
+<fieldset>
 	<legend><?php _e('c_a_config_advanced_logadmin') ?></legend>
 
 	<p><label for="p_log_admin_ttl_months"><?php printf(__('c_a_config_advanced_logadmin_ttl_%s_months'),

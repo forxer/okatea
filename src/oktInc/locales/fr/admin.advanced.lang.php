@@ -56,6 +56,10 @@ $GLOBALS['__l10n']['c_a_config_advanced_enable_public_maintenance_mode'] = 'Acti
 $GLOBALS['__l10n']['c_a_config_advanced_htmlpurifier'] = 'HTML purifier';
 $GLOBALS['__l10n']['c_a_config_advanced_htmlpurifier_disabled'] = 'Désactiver HTML purifier';
 
+$GLOBALS['__l10n']['c_a_config_advanced_user_visit_session'] = 'Session de visite utilisateur';
+$GLOBALS['__l10n']['c_a_config_advanced_user_visit_timeout'] = 'Durée de la session de visite en secondes';
+$GLOBALS['__l10n']['c_a_config_advanced_user_visit_remember_time'] = 'Durée d’enregistrement du cookie de session de visite en secondes';
+
 $GLOBALS['__l10n']['c_a_config_advanced_logadmin'] = 'Journaux administration';
 $GLOBALS['__l10n']['c_a_config_advanced_logadmin_ttl_%s_months'] = 'Supprimer les journaux admin automatiquement au bout de %s mois.';
 
