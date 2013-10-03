@@ -103,11 +103,11 @@ if ($okt->user->is_superadmin)
 
 
 # Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminErrors'] = __DIR__.'/libs/lib.admin.errors.php';
-$oktAutoloadPaths['adminMessages'] = __DIR__.'/libs/lib.admin.messages.php';
+$oktAutoloadPaths['adminMessagesErrors'] = __DIR__.'/libs/lib.admin.messages.errors.php';
+$oktAutoloadPaths['adminMessagesSuccess'] = __DIR__.'/libs/lib.admin.messages.success.php';
+$oktAutoloadPaths['adminMessagesWarnings'] = __DIR__.'/libs/lib.admin.messages.warnings.php';
 $oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
 $oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
-$oktAutoloadPaths['adminWarnings'] = __DIR__.'/libs/lib.admin.warnings.php';
 $oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
 $oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
 

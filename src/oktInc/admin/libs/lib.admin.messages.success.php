@@ -8,13 +8,12 @@
 
 
 /**
- * Pile de messages pour l'administration.
+ * Pile de messages de succès pour l'administration.
  *
  * @addtogroup Okatea
  *
  */
-
-class adminMessages extends htmlStack
+class adminMessagesSuccess extends htmlStack
 {
 	/**
 	 * Ajoute un message à la pile de messages.

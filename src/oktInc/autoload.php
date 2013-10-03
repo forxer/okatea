@@ -105,6 +105,7 @@ $oktAutoloadPaths['imageTools']				= OKT_CLASSES_PATH.'/tools/class.image.tools.
 $oktAutoloadPaths['iniFile']				= OKT_CLASSES_PATH.'/tools/class.ini.file.php';
 $oktAutoloadPaths['nestedTree']				= OKT_CLASSES_PATH.'/tools/class.nested.tree.php';
 $oktAutoloadPaths['nestedTreei18n']			= OKT_CLASSES_PATH.'/tools/class.nested.tree.i18n.php';
+$oktAutoloadPaths['oktFlashMessages']		= OKT_CLASSES_PATH.'/tools/class.oktFlashMessages.php';
 $oktAutoloadPaths['oktMail']				= OKT_CLASSES_PATH.'/tools/class.oktMail.php';
 $oktAutoloadPaths['oktPublicAdminBar']		= OKT_CLASSES_PATH.'/tools/class.oktPublicAdminBar.php';
 $oktAutoloadPaths['oktSimpleLogs']			= OKT_CLASSES_PATH.'/tools/class.oktSimpleLog.php';

@@ -95,7 +95,7 @@ class adminPage extends htmlPage
 	 */
 	public function __construct($okt)
 	{
-		parent::__construct($okt,'admin');
+		parent::__construct($okt, 'admin');
 
 		$this->action = !empty($_REQUEST['action']) ? $_REQUEST['action'] : null;
 		$this->application = !empty($_REQUEST['application']) ? $_REQUEST['application'] : null;
@@ -103,9 +103,11 @@ class adminPage extends htmlPage
 
 		$this->breadcrumb = new breadcrumb;
 
-		$this->messages = new adminMessages;
-		$this->warnings = new adminWarnings;
-		$this->errors = new adminErrors;
+		$this->flashMessages = new oktFlashMessages();
+
+		$this->messages = new adminMessagesSuccess();
+		$this->warnings = new adminMessagesWarnings();
+		$this->errors = new adminMessagesErrors();
 
 		$this->getCommonReady();
 	}

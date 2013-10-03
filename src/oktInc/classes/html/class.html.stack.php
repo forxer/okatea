@@ -60,7 +60,7 @@ class htmlStack
 	 */
 	public function setItems($items)
 	{
-		$this->stack = array_merge($this->stack,(array)$items);
+		$this->stack = array_merge($this->stack, (array)$items);
 	}
 
 	/**

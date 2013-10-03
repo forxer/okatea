@@ -23,6 +23,13 @@ if ($okt->error->notEmpty())
 	}
 }
 
+
+# populates messages from flash messages queue
+$okt->page->messages->setItems($okt->page->flashMessages->getMessages('success'));
+$okt->page->warnings->setItems($okt->page->flashMessages->getMessages('warning'));
+$okt->page->errors->setItems($okt->page->flashMessages->getMessages('error'));
+
+
 # construction du menu principal
 $mainMenuHtml = null;
 if (!defined('OKT_DISABLE_MENU'))
@@ -160,6 +167,7 @@ ob_start();
 		elseif ($okt->page->messages->hasMessage()) {
 			echo $okt->page->messages->getMessages('<div class="msg_box ui-corner-all">%s</div>');
 		}
+
 		?>
 		</div><!-- #messages -->
 		<div id="welcome">

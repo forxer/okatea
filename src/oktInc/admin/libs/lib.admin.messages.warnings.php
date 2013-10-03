@@ -8,16 +8,15 @@
 
 
 /**
- * Pile d'erreurs pour l'administration.
+ * Pile de messages d'avertissements pour l'administration.
  *
  * @addtogroup Okatea
  *
  */
-
-class adminErrors extends htmlStack
+class adminMessagesWarnings extends htmlStack
 {
 	/**
-	 * Ajoute une erreur à la pile des erreurs.
+	 * Ajoute un avertissement à la pile des avertissements.
 	 *
 	 * @param $msg string
 	 * @return void
@@ -28,14 +27,14 @@ class adminErrors extends htmlStack
 	}
 
 	/**
-	 * Formate et retourne les erreurs présentes dans la pile.
+	 * Formate et retourne les avertissements présents dans la pile.
 	 *
 	 * @param $format string
 	 * @return string
 	 */
-	public function getErrors($format='<div class="errors_box">%s</div>')
+	public function getWarnings($format='<div class="warnings_box">%s</div>')
 	{
-		return sprintf($format,parent::getHTML());
+		return sprintf($format, parent::getHTML());
 	}
 
 	/**
@@ -43,9 +42,9 @@ class adminErrors extends htmlStack
 	 *
 	 * @return boolean
 	 */
-	public function hasError()
+	public function hasWarning()
 	{
 		return $this->hasItem();
 	}
 
-} # class adminErrors
+} # class warnings
