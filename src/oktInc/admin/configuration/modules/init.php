@@ -36,33 +36,6 @@ foreach ($aAllModules as $id=>$infos) {
 # Récupération de la liste des modules dans la base de données (les modules installés)
 $aInstalledModules = $okt->modules->getInstalledModules();
 
-/*
-$rsInstalledModules = $okt->modules->getModulesFromDB();
-
-$aInstalledModules = array();
-while ($rsInstalledModules->fetch())
-{
-	$sModuleRoot = $okt->modules->path.'/'.$rsInstalledModules->module_id.'/';
-
-	$rsInstalledModules->setField('root',$sModuleRoot);
-
-	$aInstalledModules[$rsInstalledModules->module_id] = array(
-		'id' 			=> $rsInstalledModules->module_id,
-		'root' 			=> $sModuleRoot,
-		'name' 			=> $rsInstalledModules->module_name,
-		'name_l10n' 	=> __($rsInstalledModules->module_name),
-		'desc' 			=> $rsInstalledModules->module_description,
-		'desc_l10n' 	=> __($rsInstalledModules->module_description),
-		'author' 		=> $rsInstalledModules->module_author,
-		'version' 		=> $rsInstalledModules->module_version,
-		'priority' 		=> $rsInstalledModules->module_priority,
-		'status' 		=> $rsInstalledModules->module_status,
-		'updatable' 	=> $rsInstalledModules->module_updatable
-	);
-}
-unset($rsInstalledModules);
-*/
-
 $iNumInstalledModules = count($aInstalledModules);
 
 
