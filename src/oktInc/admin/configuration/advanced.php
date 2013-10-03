@@ -63,7 +63,8 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 	try
 	{
 		$okt->config->write($aPageData['aNewConf']);
-		$okt->redirect('configuration.php?action=advanced&updated=1');
+		$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+		$okt->redirect('configuration.php?action=advanced');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -81,9 +82,6 @@ $okt->page->addGlobalTitle(__('c_a_config_advanced'));
 
 # Tabs
 $okt->page->tabs();
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # Construction des onglets

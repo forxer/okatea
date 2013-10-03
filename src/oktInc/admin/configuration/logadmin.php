@@ -36,11 +36,14 @@ $okt->logAdmin->filtersStart();
 $okt->logAdmin->deleteLogsDate($okt->config->log_admin['ttl_months']);
 
 # Suppression manuelle des logs
-//if (!empty($_GET['truncate']))
-//{
-//	$okt->logAdmin->deleteLogs();
-//	$okt->redirect('configuration.php?action=logadmin&truncated=1');
-//}
+if (!empty($_GET['truncate']))
+{
+	$okt->logAdmin->deleteLogs();
+
+	$okt->page->flashMessages->addSuccess(__('c_a_config_logadmin_truncated'));
+
+	$okt->redirect('configuration.php?action=logadmin');
+}
 
 # Ré-initialisation filtres
 if (!empty($_GET['init_filters']))
@@ -122,9 +125,6 @@ $aLogAdminCodes = oktLogAdmin::getCodes();
 
 # Infos page
 $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
-
-# Messages de confirmation
-$okt->page->messages->success('truncated',__('c_a_config_logadmin_truncated'));
 
 
 # En-tête

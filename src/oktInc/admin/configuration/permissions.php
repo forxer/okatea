@@ -70,7 +70,9 @@ if (!empty($_POST['sended_form']))
 		$okt->db->execute($query);
 	}
 
-	$okt->redirect('configuration.php?action=permissions&updated=1');
+	$okt->page->flashMessages->addSuccess(__('c_a_config_permissions_updated'));
+
+	$okt->redirect('configuration.php?action=permissions');
 }
 
 
@@ -117,12 +119,11 @@ asort($aPermissions);
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_config_permissions'));
 
-# Confirmationss
-$okt->page->messages->success('updated',__('c_a_config_permissions_updated'));
 
 if ($iNumGroup > 1) {
 	$okt->page->tabs();
 }
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

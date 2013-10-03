@@ -57,7 +57,10 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 	try
 	{
 		$okt->config->write($aPageData['aNewConf']);
-		$okt->redirect('configuration.php?action=site&updated=1');
+
+		$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+		$okt->redirect('configuration.php?action=site');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -80,9 +83,6 @@ if (!$okt->languages->unique) {
 
 # Tabs
 $okt->page->tabs();
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # Construction des onglets

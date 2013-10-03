@@ -7,7 +7,7 @@ $GLOBALS['__l10n']['c_a_config_l10n_edited'] = 'La langue a été modifiée.';
 $GLOBALS['__l10n']['c_a_config_l10n_deleted'] = 'La langue a été supprimée.';
 $GLOBALS['__l10n']['c_a_config_l10n_neworder'] = 'L’ordre des langues a été mis à jour.';
 $GLOBALS['__l10n']['c_a_config_l10n_enabled'] = 'La langue a été activée. Pensez à configurer les modules.';
-$GLOBALS['__l10n']['c_a_config_l10n_disabled'] = 'La langue a été ajoutée.';
+$GLOBALS['__l10n']['c_a_config_l10n_disabled'] = 'La langue a été désactivée.';
 
 $GLOBALS['__l10n']['c_a_config_l10n_tab_edit'] = 'Modifier une langue';
 $GLOBALS['__l10n']['c_a_config_l10n_tab_list'] = 'Liste des langues';

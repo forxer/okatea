@@ -179,7 +179,8 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->config->write($new_conf);
-			$okt->redirect('configuration.php?action=display&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->redirect('configuration.php?action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -261,10 +262,6 @@ $okt->page->tabs();
 
 # infos page
 $okt->page->addGlobalTitle(__('c_a_config_display'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-
 
 
 # En-tête
