@@ -118,7 +118,8 @@
 	.sub-menu {
 		margin: 0;
 		list-style: none;
-		line-height: 160%;
+		line-height: 150%;
+		font-size: 1.1em
 	}
 		.sub-menu li {
 			position: relative;
@@ -127,6 +128,12 @@
 			position: absolute;
 			left: -20px;
 			margin-top: 3px;
+		}
+		.sub-menu a {
+			text-decoration: none;
+		}
+		.sub-menu a:hover {
+			text-decoration: underline;
 		}
 #content {
 	padding: 0;
