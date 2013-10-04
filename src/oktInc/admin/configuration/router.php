@@ -71,7 +71,8 @@ if (!empty($_POST['edit_default_route']))
 		try
 		{
 			$okt->config->write($new_conf);
-			$okt->redirect('configuration.php?action=router&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -102,7 +103,8 @@ if (!empty($_POST['edit_custom_routes']))
 		try
 		{
 			$okt->config->write($new_conf);
-			$okt->redirect('configuration.php?action=router&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -151,7 +153,8 @@ if (!empty($_POST['add_custom_route']))
 		try
 		{
 			$okt->config->write($new_conf);
-			$okt->redirect('configuration.php?action=router&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -176,7 +179,8 @@ if (!empty($_POST['save_config']))
 		try
 		{
 			$okt->config->write($new_conf);
-			$okt->redirect('configuration.php?action=router&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -203,10 +207,6 @@ $okt->page->addGlobalTitle(__('c_a_config_router_internal_router'));
 
 # Tabs
 $okt->page->tabs();
-
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # JS pour l'aide à la saisie des controllers (class/method) à partir d'une liste de destinations

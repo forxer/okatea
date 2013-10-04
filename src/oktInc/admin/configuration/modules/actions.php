@@ -434,8 +434,10 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 # Suppression d'un module
 else if (!empty($_GET['delete']) && array_key_exists($_GET['delete'], $aUninstalledModules))
 {
-	if (files::deltree($okt->modules->path.'/'.$_GET['delete'])) {
-		$okt->redirect('configuration.php?action=modules&deleted=1');
+	if (files::deltree($okt->modules->path.'/'.$_GET['delete'])) 
+	{
+		$okt->page->flashMessages->addSuccess(__('c_a_modules_successfully_deleted'));
+		$okt->redirect('configuration.php?action=modules');
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_deleted.'));
@@ -496,7 +498,9 @@ else if (!empty($_GET['templates']) && array_key_exists($_GET['templates'], $aIn
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->redirect('configuration.php?action=modules&templates_replaced=1');
+	$okt->page->flashMessages->addSuccess(__('c_a_modules_templates_files_replaced'));
+
+	$okt->redirect('configuration.php?action=modules');
 }
 
 
@@ -512,7 +516,9 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->redirect('configuration.php?action=modules&common_replaced=1');
+	$okt->page->flashMessages->addSuccess(__('c_a_modules_common_files_replaced'));
+
+	$okt->redirect('configuration.php?action=modules');
 }
 
 
@@ -526,7 +532,9 @@ else if (!empty($_GET['public']) && array_key_exists($_GET['public'], $aInstalle
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->redirect('configuration.php?action=modules&public_replaced=1');
+	$okt->page->flashMessages->addSuccess(__('c_a_modules_public_files_replaced'));
+
+	$okt->redirect('configuration.php?action=modules');
 }
 
 
@@ -614,7 +622,15 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 			unset($client);
 		}
 
-		$ret_code = $okt->modules->installPackage($dest,$okt->modules);
+		$ret_code = $okt->modules->installPackage($dest, $okt->modules);
+		
+		if ($ret_code == 2) {
+			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_upgraded'));
+		}
+		else {
+			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_added'));
+		}
+		
 		$okt->redirect('configuration.php?action=modules&added='.$ret_code);
 	}
 	catch (Exception $e) {

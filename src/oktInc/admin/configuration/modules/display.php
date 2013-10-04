@@ -55,20 +55,6 @@ foreach ($aInstalledModules as $aModule)
 }
 
 
-# Confirmations
-$okt->page->messages->success('deleted',__('c_a_modules_successfully_deleted'));
-$okt->page->messages->success('templates_replaced',__('c_a_modules_templates_files_replaced'));
-$okt->page->messages->success('common_replaced',__('c_a_modules_common_files_replaced'));
-$okt->page->messages->success('public_replaced',__('c_a_modules_public_files_replaced'));
-
-if (!empty($_GET['added'])) {
-	$okt->page->messages->set(($_GET['added'] == 2
-		? __('c_a_modules_module_successfully_upgraded')
-		: __('c_a_modules_module_successfully_added')
-	));
-}
-
-
 # Toggle
 $okt->page->toggleWithLegend('add_module_zip_title','add_module_zip_content',array('cookie'=>'oktAdminAddModuleZip'));
 $okt->page->toggleWithLegend('add_module_repo_title','add_module_repo_content',array('cookie'=>'oktAdminAddModuleRepo'));
