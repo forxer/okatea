@@ -159,12 +159,12 @@ ob_start();
 		}
 
 		# affichage des éventuels avertissements
-		elseif ($okt->page->warnings->hasWarning()) {
+		if ($okt->page->warnings->hasWarning()) {
 			echo $okt->page->warnings->getWarnings('<div class="wrn_box ui-corner-all">%s</div>');
 		}
 
 		# affichage des éventuels messages
-		elseif ($okt->page->messages->hasMessage()) {
+		if ($okt->page->messages->hasMessage()) {
 			echo $okt->page->messages->getMessages('<div class="msg_box ui-corner-all">%s</div>');
 		}
 

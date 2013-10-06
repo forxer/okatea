@@ -68,6 +68,7 @@ $GLOBALS['__l10n']['c_c_auth_validation_key_not_match'] = 'La clé de validation
 $GLOBALS['__l10n']['c_c_auth_bad_csrf_token'] = 'Problème d’accès à ce formulaire.';
 $GLOBALS['__l10n']['c_c_auth_restricted_access'] = 'Votre session est expirée ou vous n’avez pas accès à cette partie.';
 $GLOBALS['__l10n']['c_c_auth_not_logged_in'] = 'Votre session est expirée ou vous n’êtes pas identifié.';
+$GLOBALS['__l10n']['c_c_auth_admin_maintenance_mode'] = 'L’interface d’administration est actuellement en mode maintenance, veuillez revenir plus tard.';
 
 # admin menu
 $GLOBALS['__l10n']['c_a_menu_home'] = 'Accueil';

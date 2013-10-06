@@ -19,32 +19,62 @@
 require_once __DIR__.'/../prepend.php';
 
 
-# init log admin
+# Start sessions
+if (!session_id()) {
+	session_start();
+}
+
+
+# Librairies spécifiques aux pages de l'administration
+$oktAutoloadPaths['adminMessagesErrors'] = __DIR__.'/libs/lib.admin.messages.errors.php';
+$oktAutoloadPaths['adminMessagesSuccess'] = __DIR__.'/libs/lib.admin.messages.success.php';
+$oktAutoloadPaths['adminMessagesWarnings'] = __DIR__.'/libs/lib.admin.messages.warnings.php';
+$oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
+$oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
+$oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
+$oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
+
+
+# Initialisation des pages de l'administration
+$okt->page = new adminPage($okt);
+
+
+# Initialisation des journaux admin
 $okt->logAdmin = new oktLogAdmin($okt);
 
 
-# Si on es pas sur la page de connexion de l'admin
-# on doit être connecté et avoir la permission
-if (OKT_DIRNAME.'/'.OKT_FILENAME != OKT_DIRNAME.'/'.OKT_ADMIN_LOGIN_PAGE)
+# Vérification de l'utilisateur en cours
+if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 {
 	# on stocke l'URL de la page dans un cookie
 	$okt->user->setAuthFromCookie($okt->config->self_uri);
 
 	# si c'est un invité, rien à faire ici
-	if ($okt->user->is_guest) {
-		http::redirect(OKT_ADMIN_LOGIN_PAGE.'?not_logged_in=1');
+	if ($okt->user->is_guest)
+	{
+		$okt->page->flashMessages->addWarning(__('c_c_auth_not_logged_in'));
+
+		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
+
 	# si il n'a pas la permission, il dégage
 	elseif (!$okt->checkPerm('usage'))
 	{
 		$okt->user->logout();
-		http::redirect(OKT_ADMIN_LOGIN_PAGE.'?restricted_access=1');
+
+		$okt->page->flashMessages->addError(__('c_c_auth_restricted_access'));
+
+		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
-	# enfin, si on est en maintenance, faut être superadmin
+
+	# enfin, si on est en maintenance, il faut être superadmin
 	elseif ($okt->config->admin_maintenance_mode && !$okt->user->is_superadmin)
 	{
 		$okt->user->logout();
-		http::redirect(OKT_ADMIN_LOGIN_PAGE.'?admin_mode=1');
+
+		$okt->page->flashMessages->addError(__('c_c_auth_admin_maintenance_mode'));
+
+		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 }
 
@@ -53,7 +83,9 @@ if (OKT_DIRNAME.'/'.OKT_FILENAME != OKT_DIRNAME.'/'.OKT_ADMIN_LOGIN_PAGE)
 if (!empty($_REQUEST['logout']))
 {
 	$okt->user->setAuthFromCookie('');
+
 	$okt->user->logout();
+
 	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
@@ -62,13 +94,10 @@ if (!empty($_REQUEST['logout']))
 if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_token']) || $okt->user->csrf_token !== $_POST['csrf_token']))
 {
 	$okt->user->logout();
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE.'?bad_csrf_token=1');
-}
 
+	$okt->page->flashMessages->addError(__('c_c_auth_bad_csrf_token'));
 
-# Start sessions
-if (!session_id()) {
-	session_start();
+	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -102,16 +131,6 @@ if ($okt->user->is_superadmin)
 }
 
 
-# Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminMessagesErrors'] = __DIR__.'/libs/lib.admin.messages.errors.php';
-$oktAutoloadPaths['adminMessagesSuccess'] = __DIR__.'/libs/lib.admin.messages.success.php';
-$oktAutoloadPaths['adminMessagesWarnings'] = __DIR__.'/libs/lib.admin.messages.warnings.php';
-$oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
-$oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
-$oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
-$oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
-
-
 # Permissions de base de l'administration
 $okt->addPerm('usage', __('c_a_def_perm_usage'));
 $okt->addPerm('displayhelp', __('c_a_def_perm_help'));
@@ -126,10 +145,6 @@ $okt->addPermGroup('configuration', __('c_a_def_perm_config'));
 	$okt->addPerm('permissions', 	__('c_a_def_perm_config_perms'), 'configuration');
 	$okt->addPerm('tools', 			__('c_a_def_perm_config_tools'), 'configuration');
 	$okt->addPerm('infos', 			__('c_a_def_perm_config_infos'), 'configuration');
-
-
-# Initialisation des pages de l'administration
-$okt->page = new adminPage($okt);
 
 
 # Title tag

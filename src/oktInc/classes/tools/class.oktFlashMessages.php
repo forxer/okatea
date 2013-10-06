@@ -36,6 +36,10 @@ class oktFlashMessages
 			$this->sSessionKey = (string)$sSessionKey;
 		}
 
+		if (!session_id()) {
+			session_start();
+		}
+
 		if (!isset($_SESSION[$this->sSessionKey])) {
 			$_SESSION[$this->sSessionKey] = array();
 		}
@@ -58,7 +62,7 @@ class oktFlashMessages
 			$sType = 'info';
 		}
 
-		if (!array_key_exists($sType, $_SESSION[$this->sSessionKey])) {
+		if (empty($_SESSION[$this->sSessionKey][$sType])) {
 			$_SESSION[$this->sSessionKey][$sType] = array();
 		}
 

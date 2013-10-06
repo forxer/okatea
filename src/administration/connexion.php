@@ -15,7 +15,10 @@
  */
 
 # no menu on admin login page
-define('OKT_DISABLE_MENU',true);
+define('OKT_DISABLE_MENU', true);
+
+# no admin check on admin login page
+define('OKT_SKIP_USER_ADMIN_CHECK', true);
 
 # no CSRF token on admin login page
 define('OKT_SKIP_CSRF_CONFIRM', true);
@@ -120,19 +123,6 @@ else {
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_c_auth_login'));
-
-if (!empty($_GET['bad_csrf_token'])) { # dis donc ? d'où tu viens toi ?
-	$okt->error->set(__('c_c_auth_bad_csrf_token'));
-}
-
-if (!empty($_GET['restricted_access'])) {
-	$okt->error->set(__('c_c_auth_restricted_access'));
-}
-
-if (!empty($_GET['not_logged_in'])) {
-	$okt->page->warnings->set(__('c_c_auth_not_logged_in'));
-}
-
 
 $okt->page->js->addReady('
 	$("#user_id").focus();
