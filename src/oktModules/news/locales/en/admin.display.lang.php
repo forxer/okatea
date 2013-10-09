@@ -38,7 +38,7 @@ $GLOBALS['__l10n']['m_news_display_filters_slide'] = 'display filters in the pag
 
 $GLOBALS['__l10n']['m_news_display_interface_enlarging_images'] = 'Interface enlarging images';
 $GLOBALS['__l10n']['m_news_display_select_interface_display_images'] = 'Choose display interface images';
-$GLOBALS['__l10n']['m_news_display_no_interface_display_images'] = 'There is not display interface images availaible';
+$GLOBALS['__l10n']['m_news_display_no_interface_display_images'] = 'There is not display interface images availaible.';
 $GLOBALS['__l10n']['m_news_display_currently_used'] = 'Currently used';
 
 $GLOBALS['__l10n']['m_news_display_example_1'] = 'Example 1';

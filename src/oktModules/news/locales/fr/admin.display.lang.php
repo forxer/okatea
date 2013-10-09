@@ -39,7 +39,7 @@ $GLOBALS['__l10n']['m_news_display_filters_slide'] = 'afficher les filtres dans 
 $GLOBALS['__l10n']['m_news_display_interface_enlarging_images'] = 'Interface d’agrandissement des images';
 $GLOBALS['__l10n']['m_news_display_select_interface_display_images'] = 'Choisissez l’interface d’affichage des images';
 $GLOBALS['__l10n']['m_news_display_no_interface_display_images'] = 'Il n’y a aucune interface d’affichage des images de disponible.';
-$GLOBALS['__l10n']['m_news_display_currently_used'] = 'Actuellement utilisé';
+$GLOBALS['__l10n']['m_news_display_currently_used'] = 'Actuellement utilisée';
 
 $GLOBALS['__l10n']['m_news_display_example_1'] = 'Exemple 1';
 $GLOBALS['__l10n']['m_news_display_example_2'] = 'Exemple 2';
