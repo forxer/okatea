@@ -10,6 +10,13 @@
 if (!defined('ON_GALLERIES_MODULE')) die;
 
 
+/* Initialisations
+----------------------------------------------------------*/
+
+# Chargement des locales
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.display');
+
+
 /* Traitements
 ----------------------------------------------------------*/
 
@@ -66,50 +73,50 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <form action="module.php" method="post">
 	<div id="tabered">
 		<ul>
-			<li><a href="#tab_public"><span><?php _e('m_galleries_website_view') ?></span></a></li>
-			<li><a href="#tab_images"><span><?php _e('Images')?></span></a></li>
+			<li><a href="#tab_public"><span><?php _e('m_galleries_display_tab_public') ?></span></a></li>
+			<li><a href="#tab_images"><span><?php _e('m_galleries_display_tab_images')?></span></a></li>
 		</ul>
 
 		<div id="tab_public">
-			<h3><?php _e('m_galleries_display_website') ?></h3>
+			<h3><?php _e('m_galleries_display_tab_title_public') ?></h3>
 
-			<p class="fake-label"><?php _e('m_galleries_image_gallery_list') ?></p>
+			<p class="fake-label"><?php _e('m_galleries_dysplay_image_gallery_list') ?></p>
 
 			<ul class="checklist">
 				<li><label><?php echo form::radio(array('p_dysplay_clic_gal_image'),'enter', $okt->galleries->config->dysplay_clic_gal_image == 'enter') ?>
-				<?php _e('m_galleries_enter_gallery') ?></label></li>
+				<?php _e('m_galleries_dysplay_clic_enter_gallery') ?></label></li>
 
 				<li><label><?php echo form::radio(array('p_dysplay_clic_gal_image'),'image', $okt->galleries->config->dysplay_clic_gal_image == 'image') ?>
-				<?php _e('m_galleries_extend_image_gallery') ?></label></li>
+				<?php _e('m_galleries_dysplay_clic_extend_gallery_image') ?></label></li>
 			</ul>
 
-			<p class="fake-label"><?php _e('m_galleries_item_galleries') ?></p>
+			<p class="fake-label"><?php _e('m_galleries_dysplay_item_galleries') ?></p>
 
 			<ul class="checklist">
 				<li><label><?php echo form::radio(array('p_dysplay_clic_items_image'),'details', $okt->galleries->config->dysplay_clic_items_image == 'details') ?>
-				<?php _e('m_galleries_show_iem_details') ?></label></li>
+				<?php _e('m_galleries_dysplay_clic_item_details') ?></label></li>
 
 				<li><label><?php echo form::radio(array('p_dysplay_clic_items_image'),'image', $okt->galleries->config->dysplay_clic_items_image == 'image') ?>
-				<?php _e('m_galleries_extend_image_item') ?></label></li>
+				<?php _e('m_galleries_dysplay_clic_extend_item_image') ?></label></li>
 			</ul>
 		</div><!-- #tab_public -->
 
 		<div id="tab_images">
-			<h3><?php _e('m_galleries_display_images') ?></h3>
+			<h3><?php _e('m_galleries_display_tab_title_images') ?></h3>
 
 			<fieldset>
-				<legend><?php _e('m_galleries_expansion_images') ?></legend>
+				<legend><?php _e('m_galleries_display_interface_enlarging_images') ?></legend>
 
 				<?php if ($okt->page->hasLbl()) : ?>
-				<p class="field"><label for="p_lightbox_type"><?php _e('m_galleries_choose_display') ?></label>
+				<p class="field"><label for="p_lightbox_type"><?php _e('m_galleries_display_select_interface_display_images') ?></label>
 				<?php echo form::select('p_lightbox_type',array_merge(array(__('c_c_action_Disable')=>0),$okt->page->getLblList(true)),$okt->galleries->config->lightbox_type) ?></p>
 
-				<p><?php _e('m_galleries_currently_used') ?> : <em><?php $aChoices = array_merge(array(''=>__('c_c_none_f')),$okt->page->getLblList());
+				<p><?php _e('m_galleries_display_currently_used') ?> : <em><?php $aChoices = array_merge(array(''=>__('c_c_none_f')),$okt->page->getLblList());
 				echo $aChoices[$okt->galleries->config->lightbox_type] ?></em></p>
 
 				<?php else : ?>
-				<p><span class="span_sprite ss_error"></span> <?php _e('m_galleries_no_interface_images')?>
-				<?php echo form::hidden('p_lightbox_type',0); ?></p>
+				<p><span class="span_sprite ss_error"></span> <?php _e('m_galleries_display_no_interface_display_images') ?>
+				<?php echo form::hidden('p_lightbox_type', 0); ?></p>
 				<?php endif;?>
 
 				<p class="modal-box">
