@@ -1350,22 +1350,27 @@ class util
 	/**
 	 * Format un chemin d'application en supprimant et/ou laissant les slash de début et de fin.
 	 *
-	 * @param string $path
-	 * @param boolean $starting_slash (true)
-	 * @param boolean $trailing_slash (true)
+	 * @param string $sPath
+	 * @param boolean $bStartingSlash (true)
+	 * @param boolean $bTrailingSlash (true)
 	 * @return string
 	 */
-	public static function formatAppPath($path, $starting_slash=true, $trailing_slash=true)
+	public static function formatAppPath($sPath, $bStartingSlash=true, $bTrailingSlash=true)
 	{
-		$path = preg_replace('|/+$|', '', $path);
-		$path = preg_replace('|^/+|', '', $path);
+		$sPath = preg_replace('|/+$|', '', $sPath);
+		$sPath = preg_replace('|^/+|', '', $sPath);
 
-		if ($starting_slash) { $path = '/'.$path; }
-		if ($trailing_slash) { $path = $path.'/'; }
+		if ($bStartingSlash) {
+			$sPath = '/'.$sPath;
+		}
 
-		$path = str_replace('//', '/', $path);
+		if ($bTrailingSlash) {
+			$sPath = $sPath.'/';
+		}
 
-		return $path;
+		$sPath = preg_replace('|/+|', '/', $sPath);
+
+		return $sPath;
 	}
 
 	/**
