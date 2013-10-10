@@ -54,4 +54,3 @@ $oktRevision = util::getRevision();
 		<?php echo $okt->error->get(); ?>
 	</div>
 	<?php endif; ?>
-

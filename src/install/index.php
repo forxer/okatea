@@ -40,11 +40,11 @@ $oktAutoloadPaths['oktStepper'] = __DIR__.'/inc/class.stepper.php';
 
 
 # Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminErrors'] = OKT_INC_PATH.'/admin/libs/lib.admin.errors.php';
-$oktAutoloadPaths['adminMessages'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.php';
+$oktAutoloadPaths['adminMessagesErrors'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.errors.php';
+$oktAutoloadPaths['adminMessagesSuccess'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.success.php';
+$oktAutoloadPaths['adminMessagesWarnings'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.warnings.php';
 $oktAutoloadPaths['adminPage'] = OKT_INC_PATH.'/admin/libs/lib.admin.page.php';
 $oktAutoloadPaths['adminPager'] = OKT_INC_PATH.'/admin/libs/lib.admin.pager.php';
-$oktAutoloadPaths['adminWarnings'] = OKT_INC_PATH.'/admin/libs/lib.admin.warnings.php';
 $oktAutoloadPaths['adminFilters'] = OKT_INC_PATH.'/admin/libs/lib.admin.filters.php';
 
 
