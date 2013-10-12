@@ -25,7 +25,8 @@ $iMenuId = null;
 
 $aMenuData = array(
 	'title' => '',
-	'active' => 1
+	'active' => 1,
+	'tpl' => ''
 );
 
 # menu update ?
@@ -44,7 +45,8 @@ if (!empty($_REQUEST['menu_id']))
 	{
 		$aMenuData = array(
 			'title' => $rsMenu->title,
-			'active' => $rsMenu->active
+			'active' => $rsMenu->active,
+			'tpl' => $rsMenu->tpl
 		);
 	}
 }
@@ -58,7 +60,8 @@ if (!empty($_POST['sended']))
 {
 	$aMenuData = array(
 		'title' => !empty($_POST['p_title']) ? $_POST['p_title'] : '',
-		'active' => !empty($_POST['p_active']) ? 1 : 0
+		'active' => !empty($_POST['p_active']) ? 1 : 0,
+		'tpl' => !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : ''
 	);
 
 	# update menu
@@ -79,7 +82,9 @@ if (!empty($_POST['sended']))
 					'message' => 'menu #'.$iMenuId
 				));
 
-				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&updated=1');
+				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_updated'));
+
+				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -103,7 +108,9 @@ if (!empty($_POST['sended']))
 					'message' => 'menu #'.$iMenuId
 				));
 
-				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId.'&added=1');
+				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_added'));
+
+				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -156,9 +163,13 @@ if ($iMenuId)
 	));
 }
 
-# Confirmations
-$okt->page->messages->success('added', __('c_a_config_navigation_menu_added'));
-$okt->page->messages->success('updated', __('c_a_config_navigation_menu_updated'));
+
+# Liste des templates utilisables
+$oTemplates = new oktTemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
+$aTplChoices = array_merge(
+	array('&nbsp;' => null),
+	$oTemplates->getUsablesTemplatesForSelect($okt->config->navigation_tpl['usables'])
+);
 
 
 # En-tête
@@ -178,8 +189,13 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<p class="field col"><label for="p_title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_navigation_menu_title') ?></label>
 		<?php echo form::text('p_title', 100, 255, html::escapeHTML($aMenuData['title'])) ?>
 
-		<p class="field col"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible')?></label></p>
+		<?php if (!empty($okt->config->navigation_tpl['usables'])) : ?>
+		<p class="field col"><label for="p_tpl"><?php _e('c_a_config_navigation_menu_tpl') ?></label>
+		<?php echo form::select('p_tpl', $aTplChoices, $aMenuData['tpl'])?></p>
+		<?php endif; ?>
 	</div>
+
+	<p class="field"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible')?></label></p>
 
 	<p><?php echo form::hidden('action', 'navigation'); ?>
 	<?php echo form::hidden('do', 'menu'); ?>

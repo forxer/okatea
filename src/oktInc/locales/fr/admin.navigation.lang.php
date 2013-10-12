@@ -25,6 +25,7 @@ $GLOBALS['__l10n']['c_a_config_navigation_edit_menu'] = 'Modifier un menu';
 $GLOBALS['__l10n']['c_a_config_navigation_no_menu'] = 'Il n’y a aucun menu.';
 $GLOBALS['__l10n']['c_a_config_navigation_menus_list'] = 'Liste des menus';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_title'] = 'Titre du menu';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_tpl'] = 'Modèle d’affichage du menu';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_actions'] = 'Actions sur le menu';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_items_actions'] = 'Actions sur les éléments';
 

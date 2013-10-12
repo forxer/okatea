@@ -156,7 +156,7 @@ class oktNavigations
 		}
 
 		$sQuery =
-		'SELECT m.id, m.title, m.active, COUNT(i.id) AS num_items '.
+		'SELECT m.id, m.title, m.active, m.tpl, COUNT(i.id) AS num_items '.
 		'FROM '.$this->t_menus.' AS m '.
 			'LEFT JOIN '.$this->t_items.' AS i ON m.id=i.menu_id '.
 		'WHERE 1 '.

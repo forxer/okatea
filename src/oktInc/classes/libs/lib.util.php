@@ -113,9 +113,12 @@ class util
 		$aPathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sPath))));
 		$aBasePathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sBasePath))));
 
-		$temp = array_slice(array_diff($aPathComponents, $aBasePathComponents), 0, 1);
-
-		return $temp[0];
+		foreach ($aPathComponents as $i=>$k) 
+		{
+			if (!isset($aBasePathComponents[$i]) || $aBasePathComponents[$i] != $k) {
+				return $k;
+			}
+		}
 	}
 
 	/**

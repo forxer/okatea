@@ -113,7 +113,9 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$aItemData['item']['id']
 				));
 
-				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id'].'&updated=1');
+				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_updated'));
+
+				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -136,7 +138,9 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$iItemId
 				));
 
-				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId.'&added=1');
+				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_added'));
+
+				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -176,10 +180,6 @@ else
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#item-form', '.lang-switcher-buttons');
 }
-
-# Confirmations
-$okt->page->messages->success('added', __('c_a_config_navigation_item_added'));
-$okt->page->messages->success('updated', __('c_a_config_navigation_item_updated'));
 
 
 # En-tête

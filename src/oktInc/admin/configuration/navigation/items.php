@@ -69,7 +69,9 @@ if (!empty($_POST['order_items']))
 				$okt->navigation->updItemOrder($id, $ord);
 			}
 
-			$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId.'&neworder=1');
+			$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_items_neworder'));
+
+			$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 		}
 	}
 	catch (Exception $e) {
@@ -83,7 +85,10 @@ if (!empty($_GET['enable']))
 	try
 	{
 		$okt->navigation->setItemStatus($_GET['enable'], 1);
-		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId.'&enabled=1');
+
+		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_enabled'));
+
+		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -96,7 +101,10 @@ if (!empty($_GET['disable']))
 	try
 	{
 		$okt->navigation->setItemStatus($_GET['disable'], 0);
-		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId.'&disabled=1');
+
+		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_disabled'));
+
+		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -109,7 +117,10 @@ if (!empty($_GET['delete']))
 	try
 	{
 		$okt->navigation->delItem($_GET['delete']);
-		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId.'&deleted=1');
+
+		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_deleted'));
+
+		$okt->redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}
 		catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -181,14 +192,6 @@ $okt->page->setButtonset('navigationBtSt', array(
 ));
 
 $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $rsMenu->title));
-
-
-
-# Confirmationss
-$okt->page->messages->success('neworder', __('c_a_config_navigation_items_neworder'));
-$okt->page->messages->success('enabled', __('c_a_config_navigation_item_enabled'));
-$okt->page->messages->success('disabled', __('c_a_config_navigation_item_disabled'));
-$okt->page->messages->success('deleted', __('c_a_config_navigation_item_deleted'));
 
 
 # En-tête

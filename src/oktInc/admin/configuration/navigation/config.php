@@ -47,7 +47,9 @@ if (!empty($_POST['sended']))
 		{
 			$okt->config->write($new_conf);
 
-			$okt->redirect('configuration.php?action=navigation&do=config&updated=1');
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('configuration.php?action=navigation&do=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -78,9 +80,6 @@ $okt->page->setButtonset('navigationBtSt', array(
 
 
 $okt->page->addGlobalTitle(__('c_a_config_navigation_config'));
-
-# Confirmations
-$okt->page->messages->success('updated', __('c_c_confirm_configuration_updated'));
 
 
 # En-tête

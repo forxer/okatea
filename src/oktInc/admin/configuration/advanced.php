@@ -63,7 +63,9 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 	try
 	{
 		$okt->config->write($aPageData['aNewConf']);
+
 		$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
 		$okt->redirect('configuration.php?action=advanced');
 	}
 	catch (InvalidArgumentException $e)

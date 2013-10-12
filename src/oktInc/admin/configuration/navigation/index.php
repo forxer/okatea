@@ -31,7 +31,10 @@ if (!empty($_GET['switch_status']))
 	try
 	{
 		$okt->navigation->switchMenuStatus($_GET['switch_status']);
-		$okt->redirect('configuration.php?action=navigation&do=index&switched=1');
+		
+		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_switched'));
+
+		$okt->redirect('configuration.php?action=navigation&do=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -44,7 +47,10 @@ if (!empty($_GET['delete_menu']))
 	try
 	{
 		$okt->navigation->delMenu($_GET['delete_menu']);
-		$okt->redirect('configuration.php?action=navigation&do=index&deleted=1');
+
+		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_deleted'));
+
+		$okt->redirect('configuration.php?action=navigation&do=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -90,10 +96,6 @@ $okt->page->setButtonset('navigationBtSt', array(
 		)
 	)
 ));
-
-# Confirmations
-$okt->page->messages->success('switched',__('c_a_config_navigation_menu_switched'));
-$okt->page->messages->success('deleted',__('c_a_config_navigation_menu_deleted'));
 
 
 # En-tête

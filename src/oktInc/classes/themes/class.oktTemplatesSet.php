@@ -263,7 +263,7 @@ class oktTemplatesSet
 	}
 
 	/**
-	 * Retourne le thème d'un fichier fichier de template.
+	 * Retourne le thème d'un fichier de template donné.
 	 *
 	 * @param string $sTplPath
 	 * @return string
