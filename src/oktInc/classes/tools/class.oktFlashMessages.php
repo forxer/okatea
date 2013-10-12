@@ -67,6 +67,9 @@ class oktFlashMessages
 		}
 
 		$_SESSION[$this->sSessionKey][$sType][] = $sMessage;
+		
+		# do not duplicate messages
+		$_SESSION[$this->sSessionKey][$sType] = array_unique($_SESSION[$this->sSessionKey][$sType]);
 	}
 
 	/**
