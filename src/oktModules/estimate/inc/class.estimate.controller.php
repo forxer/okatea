@@ -38,7 +38,7 @@ class estimateController extends oktController
 
 			if (!$rsAccessories->isEmpty())
 			{
-				$aProductsAccessories[$rsProducts->id] = array('&nbsp;' => null);
+				$aProductsAccessories[$rsProducts->id] = array(' ' => null);
 				while ($rsAccessories->fetch()) {
 					$aProductsAccessories[$rsProducts->id][html::escapeHTML($rsAccessories->title)] = $rsAccessories->id;
 				}
@@ -130,7 +130,7 @@ class estimateController extends oktController
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
 			$this->okt->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
 		}
-		
+
 		# titre de la page
 		$this->okt->page->setTitle($this->okt->estimate->getName());
 
