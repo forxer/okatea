@@ -38,16 +38,16 @@ $okt->page->js->addReady('
 
 		var product_counter = $(this).attr("id").match(/[\d]+$/);
 		var product_id = parseInt($(this).val());
+		
 		var accessories_selects = $(".accessories_" + product_counter);
 
 		if (product_id > 0 && accessories[product_id] != undefined) {
 
-	//		$(accessories_selects).empty();
+			$(accessories_selects).empty();
 
 			$.each(accessories[product_id], function(value, key) {
 
 				$.each(accessories_selects, function(){
-alert("foo");
 					$(this).append($("<option></option>")
 					.attr("value",key)
 					.text(value));
@@ -115,17 +115,25 @@ if ($okt->error->notEmpty()) : ?>
 
 		<?php for ($i=1; $i<=3; $i++) : ?>
 
-		<div class="product-line">
+		<fieldset class="product-line">
 
 			<p class="field product"><label for="p_product_<?php echo $i ?>"><?php printf(__('m_estimate_form_product_%s'), $i) ?></label>
 			<?php echo form::select(array('p_product['.$i.']', 'p_product_'.$i), $aProductsSelect, '', 'product_choice') ?></p>
 
-			<p class="field quantity"><label for="p_quantity_<?php echo $i ?>"><?php _e('m_estimate_form_quantity') ?></label>
-			<?php echo form::text(array('p_quantity['.$i.']', 'p_quantity_'.$i), 10, 255, '', 'spinner') ?></p>
+			<p class="field quantity"><label for="p_product_quantity_<?php echo $i ?>"><?php _e('m_estimate_form_quantity') ?></label>
+			<?php echo form::text(array('p_product_quantity['.$i.']', 'p_product_quantity_'.$i), 10, 255, '', 'spinner') ?></p>
 
-			<p class="field accessories"><label for="p_accessories_<?php echo $i ?>">Accessoire</label>
-			<?php echo form::select(array('p_accessories['.$i.']', 'p_accessories_'.$i), array(), 'accessories_'.$i) ?></p>
-		</div>
+			<div class="accessories">
+				<?php for ($j=1; $j<=2; $j++) : ?>
+				<p class="field accessory"><label for="p_accessory_<?php echo $i ?>_<?php echo $j ?>"><?php printf(__('m_estimate_form_accessory_%s'), $j) ?></label>
+				<?php echo form::select(array('p_accessory['.$i.']['.$j.']', 'p_accessory_'.$i.'_'.$j), array(), '', 'accessories_'.$i) ?></p>
+	
+				<p class="field quantity"><label for="p_accessory_quantity_<?php echo $i ?>_<?php echo $j ?>"><?php _e('m_estimate_form_quantity') ?></label>
+				<?php echo form::text(array('p_accessory_quantity['.$i.']['.$j.']', 'p_accessory_quantity_'.$i.'_'.$j), 10, 255, '', 'spinner') ?></p>
+				<?php endfor; ?>
+				<p class="add_accessory_wrapper accessory"><a href="#" class="add_accessory_link"><?php _e('m_estimate_form_add_accessory') ?></a></p>
+			</div>
+		</fieldset>
 
 		<?php endfor; ?>
 

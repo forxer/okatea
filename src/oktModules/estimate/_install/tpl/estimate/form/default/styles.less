@@ -26,24 +26,31 @@
 	.product-line {
 		.clearfix();
 		.border-radius(6px);
+		border: none;
 		background-color: #e8e8e8;
 		margin: 0 0 2em;
 		padding: 0 .8em;
 	}
-	.product, .quantity {
+	.product, .accessory, .quantity {
 		float: left;
 		margin-left: 1%;
 		padding: 1px 0;
 	}
-	.product {
+	.product, .accessory {
 		width: 73%;
-		select {
-			width: 90%;
-		}
+	}
+	.product select {
+		width: 90%;
+	}
+	.accessory select {
+		width: 90%;
 	}
 	.quantity {
 		width: 23%;
 	}
-
+	.accessories {
+		width: 90%;
+		padding-left: 5%;
+	}
 }
 
