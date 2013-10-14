@@ -32,7 +32,7 @@ $okt->page->js->addScript('
 ');
 
 $okt->page->js->addReady('
-	$(".spinner").spinner();
+	$(".spinner").spinner({ min: 0 });
 
 	$(".product_choice").change(function(){
 
