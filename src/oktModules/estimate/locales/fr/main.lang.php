@@ -17,3 +17,6 @@ $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Date de début';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'Date de fin';
 $GLOBALS['__l10n']['m_estimate_form_product_%s'] = 'Produit %s';
 $GLOBALS['__l10n']['m_estimate_form_quantity'] = 'Quantité';
+$GLOBALS['__l10n']['m_estimate_form_accessory_%s'] = 'Accessoire %s';
+$GLOBALS['__l10n']['m_estimate_form_add_accessory'] = 'Ajouter un accessoire';
+
