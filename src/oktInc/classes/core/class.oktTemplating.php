@@ -15,7 +15,7 @@
  */
 class oktTemplating extends sfTemplateEngine
 {
-	protected $assignedVars = array(); /**< La pile qui contient les variables assignées pour le moteur de templates. */
+	protected $aAssignedVars = array(); /**< La pile qui contient les variables assignées pour le moteur de templates. */
 
 	/**
 	 * Assignation de variables de templates.
@@ -25,7 +25,7 @@ class oktTemplating extends sfTemplateEngine
 	 */
 	public function assign($aVars=array())
 	{
-		$this->assignedVars = array_merge($this->assignedVars, $aVars);
+		$this->aAssignedVars = array_merge($this->aAssignedVars, $aVars);
 	}
 
 	/**
@@ -35,7 +35,7 @@ class oktTemplating extends sfTemplateEngine
 	 */
 	public function getAssignedVars()
 	{
-		return $this->assignedVars;
+		return $this->aAssignedVars;
 	}
 
 	/**
@@ -43,14 +43,13 @@ class oktTemplating extends sfTemplateEngine
 	 *
 	 * @see sfTemplateEngine::render()
 	 */
-	public function render($name, array $parameters=array())
+	public function render($sTemplateFile, array $aVars=array())
 	{
-		if (!empty($parameters)) {
-			$this->assign($parameters);
+		if (!empty($aVars)) {
+			$this->assign($aVars);
 		}
 
-		return parent::render($name, $this->assignedVars);
+		return parent::render($sTemplateFile, $this->aAssignedVars);
 	}
-
 
 } # class

@@ -15,12 +15,13 @@
  */
 class oktDebug
 {
-	protected $stack;
+	protected $aStack;
 
 	public function __construct()
 	{
-		$this->stack = array();
+		$this->aStack = array();
 	}
+
 
 	/* Error handling
 	----------------------------------------------------------*/
@@ -35,11 +36,11 @@ class oktDebug
 	 */
 	public function errorHandler($errno, $errstr, $errfile, $errline)
 	{
-		$error_is_enabled = (bool)($errno & ini_get('error_reporting'));
+		$bErrorIsEnabled = (bool)($errno & ini_get('error_reporting'));
 
-		if ($error_is_enabled)
+		if ($bErrorIsEnabled)
 		{
-			$params = array(
+			$aParams = array(
 				'errno' => $errno,
 				'file' => $errfile,
 				'line' => $errline,
@@ -50,25 +51,25 @@ class oktDebug
 			{
 				case E_ERROR:
 				case E_USER_ERROR:
-					$params['style'] = 'error';
+					$aParams['style'] = 'error';
 					break;
 
 				case E_WARNING:
 				case E_USER_WARNING:
-					$params['style'] = 'warning';
+					$aParams['style'] = 'warning';
 					break;
 
 				case E_NOTICE:
 				case E_USER_NOTICE:
-					$params['style'] = 'warning';
+					$aParams['style'] = 'warning';
 					break;
 
 				default:
-					$params['style'] = 'error';
+					$aParams['style'] = 'error';
 					break;
 			}
 
-			$this->addMessage($params);
+			$this->addMessage($aParams);
 		}
 
 		# Ne pas exécuter le gestionnaire interne de PHP
@@ -82,51 +83,51 @@ class oktDebug
 	/**
 	 * Ajoute un message à la pile.
 	 *
-	 * @param array $params
+	 * @param array $aParams
 	 * @return void
 	 */
-	public function addMessage($params)
+	public function addMessage($aParams)
 	{
-		if (empty($params['style'])) {
-			$params['style'] = 'info';
+		if (empty($aParams['style'])) {
+			$aParams['style'] = 'info';
 		}
 
 		$aCompleteBacktrace = debug_backtrace();
 
 		if (!empty($aCompleteBacktrace)) {
-			$params['backtrace'] = $this->get_debug_print_backtrace(3);
+			$aParams['backtrace'] = $this->get_debug_print_backtrace(3);
 		}
 
 		if (OKT_XDEBUG)
 		{
-			if (empty($params['file'])) {
-				$params['file'] = xdebug_call_file();
+			if (empty($aParams['file'])) {
+				$aParams['file'] = xdebug_call_file();
 			}
 
-			if (empty($params['line'])) {
-				$params['line'] = xdebug_call_line();
+			if (empty($aParams['line'])) {
+				$aParams['line'] = xdebug_call_line();
 			}
 
-			$params['class'] = xdebug_call_class();
-			$params['function'] = xdebug_call_function();
+			$aParams['class'] = xdebug_call_class();
+			$aParams['function'] = xdebug_call_function();
 		}
 		else
 		{
-			$trace = next($aCompleteBacktrace);
+			$aTrace = next($aCompleteBacktrace);
 
-			if (empty($params['file'])) {
-				$params['file'] = isset($trace['file']) ? $trace['file'] : '';
+			if (empty($aParams['file'])) {
+				$aParams['file'] = isset($aTrace['file']) ? $aTrace['file'] : '';
 			}
 
-			if (empty($params['line'])) {
-				$params['line'] = isset($trace['line']) ? $trace['line'] : '';
+			if (empty($aParams['line'])) {
+				$aParams['line'] = isset($aTrace['line']) ? $aTrace['line'] : '';
 			}
 
-			$params['class'] = isset($trace['class']) ? $trace['class'] : '';
-			$params['function'] = isset($trace['function']) ? $trace['function'] : '';
+			$aParams['class'] = isset($aTrace['class']) ? $aTrace['class'] : '';
+			$aParams['function'] = isset($aTrace['function']) ? $aTrace['function'] : '';
 		}
 
-		$this->stack[] = $params;
+		$this->aStack[] = $aParams;
 	}
 
 	/**
@@ -136,7 +137,7 @@ class oktDebug
 	 */
 	public function getMessages()
 	{
-		return $this->stack;
+		return $this->aStack;
 	}
 
 	/**
@@ -146,7 +147,7 @@ class oktDebug
 	 */
 	public function getNum()
 	{
-		return (integer)count($this->stack);
+		return count($this->aStack);
 	}
 
 	/**
@@ -156,7 +157,7 @@ class oktDebug
 	 */
 	public function isEmpty()
 	{
-		return (boolean) empty($this->stack);
+		return empty($this->aStack);
 	}
 
 	/**
@@ -166,7 +167,7 @@ class oktDebug
 	 */
 	public function notEmpty()
 	{
-		return (boolean)!empty($this->stack);
+		return !empty($this->aStack);
 	}
 
 	/**
@@ -184,14 +185,14 @@ class oktDebug
 	/* Méthodes utilitaires
 	----------------------------------------------------------*/
 
-	public function get_debug_print_backtrace($traces_to_ignore=1)
+	public function get_debug_print_backtrace($iTracesToIgnore=1)
 	{
 		$traces = debug_backtrace();
 
 		$ret = array();
 		foreach ($traces as $i => $call)
 		{
-			if ($i < $traces_to_ignore ) {
+			if ($i < $iTracesToIgnore) {
 				continue;
 			}
 
@@ -199,7 +200,8 @@ class oktDebug
 			if (isset($call['class']))
 			{
 				$object = $call['class'].$call['type'];
-				if (is_array($call['args'])) {
+				if (is_array($call['args']))
+				{
 					foreach ($call['args'] as &$arg) {
 						$this->get_arg($arg);
 					}
@@ -210,7 +212,7 @@ class oktDebug
 			}
 
 			$ret[] =
-				'<p>#'.str_pad($i - $traces_to_ignore, 3, ' ').
+				'<p>#'.str_pad($i - $iTracesToIgnore, 3, ' ').
 				'<strong>'.$object.$call['function'].'</strong>( '.
 	//			print_r($call['args'],true).' )<br />'.
 				'called at ['.(isset($call['file']) ? self::formatFileTrace($call['file']) : '?').
@@ -240,12 +242,12 @@ class oktDebug
 		}
 	}
 
-	protected static function formatFileTrace($file)
+	protected static function formatFileTrace($sFile)
 	{
 		return str_replace(
-			array(OKT_ROOT_PATH,'\\'),
-			array('','/'),
-			$file
+			array(OKT_ROOT_PATH, '\\'),
+			array('', '/'),
+			$sFile
 		);
 	}
 

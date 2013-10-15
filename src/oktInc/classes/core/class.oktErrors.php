@@ -19,10 +19,12 @@ class oktErrors
 	 * La pile d'erreurs
 	 * @var array
 	 */
-	private $error;
+	protected $aErrors;
+
 
 	/**
-	 * Constructeur. Cette méthode initialise l'objet error.
+	 * Constructeur.
+	 *
 	 */
 	public function __construct()
 	{
@@ -34,21 +36,24 @@ class oktErrors
 	 */
 	public function reset()
 	{
-		$this->error = array();
+		$this->aErrors = array();
 	}
 
 	/**
 	 * Retourne vrai si il y a des erreurs.
+	 *
+	 * @return boolean
 	 */
 	public function notEmpty()
 	{
-		return (boolean) !empty($this->error);
+		return !empty($this->aErrors);
 	}
 
 	/**
 	 * alias de notEmpty
 	 *
 	 * @ref self::notEmpty()
+	 * @return boolean
 	 */
 	public function hasError()
 	{
@@ -57,53 +62,57 @@ class oktErrors
 
 	/**
 	 * Retourne vrai si il n'y a pas d'erreurs.
+	 *
+	 * @return boolean
 	 */
 	public function isEmpty()
 	{
-		return (boolean) empty($this->error);
+		return empty($this->aErrors);
 	}
 
 	/**
 	 * Ajoute une erreur dans la pile des erreurs.
 	 *
-	 * @param	string	msg			Message
+	 * @param mixed $mMessage
+	 * @param string $sDbError
+	 * @return void
 	 */
-	public function set($message, $db_error='')
+	public function set($mMessage, $sDbError='')
 	{
-		if (is_array($message))
+		if (is_array($mMessage))
 		{
-			foreach ($message as $m) {
-				$this->error[] = array('message'=>$m, 'db'=>$db_error);
+			foreach ($mMessage as $m) {
+				$this->aErrors[] = array('message'=>$m, 'db'=>$sDbError);
 			}
 		}
 		else {
-			$this->error[] = array('message'=>$message, 'db'=>$db_error);
+			$this->aErrors[] = array('message'=>$mMessage, 'db'=>$sDbError);
 		}
 	}
 
 	/**
 	 * Récupère les erreurs et renvoie une chane ou FALSE si aucune erreur.
 	 *
-	 * Le paramètre $html indique si l'on souhaite obtenir les erreurs
-	 * au format HTML
+	 * Le paramètre $bHtml indique si l'on souhaite obtenir les erreurs
+	 * au format HTML.
 	 *
-	 * @param	boolean	html	Au format HTML (true)
-	 * @return	string/array
+	 * @param boolean $bHtml Au format HTML (true)
+	 * @return multitype:array|string|NULL
 	 */
-	public function get($html=true)
+	public function get($bHtml=true)
 	{
-		$nb_err = count($this->error);
+		$nb_err = count($this->aErrors);
 		if ($nb_err > 0)
 		{
-			if (!$html) {
-				return $this->error;
+			if (!$bHtml) {
+				return $this->aErrors;
 			}
 			else
 			{
 				if ($nb_err > 1)
 				{
 					$res = '<ul>'.PHP_EOL;
-					foreach($this->error as $v)
+					foreach($this->aErrors as $v)
 					{
 						$res .= "\t".'<li><span class="errmsg">'.$v['message'].'</span>'.
 								($v['db'] != '' ? '<br /><span class="errsql">'.$v['db'].'</span>' : '').
@@ -114,8 +123,8 @@ class oktErrors
 					return $res;
 				}
 				else {
-					return '<p class="errmsg">'.$this->error[0]['message'].'</p>'.PHP_EOL.
-							($this->error[0]['db'] != '' ? '<p class="errsql">'.$this->error[0]['db'].'</p>'.PHP_EOL : '');
+					return '<p class="errmsg">'.$this->aErrors[0]['message'].'</p>'.PHP_EOL.
+							($this->aErrors[0]['db'] != '' ? '<p class="errsql">'.$this->aErrors[0]['db'].'</p>'.PHP_EOL : '');
 				}
 			}
 		}
@@ -124,18 +133,18 @@ class oktErrors
 		}
 	}
 
-	public function fatal($msg, $db_error='')
+	public function fatal($mMessage, $sDbError='')
 	{
-		self::fatalScreen($msg, $db_error='');
+		self::fatalScreen($mMessage, $sDbError='');
 	}
 
 	/**
-	 * Affiche une erreur fatale
+	 * Affiche une erreur fatale.
 	 *
-	 * @param $msg Le message d'erreur fatale
-	 * @param $db_error Le numero d'erreur
+	 * @param mixed $mMessage 	Le message d'erreur fatale
+	 * @param string $sDbError 	Le message d'erreur de la base de données
 	 */
-	public static function fatalScreen($msg, $db_error='')
+	public static function fatalScreen($mMessage, $sDbError='')
 	{
 	?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -158,19 +167,19 @@ class oktErrors
 		<h2>Erreur fatale ! Argh...</h2>
 		<div>
 	<?php
-		if (is_array($msg))
+		if (is_array($mMessage))
 		{
 			echo "\t\t".'<ul>';
-			foreach ($msg as $err)
+			foreach ($mMessage as $err)
 				echo "\t\t\t".'<li>'.$err.'</li>'.PHP_EOL;
 			echo "\t\t".'</ul>';
 		}
 		else {
-			echo '<p>'.$msg.'</p>';
+			echo '<p>'.$mMessage.'</p>';
 		}
 
-		if (!empty($db_error)) {
-			echo '<p><strong>Database was reported:</strong><br />'.$db_error.'</p>';
+		if (!empty($sDbError)) {
+			echo '<p><strong>Database was reported:</strong><br />'.$sDbError.'</p>';
 		}
 	?>
 		</div>

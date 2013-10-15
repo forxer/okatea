@@ -20,7 +20,7 @@ class oktDb extends oktMysqli
 	 *
 	 * @var object mysql
 	 */
-	protected static $instance;
+	protected static $oInstance;
 
 	/**
 	 * Retourne l'instance de la classe. Singleton pattern.
@@ -28,16 +28,16 @@ class oktDb extends oktMysqli
 	 */
 	public static function getInstance()
 	{
-		if (!isset(self::$instance))
+		if (!isset(self::$oInstance))
 		{
 			$oMysql = new oktDb();
 
 			$oMysql->init(OKT_DB_USER, OKT_DB_PWD, OKT_DB_HOST, OKT_DB_NAME, OKT_DB_PREFIX);
 
-			self::$instance = $oMysql;
+			self::$oInstance = $oMysql;
 		}
 
-		return self::$instance;
+		return self::$oInstance;
 	}
 
 	/**

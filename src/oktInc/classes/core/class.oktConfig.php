@@ -19,95 +19,96 @@ class oktConfig
 	 * Le chemin du fichier source
 	 * @var string
 	 */
-	protected $sourceFile;
+	protected $sSourceFile;
 
 	/**
-	 * Le TTL du fichier du cache
-	 * @var string
+	 * L'objet de mise en cache
+	 * @var object
 	 */
-	protected $cache = null;
-
-	/**
-	 * Les données
-	 * @var array
-	 */
-	protected $data;
+	protected $oCache = null;
 
 	/**
 	 * L'identifiant du cache
 	 * @var string
 	 */
-	protected $cache_id;
+	protected $sCacheId;
+
+	/**
+	 * Les données
+	 * @var array
+	 */
+	protected $aData;
+
 
 	/**
 	 * Constructeur. Charge les données.
 	 *
-	 * @param string $sourceFile
-	 * @param string $cacheFile
+	 * @param AbstractCache $oCache
+	 * @param string $sSourceFile
 	 */
-	public function __construct($cache, $sourceFile)
+	public function __construct(AbstractCache $oCache, $sSourceFile)
 	{
-		$this->cache = $cache;
+		$this->oCache = $oCache;
 
-		$this->sourceFile = $sourceFile.'.yaml';
-		$this->cache_id = basename($sourceFile);
+		$this->sSourceFile = $sSourceFile.'.yaml';
+		$this->sCacheId = basename($sSourceFile);
 
 		$this->loadData();
 	}
 
-	public function __get($name)
+	public function __get($sName)
 	{
-		return $this->getData($name);
+		return $this->getData($sName);
 	}
 
-	public function __set($name, $value)
+	public function __set($sName, $mValue)
 	{
-		$this->data[$name] = $value;
+		$this->aData[$sName] = $mValue;
 	}
 
-	public function __isset($name)
+	public function __isset($sName)
 	{
-		return isset($this->data[$name]);
+		return isset($this->aData[$sName]);
 	}
 
-	public function __unset($name)
+	public function __unset($sName)
 	{
-		unset($this->data[$name]);
+		unset($this->aData[$sName]);
 	}
 
-	public function get($name=null)
+	public function get($sName=null)
 	{
-		if ($name === null) {
-			return $this->data;
+		if ($sName === null) {
+			return $this->aData;
 		}
 
-		return $this->getData($name);
+		return $this->getData($sName);
 	}
 
-	public function getData($name)
+	public function getData($sName)
 	{
-		if (isset($this->data[$name])) {
-			return $this->data[$name];
+		if (isset($this->aData[$sName])) {
+			return $this->aData[$sName];
 		}
 
-		trigger_error('There is no config data for '.$name.' key.', E_USER_NOTICE);
+		trigger_error('There is no config data for '.$sName.' key.', E_USER_NOTICE);
 
 		return null;
 	}
 
 	private function loadData()
 	{
-		if (!$this->cache->contains($this->cache_id)) {
+		if (!$this->oCache->contains($this->sCacheId)) {
 			$this->generateCacheFile();
 		}
 
-		$this->data = $this->cache->fetch($this->cache_id);
+		$this->aData = $this->oCache->fetch($this->sCacheId);
 	}
 
 	private function loadSource()
 	{
 		try {
-			return (array)sfYaml::load($this->sourceFile);
+			return (array)sfYaml::load($this->sSourceFile);
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -123,30 +124,30 @@ class oktConfig
 
 	private function generateCacheFile()
 	{
-		return $this->cache->save($this->cache_id, $this->loadSource());
+		return $this->oCache->save($this->sCacheId, $this->loadSource());
 	}
 
-	public function write($data)
+	public function write($aData)
 	{
-		$data = array_merge($this->loadSource(), $data);
+		$aData = array_merge($this->loadSource(), $aData);
 
-		file_put_contents($this->sourceFile, sfYaml::dump($data));
+		file_put_contents($this->sSourceFile, sfYaml::dump($aData));
 
 		$this->generateCacheFile();
 	}
 
 	public function writeCurrent()
 	{
-		file_put_contents($this->sourceFile, sfYaml::dump($this->data));
+		file_put_contents($this->sSourceFile, sfYaml::dump($this->aData));
 
 		$this->generateCacheFile();
 	}
 
 	public function merge()
 	{
-		$data = array_merge($this->cache->fetch($this->cache_id), $this->loadSource());
+		$aData = array_merge($this->oCache->fetch($this->sCacheId), $this->loadSource());
 
-		file_put_contents($this->sourceFile, sfYaml::dump($data));
+		file_put_contents($this->sSourceFile, sfYaml::dump($aData));
 
 		$this->generateCacheFile();
 	}
