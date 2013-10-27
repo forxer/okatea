@@ -148,7 +148,7 @@ class oktPublicAdminBar
 
 			$aSecondaryAdminBar[1000] = array(
 				'title' => $aExecInfos['execTime'].' s - '.$aExecInfos['memUsage'],
-				'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/ico/terminal.gif" with="16" height="16" alt="" />',
+				'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'

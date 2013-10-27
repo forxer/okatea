@@ -178,7 +178,7 @@ class module_users extends oktModule
 	{
 		$aBasesUrl['logout'] = html::escapeHTML(usersHelpers::getLogoutUrl());
 
-		$aBasesUrl['profil'] = $aBasesUrl['admin'].'/module.php?m=users&action=profil&id='.$okt->user->id;
+		$aBasesUrl['profil'] = $aBasesUrl['admin'].'/module.php?m=users&amp;action=profil&amp;id='.$okt->user->id;
 	}
 
 	/**
