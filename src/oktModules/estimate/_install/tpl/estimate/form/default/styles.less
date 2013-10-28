@@ -23,7 +23,7 @@
 	input.spinner { border: none; }
 	input.spinner:focus { box-shadow: none  }
 
-	.product-line {
+	.product_wrapper {
 		.clearfix();
 		.border-radius(6px);
 		border: none;
@@ -31,26 +31,49 @@
 		margin: 0 0 2em;
 		padding: 0 .8em;
 	}
-	.product, .accessory, .quantity {
+	.product, .accessory, .quantity, .remove_accessory_wrapper {
 		float: left;
-		margin-left: 1%;
-		padding: 1px 0;
+	/*	margin-left: 1%;
+		padding: 1px 0;*/
 	}
-	.product, .accessory {
+	.product {
 		width: 73%;
 	}
-	.product select {
-		width: 90%;
-	}
-	.accessory select {
+	.product select, .accessory select {
 		width: 90%;
 	}
 	.quantity {
 		width: 23%;
 	}
-	.accessories {
+	.accessories_wrapper {
 		width: 90%;
 		padding-left: 5%;
+	}
+
+	.accessory_wrapper {
+		.clearfix();
+
+		.accessory {
+			width: 55%;
+		}
+		.quantity {
+			width: 20%;
+		}
+		.remove_accessory_wrapper {
+			width: 20%;
+			margin-top: 2.3em;
+		}
+	}
+
+	.remove_accessory_link {
+		.commonLink();
+		background: transparent url(@{theme_url}/modules/estimate/cancel.png) no-repeat 0 50%;
+		padding-left: 20px;
+	}
+	.add_accessory_link {
+		.commonLink();
+		background: transparent url(@{theme_url}/modules/estimate/add.png) no-repeat 0 50%;
+		padding-left: 20px;
 	}
 }
 

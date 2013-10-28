@@ -16,5 +16,9 @@ $GLOBALS['__l10n']['m_estimate_perm_config'] = 'Configuration';
 $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Start date';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'End date';
 $GLOBALS['__l10n']['m_estimate_form_product_%s'] = 'Product %s';
+$GLOBALS['__l10n']['m_estimate_form_choose_product'] = 'Please choose a product';
 $GLOBALS['__l10n']['m_estimate_form_quantity'] = 'Quantity';
+$GLOBALS['__l10n']['m_estimate_form_accessory_%s'] = 'Accessory %s';
+$GLOBALS['__l10n']['m_estimate_form_add_accessory'] = 'Add an accessory';
+$GLOBALS['__l10n']['m_estimate_form_remove_accessory'] = 'Remove this accessory';
 
