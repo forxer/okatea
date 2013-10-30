@@ -15,10 +15,11 @@ $GLOBALS['__l10n']['m_estimate_perm_config'] = 'Configuration du module';
 # formulaire
 $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Date de début';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'Date de fin';
+$GLOBALS['__l10n']['m_estimate_form_quantity'] = 'Quantité';
 $GLOBALS['__l10n']['m_estimate_form_product_%s'] = 'Produit %s';
 $GLOBALS['__l10n']['m_estimate_form_choose_product'] = 'Veuillez choisir un produit';
-$GLOBALS['__l10n']['m_estimate_form_quantity'] = 'Quantité';
+$GLOBALS['__l10n']['m_estimate_form_add_product'] = 'Ajouter un produit';
+$GLOBALS['__l10n']['m_estimate_form_remove_product'] = 'Retirer ce produit';
 $GLOBALS['__l10n']['m_estimate_form_accessory_%s'] = 'Accessoire %s';
 $GLOBALS['__l10n']['m_estimate_form_add_accessory'] = 'Ajouter un accessoire';
 $GLOBALS['__l10n']['m_estimate_form_remove_accessory'] = 'Retirer cet accessoire';
-

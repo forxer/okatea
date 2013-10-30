@@ -25,7 +25,7 @@ class estimateController extends oktController
 		# récupération des produits et des accessoires
 		$rsProducts = $this->okt->estimate->products->getProducts();
 
-		$aProductsSelect = array('&nbsp;' => null);
+		$aProductsSelect = array(' ' => null);
 		$aProductsAccessories = array();
 
 		while ($rsProducts->fetch())
@@ -38,9 +38,10 @@ class estimateController extends oktController
 
 			if (!$rsAccessories->isEmpty())
 			{
-				$aProductsAccessories[$rsProducts->id] = array(' ' => null);
+				$aProductsAccessories[$rsProducts->id] = array();
+				$aProductsAccessories[$rsProducts->id][0] = ' ';
 				while ($rsAccessories->fetch()) {
-					$aProductsAccessories[$rsProducts->id][html::escapeHTML($rsAccessories->title)] = $rsAccessories->id;
+					$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
 				}
 			}
 
@@ -55,7 +56,8 @@ class estimateController extends oktController
 			'phone' => '',
 			'start_date' => '',
 			'end_date' => '',
-			'products' => array()
+			'products' => array(),
+			'comment' => ''
 		);
 
 		# formulaire envoyé
@@ -68,6 +70,7 @@ class estimateController extends oktController
 				'phone' => !empty($_POST['p_phone']) ? $_POST['p_phone'] : '',
 				'start_date' => !empty($_POST['p_start_date']) ? $_POST['p_start_date'] : '',
 				'end_date' => !empty($_POST['p_end_date']) ? $_POST['p_end_date'] : '',
+				'comment' => !empty($_POST['p_comment']) ? $_POST['p_comment'] : ''
 			);
 
 			if (empty($aFormData['lastname'])) {

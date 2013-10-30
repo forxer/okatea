@@ -32,12 +32,38 @@ $okt->page->js->addReady('
 
 	$("#estimate-form").oktEstimateForm({
 		text: {
-			quantityLabel: "'.__('m_estimate_form_quantity').'",
-			accessoryLabel: "'.__('m_estimate_form_accessory_%s').'",
-			addAccessory: "'.__('m_estimate_form_add_accessory').'",
-			removeAccessory: "'.__('m_estimate_form_remove_accessory').'",
+			productTitle: "'.html::escapeJS(__('m_estimate_form_product_%s')).'",
+			addProduct: "'.html::escapeJS(__('m_estimate_form_add_product')).'",
+			removeProduct: "'.html::escapeJS(__('m_estimate_form_remove_product')).'",
+			productLabel: "'.html::escapeJS(__('m_estimate_form_choose_product')).'",
+			quantityLabel: "'.html::escapeJS(__('m_estimate_form_quantity')).'",
+			accessoryLabel: "'.html::escapeJS(__('m_estimate_form_accessory_%s')).'",
+			addAccessory: "'.html::escapeJS(__('m_estimate_form_add_accessory')).'",
+			removeAccessory: "'.html::escapeJS(__('m_estimate_form_remove_accessory')).'"
 		},
-		accessories: '.json_encode($aProductsAccessories).'
+		html: {
+			productsWrapper: "products_wrapper",
+			productWrapper: "product_wrapper",
+			productLine: "product_line",
+			productField: "p_product",
+			productQuantityField: "p_product_quantity",
+			addProductWrapper: "add_product_wrapper",
+			addProductLink: "add_product_link",
+			removeProductWrapper: "remove_product_wrapper",
+			removeProductLink: "remove_product_link",
+			accessoriesWrapper: "accessories_wrapper",
+			accessoryWrapper: "accessory_wrapper",
+			accessoryField: "p_accessory",
+			accessoryQuantityField: "p_accessory_quantity",
+			addAccessoryWrapper: "add_accessory_wrapper",
+			addAccessoryLink: "add_accessory_link",
+			removeAccessoryWrapper: "remove_accessory_wrapper",
+			removeAccessoryLink: "remove_accessory_link"
+		},
+		default_accessories_number: 2,
+		products: '.json_encode($aProductsSelect).',
+		accessories: '.json_encode($aProductsAccessories).',
+		spinner: { min: 0 }
 	});
 
 ');
@@ -93,21 +119,25 @@ if ($okt->error->notEmpty()) : ?>
 		</div>
 	</fieldset>
 
-	<fieldset>
+	<fieldset id="products_wrapper">
 		<legend>Choix des produits et des accessoires</legend>
 
 		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis. Vous pouvez ajouter des accessoires pour chacun des matériels.</p>
 
-		<?php for ($i=1; $i<=3; $i++) : ?>
+		<?php for ($i=1; $i<=2; $i++) : ?>
 
 		<fieldset id="product_wrapper_<?php echo $i ?>" class="product_wrapper">
 			<legend><?php printf(__('m_estimate_form_product_%s'), $i) ?></legend>
 
-			<p class="field product"><label for="p_product_<?php echo $i ?>"><?php _e('m_estimate_form_choose_product') ?></label>
-			<?php echo form::select(array('p_product['.$i.']', 'p_product_'.$i), $aProductsSelect, '', 'p_product') ?></p>
+			<div id="product_line_<?php echo $i ?>" class="product_line">
+				<p class="field product"><label for="p_product_<?php echo $i ?>"><?php _e('m_estimate_form_choose_product') ?></label>
+				<?php echo form::select(array('p_product['.$i.']', 'p_product_'.$i), $aProductsSelect, '', 'p_product') ?></p>
 
-			<p class="field quantity"><label for="p_product_quantity_<?php echo $i ?>"><?php _e('m_estimate_form_quantity') ?></label>
-			<?php echo form::text(array('p_product_quantity['.$i.']', 'p_product_quantity_'.$i), 10, 255, '', 'p_product_quantity spinner') ?></p>
+				<p class="field quantity"><label for="p_product_quantity_<?php echo $i ?>"><?php _e('m_estimate_form_quantity') ?></label>
+				<?php echo form::text(array('p_product_quantity['.$i.']', 'p_product_quantity_'.$i), 10, 255, '', 'p_product_quantity spinner') ?></p>
+
+				<p id="remove_product_wrapper_<?php echo $i ?>" class="remove_product_wrapper"></p>
+			</div>
 
 			<div id="accessories_wrapper_<?php echo $i ?>" class="accessories_wrapper">
 				<?php /*for ($j=1; $j<=2; $j++) : ?>
@@ -129,6 +159,9 @@ if ($okt->error->notEmpty()) : ?>
 		<?php endfor; ?>
 
 	</fieldset>
+
+	<p class="field col"><label for="p_comment">Commentaire</label>
+	<?php echo form::textarea('p_comment', 60, 8, html::escapeHTML($aFormData['comment'])) ?></p>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate-form" /></p>
 </form>
