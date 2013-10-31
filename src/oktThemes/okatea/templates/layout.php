@@ -4,7 +4,7 @@ $this->extend('main');
 # fin Okatea : ce template étend le template principal "main" ?>
 
 
-<div id="page">
+<div id="global">
 	<header>
 		<div id="head">
 			<div class="title"><a href="<?php echo util::escapeAttrHTML($okt->page->getBaseUrl()) ?>"><?php echo html::escapeHTML(util::getSiteTitle()) ?></a></div>
@@ -27,38 +27,43 @@ $this->extend('main');
 		<?php endif; # fin Okatea : affichage du switcher de langues ?>
 	</header>
 
-	<nav id="main-navigation">
-		<?php echo $okt->navigation->render('menu') ?>
-	</nav>
+	<div id="page">
 
-	<div id="navigation-helpers">
-		<?php # début Okatea : titre de la page (graphic title)
-		if ($okt->page->hasTitle()) : ?>
-		<div id="graphic-title"><?php echo html::escapeHtml($okt->page->getTitle()); ?></div>
-		<?php endif; # fin Okatea : titre de la page (graphic title) ?>
+		<nav id="main-navigation">
+			<?php echo $okt->navigation->render('menu') ?>
+		</nav>
 
-		<?php # début Okatea : affichage du fil d'ariane
-		$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-		$okt->page->breadcrumb->display('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
-		# fin Okatea : affichage du fil d'ariane ?>
-	</div><!-- #navigation-helpers -->
+		<div id="navigation-helpers">
+			<?php # début Okatea : titre de la page (graphic title)
+			if ($okt->page->hasTitle()) : ?>
+			<div id="graphic-title"><?php echo html::escapeHtml($okt->page->getTitle()); ?></div>
+			<?php endif; # fin Okatea : titre de la page (graphic title) ?>
 
-	<div id="main">
+			<?php # début Okatea : affichage du fil d'ariane
+			$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
+			$okt->page->breadcrumb->display('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
+			# fin Okatea : affichage du fil d'ariane ?>
+		</div><!-- #navigation-helpers -->
 
-		<?php # début Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO
-		if ($okt->page->hasTitleSeo()) : ?>
-		<h1><?php echo html::escapeHtml($okt->page->getTitleSeo()); ?></h1>
-		<?php elseif ($okt->page->hasTitle()) : ?>
-		<h1><?php echo html::escapeHtml($okt->page->getTitle()); ?></h1>
-		<?php endif; # fin Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO ?>
+		<div id="main">
 
-		<?php # début Okatea : affichage du contenu de la page
-		echo $this->get('content');
-		# fin Okatea : affichage du contenu de la page ?>
+			<?php # début Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO
+			if ($okt->page->hasTitleSeo()) : ?>
+			<h1><?php echo html::escapeHtml($okt->page->getTitleSeo()); ?></h1>
+			<?php elseif ($okt->page->hasTitle()) : ?>
+			<h1><?php echo html::escapeHtml($okt->page->getTitle()); ?></h1>
+			<?php endif; # fin Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO ?>
 
-	</div><!-- #main -->
+			<?php # début Okatea : affichage du contenu de la page
+			echo $this->get('content');
+			# fin Okatea : affichage du contenu de la page ?>
+
+		</div><!-- #main -->
+	</div><!-- #page -->
 
 	<footer>
-		<p><?php _e('Proudly propulsed by Okatea') ?></p>
+		<div id="bottom">
+			<p id="bottom-line"><?php _e('Proudly propulsed by Okatea') ?></p>
+		</div>
 	</footer>
-</div><!-- #page -->
+</div><!-- #global -->
