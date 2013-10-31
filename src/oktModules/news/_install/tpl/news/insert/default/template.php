@@ -16,6 +16,8 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
+<div id="news-insert">
+
 <?php # début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
 if ($rsInsertPosts->isEmpty()) : ?>
 
@@ -27,7 +29,7 @@ if ($rsInsertPosts->isEmpty()) : ?>
 <?php # début Okatea : si il y a des actualités on affiche la liste
 if (!$rsInsertPosts->isEmpty()) : ?>
 
-<div id="news_list_insert">
+<div id="news-list-insert">
 
 	<?php # début Okatea : boucle sur la liste des actualités
 	while ($rsInsertPosts->fetch()) : ?>
@@ -97,6 +99,8 @@ if (!$rsInsertPosts->isEmpty()) : ?>
 
 	<?php endwhile; # début Okatea : boucle sur la liste des actualités ?>
 
-</div><!-- #newsInsert -->
+</div><!-- #news-list-insert -->
 
 <?php endif; # fin Okatea : si il y a des actualités on affiche la liste ?>
+
+</div><!-- #news-insert -->
