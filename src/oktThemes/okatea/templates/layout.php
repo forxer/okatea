@@ -47,18 +47,53 @@ $this->extend('main');
 
 		<div id="main">
 
-			<?php # début Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO
-			if ($okt->page->hasTitleSeo()) : ?>
-			<h1><?php echo html::escapeHtml($okt->page->getTitleSeo()); ?></h1>
-			<?php elseif ($okt->page->hasTitle()) : ?>
-			<h1><?php echo html::escapeHtml($okt->page->getTitle()); ?></h1>
-			<?php endif; # fin Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO ?>
+			<div id="content">
+				<?php # début Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO
+				if ($okt->page->hasTitleSeo()) : ?>
+				<h1><?php echo html::escapeHtml($okt->page->getTitleSeo()); ?></h1>
+				<?php elseif ($okt->page->hasTitle()) : ?>
+				<h1><?php echo html::escapeHtml($okt->page->getTitle()); ?></h1>
+				<?php endif; # fin Okatea : titre SEO de la page (h1) ou titre si pas de titre SEO ?>
 
-			<?php # début Okatea : affichage du contenu de la page
-			echo $this->get('content');
-			# fin Okatea : affichage du contenu de la page ?>
+				<?php # début Okatea : affichage du contenu de la page
+				echo $this->get('content');
+				# fin Okatea : affichage du contenu de la page ?>
+			</div><!-- #content -->
+
+			<div id="sidebar">
+
+				<div id="download-insert">
+					<h2><?php _e('Download') ?></h2>
+
+					<div class="version">
+						<a href="http://repository.okatea.org/packages/okatea_1.0.BETA.2.zip">
+							<h3><?php _e('Stable') ?></h3>
+							<p><strong>1.0</strong></p>
+						</a>
+					</div>
+
+					<div class="version">
+						<a href="http://repository.okatea.org/packages/okatea_1.0.BETA.2.zip">
+							<h3><?php _e('Dev') ?></h3>
+							<p>1.0.beta.2</p>
+						</a>
+					</div>
+
+					<p class="github"><a href="https://github.com/okateadotorg/okatea"><?php _e('View sources on GitHub') ?></a></p>
+				</div>
+
+				<?php # début Okatea : si le module news est présent, affichage de l'encart
+				if ($okt->modules->moduleExists('news')) : ?>
+				<div id="latest-news">
+					<h2><?php _e('Latest news') ?></h2>
+					<?php echo $this->render($okt->news->getInsertTplPath()); ?>
+				</div
+				<?php endif; # fin Okatea : si le module news est présent, affichage de l'encart ?>
+
+			</div><!-- #sidebar -->
 
 		</div><!-- #main -->
+
 	</div><!-- #page -->
 
 	<footer>
