@@ -28,7 +28,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 	<ul class="checklist">
 	<?php foreach ($aCleanableFiles as $fileId=>$fileName) : ?>
-		<li><label for="<?php echo $fileId ?>"><?php echo form::checkbox(array('cleanup[]'),$fileId)?> <?php echo $fileName ?></label></li>
+		<li><label for="cleanup_file_<?php echo $fileId ?>"><?php echo form::checkbox(array('cleanup[]', 'cleanup_file_'.$fileId), $fileId) ?> <?php echo $fileName ?></label></li>
 	<?php endforeach; ?>
 	</ul>
 
