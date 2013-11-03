@@ -19,6 +19,9 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 {
 	try
 	{
+		# Chargement des locales
+		l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
+
 		$okt->news->deletePost($_GET['post_id']);
 
 		# log admin
@@ -28,7 +31,9 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 			'message' => 'post #'.$_GET['post_id']
 		));
 
-		$okt->redirect('module.php?m=news&action=index&deleted=1');
+		$okt->page->flashMessages->addSuccess(__('m_news_list_post_deleted'));
+
+		$okt->redirect('module.php?m=news&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

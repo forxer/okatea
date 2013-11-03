@@ -100,7 +100,9 @@ if (!empty($_GET['select']))
 		'message' => 'post #'.$_GET['select']
 	));
 
-	$okt->redirect('module.php?m=news&action=index&selected=1');
+	$okt->page->flashMessages->addSuccess(__('m_news_list_post_selected'));
+
+	$okt->redirect('module.php?m=news&action=index');
 }
 
 # Déselectionne un article
@@ -115,7 +117,9 @@ if (!empty($_GET['deselect']))
 		'message' => 'post #'.$_GET['deselect']
 	));
 
-	$okt->redirect('module.php?m=news&action=index&deselected=1');
+	$okt->page->flashMessages->addSuccess(__('m_news_list_post_deselected'));
+
+	$okt->redirect('module.php?m=news&action=index');
 }
 
 # Publication d'un article
@@ -130,7 +134,9 @@ if (!empty($_GET['publish']))
 		'message' => 'post #'.$_GET['publish']
 	));
 
-	$okt->redirect('module.php?m=news&action=index&published=1');
+	$okt->page->flashMessages->addSuccess(__('m_news_list_post_published'));
+
+	$okt->redirect('module.php?m=news&action=index');
 }
 
 # Traitements par lots
@@ -186,7 +192,9 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&publisheds=1');
+			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_published'));
+
+			$okt->redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'selected')
 		{
@@ -202,13 +210,15 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&selecteds=1');
+			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_selected'));
+
+			$okt->redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'unselected')
 		{
 			foreach ($aPostsId as $iPostId)
 			{
-				$okt->news->setPostSelected($iPostId,0);
+				$okt->news->setPostSelected($iPostId, 0);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -218,7 +228,9 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&unselecteds=1');
+			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deselected'));
+
+			$okt->redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'delete' && $okt->checkPerm('news_delete'))
 		{
@@ -234,7 +246,9 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&deleteds=1');
+			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deleted'));
+
+			$okt->redirect('module.php?m=news&action=index');
 		}
 	}
 	catch (Exception $e) {
@@ -380,18 +394,6 @@ elseif ($okt->news->config->admin_filters_style == 'dialog')
 
 # Checkboxes helper
 $okt->page->checkboxHelper('posts-list','checkboxHelper');
-
-
-# Messages de confirmation
-$okt->page->messages->success('published', __('m_news_list_post_published'));
-$okt->page->messages->success('selected', __('m_news_list_post_selected'));
-$okt->page->messages->success('deselected', __('m_news_list_post_deselected'));
-$okt->page->messages->success('deleted', __('m_news_list_post_deleted'));
-
-$okt->page->messages->success('publisheds', __('m_news_list_posts_published'));
-$okt->page->messages->success('selecteds', __('m_news_list_posts_selected'));
-$okt->page->messages->success('unselecteds', __('m_news_list_posts_deselected'));
-$okt->page->messages->success('deleteds', __('m_news_list_posts_deleted'));
 
 
 # Un peu de CSS

@@ -231,7 +231,9 @@ if (!empty($_POST['sended']))
 					'message' => 'category #'.$iCategoryId
 				));
 
-				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&updated=1');
+				$okt->page->flashMessages->addSuccess(__('m_news_cat_updated'));
+
+				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -259,7 +261,9 @@ if (!empty($_POST['sended']))
 					'message' => 'category #'.$iCategoryId
 				));
 
-				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&added=1');
+				$okt->page->flashMessages->addSuccess(__('m_news_cat_added'));
+
+				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -425,10 +429,6 @@ if ($iCategoryId)
 		$("#sortable").css("cursor", "move");
 	');
 }
-
-# Confirmations
-$okt->page->messages->success('added',__('m_news_cat_added'));
-$okt->page->messages->success('updated',__('m_news_cat_updated'));
 
 
 # En-tête
