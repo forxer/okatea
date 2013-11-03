@@ -62,7 +62,9 @@ if (!empty($_GET['delete']))
 			'message' => 'category #'.$_GET['delete']
 		));
 
-		$okt->redirect('module.php?m=pages&action=categories&deleted=1');
+		$okt->page->flashMessages->addSuccess(__('m_pages_cat_deleted'));
+
+		$okt->redirect('module.php?m=pages&action=categories');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -75,10 +77,6 @@ if (!empty($_GET['delete']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_pages_cats_categories'),'module.php?m=pages&action=categories');
-
-
-# Confirmations
-$okt->page->messages->success('deleted',__('m_pages_cat_deleted'));
 
 # button set
 $okt->page->setButtonset('pagesCatsBtSt',array(

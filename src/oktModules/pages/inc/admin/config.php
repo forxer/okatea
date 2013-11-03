@@ -57,14 +57,20 @@ $oTemplatesFeed = new oktTemplatesSet($okt,
 if (!empty($_GET['minregen']))
 {
 	$okt->pages->regenMinImages();
-	$okt->redirect('module.php?m=pages&action=config&minregenerated=1');
+
+	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
+
+	$okt->redirect('module.php?m=pages&action=config');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->pages->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=pages&action=config&watermarkdeleted=1');
+
+	$okt->page->flashMessages->addSuccess(__('c_c_confirm_watermark_deleted'));
+
+	$okt->redirect('module.php?m=pages&action=config');
 }
 
 # enregistrement configuration
@@ -170,7 +176,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->pages->config->write($new_conf);
-			$okt->redirect('module.php?m=pages&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=pages&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -191,11 +200,6 @@ if ($okt->pages->moduleUsersExists()) {
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_configuration'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('minregenerated',__('c_c_confirm_thumb_regenerated'));
-$okt->page->messages->success('watermarkdeleted',__('c_c_confirm_watermark_deleted'));
 
 # Lockable
 $okt->page->lockable();

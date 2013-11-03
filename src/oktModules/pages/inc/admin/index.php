@@ -245,9 +245,6 @@ elseif ($okt->pages->config->admin_filters_style == 'dialog')
 # Checkboxes helper
 $okt->page->checkboxHelper('pages-list','checkboxHelper');
 
-# Messages de confirmation
-$okt->page->messages->success('deleted',__('m_pages_list_page_deleted'));
-
 # Un peu de CSS
 $okt->page->css->addCss('
 .ui-autocomplete {

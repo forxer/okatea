@@ -163,7 +163,9 @@ if (!empty($_GET['delete_image']) && !empty($aPageData['post']['id']))
 		'message' => 'page #'.$aPageData['post']['id']
 	));
 
-	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&updated=1');
+	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+
+	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
 
 # suppression d'un fichier
@@ -178,7 +180,9 @@ if (!empty($_GET['delete_file']) && !empty($aPageData['post']['id']))
 		'message' => 'page #'.$aPageData['post']['id']
 	));
 
-	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&updated=1');
+	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+
+	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
 
 #  ajout / modifications d'une page
@@ -238,7 +242,9 @@ if (!empty($_POST['sended']))
 					'message' => 'page #'.$aPageData['post']['id']
 				));
 
-				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&updated=1');
+				$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+
+				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -265,7 +271,9 @@ if (!empty($_POST['sended']))
 					'message' => 'page #'.$aPageData['post']['id']
 				));
 
-				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&added=1');
+				$okt->page->flashMessages->addSuccess(__('m_pages_page_added'));
+
+				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -335,9 +343,6 @@ if (!empty($aPageData['post']['id']))
 		'url' 			=> $sPageUrl,
 		'ui-icon' 		=> 'extlink'
 	));
-
-	$okt->page->messages->success('added',__('m_pages_page_added'));
-	$okt->page->messages->success('updated',__('m_pages_page_updated'));
 }
 
 # boutons add page

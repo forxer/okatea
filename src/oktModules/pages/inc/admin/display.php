@@ -61,7 +61,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->pages->config->write($new_conf);
-			$okt->redirect('module.php?m=pages&action=display&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=pages&action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -95,9 +98,6 @@ $okt->page->tabs();
 
 # LightBox Like
 $okt->page->applyLbl($okt->pages->config->lightbox_type);
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête
