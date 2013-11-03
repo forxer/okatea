@@ -27,6 +27,9 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->partners->config->write($new_conf);
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
 			$okt->redirect('module.php?m=partners&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
@@ -49,9 +52,6 @@ $okt->page->tabs();
 
 # Modal
 $okt->page->applyLbl($okt->partners->config->lightbox_type);
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

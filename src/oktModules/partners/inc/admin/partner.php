@@ -125,13 +125,20 @@ if (!empty($_POST['sended']))
 		$params['id'] = $partner_id;
 
 		$okt->partners->updPartner($params);
-		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&updated=1');
+
+		$okt->page->flashMessages->addSuccess(__('m_partners_updated'));
+
+		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
 	}
+
 	# add partner
 	else
 	{
 		$partner_id = $okt->partners->addPartner($params);
-		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&added=1');
+
+		$okt->page->flashMessages->addSuccess(__('m_partners_added'));
+
+		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
 	}
 }
 
@@ -187,7 +194,8 @@ $okt->page->addButton('partnersBtSt',array(
 if (empty($partner_id)) {
 	$okt->page->addGlobalTitle(__('m_partners_add_partner'));
 }
-else {
+else
+{
 	$okt->page->addGlobalTitle(__('m_partners_edit_partner'));
 
 	# Buttons
@@ -221,11 +229,6 @@ $okt->page->applyRte($okt->partners->config->enable_rte,'textarea.richTextEditor
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
-
-
-# Confirmation
-$okt->page->messages->success('added', __('m_partners_added'));
-$okt->page->messages->success('updated',__('m_partners_updated'));
 
 
 # En-tête

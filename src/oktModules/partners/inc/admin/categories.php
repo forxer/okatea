@@ -12,7 +12,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 $categories_list = $okt->partners->getCategories(array('active'=>2, 'language' => $okt->user->language,'with_count'=>true));
 
 $aCategories = array();
-while($categories_list->fetch())
+while ($categories_list->fetch())
 {
 	$id = $categories_list->id;
 	$aCategories[$id]['active'] = $categories_list->active;
@@ -102,15 +102,18 @@ if (!empty($_GET['switch_status']))
 	}
 }
 
-# suppression d’une catégorie
+# suppression d'une catégorie
 if (!empty($_GET['delete']))
 {
-	if ($okt->partners->delCategory(intval($_GET['delete']))) {
-		$okt->redirect('module.php?m=partners&action=categories&deleted=1');
+	if ($okt->partners->delCategory(intval($_GET['delete'])))
+	{
+		$okt->page->flashMessages->addSuccess(__('m_partners_category_deleted'));
+
+		$okt->redirect('module.php?m=partners&action=categories');
 	}
 }
 
-# ajout d’une catégorie
+# ajout d'une catégorie
 if (!empty($_POST['add_category']))
 {
 	$add_category_name = !empty($_POST['add_category_name']) ? $_POST['add_category_name'] : '';
@@ -122,8 +125,11 @@ if (!empty($_POST['add_category']))
 
 	if ($okt->error->isEmpty())
 	{
-		if (($neo_id = $okt->partners->addCategory(1,$add_category_name,$add_category_parent)) !== false) {
-			$okt->redirect('module.php?m=partners&action=categories&added=1');
+		if (($neo_id = $okt->partners->addCategory(1,$add_category_name,$add_category_parent)) !== false)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_partners_category_added'));
+
+			$okt->redirect('module.php?m=partners&action=categories');
 		}
 		else {
 			$okt->error->set(__('Impossible d’ajouter la catégorie.'));
@@ -131,7 +137,7 @@ if (!empty($_POST['add_category']))
 	}
 }
 
-# modification d’une catégorie
+# modification d'une catégorie
 if (!empty($_POST['edit_category']) && $category_id)
 {
 	$edit_category_active = !empty($_POST['edit_category_active']) ? 1 : 0;
@@ -145,8 +151,11 @@ if (!empty($_POST['edit_category']) && $category_id)
 	if ($okt->error->isEmpty())
 	{
 
-		if ($okt->partners->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_parent) !== false) {
-			$okt->redirect('module.php?m=partners&action=categories&updated=1');
+		if ($okt->partners->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_parent) !== false)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_partners_category_edited'));
+
+			$okt->redirect('module.php?m=partners&action=categories');
 		}
 		else {
 			$okt->error->set('Impossible de mettre à jour la catégorie.');
@@ -154,7 +163,7 @@ if (!empty($_POST['edit_category']) && $category_id)
 	}
 }
 
-# changement de l’ordre des categories voisines
+# changement de l'ordre des categories voisines
 $order = array();
 if (empty($_POST['categories_order']) && !empty($_POST['order']))
 {
@@ -180,7 +189,9 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 	$okt->partners->rebuildTree();
 
-	$okt->redirect('module.php?m=partners&action=categories&category_id='.$category_id.'&neworder=1');
+	$okt->page->flashMessages->addSuccess(__('m_partners_category_order_edited'));
+
+	$okt->redirect('module.php?m=partners&action=categories&category_id='.$category_id);
 }
 
 
@@ -300,11 +311,6 @@ $okt->page->css->addCSS('
 	}
 ');
 
-# Confirmationss
-$okt->page->messages->success('added',__('m_partners_category_added'));
-$okt->page->messages->success('updated',__('m_partners_category_edited'));
-$okt->page->messages->success('neworder',__('m_partners_category_order_edited'));
-$okt->page->messages->success('deleted',__('m_partners_category_deleted'));
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

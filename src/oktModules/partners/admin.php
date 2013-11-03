@@ -16,11 +16,14 @@ if (!$okt->checkPerm('partners')) {
 }
 
 
-# suppression d’un partenaire
+# suppression d'un partenaire
 if ($okt->page->action === 'delete' && !empty($_GET['partner_id']) && $okt->checkPerm('partners_remove'))
 {
-	if ($okt->partners->deletePartner($_GET['partner_id'])) {
-		$okt->redirect('module.php?m=partners&action=index&deleted=1');
+	if ($okt->partners->deletePartner($_GET['partner_id']))
+	{
+		$okt->page->flashMessages->addSuccess(__('m_partners_deleted'));
+
+		$okt->redirect('module.php?m=partners&action=index');
 	}
 	else {
 		$okt->page->action = 'index';

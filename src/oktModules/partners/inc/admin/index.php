@@ -97,10 +97,6 @@ $okt->page->js->addReady("
 ");
 
 
-# Confirmation
-$okt->page->messages->success('deleted',__('m_partners_deleted'));
-
-
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 

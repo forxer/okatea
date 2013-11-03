@@ -26,14 +26,20 @@ $oImageUploadConfig->setWithWatermark(false);
 if (!empty($_GET['minregen']))
 {
 	$okt->partners->regenMinLogos();
-	$okt->redirect('module.php?m=partners&action=config&minregenerated=1');
+
+	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
+
+	$okt->redirect('module.php?m=partners&action=config');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->partners->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=partners&action=config&watermarkdeleted=1');
+
+	$okt->news->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
+
+	$okt->redirect('module.php?m=partners&action=config');
 }
 
 # formulaire envoyé
@@ -89,7 +95,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->partners->config->write($new_conf);
-			$okt->redirect('module.php?m=partners&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=partners&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -116,10 +125,6 @@ $okt->page->tabs();
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('minregenerated',__('c_c_confirm_thumb_regenerated'));
 
 
 $field_choice = util::getStatusFieldChoices();
