@@ -52,7 +52,9 @@ if (!empty($_REQUEST['delete_cookies']))
 		setcookie($c,null);
 	}
 
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id.'&cookies_deleted=1');
+	$okt->page->flashMessages->addSuccess(__('m_users_cookies_has_been_deleted'));
+
+	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 # Formulaire de changement de mot de passe
@@ -66,7 +68,10 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password'))
 	$upd_params['password_confirm'] = !empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 
 	$okt->users->changeUserPassword($upd_params);
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id.'&edited=1');
+
+	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
+
+	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 # Formulaire de modification de l'utilisateur envoyé
@@ -92,7 +97,10 @@ if (!empty($_POST['form_sent']))
 	);
 
 	$okt->users->updUser($upd_params);
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id.'&edited=1');
+
+	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
+
+	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 
@@ -138,11 +146,8 @@ $okt->page->validate('edit-user-form',array(
 	)
 ));
 
-
-$okt->page->messages->success('edited',__('m_users_profile_edited'));
-$okt->page->messages->success('cookies_deleted',__('m_users_cookies_has_been_deleted'));
-
 $iNumCookies = count($_COOKIE);
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

@@ -107,7 +107,9 @@ if (!empty($_GET['delete']) && $okt->checkPerm('users_delete'))
 		# -- CORE TRIGGER : adminModUsersDeleteProcess
 		$okt->triggers->callTrigger('adminModUsersDeleteProcess', $okt, $_GET['delete']);
 
-		$okt->redirect('module.php?m=users&action=index&deleted=1');
+		$okt->page->flashMessages->addSuccess(__('m_users_user_deleted'));
+
+		$okt->redirect('module.php?m=users&action=index');
 	}
 }
 
@@ -219,16 +221,13 @@ elseif ($okt->users->config->admin_filters_style == 'dialog')
 # nombre d'utilisateur en attente de validation
 $num_waiting_validation = $okt->users->getUsers(array('group_id'=>oktAuth::unverified_group_id), true);
 
-
-# Confirmations
-$okt->page->messages->success('deleted',__('m_users_user_deleted'));
-
 if ($num_waiting_validation == 1) {
-	$okt->page->warnings->set(__('m_users_one_user_in_wait_of_validation'));
+	$okt->page->flashMessages->addWarning(__('m_users_one_user_in_wait_of_validation'));
 }
 elseif ($num_waiting_validation > 1) {
-	$okt->page->warnings->set(sprintf(__('$num_waiting_validation'), $num_waiting_validation));
+	$okt->page->flashMessages->addWarning(sprintf(__('m_users_%s_users_in_wait_of_validation'), $num_waiting_validation));
 }
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

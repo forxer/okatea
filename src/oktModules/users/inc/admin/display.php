@@ -31,7 +31,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->users->config->write($new_conf);
-			$okt->redirect('module.php?m=users&action=display&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=users&action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -50,9 +53,6 @@ $okt->page->addGlobalTitle(__('c_a_menu_display'));
 
 # Tabs
 $okt->page->tabs();
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

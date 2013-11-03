@@ -149,7 +149,10 @@ if (!empty($_POST['form_sent']))
 			$okt->triggers->callTrigger('adminModUsersConfigProcess', $okt);
 
 			$okt->users->config->write($new_conf);
-			http::redirect('module.php?m=users&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=users&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -222,10 +225,6 @@ $okt->page->js->addReady('
 	handleValidateOptionStatus();
 	$("#p_validate_users_registration").change(function(){handleValidateOptionStatus();});
 ');
-
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # Construction des onglets

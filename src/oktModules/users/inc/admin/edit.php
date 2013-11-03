@@ -129,7 +129,9 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 
 		$oMail->send();
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId'].'&validated=1');
+		$okt->page->flashMessages->addSuccess(__('m_users_validated_user'));
+
+		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 
@@ -161,7 +163,9 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 			$oMail->send();
 		}
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId'].'&edited=1');
+		$okt->page->flashMessages->addSuccess(__('m_users_user_edited'));
+
+		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 
@@ -222,7 +226,9 @@ if (!empty($_POST['form_sent']) && !isset($_POST['do']) && $okt->checkPerm('user
 			}
 		}
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId'].'&edited=1');
+		$okt->page->flashMessages->addSuccess(__('m_users_user_edited'));
+
+		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 
@@ -319,10 +325,6 @@ $okt->page->validate('edit-user-form', $aJsValidateRules);
 # Tabs
 $okt->page->tabs();
 
-# Confirmationss
-$okt->page->messages->success('added',__('m_users_user_added'));
-$okt->page->messages->success('edited',__('m_users_user_edited'));
-$okt->page->messages->success('validated',__('m_users_validated_user'));
 
 if ($aEditPageInfos['bWaitingValidation']) {
 	$okt->page->warnings->set(__('m_users_user_in_wait_of_validation'));

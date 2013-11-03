@@ -52,6 +52,7 @@ $GLOBALS['__l10n']['m_users_group_list'] = 'Liste des groupes';
 $GLOBALS['__l10n']['m_users_edit_group'] = 'Modifier un groupe';
 $GLOBALS['__l10n']['m_users_add_group'] = 'Ajouter un groupe';
 $GLOBALS['__l10n']['m_users_confirm_group_deletion'] = 'Etes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible.';
+$GLOBALS['__l10n']['m_users_cannot_remove_group'] = 'Vous ne pouvez pas supprimer ce groupe.';
 
 # Custom fields
 $GLOBALS['__l10n']['m_users_Custom_fields'] = 'Champs personnalisés';

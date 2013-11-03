@@ -52,6 +52,7 @@ $GLOBALS['__l10n']['m_users_group_list'] = 'List of groups';
 $GLOBALS['__l10n']['m_users_edit_group'] = 'Edit a group';
 $GLOBALS['__l10n']['m_users_add_group'] = 'Add a group';
 $GLOBALS['__l10n']['m_users_confirm_group_deletion'] = 'Are you sure you want to delete this group? This action is irreversible.';
+$GLOBALS['__l10n']['m_users_cannot_remove_group'] = 'You can not delete this group.';
 
 # Custom fields
 $GLOBALS['__l10n']['m_users_Custom_fields'] = 'Custom fields';

@@ -34,9 +34,13 @@ if (!empty($_POST['add_group']))
 		$okt->error->set(__('m_users_must_enter_group_title'));
 	}
 
-	if ($okt->error->isEmpty()) {
+	if ($okt->error->isEmpty())
+	{
 		$okt->users->addGroup($add_title);
-		$okt->redirect('module.php?m=users&action=groups&added=1');
+
+		$okt->page->flashMessages->addSuccess(__('m_users_group_added'));
+
+		$okt->redirect('module.php?m=users&action=groups');
 	}
 }
 
@@ -49,21 +53,29 @@ if (!empty($_POST['edit_group']))
 		$okt->error->set(__('m_users_must_enter_group_title'));
 	}
 
-	if ($okt->error->isEmpty()) {
+	if ($okt->error->isEmpty())
+	{
 		$okt->users->updGroup($group_id, $edit_title);
-		$okt->redirect('module.php?m=users&action=groups&edited=1');
+
+		$okt->page->flashMessages->addSuccess(__('m_users_group_edited'));
+
+		$okt->redirect('module.php?m=users&action=groups');
 	}
 }
 
-# suppression d’un groupe
+# suppression d'un groupe
 if ($group_id && $do == 'delete')
 {
 	if (in_array($group_id, array(oktAuth::superadmin_group_id,oktAuth::admin_group_id,oktAuth::guest_group_id,oktAuth::member_group_id))) {
-		$okt->error->set('Vous ne pouvez pas supprimer ce groupe.');
+		$okt->error->set(__('m_users_cannot_remove_group'));
 	}
-	else {
+	else
+	{
 		$okt->users->deleteGroup($group_id);
-		$okt->redirect('module.php?m=users&action=groups&deleted=1');
+
+		$okt->page->flashMessages->addSuccess(__('m_users_group_deleted'));
+
+		$okt->redirect('module.php?m=users&action=groups');
 	}
 }
 
@@ -80,10 +92,6 @@ $okt->page->addGlobalTitle('Groupes');
 # Tabs
 $okt->page->tabs();
 
-# Confirmations
-$okt->page->messages->success('added',__('m_users_group_added'));
-$okt->page->messages->success('edited',__('m_users_group_edited'));
-$okt->page->messages->success('deleted',__('m_users_group_deleted'));
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

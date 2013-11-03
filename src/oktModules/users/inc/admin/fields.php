@@ -19,8 +19,11 @@ if (!defined('ON_USERS_MODULE')) die;
 # suppression d'un champ
 if (!empty($_GET['delete']))
 {
-	if ($okt->users->fields->delField($_GET['delete'])) {
-		$okt->redirect('module.php?m=users&action=fields&deleted=1');
+	if ($okt->users->fields->delField($_GET['delete']))
+	{
+		$okt->page->flashMessages->addSuccess(__('m_users_fields_deleted'));
+
+		$okt->redirect('module.php?m=users&action=fields');
 	}
 }
 
@@ -48,7 +51,9 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->users->fields->updFieldOrder($id, $ord);
 	}
 
-	$okt->redirect('module.php?m=users&action=fields&neworder=1');
+	$okt->page->flashMessages->addSuccess(__('m_users_neworder'));
+
+	$okt->redirect('module.php?m=users&action=fields');
 }
 
 
@@ -57,11 +62,6 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_users_Custom_fields'));
-
-# Confirmations
-$okt->page->messages->success('neworder', __('m_users_neworder'));
-$okt->page->messages->success('deleted', __('m_users_fields_deleted'));
-
 
 # button set
 $okt->page->setButtonset('fieldsBtSt',array(
