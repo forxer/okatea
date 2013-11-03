@@ -25,10 +25,6 @@ if (!empty($_POST['form_sent']))
 		}
 	}
 
-//	if (empty($p_recipients_to)) {
-//		$okt->error->set(__('m_contact_at_least_one_recipient'));
-//	}
-
 	foreach ($p_recipients_cc as $mail)
 	{
 		if (!text::isEmail($mail)) {
@@ -53,7 +49,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->contact->config->write($new_conf);
-			$okt->redirect('module.php?m=contact&action=index&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=contact&action=index');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -69,9 +68,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_contact_recipients'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 $aRecipientsTo = !empty($okt->contact->config->recipients_to) ? (array)$okt->contact->config->recipients_to : array();

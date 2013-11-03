@@ -94,7 +94,7 @@ if (!empty($_POST['form_sent']))
 
 		if ($okt->contact->setFieldValue($field_id,$value) !== false)
 		{
-			$okt->redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id.'&edited=1');
+			$okt->redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id);
 		}
 	}
 	# description champ
@@ -170,6 +170,7 @@ $aTypes = module_contact::getFieldsTypes();
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#form','.lang-switcher-buttons');
 }
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

@@ -55,7 +55,9 @@ if (!empty($_POST['manage_questions']))
 		}
 	}
 
-	$okt->redirect('module.php?m=accessible_captcha&action=index&edited=1');
+	$okt->page->flashMessages->addSuccess(__('Configuration captcha edited.'));
+
+	$okt->redirect('module.php?m=accessible_captcha&action=index');
 }
 
 # Configuration envoyée
@@ -71,7 +73,10 @@ if (!empty($_POST['config_send']))
 		try
 		{
 			$okt->accessible_captcha->config->write($new_conf);
-			$okt->redirect('module.php?m=accessible_captcha&action=index&edited=1');
+
+			$okt->page->flashMessages->addSuccess(__('Configuration captcha edited.'));
+
+			$okt->redirect('module.php?m=accessible_captcha&action=index');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -92,8 +97,6 @@ $rsQuestions = $okt->accessible_captcha->get();
 # Titre de la page
 $okt->page->addGlobalTitle('Accessible Captcha');
 
-# Confirmations
-$okt->page->messages->success('edited',__('Configuration captcha edited.'));
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

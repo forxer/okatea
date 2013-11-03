@@ -19,8 +19,11 @@ if (!defined('ON_CONTACT_MODULE')) die;
 # suppression d'un champ
 if (!empty($_GET['delete']))
 {
-	if ($okt->contact->delField($_GET['delete'])) {
-		$okt->redirect('module.php?m=contact&action=fields&deleted=1');
+	if ($okt->contact->delField($_GET['delete']))
+	{
+		$okt->page->flashMessages->addSuccess(__('m_contact_fields_deleted'));
+
+		$okt->redirect('module.php?m=contact&action=fields');
 	}
 }
 
@@ -48,7 +51,9 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->contact->updFieldOrder($id,$ord);
 	}
 
-	$okt->redirect('module.php?m=contact&action=fields&neworder=1');
+	$okt->page->flashMessages->addSuccess(__('m_contact_neworder'));
+
+	$okt->redirect('module.php?m=contact&action=fields');
 }
 
 
@@ -57,11 +62,6 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_contact_fields'));
-
-# Confirmations
-$okt->page->messages->success('neworder',__('m_contact_neworder'));
-$okt->page->messages->success('deleted',__('m_contact_fields_deleted'));
-
 
 # button set
 $okt->page->setButtonset('fieldsBtSt',array(
@@ -104,6 +104,7 @@ $okt->page->js->addReady("
 		$('#fields_order').val(result);
 	});
 ");
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

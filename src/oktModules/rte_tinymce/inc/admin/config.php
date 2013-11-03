@@ -29,7 +29,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->rte_tinymce->config->write($new_conf);
-			$okt->redirect('module.php?m=rte_tinymce&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=rte_tinymce&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -45,9 +48,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle('Configuration TinyMCE');
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 # Liste de fichiers CSS éventuellement utilisables
 $aUsableCSS = array(

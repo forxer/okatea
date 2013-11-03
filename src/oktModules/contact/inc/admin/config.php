@@ -120,7 +120,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->contact->config->write($new_conf);
-			$okt->redirect('module.php?m=contact&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=contact&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -156,9 +159,6 @@ $okt->page->js->addReady('
 		$(".jPicker.Container").css({"top":"300px"});
 	});
 ');
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête
