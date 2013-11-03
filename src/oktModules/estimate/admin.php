@@ -52,6 +52,9 @@ elseif ($okt->page->action === 'product' && $okt->checkPerm('estimate_products')
 elseif ($okt->page->action === 'accessories' && $okt->checkPerm('estimate_accessories')) {
 	require __DIR__.'/inc/admin/accessories.php';
 }
+elseif ($okt->page->action === 'accessory' && $okt->checkPerm('estimate_accessories')) {
+	require __DIR__.'/inc/admin/accessory.php';
+}
 elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }

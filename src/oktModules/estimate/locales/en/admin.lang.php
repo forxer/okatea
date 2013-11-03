@@ -5,7 +5,8 @@ $GLOBALS['__l10n']['m_estimate_main_title'] = 'Estimates';
 # menu
 $GLOBALS['__l10n']['m_estimate_menu_Estimates'] = 'Estimates';
 $GLOBALS['__l10n']['m_estimate_menu_Estimates_list'] = 'Estimates list';
-$GLOBALS['__l10n']['m_estimate_menu_Products_and_accessories'] = 'Products and accessories';
+$GLOBALS['__l10n']['m_estimate_menu_Products'] = 'Products';
+$GLOBALS['__l10n']['m_estimate_menu_Accessories'] = 'Accessories';
 
 # module users exists
 $GLOBALS['__l10n']['m_estimate_mod_users_exist'] = 'The users module must be installed.';

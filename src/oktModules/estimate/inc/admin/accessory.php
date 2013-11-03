@@ -11,6 +11,7 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 
 # chargement des locales
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.products');
 
 
 /* Initialisations
@@ -18,6 +19,30 @@ l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
 
 $iAccessoryId = null;
 $iProductId = !empty($_REQUEST['product_id']) ? intval($_REQUEST['product_id']) : null;
+
+$sBackUrl = 'module.php?m=estimate&amp;action=accessories';
+$sBaseUrl = 'module.php?m=estimate&amp;action=accessory';
+
+if (!empty($iProductId))
+{
+	if (!$okt->estimate->products->productExists($iProductId))
+	{
+		$okt->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $iProductId));
+		$iProductId = null;
+	}
+	else {
+		$sBackUrl = 'module.php?m=estimate&amp;action=product&amp;product_id='.$iProductId;
+	}
+}
+
+
+function appendIdsToUrl($sUrl, $iProductId, $iAccessoryId)
+{
+	return $sUrl.
+		(!empty($iProductId) ? '&amp;product_id='.$iProductId : '').
+		(!empty($iAccessoryId) ? '&amp;accessory_id='.$iAccessoryId : '');
+}
+
 
 $aAccessoryData = array(
 	'active' => 1,
@@ -74,7 +99,13 @@ if (!empty($_POST['form_sent']))
 				'message' => 'accessory #'.$iAccessoryId
 			));
 
-			$okt->redirect('module.php?m=estimate&action=accessory&accessory_id='.$iAccessoryId.'&updated=1');
+			if (!empty($aAccessoryData['product_id']) && !empty($iProductId) && $aAccessoryData['product_id'] != $iProductId) {
+				$iProductId = $aAccessoryData['product_id'];
+			}
+
+			$okt->page->flashMessages->addSuccess(__('m_estimate_accessory_modified'));
+
+			$okt->redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
 		}
 	}
 
@@ -90,7 +121,9 @@ if (!empty($_POST['form_sent']))
 				'message' => 'accessory #'.$iAccessoryId
 			));
 
-			$okt->redirect('module.php?m=estimate&action=accessory&accessory_id='.$iAccessoryId.'&added=1');
+			$okt->page->flashMessages->addSuccess(__('m_estimate_accessory_added'));
+
+			$okt->redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
 		}
 	}
 }
@@ -118,6 +151,30 @@ else {
 }
 
 
+# button set
+$okt->page->setButtonset('estimateAccessoryBtSt', array(
+	'id' => 'estimate-accessory-buttonset',
+	'type' => '', #  buttonset-single | buttonset-multi | ''
+	'buttons' => array(
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_action_Go_back'),
+			'url' 			=> $sBackUrl,
+			'ui-icon' 		=> 'arrowreturnthick-1-w',
+		)
+	)
+));
+
+if ($iAccessoryId)
+{
+	$okt->page->addButton('estimateAccessoryBtSt', array(
+		'permission' => true,
+		'title' => __('m_estimate_add_accessory'),
+		'url' => $sBaseUrl.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''),
+		'ui-icon' => 'plusthick'
+	));
+}
+
 # Validation javascript
 $okt->page->validate('accessory-form',array(
 	array(
@@ -139,6 +196,8 @@ $okt->page->validate('accessory-form',array(
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
+<?php echo $okt->page->getButtonSet('estimateAccessoryBtSt'); ?>
+
 <form id="accessory-form" action="module.php" method="post">
 	<div class="two-cols">
 		<p class="field col"><label for="p_title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_accessory_title')?></label>
@@ -153,6 +212,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('m', 'estimate'); ?>
 	<?php echo form::hidden('action', 'accessory'); ?>
 	<?php echo !empty($iAccessoryId) ? form::hidden('accessory_id', $iAccessoryId) : ''; ?>
+	<?php echo !empty($iProductId) ? form::hidden('product_id', $iProductId) : ''; ?>
 	<?php echo form::hidden('form_sent', 1); ?>
 	<?php echo adminPage::formtoken(); ?>
 	<input type="submit" value="<?php echo (!empty($iAccessoryId) ? __('c_c_action_edit') : __('c_c_action_add')); ?>" /></p>

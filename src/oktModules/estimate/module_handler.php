@@ -87,11 +87,18 @@ class module_estimate extends oktModule
 					1
 				);
 				$this->okt->page->estimateSubMenu->add(
-					__('m_estimate_menu_Products_and_accessories'),
+					__('m_estimate_menu_Products'),
 					'module.php?m=estimate&amp;action=products',
-					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product' || $this->okt->page->action === 'accessories'),
+					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'),
 					2,
 					$this->okt->checkPerm('estimate_products')
+				);
+				$this->okt->page->estimateSubMenu->add(
+					__('m_estimate_menu_Accessories'),
+					'module.php?m=estimate&amp;action=accessories',
+					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'),
+					3,
+					$this->okt->checkPerm('estimate_accessories')
 				);
 				$this->okt->page->estimateSubMenu->add(
 					__('c_a_menu_configuration'),

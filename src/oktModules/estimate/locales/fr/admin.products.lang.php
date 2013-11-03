@@ -9,8 +9,6 @@ $GLOBALS['__l10n']['m_estimate_product_deleted'] = 'Le produit a été supprimé
 $GLOBALS['__l10n']['m_estimate_edit_product'] = 'Modifier un produit';
 $GLOBALS['__l10n']['m_estimate_add_product'] = 'Ajouter un produit';
 
-$GLOBALS['__l10n']['m_estimate_manage_accessories'] = 'Gérer les accessoires';
-
 $GLOBALS['__l10n']['m_estimate_products_list'] = 'Liste des produits';
 $GLOBALS['__l10n']['m_estimate_no_product'] = 'Il n’y a aucun produit pour le moment.';
 

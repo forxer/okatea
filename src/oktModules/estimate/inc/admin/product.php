@@ -14,6 +14,7 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 
 # chargement des locales
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.products');
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
 
 $iProductId = null;
 
@@ -42,7 +43,8 @@ if (!empty($_REQUEST['product_id']))
 		);
 
 		$rsAccessories = $okt->estimate->accessories->getAccessories(array(
-			'product_id' => $rsProduct->id
+			'active' => 2,
+			'product_id' => $rsProduct->id,
 		));
 	}
 }
@@ -50,6 +52,15 @@ if (!empty($_REQUEST['product_id']))
 
 /* Traitements
 ----------------------------------------------------------*/
+
+# switch statut
+if (!empty($_GET['switch_status']) && !empty($iProductId))
+{
+	if ($okt->estimate->products->switchProductStatus($iProductId) !== false)
+	{
+		$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
+	}
+}
 
 #  ajout / modifications d'un produit
 if (!empty($_POST['form_sent']))
@@ -73,7 +84,9 @@ if (!empty($_POST['form_sent']))
 				'message' => 'product #'.$iProductId
 			));
 
-			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId.'&updated=1');
+			$okt->page->flashMessages->addSuccess(__('m_estimate_product_modified'));
+
+			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
 		}
 	}
 
@@ -89,7 +102,9 @@ if (!empty($_POST['form_sent']))
 				'message' => 'product #'.$iProductId
 			));
 
-			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId.'&added=1');
+			$okt->page->flashMessages->addSuccess(__('m_estimate_product_added'));
+
+			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
 		}
 	}
 }
@@ -124,12 +139,31 @@ $okt->page->setButtonset('estimateProductBtSt', array(
 
 if ($iProductId)
 {
-	# bouton add cat
 	$okt->page->addButton('estimateProductBtSt', array(
 		'permission' => true,
 		'title' => __('m_estimate_add_product'),
 		'url' => 'module.php?m=estimate&amp;action=product',
 		'ui-icon' => 'plusthick'
+	));
+	$okt->page->addButton('estimateProductBtSt', array(
+		'permission' => true,
+		'title' => __('m_estimate_add_accessory'),
+		'url' => 'module.php?m=estimate&amp;action=accessory&amp;product_id='.$iProductId,
+		'ui-icon' => 'plus'
+	));
+	$okt->page->addButton('estimateProductBtSt', array(
+		'permission' 	=> true,
+		'title' 		=> ($aProductData['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
+		'url' 			=> 'module.php?m=estimate&amp;action=product&amp;product_id='.$iProductId.'&amp;switch_status=1',
+		'ui-icon' 		=> ($aProductData['active'] ? 'volume-on' : 'volume-off'),
+		'active' 		=> $aProductData['active'],
+	));
+	$okt->page->addButton('estimateProductBtSt',array(
+		'permission' 	=> true,
+		'title' 		=> __('c_c_action_Delete'),
+		'url' 			=> 'module.php?m=estimate&amp;action=products&amp;delete_product='.$iProductId,
+		'ui-icon' 		=> 'closethick',
+		'onclick' 		=> 'return window.confirm(\''.html::escapeJS(__('m_estimate_estimate_product_delete_confirm')).'\')',
 	));
 }
 
@@ -144,10 +178,6 @@ $okt->page->validate('add-product-form',array(
 		)
 	)
 ));
-
-# Confirmations
-$okt->page->messages->success('added', __('m_estimate_product_added'));
-$okt->page->messages->success('edited', __('m_estimate_product_modified'));
 
 
 # En-tête
@@ -180,6 +210,57 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php if ($rsAccessories->isEmpty()) : ?>
 	<p><?php _e('m_estimate_product_no_accessory') ?></p>
 	<?php else : ?>
+
+		<table class="common">
+			<caption><?php _e('m_estimate_accessories_list') ?></caption>
+			<thead><tr>
+				<th scope="col"><?php _e('m_estimate_accessory_title') ?></th>
+				<th scope="col"><?php _e('c_c_Actions') ?></th>
+			</tr></thead>
+			<tbody>
+			<?php $count_line = 0;
+			while ($rsAccessories->fetch()) :
+				$td_class = $count_line%2 == 0 ? 'even' : 'odd';
+				$count_line++;
+
+				if (!$rsAccessories->active) {
+					$td_class = ' disabled';
+				}
+			?>
+			<tr>
+				<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="module.php?m=estimate&amp;action=accessory&amp;accessory_id=<?php echo $rsAccessories->id ?>&amp;product_id=<?php echo $iProductId ?>"><?php
+				echo html::escapeHTML($rsAccessories->title) ?></a></th>
+
+				<td class="<?php echo $td_class ?> small">
+					<ul class="actions">
+						<li>
+						<?php if ($rsAccessories->active) : ?>
+						<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>&amp;product_id=<?php echo $iProductId ?>"
+						title="<?php printf(__('c_c_action_Hide_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+						class="link_sprite ss_tick"><?php _e('c_c_action_visible')?></a>
+						<?php else : ?>
+						<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>&amp;product_id=<?php echo $iProductId ?>"
+						title="<?php printf(__('c_c_action_Display_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+						class="link_sprite ss_cross"><?php _e('c_c_action_hidden')?></a>
+						<?php endif; ?>
+						</li>
+						<li>
+						<a href="module.php?m=estimate&amp;action=accessory&amp;accessory_id=<?php echo $rsAccessories->id ?>&amp;product_id=<?php echo $iProductId ?>"
+						title="<?php printf(__('c_c_action_Edit_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+						class="link_sprite ss_pencil"><?php _e('c_c_action_edit')?></a>
+						</li>
+						<li>
+						<a href="module.php?m=estimate&amp;action=accessories&amp;delete_accessory=<?php echo $rsAccessories->id ?>&amp;product_id=<?php echo $iProductId ?>"
+						onclick="return window.confirm('<?php echo html::escapeJS(__('m_estimate_estimate_accessory_delete_confirm')) ?>')"
+						title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+						class="link_sprite ss_delete"><?php _e('c_c_action_delete')?></a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<?php endwhile; ?>
+			</tbody>
+		</table>
 
 	<?php endif; ?>
 

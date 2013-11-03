@@ -22,16 +22,20 @@ l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.products');
 # switch statut
 if (!empty($_GET['switch_status']))
 {
-	if ($okt->estimate->products->switchProductStatus($_GET['switch_status']) !== false) {
-		$okt->redirect('module.php?m=estimate&action=products&switched=1#tab-list');
+	if ($okt->estimate->products->switchProductStatus($_GET['switch_status']) !== false)
+	{
+		$okt->redirect('module.php?m=estimate&action=products');
 	}
 }
 
 # suppression d'un produit
 if (!empty($_GET['delete_product']))
 {
-	if ($okt->estimate->products->delProduct($_GET['delete_product']) !== false) {
-		$okt->redirect('module.php?m=estimate&action=products&deleted=1#tab-list');
+	if ($okt->estimate->products->delProduct($_GET['delete_product']) !== false)
+	{
+		$okt->page->flashMessages->addSuccess(__('m_estimate_product_deleted'));
+
+		$okt->redirect('module.php?m=estimate&action=products');
 	}
 }
 
@@ -63,19 +67,9 @@ $okt->page->setButtonset('estimateProductsBtSt',array(
 			'title' 		=> __('m_estimate_add_product'),
 			'url' 			=> 'module.php?m=estimate&amp;action=product',
 			'ui-icon' 		=> 'plusthick',
-		),
-		array(
-			'permission' 	=> true,
-			'title' 		=> __('m_estimate_manage_accessories'),
-			'url' 			=> 'module.php?m=estimate&amp;action=accessories',
-			'ui-icon' 		=> 'wrench',
 		)
 	)
 ));
-
-
-# Confirmations
-$okt->page->messages->success('deleted',__('m_estimate_product_deleted'));
 
 
 # En-tête
