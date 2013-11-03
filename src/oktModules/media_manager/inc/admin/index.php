@@ -21,7 +21,8 @@ $page = !empty($_GET['page']) ? $_GET['page'] : 1;
 $nb_per_page =  30;
 
 # We are on home not comming from media manager
-if ($d === null && isset($_SESSION['media_manager_dir'])) {
+if ($d === null && isset($_SESSION['media_manager_dir']))
+{
 	# We get session information
 	$d = $_SESSION['media_manager_dir'];
 }
@@ -33,12 +34,15 @@ if (!isset($_GET['page']) && isset($_SESSION['media_manager_page'])) {
 # We set session information about directory and page
 if ($d) {
 	$_SESSION['media_manager_dir'] = $d;
-} else {
+}
+else {
 	unset($_SESSION['media_manager_dir']);
 }
+
 if ($page != 1) {
 	$_SESSION['media_manager_page'] = $page;
-} else {
+}
+else {
 	unset($_SESSION['media_manager_page']);
 }
 
@@ -53,6 +57,7 @@ $sort_combo = array(
 if (!empty($_GET['file_sort']) && in_array($_GET['file_sort'],$sort_combo)) {
 	$_SESSION['media_file_sort'] = $_GET['file_sort'];
 }
+
 $file_sort = !empty($_SESSION['media_file_sort']) ? $_SESSION['media_file_sort'] : null;
 
 $popup = (integer) !empty($_GET['popup']);
@@ -60,19 +65,24 @@ $popup = (integer) !empty($_GET['popup']);
 $page_url = 'module.php?m=media_manager&popup='.$popup;
 
 $core_media_writable = false;
-try {
+try
+{
 	$okt->media = new oktMedia($okt);
+
 	if ($file_sort) {
 		$okt->media->setFileSort($file_sort);
 	}
+
 	$okt->media->chdir($d);
 	$okt->media->getDir();
 	$core_media_writable = $okt->media->writable();
 	$dir =& $okt->media->dir;
+
 	if  (!$core_media_writable) {
 		throw new Exception('you do not have sufficient permissions to write to this folder: ');
 	}
-} catch (Exception $e) {
+}
+catch (Exception $e) {
 	$okt->error->set($e->getMessage());
 }
 
@@ -93,8 +103,7 @@ if (!empty($_GET['zipdl']) && $okt->checkPerm('media_admin'))
 		unset($zip);
 		exit;
 	}
-	catch (Exception $e)
-	{
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -102,10 +111,15 @@ if (!empty($_GET['zipdl']) && $okt->checkPerm('media_admin'))
 # New directory
 if ($dir && !empty($_POST['newdir']))
 {
-	try {
+	try
+	{
 		$okt->media->makeDir($_POST['newdir']);
-		http::redirect($page_url.'&d='.rawurlencode($d).'&mkdok=1');
-	} catch (Exception $e) {
+
+		$okt->page->flashMessages->addSuccess(__('Directory has been successfully created.'));
+
+		http::redirect($page_url.'&d='.rawurlencode($d));
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -120,11 +134,13 @@ if ($dir && !empty($_FILES['upfile']))
 		$f_title = (isset($_POST['upfiletitle']) ? $_POST['upfiletitle'] : '');
 		$f_private = (isset($_POST['upfilepriv']) ? $_POST['upfilepriv'] : false);
 
-		$okt->media->uploadFile($_FILES['upfile']['tmp_name'],$_FILES['upfile']['name'],$f_title,$f_private);
-		http::redirect($page_url.'&d='.rawurlencode($d).'&upok=1');
+		$okt->media->uploadFile($_FILES['upfile']['tmp_name'], $_FILES['upfile']['name'], $f_title, $f_private);
+
+		$okt->page->flashMessages->addSuccess(__('Files have been successfully uploaded.'));
+
+		http::redirect($page_url.'&d='.rawurlencode($d));
 	}
-	catch (Exception $e)
-	{
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -135,10 +151,15 @@ if ($dir && !empty($_POST['rmyes']) && !empty($_POST['remove']))
 {
 	$_POST['remove'] = rawurldecode($_POST['remove']);
 
-	try {
+	try
+	{
 		$okt->media->removeItem($_POST['remove']);
-		http::redirect($page_url.'&d='.rawurlencode($d).'&rmfok=1');
-	} catch (Exception $e) {
+
+		$okt->page->flashMessages->addSuccess(__('File has been successfully removed.'));
+
+		http::redirect($page_url.'&d='.rawurlencode($d));
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -146,10 +167,15 @@ if ($dir && !empty($_POST['rmyes']) && !empty($_POST['remove']))
 # Rebuild directory
 if ($dir && $okt->user->is_superadmin && !empty($_POST['rebuild']))
 {
-	try {
+	try
+	{
 		$okt->media->rebuild($d);
-		http::redirect($page_url.'&d='.rawurlencode($d).'&rebuildok=1');
-	} catch (Exception $e) {
+
+		$okt->page->flashMessages->addSuccess(__('Directory has been successfully rebuilt.'));
+
+		http::redirect($page_url.'&d='.rawurlencode($d));
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -186,20 +212,13 @@ if ($dir && !empty($_GET['remove']))
 	else {
 		require OKT_ADMIN_FOOTER_FILE;
 	}
+
 	exit;
 }
 
 
 /* Affichage
 -------------------------------------------------------- */
-
-# Confirmations
-$okt->page->messages->success('mkdok',__('Directory has been successfully created.'));
-$okt->page->messages->success('upok',__('Files have been successfully uploaded.'));
-$okt->page->messages->success('rmfok',__('File has been successfully removed.'));
-$okt->page->messages->success('rmdok',__('Directory has been successfully removed.'));
-$okt->page->messages->success('rebuildok',__('Directory has been successfully rebuilt.'));
-$okt->page->messages->success('unzipok',__('Zip file has been successfully extracted.'));
 
 if ($popup)
 {

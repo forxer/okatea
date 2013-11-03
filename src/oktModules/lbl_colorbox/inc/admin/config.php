@@ -41,7 +41,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->lbl_colorbox->config->write($new_conf);
-			$okt->redirect('module.php?m=lbl_colorbox&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=lbl_colorbox&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -57,9 +60,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_lbl_colorbox_config_title'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 $aThemes = array(
 	__('m_lbl_colorbox_theme_1') => 1,

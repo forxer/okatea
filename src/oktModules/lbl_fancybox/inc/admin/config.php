@@ -60,7 +60,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->lbl_fancybox->config->write($new_conf);
-			$okt->redirect('module.php?m=lbl_fancybox&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=lbl_fancybox&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -76,9 +79,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_lbl_fancybox_config_title'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 # liste des positions du titre
 $aTitlePosition = array(

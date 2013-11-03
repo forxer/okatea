@@ -35,26 +35,32 @@ try
 
 	# Prepare directories combo box
 	$dirs_combo = array();
-	foreach ($okt->media->getRootDirs() as $v) {
+	foreach ($okt->media->getRootDirs() as $v)
+	{
 		if ($v->w) {
 			$dirs_combo['/'.$v->relname] = $v->relname;
 		}
 	}
 	ksort($dirs_combo);
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
 	$okt->error->set($e->getMessage());
 }
 
 # Upload a new file
 if ($file && !empty($_FILES['upfile']) && $file->editable && $core_media_writable)
 {
-	try {
+	try
+	{
 		util::uploadStatus($_FILES['upfile']);
-		$okt->media->uploadFile($_FILES['upfile']['tmp_name'],$file->basename,null,false,true);
-		http::redirect($page_url.'&id='.$id.'&fupl=1');
-	} catch (Exception $e) {
+
+		$okt->media->uploadFile($_FILES['upfile']['tmp_name'], $file->basename, null, false, true);
+
+		$okt->page->flashMessages->addSuccess(__('File has been successfully updated.'));
+
+		http::redirect($page_url.'&id='.$id);
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -78,10 +84,15 @@ if ($file && !empty($_POST['media_file']) && $file->editable && $core_media_writ
 	$newFile->media_dtstr = $_POST['media_dt'];
 	$newFile->media_priv = !empty($_POST['media_private']);
 
-	try {
+	try
+	{
 		$okt->media->updateFile($file,$newFile);
-		http::redirect($page_url.'&id='.$id.'&fupd=1');
-	} catch (Exception $e) {
+
+		$okt->page->flashMessages->addSuccess(__('File has been successfully updated.'));
+
+		http::redirect($page_url.'&id='.$id);
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -89,11 +100,15 @@ if ($file && !empty($_POST['media_file']) && $file->editable && $core_media_writ
 # Update thumbnails
 if (!empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable && $core_media_writable)
 {
-	try {
-		$foo = null;
-		$okt->media->imageThumbCreate($foo,$file->basename);
-		http::redirect($page_url.'&id='.$id.'&thumbupd=1');
-	} catch (Exception $e) {
+	try
+	{
+		$okt->media->imageThumbCreate(null, $file->basename);
+
+		$okt->page->flashMessages->addSuccess(__('Thumbnails have been successfully updated.'));
+
+		http::redirect($page_url.'&id='.$id);
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
@@ -101,36 +116,47 @@ if (!empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable 
 # Unzip file
 if (!empty($_POST['unzip']) && $file->type == 'application/zip' && $file->editable && $core_media_writable)
 {
-	try {
+	try
+	{
 		$unzip_dir = $okt->media->inflateZipFile($file,$_POST['inflate_mode'] == 'new');
-		http::redirect($media_page_url.'&d='.$unzip_dir.'&unzipok=1');
-	} catch (Exception $e) {
+
+		$okt->page->flashMessages->addSuccess(__('Zip file has been successfully extracted.'));
+
+		http::redirect($media_page_url.'&d='.$unzip_dir);
+	}
+	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
 	}
 }
 
 # Function to get image title based on meta
-function dcGetImageTitle($file,$pattern)
+function dcGetImageTitle($file, $pattern)
 {
 	return $file->media_title;
 	$res = array();
 	$pattern = preg_split('/\s*;;\s*/',$pattern);
 	$sep = ', ';
 
-	foreach ($pattern as $v) {
+	foreach ($pattern as $v)
+	{
 		if ($v == 'Title') {
 			$res[] = $file->media_title;
-		} elseif ($file->media_meta->{$v}) {
+		}
+		elseif ($file->media_meta->{$v}) {
 			$res[] = (string) $file->media_meta->{$v};
-		} elseif (preg_match('/^Date\((.+?)\)$/u',$v,$m)) {
+		}
+		elseif (preg_match('/^Date\((.+?)\)$/u',$v,$m)) {
 			$res[] = dt::str($m[1],$file->media_dt);
-		} elseif (preg_match('/^DateTimeOriginal\((.+?)\)$/u',$v,$m) && $file->media_meta->DateTimeOriginal) {
+		}
+		elseif (preg_match('/^DateTimeOriginal\((.+?)\)$/u',$v,$m) && $file->media_meta->DateTimeOriginal) {
 			$res[] = dt::dt2str($m[1],(string) $file->media_meta->DateTimeOriginal);
-		} elseif (preg_match('/^separator\((.*?)\)$/u',$v,$m)) {
+		}
+		elseif (preg_match('/^separator\((.*?)\)$/u',$v,$m)) {
 			$sep = $m[1];
 		}
 	}
-	return implode($sep,$res);
+
+	return implode($sep, $res);
 }
 
 /* Affichage
@@ -148,6 +174,7 @@ if ($popup)
 		},
 		mySubmit : function () {
 	';
+
 	if ($file->media_type == 'image') {
 		$sReadyStr .= 'var URL = $("input[name=src]:checked").val();';
 	}
@@ -196,10 +223,6 @@ $okt->page->css->addFile($okt->media_manager->url().'/styles.css');
 # Tabs
 $okt->page->tabs();
 
-# Confirmations
-$okt->page->messages->success('fupd',__('File has been successfully updated.'));
-$okt->page->messages->success('fupl',__('File has been successfully updated.'));
-$okt->page->messages->success('thumbupd',__('Thumbnails have been successfully updated.'));
 
 # En-tête
 if ($popup) {
@@ -217,6 +240,7 @@ if ($file === null)
 	else {
 		require OKT_ADMIN_FOOTER_FILE;
 	}
+
 	exit;
 }
 
@@ -244,6 +268,7 @@ if ($popup)
 	{
 		$media_type = 'image';
 		$media_desc = dcGetImageTitle($file,'Title ;; City ;; Country ;; Date(%b %Y) ;; separator(, )');
+
 		if ($media_desc == $file->basename) {
 			$media_desc = '';
 		}
@@ -253,12 +278,14 @@ if ($popup)
 
 		$s_checked = false;
 		echo '<p>';
-		foreach (array_reverse($file->media_thumb) as $s => $v) {
+		foreach (array_reverse($file->media_thumb) as $s => $v)
+		{
 			$s_checked = ($s == 'm');
 			echo '<label class="classic">'.
-			form::radio(array('src'),html::escapeHTML($v),$s_checked).' '.
-			__($okt->media->thumb_sizes[$s][2]).'</label><br /> ';
+				form::radio(array('src'),html::escapeHTML($v),$s_checked).' '.
+				__($okt->media->thumb_sizes[$s][2]).'</label><br /> ';
 		}
+
 		$s_checked = (!isset($file->media_thumb['m']));
 		echo '<label class="classic">'.
 		form::radio(array('src'),$file->file_url,$s_checked).' '.__('original').'</label><br /> ';
@@ -393,7 +420,9 @@ if ($file->media_image)
 
 	if (isset($file->media_thumb[$thumb_size])) {
 		echo '<p><img src="'.$file->media_thumb[$thumb_size].'" alt="" /></p>';
-	} elseif ($thumb_size == 'o') {
+	}
+	elseif ($thumb_size == 'o')
+	{
 		$S = getimagesize($file->file);
 		$class = ($S[1] > 500) ? ' class="overheight"' : '';
 		unset($S);
@@ -423,8 +452,7 @@ if ($file->type == 'image/jpeg')
 {
 	echo '<h3>'.__('Image details').'</h3>';
 
-	if (count($file->media_meta) == 0)
-	{
+	if (count($file->media_meta) == 0) {
 		echo '<p>'.__('No detail').'</p>';
 	}
 	else
