@@ -37,13 +37,20 @@ if ($do == 'spam' && $okt->modules->moduleExists('antispam'))
 			$ok = $ok && $okt->guestbook->markSigAsSpam($cur_id);
 		}
 
-		if ($ok) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;updateds=1');
+		if ($ok)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signatures_were_updated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
-	elseif ($id) {
-		if ($okt->guestbook->markSigAsSpam($id)) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;updated=1');
+	elseif ($id)
+	{
+		if ($okt->guestbook->markSigAsSpam($id))
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_updated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
 }
@@ -58,13 +65,20 @@ elseif ($do == 'nospam')
 			$ok = $ok && $okt->guestbook->markSigAsNoSpam($cur_id);
 		}
 
-		if ($ok) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;updateds=1');
+		if ($ok)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signatures_were_updated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
-	elseif ($id) {
-		if ($okt->guestbook->markSigAsNoSpam($id)) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;updated=1');
+	elseif ($id)
+	{
+		if ($okt->guestbook->markSigAsNoSpam($id))
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_updated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
 }
@@ -79,13 +93,20 @@ elseif ($do == 'valid')
 			$ok = $ok && $okt->guestbook->validateSig($cur_id);
 		}
 
-		if ($ok) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;validateds=1');
+		if ($ok)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signatures_were_validated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
-	elseif ($id) {
-		if ($okt->guestbook->validateSig($id)) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;validated=1');
+	elseif ($id)
+	{
+		if ($okt->guestbook->validateSig($id))
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_validated'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
 }
@@ -100,13 +121,20 @@ elseif ($do == 'supp')
 			$ok = $ok && $okt->guestbook->delSig(array('id'=>$cur_id));
 		}
 
-		if ($ok) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;deleteds=1');
+		if ($ok)
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signatures_were_deleted'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
-	elseif ($id) {
-		if ($okt->guestbook->delSig(array('id'=>$id))) {
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;deleted=1');
+	elseif ($id)
+	{
+		if ($okt->guestbook->delSig(array('id'=>$id)))
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_deleted'));
+
+			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 		}
 	}
 }
@@ -114,8 +142,11 @@ elseif ($do == 'supp')
 # supprimer tous ce qui est considéré comme SPAM
 if (!empty($_GET['delallspam']))
 {
-	if ($okt->guestbook->delSig(array('is_spam'=>true))) {
-		http::redirect('module.php?m=guestbook&amp;action=index'.$url_params.'&amp;spamdeleted=1');
+	if ($okt->guestbook->delSig(array('is_spam'=>true)))
+	{
+		$okt->page->flashMessages->addSuccess(__('m_guestbook_SPAM_was_deleted'));
+
+		http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
 	}
 }
 
@@ -192,14 +223,6 @@ $nbspam = $okt->guestbook->getSig(array('is_spam'=>true),true);
 
 /* Affichage
 ----------------------------------------------------------*/
-
-$okt->page->messages->success('updated',__('m_guestbook_Signature_was_updated'));
-$okt->page->messages->success('updateds',__('m_guestbook_Signatures_were_updated'));
-$okt->page->messages->success('validated',__('m_guestbook_Signature_was_validated'));
-$okt->page->messages->success('validateds',__('m_guestbook_Signatures_were_validated'));
-$okt->page->messages->success('deleted',__('m_guestbook_Signature_was_deleted'));
-$okt->page->messages->success('deleteds',__('m_guestbook_Signatures_were_deleted'));
-$okt->page->messages->success('spamdeleted',__('m_guestbook_SPAM_was_deleted'));
 
 # En-tête
 include OKT_ADMIN_HEADER_FILE; ?>

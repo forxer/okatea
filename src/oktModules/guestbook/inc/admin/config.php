@@ -89,7 +89,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->guestbook->config->write($new_conf);
-			$okt->redirect('module.php?m=guestbook&action=config&updated=1');
+
+			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+
+			$okt->redirect('module.php?m=guestbook&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -116,9 +119,6 @@ $okt->page->tabs();
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 $aFieldChoices = util::getStatusFieldChoices();
 

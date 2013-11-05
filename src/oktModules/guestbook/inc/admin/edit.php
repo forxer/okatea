@@ -51,8 +51,11 @@ if (!empty($_POST['edit_form_sent']))
 
 	if (!$okt->error->hasError())
 	{
-		if ($okt->guestbook->updSig($aSigData)) {
-			$okt->redirect('module.php?m=guestbook&amp;action=edit&id='.$sig_id . $url_params.'&updated=1');
+		if ($okt->guestbook->updSig($aSigData))
+		{
+			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_updated'));
+
+			$okt->redirect('module.php?m=guestbook&amp;action=edit&id='.$sig_id . $url_params);
 		}
 	}
 }
@@ -64,8 +67,6 @@ if (!empty($_POST['edit_form_sent']))
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_guestbook_Edit_a_signature'));
 
-# Confirmations
-$okt->page->messages->success('updated',__('m_guestbook_Signature_was_updated'));
 
 # En-tête
 include OKT_ADMIN_HEADER_FILE; ?>
