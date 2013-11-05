@@ -104,7 +104,7 @@ if (window.addEventListener) {
 
 
 # News feed reader
-if ($okt->config->news_feed['enabled'])
+if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][$okt->user->language]))
 {
 	require_once OKT_VENDOR_PATH.'/simplepie/autoloader.php';
 
@@ -118,7 +118,7 @@ if ($okt->config->news_feed['enabled'])
 	$feed->set_cache_location(OKT_CACHE_PATH.'/feeds/');
 
 	// Set which feed to process.
-	$feed->set_feed_url($okt->config->news_feed['url']);
+	$feed->set_feed_url($okt->config->news_feed['url'][$okt->user->language]);
 
 	// Run SimplePie.
 	$feed_success = $feed->init();

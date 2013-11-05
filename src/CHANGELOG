@@ -10,7 +10,11 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0
+1.0.BETA.4
+- fix news URL
+
+
+1.0.BETA.3 (2013-11-05)
 ! new breadcrumb policy
 ! introduce flash messages
 ! introduce navigation menus management
@@ -21,7 +25,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 . deletion of old stuff
 
 
-1.0.BETA.2
+1.0.BETA.2 (2013-08-22)
 # now require PHP >= 5.3.7
 # new registerModule signature
 # rename "modules" table in "core_modules"
@@ -35,5 +39,5 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 . deletion of old stuff
 
 
-1.0.BETA.1
+1.0.BETA.1 (2013-08-13)
 ! first public release
