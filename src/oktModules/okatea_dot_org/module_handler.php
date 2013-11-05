@@ -21,7 +21,7 @@ class module_okatea_dot_org extends oktModule
 
 	protected function prepend()
 	{
-		$this->sUrl = 'http://repository.okatea.org/packages/versions.xml';
+		$this->sRepositoryPath = realpath(__DIR__.'/../../../repository/');
 	}
 
 	protected function prepend_admin()
@@ -34,6 +34,33 @@ class module_okatea_dot_org extends oktModule
 
 	}
 
+
+
+	/**
+	 * Retourne le chemin du template de l'encart de téléchargements.
+	 *
+	 * @return string
+	 */
+	public function getDownloadInsertTplPath()
+	{
+		//return 'okatea_dot_org/download_insert/'.$this->config->templates['download_insert']['default'].'/template';
+		return 'okatea_dot_org/download_insert/default/template';
+	}
+
+
+	/*
+	 *  retrieving latest releases versions
+	 */
+
+	public function getLatestStableVersionInfos()
+	{
+		return $this->getVersionInfo('stable');
+	}
+
+	public function getLatestDevVersionInfos()
+	{
+		return $this->getVersionInfo('dev');
+	}
 
 	protected function resetVersionInfos()
 	{
@@ -49,7 +76,7 @@ class module_okatea_dot_org extends oktModule
 	 * Récupération des informations de version sur le dépot distant.
 	 *
 	 */
-	public function getVersionInfo($sVersionType)
+	protected function getVersionInfo($sVersionType)
 	{
 		$this->resetVersionInfos();
 
@@ -92,21 +119,12 @@ class module_okatea_dot_org extends oktModule
 		}
 
 		# Try to get latest version number
-		try
-		{
-			$sPath = '';
-			$oClient = netHttp::initClient($this->sUrl, $sPath);
-
-			if ($oClient !== false)
-			{
-				$oClient->setTimeout(4);
-				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-				$oClient->get($sPath);
-
-				$this->readVersion($oClient->getContent(), $sVersionType);
-			}
+		try {
+			$this->readVersion(file_get_contents($this->sRepositoryPath.'/packages/versions.xml'), $sVersionType);
 		}
-		catch (Exception $e) {}
+		catch (Exception $e) {
+			return $this->aVersionInfo;
+		}
 
 		# Create cache
 		file_put_contents($this->sCacheFile, serialize($this->aVersionInfo));
