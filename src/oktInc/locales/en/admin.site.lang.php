@@ -11,7 +11,6 @@ $GLOBALS['__l10n']['c_a_config_website_title'] = 'Website title';
 $GLOBALS['__l10n']['c_a_config_website_title_in_%s'] = 'Website title in %s';
 $GLOBALS['__l10n']['c_a_config_website_desc'] = 'Website description';
 $GLOBALS['__l10n']['c_a_config_website_desc_in_%s'] = 'Website description in %s';
-$GLOBALS['__l10n']['c_a_config_website_cnil_number'] = 'CNIL Number';
 
 $GLOBALS['__l10n']['c_a_config_company'] = 'Company';
 $GLOBALS['__l10n']['c_a_config_company_name'] = 'Company name';

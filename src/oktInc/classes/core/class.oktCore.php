@@ -307,7 +307,6 @@ class oktCore
 			'theme_url' => OKT_THEME,
 			'website_title' => $this->config->title[$this->user->language],
 			'website_desc' => $this->config->desc[$this->user->language],
-			'cnil_number' => $this->config->cnil_number,
 
 			'address_street' => $this->config->address['street'],
 			'address_street_2' => $this->config->address['street_2'],

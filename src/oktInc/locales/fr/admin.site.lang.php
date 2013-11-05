@@ -11,7 +11,6 @@ $GLOBALS['__l10n']['c_a_config_website_title'] = 'Titre du site';
 $GLOBALS['__l10n']['c_a_config_website_title_in_%s'] = 'Titre du site en %s';
 $GLOBALS['__l10n']['c_a_config_website_desc'] = 'Description du site';
 $GLOBALS['__l10n']['c_a_config_website_desc_in_%s'] = 'Description du site en %s';
-$GLOBALS['__l10n']['c_a_config_website_cnil_number'] = 'Numéro CNIL';
 
 $GLOBALS['__l10n']['c_a_config_company'] = 'Société';
 $GLOBALS['__l10n']['c_a_config_company_name'] = 'Raison sociale';

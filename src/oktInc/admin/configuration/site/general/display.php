@@ -23,6 +23,3 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 <?php echo form::text(array('p_desc['.$aLanguage['code'].']','p_desc_'.$aLanguage['code']), 60, 255, (isset($okt->config->desc[$aLanguage['code']]) ? html::escapeHTML($okt->config->desc[$aLanguage['code']]) : '')) ?></p>
 
 <?php endforeach; ?>
-
-<p class="field"><label for="p_cnil_number"><?php _e('c_a_config_website_cnil_number') ?></label>
-<?php echo form::text('p_cnil_number', 60, 255, html::escapeHTML($okt->config->cnil_number)) ?></p>
