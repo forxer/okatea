@@ -1,16 +1,21 @@
 title:
   fr: 'Projet Okatea'
+  en: 'Okatea project'
 desc:
   fr: 'Un autre CMS modulaire en PHP'
+  en: 'Another modular CMS in PHP'
 title_tag:
   fr: ''
+  en: ''
 meta_description:
   fr: ''
+  en: ''
 meta_keywords:
   fr: ''
+  en: ''
 schedule:
   fr: ''
-cnil_number: ''
+  en: ''
 address:
   street: ''
   street_2: ''
@@ -96,7 +101,9 @@ log_admin:
   ttl_months: 3
 news_feed:
   enabled: false
-  url: ''
+  url:
+    fr: 'http://okatea.org/fr/actualites/rss'
+    en: 'http://okatea.org/en/news/rss'
 htmlpurifier_disabled: false
 slug_type: ascii
 navigation_tpl:

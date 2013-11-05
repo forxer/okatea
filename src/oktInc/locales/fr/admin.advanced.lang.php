@@ -66,6 +66,7 @@ $GLOBALS['__l10n']['c_a_config_advanced_logadmin_ttl_%s_months'] = 'Supprimer le
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed'] = 'Lecteur de flux d’actualités';
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed_enabled'] = 'Activer le lecteur de flux d’actualités sur l’accueil de l’interface d’administration';
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed_url'] = 'URL du flux d’actualités';
+$GLOBALS['__l10n']['c_a_config_advanced_news_feed_url_in_%s'] = 'URL du flux d’actualités en %s';
 
 $GLOBALS['__l10n']['c_a_config_advanced_slug_generation'] = 'Génération des slugs';
 $GLOBALS['__l10n']['c_a_config_advanced_slug_type_ascii'] = 'ASCII';

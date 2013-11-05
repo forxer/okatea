@@ -82,6 +82,11 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 # infos page
 $okt->page->addGlobalTitle(__('c_a_config_advanced'));
 
+# Lang switcher
+if (!$okt->languages->unique) {
+	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
+}
+
 # Tabs
 $okt->page->tabs();
 

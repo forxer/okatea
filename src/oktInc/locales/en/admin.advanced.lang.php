@@ -66,6 +66,7 @@ $GLOBALS['__l10n']['c_a_config_advanced_logadmin_ttl_%s_months'] = 'Delete admin
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed'] = 'Reader news feed';
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed_enabled'] = 'Enable the feed reader of news on the home administration interface';
 $GLOBALS['__l10n']['c_a_config_advanced_news_feed_url'] = 'URL of news feed';
+$GLOBALS['__l10n']['c_a_config_advanced_news_feed_url_in_%s'] = 'URL of news feed in %s';
 
 $GLOBALS['__l10n']['c_a_config_advanced_slug_generation'] = 'Slugs generation';
 $GLOBALS['__l10n']['c_a_config_advanced_slug_type_ascii'] = 'ASCII';
