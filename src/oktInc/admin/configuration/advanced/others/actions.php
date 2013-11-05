@@ -32,7 +32,7 @@ if (!empty($_POST['form_sent']))
 	$p_log_admin_ttl_months = !empty($_POST['p_log_admin_ttl_months']) ? $_POST['p_log_admin_ttl_months'] : 3;
 
 	$p_news_feed_enabled = !empty($_POST['p_news_feed_enabled']) ? true : false;
-	$p_news_feed_url = !empty($_POST['p_news_feed_url']) ? $_POST['p_news_feed_url'] : '';
+	$p_news_feed_url = !empty($_POST['p_news_feed_url']) && is_array($_POST['p_news_feed_url']) ? $_POST['p_news_feed_url'] : array();
 
 	$p_slug_type = !empty($_POST['p_slug_type']) ? $_POST['p_slug_type'] : 'ascii';
 
