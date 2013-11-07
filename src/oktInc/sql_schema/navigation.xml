@@ -29,6 +29,7 @@
 			`id` 				SERIAL,
 			`menu_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
 			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL,
+			`type` 				TINYINT(1) 		UNSIGNED	NOT NULL,
 			`ord` 				BIGINT(20) 		UNSIGNED	NOT NULL,
 
 			PRIMARY KEY (`id`),
@@ -57,15 +58,15 @@
 
 	<!-- default core_nav_menus -->
 	<action id="firstmenu" label="Creation du premier menu" process="install">
-		INSERT INTO `{{PREFIX}}core_nav_menus` 
-			(`id`, `title`, `active`) 
+		INSERT INTO `{{PREFIX}}core_nav_menus`
+			(`id`, `title`, `active`)
 		VALUES
 			(1, 'menu', 1);
 	</action>
-	
+
 	<!-- default core_nav_items -->
 	<action id="firstitems" label="Creation des premiers éléments de menu" process="install">
-		INSERT INTO `{{PREFIX}}core_nav_items` 
+		INSERT INTO `{{PREFIX}}core_nav_items`
 			(`id`, `menu_id`, `active`, `ord`)
 		VALUES
 			(1, 1, 1, 1),
@@ -75,7 +76,7 @@
 
 	<!-- default core_nav_items_locales -->
 	<action id="firstitemslocales" label="Creation des locales des premiers éléments de menu" process="install">
-		INSERT INTO `{{PREFIX}}core_nav_items_locales` 
+		INSERT INTO `{{PREFIX}}core_nav_items_locales`
 			(`item_id`, `language`, `title`, `url`)
 		VALUES
 			(1, 'fr', 'Accueil', ''),
@@ -88,6 +89,14 @@
 
 
 <!-- UPDATE -->
+
+	<action id="add_core_nav_items_type" label="Add field %s" string="{{PREFIX}}core_nav_items.type" process="update">
+		<test eq="neq" value="type" label="Field %s exists"
+		string="{{PREFIX}}core_nav_items.type" type="wrn">
+		SHOW COLUMNS FROM `{{PREFIX}}core_nav_items` LIKE 'type'
+		</test>
+		ALTER TABLE `{{PREFIX}}core_nav_items` ADD `type` TINYINT(1) UNSIGNED NOT NULL AFTER `active`
+	</action>
 
 
 </database>

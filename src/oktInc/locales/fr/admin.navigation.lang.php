@@ -52,8 +52,14 @@ $GLOBALS['__l10n']['c_a_config_navigation_no_item'] = 'Il n’y a aucun élémen
 $GLOBALS['__l10n']['c_a_config_navigation_one_item'] = 'Il y a un élément dans ce menu&nbsp;:';
 $GLOBALS['__l10n']['c_a_config_navigation_%s_items'] = 'Il y a %s éléments dans ce menu&nbsp;:';
 
+$GLOBALS['__l10n']['c_a_config_navigation_item_type'] = 'Type de lien de l’élément';
+$GLOBALS['__l10n']['c_a_config_navigation_item_internal'] = 'Lien interne';
+$GLOBALS['__l10n']['c_a_config_navigation_item_external'] = 'Lien externe';
+
 $GLOBALS['__l10n']['c_a_config_navigation_item_title'] = 'Titre de l’élément';
 $GLOBALS['__l10n']['c_a_config_navigation_item_title_in_%s'] = 'Titre de l’élément en %s';
 
+$GLOBALS['__l10n']['c_a_config_navigation_item_url'] = 'URL de l’élément';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s'] = 'URL de l’élément en %s';
 $GLOBALS['__l10n']['c_a_config_navigation_item_url_from_%s'] = 'URL de l’élément depuis %s';
 $GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s_from_%s'] = 'URL de l’élément en %s depuis %s';

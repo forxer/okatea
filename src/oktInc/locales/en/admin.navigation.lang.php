@@ -52,8 +52,14 @@ $GLOBALS['__l10n']['c_a_config_navigation_no_item'] = 'There are no items in thi
 $GLOBALS['__l10n']['c_a_config_navigation_one_item'] = 'There is an item in the menu:';
 $GLOBALS['__l10n']['c_a_config_navigation_%s_items'] = 'There are %s items in this menu:';
 
+$GLOBALS['__l10n']['c_a_config_navigation_item_type'] = 'Item link type';
+$GLOBALS['__l10n']['c_a_config_navigation_item_internal'] = 'Internal link';
+$GLOBALS['__l10n']['c_a_config_navigation_item_external'] = 'External link';
+
 $GLOBALS['__l10n']['c_a_config_navigation_item_title'] = 'Title of the item';
 $GLOBALS['__l10n']['c_a_config_navigation_item_title_in_%s'] = 'Title of the item in %s';
 
-$GLOBALS['__l10n']['c_a_config_navigation_item_url'] = 'URL of the item from %s';
-$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s'] = 'URL of the item in %s from %s';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url'] = 'URL of the item';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s'] = 'URL of the item in %s';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_from_%s'] = 'URL of the item from %s';
+$GLOBALS['__l10n']['c_a_config_navigation_item_url_in_%s_from_%s'] = 'URL of the item in %s from %s';

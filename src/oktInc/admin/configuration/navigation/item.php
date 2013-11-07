@@ -37,6 +37,7 @@ $aItemData['item']['id'] = null;
 
 $aItemData['item']['menu_id'] = $iMenuId;
 $aItemData['item']['active'] = 1;
+$aItemData['item']['type'] = 0;
 
 $aItemData['locales'] = array();
 
@@ -64,6 +65,7 @@ if (!empty($_REQUEST['item_id']))
 	{
 		$aItemData['item']['menu_id'] = $rsItem->menu_id;
 		$aItemData['item']['active'] = $rsItem->active;
+		$aItemData['item']['type'] = $rsItem->type;
 
 		$rsItemI18n = $okt->navigation->getItemI18n($aItemData['item']['id']);
 
@@ -89,7 +91,7 @@ if (!empty($_REQUEST['item_id']))
 if (!empty($_POST['sended']))
 {
 	$aItemData['item']['active'] = !empty($_POST['p_active']) ? 1 : 0;
-
+	$aItemData['item']['type'] = !empty($_POST['p_type']) ? intval($_POST['p_type']) : 0;
 
 	foreach ($okt->languages->list as $aLanguage)
 	{
@@ -182,6 +184,42 @@ if (!$okt->languages->unique) {
 }
 
 
+# Build possibles URL labels
+$aUrlLabel = array();
+foreach ($okt->languages->list as $aLanguage)
+{
+	$sBaseUrl = '<code>'.$okt->page->getBaseUrl($aLanguage['code']).'</code>';
+
+	$aUrlLabel[$aLanguage['code']] = array();
+
+	if ($okt->languages->unique)
+	{
+		$aUrlLabel[$aLanguage['code']][0] = sprintf(__('c_a_config_navigation_item_url_from_%s'), $sBaseUrl);
+		$aUrlLabel[$aLanguage['code']][1] = sprintf(__('c_a_config_navigation_item_url'));
+	}
+	else
+	{
+		$aUrlLabel[$aLanguage['code']][0] = sprintf(__('c_a_config_navigation_item_url_in_%s_from_%s'), $aLanguage['title'], $sBaseUrl);
+		$aUrlLabel[$aLanguage['code']][1] = sprintf(__('c_a_config_navigation_item_url_in_%s'), $aLanguage['title']);
+	}
+}
+
+$okt->page->js->addReady('
+	var possibles_labels = '.json_encode($aUrlLabel).';
+
+	$("#p_type").change(function(){
+		var value = $(this).val();
+
+		$(".item_url").each(function(){
+			var language = $(this).attr("id").replace("p_url_", "");
+			var label = possibles_labels[language][value];
+			$("span#text_"+language).html(label);
+		});
+
+	});
+');
+
+
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
@@ -189,14 +227,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <form id="item-form" action="configuration.php" method="post">
 
+	<p class="field"><label for="p_type"><?php _e('c_a_config_navigation_item_type') ?></label>
+	<?php echo form::select('p_type', array(__('c_a_config_navigation_item_internal') => 0, __('c_a_config_navigation_item_external') => 1), $aItemData['item']['type']) ?></p>
+
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['title'])) ?></p>
 
-	<?php $sBaseUrl = '<code>'.$okt->page->getBaseUrl($aLanguage['code']).'</code>'; ?>
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('c_a_config_navigation_item_url_from_%s'), $sBaseUrl) : printf(__('c_a_config_navigation_item_url_in_%s_from_%s'), $aLanguage['title'], $sBaseUrl) ?> <span class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url'])) ?></p>
+	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><span id="text_<?php echo $aLanguage['code'] ?>"><?php echo $aUrlLabel[$aLanguage['code']][$aItemData['item']['type']] ?></span> <span class="lang-switcher-buttons"></span></label>
+	<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url']), 'item_url') ?></p>
 
 	<?php endforeach; ?>
 

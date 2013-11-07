@@ -372,7 +372,7 @@ class oktNavigations
 		}
 
 		$sQuery =
-		'SELECT i.id, i.menu_id, i.active, i.ord, il.title, il.url '.
+		'SELECT i.id, i.menu_id, i.active, i.type, i.ord, il.title, il.url '.
 		'FROM '.$this->t_items.' AS i '.
 			'LEFT JOIN '.$this->t_items_locales.' AS il ON i.id=il.item_id '.
 		'WHERE 1 '.
