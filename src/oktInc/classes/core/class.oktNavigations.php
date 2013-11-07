@@ -385,10 +385,11 @@ class oktNavigations
 			$sQuery .= 'ORDER BY i.ord ASC ';
 		}
 
-		if (($rs = $this->db->select($sQuery)) === false) {
-			return new recordset(array());
+		if (($rs = $this->db->select($sQuery, 'oktNavigationsItemsRecordset')) === false) {
+			$rs = new oktNavigationsItemsRecordset(array());
 		}
 
+		$rs->setCore($this->okt);
 		return $rs;
 	}
 

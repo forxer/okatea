@@ -227,20 +227,23 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <form id="item-form" action="configuration.php" method="post">
 
-	<p class="field"><label for="p_type"><?php _e('c_a_config_navigation_item_type') ?></label>
-	<?php echo form::select('p_type', array(__('c_a_config_navigation_item_internal') => 0, __('c_a_config_navigation_item_external') => 1), $aItemData['item']['type']) ?></p>
+	<div class="two-cols">
+		<p class="field col"><label for="p_type"><?php _e('c_a_config_navigation_item_type') ?></label>
+		<?php echo form::select('p_type', array(__('c_a_config_navigation_item_internal') => 0, __('c_a_config_navigation_item_external') => 1), $aItemData['item']['type']) ?></p>
+
+		<p class="field col"><label><?php echo form::checkbox('p_active', 1, $aItemData['item']['active']) ?> <?php _e('c_c_action_visible') ?></label></p>
+	</div>
 
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['title'])) ?></p>
+	<div class="two-cols">
+		<p class="field col" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+		<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['title'])) ?></p>
 
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><span id="text_<?php echo $aLanguage['code'] ?>"><?php echo $aUrlLabel[$aLanguage['code']][$aItemData['item']['type']] ?></span> <span class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url']), 'item_url') ?></p>
-
+		<p class="field col" lang="<?php echo $aLanguage['code'] ?>"><label for="p_url_<?php echo $aLanguage['code'] ?>"><span id="text_<?php echo $aLanguage['code'] ?>"><?php echo $aUrlLabel[$aLanguage['code']][$aItemData['item']['type']] ?></span> <span class="lang-switcher-buttons"></span></label>
+		<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemData['locales'][$aLanguage['code']]['url']), 'item_url') ?></p>
+	</div>
 	<?php endforeach; ?>
-
-	<p class="field"><label><?php echo form::checkbox('p_active', 1, $aItemData['item']['active']) ?> <?php _e('c_c_action_visible') ?></label></p>
 
 	<p><?php echo form::hidden('action', 'navigation'); ?>
 	<?php echo form::hidden('do', 'item'); ?>
