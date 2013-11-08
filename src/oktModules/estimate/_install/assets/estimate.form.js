@@ -34,7 +34,7 @@
 			var product_id = $(productField).val();
 
 			if (product_id <= 0 || opts.accessories[product_id] == undefined) {
-				$('#' + opts.html.accessoriesWrapper + '_' + product_counter).hide();
+				$('#' + opts.html.accessoriesWrapper + '_' + product_counter).empty().hide();
 			}
 
 			$('#' + opts.html.productQuantityField + '_' + product_counter).spinner(opts.spinner);
@@ -42,6 +42,20 @@
 			$(productField).change(function(){
 				handleProductChange($(this).val(), product_counter);
 			});
+
+			var accessories_counter = $('.' + opts.html.accessoryField + '_' + product_counter).length;
+
+			if (accessories_counter > 0)
+			{
+				$('#' + opts.html.removeAccessoryWrapper + '_' + product_counter + '_' + accessories_counter).append(
+					getRemoveAccessoryLink(product_id, product_counter, accessories_counter,
+						$('#' + opts.html.accessoryWrapper + '_' + product_counter + '_' + accessories_counter)));
+
+				$('.' + opts.html.accessoryQuantityField + '_' + product_counter).spinner(opts.spinner);
+
+				$('#' + opts.html.accessoriesWrapper + '_' + product_counter).append(getAddAccessoryLink(product_counter));
+			}
+
 		}
 
 		function handleProductChange(product_id, product_counter)
@@ -145,7 +159,7 @@
 			var quantity = $('<input/>')
 				.addClass('text spinner ' + opts.html.productQuantityField)
 				.attr('id', quantity_id)
-				.attr('name', opts.html.accessoryQuantityField + '[' + product_counter + ']')
+				.attr('name', opts.html.productQuantityField + '[' + product_counter + ']')
 				.attr('type', 'text')
 				.attr('size', 10)
 				.appendTo(quantity_wrapper);

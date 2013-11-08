@@ -71,6 +71,7 @@ $okt->page->js->addReady('
 
 <!-- <h1><?php echo html::escapeHTML($okt->estimate->getName()) ?></h1> -->
 
+<?php debug($aFormData) ?>
 
 <?php # début Okatea : affichage des éventuelles erreurs
 if ($okt->error->notEmpty()) : ?>
@@ -124,35 +125,59 @@ if ($okt->error->notEmpty()) : ?>
 
 		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis. Vous pouvez ajouter des accessoires pour chacun des matériels.</p>
 
-		<?php for ($i=1; $i<=2; $i++) : ?>
+		<?php # boucle sur les produits
+		for ($i=1; $i<=$iNumProducts; $i++) : ?>
 
 		<fieldset id="product_wrapper_<?php echo $i ?>" class="product_wrapper">
 			<legend><?php printf(__('m_estimate_form_product_%s'), $i) ?></legend>
 
 			<div id="product_line_<?php echo $i ?>" class="product_line">
 				<p class="field product"><label for="p_product_<?php echo $i ?>"><?php _e('m_estimate_form_choose_product') ?></label>
-				<?php echo form::select(array('p_product['.$i.']', 'p_product_'.$i), $aProductsSelect, '', 'p_product') ?></p>
+				<?php echo form::select(array('p_product['.$i.']', 'p_product_'.$i), $aProductsSelect, (!empty($aFormData['products'][$i]) ? $aFormData['products'][$i] : ''), 'p_product') ?></p>
 
 				<p class="field quantity"><label for="p_product_quantity_<?php echo $i ?>"><?php _e('m_estimate_form_quantity') ?></label>
-				<?php echo form::text(array('p_product_quantity['.$i.']', 'p_product_quantity_'.$i), 10, 255, '', 'p_product_quantity spinner') ?></p>
+				<?php echo form::text(array('p_product_quantity['.$i.']', 'p_product_quantity_'.$i), 10, 255, (!empty($aFormData['product_quantity'][$i]) ? $aFormData['product_quantity'][$i] : ''), 'p_product_quantity spinner') ?></p>
 
 				<p id="remove_product_wrapper_<?php echo $i ?>" class="remove_product_wrapper"></p>
 			</div>
 
 			<div id="accessories_wrapper_<?php echo $i ?>" class="accessories_wrapper">
-				<?php /*for ($j=1; $j<=2; $j++) : ?>
+
+				<?php # boucle sur les accessoires
+				$iNumAccessories = 2;
+				$bHasAccessories = false;
+
+				if (!empty($aFormData['products'][$i]) && !empty($aFormData['accessories'][$i])) {
+					$iNumAccessories = count($aFormData['accessories'][$i]);
+					$bHasAccessories = true;
+				}
+
+				if ($iNumAccessories < 2) {
+					$iNumAccessories = 2;
+				}
+
+				for ($j=1; $j<=$iNumAccessories; $j++) :
+
+					$aValues = array();
+
+					if (!empty($aFormData['products'][$i]) && !empty($aProductsAccessories[$aFormData['products'][$i]])) {
+						$aValues = array_flip($aProductsAccessories[$aFormData['products'][$i]]);
+					}
+
+					$sValue = ($bHasAccessories && !empty($aFormData['accessories'][$i][$j]) ? $aFormData['accessories'][$i][$j] : '');
+					$sQuantity = ($bHasAccessories && !empty($aFormData['accessory_quantity'][$i][$j]) ? $aFormData['accessory_quantity'][$i][$j] : '');
+
+				?>
 				<div id="accessory_wrapper_<?php echo $i ?>_<?php echo $j ?>" class="accessory_wrapper">
 					<p class="field accessory"><label for="p_accessory_<?php echo $i ?>_<?php echo $j ?>"><?php printf(__('m_estimate_form_accessory_%s'), $j) ?></label>
-					<?php echo form::select(array('p_accessory['.$i.']['.$j.']', 'p_accessory_'.$i.'_'.$j), array(), '', 'p_accessory_'.$i) ?></p>
+					<?php echo form::select(array('p_accessory['.$i.']['.$j.']', 'p_accessory_'.$i.'_'.$j), $aValues, $sValue, 'p_accessory_'.$i) ?></p>
 
 					<p class="field quantity"><label for="p_accessory_quantity_<?php echo $i ?>_<?php echo $j ?>"><?php _e('m_estimate_form_quantity') ?></label>
-					<?php echo form::text(array('p_accessory_quantity['.$i.']['.$j.']', 'p_accessory_quantity_'.$i.'_'.$j), 10, 255, '', 'spinner p_accessory_quantity_'.$i) ?></p>
+					<?php echo form::text(array('p_accessory_quantity['.$i.']['.$j.']', 'p_accessory_quantity_'.$i.'_'.$j), 10, 255, $sQuantity, 'spinner p_accessory_quantity_'.$i) ?></p>
 
-					<p class="remove_accessory_wrapper"><a href="#" id="remove_accessory_link_<?php echo $i ?>_<?php echo $j ?>" class="remove_accessory_link"><?php _e('m_estimate_form_remove_accessory') ?></a></p>
+					<p class="remove_accessory_wrapper" id="remove_accessory_wrapper_<?php echo $i ?>_<?php echo $j ?>"></p>
 				</div>
-				<?php endfor; */?>
-
-				<!-- <p class="add_accessory_wrapper"><a href="#" id="add_accessory_link_<?php echo $i ?>" class="add_accessory_link"><?php _e('m_estimate_form_add_accessory') ?></a></p> -->
+				<?php endfor; ?>
 			</div>
 		</fieldset>
 
