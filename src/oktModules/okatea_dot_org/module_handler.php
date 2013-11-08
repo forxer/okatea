@@ -119,7 +119,14 @@ class module_okatea_dot_org extends oktModule
 		}
 
 		# Try to get latest version number
-		try {
+		try
+		{
+			$sFilename = $this->sRepositoryPath.'/packages/versions.xml';
+
+			if (!file_exists($sFilename)) {
+				throw new Exception('File version.xml not found.');
+			}
+
 			$this->readVersion(file_get_contents($this->sRepositoryPath.'/packages/versions.xml'), $sVersionType);
 		}
 		catch (Exception $e) {
