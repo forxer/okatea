@@ -46,12 +46,16 @@ class module_estimate extends oktModule
 
 		# config
 		$this->config = $this->okt->newConfig('conf_estimate');
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_estimate_url[$this->okt->user->language];
+		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_form_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('estimatePage', new oktRoute(
-			'^('.html::escapeHTML(implode('|',$this->config->public_estimate_url)).')$',
-			'estimateController', 'estimatePage'
+		$this->okt->router->addRoute('estimateForm', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_form_url)).')$',
+			'estimateController', 'estimateForm'
+		));
+		$this->okt->router->addRoute('estimateSummary', new oktRoute(
+			'^('.html::escapeHTML(implode('|',$this->config->public_summary_url)).')$',
+			'estimateController', 'estimateSummary'
 		));
 
 		$this->products = new estimateProducts($this->okt, $this->t_products, $this->t_accessories);

@@ -25,12 +25,12 @@ $okt->page->datePicker();
 # fin Okatea : ajout du datepicker ?>
 
 
-<?php
+<?php # début Okatea : ajout du JS de gestion du formulaire de demande de devis
 $okt->page->js->addFile(OKT_THEME.'/modules/estimate/estimate.form.js');
 
 $okt->page->js->addReady('
 
-	$("#estimate-form").oktEstimateForm({
+	$("#estimate_form").oktEstimateForm({
 		text: {
 			productTitle: "'.html::escapeJS(__('m_estimate_form_product_%s')).'",
 			addProduct: "'.html::escapeJS(__('m_estimate_form_add_product')).'",
@@ -71,7 +71,6 @@ $okt->page->js->addReady('
 
 <!-- <h1><?php echo html::escapeHTML($okt->estimate->getName()) ?></h1> -->
 
-<?php debug($aFormData) ?>
 
 <?php # début Okatea : affichage des éventuelles erreurs
 if ($okt->error->notEmpty()) : ?>
@@ -81,7 +80,7 @@ if ($okt->error->notEmpty()) : ?>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
 
-<form id="estimate-form" action="<?php echo html::escapeHTML($okt->estimate->config->url) ?>" method="post">
+<form id="estimate_form" action="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>" method="post">
 
 	<fieldset>
 		<legend>Vous concernant</legend>
@@ -188,5 +187,5 @@ if ($okt->error->notEmpty()) : ?>
 	<p class="field col"><label for="p_comment">Commentaire</label>
 	<?php echo form::textarea('p_comment', 60, 8, html::escapeHTML($aFormData['comment'])) ?></p>
 
-	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate-form" /></p>
+	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate_form" /></p>
 </form>

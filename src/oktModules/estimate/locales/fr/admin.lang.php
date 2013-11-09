@@ -27,6 +27,8 @@ $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'Générale';
 
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Modèles';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';
-$GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Modèles du formulaire de devis';
+$GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Modèles du formulaire de demande de devis';
+$GLOBALS['__l10n']['m_estimate_config_tpl_summary'] = 'Modèles du récapitulatif de demande de devis';
 
-$GLOBALS['__l10n']['m_estimate_url_from_%s_in_%s'] = 'URL de la page du devis depuis %s en %s';
+$GLOBALS['__l10n']['m_estimate_form_url_from_%s_in_%s'] = 'URL de la page du formulaire de demande de devis depuis %s en %s';
+$GLOBALS['__l10n']['m_estimate_summary_url_from_%s_in_%s'] = 'URL de la page de récapitulatif de demande de devis depuis %s en %s';

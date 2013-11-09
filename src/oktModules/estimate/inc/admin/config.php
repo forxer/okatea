@@ -16,6 +16,9 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 $oTemplatesForm = new oktTemplatesSet($okt, $okt->estimate->config->templates['form'], 'estimate/form', 'form');
 $oTemplatesForm->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
 
+$oTemplatesSummary = new oktTemplatesSet($okt, $okt->estimate->config->templates['summary'], 'estimate/summary', 'summary');
+$oTemplatesSummary->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
+
 
 /* Traitements
 ----------------------------------------------------------*/
@@ -30,14 +33,20 @@ if (!empty($_POST['form_sent']))
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
 	$p_tpl_form = $oTemplatesForm->getPostConfig();
+	$p_tpl_summary = $oTemplatesSummary->getPostConfig();
 
-	$p_public_estimate_url = !empty($_POST['p_public_estimate_url']) ? $_POST['p_public_estimate_url'] : '';
+	$p_public_form_url = !empty($_POST['p_public_form_url']) ? $_POST['p_public_form_url'] : '';
 
-	foreach ($p_public_list_url as $lang=>$url) {
-		$p_public_estimate_url[$lang] = util::formatAppPath($url,false,false);
+	foreach ($p_public_form_url as $lang=>$url) {
+		$p_public_form_url[$lang] = util::formatAppPath($url,false,false);
 	}
 
-	$p_public_estimate_page = !empty($_POST['p_public_estimate_page']) ? $_POST['p_public_estimate_page'] : $okt->estimate->config->public_estimate_page;
+	$p_public_summary_url = !empty($_POST['p_public_summary_url']) ? $_POST['p_public_summary_url'] : '';
+
+	foreach ($p_public_summary_url as $lang=>$url) {
+		$p_public_summary_url[$lang] = util::formatAppPath($url,false,false);
+	}
+
 
 	if ($okt->error->isEmpty())
 	{
@@ -49,11 +58,12 @@ if (!empty($_POST['form_sent']))
 			'meta_keywords' => $p_meta_keywords,
 
 			'templates' => array(
-				'form' => $p_tpl_form
+				'form' => $p_tpl_form,
+				'summary' => $p_tpl_summary
 			),
 
-			'public_estimate_url' => $p_public_estimate_url,
-			'public_estimate_page' => $p_public_estimate_page
+			'public_form_url' => $p_public_form_url,
+			'public_summary_url' => $p_public_summary_url
 		);
 
 		try
@@ -114,6 +124,10 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<?php echo $oTemplatesForm->getHtmlConfigUsablesTemplates(); ?>
 
+			<h4><?php _e('m_estimate_config_tpl_summary') ?></h4>
+
+			<?php echo $oTemplatesSummary->getHtmlConfigUsablesTemplates(); ?>
+
 		</div><!-- #tab_tpl -->
 
 		<div id="tab_seo">
@@ -145,11 +159,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<legend><?php _e('c_c_seo_schema_url') ?></legend>
 
 				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_estimate_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_estimate_url_from_%s_in_%s'), '<code>'.$okt->config->app_url.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_estimate_url['.$aLanguage['code'].']','p_public_estimate_url_'.$aLanguage['code']), 60, 255, (isset($okt->estimate->config->public_estimate_url[$aLanguage['code']]) ? html::escapeHTML($okt->estimate->config->public_estimate_url[$aLanguage['code']]) : '')) ?></p>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_form_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_estimate_form_url_from_%s_in_%s'), '<code>'.$okt->config->app_url.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_public_form_url['.$aLanguage['code'].']','p_public_form_url_'.$aLanguage['code']), 60, 255, (isset($okt->estimate->config->public_form_url[$aLanguage['code']]) ? html::escapeHTML($okt->estimate->config->public_form_url[$aLanguage['code']]) : '')) ?></p>
+
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_summary_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_estimate_summary_url_from_%s_in_%s'), '<code>'.$okt->config->app_url.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_public_summary_url['.$aLanguage['code'].']','p_public_summary_url_'.$aLanguage['code']), 60, 255, (isset($okt->estimate->config->public_summary_url[$aLanguage['code']]) ? html::escapeHTML($okt->estimate->config->public_summary_url[$aLanguage['code']]) : '')) ?></p>
+
 				<?php endforeach; ?>
 
 			</fieldset>
+		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->
 

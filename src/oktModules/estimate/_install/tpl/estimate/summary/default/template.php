@@ -1,0 +1,93 @@
+
+<?php # début Okatea : ce template étend le layout
+$this->extend('layout');
+# fin Okatea : ce template étend le layout ?>
+
+
+<?php # début Okatea : ajout du CHEMIN du fichier LESS
+$okt->page->css->addLessFile(__DIR__.'/styles.less');
+# fin Okatea : ajout du CHEMIN du fichier LESS ?>
+
+
+<?php # début Okatea : ajout de jQuery
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+# fin Okatea : ajout de jQuery ?>
+
+
+<?php # début Okatea : ajout de jQuery UI
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
+# fin Okatea : ajout de jQuery UI ?>
+
+
+<?php $okt->page->js->addReady('
+
+	$("#send_estimate").button({
+		icons: {
+			primary: "ui-icon-check"
+		}
+	});
+
+	$("#update_estimate").button({
+		icons: {
+			primary: "ui-icon-pencil"
+		}
+	});
+
+'); ?>
+
+
+<p>Veuillez vérifier les informations concernant votre demande de devis et les valider.</p>
+
+<div class="two-cols">
+	<div class="col">
+		<h2>Informations vous concernant</h2>
+
+			<p><?php echo html::escapeHTML($aEstimateData['firstname'].' '.$aEstimateData['lastname']) ?></p>
+			<p><?php echo html::escapeHTML($aEstimateData['email']) ?></p>
+			<p><?php echo html::escapeHTML($aEstimateData['phone']) ?></p>
+	</div>
+	<div class="col">
+		<h2>Dates prévisionelles</h2>
+
+			<?php if ($aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
+			<p>Le <?php echo html::escapeHTML($aEstimateData['start_date']) ?></p>
+
+			<?php else : ?>
+			<p>Du <?php echo html::escapeHTML($aEstimateData['start_date']) ?> au <?php echo html::escapeHTML($aEstimateData['end_date']) ?></p>
+
+			<?php endif; ?>
+	</div>
+</div>
+
+<h2>Produits et accessoires</h2>
+
+	<?php foreach ($aEstimateData['products'] as $aProduct) : ?>
+	<div class="product_wrapper">
+		<div class="product_line">
+			<div class="product_title"><?php echo html::escapeHTML($aProduct['title']) ?></div>
+			<div class="product_quantity"><?php echo html::escapeHTML($aProduct['quantity']) ?></div>
+		</div>
+
+		<?php if (!empty($aProduct['accessories'])) : ?>
+		<div class="accessories_wrapper">
+			<?php foreach ($aProduct['accessories'] as $aAccessory) : ?>
+			<div class="accessory_line">
+				<div class="accessory_title"><?php echo html::escapeHTML($aAccessory['title']) ?></div>
+				<div class="accessory_quantity"><?php echo html::escapeHTML($aAccessory['quantity']) ?></div>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+	</div>
+	<?php endforeach; ?>
+
+
+<h2>Commentaire</h2>
+
+	<p><?php echo util::nlToP(html::escapeHTML($aEstimateData['comment'])) ?></p>
+
+<p id="buttons">
+	<a href="<?php echo util::escapeAttrHTML($okt->page->getBaseUrl().$okt->estimate->config->public_summary_url[$okt->user->language]) ?>?send=1" id="send_estimate">Valider et envoyer</a>
+	<a href="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>" id="update_estimate">Modifier</a>
+</p>

@@ -2,17 +2,27 @@ name:
   fr: 'Devis'
   en: 'Estimate'
 name_seo:
-  fr: 'Devis'
+  fr: 'Demande de devis'
   en: 'Estimate'
 title: 
-  fr: 'Devis'
+  fr: 'Demande de devis'
+  en: 'Estimate'
 meta_description: 
   fr: ''
+  en: ''
 meta_keywords: 
   fr: ''
+  en: ''
 templates:
   form:
     default: default
     usables: {}
-public_estimate_url: 
+  summary:
+    default: default
+    usables: {}
+public_form_url: 
   fr: 'devis'
+  en: 'estimate'
+public_summary_url: 
+  fr: 'recapitulatif'
+  en: 'summary'

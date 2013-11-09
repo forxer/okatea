@@ -28,7 +28,9 @@ $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'General';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Templates';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Estimate form templates';
+$GLOBALS['__l10n']['m_estimate_config_tpl_summary'] = 'Estimate summary templates';
 
-$GLOBALS['__l10n']['m_estimate_url_from_%s_in_%s'] = 'URL of estimate form from %s';
+$GLOBALS['__l10n']['m_estimate_form_url_from_%s_in_%s'] = 'URL of the page the estimate request form from %s in %s';
+$GLOBALS['__l10n']['m_estimate_summary_url_from_%s_in_%s'] = 'URL de la page de récapitulatif de demande de devis depuis %s en %s';
 
 

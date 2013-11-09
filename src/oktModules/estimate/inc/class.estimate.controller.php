@@ -10,19 +10,123 @@ class estimateController extends oktController
 	protected $aFormData = array();
 
 	/**
-	 * Affichage de la page du formulaire de devis.
+	 * Affichage de la page de récapitulatif de demande de devis.
 	 *
 	 */
-	public function estimatePage()
+	public function estimateSummary()
+	{
+		# module actuel
+		$this->okt->page->module = 'estimate';
+		$this->okt->page->action = 'summary';
+
+		# si on as pas de données en session on renvoi sur le formulaire
+		if (empty($_SESSION['okt_mod_estimate_form_data'])) {
+			http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language]);
+		}
+
+		# récupération des produits et des accessoires
+		$rsProducts = $this->okt->estimate->products->getProducts();
+		$aProducts = array();
+		$aProductsAccessories = array();
+
+		while ($rsProducts->fetch())
+		{
+			$aProducts[$rsProducts->id] = html::escapeHTML($rsProducts->title);
+
+			$rsAccessories = $this->okt->estimate->accessories->getAccessories(array(
+				'product_id' => $rsProducts->id
+			));
+
+			if (!$rsAccessories->isEmpty())
+			{
+				$aProductsAccessories[$rsProducts->id] = array();
+				while ($rsAccessories->fetch()) {
+					$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
+				}
+			}
+
+			unset($rsAccessories);
+		}
+
+		unset($rsProducts);
+
+		# formatage des données
+		$aFormatedData = $_SESSION['okt_mod_estimate_form_data'];
+
+		unset($aFormatedData['products'], $aFormatedData['product_quantity'],
+			$aFormatedData['accessories'], $aFormatedData['accessory_quantity']);
+
+		foreach ($_SESSION['okt_mod_estimate_form_data']['products'] as $iProductCounter=>$iProductId)
+		{
+			$aFormatedData['products'][$iProductCounter] = array(
+				'title' => $aProducts[$iProductId],
+				'quantity' => $_SESSION['okt_mod_estimate_form_data']['product_quantity'][$iProductCounter],
+				'accessories' => array()
+			);
+
+			if (!empty($_SESSION['okt_mod_estimate_form_data']['accessories'][$iProductCounter]))
+			{
+				foreach ($_SESSION['okt_mod_estimate_form_data']['accessories'][$iProductCounter] as $iAccessoryCounter=>$iAccessoryId)
+				{
+					$aFormatedData['products'][$iProductCounter]['accessories'][$iAccessoryCounter] = array(
+						'title' => $aProductsAccessories[$iProductId][$iAccessoryId],
+						'quantity' => $_SESSION['okt_mod_estimate_form_data']['accessory_quantity'][$iProductCounter][$iAccessoryCounter]
+					);
+				}
+			}
+		}
+
+		# enregistrement de la demande
+		if (!empty($_GET['send']))
+		{
+		}
+
+
+		# meta description
+		if ($this->okt->estimate->config->meta_description[$this->okt->user->language] != '') {
+			$this->okt->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
+		}
+		else {
+			$this->okt->page->meta_description = util::getSiteMetaDesc();
+		}
+
+		# meta keywords
+		if ($this->okt->estimate->config->meta_keywords[$this->okt->user->language] != '') {
+			$this->okt->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
+		}
+		else {
+			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+		}
+
+		# title tag du module
+		$this->okt->page->addTitleTag($this->okt->estimate->getTitle());
+
+		# fil d'ariane
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+			$this->okt->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
+		}
+
+		# titre de la page
+		$this->okt->page->setTitle($this->okt->estimate->getName());
+
+		# titre SEO de la page
+		$this->okt->page->setTitleSeo($this->okt->estimate->getNameSeo());
+
+		# affichage du template
+		echo $this->okt->tpl->render('estimate/summary/'.$this->okt->estimate->config->templates['summary']['default'].'/template', array(
+			'aEstimateData' => $aFormatedData
+		));
+	}
+
+	/**
+	 * Affichage de la page du formulaire de demande de devis.
+	 *
+	 */
+	public function estimateForm()
 	{
 		# module actuel
 		$this->okt->page->module = 'estimate';
 		$this->okt->page->action = 'form';
-
-		# est-ce qu'on demande une langue demandée
-		if (($sRequestLanguage = $this->setUserRequestLanguage()) !== false) {
-			http::redirect($this->okt->page->getBaseUrl($sRequestLanguage).$this->okt->estimate->config->public_estimate_url[$sRequestLanguage]);
-		}
 
 		# récupération des produits et des accessoires
 		$rsProducts = $this->okt->estimate->products->getProducts();
@@ -65,8 +169,14 @@ class estimateController extends oktController
 			'comment' => ''
 		);
 
-		# formulaire envoyé
-		if (!empty($_POST['sended']))
+		# retour de la page de récapitulatif ?
+		if (!empty($_SESSION['okt_mod_estimate_form_data']))
+		{
+			$this->aFormData = $_SESSION['okt_mod_estimate_form_data'];
+			unset($_SESSION['okt_mod_estimate_form_data']);
+		}
+		# ou formulaire envoyé ?
+		elseif (!empty($_POST['sended']))
 		{
 			$this->aFormData = array(
 				'lastname' => !empty($_POST['p_lastname']) ? $_POST['p_lastname'] : '',
@@ -149,7 +259,11 @@ class estimateController extends oktController
 				$this->okt->error->set('Veuillez choisir au moins un produit.');
 			}
 
-
+			if ($this->okt->error->isEmpty())
+			{
+				$_SESSION['okt_mod_estimate_form_data'] = $this->aFormData;
+				http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_summary_url[$this->okt->user->language]);
+			}
 		}
 
 		# pré-remplissage des données utilisateur si loggué
