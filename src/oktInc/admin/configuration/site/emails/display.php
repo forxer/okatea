@@ -19,7 +19,7 @@
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 # Liste des méthodes d'envoi des courriels
-$aCourrielTransports = array(
+$aEmailTransportsChoice = array(
 	__('c_a_config_sending_mail_transport_mail') => 'mail',
 	__('c_a_config_sending_mail_transport_smtp') => 'smtp',
 	__('c_a_config_sending_mail_transport_mta')  => 'sendmail'
@@ -33,19 +33,16 @@ $okt->page->toggleWithLegend('mail_advanced_title', 'mail_advanced_content');
 <h3><?php _e('c_a_config_tab_email') ?></h3>
 
 <fieldset>
-	<legend><?php _e('c_a_config_sender') ?></legend>
+	<legend><?php _e('c_a_config_email_config') ?></legend>
 
-	<p class="field"><label for="p_courriel_address"><?php _e('c_a_config_sender_address') ?></label>
-	<?php echo form::text('p_courriel_address', 60, 255, html::escapeHTML($okt->config->courriel_address)) ?></p>
+	<p class="field"><label for="p_email_to"><?php _e('c_a_config_email_to') ?></label>
+	<?php echo form::text('p_email_to', 60, 255, html::escapeHTML($okt->config->email['to'])) ?></p>
 
-	<p class="field"><label for="p_courriel_name"><?php _e('c_a_config_sender_name') ?></label>
-	<?php echo form::text('p_courriel_name', 60, 255, html::escapeHTML($okt->config->courriel_name)) ?></p>
+	<p class="field"><label for="p_email_from"><?php _e('c_a_config_email_from') ?></label>
+	<?php echo form::text('p_email_from', 60, 255, html::escapeHTML($okt->config->email['from'])) ?></p>
 
-	<?php if ($okt->user->is_superadmin) : ?>
-	<p class="field"><label for="p_courriel_theme"><?php _e('c_a_config_sender_theme_active') ?></label>
-	<?php echo form::radio(array('p_courriel_theme', 'p_courriel_theme_O'), 1, ($okt->config->courriel_theme == 1)) ?>&nbsp;<?php _e('c_c_Yes') ?>&nbsp;&nbsp;
-	<?php echo form::radio(array('p_courriel_theme', 'p_courriel_theme_N'), 0, ($okt->config->courriel_theme == 0)) ?>&nbsp;<?php _e('c_c_No') ?></p>
-	<?php endif; ?>
+	<p class="field"><label for="p_email_name"><?php _e('c_a_config_email_name') ?></label>
+	<?php echo form::text('p_email_name', 60, 255, html::escapeHTML($okt->config->email['name'])) ?></p>
 
 </fieldset>
 
@@ -54,31 +51,31 @@ $okt->page->toggleWithLegend('mail_advanced_title', 'mail_advanced_content');
 <fieldset id="mail_advanced_content">
 	<legend><?php _e('c_a_config_sending_mail_transport') ?></legend>
 
-	<p class="field"><label for="p_courriel_transport"><?php _e('c_a_config_sending_mail_transport_method') ?></label>
-	<?php echo form::select('p_courriel_transport', $aCourrielTransports, $okt->config->courriel_transport) ?></p>
+	<p class="field"><label for="p_email_transport"><?php _e('c_a_config_sending_mail_transport_method') ?></label>
+	<?php echo form::select('p_email_transport', $aEmailTransportsChoice, $okt->config->email['transport']) ?></p>
 
 	<fieldset>
 		<legend><?php _e('c_a_config_sending_mail_transport_smtp_abbr') ?></legend>
 
-		<p class="field"><label for="p_courriel_smtp_host"><?php printf(__('c_a_config_sending_mail_transport_smtp_host'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
-		<?php echo form::text('p_courriel_smtp_host', 60, 255, html::escapeHTML($okt->config->courriel_smtp['host'])) ?></p>
+		<p class="field"><label for="p_email_smtp_host"><?php printf(__('c_a_config_sending_mail_transport_smtp_host'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
+		<?php echo form::text('p_email_smtp_host', 60, 255, html::escapeHTML($okt->config->email['smtp']['host'])) ?></p>
 
-		<p class="field"><label for="p_courriel_smtp_port"><?php printf(__('c_a_config_sending_mail_transport_smtp_port'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
-		<?php echo form::text('p_courriel_smtp_port', 60, 255, html::escapeHTML($okt->config->courriel_smtp['port'])) ?></p>
+		<p class="field"><label for="p_email_smtp_port"><?php printf(__('c_a_config_sending_mail_transport_smtp_port'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
+		<?php echo form::text('p_email_smtp_port', 60, 255, html::escapeHTML($okt->config->email['smtp']['port'])) ?></p>
 
-		<p class="field"><label for="p_courriel_smtp_username"><?php printf(__('c_a_config_sending_mail_transport_smtp_user'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
-		<?php echo form::text('p_courriel_smtp_username', 60, 255, html::escapeHTML($okt->config->courriel_smtp['username'])) ?></p>
+		<p class="field"><label for="p_email_smtp_username"><?php printf(__('c_a_config_sending_mail_transport_smtp_user'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
+		<?php echo form::text('p_email_smtp_username', 60, 255, html::escapeHTML($okt->config->email['smtp']['username'])) ?></p>
 
-		<p class="field"><label for="p_courriel_smtp_password"><?php printf(__('c_a_config_sending_mail_transport_smtp_password'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
-		<?php echo form::password('p_courriel_smtp_password', 60, 255, html::escapeHTML($okt->config->courriel_smtp['password'])) ?></p>
+		<p class="field"><label for="p_email_smtp_password"><?php printf(__('c_a_config_sending_mail_transport_smtp_password'),__('c_a_config_sending_mail_transport_smtp_abbr')) ?></label>
+		<?php echo form::password('p_email_smtp_password', 60, 255, html::escapeHTML($okt->config->email['smtp']['password'])) ?></p>
 
 	</fieldset>
 
 	<fieldset>
 		<legend><?php printf(__('c_a_config_sending_mail_transport_mta_local'),__('c_a_config_sending_mail_transport_mta_abbr'))?></legend>
 
-		<p class="field"><label for="p_courriel_sendmail"><?php printf(__('c_a_config_sending_mail_transport_mta_command'),__('c_a_config_sending_mail_transport_mta_abbr'))?></label>
-		<?php echo form::text('p_courriel_sendmail', 60, 255, html::escapeHTML($okt->config->courriel_sendmail)) ?></p>
+		<p class="field"><label for="p_email_sendmail"><?php printf(__('c_a_config_sending_mail_transport_mta_command'),__('c_a_config_sending_mail_transport_mta_abbr'))?></label>
+		<?php echo form::text('p_email_sendmail', 60, 255, html::escapeHTML($okt->config->email['sendmail'])) ?></p>
 
 	</fieldset>
 </fieldset>

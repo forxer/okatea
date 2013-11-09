@@ -41,8 +41,8 @@ $p_address_tel = '';
 $p_address_mobile = '';
 $p_address_fax = '';
 
-$p_courriel_address = 'contact@'.str_replace('www.','',$_SERVER['HTTP_HOST']);
-$p_courriel_name = $p_title;
+$p_email_from = $p_email_to = 'contact@'.str_replace('www.','',$_SERVER['HTTP_HOST']);
+$p_email_name = $p_title;
 
 $p_title_tag = '';
 $p_meta_description = '';
@@ -80,12 +80,17 @@ if (!empty($_POST['sended']))
 	$p_address_mobile = !empty($_POST['p_address_mobile']) ? $_POST['p_address_mobile'] : '';
 	$p_address_fax = !empty($_POST['p_address_fax']) ? $_POST['p_address_fax'] : '';
 
-	$p_courriel_address = !empty($_POST['p_courriel_address']) ? $_POST['p_courriel_address'] : '';
-	if ($p_courriel_address != '' && !text::isEmail($p_courriel_address)) {
-		$okt->error->set(sprintf(__('c_c_error_invalid_email'),html::escapeHTML($p_courriel_address)));
+	$p_email_to = !empty($_POST['p_email_to']) ? $_POST['p_email_to'] : '';
+	if ($p_email_to != '' && !text::isEmail($p_email_to)) {
+		$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($p_email_to)));
 	}
 
-	$p_courriel_name = !empty($_POST['p_courriel_name']) ? $_POST['p_courriel_name'] : '';
+	$p_email_from = !empty($_POST['p_email_from']) ? $_POST['p_email_from'] : '';
+	if ($p_email_from != '' && !text::isEmail($p_email_from)) {
+		$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($p_email_from)));
+	}
+
+	$p_email_name = !empty($_POST['p_email_name']) ? $_POST['p_email_name'] : '';
 
 	$p_title_tag = !empty($_POST['p_title_tag']) ? $_POST['p_title_tag'] : '';
 	$p_meta_description = !empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '';
@@ -121,8 +126,11 @@ if (!empty($_POST['sended']))
 				'name' 				=> $p_leader_name,
 				'firstname' 		=> $p_leader_firstname
 			),
-			'courriel_address' 	=> $p_courriel_address,
-			'courriel_name' 	=> $p_courriel_name,
+			'email' => array(
+				'to' => $p_email_to,
+				'from' => $p_email_from,
+				'name' => ''
+			),
 			'title_tag' 		=> array('fr' => $p_title_tag),
 			'meta_description' 	=> array('fr' => $p_meta_description),
 			'meta_keywords' 	=> array('fr' => $p_meta_keywords),
@@ -253,13 +261,17 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 			<h3><?php _e('c_a_config_tab_email') ?></h3>
 
 			<fieldset>
-				<legend><?php _e('c_a_config_sender') ?></legend>
+				<legend><?php _e('c_a_config_email_config') ?></legend>
 
-				<p class="field"><label for="p_courriel_address"><?php _e('c_a_config_sender_address') ?></label>
-				<?php echo form::text('p_courriel_address', 60, 255, html::escapeHTML($p_courriel_address)) ?></p>
+				<p class="field"><label for="p_email_to"><?php _e('c_a_config_email_to') ?></label>
+				<?php echo form::text('p_email_to', 60, 255, html::escapeHTML($p_email_to)) ?></p>
 
-				<p class="field"><label for="p_courriel_name"><?php _e('c_a_config_sender_name') ?></label>
-				<?php echo form::text('p_courriel_name', 60, 255, html::escapeHTML($p_courriel_name)) ?></p>
+				<p class="field"><label for="p_email_from"><?php _e('c_a_config_email_from') ?></label>
+				<?php echo form::text('p_email_from', 60, 255, html::escapeHTML($p_email_from)) ?></p>
+
+				<p class="field"><label for="p_email_name"><?php _e('c_a_config_email_name') ?></label>
+				<?php echo form::text('p_email_name', 60, 255, html::escapeHTML($p_email_name)) ?></p>
+
 			</fieldset>
 
 		</div><!-- #tab_email -->

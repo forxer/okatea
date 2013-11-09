@@ -82,7 +82,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 	<p><?php _e('m_contact_recipients_page_description')?></p>
 
-	<p><?php printf(__('m_contact_default_recipient_%s'), $okt->config->courriel_address)?></p>
+	<p><?php printf(__('m_contact_default_recipient_%s'), $okt->config->email['to'])?></p>
 
 	<p><?php _e('m_contact_copy_hidden_copy')?></p>
 

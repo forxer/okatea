@@ -36,10 +36,10 @@ $GLOBALS['__l10n']['c_a_config_address_fax'] = 'Fax';
 
 $GLOBALS['__l10n']['c_a_config_gps'] = 'GPS';
 
-$GLOBALS['__l10n']['c_a_config_sender'] = 'Sender';
-$GLOBALS['__l10n']['c_a_config_sender_address'] = 'Outgoing e-mails address';
-$GLOBALS['__l10n']['c_a_config_sender_name'] = 'Name of outgoing e-mails';
-$GLOBALS['__l10n']['c_a_config_sender_theme_active'] = 'Send HTML mails using the theme';
+$GLOBALS['__l10n']['c_a_config_email_config'] = 'Address configuration for sending and receiving emails';
+$GLOBALS['__l10n']['c_a_config_email_to'] = 'Recipient email address';
+$GLOBALS['__l10n']['c_a_config_email_from'] = 'Address of outgoing emails';
+$GLOBALS['__l10n']['c_a_config_email_name'] = 'Name associated with the email addresses';
 
 $GLOBALS['__l10n']['c_a_config_sending_mail'] = 'Configuration for sending e-mails';
 

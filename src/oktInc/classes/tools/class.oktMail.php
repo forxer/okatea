@@ -39,10 +39,6 @@ class oktMail
 		$this->mailer = Swift_Mailer::newInstance($this->transport);
 
 		$this->message = Swift_Message::newInstance($subject, $body, $contentType, $charset);
-
-		if ($okt->config->courriel_theme == 1 && $withTheme) {
-			$this->setTplLayout('layout_mail');
-		}
 	}
 
 	/**
@@ -51,7 +47,7 @@ class oktMail
 	 */
 	protected function setTransport()
 	{
-		switch ($this->okt->config->courriel_transport)
+		switch ($this->okt->config->email['transport'])
 		{
 			default:
 			case 'mail':
@@ -60,24 +56,24 @@ class oktMail
 
 			case 'smtp':
 				$this->transport = Swift_SmtpTransport::newInstance(
-					$this->okt->config->courriel_smtp['host'],
-					$this->okt->config->courriel_smtp['port']
+					$this->okt->config->email['smtp']['host'],
+					$this->okt->config->email['smtp']['port']
 				);
 
-				if (!empty($this->okt->config->courriel_smtp['username'])) {
-					$this->transport->setUsername($this->okt->config->courriel_smtp['username']);
+				if (!empty($this->okt->config->email['smtp']['username'])) {
+					$this->transport->setUsername($this->okt->config->email['smtp']['username']);
 				}
 
-				if (!empty($this->okt->config->courriel_smtp['password'])) {
-					$this->transport->setPassword($this->okt->config->courriel_smtp['password']);
+				if (!empty($this->okt->config->courriel['smtp']['password'])) {
+					$this->transport->setPassword($this->okt->config->email['smtp']['password']);
 				}
 			break;
 
 			case 'sendmail':
 				$command = '/usr/sbin/exim -bs';
 
-				if (!empty($this->okt->config->courriel_sendmail)) {
-					$command = $this->okt->config->courriel_sendmail;
+				if (!empty($this->okt->config->email['sendmail'])) {
+					$command = $this->okt->config->email['sendmail'];
 				}
 
 				$this->transport = Swift_SendmailTransport::newInstance($command);
@@ -87,30 +83,13 @@ class oktMail
 
 	public function setFrom()
 	{
-		if (!empty($this->okt->config->courriel_name)) {
-			$this->message->setFrom(array($this->okt->config->courriel_address => html::escapeHTML($this->okt->config->courriel_name)));
+		if (!empty($this->okt->config->email['name'])) {
+			$this->message->setFrom(array($this->okt->config->email['from'] => html::escapeHTML($this->okt->config->email['name'])));
 		}
 		else {
-			$this->message->setFrom($this->okt->config->courriel_address);
+			$this->message->setFrom($this->okt->config->email['from']);
 		}
 	}
-
-	public function hasTplLayout()
-	{
-		return !empty($this->layout_tpl);
-	}
-
-	public function getTplLayout()
-	{
-		return $this->layout_tpl;
-	}
-
-	public function setTplLayout($sLayout)
-	{
-		$this->layout_tpl = $sLayout;
-		return $this;
-	}
-
 
 	/**
 	 * Parse un fichier de template pour utiliser comme mail.
@@ -149,7 +128,7 @@ class oktMail
 	 */
 	public function send()
 	{
-		$iNumSended = $this->mailer->send($this->message,$this->failures);
+		$iNumSended = $this->mailer->send($this->message, $this->failures);
 
 		if ($iNumSended <= 0) {
 			$this->okt->error->set(__('c_c_error_sending_email'));

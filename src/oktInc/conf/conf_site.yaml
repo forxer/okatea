@@ -35,20 +35,17 @@ company:
 leader:
   name: ''
   firstname: ''
-courriel_address: ''
-courriel_name: ''
-courriel_transport: mail
-courriel_smtp:
-  host: ''
-  port: 25
-  username: ''
-  password: ''
-courriel_sendmail: '/usr/sbin/exim -bs'
-courriel_theme: '0'
+email:
+  to: ''
+  from: ''
+  name: ''
+  transport: ''
+  smtp: { host: '', port: 25, username: '', password: '' }
+  sendmail: ''
 theme: okatea
 theme_mobile: ''
 theme_tablet: ''
-public_theme: base
+public_theme: black-tie
 enable_admin_bar: true
 admin_sidebar_position: 0
 admin_theme: redmond
@@ -101,9 +98,7 @@ log_admin:
   ttl_months: 3
 news_feed:
   enabled: true
-  url:
-    fr: 'http://okatea.org/fr/actualites/rss'
-    en: 'http://okatea.org/en/news/rss'
+  url: { fr: 'http://okatea.org/fr/actualites/rss', en: 'http://okatea.org/en/news/rss' }
 htmlpurifier_disabled: false
 slug_type: ascii
 navigation_tpl:

@@ -11,6 +11,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.BETA.4
+# refactor variables names of emails configuration
 ! can now use external links in navigation menus
 ! add navigation items proper recordset
 - fix news URL

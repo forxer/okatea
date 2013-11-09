@@ -328,8 +328,9 @@ class oktCore
 			'leader_name' => $this->config->leader['name'],
 			'leader_firstname' => $this->config->leader['firstname'],
 
-			'courriel_address' => $this->config->courriel_address,
-			'courriel_name' => $this->config->courriel_name
+			'email_to' => $this->config->email['to'],
+			'email_from' => $this->config->email['from'],
+			'email_name' => $this->config->email['name']
 		);
 	}
 
