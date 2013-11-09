@@ -396,7 +396,7 @@ class oktDefinitionsLessEditor
 
 		foreach ($aFileContent as $sLine)
 		{
-			if (preg_match('/^@(.*): (.*);$/', $sLine, $aMatches)) {
+			if (preg_match('/^@(.*):\h(.*);\s$/', $sLine, $aMatches)) {
 				$aValues[$aMatches[1]] = $aMatches[2];
 			}
 		}
