@@ -42,10 +42,13 @@ if (!empty($_REQUEST['product_id']))
 			'title' => $rsProduct->title
 		);
 
-		$rsAccessories = $okt->estimate->accessories->getAccessories(array(
-			'active' => 2,
-			'product_id' => $rsProduct->id,
-		));
+		if ($okt->estimate->config->enable_accessories)
+		{
+			$rsAccessories = $okt->estimate->accessories->getAccessories(array(
+				'active' => 2,
+				'product_id' => $rsProduct->id,
+			));
+		}
 	}
 }
 
@@ -146,7 +149,7 @@ if ($iProductId)
 		'ui-icon' => 'plusthick'
 	));
 	$okt->page->addButton('estimateProductBtSt', array(
-		'permission' => true,
+		'permission' => $okt->estimate->config->enable_accessories,
 		'title' => __('m_estimate_add_accessory'),
 		'url' => 'module.php?m=estimate&amp;action=accessory&amp;product_id='.$iProductId,
 		'ui-icon' => 'plus'
@@ -203,7 +206,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 </form>
 
 
-<?php if (!empty($iProductId)) : ?>
+<?php if ($okt->estimate->config->enable_accessories && !empty($iProductId)) : ?>
 
 	<h3><?php _e('m_estimate_product_accessories') ?></h3>
 

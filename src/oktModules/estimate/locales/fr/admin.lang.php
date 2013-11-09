@@ -25,6 +25,10 @@ $GLOBALS['__l10n']['m_estimate_accessory_must_choose_title'] = 'Vous devez chois
 $GLOBALS['__l10n']['m_estimate_configuration'] = 'Configuration';
 $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'Générale';
 
+$GLOBALS['__l10n']['m_estimate_config_enable_accessories'] = 'Activer la gestion des accessoires';
+$GLOBALS['__l10n']['m_estimate_config_default_products_number'] = 'Nombre de produits à choisir par défaut sur le formulaire';
+$GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Nombre d’accessoires à choisir par défaut sur le formulaire';
+
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Modèles';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';
 $GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Modèles du formulaire de demande de devis';

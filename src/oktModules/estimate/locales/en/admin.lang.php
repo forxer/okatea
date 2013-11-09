@@ -25,6 +25,10 @@ $GLOBALS['__l10n']['m_estimate_accessory_must_choose_title'] = 'You must choose 
 $GLOBALS['__l10n']['m_estimate_configuration'] = 'Configuration';
 $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'General';
 
+$GLOBALS['__l10n']['m_estimate_config_enable_accessories'] = 'Enable accessories management';
+$GLOBALS['__l10n']['m_estimate_config_default_products_number'] = 'Number of products to choose by default on the form';
+$GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Number of accessories to choose by default on the form';
+
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Templates';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['__l10n']['m_estimate_config_tpl_form'] = 'Estimate form templates';

@@ -46,12 +46,15 @@ if (!empty($_GET['delete_product']))
 # Liste des produits
 $rsProducts = $okt->estimate->products->getProducts(array('active'=>2));
 
-while ($rsProducts->fetch())
+if ($okt->estimate->config->enable_accessories)
 {
-	$rsProducts->accessories = $okt->estimate->accessories->getAccessories(array(
-		'product_id' => $rsProducts->id,
-		'active' => 2
-	));
+	while ($rsProducts->fetch())
+	{
+		$rsProducts->accessories = $okt->estimate->accessories->getAccessories(array(
+			'product_id' => $rsProducts->id,
+			'active' => 2
+		));
+	}
 }
 
 # Titre de la page
@@ -86,7 +89,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<caption><?php _e('m_estimate_products_list') ?></caption>
 	<thead><tr>
 		<th scope="col"><?php _e('m_estimate_product_title') ?></th>
+		<?php if ($okt->estimate->config->enable_accessories) : ?>
 		<th scope="col"><?php _e('m_estimate_product_accessories') ?></th>
+		<?php endif; ?>
 		<th scope="col"><?php _e('c_c_Actions') ?></th>
 	</tr></thead>
 	<tbody>
@@ -103,6 +108,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="module.php?m=estimate&amp;action=product&amp;product_id=<?php echo $rsProducts->id ?>"><?php
 		echo html::escapeHTML($rsProducts->title) ?></a></th>
 
+		<?php if ($okt->estimate->config->enable_accessories) : ?>
 		<td class="<?php echo $td_class ?>">
 			<ul>
 			<?php while ($rsProducts->accessories->fetch()) : ?>
@@ -115,6 +121,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php endwhile; ?>
 			</ul>
 		</td>
+		<?php endif; ?>
 
 		<td class="<?php echo $td_class ?> small">
 			<ul class="actions">

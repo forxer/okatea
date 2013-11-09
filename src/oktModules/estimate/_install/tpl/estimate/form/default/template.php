@@ -60,7 +60,7 @@ $okt->page->js->addReady('
 			removeAccessoryWrapper: "remove_accessory_wrapper",
 			removeAccessoryLink: "remove_accessory_link"
 		},
-		default_accessories_number: 2,
+		default_accessories_number: '.$okt->estimate->config->default_accessories_number.',
 		products: '.json_encode($aProductsSelect).',
 		accessories: '.json_encode($aProductsAccessories).',
 		spinner: { min: 0 }
@@ -79,6 +79,17 @@ if ($okt->error->notEmpty()) : ?>
 	</div>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
+
+<?php # début Okatea : si la demande a bien été enregistrée, on affiche un message de confirmation
+if (!empty($_GET['added'])) : ?>
+	<div class="success_box">
+		<p>Votre demande de devis a bien été prise en compte.
+		Nous allons la traiter et vous répondre dans les plus brefs délais.</br />
+		<br />Merci de l'intérêt que vous portez à nos prestations.</p>
+	</div>
+
+<?php # début Okatea : sinon on affichent le formulaire de demande de devis
+else : ?>
 
 <form id="estimate_form" action="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>" method="post">
 
@@ -120,9 +131,16 @@ if ($okt->error->notEmpty()) : ?>
 	</fieldset>
 
 	<fieldset id="products_wrapper">
-		<legend>Choix des produits et des accessoires</legend>
+		<legend>
+			<?php if ($okt->estimate->config->enable_accessories) : ?>
+			Choix des produits et des accessoires
+			<?php else : ?>
+			Choix des produits
+			<?php endif; ?>
+		</legend>
 
-		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis. Vous pouvez ajouter des accessoires pour chacun des matériels.</p>
+		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis.
+		<?php if ($okt->estimate->config->enable_accessories) : ?>Vous pouvez ajouter des accessoires pour chacun des matériels.<?php endif; ?></p>
 
 		<?php # boucle sur les produits
 		for ($i=1; $i<=$iNumProducts; $i++) : ?>
@@ -140,10 +158,11 @@ if ($okt->error->notEmpty()) : ?>
 				<p id="remove_product_wrapper_<?php echo $i ?>" class="remove_product_wrapper"></p>
 			</div>
 
+			<?php if ($okt->estimate->config->enable_accessories) : ?>
 			<div id="accessories_wrapper_<?php echo $i ?>" class="accessories_wrapper">
 
 				<?php # boucle sur les accessoires
-				$iNumAccessories = 2;
+				$iNumAccessories = $okt->estimate->config->default_accessories_number;
 				$bHasAccessories = false;
 
 				if (!empty($aFormData['products'][$i]) && !empty($aFormData['accessories'][$i])) {
@@ -151,8 +170,8 @@ if ($okt->error->notEmpty()) : ?>
 					$bHasAccessories = true;
 				}
 
-				if ($iNumAccessories < 2) {
-					$iNumAccessories = 2;
+				if ($iNumAccessories < $okt->estimate->config->default_accessories_number) {
+					$iNumAccessories = $okt->estimate->config->default_accessories_number;
 				}
 
 				for ($j=1; $j<=$iNumAccessories; $j++) :
@@ -178,6 +197,7 @@ if ($okt->error->notEmpty()) : ?>
 				</div>
 				<?php endfor; ?>
 			</div>
+			<?php endif; ?>
 		</fieldset>
 
 		<?php endfor; ?>
@@ -189,3 +209,4 @@ if ($okt->error->notEmpty()) : ?>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate_form" /></p>
 </form>
+<?php endif; ?>

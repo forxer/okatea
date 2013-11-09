@@ -20,8 +20,8 @@ $okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme
 # fin Okatea : ajout de jQuery UI ?>
 
 
-<?php $okt->page->js->addReady('
-
+<?php # début Okatea : ajout du JS propre à la page
+$okt->page->js->addReady('
 	$("#send_estimate").button({
 		icons: {
 			primary: "ui-icon-check"
@@ -33,11 +33,13 @@ $okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme
 			primary: "ui-icon-pencil"
 		}
 	});
+');
+# fin Okatea : ajout du JS propre à la page ?>
 
-'); ?>
 
-
-<p>Veuillez vérifier les informations concernant votre demande de devis et les valider.</p>
+<p>Votre demande de devis n'est pas encore envoyée.</p>
+<p>Veuillez vérifier les informations ci-dessous,
+et les valider ou les modifier si besoin.</p>
 
 <div class="two-cols">
 	<div class="col">
@@ -60,7 +62,11 @@ $okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme
 	</div>
 </div>
 
+<?php if ($okt->estimate->config->enable_accessories) : ?>
 <h2>Produits et accessoires</h2>
+<?php else : ?>
+<h2>Produits</h2>
+<?php endif; ?>
 
 	<?php foreach ($aEstimateData['products'] as $aProduct) : ?>
 	<div class="product_wrapper">
@@ -69,7 +75,7 @@ $okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme
 			<div class="product_quantity"><?php echo html::escapeHTML($aProduct['quantity']) ?></div>
 		</div>
 
-		<?php if (!empty($aProduct['accessories'])) : ?>
+		<?php if ($okt->estimate->config->enable_accessories && !empty($aProduct['accessories'])) : ?>
 		<div class="accessories_wrapper">
 			<?php foreach ($aProduct['accessories'] as $aAccessory) : ?>
 			<div class="accessory_line">

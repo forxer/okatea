@@ -49,10 +49,10 @@ elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products'
 elseif ($okt->page->action === 'product' && $okt->checkPerm('estimate_products')) {
 	require __DIR__.'/inc/admin/product.php';
 }
-elseif ($okt->page->action === 'accessories' && $okt->checkPerm('estimate_accessories')) {
+elseif ($okt->page->action === 'accessories' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories')) {
 	require __DIR__.'/inc/admin/accessories.php';
 }
-elseif ($okt->page->action === 'accessory' && $okt->checkPerm('estimate_accessories')) {
+elseif ($okt->page->action === 'accessory' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories')) {
 	require __DIR__.'/inc/admin/accessory.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config')) {

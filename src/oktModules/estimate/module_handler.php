@@ -12,8 +12,6 @@ class module_estimate extends oktModule
 	protected $t_estimate;
 	protected $t_products;
 	protected $t_accessories;
-	protected $t_estimate_product;
-	protected $t_estimate_product_accessories;
 	protected $t_users;
 	protected $locales = null;
 
@@ -40,8 +38,6 @@ class module_estimate extends oktModule
 		$this->t_estimate = $this->db->prefix.'mod_estimate';
 		$this->t_products = $this->db->prefix.'mod_estimate_products';
 		$this->t_accessories = $this->db->prefix.'mod_estimate_accessories';
-		$this->t_estimate_product = $this->db->prefix.'mod_estimate_product';
-		$this->t_estimate_product_accessories = $this->db->prefix.'mod_estimate_product_accessories';
 		$this->t_users = $this->db->prefix.'core_users';
 
 		# config
@@ -59,7 +55,10 @@ class module_estimate extends oktModule
 		));
 
 		$this->products = new estimateProducts($this->okt, $this->t_products, $this->t_accessories);
-		$this->accessories = new estimateAccessories($this->okt, $this->t_accessories, $this->t_products);
+
+		if ($this->config->enable_accessories) {
+			$this->accessories = new estimateAccessories($this->okt, $this->t_accessories, $this->t_products);
+		}
 	}
 
 	protected function prepend_admin()
@@ -102,7 +101,7 @@ class module_estimate extends oktModule
 					'module.php?m=estimate&amp;action=accessories',
 					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'),
 					3,
-					$this->okt->checkPerm('estimate_accessories')
+					$this->config->enable_accessories && $this->okt->checkPerm('estimate_accessories')
 				);
 				$this->okt->page->estimateSubMenu->add(
 					__('c_a_menu_configuration'),
@@ -115,62 +114,67 @@ class module_estimate extends oktModule
 	}
 
 
-	/* Gestion des devis
+	/* Gestion des demandes de devis
 	----------------------------------------------------------*/
 
 	/**
-	 * Retourne une liste de devis
+	 * Retourne une liste de demande de devis sous forme de recordset.
 	 *
-	 * @param array $params
-	 * @param boolean $count_only
+	 * @param array $aParams
+	 * @param boolean $bCountOnly
 	 * @return object recordset/integer
 	 */
-	public function getEstimates($params=array(), $count_only=false)
+	public function getEstimates(array $aParams=array(), $bCountOnly=false)
 	{
 		$reqPlus = '';
 
-		if (!empty($params['id'])) {
-			$reqPlus .= ' AND d.id='.(integer)$params['id'].' ';
+		if (!empty($aParams['id'])) {
+			$reqPlus .= ' AND e.id='.(integer)$aParams['id'].' ';
 		}
 
 		if (!empty($aParams['user_id'])) {
-			$sReqPlus .= ' AND d.user_id='.(integer)$aParams['user_id'].' ';
+			$sReqPlus .= ' AND e.user_id='.(integer)$aParams['user_id'].' ';
 		}
 
-		if ($count_only)
+		if (isset($aParams['status'])) {
+			$sReqPlus .= ' AND e.status='.(integer)$aParams['status'].' ';
+		}
+
+		if ($bCountOnly)
 		{
 			$query =
-			'SELECT COUNT(d.id) AS num_estimate '.
-			'FROM '.$this->t_estimate.' AS d '.
-				'LEFT JOIN '.$this->t_users.' AS u ON u.id=d.user_id '.
+			'SELECT COUNT(e.id) AS num_estimate '.
+			'FROM '.$this->t_estimate.' AS e '.
+				'LEFT JOIN '.$this->t_users.' AS u ON u.id=e.user_id '.
 			'WHERE 1 '.
 			$reqPlus;
 		}
-		else {
+		else
+		{
 			$query =
-			'SELECT d.id, d.status, d.start_at, d.end_at, d.comment, '.
-			'd.user_id, d.tel, d.address '.
+			'SELECT e.id, e.status, e.start_at, e.end_at, e.user_id, e.content, '.
 			'u.username, u.lastname, u.firstname, u.email '.
-			'FROM '.$this->t_estimate.' AS d '.
-				'LEFT JOIN '.$this->t_users.' AS u ON u.id=d.user_id '.
+			'FROM '.$this->t_estimate.' AS e '.
+				'LEFT JOIN '.$this->t_users.' AS u ON u.id=e.user_id '.
 			'WHERE 1 '.
 			$reqPlus;
 
-			if (!empty($params['order'])) {
-				$query .= 'ORDER BY '.$params['order'].' ';
+
+			if (!empty($aParams['order'])) {
+				$query .= 'ORDER BY '.$aParams['order'].' ';
 			}
 			else {
-				$query .= 'ORDER BY d.id DESC ';
+				$query .= 'ORDER BY e.id DESC ';
 			}
 
-			if (!empty($params['limit'])) {
-				$query .= 'LIMIT '.$params['limit'].' ';
+			if (!empty($aParams['limit'])) {
+				$query .= 'LIMIT '.$aParams['limit'].' ';
 			}
 		}
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			if ($count_only) {
+			if ($bCountOnly) {
 				return 0;
 			}
 			else {
@@ -178,12 +182,85 @@ class module_estimate extends oktModule
 			}
 		}
 
-		if ($count_only) {
+		if ($bCountOnly) {
 			return (integer)$rs->num_estimate;
 		}
 		else {
 			return $rs;
 		}
+	}
+
+	/**
+	 * Retourne une demande de devis donnée sous forme de recordset.
+	 *
+	 * @param integer $iEstimateId
+	 * @return object recordset
+	 */
+	public function getEstimate($iEstimateId)
+	{
+		return $this->getEstimates(array(
+			'id' => $iEstimateId
+		));
+	}
+
+	/**
+	 * Retourne sous forme de recordset les demandes de devis d'un utilisateur donné.
+	 *
+	 * @param integer $iUserId
+	 * @return object recordset
+	 */
+	public function getUserEstimate($iUserId)
+	{
+		return $this->getEstimates(array(
+			'user_id' => $iUserId
+		));
+	}
+
+	/**
+	 * Indique si une demande de devis donnée existe.
+	 *
+	 * @param $iEstimateId
+	 * @return boolean
+	 */
+	public function productExists($iEstimateId)
+	{
+		if (empty($iEstimateId) || $this->getEstimate($iEstimateId)->isEmpty()) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Ajout d'une demande de devis.
+	 *
+	 * @param array $aData
+	 * @return integer
+	 */
+	public function addEstimate(array $aData)
+	{
+		if (empty($aData['status'])) {
+			$aData['status'] = 1;
+		}
+
+		$sQuery =
+		'INSERT INTO '.$this->t_estimate.' ( '.
+			'status, start_at, end_at, user_id, content '.
+		') VALUES ( '.
+			(integer)$aData['status'].', '.
+			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['start_date'])).'\', '.
+			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['end_date'])).'\', '.
+			'0, '.
+			'\''.$this->db->escapeStr(serialize($aData)).'\' '.
+		'); ';
+
+		if (!$this->db->execute($sQuery)) {
+			return false;
+		}
+
+		$iNewId = $this->db->getLastID();
+
+		return $iNewId;
 	}
 
 

@@ -33,19 +33,22 @@ class estimateController extends oktController
 		{
 			$aProducts[$rsProducts->id] = html::escapeHTML($rsProducts->title);
 
-			$rsAccessories = $this->okt->estimate->accessories->getAccessories(array(
-				'product_id' => $rsProducts->id
-			));
-
-			if (!$rsAccessories->isEmpty())
+			if ($this->okt->estimate->config->enable_accessories)
 			{
-				$aProductsAccessories[$rsProducts->id] = array();
-				while ($rsAccessories->fetch()) {
-					$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
-				}
-			}
+				$rsAccessories = $this->okt->estimate->accessories->getAccessories(array(
+					'product_id' => $rsProducts->id
+				));
 
-			unset($rsAccessories);
+				if (!$rsAccessories->isEmpty())
+				{
+					$aProductsAccessories[$rsProducts->id] = array();
+					while ($rsAccessories->fetch()) {
+						$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
+					}
+				}
+
+				unset($rsAccessories);
+			}
 		}
 
 		unset($rsProducts);
@@ -79,6 +82,11 @@ class estimateController extends oktController
 		# enregistrement de la demande
 		if (!empty($_GET['send']))
 		{
+			if ($this->okt->estimate->addEstimate($aFormatedData) != false)
+			{
+				unset($_SESSION['okt_mod_estimate_form_data']);
+				http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language].'?added=1');
+			}
 		}
 
 
@@ -138,20 +146,23 @@ class estimateController extends oktController
 		{
 			$aProductsSelect[html::escapeHTML($rsProducts->title)] = $rsProducts->id;
 
-			$rsAccessories = $this->okt->estimate->accessories->getAccessories(array(
-				'product_id' => $rsProducts->id
-			));
-
-			if (!$rsAccessories->isEmpty())
+			if ($this->okt->estimate->config->enable_accessories)
 			{
-				$aProductsAccessories[$rsProducts->id] = array();
-				$aProductsAccessories[$rsProducts->id][0] = ' ';
-				while ($rsAccessories->fetch()) {
-					$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
-				}
-			}
+				$rsAccessories = $this->okt->estimate->accessories->getAccessories(array(
+					'product_id' => $rsProducts->id
+				));
 
-			unset($rsAccessories);
+				if (!$rsAccessories->isEmpty())
+				{
+					$aProductsAccessories[$rsProducts->id] = array();
+					$aProductsAccessories[$rsProducts->id][0] = ' ';
+					while ($rsAccessories->fetch()) {
+						$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
+					}
+				}
+
+				unset($rsAccessories);
+			}
 		}
 
 		# données de formulaire envoyées
@@ -326,8 +337,8 @@ class estimateController extends oktController
 	{
 		$iNumProducts = count($this->aFormData['products']);
 
-		if ($iNumProducts < 2) {
-			$iNumProducts = 2;
+		if ($iNumProducts < $this->okt->estimate->config->default_products_number) {
+			$iNumProducts = $this->okt->estimate->config->default_products_number;
 		}
 
 		return $iNumProducts;

@@ -26,14 +26,19 @@ $oTemplatesSummary->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
 # enregistrement configuration
 if (!empty($_POST['form_sent']))
 {
-	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name'])  ? $_POST['p_name'] : array();
-	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo'])  ? $_POST['p_name_seo'] : array();
-	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_enable_accessories = !empty($_POST['p_enable_accessories']) ? true : false;
+
+	$p_default_products_number = !empty($_POST['p_default_products_number']) ? intval($_POST['p_default_products_number']) : 2;
+	$p_default_accessories_number = !empty($_POST['p_default_accessories_number']) ? intval($_POST['p_default_accessories_number']) : 2;
 
 	$p_tpl_form = $oTemplatesForm->getPostConfig();
 	$p_tpl_summary = $oTemplatesSummary->getPostConfig();
+
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : array();
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : array();
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
 	$p_public_form_url = !empty($_POST['p_public_form_url']) ? $_POST['p_public_form_url'] : '';
 
@@ -56,6 +61,10 @@ if (!empty($_POST['form_sent']))
 			'title' => $p_title,
 			'meta_description' => $p_meta_description,
 			'meta_keywords' => $p_meta_keywords,
+
+			'enable_accessories' => (boolean)$p_enable_accessories,
+			'default_products_number' => (integer)$p_default_products_number,
+			'default_accessories_number' => (integer)$p_default_accessories_number,
 
 			'templates' => array(
 				'form' => $p_tpl_form,
@@ -114,6 +123,15 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		<div id="tab_general">
 			<h3><?php _e('m_estimate_config_tab_general') ?></h3>
+
+			<p class="field"><label for="p_enable_accessories"><?php echo form::checkbox('p_enable_accessories', 1, $okt->estimate->config->enable_accessories) ?>
+			<?php _e('m_estimate_config_enable_accessories') ?></label></p>
+
+			<p class="field"><label for="p_default_products_number"><?php _e('m_estimate_config_default_products_number') ?></label>
+			<?php echo form::text('p_default_products_number', 3, 3, $okt->estimate->config->default_products_number) ?></p>
+
+			<p class="field"><label for="p_default_accessories_number"><?php _e('m_estimate_config_default_accessories_number') ?></label>
+			<?php echo form::text('p_default_accessories_number', 3, 3, $okt->estimate->config->default_accessories_number) ?></p>
 
 		</div><!-- #tab_general -->
 

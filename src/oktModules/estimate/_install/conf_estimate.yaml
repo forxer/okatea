@@ -13,6 +13,9 @@ meta_description:
 meta_keywords: 
   fr: ''
   en: ''
+enable_accessories: true
+default_products_number: 2
+default_accessories_number: 2
 templates:
   form:
     default: default
