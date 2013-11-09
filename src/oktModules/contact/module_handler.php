@@ -448,11 +448,11 @@ class module_contact extends oktModule
 
 			if (empty($this->aRecipientsTo))
 			{
-				if (!empty($this->config->courriel_name)) {
-					$this->aRecipientsTo = array($this->okt->config->courriel_address => html::escapeHTML($this->config->courriel_name));
+				if (!empty($this->config->email['name'])) {
+					$this->aRecipientsTo = array($this->okt->config->email['to'] => html::escapeHTML($this->config->email['name']));
 				}
 				else {
-					$this->aRecipientsTo = array($this->okt->config->courriel_address);
+					$this->aRecipientsTo = array($this->okt->config->email['to']);
 				}
 			}
 		}
@@ -1065,7 +1065,7 @@ class module_contact extends oktModule
 		imagesavealpha($image_in, true);
 
 		# Calcul de l'espace que prendra le texte
-		$aParam = imageftbbox($size,0,$font,$this->okt->config->courriel_address);
+		$aParam = imageftbbox($size,0,$font,$this->okt->config->email_address);
 		$dest_w = $aParam[4] - $aParam[6] + 2;
 		$dest_h = $aParam[1] - $aParam[7] + 2;
 
@@ -1077,7 +1077,7 @@ class module_contact extends oktModule
 
 		# Ajout du texte dans l'image
 		$txt_color = imagecolorallocate($image_out, hexdec(substr($this->config->mail_color,0,2)), hexdec(substr($this->config->mail_color,2,2)), hexdec(substr($this->config->mail_color,4,2)));
-		imagettftext($image_out,$size,0,0,12,$txt_color,$font,$this->okt->config->courriel_address);
+		imagettftext($image_out,$size,0,0,12,$txt_color,$font,$this->okt->config->email_address);
 
 		# Génération du src de l'image et destruction des ressources
 		ob_start();
