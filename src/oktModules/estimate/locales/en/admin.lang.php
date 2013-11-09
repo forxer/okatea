@@ -26,8 +26,16 @@ $GLOBALS['__l10n']['m_estimate_configuration'] = 'Configuration';
 $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'General';
 
 $GLOBALS['__l10n']['m_estimate_config_enable_accessories'] = 'Enable accessories management';
-$GLOBALS['__l10n']['m_estimate_config_default_products_number'] = 'Number of products to choose by default on the form';
-$GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Number of accessories to choose by default on the form';
+
+$GLOBALS['__l10n']['m_estimate_config_default_items_number'] = 'Default number of items on the form';
+$GLOBALS['__l10n']['m_estimate_config_default_products_number'] = 'Default number of products';
+$GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Default number of accessories';
+
+$GLOBALS['__l10n']['m_estimate_config_email_notifications'] = 'Email notifications';
+$GLOBALS['__l10n']['m_estimate_config_enable_notifications'] = 'Enable email notifications';
+$GLOBALS['__l10n']['m_estimate_config_notifications_recipients'] = 'Notification address recipients';
+$GLOBALS['__l10n']['m_estimate_config_notifications_recipients_note'] = 'You can specify multiple addresses separeted by comma.';
+
 
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Templates';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Templates display';

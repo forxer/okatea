@@ -28,8 +28,21 @@ if (!empty($_POST['form_sent']))
 {
 	$p_enable_accessories = !empty($_POST['p_enable_accessories']) ? true : false;
 
-	$p_default_products_number = !empty($_POST['p_default_products_number']) ? intval($_POST['p_default_products_number']) : 2;
-	$p_default_accessories_number = !empty($_POST['p_default_accessories_number']) ? intval($_POST['p_default_accessories_number']) : 2;
+	$p_enable_notifications = !empty($_POST['p_enable_notifications']) ? true : false;
+
+	$p_notifications_recipients = !empty($_POST['p_notifications_recipients']) ? $_POST['p_notifications_recipients'] : '';
+	$p_notifications_recipients = array_map('trim', explode(',', $p_notifications_recipients));
+	foreach ($p_notifications_recipients as $i=>$sEmail)
+	{
+		if ($sEmail != '' && !text::isEmail($sEmail)) {
+			$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($sEmail)));
+		}
+		$p_notifications_recipients[$i] = $sEmail;
+	}
+	$p_notifications_recipients = implode(',', $p_notifications_recipients);
+
+	$p_default_products_number = !empty($_POST['p_default_products_number']) ? intval($_POST['p_default_products_number']) : 1;
+	$p_default_accessories_number = !empty($_POST['p_default_accessories_number']) ? intval($_POST['p_default_accessories_number']) : 1;
 
 	$p_tpl_form = $oTemplatesForm->getPostConfig();
 	$p_tpl_summary = $oTemplatesSummary->getPostConfig();
@@ -63,6 +76,10 @@ if (!empty($_POST['form_sent']))
 			'meta_keywords' => $p_meta_keywords,
 
 			'enable_accessories' => (boolean)$p_enable_accessories,
+
+			'enable_notifications' => (boolean)$p_enable_notifications,
+			'notifications_recipients' => $p_notifications_recipients,
+
 			'default_products_number' => (integer)$p_default_products_number,
 			'default_accessories_number' => (integer)$p_default_accessories_number,
 
@@ -127,11 +144,28 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p class="field"><label for="p_enable_accessories"><?php echo form::checkbox('p_enable_accessories', 1, $okt->estimate->config->enable_accessories) ?>
 			<?php _e('m_estimate_config_enable_accessories') ?></label></p>
 
-			<p class="field"><label for="p_default_products_number"><?php _e('m_estimate_config_default_products_number') ?></label>
-			<?php echo form::text('p_default_products_number', 3, 3, $okt->estimate->config->default_products_number) ?></p>
+			<fieldset>
+				<legend><?php _e('m_estimate_config_email_notifications')?></legend>
 
-			<p class="field"><label for="p_default_accessories_number"><?php _e('m_estimate_config_default_accessories_number') ?></label>
-			<?php echo form::text('p_default_accessories_number', 3, 3, $okt->estimate->config->default_accessories_number) ?></p>
+				<p class="field"><label for="p_enable_notifications"><?php echo form::checkbox('p_enable_notifications', 1, $okt->estimate->config->enable_notifications) ?>
+				<?php _e('m_estimate_config_enable_notifications') ?></label></p>
+
+				<p class="field col"><label for="p_notifications_recipients"><?php _e('m_estimate_config_notifications_recipients') ?></label>
+				<?php echo form::textarea('p_notifications_recipients', 80, 3, $okt->estimate->config->notifications_recipients) ?>
+				<span class="note"><?php _e('m_estimate_config_notifications_recipients_note') ?></span></p>
+
+			</fieldset>
+
+			<fieldset>
+				<legend><?php _e('m_estimate_config_default_items_number')?></legend>
+
+				<p class="field"><label for="p_default_products_number"><?php _e('m_estimate_config_default_products_number') ?></label>
+				<?php echo form::text('p_default_products_number', 3, 3, $okt->estimate->config->default_products_number) ?></p>
+
+				<p class="field"><label for="p_default_accessories_number"><?php _e('m_estimate_config_default_accessories_number') ?></label>
+				<?php echo form::text('p_default_accessories_number', 3, 3, $okt->estimate->config->default_accessories_number) ?></p>
+
+			</fieldset>
 
 		</div><!-- #tab_general -->
 
