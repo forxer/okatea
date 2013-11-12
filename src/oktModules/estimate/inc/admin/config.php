@@ -12,6 +12,9 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
+# chargement des locales
+l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
+
 # Gestionnaires de templates
 $oTemplatesForm = new oktTemplatesSet($okt, $okt->estimate->config->templates['form'], 'estimate/form', 'form');
 $oTemplatesForm->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
