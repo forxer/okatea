@@ -85,6 +85,42 @@ class estimateController extends oktController
 			if ($this->okt->estimate->addEstimate($aFormatedData) != false)
 			{
 				unset($_SESSION['okt_mod_estimate_form_data']);
+
+				# notifications
+				if ($this->okt->estimate->config->enable_notifications)
+				{
+					$aRecipients = array();
+
+					if (!empty($this->okt->estimate->config->notifications_recipients)) {
+						$aRecipients = array_map('trim', explode(',', $this->okt->estimate->config->notifications_recipients));
+					}
+
+					if (empty($aRecipients))
+					{
+						if (!empty($this->config->email['name'])) {
+							$aRecipients = array($this->okt->config->email['to'] => html::escapeHTML($this->config->email['name']));
+						}
+						else {
+							$aRecipients = array($this->okt->config->email['to']);
+						}
+					}
+
+					# construction du mail
+
+					$sEstimateUrl = $this->okt->config->app_host.$this->okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=estimate';
+debug($sEstimateUrl,1);
+					$oMail = new oktMail($this->okt);
+					$oMail->setFrom();
+					$oMail->message->setTo($aRecipients);
+
+					$oMail->useFile(dirname(__FILE__).'/../locales/'.$this->okt->user->language.'/mails_tpl/admin_notification.tpl', array(
+						'SITE_TITLE' => html::escapeHTML(util::getSiteTitle()),
+						'ADMIN_ESTIMATE_URL' => html::escapeHTML($sEstimateUrl),
+					));
+
+					$oMail->send();
+				}
+
 				http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language].'?added=1');
 			}
 		}

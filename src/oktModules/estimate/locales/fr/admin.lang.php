@@ -34,7 +34,8 @@ $GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Nombre d�
 $GLOBALS['__l10n']['m_estimate_config_email_notifications'] = 'Notifications par email';
 $GLOBALS['__l10n']['m_estimate_config_enable_notifications'] = 'Activer les notifications par email';
 $GLOBALS['__l10n']['m_estimate_config_notifications_recipients'] = 'Adresses destinataires des notifications';
-$GLOBALS['__l10n']['m_estimate_config_notifications_recipients_note'] = 'Vous pouvez indiquer plusieurs adresses en les séparants par des virgules.';
+$GLOBALS['__l10n']['m_estimate_config_notifications_recipients_note_1'] = 'Si vous n’indiquez aucune adresse les notifications seront envoyées a l’adresse destinaire principale du site (%s).';
+$GLOBALS['__l10n']['m_estimate_config_notifications_recipients_note_2'] = 'Vous pouvez indiquer plusieurs adresses en les séparants par des virgules.';
 
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl'] = 'Modèles';
 $GLOBALS['__l10n']['m_estimate_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';

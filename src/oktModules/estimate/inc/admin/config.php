@@ -126,6 +126,23 @@ if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
 
+$okt->page->js->addScript('
+	function handleNotificationsStatus() {
+		if ($("#p_enable_notifications").is(":checked")) {
+			$("#p_notifications_recipients").removeAttr("disabled")
+				.parent().removeClass("disabled");
+		}
+		else {
+			$("#p_notifications_recipients").attr("disabled", "")
+				.parent().addClass("disabled");
+		}
+	}
+');
+$okt->page->js->addReady('
+	handleNotificationsStatus();
+	$("#p_enable_notifications").change(function(){handleNotificationsStatus();});
+');
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
@@ -152,7 +169,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field col"><label for="p_notifications_recipients"><?php _e('m_estimate_config_notifications_recipients') ?></label>
 				<?php echo form::textarea('p_notifications_recipients', 80, 3, $okt->estimate->config->notifications_recipients) ?>
-				<span class="note"><?php _e('m_estimate_config_notifications_recipients_note') ?></span></p>
+				<span class="note"><?php printf(__('m_estimate_config_notifications_recipients_note_1'), html::escapeHTML($okt->config->email['to'])) ?></span>
+				<span class="note"><?php _e('m_estimate_config_notifications_recipients_note_2') ?></span></p>
 
 			</fieldset>
 
