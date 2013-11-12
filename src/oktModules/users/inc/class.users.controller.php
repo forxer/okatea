@@ -618,7 +618,7 @@ class usersController extends oktController
 				}
 
 				# Initialisation du mailer et envoi du mail
-				$oMail = new oktMail($this->okt, true);
+				$oMail = new oktMail($this->okt);
 
 				$oMail->setFrom();
 
@@ -644,7 +644,7 @@ class usersController extends oktController
 				# Initialisation du mailer et envoi du mail à l'administrateur
 				if ($this->okt->users->config->mail_new_registration)
 				{
-					$oMail = new oktMail($this->okt, true);
+					$oMail = new oktMail($this->okt);
 
 					$oMail->setFrom();
 

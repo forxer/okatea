@@ -28,9 +28,7 @@ class oktMail
 	public $mailer;
 	public $failures;
 
-		private $layout_tpl;
-
-	public function __construct($okt, $withTheme=false, $subject=null, $body=null, $contentType=null, $charset=null)
+	public function __construct($okt, $subject=null, $body=null, $contentType=null, $charset=null)
 	{
 		$this->okt = $okt;
 
@@ -106,21 +104,6 @@ class oktMail
 
 		$this->message->setSubject(trim(str_replace('Subject:','',$sSubject)));
 		$this->message->setBody(trim($sBody));
-
-		if ($this->hasTplLayout())
-		{
-			$sBody = $this->okt->tpl->render($this->getTplLayout(), array('body' => nl2br(trim($sBody))));
-			$this->message->addPart($sBody, 'text/html');
-		}
-	}
-
-	public function setHtmlBody($sBody)
-	{
-		if ($this->hasTplLayout()) {
-			$sBody = $this->okt->tpl->render($this->getTplLayout(), array('body' => trim($sBody)));
-		}
-
-		$this->message->setBody($sBody, 'text/html');
 	}
 
 	/**

@@ -116,7 +116,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 
 	if ($okt->users->updUser($upd_params))
 	{
-		$oMail = new oktMail($okt, true);
+		$oMail = new oktMail($okt);
 
 		$oMail->setFrom();
 
@@ -149,7 +149,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 	{
 		if (!empty($_POST['send_password_mail']))
 		{
-			$oMail = new oktMail($okt, true);
+			$oMail = new oktMail($okt);
 
 			$oMail->setFrom();
 

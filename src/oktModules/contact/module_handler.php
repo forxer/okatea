@@ -448,8 +448,8 @@ class module_contact extends oktModule
 
 			if (empty($this->aRecipientsTo))
 			{
-				if (!empty($this->config->email['name'])) {
-					$this->aRecipientsTo = array($this->okt->config->email['to'] => html::escapeHTML($this->config->email['name']));
+				if (!empty($this->okt->config->email['name'])) {
+					$this->aRecipientsTo = array($this->okt->config->email['to'] => html::escapeHTML($this->okt->config->email['name']));
 				}
 				else {
 					$this->aRecipientsTo = array($this->okt->config->email['to']);
