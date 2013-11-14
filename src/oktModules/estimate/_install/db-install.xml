@@ -17,9 +17,12 @@
 			`start_at` 			DATE		 				NOT NULL,
 			`end_at` 			DATE		 				NOT NULL,
 
-			`user_id` 			INT(10)		 	UNSIGNED 	NOT NULL,
+			`user_id` 			INT(10)		 	UNSIGNED 	NULL,
 
 			`content` 			TEXT 						NULL,
+
+			`created_at` 		DATETIME 					NOT NULL,
+			`updated_at` 		DATETIME 					NOT NULL,
 
 			PRIMARY KEY (`id`),
 			KEY `{{PREFIX}}mod_estimate_idx_status` (`status`),

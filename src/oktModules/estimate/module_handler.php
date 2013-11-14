@@ -8,12 +8,12 @@
 class module_estimate extends oktModule
 {
 	public $config = null;
+	public $filters = null;
 
 	protected $t_estimate;
 	protected $t_products;
 	protected $t_accessories;
 	protected $t_users;
-	protected $locales = null;
 
 	protected function prepend()
 	{
@@ -24,6 +24,7 @@ class module_estimate extends oktModule
 
 		# autoload
 		$oktAutoloadPaths['estimateController'] = __DIR__.'/inc/class.estimate.controller.php';
+		$oktAutoloadPaths['estimateFilters'] = __DIR__.'/inc/class.estimate.filters.php';
 		$oktAutoloadPaths['estimateProducts'] = __DIR__.'/inc/class.estimate.products.php';
 		$oktAutoloadPaths['estimateAccessories'] = __DIR__.'/inc/class.estimate.accessories.php';
 
@@ -113,6 +114,18 @@ class module_estimate extends oktModule
 		}
 	}
 
+	/**
+	 * Initialisation des filtres.
+	 *
+	 * @param string $sPart 	'public' ou 'admin'
+	 */
+	public function filtersStart($sPart='public')
+	{
+		if ($this->filters === null || !($this->filters instanceof estimateFilters)) {
+			$this->filters = new estimateFilters($this->okt, $sPart);
+		}
+	}
+
 
 	/* Gestion des demandes de devis
 	----------------------------------------------------------*/
@@ -152,7 +165,8 @@ class module_estimate extends oktModule
 		else
 		{
 			$query =
-			'SELECT e.id, e.status, e.start_at, e.end_at, e.user_id, e.content, '.
+			'SELECT e.id, e.status, e.start_at, e.end_at, '.
+			'e.user_id, e.content, e.created_at, e.updated_at, '.
 			'u.username, u.lastname, u.firstname, u.email '.
 			'FROM '.$this->t_estimate.' AS e '.
 				'LEFT JOIN '.$this->t_users.' AS u ON u.id=e.user_id '.
@@ -209,7 +223,7 @@ class module_estimate extends oktModule
 	 * @param integer $iUserId
 	 * @return object recordset
 	 */
-	public function getUserEstimate($iUserId)
+	public function getUserEstimates($iUserId)
 	{
 		return $this->getEstimates(array(
 			'user_id' => $iUserId
@@ -239,19 +253,23 @@ class module_estimate extends oktModule
 	 */
 	public function addEstimate(array $aData)
 	{
+		$sDateTime = date('Y-m-d H:i:s');
+
 		if (empty($aData['status'])) {
 			$aData['status'] = 1;
 		}
 
 		$sQuery =
 		'INSERT INTO '.$this->t_estimate.' ( '.
-			'status, start_at, end_at, user_id, content '.
+			'status, start_at, end_at, user_id, content, created_at, updated_at '.
 		') VALUES ( '.
 			(integer)$aData['status'].', '.
 			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['start_date'])).'\', '.
 			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['end_date'])).'\', '.
 			'0, '.
-			'\''.$this->db->escapeStr(serialize($aData)).'\' '.
+			'\''.$this->db->escapeStr(serialize($aData)).'\', '.
+			'\''.$this->db->escapeStr($sDateTime).'\', '.
+			'\''.$this->db->escapeStr($sDateTime).'\' '.
 		'); ';
 
 		if (!$this->db->execute($sQuery)) {
