@@ -14,20 +14,25 @@
  *
  */
 
-
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 if (!empty($_POST['form_sent']))
 {
 	$p_email_to = !empty($_POST['p_email_to']) ? $_POST['p_email_to'] : '';
-	if ($p_email_to != '' && !text::isEmail($p_email_to)) {
-		$okt->error->set(sprintf(__('c_c_error_invalid_email'),html::escapeHTML($p_email_to)));
+	if (empty($p_email_to)) {
+		$okt->error->set(__('c_a_config_please_enter_email_to'));
+	}
+	elseif (!text::isEmail($p_email_to)) {
+		$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($p_email_to)));
 	}
 
 	$p_email_from = !empty($_POST['p_email_from']) ? $_POST['p_email_from'] : '';
-	if ($p_email_from != '' && !text::isEmail($p_email_from)) {
-		$okt->error->set(sprintf(__('c_c_error_invalid_email'),html::escapeHTML($p_email_from)));
+	if (empty($p_email_from)) {
+		$okt->error->set(__('c_a_config_please_enter_email_from'));
+	}
+	elseif (!text::isEmail($p_email_from)) {
+		$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($p_email_from)));
 	}
 
 	$p_email_name = !empty($_POST['p_email_name']) ? $_POST['p_email_name'] : '';

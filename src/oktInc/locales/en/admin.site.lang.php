@@ -12,6 +12,9 @@ $GLOBALS['__l10n']['c_a_config_website_title_in_%s'] = 'Website title in %s';
 $GLOBALS['__l10n']['c_a_config_website_desc'] = 'Website description';
 $GLOBALS['__l10n']['c_a_config_website_desc_in_%s'] = 'Website description in %s';
 
+$GLOBALS['__l10n']['c_a_config_please_enter_website_title'] = 'Please enter a website title.';
+$GLOBALS['__l10n']['c_a_config_please_enter_website_title_in_%s'] = 'Please enter a website title in %s.';
+
 $GLOBALS['__l10n']['c_a_config_company'] = 'Company';
 $GLOBALS['__l10n']['c_a_config_company_name'] = 'Company name';
 $GLOBALS['__l10n']['c_a_config_company_com_name'] = 'Commercial name';
@@ -41,6 +44,9 @@ $GLOBALS['__l10n']['c_a_config_email_to'] = 'Recipient email address';
 $GLOBALS['__l10n']['c_a_config_email_from'] = 'Address of outgoing emails';
 $GLOBALS['__l10n']['c_a_config_email_name'] = 'Name associated with the email addresses';
 
+$GLOBALS['__l10n']['c_a_config_please_enter_email_to'] = 'Please enter a recipient address.';
+$GLOBALS['__l10n']['c_a_config_please_enter_email_from'] = 'Please enter an address of outgoing emails.';
+
 $GLOBALS['__l10n']['c_a_config_sending_mail'] = 'Configuration for sending e-mails';
 
 $GLOBALS['__l10n']['c_a_config_sending_mail_transport'] = 'Transport';
@@ -62,5 +68,3 @@ $GLOBALS['__l10n']['c_a_config_sending_mail_transport_mta_command'] = 'Local %s 
 
 $GLOBALS['__l10n']['c_a_config_title_tag'] = 'Title element of website';
 $GLOBALS['__l10n']['c_a_config_title_tag_note'] = 'if this field is left blank, the title of the site will be used';
-
-$GLOBALS['__l10n']['c_a_config_pleaz_give_website_title'] = 'Please enter a site title.';

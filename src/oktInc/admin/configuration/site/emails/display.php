@@ -35,10 +35,10 @@ $okt->page->toggleWithLegend('mail_advanced_title', 'mail_advanced_content');
 <fieldset>
 	<legend><?php _e('c_a_config_email_config') ?></legend>
 
-	<p class="field"><label for="p_email_to"><?php _e('c_a_config_email_to') ?></label>
+	<p class="field"><label for="p_email_to" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_email_to') ?></label>
 	<?php echo form::text('p_email_to', 60, 255, html::escapeHTML($okt->config->email['to'])) ?></p>
 
-	<p class="field"><label for="p_email_from"><?php _e('c_a_config_email_from') ?></label>
+	<p class="field"><label for="p_email_from" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_email_from') ?></label>
 	<?php echo form::text('p_email_from', 60, 255, html::escapeHTML($okt->config->email['from'])) ?></p>
 
 	<p class="field"><label for="p_email_name"><?php _e('c_a_config_email_name') ?></label>

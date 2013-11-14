@@ -12,6 +12,9 @@ $GLOBALS['__l10n']['c_a_config_website_title_in_%s'] = 'Titre du site en %s';
 $GLOBALS['__l10n']['c_a_config_website_desc'] = 'Description du site';
 $GLOBALS['__l10n']['c_a_config_website_desc_in_%s'] = 'Description du site en %s';
 
+$GLOBALS['__l10n']['c_a_config_please_enter_website_title'] = 'Veuillez saisir un titre de site.';
+$GLOBALS['__l10n']['c_a_config_please_enter_website_title_in_%s'] = 'Veuillez saisir un titre de site en %s.';
+
 $GLOBALS['__l10n']['c_a_config_company'] = 'Société';
 $GLOBALS['__l10n']['c_a_config_company_name'] = 'Raison sociale';
 $GLOBALS['__l10n']['c_a_config_company_com_name'] = 'Nom commercial';
@@ -41,6 +44,9 @@ $GLOBALS['__l10n']['c_a_config_email_to'] = 'Adresse destinataire des courriels'
 $GLOBALS['__l10n']['c_a_config_email_from'] = 'Adresse des courriels sortant';
 $GLOBALS['__l10n']['c_a_config_email_name'] = 'Nom associé aux adresses courriels';
 
+$GLOBALS['__l10n']['c_a_config_please_enter_email_to'] = 'Veuillez saisir une adresse destinataire.';
+$GLOBALS['__l10n']['c_a_config_please_enter_email_from'] = 'Veuillez saisir une adresse des courriels sortant.';
+
 $GLOBALS['__l10n']['c_a_config_sending_mail'] = 'Configuration d’envoi des courriels';
 
 $GLOBALS['__l10n']['c_a_config_sending_mail_transport'] = 'Transport';
@@ -62,5 +68,3 @@ $GLOBALS['__l10n']['c_a_config_sending_mail_transport_mta_command'] = 'Commande 
 
 $GLOBALS['__l10n']['c_a_config_title_tag'] = 'Élément title du site';
 $GLOBALS['__l10n']['c_a_config_title_tag_note'] = 'si ce champ n’est pas renseigné, le titre du site sera utilisé';
-
-$GLOBALS['__l10n']['c_a_config_pleaz_give_website_title'] = 'Veuillez saisir un titre de site.';
