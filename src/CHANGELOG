@@ -14,7 +14,13 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # refactor variables names of emails configuration
 ! can now use external links in navigation menus
 ! add navigation items proper recordset
+! HTML5 Shiv 3.7.0
+! jQuery mousewheel 3.1.4
+! jQuery Spectrum Colorpicker 1.1.2
+- website title and emails addresses are required
 - fix news URL
+- fix pcre bug on windows
+. deletion of old stuff
 
 
 1.0.BETA.3 (2013-11-05)
