@@ -10,7 +10,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0.BETA.4
+1.0.BETA.5
+
+
+1.0.BETA.4 (14/11/2013)
 # refactor variables names of emails configuration
 ! can now use external links in navigation menus
 ! add navigation items proper recordset
