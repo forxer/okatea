@@ -100,7 +100,7 @@ class oktMail
 	{
 		$sMailText = templateReplacement::parseFile($template_file,$variables);
 
-		list($sSubject, $sBody) = explode("\n",$sMailText,2);
+		list($sSubject, $sBody) = explode("\n", $sMailText, 2);
 
 		$this->message->setSubject(trim(str_replace('Subject:','',$sSubject)));
 		$this->message->setBody(trim($sBody));
