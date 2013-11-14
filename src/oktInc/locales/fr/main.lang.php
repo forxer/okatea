@@ -1,5 +1,7 @@
 <?php
 
+$GLOBALS['__l10n']['c_c_proudly_propulsed_%s'] = 'Fièrement propulsé par %s';
+
 # numbers format
 $GLOBALS['__l10n']['c_c_number_decimals_separator'] = ',';
 $GLOBALS['__l10n']['c_c_number_thousands_separator'] = ' ';

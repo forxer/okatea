@@ -22,7 +22,7 @@
 <?php # init footer content
 $aFooterContent = new ArrayObject;
 
-$aFooterContent[10] = 'okatea';
+$aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
 
 if (OKT_DEBUG) {
 	$aFooterContent[20] = util::getVersion();

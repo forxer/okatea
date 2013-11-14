@@ -84,7 +84,7 @@ $this->extend('main');
 
 	<footer>
 		<div id="bottom">
-			<p id="bottom-line"><?php _e('Proudly propulsed by Okatea') ?></p>
+			<p id="bottom-line"><?php printf(__('c_c_proudly_propulsed_%s'), 'Okatea') ?></p>
 		</div>
 	</footer>
 </div><!-- #global -->
