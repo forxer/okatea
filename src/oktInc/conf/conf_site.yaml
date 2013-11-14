@@ -97,7 +97,7 @@ user_visit:
 log_admin:
   ttl_months: 3
 news_feed:
-  enabled: true
+  enabled: false
   url: { fr: 'http://okatea.org/fr/actualites/rss', en: 'http://okatea.org/en/news/rss' }
 htmlpurifier_disabled: false
 slug_type: ascii
