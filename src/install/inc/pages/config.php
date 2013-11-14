@@ -59,7 +59,7 @@ if (!empty($_POST['sended']))
 {
 	$p_title = !empty($_POST['p_title']) ? $_POST['p_title'] : '';
 	if (empty($p_title)) {
-		$okt->error->set(__('c_a_config_pleaz_give_website_title'));
+		$okt->error->set(__('c_a_config_please_enter_website_title'));
 	}
 
 	$p_desc = !empty($_POST['p_desc']) ? $_POST['p_desc'] : '';
