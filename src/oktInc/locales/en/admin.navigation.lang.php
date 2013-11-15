@@ -29,6 +29,10 @@ $GLOBALS['__l10n']['c_a_config_navigation_menu_tpl'] = 'Menu template display';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_actions'] = 'Menu actions';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_items_actions'] = 'Items actions';
 
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage'] = 'To insert this menu in your website, use in your templates one of the following codes:';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage_by_id'] = 'To insert this menu by his identifier:';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage_by_title'] = 'Or to insert this menu by his title:';
+
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items'] = 'Manage items';
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items_menu_%s'] = 'Manage menu %s items.';
 

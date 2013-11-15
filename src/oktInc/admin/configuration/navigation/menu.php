@@ -195,7 +195,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php endif; ?>
 	</div>
 
-	<p class="field"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible')?></label></p>
+	<p class="field"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible') ?></label></p>
 
 	<p><?php echo form::hidden('action', 'navigation'); ?>
 	<?php echo form::hidden('do', 'menu'); ?>
@@ -205,6 +205,15 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<input type="submit" value="<?php empty($iMenuId) ? _e('c_c_action_add') : _e('c_c_action_edit'); ?>" /></p>
 </form>
 
+<?php if (!empty($iMenuId)) : ?>
+<div class="note">
+	<p><?php _e('c_a_config_navigation_menu_usage') ?></p>
+	<p><?php _e('c_a_config_navigation_menu_usage_by_id') ?><br />
+	<code><?php echo html::escapeHTML('<?php echo $okt->navigation->render('.$iMenuId.') ?>') ?></code></p>
+	<p><?php _e('c_a_config_navigation_menu_usage_by_title') ?><br />
+	<code><?php echo html::escapeHTML('<?php echo $okt->navigation->render(\''.$aMenuData['title'].'\') ?>') ?></code> </p>
+</div>
+<?php endif; ?>
 
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>

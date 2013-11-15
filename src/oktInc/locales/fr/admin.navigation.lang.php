@@ -29,6 +29,10 @@ $GLOBALS['__l10n']['c_a_config_navigation_menu_tpl'] = 'Modèle d’affichage du
 $GLOBALS['__l10n']['c_a_config_navigation_menu_actions'] = 'Actions sur le menu';
 $GLOBALS['__l10n']['c_a_config_navigation_menu_items_actions'] = 'Actions sur les éléments';
 
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage'] = 'Pour insérer ce menu dans votre site, utilisez dans vos templates un des codes suivants&nbsp;:';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage_by_id'] = 'Pour insérer ce menu par son identifiant&nbsp;:';
+$GLOBALS['__l10n']['c_a_config_navigation_menu_usage_by_title'] = 'Ou pour insérer ce menu par son titre&nbsp;:';
+
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items'] = 'Gérer les éléments';
 $GLOBALS['__l10n']['c_a_config_navigation_manage_items_menu_%s'] = 'Gérer les éléments du menu %s';
 
