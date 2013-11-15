@@ -49,7 +49,7 @@ if (!empty($_POST['form_sent']))
 		'email' => array(
 			'to' => $p_email_to,
 			'from' => $p_email_from,
-			'name' => '',
+			'name' => $p_email_name,
 			'transport' => '',
 			'smtp' => array(
 				'host' => $p_email_smtp_host,
