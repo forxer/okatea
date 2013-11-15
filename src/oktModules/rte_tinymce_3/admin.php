@@ -1,15 +1,15 @@
 <?php
 /**
- * @ingroup okt_module_rte_tinyMCE
+ * @ingroup okt_module_rte_tinyMCE_3
  * @brief La page d'administration.
  *
  */
 
 # Accès direct interdit
-if (!defined('ON_RTE_TINYMCE_MODULE')) die;
+if (!defined('ON_RTE_TINYMCE_3_MODULE')) die;
 
 # Perm ?
-//if (!$okt->checkPerm('rte_tinymce')) {
+//if (!$okt->checkPerm('rte_tinymce_3')) {
 //	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
 //}
 
@@ -17,7 +17,7 @@ if (!defined('ON_RTE_TINYMCE_MODULE')) die;
 //if (!$okt->page->action || $okt->page->action === 'index') {
 //	require __DIR__.'/inc/admin/index.php';
 //}
-if ($okt->page->action === 'config' && $okt->checkPerm('rte_tinymce_config')) {
+if ($okt->page->action === 'config' && $okt->checkPerm('rte_tinymce_3_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {

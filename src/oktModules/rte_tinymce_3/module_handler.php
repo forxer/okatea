@@ -1,11 +1,11 @@
 <?php
 /**
- * @ingroup okt_module_rte_tinyMCE
+ * @ingroup okt_module_rte_tinyMCE_3
  * @brief La classe principale du module.
  *
  */
 
-class module_rte_tinymce extends oktModule
+class module_rte_tinymce_3 extends oktModule
 {
 	public $config = null;
 
@@ -15,10 +15,10 @@ class module_rte_tinymce extends oktModule
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
-		$this->okt->addPerm('rte_tinymce_config', __('m_rte_tinymce_perm_config'), 'configuration');
+		$this->okt->addPerm('rte_tinymce_3_config', __('m_rte_tinymce_3_perm_config'), 'configuration');
 
 		# configuration
-		$this->config = $this->okt->newConfig('conf_rte_tinymce');
+		$this->config = $this->okt->newConfig('conf_rte_tinymce_3');
 	}
 
 	protected function prepend_admin()
@@ -26,19 +26,19 @@ class module_rte_tinymce extends oktModule
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();
 
-		$this->okt->page->addRte('tinymce_simple','tinyMCE simple',array('module_rte_tinymce','tinyMCEsimple'));
-		$this->okt->page->addRte('tinymce_advanced','tinyMCE advanced',array('module_rte_tinymce','tinyMCEadvanced'));
-		$this->okt->page->addRte('tinymce_experts','tinyMCE experts',array('module_rte_tinymce','tinyMCEexperts'));
+		$this->okt->page->addRte('tinymce_3_simple','tinyMCE 3 simple',array('module_rte_tinymce_3','tinyMCEsimple'));
+		$this->okt->page->addRte('tinymce_3_advanced','tinyMCE 3 advanced',array('module_rte_tinymce_3','tinyMCEadvanced'));
+		$this->okt->page->addRte('tinymce_3_experts','tinyMCE 3 experts',array('module_rte_tinymce_3','tinyMCEexperts'));
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE'),
-				'module.php?m=rte_tinymce&amp;action=config',
-				ON_RTE_TINYMCE_MODULE && ($this->okt->page->action === 'config'),
+				'module.php?m=rte_tinymce_3&amp;action=config',
+				ON_RTE_TINYMCE_3_MODULE && ($this->okt->page->action === 'config'),
 				40,
-				$this->okt->checkPerm('rte_tinymce_config'),
+				$this->okt->checkPerm('rte_tinymce_3_config'),
 				null
 			);
 		}
@@ -160,28 +160,28 @@ class module_rte_tinymce extends oktModule
 		global $okt;
 
 		$common_options = array(
-			'script_url' => OKT_MODULES_URL.'/rte_tinymce/tinyMCE_jquery/tiny_mce.js',
+			'script_url' => OKT_MODULES_URL.'/rte_tinymce_3/tinyMCE_jquery/tiny_mce.js',
 			'language' => $okt->user->language,
 		);
 
 		# content CSS
-		if ($okt->rte_tinymce->config->content_css != '') {
-			$common_options['content_css'] = $okt->rte_tinymce->config->content_css;
+		if ($okt->rte_tinymce_3->config->content_css != '') {
+			$common_options['content_css'] = $okt->rte_tinymce_3->config->content_css;
 		}
 
 		# editor width
-		if ($okt->rte_tinymce->config->width != '') {
-			$common_options['width'] = $okt->rte_tinymce->config->width;
+		if ($okt->rte_tinymce_3->config->width != '') {
+			$common_options['width'] = $okt->rte_tinymce_3->config->width;
 		}
 
 		# editor height
-		if ($okt->rte_tinymce->config->height != '') {
-			$common_options['height'] = $okt->rte_tinymce->config->height;
+		if ($okt->rte_tinymce_3->config->height != '') {
+			$common_options['height'] = $okt->rte_tinymce_3->config->height;
 		}
 
 		$final_options = array_merge($options,$common_options,$user_options);
 
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce/tinyMCE_jquery/jquery.tinymce.js');
+		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_3/tinyMCE_jquery/jquery.tinymce.js');
 
 		$okt->page->js->addReady('
 			jQuery("'.$element.'").tinymce('.json_encode($final_options).');
