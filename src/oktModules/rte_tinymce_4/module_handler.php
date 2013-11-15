@@ -26,9 +26,7 @@ class module_rte_tinymce_4 extends oktModule
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();
 
-		$this->okt->page->addRte('tinymce_4_simple','tinyMCE 4 simple',array('module_rte_tinymce_4','tinyMCEsimple'));
-		$this->okt->page->addRte('tinymce_4_advanced','tinyMCE 4 advanced',array('module_rte_tinymce_4','tinyMCEadvanced'));
-		$this->okt->page->addRte('tinymce_4_experts','tinyMCE 4 experts',array('module_rte_tinymce_4','tinyMCEexperts'));
+		$this->okt->page->addRte('tinymce_4','tinyMCE 4 modern',array('module_rte_tinymce_4','tinyMCEmodern'));
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
@@ -155,12 +153,25 @@ class module_rte_tinymce_4 extends oktModule
 		self::addCommon($element,$user_options,$options);
 	}
 
+	public static function tinyMCEmodern($element='textarea',$user_options=array())
+	{
+		global $okt;
+
+		$options = array(
+			'menubar' => "tools table format view insert edit"
+
+		);
+
+		self::addCommon($element,$user_options,$options);
+
+	}
+
 	protected static function addCommon($element, array $user_options=array(), array $options=array())
 	{
 		global $okt;
 
 		$common_options = array(
-			'script_url' => OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/tiny_mce.js',
+			'script_url' => OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/tinymce.min.js',
 			'language' => $okt->user->language,
 		);
 
@@ -181,7 +192,7 @@ class module_rte_tinymce_4 extends oktModule
 
 		$final_options = array_merge($options,$common_options,$user_options);
 
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/jquery.tinymce.js');
+		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/jquery.tinymce.min.js');
 
 		$okt->page->js->addReady('
 			jQuery("'.$element.'").tinymce('.json_encode($final_options).');
