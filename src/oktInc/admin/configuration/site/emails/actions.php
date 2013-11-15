@@ -50,7 +50,7 @@ if (!empty($_POST['form_sent']))
 			'to' => $p_email_to,
 			'from' => $p_email_from,
 			'name' => $p_email_name,
-			'transport' => '',
+			'transport' => $p_email_transport,
 			'smtp' => array(
 				'host' => $p_email_smtp_host,
 				'port' => (integer)$p_email_smtp_port,
