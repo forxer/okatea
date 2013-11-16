@@ -26,7 +26,7 @@ class module_rte_tinymce_4 extends oktModule
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();
 
-		$this->okt->page->addRte('tinymce_4','tinyMCE 4 modern',array('module_rte_tinymce_4','tinyMCEmodern'));
+		$this->okt->page->addRte('tinymce_4_normal','tinyMCE 4 normal',array('module_rte_tinymce_4','tinyMCEnormal'));
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
@@ -42,128 +42,24 @@ class module_rte_tinymce_4 extends oktModule
 		}
 	}
 
-	public static function tinyMCEsimple($element='textarea',$user_options=array())
+	public static function tinyMCEnormal($element='textarea',$user_options=array())
 	{
 		global $okt;
 
 		$options = array(
-			'theme' => 'simple'
+			'plugins' => array(
+				'advlist autolink lists link image charmap print preview anchor',
+				'searchreplace visualblocks code fullscreen',
+				'insertdatetime media table contextmenu paste'
+			),
+			'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
 		);
 
-		self::addCommon($element,$user_options,$options);
-	}
-
-	public static function tinyMCEadvanced($element='textarea',$user_options=array())
-	{
-		global $okt;
-
-		$options = array(
-			'theme' => 'advanced',
-
-			'skin' => 'o2k7',
-			'skin_variant' => 'silver',
-
-			'convert_urls' => false,
-			'entity_encoding' => 'raw',
-			'force_p_newlines' => true,
-
-			'plugins' => 'safari,inlinepopups,contextmenu,table,advlink,advimage,paste',
-			'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolorpicker,backcolorpicker,separator,fontselect,fontsizeselect,formatselect,styleselect',
-			'theme_advanced_buttons1_add_before' => '',
-			'theme_advanced_buttons1_add' => '',
-			'theme_advanced_buttons2' => 'tablecontrols,separator,link,unlink,separator,image,separator,pastetext,pasteword,selectall,separator,cleanup,removeformat,code',
-			'theme_advanced_buttons2_add_before' => '',
-			'theme_advanced_buttons2_add' => '',
-			'theme_advanced_buttons3' => '',
-			'theme_advanced_buttons3_add_before' => '',
-			'theme_advanced_buttons3_add' => '',
-			'theme_advanced_buttons4' => '',
-			'theme_advanced_buttons4_add_before' => '',
-			'theme_advanced_buttons4_add' => '',
-			'theme_advanced_toolbar_location' => 'top',
-			'theme_advanced_toolbar_align' => 'left',
-			'theme_advanced_path_location' => 'bottom',
-			'theme_advanced_resizing' => true,
-
-			'extended_valid_elements' => 'hr[class|width|size|noshade],font[face|size|color|style],span[id|class|align|style],script,noscript,object[name|id|classid|codebase|width|height|class|data|type],param[name|value],embed[src|type|width|height|pluginspage|autostart|showcontrols|animationatstart|transparentatstart|AllowChangeDisplaySize|AutoSize|DisplaySize|enabeContextMenu|windowless|ShowStatusBar|vspace|hspace|border|id|name|fullScreen]',
-
-			'theme_advanced_resize_horizontal' => false,
-			'theme_advanced_resizing' => true,
-
-			'nonbreaking_force_tab' => true,
-			'theme_advanced_font_sizes' => '10px=1,11px=2,12px=3,14px=4,16px=5,18px=6,20px=7',
-			'font_size_style_values' => '10px,11px,12px,14px,16px,18px,20px',
-			'apply_source_formatting' => true
-		);
-
-		if ($okt->modules->moduleExists('media_manager')) {
-			self::addMediaManager($options);
-		}
+//		if ($okt->modules->moduleExists('media_manager')) {
+//			self::addMediaManager($options);
+//		}
 
 		self::addCommon($element,$user_options,$options);
-	}
-
-	public static function tinyMCEexperts($element='textarea',$user_options=array())
-	{
-		global $okt;
-
-		$options = array(
-			'theme' => 'advanced',
-
-			'skin' => 'o2k7',
-			'skin_variant' => 'silver',
-
-			'convert_urls' => false,
-			'entity_encoding' => 'raw',
-			'force_p_newlines' => true,
-
-			'plugins' => 'safari,inlinepopups,contextmenu,table,advlink,advimage,media,paste',
-			'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolorpicker,backcolorpicker,separator,fontselect,fontsizeselect,formatselect,styleselect',
-			'theme_advanced_buttons1_add_before' => '',
-			'theme_advanced_buttons1_add' => '',
-			'theme_advanced_buttons2' => 'tablecontrols,separator,link,unlink,separator,image,media,separator,pastetext,pasteword,selectall,separator,cleanup,removeformat,code',
-			'theme_advanced_buttons2_add_before' => '',
-			'theme_advanced_buttons2_add' => '',
-			'theme_advanced_buttons3' => '',
-			'theme_advanced_buttons3_add_before' => '',
-			'theme_advanced_buttons3_add' => '',
-			'theme_advanced_buttons4' => '',
-			'theme_advanced_buttons4_add_before' => '',
-			'theme_advanced_buttons4_add' => '',
-			'theme_advanced_toolbar_location' => 'top',
-			'theme_advanced_toolbar_align' => 'left',
-			'theme_advanced_path_location' => 'bottom',
-			'theme_advanced_resizing' => true,
-
-			'extended_valid_elements' => 'hr[class|width|size|noshade],font[face|size|color|style],span[id|class|align|style],script,noscript,object[name|id|classid|codebase|width|height|class|data|type],param[name|value],embed[src|type|width|height|pluginspage|autostart|showcontrols|animationatstart|transparentatstart|AllowChangeDisplaySize|AutoSize|DisplaySize|enabeContextMenu|windowless|ShowStatusBar|vspace|hspace|border|id|name|fullScreen]',
-
-			'theme_advanced_resize_horizontal' => false,
-			'theme_advanced_resizing' => true,
-
-			'nonbreaking_force_tab' => true,
-			'theme_advanced_font_sizes' => '10px=1,11px=2,12px=3,14px=4,16px=5,18px=6,20px=7',
-			'font_size_style_values' => '10px,11px,12px,14px,16px,18px,20px',
-			'apply_source_formatting' => true
-		);
-
-		if ($okt->modules->moduleExists('media_manager')) {
-			self::addMediaManager($options);
-		}
-
-		self::addCommon($element,$user_options,$options);
-	}
-
-	public static function tinyMCEmodern($element='textarea',$user_options=array())
-	{
-		global $okt;
-
-		$options = array(
-			'menubar' => "tools table format view insert edit"
-
-		);
-
-		self::addCommon($element,$user_options,$options);
-
 	}
 
 	protected static function addCommon($element, array $user_options=array(), array $options=array())
@@ -171,9 +67,19 @@ class module_rte_tinymce_4 extends oktModule
 		global $okt;
 
 		$common_options = array(
-			'script_url' => OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/tinymce.min.js',
-			'language' => $okt->user->language,
+			'script_url' => OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/tinymce.min.js'
 		);
+
+		# language
+		$sLanguageCode = strtolower($okt->user->language);
+		$sSpecificLanguageCode = strtolower($okt->user->language).'_'.strtoupper($okt->user->language);
+
+		if (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinyMCE_jquery/langs/'.$sLanguageCode.'.js')) {
+			$common_options['language'] = $sLanguageCode;
+		}
+		elseif (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinyMCE_jquery/langs/'.$sSpecificLanguageCode.'.js')) {
+			$common_options['language'] = $sSpecificLanguageCode;
+		}
 
 		# content CSS
 		if ($okt->rte_tinymce_4->config->content_css != '') {
