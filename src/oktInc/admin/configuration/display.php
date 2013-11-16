@@ -101,13 +101,15 @@ if (!empty($_POST['form_sent']))
 			{
 				$sTargetDir = dirname($sZipFilename);
 				$sDestinationDir = $sTargetDir.'/'.$zip_root_dir;
-				$sCssFilename = $zip_root_dir.'/css/custom-theme/jquery-ui-.custom.css';
+				$sCssFilename = $zip_root_dir.'/css/custom-theme/'.basename($sTargetDir).'.css';
 				$hasCssFile = $oZip->hasFile($sCssFilename);
 			}
-			else {
-				$sTargetDir = dirname($sZipFilename).'/'.preg_replace('/\.([^.]+)$/','',basename($sZipFilename));
+			else
+			{
+				$zip_root_dir = preg_replace('/\.([^.]+)$/','',basename($sZipFilename));
+				$sTargetDir = dirname($sZipFilename).'/'.$zip_root_dir;
 				$sDestinationDir = $sTargetDir;
-				$sCssFilename = 'css/custom-theme/jquery-ui-.custom.css';
+				$sCssFilename = $zip_root_dir.'/css/custom-theme/'.basename($sTargetDir).'.css';
 				$hasCssFile = $oZip->hasFile($sCssFilename);
 			}
 
@@ -127,30 +129,21 @@ if (!empty($_POST['form_sent']))
 
 			$oZip->unzipAll($sTempDir);
 			$oZip->close();
+			debug($sTempDir);
 
-			util::rcopy($sTempDir.'css/custom-theme', OKT_PUBLIC_PATH.'/ui-themes/custom');
+			$sFinalPath = OKT_PUBLIC_PATH.'/ui-themes/custom';
 
-			$fp = fopen(OKT_PUBLIC_PATH.'/ui-themes/custom/jquery-ui.css', 'wb');
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.core.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.resizable.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.selectable.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.accordion.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.autocomplete.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.button.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.dialog.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.slider.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.tabs.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.datepicker.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/base/jquery.ui.progressbar.css'));
-			fwrite($fp, file_get_contents(OKT_PUBLIC_PATH.'/ui-themes/custom/jquery-ui-.custom.css'));
-			fclose($fp);
+			util::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
+
+			rename($sFinalPath.'/'.basename($sTargetDir).'.css', $sFinalPath.'/jquery-ui.css');
+			rename($sFinalPath.'/'.basename($sTargetDir).'.min.css', $sFinalPath.'/jquery-ui.min.css');
 
 			files::deltree($sTempDir);
-			unlink(OKT_PUBLIC_PATH.'/ui-themes/custom/jquery-ui-.custom.css');
 
 			$_POST['p_admin_theme'] = 'custom';
 		}
 		catch (Exception $e) {
+			files::deltree($sTempDir);
 			$okt->error->set($e->getMessage());
 		}
 	}
