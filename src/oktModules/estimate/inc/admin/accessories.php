@@ -129,23 +129,23 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php if ($rsAccessories->active) : ?>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>"
 				title="<?php printf(__('c_c_action_Hide_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
-				class="link_sprite ss_tick"><?php _e('c_c_action_visible')?></a>
+				class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>"
 				title="<?php printf(__('c_c_action_Display_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
-				class="link_sprite ss_cross"><?php _e('c_c_action_hidden')?></a>
+				class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
 				<li>
 				<a href="module.php?m=estimate&amp;action=accessory&amp;accessory_id=<?php echo $rsAccessories->id ?>"
 				title="<?php printf(__('c_c_action_Edit_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
-				class="link_sprite ss_pencil"><?php _e('c_c_action_edit')?></a>
+				class="icon pencil"><?php _e('c_c_action_edit')?></a>
 				</li>
 				<li>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;delete_accessory=<?php echo $rsAccessories->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('m_estimate_estimate_accessory_delete_confirm')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
-				class="link_sprite ss_delete"><?php _e('c_c_action_delete')?></a>
+				class="icon delete"><?php _e('c_c_action_delete')?></a>
 				</li>
 			</ul>
 		</td>

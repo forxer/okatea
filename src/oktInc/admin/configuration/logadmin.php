@@ -36,7 +36,7 @@ $okt->logAdmin->filtersStart();
 $okt->logAdmin->deleteLogsDate($okt->config->log_admin['ttl_months']);
 
 # Suppression manuelle des logs
-if (!empty($_GET['truncate']))
+if (!empty($_GET['truncate']) && $okt->user->is_superadmin)
 {
 	$okt->logAdmin->deleteLogs();
 
@@ -130,6 +130,11 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
+<?php if ($rsLogAdmin->isEmpty()) : ?>
+<p><em><?php _e('c_a_config_logadmin_no_log') ?></em></p>
+
+<?php else : ?>
+
 <?php echo $okt->page->getButtonSet('logsBtSt'); ?>
 
 <?php # formulaire des filtres ?>
@@ -175,16 +180,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <ul class="pagination"><?php echo $oPager->getLinks(); ?></ul>
 <?php endif; ?>
 
+<?php if ($okt->user->is_superadmin) : ?>
+<p><a href="configuration.php?action=logadmin&amp;truncate=1" class="icon cross" onclick="return window.confirm('<?php
+echo html::escapeJS(__('c_a_config_logadmin_confirm_truncate')) ?>')"><?php _e('c_a_config_logadmin_truncate') ?></a></p>
+<?php endif; ?>
+
 
 <div class="checklistlegend">
-<p><?php _e('c_c_checklist_legend') ?></p>
+	<p><?php _e('c_c_checklist_legend') ?></p>
 	<ul>
 	<?php foreach ($aLogAdminCodes as $iCode=>$sCode) : ?>
 		<li><?php echo $iCode.' : '.$sCode?></li>
 	<?php endforeach; ?>
 	</ul>
 </div>
-
+<?php endif; ?>
 
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>

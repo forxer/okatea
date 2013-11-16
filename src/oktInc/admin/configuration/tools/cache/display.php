@@ -37,13 +37,13 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_INC_DIR.'/'.OKT_CACHE_DIR ?></td>
 		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_CACHE_PATH.'/'.$sFile)) ?></td>
-		<td class="<?php echo $sTdClass ?> small">
+		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
 					<a href="configuration.php?action=tools&amp;cache_file=<?php echo html::escapeHTML($sFile) ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete')) ?>')"
 					title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($sFile)) ?>"
-					class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
 		</td>
@@ -57,13 +57,13 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_PUBLIC_DIR.'/cache'?></td>
 		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_PUBLIC_PATH.'/cache/'.$sFile)) ?></td>
-		<td class="<?php echo $sTdClass ?> small">
+		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
 					<a href="configuration.php?action=tools&amp;public_cache_file=<?php echo html::escapeHTML($sFile) ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete')) ?>')"
 					title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($sFile)) ?>"
-					class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
 		</td>
@@ -75,4 +75,4 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 <p><a href="configuration.php?action=tools&amp;all_cache_file=1"
 onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete_all')) ?>')"
-class="link_sprite ss_cross"><?php _e('c_a_tools_cache_delete_all') ?></a></p>
+class="icon cross"><?php _e('c_a_tools_cache_delete_all') ?></a></p>

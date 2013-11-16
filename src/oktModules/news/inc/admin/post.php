@@ -545,7 +545,7 @@ if ($okt->news->config->images['enable'])
 					<p><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php
 					echo $aPostData['post']['id'] ?>&amp;delete_image=<?php echo $i ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(_e('m_news_post_delete_image_confirm')) ?>')"
-					class="link_sprite ss_delete"><?php _e('m_news_post_delete_image') ?></a></p>
+					class="icon delete"><?php _e('m_news_post_delete_image') ?></a></p>
 					<?php endif; ?>
 
 				<?php else : ?>
@@ -611,7 +611,7 @@ if ($okt->news->config->files['enable'])
 				<p><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php
 				echo $aPostData['post']['id'] ?>&amp;delete_file=<?php echo $i ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(_e('m_news_post_delete_file_confirm')) ?>')"
-				class="link_sprite ss_delete"><?php _e('m_news_post_delete_file')?></a></p>
+				class="icon delete"><?php _e('m_news_post_delete_file')?></a></p>
 				<?php endif; ?>
 
 			<?php else : ?>
@@ -702,16 +702,16 @@ ob_start(); ?>
 					<p class="field col"><label for="p_active"><?php _e('m_news_post_status') ?></label>
 					<?php echo form::select('p_active', module_news::getPostsStatus(true), $aPostData['post']['active']) ?></p>
 				<?php else : ?>
-					<p class="field col"><span class="link_sprite ss_time"></span><?php _e('m_news_post_delayed_publication') ?></p>
+					<p class="field col"><span class="icon time"></span><?php _e('m_news_post_delayed_publication') ?></p>
 				<?php endif; ?>
 
 			<?php elseif ($aPostData['post']['active'] == 2) : ?>
 
 				<?php if ($bCanPublish) : ?>
 					<p class="field col"><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php echo $aPostData['post']['id'] ?>&amp;publish=1"
-					class="link_sprite ss_time"><?php _e('m_news_post_publish_post') ?></a></p>
+					class="icon time"><?php _e('m_news_post_publish_post') ?></a></p>
 				<?php else : ?>
-					<p class="field col"><span class="link_sprite ss_time"></span> <?php _e('m_news_post_awaiting_validation') ?></p>
+					<p class="field col"><span class="icon time"></span> <?php _e('m_news_post_awaiting_validation') ?></p>
 				<?php endif; ?>
 
 			<?php else : ?>

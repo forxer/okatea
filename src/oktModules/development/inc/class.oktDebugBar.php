@@ -482,7 +482,7 @@ class oktDebugBar
 			$str .=
 			'<tr class="debug'.ucFirst($message['style']).'">
 				<td class="debugLogNumber"># '.$num_message++.'</td>
-				<td class="debugLogType"><span class="span_sprite ss_flag_'.$color.'"></span>&nbsp;'.ucFirst($message['style']).'</td>
+				<td class="debugLogType"><span class="icon flag_'.$color.'"></span>&nbsp;'.ucFirst($message['style']).'</td>
 				<td class="debugLogFile">'.(!empty($message['file']) ? $message['file'] : '&nbsp;').'</td>
 				<td class="debugLogLine">'.(!empty($message['line']) ? $message['line'] : '&nbsp;').'</td>
 				<td class="debugLogClass">'.(!empty($message['class']) ? $message['class'] : '&nbsp;').'</td>

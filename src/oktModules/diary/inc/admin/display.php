@@ -193,7 +193,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p>Actuellement utilisé : <em><?php $aChoices = array_merge(array(''=>'aucune'),$okt->page->getLblList());
 					echo $aChoices[$okt->diary->config->lightbox_type] ?></em></p>
 				<?php else : ?>
-					<p><span class="span_sprite ss_error"></span>Il n’y a aucune interface d’affichage des images de disponible.
+					<p><span class="icon error"></span>Il n’y a aucune interface d’affichage des images de disponible.
 					<?php echo form::hidden('p_lightbox_type',0); ?></p>
 				<?php endif;?>
 

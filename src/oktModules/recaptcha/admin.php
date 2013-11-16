@@ -108,7 +108,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	</div>
 
 	<p class="col"><a href="https://www.google.com/recaptcha/admin/create"
-	class="link_sprite ss_key_add"><?php echo (__('m_recaptcha_get_keys'))?></a></p>
+	class="icon key_add"><?php echo (__('m_recaptcha_get_keys'))?></a></p>
 </div>
 
 

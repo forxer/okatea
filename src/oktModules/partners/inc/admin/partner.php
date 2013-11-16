@@ -325,7 +325,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 
 							<p><a href="module.php?m=partners&amp;action=edit&amp;partner_id=<?php
 							echo $partner_id ?>&amp;delete_image=1"
-							class="link_sprite ss_delete"><?php _e('m_partners_delete_logo')?></a></p>
+							class="icon delete"><?php _e('m_partners_delete_logo')?></a></p>
 
 						<?php else : ?>
 

@@ -496,7 +496,7 @@ if ($okt->pages->config->images['enable'])
 					<p><a href="module.php?m=pages&amp;action=edit&amp;post_id=<?php
 					echo $aPageData['post']['id'] ?>&amp;delete_image=<?php echo $i ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(_e('m_pages_page_delete_image_confirm')) ?>')"
-					class="link_sprite ss_delete"><?php _e('m_pages_page_delete_image') ?></a></p>
+					class="icon delete"><?php _e('m_pages_page_delete_image') ?></a></p>
 
 				<?php else : ?>
 
@@ -560,7 +560,7 @@ if ($okt->pages->config->files['enable'])
 				<p><a href="module.php?m=pages&amp;action=edit&amp;post_id=<?php
 				echo $aPageData['post']['id'] ?>&amp;delete_file=<?php echo $i ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(_e('m_pages_page_delete_file_confirm')) ?>')"
-				class="link_sprite ss_delete"><?php _e('m_pages_page_delete_file')?></a></p>
+				class="icon delete"><?php _e('m_pages_page_delete_file')?></a></p>
 
 			<?php else : ?>
 

@@ -262,21 +262,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<ul class="actions">
 			<li><?php if ($rsItems->active) : ?>
 			<a href="module.php?m=galleries&amp;action=items&amp;switch_status=<?php echo $rsItems->id.($gallery_id ? '&amp;gallery_id='.$gallery_id : '') ?>"
-			title="<?php printf(__('m_galleries_switch_visibility_%s'),html::escapeHTML($rsItems->title)) ?>" class="link_sprite ss_tick"><?php _e('c_c_action_visible') ?></a>
+			title="<?php printf(__('m_galleries_switch_visibility_%s'),html::escapeHTML($rsItems->title)) ?>" class="icon tick"><?php _e('c_c_action_visible') ?></a>
 			<?php else : ?>
 			<a href="module.php?m=galleries&amp;action=items&amp;switch_status=<?php echo $rsItems->id.($gallery_id ? '&amp;gallery_id='.$gallery_id : '') ?>"
-			title="<?php printf(__('m_galleries_switch_visibility_%s'),html::escapeHTML($rsItems->title)) ?>" class="link_sprite ss_cross"><?php _e('c_c_action_hidden') ?></a>
+			title="<?php printf(__('m_galleries_switch_visibility_%s'),html::escapeHTML($rsItems->title)) ?>" class="icon cross"><?php _e('c_c_action_hidden') ?></a>
 			<?php endif; ?></li>
 
 			<li><a href="module.php?m=galleries&amp;action=edit&amp;item_id=<?php echo $rsItems->id ?>"
 			title="<?php printf(__('m_galleries_edit_%s'),html::escapeHTML($rsItems->title)) ?>"
-			class="link_sprite ss_pencil"><?php _e('c_c_action_Edit')?></a></li>
+			class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
 			<?php if ($okt->checkPerm('galleries_remove')) : ?>
 			<li><a href="module.php?m=galleries&amp;action=items&amp;delete=<?php echo $rsItems->id.($gallery_id ? '&amp;gallery_id='.$gallery_id : '') ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_galleries_item_delete_confirm')) ?>')"
 			title="<?php printf(__('m_galleries_delete_%s'),html::escapeHTML($rsItems->title)) ?>"
-			class="link_sprite ss_delete"><?php _e('c_c_action_Delete')?></a></li>
+			class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
 			<?php endif; ?>
 		</ul>
 	</div>

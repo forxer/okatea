@@ -300,7 +300,7 @@ class oktImageUploadConfig
 				}
 
 				$return .=
-				'<p class="col"><a href="'.$this->sBaseUrl.'minregen=1" class="link_sprite ss_arrow_refresh_small lazy-load">'.
+				'<p class="col"><a href="'.$this->sBaseUrl.'minregen=1" class="icon arrow_refresh_small lazy-load">'.
 				__('a_image_config_regenerate_thumbnails').'</a></p>'.
 			'</div>'.
 
@@ -430,7 +430,7 @@ class oktImageUploadConfig
 
 						'<p><a href="'.$this->sBaseUrl.'delete_watermark=1" '.
 						'onclick="return window.confirm(\''.html::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.
-						'class="link_sprite ss_delete">'.__('a_image_config_watermark_delete').'</a></p>';
+						'class="icon delete">'.__('a_image_config_watermark_delete').'</a></p>';
 					}
 
 				$return .= '</div>'.

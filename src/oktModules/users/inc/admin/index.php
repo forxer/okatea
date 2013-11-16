@@ -324,7 +324,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php if ($rsUsers->group_id == oktAuth::unverified_group_id && $okt->checkPerm('users_edit')) : ?>
 					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
 					title="<?php _e('m_users_validate_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
-					class="link_sprite ss_time"><?php _e('m_users_validate_the_user')?></a>
+					class="icon time"><?php _e('m_users_validate_the_user')?></a>
 					<?php else : ?>
 					<span class="span_sprite  ss_user"></span><?php _e('m_users_validated_user')?>
 				<?php endif; ?>
@@ -333,24 +333,24 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<li>
 				<?php if ($rsUsers->active) : ?>
 				<a href="module.php?m=users&amp;action=index&amp;disable=<?php echo $rsUsers->id ?>"
-				class="link_sprite ss_tick"><?php _e('c_c_status_Active')?></a>
+				class="icon tick"><?php _e('c_c_status_Active')?></a>
 				<?php else : ?>
 				<a href="module.php?m=users&amp;action=index&amp;enable=<?php echo $rsUsers->id ?>"
-				class="link_sprite ss_cross"><?php _e('c_c_status_Inactive')?></a>
+				class="icon cross"><?php _e('c_c_status_Inactive')?></a>
 				<?php endif; ?>
 				</li>
 
 				<?php if ($okt->checkPerm('users_edit')) : ?>
 				<li><a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>"
 				title="<?php _e('m_users_edit_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
-				class="link_sprite ss_pencil"><?php _e('c_c_action_Edit')?></a></li>
+				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($okt->checkPerm('users_delete')) : ?>
 				<li><a href="module.php?m=users&amp;action=index&amp;delete=<?php echo $rsUsers->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_user_deletion')) ?>')"
 				title="<?php _e('m_users_delete_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
-				class="link_sprite ss_delete"><?php _e('c_c_action_Delete')?></a></li>
+				class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
 				<?php endif; ?>
 
 			</ul>

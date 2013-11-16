@@ -80,7 +80,7 @@ minify_css_admin:
   - '%PUBLIC_URL%/ui-themes/%ADMIN_THEME%/jquery-ui.css'
   - '%PUBLIC_URL%/css/init.css'
   - '%PUBLIC_URL%/css/admin.css'
-  - '%PUBLIC_URL%/css/sprite.css'
+  - '%PUBLIC_URL%/css/famfamfam.css'
 minify_js_admin:
   - '%PUBLIC_URL%/js/jquery/jquery.min.js'
   - '%PUBLIC_URL%/js/jquery/cookie/jquery.cookie.min.js'

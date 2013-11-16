@@ -39,7 +39,7 @@ $okt->page->js->addReady('
 	<label for="p_xdebug_enabled"><?php _e('c_a_config_advanced_debug_xdebug') ?></label>
 </div>
 
-<p class="note"><span class="span_sprite ss_error"></span>
+<p class="note"><span class="icon error"></span>
 <?php if ($okt->modules->moduleExists('development')) : ?>
 	<?php _e('c_a_config_advanced_debug_bar_note_1') ?>
 <?php else : ?>

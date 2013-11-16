@@ -136,23 +136,23 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php if ($rsMenus->active) : ?>
 				<a href="configuration.php?action=navigation&amp;do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
 				title="<?php printf(__('c_c_action_Hide_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_tick"><?php _e('c_c_action_visible')?></a>
+				class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
 				<a href="configuration.php?action=navigation&amp;do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
 				title="<?php printf(__('c_c_action_Display_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_cross"><?php _e('c_c_action_hidden')?></a>
+				class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
 				<li>
 				<a href="configuration.php?action=navigation&amp;do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
 				title="<?php printf(__('c_c_action_Edit_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_pencil"><?php _e('c_c_action_edit')?></a>
+				class="icon pencil"><?php _e('c_c_action_edit')?></a>
 				</li>
 				<li>
 				<a href="configuration.php?action=navigation&amp;do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_delete"><?php _e('c_c_action_delete')?></a>
+				class="icon delete"><?php _e('c_c_action_delete')?></a>
 				</li>
 			</ul>
 		</td>
@@ -182,12 +182,12 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<li>
 				<a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
 				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
+				class="icon application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
 				</li>
 				<li>
 				<a href="configuration.php?action=navigation&amp;do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
 				title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
-				class="link_sprite ss_application_add"><?php _e('c_a_config_navigation_add_item')?></a>
+				class="icon application_add"><?php _e('c_a_config_navigation_add_item')?></a>
 				</li>
 			</ul>
 		</td>

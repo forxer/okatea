@@ -190,7 +190,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p><?php _e('m_pages_display_currently_used')?> : <em><?php $aChoices = array_merge(array(''=>__('c_c_none_f')), $okt->page->getLblList());
 					echo $aChoices[$okt->pages->config->lightbox_type] ?></em></p>
 				<?php else : ?>
-					<p><span class="span_sprite ss_error"></span><?php _e('m_pages_display_no_interface_display_images') ?>
+					<p><span class="icon error"></span><?php _e('m_pages_display_no_interface_display_images') ?>
 					<?php echo form::hidden('p_lightbox_type', 0) ?></p>
 				<?php endif; ?>
 

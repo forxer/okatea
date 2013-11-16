@@ -231,21 +231,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php if ($rsCategories->active) : ?>
 			- <a href="module.php?m=faq&amp;action=categories&amp;switch_status=<?php echo $rsCategories->id ?>"
 			title="Basculer la visibilité de la catégorie <?php echo html::escapeHTML($rsCategories->title) ?>"
-			class="link_sprite ss_tick"><?php _e('c_c_action_visible')?></a>
+			class="icon tick"><?php _e('c_c_action_visible')?></a>
 			<?php else : ?>
 			- <a href="module.php?m=faq&amp;action=categories&amp;switch_status=<?php echo $rsCategories->id ?>"
 			title="Basculer la visibilité de la catégorie <?php echo html::escapeHTML($rsCategories->title) ?>"
-			class="link_sprite ss_cross"><?php _e('c_c_action_hidden')?></a>
+			class="icon cross"><?php _e('c_c_action_hidden')?></a>
 			<?php endif; ?>
 
 			- <a href="module.php?m=faq&amp;action=categories&amp;do=edit&amp;category_id=<?php echo $rsCategories->id ?>"
 			title="<?php _e('m_faq_edit_this_section')?> <?php echo html::escapeHTML($rsCategories->title) ?>"
-			class="link_sprite ss_pencil"><?php _e('c_c_action_edit')?></a>
+			class="icon pencil"><?php _e('c_c_action_edit')?></a>
 
 			- <a href="module.php?m=faq&amp;action=categories&amp;do=delete&amp;category_id=<?php echo $rsCategories->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_faq_section_delete_confirm')) ?>')"
 			title="<?php _e('m_faq_delete_section')?> <?php echo html::escapeHTML($rsCategories->title) ?>"
-			class="link_sprite ss_delete"><?php _e('c_c_action_delete')?></a>
+			class="icon delete"><?php _e('c_c_action_delete')?></a>
 
 			</li>
 		<?php endwhile; ?>

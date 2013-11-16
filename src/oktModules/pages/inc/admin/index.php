@@ -371,22 +371,22 @@ if (!$rsPages->isEmpty()) : ?>
 					<?php if ($rsPages->active) : ?>
 					<li><a href="module.php?m=pages&amp;action=index&amp;switch_status=<?php echo $rsPages->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
-					class="link_sprite ss_tick"><?php _e('c_c_action_visible') ?></a></li>
+					class="icon tick"><?php _e('c_c_action_visible') ?></a></li>
 					<?php else : ?>
 					<li><a href="module.php?m=pages&amp;action=index&amp;switch_status=<?php echo $rsPages->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
-					class="link_sprite ss_cross"><?php _e('c_c_action_hidden_fem') ?></a></li>
+					class="icon cross"><?php _e('c_c_action_hidden_fem') ?></a></li>
 					<?php endif; ?>
 
 					<li><a href="module.php?m=pages&amp;action=edit&amp;post_id=<?php echo $rsPages->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
-					class="link_sprite ss_pencil"><?php _e('c_c_action_edit') ?></a></li>
+					class="icon pencil"><?php _e('c_c_action_edit') ?></a></li>
 
 					<?php if ($okt->checkPerm('pages_remove')) : ?>
 					<li><a href="module.php?m=pages&amp;action=delete&amp;post_id=<?php echo $rsPages->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_pages_list_page_delete_confirm')) ?>')"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
-					class="link_sprite ss_delete"><?php _e('c_c_action_delete') ?></a></li>
+					class="icon delete"><?php _e('c_c_action_delete') ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</td>

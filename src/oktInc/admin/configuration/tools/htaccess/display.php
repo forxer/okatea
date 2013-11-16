@@ -30,7 +30,7 @@ $okt->page->css->addCss('
 <h3><?php _e('c_a_tools_htaccess_title') ?></h3>
 
 <?php if (!$bHtaccessExists && $bHtaccessDistExists) : ?>
-	<p><span class="span_sprite ss_error"></span> <?php printf(__('c_a_tools_htaccess_not_exists_can_create'), 'configuration.php?action=tools&amp;create_htaccess=1')?></p>
+	<p><span class="icon error"></span> <?php printf(__('c_a_tools_htaccess_not_exists_can_create'), 'configuration.php?action=tools&amp;create_htaccess=1')?></p>
 <?php else : ?>
 
 <form id="tool-htaccess-form" action="configuration.php" method="post">
@@ -43,5 +43,5 @@ $okt->page->css->addCss('
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 
-<p><span class="span_sprite ss_delete"></span><a href="configuration.php?action=tools&amp;delete_htaccess=1" onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_htaccess_confirm_delete')) ?>')"><?php _e('c_a_tools_htaccess_delete') ?></a></p>
+<p><span class="icon delete"></span><a href="configuration.php?action=tools&amp;delete_htaccess=1" onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_htaccess_confirm_delete')) ?>')"><?php _e('c_a_tools_htaccess_delete') ?></a></p>
 <?php endif; ?>

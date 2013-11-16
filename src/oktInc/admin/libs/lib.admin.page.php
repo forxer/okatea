@@ -292,7 +292,7 @@ class adminPage extends htmlPage
 			}
 
 			if (!empty($aButon['sprite-icon'])) {
-				$res .= '<span class="span_sprite ss_'.$aButon['sprite-icon'].'"></span>';
+				$res .= '<span class="icon '.$aButon['sprite-icon'].'"></span>';
 			}
 
 			if (!empty($aButon['title'])) {

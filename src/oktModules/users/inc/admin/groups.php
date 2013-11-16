@@ -148,15 +148,15 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<ul class="actions">
 						<li><a href="module.php?m=users&amp;action=groups&amp;do=edit&amp;id=<?php echo $groups->group_id ?>"
 						title="<?php _e('c_c_action_Edit') ?> <?php echo html::escapeHTML($groups->title) ?>"
-						class="link_sprite ss_pencil"><?php _e('c_c_action_Edit')?></a></li>
+						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
 					<?php if (in_array($groups->group_id,array(oktAuth::superadmin_group_id,oktAuth::admin_group_id,oktAuth::guest_group_id,oktAuth::member_group_id))) : ?>
-						<li class="disabled"><span class="span_sprite ss_delete"></span><?php _e('c_c_action_Delete')?></li>
+						<li class="disabled"><span class="icon delete"></span><?php _e('c_c_action_Delete')?></li>
 					<?php else : ?>
 						<li><a href="module.php?m=users&amp;action=groups&amp;do=delete&amp;id=<?php echo $groups->group_id ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_group_deletion')) ?>')"
 						title="<?php _e('c_c_action_Delete')?> <?php echo html::escapeHTML($groups->title) ?>"
-						class="link_sprite ss_delete"><?php _e('c_c_action_Delete')?></a><li>
+						class="icon delete"><?php _e('c_c_action_Delete')?></a><li>
 					<?php endif; ?>
 					</ul>
 				</td>

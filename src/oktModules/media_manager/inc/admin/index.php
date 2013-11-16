@@ -374,7 +374,7 @@ if ($core_media_writable)
 # Get zip directory
 if ($okt->checkPerm('media_admin'))
 {
-	echo '<p><a href="'.html::escapeURL($page_url).'&amp;zipdl=1" class="link_sprite ss_package">'.
+	echo '<p><a href="'.html::escapeURL($page_url).'&amp;zipdl=1" class="icon package">'.
 	__('Download this directory as a zip file').'</a></p>';
 }
 
@@ -429,7 +429,7 @@ function mediaItemLine($f,$i)
 
 	if ($f->del) {
 		$res .= '<a href="'.html::escapeURL($page_url).'&amp;d='.
-		rawurlencode($GLOBALS['d']).'&amp;remove='.rawurlencode($f->basename).'" class="link_sprite ss_delete">'.
+		rawurlencode($GLOBALS['d']).'&amp;remove='.rawurlencode($f->basename).'" class="icon delete">'.
 		__('c_c_action_delete').'</a>';
 	}
 

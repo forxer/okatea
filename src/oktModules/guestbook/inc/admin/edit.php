@@ -129,9 +129,9 @@ include OKT_ADMIN_HEADER_FILE; ?>
 	<input type="submit" name="modifier" value="<?php _e('c_c_action_Edit') ?>" />
 	<a href="module.php?m=guestbook&amp;action=save&amp;do=supp&amp;id=<?php echo
 	$sig_id; ?><?php echo $url_params ?>" onclick="return window.confirm('<?php
-	_e('m_guestbook_Confirm_signature_deletion') ?>')" class="link_sprite ss_cross"><?php
+	_e('m_guestbook_Confirm_signature_deletion') ?>')" class="icon cross"><?php
 	_e('c_c_action_Delete')?></a>
-	<a href="module.php?m=guestbook&amp;action=index<?php echo $url_params ?>" class="link_sprite ss_arrow_turn_left"><?php
+	<a href="module.php?m=guestbook&amp;action=index<?php echo $url_params ?>" class="icon arrow_turn_left"><?php
 	_e('c_c_action_Go_back')?></a></p>
 
 </form>

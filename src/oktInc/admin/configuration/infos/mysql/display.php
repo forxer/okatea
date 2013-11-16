@@ -51,7 +51,7 @@ while ($db_infos->fetch())
 <?php if ($table) : ?>
 <h4><?php printf(__('c_a_infos_mysql_table_info_%s'),html::escapeHTML($table)) ?></h4>
 
-<p><a href="configuration.php?action=infos" class="link_sprite ss_arrow_undo"><?php _e('c_c_action_Go_back') ?></a></p>
+<p><a href="configuration.php?action=infos" class="icon arrow_undo"><?php _e('c_c_action_Go_back') ?></a></p>
 
 <table class="common">
 	<thead>
@@ -113,19 +113,19 @@ while ($db_infos->fetch())
 				<li>
 					<a href="configuration.php?action=infos&amp;optimize=<?php echo $db_infos->name ?>"
 					title="<?php printf(__('c_a_infos_mysql_optimize_%s'),$db_infos->name) ?>"
-					class="link_sprite ss_database_refresh"><?php _e('c_a_infos_mysql_optimize') ?></a>
+					class="icon database_refresh"><?php _e('c_a_infos_mysql_optimize') ?></a>
 				</li>
 				<li>
 					<a href="configuration.php?action=infos&amp;truncate=<?php echo $db_infos->name ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_infos_mysql_confirm_empty')) ?>')"
 					title="<?php printf(__('c_a_infos_mysql_empty_%s'),$db_infos->name) ?>"
-					class="link_sprite ss_database_lightning"><?php _e('c_a_infos_mysql_empty') ?></a>
+					class="icon database_lightning"><?php _e('c_a_infos_mysql_empty') ?></a>
 				</li>
 				<li>
 					<a href="configuration.php?action=infos&amp;drop=<?php echo $db_infos->name ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_infos_mysql_confirm_delete')) ?>')"
 					title="<?php printf(__('c_c_action_Delete_%s'), $db_infos->name) ?>"
-					class="link_sprite ss_database_delete"><?php _e('c_c_action_Delete') ?></a>
+					class="icon database_delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
 		</td>

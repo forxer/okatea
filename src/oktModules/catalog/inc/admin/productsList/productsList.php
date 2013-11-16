@@ -58,16 +58,16 @@ if ($display_style == 'mosaic') : ?>
 			<a href="module.php?m=catalog&amp;action=index&amp;switch_status=<?php echo $list->id ?>"
 				title="Basculer la visibilité du produit <?php echo html::escapeHTML($list->title) ?>"
 				<?php if ($list->visibility == 0) : ?>
-				class="link_sprite ss_cross">masqué
+				class="icon cross">masqué
 				<?php else : ?>
-				class="link_sprite ss_tick">visible
+				class="icon tick">visible
 				<?php endif; ?></a>
 			</li>
 
 			<li>
 			<a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php echo $list->id ?>"
 			title="Modifier l'actualité <?php echo html::escapeHTML($list->title) ?>"
-			class="link_sprite ss_pencil">Modifier</a>
+			class="icon pencil">Modifier</a>
 			</li>
 
 			<?php if ($list->isDeletable()) : ?>
@@ -75,7 +75,7 @@ if ($display_style == 'mosaic') : ?>
 			<a href="module.php?m=catalog&amp;action=delete&amp;product_id=<?php echo $list->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS('Etes-vous sûr de vouloir supprimer ce produit ? Cette action est irréversible.') ?>')"
 			title="Supprimer le produit <?php echo html::escapeHTML($list->title) ?>"
-			class="link_sprite ss_delete">Supprimer</a>
+			class="icon delete">Supprimer</a>
 			</li>
 			<?php endif; ?>
 		</ul>
@@ -166,16 +166,16 @@ elseif ($display_style == 'list') : ?>
 				<a href="module.php?m=catalog&amp;action=index&amp;switch_status=<?php echo $list->id ?>"
 				title="Basculer la visibilité du produit <?php echo html::escapeHTML($list->title) ?>"
 					<?php if ($list->visibility == 0) : ?>
-					class="link_sprite ss_cross">masqué
+					class="icon cross">masqué
 					<?php else : ?>
-					class="link_sprite ss_tick">visible
+					class="icon tick">visible
 					<?php endif; ?></a>
 				</li>
 
 				<li>
 				<a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php echo $list->id ?>"
 				title="Modifier l'actualité <?php echo html::escapeHTML($list->title) ?>"
-				class="link_sprite ss_pencil">Modifier</a>
+				class="icon pencil">Modifier</a>
 				</li>
 
 				<?php if ($list->isDeletable()) : ?>
@@ -183,7 +183,7 @@ elseif ($display_style == 'list') : ?>
 				<a href="module.php?m=catalog&amp;action=delete&amp;product_id=<?php echo $list->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS('Etes-vous sûr de vouloir supprimer ce produit ? Cette action est irréversible.') ?>')"
 				title="Supprimer le produit <?php echo html::escapeHTML($list->title) ?>"
-				class="link_sprite ss_delete">Supprimer</a>
+				class="icon delete">Supprimer</a>
 				</li>
 				<?php endif; ?>
 			</ul>

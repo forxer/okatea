@@ -219,21 +219,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php if ($rsItems->active) : ?>
 		- <a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;disable=<?php echo $rsItems->id ?>"
 		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Disable_%s'), $rsItems->title)) ?>"
-		class="link_sprite ss_tick"><?php _e('c_c_action_Disable') ?></a>
+		class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 		<?php else : ?>
 		- <a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;enable=<?php echo $rsItems->id ?>"
 		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Enable_%s'), $rsItems->title)) ?>"
-		class="link_sprite ss_cross"><?php _e('c_c_action_Enable') ?></a>
+		class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 		<?php endif; ?>
 
 		- <a href="configuration.php?action=navigation&amp;do=item&amp;menu_id=<?php echo $iMenuId ?>&amp;item_id=<?php echo $rsItems->id ?>"
 		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Edit_%s'), $rsItems->title)) ?>"
-		class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a>
+		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 		- <a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;delete=<?php echo $rsItems->id ?>"
 		onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_item_delete_confirm')) ?>')"
 		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
-		class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 
 	</li>
 	<?php endwhile; ?>

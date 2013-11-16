@@ -584,7 +584,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p><a href="module.php?m=galleries&amp;action=gallery&amp;gallery_id=<?php echo $iGalleryId ?>&amp;delete_image=1"
 				onclick="return window.confirm('<?php echo html::escapeJS(_e('m_galleries_gallery_delete_image_confirm')) ?>')"
-				class="link_sprite ss_delete"><?php _e('m_galleries_gallery_delete_image') ?></a></p>
+				class="icon delete"><?php _e('m_galleries_gallery_delete_image') ?></a></p>
 
 			<?php else : ?>
 

@@ -119,11 +119,11 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<legend>Affichage des listes de produits</legend>
 
 				<p class="field">Style d’affichage par défaut des listes de produits sur l’interface d’administration
-					<label><span class="span_sprite ss_application_view_list"></span>Liste
+					<label><span class="icon application_view_list"></span>Liste
 					<?php echo form::radio(array('p_admin_dysplay_style'),
 					'list', $okt->catalog->config->admin_dysplay_style == 'list') ?></label>
 
-					<label><span class="span_sprite ss_application_view_tile"></span>Mosaïque
+					<label><span class="icon application_view_tile"></span>Mosaïque
 					<?php echo form::radio(array('p_admin_dysplay_style'),
 					'mosaic', $okt->catalog->config->admin_dysplay_style == 'mosaic') ?></label>
 				</p>
@@ -156,7 +156,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p>Actuellement utilisé : <em><?php $aChoices = array_merge(array(''=>'aucune'),$okt->page->getLblList());
 					echo $aChoices[$okt->catalog->config->lightbox_type] ?></em></p>
 				<?php else : ?>
-					<p><span class="span_sprite ss_error"></span>Il n’y a aucune interface d’affichage des images de disponible.
+					<p><span class="icon error"></span>Il n’y a aucune interface d’affichage des images de disponible.
 					<?php echo form::hidden('p_lightbox_type',0); ?></p>
 				<?php endif;?>
 

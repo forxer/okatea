@@ -365,14 +365,14 @@ class oktTemplatesSet
 								$sReturn .=
 								'<li><a href="configuration.php?action=theme_editor&amp;theme='.$this->okt->config->theme.'&amp;new_template=1&amp;basic_template='.
 								rawurlencode('/'.$aTplInfos['theme'].$aTplInfos['path_in_theme']).'" '.
-								'class="link_sprite ss_pencil">'.__('c_a_tpl_config_Customize').'</a></li>';
+								'class="icon pencil">'.__('c_a_tpl_config_Customize').'</a></li>';
 							}
 							else
 							{
 								$sReturn .=
 								'<li><a href="configuration.php?action=theme_editor&amp;theme='.$aTplInfos['theme'].'&amp;file='.
 								rawurlencode($aTplInfos['path_in_theme']).'" '.
-								'class="link_sprite ss_pencil">'.__('c_c_action_Edit').'</a></li>';
+								'class="icon pencil">'.__('c_c_action_Edit').'</a></li>';
 							}
 
 							$sReturn .=
@@ -380,7 +380,7 @@ class oktTemplatesSet
 								'<a href="'.$this->sBaseUrl.'tpl_download=1'.
 								'&amp;tpl_family='.rawurlencode($this->sTplFamily).
 								'&amp;tpl_id='.rawurlencode($aTplInfos['id']).'" '.
-								'class="link_sprite ss_package_go">'.__('c_c_action_Download').'</a>'.
+								'class="icon package_go">'.__('c_c_action_Download').'</a>'.
 							'</li>';
 
 							$sReturn .=
@@ -389,7 +389,7 @@ class oktTemplatesSet
 								'&amp;tpl_family='.rawurlencode($this->sTplFamily).
 								'&amp;tpl_id='.rawurlencode($aTplInfos['id']).'" '.
 								'onclick="return window.confirm(\''.html::escapeJS(__('c_a_tpl_config_delete_confirm')).'\')" '.
-								'class="link_sprite ss_package_delete">'.__('c_c_action_Delete').'</a>'.
+								'class="icon package_delete">'.__('c_c_action_Delete').'</a>'.
 							'</li>';
 
 							$sReturn .=

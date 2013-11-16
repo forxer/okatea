@@ -307,7 +307,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 						<p><a href="module.php?m=##module_id##&amp;action=edit&amp;item_id=<?php
 						echo $iItemId ?>&amp;delete_image=<?php echo $i ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('m_##module_id##_confirm_image_deleting')) ?>')"
-						class="link_sprite ss_delete"><?php _e('m_##module_id##_delete_this_image') ?></a></p>
+						class="icon delete"><?php _e('m_##module_id##_delete_this_image') ?></a></p>
 
 					<?php else : ?>
 
@@ -341,7 +341,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p><a href="module.php?m=##module_id##&amp;action=edit&amp;item_id=<?php
 					echo $iItemId ?>&amp;delete_file=<?php echo $i ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_##module_id##_confirm_file_deleting')) ?>')"
-					class="link_sprite ss_delete"><?php _e('m_##module_id##_delete_this_file') ?></a></p>
+					class="icon delete"><?php _e('m_##module_id##_delete_this_file') ?></a></p>
 				<?php endif; ?>
 				</div>
 			<?php endfor; ?>

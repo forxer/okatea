@@ -147,21 +147,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php if ($rsPartners->active) : ?>
 		- <a href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Disable_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="link_sprite ss_tick"><?php _e('c_c_action_Disable') ?></a>
+		class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 		<?php else : ?>
 		- <a href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Enable_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="link_sprite ss_cross"><?php _e('c_c_action_Enable') ?></a>
+		class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 		<?php endif; ?>
 
 		- <a href="module.php?m=partners&amp;action=edit&amp;partner_id=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Edit_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a>
+		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 		- <a href="module.php?m=partners&amp;action=delete&amp;partner_id=<?php echo $rsPartners->id ?>"
 		onclick="return window.confirm('<?php echo html::escapeJS(__('m_partners_confirm_delete')) ?>')"
 		title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 	</li>
 
 	<?php endwhile; ?>

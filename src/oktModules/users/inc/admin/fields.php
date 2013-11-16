@@ -140,25 +140,25 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 			<?php if ($rsFields->active) : ?>
 			- <a href="module.php?m=users&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
 			title="<?php printf(__('c_c_action_Disable_%s'), html::escapeHTML($rsFields->title)) ?>"
-			class="link_sprite ss_tick"><?php _e('c_c_action_Disable') ?></a>
+			class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 			<?php else : ?>
 			- <a href="module.php?m=users&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
 			title="<?php printf(__('c_c_action_Enable_%s'), html::escapeHTML($rsFields->title)) ?>"
-			class="link_sprite ss_cross"><?php _e('c_c_action_Enable') ?></a>
+			class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 			<?php endif; ?>
 -->
 			<a href="module.php?m=users&amp;action=field&amp;field_id=<?php echo $rsFields->id ?>"
 			title="<?php _e('m_users_modify_field_destination') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="link_sprite ss_pencil"><?php _e('m_users_modify_definition') ?></a>
+			class="icon pencil"><?php _e('m_users_modify_definition') ?></a>
 
 			- <a href="module.php?m=users&amp;action=field&amp;do=value&amp;field_id=<?php echo $rsFields->id ?>"
 			title="<?php _e('m_users_modify_field_value') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="link_sprite ss_paintbrush"><?php _e('m_users_modify_value') ?></a>
+			class="icon paintbrush"><?php _e('m_users_modify_value') ?></a>
 
 			- <a href="module.php?m=users&amp;action=fields&amp;delete=<?php echo $rsFields->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_field_deletion')) ?>')"
 			title="Supprimer le champ <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+			class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 		</div>
 
 	</li>

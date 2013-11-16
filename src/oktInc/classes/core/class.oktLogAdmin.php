@@ -377,16 +377,16 @@ class oktLogAdmin
 		{
 			default:
 			case 0:
-				$sReturn .= '<span class="span_sprite ss_information"></span> ';
+				$sReturn .= '<span class="icon information"></span>';
 			break;
 
 			case 10:
-				$sReturn .= '<span class="span_sprite ss_error"></span> ';
+				$sReturn .= '<span class="icon error"></span>';
 				break;
 
 			case 20:
 			case 30:
-				$sReturn .= '<span class="span_sprite ss_exclamation"></span> ';
+				$sReturn .= '<span class="icon exclamation"></span>';
 				break;
 		}
 

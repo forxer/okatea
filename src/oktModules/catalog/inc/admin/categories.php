@@ -355,7 +355,7 @@ while ($categories_list->fetch())
 	if ($categories_list->num_products == 0)
 	{
 		$delete_link = ' - <a href="module.php?m=catalog&amp;action=categories&amp;delete='.$categories_list->id.'" '.
-		'class="link_sprite ss_delete" '.
+		'class="icon delete" '.
 		'onclick="return window.confirm(\''.html::escapeJS('Etes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.').'\')">Supprimer</a></p>';
 	}
 	else {
@@ -369,17 +369,17 @@ while ($categories_list->fetch())
 	if ($categories_list->active)
 	{
 		echo '<a href="module.php?m=catalog&amp;action=categories&amp;switch_status='.$categories_list->id.'" '.
-		'class="link_sprite ss_tick">visible</a>';
+		'class="icon tick">visible</a>';
 	}
 	else {
 		echo '<a href="module.php?m=catalog&amp;action=categories&amp;switch_status='.$categories_list->id.'" '.
-		'class="link_sprite ss_cross">masquée</a>';
+		'class="icon cross">masquée</a>';
 	}
 
 	echo
 	' - <a href="module.php?m=catalog&amp;action=categories&amp;category_id='.$categories_list->id.'" '.
 	'title="Modifier la catégorie '.html::escapeHTML($categories_list->name).'" '.
-	'class="link_sprite ss_pencil">Modifier</a>';
+	'class="icon pencil">Modifier</a>';
 
 	echo $delete_link.'</p>';
 

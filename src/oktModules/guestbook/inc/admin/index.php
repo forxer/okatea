@@ -244,7 +244,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 <?php if ($show != 'nospam' && $nbspam > 0) : ?>
 	<p><a href="module.php?m=guestbook&amp;action=index&amp;delallspam=1&amp;<?php echo $url_params ?>"
 	onclick="return window.confirm('Etes-vous sür de vouloir supprimer toutes les signatures marquées comme étant du SPAM ? Ceci est irréversible. Nous vous conseillons de vérifier qu\'une signature légitime ne s\'est pas glissée dans le SPAM avant de valider la suppression.')"
-	class="link_sprite ss_delete"><?php _e('m_guestbook_Delete_SPAM')?></a></p>
+	class="icon delete"><?php _e('m_guestbook_Delete_SPAM')?></a></p>
 <?php endif; ?>
 
 <?php if ($signature->isEmpty()) : ?>
@@ -317,26 +317,26 @@ include OKT_ADMIN_HEADER_FILE; ?>
 		<div class="signature-actions">
 			<ul>
 				<li><a href="module.php?m=guestbook&amp;action=edit&amp;id=<?php echo $signature->id ?>&amp;<?php echo $url_params ?>"
-				class="link_sprite ss_pencil"><?php _e('c_c_action_Edit')?></a></li>
+				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
 			<?php if ($okt->guestbook->config->validation && $signature->visible == 0) : ?>
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=valid&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
 				onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_validation') ?>')"
-				class="link_sprite ss_tick"><?php _e('m_guestbook_Validate')?></a></li>
+				class="icon tick"><?php _e('m_guestbook_Validate')?></a></li>
 			<?php endif; ?>
 
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=supp&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
 				onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_deletion') ?>')"
-				class="link_sprite ss_cross"><?php _e('c_c_action_Delete')?></a></li>
+				class="icon cross"><?php _e('c_c_action_Delete')?></a></li>
 
 
 		<?php if ($okt->modules->moduleExists('antispam')) : ?>
 			<?php if (!$signature->spam_status) : ?>
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=spam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				class="link_sprite ss_flag_red"><?php _e('m_guestbook_Stand_out_as_unwanted') ?></a></li>
+				class="icon flag_red"><?php _e('m_guestbook_Stand_out_as_unwanted') ?></a></li>
 			<?php else : ?>
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=nospam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				class="link_sprite ss_flag_green"><?php _e('m_guestbook_Stand_out_as_acceptable') ?></a>
+				class="icon flag_green"><?php _e('m_guestbook_Stand_out_as_acceptable') ?></a>
 				<?php if ($okt->modules->moduleExists('antispam')) {
 				echo oktAntispam::statusMessage($signature);
 				} ?></li>

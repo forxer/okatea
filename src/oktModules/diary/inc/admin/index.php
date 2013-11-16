@@ -211,18 +211,18 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php if ($rsEvents->visibility) : ?>
 			<a href="module.php?m=diary&amp;action=index&amp;switch_status=<?php echo $rsEvents->id ?>"
 			title="<?php printf(__('m_diary_switch_visibility_%s'),html::escapeHTML($rsEvents->title)) ?>"
-			class="link_sprite ss_tick"><?php _e('m_diary_visible') ?></a>
+			class="icon tick"><?php _e('m_diary_visible') ?></a>
 			<?php else : ?>
 			<a href="module.php?m=diary&amp;action=index&amp;switch_status=<?php echo $rsEvents->id ?>"
 			title="<?php printf(__('m_diary_switch_visibility_%s'),html::escapeHTML($rsEvents->title)) ?>"
-			class="link_sprite ss_cross"><?php _e('m_diary_hidden') ?></a>
+			class="icon cross"><?php _e('m_diary_hidden') ?></a>
 			<?php endif; ?>
 			</li>
 
 			<li>
 			<a href="module.php?m=diary&amp;action=edit&amp;event_id=<?php echo $rsEvents->id ?>"
 			title="<?php printf(__('m_diary_edit_event_%s'),html::escapeHTML($rsEvents->title)) ?>"
-			class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a>
+			class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 			</li>
 
 			<?php if ($okt->checkPerm('diary_remove')) : ?>
@@ -230,7 +230,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<a href="module.php?m=diary&amp;action=delete&amp;event_id=<?php echo $rsEvents->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_diary_confirm_deleting')) ?>')"
 			title="<?php printf(__('m_diary_delete_event_%s'),html::escapeHTML($rsEvents->title)) ?>"
-			class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+			class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 			</li>
 			<?php endif; ?>
 			</ul>

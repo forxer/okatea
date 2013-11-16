@@ -525,7 +525,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 						<?php if ($can_edit_product) : ?>
 						<p><a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php
 						echo $product_id ?>&amp;delete_image=<?php echo $i ?>"
-						class="link_sprite ss_delete">supprimer cette image</a></p>
+						class="icon delete">supprimer cette image</a></p>
 						<?php endif; ?>
 
 					<?php else : ?>
@@ -564,7 +564,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 						<p><a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php
 						echo $product_id ?>&amp;delete_file=<?php echo $i ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS('Etes-vous sûr de vouloir supprimer ce fichier ? Cette action est irréversible.') ?>')"
-						class="link_sprite ss_delete">supprimer ce fichier</a></p>
+						class="icon delete">supprimer ce fichier</a></p>
 					<?php endif; ?>
 
 				<?php else : ?>

@@ -149,7 +149,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		if ($rsCategories->num_pages == 0)
 		{
 			$sDeleteLink = ' - <a href="module.php?m=pages&amp;action=categories&amp;delete='.$rsCategories->id.'" '.
-			'class="link_sprite ss_delete" '.
+			'class="icon delete" '.
 			'onclick="return window.confirm(\''.html::escapeJS(__('m_pages_cats_delete_confirm')).'\')">'.
 			__('c_c_action_Delete').'</a></p>';
 		}
@@ -164,17 +164,17 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		if ($rsCategories->active)
 		{
 			echo '<a href="module.php?m=pages&amp;action=categories&amp;switch_status='.$rsCategories->id.'" '.
-			'class="link_sprite ss_tick">'.__('c_c_action_visible').'</a>';
+			'class="icon tick">'.__('c_c_action_visible').'</a>';
 		}
 		else {
 			echo '<a href="module.php?m=pages&amp;action=categories&amp;switch_status='.$rsCategories->id.'" '.
-			'class="link_sprite ss_cross">'.__('c_c_action_hidden_fem').'</a>';
+			'class="icon cross">'.__('c_c_action_hidden_fem').'</a>';
 		}
 
 		echo
 		' - <a href="module.php?m=pages&amp;action=categories&amp;do=edit&amp;category_id='.$rsCategories->id.'" '.
 		'title="'.util::escapeAttrHTML(sprintf(__('m_pages_cats_edit_%s'), $rsCategories->title)).'" '.
-		'class="link_sprite ss_pencil">'.__('c_c_action_Edit').'</a>';
+		'class="icon pencil">'.__('c_c_action_Edit').'</a>';
 
 		echo $sDeleteLink.'</p>';
 

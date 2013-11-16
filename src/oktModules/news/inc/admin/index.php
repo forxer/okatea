@@ -492,9 +492,9 @@ if (!$rsPosts->isEmpty()) : ?>
 		<tr>
 			<th class="<?php echo $td_class ?> fake-td">
 				<?php echo form::checkbox(array('posts[]'),$rsPosts->id) ?>
-				<?php if ($rsPosts->selected) : ?><span class="span_sprite ss_star"></span><?php endif; ?>
-				<?php if ($rsPosts->active == 2) : ?><span class="span_sprite ss_time"></span><?php endif; ?>
-				<?php if ($rsPosts->active == 3) : ?><span class="span_sprite ss_clock"></span><?php endif; ?>
+				<?php if ($rsPosts->selected) : ?><span class="icon star"></span><?php endif; ?>
+				<?php if ($rsPosts->active == 2) : ?><span class="icon time"></span><?php endif; ?>
+				<?php if ($rsPosts->active == 3) : ?><span class="icon clock"></span><?php endif; ?>
 				<a href="module.php?m=news&amp;action=edit&amp;post_id=<?php echo $rsPosts->id ?>"><?php
 				echo html::escapeHTML($rsPosts->title) ?></a>
 			</th>
@@ -543,51 +543,51 @@ if (!$rsPosts->isEmpty()) : ?>
 				<?php if ($rsPosts->active == 0) : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;switch_status=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_cross"><?php _e('c_c_action_Hidden') ?></a></li>
+					class="icon cross"><?php _e('c_c_action_Hidden') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 1) : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;switch_status=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_tick"><?php _e('c_c_action_Visible') ?></a></li>
+					class="icon tick"><?php _e('c_c_action_Visible') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 2) : ?>
 					<?php if ($rsPosts->isPublishable()) : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;publish=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_publish_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_time"><?php _e('c_c_action_Publish') ?></a></li>
+					class="icon time"><?php _e('c_c_action_Publish') ?></a></li>
 					<?php else : ?>
-					<li><span class="link_sprite ss_time"></span> <?php _e('m_news_list_awaiting_validation') ?></li>
+					<li><span class="icon time"></span> <?php _e('m_news_list_awaiting_validation') ?></li>
 					<?php endif; ?>
 
 				<?php elseif ($rsPosts->active == 3) : ?>
-					<li><span class="link_sprite ss_clock"></span> <?php _e('m_news_list_delayed_publication') ?></li>
+					<li><span class="icon clock"></span> <?php _e('m_news_list_delayed_publication') ?></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->selected) : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;deselect=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_deselect_%s'), $rsPosts->title))?>"
-					class="link_sprite ss_award_star_delete"><?php _e('c_c_action_Deselect')?></a></li>
+					class="icon award_star_delete"><?php _e('c_c_action_Deselect')?></a></li>
 				<?php else : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;select=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_select_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_award_star_add"><?php _e('c_c_action_Select')?></a></li>
+					class="icon award_star_add"><?php _e('c_c_action_Select')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isEditable()) : ?>
 					<li><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_edit_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a></li>
+					class="icon pencil"><?php _e('c_c_action_Edit') ?></a></li>
 				<?php else : ?>
 					<li><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php echo $rsPosts->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_show_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_application_form"><?php _e('c_c_action_Show') ?></a></li>
+					class="icon application_form"><?php _e('c_c_action_Show') ?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isDeletable()) : ?>
 					<li><a href="module.php?m=news&amp;action=delete&amp;post_id=<?php echo $rsPosts->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_news_list_post_delete_confirm')) ?>')"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_news_list_delete_%s'), $rsPosts->title)) ?>"
-					class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a></li>
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				<?php endif; ?>
 				</ul>
 			</td>

@@ -173,7 +173,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo $aModule['version'] ?>
 				<?php if (version_compare($aAllModules[$aModule['id']]['version'], $aModule['version'], '>')) : ?>
 				<br /><a href="configuration.php?action=modules&amp;update=<?php echo $aModule['id']; ?>"
-				class="link_sprite ss_plugin_error">Mettre à jour à la version <?php echo $aAllModules[$aModule['id']]['version'] ?></a>
+				class="icon plugin_error">Mettre à jour à la version <?php echo $aAllModules[$aModule['id']]['version'] ?></a>
 				<?php endif; ?>
 				</p>
 			</td>
@@ -195,7 +195,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<li><a href="configuration.php?action=modules&amp;empty=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_empty_module_confirm')) ?>')"
 					title="<?php printf(__('c_a_modules_empty_module_%s'),$aModule['name_l10n']) ?>"
-					class="link_sprite ss_package_delete"><?php _e('c_a_modules_empty_module') ?></a></li>
+					class="icon package_delete"><?php _e('c_a_modules_empty_module') ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</td>
@@ -204,23 +204,23 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<?php if (file_exists($aModule['root'].'/_install/tpl/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;templates=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_templates_files_confirm')) ?>')"
-					class="link_sprite ss_layout"><?php _e('c_a_modules_replace_templates_files') ?></a></li>
+					class="icon layout"><?php _e('c_a_modules_replace_templates_files') ?></a></li>
 					<?php endif; ?>
 
 					<?php if (file_exists($aModule['root'].'/_install/assets/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;common=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_common_files_confirm')) ?>')"
-					class="link_sprite ss_folder_page"><?php _e('c_a_modules_replace_common_files') ?></a></li>
+					class="icon folder_page"><?php _e('c_a_modules_replace_common_files') ?></a></li>
 					<?php endif; ?>
 
 					<?php if (file_exists($aModule['root'].'/_install/public/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;public=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_public_files_confirm')) ?>')"
-					class="link_sprite ss_script"><?php _e('c_a_modules_replace_public_files') ?></a></li>
+					class="icon script"><?php _e('c_a_modules_replace_public_files') ?></a></li>
 					<?php endif; ?>
 
 					<li><a href="configuration.php?action=modules&amp;compare=<?php echo $aModule['id']; ?>"
-					class="link_sprite ss_page_copy"><?php _e('c_a_modules_compare_files') ?></a></li>
+					class="icon page_copy"><?php _e('c_a_modules_compare_files') ?></a></li>
 				</ul>
 			</td>
 			<td class="<?php echo $td_class ?> small">
@@ -228,30 +228,30 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<li>
 						<a href="configuration.php?action=modules&amp;download=<?php echo $aModule['id']; ?>"
 						title="<?php printf(__('c_c_action_Download_%s'),$aModule['name_l10n']) ?>"
-						class="link_sprite ss_package_go"><?php _e('c_c_action_Download') ?></a>
+						class="icon package_go"><?php _e('c_c_action_Download') ?></a>
 					</li>
 					<li>
 						<?php if (!$aModule['status']) : ?>
 						<a href="configuration.php?action=modules&amp;enable=<?php echo $aModule['id']; ?>"
 						title="<?php printf(__('c_c_action_Enable_%s'),$aModule['name_l10n']) ?>"
-						class="link_sprite ss_plugin_disabled"><?php _e('c_c_action_Enable') ?></a>
+						class="icon plugin_disabled"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
 						<a href="configuration.php?action=modules&amp;disable=<?php echo $aModule['id']; ?>"
 						title="<?php printf(__('c_c_action_Disable_%s'),$aModule['name_l10n']) ?>"
-						class="link_sprite ss_plugin"><?php _e('c_c_action_Disable') ?></a>
+						class="icon plugin"><?php _e('c_c_action_Disable') ?></a>
 						<?php endif; ?>
 					</li>
 					<li>
 						<a href="configuration.php?action=modules&amp;reinstall=<?php echo $aModule['id']; ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_reinstall_module_confirm')) ?>')"
 						title="<?php printf(__('c_c_action_Re-install_%s'),$aModule['name_l10n']) ?>"
-						class="link_sprite ss_plugin_go"><?php _e('c_c_action_Re-install') ?></a>
+						class="icon plugin_go"><?php _e('c_c_action_Re-install') ?></a>
 					</li>
 					<li>
 						<a href="configuration.php?action=modules&amp;uninstall=<?php echo $aModule['id']; ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_remove_module_confirm')) ?>')"
 						title="<?php printf(__('c_c_action_Uninstall_%s'),$aModule['name_l10n']) ?>"
-						class="link_sprite ss_plugin_delete"><?php _e('c_c_action_Uninstall') ?></a>
+						class="icon plugin_delete"><?php _e('c_c_action_Uninstall') ?></a>
 					</li>
 				</ul>
 			</td>
@@ -303,16 +303,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<ul class="actions">
 					<li><a href="configuration.php?action=modules&amp;install=<?php echo $id ?>"
 					title="<?php printf(__('c_c_action_Install_%s'),__($module['name'])) ?>"
-					class="link_sprite ss_plugin_add"><?php _e('c_c_action_Install') ?></a></li>
+					class="icon plugin_add"><?php _e('c_c_action_Install') ?></a></li>
 
 					<li><a href="configuration.php?action=modules&amp;download=<?php echo $id ?>"
 					title="<?php printf(__('c_c_action_Download_%s'),__($module['name'])) ?>"
-					class="link_sprite ss_package_go"><?php _e('c_c_action_Download') ?></a></li>
+					class="icon package_go"><?php _e('c_c_action_Download') ?></a></li>
 
 					<li><a href="configuration.php?action=modules&amp;delete=<?php echo $id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_delete_module_confirm')) ?>')"
 					title="<?php printf(__('c_c_action_Delete_%s'),__($module['name'])) ?>"
-					class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a></li>
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				</ul>
 			</td>
 		</tr>

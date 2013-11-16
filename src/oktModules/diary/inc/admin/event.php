@@ -370,7 +370,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 						<p><a href="module.php?m=diary&amp;action=edit&amp;event_id=<?php
 						echo $iEventId ?>&amp;delete_image=<?php echo $i ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('m_diary_confirm_image_deleting')) ?>')"
-						class="link_sprite ss_delete"><?php _e('m_diary_delete_this_image') ?></a></p>
+						class="icon delete"><?php _e('m_diary_delete_this_image') ?></a></p>
 
 					<?php else : ?>
 
@@ -404,7 +404,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p><a href="module.php?m=diary&amp;action=edit&amp;event_id=<?php
 					echo $iEventId ?>&amp;delete_file=<?php echo $i ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_diary_confirm_file_deleting')) ?>')"
-					class="link_sprite ss_delete"><?php _e('m_diary_delete_this_file') ?></a></p>
+					class="icon delete"><?php _e('m_diary_delete_this_file') ?></a></p>
 				<?php endif; ?>
 				</div>
 			<?php endfor; ?>

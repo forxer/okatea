@@ -115,7 +115,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				echo $aChoices[$okt->galleries->config->lightbox_type] ?></em></p>
 
 				<?php else : ?>
-				<p><span class="span_sprite ss_error"></span> <?php _e('m_galleries_display_no_interface_display_images') ?>
+				<p><span class="icon error"></span> <?php _e('m_galleries_display_no_interface_display_images') ?>
 				<?php echo form::hidden('p_lightbox_type', 0); ?></p>
 				<?php endif;?>
 

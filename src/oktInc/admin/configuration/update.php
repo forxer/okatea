@@ -243,10 +243,10 @@ if (!empty($msg))
 elseif (empty($_GET['update_db']))
 {
 	if (!$digest_is_readable) {
-		echo '<p><span class="span_sprite ss_error"></span>'.__('c_a_update_digest_file_not_readable').'</p>';
+		echo '<p><span class="icon error"></span>'.__('c_a_update_digest_file_not_readable').'</p>';
 	}
 
-	echo '<p><a href="'.$p_url.'&amp;update_db=1" class="link_sprite ss_database_refresh">'.
+	echo '<p><a href="'.$p_url.'&amp;update_db=1" class="icon database_refresh">'.
 	__('c_a_update_database').'</a></p>';
 }
 
@@ -260,7 +260,7 @@ if (!empty($_GET['update_db']))
 		'<a href="'.$p_url.'">'.__('c_a_update_complete_update').'</a></p>';
 	}
 	else  {
-		echo '<p><span class="span_sprite ss_error"></span> '.
+		echo '<p><span class="icon error"></span> '.
 		__('c_a_update_database_blocking_errors_occurred').'</p>';
 	}
 }

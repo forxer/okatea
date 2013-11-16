@@ -330,7 +330,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 						<p><a href="module.php?m=faq&amp;action=edit&amp;questions_id=<?php
 						echo $questions_id ?>&amp;delete_image=<?php echo $i ?>"
-						class="link_sprite ss_delete"><?php _e('m_faq_delete_image')?></a></p>
+						class="icon delete"><?php _e('m_faq_delete_image')?></a></p>
 
 					<?php else : ?>
 

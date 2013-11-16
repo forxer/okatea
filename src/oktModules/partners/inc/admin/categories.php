@@ -402,7 +402,7 @@ while ($categories_list->fetch())
 	if ($categories_list->num_items == 0)
 	{
 		$delete_link = ' - <a href="module.php?m=partners&amp;action=categories&amp;delete='.$categories_list->id.'" '.
-		'class="link_sprite ss_delete" '.
+		'class="icon delete" '.
 		'onclick="return window.confirm(\''.html::escapeJS(__('m_partners_Confirm_category_deletion')).'\')">Supprimer</a></p>';
 	}
 	else {
@@ -416,17 +416,17 @@ while ($categories_list->fetch())
 	if ($categories_list->active)
 	{
 		echo '<a href="module.php?m=partners&amp;action=categories&amp;switch_status='.$categories_list->id.'" '.
-		'class="link_sprite ss_tick">'.__('m_partners_Visible').'</a>';
+		'class="icon tick">'.__('m_partners_Visible').'</a>';
 	}
 	else {
 		echo '<a href="module.php?m=partners&amp;action=categories&amp;switch_status='.$categories_list->id.'" '.
-		'class="link_sprite ss_cross">'.__('m_partners_Hidden').'</a>';
+		'class="icon cross">'.__('m_partners_Hidden').'</a>';
 	}
 
 	echo
 	' - <a href="module.php?m=partners&amp;action=categories&amp;category_id='.$categories_list->id.'" '.
 	'title="'.__('c_c_action_Edit').' '.html::escapeHTML($categories_list->name).'" '.
-	'class="link_sprite ss_pencil">'.__('c_c_action_Edit').'</a>';
+	'class="icon pencil">'.__('c_c_action_Edit').'</a>';
 
 	echo $delete_link.'</p>';
 

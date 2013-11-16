@@ -198,16 +198,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<a href="module.php?m=##module_id##&amp;action=index&amp;switch_status=<?php echo $rsItems->id ?>"
 			title="<?php printf(__('m_##module_id##_switch_visibility_%s'),html::escapeHTML($rsItems->title)) ?>"
 			<?php if ($rsItems->visibility) : ?>
-			class="link_sprite ss_tick"><?php _e('m_##module_id##_visible') ?>
+			class="icon tick"><?php _e('m_##module_id##_visible') ?>
 			<?php else : ?>
-			class="link_sprite ss_cross"><?php _e('m_##module_id##_hidden') ?>
+			class="icon cross"><?php _e('m_##module_id##_hidden') ?>
 			<?php endif; ?></a>
 			</li>
 
 			<li>
 			<a href="module.php?m=##module_id##&amp;action=edit&amp;item_id=<?php echo $rsItems->id ?>"
 			title="<?php printf(__('m_##module_id##_edit_item_%s'),html::escapeHTML($rsItems->title)) ?>"
-			class="link_sprite ss_pencil"><?php _e('c_c_action_Edit') ?></a>
+			class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 			</li>
 
 			<?php if ($okt->checkPerm('##module_id##_remove')) : ?>
@@ -215,7 +215,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<a href="module.php?m=##module_id##&amp;action=delete&amp;item_id=<?php echo $rsItems->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_##module_id##_confirm_deleting')) ?>')"
 			title="<?php printf(__('m_##module_id##_delete_item_%s'),html::escapeHTML($rsItems->title)) ?>"
-			class="link_sprite ss_delete"><?php _e('c_c_action_Delete') ?></a>
+			class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 			</li>
 			<?php endif; ?>
 			</ul>

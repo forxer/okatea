@@ -129,13 +129,13 @@ class checkList
 		foreach ($this->check as $k => $v)
 		{
 			if ($v['test'] === null) {
-				$res .= sprintf($item, '<span class="span_sprite ss_error"></span> '.$v['off']);
+				$res .= sprintf($item, '<span class="icon error"></span> '.$v['off']);
 			}
 			elseif ($v['test'] == false) {
-				$res .= sprintf($item, '<span class="span_sprite ss_cross"></span> '.$v['off']);
+				$res .= sprintf($item, '<span class="icon cross"></span> '.$v['off']);
 			}
 			elseif ($v['test']) {
-				$res .= sprintf($item, '<span class="span_sprite ss_tick"></span> '.$v['on']);
+				$res .= sprintf($item, '<span class="icon tick"></span> '.$v['on']);
 			}
 		}
 
@@ -146,11 +146,11 @@ class checkList
 	{
 		$res = '';
 
-		$res .= sprintf($item, '<span class="span_sprite ss_tick"></span> '.__('c_c_checklist_valid'));
+		$res .= sprintf($item, '<span class="icon tick"></span> '.__('c_c_checklist_valid'));
 
-		$res .= sprintf($item, '<span class="span_sprite ss_error"></span> '.__('c_c_checklist_warning'));
+		$res .= sprintf($item, '<span class="icon error"></span> '.__('c_c_checklist_warning'));
 
-		$res .= sprintf($item, '<span class="span_sprite ss_cross"></span> '.__('c_c_checklist_error'));
+		$res .= sprintf($item, '<span class="icon cross"></span> '.__('c_c_checklist_error'));
 
 		return sprintf($bloc, $res);
 	}

@@ -195,7 +195,7 @@ while ($rsGalleriesList->fetch())
 		$sDeleteLink = ' - <a href="module.php?m=galleries&amp;delete='.$rsGalleriesList->id.'" '.
 		'title="'.sprintf(__('m_galleries_list_delete_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
 		'onclick="return window.confirm(\''.html::escapeJS(__('m_galleries_list_confirm_del_gallery')).'\')" '.
-		' class="link_sprite ss_delete">'.__('c_c_action_delete').'</a>';
+		' class="icon delete">'.__('c_c_action_delete').'</a>';
 
 		$sManageLink = ' - <span class="disabled span_sprite ss_application_view_tile">'.__('m_galleries_list_content_management').'</span>';
 	}
@@ -205,7 +205,7 @@ while ($rsGalleriesList->fetch())
 
 		$sManageLink = ' - <a href="module.php?m=galleries&amp;action=items&amp;gallery_id='.$rsGalleriesList->id.'" '.
 		'title="'.sprintf(__('m_galleries_list_manage_items_of_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-		'class="link_sprite ss_application_view_tile">'.__('m_galleries_list_content_management').'</a>';
+		'class="icon application_view_tile">'.__('m_galleries_list_content_management').'</a>';
 	}
 
 	# image
@@ -223,27 +223,27 @@ while ($rsGalleriesList->fetch())
 	{
 		echo ' - <a href="module.php?m=galleries&amp;action=add&amp;gallery_id='.$rsGalleriesList->id.'" '.
 		'title="'.sprintf(__('m_galleries_list_add_item_to_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-		'class="link_sprite ss_picture_add">'.__('m_galleries_list_add_item').'</a>';
+		'class="icon picture_add">'.__('m_galleries_list_add_item').'</a>';
 
 		if ($okt->galleries->config->enable_multiple_upload)
 		{
 			echo ' - <a href="module.php?m=galleries&amp;action=add_multiples&amp;gallery_id='.$rsGalleriesList->id.'" '.
 			'title="'.sprintf(__('m_galleries_list_add_multiple_items_to_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-			'class="link_sprite ss_pictures">'.__('m_galleries_list_add_items').'</a>';
+			'class="icon pictures">'.__('m_galleries_list_add_items').'</a>';
 		}
 
 		if ($okt->galleries->config->enable_zip_upload)
 		{
 			echo ' - <a href="module.php?m=galleries&amp;action=add_zip&amp;gallery_id='.$rsGalleriesList->id.'" '.
 			'title="'.sprintf(__('m_galleries_list_add_zip_to_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-			'class="link_sprite ss_page_white_zip">'.__('m_galleries_list_add_zip').'</a>';
+			'class="icon page_white_zip">'.__('m_galleries_list_add_zip').'</a>';
 		}
 
 		if ($okt->checkPerm('is_superadmin'))
 		{
 			echo ' - <a href="module.php?m=galleries&amp;action=index&amp;regenerate_thumbnails='.$rsGalleriesList->id.'" '.
 			'title="'.sprintf(__('m_galleries_list_regenerate_thumbnails_of_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-			'class="link_sprite ss_arrow_refresh_small lazy-load">'.__('m_galleries_list_regenerate_thumbnails').'</a>';
+			'class="icon arrow_refresh_small lazy-load">'.__('m_galleries_list_regenerate_thumbnails').'</a>';
 		}
 	}
 
@@ -257,27 +257,27 @@ while ($rsGalleriesList->fetch())
 		{
 			echo '<a href="module.php?m=galleries&amp;action=index&amp;switch_status='.$rsGalleriesList->id.'" '.
 			'title="'.sprintf(__('m_galleries_list_switch_visibility_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-			'class="link_sprite ss_tick">'.__('c_c_action_visible').'</a>';
+			'class="icon tick">'.__('c_c_action_visible').'</a>';
 		}
 		else
 		{
 			echo '<a href="module.php?m=galleries&amp;action=index&amp;switch_status='.$rsGalleriesList->id.'" '.
 			'title="'.sprintf(__('m_galleries_list_switch_visibility_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-			'class="link_sprite ss_cross">'.__('c_c_action_hidden_fem').'</a>';
+			'class="icon cross">'.__('c_c_action_hidden_fem').'</a>';
 		}
 
 		echo ' - <a href="module.php?m=galleries&amp;action=gallery&amp;gallery_id='.$rsGalleriesList->id.'" '.
 		'title="'.sprintf(__('m_galleries_list_edit_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.
-		'class="link_sprite ss_pencil">'.__('c_c_action_edit').'</a>';
+		'class="icon pencil">'.__('c_c_action_edit').'</a>';
 
 		echo $sDeleteLink;
 
 		if ($rsGalleriesList->password) {
-			echo ' - <span class="span_sprite ss_key">'.__('m_galleries_list_protected_password').'</span>';
+			echo ' - <span class="icon key">'.__('m_galleries_list_protected_password').'</span>';
 		}
 
 		if ($okt->user->is_superadmin && $rsGalleriesList->locked) {
-			echo ' - <span class="span_sprite ss_lock">'.__('m_galleries_list_locked').'</span>';
+			echo ' - <span class="icon lock">'.__('m_galleries_list_locked').'</span>';
 		}
 
 		echo '</p>';
