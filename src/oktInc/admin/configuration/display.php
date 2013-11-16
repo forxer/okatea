@@ -220,7 +220,7 @@ $okt->page->js->addScript('
 		currenStyle = "'.$okt->config->admin_theme.'";
 
 		// nouveau theme
-		cssLink = "<link href=\"'.$okt->config->app_path.'oktCommon/ui-themes/" + style + "/jquery-ui.css\" type=\"text/css\" rel=\"Stylesheet\" />";
+		cssLink = "<link href=\"'.$okt->config->app_path.OKT_PUBLIC_DIR.'/ui-themes/" + style + "/jquery-ui.css\" type=\"text/css\" rel=\"Stylesheet\" />";
 
 		// si il y a deja une prévisualisation on ajoutent un theme
 		if ($(\'link[href*="jquery-ui.css"]\').size() > 0){
@@ -304,7 +304,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field"><label for="p_upload_theme"><?php _e('c_a_config_display_upload_theme') ?></label>
 				<?php echo form::file('p_upload_theme') ?>
-				<span class="note"><?php printf(__('c_a_config_display_upload_theme_note'),"javascript:(function(){if%20(!/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){alert('Sorry,%20due%20to%20security%20restrictions,%20this%20tool%20only%20works%20in%20Firefox');%20return%20false;%20};%20if(window.jquitr){%20jquitr.addThemeRoller();%20}%20else{%20jquitr%20=%20{};%20jquitr.s%20=%20document.createElement('script');%20jquitr.s.src%20=%20'http://jqueryui.com/themeroller/developertool/developertool.js.php';%20document.getElementsByTagName('head')[0].appendChild(jquitr.s);}%20})();"); ?></span></p>
+				<span class="note"><?php _e('c_a_config_display_upload_theme_note'); ?></span></p>
 
 			</fieldset>
 			<!--

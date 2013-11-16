@@ -157,7 +157,7 @@ class oktDebugBar
 							dialog.remove(); // on retirent la boite
 						}
 						else {
-							debugBar.tabs("active", false); // on ferment les onglets
+							debugBar.tabs("option", "active", false);// on ferment les onglets
 							dialog.dialog("open"); // et on ouvrent la boite
 						}
 					}
@@ -566,7 +566,6 @@ class oktDebugBar
 				<li>$okt->page->action&nbsp;: '.(!empty($this->okt->page->action) ? $this->okt->page->action : '').'</li>
 			</ul>
 			<ul>
-				<li><a href="javascript:(function(){if (!/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){alert(\'Sorry, due to security restrictions, this tool only works in Firefox\'); return false; }; if(window.jquitr){ jquitr.addThemeRoller(); } else{ jquitr = {}; jquitr.s = document.createElement(\'script\'); jquitr.s.src = \'http://jqueryui.com/themeroller/developertool/developertool.js.php\'; document.getElementsByTagName(\'head\')[0].appendChild(jquitr.s);} })();">ThemeRoller</a></li>
 				<li><a href="'.OKT_PUBLIC_URL.'/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
 			</ul>
 		</div><!-- #debugTools -->';

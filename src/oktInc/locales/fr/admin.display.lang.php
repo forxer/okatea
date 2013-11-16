@@ -16,7 +16,7 @@ $GLOBALS['__l10n']['c_a_config_display_theme'] = 'Thème';
 $GLOBALS['__l10n']['c_a_config_display_current_theme'] = ' (actuel)';
 $GLOBALS['__l10n']['c_a_config_display_choose_theme_note'] = 'Si vous modifiez le thème, pensez à vider le cache de votre navigateur.';
 $GLOBALS['__l10n']['c_a_config_display_upload_theme'] = 'Ou télécharger un thème';
-$GLOBALS['__l10n']['c_a_config_display_upload_theme_note'] = 'Ceci doit être un fichier .zip généré par le <a href="%s">ThemeRoller</a>.';
+$GLOBALS['__l10n']['c_a_config_display_upload_theme_note'] = 'Ceci doit être un fichier .zip généré par le <a href="http://jqueryui.com/themeroller/">ThemeRoller</a>.';
 $GLOBALS['__l10n']['c_a_config_display_compress_output'] = 'Activer la compression des pages';
 
 $GLOBALS['__l10n']['c_a_config_display_not_zip_file'] = 'Pas un fichier zip.';
