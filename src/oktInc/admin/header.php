@@ -58,16 +58,6 @@ if (!$okt->user->is_guest)
 	$aUserBarA[10] = sprintf(__('c_c_user_hello_%s'), $sProfilLink);
 	unset($sProfilLink);
 
-	# switch admin view
-	if ($okt->user->is_superadmin)
-	{
-		$aUserBarA[20] = '<a href="index.php?admin_view=1">'.
-			(!empty($_SESSION['okt_admin_view'])
-				? __('c_a_back_to_the_super_admin_view')
-				: __('c_a_switch_to_the_admin_view')
-			).'</a>';
-	}
-
 	# log off link
 	$aUserBarA[90] = '<a href="?logout=1">'.__('c_c_user_log_off_action').'</a>';
 

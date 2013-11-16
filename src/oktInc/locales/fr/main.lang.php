@@ -92,9 +92,6 @@ $GLOBALS['__l10n']['c_a_menu_log_admin'] = 'Journaux admin';
 $GLOBALS['__l10n']['c_a_menu_router'] = 'Routeur';
 $GLOBALS['__l10n']['c_a_menu_management'] = 'Gestion';
 
-$GLOBALS['__l10n']['c_a_switch_to_the_admin_view'] = 'basculer sur la vue admin';
-$GLOBALS['__l10n']['c_a_back_to_the_super_admin_view'] = 'retour à la vue de super-admin';
-
 # maintenance mode
 $GLOBALS['__l10n']['c_a_public_maintenance_mode_enabled'] = 'La partie publique du site est actuellement en mode maintenance.';
 $GLOBALS['__l10n']['c_a_admin_maintenance_mode_enabled'] = 'L’interface d’administration est actuellement en mode maintenance.';

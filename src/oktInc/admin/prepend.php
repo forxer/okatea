@@ -101,36 +101,6 @@ if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_
 }
 
 
-# Si on est un super-admin, on peut switcher les vues admin/super-admin
-if ($okt->user->is_superadmin)
-{
-	# Switch view
-	if (!empty($_GET['admin_view']))
-	{
-		if (isset($_SESSION['okt_admin_view'])) {
-			unset($_SESSION['okt_admin_view']);
-		}
-		else {
-			$_SESSION['okt_admin_view'] = true;
-		}
-
-		$okt->redirect('index.php');
-	}
-
-	# Chargement des permissions admin
-	if (isset($_SESSION['okt_admin_view']))
-	{
-		$rsPerms = $okt->db->select(
-			'SELECT perms FROM '.$okt->db->prefix.'core_users_groups '.
-			'WHERE group_id='.oktAuth::admin_group_id
-		);
-
-		$okt->user->perms = ($rsPerms->perms ? (array)unserialize($rsPerms->perms) : array());
-		unset($rsPerms);
-	}
-}
-
-
 # Permissions de base de l'administration
 $okt->addPerm('usage', __('c_a_def_perm_usage'));
 $okt->addPerm('displayhelp', __('c_a_def_perm_help'));

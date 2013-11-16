@@ -124,9 +124,9 @@ class oktCore
 	public function checkPerm($permissions)
 	{
 		if ($permissions == 'is_superadmin') {
-			return ($this->user->is_superadmin && !isset($_SESSION['okt_admin_view']));
+			return $this->user->is_superadmin;
 		}
-		else if ($this->user->is_superadmin && !isset($_SESSION['okt_admin_view'])) {
+		else if ($this->user->is_superadmin) {
 			return true;
 		}
 
