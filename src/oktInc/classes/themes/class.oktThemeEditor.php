@@ -216,7 +216,7 @@ class oktThemeEditor
 			foreach ($i as $f)
 			{
 				if ($f->isFile()
-						&& pathinfo($f->getFilename(), PATHINFO_EXTENSION) == 'php'
+						&& $f->getExtension() == 'php'
 		//				&& $f->getFilename() != 'layout.php'
 						&& $f->getFilename() != '_define.php')
 				{
@@ -278,7 +278,7 @@ class oktThemeEditor
 
 		$this->oFileInfos = new SplFileInfo($this->sThemePath.$this->sFilename);
 
-		$this->sFileExtension = pathinfo($this->sFilename, PATHINFO_EXTENSION);
+		$this->sFileExtension = $this->oFileInfos->getExtension();
 
 		$this->loadBackupFiles();
 	}
@@ -470,10 +470,14 @@ class ThemeFilesIterator extends RecursiveIteratorIterator
 
 		$oFile = $this->current();
 
+		if ($this->isDot()) {
+			return;
+		}
+
 		// Display leaf node
 		if (!$this->callHasChildren())
 		{
-			$sFileExtension = pathinfo($oFile->getFilename(), PATHINFO_EXTENSION);
+			$sFileExtension = $oFile->getExtension();
 
 			if ($sFileExtension == 'bak') {
 				return;
