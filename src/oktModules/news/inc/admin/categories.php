@@ -154,7 +154,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			__('c_c_action_Delete').'</a></p>';
 		}
 		else {
-			$sDeleteLink = ' - <span class="disabled span_sprite ss_delete">'.__('c_c_action_Delete').'</span>';
+			$sDeleteLink = ' - <span class="disabled icon delete"></span>'.__('c_c_action_Delete');
 		}
 
 		echo '<p><strong>'.html::escapeHTML($rsCategories->title).'</strong> - '.$sNumPosts.'</p>';

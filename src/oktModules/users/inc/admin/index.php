@@ -326,7 +326,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					title="<?php _e('m_users_validate_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
 					class="icon time"><?php _e('m_users_validate_the_user')?></a>
 					<?php else : ?>
-					<span class="span_sprite  ss_user"></span><?php _e('m_users_validated_user')?>
+					<span class="icon user"></span><?php _e('m_users_validated_user')?>
 				<?php endif; ?>
 				</li>
 

@@ -406,7 +406,7 @@ while ($categories_list->fetch())
 		'onclick="return window.confirm(\''.html::escapeJS(__('m_partners_Confirm_category_deletion')).'\')">Supprimer</a></p>';
 	}
 	else {
-		$delete_link = ' - <span class="disabled span_sprite ss_delete">'.__('c_c_action_Delete').'</span>';
+		$delete_link = ' - <span class="disabled icon delete">'.__('c_c_action_Delete').'</span>';
 	}
 
 	echo '<p><strong>'.html::escapeHTML($aCategories[$categories_list->id]['name']).'</strong> - '.$num_items.'</p>';

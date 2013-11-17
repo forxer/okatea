@@ -197,11 +197,11 @@ while ($rsGalleriesList->fetch())
 		'onclick="return window.confirm(\''.html::escapeJS(__('m_galleries_list_confirm_del_gallery')).'\')" '.
 		' class="icon delete">'.__('c_c_action_delete').'</a>';
 
-		$sManageLink = ' - <span class="disabled span_sprite ss_application_view_tile">'.__('m_galleries_list_content_management').'</span>';
+		$sManageLink = ' - <span class="disabled icon application_view_tile"></span>'.__('m_galleries_list_content_management');
 	}
 	else
 	{
-		$sDeleteLink = ' - <span class="disabled span_sprite ss_delete">'.__('c_c_action_delete').'</span>';
+		$sDeleteLink = ' - <span class="disabled icon delete"></span>'.__('c_c_action_delete');
 
 		$sManageLink = ' - <a href="module.php?m=galleries&amp;action=items&amp;gallery_id='.$rsGalleriesList->id.'" '.
 		'title="'.sprintf(__('m_galleries_list_manage_items_of_gallery_%s'), html::escapeHTML($rsGalleriesList->name)).'" '.

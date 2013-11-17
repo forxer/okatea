@@ -359,7 +359,7 @@ while ($categories_list->fetch())
 		'onclick="return window.confirm(\''.html::escapeJS('Etes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.').'\')">Supprimer</a></p>';
 	}
 	else {
-		$delete_link = ' - <span class="disabled span_sprite ss_delete">Supprimer</span>';
+		$delete_link = ' - <span class="disabled icon delete">Supprimer</span>';
 	}
 
 	echo '<p><strong>'.html::escapeHTML($categories_list->name).'</strong> - '.$num_prod.'</p>';

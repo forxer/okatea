@@ -131,7 +131,7 @@ $oHtmlPage = new adminPage(null);
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/ui-themes/redmond/jquery-ui.css');
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/init.css');
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/admin.css');
-$oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/sprite.css');
+$oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/famfamfam.css');
 $oHtmlPage->css->addCSS(file_get_contents(OKT_INSTAL_DIR.'/assets/install.css'));
 
 # JS
