@@ -46,7 +46,7 @@ class oktMedia extends filemanager
 	 * @param string $type Media type filter
 	 * @return void
 	 */
-	public function __construct($okt,$type='')
+	public function __construct($okt, $type='')
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
@@ -171,7 +171,7 @@ class oktMedia extends filemanager
 
 	}
 
-	protected function fileRecord(&$rs)
+	protected function fileRecord($rs)
 	{
 		if ($rs->isEmpty()) { return null; }
 
@@ -866,7 +866,7 @@ class oktMedia extends filemanager
 
 	/* Image handlers
 	------------------------------------------------------- */
-	public function imageThumbCreate(&$cur,$f,$force=true)
+	public function imageThumbCreate($cur,$f,$force=true)
 	{
 		$file = $this->pwd.'/'.$f;
 
@@ -908,7 +908,7 @@ class oktMedia extends filemanager
 		}
 	}
 
-	protected function imageThumbUpdate(&$file,&$newFile)
+	protected function imageThumbUpdate($file,&$newFile)
 	{
 		if ($file->relname != $newFile->relname)
 		{
@@ -938,7 +938,7 @@ class oktMedia extends filemanager
 		}
 	}
 
-	protected function imageMetaCreate(&$cur,$f,$id)
+	protected function imageMetaCreate($cur,$f,$id)
 	{
 		$file = $this->pwd.'/'.$f;
 

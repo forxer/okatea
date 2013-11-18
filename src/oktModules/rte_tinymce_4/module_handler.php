@@ -26,7 +26,7 @@ class module_rte_tinymce_4 extends oktModule
 		# on détermine si on est actuellement sur ce module
 		$this->onThisModule();
 
-		$this->okt->page->addRte('tinymce_4_normal','tinyMCE 4 normal',array('module_rte_tinymce_4','tinyMCEnormal'));
+		$this->okt->page->addRte('tinymce_4','tinyMCE 4',array('module_rte_tinymce_4','tinyMCE'));
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
@@ -42,100 +42,84 @@ class module_rte_tinymce_4 extends oktModule
 		}
 	}
 
-	public static function tinyMCEnormal($element='textarea',$user_options=array())
+	public static function tinyMCE($element='textarea', $user_options=array())
 	{
 		global $okt;
 
-		$options = array(
-			'plugins' => array(
-				'advlist autolink lists link image charmap print preview anchor',
-				'searchreplace visualblocks code fullscreen',
-				'insertdatetime media table contextmenu paste'
-			),
-			'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-		);
+		$aOptions = array();
 
-//		if ($okt->modules->moduleExists('media_manager')) {
-//			self::addMediaManager($options);
-//		}
+		# selector
+		$aOptions[] = 'selector: "'.$element.'"';
 
-		self::addCommon($element,$user_options,$options);
-	}
-
-	protected static function addCommon($element, array $user_options=array(), array $options=array())
-	{
-		global $okt;
-
-		$common_options = array(
-			'script_url' => OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/tinymce.min.js'
-		);
+		# theme
+		$aOptions[] = 'theme: "modern"';
 
 		# language
 		$sLanguageCode = strtolower($okt->user->language);
 		$sSpecificLanguageCode = strtolower($okt->user->language).'_'.strtoupper($okt->user->language);
 
-		if (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinyMCE_jquery/langs/'.$sLanguageCode.'.js')) {
-			$common_options['language'] = $sLanguageCode;
+		if (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinymce/langs/'.$sLanguageCode.'.js')) {
+			$aOptions[] = 'language: "'.$sLanguageCode.'"';
 		}
-		elseif (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinyMCE_jquery/langs/'.$sSpecificLanguageCode.'.js')) {
-			$common_options['language'] = $sSpecificLanguageCode;
+		elseif (file_exists(OKT_MODULES_PATH.'/rte_tinymce_4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
+			$aOptions[] = 'language: "'.$sSpecificLanguageCode.'"';
 		}
+
+		# plugins
+		$aOptions[] = 'plugins: "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste"';
+
+		# toolbar
+		$aOptions[] = 'toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"';
 
 		# content CSS
 		if ($okt->rte_tinymce_4->config->content_css != '') {
-			$common_options['content_css'] = $okt->rte_tinymce_4->config->content_css;
+			$aOptions[] = 'content_css: "'.$okt->rte_tinymce_4->config->content_css.'"';
 		}
 
 		# editor width
 		if ($okt->rte_tinymce_4->config->width != '') {
-			$common_options['width'] = $okt->rte_tinymce_4->config->width;
+			$aOptions[] = 'width: "'.$okt->rte_tinymce_4->config->width.'"';
 		}
 
 		# editor height
 		if ($okt->rte_tinymce_4->config->height != '') {
-			$common_options['height'] = $okt->rte_tinymce_4->config->height;
+			$aOptions[] = 'height: "'.$okt->rte_tinymce_4->config->height.'"';
 		}
 
-		$final_options = array_merge($options,$common_options,$user_options);
+		# gestionnaire de media
+		if ($okt->modules->moduleExists('media_manager'))
+		{
+			$aOptions[] = 'file_browser_callback: function (field_name, url, type, win) {
+					tinymce.activeEditor.windowManager.open({
+						title: "Media manager",
+						url: "'.$okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=media_manager&popup=1&editor=1&type=" + type,
+						width: 700,
+						height: 450
+					}, {
+					oninsert: function(url) {
+						var fieldElm = win.document.getElementById(field_name);
 
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_4/tinyMCE_jquery/jquery.tinymce.min.js');
+						fieldElm.value = url;
+						if ("createEvent" in document) {
+							var evt = document.createEvent("HTMLEvents");
+							evt.initEvent("change", false, true);
+							fieldElm.dispatchEvent(evt);
+						} else {
+							fieldElm.fireEvent("onchange");
+						}
+					}
+				});
+			}';
+		}
 
-		$okt->page->js->addReady('
-			jQuery("'.$element.'").tinymce('.json_encode($final_options).');
-			jQuery("'.$element.'").closest("form").find(":submit").click(function() {
-				tinyMCE.triggerSave();
-			});
-		');
-	}
-
-	protected static function addMediaManager(&$options)
-	{
-		global $okt;
-
-		$options['file_browser_callback'] = 'filebrowser';
+		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_4/tinymce/tinymce.min.js');
 
 		$okt->page->js->addScript('
-			function filebrowser(field_name, url, type, win) {
 
-				fileBrowserURL = "'.$okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=media_manager&popup=1&editor=1&type=" + type;
+			tinymce.init({'.
+				implode(',', $aOptions).
+			'});
 
-				tinyMCE.activeEditor.windowManager.open({
-						title: "Media manager",
-						url: fileBrowserURL,
-						width: 700,
-						height: 450,
-						inline: 1,
-						maximizable: 1,
-						resizable: 1,
-						close_previous: 0,
-						scrollbars: 1,
-						popup_css : false
-					},{
-						window : win,
-						input : field_name
-					}
-				);
-			}
 		');
 	}
 

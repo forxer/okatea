@@ -222,6 +222,7 @@ if ($dir && !empty($_GET['remove']))
 
 if ($popup)
 {
+	/*
 	$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
 
 	$okt->page->js->addReady('
@@ -256,6 +257,7 @@ if ($popup)
 
 	tinyMCEPopup.onInit.add(FileBrowserDialogue.init, FileBrowserDialogue);
 	');
+	*/
 }
 
 $okt->page->css->addFile($okt->media_manager->url().'/styles.css');

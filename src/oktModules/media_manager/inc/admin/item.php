@@ -164,6 +164,7 @@ function dcGetImageTitle($file, $pattern)
 
 if ($popup)
 {
+	/*
 	$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
 
 
@@ -183,6 +184,7 @@ if ($popup)
 	}
 
 	$sReadyStr .= '
+
 			var win = tinyMCEPopup.getWindowArg("window");
 
 			// insert information now
@@ -216,6 +218,25 @@ if ($popup)
 
 	';
 	$okt->page->js->addReady($sReadyStr);
+
+	*/
+
+	if ($okt->modules->moduleExists('rte_tinymce_4'))
+	{
+		$okt->page->js->addReady('
+			var windowManager = top.tinymce.activeEditor.windowManager;
+
+			$("#media-insert-ok").click(function(){
+				var url = $("input[name=src]:checked").val();
+				windowManager.getParams().oninsert(url);
+				windowManager.close();
+			});
+
+			$("#media-insert-cancel").click(function(){
+				windowManager.close();
+			});
+		');
+	}
 }
 
 $okt->page->css->addFile($okt->media_manager->url().'/styles.css');
