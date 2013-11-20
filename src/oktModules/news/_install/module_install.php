@@ -24,7 +24,7 @@ class moduleInstall_news extends oktModuleInstall
 			'news_publish',
 			'news_delete',
 			'news_contentadmin',
-			'news_rubriques',
+			'news_categories',
 			'news_display'
 		));
 	}

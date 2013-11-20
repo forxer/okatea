@@ -11,7 +11,7 @@ $GLOBALS['__l10n']['m_news_perm_show_all'] = 'Voir tous les articles';
 $GLOBALS['__l10n']['m_news_perm_publish'] = 'Publier des articles (mise en ligne)';
 $GLOBALS['__l10n']['m_news_perm_delete'] = 'Supprimer des articles';
 $GLOBALS['__l10n']['m_news_perm_contentadmin'] = 'Gérer tous les articles (ajout, modification, publication, suppression)';
-$GLOBALS['__l10n']['m_news_perm_rubriques'] = 'Gérer les rubriques';
+$GLOBALS['__l10n']['m_news_perm_categories'] = 'Gérer les rubriques';
 $GLOBALS['__l10n']['m_news_perm_display'] = 'Réglage de l’affichage';
 $GLOBALS['__l10n']['m_news_perm_config'] = 'Configuration du module';
 

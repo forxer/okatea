@@ -45,7 +45,7 @@ class module_news extends oktModule
 			$this->okt->addPerm('news_publish', __('m_news_perm_publish'), 'news');
 			$this->okt->addPerm('news_delete', __('m_news_perm_delete'), 'news');
 			$this->okt->addPerm('news_contentadmin', __('m_news_perm_contentadmin'), 'news');
-			$this->okt->addPerm('news_rubriques', __('m_news_perm_rubriques'), 'news');
+			$this->okt->addPerm('news_categories', __('m_news_perm_categories'), 'news');
 			$this->okt->addPerm('news_display', __('m_news_perm_display'), 'news');
 			$this->okt->addPerm('news_config', __('m_news_perm_config'), 'news');
 

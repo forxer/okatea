@@ -11,7 +11,7 @@ $GLOBALS['__l10n']['m_news_perm_show_all'] = 'Show all articles';
 $GLOBALS['__l10n']['m_news_perm_publish'] = 'Publish articles (put online)';
 $GLOBALS['__l10n']['m_news_perm_delete'] = 'Delete items';
 $GLOBALS['__l10n']['m_news_perm_contentadmin'] = 'Manage all items (add, modify, publish, delete)';
-$GLOBALS['__l10n']['m_news_perm_rubriques'] = 'Manage categories';
+$GLOBALS['__l10n']['m_news_perm_categories'] = 'Manage categories';
 $GLOBALS['__l10n']['m_news_perm_display'] = 'Display';
 $GLOBALS['__l10n']['m_news_perm_config'] = 'Configuration';
 
