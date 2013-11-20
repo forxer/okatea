@@ -484,13 +484,9 @@ if (!$rsPosts->isEmpty()) : ?>
 			<th scope="col"><?php _e('c_c_Actions') ?></th>
 		</tr></thead>
 		<tbody>
-		<?php $count_line = 0;
-		while ($rsPosts->fetch()) :
-			$td_class = $count_line%2 == 0 ? 'even' : 'odd';
-			$count_line++;
-		?>
-		<tr>
-			<th class="<?php echo $td_class ?> fake-td">
+		<?php while ($rsPosts->fetch()) : ?>
+		<tr class="<?php echo $rsPosts->odd_even ?>">
+			<th class="<?php echo $rsPosts->odd_even ?> fake-td">
 				<?php echo form::checkbox(array('posts[]'),$rsPosts->id) ?>
 				<?php if ($rsPosts->selected) : ?><span class="icon star"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 2) : ?><span class="icon time"></span><?php endif; ?>
@@ -500,7 +496,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			</th>
 
 			<?php if ($okt->news->config->categories['enable']) : ?>
-			<td class="<?php echo $td_class ?>"><?php echo html::escapeHTML($rsPosts->category_title) ?></td>
+			<td class="<?php echo $rsPosts->odd_even ?>"><?php echo html::escapeHTML($rsPosts->category_title) ?></td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
@@ -513,7 +509,7 @@ if (!$rsPosts->isEmpty()) : ?>
 				}
 				unset($aPerms);
 			?>
-			<td class="<?php echo $td_class ?>">
+			<td class="<?php echo $rsPosts->odd_even ?>">
 				<?php if (!empty($aGroupsAccess)) : ?>
 				<ul>
 					<li><?php echo implode('</li><li>',$aGroupsAccess) ?></li>
@@ -522,7 +518,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			</td>
 			<?php endif; ?>
 
-			<td class="<?php echo $td_class ?>">
+			<td class="<?php echo $rsPosts->odd_even ?>">
 			<?php if ($rsPosts->active == 3) : ?>
 				<p><?php printf(__('m_news_list_sheduled_%s'), dt::dt2str(__('%Y-%m-%d %H:%M'),$rsPosts->created_at)) ?>
 			<?php else : ?>
@@ -534,11 +530,11 @@ if (!$rsPosts->isEmpty()) : ?>
 			<?php endif; ?>
 			</td>
 
-			<td class="<?php echo $td_class ?>">
+			<td class="<?php echo $rsPosts->odd_even ?>">
 				<?php echo html::escapeHTML(oktAuth::getUserCN($rsPosts->username, $rsPosts->lastname, $rsPosts->firstname)) ?>
 			</td>
 
-			<td class="<?php echo $td_class ?> small nowrap">
+			<td class="<?php echo $rsPosts->odd_even ?> small nowrap">
 				<ul class="actions">
 				<?php if ($rsPosts->active == 0) : ?>
 					<li><a href="module.php?m=news&amp;action=index&amp;switch_status=<?php echo $rsPosts->id ?>"
