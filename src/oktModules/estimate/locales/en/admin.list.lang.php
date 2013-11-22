@@ -1,8 +1,14 @@
 <?php
 
-$GLOBALS['__l10n']['m_estimate_list_mark_as_untreateds'] = 'Mark quotation requests as untreated';
-$GLOBALS['__l10n']['m_estimate_list_mark_as_treateds'] = 'Mark quotation requests as treated';
-$GLOBALS['__l10n']['m_estimate_list_delete'] = 'Permanently delete RFQs';
+$GLOBALS['__l10n']['m_estimate_list_marked_as_treated'] = 'The quote has been marked as treated.';
+$GLOBALS['__l10n']['m_estimate_list_marked_as_untreated'] = 'The quote has been marked as untreated.';
+$GLOBALS['__l10n']['m_estimate_list_marked_as_treateds'] = 'Quote requests have been marked as treated.';
+$GLOBALS['__l10n']['m_estimate_list_marked_as_untreateds'] = 'Quote requests have been marked as untreated.';
+$GLOBALS['__l10n']['m_estimate_list_deleteds'] = 'Quote requests have been removed.';
+
+$GLOBALS['__l10n']['m_estimate_list_mark_as_untreateds'] = 'Mark quote requests as untreated';
+$GLOBALS['__l10n']['m_estimate_list_mark_as_treateds'] = 'Mark quote requests as treated';
+$GLOBALS['__l10n']['m_estimate_list_delete'] = 'Permanently delete quote requests';
 
 $GLOBALS['__l10n']['m_estimate_list_no_estimate'] = 'There is no quote to display.';
 $GLOBALS['__l10n']['m_estimate_list_one_estimate'] = 'There is a quote request.';

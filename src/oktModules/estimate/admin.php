@@ -25,17 +25,34 @@ $okt->page->addAriane(__('m_estimate_main_title'), 'module.php?m=estimate');
 # Test si le module users est installé
 if (!$okt->modules->moduleExists('users'))
 {
-	$okt->error->set(__('m_estimate_mod_users_exist'));
+	$okt->page->flashMessages->addError(__('m_estimate_mod_users_exist'));
 
-	# En-tête
-	require OKT_ADMIN_HEADER_FILE;
+	$okt->redirect('index.php');
+}
 
-	echo '<p>'.__('m_estimate_mod_users_exist_details').'</p>';
 
-	# Pied-de-page
-	require OKT_ADMIN_FOOTER_FILE;
+# Suppression d'une demande de devis
+if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
+{
+	try
+	{
+		$okt->estimate->deleteEstimate($_GET['estimate_id']);
 
-	exit;
+		# log admin
+		$okt->logAdmin->warning(array(
+			'code' => 42,
+			'component' => 'estimate',
+			'message' => 'estimate #'.$_GET['estimate_id']
+		));
+
+		$okt->page->flashMessages->addSuccess(__('m_estimate_estimate_deleted'));
+
+		$okt->redirect('module.php?m=estimate&action=index');
+	}
+	catch (Exception $e) {
+		$okt->error->set($e->getMessage());
+		$okt->page->action = 'index';
+	}
 }
 
 

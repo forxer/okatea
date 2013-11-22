@@ -2,7 +2,6 @@
 
 $GLOBALS['__l10n']['m_estimate_list_marked_as_treated'] = 'La demande a été marquée comme traitée.';
 $GLOBALS['__l10n']['m_estimate_list_marked_as_untreated'] = 'La demande a été marquée comme non traitée.';
-$GLOBALS['__l10n']['m_estimate_list_deleted'] = 'La demande a été supprimée.';
 $GLOBALS['__l10n']['m_estimate_list_marked_as_treateds'] = 'Les demandes ont été marquées comme traitées.';
 $GLOBALS['__l10n']['m_estimate_list_marked_as_untreateds'] = 'Les demandes ont été marquées comme non traitées.';
 $GLOBALS['__l10n']['m_estimate_list_deleteds'] = 'Les demandes ont été supprimées.';

@@ -76,13 +76,6 @@ if (!empty($_GET['untreated']))
 	}
 }
 
-# Suppression d'une demande de devis
-if (!empty($_GET['delete']))
-{
-
-}
-
-
 # Traitements par lots
 if (!empty($_POST['actions']) && !empty($_POST['estimates']) && is_array($_POST['estimates']))
 {
@@ -317,6 +310,11 @@ if (!$rsEstimates->isEmpty()) : ?>
 					<li><a href="module.php?m=estimate&amp;action=estimate&amp;estimate_id=<?php echo $rsEstimates->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_estimate_list_show_%s'), $rsEstimates->id)) ?>"
 					class="icon table"><?php _e('m_estimate_list_show_details') ?></a></li>
+
+					<li><a href="module.php?m=estimate&amp;action=delete&amp;estimate_id=<?php echo $rsEstimates->id ?>"
+					onclick="return window.confirm('<?php echo html::escapeJS(__('m_estimate_list_delete_confirm')) ?>')"
+					title="<?php echo util::escapeAttrHTML(sprintf(__('m_estimate_list_delete_%s'), $rsEstimates->id)) ?>"
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				</ul>
 			</td>
 		</tr>

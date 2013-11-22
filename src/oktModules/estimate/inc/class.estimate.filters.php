@@ -79,15 +79,15 @@ class estimateFilters extends filters
 	{
 		$this->setIntFilter('status');
 
-		$this->get_estimates_params['status'] = $this->params->visibility;
+		$this->get_estimates_params['status'] = $this->params->status;
 
 		$this->fields['status'] = array(
 			$this->form_id.'_status',
-			'**status**',
+			__('m_estimate_filters_status'),
 			form::select(
 				array('status',$this->form_id.'_status'),
-				array_merge(array('**toutes statut**'=>-1),module_estimate::getEstimatesStatuses(true)),
-				$this->params->visibility)
+				array_merge(array('&nbsp;'=>2),module_estimate::getEstimatesStatuses(true)),
+				$this->params->status)
 		);
 	}
 

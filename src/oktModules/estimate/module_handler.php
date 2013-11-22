@@ -139,18 +139,27 @@ class module_estimate extends oktModule
 	 */
 	public function getEstimatesRecordset(array $aParams=array(), $bCountOnly=false)
 	{
-		$reqPlus = '';
+		$sReqPlus = '';
 
 		if (!empty($aParams['id'])) {
-			$reqPlus .= ' AND e.id='.(integer)$aParams['id'].' ';
+			$sReqPlus .= ' AND e.id='.(integer)$aParams['id'].' ';
 		}
 
 		if (!empty($aParams['user_id'])) {
 			$sReqPlus .= ' AND e.user_id='.(integer)$aParams['user_id'].' ';
 		}
 
-		if (isset($aParams['status'])) {
-			$sReqPlus .= ' AND e.status='.(integer)$aParams['status'].' ';
+		if (isset($aParams['status']))
+		{
+			if ($aParams['status'] == 0) {
+				$sReqPlus .= 'AND e.status=0 ';
+			}
+			elseif ($aParams['status'] == 1) {
+				$sReqPlus .= 'AND e.status=1 ';
+			}
+			elseif ($aParams['status'] == 2) {
+				$sReqPlus .= '';
+			}
 		}
 
 		if ($bCountOnly)
@@ -160,7 +169,7 @@ class module_estimate extends oktModule
 			'FROM '.$this->t_estimate.' AS e '.
 				'LEFT JOIN '.$this->t_users.' AS u ON u.id=e.user_id '.
 			'WHERE 1 '.
-			$reqPlus;
+			$sReqPlus;
 		}
 		else
 		{
@@ -171,7 +180,7 @@ class module_estimate extends oktModule
 			'FROM '.$this->t_estimate.' AS e '.
 				'LEFT JOIN '.$this->t_users.' AS u ON u.id=e.user_id '.
 			'WHERE 1 '.
-			$reqPlus;
+			$sReqPlus;
 
 
 			if (!empty($aParams['order'])) {

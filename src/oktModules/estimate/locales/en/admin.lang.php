@@ -12,6 +12,10 @@ $GLOBALS['__l10n']['m_estimate_menu_Accessories'] = 'Accessories';
 $GLOBALS['__l10n']['m_estimate_mod_users_exist'] = 'The users module must be installed.';
 $GLOBALS['__l10n']['m_estimate_mod_users_exist_details'] = 'To use the estimate module you must install the users module to manage estimate history of users.';
 
+# filters
+$GLOBALS['__l10n']['m_estimate_display_filters'] = 'Filters display of quotes request';
+$GLOBALS['__l10n']['m_estimate_filters_status'] = 'Status';
+
 # status
 $GLOBALS['__l10n']['m_estimate_untreated'] = 'Untreated';
 $GLOBALS['__l10n']['m_estimate_treated'] = 'Treated';
@@ -20,6 +24,7 @@ $GLOBALS['__l10n']['m_estimate_treateds'] = 'Treated';
 
 # estimates
 $GLOBALS['__l10n']['m_estimate_estimate_%s_not_exists'] = 'The quote #%s does not exist.';
+$GLOBALS['__l10n']['m_estimate_estimate_deleted'] = 'The quote has been removed.';
 
 # products
 $GLOBALS['__l10n']['m_estimate_product_%s_not_exists'] = 'The product #%s does not exist.';
