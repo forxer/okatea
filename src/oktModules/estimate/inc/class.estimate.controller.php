@@ -82,7 +82,7 @@ class estimateController extends oktController
 		# enregistrement de la demande
 		if (!empty($_GET['send']))
 		{
-			if ($this->okt->estimate->addEstimate($aFormatedData) != false)
+			if (($iEstimateId = $this->okt->estimate->addEstimate($aFormatedData)) !== false)
 			{
 				unset($_SESSION['okt_mod_estimate_form_data']);
 
@@ -106,15 +106,17 @@ class estimateController extends oktController
 					}
 
 					# construction du mail
+					$sEstimateUrl = $this->okt->config->app_host.$this->okt->config->app_path.OKT_ADMIN_DIR.
+						'/module.php?m=estimate&action=estimate&estimate_id='.$iEstimateId;
 
-					$sEstimateUrl = $this->okt->config->app_host.$this->okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=estimate';
-debug($sEstimateUrl,1);
 					$oMail = new oktMail($this->okt);
 					$oMail->setFrom();
 					$oMail->message->setTo($aRecipients);
 
 					$oMail->useFile(dirname(__FILE__).'/../locales/'.$this->okt->user->language.'/mails_tpl/admin_notification.tpl', array(
 						'SITE_TITLE' => html::escapeHTML(util::getSiteTitle()),
+						'USER_FIRSTNAME' => $aFormatedData['firstname'],
+						'USER_LASTNAME' => $aFormatedData['lastname'],
 						'ADMIN_ESTIMATE_URL' => html::escapeHTML($sEstimateUrl),
 					));
 

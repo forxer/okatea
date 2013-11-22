@@ -9,7 +9,7 @@ class estimateFilters extends filters
 {
 	protected $estimate;
 
-	protected $get_catalog_params = array();
+	protected $get_estimates_params = array();
 
 	protected $order_by_array = array();
 
@@ -79,14 +79,14 @@ class estimateFilters extends filters
 	{
 		$this->setIntFilter('status');
 
-		$this->get_catalog_params['status'] = $this->params->visibility;
+		$this->get_estimates_params['status'] = $this->params->visibility;
 
 		$this->fields['status'] = array(
 			$this->form_id.'_status',
 			'**status**',
 			form::select(
 				array('status',$this->form_id.'_status'),
-				array_merge(array('**toutes statut**'=>-1),module_catalog::getProdsStatuses(true)),
+				array_merge(array('**toutes statut**'=>-1),module_estimate::getEstimatesStatuses(true)),
 				$this->params->visibility)
 		);
 	}
@@ -145,28 +145,20 @@ class estimateFilters extends filters
 		switch ($this->params->order_by)
 		{
 			default:
+			case 'id':
+				$this->get_estimates_params['order'] = 'e.id';
+			break;
+
 			case 'created_at':
-				$this->get_catalog_params['order'] = 'p.created_at';
+				$this->get_estimates_params['order'] = 'e.created_at';
 			break;
 
 			case 'updated_at':
-				$this->get_catalog_params['order'] = 'p.updated_at';
-			break;
-
-			case 'title':
-				$this->get_catalog_params['order'] = 'p.title';
-			break;
-
-			case 'category':
-				$this->get_catalog_params['order'] = 'p.category_id';
-			break;
-
-			case 'price':
-				$this->get_catalog_params['order'] = 'p.price';
+				$this->get_estimates_params['order'] = 'e.updated_at';
 			break;
 		}
 
-		$this->get_catalog_params['order'] .= ' '.strtoupper($this->params->order_direction);
+		$this->get_estimates_params['order'] .= ' '.strtoupper($this->params->order_direction);
 	}
 
 

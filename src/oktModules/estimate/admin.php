@@ -43,6 +43,9 @@ if (!$okt->modules->moduleExists('users'))
 if (!$okt->page->action || $okt->page->action === 'index') {
 	require __DIR__.'/inc/admin/index.php';
 }
+elseif ($okt->page->action === 'estimate') {
+	require __DIR__.'/inc/admin/estimate.php';
+}
 elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products')) {
 	require __DIR__.'/inc/admin/products.php';
 }

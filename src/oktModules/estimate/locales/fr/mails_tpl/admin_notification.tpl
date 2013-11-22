@@ -2,7 +2,7 @@ Subject: Nouvelle demande de devis sur %SITE_TITLE%
 
 Bonjour,
 
-Un internaute vient d'envoyer une demande de devis.
+%USER_FIRSTNAME% %USER_LASTNAME% vient d'envoyer une demande de devis.
 
 Vous pouvez consulter cette nouvelle demande de devis
 dans l'interface d'administration de votre site à cette adresse :

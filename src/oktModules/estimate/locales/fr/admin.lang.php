@@ -12,6 +12,15 @@ $GLOBALS['__l10n']['m_estimate_menu_Accessories'] = 'Accessoires';
 $GLOBALS['__l10n']['m_estimate_mod_users_exist'] = 'Le module utilisateur doit être installé.';
 $GLOBALS['__l10n']['m_estimate_mod_users_exist_details'] = 'Pour utiliser le module devis vous devez installer le module utilisateurs afin de gérer l’historique des devis des utilisateurs.';
 
+# status
+$GLOBALS['__l10n']['m_estimate_untreated'] = 'Non traitée';
+$GLOBALS['__l10n']['m_estimate_treated'] = 'Traitée';
+$GLOBALS['__l10n']['m_estimate_untreateds'] = 'Non traitées';
+$GLOBALS['__l10n']['m_estimate_treateds'] = 'Traitées';
+
+# estimates
+$GLOBALS['__l10n']['m_estimate_estimate_%s_not_exists'] = 'La demande de devis #%s n’existe pas.';
+
 # products
 $GLOBALS['__l10n']['m_estimate_product_%s_not_exists'] = 'Le produit #%s n’existe pas.';
 $GLOBALS['__l10n']['m_estimate_product_must_enter_title'] = 'Vous devez saisir un titre.';

@@ -137,7 +137,7 @@ class module_estimate extends oktModule
 	 * @param boolean $bCountOnly
 	 * @return object recordset/integer
 	 */
-	public function getEstimates(array $aParams=array(), $bCountOnly=false)
+	public function getEstimatesRecordset(array $aParams=array(), $bCountOnly=false)
 	{
 		$reqPlus = '';
 
@@ -205,6 +205,33 @@ class module_estimate extends oktModule
 	}
 
 	/**
+	 * Retourne une liste de demande de devis sous forme de recordset selon des paramètres donnés
+	 * et les prépares en vue d'un affichage.
+	 *
+	 * @param array $aParams 					Paramètres de requete
+	 * @return object recordset
+	 */
+	public function getEstimates($aParams=array())
+	{
+		$rs = $this->getEstimatesRecordset($aParams);
+
+		$this->prepareEstimates($rs);
+
+		return $rs;
+	}
+
+	/**
+	 * Retourne un compte du nombre de demande de devis selon des paramètres donnés.
+	 *
+	 * @param array $aParams 					Paramètres de requete
+	 * @return integer
+	 */
+	public function getEstimatesCount($aParams=array())
+	{
+		return $this->getEstimatesRecordset($aParams, true);
+	}
+
+	/**
 	 * Retourne une demande de devis donnée sous forme de recordset.
 	 *
 	 * @param integer $iEstimateId
@@ -236,13 +263,44 @@ class module_estimate extends oktModule
 	 * @param $iEstimateId
 	 * @return boolean
 	 */
-	public function productExists($iEstimateId)
+	public function estimateExists($iEstimateId)
 	{
-		if (empty($iEstimateId) || $this->getEstimate($iEstimateId)->isEmpty()) {
+		if (empty($iEstimateId) || $this->getEstimatesRecordset(array('id'=>$iEstimateId))->isEmpty()) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Formatage des données d'un recordset en vue d'un affichage d'une liste.
+	 *
+	 * @param recordset $rsEstimates
+	 * @return void
+	 */
+	public function prepareEstimates(recordset $rsEstimates)
+	{
+		$iCountLine = 0;
+		while ($rsEstimates->fetch())
+		{
+			# odd/even
+			$rsEstimates->odd_even = ($iCountLine%2 == 0 ? 'even' : 'odd');
+			$iCountLine++;
+
+			# formatages génériques
+			$this->commonPreparation($rsEstimates);
+		}
+	}
+
+	/**
+	 * Formatages des données d'un recordset communs aux listes et aux éléments.
+	 *
+	 * @param recordset $rsEstimates
+	 * @return void
+	 */
+	protected function commonPreparation(recordset $rsEstimates)
+	{
+		$rsEstimates->content = unserialize($rsEstimates->content);
 	}
 
 	/**
@@ -255,9 +313,9 @@ class module_estimate extends oktModule
 	{
 		$sDateTime = date('Y-m-d H:i:s');
 
-		if (empty($aData['status'])) {
-			$aData['status'] = 1;
-		}
+	//	if (empty($aData['status'])) {
+	//		$aData['status'] = 1;
+	//	}
 
 		$sQuery =
 		'INSERT INTO '.$this->t_estimate.' ( '.
@@ -281,5 +339,120 @@ class module_estimate extends oktModule
 		return $iNewId;
 	}
 
+	/**
+	 * Définit le statut d'une demande de devis donnée.
+	 *
+	 * @param integer $iPageId
+	 * @param integer $iStatus
+	 * @return boolean
+	 */
+	public function setEstimateStatus($iEstimateId, $iStatus)
+	{
+		if (!$this->estimateExists($iEstimateId)) {
+			throw new Exception(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
+		}
 
+		$sQuery =
+		'UPDATE '.$this->t_estimate.' SET '.
+		'updated_at=NOW(), '.
+		'status = '.($iStatus == 1 ? 1 : 0).' '.
+		'WHERE id='.(integer)$iEstimateId;
+
+		if (!$this->db->execute($sQuery)) {
+			throw new Exception('Unable to update estimate in database.');
+		}
+
+		return true;
+	}
+
+	/**
+	 * Marque une demande de devis donnée comme traitée.
+	 *
+	 * @param integer $iEstimateId
+	 * @return boolean
+	 */
+	public function markAsTreated($iEstimateId)
+	{
+		return $this->setEstimateStatus($iEstimateId, 1);
+	}
+
+	/**
+	 * Marque une demande de devis donnée comme non traitée.
+	 *
+	 * @param integer $iEstimateId
+	 * @return boolean
+	 */
+	public function markAsUntreated($iEstimateId)
+	{
+		return $this->setEstimateStatus($iEstimateId, 0);
+	}
+
+	/**
+	 * Suppression d'une demande de devis donnée.
+	 *
+	 * @param integer $iEstimateId
+	 * @return boolean
+	 */
+	public function deleteEstimate($iEstimateId)
+	{
+		if (!$this->estimateExists($iEstimateId)) {
+			throw new Exception(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
+		}
+
+		$sQuery =
+		'DELETE FROM '.$this->t_estimate.' '.
+		'WHERE id='.(integer)$iEstimateId;
+
+		if (!$this->db->execute($sQuery)) {
+			throw new Exception('Unable to remove estimate from database.');
+		}
+
+		$this->db->optimize($this->t_estimate);
+
+		return true;
+	}
+
+
+	/* Utilitaires
+	------------------------------------------------------------*/
+
+	/**
+	 * Retourne la liste des types de statuts au pluriel
+	 *
+	 * @param boolean $flip
+	 * @return array
+	 */
+	public static function getEstimatesStatuses($flip=false)
+	{
+		$aStatus = array(
+			0 => __('m_estimate_untreateds'),
+			1 => __('m_estimate_treateds')
+		);
+
+		if ($flip) {
+			$aStatus = array_flip($aStatus);
+		}
+
+		return $aStatus;
+	}
+
+	/**
+	 * Retourne la liste des types de statuts au singulier
+	 *
+	 * @param boolean $flip
+	 * @return array
+	 */
+	public static function getEstimatesStatus($flip=false)
+	{
+		$aStatus = array(
+			0 => __('m_estimate_untreated'),
+			1 => __('m_estimate_treated')
+		);
+
+		if ($flip) {
+			$aStatus = array_flip($aStatus);
+		}
+
+		return $aStatus;
+	}
 } # class

@@ -2,7 +2,7 @@ Subject: New request on %SITE_TITLE%
 
 Hello,
 
-A user has to send a quote request.
+%USER_FIRSTNAME% %USER_LASTNAME% has to send a quote request.
 
 You can view this new request in the administration interface
 of your site at this address:
