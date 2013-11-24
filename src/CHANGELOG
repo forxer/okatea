@@ -10,13 +10,15 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0.BETA.5
+1.0.BETA.5 (24/11/2013)
 # new famfamfam sprites (replace previous ones)
 ! new tinyMCE 4 module
+! new estimate module
 ! superadmin can now remove admin logs
 - bug fixes introduced in the previous beta
 - remove buggy switch admin view feature
 - fix jQuery UI upload custom theme
+. deletion of old stuff
 
 
 1.0.BETA.4 (14/11/2013)
