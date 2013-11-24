@@ -12,6 +12,14 @@ $GLOBALS['__l10n']['m_estimate_perm_accessories'] = 'Gestion des accessoires';
 $GLOBALS['__l10n']['m_estimate_perm_display'] = 'Réglage de l’affichage';
 $GLOBALS['__l10n']['m_estimate_perm_config'] = 'Configuration du module';
 
+# error messages
+$GLOBALS['__l10n']['m_estimate_must_enter_lastname'] = 'Veuillez saisir votre nom.';
+$GLOBALS['__l10n']['m_estimate_must_enter_firstname'] = 'Veuillez saisir votre prénom.';
+$GLOBALS['__l10n']['m_estimate_must_enter_email'] = 'Veuillez saisir votre adresse de courrier électronique.';
+$GLOBALS['__l10n']['m_estimate_must_enter_validate_email'] = 'Veuillez saisir une adresse de courrier électronique valide.';
+$GLOBALS['__l10n']['m_estimate_must_enter_start_date'] = 'Veuillez saisir une date de début.';
+$GLOBALS['__l10n']['m_estimate_must_enter_at_least_one_product'] = 'Veuillez choisir au moins un produit.';
+
 # formulaire
 $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Date de début';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'Date de fin';

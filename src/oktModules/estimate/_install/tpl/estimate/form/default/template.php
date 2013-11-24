@@ -110,7 +110,7 @@ else : ?>
 			<p class="field col"><label for="p_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
 			<?php echo form::text('p_email', 40, 255, html::escapeHTML($aFormData['email'])) ?></p>
 
-			<p class="field col"><label for="p_phone" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Phone') ?></label>
+			<p class="field col"><label for="p_phone"><?php _e('c_c_Phone') ?></label>
 			<?php echo form::text('p_phone', 40, 255, html::escapeHTML($aFormData['phone'])) ?></p>
 		</div>
 

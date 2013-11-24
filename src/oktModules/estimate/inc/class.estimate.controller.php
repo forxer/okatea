@@ -285,27 +285,26 @@ class estimateController extends oktController
 
 
 			if (empty($this->aFormData['lastname'])) {
-				$this->okt->error->set('Veuillez saisir votre nom.');
+				$this->okt->error->set(__('m_estimate_must_enter_lastname'));
 			}
 
 			if (empty($this->aFormData['firstname'])) {
-				$this->okt->error->set('Veuillez saisir votre prénom.');
+				$this->okt->error->set(__('m_estimate_must_enter_firstname'));
 			}
 
 			if (empty($this->aFormData['email'])) {
-				$this->okt->error->set('Veuillez saisir votre adresse de courrier électronique.');
+				$this->okt->error->set(__('m_estimate_must_enter_email'));
+			}
+			elseif (!text::isEmail($this->aFormData['email'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_validate_email'));
 			}
 
 			if (empty($this->aFormData['start_date'])) {
-				$this->okt->error->set('Veuillez saisir une date de début.');
-			}
-
-			if (empty($this->aFormData['end_date'])) {
-				$this->okt->error->set('Veuillez saisir une date de fin.');
+				$this->okt->error->set(__('m_estimate_must_enter_start_date'));
 			}
 
 			if (empty($this->aFormData['products'])) {
-				$this->okt->error->set('Veuillez choisir au moins un produit.');
+				$this->okt->error->set(__('m_estimate_must_enter_at_least_one_product'));
 			}
 
 			if ($this->okt->error->isEmpty())

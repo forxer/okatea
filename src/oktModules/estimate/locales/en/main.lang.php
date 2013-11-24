@@ -12,6 +12,14 @@ $GLOBALS['__l10n']['m_estimate_perm_accessories'] = 'Manage accessories';
 $GLOBALS['__l10n']['m_estimate_perm_display'] = 'Display';
 $GLOBALS['__l10n']['m_estimate_perm_config'] = 'Configuration';
 
+# error messages
+$GLOBALS['__l10n']['m_estimate_must_enter_lastname'] = 'Please enter your last name.';
+$GLOBALS['__l10n']['m_estimate_must_enter_firstname'] = 'Please enter your first name.';
+$GLOBALS['__l10n']['m_estimate_must_enter_email'] = 'Please enter your email address.';
+$GLOBALS['__l10n']['m_estimate_must_enter_validate_email'] = 'Please enter a valid email address.';
+$GLOBALS['__l10n']['m_estimate_must_enter_start_date'] = 'Please enter a start date.';
+$GLOBALS['__l10n']['m_estimate_must_enter_at_least_one_product'] = 'Please select at least one product.';
+
 # formulaire
 $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Start date';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'End date';
@@ -23,4 +31,3 @@ $GLOBALS['__l10n']['m_estimate_form_remove_product'] = 'Remove this product';
 $GLOBALS['__l10n']['m_estimate_form_accessory_%s'] = 'Accessory %s';
 $GLOBALS['__l10n']['m_estimate_form_add_accessory'] = 'Add an accessory';
 $GLOBALS['__l10n']['m_estimate_form_remove_accessory'] = 'Remove this accessory';
-
