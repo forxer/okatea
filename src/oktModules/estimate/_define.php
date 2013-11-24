@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Estimate',
 	'desc' 			=> 'Allow to add an estimate page',
-	'version' 		=> '0.8',
+	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org'
 ));
