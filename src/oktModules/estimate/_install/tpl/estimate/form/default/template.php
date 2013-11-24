@@ -110,7 +110,7 @@ else : ?>
 			<p class="field col"><label for="p_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
 			<?php echo form::text('p_email', 40, 255, html::escapeHTML($aFormData['email'])) ?></p>
 
-			<p class="field col"><label for="p_phone"><?php _e('c_c_Phone') ?></label>
+			<p class="field col"><label for="p_phone" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Phone') ?></label>
 			<?php echo form::text('p_phone', 40, 255, html::escapeHTML($aFormData['phone'])) ?></p>
 		</div>
 
@@ -125,7 +125,7 @@ else : ?>
 			<p class="field col"><label for="p_start_date" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_start_date') ?></label>
 			<?php echo form::text('p_start_date', 40, 255, html::escapeHTML($aFormData['start_date']), 'datepicker') ?></p>
 
-			<p class="field col"><label for="p_end_date" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_end_date') ?></label>
+			<p class="field col"><label for="p_end_date"><?php _e('m_estimate_form_end_date') ?></label>
 			<?php echo form::text('p_end_date', 40, 255, html::escapeHTML($aFormData['end_date']), 'datepicker') ?></p>
 		</div>
 	</fieldset>
@@ -206,6 +206,9 @@ else : ?>
 
 	<p class="field col"><label for="p_comment">Commentaire</label>
 	<?php echo form::textarea('p_comment', 60, 8, html::escapeHTML($aFormData['comment'])) ?></p>
+
+	<?php # -- CORE TRIGGER : publicModuleEstimateTplFormBottom
+	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt, $okt->estimate->config->captcha); ?>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate_form" /></p>
 </form>

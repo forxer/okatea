@@ -5,6 +5,10 @@ $GLOBALS['__l10n']['m_estimate_config_tab_general'] = 'Générale';
 
 $GLOBALS['__l10n']['m_estimate_config_enable_accessories'] = 'Activer la gestion des accessoires';
 
+$GLOBALS['__l10n']['m_estimate_config_captcha'] = 'Captcha';
+$GLOBALS['__l10n']['m_estimate_config_choose_captcha'] = 'Veuillez choisir le captcha a utiliser';
+$GLOBALS['__l10n']['m_estimate_config_no_captcha'] = 'Il n’y a aucun captcha de disponible.';
+
 $GLOBALS['__l10n']['m_estimate_config_default_items_number'] = 'Nombre d’éléments par défaut sur le formulaire';
 $GLOBALS['__l10n']['m_estimate_config_default_products_number'] = 'Nombre de produits par défaut';
 $GLOBALS['__l10n']['m_estimate_config_default_accessories_number'] = 'Nombre d’accessoires par défaut';

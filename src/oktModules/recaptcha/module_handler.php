@@ -26,6 +26,10 @@ class module_recaptcha extends oktModule
 			'publicModuleContactControllerFormCheckValues' => array('module_recaptcha','publicControllerFormCheckValues'),
 			'publicModuleContactTplFormBottom' => array('module_recaptcha','publicTplFormBottom'),
 
+			# behaviors estimate
+			'publicModuleEstimateControllerFormCheckValues' => array('module_recaptcha','publicControllerFormCheckValues'),
+			'publicModuleEstimateTplFormBottom' => array('module_recaptcha','publicTplFormBottom'),
+
 			# behaviors livre d'or
 			'publicModuleGuestbookControllerFormCheckValues' => array('module_recaptcha','publicControllerFormCheckValues'),
 			'publicModuleGuestbookTplFormBottom' => array('module_recaptcha','publicTplFormBottom')
@@ -63,10 +67,12 @@ class module_recaptcha extends oktModule
 	 * Vérification du captcha
 	 *
 	 * @param object $okt
+	 * @param string $sCaptchaId
 	 */
-	public static function publicControllerFormCheckValues($okt, $sName)
+	public static function publicControllerFormCheckValues($okt, $sCaptchaId)
 	{
-		if($sName == "recaptcha"){
+		if ($sCaptchaId == 'recaptcha')
+		{
 			require_once __DIR__.'/recaptcha-php-1.11/recaptchalib.php';
 
 			$resp = recaptcha_check_answer(
@@ -93,17 +99,18 @@ class module_recaptcha extends oktModule
 	 * Affichage du captcha côté public
 	 *
 	 * @param object $okt
-	 * @param string $sName
+	 * @param string $sCaptchaId
 	 */
-	public static function publicTplFormBottom($okt, $sName)
+	public static function publicTplFormBottom($okt, $sCaptchaId)
 	{
-		if($sName == "recaptcha"){
+		if ($sCaptchaId == 'recaptcha')
+		{
 			$aAcceptedLanguages = array('en','nl','fr','de','pt','ru','es','tr');
 
-			if (in_array($okt->user->language,$aAcceptedLanguages)) {
+			if (in_array($okt->user->language, $aAcceptedLanguages)) {
 				$sLanguage = $okt->user->language;
 			}
-			elseif (in_array($okt->config->language,$aAcceptedLanguages)) {
+			elseif (in_array($okt->config->language, $aAcceptedLanguages)) {
 				$sLanguage = $okt->config->language;
 			}
 			else {
@@ -126,5 +133,6 @@ class module_recaptcha extends oktModule
 			echo recaptcha_get_html(html::escapeHTML($okt->recaptcha->config->publickey));
 		}
 	}
+
 
 } # class

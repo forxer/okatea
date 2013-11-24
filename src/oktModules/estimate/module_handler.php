@@ -114,6 +114,11 @@ class module_estimate extends oktModule
 		}
 	}
 
+	protected function prepend_public()
+	{
+		$this->okt->page->loadCaptcha($this->config->captcha);
+	}
+
 	/**
 	 * Initialisation des filtres.
 	 *

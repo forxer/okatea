@@ -14,6 +14,7 @@ meta_keywords:
   fr: ''
   en: ''
 enable_accessories: true
+captcha: 'accessible_captcha'
 enable_notifications: true
 notifications_recipients: ''
 default_products_number: 2

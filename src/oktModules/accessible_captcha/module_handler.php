@@ -61,6 +61,12 @@ class module_accessible_captcha extends oktModule
 			'publicModuleContactJsValidateRules' => array('module_accessible_captcha','publicJsValidateRules'),
 			'publicModuleContactTplFormBottom' => array('module_accessible_captcha','publicTplFormBottom'),
 
+			# behaviors estimate
+			'publicModuleEstimateControllerStart' => array('module_accessible_captcha','publicControllerStart'),
+			'publicModuleEstimateControllerFormCheckValues' => array('module_accessible_captcha','publicControllerFormCheckValues'),
+			'publicModuleEstimateJsValidateRules' => array('module_accessible_captcha','publicJsValidateRules'),
+			'publicModuleEstimateTplFormBottom' => array('module_accessible_captcha','publicTplFormBottom'),
+
 			# behaviors livre d'or
 			'publicModuleGuestbookControllerStart' => array('module_accessible_captcha','publicControllerStart'),
 			'publicModuleGuestbookControllerFormCheckValues' => array('module_accessible_captcha','publicControllerFormCheckValues'),
@@ -254,7 +260,6 @@ class module_accessible_captcha extends oktModule
 	}
 
 
-
 	/*
 	 * Behaviors
 	 */
@@ -263,10 +268,11 @@ class module_accessible_captcha extends oktModule
 	 * Initialisation
 	 *
 	 * @param object $okt
+	 * @param string $sCaptchaId
 	 */
-	public static function publicControllerStart($okt, $sName)
+	public static function publicControllerStart($okt, $sCaptchaId)
 	{
-		if($sName == "accessible_captcha"){
+		if ($sCaptchaId == 'accessible_captcha'){
 			$okt->accessible_captcha->initQuestion();
 		}
 	}
@@ -275,10 +281,12 @@ class module_accessible_captcha extends oktModule
 	 * Vérification
 	 *
 	 * @param object $okt
+	 * @param string $sCaptchaId
 	 */
-	public static function publicControllerFormCheckValues($okt, $sName)
+	public static function publicControllerFormCheckValues($okt, $sCaptchaId)
 	{
-		if($sName == "accessible_captcha"){
+		if ($sCaptchaId == 'accessible_captcha')
+		{
 			$p_question = !empty($_POST['captcha_q']) ? trim($_POST['captcha_q']) : null;
 			$p_answer = !empty($_POST['captcha']) ? trim($_POST['captcha']) : null;
 
@@ -297,10 +305,11 @@ class module_accessible_captcha extends oktModule
 	 *
 	 * @param object $okt
 	 * @param object $aJsValidateRules
+	 * @param string $sCaptchaId
 	 */
-	public static function publicJsValidateRules($okt,$aJsValidateRules, $sName)
+	public static function publicJsValidateRules($okt, $aJsValidateRules, $sCaptchaId)
 	{
-		if($sName == "accessible_captcha"){
+		if ($sCaptchaId == 'accessible_captcha') {
 			$aJsValidateRules[] = 'captcha: { required: true }';
 		}
 	}
@@ -309,19 +318,20 @@ class module_accessible_captcha extends oktModule
 	 * Affichage
 	 *
 	 * @param object $okt
-	 * @param string $sName
+	 * @param string $sCaptchaId
 	 */
-	public static function publicTplFormBottom($okt, $sName)
+	public static function publicTplFormBottom($okt, $sCaptchaId)
 	{
-		if($sName == "accessible_captcha"){
-		echo
-		'<fieldset id="accessible_captcha">'.
-		'<legend>'.__('SPAM prevention').'</legend>'.
-		'<p>'.__('In order to validate the form please answer the following question, this allows to ensure us that you are not a spam robot. Thank you for your comprehension.').'</p>'.
-		'<p class="field"><label for="captcha">'.$okt->accessible_captcha->getQuestion().'</label>'.
-		'<input name="captcha" id="captcha" type="text" class="text" size="50" maxlength="255" />'.
-		'<input name="captcha_q" value="'.$okt->accessible_captcha->getEncQuestion().'" type="hidden" /></p>'.
-		'</fieldset>';
+		if ($sCaptchaId == 'accessible_captcha')
+		{
+			echo
+			'<fieldset id="accessible_captcha">'.
+			'<legend>'.__('SPAM prevention').'</legend>'.
+			'<p>'.__('In order to validate the form please answer the following question, this allows to ensure us that you are not a spam robot. Thank you for your comprehension.').'</p>'.
+			'<p class="field"><label for="captcha">'.$okt->accessible_captcha->getQuestion().'</label>'.
+			'<input name="captcha" id="captcha" type="text" class="text" size="50" maxlength="255" />'.
+			'<input name="captcha_q" value="'.$okt->accessible_captcha->getEncQuestion().'" type="hidden" /></p>'.
+			'</fieldset>';
 		}
 	}
 

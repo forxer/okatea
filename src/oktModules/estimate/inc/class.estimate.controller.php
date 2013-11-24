@@ -174,6 +174,9 @@ class estimateController extends oktController
 		$this->okt->page->module = 'estimate';
 		$this->okt->page->action = 'form';
 
+		# -- CORE TRIGGER : publicModuleEstimateControllerStart
+		$this->okt->triggers->callTrigger('publicModuleEstimateControllerStart', $this->okt, $this->okt->estimate->config->captcha);
+
 		# récupération des produits et des accessoires
 		$rsProducts = $this->okt->estimate->products->getProducts();
 
@@ -306,6 +309,9 @@ class estimateController extends oktController
 			if (empty($this->aFormData['products'])) {
 				$this->okt->error->set(__('m_estimate_must_enter_at_least_one_product'));
 			}
+
+			# -- CORE TRIGGER : publicModuleEstimateControllerFormCheckValues
+			$this->okt->triggers->callTrigger('publicModuleEstimateControllerFormCheckValues', $this->okt, $this->okt->estimate->config->captcha);
 
 			if ($this->okt->error->isEmpty())
 			{

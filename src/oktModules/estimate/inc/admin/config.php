@@ -31,6 +31,8 @@ if (!empty($_POST['form_sent']))
 {
 	$p_enable_accessories = !empty($_POST['p_enable_accessories']) ? true : false;
 
+	$p_captcha = !empty($_POST['p_captcha']) ? $_POST['p_captcha'] : '';
+
 	$p_enable_notifications = !empty($_POST['p_enable_notifications']) ? true : false;
 
 	$p_notifications_recipients = !empty($_POST['p_notifications_recipients']) ? $_POST['p_notifications_recipients'] : '';
@@ -79,6 +81,8 @@ if (!empty($_POST['form_sent']))
 			'meta_keywords' => $p_meta_keywords,
 
 			'enable_accessories' => (boolean)$p_enable_accessories,
+
+			'captcha' => $p_captcha,
 
 			'enable_notifications' => (boolean)$p_enable_notifications,
 			'notifications_recipients' => $p_notifications_recipients,
@@ -163,6 +167,18 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p class="field"><label for="p_enable_accessories"><?php echo form::checkbox('p_enable_accessories', 1, $okt->estimate->config->enable_accessories) ?>
 			<?php _e('m_estimate_config_enable_accessories') ?></label></p>
+
+
+			<fieldset>
+				<legend><?php _e('m_estimate_config_captcha')?></legend>
+				<?php if ($okt->page->hasCaptcha()) : ?>
+					<p class="field"><label for="p_captcha"><?php _e('m_estimate_config_choose_captcha') ?></label>
+					<?php echo form::select('p_captcha',array_merge(array(__('c_c_Disabled')=>0),$okt->page->getCaptchaList(true)), $okt->estimate->config->captcha) ?></p>
+				<?php else : ?>
+					<p><?php _e('m_estimate_config_no_captcha') ?>
+					<?php echo form::hidden('p_captcha',0); ?></p>
+				<?php endif;?>
+			</fieldset>
 
 			<fieldset>
 				<legend><?php _e('m_estimate_config_email_notifications')?></legend>
