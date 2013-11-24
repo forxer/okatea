@@ -87,7 +87,7 @@ class module_estimate extends oktModule
 				$this->okt->page->estimateSubMenu->add(
 					__('m_estimate_menu_Estimates_list'),
 					'module.php?m=estimate&amp;action=index',
-					ON_ESTIMATE_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+					ON_ESTIMATE_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'),
 					1
 				);
 				$this->okt->page->estimateSubMenu->add(

@@ -9,6 +9,7 @@ $GLOBALS['__l10n']['m_estimate_list_deleteds'] = 'Les demandes ont été supprim
 $GLOBALS['__l10n']['m_estimate_list_mark_as_untreateds'] = 'Marquer les demandes comme non traitées';
 $GLOBALS['__l10n']['m_estimate_list_mark_as_treateds'] = 'Marquer les demandes comme traitées';
 $GLOBALS['__l10n']['m_estimate_list_delete'] = 'Supprimer définitivement les demandes';
+$GLOBALS['__l10n']['m_estimate_list_delete_confirm'] = 'Etes-vous sûr de vouloir supprimer définitivement cette demande ? Cette action est irréversible.';
 
 $GLOBALS['__l10n']['m_estimate_list_no_estimate'] = 'Il n’y a aucune demande de devis à afficher.';
 $GLOBALS['__l10n']['m_estimate_list_one_estimate'] = 'Il y a une demande de devis.';

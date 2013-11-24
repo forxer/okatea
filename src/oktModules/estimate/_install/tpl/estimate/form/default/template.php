@@ -117,7 +117,7 @@ else : ?>
 	</fieldset>
 
 	<fieldset>
-		<legend>Dates prévisionelles</legend>
+		<legend>Dates prévisionnelles</legend>
 
 		<p class="infos">Merci d'indiquer les dates pendant lesquelles vous souhaitez louer le matériel.</p>
 

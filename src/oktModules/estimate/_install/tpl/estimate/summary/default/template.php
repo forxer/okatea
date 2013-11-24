@@ -45,20 +45,23 @@ et les valider ou les modifier si besoin.</p>
 	<div class="col">
 		<h2>Informations vous concernant</h2>
 
-			<p><?php echo html::escapeHTML($aEstimateData['firstname'].' '.$aEstimateData['lastname']) ?></p>
-			<p><?php echo html::escapeHTML($aEstimateData['email']) ?></p>
-			<p><?php echo html::escapeHTML($aEstimateData['phone']) ?></p>
+		<p><?php echo html::escapeHTML($aEstimateData['firstname'].' '.$aEstimateData['lastname']) ?></p>
+		<p><?php echo html::escapeHTML($aEstimateData['email']) ?></p>
+		<p><?php echo html::escapeHTML($aEstimateData['phone']) ?></p>
 	</div>
 	<div class="col">
-		<h2>Dates prévisionelles</h2>
+		<h2>Dates prévisionnelles</h2>
 
-			<?php if ($aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
-			<p>Le <?php echo html::escapeHTML($aEstimateData['start_date']) ?></p>
+		<?php if (empty($aEstimateData['end_date']) || $aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
+		<p><?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date']))) ?></p>
 
-			<?php else : ?>
-			<p>Du <?php echo html::escapeHTML($aEstimateData['start_date']) ?> au <?php echo html::escapeHTML($aEstimateData['end_date']) ?></p>
+		<?php else : ?>
+		<p><?php printf(__('From %s to %s'),
+			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date'])),
+			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['end_date']))
+		); ?></p>
 
-			<?php endif; ?>
+		<?php endif; ?>
 	</div>
 </div>
 

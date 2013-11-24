@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['__l10n']['m_estimate_main_title'] = 'Devis';
+$GLOBALS['__l10n']['m_estimate_main_title'] = 'Demandes de devis';
 
 # menu
 $GLOBALS['__l10n']['m_estimate_menu_Estimates'] = 'Devis';

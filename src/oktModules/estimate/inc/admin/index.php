@@ -1,7 +1,7 @@
 <?php
 /**
  * @ingroup okt_module_estimate
- * @brief La page d'administration des devis
+ * @brief La page d'administration des demandes de devis
  *
  */
 
@@ -17,7 +17,6 @@ l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
 
 # initialisation des filtres
 $okt->estimate->filtersStart('admin');
-
 
 
 /* Traitements
@@ -274,12 +273,12 @@ if (!$rsEstimates->isEmpty()) : ?>
 		<tr class="<?php echo $rsEstimates->odd_even ?><?php if ($rsEstimates->status) : ?> disabled<?php endif; ?>">
 			<th class="<?php echo $rsEstimates->odd_even ?> fake-td">
 				<?php echo form::checkbox(array('estimates[]'),$rsEstimates->id) ?>
-				<a href="module.php?m=estimate&amp;action=estimate&amp;estimate_id=<?php echo $rsEstimates->id ?>"># <?php
+				<a href="module.php?m=estimate&amp;action=details&amp;estimate_id=<?php echo $rsEstimates->id ?>"># <?php
 				echo html::escapeHTML($rsEstimates->id) ?></a>
 			</th>
 
 			<td class="<?php echo $rsEstimates->odd_even ?>">
-				<?php if ($rsEstimates->start_at == $rsEstimates->end_at) : ?>
+				<?php if (empty($rsEstimates->end_at) || $rsEstimates->start_at == $rsEstimates->end_at) : ?>
 				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimates->start_at))) ?>
 
 				<?php else : ?>
@@ -307,7 +306,7 @@ if (!$rsEstimates->isEmpty()) : ?>
 					class="icon clock"><?php _e('m_estimate_list_untreated')?></a>
 					<?php endif; ?>
 					</li>
-					<li><a href="module.php?m=estimate&amp;action=estimate&amp;estimate_id=<?php echo $rsEstimates->id ?>"
+					<li><a href="module.php?m=estimate&amp;action=details&amp;estimate_id=<?php echo $rsEstimates->id ?>"
 					title="<?php echo util::escapeAttrHTML(sprintf(__('m_estimate_list_show_%s'), $rsEstimates->id)) ?>"
 					class="icon table"><?php _e('m_estimate_list_show_details') ?></a></li>
 

@@ -60,8 +60,8 @@ if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
 if (!$okt->page->action || $okt->page->action === 'index') {
 	require __DIR__.'/inc/admin/index.php';
 }
-elseif ($okt->page->action === 'estimate') {
-	require __DIR__.'/inc/admin/estimate.php';
+elseif ($okt->page->action === 'details') {
+	require __DIR__.'/inc/admin/details.php';
 }
 elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products')) {
 	require __DIR__.'/inc/admin/products.php';

@@ -9,6 +9,7 @@ $GLOBALS['__l10n']['m_estimate_list_deleteds'] = 'Quote requests have been remov
 $GLOBALS['__l10n']['m_estimate_list_mark_as_untreateds'] = 'Mark quote requests as untreated';
 $GLOBALS['__l10n']['m_estimate_list_mark_as_treateds'] = 'Mark quote requests as treated';
 $GLOBALS['__l10n']['m_estimate_list_delete'] = 'Permanently delete quote requests';
+$GLOBALS['__l10n']['m_estimate_list_delete_confirm'] = 'Are you sure you want to permanently delete this quote? This action is irreversible.';
 
 $GLOBALS['__l10n']['m_estimate_list_no_estimate'] = 'There is no quote to display.';
 $GLOBALS['__l10n']['m_estimate_list_one_estimate'] = 'There is a quote request.';
