@@ -118,7 +118,7 @@ class oktModule
 	 */
 	public function setInfosFromDefineFile()
 	{
-		$define_file = path::real($this->okt->modules->path.'/'.$this->id().'/_define.php');
+		$define_file = $this->okt->modules->path.'/'.$this->id().'/_define.php';
 
 		if (file_exists($define_file)) {
 			require $define_file;

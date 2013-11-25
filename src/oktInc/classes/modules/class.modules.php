@@ -164,7 +164,7 @@ class oktModules
 		{
 			$aModulesList[$rsModules->f('module_id')] = array(
 				'id' 			=> $rsModules->f('module_id'),
-				'root'			=> path::real($this->path.'/'.$rsModules->f('module_id')),
+				'root'			=> $this->path.'/'.$rsModules->f('module_id'),
 				'url'			=> $this->url.'/'.$rsModules->f('module_id'),
 				'name'			=> $rsModules->f('module_name'),
 				'version'		=> $rsModules->f('module_version'),

@@ -113,7 +113,7 @@ class oktThemeEditor
 	{
 		$this->okt = $okt;
 
-		$this->sThemesPath = path::real($sThemesPath);
+		$this->sThemesPath = $sThemesPath;
 		$this->sThemesDir = $sThemesDir;
 
 		$this->oThemes = new oktThemes($okt, $sThemesPath);
@@ -140,7 +140,7 @@ class oktThemeEditor
 
 		$this->aThemeInfos = $this->aThemes[$this->sThemeId];
 
-		$this->sThemePath = path::real($this->sThemesPath.'/'.$this->sThemeId);
+		$this->sThemePath = $this->sThemesPath.'/'.$this->sThemeId;
 		$this->sThemeUrl = $this->okt->config->app_path.$this->sThemesDir.'/'.$this->sThemeId;
 	}
 
@@ -220,7 +220,7 @@ class oktThemeEditor
 		//				&& $f->getFilename() != 'layout.php'
 						&& $f->getFilename() != '_define.php')
 				{
-					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath.'/'.$aTheme['id'].'/templates', '', path::real($f->getPathname()))] = str_replace($this->sThemesPath, '', path::real($f->getPathname()));
+					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath.'/'.$aTheme['id'].'/templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
 				}
 			}
 		}
@@ -486,7 +486,7 @@ class ThemeFilesIterator extends RecursiveIteratorIterator
 			# Editable leaf ?
 			if (in_array($sFileExtension, $this->aEditablesExtensions))
 			{
-				$sFilepath = str_replace($oThemeEditor->getThemePath(), '', path::real($oFile->getPathname()));
+				$sFilepath = str_replace($oThemeEditor->getThemePath(), '', $oFile->getPathname());
 
 				$sLink = '<a href="configuration.php?action=theme_editor&amp;theme='.$sThemeId.'&amp;file='.rawurlencode($sFilepath).'">';
 
@@ -545,7 +545,7 @@ class ThemeDirsIteratorForSelect extends RecursiveIteratorIterator
 		}
 
 		// Display branch with label
-		echo '<option value="'.str_replace($oThemeEditor->getThemePath(), '', path::real($oFile->getPathname())).'">'.
+		echo '<option value="'.str_replace($oThemeEditor->getThemePath(), '', $oFile->getPathname()).'">'.
 			str_repeat('&nbsp;&nbsp;&nbsp;',$this->getDepth()).
 			($this->getDepth() > 0 ? '• ' : '').$oFile->getFilename().'</option>';
 	}
