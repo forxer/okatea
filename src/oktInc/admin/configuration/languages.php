@@ -223,7 +223,7 @@ $aTimezones = dt::getZones(true,true);
 $aFlags = array();
 foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/img/flags/') as $oFileInfo)
 {
-	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || files::getExtension($oFileInfo->getFilename()) !== 'png') {
+	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
 		continue;
 	}
 

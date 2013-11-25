@@ -115,7 +115,7 @@
 		files::makeDir($targetDir,true);
 	}
 
-	$fileName = '1.'.files::getExtension($inputFileName);
+	$fileName = '1.'.pathinfo($inputFileName,PATHINFO_EXTENSION);
 
 	# Remove old temp files
 	if (is_dir($targetDir) && ($dir = opendir($targetDir)))

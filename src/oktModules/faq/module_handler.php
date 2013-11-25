@@ -820,7 +820,7 @@ class module_faq extends oktModule
 					util::uploadStatus($sUploadedFile);
 
 					# vérification de l'extension
-					$sExtension = files::getExtension($sUploadedFile['name']);
+					$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 					if (!in_array($sExtension,$aAllowedExts)) {
 						throw new Exception('Type de fichier non-autorisé.');
 					}
@@ -881,7 +881,7 @@ class module_faq extends oktModule
 					util::uploadStatus($sUploadedFile);
 
 					# vérification de l'extension
-					$sExtension = files::getExtension($sUploadedFile['name']);
+					$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 					if (!in_array($sExtension,explode(',',$this->config->files['allowed_exts']))) {
 						throw new Exception('Type de fichier non-autorisé.');
 					}
@@ -956,7 +956,7 @@ class module_faq extends oktModule
 
 			foreach ($files as $k=>$v)
 			{
-				$sExtension = files::getExtension($v);
+				$sExtension = pathinfo($v,PATHINFO_EXTENSION);
 				$question_name = util::strToLowerURL($slug,false).'-'.$locale.'-'.($k+1).'.'.$sExtension;
 
 				if (file_exists($this->upload_dir.$v)) {

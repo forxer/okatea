@@ -75,7 +75,7 @@ if (!empty($_POST['form_sent']))
 				files::deltree($sTempDir);
 			}
 
-			$sExtension = files::getExtension($sUploadedFile['name']);
+			$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 			# des erreurs d'upload ?
 			util::uploadStatus($sUploadedFile);

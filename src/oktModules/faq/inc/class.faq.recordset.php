@@ -85,7 +85,7 @@ class faqRecordset extends recordset
 						'url' => $url,
 						'mime' => $mime_type,
 						'type' => util::getMediaType($mime_type),
-						'ext' => files::getExtension($path)
+						'ext' => pathinfo($path,PATHINFO_EXTENSION)
 					)
 				);
 

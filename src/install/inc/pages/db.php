@@ -25,7 +25,7 @@ $oChecklist = new checkList();
 
 foreach (new DirectoryIterator(OKT_INC_PATH.'/sql_schema/') as $oFileInfo)
 {
-	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || files::getExtension($oFileInfo->getFilename()) !== 'xml') {
+	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 		continue;
 	}
 

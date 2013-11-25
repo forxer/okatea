@@ -108,7 +108,7 @@ class fileUpload
 			$sUploadedFile = $_FILES[sprintf($this->config['files_patern'],$i)];
 
 			try {
-				$sExtension = files::getExtension($sUploadedFile['name']);
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
 				util::uploadStatus($sUploadedFile);
@@ -172,7 +172,7 @@ class fileUpload
 			$sUploadedFile = $_FILES[sprintf($this->config['files_patern'],$i)];
 
 			try {
-				$sExtension = files::getExtension($sUploadedFile['name']);
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
 				util::uploadStatus($sUploadedFile);
@@ -261,7 +261,7 @@ class fileUpload
 				continue;
 			}
 
-			$sExtension = files::getExtension($aCurrentFiles[$i]['filename']);
+			$sExtension = pathinfo($aCurrentFiles[$i]['filename'],PATHINFO_EXTENSION);
 
 			$sNewName = $iItemId.'-'.$j.'.'.$sExtension;
 

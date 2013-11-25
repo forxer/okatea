@@ -484,9 +484,9 @@ class oktModuleInstall extends oktModule
 			$d = dir($this->root().'/_install/');
 			while (false !== ($entry = $d->read()))
 			{
-				$sExt = files::getExtension($entry);
+				$sExt = pathinfo($entry,PATHINFO_EXTENSION);
 
-				if (($sExt == 'ini' || $sExt == 'yaml') && substr($entry,0,5) === 'conf_')
+				if (($sExt === 'ini' || $sExt === 'yaml') && substr($entry,0,5) === 'conf_')
 				{
 					$aFiles[] = array(
 						'filename' => $entry,

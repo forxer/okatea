@@ -66,7 +66,7 @@ class ##module_camel_case_id##Recordset extends recordset
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
 					'type' => util::getMediaType($mime_type),
-					'ext' => files::getExtension($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename'])
+					'ext' => pathinfo($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);
 

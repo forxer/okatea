@@ -60,7 +60,7 @@ if (!empty($_POST['sended']))
 			throw new Exception(__('m_galleries_zip_error_must_zip_file').' (no file)');
 		}
 
-		if (files::getExtension($_FILES['p_zip_file']['name']) != 'zip') {
+		if (pathinfo($_FILES['p_zip_file']['name'],PATHINFO_EXTENSION) != 'zip') {
 			throw new Exception(__('m_galleries_zip_error_must_zip_file').' (not zip extension)');
 		}
 
@@ -82,7 +82,7 @@ if (!empty($_POST['sended']))
 
 		foreach ($oZip->getList() as $sFileName=>$aFileInfos)
 		{
-			$sFileExtension = files::getExtension($sFileName);
+			$sFileExtension = pathinfo($sFileName,PATHINFO_EXTENSION);
 
 			if ($aFileInfos['is_dir'] || !in_array(strtolower($sFileExtension), array('jpg','gif','png'))) {
 				continue;

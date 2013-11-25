@@ -239,7 +239,7 @@ class newsRecordset extends recordset
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
 					'type' => util::getMediaType($mime_type),
-					'ext' => files::getExtension($this->okt->news->upload_dir.'files/'.$files_array[$i]['filename'])
+					'ext' => pathinfo($this->okt->news->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);
 		}

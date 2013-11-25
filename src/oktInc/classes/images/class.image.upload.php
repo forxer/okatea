@@ -135,7 +135,7 @@ class oktImageUpload
 			}
 
 			try {
-				$sExtension = files::getExtension($sFilename);
+				$sExtension = pathinfo($sFilename, PATHINFO_EXTENSION);
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);
@@ -200,7 +200,7 @@ class oktImageUpload
 			$sUploadedFile = $_FILES[sprintf($this->aConfig['files_patern'],$i)];
 
 			try {
-				$sExtension = files::getExtension($sUploadedFile['name']);
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
 				util::uploadStatus($sUploadedFile);
@@ -287,7 +287,7 @@ class oktImageUpload
 			$sUploadedFile = $_FILES[sprintf($this->aConfig['files_patern'],$i)];
 
 			try {
-				$sExtension = files::getExtension($sUploadedFile['name']);
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
 				util::uploadStatus($sUploadedFile);
@@ -428,7 +428,7 @@ class oktImageUpload
 				continue;
 			}
 
-			$sExtension = files::getExtension($aCurrentImages[$i]['img_name']);
+			$sExtension = pathinfo($aCurrentImages[$i]['img_name'],PATHINFO_EXTENSION);
 
 			$sNewName = $j.'.'.$sExtension;
 
@@ -492,7 +492,7 @@ class oktImageUpload
 
 		# extension du fichier
 		if (is_null($sExtension)) {
-			$sExtension = files::getExtension(basename($sOutput));
+			$sExtension = pathinfo($sOutput,PATHINFO_EXTENSION);
 		}
 
 		# fichier source ?
@@ -948,7 +948,7 @@ class oktImageUpload
 
 			try {
 				# extension du fichier
-				$sExtension = files::getExtension($sUploadedFile['name']);
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
 				util::uploadStatus($sUploadedFile);

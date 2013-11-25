@@ -83,7 +83,7 @@ class countingFilesAndLines
 			{
 				$this->iNumFiles++;
 
-				$sExtension = files::getExtension($sFile);
+				$sExtension = pathinfo($sFile,PATHINFO_EXTENSION);
 
 				if (!in_array($sExtension, $this->aExcludeExtensions) && !in_array($sFilename, $this->aExcludeFiles)) {
 					$this->iNumLines += count(file($sFile));
