@@ -16,6 +16,8 @@ if (!defined('OKT_INSTAL_PROCESS')) die;
 # Inclusion du prepend
 require_once __DIR__.'/../../../oktInc/prepend.php';
 
+use Symfony\Component\Yaml\Yaml;
+
 # Locales
 l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/install');
 l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.modules');
@@ -28,8 +30,8 @@ $bConfigMerged = false;
 if (file_exists(OKT_CONFIG_PATH.'/conf_site.yaml.bak'))
 {
 	$aMergedConf = array_merge(
-		(array)sfYaml::load(OKT_CONFIG_PATH.'/conf_site.yaml'),
-		(array)sfYaml::load(OKT_CONFIG_PATH.'/conf_site.yaml.bak')
+		(array)Yaml::parse(OKT_CONFIG_PATH.'/conf_site.yaml'),
+		(array)Yaml::parse(OKT_CONFIG_PATH.'/conf_site.yaml.bak')
 	);
 
 	$okt->config->write($aMergedConf);

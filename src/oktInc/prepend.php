@@ -15,7 +15,7 @@
  */
 
 
-/*// pour afficher les erreurs, ajoutez un / au début de cette ligne
+//*// pour afficher les erreurs, ajoutez un / au début de cette ligne
 error_reporting(-1);
 ini_set('display_errors', 'On');
 //define('OKT_FORCE_DEBUG',true);
@@ -34,6 +34,7 @@ require_once __DIR__.'/constants.php';
 
 
 # Inclusion de l'autoload
+require_once OKT_ROOT_PATH.'/vendor/autoload.php';
 require_once OKT_INC_PATH.'/autoload.php';
 
 

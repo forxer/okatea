@@ -196,7 +196,7 @@ class htmlCss
 
 		try
 		{
-			$less = new lessc;
+			$less = new \lessc;
 
 			$less->setPreserveComments(true);
 
@@ -209,9 +209,11 @@ class htmlCss
 
 			$newCache = $less->cachedCompile($cache);
 		}
-		catch (Exception $ex) {
-			$okt->error->set('lessphp fatal error: '.$ex->getMessage());
+		catch (Exception $e) {
+			$okt->error->set('lessphp fatal error: '.$e->getMessage());
+			oktErrors::fatalScreen($e->getMessage());
 		}
+
 
 		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{

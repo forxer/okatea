@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @class oktConfig
@@ -108,9 +109,10 @@ class oktConfig
 	private function loadSource()
 	{
 		try {
-			return (array)sfYaml::load($this->sSourceFile);
+			return Yaml::parse($this->sSourceFile);
+//			return (array)sfYaml::load($this->sSourceFile);
 		}
-		catch (InvalidArgumentException $e)
+		catch (Exception $e)
 		{
 			$trace = debug_backtrace();
 			trigger_error(
@@ -131,14 +133,14 @@ class oktConfig
 	{
 		$aData = array_merge($this->loadSource(), $aData);
 
-		file_put_contents($this->sSourceFile, sfYaml::dump($aData));
+		file_put_contents($this->sSourceFile, Yaml::dump($aData));
 
 		$this->generateCacheFile();
 	}
 
 	public function writeCurrent()
 	{
-		file_put_contents($this->sSourceFile, sfYaml::dump($this->aData));
+		file_put_contents($this->sSourceFile, Yaml::dump($this->aData));
 
 		$this->generateCacheFile();
 	}
@@ -147,7 +149,7 @@ class oktConfig
 	{
 		$aData = array_merge($this->oCache->fetch($this->sCacheId), $this->loadSource());
 
-		file_put_contents($this->sSourceFile, sfYaml::dump($aData));
+		file_put_contents($this->sSourceFile, Yaml::dump($aData));
 
 		$this->generateCacheFile();
 	}

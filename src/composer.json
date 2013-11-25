@@ -1,0 +1,19 @@
+{
+	"name": "okateadotorg/okatea",
+	"description": "Another moduler CMS in PHP",
+	"homepage": "http://okatea.org",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vincent Garnier",
+			"email": "contact@okatea.org"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=5.3.7",
+		"kriswallsmith/assetic": "1.2.*",
+		"leafo/lessphp": "0.4.*",
+		"symfony/yaml": "2.3.*"
+	}
+}
