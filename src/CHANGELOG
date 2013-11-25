@@ -10,6 +10,11 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
+1.0.BETA.6
+! improve perfs by replacing somes functions by PHP natives ones
+! add captchas to estimate module
+
+
 1.0.BETA.5 (24/11/2013)
 # new famfamfam sprites (replace previous ones)
 ! new tinyMCE 4 module
