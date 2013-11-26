@@ -30,7 +30,7 @@
 	# fin Okatea : appels JS ?>
 
 	<?php # début Okatea : ajout d'éléments à l'en-tête
-	echo $this->get('head');
+	$view['slots']->output('head');
 	# fin Okatea : ajout d'éléments à l'en-tête ?>
 
 	<?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag
@@ -43,7 +43,7 @@ $okt->triggers->callTrigger('publicAfterHtmlBodyStartTag', $okt);
 # fin Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag ?>
 
 <?php # début Okatea : affichage du contenu de la page
-echo $this->get('content');
+$view['slots']->output('_content');
 # fin Okatea : affichage du contenu de la page ?>
 
 <?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlBodyEndTag

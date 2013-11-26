@@ -1,5 +1,5 @@
 
-<?php $this->extend('layout'); ?>
+<?php $view->extend('layout'); ?>
 
 <h1><?php _e('c_c_doc_not_fount') ?></h1>
 
