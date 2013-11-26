@@ -687,18 +687,18 @@ class oktImageUpload
 			return null;
 		}
 
-		$oThumb = PhpThumbFactory::create($sSourceFile);
+		$oThumb = new PHPThumb\GD($sSourceFile);
 
 		if ($sResizeType === 'ratio') {
-			$oThumb->resize($iWidth,$iHeight);
+			$oThumb->resize($iWidth, $iHeight);
 		}
 		else {
-			$oThumb->adaptiveResize($iWidth,$iHeight);
+			$oThumb->adaptiveResize($iWidth, $iHeight);
 		}
 
-		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile)) {
-			$oThumb->createWatermark($this->getWatermarkUploadDir().$sWatermarkFile, $sWatermarkPosition, 0);
-		}
+//		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile)) {
+//			$oThumb->createWatermark($this->getWatermarkUploadDir().$sWatermarkFile, $sWatermarkPosition, 0);
+//		}
 
 		$oThumb->save($sOutput);
 		unset($oThumb);
