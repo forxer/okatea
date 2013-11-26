@@ -200,12 +200,7 @@ class oktCore
 	 */
 	public function initTplEngine()
 	{
-		require_once OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/sfTemplating/sfTemplateAutoloader.php';
-		sfTemplateAutoloader::register();
-
-		$loader = new sfTemplateLoaderFilesystem($this->aTplDirectories);
-
-		$this->tpl = new oktTemplating($loader);
+		$this->tpl = new oktTemplating($this->aTplDirectories);
 	}
 
 	/**

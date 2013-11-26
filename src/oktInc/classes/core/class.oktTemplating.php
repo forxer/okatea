@@ -6,6 +6,10 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Templating\PhpEngine;
+use Symfony\Component\Templating\TemplateNameParser;
+use Symfony\Component\Templating\Loader\FilesystemLoader;
+use Symfony\Component\Templating\Helper\SlotsHelper;
 
 /**
  * @class oktTemplating
@@ -13,9 +17,18 @@
  * @brief Le système de templating étendu de sfTemplateEngine
  *
  */
-class oktTemplating extends sfTemplateEngine
+class oktTemplating extends PhpEngine
 {
 	protected $aAssignedVars = array(); /**< La pile qui contient les variables assignées pour le moteur de templates. */
+
+	public function __construct($aTplDirectories)
+	{
+		$loader = new FilesystemLoader($aTplDirectories);
+
+		parent::__construct(new TemplateNameParser(), $loader);
+
+		$this->set(new SlotsHelper());
+	}
 
 	/**
 	 * Assignation de variables de templates.

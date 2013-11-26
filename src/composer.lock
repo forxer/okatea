@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "df913b8099ceb9b39cdbecc1d8c60a00",
+    "hash": "11dddc11ff074a4537a39273dee70e9a",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -540,6 +540,59 @@
             "time": "2013-11-24 20:17:07"
         },
         {
+            "name": "symfony/templating",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Templating",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Templating.git",
+                "reference": "b30681d06b00a75af2bd327133dcbccdb21f4b56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Templating/zipball/b30681d06b00a75af2bd327133dcbccdb21f4b56",
+                "reference": "b30681d06b00a75af2bd327133dcbccdb21f4b56",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Templating\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Templating Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-11-24 20:17:07"
+        },
+        {
             "name": "symfony/yaml",
             "version": "2.3.x-dev",
             "target-dir": "Symfony/Component/Yaml",
@@ -601,7 +654,8 @@
         "masterexploder/phpthumb": 20,
         "mobiledetect/mobiledetectlib": 20,
         "simplepie/simplepie": 20,
-        "swiftmailer/swiftmailer": 20
+        "swiftmailer/swiftmailer": 20,
+        "symfony/templating": 20
     },
     "platform": {
         "php": ">=5.3.7"

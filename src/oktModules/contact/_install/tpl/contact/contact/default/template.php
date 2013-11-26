@@ -121,13 +121,13 @@ if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google
 
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML
-$this->start('head') ?>
+$view['slots']->start('head') ?>
 
 	<?php # début Okatea : on index pas la page contact ?>
 	<meta name="robots" content="none" />
 	<?php # fin Okatea : on index pas la page contact ?>
 
-<?php $this->stop();
+<?php $view['slots']->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 
