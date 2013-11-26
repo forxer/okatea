@@ -200,7 +200,7 @@ class oktCore
 	 */
 	public function initTplEngine()
 	{
-		require_once OKT_VENDOR_PATH.'/sfTemplating/sfTemplateAutoloader.php';
+		require_once OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/sfTemplating/sfTemplateAutoloader.php';
 		sfTemplateAutoloader::register();
 
 		$loader = new sfTemplateLoaderFilesystem($this->aTplDirectories);
@@ -381,14 +381,7 @@ class oktCore
 				files::makeDir(OKT_CACHE_PATH.'/HTMLPurifier', true);
 			}
 
-			if (version_compare(PHP_VERSION, '5.2.11', '>=')) {
-				require_once OKT_INC_PATH.'/vendor/htmlpurifier/library/HTMLPurifier.auto.php';
-			}
-			else
-			{
-				require_once OKT_INC_PATH.'/vendor/htmlpurifier/library/HTMLPurifier/Bootstrap.php';
-				spl_autoload_register(array('HTMLPurifier_Bootstrap', 'autoload'));
-			}
+			require_once OKT_VENDOR_PATH.'/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 			$config = HTMLPurifier_Config::createDefault();
 
