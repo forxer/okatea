@@ -106,7 +106,7 @@ if (window.addEventListener) {
 # News feed reader
 if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][$okt->user->language]))
 {
-	require_once OKT_VENDOR_PATH.'/simplepie/autoloader.php';
+	require_once OKT_VENDOR_PATH.'/simplepie/simplepie/autoloader.php';
 
 	// We'll process this feed with all of the default options.
 	$feed = new SimplePie();

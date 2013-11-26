@@ -50,6 +50,12 @@ define('OKT_UPLOAD_PATH', OKT_PUBLIC_PATH.DIRECTORY_SEPARATOR.OKT_UPLOAD_DIR);
 define('OKT_THEMES_DIR', 'oktThemes');
 define('OKT_THEMES_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_THEMES_DIR);
 
+/**
+ * Chemin du dossier vendor
+ */
+define('OKT_VENDOR_DIR', 'vendor');
+define('OKT_VENDOR_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR);
+
 
 /**
  * Nom et chemin du dossier cache
@@ -85,12 +91,6 @@ define('OKT_LOCALES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_LOCALES_DIR);
  */
 define('OKT_LOG_DIR', 'logs');
 define('OKT_LOG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_LOG_DIR);
-
-/**
- * Chemin du dossier vendor
- */
-define('OKT_VENDOR_DIR', 'vendor');
-define('OKT_VENDOR_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR);
 
 /**
  * Nom et chemin du fichier digests
