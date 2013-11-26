@@ -381,8 +381,6 @@ class oktCore
 				files::makeDir(OKT_CACHE_PATH.'/HTMLPurifier', true);
 			}
 
-			require_once OKT_VENDOR_PATH.'/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
-
 			$config = HTMLPurifier_Config::createDefault();
 
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');

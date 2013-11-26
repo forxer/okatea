@@ -8,12 +8,6 @@
 
 
 /**
- * Require Swift Mailer
- */
-require_once OKT_VENDOR_PATH.'/swiftmailer/swiftmailer/lib/swift_required.php';
-
-
-/**
  * @class oktMail
  * @ingroup okt_classes_tools
  * @brief La classe pour envoyer gentillement des emails

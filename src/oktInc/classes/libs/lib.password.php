@@ -8,12 +8,6 @@
 
 
 /**
- * Require the password compat library
- */
-require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
-
-
-/**
  * @class password
  * @ingroup okt_classes_libs
  * @brief password compat wrapper class

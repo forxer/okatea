@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e71ddbd0994fab93761dd3aa163aeb5b",
+    "hash": "abb7de025deae6901254c9d1afe4adab",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -49,6 +49,45 @@
                 "html"
             ],
             "time": "2013-08-18 02:27:26"
+        },
+        {
+            "name": "ircmaxell/password-compat",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/password_compat.git",
+                "reference": "1f482f79b9c336b1f658eb08d7bbf2b9901d9aee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/1f482f79b9c336b1f658eb08d7bbf2b9901d9aee",
+                "reference": "1f482f79b9c336b1f658eb08d7bbf2b9901d9aee",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/password.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@ircmaxell.com",
+                    "homepage": "http://blog.ircmaxell.com"
+                }
+            ],
+            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
+            "homepage": "https://github.com/ircmaxell/password_compat",
+            "keywords": [
+                "hashing",
+                "password"
+            ],
+            "time": "2013-09-10 15:32:56"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -161,6 +200,56 @@
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
             "time": "2013-10-17 16:23:00"
+        },
+        {
+            "name": "masterexploder/phpthumb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/masterexploder/PHPThumb.git",
+                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/masterexploder/PHPThumb/zipball/69fe4dbef9c70915ee16652339395deadb1509cb",
+                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/filesystem": "2.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPThumb": "src",
+                    "PHPThumb\\Tests": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Selby",
+                    "email": "ian@gxdlabs.com",
+                    "homepage": "http://www.gen-x-design.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jarrod Nettles",
+                    "email": "jarrod.nettles@icloud.com"
+                }
+            ],
+            "description": "A library for manipulating images in PHP.",
+            "homepage": "https://github.com/masterexploder/PHPThumb",
+            "keywords": [
+                "image",
+                "resize",
+                "rotate"
+            ],
+            "time": "2013-07-12 17:57:58"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -318,6 +407,53 @@
             "time": "2013-10-04 12:57:41"
         },
         {
+            "name": "symfony/filesystem",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/dffe0df31d16718f36ef40e7441f5a8d3e31625a",
+                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-09-18 07:27:26"
+        },
+        {
             "name": "symfony/process",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Process",
@@ -421,9 +557,11 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "ezyang/htmlpurifier": 20,
+        "ircmaxell/password-compat": 20,
+        "masterexploder/phpthumb": 20,
+        "mobiledetect/mobiledetectlib": 20,
         "simplepie/simplepie": 20,
-        "swiftmailer/swiftmailer": 20,
-        "mobiledetect/mobiledetectlib": 20
+        "swiftmailer/swiftmailer": 20
     },
     "platform": {
         "php": ">=5.3.7"
