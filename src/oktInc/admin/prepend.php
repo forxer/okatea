@@ -238,6 +238,23 @@ if ($okt->config->admin_maintenance_mode) {
 	$okt->page->warnings->set(__('c_a_admin_maintenance_mode_enabled'));
 }
 
+# Ajout des fichiers CSS de l'admin
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->admin_theme.'/jquery-ui.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/init.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/famfamfam.css');
+
+
+# Ajout des fichiers JS de l'admin
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cookie/jquery.cookie.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/metadata/jquery.metadata.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/common_admin.js');
+
+
 # Chargement des parties admin des modules
 $okt->modules->loadModules('admin',$okt->user->language);
 

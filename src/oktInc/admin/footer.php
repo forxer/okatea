@@ -46,7 +46,6 @@ $aFooterContent = array_filter((array)$aFooterContent);
 </footer>
 </div><!-- #page -->
 
-<script type="text/javascript" src="<?php echo $okt->config->app_path ?>oktMin/?g=js_admin"></script>
 <?php echo $okt->page->js ?>
 
 <?php # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
