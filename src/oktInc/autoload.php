@@ -144,14 +144,10 @@ $oktAutoloadPaths['Ftp']					= OKT_VENDOR_PATH.'/ftp/ftp.class.php';
 
 $oktAutoloadPaths['Rmail']					= OKT_VENDOR_PATH.'/Rmail/Rmail.php';
 
-//$oktAutoloadPaths['sfYaml']					= OKT_VENDOR_PATH.'/sfYaml/sfYaml.php';
-
 $oktAutoloadPaths['PhpThumbFactory']		= OKT_VENDOR_PATH.'/phpthumb/ThumbLib.inc.php';
 
 $oktAutoloadPaths['KLogger']			 	= OKT_VENDOR_PATH.'/KLogger/KLogger.php';
 $oktAutoloadPaths['log']			 		= OKT_VENDOR_PATH.'/phplogclass/class.log.php';
-
-//$oktAutoloadPaths['lessc']			 		= OKT_VENDOR_PATH.'/lessphp/lessc.inc.php';
 
 # minify tools
 $oktAutoloadPaths['HTTP_ConditionalGet']	= OKT_ROOT_PATH.'/oktMin/lib/HTTP/ConditionalGet.php';

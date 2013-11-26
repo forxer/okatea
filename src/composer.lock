@@ -3,8 +3,53 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c9b81d7a4c556a87920bcaa26952f8c9",
+    "hash": "72c9682d52d51ccf7b10c95c5027c8d9",
     "packages": [
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "fac747bdbdba6aeaba4bed91ef49b2378c1798e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/fac747bdbdba6aeaba4bed91ef49b2378c1798e4",
+                "reference": "fac747bdbdba6aeaba4bed91ef49b2378c1798e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2013-08-18 02:27:26"
+        },
         {
             "name": "kriswallsmith/assetic",
             "version": "dev-master",
@@ -219,9 +264,9 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "ezyang/htmlpurifier": 20
+    },
     "platform": {
         "php": ">=5.3.7"
     },
