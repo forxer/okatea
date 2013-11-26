@@ -10,7 +10,7 @@
 /**
  * Require Swift Mailer
  */
-require_once OKT_VENDOR_PATH.'/swift/lib/swift_required.php';
+require_once OKT_VENDOR_PATH.'/swiftmailer/swiftmailer/lib/swift_required.php';
 
 
 /**

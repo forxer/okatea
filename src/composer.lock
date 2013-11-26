@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1b3a234e62e1e4adb08b1a2111d5d874",
+    "hash": "e502d2e42c0891b5644295ceb757c2df",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -217,6 +217,55 @@
             "time": "2013-10-24 06:37:55"
         },
         {
+            "name": "swiftmailer/swiftmailer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swiftmailer/swiftmailer.git",
+                "reference": "672f36a3d779ae92d4146deaca1bd3e9bc8b19ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/672f36a3d779ae92d4146deaca1bd3e9bc8b19ba",
+                "reference": "672f36a3d779ae92d4146deaca1bd3e9bc8b19ba",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.1-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lib/swift_required.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Chris Corbyn"
+                }
+            ],
+            "description": "Swiftmailer, free feature-rich PHP mailer",
+            "homepage": "http://swiftmailer.org",
+            "keywords": [
+                "mail",
+                "mailer"
+            ],
+            "time": "2013-10-04 12:57:41"
+        },
+        {
             "name": "symfony/process",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Process",
@@ -320,7 +369,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "ezyang/htmlpurifier": 20,
-        "simplepie/simplepie": 20
+        "simplepie/simplepie": 20,
+        "swiftmailer/swiftmailer": 20
     },
     "platform": {
         "php": ">=5.3.7"
