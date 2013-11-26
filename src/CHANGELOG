@@ -10,7 +10,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0.BETA.6
+1.0
 ! improve perfs by replacing somes functions by PHP natives ones
 ! add captchas to estimate module
 
