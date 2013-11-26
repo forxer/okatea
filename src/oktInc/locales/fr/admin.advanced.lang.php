@@ -22,20 +22,6 @@ $GLOBALS['__l10n']['c_a_config_advanced_enable_modules_repo'] = 'Activer les dé
 $GLOBALS['__l10n']['c_a_config_advanced_themes_repositories'] = 'Dépôts de thèmes';
 $GLOBALS['__l10n']['c_a_config_advanced_enable_themes_repo'] = 'Activer les dépôts de thèmes';
 
-$GLOBALS['__l10n']['c_a_config_advanced_minify_instructions'] = 'Veuillez indiquer les URL des fichiers depuis la racine ; ici&nbsp;:&nbsp;<code>%s</code>.';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace'] = 'Les variables de remplacement suivantes sont disponibles&nbsp;:';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_app_url'] = '<code>%%APP_URL%%</code> : chemin de l’application ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_public_url'] = '<code>%%PUBLIC_URL%%</code> : l’URL du répertoire de fichiers publics ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_theme'] = '<code>%%THEME%%</code> : l’URL du thème actif ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_mobile_theme'] = '<code>%%MOBILE_THEME%%</code> : l’URL du thème mobile actif ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_admin_theme'] = '<code>%%ADMIN_THEME%%</code> : le nom du jQuery UI thème admin ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_replace_public_theme'] = '<code>%%PUBLIC_THEME%%</code> : le nom du jQuery UI thème public ; ici&nbsp;:&nbsp;<code>%s</code>';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_admin_css_files'] = 'Fichiers CSS administration';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_admin_js_files'] = 'Fichiers JS administration';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_public_css_files'] = 'Fichiers CSS publics';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_public_js_files'] = 'Fichiers JS publics';
-$GLOBALS['__l10n']['c_a_config_advanced_minify_url_file'] = 'URL fichier';
-
 $GLOBALS['__l10n']['c_a_config_advanced_enable_debug'] = 'Activer le débug';
 $GLOBALS['__l10n']['c_a_config_advanced_debug_not_redirect'] = 'Empêcher les redirection en cas d’erreur';
 $GLOBALS['__l10n']['c_a_config_advanced_debug_xdebug'] = 'Utiliser l’extension PHP Xdebug';

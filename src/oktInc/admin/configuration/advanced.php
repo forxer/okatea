@@ -32,7 +32,6 @@ $aPageData['aNewConf'] = array();
 # Inclusion des initialisations
 require __DIR__.'/advanced/debug/init.php';
 require __DIR__.'/advanced/dev/init.php';
-require __DIR__.'/advanced/minify/init.php';
 require __DIR__.'/advanced/others/init.php';
 require __DIR__.'/advanced/path_url/init.php';
 require __DIR__.'/advanced/repositories/init.php';
@@ -48,7 +47,6 @@ $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
 # Inclusion des traitements
 require __DIR__.'/advanced/debug/actions.php';
 require __DIR__.'/advanced/dev/actions.php';
-require __DIR__.'/advanced/minify/actions.php';
 require __DIR__.'/advanced/others/actions.php';
 require __DIR__.'/advanced/path_url/actions.php';
 require __DIR__.'/advanced/repositories/actions.php';
@@ -121,20 +119,6 @@ $aPageData['tabs'] = new ArrayObject;
 	require __DIR__.'/advanced/repositories/display.php';
 
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
-
-
-	# onglet minify
-	$aPageData['tabs'][30] = array(
-		'id' => 'tab_minify',
-		'title' => __('c_a_config_advanced_tab_minify'),
-		'content' => ''
-	);
-
-	ob_start();
-
-	require __DIR__.'/advanced/minify/display.php';
-
-	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
 
 	# onglet debug

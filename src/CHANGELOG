@@ -12,6 +12,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0.BETA.1
 # introduce composer components
+# remove oktInc/vendor
+# remove minify lib
 
 
 1.0.BETA.5 (24/11/2013)
