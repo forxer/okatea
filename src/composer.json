@@ -17,6 +17,7 @@
 		"symfony/yaml": "2.3.*",
 		"ezyang/htmlpurifier": "dev-master",
 		"simplepie/simplepie": "dev-master",
-		"swiftmailer/swiftmailer": "5.1.*@dev"
+		"swiftmailer/swiftmailer": "5.1.*@dev",
+		"mobiledetect/mobiledetectlib": "dev-master"
 	}
 }

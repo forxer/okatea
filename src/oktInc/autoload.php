@@ -109,7 +109,6 @@ $oktAutoloadPaths['nestedTreei18n']			= OKT_CLASSES_PATH.'/tools/class.nested.tr
 $oktAutoloadPaths['oktFlashMessages']		= OKT_CLASSES_PATH.'/tools/class.oktFlashMessages.php';
 $oktAutoloadPaths['oktMail']				= OKT_CLASSES_PATH.'/tools/class.oktMail.php';
 $oktAutoloadPaths['oktPublicAdminBar']		= OKT_CLASSES_PATH.'/tools/class.oktPublicAdminBar.php';
-$oktAutoloadPaths['oktSimpleLogs']			= OKT_CLASSES_PATH.'/tools/class.oktSimpleLog.php';
 $oktAutoloadPaths['oktMonthlyCalendar']		= OKT_CLASSES_PATH.'/tools/class.monthly.calendar.php';
 $oktAutoloadPaths['pager']					= OKT_CLASSES_PATH.'/tools/class.pager.php';
 $oktAutoloadPaths['parameterHolder']		= OKT_CLASSES_PATH.'/tools/class.parameter.holder.php';
@@ -138,16 +137,8 @@ $oktAutoloadPaths['xmlTag']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DI
 $oktAutoloadPaths['fileZip']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/zip/class.zip.php';
 $oktAutoloadPaths['fileUnzip']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/zip/class.unzip.php';
 
-$oktAutoloadPaths['Mobile_Detect']			= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/Mobile-Detect/Mobile_Detect.php';
-
-$oktAutoloadPaths['Ftp']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/ftp/ftp.class.php';
-
-$oktAutoloadPaths['Rmail']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/Rmail/Rmail.php';
-
 $oktAutoloadPaths['PhpThumbFactory']		= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/phpthumb/ThumbLib.inc.php';
 
-$oktAutoloadPaths['KLogger']			 	= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/KLogger/KLogger.php';
-$oktAutoloadPaths['log']			 		= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/phplogclass/class.log.php';
 
 # minify tools
 $oktAutoloadPaths['HTTP_ConditionalGet']	= OKT_ROOT_PATH.'/oktMin/lib/HTTP/ConditionalGet.php';
