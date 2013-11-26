@@ -138,9 +138,6 @@ $oktAutoloadPaths['fileZip']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/zip/cla
 $oktAutoloadPaths['fileUnzip']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/zip/class.unzip.php';
 
 
-$oktAutoloadPaths['PhpThumbFactory']		= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/phpthumb/ThumbLib.inc.php';
-
-
 # internal autoload
 function okt_autoload($name)
 {
