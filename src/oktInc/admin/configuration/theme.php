@@ -54,8 +54,7 @@ if (file_exists($sDevNotesFilename))
 
 	$bEditDevNotes = !empty($_REQUEST['edit_notes']) ? $_REQUEST['edit_notes'] : null;
 
-	include_once OKT_VENDOR_PATH.'/phpmarkdown/extra/markdown.php';
-	$sDevNotesHtml = Markdown($sDevNotesMd);
+	$sDevNotesHtml = Parsedown::instance()->parse($sDevNotesMd);
 }
 
 

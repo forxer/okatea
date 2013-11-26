@@ -3,8 +3,47 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "abb7de025deae6901254c9d1afe4adab",
+    "hash": "df913b8099ceb9b39cdbecc1d8c60a00",
     "packages": [
+        {
+            "name": "erusev/parsedown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "102a947c7a56b2ccb95acafa508d5c4d85c60afc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/102a947c7a56b2ccb95acafa508d5c4d85c60afc",
+                "reference": "102a947c7a56b2ccb95acafa508d5c4d85c60afc",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2013-11-23 13:58:58"
+        },
         {
             "name": "ezyang/htmlpurifier",
             "version": "dev-master",
@@ -556,6 +595,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "erusev/parsedown": 20,
         "ezyang/htmlpurifier": 20,
         "ircmaxell/password-compat": 20,
         "masterexploder/phpthumb": 20,

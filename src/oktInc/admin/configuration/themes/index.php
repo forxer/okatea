@@ -57,8 +57,7 @@ if (!empty($_REQUEST['json']))
 # affichage des notes d'un thème
 if (!empty($_GET['notes']) && file_exists(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'))
 {
-	include_once OKT_VENDOR_PATH.'/phpmarkdown/extra/markdown.php';
-	echo Markdown(file_get_contents(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'));
+	echo Parsedown::instance()->parse(file_get_contents(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'));
 
 	exit;
 }
