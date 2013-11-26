@@ -63,16 +63,5 @@ $okt->page->content = ob_get_clean();
 # -- CORE TRIGGER : adminBeforeSendContent
 $okt->triggers->callTrigger('adminBeforeSendContent', $okt);
 
-// feature disabled because non calling of shutdown
-//if (!$okt->config->admin_compress_output) {
-	echo $okt->page->content;
-//}
-//else {
-//
-//	$he = new HTTP_Encoder(array(
-//		'content' => $okt->page->content,
-//		'type' => 'text/html'
-//	));
-//	$he->encode();
-//	$he->sendAll();
-//}
+echo $okt->page->content;
+

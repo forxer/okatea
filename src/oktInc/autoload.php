@@ -118,34 +118,30 @@ $oktAutoloadPaths['UnifiedDiffFormatter']	= OKT_CLASSES_PATH.'/tools/DifferenceE
 $oktAutoloadPaths['TableDiffFormatter']		= OKT_CLASSES_PATH.'/tools/DifferenceEngine.php';
 
 # vendors
-$oktAutoloadPaths['crypt']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.crypt.php';
-$oktAutoloadPaths['dt']						= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.date.php';
-$oktAutoloadPaths['files']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.files.php';
-$oktAutoloadPaths['path']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.files.php';
-$oktAutoloadPaths['html']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.html.php';
-$oktAutoloadPaths['http']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.http.php';
-$oktAutoloadPaths['l10n']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.l10n.php';
-$oktAutoloadPaths['text']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/common/lib.text.php';
+$oktAutoloadPaths['crypt']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.crypt.php';
+$oktAutoloadPaths['dt']						= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.date.php';
+$oktAutoloadPaths['files']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.files.php';
+$oktAutoloadPaths['path']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.files.php';
+$oktAutoloadPaths['html']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.html.php';
+$oktAutoloadPaths['http']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.http.php';
+$oktAutoloadPaths['l10n']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.l10n.php';
+$oktAutoloadPaths['text']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/common/lib.text.php';
 
-$oktAutoloadPaths['filemanager']			= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/filemanager/class.filemanager.php';
-$oktAutoloadPaths['imageMeta']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/image/class.image.meta.php';
-$oktAutoloadPaths['netSocket']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/net/class.net.socket.php';
-$oktAutoloadPaths['netHttp']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/net.http/class.net.http.php';
-$oktAutoloadPaths['restServer']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/net.http/class.net.http.php';
-$oktAutoloadPaths['restServer']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/rest/class.rest.php';
-$oktAutoloadPaths['xmlTag']					= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/rest/class.rest.php';
-$oktAutoloadPaths['fileZip']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/zip/class.zip.php';
-$oktAutoloadPaths['fileUnzip']				= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/clearbricks/zip/class.unzip.php';
+$oktAutoloadPaths['filemanager']			= OKT_VENDOR_PATH.'/dotclear/clearbricks/filemanager/class.filemanager.php';
+$oktAutoloadPaths['imageMeta']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/image/class.image.meta.php';
+$oktAutoloadPaths['netSocket']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/net/class.net.socket.php';
+$oktAutoloadPaths['netHttp']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/net.http/class.net.http.php';
+$oktAutoloadPaths['restServer']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/net.http/class.net.http.php';
+$oktAutoloadPaths['restServer']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/rest/class.rest.php';
+$oktAutoloadPaths['xmlTag']					= OKT_VENDOR_PATH.'/dotclear/clearbricks/rest/class.rest.php';
+$oktAutoloadPaths['fileZip']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/zip/class.zip.php';
+$oktAutoloadPaths['fileUnzip']				= OKT_VENDOR_PATH.'/dotclear/clearbricks/zip/class.unzip.php';
+
 
 $oktAutoloadPaths['PhpThumbFactory']		= OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR.'/phpthumb/ThumbLib.inc.php';
 
 
-# minify tools
-$oktAutoloadPaths['HTTP_ConditionalGet']	= OKT_ROOT_PATH.'/oktMin/lib/HTTP/ConditionalGet.php';
-$oktAutoloadPaths['HTTP_Encoder']			= OKT_ROOT_PATH.'/oktMin/lib/HTTP/Encoder.php';
-
-
-# intern autoload
+# internal autoload
 function okt_autoload($name)
 {
 	global $oktAutoloadPaths;

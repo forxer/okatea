@@ -34,8 +34,8 @@ require_once __DIR__.'/constants.php';
 
 
 # Inclusion de l'autoload
-require_once OKT_ROOT_PATH.'/vendor/autoload.php';
 require_once OKT_INC_PATH.'/autoload.php';
+require_once OKT_VENDOR_PATH.'/autoload.php';
 
 
 # Inclusion des fonctions

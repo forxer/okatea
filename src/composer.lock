@@ -3,8 +3,42 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "11dddc11ff074a4537a39273dee70e9a",
+    "hash": "563c47a62676abb26cfe2f88c7085f2d",
     "packages": [
+        {
+            "name": "dotclear/clearbricks",
+            "version": "dev-default",
+            "source": {
+                "type": "hg",
+                "url": "http://bitbucket.org/dotclear/clearbricks",
+                "reference": "5d2bc58ed7d4"
+            },
+            "require": {
+                "php": ">5.3.0"
+            },
+            "require-dev": {
+                "atoum/atoum": "dev-master",
+                "fzaninotto/faker": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-V2"
+            ],
+            "authors": [
+                {
+                    "name": "Dotclear Team",
+                    "email": "dev@dotclear.org"
+                }
+            ],
+            "description": "Clearbricks is not yet another framework.",
+            "time": "2013-11-26 07:57:18"
+        },
         {
             "name": "erusev/parsedown",
             "version": "dev-master",
@@ -648,6 +682,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dotclear/clearbricks": 20,
         "erusev/parsedown": 20,
         "ezyang/htmlpurifier": 20,
         "ircmaxell/password-compat": 20,

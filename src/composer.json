@@ -12,6 +12,7 @@
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.3.7",
+		"dotclear/clearbricks": "dev-default",
 		"erusev/parsedown": "dev-master",
 		"ezyang/htmlpurifier": "dev-master",
 		"ircmaxell/password-compat": "dev-master",
