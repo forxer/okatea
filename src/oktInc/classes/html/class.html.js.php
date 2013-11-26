@@ -132,41 +132,12 @@ class htmlJs
 			return false;
 		}
 
-		$aMinifyFiles = $this->getMinifyFiles();
-
 		$sHtml = '';
-		foreach ($aFiles as $sFile)
-		{
-			if (!in_array($sFile,$aMinifyFiles)) {
-				$sHtml .= self::formatFile($sFile);
-			}
+		foreach ($aFiles as $sFile) {
+			$sHtml .= self::formatFile($sFile);
 		}
 
 		return $sHtml;
-	}
-
-	/**
-	 * Retourne la pile des fichiers JS à minifier.
-	 *
-	 * @return array
-	 */
-	protected function getMinifyFiles()
-	{
-		global $okt;
-
-		if (!isset($okt->config->{'minify_js_'.$this->sPart})) {
-			return array();
-		}
-
-		$aFiles = (array)$okt->config->{'minify_js_'.$this->sPart};
-
-		$aReplacements = util::getMinifyReplacements($okt->config);
-
-		foreach ($aFiles as $i=>$f) {
-			$aFiles[$i] = str_replace($aReplacements['aSearch'],$aReplacements['aReplace'],$f);
-		}
-
-		return $aFiles;
 	}
 
 
