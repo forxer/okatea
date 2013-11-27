@@ -19,7 +19,12 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 	# remove logs pannel
 
 
-1.0.BETA.5 (24/11/2013)
+1.0 (2013-11-26)
+! improve perfs by replacing somes functions by PHP natives ones
+! add captchas to estimate module
+
+
+1.0.BETA.5 (2013-11-24)
 # new famfamfam sprites (replace previous ones)
 ! new tinyMCE 4 module
 ! new estimate module
@@ -30,7 +35,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 . deletion of old stuff
 
 
-1.0.BETA.4 (14/11/2013)
+1.0.BETA.4 (2013-11-14)
 # refactor variables names of emails configuration
 ! can now use external links in navigation menus
 ! add navigation items proper recordset
