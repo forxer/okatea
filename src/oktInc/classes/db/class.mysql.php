@@ -240,13 +240,6 @@ class mysql
 			$this->error = (mysql_error() !== false) ? mysql_error() : 'Unknown error';
 			$this->errno = (mysql_errno() !== false) ? mysql_errno() : 0;
 		}
-
-		/* general debug */
-		global $okt;
-
-		if (isset($okt) && isset($okt->debug)) {
-			$okt->debug->addMessage(array('style'=>'error','message'=>'MySQL : '.$this->error().'<br /><br />'.$this->getLastLog(1)));
-		}
 	}
 
 	/**

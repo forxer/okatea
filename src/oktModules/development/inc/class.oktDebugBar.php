@@ -136,10 +136,6 @@ class oktDebugBar
 					$(this).css("opacity", "0.5");
 				});
 
-			if (parseInt($("span#num_log").text()) > 0) {
-				debugBar.tabs("option", "active", 2).css("opacity", "1");
-			}
-
 			$("#sprites_link").click(function(){
 
 				var dialog = $("<div style=\"display:hidden\"></div>").appendTo("body");
@@ -222,11 +218,6 @@ class oktDebugBar
 			$this->aDebugBarData['num_data']['l10nVars'] = count($this->aDebugBarData['l10nVars']);
 		}
 
-		if ($this->aConfig['tabs']['logs'])
-		{
-			$this->aDebugBarData['num_data']['logs'] = $this->okt->debug->getNum();
-		}
-
 		if ($this->aConfig['tabs']['db'])
 		{
 			$this->aDebugBarData['num_data']['queries'] = $this->okt->db->nbQueries();
@@ -261,7 +252,6 @@ class oktDebugBar
 		return sprintf($this->getHtmlBlock(),
 			($this->aConfig['tabs']['super_globales'] ? $this->getSuperGlobalesPanel() : '').
 			($this->aConfig['tabs']['app'] ? $this->getAppPanel() : '').
-			($this->aConfig['tabs']['logs'] ? $this->getLogsPanel() : '').
 			($this->aConfig['tabs']['db'] ? $this->getDatabasePanel() : '').
 			($this->aConfig['tabs']['tools'] ? $this->getToolsPanel() : '')
 		);
@@ -285,10 +275,6 @@ class oktDebugBar
 
 		if ($this->aConfig['tabs']['app']) {
 			$aItems[] = '<a href="'.$sBaseUrl.'#debugApp">Application</a>';
-		}
-
-		if ($this->aConfig['tabs']['logs']) {
-			$aItems[] = '<a href="'.$sBaseUrl.'#debugLogs">logs &amp; msgs (<span id="num_log">'.$this->aDebugBarData['num_data']['logs'].'</span>)</a>';
 		}
 
 		if ($this->aConfig['tabs']['db']) {
@@ -449,55 +435,6 @@ class oktDebugBar
 		'<ul>'.$sListitems.'</ul>'.
 		$sTabContent.
 		'</div><!-- #debugApp -->';
-	}
-
-	protected function getLogsPanel()
-	{
-		$str =
-		'<div id="debugLogs">'.
-			'<table class="common">
-				<tr>
-					<th>#</th>
-					<th>type</th>
-					<th>fichier</th>
-					<th>ligne</th>
-					<th>classe</th>
-					<th>fonction</th>
-					<th>message</th>
-				</tr>';
-
-		$num_message = 1;
-		foreach ($this->okt->debug->getMessages() as $message)
-		{
-			if ($message['style'] == 'info') {
-				$color = 'green';
-			}
-			elseif ($message['style'] == 'warning') {
-				$color = 'orange';
-			}
-			elseif ($message['style'] == 'error') {
-				$color = 'red';
-			}
-
-			$str .=
-			'<tr class="debug'.ucFirst($message['style']).'">
-				<td class="debugLogNumber"># '.$num_message++.'</td>
-				<td class="debugLogType"><span class="icon flag_'.$color.'"></span>&nbsp;'.ucFirst($message['style']).'</td>
-				<td class="debugLogFile">'.(!empty($message['file']) ? $message['file'] : '&nbsp;').'</td>
-				<td class="debugLogLine">'.(!empty($message['line']) ? $message['line'] : '&nbsp;').'</td>
-				<td class="debugLogClass">'.(!empty($message['class']) ? $message['class'] : '&nbsp;').'</td>
-				<td class="debugLogFunction">'.(!empty($message['function']) ? $message['function'] : '&nbsp;').'</td>
-				<td class="debugLogMessage">'.(!empty($message['message']) ? $message['message'] : '&nbsp;').'</td>
-			</tr>';
-
-			if (!empty($message['backtrace'])) {
-				$str .= '<tr><td colspan="7">'.$message['backtrace'].'</td></tr>';
-			}
-		}
-
-		$str .= '</table></div><!-- #debugLogs -->';
-
-		return $str;
 	}
 
 	protected function getDatabasePanel()

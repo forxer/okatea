@@ -18,7 +18,6 @@ if (!empty($_POST['form_sent']))
 
 	$p_tabs_super_globales = !empty($_POST['p_tabs_super_globales']) ? true : false;
 	$p_tabs_app = !empty($_POST['p_tabs_app']) ? true : false;
-	$p_tabs_logs = !empty($_POST['p_tabs_logs']) ? true : false;
 	$p_tabs_db = !empty($_POST['p_tabs_db']) ? true : false;
 	$p_tabs_tools = !empty($_POST['p_tabs_tools']) ? true : false;
 
@@ -33,7 +32,6 @@ if (!empty($_POST['form_sent']))
 				'tabs' => array(
 					'super_globales' => (boolean)$p_tabs_super_globales,
 					'app' => (boolean)$p_tabs_app,
-					'logs' => (boolean)$p_tabs_logs,
 					'db' => (boolean)$p_tabs_db,
 					'tools' => (boolean)$p_tabs_tools
 				),
@@ -89,9 +87,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		<p class="field"><label for="p_tabs_app"><?php echo form::checkbox('p_tabs_app',1,$okt->development->config->debug_bar['tabs']['app']) ?>
 		<?php _e('m_development_debugbar_tab_app') ?></label></p>
-
-		<p class="field"><label for="p_tabs_logs"><?php echo form::checkbox('p_tabs_logs',1,$okt->development->config->debug_bar['tabs']['logs']) ?>
-		<?php _e('m_development_debugbar_tab_logs') ?></label></p>
 
 		<p class="field"><label for="p_tabs_db"><?php echo form::checkbox('p_tabs_db',1,$okt->development->config->debug_bar['tabs']['db']) ?>
 		<?php _e('m_development_debugbar_tab_db') ?></label></p>

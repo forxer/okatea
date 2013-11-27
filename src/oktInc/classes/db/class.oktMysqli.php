@@ -242,13 +242,6 @@ class oktMysqli
 			$this->error = (mysqli_error() !== false) ? mysqli_error() : 'Unknown error';
 			$this->errno = (mysqli_errno() !== false) ? mysqli_errno() : 0;
 		}
-
-		/* general debug */
-		global $okt;
-
-		if (isset($okt) && isset($okt->debug)) {
-			$okt->debug->addMessage(array('style'=>'error','message'=>'MySQL : '.$this->error().'<br /><br />'.$this->getLastLog(1)));
-		}
 	}
 
 	/**

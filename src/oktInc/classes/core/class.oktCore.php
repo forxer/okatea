@@ -457,7 +457,7 @@ class oktCore
 	 */
 	public function redirect($url)
 	{
-		if ($this->config->stop_redirect_on_error && ($this->error->hasError() || (OKT_DEBUG && $this->debug->hasMessages()))) {
+		if ($this->config->stop_redirect_on_error && (isset($this->error) && $this->error->hasError())) {
 			return false;
 		}
 

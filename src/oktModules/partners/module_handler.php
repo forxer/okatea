@@ -720,7 +720,6 @@ class module_partners extends oktModule
 	public function categoryExists($id)
 	{
 		if ($this->getCategory($id)->isEmpty()) {
-			$this->okt->debug->addMessage(array('style'=>'warning','category '.$id.' not found'));
 			return false;
 		}
 

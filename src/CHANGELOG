@@ -14,6 +14,9 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # introduce composer components
 # remove oktInc/vendor
 # remove minify lib
+# remove oktDebug class
+! module development 2.0.BETA.1
+	# remove logs pannel
 
 
 1.0.BETA.5 (24/11/2013)
