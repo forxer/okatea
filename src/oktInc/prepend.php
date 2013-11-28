@@ -15,13 +15,6 @@
  */
 
 
-//*// pour afficher les erreurs, ajoutez un / au début de cette ligne
-error_reporting(-1);
-ini_set('display_errors', 'On');
-//define('OKT_FORCE_DEBUG',true);
-//*/
-
-
 /*
  * Enregistrement du moment de début de script, sera utilisé
  * pour calculer le temps de génération des pages
@@ -33,7 +26,7 @@ define('OKT_START_TIME', microtime(true));
 require_once __DIR__.'/constants.php';
 
 
-# Inclusion de l'autoload
+# Autoload
 require_once OKT_INC_PATH.'/autoload.php';
 require_once OKT_VENDOR_PATH.'/autoload.php';
 
@@ -51,33 +44,28 @@ else {
 }
 
 
+//*// pour afficher les erreurs, ajoutez un / au début de cette ligne
+error_reporting(-1);
+ini_set('display_errors', 'On');
+
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\Debug\ExceptionHandler;
+
+Debug::enable();
+ErrorHandler::register();
+ExceptionHandler::register();
+
+define('OKT_DEBUG',true);
+//*/
+
+
 # Initialisation de la librairie MB
 mb_internal_encoding('UTF-8');
 
 
 # Fuseau horraire par défaut (écrasé par la suite par les réglages utilisateurs)
 date_default_timezone_set('Europe/Paris');
-
-
-# Shutdown
-register_shutdown_function('oktShutdown');
-
-
-/*
- * Destruction des variables globales créées si
- * register_globals est activé et inversion de
- * l'effet des magic_quotes
- */
-util::trimRequest();
-try {
-	http::unsetGlobals();
-}
-catch (Exception $e)
-{
-	header('Content-Type: text/plain');
-	echo $e->getMessage();
-	exit;
-}
 
 
 # Let the music play (initialisation du coeur de l'application)
@@ -156,32 +144,6 @@ if ($p_max_size < $u_max_size) {
 }
 define('OKT_MAX_UPLOAD_SIZE',$u_max_size);
 unset($u_max_size,$p_max_size);
-
-
-# Mode debug ?
-if ((!OKT_XDEBUG || !$okt->config->xdebug_enabled) && (defined('OKT_FORCE_DEBUG') || $okt->config->debug_enabled)) {
-	define('OKT_DEBUG',true);
-} else {
-	define('OKT_DEBUG',false);
-}
-
-
-if (OKT_DEBUG)
-{
-	$okt->debug = new oktDebug();
-
-	error_reporting(-1);
-	ini_set('display_errors', 'On');
-
-	/* exemple :
-		$okt->debug->addMessage(array(
-			'message'	=> 'Initialisation debug',
-			'style'		=> 'info'
-		));
-	//*/
-
-	set_error_handler(array($okt->debug,'errorHandler'), E_ALL | E_STRICT);
-}
 
 
 # Set session params

@@ -21,11 +21,6 @@
 $oktAutoloadPaths = array();
 
 # cache
-$oktAutoloadPaths['AbstractCache']			= OKT_CLASSES_PATH.'/cache/AbstractCache.php';
-$oktAutoloadPaths['ArrayCache']				= OKT_CLASSES_PATH.'/cache/ArrayCache.php';
-$oktAutoloadPaths['SessionCache']           = OKT_CLASSES_PATH.'/cache/SessionCache.php';
-$oktAutoloadPaths['Cache']					= OKT_CLASSES_PATH.'/cache/Cache.php';
-$oktAutoloadPaths['FileCache']				= OKT_CLASSES_PATH.'/cache/FileCache.php';
 $oktAutoloadPaths['SingleFileCache']		= OKT_CLASSES_PATH.'/cache/SingleFileCache.php';
 
 # core

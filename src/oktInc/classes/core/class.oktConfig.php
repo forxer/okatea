@@ -44,10 +44,11 @@ class oktConfig
 	/**
 	 * Constructeur. Charge les données.
 	 *
-	 * @param AbstractCache $oCache
+	 * @param SingleFileCache $oCache
 	 * @param string $sSourceFile
+	 * @return void
 	 */
-	public function __construct(AbstractCache $oCache, $sSourceFile)
+	public function __construct(SingleFileCache $oCache, $sSourceFile)
 	{
 		$this->oCache = $oCache;
 

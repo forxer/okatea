@@ -2,19 +2,28 @@
 
 //namespace Doctrine\Common\Cache;
 
+use Doctrine\Common\Cache\CacheProvider;
+
 /**
  * Single file cache driver.
  */
-class SingleFileCache extends AbstractCache
+class SingleFileCache extends CacheProvider
 {
+	/**
+	 * @var string $file
+	 */
+	protected $file;
+
 	/**
 	 * @var array $data
 	 */
-	private $data = null;
+	protected $data = null;
 
 	/**
 	 * Construct the file cache
+	 *
 	 * @param string $file - the location where the cache file will be stored
+	 * @param array $aData
 	 */
 	public function __construct($file, $aData=array())
 	{
@@ -70,7 +79,7 @@ class SingleFileCache extends AbstractCache
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function _doFetch($id)
+	protected function doFetch($id)
 	{
 		if (isset($this->data[$id])) {
 			return $this->data[$id];
@@ -82,7 +91,7 @@ class SingleFileCache extends AbstractCache
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function _doContains($id)
+	protected function doContains($id)
 	{
 		return isset($this->data[$id]);
 	}
@@ -90,7 +99,7 @@ class SingleFileCache extends AbstractCache
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function _doSave($id, $data, $lifeTime = 0)
+	protected function doSave($id, $data, $lifeTime = 0)
 	{
 		$this->data[$id] = $data;
 
@@ -102,7 +111,7 @@ class SingleFileCache extends AbstractCache
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function _doDelete($id)
+	protected function doDelete($id)
 	{
 		unset($this->data[$id]);
 
@@ -110,4 +119,23 @@ class SingleFileCache extends AbstractCache
 
 		return true;
 	}
-}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function doFlush()
+	{
+		$this->data = array();
+
+		return true;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function doGetStats()
+	{
+		return null;
+	}
+
+} # class
