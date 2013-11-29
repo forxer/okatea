@@ -8,6 +8,10 @@ switch (OKT_ENVIRONMENT)
 	/* environnement de production (serveur) */
 	case 'prod' :
 
+		define('OKT_DB_DRIVER',
+			'pdo_mysql' # driver de la base de données
+		);
+
 		define('OKT_DB_HOST',
 			'%%DB_PROD_HOST%%' # hote de la base de données
 		);
@@ -32,6 +36,10 @@ switch (OKT_ENVIRONMENT)
 
 	/* environnement de développement (local) */
 	case 'dev' :
+
+		define('OKT_DB_DRIVER',
+			'pdo_mysql' # driver de la base de données
+		);
 
 		define('OKT_DB_HOST',
 			'%%DB_DEV_HOST%%' # hote de la base de données
