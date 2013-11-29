@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Pages',
 	'desc' 			=> 'Allow to add a pages system',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0.ALPHA.1',
 	'author' 		=> 'okatea.org'
 ));

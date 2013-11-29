@@ -18,17 +18,17 @@ class module_users extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['usersController'] = __DIR__.'/inc/class.users.controller.php';
-		$oktAutoloadPaths['usersCustomFields'] = __DIR__.'/inc/class.users.custom.fields.php';
-		$oktAutoloadPaths['usersFieldRecordset'] = __DIR__.'/inc/class.users.fields.recordset.php';
-		$oktAutoloadPaths['usersFilters'] = __DIR__.'/inc/class.users.filters.php';
-		$oktAutoloadPaths['usersHelpers'] = __DIR__.'/inc/class.users.helpers.php';
+		$this->okt->autoloader->addClassMap(array(
+			'usersController' => __DIR__.'/inc/class.users.controller.php',
+			'usersCustomFields' => __DIR__.'/inc/class.users.custom.fields.php',
+			'usersFieldRecordset' => __DIR__.'/inc/class.users.fields.recordset.php',
+			'usersFilters' => __DIR__.'/inc/class.users.filters.php',
+			'usersHelpers' => __DIR__.'/inc/class.users.helpers.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('users',__('m_users_perm_group'));

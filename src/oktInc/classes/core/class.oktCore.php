@@ -35,6 +35,7 @@ class oktCore
 	public $tpl = null; /**< Le moteur de templates, instance de \ref oktTemplating */
 	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref oktTriggers */
 	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref oktAuth */
+	public $autoloader = null;
 
 	protected $permsStack = array(); /**< La pile qui contient les permissions. */
 	protected $behaviorsStack = array(); /**< La pile qui contient les comportements. */
@@ -47,8 +48,10 @@ class oktCore
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($autoloader)
 	{
+		$this->autoloader = $autoloader;
+
 		# initialisation du gestionnaire d'erreurs
 		$this->error = new oktErrors;
 

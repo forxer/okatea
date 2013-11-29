@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Development',
 	'desc' 			=> 'Tools for web development',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0.ALPHA.1',
 	'author' 		=> 'okatea.org'
 ));

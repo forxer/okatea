@@ -32,14 +32,14 @@ class module_contact extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['contactController'] = __DIR__.'/inc/class.contact.controller.php';
-		$oktAutoloadPaths['contactRecordset'] = __DIR__.'/inc/class.contact.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'contactController' => __DIR__.'/inc/class.contact.controller.php',
+			'contactRecordset' => __DIR__.'/inc/class.contact.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('contact', __('m_contact_perm_group'));

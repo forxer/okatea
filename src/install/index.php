@@ -32,24 +32,18 @@ $sDefaultLanguage = 'fr';
 require_once __DIR__.'/../oktInc/constants.php';
 
 
-# Inclusion de l'autoload
-require_once OKT_INC_PATH.'/autoload.php';
+# Use composer autoload
+$oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';
 
-
-$oktAutoloadPaths['oktStepper'] = __DIR__.'/inc/class.stepper.php';
-
-
-# Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminMessagesErrors'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.errors.php';
-$oktAutoloadPaths['adminMessagesSuccess'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.success.php';
-$oktAutoloadPaths['adminMessagesWarnings'] = OKT_INC_PATH.'/admin/libs/lib.admin.messages.warnings.php';
-$oktAutoloadPaths['adminPage'] = OKT_INC_PATH.'/admin/libs/lib.admin.page.php';
-$oktAutoloadPaths['adminPager'] = OKT_INC_PATH.'/admin/libs/lib.admin.pager.php';
-$oktAutoloadPaths['adminFilters'] = OKT_INC_PATH.'/admin/libs/lib.admin.filters.php';
-
-
-# Inclusion des fonctions
-require_once OKT_INC_PATH.'/functions.php';
+$oktAutoloader->addClassMap(array(
+	'oktStepper' => __DIR__.'/inc/class.stepper.php',
+	'adminMessagesErrors' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.errors.php',
+	'adminMessagesSuccess' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.success.php',
+	'adminMessagesWarnings' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.warnings.php',
+	'adminPage' => OKT_INC_PATH.'/admin/libs/lib.admin.page.php',
+	'adminPager' => OKT_INC_PATH.'/admin/libs/lib.admin.pager.php',
+	'adminFilters' => OKT_INC_PATH.'/admin/libs/lib.admin.filters.php'
+));
 
 
 # Initialisation de la librairie MB

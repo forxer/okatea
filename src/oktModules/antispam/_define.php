@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Antispam',
 	'desc' 			=> 'Generic antispam',
-	'version' 		=> '0.1',
+	'version' 		=> '0.2.ALPHA.1',
 	'author' 		=> 'okatea.org'
 ));

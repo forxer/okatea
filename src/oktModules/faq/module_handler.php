@@ -29,15 +29,15 @@ class module_faq extends oktModule
 	 */
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['faqController'] = __DIR__.'/inc/class.faq.controller.php';
-		$oktAutoloadPaths['faqFilters'] = __DIR__.'/inc/class.faq.filters.php';
-		$oktAutoloadPaths['faqRecordset'] = __DIR__.'/inc/class.faq.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'faqController' => __DIR__.'/inc/class.faq.controller.php',
+			'faqFilters' => __DIR__.'/inc/class.faq.filters.php',
+			'faqRecordset' => __DIR__.'/inc/class.faq.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('faq', __('m_faq_perm_group'));

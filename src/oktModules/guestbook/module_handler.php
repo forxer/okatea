@@ -12,13 +12,13 @@ class module_guestbook extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['guestbookController'] = __DIR__.'/inc/class.guestbook.controller.php';
+		$this->okt->autoloader->addClassMap(array(
+			'guestbookController' => __DIR__.'/inc/class.guestbook.controller.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('guestbook', __('m_guestbook_perm_group'));

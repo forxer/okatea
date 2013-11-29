@@ -8,13 +8,13 @@ class module_##module_id## extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		//l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['##module_camel_case_id##Controller'] = __DIR__.'/inc/class.##module_id##.controller.php';
+		$this->okt->autoloader->addClassMap(array(
+			'##module_camel_case_id##Controller' => __DIR__.'/inc/class.##module_id##.controller.php'
+		));
 
 		# config
 		$this->config = $this->okt->newConfig('conf_##module_id##');

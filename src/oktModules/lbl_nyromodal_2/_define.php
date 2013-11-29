@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'nyroModal 2',
 	'desc' 			=> 'Allow to integrate nyroModal 2 in Okatea',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0.ALPHA.1',
 	'author' 		=> 'okatea.org'
 ));

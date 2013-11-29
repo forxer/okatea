@@ -26,17 +26,17 @@ class module_news extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['newsCategories'] = __DIR__.'/inc/class.news.categories.php';
-		$oktAutoloadPaths['newsController'] = __DIR__.'/inc/class.news.controller.php';
-		$oktAutoloadPaths['newsFilters'] = __DIR__.'/inc/class.news.filters.php';
-		$oktAutoloadPaths['newsHelpers'] = __DIR__.'/inc/class.news.helpers.php';
-		$oktAutoloadPaths['newsRecordset'] = __DIR__.'/inc/class.news.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'newsCategories' => __DIR__.'/inc/class.news.categories.php',
+			'newsController' => __DIR__.'/inc/class.news.controller.php',
+			'newsFilters' => __DIR__.'/inc/class.news.filters.php',
+			'newsHelpers' => __DIR__.'/inc/class.news.helpers.php',
+			'newsRecordset' => __DIR__.'/inc/class.news.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('news', __('m_news_perm_group'));

@@ -17,16 +17,16 @@ class module_estimate extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['estimateController'] = __DIR__.'/inc/class.estimate.controller.php';
-		$oktAutoloadPaths['estimateFilters'] = __DIR__.'/inc/class.estimate.filters.php';
-		$oktAutoloadPaths['estimateProducts'] = __DIR__.'/inc/class.estimate.products.php';
-		$oktAutoloadPaths['estimateAccessories'] = __DIR__.'/inc/class.estimate.accessories.php';
+		$this->okt->autoloader->addClassMap(array(
+			'estimateController' => __DIR__.'/inc/class.estimate.controller.php',
+			'estimateFilters' => __DIR__.'/inc/class.estimate.filters.php',
+			'estimateProducts' => __DIR__.'/inc/class.estimate.products.php',
+			'estimateAccessories' => __DIR__.'/inc/class.estimate.accessories.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('estimate', __('m_estimate_perm_group'));

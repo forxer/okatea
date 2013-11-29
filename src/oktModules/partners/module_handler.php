@@ -26,13 +26,13 @@ class module_partners extends oktModule
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
-		global $oktAutoloadPaths;
+		# autoload
+		$this->okt->autoloader->addClassMap(array(
+			'partnersController' => __DIR__.'/inc/class.partners.controller.php',
+			'partnersRecordset' => __DIR__.'/inc/class.partners.recordset.php'
+		));
 
-		#autoload
-		$oktAutoloadPaths['partnersController'] = __DIR__.'/inc/class.partners.controller.php';
-		$oktAutoloadPaths['partnersRecordset'] = __DIR__.'/inc/class.partners.recordset.php';
-
-		#permissions
+		# permissions
 		$this->okt->addPermGroup('partners', __('m_partners_perm_group'));
 			$this->okt->addPerm('partners', __('m_partners_perm_global'), 'partners');
 			$this->okt->addPerm('partners_add', __('m_partners_perm_add'), 'partners');
@@ -40,13 +40,13 @@ class module_partners extends oktModule
 			$this->okt->addPerm('partners_display', __('m_partners_perm_display'), 'partners');
 			$this->okt->addPerm('partners_config', __('m_partners_perm_config'), 'partners');
 
-		#tables
+		# tables
 		$this->t_partners = $this->db->prefix.'mod_partners';
 		$this->t_partners_locales = $this->db->prefix.'mod_partners_locales';
 		$this->t_categories = $this->db->prefix.'mod_partners_categories';
 		$this->t_categories_locales = $this->db->prefix.'mod_partners_categories_locales';
 
-		#config
+		# config
 		$this->config = $this->okt->newConfig('conf_partners');
 
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];

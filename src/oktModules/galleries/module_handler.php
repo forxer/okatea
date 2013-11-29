@@ -21,18 +21,18 @@ class module_galleries extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['galleriesController'] = __DIR__.'/inc/class.galleries.controller.php';
-		$oktAutoloadPaths['galleriesHelpers'] = __DIR__.'/inc/class.galleries.helpers.php';
-		$oktAutoloadPaths['galleriesItems'] = __DIR__.'/inc/class.galleries.items.php';
-		$oktAutoloadPaths['galleriesItemsRecordset'] = __DIR__.'/inc/class.galleries.items.recordset.php';
-		$oktAutoloadPaths['galleriesRecordset'] = __DIR__.'/inc/class.galleries.recordset.php';
-		$oktAutoloadPaths['galleriesTree'] = __DIR__.'/inc/class.galleries.tree.php';
+		$this->okt->autoloader->addClassMap(array(
+			'galleriesController' => __DIR__.'/inc/class.galleries.controller.php',
+			'galleriesHelpers' => __DIR__.'/inc/class.galleries.helpers.php',
+			'galleriesItems' => __DIR__.'/inc/class.galleries.items.php',
+			'galleriesItemsRecordset' => __DIR__.'/inc/class.galleries.items.recordset.php',
+			'galleriesRecordset' => __DIR__.'/inc/class.galleries.recordset.php',
+			'galleriesTree' => __DIR__.'/inc/class.galleries.tree.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('galleries', __('m_galleries_perm_group'));

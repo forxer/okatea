@@ -26,9 +26,8 @@ define('OKT_START_TIME', microtime(true));
 require_once __DIR__.'/constants.php';
 
 
-# Autoload
-require_once OKT_INC_PATH.'/autoload.php';
-require_once OKT_VENDOR_PATH.'/autoload.php';
+# Use composer autoload
+$oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';
 
 
 # Inclusion des informations de connexion à la BDD
@@ -65,7 +64,7 @@ date_default_timezone_set('Europe/Paris');
 
 
 # Let the music play (initialisation du coeur de l'application)
-$okt = new oktCore();
+$okt = new oktCore($oktAutoloader);
 
 
 # Chargement de la configuration du site

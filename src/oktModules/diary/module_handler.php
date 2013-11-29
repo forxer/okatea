@@ -18,16 +18,16 @@ class module_diary extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['diaryController'] = __DIR__.'/inc/class.diary.controller.php';
-		$oktAutoloadPaths['diaryRecordset'] = __DIR__.'/inc/class.diary.recordset.php';
-		$oktAutoloadPaths['diaryMonthlyCalendar'] = __DIR__.'/inc/class.diary.monthly.calendar.php';
-		$oktAutoloadPaths['diaryFilters'] = __DIR__.'/inc/class.diary.filters.php';
+		$this->okt->autoloader->addClassMap(array(
+			'diaryController' => __DIR__.'/inc/class.diary.controller.php',
+			'diaryRecordset' => __DIR__.'/inc/class.diary.recordset.php',
+			'diaryMonthlyCalendar' => __DIR__.'/inc/class.diary.monthly.calendar.php',
+			'diaryFilters' => __DIR__.'/inc/class.diary.filters.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('diary', __('m_diary_perm_group'));

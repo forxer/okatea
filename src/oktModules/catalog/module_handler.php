@@ -20,15 +20,15 @@ class module_catalog extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['catalogController'] = __DIR__.'/inc/class.catalog.controller.php';
-		$oktAutoloadPaths['catalogFilters'] = __DIR__.'/inc/class.catalog.filters.php';
-		$oktAutoloadPaths['catalogRecordset'] = __DIR__.'/inc/class.catalog.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'catalogController' => __DIR__.'/inc/class.catalog.controller.php',
+			'catalogFilters' => __DIR__.'/inc/class.catalog.filters.php',
+			'catalogRecordset' => __DIR__.'/inc/class.catalog.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('catalog', __('m_catalog_perm_group'));

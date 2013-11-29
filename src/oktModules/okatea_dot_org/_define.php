@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'okatea.org',
 	'desc' 			=> 'Module for the specific needs of the okatea.org website.',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0.ALPHA.1',
 	'author' 		=> 'okatea.org'
 ));
