@@ -147,9 +147,9 @@ class oktAuth
 		$this->oDb = $okt->db;
 		$this->oError = $okt->error;
 
-		$this->t_users = $this->oDb->prefix.'core_users';
-		$this->t_groups = $this->oDb->prefix.'core_users_groups';
-		$this->t_online = $this->oDb->prefix.'core_users_online';
+		$this->t_users = OKT_DB_PREFIX.'core_users';
+		$this->t_groups = OKT_DB_PREFIX.'core_users_groups';
+		$this->t_online = OKT_DB_PREFIX.'core_users_online';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
@@ -324,6 +324,7 @@ class oktAuth
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
 			'LEFT JOIN '.$this->t_online.' AS o ON o.user_id=u.id '.
 		'WHERE u.active = 1 AND ';
+
 
 		if (util::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';

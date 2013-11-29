@@ -59,7 +59,21 @@ class oktCore
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
 
-		$this->cache_ttl = 0;
+		/*
+		$connectionParams = array(
+			'dbname' => OKT_DB_NAME,
+			'user' => OKT_DB_USER,
+			'password' => OKT_DB_PWD,
+			'host' => OKT_DB_HOST,
+			'driver' => OKT_DB_DRIVER,
+			'charset' => 'UTF8'
+		);
+
+		$this->conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, new \Doctrine\DBAL\Configuration());
+
+		*/
+
+		//OKT_DB_PREFIX
 
 		$this->triggers = new oktTriggers();
 

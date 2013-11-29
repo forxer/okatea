@@ -25,16 +25,6 @@ if (!session_id()) {
 }
 
 
-# Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminMessagesErrors'] = __DIR__.'/libs/lib.admin.messages.errors.php';
-$oktAutoloadPaths['adminMessagesSuccess'] = __DIR__.'/libs/lib.admin.messages.success.php';
-$oktAutoloadPaths['adminMessagesWarnings'] = __DIR__.'/libs/lib.admin.messages.warnings.php';
-$oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
-$oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
-$oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
-$oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
-
-
 # Initialisation des pages de l'administration
 $okt->page = new adminPage($okt);
 

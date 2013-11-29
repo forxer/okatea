@@ -31,10 +31,6 @@ require_once OKT_INC_PATH.'/autoload.php';
 require_once OKT_VENDOR_PATH.'/autoload.php';
 
 
-# Inclusion des fonctions
-require_once OKT_INC_PATH.'/functions.php';
-
-
 # Inclusion des informations de connexion à la BDD
 if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
 	require_once OKT_CONFIG_PATH.'/connexion.php';
