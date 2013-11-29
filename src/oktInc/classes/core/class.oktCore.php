@@ -24,7 +24,6 @@ class oktCore
 	public $cache = null; /**< Le gestionnaire de cache, instance de \ref SingleFileCache */
 	public $config = null; /**< Le gestionnaire de configuration, instance de \ref oktConfig */
 	public $db = null; /**< Le gestionnaire de base de données, instance de \ref mysql */
-	public $debug = null; /**< Le gestionnaire de déboguage, instance de \ref oktDebug */
 	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref oktErrors */
 	public $help = null; /**< Le gestionnaire des fichiers d'aide */
 	public $languages = null; /**< Le gestionnaire de langues, instance de \ref oktLanguages */
