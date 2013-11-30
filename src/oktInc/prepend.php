@@ -40,9 +40,6 @@ else {
 
 
 //*// pour afficher les erreurs, ajoutez un / au début de cette ligne
-error_reporting(-1);
-ini_set('display_errors', 'On');
-
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
