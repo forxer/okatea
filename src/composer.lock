@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1ba477dfb5e0ab6238c69d7af77039c8",
+    "hash": "be2e75cbc10d31dd27e8a7c743dba4b9",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1052,17 +1052,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "2.3.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "5fc7c047f9498028dd1c5031f14ae76a7aef283c"
+                "reference": "1481f096caead542c2dfadd67d9fd6124d97e273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/5fc7c047f9498028dd1c5031f14ae76a7aef283c",
-                "reference": "5fc7c047f9498028dd1c5031f14ae76a7aef283c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1481f096caead542c2dfadd67d9fd6124d97e273",
+                "reference": "1481f096caead542c2dfadd67d9fd6124d97e273",
                 "shasum": ""
             },
             "require": {
@@ -1071,7 +1071,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -1095,7 +1095,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-25 14:49:41"
+            "time": "2013-11-26 16:42:52"
         }
     ],
     "packages-dev": [
@@ -1116,7 +1116,8 @@
         "simplepie/simplepie": 20,
         "swiftmailer/swiftmailer": 20,
         "symfony/debug": 20,
-        "symfony/templating": 20
+        "symfony/templating": 20,
+        "symfony/yaml": 20
     },
     "platform": {
         "php": ">=5.3.7"

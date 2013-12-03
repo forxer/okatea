@@ -27,7 +27,7 @@
 		"swiftmailer/swiftmailer": "5.1.*@dev",
 		"symfony/debug": "2.3.*@dev",
 		"symfony/templating": "2.5.*@dev",
-		"symfony/yaml": "2.3.*"
+		"symfony/yaml": "2.5.*@dev"
 	},
 	"autoload": {
 		"psr-0": {
