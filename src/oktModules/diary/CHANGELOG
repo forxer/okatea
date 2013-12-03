@@ -10,8 +10,9 @@ CHANGELOG and HISTORY ( we try )                                   module_diary
 ==========================
 
 
-2.0.ALPHA.1
+2.0-rc1
 # support for Okatea 2.0
+	# use new autoloader
 
 
 1.0

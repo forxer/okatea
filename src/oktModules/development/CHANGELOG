@@ -10,7 +10,7 @@ CHANGELOG and HISTORY ( we try )                             module_development
 ==========================
 
 
-2.0.ALPHA.1
+2.0-rc1
 # remove logs pannel
 # support for Okatea 2.0
 	# use new autoloader

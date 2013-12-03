@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Guestbook',
 	'desc' 			=> 'Allow to add a guestbook system',
-	'version' 		=> '2.0.ALPHA.1',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));

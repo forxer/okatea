@@ -10,14 +10,13 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-2.0.ALPHA.1
+2.0-rc1
 # introduce composer components
 # remove oktInc/vendor
 # remove minify lib
 # remove oktDebug class
 # remove internal autoloader, now use composer autoloader instead
-! module development 2.0.BETA.1
-	# remove logs pannel
+# all modules bumped to version 2.0-rc1
 
 
 1.0 (2013-11-26)

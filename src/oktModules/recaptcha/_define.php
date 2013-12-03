@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'reCaptcha',
 	'desc' 			=> 'reCaptcha by Google',
-	'version' 		=> '2.0.ALPHA.1',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));

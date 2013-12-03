@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'tinyMCE 3',
 	'desc' 			=> 'Allow to integrate tinyMCE 3 in Okatea',
-	'version' 		=> '2.0.ALPHA.1',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));
