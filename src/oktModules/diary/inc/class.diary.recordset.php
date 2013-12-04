@@ -5,8 +5,9 @@
  *
  */
 
+use Okatea\Database\Recordset;
 
-class diaryRecordset extends recordset
+class diaryRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

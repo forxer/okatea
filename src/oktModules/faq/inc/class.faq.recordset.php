@@ -5,8 +5,9 @@
  *
  */
 
+use Okatea\Database\Recordset;
 
-class faqRecordset extends recordset
+class faqRecordset extends Recordset
 {
 	/**
 	 * L'objet core

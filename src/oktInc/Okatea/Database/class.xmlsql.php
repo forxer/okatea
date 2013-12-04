@@ -10,11 +10,10 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Okatea\Database;
 
 /**
- * @class xmlsql
- * @ingroup okt_classes_db
- * @brief Manipulation de requêtes SQL via un fichier XML
+ * Génération de requêtes SQL via un fichier XML
  *
  */
 class xmlsql

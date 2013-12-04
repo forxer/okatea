@@ -5,7 +5,9 @@
  *
  */
 
-class newsRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class newsRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

@@ -356,7 +356,7 @@ class ModulesCollection
 		'ORDER BY module_priority ASC, module_id ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;

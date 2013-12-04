@@ -10,14 +10,13 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Okatea\Database;
 
 /**
- * @class cursor
- * @ingroup okt_classes_db
- * @brief Cette classe permet de faciliter l'ajout et l'insertion dans la base de données.
+ * Cette classe permet de faciliter l'insertion et la modification dans la base de données.
  *
  */
-class cursor
+class Cursor
 {
 	private $db;
 	private $data = array();
@@ -319,5 +318,4 @@ class cursor
 		return true;
 	}
 
-} # class cursor
-
+} # class

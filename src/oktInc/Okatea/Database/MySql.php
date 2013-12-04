@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Database;
 
 /**
- * @class mysql
- * @ingroup okt_classes_db
- * @brief Classe de connexion MySQLi
+ * Classe de connexion MySQL
+ * @deprecated 1.0
  *
  */
-class oktMysqli
+class MySql
 {
 	/**
 	 * Type de retour de la fonction connexion permettant le renvoi du dernier ID généré.
@@ -105,7 +105,7 @@ class oktMysqli
 	/**
 	 * Identifiant de connexion
 	 */
-	protected $con_id = null;
+	protected $con_id;
 
 	/**
 	 * Initialise la connexion à la base de données.
@@ -134,11 +134,11 @@ class oktMysqli
 
 		$this->prefix = $dbprefix;
 
-		if (($this->con_id = mysqli_connect($this->db_host, $this->db_user, $this->db_pwd)) === false) {
+		if (($this->con_id = mysql_connect($alias, $user, $pwd)) === false) {
 			$this->seterror();
 		}
 		else {
-			$this->setDatabase($this->db_name);
+			$this->database($dbname);
 		}
 	}
 
@@ -148,9 +148,9 @@ class oktMysqli
 	 * @param	string	dbname		Nom de la base de données
 	 * @return	boolean
 	 */
-	public function setDatabase($dbname)
+	private function database($dbname)
 	{
-		$db = mysqli_select_db($this->con_id, $dbname);
+		$db = mysql_select_db($dbname);
 
 		if (!$db)
 		{
@@ -170,11 +170,9 @@ class oktMysqli
 	 */
 	public function close()
 	{
-		/* if (is_resource($this->con_id) && get_resource_type($this->con_id) == 'mysql link') */
-
-		if ($this->con_id)
+		if (is_resource($this->con_id) && get_resource_type($this->con_id) == 'mysql link')
 		{
-			mysqli_close($this->con_id);
+			mysql_close($this->con_id);
 			return true;
 		}
 
@@ -234,13 +232,12 @@ class oktMysqli
 	{
 		if ($this->con_id)
 		{
-			$this->error = mysqli_error($this->con_id);
-			$this->errno = mysqli_errno($this->con_id);
+			$this->error = mysql_error($this->con_id);
+			$this->errno = mysql_errno($this->con_id);
 		}
-		else
-		{
-			$this->error = (mysqli_error() !== false) ? mysqli_error() : 'Unknown error';
-			$this->errno = (mysqli_errno() !== false) ? mysqli_errno() : 0;
+		else {
+			$this->error = (mysql_error() !== false) ? mysql_error() : 'Unknown error';
+			$this->errno = (mysql_errno() !== false) ? mysql_errno() : 0;
 		}
 	}
 
@@ -369,18 +366,18 @@ class oktMysqli
 	 * @param	string	class		Type d'objet à renvoyer ('recordset')
 	 * @return	recordset
 	 */
-	public function select($query,$class='recordset')
+	public function select($query,$class='Recordset')
 	{
 		if (!$this->con_id) {
 			return false;
 		}
 
 		if ($class == '' || !class_exists($class)) {
-			$class = 'recordset';
+			$class = 'Recordset';
 		}
 
 		$this->startTime();
-		$cur = mysqli_query($this->con_id,$query);
+		$cur = mysql_unbuffered_query($query, $this->con_id);
 		$exec_time = $this->getTime();
 
 		$this->log($query,$exec_time);
@@ -390,15 +387,12 @@ class oktMysqli
 			# Insertion dans le reccordset
 			$i = 0;
 			$arryRes = array();
-			while ($res = mysqli_fetch_row($cur))
+			while ($res = mysql_fetch_row($cur))
 			{
 				$nRes = count($res);
 
-				for ($j=0; $j<$nRes; $j++)
-				{
-					$oFieldInfo = mysqli_fetch_field_direct($cur, $j);
-
-					$arryRes[$i][strtolower($oFieldInfo->name)] = $res[$j];
+				for ($j=0; $j<$nRes; $j++) {
+					$arryRes[$i][strtolower(mysql_field_name($cur, $j))] = $res[$j];
 				}
 
 				$i++;
@@ -426,7 +420,7 @@ class oktMysqli
 		}
 
 		$this->startTime();
-		$cur = mysqli_query($this->con_id, $query);
+		$cur = mysql_query($query, $this->con_id);
 		$exec_time = $this->getTime();
 
 		$this->log($query,$exec_time);
@@ -456,7 +450,7 @@ class oktMysqli
 	 * @param	string	query		Requête SQL
 	 * @return	mixed
 	 */
-	public function query($query)
+	public function query($query, $unbuffered=false)
 	{
 		if (!$this->con_id) {
 			return false;
@@ -464,7 +458,12 @@ class oktMysqli
 
 		$this->startTime();
 
-		$this->query_result = mysqli_query($this->con_id, $query);
+		if ($unbuffered) {
+			$this->query_result = mysql_unbuffered_query($query, $this->con_id);
+		}
+		else {
+			$this->query_result = mysql_query($query, $this->con_id);
+		}
 
 		$exec_time = $this->getTime();
 
@@ -538,7 +537,13 @@ class oktMysqli
 	 */
 	public function fetchAll()
 	{
-		return $this->query_result ? mysqli_fetch_all($this->query_result,MYSQLI_ASSOC) : null;
+		$aResult = array();
+
+		while ($aItem = $this->fetchAssoc()) {
+			$aResult[] = $aItem;
+		}
+
+		return $aResult;
 	}
 
 	/**
@@ -548,7 +553,7 @@ class oktMysqli
 	 */
 	public function fetchAssoc()
 	{
-		return ($this->query_result) ? mysqli_fetch_assoc($this->query_result) : false;
+		return ($this->query_result) ? mysql_fetch_assoc($this->query_result) : false;
 	}
 
 	/**
@@ -558,7 +563,7 @@ class oktMysqli
 	 */
 	public function fetchObject()
 	{
-		return ($this->query_result) ? mysqli_fetch_object($this->query_result) : false;
+		return ($this->query_result) ? mysql_fetch_object($this->query_result) : false;
 	}
 
 	/**
@@ -568,7 +573,7 @@ class oktMysqli
 	 */
 	public function fetchRow()
 	{
-		return ($this->query_result) ? mysqli_fetch_row($this->query_result) : false;
+		return ($this->query_result) ? mysql_fetch_row($this->query_result) : false;
 	}
 
 	/**
@@ -578,7 +583,7 @@ class oktMysqli
 	 */
 	public function numRows()
 	{
-		return ($this->query_result) ? mysqli_num_rows($this->query_result) : false;
+		return ($this->query_result) ? mysql_num_rows($this->query_result) : false;
 	}
 
 	/**
@@ -588,7 +593,7 @@ class oktMysqli
 	 */
 	public function numFields()
 	{
-		return mysqli_field_count($this->con_id);
+		return ($this->query_result) ? mysql_num_fields($this->query_result) : false;
 	}
 
 	/**
@@ -598,7 +603,7 @@ class oktMysqli
 	 */
 	public function affectedRows()
 	{
-		return mysqli_affected_rows($this->con_id);
+		return mysql_affected_rows($this->con_id);
 	}
 
 	/**
@@ -608,7 +613,11 @@ class oktMysqli
 	 */
 	public function getLastID()
 	{
-		return $this->con_id ? mysqli_insert_id($this->con_id) : false;
+		if ($this->con_id) {
+			return mysql_insert_id($this->con_id);
+		}
+
+		return false;
 	}
 
 	/**
@@ -620,7 +629,7 @@ class oktMysqli
 	 */
 	public function escapeStr($str)
 	{
-		return mysqli_real_escape_string($this->con_id,$str);
+		return mysql_real_escape_string($str, $this->con_id);
 	}
 
 	public function escapeSystem($str)
@@ -774,19 +783,8 @@ class oktMysqli
 		if (empty($sDate)) {
 			return null;
 		}
-		else {
-			$aResult = preg_split('/[^\d]/',$sDate);
 
-			$nCount = count($aResult);
-
-			if ($nCount<6) {
-				$aResult = $aResult + array_fill($nCount,6-$nCount,'00');
-			}
-
-			$aResult = array_combine(str_split($sOrder),$aResult);
-
-			return ($aResult['y'].'-'.$aResult['m'].'-'.$aResult['d'].' '.$aResult['h'].':'.$aResult['i'].':'.$aResult['s']);
-		}
+		return date('Y-m-d H:i:s', strtotime($sDate));
 	}
 
 	/**
@@ -798,7 +796,7 @@ class oktMysqli
 	 */
 	public function openCursor($table)
 	{
-		return new cursor($this,$table);
+		return new Cursor($this,$table);
 	}
 
 	/**

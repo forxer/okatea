@@ -6,7 +6,9 @@
  */
 
 
-class contactRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class contactRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore
@@ -43,7 +45,7 @@ class contactRecordset extends recordset
 
 	public function getHtmlField()
 	{
-		$return = '';        
+		$return = '';
 		switch($this->type)
 		{
 			# Champ texte

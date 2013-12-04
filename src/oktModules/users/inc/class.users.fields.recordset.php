@@ -5,7 +5,9 @@
  *
  */
 
-class usersFieldRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class usersFieldRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

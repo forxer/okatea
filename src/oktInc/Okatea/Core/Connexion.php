@@ -9,11 +9,13 @@
 
 namespace Okatea\Core;
 
+use Okatea\Database\MySqli;
+
 /**
  * Le gestionnaire de base de données.
  *
  */
-class Connexion extends \oktMysqli
+class Connexion extends MySqli
 {
 	/**
 	 * Stored instance for Singleton pattern.

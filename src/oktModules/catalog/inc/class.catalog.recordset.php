@@ -5,7 +5,9 @@
  *
  */
 
-class catalogRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class catalogRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

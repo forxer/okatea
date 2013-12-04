@@ -10,20 +10,17 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Okatea\Database;
 
 /**
- * @class recordset
- * @ingroup okt_classes_db
- * @brief Classe recordset.
- *
  * Cette classe permet de manipuler des données entrées dans un tableaux multilignes
  * et multicolonnes.
  *
- * La classe @ref mysql renvoie des recordsets comme résultat
+ * Les classes @ref MySql et @ref MySqli renvoie des recordsets comme résultat
  * de requêtes.
  *
  */
-class recordset
+class Recordset
 {
 	/**
 	 * Tableau contenant les données

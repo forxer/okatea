@@ -170,7 +170,7 @@ class oktLanguages
 	 * Retourne, sous forme de recordset, la liste des langues selon des paramètres donnés.
 	 *
 	 * @param	array	params			Paramètres de requete
-	 * @return recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getLanguages($params=array(), $count_only=false)
 	{
@@ -221,7 +221,7 @@ class oktLanguages
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Okatea\Database\Recordset(array());
 		}
 
 		if ($count_only) {
@@ -236,7 +236,7 @@ class oktLanguages
 	 * Retourne, sous forme de recordset, une langue donnée.
 	 *
 	 * @param integer $id
-	 * @return recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getLanguage($id)
 	{

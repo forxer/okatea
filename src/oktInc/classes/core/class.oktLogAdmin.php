@@ -60,7 +60,7 @@ class oktLogAdmin
 	 * Retourne, sous forme de recordset, la liste des logs admin.
 	 *
 	 * @param array $aParams Paramètres de requete
-	 * @return recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getLogs($aParams=array(), $bCountOnly=false)
 	{
@@ -135,7 +135,7 @@ class oktLogAdmin
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Okatea\Database\Recordset(array());
 		}
 
 		if ($bCountOnly) {

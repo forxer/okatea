@@ -5,7 +5,9 @@
  *
  */
 
-class pagesRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class pagesRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

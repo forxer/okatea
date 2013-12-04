@@ -8,9 +8,7 @@
 
 
 /**
- * @class oktNavigations
- * @ingroup okt_classes_core
- * @brief Le gestionnnaire de menus de navigation.
+ * Le gestionnnaire de menus de navigation.
  *
  */
 class oktNavigations
@@ -125,7 +123,7 @@ class oktNavigations
 	 * Retourne une liste de menus sous forme de recordset.
 	 *
 	 * @param array $aParams
-	 * @return object recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getMenus(array $aParams=array())
 	{
@@ -164,7 +162,7 @@ class oktNavigations
 		'GROUP BY m.id ';
 
 		if (($rs = $this->db->select($sQuery)) === false) {
-			return new recordset(array());
+			return new Okatea\Database\Recordset(array());
 		}
 
 		return $rs;
@@ -175,7 +173,7 @@ class oktNavigations
 	 *
 	 * @param integer $iMenuId
 	 * @param integer $iActive
-	 * @return object recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getMenu($iMenuId, $iActive=2)
 	{
@@ -337,7 +335,7 @@ class oktNavigations
 	 * Retourne une liste d'éléments sous forme de recordset.
 	 *
 	 * @param array $aParams
-	 * @return object recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getItems(array $aParams=array())
 	{
@@ -427,7 +425,7 @@ class oktNavigations
 	 * Retourne les localisations d'un élément donné.
 	 *
 	 * @param integer $iItemId
-	 * @return recordset
+	 * @return Okatea\Database\Recordset
 	 */
 	public function getItemI18n($iItemId)
 	{
@@ -436,7 +434,7 @@ class oktNavigations
 		'WHERE item_id='.(integer)$iItemId;
 
 		if (($rs = $this->db->select($query)) === false) {
-			$rs = new recordset(array());
+			$rs = new Okatea\Database\Recordset(array());
 			return $rs;
 		}
 

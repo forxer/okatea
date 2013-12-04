@@ -1,7 +1,9 @@
 <?php
 ##header##
 
-class ##module_camel_case_id##Recordset extends recordset
+use Okatea\Database\Recordset;
+
+class ##module_camel_case_id##Recordset extends Recordset
 {
 	/**
 	 * L'objet oktCore
