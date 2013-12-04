@@ -30,8 +30,6 @@ $aPageData = new ArrayObject();
 $aPageData['aNewConf'] = array();
 
 # Inclusion des initialisations
-require __DIR__.'/advanced/debug/init.php';
-require __DIR__.'/advanced/dev/init.php';
 require __DIR__.'/advanced/others/init.php';
 require __DIR__.'/advanced/path_url/init.php';
 require __DIR__.'/advanced/repositories/init.php';
@@ -45,8 +43,6 @@ $okt->triggers->callTrigger('adminInfosPageInit', $okt, $aPageData);
 ----------------------------------------------------------*/
 
 # Inclusion des traitements
-require __DIR__.'/advanced/debug/actions.php';
-require __DIR__.'/advanced/dev/actions.php';
 require __DIR__.'/advanced/others/actions.php';
 require __DIR__.'/advanced/path_url/actions.php';
 require __DIR__.'/advanced/repositories/actions.php';
@@ -121,22 +117,8 @@ $aPageData['tabs'] = new ArrayObject;
 	$aPageData['tabs'][20]['content'] = ob_get_clean();
 
 
-	# onglet debug
-	$aPageData['tabs'][40] = array(
-		'id' => 'tab_debug',
-		'title' => __('c_a_config_advanced_tab_debug'),
-		'content' => ''
-	);
-
-	ob_start();
-
-	require __DIR__.'/advanced/debug/display.php';
-
-	$aPageData['tabs'][40]['content'] = ob_get_clean();
-
-
 	# onglet mises à jour
-	$aPageData['tabs'][50] = array(
+	$aPageData['tabs'][30] = array(
 		'id' => 'tab_update',
 		'title' => __('c_a_config_advanced_tab_update'),
 		'content' => ''
@@ -146,25 +128,11 @@ $aPageData['tabs'] = new ArrayObject;
 
 	require __DIR__.'/advanced/update/display.php';
 
-	$aPageData['tabs'][50]['content'] = ob_get_clean();
-
-
-	# onglet développement
-	$aPageData['tabs'][60] = array(
-		'id' => 'tab_dev',
-		'title' => __('c_a_config_advanced_tab_dev'),
-		'content' => ''
-	);
-
-	ob_start();
-
-	require __DIR__.'/advanced/dev/display.php';
-
-	$aPageData['tabs'][60]['content'] = ob_get_clean();
+	$aPageData['tabs'][30]['content'] = ob_get_clean();
 
 
 	# onglet autres
-	$aPageData['tabs'][70] = array(
+	$aPageData['tabs'][40] = array(
 		'id' => 'tab_others',
 		'title' => __('c_a_config_advanced_tab_others'),
 		'content' => ''
@@ -174,7 +142,7 @@ $aPageData['tabs'] = new ArrayObject;
 
 	require __DIR__.'/advanced/others/display.php';
 
-	$aPageData['tabs'][70]['content'] = ob_get_clean();
+	$aPageData['tabs'][40]['content'] = ob_get_clean();
 
 
 # -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigPageBuildTabs

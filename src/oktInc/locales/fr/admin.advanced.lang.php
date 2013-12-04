@@ -6,9 +6,7 @@ $GLOBALS['__l10n']['c_a_config_advanced'] = 'Configuration avancée';
 $GLOBALS['__l10n']['c_a_config_advanced_tab_path_url'] = 'Chemins et URL';
 $GLOBALS['__l10n']['c_a_config_advanced_tab_repositories'] = 'Dépôts';
 $GLOBALS['__l10n']['c_a_config_advanced_tab_minify'] = 'Minify';
-$GLOBALS['__l10n']['c_a_config_advanced_tab_debug'] = 'Debug';
 $GLOBALS['__l10n']['c_a_config_advanced_tab_update'] = 'Mise à jour';
-$GLOBALS['__l10n']['c_a_config_advanced_tab_dev'] = 'Développement';
 $GLOBALS['__l10n']['c_a_config_advanced_tab_others'] = 'Autres options';
 
 $GLOBALS['__l10n']['c_a_config_advanced_domain'] = 'Nom de domaine';
@@ -22,18 +20,10 @@ $GLOBALS['__l10n']['c_a_config_advanced_enable_modules_repo'] = 'Activer les dé
 $GLOBALS['__l10n']['c_a_config_advanced_themes_repositories'] = 'Dépôts de thèmes';
 $GLOBALS['__l10n']['c_a_config_advanced_enable_themes_repo'] = 'Activer les dépôts de thèmes';
 
-$GLOBALS['__l10n']['c_a_config_advanced_enable_debug'] = 'Activer le débug';
-$GLOBALS['__l10n']['c_a_config_advanced_debug_not_redirect'] = 'Empêcher les redirection en cas d’erreur';
-$GLOBALS['__l10n']['c_a_config_advanced_debug_xdebug'] = 'Utiliser l’extension PHP Xdebug';
-$GLOBALS['__l10n']['c_a_config_advanced_debug_bar_note_1'] = 'Pour afficher la barre de debug vous devez l’activer dans le module développement.';
-$GLOBALS['__l10n']['c_a_config_advanced_debug_bar_note_2'] = 'Pour afficher la barre de debug vous devez installer le module développement.';
-
 $GLOBALS['__l10n']['c_a_config_advanced_enable_update'] = 'Activer les mises à jours distantes';
 $GLOBALS['__l10n']['c_a_config_advanced_update_url'] = 'URL du fichier de versions pour les mises à jour distantes';
 $GLOBALS['__l10n']['c_a_config_advanced_update_stable'] = 'versions stables';
 $GLOBALS['__l10n']['c_a_config_advanced_update_dev'] = 'versions de développement';
-
-$GLOBALS['__l10n']['c_a_config_advanced_tab_dev_note'] = 'Les paramètres ci-dessous sont considérés comme "très avancés" ; veuillez ne les modifier que si vous savez exactement ce que vous faites.';
 
 $GLOBALS['__l10n']['c_a_config_advanced_maintenance_mode'] = 'Mode maintenance';
 $GLOBALS['__l10n']['c_a_config_advanced_enable_admin_maintenance_mode'] = 'Activer le mode maintenance sur l’interface d’administration';
