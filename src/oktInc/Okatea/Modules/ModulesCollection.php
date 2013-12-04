@@ -240,7 +240,7 @@ class ModulesCollection
 	public function getModuleObject($module_id)
 	{
 		if (!$this->moduleExists($module_id)) {
-			throw new Exception(__('The module specified ('.$module_id.') does not appear to be a valid installed module.'));
+			throw new \Exception(__('The module specified ('.$module_id.') does not appear to be a valid installed module.'));
 		}
 
 		return $this->list[$module_id];
@@ -356,7 +356,7 @@ class ModulesCollection
 		'ORDER BY module_priority ASC, module_id ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new Recordset(array());
+			return new Okatea\Database\Recordset(array());
 		}
 
 		return $rs;
@@ -550,7 +550,7 @@ class ModulesCollection
 		{
 			set_time_limit(0);
 			$fp = fopen('php://output','wb');
-			$zip = new fileZip($fp);
+			$zip = new \fileZip($fp);
 			$zip->addExclusion('#(^|/).svn$#');
 			$zip->addDirectory($module_path,'',true);
 
@@ -576,7 +576,7 @@ class ModulesCollection
 	 */
 	public static function installPackage($zip_file, $modules)
 	{
-		$zip = new fileUnzip($zip_file);
+		$zip = new \fileUnzip($zip_file);
 		$zip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
 
 		$zip_root_dir = $zip->getRootDir();
@@ -599,14 +599,14 @@ class ModulesCollection
 		{
 			$zip->close();
 			unlink($zip_file);
-			throw new Exception(__('Empty module zip file.'));
+			throw new \Exception(__('Empty module zip file.'));
 		}
 
 		if (!$has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
-			throw new Exception(__('The zip file does not appear to be a valid module.'));
+			throw new \Exception(__('The zip file does not appear to be a valid module.'));
 		}
 
 		$ret_code = 1;
@@ -636,8 +636,8 @@ class ModulesCollection
 				if (!empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
 				{
 					# delete old module
-					if (!files::deltree($destination)) {
-						throw new Exception(__('An error occurred during module deletion.'));
+					if (!\files::deltree($destination)) {
+						throw new \Exception(__('An error occurred during module deletion.'));
 					}
 					$ret_code = 2;
 				}
@@ -650,7 +650,7 @@ class ModulesCollection
 						rename($target.'/_define.php.bak', $target.'/_define.php');
 					}
 
-					throw new Exception(sprintf(__('Unable to upgrade "%s". (same version)'),basename($destination)));
+					throw new \Exception(sprintf(__('Unable to upgrade "%s". (same version)'),basename($destination)));
 				}
 			}
 			else
@@ -662,7 +662,7 @@ class ModulesCollection
 					rename($target.'/_define.php.bak', $target.'/_define.php');
 				}
 
-				throw new Exception(sprintf(__('Unable to read new _define.php file')));
+				throw new \Exception(sprintf(__('Unable to read new _define.php file')));
 			}
 		}
 
@@ -752,16 +752,22 @@ class ModulesCollection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%',util::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%',\util::getVersion(),$repository_url);
 
 			$path = '';
-			$client = netHttp::initClient($repository_url,$path);
-			if ($client !== false) {
+			$client = \netHttp::initClient($repository_url,$path);
+			if ($client !== false)
+			{
 				$client->setTimeout(4);
 				$client->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 				$client->get($path);
 
-				return $this->readRepositoryInfos($client->getContent());
+				if ($client->getStatus() == '200') {
+					return $this->readRepositoryInfos($client->getContent());
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		catch (Exception $e) {
@@ -779,7 +785,7 @@ class ModulesCollection
 	{
 		try
 		{
-			$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
+			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
 
 			$return = array();
 			foreach ($xml->module as $module)

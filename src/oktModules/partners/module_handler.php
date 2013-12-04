@@ -54,7 +54,7 @@ class module_partners extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('partnersPage', new oktRoute(
+		$this->okt->router->addRoute('partnersPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'partnersController', 'partnersPage'
 		));

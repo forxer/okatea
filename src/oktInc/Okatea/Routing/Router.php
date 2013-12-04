@@ -6,17 +6,16 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Routing;
 
 /**
- * @class oktRouter
- * @ingroup okt_classes_router
- * @brief Le routeur interne.
+ * Le routeur interne d'Okatea.
  *
  */
-class oktRouter
+class Router
 {
 	/**
-	 * Stocke la liste des objets oktRoute.
+	 * Stocke la liste des objets Okatea\Routing\Route.
 	 * @var array
 	 */
 	protected $aRoutes = array();
@@ -54,10 +53,10 @@ class oktRouter
 	 * Ajout d'une route nommée à la liste des routes possibles.
 	 *
 	 * @param string $sName
-	 * @param oktRoute $route
-	 * @return oktRouter
+	 * @param Okatea\Routing\Route $oRoute
+	 * @return Okatea\Routing\Router
 	 */
-	public function addRoute($sName, oktRoute $oRoute)
+	public function addRoute($sName, Route $oRoute)
 	{
 		$this->aRoutes[$sName] = $oRoute;
 
@@ -68,7 +67,7 @@ class oktRouter
 	 * Ajout d'un tableau de routes nommées à la liste des routes possibles.
 	 *
 	 * @param array $aRoutes
-	 * @return oktRouter
+	 * @return Okatea\Routing\Router
 	 */
 	public function addRoutes($aRoutes)
 	{
@@ -93,7 +92,7 @@ class oktRouter
 	 * Définit le code ISO de la langue.
 	 *
 	 * @param mixed $sLanguage
-	 * @return oktRoute
+	 * @return Okatea\Routing\Router
 	 */
 	public function setLanguage($sLanguage)
 	{
@@ -193,7 +192,7 @@ class oktRouter
 	{
 		$oFindedRoute = $this->getFindedRoute();
 
-		if ($oFindedRoute === null || !($oFindedRoute instanceof oktRoute)) {
+		if ($oFindedRoute === null || !($oFindedRoute instanceof Route)) {
 			return false;
 		}
 
@@ -256,5 +255,4 @@ class oktRouter
 	}
 
 
-} # class oktRouter
-
+} # class

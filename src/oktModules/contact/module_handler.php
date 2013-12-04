@@ -60,12 +60,12 @@ class module_contact extends Module
 		$this->config->map_url = $this->okt->page->getBaseUrl().$this->config->public_map_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('contactPage', new oktRoute(
+		$this->okt->router->addRoute('contactPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'contactController', 'contactPage'
 		));
 
-		$this->okt->router->addRoute('contactMapPage', new oktRoute(
+		$this->okt->router->addRoute('contactMapPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
 			'contactController', 'contactMapPage'
 		));

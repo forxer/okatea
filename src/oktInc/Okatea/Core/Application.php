@@ -9,6 +9,7 @@
 namespace Okatea\Core;
 
 use Okatea\Cache\SingleFileCache;
+use Okatea\Routing\Router;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -20,7 +21,7 @@ use Okatea\Cache\SingleFileCache;
  */
 class Application
 {
-	public $cache = null; /**< Le gestionnaire de cache, instance de \ref SingleFileCache */
+	public $cache = null; /**< Le gestionnaire de cache, instance de \ref Okatea\Cache\SingleFileCache */
 	public $config = null; /**< Le gestionnaire de configuration, instance de \ref oktConfig */
 	public $db = null; /**< Le gestionnaire de base de données, instance de \ref mysql */
 	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref oktErrors */
@@ -29,7 +30,7 @@ class Application
 	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref oktLogAdmin */
 	public $modules = null; /**< Le gestionnaire de modules, instance de \ref oktModules */
 	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref htmlPage */
-	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref oktRouter */
+	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref Okatea\Routing\Router */
 	public $tpl = null; /**< Le moteur de templates, instance de \ref Templating */
 	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref oktTriggers */
 	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref oktAuth */
@@ -83,7 +84,7 @@ class Application
 
 		$this->triggers = new \oktTriggers();
 
-		$this->router = new \oktRouter();
+		$this->router = new Router();
 	}
 
 

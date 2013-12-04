@@ -50,17 +50,17 @@ class module_catalog extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_catalog_url;
 
 		# définition des routes
-		$this->okt->router->addRoute('catalogList', new oktRoute(
+		$this->okt->router->addRoute('catalogList', new Okatea\Routing\Route(
 			html::escapeHTML($this->config->public_catalog_url),
 			'catalogController', 'catalogList'
 		));
 
-		$this->okt->router->addRoute('catalogCategory', new oktRoute(
+		$this->okt->router->addRoute('catalogCategory', new Okatea\Routing\Route(
 			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
 			'catalogController', 'catalogCategory'
 		));
 
-		$this->okt->router->addRoute('catalogItem', new oktRoute(
+		$this->okt->router->addRoute('catalogItem', new Okatea\Routing\Route(
 			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
 			'catalogController', 'catalogItem'
 		));

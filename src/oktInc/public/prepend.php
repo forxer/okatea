@@ -49,7 +49,7 @@ if (file_exists(OKT_THEME_PATH.'/oktTheme.php'))
 # Chargement des routes personnalisées
 foreach ($okt->config->custom_routes as $iCustomRoute=>$aCustomRoute)
 {
-	$okt->router->addRoute('custom-route-'.$iCustomRoute, new oktRoute(
+	$okt->router->addRoute('custom-route-'.$iCustomRoute, new Okatea\Routing\Route(
 		$aCustomRoute['rep'], $aCustomRoute['class'], $aCustomRoute['method'],
 		array($aCustomRoute['args'])
 	));
@@ -59,7 +59,7 @@ foreach ($okt->config->custom_routes as $iCustomRoute=>$aCustomRoute)
 # Chargement de la route par défaut
 if (!empty($okt->config->default_route['class']) && !empty($okt->config->default_route['method']))
 {
-	$okt->router->addRoute('default-route', new oktRoute(
+	$okt->router->addRoute('default-route', new Okatea\Routing\Route(
 		'^/?$', $okt->config->default_route['class'], $okt->config->default_route['method'],
 		array($okt->config->default_route['args'])
 	));

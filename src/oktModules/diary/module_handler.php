@@ -47,12 +47,12 @@ class module_diary extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('diaryList', new oktRoute(
+		$this->okt->router->addRoute('diaryList', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
 			'diaryController', 'diaryList'
 		));
 
-		$this->okt->router->addRoute('diaryEvent', new oktRoute(
+		$this->okt->router->addRoute('diaryEvent', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
 			'diaryController', 'diaryEvent'
 		));

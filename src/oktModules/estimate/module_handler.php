@@ -48,11 +48,11 @@ class module_estimate extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_form_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('estimateForm', new oktRoute(
+		$this->okt->router->addRoute('estimateForm', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_form_url)).')$',
 			'estimateController', 'estimateForm'
 		));
-		$this->okt->router->addRoute('estimateSummary', new oktRoute(
+		$this->okt->router->addRoute('estimateSummary', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_summary_url)).')$',
 			'estimateController', 'estimateSummary'
 		));

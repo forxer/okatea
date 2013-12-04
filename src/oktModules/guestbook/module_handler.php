@@ -33,7 +33,7 @@ class module_guestbook extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('guestbookPage', new oktRoute(
+		$this->okt->router->addRoute('guestbookPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'guestbookController', 'guestbookPage'
 		));

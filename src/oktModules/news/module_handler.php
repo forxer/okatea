@@ -69,22 +69,22 @@ class module_news extends Module
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('newsFeed', new oktRoute(
+		$this->okt->router->addRoute('newsFeed', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
 			'newsController', 'newsFeed'
 		));
 
-		$this->okt->router->addRoute('newsList', new oktRoute(
+		$this->okt->router->addRoute('newsList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'newsController', 'newsList'
 		));
 
-		$this->okt->router->addRoute('newsCategory', new oktRoute(
+		$this->okt->router->addRoute('newsCategory', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
 			'newsController', 'newsCategory'
 		));
 
-		$this->okt->router->addRoute('newsItem', new oktRoute(
+		$this->okt->router->addRoute('newsItem', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_post_url)).')/(.*)$',
 			'newsController', 'newsItem'
 		));

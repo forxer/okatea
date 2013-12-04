@@ -67,22 +67,22 @@ class module_pages extends Module
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('pagesFeed', new oktRoute(
+		$this->okt->router->addRoute('pagesFeed', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
 			'pagesController', 'pagesFeed'
 		));
 
-		$this->okt->router->addRoute('pagesList', new oktRoute(
+		$this->okt->router->addRoute('pagesList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'pagesController', 'pagesList'
 		));
 
-		$this->okt->router->addRoute('pagesCategory', new oktRoute(
+		$this->okt->router->addRoute('pagesCategory', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
 			'pagesController', 'pagesCategory'
 		));
 
-		$this->okt->router->addRoute('pagesItem', new oktRoute(
+		$this->okt->router->addRoute('pagesItem', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
 			'pagesController', 'pagesItem'
 		));

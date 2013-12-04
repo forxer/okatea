@@ -6,11 +6,10 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Routing;
 
 /**
- * @class oktRoute
- * @ingroup okt_classes_router
- * @brief La définition d'une route.
+ * La définition d'une route.
  *
  * Une route est constituée d'une représentation et d'un gestionnaire.
  *
@@ -19,7 +18,7 @@
  *
  * Le gestionnaire doit être un "callable".
  */
-class oktRoute
+class Route
 {
 	/**
 	 * La représentation du chemin de la route.
@@ -75,7 +74,7 @@ class oktRoute
 	 * Définit la représentation du chemin de la route.
 	 *
 	 * @param string $sPathRepresentation
-	 * @return oktRoute
+	 * @return Route
 	 */
 	public function setPathRepresentation($sPathRepresentation)
 	{
@@ -110,7 +109,7 @@ class oktRoute
 	 * Définit le gestionnaire de la route.
 	 *
 	 * @param array $mHandler
-	 * @return oktRoute
+	 * @return Route
 	 */
 	public function setHandler($sClassHandler,$sMethodHandler)
 	{
@@ -213,4 +212,4 @@ class oktRoute
 	}
 
 
-} # class oktRoute
+} # class
