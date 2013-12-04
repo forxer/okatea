@@ -163,7 +163,7 @@ $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
 
 # Initialisation navigations
-$okt->navigation = new oktNavigations($okt);
+$okt->navigation = new Okatea\Navigation\Menus\Menus($okt);
 
 
 # Initialisation du gestionnaire de modules

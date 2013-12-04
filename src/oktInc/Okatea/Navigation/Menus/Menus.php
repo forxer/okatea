@@ -6,12 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Navigation\Menus;
 
 /**
  * Le gestionnnaire de menus de navigation.
  *
  */
-class oktNavigations
+class Menus
 {
 	/**
 	 * L'objet core.
@@ -83,7 +84,7 @@ class oktNavigations
 			'active' => 1
 		);
 
-		if (util::isInt($mMenu)) {
+		if (\util::isInt($mMenu)) {
 			$aMenuParams['id'] = $mMenu;
 		}
 		else {
@@ -383,8 +384,8 @@ class oktNavigations
 			$sQuery .= 'ORDER BY i.ord ASC ';
 		}
 
-		if (($rs = $this->db->select($sQuery, 'oktNavigationsItemsRecordset')) === false) {
-			$rs = new oktNavigationsItemsRecordset(array());
+		if (($rs = $this->db->select($sQuery, 'Okatea\Navigation\Menus\ItemsRecordset')) === false) {
+			$rs = new Okatea\Navigation\Menus\ItemsRecordset(array());
 		}
 
 		$rs->setCore($this->okt);

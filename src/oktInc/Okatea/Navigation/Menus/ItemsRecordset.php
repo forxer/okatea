@@ -6,13 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Navigation\Menus;
+
 use Okatea\Database\Recordset;
 
 /**
  * Extension du Recordset pour les éléments de menu.
  *
  */
-class oktNavigationsItemsRecordset extends Recordset
+class ItemsRecordset extends Recordset
 {
 
 	/**

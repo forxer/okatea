@@ -66,7 +66,7 @@ class oktPublicAdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), html::escapeHTML(oktAuth::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), \html::escapeHTML(Okatea\Core\Authentification::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
 		);
 
 		if (!$okt->languages->unique)
@@ -79,9 +79,9 @@ class oktPublicAdminBar
 				}
 
 				$aSecondaryAdminBar[$iStartIdx++] = array(
-					'href' => html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
-					'title' => html::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" />'
+					'href' => \html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
+					'title' => \html::escapeHTML($aLanguage['title']),
+					'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
 				);
 			}
 		}
