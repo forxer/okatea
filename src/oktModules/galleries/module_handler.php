@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Triggers;
 use Okatea\Modules\Module;
 
 class module_galleries extends Module
@@ -56,7 +57,7 @@ class module_galleries extends Module
 		$this->upload_url = OKT_UPLOAD_URL.'/galleries/';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_galleries');

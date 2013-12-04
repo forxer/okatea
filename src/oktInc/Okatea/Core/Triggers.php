@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
+
 
 /**
- * @class oktTriggers
- * @ingroup okt_classes_core
- * @brief Le système de gestion des déclencheurs.
+ * Le système de gestion des déclencheurs.
  *
  */
-class oktTriggers
+class Triggers
 {
 	protected $aStack = array(); /**< La pile qui contient les déclencheurs. */
 
@@ -156,4 +156,4 @@ class oktTriggers
 		return $sReturn;
 	}
 
-} # class oktTriggers
+} # class

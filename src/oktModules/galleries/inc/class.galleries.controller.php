@@ -5,7 +5,9 @@
  *
  */
 
-class galleriesController extends oktController
+use Okatea\Core\Controller;
+
+class galleriesController extends Controller
 {
 	/**
 	 * Affichage de la liste des galeries.

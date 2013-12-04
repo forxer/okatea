@@ -31,7 +31,7 @@ class publicPage extends htmlPage
 	{
 		global $okt;
 
-		$oController = new oktController($okt);
+		$oController = new Okatea\Core\Controller($okt);
 		$oController->serve404();
 	}
 
@@ -39,7 +39,7 @@ class publicPage extends htmlPage
 	{
 		global $okt;
 
-		$oController = new oktController($okt);
+		$oController = new Okatea\Core\Controller($okt);
 		$oController->serve503();
 	}
 

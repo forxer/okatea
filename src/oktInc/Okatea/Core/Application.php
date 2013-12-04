@@ -22,18 +22,17 @@ use Okatea\Routing\Router;
 class Application
 {
 	public $cache = null; /**< Le gestionnaire de cache, instance de \ref Okatea\Cache\SingleFileCache */
-	public $config = null; /**< Le gestionnaire de configuration, instance de \ref oktConfig */
-	public $db = null; /**< Le gestionnaire de base de données, instance de \ref mysql */
-	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref oktErrors */
-	public $help = null; /**< Le gestionnaire des fichiers d'aide */
-	public $languages = null; /**< Le gestionnaire de langues, instance de \ref oktLanguages */
-	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref oktLogAdmin */
-	public $modules = null; /**< Le gestionnaire de modules, instance de \ref oktModules */
+	public $config = null; /**< Le gestionnaire de configuration, instance de \ref Okatea\Core\Config */
+	public $db = null; /**< Le gestionnaire de base de données, instance de \ref Okatea\Database\MySqli */
+	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref Okatea\Core\Errors */
+	public $languages = null; /**< Le gestionnaire de langues, instance de \ref Okatea\Core\Languages */
+	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref Okatea\Core\LogAdmin */
+	public $modules = null; /**< Le gestionnaire de modules, instance de \ref Okatea\Core\Modules\ModulesCollection */
 	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref htmlPage */
 	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref Okatea\Routing\Router */
-	public $tpl = null; /**< Le moteur de templates, instance de \ref Templating */
-	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref oktTriggers */
-	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref oktAuth */
+	public $tpl = null; /**< Le moteur de templates, instance de \ref Okatea\Core\Templating */
+	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref Okatea\Core\Triggers */
+	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref Okatea\Core\Authentification */
 	public $autoloader = null;
 
 	protected $permsStack = array(); /**< La pile qui contient les permissions. */
@@ -82,7 +81,7 @@ class Application
 
 		//OKT_DB_PREFIX
 
-		$this->triggers = new \oktTriggers();
+		$this->triggers = new Triggers();
 
 		$this->router = new Router();
 	}

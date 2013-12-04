@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Triggers;
 use Okatea\Modules\Module;
 
 class module_news extends Module
@@ -60,7 +61,7 @@ class module_news extends Module
 		$this->t_users = $this->db->prefix.'core_users';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_news');

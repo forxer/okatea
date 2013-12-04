@@ -5,7 +5,9 @@
  *
  */
 
-class guestbookController extends oktController
+use Okatea\Core\Controller;
+
+class guestbookController extends Controller
 {
 	/**
 	 * Affichage de la page guestbook.

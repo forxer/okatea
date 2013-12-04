@@ -5,7 +5,9 @@
  *
  */
 
-class pagesController extends oktController
+use Okatea\Core\Controller;
+
+class pagesController extends Controller
 {
 	/**
 	 * Affichage de la liste des pages classique.

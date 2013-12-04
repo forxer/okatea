@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Triggers;
 use Okatea\Modules\Module;
 
 class module_pages extends Module
@@ -58,7 +59,7 @@ class module_pages extends Module
 		$this->t_categories_locales = $this->db->prefix.'mod_pages_categories_locales';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');

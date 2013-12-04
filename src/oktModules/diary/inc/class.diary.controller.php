@@ -5,7 +5,9 @@
  *
  */
 
-class diaryController extends oktController
+use Okatea\Core\Controller;
+
+class diaryController extends Controller
 {
 	/**
 	 * Affichage du calendrier

@@ -5,7 +5,9 @@
  *
  */
 
-class usersController extends oktController
+use Okatea\Core\Controller;
+
+class usersController extends Controller
 {
 	protected $sRedirectURL;
 	protected $sUserId = '';

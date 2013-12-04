@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktController
- * @ingroup okt_classes_core
- * @brief Controller de base
+ * Controller de base.
  *
  */
-class oktController
+class Controller
 {
 	protected $okt;
 
@@ -30,7 +29,7 @@ class oktController
 		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée
 		//$this->sRequestedLanguage = $this->setUserRequestLanguage();
 		if ($this->setUserRequestLanguage()) {
-			http::redirect($this->okt->page->getBaseUrl());
+			\http::redirect($this->okt->page->getBaseUrl());
 		}
 	}
 
@@ -89,9 +88,9 @@ class oktController
 	{
 		$bClass = $this->okt->config->default_route['class'] == $sClass;
 		$bMethod = $this->okt->config->default_route['method'] == $sMethod;
-		
+
 		$bArgs = true;
-		
+
 		if (!is_null($sArgs)) {
 			$bArgs = $this->okt->config->default_route['args'] == $sArgs;
 		}
@@ -112,7 +111,7 @@ class oktController
 		$this->okt->page->module = '404';
 		$this->okt->page->action = '404';
 
-		http::head(404);
+		\http::head(404);
 
 		echo $this->okt->tpl->render('404');
 
@@ -128,7 +127,7 @@ class oktController
 		$this->okt->page->module = '503';
 		$this->okt->page->action = '503';
 
-		http::head(503);
+		\http::head(503);
 
 		header('Retry-After: 3600');
 
@@ -138,4 +137,4 @@ class oktController
 	}
 
 
-} # class oktController
+} # class
