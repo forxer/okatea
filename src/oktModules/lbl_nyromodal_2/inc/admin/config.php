@@ -36,7 +36,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=lbl_nyromodal_2&action=config');
+			http::redirect('module.php?m=lbl_nyromodal_2&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -49,14 +49,14 @@ $p_chp_favo = $okt->catalog->config->fields['favo'];
 if (!empty($_GET['minregen']))
 {
 	$okt->catalog->regenMinImages();
-	$okt->redirect('module.php?m=catalog&action=config&minregenerated=1');
+	http::redirect('module.php?m=catalog&action=config&minregenerated=1');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->catalog->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=catalog&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=catalog&action=config&watermarkdeleted=1');
 }
 
 # enregistrement configuration
@@ -132,7 +132,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->catalog->config->write($new_conf);
-			$okt->redirect('module.php?m=catalog&action=config&updated=1');
+			http::redirect('module.php?m=catalog&action=config&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -28,7 +28,7 @@ if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'],$aCacheFiles))
 		unlink(OKT_CACHE_PATH.'/'.$_GET['cache_file']);
 	}
 
-	$okt->redirect('configuration.php?action=tools&file_deleted=1');
+	http::redirect('configuration.php?action=tools&file_deleted=1');
 }
 
 
@@ -42,7 +42,7 @@ if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'],$a
 		unlink(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
 	}
 
-	$okt->redirect('configuration.php?action=tools&file_deleted=1');
+	http::redirect('configuration.php?action=tools&file_deleted=1');
 }
 
 # Suppression des fichiers cache
@@ -52,5 +52,5 @@ if (!empty($_GET['all_cache_file']))
 
 	util::deleteOktPublicCacheFiles();
 
-	$okt->redirect('configuration.php?action=tools&files_deleted=1');
+	http::redirect('configuration.php?action=tools&files_deleted=1');
 }

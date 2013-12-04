@@ -52,7 +52,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->catalog->config->write($new_conf);
-			$okt->redirect('module.php?m=catalog&action=display&updated=1');
+			http::redirect('module.php?m=catalog&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

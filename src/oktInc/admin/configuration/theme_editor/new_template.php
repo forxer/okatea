@@ -124,7 +124,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 			');'."\n"
 		);
 
-		$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode(str_replace('/'.$sThemeId.'/templates', '/templates', $sTemplate)));
+		http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode(str_replace('/'.$sThemeId.'/templates', '/templates', $sTemplate)));
 	}
 }
 

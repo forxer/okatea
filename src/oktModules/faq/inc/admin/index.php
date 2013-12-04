@@ -32,7 +32,7 @@ if (!empty($_GET['switch_status']))
 if (!empty($_GET['init_filters']))
 {
 	$okt->faq->filters->initFilters();
-	$okt->redirect('module.php?m=faq&action=index');
+	http::redirect('module.php?m=faq&action=index');
 }
 
 

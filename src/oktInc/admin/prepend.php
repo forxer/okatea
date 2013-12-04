@@ -44,7 +44,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	{
 		$okt->page->flashMessages->addWarning(__('c_c_auth_not_logged_in'));
 
-		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
 	# si il n'a pas la permission, il dégage
@@ -54,7 +54,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 
 		$okt->page->flashMessages->addError(__('c_c_auth_restricted_access'));
 
-		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
 	# enfin, si on est en maintenance, il faut être superadmin
@@ -76,7 +76,7 @@ if (!empty($_REQUEST['logout']))
 
 	$okt->user->logout();
 
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -87,7 +87,7 @@ if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_
 
 	$okt->page->flashMessages->addError(__('c_c_auth_bad_csrf_token'));
 
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 

@@ -41,7 +41,7 @@ if (!empty($_GET['switch_status']))
 {
 	if ($okt->estimate->accessories->switchAccessoryStatus($_GET['switch_status']) !== false)
 	{
-		$okt->redirect($sRedirectUrl);
+		http::redirect($sRedirectUrl);
 	}
 }
 
@@ -52,7 +52,7 @@ if (!empty($_GET['delete_accessory']))
 	{
 		$okt->page->flashMessages->addSuccess(__('m_estimate_accessory_deleted'));
 
-		$okt->redirect($sRedirectUrl);
+		http::redirect($sRedirectUrl);
 	}
 }
 

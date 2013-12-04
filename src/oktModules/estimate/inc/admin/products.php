@@ -24,7 +24,7 @@ if (!empty($_GET['switch_status']))
 {
 	if ($okt->estimate->products->switchProductStatus($_GET['switch_status']) !== false)
 	{
-		$okt->redirect('module.php?m=estimate&action=products');
+		http::redirect('module.php?m=estimate&action=products');
 	}
 }
 
@@ -35,7 +35,7 @@ if (!empty($_GET['delete_product']))
 	{
 		$okt->page->flashMessages->addSuccess(__('m_estimate_product_deleted'));
 
-		$okt->redirect('module.php?m=estimate&action=products');
+		http::redirect('module.php?m=estimate&action=products');
 	}
 }
 

@@ -44,5 +44,5 @@ elseif ($okt->page->do === 'config') {
 	require __DIR__.'/navigation/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

@@ -130,7 +130,7 @@ if (!empty($_GET['switch_status']) && !empty($aItemData['item']['id']))
 			'message' => 'item #'.$aItemData['item']['id']
 		));
 
-		$okt->redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&switched=1');
+		http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -149,7 +149,7 @@ if (!empty($_GET['delete_image']) && !empty($aItemData['item']['id']))
 		'message' => 'item #'.$aItemData['item']['id']
 	));
 
-	$okt->redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&updated=1');
+	http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&updated=1');
 }
 
 #  ajout / modifications d'un élément
@@ -207,7 +207,7 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$aItemData['item']['id']
 				));
 
-				$okt->redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&updated=1');
+				http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&updated=1');
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -234,7 +234,7 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$aItemData['item']['id']
 				));
 
-				$okt->redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&added=1');
+				http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&added=1');
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());

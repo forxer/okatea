@@ -70,5 +70,5 @@ elseif ($okt->page->action == 'advanced' && $okt->checkPerm('is_superadmin')) {
 	require OKT_INC_PATH.'/admin/configuration/advanced.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

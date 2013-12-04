@@ -173,7 +173,7 @@ if (!empty($_POST['form_sent']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=display');
+			http::redirect('configuration.php?action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -13,7 +13,7 @@ if (!empty($_REQUEST['id'])){
 	$sig_id = intval($_REQUEST['id']);
 }
 else {
-	$okt->redirect('index.php?'.$url_params);
+	http::redirect('index.php?'.$url_params);
 }
 
 # récupération des infos de la signature
@@ -55,7 +55,7 @@ if (!empty($_POST['edit_form_sent']))
 		{
 			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_updated'));
 
-			$okt->redirect('module.php?m=guestbook&amp;action=edit&id='.$sig_id . $url_params);
+			http::redirect('module.php?m=guestbook&amp;action=edit&id='.$sig_id . $url_params);
 		}
 	}
 }

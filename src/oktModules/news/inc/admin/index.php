@@ -49,7 +49,7 @@ $okt->news->filtersStart('admin');
 if (!empty($_GET['init_filters']))
 {
 	$okt->news->filters->initFilters();
-	$okt->redirect('module.php?m=news&action=index');
+	http::redirect('module.php?m=news&action=index');
 }
 
 # Switch statut
@@ -66,7 +66,7 @@ if (!empty($_GET['switch_status']))
 			'message' => 'post #'.$_GET['switch_status']
 		));
 
-		$okt->redirect('module.php?m=news&action=index&switched=1');
+		http::redirect('module.php?m=news&action=index&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -85,7 +85,7 @@ if (!empty($_GET['switch_selected']))
 		'message' => 'post #'.$_GET['switch_selected']
 	));
 
-	$okt->redirect('module.php?m=news&action=index&selected=1');
+	http::redirect('module.php?m=news&action=index&selected=1');
 }
 
 # Sélectionne un article
@@ -102,7 +102,7 @@ if (!empty($_GET['select']))
 
 	$okt->page->flashMessages->addSuccess(__('m_news_list_post_selected'));
 
-	$okt->redirect('module.php?m=news&action=index');
+	http::redirect('module.php?m=news&action=index');
 }
 
 # Déselectionne un article
@@ -119,7 +119,7 @@ if (!empty($_GET['deselect']))
 
 	$okt->page->flashMessages->addSuccess(__('m_news_list_post_deselected'));
 
-	$okt->redirect('module.php?m=news&action=index');
+	http::redirect('module.php?m=news&action=index');
 }
 
 # Publication d'un article
@@ -136,7 +136,7 @@ if (!empty($_GET['publish']))
 
 	$okt->page->flashMessages->addSuccess(__('m_news_list_post_published'));
 
-	$okt->redirect('module.php?m=news&action=index');
+	http::redirect('module.php?m=news&action=index');
 }
 
 # Traitements par lots
@@ -160,7 +160,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&switcheds=1');
+			http::redirect('module.php?m=news&action=index&switcheds=1');
 		}
 		elseif ($_POST['actions'] == 'hide')
 		{
@@ -176,7 +176,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->redirect('module.php?m=news&action=index&switcheds=1');
+			http::redirect('module.php?m=news&action=index&switcheds=1');
 		}
 		elseif ($_POST['actions'] == 'publish')
 		{
@@ -194,7 +194,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 
 			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_published'));
 
-			$okt->redirect('module.php?m=news&action=index');
+			http::redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'selected')
 		{
@@ -212,7 +212,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 
 			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_selected'));
 
-			$okt->redirect('module.php?m=news&action=index');
+			http::redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'unselected')
 		{
@@ -230,7 +230,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 
 			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deselected'));
 
-			$okt->redirect('module.php?m=news&action=index');
+			http::redirect('module.php?m=news&action=index');
 		}
 		elseif ($_POST['actions'] == 'delete' && $okt->checkPerm('news_delete'))
 		{
@@ -248,7 +248,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 
 			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deleted'));
 
-			$okt->redirect('module.php?m=news&action=index');
+			http::redirect('module.php?m=news&action=index');
 		}
 	}
 	catch (Exception $e) {

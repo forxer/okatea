@@ -60,7 +60,7 @@ if (!empty($_GET['minregen']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
 
-	$okt->redirect('module.php?m=pages&action=config');
+	http::redirect('module.php?m=pages&action=config');
 }
 
 # suppression filigrane
@@ -70,7 +70,7 @@ if (!empty($_GET['delete_watermark']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_watermark_deleted'));
 
-	$okt->redirect('module.php?m=pages&action=config');
+	http::redirect('module.php?m=pages&action=config');
 }
 
 # enregistrement configuration
@@ -179,7 +179,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=pages&action=config');
+			http::redirect('module.php?m=pages&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

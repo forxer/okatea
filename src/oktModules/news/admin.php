@@ -10,7 +10,7 @@ if (!defined('ON_NEWS_MODULE')) die;
 
 
 if (!$okt->checkPerm('news_usage') && !$okt->checkPerm('news_contentadmin')) {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 
@@ -33,7 +33,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 
 		$okt->page->flashMessages->addSuccess(__('m_news_list_post_deleted'));
 
-		$okt->redirect('module.php?m=news&action=index');
+		http::redirect('module.php?m=news&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -89,5 +89,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('news_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

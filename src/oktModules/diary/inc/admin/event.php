@@ -87,21 +87,21 @@ if (!empty($_REQUEST['event_id']))
 if (!empty($_GET['switch_status']) && !empty($iEventId))
 {
 	$okt->diary->switchEventStatus($iEventId);
-	$okt->redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&switched=1');
+	http::redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&switched=1');
 }
 
 # suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($iEventId))
 {
 	$okt->diary->deleteImage($iEventId, $_GET['delete_image']);
-	$okt->redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&edited=1');
+	http::redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&edited=1');
 }
 
 # suppression d'un fichier
 if (!empty($_GET['delete_file']) && !empty($iEventId))
 {
 	$okt->diary->deleteFile($iEventId, $_GET['delete_file']);
-	$okt->redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&edited=1');
+	http::redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&edited=1');
 }
 
 #  ajout / modifications d'un élément
@@ -141,7 +141,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleDiaryAfterEventUpdate
 				$okt->triggers->callTrigger('moduleDiaryAfterEventUpdate', $cursor, $aEventData, $iEventId);
 
-				$okt->redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&updated=1');
+				http::redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&updated=1');
 			}
 		}
 
@@ -156,7 +156,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleDiaryAfterEventCreate
 				$okt->triggers->callTrigger('moduleDiaryAfterEventCreate', $cursor, $aEventData, $iEventId);
 
-				$okt->redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&added=1');
+				http::redirect('module.php?m=diary&action=edit&event_id='.$iEventId.'&added=1');
 			}
 		}
 	}

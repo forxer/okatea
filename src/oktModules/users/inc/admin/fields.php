@@ -23,7 +23,7 @@ if (!empty($_GET['delete']))
 	{
 		$okt->page->flashMessages->addSuccess(__('m_users_fields_deleted'));
 
-		$okt->redirect('module.php?m=users&action=fields');
+		http::redirect('module.php?m=users&action=fields');
 	}
 }
 
@@ -53,7 +53,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 	$okt->page->flashMessages->addSuccess(__('m_users_neworder'));
 
-	$okt->redirect('module.php?m=users&action=fields');
+	http::redirect('module.php?m=users&action=fields');
 }
 
 

@@ -192,7 +192,7 @@ if (!empty($_REQUEST['switch_lang']))
 {
 	$okt->user->setUserLang($_REQUEST['switch_lang']);
 
-	$okt->redirect(util::removeAttrFromUrl('switch_lang',$okt->config->self_uri));
+	http::redirect(util::removeAttrFromUrl('switch_lang',$okt->config->self_uri));
 }
 
 # Suppression des fichiers cache
@@ -201,5 +201,5 @@ if (!empty($_REQUEST['empty_cache']))
 	util::deleteOktCacheFiles();
 	util::deleteOktPublicCacheFiles();
 
-	$okt->redirect(util::removeAttrFromUrl('empty_cache',$okt->config->self_uri));
+	http::redirect(util::removeAttrFromUrl('empty_cache',$okt->config->self_uri));
 }

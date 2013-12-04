@@ -88,14 +88,14 @@ $rsCategories = $okt->partners->getCategories(array('visibility'=>2, 'language' 
 if (!empty($_GET['switch_status']) && !empty($partner_id))
 {
 	$okt->partners->setPartnerStatus($partner_id);
-	$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&switched=1');
+	http::redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&switched=1');
 }
 
 # Suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($partner_id))
 {
 	$okt->partners->deleteLogo($partner_id, 1);
-	$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&edited=1');
+	http::redirect('module.php?m=partners&action=edit&partner_id='.$partner_id.'&edited=1');
 }
 
 # Formulaire envoyé
@@ -128,7 +128,7 @@ if (!empty($_POST['sended']))
 
 		$okt->page->flashMessages->addSuccess(__('m_partners_updated'));
 
-		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
+		http::redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
 	}
 
 	# add partner
@@ -138,7 +138,7 @@ if (!empty($_POST['sended']))
 
 		$okt->page->flashMessages->addSuccess(__('m_partners_added'));
 
-		$okt->redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
+		http::redirect('module.php?m=partners&action=edit&partner_id='.$partner_id);
 	}
 }
 

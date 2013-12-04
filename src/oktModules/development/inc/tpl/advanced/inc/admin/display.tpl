@@ -43,7 +43,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->##module_id##->config->write($new_conf);
-			$okt->redirect('module.php?m=##module_id##&action=display&updated=1');
+			http::redirect('module.php?m=##module_id##&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

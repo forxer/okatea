@@ -49,7 +49,7 @@ $okt->pages->filtersStart('admin');
 if (!empty($_GET['init_filters']))
 {
 	$okt->pages->filters->initFilters();
-	$okt->redirect('module.php?m=pages&action=index');
+	http::redirect('module.php?m=pages&action=index');
 }
 
 # Switch statut
@@ -66,7 +66,7 @@ if (!empty($_GET['switch_status']))
 			'message' => 'page #'.$_GET['switch_status']
 		));
 
-		$okt->redirect('module.php?m=pages&action=index&switched=1');
+		http::redirect('module.php?m=pages&action=index&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -94,7 +94,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 				));
 			}
 
-			$okt->redirect('module.php?m=pages&action=index&switcheds=1');
+			http::redirect('module.php?m=pages&action=index&switcheds=1');
 		}
 		elseif ($_POST['actions'] == 'hide')
 		{
@@ -110,7 +110,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 				));
 			}
 
-			$okt->redirect('module.php?m=pages&action=index&switcheds=1');
+			http::redirect('module.php?m=pages&action=index&switcheds=1');
 		}
 		elseif ($_POST['actions'] == 'delete' && $okt->checkPerm('pages_remove'))
 		{
@@ -126,7 +126,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 				));
 			}
 
-			$okt->redirect('module.php?m=pages&action=index&deleteds=1');
+			http::redirect('module.php?m=pages&action=index&deleteds=1');
 		}
 	}
 	catch (Exception $e) {

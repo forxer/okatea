@@ -95,7 +95,7 @@ if (!empty($_POST['form_sent']))
 		}
 
 		if ($okt->users->fields->setFieldValue($iFieldId,$value) !== false) {
-			$okt->redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&edited=1');
+			http::redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&edited=1');
 		}
 	}
 	# description champ
@@ -129,14 +129,14 @@ if (!empty($_POST['form_sent']))
 			if (!is_null($iFieldId))
 			{
 				if ($okt->users->fields->updField($iFieldId, $aFieldData) !== false) {
-					$okt->redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&edited=1');
+					http::redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&edited=1');
 				}
 			}
 			# ajout
 			else
 			{
 				if (($iFieldId = $okt->users->fields->addField($aFieldData)) !== false) {
-					$okt->redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&added=1');
+					http::redirect('module.php?m=users&action=field&do=value&field_id='.$iFieldId.'&added=1');
 				}
 			}
 

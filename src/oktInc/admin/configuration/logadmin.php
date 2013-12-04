@@ -42,14 +42,14 @@ if (!empty($_GET['truncate']) && $okt->user->is_superadmin)
 
 	$okt->page->flashMessages->addSuccess(__('c_a_config_logadmin_truncated'));
 
-	$okt->redirect('configuration.php?action=logadmin');
+	http::redirect('configuration.php?action=logadmin');
 }
 
 # Ré-initialisation filtres
 if (!empty($_GET['init_filters']))
 {
 	$okt->logAdmin->filters->initFilters();
-	$okt->redirect('configuration.php?action=logadmin');
+	http::redirect('configuration.php?action=logadmin');
 }
 
 

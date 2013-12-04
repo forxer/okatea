@@ -42,7 +42,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->development->config->write($new_conf);
-			$okt->redirect('module.php?m=development&action=debug_bar&updated=1');
+			http::redirect('module.php?m=development&action=debug_bar&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

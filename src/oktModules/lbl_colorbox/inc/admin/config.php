@@ -44,7 +44,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=lbl_colorbox&action=config');
+			http::redirect('module.php?m=lbl_colorbox&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

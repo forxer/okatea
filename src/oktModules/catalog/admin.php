@@ -10,14 +10,14 @@ if (!defined('ON_CATALOG_MODULE')) die;
 
 # Perms ?
 if (!$okt->checkPerm('catalog')) {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 # suppression d’un produit
 if ($okt->page->action === 'delete' && !empty($_GET['product_id']))
 {
 	if ($okt->catalog->deleteProd($_GET['product_id'])) {
-		$okt->redirect('module.php?m=catalog&action=index&deleted=1');
+		http::redirect('module.php?m=catalog&action=index&deleted=1');
 	}
 	else {
 		$okt->page->action = 'index';
@@ -62,5 +62,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('catalog_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

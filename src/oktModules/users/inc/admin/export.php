@@ -83,7 +83,7 @@ if (!empty($_POST['form_sent']))
 	if ($okt->error->isEmpty())
 	{
 		$okt->users->export($p_format,$p_field,$p_group);
-		$okt->redirect('module.php?m=users&action=export&done=1');
+		http::redirect('module.php?m=users&action=export&done=1');
 	}
 }
 

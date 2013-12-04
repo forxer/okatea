@@ -100,7 +100,7 @@ class oktTemplatesSet
 		{
 			$this->deleteTemplate(rawurldecode($_GET['tpl_id']));
 
-			$this->okt->redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
+			http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
 		}
 
 		if (isset($this->okt->page) && !empty($_GET['tpl_family']) && rawurldecode($_GET['tpl_family']) == $this->sTplFamily) {

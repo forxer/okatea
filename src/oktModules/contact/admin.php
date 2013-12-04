@@ -30,5 +30,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('contact_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

@@ -20,14 +20,14 @@ $okt->##module_id##->filtersStart('admin');
 if (!empty($_GET['init_filters']))
 {
 	$okt->##module_id##->filters->initFilters();
-	$okt->redirect('module.php?m=##module_id##&action=index');
+	http::redirect('module.php?m=##module_id##&action=index');
 }
 
 # Switch statut
 if (!empty($_GET['switch_status']))
 {
 	$okt->##module_id##->switchItemStatus($_GET['switch_status']);
-	$okt->redirect('module.php?m=##module_id##&action=index&switched=1');
+	http::redirect('module.php?m=##module_id##&action=index&switched=1');
 }
 
 # Traitements par lots
@@ -41,7 +41,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 			$okt->##module_id##->setItemStatus($itemId,1);
 		}
 
-		$okt->redirect('module.php?m=##module_id##&action=index&switcheds=1');
+		http::redirect('module.php?m=##module_id##&action=index&switcheds=1');
 	}
 	elseif ($_POST['actions'] == 'hide')
 	{
@@ -49,7 +49,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 			$okt->##module_id##->setItemStatus($itemId,0);
 		}
 
-		$okt->redirect('module.php?m=##module_id##&action=index&switcheds=1');
+		http::redirect('module.php?m=##module_id##&action=index&switcheds=1');
 	}
 	elseif($_POST['actions'] == 'delete')
 	{
@@ -57,7 +57,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 			$okt->##module_id##->delItem($itemId);
 		}
 
-		$okt->redirect('module.php?m=##module_id##&action=index&deleteds=1');
+		http::redirect('module.php?m=##module_id##&action=index&deleteds=1');
 	}
 }
 

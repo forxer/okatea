@@ -64,7 +64,7 @@ if (!empty($_POST['form_sent']))
 	{
 		file_put_contents($oThemeEditor->getThemePath().$p_parent.'/'.$p_filename, '');
 
-		$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode($p_parent.'/'.$p_filename));
+		http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode($p_parent.'/'.$p_filename));
 	}
 }
 

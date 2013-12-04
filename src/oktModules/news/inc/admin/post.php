@@ -170,7 +170,7 @@ if (!empty($_GET['switch_status']) && !empty($aPostData['post']['id']) && $bCanE
 			'message' => 'post #'.$aPostData['post']['id']
 		));
 
-		$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&switched=1');
+		http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -189,7 +189,7 @@ if (!empty($_GET['publish']) && !empty($aPostData['post']['id']) && $bCanPublish
 		'message' => 'post #'.$aPostData['post']['id']
 	));
 
-	$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&published=1');
+	http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&published=1');
 }
 
 # suppression d'une image
@@ -204,7 +204,7 @@ if (!empty($_GET['delete_image']) && !empty($aPostData['post']['id']) && $bCanEd
 		'message' => 'post #'.$aPostData['post']['id']
 	));
 
-	$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&edited=1');
+	http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&edited=1');
 }
 
 # suppression d'un fichier
@@ -219,7 +219,7 @@ if (!empty($_GET['delete_file']) && !empty($aPostData['post']['id']) && $bCanEdi
 		'message' => 'post #'.$aPostData['post']['id']
 	));
 
-	$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&edited=1');
+	http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&edited=1');
 }
 
 #  ajout / modifications d'un article
@@ -292,7 +292,7 @@ if (!empty($_POST['sended']) && $bCanEditPost)
 					'message' => 'post #'.$aPostData['post']['id']
 				));
 
-				$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&updated=1');
+				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&updated=1');
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -319,7 +319,7 @@ if (!empty($_POST['sended']) && $bCanEditPost)
 					'message' => 'post #'.$aPostData['post']['id']
 				));
 
-				$okt->redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&added=1');
+				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&added=1');
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());

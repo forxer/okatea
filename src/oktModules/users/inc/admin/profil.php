@@ -17,7 +17,7 @@ if (!defined('ON_USERS_MODULE')) die;
 $user_id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
 
 if ($user_id === null || $user_id != $okt->user->id) {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 $rsUser = $okt->users->getUser($user_id);
@@ -54,7 +54,7 @@ if (!empty($_REQUEST['delete_cookies']))
 
 	$okt->page->flashMessages->addSuccess(__('m_users_cookies_has_been_deleted'));
 
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
+	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 # Formulaire de changement de mot de passe
@@ -71,7 +71,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password'))
 
 	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
 
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
+	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 # Formulaire de modification de l'utilisateur envoyé
@@ -100,7 +100,7 @@ if (!empty($_POST['form_sent']))
 
 	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
 
-	$okt->redirect('module.php?m=users&action=profil&id='.$user_id);
+	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }
 
 

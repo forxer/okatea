@@ -144,7 +144,7 @@ if (!empty($_GET['switch_status']) && !empty($aPageData['post']['id']))
 			'message' => 'page #'.$aPageData['post']['id']
 		));
 
-		$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&switched=1');
+		http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id'].'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -165,7 +165,7 @@ if (!empty($_GET['delete_image']) && !empty($aPageData['post']['id']))
 
 	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
 
-	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
+	http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
 
 # suppression d'un fichier
@@ -182,7 +182,7 @@ if (!empty($_GET['delete_file']) && !empty($aPageData['post']['id']))
 
 	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
 
-	$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
+	http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
 
 #  ajout / modifications d'une page
@@ -244,7 +244,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
 
-				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
+				http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -273,7 +273,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_pages_page_added'));
 
-				$okt->redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
+				http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());

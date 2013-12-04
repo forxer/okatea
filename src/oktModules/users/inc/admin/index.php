@@ -72,7 +72,7 @@ if (!empty($_GET['enable']))
 			'message' => 'user #'.$_GET['enable']
 		));
 
-		$okt->redirect('module.php?m=users&action=index&switched=1');
+		http::redirect('module.php?m=users&action=index&switched=1');
 	}
 }
 
@@ -88,7 +88,7 @@ if (!empty($_GET['disable']))
 			'message' => 'user #'.$_GET['disable']
 		));
 
-		$okt->redirect('module.php?m=users&action=index&switched=1');
+		http::redirect('module.php?m=users&action=index&switched=1');
 	}
 }
 
@@ -109,7 +109,7 @@ if (!empty($_GET['delete']) && $okt->checkPerm('users_delete'))
 
 		$okt->page->flashMessages->addSuccess(__('m_users_user_deleted'));
 
-		$okt->redirect('module.php?m=users&action=index');
+		http::redirect('module.php?m=users&action=index');
 	}
 }
 
@@ -117,7 +117,7 @@ if (!empty($_GET['delete']) && $okt->checkPerm('users_delete'))
 if (!empty($_GET['init_filters']))
 {
 	$filters->initFilters();
-	$okt->redirect('module.php?m=users&action=index');
+	http::redirect('module.php?m=users&action=index');
 }
 
 

@@ -465,39 +465,4 @@ class oktCore
 		return $str;
 	}
 
-	/**
-	 * Performs a conforming HTTP redirect for a relative URL.
-	 *
-	 * @param string	$url		Relative URL
-	 * @return void
-	 */
-	public function redirect($url)
-	{
-		if ($this->config->stop_redirect_on_error && (isset($this->error) && $this->error->hasError())) {
-			return false;
-		}
-
-		$url = str_replace('&amp;','&',$url);
-
-		if (preg_match('%^http[s]?://%',$url)) {
-			$redir = $url;
-		}
-		else {
-			if (substr($url,0,1) === '/') {
-				$redir = $this->config->app_url.substr($url,1);
-			} else {
-				$dirname = defined(OKT_DIRNAME) && substr(OKT_DIRNAME, 0, -1) === '/' ? OKT_DIRNAME : OKT_DIRNAME.'/';
-				$redir = $this->config->app_host.$dirname.$url;
-			}
-		}
-
-		# Close session if exists
-		if (session_id()) {
-			session_write_close();
-		}
-
-		header('Location: '.$redir);
-		exit;
-	}
-
 } # class oktCore

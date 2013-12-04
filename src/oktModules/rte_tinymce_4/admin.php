@@ -10,7 +10,7 @@ if (!defined('ON_RTE_TINYMCE_4_MODULE')) die;
 
 # Perm ?
 //if (!$okt->checkPerm('rte_tinymce_4')) {
-//	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+//	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 //}
 
 # inclusion du fichier requis en fonction de l'action demandée
@@ -21,5 +21,5 @@ if ($okt->page->action === 'config' && $okt->checkPerm('rte_tinymce_4_config')) 
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

@@ -72,7 +72,7 @@ if (!empty($_POST['edit_default_route']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=router');
+			http::redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -104,7 +104,7 @@ if (!empty($_POST['edit_custom_routes']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=router');
+			http::redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -154,7 +154,7 @@ if (!empty($_POST['add_custom_route']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=router');
+			http::redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -180,7 +180,7 @@ if (!empty($_POST['save_config']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=router');
+			http::redirect('configuration.php?action=router');
 		}
 		catch (InvalidArgumentException $e)
 		{

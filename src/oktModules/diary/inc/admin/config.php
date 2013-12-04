@@ -25,14 +25,14 @@ $oImageUploadConfig->setBaseUrl('module.php?m=diary&amp;action=config&amp;');
 if (!empty($_GET['minregen']))
 {
 	$okt->diary->regenMinImages();
-	$okt->redirect('module.php?m=diary&action=config&minregenerated=1');
+	http::redirect('module.php?m=diary&action=config&minregenerated=1');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->diary->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=diary&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=diary&action=config&watermarkdeleted=1');
 }
 
 # enregistrement configuration
@@ -102,7 +102,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->diary->config->write($new_conf);
-			$okt->redirect('module.php?m=diary&action=config&updated=1');
+			http::redirect('module.php?m=diary&action=config&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

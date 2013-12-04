@@ -66,7 +66,7 @@ class oktFilterIP extends oktSpamFilter
 			try
 			{
 				$this->addIP($ip_type,$_POST['addip']);
-				$this->okt->redirect($url.'&added=1&ip_type='.$ip_type);
+				http::redirect($url.'&added=1&ip_type='.$ip_type);
 			}
 			catch (Exception $e)
 			{
@@ -79,7 +79,7 @@ class oktFilterIP extends oktSpamFilter
 		{
 			try {
 				$this->removeRule($_POST['delip']);
-				$this->okt->redirect($url.'&removed=1&ip_type='.$ip_type);
+				http::redirect($url.'&removed=1&ip_type='.$ip_type);
 			}
 			catch (Exception $e)
 			{

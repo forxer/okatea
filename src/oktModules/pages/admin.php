@@ -9,7 +9,7 @@
 if (!defined('ON_PAGES_MODULE')) die;
 
 if (!$okt->checkPerm('pages')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -29,7 +29,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 
 		$okt->page->flashMessages->addSuccess(__('m_pages_list_page_deleted'));
 
-		$okt->redirect('module.php?m=pages&action=index');
+		http::redirect('module.php?m=pages&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -88,5 +88,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('pages_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

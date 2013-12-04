@@ -25,14 +25,14 @@ $oImageUploadConfig->setBaseUrl('module.php?m=faq&amp;action=config&amp;');
 if (!empty($_GET['minregen']))
 {
 	$okt->faq->regenMinImages();
-	$okt->redirect('module.php?m=faq&action=config&minregenerated=1');
+	http::redirect('module.php?m=faq&action=config&minregenerated=1');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->faq->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=faq&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=faq&action=config&watermarkdeleted=1');
 }
 
 

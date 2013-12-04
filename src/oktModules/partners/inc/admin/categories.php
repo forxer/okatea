@@ -98,7 +98,7 @@ if ($category_id)
 if (!empty($_GET['switch_status']))
 {
 	if ($okt->partners->switchCategoryStatus($_GET['switch_status'])) {
-		$okt->redirect('module.php?m=partners&action=categories&switched=1');
+		http::redirect('module.php?m=partners&action=categories&switched=1');
 	}
 }
 
@@ -109,7 +109,7 @@ if (!empty($_GET['delete']))
 	{
 		$okt->page->flashMessages->addSuccess(__('m_partners_category_deleted'));
 
-		$okt->redirect('module.php?m=partners&action=categories');
+		http::redirect('module.php?m=partners&action=categories');
 	}
 }
 
@@ -129,7 +129,7 @@ if (!empty($_POST['add_category']))
 		{
 			$okt->page->flashMessages->addSuccess(__('m_partners_category_added'));
 
-			$okt->redirect('module.php?m=partners&action=categories');
+			http::redirect('module.php?m=partners&action=categories');
 		}
 		else {
 			$okt->error->set(__('Impossible d’ajouter la catégorie.'));
@@ -155,7 +155,7 @@ if (!empty($_POST['edit_category']) && $category_id)
 		{
 			$okt->page->flashMessages->addSuccess(__('m_partners_category_edited'));
 
-			$okt->redirect('module.php?m=partners&action=categories');
+			http::redirect('module.php?m=partners&action=categories');
 		}
 		else {
 			$okt->error->set('Impossible de mettre à jour la catégorie.');
@@ -191,7 +191,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 	$okt->page->flashMessages->addSuccess(__('m_partners_category_order_edited'));
 
-	$okt->redirect('module.php?m=partners&action=categories&category_id='.$category_id);
+	http::redirect('module.php?m=partners&action=categories&category_id='.$category_id);
 }
 
 

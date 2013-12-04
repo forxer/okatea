@@ -150,7 +150,7 @@ if (!empty($_POST['order_categories']))
 
 			$okt->news->categories->rebuild();
 
-			$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&ordered=1');
+			http::redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&ordered=1');
 		}
 		catch (Exception $e) {
 			$okt->error->set($e->getMessage());
@@ -172,7 +172,7 @@ if (!empty($_GET['switch_status']) && !empty($iCategoryId))
 			'message' => 'category #'.$iCategoryId
 		));
 
-		$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&switched=1');
+		http::redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId.'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -233,7 +233,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_news_cat_updated'));
 
-				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
+				http::redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -263,7 +263,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_news_cat_added'));
 
-				$okt->redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
+				http::redirect('module.php?m=news&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());

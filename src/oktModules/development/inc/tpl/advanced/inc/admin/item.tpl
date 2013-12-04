@@ -72,21 +72,21 @@ if (!empty($_REQUEST['item_id']))
 if (!empty($_GET['switch_status']) && !empty($iItemId))
 {
 	$okt->##module_id##->switchItemStatus($iItemId);
-	$okt->redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&switched=1');
+	http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&switched=1');
 }
 
 # suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($iItemId))
 {
 	$okt->##module_id##->deleteImage($iItemId,$_GET['delete_image']);
-	$okt->redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&edited=1');
+	http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&edited=1');
 }
 
 # suppression d'un fichier
 if (!empty($_GET['delete_file']) && !empty($iItemId))
 {
 	$okt->##module_id##->deleteFile($iItemId,$_GET['delete_file']);
-	$okt->redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&edited=1');
+	http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&edited=1');
 }
 
 #  ajout / modifications d'un élément
@@ -121,7 +121,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemUpdate
 				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemUpdate', $cursor, $aItemData, $iItemId);
 
-				$okt->redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&updated=1');
+				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&updated=1');
 			}
 		}
 
@@ -136,7 +136,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemCreate
 				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemCreate', $cursor, $aItemData, $iItemId);
 
-				$okt->redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&added=1');
+				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&added=1');
 			}
 		}
 	}

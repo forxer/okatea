@@ -11,7 +11,7 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 
 # Perms ?
 if (!$okt->checkPerm('estimate')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # title tag
@@ -27,7 +27,7 @@ if (!$okt->modules->moduleExists('users'))
 {
 	$okt->page->flashMessages->addError(__('m_estimate_mod_users_exist'));
 
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 
@@ -47,7 +47,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
 
 		$okt->page->flashMessages->addSuccess(__('m_estimate_estimate_deleted'));
 
-		$okt->redirect('module.php?m=estimate&action=index');
+		http::redirect('module.php?m=estimate&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -79,5 +79,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

@@ -22,7 +22,7 @@ $m = !empty($_REQUEST['m']) ? $_REQUEST['m'] : null;
 if ($m === null || !$okt->modules->moduleExists($m) || !file_exists($okt->modules->getModuleObject($m)->root().'/admin.php'))
 {
 	# FIXME need 404 redirect
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 # get module admin file
