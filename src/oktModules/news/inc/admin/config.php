@@ -17,7 +17,7 @@ if (!defined('ON_NEWS_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->news->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->news->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=news&amp;action=config&amp;');
 
 # Gestionnaires de templates

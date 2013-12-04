@@ -13,7 +13,7 @@ if (!defined('ON_CATALOG_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->catalog->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->catalog->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=catalog&amp;action=config&amp;');
 
 $field_choice = array(

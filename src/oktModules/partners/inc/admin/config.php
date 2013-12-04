@@ -13,7 +13,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->partners->getLogoUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->partners->getLogoUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=partners&amp;action=config&amp;');
 $oImageUploadConfig->setUnique(true);
 $oImageUploadConfig->setWithWatermark(false);

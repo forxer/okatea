@@ -14,7 +14,7 @@ if (!defined('ON_DIARY_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->diary->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->diary->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=diary&amp;action=config&amp;');
 
 

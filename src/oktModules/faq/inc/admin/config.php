@@ -14,7 +14,7 @@ if (!defined('ON_FAQ_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->faq->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->faq->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=faq&amp;action=config&amp;');
 
 

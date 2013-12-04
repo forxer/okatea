@@ -17,13 +17,13 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images des éléments
-$oItemImageUploadConfig = new oktImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
+$oItemImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
 $oItemImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;item_');
 $oItemImageUploadConfig->setFormPrefix('p_item_');
 $oItemImageUploadConfig->setUnique(true);
 
 # Gestion des images des galeries
-$oGalleryImageUploadConfig = new oktImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
+$oGalleryImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
 $oGalleryImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;gallery_');
 $oGalleryImageUploadConfig->setFormPrefix('p_gallery_');
 $oGalleryImageUploadConfig->setUnique(true);

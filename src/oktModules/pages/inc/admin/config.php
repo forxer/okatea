@@ -17,7 +17,7 @@ if (!defined('ON_PAGES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->pages->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->pages->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=pages&amp;action=config&amp;');
 
 # Gestionnaires de templates

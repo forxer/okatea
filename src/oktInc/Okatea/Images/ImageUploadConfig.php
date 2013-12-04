@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Images;
 
 /**
- * @class oktImageUploadConfig
- * @ingroup okt_classes_images
- * @brief Aide à la configuration de l'upload des images.
+ * Aide à la configuration de l'upload des images.
  *
  */
-class oktImageUploadConfig
+class ImageUploadConfig
 {
 	/**
 	 * L'objet core.
