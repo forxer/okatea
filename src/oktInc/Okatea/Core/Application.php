@@ -27,7 +27,7 @@ class Application
 	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref Okatea\Core\Errors */
 	public $languages = null; /**< Le gestionnaire de langues, instance de \ref Okatea\Core\Languages */
 	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref Okatea\Core\LogAdmin */
-	public $modules = null; /**< Le gestionnaire de modules, instance de \ref Okatea\Core\Modules\ModulesCollection */
+	public $modules = null; /**< Le gestionnaire de modules, instance de \ref Okatea\Core\Modules\Collection */
 	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref htmlPage */
 	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref Okatea\Routing\Router */
 	public $tpl = null; /**< Le moteur de templates, instance de \ref Okatea\Core\Templating */

@@ -8,6 +8,10 @@
 
 namespace Okatea\Modules;
 
+use Okatea\Core\Authentification;
+use Okatea\Database\XmlSql;
+use Okatea\Themes\Collection as ThemesCollection;
+
 /**
  * Installation d'un module Okatea.
  *
@@ -31,7 +35,7 @@ class ModuleInstall extends Module
 	{
 		parent::__construct($okt,$modules_path);
 
-		$this->checklist = new checkList();
+		$this->checklist = new \checkList();
 
 		# get infos from define file
 		$this->setInfo('id', $id);
@@ -172,14 +176,14 @@ class ModuleInstall extends Module
 		{
 			$this->checklist->addItem(
 				'remove_upload_dir',
-				files::deltree($sUploadDir),
+				\files::deltree($sUploadDir),
 				'Remove upload dir',
 				'Cannot remove upload dir'
 			);
 		}
 
 		# suppression des fichiers assets
-		foreach (oktThemes::getThemes() as $sThemeId=>$sTheme)
+		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
 			$sAssetsDir = OKT_THEMES_PATH.'/'.$sThemeId.'/modules/'.$this->id().'/';
 
@@ -187,7 +191,7 @@ class ModuleInstall extends Module
 			{
 				$this->checklist->addItem(
 					'remove_assets_dir_'.$sThemeId,
-					$this->removeAssetsFiles($sAssetsDir, oktThemes::getLockedFiles($sThemeId)),
+					$this->removeAssetsFiles($sAssetsDir, ThemesCollection::getLockedFiles($sThemeId)),
 					'Remove assets dir in '.$sTheme.' theme',
 					'Cannot remove assets dir '.$sTheme.' theme'
 				);
@@ -236,7 +240,7 @@ class ModuleInstall extends Module
 		{
 			$this->checklist->addItem(
 				'remove_upload_dir',
-				files::deltree($sUploadDir),
+				\files::deltree($sUploadDir),
 				'Remove upload dir',
 				'Cannot remove upload dir'
 			);
@@ -314,7 +318,7 @@ class ModuleInstall extends Module
 		# compare templates
 		$this->compareFolder($this->root().'/_install/tpl/', OKT_THEMES_PATH.'/default/templates/');
 
-		foreach (oktThemes::getThemes() as $sThemeId=>$sTheme)
+		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
 			if ($sThemeId == 'default') {
 				continue;
@@ -326,7 +330,7 @@ class ModuleInstall extends Module
 		# compare assets
 		$this->compareFolder($this->root().'/_install/assets/', OKT_THEMES_PATH.'/default/modules/'.$this->id().'/');
 
-		foreach (oktThemes::getThemes() as $sThemeId=>$sTheme)
+		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
 			if ($sThemeId == 'default') {
 				continue;
@@ -414,7 +418,7 @@ class ModuleInstall extends Module
 		{
 			$this->checklist->addItem(
 				'tpl_file_'.$count,
-				(is_dir(OKT_THEMES_PATH.'/default/templates/'.$filename) ? files::deltree(OKT_THEMES_PATH.'/default/templates/'.$filename) : unlink(OKT_THEMES_PATH.'/default/templates/'.$filename)),
+				(is_dir(OKT_THEMES_PATH.'/default/templates/'.$filename) ? \files::deltree(OKT_THEMES_PATH.'/default/templates/'.$filename) : unlink(OKT_THEMES_PATH.'/default/templates/'.$filename)),
 				'Remove template file '.$filename,
 				'Cannot remove template file '.$filename
 			);
@@ -605,7 +609,7 @@ class ModuleInstall extends Module
 			return false;
 		}
 
-		$aSources = files::getDirList($sSourceDir);
+		$aSources = \files::getDirList($sSourceDir);
 		$aDests = array();
 
 		foreach ($aSources['files'] as $file) {
@@ -613,7 +617,7 @@ class ModuleInstall extends Module
 		}
 
 		if (!is_dir($sDestDir)) {
-			files::makeDir($sDestDir,true);
+			\files::makeDir($sDestDir,true);
 		}
 
 		foreach ($aDests as $file)
@@ -621,7 +625,7 @@ class ModuleInstall extends Module
 			$parent_dir = dirname($sDestDir.$file);
 
 			if (!is_dir($parent_dir)) {
-				files::makeDir($parent_dir,true);
+				\files::makeDir($parent_dir,true);
 			}
 
 			if (in_array($sDestDir.$file, $aLockedFiles)) {
@@ -656,7 +660,7 @@ class ModuleInstall extends Module
 			return false;
 		}
 
-		$aSources = files::getDirList($sSourceDir);
+		$aSources = \files::getDirList($sSourceDir);
 		$aDests = array();
 
 		foreach ($aSources['files'] as $file) {
@@ -787,11 +791,11 @@ class ModuleInstall extends Module
 	{
 		if (is_dir($this->root().'/_install/assets/'))
 		{
-			foreach (oktThemes::getThemes() as $sThemeId=>$sTheme)
+			foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 			{
 				$this->checklist->addItem(
 					'assets_dir_'.$sThemeId,
-					$this->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, oktThemes::getLockedFiles($sThemeId)),
+					$this->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId)),
 					'Create assets dir in '.$sTheme.' theme',
 					'Cannot create assets dir in '.$sTheme.' theme'
 				);
@@ -801,7 +805,7 @@ class ModuleInstall extends Module
 
 	protected function removeAssetsFiles($sAssetsDir, $aLockedFiles=array())
 	{
-		$aFiles = files::getDirList($sAssetsDir);
+		$aFiles = \files::getDirList($sAssetsDir);
 
 		foreach ($aFiles['files'] as $sFiles)
 		{
@@ -812,8 +816,8 @@ class ModuleInstall extends Module
 
 		foreach (array_reverse($aFiles['dirs']) as $sDir)
 		{
-			if (!util::dirHasFiles($sDir)) {
-				files::deltree($sDir);
+			if (!\util::dirHasFiles($sDir)) {
+				\files::deltree($sDir);
 			}
 		}
 
@@ -839,7 +843,7 @@ class ModuleInstall extends Module
 
 		if (file_exists($db_file))
 		{
-			$xsql = new xmlsql($this->db, file_get_contents($db_file), $this->checklist, $process);
+			$xsql = new XmlSql($this->db, file_get_contents($db_file), $this->checklist, $process);
 			$xsql->replace('{{PREFIX}}',$this->okt->db->prefix);
 			$xsql->execute();
 		}
@@ -885,7 +889,7 @@ class ModuleInstall extends Module
 
 			$this->checklist->addItem(
 				'module_handler_class_valide',
-				is_subclass_of('module_'.$this->id(),'oktModule'),
+				is_subclass_of('module_'.$this->id(),'\Okatea\Modules\Module'),
 				'Module handler class "module_'.$this->id().'" is a valid module class',
 				'Module handler class "module_'.$this->id().'" is not a valid module class'
 			);
@@ -927,7 +931,7 @@ class ModuleInstall extends Module
 		$query =
 		'SELECT perms '.
 		'FROM '.$sTgroups.' '.
-		'WHERE group_id='.(integer)oktAuth::admin_group_id;
+		'WHERE group_id='.(integer)Authentification::admin_group_id;
 
 		$rsPerms = $this->db->select($query);
 
@@ -942,7 +946,7 @@ class ModuleInstall extends Module
 		$query =
 		'UPDATE '.$sTgroups.' SET '.
 		'perms=\''.$this->db->escapeStr($aNewPerms).'\' '.
-		'WHERE group_id='.(integer)oktAuth::admin_group_id;
+		'WHERE group_id='.(integer)Authentification::admin_group_id;
 
 		$this->db->execute($query);
 	}

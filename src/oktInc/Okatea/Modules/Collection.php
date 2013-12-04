@@ -12,7 +12,7 @@ namespace Okatea\Modules;
  * Gestion des modules Okatea.
  *
  */
-class ModulesCollection
+class Collection
 {
 	/**
 	 * L'objet core.
@@ -572,7 +572,7 @@ class ModulesCollection
 	 * Install a module from a zip file
 	 *
 	 * @param string $zip_file
-	 * @param ModulesCollection $modules
+	 * @param Collection $modules
 	 */
 	public static function installPackage($zip_file, $modules)
 	{
@@ -681,7 +681,7 @@ class ModulesCollection
 	 */
 	public function getInstallClass($module_id)
 	{
-		$return = 'ModuleInstall';
+		$return = '\Okatea\Modules\ModuleInstall';
 
 		if (file_exists($this->path.'/'.$module_id.'/_install/module_install.php'))
 		{
@@ -689,7 +689,7 @@ class ModulesCollection
 
 			$class_install = 'moduleInstall_'.$module_id;
 
-			if (class_exists($class_install,false) && is_subclass_of($class_install, 'ModuleInstall')) {
+			if (class_exists($class_install,false) && is_subclass_of($class_install, '\Okatea\Modules\ModuleInstall')) {
 				$return = $class_install;
 			}
 		}

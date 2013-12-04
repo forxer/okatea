@@ -8,6 +8,8 @@
 
 namespace Okatea\Images;
 
+use \PHPThumb\GD as thumbnailer;
+
 /**
  * Outil pour l'upload des images.
  *
@@ -686,7 +688,7 @@ class ImageUpload
 			return null;
 		}
 
-		$oThumb = new PHPThumb\GD($sSourceFile);
+		$oThumb = new thumbnailer($sSourceFile);
 
 		if ($sResizeType === 'ratio') {
 			$oThumb->resize($iWidth, $iHeight);

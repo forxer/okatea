@@ -400,7 +400,7 @@ class LogAdmin
 	public function filtersStart()
 	{
 		if ($this->filters === null || !($this->filters instanceof logAdminFilters)) {
-			$this->filters = new logAdminFilters($this);
+			$this->filters = new \logAdminFilters($this);
 		}
 	}
 

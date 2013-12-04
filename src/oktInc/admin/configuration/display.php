@@ -27,7 +27,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 ----------------------------------------------------------*/
 
 $aUiThemes = htmlPage::getUiThemes();
-$aThemes = array_flip(oktThemes::getThemes());
+$aThemes = array_flip(Okatea\Themes\Collection::getThemes());
 
 $aNotAllowedAdminThemes = array(
 	'dark-hive',

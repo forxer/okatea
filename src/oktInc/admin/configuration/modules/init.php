@@ -79,8 +79,8 @@ foreach ($aModulesRepositories as $repo_name=>$modules)
 
 
 # Tri par ordre alphabétique des listes de modules
-uasort($aInstalledModules, array('Okatea\Modules\ModulesCollection', 'sortModulesList'));
-uasort($aUninstalledModules, array('Okatea\Modules\ModulesCollection', 'sortModulesList'));
+uasort($aInstalledModules, array('Okatea\Modules\Collection', 'sortModulesList'));
+uasort($aUninstalledModules, array('Okatea\Modules\Collection', 'sortModulesList'));
 
 foreach ($aModulesRepositories as $repo_name=>$modules) {
 	uasort($aModulesRepositories[$repo_name], array('oktModules', 'sortModulesList'));

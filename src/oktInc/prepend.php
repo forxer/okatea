@@ -167,7 +167,7 @@ $okt->navigation = new Okatea\Navigation\Menus\Menus($okt);
 
 
 # Initialisation du gestionnaire de modules
-$okt->modules = new Okatea\Modules\ModulesCollection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
+$okt->modules = new Okatea\Modules\Collection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 
 
 # initialisation du moteur de templates

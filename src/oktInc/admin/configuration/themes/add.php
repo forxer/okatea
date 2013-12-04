@@ -32,7 +32,7 @@ if ($okt->config->themes_repositories_enabled)
 
 # Tri par ordre alphabétique des listes de thèmes des dépots
 foreach ($aThemesRepositories as $repo_name=>$themes) {
-	uasort($aThemesRepositories[$repo_name], array('oktThemes','sortThemesList'));
+	uasort($aThemesRepositories[$repo_name], array('\Okatea\Themes\Collection','sortThemesList'));
 }
 
 
@@ -158,7 +158,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php elseif (!empty($aThemesRepositories)) : ?>
 			<?php foreach($aThemesRepositories as $repo_name=>$aThemes) : ?>
 
-			<h5><?php echo html::escapeHTML($repo_name).' ('.oktThemes::pluralizethemesCount(count($aThemes)).')'; ?></h5>
+			<h5><?php echo html::escapeHTML($repo_name).' ('.Okatea\Themes\Collection::pluralizethemesCount(count($aThemes)).')'; ?></h5>
 
 			<table class="common">
 				<caption><?php printf('c_a_themes_list_themes_available_%s', html::escapeHTML($repo_name)) ?></caption>

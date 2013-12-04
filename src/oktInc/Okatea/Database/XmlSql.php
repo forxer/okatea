@@ -16,7 +16,7 @@ namespace Okatea\Database;
  * Génération de requêtes SQL via un fichier XML
  *
  */
-class xmlsql
+class XmlSql
 {
 	private $job;
 	private $xml;

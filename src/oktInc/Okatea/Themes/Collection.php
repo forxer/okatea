@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Themes;
 
 /**
- * @class oktThemes
- * @ingroup okt_classes_themes
- * @brief Classe de gestion des thèmes
+ * Classe de gestion des thèmes.
  *
  */
-class oktThemes
+class Collection
 {
 	/**
 	 * Le chemin du répertoire des thèmes
@@ -123,7 +122,7 @@ class oktThemes
 		}
 		else
 		{
-			foreach (new DirectoryIterator($this->sPath) as $oFileInfo)
+			foreach (new \DirectoryIterator($this->sPath) as $oFileInfo)
 			{
 				if ($oFileInfo->isDot() || !$oFileInfo->isDir() || !file_exists($oFileInfo->getPathname().'/_define.php')) {
 					continue;
@@ -314,7 +313,7 @@ class oktThemes
 			return $sId;
 
 		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+			throw new \Exception($e->getMessage());
 		}
 	}
 
@@ -322,11 +321,11 @@ class oktThemes
 	 * Install a theme from a zip file
 	 *
 	 * @param string $zip_file
-	 * @param oktThemes $oThemes
+	 * @param Okatea\Themes\Collection $oThemes
 	 */
-	public static function installPackage($zip_file, oktThemes $oThemes)
+	public static function installPackage($zip_file, Okatea\Themes\Collection $oThemes)
 	{
-		$zip = new fileUnzip($zip_file);
+		$zip = new \fileUnzip($zip_file);
 		$zip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
 
 		$zip_root_dir = $zip->getRootDir();
@@ -349,21 +348,21 @@ class oktThemes
 		{
 			$zip->close();
 			unlink($zip_file);
-			throw new Exception(__('Empty theme zip file.'));
+			throw new \Exception(__('Empty theme zip file.'));
 		}
 
 		if (!$has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
-			throw new Exception(__('The zip file does not appear to be a valid theme.'));
+			throw new \Exception(__('The zip file does not appear to be a valid theme.'));
 		}
 
 		$ret_code = 1;
 
 		if (is_dir($destination))
 		{
-			throw new Exception(__('The theme allready exists, you can not update a theme.'));
+			throw new \Exception(__('The theme allready exists, you can not update a theme.'));
 			/*
 			copy($target.'/_define.php', $target.'/_define.php.bak');
 
@@ -387,7 +386,7 @@ class oktThemes
 				{
 					# delete old theme
 					if (!files::deltree($destination)) {
-						throw new Exception(__('An error occurred during theme deletion.'));
+						throw new \Exception(__('An error occurred during theme deletion.'));
 					}
 					$ret_code = 2;
 				}
@@ -400,7 +399,7 @@ class oktThemes
 						rename($target.'/_define.php.bak', $target.'/_define.php');
 					}
 
-					throw new Exception(sprintf(__('Unable to upgrade "%s". (same version)'),basename($destination)));
+					throw new \Exception(sprintf(__('Unable to upgrade "%s". (same version)'),basename($destination)));
 				}
 			}
 			else
@@ -412,7 +411,7 @@ class oktThemes
 					rename($target.'/_define.php.bak', $target.'/_define.php');
 				}
 
-				throw new Exception(sprintf(__('Unable to read new _define.php file')));
+				throw new \Exception(sprintf(__('Unable to read new _define.php file')));
 			}
 			*/
 		}
@@ -573,7 +572,7 @@ class oktThemes
 	{
 		try
 		{
-			$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
+			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
 
 			$return = array();
 			foreach ($xml->theme as $theme)

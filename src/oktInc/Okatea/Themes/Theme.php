@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Themes;
 
 /**
- * @class oktThemeBase
- * @ingroup okt_classes_themes
- * @brief Classe de base pour les thèmes
+ * Classe de base pour les thèmes.
  *
  */
-class oktThemeBase
+class Theme
 {
 	public $url;
 	public $path;

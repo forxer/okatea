@@ -83,7 +83,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	</ul>
 
 <div id="tab-installed">
-	<h3><?php _e('c_a_modules_installed_modules') ?> (<?php echo Okatea\Modules\ModulesCollection::pluralizeModuleCount($iNumInstalledModules); ?>)</h3>
+	<h3><?php _e('c_a_modules_installed_modules') ?> (<?php echo Okatea\Modules\Collection::pluralizeModuleCount($iNumInstalledModules); ?>)</h3>
 
 	<?php if ($iNumInstalledModules == 0) : ?>
 		<p><?php _e('c_a_modules_no_modules_installed') ?></p>
@@ -263,7 +263,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 </div><!-- #tab-installed -->
 
 <div id="tab-uninstalled">
-	<h3><?php echo __('c_a_modules_uninstalled_modules').' ('.Okatea\Modules\ModulesCollection::pluralizeModuleCount(count($aUninstalledModules)).')' ?></h3>
+	<h3><?php echo __('c_a_modules_uninstalled_modules').' ('.Okatea\Modules\Collection::pluralizeModuleCount(count($aUninstalledModules)).')' ?></h3>
 
 	<?php if (empty($aUninstalledModules)) : ?>
 		<p><?php _e('c_a_modules_no_modules_uninstalled') ?></p>
@@ -363,7 +363,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php elseif (!empty($aModulesRepositories)) : ?>
 		<?php foreach($aModulesRepositories as $repo_name=>$modules) : ?>
 
-		<h5><?php echo html::escapeHTML($repo_name).' ('.Okatea\Modules\ModulesCollection::pluralizeModuleCount(count($modules)).')'; ?></h5>
+		<h5><?php echo html::escapeHTML($repo_name).' ('.Okatea\Modules\Collection::pluralizeModuleCount(count($modules)).')'; ?></h5>
 
 		<table class="common">
 			<caption><?php printf('c_a_modules_list_modules_available_%s', html::escapeHTML($repo_name)) ?></caption>

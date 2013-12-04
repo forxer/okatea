@@ -434,7 +434,7 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 # Suppression d'un module
 else if (!empty($_GET['delete']) && array_key_exists($_GET['delete'], $aUninstalledModules))
 {
-	if (files::deltree($okt->modules->path.'/'.$_GET['delete'])) 
+	if (files::deltree($okt->modules->path.'/'.$_GET['delete']))
 	{
 		$okt->page->flashMessages->addSuccess(__('c_a_modules_successfully_deleted'));
 		http::redirect('configuration.php?action=modules');
@@ -509,8 +509,8 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['common']);
 	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['common']);
-	foreach (oktThemes::getThemes() as $sThemeId=>$sTheme) {
-		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, oktThemes::getLockedFiles($sThemeId));
+	foreach (Okatea\Themes\Collection::getThemes() as $sThemeId=>$sTheme) {
+		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, Okatea\Themes\Collection::getLockedFiles($sThemeId));
 	}
 
 	# cache de la liste de module
@@ -623,14 +623,14 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 		}
 
 		$ret_code = $okt->modules->installPackage($dest, $okt->modules);
-		
+
 		if ($ret_code == 2) {
 			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_upgraded'));
 		}
 		else {
 			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_added'));
 		}
-		
+
 		http::redirect('configuration.php?action=modules&added='.$ret_code);
 	}
 	catch (Exception $e) {
