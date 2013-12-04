@@ -6,7 +6,9 @@
  */
 
 
-class module_users extends oktModule
+use Okatea\Modules\Module;
+
+class module_users extends Module
 {
 	protected $t_users;
 	protected $t_groups;
@@ -505,12 +507,7 @@ class module_users extends oktModule
 			$aParams['group_id'] = $this->config->default_group;
 		}
 
-		/**
-		 * Require the password compat library
-		 */
-		require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
-
-		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
+		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 		$iTime= time();
 
 		$sQuery =
@@ -629,7 +626,7 @@ class module_users extends oktModule
 			return false;
 		}
 
-		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
+		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.

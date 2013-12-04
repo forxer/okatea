@@ -5,7 +5,9 @@
  *
  */
 
-class module_diary extends oktModule
+use Okatea\Modules\Module;
+
+class module_diary extends Module
 {
 	public $config = null;
 	protected $locales = null;

@@ -5,7 +5,9 @@
  *
  */
 
-class module_lbl_colorbox extends oktModule
+use Okatea\Modules\Module;
+
+class module_lbl_colorbox extends Module
 {
 	public $config = null;
 

@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Modules;
 
 /**
- * @class oktModules
- * @ingroup okt_classes_modules
- * @brief Gestion des modules.
+ * Gestion des modules Okatea.
  *
  */
-class oktModules
+class ModulesCollection
 {
 	/**
 	 * L'objet core.
@@ -573,9 +572,9 @@ class oktModules
 	 * Install a module from a zip file
 	 *
 	 * @param string $zip_file
-	 * @param oktModules $modules
+	 * @param ModulesCollection $modules
 	 */
-	public static function installPackage($zip_file,oktModules $modules)
+	public static function installPackage($zip_file, $modules)
 	{
 		$zip = new fileUnzip($zip_file);
 		$zip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
@@ -682,7 +681,7 @@ class oktModules
 	 */
 	public function getInstallClass($module_id)
 	{
-		$return = 'oktModuleInstall';
+		$return = 'ModuleInstall';
 
 		if (file_exists($this->path.'/'.$module_id.'/_install/module_install.php'))
 		{
@@ -690,7 +689,7 @@ class oktModules
 
 			$class_install = 'moduleInstall_'.$module_id;
 
-			if (class_exists($class_install,false) && is_subclass_of($class_install, 'oktModuleInstall')) {
+			if (class_exists($class_install,false) && is_subclass_of($class_install, 'ModuleInstall')) {
 				$return = $class_install;
 			}
 		}
@@ -699,7 +698,7 @@ class oktModules
 	}
 
 	/**
-	 * retourne les informations concernant les dépôts de modules.
+	 * Retourne les informations concernant les dépôts de modules.
 	 *
 	 * @param array $aRepositories
 	 * @return array
@@ -843,4 +842,4 @@ class oktModules
 		return strcasecmp($a['name_l10n'],$b['name_l10n']);
 	}
 
-} # class oktModules
+} # class

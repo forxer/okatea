@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_media_manager extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_media_manager extends ModuleInstall
 {
 	public function install()
 	{

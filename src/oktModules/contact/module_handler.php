@@ -6,7 +6,9 @@
  */
 
 
-class module_contact extends oktModule
+use Okatea\Modules\Module;
+
+class module_contact extends Module
 {
 	public $aPostedData = array();
 	public $rsFields;

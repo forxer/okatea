@@ -5,8 +5,9 @@
  *
  */
 
+use Okatea\Modules\Module;
 
-class module_accessible_captcha extends oktModule
+class module_accessible_captcha extends Module
 {
 	/**
 	 * La pile de questions

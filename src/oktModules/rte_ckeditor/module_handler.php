@@ -5,7 +5,9 @@
  *
  */
 
-class module_rte_ckeditor extends oktModule
+use Okatea\Modules\Module;
+
+class module_rte_ckeditor extends Module
 {
 	public $config = null;
 

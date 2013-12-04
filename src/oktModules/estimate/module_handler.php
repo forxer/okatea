@@ -5,7 +5,9 @@
  *
  */
 
-class module_estimate extends oktModule
+use Okatea\Modules\Module;
+
+class module_estimate extends Module
 {
 	public $config = null;
 	public $filters = null;

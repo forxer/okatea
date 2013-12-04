@@ -61,11 +61,7 @@ date_default_timezone_set('Europe/Paris');
 
 
 # Let the music play (initialisation du coeur de l'application)
-$okt = new oktCore($oktAutoloader);
-
-
-# Chargement de la configuration du site
-$okt->loadConfig();
+$okt = new Okatea\Core\Application($oktAutoloader);
 
 
 # URL du dossier modules
@@ -153,7 +149,7 @@ $okt->languages->load();
 
 
 # Initialisation utilisateur courant
-$okt->user = new oktAuth($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
+$okt->user = new Okatea\Core\Authentification($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
 $okt->user->authentication();
 $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
@@ -171,7 +167,7 @@ $okt->navigation = new oktNavigations($okt);
 
 
 # Initialisation du gestionnaire de modules
-$okt->modules = new oktModules($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
+$okt->modules = new Okatea\Modules\ModulesCollection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 
 
 # initialisation du moteur de templates

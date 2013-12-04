@@ -86,7 +86,7 @@ if (!empty($_POST['sended']))
 			'\''.$db->escapeStr($sudo_user).'\', '.
 			'1, '.
 			'\''.$db->escapeStr(util::random_key(12)).'\', '.
-			'\''.$db->escapeStr(password::hash($sudo_password, PASSWORD_DEFAULT)).'\', '.
+			'\''.$db->escapeStr(password_hash($sudo_password, PASSWORD_DEFAULT)).'\', '.
 			'\'fr\', '.
 			'\'Europe/Paris\', '.
 			'\''.$db->escapeStr($sudo_email).'\', '.
@@ -105,7 +105,7 @@ if (!empty($_POST['sended']))
 			'\''.$db->escapeStr($admin_user).'\', '.
 			'2, '.
 			'\''.$db->escapeStr(util::random_key(12)).'\', '.
-			'\''.$db->escapeStr(password::hash($admin_password, PASSWORD_DEFAULT)).'\', '.
+			'\''.$db->escapeStr(password_hash($admin_password, PASSWORD_DEFAULT)).'\', '.
 			'\'fr\', '.
 			'\'Europe/Paris\', '.
 			'\''.$db->escapeStr($admin_email).'\', '.

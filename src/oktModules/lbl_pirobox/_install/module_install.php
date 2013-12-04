@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_lbl_pirobox extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_lbl_pirobox extends ModuleInstall
 {
 	public function install()
 	{

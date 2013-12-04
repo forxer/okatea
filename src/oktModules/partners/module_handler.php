@@ -5,7 +5,9 @@
  *
  */
 
-class module_partners extends oktModule
+use Okatea\Modules\Module;
+
+class module_partners extends Module
 {
 	protected $t_partners;
 	protected $t_partners_locales;

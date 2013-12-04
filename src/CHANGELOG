@@ -11,6 +11,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 2.0-rc2
+# namespacing Okatea classes
 # remove oktCore::redirect
 ! show debug mode enabled info
 ! remove unused dev and debug panels from config page

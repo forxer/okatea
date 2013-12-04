@@ -5,7 +5,9 @@
  *
  */
 
-class module_catalog extends oktModule
+use Okatea\Modules\Module;
+
+class module_catalog extends Module
 {
 	public $config = null;
 	public $tree = null;

@@ -5,7 +5,9 @@
  *
  */
 
-class module_antispam extends oktModule
+use Okatea\Modules\Module;
+
+class module_antispam extends Module
 {
 	protected function prepend()
 	{

@@ -5,7 +5,9 @@
  *
  */
 
-class module_pages extends oktModule
+use Okatea\Modules\Module;
+
+class module_pages extends Module
 {
 	public $config = null;
 	public $categories = null;

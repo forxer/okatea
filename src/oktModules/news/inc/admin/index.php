@@ -531,7 +531,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?>">
-				<?php echo html::escapeHTML(oktAuth::getUserCN($rsPosts->username, $rsPosts->lastname, $rsPosts->firstname)) ?>
+				<?php echo html::escapeHTML(Okatea\Core\Authentification::getUserCN($rsPosts->username, $rsPosts->lastname, $rsPosts->firstname)) ?>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?> small nowrap">

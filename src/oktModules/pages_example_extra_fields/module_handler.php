@@ -5,7 +5,9 @@
  *
  */
 
-class module_pages_example_extra_fields extends oktModule
+use Okatea\Modules\Module;
+
+class module_pages_example_extra_fields extends Module
 {
 	protected function prepend()
 	{

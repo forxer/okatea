@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Modules;
 
 /**
- * @class oktModuleInstall
- * @ingroup okt_classes_modules
- * @brief Installation d'un module
+ * Installation d'un module Okatea.
  *
  */
-class oktModuleInstall extends oktModule
+class ModuleInstall extends Module
 {
 	/**
 	 * Une checklist

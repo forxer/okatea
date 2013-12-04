@@ -5,7 +5,9 @@
  *
  */
 
-class module_news extends oktModule
+use Okatea\Modules\Module;
+
+class module_news extends Module
 {
 	public $config = null;
 	public $categories = null;

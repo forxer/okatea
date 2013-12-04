@@ -180,7 +180,7 @@ class newsRecordset extends recordset
 	 */
 	public function getPostAuthor()
 	{
-		return oktAuth::getUserCN($this->username, $this->lastname, $this->firstname);
+		return Okatea\Core\Authentification::getUserCN($this->username, $this->lastname, $this->firstname);
 	}
 
 	/**

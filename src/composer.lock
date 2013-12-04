@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "be2e75cbc10d31dd27e8a7c743dba4b9",
+    "hash": "d20f395d2b291622814927c3c3c164b0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -497,7 +497,7 @@
             "source": {
                 "type": "hg",
                 "url": "http://bitbucket.org/dotclear/clearbricks",
-                "reference": "5d2bc58ed7d4"
+                "reference": "b675f70a456a"
             },
             "require": {
                 "php": ">5.3.0"
@@ -523,7 +523,7 @@
                 }
             ],
             "description": "Clearbricks is not yet another framework.",
-            "time": "2013-11-26 07:57:18"
+            "time": "2013-12-04 07:30:18"
         },
         {
             "name": "erusev/parsedown",
@@ -531,12 +531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "8baf537c122c9ec863a044a1f10b140aeaf9fa7a"
+                "reference": "18d112a6146b2c3a02c41e6b1687cf3528d0ec71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/8baf537c122c9ec863a044a1f10b140aeaf9fa7a",
-                "reference": "8baf537c122c9ec863a044a1f10b140aeaf9fa7a",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/18d112a6146b2c3a02c41e6b1687cf3528d0ec71",
+                "reference": "18d112a6146b2c3a02c41e6b1687cf3528d0ec71",
                 "shasum": ""
             },
             "type": "library",
@@ -562,7 +562,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2013-12-02 21:26:43"
+            "time": "2013-12-03 21:19:50"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -851,12 +851,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "b688dd4901fda1f35858dd05fb0fd9131947c90c"
+                "reference": "f0be8302f28913af7bd7df6639e5bec5b5e79257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/b688dd4901fda1f35858dd05fb0fd9131947c90c",
-                "reference": "b688dd4901fda1f35858dd05fb0fd9131947c90c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/f0be8302f28913af7bd7df6639e5bec5b5e79257",
+                "reference": "f0be8302f28913af7bd7df6639e5bec5b5e79257",
                 "shasum": ""
             },
             "require": {
@@ -892,7 +892,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-11-27 08:50:23"
+            "time": "2013-12-03 13:34:24"
         },
         {
             "name": "symfony/debug",
@@ -996,6 +996,72 @@
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
             "time": "2013-09-18 07:27:26"
+        },
+        {
+            "name": "symfony/routing",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Routing",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Routing.git",
+                "reference": "525f675515dd2f8f74ab814c1d4042df82a9603e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/525f675515dd2f8f74ab814c1d4042df82a9603e",
+                "reference": "525f675515dd2f8f74ab814c1d4042df82a9603e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "psr/log": "~1.0",
+                "symfony/config": "~2.2",
+                "symfony/expression-language": "~2.4",
+                "symfony/yaml": "~2.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation loader",
+                "symfony/config": "For using the all-in-one router or any loader",
+                "symfony/expression-language": "For using expression matching",
+                "symfony/yaml": "For using the YAML loader"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Routing\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "router",
+                "routing",
+                "uri",
+                "url"
+            ],
+            "time": "2013-11-24 20:17:07"
         },
         {
             "name": "symfony/templating",
@@ -1116,6 +1182,7 @@
         "simplepie/simplepie": 20,
         "swiftmailer/swiftmailer": 20,
         "symfony/debug": 20,
+        "symfony/routing": 20,
         "symfony/templating": 20,
         "symfony/yaml": 20
     },

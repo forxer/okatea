@@ -5,7 +5,9 @@
  *
  */
 
-class module_faq extends oktModule
+use Okatea\Modules\Module;
+
+class module_faq extends Module
 {
 	protected $t_faq;
 	protected $t_faq_locales;

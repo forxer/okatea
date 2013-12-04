@@ -50,7 +50,7 @@ $aUserBarB = new ArrayObject;
 if (!$okt->user->is_guest)
 {
 	# profil link
-	$sProfilLink = html::escapeHTML(oktAuth::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname));
+	$sProfilLink = html::escapeHTML($okt->user->usedname);
 	if ($okt->modules->moduleExists('users')) {
 		$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$okt->user->id.'">'.$sProfilLink.'</a>';
 	}

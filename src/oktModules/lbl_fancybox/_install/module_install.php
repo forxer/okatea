@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_lbl_fancybox extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_lbl_fancybox extends ModuleInstall
 {
 	public function install()
 	{

@@ -5,7 +5,9 @@
  *
  */
 
-class module_guestbook extends oktModule
+use Okatea\Modules\Module;
+
+class module_guestbook extends Module
 {
 	private $t_guestbook;
 	public $config = null;

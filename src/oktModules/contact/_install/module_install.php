@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_contact extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_contact extends ModuleInstall
 {
 	public function install()
 	{

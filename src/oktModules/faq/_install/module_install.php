@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_faq extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_faq extends ModuleInstall
 {
 	public function install()
 	{

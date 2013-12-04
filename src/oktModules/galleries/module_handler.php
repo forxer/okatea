@@ -5,7 +5,9 @@
  *
  */
 
-class module_galleries extends oktModule
+use Okatea\Modules\Module;
+
+class module_galleries extends Module
 {
 	protected $t_galleries;
 	protected $t_galleries_locales;

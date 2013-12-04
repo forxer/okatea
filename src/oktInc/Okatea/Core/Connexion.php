@@ -7,13 +7,13 @@
  */
 
 
+namespace Okatea\Core;
+
 /**
- * @class oktDb
- * @ingroup okt_classes_core
- * @brief Le gestionnaire de base de données.
+ * Le gestionnaire de base de données.
  *
  */
-class oktDb extends oktMysqli
+class Connexion extends \oktMysqli
 {
 	/**
 	 * Stored instance for Singleton pattern.
@@ -30,7 +30,7 @@ class oktDb extends oktMysqli
 	{
 		if (!isset(self::$oInstance))
 		{
-			$oMysql = new oktDb();
+			$oMysql = new Connexion();
 
 			$oMysql->init(OKT_DB_USER, OKT_DB_PWD, OKT_DB_HOST, OKT_DB_NAME, OKT_DB_PREFIX);
 

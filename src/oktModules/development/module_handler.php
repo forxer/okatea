@@ -5,8 +5,9 @@
  *
  */
 
+use Okatea\Modules\Module;
 
-class module_development extends oktModule
+class module_development extends Module
 {
 	protected function prepend()
 	{

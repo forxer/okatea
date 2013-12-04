@@ -6,20 +6,19 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
+
+use Okatea\Cache\SingleFileCache;
 
 /**
- * @class oktCore
- * @ingroup okt_classes_core
- * @brief Classe définissant le coeur de l'application (core).
+ * Classe définissant le coeur de l'application (core).
  *
  * La classe principale de l'application se charge d'initialiser les
  * autres classes requises au bon fonctionnement. C'est en quelque
  * sorte une "super-classe" qui gère les autres pour un accès plus facile
  * à travers l'application.
- *
- *
  */
-class oktCore
+class Application
 {
 	public $cache = null; /**< Le gestionnaire de cache, instance de \ref SingleFileCache */
 	public $config = null; /**< Le gestionnaire de configuration, instance de \ref oktConfig */
@@ -52,14 +51,19 @@ class oktCore
 		$this->autoloader = $autoloader;
 
 		# initialisation du gestionnaire d'erreurs
-		$this->error = new oktErrors;
+		$this->error = new Errors;
 
 		# initialisation du gestionnaire de base de données
-		$this->db = oktDb::getInstance();
+		$this->db = Connexion::getInstance();
 
 		if ($this->db->hasError()) {
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
+
+		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+
+		# Chargement de la configuration du site
+		$this->loadConfig();
 
 		/*
 		$connectionParams = array(
@@ -77,11 +81,9 @@ class oktCore
 
 		//OKT_DB_PREFIX
 
-		$this->triggers = new oktTriggers();
+		$this->triggers = new \oktTriggers();
 
-		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
-
-		$this->router = new oktRouter();
+		$this->router = new \oktRouter();
 	}
 
 
@@ -216,7 +218,7 @@ class oktCore
 	 */
 	public function initTplEngine()
 	{
-		$this->tpl = new oktTemplating($this->aTplDirectories);
+		$this->tpl = new \oktTemplating($this->aTplDirectories);
 	}
 
 	/**
@@ -259,7 +261,7 @@ class oktCore
 	{
 		$this->config = $this->newConfig('conf_site');
 
-		$this->config->app_host = http::getHost();
+		$this->config->app_host = \http::getHost();
 		$this->config->app_url = $this->config->app_host.$this->config->app_path;
 		$this->config->self_uri = $this->config->app_host.$_SERVER['REQUEST_URI'];
 	}
@@ -272,7 +274,7 @@ class oktCore
 	 */
 	public function newConfig($file)
 	{
-		return new oktConfig($this->cache, OKT_CONFIG_PATH.'/'.$file);
+		return new Config($this->cache, OKT_CONFIG_PATH.'/'.$file);
 	}
 
 
@@ -283,7 +285,7 @@ class oktCore
 	 * Magic get retourne un objet module
 	 *
 	 * @param $module_id
-	 * @return object oktModule
+	 * @return object Okatea\Modules\Module
 	 */
 	public function __get($module_id)
 	{
@@ -294,7 +296,7 @@ class oktCore
 	 * Retourne un objet module
 	 *
 	 * @param $module_id
-	 * @return object oktModule
+	 * @return object Okatea\Modules\Module
 	 */
 	public function module($module_id)
 	{
@@ -392,7 +394,7 @@ class oktCore
 				files::makeDir(OKT_CACHE_PATH.'/HTMLPurifier', true);
 			}
 
-			$config = HTMLPurifier_Config::createDefault();
+			$config = \HTMLPurifier_Config::createDefault();
 
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 			$config->set('Cache.SerializerPath', OKT_CACHE_PATH.'/HTMLPurifier');
@@ -446,18 +448,18 @@ class oktCore
 						'alt' => 'Text',
 						'coords' => 'CDATA',
 						'accesskey' => 'Character',
-						'nohref' => new HTMLPurifier_AttrDef_Enum(array('nohref')),
+						'nohref' => new \HTMLPurifier_AttrDef_Enum(array('nohref')),
 						'href' => 'URI',
-						'shape' => new HTMLPurifier_AttrDef_Enum(array('rect','circle','poly','default')),
+						'shape' => new \HTMLPurifier_AttrDef_Enum(array('rect','circle','poly','default')),
 						'tabindex' => 'Number',
-						'target' => new HTMLPurifier_AttrDef_Enum(array('_blank','_self','_target','_top'))
+						'target' => new \HTMLPurifier_AttrDef_Enum(array('_blank','_self','_target','_top'))
 					)
 				);
 				$area->excludes = array('area' => true);
 			}
 
 			# get it now !
-			$this->htmlpurifier = new HTMLPurifier($config);
+			$this->htmlpurifier = new \HTMLPurifier($config);
 		}
 
 		$str = $this->htmlpurifier->purify($str);
@@ -465,4 +467,4 @@ class oktCore
 		return $str;
 	}
 
-} # class oktCore
+} # class

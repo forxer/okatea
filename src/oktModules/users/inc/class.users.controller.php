@@ -631,7 +631,7 @@ class usersController extends oktController
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => util::getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->okt->config->app_url,
-					'USER_CN' => oktAuth::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+					'USER_CN' => Okatea\Core\Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
 				));
@@ -660,7 +660,7 @@ class usersController extends oktController
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => util::getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->okt->config->app_url,
-							'USER_CN' => oktAuth::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+							'USER_CN' => Okatea\Core\Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 							'PROFIL' => $this->okt->config->app_url.OKT_ADMIN_DIR.'/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 

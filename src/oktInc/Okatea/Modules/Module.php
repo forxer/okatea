@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Modules;
 
 /**
- * @class oktModule
- * @ingroup okt_classes_modules
- * @brief Définit un module.
+ * Définit un module Okatea.
  *
  */
-class oktModule
+class Module
 {
 	/**
 	 * L'objet core.
@@ -414,4 +413,4 @@ class oktModule
 		}
 	}
 
-} # class oktModule
+} # class

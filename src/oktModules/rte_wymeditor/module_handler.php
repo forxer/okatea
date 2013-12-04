@@ -5,7 +5,9 @@
  *
  */
 
-class module_rte_wymeditor extends oktModule
+use Okatea\Modules\Module;
+
+class module_rte_wymeditor extends Module
 {
 	const wym_version = '0.5';
 //	const wym_version = '1.0.beta.3';

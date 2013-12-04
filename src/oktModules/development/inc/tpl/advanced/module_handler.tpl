@@ -2,7 +2,9 @@
 ##header##
 
 
-class module_##module_id## extends oktModule
+use Okatea\Modules\Module;
+
+class module_##module_id## extends Module
 {
 	public $config = null;
 	public $filters = null;

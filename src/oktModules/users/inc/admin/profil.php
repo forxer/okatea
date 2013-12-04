@@ -33,7 +33,7 @@ $edit_timezone = $rsUser->timezone;
 $edit_password = '';
 $edit_password_confirm = '';
 
-$sUserCN = oktAuth::getUserCN($rsUser->username,$rsUser->lastname,$rsUser->firstname);
+$sUserCN = Okatea\Core\Authentification::getUserCN($rsUser->username,$rsUser->lastname,$rsUser->firstname);
 unset($rsUser);
 
 

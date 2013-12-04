@@ -5,8 +5,9 @@
  *
  */
 
+use Okatea\Modules\Module;
 
-class module_media_manager extends oktModule
+class module_media_manager extends Module
 {
 	protected function prepend()
 	{

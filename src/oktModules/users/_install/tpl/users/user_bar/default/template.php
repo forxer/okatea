@@ -8,7 +8,7 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 <?php if (!$okt->user->infos->is_guest) : ?>
 
 	<p>
-		<?php printf(__('c_c_user_hello_%s'), html::escapeHTML(oktAuth::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname))) ?>
+		<?php printf(__('c_c_user_hello_%s'), html::escapeHTML($okt->user->usedname)) ?>
 
 		<?php # début Okatea : lien page profil
 		if ($okt->users->config->enable_profile_page) : ?>

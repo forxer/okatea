@@ -5,7 +5,9 @@
  *
  */
 
-class module_images_sets extends oktModule
+use Okatea\Modules\Module;
+
+class module_images_sets extends Module
 {
 	public $upload_dir;
 	public $upload_url;

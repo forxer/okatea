@@ -5,7 +5,9 @@
  *
  */
 
-class module_lbl_fancybox extends oktModule
+use Okatea\Modules\Module;
+
+class module_lbl_fancybox extends Module
 {
 	public $config = null;
 

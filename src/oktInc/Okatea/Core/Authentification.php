@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktAuth
- * @ingroup okt_classes_core
- * @brief Le gestionnaire d'authentification de l'utilisateur en cours.
+ * Le gestionnaire d'authentification de l'utilisateur en cours.
  *
  */
-class oktAuth
+class Authentification
 {
 	/**
 	 * Identifiant groupe utilisateurs non-vérifiés.
@@ -225,26 +224,26 @@ class oktAuth
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
+			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').\util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
 			}
 
 			# Si nous sommes retournés à l'utilisateur par défaut, la connexion a échouée
 			if ($this->infos->f('id') == '1')
 			{
-				$this->setAuthCookie(base64_encode('1|'.util::random_key(8, false, true).'|'.$iTsExpire.'|'.util::random_key(8, false, true)), $iTsExpire);
+				$this->setAuthCookie(base64_encode('1|'.\util::random_key(8, false, true).'|'.$iTsExpire.'|'.\util::random_key(8, false, true)), $iTsExpire);
 				return;
 			}
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
-			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
+			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').\util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
 
 			# Mise à jour de la liste des utilisateurs en ligne
 			if ($this->infos->f('logged') == '')
 			{
 				$this->infos->set('logged', $iTsNow);
-				$this->infos->set('csrf_token', util::random_key(40, false, true));
+				$this->infos->set('csrf_token', \util::random_key(40, false, true));
 				$this->infos->set('prev_url', $this->get_current_url(255));
 
 				$sQuery =
@@ -300,6 +299,9 @@ class oktAuth
 			$this->setDefaultUser();
 		}
 
+		# Store common name
+		$this->infos->set('usedname', self::getUserCN($this->infos->username, $this->infos->lastname, $this->infos->firstname));
+
 		# And finally, store perms array
 		if ($this->infos->f('perms') != '' && !is_array($this->infos->perms)) {
 			$this->infos->set('perms', unserialize($this->infos->perms));
@@ -326,7 +328,7 @@ class oktAuth
 		'WHERE u.active = 1 AND ';
 
 
-		if (util::isInt($mUser)) {
+		if (\util::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';
 		}
 		else {
@@ -352,7 +354,7 @@ class oktAuth
 	 */
 	public function setDefaultUser()
 	{
-		$sRemoteAddr = http::realIP();
+		$sRemoteAddr = \http::realIP();
 
 		# Fetch guest user
 		$sQuery =
@@ -377,7 +379,7 @@ class oktAuth
 		if ($this->infos->f('logged') == '')
 		{
 			$this->infos->set('logged', time());
-			$this->infos->set('csrf_token', util::random_key(40, false, true));
+			$this->infos->set('csrf_token', \util::random_key(40, false, true));
 			$this->infos->set('prev_url', $this->get_current_url(255));
 
 			# REPLACE INTO avoids a user having two rows in the online table
@@ -441,14 +443,14 @@ class oktAuth
 
 		$sPasswordHash = $rs->password;
 
-		if (!password::verify($sPassword, $sPasswordHash))
+		if (!password_verify($sPassword, $sPasswordHash))
 		{
 			$this->oError->set(__('c_c_auth_wrong_password'));
 			return false;
 		}
-		elseif (password::needs_rehash($sPasswordHash, PASSWORD_DEFAULT))
+		elseif (password_needs_rehash($sPasswordHash, PASSWORD_DEFAULT))
 		{
-			$sPasswordHash = password::hash($sPassword, PASSWORD_DEFAULT);
+			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
 
 			$sQuery =
 			'UPDATE '.$this->t_users.' SET '.
@@ -468,14 +470,14 @@ class oktAuth
 		# Remove this user's guest entry from the online list
 		$sQuery =
 		'DELETE FROM '.$this->t_online.' '.
-		'WHERE ident=\''.$this->oDb->escapeStr(http::realIP()).'\'';
+		'WHERE ident=\''.$this->oDb->escapeStr(\http::realIP()).'\'';
 
 		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.\util::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
@@ -573,10 +575,10 @@ class oktAuth
 		while ($rs->fetch())
 		{
 			# génération du nouveau mot de passe et du code d'activation
-			$sNewPassword = util::random_key(8, true);
-			$sNewPasswordKey = util::random_key(8);
+			$sNewPassword = \util::random_key(8, true);
+			$sNewPasswordKey = \util::random_key(8);
 
-			$sPasswordHash = password::hash($sNewPassword, PASSWORD_DEFAULT);
+			$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
 
 			$sQuery =
 			'UPDATE '.$this->t_users.' SET '.
@@ -594,7 +596,7 @@ class oktAuth
 			$oMail->message->setTo($sEmail);
 
 			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
-				'SITE_TITLE' => util::getSiteTitle(),
+				'SITE_TITLE' => \util::getSiteTitle(),
 				'SITE_URL' => $this->okt->config->app_url,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,
@@ -709,7 +711,7 @@ class oktAuth
 		if (isset($_COOKIE[$this->sCookieLangName])) {
 			$sLang = $_COOKIE[$this->sCookieLangName];
 		}
-		elseif (($acceptLanguage = http::getAcceptLanguage()) != '') {
+		elseif (($acceptLanguage = \http::getAcceptLanguage()) != '') {
 			$sLang = $acceptLanguage;
 		}
 
@@ -829,5 +831,4 @@ class oktAuth
 		return null;
 	}
 
-
-} # class oktAuth
+} # class

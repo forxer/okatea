@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktErrors
- * @ingroup okt_classes_core
- * @brief Permet de gérer des listes d'erreurs.
+ * Permet de gérer des listes d'erreurs.
  *
  */
-class oktErrors
+class Errors
 {
 	/**
 	 * La pile d'erreurs

@@ -6,15 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
+
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @class oktConfig
- * @ingroup okt_classes_core
- * @brief Gestion des fichiers de configuration.
+ * Gestion des fichiers de configuration.
  *
  */
-class oktConfig
+class Config
 {
 	/**
 	 * Le chemin du fichier source
@@ -48,7 +48,7 @@ class oktConfig
 	 * @param string $sSourceFile
 	 * @return void
 	 */
-	public function __construct(SingleFileCache $oCache, $sSourceFile)
+	public function __construct($oCache, $sSourceFile)
 	{
 		$this->oCache = $oCache;
 

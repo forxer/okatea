@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_partners extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_partners extends ModuleInstall
 {
 	public function installTestSet()
 	{

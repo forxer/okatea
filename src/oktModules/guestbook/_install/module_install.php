@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_guestbook extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_guestbook extends ModuleInstall
 {
 	public function install()
 	{
