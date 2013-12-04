@@ -8,7 +8,6 @@
 
 namespace Okatea\Core;
 
-
 /**
  * Le système de gestion des déclencheurs.
  *

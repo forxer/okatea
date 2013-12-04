@@ -10,14 +10,13 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktUpdate
- * @ingroup okt_classes_core
- * @brief Mise à jour automatisée d'Okatea
+ * Mise à jour automatisée d'Okatea
  *
  */
-class oktUpdate
+class Update
 {
 	const ERR_FILES_CHANGED = 101;
 	const ERR_FILES_UNREADABLE = 102;
@@ -108,7 +107,7 @@ class oktUpdate
 		if (!is_dir($sCacheDir))
 		{
 			try {
-				files::makeDir($sCacheDir);
+				\files::makeDir($sCacheDir);
 			} catch (Exception $e) {
 				return;
 			}
@@ -118,7 +117,7 @@ class oktUpdate
 		try
 		{
 			$sPath = '';
-			$oClient = netHttp::initClient($this->sUrl, $sPath);
+			$oClient = \netHttp::initClient($this->sUrl, $sPath);
 
 			if ($oClient !== false)
 			{
@@ -126,7 +125,12 @@ class oktUpdate
 				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 				$oClient->get($sPath);
 
-				$this->readVersion($oClient->getContent());
+				if ($client->getStatus() == '200') {
+					return $this->readVersion($oClient->getContent());
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		catch (Exception $e) {}
@@ -236,7 +240,7 @@ class oktUpdate
 
 		try
 		{
-			$oClient = netHttp::initClient($sUrl, $sPath);
+			$oClient = \netHttp::initClient($sUrl, $sPath);
 			$oClient->setTimeout(4);
 			$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 			$oClient->useGzip(false);

@@ -106,7 +106,7 @@ class oktPublicAdminBar
 			# avertissement nouvelle version disponible
 			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
 			{
-				$updater = new oktUpdate($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+				$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 				$new_v = $updater->check(util::getVersion());
 
 				if ($updater->getNotify() && $new_v)
