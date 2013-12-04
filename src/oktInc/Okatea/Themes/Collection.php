@@ -151,7 +151,7 @@ class Collection
 		foreach ($aThemes as $iThemeId=>$aTheme)
 		{
 			# search indexes
-			$aThemes[$iThemeId]['index'] = text::splitWords($aThemes[$iThemeId]['name'].' '.$aThemes[$iThemeId]['desc'].' '.$aThemes[$iThemeId]['tags']);
+			$aThemes[$iThemeId]['index'] = \text::splitWords($aThemes[$iThemeId]['name'].' '.$aThemes[$iThemeId]['desc'].' '.$aThemes[$iThemeId]['tags']);
 			$aThemes[$iThemeId]['index'] = array_map('strtolower', $aThemes[$iThemeId]['index']);
 			$aThemes[$iThemeId]['index'] = array_unique($aThemes[$iThemeId]['index']);
 			array_unshift($aThemes[$iThemeId]['index'], $iThemeId);
@@ -253,7 +253,7 @@ class Collection
 	public function bootstrapTheme($sName, $sId=null)
 	{
 		if (empty($sId)) {
-			$sId = util::strToLowerURL($sName,false);
+			$sId = \util::strToLowerURL($sName,false);
 		}
 
 		$this->getThemesList();
@@ -270,43 +270,43 @@ class Collection
 		);
 		$aReplace = array(
 			$sId,
-			html::escapeHTML($sName)
+			\html::escapeHTML($sName)
 		);
 
 		try
 		{
 			# required files
-			files::makeDir($sThemePath);
+			\files::makeDir($sThemePath);
 				file_put_contents($sThemePath.'/_define.php', str_replace($aSearch, $aReplace, file_get_contents(OKT_INC_PATH.'/admin/configuration/themes/templates/_define.tpl')));
 				file_put_contents($sThemePath.'/index.php', str_replace($aSearch, $aReplace, file_get_contents(OKT_INC_PATH.'/admin/configuration/themes/templates/index.tpl')));
 				file_put_contents($sThemePath.'/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents(OKT_INC_PATH.'/admin/configuration/themes/templates/oktTheme.tpl')));
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/locked_files.txt', $sThemePath.'/locked_files.txt');
 
 			# css files
-			files::makeDir($sThemePath.'/css');
+			\files::makeDir($sThemePath.'/css');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/definitions.less.tpl', $sThemePath.'/css/definitions.less');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/css/index.html');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/overload.less.tpl', $sThemePath.'/css/overload.less');
 
 			# images files
-			files::makeDir($sThemePath.'/images');
+			\files::makeDir($sThemePath.'/images');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/images/index.html');
 
 			# js
-			files::makeDir($sThemePath.'/js');
+			\files::makeDir($sThemePath.'/js');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/js/index.html');
 
 			# locales files
-			files::makeDir($sThemePath.'/locales');
-				files::makeDir($sThemePath.'/locales/fr');
+			\files::makeDir($sThemePath.'/locales');
+				\files::makeDir($sThemePath.'/locales/fr');
 					copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/locales/fr/index.html');
 
 			# modules files
-			files::makeDir($sThemePath.'/modules');
+			\files::makeDir($sThemePath.'/modules');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/modules/index.html');
 
 			# templates files
-			files::makeDir($sThemePath.'/templates');
+			\files::makeDir($sThemePath.'/templates');
 				copy(OKT_INC_PATH.'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/templates/index.html');
 				copy(OKT_THEMES_PATH.'/default/templates/layout.php', $sThemePath.'/templates/layout.php');
 
@@ -385,7 +385,7 @@ class Collection
 				if (!empty($cur_theme) && $new_themes[$id]['version'] != $cur_theme['version'])
 				{
 					# delete old theme
-					if (!files::deltree($destination)) {
+					if (!\files::deltree($destination)) {
 						throw new \Exception(__('An error occurred during theme deletion.'));
 					}
 					$ret_code = 2;
@@ -545,16 +545,21 @@ class Collection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%',util::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%', \util::getVersion(),$repository_url);
 
 			$path = '';
-			$client = netHttp::initClient($repository_url,$path);
+			$client = \netHttp::initClient($repository_url,$path);
 			if ($client !== false) {
 				$client->setTimeout(4);
 				$client->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 				$client->get($path);
 
-				return $this->readRepositoryInfos($client->getContent());
+				if ($client->getStatus() == '200') {
+					return $this->readRepositoryInfos($client->getContent());
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		catch (Exception $e) {

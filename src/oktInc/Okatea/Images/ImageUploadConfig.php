@@ -77,7 +77,7 @@ class ImageUploadConfig
 
 		$this->imageUpload = $oImageUpload;
 
-		l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.images.config');
+		\l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.images.config');
 
 		if (defined('OKT_MAX_FILE_UPLOADS')) {
 			$this->iMaxFileUploads = OKT_MAX_FILE_UPLOADS;
@@ -233,19 +233,19 @@ class ImageUploadConfig
 	{
 		$sWatermarkPath = $this->imageUpload->getWatermarkUploadDir();
 
-		if (files::isDeletable($sWatermarkPath.$this->imageUpload->aConfig['watermark_file'])) {
+		if (\files::isDeletable($sWatermarkPath.$this->imageUpload->aConfig['watermark_file'])) {
 			unlink($sWatermarkPath.$this->imageUpload->aConfig['watermark_file']);
 		}
 
-		if (files::isDeletable($sWatermarkPath.'min-'.$this->imageUpload->aConfig['watermark_file'])) {
+		if (\files::isDeletable($sWatermarkPath.'min-'.$this->imageUpload->aConfig['watermark_file'])) {
 			unlink($sWatermarkPath.'min-'.$this->imageUpload->aConfig['watermark_file']);
 		}
 
-		if (files::isDeletable($sWatermarkPath.'min2-'.$this->imageUpload->aConfig['watermark_file'])) {
+		if (\files::isDeletable($sWatermarkPath.'min2-'.$this->imageUpload->aConfig['watermark_file'])) {
 			unlink($sWatermarkPath.'min2-'.$this->imageUpload->aConfig['watermark_file']);
 		}
 
-		if (files::isDeletable($sWatermarkPath.'sq-'.$this->imageUpload->aConfig['watermark_file'])) {
+		if (\files::isDeletable($sWatermarkPath.'sq-'.$this->imageUpload->aConfig['watermark_file'])) {
 			unlink($sWatermarkPath.'sq-'.$this->imageUpload->aConfig['watermark_file']);
 		}
 
@@ -285,14 +285,14 @@ class ImageUploadConfig
 			'<legend>'.__('a_image_config_legend_base').'</legend>'.
 
 			'<div class="three-cols">'.
-				'<p class="field col"><label for="'.$this->sFormPrefix.'enable_images">'.form::checkbox($this->sFormPrefix.'enable_images',1,$this->imageUpload->aConfig['enable']).
+				'<p class="field col"><label for="'.$this->sFormPrefix.'enable_images">'.\form::checkbox($this->sFormPrefix.'enable_images',1,$this->imageUpload->aConfig['enable']).
 				__('a_image_config_enable').'</label></p>';
 
 				if (!$this->bUnique)
 				{
 					$return .=
 					'<p class="field col"><label for="'.$this->sFormPrefix.'number_images">'.__('a_image_config_number').'</label>'.
-					form::text($this->sFormPrefix.'number_images', 10, 255, $this->imageUpload->aConfig['number']).
+					\form::text($this->sFormPrefix.'number_images', 10, 255, $this->imageUpload->aConfig['number']).
 					(!empty($this->iMaxFileUploads) ? '<span class="note">'.sprintf(__('a_image_config_number_note_%s').'</span>',$this->iMaxFileUploads) : '').
 					'</p>';
 
@@ -316,13 +316,13 @@ class ImageUploadConfig
 
 			'<div class="three-cols">'.
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width">'.__('a_image_config_maximum_width').'</label>'.
-				form::text($this->sFormPrefix.'width', 10, 255, $this->imageUpload->aConfig['width']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width', 10, 255, $this->imageUpload->aConfig['width']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height">'.__('a_image_config_maximum_height').'</label>'.
-				form::text($this->sFormPrefix.'height', 10, 255, $this->imageUpload->aConfig['height']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height', 10, 255, $this->imageUpload->aConfig['height']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type']).'</p>'.
 
 			'</div>'.
 
@@ -340,70 +340,70 @@ class ImageUploadConfig
 			'<div class="three-cols">'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width_min">'.__('a_image_config_thumbnails_width').'</label>'.
-				form::text($this->sFormPrefix.'width_min', 10, 255, $this->imageUpload->aConfig['width_min']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width_min', 10, 255, $this->imageUpload->aConfig['width_min']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height_min">'.__('a_image_config_thumbnails_height').'</label>'.
-				form::text($this->sFormPrefix.'height_min', 10, 255, $this->imageUpload->aConfig['height_min']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height_min', 10, 255, $this->imageUpload->aConfig['height_min']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type_min">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type_min', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type_min', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min']).'</p>'.
 
 			'</div>'.
 
 			'<div class="three-cols">'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width_min_2">'.__('a_image_config_thumbnails_width_2').'</label>'.
-				form::text($this->sFormPrefix.'width_min_2', 10, 255, $this->imageUpload->aConfig['width_min_2']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width_min_2', 10, 255, $this->imageUpload->aConfig['width_min_2']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height_min_2">'.__('a_image_config_thumbnails_height_2').'</label>'.
-				form::text($this->sFormPrefix.'height_min_2', 10, 255, $this->imageUpload->aConfig['height_min_2']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height_min_2', 10, 255, $this->imageUpload->aConfig['height_min_2']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type_min_2">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type_min_2', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_2']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type_min_2', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_2']).'</p>'.
 
 			'</div>'.
 
 			'<div class="three-cols">'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width_min_3">'.__('a_image_config_thumbnails_width_3').'</label>'.
-				form::text($this->sFormPrefix.'width_min_3', 10, 255, $this->imageUpload->aConfig['width_min_3']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width_min_3', 10, 255, $this->imageUpload->aConfig['width_min_3']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height_min_3">'.__('a_image_config_thumbnails_height_3').'</label>'.
-				form::text($this->sFormPrefix.'height_min_3', 10, 255, $this->imageUpload->aConfig['height_min_3']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height_min_3', 10, 255, $this->imageUpload->aConfig['height_min_3']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type_min_3">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type_min_3', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_3']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type_min_3', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_3']).'</p>'.
 
 			'</div>'.
 
 			'<div class="three-cols">'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width_min_4">'.__('a_image_config_thumbnails_width_4').'</label>'.
-				form::text($this->sFormPrefix.'width_min_4', 10, 255, $this->imageUpload->aConfig['width_min_4']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width_min_4', 10, 255, $this->imageUpload->aConfig['width_min_4']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height_min_4">'.__('a_image_config_thumbnails_height_4').'</label>'.
-				form::text($this->sFormPrefix.'height_min_4', 10, 255, $this->imageUpload->aConfig['height_min_4']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height_min_4', 10, 255, $this->imageUpload->aConfig['height_min_4']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type_min_4">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type_min_4', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_4']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type_min_4', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_4']).'</p>'.
 
 			'</div>'.
 
 			'<div class="three-cols">'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'width_min_5">'.__('a_image_config_thumbnails_width_5').'</label>'.
-				form::text($this->sFormPrefix.'width_min_5', 10, 255, $this->imageUpload->aConfig['width_min_5']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'width_min_5', 10, 255, $this->imageUpload->aConfig['width_min_5']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'height_min_5">'.__('a_image_config_thumbnails_height_5').'</label>'.
-				form::text($this->sFormPrefix.'height_min_5', 10, 255, $this->imageUpload->aConfig['height_min_5']).' '.__('c_c_unit_px_s').'</p>'.
+				\form::text($this->sFormPrefix.'height_min_5', 10, 255, $this->imageUpload->aConfig['height_min_5']).' '.__('c_c_unit_px_s').'</p>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'resize_type_min_5">'.__('a_image_config_type_resize').'</label>'.
-				form::select($this->sFormPrefix.'resize_type_min_5', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_5']).'</p>'.
+				\form::select($this->sFormPrefix.'resize_type_min_5', self::getResizeTypes(), $this->imageUpload->aConfig['resize_type_min_5']).'</p>'.
 
 			'</div>'.
 
 			'<p class="field"><label for="'.$this->sFormPrefix.'square_size">'.__('a_image_config_dimensions_square').'</label>'.
-			form::text($this->sFormPrefix.'square_size', 10, 255, $this->imageUpload->aConfig['square_size']).' '.__('c_c_unit_px_s').'</p>'.
+			\form::text($this->sFormPrefix.'square_size', 10, 255, $this->imageUpload->aConfig['square_size']).' '.__('c_c_unit_px_s').'</p>'.
 
 			'<p class="note">'.__('a_image_config_disable_min_resize').'</p>'.
 
@@ -419,7 +419,7 @@ class ImageUploadConfig
 			'<div class="two-cols">'.
 				'<div class="col">'.
 					'<p class="field"><label for="'.$this->sFormPrefix.'watermark_file">'.__('a_image_config_watermark_image').'</label>'.
-					form::file($this->sFormPrefix.'watermark_file').'</p>';
+					\form::file($this->sFormPrefix.'watermark_file').'</p>';
 
 					if (is_file($this->imageUpload->getWatermarkUploadDir().$this->imageUpload->aConfig['watermark_file']))
 					{
@@ -428,14 +428,14 @@ class ImageUploadConfig
 						'style="background: transparent url('.OKT_PUBLIC_URL.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
 
 						'<p><a href="'.$this->sBaseUrl.'delete_watermark=1" '.
-						'onclick="return window.confirm(\''.html::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.
+						'onclick="return window.confirm(\''.\html::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.
 						'class="icon delete">'.__('a_image_config_watermark_delete').'</a></p>';
 					}
 
 				$return .= '</div>'.
 
 				'<p class="field col"><label for="'.$this->sFormPrefix.'watermark_position">'.__('a_image_config_watermark_position').'</label>'.
-				form::select($this->sFormPrefix.'watermark_position', self::getWatermarkPositions(), $this->imageUpload->aConfig['watermark_position']).'</p>'.
+				\form::select($this->sFormPrefix.'watermark_position', self::getWatermarkPositions(), $this->imageUpload->aConfig['watermark_position']).'</p>'.
 			'</div>'.
 
 		'</fieldset>';

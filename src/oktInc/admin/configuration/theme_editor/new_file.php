@@ -27,7 +27,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
 $sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 
 
-$oThemeEditor = new oktThemeEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+$oThemeEditor = new Okatea\Themes\Editor\Editor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
 
 
 

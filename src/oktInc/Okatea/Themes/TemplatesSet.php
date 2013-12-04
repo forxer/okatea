@@ -74,7 +74,7 @@ class TemplatesSet
 
 		$this->sTplFamily = $sTplFamily;
 
-		$this->sBase = util::formatAppPath($sBase, false, false);
+		$this->sBase = \util::formatAppPath($sBase, false, false);
 
 		$this->sBaseUrl = $sBaseUrl;
 
@@ -82,7 +82,7 @@ class TemplatesSet
 
 		$this->loadTemplatesInfos();
 
-		l10n::set(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/admin.templates.config');
+		\l10n::set(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/admin.templates.config');
 
 		# téléchargement d'un template
 		if (!empty($_GET['tpl_download'])
@@ -99,7 +99,7 @@ class TemplatesSet
 		{
 			$this->deleteTemplate(rawurldecode($_GET['tpl_id']));
 
-			http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
+			\http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
 		}
 
 		if (isset($this->okt->page) && !empty($_GET['tpl_family']) && rawurldecode($_GET['tpl_family']) == $this->sTplFamily) {
@@ -269,7 +269,7 @@ class TemplatesSet
 	 */
 	public static function getThemeIdFromTplPath($sTplPath)
 	{
-		return util::getNextSubDir($sTplPath, OKT_THEMES_PATH);
+		return \util::getNextSubDir($sTplPath, OKT_THEMES_PATH);
 	}
 
 	/**
@@ -344,13 +344,13 @@ class TemplatesSet
 					'<td><p>'.$aTplInfos['version'].'</p></td>'.
 					'<td><p>'.$aTplInfos['author'].'</p></td>'.
 					'<td><p>'.$aTplInfos['theme'].'</p></td>'.
-					'<td class="center small"><p>'.form::radio(array($this->sFormPrefix.'tpl_default_'.$this->sTplFamily, $this->sFormPrefix.'tpl_default_'.$this->sTplFamily.'_'.$aTplInfos['id']),
+					'<td class="center small"><p>'.\form::radio(array($this->sFormPrefix.'tpl_default_'.$this->sTplFamily, $this->sFormPrefix.'tpl_default_'.$this->sTplFamily.'_'.$aTplInfos['id']),
 							$aTplInfos['id'], ($aTplInfos['id'] == $this->aConfig['default'])).'</p></td>';
 
 					if ($bUsableField)
 					{
 						$sReturn .=
-						'<td class="center small">'.form::checkbox(array($this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'[]', $this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'_'.$aTplInfos['id']),
+						'<td class="center small">'.\form::checkbox(array($this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'[]', $this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'_'.$aTplInfos['id']),
 							$aTplInfos['id'], in_array($aTplInfos['id'],$this->aConfig['usables'])).'</td>';
 					}
 
@@ -387,7 +387,7 @@ class TemplatesSet
 								'<a href="'.$this->sBaseUrl.'tpl_delete=1'.
 								'&amp;tpl_family='.rawurlencode($this->sTplFamily).
 								'&amp;tpl_id='.rawurlencode($aTplInfos['id']).'" '.
-								'onclick="return window.confirm(\''.html::escapeJS(__('c_a_tpl_config_delete_confirm')).'\')" '.
+								'onclick="return window.confirm(\''.\html::escapeJS(__('c_a_tpl_config_delete_confirm')).'\')" '.
 								'class="icon package_delete">'.__('c_c_action_Delete').'</a>'.
 							'</li>';
 
@@ -457,7 +457,7 @@ class TemplatesSet
 			return false;
 		}
 
-		files::deltree($aTplInfos['dir']);
+		\files::deltree($aTplInfos['dir']);
 	}
 
 } # class

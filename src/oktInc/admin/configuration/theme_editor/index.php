@@ -29,7 +29,7 @@ $sFilename = !empty($_REQUEST['file']) ? rawurldecode($_REQUEST['file']) : null;
 $sMode = null;
 
 
-$oThemeEditor = new oktThemeEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+$oThemeEditor = new Okatea\Themes\Editor\Editor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
 
 
 if ($sThemeId)

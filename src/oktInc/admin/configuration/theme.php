@@ -65,7 +65,7 @@ if (file_exists($sDefinitionsLessFilename))
 {
 	$bHasDefinitionsLess = true;
 
-	$oDefinitionsLessEditor = new oktDefinitionsLessEditor($okt);
+	$oDefinitionsLessEditor = new Okatea\Themes\Editor\DefinitionsLess($okt);
 	$aCurrentDefinitionsLess = $oDefinitionsLessEditor->getValuesFromFile($sDefinitionsLessFilename);
 }
 
