@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktLogAdmin
- * @ingroup okt_classes_core
- * @brief Le gestionnnaire de log administration
+ * Le gestionnnaire de log administration.
  *
  */
-class oktLogAdmin
+class LogAdmin
 {
 	/**
 	 * L'objet core.
@@ -167,7 +166,7 @@ class oktLogAdmin
 		}
 
 		if (empty($aParams['ip'])) {
-			$aParams['ip'] = http::realIP();
+			$aParams['ip'] = \http::realIP();
 		}
 
 		if (empty($aParams['type'])) {

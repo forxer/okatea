@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
 
 /**
- * @class oktLanguages
- * @ingroup okt_classes_core
- * @brief Le gestionnnaire de langues.
+ * Le gestionnnaire de langues.
  *
  */
-class oktLanguages
+class Languages
 {
 	/**
 	 * Liste des langues
@@ -278,7 +277,7 @@ class oktLanguages
 			'title, code, img, active, ord '.
 		' ) VALUES ( '.
 			'\''.$this->db->escapeStr($aData['title']).'\', '.
-			'\''.$this->db->escapeStr(html::clean($aData['code'])).'\', '.
+			'\''.$this->db->escapeStr(\html::clean($aData['code'])).'\', '.
 			'\''.$this->db->escapeStr($aData['img']).'\', '.
 			(integer)$aData['active'].', '.
 			(integer)($max_ord+1).
@@ -304,7 +303,7 @@ class oktLanguages
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
 			'title=\''.$this->db->escapeStr($aData['title']).'\', '.
-			'code=\''.$this->db->escapeStr(html::clean($aData['code'])).'\', '.
+			'code=\''.$this->db->escapeStr(\html::clean($aData['code'])).'\', '.
 			'img=\''.$this->db->escapeStr($aData['img']).'\', '.
 			'active='.(integer)$aData['active'].' '.
 		'WHERE id='.(integer)$aData['id'];

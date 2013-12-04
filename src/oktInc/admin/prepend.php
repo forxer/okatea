@@ -30,7 +30,7 @@ $okt->page = new adminPage($okt);
 
 
 # Initialisation des journaux admin
-$okt->logAdmin = new oktLogAdmin($okt);
+$okt->logAdmin = new Okatea\Core\LogAdmin($okt);
 
 
 # Vérification de l'utilisateur en cours

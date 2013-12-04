@@ -144,7 +144,7 @@ if (!session_id())
 
 
 # Initialisation langues
-$okt->languages = new oktLanguages($okt);
+$okt->languages = new Okatea\Core\Languages($okt);
 $okt->languages->load();
 
 
