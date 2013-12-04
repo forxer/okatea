@@ -165,7 +165,7 @@ if ($iMenuId)
 
 
 # Liste des templates utilisables
-$oTemplates = new oktTemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
+$oTemplates = new Okatea\Themes\TemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplates->getUsablesTemplatesForSelect($okt->config->navigation_tpl['usables'])

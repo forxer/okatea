@@ -21,28 +21,28 @@ $oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->news->getIm
 $oImageUploadConfig->setBaseUrl('module.php?m=news&amp;action=config&amp;');
 
 # Gestionnaires de templates
-$oTemplatesList = new oktTemplatesSet($okt,
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['list'],
 	'news/list',
 	'list',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new oktTemplatesSet($okt,
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['item'],
 	'news/item',
 	'item',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new oktTemplatesSet($okt,
+$oTemplatesInsert = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['insert'],
 	'news/insert',
 	'insert',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesFeed = new oktTemplatesSet($okt,
+$oTemplatesFeed = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['feed'],
 	'news/feed',
 	'feed',

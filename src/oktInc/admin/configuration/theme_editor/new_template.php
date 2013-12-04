@@ -50,7 +50,7 @@ $p_tpl_tags = '';
 
 $sBasicTemplatePath = OKT_THEMES_PATH.$sBasicTemplate;
 
-$sBasicTemplateTheme = oktTemplatesSet::getThemeIdFromTplPath($sBasicTemplatePath);
+$sBasicTemplateTheme = Okatea\Themes\TemplatesSet::getThemeIdFromTplPath($sBasicTemplatePath);
 
 $sBasicTemplateId = basename(dirname($sBasicTemplate));
 

@@ -29,21 +29,21 @@ $oGalleryImageUploadConfig->setFormPrefix('p_gallery_');
 $oGalleryImageUploadConfig->setUnique(true);
 
 # Gestionnaires de templates
-$oTemplatesList = new oktTemplatesSet($okt,
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['list'],
 	'galleries/list',
 	'list',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesGallery = new oktTemplatesSet($okt,
+$oTemplatesGallery = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['gallery'],
 	'galleries/gallery',
 	'gallery',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new oktTemplatesSet($okt,
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['item'],
 	'galleries/item',
 	'item',

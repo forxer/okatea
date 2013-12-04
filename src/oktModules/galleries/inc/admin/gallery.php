@@ -318,13 +318,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new oktTemplatesSet($okt, $okt->galleries->config->templates['list'], 'galleries/list', 'list');
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->galleries->config->templates['list'], 'galleries/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->galleries->config->templates['list']['usables'])
 );
 
-$oItemsTemplatesList = new oktTemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
+$oItemsTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oItemsTemplatesList->getUsablesTemplatesForSelect($okt->galleries->config->templates['item']['usables'])

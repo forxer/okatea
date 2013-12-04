@@ -16,10 +16,10 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestionnaires de templates
-$oTemplatesForm = new oktTemplatesSet($okt, $okt->estimate->config->templates['form'], 'estimate/form', 'form');
+$oTemplatesForm = new Okatea\Themes\TemplatesSet($okt, $okt->estimate->config->templates['form'], 'estimate/form', 'form');
 $oTemplatesForm->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
 
-$oTemplatesSummary = new oktTemplatesSet($okt, $okt->estimate->config->templates['summary'], 'estimate/summary', 'summary');
+$oTemplatesSummary = new Okatea\Themes\TemplatesSet($okt, $okt->estimate->config->templates['summary'], 'estimate/summary', 'summary');
 $oTemplatesSummary->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
 
 

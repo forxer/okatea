@@ -255,7 +255,7 @@ $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
 ));
 
 # Liste des templates utilisables
-$oTemplatesItem = new oktTemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItem->getUsablesTemplatesForSelect($okt->galleries->config->templates['item']['usables'])

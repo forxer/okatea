@@ -22,7 +22,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Gestionnaire de templates
-$oTemplates = new oktTemplatesSet($okt,
+$oTemplates = new Okatea\Themes\TemplatesSet($okt,
 	$okt->config->navigation_tpl,
 	'navigation',
 	'navigation',

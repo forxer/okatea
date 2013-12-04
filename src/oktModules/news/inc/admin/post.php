@@ -342,7 +342,7 @@ if ($okt->news->config->categories['enable'])
 }
 
 # Liste des templates utilisables
-$oTemplatesItem = new oktTemplatesSet($okt, $okt->news->config->templates['item'], 'news/item', 'item');
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt, $okt->news->config->templates['item'], 'news/item', 'item');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItem->getUsablesTemplatesForSelect($okt->news->config->templates['item']['usables'])

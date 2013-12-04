@@ -277,13 +277,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new oktTemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->pages->config->templates['list']['usables'])
 );
 
-$oTemplatesItems = new oktTemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItems = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItems->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])
