@@ -6,18 +6,18 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Core;
+
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\TemplateNameParser;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\Helper\SlotsHelper;
 
 /**
- * @class oktTemplating
- * @ingroup okt_classes_core
- * @brief Le système de templating étendu de sfTemplateEngine
+ * Le système de templating étendu de sfTemplateEngine.
  *
  */
-class oktTemplating extends PhpEngine
+class Templating extends PhpEngine
 {
 	protected $aAssignedVars = array(); /**< La pile qui contient les variables assignées pour le moteur de templates. */
 

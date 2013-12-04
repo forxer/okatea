@@ -30,7 +30,7 @@ class Application
 	public $modules = null; /**< Le gestionnaire de modules, instance de \ref oktModules */
 	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref htmlPage */
 	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref oktRouter */
-	public $tpl = null; /**< Le moteur de templates, instance de \ref oktTemplating */
+	public $tpl = null; /**< Le moteur de templates, instance de \ref Templating */
 	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref oktTriggers */
 	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref oktAuth */
 	public $autoloader = null;
@@ -218,7 +218,7 @@ class Application
 	 */
 	public function initTplEngine()
 	{
-		$this->tpl = new \oktTemplating($this->aTplDirectories);
+		$this->tpl = new Templating($this->aTplDirectories);
 	}
 
 	/**
