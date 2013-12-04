@@ -12,7 +12,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-rc2
 # remove oktCore::redirect
-- remove unused dev and debug panels from config page
+! show debug mode enabled info
+! remove unused dev and debug panels from config page
 
 
 2.0-rc1

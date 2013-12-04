@@ -95,6 +95,14 @@ class oktPublicAdminBar
 		# infos super-admin
 		if ($okt->checkPerm('is_superadmin'))
 		{
+			# avertissement mode debug activé
+			if (OKT_DEBUG)
+			{
+				$aPrimaryAdminBar[10]['items'][300] = array(
+					'intitle' => __('c_a_public_debug_mode_enabled')
+				);
+			}
+
 			# avertissement nouvelle version disponible
 			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
 			{
@@ -118,7 +126,7 @@ class oktPublicAdminBar
 			{
 				$aPrimaryAdminBar[10]['items'][300] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => sprintf(__('c_a_public_maintenance_mode_enabled'), $new_v)
+					'intitle' => __('c_a_public_maintenance_mode_enabled')
 				);
 			}
 
@@ -127,7 +135,7 @@ class oktPublicAdminBar
 			{
 				$aPrimaryAdminBar[10]['items'][400] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => sprintf(__('c_a_admin_maintenance_mode_enabled'), $new_v)
+					'intitle' => __('c_a_admin_maintenance_mode_enabled')
 				);
 			}
 

@@ -96,7 +96,7 @@ if (window.addEventListener) {
 	window.addEventListener("keydown", function(e){
 		kkeys.push(e.keyCode);
 		if (kkeys.toString().indexOf( konami ) >= 0) {
-			window.location = "http://jquery.com/";
+			window.location = "http://okatea.org/";
 		}
 	}, true);
 }
@@ -151,6 +151,12 @@ if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][
 			width: 70%;
 		}
 	');
+}
+
+# avertissement mode debug activé
+if (OKT_DEBUG)
+{
+	$okt->page->flashMessages->addWarning(__('c_a_public_debug_mode_enabled'));
 }
 
 
