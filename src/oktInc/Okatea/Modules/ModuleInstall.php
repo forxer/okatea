@@ -12,6 +12,8 @@ use Okatea\Core\Authentification;
 use Okatea\Database\XmlSql;
 use Okatea\Html\CheckList;
 use Okatea\Themes\Collection as ThemesCollection;
+use Forxer\Diff\Engine as DiffEngine;
+use Forxer\Diff\Renderer\Html\SideBySide as DiffRenderer;
 
 /**
  * Installation d'un module Okatea.
@@ -721,15 +723,28 @@ class ModuleInstall extends Module
 			$l_text = file_get_contents($sSourceFile);
 			$r_text = file_get_contents($sDestDir.$sFile);
 
-			$df = new Diff(explode("\n",htmlspecialchars($l_text)),explode("\n",htmlspecialchars($r_text)));
-			$tdf = new TableDiffFormatter();
+			// Include two sample files for comparison
+			$a = explode("\n", file_get_contents($sSourceFile));
+			$b = explode("\n", file_get_contents($sDestDir.$sFile));
 
-			if (count($df->edits) > 1)
+			// Options for generating the diff
+			$options = array(
+				//'ignoreWhitespace' => true,
+				//'ignoreCase' => true,
+			);
+
+			$diff = new DiffEngine($a, $b, $options);
+			$opCodes = $diff->getGroupedOpcodes();
+
+			if (!empty($opCodes))
 			{
+				$renderer = new DiffRenderer();
+				$renderer->diff = $diff;
+
 				$ze_string = sprintf(
 					__('c_a_modules_file_%s_different_%s'),
 					'<code>'.$sBaseDestFile.'</code>',
-					self::getComparaisonTable($sBaseSourceFile,$sBaseDestFile,$tdf->format($df))
+					$renderer->render($sBaseSourceFile,$sBaseDestFile)
 				);
 
 				$this->checklist->addItem(
