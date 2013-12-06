@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_lbl_nyromodal extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_lbl_nyromodal extends ModuleInstall
 {
 	public function install()
 	{

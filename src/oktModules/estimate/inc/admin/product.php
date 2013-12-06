@@ -61,7 +61,7 @@ if (!empty($_GET['switch_status']) && !empty($iProductId))
 {
 	if ($okt->estimate->products->switchProductStatus($iProductId) !== false)
 	{
-		$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
+		http::redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
 	}
 }
 
@@ -89,7 +89,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_product_modified'));
 
-			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
+			http::redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
 		}
 	}
 
@@ -107,7 +107,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_product_added'));
 
-			$okt->redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
+			http::redirect('module.php?m=estimate&action=product&product_id='.$iProductId);
 		}
 	}
 }

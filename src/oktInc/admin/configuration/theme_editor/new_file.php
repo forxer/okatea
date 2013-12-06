@@ -27,7 +27,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
 $sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 
 
-$oThemeEditor = new oktThemeEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+$oThemeEditor = new Okatea\Themes\Editor\Editor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
 
 
 
@@ -64,7 +64,7 @@ if (!empty($_POST['form_sent']))
 	{
 		file_put_contents($oThemeEditor->getThemePath().$p_parent.'/'.$p_filename, '');
 
-		$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode($p_parent.'/'.$p_filename));
+		http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.rawurlencode($p_parent.'/'.$p_filename));
 	}
 }
 

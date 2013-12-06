@@ -11,7 +11,7 @@ if (!defined('ON_ACCESSIBLE_CAPTCHA_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('accessible_captcha_config')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -57,7 +57,7 @@ if (!empty($_POST['manage_questions']))
 
 	$okt->page->flashMessages->addSuccess(__('Configuration captcha edited.'));
 
-	$okt->redirect('module.php?m=accessible_captcha&action=index');
+	http::redirect('module.php?m=accessible_captcha&action=index');
 }
 
 # Configuration envoyée
@@ -76,7 +76,7 @@ if (!empty($_POST['config_send']))
 
 			$okt->page->flashMessages->addSuccess(__('Configuration captcha edited.'));
 
-			$okt->redirect('module.php?m=accessible_captcha&action=index');
+			http::redirect('module.php?m=accessible_captcha&action=index');
 		}
 		catch (InvalidArgumentException $e)
 		{

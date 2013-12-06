@@ -5,7 +5,10 @@
  *
  */
 
-class module_galleries extends oktModule
+use Okatea\Core\Triggers;
+use Okatea\Modules\Module;
+
+class module_galleries extends Module
 {
 	protected $t_galleries;
 	protected $t_galleries_locales;
@@ -21,18 +24,18 @@ class module_galleries extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['galleriesController'] = __DIR__.'/inc/class.galleries.controller.php';
-		$oktAutoloadPaths['galleriesHelpers'] = __DIR__.'/inc/class.galleries.helpers.php';
-		$oktAutoloadPaths['galleriesItems'] = __DIR__.'/inc/class.galleries.items.php';
-		$oktAutoloadPaths['galleriesItemsRecordset'] = __DIR__.'/inc/class.galleries.items.recordset.php';
-		$oktAutoloadPaths['galleriesRecordset'] = __DIR__.'/inc/class.galleries.recordset.php';
-		$oktAutoloadPaths['galleriesTree'] = __DIR__.'/inc/class.galleries.tree.php';
+		$this->okt->autoloader->addClassMap(array(
+			'galleriesController' => __DIR__.'/inc/class.galleries.controller.php',
+			'galleriesHelpers' => __DIR__.'/inc/class.galleries.helpers.php',
+			'galleriesItems' => __DIR__.'/inc/class.galleries.items.php',
+			'galleriesItemsRecordset' => __DIR__.'/inc/class.galleries.items.recordset.php',
+			'galleriesRecordset' => __DIR__.'/inc/class.galleries.recordset.php',
+			'galleriesTree' => __DIR__.'/inc/class.galleries.tree.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('galleries', __('m_galleries_perm_group'));
@@ -54,7 +57,7 @@ class module_galleries extends oktModule
 		$this->upload_url = OKT_UPLOAD_URL.'/galleries/';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_galleries');
@@ -63,17 +66,17 @@ class module_galleries extends oktModule
 		$this->config->feed_url = $this->okt->config->app_path.$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('galleriesList', new oktRoute(
+		$this->okt->router->addRoute('galleriesList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'galleriesController', 'galleriesList'
 		));
 
-		$this->okt->router->addRoute('galleriesGallery', new oktRoute(
+		$this->okt->router->addRoute('galleriesGallery', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_gallery_url)).')/(.*)$',
 			'galleriesController', 'galleriesGallery'
 		));
 
-		$this->okt->router->addRoute('galleriesItem', new oktRoute(
+		$this->okt->router->addRoute('galleriesItem', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_item_url)).')/(.*)$',
 			'galleriesController', 'galleriesItem'
 		));

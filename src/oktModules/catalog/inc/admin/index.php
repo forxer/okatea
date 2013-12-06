@@ -25,14 +25,14 @@ $okt->catalog->filtersStart('admin');
 if (!empty($_GET['switch_status']))
 {
 	$okt->catalog->switchProdStatus($_GET['switch_status']);
-	$okt->redirect('module.php?m=catalog&action=index&switched=1');
+	http::redirect('module.php?m=catalog&action=index&switched=1');
 }
 
 # ré-initialisation filtres
 if (!empty($_GET['catalog_init_filters']))
 {
 	$okt->catalog->filters->initFilters();
-	$okt->redirect('module.php?m=catalog&action=index');
+	http::redirect('module.php?m=catalog&action=index');
 }
 
 

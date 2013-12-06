@@ -27,7 +27,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 ----------------------------------------------------------*/
 
 $aUiThemes = htmlPage::getUiThemes();
-$aThemes = array_flip(oktThemes::getThemes());
+$aThemes = array_flip(Okatea\Themes\Collection::getThemes());
 
 $aNotAllowedAdminThemes = array(
 	'dark-hive',
@@ -173,7 +173,7 @@ if (!empty($_POST['form_sent']))
 		{
 			$okt->config->write($new_conf);
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
-			$okt->redirect('configuration.php?action=display');
+			http::redirect('configuration.php?action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{

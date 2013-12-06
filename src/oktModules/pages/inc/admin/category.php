@@ -150,7 +150,7 @@ if (!empty($_POST['order_categories']))
 
 			$okt->pages->categories->rebuild();
 
-			$okt->redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId.'&ordered=1');
+			http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId.'&ordered=1');
 		}
 		catch (Exception $e) {
 			$okt->error->set($e->getMessage());
@@ -172,7 +172,7 @@ if (!empty($_GET['switch_status']) && !empty($iCategoryId))
 			'message' => 'category #'.$iCategoryId
 		));
 
-		$okt->redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId.'&switched=1');
+		http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId.'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -233,7 +233,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_pages_cat_updated'));
 
-				$okt->redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
+				http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -263,7 +263,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('m_pages_cat_added'));
 
-				$okt->redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
+				http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -277,13 +277,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new oktTemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->pages->config->templates['list']['usables'])
 );
 
-$oTemplatesItems = new oktTemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItems = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItems->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])

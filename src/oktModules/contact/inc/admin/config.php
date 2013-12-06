@@ -17,14 +17,14 @@ if (!defined('ON_CONTACT_MODULE')) die;
 $bGoogleMapNotEnablable = ($okt->config->address['street'] == '' || $okt->config->address['code'] == '' || $okt->config->address['city'] == '');
 
 # Gestionnaires de templates
-$oTemplatesContact = new oktTemplatesSet($okt,
+$oTemplatesContact = new Okatea\Themes\TemplatesSet($okt,
 	$okt->contact->config->templates['contact'],
 	'contact/contact',
 	'contact',
 	'module.php?m=contact&amp;action=config&amp;'
 );
 
-$oTemplatesMap = new oktTemplatesSet($okt,
+$oTemplatesMap = new Okatea\Themes\TemplatesSet($okt,
 	$okt->contact->config->templates['map'],
 	'contact/map',
 	'map',
@@ -123,7 +123,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=contact&action=config');
+			http::redirect('module.php?m=contact&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

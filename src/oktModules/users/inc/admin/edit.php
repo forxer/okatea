@@ -20,7 +20,7 @@ $aEditPageInfos = new ArrayObject;
 $aEditPageInfos['iUserId'] = !empty($_REQUEST['id']) ? $_REQUEST['id'] : NULL;
 
 if (is_null($aEditPageInfos['iUserId']) || $aEditPageInfos['iUserId'] == 1) {
-	$okt->redirect('module.php?m=users');
+	http::redirect('module.php?m=users');
 }
 
 $user = $okt->users->getUser($aEditPageInfos['iUserId']);
@@ -84,12 +84,12 @@ if ($okt->users->config->enable_custom_fields)
 
 # un super admin ne peut etre modifié par un non super admin
 if ($edit_group_id == oktAuth::superadmin_group_id && !$okt->user->is_superadmin) {
-	$okt->redirect('module.php?m=users');
+	http::redirect('module.php?m=users');
 }
 
 # un admin ne peut etre modifié par un non admin
 if ($edit_group_id == oktAuth::admin_group_id && !$okt->user->is_admin) {
-	$okt->redirect('module.php?m=users');
+	http::redirect('module.php?m=users');
 }
 
 if ($user->group_id == oktAuth::unverified_group_id) {
@@ -131,7 +131,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 
 		$okt->page->flashMessages->addSuccess(__('m_users_validated_user'));
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
+		http::redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 
@@ -165,7 +165,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 
 		$okt->page->flashMessages->addSuccess(__('m_users_user_edited'));
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
+		http::redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 
@@ -228,7 +228,7 @@ if (!empty($_POST['form_sent']) && !isset($_POST['do']) && $okt->checkPerm('user
 
 		$okt->page->flashMessages->addSuccess(__('m_users_user_edited'));
 
-		$okt->redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
+		http::redirect('module.php?m=users&action=edit&id='.$aEditPageInfos['iUserId']);
 	}
 }
 

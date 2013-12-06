@@ -5,7 +5,9 @@
  *
  */
 
-class module_faq extends oktModule
+use Okatea\Modules\Module;
+
+class module_faq extends Module
 {
 	protected $t_faq;
 	protected $t_faq_locales;
@@ -29,15 +31,15 @@ class module_faq extends oktModule
 	 */
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['faqController'] = __DIR__.'/inc/class.faq.controller.php';
-		$oktAutoloadPaths['faqFilters'] = __DIR__.'/inc/class.faq.filters.php';
-		$oktAutoloadPaths['faqRecordset'] = __DIR__.'/inc/class.faq.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'faqController' => __DIR__.'/inc/class.faq.controller.php',
+			'faqFilters' => __DIR__.'/inc/class.faq.filters.php',
+			'faqRecordset' => __DIR__.'/inc/class.faq.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('faq', __('m_faq_perm_group'));
@@ -62,12 +64,12 @@ class module_faq extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_faq_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('faqList', new oktRoute(
+		$this->okt->router->addRoute('faqList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_faq_url)).')$',
 			'faqController', 'faqList'
 		));
 
-		$this->okt->router->addRoute('faqQuestion', new oktRoute(
+		$this->okt->router->addRoute('faqQuestion', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_question_url)).')/(.*)$',
 			'faqController', 'faqQuestion'
 		));
@@ -990,7 +992,7 @@ class module_faq extends oktModule
 	 */
 	public function getImageUpload()
 	{
-		$o = new oktImageUpload($this->okt,$this->config->images);
+		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

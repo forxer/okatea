@@ -5,7 +5,9 @@
  *
  */
 
-class partnersController extends oktController
+use Okatea\Core\Controller;
+
+class partnersController extends Controller
 {
 	/**
 	 * Affichage de la page partenaires.

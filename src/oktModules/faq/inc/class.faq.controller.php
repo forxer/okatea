@@ -5,7 +5,9 @@
  *
  */
 
-class faqController extends oktController
+use Okatea\Core\Controller;
+
+class faqController extends Controller
 {
 	/**
 	 * Affichage de la liste des questions.

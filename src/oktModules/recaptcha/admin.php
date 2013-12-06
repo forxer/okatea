@@ -10,7 +10,7 @@ if (!defined('ON_RECAPTCHA_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('recaptcha_config')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 #on récupère les clés actuelles
@@ -40,7 +40,7 @@ if (!empty($_POST['config_send']))
 		try
 		{
 			$okt->recaptcha->config->write($new_conf);
-			$okt->redirect('module.php?m=recaptcha&action=index&edited=1');
+			http::redirect('module.php?m=recaptcha&action=index&edited=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

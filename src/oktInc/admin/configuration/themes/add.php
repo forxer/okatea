@@ -32,7 +32,7 @@ if ($okt->config->themes_repositories_enabled)
 
 # Tri par ordre alphabétique des listes de thèmes des dépots
 foreach ($aThemesRepositories as $repo_name=>$themes) {
-	uasort($aThemesRepositories[$repo_name], array('oktThemes','sortThemesList'));
+	uasort($aThemesRepositories[$repo_name], array('\Okatea\Themes\Collection','sortThemesList'));
 }
 
 
@@ -87,7 +87,7 @@ if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 
 		$ret_code = $oThemes->installPackage($dest, $oThemes);
 
-		$okt->redirect('configuration.php?action=themes&added='.$ret_code);
+		http::redirect('configuration.php?action=themes&added='.$ret_code);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -99,7 +99,7 @@ else if (!empty($_POST['bootstrap']))
 {
 	try {
 		$oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));
-		$okt->redirect('configuration.php?action=themes&bootstraped=1');
+		http::redirect('configuration.php?action=themes&bootstraped=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -158,7 +158,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php elseif (!empty($aThemesRepositories)) : ?>
 			<?php foreach($aThemesRepositories as $repo_name=>$aThemes) : ?>
 
-			<h5><?php echo html::escapeHTML($repo_name).' ('.oktThemes::pluralizethemesCount(count($aThemes)).')'; ?></h5>
+			<h5><?php echo html::escapeHTML($repo_name).' ('.Okatea\Themes\Collection::pluralizethemesCount(count($aThemes)).')'; ?></h5>
 
 			<table class="common">
 				<caption><?php printf('c_a_themes_list_themes_available_%s', html::escapeHTML($repo_name)) ?></caption>

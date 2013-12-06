@@ -84,7 +84,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_updated'));
 
-				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
+				http::redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -110,7 +110,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_added'));
 
-				$okt->redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
+				http::redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -165,7 +165,7 @@ if ($iMenuId)
 
 
 # Liste des templates utilisables
-$oTemplates = new oktTemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
+$oTemplates = new Okatea\Themes\TemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplates->getUsablesTemplatesForSelect($okt->config->navigation_tpl['usables'])

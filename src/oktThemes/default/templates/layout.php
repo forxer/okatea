@@ -1,6 +1,6 @@
 
 <?php # début Okatea : ce template étend le template principal "main"
-$this->extend('main');
+$view->extend('main');
 # fin Okatea : ce template étend le template principal "main" ?>
 
 
@@ -17,5 +17,5 @@ if ($okt->page->hasTitleSeo()) : ?>
 
 
 <?php # début Okatea : affichage du contenu de la page
-echo $this->get('content');
+$view['slots']->output('_content');
 # fin Okatea : affichage du contenu de la page ?>

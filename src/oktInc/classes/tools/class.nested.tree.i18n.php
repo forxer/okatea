@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Database\Recordset;
 
 /**
  * @class nestedTreei18n
@@ -215,7 +216,7 @@ class nestedTreei18n
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -274,7 +275,7 @@ class nestedTreei18n
 		);
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;

@@ -5,18 +5,19 @@
  *
  */
 
+use Okatea\Modules\Module;
 
-class module_media_manager extends oktModule
+class module_media_manager extends Module
 {
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['oktMedia'] = __DIR__.'/inc/class.oktMedia.php';
+		$this->okt->autoloader->addClassMap(array(
+			'oktMedia' => __DIR__.'/inc/class.oktMedia.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('media_manager',__('m_media_manager_perm_group'));

@@ -5,7 +5,9 @@
  *
  */
 
-class module_estimate extends oktModule
+use Okatea\Modules\Module;
+
+class module_estimate extends Module
 {
 	public $config = null;
 	public $filters = null;
@@ -17,16 +19,16 @@ class module_estimate extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['estimateController'] = __DIR__.'/inc/class.estimate.controller.php';
-		$oktAutoloadPaths['estimateFilters'] = __DIR__.'/inc/class.estimate.filters.php';
-		$oktAutoloadPaths['estimateProducts'] = __DIR__.'/inc/class.estimate.products.php';
-		$oktAutoloadPaths['estimateAccessories'] = __DIR__.'/inc/class.estimate.accessories.php';
+		$this->okt->autoloader->addClassMap(array(
+			'estimateController' => __DIR__.'/inc/class.estimate.controller.php',
+			'estimateFilters' => __DIR__.'/inc/class.estimate.filters.php',
+			'estimateProducts' => __DIR__.'/inc/class.estimate.products.php',
+			'estimateAccessories' => __DIR__.'/inc/class.estimate.accessories.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('estimate', __('m_estimate_perm_group'));
@@ -46,11 +48,11 @@ class module_estimate extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_form_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('estimateForm', new oktRoute(
+		$this->okt->router->addRoute('estimateForm', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_form_url)).')$',
 			'estimateController', 'estimateForm'
 		));
-		$this->okt->router->addRoute('estimateSummary', new oktRoute(
+		$this->okt->router->addRoute('estimateSummary', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_summary_url)).')$',
 			'estimateController', 'estimateSummary'
 		));

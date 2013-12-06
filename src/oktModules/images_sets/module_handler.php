@@ -5,7 +5,9 @@
  *
  */
 
-class module_images_sets extends oktModule
+use Okatea\Modules\Module;
+
+class module_images_sets extends Module
 {
 	public $upload_dir;
 	public $upload_url;
@@ -16,13 +18,13 @@ class module_images_sets extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		//$oktAutoloadPaths['imagesSetsController'] = __DIR__.'/inc/class.images_sets.controller.php';
+	//	$this->okt->autoloader->addClassMap(array(
+	//		'imagesSetsController' => __DIR__.'/inc/class.images_sets.controller.php'
+	//	));
 
 		# t_images_setss
 		$this->t_images_sets = $this->db->prefix.'mod_images_sets';

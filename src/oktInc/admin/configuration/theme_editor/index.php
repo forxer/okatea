@@ -29,7 +29,7 @@ $sFilename = !empty($_REQUEST['file']) ? rawurldecode($_REQUEST['file']) : null;
 $sMode = null;
 
 
-$oThemeEditor = new oktThemeEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+$oThemeEditor = new Okatea\Themes\Editor\Editor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
 
 
 if ($sThemeId)
@@ -82,7 +82,7 @@ if (!empty($_POST['save']) && !empty($_POST['editor']) && $sThemeId && $sFilenam
 		$okt->error->set($e->getMessage());
 	}
 
-	$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&saved=1');
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&saved=1');
 }
 
 # Restauration d'un fichier de backup
@@ -102,7 +102,7 @@ if (!empty($_GET['restore_backup']) && $sThemeId && $sFilename)
 		$okt->error->set($e->getMessage());
 	}
 
-	$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&restored=1');
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&restored=1');
 }
 
 # Suppression d'un fichier de backup
@@ -122,7 +122,7 @@ if (!empty($_GET['delete_backup']) && $sThemeId && $sFilename)
 		$okt->error->set($e->getMessage());
 	}
 
-	$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&deleted=1');
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&deleted=1');
 }
 
 

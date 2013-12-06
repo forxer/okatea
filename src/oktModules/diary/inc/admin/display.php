@@ -63,7 +63,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->diary->config->write($new_conf);
-			$okt->redirect('module.php?m=diary&action=display&updated=1');
+			http::redirect('module.php?m=diary&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

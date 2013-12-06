@@ -109,21 +109,21 @@ if (!empty($_REQUEST['questions_id']))
 if (!empty($_GET['switch_status']) && !empty($questions_id))
 {
 	$okt->faq->setQuestionStatus($questions_id);
-	$okt->redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&switched=1');
+	http::redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&switched=1');
 }
 
 # Suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($questions_id))
 {
 	$okt->faq->deleteImage($questions_id,$_GET['delete_image']);
-	$okt->redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&edited=1');
+	http::redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&edited=1');
 }
 
 # Suppression d'un fichier
 if (!empty($_GET['delfile']) && !empty($questions_id))
 {
 	$okt->faq->delFile($questions_id,$_GET['delfile']);
-	$okt->redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&edited=1');
+	http::redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&edited=1');
 }
 
 # Formulaire envoyé
@@ -165,13 +165,13 @@ if (!empty($_POST['sended']))
 		$params['id'] = $questions_id;
 
 		$okt->faq->updQuestion($params);
-		$okt->redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&updated=1');
+		http::redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&updated=1');
 	}
 	# add question
 	else
 	{
 		$questions_id = $okt->faq->addQuestion($params);
-		$okt->redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&added=1');
+		http::redirect('module.php?m=faq&action=edit&questions_id='.$questions_id.'&added=1');
 	}
 
 }

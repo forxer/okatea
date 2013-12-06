@@ -23,7 +23,7 @@ if (is_null($iEstimateId) || $rsEstimate->isEmpty())
 {
 	$okt->page->flashMessages->addError(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
 
-	$okt->redirect('module.php?m=estimate&action=index');
+	http::redirect('module.php?m=estimate&action=index');
 }
 
 
@@ -47,7 +47,7 @@ if (!empty($_GET['treated']))
 
 		$okt->page->flashMessages->addSuccess(__('m_estimate_details_marked_as_treated'));
 
-		$okt->redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
+		http::redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -70,7 +70,7 @@ if (!empty($_GET['untreated']))
 
 		$okt->page->flashMessages->addSuccess(__('m_estimate_details_marked_as_untreated'));
 
-		$okt->redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
+		http::redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

@@ -10,5 +10,10 @@ CHANGELOG and HISTORY ( we try )                                 module_contact
 ==========================
 
 
+2.0-rc1
+# support for Okatea 2.0
+	# use new autoloader
+
+
 1.0
 ! first public release

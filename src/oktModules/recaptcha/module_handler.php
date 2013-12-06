@@ -6,7 +6,9 @@
 */
 
 
-class module_recaptcha extends oktModule
+use Okatea\Modules\Module;
+
+class module_recaptcha extends Module
 {
 	protected function prepend()
 	{

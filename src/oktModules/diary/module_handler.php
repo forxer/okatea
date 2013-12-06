@@ -5,7 +5,9 @@
  *
  */
 
-class module_diary extends oktModule
+use Okatea\Modules\Module;
+
+class module_diary extends Module
 {
 	public $config = null;
 	protected $locales = null;
@@ -18,16 +20,16 @@ class module_diary extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['diaryController'] = __DIR__.'/inc/class.diary.controller.php';
-		$oktAutoloadPaths['diaryRecordset'] = __DIR__.'/inc/class.diary.recordset.php';
-		$oktAutoloadPaths['diaryMonthlyCalendar'] = __DIR__.'/inc/class.diary.monthly.calendar.php';
-		$oktAutoloadPaths['diaryFilters'] = __DIR__.'/inc/class.diary.filters.php';
+		$this->okt->autoloader->addClassMap(array(
+			'diaryController' => __DIR__.'/inc/class.diary.controller.php',
+			'diaryRecordset' => __DIR__.'/inc/class.diary.recordset.php',
+			'diaryMonthlyCalendar' => __DIR__.'/inc/class.diary.monthly.calendar.php',
+			'diaryFilters' => __DIR__.'/inc/class.diary.filters.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('diary', __('m_diary_perm_group'));
@@ -45,12 +47,12 @@ class module_diary extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('diaryList', new oktRoute(
+		$this->okt->router->addRoute('diaryList', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
 			'diaryController', 'diaryList'
 		));
 
-		$this->okt->router->addRoute('diaryEvent', new oktRoute(
+		$this->okt->router->addRoute('diaryEvent', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
 			'diaryController', 'diaryEvent'
 		));
@@ -588,7 +590,7 @@ class module_diary extends oktModule
 	 */
 	public function getImageUpload()
 	{
-		$o = new oktImageUpload($this->okt,$this->config->images);
+		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

@@ -70,7 +70,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=news&action=display');
+			http::redirect('module.php?m=news&action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -17,32 +17,32 @@ if (!defined('ON_PAGES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->pages->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->pages->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=pages&amp;action=config&amp;');
 
 # Gestionnaires de templates
-$oTemplatesList = new oktTemplatesSet($okt,
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
 	$okt->pages->config->templates['list'],
 	'pages/list',
 	'list',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new oktTemplatesSet($okt,
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
 	$okt->pages->config->templates['item'],
 	'pages/item',
 	'item',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new oktTemplatesSet($okt,
+$oTemplatesInsert = new oktTemOkatea\Themes\TemplatesSetplatesSet($okt,
 	$okt->pages->config->templates['insert'],
 	'pages/insert',
 	'insert',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesFeed = new oktTemplatesSet($okt,
+$oTemplatesFeed = new Okatea\Themes\TemplatesSet($okt,
 	$okt->pages->config->templates['feed'],
 	'pages/feed',
 	'feed',
@@ -60,7 +60,7 @@ if (!empty($_GET['minregen']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
 
-	$okt->redirect('module.php?m=pages&action=config');
+	http::redirect('module.php?m=pages&action=config');
 }
 
 # suppression filigrane
@@ -70,7 +70,7 @@ if (!empty($_GET['delete_watermark']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_watermark_deleted'));
 
-	$okt->redirect('module.php?m=pages&action=config');
+	http::redirect('module.php?m=pages&action=config');
 }
 
 # enregistrement configuration
@@ -179,7 +179,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=pages&action=config');
+			http::redirect('module.php?m=pages&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

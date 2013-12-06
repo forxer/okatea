@@ -94,7 +94,7 @@ if (!empty($_POST['form_sent']))
 
 		if ($okt->contact->setFieldValue($field_id,$value) !== false)
 		{
-			$okt->redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id);
+			http::redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id);
 		}
 	}
 	# description champ
@@ -124,7 +124,7 @@ if (!empty($_POST['form_sent']))
 			{
 				if ($okt->contact->updField($field_id, $field_data) !== false)
 				{
-					$okt->redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id.'&edited=1');
+					http::redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id.'&edited=1');
 				}
 			}
 			# ajout
@@ -132,7 +132,7 @@ if (!empty($_POST['form_sent']))
 			{
 				if (($field_id = $okt->contact->addField($field_data)) !== false)
 				{
-					$okt->redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id.'&added=1');
+					http::redirect('module.php?m=contact&action=field&do=value&field_id='.$field_id.'&added=1');
 				}
 			}
 

@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_antispam extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_antispam extends ModuleInstall
 {
 	public function install()
 	{

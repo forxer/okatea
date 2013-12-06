@@ -21,7 +21,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 if (!empty($_GET['switch_status']))
 {
 	if ($okt->partners->setPartnerStatus($_GET['switch_status'])) {
-		$okt->redirect('module.php?m=partners&action=index&switched=1');
+		http::redirect('module.php?m=partners&action=index&switched=1');
 	}
 }
 
@@ -50,7 +50,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->partners->updPartnersOrder($partner_id, $ord);
 	}
 
-	$okt->redirect('module.php?m=partners&action=index&neworder=1');
+	http::redirect('module.php?m=partners&action=index&neworder=1');
 }
 
 

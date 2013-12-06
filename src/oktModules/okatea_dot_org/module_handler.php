@@ -5,7 +5,9 @@
  *
  */
 
-class module_okatea_dot_org extends oktModule
+use Okatea\Modules\Module;
+
+class module_okatea_dot_org extends Module
 {
 	protected $sUrl;
 	protected $sCacheFile;

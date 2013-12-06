@@ -1,0 +1,51 @@
+{
+	"name": "okatea/okatea",
+	"description": "Another modular CMS in PHP",
+	"version": "2.0.0-alpha1",
+	"type": "project",
+	"keywords": ["cms", "modular", "php"],
+	"homepage": "http://okatea.org",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vincent Garnier",
+			"email": "contact@okatea.org"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=5.3.7",
+		"doctrine/dbal": "2.5.*@dev",
+		"dotclear/clearbricks": "dev-default",
+		"erusev/parsedown": "dev-master",
+		"ezyang/htmlpurifier": "dev-master",
+		"ircmaxell/password-compat": "dev-master",
+		"leafo/lessphp": "0.4.*",
+		"masterexploder/phpthumb": "dev-master",
+		"mobiledetect/mobiledetectlib": "dev-master",
+		"simplepie/simplepie": "dev-master",
+		"swiftmailer/swiftmailer": "5.1.*@dev",
+		"symfony/debug": "2.3.*@dev",
+		"symfony/routing": "2.5.*@dev",
+		"symfony/templating": "2.5.*@dev",
+		"symfony/yaml": "2.5.*@dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"Okatea\\": "oktInc/"
+		},
+		"classmap": [
+			"vendor/dotclear/clearbricks/common",
+			"vendor/dotclear/clearbricks/filemanager",
+			"vendor/dotclear/clearbricks/image",
+			"vendor/dotclear/clearbricks/net",
+			"vendor/dotclear/clearbricks/net.http",
+			"vendor/dotclear/clearbricks/rest",
+			"vendor/dotclear/clearbricks/zip",
+			"oktInc/classes/",
+			"oktInc/admin/libs",
+			"oktInc/public/libs"
+		],
+		"files": ["oktInc/functions.php"]
+	}
+}

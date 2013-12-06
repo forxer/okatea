@@ -13,7 +13,7 @@ if (!defined('ON_DIARY_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('diary')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -21,7 +21,7 @@ if (!$okt->checkPerm('diary')) {
 if ($okt->page->action === 'delete' && !empty($_GET['event_id']) && $okt->checkPerm('diary_remove'))
 {
 	if ($okt->diary->delEvent($_GET['event_id'])) {
-		$okt->redirect('module.php?m=diary&action=index&deleted=1');
+		http::redirect('module.php?m=diary&action=index&deleted=1');
 	}
 	else {
 		$okt->page->action = 'index';
@@ -69,5 +69,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('diary_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

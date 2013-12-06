@@ -41,7 +41,7 @@ if (!empty($_GET['switch_status']))
 			'message' => 'category #'.$_GET['switch_status']
 		));
 
-		$okt->redirect('module.php?m=pages&action=categories&switched=1');
+		http::redirect('module.php?m=pages&action=categories&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -64,7 +64,7 @@ if (!empty($_GET['delete']))
 
 		$okt->page->flashMessages->addSuccess(__('m_pages_cat_deleted'));
 
-		$okt->redirect('module.php?m=pages&action=categories');
+		http::redirect('module.php?m=pages&action=categories');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

@@ -25,22 +25,12 @@ if (!session_id()) {
 }
 
 
-# Librairies spécifiques aux pages de l'administration
-$oktAutoloadPaths['adminMessagesErrors'] = __DIR__.'/libs/lib.admin.messages.errors.php';
-$oktAutoloadPaths['adminMessagesSuccess'] = __DIR__.'/libs/lib.admin.messages.success.php';
-$oktAutoloadPaths['adminMessagesWarnings'] = __DIR__.'/libs/lib.admin.messages.warnings.php';
-$oktAutoloadPaths['adminPage'] = __DIR__.'/libs/lib.admin.page.php';
-$oktAutoloadPaths['adminPager'] = __DIR__.'/libs/lib.admin.pager.php';
-$oktAutoloadPaths['logAdminFilters'] = OKT_INC_PATH.'/admin/libs/lib.log.admin.filters.php';
-$oktAutoloadPaths['themesFilters'] = OKT_INC_PATH.'/admin/libs/lib.themes.filters.php';
-
-
 # Initialisation des pages de l'administration
 $okt->page = new adminPage($okt);
 
 
 # Initialisation des journaux admin
-$okt->logAdmin = new oktLogAdmin($okt);
+$okt->logAdmin = new Okatea\Core\LogAdmin($okt);
 
 
 # Vérification de l'utilisateur en cours
@@ -54,7 +44,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	{
 		$okt->page->flashMessages->addWarning(__('c_c_auth_not_logged_in'));
 
-		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
 	# si il n'a pas la permission, il dégage
@@ -64,7 +54,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 
 		$okt->page->flashMessages->addError(__('c_c_auth_restricted_access'));
 
-		$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
 	# enfin, si on est en maintenance, il faut être superadmin
@@ -86,7 +76,7 @@ if (!empty($_REQUEST['logout']))
 
 	$okt->user->logout();
 
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -97,7 +87,7 @@ if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_
 
 	$okt->page->flashMessages->addError(__('c_c_auth_bad_csrf_token'));
 
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -237,6 +227,23 @@ if ($okt->config->public_maintenance_mode) {
 if ($okt->config->admin_maintenance_mode) {
 	$okt->page->warnings->set(__('c_a_admin_maintenance_mode_enabled'));
 }
+
+# Ajout des fichiers CSS de l'admin
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->admin_theme.'/jquery-ui.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/init.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin.css');
+$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/famfamfam.css');
+
+
+# Ajout des fichiers JS de l'admin
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cookie/jquery.cookie.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/metadata/jquery.metadata.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
+$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/common_admin.js');
+
 
 # Chargement des parties admin des modules
 $okt->modules->loadModules('admin',$okt->user->language);

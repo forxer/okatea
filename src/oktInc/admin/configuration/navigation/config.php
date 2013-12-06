@@ -22,7 +22,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Gestionnaire de templates
-$oTemplates = new oktTemplatesSet($okt,
+$oTemplates = new Okatea\Themes\TemplatesSet($okt,
 	$okt->config->navigation_tpl,
 	'navigation',
 	'navigation',
@@ -49,7 +49,7 @@ if (!empty($_POST['sended']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('configuration.php?action=navigation&do=config');
+			http::redirect('configuration.php?action=navigation&do=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -5,20 +5,22 @@
  *
  */
 
-class module_guestbook extends oktModule
+use Okatea\Modules\Module;
+
+class module_guestbook extends Module
 {
 	private $t_guestbook;
 	public $config = null;
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['guestbookController'] = __DIR__.'/inc/class.guestbook.controller.php';
+		$this->okt->autoloader->addClassMap(array(
+			'guestbookController' => __DIR__.'/inc/class.guestbook.controller.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('guestbook', __('m_guestbook_perm_group'));
@@ -31,7 +33,7 @@ class module_guestbook extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('guestbookPage', new oktRoute(
+		$this->okt->router->addRoute('guestbookPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'guestbookController', 'guestbookPage'
 		));

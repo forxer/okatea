@@ -9,7 +9,7 @@
 if (!defined('ON_GALLERIES_MODULE')) die;
 
 if (!$okt->checkPerm('galleries')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -17,7 +17,7 @@ if (!$okt->checkPerm('galleries')) {
 if ($okt->page->action === 'delete' && !empty($_GET['item_id']) && $okt->checkPerm('galleries_remove'))
 {
 	if ($okt->galleries->items->deleteItem($_GET['item_id'])) {
-		$okt->redirect('module.php?m=galleries&amp;action=index&amp;deleted=1');
+		http::redirect('module.php?m=galleries&amp;action=index&amp;deleted=1');
 	}
 	else {
 		$okt->page->action = 'index';
@@ -67,5 +67,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('galleries_config')) 
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

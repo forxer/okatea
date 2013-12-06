@@ -35,7 +35,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 	}
 
 	if ($okt->error->isEmpty()) {
-		$okt->redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&new_template=1&basic_template='.rawurlencode($p_basic_template));
+		http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&new_template=1&basic_template='.rawurlencode($p_basic_template));
 	}
 }
 

@@ -5,7 +5,9 @@
  *
  */
 
-class estimateController extends oktController
+use Okatea\Core\Controller;
+
+class estimateController extends Controller
 {
 	protected $aFormData = array();
 

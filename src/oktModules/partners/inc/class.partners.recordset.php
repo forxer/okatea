@@ -5,7 +5,9 @@
  *
  */
 
-class partnersRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class partnersRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

@@ -92,7 +92,8 @@ $GLOBALS['__l10n']['c_a_menu_router'] = 'Router';
 $GLOBALS['__l10n']['c_a_menu_advanced'] = 'Advanced';
 $GLOBALS['__l10n']['c_a_menu_management'] = 'Management';
 
-# maintenance mode
+# debug and maintenance modes
+$GLOBALS['__l10n']['c_a_public_debug_mode_enabled'] = 'The debug mode is currently in enabled.';
 $GLOBALS['__l10n']['c_a_public_maintenance_mode_enabled'] = 'The public part of the website is currently in maintenance mode.';
 $GLOBALS['__l10n']['c_a_admin_maintenance_mode_enabled'] = 'The administration interface is currently in maintenance mode.';
 

@@ -5,7 +5,6 @@ debug_bar:
   tabs:
     super_globales: true
     app: true
-    logs: true
     db: true
     tools: true
   holmes: false

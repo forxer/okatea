@@ -46,7 +46,6 @@ $aFooterContent = array_filter((array)$aFooterContent);
 </footer>
 </div><!-- #page -->
 
-<script type="text/javascript" src="<?php echo $okt->config->app_path ?>oktMin/?g=js_admin"></script>
 <?php echo $okt->page->js ?>
 
 <?php # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
@@ -63,16 +62,5 @@ $okt->page->content = ob_get_clean();
 # -- CORE TRIGGER : adminBeforeSendContent
 $okt->triggers->callTrigger('adminBeforeSendContent', $okt);
 
-// feature disabled because non calling of shutdown
-//if (!$okt->config->admin_compress_output) {
-	echo $okt->page->content;
-//}
-//else {
-//
-//	$he = new HTTP_Encoder(array(
-//		'content' => $okt->page->content,
-//		'type' => 'text/html'
-//	));
-//	$he->encode();
-//	$he->sendAll();
-//}
+echo $okt->page->content;
+

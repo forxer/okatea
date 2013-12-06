@@ -26,5 +26,5 @@ elseif ($okt->page->action === 'set') {
 	require __DIR__.'/inc/admin/set.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

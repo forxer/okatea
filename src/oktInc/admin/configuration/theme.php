@@ -25,13 +25,13 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
 
 # Themes object
-$oThemes = new oktThemes($okt, OKT_THEMES_PATH);
+$oThemes = new Okatea\Themes\Collection($okt, OKT_THEMES_PATH);
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();
 
 # Tri par ordre alphabétique des listes de thème
-uasort($aInstalledThemes, array('oktThemes','sortThemesList'));
+uasort($aInstalledThemes, array('\Okatea\Themes\Collection','sortThemesList'));
 
 # Theme infos
 $sThemeId = !empty($_REQUEST['theme_id']) ? $_REQUEST['theme_id'] : null;
@@ -54,8 +54,7 @@ if (file_exists($sDevNotesFilename))
 
 	$bEditDevNotes = !empty($_REQUEST['edit_notes']) ? $_REQUEST['edit_notes'] : null;
 
-	include_once OKT_VENDOR_PATH.'/phpmarkdown/extra/markdown.php';
-	$sDevNotesHtml = Markdown($sDevNotesMd);
+	$sDevNotesHtml = Parsedown::instance()->parse($sDevNotesMd);
 }
 
 
@@ -66,7 +65,7 @@ if (file_exists($sDefinitionsLessFilename))
 {
 	$bHasDefinitionsLess = true;
 
-	$oDefinitionsLessEditor = new oktDefinitionsLessEditor($okt);
+	$oDefinitionsLessEditor = new Okatea\Themes\Editor\DefinitionsLess($okt);
 	$aCurrentDefinitionsLess = $oDefinitionsLessEditor->getValuesFromFile($sDefinitionsLessFilename);
 }
 

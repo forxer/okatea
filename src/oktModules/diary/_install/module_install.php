@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_diary extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_diary extends ModuleInstall
 {
 	public function install()
 	{

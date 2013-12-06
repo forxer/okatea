@@ -36,6 +36,6 @@ if (!empty($_POST['cleanup']))
 		set_time_limit(480);
 
 		$iNumProcessed = util::recursiveCleanup(OKT_ROOT_PATH,$aToDelete);
-		$okt->redirect('configuration.php?action=tools&cleaned='.$iNumProcessed);
+		http::redirect('configuration.php?action=tools&cleaned='.$iNumProcessed);
 	}
 }

@@ -190,7 +190,7 @@ class oktMedia extends filemanager
 			$f->media_title = $rs->media_title;
 			$f->media_meta =  $meta instanceof SimpleXMLElement ? $meta : simplexml_load_string('<meta></meta>');
 			$f->media_user_id = $rs->user_id;
-			$f->media_user = oktAuth::getUserCN($rs->username,$rs->lastname,$rs->firstname);
+			$f->media_user = Okatea\Core\Authentification::getUserCN($rs->username,$rs->lastname,$rs->firstname);
 			$f->media_priv = (boolean) $rs->media_private;
 			$f->media_dt = strtotime($rs->media_dt);
 			$f->media_dtstr = dt::str('%Y-%m-%d %H:%M',$f->media_dt);

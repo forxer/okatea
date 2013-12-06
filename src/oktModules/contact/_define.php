@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Contact',
 	'desc' 			=> 'Allow to add a contact page',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));

@@ -31,7 +31,7 @@ if (!empty($_GET['create_htaccess']))
 	}
 	else {
 		file_put_contents(OKT_ROOT_PATH.'/.htaccess',file_get_contents(OKT_ROOT_PATH.'/.htaccess.oktDist'));
-		$okt->redirect('configuration.php?action=tools&htaccess_created=1');
+		http::redirect('configuration.php?action=tools&htaccess_created=1');
 	}
 }
 
@@ -40,7 +40,7 @@ if (!empty($_GET['create_htaccess']))
 if (!empty($_GET['delete_htaccess']))
 {
 	@unlink(OKT_ROOT_PATH.'/.htaccess');
-	$okt->redirect('configuration.php?action=tools&htaccess_deleted=1');
+	http::redirect('configuration.php?action=tools&htaccess_deleted=1');
 }
 
 
@@ -49,5 +49,5 @@ if (!empty($_POST['htaccess_form_sent']))
 {
 	$sHtaccessContent = !empty($_POST['p_htaccess_content']) ? $_POST['p_htaccess_content'] : '';
 	file_put_contents(OKT_ROOT_PATH.'/.htaccess',$sHtaccessContent);
-	$okt->redirect('configuration.php?action=tools&htaccess_edited=1');
+	http::redirect('configuration.php?action=tools&htaccess_edited=1');
 }

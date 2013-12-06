@@ -28,7 +28,7 @@ if (!empty($_GET['optimize']))
 
 	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_optimized'));
 
-	$okt->redirect('configuration.php?action=infos');
+	http::redirect('configuration.php?action=infos');
 }
 
 # vidange d’une table
@@ -40,7 +40,7 @@ if (!empty($_GET['truncate']))
 
 	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_truncated'));
 
-	$okt->redirect('configuration.php?action=infos');
+	http::redirect('configuration.php?action=infos');
 }
 
 # suppression d’une table
@@ -52,5 +52,5 @@ if (!empty($_GET['drop']))
 
 	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_droped'));
 
-	$okt->redirect('configuration.php?action=infos');
+	http::redirect('configuration.php?action=infos');
 }

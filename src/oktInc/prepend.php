@@ -15,13 +15,6 @@
  */
 
 
-/*// pour afficher les erreurs, ajoutez un / au début de cette ligne
-error_reporting(-1);
-ini_set('display_errors', 'On');
-//define('OKT_FORCE_DEBUG',true);
-//*/
-
-
 /*
  * Enregistrement du moment de début de script, sera utilisé
  * pour calculer le temps de génération des pages
@@ -33,12 +26,8 @@ define('OKT_START_TIME', microtime(true));
 require_once __DIR__.'/constants.php';
 
 
-# Inclusion de l'autoload
-require_once OKT_INC_PATH.'/autoload.php';
-
-
-# Inclusion des fonctions
-require_once OKT_INC_PATH.'/functions.php';
+# Use composer autoload
+$oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';
 
 
 # Inclusion des informations de connexion à la BDD
@@ -50,6 +39,19 @@ else {
 }
 
 
+//*// pour afficher les erreurs, ajoutez un / au début de cette ligne
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\Debug\ExceptionHandler;
+
+Debug::enable();
+ErrorHandler::register();
+ExceptionHandler::register();
+
+define('OKT_DEBUG',true);
+//*/
+
+
 # Initialisation de la librairie MB
 mb_internal_encoding('UTF-8');
 
@@ -58,33 +60,8 @@ mb_internal_encoding('UTF-8');
 date_default_timezone_set('Europe/Paris');
 
 
-# Shutdown
-register_shutdown_function('oktShutdown');
-
-
-/*
- * Destruction des variables globales créées si
- * register_globals est activé et inversion de
- * l'effet des magic_quotes
- */
-util::trimRequest();
-try {
-	http::unsetGlobals();
-}
-catch (Exception $e)
-{
-	header('Content-Type: text/plain');
-	echo $e->getMessage();
-	exit;
-}
-
-
 # Let the music play (initialisation du coeur de l'application)
-$okt = new oktCore();
-
-
-# Chargement de la configuration du site
-$okt->loadConfig();
+$okt = new Okatea\Core\Application($oktAutoloader);
 
 
 # URL du dossier modules
@@ -157,32 +134,6 @@ define('OKT_MAX_UPLOAD_SIZE',$u_max_size);
 unset($u_max_size,$p_max_size);
 
 
-# Mode debug ?
-if ((!OKT_XDEBUG || !$okt->config->xdebug_enabled) && (defined('OKT_FORCE_DEBUG') || $okt->config->debug_enabled)) {
-	define('OKT_DEBUG',true);
-} else {
-	define('OKT_DEBUG',false);
-}
-
-
-if (OKT_DEBUG)
-{
-	$okt->debug = new oktDebug();
-
-	error_reporting(-1);
-	ini_set('display_errors', 'On');
-
-	/* exemple :
-		$okt->debug->addMessage(array(
-			'message'	=> 'Initialisation debug',
-			'style'		=> 'info'
-		));
-	//*/
-
-	set_error_handler(array($okt->debug,'errorHandler'), E_ALL | E_STRICT);
-}
-
-
 # Set session params
 if (!session_id())
 {
@@ -193,12 +144,12 @@ if (!session_id())
 
 
 # Initialisation langues
-$okt->languages = new oktLanguages($okt);
+$okt->languages = new Okatea\Core\Languages($okt);
 $okt->languages->load();
 
 
 # Initialisation utilisateur courant
-$okt->user = new oktAuth($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
+$okt->user = new Okatea\Core\Authentification($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
 $okt->user->authentication();
 $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
@@ -212,11 +163,11 @@ $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
 
 # Initialisation navigations
-$okt->navigation = new oktNavigations($okt);
+$okt->navigation = new Okatea\Navigation\Menus\Menus($okt);
 
 
 # Initialisation du gestionnaire de modules
-$okt->modules = new oktModules($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
+$okt->modules = new Okatea\Modules\Collection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 
 
 # initialisation du moteur de templates
@@ -237,7 +188,7 @@ if (!empty($_REQUEST['switch_lang']))
 {
 	$okt->user->setUserLang($_REQUEST['switch_lang']);
 
-	$okt->redirect(util::removeAttrFromUrl('switch_lang',$okt->config->self_uri));
+	http::redirect(util::removeAttrFromUrl('switch_lang',$okt->config->self_uri));
 }
 
 # Suppression des fichiers cache
@@ -246,5 +197,5 @@ if (!empty($_REQUEST['empty_cache']))
 	util::deleteOktCacheFiles();
 	util::deleteOktPublicCacheFiles();
 
-	$okt->redirect(util::removeAttrFromUrl('empty_cache',$okt->config->self_uri));
+	http::redirect(util::removeAttrFromUrl('empty_cache',$okt->config->self_uri));
 }

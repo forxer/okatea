@@ -5,7 +5,10 @@
  *
  */
 
-class module_news extends oktModule
+use Okatea\Core\Triggers;
+use Okatea\Modules\Module;
+
+class module_news extends Module
 {
 	public $config = null;
 	public $categories = null;
@@ -26,17 +29,17 @@ class module_news extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['newsCategories'] = __DIR__.'/inc/class.news.categories.php';
-		$oktAutoloadPaths['newsController'] = __DIR__.'/inc/class.news.controller.php';
-		$oktAutoloadPaths['newsFilters'] = __DIR__.'/inc/class.news.filters.php';
-		$oktAutoloadPaths['newsHelpers'] = __DIR__.'/inc/class.news.helpers.php';
-		$oktAutoloadPaths['newsRecordset'] = __DIR__.'/inc/class.news.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'newsCategories' => __DIR__.'/inc/class.news.categories.php',
+			'newsController' => __DIR__.'/inc/class.news.controller.php',
+			'newsFilters' => __DIR__.'/inc/class.news.filters.php',
+			'newsHelpers' => __DIR__.'/inc/class.news.helpers.php',
+			'newsRecordset' => __DIR__.'/inc/class.news.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('news', __('m_news_perm_group'));
@@ -58,7 +61,7 @@ class module_news extends oktModule
 		$this->t_users = $this->db->prefix.'core_users';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
@@ -67,22 +70,22 @@ class module_news extends oktModule
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('newsFeed', new oktRoute(
+		$this->okt->router->addRoute('newsFeed', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
 			'newsController', 'newsFeed'
 		));
 
-		$this->okt->router->addRoute('newsList', new oktRoute(
+		$this->okt->router->addRoute('newsList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'newsController', 'newsList'
 		));
 
-		$this->okt->router->addRoute('newsCategory', new oktRoute(
+		$this->okt->router->addRoute('newsCategory', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
 			'newsController', 'newsCategory'
 		));
 
-		$this->okt->router->addRoute('newsItem', new oktRoute(
+		$this->okt->router->addRoute('newsItem', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_post_url)).')/(.*)$',
 			'newsController', 'newsItem'
 		));
@@ -1459,7 +1462,7 @@ class module_news extends oktModule
 	 */
 	public function getImageUpload()
 	{
-		$o = new oktImageUpload($this->okt,$this->config->images);
+		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

@@ -17,7 +17,6 @@ $GLOBALS['__l10n']['m_development_debugbar_tabs'] = 'Onglets de la barre de debu
 
 $GLOBALS['__l10n']['m_development_debugbar_tab_super_globales'] = 'Super globales';
 $GLOBALS['__l10n']['m_development_debugbar_tab_app'] = 'Application';
-$GLOBALS['__l10n']['m_development_debugbar_tab_logs'] = 'Logs';
 $GLOBALS['__l10n']['m_development_debugbar_tab_db'] = 'Base de données';
 $GLOBALS['__l10n']['m_development_debugbar_tab_tools'] = 'Outils';
 

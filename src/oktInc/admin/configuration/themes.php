@@ -20,7 +20,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 define('OKT_THEMES_MANAGEMENT', true);
 
 # Themes object
-$oThemes = new oktThemes($okt, OKT_THEMES_PATH);
+$oThemes = new Okatea\Themes\Collection($okt, OKT_THEMES_PATH);
 
 
 # Locales

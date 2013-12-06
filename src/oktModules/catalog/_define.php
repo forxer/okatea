@@ -8,7 +8,7 @@
 $this->registerModule(array(
 	'name' 			=> 'Catalog',
 	'desc' 			=> 'Allow to add a simple catalog system',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));
 

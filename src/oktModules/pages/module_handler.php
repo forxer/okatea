@@ -5,7 +5,10 @@
  *
  */
 
-class module_pages extends oktModule
+use Okatea\Core\Triggers;
+use Okatea\Modules\Module;
+
+class module_pages extends Module
 {
 	public $config = null;
 	public $categories = null;
@@ -27,17 +30,17 @@ class module_pages extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['pagesCategories'] = __DIR__.'/inc/class.pages.categories.php';
-		$oktAutoloadPaths['pagesController'] = __DIR__.'/inc/class.pages.controller.php';
-		$oktAutoloadPaths['pagesFilters'] = __DIR__.'/inc/class.pages.filters.php';
-		$oktAutoloadPaths['pagesHelpers'] = __DIR__.'/inc/class.pages.helpers.php';
-		$oktAutoloadPaths['pagesRecordset'] = __DIR__.'/inc/class.pages.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'pagesCategories' => __DIR__.'/inc/class.pages.categories.php',
+			'pagesController' => __DIR__.'/inc/class.pages.controller.php',
+			'pagesFilters' => __DIR__.'/inc/class.pages.filters.php',
+			'pagesHelpers' => __DIR__.'/inc/class.pages.helpers.php',
+			'pagesRecordset' => __DIR__.'/inc/class.pages.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('pages', __('m_pages_perm_group'));
@@ -56,7 +59,7 @@ class module_pages extends oktModule
 		$this->t_categories_locales = $this->db->prefix.'mod_pages_categories_locales';
 
 		# déclencheurs
-		$this->triggers = new oktTriggers();
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
@@ -65,22 +68,22 @@ class module_pages extends oktModule
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('pagesFeed', new oktRoute(
+		$this->okt->router->addRoute('pagesFeed', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
 			'pagesController', 'pagesFeed'
 		));
 
-		$this->okt->router->addRoute('pagesList', new oktRoute(
+		$this->okt->router->addRoute('pagesList', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'pagesController', 'pagesList'
 		));
 
-		$this->okt->router->addRoute('pagesCategory', new oktRoute(
+		$this->okt->router->addRoute('pagesCategory', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
 			'pagesController', 'pagesCategory'
 		));
 
-		$this->okt->router->addRoute('pagesItem', new oktRoute(
+		$this->okt->router->addRoute('pagesItem', new Okatea\Routing\Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
 			'pagesController', 'pagesItem'
 		));
@@ -1187,7 +1190,7 @@ class module_pages extends oktModule
 	 */
 	public function getImageUpload()
 	{
-		$o = new oktImageUpload($this->okt,$this->config->images);
+		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

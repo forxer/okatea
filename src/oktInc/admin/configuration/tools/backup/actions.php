@@ -54,7 +54,7 @@ if (!empty($_GET['make_backup']))
 		fclose($fp);
 		$zip->close();
 
-		$okt->redirect('configuration.php?action=tools&bakcup_done=1');
+		http::redirect('configuration.php?action=tools&bakcup_done=1');
 	}
 	catch (Exception $e)
 	{
@@ -113,14 +113,14 @@ if (!empty($_GET['make_db_backup']))
 	$fp = fopen(OKT_ROOT_PATH.'/'.$sFilename,'wb');
 	fwrite($fp,$return);
 	fclose($fp);
-	$okt->redirect('configuration.php?action=tools&bakcup_done=1');
+	http::redirect('configuration.php?action=tools&bakcup_done=1');
 }
 
 # suppression d'un fichier de backup
 if (!empty($_GET['delete_backup_file']) && (in_array($_GET['delete_backup_file'],$aBackupFiles) || in_array($_GET['delete_backup_file'],$aDbBackupFiles)))
 {
 	@unlink(OKT_ROOT_PATH.'/'.$_GET['delete_backup_file']);
-	$okt->redirect('configuration.php?action=tools&backup_file_deleted=1');
+	http::redirect('configuration.php?action=tools&backup_file_deleted=1');
 }
 
 

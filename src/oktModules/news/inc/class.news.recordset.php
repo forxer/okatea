@@ -5,7 +5,9 @@
  *
  */
 
-class newsRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class newsRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore
@@ -180,7 +182,7 @@ class newsRecordset extends recordset
 	 */
 	public function getPostAuthor()
 	{
-		return oktAuth::getUserCN($this->username, $this->lastname, $this->firstname);
+		return Okatea\Core\Authentification::getUserCN($this->username, $this->lastname, $this->firstname);
 	}
 
 	/**

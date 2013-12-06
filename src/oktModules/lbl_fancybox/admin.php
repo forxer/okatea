@@ -14,5 +14,5 @@ if ($okt->page->action === 'config' && $okt->checkPerm('fancybox_config')) {
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

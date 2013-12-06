@@ -7,6 +7,8 @@
  */
 
 
+use Okatea\Database\Recordset;
+
 /**
  * @class nestedTree
  * @ingroup okt_classes_tools
@@ -158,7 +160,7 @@ class nestedTree
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -212,7 +214,7 @@ class nestedTree
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;

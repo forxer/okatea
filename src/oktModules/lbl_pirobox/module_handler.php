@@ -5,7 +5,9 @@
  *
  */
 
-class module_lbl_pirobox extends oktModule
+use Okatea\Modules\Module;
+
+class module_lbl_pirobox extends Module
 {
 	public $config = null;
 

@@ -26,7 +26,7 @@ $okt->estimate->filtersStart('admin');
 if (!empty($_GET['init_filters']))
 {
 	$okt->estimate->filters->initFilters();
-	$okt->redirect('module.php?m=estimate&action=index');
+	http::redirect('module.php?m=estimate&action=index');
 }
 
 # Marque une demande comme traitée
@@ -45,7 +45,7 @@ if (!empty($_GET['treated']))
 
 		$okt->page->flashMessages->addSuccess(__('m_estimate_list_marked_as_treated'));
 
-		$okt->redirect('module.php?m=estimate&action=index');
+		http::redirect('module.php?m=estimate&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -68,7 +68,7 @@ if (!empty($_GET['untreated']))
 
 		$okt->page->flashMessages->addSuccess(__('m_estimate_list_marked_as_untreated'));
 
-		$okt->redirect('module.php?m=estimate&action=index');
+		http::redirect('module.php?m=estimate&action=index');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -98,7 +98,7 @@ if (!empty($_POST['actions']) && !empty($_POST['estimates']) && is_array($_POST[
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_list_marked_as_treateds'));
 
-			$okt->redirect('module.php?m=estimate&action=index');
+			http::redirect('module.php?m=estimate&action=index');
 		}
 		elseif ($_POST['actions'] == 'untreateds')
 		{
@@ -116,7 +116,7 @@ if (!empty($_POST['actions']) && !empty($_POST['estimates']) && is_array($_POST[
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_list_marked_as_untreateds'));
 
-			$okt->redirect('module.php?m=estimate&action=index');
+			http::redirect('module.php?m=estimate&action=index');
 		}
 		elseif ($_POST['actions'] == 'delete')
 		{
@@ -134,7 +134,7 @@ if (!empty($_POST['actions']) && !empty($_POST['estimates']) && is_array($_POST[
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_list_deleteds'));
 
-			$okt->redirect('module.php?m=estimate&action=index');
+			http::redirect('module.php?m=estimate&action=index');
 		}
 	}
 	catch (Exception $e) {

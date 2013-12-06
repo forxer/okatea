@@ -10,12 +10,41 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-1.0.BETA.6
+2.0-rc2
+# namespacing old oktInc/classes
+# remove oktCore::redirect
+! show debug mode enabled info
+! remove unused dev and debug panels from config page
+
+
+2.0-rc1
+# introduce composer components
+	# remove oktInc/vendor
+	! doctrine/dbal 2.5.*@dev
+	! dotclear/clearbricks dev-default
+	! erusev/parsedown dev-master
+	! ezyang/htmlpurifier dev-master
+	! ircmaxell/password-compat dev-master
+	! leafo/lessphp 0.4.*
+	! masterexploder/phpthumb dev-master
+	! mobiledetect/mobiledetectlib dev-master
+	! simplepie/simplepie dev-master
+	! swiftmailer/swiftmailer 5.1.*@dev
+	! symfony/debug 2.3.*@dev
+	! symfony/templating 2.5.*@dev
+	! symfony/yaml 2.5.*@dev
+# remove minify lib
+# remove oktDebug class
+# remove internal autoloader, now use composer autoloader instead
+# all modules bumped to version 2.0-rc1
+
+
+1.0 (2013-11-26)
 ! improve perfs by replacing somes functions by PHP natives ones
 ! add captchas to estimate module
 
 
-1.0.BETA.5 (24/11/2013)
+1.0.BETA.5 (2013-11-24)
 # new famfamfam sprites (replace previous ones)
 ! new tinyMCE 4 module
 ! new estimate module
@@ -26,7 +55,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 . deletion of old stuff
 
 
-1.0.BETA.4 (14/11/2013)
+1.0.BETA.4 (2013-11-14)
 # refactor variables names of emails configuration
 ! can now use external links in navigation menus
 ! add navigation items proper recordset

@@ -5,7 +5,9 @@
  *
  */
 
-class catalogController extends oktController
+use Okatea\Core\Controller;
+
+class catalogController extends Controller
 {
 	/**
 	 * Affichage de la liste classique des produits.
@@ -148,7 +150,7 @@ class catalogController extends oktController
 		if ($rsCategory->isEmpty()) {
 			$this->serve404();
 		}
-		
+
 		# route par défaut ?
 		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
 
@@ -232,16 +234,16 @@ class catalogController extends oktController
 		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# fil d'ariane
-		if (!$bIsDefaultRoute) 
+		if (!$bIsDefaultRoute)
 		{
 			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
 
 			$rsPath = $this->okt->catalog->getPath($rsCategory->id,true);
-	
+
 			while ($rsPath->fetch())
 			{
 				$this->okt->page->addTitleTag($rsPath->name);
-	
+
 				$this->okt->page->breadcrumb->add(
 					$rsPath->name,
 					$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
@@ -292,7 +294,7 @@ class catalogController extends oktController
 		if ($product->isEmpty()) {
 			$this->serve404();
 		}
-		
+
 		# route par défaut ?
 		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
 
@@ -357,7 +359,7 @@ class catalogController extends oktController
 		if (!$bIsDefaultRoute)
 		{
 			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
-			
+
 			if ($this->okt->catalog->config->categories_enable && $product->category_id)
 			{
 				$rsPath = $this->okt->catalog->getPath($product->category_id,true);
@@ -370,7 +372,7 @@ class catalogController extends oktController
 				}
 				unset($rsPath);
 			}
-	
+
 			$this->okt->page->breadcrumb->add($product->title,$product->url);
 		}
 

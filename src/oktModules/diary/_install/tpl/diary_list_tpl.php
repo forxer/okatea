@@ -16,14 +16,14 @@ $okt->page->css->addFile(OKT_THEME.'/modules/diary/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML
-$this->start('head') ?>
+$view['slots']->start('head') ?>
 
 	<?php # début Okatea : si les filtres ont été utilisés, on index pas
 	if ($okt->diary->filters->params->show_filters) : ?>
 	<meta name="robots" content="none" />
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
-<?php $this->stop();
+<?php $view['slots']->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 <?php # début Okatea : si les filtres sont activés

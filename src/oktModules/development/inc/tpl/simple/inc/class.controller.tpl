@@ -2,7 +2,9 @@
 ##header##
 
 
-class ##module_camel_case_id##Controller extends oktController
+use Okatea\Core\Controller;
+
+class ##module_camel_case_id##Controller extends Controller
 {
 	/**
 	 * Affichage de la page.

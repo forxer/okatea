@@ -111,7 +111,7 @@ else if (!empty($_GET['reinstall']) && array_key_exists($_GET['reinstall'], $aIn
 		# cache de la liste de module
 		$okt->modules->generateCacheList();
 
-		$okt->redirect('configuration.php?action=modules&reinstall='.$_GET['reinstall']);
+		http::redirect('configuration.php?action=modules&reinstall='.$_GET['reinstall']);
 	}
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['reinstall']);
@@ -372,7 +372,7 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 	{
 		$okt->modules->enableModule($_GET['update']);
 		$okt->modules->generateCacheList();
-		$okt->redirect('configuration.php?action=modules&update='.$_GET['update']);
+		http::redirect('configuration.php?action=modules&update='.$_GET['update']);
 	}
 
 	# Ensuite on met à jour
@@ -434,10 +434,10 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 # Suppression d'un module
 else if (!empty($_GET['delete']) && array_key_exists($_GET['delete'], $aUninstalledModules))
 {
-	if (files::deltree($okt->modules->path.'/'.$_GET['delete'])) 
+	if (files::deltree($okt->modules->path.'/'.$_GET['delete']))
 	{
 		$okt->page->flashMessages->addSuccess(__('c_a_modules_successfully_deleted'));
-		$okt->redirect('configuration.php?action=modules');
+		http::redirect('configuration.php?action=modules');
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_deleted.'));
@@ -459,7 +459,7 @@ else if (!empty($_GET['enable']) && array_key_exists($_GET['enable'], $aInstalle
 		'message' => $_GET['enable']
 	));
 
-	$okt->redirect('configuration.php?action=modules&enabled=1');
+	http::redirect('configuration.php?action=modules&enabled=1');
 }
 
 
@@ -477,7 +477,7 @@ else if (!empty($_GET['disable']) && array_key_exists($_GET['disable'], $aInstal
 		'message' => $_GET['disable']
 	));
 
-	$okt->redirect('configuration.php?action=modules&disabled=1');
+	http::redirect('configuration.php?action=modules&disabled=1');
 }
 
 
@@ -500,7 +500,7 @@ else if (!empty($_GET['templates']) && array_key_exists($_GET['templates'], $aIn
 
 	$okt->page->flashMessages->addSuccess(__('c_a_modules_templates_files_replaced'));
 
-	$okt->redirect('configuration.php?action=modules');
+	http::redirect('configuration.php?action=modules');
 }
 
 
@@ -509,8 +509,8 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['common']);
 	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['common']);
-	foreach (oktThemes::getThemes() as $sThemeId=>$sTheme) {
-		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, oktThemes::getLockedFiles($sThemeId));
+	foreach (Okatea\Themes\Collection::getThemes() as $sThemeId=>$sTheme) {
+		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, Okatea\Themes\Collection::getLockedFiles($sThemeId));
 	}
 
 	# cache de la liste de module
@@ -518,7 +518,7 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 
 	$okt->page->flashMessages->addSuccess(__('c_a_modules_common_files_replaced'));
 
-	$okt->redirect('configuration.php?action=modules');
+	http::redirect('configuration.php?action=modules');
 }
 
 
@@ -534,7 +534,7 @@ else if (!empty($_GET['public']) && array_key_exists($_GET['public'], $aInstalle
 
 	$okt->page->flashMessages->addSuccess(__('c_a_modules_public_files_replaced'));
 
-	$okt->redirect('configuration.php?action=modules');
+	http::redirect('configuration.php?action=modules');
 }
 
 
@@ -623,15 +623,15 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 		}
 
 		$ret_code = $okt->modules->installPackage($dest, $okt->modules);
-		
+
 		if ($ret_code == 2) {
 			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_upgraded'));
 		}
 		else {
 			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_added'));
 		}
-		
-		$okt->redirect('configuration.php?action=modules&added='.$ret_code);
+
+		http::redirect('configuration.php?action=modules&added='.$ret_code);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

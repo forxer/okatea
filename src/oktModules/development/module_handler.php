@@ -5,22 +5,23 @@
  *
  */
 
+use Okatea\Modules\Module;
 
-class module_development extends oktModule
+class module_development extends Module
 {
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# Chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# Autoload
-		$oktAutoloadPaths['oktDebugBar'] = __DIR__.'/inc/class.oktDebugBar.php';
-		$oktAutoloadPaths['oktModuleBootstrap'] = __DIR__.'/inc/class.module.bootstrap.php';
-		$oktAutoloadPaths['oktModuleBootstrapAdvanced'] = __DIR__.'/inc/class.module.bootstrap.advanced.php';
-		$oktAutoloadPaths['oktModuleBootstrapSimple'] = __DIR__.'/inc/class.module.bootstrap.simple.php';
-		$oktAutoloadPaths['countingFilesAndLines'] = __DIR__.'/inc/class.countingFilesAndLines.php';
+		$this->okt->autoloader->addClassMap(array(
+			'oktDebugBar' => __DIR__.'/inc/class.oktDebugBar.php',
+			'oktModuleBootstrap' => __DIR__.'/inc/class.module.bootstrap.php',
+			'oktModuleBootstrapAdvanced' => __DIR__.'/inc/class.module.bootstrap.advanced.php',
+			'oktModuleBootstrapSimple' => __DIR__.'/inc/class.module.bootstrap.simple.php',
+			'countingFilesAndLines' => __DIR__.'/inc/class.countingFilesAndLines.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('development', __('m_development_perm_group'));

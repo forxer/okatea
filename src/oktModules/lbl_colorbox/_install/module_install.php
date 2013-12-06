@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_lbl_colorbox extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_lbl_colorbox extends ModuleInstall
 {
 	public function install()
 	{

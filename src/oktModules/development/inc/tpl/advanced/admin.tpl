@@ -8,7 +8,7 @@ if (!defined('ON_##module_upper_id##_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('##module_id##')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -16,7 +16,7 @@ if (!$okt->checkPerm('##module_id##')) {
 if ($okt->page->action === 'delete' && !empty($_GET['item_id']) && $okt->checkPerm('##module_id##_remove'))
 {
 	if ($okt->##module_id##->delItem($_GET['item_id'])) {
-		$okt->redirect('module.php?m=##module_id##&action=index&deleted=1');
+		http::redirect('module.php?m=##module_id##&action=index&deleted=1');
 	}
 	else {
 		$okt->page->action = 'index';
@@ -64,5 +64,5 @@ elseif ($okt->page->action === 'config' && $okt->checkPerm('##module_id##_config
 	require __DIR__.'/inc/admin/config.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

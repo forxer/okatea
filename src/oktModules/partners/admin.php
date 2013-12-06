@@ -12,7 +12,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 
 # Perms ?
 if (!$okt->checkPerm('partners')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -23,7 +23,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['partner_id']) && $okt->chec
 	{
 		$okt->page->flashMessages->addSuccess(__('m_partners_deleted'));
 
-		$okt->redirect('module.php?m=partners&action=index');
+		http::redirect('module.php?m=partners&action=index');
 	}
 	else {
 		$okt->page->action = 'index';

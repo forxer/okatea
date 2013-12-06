@@ -123,21 +123,21 @@ if (!empty($_REQUEST['product_id']))
 if (!empty($_GET['switch_status']) && !empty($product_id))
 {
 	$okt->catalog->switchProdStatus($product_id);
-	$okt->redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&switched=1');
+	http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&switched=1');
 }
 
 # suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($product_id) && $can_edit_product)
 {
 	$okt->catalog->deleteImage($product_id,$_GET['delete_image']);
-	$okt->redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&edited=1');
+	http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&edited=1');
 }
 
 # suppression d'un fichier
 if (!empty($_GET['delete_file']) && !empty($product_id) && $can_edit_product)
 {
 	$okt->catalog->deleteFile($product_id,$_GET['delete_file']);
-	$okt->redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&edited=1');
+	http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&edited=1');
 }
 
 # add/update product
@@ -192,7 +192,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdUpdate
 				$okt->triggers->callTrigger('moduleNewsAfterProdUpdate',$cursor,$product_id);
 
-				$okt->redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&updated=1');
+				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&updated=1');
 			}
 		}
 		# add product
@@ -206,7 +206,7 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdCreate
 				$okt->triggers->callTrigger('moduleNewsAfterProdCreate',$cursor);
 
-				$okt->redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&added=1');
+				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&added=1');
 			}
 		}
 	}

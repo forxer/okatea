@@ -6,7 +6,9 @@
  */
 
 
-class module_users extends oktModule
+use Okatea\Modules\Module;
+
+class module_users extends Module
 {
 	protected $t_users;
 	protected $t_groups;
@@ -18,17 +20,17 @@ class module_users extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['usersController'] = __DIR__.'/inc/class.users.controller.php';
-		$oktAutoloadPaths['usersCustomFields'] = __DIR__.'/inc/class.users.custom.fields.php';
-		$oktAutoloadPaths['usersFieldRecordset'] = __DIR__.'/inc/class.users.fields.recordset.php';
-		$oktAutoloadPaths['usersFilters'] = __DIR__.'/inc/class.users.filters.php';
-		$oktAutoloadPaths['usersHelpers'] = __DIR__.'/inc/class.users.helpers.php';
+		$this->okt->autoloader->addClassMap(array(
+			'usersController' => __DIR__.'/inc/class.users.controller.php',
+			'usersCustomFields' => __DIR__.'/inc/class.users.custom.fields.php',
+			'usersFieldRecordset' => __DIR__.'/inc/class.users.fields.recordset.php',
+			'usersFilters' => __DIR__.'/inc/class.users.filters.php',
+			'usersHelpers' => __DIR__.'/inc/class.users.helpers.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('users',__('m_users_perm_group'));
@@ -50,32 +52,32 @@ class module_users extends oktModule
 		$this->config = $this->okt->newConfig('conf_users');
 
 		# définition des routes
-		$this->okt->router->addRoute('usersLogin', new oktRoute(
+		$this->okt->router->addRoute('usersLogin', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_login_url)).')$',
 			'usersController', 'usersLogin'
 		));
 
-		$this->okt->router->addRoute('usersLogout', new oktRoute(
+		$this->okt->router->addRoute('usersLogout', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_logout_url)).')$',
 			'usersController', 'usersLogout'
 		));
 
-		$this->okt->router->addRoute('usersProfile', new oktRoute(
+		$this->okt->router->addRoute('usersProfile', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_profile_url)).')$',
 			'usersController', 'usersProfile'
 		));
 
-		$this->okt->router->addRoute('usersRegister', new oktRoute(
+		$this->okt->router->addRoute('usersRegister', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_register_url)).')$',
 			'usersController', 'usersRegister'
 		));
 
-		$this->okt->router->addRoute('usersLoginRegister', new oktRoute(
+		$this->okt->router->addRoute('usersLoginRegister', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_log_reg_url)).')$',
 			'usersController', 'usersLoginRegister'
 		));
 
-		$this->okt->router->addRoute('usersForgetPassword', new oktRoute(
+		$this->okt->router->addRoute('usersForgetPassword', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_forget_password_url)).')$',
 			'usersController', 'usersForgetPassword'
 		));
@@ -505,12 +507,7 @@ class module_users extends oktModule
 			$aParams['group_id'] = $this->config->default_group;
 		}
 
-		/**
-		 * Require the password compat library
-		 */
-		require_once OKT_VENDOR_PATH.'/password_compat/lib/password.php';
-
-		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
+		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 		$iTime= time();
 
 		$sQuery =
@@ -629,7 +626,7 @@ class module_users extends oktModule
 			return false;
 		}
 
-		$password_hash = password::hash($aParams['password'], PASSWORD_DEFAULT);
+		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.

@@ -17,33 +17,33 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images des éléments
-$oItemImageUploadConfig = new oktImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
+$oItemImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
 $oItemImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;item_');
 $oItemImageUploadConfig->setFormPrefix('p_item_');
 $oItemImageUploadConfig->setUnique(true);
 
 # Gestion des images des galeries
-$oGalleryImageUploadConfig = new oktImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
+$oGalleryImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
 $oGalleryImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;gallery_');
 $oGalleryImageUploadConfig->setFormPrefix('p_gallery_');
 $oGalleryImageUploadConfig->setUnique(true);
 
 # Gestionnaires de templates
-$oTemplatesList = new oktTemplatesSet($okt,
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['list'],
 	'galleries/list',
 	'list',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesGallery = new oktTemplatesSet($okt,
+$oTemplatesGallery = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['gallery'],
 	'galleries/gallery',
 	'gallery',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new oktTemplatesSet($okt,
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
 	$okt->galleries->config->templates['item'],
 	'galleries/item',
 	'item',
@@ -58,24 +58,24 @@ $oTemplatesItem = new oktTemplatesSet($okt,
 if (!empty($_GET['item_minregen']))
 {
 	$okt->galleries->items->regenMinImages();
-	$okt->redirect('module.php?m=galleries&action=config&minregenerated=1');
+	http::redirect('module.php?m=galleries&action=config&minregenerated=1');
 }
 if (!empty($_GET['gallery_minregen']))
 {
 	$okt->galleries->tree->regenMinImages();
-	$okt->redirect('module.php?m=galleries&action=config&minregenerated=1');
+	http::redirect('module.php?m=galleries&action=config&minregenerated=1');
 }
 
 # suppression filigrane
 if (!empty($_GET['item_delete_watermark']))
 {
 	$okt->galleries->config->write(array('images'=>$oItemImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=galleries&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=galleries&action=config&watermarkdeleted=1');
 }
 if (!empty($_GET['gallery_delete_watermark']))
 {
 	$okt->galleries->config->write(array('images_gal'=>$oGalleryImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=galleries&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=galleries&action=config&watermarkdeleted=1');
 }
 
 # enregistrement configuration
@@ -180,7 +180,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->galleries->config->write($new_conf);
-			$okt->redirect('module.php?m=galleries&action=config&updated=1');
+			http::redirect('module.php?m=galleries&action=config&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

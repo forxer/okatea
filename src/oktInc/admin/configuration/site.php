@@ -60,7 +60,7 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 
 		$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-		$okt->redirect('configuration.php?action=site');
+		http::redirect('configuration.php?action=site');
 	}
 	catch (InvalidArgumentException $e)
 	{

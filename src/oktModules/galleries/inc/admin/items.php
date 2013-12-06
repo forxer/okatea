@@ -23,7 +23,7 @@ $rsGallery = $okt->galleries->tree->getGallery($gallery_id);
 
 if (is_null($gallery_id) || $rsGallery->isEmpty()) {
 	# @FIXME: need redirect 404
-	$okt->redirect('module.php?m=galleries&action=index');
+	http::redirect('module.php?m=galleries&action=index');
 }
 
 
@@ -37,7 +37,7 @@ if (!empty($_GET['switch_status']))
 	{
 		$okt->galleries->items->switchItemStatus($_GET['switch_status']);
 
-		$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&switched=1');
+		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -51,7 +51,7 @@ if (!empty($_GET['delete']) && $okt->checkPerm('galleries_remove'))
 	{
 		$okt->galleries->items->deleteItem($_GET['delete']);
 
-		$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&deleted=1');
+		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&deleted=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -71,7 +71,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->setItemStatus($itemId,1);
 			}
 
-			$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&sitems_witched=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&sitems_witched=1');
 		}
 		elseif ($_POST['actions'] == 'hide')
 		{
@@ -79,7 +79,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->setItemStatus($itemId,0);
 			}
 
-			$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_switched=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_switched=1');
 		}
 		elseif ($_POST['actions'] == 'delete')
 		{
@@ -87,7 +87,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->deleteItem($itemId);
 			}
 
-			$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_deleted=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_deleted=1');
 		}
 		else {
 			throw new Exception('no valid action selected');

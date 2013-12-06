@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'Fancybox',
 	'desc' 			=> 'Allow to integrate Fancybox in Okatea',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));

@@ -5,7 +5,9 @@
  *
  */
 
-class module_lbl_nyromodal_2 extends oktModule
+use Okatea\Modules\Module;
+
+class module_lbl_nyromodal_2 extends Module
 {
 	public $config = null;
 

@@ -5,7 +5,9 @@
  *
  */
 
-class newsController extends oktController
+use Okatea\Core\Controller;
+
+class newsController extends Controller
 {
 	/**
 	 * Affichage de la liste d'articles d'actualités classique.

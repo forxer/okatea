@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_news extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_news extends ModuleInstall
 {
 	public function installTestSet()
 	{

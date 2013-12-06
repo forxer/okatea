@@ -48,7 +48,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->faq->config->write($question_conf);
-			$okt->redirect('module.php?m=faq&action=display&updated=1');
+			http::redirect('module.php?m=faq&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

@@ -5,7 +5,9 @@
  *
  */
 
-class oktTheme extends oktThemeBase
+use Okatea\Themes\Theme;
+
+class oktTheme extends Theme
 {
 	public function prepend()
 	{

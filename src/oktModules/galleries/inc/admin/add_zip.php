@@ -125,7 +125,7 @@ if (!empty($_POST['sended']))
 	{
 		$okt->galleries->items->regenMinImages($iGalleryId);
 
-		$okt->redirect('module.php?m=galleries&action=items&gallery_id='.$iGalleryId);
+		http::redirect('module.php?m=galleries&action=items&gallery_id='.$iGalleryId);
 	}
 }
 

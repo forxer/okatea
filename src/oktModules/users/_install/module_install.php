@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_users extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_users extends ModuleInstall
 {
 	public function install()
 	{

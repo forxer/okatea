@@ -12,7 +12,7 @@ if (!defined('ON_FAQ_MODULE')) die;
 
 # Perms ?
 if (!$okt->checkPerm('faq')) {
-	$okt->redirect(OKT_ADMIN_LOGIN_PAGE);
+	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 
@@ -20,7 +20,7 @@ if (!$okt->checkPerm('faq')) {
 if ($okt->page->action === 'delete' && !empty($_GET['questions_id']) && $okt->checkPerm('faq_remove'))
 {
 	if ($okt->faq->deleteQuestion($_GET['questions_id'])) {
-		$okt->redirect('module.php?m=faq&action=index&deleted=1');
+		http::redirect('module.php?m=faq&action=index&deleted=1');
 	}
 	else {
 		$okt->page->action = 'index';

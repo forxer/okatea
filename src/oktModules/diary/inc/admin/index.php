@@ -25,14 +25,14 @@ $okt->diary->filtersStart('admin');
 if (!empty($_GET['init_filters']))
 {
 	$okt->diary->filters->initFilters();
-	$okt->redirect('module.php?m=diary&action=index');
+	http::redirect('module.php?m=diary&action=index');
 }
 
 # Switch statut
 if (!empty($_GET['switch_status']))
 {
 	$okt->diary->switchEventStatus($_GET['switch_status']);
-	$okt->redirect('module.php?m=diary&action=index&switched=1');
+	http::redirect('module.php?m=diary&action=index&switched=1');
 }
 
 # Traitements par lots
@@ -46,7 +46,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->setEventStatus($iEventId,1);
 		}
 
-		$okt->redirect('module.php?m=diary&action=index&switcheds=1');
+		http::redirect('module.php?m=diary&action=index&switcheds=1');
 	}
 	elseif ($_POST['actions'] == 'hide')
 	{
@@ -54,7 +54,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->setEventStatus($iEventId,0);
 		}
 
-		$okt->redirect('module.php?m=diary&action=index&switcheds=1');
+		http::redirect('module.php?m=diary&action=index&switcheds=1');
 	}
 	elseif($_POST['actions'] == 'delete')
 	{
@@ -62,7 +62,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->delEvent($iEventId);
 		}
 
-		$okt->redirect('module.php?m=diary&action=index&deleteds=1');
+		http::redirect('module.php?m=diary&action=index&deleteds=1');
 	}
 }
 

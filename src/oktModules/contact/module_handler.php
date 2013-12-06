@@ -6,7 +6,9 @@
  */
 
 
-class module_contact extends oktModule
+use Okatea\Modules\Module;
+
+class module_contact extends Module
 {
 	public $aPostedData = array();
 	public $rsFields;
@@ -32,14 +34,14 @@ class module_contact extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['contactController'] = __DIR__.'/inc/class.contact.controller.php';
-		$oktAutoloadPaths['contactRecordset'] = __DIR__.'/inc/class.contact.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'contactController' => __DIR__.'/inc/class.contact.controller.php',
+			'contactRecordset' => __DIR__.'/inc/class.contact.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('contact', __('m_contact_perm_group'));
@@ -58,12 +60,12 @@ class module_contact extends oktModule
 		$this->config->map_url = $this->okt->page->getBaseUrl().$this->config->public_map_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('contactPage', new oktRoute(
+		$this->okt->router->addRoute('contactPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'contactController', 'contactPage'
 		));
 
-		$this->okt->router->addRoute('contactMapPage', new oktRoute(
+		$this->okt->router->addRoute('contactMapPage', new Okatea\Routing\Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
 			'contactController', 'contactMapPage'
 		));

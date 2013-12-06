@@ -8,6 +8,6 @@
 $this->registerModule(array(
 	'name' 			=> 'FAQ',
 	'desc' 			=> 'Allow to add a FAQ',
-	'version' 		=> '1.0',
+	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
 ));

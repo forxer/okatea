@@ -50,7 +50,7 @@ $aUserBarB = new ArrayObject;
 if (!$okt->user->is_guest)
 {
 	# profil link
-	$sProfilLink = html::escapeHTML(oktAuth::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname));
+	$sProfilLink = html::escapeHTML($okt->user->usedname);
 	if ($okt->modules->moduleExists('users')) {
 		$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$okt->user->id.'">'.$sProfilLink.'</a>';
 	}
@@ -120,7 +120,6 @@ ob_start();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
 	<title><?php echo html::escapeHtml($okt->page->titleTag(' - ')) ?></title>
-	<link type="text/css" href="<?php echo $okt->config->app_path ?>oktMin/?g=css_admin" rel="stylesheet" media="screen" />
 	<?php echo $okt->page->css ?>
 	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo OKT_PUBLIC_URL ?>/plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>

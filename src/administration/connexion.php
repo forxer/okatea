@@ -32,7 +32,7 @@ $okt->page->breadcrumb->reset();
 
 # déjà logué
 if (!$okt->user->is_guest) {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }
 
 
@@ -114,7 +114,7 @@ if (!empty($_REQUEST['user_id']) && !empty($_REQUEST['user_pwd']))
 			$okt->user->setAuthFromCookie('', 0);
 		}
 
-		$okt->redirect($redir);
+		http::redirect($redir);
 	}
 }
 else {

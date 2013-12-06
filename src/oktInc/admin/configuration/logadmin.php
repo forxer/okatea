@@ -42,14 +42,14 @@ if (!empty($_GET['truncate']) && $okt->user->is_superadmin)
 
 	$okt->page->flashMessages->addSuccess(__('c_a_config_logadmin_truncated'));
 
-	$okt->redirect('configuration.php?action=logadmin');
+	http::redirect('configuration.php?action=logadmin');
 }
 
 # Ré-initialisation filtres
 if (!empty($_GET['init_filters']))
 {
 	$okt->logAdmin->filters->initFilters();
-	$okt->redirect('configuration.php?action=logadmin');
+	http::redirect('configuration.php?action=logadmin');
 }
 
 
@@ -121,7 +121,7 @@ elseif ($okt->logAdmin->oConfig->admin_filters_style == 'dialog')
 $okt->page->datePicker();
 
 # Tableau des codes de logs
-$aLogAdminCodes = oktLogAdmin::getCodes();
+$aLogAdminCodes = Okatea\Core\LogAdmin::getCodes();
 
 # Infos page
 $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
@@ -164,7 +164,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<tbody>
 	<?php while($rsLogAdmin->fetch()) :?>
 	<tr class="type_<?php echo $rsLogAdmin->type ?>">
-		<td><?php echo oktLogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
+		<td><?php echo Okatea\Core\LogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
 		<td><?php echo $rsLogAdmin->user_id ?> - <?php echo $rsLogAdmin->username ?></td>
 		<td><?php echo $rsLogAdmin->ip ?></td>
 		<td><?php echo dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $rsLogAdmin->date) ?></td>

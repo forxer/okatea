@@ -13,7 +13,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->partners->getLogoUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->partners->getLogoUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=partners&amp;action=config&amp;');
 $oImageUploadConfig->setUnique(true);
 $oImageUploadConfig->setWithWatermark(false);
@@ -29,7 +29,7 @@ if (!empty($_GET['minregen']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
 
-	$okt->redirect('module.php?m=partners&action=config');
+	http::redirect('module.php?m=partners&action=config');
 }
 
 # suppression filigrane
@@ -39,7 +39,7 @@ if (!empty($_GET['delete_watermark']))
 
 	$okt->news->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
-	$okt->redirect('module.php?m=partners&action=config');
+	http::redirect('module.php?m=partners&action=config');
 }
 
 # formulaire envoyé
@@ -98,7 +98,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=partners&action=config');
+			http::redirect('module.php?m=partners&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

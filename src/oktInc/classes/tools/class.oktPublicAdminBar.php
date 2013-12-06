@@ -66,7 +66,7 @@ class oktPublicAdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), html::escapeHTML(oktAuth::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), \html::escapeHTML(Okatea\Core\Authentification::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
 		);
 
 		if (!$okt->languages->unique)
@@ -79,9 +79,9 @@ class oktPublicAdminBar
 				}
 
 				$aSecondaryAdminBar[$iStartIdx++] = array(
-					'href' => html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
-					'title' => html::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" />'
+					'href' => \html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
+					'title' => \html::escapeHTML($aLanguage['title']),
+					'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
 				);
 			}
 		}
@@ -95,10 +95,18 @@ class oktPublicAdminBar
 		# infos super-admin
 		if ($okt->checkPerm('is_superadmin'))
 		{
+			# avertissement mode debug activé
+			if (OKT_DEBUG)
+			{
+				$aPrimaryAdminBar[10]['items'][300] = array(
+					'intitle' => __('c_a_public_debug_mode_enabled')
+				);
+			}
+
 			# avertissement nouvelle version disponible
 			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
 			{
-				$updater = new oktUpdate($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+				$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 				$new_v = $updater->check(util::getVersion());
 
 				if ($updater->getNotify() && $new_v)
@@ -118,7 +126,7 @@ class oktPublicAdminBar
 			{
 				$aPrimaryAdminBar[10]['items'][300] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => sprintf(__('c_a_public_maintenance_mode_enabled'), $new_v)
+					'intitle' => __('c_a_public_maintenance_mode_enabled')
 				);
 			}
 
@@ -127,7 +135,7 @@ class oktPublicAdminBar
 			{
 				$aPrimaryAdminBar[10]['items'][400] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => sprintf(__('c_a_admin_maintenance_mode_enabled'), $new_v)
+					'intitle' => __('c_a_admin_maintenance_mode_enabled')
 				);
 			}
 

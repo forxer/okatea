@@ -5,7 +5,9 @@
  *
  */
 
-class contactController extends oktController
+use Okatea\Core\Controller;
+
+class contactController extends Controller
 {
 	/**
 	 * Affichage de la page contact.

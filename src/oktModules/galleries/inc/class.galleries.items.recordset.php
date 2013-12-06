@@ -5,7 +5,9 @@
  *
  */
 
-class galleriesItemsRecordset extends recordset
+use Okatea\Database\Recordset;
+
+class galleriesItemsRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

@@ -37,7 +37,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->galleries->config->write($new_conf);
-			$okt->redirect('module.php?m=galleries&action=display&updated=1');
+			http::redirect('module.php?m=galleries&action=display&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

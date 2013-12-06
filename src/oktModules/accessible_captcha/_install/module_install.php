@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_accessible_captcha extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_accessible_captcha extends ModuleInstall
 {
 	public function install()
 	{

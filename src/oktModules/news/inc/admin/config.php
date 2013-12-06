@@ -17,32 +17,32 @@ if (!defined('ON_NEWS_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->news->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->news->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=news&amp;action=config&amp;');
 
 # Gestionnaires de templates
-$oTemplatesList = new oktTemplatesSet($okt,
+$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['list'],
 	'news/list',
 	'list',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new oktTemplatesSet($okt,
+$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['item'],
 	'news/item',
 	'item',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new oktTemplatesSet($okt,
+$oTemplatesInsert = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['insert'],
 	'news/insert',
 	'insert',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesFeed = new oktTemplatesSet($okt,
+$oTemplatesFeed = new Okatea\Themes\TemplatesSet($okt,
 	$okt->news->config->templates['feed'],
 	'news/feed',
 	'feed',
@@ -60,7 +60,7 @@ if (!empty($_GET['minregen']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
 
-	$okt->redirect('module.php?m=news&action=config');
+	http::redirect('module.php?m=news&action=config');
 }
 
 # suppression filigrane
@@ -70,7 +70,7 @@ if (!empty($_GET['delete_watermark']))
 
 	$okt->page->flashMessages->addSuccess(__('c_c_confirm_watermark_deleted'));
 
-	$okt->redirect('module.php?m=news&action=config');
+	http::redirect('module.php?m=news&action=config');
 }
 
 # enregistrement configuration
@@ -179,7 +179,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
 
-			$okt->redirect('module.php?m=news&action=config');
+			http::redirect('module.php?m=news&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{

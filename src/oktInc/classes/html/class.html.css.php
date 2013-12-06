@@ -120,15 +120,11 @@ class htmlCss
 			return false;
 		}
 
-		$aMinifyFiles = $this->getMinifyFiles();
-
 		$sHtml = '';
 		foreach ($aFiles as $sFileInfo)
 		{
 			list($sFile, $sMedia) = explode('|', $sFileInfo);
-			if (!in_array($sFile,$aMinifyFiles)) {
-				$sHtml .= self::formatHtmlCssFile($sFile, $sMedia);
-			}
+			$sHtml .= self::formatHtmlCssFile($sFile, $sMedia);
 		}
 
 		return $sHtml;
@@ -196,7 +192,7 @@ class htmlCss
 
 		try
 		{
-			$less = new lessc;
+			$less = new \lessc;
 
 			$less->setPreserveComments(true);
 
@@ -209,9 +205,11 @@ class htmlCss
 
 			$newCache = $less->cachedCompile($cache);
 		}
-		catch (Exception $ex) {
-			$okt->error->set('lessphp fatal error: '.$ex->getMessage());
+		catch (Exception $e) {
+			$okt->error->set('lessphp fatal error: '.$e->getMessage());
+			oktErrors::fatalScreen($e->getMessage());
 		}
+
 
 		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{
@@ -220,30 +218,6 @@ class htmlCss
 		}
 
 		return str_replace(OKT_PUBLIC_PATH, $okt->config->app_path.OKT_PUBLIC_DIR, $outputFile);
-	}
-
-	/**
-	 * Retourne la pile des fichiers CSS à minifier.
-	 *
-	 * @return array
-	 */
-	public function getMinifyFiles()
-	{
-		global $okt;
-
-		if (!isset($okt->config->{'minify_css_'.$this->sPart})) {
-			return array();
-		}
-
-		$aFiles = $okt->config->{'minify_css_'.$this->sPart};
-
-		$aReplacements = util::getMinifyReplacements($okt->config);
-
-		foreach ($aFiles as $i=>$f) {
-			$aFiles[$i] = str_replace($aReplacements['aSearch'],$aReplacements['aReplace'],$f);
-		}
-
-		return $aFiles;
 	}
 
 

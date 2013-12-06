@@ -58,24 +58,3 @@ if (!function_exists('_e'))
 		echo __($str);
 	}
 }
-
-
-function oktShutdown()
-{
-	global $oktShutdown;
-
-	if (is_array($oktShutdown))
-	{
-		foreach ($oktShutdown as $f)
-		{
-			if (is_callable($f)) {
-				call_user_func($f);
-			}
-		}
-	}
-
-	if (session_id()) {
-		session_write_close();
-	}
-}
-

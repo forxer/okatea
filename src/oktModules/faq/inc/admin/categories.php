@@ -32,7 +32,7 @@ $add_active = 1;
 if (!empty($_GET['switch_status']))
 {
 	$okt->faq->switchCategoryStatus($_GET['switch_status']);
-	$okt->redirect('module.php?m=faq&action=categories&switched=1');
+	http::redirect('module.php?m=faq&action=categories&switched=1');
 }
 
 # ajout d'une catégorie
@@ -47,7 +47,7 @@ if ($do == 'add')
 	);
 
 	$iCategoryId = $okt->faq->addCategory($add_params);
-	$okt->redirect('module.php?m=faq&action=categories&added=1');
+	http::redirect('module.php?m=faq&action=categories&added=1');
 }
 
 # modification d'une catégorie
@@ -82,7 +82,7 @@ if ($do == 'edit' && $iCategoryId > 0)
 		);
 
 		$okt->faq->updCategory($edit_params);
-		$okt->redirect('module.php?m=faq&action=categories&edited=1');
+		http::redirect('module.php?m=faq&action=categories&edited=1');
 	}
 }
 
@@ -90,7 +90,7 @@ if ($do == 'edit' && $iCategoryId > 0)
 if ($do == 'delete' && $iCategoryId > 0)
 {
 	$okt->faq->delCategory($iCategoryId);
-	$okt->redirect('module.php?m=faq&action=categories&deleted=1');
+	http::redirect('module.php?m=faq&action=categories&deleted=1');
 }
 
 # changement de l'ordre des langues
@@ -118,7 +118,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->faq->updCategoryOrder($id,$ord);
 	}
 
-	$okt->redirect('module.php?m=faq&action=categories&neworder=1');
+	http::redirect('module.php?m=faq&action=categories&neworder=1');
 }
 
 

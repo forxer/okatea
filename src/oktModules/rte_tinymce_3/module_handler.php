@@ -5,7 +5,9 @@
  *
  */
 
-class module_rte_tinymce_3 extends oktModule
+use Okatea\Modules\Module;
+
+class module_rte_tinymce_3 extends Module
 {
 	public $config = null;
 

@@ -5,7 +5,9 @@
  *
  */
 
-class moduleInstall_galleries extends oktModuleInstall
+use Okatea\Modules\ModuleInstall;
+
+class moduleInstall_galleries extends ModuleInstall
 {
 	public function installTestSet()
 	{

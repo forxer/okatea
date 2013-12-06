@@ -53,7 +53,7 @@ if ($okt->news->config->enable_filters && !$okt->news->filters->params->show_fil
 
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML
-$this->start('head') ?>
+$view['slots']->start('head') ?>
 
 	<?php # début Okatea : si les filtres ont été utilisés, on index pas
 	if ($okt->news->filters->params->show_filters) : ?>
@@ -64,7 +64,7 @@ $this->start('head') ?>
 	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo html::escapeHTML($okt->news->config->feed_url) ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
-<?php $this->stop();
+<?php $view['slots']->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 

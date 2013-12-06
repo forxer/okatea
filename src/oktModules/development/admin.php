@@ -30,5 +30,5 @@ elseif ($okt->page->action === 'counting' && $okt->checkPerm('development_counti
 	require __DIR__.'/inc/admin/counting.php';
 }
 else {
-	$okt->redirect('index.php');
+	http::redirect('index.php');
 }

@@ -5,7 +5,9 @@
  *
  */
 
-class module_catalog extends oktModule
+use Okatea\Modules\Module;
+
+class module_catalog extends Module
 {
 	public $config = null;
 	public $tree = null;
@@ -20,15 +22,15 @@ class module_catalog extends oktModule
 
 	protected function prepend()
 	{
-		global $oktAutoloadPaths;
-
 		# chargement des principales locales
 		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
-		$oktAutoloadPaths['catalogController'] = __DIR__.'/inc/class.catalog.controller.php';
-		$oktAutoloadPaths['catalogFilters'] = __DIR__.'/inc/class.catalog.filters.php';
-		$oktAutoloadPaths['catalogRecordset'] = __DIR__.'/inc/class.catalog.recordset.php';
+		$this->okt->autoloader->addClassMap(array(
+			'catalogController' => __DIR__.'/inc/class.catalog.controller.php',
+			'catalogFilters' => __DIR__.'/inc/class.catalog.filters.php',
+			'catalogRecordset' => __DIR__.'/inc/class.catalog.recordset.php'
+		));
 
 		# permissions
 		$this->okt->addPermGroup('catalog', __('m_catalog_perm_group'));
@@ -48,17 +50,17 @@ class module_catalog extends oktModule
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_catalog_url;
 
 		# définition des routes
-		$this->okt->router->addRoute('catalogList', new oktRoute(
+		$this->okt->router->addRoute('catalogList', new Okatea\Routing\Route(
 			html::escapeHTML($this->config->public_catalog_url),
 			'catalogController', 'catalogList'
 		));
 
-		$this->okt->router->addRoute('catalogCategory', new oktRoute(
+		$this->okt->router->addRoute('catalogCategory', new Okatea\Routing\Route(
 			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
 			'catalogController', 'catalogCategory'
 		));
 
-		$this->okt->router->addRoute('catalogItem', new oktRoute(
+		$this->okt->router->addRoute('catalogItem', new Okatea\Routing\Route(
 			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
 			'catalogController', 'catalogItem'
 		));
@@ -739,7 +741,7 @@ class module_catalog extends oktModule
 
 	public function getImageUpload()
 	{
-		$o = new oktImageUpload($this->okt,$this->config->images);
+		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'
@@ -1182,7 +1184,6 @@ class module_catalog extends oktModule
 	public function categoryExists($id)
 	{
 		if ($this->getCategory($id)->isEmpty()) {
-			$this->okt->debug->addMessage(array('style'=>'warning','category '.$id.' not found'));
 			return false;
 		}
 

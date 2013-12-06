@@ -28,7 +28,7 @@ $oFilters = new themesFilters($okt, array());
 $aInstalledThemes = $oThemes->getThemesAdminList();
 
 # Tri par ordre alphabétique des listes de thème
-uasort($aInstalledThemes, array('oktThemes','sortThemesList'));
+uasort($aInstalledThemes, array('\Okatea\Themes\Collection','sortThemesList'));
 
 
 /* Traitements
@@ -57,8 +57,7 @@ if (!empty($_REQUEST['json']))
 # affichage des notes d'un thème
 if (!empty($_GET['notes']) && file_exists(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'))
 {
-	include_once OKT_VENDOR_PATH.'/phpmarkdown/extra/markdown.php';
-	echo Markdown(file_get_contents(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'));
+	echo Parsedown::instance()->parse(file_get_contents(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'));
 
 	exit;
 }
@@ -67,14 +66,14 @@ if (!empty($_GET['notes']) && file_exists(OKT_THEMES_PATH.'/'.$_GET['notes'].'/n
 if (!empty($_GET['init_filters']))
 {
 	$oFilters->initFilters();
-	$okt->redirect('configuration.php?action=themes');
+	http::redirect('configuration.php?action=themes');
 }
 
 # Suppression d'un thème
 if (!empty($_GET['delete']) && isset($aInstalledThemes[$_GET['delete']]) && !$aInstalledThemes[$_GET['delete']]['is_active'])
 {
 	if (files::deltree(OKT_THEMES_PATH.'/'.$_GET['delete'])) {
-		$okt->redirect('configuration.php?action=themes&deleted=1');
+		http::redirect('configuration.php?action=themes&deleted=1');
 	}
 }
 
@@ -95,7 +94,7 @@ if (!empty($_GET['use']))
 			include $sTplScheme;
 		}
 
-		$okt->redirect('configuration.php?action=themes&used=1');
+		http::redirect('configuration.php?action=themes&used=1');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -117,7 +116,7 @@ if (!empty($_GET['use_mobile']))
 			'theme_mobile' => $_GET['use_mobile']
 		));
 
-		$okt->redirect('configuration.php?action=themes&used=1');
+		http::redirect('configuration.php?action=themes&used=1');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -139,7 +138,7 @@ if (!empty($_GET['use_tablet']))
 			'theme_tablet' => $_GET['use_tablet']
 		));
 
-		$okt->redirect('configuration.php?action=themes&used=1');
+		http::redirect('configuration.php?action=themes&used=1');
 	}
 	catch (InvalidArgumentException $e)
 	{

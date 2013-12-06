@@ -23,7 +23,7 @@ l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
 if (!empty($_REQUEST['regenerate_thumbnails']))
 {
 	if ($okt->galleries->items->regenMinImages($_REQUEST['regenerate_thumbnails'])) {
-		$okt->redirect('module.php?m=galleries&minregenerated=1');
+		http::redirect('module.php?m=galleries&minregenerated=1');
 	}
 }
 
@@ -41,7 +41,7 @@ if (!empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 			'message' => 'category #'.$_GET['switch_status']
 		));
 
-		$okt->redirect('module.php?m=galleries&switched=1');
+		http::redirect('module.php?m=galleries&switched=1');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -52,7 +52,7 @@ if (!empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 if (!empty($_GET['delete']) && $okt->checkPerm('galleries_manage'))
 {
 	if ($okt->galleries->tree->deleteGallery(intval($_GET['delete']))) {
-		$okt->redirect('module.php?m=galleries&deleted=1');
+		http::redirect('module.php?m=galleries&deleted=1');
 	}
 }
 

@@ -9,7 +9,7 @@ if (!defined('ON_##module_upper_id##_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new oktImageUploadConfig($okt,$okt->##module_id##->getImageUpload());
+$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->##module_id##->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=##module_id##&amp;action=config&amp;');
 
 
@@ -20,14 +20,14 @@ $oImageUploadConfig->setBaseUrl('module.php?m=##module_id##&amp;action=config&am
 if (!empty($_GET['minregen']))
 {
 	$okt->##module_id##->regenMinImages();
-	$okt->redirect('module.php?m=##module_id##&action=config&minregenerated=1');
+	http::redirect('module.php?m=##module_id##&action=config&minregenerated=1');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->##module_id##->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	$okt->redirect('module.php?m=##module_id##&action=config&watermarkdeleted=1');
+	http::redirect('module.php?m=##module_id##&action=config&watermarkdeleted=1');
 }
 
 # enregistrement configuration
@@ -83,7 +83,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->##module_id##->config->write($new_conf);
-			$okt->redirect('module.php?m=##module_id##&action=config&updated=1');
+			http::redirect('module.php?m=##module_id##&action=config&updated=1');
 		}
 		catch (InvalidArgumentException $e)
 		{

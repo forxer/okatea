@@ -105,7 +105,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_accessory_modified'));
 
-			$okt->redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
+			http::redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
 		}
 	}
 
@@ -123,7 +123,7 @@ if (!empty($_POST['form_sent']))
 
 			$okt->page->flashMessages->addSuccess(__('m_estimate_accessory_added'));
 
-			$okt->redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
+			http::redirect($sBaseUrl.'&amp;accessory_id='.$iAccessoryId.(!empty($iProductId) ? '&amp;product_id='.$iProductId : ''));
 		}
 	}
 }

@@ -26,7 +26,7 @@ $iMenuId = !empty($_REQUEST['menu_id']) ? intval($_REQUEST['menu_id']) : null;
 $rsMenu = $okt->navigation->getMenu($iMenuId);
 
 if (empty($iMenuId) || $rsMenu->isEmpty()) {
-	$okt->redirect('configuration.php?action=navigation');
+	http::redirect('configuration.php?action=navigation');
 }
 
 # Données de l'élément
@@ -117,7 +117,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_updated'));
 
-				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id']);
+				http::redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -142,7 +142,7 @@ if (!empty($_POST['sended']))
 
 				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_added'));
 
-				$okt->redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId);
+				http::redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());

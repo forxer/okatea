@@ -96,7 +96,7 @@ if (window.addEventListener) {
 	window.addEventListener("keydown", function(e){
 		kkeys.push(e.keyCode);
 		if (kkeys.toString().indexOf( konami ) >= 0) {
-			window.location = "http://jquery.com/";
+			window.location = "http://okatea.org/";
 		}
 	}, true);
 }
@@ -106,7 +106,7 @@ if (window.addEventListener) {
 # News feed reader
 if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][$okt->user->language]))
 {
-	require_once OKT_VENDOR_PATH.'/simplepie/autoloader.php';
+	require_once OKT_VENDOR_PATH.'/simplepie/simplepie/autoloader.php';
 
 	// We'll process this feed with all of the default options.
 	$feed = new SimplePie();
@@ -153,6 +153,12 @@ if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][
 	');
 }
 
+# avertissement mode debug activé
+if (OKT_DEBUG)
+{
+	$okt->page->flashMessages->addWarning(__('c_a_public_debug_mode_enabled'));
+}
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
@@ -160,7 +166,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <?php # updates notifications
 if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
 {
-	$updater = new oktUpdate($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+	$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 	$new_v = $updater->check(util::getVersion());
 
 	if ($updater->getNotify() && $new_v)
