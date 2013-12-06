@@ -10,6 +10,7 @@ namespace Okatea\Core;
 
 use Okatea\Cache\SingleFileCache;
 use Okatea\Routing\Router;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -61,6 +62,8 @@ class Application
 		}
 
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+
+		$this->fs = new Filesystem();
 
 		# Chargement de la configuration du site
 		$this->loadConfig();
@@ -390,8 +393,17 @@ class Application
 
 		if ($this->htmlpurifier === null)
 		{
-			if (!file_exists(OKT_CACHE_PATH.'/HTMLPurifier')) {
-				files::makeDir(OKT_CACHE_PATH.'/HTMLPurifier', true);
+			$sCacheFile = OKT_CACHE_PATH.'/HTMLPurifier';
+
+			try
+			{
+				if (!file_exists($sCacheFile)) {
+					$this->fs->mkdir($sCacheFile);
+				}
+			}
+			catch (IOExceptionInterface $e) {
+				$this->error->set('An error occurred while creating your directory at '.$e->getPath());
+				return $str;
 			}
 
 			$config = \HTMLPurifier_Config::createDefault();

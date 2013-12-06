@@ -111,7 +111,6 @@ class Config
 	{
 		try {
 			return Yaml::parse($this->sSourceFile);
-//			return (array)sfYaml::load($this->sSourceFile);
 		}
 		catch (Exception $e)
 		{
