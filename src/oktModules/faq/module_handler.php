@@ -90,7 +90,7 @@ class module_faq extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->faqSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->faqSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=faq',

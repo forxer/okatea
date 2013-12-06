@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Navigation;
 
 /**
  * @class breadcrumb
@@ -13,43 +14,43 @@
  * @brief Fil d'ariane
  *
  */
-class breadcrumb
+class Breadcrumb
 {
 	/**
 	 * Pile d'éléments
 	 * @var array
 	 */
-	private $stack;
+	protected $stack;
 
 	/**
 	 * Nombre d'éléments
 	 * @var array
 	 */
-	private $iNum;
+	protected $iNum;
 
 	/**
 	 * Format du bloc HTML
 	 * @var string
 	 */
-	private $htmlBlock='<p class="breadcrumb">%s</p>';
+	protected $htmlBlock='<p class="breadcrumb">%s</p>';
 
 	/**
 	 * Format d'un élément
 	 * @var string
 	 */
-	private $htmlItem='%s';
+	protected $htmlItem='%s';
 
 	/**
 	 * Format d'un lien
 	 * @var string
 	 */
-	private $htmlLink='<a href="%s">%s</a>';
+	protected $htmlLink='<a href="%s">%s</a>';
 
 	/**
 	 * Séparateur d'éléments
 	 * @var string
 	 */
-	private $htmlSeparator=' &rsaquo; ';
+	protected $htmlSeparator=' &rsaquo; ';
 
 
 	public function __construct()
@@ -63,9 +64,13 @@ class breadcrumb
 		$this->iNum = 0;
 	}
 
-	public function add($label,$url='')
+	public function add($label, $url='')
 	{
-		$this->stack[] = array('label'=>$label,'url'=>$url);
+		$this->stack[] = array(
+			'label' => $label,
+			'url' => $url
+		);
+
 		++$this->iNum;
 	}
 
@@ -99,7 +104,7 @@ class breadcrumb
 		$this->htmlSeparator = $str;
 	}
 
-	public function display($htmlBlock=null,$htmlItem=null,$htmlLink=null,$htmlSeparator=null)
+	public function display($htmlBlock=null, $htmlItem=null, $htmlLink=null, $htmlSeparator=null)
 	{
 		if ($htmlBlock) {
 			$this->htmlBlock = $htmlBlock;
@@ -133,15 +138,15 @@ class breadcrumb
 		{
 			if (!isset($this->stack[$i]['url']) || $i == $this->iNum-1)
 			{
-				$res[] = sprintf($this->htmlItem, html::escapeHTML($this->stack[$i]['label']));
+				$res[] = sprintf($this->htmlItem, \html::escapeHTML($this->stack[$i]['label']));
 			}
 			else {
-				$res[] = sprintf($this->htmlItem, sprintf($this->htmlLink, html::escapeHTML($this->stack[$i]['url']), html::escapeHTML($this->stack[$i]['label'])));
+				$res[] = sprintf($this->htmlItem, sprintf($this->htmlLink, \html::escapeHTML($this->stack[$i]['url']), \html::escapeHTML($this->stack[$i]['label'])));
 			}
 		}
 
 		if (!empty($res)) {
-			return sprintf($this->htmlBlock,implode($this->htmlSeparator,$res));
+			return sprintf($this->htmlBlock, implode($this->htmlSeparator,$res));
 		}
 		else {
 			return null;

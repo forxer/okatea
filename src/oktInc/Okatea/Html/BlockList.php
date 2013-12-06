@@ -6,18 +6,17 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class htmlBlockList
- * @ingroup okt_classes_html
- * @brief Permet de gérer une piles pour construire une liste d'éléments
+ * Permet de gérer une piles pour construire une liste d'éléments
  * dans un éléments de type block.
  *
  * Typiquement cela permet de construire des menus imbriqués
  * dans des listes non-ordonnées selon différents paramètres.
  *
  */
-class htmlBlockList
+class BlockList
 {
 	/**
 	 * Identifiant du bloc.
@@ -97,7 +96,7 @@ class htmlBlockList
 	 * @param	string		$icon			URL d'une icone (null)
 	 * @return void
 	 */
-	public function add($title,$url='',$active=false,$position='',$show=true,$id=null,$sub=null,$icon=null)
+	public function add($title,$url='', $active=false, $position='', $show=true, $id=null, $sub=null, $icon=null)
 	{
 		if ($show)
 		{
@@ -113,7 +112,7 @@ class htmlBlockList
 		}
 	}
 
-	public function __set($title,$url='')
+	public function __set($title, $url='')
 	{
 		$this->add($title,$url);
 	}
@@ -121,7 +120,7 @@ class htmlBlockList
 
 	public function getItems()
 	{
-		usort($this->items, array('self','sortItems'));
+		usort($this->items, array('self', 'sortItems'));
 
 		return $this->items;
 	}
@@ -144,7 +143,7 @@ class htmlBlockList
 
 				$sub = array('html'=>null,'active'=>null);
 
-				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof htmlBlockList) {
+				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof BlockList) {
 					$sub = $this->items[$i]['sub']->build();
 				}
 
@@ -156,7 +155,7 @@ class htmlBlockList
 
 				$res[] = sprintf(
 					($this->items[$i]['active'] ? $this->html['active'] : $this->html['item']),
-					html::escapeHTML($this->items[$i]['title']),
+					\html::escapeHTML($this->items[$i]['title']),
 					$this->items[$i]['url'],
 					($this->items[$i]['id'] !== null ? ' id="'.$this->items[$i]['id'].'"' : ''),
 					$sub['html']
@@ -172,7 +171,8 @@ class htmlBlockList
 				'active' => $active
 			);
 		}
-		else {
+		else
+		{
 			return array(
 				'html' => sprintf(
 					$this->html['emptyBlock'],
@@ -185,12 +185,12 @@ class htmlBlockList
 
 	/**
 	 * Fonction de callback pour trier les éléments du menu
-	 * @private
+	 *
 	 */
-	private static function sortItems($a, $b)
+	protected static function sortItems($a, $b)
 	{
 		if ($a['position'] == $b['position']) return 0;
 		return ($a['position'] > $b['position']) ? 1 : -1;
 	}
 
-} # class htmlBlockList
+} # class

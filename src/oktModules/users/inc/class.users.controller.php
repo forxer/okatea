@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 use Okatea\Core\Controller;
 
 class usersController extends Controller
@@ -656,7 +657,7 @@ class usersController extends Controller
 						$template_file = 'registration.tpl';
 					}
 
-					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>oktAuth::admin_group_id));
+					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>Authentification::admin_group_id));
 					while ($rsAdministrators->fetch())
 					{
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
@@ -701,9 +702,9 @@ class usersController extends Controller
 
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-				oktAuth::superadmin_group_id,
-				oktAuth::admin_group_id,
-				oktAuth::guest_group_id)
+				Authentification::superadmin_group_id,
+				Authentification::admin_group_id,
+				Authentification::guest_group_id)
 		));
 
 		while ($rsGroups->fetch()) {

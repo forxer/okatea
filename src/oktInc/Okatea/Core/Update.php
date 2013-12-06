@@ -125,7 +125,7 @@ class Update
 				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 				$oClient->get($sPath);
 
-				if ($client->getStatus() == '200') {
+				if ($oClient->getStatus() == '200') {
 					return $this->readVersion($oClient->getContent());
 				}
 				else {
@@ -475,7 +475,7 @@ class Update
 	{
 		try
 		{
-			$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
+			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
 			$r = $xml->xpath("/versions/subject[@name='".$this->sSubject."']/release[@name='".$this->sVersion."']");
 
 			if (!empty($r) && is_array($r))
@@ -565,7 +565,7 @@ class Update
 		}
 
 		if (is_null($oChecklist) || !($oChecklist instanceof checkList)) {
-			$oChecklist = new checkList();
+			$oChecklist = new Okatea\Html\CheckList();
 		}
 
 		foreach (new DirectoryIterator(OKT_INC_PATH.'/sql_schema/') as $oFileInfo)

@@ -548,14 +548,14 @@ class Collection
 			$repository_url = str_replace('%VERSION%', \util::getVersion(),$repository_url);
 
 			$path = '';
-			$client = \netHttp::initClient($repository_url,$path);
-			if ($client !== false) {
-				$client->setTimeout(4);
-				$client->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-				$client->get($path);
+			$oClient = \netHttp::initClient($repository_url,$path);
+			if ($oClient !== false) {
+				$oClient->setTimeout(4);
+				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+				$oClient->get($path);
 
-				if ($client->getStatus() == '200') {
-					return $this->readRepositoryInfos($client->getContent());
+				if ($oClient->getStatus() == '200') {
+					return $this->readRepositoryInfos($oClient->getContent());
 				}
 				else {
 					return false;

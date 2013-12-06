@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -22,8 +23,8 @@ $aAllowedFields = module_users::getAllowedFields();
 # Liste des groupes exportables
 $params = array(
 	'group_id_not' => array(
-		oktAuth::guest_group_id,
-		oktAuth::superadmin_group_id
+		Authentification::guest_group_id,
+		Authentification::superadmin_group_id
 	));
 
 $rsGroups = $okt->users->getGroups($params);

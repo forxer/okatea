@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 use Okatea\Core\Triggers;
 use Okatea\Modules\Module;
 
@@ -136,7 +137,7 @@ class module_news extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->newsSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->newsSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=news',
@@ -1282,13 +1283,13 @@ class module_news extends Module
 
 		$aParams = array(
 			'group_id_not' => array(
-				oktAuth::guest_group_id,
-				oktAuth::superadmin_group_id
+				Authentification::guest_group_id,
+				Authentification::superadmin_group_id
 			)
 		);
 
 		if (!$this->okt->user->is_admin && !$bWithAdmin) {
-			$aParams['group_id_not'][] = oktAuth::admin_group_id;
+			$aParams['group_id_not'][] = Authentification::admin_group_id;
 		}
 
 		$rsGroups = $this->okt->users->getGroups($aParams);
@@ -1351,7 +1352,7 @@ class module_news extends Module
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
 		if (!$this->okt->user->is_admin) {
-			$aGroupsIds[] = oktAuth::admin_group_id;
+			$aGroupsIds[] = Authentification::admin_group_id;
 		}
 
 		# qu'une seule ligne par groupe pleaz
@@ -1361,8 +1362,8 @@ class module_news extends Module
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-				oktAuth::guest_group_id,
-				oktAuth::superadmin_group_id
+				Authentification::guest_group_id,
+				Authentification::superadmin_group_id
 			)
 		));
 

@@ -14,6 +14,15 @@
  *
  */
 
+use Okatea\Core\Application;
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\Debug\ExceptionHandler;
+
+/*
+ * Activation/désactivation du mode debug
+ */
+define('OKT_DEBUG', true);
 
 /*
  * Enregistrement du moment de début de script, sera utilisé
@@ -39,17 +48,13 @@ else {
 }
 
 
-//*// pour afficher les erreurs, ajoutez un / au début de cette ligne
-use Symfony\Component\Debug\Debug;
-use Symfony\Component\Debug\ErrorHandler;
-use Symfony\Component\Debug\ExceptionHandler;
-
-Debug::enable();
-ErrorHandler::register();
-ExceptionHandler::register();
-
-define('OKT_DEBUG',true);
-//*/
+# Start debug mode
+if (OKT_DEBUG)
+{
+	Debug::enable();
+	ErrorHandler::register();
+	ExceptionHandler::register();
+}
 
 
 # Initialisation de la librairie MB
@@ -61,7 +66,7 @@ date_default_timezone_set('Europe/Paris');
 
 
 # Let the music play (initialisation du coeur de l'application)
-$okt = new Okatea\Core\Application($oktAutoloader);
+$okt = new Application($oktAutoloader);
 
 
 # URL du dossier modules

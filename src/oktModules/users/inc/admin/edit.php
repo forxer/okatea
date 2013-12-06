@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -83,16 +84,16 @@ if ($okt->users->config->enable_custom_fields)
 }
 
 # un super admin ne peut etre modifié par un non super admin
-if ($edit_group_id == oktAuth::superadmin_group_id && !$okt->user->is_superadmin) {
+if ($edit_group_id == Authentification::superadmin_group_id && !$okt->user->is_superadmin) {
 	http::redirect('module.php?m=users');
 }
 
 # un admin ne peut etre modifié par un non admin
-if ($edit_group_id == oktAuth::admin_group_id && !$okt->user->is_admin) {
+if ($edit_group_id == Authentification::admin_group_id && !$okt->user->is_admin) {
 	http::redirect('module.php?m=users');
 }
 
-if ($user->group_id == oktAuth::unverified_group_id) {
+if ($user->group_id == Authentification::unverified_group_id) {
 	$aEditPageInfos['bWaitingValidation'] = true;
 } else {
 	$aEditPageInfos['bWaitingValidation'] = false;
@@ -258,7 +259,7 @@ $rs = $okt->users->getGroups();
 $groups_array = array();
 while ($rs->fetch())
 {
-	if ($rs->group_id == oktAuth::superadmin_group_id && !$okt->user->is_superadmin) {
+	if ($rs->group_id == Authentification::superadmin_group_id && !$okt->user->is_superadmin) {
 		continue;
 	}
 

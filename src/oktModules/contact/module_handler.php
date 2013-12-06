@@ -82,7 +82,7 @@ class module_contact extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->contactSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->contactSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=contact',

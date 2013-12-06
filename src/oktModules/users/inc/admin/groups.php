@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -66,7 +67,7 @@ if (!empty($_POST['edit_group']))
 # suppression d'un groupe
 if ($group_id && $do == 'delete')
 {
-	if (in_array($group_id, array(oktAuth::superadmin_group_id,oktAuth::admin_group_id,oktAuth::guest_group_id,oktAuth::member_group_id))) {
+	if (in_array($group_id, array(Authentification::superadmin_group_id,Authentification::admin_group_id,Authentification::guest_group_id,Authentification::member_group_id))) {
 		$okt->error->set(__('m_users_cannot_remove_group'));
 	}
 	else
@@ -135,7 +136,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php $count_line = 0;
 			while ($groups->fetch()) :
 
-				if ($groups->group_id == oktAuth::superadmin_group_id) {
+				if ($groups->group_id == Authentification::superadmin_group_id) {
 					continue;
 				}
 
@@ -150,7 +151,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 						title="<?php _e('c_c_action_Edit') ?> <?php echo html::escapeHTML($groups->title) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
-					<?php if (in_array($groups->group_id,array(oktAuth::superadmin_group_id,oktAuth::admin_group_id,oktAuth::guest_group_id,oktAuth::member_group_id))) : ?>
+					<?php if (in_array($groups->group_id,array(Authentification::superadmin_group_id,Authentification::admin_group_id,Authentification::guest_group_id,Authentification::member_group_id))) : ?>
 						<li class="disabled"><span class="icon delete"></span><?php _e('c_c_action_Delete')?></li>
 					<?php else : ?>
 						<li><a href="module.php?m=users&amp;action=groups&amp;do=delete&amp;id=<?php echo $groups->group_id ?>"

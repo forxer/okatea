@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class htmlJs
- * @ingroup okt_classes_html
- * @brief Permet de gérer les piles pour le Javascript et de retourner le HTML résultant.
+ * Permet de gérer les piles pour le Javascript et de retourner le HTML résultant.
  *
  */
-class htmlJs
+class Js
 {
 	/**
 	 * Pile de fichiers JS
@@ -313,7 +312,7 @@ class htmlJs
 	 */
 	public static function formatCCFile($src,$condition,$format="<script type=\"text/javascript\" src=\"%s\"></script>\n")
 	{
-		return htmlPage::formatCC(self::formatFile($src,$format),$condition);
+		return Page::formatCC(self::formatFile($src,$format),$condition);
 	}
 
 	/**

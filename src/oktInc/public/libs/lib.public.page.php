@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Html\Page;
 
 /**
  * Construction des pages publiques.
@@ -13,10 +14,8 @@
  * @addtogroup Okatea
  *
  */
-
-class publicPage extends htmlPage
+class publicPage extends Page
 {
-
 	/**
 	 * Constructeur.
 	 *

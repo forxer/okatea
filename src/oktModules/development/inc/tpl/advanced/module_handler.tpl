@@ -56,7 +56,7 @@ class module_##module_id## extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->##module_camel_case_id##SubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->##module_camel_case_id##SubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

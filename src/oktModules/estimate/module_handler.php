@@ -75,7 +75,7 @@ class module_estimate extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->estimateSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->estimateSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_estimate_menu_Estimates'),
 				'module.php?m=estimate',

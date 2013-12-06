@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -172,7 +173,7 @@ $rsGroups = $okt->users->getGroups();
 $groups_array = array();
 while ($rsGroups->fetch())
 {
-	if (!in_array($rsGroups->group_id, array(oktAuth::superadmin_group_id,oktAuth::admin_group_id,oktAuth::guest_group_id))) {
+	if (!in_array($rsGroups->group_id, array(Authentification::superadmin_group_id,Authentification::admin_group_id,Authentification::guest_group_id))) {
 		$groups_array[html::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
 	}
 }

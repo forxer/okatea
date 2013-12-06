@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -16,14 +17,14 @@ if (!defined('ON_USERS_MODULE')) die;
 if (!empty($_REQUEST['json']) && !empty($_GET['term']))
 {
 	$aParams = array();
-	$aParams['group_id_not'][] = oktAuth::guest_group_id;
+	$aParams['group_id_not'][] = Authentification::guest_group_id;
 
 	if (!$okt->user->is_superadmin) {
-		$aParams['group_id_not'][] = oktAuth::superadmin_group_id;
+		$aParams['group_id_not'][] = Authentification::superadmin_group_id;
 	}
 
 	if (!$okt->user->is_admin) {
-		$aParams['group_id_not'][] = oktAuth::admin_group_id;
+		$aParams['group_id_not'][] = Authentification::admin_group_id;
 	}
 
 	$aParams['search'] = $_GET['term'];
@@ -126,14 +127,14 @@ if (!empty($_GET['init_filters']))
 
 # initialisation des filtres
 $aParams = array();
-$aParams['group_id_not'][] = oktAuth::guest_group_id;
+$aParams['group_id_not'][] = Authentification::guest_group_id;
 
 if (!$okt->user->is_superadmin) {
-	$aParams['group_id_not'][] = oktAuth::superadmin_group_id;
+	$aParams['group_id_not'][] = Authentification::superadmin_group_id;
 }
 
 if (!$okt->user->is_admin) {
-	$aParams['group_id_not'][] = oktAuth::admin_group_id;
+	$aParams['group_id_not'][] = Authentification::admin_group_id;
 }
 
 $sSearch = null;
@@ -219,7 +220,7 @@ elseif ($okt->users->config->admin_filters_style == 'dialog')
 }
 
 # nombre d'utilisateur en attente de validation
-$num_waiting_validation = $okt->users->getUsers(array('group_id'=>oktAuth::unverified_group_id), true);
+$num_waiting_validation = $okt->users->getUsers(array('group_id'=>Authentification::unverified_group_id), true);
 
 if ($num_waiting_validation == 1) {
 	$okt->page->flashMessages->addWarning(__('m_users_one_user_in_wait_of_validation'));
@@ -307,7 +308,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
 		<td class="<?php echo $sTdClass ?>"><?php
 
-		if ($rsUsers->group_id == oktAuth::unverified_group_id) {
+		if ($rsUsers->group_id == Authentification::unverified_group_id) {
 			_e('m_users_wait_of_validation');
 		}
 		elseif (!empty($rsUsers->title)) {
@@ -321,7 +322,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<ul class="actions">
 
 				<li>
-				<?php if ($rsUsers->group_id == oktAuth::unverified_group_id && $okt->checkPerm('users_edit')) : ?>
+				<?php if ($rsUsers->group_id == Authentification::unverified_group_id && $okt->checkPerm('users_edit')) : ?>
 					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
 					title="<?php _e('m_users_validate_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
 					class="icon time"><?php _e('m_users_validate_the_user')?></a>

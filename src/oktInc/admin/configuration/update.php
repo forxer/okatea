@@ -32,7 +32,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 # mise à jour de la base de données
 if (!empty($_GET['update_db']))
 {
-	$oChecklist = new checkList();
+	$oChecklist = new Okatea\Html\CheckList();
 
 	Okatea\Core\Update::dbUpdate($oChecklist);
 

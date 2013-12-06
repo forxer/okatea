@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Core\Authentification;
 
 class usersFilters extends filters
 {
@@ -110,12 +111,12 @@ class usersFilters extends filters
 		$rs = $this->users->getGroups();
 		$groups_array = array(
 			__('c_c_All') => -1,
-			__('m_users_wait_of_validation') => oktAuth::unverified_group_id
+			__('m_users_wait_of_validation') => Authentification::unverified_group_id
 		);
 		while ($rs->fetch())
 		{
-			if ($rs->group_id == oktAuth::guest_group_id ||
-				$rs->group_id == oktAuth::superadmin_group_id && !$GLOBALS['okt']->user->is_superadmin) {
+			if ($rs->group_id == Authentification::guest_group_id ||
+				$rs->group_id == Authentification::superadmin_group_id && !$GLOBALS['okt']->user->is_superadmin) {
 				continue;
 			}
 

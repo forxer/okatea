@@ -6,6 +6,7 @@
  */
 
 
+use Okatea\Core\Authentification;
 use Okatea\Modules\Module;
 
 class module_users extends Module
@@ -110,7 +111,7 @@ class module_users extends Module
 				5000000,
 				($this->okt->checkPerm('users')),
 				null,
-				($this->okt->page->usersSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu)),
+				($this->okt->page->usersSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu)),
 				$this->url().'/icon.png'
 			);
 				$this->okt->page->usersSubMenu->add(
@@ -658,9 +659,9 @@ class module_users extends Module
 		}
 
 		# si on veut supprimer un super-admin alors il faut vérifier qu'il y en as d'autres
-		if ($rsUser->group_id == oktAuth::superadmin_group_id)
+		if ($rsUser->group_id == Authentification::superadmin_group_id)
 		{
-			$iCountSudo = $this->getUsers(array('group_id'=>oktAuth::superadmin_group_id), true);
+			$iCountSudo = $this->getUsers(array('group_id'=>Authentification::superadmin_group_id), true);
 
 			if ($iCountSudo < 2)
 			{
@@ -670,9 +671,9 @@ class module_users extends Module
 		}
 
 		# si on veut supprimer un admin alors il faut vérifier qu'il y en as d'autres
-		if ($rsUser->group_id == oktAuth::admin_group_id)
+		if ($rsUser->group_id == Authentification::admin_group_id)
 		{
-			$iCountAdmin = $this->getUsers(array('group_id'=>oktAuth::admin_group_id), true);
+			$iCountAdmin = $this->getUsers(array('group_id'=>Authentification::admin_group_id), true);
 
 			if ($iCountAdmin < 2)
 			{
@@ -751,9 +752,9 @@ class module_users extends Module
 		}
 
 		# si on veut désactiver un super-admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == oktAuth::superadmin_group_id)
+		if ($iActive == 0 && $rsUser->group_id == Authentification::superadmin_group_id)
 		{
-			$iCountSudo = $this->getUsers(array('group_id' => oktAuth::superadmin_group_id, 'active' => 1), true);
+			$iCountSudo = $this->getUsers(array('group_id' => Authentification::superadmin_group_id, 'active' => 1), true);
 
 			if ($iCountSudo < 2)
 			{
@@ -763,9 +764,9 @@ class module_users extends Module
 		}
 
 		# si on veut désactiver un admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == oktAuth::admin_group_id)
+		if ($iActive == 0 && $rsUser->group_id == Authentification::admin_group_id)
 		{
-			$iCountAdmin = $this->getUsers(array('group_id'=>oktAuth::admin_group_id, 'active' => 1), true);
+			$iCountAdmin = $this->getUsers(array('group_id'=>Authentification::admin_group_id, 'active' => 1), true);
 
 			if ($iCountAdmin < 2)
 			{

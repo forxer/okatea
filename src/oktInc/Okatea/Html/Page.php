@@ -6,11 +6,10 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class htmlPage
- * @ingroup okt_classes_html
- * @brief Permet de gérer quelques éléments courant à une page HTML
+ * Permet de gérer quelques éléments courant à une page HTML
  *
  * L'élément title, le javascript, les CSS
  * et ce qu'on veut lui ajouter...
@@ -19,7 +18,7 @@
  * widgets.
  *
  */
-class htmlPage
+class Page
 {
 	/**
 	 * L'objet core.
@@ -127,8 +126,8 @@ class htmlPage
 	{
 		$this->okt = $okt;
 
-		$this->css = new htmlCss($sPart);
-		$this->js = new htmlJs($sPart);
+		$this->css = new Css($sPart);
+		$this->js = new Js($sPart);
 
 		$this->sPart = $sPart;
 	}
@@ -179,7 +178,7 @@ class htmlPage
 
 	public function getPageId()
 	{
-		return html::escapeHTML($this->sPageId);
+		return \html::escapeHTML($this->sPageId);
 	}
 
 	public function hasPageId()
@@ -775,9 +774,9 @@ class htmlPage
 
 		$options = array(
 			'img_on_src' => OKT_PUBLIC_URL.'/img/ico/plus.png',
-			'img_on_alt' => html::escapeJS(__('c_c_action_show')),
+			'img_on_alt' => \html::escapeJS(__('c_c_action_show')),
 			'img_off_src' => OKT_PUBLIC_URL.'/img/ico/minus.png',
-			'img_off_alt' => html::escapeJS(__('c_c_action_hide')),
+			'img_off_alt' => \html::escapeJS(__('c_c_action_hide')),
 			'hide' => true,
 			'speed' => 0,
 			'legend_click' => true,
@@ -1291,4 +1290,4 @@ class htmlPage
 		return '<!--[if '.$condition.']>'."\n".$str.'<![endif]-->'."\n";
 	}
 
-} # class htmlPage
+} # class

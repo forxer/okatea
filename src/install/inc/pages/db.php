@@ -17,7 +17,7 @@ require_once OKT_CONFIG_PATH.'/connexion.php';
 
 $db = oktDb::getInstance();
 
-$oChecklist = new checkList();
+$oChecklist = new Okatea\Html\CheckList();
 
 
 /* Traitements

@@ -10,6 +10,7 @@ namespace Okatea\Modules;
 
 use Okatea\Core\Authentification;
 use Okatea\Database\XmlSql;
+use Okatea\Html\CheckList;
 use Okatea\Themes\Collection as ThemesCollection;
 
 /**
@@ -35,7 +36,7 @@ class ModuleInstall extends Module
 	{
 		parent::__construct($okt,$modules_path);
 
-		$this->checklist = new \checkList();
+		$this->checklist = new CheckList();
 
 		# get infos from define file
 		$this->setInfo('id', $id);

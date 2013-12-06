@@ -6,20 +6,19 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class checkList
- * @ingroup okt_classes_html
- * @brief Permet de construire et d'afficher facilement une liste de vérifications.
+ * Permet de construire et d'afficher facilement une liste de vérifications.
  *
  */
-class checkList
+class CheckList
 {
 	/**
 	 * Liste des varifications.
 	 * @var array
 	 */
-	private $check;
+	protected $check;
 
 	/**
 	 * URL de l'image ok.

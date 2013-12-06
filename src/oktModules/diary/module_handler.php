@@ -73,7 +73,7 @@ class module_diary extends Module
 		# on ajoutent un élément au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->diarySubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->diarySubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

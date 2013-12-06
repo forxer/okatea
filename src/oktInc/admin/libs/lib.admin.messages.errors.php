@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Html\Stack;
 
 /**
  * Pile de messages d'erreurs pour l'administration.
@@ -13,7 +14,7 @@
  * @addtogroup Okatea
  *
  */
-class adminMessagesErrors extends htmlStack
+class adminMessagesErrors extends Stack
 {
 	/**
 	 * Ajoute une erreur à la pile des erreurs.

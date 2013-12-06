@@ -119,7 +119,7 @@ $okt->page->addAriane(__('Administration'),'index.php');
 if (!defined('OKT_DISABLE_MENU'))
 {
 	# Menu principal
-	$okt->page->mainMenu = new htmlBlockList(
+	$okt->page->mainMenu = new Okatea\Html\BlockList(
 		'mainMenu-'.($okt->config->admin_sidebar_position == 0 ? 'left' : 'right'),
 		adminPage::$formatHtmlMainMenu);
 
@@ -131,7 +131,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		/* position */	1,
 		/* visible ? */	true,
 		/* ID */ 		null,
-		/* Sub */		($okt->page->homeSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu)),
+		/* Sub */		($okt->page->homeSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu)),
 		/* Icon */		OKT_PUBLIC_URL.'/img/admin/start-here.png'
 	);
 		$okt->page->homeSubMenu->add(
@@ -150,7 +150,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		10000000,
 		$okt->checkPerm('configsite'),
 		null,
-		($okt->page->configSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu)),
+		($okt->page->configSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu)),
 		OKT_PUBLIC_URL.'/img/admin/network-server.png'
 	);
 		$okt->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',

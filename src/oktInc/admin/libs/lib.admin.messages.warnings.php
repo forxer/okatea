@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Html\Stack;
 
 /**
  * Pile de messages d'avertissements pour l'administration.
@@ -13,7 +14,7 @@
  * @addtogroup Okatea
  *
  */
-class adminMessagesWarnings extends htmlStack
+class adminMessagesWarnings extends Stack
 {
 	/**
 	 * Ajoute un avertissement à la pile des avertissements.

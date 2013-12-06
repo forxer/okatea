@@ -11,6 +11,9 @@ namespace Okatea\Core;
 use Okatea\Cache\SingleFileCache;
 use Okatea\Routing\Router;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\Config\Loader\DelegatingLoader;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -29,7 +32,7 @@ class Application
 	public $languages = null; /**< Le gestionnaire de langues, instance de \ref Okatea\Core\Languages */
 	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref Okatea\Core\LogAdmin */
 	public $modules = null; /**< Le gestionnaire de modules, instance de \ref Okatea\Core\Modules\Collection */
-	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref htmlPage */
+	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref Okatea\Html\Page */
 	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref Okatea\Routing\Router */
 	public $tpl = null; /**< Le moteur de templates, instance de \ref Okatea\Core\Templating */
 	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref Okatea\Core\Triggers */
@@ -37,7 +40,6 @@ class Application
 	public $autoloader = null;
 
 	protected $permsStack = array(); /**< La pile qui contient les permissions. */
-	protected $behaviorsStack = array(); /**< La pile qui contient les comportements. */
 	protected $htmlpurifier = null; /**< L'objet HTMLPurifier si il est instancié, sinon null */
 
 	protected $aTplDirectories = array(); /**< la liste des répertoires où le moteur de templates doit chercher le template à interpréter */
@@ -61,13 +63,6 @@ class Application
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
 
-		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
-
-		$this->fs = new Filesystem();
-
-		# Chargement de la configuration du site
-		$this->loadConfig();
-
 		/*
 		$connectionParams = array(
 			'dbname' => OKT_DB_NAME,
@@ -84,9 +79,15 @@ class Application
 
 		//OKT_DB_PREFIX
 
+		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+
+		$this->fs = new Filesystem();
+
 		$this->triggers = new Triggers();
 
 		$this->router = new Router();
+
+		$this->loadConfig();
 	}
 
 

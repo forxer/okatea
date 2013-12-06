@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Html\Page;
 
 /**
  * Construction des pages d'administration.
@@ -14,7 +15,7 @@
  *
  */
 
-class adminPage extends htmlPage
+class adminPage extends Page
 {
 	/**
 	 * $_REQUEST['action']
@@ -101,7 +102,7 @@ class adminPage extends htmlPage
 		$this->application = !empty($_REQUEST['application']) ? $_REQUEST['application'] : null;
 		$this->do = !empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
 
-		$this->breadcrumb = new breadcrumb;
+		$this->breadcrumb = new Okatea\Navigation\Breadcrumb();
 
 		$this->flashMessages = new oktFlashMessages();
 

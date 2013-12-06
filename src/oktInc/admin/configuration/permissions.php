@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Core\Authentification;
 
 /**
  * Gestion des permissions utilisateurs
@@ -34,10 +35,10 @@ $rsGroups = $okt->db->select('SELECT group_id, title, perms FROM '.$sTgroups);
 
 while ($rsGroups->fetch())
 {
-	if ($rsGroups->group_id == oktAuth::superadmin_group_id || $rsGroups->group_id == oktAuth::guest_group_id) {
+	if ($rsGroups->group_id == Authentification::superadmin_group_id || $rsGroups->group_id == Authentification::guest_group_id) {
 		continue;
 	}
-	elseif (!$okt->user->is_superadmin && $rsGroups->group_id == oktAuth::admin_group_id) {
+	elseif (!$okt->user->is_superadmin && $rsGroups->group_id == Authentification::admin_group_id) {
 		continue;
 	}
 

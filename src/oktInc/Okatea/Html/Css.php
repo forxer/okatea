@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class htmlCss
- * @ingroup okt_classes_html
- * @brief Permet de gérer les piles pour les CSS et de retourner le HTML résultant.
+ * Permet de gérer les piles pour les CSS et de retourner le HTML résultant.
  *
  */
-class htmlCss
+class Css
 {
 	/**
 	 * Pile de fichiers CSS
@@ -327,7 +326,7 @@ class htmlCss
 	public static function formatCCFile($src,$condition,$media='screen',$rel='stylesheet',
 		$format="<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
 	{
-		return htmlPage::formatCC(self::formatHtmlCssFile($src,$media,$rel,$format),$condition);
+		return Page::formatCC(self::formatHtmlCssFile($src,$media,$rel,$format),$condition);
 	}
 
 	/**

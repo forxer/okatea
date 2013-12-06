@@ -21,11 +21,11 @@
 		"ezyang/htmlpurifier": "dev-master",
 		"ircmaxell/password-compat": "dev-master",
 		"leafo/lessphp": "0.4.*",
-		"masterexploder/phpthumb": "dev-master",
 		"mobiledetect/mobiledetectlib": "dev-master",
 		"simplepie/simplepie": "dev-master",
 		"swiftmailer/swiftmailer": "5.1.*@dev",
-		"symfony/debug": "2.3.*@dev",
+		"symfony/debug": "2.5.*@dev",
+		"symfony/filesystem": "2.5.*@dev",
 		"symfony/routing": "2.5.*@dev",
 		"symfony/templating": "2.5.*@dev",
 		"symfony/yaml": "2.5.*@dev"

@@ -47,7 +47,7 @@ class module_development extends Module
 		# On ajoutent un item au menu
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->developmentSubMenu = new htmlBlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->developmentSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_development_menu_development'),
 				null,

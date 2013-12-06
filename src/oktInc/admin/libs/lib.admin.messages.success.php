@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Html\Stack;
 
 /**
  * Pile de messages de succès pour l'administration.
@@ -13,7 +14,7 @@
  * @addtogroup Okatea
  *
  */
-class adminMessagesSuccess extends htmlStack
+class adminMessagesSuccess extends Stack
 {
 	/**
 	 * Ajoute un message à la pile de messages.

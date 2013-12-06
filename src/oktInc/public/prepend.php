@@ -22,7 +22,7 @@ require_once __DIR__.'/../prepend.php';
 # Initialisation des pages publiques
 $okt->page = new publicPage($okt);
 
-$okt->page->breadcrumb = new breadcrumb();
+$okt->page->breadcrumb = new Okatea\Navigation\Breadcrumb();
 $okt->page->breadcrumb->add(__('c_c_Home'), $okt->page->getBaseUrl());
 
 

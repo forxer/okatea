@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "93e6b19efc7262e535f744c10d7d554d",
+    "hash": "41c6f2863de46d35588de6d76e1937a1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -118,7 +118,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -137,7 +137,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "8b28a9a1d1dfafb7cb973bb0bacf057d097885aa"
+                "reference": "f3f6b7ddb7d6af6c3fa42882bc0e2e6715c873fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/8b28a9a1d1dfafb7cb973bb0bacf057d097885aa",
-                "reference": "8b28a9a1d1dfafb7cb973bb0bacf057d097885aa",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/f3f6b7ddb7d6af6c3fa42882bc0e2e6715c873fd",
+                "reference": "f3f6b7ddb7d6af6c3fa42882bc0e2e6715c873fd",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-11-28 01:19:42"
+            "time": "2013-12-06 11:52:45"
         },
         {
             "name": "doctrine/inflector",
@@ -531,12 +531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "18d112a6146b2c3a02c41e6b1687cf3528d0ec71"
+                "reference": "85ad014f743dae28ad1c3d2535419ff2225ad960"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/18d112a6146b2c3a02c41e6b1687cf3528d0ec71",
-                "reference": "18d112a6146b2c3a02c41e6b1687cf3528d0ec71",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/85ad014f743dae28ad1c3d2535419ff2225ad960",
+                "reference": "85ad014f743dae28ad1c3d2535419ff2225ad960",
                 "shasum": ""
             },
             "type": "library",
@@ -562,7 +562,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2013-12-03 21:19:50"
+            "time": "2013-12-05 23:43:55"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -654,12 +654,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "bc4f33b4bfc889018ebe53611050729641b82dc6"
+                "reference": "33a82c3d65d8004872f2f560a4d35eca8b85762b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/bc4f33b4bfc889018ebe53611050729641b82dc6",
-                "reference": "bc4f33b4bfc889018ebe53611050729641b82dc6",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/33a82c3d65d8004872f2f560a4d35eca8b85762b",
+                "reference": "33a82c3d65d8004872f2f560a4d35eca8b85762b",
                 "shasum": ""
             },
             "type": "library",
@@ -687,57 +687,7 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-10-17 16:23:00"
-        },
-        {
-            "name": "masterexploder/phpthumb",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/masterexploder/PHPThumb.git",
-                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/masterexploder/PHPThumb/zipball/69fe4dbef9c70915ee16652339395deadb1509cb",
-                "reference": "69fe4dbef9c70915ee16652339395deadb1509cb",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "symfony/filesystem": "2.2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PHPThumb": "src",
-                    "PHPThumb\\Tests": "tests"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ian Selby",
-                    "email": "ian@gxdlabs.com",
-                    "homepage": "http://www.gen-x-design.com/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Jarrod Nettles",
-                    "email": "jarrod.nettles@icloud.com"
-                }
-            ],
-            "description": "A library for manipulating images in PHP.",
-            "homepage": "https://github.com/masterexploder/PHPThumb",
-            "keywords": [
-                "image",
-                "resize",
-                "rotate"
-            ],
-            "time": "2013-07-12 17:57:58"
+            "time": "2013-12-05 20:49:10"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -745,12 +695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "6c55fd87b0ab8d634d0f032beae26182cd48e452"
+                "reference": "b7631859df47ceca6609278b59ec61e86f60c483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/6c55fd87b0ab8d634d0f032beae26182cd48e452",
-                "reference": "6c55fd87b0ab8d634d0f032beae26182cd48e452",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/b7631859df47ceca6609278b59ec61e86f60c483",
+                "reference": "b7631859df47ceca6609278b59ec61e86f60c483",
                 "shasum": ""
             },
             "require": {
@@ -789,7 +739,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2013-12-02 09:04:58"
+            "time": "2013-12-05 22:00:17"
         },
         {
             "name": "simplepie/simplepie",
@@ -896,17 +846,17 @@
         },
         {
             "name": "symfony/debug",
-            "version": "2.3.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Debug",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "b4ea949b41f7d01d70a54c9aaae6e17d9f1546ee"
+                "reference": "b7682104fa9b927364461eaefbff76ee1df07c0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/b4ea949b41f7d01d70a54c9aaae6e17d9f1546ee",
-                "reference": "b4ea949b41f7d01d70a54c9aaae6e17d9f1546ee",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/b7682104fa9b927364461eaefbff76ee1df07c0c",
+                "reference": "b7682104fa9b927364461eaefbff76ee1df07c0c",
                 "shasum": ""
             },
             "require": {
@@ -917,14 +867,13 @@
                 "symfony/http-kernel": "~2.1"
             },
             "suggest": {
-                "symfony/class-loader": "",
                 "symfony/http-foundation": "",
                 "symfony/http-kernel": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -948,21 +897,21 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-28 16:41:31"
+            "time": "2013-12-03 14:52:29"
         },
         {
             "name": "symfony/filesystem",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a"
+                "reference": "c136348f53ef538f1a3fa0b25b73c9c3bf223b31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/dffe0df31d16718f36ef40e7441f5a8d3e31625a",
-                "reference": "dffe0df31d16718f36ef40e7441f5a8d3e31625a",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/c136348f53ef538f1a3fa0b25b73c9c3bf223b31",
+                "reference": "c136348f53ef538f1a3fa0b25b73c9c3bf223b31",
                 "shasum": ""
             },
             "require": {
@@ -971,7 +920,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -995,7 +944,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-18 07:27:26"
+            "time": "2013-11-24 20:17:07"
         },
         {
             "name": "symfony/routing",
@@ -1177,11 +1126,11 @@
         "erusev/parsedown": 20,
         "ezyang/htmlpurifier": 20,
         "ircmaxell/password-compat": 20,
-        "masterexploder/phpthumb": 20,
         "mobiledetect/mobiledetectlib": 20,
         "simplepie/simplepie": 20,
         "swiftmailer/swiftmailer": 20,
         "symfony/debug": 20,
+        "symfony/filesystem": 20,
         "symfony/routing": 20,
         "symfony/templating": 20,
         "symfony/yaml": 20

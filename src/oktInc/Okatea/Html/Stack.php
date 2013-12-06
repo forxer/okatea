@@ -6,16 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Okatea\Html;
 
 /**
- * @class htmlStack
- * @ingroup okt_classes_html
- * @brief Pour gérer une simple pile d'éléments et les retourner sous forme
+ * Pour gérer une simple pile d'éléments et les retourner sous forme
  * de liste non-ordonnées.
  *
  * Note: Q&D
  */
-class htmlStack
+class Stack
 {
 	protected $stack = array();
 
@@ -24,7 +23,7 @@ class htmlStack
 	 * Constructeur.
 	 *
 	 * @param array $items 		Les éléments de la pile
-	 * @return unknown_type
+	 * @return void
 	 */
 	public function __construct($items=array())
 	{
@@ -93,11 +92,11 @@ class htmlStack
 		{
 			return
 			'<ul><li>'.
-			implode('</li><li>', array_map(array('html','escapeHTML'),$this->stack))
+			implode('</li><li>', array_map(array('\html','escapeHTML'),$this->stack))
 			.'</li></ul>';
 		}
 
-		return '<p>'.html::escapeHTML($this->stack[0]).'</p>';
+		return '<p>'.\html::escapeHTML($this->stack[0]).'</p>';
 	}
 
 } # class htmlStack
