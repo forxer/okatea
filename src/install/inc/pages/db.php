@@ -9,6 +9,8 @@
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
+use Tao\Html\CheckList;
+
 
 /* Initialisations
 ------------------------------------------------------------*/
@@ -17,7 +19,7 @@ require_once OKT_CONFIG_PATH.'/connexion.php';
 
 $db = oktDb::getInstance();
 
-$oChecklist = new Okatea\Html\CheckList();
+$oChecklist = new CheckList();
 
 
 /* Traitements

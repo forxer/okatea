@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
 if (!defined('ON_FAQ_MODULE')) die;
@@ -14,7 +15,7 @@ if (!defined('ON_FAQ_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->faq->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt, $okt->faq->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=faq&amp;action=config&amp;');
 
 
@@ -100,7 +101,7 @@ if (!empty($_POST['form_sent']))
 				'number' => $p_number_files,
 				'allowed_exts' => $p_allowed_exts
 			),
-			
+
 			'images' => $aImagesConfig
 		);
 

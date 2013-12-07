@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Images\ImageUploadConfig;
+use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
 if (!defined('ON_PAGES_MODULE')) die;
@@ -17,32 +19,32 @@ if (!defined('ON_PAGES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->pages->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->pages->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=pages&amp;action=config&amp;');
 
 # Gestionnaires de templates
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesList = new TemplatesSet($okt,
 	$okt->pages->config->templates['list'],
 	'pages/list',
 	'list',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesItem = new TemplatesSet($okt,
 	$okt->pages->config->templates['item'],
 	'pages/item',
 	'item',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new oktTemOkatea\Themes\TemplatesSetplatesSet($okt,
+$oTemplatesInsert = new oktTemTemplatesSetplatesSet($okt,
 	$okt->pages->config->templates['insert'],
 	'pages/insert',
 	'insert',
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesFeed = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesFeed = new TemplatesSet($okt,
 	$okt->pages->config->templates['feed'],
 	'pages/feed',
 	'feed',

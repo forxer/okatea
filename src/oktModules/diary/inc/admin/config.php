@@ -5,7 +5,7 @@
  *
  */
 
-
+use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
 if (!defined('ON_DIARY_MODULE')) die;
@@ -14,7 +14,7 @@ if (!defined('ON_DIARY_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->diary->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->diary->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=diary&amp;action=config&amp;');
 
 
@@ -226,7 +226,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->diary->config->name_seo[$aLanguage['code']]) ? html::escapeHTML($okt->diary->config->name_seo[$aLanguage['code']]) : '')) ?></p>
-				
+
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->diary->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->diary->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 

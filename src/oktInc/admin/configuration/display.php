@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Themes\Collection as ThemesCollection;
+
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -27,7 +29,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 ----------------------------------------------------------*/
 
 $aUiThemes = htmlPage::getUiThemes();
-$aThemes = array_flip(Okatea\Themes\Collection::getThemes());
+$aThemes = array_flip(ThemesCollection::getThemes());
 
 $aNotAllowedAdminThemes = array(
 	'dark-hive',

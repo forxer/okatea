@@ -7,6 +7,8 @@
  *
  */
 
+use Tao\Modules\Collection as ModulesCollection;
+
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
 
@@ -59,10 +61,10 @@ foreach ($aModulesRepositories as $repo_name=>$modules)
 }
 
 # Tri par ordre alphabétique des listes de modules
-uasort($aAllModules, array('oktModules', 'sortModulesList'));
+ModulesCollection::sortModules($aAllModules);
 
 foreach ($aModulesRepositories as $repo_name=>$modules) {
-	uasort($aModulesRepositories[$repo_name], array('oktModules', 'sortModulesList'));
+	ModulesCollection::sortModules($aModulesRepositories[$repo_name]);
 }
 
 

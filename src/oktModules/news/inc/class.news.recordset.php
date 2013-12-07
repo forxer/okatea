@@ -5,7 +5,8 @@
  *
  */
 
-use Okatea\Database\Recordset;
+use Tao\Core\Authentification;
+use Tao\Database\Recordset;
 
 class newsRecordset extends Recordset
 {
@@ -182,7 +183,7 @@ class newsRecordset extends Recordset
 	 */
 	public function getPostAuthor()
 	{
-		return Okatea\Core\Authentification::getUserCN($this->username, $this->lastname, $this->firstname);
+		return Authentification::getUserCN($this->username, $this->lastname, $this->firstname);
 	}
 
 	/**

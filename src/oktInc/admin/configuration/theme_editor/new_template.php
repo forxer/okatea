@@ -13,6 +13,8 @@
  * @addtogroup Okatea
  */
 
+use Tao\Themes\TemplatesSet;
+
 
 # Accès direct interdit
 if (!defined('ON_THEME_EDITOR')) die;
@@ -50,7 +52,7 @@ $p_tpl_tags = '';
 
 $sBasicTemplatePath = OKT_THEMES_PATH.$sBasicTemplate;
 
-$sBasicTemplateTheme = Okatea\Themes\TemplatesSet::getThemeIdFromTplPath($sBasicTemplatePath);
+$sBasicTemplateTheme = TemplatesSet::getThemeIdFromTplPath($sBasicTemplatePath);
 
 $sBasicTemplateId = basename(dirname($sBasicTemplate));
 

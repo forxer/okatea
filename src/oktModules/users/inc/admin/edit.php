@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Core\Authentification;
+use Tao\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;

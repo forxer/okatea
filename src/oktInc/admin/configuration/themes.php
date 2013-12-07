@@ -14,13 +14,14 @@
  *
  */
 
+use Tao\Themes\Collection as ThemesCollection;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 define('OKT_THEMES_MANAGEMENT', true);
 
 # Themes object
-$oThemes = new Okatea\Themes\Collection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
 
 
 # Locales

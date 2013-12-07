@@ -2,7 +2,7 @@
 ##header##
 
 
-use Okatea\Core\Controller;
+use Tao\Core\Controller;
 
 class ##module_camel_case_id##Controller extends Controller
 {

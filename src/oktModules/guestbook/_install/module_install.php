@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Modules\ModuleInstall;
+use Tao\Modules\ModuleInstall;
 
 class moduleInstall_guestbook extends ModuleInstall
 {

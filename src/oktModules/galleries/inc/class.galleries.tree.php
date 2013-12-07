@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Images\ImageUpload;
 
 class galleriesTree extends nestedTreei18n
 {
@@ -711,7 +712,7 @@ class galleriesTree extends nestedTreei18n
 	 */
 	public function getImageUploadInstance()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt, $this->okt->galleries->config->images_gal);
+		$o = new ImageUpload($this->okt, $this->okt->galleries->config->images_gal);
 		$o->setConfig(array(
 			'upload_dir' => $this->okt->galleries->upload_dir.'img/galleries/',
 			'upload_url' => $this->okt->galleries->upload_url.'img/galleries/'

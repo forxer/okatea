@@ -6,7 +6,7 @@
 */
 
 
-use Okatea\Modules\Module;
+use Tao\Modules\Module;
 
 class module_recaptcha extends Module
 {

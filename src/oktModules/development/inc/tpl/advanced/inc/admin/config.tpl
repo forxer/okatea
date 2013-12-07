@@ -2,6 +2,8 @@
 ##header##
 
 
+use Tao\Images\ImageUploadConfig;
+
 # Accès direct interdit
 if (!defined('ON_##module_upper_id##_MODULE')) die;
 
@@ -9,7 +11,7 @@ if (!defined('ON_##module_upper_id##_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->##module_id##->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->##module_id##->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=##module_id##&amp;action=config&amp;');
 
 

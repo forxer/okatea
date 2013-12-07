@@ -5,7 +5,8 @@
  *
  */
 
-use Okatea\Core\Authentification;
+use Tao\Core\Authentification;
+use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -15,42 +16,42 @@ if (!defined('ON_USERS_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Gestionnaires de templates
-$oTemplatesForgottenPassword = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesForgottenPassword = new TemplatesSet($okt,
 	$okt->users->config->templates['forgotten_password'],
 	'users/forgotten_password',
 	'forgotten_password',
 	'module.php?m=users&amp;action=config&amp;'
 );
 
-$oTemplatesLogin = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesLogin = new TemplatesSet($okt,
 	$okt->users->config->templates['login'],
 	'users/login',
 	'login',
 	'module.php?m=users&amp;action=config&amp;'
 );
 
-$oTemplatesLoginRegister = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesLoginRegister = new TemplatesSet($okt,
 	$okt->users->config->templates['login_register'],
 	'users/login_register',
 	'login_register',
 	'module.php?m=users&amp;action=config&amp;'
 );
 
-$oTemplatesProfile = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesProfile = new TemplatesSet($okt,
 	$okt->users->config->templates['profile'],
 	'users/profile',
 	'profile',
 	'module.php?m=users&amp;action=config&amp;'
 );
 
-$oTemplatesRegister = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesRegister = new TemplatesSet($okt,
 	$okt->users->config->templates['register'],
 	'users/register',
 	'register',
 	'module.php?m=users&amp;action=config&amp;'
 );
 
-$oTemplatesUserBar = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesUserBar = new TemplatesSet($okt,
 	$okt->users->config->templates['user_bar'],
 	'users/user_bar',
 	'user_bar',

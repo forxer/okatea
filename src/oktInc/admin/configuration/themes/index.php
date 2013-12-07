@@ -14,6 +14,9 @@
  *
  */
 
+use Tao\Themes\Collection as ThemesCollection;
+
+
 # Accès direct interdit
 if (!defined('OKT_THEMES_MANAGEMENT')) die;
 
@@ -28,7 +31,7 @@ $oFilters = new themesFilters($okt, array());
 $aInstalledThemes = $oThemes->getThemesAdminList();
 
 # Tri par ordre alphabétique des listes de thème
-uasort($aInstalledThemes, array('\Okatea\Themes\Collection','sortThemesList'));
+ThemesCollection::sortThemes($aInstalledThemes);
 
 
 /* Traitements

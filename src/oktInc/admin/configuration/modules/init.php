@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Modules\Collection as ModulesCollection;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -79,9 +80,9 @@ foreach ($aModulesRepositories as $repo_name=>$modules)
 
 
 # Tri par ordre alphabétique des listes de modules
-uasort($aInstalledModules, array('Okatea\Modules\Collection', 'sortModulesList'));
-uasort($aUninstalledModules, array('Okatea\Modules\Collection', 'sortModulesList'));
+ModulesCollection::sortModules($aInstalledModules);
+ModulesCollection::sortModules($aUninstalledModules);
 
 foreach ($aModulesRepositories as $repo_name=>$modules) {
-	uasort($aModulesRepositories[$repo_name], array('oktModules', 'sortModulesList'));
+	ModulesCollection::sortModules($aModulesRepositories[$repo_name]);
 }

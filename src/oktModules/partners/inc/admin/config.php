@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
 if (!defined('ON_PARTNERS_MODULE')) die;
@@ -13,7 +14,7 @@ if (!defined('ON_PARTNERS_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->partners->getLogoUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->partners->getLogoUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=partners&amp;action=config&amp;');
 $oImageUploadConfig->setUnique(true);
 $oImageUploadConfig->setWithWatermark(false);

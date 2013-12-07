@@ -6,7 +6,7 @@
  */
 
 
-use Okatea\Database\Recordset;
+use Tao\Database\Recordset;
 
 class contactRecordset extends Recordset
 {

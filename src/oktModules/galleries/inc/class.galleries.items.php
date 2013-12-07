@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Images\ImageUpload;
+
 class galleriesItems
 {
 	protected $okt;
@@ -714,7 +716,7 @@ class galleriesItems
 	 */
 	public function getImageUploadInstance()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt, $this->config->images);
+		$o = new ImageUpload($this->okt, $this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->okt->galleries->upload_dir.'img/items/',
 			'upload_url' => $this->okt->galleries->upload_url.'img/items/'

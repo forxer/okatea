@@ -6,7 +6,8 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Html\Page;
+use Tao\Html\Page;
+use Tao\Core\Controller;
 
 /**
  * Construction des pages publiques.
@@ -30,7 +31,7 @@ class publicPage extends Page
 	{
 		global $okt;
 
-		$oController = new Okatea\Core\Controller($okt);
+		$oController = new Controller($okt);
 		$oController->serve404();
 	}
 
@@ -38,7 +39,7 @@ class publicPage extends Page
 	{
 		global $okt;
 
-		$oController = new Okatea\Core\Controller($okt);
+		$oController = new Controller($okt);
 		$oController->serve503();
 	}
 

@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
 if (!defined('ON_CONTACT_MODULE')) die;
@@ -17,14 +18,14 @@ if (!defined('ON_CONTACT_MODULE')) die;
 $bGoogleMapNotEnablable = ($okt->config->address['street'] == '' || $okt->config->address['code'] == '' || $okt->config->address['city'] == '');
 
 # Gestionnaires de templates
-$oTemplatesContact = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesContact = new TemplatesSet($okt,
 	$okt->contact->config->templates['contact'],
 	'contact/contact',
 	'contact',
 	'module.php?m=contact&amp;action=config&amp;'
 );
 
-$oTemplatesMap = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesMap = new TemplatesSet($okt,
 	$okt->contact->config->templates['map'],
 	'contact/map',
 	'map',

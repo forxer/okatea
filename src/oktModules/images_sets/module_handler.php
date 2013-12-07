@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Modules\Module;
 
 class module_images_sets extends Module
 {

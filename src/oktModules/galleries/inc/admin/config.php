@@ -5,6 +5,9 @@
  *
  */
 
+use Tao\Images\ImageUploadConfig;
+use Tao\Themes\TemplatesSet;
+
 
 # Accès direct interdit
 if (!defined('ON_GALLERIES_MODULE')) die;
@@ -17,33 +20,33 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images des éléments
-$oItemImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
+$oItemImageUploadConfig = new ImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());
 $oItemImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;item_');
 $oItemImageUploadConfig->setFormPrefix('p_item_');
 $oItemImageUploadConfig->setUnique(true);
 
 # Gestion des images des galeries
-$oGalleryImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
+$oGalleryImageUploadConfig = new ImageUploadConfig($okt, $okt->galleries->tree->getImageUploadInstance());
 $oGalleryImageUploadConfig->setBaseUrl('module.php?m=galleries&amp;action=config&amp;gallery_');
 $oGalleryImageUploadConfig->setFormPrefix('p_gallery_');
 $oGalleryImageUploadConfig->setUnique(true);
 
 # Gestionnaires de templates
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesList = new TemplatesSet($okt,
 	$okt->galleries->config->templates['list'],
 	'galleries/list',
 	'list',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesGallery = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesGallery = new TemplatesSet($okt,
 	$okt->galleries->config->templates['gallery'],
 	'galleries/gallery',
 	'gallery',
 	'module.php?m=galleries&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesItem = new TemplatesSet($okt,
 	$okt->galleries->config->templates['item'],
 	'galleries/item',
 	'item',

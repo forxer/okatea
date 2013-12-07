@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Core\Update as Updater;
+
 require __DIR__.'/../oktInc/admin/prepend.php';
 
 
@@ -166,7 +168,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <?php # updates notifications
 if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
 {
-	$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+	$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 	$new_v = $updater->check(util::getVersion());
 
 	if ($updater->getNotify() && $new_v)

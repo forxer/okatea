@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+
 # Accès direct interdit
 if (!defined('ON_PAGES_MODULE')) die;
 
@@ -296,7 +298,7 @@ if ($okt->pages->config->categories['enable'])
 }
 
 # Liste des templates utilisables
-$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItem = new TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItem->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])

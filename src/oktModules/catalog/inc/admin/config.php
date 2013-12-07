@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
 if (!defined('ON_CATALOG_MODULE')) die;
@@ -13,7 +14,7 @@ if (!defined('ON_CATALOG_MODULE')) die;
 /* Initialisations
 ----------------------------------------------------------*/
 
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->catalog->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->catalog->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=catalog&amp;action=config&amp;');
 
 $field_choice = array(

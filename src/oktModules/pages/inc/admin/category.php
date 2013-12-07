@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+
 
 # Accès direct interdit
 if (!defined('ON_PAGES_MODULE')) die;
@@ -277,13 +279,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
+$oTemplatesList = new TemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->pages->config->templates['list']['usables'])
 );
 
-$oTemplatesItems = new Okatea\Themes\TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItems = new TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesItems->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])

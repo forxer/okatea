@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Core\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -33,7 +34,7 @@ $edit_timezone = $rsUser->timezone;
 $edit_password = '';
 $edit_password_confirm = '';
 
-$sUserCN = Okatea\Core\Authentification::getUserCN($rsUser->username,$rsUser->lastname,$rsUser->firstname);
+$sUserCN = Authentification::getUserCN($rsUser->username,$rsUser->lastname,$rsUser->firstname);
 unset($rsUser);
 
 

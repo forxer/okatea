@@ -11,6 +11,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 2.0-rc2
+# Tao is now the Okatea core namespace
 # namespacing old oktInc/classes
 # remove oktCore::redirect
 ! show debug mode enabled info

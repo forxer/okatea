@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Core\Authentification;
+use Tao\Core\Authentification;
 
 class usersFilters extends filters
 {

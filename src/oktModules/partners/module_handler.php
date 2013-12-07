@@ -5,7 +5,10 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
+use Tao\Routing\Route;
+use Tao\Modules\Module;
 
 class module_partners extends Module
 {
@@ -54,7 +57,7 @@ class module_partners extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('partnersPage', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('partnersPage', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'partnersController', 'partnersPage'
 		));
@@ -88,7 +91,7 @@ class module_partners extends Module
 		# on ajoute un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->partnersSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->partnersSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=partners',
@@ -1037,7 +1040,7 @@ class module_partners extends Module
 	 */
 	public function getLogoUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

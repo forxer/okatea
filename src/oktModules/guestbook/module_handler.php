@@ -5,7 +5,9 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_guestbook extends Module
 {
@@ -33,7 +35,7 @@ class module_guestbook extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('guestbookPage', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('guestbookPage', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'guestbookController', 'guestbookPage'
 		));
@@ -53,7 +55,7 @@ class module_guestbook extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->guestbookSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->guestbookSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

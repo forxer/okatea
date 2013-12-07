@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Tao\Core\Authentification;
+use Tao\Core\Update as Updater;
 
 /**
  * @class oktPublicAdminBar
@@ -66,7 +68,7 @@ class oktPublicAdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), \html::escapeHTML(Okatea\Core\Authentification::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), \html::escapeHTML(Authentification::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
 		);
 
 		if (!$okt->languages->unique)
@@ -106,7 +108,7 @@ class oktPublicAdminBar
 			# avertissement nouvelle version disponible
 			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
 			{
-				$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 				$new_v = $updater->check(util::getVersion());
 
 				if ($updater->getNotify() && $new_v)

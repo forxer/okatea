@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Navigation\Breadcrumb;
+use Tao\Routing\Route;
 
 # On inclu le fichier prepend général
 require_once __DIR__.'/../prepend.php';
@@ -22,7 +24,7 @@ require_once __DIR__.'/../prepend.php';
 # Initialisation des pages publiques
 $okt->page = new publicPage($okt);
 
-$okt->page->breadcrumb = new Okatea\Navigation\Breadcrumb();
+$okt->page->breadcrumb = new Breadcrumb();
 $okt->page->breadcrumb->add(__('c_c_Home'), $okt->page->getBaseUrl());
 
 
@@ -49,7 +51,7 @@ if (file_exists(OKT_THEME_PATH.'/oktTheme.php'))
 # Chargement des routes personnalisées
 foreach ($okt->config->custom_routes as $iCustomRoute=>$aCustomRoute)
 {
-	$okt->router->addRoute('custom-route-'.$iCustomRoute, new Okatea\Routing\Route(
+	$okt->router->addRoute('custom-route-'.$iCustomRoute, new Route(
 		$aCustomRoute['rep'], $aCustomRoute['class'], $aCustomRoute['method'],
 		array($aCustomRoute['args'])
 	));
@@ -59,7 +61,7 @@ foreach ($okt->config->custom_routes as $iCustomRoute=>$aCustomRoute)
 # Chargement de la route par défaut
 if (!empty($okt->config->default_route['class']) && !empty($okt->config->default_route['method']))
 {
-	$okt->router->addRoute('default-route', new Okatea\Routing\Route(
+	$okt->router->addRoute('default-route', new Route(
 		'^/?$', $okt->config->default_route['class'], $okt->config->default_route['method'],
 		array($okt->config->default_route['args'])
 	));

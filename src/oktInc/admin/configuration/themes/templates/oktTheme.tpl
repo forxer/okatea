@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Themes\Theme;
+use Tao\Themes\Theme;
 
 class oktTheme extends Theme
 {

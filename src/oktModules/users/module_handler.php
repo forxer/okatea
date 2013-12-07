@@ -6,8 +6,10 @@
  */
 
 
-use Okatea\Core\Authentification;
-use Okatea\Modules\Module;
+use Tao\Core\Authentification;
+use Tao\Html\BlockList;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_users extends Module
 {
@@ -53,32 +55,32 @@ class module_users extends Module
 		$this->config = $this->okt->newConfig('conf_users');
 
 		# définition des routes
-		$this->okt->router->addRoute('usersLogin', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersLogin', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_login_url)).')$',
 			'usersController', 'usersLogin'
 		));
 
-		$this->okt->router->addRoute('usersLogout', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersLogout', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_logout_url)).')$',
 			'usersController', 'usersLogout'
 		));
 
-		$this->okt->router->addRoute('usersProfile', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersProfile', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_profile_url)).')$',
 			'usersController', 'usersProfile'
 		));
 
-		$this->okt->router->addRoute('usersRegister', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersRegister', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_register_url)).')$',
 			'usersController', 'usersRegister'
 		));
 
-		$this->okt->router->addRoute('usersLoginRegister', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersLoginRegister', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_log_reg_url)).')$',
 			'usersController', 'usersLoginRegister'
 		));
 
-		$this->okt->router->addRoute('usersForgetPassword', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('usersForgetPassword', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_forget_password_url)).')$',
 			'usersController', 'usersForgetPassword'
 		));
@@ -111,7 +113,7 @@ class module_users extends Module
 				5000000,
 				($this->okt->checkPerm('users')),
 				null,
-				($this->okt->page->usersSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu)),
+				($this->okt->page->usersSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu)),
 				$this->url().'/icon.png'
 			);
 				$this->okt->page->usersSubMenu->add(

@@ -5,7 +5,9 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_estimate extends Module
 {
@@ -48,11 +50,11 @@ class module_estimate extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_form_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('estimateForm', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('estimateForm', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_form_url)).')$',
 			'estimateController', 'estimateForm'
 		));
-		$this->okt->router->addRoute('estimateSummary', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('estimateSummary', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_summary_url)).')$',
 			'estimateController', 'estimateSummary'
 		));
@@ -75,7 +77,7 @@ class module_estimate extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->estimateSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->estimateSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_estimate_menu_Estimates'),
 				'module.php?m=estimate',

@@ -32,7 +32,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Okatea\\": "oktInc/"
+			"Tao\\": "oktInc/"
 		},
 		"classmap": [
 			"vendor/dotclear/clearbricks/common",

@@ -2,7 +2,9 @@
 ##header##
 
 
-use Okatea\Modules\Module;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
+
 
 class module_##module_id## extends Module
 {
@@ -24,7 +26,7 @@ class module_##module_id## extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('##module_camel_case_id##Page', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('##module_camel_case_id##Page', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'##module_camel_case_id##Controller', '##module_camel_case_id##Page'
 		));

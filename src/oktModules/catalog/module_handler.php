@@ -5,7 +5,10 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
 
 class module_catalog extends Module
 {
@@ -50,17 +53,17 @@ class module_catalog extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_catalog_url;
 
 		# définition des routes
-		$this->okt->router->addRoute('catalogList', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('catalogList', new Route(
 			html::escapeHTML($this->config->public_catalog_url),
 			'catalogController', 'catalogList'
 		));
 
-		$this->okt->router->addRoute('catalogCategory', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('catalogCategory', new Route(
 			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
 			'catalogController', 'catalogCategory'
 		));
 
-		$this->okt->router->addRoute('catalogItem', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('catalogItem', new Route(
 			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
 			'catalogController', 'catalogItem'
 		));
@@ -99,7 +102,7 @@ class module_catalog extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->catalogSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->catalogSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
@@ -741,7 +744,7 @@ class module_catalog extends Module
 
 	public function getImageUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

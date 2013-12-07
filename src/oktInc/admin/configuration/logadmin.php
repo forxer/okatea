@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Core\LogAdmin;
+
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -121,7 +123,7 @@ elseif ($okt->logAdmin->oConfig->admin_filters_style == 'dialog')
 $okt->page->datePicker();
 
 # Tableau des codes de logs
-$aLogAdminCodes = Okatea\Core\LogAdmin::getCodes();
+$aLogAdminCodes = LogAdmin::getCodes();
 
 # Infos page
 $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
@@ -164,7 +166,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<tbody>
 	<?php while($rsLogAdmin->fetch()) :?>
 	<tr class="type_<?php echo $rsLogAdmin->type ?>">
-		<td><?php echo Okatea\Core\LogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
+		<td><?php echo LogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
 		<td><?php echo $rsLogAdmin->user_id ?> - <?php echo $rsLogAdmin->username ?></td>
 		<td><?php echo $rsLogAdmin->ip ?></td>
 		<td><?php echo dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $rsLogAdmin->date) ?></td>

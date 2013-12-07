@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
@@ -165,7 +167,7 @@ if ($iMenuId)
 
 
 # Liste des templates utilisables
-$oTemplates = new Okatea\Themes\TemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
+$oTemplates = new TemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplates->getUsablesTemplatesForSelect($okt->config->navigation_tpl['usables'])

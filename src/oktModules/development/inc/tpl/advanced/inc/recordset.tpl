@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Okatea\Database\Recordset;
+use Tao\Database\Recordset;
 
 class ##module_camel_case_id##Recordset extends Recordset
 {

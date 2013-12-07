@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
 if (!defined('ON_NEWS_MODULE')) die;
@@ -17,32 +19,32 @@ if (!defined('ON_NEWS_MODULE')) die;
 l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images
-$oImageUploadConfig = new Okatea\Images\ImageUploadConfig($okt,$okt->news->getImageUpload());
+$oImageUploadConfig = new ImageUploadConfig($okt,$okt->news->getImageUpload());
 $oImageUploadConfig->setBaseUrl('module.php?m=news&amp;action=config&amp;');
 
 # Gestionnaires de templates
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesList = new TemplatesSet($okt,
 	$okt->news->config->templates['list'],
 	'news/list',
 	'list',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesItem = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesItem = new TemplatesSet($okt,
 	$okt->news->config->templates['item'],
 	'news/item',
 	'item',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesInsert = new TemplatesSet($okt,
 	$okt->news->config->templates['insert'],
 	'news/insert',
 	'insert',
 	'module.php?m=news&amp;action=config&amp;'
 );
 
-$oTemplatesFeed = new Okatea\Themes\TemplatesSet($okt,
+$oTemplatesFeed = new TemplatesSet($okt,
 	$okt->news->config->templates['feed'],
 	'news/feed',
 	'feed',

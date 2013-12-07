@@ -13,6 +13,8 @@
  *
  */
 
+use Tao\Themes\Collection as ThemesCollection;
+use Tao\Themes\Editor\DefinitionsLess;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -25,13 +27,13 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
 
 # Themes object
-$oThemes = new Okatea\Themes\Collection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();
 
 # Tri par ordre alphabétique des listes de thème
-uasort($aInstalledThemes, array('\Okatea\Themes\Collection','sortThemesList'));
+ThemesCollection::sortThemes($aInstalledThemes);
 
 # Theme infos
 $sThemeId = !empty($_REQUEST['theme_id']) ? $_REQUEST['theme_id'] : null;
@@ -65,7 +67,7 @@ if (file_exists($sDefinitionsLessFilename))
 {
 	$bHasDefinitionsLess = true;
 
-	$oDefinitionsLessEditor = new Okatea\Themes\Editor\DefinitionsLess($okt);
+	$oDefinitionsLessEditor = new DefinitionsLess($okt);
 	$aCurrentDefinitionsLess = $oDefinitionsLessEditor->getValuesFromFile($sDefinitionsLessFilename);
 }
 

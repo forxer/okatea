@@ -6,7 +6,9 @@
  */
 
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_contact extends Module
 {
@@ -60,12 +62,12 @@ class module_contact extends Module
 		$this->config->map_url = $this->okt->page->getBaseUrl().$this->config->public_map_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('contactPage', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('contactPage', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
 			'contactController', 'contactPage'
 		));
 
-		$this->okt->router->addRoute('contactMapPage', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('contactMapPage', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
 			'contactController', 'contactMapPage'
 		));
@@ -82,7 +84,7 @@ class module_contact extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->contactSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->contactSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=contact',

@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Themes\Editor\Editor as ThemesEditor;
+
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 define('ON_THEME_EDITOR',true);
@@ -30,7 +32,7 @@ else if (!empty($_REQUEST['new_template']))
 
 	$sBasicTemplate = !empty($_REQUEST['basic_template']) ? rawurldecode($_REQUEST['basic_template']) : null;
 
-	$oThemeEditor = new Okatea\Themes\Editor\Editor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+	$oThemeEditor = new ThemesEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
 
 	if ($sThemeId)
 	{

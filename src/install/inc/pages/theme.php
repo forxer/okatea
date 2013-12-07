@@ -9,6 +9,8 @@
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
+use Tao\Themes\Collection as ThemesCollection;
+
 
 /* Initialisations
 ------------------------------------------------------------*/
@@ -21,7 +23,7 @@ l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/ins
 l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.themes');
 
 # Themes object
-$oThemes = new Okatea\Themes\Collection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();
@@ -35,10 +37,10 @@ if ($okt->config->themes_repositories_enabled)
 }
 
 # Tri par ordre alphabétique des listes de thème
-uasort($aInstalledThemes, array('\Okatea\Themes\Collection','sortThemesList'));
+ThemesCollection::sortThemes($aInstalledThemes);
 
 foreach ($aThemesRepositories as $repo_name=>$themes) {
-	uasort($aThemesRepositories[$repo_name], array('\Okatea\Themes\Collection','sortThemesList'));
+	ThemesCollection::sortThemes($aThemesRepositories[$repo_name]);
 }
 
 $p_theme = !empty($_REQUEST['p_theme']) && isset($aInstalledThemes[$_REQUEST['p_theme']]) ? $_REQUEST['p_theme'] : 'okatea';
@@ -160,7 +162,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 <?php elseif (!empty($aThemesRepositories)) : ?>
 	<?php foreach($aThemesRepositories as $repo_name=>$aThemes) : ?>
 
-	<h4><?php echo html::escapeHTML($repo_name).' ('.\Okatea\Themes\Collection::pluralizethemesCount(count($aThemes)).')'; ?></h4>
+	<h4><?php echo html::escapeHTML($repo_name).' ('.ThemesCollection::pluralizethemesCount(count($aThemes)).')'; ?></h4>
 
 	<table class="common">
 		<caption><?php printf('c_a_themes_list_themes_available_%s', html::escapeHTML($repo_name)) ?></caption>

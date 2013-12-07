@@ -5,8 +5,10 @@
  *
  */
 
-use Okatea\Core\Triggers;
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
+use Tao\Core\Triggers;
 
 class module_galleries extends Module
 {
@@ -66,17 +68,17 @@ class module_galleries extends Module
 		$this->config->feed_url = $this->okt->config->app_path.$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('galleriesList', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('galleriesList', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'galleriesController', 'galleriesList'
 		));
 
-		$this->okt->router->addRoute('galleriesGallery', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('galleriesGallery', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_gallery_url)).')/(.*)$',
 			'galleriesController', 'galleriesGallery'
 		));
 
-		$this->okt->router->addRoute('galleriesItem', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('galleriesItem', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_item_url)).')/(.*)$',
 			'galleriesController', 'galleriesItem'
 		));
@@ -155,7 +157,7 @@ class module_galleries extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->galleriesSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->galleriesSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=galleries',

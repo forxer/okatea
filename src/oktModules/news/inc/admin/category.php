@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+
 
 # Accès direct interdit
 if (!defined('ON_NEWS_MODULE')) die;
@@ -277,13 +279,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->news->config->templates['list'], 'news/list', 'list');
+$oTemplatesList = new TemplatesSet($okt, $okt->news->config->templates['list'], 'news/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->news->config->templates['list']['usables'])
 );
 
-$oItemsTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->news->config->templates['item'], 'news/item', 'item');
+$oItemsTemplatesList = new TemplatesSet($okt, $okt->news->config->templates['item'], 'news/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oItemsTemplatesList->getUsablesTemplatesForSelect($okt->news->config->templates['item']['usables'])

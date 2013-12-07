@@ -5,9 +5,12 @@
  *
  */
 
-use Okatea\Core\Authentification;
-use Okatea\Core\Triggers;
-use Okatea\Modules\Module;
+use Tao\Core\Authentification;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
+use Tao\Core\Triggers;
 
 class module_pages extends Module
 {
@@ -69,22 +72,22 @@ class module_pages extends Module
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('pagesFeed', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('pagesFeed', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
 			'pagesController', 'pagesFeed'
 		));
 
-		$this->okt->router->addRoute('pagesList', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('pagesList', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
 			'pagesController', 'pagesList'
 		));
 
-		$this->okt->router->addRoute('pagesCategory', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('pagesCategory', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
 			'pagesController', 'pagesCategory'
 		));
 
-		$this->okt->router->addRoute('pagesItem', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('pagesItem', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
 			'pagesController', 'pagesItem'
 		));
@@ -135,7 +138,7 @@ class module_pages extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->pagesSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->pagesSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=pages',
@@ -1191,7 +1194,7 @@ class module_pages extends Module
 	 */
 	public function getImageUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt, $this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

@@ -5,7 +5,10 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_diary extends Module
 {
@@ -47,12 +50,12 @@ class module_diary extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('diaryList', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('diaryList', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
 			'diaryController', 'diaryList'
 		));
 
-		$this->okt->router->addRoute('diaryEvent', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('diaryEvent', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
 			'diaryController', 'diaryEvent'
 		));
@@ -73,7 +76,7 @@ class module_diary extends Module
 		# on ajoutent un élément au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->diarySubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->diarySubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
@@ -590,7 +593,7 @@ class module_diary extends Module
 	 */
 	public function getImageUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

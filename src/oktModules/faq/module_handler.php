@@ -5,7 +5,10 @@
  *
  */
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_faq extends Module
 {
@@ -64,12 +67,12 @@ class module_faq extends Module
 		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_faq_url[$this->okt->user->language];
 
 		# définition des routes
-		$this->okt->router->addRoute('faqList', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('faqList', new Route(
 			'^('.html::escapeHTML(implode('|',$this->config->public_faq_url)).')$',
 			'faqController', 'faqList'
 		));
 
-		$this->okt->router->addRoute('faqQuestion', new Okatea\Routing\Route(
+		$this->okt->router->addRoute('faqQuestion', new Route(
 			'^(?:'.html::escapeHTML(implode('|',$this->config->public_question_url)).')/(.*)$',
 			'faqController', 'faqQuestion'
 		));
@@ -90,7 +93,7 @@ class module_faq extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->faqSubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->faqSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=faq',
@@ -992,7 +995,7 @@ class module_faq extends Module
 	 */
 	public function getImageUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

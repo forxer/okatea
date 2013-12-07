@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Themes\TemplatesSet;
+
 # Accès direct interdit
 if (!defined('ON_GALLERIES_MODULE')) die;
 
@@ -318,13 +320,13 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->galleries->config->templates['list'], 'galleries/list', 'list');
+$oTemplatesList = new TemplatesSet($okt, $okt->galleries->config->templates['list'], 'galleries/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oTemplatesList->getUsablesTemplatesForSelect($okt->galleries->config->templates['list']['usables'])
 );
 
-$oItemsTemplatesList = new Okatea\Themes\TemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
+$oItemsTemplatesList = new TemplatesSet($okt, $okt->galleries->config->templates['item'], 'galleries/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
 	$oItemsTemplatesList->getUsablesTemplatesForSelect($okt->galleries->config->templates['item']['usables'])

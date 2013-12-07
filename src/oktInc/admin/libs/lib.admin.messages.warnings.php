@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Html\Stack;
+use Tao\Html\Stack;
 
 /**
  * Pile de messages d'avertissements pour l'administration.

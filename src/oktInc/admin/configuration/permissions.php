@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Core\Authentification;
+use Tao\Core\Authentification;
 
 /**
  * Gestion des permissions utilisateurs

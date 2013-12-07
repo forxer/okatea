@@ -14,6 +14,9 @@
  *
  */
 
+use Tao\Html\CheckList;
+use Tao\Core\Update as Updater;
+
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -32,9 +35,9 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 # mise à jour de la base de données
 if (!empty($_GET['update_db']))
 {
-	$oChecklist = new Okatea\Html\CheckList();
+	$oChecklist = new CheckList();
 
-	Okatea\Core\Update::dbUpdate($oChecklist);
+	Updater::dbUpdate($oChecklist);
 
 	# log admin
 	$okt->logAdmin->warning(array(
@@ -55,7 +58,7 @@ if (!$digest_is_readable && empty($_GET['update_db'])) {
 
 $okatea_version = util::getVersion();
 
-$updater = new Okatea\Core\Update($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
 $new_v = $updater->check($okatea_version);
 $zip_file = $new_v ? OKT_BACKUP_PATH.'/'.basename($updater->getFileURL()) : '';
 
@@ -198,16 +201,16 @@ if ($digest_is_readable && $new_v && $step)
 	catch (Exception $e)
 	{
 		$msg = $e->getMessage();
-		if ($e->getCode() == Okatea\Core\Update::ERR_FILES_CHANGED)
+		if ($e->getCode() == Updater::ERR_FILES_CHANGED)
 		{
 			$msg = __('c_a_update_following_files_modified');
 		}
-		elseif ($e->getCode() == Okatea\Core\Update::ERR_FILES_UNREADABLE)
+		elseif ($e->getCode() == Updater::ERR_FILES_UNREADABLE)
 		{
 			$msg = sprintf(__('c_a_update_following_files_not_readable'),
 			'<strong>backup-'.$okatea_version.'.zip</strong>');
 		}
-		elseif ($e->getCode() == Okatea\Core\Update::ERR_FILES_UNWRITALBE)
+		elseif ($e->getCode() == Updater::ERR_FILES_UNWRITALBE)
 		{
 			$msg = __('c_a_update_following_files_cannot_be_written');
 		}

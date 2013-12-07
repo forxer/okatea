@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Core\Controller;
+use Tao\Core\Controller;
 
 class catalogController extends Controller
 {

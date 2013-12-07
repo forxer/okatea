@@ -14,7 +14,11 @@
  *
  */
 
-use Okatea\Core\Application;
+use Tao\Core\Application;
+use Tao\Core\Authentification;
+use Tao\Core\Languages;
+use Tao\Navigation\Menus\Menus;
+use Tao\Modules\Collection as ModulesCollection;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
@@ -149,12 +153,12 @@ if (!session_id())
 
 
 # Initialisation langues
-$okt->languages = new Okatea\Core\Languages($okt);
+$okt->languages = new Languages($okt);
 $okt->languages->load();
 
 
 # Initialisation utilisateur courant
-$okt->user = new Okatea\Core\Authentification($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
+$okt->user = new Authentification($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
 $okt->user->authentication();
 $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
@@ -168,11 +172,11 @@ $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
 
 # Initialisation navigations
-$okt->navigation = new Okatea\Navigation\Menus\Menus($okt);
+$okt->navigation = new Menus($okt);
 
 
 # Initialisation du gestionnaire de modules
-$okt->modules = new Okatea\Modules\Collection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
+$okt->modules = new ModulesCollection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 
 
 # initialisation du moteur de templates

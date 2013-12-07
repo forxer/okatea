@@ -9,6 +9,8 @@
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
+use Tao\Themes\Editor\DefinitionsLess;
+
 
 /* Initialisations
 ------------------------------------------------------------*/
@@ -20,7 +22,7 @@ require_once __DIR__.'/../../../oktInc/prepend.php';
 l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/install');
 l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.modules');
 
-$oDefinitionsLessEditor = new Okatea\Themes\Editor\DefinitionsLess($okt);
+$oDefinitionsLessEditor = new DefinitionsLess($okt);
 
 
 /* Traitements

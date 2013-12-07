@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Core\Controller;
+use Tao\Core\Controller;
 
 class galleriesController extends Controller
 {

@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Themes\Collection as ThemesCollection;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -509,8 +510,8 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['common']);
 	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['common']);
-	foreach (Okatea\Themes\Collection::getThemes() as $sThemeId=>$sTheme) {
-		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, Okatea\Themes\Collection::getLockedFiles($sThemeId));
+	foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme) {
+		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId));
 	}
 
 	# cache de la liste de module

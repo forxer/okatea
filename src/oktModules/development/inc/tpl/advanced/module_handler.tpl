@@ -2,7 +2,9 @@
 ##header##
 
 
-use Okatea\Modules\Module;
+use Tao\Html\BlockList;
+use Tao\Images\ImageUpload;
+use Tao\Modules\Module;
 
 class module_##module_id## extends Module
 {
@@ -56,7 +58,7 @@ class module_##module_id## extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->##module_camel_case_id##SubMenu = new Okatea\Html\BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->##module_camel_case_id##SubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
@@ -450,7 +452,7 @@ class module_##module_id## extends Module
 	 */
 	public function getImageUpload()
 	{
-		$o = new Okatea\Images\ImageUpload($this->okt,$this->config->images);
+		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
 			'upload_dir' => $this->upload_dir.'img/',
 			'upload_url' => $this->upload_url.'img/'

@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Database\Recordset;
+use Tao\Database\Recordset;
 
 class partnersRecordset extends Recordset
 {

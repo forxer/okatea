@@ -6,7 +6,8 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Html\Page;
+use Tao\Html\Page;
+use Tao\Navigation\Breadcrumb;
 
 /**
  * Construction des pages d'administration.
@@ -102,7 +103,7 @@ class adminPage extends Page
 		$this->application = !empty($_REQUEST['application']) ? $_REQUEST['application'] : null;
 		$this->do = !empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
 
-		$this->breadcrumb = new Okatea\Navigation\Breadcrumb();
+		$this->breadcrumb = new Breadcrumb();
 
 		$this->flashMessages = new oktFlashMessages();
 

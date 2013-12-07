@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Html\CheckList;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -29,7 +30,7 @@ require OKT_INC_PATH.'/systeme_requirements.php';
 
 foreach ($requirements as $group)
 {
-	${'check_'.$group['group_id']} = new Okatea\Html\CheckList();
+	${'check_'.$group['group_id']} = new CheckList();
 
 	foreach ($group['requirements'] as $requirement) {
 		${'check_'.$group['group_id']}->addItem($requirement['id'],$requirement['test'],$requirement['msg_ok'],$requirement['msg_ko']);
