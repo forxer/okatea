@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Html\BlockList;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -78,7 +78,7 @@ class module_estimate extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->estimateSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
+			$this->okt->page->estimateSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_estimate_menu_Estimates'),
 				'module.php?m=estimate',

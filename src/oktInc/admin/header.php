@@ -10,8 +10,6 @@
 /**
  * En-tête des pages d'administration
  *
- * @addtogroup Okatea
- *
  */
 
 use Tao\Utils as util;

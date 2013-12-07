@@ -7,7 +7,7 @@
 
 use Tao\Admin\Page;
 use Tao\Utils as util;
-use Tao\Html\BlockList;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -57,7 +57,7 @@ class module_guestbook extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->guestbookSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
+			$this->okt->page->guestbookSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

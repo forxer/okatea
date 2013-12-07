@@ -8,9 +8,7 @@
 
 
 /**
- * Page d'administration des modules
- *
- * @addtogroup Okatea
+ * Page d'administration des modules.
  *
  */
 

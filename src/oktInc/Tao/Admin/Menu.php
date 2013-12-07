@@ -6,17 +6,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Html;
+namespace Tao\Admin;
 
 /**
- * Permet de gérer une piles pour construire une liste d'éléments
- * dans un éléments de type block.
- *
- * Typiquement cela permet de construire des menus imbriqués
- * dans des listes non-ordonnées selon différents paramètres.
+ * Permet de construire les menus de l'administration.
  *
  */
-class BlockList
+class Menu
 {
 	/**
 	 * Identifiant du bloc.
@@ -143,7 +139,7 @@ class BlockList
 
 				$sub = array('html'=>null,'active'=>null);
 
-				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof BlockList) {
+				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof Menu) {
 					$sub = $this->items[$i]['sub']->build();
 				}
 

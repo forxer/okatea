@@ -13,8 +13,6 @@ use Tao\Misc\Pager as BasePager;
 /**
  * Extension de la classe pager pour l'administration.
  *
- * @addtogroup Okatea
- *
  */
 class Pager extends BasePager
 {

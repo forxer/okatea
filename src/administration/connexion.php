@@ -9,8 +9,6 @@
 /**
  * La page d'identification au backend
  *
- * @addtogroup Okatea
- *
  */
 
 use Tao\Admin\Page;

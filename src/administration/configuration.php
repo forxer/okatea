@@ -10,8 +10,6 @@
 /**
  * La page principale de la partie configuration
  *
- * @addtogroup Okatea
- *
  */
 
 require __DIR__.'/../oktInc/admin/prepend.php';

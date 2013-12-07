@@ -10,14 +10,12 @@
 /**
  * Fichier commun au backend
  *
- * @addtogroup Okatea
- *
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Utils as util;
 use Tao\Core\LogAdmin;
-use Tao\Html\BlockList;
 
 
 # On inclu le fichier prepend général
@@ -124,7 +122,7 @@ $okt->page->addAriane(__('Administration'),'index.php');
 if (!defined('OKT_DISABLE_MENU'))
 {
 	# Menu principal
-	$okt->page->mainMenu = new BlockList(
+	$okt->page->mainMenu = new AdminMenu(
 		'mainMenu-'.($okt->config->admin_sidebar_position == 0 ? 'left' : 'right'),
 		Page::$formatHtmlMainMenu);
 
@@ -136,7 +134,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		/* position */	1,
 		/* visible ? */	true,
 		/* ID */ 		null,
-		/* Sub */		($okt->page->homeSubMenu = new BlockList(null,Page::$formatHtmlSubMenu)),
+		/* Sub */		($okt->page->homeSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
 		/* Icon */		OKT_PUBLIC_URL.'/img/admin/start-here.png'
 	);
 		$okt->page->homeSubMenu->add(
@@ -155,7 +153,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		10000000,
 		$okt->checkPerm('configsite'),
 		null,
-		($okt->page->configSubMenu = new BlockList(null,Page::$formatHtmlSubMenu)),
+		($okt->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
 		OKT_PUBLIC_URL.'/img/admin/network-server.png'
 	);
 		$okt->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',

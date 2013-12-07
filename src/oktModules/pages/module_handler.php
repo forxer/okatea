@@ -8,7 +8,7 @@
 use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Core\Authentification;
-use Tao\Html\BlockList;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Images\ImageUpload;
 use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
@@ -142,7 +142,7 @@ class module_pages extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->pagesSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
+			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=pages',

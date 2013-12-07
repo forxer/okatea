@@ -19,10 +19,7 @@ use Tao\Misc\FlashMessages;
 /**
  * Construction des pages d'administration.
  *
- * @addtogroup Okatea
- *
  */
-
 class Page extends BasePage
 {
 	/**

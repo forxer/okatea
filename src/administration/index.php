@@ -8,9 +8,7 @@
 
 
 /**
- * La page d'accueil de l'administration
- *
- * @addtogroup Okatea
+ * La page d'accueil de l'administration.
  *
  */
 

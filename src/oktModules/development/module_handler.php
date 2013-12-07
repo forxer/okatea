@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Html\BlockList;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 
 class module_development extends Module
@@ -49,7 +49,7 @@ class module_development extends Module
 		# On ajoutent un item au menu
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->developmentSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
+			$this->okt->page->developmentSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_development_menu_development'),
 				null,

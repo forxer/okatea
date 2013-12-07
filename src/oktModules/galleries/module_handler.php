@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Html\BlockList;
+use Tao\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Core\Triggers;
@@ -158,7 +158,7 @@ class module_galleries extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->galleriesSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
+			$this->okt->page->galleriesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=galleries',
