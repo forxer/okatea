@@ -5,10 +5,10 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
-
 
 # Accès direct interdit
 if (!defined('ON_NEWS_MODULE')) die;
@@ -815,7 +815,7 @@ $aPostData['tabs']->ksort();
 	<?php echo form::hidden('action',!empty($aPostData['post']['id']) ? 'edit' : 'add'); ?>
 	<?php echo !empty($aPostData['post']['id']) ? form::hidden('post_id',$aPostData['post']['id']) : ''; ?>
 	<?php echo form::hidden('sended',1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($aPostData['post']['id']) ? _e('c_c_action_edit') : _e('c_c_action_add'); ?>" /></p>
 	<?php endif; ?>
 </form>

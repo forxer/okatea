@@ -5,8 +5,9 @@
  *
  */
 
-use Tao\Forms\StaticFormElements as form;
 
+use Tao\Admin\Page;
+use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
 if (!defined('ON_PARTNERS_MODULE')) die;
@@ -174,7 +175,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('action', 'index'); ?>
 	<?php echo form::hidden('ordered',1); ?>
 	<?php echo form::hidden('partners_order',''); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
 </form>
 

@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 class oktFilterIP extends oktSpamFilter
@@ -114,7 +115,7 @@ class oktFilterIP extends oktSpamFilter
 		form::text(array('addip'),18,255).' ';
 
 		$res .=
-		adminPage::formtoken().
+		Page::formtoken().
 		'<input type="submit" value="'.__('c_c_action_Add').'"/></p>'.
 		'</fieldset></form>';
 
@@ -149,7 +150,7 @@ class oktFilterIP extends oktSpamFilter
 			$res .=
 			'</div>'.
 			'<p><input type="submit" value="'.__('c_c_action_Delete').'"/>'.
-			adminPage::formtoken().
+			Page::formtoken().
 			form::hidden(array('ip_type'),$type).
 			'</p>'.
 			'</fieldset></form>';

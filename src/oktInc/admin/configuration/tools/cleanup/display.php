@@ -14,8 +14,8 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
-
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -35,6 +35,6 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 	</ul>
 
 	<p><?php echo form::hidden(array('action'), 'tools') ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" class="lazy-load" value="<?php _e('c_c_action_delete') ?>" /></p>
 </form>

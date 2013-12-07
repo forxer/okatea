@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
 
@@ -98,7 +99,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('action', 'navigation') ?>
 	<?php echo form::hidden('do', 'config'); ?>
 	<?php echo form::hidden('sended', 1) ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

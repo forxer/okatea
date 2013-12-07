@@ -6,17 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Admin\Filters;
+
+use Tao\Misc\FiltersBase;
 
 /**
  * Extension de la classe filters pour l'administration des thèmes.
  *
- * @addtogroup Okatea
- *
  */
-
-use Tao\Misc\FiltersBase;
-
-class themesFilters extends FiltersBase
+class Themes extends FiltersBase
 {
 	protected $okt;
 

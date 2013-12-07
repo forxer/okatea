@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Admin\Messages;
+
 use Tao\Html\Stack;
 
 /**
@@ -14,7 +16,7 @@ use Tao\Html\Stack;
  * @addtogroup Okatea
  *
  */
-class adminMessagesErrors extends Stack
+class Errors extends Stack
 {
 	/**
 	 * Ajoute une erreur à la pile des erreurs.

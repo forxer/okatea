@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -306,7 +307,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden(array('edit_default_route'), 1); ?>
 			<?php echo form::hidden(array('action'), 'router'); ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_edit') ?>" /></p>
 		</form>
 
@@ -370,7 +371,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden(array('edit_custom_routes'), 1); ?>
 			<?php echo form::hidden(array('action'), 'router'); ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_edit') ?>" /></p>
 		</form>
 		<?php endif; ?>
@@ -401,7 +402,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden(array('add_custom_route'), 1); ?>
 			<?php echo form::hidden(array('action'), 'router'); ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_add') ?>" /></p>
 		</form>
 
@@ -427,7 +428,7 @@ RewriteRule ^$ <?php echo html::escapeHTML($okt->config->app_file) ?> [QSA,L]
 
 			<p><?php echo form::hidden(array('save_config'), 1); ?>
 			<?php echo form::hidden(array('action'), 'router'); ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 		</form>
 	</div><!-- #tab_config -->

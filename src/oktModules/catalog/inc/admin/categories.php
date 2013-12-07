@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -300,7 +301,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<p><?php echo form::hidden('m','catalog'); ?>
 		<?php echo form::hidden('action','categories'); ?>
 		<?php echo form::hidden('add_category',1); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="ajouter" /></p>
 	</form>
 </div><!-- #add_category -->
@@ -415,7 +416,7 @@ if ($ref_level - $level < 0) {
 		<?php echo form::hidden('edit_category',1); ?>
 		<?php echo form::hidden(array('action'),'categories'); ?>
 		<?php echo form::hidden(array('category_id'),$category_id); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="modifier" /></p>
 	</form>
 
@@ -437,7 +438,7 @@ if ($ref_level - $level < 0) {
 		<?php echo form::hidden(array('action'),'categories'); ?>
 		<?php echo form::hidden(array('category_id'),$category_id); ?>
 		<?php echo form::hidden('categories_order',''); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="enregistrer l’ordre" id="save_order" /></p>
 	</form>
 	<?php endif; ?>

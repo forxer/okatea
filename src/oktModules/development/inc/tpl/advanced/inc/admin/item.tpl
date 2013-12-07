@@ -1,11 +1,9 @@
 <?php
 ##header##
 
-
-
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
-
 
 # Accès direct interdit
 if (!defined('ON_##module_upper_id##_MODULE')) die;
@@ -389,7 +387,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('action',!empty($iItemId) ? 'edit' : 'add'); ?>
 	<?php echo !empty($iItemId) ? form::hidden('item_id',$iItemId) : ''; ?>
 	<?php echo form::hidden('sended',1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($iItemId) ? __('c_c_action_edit') : __('c_c_action_add'); ?>" /></p>
 </form>
 

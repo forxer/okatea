@@ -7,6 +7,8 @@
  *
  */
 
+use Tao\Admin\Page;
+
 define('OKT_SUDO_USERNAME', 'sudo');
 define('OKT_SUDO_EMAIL', 'sudo@localhost');
 
@@ -37,12 +39,7 @@ $oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';
 
 $oktAutoloader->addClassMap(array(
 	'oktStepper' => __DIR__.'/inc/class.stepper.php',
-	'adminMessagesErrors' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.errors.php',
-	'adminMessagesSuccess' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.success.php',
-	'adminMessagesWarnings' => OKT_INC_PATH.'/admin/libs/lib.admin.messages.warnings.php',
-	'adminPage' => OKT_INC_PATH.'/admin/libs/lib.admin.page.php',
 	'adminPager' => OKT_INC_PATH.'/admin/libs/lib.admin.pager.php',
-	'adminFilters' => OKT_INC_PATH.'/admin/libs/lib.admin.filters.php'
 ));
 
 
@@ -118,8 +115,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/main');
 l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/install');
 
 # HTML page helper
-require_once OKT_INC_PATH.'/admin/libs/lib.admin.page.php';
-$oHtmlPage = new adminPage(null);
+$oHtmlPage = new Page(null);
 
 # CSS
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/ui-themes/redmond/jquery-ui.css');

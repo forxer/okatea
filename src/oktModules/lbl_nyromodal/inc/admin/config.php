@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -76,7 +77,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('m','lbl_nyromodal'); ?>
 	<?php echo form::hidden(array('form_sent'), 1); ?>
 	<?php echo form::hidden(array('action'), 'config'); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

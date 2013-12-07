@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -410,7 +411,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('action',!empty($questions_id) ? 'edit' : 'add'); ?>
 	<?php echo !empty($questions_id) ? form::hidden('questions_id',$questions_id) : ''; ?>
 	<?php echo form::hidden('sended',1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($questions_id) ? _e('c_c_action_edit') : _e('c_c_action_add'); ?>" /></p>
 </form>
 

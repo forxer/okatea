@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
 
@@ -556,7 +557,7 @@ $aItemData['tabs']->ksort();
 	<?php echo form::hidden('action',!empty($aItemData['item']['id']) ? 'edit' : 'add'); ?>
 	<?php echo !empty($aItemData['item']['id']) ? form::hidden('item_id', $aItemData['item']['id']) : ''; ?>
 	<?php echo form::hidden('sended',1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($aItemData['item']['id']) ? _e('c_c_action_edit') : _e('c_c_action_add'); ?>" /></p>
 </form>
 

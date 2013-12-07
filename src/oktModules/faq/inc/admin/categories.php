@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -204,7 +205,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('do','edit'); ?>
 	<?php echo form::hidden('category_id',$iCategoryId) ?>
 	<?php echo form::hidden('form_sent',1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" value="<?php _e('c_c_action_edit') ?>" /></p>
 </form>
 </div><!-- #tab-edit -->
@@ -256,7 +257,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<?php echo form::hidden('action','categories') ?>
 		<?php echo form::hidden('ordered',1); ?>
 		<?php echo form::hidden('categories_order',''); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
 	</form>
 	<?php endif; ?>
@@ -277,7 +278,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<p><?php echo form::hidden('m','faq'); ?>
 		<?php echo form::hidden('action','categories'); ?>
 		<?php echo form::hidden('do','add'); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="<?php _e('c_c_action_add')?>" /></p>
 	</form>
 </div><!-- #tab-add -->

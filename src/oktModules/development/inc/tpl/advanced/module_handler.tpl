@@ -2,6 +2,7 @@
 ##header##
 
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
@@ -60,7 +61,7 @@ class module_##module_id## extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->##module_camel_case_id##SubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->##module_camel_case_id##SubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

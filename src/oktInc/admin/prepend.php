@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Core\LogAdmin;
 use Tao\Html\BlockList;
@@ -30,7 +31,7 @@ if (!session_id()) {
 
 
 # Initialisation des pages de l'administration
-$okt->page = new adminPage($okt);
+$okt->page = new Page($okt);
 
 
 # Initialisation des journaux admin
@@ -125,7 +126,7 @@ if (!defined('OKT_DISABLE_MENU'))
 	# Menu principal
 	$okt->page->mainMenu = new BlockList(
 		'mainMenu-'.($okt->config->admin_sidebar_position == 0 ? 'left' : 'right'),
-		adminPage::$formatHtmlMainMenu);
+		Page::$formatHtmlMainMenu);
 
 	# Accueil
 	$okt->page->mainMenu->add(
@@ -135,7 +136,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		/* position */	1,
 		/* visible ? */	true,
 		/* ID */ 		null,
-		/* Sub */		($okt->page->homeSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu)),
+		/* Sub */		($okt->page->homeSubMenu = new BlockList(null,Page::$formatHtmlSubMenu)),
 		/* Icon */		OKT_PUBLIC_URL.'/img/admin/start-here.png'
 	);
 		$okt->page->homeSubMenu->add(
@@ -154,7 +155,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		10000000,
 		$okt->checkPerm('configsite'),
 		null,
-		($okt->page->configSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu)),
+		($okt->page->configSubMenu = new BlockList(null,Page::$formatHtmlSubMenu)),
 		OKT_PUBLIC_URL.'/img/admin/network-server.png'
 	);
 		$okt->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',

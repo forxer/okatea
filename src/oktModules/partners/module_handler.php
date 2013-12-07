@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
 use Tao\Routing\Route;
@@ -92,7 +93,7 @@ class module_partners extends Module
 		# on ajoute un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->partnersSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->partnersSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=partners',

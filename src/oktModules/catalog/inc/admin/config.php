@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Images\ImageUploadConfig;
@@ -291,7 +292,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden(array('m'),'catalog'); ?>
 	<?php echo form::hidden(array('form_sent'), 1); ?>
 	<?php echo form::hidden(array('action'), 'config'); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="enregistrer" /></p>
 </form>
 

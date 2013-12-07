@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -183,7 +184,7 @@ else : ?>
 	</tbody></table>
 	<p><?php echo form::hidden('filters_order','').
 	form::hidden('m','antispam').
-	adminPage::formtoken(); ?>
+	Page::formtoken(); ?>
 	<input type="submit" name="filters_upd" value="<?php _e('c_c_action_Save') ?>" /></p>
 	</fieldset></form>
 

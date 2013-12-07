@@ -4,6 +4,7 @@
  * @brief Page de l'outil de comptage
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -46,7 +47,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden(array('m'),'development') ?>
 	<?php echo form::hidden(array('action'), 'counting') ?>
 	<?php echo form::hidden(array('form_sent'), 1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" class="lazy-load" value="<?php _e('m_development_counting_action') ?>" /></p>
 </form>
 

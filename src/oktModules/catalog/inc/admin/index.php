@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -111,7 +112,7 @@ $okt->page->js->addReady('
 						$("#productsList").fadeOut(300).html(data).fadeIn(300);
 
 						'.$okt->page->getLblJsLoader($okt->catalog->config->lightbox_type).'
-						'.adminPage::getCommonJs().'
+						'.Page::getCommonJs().'
 					}
 				});
 			}

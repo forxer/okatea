@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Modules\Collection as ModulesCollection;
 
@@ -340,7 +341,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden(array('action'), 'modules') ?>
 			<?php echo form::hidden('fetch_pkg', 1) ?>
-			<?php echo adminPage::formtoken() ?>
+			<?php echo Page::formtoken() ?>
 			<input type="submit" class="lazy-load" value="<?php _e('c_a_modules_download_plugin') ?>" /></p>
 		</form>
 		<form class="col" action="configuration.php" method="post" enctype="multipart/form-data">
@@ -352,7 +353,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden(array('action'), 'modules') ?>
 			<?php echo form::hidden('upload_pkg', 1) ?>
-			<?php echo adminPage::formtoken() ?>
+			<?php echo Page::formtoken() ?>
 			<input type="submit" class="lazy-load" value="<?php _e('c_a_modules_upload_plugin') ?>" /></p>
 		</form>
 	</div>

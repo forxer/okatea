@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -346,7 +347,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<p><?php echo form::hidden('m','partners'); ?>
 		<?php echo form::hidden('action','categories'); ?>
 		<?php echo form::hidden('add_category',1); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="<?php _e('c_c_action_Add') ?>" /></p>
 	</form>
 </div><!-- #add_category -->
@@ -470,7 +471,7 @@ if ($ref_level - $level < 0) {
 		<?php echo form::hidden('edit_category',1); ?>
 		<?php echo form::hidden(array('action'),'categories'); ?>
 		<?php echo form::hidden(array('category_id'),$category_id); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="<?php _e('c_c_action_Edit')?>" /></p>
 	</form>
 
@@ -492,7 +493,7 @@ if ($ref_level - $level < 0) {
 		<?php echo form::hidden(array('action'),'categories'); ?>
 		<?php echo form::hidden(array('category_id'),$category_id); ?>
 		<?php echo form::hidden('categories_order',''); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="<?php _e('c_c_action_save_order') ?>" id="save_order" /></p>
 	</form>
 	<?php endif; ?>

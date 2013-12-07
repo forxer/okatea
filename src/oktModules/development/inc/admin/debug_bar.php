@@ -4,6 +4,7 @@
  * @brief Page de gestion de la debug barre
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -109,7 +110,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden(array('m'),'development') ?>
 	<?php echo form::hidden(array('action'), 'debug_bar') ?>
 	<?php echo form::hidden(array('form_sent'), 1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" name="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -389,7 +390,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p><?php echo form::hidden('action', 'languages') ?>
 			<?php echo form::hidden('edit_languages', 1) ?>
 			<?php echo form::hidden('id', $iLangId) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_edit') ?>" />
 			<a href="configuration.php?action=languages" class="button"><?php _e('c_c_action_cancel') ?></a></p>
 		</form>
@@ -442,7 +443,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p><?php echo form::hidden('action', 'languages') ?>
 			<?php echo form::hidden('ordered', 1); ?>
 			<?php echo form::hidden('order_languages', 1); ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
 		</form>
 	</div><!-- #tab-list -->
@@ -471,7 +472,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden('action', 'languages') ?>
 			<?php echo form::hidden('add_languages', 1) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_add') ?>" /></p>
 		</form>
 	</div><!-- #tab-add -->
@@ -495,7 +496,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p><?php echo form::hidden('action', 'languages') ?>
 			<?php echo form::hidden('config_sent', 1) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 		</form>
 	</div><!-- #tab-config -->

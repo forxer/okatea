@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -216,7 +217,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo !empty($iAccessoryId) ? form::hidden('accessory_id', $iAccessoryId) : ''; ?>
 	<?php echo !empty($iProductId) ? form::hidden('product_id', $iProductId) : ''; ?>
 	<?php echo form::hidden('form_sent', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo (!empty($iAccessoryId) ? __('c_c_action_edit') : __('c_c_action_add')); ?>" /></p>
 </form>
 

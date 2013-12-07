@@ -9,6 +9,7 @@
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
+use Tao\Admin\Page;
 use Tao\Themes\Collection as ThemesCollection;
 
 
@@ -213,7 +214,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 			<p><?php echo form::hidden(array('step'), $stepper->getCurrentStep()) ?>
 			<?php echo form::hidden('bootstrap', 1) ?>
-			<?php echo adminPage::formtoken() ?>
+			<?php echo Page::formtoken() ?>
 			<input type="submit" value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" /></p>
 		</form>
 	</div>

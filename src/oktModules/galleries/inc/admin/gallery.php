@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
 
@@ -676,7 +677,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden(array('action'), 'gallery'); ?>
 	<?php echo !empty($iGalleryId) ? form::hidden('gallery_id', $iGalleryId) : ''; ?>
 	<?php echo form::hidden('sended', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($iGalleryId) ? _e('c_c_action_edit') : _e('c_c_action_add'); ?>" /></p>
 </form>
 
@@ -701,7 +702,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden(array('action'), 'gallery'); ?>
 	<?php echo !empty($iGalleryId) ? form::hidden('gallery_id', $iGalleryId) : ''; ?>
 	<?php echo form::hidden('order_galleries', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
 </form>
 <?php endif; ?>

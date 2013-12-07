@@ -13,6 +13,7 @@
  * @addtogroup Okatea
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Editor\Editor as ThemesEditor;
 
@@ -107,7 +108,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('theme', $sThemeId) ?>
 	<?php echo form::hidden('new_file', 1) ?>
 	<?php echo form::hidden('form_sent', 1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" name="save" value="<?php _e('c_c_action_Save') ?>" /></p>
 </form>
 

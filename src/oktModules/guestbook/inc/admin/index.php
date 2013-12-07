@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -358,7 +359,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('page',$page) ?>
 	<?php echo form::hidden('show',$show) ?>
 	<?php echo form::hidden('status',$status) ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<label>Action sur les signatures sélectionnées&nbsp;<?php
 	echo form::select('do', $sigs_actions) ?>
 	</label>&nbsp;<input type="submit" name="submit" value="ok" /></p>

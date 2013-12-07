@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -169,7 +170,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('m', 'galleries') ?>
 	<?php echo form::hidden('action', 'add_multiples') ?>
 	<?php echo form::hidden('sended', 1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" class="lazy-load" value="<?php _e('c_c_action_add') ?>" /></p>
 </form>
 

@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -298,7 +299,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('action', 'items'); ?>
 	<?php echo form::hidden('gallery_id', $gallery_id); ?>
 	<?php echo form::hidden('sended', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo 'ok'; ?>" /></p></div>
 </div>
 </form>

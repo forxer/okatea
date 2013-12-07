@@ -8,6 +8,8 @@
 
 namespace Tao\Core;
 
+use Tao\Admin\Filters\LogAdmin as LogAdminFilters;
+
 /**
  * Le gestionnnaire de log administration.
  *
@@ -400,7 +402,7 @@ class LogAdmin
 	public function filtersStart()
 	{
 		if ($this->filters === null || !($this->filters instanceof logAdminFilters)) {
-			$this->filters = new \logAdminFilters($this);
+			$this->filters = new LogAdminFilters($this);
 		}
 	}
 

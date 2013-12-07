@@ -5,9 +5,9 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
-
 
 # Accès direct interdit
 if (!defined('ON_PAGES_MODULE')) die;
@@ -407,7 +407,7 @@ if (!$rsPages->isEmpty()) : ?>
 		<?php echo form::hidden('m','pages'); ?>
 		<?php echo form::hidden('action','index'); ?>
 		<?php echo form::hidden('sended',1); ?>
-		<?php echo adminPage::formtoken(); ?>
+		<?php echo Page::formtoken(); ?>
 		<input type="submit" value="<?php echo 'ok'; ?>" /></p></div>
 	</div>
 </form>

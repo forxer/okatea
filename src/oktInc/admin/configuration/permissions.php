@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Tao\Admin\Page;
 use Tao\Core\Authentification;
 
 /**
@@ -16,7 +17,6 @@ use Tao\Core\Authentification;
  */
 
 use Tao\Forms\StaticFormElements as form;
-
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -170,7 +170,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 	<p><?php echo form::hidden('action','permissions') ?>
 	<?php echo form::hidden('sended_form',1) ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_edit') ?>" /></p>
 </form>
 <?php # Pied-de-page

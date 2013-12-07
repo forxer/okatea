@@ -14,8 +14,10 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
+use Tao\Admin\Filters\Themes as ThemesFilters;
 
 
 # Accès direct interdit
@@ -26,7 +28,7 @@ if (!defined('OKT_THEMES_MANAGEMENT')) die;
 ----------------------------------------------------------*/
 
 # Initialisation des filtres
-$oFilters = new themesFilters($okt, array());
+$oFilters = new ThemesFilters($okt, array());
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();

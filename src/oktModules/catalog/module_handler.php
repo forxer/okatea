@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
@@ -105,7 +106,7 @@ class module_catalog extends Module
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->catalogSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->catalogSubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

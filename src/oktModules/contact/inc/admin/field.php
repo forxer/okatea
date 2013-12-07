@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -229,7 +230,7 @@ if ($do == 'value') : ?>
 	<?php echo form::hidden(array('action'), 'field'); ?>
 	<?php echo form::hidden(array('do'), 'value'); ?>
 	<?php echo form::hidden(array('field_id'), $field_id); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_Save')?>" /></p>
 </form>
 
@@ -265,7 +266,7 @@ else : ?>
 	<?php echo form::hidden(array('action'), 'field'); ?>
 	<?php echo form::hidden(array('do'), 'desc'); ?>
 	<?php echo form::hidden(array('field_id'), $field_id); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="suivant" /></p>
 </form>
 

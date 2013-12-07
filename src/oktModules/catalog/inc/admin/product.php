@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -610,7 +611,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 	<?php echo form::hidden('action', !empty($product_id) ? 'edit' : 'add') ?>
 	<?php echo !empty($product_id) ? form::hidden('product_id',$product_id) : ''; ?>
 	<?php echo form::hidden('sended',1) ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" value="<?php echo !empty($product_id) ? 'modifier' : 'ajouter'; ?>" /></p>
 </form>
 

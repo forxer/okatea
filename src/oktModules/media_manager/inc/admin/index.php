@@ -7,6 +7,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -204,7 +205,7 @@ if ($dir && !empty($_GET['remove']))
 	'<p><input type="submit" value="'.__('c_c_action_cancel').'" /> '.
 	' &nbsp; <input type="submit" name="rmyes" value="'.__('c_c_yes').'" />'.
 	form::hidden('d',$d).
-	adminPage::formtoken().
+	Page::formtoken().
 	form::hidden('remove',html::escapeHTML($_GET['remove'])).'</p>'.
 	'</form>';
 
@@ -333,7 +334,7 @@ if ($core_media_writable)
 	'<form id="media-upload" action="'.html::escapeURL($page_url).'" method="post" enctype="multipart/form-data">'.
 
 	'<div>'.form::hidden(array('MAX_FILE_SIZE'),OKT_MAX_UPLOAD_SIZE).
-	adminPage::formtoken().'</div>'.
+	Page::formtoken().'</div>'.
 
 	'<fieldset id="add-file-f">'.
 
@@ -361,7 +362,7 @@ if ($core_media_writable)
 	'<div class="col"><h3 id="new-dir">'.__('New directory').'</h3>'.
 	'<form class="clear" action="'.html::escapeURL($page_url).'" method="post">'.
 	'<fieldset id="new-dir-f">'.
-	adminPage::formtoken().
+	Page::formtoken().
 
 	'<p class="field"><label for="newdir">'.__('Directory Name:').'</label>'.
 	form::text('newdir',35,255).'</p>'.

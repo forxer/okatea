@@ -2,6 +2,7 @@
 ##header##
 
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Images\ImageUploadConfig;
@@ -233,7 +234,7 @@ RewriteRule ^<?php echo html::escapeHTML($okt->##module_id##->config->public_lis
 	<p><?php echo form::hidden('m','##module_id##'); ?>
 	<?php echo form::hidden(array('form_sent'), 1); ?>
 	<?php echo form::hidden(array('action'), 'config'); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

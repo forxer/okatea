@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -40,7 +41,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 			<p><?php echo form::hidden(array('action'), 'infos') ?>
 			<?php echo form::hidden('save_notes', 1) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 		</form>
 

@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Html\CheckList;
@@ -310,7 +311,7 @@ elseif ($digest_is_readable && !$step)
 		'<p><input type="submit" name="b_del" value="'.__('c_a_update_delete_selected_file').'" /> '.
 		'<input type="submit" name="b_revert" class="lazy-load" value="'.__('c_a_update_revert_selected_file').'" />'.
 		'<input type="hidden" name="action" value="update" />'.
-		adminPage::formtoken().'</p>'.
+		Page::formtoken().'</p>'.
 		'</form>';
 	}
 }

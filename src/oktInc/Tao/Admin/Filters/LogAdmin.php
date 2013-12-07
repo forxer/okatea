@@ -6,17 +6,16 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Admin\Filters;
+
 use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
 /**
  * Extension de la classe filters pour l'administration.
  *
- * @addtogroup Okatea
- *
  */
-
-class logAdminFilters extends FiltersBase
+class LogAdmin extends FiltersBase
 {
 
 	protected $logAdmin;
@@ -27,7 +26,7 @@ class logAdminFilters extends FiltersBase
 
 	public function __construct($logAdmin)
 	{
-		$oConfig = new arrayObject();
+		$oConfig = new \arrayObject();
 		$oConfig->admin_default_nb_per_page = 30;
 		$oConfig->admin_default_order_by = 'date';
 		$oConfig->admin_default_order_direction = 'DESC';

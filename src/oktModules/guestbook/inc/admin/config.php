@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -218,7 +219,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('m', 'guestbook'); ?>
 	<?php echo form::hidden('action', 'config'); ?>
 	<?php echo form::hidden('form_sent', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_Save')?>" /></p>
 </form>
 

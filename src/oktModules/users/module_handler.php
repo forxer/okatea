@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Core\Authentification;
 use Tao\Html\BlockList;
@@ -113,7 +114,7 @@ class module_users extends Module
 				5000000,
 				($this->okt->checkPerm('users')),
 				null,
-				($this->okt->page->usersSubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu)),
+				($this->okt->page->usersSubMenu = new BlockList(null, Page::$formatHtmlSubMenu)),
 				$this->url().'/icon.png'
 			);
 				$this->okt->page->usersSubMenu->add(

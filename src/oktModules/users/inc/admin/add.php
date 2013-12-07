@@ -5,8 +5,8 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
-
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -247,7 +247,7 @@ echo $okt->page->getButtonSet('users'); ?>
 	<p><?php echo form::hidden('m','users') ?>
 	<?php echo form::hidden('action','add') ?>
 	<?php echo form::hidden('add_user',1) ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_Add') ?>" /></p>
 </form>
 

@@ -13,6 +13,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # no menu on admin login page
@@ -83,7 +84,7 @@ elseif ($okt->page->action == 'forget' || $okt->page->action == 'forget_2')
 		<?php echo form::text('email', 30, 255) ?></p>
 		<p class="note"><?php _e('c_c_auth_new_password_link_activate_will_be_sent') ?></p>
 
-		<p><?php //echo adminPage::formtoken(); ?>
+		<p><?php //echo Page::formtoken(); ?>
 		<input type="hidden" name="form_sent" value="1" />
 		<input type="hidden" name="action" value="forget_2" />
 		<input type="submit" value="<?php _e('c_c_action_Send') ?>" />
@@ -143,7 +144,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::checkbox('user_remember', 1) ?>
 	<label class="inline" for="user_remember"><?php _e('c_c_auth_remember_me') ?></label></p>
 
-	<p><?php echo adminPage::formtoken(); ?>
+	<p><?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_auth_login_action') ?>" /></p>
 
 	<p class="note"><?php _e('c_c_auth_must_accept_cookies_private_area') ?></p>

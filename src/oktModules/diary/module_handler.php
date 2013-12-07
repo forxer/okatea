@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
@@ -78,7 +79,7 @@ class module_diary extends Module
 		# on ajoutent un élément au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
-			$this->okt->page->diarySubMenu = new BlockList(null,adminPage::$formatHtmlSubMenu);
+			$this->okt->page->diarySubMenu = new BlockList(null, Page::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add(
 				$this->getName(),

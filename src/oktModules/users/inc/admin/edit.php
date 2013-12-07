@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
@@ -429,7 +430,7 @@ if ($okt->checkPerm('users_edit'))
 			form::hidden('m','users').
 			form::hidden('action','edit').
 			form::hidden('id',$aEditPageInfos['iUserId']).
-			adminPage::formtoken().
+			Page::formtoken().
 			'<input type="submit" value="'.__('c_c_action_Edit').'" /></p>
 		</form>';
 
@@ -464,7 +465,7 @@ if ($okt->checkPerm('users_edit'))
 			form::hidden('m','users').
 			form::hidden('action','edit').
 			form::hidden('id',$aEditPageInfos['iUserId']).
-			adminPage::formtoken().
+			Page::formtoken().
 			'<input type="submit" value="'.__('c_c_action_Edit').'" /></p>
 		</form>';
 

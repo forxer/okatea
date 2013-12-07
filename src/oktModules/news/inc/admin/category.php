@@ -5,9 +5,9 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
-
 
 # Accès direct interdit
 if (!defined('ON_NEWS_MODULE')) die;
@@ -525,7 +525,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden(array('do'), (!empty($iCategoryId) ? 'edit' : 'add')); ?>
 	<?php echo !empty($iCategoryId) ? form::hidden('category_id',$iCategoryId) : ''; ?>
 	<?php echo form::hidden('sended', 1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php echo !empty($iCategoryId) ? _e('c_c_action_edit') : _e('c_c_action_add'); ?>" /></p>
 </form>
 
@@ -551,7 +551,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden(array('do'), 'edit'); ?>
 	<?php echo !empty($iCategoryId) ? form::hidden('category_id',$iCategoryId) : ''; ?>
 	<?php echo form::hidden('order_categories',1); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
 </form>
 <?php endif; ?>

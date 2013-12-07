@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -171,7 +172,7 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 	<?php echo form::hidden(array('action'), 'fields'); ?>
 	<?php echo form::hidden('ordered', 1); ?>
 	<?php echo form::hidden('fields_order', ''); ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save_order') ?>" id="save_order" /></p>
 </form>
 <?php endif; ?>

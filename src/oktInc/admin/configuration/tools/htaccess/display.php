@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -41,7 +42,7 @@ $okt->page->css->addCss('
 
 	<p><?php echo form::hidden(array('htaccess_form_sent'), 1) ?>
 	<?php echo form::hidden(array('action'), 'tools') ?>
-	<?php echo adminPage::formtoken() ?>
+	<?php echo Page::formtoken() ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

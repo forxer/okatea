@@ -7,6 +7,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -502,7 +503,7 @@ if ($file->editable && $core_media_writable)
 		'<p>'.__('This will create or update thumbnails for this image.').'</p>'.
 		'<p><input type="submit" name="thumbs" value="'.__('update thumbnails').'" />'.
 		form::hidden(array('id'),$id).
-		adminPage::formtoken().'</p>'.
+		Page::formtoken().'</p>'.
 		'</fieldset></form>';
 	}
 
@@ -526,7 +527,7 @@ if ($file->editable && $core_media_writable)
 		form::select('inflate_mode',$inflate_combo,'new').'</label> '.
 		'<input type="submit" name="unzip" value="'.__('c_c_action_extract').'" />'.
 		form::hidden(array('id'),$id).
-		adminPage::formtoken().'</p>'.
+		Page::formtoken().'</p>'.
 		'</fieldset></form>';
 	}
 
@@ -550,7 +551,7 @@ if ($file->editable && $core_media_writable)
 
 	'<p><input type="submit" value="'.__('c_c_action_save').'" />'.
 	form::hidden(array('id'),$id).
-	adminPage::formtoken().'</p>'.
+	Page::formtoken().'</p>'.
 	'</fieldset></form>';
 
 	echo
@@ -562,7 +563,7 @@ if ($file->editable && $core_media_writable)
 	'<p class="note">'.sprintf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)).'</p>'.
 	'<p><input type="submit" value="'.__('c_c_action_send').'" />'.
 	form::hidden(array('id'),$id).
-	adminPage::formtoken().'</p>'.
+	Page::formtoken().'</p>'.
 	'</fieldset></form>';
 }
 

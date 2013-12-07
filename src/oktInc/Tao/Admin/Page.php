@@ -6,8 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Admin;
+
+use Tao\Admin\Messages\Errors;
+use Tao\Admin\Messages\Success;
+use Tao\Admin\Messages\Warnings;
 use Tao\Forms\StaticFormElements as form;
-use Tao\Html\Page;
+use Tao\Html\Page as BasePage;
 use Tao\Navigation\Breadcrumb;
 use Tao\Misc\FlashMessages;
 
@@ -18,7 +23,7 @@ use Tao\Misc\FlashMessages;
  *
  */
 
-class adminPage extends Page
+class Page extends BasePage
 {
 	/**
 	 * $_REQUEST['action']
@@ -109,9 +114,9 @@ class adminPage extends Page
 
 		$this->flashMessages = new FlashMessages();
 
-		$this->messages = new adminMessagesSuccess();
-		$this->warnings = new adminMessagesWarnings();
-		$this->errors = new adminMessagesErrors();
+		$this->messages = new Success();
+		$this->warnings = new Warnings();
+		$this->errors = new Errors();
 
 		$this->getCommonReady();
 	}

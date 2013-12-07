@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
 
@@ -132,7 +133,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<p><?php echo form::hidden('action','export') ?>
 	<?php echo form::hidden('m','users') ?>
 	<?php echo form::hidden('form_sent',1) ?>
-	<?php echo adminPage::formtoken(); ?>
+	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('m_users_action_Export') ?>" /></p>
 </form>
 

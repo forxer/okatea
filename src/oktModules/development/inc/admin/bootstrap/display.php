@@ -6,6 +6,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -80,7 +81,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p><?php echo form::hidden(array('m'), 'development') ?>
 			<?php echo form::hidden(array('action'), 'bootstrap') ?>
 			<?php echo form::hidden('simple', 1) ?>
-			<?php echo adminPage::formtoken() ?>
+			<?php echo Page::formtoken() ?>
 			<input type="submit" value="<?php _e('m_development_bootstrap_submit_value') ?>" /></p>
 		</form>
 
@@ -254,7 +255,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p><?php echo form::hidden(array('m'), 'development') ?>
 			<?php echo form::hidden(array('action'), 'bootstrap') ?>
 			<?php echo form::hidden('advanced', 1) ?>
-			<?php echo adminPage::formtoken() ?>
+			<?php echo Page::formtoken() ?>
 			<input type="submit" value="<?php _e('m_development_bootstrap_submit_value') ?>" /></p>
 		</form>
 	</div><!-- #tab-advanced -->

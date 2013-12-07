@@ -13,6 +13,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
 use Tao\Themes\Editor\DefinitionsLess;
@@ -183,7 +184,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<p><?php echo form::hidden(array('action'), 'theme') ?>
 					<?php echo form::hidden(array('theme_id'), $sThemeId) ?>
 					<?php echo form::hidden('save_notes', 1) ?>
-					<?php echo adminPage::formtoken(); ?>
+					<?php echo Page::formtoken(); ?>
 					<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 				</form>
 			<?php else : ?>
@@ -205,7 +206,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p><?php echo form::hidden(array('action'), 'theme') ?>
 				<?php echo form::hidden(array('theme_id'), $sThemeId) ?>
 				<?php echo form::hidden('save_def_less', 1) ?>
-				<?php echo adminPage::formtoken(); ?>
+				<?php echo Page::formtoken(); ?>
 				<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 			</form>
 		</div><!-- #tab_def_less -->

@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Admin\Messages;
+
 use Tao\Html\Stack;
 
 /**
@@ -14,7 +16,7 @@ use Tao\Html\Stack;
  * @addtogroup Okatea
  *
  */
-class adminMessagesWarnings extends Stack
+class Warnings extends Stack
 {
 	/**
 	 * Ajoute un avertissement à la pile des avertissements.

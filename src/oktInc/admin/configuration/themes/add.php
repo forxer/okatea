@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
@@ -213,7 +214,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p><?php echo form::hidden(array('action'), 'themes') ?>
 				<?php echo form::hidden(array('do'), 'add') ?>
 				<?php echo form::hidden('fetch_pkg', 1) ?>
-				<?php echo adminPage::formtoken() ?>
+				<?php echo Page::formtoken() ?>
 				<input type="submit" class="lazy-load" value="<?php _e('c_a_themes_download_theme') ?>" /></p>
 			</form>
 
@@ -228,7 +229,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p><?php echo form::hidden(array('action'), 'themes') ?>
 				<?php echo form::hidden(array('do'), 'add') ?>
 				<?php echo form::hidden('upload_pkg', 1) ?>
-				<?php echo adminPage::formtoken() ?>
+				<?php echo Page::formtoken() ?>
 				<input type="submit" class="lazy-load" value="<?php _e('c_a_themes_upload_theme') ?>" /></p>
 			</form>
 		</div>
@@ -254,7 +255,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p><?php echo form::hidden(array('action'), 'themes') ?>
 				<?php echo form::hidden(array('do'), 'add') ?>
 				<?php echo form::hidden('bootstrap', 1) ?>
-				<?php echo adminPage::formtoken() ?>
+				<?php echo Page::formtoken() ?>
 				<input type="submit" value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" /></p>
 			</form>
 		</div>

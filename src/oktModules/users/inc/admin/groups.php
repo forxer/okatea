@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
 
@@ -119,7 +120,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php echo form::hidden('m','users') ?>
 			<?php echo form::hidden('id',$group_id) ?>
 			<?php echo form::hidden('edit_group',1) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_Edit') ?>" /></p>
 		</form>
 	</div><!-- #tab-edit -->
@@ -178,7 +179,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p><?php echo form::hidden('action','groups') ?>
 			<?php echo form::hidden('m','users') ?>
 			<?php echo form::hidden('add_group',1) ?>
-			<?php echo adminPage::formtoken(); ?>
+			<?php echo Page::formtoken(); ?>
 			<input type="submit" value="<?php _e('c_c_action_Add') ?>" /></p>
 		</form>
 	</div><!-- #tab-add -->

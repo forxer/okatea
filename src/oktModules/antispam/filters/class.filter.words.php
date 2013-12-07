@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Page;
 use Tao\Forms\StaticFormElements as form;
 
 class oktFilterWords extends oktSpamFilter
@@ -115,7 +116,7 @@ class oktFilterWords extends oktSpamFilter
 		'<p>'.form::text('swa',20,128).' ';
 
 		$res .=
-		adminPage::formtoken().
+		Page::formtoken().
 		'<input type="submit" value="'.__('c_c_action_Add').'"/></p>'.
 		'</fieldset>'.
 		'</form>';
@@ -147,7 +148,7 @@ class oktFilterWords extends oktSpamFilter
 			$res .=
 			'</div>'.
 			'<p>'.form::hidden(array('spamwords'),1).
-			adminPage::formtoken().
+			Page::formtoken().
 			'<input type="submit" value="' . __('m_antispam_Delete_selected_words') . '"/></p>'.
 			'</fieldset></form>';
 		}
@@ -157,7 +158,7 @@ class oktFilterWords extends oktSpamFilter
 		'<p><input type="submit" value="'.__('m_antispam_Create_default_wordlist').'" />'.
 		form::hidden(array('spamwords'),1).
 		form::hidden(array('createlist'),1).
-		adminPage::formtoken().'</p>'.
+		Page::formtoken().'</p>'.
 		'</form>';
 
 		return $res;
