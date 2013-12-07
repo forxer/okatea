@@ -6,6 +6,8 @@
  */
 
 
+use Tao\Forms\StaticFormElements as form;
+
 class diaryFilters extends filters
 {
 	protected $get_events_params = array();

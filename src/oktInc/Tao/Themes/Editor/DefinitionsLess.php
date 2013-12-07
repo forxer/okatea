@@ -8,6 +8,8 @@
 
 namespace Tao\Themes\Editor;
 
+use Tao\Forms\StaticFormElements as form;
+
 /**
  * Classe de l'éditeur de fichier de définitions LESS
  *
@@ -236,16 +238,16 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Main_colors').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'main_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
-				\form::text($this->sPostPrefix.'main_title_color', 7, 128, $aValues['main_title_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'main_title_color', 7, 128, $aValues['main_title_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'main_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'main_text_color', 7, 128, $aValues['main_text_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'main_text_color', 7, 128, $aValues['main_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'main_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'main_background_color', 7, 128, $aValues['main_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'main_background_color', 7, 128, $aValues['main_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'main_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'main_border_color', 7, 128, $aValues['main_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'main_border_color', 7, 128, $aValues['main_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -253,16 +255,16 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Secondary_colors').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'second_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
-				\form::text($this->sPostPrefix.'second_title_color', 7, 128, $aValues['second_title_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'second_title_color', 7, 128, $aValues['second_title_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'second_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'second_text_color', 7, 128, $aValues['second_text_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'second_text_color', 7, 128, $aValues['second_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'second_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'second_background_color', 7, 128, $aValues['second_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'second_background_color', 7, 128, $aValues['second_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'second_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'second_border_color', 7, 128, $aValues['second_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'second_border_color', 7, 128, $aValues['second_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -270,16 +272,16 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Third_color').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'third_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
-				\form::text($this->sPostPrefix.'third_title_color', 7, 128, $aValues['third_title_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'third_title_color', 7, 128, $aValues['third_title_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'third_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'third_text_color', 7, 128, $aValues['third_text_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'third_text_color', 7, 128, $aValues['third_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'third_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'third_background_color', 7, 128, $aValues['third_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'third_background_color', 7, 128, $aValues['third_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'third_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'third_border_color', 7, 128, $aValues['third_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'third_border_color', 7, 128, $aValues['third_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -287,16 +289,16 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Fourth_colors').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_title_color">'.__('c_a_def_less_editor_Title').'</label>'.
-				\form::text($this->sPostPrefix.'fourth_title_color', 7, 128, $aValues['fourth_title_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'fourth_title_color', 7, 128, $aValues['fourth_title_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_text_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'fourth_text_color', 7, 128, $aValues['fourth_text_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'fourth_text_color', 7, 128, $aValues['fourth_text_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'fourth_background_color', 7, 128, $aValues['fourth_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'fourth_background_color', 7, 128, $aValues['fourth_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'fourth_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'fourth_border_color', 7, 128, $aValues['fourth_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'fourth_border_color', 7, 128, $aValues['fourth_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -312,13 +314,13 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Default').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_color', 7, 128, $aValues['clickable_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_color', 7, 128, $aValues['clickable_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_background_color', 7, 128, $aValues['clickable_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_background_color', 7, 128, $aValues['clickable_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_border_color', 7, 128, $aValues['clickable_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_border_color', 7, 128, $aValues['clickable_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -326,13 +328,13 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Hover').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_hover_color', 7, 128, $aValues['clickable_hover_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_hover_color', 7, 128, $aValues['clickable_hover_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_hover_background_color', 7, 128, $aValues['clickable_hover_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_hover_background_color', 7, 128, $aValues['clickable_hover_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_hover_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_hover_border_color', 7, 128, $aValues['clickable_hover_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_hover_border_color', 7, 128, $aValues['clickable_hover_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -340,13 +342,13 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Active').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_active_color', 7, 128, $aValues['clickable_active_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_active_color', 7, 128, $aValues['clickable_active_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_active_background_color', 7, 128, $aValues['clickable_active_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_active_background_color', 7, 128, $aValues['clickable_active_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'clickable_active_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'clickable_active_border_color', 7, 128, $aValues['clickable_active_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'clickable_active_border_color', 7, 128, $aValues['clickable_active_border_color'], 'colorpicker').'</p>'.
 
 			'</fieldset>'.
 
@@ -354,16 +356,16 @@ class DefinitionsLess
 				'<legend>'.__('c_a_def_less_editor_Forms_fields').'</legend>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'input_color">'.__('c_a_def_less_editor_Text').'</label>'.
-				\form::text($this->sPostPrefix.'input_color', 7, 128, $aValues['input_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'input_color', 7, 128, $aValues['input_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'input_background_color">'.__('c_a_def_less_editor_Background').'</label>'.
-				\form::text($this->sPostPrefix.'input_background_color', 7, 128, $aValues['input_background_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'input_background_color', 7, 128, $aValues['input_background_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'input_border_color">'.__('c_a_def_less_editor_Border').'</label>'.
-				\form::text($this->sPostPrefix.'input_border_color', 7, 128, $aValues['input_border_color'], 'colorpicker').'</p>'.
+				form::text($this->sPostPrefix.'input_border_color', 7, 128, $aValues['input_border_color'], 'colorpicker').'</p>'.
 
 				'<p class="field"><label for="'.$this->sPostPrefix.'input_border_radius">'.__('c_a_def_less_editor_Border_radius').'</label>'.
-				\form::text($this->sPostPrefix.'input_border_radius', 7, 128, $aValues['input_border_radius'], '').'</p>'.
+				form::text($this->sPostPrefix.'input_border_radius', 7, 128, $aValues['input_border_radius'], '').'</p>'.
 
 			'</fieldset>'.
 

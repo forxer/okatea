@@ -5,6 +5,8 @@
  *
  */
 
+
+use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit

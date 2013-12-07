@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 
 class newsFilters extends filters
 {

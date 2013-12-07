@@ -3,7 +3,10 @@
 # okatea
 require_once __DIR__.'/oktInc/public/prepend.php';
 
-$form = new oktForm(array(
+
+use Tao\Forms\Simple\Form;
+
+$form = new Form(array(
 	'action' => 'test_form.php'
 ));
 

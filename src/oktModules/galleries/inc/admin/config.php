@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Images\ImageUploadConfig;
 use Tao\Themes\TemplatesSet;
 

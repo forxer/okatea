@@ -6,7 +6,16 @@
  *
  */
 
-class oktForm
+namespace Tao\Forms\Simple;
+
+use Tao\Forms\Simple\Element;
+use Tao\Forms\Simple\Elements\ExtraHtml;
+use Tao\Forms\Simple\Elements\InputText;
+use Tao\Forms\Simple\Elements\InputPassword;
+use Tao\Forms\Simple\Elements\InputHidden;
+use Tao\Forms\Simple\Elements\Textarea;
+
+class Form
 {
 	protected $aConfig = array(
 		'action' => '#',
@@ -44,7 +53,7 @@ class oktForm
 	 * @param string $sName
 	 * @param string $sValue
 	 */
-	public function setConfigValue($sName,$sValue=null)
+	public function setConfigValue($sName, $sValue=null)
 	{
 		$this->aConfig[$sName] = $sValue;
 
@@ -64,9 +73,9 @@ class oktForm
 	/**
 	 * Ajoute un élément.
 	 *
-	 * @param oktFormElement $oElement
+	 * @param Element $oElement
 	 */
-	public function addElement(oktFormElement $oElement)
+	public function addElement(Element $oElement)
 	{
 		$this->aElements[] = $oElement;
 
@@ -96,8 +105,6 @@ class oktForm
 		return $str;
 	}
 
-
-
 	/**
 	 * Permet d'ajouter du HTML au formulaire.
 	 *
@@ -105,7 +112,7 @@ class oktForm
 	 */
 	public function html($sHtml)
 	{
-		$this->addElement(new oktFormElementExtraHtml($sHtml));
+		$this->addElement(new ExtraHtml($sHtml));
 
 		return $this;
 	}
@@ -118,7 +125,7 @@ class oktForm
 	 */
 	public function text($aConfig=array(), $aAttributes=array())
 	{
-		$this->addElement(new oktFormElementInputText($aConfig,$aAttributes));
+		$this->addElement(new InputText($aConfig, $aAttributes));
 
 		return $this;
 	}
@@ -131,7 +138,7 @@ class oktForm
 	 */
 	public function password($aConfig=array(), $aAttributes=array())
 	{
-		$this->addElement(new oktFormElementInputPassword($aConfig,$aAttributes));
+		$this->addElement(new InputPassword($aConfig, $aAttributes));
 
 		return $this;
 	}
@@ -144,7 +151,7 @@ class oktForm
 	 */
 	public function hidden($aConfig=array(), $aAttributes=array())
 	{
-		$this->addElement(new oktFormElementInputPassword($aConfig,$aAttributes));
+		$this->addElement(new InputHidden($aConfig, $aAttributes));
 
 		return $this;
 	}
@@ -157,7 +164,7 @@ class oktForm
 	 */
 	public function textarea($aConfig=array(), $aAttributes=array())
 	{
-		$this->addElement(new oktFormElementTextarea($aConfig,$aAttributes));
+		$this->addElement(new Textarea($aConfig, $aAttributes));
 
 		return $this;
 	}

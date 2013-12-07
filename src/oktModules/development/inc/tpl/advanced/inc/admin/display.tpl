@@ -2,6 +2,9 @@
 ##header##
 
 
+
+use Tao\Forms\StaticFormElements as form;
+
 # Accès direct interdit
 if (!defined('ON_##module_upper_id##_MODULE')) die;
 

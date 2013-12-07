@@ -14,11 +14,11 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
-
-
 
 ?>
 

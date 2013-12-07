@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 class faqFilters extends filters
 {
 	protected $faq;
@@ -74,7 +76,7 @@ class faqFilters extends filters
 
 		# ordre et sens du tri
 		$this->setFilterOrderBy();
-		
+
 		#recherche par mots clés
 		$this->setFilterKeyword();
 	}
@@ -160,7 +162,7 @@ class faqFilters extends filters
 				$this->params->order_direction)
 		);
 	}
-	
+
 	protected function setFilterKeyword()
 	{
 		if (isset($_GET['keyword_search']))
@@ -169,7 +171,7 @@ class faqFilters extends filters
 			$_SESSION[$this->sess_prefix.'keyword_search'] = $this->params->keyword_search;
 			$this->params->show_filters = true;
 		}
-		
+
 		$this->get_questions_params['keyword_search'] = $this->params->keyword_search;
 
 		$this->fields['keyword_search'] = array(

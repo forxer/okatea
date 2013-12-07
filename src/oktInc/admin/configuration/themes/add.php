@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
 
 

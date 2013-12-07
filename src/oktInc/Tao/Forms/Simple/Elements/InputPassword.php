@@ -6,7 +6,11 @@
  *
  */
 
-class oktFormElementInputPassword extends oktFormElement
+namespace Tao\Forms\Simple\Elements;
+
+use Tao\Forms\Simple\Element;
+
+class InputPassword extends Element
 {
 	protected $aConfig = array(
 		'html' => '<p><label for="{{id}}">{{label}}</label><input type="password"{{attributes}} value="{{value}}" /></p>',

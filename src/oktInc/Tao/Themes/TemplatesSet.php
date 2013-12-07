@@ -8,6 +8,8 @@
 
 namespace Tao\Themes;
 
+use Tao\Forms\StaticFormElements as form;
+
 /**
  * Classe de gestion de jeux de templates
  *
@@ -344,13 +346,13 @@ class TemplatesSet
 					'<td><p>'.$aTplInfos['version'].'</p></td>'.
 					'<td><p>'.$aTplInfos['author'].'</p></td>'.
 					'<td><p>'.$aTplInfos['theme'].'</p></td>'.
-					'<td class="center small"><p>'.\form::radio(array($this->sFormPrefix.'tpl_default_'.$this->sTplFamily, $this->sFormPrefix.'tpl_default_'.$this->sTplFamily.'_'.$aTplInfos['id']),
+					'<td class="center small"><p>'.form::radio(array($this->sFormPrefix.'tpl_default_'.$this->sTplFamily, $this->sFormPrefix.'tpl_default_'.$this->sTplFamily.'_'.$aTplInfos['id']),
 							$aTplInfos['id'], ($aTplInfos['id'] == $this->aConfig['default'])).'</p></td>';
 
 					if ($bUsableField)
 					{
 						$sReturn .=
-						'<td class="center small">'.\form::checkbox(array($this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'[]', $this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'_'.$aTplInfos['id']),
+						'<td class="center small">'.form::checkbox(array($this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'[]', $this->sFormPrefix.'tpl_usables_'.$this->sTplFamily.'_'.$aTplInfos['id']),
 							$aTplInfos['id'], in_array($aTplInfos['id'],$this->aConfig['usables'])).'</td>';
 					}
 

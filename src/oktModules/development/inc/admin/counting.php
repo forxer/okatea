@@ -4,6 +4,8 @@
  * @brief Page de l'outil de comptage
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 # Accès direct interdit
 if (!defined('ON_DEVELOPMENT_MODULE')) die;
 

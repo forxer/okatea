@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 class catalogFilters extends filters
 {
 	protected $catalog;
@@ -80,7 +82,7 @@ class catalogFilters extends filters
 
 		# catégorie
 		$this->setFilterCategory();
-		
+
 		# promotion
 		$this->setFilterPromo();
 
@@ -145,10 +147,10 @@ class catalogFilters extends filters
 			$sField
 		);
 	}
-	
+
 	protected function setFilterPromo()
 	{
-	
+
 		if (!$this->config->filters[$this->part]['promo']) {
 			return null;
 		}

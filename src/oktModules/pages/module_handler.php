@@ -10,6 +10,7 @@ use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
+use Tao\Themes\SimpleReplacements;
 use Tao\Core\Triggers;
 
 class module_pages extends Module
@@ -603,15 +604,15 @@ class module_pages extends Module
 		}
 
 		# perform content replacements
-		templateReplacement::setStartString('');
-		templateReplacement::setEndString('');
+		SimpleReplacements::setStartString('');
+		SimpleReplacements::setEndString('');
 
 		$aReplacements = array_merge(
 			$this->okt->getCommonContentReplacementsVariables(),
 			$this->okt->getImagesReplacementsVariables($rs->images)
 		);
 
-		$rs->content = templateReplacement::parse($rs->content, $aReplacements);
+		$rs->content = SimpleReplacements::parse($rs->content, $aReplacements);
 	}
 
 	/**

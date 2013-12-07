@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 class estimateFilters extends filters
 {
 	protected $estimate;

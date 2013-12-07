@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Modules\Module;
 
 class module_pages_example_extra_fields extends Module

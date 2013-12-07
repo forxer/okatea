@@ -13,6 +13,7 @@
  * @addtogroup Okatea
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Editor\Editor as ThemesEditor;
 
 # Accès direct interdit

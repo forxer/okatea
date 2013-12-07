@@ -6,7 +6,9 @@
  *
  */
 
-abstract class oktFormElement
+namespace Tao\Forms\Simple;
+
+abstract class Element
 {
 	protected $aConfig = array(
 		'html' => '<p><label for="{{id}}">{{label}}</label><input{{attributes}} value="{{value}}" /></p>',

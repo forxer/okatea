@@ -10,6 +10,7 @@ namespace Tao\Core;
 
 use Tao\Cache\SingleFileCache;
 use Tao\Routing\Router;
+use Tao\Themes\SimpleReplacements;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
@@ -255,7 +256,7 @@ class Application
 
 	public function performCommonContentReplacements($string)
 	{
-		return templateReplacement::parse($string, $this->getCommonContentReplacementsVariables());
+		return SimpleReplacements::parse($string, $this->getCommonContentReplacementsVariables());
 	}
 
 	public function getCommonContentReplacementsVariables()

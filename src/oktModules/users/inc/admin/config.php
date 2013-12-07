@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
 use Tao\Themes\TemplatesSet;
 

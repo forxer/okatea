@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 
 if (!$okt->checkPerm('antispam')) {
 	http::redirect('index.php');

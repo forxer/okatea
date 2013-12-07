@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Html\CheckList;
 use Tao\Core\Update as Updater;
 

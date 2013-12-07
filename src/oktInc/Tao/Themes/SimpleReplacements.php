@@ -6,16 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Themes;
 
 /**
- * @class templateReplacement
- * @ingroup okt_classes_libs
- * @brief Systeme basique de remplacement de variables dans les templates
+ * Systeme basique de remplacement de variables dans les templates
  *
- * templateReplacement::parseFile('chemin/fichier.tpl', array('foo'=>'bar','baz'=>'boor'));
- * templateReplacement::parse('une chaine de caractères', array('foo'=>'bar','baz'=>'boor'));
+ * SimpleReplacements::parseFile('chemin/fichier.tpl', array('foo'=>'bar','baz'=>'boor'));
+ * SimpleReplacements::parse('une chaine de caractères', array('foo'=>'bar','baz'=>'boor'));
  */
-class templateReplacement
+class SimpleReplacements
 {
 	static public $key_start_string = '%';
 	static public $key_end_string = '%';

@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Tao\Themes\SimpleReplacements;
 
 /**
  * @class oktMail
@@ -92,7 +93,7 @@ class oktMail
 	 */
 	public function useFile($template_file, $variables=array())
 	{
-		$sMailText = templateReplacement::parseFile($template_file,$variables);
+		$sMailText = SimpleReplacements::parseFile($template_file,$variables);
 
 		list($sSubject, $sBody) = explode("\n", $sMailText, 2);
 

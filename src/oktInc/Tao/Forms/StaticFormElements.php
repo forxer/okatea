@@ -10,14 +10,14 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Tao\Forms;
+
 
 /**
- * @class form
- * @ingroup okt_classes_libs
- * @brief Création d'éléments de formulaire HTML.
+ * Création d'éléments de formulaire HTML.
  *
  */
-class form
+class StaticFormElements
 {
 	/**
 	 * Retourne l'identifiant et le nom du champ en

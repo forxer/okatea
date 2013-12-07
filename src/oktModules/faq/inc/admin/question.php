@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 # Accès direct interdit
 if (!defined('ON_FAQ_MODULE')) die;
 
@@ -387,7 +389,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_seo_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_seo_title_seo')?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title_seo['.$aLanguage['code'].']','p_title_seo_'.$aLanguage['code']), 60, 255, html::escapeHTML($p_title_seo[$aLanguage['code']])) ?></p>
-			
+
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_seo_meta_keywords')?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 58, 5, html::escapeHTML($p_meta_keywords[$aLanguage['code']])) ?></p>
 

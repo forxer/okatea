@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 class oktFilterIpLookup extends oktSpamFilter
 {
 	public $name = 'IP Lookup';

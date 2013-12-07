@@ -2,6 +2,7 @@
 ##header##
 
 
+use Tao\Forms\StaticFormElements as form;
 use Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit

@@ -6,13 +6,14 @@
  * file that was distributed with this source code.
  */
 
-
 /**
  * Configuration avancée chemins et URL (partie affichage)
  *
  * @addtogroup Okatea
  *
  */
+
+use Tao\Forms\StaticFormElements as form;
 
 
 # Accès direct interdit

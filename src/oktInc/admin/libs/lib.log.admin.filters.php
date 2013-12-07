@@ -7,6 +7,8 @@
  */
 
 
+use Tao\Forms\StaticFormElements as form;
+
 /**
  * Extension de la classe filters pour l'administration.
  *

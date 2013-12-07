@@ -6,6 +6,7 @@
  */
 
 
+use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
 if (!defined('ON_DIARY_MODULE')) die;
@@ -444,7 +445,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<p class="field"><label for="p_title_seo"><?php _e('c_c_seo_title_seo')?></label>
 			<?php echo form::text('p_title_seo', 60, 255, html::escapeHTML($aEventData['title_seo'])) ?></p>
-			
+
 			<p class="field"><label for="p_meta_keywords"><?php _e('c_c_seo_meta_keywords') ?></label>
 			<?php echo form::textarea('p_meta_keywords', 57, 5, html::escapeHTML($aEventData['meta_keywords'])) ?></p>
 

@@ -6,7 +6,11 @@
  *
  */
 
-class oktFormElementInputHidden extends oktFormElement
+namespace Tao\Forms\Simple\Elements;
+
+use Tao\Forms\Simple\Element;
+
+class InputHidden extends Element
 {
 	protected $aConfig = array(
 		'html' => '<input type="hidden"{{attributes}} value="{{value}}" />',

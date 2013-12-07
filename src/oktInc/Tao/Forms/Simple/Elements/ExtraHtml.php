@@ -6,7 +6,11 @@
  *
  */
 
-class oktFormElementExtraHtml extends oktFormElement
+namespace Tao\Forms\Simple\Elements;
+
+use Tao\Forms\Simple\Element;
+
+class ExtraHtml extends Element
 {
 	protected $sHtml;
 

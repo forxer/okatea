@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 
 # Accès direct interdit
 if (!defined('ON_CATALOG_MODULE')) die;
@@ -391,7 +393,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 
 			<?php if ($okt->catalog->config->fields['content_short']) : ?>
 				<p class="col field"><label for="p_content_short" <?php if ($okt->catalog->config->fields['content_short'] == 2) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif; ?>>Description rapide</label>
-			   <?php echo form::textarea('p_content_short', 57, 5, html::escapeHTML($product_data['content_short'])) ?></p>
+			<?php echo form::textarea('p_content_short', 57, 5, html::escapeHTML($product_data['content_short'])) ?></p>
 			<?php endif; ?>
 
 			<p class="field"><label for="p_content" title="<?php _e('c_c_required_field') ?>" class="required">Description détaillée</label>

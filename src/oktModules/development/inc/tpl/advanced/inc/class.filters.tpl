@@ -2,6 +2,8 @@
 ##header##
 
 
+use Tao\Forms\StaticFormElements as form;
+
 class ##module_camel_case_id##Filters extends filters
 {
 	protected $get_items_params = array();

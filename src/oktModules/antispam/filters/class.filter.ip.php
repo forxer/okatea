@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Forms\StaticFormElements as form;
+
 class oktFilterIP extends oktSpamFilter
 {
 	public $has_gui = true;

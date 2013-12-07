@@ -6,13 +6,14 @@
  * file that was distributed with this source code.
  */
 
-
 /**
  * La page d'identification au backend
  *
  * @addtogroup Okatea
  *
  */
+
+use Tao\Forms\StaticFormElements as form;
 
 # no menu on admin login page
 define('OKT_DISABLE_MENU', true);
