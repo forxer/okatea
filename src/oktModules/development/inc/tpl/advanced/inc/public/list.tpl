@@ -1,6 +1,7 @@
 <?php
 ##header##
 
+use Tao\Utils as util;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';

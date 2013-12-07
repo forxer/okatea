@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Core\Update as Updater;
 
 require __DIR__.'/../oktInc/admin/prepend.php';

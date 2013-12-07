@@ -8,6 +8,8 @@
 
 namespace Tao\Modules;
 
+use Tao\Utils as util;
+
 /**
  * Gestion des modules Okatea.
  *
@@ -752,7 +754,7 @@ class Collection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%',\util::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%',util::getVersion(),$repository_url);
 
 			$path = '';
 			$oClient = \netHttp::initClient($repository_url,$path);

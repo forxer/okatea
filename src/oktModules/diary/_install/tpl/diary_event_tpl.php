@@ -1,4 +1,6 @@
 
+<?php use Tao\Utils as util; ?>
+
 <?php $this->extend('layout'); ?>
 
 

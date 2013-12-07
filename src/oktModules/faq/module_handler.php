@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
 use Tao\Modules\Module;

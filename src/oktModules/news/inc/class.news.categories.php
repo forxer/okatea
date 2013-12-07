@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 class newsCategories extends nestedTreei18n
 {
 	protected $t_news;
@@ -49,11 +51,11 @@ class newsCategories extends nestedTreei18n
 		if (!empty($aParams['language'])) {
 			$sReqPlus .= 'AND rl.language=\''.$this->db->escapeStr($aParams['language']).'\' ';
 		}
-		
+
 		if (!empty($aParams['parent_id'])) {
-		   $sReqPlus .= 'AND r.parent_id='.(integer)$aParams['parent_id'].' ';
+		$sReqPlus .= 'AND r.parent_id='.(integer)$aParams['parent_id'].' ';
 		}
-		
+
 
 		if (isset($aParams['active']))
 		{

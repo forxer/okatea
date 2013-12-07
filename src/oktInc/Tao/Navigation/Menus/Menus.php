@@ -8,6 +8,8 @@
 
 namespace Tao\Navigation\Menus;
 
+use Tao\Utils as util;
+
 /**
  * Le gestionnnaire de menus de navigation.
  *
@@ -84,7 +86,7 @@ class Menus
 			'active' => 1
 		);
 
-		if (\util::isInt($mMenu)) {
+		if (util::isInt($mMenu)) {
 			$aMenuParams['id'] = $mMenu;
 		}
 		else {

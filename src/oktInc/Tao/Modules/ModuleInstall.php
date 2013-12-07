@@ -14,6 +14,7 @@ use Tao\Html\CheckList;
 use Tao\Themes\Collection as ThemesCollection;
 use Tao\Diff\Engine as DiffEngine;
 use Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
+use Tao\Utils as util;
 
 /**
  * Installation d'un module Okatea.
@@ -832,7 +833,7 @@ class ModuleInstall extends Module
 
 		foreach (array_reverse($aFiles['dirs']) as $sDir)
 		{
-			if (!\util::dirHasFiles($sDir)) {
+			if (!util::dirHasFiles($sDir)) {
 				\files::deltree($sDir);
 			}
 		}

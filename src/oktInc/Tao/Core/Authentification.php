@@ -8,6 +8,8 @@
 
 namespace Tao\Core;
 
+use Tao\Utils as util;
+
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.
  *
@@ -224,26 +226,26 @@ class Authentification
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').\util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
+			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
 			}
 
 			# Si nous sommes retournés à l'utilisateur par défaut, la connexion a échouée
 			if ($this->infos->f('id') == '1')
 			{
-				$this->setAuthCookie(base64_encode('1|'.\util::random_key(8, false, true).'|'.$iTsExpire.'|'.\util::random_key(8, false, true)), $iTsExpire);
+				$this->setAuthCookie(base64_encode('1|'.util::random_key(8, false, true).'|'.$iTsExpire.'|'.util::random_key(8, false, true)), $iTsExpire);
 				return;
 			}
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
-			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').\util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
+			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
 
 			# Mise à jour de la liste des utilisateurs en ligne
 			if ($this->infos->f('logged') == '')
 			{
 				$this->infos->set('logged', $iTsNow);
-				$this->infos->set('csrf_token', \util::random_key(40, false, true));
+				$this->infos->set('csrf_token', util::random_key(40, false, true));
 				$this->infos->set('prev_url', $this->get_current_url(255));
 
 				$sQuery =
@@ -328,7 +330,7 @@ class Authentification
 		'WHERE u.active = 1 AND ';
 
 
-		if (\util::isInt($mUser)) {
+		if (util::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';
 		}
 		else {
@@ -379,7 +381,7 @@ class Authentification
 		if ($this->infos->f('logged') == '')
 		{
 			$this->infos->set('logged', time());
-			$this->infos->set('csrf_token', \util::random_key(40, false, true));
+			$this->infos->set('csrf_token', util::random_key(40, false, true));
 			$this->infos->set('prev_url', $this->get_current_url(255));
 
 			# REPLACE INTO avoids a user having two rows in the online table
@@ -477,7 +479,7 @@ class Authentification
 		}
 
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.\util::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
@@ -575,8 +577,8 @@ class Authentification
 		while ($rs->fetch())
 		{
 			# génération du nouveau mot de passe et du code d'activation
-			$sNewPassword = \util::random_key(8, true);
-			$sNewPasswordKey = \util::random_key(8);
+			$sNewPassword = util::random_key(8, true);
+			$sNewPasswordKey = util::random_key(8);
 
 			$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
 
@@ -596,7 +598,7 @@ class Authentification
 			$oMail->message->setTo($sEmail);
 
 			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
-				'SITE_TITLE' => \util::getSiteTitle(),
+				'SITE_TITLE' => util::getSiteTitle(),
 				'SITE_URL' => $this->okt->config->app_url,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,

@@ -9,6 +9,7 @@
 namespace Tao\Themes;
 
 use Tao\Forms\StaticFormElements as form;
+use Tao\Utils as util;
 
 /**
  * Classe de gestion de jeux de templates
@@ -76,7 +77,7 @@ class TemplatesSet
 
 		$this->sTplFamily = $sTplFamily;
 
-		$this->sBase = \util::formatAppPath($sBase, false, false);
+		$this->sBase = util::formatAppPath($sBase, false, false);
 
 		$this->sBaseUrl = $sBaseUrl;
 
@@ -271,7 +272,7 @@ class TemplatesSet
 	 */
 	public static function getThemeIdFromTplPath($sTplPath)
 	{
-		return \util::getNextSubDir($sTplPath, OKT_THEMES_PATH);
+		return util::getNextSubDir($sTplPath, OKT_THEMES_PATH);
 	}
 
 	/**

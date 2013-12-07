@@ -4,6 +4,7 @@
  * @brief La classe de la debug barre.
  */
 
+use Tao\Utils as util;
 
 class oktDebugBar
 {

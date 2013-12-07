@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Database\Recordset;
 
 class diaryRecordset extends Recordset

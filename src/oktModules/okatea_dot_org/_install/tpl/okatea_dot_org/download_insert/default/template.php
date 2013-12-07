@@ -1,4 +1,6 @@
 
+<?php use Tao\Utils as util; ?>
+
 
 <?php # début Okatea : récupération des infos de dernières versions
 $aStableVersion = $okt->okatea_dot_org->getLatestStableVersionInfos();

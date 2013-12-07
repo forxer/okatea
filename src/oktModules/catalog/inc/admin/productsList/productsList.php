@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 # Accès direct interdit
 if (!defined('ON_CATALOG_MODULE')) die;
 

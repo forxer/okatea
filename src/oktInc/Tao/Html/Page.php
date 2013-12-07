@@ -1272,7 +1272,7 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/ui-themes') as $oFileInfo)
+		foreach (new \DirectoryIterator(OKT_PUBLIC_PATH.'/ui-themes') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isDir() ||
 			!file_exists(OKT_PUBLIC_PATH.'/ui-themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {

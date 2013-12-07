@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao;
 
 /**
- * @class util
- * @ingroup okt_classes_libs
- * @brief Utilitaires
+ * Utilitaires divers et variés...
  *
  */
-class util
+class Utils
 {
 	/*
 	 * Utilitaires sur les fichiers
@@ -34,7 +33,7 @@ class util
 
 		$bReturn = false;
 
-		foreach (new DirectoryIterator($sDir) as $oFileInfo)
+		foreach (new \DirectoryIterator($sDir) as $oFileInfo)
 		{
 			if (!$oFileInfo->isDot())
 			{
@@ -113,7 +112,7 @@ class util
 		$aPathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sPath))));
 		$aBasePathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sBasePath))));
 
-		foreach ($aPathComponents as $i=>$k) 
+		foreach ($aPathComponents as $i=>$k)
 		{
 			if (!isset($aBasePathComponents[$i]) || $aBasePathComponents[$i] != $k) {
 				return $k;
@@ -134,7 +133,7 @@ class util
 		}
 		elseif (is_dir($src))
 		{
-			files::makeDir($dst,true);
+			\files::makeDir($dst,true);
 
 			$dir = opendir($src);
 
@@ -187,7 +186,7 @@ class util
 			{
 				if (in_array($sFilename,$aToDelete))
 				{
-					files::deltree($sFile);
+					\files::deltree($sFile);
 					$iNumProcessed++;
 				}
 				else {
@@ -262,7 +261,7 @@ class util
 	 */
 	public static function formatNumber($number, $dec=2)
 	{
-		return html::escapeHTML(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
+		return \html::escapeHTML(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
 	}
 
 	/**
@@ -522,7 +521,7 @@ class util
 	 */
 	public static function escapeAttrHTML($str)
 	{
-		return html::escapeHTML(str_replace(array('"','\''), array('','’'), $str));
+		return \html::escapeHTML(str_replace(array('"','\''), array('','’'), $str));
 	}
 
 	/**
@@ -663,7 +662,7 @@ class util
 	 */
 	public static function clean($str)
 	{
-		$str = html::clean($str);
+		$str = \html::clean($str);
 		$str = self::linebreaks($str);
 		$str = str_replace("\n", ' ', $str);
 
@@ -1155,7 +1154,7 @@ class util
 		}
 
 		$aCacheFiles = array();
-		foreach (new DirectoryIterator(OKT_CACHE_PATH) as $oFileInfo)
+		foreach (new \DirectoryIterator(OKT_CACHE_PATH) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;
@@ -1163,7 +1162,7 @@ class util
 
 			if ($oFileInfo->isDir())
 			{
-				foreach (new DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
+				foreach (new \DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
 				{
 					if ($oFileInfoInDir->isDot() || in_array($oFileInfoInDir->getFilename(),array('.svn','.htaccess','index.html'))) {
 						continue;
@@ -1194,7 +1193,7 @@ class util
 		foreach ($aCacheFiles as $file)
 		{
 			if (is_dir(OKT_CACHE_PATH.'/'.$file)) {
-				files::deltree(OKT_CACHE_PATH.'/'.$file);
+				\files::deltree(OKT_CACHE_PATH.'/'.$file);
 			}
 			else {
 				unlink(OKT_CACHE_PATH.'/'.$file);
@@ -1216,7 +1215,7 @@ class util
 		}
 
 		$aCacheFiles = array();
-		foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/cache') as $oFileInfo)
+		foreach (new \DirectoryIterator(OKT_PUBLIC_PATH.'/cache') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;
@@ -1241,7 +1240,7 @@ class util
 		foreach ($aCacheFiles as $file)
 		{
 			if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$file)) {
-				files::deltree(OKT_PUBLIC_PATH.'/cache/'.$file);
+				\files::deltree(OKT_PUBLIC_PATH.'/cache/'.$file);
 			}
 			else {
 				unlink(OKT_PUBLIC_PATH.'/cache/'.$file);

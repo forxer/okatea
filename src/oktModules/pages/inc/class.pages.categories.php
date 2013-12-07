@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 class pagesCategories extends nestedTreei18n
 {
 	protected $t_pages;

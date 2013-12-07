@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 
 
 # inclusion du preprend public général

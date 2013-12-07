@@ -29,6 +29,8 @@ Exemples :
 */ ?>
 
 
+<?php use Tao\Utils as util; ?>
+
 
 <?php # début Okatea : traitements avant affichage
 

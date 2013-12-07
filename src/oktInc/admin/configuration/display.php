@@ -14,8 +14,10 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
+use Tao\Html\Page;
 
 
 # Accès direct interdit
@@ -29,7 +31,7 @@ l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 /* Initialisations
 ----------------------------------------------------------*/
 
-$aUiThemes = htmlPage::getUiThemes();
+$aUiThemes = Page::getUiThemes();
 $aThemes = array_flip(ThemesCollection::getThemes());
 
 $aNotAllowedAdminThemes = array(

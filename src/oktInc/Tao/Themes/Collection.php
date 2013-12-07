@@ -8,6 +8,8 @@
 
 namespace Tao\Themes;
 
+use Tao\Utils as util;
+
 /**
  * Classe de gestion des thèmes.
  *
@@ -253,7 +255,7 @@ class Collection
 	public function bootstrapTheme($sName, $sId=null)
 	{
 		if (empty($sId)) {
-			$sId = \util::strToLowerURL($sName,false);
+			$sId = util::strToLowerURL($sName,false);
 		}
 
 		$this->getThemesList();
@@ -556,7 +558,7 @@ class Collection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%', \util::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%', util::getVersion(),$repository_url);
 
 			$path = '';
 			$oClient = \netHttp::initClient($repository_url,$path);

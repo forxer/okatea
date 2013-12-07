@@ -5,6 +5,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 class usersCustomFields
 {
 	/**

@@ -1,4 +1,6 @@
 
+<?php use Tao\Utils as util; ?>
+
 <?php # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->news->getPosts(array(
 	'active' => 1, 		# articles visibles

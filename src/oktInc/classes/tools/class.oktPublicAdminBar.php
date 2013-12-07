@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+
+use Tao\Utils as util;
 use Tao\Core\Authentification;
 use Tao\Core\Update as Updater;
 

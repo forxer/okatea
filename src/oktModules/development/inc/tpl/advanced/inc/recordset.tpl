@@ -1,6 +1,7 @@
 <?php
 ##header##
 
+use Tao\Utils as util;
 use Tao\Database\Recordset;
 
 class ##module_camel_case_id##Recordset extends Recordset

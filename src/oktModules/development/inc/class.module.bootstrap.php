@@ -6,6 +6,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 class oktModuleBootstrap
 {
 	protected $id;

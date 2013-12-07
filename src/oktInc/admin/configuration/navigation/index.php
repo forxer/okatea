@@ -14,6 +14,8 @@
  *
  */
 
+use Tao\Utils as util;
+
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
@@ -31,7 +33,7 @@ if (!empty($_GET['switch_status']))
 	try
 	{
 		$okt->navigation->switchMenuStatus($_GET['switch_status']);
-		
+
 		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_switched'));
 
 		http::redirect('configuration.php?action=navigation&do=index');

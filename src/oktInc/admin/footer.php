@@ -13,6 +13,9 @@
  * @addtogroup Okatea
  *
  */
+
+use Tao\Utils as util;
+
 ?>
 	</section><!-- #content -->
 </div><!-- #main -->

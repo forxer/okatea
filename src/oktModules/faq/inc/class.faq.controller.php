@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Core\Controller;
 
 class faqController extends Controller
@@ -190,7 +191,7 @@ class faqController extends Controller
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->okt->page->breadcrumb->add($this->okt->faq->getName(), $this->okt->faq->config->url);
-		
+
 			$this->okt->page->breadcrumb->add($faqQuestion->title, $faqQuestion->url);
 		}
 

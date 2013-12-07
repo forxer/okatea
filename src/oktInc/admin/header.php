@@ -14,6 +14,7 @@
  *
  */
 
+use Tao\Utils as util;
 
 # récupération des erreurs du core
 if ($okt->error->notEmpty())

@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Html\BlockList;

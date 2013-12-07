@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Core\Controller;
 
 class contactController extends Controller

@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Utils as util;
 use Tao\Core\Controller;
 
 class diaryController extends Controller
@@ -181,10 +182,10 @@ class diaryController extends Controller
 		$this->okt->page->addTitleTag($this->okt->diary->getTitle());
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug)) 
+		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
-			
+
 			$this->okt->page->breadcrumb->add($rsEvent->title, $rsEvent->getEventUrl());
 		}
 
