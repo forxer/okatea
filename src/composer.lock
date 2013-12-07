@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a33fde0bbae53c41e394604d978ea503",
+    "hash": "41c6f2863de46d35588de6d76e1937a1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -610,44 +610,6 @@
             "time": "2013-11-30 08:25:19"
         },
         {
-            "name": "forxer/php-diff",
-            "version": "dev-master",
-            "target-dir": "Forxer/Diff",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/forxer/php-diff.git",
-                "reference": "dc647fab532694ea5aa26352ae0e2d2ece067b23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/forxer/php-diff/zipball/dc647fab532694ea5aa26352ae0e2d2ece067b23",
-                "reference": "dc647fab532694ea5aa26352ae0e2d2ece067b23",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Forxer\\Diff": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
-                },
-                {
-                    "name": "Vincent Garnier",
-                    "homepage": "http://forx.fr/"
-                }
-            ],
-            "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
-            "time": "2013-12-06 19:28:28"
-        },
-        {
             "name": "ircmaxell/password-compat",
             "version": "dev-master",
             "source": {
@@ -1163,7 +1125,6 @@
         "dotclear/clearbricks": 20,
         "erusev/parsedown": 20,
         "ezyang/htmlpurifier": 20,
-        "forxer/php-diff": 20,
         "ircmaxell/password-compat": 20,
         "mobiledetect/mobiledetectlib": 20,
         "simplepie/simplepie": 20,

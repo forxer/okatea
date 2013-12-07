@@ -1,0 +1,24 @@
+{
+	"name": "forxer/php-diff",
+	"type": "library",
+	"description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+	"license": "BSD-3-Clause",
+
+	"authors": [
+		{
+			"name": "Chris Boulton",
+			"homepage": "http://github.com/chrisboulton"
+		},
+		{
+			"name": "Vincent Garnier",
+			"homepage": "http://forx.fr/"
+		}
+	],
+
+	"autoload": {
+		"psr-0": {
+			"Okatea\\Diff": ""
+		}
+	},
+	"target-dir": "Forxer/Diff"
+}

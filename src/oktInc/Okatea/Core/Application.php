@@ -81,8 +81,6 @@ class Application
 
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
 
-		$this->fs = new Filesystem();
-
 		$this->triggers = new Triggers();
 
 		$this->router = new Router();
@@ -398,8 +396,11 @@ class Application
 
 			try
 			{
-				if (!file_exists($sCacheFile)) {
-					$this->fs->mkdir($sCacheFile);
+				if (!file_exists($sCacheFile))
+				{
+					$fs = new Filesystem();
+
+					$fs->mkdir($sCacheFile);
 				}
 			}
 			catch (IOExceptionInterface $e) {

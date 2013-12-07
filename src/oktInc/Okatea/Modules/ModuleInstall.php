@@ -12,8 +12,8 @@ use Okatea\Core\Authentification;
 use Okatea\Database\XmlSql;
 use Okatea\Html\CheckList;
 use Okatea\Themes\Collection as ThemesCollection;
-use Forxer\Diff\Engine as DiffEngine;
-use Forxer\Diff\Renderer\Html\SideBySide as DiffRenderer;
+use Okatea\Diff\Engine as DiffEngine;
+use Okatea\Diff\Renderer\Html\SideBySide as DiffRenderer;
 
 /**
  * Installation d'un module Okatea.

@@ -19,7 +19,6 @@
 		"dotclear/clearbricks": "dev-default",
 		"erusev/parsedown": "dev-master",
 		"ezyang/htmlpurifier": "dev-master",
-		"forxer/php-diff": "dev-master",
 		"ircmaxell/password-compat": "dev-master",
 		"leafo/lessphp": "0.4.*",
 		"mobiledetect/mobiledetectlib": "dev-master",
