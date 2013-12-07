@@ -1,4 +1,6 @@
 
+<?php use Tao\Utils as util; ?>
+
 <?php # début Okatea : ce template étend le template principal "main"
 $view->extend('main');
 # fin Okatea : ce template étend le template principal "main" ?>

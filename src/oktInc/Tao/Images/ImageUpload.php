@@ -8,7 +8,7 @@
 
 namespace Tao\Images;
 
-use \PHPThumb\GD as thumbnailer;
+use Tao\Images\PHPThumb\GD as thumbnailer;
 use Tao\Utils as util;
 
 /**

@@ -1,4 +1,6 @@
 
+<?php use Tao\Utils as util; ?>
+
 <?php # début Okatea : ce template étend le template principal "main"
 $this->extend('main');
 # fin Okatea : ce template étend le template principal "main" ?>
@@ -30,7 +32,7 @@ $this->extend('main');
 		</div><!-- #search -->
 
 		<?php # début Okatea : affichage menu haut
-			echo $okt->theme->getMenuHaut();
+			echo $okt->navigation->render('MenuTop');
 		# fin Okatea : affichage menu haut ?>
 
 	</header>
@@ -48,7 +50,7 @@ $this->extend('main');
 
 	<div id="sidebar">
 		<?php # début Okatea : affichage menu milieu
-		echo $okt->theme->getMenuMilieu();
+			echo $okt->navigation->render('MenuMiddle');
 		# fin Okatea : affichage menu milieu ?>
 
 		<?php # début Okatea : si le module news est présent, affichage de l'encart
@@ -98,7 +100,7 @@ $this->extend('main');
 		<?php endif; # fin Okatea : titre de la page ?>
 
 		<?php # début Okatea : affichage du contenu de la page
-		echo $this->get('content');
+		$view['slots']->output('_content');
 		# fin Okatea : affichage du contenu de la page ?>
 
 	</div><!-- #content -->
@@ -114,7 +116,7 @@ $this->extend('main');
 		</ul>
 
 		<?php # début Okatea : affichage menu milieu
-		echo $okt->theme->getMenuBas();
+			echo $okt->navigation->render('MenuBottom');
 		# fin Okatea : affichage menu milieu ?>
 
 	</footer>

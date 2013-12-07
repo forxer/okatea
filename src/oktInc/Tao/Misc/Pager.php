@@ -162,7 +162,7 @@ class Pager
 			$url .= '?'.$this->var_page.'=%1$d';
 		}
 
-		$this->page_url = html::escapeHTML($url);
+		$this->page_url = \html::escapeHTML($url);
 	}
 
 	/**

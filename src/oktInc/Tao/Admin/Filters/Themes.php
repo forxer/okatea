@@ -24,7 +24,7 @@ class Themes extends FiltersBase
 
 	public function __construct($okt, $params=array())
 	{
-		$oConfig = new ArrayObject();
+		$oConfig = new \ArrayObject();
 		$oConfig->admin_default_order_by = 'name';
 		$oConfig->admin_default_nb_per_page = 16;
 		$oConfig->admin_default_order_direction = 'ASC';
