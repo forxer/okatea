@@ -359,45 +359,4 @@ class Js
 		return $n." = '".html::escapeJS($v)."';\n";
 	}
 
-	/**
-	 * Construit un objet Javascript simple à partir d'un tableau PHP
-	 * et le retourne sous forme de chaine de caractères.
-	 *
-	 * @param array $a
-	 * @return string
-	 * @deprecated use json_encode() instead
-	 */
-	public static function formatArray($a=array())
-	{
-		if (empty($a)) {
-			return null;
-		}
-
-		$values = array();
-		foreach ($a as $k=>$v)
-		{
-			if ($v === null) {
-				$values[] = $k.': null';
-			}
-			elseif ($k === 'plain/text') { # special case if we need plain text
-				$values[] = $v;
-			}
-			elseif (is_array($v)) {
-				$values[] = $k.': '.self::formatArray($v);
-			}
-			elseif (is_bool($v)) {
-				$values[] = $k.': '.($v ? 'true' : 'false');
-			}
-			elseif (is_string($v)) {
-				$values[] = $k.': "'.$v.'"';
-			}
-			else {
-				$values[] = $k.': '.$v;
-			}
-		}
-
-		return (!empty($values) ? '{ '.implode(', ',$values).' }' : null);
-	}
-
-
 } # class

@@ -745,27 +745,6 @@ class MySqli
 		return $this->execute($sql);
 	}
 
-	/**
-	 * @deprecated
-	 * @param $words
-	 * @return unknown_type
-	 */
-	public static function formatSQLSearchWords($words)
-	{
-		$strip = array('+',')','(',',','\'', '-', '_', '*', '.');
-		$words = mb_strtolower($words);
-		$words = str_replace($strip,' ',$words);
-	//	$words = preg_replace('/( )+/',' ',$words);
-
-	//	$lettre = preg_replace('/[\D]/', ' ', $words);
-	//	$chiffre = preg_replace('/[0-9]/', ' ', $words);
-
-	//	$words = trim($lettre).' '.trim($chiffre);
-		$words = preg_replace('/\s+/s', ' ', $words);
-
-		return trim($words);
-	}
-
 	public static function formatDateTime($sDate=null, $sOrder='dmyhis')
 	{
 		$sDate = trim($sDate);
