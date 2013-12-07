@@ -9,6 +9,7 @@ use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
 use Tao\Routing\Route;
 use Tao\Modules\Module;
+use Tao\Misc\NestedTree;
 
 class module_partners extends Module
 {
@@ -67,7 +68,7 @@ class module_partners extends Module
 		$this->upload_url = OKT_UPLOAD_URL.'/partners/';
 
 		# initialisation arbre catégories
-		$this->tree = new nestedTree(
+		$this->tree = new NestedTree(
 			$this->okt,
 			$this->t_categories,
 			'id',

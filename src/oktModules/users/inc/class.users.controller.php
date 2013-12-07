@@ -8,6 +8,7 @@
 use Tao\Utils as util;
 use Tao\Core\Authentification;
 use Tao\Core\Controller;
+use Tao\Misc\Mailer;
 
 class usersController extends Controller
 {
@@ -622,7 +623,7 @@ class usersController extends Controller
 				}
 
 				# Initialisation du mailer et envoi du mail
-				$oMail = new oktMail($this->okt);
+				$oMail = new Mailer($this->okt);
 
 				$oMail->setFrom();
 
@@ -648,7 +649,7 @@ class usersController extends Controller
 				# Initialisation du mailer et envoi du mail à l'administrateur
 				if ($this->okt->users->config->mail_new_registration)
 				{
-					$oMail = new oktMail($this->okt);
+					$oMail = new Mailer($this->okt);
 
 					$oMail->setFrom();
 

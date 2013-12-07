@@ -6,17 +6,15 @@
  * file that was distributed with this source code.
  */
 
-
+namespace Tao\Misc;
 
 use Tao\Utils as util;
 
 /**
- * @class fileUpload
- * @ingroup okt_classes_tools
- * @brief Outil pour l'upload de fichier.
+ * Outil pour l'upload de fichier.
  *
  */
-class fileUpload
+class FileUpload
 {
 	/**
 	 * Référence de l'objet core.

@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
-class pagesFilters extends filters
+class pagesFilters extends FiltersBase
 {
 	protected $okt;
 

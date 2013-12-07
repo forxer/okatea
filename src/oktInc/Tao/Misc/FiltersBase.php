@@ -6,16 +6,16 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 use Tao\Forms\StaticFormElements as form;
+use Tao\Misc\ParametersHolder;
 
 /**
- * @class filters
- * @ingroup okt_classes_tools
- * @brief Classe de base pour gérer des filtres de listes
+ * Classe de base pour gérer des filtres de listes
  *
  */
-class filters
+class FiltersBase
 {
 	protected $id;
 	protected $form_id;
@@ -40,7 +40,7 @@ class filters
 
 		$params = array_merge($this->defaults_params,$params);
 
-		$this->params = new parameterHolder($params);
+		$this->params = new ParametersHolder($params);
 
 		$this->actives_filters = array();
 	}

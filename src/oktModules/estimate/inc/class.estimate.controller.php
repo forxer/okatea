@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Misc\Mailer;
 
 class estimateController extends Controller
 {
@@ -112,7 +113,7 @@ class estimateController extends Controller
 					$sEstimateUrl = $this->okt->config->app_host.$this->okt->config->app_path.OKT_ADMIN_DIR.
 						'/module.php?m=estimate&action=estimate&estimate_id='.$iEstimateId;
 
-					$oMail = new oktMail($this->okt);
+					$oMail = new Mailer($this->okt);
 					$oMail->setFrom();
 					$oMail->message->setTo($aRecipients);
 

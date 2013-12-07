@@ -10,7 +10,7 @@
  * Licensed under the GPL version 2.0 license.
  */
 
-
+namespace Tao\Misc;
 
 use Tao\Utils as util;
 
@@ -34,7 +34,7 @@ use Tao\Utils as util;
  * $objIni->saveFile();
  *
  */
-class iniFile
+class IniFile
 {
 	/**
 	 * Le contenu du fichier de configuration

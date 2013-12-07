@@ -8,6 +8,7 @@
  */
 
 use Tao\Core\Authentification;
+use Tao\Misc\ImageTools;
 
 class oktMedia extends filemanager
 {
@@ -881,7 +882,7 @@ class oktMedia extends filemanager
 
 		try
 		{
-			$img = new imageTools();
+			$img = new ImageTools();
 			$img->loadImage($file);
 
 			$w = $img->getW();

@@ -9,6 +9,7 @@ use Tao\Utils as util;
 use Tao\Core\Authentification;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
+use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Themes\SimpleReplacements;
@@ -1382,7 +1383,7 @@ class module_pages extends Module
 	 */
 	protected function getFileUpload()
 	{
-		return new fileUpload(
+		return new FileUpload(
 			$this->okt,
 			$this->config->files,
 			$this->upload_dir.'files/',

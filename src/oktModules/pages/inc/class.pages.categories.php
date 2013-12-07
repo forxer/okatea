@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\NestedTreei18n;
 use Tao\Utils as util;
 
-class pagesCategories extends nestedTreei18n
+class pagesCategories extends NestedTreei18n
 {
 	protected $t_pages;
 	protected $t_pages_locales;

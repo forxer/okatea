@@ -5,6 +5,7 @@
 use Tao\Utils as util;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
+use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
 
 class module_##module_id## extends Module
@@ -634,7 +635,7 @@ class module_##module_id## extends Module
 	 */
 	protected function getFileUpload()
 	{
-		return new fileUpload(
+		return new FileUpload(
 			$this->okt,
 			$this->config->files,
 			$this->upload_dir.'files/',

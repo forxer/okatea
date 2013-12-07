@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
-class faqFilters extends filters
+class faqFilters extends FiltersBase
 {
 	protected $faq;
 

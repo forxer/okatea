@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 /**
- * @class parameterHolder
- * @ingroup okt_classes_tools
- * @brief Gestion et manipulation de paramètres
+ * Gestion et manipulation de paramètres
  *
  */
-class parameterHolder
+class ParametersHolder
 {
 	/**
 	 * La pile de paramètres

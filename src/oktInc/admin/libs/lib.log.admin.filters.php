@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
 /**
@@ -16,7 +16,7 @@ use Tao\Forms\StaticFormElements as form;
  *
  */
 
-class logAdminFilters extends filters
+class logAdminFilters extends FiltersBase
 {
 
 	protected $logAdmin;

@@ -6,7 +6,7 @@
  */
 
 use Tao\Utils as util;
-
+use Tao\Misc\Mailer;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';
@@ -64,7 +64,7 @@ if (!empty($_POST['sign']))
 		{
 			if ($okt->guestbook->config->emails_list != '')
 			{
-				$oMail = new oktMail($okt);
+				$oMail = new Mailer($okt);
 
 				$oMail->setFrom();
 

@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Misc\Mailer;
 
 class guestbookController extends Controller
 {
@@ -57,7 +58,7 @@ class guestbookController extends Controller
 				{
 					if ($this->okt->guestbook->config->emails_list != '')
 					{
-						$oMail = new oktMail($this->okt);
+						$oMail = new Mailer($this->okt);
 
 						$oMail->setFrom();
 

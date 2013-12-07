@@ -5,10 +5,11 @@
  *
  */
 
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
 
-class usersFilters extends filters
+class usersFilters extends FiltersBase
 {
 	protected $users;
 

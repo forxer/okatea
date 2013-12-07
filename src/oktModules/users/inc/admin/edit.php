@@ -8,6 +8,7 @@
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
+use Tao\Misc\Mailer;
 
 # Accès direct interdit
 if (!defined('ON_USERS_MODULE')) die;
@@ -119,7 +120,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 
 	if ($okt->users->updUser($upd_params))
 	{
-		$oMail = new oktMail($okt);
+		$oMail = new Mailer($okt);
 
 		$oMail->setFrom();
 
@@ -152,7 +153,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 	{
 		if (!empty($_POST['send_password_mail']))
 		{
-			$oMail = new oktMail($okt);
+			$oMail = new Mailer($okt);
 
 			$oMail->setFrom();
 

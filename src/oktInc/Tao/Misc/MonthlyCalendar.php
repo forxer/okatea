@@ -6,17 +6,16 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 /**
- * @class oktMonthlyCalendar
- * @ingroup okt_classes_tools
- * @brief Outil pour la génération d'un calendrier mensuel.
+ * Outil pour la génération d'un calendrier mensuel.
  *
  * Dépendance : Clearbricks class dt Date/time utilities
  *
  * Exemple :
  *
- *	$oCal = new oktMonthlyCalendar(array(
+ *	$oCal = new MonthlyCalendar(array(
  *			'urlBase' 		=> 'calendar.php',
  *			'urlPattern' 	=> '?year=%s&amp;month=%s'
  *		),
@@ -26,7 +25,7 @@
  *
  * 	echo $oCal->getHtml();
  */
-class oktMonthlyCalendar
+class MonthlyCalendar
 {
 	protected $aConfig = array(
 		'htmlBlock' 			=> '<table class="calendar" summary="calendar">%s</table>',

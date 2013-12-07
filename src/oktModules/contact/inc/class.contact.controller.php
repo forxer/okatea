@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Misc\Mailer;
 
 class contactController extends Controller
 {
@@ -89,7 +90,7 @@ class contactController extends Controller
 			# si on as pas d'erreur on se préparent à envoyer le mail
 			if ($this->okt->error->isEmpty())
 			{
-				$oMail = new oktMail($this->okt);
+				$oMail = new Mailer($this->okt);
 
 				# -- CORE TRIGGER : publicModuleContactBeforeBuildMail
 				$this->okt->triggers->callTrigger('publicModuleContactBeforeBuildMail', $this->okt, $oMail);

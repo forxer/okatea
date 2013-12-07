@@ -10,14 +10,13 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Tao\Misc;
 
 /**
- * @class imageTools
- * @ingroup okt_classes_tools
- * @brief Outil pour le redimensionnement des images.
+ * Outil pour le redimensionnement des images.
  *
  */
-class imageTools
+class ImageTools
 {
 	/** @var resource	Image resource */
 	public $res;

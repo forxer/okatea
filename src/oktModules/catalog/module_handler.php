@@ -10,6 +10,8 @@ use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
+use Tao\Misc\FileUpload;
+use Tao\Misc\NestedTree;
 
 class module_catalog extends Module
 {
@@ -76,7 +78,7 @@ class module_catalog extends Module
 		# categories
 		if ($this->config->categories_enable)
 		{
-			$this->tree = new nestedTree(
+			$this->tree = new NestedTree(
 				$this->okt,
 				$this->t_categories,
 				'id',
@@ -923,7 +925,7 @@ class module_catalog extends Module
 
 	protected function getFileUpload()
 	{
-		return new fileUpload(
+		return new FileUpload(
 			$this->okt,
 			$this->config->files,
 			$this->upload_dir.'files/',

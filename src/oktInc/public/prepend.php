@@ -17,6 +17,7 @@
 use Tao\Utils as util;
 use Tao\Navigation\Breadcrumb;
 use Tao\Routing\Route;
+use Tao\Misc\PublicAdminBar;
 
 # On inclu le fichier prepend général
 require_once __DIR__.'/../prepend.php';
@@ -77,5 +78,5 @@ if (!session_id()) {
 
 # Initialisation barre admin
 if ($okt->user->is_superadmin || ($okt->user->is_admin && $okt->config->enable_admin_bar)) {
-	$oPublicAdminBar = new oktPublicAdminBar($okt);
+	$oPublicAdminBar = new PublicAdminBar($okt);
 }

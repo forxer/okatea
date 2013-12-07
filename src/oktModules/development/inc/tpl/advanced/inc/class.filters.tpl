@@ -1,10 +1,10 @@
 <?php
 ##header##
 
-
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
-class ##module_camel_case_id##Filters extends filters
+class ##module_camel_case_id##Filters extends FiltersBase
 {
 	protected $get_items_params = array();
 

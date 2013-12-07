@@ -6,15 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
+
 use Tao\Database\Recordset;
 
 /**
- * @class nestedTreei18n
- * @ingroup okt_classes_tools
- * @brief Une classe internationalisées pour gérer des arbres imbriqués
+ * Une classe internationalisées pour gérer des arbres imbriqués.
  *
  */
-class nestedTreei18n
+class NestedTreei18n
 {
 	protected $okt;
 	protected $error;

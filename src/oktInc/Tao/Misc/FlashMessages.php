@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 /**
- * @class oktFlashMessages
- * @ingroup okt_classes_tools
- * @brief La classe pour gérer les messages flash
+ * La classe pour gérer les messages flash
  *
  */
-class oktFlashMessages
+class FlashMessages
 {
 	protected $aMessagesTypes = array(
 		'info',
@@ -67,7 +66,7 @@ class oktFlashMessages
 		}
 
 		$_SESSION[$this->sSessionKey][$sType][] = $sMessage;
-		
+
 		# do not duplicate messages
 		$_SESSION[$this->sSessionKey][$sType] = array_unique($_SESSION[$this->sSessionKey][$sType]);
 	}

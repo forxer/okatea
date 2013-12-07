@@ -10,15 +10,15 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Tao\FileManager;
 
 /**
- * @class filemanager_old
- * @ingroup okt_classes_tools
- * @brief
+ * Gestionnaire de fichiers
  *
  * @TODO: for convenience we must used clearbricks filemanager
+ * @deprecated
  */
-class filemanager_old
+class Filemanager
 {
 	var $root;
 	var $exclude_list = array();

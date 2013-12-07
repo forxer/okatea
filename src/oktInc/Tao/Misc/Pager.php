@@ -6,14 +6,13 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 /**
- * @class pager
- * @ingroup okt_classes_tools
- * @brief Classe d'affichage de données sur plusieurs pages
+ * Classe d'affichage de données sur plusieurs pages
  *
  */
-class pager
+class Pager
 {
 	private $env;
 	private $nb_elements;

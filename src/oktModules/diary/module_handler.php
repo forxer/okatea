@@ -8,6 +8,7 @@
 use Tao\Utils as util;
 use Tao\Html\BlockList;
 use Tao\Images\ImageUpload;
+use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -775,7 +776,7 @@ class module_diary extends Module
 	 */
 	protected function getFileUpload()
 	{
-		return new fileUpload(
+		return new FileUpload(
 			$this->okt,
 			$this->config->files,
 			$this->upload_dir.'files/',

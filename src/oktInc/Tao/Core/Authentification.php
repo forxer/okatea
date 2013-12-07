@@ -9,6 +9,7 @@
 namespace Tao\Core;
 
 use Tao\Utils as util;
+use Tao\Misc\Mailer;
 
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.
@@ -593,7 +594,7 @@ class Authentification
 			}
 
 			# Initialisation du mailer et envoi du mail
-			$oMail = new oktMail($this->okt);
+			$oMail = new Mailer($this->okt);
 			$oMail->setFrom();
 			$oMail->message->setTo($sEmail);
 

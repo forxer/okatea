@@ -5,8 +5,9 @@
  *
  */
 
+use Tao\Misc\MonthlyCalendar;
 
-class diaryMonthlyCalendar extends oktMonthlyCalendar
+class diaryMonthlyCalendar extends MonthlyCalendar
 {
 	protected $aDatesEvents;
 

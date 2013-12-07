@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\NestedTreei18n;
 use Tao\Utils as util;
 
-class newsCategories extends nestedTreei18n
+class newsCategories extends NestedTreei18n
 {
 	protected $t_news;
 	protected $t_news_locales;

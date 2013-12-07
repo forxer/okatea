@@ -6,18 +6,17 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
 
 use Tao\Utils as util;
 use Tao\Core\Authentification;
 use Tao\Core\Update as Updater;
 
 /**
- * @class oktPublicAdminBar
- * @ingroup okt_classes_tools
- * @brief La classe pour afficher la barre admin côté publique
+ * La classe pour afficher la barre admin côté publique
  *
  */
-class oktPublicAdminBar
+class PublicAdminBar
 {
 	/**
 	 * L'objet core.

@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\NestedTreei18n;
 use Tao\Images\ImageUpload;
 
-class galleriesTree extends nestedTreei18n
+class galleriesTree extends NestedTreei18n
 {
 	protected $t_items;
 	protected $t_items_locales;

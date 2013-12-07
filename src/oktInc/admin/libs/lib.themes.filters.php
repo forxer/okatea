@@ -14,8 +14,9 @@
  *
  */
 
+use Tao\Misc\FiltersBase;
 
-class themesFilters extends filters
+class themesFilters extends FiltersBase
 {
 	protected $okt;
 

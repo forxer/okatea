@@ -6,15 +6,15 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Misc;
+
 use Tao\Themes\SimpleReplacements;
 
 /**
- * @class oktMail
- * @ingroup okt_classes_tools
- * @brief La classe pour envoyer gentillement des emails
+ * La classe pour envoyer gentillement des emails
  *
  */
-class oktMail
+class Mailer
 {
 	protected $okt;
 

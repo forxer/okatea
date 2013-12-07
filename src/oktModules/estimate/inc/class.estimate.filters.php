@@ -5,9 +5,10 @@
  *
  */
 
+use Tao\Misc\FiltersBase;
 use Tao\Forms\StaticFormElements as form;
 
-class estimateFilters extends filters
+class estimateFilters extends FiltersBase
 {
 	protected $estimate;
 

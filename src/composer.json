@@ -42,7 +42,6 @@
 			"vendor/dotclear/clearbricks/net.http",
 			"vendor/dotclear/clearbricks/rest",
 			"vendor/dotclear/clearbricks/zip",
-			"oktInc/classes/",
 			"oktInc/admin/libs",
 			"oktInc/public/libs"
 		],

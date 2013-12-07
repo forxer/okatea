@@ -9,6 +9,7 @@
 use Tao\Forms\StaticFormElements as form;
 use Tao\Html\Page;
 use Tao\Navigation\Breadcrumb;
+use Tao\Misc\FlashMessages;
 
 /**
  * Construction des pages d'administration.
@@ -106,7 +107,7 @@ class adminPage extends Page
 
 		$this->breadcrumb = new Breadcrumb();
 
-		$this->flashMessages = new oktFlashMessages();
+		$this->flashMessages = new FlashMessages();
 
 		$this->messages = new adminMessagesSuccess();
 		$this->warnings = new adminMessagesWarnings();

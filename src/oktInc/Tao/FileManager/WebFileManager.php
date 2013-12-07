@@ -10,15 +10,18 @@
  * Licensed under the GPL version 2.0 license.
  */
 
+namespace Tao\FileManager;
+
+use Tao\FileManager\Filemanager;
+
 use Tao\Utils as util;
 
 /**
- * @class webFileManager
- * @ingroup okt_classes_libs
- * @brief Un gestionnaire de fichiers en ligne.
+ * Un gestionnaire de fichiers en ligne.
  *
+ * @deprecated
  */
-class webFileManager extends filemanager_old
+class WebFileManager extends Filemanager
 {
 	public $p_url;
 	public $p_img;
