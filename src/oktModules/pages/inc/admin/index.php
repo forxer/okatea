@@ -6,6 +6,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -159,7 +160,7 @@ $okt->pages->filters->getFilters();
 # Initialisation de la pagination
 $iNumFilteredPosts = $okt->pages->getPagesCount($aParams);
 
-$oPager = new adminPager($okt->pages->filters->params->page, $iNumFilteredPosts, $okt->pages->filters->params->nb_per_page);
+$oPager = new Pager($okt->pages->filters->params->page, $iNumFilteredPosts, $okt->pages->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

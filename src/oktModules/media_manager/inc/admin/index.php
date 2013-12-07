@@ -8,6 +8,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -295,7 +296,7 @@ if ($num_items == 0)
 }
 else
 {
-	$pager = new adminPager($page,$num_items,$nb_per_page,10);
+	$pager = new Pager($page,$num_items,$nb_per_page,10);
 
 	echo
 	'<form action="module.php" method="get">'.

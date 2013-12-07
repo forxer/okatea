@@ -15,6 +15,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
 use Tao\Admin\Filters\Themes as ThemesFilters;
@@ -179,7 +180,7 @@ $oFilters->getFilters();
 # Initialisation de la pagination
 $iNumInstalledThemes = count($aInstalledThemes);
 
-$oPager = new adminPager($oFilters->params->page, $iNumInstalledThemes, $oFilters->params->nb_per_page);
+$oPager = new Pager($oFilters->params->page, $iNumInstalledThemes, $oFilters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

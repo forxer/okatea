@@ -6,6 +6,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -211,7 +212,7 @@ switch($status)
 }
 
 # pagination
-$pager = new adminPager($page, $okt->guestbook->getSig($params,true), $okt->guestbook->config->nbparpage_admin);
+$pager = new Pager($page, $okt->guestbook->getSig($params,true), $okt->guestbook->config->nbparpage_admin);
 
 # récupération des éléments
 $params['limit'] = (($page-1)*$okt->guestbook->config->nbparpage_admin).','.$okt->guestbook->config->nbparpage_admin;

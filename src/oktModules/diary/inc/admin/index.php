@@ -6,6 +6,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -84,7 +85,7 @@ $okt->diary->filters->getFilters();
 # initialisation de la pagination
 $iNumFilteredEvents = $okt->diary->getEvents($aParams,true);
 
-$oPager = new adminPager($okt->diary->filters->params->page, $iNumFilteredEvents, $okt->diary->filters->params->nb_per_page);
+$oPager = new Pager($okt->diary->filters->params->page, $iNumFilteredEvents, $okt->diary->filters->params->nb_per_page);
 
 $iNumEvents = $oPager->getNbPages();
 

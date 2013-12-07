@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
 
@@ -155,7 +156,7 @@ $filters->getFilters();
 # initialisation de la pagination
 $num_filtered_users = $okt->users->getUsers($aParams,true);
 
-$pager = new adminPager($filters->params->page, $num_filtered_users, $filters->params->nb_per_page);
+$pager = new Pager($filters->params->page, $num_filtered_users, $filters->params->nb_per_page);
 
 $num_pages = $pager->getNbPages();
 

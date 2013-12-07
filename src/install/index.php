@@ -38,8 +38,7 @@ require_once __DIR__.'/../oktInc/constants.php';
 $oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';
 
 $oktAutoloader->addClassMap(array(
-	'oktStepper' => __DIR__.'/inc/class.stepper.php',
-	'adminPager' => OKT_INC_PATH.'/admin/libs/lib.admin.pager.php',
+	'oktStepper' => __DIR__.'/inc/class.stepper.php'
 ));
 
 

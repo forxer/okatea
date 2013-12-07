@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 
 
@@ -51,7 +52,7 @@ $okt->faq->filters->getFilters();
 # initialisation de la pagination
 $num_filtered_questions = $okt->faq->getQuestions($params,true);
 
-$pager = new adminPager($okt->faq->filters->params->page, $num_filtered_questions, $okt->faq->filters->params->nb_per_page);
+$pager = new Pager($okt->faq->filters->params->page, $num_filtered_questions, $okt->faq->filters->params->nb_per_page);
 
 $num_pages = $pager->getNbPages();
 

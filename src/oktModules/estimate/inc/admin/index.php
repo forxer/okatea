@@ -6,6 +6,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 
@@ -161,7 +162,7 @@ $okt->estimate->filters->getFilters();
 # Initialisation de la pagination
 $iNumFilteredEstimates = $okt->estimate->getEstimatesCount($aParams);
 
-$oPager = new adminPager($okt->estimate->filters->params->page, $iNumFilteredEstimates, $okt->estimate->filters->params->nb_per_page);
+$oPager = new Pager($okt->estimate->filters->params->page, $iNumFilteredEstimates, $okt->estimate->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

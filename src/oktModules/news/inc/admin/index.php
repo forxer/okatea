@@ -6,6 +6,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\Authentification;
@@ -291,7 +292,7 @@ $okt->news->filters->getFilters();
 # Initialisation de la pagination
 $iNumFilteredPosts = $okt->news->getPostsCount($aParams);
 
-$oPager = new adminPager($okt->news->filters->params->page, $iNumFilteredPosts, $okt->news->filters->params->nb_per_page);
+$oPager = new Pager($okt->news->filters->params->page, $iNumFilteredPosts, $okt->news->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

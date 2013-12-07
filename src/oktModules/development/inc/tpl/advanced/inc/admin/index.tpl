@@ -2,6 +2,7 @@
 ##header##
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit
@@ -79,7 +80,7 @@ $okt->##module_id##->filters->getFilters();
 # initialisation de la pagination
 $iNumFilteredItems = $okt->##module_id##->getItems($aParams,true);
 
-$oPager = new adminPager($okt->##module_id##->filters->params->page, $iNumFilteredItems, $okt->##module_id##->filters->params->nb_per_page);
+$oPager = new Pager($okt->##module_id##->filters->params->page, $iNumFilteredItems, $okt->##module_id##->filters->params->nb_per_page);
 
 $iNumItems = $oPager->getNbPages();
 

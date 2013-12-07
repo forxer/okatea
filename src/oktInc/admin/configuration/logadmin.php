@@ -15,6 +15,7 @@
  */
 
 use Tao\Admin\Page;
+use Tao\Admin\Pager;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Core\LogAdmin;
 
@@ -68,7 +69,7 @@ $okt->logAdmin->filters->setLogsParams($aParams);
 $okt->logAdmin->filters->getFilters();
 
 # Initialisation de la pagination
-$oPager = new adminPager($okt->logAdmin->filters->params->page, $okt->logAdmin->getLogs($aParams,true), $okt->logAdmin->filters->params->nb_per_page);
+$oPager = new Pager($okt->logAdmin->filters->params->page, $okt->logAdmin->getLogs($aParams,true), $okt->logAdmin->filters->params->nb_per_page);
 $iNumPages = $oPager->getNbPages();
 $okt->logAdmin->filters->normalizePage($iNumPages);
 $aParams['limit'] = (($okt->logAdmin->filters->params->page-1)*$okt->logAdmin->filters->params->nb_per_page).','.$okt->logAdmin->filters->params->nb_per_page;

@@ -6,7 +6,9 @@
  * file that was distributed with this source code.
  */
 
-use Tao\Misc\Pager;
+namespace Tao\Admin;
+
+use Tao\Misc\Pager as BasePager;
 
 /**
  * Extension de la classe pager pour l'administration.
@@ -14,7 +16,7 @@ use Tao\Misc\Pager;
  * @addtogroup Okatea
  *
  */
-class adminPager extends Pager
+class Pager extends BasePager
 {
 	public $html_item		= '<li class="ui-state-default">%s</li>';
 	public $html_cur_page	= '<li class="active ui-state-active">%s</li>';
