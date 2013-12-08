@@ -8,6 +8,7 @@
  */
 
 use Tao\Modules\Collection as ModulesCollection;
+use Guzzle\Http\Client;
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
@@ -105,14 +106,15 @@ else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config-
 
 		try
 		{
-			$client = netHttp::initClient($url,$path);
-			$client->setUserAgent('Okatea');
-			$client->useGzip(false);
-			$client->setPersistReferers(false);
-			$client->setOutput($dest);
-			$client->get($path);
+			$client = new Client();
+
+			$request = $client->get($url, array(), array(
+				'save_to' => $dest
+			));
+
+			$request->send();
 		}
-		catch( Exception $e) {
+		catch (Exception $e) {
 			throw new Exception(__('An error occurred while downloading the file.'));
 		}
 

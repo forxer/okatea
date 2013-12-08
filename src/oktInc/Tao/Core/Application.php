@@ -12,9 +12,6 @@ use Tao\Cache\SingleFileCache;
 use Tao\Routing\Router;
 use Tao\Themes\SimpleReplacements;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderResolver;
-use Symfony\Component\Config\Loader\DelegatingLoader;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -26,24 +23,118 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
  */
 class Application
 {
-	public $cache = null; /**< Le gestionnaire de cache, instance de \ref Tao\Cache\SingleFileCache */
-	public $config = null; /**< Le gestionnaire de configuration, instance de \ref Tao\Core\Config */
-	public $db = null; /**< Le gestionnaire de base de données, instance de \ref Tao\Database\MySqli */
-	public $error = null; /**< Le gestionnaire d'erreurs, instance de \ref Tao\Core\Errors */
-	public $languages = null; /**< Le gestionnaire de langues, instance de \ref Tao\Core\Languages */
-	public $logAdmin = null; /**< Le gestionnaire de log admin, instance de \ref Tao\Core\LogAdmin */
-	public $modules = null; /**< Le gestionnaire de modules, instance de \ref Tao\Core\Modules\Collection */
-	public $page = null; /**< L'utilitaire de contenu de page, instance de \ref Tao\Html\Page */
-	public $router = null; /**< Le routeur interne pour gérer les URL, instance de \ref Tao\Routing\Router */
-	public $tpl = null; /**< Le moteur de templates, instance de \ref Tao\Core\Templating */
-	public $triggers = null; /**< Le gestionnaire de déclencheurs, instance de \ref Tao\Core\Triggers */
-	public $user = null; /**< Le gestionnaire d'utilisateur en cours, instance de \ref Tao\Core\Authentification */
+	/**
+	 * Le gestionnaire du fichier cache de configuration.
+	 *
+	 * @var Tao\Cache\SingleFileCache
+	 */
+	public $cache = null;
+
+	/**
+	 * Le gestionnaire de configuration.
+	 *
+	 * @var Tao\Core\Config
+	 */
+	public $config = null;
+
+	/**
+	 * Le gestionnaire de base de données.
+	 *
+	 * @var Tao\Database\MySqli
+	 */
+	public $db = null;
+
+	/**
+	 * Le gestionnaire d'erreurs.
+	 *
+	 * @var Tao\Core\Errors
+	 */
+	public $error = null;
+
+	/**
+	 * Le gestionnaire de langues.
+	 *
+	 * @var Tao\Core\Languages
+	 */
+	public $languages = null;
+
+	/**
+	 * Le gestionnaire de log admin.
+	 *
+	 * @var Tao\Core\LogAdmin
+	 */
+	public $logAdmin = null;
+
+	/**
+	 * Le gestionnaire de modules.
+	 *
+	 * @var Tao\Core\Modules\Collection
+	 */
+	public $modules = null;
+
+	/**
+	 * L'utilitaire de contenu de page.
+	 *
+	 * @var Tao\Html\Page
+	 */
+	public $page = null;
+
+	/**
+	 * Le routeur interne.
+	 *
+	 * @var Tao\Routing\Router
+	 */
+	public $router = null;
+
+	/**
+	 * Le moteur de templates.
+	 *
+	 * @var Tao\Core\Templating
+	 */
+	public $tpl = null;
+
+	/**
+	 * Le gestionnaire de déclencheurs.
+	 *
+	 * @var Tao\Core\Triggers
+	 */
+	public $triggers = null;
+
+	/**
+	 * Le gestionnaire d'utilisateur en cours.
+	 *
+	 * @var Tao\Core\Authentification
+	 */
+	public $user = null;
+
+	/**
+	 * L'instance de l'autoloader.
+	 *
+	 * @var Composer\Autoload\ClassLoader
+	 */
 	public $autoloader = null;
 
-	protected $permsStack = array(); /**< La pile qui contient les permissions. */
-	protected $htmlpurifier = null; /**< L'objet HTMLPurifier si il est instancié, sinon null */
+	/**
+	 * La pile qui contient les permissions.
+	 *
+	 * @var array
+	 */
+	protected $permsStack = array();
 
-	protected $aTplDirectories = array(); /**< la liste des répertoires où le moteur de templates doit chercher le template à interpréter */
+	/**
+	 * L'objet HTMLPurifier si il est instancié, sinon null.
+	 *
+	 * @var mixed
+	 */
+	protected $htmlpurifier = null;
+
+	/**
+	 * La liste des répertoires où le moteur de templates
+	 * doit chercher le template à interpréter.
+	 *
+	 * @var array
+	 */
+	protected $aTplDirectories = array();
 
 	/**
 	 * Constructeur. Initialise les gestionnaires d'erreurs et de base de données.
@@ -63,22 +154,6 @@ class Application
 		if ($this->db->hasError()) {
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
-
-		/*
-		$connectionParams = array(
-			'dbname' => OKT_DB_NAME,
-			'user' => OKT_DB_USER,
-			'password' => OKT_DB_PWD,
-			'host' => OKT_DB_HOST,
-			'driver' => OKT_DB_DRIVER,
-			'charset' => 'UTF8'
-		);
-
-		$this->conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, new \Doctrine\DBAL\Configuration());
-
-		*/
-
-		//OKT_DB_PREFIX
 
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
 

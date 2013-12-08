@@ -160,29 +160,32 @@ if (OKT_DEBUG)
 	$okt->page->flashMessages->addWarning(__('c_a_public_debug_mode_enabled'));
 }
 
+# updates notifications
+$sNewVersion = null;
+if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
+{
+	$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+	$sNewVersion = $updater->check(util::getVersion());
+
+	if ($updater->getNotify() && $sNewVersion) {
+		# locales
+		l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+	}
+}
+
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
-<?php # updates notifications
-if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
-{
-	$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
-	$new_v = $updater->check(util::getVersion());
-
-	if ($updater->getNotify() && $new_v)
-	{
-		# locales
-		l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
-
-		echo
-		'<div id="updates-notifications"><h3>'.__('c_a_update').'</h3>'.
-		'<p>'.sprintf(__('c_a_update_okatea_%s_available'),$new_v).'</p><ul>'.
-		'<li><strong><a href="configuration.php?action=update">'.sprintf(__('c_a_update_upgrade_now'),$new_v).'</a></strong></li>'.
-		'<li><a href="configuration.php?action=update&amp;hide_msg=1">'.__('c_a_update_remind_later').'</a></li></ul></div>';
-	}
-}
-?>
+<?php if (!empty($sNewVersion)) : ?>
+<div id="updates-notifications"><h3><?php _e('c_a_update') ?></h3>
+	<p><?php printf(__('c_a_update_okatea_%s_available'), $sNewVersion) ?></p>
+	<ul>
+		<li><strong><a href="configuration.php?action=update"><?php sprintf(__('c_a_update_upgrade_now'), $sNewVersion) ?></a></strong></li>
+		<li><a href="configuration.php?action=update&amp;hide_msg=1"><?php _e('c_a_update_remind_later') ?></a></li>
+	</ul>
+</div>
+<?php endif; ?>
 
 <div class="ui-helper-clearfix">
 	<?php # lecteur de flux d'actualités

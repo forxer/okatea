@@ -19,6 +19,7 @@
 		"dotclear/clearbricks": "dev-default",
 		"erusev/parsedown": "dev-master",
 		"ezyang/htmlpurifier": "dev-master",
+		"guzzle/guzzle": "~3.7",
 		"ircmaxell/password-compat": "dev-master",
 		"leafo/lessphp": "0.4.*",
 		"mobiledetect/mobiledetectlib": "dev-master",
@@ -38,9 +39,6 @@
 			"vendor/dotclear/clearbricks/common",
 			"vendor/dotclear/clearbricks/filemanager",
 			"vendor/dotclear/clearbricks/image",
-			"vendor/dotclear/clearbricks/net",
-			"vendor/dotclear/clearbricks/net.http",
-			"vendor/dotclear/clearbricks/rest",
 			"vendor/dotclear/clearbricks/zip"
 		],
 		"files": ["oktInc/functions.php"]

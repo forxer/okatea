@@ -17,6 +17,7 @@ where moved to oktInc/Tao and follow psr-0
 # remove methods deprecated in 1.0
 ! show debug mode enabled info
 ! remove unused dev and debug panels from config page
+. replace Clearbricks netHttp by Guzzle
 
 
 2.0-rc1

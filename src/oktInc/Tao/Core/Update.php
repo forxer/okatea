@@ -12,6 +12,10 @@
 
 namespace Tao\Core;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Guzzle\Http\Client;
+
 /**
  * Mise à jour automatisée d'Okatea
  *
@@ -106,9 +110,13 @@ class Update
 
 		if (!is_dir($sCacheDir))
 		{
+			$fs = new Filesystem();
+
 			try {
-				\files::makeDir($sCacheDir);
-			} catch (Exception $e) {
+				$fs->mkdir($sCacheDir);
+			}
+			catch (IOExceptionInterface $e) {
+				throw new Exception("An error occurred while creating cache directory at ".$e->getPath());
 				return;
 			}
 		}
@@ -116,24 +124,19 @@ class Update
 		# Try to get latest version number
 		try
 		{
-			$sPath = '';
-			$oClient = \netHttp::initClient($this->sUrl, $sPath);
+			$client = new Client();
+			$response = $client->get($this->sUrl)->send();
 
-			if ($oClient !== false)
-			{
-				$oClient->setTimeout(4);
-				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-				$oClient->get($sPath);
-
-				if ($oClient->getStatus() == '200') {
-					return $this->readVersion($oClient->getContent());
-				}
-				else {
-					return false;
-				}
+			if ($response->isSuccessful()) {
+				return $this->readVersion($response->getBody(true));
+			}
+			else {
+				return false;
 			}
 		}
-		catch (Exception $e) {}
+		catch (Exception $e) {
+			return false;
+		}
 
 		# Create cache
 		file_put_contents($this->sCacheFile, serialize($this->aVersionInfo));
@@ -240,18 +243,16 @@ class Update
 
 		try
 		{
-			$oClient = \netHttp::initClient($sUrl, $sPath);
-			$oClient->setTimeout(4);
-			$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-			$oClient->useGzip(false);
-			$oClient->setPersistReferers(false);
-			$oClient->setOutput($sDest);
-			$oClient->get($sPath);
+			$client = new Client();
 
-			if ($oClient->getStatus() != 200)
-			{
+			$request = $client->get($sUrl, array(), array(
+				'save_to' => $sDest
+			));
+
+			$response = $request->send();
+
+			if (!$response->isSuccessful()) {
 				@unlink($sDest);
-				throw new Exception();
 			}
 		}
 		catch (Exception $e)

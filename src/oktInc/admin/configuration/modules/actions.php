@@ -16,6 +16,7 @@
 
 use Tao\Misc\Utilities as util;
 use Tao\Themes\Collection as ThemesCollection;
+use Guzzle\Http\Client;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -696,12 +697,11 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 
 			try
 			{
-				$client = netHttp::initClient($url,$path);
-				$client->setUserAgent('Okatea');
-				$client->useGzip(false);
-				$client->setPersistReferers(false);
-				$client->setOutput($dest);
-				$client->get($path);
+				$client = new Client();
+
+				$request = $client->get($url, array(), array(
+					'save_to' => $dest
+				));
 			}
 			catch( Exception $e) {
 				throw new Exception(__('An error occurred while downloading the file.'));

@@ -9,6 +9,7 @@
 namespace Tao\Themes;
 
 use Tao\Misc\Utilities as util;
+use Guzzle\Http\Client;
 
 /**
  * Classe de gestion des thèmes.
@@ -560,19 +561,14 @@ class Collection
 		{
 			$repository_url = str_replace('%VERSION%', util::getVersion(),$repository_url);
 
-			$path = '';
-			$oClient = \netHttp::initClient($repository_url,$path);
-			if ($oClient !== false) {
-				$oClient->setTimeout(4);
-				$oClient->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-				$oClient->get($path);
+			$client = new Client();
+			$response = $client->get($repository_url)->send();
 
-				if ($oClient->getStatus() == '200') {
-					return $this->readRepositoryInfos($oClient->getContent());
-				}
-				else {
-					return false;
-				}
+			if ($response->isSuccessful()) {
+				return $this->readRepositoryInfos($response->getBody(true));
+			}
+			else {
+				return false;
 			}
 		}
 		catch (Exception $e) {
