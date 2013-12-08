@@ -8,6 +8,7 @@
 use Tao\Utils as util;
 use Tao\Core\Controller;
 use Tao\Misc\Mailer;
+use Tao\Website\Pager;
 
 class guestbookController extends Controller
 {
@@ -104,7 +105,7 @@ class guestbookController extends Controller
 
 		# initialisation de la pagination
 		$iPage = !empty($_GET['page']) ? intval($_GET['page']) : 1;
-		$oGuestbookPager = new publicPager($iPage, $this->okt->guestbook->getSig($aGuestbookParams,true), $this->okt->guestbook->config->nbparpage_public);
+		$oGuestbookPager = new Pager($iPage, $this->okt->guestbook->getSig($aGuestbookParams,true), $this->okt->guestbook->config->nbparpage_public);
 
 		$iNumPages = $oGuestbookPager->getNbPages();
 

@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Website\Pager;
 
 class faqController extends Controller
 {
@@ -43,7 +44,7 @@ class faqController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredQuestions = $this->okt->faq->getQuestions($aFaqParams,true);
 
-		$oFaqPager = new publicPager($this->okt->faq->filters->params->page, $iNumFilteredQuestions, $this->okt->faq->filters->params->nb_per_page);
+		$oFaqPager = new Pager($this->okt->faq->filters->params->page, $iNumFilteredQuestions, $this->okt->faq->filters->params->nb_per_page);
 
 		$iNumPages = $oFaqPager->getNbPages();
 

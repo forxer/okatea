@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Website\Pager;
 
 class pagesController extends Controller
 {
@@ -55,7 +56,7 @@ class pagesController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->pages->getPagesCount($aPagesParams);
 
-		$oPagesPager = new publicPager($this->okt->pages->filters->params->page, $iNumFilteredPages, $this->okt->pages->filters->params->nb_per_page);
+		$oPagesPager = new Pager($this->okt->pages->filters->params->page, $iNumFilteredPages, $this->okt->pages->filters->params->nb_per_page);
 
 		$iNumPages = $oPagesPager->getNbPages();
 
@@ -207,7 +208,7 @@ class pagesController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->pages->getPagesCount($aPagesParams);
 
-		$oPagesPager = new publicPager($this->okt->pages->filters->params->page, $iNumFilteredPages, $this->okt->pages->filters->params->nb_per_page);
+		$oPagesPager = new Pager($this->okt->pages->filters->params->page, $iNumFilteredPages, $this->okt->pages->filters->params->nb_per_page);
 
 		$iNumPages = $oPagesPager->getNbPages();
 

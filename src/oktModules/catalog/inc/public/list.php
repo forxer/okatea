@@ -6,6 +6,7 @@
  */
 
 use Tao\Utils as util;
+use Tao\Website\Pager;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';
@@ -87,7 +88,7 @@ $okt->catalog->filters->getFilters();
 # initialisation de la pagination
 $num_filtered_products = $okt->catalog->getProds($aProductsParams,true);
 
-$oProductsPager = new publicPager($okt->catalog->filters->params->page, $num_filtered_products, $okt->catalog->filters->params->nb_per_page);
+$oProductsPager = new Pager($okt->catalog->filters->params->page, $num_filtered_products, $okt->catalog->filters->params->nb_per_page);
 
 $iNumPages = $oProductsPager->getNbPages();
 

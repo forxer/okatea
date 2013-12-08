@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Website\Pager;
 
 class catalogController extends Controller
 {
@@ -43,7 +44,7 @@ class catalogController extends Controller
 		# initialisation de la pagination
 		$num_filtered_products = $this->okt->catalog->getProds($aProductsParams,true);
 
-		$oProductsPager = new publicPager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
+		$oProductsPager = new Pager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
 
 		$iNumPages = $oProductsPager->getNbPages();
 
@@ -178,7 +179,7 @@ class catalogController extends Controller
 		# initialisation de la pagination
 		$num_filtered_products = $this->okt->catalog->getProds($aProductsParams,true);
 
-		$oProductsPager = new publicPager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
+		$oProductsPager = new Pager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
 
 		$iNumPages = $oProductsPager->getNbPages();
 

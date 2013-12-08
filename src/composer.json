@@ -41,8 +41,7 @@
 			"vendor/dotclear/clearbricks/net",
 			"vendor/dotclear/clearbricks/net.http",
 			"vendor/dotclear/clearbricks/rest",
-			"vendor/dotclear/clearbricks/zip",
-			"oktInc/public/libs"
+			"vendor/dotclear/clearbricks/zip"
 		],
 		"files": ["oktInc/functions.php"]
 	}

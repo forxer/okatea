@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Tao\Website;
+
 use Tao\Html\Page as BasePage;
 use Tao\Core\Controller;
 
@@ -15,7 +17,7 @@ use Tao\Core\Controller;
  * @addtogroup Okatea
  *
  */
-class publicPage extends BasePage
+class Page extends BasePage
 {
 	/**
 	 * Constructeur.

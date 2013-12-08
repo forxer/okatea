@@ -7,6 +7,7 @@
 
 use Tao\Utils as util;
 use Tao\Core\Controller;
+use Tao\Website\Pager;
 
 class newsController extends Controller
 {
@@ -58,7 +59,7 @@ class newsController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->news->getPostsCount($aNewsParams);
 
-		$oNewsPager = new publicPager($this->okt->news->filters->params->page, $iNumFilteredPosts, $this->okt->news->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt->news->filters->params->page, $iNumFilteredPosts, $this->okt->news->filters->params->nb_per_page);
 
 		$iNumPages = $oNewsPager->getNbPages();
 
@@ -216,7 +217,7 @@ class newsController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->news->getPostsCount($aNewsParams);
 
-		$oNewsPager = new publicPager($this->okt->news->filters->params->page, $iNumFilteredPosts, $this->okt->news->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt->news->filters->params->page, $iNumFilteredPosts, $this->okt->news->filters->params->nb_per_page);
 
 		$iNumPages = $oNewsPager->getNbPages();
 

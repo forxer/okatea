@@ -6,7 +6,9 @@
  * file that was distributed with this source code.
  */
 
-use Tao\Misc\Pager;
+namespace Tao\Website;
+
+use Tao\Misc\Pager as BasePager;
 
 /**
  * Extension de la classe pager pour le coté publique.
@@ -14,7 +16,7 @@ use Tao\Misc\Pager;
  * @addtogroup Okatea
  *
  */
-class publicPager extends Pager
+class Pager extends BasePager
 {
 	public $html_item		= '<li>%s</li>';
 	public $html_cur_page	= '<li class="active">%s</li>';

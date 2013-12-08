@@ -15,6 +15,7 @@
  */
 
 use Tao\Utils as util;
+use Tao\Website\Page;
 use Tao\Navigation\Breadcrumb;
 use Tao\Routing\Route;
 use Tao\Misc\PublicAdminBar;
@@ -24,7 +25,7 @@ require_once __DIR__.'/../prepend.php';
 
 
 # Initialisation des pages publiques
-$okt->page = new publicPage($okt);
+$okt->page = new Page($okt);
 
 $okt->page->breadcrumb = new Breadcrumb();
 $okt->page->breadcrumb->add(__('c_c_Home'), $okt->page->getBaseUrl());
