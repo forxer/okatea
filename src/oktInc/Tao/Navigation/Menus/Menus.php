@@ -8,7 +8,7 @@
 
 namespace Tao\Navigation\Menus;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Le gestionnnaire de menus de navigation.

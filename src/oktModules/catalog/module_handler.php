@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Admin\Menu as AdminMenu;

@@ -17,7 +17,7 @@
 if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 use Tao\Admin\Page;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
 

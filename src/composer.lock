@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2490cb5a08af16d289553f732614f429",
+    "hash": "f242eea6c4e2e8f510765a7a17fc1bf7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -531,12 +531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "85ad014f743dae28ad1c3d2535419ff2225ad960"
+                "reference": "51a08fad85be42abf1db08f5e646118762a16a2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/85ad014f743dae28ad1c3d2535419ff2225ad960",
-                "reference": "85ad014f743dae28ad1c3d2535419ff2225ad960",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/51a08fad85be42abf1db08f5e646118762a16a2f",
+                "reference": "51a08fad85be42abf1db08f5e646118762a16a2f",
                 "shasum": ""
             },
             "type": "library",
@@ -562,7 +562,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2013-12-05 23:43:55"
+            "time": "2013-12-07 15:21:36"
         },
         {
             "name": "ezyang/htmlpurifier",

@@ -14,7 +14,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 
 # Accès direct interdit

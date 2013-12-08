@@ -14,7 +14,7 @@ use Tao\Html\CheckList;
 use Tao\Themes\Collection as ThemesCollection;
 use Tao\Diff\Engine as DiffEngine;
 use Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Installation d'un module Okatea.

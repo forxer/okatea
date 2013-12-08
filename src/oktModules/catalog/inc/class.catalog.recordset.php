@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Database\Recordset;
 
 class catalogRecordset extends Recordset

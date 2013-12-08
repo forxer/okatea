@@ -6,13 +6,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao;
+namespace Tao\Misc;
 
 /**
  * Utilitaires divers et variés...
  *
  */
-class Utils
+class Utilities
 {
 	/*
 	 * Utilitaires sur les fichiers

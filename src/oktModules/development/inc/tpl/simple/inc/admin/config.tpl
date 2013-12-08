@@ -2,7 +2,7 @@
 ##header##
 
 use Tao\Admin\Page;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 # Accès direct interdit
 if (!defined('ON_##module_upper_id##_MODULE')) die;

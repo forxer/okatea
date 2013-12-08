@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
 
 class diaryController extends Controller

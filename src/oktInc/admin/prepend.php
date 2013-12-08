@@ -14,7 +14,7 @@
 
 use Tao\Admin\Page;
 use Tao\Admin\Menu as AdminMenu;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Core\LogAdmin;
 
 

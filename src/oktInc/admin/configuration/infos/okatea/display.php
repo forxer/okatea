@@ -14,7 +14,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Html\CheckList;
 
 # Accès direct interdit

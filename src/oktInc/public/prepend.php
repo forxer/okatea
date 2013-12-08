@@ -14,7 +14,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Website\Page;
 use Tao\Navigation\Breadcrumb;
 use Tao\Routing\Route;

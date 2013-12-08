@@ -8,7 +8,7 @@
 
 namespace Tao\Misc;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Outil pour l'upload de fichier.

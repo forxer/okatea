@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\TemplatesSet;
 use Tao\Images\ImageUploadConfig;

@@ -8,7 +8,7 @@
 
 namespace Tao\Misc;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
 use Tao\Core\Update as Updater;
 

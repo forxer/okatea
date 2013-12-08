@@ -1,6 +1,6 @@
 
 <?php
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Forms\StaticFormElements as form;
 ?>
 

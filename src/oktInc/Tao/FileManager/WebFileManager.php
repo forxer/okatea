@@ -14,7 +14,7 @@ namespace Tao\FileManager;
 
 use Tao\FileManager\Filemanager;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Un gestionnaire de fichiers en ligne.

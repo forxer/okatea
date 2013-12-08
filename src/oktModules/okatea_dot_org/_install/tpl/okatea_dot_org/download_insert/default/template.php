@@ -1,5 +1,5 @@
 
-<?php use Tao\Utils as util; ?>
+<?php use Tao\Misc\Utilities as util; ?>
 
 
 <?php # début Okatea : récupération des infos de dernières versions

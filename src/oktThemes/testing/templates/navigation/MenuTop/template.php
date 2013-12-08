@@ -1,5 +1,5 @@
 
-<?php use Tao\Utils as util; ?>
+<?php use Tao\Misc\Utilities as util; ?>
 
 <ul id="menu_top">
 <?php while ($rsItems->fetch()) : ?>

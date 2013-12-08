@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
 use Tao\Core\Controller;
 use Tao\Misc\Mailer;

@@ -19,7 +19,7 @@ use Tao\Core\Authentification;
 use Tao\Core\Languages;
 use Tao\Navigation\Menus\Menus;
 use Tao\Modules\Collection as ModulesCollection;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;

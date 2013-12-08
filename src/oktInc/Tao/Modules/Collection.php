@@ -8,7 +8,7 @@
 
 namespace Tao\Modules;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Gestion des modules Okatea.

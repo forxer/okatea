@@ -8,7 +8,7 @@
 
 namespace Tao\Themes;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Classe de gestion des thèmes.

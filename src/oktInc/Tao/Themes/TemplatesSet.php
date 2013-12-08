@@ -9,7 +9,7 @@
 namespace Tao\Themes;
 
 use Tao\Forms\StaticFormElements as form;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Classe de gestion de jeux de templates

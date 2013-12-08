@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Website\Pager;
 
 # inclusion du preprend public général

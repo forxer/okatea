@@ -8,7 +8,7 @@
 
 namespace Tao\Core;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Misc\Mailer;
 
 /**

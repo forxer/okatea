@@ -12,7 +12,7 @@
 
 namespace Tao\Misc;
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * @class iniFile

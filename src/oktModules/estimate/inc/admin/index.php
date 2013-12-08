@@ -7,7 +7,7 @@
 
 use Tao\Admin\Page;
 use Tao\Admin\Pager;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 use Tao\Forms\StaticFormElements as form;
 
 # Accès direct interdit

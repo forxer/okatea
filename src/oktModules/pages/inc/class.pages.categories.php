@@ -6,7 +6,7 @@
  */
 
 use Tao\Misc\NestedTreei18n;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 class pagesCategories extends NestedTreei18n
 {

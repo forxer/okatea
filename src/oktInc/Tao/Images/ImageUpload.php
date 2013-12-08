@@ -9,7 +9,7 @@
 namespace Tao\Images;
 
 use Tao\Images\PHPThumb\GD as thumbnailer;
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 /**
  * Outil pour l'upload des images.

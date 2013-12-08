@@ -6,7 +6,7 @@
  *
  */
 
-use Tao\Utils as util;
+use Tao\Misc\Utilities as util;
 
 class oktModuleBootstrap
 {

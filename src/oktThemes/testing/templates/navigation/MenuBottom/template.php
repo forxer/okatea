@@ -1,5 +1,5 @@
 
-<?php use Tao\Utils as util; ?>
+<?php use Tao\Misc\Utilities as util; ?>
 
 <ul class="block_various_links">
 <?php while ($rsItems->fetch()) : ?>
