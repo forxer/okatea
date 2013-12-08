@@ -14,7 +14,7 @@ namespace Tao\Core;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-use Guzzle\Http\Client;
+use Tao\Core\HttpClient;
 
 /**
  * Mise à jour automatisée d'Okatea
@@ -124,7 +124,7 @@ class Update
 		# Try to get latest version number
 		try
 		{
-			$client = new Client();
+			$client = new HttpClient();
 			$response = $client->get($this->sUrl)->send();
 
 			if ($response->isSuccessful()) {
@@ -243,7 +243,7 @@ class Update
 
 		try
 		{
-			$client = new Client();
+			$client = new HttpClient();
 
 			$request = $client->get($sUrl, array(), array(
 				'save_to' => $sDest

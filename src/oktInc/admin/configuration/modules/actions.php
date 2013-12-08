@@ -16,7 +16,7 @@
 
 use Tao\Misc\Utilities as util;
 use Tao\Themes\Collection as ThemesCollection;
-use Guzzle\Http\Client;
+use Tao\Core\HttpClient;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;
@@ -697,7 +697,7 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 
 			try
 			{
-				$client = new Client();
+				$client = new HttpClient();
 
 				$request = $client->get($url, array(), array(
 					'save_to' => $dest

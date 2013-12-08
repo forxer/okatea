@@ -8,7 +8,7 @@
  */
 
 use Tao\Modules\Collection as ModulesCollection;
-use Guzzle\Http\Client;
+use Tao\Core\HttpClient;
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
@@ -106,7 +106,7 @@ else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config-
 
 		try
 		{
-			$client = new Client();
+			$client = Client('', array('request.options' => array('exceptions' => false)));
 
 			$request = $client->get($url, array(), array(
 				'save_to' => $dest

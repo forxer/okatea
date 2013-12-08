@@ -11,7 +11,7 @@ if (!defined('OKT_INSTAL_PROCESS')) die;
 
 use Tao\Admin\Page;
 use Tao\Themes\Collection as ThemesCollection;
-use Guzzle\Http\Client;
+use Tao\Core\HttpClient;
 
 
 /* Initialisations
@@ -84,7 +84,7 @@ else if ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config-
 
 		try
 		{
-			$client = new Client();
+			$client = new HttpClient();
 
 			$request = $client->get($url, array(), array(
 				'save_to' => $dest
