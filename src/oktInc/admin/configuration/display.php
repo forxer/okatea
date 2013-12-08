@@ -6,7 +6,6 @@
  * file that was distributed with this source code.
  */
 
-
 /**
  * La page de configuration de l'affichage
  *
@@ -14,23 +13,20 @@
  *
  */
 
+# Accès direct interdit
+if (!defined('ON_CONFIGURATION_MODULE')) die;
+
 use Tao\Admin\Page;
 use Tao\Utils as util;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
-use Tao\Html\Page;
-
-
-# Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
-
-
-# locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 
 
 /* Initialisations
 ----------------------------------------------------------*/
+
+# locales
+l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 
 $aUiThemes = Page::getUiThemes();
 $aThemes = array_flip(ThemesCollection::getThemes());

@@ -29,7 +29,7 @@ class PublicAdminBar
 		$this->okt = $okt;
 
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
-			array('oktPublicAdminBar', 'displayPublicAdminBar'));
+			'Tao\Misc\PublicAdminBar::displayPublicAdminBar');
 
 		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin-bar.css');
 		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js/admin-bar.js');
@@ -37,9 +37,9 @@ class PublicAdminBar
 
 	public static function displayPublicAdminBar($okt)
 	{
-		$aBasesUrl = new ArrayObject;
-		$aPrimaryAdminBar = new ArrayObject;
-		$aSecondaryAdminBar = new ArrayObject;
+		$aBasesUrl = new \ArrayObject;
+		$aPrimaryAdminBar = new \ArrayObject;
+		$aSecondaryAdminBar = new \ArrayObject;
 
 		$aBasesUrl['admin'] = $okt->config->app_path.OKT_ADMIN_DIR;
 		$aBasesUrl['logout'] = $aBasesUrl['admin'].'/index.php?logout=1';
