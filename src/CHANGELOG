@@ -10,7 +10,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-2.0-rc2
+2.0-beta2
 # Tao is now the Okatea core namespace so old oktInc/classes
 where moved to oktInc/Tao and follow psr-0
 # remove oktCore::redirect
@@ -20,7 +20,7 @@ where moved to oktInc/Tao and follow psr-0
 . replace Clearbricks netHttp by Guzzle
 
 
-2.0-rc1
+2.0-beta1
 # introduce composer components
 	# remove oktInc/vendor
 	! doctrine/dbal 2.5.*@dev
