@@ -549,7 +549,7 @@ class Utilities
 	 */
 	public static function strToLowerURL($str,$with_slashes=true)
 	{
-		return strtolower(text::str2URL($str,$with_slashes));
+		return strtolower(\text::str2URL($str,$with_slashes));
 	}
 
 	/**
@@ -604,7 +604,7 @@ class Utilities
 		switch ($GLOBALS['okt']->config->slug_type)
 		{
 			case 'utf8':
-				return text::tidyURL($str, $with_slashes);
+				return \text::tidyURL($str, $with_slashes);
 
 			case 'ascii':
 			default:

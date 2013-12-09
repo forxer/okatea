@@ -5,9 +5,10 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Database\MySqli;
+use Tao\Misc\Utilities as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -317,7 +318,7 @@ class module_guestbook extends Module
 			(is_null($data['url']) ? 'NULL' : '\''.$this->db->escapeStr($data['url']).'\'').', '.
 			(is_null($data['note']) ? 'NULL' : (integer)$data['note']).', '.
 			(is_null($data['ip']) ? 'NULL' : '\''.$this->db->escapeStr($data['ip']).'\'').', '.
-			(empty($data['date']) ? 'NOW()' : '\''.$this->db->escapeStr(mysql::formatDateTime($data['date'])).'\'').', '.
+			(empty($data['date']) ? 'NOW()' : '\''.$this->db->escapeStr(MySqli::formatDateTime($data['date'])).'\'').', '.
 			(integer)$data['visible'].', '.
 			(is_null($data['is_spam']['spam_status']) ? 'NULL' : '\''.$this->db->escapeStr($data['is_spam']['spam_status']).'\'').', '.
 			(is_null($data['is_spam']['spam_filter']) ? 'NULL' : '\''.$this->db->escapeStr($data['is_spam']['spam_filter']).'\'').' '.

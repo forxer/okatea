@@ -5,11 +5,12 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
 use Tao\Misc\FileUpload;
+use Tao\Misc\Utilities as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -354,10 +355,10 @@ class module_diary extends Module
 		$oCursor->created_at = $date;
 		$oCursor->updated_at = $date;
 
-		$oCursor->date = mysql::formatDateTime($oCursor->date);
+		$oCursor->date = MySqli::formatDateTime($oCursor->date);
 
 		if ($oCursor->date_end != '') {
-			$oCursor->date_end = mysql::formatDateTime($oCursor->date_end);
+			$oCursor->date_end = MySqli::formatDateTime($oCursor->date_end);
 		}
 		else {
 			$oCursor->date_end = null;
@@ -411,10 +412,10 @@ class module_diary extends Module
 
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 
-		$oCursor->date = mysql::formatDateTime($oCursor->date);
+		$oCursor->date = MySqli::formatDateTime($oCursor->date);
 
 		if ($oCursor->date_end != '') {
-			$oCursor->date_end = mysql::formatDateTime($oCursor->date_end);
+			$oCursor->date_end = MySqli::formatDateTime($oCursor->date_end);
 		}
 		else {
 			$oCursor->date_end = null;

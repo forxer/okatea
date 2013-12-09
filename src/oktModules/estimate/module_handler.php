@@ -5,8 +5,9 @@
  *
  */
 
-use Tao\Admin\Page;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Database\MySqli;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -341,8 +342,8 @@ class module_estimate extends Module
 			'status, start_at, end_at, user_id, content, created_at, updated_at '.
 		') VALUES ( '.
 			(integer)$aData['status'].', '.
-			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['start_date'])).'\', '.
-			'\''.$this->db->escapeStr(oktMysqli::formatDateTime($aData['end_date'])).'\', '.
+			'\''.$this->db->escapeStr(MySqli::formatDateTime($aData['start_date'])).'\', '.
+			'\''.$this->db->escapeStr(MySqli::formatDateTime($aData['end_date'])).'\', '.
 			'0, '.
 			'\''.$this->db->escapeStr(serialize($aData)).'\', '.
 			'\''.$this->db->escapeStr($sDateTime).'\', '.

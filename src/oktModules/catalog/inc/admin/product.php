@@ -6,8 +6,9 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Database\MySqli;
 use Tao\Forms\StaticFormElements as form;
+use Tao\Misc\Utilities as util;
 
 
 # Accès direct interdit
@@ -160,16 +161,16 @@ if (!empty($_POST['sended']))
 
 		# statut du product
 		'promo' => (!empty($_POST['p_promo']) ? intval($_POST['p_promo']) : null),
-		'promo_start' => (!empty($_POST['p_promo_start']) ? mysql::formatDateTime($_POST['p_promo_start']) : null),
-		'promo_end' => (!empty($_POST['p_promo_end']) ? mysql::formatDateTime($_POST['p_promo_end']) : null),
+		'promo_start' => (!empty($_POST['p_promo_start']) ? MySqli::formatDateTime($_POST['p_promo_start']) : null),
+		'promo_end' => (!empty($_POST['p_promo_end']) ? MySqli::formatDateTime($_POST['p_promo_end']) : null),
 
 		'nouvo' => (!empty($_POST['p_nouvo']) ? intval($_POST['p_nouvo']) : null),
-		'nouvo_start' => (!empty($_POST['p_nouvo_start']) ? mysql::formatDateTime($_POST['p_nouvo_start']) : null),
-		'nouvo_end' => (!empty($_POST['p_nouvo_end']) ? mysql::formatDateTime($_POST['p_nouvo_end']) : null),
+		'nouvo_start' => (!empty($_POST['p_nouvo_start']) ? MySqli::formatDateTime($_POST['p_nouvo_start']) : null),
+		'nouvo_end' => (!empty($_POST['p_nouvo_end']) ? MySqli::formatDateTime($_POST['p_nouvo_end']) : null),
 
 		'favo' => (!empty($_POST['p_favo']) ? intval($_POST['p_favo']) : null),
-		'favo_start' => (!empty($_POST['p_favo_start']) ? mysql::formatDateTime($_POST['p_favo_start']) : null),
-		'favo_end' => (!empty($_POST['p_favo_end']) ? mysql::formatDateTime($_POST['p_favo_end']) : null)
+		'favo_start' => (!empty($_POST['p_favo_start']) ? MySqli::formatDateTime($_POST['p_favo_start']) : null),
+		'favo_end' => (!empty($_POST['p_favo_end']) ? MySqli::formatDateTime($_POST['p_favo_end']) : null)
 	);
 
 	if ($okt->catalog->config->seo_enable)

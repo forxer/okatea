@@ -5,16 +5,17 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
-use Tao\Core\Authentification;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Core\Authentification;
+use Tao\Core\Triggers;
+use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
+use Tao\Misc\Utilities as util;
 use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Themes\SimpleReplacements;
-use Tao\Core\Triggers;
 
 class module_news extends Module
 {
@@ -886,7 +887,7 @@ class module_news extends Module
 			$oCursor->created_at = $sDate;
 		}
 
-		$oCursor->created_at = mysql::formatDateTime($oCursor->created_at);
+		$oCursor->created_at = MySqli::formatDateTime($oCursor->created_at);
 		$oCursor->updated_at = $sDate;
 
 		if (strtotime($oCursor->created_at) > time()) {

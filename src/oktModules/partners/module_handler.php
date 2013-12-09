@@ -5,12 +5,13 @@
  *
  */
 
-use Tao\Admin\Page;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
-use Tao\Routing\Route;
-use Tao\Modules\Module;
 use Tao\Misc\NestedTree;
+use Tao\Modules\Module;
+use Tao\Routing\Route;
 
 class module_partners extends Module
 {
@@ -408,7 +409,7 @@ class module_partners extends Module
 		}
 
 		# ajout du partenaire
-		$this->params['date'] = !empty($this->params['date']) ? '\''.mysql::formatDateTime($this->params['date']).'\'' : 'NOW()';
+		$this->params['date'] = !empty($this->params['date']) ? '\''.MySqli::formatDateTime($this->params['date']).'\'' : 'NOW()';
 		$query =
 		'INSERT INTO '.$this->t_partners.' ( '.
 			'active, category_id, name, created_at, updated_at, ord '.
@@ -475,7 +476,7 @@ class module_partners extends Module
 			'active='.(integer)$this->params['active'].', '.
 			'category_id='.(is_null($this->params['category_id']) ? 'NULL,' : (integer)$this->params['category_id'].', ').
 			'name='.'\''.$this->db->escapeStr($this->params['name']).'\', '.
-			(!empty($this->params['date']) ? 'created_at=\''.mysql::formatDateTime($this->params['date']).'\', ' : '').
+			(!empty($this->params['date']) ? 'created_at=\''.MySqli::formatDateTime($this->params['date']).'\', ' : '').
 			'updated_at=NOW() '.
 		'WHERE id='.(integer)$this->params['id'];
 

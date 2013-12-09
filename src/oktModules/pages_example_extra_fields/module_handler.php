@@ -5,6 +5,7 @@
  *
  */
 
+use Tao\Database\MySqli;
 use Tao\Forms\StaticFormElements as form;
 use Tao\Modules\Module;
 
@@ -105,7 +106,7 @@ class module_pages_example_extra_fields extends Module
 		$aPageData['post']['checkbox'] = !empty($_POST['p_checkbox']) ? 1 : 0;
 
 		# récupération du champ "date"
-		$aPageData['post']['date'] = !empty($_POST['p_date']) ? mysql::formatDateTime($_POST['p_date']) : null;
+		$aPageData['post']['date'] = !empty($_POST['p_date']) ? MySqli::formatDateTime($_POST['p_date']) : null;
 
 		# récupération du champ "required"
 		$aPageData['post']['required'] = !empty($_POST['p_required']) ? $_POST['p_required'] : null;
