@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,7 +36,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 	<div id="question-header">
 
 		<?php # début Okatea : affichage du titre de la question ?>
-		<h2 id="question-title"><?php echo html::escapeHTML($faqQuestion->title) ?></h2>
+		<h2 id="question-title"><?php echo $view->escape($faqQuestion->title) ?></h2>
 		<?php # fin Okatea : affichage du titre ?>
 
 	</div><!-- #question-header -->
@@ -56,10 +54,10 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 				if ($i == 1 && isset($image['min_url'])) : ?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php printf(__('m_faq_%s_image_%s'), util::escapeAttrHTML($faqQuestion->title), $i) ?>"
+				title="<?php printf(__('m_faq_%s_image_%s'), $view->escapeHtmlAttr($faqQuestion->title), $i) ?>"
 				class="modal center" rel="questions-images"><img src="<?php echo $image['min_url'] ?>"
 				<?php echo $image['min_attr'] ?>
-				alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $faqQuestion->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $faqQuestion->title)) ?>" /></a>
 
 				<br />
 
@@ -67,10 +65,10 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 				elseif (isset($image['square_url'])) : ?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php printf(__('m_faq_%s_image_%s'), util::escapeAttrHTML($faqQuestion->title), $i) ?>"
+				title="<?php printf(__('m_faq_%s_image_%s'), $view->escapeHtmlAttr($faqQuestion->title), $i) ?>"
 				class="modal" rel="questions-images"><img src="<?php echo $image['square_url'] ?>"
 				<?php echo $image['square_attr'] ?>
-				alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $faqQuestion->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $faqQuestion->title)) ?>" /></a>
 
 				<?php endif; ?>
 
@@ -99,7 +97,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 
 			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo $file['filename'] ?>" /></a>
 			<?php echo $file['type'] ?> (<?php echo $file['mime'] ?>)
-			- <?php echo util::l10nFileSize($file['size']) ?></p>
+			- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 			<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

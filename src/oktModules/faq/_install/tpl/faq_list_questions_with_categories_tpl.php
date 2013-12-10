@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -64,14 +62,14 @@ if ($okt->faq->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo html::escapeHTML($okt->faq->config->url) ?>" method="get" id="<?php echo $okt->faq->filters->getFilterFormId() ?>" class="filters-form">
+	<form action="<?php echo $view->escape($okt->faq->config->url) ?>" method="get" id="<?php echo $okt->faq->filters->getFilterFormId() ?>" class="filters-form">
 		<fieldset>
 		<legend><?php _e('m_faq_display_filters') ?></legend>
 
 		<?php echo $okt->faq->filters->getFiltersFields(); ?>
 
 		<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->faq->filters->getFilterSubmitName() ?>" />
-		<a href="<?php echo html::escapeHTML($okt->faq->config->url) ?>?language=<?php echo $okt->user->language; ?>&amp;init_filters=1" rel="nofollow" class="italic"><?php _e('m_faq_display_filters_init') ?></a></p>
+		<a href="<?php echo $view->escape($okt->faq->config->url) ?>?language=<?php echo $okt->user->language; ?>&amp;init_filters=1" rel="nofollow" class="italic"><?php _e('m_faq_display_filters_init') ?></a></p>
 
 		</fieldset>
 	</form>
@@ -100,12 +98,12 @@ else : ?>
 
 		<?php # début Okatea : affichage de la catégorie
 		if ($iCurrentCatId != $faqList->cat_id) : ?>
-		<h2><?php echo html::escapeHTML($faqList->category) ?></h2>
+		<h2><?php echo $view->escape($faqList->category) ?></h2>
 		<?php endif; # fin Okatea : affichage de la catégorie ?>
 
 
 		<?php # début Okatea : affichage de la question ?>
-		<h3 class="question-title"><a href="<?php echo html::escapeHTML($faqList->url) ?>"><?php echo html::escapeHTML($faqList->title) ?></a></h3>
+		<h3 class="question-title"><a href="<?php echo $view->escape($faqList->url) ?>"><?php echo $view->escape($faqList->title) ?></a></h3>
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage de la réponse ?>
@@ -128,10 +126,10 @@ else : ?>
 
 			<div class="modal-box">
 				<a href="<?php echo $question_image['img_url']?>"
-				title="<?php echo util::escapeAttrHTML($faqList->title) ?>"
+				title="<?php echo $view->escapeHtmlAttr($faqList->title) ?>"
 				class="modal"><img src="<?php echo $question_image['square_url']?>"
 				<?php echo $question_image['square_attr']?>
-				alt="<?php echo util::escapeAttrHTML((isset($question_image['alt']) ? $question_image['alt'] : $faqList->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($question_image['alt']) ? $question_image['alt'] : $faqList->title)) ?>" /></a>
 			</div>
 			<?php endif; # fin Okatea : affichage image ?>
 
@@ -139,8 +137,8 @@ else : ?>
 			<?php # début Okatea : affichage réponse tronqué
 			if ($okt->faq->config->public_truncat_char > 0) : ?>
 
-			<p><?php echo $faqList->content ?>… <a href="<?php echo html::escapeHTML($faqList->url) ?>"
-			title="<?php echo util::escapeAttrHTML(sprintf(__('m_faq_read_more_of_%s'), $faqList->title)) ?>" rel="nofollow"><?php _e('m_faq_read_more') ?></a></p>
+			<p><?php echo $faqList->content ?>… <a href="<?php echo $view->escape($faqList->url) ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_faq_read_more_of_%s'), $faqList->title)) ?>" rel="nofollow"><?php _e('m_faq_read_more') ?></a></p>
 
 			<?php endif; # fin Okatea : affichage texte tronqué ?>
 

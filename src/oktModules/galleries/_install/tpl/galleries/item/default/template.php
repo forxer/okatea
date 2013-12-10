@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -29,13 +27,13 @@ $okt->page->js->addReady('
 # fin Okatea : ajout du JS de scrollToTopOfPage ?>
 
 
-<p class="goBack"><a href="<?php echo html::escapeHTML($rsItem->getGalleryUrl()) ?>">Retour</a></p>
+<p class="goBack"><a href="<?php echo $view->escape($rsItem->getGalleryUrl()) ?>">Retour</a></p>
 
 
 <div id="item">
 
 	<?php # début Okatea : affichage du titre ?>
-	<!-- <h1 class="item-title"><?php echo html::escapeHTML($rsItem->title) ?></h1> -->
+	<!-- <h1 class="item-title"><?php echo $view->escape($rsItem->title) ?></h1> -->
 	<?php # fin Okatea : affichage du titre ?>
 
 	<?php # début Okatea : affichage image
@@ -44,7 +42,7 @@ $okt->page->js->addReady('
 	<p>
 		<img src="<?php echo $rsItem->image['img_url'] ?>"
 		<?php echo $rsItem->image['img_attr']?>
-		alt="<?php echo util::escapeAttrHTML((isset($rsItem->image['alt']) && isset($rsItem->image['alt'][$okt->user->language]) ? $rsItem->image['alt'][$okt->user->language] : $rsItem->title)) ?>" />
+		alt="<?php echo $view->escapeHtmlAttr((isset($rsItem->image['alt']) && isset($rsItem->image['alt'][$okt->user->language]) ? $rsItem->image['alt'][$okt->user->language] : $rsItem->title)) ?>" />
 	</p>
 
 	<?php endif; # fin Okatea : affichage image ?>

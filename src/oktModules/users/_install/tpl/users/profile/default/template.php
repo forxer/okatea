@@ -84,8 +84,8 @@ if ($okt->users->config->enable_custom_fields) : ?>
 <div id="user-infos">
 	<div class="two-cols">
 	<?php while ($rsAdminFields->fetch()) : ?>
-		<p class="col"><strong><?php echo html::escapeHTML($rsAdminFields->title); ?> : </strong>
-		<em><?php if (isset($aFieldsValues[$rsAdminFields->id])) echo html::escapeHTML($aFieldsValues[$rsAdminFields->id]); ?></em></p>
+		<p class="col"><strong><?php echo $view->escape($rsAdminFields->title); ?> : </strong>
+		<em><?php if (isset($aFieldsValues[$rsAdminFields->id])) echo $view->escape($aFieldsValues[$rsAdminFields->id]); ?></em></p>
 	<?php endwhile; ?>
 	</div>
 </div>
@@ -94,7 +94,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 
 <h2><?php _e('m_users_Update_user_profile') ?></h2>
 
-<form id="edit-user-form" class="userform" action="<?php echo html::escapeHTML(usersHelpers::getProfileUrl()) ?>" method="post">
+<form id="edit-user-form" class="userform" action="<?php echo $view->escape(usersHelpers::getProfileUrl()) ?>" method="post">
 	<fieldset>
 		<legend><?php _e('m_users_Identity') ?></legend>
 
@@ -103,28 +103,28 @@ if ($okt->users->config->enable_custom_fields) : ?>
 		<?php # début Okatea : affichage des champs "username" et "email" fusionnés
 		if ($okt->users->config->merge_username_email) : ?>
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required">Email</label>
-			<?php echo form::text('edit_email', 40, 255, html::escapeHTML($aUserProfilData['email'])) ?></p>
+			<?php echo form::text('edit_email', 40, 255, $view->escape($aUserProfilData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" fusionnés ?>
 
 		<?php # début Okatea : affichage des champs "username" et "email" distincts
 		if (!$okt->users->config->merge_username_email) : ?>
 			<p class="field col"><label for="edit_username" title="<?php _e('c_c_required_field') ?>" class="required">Nom d'utilisateur</label>
-			<?php echo form::text('edit_username', 35, 255, html::escapeHTML($aUserProfilData['username'])) ?></p>
+			<?php echo form::text('edit_username', 35, 255, $view->escape($aUserProfilData['username'])) ?></p>
 
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required">Email</label>
-			<?php echo form::text('edit_email', 35, 255, html::escapeHTML($aUserProfilData['email'])) ?></p>
+			<?php echo form::text('edit_email', 35, 255, $view->escape($aUserProfilData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" distincts ?>
 		</div>
 
 		<div class="three-cols">
 						<p class="field col"><label for="edit_civility"><?php _e('c_c_Civility') ?></label>
-			<?php echo form::select('edit_civility', $aCivilities, html::escapeHTML($aUserProfilData['civility'])) ?></p>
+			<?php echo form::select('edit_civility', $aCivilities, $view->escape($aUserProfilData['civility'])) ?></p>
 
 			<p class="field col"><label for="edit_lastname"><?php _e('c_c_Last_name') ?></label>
-			<?php echo form::text('edit_lastname', 20, 255, html::escapeHTML($aUserProfilData['lastname'])) ?></p>
+			<?php echo form::text('edit_lastname', 20, 255, $view->escape($aUserProfilData['lastname'])) ?></p>
 
 			<p class="field col"><label for="edit_firstname"><?php _e('c_c_First_name') ?></label>
-			<?php echo form::text('edit_firstname', 20, 255, html::escapeHTML($aUserProfilData['firstname'])) ?></p>
+			<?php echo form::text('edit_firstname', 20, 255, $view->escape($aUserProfilData['firstname'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -135,10 +135,10 @@ if ($okt->users->config->enable_custom_fields) : ?>
 		<legend><?php _e('c_a_menu_localization') ?></legend>
 		<div class="two-cols">
 			<p class="field col"><label for="edit_language"><?php _e('c_c_Language') ?></label>
-			<?php echo form::select('edit_language', $aLanguages, html::escapeHTML($aUserProfilData['language'])) ?></p>
+			<?php echo form::select('edit_language', $aLanguages, $view->escape($aUserProfilData['language'])) ?></p>
 
 			<p class="field col"><label for="edit_timezone"><?php _e('c_c_Timezone') ?></label>
-			<?php echo form::select('edit_timezone', $aTimezone, html::escapeHTML($aUserProfilData['timezone'])) ?></p>
+			<?php echo form::select('edit_timezone', $aTimezone, $view->escape($aUserProfilData['timezone'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -159,15 +159,15 @@ if ($okt->users->config->enable_custom_fields) : ?>
 
 <?php if ($okt->checkPerm('change_password')) : ?>
 <h2><?php _e('m_users_Update_paswword') ?></h2>
-<form class="userform" id="change-password-form" action="<?php echo html::escapeHTML(usersHelpers::getProfileUrl()) ?>" method="post">
+<form class="userform" id="change-password-form" action="<?php echo $view->escape(usersHelpers::getProfileUrl()) ?>" method="post">
 	<fieldset>
 		<legend><?php _e('m_users_Update_paswword') ?></legend>
 		<div class="two-cols">
 			<p class="field col"><label for="edit_password"><?php _e('c_c_user_Password') ?></label>
-			<?php echo form::password('edit_password', 35, 255, html::escapeHTML($aUserProfilData['password'])) ?></p>
+			<?php echo form::password('edit_password', 35, 255, $view->escape($aUserProfilData['password'])) ?></p>
 
 			<p class="field col"><label for="edit_password_confirm"><?php _e('c_c_auth_confirm_password') ?></label>
-			<?php echo form::password('edit_password_confirm', 35, 255, html::escapeHTML($aUserProfilData['password_confirm'])) ?></p>
+			<?php echo form::password('edit_password_confirm', 35, 255, $view->escape($aUserProfilData['password_confirm'])) ?></p>
 		</div>
 		<p class="note"><?php _e('m_users_Note_password') ?></p>
 	</fieldset>

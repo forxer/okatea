@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -47,20 +45,20 @@ et les valider ou les modifier si besoin.</p>
 	<div class="col">
 		<h2>Informations vous concernant</h2>
 
-		<p><?php echo html::escapeHTML($aEstimateData['firstname'].' '.$aEstimateData['lastname']) ?></p>
-		<p><?php echo html::escapeHTML($aEstimateData['email']) ?></p>
-		<p><?php echo html::escapeHTML($aEstimateData['phone']) ?></p>
+		<p><?php echo $view->escape($aEstimateData['firstname'].' '.$aEstimateData['lastname']) ?></p>
+		<p><?php echo $view->escape($aEstimateData['email']) ?></p>
+		<p><?php echo $view->escape($aEstimateData['phone']) ?></p>
 	</div>
 	<div class="col">
 		<h2>Dates prévisionnelles</h2>
 
 		<?php if (empty($aEstimateData['end_date']) || $aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
-		<p><?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date']))) ?></p>
+		<p><?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), $view->escape($aEstimateData['start_date']))) ?></p>
 
 		<?php else : ?>
 		<p><?php printf(__('From %s to %s'),
-			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date'])),
-			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['end_date']))
+			dt::dt2str(__('%A, %B %d, %Y'), $view->escape($aEstimateData['start_date'])),
+			dt::dt2str(__('%A, %B %d, %Y'), $view->escape($aEstimateData['end_date']))
 		); ?></p>
 
 		<?php endif; ?>
@@ -76,16 +74,16 @@ et les valider ou les modifier si besoin.</p>
 	<?php foreach ($aEstimateData['products'] as $aProduct) : ?>
 	<div class="product_wrapper">
 		<div class="product_line">
-			<div class="product_title"><?php echo html::escapeHTML($aProduct['title']) ?></div>
-			<div class="product_quantity"><?php echo html::escapeHTML($aProduct['quantity']) ?></div>
+			<div class="product_title"><?php echo $view->escape($aProduct['title']) ?></div>
+			<div class="product_quantity"><?php echo $view->escape($aProduct['quantity']) ?></div>
 		</div>
 
 		<?php if ($okt->estimate->config->enable_accessories && !empty($aProduct['accessories'])) : ?>
 		<div class="accessories_wrapper">
 			<?php foreach ($aProduct['accessories'] as $aAccessory) : ?>
 			<div class="accessory_line">
-				<div class="accessory_title"><?php echo html::escapeHTML($aAccessory['title']) ?></div>
-				<div class="accessory_quantity"><?php echo html::escapeHTML($aAccessory['quantity']) ?></div>
+				<div class="accessory_title"><?php echo $view->escape($aAccessory['title']) ?></div>
+				<div class="accessory_quantity"><?php echo $view->escape($aAccessory['quantity']) ?></div>
 			</div>
 			<?php endforeach; ?>
 		</div>
@@ -96,9 +94,9 @@ et les valider ou les modifier si besoin.</p>
 
 <h2>Commentaire</h2>
 
-	<p><?php echo util::nlToP(html::escapeHTML($aEstimateData['comment'])) ?></p>
+	<p><?php echo Tao\Misc\Utilities::nlToP($view->escape($aEstimateData['comment'])) ?></p>
 
 <p id="buttons">
-	<a href="<?php echo util::escapeAttrHTML($okt->page->getBaseUrl().$okt->estimate->config->public_summary_url[$okt->user->language]) ?>?send=1" id="send_estimate">Valider et envoyer</a>
-	<a href="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>" id="update_estimate">Modifier</a>
+	<a href="<?php echo $view->escapeHtmlAttr($okt->page->getBaseUrl().$okt->estimate->config->public_summary_url[$okt->user->language]) ?>?send=1" id="send_estimate">Valider et envoyer</a>
+	<a href="<?php echo $view->escapeHtmlAttr($okt->estimate->config->url) ?>" id="update_estimate">Modifier</a>
 </p>

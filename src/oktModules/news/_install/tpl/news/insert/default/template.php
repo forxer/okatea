@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->news->getPosts(array(
 	'active' => 1, 		# articles visibles
@@ -40,7 +38,7 @@ if (!$rsInsertPosts->isEmpty()) : ?>
 	<div class="post <?php echo $rsInsertPosts->odd_even ?>">
 
 		<?php # début Okatea : affichage du titre ?>
-		<p class="post-title"><a href="<?php echo $this->escape($rsInsertPosts->url) ?>"><?php echo $this->escape($rsInsertPosts->title) ?></a></p>
+		<p class="post-title"><a href="<?php echo $view->escape($rsInsertPosts->url) ?>"><?php echo $view->escape($rsInsertPosts->title) ?></a></p>
 		<?php # fin Okatea : affichage du titre ?>
 
 
@@ -64,10 +62,10 @@ if (!$rsInsertPosts->isEmpty()) : ?>
 
 			<div class="modal-box">
 				<a href="<?php echo $post_image['img_url']?>"
-				title="<?php echo $this->escapeHtmlAttr($rsInsertPosts->title) ?>"
+				title="<?php echo $view->escapeHtmlAttr($rsInsertPosts->title) ?>"
 				class="modal"><img src="<?php echo $post_image['square_url'] ?>"
 				<?php echo $post_image['square_attr']?>
-				alt="<?php echo $this->escapeHtmlAttr((isset($post_image['alt'][$okt->user->language]) ? $post_image['alt'][$okt->user->language] : $rsInsertPosts->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($post_image['alt'][$okt->user->language]) ? $post_image['alt'][$okt->user->language] : $rsInsertPosts->title)) ?>" /></a>
 			</div>
 			<?php endif; # fin Okatea : affichage image ?>
 
@@ -77,8 +75,8 @@ if (!$rsInsertPosts->isEmpty()) : ?>
 
 			<p><?php echo $rsInsertPosts->content ?>…</p>
 
-			<p class="read-more-link-wrapper"><a href="<?php echo $this->escape($rsInsertPosts->url) ?>"
-			title="<?php echo $this->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsInsertPosts->title)) ?>"
+			<p class="read-more-link-wrapper"><a href="<?php echo $view->escape($rsInsertPosts->url) ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsInsertPosts->title)) ?>"
 			class="read-more-link" rel="nofollow"><?php _e('m_news_read_more') ?></a></p>
 
 			<?php endif; # fin Okatea : affichage texte tronqué ?>

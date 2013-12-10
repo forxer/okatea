@@ -98,16 +98,12 @@ class newsHelpers
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'news' && isset($okt->page->action))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if ($okt->page->action == 'category' && isset($aVars['rsCategory'])) {
-				$iCurrentCat = $aVars['rsCategory']->id;
+			if ($okt->page->action == 'category' && isset($okt->controller->rsCategory)) {
+				$iCurrentCat = $okt->controller->rsCategory->id;
 			}
-			elseif ($okt->page->action == 'item' && isset($aVars['rsPost'])) {
-				$iCurrentCat = $aVars['rsPost']->category_id;
+			elseif ($okt->page->action == 'item' && isset($okt->controller->rsPost)) {
+				$iCurrentCat = $okt->controller->rsPost->category_id;
 			}
-
-			unset($aVars);
 		}
 
 		$rsCategories = $okt->news->categories->getCategories(array(
@@ -176,11 +172,11 @@ class newsHelpers
 
 		# on récupèrent l'éventuel identifiant de l'article en cours
 		$iCurrentPage = null;
-		if (isset($okt->page->module) && $okt->page->module == 'news' && isset($okt->page->action) && $okt->page->action == 'item')
+		if (isset($okt->page->module) && $okt->page->module == 'news'
+			&& isset($okt->page->action) && $okt->page->action == 'item'
+			&& isset($okt->controller->rsPost))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-			$iCurrentPage = $aVars['rsPost']->id;
-			unset($aVars);
+			$iCurrentPage = $okt->controller->rsPost->id;
 		}
 
 		$aParams = array_merge(array(
@@ -233,16 +229,12 @@ class newsHelpers
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'news' && isset($okt->page->action))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if ($okt->page->action == 'category' && isset($aVars['rsCategory'])) {
-				$iCurrentCat = $aVars['rsCategory']->id;
+			if ($okt->page->action == 'category' && isset($okt->controller->rsCategory)) {
+				$iCurrentCat = $okt->controller->rsCategory->id;
 			}
-			elseif ($okt->page->action == 'item' && isset($aVars['rsPost'])) {
-				$iCurrentCat = $aVars['rsPost']->category_id;
+			elseif ($okt->page->action == 'item' && isset($okt->controller->rsPost)) {
+				$iCurrentCat = $okt->controller->rsPost->category_id;
 			}
-
-			unset($aVars);
 		}
 
 		# on récupèrent les sous-catégories

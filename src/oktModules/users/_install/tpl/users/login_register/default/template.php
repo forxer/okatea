@@ -79,12 +79,12 @@ if ($okt->error->notEmpty()) : ?>
 
 <div id="forms-log-reg" class="one-third-two-thirds">
 	<div class="one-third">
-		<form id="login-form" class="userform" action="<?php echo html::escapeHTML($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
+		<form id="login-form" class="userform" action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_login') ?></legend>
 
 				<p class="field"><label for="user_id" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-				<?php echo form::text('user_id', 30, 255, html::escapeHTML($user_id)) ?></p>
+				<?php echo form::text('user_id', 30, 255, $view->escape($user_id)) ?></p>
 
 				<p class="field"><label for="user_pwd" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
 				<?php echo form::password('user_pwd', 30, 255)?></p>
@@ -101,36 +101,36 @@ if ($okt->error->notEmpty()) : ?>
 
 			<?php # début Okatea : lien page mot de passe oublié
 			if ($okt->users->config->enable_forget_password_page) : ?>
-			<p><a href="<?php echo html::escapeHTML(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+			<p><a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
 			_e('c_c_auth_forgot_password') ?></a></p>
 			<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 		</form>
 	</div><!-- .one-third -->
 	<div class="two-thirds">
-		<form id="register-form" class="userform" action="<?php echo html::escapeHTML($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
+		<form id="register-form" class="userform" action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_register') ?></legend>
 				<div class="two-cols">
 					<p class="field col"><label for="add_username" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-					<?php echo form::text('add_username', 30, 255, html::escapeHTML($aUserRegisterData['username'])) ?></p>
+					<?php echo form::text('add_username', 30, 255, $view->escape($aUserRegisterData['username'])) ?></p>
 
 					<p class="field col"><label for="add_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-					<?php echo form::text('add_email', 30, 255, html::escapeHTML($aUserRegisterData['email'])) ?></p>
+					<?php echo form::text('add_email', 30, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 
 					<?php if ($okt->users->config->user_choose_group) : ?>
 					<p class="field col"><label for="add_group_id"><?php _e('c_c_Group') ?></label>
-					<?php echo form::select('add_group_id', $aUsersGroups, html::escapeHTML($aUserRegisterData['group_id'])) ?></p>
+					<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>
 					<?php endif; ?>
 				</div>
 				<div class="two-cols">
 					<p class="field col"><label for="add_password" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
-					<?php echo form::password('add_password', 30, 255, html::escapeHTML($aUserRegisterData['password'])) ?></p>
+					<?php echo form::password('add_password', 30, 255, $view->escape($aUserRegisterData['password'])) ?></p>
 
 					<p class="field col"><label for="add_password_confirm" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_auth_confirm_password') ?></label>
-					<?php echo form::password('add_password_confirm', 30, 255, html::escapeHTML($aUserRegisterData['password_confirm'])) ?></p>
+					<?php echo form::password('add_password_confirm', 30, 255, $view->escape($aUserRegisterData['password_confirm'])) ?></p>
 				</div>
 
-				<p><?php echo form::hidden('redirect',html::escapeHTML($redirect)) ?>
+				<p><?php echo form::hidden('redirect',$view->escape($redirect)) ?>
 				<?php echo form::hidden('add_user',1) ?>
 				<input type="submit" class="submit" value="<?php _e('c_c_auth_register_action') ?>" /></p>
 			</fieldset>

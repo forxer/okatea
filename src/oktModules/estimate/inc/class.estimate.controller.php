@@ -20,12 +20,12 @@ class estimateController extends Controller
 	public function estimateSummary()
 	{
 		# module actuel
-		$this->okt->page->module = 'estimate';
-		$this->okt->page->action = 'summary';
+		$this->page->module = 'estimate';
+		$this->page->action = 'summary';
 
 		# si on as pas de données en session on renvoi sur le formulaire
 		if (empty($_SESSION['okt_mod_estimate_form_data'])) {
-			http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language]);
+			return $this->redirect($this->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language]);
 		}
 
 		# récupération des produits et des accessoires
@@ -118,7 +118,7 @@ class estimateController extends Controller
 					$oMail->message->setTo($aRecipients);
 
 					$oMail->useFile(dirname(__FILE__).'/../locales/'.$this->okt->user->language.'/mails_tpl/admin_notification.tpl', array(
-						'SITE_TITLE' => html::escapeHTML(util::getSiteTitle()),
+						'SITE_TITLE' => html::escapeHTML($this->page->getSiteTitle()),
 						'USER_FIRSTNAME' => $aFormatedData['firstname'],
 						'USER_LASTNAME' => $aFormatedData['lastname'],
 						'ADMIN_ESTIMATE_URL' => html::escapeHTML($sEstimateUrl),
@@ -127,40 +127,40 @@ class estimateController extends Controller
 					$oMail->send();
 				}
 
-				http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language].'?added=1');
+				return $this->redirect($this->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language].'?added=1');
 			}
 		}
 
 
 		# meta description
 		if ($this->okt->estimate->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->estimate->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->estimate->getTitle());
+		$this->page->addTitleTag($this->okt->estimate->getTitle());
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
+			$this->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
 		}
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->estimate->getName());
+		$this->page->setTitle($this->okt->estimate->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->estimate->getNameSeo());
+		$this->page->setTitleSeo($this->okt->estimate->getNameSeo());
 
 		# affichage du template
 		return $this->render('estimate/summary/'.$this->okt->estimate->config->templates['summary']['default'].'/template', array(
@@ -175,8 +175,8 @@ class estimateController extends Controller
 	public function estimateForm()
 	{
 		# module actuel
-		$this->okt->page->module = 'estimate';
-		$this->okt->page->action = 'form';
+		$this->page->module = 'estimate';
+		$this->page->action = 'form';
 
 		# -- CORE TRIGGER : publicModuleEstimateControllerStart
 		$this->okt->triggers->callTrigger('publicModuleEstimateControllerStart', $this->okt, $this->okt->estimate->config->captcha);
@@ -320,7 +320,7 @@ class estimateController extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				$_SESSION['okt_mod_estimate_form_data'] = $this->aFormData;
-				http::redirect($this->okt->page->getBaseUrl().$this->okt->estimate->config->public_summary_url[$this->okt->user->language]);
+				return $this->redirect($this->page->getBaseUrl().$this->okt->estimate->config->public_summary_url[$this->okt->user->language]);
 			}
 		}
 
@@ -342,33 +342,33 @@ class estimateController extends Controller
 
 		# meta description
 		if ($this->okt->estimate->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->estimate->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->estimate->getTitle());
+		$this->page->addTitleTag($this->okt->estimate->getTitle());
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
+			$this->page->breadcrumb->add($this->okt->estimate->getName(), $this->okt->estimate->config->url);
 		}
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->estimate->getName());
+		$this->page->setTitle($this->okt->estimate->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->estimate->getNameSeo());
+		$this->page->setTitleSeo($this->okt->estimate->getNameSeo());
 
 		# affichage du template
 		return $this->render('estimate/form/'.$this->okt->estimate->config->templates['form']['default'].'/template', array(

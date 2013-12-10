@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,27 +36,27 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 	<div id="product-header" class="two-cols">
 
 		<?php # début Okatea : affichage du titre du produit ?>
-		<h2 id="product-title" class="col"><?php echo html::escapeHTML($product->title) ?></h2>
+		<h2 id="product-title" class="col"><?php echo $view->escape($product->title) ?></h2>
 		<?php # fin Okatea : affichage du titre du produit ?>
 
 		<p class="col right"><strong>
 			<?php # si les prix promotionnels sont activés et qu'il y en as un
 			if ($okt->catalog->config->fields['promo'] && $product->is_promo && $product->price_promo > 0) : ?>
 
-				<del><?php echo util::formatNumber($product->price) ?> €</del>
-				<strong><?php echo util::formatNumber($product->price_promo) ?> €</strong>
+				<del><?php echo Tao\Misc\Utilities::formatNumber($product->price) ?> €</del>
+				<strong><?php echo Tao\Misc\Utilities::formatNumber($product->price_promo) ?> €</strong>
 
 			<?php # sinon on affiche le prix normal
 			elseif ($product->price > 0) : ?>
 
-				<strong><?php echo util::formatNumber($product->price) ?> €</strong>
+				<strong><?php echo Tao\Misc\Utilities::formatNumber($product->price) ?> €</strong>
 
 			<?php endif; ?>
 		</strong></p>
 
 		<?php # début Okatea : affichage du sous-titre
 		if ($product->subtitle != ''  && $okt->catalog->config->fields['subtitle'] != 0) : ?>
-			<p class="product-subtitle"><strong><?php echo html::escapeHTML($product->subtitle) ?></strong></p>
+			<p class="product-subtitle"><strong><?php echo $view->escape($product->subtitle) ?></strong></p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 	</div><!-- #product-header -->
@@ -75,18 +73,18 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 				<?php # si c'est la première image on affiche la miniature
 				if ($i == 1 && isset($image['min_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo util::escapeAttrHTML($product->title) ?>, image <?php echo $i ?>" class="modal center" rel="product-images">
+				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($product->title) ?>, image <?php echo $i ?>" class="modal center" rel="product-images">
 				<img src="<?php echo $image['min_url'] ?>" <?php echo $image['min_attr'] ?>
-				alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $product->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $product->title)) ?>" /></a>
 
 				<br />
 
 				<?php # si c'est pas la première image on affiche le square
 				elseif (isset($image['square_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo util::escapeAttrHTML($product->title) ?>, image <?php echo $i ?>" class="modal" rel="product-images">
+				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($product->title) ?>, image <?php echo $i ?>" class="modal" rel="product-images">
 				<img src="<?php echo $image['square_url'] ?>" <?php echo $image['square_attr'] ?>
-				alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $product->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $product->title)) ?>" /></a>
 
 				<?php endif; ?>
 
@@ -131,9 +129,9 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 			<?php # début Okatea : boucle sur les fichiers
 			foreach ($product->files as $i=>$file) : ?>
 
-			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
-			<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
-			- <?php echo util::l10nFileSize($file['size']) ?></p>
+			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo $view->escape($file['title']) ?>" /></a>
+			<?php echo $view->escape($file['title']) ?> (<?php echo $file['mime'] ?>)
+			- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 			<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

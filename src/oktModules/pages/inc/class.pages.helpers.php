@@ -22,11 +22,11 @@ class pagesHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->pages->config->public_page_url[$sLanguage])) {
+		if (!isset($okt->pages->config->routes['list'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl().$okt->pages->config->public_list_url[$sLanguage];
+		return $okt->router->generate('pagesList');
 	}
 
 	/**
@@ -40,15 +40,19 @@ class pagesHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->pages->config->public_page_url[$sLanguage])) {
+		if (!isset($okt->pages->config->routes['post'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl($sLanguage).$okt->pages->config->public_page_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('pagesItem', array('slug' => $sSlug));
 	}
 
 	/**
@@ -62,15 +66,19 @@ class pagesHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->pages->config->public_list_url[$sLanguage])) {
+		if (!isset($okt->pages->config->routes['category'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl($sLanguage).$okt->pages->config->public_list_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('pagesCategory', array('slug' => $sSlug));
 	}
 
 	/**
@@ -90,13 +98,11 @@ class pagesHelpers
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if ($okt->page->action == 'category' && isset($aVars['rsCategory'])) {
-				$iCurrentCat = $aVars['rsCategory']->id;
+			if ($okt->page->action == 'category' && isset($okt->controller->rsCategory)) {
+				$iCurrentCat = $okt->controller->rsCategory->id;
 			}
-			elseif ($okt->page->action == 'item' && isset($aVars['rsPage'])) {
-				$iCurrentCat = $aVars['rsPage']->category_id;
+			elseif ($okt->page->action == 'item' && isset($okt->controller->rsPage)) {
+				$iCurrentCat = $okt->controller->rsPage->category_id;
 			}
 
 			unset($aVars);
@@ -168,11 +174,11 @@ class pagesHelpers
 
 		# on récupèrent l'éventuel identifiant de la page en cours
 		$iCurrentPage = null;
-		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action) && $okt->page->action == 'item')
+		if (isset($okt->page->module) && $okt->page->module == 'pages'
+			&& isset($okt->page->action) && $okt->page->action == 'item'
+			&& isset($okt->controller->rsPage))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-			$iCurrentPage = $aVars['rsPage']->id;
-			unset($aVars);
+			$iCurrentPage = $okt->controller->rsPage->id;
 		}
 
 		$aParams = array_merge(array(
@@ -225,16 +231,12 @@ class pagesHelpers
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action))
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if ($okt->page->action == 'category' && isset($aVars['rsCategory'])) {
-				$iCurrentCat = $aVars['rsCategory']->id;
+			if ($okt->page->action == 'category' && isset($okt->controller->rsCategory)) {
+				$iCurrentCat = $okt->controller->rsCategory->id;
 			}
-			elseif ($okt->page->action == 'item' && isset($aVars['rsPage'])) {
-				$iCurrentCat = $aVars['rsPage']->category_id;
+			elseif ($okt->page->action == 'item' && isset($okt->controller->rsPage)) {
+				$iCurrentCat = $okt->controller->rsPage->category_id;
 			}
-
-			unset($aVars);
 		}
 
 		# on récupèrent les sous-catégories

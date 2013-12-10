@@ -27,9 +27,9 @@ class usersController extends Controller
 	{
 		$this->okt = $okt;
 
-		$this->okt->page->meta_description = util::getSiteMetaDesc();
+		$this->page->meta_description = $this->page->getSiteMetaDesc();
 
-		$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+		$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 
 		$this->defineRedirectUrl();
 	}
@@ -41,12 +41,12 @@ class usersController extends Controller
 	public function usersLogin()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'login';
+		$this->page->module = 'users';
+		$this->page->action = 'login';
 
 		# page désactivée ?
 		if (!$this->okt->users->config->enable_login_page) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# allready logged
@@ -55,17 +55,17 @@ class usersController extends Controller
 		$this->performLogin();
 
 		# title tag
-		$this->okt->page->addTitleTag(__('c_c_auth_login'));
+		$this->page->addTitleTag(__('c_c_auth_login'));
 
 		# titre de la page
-		$this->okt->page->setTitle(__('c_c_auth_login'));
+		$this->page->setTitle(__('c_c_auth_login'));
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(__('c_c_auth_login'));
+		$this->page->setTitleSeo(__('c_c_auth_login'));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add(__('c_c_auth_login'), usersHelpers::getLoginUrl());
+			$this->page->breadcrumb->add(__('c_c_auth_login'), usersHelpers::getLoginUrl());
 		}
 
 		# affichage du template
@@ -82,8 +82,8 @@ class usersController extends Controller
 	public function usersLogout()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'logout';
+		$this->page->module = 'users';
+		$this->page->action = 'logout';
 
 		# déconnexion et redirection
 		$this->okt->user->logout();
@@ -98,12 +98,12 @@ class usersController extends Controller
 	public function usersRegister()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'register';
+		$this->page->module = 'users';
+		$this->page->action = 'register';
 
 		# page désactivée ?
 		if (!$this->okt->users->config->enable_register_page) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# allready logged
@@ -112,17 +112,17 @@ class usersController extends Controller
 		$this->performRegister();
 
 		# title tag
-		$this->okt->page->addTitleTag(__('c_c_auth_register'));
+		$this->page->addTitleTag(__('c_c_auth_register'));
 
 		# titre de la page
-		$this->okt->page->setTitle(__('c_c_auth_register'));
+		$this->page->setTitle(__('c_c_auth_register'));
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(__('c_c_auth_register'));
+		$this->page->setTitleSeo(__('c_c_auth_register'));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add(__('c_c_auth_register'), usersHelpers::getRegisterUrl());
+			$this->page->breadcrumb->add(__('c_c_auth_register'), usersHelpers::getRegisterUrl());
 		}
 
 		# affichage du template
@@ -144,12 +144,12 @@ class usersController extends Controller
 	public function usersLoginRegister()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'log_reg';
+		$this->page->module = 'users';
+		$this->page->action = 'log_reg';
 
 		# page désactivée ?
 		if (!$this->okt->users->config->enable_login_page || !$this->okt->users->config->enable_register_page) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# allready logged
@@ -160,17 +160,17 @@ class usersController extends Controller
 		$this->performRegister();
 
 		# title tag
-		$this->okt->page->addTitleTag(__('c_c_auth_login').' / '.__('c_c_auth_register'));
+		$this->page->addTitleTag(__('c_c_auth_login').' / '.__('c_c_auth_register'));
 
 		# titre de la page
-		$this->okt->page->setTitle(__('c_c_auth_login').' / '.__('c_c_auth_register'));
+		$this->page->setTitle(__('c_c_auth_login').' / '.__('c_c_auth_register'));
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
+		$this->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
+			$this->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
 		}
 
 		# affichage du template
@@ -191,12 +191,12 @@ class usersController extends Controller
 	public function usersForgetPassword()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'forget_password';
+		$this->page->module = 'users';
+		$this->page->action = 'forget_password';
 
 		# page désactivée ?
 		if (!$this->okt->users->config->enable_forget_password_page) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# allready logged
@@ -225,17 +225,17 @@ class usersController extends Controller
 		}
 
 		# title tag
-		$this->okt->page->addTitleTag(__('c_c_auth_request_password'));
+		$this->page->addTitleTag(__('c_c_auth_request_password'));
 
 		# titre de la page
-		$this->okt->page->setTitle(__('c_c_auth_request_password'));
+		$this->page->setTitle(__('c_c_auth_request_password'));
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(__('c_c_auth_request_password'));
+		$this->page->setTitleSeo(__('c_c_auth_request_password'));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add(__('c_c_auth_request_password'), usersHelpers::getForgetPasswordUrl());
+			$this->page->breadcrumb->add(__('c_c_auth_request_password'), usersHelpers::getForgetPasswordUrl());
 		}
 
 		# affichage du template
@@ -252,17 +252,17 @@ class usersController extends Controller
 	public function usersProfile()
 	{
 		# module actuel
-		$this->okt->page->module = 'users';
-		$this->okt->page->action = 'profile';
+		$this->page->module = 'users';
+		$this->page->action = 'profile';
 
 		# page désactivée ?
 		if (!$this->okt->users->config->enable_profile_page) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# invité non convié
 		if ($this->okt->user->is_guest) {
-			http::redirect(html::escapeHTML(usersHelpers::getLoginUrl(usersHelpers::getProfileUrl())));
+			return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(usersHelpers::getProfileUrl())));
 		}
 
 		# données utilisateur
@@ -347,7 +347,7 @@ class usersController extends Controller
 				setcookie($c,null);
 			}
 
-			http::redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
+			return $this->redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
 		}
 
 		# Formulaire de changement de mot de passe
@@ -358,7 +358,7 @@ class usersController extends Controller
 
 			$this->okt->users->changeUserPassword($aUserProfilData);
 
-			http::redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
+			return $this->redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
 		}
 
 		# Formulaire de modification de l'utilisateur envoyé
@@ -396,7 +396,7 @@ class usersController extends Controller
 					}
 				}
 
-				http::redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
+				return $this->redirect(html::escapeHTML(usersHelpers::getProfileUrl()));
 			}
 		}
 
@@ -407,17 +407,17 @@ class usersController extends Controller
 		$aLanguages = $this->getLanguages();
 
 		# title tag
-		$this->okt->page->addTitleTag(__('c_c_user_profile'));
+		$this->page->addTitleTag(__('c_c_user_profile'));
 
 		# titre de la page
-		$this->okt->page->setTitle(__('c_c_user_profile'));
+		$this->page->setTitle(__('c_c_user_profile'));
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(__('c_c_user_profile'));
+		$this->page->setTitleSeo(__('c_c_user_profile'));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add(__('c_c_user_profile'), usersHelpers::getProfileUrl());
+			$this->page->breadcrumb->add(__('c_c_user_profile'), usersHelpers::getProfileUrl());
 		}
 
 		# affichage du template
@@ -448,7 +448,7 @@ class usersController extends Controller
 			$sRedirectURL = $_SESSION['okt_sess_redirect'];
 		}
 		else {
-			$sRedirectURL = $this->okt->page->getBaseUrl();
+			$sRedirectURL = $this->page->getBaseUrl();
 		}
 
 		$this->sRedirectURL = $sRedirectURL;
@@ -471,7 +471,7 @@ class usersController extends Controller
 	protected function performRedirect()
 	{
 		$this->unsetSessionRedirectUrl();
-		http::redirect($this->sRedirectURL);
+		return $this->redirect($this->sRedirectURL);
 	}
 
 	/**
@@ -634,7 +634,7 @@ class usersController extends Controller
 				}
 
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
-					'SITE_TITLE' => util::getSiteTitle($rsUser->language),
+					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->okt->config->app_url,
 					'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
@@ -663,7 +663,7 @@ class usersController extends Controller
 					while ($rsAdministrators->fetch())
 					{
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
-							'SITE_TITLE' => util::getSiteTitle($rsUser->language),
+							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->okt->config->app_url,
 							'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 							'PROFIL' => $this->okt->config->app_url.OKT_ADMIN_DIR.'/module.php?m=users&action=edit&id='.$rsUser->id
@@ -683,7 +683,7 @@ class usersController extends Controller
 
 				$this->performRedirect();
 			//	$this->unsetSessionRedirectUrl();
-			//	http::redirect(usersHelpers::getRegisterUrl().'?registered=1');
+			//	return $this->redirect(usersHelpers::getRegisterUrl().'?registered=1');
 			}
 		}
 	}

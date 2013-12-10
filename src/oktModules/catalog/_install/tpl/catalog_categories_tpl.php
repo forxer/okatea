@@ -22,7 +22,7 @@ while ($rsCategories->fetch())
 	}
 
 	echo '<a href="'.$okt->page->getBaseUrl().$okt->catalog->config->public_catalog_url.'/'.$rsCategories->slug.'">'.
-	html::escapeHTML($rsCategories->name).'</a>';
+	$view->escape($rsCategories->name).'</a>';
 
 	$iLevel = $rsCategories->level;
 }

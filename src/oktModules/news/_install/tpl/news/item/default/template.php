@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,12 +36,12 @@ $okt->page->applyLbl($okt->news->config->lightbox_type);
 	<div id="post-header">
 
 		<?php # début Okatea : affichage du titre de l'article ?>
-		<!-- <h1 id="post-title"><?php echo $this->escape($rsPost->title) ?></h1> -->
+		<!-- <h1 id="post-title"><?php echo $view->escape($rsPost->title) ?></h1> -->
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage du sous-titre
 		if ($rsPost->subtitle != '') : ?>
-		<p id="post-subtitle"><strong><?php echo $this->escape($rsPost->subtitle) ?></strong></p>
+		<p id="post-subtitle"><strong><?php echo $view->escape($rsPost->subtitle) ?></strong></p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage des infos
@@ -58,12 +56,12 @@ $okt->page->applyLbl($okt->news->config->lightbox_type);
 
 			<?php # début Okatea : affichage l'auteur de l'article
 			if ($okt->news->config->public_display_author) : ?>
-			<?php printf(__('m_news_by_%s'),$this->escape($rsPost->author)) ?>
+			<?php printf(__('m_news_by_%s'),$view->escape($rsPost->author)) ?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
 			<?php # début Okatea : affichage rubrique
 			if ($okt->news->config->categories['enable'] && $rsPost->category_title) : ?>
-			<?php printf(__('m_news_in_%s'),'<a href="'.$this->escape($rsPost->category_url).'">'.$this->escape($rsPost->category_title).'</a>') ?>
+			<?php printf(__('m_news_in_%s'),'<a href="'.$view->escape($rsPost->category_url).'">'.$view->escape($rsPost->category_title).'</a>') ?>
 			<?php endif; # fin Okatea : affichage rubrique ?>
 
 		</p><!-- #post-infos -->
@@ -83,18 +81,18 @@ $okt->page->applyLbl($okt->news->config->lightbox_type);
 				<?php # si c'est la première image on affiche la miniature
 				if ($i == 1 && isset($image['min_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $this->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal center" rel="news-images">
+				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal center" rel="news-images">
 				<img src="<?php echo $image['min_url'] ?>" <?php echo $image['min_attr'] ?>
-				alt="<?php echo $this->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
 
 				<br />
 
 				<?php # si c'est pas la première image on affiche le square
 				elseif (isset($image['square_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $this->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal" rel="news-images">
+				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal" rel="news-images">
 				<img src="<?php echo $image['square_url'] ?>" <?php echo $image['square_attr'] ?>
-				alt="<?php echo $this->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
 
 				<?php endif; ?>
 
@@ -122,8 +120,8 @@ $okt->page->applyLbl($okt->news->config->lightbox_type);
 			foreach ($rsPost->files as $i=>$file) : ?>
 
 			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="" /></a>
-			<?php echo !empty($file['title'][$okt->user->language]) ? $this->escape($file['title'][$okt->user->language]) : ''; ?> (<?php echo $file['mime'] ?>)
-			- <?php echo util::l10nFileSize($file['size']) ?></p>
+			<?php echo !empty($file['title'][$okt->user->language]) ? $view->escape($file['title'][$okt->user->language]) : ''; ?> (<?php echo $file['mime'] ?>)
+			- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 			<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

@@ -1,7 +1,7 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
-<?php $this->extend('layout'); ?>
+<?php # début Okatea : ce template étend le layout
+$this->extend('layout');
+# fin Okatea : ce template étend le layout ?>
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
@@ -22,7 +22,7 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 <div id="diary">
 
 	<?php # début Okatea : affichage du titre de l'évènement ?>
-	<h2><?php echo html::escapeHTML($rsEvent->title) ?></h2>
+	<h2><?php echo $view->escape($rsEvent->title) ?></h2>
 	<?php # fin Okatea : affichage du titre de l'évènement ?>
 
 
@@ -43,10 +43,10 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 			if ($i == 1 && isset($image['min_url'])) : ?>
 
 			<a href="<?php echo $image['img_url'] ?>"
-			title="<?php echo util::escapeAttrHTML($rsEvent->title) ?>, image <?php echo $i ?>" class="modal center" rel="images">
+			title="<?php echo $view->escapeHtmlAttr($rsEvent->title) ?>, image <?php echo $i ?>" class="modal center" rel="images">
 			<img src="<?php echo $image['min_url'] ?>"
 			<?php echo $image['min_attr'] ?>
-			alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $rsEvent->title)) ?>" /></a>
+			alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $rsEvent->title)) ?>" /></a>
 
 			<br />
 
@@ -54,10 +54,10 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 			elseif (isset($image['square_url'])) : ?>
 
 			<a href="<?php echo $image['img_url'] ?>"
-			title="<?php echo util::escapeAttrHTML($rsEvent->title) ?>, image <?php echo $i ?>" class="modal" rel="images">
+			title="<?php echo $view->escapeHtmlAttr($rsEvent->title) ?>, image <?php echo $i ?>" class="modal" rel="images">
 			<img src="<?php echo $image['square_url'] ?>"
 			<?php echo $image['square_attr'] ?>
-			alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $rsEvent->title)) ?>" /></a>
+			alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $rsEvent->title)) ?>" /></a>
 
 			<?php endif; ?>
 
@@ -93,9 +93,9 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 		<?php # début Okatea : boucle sur les fichiers
 		foreach ($rsEvent->files as $i=>$file) : ?>
 
-		<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
-		<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
-		- <?php echo util::l10nFileSize($file['size']) ?></p>
+		<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo $view->escape($file['title']) ?>" /></a>
+		<?php echo $view->escape($file['title']) ?> (<?php echo $file['mime'] ?>)
+		- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 		<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,7 +36,7 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 
 	<?php # début Okatea : affichage du sous-titre
 	if ($rsPage->subtitle != '') : ?>
-	<p class="page-subtitle"><strong><?php echo html::escapeHTML($rsPage->subtitle) ?></strong></p>
+	<p class="page-subtitle"><strong><?php echo $view->escape($rsPage->subtitle) ?></strong></p>
 	<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 
@@ -53,11 +51,11 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 			if ($i == 1 && isset($image['min_url'])) : ?>
 
 			<a href="<?php echo $image['img_url'] ?>"
-			title="<?php echo util::escapeAttrHTML((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPage->title)) ?>"
+			title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPage->title)) ?>"
 			class="modal center" rel="page-images">
 			<img src="<?php echo $image['min_url'] ?>"
 			<?php echo $image['min_attr'] ?>
-			alt="<?php echo util::escapeAttrHTML((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPage->title)) ?>" /></a>
+			alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPage->title)) ?>" /></a>
 
 			<br />
 
@@ -65,11 +63,11 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 			elseif (isset($image['square_url'])) : ?>
 
 			<a href="<?php echo $image['img_url'] ?>"
-			title="<?php echo util::escapeAttrHTML((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPage->title)) ?>"
+			title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPage->title)) ?>"
 			class="modal" rel="page-images">
 			<img src="<?php echo $image['square_url'] ?>"
 			<?php echo $image['square_attr'] ?>
-			alt="<?php echo util::escapeAttrHTML((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPage->title)) ?>" /></a>
+			alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPage->title)) ?>" /></a>
 
 			<?php endif; ?>
 
@@ -94,8 +92,8 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 		foreach ($rsPage->files as $i=>$file) : ?>
 
 		<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="" /></a>
-		<?php echo !empty($file['title'][$okt->user->language]) ? html::escapeHTML($file['title'][$okt->user->language]) : ''; ?> (<?php echo $file['mime'] ?>)
-		- <?php echo util::l10nFileSize($file['size']) ?></p>
+		<?php echo !empty($file['title'][$okt->user->language]) ? $view->escape($file['title'][$okt->user->language]) : ''; ?> (<?php echo $file['mime'] ?>)
+		- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 		<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

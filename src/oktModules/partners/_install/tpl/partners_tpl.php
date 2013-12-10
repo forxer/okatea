@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -57,15 +55,15 @@ if (!$rsPartners->isEmpty()) : ?>
 			}
 			?>
 			<a href="<?php echo $aPartnerLogoInfos['img_url'] ?>"
-			title="<?php echo util::escapeAttrHTML($rsPartners->name) ?>"
+			title="<?php echo $view->escapeHtmlAttr($rsPartners->name) ?>"
 			class="modal" rel="partner-logo"><img src="<?php echo $logo_url ?>"
 			<?php echo $logo_attr ?>
-			alt="<?php echo util::escapeAttrHTML((isset($aPartnerLogoInfos['alt']) ? $aPartnerLogoInfos['alt'] : 'Logo '.$rsPartners->name)) ?>" /></a>
+			alt="<?php echo $view->escapeHtmlAttr((isset($aPartnerLogoInfos['alt']) ? $aPartnerLogoInfos['alt'] : 'Logo '.$rsPartners->name)) ?>" /></a>
 		</div>
 		<?php endif; # fin Okatea : affichage logo  ?>
 
 		<?php # début Okatea : affichage du nom ?>
-		<h2 class="partner-name"><?php echo html::escapeHTML($rsPartners->name) ?></h2>
+		<h2 class="partner-name"><?php echo $view->escape($rsPartners->name) ?></h2>
 		<?php # fin Okatea : affichage du nom ?>
 
 		<div class="partner-description">
@@ -76,7 +74,7 @@ if (!$rsPartners->isEmpty()) : ?>
 
 			<?php # début Okatea : affichage URL
 			if (!empty($rsPartners->url)) : ?>
-			<p><a href="<?php echo html::escapeHTML($rsPartners->url) ?>" class="partner-url" title="<?php
+			<p><a href="<?php echo $view->escape($rsPartners->url) ?>" class="partner-url" title="<?php
 			echo $rsPartners->name ?>"><?php echo (!empty($rsPartners->url_title) ? $rsPartners->url_title : __('m_partners_default_url_title')) ?></a></p>
 			<?php endif; # fin Okatea : affichage URL ?>
 

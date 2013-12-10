@@ -28,7 +28,7 @@ $view['slots']->start('head') ?>
 
 <?php # début Okatea : si les filtres sont activés
 if ($okt->diary->config->enable_filters) : ?>
-	<form action="<?php echo html::escapeHTML($okt->diary->config->url) ?> " method="get" id="filters-form">
+	<form action="<?php echo $view->escape($okt->diary->config->url) ?> " method="get" id="filters-form">
 		<fieldset>
 			<legend><?php _e('m_diary_display_filters_public') ?></legend>
 

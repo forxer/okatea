@@ -29,9 +29,6 @@ Exemples :
 */ ?>
 
 
-<?php use Tao\Misc\Utilities as util; ?>
-
-
 <?php # début Okatea : traitements avant affichage
 
 	# vérification de la présence d'un identifiant, sinon warning et fin
@@ -72,13 +69,13 @@ if (!$rsInsertPage->isEmpty()) : ?>
 <div id="page_insert">
 
 	<?php # début Okatea : affichage du titre ?>
-	<h2 class="page-title"><a href="<?php echo html::escapeHTML($rsInsertPage->url) ?>"><?php echo html::escapeHTML($rsInsertPage->title) ?></a></h2>
+	<h2 class="page-title"><a href="<?php echo $view->escape($rsInsertPage->url) ?>"><?php echo $view->escape($rsInsertPage->title) ?></a></h2>
 	<?php # fin Okatea : affichage du titre ?>
 
 
 	<?php # début Okatea : affichage du sous-titre
 	if ($rsInsertPage->subtitle != '') : ?>
-	<p class="page-subtitle"><strong><?php echo html::escapeHTML($rsInsertPage->subtitle) ?></strong></p>
+	<p class="page-subtitle"><strong><?php echo $view->escape($rsInsertPage->subtitle) ?></strong></p>
 	<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 
@@ -106,11 +103,11 @@ if (!$rsInsertPage->isEmpty()) : ?>
 				if ($i == 1 && isset($image['min_url'])) : ?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php echo util::escapeAttrHTML((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsInsertPage->title)) ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsInsertPage->title)) ?>"
 				class="modal center" rel="page-images">
 				<img src="<?php echo $image['square_url'] ?>"
 				<?php echo $image['square_attr'] ?>
-				alt="<?php echo util::escapeAttrHTML((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsInsertPage->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsInsertPage->title)) ?>" /></a>
 
 				<?php endif; # fin Okatea : affichage de la première image uniquement, et ce au format square ?>
 
@@ -125,8 +122,8 @@ if (!$rsInsertPage->isEmpty()) : ?>
 
 		<p><?php echo $rsInsertPage->content ?>…</p>
 
-		<p class="read-more-link-wrapper"><a href="<?php echo html::escapeHTML($rsInsertPage->url) ?>"
-		title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_read_more_of_%s'), $rsInsertPage->title)) ?>"
+		<p class="read-more-link-wrapper"><a href="<?php echo $view->escape($rsInsertPage->url) ?>"
+		title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_read_more_of_%s'), $rsInsertPage->title)) ?>"
 		class="read-more-link" rel="nofollow"><?php _e('m_pages_read_more') ?></a></p>
 
 		<?php endif; # fin Okatea : affichage texte tronqué ?>

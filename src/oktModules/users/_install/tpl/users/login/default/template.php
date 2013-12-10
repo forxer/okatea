@@ -52,10 +52,10 @@ if ($okt->error->notEmpty()) : ?>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
 
-<form id="login-form" class="userform" action="<?php echo html::escapeHTML(usersHelpers::getLoginUrl()) ?>" method="post">
+<form id="login-form" class="userform" action="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>" method="post">
 
 	<p class="field"><label for="user_id"><?php if ($okt->users->config->merge_username_email) { _e('c_c_Email'); } else { _e('c_c_user_Username'); } ?></label>
-	<input name="user_id" id="user_id" type="text" maxlength="225" value="<?php echo html::escapeHTML($user_id) ?>" /></p>
+	<input name="user_id" id="user_id" type="text" maxlength="225" value="<?php echo $view->escape($user_id) ?>" /></p>
 
 	<p class="field"><label for="user_pwd"><?php _e('c_c_user_Password') ?></label>
 	<input name="user_pwd" id="user_pwd" type="password" maxlength="225" /></p>
@@ -72,13 +72,13 @@ if ($okt->error->notEmpty()) : ?>
 	<ul>
 		<?php # début Okatea : lien page mot de passe oublié
 		if ($okt->users->config->enable_forget_password_page) : ?>
-		<li><a href="<?php echo html::escapeHTML(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
 		_e('c_c_auth_forgot_password') ?></a></li>
 		<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 
 		<?php # début Okatea : lien page inscription
 		if ($okt->users->config->enable_register_page) : ?>
-		<li><a href="<?php echo html::escapeHTML(usersHelpers::getRegisterUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(usersHelpers::getRegisterUrl()) ?>"><?php
 		_e('c_c_auth_register') ?></a></li>
 		<?php endif; # fin Okatea : lien page inscription ?>
 	</ul>

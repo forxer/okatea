@@ -133,7 +133,7 @@ class newsController extends Controller
 		));
 
 		# affichage du template
-		$this->okt->response->headers->set('Content-Type', 'application/rss+xml');
+		$this->response->headers->set('Content-Type', 'application/rss+xml');
 		return $this->render($this->okt->news->getFeedTplPath(), array(
 			'rsPostsList' => $this->rsPostsList
 		));
@@ -200,7 +200,7 @@ class newsController extends Controller
 		$this->okt->news->filtersStart('public');
 
 		# ré-initialisation filtres
-		if (!empty($_GET['init_news_filters']))
+		if ($this->request->query->has('init_news_filters'))
 		{
 			$this->okt->news->filters->initFilters();
 			return $this->redirect($this->okt->news->config->url);
@@ -359,11 +359,9 @@ class newsController extends Controller
 			if (!$bIsDefaultRoute)
 			{
 				$rsPath = $this->okt->news->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
-				while ($rsPath->fetch())
-				{
+				while ($rsPath->fetch()) {
 					$this->page->breadcrumb->add($rsPath->title, newsHelpers::getCategoryUrl($rsPath->slug));
 				}
-				unset($rsPath);
 			}
 		}
 

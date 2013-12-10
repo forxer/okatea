@@ -714,7 +714,7 @@ class module_contact extends Module
 			$this->sSubject = html::escapeHTML($this->aPostedData[6]);
 		}
 		else {
-			$this->sSubject = 'Contact depuis le site internet '.html::escapeHTML(util::getSiteTitle());
+			$this->sSubject = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle());
 		}
 	}
 
@@ -750,7 +750,7 @@ class module_contact extends Module
 	 */
 	public function setBodyFromPostedData()
 	{
-		$this->sBody = 'Contact depuis le site internet '.html::escapeHTML(util::getSiteTitle()).
+		$this->sBody = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle()).
 			' ['.$this->okt->config->app_url.']'.PHP_EOL.PHP_EOL;
 
 		$sSenderName = $this->getSenderName();

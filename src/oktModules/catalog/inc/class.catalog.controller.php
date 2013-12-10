@@ -18,8 +18,8 @@ class catalogController extends Controller
 	public function catalogList()
 	{
 		# module actuel
-		$this->okt->page->module = 'catalog';
-		$this->okt->page->action = 'list';
+		$this->page->module = 'catalog';
+		$this->page->action = 'list';
 
 		# initialisation des paramètres
 		$aProductsParams = array(
@@ -34,7 +34,7 @@ class catalogController extends Controller
 		if (!empty($_GET['catalog_init_filters']))
 		{
 			$this->okt->catalog->filters->initFilters();
-			http::redirect($this->okt->catalog->config->url);
+			return $this->redirect($this->okt->catalog->config->url);
 		}
 
 		# initialisation des filtres
@@ -78,38 +78,38 @@ class catalogController extends Controller
 
 		# meta description
 		if ($this->okt->catalog->config->meta_description != '') {
-			$this->okt->page->meta_description = $this->okt->catalog->config->meta_description;
+			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->catalog->config->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
+			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
 		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->catalog->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
+		$this->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->catalog->getName());
+		$this->page->setTitle($this->okt->catalog->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->catalog->getName());
+		$this->page->setTitleSeo($this->okt->catalog->getName());
 
 		# raccourcis
 		$productsList->numPages = $iNumPages;
@@ -127,21 +127,21 @@ class catalogController extends Controller
 	 */
 	public function catalogCategory($aMatches)
 	{
+		# module actuel
+		$this->page->module = 'catalog';
+		$this->page->action = 'category';
+
 		# si les rubriques ne sont pas actives -> 404
 		if (!$this->okt->catalog->config->categories_enable) {
-			$this->serve404();
+			return $this->serve404();
 		}
-
-		# module actuel
-		$this->okt->page->module = 'catalog';
-		$this->okt->page->action = 'category';
 
 		# récupération de la rubrique en fonction du slug
 		if (!empty($aMatches[0])) {
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		$rsCategory = $this->okt->catalog->getCategories(array(
@@ -150,7 +150,7 @@ class catalogController extends Controller
 		));
 
 		if ($rsCategory->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# route par défaut ?
@@ -169,7 +169,7 @@ class catalogController extends Controller
 		if (!empty($_GET['catalog_init_filters']))
 		{
 			$this->okt->catalog->filters->initFilters();
-			http::redirect($this->okt->catalog->config->url);
+			return $this->redirect($this->okt->catalog->config->url);
 		}
 
 		# initialisation des filtres
@@ -213,51 +213,51 @@ class catalogController extends Controller
 
 		# meta description
 		if ($this->okt->catalog->config->meta_description != '') {
-			$this->okt->page->meta_description = $this->okt->catalog->config->meta_description;
+			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->catalog->config->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
+			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->catalog->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->catalog->filters->params->page));
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
+		$this->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
 
 			$rsPath = $this->okt->catalog->getPath($rsCategory->id,true);
 
 			while ($rsPath->fetch())
 			{
-				$this->okt->page->addTitleTag($rsPath->name);
+				$this->page->addTitleTag($rsPath->name);
 
-				$this->okt->page->breadcrumb->add(
+				$this->page->breadcrumb->add(
 					$rsPath->name,
-					$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
+					$this->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
 				);
 			}
 		}
 
 		# titre de la page
-		$this->okt->page->setTitle($rsCategory->name);
+		$this->page->setTitle($rsCategory->name);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($rsCategory->name);
+		$this->page->setTitleSeo($rsCategory->name);
 
 		# raccourcis
 		$productsList->numPages = $iNumPages;
@@ -277,15 +277,15 @@ class catalogController extends Controller
 	public function catalogItem($aMatches)
 	{
 		# module actuel
-		$this->okt->page->module = 'catalog';
-		$this->okt->page->action = 'item';
+		$this->page->module = 'catalog';
+		$this->page->action = 'item';
 
 		# Récupération du produit en fonction du slug
 		if (!empty($aMatches[0])) {
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		$product = $this->okt->catalog->getProds(array(
@@ -294,7 +294,7 @@ class catalogController extends Controller
 		));
 
 		if ($product->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# route par défaut ?
@@ -315,24 +315,24 @@ class catalogController extends Controller
 
 		# meta description
 		if ($product->meta_description != '') {
-			$this->okt->page->meta_description = $product->meta_description;
+			$this->page->meta_description = $product->meta_description;
 		}
 		else if ($this->okt->catalog->config->meta_description != '') {
-			$this->okt->page->meta_description = $this->okt->catalog->config->meta_description;
+			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($product->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $product->meta_keywords;
+			$this->page->meta_keywords = $product->meta_keywords;
 		}
 		else if ($this->okt->catalog->config->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
+			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# Récupération des images
@@ -343,39 +343,39 @@ class catalogController extends Controller
 
 
 		# Title tag du module
-		$this->okt->page->addTitleTag($this->okt->catalog->getTitle());
+		$this->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# Title tag de la catégorie
-		$this->okt->page->addTitleTag($product->category_name);
+		$this->page->addTitleTag($product->category_name);
 
 		# Title tag du produit
-		$this->okt->page->addTitleTag($product->title_tag);
+		$this->page->addTitleTag($product->title_tag);
 
 		# titre de la page
-		$this->okt->page->setTitle($product->title);
+		$this->page->setTitle($product->title);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($product->title);
+		$this->page->setTitleSeo($product->title);
 
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->okt->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
 
 			if ($this->okt->catalog->config->categories_enable && $product->category_id)
 			{
 				$rsPath = $this->okt->catalog->getPath($product->category_id,true);
 				while ($rsPath->fetch())
 				{
-					$this->okt->page->breadcrumb->add(
+					$this->page->breadcrumb->add(
 						$rsPath->name,
-						$this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
+						$this->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$rsPath->slug
 					);
 				}
 				unset($rsPath);
 			}
 
-			$this->okt->page->breadcrumb->add($product->title,$product->url);
+			$this->page->breadcrumb->add($product->title,$product->url);
 		}
 
 		# affichage du template

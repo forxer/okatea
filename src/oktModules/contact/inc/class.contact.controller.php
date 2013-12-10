@@ -18,8 +18,8 @@ class contactController extends Controller
 	public function contactPage()
 	{
 		# module actuel
-		$this->okt->page->module = 'contact';
-		$this->okt->page->action = 'form';
+		$this->page->module = 'contact';
+		$this->page->action = 'form';
 
 		# -- CORE TRIGGER : publicModuleContactControllerStart
 		$this->okt->triggers->callTrigger('publicModuleContactControllerStart', $this->okt, $this->okt->contact->config->captcha);
@@ -135,40 +135,40 @@ class contactController extends Controller
 					# -- CORE TRIGGER : publicModuleContactAfterMailSent
 					$this->okt->triggers->callTrigger('publicModuleContactAfterMailSent', $this->okt, $oMail);
 
-					http::redirect($this->okt->contact->config->url.'?sended=1');
+					return $this->redirect($this->okt->contact->config->url.'?sended=1');
 				}
 			}
 		}
 
 		# meta description
 		if ($this->okt->contact->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->contact->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->contact->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->contact->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->contact->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->contact->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->contact->getTitle());
+		$this->page->addTitleTag($this->okt->contact->getTitle());
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->contact->getName(), $this->okt->contact->config->url);
+			$this->page->breadcrumb->add($this->okt->contact->getName(), $this->okt->contact->config->url);
 		}
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->contact->getName());
+		$this->page->setTitle($this->okt->contact->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->contact->getNameSeo());
+		$this->page->setTitleSeo($this->okt->contact->getNameSeo());
 
 		# affichage du template
 		return $this->render('contact/contact/'.$this->okt->contact->config->templates['contact']['default'].'/template');
@@ -182,27 +182,27 @@ class contactController extends Controller
 	{
 		# si la page n'est pas active -> 404
 		if (!$this->okt->contact->config->google_map['enable']) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# module actuel
-		$this->okt->page->module = 'contact';
-		$this->okt->page->action = 'map';
+		$this->page->module = 'contact';
+		$this->page->action = 'map';
 
 		# meta description
 		if ($this->okt->contact->config->meta_description_map[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->contact->config->meta_description_map[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->contact->config->meta_description_map[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->contact->config->meta_keywords_map[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->contact->config->meta_keywords_map[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->contact->config->meta_keywords_map[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag de la page
@@ -213,7 +213,7 @@ class contactController extends Controller
 		elseif ($this->okt->contact->config->title_map[$this->okt->config->language]) {
 			$sTitle = $this->okt->contact->config->title_map[$this->okt->config->language];
 		}
-		$this->okt->page->addTitleTag($sTitle);
+		$this->page->addTitleTag($sTitle);
 
 		# titre de la page
 		$sName = null;
@@ -223,7 +223,7 @@ class contactController extends Controller
 		elseif ($this->okt->contact->config->name_map[$this->okt->config->language]) {
 			$sName = $this->okt->contact->config->name_map[$this->okt->config->language];
 		}
-		$this->okt->page->setTitle($sName);
+		$this->page->setTitle($sName);
 
 		# titre SEO de la page
 		$sNameSeo = null;
@@ -233,11 +233,11 @@ class contactController extends Controller
 		elseif ($this->okt->contact->config->name_seo_map[$this->okt->config->language]) {
 			$sNameSeo = $this->okt->contact->config->name_seo_map[$this->okt->config->language];
 		}
-		$this->okt->page->setTitleSeo($sNameSeo);
+		$this->page->setTitleSeo($sNameSeo);
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($sName, $this->okt->contact->config->map_url);
+			$this->page->breadcrumb->add($sName, $this->okt->contact->config->map_url);
 		}
 
 		# affichage du template

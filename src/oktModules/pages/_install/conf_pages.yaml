@@ -13,27 +13,33 @@ meta_description:
 meta_keywords:
   fr: ''
   en: ''
+
 enable_metas: true
 enable_filters: true
 enable_rte: tinymce_advanced
+
 enable_group_perms: false
 perms:
   - 0
+  
 admin_dysplay_style: list
 admin_filters_style: dialog
 admin_default_order_by: title
 admin_default_order_direction: ASC
 admin_default_nb_per_page: 10
+
 public_default_order_by: title
 public_default_order_direction: ASC
 public_default_nb_per_page: 5
 public_truncat_char: 0
 insert_truncat_char: 0
 lightbox_type: fancybox
+
 categories:
   enable: false
   descriptions: false
   rte: ''
+
 images:
   enable: true
   number: 4
@@ -49,10 +55,12 @@ images:
   square_size: 60
   watermark_file: ''
   watermark_position: cc
+
 files:
   enable: false
   number: 3
   allowed_exts: 'txt,pdf'
+
 templates:
   list:
     default: default
@@ -66,12 +74,17 @@ templates:
   feed:
     default: rss
     usables: {}
-public_list_url:
-  fr: pages
-  en: pages
-public_feed_url:
-  fr: pages/rss
-  en: pages/rss
-public_page_url:
-  fr: page
-  en: page
+
+routes:
+  list:
+    fr: /pages
+    en: /pages
+  category:
+    fr: /pages/{slug}
+    en: /pages/{slug}
+  post:
+    fr: /page/{slug}
+    en: /page/{slug}
+  feed:
+    fr: /pages/rss
+    en: /pages/rss

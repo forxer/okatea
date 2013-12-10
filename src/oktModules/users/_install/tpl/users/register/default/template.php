@@ -101,7 +101,7 @@ if ($okt->error->notEmpty()) : ?>
 	</div>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
-<form id="register-form" class="userform" action="<?php echo html::escapeHTML(usersHelpers::getRegisterUrl()) ?>" method="post">
+<form id="register-form" class="userform" action="<?php echo $view->escape(usersHelpers::getRegisterUrl()) ?>" method="post">
 
 	<fieldset>
 		<legend><?php _e('m_users_Account') ?></legend>
@@ -111,22 +111,22 @@ if ($okt->error->notEmpty()) : ?>
 		<?php # début Okatea : affichage des champs "username" et "email" fusionnés
 		if ($okt->users->config->merge_username_email) : ?>
 			<p class="field col"><label for="add_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-			<?php echo form::text('add_email', 40, 255, html::escapeHTML($aUserRegisterData['email'])) ?></p>
+			<?php echo form::text('add_email', 40, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" fusionnés ?>
 
 
 		<?php # début Okatea : affichage des champs "username" et "email" distincts
 		if (!$okt->users->config->merge_username_email) : ?>
 			<p class="field col"><label for="add_username" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-			<?php echo form::text('add_username', 35, 255, html::escapeHTML($aUserRegisterData['username'])) ?></p>
+			<?php echo form::text('add_username', 35, 255, $view->escape($aUserRegisterData['username'])) ?></p>
 
 			<p class="field col"><label for="add_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-			<?php echo form::text('add_email', 35, 255, html::escapeHTML($aUserRegisterData['email'])) ?></p>
+			<?php echo form::text('add_email', 35, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" distincts ?>
 
 			<?php if ($okt->users->config->user_choose_group) : ?>
 			<p class="field col"><label for="add_group_id"><?php _e('c_c_Group') ?></label>
-			<?php echo form::select('add_group_id', $aUsersGroups, html::escapeHTML($aUserRegisterData['group_id'])) ?></p>
+			<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>
 			<?php endif; ?>
 		</div>
 	</fieldset>
@@ -136,10 +136,10 @@ if ($okt->error->notEmpty()) : ?>
 
 		<div class="two-cols">
 			<p class="field col"><label for="add_password" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
-			<?php echo form::password('add_password', 35, 255, html::escapeHTML($aUserRegisterData['password'])) ?></p>
+			<?php echo form::password('add_password', 35, 255, $view->escape($aUserRegisterData['password'])) ?></p>
 
 			<p class="field col"><label for="add_password_confirm" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_auth_confirm_password') ?></label>
-			<?php echo form::password('add_password_confirm', 35, 255, html::escapeHTML($aUserRegisterData['password_confirm'])) ?></p>
+			<?php echo form::password('add_password_confirm', 35, 255, $view->escape($aUserRegisterData['password_confirm'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -148,13 +148,13 @@ if ($okt->error->notEmpty()) : ?>
 
 		<div class="three-cols">
 						<p class="field col"><label for="add_civility"><?php _e('c_c_Civility') ?></label>
-			<?php echo form::select('add_civility', $aCivilities, html::escapeHTML($aUserRegisterData['civility'])) ?></p>
+			<?php echo form::select('add_civility', $aCivilities, $view->escape($aUserRegisterData['civility'])) ?></p>
 
 			<p class="field col"><label for="add_lastname"><?php _e('c_c_Last_name') ?></label>
-			<?php echo form::text('add_lastname', 20, 255, html::escapeHTML($aUserRegisterData['lastname'])) ?></p>
+			<?php echo form::text('add_lastname', 20, 255, $view->escape($aUserRegisterData['lastname'])) ?></p>
 
 			<p class="field col"><label for="add_firstname"><?php _e('c_c_First_name') ?></label>
-			<?php echo form::text('add_firstname', 20, 255, html::escapeHTML($aUserRegisterData['firstname'])) ?></p>
+			<?php echo form::text('add_firstname', 20, 255, $view->escape($aUserRegisterData['firstname'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -166,10 +166,10 @@ if ($okt->error->notEmpty()) : ?>
 
 		<div class="two-cols">
 			<p class="field col"><label for="add_language"><?php _e('c_c_Language') ?></label>
-			<?php echo form::select('add_language', $aLanguages, html::escapeHTML($aUserRegisterData['language'])) ?></p>
+			<?php echo form::select('add_language', $aLanguages, $view->escape($aUserRegisterData['language'])) ?></p>
 
 			<p class="field col"><label for="add_timezone"><?php _e('c_c_Timezone') ?></label>
-			<?php echo form::select('add_timezone', $aTimezone, html::escapeHTML($aUserRegisterData['timezone'])) ?></p>
+			<?php echo form::select('add_timezone', $aTimezone, $view->escape($aUserRegisterData['timezone'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -185,19 +185,19 @@ if ($okt->error->notEmpty()) : ?>
 	<?php endif; # fin Okatea : affichage des champs personnalisés si ils sont activés ?>
 
 	<p><input type="submit" class="submit" value="<?php _e('c_c_auth_register_action') ?>" />
-	<?php echo form::hidden('redirect',html::escapeHTML($redirect)) ?>
+	<?php echo form::hidden('redirect',$view->escape($redirect)) ?>
 	<?php echo form::hidden('add_user',1) ?></p>
 
 	<ul>
 		<?php # début Okatea : lien page connexion
 		if ($okt->users->config->enable_login_page) : ?>
-		<li><a href="<?php echo html::escapeHTML(usersHelpers::getLoginUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>"><?php
 		_e('c_c_auth_login') ?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page mot de passe oublié
 		if ($okt->users->config->enable_forget_password_page) : ?>
-		<li><a href="<?php echo html::escapeHTML(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
 		_e('c_c_auth_forgot_password') ?></a></li>
 		<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 	</ul>

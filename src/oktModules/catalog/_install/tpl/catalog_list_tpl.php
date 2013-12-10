@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,7 +36,7 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 if ($okt->catalog->config->enable_filters && !$okt->catalog->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
-		var c = $("#catalog-filter-control").html("<a href=\"#\">'.html::escapeJS(__('m_catalog_display_filters')).'</a>");
+		var c = $("#catalog-filter-control").html("<a href=\"#\">'.$view->escapeJs(__('m_catalog_display_filters')).'</a>");
 
 		c.css("display","block");
 
@@ -64,14 +62,14 @@ if ($okt->catalog->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo html::escapeHTML($okt->catalog->config->url) ?>" method="get" id="<?php echo $okt->catalog->filters->getFilterFormId() ?>" class="catalog-filters-form">
+	<form action="<?php echo $view->escape($okt->catalog->config->url) ?>" method="get" id="<?php echo $okt->catalog->filters->getFilterFormId() ?>" class="catalog-filters-form">
 		<fieldset>
 		<legend><?php _e('m_catalog_display_filters') ?></legend>
 
 		<?php echo $okt->catalog->filters->getFiltersFields(); ?>
 
 		<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->catalog->filters->getFilterSubmitName() ?>" />
-		<a href="<?php echo html::escapeHTML($okt->catalog->config->url) ?>?catalog_init_filters=1" class="italic"><?php _e('m_catalog_display_filters_init') ?></a></p>
+		<a href="<?php echo $view->escape($okt->catalog->config->url) ?>?catalog_init_filters=1" class="italic"><?php _e('m_catalog_display_filters_init') ?></a></p>
 
 		</fieldset>
 	</form>
@@ -102,12 +100,12 @@ if (!$productsList->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage du titre ?>
-		<h2 class="product-title"><a href="<?php echo html::escapeHTML($productsList->url) ?>"><?php echo html::escapeHTML($productsList->title) ?></a></h2>
+		<h2 class="product-title"><a href="<?php echo $view->escape($productsList->url) ?>"><?php echo $view->escape($productsList->title) ?></a></h2>
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage du sous-titre
 		if ($productsList->subtitle != ''  && $okt->catalog->config->fields['subtitle'] != 0) : ?>
-			<p class="product-subtitle"><strong><?php echo html::escapeHTML($productsList->subtitle) ?></strong></p>
+			<p class="product-subtitle"><strong><?php echo $view->escape($productsList->subtitle) ?></strong></p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage du contenu ?>
@@ -119,11 +117,11 @@ if (!$productsList->isEmpty()) : ?>
 
 			<div class="modal-box">
 				<a href="<?php echo $prod_image['img_url']?>"
-				title="<?php echo util::escapeAttrHTML($productsList->title) ?>"
+				title="<?php echo $view->escapeHtmlAttr($productsList->title) ?>"
 				class="modal"><img src="<?php
 				echo $prod_image['square_url']?>"
 				<?php echo $prod_image['square_attr']?>
-				alt="<?php echo util::escapeAttrHTML((isset($prod_image['alt']) ? $prod_image['alt'] : $productsList->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($prod_image['alt']) ? $prod_image['alt'] : $productsList->title)) ?>" /></a>
 			</div>
 			<?php endif; # fin Okatea : affichage image ?>
 
@@ -147,13 +145,13 @@ if (!$productsList->isEmpty()) : ?>
 
 				<?php if ($productsList->content_short != ''  && $okt->catalog->config->fields['content_short'] != 0) : ?>
 
-					<p><?php echo $productsList->content_short ?>… <a href="<?php echo html::escapeHTML($productsList->url) ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_catalog_more_details_on_%s'),$productsList->title)) ?>"><?php _e('m_catalog_more_details') ?></a></p>
+					<p><?php echo $productsList->content_short ?>… <a href="<?php echo $view->escape($productsList->url) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_catalog_more_details_on_%s'),$productsList->title)) ?>"><?php _e('m_catalog_more_details') ?></a></p>
 
 				<?php elseif ($productsList->content != '') : ?>
 
-					<p><?php echo $productsList->content ?>… <a href="<?php echo html::escapeHTML($productsList->url) ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_catalog_more_details_on_%s'),$productsList->title)) ?>"><?php _e('m_catalog_more_details') ?></a></p>
+					<p><?php echo $productsList->content ?>… <a href="<?php echo $view->escape($productsList->url) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_catalog_more_details_on_%s'),$productsList->title)) ?>"><?php _e('m_catalog_more_details') ?></a></p>
 
 				<?php endif; ?>
 

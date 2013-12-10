@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->news->getPosts(array(
 	'active' => 1, 		# articles visibles
@@ -58,7 +56,7 @@ $okt->page->js->addReady('
 		<div class="post <?php echo $rsInsertPosts->odd_even ?>">
 
 			<?php # début Okatea : affichage du titre ?>
-			<p class="post-title"><a href="<?php echo $this->escape($rsInsertPosts->url) ?>"><?php echo $this->escape($rsInsertPosts->title) ?></a></p>
+			<p class="post-title"><a href="<?php echo $view->escape($rsInsertPosts->url) ?>"><?php echo $view->escape($rsInsertPosts->title) ?></a></p>
 			<?php # fin Okatea : affichage du titre ?>
 
 
@@ -81,8 +79,8 @@ $okt->page->js->addReady('
 
 				<p><?php echo $rsInsertPosts->content ?>…</p>
 
-				<p class="read-more-link-wrapper"><a href="<?php echo $this->escape($rsInsertPosts->url) ?>"
-				title="<?php echo $this->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsInsertPosts->title)) ?>"
+				<p class="read-more-link-wrapper"><a href="<?php echo $view->escape($rsInsertPosts->url) ?>"
+				title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsInsertPosts->title)) ?>"
 				class="read-more-link" rel="nofollow"><?php _e('m_news_read_more') ?></a></p>
 
 				<?php endif; # fin Okatea : affichage texte tronqué ?>

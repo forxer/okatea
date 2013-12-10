@@ -8,15 +8,15 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 <?php if (!$okt->user->infos->is_guest) : ?>
 
 	<p>
-		<?php printf(__('c_c_user_hello_%s'), html::escapeHTML($okt->user->usedname)) ?>
+		<?php printf(__('c_c_user_hello_%s'), $view->escape($okt->user->usedname)) ?>
 
 		<?php # début Okatea : lien page profil
 		if ($okt->users->config->enable_profile_page) : ?>
-		- <a href="<?php echo html::escapeHTML(usersHelpers::getProfileUrl()) ?>"><?php _e('c_c_user_profile') ?></a>
+		- <a href="<?php echo $view->escape(usersHelpers::getProfileUrl()) ?>"><?php _e('c_c_user_profile') ?></a>
 		<?php endif; # fin Okatea : lien page profil ?>
 
 		<?php # début Okatea : lien déconnexion ?>
-		- <a href="<?php echo html::escapeHTML(usersHelpers::getLogoutUrl()) ?>"><?php
+		- <a href="<?php echo $view->escape(usersHelpers::getLogoutUrl()) ?>"><?php
 		_e('c_c_user_Log_off_action') ?></a>
 		<?php # fin Okatea : lien déconnexion ?>
 	</p>
@@ -32,19 +32,19 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 
 		<?php # début Okatea : lien page connexion
 		if ($okt->users->config->enable_login_page) : ?>
-		- <a href="<?php echo html::escapeHTML(usersHelpers::getLoginUrl($okt->config->self_uri)) ?>"><?php
+		- <a href="<?php echo $view->escape(usersHelpers::getLoginUrl($okt->config->self_uri)) ?>"><?php
 		_e('c_c_auth_login') ?></a>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page inscription
 		if ($okt->users->config->enable_register_page) : ?>
-		- <a href="<?php echo html::escapeHTML(usersHelpers::getRegisterUrl()) ?>"><?php
+		- <a href="<?php echo $view->escape(usersHelpers::getRegisterUrl()) ?>"><?php
 		_e('c_c_auth_register') ?></a>
 		<?php endif; # fin Okatea : lien page inscription ?>
 
 		<?php # début Okatea : lien page mot de passe oublié
 		if ($okt->users->config->enable_forget_password_page) : ?>
-		- <a href="<?php echo html::escapeHTML(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+		- <a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
 		_e('c_c_auth_forgot_password') ?></a>
 		<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 	</p>

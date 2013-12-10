@@ -17,8 +17,8 @@ class diaryController extends Controller
 	public function diaryList($aMatches)
 	{
 		# module actuel
-		$this->okt->page->module = 'diary';
-		$this->okt->page->action = 'list';
+		$this->page->module = 'diary';
+		$this->page->action = 'list';
 
 		# année et mois à afficher ?
 		$iYear = !empty($_GET['year']) ? intval($_GET['year']) : null;
@@ -81,33 +81,33 @@ class diaryController extends Controller
 
 		# meta description
 		if ($this->okt->diary->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->diary->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+			$this->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->diary->getTitle());
+		$this->page->addTitleTag($this->okt->diary->getTitle());
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->diary->getName());
+		$this->page->setTitle($this->okt->diary->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->diary->getNameSeo());
+		$this->page->setTitleSeo($this->okt->diary->getNameSeo());
 
 
 		# affichage du template
@@ -127,7 +127,7 @@ class diaryController extends Controller
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# récupération de l'évènement
@@ -137,34 +137,34 @@ class diaryController extends Controller
 		));
 
 		if ($rsEvent->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# module actuel
-		$this->okt->page->module = 'diary';
-		$this->okt->page->action = 'event';
+		$this->page->module = 'diary';
+		$this->page->action = 'event';
 
 
 		# meta description
 		if ($rsEvent->meta_description != '') {
-			$this->okt->page->meta_description = $rsEvent->meta_description;
+			$this->page->meta_description = $rsEvent->meta_description;
 		}
 		else if ($this->okt->diary->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($rsEvent->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $rsEvent->meta_keywords;
+			$this->page->meta_keywords = $rsEvent->meta_keywords;
 		}
 		else if ($this->okt->diary->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# description
@@ -179,24 +179,24 @@ class diaryController extends Controller
 		$rsEvent->files = $rsEvent->getFilesInfo();
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->diary->getTitle());
+		$this->page->addTitleTag($this->okt->diary->getTitle());
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-			$this->okt->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+			$this->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
 
-			$this->okt->page->breadcrumb->add($rsEvent->title, $rsEvent->getEventUrl());
+			$this->page->breadcrumb->add($rsEvent->title, $rsEvent->getEventUrl());
 		}
 
 		# title tag
-		$this->okt->page->addTitleTag(($rsEvent->title_tag != '' ? $rsEvent->title_tag : $rsEvent->title));
+		$this->page->addTitleTag(($rsEvent->title_tag != '' ? $rsEvent->title_tag : $rsEvent->title));
 
 		# titre de la page
-		$this->okt->page->setTitle($rsEvent->title);
+		$this->page->setTitle($rsEvent->title);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(!empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
+		$this->page->setTitleSeo(!empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
 
 		# affichage du template
 		return $this->render('diary_event_tpl', array(

@@ -5,16 +5,16 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
-use Tao\Core\Authentification;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
+use Tao\Core\Authentification;
+use Tao\Core\Triggers;
+use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
+use Tao\Misc\Utilities as util;
 use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
-use Tao\Routing\Route;
 use Tao\Themes\SimpleReplacements;
-use Tao\Core\Triggers;
 
 class module_pages extends Module
 {
@@ -72,29 +72,40 @@ class module_pages extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
 
-		$this->config->url = pagesHelpers::getPagesUrl();
-		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
-
 		# définition des routes
-		$this->okt->router->addRoute('pagesFeed', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
-			'pagesController', 'pagesFeed'
-		));
+		$this->okt->router->addRoute('pagesList',
+			$this->config->routes['list'],
+			array(
+				'_controller' => 'pagesController::pagesList',
+			)
+		);
 
-		$this->okt->router->addRoute('pagesList', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
-			'pagesController', 'pagesList'
-		));
+		$this->okt->router->addRoute('pagesCategory',
+			$this->config->routes['category'],
+			array(
+				'_controller' => 'pagesController::pagesCategory',
+			),
+			array(
+				'slug' => '.+'
+			)
+		);
 
-		$this->okt->router->addRoute('pagesCategory', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
-			'pagesController', 'pagesCategory'
-		));
+		$this->okt->router->addRoute('pagesItem',
+			$this->config->routes['post'],
+			array(
+				'_controller' => 'pagesController::pagesItem',
+			)
+		);
 
-		$this->okt->router->addRoute('pagesItem', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_page_url)).')/(.*)$',
-			'pagesController', 'pagesItem'
-		));
+		$this->okt->router->addRoute('pagesFeed',
+			$this->config->routes['feed'],
+			array(
+				'_controller' => 'pagesController::pagesFeed',
+			)
+		);
+
+		$this->config->url = pagesHelpers::getPagesUrl();
+		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/pages/';
@@ -220,12 +231,10 @@ class module_pages extends Module
 		# modification de la page en cours
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action) && $okt->page->action == 'item')
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if (isset($aVars['rsPage']) && $aVars['rsPage']->isEditable())
+			if (isset($okt->controller->rsPage) && $okt->controller->rsPage->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $aBasesUrl['admin'].'/module.php?m=pages&amp;action=edit&amp;post_id='.$aVars['rsPage']->id,
+					'href' => $aBasesUrl['admin'].'/module.php?m=pages&amp;action=edit&amp;post_id='.$okt->controller->rsPage->id,
 					'intitle' => __('m_pages_ab_edit_page')
 				);
 			}

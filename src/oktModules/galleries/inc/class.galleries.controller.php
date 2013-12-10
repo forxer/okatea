@@ -16,8 +16,8 @@ class galleriesController extends Controller
 	public function galleriesList()
 	{
 		# module actuel
-		$this->okt->page->module = 'galleries';
-		$this->okt->page->action = 'list';
+		$this->page->module = 'galleries';
+		$this->page->action = 'list';
 
 		# Récupération de la liste des galeries à la racine
 		$rsGalleriesList = $this->okt->galleries->tree->getGalleries(array(
@@ -30,34 +30,34 @@ class galleriesController extends Controller
 
 		# meta description
 		if (!empty($this->okt->galleries->config->meta_description[$this->okt->user->language])) {
-			$this->okt->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language] ;
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language] ;
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if (!empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language])) {
-			$this->okt->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language] ;
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language] ;
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 		
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__))
 		{
-			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+			$this->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->galleries->getTitle());
+		$this->page->addTitleTag($this->okt->galleries->getTitle());
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->galleries->getName());
+		$this->page->setTitle($this->okt->galleries->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->galleries->getNameSeo());
+		$this->page->setTitleSeo($this->okt->galleries->getNameSeo());
 
 		# affichage du template
 		return $this->render('galleries/list/'.$this->okt->galleries->config->templates['list']['default'].'/template', array(
@@ -72,15 +72,15 @@ class galleriesController extends Controller
 	public function galleriesGallery($aMatches)
 	{
 		# module actuel
-		$this->okt->page->module = 'galleries';
-		$this->okt->page->action = 'gallery';
+		$this->page->module = 'galleries';
+		$this->page->action = 'gallery';
 
 		# récupération de la galerie en fonction du slug
 		if (!empty($aMatches[0])) {
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# récupération de la galerie
@@ -91,7 +91,7 @@ class galleriesController extends Controller
 		));
 
 		if ($rsGallery->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# formatage des données avant affichage
@@ -123,7 +123,7 @@ class galleriesController extends Controller
 				}
 				else {
 					$_SESSION['okt_gallery_password_'.$rsGallery->id] = $p_password;
-					http::redirect(html::escapeHTML($rsGallery->getGalleryUrl()));
+					return $this->redirect(html::escapeHTML($rsGallery->getGalleryUrl()));
 				}
 			}
 
@@ -151,45 +151,45 @@ class galleriesController extends Controller
 
 		# meta description
 		if (!empty($rsGallery->meta_description)) {
-			$this->okt->page->meta_description = $rsGallery->meta_description;
+			$this->page->meta_description = $rsGallery->meta_description;
 		}
 		elseif (!empty($this->okt->galleries->config->meta_description[$this->okt->user->language])) {
-			$this->okt->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if (!empty($rsGallery->meta_keywords)) {
-			$this->okt->page->meta_description = $rsGallery->meta_keywords;
+			$this->page->meta_description = $rsGallery->meta_keywords;
 		}
 		elseif (!empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language])) {
-			$this->okt->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag
-		$this->okt->page->addTitleTag((!empty($rsGallery->title_tag) ? $rsGallery->title_tag : $rsGallery->title));
+		$this->page->addTitleTag((!empty($rsGallery->title_tag) ? $rsGallery->title_tag : $rsGallery->title));
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+			$this->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
 			
 			$rsPath = $this->okt->galleries->tree->getPath($rsGallery->id, true, $this->okt->user->language);
 			while ($rsPath->fetch()) {
-				$this->okt->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
+				$this->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
 			}
 		}
 
 		# titre de la page
-		$this->okt->page->setTitle($rsGallery->title);
+		$this->page->setTitle($rsGallery->title);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($rsGallery->title_seo);
+		$this->page->setTitleSeo($rsGallery->title_seo);
 
 		# affichage du template
 		return $this->render('galleries/gallery/'.$this->okt->galleries->config->templates['gallery']['default'].'/template', array(
@@ -211,7 +211,7 @@ class galleriesController extends Controller
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# récupération de l'élément
@@ -222,12 +222,12 @@ class galleriesController extends Controller
 		));
 
 		if ($rsItem->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# module actuel
-		$this->okt->page->module = 'galleries';
-		$this->okt->page->action = 'item';
+		$this->page->module = 'galleries';
+		$this->page->action = 'item';
 
 		//$rsItem->image = $rsItem->getImagesInfo();
 
@@ -236,57 +236,57 @@ class galleriesController extends Controller
 		}
 
 		# title tag
-		$this->okt->page->addTitleTag($this->okt->galleries->getTitle());
+		$this->page->addTitleTag($this->okt->galleries->getTitle());
 
 		if ($rsItem->title_tag == '') {
 			$rsItem->title_tag = $rsItem->title;
 		}
 
-		$this->okt->page->addTitleTag($rsItem->title_tag);
+		$this->page->addTitleTag($rsItem->title_tag);
 
 		# meta description
 		if ($rsItem->meta_description != '') {
-			$this->okt->page->meta_description = $rsItem->meta_description;
+			$this->page->meta_description = $rsItem->meta_description;
 		}
 		else if ($this->okt->galleries->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($rsItem->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $rsItem->meta_keywords;
+			$this->page->meta_keywords = $rsItem->meta_keywords;
 		}
 		else if ($this->okt->galleries->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug)) 
 		{
-			$this->okt->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
+			$this->page->breadcrumb->add($this->okt->galleries->getName(), $this->okt->galleries->config->url);
 			
 			$rsPath = $this->okt->galleries->tree->getPath($rsItem->gallery_id, true, $this->okt->user->language);
 			while ($rsPath->fetch())
 			{
-				$this->okt->page->addTitleTag($rsPath->title);
+				$this->page->addTitleTag($rsPath->title);
 	
-				$this->okt->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
+				$this->page->breadcrumb->add($rsPath->title, galleriesHelpers::getGalleryUrl($rsPath->slug));
 			}
 
-			$this->okt->page->breadcrumb->add($rsItem->title, $rsItem->getItemUrl());
+			$this->page->breadcrumb->add($rsItem->title, $rsItem->getItemUrl());
 		}
 		
 		# titre de la page
-		$this->okt->page->setTitle($rsItem->title);
+		$this->page->setTitle($rsItem->title);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(!empty($rsItem->title_seo) ? $rsItem->title_seo : $rsItem->title);
+		$this->page->setTitleSeo(!empty($rsItem->title_seo) ? $rsItem->title_seo : $rsItem->title);
 
 		# affichage du template
 		return $this->render('galleries/item/'.$this->okt->galleries->config->templates['item']['default'].'/template', array(

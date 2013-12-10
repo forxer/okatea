@@ -28,27 +28,27 @@ $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/gmap3/gmap3.min.js');
 $sJsGmap3Loader =
 '$("#google_map").gmap3({
 	map: {
-		address: "'.html::escapeJS($okt->contact->getAdressForGmap()).'",
+		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
 		options: {
 			center: true,
-			zoom: '.html::escapeJS($okt->contact->config->google_map['options']['zoom']).',
-			mapTypeId: google.maps.MapTypeId.'.html::escapeJS($okt->contact->config->google_map['options']['mode']).'
+			zoom: '.$view->escapeJs($okt->contact->config->google_map['options']['zoom']).',
+			mapTypeId: google.maps.MapTypeId.'.$view->escapeJs($okt->contact->config->google_map['options']['mode']).'
 		}
 	},
 //	marker: {
-//		address: "'.html::escapeJS($okt->contact->getAdressForGmap()).'",
+//		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
 //		options:{
 //			draggable: false
 //		}
 //	},
 	infowindow:{
-		address: "'.html::escapeJS($okt->contact->getAdressForGmap()).'",
+		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
 		options: {
-			content: "<div id=\"infobulle\"><strong>'.html::escapeJS((!empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])).'</strong><br/> '.
-				html::escapeJS($okt->config->address['street']).'<br/> '.
-				($okt->config->address['street_2'] != '' ? html::escapeJS($okt->config->address['street_2']).'<br/>' : '').
-				html::escapeJS($okt->config->address['code']).' '.html::escapeJS($okt->config->address['city']).'<br/> '.
-				html::escapeJS($okt->config->address['country']).'</div>"
+			content: "<div id=\"infobulle\"><strong>'.$view->escapeJs((!empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])).'</strong><br/> '.
+				$view->escapeJs($okt->config->address['street']).'<br/> '.
+				($okt->config->address['street_2'] != '' ? $view->escapeJs($okt->config->address['street_2']).'<br/>' : '').
+				$view->escapeJs($okt->config->address['code']).' '.$view->escapeJs($okt->config->address['city']).'<br/> '.
+				$view->escapeJs($okt->config->address['country']).'</div>"
 		}
 	}
 });';

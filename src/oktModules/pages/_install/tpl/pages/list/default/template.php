@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,7 +36,7 @@ $okt->page->applyLbl($okt->pages->config->lightbox_type);
 if (!$okt->pages->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
-		var c = $("#pages-filter-control").html("<a href=\"#\">'.html::escapeJS(__('m_pages_display_filters')).'</a>");
+		var c = $("#pages-filter-control").html("<a href=\"#\">'.$view->escapeJS(__('m_pages_display_filters')).'</a>");
 
 		c.css("display","block");
 
@@ -63,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo html::escapeHTML($okt->pages->config->feed_url) ?>" />
+	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape($okt->pages->config->feed_url) ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();
@@ -80,14 +78,14 @@ if ($okt->pages->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo html::escapeHTML($okt->pages->config->url) ?>" id="<?php echo $okt->pages->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->escape($okt->pages->config->url) ?>" id="<?php echo $okt->pages->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_pages_display_filters') ?></legend>
 
 			<?php echo $okt->pages->filters->getFiltersFields(); ?>
 
 			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->pages->filters->getFilterSubmitName() ?>" />
-			<a href="<?php echo html::escapeHTML($okt->pages->config->url) ?>?init_pages_filters=1" rel="nofollow" class="filters-init"><?php _e('m_pages_display_filters_init') ?></a></p>
+			<a href="<?php echo $view->escape($okt->pages->config->url) ?>?init_pages_filters=1" rel="nofollow" class="filters-init"><?php _e('m_pages_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
 	<?php # fin Okatea : affichage des filtres ?>
@@ -122,12 +120,12 @@ if (!$rsPagesList->isEmpty()) : ?>
 	<div class="page <?php echo $rsPagesList->odd_even ?>">
 
 		<?php # début Okatea : affichage du titre ?>
-		<h2 class="page-title"><a href="<?php echo html::escapeHTML($rsPagesList->url) ?>"><?php echo html::escapeHTML($rsPagesList->title) ?></a></h2>
+		<h2 class="page-title"><a href="<?php echo $view->escape($rsPagesList->url) ?>"><?php echo $view->escape($rsPagesList->title) ?></a></h2>
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage du sous-titre
 		if ($rsPagesList->subtitle != '') : ?>
-		<p class="page-subtitle"><strong><?php echo html::escapeHTML($rsPagesList->subtitle) ?></strong></p>
+		<p class="page-subtitle"><strong><?php echo $view->escape($rsPagesList->subtitle) ?></strong></p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage du contenu ?>
@@ -149,8 +147,8 @@ if (!$rsPagesList->isEmpty()) : ?>
 
 			<p><?php echo $rsPagesList->content ?>… </p>
 
-			<p class="read-more-link-wrapper"><a href="<?php echo html::escapeHTML($rsPagesList->url) ?>"
-			title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_read_more_of_%s'),$rsPagesList->title)) ?>"
+			<p class="read-more-link-wrapper"><a href="<?php echo $view->escape($rsPagesList->url) ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_read_more_of_%s'),$rsPagesList->title)) ?>"
 			class="read-more-link" rel="nofollow"><?php _e('m_pages_read_more') ?></a></p>
 
 			<?php endif; # fin Okatea : affichage texte tronqué ?>

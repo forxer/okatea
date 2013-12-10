@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -38,7 +36,7 @@ $okt->page->applyLbl($okt->news->config->lightbox_type);
 if ($okt->news->config->enable_filters && !$okt->news->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
-		var c = $("#news-filters-control").html("<a href=\"#\">'.html::escapeJS(__('m_news_display_filters')).'</a>");
+		var c = $("#news-filters-control").html("<a href=\"#\">'.$view->escapeJS(__('m_news_display_filters')).'</a>");
 
 		c.css("display","block");
 
@@ -63,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $this->escape($okt->news->config->feed_url) ?>" />
+	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape($okt->news->config->feed_url) ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();
@@ -79,14 +77,14 @@ if ($okt->news->config->enable_filters) : ?>
 	<?php endif; # fin Okatea : lien d'affichage des filtres ?>
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $this->escape($okt->news->config->url) ?>" id="<?php echo $okt->news->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->escape($okt->news->config->url) ?>" id="<?php echo $okt->news->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_news_display_filters') ?></legend>
 
 			<?php echo $okt->news->filters->getFiltersFields(); ?>
 
 			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->news->filters->getFilterSubmitName() ?>" />
-			<a href="<?php echo $this->escape($okt->news->config->url) ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
+			<a href="<?php echo $view->escape($okt->news->config->url) ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
 	<?php # fin Okatea : affichage des filtres ?>
@@ -116,12 +114,12 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage du titre ?>
-		<h2 class="post-title"><a href="<?php echo $this->escape($rsPostsList->url) ?>"><?php echo $this->escape($rsPostsList->title) ?></a></h2>
+		<h2 class="post-title"><a href="<?php echo $view->escape($rsPostsList->url) ?>"><?php echo $view->escape($rsPostsList->title) ?></a></h2>
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage du sous-titre
 		if ($rsPostsList->subtitle != '') : ?>
-		<p class="post-subtitle"><strong><?php echo $this->escape($rsPostsList->subtitle) ?></strong></p>
+		<p class="post-subtitle"><strong><?php echo $view->escape($rsPostsList->subtitle) ?></strong></p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage des infos
@@ -136,12 +134,12 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 			<?php # début Okatea : affichage l'auteur de l'article
 			if ($okt->news->config->public_display_author) : ?>
-			<?php printf(__('m_news_by_%s'),$this->escape($rsPostsList->author)) ?>
+			<?php printf(__('m_news_by_%s'),$view->escape($rsPostsList->author)) ?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
 			<?php # début Okatea : affichage rubrique
 			if ($okt->news->config->categories['enable'] && $rsPostsList->category_title) : ?>
-			<?php printf(__('m_news_in_%s'),'<a href="'.$this->escape($rsPostsList->category_url).'">'.$this->escape($rsPostsList->category_title).'</a>') ?>
+			<?php printf(__('m_news_in_%s'),'<a href="'.$view->escape($rsPostsList->category_url).'">'.$view->escape($rsPostsList->category_title).'</a>') ?>
 			<?php endif; # fin Okatea : affichage rubrique ?>
 
 		</p><!-- .post-infos -->
@@ -167,10 +165,10 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 			<div class="modal-box">
 				<a href="<?php echo $rsPostsList->images[1]['img_url']?>"
-				title="<?php echo $this->escapeHtmlAttr($rsPostsList->title) ?>"
+				title="<?php echo $view->escapeHtmlAttr($rsPostsList->title) ?>"
 				class="modal"><img src="<?php echo $rsPostsList->images[1]['min_url'] ?>"
 				<?php echo $rsPostsList->images[1]['min_attr']?>
-				alt="<?php echo $this->escapeHtmlAttr((isset($rsPostsList->images[1]['alt'][$okt->user->language]) ? $rsPostsList->images[1]['alt'][$okt->user->language] : $rsPostsList->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsPostsList->images[1]['alt'][$okt->user->language]) ? $rsPostsList->images[1]['alt'][$okt->user->language] : $rsPostsList->title)) ?>" /></a>
 			</div>
 			<?php endif; # fin Okatea : affichage image ?>
 
@@ -178,8 +176,8 @@ if (!$rsPostsList->isEmpty()) : ?>
 			<?php # début Okatea : affichage texte tronqué
 			if ($okt->news->config->public_truncat_char > 0) : ?>
 
-			<p><?php echo $rsPostsList->content ?>… <a href="<?php echo $this->escape($rsPostsList->url) ?>"
-			title="<?php echo $this->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsPostsList->title)) ?>"
+			<p><?php echo $rsPostsList->content ?>… <a href="<?php echo $view->escape($rsPostsList->url) ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsPostsList->title)) ?>"
 			class="read-more-link" rel="nofollow"><?php _e('m_news_read_more') ?></a></p>
 
 			<?php endif; # fin Okatea : affichage texte tronqué ?>

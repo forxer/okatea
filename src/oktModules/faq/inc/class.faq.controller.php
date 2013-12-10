@@ -18,8 +18,8 @@ class faqController extends Controller
 	public function faqList()
 	{
 		# module actuel
-		$this->okt->page->module = 'faq';
-		$this->okt->page->action = 'list_questions';
+		$this->page->module = 'faq';
+		$this->page->action = 'list_questions';
 
 		# paramètres de base de selection des articles
 		$aFaqParams = array(
@@ -34,7 +34,7 @@ class faqController extends Controller
 		if (!empty($_GET['init_filters']))
 		{
 			$this->okt->faq->filters->initFilters();
-			http::redirect($this->okt->faq->config->url);
+			return $this->redirect($this->okt->faq->config->url);
 		}
 
 		# initialisation des filtres
@@ -77,22 +77,22 @@ class faqController extends Controller
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
+			$this->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
 		}
 
 		# ajout du numéro de page au title
 		if ($this->okt->faq->filters->params->page > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->faq->filters->params->page));
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->faq->filters->params->page));
 		}
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->faq->getTitle());
+		$this->page->addTitleTag($this->okt->faq->getTitle());
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->faq->getName());
+		$this->page->setTitle($this->okt->faq->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->faq->getNameSeo());
+		$this->page->setTitleSeo($this->okt->faq->getNameSeo());
 
 		# raccourcis
 		$faqList->numPages = $iNumPages;
@@ -117,15 +117,15 @@ class faqController extends Controller
 	public function faqQuestion($aMatches)
 	{
 		# module actuel
-		$this->okt->page->module = 'faq';
-		$this->okt->page->action = 'question';
+		$this->page->module = 'faq';
+		$this->page->action = 'question';
 
 		# récupération de la question en fonction du slug
 		if (!empty($aMatches[0])) {
 			$slug = $aMatches[0];
 		}
 		else {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		$faqQuestion = $this->okt->faq->getQuestions(array(
@@ -134,7 +134,7 @@ class faqController extends Controller
 		));
 
 		if ($faqQuestion->isEmpty()) {
-			$this->serve404();
+			return $this->serve404();
 		}
 
 		# formatage des données
@@ -150,24 +150,24 @@ class faqController extends Controller
 
 		# meta description
 		if ($faqQuestion->metadescription != '') {
-			$this->okt->page->meta_description = $faqQuestion->metadescription;
+			$this->page->meta_description = $faqQuestion->metadescription;
 		}
 		else if ($this->okt->faq->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->faq->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($faqQuestion->meta_keywords != '') {
-			$this->okt->page->meta_keywords = $faqQuestion->meta_keywords;
+			$this->page->meta_keywords = $faqQuestion->meta_keywords;
 		}
 		else if ($this->okt->faq->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# récupération des images
@@ -177,23 +177,23 @@ class faqController extends Controller
 		$faqQuestion->files = $faqQuestion->getFilesInfo();
 
 		# title tag du module
-		$this->okt->page->addTitleTag($this->okt->faq->getTitle());
+		$this->page->addTitleTag($this->okt->faq->getTitle());
 
 		# title tag du post
-		$this->okt->page->addTitleTag(($faqQuestion->title_tag != '' ? $faqQuestion->title_tag : $faqQuestion->title));
+		$this->page->addTitleTag(($faqQuestion->title_tag != '' ? $faqQuestion->title_tag : $faqQuestion->title));
 
 		# titre de la page
-		$this->okt->page->setTitle($faqQuestion->title);
+		$this->page->setTitle($faqQuestion->title);
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo(!empty($faqQuestion->title_seo) ? $faqQuestion->title_seo : $faqQuestion->title);
+		$this->page->setTitleSeo(!empty($faqQuestion->title_seo) ? $faqQuestion->title_seo : $faqQuestion->title);
 
 		# fil d'ariane du post
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-			$this->okt->page->breadcrumb->add($this->okt->faq->getName(), $this->okt->faq->config->url);
+			$this->page->breadcrumb->add($this->okt->faq->getName(), $this->okt->faq->config->url);
 
-			$this->okt->page->breadcrumb->add($faqQuestion->title, $faqQuestion->url);
+			$this->page->breadcrumb->add($faqQuestion->title, $faqQuestion->url);
 		}
 
 		# affichage du template

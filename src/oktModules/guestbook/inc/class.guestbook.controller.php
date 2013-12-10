@@ -19,8 +19,8 @@ class guestbookController extends Controller
 	public function guestbookPage()
 	{
 		# module actuel
-		$this->okt->page->module = 'guestbook';
-		$this->okt->page->action = 'list';
+		$this->page->module = 'guestbook';
+		$this->page->action = 'list';
 
 		# -- CORE TRIGGER : publicModuleGuestbookControllerStart
 		$this->okt->triggers->callTrigger('publicModuleGuestbookControllerStart', $this->okt, $this->okt->guestbook->config->captcha);
@@ -63,12 +63,12 @@ class guestbookController extends Controller
 
 						$oMail->setFrom();
 
-						$oMail->message->setSubject('Nouveau message sur le livre d’or de '.util::getSiteTitle());
+						$oMail->message->setSubject('Nouveau message sur le livre d’or de '.$this->page->getSiteTitle());
 
 						$mail_body =
 							'Bonjour,'."\n\n".
 							'Un utilisateur a laissé un nouveau message '.
-							'sur le livre d’or de "'.util::getSiteTitle().'".'."\n\n";
+							'sur le livre d’or de "'.$this->page->getSiteTitle().'".'."\n\n";
 
 						if ($this->okt->guestbook->config->validation)
 						{
@@ -91,7 +91,7 @@ class guestbookController extends Controller
 						$oMail->send();
 					}
 
-					http::redirect($this->okt->guestbook->config->url.'?added=1');
+					return $this->redirect($this->okt->guestbook->config->url.'?added=1');
 				}
 			}
 		}
@@ -144,37 +144,37 @@ class guestbookController extends Controller
 
 		# meta description
 		if ($this->okt->guestbook->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
 		if ($this->okt->guestbook->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# ajout du numéro de page au title
 		if ($iPage > 1) {
-			$this->okt->page->addTitleTag(sprintf(__('c_c_Page_%s'),$iPage));
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'),$iPage));
 		}
 
 		# title tag
-		$this->okt->page->addTitleTag($this->okt->guestbook->getTitle());
+		$this->page->addTitleTag($this->okt->guestbook->getTitle());
 
 		# titre de la page
-		$this->okt->page->setTitle($this->okt->guestbook->getName());
+		$this->page->setTitle($this->okt->guestbook->getName());
 
 		# titre SEO de la page
-		$this->okt->page->setTitleSeo($this->okt->guestbook->getNameSeo());
+		$this->page->setTitleSeo($this->okt->guestbook->getNameSeo());
 
 		# fil d'ariane de la page
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->okt->page->breadcrumb->add($this->okt->guestbook->getName(), $this->okt->guestbook->config->url);
+			$this->page->breadcrumb->add($this->okt->guestbook->getName(), $this->okt->guestbook->config->url);
 		}
 
 		# raccourcis

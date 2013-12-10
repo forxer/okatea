@@ -1,8 +1,5 @@
 
-<?php
-use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
-?>
+<?php use Tao\Forms\StaticFormElements as form; ?>
 
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
@@ -139,7 +136,7 @@ if (!empty($_GET['added'])) : ?>
 		if ($okt->guestbook->config->chp_nom) : ?>
 
 		<p class="field"><label for="nom"<?php if ($okt->guestbook->config->chp_nom == 2) echo ' class="required" title="'.__('c_c_required_field').'"'; ?>><?php _e('m_guestbook_full_name') ?></label>
-		<input name="nom" type="text" id="nom" size="40" value="<?php echo html::escapeHTML($aSigData['nom']) ?>" /></p>
+		<input name="nom" type="text" id="nom" size="40" value="<?php echo $view->escape($aSigData['nom']) ?>" /></p>
 
 		<?php endif; # fin : champ nom ?>
 
@@ -148,7 +145,7 @@ if (!empty($_GET['added'])) : ?>
 		if ($okt->guestbook->config->chp_mail) : ?>
 
 		<p class="field"><label for="email"<?php if ($okt->guestbook->config->chp_mail == 2) echo ' class="required" title="'.__('c_c_required_field').'"'; ?>><?php _e('m_guestbook_email') ?></label>
-		<input type="text" name="email" id="email" size="40" value="<?php echo html::escapeHTML($aSigData['email']) ?>" /></p>
+		<input type="text" name="email" id="email" size="40" value="<?php echo $view->escape($aSigData['email']) ?>" /></p>
 
 		<?php endif; # fin : champ email ?>
 
@@ -157,7 +154,7 @@ if (!empty($_GET['added'])) : ?>
 		if ($okt->guestbook->config->chp_url) : ?>
 
 		<p class="field"><label for="url"<?php if ($okt->guestbook->config->chp_url == 2) echo ' class="required" title="'.__('c_c_required_field').'"'; ?>><?php _e('m_guestbook_url') ?></label>
-		<input type="text" name="url" id="url" size="60" value="<?php echo html::escapeHTML($aSigData['url']) ?>" /></p>
+		<input type="text" name="url" id="url" size="60" value="<?php echo $view->escape($aSigData['url']) ?>" /></p>
 
 		<?php endif; # fin : champ URL ?>
 
@@ -179,7 +176,7 @@ if (!empty($_GET['added'])) : ?>
 		<?php # début : champ message ?>
 
 		<p class="field"><label for="msg" class="required" title="<?php _e('c_c_required_field') ?>"><?php _e('m_guestbook_message') ?></label></p>
-		<p><textarea name="msg" id="msg" cols="40" rows="10"><?php echo html::escapeHTML($aSigData['message']) ?></textarea></p>
+		<p><textarea name="msg" id="msg" cols="40" rows="10"><?php echo $view->escape($aSigData['message']) ?></textarea></p>
 
 		<?php # fin : champ message ?>
 
@@ -204,7 +201,7 @@ while ($signaturesList->fetch()) : ?>
 
 	<h3 class="title">
 	<?php if ($okt->guestbook->config->chp_nom && $signaturesList->nom != '') : ?>
-		<?php echo html::escapeHTML($signaturesList->nom) ?>
+		<?php echo $view->escape($signaturesList->nom) ?>
 	<?php else : ?>
 		<?php printf(__('m_guestbook_sign_num_%s'),$signaturesList->number) ?>
 	<?php endif; ?>
@@ -216,12 +213,12 @@ while ($signaturesList->fetch()) : ?>
 
 		<?php /* email */
 		if ($okt->guestbook->config->chp_mail && $signaturesList->email != '') : ?>
-		<li class="email"><a href="mailto:<?php echo util::escapeAttrHTML(util::emailEncode($signaturesList->email)) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/email.png" alt="<?php echo util::escapeAttrHTML(__('m_guestbook_email')) ?>" /></a></li>
+		<li class="email"><a href="mailto:<?php echo $view->escapeHtmlAttr(Tao\Misc\Utilities::emailEncode($signaturesList->email)) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/email.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
 		<?php endif; ?>
 
 		<?php /* URL */
 		if ($okt->guestbook->config->chp_url && ($signaturesList->url != '' && $signaturesList->url != 'http://')) : ?>
-		<li class="url"><a href="<?php echo util::escapeAttrHTML($signaturesList->url) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/house.png" alt="<?php echo util::escapeAttrHTML(__('m_guestbook_website')) ?>" /></a></li>
+		<li class="url"><a href="<?php echo $view->escapeHtmlAttr($signaturesList->url) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/house.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_website')) ?>" /></a></li>
 		<?php endif; ?>
 
 		<?php /* note */
@@ -230,7 +227,7 @@ while ($signaturesList->fetch()) : ?>
 		<?php endif; ?>
 	</ul>
 
-	<p class="msg"><?php echo util::nlToP(html::escapeHTML($signaturesList->message)) ?></p>
+	<p class="msg"><?php echo Tao\Misc\Utilities::nlToP($view->escape($signaturesList->message)) ?></p>
 
 </div><!-- .signature -->
 <?php endwhile;
@@ -250,7 +247,7 @@ if ($signaturesList->numPages > 1) : ?>
 if (!$okt->languages->unique) : ?>
 <p><?php foreach($aLanguages as $sLanguage => $sCode) :
 if ($okt->user->language != $sCode) : ?>
-<a href="<?php echo $okt->page->getBaseUrl($sCode).$okt->guestbook->config->public_url[$sCode] ?>"><?php echo html::escapeHTML($sLanguage) ?></a>
+<a href="<?php echo $okt->page->getBaseUrl($sCode).$okt->guestbook->config->public_url[$sCode] ?>"><?php echo $view->escape($sLanguage) ?></a>
 <?php endif;
 endforeach; ?></p>
 <?php endif; # Fin affichage liens vers les autres langues ?>

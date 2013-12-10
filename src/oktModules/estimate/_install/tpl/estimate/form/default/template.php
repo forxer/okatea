@@ -1,8 +1,5 @@
 
-<?php
-use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
-?>
+<?php use Tao\Forms\StaticFormElements as form; ?>
 
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
@@ -37,14 +34,14 @@ $okt->page->js->addReady('
 
 	$("#estimate_form").oktEstimateForm({
 		text: {
-			productTitle: "'.html::escapeJS(__('m_estimate_form_product_%s')).'",
-			addProduct: "'.html::escapeJS(__('m_estimate_form_add_product')).'",
-			removeProduct: "'.html::escapeJS(__('m_estimate_form_remove_product')).'",
-			productLabel: "'.html::escapeJS(__('m_estimate_form_choose_product')).'",
-			quantityLabel: "'.html::escapeJS(__('m_estimate_form_quantity')).'",
-			accessoryLabel: "'.html::escapeJS(__('m_estimate_form_accessory_%s')).'",
-			addAccessory: "'.html::escapeJS(__('m_estimate_form_add_accessory')).'",
-			removeAccessory: "'.html::escapeJS(__('m_estimate_form_remove_accessory')).'"
+			productTitle: "'.$view->escapeJs(__('m_estimate_form_product_%s')).'",
+			addProduct: "'.$view->escapeJs(__('m_estimate_form_add_product')).'",
+			removeProduct: "'.$view->escapeJs(__('m_estimate_form_remove_product')).'",
+			productLabel: "'.$view->escapeJs(__('m_estimate_form_choose_product')).'",
+			quantityLabel: "'.$view->escapeJs(__('m_estimate_form_quantity')).'",
+			accessoryLabel: "'.$view->escapeJs(__('m_estimate_form_accessory_%s')).'",
+			addAccessory: "'.$view->escapeJs(__('m_estimate_form_add_accessory')).'",
+			removeAccessory: "'.$view->escapeJs(__('m_estimate_form_remove_accessory')).'"
 		},
 		html: {
 			productsWrapper: "products_wrapper",
@@ -74,7 +71,7 @@ $okt->page->js->addReady('
 ');
 ?>
 
-<!-- <h1><?php echo html::escapeHTML($okt->estimate->getName()) ?></h1> -->
+<!-- <h1><?php echo $view->escape($okt->estimate->getName()) ?></h1> -->
 
 
 <?php # début Okatea : affichage des éventuelles erreurs
@@ -96,7 +93,7 @@ if (!empty($_GET['added'])) : ?>
 <?php # début Okatea : sinon on affichent le formulaire de demande de devis
 else : ?>
 
-<form id="estimate_form" action="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>" method="post">
+<form id="estimate_form" action="<?php echo $view->escapeHtmlAttr($okt->estimate->config->url) ?>" method="post">
 
 	<fieldset>
 		<legend>Vous concernant</legend>
@@ -105,18 +102,18 @@ else : ?>
 
 		<div class="two-cols">
 			<p class="field col"><label for="p_lastname" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Last_name') ?></label>
-			<?php echo form::text('p_lastname', 40, 255, html::escapeHTML($aFormData['lastname'])) ?></p>
+			<?php echo form::text('p_lastname', 40, 255, $view->escape($aFormData['lastname'])) ?></p>
 
 			<p class="field col"><label for="p_firstname" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_First_name') ?></label>
-			<?php echo form::text('p_firstname', 40, 255, html::escapeHTML($aFormData['firstname'])) ?></p>
+			<?php echo form::text('p_firstname', 40, 255, $view->escape($aFormData['firstname'])) ?></p>
 		</div>
 
 		<div class="two-cols">
 			<p class="field col"><label for="p_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-			<?php echo form::text('p_email', 40, 255, html::escapeHTML($aFormData['email'])) ?></p>
+			<?php echo form::text('p_email', 40, 255, $view->escape($aFormData['email'])) ?></p>
 
 			<p class="field col"><label for="p_phone" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Phone') ?></label>
-			<?php echo form::text('p_phone', 40, 255, html::escapeHTML($aFormData['phone'])) ?></p>
+			<?php echo form::text('p_phone', 40, 255, $view->escape($aFormData['phone'])) ?></p>
 		</div>
 
 	</fieldset>
@@ -128,10 +125,10 @@ else : ?>
 
 		<div class="two-cols">
 			<p class="field col"><label for="p_start_date" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_start_date') ?></label>
-			<?php echo form::text('p_start_date', 40, 255, html::escapeHTML($aFormData['start_date']), 'datepicker') ?></p>
+			<?php echo form::text('p_start_date', 40, 255, $view->escape($aFormData['start_date']), 'datepicker') ?></p>
 
 			<p class="field col"><label for="p_end_date"><?php _e('m_estimate_form_end_date') ?></label>
-			<?php echo form::text('p_end_date', 40, 255, html::escapeHTML($aFormData['end_date']), 'datepicker') ?></p>
+			<?php echo form::text('p_end_date', 40, 255, $view->escape($aFormData['end_date']), 'datepicker') ?></p>
 		</div>
 	</fieldset>
 
@@ -210,7 +207,7 @@ else : ?>
 	</fieldset>
 
 	<p class="field col"><label for="p_comment">Commentaire</label>
-	<?php echo form::textarea('p_comment', 60, 8, html::escapeHTML($aFormData['comment'])) ?></p>
+	<?php echo form::textarea('p_comment', 60, 8, $view->escape($aFormData['comment'])) ?></p>
 
 	<?php # -- CORE TRIGGER : publicModuleEstimateTplFormBottom
 	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt, $okt->estimate->config->captcha); ?>

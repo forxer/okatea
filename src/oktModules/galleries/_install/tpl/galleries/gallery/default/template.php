@@ -1,6 +1,4 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');
 # fin Okatea : ce template étend le layout ?>
@@ -35,7 +33,7 @@ $okt->page->applyLbl($okt->galleries->config->lightbox_type);
 
 
 <?php # début Okatea : affichage du titre de la galerie ?>
-<!-- <h1><?php echo html::escapeHTML($rsGallery->title) ?></h1> -->
+<!-- <h1><?php echo $view->escape($rsGallery->title) ?></h1> -->
 <?php # fin Okatea : affichage du titre de la galerie ?>
 
 
@@ -49,7 +47,7 @@ if ($bGalleryRequirePassword) : ?>
 
 <h2><?php _e('m_galleries_Gallery_protected_by_password')?></h2>
 
-<form id="gallery_password_form" action="<?php echo html::escapeHTML($rsGallery->url) ?>" method="post">
+<form id="gallery_password_form" action="<?php echo $view->escape($rsGallery->url) ?>" method="post">
 
 	<p class="field"><label for="email">Mot de passe</label>
 	<input id="okt_gallery_password" type="text" name="okt_gallery_password" maxlength="255" /></p>
@@ -73,7 +71,7 @@ else : ?>
 		<div class="gallery <?php echo $rsSubGalleries->odd_even ?>">
 
 			<?php # début Okatea : affichage du titre de la sous-galerie ?>
-			<h2 class="gallery-title"><a href="<?php echo html::escapeHTML($rsSubGalleries->url) ?>"><?php echo html::escapeHTML($rsSubGalleries->title) ?></a></h2>
+			<h2 class="gallery-title"><a href="<?php echo $view->escape($rsSubGalleries->url) ?>"><?php echo $view->escape($rsSubGalleries->title) ?></a></h2>
 			<?php # fin Okatea : affichage du titre de la sous-galerie ?>
 
 			<?php # début Okatea : affichage image de la sous-galerie
@@ -81,17 +79,17 @@ else : ?>
 
 				<?php if ($okt->galleries->config->dysplay_clic_gal_image == 'enter') : ?>
 				<p>
-					<a href="<?php echo html::escapeHTML($rsSubGalleries->url) ?>"><img src="<?php echo $rsSubGalleries->image['min_url']?>"
+					<a href="<?php echo $view->escape($rsSubGalleries->url) ?>"><img src="<?php echo $rsSubGalleries->image['min_url']?>"
 					<?php echo $rsSubGalleries->image['min_attr']?>
-					<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?> title="<?php echo util::escapeAttrHTML($rsSubGalleries->image['title'][$okt->user->language]) ?>"<?php endif; ?>
-					alt="<?php echo util::escapeAttrHTML((isset($rsSubGalleries->image['alt']) && $rsSubGalleries->image['alt'][$okt->user->language] ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
+					<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?> title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt->user->language]) ?>"<?php endif; ?>
+					alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && $rsSubGalleries->image['alt'][$okt->user->language] ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
 				</p>
 				<?php else : ?>
 				<p class="modal-box">
 					<a href="<?php echo $rsSubGalleries->image['img_url']?>" class="modal"><img src="<?php echo $rsSubGalleries->image['min_url']?>"
 					<?php echo $rsSubGalleries->image['min_attr']?>
-					<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?> title="<?php echo util::escapeAttrHTML($rsSubGalleries->image['title'][$okt->user->language]) ?>"<?php endif; ?>
-					alt="<?php echo util::escapeAttrHTML((isset($rsSubGalleries->image['alt']) && isset($rsSubGalleries->image['alt'][$okt->user->language]) ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
+					<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?> title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt->user->language]) ?>"<?php endif; ?>
+					alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && isset($rsSubGalleries->image['alt'][$okt->user->language]) ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
 				</p>
 				<?php endif; ?>
 
@@ -127,7 +125,7 @@ else : ?>
 		<div class="item">
 
 			<?php # début Okatea : affichage du titre ?>
-			<h2 class="item-title"><a href="<?php echo html::escapeHTML($rsItems->getItemUrl()) ?>"><?php echo html::escapeHTML($rsItems->title) ?></a></h2>
+			<h2 class="item-title"><a href="<?php echo $view->escape($rsItems->getItemUrl()) ?>"><?php echo $view->escape($rsItems->title) ?></a></h2>
 			<?php # fin Okatea : affichage du titre ?>
 
 			<?php # début Okatea : affichage image
@@ -135,20 +133,20 @@ else : ?>
 
 				<?php if ($okt->galleries->config->dysplay_clic_items_image == 'details') : ?>
 				<p>
-					<a href="<?php echo html::escapeHTML($rsItems->getItemUrl()) ?>"
-					title="<?php echo util::escapeAttrHTML($rsItems->title) ?>"><img
+					<a href="<?php echo $view->escape($rsItems->getItemUrl()) ?>"
+					title="<?php echo $view->escapeHtmlAttr($rsItems->title) ?>"><img
 					src="<?php echo $rsItems->image['min_url']?>"
 					<?php echo $rsItems->image['min_attr']?>
-					alt="<?php echo util::escapeAttrHTML((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
+					alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
 				</p>
 				<?php else : ?>
 				<p class="modal-box">
 					<a href="<?php echo $rsItems->image['img_url']?>"
-					title="<?php echo util::escapeAttrHTML($rsItems->title) ?>"
+					title="<?php echo $view->escapeHtmlAttr($rsItems->title) ?>"
 					class="modal" rel="gallery"><img
 					src="<?php echo $rsItems->image['min_url']?>"
 					<?php echo $rsItems->image['min_attr']?>
-					alt="<?php echo util::escapeAttrHTML((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
+					alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
 				</p>
 				<?php endif; ?>
 
