@@ -556,7 +556,6 @@ class Update
 		return false;
 	}
 
-
 	public static function dbUpdate($oChecklist=null)
 	{
 		global $okt;
@@ -580,5 +579,4 @@ class Update
 			$xsql->execute();
 		}
 	}
-
 }

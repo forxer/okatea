@@ -849,5 +849,4 @@ class Collection
 	{
 		return strcasecmp($a['name_l10n'],$b['name_l10n']);
 	}
-
 }

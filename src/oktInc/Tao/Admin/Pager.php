@@ -32,5 +32,4 @@ class Pager extends BasePager
 		$this->html_prev = '&#171;&nbsp;'.__('c_c_previous_f');
 		$this->html_next = __('c_c_next_f').'&nbsp;&#187;';
 	}
-
 }

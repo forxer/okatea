@@ -27,16 +27,18 @@ $RECYCLE.BIN/
 /src/.htaccess
 /src/oktPrepend.php
 
-# oktatea conf
-/src/oktInc/conf/connexion.php
-/src/oktInc/conf/conf_*.yaml
-!/src/oktInc/conf/conf_site.yaml
+# oktatea config
+/src/oktInc/config/connexion.php
+/src/oktInc/config/conf_*.yaml
+!/src/oktInc/config/conf_site.yaml
 
 # oktatea cache
 /src/oktInc/cache/minify/minify_*
 /src/oktInc/cache/modulesRepositoriesInfos.php
 /src/oktInc/cache/static.php
 /src/oktInc/cache/versions/
+/src/oktInc/cache/routing/
+
 
 /src/oktPublic/cache/**
 !/src/oktPublic/conf/index.html

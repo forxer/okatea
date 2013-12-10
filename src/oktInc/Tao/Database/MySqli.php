@@ -835,6 +835,4 @@ class MySqli
 
 		return $str;
 	}
-
 }
-

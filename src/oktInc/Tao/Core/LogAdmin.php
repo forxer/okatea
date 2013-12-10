@@ -405,6 +405,4 @@ class LogAdmin
 			$this->filters = new LogAdminFilters($this);
 		}
 	}
-
-
 }

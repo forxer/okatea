@@ -664,5 +664,4 @@ class Menus
 
 		return $oCursor;
 	}
-
 }

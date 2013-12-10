@@ -24,7 +24,6 @@ class Templating extends PhpEngine
 {
 	public function __construct($aTplDirectories)
 	{
-
 		$loader = new FilesystemLoader($aTplDirectories);
 
 		parent::__construct(new TemplateNameParser(), $loader);
@@ -142,6 +141,4 @@ class Templating extends PhpEngine
 
 		return sprintf('&#x%s;', $hex);
 	}
-
-
 }

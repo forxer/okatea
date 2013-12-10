@@ -614,6 +614,4 @@ class Collection
 			throw $e;
 		}
 	}
-
-
 }

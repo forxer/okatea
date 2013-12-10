@@ -344,5 +344,4 @@ class Css
 		'/* ]]> */'.PHP_EOL.
 		'</style>';
 	}
-
 }

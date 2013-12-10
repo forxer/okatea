@@ -319,4 +319,3 @@ class formSelectOption
 		return sprintf($this->option,$this->value,$this->name,$attr).PHP_EOL;
 	}
 }
-?>

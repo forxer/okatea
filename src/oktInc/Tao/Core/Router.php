@@ -433,5 +433,4 @@ class Router implements RouterInterface, RequestMatcherInterface
 
 		return array($this->app->controller, $method);
 	}
-
 }

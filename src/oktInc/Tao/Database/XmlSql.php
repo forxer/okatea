@@ -18,14 +18,14 @@ namespace Tao\Database;
  */
 class XmlSql
 {
-	private $job;
-	private $xml;
-	private $db;
-	private $_action;
-	private $_current_tag_cdata;
-	private $_subtable;
-	private $checklist;
-	private $process = null;
+	protected $job;
+	protected $xml;
+	protected $db;
+	protected $_action;
+	protected $_current_tag_cdata;
+	protected $_subtable;
+	protected $checklist;
+	protected $process = null;
 
 	/**
 	 * Constructor.
@@ -245,5 +245,4 @@ class XmlSql
 	{
 		$this->_current_tag_cdata .= $cdata;
 	}
-
 }

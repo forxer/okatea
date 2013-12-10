@@ -225,5 +225,4 @@ class Controller
 
 		return $this->render('503');
 	}
-
 }

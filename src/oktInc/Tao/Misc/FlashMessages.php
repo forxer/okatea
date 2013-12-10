@@ -221,6 +221,4 @@ class FlashMessages
 	{
 		return $this->display();
 	}
-
-
 }

@@ -116,5 +116,4 @@ class Themes extends FiltersBase
 
 		return $return;
 	}
-
-} themesFilters
+}

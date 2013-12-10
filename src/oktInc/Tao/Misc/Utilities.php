@@ -1346,6 +1346,4 @@ class Utilities
 			return trim($value);
 		}
 	}
-
-
-} #class
+}

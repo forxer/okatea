@@ -153,5 +153,4 @@ class CheckList
 
 		return sprintf($bloc, $res);
 	}
-
 }

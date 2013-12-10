@@ -358,5 +358,4 @@ class Js
 	{
 		return $n." = '".html::escapeJS($v)."';\n";
 	}
-
 }

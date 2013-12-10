@@ -312,5 +312,4 @@ class PublicAdminBar
 				$aItem['intitle'].'</a>';
 		}
 	}
-
 }

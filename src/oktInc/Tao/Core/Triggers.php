@@ -14,7 +14,12 @@ namespace Tao\Core;
  */
 class Triggers
 {
-	protected $aStack = array(); /**< La pile qui contient les déclencheurs. */
+	/**
+	 * La pile qui contient les déclencheurs.
+	 *
+	 * @var array
+	 */
+	protected $aStack = array();
 
 	/**
 	 * Construtor.
@@ -154,5 +159,4 @@ class Triggers
 
 		return $sReturn;
 	}
-
 }

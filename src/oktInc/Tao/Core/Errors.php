@@ -165,29 +165,28 @@ class Errors
 	<div id="errorbox">
 		<h2>Erreur fatale ! Argh...</h2>
 		<div>
-	<?php
-		if (is_array($mMessage))
-		{
-			echo "\t\t".'<ul>';
-			foreach ($mMessage as $err)
-				echo "\t\t\t".'<li>'.$err.'</li>'.PHP_EOL;
-			echo "\t\t".'</ul>';
-		}
-		else {
-			echo '<p>'.$mMessage.'</p>';
-		}
+			<?php
+				if (is_array($mMessage))
+				{
+					echo "\t\t".'<ul>';
+					foreach ($mMessage as $err)
+						echo "\t\t\t".'<li>'.$err.'</li>'.PHP_EOL;
+					echo "\t\t".'</ul>';
+				}
+				else {
+					echo '<p>'.$mMessage.'</p>';
+				}
 
-		if (!empty($sDbError)) {
-			echo '<p><strong>Database was reported:</strong><br />'.$sDbError.'</p>';
-		}
-	?>
-		</div>
-	</div>
+				if (!empty($sDbError)) {
+					echo '<p><strong>Database was reported:</strong><br />'.$sDbError.'</p>';
+				}
+			?>
+				</div>
+			</div>
 
-	</body>
-	</html>
-	<?php
+			</body>
+			</html>
+			<?php
 		exit;
 	}
-
 }

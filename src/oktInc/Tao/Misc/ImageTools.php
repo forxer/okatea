@@ -302,4 +302,3 @@ class ImageTools
 		return false;
 	}
 }
-?>

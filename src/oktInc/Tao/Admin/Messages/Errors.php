@@ -49,5 +49,4 @@ class Errors extends Stack
 	{
 		return $this->hasItem();
 	}
-
-} adminErrors
+}

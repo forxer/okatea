@@ -9,6 +9,8 @@
 namespace Tao\Themes\Editor;
 
 use Tao\Themes\Collection;
+use Tao\Themes\Editor\Iterator\ThemeFiles;
+use Tao\Themes\Editor\Iterator\ThemeDirsForSelect;
 
 /**
  * Classe de l'éditeur de thème.
@@ -85,7 +87,7 @@ class Editor
 
 	/**
 	 * Les infos du fichier en cours d'édition.
-	 * @var SplFileInfo
+	 * @var \SplFileInfo
 	 */
 	protected $oFileInfos = null;
 
@@ -186,7 +188,7 @@ class Editor
 	public function loadThemeFilesTree()
 	{
 		if ($this->sThemeId) {
-			$this->oThemeFiles = new ThemeFilesIterator(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
+			$this->oThemeFiles = new ThemeFiles(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
 
@@ -198,7 +200,7 @@ class Editor
 	public function loadThemeDirTree()
 	{
 		if ($this->sThemeId) {
-			$this->oThemeFiles = new ThemeDirsIteratorForSelect(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
+			$this->oThemeFiles = new ThemeDirsForSelect(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
 
@@ -277,7 +279,7 @@ class Editor
 
 		$this->sFilename = $sFilename;
 
-		$this->oFileInfos = new SplFileInfo($this->sThemePath.$this->sFilename);
+		$this->oFileInfos = new \SplFileInfo($this->sThemePath.$this->sFilename);
 
 		$this->sFileExtension = $this->oFileInfos->getExtension();
 
@@ -297,7 +299,7 @@ class Editor
 	/**
 	 * Retourne les infos du fichier en cours d'édition.
 	 *
-	 * @return SplFileInfo
+	 * @return \SplFileInfo
 	 */
 	public function getFileInfos()
 	{
@@ -428,127 +430,4 @@ class Editor
 
 		return $sMode;
 	}
-
-}
-
-
-
-/**
- *
- * @class ThemeFilesIterator
- * @ingroup okt_classes_themes
- * @brief Classe  pour lister les fichiers d'un thème et les retourner sous forme de liste HTML.
- *
- */
-class ThemeFilesIterator extends \RecursiveIteratorIterator
-{
-	protected $sTab = "\t";
-	protected $sEol = PHP_EOL;
-
-	protected $aEditablesExtensions = array('css','less','js','txt','php','html','.htaccess');
-
-	public function beginChildren()
-	{
-		if (count($this->getInnerIterator()) == 0) {
-			return;
-		}
-
-		echo str_repeat($this->sTab, $this->getDepth()).'<ul>'.$this->sEol;
-	}
-
-	public function endChildren()
-	{
-		if (count($this->getInnerIterator()) == 0) {
-			return;
-		}
-
-		echo str_repeat($this->sTab, $this->getDepth()), '</ul></li>'.$this->sEol;
-	}
-
-	public function nextElement()
-	{
-		global $sThemeId, $oThemeEditor;
-
-		$oFile = $this->current();
-
-		if ($this->isDot()) {
-			return;
-		}
-
-		// Display leaf node
-		if (!$this->callHasChildren())
-		{
-			$sFileExtension = $oFile->getExtension();
-
-			if ($sFileExtension == 'bak') {
-				return;
-			}
-
-			# Editable leaf ?
-			if (in_array($sFileExtension, $this->aEditablesExtensions))
-			{
-				$sFilepath = str_replace($oThemeEditor->getThemePath(), '', $oFile->getPathname());
-
-				$sLink = '<a href="configuration.php?action=theme_editor&amp;theme='.$sThemeId.'&amp;file='.rawurlencode($sFilepath).'">';
-
-				if ($oThemeEditor->getFilename() == $sFilepath) {
-					$sLink .= '<strong>'.$oFile->getFilename().'</strong>';
-				}
-				else {
-					$sLink .= $oFile->getFilename();
-				}
-
-				$sLink .= '</a>';
-			}
-			else {
-				$sLink = '<span class="disabled">'.$oFile->getFilename().'</span>';
-			}
-
-			echo str_repeat($this->sTab, $this->getDepth()+1).'<li><span class="file">'.$sLink.'</span></li>'.$this->sEol;
-
-			return;
-		}
-
-		// Display branch with label
-		echo str_repeat($this->sTab, $this->getDepth()+1).'<li><span class="folder">'.$oFile->getFilename().'</span>';
-
-		if (count($this->callGetChildren()) == 0) {
-			echo '</li>'.$this->sEol;
-		}
-		else {
-			echo $this->sEol;
-		}
-	}
-
-} ThemeFilesIterator
-
-
-
-
-/**
- *
- * @class ThemeDirsIteratorForSelect
- * @ingroup okt_classes_themes
- * @brief Classe  pour lister les répertoire d'un thème et les retourner sous forme de liste HTML.
- *
- */
-class ThemeDirsIteratorForSelect extends \RecursiveIteratorIterator
-{
-	public function nextElement()
-	{
-		global $sThemeId, $oThemeEditor;
-
-		$oFile = $this->current();
-
-		// Display leaf node
-		if (!$this->callHasChildren()) {
-			return;
-		}
-
-		// Display branch with label
-		echo '<option value="'.str_replace($oThemeEditor->getThemePath(), '', $oFile->getPathname()).'">'.
-			str_repeat('&nbsp;&nbsp;&nbsp;',$this->getDepth()).
-			($this->getDepth() > 0 ? '• ' : '').$oFile->getFilename().'</option>';
-	}
-
 }

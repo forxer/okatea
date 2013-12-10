@@ -439,5 +439,4 @@ class Languages
 
 		return true;
 	}
-
 }

@@ -855,6 +855,4 @@ class MySql
 
 		return $str;
 	}
-
 }
-

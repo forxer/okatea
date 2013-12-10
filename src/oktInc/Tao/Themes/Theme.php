@@ -97,5 +97,4 @@ class Theme
 
 		return null;
 	}
-
 }

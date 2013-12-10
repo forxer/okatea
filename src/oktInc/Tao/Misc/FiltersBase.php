@@ -292,5 +292,4 @@ class FiltersBase
 			return sprintf($item_format, $this->fields[$id][0], $this->fields[$id][1],$this->fields[$id][2]);
 		}
 	}
-
 }

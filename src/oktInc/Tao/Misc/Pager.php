@@ -203,5 +203,3 @@ class Pager
 		'Group last page index ....... '.$this->index_group_end;
 	}
 }
-
-?>

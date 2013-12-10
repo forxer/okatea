@@ -477,6 +477,4 @@ class MonthlyCalendar
 
 		return false;
 	}
-
-
 }

@@ -16,7 +16,6 @@ use Tao\Database\Recordset;
  */
 class ItemsRecordset extends Recordset
 {
-
 	/**
 	 * L'objet oktCore
 	 * @access private
@@ -55,5 +54,4 @@ class ItemsRecordset extends Recordset
 			return $this->okt->page->getBaseUrl().$this->url;
 		}
 	}
-
 }

@@ -437,5 +437,4 @@ class DefinitionsLess
 
 		return array_values(array_unique($aColors));
 	}
-
 }

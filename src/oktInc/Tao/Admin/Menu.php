@@ -188,5 +188,4 @@ class Menu
 		if ($a['position'] == $b['position']) return 0;
 		return ($a['position'] > $b['position']) ? 1 : -1;
 	}
-
 }

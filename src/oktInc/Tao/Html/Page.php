@@ -1394,5 +1394,4 @@ class Page
 	{
 		return '<!--[if '.$condition.']>'."\n".$str.'<![endif]-->'."\n";
 	}
-
 }

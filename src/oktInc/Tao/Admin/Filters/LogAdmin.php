@@ -17,7 +17,6 @@ use Tao\Forms\StaticFormElements as form;
  */
 class LogAdmin extends FiltersBase
 {
-
 	protected $logAdmin;
 	protected $aLogParams = array();
 	protected $order_by_array = array();
@@ -288,6 +287,4 @@ class LogAdmin extends FiltersBase
 			return sprintf($item_format, $this->fields[$id][0], $this->fields[$id][1],$this->fields[$id][2]);
 		}
 	}
-
-
 }

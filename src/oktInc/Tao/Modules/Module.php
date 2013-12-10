@@ -412,5 +412,4 @@ class Module
 			define('ON_'.$upperId.'_MODULE', false);
 		}
 	}
-
 }

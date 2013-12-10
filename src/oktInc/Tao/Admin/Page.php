@@ -395,5 +395,4 @@ class Page extends BasePage
 			jQuery("table.common").styleTable();
 		';
 	}
-
 }

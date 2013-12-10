@@ -77,7 +77,7 @@ define('OKT_CLASSES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CLASSES_DIR);
 /**
  * Chemin du dossier de configuration
  */
-define('OKT_CONFIG_DIR', 'conf');
+define('OKT_CONFIG_DIR', 'config');
 define('OKT_CONFIG_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CONFIG_DIR);
 
 /**

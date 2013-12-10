@@ -63,5 +63,4 @@ class Success extends Stack
 			$this->set($msg);
 		}
 	}
-
-} messages
+}

@@ -18,9 +18,9 @@ namespace Tao\Database;
  */
 class Cursor
 {
-	private $db;
-	private $data = array();
-	private $table;
+	protected $db;
+	protected $data = array();
+	protected $table;
 
 	/**
 	 * Constructor
@@ -317,5 +317,4 @@ class Cursor
 
 		return true;
 	}
-
 }
