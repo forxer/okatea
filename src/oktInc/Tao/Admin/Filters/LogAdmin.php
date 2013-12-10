@@ -290,4 +290,4 @@ class LogAdmin extends FiltersBase
 	}
 
 
-} # class
+}

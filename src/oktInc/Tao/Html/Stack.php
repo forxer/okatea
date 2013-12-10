@@ -99,4 +99,4 @@ class Stack
 		return '<p>'.\html::escapeHTML($this->stack[0]).'</p>';
 	}
 
-} # class htmlStack
+} htmlStack

@@ -22,4 +22,4 @@ class InputText extends Element
 	);
 
 
-} # class
+}

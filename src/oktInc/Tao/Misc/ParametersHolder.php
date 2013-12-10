@@ -139,5 +139,5 @@ class ParametersHolder
 		throw new myException('notre __call ne gère que les get ou les set ! méthode indéfinie : '.$name);
 	}
 
-} # class
+}
 

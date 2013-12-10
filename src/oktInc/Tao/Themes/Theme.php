@@ -98,4 +98,4 @@ class Theme
 		return null;
 	}
 
-} # class
+}

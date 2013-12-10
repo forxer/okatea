@@ -477,4 +477,4 @@ class ImageUploadConfig
 		return $positions;
 	}
 
-} # class
+}

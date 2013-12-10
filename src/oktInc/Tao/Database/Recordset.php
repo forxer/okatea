@@ -439,6 +439,6 @@ class Recordset
 		return $this->int_row_count;
 	}
 
-} # class recordset
+} recordset
 
 ?>

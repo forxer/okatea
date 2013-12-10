@@ -62,4 +62,4 @@ class Connexion extends MySqli
 		trigger_error('Unserializing is not allowed.', E_USER_ERROR);
 	}
 
-} # class
+}

@@ -616,4 +616,4 @@ class Collection
 	}
 
 
-} # class
+}

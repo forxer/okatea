@@ -463,4 +463,4 @@ class TemplatesSet
 		\files::deltree($aTplInfos['dir']);
 	}
 
-} # class
+}

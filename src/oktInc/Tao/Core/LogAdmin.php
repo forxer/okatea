@@ -407,4 +407,4 @@ class LogAdmin
 	}
 
 
-} # class
+}

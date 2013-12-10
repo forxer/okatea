@@ -836,5 +836,5 @@ class MySqli
 		return $str;
 	}
 
-} # class
+}
 

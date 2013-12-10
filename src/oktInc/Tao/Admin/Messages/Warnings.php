@@ -50,4 +50,4 @@ class Warnings extends Stack
 		return $this->hasItem();
 	}
 
-} # class warnings
+} warnings

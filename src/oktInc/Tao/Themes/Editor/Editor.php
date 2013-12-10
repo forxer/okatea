@@ -429,7 +429,7 @@ class Editor
 		return $sMode;
 	}
 
-} # class
+}
 
 
 
@@ -520,7 +520,7 @@ class ThemeFilesIterator extends \RecursiveIteratorIterator
 		}
 	}
 
-} # class ThemeFilesIterator
+} ThemeFilesIterator
 
 
 
@@ -551,4 +551,4 @@ class ThemeDirsIteratorForSelect extends \RecursiveIteratorIterator
 			($this->getDepth() > 0 ? '• ' : '').$oFile->getFilename().'</option>';
 	}
 
-} # class
+}

@@ -968,4 +968,4 @@ class ModuleInstall extends Module
 		$this->db->execute($query);
 	}
 
-} # class
+}

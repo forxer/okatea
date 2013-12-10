@@ -988,4 +988,4 @@ class ImageUpload
 		return $return;
 	}
 
-} # class
+}

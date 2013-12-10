@@ -479,4 +479,4 @@ class MonthlyCalendar
 	}
 
 
-} # class
+}

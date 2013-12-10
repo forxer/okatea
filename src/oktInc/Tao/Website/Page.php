@@ -39,4 +39,4 @@ class Page extends BasePage
 		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve503');
 	}
 
-} # class
+}

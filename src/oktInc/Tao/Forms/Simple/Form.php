@@ -169,4 +169,4 @@ class Form
 		return $this;
 	}
 
-} # class
+}

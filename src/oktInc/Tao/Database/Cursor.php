@@ -318,4 +318,4 @@ class Cursor
 		return true;
 	}
 
-} # class
+}

@@ -171,4 +171,4 @@ abstract class Element
 		return implode(' ',$aAttributes);
 	}
 
-} # class
+}

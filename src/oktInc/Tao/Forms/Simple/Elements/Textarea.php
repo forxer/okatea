@@ -21,4 +21,4 @@ class Textarea extends Element
 	protected $aAttributes = array(
 	);
 
-} # class
+}

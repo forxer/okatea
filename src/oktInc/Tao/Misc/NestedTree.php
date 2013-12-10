@@ -453,5 +453,5 @@ class NestedTree
 		$arr[$id]['nright'] = $n++;
 	}
 
-} # class
+}
 

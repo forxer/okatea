@@ -396,4 +396,4 @@ class Page extends BasePage
 		';
 	}
 
-} # class
+}

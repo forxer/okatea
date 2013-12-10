@@ -189,4 +189,4 @@ class Menu
 		return ($a['position'] > $b['position']) ? 1 : -1;
 	}
 
-} # class
+}

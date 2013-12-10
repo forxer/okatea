@@ -34,4 +34,4 @@ class Pager extends BasePager
 		$this->html_next = __('c_c_next_f').'&nbsp;&#187;';
 	}
 
-} # class
+}

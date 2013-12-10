@@ -154,4 +154,4 @@ class Config
 		$this->generateCacheFile();
 	}
 
-} # class
+}

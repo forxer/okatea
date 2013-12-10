@@ -64,4 +64,4 @@ class Success extends Stack
 		}
 	}
 
-} # class messages
+} messages

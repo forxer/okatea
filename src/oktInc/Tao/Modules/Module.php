@@ -413,4 +413,4 @@ class Module
 		}
 	}
 
-} # class
+}

@@ -440,4 +440,4 @@ class Languages
 		return true;
 	}
 
-} # class
+}

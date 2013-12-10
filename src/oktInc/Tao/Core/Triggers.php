@@ -155,4 +155,4 @@ class Triggers
 		return $sReturn;
 	}
 
-} # class
+}

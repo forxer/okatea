@@ -514,4 +514,4 @@ class Application
 		return $str;
 	}
 
-} # class
+}

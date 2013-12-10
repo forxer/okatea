@@ -91,4 +91,4 @@ class SimpleReplacements
 		return $aResult;
 	}
 
-} # class
+}

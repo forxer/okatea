@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Routing;
+namespace Tao\Routing_old;
 
 /**
  * La définition d'une route.
@@ -212,4 +212,4 @@ class Route
 	}
 
 
-} # class
+}

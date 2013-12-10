@@ -281,4 +281,4 @@ class FileUpload
 		return array_filter($aNewFiles);
 	}
 
-} # class
+}

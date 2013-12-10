@@ -132,4 +132,4 @@ class Mailer
 		return $this->mailer->batchSend($this->message);
 	}
 
-} # class
+}

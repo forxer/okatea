@@ -144,4 +144,4 @@ class Templating extends PhpEngine
 	}
 
 
-} # class
+}

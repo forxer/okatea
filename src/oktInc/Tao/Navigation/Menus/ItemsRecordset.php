@@ -56,4 +56,4 @@ class ItemsRecordset extends Recordset
 		}
 	}
 
-} # class
+}

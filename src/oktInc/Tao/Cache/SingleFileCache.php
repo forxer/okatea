@@ -144,4 +144,4 @@ class SingleFileCache extends CacheProvider
 		return null;
 	}
 
-} # class
+}

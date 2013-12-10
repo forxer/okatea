@@ -36,4 +36,4 @@ class ExtraHtml extends Element
 		return $this->sHtml;
 	}
 
-} # class
+}

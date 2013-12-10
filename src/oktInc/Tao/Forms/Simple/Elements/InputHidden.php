@@ -22,4 +22,4 @@ class InputHidden extends Element
 	);
 
 
-} # class
+}

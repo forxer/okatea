@@ -345,4 +345,4 @@ class Css
 		'</style>';
 	}
 
-} # class
+}

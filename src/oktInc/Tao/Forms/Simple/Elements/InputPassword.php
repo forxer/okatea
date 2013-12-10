@@ -22,4 +22,4 @@ class InputPassword extends Element
 	);
 
 
-} # class
+}

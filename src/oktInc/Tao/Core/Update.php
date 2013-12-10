@@ -581,4 +581,4 @@ class Update
 		}
 	}
 
-} # class
+}

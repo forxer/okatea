@@ -834,4 +834,4 @@ class Authentification
 		return null;
 	}
 
-} # class
+}

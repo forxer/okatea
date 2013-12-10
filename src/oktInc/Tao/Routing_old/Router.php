@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Routing;
+namespace Tao\Routing_old;
 
 /**
  * Le routeur interne d'Okatea.
@@ -255,4 +255,4 @@ class Router
 	}
 
 
-} # class
+}

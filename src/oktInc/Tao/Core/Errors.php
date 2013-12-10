@@ -190,4 +190,4 @@ class Errors
 		exit;
 	}
 
-} # class
+}
