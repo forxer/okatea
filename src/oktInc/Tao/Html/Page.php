@@ -234,6 +234,10 @@ class Page
 		return !empty($this->sTitleSeo);
 	}
 
+
+	/* Infos globales du site
+	----------------------------------------------------------*/
+
 	/**
 	 * Retourne le chemon de base des URL
 	 *
@@ -249,6 +253,111 @@ class Page
 		}
 
 		return $str;
+	}
+
+	/**
+	 * Retourne le titre internationnalisé du site.
+	 *
+	 * @return string
+	 */
+	public function getSiteTitle($sLanguage=null, $sDefault=null)
+	{
+		if ($sLanguage !== null && !empty($this->okt->config->title[$sLanguage])) {
+			return $this->okt->config->title[$sLanguage];
+		}
+		elseif (!empty($this->okt->config->title[$this->okt->user->language])) {
+			return $this->okt->config->title[$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->title[$this->okt->config->language])) {
+			return $this->okt->config->title[$this->okt->config->language];
+		}
+		else {
+			return $sDefault;
+		}
+	}
+
+	/**
+	 * Retourne la description internationnalisée du site.
+	 *
+	 * @return string
+	 */
+	public function getSiteDescription($sLanguage=null, $sDefault=null)
+	{
+		if ($sLanguage !== null && !empty($this->okt->config->desc[$sLanguage])) {
+			return $this->okt->config->desc[$sLanguage];
+		}
+		elseif (!empty($this->okt->config->desc[$this->okt->user->language])) {
+			return $this->okt->config->desc[$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->desc[$this->okt->config->language])) {
+			return $this->okt->config->desc[$this->okt->config->language];
+		}
+		else {
+			return $sDefault;
+		}
+	}
+
+	/**
+	 * Retourne le title tag internationnalisé du site.
+	 *
+	 * @return string
+	 */
+	public function getSiteTitleTag($sLanguage=null, $sDefault=null)
+	{
+		if ($sLanguage !== null && !empty($this->okt->config->title_tag[$sLanguage])) {
+			return $this->okt->config->title_tag[$sLanguage];
+		}
+		elseif (!empty($this->okt->config->title_tag[$this->okt->user->language])) {
+			return $this->okt->config->title_tag[$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->title_tag[$this->okt->config->language])) {
+			return $this->okt->config->title_tag[$this->okt->config->language];
+		}
+		else {
+			return $sDefault;
+		}
+	}
+
+	/**
+	 * Retourne la meta description internationnalisée du site.
+	 *
+	 * @return string
+	 */
+	public function getSiteMetaDesc($sLanguage=null, $sDefault=null)
+	{
+		if ($sLanguage !== null && !empty($this->okt->config->meta_description[$sLanguage])) {
+			return $this->okt->config->meta_description[$sLanguage];
+		}
+		elseif (!empty($this->okt->config->meta_description[$this->okt->user->language])) {
+			return $this->okt->config->meta_description[$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->meta_description[$this->okt->config->language])) {
+			return $this->okt->config->meta_description[$this->okt->config->language];
+		}
+		else {
+			return $sDefault;
+		}
+	}
+
+	/**
+	 * Retourne les meta keywords internationnalisés du site.
+	 *
+	 * @return string
+	 */
+	public function getSiteMetaKeywords($sLanguage=null, $sDefault=null)
+	{
+		if ($sLanguage !== null && !empty($this->okt->config->meta_keywords[$sLanguage])) {
+			return $this->okt->config->meta_keywords[$sLanguage];
+		}
+		elseif (!empty($this->okt->config->meta_keywords[$this->okt->user->language])) {
+			return $this->okt->config->meta_keywords[$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->meta_keywords[$this->okt->config->language])) {
+			return $this->okt->config->meta_keywords[$this->okt->config->language];
+		}
+		else {
+			return $sDefault;
+		}
 	}
 
 
@@ -385,10 +494,8 @@ class Page
 
 	public function langSwitcher($target, $placeholder)
 	{
-		global $okt;
-
 		# récupération de la liste des langues et encodage
-		$jsonlanguages = json_encode(array_values($okt->languages->list));
+		$jsonlanguages = json_encode(array_values($this->okt->languages->list));
 
 		$this->js->addScript('
 
@@ -454,7 +561,7 @@ class Page
 		');
 
 		$this->js->addReady('
-			switch_language("'.$okt->user->language.'");
+			switch_language("'.$this->okt->user->language.'");
 		');
 	}
 
@@ -1233,10 +1340,8 @@ class Page
 
 		if (isset($this->captchaList[$captchaId]) && !in_array($captchaId,$loaded))
 		{
-			global $okt;
-
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior=>$callback) {
-				$okt->triggers->registerTrigger($behavior,$callback);
+				$this->okt->triggers->registerTrigger($behavior,$callback);
 			}
 
 			$loaded[] = $captchaId;

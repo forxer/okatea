@@ -22,11 +22,11 @@ class newsHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->news->config->public_post_url[$sLanguage])) {
+		if (!isset($okt->news->config->routes['list'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl($sLanguage).$okt->news->config->public_list_url[$sLanguage];
+		return $okt->router->generate('newsList');
 	}
 
 	/**
@@ -40,15 +40,19 @@ class newsHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->news->config->public_post_url[$sLanguage])) {
+		if (!isset($okt->news->config->routes['post'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl($sLanguage).$okt->news->config->public_post_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('newsItem', array('slug' => $sSlug));
 	}
 
 	/**
@@ -62,15 +66,19 @@ class newsHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->news->config->public_list_url[$sLanguage])) {
+		if (!isset($okt->news->config->routes['category'][$sLanguage])) {
 			return null;
 		}
 
-		return $okt->page->getBaseUrl($sLanguage).$okt->news->config->public_list_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('newsCategory', array('slug' => $sSlug));
 	}
 
 	/**

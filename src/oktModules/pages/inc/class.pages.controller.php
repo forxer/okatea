@@ -105,7 +105,7 @@ class pagesController extends Controller
 		$rsPagesList->pager = $oPagesPager;
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->pages->getListTplPath(), array(
+		return $this->render($this->okt->pages->getListTplPath(), array(
 			'rsPagesList' => $rsPagesList,
 			'rsCategory' => (isset($rsCategory) ? $rsCategory : null)
 		));
@@ -129,7 +129,7 @@ class pagesController extends Controller
 
 		# affichage du template
 		header('Content-Type: application/rss+xml; charset=utf-8');
-		echo $this->okt->tpl->render($this->okt->pages->getFeedTplPath(), array(
+		return $this->render($this->okt->pages->getFeedTplPath(), array(
 			'rsPagesList' => $rsPagesList
 		));
 	}
@@ -272,7 +272,7 @@ class pagesController extends Controller
 		$rsPagesList->pager = $oPagesPager;
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->pages->getCategoryTplPath($rsCategory->tpl), array(
+		return $this->render($this->okt->pages->getCategoryTplPath($rsCategory->tpl), array(
 			'rsPagesList' => $rsPagesList,
 			'rsCategory' => $rsCategory
 		));
@@ -366,7 +366,7 @@ class pagesController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->pages->getItemTplPath($rsPage->tpl, $rsPage->category_items_tpl), array(
+		return $this->render($this->okt->pages->getItemTplPath($rsPage->tpl, $rsPage->category_items_tpl), array(
 			'rsPage' => $rsPage
 		));
 	}

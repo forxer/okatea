@@ -11,6 +11,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 2.0-beta3
+# replace Router by Symfony Routing component
+! implement Symfony HttpFoundation
 
 
 2.0-beta2 (2013-12-08)

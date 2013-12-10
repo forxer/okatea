@@ -131,8 +131,8 @@ ob_start();
 		<a href="#mainMenu-<?php echo ($okt->config->admin_sidebar_position == 0 ? 'left' : 'right') ?>"><?php _e('c_c_go_to_menu') ?></a>
 	</p>
 	<div id="banner" class="ui-widget-header ui-corner-all">
-		<h1><?php echo html::escapeHTML(util::getSiteTitle()) ?></h1>
-		<p id="desc"><?php echo html::escapeHTML(util::getSiteDescription()) ?></p>
+		<h1><?php echo html::escapeHTML($okt->page->getSiteTitle()) ?></h1>
+		<p id="desc"><?php echo html::escapeHTML($okt->page->getSiteDescription()) ?></p>
 	</div><!-- #header -->
 
 	<div id="helpers" class="ui-widget-content ui-corner-all">

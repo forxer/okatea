@@ -4,21 +4,21 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<?php # début Okatea : title tag ?>
-	<title><?php echo html::escapeHtml($okt->page->titleTag(' - ')); ?></title>
+	<title><?php echo $view->escape($okt->page->titleTag(' - ')); ?></title>
 	<?php # fin Okatea : title tag ?>
 
 	<?php # début Okatea : élément base pour la ré-écriture d'URL ?>
-	<base href="<?php echo html::escapeHTML($okt->config->app_url) ?>" />
+	<base href="<?php echo $view->escape($okt->config->app_url) ?>" />
 	<?php # fin Okatea : élément base pour la ré-écriture d'URL ?>
 
 	<?php # début Okatea : affichage meta description
 	if (!empty($okt->page->meta_description)) : ?>
-	<meta name="description" content="<?php echo html::escapeHTML($okt->page->meta_description) ?>" />
+	<meta name="description" content="<?php echo $view->escape($okt->page->meta_description) ?>" />
 	<?php endif; # fin Okatea : affichage meta description ?>
 
 	<?php # début Okatea : affichage meta keywords
 	if (!empty($okt->page->meta_keywords)) : ?>
-	<meta name="keywords" content="<?php echo html::escapeHTML($okt->page->meta_keywords) ?>" />
+	<meta name="keywords" content="<?php echo $view->escape($okt->page->meta_keywords) ?>" />
 	<?php endif; # fin Okatea : affichage meta keywords ?>
 
 	<?php # début Okatea : appels CSS

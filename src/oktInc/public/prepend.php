@@ -14,7 +14,6 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Website\Page;
 use Tao\Navigation\Breadcrumb;
 use Tao\Routing\Route;
@@ -32,7 +31,7 @@ $okt->page->breadcrumb->add(__('c_c_Home'), $okt->page->getBaseUrl());
 
 
 # Title tag
-$okt->page->addTitleTag(util::getSiteTitleTag(null, util::getSiteTitle()));
+$okt->page->addTitleTag($okt->page->getSiteTitleTag(null, $okt->page->getSiteTitle()));
 
 
 # Chargement des parties public des modules

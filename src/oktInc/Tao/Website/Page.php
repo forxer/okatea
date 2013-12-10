@@ -31,18 +31,12 @@ class Page extends BasePage
 
 	public function serve404()
 	{
-		global $okt;
-
-		$oController = new Controller($okt);
-		$oController->serve404();
+		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve404');
 	}
 
 	public function serve503()
 	{
-		global $okt;
-
-		$oController = new Controller($okt);
-		$oController->serve503();
+		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve503');
 	}
 
 } # class

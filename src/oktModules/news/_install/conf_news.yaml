@@ -68,12 +68,18 @@ templates:
   feed:
     default: rss
     usables: {}
-public_list_url:
-  fr: actualites
-  en: news
-public_feed_url:
-  fr: actualites/rss
-  en: news/rss
-public_post_url:
-  fr: actualite
-  en: post
+
+routes:
+  list:
+    fr: /actualites
+    en: /news
+  category:
+    fr: /actualites/{slug}
+    en: /news/{slug}
+  post:
+    fr: /actualite/{slug}
+    en: /post/{slug}
+  feed:
+    fr: /actualites/rss
+    en: /news/rss
+    

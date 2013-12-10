@@ -14,7 +14,6 @@ use Tao\Images\ImageUpload;
 use Tao\Misc\Utilities as util;
 use Tao\Misc\FileUpload;
 use Tao\Modules\Module;
-use Tao\Routing\Route;
 use Tao\Themes\SimpleReplacements;
 
 class module_news extends Module
@@ -75,29 +74,40 @@ class module_news extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
 
-		$this->config->url = newsHelpers::getNewsUrl();
-		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->public_feed_url[$this->okt->user->language];
-
 		# définition des routes
-		$this->okt->router->addRoute('newsFeed', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_feed_url)).')$',
-			'newsController', 'newsFeed'
-		));
+		$this->okt->router->addRoute('newsList',
+			$this->config->routes['list'],
+			array(
+				'_controller' => 'newsController::newsList',
+			)
+		);
 
-		$this->okt->router->addRoute('newsList', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
-			'newsController', 'newsList'
-		));
+		$this->okt->router->addRoute('newsCategory',
+			$this->config->routes['category'],
+			array(
+				'_controller' => 'newsController::newsCategory',
+			),
+			array(
+				'slug' => '.+'
+			)
+		);
 
-		$this->okt->router->addRoute('newsCategory', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/(.*)$',
-			'newsController', 'newsCategory'
-		));
+		$this->okt->router->addRoute('newsItem',
+			$this->config->routes['post'],
+			array(
+				'_controller' => 'newsController::newsItem',
+			)
+		);
 
-		$this->okt->router->addRoute('newsItem', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_post_url)).')/(.*)$',
-			'newsController', 'newsItem'
-		));
+		$this->okt->router->addRoute('newsFeed',
+			$this->config->routes['feed'],
+			array(
+				'_controller' => 'newsController::newsFeed',
+			)
+		);
+
+		$this->config->url = newsHelpers::getNewsUrl();
+		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/news/';
@@ -226,12 +236,10 @@ class module_news extends Module
 		# modification de l'article en cours
 		if (isset($okt->page->module) && $okt->page->module == 'news' && isset($okt->page->action) && $okt->page->action == 'item')
 		{
-			$aVars = $okt->tpl->getAssignedVars();
-
-			if (isset($aVars['rsPost']) && $aVars['rsPost']->isEditable())
+			if (isset($okt->controller->rsPost) && $okt->controller->rsPost->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $aBasesUrl['admin'].'/module.php?m=news&amp;action=edit&amp;post_id='.$aVars['rsPost']->id,
+					'href' => $aBasesUrl['admin'].'/module.php?m=news&amp;action=edit&amp;post_id='.$okt->controller->rsPost->id,
 					'intitle' => __('m_news_ab_edit_post')
 				);
 			}
@@ -597,8 +605,8 @@ class module_news extends Module
 			# troncature
 			if ($iNumCharBeforeTruncate > 0)
 			{
-				$rsPosts->content = html::clean($rsPosts->content);
-				$rsPosts->content = text::cutString($rsPosts->content, $iNumCharBeforeTruncate);
+				$rsPosts->content = \html::clean($rsPosts->content);
+				$rsPosts->content = \text::cutString($rsPosts->content, $iNumCharBeforeTruncate);
 			}
 		}
 	}

@@ -111,7 +111,7 @@ $okt->addPermGroup('configuration', __('c_a_def_perm_config'));
 
 
 # Title tag
-$okt->page->addTitleTag(util::getSiteTitleTag(null,util::getSiteTitle()));
+$okt->page->addTitleTag($okt->page->getSiteTitleTag(null,$okt->page->getSiteTitle()));
 
 
 # Fil d'ariane administration

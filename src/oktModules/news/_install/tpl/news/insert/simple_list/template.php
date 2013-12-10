@@ -39,7 +39,7 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 		<li class="post <?php echo $rsInsertPosts->odd_even ?>">
 
 			<?php # début Okatea : affichage du titre et du lien ?>
-			<a href="<?php echo html::escapeHTML($rsInsertPosts->url) ?>"><?php echo html::escapeHTML($rsInsertPosts->title) ?></a>
+			<a href="<?php echo $this->escape($rsInsertPosts->url) ?>"><?php echo $this->escape($rsInsertPosts->title) ?></a>
 			<?php # fin Okatea : affichage du titre et du lien  ?>
 
 		</li><!-- .post -->

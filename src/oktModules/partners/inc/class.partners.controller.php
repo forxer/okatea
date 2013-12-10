@@ -41,7 +41,7 @@ class partnersController extends Controller
 		# affichage du template
 		$sTemplateFile = $this->okt->partners->config->enable_categories ? 'partners_with_categories_tpl' : 'partners_tpl';
 
-		echo $this->okt->tpl->render($sTemplateFile, array(
+		return $this->render($sTemplateFile, array(
 			'rsPartners' => $rsPartners
 		));
 	}

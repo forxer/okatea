@@ -171,7 +171,7 @@ class contactController extends Controller
 		$this->okt->page->setTitleSeo($this->okt->contact->getNameSeo());
 
 		# affichage du template
-		echo $this->okt->tpl->render('contact/contact/'.$this->okt->contact->config->templates['contact']['default'].'/template');
+		return $this->render('contact/contact/'.$this->okt->contact->config->templates['contact']['default'].'/template');
 	}
 
 	/**
@@ -241,7 +241,7 @@ class contactController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render('contact/map/'.$this->okt->contact->config->templates['map']['default'].'/template');
+		return $this->render('contact/map/'.$this->okt->contact->config->templates['map']['default'].'/template');
 	}
 
 } # class

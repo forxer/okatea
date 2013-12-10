@@ -182,7 +182,7 @@ class guestbookController extends Controller
 		$signaturesList->pager = $oGuestbookPager;
 
 		# affichage du template
-		echo $this->okt->tpl->render('guestbook_tpl', array(
+		return $this->render('guestbook_tpl', array(
 			'aSigData' => $aSigData,
 			'signaturesList' => $signaturesList,
 			'aLanguages' => $aLanguages

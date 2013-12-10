@@ -23,10 +23,13 @@
 		"ircmaxell/password-compat": "dev-master",
 		"leafo/lessphp": "0.4.*",
 		"mobiledetect/mobiledetectlib": "dev-master",
+		"monolog/monolog": "1.7.*@dev",
 		"simplepie/simplepie": "dev-master",
 		"swiftmailer/swiftmailer": "5.1.*@dev",
+		"symfony/config": "2.5.*@dev",
 		"symfony/debug": "2.5.*@dev",
 		"symfony/filesystem": "2.5.*@dev",
+		"symfony/http-foundation": "2.5.*@dev",
 		"symfony/routing": "2.5.*@dev",
 		"symfony/templating": "2.5.*@dev",
 		"symfony/yaml": "2.5.*@dev"

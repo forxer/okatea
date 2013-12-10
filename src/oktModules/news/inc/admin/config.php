@@ -110,27 +110,33 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
-	$p_public_list_url = !empty($_POST['p_public_list_url']) && is_array($_POST['p_public_list_url']) ? $_POST['p_public_list_url'] : array();
+	$p_routes_list = !empty($_POST['p_routes_list']) && is_array($_POST['p_routes_list']) ? $_POST['p_routes_list'] : array();
 
-	foreach ($p_public_list_url as $lang=>$url) {
-		$p_public_list_url[$lang] = util::formatAppPath($url,false,false);
+	foreach ($p_routes_list as $lang=>$url) {
+		$p_routes_list[$lang] = util::formatAppPath($url, true, false);
 	}
 
-	$p_public_feed_url = !empty($_POST['p_public_feed_url']) && is_array($_POST['p_public_feed_url']) ? $_POST['p_public_feed_url'] : array();
+	$p_routes_category = !empty($_POST['p_routes_category']) && is_array($_POST['p_routes_category']) ? $_POST['p_routes_category'] : array();
 
-	foreach ($p_public_feed_url as $lang=>$url) {
-		$p_public_feed_url[$lang] = util::formatAppPath($url,false,false);
+	foreach ($p_routes_category as $lang=>$url) {
+		$p_routes_category[$lang] = util::formatAppPath($url, true, false);
 	}
 
-	$p_public_post_url = !empty($_POST['p_public_post_url']) && is_array($_POST['p_public_post_url']) ? $_POST['p_public_post_url'] : array();
+	$p_routes_post = !empty($_POST['p_routes_post']) && is_array($_POST['p_routes_post']) ? $_POST['p_routes_post'] : array();
 
-	foreach ($p_public_post_url as $lang=>$url) {
-		$p_public_post_url[$lang] = util::formatAppPath($url,false,false);
+	foreach ($p_routes_post as $lang=>$url) {
+		$p_routes_post[$lang] = util::formatAppPath($url, true, false);
+	}
+
+	$p_routes_feed = !empty($_POST['p_routes_feed']) && is_array($_POST['p_routes_feed']) ? $_POST['p_routes_feed'] : array();
+
+	foreach ($p_routes_feed as $lang=>$url) {
+		$p_routes_feed[$lang] = util::formatAppPath($url, true, false);
 	}
 
 	foreach ($okt->languages->list as $aLanguage)
 	{
-		if (substr($p_public_post_url[$aLanguage['code']],0,strlen($p_public_list_url[$aLanguage['code']])) == $p_public_list_url[$aLanguage['code']]) {
+		if (substr($p_routes_post[$aLanguage['code']],0,strlen($p_routes_list[$aLanguage['code']])) == $p_routes_list[$aLanguage['code']]) {
 			$okt->error->set(__('m_news_config_error_list_url_match_item_url'));
 		}
 	}
@@ -173,9 +179,12 @@ if (!empty($_POST['form_sent']))
 			'meta_description' => $p_meta_description,
 			'meta_keywords' => $p_meta_keywords,
 
-			'public_list_url' => $p_public_list_url,
-			'public_feed_url' => $p_public_feed_url,
-			'public_post_url' => $p_public_post_url
+			'routes' => array(
+				'list' => $p_routes_list,
+				'category' => $p_routes_category,
+				'post' => $p_routes_post,
+				'feed' => $p_routes_feed
+			)
 		);
 
 		try
@@ -385,14 +394,17 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_list_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_posts_list_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_list_url['.$aLanguage['code'].']','p_public_list_url_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->public_list_url[$aLanguage['code']]) ? html::escapeHTML($okt->news->config->public_list_url[$aLanguage['code']]) : '')) ?></p>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_routes_list_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_posts_list_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_routes_list['.$aLanguage['code'].']','p_routes_list_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->routes['list'][$aLanguage['code']]) ? html::escapeHTML($okt->news->config->routes['list'][$aLanguage['code']]) : '')) ?></p>
 
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_feed_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_rss_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_feed_url['.$aLanguage['code'].']','p_public_feed_url_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->public_feed_url[$aLanguage['code']]) ? html::escapeHTML($okt->news->config->public_feed_url[$aLanguage['code']]) : '')) ?></p>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_routes_category_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_category_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_routes_category['.$aLanguage['code'].']','p_routes_category_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->routes['category'][$aLanguage['code']]) ? html::escapeHTML($okt->news->config->routes['category'][$aLanguage['code']]) : '')) ?></p>
 
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_post_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_post_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_post_url['.$aLanguage['code'].']','p_public_post_url_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->public_post_url[$aLanguage['code']]) ? html::escapeHTML($okt->news->config->public_post_url[$aLanguage['code']]) : '')) ?></p>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_routes_post_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_post_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_routes_post['.$aLanguage['code'].']','p_routes_post_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->routes['post'][$aLanguage['code']]) ? html::escapeHTML($okt->news->config->routes['post'][$aLanguage['code']]) : '')) ?></p>
+
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_routes_feed_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_news_config_url_rss_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<?php echo form::text(array('p_routes_feed['.$aLanguage['code'].']','p_routes_feed_'.$aLanguage['code']), 60, 255, (isset($okt->news->config->routes['feed'][$aLanguage['code']]) ? html::escapeHTML($okt->news->config->routes['feed'][$aLanguage['code']]) : '')) ?></p>
 
 				<?php endforeach; ?>
 

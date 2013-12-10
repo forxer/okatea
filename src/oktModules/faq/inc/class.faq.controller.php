@@ -105,7 +105,7 @@ class faqController extends Controller
 			$sTemplatename = 'faq_list_questions_tpl';
 		}
 
-		echo $this->okt->tpl->render($sTemplatename, array(
+		return $this->render($sTemplatename, array(
 			'faqList' => $faqList
 		));
 	}
@@ -197,7 +197,7 @@ class faqController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render('faq_question_tpl', array(
+		return $this->render('faq_question_tpl', array(
 			'faqQuestion' => $faqQuestion,
 			'faqQuestionLocales' => $faqQuestionLocales
 		));

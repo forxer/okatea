@@ -1,9 +1,7 @@
 
-<?php use Tao\Misc\Utilities as util; ?>
-
 <ul>
 <?php while ($rsItems->fetch()) : ?>
-	<li><a href="<?php echo util::escapeAttrHTML($rsItems->getUrl()) ?>"><?php
-	echo html::escapeHTML($rsItems->title) ?></a></li>
+	<li><a href="<?php echo $view->escapeHtmlAttr($rsItems->getUrl()) ?>"><?php
+	echo $view->escape($rsItems->title) ?></a></li>
 <?php endwhile; ?>
 </ul>

@@ -8,10 +8,13 @@
 
 namespace Tao\Core;
 
-use Tao\Cache\SingleFileCache;
-use Tao\Routing\Router;
-use Tao\Themes\SimpleReplacements;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RequestContext;
+use Tao\Cache\SingleFileCache;
+//use Tao\Routing\Router;
+use Tao\Themes\SimpleReplacements;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -82,7 +85,7 @@ class Application
 	/**
 	 * Le routeur interne.
 	 *
-	 * @var Tao\Routing\Router
+	 * @var Tao\Core\Router
 	 */
 	public $router = null;
 
@@ -155,13 +158,23 @@ class Application
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
 
+		$this->request = Request::createFromGlobals();
+		$this->response = new Response();
+
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
 
 		$this->triggers = new Triggers();
 
-		$this->router = new Router();
-
 		$this->loadConfig();
+
+		$requestContext = new RequestContext();
+		$requestContext->fromRequest($this->request);
+
+		$this->router = new Router(
+			$this,
+			array('cache_dir' => OKT_CACHE_PATH.'/routing'),
+			$requestContext
+		);
 	}
 
 

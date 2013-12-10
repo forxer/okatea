@@ -69,7 +69,7 @@ class usersController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->users->getLoginTplPath(), array(
+		return $this->render($this->okt->users->getLoginTplPath(), array(
 			'user_id' => $this->sUserId,
 			'redirect' => $this->sRedirectURL
 		));
@@ -126,7 +126,7 @@ class usersController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->users->getRegisterTplPath(), array(
+		return $this->render($this->okt->users->getRegisterTplPath(), array(
 			'aUsersGroups' => $this->getGroups(),
 			'aTimezone' => dt::getZones(true,true),
 			'aLanguages' => $this->getLanguages(),
@@ -174,7 +174,7 @@ class usersController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->users->getLoginRegisterTplPath(), array(
+		return $this->render($this->okt->users->getLoginRegisterTplPath(), array(
 			'aUsersGroups' => $this->getGroups(),
 			'aTimezone' => dt::getZones(true,true),
 			'aLanguages' => $this->getLanguages(),
@@ -239,7 +239,7 @@ class usersController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->users->getForgottenPasswordTplPath(), array(
+		return $this->render($this->okt->users->getForgottenPasswordTplPath(), array(
 			'password_sended' => $password_sended,
 			'password_updated' => $password_updated
 		));
@@ -421,7 +421,7 @@ class usersController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render($this->okt->users->getProfileTplPath(), array(
+		return $this->render($this->okt->users->getProfileTplPath(), array(
 			'aUserProfilData' => $aUserProfilData,
 			'aTimezone' => $aTimezone,
 			'aLanguages' => $aLanguages,

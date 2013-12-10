@@ -111,7 +111,7 @@ class diaryController extends Controller
 
 
 		# affichage du template
-		echo $this->okt->tpl->render('diary_list_tpl', array(
+		return $this->render('diary_list_tpl', array(
 			'oCal' => $oCal
 		));
 	}
@@ -199,7 +199,7 @@ class diaryController extends Controller
 		$this->okt->page->setTitleSeo(!empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
 
 		# affichage du template
-		echo $this->okt->tpl->render('diary_event_tpl', array(
+		return $this->render('diary_event_tpl', array(
 			'rsEvent' => $rsEvent
 		));
 	}

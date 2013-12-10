@@ -190,7 +190,7 @@ $okt->modules = new ModulesCollection($okt, OKT_MODULES_PATH, OKT_MODULES_URL);
 	$okt->initTplEngine();
 
 	# assignation par défaut
-	$okt->tpl->assign(array('okt'=>$okt));
+	$okt->tpl->addGlobal('okt', $okt);
 
 
 # Changement de langue utilisateur

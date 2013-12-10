@@ -169,15 +169,6 @@ class PublicAdminBar
 					),
 					array(
 						'intitle' => 'Pic mémoire allouée par PHP&nbsp;: '.$aExecInfos['peakUsage']
-					),
-					array(
-						'intitle' => 'Router lang&nbsp;: '.$okt->router->getLanguage()
-					),
-					array(
-						'intitle' => 'Router path&nbsp;: '.$okt->router->getPath()
-					),
-					array(
-						'intitle' => 'Router route ID&nbsp;: '.$okt->router->getFindedRouteId()
 					)
 				)
 			);

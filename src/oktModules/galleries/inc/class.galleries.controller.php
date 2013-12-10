@@ -60,7 +60,7 @@ class galleriesController extends Controller
 		$this->okt->page->setTitleSeo($this->okt->galleries->getNameSeo());
 
 		# affichage du template
-		echo $this->okt->tpl->render('galleries/list/'.$this->okt->galleries->config->templates['list']['default'].'/template', array(
+		return $this->render('galleries/list/'.$this->okt->galleries->config->templates['list']['default'].'/template', array(
 			'rsGalleriesList' => $rsGalleriesList
 		));
 	}
@@ -192,7 +192,7 @@ class galleriesController extends Controller
 		$this->okt->page->setTitleSeo($rsGallery->title_seo);
 
 		# affichage du template
-		echo $this->okt->tpl->render('galleries/gallery/'.$this->okt->galleries->config->templates['gallery']['default'].'/template', array(
+		return $this->render('galleries/gallery/'.$this->okt->galleries->config->templates['gallery']['default'].'/template', array(
 			'bGalleryRequirePassword' => $bGalleryRequirePassword,
 			'rsGallery' => $rsGallery,
 			'rsSubGalleries' => $rsSubGalleriesList,
@@ -289,7 +289,7 @@ class galleriesController extends Controller
 		$this->okt->page->setTitleSeo(!empty($rsItem->title_seo) ? $rsItem->title_seo : $rsItem->title);
 
 		# affichage du template
-		echo $this->okt->tpl->render('galleries/item/'.$this->okt->galleries->config->templates['item']['default'].'/template', array(
+		return $this->render('galleries/item/'.$this->okt->galleries->config->templates['item']['default'].'/template', array(
 			'rsItem' => $rsItem
 		));
 	}

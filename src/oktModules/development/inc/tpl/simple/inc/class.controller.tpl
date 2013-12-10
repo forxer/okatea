@@ -39,7 +39,7 @@ class ##module_camel_case_id##Controller extends Controller
 		$this->okt->page->setTitleSeo($this->okt->##module_id##->getNameSeo());
 
 		# affichage du template
-		echo $this->okt->tpl->render('##module_id##_tpl');
+		return $this->render('##module_id##_tpl');
 	}
 
 } # class

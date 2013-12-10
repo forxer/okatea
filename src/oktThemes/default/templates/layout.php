@@ -6,13 +6,13 @@ $view->extend('main');
 
 <?php # début Okatea : titre de la page (graphic title)
 if ($okt->page->hasTitle()) : ?>
-<?php echo html::escapeHtml($okt->page->getTitle()); ?>
+<?php echo $view->escape($okt->page->getTitle()); ?>
 <?php endif; # fin Okatea : titre de la page (graphic title) ?>
 
 
 <?php # début Okatea : titre SEO de la page (h1)
 if ($okt->page->hasTitleSeo()) : ?>
-<h1><?php echo html::escapeHtml($okt->page->getTitleSeo()); ?></h1>
+<h1><?php echo $view->escape($okt->page->getTitleSeo()); ?></h1>
 <?php endif; # fin Okatea : titre SEO de la page (h1) ?>
 
 

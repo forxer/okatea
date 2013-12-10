@@ -116,7 +116,7 @@ class catalogController extends Controller
 		$productsList->pager = $oProductsPager;
 
 		# affichage du template
-		echo $this->okt->tpl->render('catalog_list_tpl', array(
+		return $this->render('catalog_list_tpl', array(
 			'productsList' => $productsList
 		));
 	}
@@ -264,7 +264,7 @@ class catalogController extends Controller
 		$productsList->pager = $oProductsPager;
 
 		# affichage du template
-		echo $this->okt->tpl->render('catalog_list_tpl', array(
+		return $this->render('catalog_list_tpl', array(
 			'productsList' => $productsList,
 			'rsCategory' => $rsCategory
 		));
@@ -379,7 +379,7 @@ class catalogController extends Controller
 		}
 
 		# affichage du template
-		echo $this->okt->tpl->render('catalog_item_tpl', array(
+		return $this->render('catalog_item_tpl', array(
 			'product' => $product
 		));
 	}
