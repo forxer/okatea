@@ -158,7 +158,6 @@ class PublicAdminBar
 			}
 
 			$aSecondaryAdminBar[1000] = array(
-				'title' => $aExecInfos['execTime'].' s - '.$aExecInfos['memUsage'],
 				'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
@@ -172,6 +171,34 @@ class PublicAdminBar
 					)
 				)
 			);
+
+			$aRequestAttributes = $okt->request->attributes->all();
+
+			if (!empty($aRequestAttributes['_route']))
+			{
+				$aSecondaryAdminBar[1000]['items'][] = array(
+					'intitle' => 'Route&nbsp;: '.$aRequestAttributes['_route']
+				);
+				unset($aRequestAttributes['_route']);
+			}
+
+			if (!empty($aRequestAttributes['_controller']))
+			{
+				$aSecondaryAdminBar[1000]['items'][] = array(
+					'intitle' => 'Controller&nbsp;: '.$aRequestAttributes['_controller']
+				);
+				unset($aRequestAttributes['_controller']);
+			}
+
+			if (!empty($aRequestAttributes))
+			{
+				foreach ($aRequestAttributes as $k=>$v)
+				{
+					$aSecondaryAdminBar[1000]['items'][] = array(
+						'intitle' => $k.'&nbsp;: '.$v
+					);
+				}
+			}
 
 			if (!empty($okt->page->module))
 			{
