@@ -235,6 +235,23 @@ class newsFilters extends FiltersBase
 		);
 	}
 
+	protected function setFilterPage()
+	{
+		if ($this->okt->request->attributes->has('page'))
+		{
+			$this->params->page = $this->okt->request->attributes->getInt('page');
+			$_SESSION[$this->sess_prefix.'page'] = $this->params->page;
+		}
+		elseif (isset($_SESSION[$this->sess_prefix.'page']))
+		{
+			$this->params->page = $_SESSION[$this->sess_prefix.'page'];
+		}
+		else {
+			$this->params->page = 1;
+		}
+	}
+
+
 	/* HTML
 	------------------------------------------------*/
 

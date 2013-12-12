@@ -8,14 +8,12 @@
 
 namespace Tao\Core;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Tao\Cache\SingleFileCache;
 use Tao\Routing\Router;
-use Tao\Routing\Loader\YamlDirectoryLoader;
 use Tao\Themes\SimpleReplacements;
 
 /**
@@ -170,7 +168,7 @@ class Application
 		# single file cache
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
 
-		# déclencheures
+		# déclencheurs
 		$this->triggers = new Triggers();
 
 		# config
@@ -180,22 +178,17 @@ class Application
 		$this->request = Request::createFromGlobals();
 		$this->response = new Response();
 
+		# languages
+		$this->languages = new Languages($this);
+		$this->languages->load();
+
 		# request context
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
 
 		# router
-		$this->router = new Router(
-			$this,
-			new YamlDirectoryLoader(new FileLocator(OKT_CONFIG_PATH.'/routes')),
-			OKT_CONFIG_PATH.'/routes',
-			array(
-				'cache_dir' => OKT_CACHE_PATH.'/routing',
-				'debug' => OKT_DEBUG
-			),
-			$this->requestContext
-		);
+		$this->router = new Router($this, OKT_CONFIG_PATH.'/routes', OKT_CACHE_PATH.'/routing', OKT_DEBUG);
 	}
 
 

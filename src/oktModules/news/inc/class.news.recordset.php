@@ -5,9 +5,9 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
 use Tao\Database\Recordset;
+use Tao\Misc\Utilities as util;
 
 class newsRecordset extends Recordset
 {

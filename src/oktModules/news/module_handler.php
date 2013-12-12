@@ -75,6 +75,7 @@ class module_news extends Module
 		$this->config = $this->okt->newConfig('conf_news');
 
 		# définition des routes
+		/*
 		$this->okt->router->addRoute('newsList',
 			$this->config->routes['list'],
 			array(
@@ -105,6 +106,7 @@ class module_news extends Module
 				'_controller' => 'newsController::newsFeed',
 			)
 		);
+		*/
 
 		$this->config->url = newsHelpers::getNewsUrl();
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];

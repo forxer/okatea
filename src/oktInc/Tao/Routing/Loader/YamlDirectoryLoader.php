@@ -1,9 +1,6 @@
 <?php
-
 /*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
+ * This file is part of Okatea.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,9 +8,10 @@
 
 namespace Tao\Routing\Loader;
 
-use Symfony\Component\Routing\Loader\YamlFileLoader;
-use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Resource\DirectoryResource;
+use Symfony\Component\Routing\RouteCollection;
+use Tao\Core\Application;
 
 /**
  * YamlDirectoryLoader loads routing information
@@ -22,6 +20,20 @@ use Symfony\Component\Config\Resource\DirectoryResource;
  */
 class YamlDirectoryLoader extends YamlFileLoader
 {
+	/**
+	 * @var Application
+	 */
+	protected $app;
+
+	public function __construct(Application $app, FileLocatorInterface $locator)
+	{
+		$this->locator = $locator;
+
+		$this->app = $app;
+
+		parent::__construct($app, $locator);
+	}
+
 	/**
 	 * Loads from Yaml file from a directory.
 	 *
@@ -43,8 +55,10 @@ class YamlDirectoryLoader extends YamlFileLoader
 			return (string) $a > (string) $b ? 1 : -1;
 		});
 
+		$sEndFilePatern = '.yml';
+
 		foreach ($files as $file) {
-			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), -4)) {
+			if (!$file->isFile() || $sEndFilePatern !== substr($file->getFilename(), -strlen($sEndFilePatern))) {
 				continue;
 			}
 

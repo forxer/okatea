@@ -33,4 +33,29 @@ class Pager extends BasePager
 		$this->html_prev = '&#171;&nbsp;'.__('c_c_previous_f');
 		$this->html_next = __('c_c_next_f').'&nbsp;&#187;';
 	}
+
+
+	protected function setURL()
+	{
+		if ($this->base_url !== null)
+		{
+			$this->page_url = $this->base_url;
+			return;
+		}
+
+		$url = $_SERVER['REQUEST_URI'];
+
+		# Escape page_url for sprintf
+		$url = preg_replace('/%/','%%',$url);
+
+		# Changing page ref
+		if (preg_match('#/[0-9]+$#',$url)) {
+			$url = preg_replace('#(/)[0-9]+#','$1%1$d',$url);
+		} else {
+			$url .= '/%1$d';
+		}
+
+
+		return \html::escapeHTML($url);
+	}
 }

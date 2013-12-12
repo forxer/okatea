@@ -152,12 +152,6 @@ if (!session_id())
 	session_set_cookie_params(0, $okt->config->app_path, '', isset($_SERVER['HTTPS']), true);
 }
 
-
-# Initialisation langues
-$okt->languages = new Languages($okt);
-$okt->languages->load();
-
-
 # Initialisation utilisateur courant
 $okt->user = new Authentification($okt, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $okt->config->app_path, '', isset($_SERVER['HTTPS']));
 $okt->user->authentication();

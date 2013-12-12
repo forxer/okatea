@@ -1,0 +1,8 @@
+
+404:
+    path:     /en/404
+    defaults: { _controller: 'Tao\Core\Controller::serve404' }
+
+503:
+    path:     /en/503
+    defaults: { _controller: 'Tao\Core\Controller::serve503' }

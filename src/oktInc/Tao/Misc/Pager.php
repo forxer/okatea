@@ -87,7 +87,7 @@ class Pager
 		$htmlPrevGrp = '';
 		$htmlNextGrp = '';
 
-		$this->setURL();
+		$this->page_url = $this->setURL();
 
 		for ($i=$this->index_group_start; $i<=$this->index_group_end; $i++)
 		{
@@ -133,7 +133,7 @@ class Pager
 		return $this->nb_elements > 0 ? $res : '';
 	}
 
-	private function setURL()
+	protected function setURL()
 	{
 		if ($this->base_url !== null)
 		{
@@ -162,7 +162,7 @@ class Pager
 			$url .= '?'.$this->var_page.'=%1$d';
 		}
 
-		$this->page_url = \html::escapeHTML($url);
+		return \html::escapeHTML($url);
 	}
 
 	/**
