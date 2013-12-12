@@ -81,7 +81,7 @@ class Router implements RouterInterface, RequestMatcherInterface
 		$this->app = $app;
 		$this->collection = new RouteCollection();
 		$this->logger = $logger;
-		$this->context = $context ?: new RequestContext();
+		$this->context = $context;
 		$this->setOptions($options);
 	}
 

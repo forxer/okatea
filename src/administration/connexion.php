@@ -37,12 +37,9 @@ if (!$okt->user->is_guest) {
 
 
 # Mot de passe oublié
-if ($okt->page->action == 'validate_password' && !empty($_GET['key']) && !empty($_GET['uid']))
+if ($okt->page->action == 'validate_password' && $okt->request->query->has('key') && $okt->request->query->has('uid'))
 {
-	$uid = intval($_GET['uid']);
-	$key = rawurldecode($_GET['key']);
-
-	if ($okt->user->validatePasswordKey($uid,$key))
+	if ($okt->user->validatePasswordKey($okt->request->query->getInt('key'), $okt->request->query->get('key')))
 	{
 		$okt->page->addGlobalTitle(__('c_c_auth_request_password'));
 		require OKT_ADMIN_HEADER_FILE; ?>
@@ -57,9 +54,9 @@ if ($okt->page->action == 'validate_password' && !empty($_GET['key']) && !empty(
 }
 elseif ($okt->page->action == 'forget' || $okt->page->action == 'forget_2')
 {
-	if (isset($_POST['form_sent']))
+	if ($okt->request->request->has('email'))
 	{
-		if ($okt->user->forgetPassword($_POST['email'], $okt->config->app_host.OKT_DIRNAME.'/'.OKT_ADMIN_LOGIN_PAGE))
+		if ($okt->user->forgetPassword($okt->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $okt->config->app_host.OKT_DIRNAME.'/'.OKT_ADMIN_LOGIN_PAGE))
 		{
 			$okt->page->addGlobalTitle(__('c_c_auth_request_password'));
 			require OKT_ADMIN_HEADER_FILE; ?>
@@ -77,14 +74,13 @@ elseif ($okt->page->action == 'forget' || $okt->page->action == 'forget_2')
 	$okt->page->addGlobalTitle(__('c_c_auth_request_password'));
 	require OKT_ADMIN_HEADER_FILE; ?>
 
-	<form action="<?php echo OKT_ADMIN_LOGIN_PAGE ?>" method="post">
+	<form action="<?php echo OKT_ADMIN_LOGIN_PAGE ?>?action=forget_2" method="post">
 		<p class="field"><label for="email"><?php _e('c_c_auth_give_account_email') ?></label>
 		<?php echo form::text('email', 30, 255) ?></p>
 		<p class="note"><?php _e('c_c_auth_new_password_link_activate_will_be_sent') ?></p>
 
 		<p><?php //echo Page::formtoken(); ?>
 		<input type="hidden" name="form_sent" value="1" />
-		<input type="hidden" name="action" value="forget_2" />
 		<input type="submit" value="<?php _e('c_c_action_Send') ?>" />
 		<a href="<?php echo OKT_ADMIN_LOGIN_PAGE ?>"><?php _e('c_c_action_Go_back') ?></a></p>
 	</form>

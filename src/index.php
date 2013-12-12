@@ -38,8 +38,9 @@ catch (ResourceNotFoundException $e) {
 catch (Exception $e) {
 	$okt->response->headers->set('Content-Type', 'text/plain');
 	$okt->response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-	$okt->response->setContent($e->message);
+	$okt->response->setContent($e->getMessage());
 }
+
 
 # -- CORE TRIGGER : publicAfterRouteFinded
 $okt->triggers->callTrigger('publicAfterRouteFinded', $okt);

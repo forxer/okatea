@@ -8,12 +8,14 @@
 
 namespace Tao\Core;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Tao\Cache\SingleFileCache;
-//use Tao\Routing\Router;
+use Tao\Routing\Router;
+use Tao\Routing\Loader\YamlDirectoryLoader;
 use Tao\Themes\SimpleReplacements;
 
 /**
@@ -81,6 +83,13 @@ class Application
 	 * @var Tao\Html\Page
 	 */
 	public $page = null;
+
+	/**
+	 * Le contexte de le requete en cours.
+	 *
+	 * @var Symfony\Component\Routing\RequestContext
+	 */
+	public $requestContext = null;
 
 	/**
 	 * Le routeur interne.
@@ -158,22 +167,34 @@ class Application
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
 
+		# single file cache
+		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+
+		# déclencheures
+		$this->triggers = new Triggers();
+
+		# config
+		$this->loadConfig();
+
+		# http foundation
 		$this->request = Request::createFromGlobals();
 		$this->response = new Response();
 
-		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+		# request context
+		$this->requestContext = new RequestContext();
+		$this->requestContext->fromRequest($this->request);
 
-		$this->triggers = new Triggers();
 
-		$this->loadConfig();
-
-		$requestContext = new RequestContext();
-		$requestContext->fromRequest($this->request);
-
+		# router
 		$this->router = new Router(
 			$this,
-			array('cache_dir' => OKT_CACHE_PATH.'/routing'),
-			$requestContext
+			new YamlDirectoryLoader(new FileLocator(OKT_CONFIG_PATH.'/routes')),
+			OKT_CONFIG_PATH.'/routes',
+			array(
+				'cache_dir' => OKT_CACHE_PATH.'/routing',
+				'debug' => OKT_DEBUG
+			),
+			$this->requestContext
 		);
 	}
 

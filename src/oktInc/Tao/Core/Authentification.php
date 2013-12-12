@@ -599,7 +599,7 @@ class Authentification
 			$oMail->message->setTo($sEmail);
 
 			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
-				'SITE_TITLE' => util::getSiteTitle(),
+				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
 				'SITE_URL' => $this->okt->config->app_url,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,
@@ -630,7 +630,7 @@ class Authentification
 			return false;
 		}
 
-		if ($sKey != $rs->activate_key) {
+		if (rawurldecode($sKey) != $rs->activate_key) {
 			$this->oError->set(__('c_c_auth_validation_key_not_match'));
 			return false;
 		}
