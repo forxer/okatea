@@ -225,4 +225,19 @@ class Controller
 
 		return $this->render('503');
 	}
+
+	/**
+	 * Remove trailing slash and redirect permanent
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function removeTrailingSlash()
+	{
+		$pathInfo = $this->request->getPathInfo();
+		$requestUri = $this->request->getRequestUri();
+
+		$url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
+
+		return $this->redirect($url, 301);
+	}
 }

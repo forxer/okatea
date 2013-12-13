@@ -1,0 +1,17 @@
+# default Okatea routes
+# do not remove this file
+
+404:
+    path:     /en/404
+    defaults: { _controller: 'Tao\Core\Controller::serve404' }
+
+503:
+    path:     /en/503
+    defaults: { _controller: 'Tao\Core\Controller::serve503' }
+    
+remove_trailing_slash:
+    path:     /en/{url}
+    defaults: { _controller: Tao\Core\Controller::removeTrailingSlash }
+    requirements:
+        url: .*/$
+        _method: GET
