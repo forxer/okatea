@@ -439,7 +439,7 @@ class Application
 
 		if ($this->htmlpurifier === null)
 		{
-			$sCacheFile = OKT_CACHE_PATH.'/HTMLPurifier';
+			$sCacheFile = OKT_CACHE_PATH.'/htmlpurifier';
 
 			try
 			{

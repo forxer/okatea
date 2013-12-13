@@ -9,6 +9,7 @@
 namespace Tao\Routing;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Tao\Core\Application;
@@ -64,6 +65,21 @@ class Router extends BaseRouter
 		}
 
 		return $this->getGenerator()->generate($name, $parameters, $referenceType);
+	}
+
+	/**
+	 * Touch collection resources to force cache regenerating.
+	 *
+	 */
+	public function touchResources()
+	{
+		$aResources = array();
+		foreach ($this->getRouteCollection()->getResources() as $oResource) {
+			$aResources[] = (string)$oResource;
+		}
+
+		$fs = new Filesystem();
+		$fs->touch($aResources);
 	}
 
 	/**

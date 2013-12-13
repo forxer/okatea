@@ -55,10 +55,8 @@ class YamlDirectoryLoader extends YamlFileLoader
 			return (string) $a > (string) $b ? 1 : -1;
 		});
 
-		$sEndFilePatern = '.yml';
-
 		foreach ($files as $file) {
-			if (!$file->isFile() || $sEndFilePatern !== substr($file->getFilename(), -strlen($sEndFilePatern))) {
+			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), -4)) {
 				continue;
 			}
 

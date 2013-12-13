@@ -287,7 +287,7 @@ class Languages
 			return false;
 		}
 
-		$this->generateCacheList();
+		$this->afterProcess();
 
 		return $this->db->getLastID();
 	}
@@ -312,7 +312,7 @@ class Languages
 			return false;
 		}
 
-		$this->generateCacheList();
+		$this->afterProcess();
 
 		return true;
 	}
@@ -357,7 +357,7 @@ class Languages
 			return false;
 		}
 
-		$this->generateCacheList();
+		$this->afterProcess();
 
 		return true;
 	}
@@ -386,10 +386,9 @@ class Languages
 			return false;
 		}
 
-		$this->generateCacheList();
+		$this->afterProcess();
 
 		return true;
-
 	}
 
 	/**
@@ -435,8 +434,15 @@ class Languages
 
 		$this->db->optimize($this->t_languages);
 
-		$this->generateCacheList();
+		$this->afterProcess();
 
 		return true;
+	}
+
+	protected function afterProcess()
+	{
+		$this->generateCacheList();
+
+		$this->okt->router->touchResources();
 	}
 }

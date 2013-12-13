@@ -47,8 +47,10 @@ class YamlFileLoader extends BaseYamlFileLoader
 		$condition = isset($config['condition']) ? $config['condition'] : null;
 
 		# remove language code from default language routes
-		if ($this->app->languages->unique) {
-			$config['path'] = substr($config['path'], 0, 1+strlen($this->app->config->language));
+		if ($this->app->languages->unique)
+		{
+			$iLanguageLen = strlen($this->app->config->language);
+			$config['path'] = substr($config['path'], 1+$iLanguageLen);
 		}
 
 		$route = new Route($config['path'], $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
