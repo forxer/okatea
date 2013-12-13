@@ -31,17 +31,17 @@ $RECYCLE.BIN/
 /src/oktInc/config/connexion.php
 /src/oktInc/config/conf_*.yml
 !/src/oktInc/config/conf_site.yml
+/src/oktInc/config/routes/*/*.yml
+!/src/oktInc/config/routes/*/default.yml
 
 # oktatea cache
-/src/oktInc/cache/minify/minify_*
+/src/oktInc/cache/htmlpurifier/
 /src/oktInc/cache/modulesRepositoriesInfos.php
 /src/oktInc/cache/static.php
 /src/oktInc/cache/versions/
 /src/oktInc/cache/routing/
 
-
 /src/oktPublic/cache/**
-!/src/oktPublic/conf/index.html
 
 # oktatea themes
 /src/oktThemes/*/modules/**
@@ -50,4 +50,5 @@ $RECYCLE.BIN/
 # oktatea build
 /build/
 
+# vendor
 /src/vendor/
