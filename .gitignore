@@ -29,8 +29,8 @@ $RECYCLE.BIN/
 
 # oktatea config
 /src/oktInc/config/connexion.php
-/src/oktInc/config/conf_*.yaml
-!/src/oktInc/config/conf_site.yaml
+/src/oktInc/config/conf_*.yml
+!/src/oktInc/config/conf_site.yml
 
 # oktatea cache
 /src/oktInc/cache/minify/minify_*

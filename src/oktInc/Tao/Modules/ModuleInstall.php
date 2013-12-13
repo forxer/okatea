@@ -493,7 +493,7 @@ class ModuleInstall extends Module
 			{
 				$sExt = pathinfo($entry,PATHINFO_EXTENSION);
 
-				if (($sExt === 'ini' || $sExt === 'yaml') && substr($entry,0,5) === 'conf_')
+				if ($sExt === 'yml' && substr($entry,0,5) === 'conf_')
 				{
 					$aFiles[] = array(
 						'filename' => $entry,

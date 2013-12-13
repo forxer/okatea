@@ -424,7 +424,7 @@ class Editor
 		elseif ($this->sFileExtension == 'less') {
 			$sMode = 'text/x-less';
 		}
-		elseif ($this->sFileExtension == 'yaml') {
+		elseif ($this->sFileExtension == 'yml') {
 			$sMode = 'text/x-yaml';
 		}
 

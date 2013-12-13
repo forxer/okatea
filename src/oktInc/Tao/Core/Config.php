@@ -52,7 +52,7 @@ class Config
 	{
 		$this->oCache = $oCache;
 
-		$this->sSourceFile = $sSourceFile.'.yaml';
+		$this->sSourceFile = $sSourceFile.'.yml';
 		$this->sCacheId = basename($sSourceFile);
 
 		$this->loadData();
@@ -98,7 +98,7 @@ class Config
 		return null;
 	}
 
-	private function loadData()
+	protected function loadData()
 	{
 		if (!$this->oCache->contains($this->sCacheId)) {
 			$this->generateCacheFile();
@@ -107,10 +107,10 @@ class Config
 		$this->aData = $this->oCache->fetch($this->sCacheId);
 	}
 
-	private function loadSource()
+	protected function loadSource()
 	{
 		try {
-			return Yaml::parse($this->sSourceFile);
+			return Yaml::parse(file_get_contents($this->sSourceFile));
 		}
 		catch (Exception $e)
 		{
@@ -124,7 +124,7 @@ class Config
 		}
 	}
 
-	private function generateCacheFile()
+	protected function generateCacheFile()
 	{
 		return $this->oCache->save($this->sCacheId, $this->loadSource());
 	}

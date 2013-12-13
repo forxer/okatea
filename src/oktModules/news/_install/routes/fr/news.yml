@@ -1,0 +1,22 @@
+
+newsList-fr:
+    path:     /fr/actualites/{page}
+    defaults: { _controller: 'newsController::newsList', page: 1 }    
+    requirements:
+        page:  \d+
+    
+newsCategory-fr:
+    path:     /fr/actualites/{slug}/{page}
+    defaults: { _controller: 'newsController::newsCategory', page: 1 }
+    requirements:
+        slug: .+?[^/]?$
+        page: \d+
+    
+newsItem-fr:
+    path:     /fr/actualite/{slug}
+    defaults: { _controller: 'newsController::newsItem' }
+    
+newsFeed-fr:
+    path:     /fr/actualites/rss
+    defaults: { _controller: 'newsController::newsFeed' }
+    
