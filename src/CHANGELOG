@@ -15,6 +15,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # change Yaml files extension to .yml
 ! implement Symfony HttpFoundation
 ! CodeMirror 3.20
+! Spectrum Colorpicker 1.2.0
 
 
 2.0-beta2 (2013-12-08)
