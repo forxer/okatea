@@ -684,7 +684,7 @@ class Collection
 	 */
 	public function getInstallClass($module_id)
 	{
-		$return = '\Tao\Modules\ModuleInstall';
+		$return = '\\Tao\\Modules\\Manage\\Process';
 
 		if (file_exists($this->path.'/'.$module_id.'/_install/module_install.php'))
 		{
@@ -692,7 +692,7 @@ class Collection
 
 			$class_install = 'moduleInstall_'.$module_id;
 
-			if (class_exists($class_install,false) && is_subclass_of($class_install, '\Tao\Modules\ModuleInstall')) {
+			if (class_exists($class_install,false) && is_subclass_of($class_install, '\\Tao\\Manage\\Process')) {
 				$return = $class_install;
 			}
 		}

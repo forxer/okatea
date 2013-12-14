@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Modules\ModuleInstall;
+use Tao\Modules\Manage\Process as ModuleInstall;
 
 class moduleInstall_catalog extends ModuleInstall
 {

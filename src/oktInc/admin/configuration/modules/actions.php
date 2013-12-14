@@ -14,9 +14,9 @@
  *
  */
 
+use Tao\Core\HttpClient;
 use Tao\Misc\Utilities as util;
 use Tao\Themes\Collection as ThemesCollection;
-use Tao\Core\HttpClient;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;

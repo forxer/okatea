@@ -934,6 +934,9 @@ class ModuleInstall extends Module
 
 		# copie des éventuels fichiers de configurations
 		$this->copyConfigFiles();
+
+		# copie des éventuels fichiers de routing
+		$this->copyRoutesFiles();
 	}
 
 	/**

@@ -72,38 +72,6 @@ class module_pages extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
 
-		# définition des routes
-		$this->okt->router->addRoute('pagesList',
-			$this->config->routes['list'],
-			array(
-				'_controller' => 'pagesController::pagesList',
-			)
-		);
-
-		$this->okt->router->addRoute('pagesCategory',
-			$this->config->routes['category'],
-			array(
-				'_controller' => 'pagesController::pagesCategory',
-			),
-			array(
-				'slug' => '.+'
-			)
-		);
-
-		$this->okt->router->addRoute('pagesItem',
-			$this->config->routes['post'],
-			array(
-				'_controller' => 'pagesController::pagesItem',
-			)
-		);
-
-		$this->okt->router->addRoute('pagesFeed',
-			$this->config->routes['feed'],
-			array(
-				'_controller' => 'pagesController::pagesFeed',
-			)
-		);
-
 		$this->config->url = pagesHelpers::getPagesUrl();
 		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];
 
