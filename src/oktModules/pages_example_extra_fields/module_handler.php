@@ -14,7 +14,7 @@ class module_pages_example_extra_fields extends Module
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# enregistrement des triggers
 		$this->okt->pages->triggers->registerTrigger('getPagesSelectFields', array('module_pages_example_extra_fields','getPagesSelectFields'));

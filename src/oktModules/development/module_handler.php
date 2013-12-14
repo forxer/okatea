@@ -14,7 +14,7 @@ class module_development extends Module
 	protected function prepend()
 	{
 		# Chargement des principales locales
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# Autoload
 		$this->okt->autoloader->addClassMap(array(
@@ -44,7 +44,7 @@ class module_development extends Module
 		$this->onThisModule();
 
 		# Chargement des locales admin
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# On ajoutent un item au menu
 		if (!defined('OKT_DISABLE_MENU'))

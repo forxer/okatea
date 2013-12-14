@@ -39,7 +39,7 @@ class module_contact extends Module
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
@@ -81,7 +81,7 @@ class module_contact extends Module
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

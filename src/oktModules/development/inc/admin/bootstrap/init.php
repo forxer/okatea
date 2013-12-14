@@ -12,7 +12,7 @@ if (!defined('ON_DEVELOPMENT_MODULE')) die;
 
 
 # Modules locales
-l10n::set(__DIR__.'/../../../locales/'.$okt->user->language.'/bootstrap');
+$okt->l10n->loadFile(__DIR__.'/../../../locales/'.$okt->user->language.'/bootstrap');
 
 
 $bootstrap_module_name = 'My new module';

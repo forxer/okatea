@@ -18,7 +18,7 @@ if (!defined('ON_NEWS_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.post');
+$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.post');
 
 $bCanViewPage = true;
 $bCanEditPost = ($okt->checkPerm('news_usage') || $okt->checkPerm('news_contentadmin'));

@@ -16,7 +16,7 @@ class module_lbl_pirobox extends Module
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPerm('pirobox_config', __('m_lbl_pirobox_perm_config'), 'configuration');
@@ -33,7 +33,7 @@ class module_lbl_pirobox extends Module
 		$this->onThisModule();
 
 		# chargement des locales admin
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))

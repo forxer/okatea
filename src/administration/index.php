@@ -168,8 +168,7 @@ if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_reada
 	$sNewVersion = $updater->check(util::getVersion());
 
 	if ($updater->getNotify() && $sNewVersion) {
-		# locales
-		l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+		$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 	}
 }
 

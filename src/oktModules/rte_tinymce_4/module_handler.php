@@ -14,7 +14,7 @@ class module_rte_tinymce_4 extends Module
 	protected function prepend()
 	{
 		# chargement des principales locales
-		l10n::set(__DIR__.'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
 		# permissions
 		$this->okt->addPerm('rte_tinymce_4_config', __('m_rte_tinymce_4_perm_config'), 'configuration');

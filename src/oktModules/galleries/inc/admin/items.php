@@ -17,7 +17,7 @@ if (!defined('ON_GALLERIES_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.items');
+$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.items');
 
 # Récupération des infos de la galerie
 $gallery_id = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;

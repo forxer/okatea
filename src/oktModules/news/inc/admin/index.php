@@ -41,7 +41,7 @@ if (!empty($_REQUEST['json']))
 ----------------------------------------------------------*/
 
 # Chargement des locales
-l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
+$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
 
 # initialisation des filtres
 $okt->news->filtersStart('admin');

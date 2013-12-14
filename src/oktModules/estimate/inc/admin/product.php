@@ -17,8 +17,8 @@ if (!defined('ON_ESTIMATE_MODULE')) die;
 ----------------------------------------------------------*/
 
 # chargement des locales
-l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.products');
-l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
+$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.products');
+$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.accessories');
 
 $iProductId = null;
 

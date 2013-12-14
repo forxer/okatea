@@ -20,7 +20,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 	try
 	{
 		# Chargement des locales
-		l10n::set(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
+		$okt->l10n->loadFile(__DIR__.'/../../locales/'.$okt->user->language.'/admin.list');
 
 		$okt->news->deletePost($_GET['post_id']);
 
