@@ -59,4 +59,4 @@ class module_##module_id## extends Module
 	}
 
 
-} # class
+}

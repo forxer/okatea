@@ -74,4 +74,4 @@ class galleriesHelpers
 	}
 
 
-} # class
+}

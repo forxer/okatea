@@ -40,4 +40,4 @@ class moduleInstall_galleries extends ModuleInstall
 	{
 	}
 
-} # class
+}

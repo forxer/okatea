@@ -16,4 +16,4 @@ class moduleInstall_lbl_fancybox extends ModuleInstall
 		));
 	}
 
-} # class
+}

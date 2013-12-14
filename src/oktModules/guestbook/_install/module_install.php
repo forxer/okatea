@@ -20,4 +20,4 @@ class moduleInstall_guestbook extends ModuleInstall
 	{
 	}
 
-} # class
+}

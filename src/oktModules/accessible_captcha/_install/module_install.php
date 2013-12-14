@@ -16,4 +16,4 @@ class moduleInstall_accessible_captcha extends ModuleInstall
 		));
 	}
 
-} # class
+}

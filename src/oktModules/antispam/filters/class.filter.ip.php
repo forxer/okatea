@@ -280,4 +280,4 @@ class oktFilterIP extends oktSpamFilter
 		$this->db->execute($strReq);
 	}
 
-} # class oktFilterIP extends oktSpamFilter
+}

@@ -152,4 +152,4 @@ class oktSpamFilter
 		return sprintf($link,$this->name,$url);
 	}
 
-} # class oktSpamFilter
+}

@@ -251,4 +251,4 @@ class usersFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

@@ -314,4 +314,4 @@ class diaryFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

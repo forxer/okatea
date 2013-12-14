@@ -1379,4 +1379,4 @@ class module_faq extends Module
 		return $aStatus;
 	}
 
-} # class
+}

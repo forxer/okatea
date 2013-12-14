@@ -170,4 +170,4 @@ class catalogRecordset extends Recordset
 		return $this->okt->catalog->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

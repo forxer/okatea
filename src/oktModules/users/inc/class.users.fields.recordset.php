@@ -114,4 +114,4 @@ class usersFieldRecordset extends Recordset
 		return $return;
 	}
 
-} # class
+}

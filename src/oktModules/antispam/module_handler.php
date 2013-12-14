@@ -54,4 +54,4 @@ class module_antispam extends Module
 		}
 	}
 
-} # class
+}

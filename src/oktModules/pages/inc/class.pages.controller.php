@@ -362,4 +362,4 @@ class pagesController extends Controller
 		));
 	}
 
-} # class
+}

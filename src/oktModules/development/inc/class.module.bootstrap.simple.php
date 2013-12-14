@@ -60,5 +60,5 @@ class oktModuleBootstrapSimple extends oktModuleBootstrap
 		$this->makeFile('module_handler', 	$this->dir.'/module_handler.php', $replacements);
 	}
 
-} # class
+}
 

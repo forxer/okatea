@@ -139,4 +139,4 @@ class usersHelpers
 		return $sRegisterUrl;
 	}
 
-} # class
+}

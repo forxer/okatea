@@ -747,4 +747,4 @@ class usersController extends Controller
 	}
 
 
-} # class
+}

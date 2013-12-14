@@ -46,4 +46,4 @@ class partnersController extends Controller
 		));
 	}
 
-} # class
+}

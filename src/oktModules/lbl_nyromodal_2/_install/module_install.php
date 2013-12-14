@@ -16,4 +16,4 @@ class moduleInstall_lbl_nyromodal_2 extends ModuleInstall
 		));
 	}
 
-} # class
+}

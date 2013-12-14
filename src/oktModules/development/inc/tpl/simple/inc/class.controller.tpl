@@ -42,4 +42,4 @@ class ##module_camel_case_id##Controller extends Controller
 		return $this->render('##module_id##_tpl');
 	}
 
-} # class
+}

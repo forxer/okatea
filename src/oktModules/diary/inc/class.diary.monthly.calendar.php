@@ -49,4 +49,4 @@ class diaryMonthlyCalendar extends MonthlyCalendar
 		return sprintf($this->aConfig['htmlEventsList'],implode('',$aEvents));
 	}
 
-} # class
+}

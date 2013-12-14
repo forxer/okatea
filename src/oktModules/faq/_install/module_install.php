@@ -34,4 +34,4 @@ class moduleInstall_faq extends ModuleInstall
 	{
 	}
 
-} # class
+}

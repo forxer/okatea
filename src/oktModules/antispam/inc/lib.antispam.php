@@ -101,4 +101,4 @@ class oktAntispam
 		}
 	}
 
-} # class
+}

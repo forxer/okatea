@@ -206,4 +206,4 @@ class module_pages_example_extra_fields extends Module
 		}
 	}
 
-} # class
+}

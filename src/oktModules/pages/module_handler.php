@@ -1643,4 +1643,4 @@ class module_pages extends Module
 	}
 
 
-} # class
+}

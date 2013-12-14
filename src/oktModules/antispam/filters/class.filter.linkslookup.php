@@ -65,5 +65,5 @@ class oktFilterLinksLookup extends oktSpamFilter
 		return $res;
 	}
 
-} # class oktFilterLinksLookup extends oktSpamFilter
+}
 

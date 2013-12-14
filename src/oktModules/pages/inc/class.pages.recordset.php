@@ -211,4 +211,4 @@ class pagesRecordset extends Recordset
 		return $this->okt->pages->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

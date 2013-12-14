@@ -909,4 +909,4 @@ class galleriesItems
 	}
 
 
-} # class
+}

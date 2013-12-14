@@ -34,4 +34,4 @@ class moduleInstall_pages extends ModuleInstall
 	{
 	}
 
-} # class
+}

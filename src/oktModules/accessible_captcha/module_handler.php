@@ -336,4 +336,4 @@ class module_accessible_captcha extends Module
 		}
 	}
 
-} # class
+}

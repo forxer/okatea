@@ -897,4 +897,4 @@ class galleriesTree extends NestedTreei18n
 		return true;
 	}
 
-} # class
+}

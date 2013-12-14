@@ -589,4 +589,4 @@ class pagesCategories extends NestedTreei18n
 	}
 
 
-} # class
+}

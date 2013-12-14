@@ -137,4 +137,4 @@ class module_recaptcha extends Module
 	}
 
 
-} # class
+}

@@ -1401,4 +1401,4 @@ class module_users extends Module
 		return $aGroups;
 	}
 
-} # class
+}

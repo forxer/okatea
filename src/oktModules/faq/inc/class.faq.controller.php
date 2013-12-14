@@ -203,4 +203,4 @@ class faqController extends Controller
 		));
 	}
 
-} # class
+}

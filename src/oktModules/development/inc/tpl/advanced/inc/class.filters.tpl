@@ -210,4 +210,4 @@ class ##module_camel_case_id##Filters extends FiltersBase
 		}
 	}
 
-} # class
+}

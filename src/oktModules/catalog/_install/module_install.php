@@ -34,4 +34,4 @@ class moduleInstall_catalog extends ModuleInstall
 	{
 	}
 
-} # class
+}

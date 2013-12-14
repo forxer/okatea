@@ -137,4 +137,4 @@ class oktSpamFilters
 		return $a->order > $b->order ? 1 : -1;
 	}
 
-} # class
+}

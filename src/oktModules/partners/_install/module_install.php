@@ -29,4 +29,4 @@ class moduleInstall_partners extends ModuleInstall
 		));
 	}
 
-} # class
+}

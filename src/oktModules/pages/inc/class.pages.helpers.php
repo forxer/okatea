@@ -260,4 +260,4 @@ class pagesHelpers
 		return sprintf($sBlockFormat, implode($sItemsGlue, $aChildren));
 	}
 
-} # class
+}

@@ -188,4 +188,4 @@ class module_images_sets extends Module
 	}
 
 
-} # class
+}

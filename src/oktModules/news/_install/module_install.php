@@ -35,4 +35,4 @@ class moduleInstall_news extends ModuleInstall
 	{
 	}
 
-} # class
+}

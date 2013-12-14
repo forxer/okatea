@@ -1097,4 +1097,4 @@ class module_contact extends Module
 		return "data:image/png;base64,".base64_encode($contenu_image);
 	}
 
-} # class
+}

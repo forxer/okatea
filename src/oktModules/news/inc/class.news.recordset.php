@@ -297,4 +297,4 @@ class newsRecordset extends Recordset
 		return $this->okt->news->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

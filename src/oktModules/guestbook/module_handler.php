@@ -490,4 +490,4 @@ class module_guestbook extends Module
 		return true;
 	}
 
-} # class
+}

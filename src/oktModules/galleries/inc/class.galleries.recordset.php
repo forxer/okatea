@@ -64,4 +64,4 @@ class galleriesRecordset extends Recordset
 		return $this->okt->galleries->upload_url.'img/galleries/'.$this->id.'/';
 	}
 
-} # class
+}

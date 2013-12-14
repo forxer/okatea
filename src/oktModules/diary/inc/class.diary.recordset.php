@@ -134,4 +134,4 @@ class diaryRecordset extends Recordset
 		return $this->okt->diary->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

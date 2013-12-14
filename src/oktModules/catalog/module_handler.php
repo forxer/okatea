@@ -1481,4 +1481,4 @@ class module_catalog extends Module
 		return $this->tree->rebuild();
 	}
 
-} # class
+}

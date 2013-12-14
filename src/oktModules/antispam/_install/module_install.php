@@ -38,4 +38,4 @@ class moduleInstall_antispam extends ModuleInstall
 		unset($_o);
 	}
 
-} # class
+}

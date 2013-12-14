@@ -62,5 +62,5 @@ class module_media_manager extends Module
 	}
 
 
-} # class
+}
 

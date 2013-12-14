@@ -299,4 +299,4 @@ class newsFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

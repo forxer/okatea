@@ -197,4 +197,4 @@ class module_lbl_fancybox extends Module
 		return $aOptions;
 	}
 
-} # class
+}

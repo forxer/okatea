@@ -236,4 +236,4 @@ class module_galleries extends Module
 		return $aUploadTypes;
 	}
 
-} # class
+}

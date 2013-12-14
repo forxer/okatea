@@ -999,4 +999,4 @@ class module_diary extends Module
 		return $url;
 	}
 
-} # class
+}

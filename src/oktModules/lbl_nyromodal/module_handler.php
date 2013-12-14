@@ -118,4 +118,4 @@ class module_lbl_nyromodal extends Module
 		$okt->page->js->addReady(self::$jsLoader);
 	}
 
-} # class
+}

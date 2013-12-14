@@ -857,4 +857,4 @@ class module_##module_id## extends Module
 		return $url;
 	}
 
-} # class
+}

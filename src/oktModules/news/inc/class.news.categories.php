@@ -595,4 +595,4 @@ class newsCategories extends NestedTreei18n
 	}
 
 
-} # class
+}

@@ -258,4 +258,4 @@ class newsHelpers
 		return sprintf($sBlockFormat, implode($sItemsGlue, $aChildren));
 	}
 
-} # class
+}

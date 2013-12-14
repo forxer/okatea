@@ -354,4 +354,4 @@ class catalogFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

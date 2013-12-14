@@ -116,4 +116,4 @@ class oktFilterIpLookup extends oktSpamFilter
 		return false;
 	}
 
-} # class oktFilterIpLookup extends oktSpamFilter
+}

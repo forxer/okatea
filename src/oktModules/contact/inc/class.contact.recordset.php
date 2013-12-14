@@ -113,4 +113,4 @@ class contactRecordset extends Recordset
 		return $return;
 	}
 
-} # class
+}

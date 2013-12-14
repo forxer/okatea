@@ -283,4 +283,4 @@ class pagesFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

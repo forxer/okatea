@@ -391,4 +391,4 @@ class estimateController extends Controller
 		return $iNumProducts;
 	}
 
-} # class
+}

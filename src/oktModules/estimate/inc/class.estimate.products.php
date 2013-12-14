@@ -288,4 +288,4 @@ class estimateProducts
 	}
 
 
-} # class
+}

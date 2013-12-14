@@ -228,4 +228,4 @@ class faqFilters extends FiltersBase
 		}
 	}
 
-} # class
+}

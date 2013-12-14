@@ -17,4 +17,4 @@ class moduleInstall_media_manager extends ModuleInstall
 		));
 	}
 
-} # class
+}

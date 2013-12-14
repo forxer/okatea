@@ -189,4 +189,4 @@ class guestbookController extends Controller
 		));
 	}
 
-} # class
+}

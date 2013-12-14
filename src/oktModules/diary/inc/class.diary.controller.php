@@ -204,4 +204,4 @@ class diaryController extends Controller
 		));
 	}
 
-} # class
+}

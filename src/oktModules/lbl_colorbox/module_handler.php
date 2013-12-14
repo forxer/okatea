@@ -133,4 +133,4 @@ class module_lbl_colorbox extends Module
 		return self::$jsLoader;
 	}
 
-} # class
+}

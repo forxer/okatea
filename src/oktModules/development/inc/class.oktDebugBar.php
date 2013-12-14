@@ -540,4 +540,4 @@ class oktDebugBar
 		return $c['user'];
 	}
 
-} # class
+}

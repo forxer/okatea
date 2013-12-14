@@ -95,4 +95,4 @@ class countingFilesAndLines
 		$oDirectory->close();
 	}
 
-} # class
+}

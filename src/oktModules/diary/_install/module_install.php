@@ -23,4 +23,4 @@ class moduleInstall_diary extends ModuleInstall
 	{
 	}
 
-} # class
+}

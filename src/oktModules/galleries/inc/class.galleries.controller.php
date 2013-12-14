@@ -294,4 +294,4 @@ class galleriesController extends Controller
 		));
 	}
 
-} # class
+}

@@ -25,4 +25,4 @@ class moduleInstall_users extends ModuleInstall
 	{
 	}
 
-} # class
+}

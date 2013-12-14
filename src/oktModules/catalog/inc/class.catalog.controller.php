@@ -384,4 +384,4 @@ class catalogController extends Controller
 		));
 	}
 
-} # class
+}

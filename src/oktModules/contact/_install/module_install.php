@@ -20,4 +20,4 @@ class moduleInstall_contact extends ModuleInstall
 	{
 	}
 
-} # class
+}

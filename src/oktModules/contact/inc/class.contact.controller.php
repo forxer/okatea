@@ -244,4 +244,4 @@ class contactController extends Controller
 		return $this->render('contact/map/'.$this->okt->contact->config->templates['map']['default'].'/template');
 	}
 
-} # class
+}

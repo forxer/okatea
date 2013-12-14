@@ -74,4 +74,4 @@ class partnersRecordset extends Recordset
 		return $this->okt->partners->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

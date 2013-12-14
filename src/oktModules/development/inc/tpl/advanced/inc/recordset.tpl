@@ -125,4 +125,4 @@ class ##module_camel_case_id##Recordset extends Recordset
 		return $this->okt->##module_id##->upload_url.'img/'.$this->id.'/';
 	}
 
-} # class
+}

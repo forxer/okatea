@@ -475,4 +475,4 @@ class module_estimate extends Module
 
 		return $aStatus;
 	}
-} # class
+}

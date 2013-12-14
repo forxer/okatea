@@ -617,4 +617,4 @@ class usersCustomFields
 	}
 
 
-} # class
+}

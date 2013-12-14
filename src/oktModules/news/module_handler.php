@@ -1994,4 +1994,4 @@ class module_news extends Module
 	}
 
 
-} # class
+}

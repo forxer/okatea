@@ -145,4 +145,4 @@ class faqRecordset extends Recordset
 	}
 
 
-} # class
+}
