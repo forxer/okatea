@@ -21,7 +21,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 
 
 # Modules locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.modules');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.modules');
 
 
 # Récupération de la liste des modules dans le système de fichiers (tous les modules)
@@ -30,7 +30,7 @@ $aAllModules = $okt->modules->getModulesFromFileSystem();
 
 # Load all modules admin locales files
 foreach ($aAllModules as $id=>$infos) {
-	l10n::set($infos['root'].'/locales/'.$okt->user->language.'/main');
+	$okt->l10n->loadFile($infos['root'].'/locales/'.$okt->user->language.'/main');
 }
 
 

@@ -26,7 +26,7 @@ if (!defined('ON_THEME_EDITOR')) die;
 ----------------------------------------------------------*/
 
 # locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
 
 $sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 

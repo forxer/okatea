@@ -45,16 +45,17 @@ if (!function_exists('debug'))
 if (!function_exists('_e'))
 {
 	/**
-	 * Translated string
+	 * Translated and display string
 	 *
-	 * Display a translated string of $str. If translation is not found, display
-	 * the string.
+	 * @see l10n::trans()
 	 *
-	 * @param string	$str		String to translate
-	 * @return string
+	 * @param string $singular Singular form of the string
+	 * @param string $pural Plural form of the string (optionnal)
+	 * @param integer $count Context number for plural form (optionnal)
+	 * @return string translated string
 	 */
-	function _e($str)
+	function _e($singular, $plural=null, $count=null)
 	{
-		echo __($str);
+		echo __($singular, $plural, $count);
 	}
 }

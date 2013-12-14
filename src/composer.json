@@ -29,6 +29,7 @@
 		"symfony/config": "2.5.*@dev",
 		"symfony/debug": "2.5.*@dev",
 		"symfony/filesystem": "2.5.*@dev",
+		"symfony/finder": "2.5.*@dev",
 		"symfony/http-foundation": "2.5.*@dev",
 		"symfony/routing": "2.5.*@dev",
 		"symfony/templating": "2.5.*@dev",

@@ -29,7 +29,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ini_set('max_execution_time', 0);
 
 # locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 
 
 /* Initialisations

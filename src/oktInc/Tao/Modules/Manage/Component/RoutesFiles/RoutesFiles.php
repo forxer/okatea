@@ -83,8 +83,8 @@ class RoutesFiles extends ComponentBase
 		$this->checklist->addItem(
 			'routes_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
 			$this->getFs()->copy($sNewFile->getRealPath(), $sRouteFile),
-			'Copy routes file '.$sNewFile->getFilename(),
-			'Cannot copy routes file '.$sNewFile->getFilename()
+			'Copy routes file '.$sNewFile->getRelativePathname(),
+			'Cannot copy routes file '.$sNewFile->getRelativePathname()
 		);
 	}
 
@@ -97,18 +97,18 @@ class RoutesFiles extends ComponentBase
 		$this->checklist->addItem(
 			'merging_routes_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
 			$this->doMerging($sNewFile->getRealPath(), $sRouteFile),
-			'Merging routes file '.$sNewFile->getFilename(),
-			'Cannot merging routes file '.$sNewFile->getFilename()
+			'Merging routes file '.$sNewFile->getRelativePathname(),
+			'Cannot merging routes file '.$sNewFile->getRelativePathname()
 		);
 	}
 
 	protected function doMerging($sNewFile, $sRouteFile)
 	{
 		try {
-			$aNewRoutes = $this->yamlParse($sNewFile);
 			$aRoutes = $this->yamlParse($sRouteFile);
+			$aNewRoutes = $this->yamlParse($sNewFile);
 
-			$aData = array_merge($aNewRoutes, $aRoutes);
+			$aData = $aRoutes + $aNewRoutes;
 		}
 		catch (Exception $e) {
 			return false;

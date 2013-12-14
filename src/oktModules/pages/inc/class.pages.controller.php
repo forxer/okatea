@@ -5,8 +5,8 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
+use Tao\Misc\Utilities as util;
 use Tao\Website\Pager;
 
 class pagesController extends Controller
@@ -66,9 +66,6 @@ class pagesController extends Controller
 
 		# récupération des pages
 		$this->rsPagesList = $this->okt->pages->getPages($aPagesParams);
-
-		# formatage des données avant affichage
-		//$this->okt->pages->preparePages($this->rsPagesList);
 
 		# meta description
 		if ($this->okt->pages->config->meta_description[$this->okt->user->language] != '') {
@@ -154,13 +151,13 @@ class pagesController extends Controller
 		}
 
 		# récupération de la rubrique
-		$rsCategory = $this->okt->pages->categories->getCategories(array(
+		$this->rsCategory = $this->okt->pages->categories->getCategories(array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
 			'slug' => $sCategorySlug
 		));
 
-		if ($rsCategory->isEmpty()) {
+		if ($this->rsCategory->isEmpty()) {
 			return $this->serve404();
 		}
 
@@ -168,7 +165,7 @@ class pagesController extends Controller
 		if (!$this->okt->pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(pagesHelpers::getCategoryUrl($rsCategory->slug))));
+				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(pagesHelpers::getCategoryUrl($this->rsCategory->slug))));
 			}
 			else {
 				return $this->serve404();
@@ -177,14 +174,14 @@ class pagesController extends Controller
 
 		# formatage description rubrique
 		if (!$this->okt->pages->config->categories['rte']) {
-			$rsCategory->content = util::nlToP($rsCategory->content);
+			$this->rsCategory->content = util::nlToP($this->rsCategory->content);
 		}
 
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
-			'category_id' => $rsCategory->id
+			'category_id' => $this->rsCategory->id
 		);
 
 		# initialisation des filtres
@@ -216,8 +213,8 @@ class pagesController extends Controller
 		$this->rsPagesList = $this->okt->pages->getPages($aPagesParams);
 
 		# meta description
-		if ($rsCategory->meta_description != '') {
-			$this->page->meta_description = $rsCategory->meta_description;
+		if ($this->rsCategory->meta_description != '') {
+			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
 		else if ($this->okt->pages->config->meta_description[$this->okt->user->language] != '') {
 			$this->page->meta_description = $this->okt->pages->config->meta_description[$this->okt->user->language];
@@ -227,8 +224,8 @@ class pagesController extends Controller
 		}
 
 		# meta keywords
-		if ($rsCategory->meta_keywords != '') {
-			$this->page->meta_keywords = $rsCategory->meta_keywords;
+		if ($this->rsCategory->meta_keywords != '') {
+			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
 		else if ($this->okt->pages->config->meta_keywords[$this->okt->user->language] != '') {
 			$this->page->meta_keywords = $this->okt->pages->config->meta_keywords[$this->okt->user->language];
@@ -243,12 +240,12 @@ class pagesController extends Controller
 		}
 
 		# title tag du module
-		$this->page->addTitleTag(($rsCategory->title_tag != '' ? $rsCategory->title_tag : $rsCategory->title));
+		$this->page->addTitleTag(($this->rsCategory->title_tag != '' ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
 		{
-			$rsPath = $this->okt->pages->categories->getPath($rsCategory->id, true, $this->okt->user->language);
+			$rsPath = $this->okt->pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 			while ($rsPath->fetch())
 			{
 		//		$this->page->addTitleTag(($rsPath->title_tag != '' ? $rsPath->title_tag : $rsPath->title));
@@ -258,19 +255,19 @@ class pagesController extends Controller
 		}
 
 		# titre de la page
-		$this->page->setTitle($rsCategory->title);
+		$this->page->setTitle($this->rsCategory->title);
 
 		# titre SEO de la page
-		$this->page->setTitleSeo($rsCategory->title_seo);
+		$this->page->setTitleSeo($this->rsCategory->title_seo);
 
 		# raccourcis
 		$this->rsPagesList->numPages = $iNumPages;
 		$this->rsPagesList->pager = $oPagesPager;
 
 		# affichage du template
-		return $this->render($this->okt->pages->getCategoryTplPath($rsCategory->tpl), array(
+		return $this->render($this->okt->pages->getCategoryTplPath($this->rsCategory->tpl), array(
 			'rsPagesList' => $this->rsPagesList,
-			'rsCategory' => $rsCategory
+			'rsCategory' => $this->rsCategory
 		));
 	}
 
@@ -361,5 +358,4 @@ class pagesController extends Controller
 			'rsPage' => $this->rsPage
 		));
 	}
-
 }

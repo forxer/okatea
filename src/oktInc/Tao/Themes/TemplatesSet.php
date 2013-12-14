@@ -85,28 +85,43 @@ class TemplatesSet
 
 		$this->loadTemplatesInfos();
 
-		\l10n::set(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/admin.templates.config');
+		$this->okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/admin.templates.config');
+
+		# get template id from query
+		$sTtplId = null;
+		if ($this->okt->request->query->has('tpl_id'))
+		{
+			$sTtplId = rawurldecode($this->okt->request->query->get('tpl_id'));
+
+			if (!array_key_exists($sTtplId, $this->getTplInfos())) {
+				$sTtplId = null;
+			}
+		}
+
+		# get template family from query
+		$sTtplFamily = null;
+		if ($this->okt->request->query->has('tpl_family'))
+		{
+			$sTtplFamily = rawurldecode($this->okt->request->query->get('tpl_family'));
+
+			if ($sTtplFamily != $this->sTplFamily) {
+				$sTtplFamily = null;
+			}
+		}
 
 		# téléchargement d'un template
-		if (!empty($_GET['tpl_download'])
-			&& !empty($_GET['tpl_id']) && array_key_exists(rawurldecode($_GET['tpl_id']), $this->getTplInfos())
-			&& !empty($_GET['tpl_family']) && rawurldecode($_GET['tpl_family']) == $this->sTplFamily)
-		{
-			$this->dowloadTemplate(rawurldecode($_GET['tpl_id']));
+		if ($this->okt->request->query->has('tpl_download') && $sTtplId && $sTtplFamily) {
+			$this->dowloadTemplate($sTtplId);
 		}
 
 		# suppression d'un template
-		if (!empty($_GET['tpl_delete'])
-			&& !empty($_GET['tpl_id']) && array_key_exists(rawurldecode($_GET['tpl_id']), $this->getTplInfos())
-			&& !empty($_GET['tpl_family']) && rawurldecode($_GET['tpl_family']) == $this->sTplFamily)
+		if ($this->okt->request->query->has('tpl_delete') && $sTtplId && $sTtplFamily)
 		{
-			$this->deleteTemplate(rawurldecode($_GET['tpl_id']));
+			$this->deleteTemplate($sTtplId);
+
+			$this->okt->page->flashMessages->addSuccess(__('c_a_tpl_config_tpl_deleted'));
 
 			\http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
-		}
-
-		if (isset($this->okt->page) && !empty($_GET['tpl_family']) && rawurldecode($_GET['tpl_family']) == $this->sTplFamily) {
-			$this->okt->page->messages->success('tpl_deleted', __('c_a_tpl_config_tpl_deleted'));
 		}
 	}
 
@@ -295,8 +310,8 @@ class TemplatesSet
 	 */
 	public function getPostConfig()
 	{
-		$p_tpl_default = !empty($_POST[$this->sFormPrefix.'tpl_default_'.$this->sTplFamily]) ? $_POST[$this->sFormPrefix.'tpl_default_'.$this->sTplFamily] : '';
-		$p_tpl_usables = !empty($_POST[$this->sFormPrefix.'tpl_usables_'.$this->sTplFamily]) && is_array($_POST[$this->sFormPrefix.'tpl_usables_'.$this->sTplFamily]) ? $_POST[$this->sFormPrefix.'tpl_usables_'.$this->sTplFamily] : array();
+		$p_tpl_default = $this->okt->request->request->get($this->sFormPrefix.'tpl_default_'.$this->sTplFamily);
+		$p_tpl_usables = $this->okt->request->request->get($this->sFormPrefix.'tpl_usables_'.$this->sTplFamily, array());
 
 		return array(
 			'default' => $p_tpl_default,

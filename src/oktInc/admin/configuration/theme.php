@@ -26,7 +26,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
 
 # Themes object
 $oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);

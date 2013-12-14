@@ -26,7 +26,7 @@ use Tao\Themes\Collection as ThemesCollection;
 ----------------------------------------------------------*/
 
 # locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
 
 $aUiThemes = Page::getUiThemes();
 $aThemes = array_flip(ThemesCollection::getThemes());

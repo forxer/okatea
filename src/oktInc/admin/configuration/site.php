@@ -26,7 +26,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.site');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.site');
 
 # Données de la page
 $aPageData = new ArrayObject();

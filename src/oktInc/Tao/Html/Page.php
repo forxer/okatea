@@ -413,7 +413,7 @@ class Page
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
-			$.datepicker.setDefaults($.datepicker.regional[\''.$GLOBALS['okt']->user->language.'\']); '.
+			$.datepicker.setDefaults($.datepicker.regional[\''.$this->okt->user->language.'\']); '.
 			'jQuery(\''.$element.'\').datepicker('.json_encode($options).');
 		');
 	}
@@ -664,7 +664,7 @@ class Page
 		# TODO : remove when it will be corrected
 		$this->css->addCss('.jPicker tr, .jPicker td { vertical-align: middle; } ');
 
-		l10n::set(OKT_LOCALES_PATH.'/'.$GLOBALS['okt']->user->language.'/jPicker');
+		$this->okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/jPicker');
 
 		$options = array(
 			'images' => array(
@@ -1028,7 +1028,7 @@ class Page
 	{
 		$options = array(
 			'selector' => 'form',
-			'lang' => $GLOBALS['okt']->user->language,
+			'lang' => $this->okt->user->language,
 			'fields' => array()
 		);
 
@@ -1046,7 +1046,7 @@ class Page
 	public function validate($form_id=null, $fields=array(), $lang=null)
 	{
 		if (empty($lang)) {
-			$lang = $GLOBALS['okt']->user->language;
+			$lang = $this->okt->user->language;
 		}
 
 		$this->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/l10n/messages_'.$lang.'.js');

@@ -26,7 +26,7 @@ if (!defined('ON_CONFIGURATION_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.router');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.router');
 
 # Liste des routes chargées
 $aRoutes = $okt->router->getRoutes();

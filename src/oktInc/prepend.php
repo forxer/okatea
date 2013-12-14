@@ -14,15 +14,16 @@
  *
  */
 
-use Tao\Core\Application;
-use Tao\Core\Authentification;
-use Tao\Core\Languages;
-use Tao\Navigation\Menus\Menus;
-use Tao\Modules\Collection as ModulesCollection;
-use Tao\Misc\Utilities as util;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
+use Tao\Core\Application;
+use Tao\Core\Authentification;
+use Tao\Core\Languages;
+use Tao\Core\Localisation;
+use Tao\Misc\Utilities as util;
+use Tao\Modules\Collection as ModulesCollection;
+use Tao\Navigation\Menus\Menus;
 
 /*
  * Activation/désactivation du mode debug
@@ -158,9 +159,9 @@ $okt->user->authentication();
 $okt->user->initLanguage(OKT_COOKIE_LANGUAGE);
 
 	# Initialisation localisation
-	l10n::init();
-	l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/main');
-	l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/date');
+	$okt->l10n = new Localisation($okt->user->language);
+	$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/main');
+	$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/date');
 
 	# Défintion du fuseau horraire de l'utilisateur
 	dt::setTZ($okt->user->timezone);

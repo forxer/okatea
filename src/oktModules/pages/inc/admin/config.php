@@ -6,9 +6,9 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
 use Tao\Images\ImageUploadConfig;
+use Tao\Forms\StaticFormElements as form;
+use Tao\Misc\Utilities as util;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
@@ -40,7 +40,7 @@ $oTemplatesItem = new TemplatesSet($okt,
 	'module.php?m=pages&amp;action=config&amp;'
 );
 
-$oTemplatesInsert = new oktTemTemplatesSetplatesSet($okt,
+$oTemplatesInsert = new TemplatesSet($okt,
 	$okt->pages->config->templates['insert'],
 	'pages/insert',
 	'insert',
@@ -59,7 +59,7 @@ $oTemplatesFeed = new TemplatesSet($okt,
 ----------------------------------------------------------*/
 
 # régénération des miniatures
-if (!empty($_GET['minregen']))
+if ($okt->request->query->has('minregen'))
 {
 	$okt->pages->regenMinImages();
 
@@ -69,7 +69,7 @@ if (!empty($_GET['minregen']))
 }
 
 # suppression filigrane
-if (!empty($_GET['delete_watermark']))
+if ($okt->request->query->has('delete_watermark'))
 {
 	$okt->pages->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
@@ -79,19 +79,19 @@ if (!empty($_GET['delete_watermark']))
 }
 
 # enregistrement configuration
-if (!empty($_POST['form_sent']))
+if ($okt->request->request->has('form_sent'))
 {
-	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
+	$p_enable_metas = $okt->request->request->has('p_enable_metas') ? true : false;
+	$p_enable_filters = $okt->request->request->has('p_enable_filters') ? true : false;
 
 	$p_perms = !empty($_POST['p_perms']) && is_array($_POST['p_perms']) ? array_map('intval',$_POST['p_perms']) : array(0);
-	$p_enable_group_perms = !empty($_POST['p_enable_group_perms']) ? true : false;
+	$p_enable_group_perms = $okt->request->request->has('p_enable_group_perms') ? true : false;
 
-	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
+	$p_enable_rte = $okt->request->request->get('p_enable_rte', '');
 
-	$p_categories_enable = !empty($_POST['p_categories_enable']) ? true : false;
-	$p_categories_descriptions = !empty($_POST['p_categories_descriptions']) ? true : false;
-	$p_categories_rte = !empty($_POST['p_categories_rte']) ? $_POST['p_categories_rte'] : '';
+	$p_categories_enable = $okt->request->request->has('p_categories_enable') ? true : false;
+	$p_categories_descriptions = $okt->request->request->has('p_categories_descriptions') ? true : false;
+	$p_categories_rte = $okt->request->request->get('p_categories_rte', '');
 
 	$p_tpl_list = $oTemplatesList->getPostConfig();
 	$p_tpl_item = $oTemplatesItem->getPostConfig();
@@ -100,40 +100,15 @@ if (!empty($_POST['form_sent']))
 
 	$aImagesConfig = $oImageUploadConfig->getPostConfig();
 
-	$p_enable_files = !empty($_POST['p_enable_files']) ? true : false;
-	$p_number_files = !empty($_POST['p_number_files']) ? intval($_POST['p_number_files']) : 0;
-	$p_allowed_exts = !empty($_POST['p_allowed_exts']) ? $_POST['p_allowed_exts'] : '';
+	$p_enable_files = $okt->request->request->has('p_enable_files') ? true : false;
+	$p_number_files = $okt->request->request->getInt('p_number_files', 0);
+	$p_allowed_exts = $okt->request->request->get('p_allowed_exts');
 
 	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name'])  ? $_POST['p_name'] : array();
 	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo'])  ? $_POST['p_name_seo'] : array();
 	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
 	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
-
-	$p_public_list_url = !empty($_POST['p_public_list_url']) && is_array($_POST['p_public_list_url']) ? $_POST['p_public_list_url'] : array();
-
-	foreach ($p_public_list_url as $lang=>$url) {
-		$p_public_list_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_feed_url = !empty($_POST['p_public_feed_url']) && is_array($_POST['p_public_feed_url']) ? $_POST['p_public_feed_url'] : array();
-
-	foreach ($p_public_feed_url as $lang=>$url) {
-		$p_public_feed_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_page_url = !empty($_POST['p_public_page_url']) && is_array($_POST['p_public_page_url']) ? $_POST['p_public_page_url'] : array();
-
-	foreach ($p_public_page_url as $lang=>$url) {
-		$p_public_page_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	foreach ($okt->languages->list as $aLanguage)
-	{
-		if (substr($p_public_page_url[$aLanguage['code']],0,strlen($p_public_list_url[$aLanguage['code']])) == $p_public_list_url[$aLanguage['code']]) {
-			$okt->error->set(__('m_pages_config_error_list_url_match_item_url'));
-		}
-	}
 
 	if ($okt->error->isEmpty())
 	{
@@ -171,11 +146,7 @@ if (!empty($_POST['form_sent']))
 			'name_seo' => $p_name_seo,
 			'title' => $p_title,
 			'meta_description' => $p_meta_description,
-			'meta_keywords' => $p_meta_keywords,
-
-			'public_list_url' => $p_public_list_url,
-			'public_feed_url' => $p_public_feed_url,
-			'public_page_url' => $p_public_page_url
+			'meta_keywords' => $p_meta_keywords
 		);
 
 		try
@@ -227,7 +198,7 @@ $okt->page->updatePermissionsCheckboxes();
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
-<form action="module.php" method="post" enctype="multipart/form-data">
+<form action="module.php?m=pages&amp;action=config" method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>
 			<li><a href="#tab_general"><span><?php _e('m_pages_config_tab_general') ?></span></a></li>
@@ -278,7 +249,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo form::select('p_enable_rte',array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->pages->config->enable_rte) ?></p>
 			<?php else : ?>
 				<p><?php _e('m_pages_config_no_rich_text_editor') ?>
-				<?php echo form::hidden('p_enable_rte',0); ?></p>
+				<?php echo form::hidden('p_enable_rte', null); ?></p>
 			<?php endif;?>
 			</fieldset>
 		</div><!-- #tab_general -->
@@ -297,7 +268,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php echo form::select('p_categories_rte',array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->pages->config->categories['rte']) ?></p>
 			<?php else : ?>
 				<p><?php _e('m_pages_config_no_rich_text_editor') ?>
-				<?php echo form::hidden('p_categories_rte',0); ?></p>
+				<?php echo form::hidden('p_categories_rte', null); ?></p>
 			<?php endif;?>
 
 		</div><!-- #tab_categories -->
@@ -370,31 +341,11 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			</fieldset>
 
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url') ?></legend>
-
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_list_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_pages_config_url_pages_list_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_list_url['.$aLanguage['code'].']','p_public_list_url_'.$aLanguage['code']), 60, 255, (isset($okt->pages->config->public_list_url[$aLanguage['code']]) ? html::escapeHTML($okt->pages->config->public_list_url[$aLanguage['code']]) : '')) ?></p>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_feed_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_pages_config_url_rss_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_feed_url['.$aLanguage['code'].']','p_public_feed_url_'.$aLanguage['code']), 60, 255, (isset($okt->pages->config->public_feed_url[$aLanguage['code']]) ? html::escapeHTML($okt->pages->config->public_feed_url[$aLanguage['code']]) : '')) ?></p>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_page_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_pages_config_url_page_from_%s'), '<code>'.$okt->config->app_url.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_page_url['.$aLanguage['code'].']','p_public_page_url_'.$aLanguage['code']), 60, 255, (isset($okt->pages->config->public_page_url[$aLanguage['code']]) ? html::escapeHTML($okt->pages->config->public_page_url[$aLanguage['code']]) : '')) ?></p>
-
-				<?php endforeach; ?>
-
-			</fieldset>
-
 		</div><!-- #tab_seo -->
 
 	</div><!-- #tabered -->
 
-	<p><?php echo form::hidden(array('m'),'pages'); ?>
-	<?php echo form::hidden(array('form_sent'), 1); ?>
-	<?php echo form::hidden(array('action'), 'config'); ?>
+	<p><?php echo form::hidden('form_sent', 1); ?>
 	<?php echo Page::formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>

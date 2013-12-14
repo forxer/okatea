@@ -25,7 +25,7 @@ $oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
 
 
 # Locales
-l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
+$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
 
 if (!$okt->page->do || $okt->page->do === 'index') {
 	require __DIR__.'/themes/index.php';

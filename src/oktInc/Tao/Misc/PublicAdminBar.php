@@ -115,7 +115,7 @@ class PublicAdminBar
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					l10n::set(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+					$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
 
 					$aPrimaryAdminBar[10]['items'][100] = array(
 						'href' => $aBasesUrl['admin'].'/configuration.php?action=update',

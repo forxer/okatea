@@ -39,7 +39,7 @@ $okt->modules->loadModules('public', $okt->user->language);
 
 
 # Chargement des éventuelles traductions personalisées
-l10n::set(OKT_THEME_PATH.'/locales/'.$okt->user->language.'/custom');
+$okt->l10n->loadFile(OKT_THEME_PATH.'/locales/'.$okt->user->language.'/custom');
 
 
 # Initialisation du thème
