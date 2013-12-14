@@ -39,38 +39,10 @@ class ConfigFiles extends ComponentBase
 	}
 
 	/**
-	 * Copy a config file.
-	 *
-	 */
-	public function copy($sNewFile, $sConfigFile)
-	{
-		$this->checklist->addItem(
-			'config_file_'.$sNewFile->getBasename($sNewFile->getExtension()),
-			$this->getFs()->copy($sNewFile->getRealPath(), $sConfigFile),
-			'Copy config file '.$sNewFile->getFilename(),
-			'Cannot copy config file '.$sNewFile->getFilename()
-		);
-	}
-
-	/**
-	 * Merge a config file.
-	 *
-	 */
-	protected function merge($sNewFile, $sConfigFile)
-	{
-		$this->checklist->addItem(
-			'merging_config_file_'.$sNewFile->getBasename($sNewFile->getExtension()),
-			$this->doMerging($sNewFile->getRealPath(), $sConfigFile),
-			'Merging config file '.$sNewFile->getFilename(),
-			'Cannot merging config file '.$sNewFile->getFilename()
-		);
-	}
-
-	/**
 	 * Delete config files.
 	 *
 	 */
-	protected function delete()
+	public function delete()
 	{
 		$oFiles = $this->getFiles();
 
@@ -122,6 +94,34 @@ class ConfigFiles extends ComponentBase
 		}
 	}
 
+	/**
+	 * Copy a config file.
+	 *
+	 */
+	protected function copy($sNewFile, $sConfigFile)
+	{
+		$this->checklist->addItem(
+			'config_file_'.$sNewFile->getBasename($sNewFile->getExtension()),
+			$this->getFs()->copy($sNewFile->getRealPath(), $sConfigFile),
+			'Copy config file '.$sNewFile->getFilename(),
+			'Cannot copy config file '.$sNewFile->getFilename()
+		);
+	}
+
+	/**
+	 * Merge config files.
+	 *
+	 */
+	protected function merge($sNewFile, $sConfigFile)
+	{
+		$this->checklist->addItem(
+			'merging_config_file_'.$sNewFile->getBasename($sNewFile->getExtension()),
+			$this->doMerging($sNewFile->getRealPath(), $sConfigFile),
+			'Merging config file '.$sNewFile->getFilename(),
+			'Cannot merging config file '.$sNewFile->getFilename()
+		);
+	}
+
 	protected function doMerging($sNewFile, $sConfigFile)
 	{
 		try {
@@ -139,7 +139,7 @@ class ConfigFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/_install/';
+		$sPath = $this->module->root().'/_install';
 
 		if (is_dir($sPath))
 		{
@@ -147,6 +147,7 @@ class ConfigFiles extends ComponentBase
 			$finder
 				->files()
 				->in($sPath)
+				->depth('== 0')
 				->name('conf_*.yml');
 
 			return $finder;

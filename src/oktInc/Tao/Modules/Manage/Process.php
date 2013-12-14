@@ -15,8 +15,9 @@ use Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Tao\Html\CheckList;
 use Tao\Misc\Utilities as util;
 use Tao\Modules\Module;
-use Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles;
 use Tao\Modules\Manage\Component\Comparator\Comparator;
+use Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles;
+use Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles;
 use Tao\Themes\Collection as ThemesCollection;
 
 /**
@@ -36,6 +37,12 @@ class Process extends Module
 	 * @var Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles
 	 */
 	protected $configFiles;
+
+	/**
+	 *
+	 * @var Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles
+	 */
+	protected $routesFiles;
 
 	/**
 	 *
@@ -59,24 +66,6 @@ class Process extends Module
 		# get infos from define file
 		$this->setInfo('id', $id);
 		$this->setInfosFromDefineFile();
-	}
-
-	protected function getConfigFiles()
-	{
-		if (null === $this->configFiles) {
-			$this->configFiles = new ConfigFiles($this->okt, $this);
-		}
-
-		return $this->configFiles;
-	}
-
-	protected function getComparator()
-	{
-		if (null === $this->comparator) {
-			$this->comparator = new Comparator($this->okt, $this);
-		}
-
-		return $this->comparator;
 	}
 
 
@@ -234,6 +223,9 @@ class Process extends Module
 
 		# suppression des fichiers de config
 		$this->getConfigFiles()->delete();
+
+		# suppression des fichiers de routes
+		$this->getRoutesFiles()->delete();
 
 		# suppression du module de la base de données
 		$this->checklist->addItem(
@@ -556,6 +548,7 @@ class Process extends Module
 
 		return true;
 	}
+
 	protected function copyTplFiles()
 	{
 		if (is_dir($this->root().'/_install/tpl/'))
@@ -700,8 +693,8 @@ class Process extends Module
 		# copie des éventuels fichiers de configurations
 		$this->getConfigFiles()->process();
 
-		# copie des éventuels fichiers de routing
-		$this->copyRoutesFiles();
+		# copie des éventuels fichiers de routes
+		$this->getRoutesFiles()->process();
 	}
 
 	/**
@@ -734,5 +727,32 @@ class Process extends Module
 		'WHERE group_id='.(integer)Authentification::admin_group_id;
 
 		$this->db->execute($query);
+	}
+
+	protected function getComparator()
+	{
+		if (null === $this->comparator) {
+			$this->comparator = new Comparator($this->okt, $this);
+		}
+
+		return $this->comparator;
+	}
+
+	protected function getConfigFiles()
+	{
+		if (null === $this->configFiles) {
+			$this->configFiles = new ConfigFiles($this->okt, $this);
+		}
+
+		return $this->configFiles;
+	}
+
+	protected function getRoutesFiles()
+	{
+		if (null === $this->routesFiles) {
+			$this->routesFiles = new RoutesFiles($this->okt, $this);
+		}
+
+		return $this->routesFiles;
 	}
 }
