@@ -141,6 +141,13 @@ class Application
 	public $session;
 
 	/**
+	 * L'identifiant tu theme à afficher.
+	 *
+	 * @var string
+	 */
+	public $theme;
+
+	/**
 	 * Le moteur de templates.
 	 *
 	 * @var Tao\Core\Templating
@@ -226,6 +233,63 @@ class Application
 		$this->navigation = new Menus($this);
 
 		$this->modules = new ModulesCollection($this, OKT_MODULES_PATH, OKT_MODULES_URL);
+
+		$this->theme = $this->getTheme();
+
+		$this->initTplEngine();
+	}
+
+	protected function getTheme()
+	{
+		$sOktTheme = $this->config->theme;
+
+		if (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
+		{
+			if (isset($_REQUEST['disable_browser_check'])) {
+				setcookie('okt_disable_browser_check', (boolean)$_REQUEST['disable_browser_check'], 0, $this->config->app_path, '', isset($_SERVER['HTTPS']));
+			}
+
+			if (empty($_COOKIE['okt_disable_browser_check']))
+			{
+				$oMobileDetect = new Mobile_Detect();
+
+				if ($oMobileDetect->isMobile() && !$oMobileDetect->isTablet() && !empty($this->config->theme_mobile))
+				{
+					$sOktTheme = $this->config->theme_mobile;
+					setcookie('okt_use_mobile_theme', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+				}
+				elseif ($oMobileDetect->isTablet() && !empty($this->config->theme_tablet))
+				{
+					$sOktTheme = $this->config->theme_tablet;
+					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_tablet_theme', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+				}
+				else
+				{
+					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+				}
+
+				setcookie('okt_disable_browser_check', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+
+				unset($oMobileDetect);
+			}
+			elseif (!empty($_COOKIE['okt_use_mobile_theme']) && !empty($this->config->theme_mobile)) {
+				$sOktTheme = $this->config->theme_mobile;
+			}
+			elseif (!empty($_COOKIE['okt_use_tablet_theme']) && !empty($this->config->theme_tablet)) {
+				$sOktTheme = $this->config->theme_tablet;
+			}
+		}
+
+		# URL du thème
+		define('OKT_THEME', $this->config->app_path.OKT_THEMES_DIR.'/'.$sOktTheme);
+
+		# Chemin du thème
+		define('OKT_THEME_PATH', OKT_THEMES_PATH.'/'.$sOktTheme);
+
+		return $sOktTheme;
 	}
 
 
@@ -304,7 +368,15 @@ class Application
 	 */
 	public function initTplEngine()
 	{
+		# enregistrement des répertoires de templates
+		$this->setTplDirectory(OKT_THEME_PATH.'/templates/%name%.php');
+		$this->setTplDirectory(OKT_THEMES_PATH.'/default/templates/%name%.php');
+
+		# initialisation
 		$this->tpl = new Templating($this->aTplDirectories);
+
+		# assignation par défaut
+		$this->tpl->addGlobal('okt', $this);
 	}
 
 	/**

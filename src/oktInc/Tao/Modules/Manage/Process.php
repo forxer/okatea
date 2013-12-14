@@ -34,9 +34,9 @@ class Process extends Module
 
 	private static $aReservedIds = array(
 		'autoloader', 'cache', 'config', 'db', 'error',
-		'languages', 'l10n', 'logAdmin', 'modules',
+		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
 		'page', 'requestContext', 'router', 'session',
-		'tpl', 'triggers', 'user'
+		'theme', 'tpl', 'triggers', 'user'
 	);
 
 	/**
