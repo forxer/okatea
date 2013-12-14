@@ -444,7 +444,7 @@ if (!empty($aItemData['image'])) :
 
 <?php endif; ?>
 
-<p class="note"><?php printf(__('c_c_maximum_file_size_%s'), util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)) ?></p>
+<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
 
 <?php
 

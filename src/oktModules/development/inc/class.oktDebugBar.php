@@ -239,6 +239,27 @@ class oktDebugBar
 				$this->aDebugBarData['peakUsage'] = util::l10nFileSize(memory_get_peak_usage());
 			}
 		}
+
+		$aRequestAttributes = $this->okt->request->attributes->all();
+
+		$this->aDebugBarData['route'] = '';
+		if (!empty($aRequestAttributes['_route']))
+		{
+			$this->aDebugBarData['route'] = $aRequestAttributes['_route'];
+			unset($aRequestAttributes['_route']);
+		}
+
+		$this->aDebugBarData['controller'] = '';
+		if (!empty($aRequestAttributes['_controller']))
+		{
+			$this->aDebugBarData['controller'] = $aRequestAttributes['_controller'];
+			unset($aRequestAttributes['_controller']);
+		}
+
+		$this->aDebugBarData['requestAttributes'] = array();
+		if (!empty($aRequestAttributes)) {
+			$this->aDebugBarData['requestAttributes'] = $aRequestAttributes;
+		}
 	}
 
 	/**
@@ -471,22 +492,6 @@ class oktDebugBar
 
 	protected function getToolsPanel()
 	{
-
-		if (!empty($okt->page->module))
-			{
-				$aSecondaryAdminBar[1000]['items'][] = array(
-					'intitle' => '$okt->page->module&nbsp;: '.$okt->page->module
-				);
-			}
-
-			if (!empty($okt->page->action))
-			{
-				$aSecondaryAdminBar[1000]['items'][] = array(
-					'intitle' => '$okt->page->action&nbsp;: '.$okt->page->action
-				);
-			}
-
-
 		$str =
 		'<div id="debugTools">
 			<ul>
@@ -495,10 +500,9 @@ class oktDebugBar
 				<li>Temps d\'execution du script&nbsp;: '.$this->aDebugBarData['execTime'].' s</li>
 			</ul>
 			<ul>
-				<li>Lang&nbsp;: '.$this->okt->router->getLanguage().'</li>
-				<li>Path&nbsp;: '.$this->okt->router->getPath().'</li>
-				<li>Route&nbsp;: '.$this->okt->router->getFindedRouteId().'</li>
-			</ul>
+				<li>Route&nbsp;: '.$this->aDebugBarData['route'].'</li>
+				<li>Controller&nbsp;: '.$this->aDebugBarData['controller'].'</li>
+				<li>Autre(s) attribut(s)&nbsp;: <ul><li>'.implode('</li><li>', $this->aDebugBarData['requestAttributes']).'</li></ul></li></ul>
 			<ul>
 				<li>$okt->page->module&nbsp;: '.(!empty($this->okt->page->module) ? $this->okt->page->module : '').'</li>
 				<li>$okt->page->action&nbsp;: '.(!empty($this->okt->page->action) ? $this->okt->page->action : '').'</li>

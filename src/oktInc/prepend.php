@@ -115,14 +115,6 @@ define('OKT_THEME', $okt->config->app_path.OKT_THEMES_DIR.'/'.$sOktTheme);
 # Chemin du thème
 define('OKT_THEME_PATH', OKT_THEMES_PATH.'/'.$sOktTheme);
 
-# Store upload_max_filesize in bytes
-$u_max_size = files::str2bytes(ini_get('upload_max_filesize'));
-$p_max_size = files::str2bytes(ini_get('post_max_size'));
-if ($p_max_size < $u_max_size) {
-	$u_max_size = $p_max_size;
-}
-define('OKT_MAX_UPLOAD_SIZE',$u_max_size);
-unset($u_max_size,$p_max_size);
 
 # initialisation du moteur de templates
 

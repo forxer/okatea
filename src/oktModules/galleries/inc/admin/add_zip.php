@@ -199,7 +199,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		<p class="field col"><label for="p_zip_file" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_galleries_zip_file') ?></label>
 		<?php echo form::file('p_zip_file') ?>
-		<span class="note"><?php printf(__('c_c_maximum_file_size_%s'), util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)) ?></span></p>
+		<span class="note"><?php echo util::getMaxUploadSizeNotice() ?></span></p>
 	</div>
 
 

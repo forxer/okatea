@@ -334,7 +334,7 @@ if ($core_media_writable)
 	'<div class="col"><h3 id="add-file">'.__('Add files').'</h3>'.
 	'<form id="media-upload" action="'.html::escapeURL($page_url).'" method="post" enctype="multipart/form-data">'.
 
-	'<div>'.form::hidden(array('MAX_FILE_SIZE'),OKT_MAX_UPLOAD_SIZE).
+	'<div>'.form::hidden(array('MAX_FILE_SIZE'), util::getMaxUploadSizeNotice()).
 	Page::formtoken().'</div>'.
 
 	'<fieldset id="add-file-f">'.
@@ -342,7 +342,7 @@ if ($core_media_writable)
 	'<p class="field"><label for="upfile">'.__('Choose a file:').'</label>'.
 	'<input type="file" name="upfile" id="upfile" size="20" /></p>'.
 
-	'<p class="note">'.sprintf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)).'</p>'.
+	'<p class="note">'.util::getMaxUploadSizeNotice().'</p>'.
 
 	'<p class="field"><label for="upfiletitle">'.__('Title:').'</label>'.
 	form::text('upfiletitle',35,255).'</p>'.

@@ -337,7 +337,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 						<?php endif; ?>
 					</div>
 				</div>
-				<p class="note"><?php printf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)) ?></p>
+				<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
 			</div><!-- #tab-logo -->
 		<?php endif; ?>
 

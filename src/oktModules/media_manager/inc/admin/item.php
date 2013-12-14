@@ -557,10 +557,10 @@ if ($file->editable && $core_media_writable)
 	echo
 	'<form class="clear" action="'.html::escapeURL($page_url).'" method="post" enctype="multipart/form-data">'.
 	'<fieldset><legend>'.__('Change file').'</legend>'.
-	'<div>'.form::hidden(array('MAX_FILE_SIZE'),OKT_MAX_UPLOAD_SIZE).'</div>'.
+	'<div>'.form::hidden(array('MAX_FILE_SIZE'), util::getMaxUploadSizeNotice()).'</div>'.
 	'<p class="field"><label for="upfile">'.__('Choose a file:').'</label>'.
 	'<input type="file" id="upfile" name="upfile" size="35" /></p>'.
-	'<p class="note">'.sprintf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)).'</p>'.
+	'<p class="note">'.util::getMaxUploadSizeNotice().'</p>'.
 	'<p><input type="submit" value="'.__('c_c_action_send').'" />'.
 	form::hidden(array('id'),$id).
 	Page::formtoken().'</p>'.

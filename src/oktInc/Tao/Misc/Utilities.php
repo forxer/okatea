@@ -354,16 +354,48 @@ class Utilities
 	}
 
 	/**
+	 * Retourne la notice de taille maximum d'upload.
+	 *
+	 * @return string
+	 */
+	public static function getMaxUploadSizeNotice()
+	{
+		return sprintf(__('c_c_maximum_file_size_%s'), self::l10nFileSize(self::getMaxUploadSize()));
+	}
+
+	/**
+	 * Retourne la taille maximum d'upload.
+	 *
+	 * @return integer
+	 */
+	public static function getMaxUploadSize()
+	{
+		static $iMaxUploadSize = null;
+
+		if ($iMaxUploadSize === null)
+		{
+			$iMaxUploadSize = \files::str2bytes(ini_get('upload_max_filesize'));
+			$iMaxPostSize = \files::str2bytes(ini_get('post_max_size'));
+
+			if ($iMaxPostSize < $iMaxUploadSize) {
+				$iMaxUploadSize = $iMaxPostSize;
+			}
+		}
+
+		return $iMaxUploadSize;
+	}
+
+	/**
 	 * Human localized readable file size.
 	 *
 	 * @param integer	$size		Bytes
 	 * @return array
 	 */
-	public static function l10nFileSize($size,$dec=2)
+	public static function l10nFileSize($size, $dec=2)
 	{
 		$aSize = self::getSize($size);
 
-		return sprintf(__('c_c_x_bytes_size_in_'.$aSize['unit']),self::formatNumber($aSize['size'],$dec));
+		return sprintf(__('c_c_x_bytes_size_in_'.$aSize['unit']), self::formatNumber($aSize['size'], $dec));
 	}
 
 	/**

@@ -321,7 +321,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				</div>
 			<?php endfor; ?>
 			</div>
-			<p class="note"><?php printf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)) ?></p>
+			<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
 		</div><!-- #tab_images -->
 		<?php endif; ?>
 
@@ -349,7 +349,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				</div>
 			<?php endfor; ?>
 			</div>
-			<p class="note"><?php printf(__('c_c_maximum_file_size_%s'),util::l10nFileSize(OKT_MAX_UPLOAD_SIZE)) ?></p>
+			<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
 		</div><!-- #tab_files -->
 		<?php endif; ?>
 
