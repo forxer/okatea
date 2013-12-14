@@ -71,9 +71,11 @@ if (!empty($okt->config->default_route['class']) && !empty($okt->config->default
 
 
 # Start sessions
+/*
 if (!session_id()) {
 	session_start();
 }
+*/
 
 
 # Initialisation barre admin

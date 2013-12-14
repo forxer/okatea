@@ -23,9 +23,11 @@ require_once __DIR__.'/../prepend.php';
 
 
 # Start sessions
+/*
 if (!session_id()) {
 	session_start();
 }
+*/
 
 
 # Initialisation des pages de l'administration

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Tao\Cache\SingleFileCache;
+use Tao\Modules\Collection as ModulesCollection;
+use Tao\Navigation\Menus\Menus;
 use Tao\Routing\Router;
 use Tao\Themes\SimpleReplacements;
 
@@ -27,102 +29,144 @@ use Tao\Themes\SimpleReplacements;
 class Application
 {
 	/**
+	 * L'instance de l'autoloader.
+	 *
+	 * @var Composer\Autoload\ClassLoader
+	 */
+	public $autoloader;
+
+	/**
 	 * Le gestionnaire du fichier cache de configuration.
 	 *
 	 * @var Tao\Cache\SingleFileCache
 	 */
-	public $cache = null;
+	public $cache;
 
 	/**
 	 * Le gestionnaire de configuration.
 	 *
 	 * @var Tao\Core\Config
 	 */
-	public $config = null;
+	public $config;
 
 	/**
 	 * Le gestionnaire de base de données.
 	 *
 	 * @var Tao\Database\MySqli
 	 */
-	public $db = null;
+	public $db;
 
 	/**
 	 * Le gestionnaire d'erreurs.
 	 *
 	 * @var Tao\Core\Errors
 	 */
-	public $error = null;
+	public $error;
 
 	/**
 	 * Le gestionnaire de langues.
 	 *
 	 * @var Tao\Core\Languages
 	 */
-	public $languages = null;
+	public $languages;
+
+	/**
+	 * Le gestionnaire de langues.
+	 *
+	 * @var Tao\Core\Localisation
+	 */
+	public $l10n;
 
 	/**
 	 * Le gestionnaire de log admin.
 	 *
 	 * @var Tao\Core\LogAdmin
 	 */
-	public $logAdmin = null;
+	public $logAdmin;
 
 	/**
 	 * Le gestionnaire de modules.
 	 *
 	 * @var Tao\Core\Modules\Collection
 	 */
-	public $modules = null;
+	public $modules;
+
+	/**
+	 * Les menus de navigation.
+	 *
+	 * @var Tao\Navigation\Menus\Menus
+	 */
+	public $navigation;
 
 	/**
 	 * L'utilitaire de contenu de page.
 	 *
 	 * @var Tao\Html\Page
 	 */
-	public $page = null;
+	public $page;
+
+	/**
+	 * La requete en cours.
+	 *
+	 * @var Symfony\Component\HttpFoundation\Request
+	 */
+	public $request;
 
 	/**
 	 * Le contexte de le requete en cours.
 	 *
 	 * @var Symfony\Component\Routing\RequestContext
 	 */
-	public $requestContext = null;
+	public $requestContext;
+
+	/**
+	 * La réponse qui va être renvoyée.
+	 *
+	 * @var Symfony\Component\HttpFoundation\Response
+	 */
+	public $response;
 
 	/**
 	 * Le routeur interne.
 	 *
 	 * @var Tao\Core\Router
 	 */
-	public $router = null;
+	public $router;
+
+	/**
+	 * Le gestionnaire de modules.
+	 *
+	 * @var Tao\Core\Session
+	 */
+	public $session;
 
 	/**
 	 * Le moteur de templates.
 	 *
 	 * @var Tao\Core\Templating
 	 */
-	public $tpl = null;
+	public $tpl;
 
 	/**
 	 * Le gestionnaire de déclencheurs.
 	 *
 	 * @var Tao\Core\Triggers
 	 */
-	public $triggers = null;
+	public $triggers;
 
 	/**
 	 * Le gestionnaire d'utilisateur en cours.
 	 *
 	 * @var Tao\Core\Authentification
 	 */
-	public $user = null;
+	public $user;
 
 	/**
-	 * L'instance de l'autoloader.
+	 * L'objet HTMLPurifier si il est instancié, sinon null.
 	 *
-	 * @var Composer\Autoload\ClassLoader
+	 * @var mixed
 	 */
-	public $autoloader = null;
+	protected $htmlpurifier;
 
 	/**
 	 * La pile qui contient les permissions.
@@ -130,13 +174,6 @@ class Application
 	 * @var array
 	 */
 	protected $permsStack = array();
-
-	/**
-	 * L'objet HTMLPurifier si il est instancié, sinon null.
-	 *
-	 * @var mixed
-	 */
-	protected $htmlpurifier = null;
 
 	/**
 	 * La liste des répertoires où le moteur de templates
@@ -147,7 +184,7 @@ class Application
 	protected $aTplDirectories = array();
 
 	/**
-	 * Constructeur. Initialise les gestionnaires d'erreurs et de base de données.
+	 * Constructeur. Initialise toute la mécanique Okatea.
 	 *
 	 * @return void
 	 */
@@ -155,40 +192,40 @@ class Application
 	{
 		$this->autoloader = $autoloader;
 
-		# initialisation du gestionnaire d'erreurs
 		$this->error = new Errors;
 
-		# initialisation du gestionnaire de base de données
 		$this->db = Connexion::getInstance();
 
 		if ($this->db->hasError()) {
 			$this->error->fatal('Unable to connect to database',$this->db->error());
 		}
 
-		# single file cache
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
 
-		# déclencheurs
 		$this->triggers = new Triggers();
 
-		# config
 		$this->loadConfig();
 
-		# http foundation
 		$this->request = Request::createFromGlobals();
+
 		$this->response = new Response();
 
-		# languages
-		$this->languages = new Languages($this);
-		$this->languages->load();
-
-		# request context
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
+		$this->session = new Session();
 
-		# router
+		$this->languages = new Languages($this);
+
 		$this->router = new Router($this, OKT_CONFIG_PATH.'/routes', OKT_CACHE_PATH.'/routing', OKT_DEBUG);
+
+		$this->user = new Authentification($this, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $this->config->app_path, '', isset($_SERVER['HTTPS']));
+
+		$this->l10n = new Localisation($this->user->language, $this->user->timezone);
+
+		$this->navigation = new Menus($this);
+
+		$this->modules = new ModulesCollection($this, OKT_MODULES_PATH, OKT_MODULES_URL);
 	}
 
 
@@ -309,6 +346,15 @@ class Application
 	public function loadConfig()
 	{
 		$this->config = $this->newConfig('conf_site');
+
+		# URL du dossier modules
+		define('OKT_MODULES_URL', $this->config->app_path.OKT_MODULES_DIR);
+
+		# URL du dossier des fichiers publics
+		define('OKT_PUBLIC_URL', $this->config->app_path.OKT_PUBLIC_DIR);
+
+		# URL du dossier upload depuis la racine
+		define('OKT_UPLOAD_URL', $this->config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
 
 		$this->config->app_host = \http::getHost();
 		$this->config->app_url = $this->config->app_host.$this->config->app_path;

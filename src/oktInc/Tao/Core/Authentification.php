@@ -161,6 +161,10 @@ class Authentification
 		$this->sCookiePath = $sCookiePath;
 		$this->sCookieDomain = $sCookieDomain;
 		$this->bCookieSecure = $bCookieSecure;
+
+		$this->authentication();
+
+		$this->initLanguage(OKT_COOKIE_LANGUAGE);
 	}
 
 	/**

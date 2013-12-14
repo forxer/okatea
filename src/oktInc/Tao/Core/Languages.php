@@ -84,6 +84,8 @@ class Languages
 		$this->cache_id = 'languages';
 
 		$this->t_languages = $okt->db->prefix.'core_languages';
+
+		$this->load();
 	}
 
 	/**

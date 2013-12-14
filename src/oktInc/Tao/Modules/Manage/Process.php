@@ -32,6 +32,13 @@ class Process extends Module
 	 */
 	public $checklist;
 
+	private static $aReservedIds = array(
+		'autoloader', 'cache', 'config', 'db', 'error',
+		'languages', 'l10n', 'logAdmin', 'modules',
+		'page', 'requestContext', 'router', 'session',
+		'tpl', 'triggers', 'user'
+	);
+
 	/**
 	 *
 	 * @var Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles
@@ -642,6 +649,14 @@ class Process extends Module
 	 */
 	private function preInstall()
 	{
+		# identifiant non-réservé ?
+		$this->checklist->addItem(
+			'module_id_not_reserved',
+			!in_array($this->id(), self::$aReservedIds),
+			'Module id not reserved',
+			'Module id can not be one of:'.implode('", "', self::$aReservedIds)
+		);
+
 		# présence du fichier /module_handler.php
 		$this->checklist->addItem(
 			'module_handler_file',
