@@ -8,7 +8,7 @@
 
 namespace Tao\Themes;
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 use Tao\Misc\Utilities as util;
 
 /**

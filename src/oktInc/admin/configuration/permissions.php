@@ -16,7 +16,7 @@ use Tao\Core\Authentification;
  *
  */
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
 if (!defined('ON_CONFIGURATION_MODULE')) die;

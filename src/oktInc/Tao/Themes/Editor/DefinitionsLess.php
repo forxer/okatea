@@ -8,7 +8,7 @@
 
 namespace Tao\Themes\Editor;
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 /**
  * Classe de l'éditeur de fichier de définitions LESS

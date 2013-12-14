@@ -16,7 +16,7 @@
 
 use Tao\Admin\Page;
 use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 use Tao\Html\CheckList;
 use Tao\Core\Update as Updater;
 

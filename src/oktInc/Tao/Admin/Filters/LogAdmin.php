@@ -9,7 +9,7 @@
 namespace Tao\Admin\Filters;
 
 use Tao\Misc\FiltersBase;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 /**
  * Extension de la classe filters pour l'administration.

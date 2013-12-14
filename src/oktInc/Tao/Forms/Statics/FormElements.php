@@ -10,20 +10,20 @@
  * Licensed under the GPL version 2.0 license.
  */
 
-namespace Tao\Forms;
+namespace Tao\Forms\Statics;
 
 
 /**
  * Création d'éléments de formulaire HTML.
  *
  */
-class StaticFormElements
+class FormElements
 {
 	/**
 	 * Retourne l'identifiant et le nom du champ en
 	 * fonction des paramètres passés en argument.
 	 */
-	private static function getNameAndId($nid,&$name,&$id)
+	protected static function getNameAndId($nid, &$name, &$id)
 	{
 		if (is_array($nid))
 		{
@@ -73,7 +73,7 @@ class StaticFormElements
 	 * @param	mixed	$default		La valeur sélectionnée par défaut
 	 * @return string
 	 */
-	public static function selectOptions($data,$default)
+	public static function selectOptions($data, $default)
 	{
 		$res = '';
 		$option = '<option value="%1$s"%3$s>%2$s</option>'.PHP_EOL;
@@ -82,14 +82,14 @@ class StaticFormElements
 		foreach ($data as $k => $v)
 		{
 			if (is_array($v)) {
-				$res .= sprintf($optgroup,$k,self::selectOptions($v,$default));
+				$res .= sprintf($optgroup, $k, self::selectOptions($v,$default));
 			}
-			elseif ($v instanceof formSelectOption) {
+			elseif ($v instanceof SelectOption) {
 				$res .= $v->render($default);
 			}
 			else {
 				$s = ($v == $default) ? ' selected="selected"' : '';
-				$res .= sprintf($option,$v,$k,$s);
+				$res .= sprintf($option, $v, $k, $s);
 			}
 		}
 
@@ -287,35 +287,5 @@ class StaticFormElements
 		$res .= ' />';
 
 		return $res;
-	}
-}
-
-class formSelectOption
-{
-	public $name;
-	public $value;
-	public $class_name;
-	public $html;
-
-	private $option = '<option value="%1$s"%3$s>%2$s</option>';
-
-	public function __construct($name,$value,$class_name='',$html='')
-	{
-		$this->name = $name;
-		$this->value = $value;
-		$this->class_name = $class_name;
-		$this->html = $html;
-	}
-
-	public function render($default)
-	{
-		$attr = $this->html;
-		$attr .= $this->class_name ? ' class="'.$this->class_name.'"' : '';
-
-		if ($this->value == $default) {
-			$attr .= ' selected="selected"';
-		}
-
-		return sprintf($this->option,$this->value,$this->name,$attr).PHP_EOL;
 	}
 }

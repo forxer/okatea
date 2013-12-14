@@ -2,7 +2,7 @@
 ##header##
 
 use Tao\Misc\FiltersBase;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 class ##module_camel_case_id##Filters extends FiltersBase
 {

@@ -13,7 +13,7 @@
  *
  */
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 
 # Accès direct interdit

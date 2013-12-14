@@ -1,5 +1,5 @@
 
-<?php use Tao\Forms\StaticFormElements as form; ?>
+<?php use Tao\Forms\Statics\FormElements as form; ?>
 
 <?php # début Okatea : ce template étend le layout
 $this->extend('layout');

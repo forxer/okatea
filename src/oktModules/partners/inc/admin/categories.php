@@ -6,7 +6,8 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
+use Tao\Forms\Statics\SelectOption;
 
 # Accès direct interdit
 if (!defined('ON_PARTNERS_MODULE')) die;
@@ -72,7 +73,7 @@ if ($category_id)
 	{
 		if (!isset($p[$categories_list->id]))
 		{
-			$edit_allowed_parents[] = new formSelectOption(
+			$edit_allowed_parents[] = new SelectOption(
 				str_repeat('&nbsp;&nbsp;',$categories_list->level-1).'&bull; '.html::escapeHTML($categories_list->name),
 				$categories_list->id
 			);

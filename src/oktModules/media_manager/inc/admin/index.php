@@ -10,7 +10,7 @@
 use Tao\Admin\Page;
 use Tao\Admin\Pager;
 use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
 if (!defined('ON_MEDIA_MANAGER_MODULE')) die;

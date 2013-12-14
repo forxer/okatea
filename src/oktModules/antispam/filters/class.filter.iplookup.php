@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 class oktFilterIpLookup extends oktSpamFilter
 {

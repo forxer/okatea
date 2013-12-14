@@ -6,7 +6,7 @@
  */
 
 use Tao\Misc\FiltersBase;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 class diaryFilters extends FiltersBase
 {

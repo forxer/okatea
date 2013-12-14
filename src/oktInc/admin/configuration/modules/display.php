@@ -15,7 +15,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 use Tao\Modules\Collection as ModulesCollection;
 
 

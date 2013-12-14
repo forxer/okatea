@@ -3,7 +3,7 @@
 
 use Tao\Admin\Page;
 use Tao\Misc\Utilities as util;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
 if (!defined('ON_##module_upper_id##_MODULE')) die;

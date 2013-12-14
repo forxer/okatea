@@ -6,7 +6,8 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
+use Tao\Forms\Statics\SelectOption;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
@@ -352,7 +353,7 @@ while ($rsGalleriesList->fetch())
 {
 	if (!in_array($rsGalleriesList->id, $aChildrens))
 	{
-		$aAllowedParents[] = new formSelectOption(
+		$aAllowedParents[] = new SelectOption(
 			str_repeat('&nbsp;&nbsp;&nbsp;',$rsGalleriesList->level-1).'&bull; '.html::escapeHTML($rsGalleriesList->title),
 			$rsGalleriesList->id
 		);

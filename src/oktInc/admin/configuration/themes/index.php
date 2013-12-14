@@ -16,7 +16,7 @@
 
 use Tao\Admin\Page;
 use Tao\Admin\Pager;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 use Tao\Themes\Collection as ThemesCollection;
 use Tao\Admin\Filters\Themes as ThemesFilters;
 

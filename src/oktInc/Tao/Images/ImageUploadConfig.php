@@ -8,7 +8,7 @@
 
 namespace Tao\Images;
 
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 /**
  * Aide à la configuration de l'upload des images.

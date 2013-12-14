@@ -12,7 +12,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 
 # no menu on admin login page
 define('OKT_DISABLE_MENU', true);

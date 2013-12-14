@@ -6,7 +6,7 @@
  */
 
 use Tao\Database\MySqli;
-use Tao\Forms\StaticFormElements as form;
+use Tao\Forms\Statics\FormElements as form;
 use Tao\Modules\Module;
 
 class module_pages_example_extra_fields extends Module
