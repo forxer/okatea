@@ -62,8 +62,10 @@ mb_internal_encoding('UTF-8');
 # Fuseau horraire par défaut (écrasé par la suite par les réglages utilisateurs)
 date_default_timezone_set('Europe/Paris');
 
+
 # Let the music play (initialisation du coeur de l'application)
 $okt = new Application($oktAutoloader);
+
 
 # Changement de langue utilisateur
 if (!empty($_REQUEST['switch_lang']))
@@ -74,7 +76,7 @@ if (!empty($_REQUEST['switch_lang']))
 }
 
 # Suppression des fichiers cache
-if (!empty($_REQUEST['empty_cache']))
+if (!empty($_REQUEST['empty_cache']) && $okt->user->is_superadmin)
 {
 	util::deleteOktCacheFiles();
 	util::deleteOktPublicCacheFiles();
