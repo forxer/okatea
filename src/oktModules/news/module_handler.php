@@ -109,7 +109,7 @@ class module_news extends Module
 		*/
 
 		$this->config->url = newsHelpers::getNewsUrl();
-		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];
+		$this->config->feed_url = newsHelpers::getNewsFeedUrl();
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/news/';

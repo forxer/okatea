@@ -149,10 +149,10 @@ class faqController extends Controller
 		}
 
 		# meta description
-		if ($faqQuestion->metadescription != '') {
+		if (!empty($faqQuestion->metadescription)) {
 			$this->page->meta_description = $faqQuestion->metadescription;
 		}
-		else if ($this->okt->faq->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->faq->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -160,10 +160,10 @@ class faqController extends Controller
 		}
 
 		# meta keywords
-		if ($faqQuestion->meta_keywords != '') {
+		if (!empty($faqQuestion->meta_keywords)) {
 			$this->page->meta_keywords = $faqQuestion->meta_keywords;
 		}
-		else if ($this->okt->faq->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->faq->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -180,7 +180,7 @@ class faqController extends Controller
 		$this->page->addTitleTag($this->okt->faq->getTitle());
 
 		# title tag du post
-		$this->page->addTitleTag(($faqQuestion->title_tag != '' ? $faqQuestion->title_tag : $faqQuestion->title));
+		$this->page->addTitleTag((!empty($faqQuestion->title_tag) ? $faqQuestion->title_tag : $faqQuestion->title));
 
 		# titre de la page
 		$this->page->setTitle($faqQuestion->title);

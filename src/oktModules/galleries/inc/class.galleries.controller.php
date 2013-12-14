@@ -231,7 +231,7 @@ class galleriesController extends Controller
 
 		//$rsItem->image = $rsItem->getImagesInfo();
 
-		if ($this->okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
+		if (empty($this->okt->galleries->config->enable_rte) && !empty($rsItem->legend)) {
 			$rsItem->legend = util::nlToP($rsItem->legend);
 		}
 
@@ -245,10 +245,10 @@ class galleriesController extends Controller
 		$this->page->addTitleTag($rsItem->title_tag);
 
 		# meta description
-		if ($rsItem->meta_description != '') {
+		if (!empty($rsItem->meta_description)) {
 			$this->page->meta_description = $rsItem->meta_description;
 		}
-		else if ($this->okt->galleries->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->galleries->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -256,10 +256,10 @@ class galleriesController extends Controller
 		}
 
 		# meta keywords
-		if ($rsItem->meta_keywords != '') {
+		if (!empty($rsItem->meta_keywords)) {
 			$this->page->meta_keywords = $rsItem->meta_keywords;
 		}
-		else if ($this->okt->galleries->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
 		}
 		else {

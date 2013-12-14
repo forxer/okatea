@@ -71,7 +71,7 @@ class newsController extends Controller
 		$this->rsPostsList = $this->okt->news->getPosts($aNewsParams);
 
 		# meta description
-		if ($this->okt->news->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->news->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->news->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -79,7 +79,7 @@ class newsController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->news->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->news->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->news->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -320,10 +320,10 @@ class newsController extends Controller
 		}
 
 		# meta description
-		if ($this->rsPost->meta_description != '') {
+		if (!empty($this->rsPost->meta_description)) {
 			$this->page->meta_description = $this->rsPost->meta_description;
 		}
-		else if ($this->okt->news->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->news->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->news->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -331,10 +331,10 @@ class newsController extends Controller
 		}
 
 		# meta keywords
-		if ($this->rsPost->meta_keywords != '') {
+		if (!empty($this->rsPost->meta_keywords)) {
 			$this->page->meta_keywords = $this->rsPost->meta_keywords;
 		}
-		else if ($this->okt->news->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->news->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->news->config->meta_keywords[$this->okt->user->language];
 		}
 		else {

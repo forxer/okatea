@@ -133,7 +133,7 @@ class estimateController extends Controller
 
 
 		# meta description
-		if ($this->okt->estimate->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->estimate->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -141,7 +141,7 @@ class estimateController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->estimate->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->estimate->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -341,7 +341,7 @@ class estimateController extends Controller
 		}
 
 		# meta description
-		if ($this->okt->estimate->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->estimate->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -349,7 +349,7 @@ class estimateController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->estimate->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->estimate->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
 		}
 		else {

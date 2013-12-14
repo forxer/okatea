@@ -141,7 +141,7 @@ class contactController extends Controller
 		}
 
 		# meta description
-		if ($this->okt->contact->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->contact->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->contact->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -149,7 +149,7 @@ class contactController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->contact->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->contact->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->contact->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -190,7 +190,7 @@ class contactController extends Controller
 		$this->page->action = 'map';
 
 		# meta description
-		if ($this->okt->contact->config->meta_description_map[$this->okt->user->language] != '') {
+		if (!empty($this->okt->contact->config->meta_description_map[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->contact->config->meta_description_map[$this->okt->user->language];
 		}
 		else {
@@ -198,7 +198,7 @@ class contactController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->contact->config->meta_keywords_map[$this->okt->user->language] != '') {
+		if (!empty($this->okt->contact->config->meta_keywords_map[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->contact->config->meta_keywords_map[$this->okt->user->language];
 		}
 		else {

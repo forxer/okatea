@@ -57,7 +57,7 @@ class guestbookController extends Controller
 			{
 				if ($this->okt->guestbook->addSig($aSigData))
 				{
-					if ($this->okt->guestbook->config->emails_list != '')
+					if (!empty($this->okt->guestbook->config->emails_list))
 					{
 						$oMail = new Mailer($this->okt);
 
@@ -143,7 +143,7 @@ class guestbookController extends Controller
 		}
 
 		# meta description
-		if ($this->okt->guestbook->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->guestbook->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -151,7 +151,7 @@ class guestbookController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->guestbook->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->guestbook->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt->user->language];
 		}
 		else {

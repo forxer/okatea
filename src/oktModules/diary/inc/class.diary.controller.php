@@ -80,7 +80,7 @@ class diaryController extends Controller
 		$oCal->setDatesEvents($aDatesEvents);
 
 		# meta description
-		if ($this->okt->diary->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->diary->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -88,7 +88,7 @@ class diaryController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->diary->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->diary->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -146,10 +146,10 @@ class diaryController extends Controller
 
 
 		# meta description
-		if ($rsEvent->meta_description != '') {
+		if (!empty($rsEvent->meta_description)) {
 			$this->page->meta_description = $rsEvent->meta_description;
 		}
-		else if ($this->okt->diary->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->diary->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -157,10 +157,10 @@ class diaryController extends Controller
 		}
 
 		# meta keywords
-		if ($rsEvent->meta_keywords != '') {
+		if (!empty($rsEvent->meta_keywords)) {
 			$this->page->meta_keywords = $rsEvent->meta_keywords;
 		}
-		else if ($this->okt->diary->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->diary->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -190,7 +190,7 @@ class diaryController extends Controller
 		}
 
 		# title tag
-		$this->page->addTitleTag(($rsEvent->title_tag != '' ? $rsEvent->title_tag : $rsEvent->title));
+		$this->page->addTitleTag((!empty($rsEvent->title_tag) ? $rsEvent->title_tag : $rsEvent->title));
 
 		# titre de la page
 		$this->page->setTitle($rsEvent->title);

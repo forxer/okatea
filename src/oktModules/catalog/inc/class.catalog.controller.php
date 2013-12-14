@@ -77,7 +77,7 @@ class catalogController extends Controller
 		}
 
 		# meta description
-		if ($this->okt->catalog->config->meta_description != '') {
+		if (!empty($this->okt->catalog->config->meta_description)) {
 			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
@@ -85,7 +85,7 @@ class catalogController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->catalog->config->meta_keywords != '') {
+		if (!empty($this->okt->catalog->config->meta_keywords)) {
 			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {
@@ -212,7 +212,7 @@ class catalogController extends Controller
 		}
 
 		# meta description
-		if ($this->okt->catalog->config->meta_description != '') {
+		if (!empty($this->okt->catalog->config->meta_description)) {
 			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
@@ -220,7 +220,7 @@ class catalogController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->catalog->config->meta_keywords != '') {
+		if (!empty($this->okt->catalog->config->meta_keywords)) {
 			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {
@@ -314,10 +314,10 @@ class catalogController extends Controller
 		$product->category_url = $product->getCategoryUrl();
 
 		# meta description
-		if ($product->meta_description != '') {
+		if (!empty($product->meta_description)) {
 			$this->page->meta_description = $product->meta_description;
 		}
-		else if ($this->okt->catalog->config->meta_description != '') {
+		elseif (!empty($this->okt->catalog->config->meta_description)) {
 			$this->page->meta_description = $this->okt->catalog->config->meta_description;
 		}
 		else {
@@ -325,10 +325,10 @@ class catalogController extends Controller
 		}
 
 		# meta keywords
-		if ($product->meta_keywords != '') {
+		if (!empty($product->meta_keywords)) {
 			$this->page->meta_keywords = $product->meta_keywords;
 		}
-		else if ($this->okt->catalog->config->meta_keywords != '') {
+		elseif (!empty($this->okt->catalog->config->meta_keywords)) {
 			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
 		}
 		else {

@@ -68,7 +68,7 @@ class pagesController extends Controller
 		$this->rsPagesList = $this->okt->pages->getPages($aPagesParams);
 
 		# meta description
-		if ($this->okt->pages->config->meta_description[$this->okt->user->language] != '') {
+		if (!empty($this->okt->pages->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->pages->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -76,7 +76,7 @@ class pagesController extends Controller
 		}
 
 		# meta keywords
-		if ($this->okt->pages->config->meta_keywords[$this->okt->user->language] != '') {
+		if (!empty($this->okt->pages->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->pages->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -213,10 +213,10 @@ class pagesController extends Controller
 		$this->rsPagesList = $this->okt->pages->getPages($aPagesParams);
 
 		# meta description
-		if ($this->rsCategory->meta_description != '') {
+		if (!empty($this->rsCategory->meta_description)) {
 			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
-		else if ($this->okt->pages->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->pages->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->pages->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -224,10 +224,10 @@ class pagesController extends Controller
 		}
 
 		# meta keywords
-		if ($this->rsCategory->meta_keywords != '') {
+		if (!empty($this->rsCategory->meta_keywords)) {
 			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
-		else if ($this->okt->pages->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->pages->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->pages->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
@@ -240,7 +240,7 @@ class pagesController extends Controller
 		}
 
 		# title tag du module
-		$this->page->addTitleTag(($this->rsCategory->title_tag != '' ? $this->rsCategory->title_tag : $this->rsCategory->title));
+		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
@@ -248,7 +248,7 @@ class pagesController extends Controller
 			$rsPath = $this->okt->pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 			while ($rsPath->fetch())
 			{
-		//		$this->page->addTitleTag(($rsPath->title_tag != '' ? $rsPath->title_tag : $rsPath->title));
+		//		$this->page->addTitleTag((!empty($rsPath->title_tag) ? $rsPath->title_tag : $rsPath->title));
 
 				$this->page->breadcrumb->add($rsPath->title, pagesHelpers::getCategoryUrl($rsPath->slug));
 			}
@@ -305,10 +305,10 @@ class pagesController extends Controller
 		}
 
 		# meta description
-		if ($this->rsPage->meta_description != '') {
+		if (!empty($this->rsPage->meta_description)) {
 			$this->page->meta_description = $this->rsPage->meta_description;
 		}
-		else if ($this->okt->pages->config->meta_description[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->pages->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->pages->config->meta_description[$this->okt->user->language];
 		}
 		else {
@@ -316,10 +316,10 @@ class pagesController extends Controller
 		}
 
 		# meta keywords
-		if ($this->rsPage->meta_keywords != '') {
+		if (!empty($this->rsPage->meta_keywords)) {
 			$this->page->meta_keywords = $this->rsPage->meta_keywords;
 		}
-		else if ($this->okt->pages->config->meta_keywords[$this->okt->user->language] != '') {
+		elseif (!empty($this->okt->pages->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->pages->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
