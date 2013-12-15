@@ -183,16 +183,27 @@ class oktDebugBar
 		$this->aDebugBarData = array();
 		$this->aDebugBarData['num_data']= array();
 
+		/*
+		debug('getBaseUrl : '.$okt->request->getBaseUrl());
+		debug('getPathInfo : '.$okt->request->getPathInfo());
+		debug('getMethod : '.$okt->request->getMethod());
+		debug('getHost : '.$okt->request->getHost());
+		debug('getScheme : '.$okt->request->getScheme());
+		debug('isSecure : '.$okt->request->isSecure());
+		debug('getPort : '.$okt->request->getPort());
+		debug('getUri : '.$okt->request->getUri());
+		debug('getSchemeAndHttpHost : '.$okt->request->getSchemeAndHttpHost());
+		*/
+
 		if ($this->aConfig['tabs']['super_globales'])
 		{
-			$this->aDebugBarData['num_data']['get'] = count($_GET);
-			$this->aDebugBarData['num_data']['post'] = count($_POST);
-			$this->aDebugBarData['num_data']['cookie'] = count($_COOKIE);
-			$this->aDebugBarData['num_data']['files'] = count($_FILES);
-			$this->aDebugBarData['num_data']['session'] = count($_SESSION);
-			$this->aDebugBarData['num_data']['server'] = count($_SERVER);
-			$this->aDebugBarData['num_data']['env'] = count($_ENV);
-			$this->aDebugBarData['num_data']['request'] = count($_REQUEST);
+			$this->aDebugBarData['num_data']['get'] = count($this->okt->request->query);
+			$this->aDebugBarData['num_data']['post'] = count($this->okt->request->request);
+			$this->aDebugBarData['num_data']['cookies'] = count($this->okt->request->cookies);
+			$this->aDebugBarData['num_data']['attributes'] = count($this->okt->request->attributes);
+			$this->aDebugBarData['num_data']['files'] = count($this->okt->request->files);
+			$this->aDebugBarData['num_data']['session'] = count($this->okt->session);
+			$this->aDebugBarData['num_data']['server'] = count($this->okt->request->server);
 		}
 
 		if ($this->aConfig['tabs']['app'])
@@ -316,74 +327,65 @@ class oktDebugBar
 
 		if ($this->aDebugBarData['num_data']['get'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_get">_GET ('.
-				$this->aDebugBarData['num_data']['get'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_get">Get - '.
+				$this->aDebugBarData['num_data']['get'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_get">_GET</h3>'.
-				'<div><pre>'.var_export($_GET,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_get">Get</h3>'.
+				'<div><pre>'.var_export($this->okt->request->query->all(), true).'</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['post'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_post">_POST ('.
-				$this->aDebugBarData['num_data']['post'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_post">Post - '.
+				$this->aDebugBarData['num_data']['post'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_post">_POST</h3>'.
-				'<div><pre>'.var_export($_POST,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_post">Post</h3>'.
+				'<div><pre>'.var_export($this->okt->request->request->all(), true).'</pre></div>';
 		}
 
-		if ($this->aDebugBarData['num_data']['cookie'] > 0)
+		if ($this->aDebugBarData['num_data']['cookies'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_cookie">_COOKIE ('.
-				$this->aDebugBarData['num_data']['cookie'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_cookies">Cookies - '.
+				$this->aDebugBarData['num_data']['cookies'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_cookie">_COOKIE</h3>'.
-				'<div><pre>'.var_export($_COOKIE,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_cookies">Cookies</h3>'.
+				'<div><pre>'.var_export($this->okt->request->cookies->all(), true).'</pre></div>';
+		}
+
+		if ($this->aDebugBarData['num_data']['attributes'] > 0)
+		{
+			$sListitems .= '<li><a href="#superglobal_attributes">Attributes - '.
+				$this->aDebugBarData['num_data']['attributes'].'</a></li>';
+
+			$sTabContent .= '<h3 id="superglobal_attributes">Attributess</h3>'.
+				'<div><pre>'.var_export($this->okt->request->attributes->all(), true).'</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['files'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_files">_FILES ('.
-				$this->aDebugBarData['num_data']['files'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_files">Files - '.
+				$this->aDebugBarData['num_data']['files'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_files">_FILES</h3>'.
-				'<div><pre>'.var_export($_FILES,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_files">Files</h3>'.
+				'<div><pre>'.var_export($this->okt->request->files->all(), true).'</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['session'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_session">_SESSION ('.
-				$this->aDebugBarData['num_data']['session'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_session">Session - '.
+				$this->aDebugBarData['num_data']['session'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_session">_SESSION</h3>'.
-				'<div><pre>'.var_export($_SESSION,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_session">Session</h3>'.
+				'<div><pre>'.var_export($this->okt->session->all(), true).'</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['server'] > 0)
 		{
-			$sListitems .= '<li><a href="#superglobal_server">_SERVER ('.
-				$this->aDebugBarData['num_data']['server'].')</a></li>';
+			$sListitems .= '<li><a href="#superglobal_server">Server - '.
+				$this->aDebugBarData['num_data']['server'].'</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_server">_SERVER</h3>'.
-				'<div><pre>'.var_export($_SERVER,true).'</pre></div>';
-		}
-
-		if ($this->aDebugBarData['num_data']['env'] > 0)
-		{
-			$sListitems .= '<li><a href="#superglobal_env">_ENV ('.
-				$this->aDebugBarData['num_data']['env'].')</a></li>';
-
-			$sTabContent .= '<h3 id="superglobal_env">_ENV</h3>'.
-				'<div><pre>'.var_export($_ENV,true).'</pre></div>';
-		}
-
-		if ($this->aDebugBarData['num_data']['request'] > 0)
-		{
-			$sListitems .= '<li><a href="#superglobal_request">_REQUEST ('.
-				$this->aDebugBarData['num_data']['request'].')</a></li>';
-
-			$sTabContent .= '<h3 id="superglobal_request">_REQUEST</h3>'.
-				'<div><pre>'.var_export($_REQUEST,true).'</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_server">Sserver</h3>'.
+				'<div><pre>'.var_export($this->okt->request->server->all(), true).'</pre></div>';
 		}
 
 		return

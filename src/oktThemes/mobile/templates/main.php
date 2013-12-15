@@ -10,7 +10,7 @@
 	<?php # fin Okatea : title tag ?>
 
 	<?php # début Okatea : élément base pour la ré-écriture d'URL ?>
-	<base href="<?php echo html::escapeHTML($okt->config->app_url) ?>" />
+	<base href="<?php echo html::escapeHTML($okt->request->getSchemeAndHttpHost().$okt->config->app_path) ?>" />
 	<?php # fin Okatea : élément base pour la ré-écriture d'URL ?>
 
 	<?php # début Okatea : affichage meta description

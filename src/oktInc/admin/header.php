@@ -22,21 +22,6 @@ if ($okt->error->notEmpty())
 	}
 }
 
-
-debug('getBaseUrl : '.$okt->request->getBaseUrl());
-debug('getPathInfo : '.$okt->request->getPathInfo());
-debug('getMethod : '.$okt->request->getMethod());
-debug('getHost : '.$okt->request->getHost());
-debug('getScheme : '.$okt->request->getScheme());
-debug('isSecure : '.$okt->request->isSecure());
-debug('getPort : '.$okt->request->getPort());
-debug('getUri : '.$okt->request->getUri());
-debug('getSchemeAndHttpHost : '.$okt->request->getSchemeAndHttpHost());
-debug('QUERY_STRING : '.$okt->request->server->get('QUERY_STRING'));
-debug('REQUEST_URI : '.$okt->request->server->get('REQUEST_URI'));
-
-
-
 # populates messages from flash messages queue
 $okt->page->messages->setItems($okt->page->flashMessages->getMessages('success'));
 $okt->page->warnings->setItems($okt->page->flashMessages->getMessages('warning'));
