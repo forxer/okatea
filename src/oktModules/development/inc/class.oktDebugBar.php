@@ -98,15 +98,6 @@ class oktDebugBar
 		$this->okt->page->js->addFile(OKT_PUBLIC_URL .'/js/jquery/jquery.min.js');
 		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
 
-		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/syntaxhighlighter/scripts/shCore.js');
-		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/syntaxhighlighter/scripts/shBrushSql.js');
-		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/syntaxhighlighter/scripts/shBrushPhp.js');
-
-		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/syntaxhighlighter/styles/shCore.css');
-		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/syntaxhighlighter/styles/shThemeEclipse.css');
-
-		$this->okt->page->js->addScript('SyntaxHighlighter.all();');
-
 		$this->okt->page->js->addReady('
 
 			var debugBar = $("#debugBar");
@@ -478,7 +469,7 @@ class oktDebugBar
 					$str .=
 					'<tr>
 						<td>'.$query[0].'</td>
-						<td><pre class="brush: sql; gutter: false; toolbar: false;">'.wordwrap($query[1],60).'</pre></td>
+						<td>'.SqlFormatter::format($query[1]).'</td>
 						<td>'.$query[2].'</td>
 					</tr>';
 				}
