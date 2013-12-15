@@ -16,8 +16,6 @@ use Tao\Misc\FiltersBase;
  */
 class Themes extends FiltersBase
 {
-	protected $okt;
-
 	protected $get_posts_params = array();
 
 	protected $order_by_array = array();
@@ -29,9 +27,7 @@ class Themes extends FiltersBase
 		$oConfig->admin_default_nb_per_page = 16;
 		$oConfig->admin_default_order_direction = 'ASC';
 
-		parent::__construct('themes', $oConfig, 'admin', $params);
-
-		$this->okt = $okt;
+		parent::__construct($okt, 'themes', $oConfig, 'admin', $params);
 	}
 
 	public function setDefaultParams()

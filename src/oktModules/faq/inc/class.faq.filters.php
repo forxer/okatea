@@ -16,9 +16,9 @@ class faqFilters extends FiltersBase
 
 	protected $order_by_array = array();
 
-	public function __construct($faq, $part='public', $params=array())
+	public function __construct($okt, $faq, $part='public', $params=array())
 	{
-		parent::__construct('faq', $faq->config, $part, $params);
+		parent::__construct($okt, 'faq', $faq->config, $part, $params);
 
 		$this->faq = $faq;
 	}

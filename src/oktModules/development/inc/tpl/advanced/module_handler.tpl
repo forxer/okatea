@@ -120,7 +120,7 @@ class module_##module_id## extends Module
 	public function filtersStart($part='public')
 	{
 		if ($this->filters === null || !($this->filters instanceof ##module_camel_case_id##Filters)) {
-			$this->filters = new ##module_camel_case_id##Filters($this->config,$part);
+			$this->filters = new ##module_camel_case_id##Filters($this->okt, $this->config, $part);
 		}
 	}
 

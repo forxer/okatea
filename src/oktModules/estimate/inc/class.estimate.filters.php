@@ -18,10 +18,9 @@ class estimateFilters extends FiltersBase
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		$this->okt = $okt;
-		$this->estimate = $okt->estimate;
+		parent::__construct($okt, 'estimate', $okt->estimate->config, $part, $params);
 
-		parent::__construct('estimate', $okt->estimate->config, $part, $params);
+		$this->estimate = $this->okt->estimate;
 	}
 
 	public function setDefaultParams()

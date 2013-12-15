@@ -8,8 +8,8 @@
 
 namespace Tao\Admin\Filters;
 
-use Tao\Misc\FiltersBase;
 use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\FiltersBase;
 
 /**
  * Extension de la classe filters pour l'administration.
@@ -23,7 +23,7 @@ class LogAdmin extends FiltersBase
 	protected $type_array = array();
 	protected $action_array = array();
 
-	public function __construct($logAdmin)
+	public function __construct($okt, $logAdmin)
 	{
 		$oConfig = new \arrayObject();
 		$oConfig->admin_default_nb_per_page = 30;
@@ -31,7 +31,8 @@ class LogAdmin extends FiltersBase
 		$oConfig->admin_default_order_direction = 'DESC';
 		$oConfig->admin_filters_style = 'dialog';
 
-		parent::__construct('logAdmin', $oConfig, 'admin');
+		parent::__construct($okt, 'logAdmin', $oConfig, 'admin');
+
 		$this->logAdmin = $logAdmin;
 		$this->logAdmin->oConfig = $oConfig;
 	}

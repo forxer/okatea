@@ -10,8 +10,6 @@ use Tao\Forms\Statics\FormElements as form;
 
 class pagesFilters extends FiltersBase
 {
-	protected $okt;
-
 	protected $pages;
 
 	protected $get_pages_params = array();
@@ -20,10 +18,9 @@ class pagesFilters extends FiltersBase
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		$this->okt = $okt;
-		$this->pages = $okt->pages;
+		parent::__construct($okt, 'pages', $okt->pages->config, $part, $params);
 
-		parent::__construct('pages', $okt->pages->config, $part, $params);
+		$this->pages = $this->okt->pages;
 	}
 
 	public function setDefaultParams()

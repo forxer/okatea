@@ -14,9 +14,9 @@ class diaryFilters extends FiltersBase
 
 	protected $order_by_array = array();
 
-	public function __construct($oConfig, $part='public', $params=array())
+	public function __construct($okt, $oConfig, $part='public', $params=array())
 	{
-		parent::__construct('diary', $oConfig, $part, $params);
+		parent::__construct($okt, 'diary', $oConfig, $part, $params);
 	}
 
 	public function setDefaultParams()

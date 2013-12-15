@@ -5,13 +5,11 @@
  *
  */
 
-use Tao\Misc\FiltersBase;
 use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\FiltersBase;
 
 class newsFilters extends FiltersBase
 {
-	protected $okt;
-
 	protected $news;
 
 	protected $get_posts_params = array();
@@ -20,10 +18,9 @@ class newsFilters extends FiltersBase
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		$this->okt = $okt;
-		$this->news = $okt->news;
+		parent::__construct($okt, 'news', $okt->news->config, $part, $params);
 
-		parent::__construct('news', $okt->news->config, $part, $params);
+		$this->news = $this->okt->news;
 	}
 
 	public function setDefaultParams()

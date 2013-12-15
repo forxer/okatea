@@ -57,7 +57,7 @@ if (!empty($_REQUEST['json']) && !empty($_GET['term']))
 ----------------------------------------------------------*/
 
 # initialisation des filtres
-$filters = new usersFilters($okt->users, 'admin');
+$filters = new usersFilters($okt, $okt->users, 'admin');
 
 
 /* Traitements

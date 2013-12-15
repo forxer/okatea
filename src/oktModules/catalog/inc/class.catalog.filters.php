@@ -16,9 +16,9 @@ class catalogFilters extends FiltersBase
 
 	protected $order_by_array = array();
 
-	public function __construct($catalog, $part='public', $params=array())
+	public function __construct($okt, $catalog, $part='public', $params=array())
 	{
-		parent::__construct('catalog', $catalog->config, $part, $params);
+		parent::__construct($okt, 'catalog', $catalog->config, $part, $params);
 
 		$this->catalog = $catalog;
 	}

@@ -17,7 +17,7 @@ class usersFilters extends FiltersBase
 
 	protected $order_by_array = array();
 
-	public function __construct($users, $part='public', $params=array())
+	public function __construct($okt, $users, $part='public', $params=array())
 	{
 		parent::__construct('users', $users->config, $part, $params);
 

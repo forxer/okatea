@@ -163,7 +163,7 @@ class module_catalog extends Module
 	public function filtersStart($part='public')
 	{
 		if ($this->filters === null || !($this->filters instanceof catalogFilters)) {
-			$this->filters = new catalogFilters($this,$part);
+			$this->filters = new catalogFilters($this->okt, $this, $part);
 		}
 	}
 

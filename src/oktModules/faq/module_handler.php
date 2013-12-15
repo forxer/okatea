@@ -151,7 +151,7 @@ class module_faq extends Module
 	public function filtersStart($part='public')
 	{
 		if ($this->filters === null || !($this->filters instanceof faqFilters)) {
-			$this->filters = new faqFilters($this,$part);
+			$this->filters = new faqFilters($this->okt, $this, $part);
 		}
 	}
 

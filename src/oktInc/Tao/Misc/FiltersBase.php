@@ -28,8 +28,10 @@ class FiltersBase
 	public $params;
 	public $fields=array();
 
-	public function __construct($id, $config, $part, $params=array())
+	public function __construct($okt, $id, $config, $part, $params=array())
 	{
+		$this->okt = $okt;
+
 		$this->id = $id;
 
 		$this->config = $config;

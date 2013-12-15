@@ -58,6 +58,18 @@ class LogAdmin
 	}
 
 	/**
+	 * Initialisation des filtres.
+	 *
+	 * @return void
+	 */
+	public function filtersStart()
+	{
+		if ($this->filters === null || !($this->filters instanceof logAdminFilters)) {
+			$this->filters = new LogAdminFilters($this->okt, $this);
+		}
+	}
+
+	/**
 	 * Retourne, sous forme de recordset, la liste des logs admin.
 	 *
 	 * @param array $aParams Paramètres de requete
@@ -392,17 +404,5 @@ class LogAdmin
 		}
 
 		return $sReturn.$aLogAdminTypes[$iType];
-	}
-
-	/**
-	 * Initialisation des filtres.
-	 *
-	 * @return void
-	 */
-	public function filtersStart()
-	{
-		if ($this->filters === null || !($this->filters instanceof logAdminFilters)) {
-			$this->filters = new LogAdminFilters($this);
-		}
 	}
 }

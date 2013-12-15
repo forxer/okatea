@@ -135,7 +135,7 @@ class module_diary extends Module
 	public function filtersStart($part='public')
 	{
 		if ($this->filters === null || !($this->filters instanceof diaryFilters)) {
-			$this->filters = new diaryFilters($this->config,$part);
+			$this->filters = new diaryFilters($this->okt, $this->config, $part);
 		}
 	}
 
