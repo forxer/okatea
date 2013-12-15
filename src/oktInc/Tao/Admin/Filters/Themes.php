@@ -8,13 +8,13 @@
 
 namespace Tao\Admin\Filters;
 
-use Tao\Misc\FiltersBase;
+use Tao\Misc\BaseFilters;
 
 /**
  * Extension de la classe filters pour l'administration des thèmes.
  *
  */
-class Themes extends FiltersBase
+class Themes extends BaseFilters
 {
 	protected $get_posts_params = array();
 

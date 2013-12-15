@@ -9,13 +9,13 @@
 namespace Tao\Admin\Filters;
 
 use Tao\Forms\Statics\FormElements as form;
-use Tao\Misc\FiltersBase;
+use Tao\Misc\BaseFilters;
 
 /**
  * Extension de la classe filters pour l'administration.
  *
  */
-class LogAdmin extends FiltersBase
+class LogAdmin extends BaseFilters
 {
 	protected $logAdmin;
 	protected $aLogParams = array();

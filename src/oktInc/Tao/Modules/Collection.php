@@ -692,7 +692,7 @@ class Collection
 
 			$class_install = 'moduleInstall_'.$module_id;
 
-			if (class_exists($class_install,false) && is_subclass_of($class_install, '\\Tao\\Manage\\Process')) {
+			if (class_exists($class_install,false) && is_subclass_of($class_install, '\\Tao\\Modules\\Manage\\Process')) {
 				$return = $class_install;
 			}
 		}

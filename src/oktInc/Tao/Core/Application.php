@@ -8,10 +8,14 @@
 
 namespace Tao\Core;
 
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
+
 use Tao\Cache\SingleFileCache;
 use Tao\Modules\Collection as ModulesCollection;
 use Tao\Navigation\Menus\Menus;
@@ -197,14 +201,38 @@ class Application
 	 */
 	public function __construct($autoloader)
 	{
+		# Register start time
+		define('OKT_START_TIME', !empty($_SERVER['REQUEST_TIME_FLOAT']) ? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true));
+
+		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		$this->error = new Errors;
+		# Init MB ext
+		mb_internal_encoding('UTF-8');
+
+		# Default timezone (crushed later by user settings)
+		date_default_timezone_set('Europe/Paris');
+
+		$this->error = new Errors();
+
+		if (OKT_DEBUG)
+		{
+			Debug::enable();
+			ErrorHandler::register();
+			ExceptionHandler::register();
+		}
+
+		if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
+			require_once OKT_CONFIG_PATH.'/connexion.php';
+		}
+		else {
+			$this->error->fatal('Fatal error: unable to find database connexion file !');
+		}
 
 		$this->db = Connexion::getInstance();
 
 		if ($this->db->hasError()) {
-			$this->error->fatal('Unable to connect to database',$this->db->error());
+			$this->error->fatal('Unable to connect to database', $this->db->error());
 		}
 
 		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
@@ -243,42 +271,19 @@ class Application
 	{
 		$sOktTheme = $this->config->theme;
 
-		if (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
+		if ($this->session->has('okt_theme')) {
+			$sOktTheme = $this->session->get('okt_theme');
+		}
+		elseif (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
 		{
-			if (isset($_REQUEST['disable_browser_check'])) {
-				setcookie('okt_disable_browser_check', (boolean)$_REQUEST['disable_browser_check'], 0, $this->config->app_path, '', $this->request->isSecure());
-			}
+			$oMobileDetect = new \Mobile_Detect();
+			$isMobile = $oMobileDetect->isMobile() && !empty($this->config->theme_mobile);
+			$isTablet = $oMobileDetect->isTablet() && !empty($this->config->theme_tablet);
 
-			if (empty($_COOKIE['okt_disable_browser_check']))
-			{
-				$oMobileDetect = new Mobile_Detect();
-
-				if ($oMobileDetect->isMobile() && !$oMobileDetect->isTablet() && !empty($this->config->theme_mobile))
-				{
-					$sOktTheme = $this->config->theme_mobile;
-					setcookie('okt_use_mobile_theme', true, 0, $this->config->app_path , '', $this->request->isSecure());
-					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
-				}
-				elseif ($oMobileDetect->isTablet() && !empty($this->config->theme_tablet))
-				{
-					$sOktTheme = $this->config->theme_tablet;
-					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
-					setcookie('okt_use_tablet_theme', true, 0, $this->config->app_path , '', $this->request->isSecure());
-				}
-				else
-				{
-					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
-					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
-				}
-
-				setcookie('okt_disable_browser_check', true, 0, $this->config->app_path , '', $this->request->isSecure());
-
-				unset($oMobileDetect);
-			}
-			elseif (!empty($_COOKIE['okt_use_mobile_theme']) && !empty($this->config->theme_mobile)) {
+			if ($isMobile && !$isTablet) {
 				$sOktTheme = $this->config->theme_mobile;
 			}
-			elseif (!empty($_COOKIE['okt_use_tablet_theme']) && !empty($this->config->theme_tablet)) {
+			elseif ($isTablet) {
 				$sOktTheme = $this->config->theme_tablet;
 			}
 		}

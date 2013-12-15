@@ -5,10 +5,10 @@
  *
  */
 
-use Tao\Misc\FiltersBase;
+use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
 
-class diaryFilters extends FiltersBase
+class diaryFilters extends BaseFilters
 {
 	protected $get_events_params = array();
 

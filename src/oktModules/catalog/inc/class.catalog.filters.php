@@ -5,10 +5,10 @@
  *
  */
 
-use Tao\Misc\FiltersBase;
+use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
 
-class catalogFilters extends FiltersBase
+class catalogFilters extends BaseFilters
 {
 	protected $catalog;
 

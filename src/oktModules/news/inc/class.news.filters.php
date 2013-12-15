@@ -6,9 +6,9 @@
  */
 
 use Tao\Forms\Statics\FormElements as form;
-use Tao\Misc\FiltersBase;
+use Tao\Misc\BaseFilters;
 
-class newsFilters extends FiltersBase
+class newsFilters extends BaseFilters
 {
 	protected $news;
 

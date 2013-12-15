@@ -15,7 +15,7 @@ use Tao\Misc\ParametersHolder;
  * Classe de base pour gérer des filtres de listes
  *
  */
-class FiltersBase
+class BaseFilters
 {
 	protected $id;
 	protected $form_id;
@@ -23,7 +23,7 @@ class FiltersBase
 	protected $part='public';
 	protected $defaults_params=array();
 
-	protected $sess_prefix=array();
+	protected $sess_prefix;
 
 	public $params;
 	public $fields=array();
@@ -31,6 +31,8 @@ class FiltersBase
 	public function __construct($okt, $id, $config, $part, $params=array())
 	{
 		$this->okt = $okt;
+
+		$this->request = $this->okt->request;
 
 		$this->session = $this->okt->session;
 
@@ -212,9 +214,10 @@ class FiltersBase
 
 	protected function setFilterPage()
 	{
-		if ($this->okt->request->query->has('page'))
+		if ($this->request->attributes->has('page') || $this->request->query->has('page'))
 		{
-			$this->params->page = $this->okt->request->query->getInt('page');
+			$this->params->page = $this->request->attributes->getInt('page', $this->request->query->getInt('page'));
+
 			$this->session->set($this->sess_prefix.'page', $this->params->page);
 		}
 		elseif ($this->session->has($this->sess_prefix.'page'))
