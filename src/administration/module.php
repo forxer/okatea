@@ -14,7 +14,7 @@
 
 require __DIR__.'/../oktInc/admin/prepend.php';
 
-$m = !empty($_REQUEST['m']) ? $_REQUEST['m'] : null;
+$m = $okt->request->request->get('m', $okt->request->query->get('m'));
 
 # module exists ?
 if ($m === null || !$okt->modules->moduleExists($m) || !file_exists($okt->modules->getModuleObject($m)->root().'/admin.php'))

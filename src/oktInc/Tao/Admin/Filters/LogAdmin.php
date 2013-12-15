@@ -97,12 +97,12 @@ class LogAdmin extends FiltersBase
 		if (isset($_GET['order_by']))
 		{
 			$this->params->order_by = $_GET['order_by'];
-			$_SESSION[$this->sess_prefix.'order_by'] = $this->params->order_by;
+			$this->session->set($this->sess_prefix.'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.'order_by']))
+		elseif ($this->session->has($this->sess_prefix.'order_by'))
 		{
-			$this->params->order_by = $_SESSION[$this->sess_prefix.'order_by'];
+			$this->params->order_by = $this->session->get($this->sess_prefix.'order_by');
 			$this->params->show_filters = true;
 		}
 
@@ -139,12 +139,12 @@ class LogAdmin extends FiltersBase
 		if (isset($_GET['order_direction']))
 		{
 			$this->params->order_direction = $_GET['order_direction'];
-			$_SESSION[$this->sess_prefix.'order_direction'] = $this->params->order_direction;
+			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
 			$this->params->show_filters = true;
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.'order_direction']))
+		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{
-			$this->params->order_direction = $_SESSION[$this->sess_prefix.'order_direction'];
+			$this->params->order_direction = $this->session->get($this->sess_prefix.'order_direction');
 			$this->params->show_filters = true;
 		}
 
@@ -165,7 +165,12 @@ class LogAdmin extends FiltersBase
 		if (isset($_GET['date_min']))
 		{
 			$this->params->date_min = $_GET['date_min'];
-			$_SESSION[$this->sess_prefix.'date_min'] = $this->params->date_min;
+			$this->session->set($this->sess_prefix.'date_min', $this->params->date_min);
+			$this->params->show_filters = true;
+		}
+		elseif ($this->session->has($this->sess_prefix.'date_min'))
+		{
+			$this->params->date_min = $this->session->get($this->sess_prefix.'date_min');
 			$this->params->show_filters = true;
 		}
 
@@ -180,7 +185,12 @@ class LogAdmin extends FiltersBase
 		if (isset($_GET['date_max']))
 		{
 			$this->params->date_max = $_GET['date_max'];
-			$_SESSION[$this->sess_prefix.'date_max'] = $this->params->date_max;
+			$this->session->set($this->sess_prefix.'date_max', $this->params->date_max);
+			$this->params->show_filters = true;
+		}
+		elseif ($this->session->has($this->sess_prefix.'date_max'))
+		{
+			$this->params->date_max = $this->session->get($this->sess_prefix.'date_max');
 			$this->params->show_filters = true;
 		}
 

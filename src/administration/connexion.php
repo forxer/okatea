@@ -56,7 +56,7 @@ elseif ($okt->page->action == 'forget' || $okt->page->action == 'forget_2')
 {
 	if ($okt->request->request->has('email'))
 	{
-		if ($okt->user->forgetPassword($okt->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $okt->config->app_host.OKT_DIRNAME.'/'.OKT_ADMIN_LOGIN_PAGE))
+		if ($okt->user->forgetPassword($okt->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $okt->request->getSchemeAndHttpHost().$okt->request->getBaseUrl()))
 		{
 			$okt->page->addGlobalTitle(__('c_c_auth_request_password'));
 			require OKT_ADMIN_HEADER_FILE; ?>
@@ -92,12 +92,14 @@ elseif ($okt->page->action == 'forget' || $okt->page->action == 'forget_2')
 
 
 # identification
-if (!empty($_REQUEST['user_id']) && !empty($_REQUEST['user_pwd']))
-{
-	$user_id = $_REQUEST['user_id'];
-	$user_remember = !empty($_POST['user_remember']) ? true : false;
+$sUserId = $okt->request->request->get('user_id', $okt->request->query->get('user_id'));
+$sUserPwd = $okt->request->request->get('user_pwd', $okt->request->query->get('user_pwd'));
 
-	if ($okt->user->login($user_id,$_REQUEST['user_pwd'],$user_remember))
+if (!empty($sUserId) && !empty($sUserPwd))
+{
+	$bUserRemember = $okt->request->request->has('user_remember') ? true : false;
+
+	if ($okt->user->login($sUserId, $sUserPwd, $bUserRemember))
 	{
 		$redir = 'index.php';
 
@@ -113,9 +115,7 @@ if (!empty($_REQUEST['user_id']) && !empty($_REQUEST['user_pwd']))
 		http::redirect($redir);
 	}
 }
-else {
-	$user_id = '';
-}
+
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_c_auth_login'));
@@ -130,7 +130,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <form action="<?php echo OKT_ADMIN_LOGIN_PAGE ?>" method="post">
 
 	<p class="field"><label for="user_id" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-	<?php echo form::text('user_id', 30, 255, $user_id) ?></p>
+	<?php echo form::text('user_id', 30, 255, $sUserId) ?></p>
 
 	<p class="field"><label for="user_pwd" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
 	<?php echo form::password('user_pwd', 30, 255, '') ?></p>

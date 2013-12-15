@@ -209,7 +209,7 @@ class usersController extends Controller
 
 		if (!empty($_POST['form_sent']) && !empty($_POST['email']))
 		{
-			if ($this->okt->user->forgetPassword($_POST['email'], html::escapeHTML($this->okt->config->app_host.usersHelpers::getForgetPasswordUrl()))) {
+			if ($this->okt->user->forgetPassword($_POST['email'], html::escapeHTML($this->request->getSchemeAndHttpHost().usersHelpers::getForgetPasswordUrl()))) {
 				$password_sended = true;
 			}
 		}
@@ -439,13 +439,15 @@ class usersController extends Controller
 	 */
 	protected function defineRedirectUrl()
 	{
-		if (!empty($_REQUEST['redirect']))
+		$sRequestRedirectUrl = $this->request->request->get('redirect', $this->request->query->get('redirect'));
+
+		if (!empty($sRequestRedirectUrl))
 		{
-			$sRedirectURL = rawurldecode($_REQUEST['redirect']);
-			$_SESSION['okt_sess_redirect'] = $sRedirectURL;
+			$sRedirectURL = rawurldecode($sRequestRedirectUrl);
+			$this->session->set('okt_sess_redirect', $sRedirectURL);
 		}
-		elseif (!empty($_SESSION['okt_sess_redirect'])) {
-			$sRedirectURL = $_SESSION['okt_sess_redirect'];
+		elseif ($this->session->has('okt_sess_redirect')) {
+			$sRedirectURL = $this->session->get('okt_sess_redirect');
 		}
 		else {
 			$sRedirectURL = $this->page->getBaseUrl();
@@ -459,8 +461,8 @@ class usersController extends Controller
 	 */
 	protected function unsetSessionRedirectUrl()
 	{
-		if (!empty($_SESSION['okt_sess_redirect'])) {
-			unset($_SESSION['okt_sess_redirect']);
+		if ($this->session->has('okt_sess_redirect')) {
+			$this->session->delete('okt_sess_redirect');
 		}
 	}
 
@@ -635,7 +637,7 @@ class usersController extends Controller
 
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-					'SITE_URL' => $this->okt->config->app_url,
+					'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 					'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
@@ -664,9 +666,9 @@ class usersController extends Controller
 					{
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-							'SITE_URL' => $this->okt->config->app_url,
+							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 							'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
-							'PROFIL' => $this->okt->config->app_url.OKT_ADMIN_DIR.'/module.php?m=users&action=edit&id='.$rsUser->id
+							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 
 						$oMail->message->setTo($rsAdministrators->email);
@@ -682,8 +684,6 @@ class usersController extends Controller
 				}
 
 				$this->performRedirect();
-			//	$this->unsetSessionRedirectUrl();
-			//	return $this->redirect(usersHelpers::getRegisterUrl().'?registered=1');
 			}
 		}
 	}

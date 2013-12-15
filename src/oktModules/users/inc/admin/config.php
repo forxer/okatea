@@ -338,22 +338,22 @@ $aEditTabs[40]['content'] =
 
 		foreach ($okt->languages->list as $aLanguage) :
 			$aEditTabs[40]['content'] .=
-				'<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_login_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_login_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				'<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_login_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_login_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_login_url['.$aLanguage['code'].']','p_public_login_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_login_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_login_url[$aLanguage['code']]) : '')).'</p>
 
-				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_logout_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_disconnection_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_logout_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_disconnection_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_logout_url['.$aLanguage['code'].']','p_public_logout_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_logout_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_logout_url[$aLanguage['code']]) : '')).'</p>
 
-				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_register_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_registration_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_register_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_registration_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_register_url['.$aLanguage['code'].']','p_public_register_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_register_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_register_url[$aLanguage['code']]) : '')).'</p>
 
-				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_log_reg_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_log_reg_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_log_reg_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_log_reg_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_log_reg_url['.$aLanguage['code'].']','p_public_log_reg_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_log_reg_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_log_reg_url[$aLanguage['code']]) : '')).'</p>
 
-				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_forget_password_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_forgotten_password_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_forget_password_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_forgotten_password_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_forget_password_url['.$aLanguage['code'].']','p_public_forget_password_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_forget_password_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_forget_password_url[$aLanguage['code']]) : '')).'</p>
 
-				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_profile_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_user_profile_page_from_%s'), '<code>'.$okt->config->app_url.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
+				<p class="field" lang="'.$aLanguage['code'].'"><label for="p_public_profile_url_'.$aLanguage['code'].'">'.sprintf(__('m_users_URL_of_user_profile_page_from_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.'</code>').'<span class="lang-switcher-buttons"></span></label>'.
 				form::text(array('p_public_profile_url['.$aLanguage['code'].']','p_public_profile_url_'.$aLanguage['code']), 40, 255, (isset($okt->users->config->public_profile_url[$aLanguage['code']]) ? html::escapeHTML($okt->users->config->public_profile_url[$aLanguage['code']]) : '')).'</p>';
 		endforeach;
 		$aEditTabs[40]['content'] .= '</fieldset>';

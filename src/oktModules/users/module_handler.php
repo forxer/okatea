@@ -1084,7 +1084,7 @@ class module_users extends Module
 
 		$result = implode("\r\n",$result);
 
-		$filename = 'users-'.$this->okt->config->app_url.'-'.date('YmdHis').'.csv';
+		$filename = 'users-'.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.'-'.date('YmdHis').'.csv';
 
 		header('Content-Type: text/csv; charset=UTF-8');
 		header('Content-Length: '.mb_strlen($result));
@@ -1117,7 +1117,7 @@ class module_users extends Module
 
 		$result = implode("\r\n",$result);
 
-		$filename = 'users-'.$this->okt->config->app_url.'-'.date('YmdHis').'.csv';
+		$filename = 'users-'.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.'-'.date('YmdHis').'.csv';
 
 		header('Content-Type: text/csv; charset=ISO-8859-1');
 		header('Content-Length: '.mb_strlen($result,'ISO-8859-1'));
@@ -1128,7 +1128,7 @@ class module_users extends Module
 
 	protected function exportToHtml($rs,$fields)
 	{
-		$sTitle = 'users-'.$this->okt->config->app_url.'-'.date('YmdHis');
+		$sTitle = 'users-'.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.'-'.date('YmdHis');
 
 		$aResult = array();
 		$aResult[] =
@@ -1171,7 +1171,7 @@ class module_users extends Module
 
 	protected function exportToXls1($rs,$fields)
 	{
-		$sTitle = 'users-'.$this->okt->config->app_url.'-'.date('YmdHis');
+		$sTitle = 'users-'.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.'-'.date('YmdHis');
 
 		$aResult = array();
 		$aResult[] = '<table><tr>';
@@ -1206,7 +1206,7 @@ class module_users extends Module
 
 	protected function exportToXls2($rs,$fields)
 	{
-		$sTitle = 'users-'.$this->okt->config->app_url.'-'.date('YmdHis');
+		$sTitle = 'users-'.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.'-'.date('YmdHis');
 
 		$aResult = array();
 

@@ -29,8 +29,11 @@ class Controller
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
+
+		# shortcuts
 		$this->request =& $okt->request;
 		$this->response =& $okt->response;
+		$this->session =& $okt->session;
 		$this->page =& $okt->page;
 
 		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée

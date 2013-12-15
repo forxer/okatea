@@ -278,10 +278,10 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<fieldset>
 				<legend><?php _e('c_c_seo_schema_url') ?></legend>
 
-				<p class="field"><label for="p_public_catalog_url">URL de la liste de produits depuis <code><?php echo $okt->config->app_url ?></code></label>
+				<p class="field"><label for="p_public_catalog_url">URL de la liste de produits depuis <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code></label>
 				<?php echo form::text('p_public_catalog_url', 40, 255, html::escapeHTML($okt->catalog->config->public_catalog_url)) ?></p>
 
-				<p class="field"><label for="p_public_product_url">URL d’un produit depuis <code><?php echo $okt->config->app_url ?></code></label>
+				<p class="field"><label for="p_public_product_url">URL d’un produit depuis <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code></label>
 				<?php echo form::text('p_public_product_url', 40, 255, html::escapeHTML($okt->catalog->config->public_product_url)) ?></p>
 			</fieldset>
 

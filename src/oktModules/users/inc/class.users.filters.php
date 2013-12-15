@@ -149,23 +149,23 @@ class usersFilters extends FiltersBase
 				$this->params->order_direction = 'asc';
 			}
 
-			$_SESSION[$this->sess_prefix.'order_direction'] = $this->params->order_direction;
+			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction;
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.'order_direction']))
+		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{
 			$this->params->show_filters = true;
-			$this->params->order_direction = $_SESSION[$this->sess_prefix.'order_direction'];
+			$this->params->order_direction = $this->session->get($this->sess_prefix.'order_direction');
 		}
 
 		if (isset($_GET['order_by']))
 		{
 			$this->params->order_by = $_GET['order_by'];
-			$_SESSION[$this->sess_prefix.'order_by'] = $this->params->order_by;
+			$this->session->set($this->sess_prefix.'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.'order_by']))
+		elseif ($this->session->has($this->sess_prefix.'order_by'))
 		{
-			$this->params->order_by = $_SESSION[$this->sess_prefix.'order_by'];
+			$this->params->order_by = $this->session->get($this->sess_prefix.'order_by');
 			$this->params->show_filters = true;
 		}
 

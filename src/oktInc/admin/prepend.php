@@ -42,7 +42,7 @@ $okt->logAdmin = new LogAdmin($okt);
 if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 {
 	# on stocke l'URL de la page dans un cookie
-	$okt->user->setAuthFromCookie($okt->config->self_uri);
+	$okt->user->setAuthFromCookie($okt->request->getUri());
 
 	# si c'est un invité, rien à faire ici
 	if ($okt->user->is_guest)

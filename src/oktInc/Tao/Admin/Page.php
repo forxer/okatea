@@ -103,13 +103,9 @@ class Page extends BasePage
 	{
 		parent::__construct($okt, 'admin');
 
-		$this->action = $okt->request->query->get('action', null);
-		$this->application = $okt->request->query->get('application', null);
-		$this->do = $okt->request->query->get('do', null);
-
-		$this->action = $okt->request->request->get('action', $this->action);
-		$this->application = $okt->request->request->get('application', $this->application);
-		$this->do = $okt->request->request->get('do', $this->do);
+		$this->action = $okt->request->request->get('action', $okt->request->query->get('action'));
+		$this->application = $okt->request->request->get('application', $okt->request->query->get('application'));
+		$this->do = $okt->request->request->get('do', $okt->request->query->get('do'));
 
 		$this->breadcrumb = new Breadcrumb();
 

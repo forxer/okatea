@@ -207,7 +207,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 			<fieldset>
 				<legend><?php _e('c_c_seo_schema_url')?></legend>
 				<?php foreach ($okt->languages->list as $aLanguage) :?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url"><?php _e('m_guestbook_Guestbook_URL_from')?> <code><?php echo $okt->config->app_url ?></code><span class="lang-switcher-buttons"></span></label>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url"><?php _e('m_guestbook_Guestbook_URL_from')?> <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 40, 255, html::escapeHTML(isset($okt->guestbook->config->public_url[$aLanguage['code']]) ? $okt->guestbook->config->public_url[$aLanguage['code']] : '')) ?></p>
 				<?php endforeach;?>
 			</fieldset>

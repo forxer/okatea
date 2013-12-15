@@ -287,7 +287,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<legend><?php _e('c_c_seo_schema_url')?></legend>
 
 				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_url_from_%s_in_%s'), '<code>'.$okt->config->app_url.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 60, 255, (isset($okt->contact->config->public_url[$aLanguage['code']]) ? html::escapeHTML($okt->contact->config->public_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>
@@ -320,7 +320,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<legend><?php _e('c_c_seo_schema_url')?></legend>
 
 				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_map_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_map_url_from_%s_in_%s'), '<code>'.$okt->config->app_url.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_map_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_map_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_public_map_url['.$aLanguage['code'].']','p_public_map_url_'.$aLanguage['code']), 60, 255, (isset($okt->contact->config->public_map_url[$aLanguage['code']]) ? html::escapeHTML($okt->contact->config->public_map_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>

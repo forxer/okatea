@@ -32,6 +32,8 @@ class FiltersBase
 	{
 		$this->okt = $okt;
 
+		$this->session = $this->okt->session;
+
 		$this->id = $id;
 
 		$this->config = $config;
@@ -97,17 +99,14 @@ class FiltersBase
 	 */
 	public function initFilters()
 	{
-		if (!empty($_SESSION))
+		$leng = strlen($this->sess_prefix);
+
+		foreach ($this->session->all() as $k=>$v)
 		{
-			$leng = strlen($this->sess_prefix);
+			$cur_prefix = substr($k,0,$leng);
 
-			foreach ($_SESSION as $k=>$v)
-			{
-				$cur_prefix = substr($k,0,$leng);
-
-				if ($cur_prefix == $this->sess_prefix) {
-					unset($_SESSION[$k]);
-				}
+			if ($cur_prefix == $this->sess_prefix) {
+				$this->session->remove($k);
 			}
 		}
 	}
@@ -126,13 +125,13 @@ class FiltersBase
 		if (isset($_GET[$name]))
 		{
 			$this->params->$name = $_GET[$name];
-			$_SESSION[$this->sess_prefix.$name] = $this->params->$name;
+			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.$name]))
+		elseif ($this->session->has($this->sess_prefix.$name))
 		{
-			$this->params->$name = $_SESSION[$this->sess_prefix.$name];
+			$this->params->$name = $this->session->get($this->sess_prefix.$name);
 
 			$this->setActiveFilter($name);
 		}
@@ -143,13 +142,13 @@ class FiltersBase
 		if (isset($_GET[$name]) && $_GET[$name] != -1)
 		{
 			$this->params->$name = intval($_GET[$name]);
-			$_SESSION[$this->sess_prefix.$name] = $this->params->$name;
+			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.$name]))
+		elseif ($this->session->has($this->sess_prefix.$name))
 		{
-			$this->params->$name = $_SESSION[$this->sess_prefix.$name];
+			$this->params->$name = $this->session->get($this->sess_prefix.$name);
 
 			$this->setActiveFilter($name);
 		}
@@ -160,19 +159,20 @@ class FiltersBase
 		if (isset($_GET[$name]))
 		{
 			$this->params->$name = intval($_GET[$name]);
-			$_SESSION[$this->sess_prefix.$name] = $this->params->$name;
+			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
 		}
-		elseif (isset($_GET[$this->getFilterSubmitName()])) {
+		elseif (isset($_GET[$this->getFilterSubmitName()]))
+		{
 			$this->params->$name = 0;
-			if (isset($_SESSION[$this->sess_prefix.$name])) {
-				unset($_SESSION[$this->sess_prefix.$name]);
+			if ($this->session->has($this->sess_prefix.$name)) {
+				$this->session->delete($this->sess_prefix.$name);
 			}
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.$name]))
+		elseif ($this->session->has($this->sess_prefix.$name))
 		{
-			$this->params->$name = $_SESSION[$this->sess_prefix.$name];
+			$this->params->$name = $this->session->get($this->sess_prefix.$name);
 
 			$this->setActiveFilter($name);
 		}
@@ -212,14 +212,14 @@ class FiltersBase
 
 	protected function setFilterPage()
 	{
-		if (!empty($_GET['page']))
+		if ($this->okt->request->query->has('page'))
 		{
-			$this->params->page = intval($_GET['page']);
-			$_SESSION[$this->sess_prefix.'page'] = $this->params->page;
+			$this->params->page = $this->okt->request->query->getInt('page');
+			$this->session->set($this->sess_prefix.'page', $this->params->page);
 		}
-		elseif (isset($_SESSION[$this->sess_prefix.'page']))
+		elseif ($this->session->has($this->sess_prefix.'page'))
 		{
-			$this->params->page = $_SESSION[$this->sess_prefix.'page'];
+			$this->params->page = $this->session->get($this->sess_prefix.'page');
 		}
 		else {
 			$this->params->page = 1;
@@ -234,7 +234,7 @@ class FiltersBase
 		{
 			$this->params->page = $num_pages;
 
-			$_SESSION[$this->sess_prefix.'page'] = $this->params->page;
+			$this->session->set($this->sess_prefix.'page', $this->params->page);
 		}
 	}
 

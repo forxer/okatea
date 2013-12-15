@@ -604,7 +604,7 @@ class Authentification
 
 			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
 				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
-				'SITE_URL' => $this->okt->config->app_url,
+				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,
 				'ACTIVATION_URL' => $sActivateUrl.'?action=validate_password&uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
@@ -829,7 +829,7 @@ class Authentification
 
 	public function get_current_url($iMaxLength=0)
 	{
-		$sUrl = $this->okt->config->self_uri;
+		$sUrl = $this->okt->request->getUri();
 
 		if ($iMaxLength == 0 || strlen($sUrl) <= $iMaxLength) {
 			return $sUrl;

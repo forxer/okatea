@@ -226,7 +226,7 @@ class Application
 
 		$this->router = new Router($this, OKT_CONFIG_PATH.'/routes', OKT_CACHE_PATH.'/routing', OKT_DEBUG);
 
-		$this->user = new Authentification($this, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $this->config->app_path, '', isset($_SERVER['HTTPS']));
+		$this->user = new Authentification($this, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $this->config->app_path, '', $this->request->isSecure());
 
 		$this->l10n = new Localisation($this->user->language, $this->user->timezone);
 
@@ -246,7 +246,7 @@ class Application
 		if (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
 		{
 			if (isset($_REQUEST['disable_browser_check'])) {
-				setcookie('okt_disable_browser_check', (boolean)$_REQUEST['disable_browser_check'], 0, $this->config->app_path, '', isset($_SERVER['HTTPS']));
+				setcookie('okt_disable_browser_check', (boolean)$_REQUEST['disable_browser_check'], 0, $this->config->app_path, '', $this->request->isSecure());
 			}
 
 			if (empty($_COOKIE['okt_disable_browser_check']))
@@ -256,22 +256,22 @@ class Application
 				if ($oMobileDetect->isMobile() && !$oMobileDetect->isTablet() && !empty($this->config->theme_mobile))
 				{
 					$sOktTheme = $this->config->theme_mobile;
-					setcookie('okt_use_mobile_theme', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
-					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_mobile_theme', true, 0, $this->config->app_path , '', $this->request->isSecure());
+					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
 				}
 				elseif ($oMobileDetect->isTablet() && !empty($this->config->theme_tablet))
 				{
 					$sOktTheme = $this->config->theme_tablet;
-					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
-					setcookie('okt_use_tablet_theme', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
+					setcookie('okt_use_tablet_theme', true, 0, $this->config->app_path , '', $this->request->isSecure());
 				}
 				else
 				{
-					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
-					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+					setcookie('okt_use_mobile_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
+					setcookie('okt_use_tablet_theme', false, 0, $this->config->app_path , '', $this->request->isSecure());
 				}
 
-				setcookie('okt_disable_browser_check', true, 0, $this->config->app_path , '', isset($_SERVER['HTTPS']));
+				setcookie('okt_disable_browser_check', true, 0, $this->config->app_path , '', $this->request->isSecure());
 
 				unset($oMobileDetect);
 			}
@@ -427,10 +427,6 @@ class Application
 
 		# URL du dossier upload depuis la racine
 		define('OKT_UPLOAD_URL', $this->config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
-
-		$this->config->app_host = \http::getHost();
-		$this->config->app_url = $this->config->app_host.$this->config->app_path;
-		$this->config->self_uri = $this->config->app_host.$_SERVER['REQUEST_URI'];
 	}
 
 	/**
