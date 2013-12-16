@@ -58,6 +58,7 @@ if (!$okt->languages->unique && $matchRequest)
 # -- CORE TRIGGER : publicBeforeCallController
 $okt->triggers->callTrigger('publicBeforeCallController', $okt);
 
+
 if ($okt->router->callController() === false)
 {
 	$okt->response->headers->set('Content-Type', 'text/plain');
@@ -77,3 +78,4 @@ $okt->response->send();
 
 # -- CORE TRIGGER : publicFinal
 $okt->triggers->callTrigger('publicFinal', $okt);
+

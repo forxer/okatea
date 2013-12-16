@@ -201,45 +201,18 @@ class Application
 	 */
 	public function __construct($autoloader)
 	{
-		# Register start time
-		define('OKT_START_TIME', !empty($_SERVER['REQUEST_TIME_FLOAT']) ? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true));
-
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		# Init MB ext
-		mb_internal_encoding('UTF-8');
+		$this->start();
 
-		# Default timezone (crushed later by user settings)
-		date_default_timezone_set('Europe/Paris');
-
-		$this->error = new Errors();
-
-		if (OKT_DEBUG)
-		{
-			Debug::enable();
-			ErrorHandler::register();
-			ExceptionHandler::register();
-		}
-
-		if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
-			require_once OKT_CONFIG_PATH.'/connexion.php';
-		}
-		else {
-			$this->error->fatal('Fatal error: unable to find database connexion file !');
-		}
-
-		$this->db = Connexion::getInstance();
-
-		if ($this->db->hasError()) {
-			$this->error->fatal('Unable to connect to database', $this->db->error());
-		}
-
-		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+		$this->databaseStart();
 
 		$this->triggers = new Triggers();
 
-		$this->loadConfig();
+		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+
+		$this->config = $this->loadConfig();
 
 		$this->request = Request::createFromGlobals();
 
@@ -264,7 +237,44 @@ class Application
 
 		$this->theme = $this->getTheme();
 
-		$this->initTplEngine();
+		$this->tpl = $this->initTplEngine();
+	}
+
+	protected function start()
+	{
+		# Register start time
+		define('OKT_START_TIME', microtime(true));
+
+		# Init MB ext
+		mb_internal_encoding('UTF-8');
+
+		# Default timezone (crushed later by user settings)
+		date_default_timezone_set('Europe/Paris');
+
+		$this->error = new Errors();
+
+		if (OKT_DEBUG)
+		{
+			Debug::enable();
+			ErrorHandler::register();
+			ExceptionHandler::register();
+		}
+	}
+
+	protected function databaseStart()
+	{
+		if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
+			require_once OKT_CONFIG_PATH.'/connexion.php';
+		}
+		else {
+			$this->error->fatal('Fatal error: unable to find database connexion file !');
+		}
+
+		$this->db = Connexion::getInstance();
+
+		if ($this->db->hasError()) {
+			$this->error->fatal('Unable to connect to database', $this->db->error());
+		}
 	}
 
 	protected function getTheme()
@@ -286,6 +296,8 @@ class Application
 			elseif ($isTablet) {
 				$sOktTheme = $this->config->theme_tablet;
 			}
+
+			$this->session->set('okt_theme', $sOktTheme);
 		}
 
 		# URL du thème
@@ -378,10 +390,12 @@ class Application
 		$this->setTplDirectory(OKT_THEMES_PATH.'/default/templates/%name%.php');
 
 		# initialisation
-		$this->tpl = new Templating($this->aTplDirectories);
+		$tpl = new Templating($this->aTplDirectories);
 
 		# assignation par défaut
-		$this->tpl->addGlobal('okt', $this);
+		$tpl->addGlobal('okt', $this);
+
+		return $tpl;
 	}
 
 	/**
@@ -422,16 +436,18 @@ class Application
 	 */
 	public function loadConfig()
 	{
-		$this->config = $this->newConfig('conf_site');
+		$config = $this->newConfig('conf_site');
 
 		# URL du dossier modules
-		define('OKT_MODULES_URL', $this->config->app_path.OKT_MODULES_DIR);
+		define('OKT_MODULES_URL', $config->app_path.OKT_MODULES_DIR);
 
 		# URL du dossier des fichiers publics
-		define('OKT_PUBLIC_URL', $this->config->app_path.OKT_PUBLIC_DIR);
+		define('OKT_PUBLIC_URL', $config->app_path.OKT_PUBLIC_DIR);
 
 		# URL du dossier upload depuis la racine
-		define('OKT_UPLOAD_URL', $this->config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
+		define('OKT_UPLOAD_URL', $config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
+
+		return $config;
 	}
 
 	/**

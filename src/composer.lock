@@ -531,12 +531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "179862bd6e0823a606eeca808da53aa8687579f6"
+                "reference": "0f027dc04bf6a56ce54b3be8617e4d46f44ca59c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/179862bd6e0823a606eeca808da53aa8687579f6",
-                "reference": "179862bd6e0823a606eeca808da53aa8687579f6",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/0f027dc04bf6a56ce54b3be8617e4d46f44ca59c",
+                "reference": "0f027dc04bf6a56ce54b3be8617e4d46f44ca59c",
                 "shasum": ""
             },
             "type": "library",
@@ -562,7 +562,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2013-12-15 01:32:34"
+            "time": "2013-12-15 22:56:12"
         },
         {
             "name": "ezyang/htmlpurifier",

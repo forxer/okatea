@@ -8,9 +8,11 @@
 
 namespace Tao\Routing;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Tao\Core\Application;
 use Tao\Routing\Loader\YamlDirectoryLoader;

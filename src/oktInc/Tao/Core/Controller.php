@@ -11,6 +11,7 @@ namespace Tao\Core;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Tao\Core\Application;
 
 /**
  * Controller de base.
@@ -26,7 +27,7 @@ class Controller
 	 * Constructor.
 	 *
 	 */
-	public function __construct($okt)
+	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
 

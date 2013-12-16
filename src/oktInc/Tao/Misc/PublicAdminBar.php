@@ -195,7 +195,7 @@ class PublicAdminBar
 				foreach ($aRequestAttributes as $k=>$v)
 				{
 					$aSecondaryAdminBar[1000]['items'][] = array(
-						'intitle' => $k.'&nbsp;: '.$v
+						'intitle' => $k.'&nbsp;: '.(is_array($v) ? implode($v) : $v)
 					);
 				}
 			}
