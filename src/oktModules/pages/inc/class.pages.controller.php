@@ -25,7 +25,7 @@ class pagesController extends Controller
 		if (!$this->okt->pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->okt->pages->config->url)));
+				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(pagesHelpers::getPagesUrl())));
 			}
 			else {
 				return $this->serve404();
@@ -46,7 +46,7 @@ class pagesController extends Controller
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->pages->filters->initFilters();
-			return $this->redirect($this->okt->pages->config->url);
+			return $this->redirect(pagesHelpers::getPagesUrl());
 		}
 
 		# initialisation des filtres
@@ -191,7 +191,7 @@ class pagesController extends Controller
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->pages->filters->initFilters();
-			return $this->redirect($this->okt->pages->config->url);
+			return $this->redirect(pagesHelpers::getPagesUrl());
 		}
 
 		# initialisation des filtres

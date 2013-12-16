@@ -1,0 +1,25 @@
+
+usersLogin-en:
+    path:     /en/login
+    defaults: { _controller: 'usersController::usersLogin' }
+
+usersLogout-en:
+    path:     /en/logout
+    defaults: { _controller: 'usersController::usersLogout' }
+
+usersProfile-en:
+    path:     /en/profile
+    defaults: { _controller: 'usersController::usersProfile' }
+
+usersRegister-en:
+    path:     /en/register
+    defaults: { _controller: 'usersController::usersRegister' }
+
+usersLoginRegister-en:
+    path:     /en/login-register
+    defaults: { _controller: 'usersController::usersLoginRegister' }
+
+usersForgetPassword-en:
+    path:     /en/forget-password
+    defaults: { _controller: 'usersController::usersForgetPassword' }
+    

@@ -30,6 +30,19 @@ class pagesHelpers
 	}
 
 	/**
+	 * Retourne l'URL du flux RSS.
+	 *
+	 * @param string $sLanguage
+	 * @return string
+	 */
+	public static function getPagesFeedUrl($sLanguage=null)
+	{
+		global $okt;
+
+		return $okt->router->generate('newsFeed');
+	}
+
+	/**
 	 * Retourne l'URL d'une page à partir de son slug et éventuellement d'une langue.
 	 *
 	 * @param string $sSlug

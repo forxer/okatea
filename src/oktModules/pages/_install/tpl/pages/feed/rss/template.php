@@ -6,8 +6,8 @@ xmlns:content="http://purl.org/rss/1.0/modules/content/"
 xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title><?php echo $view->escape($okt->page->getSiteTitle().' - '.$okt->pages->getTitle()) ?></title>
-		<link><?php echo $view->escape($okt->request->getSchemeAndHttpHost().$okt->pages->config->url) ?></link>
-		<atom:link href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$okt->pages->config->feed_url) ?>" rel="self" type="application/rss+xml"/>
+		<link><?php echo $view->escape($okt->request->getSchemeAndHttpHost().pagesHelpers::getPagesUrl()) ?></link>
+		<atom:link href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().pagesHelpers::getNewsFeedUrl()) ?>" rel="self" type="application/rss+xml"/>
 		<description><?php echo $view->escape($okt->page->getSiteDescription()) ?></description>
 		<language><?php echo $view->escape($okt->config->language) ?></language>
 		<!-- <pubDate>{{tpl:BlogUpdateDate rfc822="1"}}</pubDate> -->

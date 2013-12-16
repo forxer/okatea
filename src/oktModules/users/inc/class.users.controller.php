@@ -25,7 +25,7 @@ class usersController extends Controller
 	 */
 	public function __construct($okt)
 	{
-		$this->okt = $okt;
+		parent::__construct($okt);
 
 		$this->page->meta_description = $this->page->getSiteMetaDesc();
 
@@ -458,11 +458,12 @@ class usersController extends Controller
 
 	/**
 	 * Supprime l'URL de redirection en session.
+	 *
 	 */
 	protected function unsetSessionRedirectUrl()
 	{
 		if ($this->session->has('okt_sess_redirect')) {
-			$this->session->delete('okt_sess_redirect');
+			$this->session->remove('okt_sess_redirect');
 		}
 	}
 

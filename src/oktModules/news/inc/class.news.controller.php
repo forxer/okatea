@@ -25,7 +25,7 @@ class newsController extends Controller
 		if (!$this->okt->news->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->okt->news->config->url)));
+				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(newsHelpers::getNewsUrl())));
 			}
 			else {
 				return $this->serve404();
@@ -49,7 +49,7 @@ class newsController extends Controller
 		if ($this->request->query->has('init_news_filters'))
 		{
 			$this->okt->news->filters->initFilters();
-			return $this->redirect($this->okt->news->config->url);
+			return $this->redirect(newsHelpers::getNewsUrl());
 		}
 
 		# initialisation des filtres
@@ -88,7 +88,7 @@ class newsController extends Controller
 
 		# fil d'ariane
 		if (!$bIsDefaultRoute) {
-			$this->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+			$this->page->breadcrumb->add($this->okt->news->getName(), newsHelpers::getNewsUrl());
 		}
 
 		# ajout du numéro de page au title
@@ -203,7 +203,7 @@ class newsController extends Controller
 		if ($this->request->query->has('init_news_filters'))
 		{
 			$this->okt->news->filters->initFilters();
-			return $this->redirect($this->okt->news->config->url);
+			return $this->redirect(newsHelpers::getNewsUrl());
 		}
 
 		# initialisation des filtres
@@ -257,7 +257,7 @@ class newsController extends Controller
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+			$this->page->breadcrumb->add($this->okt->news->getName(), newsHelpers::getNewsUrl());
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			$rsPath = $this->okt->news->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
@@ -346,7 +346,7 @@ class newsController extends Controller
 
 		# début du fil d'ariane
 		if (!$bIsDefaultRoute) {
-			$this->page->breadcrumb->add($this->okt->news->getName(), $this->okt->news->config->url);
+			$this->page->breadcrumb->add($this->okt->news->getName(), newsHelpers::getNewsUrl());
 		}
 
 		# si les rubriques sont activées

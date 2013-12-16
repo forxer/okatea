@@ -55,37 +55,6 @@ class module_users extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_users');
 
-		# définition des routes
-		$this->okt->router->addRoute('usersLogin', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_login_url)).')$',
-			'usersController', 'usersLogin'
-		));
-
-		$this->okt->router->addRoute('usersLogout', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_logout_url)).')$',
-			'usersController', 'usersLogout'
-		));
-
-		$this->okt->router->addRoute('usersProfile', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_profile_url)).')$',
-			'usersController', 'usersProfile'
-		));
-
-		$this->okt->router->addRoute('usersRegister', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_register_url)).')$',
-			'usersController', 'usersRegister'
-		));
-
-		$this->okt->router->addRoute('usersLoginRegister', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_log_reg_url)).')$',
-			'usersController', 'usersLoginRegister'
-		));
-
-		$this->okt->router->addRoute('usersForgetPassword', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_forget_password_url)).')$',
-			'usersController', 'usersForgetPassword'
-		));
-
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/users/';
 		$this->upload_url = OKT_UPLOAD_URL.'/users/';

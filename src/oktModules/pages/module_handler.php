@@ -72,9 +72,6 @@ class module_pages extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
 
-		$this->config->url = pagesHelpers::getPagesUrl();
-		$this->config->feed_url = $this->okt->page->getBaseUrl().$this->config->routes['feed'][$this->okt->user->language];
-
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/pages/';
 		$this->upload_url = OKT_UPLOAD_URL.'/pages/';

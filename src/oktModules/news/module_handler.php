@@ -74,43 +74,6 @@ class module_news extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
 
-		# définition des routes
-		/*
-		$this->okt->router->addRoute('newsList',
-			$this->config->routes['list'],
-			array(
-				'_controller' => 'newsController::newsList',
-			)
-		);
-
-		$this->okt->router->addRoute('newsCategory',
-			$this->config->routes['category'],
-			array(
-				'_controller' => 'newsController::newsCategory',
-			),
-			array(
-				'slug' => '.+'
-			)
-		);
-
-		$this->okt->router->addRoute('newsItem',
-			$this->config->routes['post'],
-			array(
-				'_controller' => 'newsController::newsItem',
-			)
-		);
-
-		$this->okt->router->addRoute('newsFeed',
-			$this->config->routes['feed'],
-			array(
-				'_controller' => 'newsController::newsFeed',
-			)
-		);
-		*/
-
-		$this->config->url = newsHelpers::getNewsUrl();
-		$this->config->feed_url = newsHelpers::getNewsFeedUrl();
-
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/news/';
 		$this->upload_url = OKT_UPLOAD_URL.'/news/';

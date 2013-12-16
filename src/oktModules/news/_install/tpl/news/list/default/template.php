@@ -61,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape($okt->news->config->feed_url) ?>" />
+	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape(newsHelpers::getNewsFeedUrl()) ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();
@@ -77,14 +77,14 @@ if ($okt->news->config->enable_filters) : ?>
 	<?php endif; # fin Okatea : lien d'affichage des filtres ?>
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->escape($okt->news->config->url) ?>" id="<?php echo $okt->news->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->escape(newsHelpers::getNewsUrl()) ?>" id="<?php echo $okt->news->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_news_display_filters') ?></legend>
 
 			<?php echo $okt->news->filters->getFiltersFields(); ?>
 
 			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->news->filters->getFilterSubmitName() ?>" />
-			<a href="<?php echo $view->escape($okt->news->config->url) ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
+			<a href="<?php echo $view->escape(newsHelpers::getNewsUrl()) ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
 	<?php # fin Okatea : affichage des filtres ?>

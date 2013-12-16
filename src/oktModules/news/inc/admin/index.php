@@ -367,7 +367,7 @@ $okt->page->addButton('newsBtSt',array(
 $okt->page->addButton('newsBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
-	'url' 			=> html::escapeHTML($okt->news->config->url),
+	'url' 			=> html::escapeHTML(newsHelpers::getNewsUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
 
