@@ -427,7 +427,7 @@ if ($iGalleryId)
 	$okt->page->addButton('galleriesGaleryBtSt',array(
 		'permission' 	=> ($aGalleryData['db']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> galleriesHelpers::getGalleryUrl($aGalleryData['locales'][$okt->user->language]['slug']),
+		'url' 			=> GalleriesHelpers::getGalleryUrl($aGalleryData['locales'][$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'
 	));
 }

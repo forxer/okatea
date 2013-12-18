@@ -122,7 +122,7 @@ if (!empty($_REQUEST['post_id']))
 		}
 
 		# URL
-		$sPageUrl = pagesHelpers::getPageUrl($aPageData['locales'][$okt->user->language]['slug']);
+		$sPageUrl = PagesHelpers::getPageUrl($aPageData['locales'][$okt->user->language]['slug']);
 	}
 }
 

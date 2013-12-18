@@ -200,7 +200,7 @@ $okt->page->setButtonset('estimateBtSt', array(
 		array(
 			'permission' 	=> true,
 			'title' 		=> __('c_c_action_show'),
-			'url' 			=> html::escapeHTML($okt->estimate->config->url),
+			'url' 			=> html::escapeHTML(EstimateHelpers::getFormUrl()),
 			'ui-icon' 		=> 'extlink'
 		)
 	)

@@ -1,22 +1,22 @@
 
 pagesList:
     path:     /pages/{page}
-    defaults: { _controller: 'pagesController::pagesList', page: 1 }    
+    defaults: { _controller: 'PagesController::pagesList', page: 1 }    
     requirements:
         page:  \d+
     
 pagesCategory:
     path:     /pages/{slug}/{page}
-    defaults: { _controller: 'pagesController::pagesCategory', page: 1 }
+    defaults: { _controller: 'PagesController::pagesCategory', page: 1 }
     requirements:
         slug: .+?[^/]?$
         page: \d+
     
 pagesItem:
     path:     /page/{slug}
-    defaults: { _controller: 'pagesController::pagesItem' }
+    defaults: { _controller: 'PagesController::pagesItem' }
     
 pagesFeed:
     path:     /pages/rss
-    defaults: { _controller: 'pagesController::pagesFeed' }
+    defaults: { _controller: 'PagesController::pagesFeed' }
     

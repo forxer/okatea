@@ -1,25 +1,25 @@
 
 usersLogin:
     path:     /login
-    defaults: { _controller: 'usersController::usersLogin' }
+    defaults: { _controller: 'UsersController::usersLogin' }
 
 usersLogout:
     path:     /logout
-    defaults: { _controller: 'usersController::usersLogout' }
+    defaults: { _controller: 'UsersController::usersLogout' }
 
 usersProfile:
     path:     /profile
-    defaults: { _controller: 'usersController::usersProfile' }
+    defaults: { _controller: 'UsersController::usersProfile' }
 
 usersRegister:
     path:     /register
-    defaults: { _controller: 'usersController::usersRegister' }
+    defaults: { _controller: 'UsersController::usersRegister' }
 
 usersLoginRegister:
     path:     /login-register
-    defaults: { _controller: 'usersController::usersLoginRegister' }
+    defaults: { _controller: 'UsersController::usersLoginRegister' }
 
 usersForgetPassword:
     path:     /forget-password
-    defaults: { _controller: 'usersController::usersForgetPassword' }
+    defaults: { _controller: 'UsersController::usersForgetPassword' }
     

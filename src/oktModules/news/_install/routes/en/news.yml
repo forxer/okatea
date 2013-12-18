@@ -1,22 +1,22 @@
 
 newsList:
     path:     /news/{page}
-    defaults: { _controller: 'newsController::newsList', page: 1 }    
+    defaults: { _controller: 'NewsController::newsList', page: 1 }    
     requirements:
         page:  \d+
     
 newsCategory:
     path:     /news/{slug}/{page}
-    defaults: { _controller: 'newsController::newsCategory', page: 1 }
+    defaults: { _controller: 'NewsController::newsCategory', page: 1 }
     requirements:
         slug: .+?[^/]?$
         page: \d+
     
 newsItem:
     path:     /post/{slug}
-    defaults: { _controller: 'newsController::newsItem' }
+    defaults: { _controller: 'NewsController::newsItem' }
     
 newsFeed:
     path:     /news/rss
-    defaults: { _controller: 'newsController::newsFeed' }
+    defaults: { _controller: 'NewsController::newsFeed' }
     

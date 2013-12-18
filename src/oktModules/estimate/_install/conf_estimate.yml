@@ -13,12 +13,15 @@ meta_description:
 meta_keywords: 
   fr: ''
   en: ''
+
 enable_accessories: true
 captcha: 'accessible_captcha'
 enable_notifications: true
 notifications_recipients: ''
+
 default_products_number: 2
 default_accessories_number: 2
+
 templates:
   form:
     default: default
@@ -26,9 +29,4 @@ templates:
   summary:
     default: default
     usables: {}
-public_form_url: 
-  fr: 'devis'
-  en: 'estimate'
-public_summary_url: 
-  fr: 'recapitulatif'
-  en: 'summary'
+

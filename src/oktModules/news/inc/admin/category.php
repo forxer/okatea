@@ -360,7 +360,7 @@ if ($iCategoryId)
 	$okt->page->addButton('newsCatsBtSt',array(
 		'permission' 	=> ($aCategoryData['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> newsHelpers::getCategoryUrl($aCategoryLocalesData[$okt->user->language]['slug']),
+		'url' 			=> NewsHelpers::getCategoryUrl($aCategoryLocalesData[$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'
 	));
 }

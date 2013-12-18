@@ -1,0 +1,8 @@
+
+estimateForm:
+    path:     /devis
+    defaults: { _controller: EstimateController::estimateForm }  
+
+estimateSummary:
+    path:     /recapitulatif
+    defaults: { _controller: EstimateController::estimateSummary }

@@ -29,11 +29,11 @@ class module_users extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'usersController' => __DIR__.'/inc/class.users.controller.php',
-			'usersCustomFields' => __DIR__.'/inc/class.users.custom.fields.php',
-			'usersFieldRecordset' => __DIR__.'/inc/class.users.fields.recordset.php',
-			'usersFilters' => __DIR__.'/inc/class.users.filters.php',
-			'usersHelpers' => __DIR__.'/inc/class.users.helpers.php'
+			'UsersController' => __DIR__.'/inc/UsersController.php',
+			'UsersCustomFields' => __DIR__.'/inc/UsersCustomFields.php',
+			'UsersFieldRecordset' => __DIR__.'/inc/UsersFieldRecordset.php',
+			'UsersFilters' => __DIR__.'/inc/UsersFilters.php',
+			'UsersHelpers' => __DIR__.'/inc/UsersHelpers.php'
 		));
 
 		# permissions
@@ -61,7 +61,7 @@ class module_users extends Module
 
 		# custom fieds
 		if ($this->config->enable_custom_fields) {
-			$this->fields = new usersCustomFields($this->okt);
+			$this->fields = new UsersCustomFields($this->okt);
 		}
 	}
 
@@ -151,7 +151,7 @@ class module_users extends Module
 	 */
 	public static function publicAdminBarBeforeDefaultsItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
-		$aBasesUrl['logout'] = html::escapeHTML(usersHelpers::getLogoutUrl());
+		$aBasesUrl['logout'] = html::escapeHTML(UsersHelpers::getLogoutUrl());
 
 		$aBasesUrl['profil'] = $aBasesUrl['admin'].'/module.php?m=users&amp;action=profil&amp;id='.$okt->user->id;
 	}
@@ -1241,7 +1241,7 @@ class module_users extends Module
 	 */
 	public function getLoginUrl($sRedirectUrl=null)
 	{
-		return usersHelpers::getLoginUrl($sRedirectUrl);
+		return UsersHelpers::getLoginUrl($sRedirectUrl);
 	}
 
 	/**

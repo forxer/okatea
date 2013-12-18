@@ -147,7 +147,7 @@ if (!empty($_GET['sended'])) : ?>
 
 <?php # début Okatea : si le mail n'est PAS envoyé on affiche le formulaire
 if (empty($_GET['sended'])) : ?>
-<form action="<?php echo $view->escape($okt->contact->config->url) ?>" method="post" id="contact-form">
+<form action="<?php echo $view->escape(ContactHelpers::getContactUrl()) ?>" method="post" id="contact-form">
 
 	<?php # début Okatea : boucle sur les champs
 	while ($okt->contact->rsFields->fetch()) : ?>

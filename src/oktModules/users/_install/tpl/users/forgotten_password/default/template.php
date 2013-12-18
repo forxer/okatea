@@ -31,18 +31,18 @@ if ($okt->error->notEmpty()) : ?>
 if ($password_sended) : ?>
 
 <p><?php _e('c_c_auth_email_sent_with_instructions') ?></p>
-<p><a href="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
+<p><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
 
 <?php # si le mot de passe a été mis à jour on l'indique
 elseif ($password_updated) : ?>
 
 <p><?php _e('c_c_auth_password_updated') ?></p>
-<p><a href="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
+<p><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
 
 <?php # sinon on affiche le formulaire
 else : ?>
 
-<form id="forget-password-form" class="userform" action="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>" method="post">
+<form id="forget-password-form" class="userform" action="<?php echo $view->escape(UsersHelpers::getForgetPasswordUrl()) ?>" method="post">
 
 	<p class="field"><label for="email"><?php _e('c_c_auth_give_account_email') ?></label>
 	<input id="email" type="text" name="email" maxlength="255" /></p>
@@ -54,13 +54,13 @@ else : ?>
 	<ul>
 		<?php # début Okatea : lien page connexion
 		if ($okt->users->config->enable_login_page) : ?>
-		<li><a href="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php
 		_e('c_c_auth_login') ?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page inscription
 		if ($okt->users->config->enable_register_page) : ?>
-		<li><a href="<?php echo $view->escape(usersHelpers::getRegisterUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(UsersHelpers::getRegisterUrl()) ?>"><?php
 		_e('c_c_auth_register') ?></a></li>
 		<?php endif; # fin Okatea : lien page inscription ?>
 	</ul>

@@ -97,6 +97,6 @@ et les valider ou les modifier si besoin.</p>
 	<p><?php echo Tao\Misc\Utilities::nlToP($view->escape($aEstimateData['comment'])) ?></p>
 
 <p id="buttons">
-	<a href="<?php echo $view->escapeHtmlAttr($okt->page->getBaseUrl().$okt->estimate->config->public_summary_url[$okt->user->language]) ?>?send=1" id="send_estimate">Valider et envoyer</a>
-	<a href="<?php echo $view->escapeHtmlAttr($okt->estimate->config->url) ?>" id="update_estimate">Modifier</a>
+	<a href="<?php echo $view->escapeHtmlAttr(EstimateHelpers::getSummaryUrl()) ?>?send=1" id="send_estimate">Valider et envoyer</a>
+	<a href="<?php echo $view->escapeHtmlAttr(EstimateHelpers::getFormUrl()) ?>" id="update_estimate">Modifier</a>
 </p>

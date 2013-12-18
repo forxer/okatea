@@ -50,8 +50,6 @@ $GLOBALS['__l10n']['m_contact_config_tpl_map'] = 'Access map templates';
 # config SEO
 $GLOBALS['__l10n']['m_contact_seo_contact'] = 'Contact page';
 $GLOBALS['__l10n']['m_contact_seo_map'] = 'Access map page';
-$GLOBALS['__l10n']['m_contact_url_from_%s_in_%s'] = 'URL of the contact page from %s in %s';
-$GLOBALS['__l10n']['m_contact_map_url_from_%s_in_%s'] = 'URL of the map page from %s in %s';
 
 # recipients
 $GLOBALS['__l10n']['m_contact_recipients'] = 'Recipients';

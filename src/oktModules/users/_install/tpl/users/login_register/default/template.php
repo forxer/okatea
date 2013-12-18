@@ -101,7 +101,7 @@ if ($okt->error->notEmpty()) : ?>
 
 			<?php # début Okatea : lien page mot de passe oublié
 			if ($okt->users->config->enable_forget_password_page) : ?>
-			<p><a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+			<p><a href="<?php echo $view->escape(UsersHelpers::getForgetPasswordUrl()) ?>"><?php
 			_e('c_c_auth_forgot_password') ?></a></p>
 			<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 		</form>

@@ -93,7 +93,7 @@ if (!empty($_GET['added'])) : ?>
 <?php # début Okatea : sinon on affichent le formulaire de demande de devis
 else : ?>
 
-<form id="estimate_form" action="<?php echo $view->escapeHtmlAttr($okt->estimate->config->url) ?>" method="post">
+<form id="estimate_form" action="<?php echo $view->escapeHtmlAttr(EstimateHelpers::getFormUrl()) ?>" method="post">
 
 	<fieldset>
 		<legend>Vous concernant</legend>

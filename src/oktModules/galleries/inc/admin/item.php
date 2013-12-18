@@ -300,7 +300,7 @@ if (!empty($aItemData['item']['id']))
 	$okt->page->addButton('galleriesBtSt',array(
 		'permission' 	=> ($aItemData['item']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> galleriesHelpers::getItemUrl($aItemData['locales'][$okt->user->language]['slug']),
+		'url' 			=> GalleriesHelpers::getItemUrl($aItemData['locales'][$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'
 	));
 

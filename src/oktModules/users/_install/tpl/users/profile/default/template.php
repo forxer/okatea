@@ -94,7 +94,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 
 <h2><?php _e('m_users_Update_user_profile') ?></h2>
 
-<form id="edit-user-form" class="userform" action="<?php echo $view->escape(usersHelpers::getProfileUrl()) ?>" method="post">
+<form id="edit-user-form" class="userform" action="<?php echo $view->escape(UsersHelpers::getProfileUrl()) ?>" method="post">
 	<fieldset>
 		<legend><?php _e('m_users_Identity') ?></legend>
 
@@ -159,7 +159,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 
 <?php if ($okt->checkPerm('change_password')) : ?>
 <h2><?php _e('m_users_Update_paswword') ?></h2>
-<form class="userform" id="change-password-form" action="<?php echo $view->escape(usersHelpers::getProfileUrl()) ?>" method="post">
+<form class="userform" id="change-password-form" action="<?php echo $view->escape(UsersHelpers::getProfileUrl()) ?>" method="post">
 	<fieldset>
 		<legend><?php _e('m_users_Update_paswword') ?></legend>
 		<div class="two-cols">

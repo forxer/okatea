@@ -42,11 +42,11 @@ class module_news extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'newsCategories' => __DIR__.'/inc/class.news.categories.php',
-			'newsController' => __DIR__.'/inc/class.news.controller.php',
-			'newsFilters' => __DIR__.'/inc/class.news.filters.php',
-			'newsHelpers' => __DIR__.'/inc/class.news.helpers.php',
-			'newsRecordset' => __DIR__.'/inc/class.news.recordset.php'
+			'NewsCategories' => __DIR__.'/inc/NewsCategories.php',
+			'NewsController' => __DIR__.'/inc/NewsController.php',
+			'NewsFilters' => __DIR__.'/inc/NewsFilters.php',
+			'NewsHelpers' => __DIR__.'/inc/NewsHelpers.php',
+			'NewsRecordset' => __DIR__.'/inc/NewsRecordset.php'
 		));
 
 		# permissions
@@ -81,7 +81,7 @@ class module_news extends Module
 		# rubriques
 		if ($this->config->categories['enable'])
 		{
-			$this->categories = new newsCategories(
+			$this->categories = new NewsCategories(
 				$this->okt,
 				$this->t_news,
 				$this->t_news_locales,
@@ -245,8 +245,8 @@ class module_news extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof newsFilters)) {
-			$this->filters = new newsFilters($this->okt,$part);
+		if ($this->filters === null || !($this->filters instanceof NewsFilters)) {
+			$this->filters = new NewsFilters($this->okt,$part);
 		}
 	}
 
@@ -259,7 +259,7 @@ class module_news extends Module
 	 *
 	 * @param array $aParams 		Paramètres de requete
 	 * @param boolean $bCountOnly 	Ne renvoi qu'un nombre d'articles
-	 * @return object newsRecordset/integer
+	 * @return object NewsRecordset/integer
 	 */
 	public function getPostsRecordset($aParams=array(), $bCountOnly=false)
 	{
@@ -359,13 +359,13 @@ class module_news extends Module
 			}
 		}
 
-		if (($rsPosts = $this->db->select($sQuery, 'newsRecordset')) === false)
+		if (($rsPosts = $this->db->select($sQuery, 'NewsRecordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
 			}
 			else {
-				$rsPosts = new newsRecordset(array());
+				$rsPosts = new NewsRecordset(array());
 				$rsPosts->setCore($this->okt);
 				return $rsPosts;
 			}
@@ -447,7 +447,7 @@ class module_news extends Module
 	 *
 	 * @param array $aParams 					Paramètres de requete
 	 * @param integer $iTruncatChar (null) 		Nombre de caractère avant troncature du contenu
-	 * @return object newsRecordset
+	 * @return object NewsRecordset
 	 */
 	public function getPosts($aParams=array(), $iTruncatChar=null)
 	{
@@ -536,13 +536,13 @@ class module_news extends Module
 	}
 
 	/**
-	 * Formatage des données d'un newsRecordset en vue d'un affichage d'une liste.
+	 * Formatage des données d'un NewsRecordset en vue d'un affichage d'une liste.
 	 *
-	 * @param newsRecordset $rsPosts
+	 * @param NewsRecordset $rsPosts
 	 * @param integer $iTruncatChar (null)
 	 * @return void
 	 */
-	public function preparePosts(newsRecordset $rsPosts, $iTruncatChar=null)
+	public function preparePosts(NewsRecordset $rsPosts, $iTruncatChar=null)
 	{
 		# on utilise une troncature personnalisée à cette préparation
 		if (!is_null($iTruncatChar)) {
@@ -577,24 +577,24 @@ class module_news extends Module
 	}
 
 	/**
-	 * Formatage des données d'un newsRecordset en vue d'un affichage d'un article.
+	 * Formatage des données d'un NewsRecordset en vue d'un affichage d'un article.
 	 *
-	 * @param newsRecordset $rsPost
+	 * @param NewsRecordset $rsPost
 	 * @return void
 	 */
-	public function preparePost(newsRecordset $rsPost)
+	public function preparePost(NewsRecordset $rsPost)
 	{
 		# formatages génériques
 		$this->commonPreparation($rsPost);
 	}
 
 	/**
-	 * Formatages des données d'un newsRecordset communs aux listes et aux éléments.
+	 * Formatages des données d'un NewsRecordset communs aux listes et aux éléments.
 	 *
-	 * @param newsRecordset $rsPost
+	 * @param NewsRecordset $rsPost
 	 * @return void
 	 */
-	protected function commonPreparation(newsRecordset $rsPost)
+	protected function commonPreparation(NewsRecordset $rsPost)
 	{
 		# url post
 		$rsPost->url = $rsPost->getPostUrl();
@@ -1928,13 +1928,13 @@ class module_news extends Module
 	 * @param string $sItemsGlue 	Liant entre les différents éléments ('')
 	 * @param array $aCustomParams Paramètres de sélection personnalisés (array())
 	 * @return string
-	 * @deprecated use newsHelpers::getPostsByCatId() instead
+	 * @deprecated use NewsHelpers::getPostsByCatId() instead
 	 */
 	public function getPostsByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='', $aCustomParams=array())
 	{
-		trigger_error('Deprecated method, please use newsHelpers::getPostsByCatId() instead', E_USER_WARNING);
+		trigger_error('Deprecated method, please use NewsHelpers::getPostsByCatId() instead', E_USER_WARNING);
 
-		return newsHelpers::getPostsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue, $aCustomParams);
+		return NewsHelpers::getPostsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue, $aCustomParams);
 	}
 
 	/**
@@ -1947,13 +1947,13 @@ class module_news extends Module
 	 * @param string $sLinkFormat 			Masque de formatage d'un lien de la liste.
 	 * @param string $sItemsGlue 			Chaine de liaison entre les éléments.
 	 * @return string
-	 * @deprecated use newsHelpers::getSubCatsByCatId() instead
+	 * @deprecated use NewsHelpers::getSubCatsByCatId() instead
 	 */
 	public function getSubCatsByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='')
 	{
-		trigger_error('Deprecated method, please use newsHelpers::getSubCatsByCatId() instead', E_USER_WARNING);
+		trigger_error('Deprecated method, please use NewsHelpers::getSubCatsByCatId() instead', E_USER_WARNING);
 
-		return newsHelpers::getSubCatsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue);
+		return NewsHelpers::getSubCatsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue);
 	}
 
 

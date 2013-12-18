@@ -64,18 +64,6 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description_map = !empty($_POST['p_meta_description_map']) && is_array($_POST['p_meta_description_map']) ? $_POST['p_meta_description_map'] : array();
 	$p_meta_keywords_map = !empty($_POST['p_meta_keywords_map']) && is_array($_POST['p_meta_keywords_map']) ? $_POST['p_meta_keywords_map'] : array();
 
-	$p_public_url = !empty($_POST['p_public_url']) && is_array($_POST['p_public_url']) ? $_POST['p_public_url'] : array();
-
-	foreach ($p_public_url as $lang=>$url) {
-		$p_public_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_map_url = !empty($_POST['p_public_map_url']) && is_array($_POST['p_public_map_url']) ? $_POST['p_public_map_url'] : array();
-
-	foreach ($p_public_map_url as $lang=>$url) {
-		$p_public_map_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
 	$p_enable_google_map = !empty($_POST['p_enable_google_map']) ? true : false;
 	$p_google_map_display = !empty($_POST['p_google_map_display']) ? $_POST['p_google_map_display'] : 'inside';
 	$p_google_map_zoom = !empty($_POST['p_google_map_zoom']) ? $_POST['p_google_map_zoom'] : 14;
@@ -108,9 +96,6 @@ if (!empty($_POST['form_sent']))
 
 			'meta_description_map' => $p_meta_description_map,
 			'meta_keywords_map' => $p_meta_keywords_map,
-
-			'public_url' => $p_public_url,
-			'public_map_url' => $p_public_map_url,
 
 			'google_map' => array(
 				'enable' => (boolean)$p_enable_google_map,
@@ -283,15 +268,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php endforeach; ?>
 			</fieldset>
 
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url')?></legend>
-
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 60, 255, (isset($okt->contact->config->public_url[$aLanguage['code']]) ? html::escapeHTML($okt->contact->config->public_url[$aLanguage['code']]) : '')) ?></p>
-				<?php endforeach; ?>
-			</fieldset>
-
 			<h4><?php _e('m_contact_seo_map') ?></h4>
 
 			<fieldset>
@@ -313,15 +289,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords_map['.$aLanguage['code'].']','p_meta_keywords_map_'.$aLanguage['code']), 57, 5, (isset($okt->contact->config->meta_keywords_map[$aLanguage['code']]) ? html::escapeHTML($okt->contact->config->meta_keywords_map[$aLanguage['code']]) : '')) ?></p>
 
-				<?php endforeach; ?>
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url')?></legend>
-
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_map_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_contact_map_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_map_url['.$aLanguage['code'].']','p_public_map_url_'.$aLanguage['code']), 60, 255, (isset($okt->contact->config->public_map_url[$aLanguage['code']]) ? html::escapeHTML($okt->contact->config->public_map_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>
 

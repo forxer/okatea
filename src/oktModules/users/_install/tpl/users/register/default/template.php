@@ -101,7 +101,7 @@ if ($okt->error->notEmpty()) : ?>
 	</div>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
-<form id="register-form" class="userform" action="<?php echo $view->escape(usersHelpers::getRegisterUrl()) ?>" method="post">
+<form id="register-form" class="userform" action="<?php echo $view->escape(UsersHelpers::getRegisterUrl()) ?>" method="post">
 
 	<fieldset>
 		<legend><?php _e('m_users_Account') ?></legend>
@@ -191,13 +191,13 @@ if ($okt->error->notEmpty()) : ?>
 	<ul>
 		<?php # début Okatea : lien page connexion
 		if ($okt->users->config->enable_login_page) : ?>
-		<li><a href="<?php echo $view->escape(usersHelpers::getLoginUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php
 		_e('c_c_auth_login') ?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page mot de passe oublié
 		if ($okt->users->config->enable_forget_password_page) : ?>
-		<li><a href="<?php echo $view->escape(usersHelpers::getForgetPasswordUrl()) ?>"><?php
+		<li><a href="<?php echo $view->escape(UsersHelpers::getForgetPasswordUrl()) ?>"><?php
 		_e('c_c_auth_forgot_password') ?></a></li>
 		<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 	</ul>

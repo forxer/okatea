@@ -32,12 +32,12 @@ class module_galleries extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'galleriesController' => __DIR__.'/inc/class.galleries.controller.php',
-			'galleriesHelpers' => __DIR__.'/inc/class.galleries.helpers.php',
-			'galleriesItems' => __DIR__.'/inc/class.galleries.items.php',
-			'galleriesItemsRecordset' => __DIR__.'/inc/class.galleries.items.recordset.php',
-			'galleriesRecordset' => __DIR__.'/inc/class.galleries.recordset.php',
-			'galleriesTree' => __DIR__.'/inc/class.galleries.tree.php'
+			'GalleriesController' => __DIR__.'/inc/GalleriesController.php',
+			'GalleriesHelpers' => __DIR__.'/inc/GalleriesHelpers.php',
+			'GalleriesItems' => __DIR__.'/inc/GalleriesItems.php',
+			'GalleriesItemsRecordset' => __DIR__.'/inc/GalleriesItemsRecordset.php',
+			'GalleriesRecordset' => __DIR__.'/inc/GalleriesRecordset.php',
+			'GalleriesTree' => __DIR__.'/inc/GalleriesTree.php'
 		));
 
 		# permissions
@@ -66,7 +66,7 @@ class module_galleries extends Module
 		$this->config = $this->okt->newConfig('conf_galleries');
 
 		# galleries tree
-		$this->tree = new galleriesTree(
+		$this->tree = new GalleriesTree(
 			$this->okt,
 			$this->t_items,
 			$this->t_items_locales,
@@ -119,7 +119,7 @@ class module_galleries extends Module
 
 
 		# galleries items
-		$this->items = new galleriesItems(
+		$this->items = new GalleriesItems(
 			$this->okt,
 			$this->t_items,
 			$this->t_items_locales,

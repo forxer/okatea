@@ -65,7 +65,7 @@ if (!is_null($iFieldId))
 				$aFieldData['title'][$aLanguage['code']] = $rsField_i18n->title;
 				$aFieldData['description'][$aLanguage['code']] = $rsField_i18n->description;
 
-				if (usersCustomFields::getFormType($aFieldData['type']) == 'simple') {
+				if (UsersCustomFields::getFormType($aFieldData['type']) == 'simple') {
 					$value[$aLanguage['code']] = $rsField_i18n->value;
 				}
 				else {
@@ -87,7 +87,7 @@ if (!empty($_POST['form_sent']))
 	# valeur(s) champ
 	if ($do == 'value')
 	{
-		if (usersCustomFields::getFormType($aFieldData['type']) == 'simple') {
+		if (UsersCustomFields::getFormType($aFieldData['type']) == 'simple') {
 			$value = (!empty($_POST['p_value']) ? $_POST['p_value'] : array());
 		}
 		else
@@ -171,7 +171,7 @@ $okt->page->setButtonset('fieldBtSt',array(
 
 
 # liste des types de champs
-$aTypes = usersCustomFields::getFieldsTypes();
+$aTypes = UsersCustomFields::getFieldsTypes();
 
 # Lang switcher
 if (!$okt->languages->unique) {
@@ -211,7 +211,7 @@ if ($do == 'value') : ?>
 
 <form action="module.php" method="post" id="form">
 
-	<?php if (usersCustomFields::getFormType($aFieldData['type']) == 'simple') : ?>
+	<?php if (UsersCustomFields::getFormType($aFieldData['type']) == 'simple') : ?>
 
 		<p>Valeur par défaut du champ intitulé <strong><?php echo html::escapeHTML($aFieldData['title'][$okt->user->language]) ?></strong>
 		de type <em><?php echo $aTypes[$aFieldData['type']] ?></em></p>
@@ -275,10 +275,10 @@ else : ?>
 	</div>
 	<div class="two-cols">
 		<p class="field col"><label for="p_type" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_users_Type')?></label>
-		<?php echo form::select('p_type', usersCustomFields::getFieldsTypes(true), $aFieldData['type'])?></p>
+		<?php echo form::select('p_type', UsersCustomFields::getFieldsTypes(true), $aFieldData['type'])?></p>
 
 		<p class="field col"><label for="p_status" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('Status') ?></label>
-		<?php echo form::select('p_status', usersCustomFields::getFieldsStatus(true), $aFieldData['status'])?></p>
+		<?php echo form::select('p_status', UsersCustomFields::getFieldsStatus(true), $aFieldData['status'])?></p>
 	</div>
 	<div class="two-cols">
 		<div class="col">

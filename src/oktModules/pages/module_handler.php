@@ -43,11 +43,11 @@ class module_pages extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'pagesCategories' => __DIR__.'/inc/class.pages.categories.php',
-			'pagesController' => __DIR__.'/inc/class.pages.controller.php',
-			'pagesFilters' => __DIR__.'/inc/class.pages.filters.php',
-			'pagesHelpers' => __DIR__.'/inc/class.pages.helpers.php',
-			'pagesRecordset' => __DIR__.'/inc/class.pages.recordset.php'
+			'PagesCategories' => __DIR__.'/inc/PagesCategories.php',
+			'PagesController' => __DIR__.'/inc/PagesController.php',
+			'PagesFilters' => __DIR__.'/inc/PagesFilters.php',
+			'PagesHelpers' => __DIR__.'/inc/PagesHelpers.php',
+			'PagesRecordset' => __DIR__.'/inc/PagesRecordset.php'
 		));
 
 		# permissions
@@ -79,7 +79,7 @@ class module_pages extends Module
 		# rubriques
 		if ($this->config->categories['enable'])
 		{
-			$this->categories = new pagesCategories(
+			$this->categories = new PagesCategories(
 				$this->okt,
 				$this->t_pages,
 				$this->t_pages_locales,
@@ -240,8 +240,8 @@ class module_pages extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof pagesFilters)) {
-			$this->filters = new pagesFilters($this->okt,$part);
+		if ($this->filters === null || !($this->filters instanceof PagesFilters)) {
+			$this->filters = new PagesFilters($this->okt,$part);
 		}
 	}
 
@@ -254,7 +254,7 @@ class module_pages extends Module
 	 *
 	 * @param array $aParams 			Paramètres de requete
 	 * @param boolean $bCountOnly 		Ne renvoi qu'un nombre de pages
-	 * @return integer/pagesRecordset
+	 * @return integer/PagesRecordset
 	 */
 	public function getPagesRecordset($aParams=array(), $bCountOnly=false)
 	{
@@ -332,13 +332,13 @@ class module_pages extends Module
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery, 'pagesRecordset')) === false)
+		if (($rs = $this->db->select($sQuery, 'PagesRecordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
 			}
 			else {
-				$rs = new pagesRecordset(array());
+				$rs = new PagesRecordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -417,7 +417,7 @@ class module_pages extends Module
 	 *
 	 * @param array $aParams 					Paramètres de requete
 	 * @param integer $iTruncatChar (null) 		Nombre de caractère avant troncature du contenu
-	 * @return object pagesRecordset
+	 * @return object PagesRecordset
 	 */
 	public function getPages($aParams=array(), $iTruncatChar=null)
 	{
@@ -444,7 +444,7 @@ class module_pages extends Module
 	 *
 	 * @param integer $mPageId 		Identifiant numérique ou slug de la page.
 	 * @param integer $iActive 		Statut requis de la page
-	 * @return object pagesRecordset
+	 * @return object PagesRecordset
 	 */
 	public function getPage($mPageId, $iActive=2)
 	{
@@ -503,13 +503,13 @@ class module_pages extends Module
 	}
 
 	/**
-	 * Formatage des données d'un pagesRecordset en vue d'un affichage d'une liste.
+	 * Formatage des données d'un PagesRecordset en vue d'un affichage d'une liste.
 	 *
-	 * @param pagesRecordset $rs
+	 * @param PagesRecordset $rs
 	 * @param integer $iTruncatChar (null)
 	 * @return void
 	 */
-	public function preparePages(pagesRecordset $rs, $iTruncatChar=null)
+	public function preparePages(PagesRecordset $rs, $iTruncatChar=null)
 	{
 		# on utilise une troncature personnalisée à cette préparation
 		if (!is_null($iTruncatChar)) {
@@ -544,24 +544,24 @@ class module_pages extends Module
 	}
 
 	/**
-	 * Formatage des données d'un pagesRecordset en vue d'un affichage d'une page.
+	 * Formatage des données d'un PagesRecordset en vue d'un affichage d'une page.
 	 *
-	 * @param pagesRecordset $rs
+	 * @param PagesRecordset $rs
 	 * @return void
 	 */
-	public function preparePage(pagesRecordset $rs)
+	public function preparePage(PagesRecordset $rs)
 	{
 		# formatages génériques
 		$this->commonPreparation($rs);
 	}
 
 	/**
-	 * Formatages des données d'un pagesRecordset communs aux listes et aux éléments.
+	 * Formatages des données d'un PagesRecordset communs aux listes et aux éléments.
 	 *
-	 * @param pagesRecordset $rs
+	 * @param PagesRecordset $rs
 	 * @return void
 	 */
-	protected function commonPreparation(pagesRecordset $rs)
+	protected function commonPreparation(PagesRecordset $rs)
 	{
 		# url page
 		$rs->url = $rs->getPageUrl();
@@ -1612,13 +1612,13 @@ class module_pages extends Module
 	 * @param string $sItemsGlue 	Liant entre les différents éléments ('')
 	 * @param array $aCustomParams Paramètres de sélection personnalisés (array())
 	 * @return string
-	 * @deprecated use pagesHelpers::getPagesByCatId() instead
+	 * @deprecated use PagesHelpers::getPagesByCatId() instead
 	 */
 	public function getPagesByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='', $aCustomParams=array())
 	{
-		trigger_error('Deprecated method, please use pagesHelpers::getPagesByCatId() instead', E_USER_WARNING);
+		trigger_error('Deprecated method, please use PagesHelpers::getPagesByCatId() instead', E_USER_WARNING);
 
-		return pagesHelpers::getPagesByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue, $aCustomParams);
+		return PagesHelpers::getPagesByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue, $aCustomParams);
 	}
 
 	/**
@@ -1634,9 +1634,9 @@ class module_pages extends Module
 	 */
 	public function getSubCatsByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='')
 	{
-		trigger_error('Deprecated method, please use pagesHelpers::getSubCatsByCatId() instead', E_USER_WARNING);
+		trigger_error('Deprecated method, please use PagesHelpers::getSubCatsByCatId() instead', E_USER_WARNING);
 
-		return pagesHelpers::getSubCatsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue);
+		return PagesHelpers::getSubCatsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue);
 	}
 
 

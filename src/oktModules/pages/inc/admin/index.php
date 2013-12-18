@@ -218,7 +218,7 @@ $okt->page->addButton('pagesBtSt',array(
 $okt->page->addButton('pagesBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
-	'url' 			=> html::escapeHTML(pagesHelpers::getPagesUrl()),
+	'url' 			=> html::escapeHTML(PagesHelpers::getPagesUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
 

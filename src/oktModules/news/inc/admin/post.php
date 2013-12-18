@@ -148,7 +148,7 @@ if (!empty($_REQUEST['post_id']))
 		}
 
 		# URL
-		$sPostUrl = newsHelpers::getPostUrl($aPostData['locales'][$okt->user->language]['slug']);
+		$sPostUrl = NewsHelpers::getPostUrl($aPostData['locales'][$okt->user->language]['slug']);
 	}
 }
 

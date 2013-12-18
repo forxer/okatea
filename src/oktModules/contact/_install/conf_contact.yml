@@ -54,11 +54,3 @@ recipients_bcc: {  }
 
 captcha: 'accessible_captcha'
 from_to: 'website'
-
-public_url:
-  fr: contact
-  en: contact
-
-public_map_url:
-  fr: plan-acces
-  en: map

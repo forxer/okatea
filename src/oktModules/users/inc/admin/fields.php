@@ -85,10 +85,10 @@ $okt->page->setButtonset('fieldsBtSt',array(
 $rsFields = $okt->users->fields->getFields(array("language" => $okt->user->language));
 
 # liste des types de champs
-$aTypes = usersCustomFields::getFieldsTypes();
+$aTypes = UsersCustomFields::getFieldsTypes();
 
 # liste des statut de champs
-$aStatus = usersCustomFields::getFieldsStatus();
+$aStatus = UsersCustomFields::getFieldsStatus();
 
 
 # Sortable

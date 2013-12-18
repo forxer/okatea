@@ -43,8 +43,9 @@ class module_contact extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'contactController' => __DIR__.'/inc/class.contact.controller.php',
-			'contactRecordset' => __DIR__.'/inc/class.contact.recordset.php'
+			'ContactController' => __DIR__.'/inc/ContactController.php',
+			'ContactHelpers' => __DIR__.'/inc/ContactHelpers.php',
+			'ContactRecordset' => __DIR__.'/inc/ContactRecordset.php'
 		));
 
 		# permissions
@@ -59,20 +60,6 @@ class module_contact extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_contact');
-
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
-		$this->config->map_url = $this->okt->page->getBaseUrl().$this->config->public_map_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('contactPage', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'contactController', 'contactPage'
-		));
-
-		$this->okt->router->addRoute('contactMapPage', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_map_url)).')$',
-			'contactController', 'contactMapPage'
-		));
 	}
 
 	protected function prepend_admin()
@@ -160,9 +147,9 @@ class module_contact extends Module
 		$reqPlus.
 		'ORDER BY ord ASC ';
 
-		if (($rs = $this->db->select($query,'contactRecordset')) === false)
+		if (($rs = $this->db->select($query,'ContactRecordset')) === false)
 		{
-			$rs = new contactRecordset(array());
+			$rs = new ContactRecordset(array());
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -210,8 +197,8 @@ class module_contact extends Module
 		'FROM '.$this->t_fields_locales.' '.
 		'WHERE field_id='.(integer)$iFieldId;
 
-		if (($rs = $this->db->select($query,'contactRecordset')) === false) {
-			$rs = new contactRecordset(array());
+		if (($rs = $this->db->select($query,'ContactRecordset')) === false) {
+			$rs = new ContactRecordset(array());
 			$rs->setCore($this->okt);
 			return $rs;
 		}

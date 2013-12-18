@@ -28,10 +28,11 @@ class module_estimate extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'estimateController' => __DIR__.'/inc/class.estimate.controller.php',
-			'estimateFilters' => __DIR__.'/inc/class.estimate.filters.php',
-			'estimateProducts' => __DIR__.'/inc/class.estimate.products.php',
-			'estimateAccessories' => __DIR__.'/inc/class.estimate.accessories.php'
+			'EstimateAccessories' => __DIR__.'/inc/EstimateAccessories.php',
+			'EstimateController' => __DIR__.'/inc/EstimateController.php',
+			'EstimateFilters' => __DIR__.'/inc/EstimateFilters.php',
+			'EstimateHelpers' => __DIR__.'/inc/EstimateHelpers.php',
+			'EstimateProducts' => __DIR__.'/inc/EstimateProducts.php'
 		));
 
 		# permissions
@@ -49,22 +50,11 @@ class module_estimate extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_estimate');
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_form_url[$this->okt->user->language];
 
-		# définition des routes
-		$this->okt->router->addRoute('estimateForm', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_form_url)).')$',
-			'estimateController', 'estimateForm'
-		));
-		$this->okt->router->addRoute('estimateSummary', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_summary_url)).')$',
-			'estimateController', 'estimateSummary'
-		));
-
-		$this->products = new estimateProducts($this->okt, $this->t_products, $this->t_accessories);
+		$this->products = new EstimateProducts($this->okt, $this->t_products, $this->t_accessories);
 
 		if ($this->config->enable_accessories) {
-			$this->accessories = new estimateAccessories($this->okt, $this->t_accessories, $this->t_products);
+			$this->accessories = new EstimateAccessories($this->okt, $this->t_accessories, $this->t_products);
 		}
 	}
 
@@ -132,8 +122,8 @@ class module_estimate extends Module
 	 */
 	public function filtersStart($sPart='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof estimateFilters)) {
-			$this->filters = new estimateFilters($this->okt, $sPart);
+		if ($this->filters === null || !($this->filters instanceof EstimateFilters)) {
+			$this->filters = new EstimateFilters($this->okt, $sPart);
 		}
 	}
 

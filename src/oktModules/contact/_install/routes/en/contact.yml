@@ -1,0 +1,8 @@
+
+contactPage:
+    path:     /contact
+    defaults: { _controller: ContactController::contactPage }  
+
+contactMapPage:
+    path:     /map
+    defaults: { _controller: ContactController::contactMapPage }
