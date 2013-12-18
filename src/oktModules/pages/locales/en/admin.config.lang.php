@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_pages_config_error_list_url_match_item_url'] = 'The URL of the pages list should not be the same as the URL of a page.';
-
 $GLOBALS['__l10n']['m_pages_config_tab_general'] = 'General';
 $GLOBALS['__l10n']['m_pages_config_tab_categories'] = 'Categories';
 $GLOBALS['__l10n']['m_pages_config_tab_attached_files'] = 'Attached files';
@@ -34,8 +32,4 @@ $GLOBALS['__l10n']['m_pages_config_tpl_list'] = 'Pages list templates';
 $GLOBALS['__l10n']['m_pages_config_tpl_item'] = 'Pages templates';
 $GLOBALS['__l10n']['m_pages_config_tpl_insert'] = 'Inserts templates';
 $GLOBALS['__l10n']['m_pages_config_tpl_feed'] = 'Feed templates';
-
-$GLOBALS['__l10n']['m_pages_config_url_pages_list_from_%s'] = 'URL of pages list from %s';
-$GLOBALS['__l10n']['m_pages_config_url_rss_from_%s'] = 'URL of RSS syndication from %s';
-$GLOBALS['__l10n']['m_pages_config_url_page_from_%s'] = 'URL of a page from %s';
 

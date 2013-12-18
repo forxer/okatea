@@ -6,6 +6,7 @@
  */
 
 use Tao\Images\ImageUpload;
+use Tao\Misc\Utilities as util;
 
 class galleriesItems
 {

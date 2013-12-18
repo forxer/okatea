@@ -8,6 +8,7 @@
 use Tao\Admin\Page;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Forms\Statics\SelectOption;
+use Tao\Misc\Utilities as util;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit

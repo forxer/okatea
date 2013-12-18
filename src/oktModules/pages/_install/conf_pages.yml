@@ -74,17 +74,3 @@ templates:
   feed:
     default: rss
     usables: {}
-
-routes:
-  list:
-    fr: /pages
-    en: /pages
-  category:
-    fr: /pages/{slug}
-    en: /pages/{slug}
-  post:
-    fr: /page/{slug}
-    en: /page/{slug}
-  feed:
-    fr: /pages/rss
-    en: /pages/rss

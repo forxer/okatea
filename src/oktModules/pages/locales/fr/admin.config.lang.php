@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_pages_config_error_list_url_match_item_url'] = 'L’URL de la liste des pages ne doit pas être la même que l’URL d’une page.';
-
 $GLOBALS['__l10n']['m_pages_config_tab_general'] = 'Général';
 $GLOBALS['__l10n']['m_pages_config_tab_categories'] = 'Rubriques';
 $GLOBALS['__l10n']['m_pages_config_tab_attached_files'] = 'Fichiers joints';
@@ -34,7 +32,3 @@ $GLOBALS['__l10n']['m_pages_config_tpl_list'] = 'Modèles des listes de pages';
 $GLOBALS['__l10n']['m_pages_config_tpl_item'] = 'Modèles des pages';
 $GLOBALS['__l10n']['m_pages_config_tpl_insert'] = 'Modèles des encarts';
 $GLOBALS['__l10n']['m_pages_config_tpl_feed'] = 'Modèles des flux';
-
-$GLOBALS['__l10n']['m_pages_config_url_pages_list_from_%s'] = 'URL de la liste des pages depuis %s';
-$GLOBALS['__l10n']['m_pages_config_url_rss_from_%s'] = 'URL du flux de syndication depuis %s';
-$GLOBALS['__l10n']['m_pages_config_url_page_from_%s'] = 'URL d’une page depuis %s';

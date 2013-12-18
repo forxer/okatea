@@ -1,8 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_galleries_config_error_list_url_match_gallery_url'] = 'The URL of the galleries list should not be the same as the URL of a gallery.';
-$GLOBALS['__l10n']['m_galleries_config_error_gallery_url_match_item_url'] = 'The URL of a gallery should not be the same as the URL of an item.';
-
 $GLOBALS['__l10n']['m_galleries_config_tab_general'] = 'General';
 $GLOBALS['__l10n']['m_galleries_config_tab_images_items'] = 'Images of items';
 $GLOBALS['__l10n']['m_galleries_config_tab_images_galleries'] = 'Images of galleries';
@@ -26,8 +23,3 @@ $GLOBALS['__l10n']['m_galleries_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['__l10n']['m_galleries_config_tpl_list'] = 'Galleries list templates';
 $GLOBALS['__l10n']['m_galleries_config_tpl_gallery'] = 'Gallery template';
 $GLOBALS['__l10n']['m_galleries_config_tpl_item'] = 'Item template';
-
-$GLOBALS['__l10n']['m_galleries_config_url_galleries_list_%s'] = 'URL of galleries list from %s';
-$GLOBALS['__l10n']['m_galleries_config_url_rss_%s'] = 'URL of RSS syndication from %s';
-$GLOBALS['__l10n']['m_galleries_config_url_gallery_%s'] = 'URL of a gallery from %s';
-$GLOBALS['__l10n']['m_galleries_config_url_item_%s'] = 'URL of an item from %s';

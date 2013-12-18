@@ -133,13 +133,6 @@ $GLOBALS['__l10n']['m_users_config_tpl_profile'] = 'Modèles de la page de profi
 $GLOBALS['__l10n']['m_users_config_tpl_register'] = 'Modèles de la page du formulaire d’inscription';
 $GLOBALS['__l10n']['m_users_config_tpl_user_bar'] = 'Modèles des barres utilisateur';
 
-$GLOBALS['__l10n']['m_users_URL_of_login_page_from_%s'] = 'URL de la page d’identification depuis %s';
-$GLOBALS['__l10n']['m_users_URL_of_disconnection_page_from_%s'] = 'URL de la page de déconnexion depuis %s';
-$GLOBALS['__l10n']['m_users_URL_of_registration_page_from_%s'] = 'URL de la page d’inscription depuis %s';
-$GLOBALS['__l10n']['m_users_URL_of_log_reg_page_from_%s'] = 'URL de la page d’identification/d’inscription unifiée depuis %s';
-$GLOBALS['__l10n']['m_users_URL_of_forgotten_password_page_from_%s'] = 'URL de la page de mot de passe oublié depuis %s';
-$GLOBALS['__l10n']['m_users_URL_of_user_profile_page_from_%s'] = 'URL de la page de profil utilisateur depuis %s';
-
 # Filtres
 $GLOBALS['__l10n']['m_users_filters_status'] = 'Statut';
 $GLOBALS['__l10n']['m_users_wait_of_validation'] = 'Attente de validation';

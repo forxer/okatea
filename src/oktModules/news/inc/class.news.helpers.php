@@ -22,10 +22,6 @@ class newsHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->news->config->routes['list'][$sLanguage])) {
-			return null;
-		}
-
 		return $okt->router->generate('newsList');
 	}
 
@@ -38,6 +34,10 @@ class newsHelpers
 	public static function getNewsFeedUrl($sLanguage=null)
 	{
 		global $okt;
+
+		if (is_null($sLanguage)) {
+			$sLanguage = $okt->user->language;
+		}
 
 		return $okt->router->generate('newsFeed');
 	}
@@ -61,10 +61,6 @@ class newsHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->news->config->routes['post'][$sLanguage])) {
-			return null;
-		}
-
 		return $okt->router->generate('newsItem', array('slug' => $sSlug));
 	}
 
@@ -85,10 +81,6 @@ class newsHelpers
 
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
-		}
-
-		if (!isset($okt->news->config->routes['category'][$sLanguage])) {
-			return null;
 		}
 
 		return $okt->router->generate('newsCategory', array('slug' => $sSlug));

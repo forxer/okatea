@@ -110,44 +110,6 @@ if (!empty($_POST['form_sent']))
 	$p_tpl_gallery = $oTemplatesGallery->getPostConfig();
 	$p_tpl_item = $oTemplatesItem->getPostConfig();
 
-	$p_public_list_url= !empty($_POST['p_public_list_url']) && is_array($_POST['p_public_list_url']) ? $_POST['p_public_list_url'] : array();
-
-	foreach ($p_public_list_url as $lang=>$url) {
-		$p_public_list_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_feed_url = !empty($_POST['p_public_feed_url']) && is_array($_POST['p_public_feed_url']) ? $_POST['p_public_feed_url'] : array();
-
-	foreach ($p_public_feed_url as $lang=>$url) {
-		$p_public_feed_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_gallery_url = !empty($_POST['p_public_gallery_url']) && is_array($_POST['p_public_gallery_url']) ? $_POST['p_public_gallery_url'] : array();
-
-	foreach ($p_public_gallery_url as $lang=>$url) {
-		$p_public_gallery_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_item_url = !empty($_POST['p_public_item_url']) && is_array($_POST['p_public_item_url']) ? $_POST['p_public_item_url'] : array();
-
-	foreach ($p_public_item_url as $lang=>$url) {
-		$p_public_item_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	foreach ($okt->languages->list as $aLanguage)
-	{
-		if (substr($p_public_gallery_url[$aLanguage['code']],0,strlen($p_public_list_url[$aLanguage['code']])) == $p_public_list_url[$aLanguage['code']]) {
-			$okt->error->set(__('m_galleries_config_error_list_url_match_gallery_url'));
-		}
-	}
-
-	foreach ($okt->languages->list as $aLanguage)
-	{
-		if ($p_public_gallery_url[$aLanguage['code']] == $p_public_item_url[$aLanguage['code']]) {
-			$okt->error->set(__('m_galleries_config_error_gallery_url_match_item_url'));
-		}
-	}
-
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
@@ -174,12 +136,7 @@ if (!empty($_POST['form_sent']))
 				'list' => $p_tpl_list,
 				'gallery' => $p_tpl_gallery,
 				'item' => $p_tpl_item
-			),
-
-			'public_list_url' => $p_public_list_url,
-//			'public_feed_url' => $p_public_feed_url,
-			'public_gallery_url' => $p_public_gallery_url,
-			'public_item_url' => $p_public_item_url
+			)
 		);
 
 		try
@@ -342,27 +299,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->galleries->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->galleries->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
-
-				<?php endforeach; ?>
-
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url') ?></legend>
-
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_list_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_galleries_config_url_galleries_list_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_list_url['.$aLanguage['code'].']','p_public_list_url_'.$aLanguage['code']), 60, 255, (isset($okt->galleries->config->public_list_url[$aLanguage['code']]) ? html::escapeHTML($okt->galleries->config->public_list_url[$aLanguage['code']]) : '')) ?></p>
-<!--
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_feed_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_galleries_config_url_rss_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><?php echo '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>' ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_feed_url['.$aLanguage['code'].']','p_public_feed_url_'.$aLanguage['code']), 60, 255, (isset($okt->galleries->config->public_feed_url[$aLanguage['code']]) ? html::escapeHTML($okt->galleries->config->public_feed_url[$aLanguage['code']]) : '')) ?></p>
--->
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_gallery_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_galleries_config_url_gallery_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_gallery_url['.$aLanguage['code'].']','p_public_gallery_url_'.$aLanguage['code']), 60, 255, (isset($okt->galleries->config->public_gallery_url[$aLanguage['code']]) ? html::escapeHTML($okt->galleries->config->public_gallery_url[$aLanguage['code']]) : '')) ?></p>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_feed_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_galleries_config_url_item_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_item_url['.$aLanguage['code'].']','p_public_item_url_'.$aLanguage['code']), 60, 255, (isset($okt->galleries->config->public_item_url[$aLanguage['code']]) ? html::escapeHTML($okt->galleries->config->public_item_url[$aLanguage['code']]) : '')) ?></p>
 
 				<?php endforeach; ?>
 

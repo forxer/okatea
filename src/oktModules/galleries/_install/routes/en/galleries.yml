@@ -1,0 +1,16 @@
+
+galleriesList:
+    path:     /galleries
+    defaults: { _controller: galleriesController::galleriesList }    
+
+galleriesGallery:
+    path:     /gallery/{slug}
+    defaults: { _controller: galleriesController::galleriesGallery }
+    requirements:
+        slug: .+?
+
+galleriesItem:
+    path:     /galleries/{slug}
+    defaults: { _controller: galleriesController::galleriesItem }
+    requirements:
+        slug: .+?

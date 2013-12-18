@@ -1,8 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_galleries_config_error_list_url_match_gallery_url'] = 'L’URL de la liste des galeries ne doit pas être la même que l’URL d’une galerie.';
-$GLOBALS['__l10n']['m_galleries_config_error_gallery_url_match_item_url'] = 'L’URL d’une galerie ne doit pas être la même que l’URL d’un élément.';
-
 $GLOBALS['__l10n']['m_galleries_config_tab_general'] = 'Général';
 $GLOBALS['__l10n']['m_galleries_config_tab_images_galleries'] = 'Images des galeries';
 $GLOBALS['__l10n']['m_galleries_config_tab_images_items'] = 'Images des éléments';
@@ -26,8 +23,3 @@ $GLOBALS['__l10n']['m_galleries_config_tab_tpl_title'] = 'Modèles d’affichage
 $GLOBALS['__l10n']['m_galleries_config_tpl_list'] = 'Modèles des listes de galeries';
 $GLOBALS['__l10n']['m_galleries_config_tpl_gallery'] = 'Modèles d’une galerie';
 $GLOBALS['__l10n']['m_galleries_config_tpl_item'] = 'Modèles d’un élément';
-
-$GLOBALS['__l10n']['m_galleries_config_url_galleries_list_%s'] = 'URL de la liste des galeries depuis %s';
-$GLOBALS['__l10n']['m_galleries_config_url_rss_%s'] = 'URL du flux de syndication depuis %s';
-$GLOBALS['__l10n']['m_galleries_config_url_gallery_%s'] = 'URL d’une galerie depuis %s';
-$GLOBALS['__l10n']['m_galleries_config_url_item_%s'] = 'URL d’un élément depuis %s';

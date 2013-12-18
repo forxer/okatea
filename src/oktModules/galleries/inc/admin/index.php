@@ -122,7 +122,7 @@ $okt->page->addButton('galleriesBtSt',array(
 $okt->page->addButton('galleriesBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
-	'url' 			=> html::escapeHTML($okt->galleries->config->url),
+	'url' 			=> html::escapeHTML(galleriesHelpers::getGalleriesUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
 

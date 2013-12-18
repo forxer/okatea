@@ -5,8 +5,9 @@
  *
  */
 
-use Tao\Misc\NestedTreei18n;
 use Tao\Images\ImageUpload;
+use Tao\Misc\NestedTreei18n;
+use Tao\Misc\Utilities as util;
 
 class galleriesTree extends NestedTreei18n
 {

@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_news_config_error_list_url_match_item_url'] = 'The URL of the posts list should not be the same as the URL of a post.';
-
 $GLOBALS['__l10n']['m_news_config_tab_general'] = 'General';
 $GLOBALS['__l10n']['m_news_config_tab_categories'] = 'Categories';
 $GLOBALS['__l10n']['m_news_config_tab_attached_files'] = 'Attached files';
@@ -34,8 +32,3 @@ $GLOBALS['__l10n']['m_news_config_tpl_list'] = 'Posts list templates';
 $GLOBALS['__l10n']['m_news_config_tpl_item'] = 'Posts templates';
 $GLOBALS['__l10n']['m_news_config_tpl_insert'] = 'Inserts templates';
 $GLOBALS['__l10n']['m_news_config_tpl_feed'] = 'Feed templates';
-
-$GLOBALS['__l10n']['m_news_config_url_posts_list_from_%s'] = 'URL of posts list from %s';
-$GLOBALS['__l10n']['m_news_config_url_rss_from_%s'] = 'URL of RSS syndication from %s';
-$GLOBALS['__l10n']['m_news_config_url_post_from_%s'] = 'URL of a post from %s';
-

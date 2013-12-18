@@ -133,13 +133,6 @@ $GLOBALS['__l10n']['m_users_config_tpl_profile'] = 'User profile form page templ
 $GLOBALS['__l10n']['m_users_config_tpl_register'] = 'Register form page templates';
 $GLOBALS['__l10n']['m_users_config_tpl_user_bar'] = 'User bar templates';
 
-$GLOBALS['__l10n']['m_users_URL_of_login_page_from_%s'] = 'URL of the identification page from %s';
-$GLOBALS['__l10n']['m_users_URL_of_disconnection_page_from_%s'] = 'URL of the disconnection page from %s';
-$GLOBALS['__l10n']['m_users_URL_of_registration_page_from_%s'] = 'URL of the registration page from %s';
-$GLOBALS['__l10n']['m_users_URL_of_log_reg_page_from_%s'] = 'URL of the login/registration unified page from %s';
-$GLOBALS['__l10n']['m_users_URL_of_forgotten_password_page_from_%s'] = 'URL of the forgotten password page from %s';
-$GLOBALS['__l10n']['m_users_URL_of_user_profile_page_from_%s'] = 'URL of the user profile page from %s';
-
 # Filtres
 $GLOBALS['__l10n']['m_users_filters_status'] = 'Status';
 $GLOBALS['__l10n']['m_users_wait_of_validation'] = 'Wait of validation';

@@ -13,29 +13,36 @@ meta_description:
 meta_keywords:
   fr: ''
   en: ''
+
 enable_metas: true
 enable_filters: true
 enable_rte: ''
+
 enable_group_perms: false
 perms:
   - 0
+
 admin_dysplay_style: list
 admin_filters_style: dialog
 admin_default_order_by: created_at
 admin_default_order_direction: DESC
 admin_default_nb_per_page: 10
+
 public_default_order_by: created_at
 public_default_order_direction: DESC
 public_default_nb_per_page: 5
 public_display_date: true
 public_display_author: false
 public_truncat_char: 0
+
 insert_truncat_char: 200
 lightbox_type: fancybox
+
 categories:
   enable: false
   descriptions: false
   rte: ''
+
 images:
   enable: true
   number: 4
@@ -51,10 +58,12 @@ images:
   square_size: 60
   watermark_file: ''
   watermark_position: cc
+
 files:
   enable: false
   number: 3
   allowed_exts: 'txt,pdf'
+
 templates:
   list:
     default: default
@@ -68,18 +77,4 @@ templates:
   feed:
     default: rss
     usables: {}
-
-routes:
-  list:
-    fr: /actualites
-    en: /news
-  category:
-    fr: /actualites/{slug}
-    en: /news/{slug}
-  post:
-    fr: /actualite/{slug}
-    en: /post/{slug}
-  feed:
-    fr: /actualites/rss
-    en: /news/rss
     

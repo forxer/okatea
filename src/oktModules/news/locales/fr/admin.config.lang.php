@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['__l10n']['m_news_config_error_list_url_match_item_url'] = 'L’URL de la liste des articles ne doit pas être la même que l’URL d’un article.';
-
 $GLOBALS['__l10n']['m_news_config_tab_general'] = 'Général';
 $GLOBALS['__l10n']['m_news_config_tab_categories'] = 'Rubriques';
 $GLOBALS['__l10n']['m_news_config_tab_attached_files'] = 'Fichiers joints';
@@ -34,7 +32,3 @@ $GLOBALS['__l10n']['m_news_config_tpl_list'] = 'Modèles des listes d’articles
 $GLOBALS['__l10n']['m_news_config_tpl_item'] = 'Modèles des articles';
 $GLOBALS['__l10n']['m_news_config_tpl_insert'] = 'Modèles des encarts';
 $GLOBALS['__l10n']['m_news_config_tpl_feed'] = 'Modèles des flux';
-
-$GLOBALS['__l10n']['m_news_config_url_posts_list_from_%s'] = 'URL de la liste des articles depuis %s';
-$GLOBALS['__l10n']['m_news_config_url_rss_from_%s'] = 'URL du flux de syndication depuis %s';
-$GLOBALS['__l10n']['m_news_config_url_post_from_%s'] = 'URL d’un article depuis %s';

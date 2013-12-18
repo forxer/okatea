@@ -13,17 +13,20 @@ meta_description:
 meta_keywords:
   fr: ''
   en: ''
+
 enable_metas: true
 enable_gal_password: false
 enable_rte: ''
 enable_gal_rte: ''
 enable_zip_upload: true
 enable_multiple_upload: false
+
 multiple_upload_type: 'plupload'
 gal_image_type: 1
 dysplay_clic_gal_image: enter
 dysplay_clic_items_image: image
 lightbox_type: fancybox
+
 images:
   enable: true
   number: 1
@@ -39,6 +42,7 @@ images:
   square_size: 60
   watermark_file: ''
   watermark_position: cc
+
 images_gal:
   enable: true
   number: 1
@@ -54,6 +58,7 @@ images_gal:
   square_size: 60
   watermark_file: ''
   watermark_position: cc
+
 templates:
   list:
     default: default
@@ -64,15 +69,3 @@ templates:
   item:
     default: default
     usables: {}
-public_list_url:
-  fr: galeries
-  en: galleries
-public_feed_url:
-  fr: /galeries
-  en: ''
-public_gallery_url:
-  fr: galerie
-  en: gallery
-public_item_url:
-  fr: galeries
-  en: galleries

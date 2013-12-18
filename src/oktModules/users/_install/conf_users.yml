@@ -38,22 +38,3 @@ templates:
   user_bar:
     default: default
     usables: {}
-
-public_login_url:
-  fr: connexion
-  en: login
-public_logout_url:
-  fr: deconnexion
-  en: logout
-public_register_url:
-  fr: inscription
-  en: register
-public_log_reg_url:
-  fr: connexion-inscription
-  en: login-register
-public_forget_password_url:
-  fr: mot-de-passe-oublie
-  en: forget-password
-public_profile_url:
-  fr: profil
-  en: profile

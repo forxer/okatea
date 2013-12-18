@@ -65,25 +65,6 @@ class module_galleries extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_galleries');
 
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
-		$this->config->feed_url = $this->okt->config->app_path.$this->config->public_feed_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('galleriesList', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_list_url)).')$',
-			'galleriesController', 'galleriesList'
-		));
-
-		$this->okt->router->addRoute('galleriesGallery', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_gallery_url)).')/(.*)$',
-			'galleriesController', 'galleriesGallery'
-		));
-
-		$this->okt->router->addRoute('galleriesItem', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_item_url)).')/(.*)$',
-			'galleriesController', 'galleriesItem'
-		));
-
 		# galleries tree
 		$this->tree = new galleriesTree(
 			$this->okt,

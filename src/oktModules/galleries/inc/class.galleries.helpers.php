@@ -22,11 +22,7 @@ class galleriesHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->galleries->config->public_list_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl().$okt->galleries->config->public_list_url[$sLanguage];
+		return $okt->router->generate('galleriesList');
 	}
 
 	/**
@@ -40,15 +36,15 @@ class galleriesHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->galleries->config->public_gallery_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl($sLanguage).$okt->galleries->config->public_gallery_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('galleriesGallery', array('slug' => $sSlug));
 	}
 
 	/**
@@ -62,16 +58,14 @@ class galleriesHelpers
 	{
 		global $okt;
 
+		if (empty($sSlug)) {
+			return null;
+		}
+
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->galleries->config->public_item_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl($sLanguage).$okt->galleries->config->public_item_url[$sLanguage].'/'.$sSlug;
+		return $okt->router->generate('galleriesItem', array('slug' => $sSlug));
 	}
-
-
 }
