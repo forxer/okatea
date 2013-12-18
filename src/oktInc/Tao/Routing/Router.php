@@ -62,9 +62,6 @@ class Router extends BaseRouter
 				$name = $name.'-'.$language;
 			}
 		}
-		else {
-			$name = $name.'-'.$this->app->config->language;
-		}
 
 		return $this->getGenerator()->generate($name, $parameters, $referenceType);
 	}

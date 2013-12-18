@@ -10,6 +10,8 @@ namespace Tao\Routing\Loader;
 
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Resource\DirectoryResource;
+use Symfony\Component\Routing\Loader\YamlFileLoader as BaseYamlFileLoader;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Tao\Core\Application;
 
@@ -18,7 +20,7 @@ use Tao\Core\Application;
  * from Yaml routing files.
  *
  */
-class YamlDirectoryLoader extends YamlFileLoader
+class YamlDirectoryLoader extends BaseYamlFileLoader
 {
 	/**
 	 * @var Application
@@ -27,11 +29,9 @@ class YamlDirectoryLoader extends YamlFileLoader
 
 	public function __construct(Application $app, FileLocatorInterface $locator)
 	{
-		$this->locator = $locator;
-
 		$this->app = $app;
 
-		parent::__construct($app, $locator);
+		parent::__construct($locator);
 	}
 
 	/**
@@ -55,15 +55,47 @@ class YamlDirectoryLoader extends YamlFileLoader
 			return (string) $a > (string) $b ? 1 : -1;
 		});
 
-		foreach ($files as $file) {
+		foreach ($files as $file)
+		{
 			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), -4)) {
 				continue;
 			}
+
+			$this->language = basename(dirname($file->getPathname()));
 
 			$collection->addCollection(parent::load($file->getRealPath(), $type));
 		}
 
 		return $collection;
+	}
+
+	/**
+	 * Parses a route and adds it to the RouteCollection.
+	 *
+	 * @param RouteCollection $collection A RouteCollection instance
+	 * @param string          $name       Route name
+	 * @param array           $config     Route definition
+	 * @param string          $path       Full path of the YAML file being processed
+	 */
+	protected function parseRoute(RouteCollection $collection, $name, array $config, $path)
+	{
+		$defaults = isset($config['defaults']) ? $config['defaults'] : array();
+		$requirements = isset($config['requirements']) ? $config['requirements'] : array();
+		$options = isset($config['options']) ? $config['options'] : array();
+		$host = isset($config['host']) ? $config['host'] : '';
+		$schemes = isset($config['schemes']) ? $config['schemes'] : array();
+		$methods = isset($config['methods']) ? $config['methods'] : array();
+		$condition = isset($config['condition']) ? $config['condition'] : null;
+
+		if (!$this->app->languages->unique)
+		{
+			$name .= '-'.$this->language;
+			$config['path'] = '/'.$this->language.$config['path'];
+		}
+
+		$route = new Route($config['path'], $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
+
+		$collection->add($name, $route);
 	}
 
 	/**
