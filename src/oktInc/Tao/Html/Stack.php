@@ -16,7 +16,7 @@ namespace Tao\Html;
  */
 class Stack
 {
-	protected $stack = array();
+	protected $aStack;
 
 	/**
 	 * Constructeur.
@@ -24,19 +24,23 @@ class Stack
 	 * @param array $items 		Les éléments de la pile
 	 * @return void
 	 */
-	public function __construct($items=array())
+	public function __construct($aItems=array())
 	{
-		$this->setItems($items);
+		$this->reset();
+
+		if (is_array($aItems)) {
+			$this->setItems($aItems);
+		}
 	}
 
 	/**
-	 * Initialise la pile.
+	 * Ré-initialise la pile.
 	 *
 	 * @return void
 	 */
-	public function init()
+	public function reset()
 	{
-		$this->stack = array();
+		$this->aStack = array();
 	}
 
 	/**
@@ -47,18 +51,22 @@ class Stack
 	 */
 	public function setItem($str)
 	{
-		$this->stack[] = $str;
+		$this->aStack[] = $str;
 	}
 
 	/**
-	 * Ajoute un élément à la pile.
+	 * Ajoute des éléments à la pile.
 	 *
-	 * @param array $items
+	 * @param array $aItems
 	 * @return void
 	 */
-	public function setItems($items)
+	public function setItems($aItems)
 	{
-		$this->stack = array_merge($this->stack, (array)$items);
+		if (!is_array($aItems)) {
+			return null;
+		}
+
+		$this->aStack = array_merge($this->aStack, $aItems);
 	}
 
 	/**
@@ -68,12 +76,18 @@ class Stack
 	 */
 	public function hasItem()
 	{
-		return !empty($this->stack);
+		return !empty($this->aStack);
 	}
 
 	public function __toString()
 	{
-		return $this->getHTML();
+		$str = $this->getHTML();
+
+		if (null === $str) {
+			return '';
+		}
+
+		return $str;
 	}
 
 	/**
@@ -87,14 +101,41 @@ class Stack
 			return null;
 		}
 
-		if (count($this->stack) > 1)
+		if (count($this->aStack) > 1)
 		{
-			return
-			'<ul><li>'.
-			implode('</li><li>', array_map(array('\html','escapeHTML'),$this->stack))
-			.'</li></ul>';
+			$str = '<ul>';
+
+			foreach ($this->aStack as $k=>$v)
+			{
+				if (is_int($k)) {
+					$str .= '<li>'.$v.'</li>';
+				}
+				else {
+					$str .= '<li>'.$k.': '.$v.'</li>';
+				}
+			}
+
+			$str .= '</ul>';
+
+			return $str;
+		}
+		else
+		{
+			$str = '<p>';
+
+			foreach ($this->aStack as $k=>$v)
+			{
+				if (is_int($k)) {
+					$str .= $v;
+				}
+				else {
+					$str .= $k.': '.$v;
+				}
+			}
+
+			$str .= '</p>';
 		}
 
-		return '<p>'.\html::escapeHTML($this->stack[0]).'</p>';
+		return $str;
 	}
 }

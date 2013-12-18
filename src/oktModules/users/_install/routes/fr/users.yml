@@ -1,24 +1,24 @@
 
-usersLogin-fr:
-    path:     /fr/connexion
+usersLogin:
+    path:     /connexion
     defaults: { _controller: 'usersController::usersLogin' }
 
-usersLogout-fr:
-    path:     /fr/deconnexion
+usersLogout:
+    path:     /deconnexion
     defaults: { _controller: 'usersController::usersLogout' }
 
-usersProfile-fr:
-    path:     /fr/profil
+usersProfile:
+    path:     /profil
     defaults: { _controller: 'usersController::usersProfile' }
 
-usersRegister-fr:
-    path:     /fr/inscription
+usersRegister:
+    path:     /inscription
     defaults: { _controller: 'usersController::usersRegister' }
 
-usersLoginRegister-fr:
-    path:     /fr/connexion-inscription
+usersLoginRegister:
+    path:     /connexion-inscription
     defaults: { _controller: 'usersController::usersLoginRegister' }
 
-usersForgetPassword-fr:
-    path:     /fr/mot-de-passe-oublie
+usersForgetPassword:
+    path:     /mot-de-passe-oublie
     defaults: { _controller: 'usersController::usersForgetPassword' }

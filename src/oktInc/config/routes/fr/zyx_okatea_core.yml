@@ -2,15 +2,15 @@
 # do not remove this file
 
 404:
-    path:     /fr/404
+    path:     /404
     defaults: { _controller: Tao\Core\Controller::serve404 }
 
 503:
-    path:     /fr/503
+    path:     /503
     defaults: { _controller: Tao\Core\Controller::serve503 }
     
 remove_trailing_slash:
-    path:     /fr/{url}
+    path:     /{url}
     defaults: { _controller: Tao\Core\Controller::removeTrailingSlash }
     requirements:
         url: .*/$
