@@ -43,12 +43,21 @@ class ConfigHelpers
 			}
 		}
 
-		# put loaded routes at top
-		uasort($aRoutesInfos, function($a, $b){
-			if ($a['loaded'] == $b['loaded']) {
-				return 0;
+		uasort($aRoutesInfos, function($a, $b)
+		{
+			# put loaded routes at top
+			if ($a['loaded'] !== $b['loaded']) {
+				return $b['loaded'] - $a['loaded'];
 			}
-			return  $b['loaded'] - $a['loaded'];
+
+			# group by filename
+			$c = strcasecmp($a['file'],$b['file']);
+
+			if ($c !== 0) {
+				return $c;
+			}
+
+			return 0;
 		});
 
 		return $aRoutesInfos;
@@ -113,9 +122,10 @@ class ConfigHelpers
 			{
 				$aRoute['file'] = $oFile->getPathname();
 				$aRoute['basename'] = $sName;
-				$aRoute['path'] = '/'.$sLanguage.$aRoute['path'];
+				$aRoute['basepath'] = $aRoute['path'];
 				$aRoute['language'] = $sLanguage;
 
+				$aRoute['path'] = '/'.$sLanguage.$aRoute['path'];
 				$sName .= '-'.$sLanguage;
 
 				$this->aRoutesFromFiles[$sName] = $aRoute;

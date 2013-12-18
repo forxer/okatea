@@ -58,24 +58,7 @@ $okt->page->css->addCss('
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 
-
-<div id="tabered">
-	<ul>
-		<li><a href="#tab_routes_system"><span><?php _e('c_a_config_router_tab_routes_system') ?></span></a></li>
-		<li><a href="#tab_custom_routes"><span><?php _e('c_a_config_router_tab_custom_routes') ?></span></a></li>
-		<li><a href="#tab_config"><span><?php _e('c_a_config_router_tab_config') ?></span></a></li>
-	</ul>
-
-	<div id="tab_routes_system">
-		<h3><?php _e('c_a_config_router_tab_routes_system') ?></h3>
-
-		<p class="note"><?php _e('c_a_config_router_routes_info') ?></p>
-
-		<h4><?php _e('c_a_config_router_default_route') ?></h4>
-
-		<p>.....</p>
-
-		<h4><?php _e('c_a_config_router_routes_list') ?></h4>
+		<h3><?php _e('c_a_config_router_routes_list') ?></h3>
 
 		<?php if (empty($aRouteInfoss)) : ?>
 		<p><?php _e('c_a_config_router_no_route') ?></p>
@@ -87,10 +70,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<th scope="col"><?php _e('c_a_config_router_route_path') ?></th>
 				<th scope="col"><?php _e('c_a_config_router_route_defaults') ?></th>
 				<th scope="col"><?php _e('c_a_config_router_route_requirements') ?></th>
-				<th scope="col"><?php _e('c_a_config_router_route_options') ?></th>
-				<th scope="col"><?php _e('c_a_config_router_route_host') ?></th>
-				<th scope="col"><?php _e('c_a_config_router_route_schemes') ?></th>
-				<th scope="col"><?php _e('c_a_config_router_route_methods') ?></th>
+				<th scope="col"><?php _e('c_a_config_router_route_language') ?></th>
+				<th scope="col"><?php _e('c_a_config_router_route_file') ?></th>
+				<th scope="col"><?php _e('c_a_config_router_route_others_options') ?></th>
 				<th scope="col"><?php _e('c_a_config_router_route_loaded') ?></th>
 			</tr></thead>
 			<tbody>
@@ -106,29 +88,51 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				$td_class = ' disabled';
 			}
 
+			$aOthersOptions = array();
+
+			if (!empty($aRouteInfos['options']))
+			{
+				$oOptions = new Stack($aRouteInfos['options']);
+				$aOthersOptions[__('c_a_config_router_route_options')] = $oOptions->getHTML();
+			}
+
+			if (!empty($aRouteInfos['host'])) {
+				$aOthersOptions[__('c_a_config_router_route_host')] = $aRouteInfos['host'];
+			}
+
+			if (!empty($aRouteInfos['schemes']))
+			{
+				$oSchemes = new Stack($aRouteInfos['schemes']);
+				$aOthersOptions[__('c_a_config_router_route_schemes')] = $oSchemes->getHTML();
+			}
+
+			if (!empty($aRouteInfos['schemes']))
+			{
+				$oMethods = new Stack($aRouteInfos['methods']);
+				$aOthersOptions[__('c_a_config_router_route_methods')] = $oMethods->getHTML();
+			}
+
 			$sShortName = strstr($sRouteName, '-', true);
+
 			?>
 			<tr id="route_<?php echo $sRouteName ?>">
-				<th class="<?php echo $td_class ?> fake-td" scope="row"><h5><?php echo $sRouteName ?></h5></th>
+				<th class="<?php echo $td_class ?> fake-td" scope="row"><h4 class="title"><?php echo $okt->languages->unique ? $aRouteInfos['basename'] : $sRouteName; ?></h4></th>
 				<td class="<?php echo $td_class ?>">
 					<?php echo (isset($GLOBALS['__l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['__l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
 					<?php echo (isset($GLOBALS['__l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['__l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
 				</td>
-				<td class="<?php echo $td_class ?>"><?php echo $aRouteInfos['path'] ?></td>
-				<td class="<?php echo $td_class ?>"><?php $oList = new Stack($aRouteInfos['defaults']); echo $oList; ?></td>
-				<td class="<?php echo $td_class ?>"><?php $oList = new Stack($aRouteInfos['requirements']); echo $oList; ?></td>
-				<td class="<?php echo $td_class ?>"><?php $oList = new Stack($aRouteInfos['options']); echo $oList; ?></td>
-				<td class="<?php echo $td_class ?>"><?php echo $aRouteInfos['host'] ?></td>
-				<td class="<?php echo $td_class ?>"><?php $oList = new Stack($aRouteInfos['schemes']); echo $oList; ?></td>
-				<td class="<?php echo $td_class ?>"><?php $oList = new Stack($aRouteInfos['methods']); echo $oList; ?></td>
+				<td class="<?php echo $td_class ?>"><?php echo $okt->languages->unique ? $aRouteInfos['basepath'] : $aRouteInfos['path']; ?></td>
+				<td class="<?php echo $td_class ?>"><?php $oDefaults = new Stack($aRouteInfos['defaults']); echo $oDefaults; ?></td>
+				<td class="<?php echo $td_class ?>"><?php $oRequirements = new Stack($aRouteInfos['requirements']); echo $oRequirements; ?></td>
+				<td class="<?php echo $td_class ?> center"><?php echo $aRouteInfos['language'] ?></td>
+				<td class="<?php echo $td_class ?>"><?php echo basename($aRouteInfos['file']) ?></td>
+				<td class="<?php echo $td_class ?>"><?php $oOthersOptions = new Stack($aOthersOptions); echo $oOthersOptions; ?></td>
 				<td class="<?php echo $td_class ?> center"><?php echo $aRouteInfos['loaded'] ? '<span class="icon tick" title="'.__('c_c_yes').'"></span>' : '<span class="icon cross" title="'.__('c_c_no').'"></span>'; ?></td>
 			</tr>
 			<?php endforeach; ?>
 			</tbody>
 		</table>
 		<?php endif; ?>
-	</div><!-- #tab_routes_system -->
-</div><!-- #tabered -->
 
 <?php # Pied-de-page
 require OKT_ADMIN_FOOTER_FILE; ?>
