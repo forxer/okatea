@@ -223,9 +223,9 @@ class Controller
 		$this->okt->page->module = 'core';
 		$this->okt->page->action = '503';
 
-		\http::head(503);
+		$this->response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
 
-		header('Retry-After: 3600');
+		$this->response->headers->set('Retry-After', 3600);
 
 		return $this->render('503');
 	}
@@ -242,6 +242,6 @@ class Controller
 
 		$url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
 
-		return $this->redirect($url, 301);
+		return $this->redirect($url, Response::HTTP_MOVED_PERMANENTLY);
 	}
 }
