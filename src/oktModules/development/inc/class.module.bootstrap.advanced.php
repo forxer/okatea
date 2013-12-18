@@ -57,10 +57,10 @@ class oktModuleBootstrapAdvanced extends oktModuleBootstrap
 		$this->makeFile('tpl_list', 		$this->dir.'/_install/tpl/'.$this->id.'_list_tpl.php', $replacements);
 		$this->makeFile('tpl_item', 		$this->dir.'/_install/tpl/'.$this->id.'_item_tpl.php', $replacements);
 
-		$this->makeFile('admin_index', 		$this->dir.'/inc/admin/index.php', $replacements);
-		$this->makeFile('admin_display', 	$this->dir.'/inc/admin/display.php', $replacements);
-		$this->makeFile('admin_config', 	$this->dir.'/inc/admin/config.php', $replacements);
-		$this->makeFile('admin_item', 		$this->dir.'/inc/admin/item.php', $replacements);
+		$this->makeFile('admin_index', 		$this->dir.'/admin/index.php', $replacements);
+		$this->makeFile('admin_display', 	$this->dir.'/admin/display.php', $replacements);
+		$this->makeFile('admin_config', 	$this->dir.'/admin/config.php', $replacements);
+		$this->makeFile('admin_item', 		$this->dir.'/admin/item.php', $replacements);
 
 		$this->makeFile('public_prepend_list', 		$this->dir.'/inc/public/list.php', $replacements);
 		$this->makeFile('public_prepend_item', 		$this->dir.'/inc/public/item.php', $replacements);

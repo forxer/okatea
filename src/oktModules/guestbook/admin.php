@@ -60,16 +60,16 @@ $okt->page->addAriane($okt->guestbook->getName(),'module.php?m=guestbook');
 
 # inclusion du fichier requis
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require __DIR__.'/inc/admin/edit.php';
+	require __DIR__.'/admin/edit.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('guestbook_display')) {
-	require __DIR__.'/inc/admin/display.php';
+	require __DIR__.'/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('guestbook_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
 	http::redirect('index.php');

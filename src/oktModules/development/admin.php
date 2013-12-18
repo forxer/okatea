@@ -18,16 +18,16 @@ $okt->page->addAriane(__('Development'),'module.php?m=development');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if ((!$okt->page->action || $okt->page->action === 'index')) {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'debug_bar' && $okt->checkPerm('development_debug_bar')) {
-	require __DIR__.'/inc/admin/debug_bar.php';
+	require __DIR__.'/admin/debug_bar.php';
 }
 elseif ($okt->page->action === 'bootstrap' && $okt->checkPerm('development_bootstrap')) {
-	require __DIR__.'/inc/admin/bootstrap.php';
+	require __DIR__.'/admin/bootstrap.php';
 }
 elseif ($okt->page->action === 'counting' && $okt->checkPerm('development_counting')) {
-	require __DIR__.'/inc/admin/counting.php';
+	require __DIR__.'/admin/counting.php';
 }
 else {
 	http::redirect('index.php');

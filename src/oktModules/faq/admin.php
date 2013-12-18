@@ -54,20 +54,20 @@ $okt->page->setButtonset('faqBtSt',array(
 
 # inclusion du fichier requis en fonction de l'action demandée
 if ($okt->page->action === 'add' && $okt->checkPerm('faq_add')) {
-	require __DIR__.'/inc/admin/question.php';
+	require __DIR__.'/admin/question.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require __DIR__.'/inc/admin/question.php';
+	require __DIR__.'/admin/question.php';
 }
 elseif ($okt->page->action === 'categories' && $okt->checkPerm('faq_categories')) {
-	require __DIR__.'/inc/admin/categories.php';
+	require __DIR__.'/admin/categories.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('faq_display')) {
-	require __DIR__.'/inc/admin/display.php';
+	require __DIR__.'/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('faq_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }

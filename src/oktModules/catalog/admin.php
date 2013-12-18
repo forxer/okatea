@@ -47,19 +47,19 @@ $okt->page->setButtonset('catalogBtSt',array(
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'add' || $okt->page->action === 'edit') {
-	require __DIR__.'/inc/admin/product.php';
+	require __DIR__.'/admin/product.php';
 }
 elseif ($okt->page->action === 'categories' && $okt->catalog->config->categories_enable && $okt->checkPerm('catalog_categories')) {
-	require __DIR__.'/inc/admin/categories.php';
+	require __DIR__.'/admin/categories.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('catalog_display')) {
-	require __DIR__.'/inc/admin/display.php';
+	require __DIR__.'/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('catalog_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
 	http::redirect('index.php');

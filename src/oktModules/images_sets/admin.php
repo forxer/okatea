@@ -20,10 +20,10 @@ $okt->page->addAriane($okt->images_sets->getName(),'module.php?m=images_sets');
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'set') {
-	require __DIR__.'/inc/admin/set.php';
+	require __DIR__.'/admin/set.php';
 }
 else {
 	http::redirect('index.php');

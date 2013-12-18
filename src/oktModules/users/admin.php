@@ -14,7 +14,7 @@ if (!$okt->checkPerm('users') && $okt->page->action !== 'profil') {
 }
 
 if ($okt->page->action === 'profil') {
-	require __DIR__.'/inc/admin/profil.php';
+	require __DIR__.'/admin/profil.php';
 }
 else {
 	# titre de la page
@@ -43,31 +43,31 @@ else {
 
 	# inclusion du fichier requis
 	if (!$okt->page->action || $okt->page->action === 'index') {
-		require __DIR__.'/inc/admin/index.php';
+		require __DIR__.'/admin/index.php';
 	}
 	elseif ($okt->page->action === 'add') {
-		require __DIR__.'/inc/admin/add.php';
+		require __DIR__.'/admin/add.php';
 	}
 	elseif ($okt->page->action === 'edit') {
-		require __DIR__.'/inc/admin/edit.php';
+		require __DIR__.'/admin/edit.php';
 	}
 	elseif ($okt->page->action === 'groups' && $okt->checkPerm('groups')) {
-		require __DIR__.'/inc/admin/groups.php';
+		require __DIR__.'/admin/groups.php';
 	}
 	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {
-		require __DIR__.'/inc/admin/fields.php';
+		require __DIR__.'/admin/fields.php';
 	}
 	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {
-		require __DIR__.'/inc/admin/field.php';
+		require __DIR__.'/admin/field.php';
 	}
 	elseif ($okt->page->action === 'export' && $okt->checkPerm('users_export')) {
-		require __DIR__.'/inc/admin/export.php';
+		require __DIR__.'/admin/export.php';
 	}
 	elseif ($okt->page->action === 'display' && $okt->checkPerm('users_display')) {
-		require __DIR__.'/inc/admin/display.php';
+		require __DIR__.'/admin/display.php';
 	}
 	elseif ($okt->page->action === 'config' && $okt->checkPerm('users_config')) {
-		require __DIR__.'/inc/admin/config.php';
+		require __DIR__.'/admin/config.php';
 	}
 	else {
 		http::redirect('index.php');

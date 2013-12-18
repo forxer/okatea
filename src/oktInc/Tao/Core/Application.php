@@ -222,6 +222,7 @@ class Application
 		$this->requestContext->fromRequest($this->request);
 
 		$this->session = new Session();
+		$this->request->setSession($this->session);
 
 		$this->languages = new Languages($this);
 

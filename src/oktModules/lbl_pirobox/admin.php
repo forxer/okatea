@@ -11,7 +11,7 @@ if (!defined('ON_LBL_PIROBOX_MODULE')) die;
 
 # inclusion du fichier requis en fonction de l'action demandée
 if ($okt->page->action === 'config' && $okt->checkPerm('pirobox_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
 	http::redirect('index.php');

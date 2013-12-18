@@ -57,20 +57,20 @@ $okt->page->setButtonset('partnersBtSt',array(
 
 # inclusion du fichier requis en fonction de l'action demandée
 if ($okt->page->action === 'add' && $okt->checkPerm('partners_add')) {
-	require __DIR__.'/inc/admin/partner.php';
+	require __DIR__.'/admin/partner.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require __DIR__.'/inc/admin/partner.php';
+	require __DIR__.'/admin/partner.php';
 }
 elseif ($okt->page->action === 'categories' && $okt->partners->config->enable_categories && $okt->checkPerm('partners_add')) {
-	require __DIR__.'/inc/admin/categories.php';
+	require __DIR__.'/admin/categories.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('partners')) {
-	require __DIR__.'/inc/admin/display.php';
+	require __DIR__.'/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('partners_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }

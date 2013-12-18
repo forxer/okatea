@@ -58,25 +58,25 @@ if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'details') {
-	require __DIR__.'/inc/admin/details.php';
+	require __DIR__.'/admin/details.php';
 }
 elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products')) {
-	require __DIR__.'/inc/admin/products.php';
+	require __DIR__.'/admin/products.php';
 }
 elseif ($okt->page->action === 'product' && $okt->checkPerm('estimate_products')) {
-	require __DIR__.'/inc/admin/product.php';
+	require __DIR__.'/admin/product.php';
 }
 elseif ($okt->page->action === 'accessories' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories')) {
-	require __DIR__.'/inc/admin/accessories.php';
+	require __DIR__.'/admin/accessories.php';
 }
 elseif ($okt->page->action === 'accessory' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories')) {
-	require __DIR__.'/inc/admin/accessory.php';
+	require __DIR__.'/admin/accessory.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
 	http::redirect('index.php');

@@ -44,7 +44,7 @@ class oktModuleBootstrapSimple extends oktModuleBootstrap
 
 		$this->makeFile('tpl_base', 		$this->dir.'/_install/tpl/'.$this->id.'_tpl.php', $replacements);
 
-		$this->makeFile('admin_config', 	$this->dir.'/inc/admin/config.php', $replacements);
+		$this->makeFile('admin_config', 	$this->dir.'/admin/config.php', $replacements);
 
 		$this->makeFile('controller', 		$this->dir.'/inc/class.'.$this->id.'.controller.php', $replacements);
 

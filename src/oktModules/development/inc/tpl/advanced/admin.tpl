@@ -49,19 +49,19 @@ $okt->page->addAriane($okt->##module_id##->getName(),'module.php?m=##module_id##
 
 # inclusion du fichier requis en fonction de l'action demandée
 if (!$okt->page->action || $okt->page->action === 'index') {
-	require __DIR__.'/inc/admin/index.php';
+	require __DIR__.'/admin/index.php';
 }
 elseif ($okt->page->action === 'add' && $okt->checkPerm('##module_id##_add')) {
-	require __DIR__.'/inc/admin/item.php';
+	require __DIR__.'/admin/item.php';
 }
 elseif ($okt->page->action === 'edit') {
-	require __DIR__.'/inc/admin/item.php';
+	require __DIR__.'/admin/item.php';
 }
 elseif ($okt->page->action === 'display' && $okt->checkPerm('##module_id##_display')) {
-	require __DIR__.'/inc/admin/display.php';
+	require __DIR__.'/admin/display.php';
 }
 elseif ($okt->page->action === 'config' && $okt->checkPerm('##module_id##_config')) {
-	require __DIR__.'/inc/admin/config.php';
+	require __DIR__.'/admin/config.php';
 }
 else {
 	http::redirect('index.php');
