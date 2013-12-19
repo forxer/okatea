@@ -17,11 +17,11 @@ class UsersFilters extends BaseFilters
 
 	protected $order_by_array = array();
 
-	public function __construct($okt, $users, $part='public', $params=array())
+	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct('users', $users->config, $part, $params);
+		parent::__construct($okt, 'users', $okt->users->config, $part, $params);
 
-		$this->users = $users;
+		$this->users = $okt->users;
 
 		$this->order_by_array = array();
 	}
@@ -149,7 +149,7 @@ class UsersFilters extends BaseFilters
 				$this->params->order_direction = 'asc';
 			}
 
-			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction;
+			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
 		}
 		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{

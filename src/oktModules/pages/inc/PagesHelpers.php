@@ -22,10 +22,6 @@ class PagesHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->pages->config->routes['list'][$sLanguage])) {
-			return null;
-		}
-
 		return $okt->router->generate('pagesList');
 	}
 
@@ -61,10 +57,6 @@ class PagesHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->pages->config->routes['post'][$sLanguage])) {
-			return null;
-		}
-
 		return $okt->router->generate('pagesItem', array('slug' => $sSlug));
 	}
 
@@ -85,10 +77,6 @@ class PagesHelpers
 
 		if (is_null($sLanguage)) {
 			$sLanguage = $okt->user->language;
-		}
-
-		if (!isset($okt->pages->config->routes['category'][$sLanguage])) {
-			return null;
 		}
 
 		return $okt->router->generate('pagesCategory', array('slug' => $sSlug));
