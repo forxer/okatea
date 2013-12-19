@@ -205,5 +205,4 @@ class module_pages_example_extra_fields extends Module
 				form::textarea(array('p_editor['.$aLanguage['code'].']','p_editor_'.$aLanguage['code']), 97, 15, $aPageData['locales'][$aLanguage['code']]['editor'], 'richTextEditor').'</p>';
 		}
 	}
-
 }

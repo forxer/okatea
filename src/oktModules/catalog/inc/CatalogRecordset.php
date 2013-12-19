@@ -8,7 +8,7 @@
 use Tao\Misc\Utilities as util;
 use Tao\Database\Recordset;
 
-class catalogRecordset extends Recordset
+class CatalogRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore
@@ -65,9 +65,9 @@ class catalogRecordset extends Recordset
 	 *
 	 * @return string
 	 */
-	public function getProductUrl()
+	public function getProductUrl($sLanguage=null)
 	{
-		return $this->okt->page->getBaseUrl().$this->okt->catalog->config->public_product_url.'/'.$this->slug;
+		return CatalogHelpers::getProductUrl($this->slug, $sLanguage);
 	}
 
 	/**
@@ -75,9 +75,9 @@ class catalogRecordset extends Recordset
 	 *
 	 * @return string
 	 */
-	public function getCategoryUrl()
+	public function getCategoryUrl($sLanguage=null)
 	{
-		return $this->okt->page->getBaseUrl().$this->okt->catalog->config->public_catalog_url.'/'.$this->category_slug;
+		return CatalogHelpers::getCategoryUrl($this->category_slug, $sLanguage);
 	}
 
 	/**

@@ -18,9 +18,6 @@ public_truncat_char: 250
 
 lightbox_type: fancybox
 
-public_catalog_url: catalogue
-public_product_url: produit
-
 fields:
   subtitle: 0
   content_short: 0

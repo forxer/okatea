@@ -22,11 +22,7 @@ class UsersHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->users->config->public_forget_password_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl().$okt->users->config->public_forget_password_url[$sLanguage];
+		return $okt->router->generate('usersForgetPassword');
 	}
 
 	/**
@@ -43,11 +39,7 @@ class UsersHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->users->config->public_logout_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl().$okt->users->config->public_logout_url[$sLanguage];
+		return $okt->router->generate('usersLogout');
 	}
 
 	/**
@@ -67,14 +59,11 @@ class UsersHelpers
 
 		$sLoginUrl = $okt->page->getBaseUrl();
 
-		if ($okt->users->config->enable_log_reg_page && isset($okt->users->config->public_log_reg_url[$sLanguage])) {
-			$sLoginUrl .= $okt->users->config->public_log_reg_url[$sLanguage];
-		}
-		elseif (isset($okt->users->config->public_login_url[$sLanguage])) {
-			$sLoginUrl .= $okt->users->config->public_login_url[$sLanguage];
+		if ($okt->users->config->enable_log_reg_page) {
+			$sLoginUrl .= $okt->router->generate('usersLoginRegister');
 		}
 		else {
-			return null;
+			$sLoginUrl .= $okt->router->generate('usersLogin');
 		}
 
 		if (!is_null($sRedirectUrl)) {
@@ -98,11 +87,7 @@ class UsersHelpers
 			$sLanguage = $okt->user->language;
 		}
 
-		if (!isset($okt->users->config->public_profile_url[$sLanguage])) {
-			return null;
-		}
-
-		return $okt->page->getBaseUrl().$okt->users->config->public_profile_url[$sLanguage];
+		return $okt->router->generate('usersProfile');
 	}
 
 	/**
@@ -122,14 +107,11 @@ class UsersHelpers
 
 		$sRegisterUrl = $okt->page->getBaseUrl();
 
-		if ($okt->users->config->enable_log_reg_page && isset($okt->users->config->public_log_reg_url[$sLanguage])) {
-			$sRegisterUrl .= $okt->users->config->public_log_reg_url[$sLanguage];
-		}
-		elseif (isset($okt->users->config->public_login_url[$sLanguage])) {
-			$sRegisterUrl .= $okt->users->config->public_register_url[$sLanguage];
+		if ($okt->users->config->enable_log_reg_page) {
+			$sRegisterUrl .= $okt->router->generate('usersLoginRegister');
 		}
 		else {
-			return null;
+			$sRegisterUrl .= $okt->router->generate('usersRegister');
 		}
 
 		if (!is_null($sRedirectUrl)) {
@@ -138,5 +120,4 @@ class UsersHelpers
 
 		return $sRegisterUrl;
 	}
-
 }

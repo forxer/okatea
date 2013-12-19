@@ -34,9 +34,10 @@ class module_catalog extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'catalogController' => __DIR__.'/inc/class.catalog.controller.php',
-			'catalogFilters' => __DIR__.'/inc/class.catalog.filters.php',
-			'catalogRecordset' => __DIR__.'/inc/class.catalog.recordset.php'
+			'CatalogController' => __DIR__.'/inc/CatalogController.php',
+			'CatalogFilters' => __DIR__.'/inc/CatalogFilters.php',
+			'CatalogHelpers' => __DIR__.'/inc/CatalogHelpers.php',
+			'CatalogRecordset' => __DIR__.'/inc/CatalogRecordset.php'
 		));
 
 		# permissions
@@ -54,23 +55,6 @@ class module_catalog extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_catalog');
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_catalog_url;
-
-		# définition des routes
-		$this->okt->router->addRoute('catalogList', new Route(
-			html::escapeHTML($this->config->public_catalog_url),
-			'catalogController', 'catalogList'
-		));
-
-		$this->okt->router->addRoute('catalogCategory', new Route(
-			'^'.html::escapeHTML($this->config->public_catalog_url).'/(.*)$',
-			'catalogController', 'catalogCategory'
-		));
-
-		$this->okt->router->addRoute('catalogItem', new Route(
-			'^'.html::escapeHTML($this->config->public_product_url).'/(.*)$',
-			'catalogController', 'catalogItem'
-		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/catalog/';
@@ -162,8 +146,8 @@ class module_catalog extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof catalogFilters)) {
-			$this->filters = new catalogFilters($this->okt, $this, $part);
+		if ($this->filters === null || !($this->filters instanceof CatalogFilters)) {
+			$this->filters = new CatalogFilters($this->okt, $part);
 		}
 	}
 
@@ -313,13 +297,13 @@ class module_catalog extends Module
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery,'catalogRecordset')) === false)
+		if (($rs = $this->db->select($sQuery,'CatalogRecordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
 			}
 			else {
-				$rs = new catalogRecordset(array());
+				$rs = new CatalogRecordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -771,7 +755,7 @@ class module_catalog extends Module
 			return false;
 		}
 
-		return $this->updProdImages($product_id, $aImages);
+		return $this->updImagesInDb($product_id, $aImages);
 	}
 
 	/**
@@ -794,7 +778,7 @@ class module_catalog extends Module
 			return false;
 		}
 
-		return $this->updProdImages($product_id, $aImages);
+		return $this->updImagesInDb($product_id, $aImages);
 	}
 
 	/**
@@ -818,7 +802,7 @@ class module_catalog extends Module
 			return false;
 		}
 
-		return $this->updProdImages($product_id, $aNewImages);
+		return $this->updImagesInDb($product_id, $aNewImages);
 	}
 
 	/**
@@ -837,7 +821,7 @@ class module_catalog extends Module
 
 		$this->getImageUpload()->deleteAllImages($product_id, $aCurrentImages);
 
-		return $this->updProdImages($product_id);
+		return $this->updImagesInDb($product_id);
 	}
 
 	/**
@@ -867,7 +851,7 @@ class module_catalog extends Module
 				);
 			}
 
-			$this->updProdImages($rsProds->id, $aImagesList);
+			$this->updImagesInDb($rsProds->id, $aImagesList);
 		}
 
 		return true;
@@ -893,13 +877,13 @@ class module_catalog extends Module
 	}
 
 	/**
-	 * Met à jours la liste des images d'un produit donné
+	 * Met à jours la liste des images d'un produit donné.
 	 *
-	 * @param array $product_id
-	 * @param $aImages
-	 * @return unknown_type
+	 * @param integer $product_id
+	 * @param array $aImages
+	 * @return boolean
 	 */
-	public function updProdImages($product_id, $aImages=array())
+	public function updImagesInDb($product_id, $aImages=array())
 	{
 		if (!$this->prodExists($product_id)) {
 			$this->error->set('Le produit #'.$product_id.' n’existe pas.');

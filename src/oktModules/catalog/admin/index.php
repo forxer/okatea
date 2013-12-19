@@ -164,7 +164,7 @@ $okt->page->addButton('catalogBtSt',array(
 $okt->page->addButton('catalogBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> 'Voir',
-	'url' 			=> html::escapeHTML($okt->catalog->config->url),
+	'url' 			=> html::escapeHTML(CatalogHelpers::getCatalogUrl()),
 	'sprite-icon' 	=> 'page_world'
 ));
 

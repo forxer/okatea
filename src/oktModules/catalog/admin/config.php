@@ -90,15 +90,6 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description = !empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '';
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '';
 
-	$p_public_catalog_url = !empty($_POST['p_public_catalog_url']) ? $_POST['p_public_catalog_url'] : '';
-	$p_public_catalog_url = util::formatAppPath($p_public_catalog_url,false,false);
-	$p_public_product_url = !empty($_POST['p_public_product_url']) ? $_POST['p_public_product_url'] : '';
-	$p_public_product_url = util::formatAppPath($p_public_product_url,false,false);
-
-	if (substr($p_public_product_url,0,strlen($p_public_catalog_url)) == $p_public_catalog_url) {
-		$okt->error->set('L’URL de la liste des produits ne doit pas être la même que l’URL d’un produit.');
-	}
-
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
@@ -111,9 +102,6 @@ if (!empty($_POST['form_sent']))
 			'seo_enable' => (boolean)$p_seo_enable,
 			'enable_filters' => (boolean)$p_enable_filters,
 			'rte_enable' => $p_rte_enable,
-
-			'public_catalog_url' => $p_public_catalog_url,
-			'public_product_url' => $p_public_product_url,
 
 			'fields' => array(
 				'subtitle' => (integer)$p_chp_subtitle,
@@ -273,16 +261,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p class="field"><label for="p_meta_keywords"><?php _e('c_c_seo_meta_keywords') ?></label>
 				<?php echo form::textarea('p_meta_keywords', 57, 5, html::escapeHTML($okt->catalog->config->meta_keywords)) ?></p>
 
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url') ?></legend>
-
-				<p class="field"><label for="p_public_catalog_url">URL de la liste de produits depuis <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code></label>
-				<?php echo form::text('p_public_catalog_url', 40, 255, html::escapeHTML($okt->catalog->config->public_catalog_url)) ?></p>
-
-				<p class="field"><label for="p_public_product_url">URL d’un produit depuis <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code></label>
-				<?php echo form::text('p_public_product_url', 40, 255, html::escapeHTML($okt->catalog->config->public_product_url)) ?></p>
 			</fieldset>
 
 		</div><!-- #tab_seo -->

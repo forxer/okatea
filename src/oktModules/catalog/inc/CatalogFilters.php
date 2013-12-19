@@ -5,10 +5,10 @@
  *
  */
 
-use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\BaseFilters;
 
-class catalogFilters extends BaseFilters
+class CatalogFilters extends BaseFilters
 {
 	protected $catalog;
 
@@ -16,11 +16,11 @@ class catalogFilters extends BaseFilters
 
 	protected $order_by_array = array();
 
-	public function __construct($okt, $catalog, $part='public', $params=array())
+	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'catalog', $catalog->config, $part, $params);
+		parent::__construct($okt, 'catalog', $okt->catalog->config, $part, $params);
 
-		$this->catalog = $catalog;
+		$this->catalog = $this->okt->catalog;
 	}
 
 	public function setDefaultParams()

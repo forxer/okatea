@@ -62,14 +62,14 @@ if ($okt->catalog->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->escape($okt->catalog->config->url) ?>" method="get" id="<?php echo $okt->catalog->filters->getFilterFormId() ?>" class="catalog-filters-form">
+	<form action="<?php echo $view->escape(CatalogHelpers::getCatalogUrl()) ?>" method="get" id="<?php echo $okt->catalog->filters->getFilterFormId() ?>" class="catalog-filters-form">
 		<fieldset>
 		<legend><?php _e('m_catalog_display_filters') ?></legend>
 
 		<?php echo $okt->catalog->filters->getFiltersFields(); ?>
 
 		<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->catalog->filters->getFilterSubmitName() ?>" />
-		<a href="<?php echo $view->escape($okt->catalog->config->url) ?>?catalog_init_filters=1" class="italic"><?php _e('m_catalog_display_filters_init') ?></a></p>
+		<a href="<?php echo $view->escape(CatalogHelpers::getCatalogUrl()) ?>?catalog_init_filters=1" class="italic"><?php _e('m_catalog_display_filters_init') ?></a></p>
 
 		</fieldset>
 	</form>

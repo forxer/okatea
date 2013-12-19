@@ -1592,10 +1592,10 @@ class module_news extends Module
 	}
 
 	/**
-	 * Met à jours la liste des images d'un article donné
+	 * Met à jours la liste des images d'un article donné.
 	 *
-	 * @param array $iPostId
-	 * @param $aImages
+	 * @param integer $iPostId
+	 * @param array $aImages
 	 * @return boolean
 	 */
 	public function updImagesInDb($iPostId, $aImages=array())

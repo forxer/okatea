@@ -5,11 +5,11 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
+use Tao\Misc\Utilities as util;
 use Tao\Website\Pager;
 
-class catalogController extends Controller
+class CatalogController extends Controller
 {
 	/**
 	 * Affichage de la liste classique des produits.
@@ -34,7 +34,7 @@ class catalogController extends Controller
 		if (!empty($_GET['catalog_init_filters']))
 		{
 			$this->okt->catalog->filters->initFilters();
-			return $this->redirect($this->okt->catalog->config->url);
+			return $this->redirect(CatalogHelpers::getCatalogUrl());
 		}
 
 		# initialisation des filtres
@@ -53,27 +53,27 @@ class catalogController extends Controller
 		$aProductsParams['limit'] = (($this->okt->catalog->filters->params->page-1)*$this->okt->catalog->filters->params->nb_per_page).','.$this->okt->catalog->filters->params->nb_per_page;
 
 		# récupération des produits
-		$productsList = $this->okt->catalog->getProds($aProductsParams);
+		$this->rsProductsList = $this->okt->catalog->getProds($aProductsParams);
 
 		$count_line = 0;
-		while ($productsList->fetch())
+		while ($this->rsProductsList->fetch())
 		{
-			$productsList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
+			$this->rsProductsList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
 			$count_line++;
 
-			$productsList->url = $productsList->getProductUrl();
+			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$productsList->content = util::nlToP($productsList->content);
+				$this->rsProductsList->content = util::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
 			{
-				$productsList->content = html::clean($productsList->content);
-				$productsList->content = text::cutString($productsList->content,$this->okt->catalog->config->public_truncat_char);
+				$this->rsProductsList->content = html::clean($this->rsProductsList->content);
+				$this->rsProductsList->content = text::cutString($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
 			}
 
-			$productsList->category_url = $productsList->getCategoryUrl();
+			$this->rsProductsList->category_url = $this->rsProductsList->getCategoryUrl();
 		}
 
 		# meta description
@@ -94,7 +94,7 @@ class catalogController extends Controller
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 		}
 
 		# ajout du numéro de page au title
@@ -112,12 +112,12 @@ class catalogController extends Controller
 		$this->page->setTitleSeo($this->okt->catalog->getName());
 
 		# raccourcis
-		$productsList->numPages = $iNumPages;
-		$productsList->pager = $oProductsPager;
+		$this->rsProductsList->numPages = $iNumPages;
+		$this->rsProductsList->pager = $oProductsPager;
 
 		# affichage du template
 		return $this->render('catalog_list_tpl', array(
-			'productsList' => $productsList
+			'productsList' => $this->rsProductsList
 		));
 	}
 
@@ -144,12 +144,12 @@ class catalogController extends Controller
 			return $this->serve404();
 		}
 
-		$rsCategory = $this->okt->catalog->getCategories(array(
+		$this->rsCategory = $this->okt->catalog->getCategories(array(
 			'slug' => $slug,
 			'visibility' => 1
 		));
 
-		if ($rsCategory->isEmpty()) {
+		if ($this->rsCategory->isEmpty()) {
 			return $this->serve404();
 		}
 
@@ -159,7 +159,7 @@ class catalogController extends Controller
 		# initialisation des paramètres
 		$aProductsParams = array(
 			'visibility' => 1,
-			'category_id' => $rsCategory->id
+			'category_id' => $this->rsCategory->id
 		);
 
 		# initialisation des filtres
@@ -169,7 +169,7 @@ class catalogController extends Controller
 		if (!empty($_GET['catalog_init_filters']))
 		{
 			$this->okt->catalog->filters->initFilters();
-			return $this->redirect($this->okt->catalog->config->url);
+			return $this->redirect(CatalogHelpers::getCatalogUrl());
 		}
 
 		# initialisation des filtres
@@ -188,27 +188,27 @@ class catalogController extends Controller
 		$aProductsParams['limit'] = (($this->okt->catalog->filters->params->page-1)*$this->okt->catalog->filters->params->nb_per_page).','.$this->okt->catalog->filters->params->nb_per_page;
 
 		# récupération des produits
-		$productsList = $this->okt->catalog->getProds($aProductsParams);
+		$this->rsProductsList = $this->okt->catalog->getProds($aProductsParams);
 
 		$count_line = 0;
-		while ($productsList->fetch())
+		while ($this->rsProductsList->fetch())
 		{
-			$productsList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
+			$this->rsProductsList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
 			$count_line++;
 
-			$productsList->url = $productsList->getProductUrl();
+			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$productsList->content = util::nlToP($productsList->content);
+				$this->rsProductsList->content = util::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
 			{
-				$productsList->content = html::clean($productsList->content);
-				$productsList->content = text::cutString($productsList->content,$this->okt->catalog->config->public_truncat_char);
+				$this->rsProductsList->content = html::clean($this->rsProductsList->content);
+				$this->rsProductsList->content = text::cutString($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
 			}
 
-			$productsList->category_url = $productsList->getCategoryUrl();
+			$this->rsProductsList->category_url = $this->rsProductsList->getCategoryUrl();
 		}
 
 		# meta description
@@ -238,9 +238,9 @@ class catalogController extends Controller
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 
-			$rsPath = $this->okt->catalog->getPath($rsCategory->id,true);
+			$rsPath = $this->okt->catalog->getPath($this->rsCategory->id,true);
 
 			while ($rsPath->fetch())
 			{
@@ -254,19 +254,19 @@ class catalogController extends Controller
 		}
 
 		# titre de la page
-		$this->page->setTitle($rsCategory->name);
+		$this->page->setTitle($this->rsCategory->name);
 
 		# titre SEO de la page
-		$this->page->setTitleSeo($rsCategory->name);
+		$this->page->setTitleSeo($this->rsCategory->name);
 
 		# raccourcis
-		$productsList->numPages = $iNumPages;
-		$productsList->pager = $oProductsPager;
+		$this->rsProductsList->numPages = $iNumPages;
+		$this->rsProductsList->pager = $oProductsPager;
 
 		# affichage du template
 		return $this->render('catalog_list_tpl', array(
-			'productsList' => $productsList,
-			'rsCategory' => $rsCategory
+			'productsList' => $this->rsProductsList,
+			'rsCategory' => $this->rsCategory
 		));
 	}
 
@@ -274,26 +274,23 @@ class catalogController extends Controller
 	 * Affichage d'un produit.
 	 *
 	 */
-	public function catalogItem($aMatches)
+	public function catalogProduct()
 	{
 		# module actuel
 		$this->page->module = 'catalog';
 		$this->page->action = 'item';
 
 		# Récupération du produit en fonction du slug
-		if (!empty($aMatches[0])) {
-			$slug = $aMatches[0];
-		}
-		else {
+		if (!$slug = $this->request->attributes->get('slug')) {
 			return $this->serve404();
 		}
 
-		$product = $this->okt->catalog->getProds(array(
+		$this->rsProduct = $this->okt->catalog->getProds(array(
 			'slug' => $slug,
 			'visibility' => 1
 		));
 
-		if ($product->isEmpty()) {
+		if ($this->rsProduct->isEmpty()) {
 			return $this->serve404();
 		}
 
@@ -301,21 +298,21 @@ class catalogController extends Controller
 		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
 
 		# Formatage des données
-		if ($product->title_tag == '') {
-			$product->title_tag = $product->title;
+		if ($this->rsProduct->title_tag == '') {
+			$this->rsProduct->title_tag = $this->rsProduct->title;
 		}
 
-		$product->url = $product->getProductUrl();
+		$this->rsProduct->url = $this->rsProduct->getProductUrl();
 
 		if (!$this->okt->catalog->config->rte_enable) {
-			$product->content = util::nlToP($product->content);
+			$this->rsProduct->content = util::nlToP($this->rsProduct->content);
 		}
 
-		$product->category_url = $product->getCategoryUrl();
+		$this->rsProduct->category_url = $this->rsProduct->getCategoryUrl();
 
 		# meta description
-		if (!empty($product->meta_description)) {
-			$this->page->meta_description = $product->meta_description;
+		if (!empty($this->rsProduct->meta_description)) {
+			$this->page->meta_description = $this->rsProduct->meta_description;
 		}
 		elseif (!empty($this->okt->catalog->config->meta_description)) {
 			$this->page->meta_description = $this->okt->catalog->config->meta_description;
@@ -325,8 +322,8 @@ class catalogController extends Controller
 		}
 
 		# meta keywords
-		if (!empty($product->meta_keywords)) {
-			$this->page->meta_keywords = $product->meta_keywords;
+		if (!empty($this->rsProduct->meta_keywords)) {
+			$this->page->meta_keywords = $this->rsProduct->meta_keywords;
 		}
 		elseif (!empty($this->okt->catalog->config->meta_keywords)) {
 			$this->page->meta_keywords = $this->okt->catalog->config->meta_keywords;
@@ -336,35 +333,35 @@ class catalogController extends Controller
 		}
 
 		# Récupération des images
-		$product->images = $product->getImagesInfo();
+		$this->rsProduct->images = $this->rsProduct->getImagesInfo();
 
 		# Récupération des fichiers
-		$product->files = $product->getFilesInfo();
+		$this->rsProduct->files = $this->rsProduct->getFilesInfo();
 
 
 		# Title tag du module
 		$this->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# Title tag de la catégorie
-		$this->page->addTitleTag($product->category_name);
+		$this->page->addTitleTag($this->rsProduct->category_name);
 
 		# Title tag du produit
-		$this->page->addTitleTag($product->title_tag);
+		$this->page->addTitleTag($this->rsProduct->title_tag);
 
 		# titre de la page
-		$this->page->setTitle($product->title);
+		$this->page->setTitle($this->rsProduct->title);
 
 		# titre SEO de la page
-		$this->page->setTitleSeo($product->title);
+		$this->page->setTitleSeo($this->rsProduct->title);
 
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->page->breadcrumb->add($this->okt->catalog->getName(), $this->okt->catalog->config->url);
+			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 
-			if ($this->okt->catalog->config->categories_enable && $product->category_id)
+			if ($this->okt->catalog->config->categories_enable && $this->rsProduct->category_id)
 			{
-				$rsPath = $this->okt->catalog->getPath($product->category_id,true);
+				$rsPath = $this->okt->catalog->getPath($this->rsProduct->category_id,true);
 				while ($rsPath->fetch())
 				{
 					$this->page->breadcrumb->add(
@@ -375,12 +372,12 @@ class catalogController extends Controller
 				unset($rsPath);
 			}
 
-			$this->page->breadcrumb->add($product->title,$product->url);
+			$this->page->breadcrumb->add($this->rsProduct->title,$this->rsProduct->url);
 		}
 
 		# affichage du template
 		return $this->render('catalog_item_tpl', array(
-			'product' => $product
+			'product' => $this->rsProduct
 		));
 	}
 
