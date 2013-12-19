@@ -8,7 +8,7 @@
 use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
 
-class diaryFilters extends BaseFilters
+class DiaryFilters extends BaseFilters
 {
 	protected $get_events_params = array();
 

@@ -60,18 +60,6 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
-	$p_public_list_url = !empty($_POST['p_public_list_url']) ? $_POST['p_public_list_url'] : '';
-
-	foreach ($p_public_list_url as $lang=>$url) {
-		$p_public_list_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_event_url = !empty($_POST['p_public_event_url']) ? $_POST['p_public_event_url'] : '';
-
-	foreach ($p_public_event_url as $lang=>$url) {
-		$p_public_event_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
 	if ($okt->error->isEmpty())
 	{
 		$new_conf = array(
@@ -96,10 +84,7 @@ if (!empty($_POST['form_sent']))
 			'name_seo' => $p_name_seo,
 			'title' => $p_title,
 			'meta_description' => $p_meta_description,
-			'meta_keywords' => $p_meta_keywords,
-
-			'public_list_url' => $p_public_list_url,
-			'public_event_url' => $p_public_event_url
+			'meta_keywords' => $p_meta_keywords
 		);
 
 		try
@@ -233,18 +218,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->diary->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->diary->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
-				<?php endforeach; ?>
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url') ?></legend>
-
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_list_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_diary_list_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_list_url['.$aLanguage['code'].']','p_public_list_url_'.$aLanguage['code']), 60, 255, (isset($okt->diary->config->public_list_url[$aLanguage['code']]) ? html::escapeHTML($okt->diary->config->public_list_url[$aLanguage['code']]) : '')) ?></p>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_event_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_diary_event_url_from_%s_in_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_event_url['.$aLanguage['code'].']','p_public_event_url_'.$aLanguage['code']), 60, 255, (isset($okt->diary->config->public_event_url[$aLanguage['code']]) ? html::escapeHTML($okt->diary->config->public_event_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>
 

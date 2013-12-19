@@ -5,16 +5,16 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
+use Tao\Misc\Utilities as util;
 
-class diaryController extends Controller
+class DiaryController extends Controller
 {
 	/**
 	 * Affichage du calendrier
 	 *
 	 */
-	public function diaryList($aMatches)
+	public function diaryList()
 	{
 		# module actuel
 		$this->page->module = 'diary';
@@ -24,9 +24,9 @@ class diaryController extends Controller
 		$iYear = !empty($_GET['year']) ? intval($_GET['year']) : null;
 		$iMonth = !empty($_GET['month']) ? intval($_GET['month']) : null;
 
-		if (!empty($aMatches[0]))
+		if ($this->request->attributes->has('date'))
 		{
-			$aDate = explode('/',$aMatches[0]);
+			$aDate = explode('/', $this->request->attributes->get('date'));
 
 			$iYear = !empty($aDate[0]) ? intval($aDate[0]) : null;
 			$iMonth = !empty($aDate[1]) ? intval($aDate[1]) : null;
@@ -35,7 +35,7 @@ class diaryController extends Controller
 		}
 
 		# initialisation calendrier
-		$oCal = new diaryMonthlyCalendar(
+		$this->oCalendar = new DiaryMonthlyCalendar(
 			array(
 				'htmlBlock' => '<table id="diary" class="common calendar" summary="'.__('agenda').'">%s</table>',
 
@@ -64,7 +64,7 @@ class diaryController extends Controller
 				'htmlEventsList' => '<ul class="events-list">%s</ul>',
 				'htmlEventItem'  => '<li class="%3$s"%4$s><a href="%2$s">%1$s</a></li>',
 
-				'urlBase' 		=> $this->okt->diary->config->url,
+				'urlBase' 		=> DiaryHelpers::getDiaryUrl(),
 				'urlPattern' 	=> '/%s/%s'
 			),
 			$iYear,
@@ -73,11 +73,11 @@ class diaryController extends Controller
 
 		# récupération des évènements pour le mois affiché par le calendrier
 		$aDatesEvents = $this->okt->diary->getDatesEventsByInterval(
-			$oCal->getStartDate(),
-			$oCal->getEndDate(),
+			$this->oCalendar->getStartDate(),
+			$this->oCalendar->getEndDate(),
 			1
 		);
-		$oCal->setDatesEvents($aDatesEvents);
+		$this->oCalendar->setDatesEvents($aDatesEvents);
 
 		# meta description
 		if (!empty($this->okt->diary->config->meta_description[$this->okt->user->language])) {
@@ -97,7 +97,7 @@ class diaryController extends Controller
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 		}
 
 		# title tag du module
@@ -112,7 +112,7 @@ class diaryController extends Controller
 
 		# affichage du template
 		return $this->render('diary_list_tpl', array(
-			'oCal' => $oCal
+			'oCal' => $this->oCalendar
 		));
 	}
 
@@ -120,13 +120,14 @@ class diaryController extends Controller
 	 * Affichage d'un évènement
 	 *
 	 */
-	public function diaryEvent($aMatches)
+	public function diaryEvent()
 	{
+		# module actuel
+		$this->page->module = 'diary';
+		$this->page->action = 'event';
+
 		# récupération de l'élément en fonction du slug
-		if (!empty($aMatches[0])) {
-			$slug = $aMatches[0];
-		}
-		else {
+		if (!$slug = $this->request->attributes->get('slug')) {
 			return $this->serve404();
 		}
 
@@ -139,11 +140,6 @@ class diaryController extends Controller
 		if ($rsEvent->isEmpty()) {
 			return $this->serve404();
 		}
-
-		# module actuel
-		$this->page->module = 'diary';
-		$this->page->action = 'event';
-
 
 		# meta description
 		if (!empty($rsEvent->meta_description)) {
@@ -184,7 +180,7 @@ class diaryController extends Controller
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-			$this->page->breadcrumb->add($this->okt->diary->getName(), $this->okt->diary->config->url);
+			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 
 			$this->page->breadcrumb->add($rsEvent->title, $rsEvent->getEventUrl());
 		}

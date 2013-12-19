@@ -167,7 +167,7 @@ class MonthlyCalendar
 
 		$sHtml .= $this->getBody();
 
-		return sprintf($this->aConfig['htmlBlock'],$sHtml);
+		return sprintf($this->aConfig['htmlBlock'], $sHtml);
 	}
 
 	/**
@@ -177,9 +177,9 @@ class MonthlyCalendar
 	 */
 	protected function getNavigation()
 	{
-		$sCurrent = dt::str('%B %Y',$this->iTimestamp);
+		$sCurrent = \dt::str('%B %Y',$this->iTimestamp);
 
-		return sprintf($this->aConfig['htmlNavigation'],$sCurrent,$this->getPrevLink(),$this->getNextLink());
+		return sprintf($this->aConfig['htmlNavigation'], $sCurrent, $this->getPrevLink(), $this->getNextLink());
 	}
 
 	/**
@@ -191,7 +191,7 @@ class MonthlyCalendar
 	{
 		$this->definePrevDate();
 
-		return sprintf($this->aConfig['htmlPrevLink'],$this->getPrevUrl(),$this->getPrevDate());
+		return sprintf($this->aConfig['htmlPrevLink'], $this->getPrevUrl(), $this->getPrevDate());
 	}
 
 	/**
@@ -201,7 +201,8 @@ class MonthlyCalendar
 	 */
 	protected function getPrevUrl()
 	{
-		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'],$this->iPrevYear,$this->iPrevMonth);
+
+		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'], $this->iPrevYear, (strlen($this->iPrevMonth) === 1 ? '0'.$this->iPrevMonth : $this->iPrevMonth));
 	}
 
 	/**
@@ -211,7 +212,7 @@ class MonthlyCalendar
 	 */
 	protected function getPrevDate()
 	{
-		return dt::str('%B %Y',strtotime($this->iPrevYear.'-'.$this->iPrevMonth.'-01'));
+		return \dt::str('%B %Y',strtotime($this->iPrevYear.'-'.$this->iPrevMonth.'-01'));
 	}
 
 	/**
@@ -223,7 +224,7 @@ class MonthlyCalendar
 	{
 		$this->defineNextDate();
 
-		return sprintf($this->aConfig['htmlNextLink'],$this->getNextUrl(),$this->getNextDate());
+		return sprintf($this->aConfig['htmlNextLink'], $this->getNextUrl(), $this->getNextDate());
 	}
 
 	/**
@@ -233,7 +234,7 @@ class MonthlyCalendar
 	 */
 	protected function getNextUrl()
 	{
-		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'],$this->iNextYear,$this->iNextMonth);
+		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'], $this->iNextYear, (strlen($this->iNextMonth) === 1 ? '0'.$this->iNextMonth : $this->iNextMonth));
 	}
 
 	/**
@@ -243,7 +244,7 @@ class MonthlyCalendar
 	 */
 	protected function getNextDate()
 	{
-		return dt::str('%B %Y',strtotime($this->iNextYear.'-'.$this->iNextMonth.'-01'));
+		return \dt::str('%B %Y',strtotime($this->iNextYear.'-'.$this->iNextMonth.'-01'));
 	}
 
 	/**
@@ -283,7 +284,7 @@ class MonthlyCalendar
 	 */
 	protected function getHeadCelContent($j)
 	{
-		return sprintf($this->aConfig['htmlHeadCelContent'],dt::str('%a',$j),dt::str('%A',$j));
+		return sprintf($this->aConfig['htmlHeadCelContent'], \dt::str('%a',$j), \dt::str('%A',$j));
 	}
 
 	/**

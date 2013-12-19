@@ -8,6 +8,7 @@
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
 use Tao\Database\MySqli;
+use Tao\Database\Recordset;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -323,9 +324,9 @@ class module_estimate extends Module
 	{
 		$sDateTime = date('Y-m-d H:i:s');
 
-	//	if (empty($aData['status'])) {
-	//		$aData['status'] = 1;
-	//	}
+		if (empty($aData['status'])) {
+			$aData['status'] = 0;
+		}
 
 		$sQuery =
 		'INSERT INTO '.$this->t_estimate.' ( '.

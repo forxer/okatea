@@ -113,7 +113,7 @@ $okt->page->addButton('diaryBtSt',array(
 $okt->page->addButton('diaryBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_Show'),
-	'url' 			=> html::escapeHTML($okt->diary->config->url),
+	'url' 			=> html::escapeHTML(DiaryHelpers::getDiaryUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
 

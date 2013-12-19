@@ -61,12 +61,3 @@ files:
   enable: false
   number: 3
   allowed_exts: 'txt,pdf'
-
-
-public_list_url:
-  fr: agenda
-  en: diary
-public_event_url:
-  fr: evenement
-  en: event
-

@@ -29,9 +29,9 @@ class Mailer
 
 		$this->setTransport();
 
-		$this->mailer = Swift_Mailer::newInstance($this->transport);
+		$this->mailer = \Swift_Mailer::newInstance($this->transport);
 
-		$this->message = Swift_Message::newInstance($subject, $body, $contentType, $charset);
+		$this->message = \Swift_Message::newInstance($subject, $body, $contentType, $charset);
 	}
 
 	/**
@@ -44,11 +44,11 @@ class Mailer
 		{
 			default:
 			case 'mail':
-				$this->transport = Swift_MailTransport::newInstance();
+				$this->transport = \Swift_MailTransport::newInstance();
 			break;
 
 			case 'smtp':
-				$this->transport = Swift_SmtpTransport::newInstance(
+				$this->transport = \Swift_SmtpTransport::newInstance(
 					$this->okt->config->email['smtp']['host'],
 					$this->okt->config->email['smtp']['port']
 				);
@@ -69,7 +69,7 @@ class Mailer
 					$command = $this->okt->config->email['sendmail'];
 				}
 
-				$this->transport = Swift_SendmailTransport::newInstance($command);
+				$this->transport = \Swift_SendmailTransport::newInstance($command);
 			break;
 		}
 	}

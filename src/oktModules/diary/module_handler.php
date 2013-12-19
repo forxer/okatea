@@ -32,10 +32,11 @@ class module_diary extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'diaryController' => __DIR__.'/inc/class.diary.controller.php',
-			'diaryRecordset' => __DIR__.'/inc/class.diary.recordset.php',
-			'diaryMonthlyCalendar' => __DIR__.'/inc/class.diary.monthly.calendar.php',
-			'diaryFilters' => __DIR__.'/inc/class.diary.filters.php'
+			'DiaryController' => __DIR__.'/inc/DiaryController.php',
+			'DiaryHelpers' => __DIR__.'/inc/DiaryHelpers.php',
+			'DiaryRecordset' => __DIR__.'/inc/DiaryRecordset.php',
+			'DiaryMonthlyCalendar' => __DIR__.'/inc/DiaryMonthlyCalendar.php',
+			'DiaryFilters' => __DIR__.'/inc/DiaryFilters.php'
 		));
 
 		# permissions
@@ -51,18 +52,6 @@ class module_diary extends Module
 
 		# configuration
 		$this->config = $this->okt->newConfig('conf_diary');
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_list_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('diaryList', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_list_url)).')/?(.*)?$',
-			'diaryController', 'diaryList'
-		));
-
-		$this->okt->router->addRoute('diaryEvent', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_event_url)).')/(.*)$',
-			'diaryController', 'diaryEvent'
-		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/diary/';
@@ -134,8 +123,8 @@ class module_diary extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof diaryFilters)) {
-			$this->filters = new diaryFilters($this->okt, $this->config, $part);
+		if ($this->filters === null || !($this->filters instanceof DiaryFilters)) {
+			$this->filters = new DiaryFilters($this->okt, $this->config, $part);
 		}
 	}
 
@@ -217,13 +206,13 @@ class module_diary extends Module
 			}
 		}
 
-		if (($rs = $this->db->select($query,'diaryRecordset')) === false)
+		if (($rs = $this->db->select($query,'DiaryRecordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
 			}
 			else {
-				$rs = new diaryRecordset(array());
+				$rs = new DiaryRecordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}

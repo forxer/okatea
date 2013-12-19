@@ -25,7 +25,7 @@ class EstimateController extends Controller
 
 		# si on as pas de données en session on renvoi sur le formulaire
 		if (empty($_SESSION['okt_mod_estimate_form_data'])) {
-			return $this->redirect($this->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language]);
+			return $this->redirect(EstimateHelpers::getFormUrl());
 		}
 
 		# récupération des produits et des accessoires
@@ -127,7 +127,7 @@ class EstimateController extends Controller
 					$oMail->send();
 				}
 
-				return $this->redirect($this->page->getBaseUrl().$this->okt->estimate->config->public_form_url[$this->okt->user->language].'?added=1');
+				return $this->redirect(EstimateHelpers::getFormUrl().'?added=1');
 			}
 		}
 

@@ -8,7 +8,7 @@
 use Tao\Misc\Utilities as util;
 use Tao\Database\Recordset;
 
-class diaryRecordset extends Recordset
+class DiaryRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore
@@ -37,11 +37,7 @@ class diaryRecordset extends Recordset
 	 */
 	public function getEventUrl($sLanguage=null)
 	{
-		if (is_null($sLanguage)) {
-			$sLanguage = $this->okt->user->language;
-		}
-
-		return $this->okt->page->getBaseUrl($sLanguage).$this->okt->diary->config->public_event_url[$sLanguage].'/'.$this->slug;
+		return DiaryHelpers::getEventUrl($this->slug, $sLanguage);
 	}
 
 	/**

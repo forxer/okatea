@@ -70,7 +70,3 @@ $GLOBALS['__l10n']['m_diary_tab_options_disponibility'] = 'Disponibilité';
 
 #messages d'erreurs
 $GLOBALS['__l10n']['m_diary_please_choose_disponibility'] = 'Veuillez choisir une disponibilité';
-
-# config SEO
-$GLOBALS['__l10n']['m_diary_list_url_from_%s_in_%s'] = 'URL de la page agenda depuis %s en %s';
-$GLOBALS['__l10n']['m_diary_event_url_from_%s_in_%s'] = 'URL de la page de l’évènement depuis %s en %s';

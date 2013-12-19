@@ -7,7 +7,7 @@
 
 use Tao\Misc\MonthlyCalendar;
 
-class diaryMonthlyCalendar extends MonthlyCalendar
+class DiaryMonthlyCalendar extends MonthlyCalendar
 {
 	protected $aDatesEvents;
 
