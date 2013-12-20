@@ -8,7 +8,8 @@
 
 namespace Tao\Images;
 
-use Tao\Images\PHPThumb\GD as thumbnailer;
+use Imagine\Gd\Imagine;
+use Imagine\Image;
 use Tao\Misc\Utilities as util;
 
 /**
@@ -151,13 +152,13 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImagesDir)) {
-					files::makeDir($sCurrentImagesDir,true);
+					\files::makeDir($sCurrentImagesDir,true);
 				}
 
 				$sOutput = $j.'.'.$sExtension;
 
 				if (!copy($sFilename,$sCurrentImagesDir.$sOutput)) {
-					throw new Exception('Impossible de copier le fichier image.');
+					throw new \Exception('Impossible de copier le fichier image.');
 				}
 
 				# copie de l'originale
@@ -171,7 +172,7 @@ class ImageUpload
 
 				$j++;
 			}
-			catch (Exception $e) {
+			catch (\Exception $e) {
 				$this->error->set('Problème avec l’image '.$i.' : '.$e->getMessage());
 			}
 		}
@@ -219,13 +220,13 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImagesDir)) {
-					files::makeDir($sCurrentImagesDir,true);
+					\files::makeDir($sCurrentImagesDir,true);
 				}
 
 				$sOutput = $j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sCurrentImagesDir.$sOutput)) {
-					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				# copie de l'originale
@@ -248,7 +249,7 @@ class ImageUpload
 
 				$j++;
 			}
-			catch (Exception $e) {
+			catch (\Exception $e) {
 				$this->error->set('Problème avec l’image '.$i.' : '.$e->getMessage());
 			}
 		}
@@ -306,17 +307,17 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImagesDir)) {
-					files::makeDir($sCurrentImagesDir,true);
+					\files::makeDir($sCurrentImagesDir,true);
 				}
 
 				# suppression des éventuels ancien fichier et ancien original
 				if (isset($aCurrentImages[$i]['img_name']))
 				{
-					if (files::isDeletable($sCurrentImagesDir.$aCurrentImages[$i]['img_name'])) {
+					if (\files::isDeletable($sCurrentImagesDir.$aCurrentImages[$i]['img_name'])) {
 						unlink($sCurrentImagesDir.$aCurrentImages[$i]['img_name']);
 					}
 
-					if (files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name'])) {
+					if (\files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name'])) {
 						unlink($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name']);
 					}
 				}
@@ -324,7 +325,7 @@ class ImageUpload
 				$sOutput = $j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sCurrentImagesDir.$sOutput)) {
-					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				# copie de l'originale
@@ -344,7 +345,7 @@ class ImageUpload
 
 				$j++;
 			}
-			catch (Exception $e) {
+			catch (\Exception $e) {
 				$this->okt->error->set('Problème avec l’image '.$i.' : '.$e->getMessage());
 			}
 		}
@@ -363,7 +364,7 @@ class ImageUpload
 		$sCurrentImagesDir = $this->getCurrentUploadDir($iItemId);
 
 		if (is_dir($sCurrentImagesDir) && is_writable($sCurrentImagesDir)) {
-			files::deltree($sCurrentImagesDir);
+			\files::deltree($sCurrentImagesDir);
 		}
 	}
 
@@ -386,35 +387,35 @@ class ImageUpload
 		$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
 
 		# suppression des fichiers sur le disque
-		if (files::isDeletable($sCurrentImagesDir.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'o-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'min-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'min-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'min-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'min2-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'min2-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'min2-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'min3-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'min3-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'min3-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'min4-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'min4-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'min4-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'min5-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'min5-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'min5-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (files::isDeletable($sCurrentImagesDir.'sq-'.$aCurrentImages[$iImgId]['img_name'])) {
+		if (\files::isDeletable($sCurrentImagesDir.'sq-'.$aCurrentImages[$iImgId]['img_name'])) {
 			unlink($sCurrentImagesDir.'sq-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
@@ -473,7 +474,7 @@ class ImageUpload
 		}
 
 		if (!util::dirHasFiles($sCurrentImagesDir)) {
-			files::deltree($sCurrentImagesDir);
+			\files::deltree($sCurrentImagesDir);
 		}
 
 		return array_filter($aNewImages);
@@ -689,21 +690,34 @@ class ImageUpload
 			return null;
 		}
 
-		$oThumb = new thumbnailer($sSourceFile);
+		$imagine = new Imagine();
 
-		if ($sResizeType === 'ratio') {
-			$oThumb->resize($iWidth, $iHeight);
+		$size = new Image\Box($iWidth, $iHeight);
+
+		$mode = $sResizeType === 'ratio' ? Image\ImageInterface::THUMBNAIL_INSET : Image\ImageInterface::THUMBNAIL_OUTBOUND;
+
+		$image = $imagine->open($sSourceFile);
+
+		$image->thumbnail($size, $mode);
+
+		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile))
+		{
+			$watermark = $imagine->open($this->getWatermarkUploadDir().$sWatermarkFile);
+
+			$size = $image->getSize();
+			$wSize = $watermark->getSize();
+
+			$x = $size->getWidth() - $wSize->getWidth();
+			$y = $size->getHeight() - $wSize->getHeight();
+
+			if ($x >= 0 && $y >= 0 && $size->getWidth() > $wSize->getWidth() && $size->getHeight() > $wSize->getHeight())
+			{
+				$bottomRight = new Image\Point($x, $y);
+				$image->paste($watermark, $bottomRight);
+			}
 		}
-		else {
-			$oThumb->adaptiveResize($iWidth, $iHeight);
-		}
 
-//		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile)) {
-//			$oThumb->createWatermark($this->getWatermarkUploadDir().$sWatermarkFile, $sWatermarkPosition, 0);
-//		}
-
-		$oThumb->save($sOutput);
-		unset($oThumb);
+		$image->save($sOutput);
 	}
 
 	/**
@@ -867,7 +881,7 @@ class ImageUpload
 	public static function checkExtension($sExtension)
 	{
 		if (!in_array($sExtension,self::$aAllowedExts)) {
-			throw new Exception('Type de fichier non-autorisé.');
+			throw new \Exception('Type de fichier non-autorisé.');
 		}
 	}
 
@@ -880,7 +894,7 @@ class ImageUpload
 	public static function checkType($sType)
 	{
 		if (!in_array($sType, self::$aAllowedTypes)) {
-			throw new Exception('Type de fichier non-autorisé.');
+			throw new \Exception('Type de fichier non-autorisé.');
 		}
 	}
 
@@ -963,24 +977,24 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImageDir)) {
-					files::makeDir($sCurrentImageDir,true);
+					\files::makeDir($sCurrentImageDir,true);
 				}
 
 				# nom du fichier
 				$sOutput = $sFilename.'.'.$sExtension;
 
 				# suppression de l'éventuel ancien fichier
-				if (file_exists($sCurrentImageDir.$sOutput) && files::isDeletable($sCurrentImageDir.$sOutput)) {
+				if (file_exists($sCurrentImageDir.$sOutput) && \files::isDeletable($sCurrentImageDir.$sOutput)) {
 					unlink($sCurrentImageDir.$sOutput);
 				}
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir.$sOutput)) {
-					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				$return = $sOutput;
 			}
-			catch (Exception $e) {
+			catch (\Exception $e) {
 				$okt->error->set('Problème avec l’image : '.$e->getMessage());
 			}
 		}
