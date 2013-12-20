@@ -67,7 +67,7 @@ class oktModuleBootstrap
 		'header'			=> 'header.tpl',
 		'index'				=> 'index.tpl',
 		'licence_block' 	=> 'licence_block.tpl',
-		'module_handler' 	=> 'module_handler.tpl',
+		'module' 			=> 'module.tpl',
 	);
 
 	protected $modules_dir;
@@ -266,7 +266,7 @@ class oktModuleBootstrap
 		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);
 		$this->makeFile('changelog', 		$this->dir.'/CHANGELOG', $replacements);
 		$this->makeFile('index', 			$this->dir.'/index.php', $replacements);
-		$this->makeFile('module_handler', 	$this->dir.'/module_handler.php', $replacements);
+		$this->makeFile('module', 			$this->dir.'/module.php', $replacements);
 	}
 
 

@@ -77,7 +77,7 @@ class oktModuleBootstrapAdvanced extends oktModuleBootstrap
 		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);
 		$this->makeFile('changelog', 		$this->dir.'/CHANGELOG', $replacements);
 		$this->makeFile('index', 			$this->dir.'/index.php', $replacements);
-		$this->makeFile('module_handler', 	$this->dir.'/module_handler.php', $replacements);
+		$this->makeFile('module', 			$this->dir.'/module.php', $replacements);
 	}
 
 }

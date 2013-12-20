@@ -657,28 +657,28 @@ class Process extends Module
 			'Module id can not be one of:'.implode('", "', self::$aReservedIds)
 		);
 
-		# présence du fichier /module_handler.php
+		# présence du fichier /module.php
 		$this->checklist->addItem(
-			'module_handler_file',
-			file_exists($this->root().'/module_handler.php'),
+			'module_file',
+			file_exists($this->root().'/module.php'),
 			'Module handler file exists',
 			'Module handler file doesn\'t exists'
 		);
 
 		# existence de la class module_<id_module>
-		if ($this->checklist->checkItem('module_handler_file'))
+		if ($this->checklist->checkItem('module_file'))
 		{
-			include $this->root().'/module_handler.php';
+			include $this->root().'/module.php';
 
 			$this->checklist->addItem(
-				'module_handler_class',
+				'module_class',
 				class_exists('module_'.$this->id()),
 				'Module handler class "module_'.$this->id().'" exists',
 				'Module handler class "module_'.$this->id().'" doesn\'t exists'
 			);
 
 			$this->checklist->addItem(
-				'module_handler_class_valide',
+				'module_class_valide',
 				is_subclass_of('module_'.$this->id(),'\\Tao\\Modules\\Module'),
 				'Module handler class "module_'.$this->id().'" is a valid module class',
 				'Module handler class "module_'.$this->id().'" is not a valid module class'
@@ -686,8 +686,9 @@ class Process extends Module
 		}
 
 		return
-			$this->checklist->checkItem('module_handler_file')
-			&& $this->checklist->checkItem('module_handler_class');
+			$this->checklist->checkItem('module_file')
+			&& $this->checklist->checkItem('module_class')
+			&& $this->checklist->checkItem('module_class_valide');
 	}
 
 	/**

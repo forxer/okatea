@@ -134,7 +134,7 @@ class Collection
 		{
 			$class = 'module_'.$module_id;
 
-			require $this->path.'/'.$module_id.'/module_handler.php';
+			require $this->path.'/'.$module_id.'/module.php';
 
 			if (class_exists($class,false))
 			{
