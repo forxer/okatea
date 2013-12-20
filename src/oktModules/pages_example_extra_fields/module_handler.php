@@ -13,6 +13,10 @@ class module_pages_example_extra_fields extends Module
 {
 	protected function prepend()
 	{
+		if (!$this->okt->modules->moduleExists('pages')) {
+			return null;
+		}
+
 		# chargement des principales locales
 		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
 
