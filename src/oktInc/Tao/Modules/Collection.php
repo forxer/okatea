@@ -686,9 +686,9 @@ class Collection
 	{
 		$return = '\\Tao\\Modules\\Manage\\Process';
 
-		if (file_exists($this->path.'/'.$module_id.'/_install/module_install.php'))
+		if (file_exists($this->path.'/'.$module_id.'/install/module_install.php'))
 		{
-			require_once $this->path.'/'.$module_id.'/_install/module_install.php';
+			require_once $this->path.'/'.$module_id.'/install/module_install.php';
 
 			$class_install = 'moduleInstall_'.$module_id;
 

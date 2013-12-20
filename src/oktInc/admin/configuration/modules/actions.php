@@ -409,9 +409,9 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 	echo $oInstallModule->checklist->getLegend();
 	echo '</div>';
 
-	if (file_exists($oInstallModule->root().'/_install/tpl/')
-	|| file_exists($oInstallModule->root().'/_install/common/')
-	|| file_exists($oInstallModule->root().'/_install/public/')) {
+	if (file_exists($oInstallModule->root().'/install/tpl/')
+	|| file_exists($oInstallModule->root().'/install/common/')
+	|| file_exists($oInstallModule->root().'/install/public/')) {
 		$next_url = 'configuration.php?action=modules&amp;compare='.$oInstallModule->id();
 	}
 	else {

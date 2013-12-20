@@ -172,29 +172,29 @@ class Process extends Module
 		}
 
 		# désinstallation de la base de données
-		$this->loadDbFile($this->root().'/_install/db-uninstall.xml');
+		$this->loadDbFile($this->root().'/install/db-uninstall.xml');
 
 		# suppression des fichiers templates
-		if (is_dir($this->root().'/_install/tpl'))
+		if (is_dir($this->root().'/install/tpl'))
 		{
-			$d = dir($this->root().'/_install/tpl');
+			$d = dir($this->root().'/install/tpl');
 			while (false !== ($entry = $d->read()))
 			{
 				if (!is_dir($entry) && $entry != '.' && $entry != '..' && $entry != '.svn') {
-					$this->uninstallTplFile($this->root().'/_install/tpl/'.$entry);
+					$this->uninstallTplFile($this->root().'/install/tpl/'.$entry);
 				}
 			}
 			$d->close();
 		}
 
 		# suppression des fichiers public
-		if (is_dir($this->root().'/_install/public'))
+		if (is_dir($this->root().'/install/public'))
 		{
-			$d = dir($this->root().'/_install/public');
+			$d = dir($this->root().'/install/public');
 			while (false !== ($entry = $d->read()))
 			{
 				if (!is_dir($entry) && $entry != '.' && $entry != '..' && $entry != '.svn') {
-					$this->uninstallPublicFile($this->root().'/_install/public/'.$entry);
+					$this->uninstallPublicFile($this->root().'/install/public/'.$entry);
 				}
 			}
 			$d->close();
@@ -265,7 +265,7 @@ class Process extends Module
 		}
 
 		# vidange de la base de données
-		$this->loadDbFile($this->root().'/_install/db-truncate.xml');
+		$this->loadDbFile($this->root().'/install/db-truncate.xml');
 
 		# suppression des fichiers d'upload
 		$sUploadDir = OKT_UPLOAD_PATH.'/'.$this->id().'/';
@@ -297,7 +297,7 @@ class Process extends Module
 	public function doInstallTestSet()
 	{
 		# ajout d'éventuelles données à la base de données
-		$this->loadDbFile($this->root().'/_install/test_set/db-data.xml');
+		$this->loadDbFile($this->root().'/install/test_set/db-data.xml');
 
 		# création d'un répertoire upload
 		$this->copyUploadFiles();
@@ -309,7 +309,7 @@ class Process extends Module
 
 	protected function copyUploadFiles()
 	{
-		if (is_dir($this->root().'/_install/test_set/upload/'))
+		if (is_dir($this->root().'/install/test_set/upload/'))
 		{
 			$this->checklist->addItem(
 				'upload_dir',
@@ -332,7 +332,7 @@ class Process extends Module
 	public function doInstallDefaultData()
 	{
 		# ajout d'éventuelles données à la base de données
-		$this->loadDbFile($this->root().'/_install/db-data.xml');
+		$this->loadDbFile($this->root().'/install/db-data.xml');
 
 		if (method_exists($this,'installDefaultData')) {
 			$this->installDefaultData();
@@ -346,7 +346,7 @@ class Process extends Module
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root().'/_install/tpl/', OKT_THEMES_PATH.'/default/templates/');
+		$this->getComparator()->folder($this->root().'/install/tpl/', OKT_THEMES_PATH.'/default/templates/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -354,11 +354,11 @@ class Process extends Module
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/_install/tpl/', OKT_THEMES_PATH.'/'.$sThemeId.'/templates/', true);
+			$this->getComparator()->folder($this->root().'/install/tpl/', OKT_THEMES_PATH.'/'.$sThemeId.'/templates/', true);
 		}
 
 		# compare assets
-		$this->getComparator()->folder($this->root().'/_install/assets/', OKT_THEMES_PATH.'/default/modules/'.$this->id().'/');
+		$this->getComparator()->folder($this->root().'/install/assets/', OKT_THEMES_PATH.'/default/modules/'.$this->id().'/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -366,11 +366,11 @@ class Process extends Module
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/_install/assets/', OKT_THEMES_PATH.'/'.$sThemeId.'/modules/'.$this->id().'/', true);
+			$this->getComparator()->folder($this->root().'/install/assets/', OKT_THEMES_PATH.'/'.$sThemeId.'/modules/'.$this->id().'/', true);
 		}
 
 		# compare publics
-		$this->getComparator()->folder($this->root().'/_install/public/', OKT_ROOT_PATH.'/');
+		$this->getComparator()->folder($this->root().'/install/public/', OKT_ROOT_PATH.'/');
 	}
 
 	/**
@@ -380,7 +380,7 @@ class Process extends Module
 	public function forceReplaceTpl()
 	{
 		return $this->forceReplaceFiles(
-			$this->root().'/_install/tpl/',
+			$this->root().'/install/tpl/',
 			OKT_THEMES_PATH.'/default/templates/'
 		);
 	}
@@ -392,7 +392,7 @@ class Process extends Module
 	public function forceReplaceAssets($sBaseDir, $aLockedFiles=array())
 	{
 		return $this->forceReplaceFiles(
-			$this->root().'/_install/assets/',
+			$this->root().'/install/assets/',
 			$sBaseDir.'/modules/'.$this->id().'/',
 			$aLockedFiles
 		);
@@ -405,7 +405,7 @@ class Process extends Module
 	public function forceReplacePublic()
 	{
 		return $this->forceReplaceFiles(
-			$this->root().'/_install/public/',
+			$this->root().'/install/public/',
 			OKT_ROOT_PATH.'/'
 		);
 	}
@@ -417,7 +417,7 @@ class Process extends Module
 	public function forceReplaceUploads()
 	{
 		return $this->forceReplaceFiles(
-			$this->root().'/_install/test_set/upload/',
+			$this->root().'/install/test_set/upload/',
 			OKT_UPLOAD_PATH.'/'.$this->id().'/'
 		);
 	}
@@ -558,7 +558,7 @@ class Process extends Module
 
 	protected function copyTplFiles()
 	{
-		if (is_dir($this->root().'/_install/tpl/'))
+		if (is_dir($this->root().'/install/tpl/'))
 		{
 			$this->checklist->addItem(
 				'tpl_dir',
@@ -571,7 +571,7 @@ class Process extends Module
 
 	protected function copyAssetsFiles()
 	{
-		if (is_dir($this->root().'/_install/assets/'))
+		if (is_dir($this->root().'/install/assets/'))
 		{
 			foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 			{
@@ -697,7 +697,7 @@ class Process extends Module
 	protected function commonInstallUpdate($process)
 	{
 		# installation/mise à jour de la base de données
-		$this->loadDbFile($this->root().'/_install/db-install.xml',$process);
+		$this->loadDbFile($this->root().'/install/db-install.xml',$process);
 
 		# copie des éventuels fichiers templates
 		$this->copyTplFiles();

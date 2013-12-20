@@ -29,20 +29,20 @@ class oktModuleBootstrap
 
 	protected $templates_dir;
 	protected $templates = array(
-		'config'			=> '_install/conf.yaml',
-		'db-install' 		=> '_install/db-install.tpl',
-		'db-truncate' 		=> '_install/db-truncate.tpl',
-		'db-uninstall' 		=> '_install/db-uninstall.tpl',
+		'config'			=> 'install/conf.yaml',
+		'db-install' 		=> 'install/db-install.tpl',
+		'db-truncate' 		=> 'install/db-truncate.tpl',
+		'db-uninstall' 		=> 'install/db-uninstall.tpl',
 
-		'public_list' 		=> '_install/public/list.tpl',
-		'public_item' 		=> '_install/public/item.tpl',
+		'public_list' 		=> 'install/public/list.tpl',
+		'public_item' 		=> 'install/public/item.tpl',
 
-		'tpl_base' 			=> '_install/tpl/base.tpl',
-		'tpl_list' 			=> '_install/tpl/list.tpl',
-		'tpl_item' 			=> '_install/tpl/item.tpl',
+		'tpl_base' 			=> 'install/tpl/base.tpl',
+		'tpl_list' 			=> 'install/tpl/list.tpl',
+		'tpl_item' 			=> 'install/tpl/item.tpl',
 
-		'preview_icon' 		=> '_install/assets/preview.png',
-		'common_css' 		=> '_install/assets/styles.tpl',
+		'preview_icon' 		=> 'install/assets/preview.png',
+		'common_css' 		=> 'install/assets/styles.tpl',
 
 		'admin_index'		=> 'inc/admin/index.tpl',
 		'admin_display'		=> 'inc/admin/display.tpl',
@@ -209,11 +209,11 @@ class oktModuleBootstrap
 		}
 
 		files::makeDir($this->dir);
-		files::makeDir($this->dir.'/_install',true);
-		files::makeDir($this->dir.'/_install/assets',true);
-		files::makeDir($this->dir.'/_install/public',true);
-		files::makeDir($this->dir.'/_install/tpl',true);
-//		files::makeDir($this->dir.'/_install/test_set',true);
+		files::makeDir($this->dir.'/install',true);
+		files::makeDir($this->dir.'/install/assets',true);
+		files::makeDir($this->dir.'/install/public',true);
+		files::makeDir($this->dir.'/install/tpl',true);
+//		files::makeDir($this->dir.'/install/test_set',true);
 
 		files::makeDir($this->dir.'/inc',true);
 		files::makeDir($this->dir.'/inc/admin',true);
@@ -232,19 +232,19 @@ class oktModuleBootstrap
 	{
 		$replacements = $this->getReplacements();
 
-		$this->makeFile('db-install', 		$this->dir.'/_install/db-install.xml', $replacements);
-		$this->makeFile('db-truncate', 		$this->dir.'/_install/db-truncate.xml', $replacements);
-		$this->makeFile('db-uninstall', 	$this->dir.'/_install/db-uninstall.xml', $replacements);
-		$this->makeFile('config', 			$this->dir.'/_install/conf_'.$this->id.'.yaml', $replacements);
+		$this->makeFile('db-install', 		$this->dir.'/install/db-install.xml', $replacements);
+		$this->makeFile('db-truncate', 		$this->dir.'/install/db-truncate.xml', $replacements);
+		$this->makeFile('db-uninstall', 	$this->dir.'/install/db-uninstall.xml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yaml', $replacements);
 
-		copy($this->getTplPath('preview_icon'), $this->dir.'/_install/assets/preview.png');
-		$this->makeFile('common_css', 		$this->dir.'/_install/assets/styles.css', $replacements);
+		copy($this->getTplPath('preview_icon'), $this->dir.'/install/assets/preview.png');
+		$this->makeFile('common_css', 		$this->dir.'/install/assets/styles.css', $replacements);
 
-		$this->makeFile('public_list', 		$this->dir.'/_install/public/oktPublic_'.$this->id.'_list.php', $replacements);
-		$this->makeFile('public_item', 		$this->dir.'/_install/public/oktPublic_'.$this->id.'_item.php', $replacements);
+		$this->makeFile('public_list', 		$this->dir.'/install/public/oktPublic_'.$this->id.'_list.php', $replacements);
+		$this->makeFile('public_item', 		$this->dir.'/install/public/oktPublic_'.$this->id.'_item.php', $replacements);
 
-		$this->makeFile('tpl_list', 		$this->dir.'/_install/tpl/'.$this->id.'_list_tpl.php', $replacements);
-		$this->makeFile('tpl_item', 		$this->dir.'/_install/tpl/'.$this->id.'_item_tpl.php', $replacements);
+		$this->makeFile('tpl_list', 		$this->dir.'/install/tpl/'.$this->id.'_list_tpl.php', $replacements);
+		$this->makeFile('tpl_item', 		$this->dir.'/install/tpl/'.$this->id.'_item_tpl.php', $replacements);
 
 		$this->makeFile('admin_index', 		$this->dir.'/admin/index.php', $replacements);
 		$this->makeFile('admin_display', 	$this->dir.'/admin/display.php', $replacements);

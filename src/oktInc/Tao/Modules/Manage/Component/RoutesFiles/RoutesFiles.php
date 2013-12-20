@@ -119,7 +119,7 @@ class RoutesFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/_install/routes';
+		$sPath = $this->module->root().'/install/routes';
 
 		if (is_dir($sPath))
 		{

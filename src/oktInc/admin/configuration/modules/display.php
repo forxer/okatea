@@ -183,19 +183,19 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aModule['root'].'/_install/db-data.xml')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/db-data.xml')) : ?>
 					<li><a href="configuration.php?action=modules&amp;defaultdata=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_install_default_data_module_confirm')) ?>')"
 					class="lazy-load icon database_add"><?php _e('c_a_modules_install_default_data') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/_install/test_set/')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/test_set/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;testset=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_install_test_set_module_confirm')) ?>')"
 					class="lazy-load icon package"><?php _e('c_a_modules_install_test_set') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/_install/db-truncate.xml')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/db-truncate.xml')) : ?>
 					<li><a href="configuration.php?action=modules&amp;empty=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_empty_module_confirm')) ?>')"
 					title="<?php printf(__('c_a_modules_empty_module_%s'),$aModule['name_l10n']) ?>"
@@ -205,19 +205,19 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aModule['root'].'/_install/tpl/')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/tpl/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;templates=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_templates_files_confirm')) ?>')"
 					class="icon layout"><?php _e('c_a_modules_replace_templates_files') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/_install/assets/')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/assets/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;common=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_common_files_confirm')) ?>')"
 					class="icon folder_page"><?php _e('c_a_modules_replace_common_files') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/_install/public/')) : ?>
+					<?php if (file_exists($aModule['root'].'/install/public/')) : ?>
 					<li><a href="configuration.php?action=modules&amp;public=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_modules_replace_public_files_confirm')) ?>')"
 					class="icon script"><?php _e('c_a_modules_replace_public_files') ?></a></li>

@@ -21,8 +21,8 @@ class oktModuleBootstrapSimple extends oktModuleBootstrap
 
 		files::makeDir($this->dir);
 
-		files::makeDir($this->dir.'/_install',true);
-			files::makeDir($this->dir.'/_install/tpl',true);
+		files::makeDir($this->dir.'/install',true);
+			files::makeDir($this->dir.'/install/tpl',true);
 
 		files::makeDir($this->dir.'/inc',true);
 			files::makeDir($this->dir.'/inc/admin',true);
@@ -40,9 +40,9 @@ class oktModuleBootstrapSimple extends oktModuleBootstrap
 	{
 		$replacements = $this->getReplacements();
 
-		$this->makeFile('config', 			$this->dir.'/_install/conf_'.$this->id.'.yaml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yaml', $replacements);
 
-		$this->makeFile('tpl_base', 		$this->dir.'/_install/tpl/'.$this->id.'_tpl.php', $replacements);
+		$this->makeFile('tpl_base', 		$this->dir.'/install/tpl/'.$this->id.'_tpl.php', $replacements);
 
 		$this->makeFile('admin_config', 	$this->dir.'/admin/config.php', $replacements);
 
