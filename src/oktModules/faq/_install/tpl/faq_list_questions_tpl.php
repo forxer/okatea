@@ -62,14 +62,14 @@ if ($okt->faq->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->escape($okt->faq->config->url) ?>" method="get" id="<?php echo $okt->faq->filters->getFilterFormId() ?>" class="filters-form">
+	<form action="<?php echo $view->escape(FaqHelpers::getFaqUrl()) ?>" method="get" id="<?php echo $okt->faq->filters->getFilterFormId() ?>" class="filters-form">
 		<fieldset>
 		<legend><?php _e('m_faq_display_filters') ?></legend>
 
 		<?php echo $okt->faq->filters->getFiltersFields(); ?>
 
 		<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->faq->filters->getFilterSubmitName() ?>" />
-		<a href="<?php echo $view->escape($okt->faq->config->url) ?>?language=<?php echo $okt->user->language; ?>&amp;init_filters=1" rel="nofollow" class="italic"><?php _e('m_faq_display_filters_init') ?></a></p>
+		<a href="<?php echo $view->escape(FaqHelpers::getFaqUrl()) ?>?language=<?php echo $okt->user->language; ?>&amp;init_filters=1" rel="nofollow" class="italic"><?php _e('m_faq_display_filters_init') ?></a></p>
 
 		</fieldset>
 	</form>

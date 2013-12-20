@@ -1,0 +1,8 @@
+
+faqList:
+    path:     /faq
+    defaults: { _controller: FaqController::faqList }
+
+faqQuestion:
+    path:     /question/{slug}
+    defaults: { _controller: FaqController::faqQuestion }

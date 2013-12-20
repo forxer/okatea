@@ -36,8 +36,9 @@ class module_partners extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'partnersController' => __DIR__.'/inc/class.partners.controller.php',
-			'partnersRecordset' => __DIR__.'/inc/class.partners.recordset.php'
+			'PartnersController' => __DIR__.'/inc/PartnersController.php',
+			'PartnersHelpers' => __DIR__.'/inc/PartnersHelpers.php',
+			'PartnersRecordset' => __DIR__.'/inc/PartnersRecordset.php'
 		));
 
 		# permissions
@@ -56,14 +57,6 @@ class module_partners extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_partners');
-
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('partnersPage', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'partnersController', 'partnersPage'
-		));
 
 		#répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/partners/';
@@ -240,14 +233,14 @@ class module_partners extends Module
 			}
 		}
 
-		if (($rs = $this->db->select($query,'partnersRecordset')) === false)
+		if (($rs = $this->db->select($query,'PartnersRecordset')) === false)
 		{
 
 			if ($count_only) {
 				return 0;
 			}
 			else {
-				$rs = new partnersRecordset(array());
+				$rs = new PartnersRecordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}

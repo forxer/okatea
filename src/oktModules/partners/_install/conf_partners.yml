@@ -33,10 +33,6 @@ admin_default_order_direction: 'DESC'
 public_default_order_by: 'created_at'
 public_default_order_direction: 'DESC'
 
-public_url:
-  fr: partenaires
-  en: partners
-
 images:
   enable: true
   number: 1

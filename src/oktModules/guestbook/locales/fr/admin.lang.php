@@ -1,9 +1,9 @@
 <?php
 
-# routes
+# Routes
 $GLOBALS['__l10n']['c_a_route_name_guestbookPage'] = 'Livre d’or';
 
-#Index
+# Index
 $GLOBALS['__l10n']['m_guestbook_Stand_out_as_unwanted'] = 'Marquer comme indésirable';
 $GLOBALS['__l10n']['m_guestbook_Stand_out_as_acceptable'] = 'Marquer comme acceptable';
 $GLOBALS['__l10n']['m_guestbook_Signature_was_updated'] = 'La signature a été mise à jour.';
@@ -45,4 +45,3 @@ $GLOBALS['__l10n']['m_guestbook_no_available_captcha'] = 'Il n’y a aucun captc
 $GLOBALS['__l10n']['m_guestbook_Validation_before_publication'] = 'Validation avant publication ?';
 $GLOBALS['__l10n']['m_guestbook_Addresses_separated_by_a_comma'] = 'Adresses, séparées par une virgule, auxquelles envoyer un email lors d’un nouveau message. Laisser vide pour ne pas envoyer d’email.';
 $GLOBALS['__l10n']['m_guestbook_Automatic_deletion_of_spam'] = 'suppression automatique du SPAM au bout de combien de jour ? (0 pour désactiver)';
-$GLOBALS['__l10n']['m_guestbook_Guestbook_URL_from'] = 'URL du livre d’or depuis';

@@ -5,10 +5,10 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
 use Tao\Admin\Menu as AdminMenu;
+use Tao\Admin\Page;
 use Tao\Images\ImageUpload;
+use Tao\Misc\Utilities as util;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -41,9 +41,10 @@ class module_faq extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'faqController' => __DIR__.'/inc/class.faq.controller.php',
-			'faqFilters' => __DIR__.'/inc/class.faq.filters.php',
-			'faqRecordset' => __DIR__.'/inc/class.faq.recordset.php'
+			'FaqController' => __DIR__.'/inc/FaqController.php',
+			'FaqFilters' => __DIR__.'/inc/FaqFilters.php',
+			'FaqHelpers' => __DIR__.'/inc/FaqHelpers.php',
+			'FaqRecordset' => __DIR__.'/inc/FaqRecordset.php'
 		));
 
 		# permissions
@@ -65,19 +66,6 @@ class module_faq extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_faq');
-
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_faq_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('faqList', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_faq_url)).')$',
-			'faqController', 'faqList'
-		));
-
-		$this->okt->router->addRoute('faqQuestion', new Route(
-			'^(?:'.html::escapeHTML(implode('|',$this->config->public_question_url)).')/(.*)$',
-			'faqController', 'faqQuestion'
-		));
 
 		# répertoire upload
 		$this->upload_dir = OKT_UPLOAD_PATH.'/faq/';
@@ -150,8 +138,8 @@ class module_faq extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof faqFilters)) {
-			$this->filters = new faqFilters($this->okt, $this, $part);
+		if ($this->filters === null || !($this->filters instanceof FaqFilters)) {
+			$this->filters = new FaqFilters($this->okt, $this, $part);
 		}
 	}
 
@@ -255,13 +243,13 @@ class module_faq extends Module
 			}
 		}
 
-		if (($rs = $this->db->select($query,'faqRecordset')) === false)
+		if (($rs = $this->db->select($query,'FaqRecordset')) === false)
 		{
 			if ($count_only) {
 				return 0;
 			}
 			else {
-				$rs = new faqRecordset(array());
+				$rs = new FaqRecordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -315,8 +303,8 @@ class module_faq extends Module
 		'FROM '.$this->t_faq_locales.' '.
 		'WHERE faq_id='.(integer)$question_id;
 
-		if (($rs = $this->db->select($query,'faqRecordset')) === false) {
-			$rs = new faqRecordset(array());
+		if (($rs = $this->db->select($query,'FaqRecordset')) === false) {
+			$rs = new FaqRecordset(array());
 			$rs->setCore($this->okt);
 			return $rs;
 		}

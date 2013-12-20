@@ -12,6 +12,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-beta3
 # replace Router by Symfony Routing component
+# refactor modules files structure
 # change Yaml files extension to .yml
 ! implement Symfony HttpFoundation
 ! CodeMirror 3.20

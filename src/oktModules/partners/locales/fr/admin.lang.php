@@ -4,7 +4,6 @@
 $GLOBALS['__l10n']['c_a_route_name_partnersPage'] = 'Page partenaires';
 $GLOBALS['__l10n']['c_a_route_desc_partnersPage'] = 'La page d’affichage des partenaires';
 
-
 # Menu
 $GLOBALS['__l10n']['m_partners_add_partner'] = 'Ajouter un partenaire';
 $GLOBALS['__l10n']['m_partners_Categories'] = 'Catégories';
@@ -63,9 +62,6 @@ $GLOBALS['__l10n']['m_partners_error_missing_default_language_url_title_%s'] = '
 $GLOBALS['__l10n']['m_params_must_logo'] = 'Logo manquant.';
 $GLOBALS['__l10n']['m_partners_delete_logo'] = 'Supprimer le logo';
 $GLOBALS['__l10n']['m_partners_category_order_edited'] = 'L’ordre des catégories a été modifié';
-
-# Référencement
-$GLOBALS['__l10n']['m_partners_%s_%s'] = 'URL de la page partenaires depuis %s en %s';
 
 # Affichage
 $GLOBALS['__l10n']['m_partners_display_images'] = 'Affichage des images';

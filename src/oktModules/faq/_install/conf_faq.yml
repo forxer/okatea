@@ -35,17 +35,10 @@ public_truncat_char: 250
 
 lightbox_type: fancybox
 
-public_faq_url:
-  fr: faq
-  en: faq
-public_question_url:
-  fr: question
-  en: question
-
 files:
   enable: false
   number: 3
-  allowed_exts: gif,png,jpg,jpeg,swf,doc,docx,xls,pdf,avi,mpg,mp3
+  allowed_exts: txt,pdf
 
 images:
   enable: true

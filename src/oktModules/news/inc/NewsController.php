@@ -384,5 +384,4 @@ class NewsController extends Controller
 			'rsPost' => $this->rsPost
 		));
 	}
-
 }

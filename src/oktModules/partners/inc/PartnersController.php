@@ -7,13 +7,13 @@
 
 use Tao\Core\Controller;
 
-class partnersController extends Controller
+class PartnersController extends Controller
 {
 	/**
 	 * Affichage de la page partenaires.
 	 *
 	 */
-	public function partnersPage()
+	public function partners()
 	{
 		# module actuel
 		$this->page->module = 'partners';
@@ -26,10 +26,10 @@ class partnersController extends Controller
 
 		# title tag du module
 		$this->page->addTitleTag($this->okt->partners->getTitle());
-		
+
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->page->breadcrumb->add($this->okt->partners->getName(), $this->okt->partners->config->url);
+			$this->page->breadcrumb->add($this->okt->partners->getName(), PartnersHelpers::getPartnersUrl());
 		}
 
 		# titre de la page

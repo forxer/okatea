@@ -119,7 +119,7 @@ if (!empty($_GET['added'])) : ?>
 	<?php endif; # fin : affichage des éventuelles erreurs ?>
 
 
-	<form action="<?php echo $okt->guestbook->config->url ?>" id="guestbook-form" method="post">
+	<form action="<?php echo $view->escape(GuestbookHelpers::getGuestbookUrl()) ?>" id="guestbook-form" method="post">
 
 		<p><?php _e('m_guestbook_thank_you_filling_form') ?></p>
 
@@ -247,7 +247,7 @@ if ($signaturesList->numPages > 1) : ?>
 if (!$okt->languages->unique) : ?>
 <p><?php foreach($aLanguages as $sLanguage => $sCode) :
 if ($okt->user->language != $sCode) : ?>
-<a href="<?php echo $okt->page->getBaseUrl($sCode).$okt->guestbook->config->public_url[$sCode] ?>"><?php echo $view->escape($sLanguage) ?></a>
+<a href="<?php echo $view->escapeHtmlAttr(GuestbookHelpers::getGuestbookUrl($sCode)) ?>"><?php echo $view->escape($sLanguage) ?></a>
 <?php endif;
 endforeach; ?></p>
 <?php endif; # Fin affichage liens vers les autres langues ?>

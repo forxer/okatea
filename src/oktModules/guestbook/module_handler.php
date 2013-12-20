@@ -24,7 +24,8 @@ class module_guestbook extends Module
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'guestbookController' => __DIR__.'/inc/class.guestbook.controller.php'
+			'GuestbookController' => __DIR__.'/inc/GuestbookController.php',
+			'GuestbookHelpers' => __DIR__.'/inc/GuestbookHelpers.php'
 		));
 
 		# permissions
@@ -35,13 +36,6 @@ class module_guestbook extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_guestbook');
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
-
-		# définition des routes
-		$this->okt->router->addRoute('guestbookPage', new Route(
-			'^('.html::escapeHTML(implode('|',$this->config->public_url)).')$',
-			'guestbookController', 'guestbookPage'
-		));
 
 		# table
 		$this->t_guestbook = $this->db->prefix.'mod_guestbook';

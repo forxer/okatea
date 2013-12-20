@@ -71,7 +71,7 @@ $rsPartners = $okt->partners->getPartners(array(
 $okt->page->addButton('partnersBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_show'),
-	'url' 			=> html::escapeHTML($okt->partners->config->url),
+	'url' 			=> html::escapeHTML(PartnersHelpers::getPartnersUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
 

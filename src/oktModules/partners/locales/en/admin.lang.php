@@ -44,10 +44,6 @@ $GLOBALS['__l10n']['m_partners_activate_fields'] = 'Activation of the different 
 $GLOBALS['__l10n']['m_partners_no_rich_text_editor'] = 'There is no rich text editor available';
 $GLOBALS['__l10n']['m_partners_rich_text_editor'] = 'Rich text editor';
 
-
-$GLOBALS['__l10n']['m_partners_%s_%s'] = 'URL of partner page for %s in %s';
-
-
 $GLOBALS['__l10n']['m_partners_must_name'] = 'Missing name.';
 $GLOBALS['__l10n']['m_partners_error_missing_default_language_description_%s'] = 'Missing Description for the %s language.';
 $GLOBALS['__l10n']['m_partners_error_missing_default_language_url_%s'] = 'Missing website address for the %s language.';

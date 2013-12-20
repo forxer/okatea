@@ -1,0 +1,4 @@
+
+guestbook:
+    path:     /guestbook
+    defaults: { _controller: GuestbookController::guestbook }

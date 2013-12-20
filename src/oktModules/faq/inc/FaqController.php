@@ -9,7 +9,7 @@ use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
 use Tao\Website\Pager;
 
-class faqController extends Controller
+class FaqController extends Controller
 {
 	/**
 	 * Affichage de la liste des questions.
@@ -19,7 +19,7 @@ class faqController extends Controller
 	{
 		# module actuel
 		$this->page->module = 'faq';
-		$this->page->action = 'list_questions';
+		$this->page->action = 'list';
 
 		# paramètres de base de selection des articles
 		$aFaqParams = array(
@@ -34,7 +34,7 @@ class faqController extends Controller
 		if (!empty($_GET['init_filters']))
 		{
 			$this->okt->faq->filters->initFilters();
-			return $this->redirect($this->okt->faq->config->url);
+			return $this->redirect(FaqHelpers::getFaqUrl());
 		}
 
 		# initialisation des filtres
@@ -53,31 +53,31 @@ class faqController extends Controller
 		$aFaqParams['limit'] = (($this->okt->faq->filters->params->page-1)*$this->okt->faq->filters->params->nb_per_page).','.$this->okt->faq->filters->params->nb_per_page;
 
 		# récupération des questions
-		$faqList = $this->okt->faq->getQuestions($aFaqParams);
+		$this->rsQuestionsList = $this->okt->faq->getQuestions($aFaqParams);
 
 		$count_line = 0;
-		while ($faqList->fetch())
+		while ($this->rsQuestionsList->fetch())
 		{
-			$faqList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
+			$this->rsQuestionsList->odd_even = ($count_line%2 == 0 ? 'even' : 'odd');
 			$count_line++;
 
-			$faqList->url = $faqList->getQuestionUrl();
+			$this->rsQuestionsList->url = $this->rsQuestionsList->getQuestionUrl();
 
 			if (!$this->okt->faq->config->enable_rte) {
-				$faqList->content = util::nlToP($faqList->content);
+				$this->rsQuestionsList->content = util::nlToP($this->rsQuestionsList->content);
 			}
 
 			if ($this->okt->faq->config->public_truncat_char > 0 )
 			{
-				$faqList->content = html::clean($faqList->content);
-				$faqList->content = text::cutString($faqList->content,$this->okt->faq->config->public_truncat_char);
+				$this->rsQuestionsList->content = html::clean($this->rsQuestionsList->content);
+				$this->rsQuestionsList->content = text::cutString($this->rsQuestionsList->content,$this->okt->faq->config->public_truncat_char);
 			}
 		}
 		unset($count_line);
 
 		# fil d'ariane
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->page->breadcrumb->add($this->okt->faq->getName(),$this->okt->faq->config->url);
+			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 		}
 
 		# ajout du numéro de page au title
@@ -95,8 +95,8 @@ class faqController extends Controller
 		$this->page->setTitleSeo($this->okt->faq->getNameSeo());
 
 		# raccourcis
-		$faqList->numPages = $iNumPages;
-		$faqList->pager = $oFaqPager;
+		$this->rsQuestionsList->numPages = $iNumPages;
+		$this->rsQuestionsList->pager = $oFaqPager;
 
 		# affichage du template
 		if ($this->okt->faq->config->enable_categories) {
@@ -106,7 +106,7 @@ class faqController extends Controller
 		}
 
 		return $this->render($sTemplatename, array(
-			'faqList' => $faqList
+			'faqList' => $this->rsQuestionsList
 		));
 	}
 
@@ -114,43 +114,40 @@ class faqController extends Controller
 	 * Affichage d'une question.
 	 *
 	 */
-	public function faqQuestion($aMatches)
+	public function faqQuestion()
 	{
 		# module actuel
 		$this->page->module = 'faq';
 		$this->page->action = 'question';
 
 		# récupération de la question en fonction du slug
-		if (!empty($aMatches[0])) {
-			$slug = $aMatches[0];
-		}
-		else {
+		if (!$slug = $this->request->attributes->get('slug')) {
 			return $this->serve404();
 		}
 
-		$faqQuestion = $this->okt->faq->getQuestions(array(
+		$this->rsQuestion = $this->okt->faq->getQuestions(array(
 			'slug' => $slug,
 			'visibility' => 1
 		));
 
-		if ($faqQuestion->isEmpty()) {
+		if ($this->rsQuestion->isEmpty()) {
 			return $this->serve404();
 		}
 
 		# formatage des données
-		if ($faqQuestion->title_tag == '') {
-			$faqQuestion->title_tag = $faqQuestion->title;
+		if ($this->rsQuestion->title_tag == '') {
+			$this->rsQuestion->title_tag = $this->rsQuestion->title;
 		}
 
-		$faqQuestion->url = $faqQuestion->getQuestionUrl();
+		$this->rsQuestion->url = $this->rsQuestion->getQuestionUrl();
 
 		if (!$this->okt->faq->config->enable_rte) {
-			$faqQuestion->content = util::nlToP($faqQuestion->content);
+			$this->rsQuestion->content = util::nlToP($this->rsQuestion->content);
 		}
 
 		# meta description
-		if (!empty($faqQuestion->metadescription)) {
-			$this->page->meta_description = $faqQuestion->metadescription;
+		if (!empty($this->rsQuestion->metadescription)) {
+			$this->page->meta_description = $this->rsQuestion->metadescription;
 		}
 		elseif (!empty($this->okt->faq->config->meta_description[$this->okt->user->language])) {
 			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt->user->language];
@@ -160,8 +157,8 @@ class faqController extends Controller
 		}
 
 		# meta keywords
-		if (!empty($faqQuestion->meta_keywords)) {
-			$this->page->meta_keywords = $faqQuestion->meta_keywords;
+		if (!empty($this->rsQuestion->meta_keywords)) {
+			$this->page->meta_keywords = $this->rsQuestion->meta_keywords;
 		}
 		elseif (!empty($this->okt->faq->config->meta_keywords[$this->okt->user->language])) {
 			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt->user->language];
@@ -171,35 +168,34 @@ class faqController extends Controller
 		}
 
 		# récupération des images
-		$faqQuestion->images = $faqQuestion->getImagesInfo();
+		$this->rsQuestion->images = $this->rsQuestion->getImagesInfo();
 
 		# récupération des fichiers
-		$faqQuestion->files = $faqQuestion->getFilesInfo();
+		$this->rsQuestion->files = $this->rsQuestion->getFilesInfo();
 
 		# title tag du module
 		$this->page->addTitleTag($this->okt->faq->getTitle());
 
 		# title tag du post
-		$this->page->addTitleTag((!empty($faqQuestion->title_tag) ? $faqQuestion->title_tag : $faqQuestion->title));
+		$this->page->addTitleTag((!empty($this->rsQuestion->title_tag) ? $this->rsQuestion->title_tag : $this->rsQuestion->title));
 
 		# titre de la page
-		$this->page->setTitle($faqQuestion->title);
+		$this->page->setTitle($this->rsQuestion->title);
 
 		# titre SEO de la page
-		$this->page->setTitleSeo(!empty($faqQuestion->title_seo) ? $faqQuestion->title_seo : $faqQuestion->title);
+		$this->page->setTitleSeo(!empty($this->rsQuestion->title_seo) ? $this->rsQuestion->title_seo : $this->rsQuestion->title);
 
 		# fil d'ariane du post
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
 		{
-			$this->page->breadcrumb->add($this->okt->faq->getName(), $this->okt->faq->config->url);
+			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 
-			$this->page->breadcrumb->add($faqQuestion->title, $faqQuestion->url);
+			$this->page->breadcrumb->add($this->rsQuestion->title, $this->rsQuestion->url);
 		}
 
 		# affichage du template
 		return $this->render('faq_question_tpl', array(
-			'faqQuestion' => $faqQuestion,
-			'faqQuestionLocales' => $faqQuestionLocales
+			'faqQuestion' => $this->rsQuestion
 		));
 	}
 

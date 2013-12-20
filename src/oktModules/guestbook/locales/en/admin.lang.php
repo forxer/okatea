@@ -1,8 +1,8 @@
 <?php
-# routes
+# Routes
 $GLOBALS['__l10n']['c_a_route_name_guestbookPage'] = 'Guestbook';
 
-#Index
+# Index
 $GLOBALS['__l10n']['m_guestbook_Validate'] = 'Validate';
 $GLOBALS['__l10n']['m_guestbook_Stand_out_as_unwanted'] = 'Stand out as unwanted';
 $GLOBALS['__l10n']['m_guestbook_Stand_out_as_acceptable'] = 'Stand out as accepatble';
@@ -46,4 +46,3 @@ $GLOBALS['__l10n']['m_guestbook_Validation_before_publication'] = 'Validation be
 $GLOBALS['__l10n']['m_guestbook_Addresses_separated_by_a_comma'] = 'Addresses, separated by a comma, in which to send an email after a new message. Leave space not to send an email.';
 $GLOBALS['__l10n']['m_guestbook_Automatic_deletion_of_spam'] = 'Automatic deletion of the SPAM at the end of how much day? (0 to deactivate)';
 $GLOBALS['__l10n']['m_guestbook_URL_rewriting'] = 'URL rewriting';
-$GLOBALS['__l10n']['m_guestbook_Guestbook_URL_from'] = 'URL of the guestbook since';

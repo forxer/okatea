@@ -8,7 +8,7 @@
 use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
 
-class faqFilters extends BaseFilters
+class FaqFilters extends BaseFilters
 {
 	protected $faq;
 

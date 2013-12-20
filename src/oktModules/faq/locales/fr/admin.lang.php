@@ -99,11 +99,6 @@ $GLOBALS['__l10n']['m_faq_enable_attached_files'] = 'Activer les fichiers joints
 $GLOBALS['__l10n']['m_faq_num_attached_files'] = 'Nombre de fichiers joints';
 $GLOBALS['__l10n']['m_faq_extensions_list_allowed'] = 'Liste des extensions autorisées séparées par des virgules';
 
-$GLOBALS['__l10n']['m_faq_error_list_url_match_question_url_%s'] = 'L’URL de la liste de questions (%s) ne doit pas être la même que l’URL d’une question.';
-
-$GLOBALS['__l10n']['m_faq_url_questions_list_%s_%s'] = 'URL de la liste de questions depuis %s en %s';
-$GLOBALS['__l10n']['m_faq_url_list_%s_%s'] = 'URL d’une question depuis %s en %s';
-
 $GLOBALS['__l10n']['m_faq_Search'] = 'Recherche';
 
 $GLOBALS['__l10n']['m_faq_no_question_section'] = 'aucune question';

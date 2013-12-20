@@ -61,26 +61,6 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
-	$p_public_faq_url = !empty($_POST['p_public_faq_url']) && is_array($_POST['p_public_faq_url']) ? $_POST['p_public_faq_url'] : array();
-
-	foreach ($p_public_faq_url as $lang=>$url) {
-		$p_public_faq_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	$p_public_question_url = !empty($_POST['p_public_question_url']) && is_array($_POST['p_public_question_url']) ? $_POST['p_public_question_url'] : array();
-
-	foreach ($p_public_question_url as $lang=>$url) {
-		$p_public_question_url[$lang] = util::formatAppPath($url,false,false);
-	}
-
-	foreach ($p_public_faq_url as $lang=>$url)
-	{
-		if (substr($p_public_question_url[$lang],0,strlen($p_public_faq_url[$lang])) == $p_public_faq_url[$lang]) {
-			$okt->error->set(sprintf(__('m_faq_error_list_url_match_question_url_%s'),$lang));
-		}
-	}
-
-
 	if ($okt->error->isEmpty())
 	{
 		$faq_conf = array(
@@ -95,9 +75,6 @@ if (!empty($_POST['form_sent']))
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_filters' => (boolean)$p_enable_filters,
 			'enable_categories' => (boolean)$p_enable_categories,
-
-			'public_faq_url' => $p_public_faq_url,
-			'public_question_url' => $p_public_question_url,
 
 			'files' => array(
 				'enable' => (boolean)$p_enable_files,
@@ -226,17 +203,6 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea('p_meta_keywords['.$aLanguage['code'].']', 57, 5, (isset($okt->faq->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
-				<?php endforeach; ?>
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url') ?></legend>
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_faq_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_faq_url_questions_list_%s_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_faq_url['.$aLanguage['code'].']','p_public_faq_url_'.$aLanguage['code']), 40, 255, (isset($okt->faq->config->public_faq_url[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->public_faq_url[$aLanguage['code']]) : '')) ?></p>
-
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_question_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_faq_url_list_%s_%s'), '<code>'.$okt->request->getSchemeAndHttpHost().$okt->config->app_path.$aLanguage['code'].'/</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_question_url['.$aLanguage['code'].']','p_public_question_url_'.$aLanguage['code']), 40, 255, (isset($okt->faq->config->public_question_url[$aLanguage['code']]) ? html::escapeHTML($okt->faq->config->public_question_url[$aLanguage['code']]) : '')) ?></p>
 				<?php endforeach; ?>
 			</fieldset>
 

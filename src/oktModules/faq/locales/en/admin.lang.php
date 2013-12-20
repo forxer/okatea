@@ -89,11 +89,6 @@ $GLOBALS['__l10n']['m_faq_enable_attached_files'] = 'Enable attached files';
 $GLOBALS['__l10n']['m_faq_num_attached_files'] = 'Number of attached files';
 $GLOBALS['__l10n']['m_faq_extensions_list_allowed'] = 'List of allowed extensions separated by commas';
 
-$GLOBALS['__l10n']['m_faq_error_list_url_match_question_url_%s'] = 'The URL of the list of questions (%s) should not be the same as the URL of a question / answer.';
-
-$GLOBALS['__l10n']['m_faq_url_questions_list_%s_%s'] = 'URL of questions list from %s in %s';
-$GLOBALS['__l10n']['m_faq_url_list_%s_%s'] = 'URL of question from %s in %s';
-
 $GLOBALS['__l10n']['m_faq_Search'] = 'Search';
 
 $GLOBALS['__l10n']['m_faq_no_question_section'] = 'no question';

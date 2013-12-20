@@ -8,7 +8,7 @@
 use Tao\Misc\Utilities as util;
 use Tao\Database\Recordset;
 
-class faqRecordset extends Recordset
+class FaqRecordset extends Recordset
 {
 	/**
 	 * L'objet core
@@ -46,11 +46,7 @@ class faqRecordset extends Recordset
 	 */
 	public function getQuestionUrl($sLanguage=null)
 	{
-		if (is_null($sLanguage)) {
-			$sLanguage = $this->okt->user->language;
-		}
-
-		return $this->okt->page->getBaseUrl($sLanguage).$this->okt->faq->config->public_question_url[$sLanguage].'/'.$this->slug;
+		return FaqHelpers::getQuestionUrl($this->slug, $sLanguage);
 	}
 
 	/**

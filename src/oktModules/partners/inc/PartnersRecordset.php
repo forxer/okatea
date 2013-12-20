@@ -7,7 +7,7 @@
 
 use Tao\Database\Recordset;
 
-class partnersRecordset extends Recordset
+class PartnersRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

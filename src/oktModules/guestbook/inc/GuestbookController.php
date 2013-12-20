@@ -5,22 +5,22 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Controller;
 use Tao\Misc\Mailer;
+use Tao\Misc\Utilities as util;
 use Tao\Website\Pager;
 
-class guestbookController extends Controller
+class GuestbookController extends Controller
 {
 	/**
-	 * Affichage de la page guestbook.
+	 * Affichage de la page du livre d'or.
 	 *
 	 */
-	public function guestbookPage()
+	public function guestbook()
 	{
 		# module actuel
 		$this->page->module = 'guestbook';
-		$this->page->action = 'list';
+		$this->page->action = 'guestbook';
 
 		# -- CORE TRIGGER : publicModuleGuestbookControllerStart
 		$this->okt->triggers->callTrigger('publicModuleGuestbookControllerStart', $this->okt, $this->okt->guestbook->config->captcha);
@@ -91,7 +91,7 @@ class guestbookController extends Controller
 						$oMail->send();
 					}
 
-					return $this->redirect($this->okt->guestbook->config->url.'?added=1');
+					return $this->redirect(GuestbookHelpers::getGuestbookUrl().'?added=1');
 				}
 			}
 		}
@@ -114,11 +114,8 @@ class guestbookController extends Controller
 		$signaturesList = $this->okt->guestbook->getSig($aGuestbookParams);
 
 		$aLanguages = array();
-		foreach ($this->okt->languages->list as $aLanguage)
-		{
-			if (isset($this->okt->guestbook->config->public_url[$aLanguage['code']])) {
-				$aLanguages[$aLanguage['title']] = $aLanguage['code'];
-			}
+		foreach ($this->okt->languages->list as $aLanguage) {
+			$aLanguages[$aLanguage['title']] = $aLanguage['code'];
 		}
 
 		# formatage des données
@@ -174,7 +171,7 @@ class guestbookController extends Controller
 
 		# fil d'ariane de la page
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
-			$this->page->breadcrumb->add($this->okt->guestbook->getName(), $this->okt->guestbook->config->url);
+			$this->page->breadcrumb->add($this->okt->guestbook->getName(), GuestbookHelpers::getGuestbookUrl());
 		}
 
 		# raccourcis

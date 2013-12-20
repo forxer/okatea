@@ -59,11 +59,6 @@ if (!empty($_POST['form_sent']))
 	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
 
-	$p_public_url = !empty($_POST['p_public_url']) ? $_POST['p_public_url'] : '';
-
-	foreach ($p_public_url as $lang=>$url) {
-		$p_public_url[$lang] = util::formatAppPath($url,false,false);
-	}
 
 	if ($okt->error->isEmpty())
 	{
@@ -85,9 +80,7 @@ if (!empty($_POST['form_sent']))
 			'name_seo' => $p_name_seo,
 			'title' => $p_title,
 			'meta_description' => $p_meta_description,
-			'meta_keywords' => $p_meta_keywords,
-
-			'public_url' => $p_public_url
+			'meta_keywords' => $p_meta_keywords
 		);
 
 		try
@@ -201,14 +194,6 @@ include OKT_ADMIN_HEADER_FILE; ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_seo_meta_keywords')?><span class="lang-switcher-buttons"></span></label>
 				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->guestbook->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->guestbook->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
-				<?php endforeach;?>
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_c_seo_schema_url')?></legend>
-				<?php foreach ($okt->languages->list as $aLanguage) :?>
-				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url"><?php _e('m_guestbook_Guestbook_URL_from')?> <code><?php echo $okt->request->getSchemeAndHttpHost().$okt->config->app_path ?></code><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 40, 255, html::escapeHTML(isset($okt->guestbook->config->public_url[$aLanguage['code']]) ? $okt->guestbook->config->public_url[$aLanguage['code']] : '')) ?></p>
 				<?php endforeach;?>
 			</fieldset>
 
