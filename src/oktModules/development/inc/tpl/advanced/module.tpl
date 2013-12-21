@@ -52,9 +52,6 @@ class module_##module_id## extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		# chargement des locales admin
 		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
@@ -66,7 +63,7 @@ class module_##module_id## extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=##module_id##',
-				ON_MODULE,
+				$this->bCurrentlyInUse,
 				20,
 				$this->okt->checkPerm('##module_id##'),
 				null,
@@ -77,14 +74,14 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_management'),
 					'module.php?m=##module_id##&amp;action=index',
-					ON_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					10
 				);
 
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_add_item'),
 					'module.php?m=##module_id##&amp;action=add',
-					ON_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					20,
 					$this->okt->checkPerm('##module_id##_add')
 				);
@@ -92,7 +89,7 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_display'),
 					'module.php?m=##module_id##&amp;action=display',
-					ON_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					200,
 					$this->okt->checkPerm('##module_id##_display')
 				);
@@ -100,7 +97,7 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_config'),
 					'module.php?m=##module_id##&amp;action=config',
-					ON_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					300,
 					$this->okt->checkPerm('##module_id##_config')
 				);

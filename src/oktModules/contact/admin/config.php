@@ -200,7 +200,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php _e('m_contact_enable_access_map') ?></label>
 
 				<?php if ($bGoogleMapNotEnablable) : ?>
-				<span class="note">Les <a href="<?php echo OKT_DIRNAME ?>/configuration.php?action=site#tab_company">informations de la société</a> ne sont pas renseignées, cette fonctionnalité ne peut être activée.</span>
+				<span class="note">Les <a href="configuration.php?action=site#tab_company">informations de la société</a> ne sont pas renseignées, cette fonctionnalité ne peut être activée.</span>
 				<?php endif; ?></p>
 
 			</fieldset>

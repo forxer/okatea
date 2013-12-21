@@ -405,26 +405,4 @@ class Module
 
 		return $sNameSeo;
 	}
-
-
-	/* Méthodes utilitaires
-	----------------------------------------------------------*/
-
-	/**
-	 * Indique si on est sur ce module coté admin
-	 *
-	 * @return void
-	 */
-	public function onThisModule()
-	{
-		$bOnThisModule = false;
-
-		$m = $this->okt->request->request->get('m', $this->okt->request->query->get('m'));
-
-		if (OKT_FILENAME == 'module.php' && $m == $this->id()) {
-			$bOnThisModule = true;
-		}
-
-		define('ON_'.strtoupper($this->id()).'_MODULE', $bOnThisModule);
-	}
 }

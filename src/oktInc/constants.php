@@ -146,18 +146,10 @@ if (!defined('OKT_FILENAME')) {
 }
 
 /**
- * Raccourci du nom du dossier en cours
- */
-if (!defined('OKT_DIRNAME')) {
-	define('OKT_DIRNAME', dirname($_SERVER['PHP_SELF']));
-	//define('OKT_DIRNAME', str_replace(DIRECTORY_SEPARATOR,'/',dirname($_SERVER['PHP_SELF'])));
-}
-
-/**
  * Le nom du dossier admin
  */
 if (!defined('OKT_ADMIN_DIR')) {
-	define('OKT_ADMIN_DIR', 'administration');
+	define('OKT_ADMIN_DIR', 'admin');
 }
 
 /**
