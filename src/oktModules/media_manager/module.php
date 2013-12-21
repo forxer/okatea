@@ -11,9 +11,6 @@ class module_media_manager extends Module
 {
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'oktMedia' => __DIR__.'/inc/class.oktMedia.php'
@@ -31,19 +28,13 @@ class module_media_manager extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->homeSubMenu->add(
 				__('Media manager'),
 				'module.php?m=media_manager',
-				ON_MEDIA_MANAGER_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+				$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
 				30,
 				($this->okt->checkPerm('media') || $this->okt->checkPerm('media_admin')),
 				null
@@ -52,7 +43,7 @@ class module_media_manager extends Module
 			$this->okt->page->configSubMenu->add(
 				__('Media manager'),
 				'module.php?m=media_manager&amp;action=config',
-				ON_MEDIA_MANAGER_MODULE && ($this->okt->page->action === 'config'),
+				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				30,
 				$this->okt->checkPerm('media_config'),
 				null

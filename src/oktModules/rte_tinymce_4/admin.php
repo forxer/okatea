@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_RTE_TINYMCE_4_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # Perm ?
 //if (!$okt->checkPerm('rte_tinymce_4')) {

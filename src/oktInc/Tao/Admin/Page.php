@@ -23,19 +23,19 @@ use Tao\Misc\FlashMessages;
 class Page extends BasePage
 {
 	/**
-	 * $_REQUEST['action']
+	 * _REQUEST['action']
 	 * @var string
 	 */
 	public $action;
 
 	/**
-	 * $_REQUEST['application']
+	 * _REQUEST['application']
 	 * @var string
 	 */
 	public $application;
 
 	/**
-	 * $_REQUEST['do']
+	 * _REQUEST['do']
 	 * @var string
 	 */
 	public $do;

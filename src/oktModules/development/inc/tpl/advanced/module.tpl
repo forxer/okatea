@@ -66,7 +66,7 @@ class module_##module_id## extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=##module_id##',
-				ON_##module_upper_id##_MODULE,
+				ON_MODULE,
 				20,
 				$this->okt->checkPerm('##module_id##'),
 				null,
@@ -77,14 +77,14 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_management'),
 					'module.php?m=##module_id##&amp;action=index',
-					ON_##module_upper_id##_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					ON_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					10
 				);
 
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_add_item'),
 					'module.php?m=##module_id##&amp;action=add',
-					ON_##module_upper_id##_MODULE && ($this->okt->page->action === 'add'),
+					ON_MODULE && ($this->okt->page->action === 'add'),
 					20,
 					$this->okt->checkPerm('##module_id##_add')
 				);
@@ -92,7 +92,7 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_display'),
 					'module.php?m=##module_id##&amp;action=display',
-					ON_##module_upper_id##_MODULE && ($this->okt->page->action === 'display'),
+					ON_MODULE && ($this->okt->page->action === 'display'),
 					200,
 					$this->okt->checkPerm('##module_id##_display')
 				);
@@ -100,7 +100,7 @@ class module_##module_id## extends Module
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
 					__('m_##module_id##_menu_config'),
 					'module.php?m=##module_id##&amp;action=config',
-					ON_##module_upper_id##_MODULE && ($this->okt->page->action === 'config'),
+					ON_MODULE && ($this->okt->page->action === 'config'),
 					300,
 					$this->okt->checkPerm('##module_id##_config')
 				);

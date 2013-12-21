@@ -19,9 +19,6 @@ class module_guestbook extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'GuestbookController' => __DIR__.'/inc/GuestbookController.php',
@@ -43,12 +40,6 @@ class module_guestbook extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -57,7 +48,7 @@ class module_guestbook extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=guestbook',
-				ON_GUESTBOOK_MODULE,
+				$this->bCurrentlyInUse,
 				10,
 				$this->okt->checkPerm('guestbook'),
 				null,
@@ -67,20 +58,20 @@ class module_guestbook extends Module
 				$this->okt->page->guestbookSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=guestbook&amp;action=index',
-					ON_GUESTBOOK_MODULE && ($this->okt->page->action !== 'display' && $this->okt->page->action !== 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action !== 'display' && $this->okt->page->action !== 'config'),
 					1
 				);
 				$this->okt->page->guestbookSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=guestbook&amp;action=display',
-					ON_GUESTBOOK_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					2,
 					$this->okt->checkPerm('guestbook_display')
 				);
 				$this->okt->page->guestbookSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=guestbook&amp;action=config',
-					ON_GUESTBOOK_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					3,
 					$this->okt->checkPerm('guestbook_config')
 				);

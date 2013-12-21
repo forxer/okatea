@@ -45,9 +45,15 @@ class Module
 	public $infos;
 
 	/**
+	 * Indique si le module est actuellement en cours d'utilisation
+	 * @var boolean
+	 */
+	public $bCurrentlyInUse;
+
+	/**
 	 * Constructeur.
 	 *
-	 * @param	object	okt		Instance d'un objet de type oktCore
+	 * @param object $okt		Instance d'un objet de type oktCore
 	 * @return void
 	 */
 	public function __construct($okt)
@@ -96,6 +102,8 @@ class Module
 		foreach ($infos as $name=>$value) {
 			$this->setInfo($name,$value);
 		}
+
+		$this->bCurrentlyInUse = $this->okt->modules->isActiveModule($this->id());
 	}
 
 	/**
@@ -157,13 +165,19 @@ class Module
 	/* Méthodes d'initialisation
 	----------------------------------------------------------*/
 
-	public function init()
+	final public function init()
 	{
+		$this->okt->l10n->loadFile($this->root().'/locales/'.$this->okt->user->language.'/main');
+
 		$this->prepend();
 	}
 
-	public function initNs($ns)
+	final public function initNs($ns)
 	{
+		if ($ns == 'admin') {
+			$this->okt->l10n->loadFile($this->root().'/locales/'.$this->okt->user->language.'/admin');
+		}
+
 		$this->{'prepend_'.$ns}();
 	}
 
@@ -401,15 +415,16 @@ class Module
 	 *
 	 * @return void
 	 */
-	protected function onThisModule()
+	public function onThisModule()
 	{
-		$upperId = strtoupper($this->id());
+		$bOnThisModule = false;
 
-		if (OKT_FILENAME == 'module.php' && !empty($_REQUEST['m']) && $_REQUEST['m'] == $this->id()) {
-			define('ON_'.$upperId.'_MODULE', true);
+		$m = $this->okt->request->request->get('m', $this->okt->request->query->get('m'));
+
+		if (OKT_FILENAME == 'module.php' && $m == $this->id()) {
+			$bOnThisModule = true;
 		}
-		else {
-			define('ON_'.$upperId.'_MODULE', false);
-		}
+
+		define('ON_'.strtoupper($this->id()).'_MODULE', $bOnThisModule);
 	}
 }

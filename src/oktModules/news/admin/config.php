@@ -6,13 +6,13 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
-use Tao\Forms\Statics\FormElements as form;
-use Tao\Themes\TemplatesSet;
 use Tao\Images\ImageUploadConfig;
+use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\Utilities as util;
+use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (!defined('ON_NEWS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

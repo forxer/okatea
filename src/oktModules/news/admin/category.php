@@ -11,7 +11,7 @@ use Tao\Forms\Statics\SelectOption;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (!defined('ON_NEWS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

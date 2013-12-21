@@ -124,9 +124,9 @@ class BaseFilters
 
 	protected function setFilter($name)
 	{
-		if (isset($_GET[$name]))
+		if ($this->request->query->has($name))
 		{
-			$this->params->$name = $_GET[$name];
+			$this->params->$name = $this->request->query->get($name);
 			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
@@ -141,9 +141,9 @@ class BaseFilters
 
 	protected function setIntFilter($name)
 	{
-		if (isset($_GET[$name]) && $_GET[$name] != -1)
+		if ($this->request->query->has($name) && $this->request->query->getInt($name) != -1)
 		{
-			$this->params->$name = intval($_GET[$name]);
+			$this->params->$name = $this->request->query->getInt($name);
 			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
@@ -158,14 +158,14 @@ class BaseFilters
 
 	protected function setCheckboxFilter($name)
 	{
-		if (isset($_GET[$name]))
+		if ($this->request->query->has($name))
 		{
-			$this->params->$name = intval($_GET[$name]);
+			$this->params->$name = $this->request->query->getInt($name);
 			$this->session->set($this->sess_prefix.$name, $this->params->$name);
 
 			$this->setActiveFilter($name);
 		}
-		elseif (isset($_GET[$this->getFilterSubmitName()]))
+		elseif ($this->request->query->has($this->getFilterSubmitName()))
 		{
 			$this->params->$name = 0;
 			if ($this->session->has($this->sess_prefix.$name)) {

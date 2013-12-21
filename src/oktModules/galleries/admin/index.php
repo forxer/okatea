@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_GALLERIES_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations
@@ -273,11 +273,11 @@ while ($rsGalleriesList->fetch())
 		echo $sDeleteLink;
 
 		if ($rsGalleriesList->password) {
-			echo ' - <span class="icon key">'.__('m_galleries_list_protected_password').'</span>';
+			echo ' - <span class="icon key"></span>'.__('m_galleries_list_protected_password');
 		}
 
 		if ($okt->user->is_superadmin && $rsGalleriesList->locked) {
-			echo ' - <span class="icon lock">'.__('m_galleries_list_locked').'</span>';
+			echo ' - <span class="icon lock"></span>'.__('m_galleries_list_locked');
 		}
 
 		echo '</p>';

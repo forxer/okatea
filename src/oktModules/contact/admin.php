@@ -7,7 +7,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_CONTACT_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # title tag
 $okt->page->addTitleTag($okt->contact->getTitle());

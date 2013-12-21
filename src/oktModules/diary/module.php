@@ -27,9 +27,6 @@ class module_diary extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'DiaryController' => __DIR__.'/inc/DiaryController.php',
@@ -60,12 +57,6 @@ class module_diary extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un élément au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -74,7 +65,7 @@ class module_diary extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=diary',
-				ON_DIARY_MODULE,
+				$this->bCurrentlyInUse,
 				20,
 				$this->okt->checkPerm('diary'),
 				null,
@@ -85,14 +76,14 @@ class module_diary extends Module
 				$this->okt->page->diarySubMenu->add(
 					__('m_diary_menu_management'),
 					'module.php?m=diary&amp;action=index',
-					ON_DIARY_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					10
 				);
 
 				$this->okt->page->diarySubMenu->add(
 					__('m_diary_menu_add_event'),
 					'module.php?m=diary&amp;action=add',
-					ON_DIARY_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					20,
 					$this->okt->checkPerm('diary_add')
 				);
@@ -100,7 +91,7 @@ class module_diary extends Module
 				$this->okt->page->diarySubMenu->add(
 					__('m_diary_menu_display'),
 					'module.php?m=diary&amp;action=display',
-					ON_DIARY_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					200,
 					$this->okt->checkPerm('diary_display')
 				);
@@ -108,7 +99,7 @@ class module_diary extends Module
 				$this->okt->page->diarySubMenu->add(
 					__('m_diary_menu_config'),
 					'module.php?m=diary&amp;action=config',
-					ON_DIARY_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					300,
 					$this->okt->checkPerm('diary_config')
 				);

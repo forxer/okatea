@@ -24,9 +24,6 @@ class module_estimate extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'EstimateAccessories' => __DIR__.'/inc/EstimateAccessories.php',
@@ -61,12 +58,6 @@ class module_estimate extends Module
 
 	protected function prepend_admin()
 	{
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -74,7 +65,7 @@ class module_estimate extends Module
 			$this->okt->page->mainMenu->add(
 				__('m_estimate_menu_Estimates'),
 				'module.php?m=estimate',
-				ON_ESTIMATE_MODULE,
+				$this->bCurrentlyInUse,
 				30,
 				$this->okt->checkPerm('estimate'),
 				null,
@@ -84,27 +75,27 @@ class module_estimate extends Module
 				$this->okt->page->estimateSubMenu->add(
 					__('m_estimate_menu_Estimates_list'),
 					'module.php?m=estimate&amp;action=index',
-					ON_ESTIMATE_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'),
 					1
 				);
 				$this->okt->page->estimateSubMenu->add(
 					__('m_estimate_menu_Products'),
 					'module.php?m=estimate&amp;action=products',
-					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'),
 					2,
 					$this->okt->checkPerm('estimate_products')
 				);
 				$this->okt->page->estimateSubMenu->add(
 					__('m_estimate_menu_Accessories'),
 					'module.php?m=estimate&amp;action=accessories',
-					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'),
 					3,
 					$this->config->enable_accessories && $this->okt->checkPerm('estimate_accessories')
 				);
 				$this->okt->page->estimateSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=estimate&amp;action=config',
-					ON_ESTIMATE_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					10,
 					$this->okt->checkPerm('estimate_config')
 				);

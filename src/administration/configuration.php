@@ -14,7 +14,7 @@
 
 require __DIR__.'/../oktInc/admin/prepend.php';
 
-define('ON_CONFIGURATION_MODULE', true);
+define('ON_OKT_CONFIGURATION', true);
 
 
 # Titre de la page

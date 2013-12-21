@@ -14,6 +14,7 @@ use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RequestContext;
 
 use Tao\Cache\SingleFileCache;
@@ -138,7 +139,7 @@ class Application
 	public $router;
 
 	/**
-	 * Le gestionnaire de modules.
+	 * Le gestionnaire de session.
 	 *
 	 * @var Tao\Core\Session
 	 */
@@ -206,7 +207,7 @@ class Application
 
 		$this->start();
 
-		$this->databaseStart();
+		$this->db = $this->database();
 
 		$this->triggers = new Triggers();
 
@@ -262,7 +263,7 @@ class Application
 		}
 	}
 
-	protected function databaseStart()
+	protected function database()
 	{
 		if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
 			require_once OKT_CONFIG_PATH.'/connexion.php';
@@ -271,11 +272,13 @@ class Application
 			$this->error->fatal('Fatal error: unable to find database connexion file !');
 		}
 
-		$this->db = Connexion::getInstance();
+		$db = Connexion::getInstance();
 
-		if ($this->db->hasError()) {
-			$this->error->fatal('Unable to connect to database', $this->db->error());
+		if ($db->hasError()) {
+			$this->error->fatal('Unable to connect to database', $db->error());
 		}
+
+		return $db;
 	}
 
 	protected function getTheme()

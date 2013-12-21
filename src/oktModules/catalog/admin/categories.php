@@ -11,7 +11,7 @@ use Tao\Forms\Statics\SelectOption;
 use Tao\Misc\Utilities as util;
 
 # Accès direct interdit
-if (!defined('ON_CATALOG_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # récupération de la liste complète des catégories
 $categories_list = $okt->catalog->getCategories(array('active'=>2,'with_count'=>true));

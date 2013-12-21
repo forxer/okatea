@@ -16,7 +16,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 $aModulesRepositories = (array)$okt->config->modules_repositories;
 $aThemesRepositories = (array)$okt->config->themes_repositories;

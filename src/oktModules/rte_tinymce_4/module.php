@@ -13,9 +13,6 @@ class module_rte_tinymce_4 extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# permissions
 		$this->okt->addPerm('rte_tinymce_4_config', __('m_rte_tinymce_4_perm_config'), 'configuration');
 
@@ -25,9 +22,6 @@ class module_rte_tinymce_4 extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		$this->okt->page->addRte('tinymce_4','tinyMCE 4',array('module_rte_tinymce_4','tinyMCE'));
 
 		# on ajoutent un item au menu admin
@@ -36,7 +30,7 @@ class module_rte_tinymce_4 extends Module
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 4'),
 				'module.php?m=rte_tinymce_4&amp;action=config',
-				ON_RTE_TINYMCE_4_MODULE && ($this->okt->page->action === 'config'),
+				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				40,
 				$this->okt->checkPerm('rte_tinymce_4_config'),
 				null

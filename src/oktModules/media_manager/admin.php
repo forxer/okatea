@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_MEDIA_MANAGER_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # title tag

@@ -29,9 +29,6 @@ class module_catalog extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'CatalogController' => __DIR__.'/inc/CatalogController.php',
@@ -81,12 +78,6 @@ class module_catalog extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -95,7 +86,7 @@ class module_catalog extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=catalog',
-				ON_CATALOG_MODULE,
+				$this->bCurrentlyInUse,
 				10,
 				$this->okt->checkPerm('catalog'),
 				null,
@@ -105,34 +96,34 @@ class module_catalog extends Module
 				$this->okt->page->catalogSubMenu->add(
 					'Gestion',
 					'module.php?m=catalog&amp;action=index',
-					ON_CATALOG_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					1
 				);
 				$this->okt->page->catalogSubMenu->add(
 					'Ajouter un produit',
 					'module.php?m=catalog&amp;action=add',
-					ON_CATALOG_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					2,
 					($this->config->categories_enable && $this->okt->checkPerm('catalog_add'))
 				);
 				$this->okt->page->catalogSubMenu->add(
 					'Catégories',
 					'module.php?m=catalog&amp;action=categories',
-					ON_CATALOG_MODULE && ($this->okt->page->action === 'categories'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'categories'),
 					5,
 					($this->config->categories_enable && $this->okt->checkPerm('catalog_categories'))
 				);
 				$this->okt->page->catalogSubMenu->add(
 					'Affichage',
 					'module.php?m=catalog&amp;action=display',
-					ON_CATALOG_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					10,
 					$this->okt->checkPerm('catalog_display')
 				);
 				$this->okt->page->catalogSubMenu->add(
 					'Configuration',
 					'module.php?m=catalog&amp;action=config',
-					ON_CATALOG_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					20,
 					$this->okt->checkPerm('catalog_config')
 				);

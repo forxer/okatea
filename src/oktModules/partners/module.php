@@ -31,9 +31,6 @@ class module_partners extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'PartnersController' => __DIR__.'/inc/PartnersController.php',
@@ -78,12 +75,6 @@ class module_partners extends Module
 
 	protected function prepend_admin()
 	{
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		# on ajoute un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -91,7 +82,7 @@ class module_partners extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=partners',
-				ON_PARTNERS_MODULE,
+				$this->bCurrentlyInUse,
 				10,
 				$this->okt->checkPerm('partners'),
 				null,
@@ -101,34 +92,34 @@ class module_partners extends Module
 				$this->okt->page->partnersSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=partners&amp;action=index',
-					ON_PARTNERS_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					1
 				);
 				$this->okt->page->partnersSubMenu->add(
 					__('m_partners_add_partner'),
 					'module.php?m=partners&amp;action=add',
-					ON_PARTNERS_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					2,
 					$this->okt->checkPerm('partners_add')
 				);
 				$this->okt->page->partnersSubMenu->add(
 					__('m_partners_Categories'),
 					'module.php?m=partners&amp;action=categories',
-					ON_PARTNERS_MODULE && ($this->okt->page->action === 'categories'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'categories'),
 					3,
 					($this->config->enable_categories && $this->okt->checkPerm('partners_add'))
 				);
 				$this->okt->page->partnersSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=partners&amp;action=display',
-					ON_PARTNERS_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					10,
 					$this->okt->checkPerm('partners_display')
 				);
 				$this->okt->page->partnersSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=partners&amp;action=config',
-					ON_PARTNERS_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					20,
 					$this->okt->checkPerm('partners_config')
 				);

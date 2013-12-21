@@ -13,9 +13,6 @@ class module_rte_tinymce_3 extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# permissions
 		$this->okt->addPerm('rte_tinymce_3_config', __('m_rte_tinymce_3_perm_config'), 'configuration');
 
@@ -25,9 +22,6 @@ class module_rte_tinymce_3 extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		$this->okt->page->addRte('tinymce_3_simple','tinyMCE 3 simple',array('module_rte_tinymce_3','tinyMCEsimple'));
 		$this->okt->page->addRte('tinymce_3_advanced','tinyMCE 3 advanced',array('module_rte_tinymce_3','tinyMCEadvanced'));
 		$this->okt->page->addRte('tinymce_3_experts','tinyMCE 3 experts',array('module_rte_tinymce_3','tinyMCEexperts'));
@@ -38,7 +32,7 @@ class module_rte_tinymce_3 extends Module
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 3'),
 				'module.php?m=rte_tinymce_3&amp;action=config',
-				ON_RTE_TINYMCE_3_MODULE && ($this->okt->page->action === 'config'),
+				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				40,
 				$this->okt->checkPerm('rte_tinymce_3_config'),
 				null

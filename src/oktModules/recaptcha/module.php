@@ -12,9 +12,6 @@ class module_recaptcha extends Module
 {
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# permissions
 		$this->okt->addPerm('recaptcha_config', __('m_recaptacha_perm_config'), 'configuration');
 
@@ -40,19 +37,13 @@ class module_recaptcha extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->configSubMenu->add(
 				__('reCaptcha'),
 				'module.php?m=recaptcha&amp;action=index',
-				ON_RECAPTCHA_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+				$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
 				30,
 				$this->okt->checkPerm('recaptcha_config'),
 				null

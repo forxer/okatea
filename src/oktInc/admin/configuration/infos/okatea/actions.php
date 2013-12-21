@@ -16,7 +16,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # affichage changelog Okatea
 if (!empty($_GET['show_changelog']) && file_exists(OKT_ROOT_PATH.'/CHANGELOG'))

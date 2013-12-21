@@ -38,9 +38,6 @@ class module_contact extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'ContactController' => __DIR__.'/inc/ContactController.php',
@@ -64,12 +61,6 @@ class module_contact extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -77,7 +68,7 @@ class module_contact extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=contact',
-				ON_CONTACT_MODULE,
+				$this->bCurrentlyInUse,
 				2000,
 				$this->okt->checkPerm('contact_recipients'),
 				null,
@@ -87,21 +78,21 @@ class module_contact extends Module
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_recipients'),
 					'module.php?m=contact&amp;action=index',
-					ON_CONTACT_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
 					1,
 					$this->okt->checkPerm('contact_recipients')
 				);
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_fields'),
 					'module.php?m=contact&amp;action=fields',
-					ON_CONTACT_MODULE && ($this->okt->page->action === 'fields' || $this->okt->page->action === 'field'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'fields' || $this->okt->page->action === 'field'),
 					2,
 					$this->okt->checkPerm('contact_fields')
 				);
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_configuration'),
 					'module.php?m=contact&amp;action=config',
-					ON_CONTACT_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					3,
 					$this->okt->checkPerm('contact_config')
 				);

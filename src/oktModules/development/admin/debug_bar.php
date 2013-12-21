@@ -8,7 +8,7 @@ use Tao\Admin\Page;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (!defined('ON_DEVELOPMENT_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Traitements

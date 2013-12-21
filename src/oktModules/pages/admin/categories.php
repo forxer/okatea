@@ -8,7 +8,7 @@
 use Tao\Misc\Utilities as util;
 
 # Accès direct interdit
-if (!defined('ON_PAGES_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

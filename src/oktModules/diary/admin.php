@@ -8,7 +8,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_DIARY_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # Perm ?

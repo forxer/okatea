@@ -12,7 +12,7 @@ use Tao\Core\Authentification;
 use Tao\Misc\Mailer;
 
 # Accès direct interdit
-if (!defined('ON_USERS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

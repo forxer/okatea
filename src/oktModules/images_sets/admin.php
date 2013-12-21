@@ -8,7 +8,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_IMAGES_SETS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # title tag

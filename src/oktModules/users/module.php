@@ -24,9 +24,6 @@ class module_users extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'UsersController' => __DIR__.'/inc/UsersController.php',
@@ -67,19 +64,13 @@ class module_users extends Module
 
 	protected function prepend_admin()
 	{
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
 		# on ajoutent un item au menu principal
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->mainMenu->add(
 				__('Users'),
 				'module.php?m=users',
-				ON_USERS_MODULE,
+				$this->bCurrentlyInUse,
 				5000000,
 				($this->okt->checkPerm('users')),
 				null,
@@ -89,42 +80,42 @@ class module_users extends Module
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=users&amp;action=index',
-					ON_USERS_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'add' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'add' || $this->okt->page->action === 'edit'),
 					10,
 					$this->okt->checkPerm('users')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Groups'),
 					'module.php?m=users&amp;action=groups',
-					ON_USERS_MODULE && ($this->okt->page->action === 'groups'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'groups'),
 					20,
 					$this->okt->checkPerm('groups')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Custom_fields'),
 					'module.php?m=users&amp;action=fields',
-					ON_USERS_MODULE && ($this->okt->page->action === 'fields' || $this->okt->page->action === 'field'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'fields' || $this->okt->page->action === 'field'),
 					30,
 					$this->config->enable_custom_fields && $this->okt->checkPerm('users_custom_fields')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Export'),
 					'module.php?m=users&amp;action=export',
-					ON_USERS_MODULE && ($this->okt->page->action === 'export'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'export'),
 					40,
 					$this->okt->checkPerm('users_export')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=users&amp;action=display',
-					ON_USERS_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					90,
 					$this->okt->checkPerm('users_display')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=users&amp;action=config',
-					ON_USERS_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					100,
 					$this->okt->checkPerm('users_config')
 				);

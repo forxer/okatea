@@ -17,7 +17,7 @@
 use Tao\Themes\Collection as ThemesCollection;
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 define('OKT_THEMES_MANAGEMENT', true);
 
 # Themes object

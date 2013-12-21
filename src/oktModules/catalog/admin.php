@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_CATALOG_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # Perms ?
 if (!$okt->checkPerm('catalog')) {

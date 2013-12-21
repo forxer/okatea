@@ -18,9 +18,6 @@ class module_images_sets extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 	//	$this->okt->autoloader->addClassMap(array(
 	//		'imagesSetsController' => __DIR__.'/inc/class.images_sets.controller.php'
@@ -35,19 +32,13 @@ class module_images_sets extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->configSubMenu->add(
 				__('Images sets'),
 				'module.php?m=images_sets&amp;action=index',
-				ON_IMAGES_SETS_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+				$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
 				42,
 				$this->okt->checkPerm('is_superadmin'),
 				null

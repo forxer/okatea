@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_USERS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('users') && $okt->page->action !== 'profil') {

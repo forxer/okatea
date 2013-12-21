@@ -7,7 +7,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_FAQ_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # Perms ?

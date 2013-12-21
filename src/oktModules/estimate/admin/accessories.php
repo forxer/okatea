@@ -8,7 +8,7 @@
 use Tao\Misc\Utilities as util;
 
 # Accès direct interdit
-if (!defined('ON_ESTIMATE_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # chargement des locales

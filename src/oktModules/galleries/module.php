@@ -27,9 +27,6 @@ class module_galleries extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'GalleriesController' => __DIR__.'/inc/GalleriesController.php',
@@ -130,12 +127,6 @@ class module_galleries extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -143,7 +134,7 @@ class module_galleries extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=galleries',
-				ON_GALLERIES_MODULE,
+				$this->bCurrentlyInUse,
 				20,
 				$this->okt->checkPerm('galleries'),
 				null,
@@ -153,41 +144,41 @@ class module_galleries extends Module
 				$this->okt->page->galleriesSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=galleries&amp;action=index',
-					ON_GALLERIES_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'gallery' || $this->okt->page->action === 'items' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'gallery' || $this->okt->page->action === 'items' || $this->okt->page->action === 'edit'),
 					1
 				);
 				$this->okt->page->galleriesSubMenu->add(
 					__('m_galleries_menu_add_item'),
 					'module.php?m=galleries&amp;action=add',
-					ON_GALLERIES_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					2,
 					$this->okt->checkPerm('galleries_add')
 				);
 				$this->okt->page->galleriesSubMenu->add(
 					__('m_galleries_menu_add_items'),
 					'module.php?m=galleries&amp;action=add_multiples',
-					ON_GALLERIES_MODULE && ($this->okt->page->action === 'add_multiples'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add_multiples'),
 					3,
 					$this->config->enable_multiple_upload && $this->okt->checkPerm('galleries_add')
 				);
 				$this->okt->page->galleriesSubMenu->add(
 					__('m_galleries_menu_add_zip'),
 					'module.php?m=galleries&amp;action=add_zip',
-					ON_GALLERIES_MODULE && ($this->okt->page->action === 'add_zip'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add_zip'),
 					4,
 					$this->config->enable_zip_upload && $this->okt->checkPerm('galleries_add')
 				);
 				$this->okt->page->galleriesSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=galleries&amp;action=display',
-					ON_GALLERIES_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					10,
 					$this->okt->checkPerm('galleries_display')
 				);
 				$this->okt->page->galleriesSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=galleries&amp;action=config',
-					ON_GALLERIES_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					20,
 					$this->okt->checkPerm('galleries_config')
 				);

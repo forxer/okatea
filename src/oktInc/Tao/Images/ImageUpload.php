@@ -696,9 +696,7 @@ class ImageUpload
 
 		$mode = $sResizeType === 'ratio' ? Image\ImageInterface::THUMBNAIL_INSET : Image\ImageInterface::THUMBNAIL_OUTBOUND;
 
-		$image = $imagine->open($sSourceFile);
-
-		$image->thumbnail($size, $mode);
+		$image = $imagine->open($sSourceFile)->thumbnail($size, $mode);
 
 		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile))
 		{

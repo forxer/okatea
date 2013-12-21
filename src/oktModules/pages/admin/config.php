@@ -12,7 +12,7 @@ use Tao\Misc\Utilities as util;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (!defined('ON_PAGES_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

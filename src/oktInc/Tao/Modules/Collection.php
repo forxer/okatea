@@ -90,6 +90,12 @@ class Collection
 	protected $cache_repo_id;
 
 	/**
+	 * L'identifiant du module éventuellement actif
+	 * @var string
+	 */
+	protected $sActiveModule;
+
+	/**
 	 * Constructeur.
 	 *
 	 * @param	object	$okt		Instance d'un objet de type oktCore
@@ -113,6 +119,29 @@ class Collection
 		$this->url = $url;
 	}
 
+	public function setActiveModule($sActiveModule = null)
+	{
+		if (null === $sActiveModule) {
+			$sActiveModule = $this->okt->request->request->get('m', $this->okt->request->query->get('m'));
+		}
+
+		$this->sActiveModule = $sActiveModule;
+	}
+
+	public function getActiveModule()
+	{
+		return $this->sActiveModule;
+	}
+
+	public function isActiveModule($sModuleId)
+	{
+		if (empty($sModuleId) || empty($this->sActiveModule)) {
+			return false;
+		}
+
+		return $sModuleId == $this->sActiveModule;
+	}
+
 	/**
 	 * Charge les modules disponibles.
 	 *
@@ -123,6 +152,10 @@ class Collection
 	public function loadModules($ns=null, $lang=null)
 	{
 		$this->ns = $ns;
+
+		if ($ns === 'admin') {
+			$this->setActiveModule();
+		}
 
 		if (!$this->cache->contains($this->cache_id)) {
 			$this->generateCacheList();
@@ -141,13 +174,12 @@ class Collection
 				$this->list[$module_id] = new $class($this->okt);
 
 				$this->list[$module_id]->setInfos($module_infos);
-
-				$this->list[$module_id]->init();
 			}
 		}
 
 		foreach ($aModulesList as $module_id=>$module_infos)
 		{
+			$this->list[$module_id]->init();
 			$this->list[$module_id]->initNs($ns);
 		}
 	}

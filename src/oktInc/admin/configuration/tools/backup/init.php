@@ -16,7 +16,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 
 # base des nom de fichier de backup

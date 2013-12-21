@@ -10,7 +10,7 @@ use Tao\Admin\Pager;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (!defined('ON_CATALOG_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

@@ -12,7 +12,7 @@ use Tao\Misc\Utilities as util;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (!defined('ON_MEDIA_MANAGER_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 $file = null;
 $popup = (integer) !empty($_GET['popup']);

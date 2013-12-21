@@ -14,7 +14,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 use Tao\Admin\Page;
 use Tao\Misc\Utilities as util;

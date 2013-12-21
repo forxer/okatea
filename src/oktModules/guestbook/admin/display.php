@@ -10,7 +10,7 @@ use Tao\Forms\Statics\FormElements as form;
 
 
 # Accès direct interdit
-if (!defined('ON_GUESTBOOK_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 $p_nbparpage_admin = $okt->guestbook->config->nbparpage_admin;
 $p_nbparpage_public = $okt->guestbook->config->nbparpage_public;

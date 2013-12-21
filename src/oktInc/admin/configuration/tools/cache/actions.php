@@ -17,7 +17,7 @@
 use Tao\Misc\Utilities as util;
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Suppression d'un fichier cache
 if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'],$aCacheFiles))

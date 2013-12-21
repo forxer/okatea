@@ -46,7 +46,7 @@ class module_##module_id## extends Module
 			$this->okt->page->configSubMenu->add(
 				$this->getName(),
 				'module.php?m=##module_id##&amp;action=config',
-				ON_##module_upper_id##_MODULE && ($this->okt->page->action === 'config'),
+				ON_MODULE && ($this->okt->page->action === 'config'),
 				22,
 				$this->okt->checkPerm('is_superadmin'),
 				null

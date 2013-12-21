@@ -10,7 +10,7 @@ use Tao\Forms\Statics\FormElements as form;
 use Tao\Forms\Statics\SelectOption;
 
 # Accès direct interdit
-if (!defined('ON_PARTNERS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # récupération de la liste complète des catégories
 $categories_list = $okt->partners->getCategories(array('active'=>2, 'language' => $okt->user->language,'with_count'=>true));

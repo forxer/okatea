@@ -16,7 +16,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Notes de développement
 $sNotesFilename = OKT_ROOT_PATH.'/notes.md';

@@ -17,9 +17,6 @@ class module_pages_example_extra_fields extends Module
 			return null;
 		}
 
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# enregistrement des triggers
 		$this->okt->pages->triggers->registerTrigger('getPagesSelectFields', array('module_pages_example_extra_fields','getPagesSelectFields'));
 		$this->okt->pages->triggers->registerTrigger('adminPostInit', array('module_pages_example_extra_fields','adminPostInit'));

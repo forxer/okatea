@@ -14,14 +14,18 @@
 
 require __DIR__.'/../oktInc/admin/prepend.php';
 
-$m = $okt->request->request->get('m', $okt->request->query->get('m'));
+$m = $okt->modules->getActiveModule();
+
+$moduleInstance = $okt->modules->getModuleObject($m);
 
 # module exists ?
-if ($m === null || !$okt->modules->moduleExists($m) || !file_exists($okt->modules->getModuleObject($m)->root().'/admin.php'))
+if (!$okt->modules->moduleExists($m) || !file_exists($moduleInstance->root().'/admin.php'))
 {
 	# FIXME need 404 redirect
 	http::redirect('index.php');
 }
 
+define('ON_MODULE', true);
+
 # get module admin file
-require $okt->modules->getModuleObject($m)->root().'/admin.php';
+require $moduleInstance->root().'/admin.php';

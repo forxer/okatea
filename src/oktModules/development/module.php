@@ -13,9 +13,6 @@ class module_development extends Module
 {
 	protected function prepend()
 	{
-		# Chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# Autoload
 		$this->okt->autoloader->addClassMap(array(
 			'oktDebugBar' => __DIR__.'/inc/class.oktDebugBar.php',
@@ -40,12 +37,6 @@ class module_development extends Module
 
 	protected function prepend_admin()
 	{
-		# On détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# Chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# On ajoutent un item au menu
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -53,7 +44,7 @@ class module_development extends Module
 			$this->okt->page->mainMenu->add(
 				__('m_development_menu_development'),
 				null,
-				ON_DEVELOPMENT_MODULE,
+				$this->bCurrentlyInUse,
 				10000001,
 				true,
 				null,
@@ -63,28 +54,28 @@ class module_development extends Module
 				$this->okt->page->developmentSubMenu->add(
 					__('m_development_menu_development'),
 					'module.php?m=development&amp;action=index',
-					ON_DEVELOPMENT_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
 					1,
 					$this->okt->checkPerm('development_debug_bar')
 				);
 				$this->okt->page->developmentSubMenu->add(
 					__('m_development_menu_debugbar'),
 					'module.php?m=development&amp;action=debug_bar',
-					ON_DEVELOPMENT_MODULE && ($this->okt->page->action === 'debug_bar'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'debug_bar'),
 					2,
 					$this->okt->checkPerm('development_debug_bar')
 				);
 				$this->okt->page->developmentSubMenu->add(
 					__('m_development_menu_bootstrap'),
 					'module.php?m=development&amp;action=bootstrap',
-					ON_DEVELOPMENT_MODULE && ($this->okt->page->action === 'bootstrap'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'bootstrap'),
 					3,
 					$this->okt->checkPerm('development_bootstrap')
 				);
 				$this->okt->page->developmentSubMenu->add(
 					__('m_development_menu_counting'),
 					'module.php?m=development&amp;action=counting',
-					ON_DEVELOPMENT_MODULE && ($this->okt->page->action === 'counting'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'counting'),
 					4,
 					$this->okt->checkPerm('development_counting')
 				);

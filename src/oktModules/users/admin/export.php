@@ -10,7 +10,7 @@ use Tao\Forms\Statics\FormElements as form;
 use Tao\Core\Authentification;
 
 # Accès direct interdit
-if (!defined('ON_USERS_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 /* Initialisations

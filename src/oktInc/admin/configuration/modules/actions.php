@@ -19,7 +19,7 @@ use Tao\Misc\Utilities as util;
 use Tao\Themes\Collection as ThemesCollection;
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 
 # Affichage changelog

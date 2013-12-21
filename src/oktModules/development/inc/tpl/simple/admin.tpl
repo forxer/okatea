@@ -3,7 +3,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_##module_upper_id##_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 
 # title tag

@@ -38,9 +38,6 @@ class module_pages extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'PagesCategories' => __DIR__.'/inc/PagesCategories.php',
@@ -109,12 +106,6 @@ class module_pages extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -122,7 +113,7 @@ class module_pages extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=pages',
-				ON_PAGES_MODULE,
+				$this->bCurrentlyInUse,
 				20,
 				$this->okt->checkPerm('pages'),
 				null,
@@ -132,34 +123,34 @@ class module_pages extends Module
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=pages&amp;action=index',
-					ON_PAGES_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					1
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('m_pages_menu_add_page'),
 					'module.php?m=pages&amp;action=add',
-					ON_PAGES_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					2,
 					$this->okt->checkPerm('pages_add')
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('m_pages_menu_categories'),
 					'module.php?m=pages&amp;action=categories',
-					ON_PAGES_MODULE && ($this->okt->page->action === 'categories'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'categories'),
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('pages_categories'))
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=pages&amp;action=display',
-					ON_PAGES_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					10,
 					$this->okt->checkPerm('pages_display')
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=pages&amp;action=config',
-					ON_PAGES_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					20,
 					$this->okt->checkPerm('pages_config')
 				);

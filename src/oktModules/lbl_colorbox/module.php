@@ -15,9 +15,6 @@ class module_lbl_colorbox extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# permissions
 		$this->okt->addPerm('colorbox_config', __('m_lbl_colorbox_perm_config'), 'configuration');
 
@@ -29,19 +26,13 @@ class module_lbl_colorbox extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
 			$this->okt->page->configSubMenu->add(
 				__('m_lbl_colorbox_menu_config'),
 				'module.php?m=lbl_colorbox&amp;action=config',
-				ON_LBL_COLORBOX_MODULE && ($this->okt->page->action === 'config'),
+				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				25,
 				$this->okt->checkPerm('colorbox_config'),
 				null

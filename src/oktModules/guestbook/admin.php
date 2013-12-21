@@ -7,7 +7,7 @@
 
 
 # Accès direct interdit
-if (!defined('ON_GUESTBOOK_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 # Perm ?
 if (!$okt->checkPerm('guestbook')) {

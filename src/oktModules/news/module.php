@@ -37,9 +37,6 @@ class module_news extends Module
 
 	protected function prepend()
 	{
-		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/main');
-
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
 			'NewsCategories' => __DIR__.'/inc/NewsCategories.php',
@@ -111,12 +108,6 @@ class module_news extends Module
 
 	protected function prepend_admin()
 	{
-		# on détermine si on est actuellement sur ce module
-		$this->onThisModule();
-
-		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
-
 		# on ajoutent un item au menu admin
 		if (!defined('OKT_DISABLE_MENU'))
 		{
@@ -124,7 +115,7 @@ class module_news extends Module
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				'module.php?m=news',
-				ON_NEWS_MODULE,
+				$this->bCurrentlyInUse,
 				20,
 				($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
 				null,
@@ -134,33 +125,33 @@ class module_news extends Module
 				$this->okt->page->newsSubMenu->add(
 					__('c_a_menu_management'),
 					'module.php?m=news&amp;action=index',
-					ON_NEWS_MODULE && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
 					1
 				);
 				$this->okt->page->newsSubMenu->add(
 					__('m_news_menu_add_post'),
 					'module.php?m=news&amp;action=add',
-					ON_NEWS_MODULE && ($this->okt->page->action === 'add'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					2
 				);
 				$this->okt->page->newsSubMenu->add(
 					__('m_news_menu_categories'),
 					'module.php?m=news&amp;action=categories',
-					ON_NEWS_MODULE && ($this->okt->page->action === 'categories'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'categories'),
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('news_categories'))
 				);
 				$this->okt->page->newsSubMenu->add(
 					__('c_a_menu_display'),
 					'module.php?m=news&amp;action=display',
-					ON_NEWS_MODULE && ($this->okt->page->action === 'display'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					10,
 					$this->okt->checkPerm('news_display')
 				);
 				$this->okt->page->newsSubMenu->add(
 					__('c_a_menu_configuration'),
 					'module.php?m=news&amp;action=config',
-					ON_NEWS_MODULE && ($this->okt->page->action === 'config'),
+					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					20,
 					$this->okt->checkPerm('news_config')
 				);

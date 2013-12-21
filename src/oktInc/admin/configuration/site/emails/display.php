@@ -18,7 +18,7 @@ use Tao\Forms\Statics\FormElements as form;
 
 
 # Accès direct interdit
-if (!defined('ON_CONFIGURATION_MODULE')) die;
+if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Liste des méthodes d'envoi des courriels
 $aEmailTransportsChoice = array(

@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_PAGES_MODULE')) die;
+if (!defined('ON_MODULE')) die;
 
 if (!$okt->checkPerm('pages')) {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
