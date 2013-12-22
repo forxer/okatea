@@ -6,37 +6,24 @@
  * file that was distributed with this source code.
  */
 
-
-/**
- * Fichier commun au backend
- *
- */
-
 use Tao\Admin\Page;
 use Tao\Admin\Menu as AdminMenu;
-use Tao\Misc\Utilities as util;
 use Tao\Core\LogAdmin;
+use Tao\Misc\Utilities as util;
 
+/**
+ * Fichier commun au frontoffice
+ *
+ */
 
 # On inclu le fichier prepend général
 require_once __DIR__.'/../prepend.php';
 
-
-# Start sessions
-/*
-if (!session_id()) {
-	session_start();
-}
-*/
-
-
 # Initialisation des pages de l'administration
 $okt->page = new Page($okt);
 
-
 # Initialisation des journaux admin
 $okt->logAdmin = new LogAdmin($okt);
-
 
 # Vérification de l'utilisateur en cours
 if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
@@ -48,7 +35,6 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	if ($okt->user->is_guest)
 	{
 		$okt->page->flashMessages->addWarning(__('c_c_auth_not_logged_in'));
-
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
@@ -56,9 +42,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	elseif (!$okt->checkPerm('usage'))
 	{
 		$okt->user->logout();
-
 		$okt->page->flashMessages->addError(__('c_c_auth_restricted_access'));
-
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
@@ -66,35 +50,26 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	elseif ($okt->config->admin_maintenance_mode && !$okt->user->is_superadmin)
 	{
 		$okt->user->logout();
-
 		$okt->page->flashMessages->addError(__('c_c_auth_admin_maintenance_mode'));
-
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 }
-
 
 # Demande de déconnexion
 if (!empty($_REQUEST['logout']))
 {
 	$okt->user->setAuthFromCookie('');
-
 	$okt->user->logout();
-
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
-
 
 # Validation du CSRF token
 if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_token']) || $okt->user->csrf_token !== $_POST['csrf_token']))
 {
 	$okt->user->logout();
-
 	$okt->page->flashMessages->addError(__('c_c_auth_bad_csrf_token'));
-
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
-
 
 # Permissions de base de l'administration
 $okt->addPerm('usage', __('c_a_def_perm_usage'));
@@ -111,14 +86,11 @@ $okt->addPermGroup('configuration', __('c_a_def_perm_config'));
 	$okt->addPerm('tools', 			__('c_a_def_perm_config_tools'), 'configuration');
 	$okt->addPerm('infos', 			__('c_a_def_perm_config_infos'), 'configuration');
 
-
 # Title tag
 $okt->page->addTitleTag($okt->page->getSiteTitleTag(null,$okt->page->getSiteTitle()));
 
-
 # Fil d'ariane administration
 $okt->page->addAriane(__('Administration'),'index.php');
-
 
 # Initialisation menu principal et ses sous-menus
 if (!defined('OKT_DISABLE_MENU'))
@@ -239,7 +211,6 @@ $okt->page->css->addFile(OKT_PUBLIC_URL.'/css/init.css');
 $okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin.css');
 $okt->page->css->addFile(OKT_PUBLIC_URL.'/css/famfamfam.css');
 
-
 # Ajout des fichiers JS de l'admin
 $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
 $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cookie/jquery.cookie.min.js');
@@ -249,10 +220,8 @@ $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.
 $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
 $okt->page->js->addFile(OKT_PUBLIC_URL.'/js/common_admin.js');
 
-
 # Chargement des parties admin des modules
 $okt->modules->loadModules('admin',$okt->user->language);
-
 
 # Chargement des éventuelles traductions personalisées
 $okt->l10n->loadFile(OKT_THEME_PATH.'/locales/'.$okt->user->language.'/custom');

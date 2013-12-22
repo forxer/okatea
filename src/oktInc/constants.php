@@ -69,12 +69,6 @@ define('OKT_CACHE_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CACHE_DIR);
 define('OKT_GLOBAL_CACHE_FILE', OKT_CACHE_PATH.DIRECTORY_SEPARATOR.'static.php');
 
 /**
- * Chemin du dossier classes
- */
-define('OKT_CLASSES_DIR', 'classes');
-define('OKT_CLASSES_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CLASSES_DIR);
-
-/**
  * Chemin du dossier de configuration
  */
 define('OKT_CONFIG_DIR', 'config');
