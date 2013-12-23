@@ -133,7 +133,7 @@ $view['slots']->start('head') ?>
 
 <?php # début Okatea : affichage des éventuelles erreurs
 if ($okt->error->notEmpty()) : ?>
-	<div class="error_box">
+	<div class="errors_box">
 		<?php echo $okt->error->get(); ?>
 	</div>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>

@@ -25,7 +25,7 @@ $okt->page->addAriane(__('m_estimate_main_title'), 'module.php?m=estimate');
 # Test si le module users est installé
 if (!$okt->modules->moduleExists('users'))
 {
-	$okt->page->flashMessages->addError(__('m_estimate_mod_users_exist'));
+	$okt->page->flash->error(__('m_estimate_mod_users_exist'));
 
 	http::redirect('index.php');
 }
@@ -45,7 +45,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
 			'message' => 'estimate #'.$_GET['estimate_id']
 		));
 
-		$okt->page->flashMessages->addSuccess(__('m_estimate_estimate_deleted'));
+		$okt->page->flash->success(__('m_estimate_estimate_deleted'));
 
 		http::redirect('module.php?m=estimate&action=index');
 	}

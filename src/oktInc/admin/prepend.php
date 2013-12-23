@@ -34,7 +34,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	# si c'est un invité, rien à faire ici
 	if ($okt->user->is_guest)
 	{
-		$okt->page->flashMessages->addWarning(__('c_c_auth_not_logged_in'));
+		$okt->page->flash->warning(__('c_c_auth_not_logged_in'));
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
@@ -42,7 +42,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	elseif (!$okt->checkPerm('usage'))
 	{
 		$okt->user->logout();
-		$okt->page->flashMessages->addError(__('c_c_auth_restricted_access'));
+		$okt->page->flash->error(__('c_c_auth_restricted_access'));
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 
@@ -50,7 +50,7 @@ if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
 	elseif ($okt->config->admin_maintenance_mode && !$okt->user->is_superadmin)
 	{
 		$okt->user->logout();
-		$okt->page->flashMessages->addError(__('c_c_auth_admin_maintenance_mode'));
+		$okt->page->flash->error(__('c_c_auth_admin_maintenance_mode'));
 		http::redirect(OKT_ADMIN_LOGIN_PAGE);
 	}
 }
@@ -67,7 +67,7 @@ if (!empty($_REQUEST['logout']))
 if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_token']) || $okt->user->csrf_token !== $_POST['csrf_token']))
 {
 	$okt->user->logout();
-	$okt->page->flashMessages->addError(__('c_c_auth_bad_csrf_token'));
+	$okt->page->flash->error(__('c_c_auth_bad_csrf_token'));
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 

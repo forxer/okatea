@@ -70,14 +70,6 @@ if (!empty($okt->config->default_route['class']) && !empty($okt->config->default
 }
 
 
-# Start sessions
-/*
-if (!session_id()) {
-	session_start();
-}
-*/
-
-
 # Initialisation barre admin
 if ($okt->user->is_superadmin || ($okt->user->is_admin && $okt->config->enable_admin_bar)) {
 	$oPublicAdminBar = new PublicAdminBar($okt);

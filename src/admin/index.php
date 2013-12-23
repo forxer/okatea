@@ -155,9 +155,8 @@ if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][
 }
 
 # avertissement mode debug activé
-if (OKT_DEBUG)
-{
-	$okt->page->flashMessages->addWarning(__('c_a_public_debug_mode_enabled'));
+if (OKT_DEBUG) {
+	$okt->page->flash->warning(__('c_a_public_debug_mode_enabled'));
 }
 
 # updates notifications

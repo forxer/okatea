@@ -119,7 +119,7 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$aItemData['item']['id']
 				));
 
-				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_updated'));
+				$okt->page->flash->success(__('c_a_config_navigation_item_updated'));
 
 				http::redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$aItemData['item']['id']);
 			}
@@ -144,7 +144,7 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$iItemId
 				));
 
-				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_added'));
+				$okt->page->flash->success(__('c_a_config_navigation_item_added'));
 
 				http::redirect('configuration.php?action=navigation&do=item&menu_id='.$iMenuId.'&item_id='.$iItemId);
 			}

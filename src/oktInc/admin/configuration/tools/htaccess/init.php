@@ -32,6 +32,3 @@ $bHtaccessDistExists = false;
 if (file_exists(OKT_ROOT_PATH.'/.htaccess.oktDist')) {
 	$bHtaccessDistExists = true;
 }
-
-$okt->page->messages->success('htaccess_created',__('c_a_tools_htaccess_created'));
-$okt->page->messages->success('htaccess_edited',__('c_a_tools_htaccess_edited'));

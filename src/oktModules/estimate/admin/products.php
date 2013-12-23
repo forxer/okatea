@@ -35,7 +35,7 @@ if (!empty($_GET['delete_product']))
 {
 	if ($okt->estimate->products->delProduct($_GET['delete_product']) !== false)
 	{
-		$okt->page->flashMessages->addSuccess(__('m_estimate_product_deleted'));
+		$okt->page->flash->success(__('m_estimate_product_deleted'));
 
 		http::redirect('module.php?m=estimate&action=products');
 	}

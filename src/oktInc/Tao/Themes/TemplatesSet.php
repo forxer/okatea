@@ -119,7 +119,7 @@ class TemplatesSet
 		{
 			$this->deleteTemplate($sTtplId);
 
-			$this->okt->page->flashMessages->addSuccess(__('c_a_tpl_config_tpl_deleted'));
+			$this->okt->page->flash->success(__('c_a_tpl_config_tpl_deleted'));
 
 			\http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
 		}

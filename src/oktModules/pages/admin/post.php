@@ -168,7 +168,7 @@ if (!empty($_GET['delete_image']) && !empty($aPageData['post']['id']))
 		'message' => 'page #'.$aPageData['post']['id']
 	));
 
-	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+	$okt->page->flash->success(__('m_pages_page_updated'));
 
 	http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
@@ -185,7 +185,7 @@ if (!empty($_GET['delete_file']) && !empty($aPageData['post']['id']))
 		'message' => 'page #'.$aPageData['post']['id']
 	));
 
-	$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+	$okt->page->flash->success(__('m_pages_page_updated'));
 
 	http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 }
@@ -247,7 +247,7 @@ if (!empty($_POST['sended']))
 					'message' => 'page #'.$aPageData['post']['id']
 				));
 
-				$okt->page->flashMessages->addSuccess(__('m_pages_page_updated'));
+				$okt->page->flash->success(__('m_pages_page_updated'));
 
 				http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}
@@ -276,7 +276,7 @@ if (!empty($_POST['sended']))
 					'message' => 'page #'.$aPageData['post']['id']
 				));
 
-				$okt->page->flashMessages->addSuccess(__('m_pages_page_added'));
+				$okt->page->flash->success(__('m_pages_page_added'));
 
 				http::redirect('module.php?m=pages&action=edit&post_id='.$aPageData['post']['id']);
 			}

@@ -63,7 +63,7 @@ if (!empty($_GET['minregen']))
 {
 	$okt->news->regenMinImages();
 
-	$okt->page->flashMessages->addSuccess(__('c_c_confirm_thumb_regenerated'));
+	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
 
 	http::redirect('module.php?m=news&action=config');
 }
@@ -73,7 +73,7 @@ if (!empty($_GET['delete_watermark']))
 {
 	$okt->news->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
-	$okt->page->flashMessages->addSuccess(__('c_c_confirm_watermark_deleted'));
+	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
 
 	http::redirect('module.php?m=news&action=config');
 }
@@ -153,7 +153,7 @@ if (!empty($_POST['form_sent']))
 		{
 			$okt->news->config->write($new_conf);
 
-			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 			http::redirect('module.php?m=news&action=config');
 		}

@@ -45,7 +45,7 @@ if (!empty($_GET['truncate']) && $okt->user->is_superadmin)
 {
 	$okt->logAdmin->deleteLogs();
 
-	$okt->page->flashMessages->addSuccess(__('c_a_config_logadmin_truncated'));
+	$okt->page->flash->success(__('c_a_config_logadmin_truncated'));
 
 	http::redirect('configuration.php?action=logadmin');
 }

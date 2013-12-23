@@ -63,7 +63,7 @@ if (!empty($_GET['install']) && array_key_exists($_GET['install'], $aUninstalled
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_correctly_installed'));
+		$okt->page->success->set(__('c_a_modules_correctly_installed'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_installed'));
@@ -136,7 +136,7 @@ else if (!empty($_GET['reinstall']) && array_key_exists($_GET['reinstall'], $aIn
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_correctly_reinstalled'));
+		$okt->page->success->set(__('c_a_modules_correctly_reinstalled'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_correctly_reinstalled.'));
@@ -193,7 +193,7 @@ else if (!empty($_GET['testset']) && array_key_exists($_GET['testset'], $aInstal
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_test_set_correctly_installed'));
+		$okt->page->success->set(__('c_a_modules_test_set_correctly_installed'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_test_set_not_correctly_installed'));
@@ -240,7 +240,7 @@ else if (!empty($_GET['defaultdata']) && array_key_exists($_GET['defaultdata'], 
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_test_set_correctly_installed'));
+		$okt->page->success->set(__('c_a_modules_test_set_correctly_installed'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_test_set_not_correctly_installed'));
@@ -285,7 +285,7 @@ else if (!empty($_GET['empty']) && array_key_exists($_GET['empty'], $aInstalledM
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_correctly_emptied'));
+		$okt->page->success->set(__('c_a_modules_correctly_emptied'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_correctly_emptied'));
@@ -330,7 +330,7 @@ else if (!empty($_GET['uninstall']) && array_key_exists($_GET['uninstall'], $aIn
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_correctly_uninstalled'));
+		$okt->page->success->set(__('c_a_modules_correctly_uninstalled'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_uninstalled'));
@@ -385,7 +385,7 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 
 	# Confirmations
 	if ($oInstallModule->checklist->checkAll()) {
-		$okt->page->messages->set(__('c_a_modules_correctly_updated'));
+		$okt->page->success->set(__('c_a_modules_correctly_updated'));
 	}
 	else {
 		$okt->error->set(__('c_a_modules_not_updated'));
@@ -439,7 +439,7 @@ else if (!empty($_GET['delete']) && array_key_exists($_GET['delete'], $aUninstal
 {
 	if (files::deltree($okt->modules->path.'/'.$_GET['delete']))
 	{
-		$okt->page->flashMessages->addSuccess(__('c_a_modules_successfully_deleted'));
+		$okt->page->flash->success(__('c_a_modules_successfully_deleted'));
 		http::redirect('configuration.php?action=modules');
 	}
 	else {
@@ -501,7 +501,7 @@ else if (!empty($_GET['templates']) && array_key_exists($_GET['templates'], $aIn
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->page->flashMessages->addSuccess(__('c_a_modules_templates_files_replaced'));
+	$okt->page->flash->success(__('c_a_modules_templates_files_replaced'));
 
 	http::redirect('configuration.php?action=modules');
 }
@@ -519,7 +519,7 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->page->flashMessages->addSuccess(__('c_a_modules_common_files_replaced'));
+	$okt->page->flash->success(__('c_a_modules_common_files_replaced'));
 
 	http::redirect('configuration.php?action=modules');
 }
@@ -535,7 +535,7 @@ else if (!empty($_GET['public']) && array_key_exists($_GET['public'], $aInstalle
 	# cache de la liste de module
 	$okt->modules->generateCacheList();
 
-	$okt->page->flashMessages->addSuccess(__('c_a_modules_public_files_replaced'));
+	$okt->page->flash->success(__('c_a_modules_public_files_replaced'));
 
 	http::redirect('configuration.php?action=modules');
 }
@@ -713,10 +713,10 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 		$ret_code = $okt->modules->installPackage($dest, $okt->modules);
 
 		if ($ret_code == 2) {
-			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_upgraded'));
+			$okt->page->flash->success(__('c_a_modules_module_successfully_upgraded'));
 		}
 		else {
-			$okt->page->flashMessages->addSuccess(__('c_a_modules_module_successfully_added'));
+			$okt->page->flash->success(__('c_a_modules_module_successfully_added'));
 		}
 
 		http::redirect('configuration.php?action=modules&added='.$ret_code);

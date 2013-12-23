@@ -61,7 +61,7 @@ if (!empty($_POST['form_sent']) && $okt->error->isEmpty())
 	{
 		$okt->config->write($aPageData['aNewConf']);
 
-		$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 		http::redirect('configuration.php?action=site');
 	}

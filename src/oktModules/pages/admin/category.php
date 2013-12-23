@@ -235,7 +235,7 @@ if (!empty($_POST['sended']))
 					'message' => 'category #'.$iCategoryId
 				));
 
-				$okt->page->flashMessages->addSuccess(__('m_pages_cat_updated'));
+				$okt->page->flash->success(__('m_pages_cat_updated'));
 
 				http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
 			}
@@ -265,7 +265,7 @@ if (!empty($_POST['sended']))
 					'message' => 'category #'.$iCategoryId
 				));
 
-				$okt->page->flashMessages->addSuccess(__('m_pages_cat_added'));
+				$okt->page->flash->success(__('m_pages_cat_added'));
 
 				http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId);
 			}

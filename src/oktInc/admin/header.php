@@ -23,9 +23,10 @@ if ($okt->error->notEmpty())
 }
 
 # populates messages from flash messages queue
-$okt->page->messages->setItems($okt->page->flashMessages->getMessages('success'));
-$okt->page->warnings->setItems($okt->page->flashMessages->getMessages('warning'));
-$okt->page->errors->setItems($okt->page->flashMessages->getMessages('error'));
+$okt->page->infos->setItems($okt->page->flash->get('infos'));
+$okt->page->success->setItems($okt->page->flash->get('success'));
+$okt->page->warnings->setItems($okt->page->flash->get('warnings'));
+$okt->page->errors->setItems($okt->page->flash->get('errors'));
 
 
 # construction du menu principal
@@ -140,19 +141,24 @@ ob_start();
 		<h2 id="breadcrumb"><?php $okt->page->breadcrumb->display('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
 		<?php
-		# affichage des éventuelles erreurs
+		# affichage des éventuels messages d'erreurs
 		if ($okt->page->errors->hasError()) {
-			echo $okt->page->errors->getErrors('<div class="error_box ui-corner-all">%s</div>');
+			echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>');
 		}
 
-		# affichage des éventuels avertissements
+		# affichage des éventuels messages d'avertissements
 		if ($okt->page->warnings->hasWarning()) {
-			echo $okt->page->warnings->getWarnings('<div class="wrn_box ui-corner-all">%s</div>');
+			echo $okt->page->warnings->getWarnings('<div class="warnings_box ui-corner-all">%s</div>');
 		}
 
-		# affichage des éventuels messages
-		if ($okt->page->messages->hasMessage()) {
-			echo $okt->page->messages->getMessages('<div class="msg_box ui-corner-all">%s</div>');
+		# affichage des éventuels messages de confirmation
+		if ($okt->page->success->hasSuccess()) {
+			echo $okt->page->success->getSuccess('<div class="success_box ui-corner-all">%s</div>');
+		}
+
+		# affichage des éventuels messages d'information
+		if ($okt->page->infos->hasInfo()) {
+			echo $okt->page->infos->getInfos('<div class="infos_box ui-corner-all">%s</div>');
 		}
 
 		?>

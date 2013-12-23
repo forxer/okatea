@@ -85,7 +85,9 @@ if (!empty($_POST['save']) && !empty($_POST['editor']) && $sThemeId && $sFilenam
 		$okt->error->set($e->getMessage());
 	}
 
-	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&saved=1');
+	$okt->page->flash->success(__('c_a_te_confirm_saved'));
+
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename);
 }
 
 # Restauration d'un fichier de backup
@@ -105,7 +107,9 @@ if (!empty($_GET['restore_backup']) && $sThemeId && $sFilename)
 		$okt->error->set($e->getMessage());
 	}
 
-	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&restored=1');
+	$okt->page->flash->success(__('c_a_te_confirm_restored'));
+
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename);
 }
 
 # Suppression d'un fichier de backup
@@ -125,7 +129,9 @@ if (!empty($_GET['delete_backup']) && $sThemeId && $sFilename)
 		$okt->error->set($e->getMessage());
 	}
 
-	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename.'&deleted=1');
+	$okt->page->flash->success(__('c_a_te_confirm_deleted'));
+
+	http::redirect('configuration.php?action=theme_editor&theme='.$sThemeId.'&file='.$sFilename);
 }
 
 
@@ -283,12 +289,6 @@ $okt->page->treeview(array(
 	'animated' => "fast",
 	'collapsed' => false
 ),'#browser');
-
-
-# Confirmations
-$okt->page->messages->success('saved',__('c_a_te_confirm_saved'));
-$okt->page->messages->success('restored',__('c_a_te_confirm_restored'));
-$okt->page->messages->success('deleted',__('c_a_te_confirm_deleted'));
 
 
 # En-tête

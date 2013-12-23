@@ -34,7 +34,7 @@ if (!empty($_GET['switch_status']))
 	{
 		$okt->navigation->switchMenuStatus($_GET['switch_status']);
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_switched'));
+		$okt->page->flash->success(__('c_a_config_navigation_menu_switched'));
 
 		http::redirect('configuration.php?action=navigation&do=index');
 	}
@@ -50,7 +50,7 @@ if (!empty($_GET['delete_menu']))
 	{
 		$okt->navigation->delMenu($_GET['delete_menu']);
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_deleted'));
+		$okt->page->flash->success(__('c_a_config_navigation_menu_deleted'));
 
 		http::redirect('configuration.php?action=navigation&do=index');
 	}

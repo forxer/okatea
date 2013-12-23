@@ -25,7 +25,7 @@ if (!empty($_GET['delete']))
 {
 	if ($okt->contact->delField($_GET['delete']))
 	{
-		$okt->page->flashMessages->addSuccess(__('m_contact_fields_deleted'));
+		$okt->page->flash->success(__('m_contact_fields_deleted'));
 
 		http::redirect('module.php?m=contact&action=fields');
 	}
@@ -55,7 +55,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->contact->updFieldOrder($id,$ord);
 	}
 
-	$okt->page->flashMessages->addSuccess(__('m_contact_neworder'));
+	$okt->page->flash->success(__('m_contact_neworder'));
 
 	http::redirect('module.php?m=contact&action=fields');
 }

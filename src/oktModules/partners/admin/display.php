@@ -30,7 +30,7 @@ if (!empty($_POST['form_sent']))
 		{
 			$okt->partners->config->write($new_conf);
 
-			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 			http::redirect('module.php?m=partners&action=display&updated=1');
 		}

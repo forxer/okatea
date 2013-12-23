@@ -35,7 +35,7 @@ class Success extends Stack
 	 * @param $format string
 	 * @return string
 	 */
-	public function getMessages($format='<div class="messages_box">%s</div>')
+	public function getSuccess($format='<div class="success_box">%s</div>')
 	{
 		return sprintf($format,parent::getHTML());
 	}
@@ -45,22 +45,8 @@ class Success extends Stack
 	 *
 	 * @return boolean
 	 */
-	public function hasMessage()
+	public function hasSuccess()
 	{
 		return $this->hasItem();
-	}
-
-	/**
-	 * Ajoute un message si le test est vrai.
-	 *
-	 * @param $test boolean
-	 * @param $msg string
-	 * @return void
-	 */
-	public function success($test,$msg)
-	{
-		if (isset($_GET[$test])) {
-			$this->set($msg);
-		}
 	}
 }

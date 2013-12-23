@@ -244,7 +244,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 if (!empty($msg))
 {
-	echo '<div class="error_box ui-corner-all">'.$msg.'</div>';
+	echo '<div class="errors_box ui-corner-all">'.$msg.'</div>';
 }
 elseif (empty($_GET['update_db']))
 {

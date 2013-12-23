@@ -21,14 +21,14 @@ a img {
 }
 
 /* la boite de message d'erreur */
-.error_box {
+.errors_box {
 	color: #c00;
 	background-color: #FFECEE;
 	border: 1px solid #c00;
 	padding: 0.5em;
 	margin: 1em 10%;
 }
-.error_box p {
+.errors_box p {
 	margin: 0;
 }
 

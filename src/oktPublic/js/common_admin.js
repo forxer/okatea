@@ -275,14 +275,19 @@
 	};
 
 	/** Init method **/
-	jNotify = function(msg,options) {
-		if($.jNotify._isReadable('jNotify'))
-			$.jNotify.init(msg,options,'jNotify');
+	jInfos = function(msg,options) {
+		if($.jNotify._isReadable('jInfos'))
+			$.jNotify.init(msg,options,'jInfos');
 	};
 
 	jSuccess = function(msg,options) {
 		if($.jNotify._isReadable('jSuccess'))
 			$.jNotify.init(msg,options,'jSuccess');
+	};
+
+	jWarning = function(msg,options) {
+		if($.jNotify._isReadable('jWarning'))
+			$.jNotify.init(msg,options,'jWarning');
 	};
 
 	jError = function(msg,options) {

@@ -79,8 +79,11 @@ if (!empty($_GET['init_filters']))
 # Suppression d'un thème
 if (!empty($_GET['delete']) && isset($aInstalledThemes[$_GET['delete']]) && !$aInstalledThemes[$_GET['delete']]['is_active'])
 {
-	if (files::deltree(OKT_THEMES_PATH.'/'.$_GET['delete'])) {
-		http::redirect('configuration.php?action=themes&deleted=1');
+	if (files::deltree(OKT_THEMES_PATH.'/'.$_GET['delete']))
+	{
+		$okt->page->flash->success(__('c_a_themes_successfully_deleted'));
+
+		http::redirect('configuration.php?action=themes');
 	}
 }
 
@@ -101,7 +104,9 @@ if (!empty($_GET['use']))
 			include $sTplScheme;
 		}
 
-		http::redirect('configuration.php?action=themes&used=1');
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		http::redirect('configuration.php?action=themes');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -123,7 +128,9 @@ if (!empty($_GET['use_mobile']))
 			'theme_mobile' => $_GET['use_mobile']
 		));
 
-		http::redirect('configuration.php?action=themes&used=1');
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		http::redirect('configuration.php?action=themes');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -145,7 +152,9 @@ if (!empty($_GET['use_tablet']))
 			'theme_tablet' => $_GET['use_tablet']
 		));
 
-		http::redirect('configuration.php?action=themes&used=1');
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		http::redirect('configuration.php?action=themes');
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -263,13 +272,8 @@ $okt->page->css->addCss('
 # Loader
 $okt->page->loader('.lazy-load');
 
-# Confirmations
-$okt->page->messages->success('used',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('deleted',__('c_a_themes_successfully_deleted'));
-$okt->page->messages->success('bootstraped', __('c_a_themes_bootstrap_success'));
-
 if (!empty($_GET['added'])) {
-	$okt->page->messages->set(($_GET['added'] == 2
+	$okt->page->success->set(($_GET['added'] == 2
 		? __('c_a_themes_successfully_upgraded')
 		: __('c_a_themes_successfully_added')
 	));

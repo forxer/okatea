@@ -48,11 +48,6 @@ natsort($aBackupFiles);
 natsort($aDbBackupFiles);
 
 
-# messages de confirmation
-$okt->page->messages->success('bakcup_done',__('c_a_tools_backup_done'));
-$okt->page->messages->success('backup_file_deleted',__('c_a_tools_backup_deleted'));
-
-
 # loader
 $okt->page->loader('.lazy-load');
 

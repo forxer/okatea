@@ -9,12 +9,12 @@
 namespace Tao\Admin;
 
 use Tao\Admin\Messages\Errors;
+use Tao\Admin\Messages\Infos;
 use Tao\Admin\Messages\Success;
 use Tao\Admin\Messages\Warnings;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Html\Page as BasePage;
 use Tao\Navigation\Breadcrumb;
-use Tao\Misc\FlashMessages;
 
 /**
  * Construction des pages d'administration.
@@ -47,19 +47,31 @@ class Page extends BasePage
 	public $breadcrumb;
 
 	/**
-	 * La pile de messages
+	 * Les messages flash.
 	 * @var object
 	 */
-	public $messages;
+	public $flash;
 
 	/**
-	 * La pile d'avertissements
+	 * La pile de messages d'information.
+	 * @var object
+	 */
+	public $infos;
+
+	/**
+	 * La pile de messages de confirmation.
+	 * @var object
+	 */
+	public $success;
+
+	/**
+	 * La pile de messages d'avertissements
 	 * @var object
 	 */
 	public $warnings;
 
 	/**
-	 * La pile d'erreurs
+	 * La pile de messages d'erreurs.
 	 * @var object
 	 */
 	public $errors;
@@ -109,9 +121,10 @@ class Page extends BasePage
 
 		$this->breadcrumb = new Breadcrumb();
 
-		$this->flashMessages = new FlashMessages();
+		$this->flash = $okt->session->getFlashBag();
 
-		$this->messages = new Success();
+		$this->infos = new Infos();
+		$this->success = new Success();
 		$this->warnings = new Warnings();
 		$this->errors = new Errors();
 
@@ -326,17 +339,19 @@ class Page extends BasePage
 	public static function getCommonJs()
 	{
 		return '
-			var msg_box = jQuery("#messages div.msg_box");
-			var wrn_box = jQuery("#messages div.wrn_box");
-			var error_box = jQuery("#messages div.error_box");
+			var infos_box = jQuery("#messages div.infos_box");
+			var success_box = jQuery("#messages div.success_box");
+			var warnings_box = jQuery("#messages div.warnings_box");
+			var errors_box = jQuery("#messages div.errors_box");
 
-			msg_box.css("display","none");
-			wrn_box.css("display","none");
-			error_box.css("display","none");
+			infos_box.css("display","none");
+			success_box.css("display","none");
+			warnings_box.css("display","none");
+			errors_box.css("display","none");
 
-			if (msg_box.length)
+			if (infos_box.length)
 			{
-				jSuccess(msg_box.html(),{
+				jInfos(infos_box.html(),{
 					autoHide: true,
 					clickOverlay: true,
 					MinWidth: 300,
@@ -352,9 +367,9 @@ class Page extends BasePage
 				});
 			}
 
-			if (wrn_box.length)
+			if (success_box.length)
 			{
-				jNotify(wrn_box.html(),{
+				jSuccess(success_box.html(),{
 					autoHide: true,
 					clickOverlay: true,
 					MinWidth: 300,
@@ -370,9 +385,27 @@ class Page extends BasePage
 				});
 			}
 
-			if (error_box.length)
+			if (warnings_box.length)
 			{
-				jError(error_box.html(),{
+				jWarning(warnings_box.html(),{
+					autoHide: true,
+					clickOverlay: true,
+					MinWidth: 300,
+					TimeShown: 3000,
+					ShowTimeEffect: 200,
+					HideTimeEffect: 200,
+					LongTrip: 70,
+					HorizontalPosition: "center",
+					VerticalPosition: "top",
+					ShowOverlay: true,
+					ColorOverlay: "#000",
+					OpacityOverlay: 0.3
+				});
+			}
+
+			if (errors_box.length)
+			{
+				jError(errors_box.html(),{
 					autoHide: false,
 					clickOverlay: true,
 					MinWidth: 300,

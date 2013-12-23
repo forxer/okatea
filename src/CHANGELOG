@@ -14,6 +14,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # replace Router by Symfony Routing component
 # replace PHPThumb by Imagine
 # refactor modules files structure
+# refactore flash messages device
 # change Yaml files extension to .yml
 ! implement Symfony HttpFoundation
 ! CodeMirror 3.20

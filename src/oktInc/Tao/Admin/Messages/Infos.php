@@ -11,15 +11,15 @@ namespace Tao\Admin\Messages;
 use Tao\Html\Stack;
 
 /**
- * Pile de messages d'avertissements pour l'administration.
+ * Pile de messages d'information pour l'administration.
  *
  * @addtogroup Okatea
  *
  */
-class Warnings extends Stack
+class Infos extends Stack
 {
 	/**
-	 * Ajoute un avertissement à la pile des avertissements.
+	 * Ajoute une information à la pile des informations.
 	 *
 	 * @param $msg string
 	 * @return void
@@ -30,22 +30,22 @@ class Warnings extends Stack
 	}
 
 	/**
-	 * Formate et retourne les avertissements présents dans la pile.
+	 * Formate et retourne les messages d'informations présents dans la pile.
 	 *
 	 * @param $format string
 	 * @return string
 	 */
-	public function getWarnings($format='<div class="warnings_box">%s</div>')
+	public function getInfos($format='<div class="infos_box">%s</div>')
 	{
 		return sprintf($format, parent::getHTML());
 	}
 
 	/**
-	 * Indique si il y a des avertissements.
+	 * Indique si il y a des messages d'informations.
 	 *
 	 * @return boolean
 	 */
-	public function hasWarning()
+	public function hasInfo()
 	{
 		return $this->hasItem();
 	}

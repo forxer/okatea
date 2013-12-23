@@ -64,7 +64,7 @@
 			#breadcrumb a:hover {
 				text-decoration: underline;
 			}
-		#messages .error_box, #messages .wrn_box, #messages .msg_box {
+		#messages .errors_box, #messages .warnings_box, #messages .success_box, #messages .infos_box {
 			z-index: 100;
 			position: absolute;
 			right: 3em;
@@ -651,34 +651,34 @@ img.preload {
 }
 
 /* boites d'erreurs, d'avertissements et de messages */
-.error_box, .wrn_box, .msg_box {
+.errors_box, .warnings_box, .success_box {
 	margin: 0.6em;
 	padding: 0.2em 0.6em;
 	text-align: center;
 }
-.error_box p, .wrn_box p, .msg_box p {
+.errors_box p, .warnings_box p, .success_box p {
 	margin: 0;
 }
-.error_box ul, .wrn_box ul, .msg_box ul {
+.errors_box ul, .warnings_box ul, .success_box ul {
 	text-align: left;
 	margin: 0;
 	padding-left: 1em;
 }
 
 /* boite erreur */
-.error_box {
+.errors_box {
 	background-color: #FFEEEE;
 	border: 1px solid red;
 }
 
 /* boite avertissement */
-.wrn_box {
+.warnings_box {
 	background-color: #FFFFEE;
 	border: 1px solid #FFFF00;
 }
 
 /* boite message */
-.msg_box {
+.success_box {
 	background-color: #EEFFEE;
 	border: 1px solid #009900;
 }
@@ -1005,64 +1005,65 @@ p.buttonset {
 }
 
 
-/* jNotify, jSuccess, jError, jOverlay
+/* jInfos, jSuccess, jError, jOverlay
 ----------------------------------------------------------*/
 
-#jNotify {
+#jInfos,
+#jSuccess,
+#jWarning,
+#jError {
 	position: absolute;
-	background: #d8e6fc  url('../img/notify/info.png') no-repeat 15px center;
-	color: #35517c;
 	font-size: 1.17em;
-	border: 1px solid #a7c3f0;
 	padding: 10px;
 	padding-left: 50px;
 	margin: 15px;
+	border: 1px solid;
 	z-index: 9999;
 	-moz-border-radius : 5px;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
-	#jNotify a {
+#jInfos a,
+#jSuccess a,
+#jWarning a,
+#jError a {
+	text-decoration: none;
+}
+
+#jInfos {
+	background: #d8e6fc url('../img/notify/info.png') no-repeat 15px center;
+	color: #35517c;
+	border-color: #a7c3f0;
+}
+	#jInfos a {
 		color:#35517c !important;
-		text-decoration: none;
 	}
 
 #jSuccess {
-	position: absolute;
-	background: #E6EFC2  url('../img/notify/success.png') no-repeat 15px center;
+	background: #E6EFC2 url('../img/notify/success.png') no-repeat 15px center;
 	color: #264409;
-	font-size: 1.17em;
-	border: 1px solid #C6D880;
-	padding: 10px;
-	padding-left: 50px;
-	margin: 15px;
-	z-index: 9999;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-color: #C6D880;
 }
 	#jSuccess a {
 		color:#264409 !important;
-		text-decoration: none;
+	}
+
+#jWarning {
+	background: #FBEC88 url('../img/notify/warning.png') no-repeat 15px center;
+	color: #BF6814;
+	border-color: #F57900;
+}
+	#jWarning a {
+		color:#FAD42E !important;
 	}
 
 #jError {
-	position: absolute;
-	background: #FBE3E4  url('../img/notify/error.png') no-repeat 15px center;
+	background: #FBE3E4 url('../img/notify/error.png') no-repeat 15px center;
 	color: #8a1f11;
-	font-size: 1.17em;
-	border: 1px solid #FBC2C4;
-	padding: 10px;
-	padding-left: 50px;
-	margin: 15px;
-	z-index: 9999;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-color: #FBC2C4;
 }
 	#jError a {
 		color: #8a1f11 !important;
-		text-decoration: none;
 	}
 
 #jOverlay {

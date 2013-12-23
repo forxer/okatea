@@ -105,7 +105,7 @@ if (!empty($_GET['select']))
 		'message' => 'post #'.$_GET['select']
 	));
 
-	$okt->page->flashMessages->addSuccess(__('m_news_list_post_selected'));
+	$okt->page->flash->success(__('m_news_list_post_selected'));
 
 	http::redirect('module.php?m=news&action=index');
 }
@@ -122,7 +122,7 @@ if (!empty($_GET['deselect']))
 		'message' => 'post #'.$_GET['deselect']
 	));
 
-	$okt->page->flashMessages->addSuccess(__('m_news_list_post_deselected'));
+	$okt->page->flash->success(__('m_news_list_post_deselected'));
 
 	http::redirect('module.php?m=news&action=index');
 }
@@ -139,7 +139,7 @@ if (!empty($_GET['publish']))
 		'message' => 'post #'.$_GET['publish']
 	));
 
-	$okt->page->flashMessages->addSuccess(__('m_news_list_post_published'));
+	$okt->page->flash->success(__('m_news_list_post_published'));
 
 	http::redirect('module.php?m=news&action=index');
 }
@@ -197,7 +197,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_published'));
+			$okt->page->flash->success(__('m_news_list_posts_published'));
 
 			http::redirect('module.php?m=news&action=index');
 		}
@@ -215,7 +215,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_selected'));
+			$okt->page->flash->success(__('m_news_list_posts_selected'));
 
 			http::redirect('module.php?m=news&action=index');
 		}
@@ -233,7 +233,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deselected'));
+			$okt->page->flash->success(__('m_news_list_posts_deselected'));
 
 			http::redirect('module.php?m=news&action=index');
 		}
@@ -251,7 +251,7 @@ if (!empty($_POST['actions']) && !empty($_POST['posts']) && is_array($_POST['pos
 				));
 			}
 
-			$okt->page->flashMessages->addSuccess(__('m_news_list_posts_deleted'));
+			$okt->page->flash->success(__('m_news_list_posts_deleted'));
 
 			http::redirect('module.php?m=news&action=index');
 		}

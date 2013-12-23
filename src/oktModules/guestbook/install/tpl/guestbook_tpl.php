@@ -114,7 +114,7 @@ if (!empty($_GET['added'])) : ?>
 	<?php # debut : affichage des éventuelles erreurs
 	if ($okt->error->notEmpty()) : ?>
 
-	<div class="error_box"><?php echo $okt->error->get(); ?></div>
+	<div class="errors_box"><?php echo $okt->error->get(); ?></div>
 
 	<?php endif; # fin : affichage des éventuelles erreurs ?>
 

@@ -29,7 +29,7 @@ $aCleanableFiles = array(
 
 # messages de confirmation
 if (isset($_GET['cleaned'])) {
-	$okt->page->messages->set(sprintf(__('c_a_tools_cleanup_%s_cleaned'),$_GET['cleaned']));
+	$okt->page->success->set(sprintf(__('c_a_tools_cleanup_%s_cleaned'),$_GET['cleaned']));
 }
 
 $okt->page->loader('.lazy-load');

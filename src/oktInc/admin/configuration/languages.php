@@ -75,7 +75,7 @@ if (!empty($_GET['switch_status']))
 if (!empty($_GET['enable']))
 {
 	$okt->languages->setLangStatus($_GET['enable'], 1);
-	$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_enabled'));
+	$okt->page->flash->success(__('c_a_config_l10n_enabled'));
 	http::redirect('configuration.php?action=languages');
 }
 
@@ -83,7 +83,7 @@ if (!empty($_GET['enable']))
 if (!empty($_GET['disable']))
 {
 	$okt->languages->setLangStatus($_GET['disable'], 0);
-	$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_disabled'));
+	$okt->page->flash->success(__('c_a_config_l10n_disabled'));
 	http::redirect('configuration.php?action=languages');
 }
 
@@ -91,7 +91,7 @@ if (!empty($_GET['disable']))
 if (!empty($_GET['delete']))
 {
 	$okt->languages->delLanguage($_GET['delete']);
-	$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_deleted'));
+	$okt->page->flash->success(__('c_a_config_l10n_deleted'));
 	http::redirect('configuration.php?action=languages');
 }
 
@@ -108,7 +108,7 @@ if (!empty($_POST['add_languages']))
 	if ($okt->languages->checkPostData($aAddLanguageData))
 	{
 		$okt->languages->addLanguage($aAddLanguageData);
-		$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_added'));
+		$okt->page->flash->success(__('c_a_config_l10n_added'));
 		http::redirect('configuration.php?action=languages');
 	}
 }
@@ -128,7 +128,7 @@ if (!empty($_POST['edit_languages']) && $iLangId)
 	if ($okt->languages->checkPostData($aUpdLanguageData))
 	{
 		$okt->languages->updLanguage($aUpdLanguageData);
-		$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_edited'));
+		$okt->page->flash->success(__('c_a_config_l10n_edited'));
 		http::redirect('configuration.php?action=languages');
 	}
 }
@@ -172,7 +172,7 @@ if (!empty($_POST['order_languages']))
 
 		$okt->languages->generateCacheList();
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_l10n_neworder'));
+		$okt->page->flash->success(__('c_a_config_l10n_neworder'));
 
 		http::redirect('configuration.php?action=languages');
 	}
@@ -197,7 +197,7 @@ if (!empty($_POST['config_sent']))
 		{
 			$okt->config->write($new_conf);
 			$okt->languages->generateCacheList();
-			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 			http::redirect('configuration.php?action=languages');
 		}
 		catch (InvalidArgumentException $e)

@@ -63,7 +63,7 @@ if (!empty($_GET['delete']))
 			'message' => 'category #'.$_GET['delete']
 		));
 
-		$okt->page->flashMessages->addSuccess(__('m_pages_cat_deleted'));
+		$okt->page->flash->success(__('m_pages_cat_deleted'));
 
 		http::redirect('module.php?m=pages&action=categories');
 	}

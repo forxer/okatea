@@ -27,7 +27,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 			'message' => 'page #'.$_GET['post_id']
 		));
 
-		$okt->page->flashMessages->addSuccess(__('m_pages_list_page_deleted'));
+		$okt->page->flash->success(__('m_pages_list_page_deleted'));
 
 		http::redirect('module.php?m=pages&action=index');
 	}

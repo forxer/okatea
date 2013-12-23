@@ -120,7 +120,7 @@ if ($dir && !empty($_POST['newdir']))
 	{
 		$okt->media->makeDir($_POST['newdir']);
 
-		$okt->page->flashMessages->addSuccess(__('Directory has been successfully created.'));
+		$okt->page->flash->success(__('Directory has been successfully created.'));
 
 		http::redirect($page_url.'&d='.rawurlencode($d));
 	}
@@ -141,7 +141,7 @@ if ($dir && !empty($_FILES['upfile']))
 
 		$okt->media->uploadFile($_FILES['upfile']['tmp_name'], $_FILES['upfile']['name'], $f_title, $f_private);
 
-		$okt->page->flashMessages->addSuccess(__('Files have been successfully uploaded.'));
+		$okt->page->flash->success(__('Files have been successfully uploaded.'));
 
 		http::redirect($page_url.'&d='.rawurlencode($d));
 	}
@@ -160,7 +160,7 @@ if ($dir && !empty($_POST['rmyes']) && !empty($_POST['remove']))
 	{
 		$okt->media->removeItem($_POST['remove']);
 
-		$okt->page->flashMessages->addSuccess(__('File has been successfully removed.'));
+		$okt->page->flash->success(__('File has been successfully removed.'));
 
 		http::redirect($page_url.'&d='.rawurlencode($d));
 	}
@@ -176,7 +176,7 @@ if ($dir && $okt->user->is_superadmin && !empty($_POST['rebuild']))
 	{
 		$okt->media->rebuild($d);
 
-		$okt->page->flashMessages->addSuccess(__('Directory has been successfully rebuilt.'));
+		$okt->page->flash->success(__('Directory has been successfully rebuilt.'));
 
 		http::redirect($page_url.'&d='.rawurlencode($d));
 	}

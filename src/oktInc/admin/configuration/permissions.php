@@ -73,7 +73,7 @@ if (!empty($_POST['sended_form']))
 		$okt->db->execute($query);
 	}
 
-	$okt->page->flashMessages->addSuccess(__('c_a_config_permissions_updated'));
+	$okt->page->flash->success(__('c_a_config_permissions_updated'));
 
 	http::redirect('configuration.php?action=permissions');
 }

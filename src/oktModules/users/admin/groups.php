@@ -41,7 +41,7 @@ if (!empty($_POST['add_group']))
 	{
 		$okt->users->addGroup($add_title);
 
-		$okt->page->flashMessages->addSuccess(__('m_users_group_added'));
+		$okt->page->flash->success(__('m_users_group_added'));
 
 		http::redirect('module.php?m=users&action=groups');
 	}
@@ -60,7 +60,7 @@ if (!empty($_POST['edit_group']))
 	{
 		$okt->users->updGroup($group_id, $edit_title);
 
-		$okt->page->flashMessages->addSuccess(__('m_users_group_edited'));
+		$okt->page->flash->success(__('m_users_group_edited'));
 
 		http::redirect('module.php?m=users&action=groups');
 	}
@@ -76,7 +76,7 @@ if ($group_id && $do == 'delete')
 	{
 		$okt->users->deleteGroup($group_id);
 
-		$okt->page->flashMessages->addSuccess(__('m_users_group_deleted'));
+		$okt->page->flash->success(__('m_users_group_deleted'));
 
 		http::redirect('module.php?m=users&action=groups');
 	}

@@ -74,7 +74,7 @@ if (!empty($_POST['order_items']))
 				$okt->navigation->updItemOrder($id, $ord);
 			}
 
-			$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_items_neworder'));
+			$okt->page->flash->success(__('c_a_config_navigation_items_neworder'));
 
 			http::redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 		}
@@ -91,7 +91,7 @@ if (!empty($_GET['enable']))
 	{
 		$okt->navigation->setItemStatus($_GET['enable'], 1);
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_enabled'));
+		$okt->page->flash->success(__('c_a_config_navigation_item_enabled'));
 
 		http::redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}
@@ -107,7 +107,7 @@ if (!empty($_GET['disable']))
 	{
 		$okt->navigation->setItemStatus($_GET['disable'], 0);
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_disabled'));
+		$okt->page->flash->success(__('c_a_config_navigation_item_disabled'));
 
 		http::redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}
@@ -123,7 +123,7 @@ if (!empty($_GET['delete']))
 	{
 		$okt->navigation->delItem($_GET['delete']);
 
-		$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_item_deleted'));
+		$okt->page->flash->success(__('c_a_config_navigation_item_deleted'));
 
 		http::redirect('configuration.php?action=navigation&do=items&menu_id='.$iMenuId);
 	}

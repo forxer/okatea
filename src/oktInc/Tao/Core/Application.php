@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RequestContext;
 
 use Tao\Cache\SingleFileCache;
+use Tao\Misc\FlashMessages;
 use Tao\Modules\Collection as ModulesCollection;
 use Tao\Navigation\Menus\Menus;
 use Tao\Routing\Router;
@@ -102,6 +103,13 @@ class Application
 	 * @var Tao\Navigation\Menus\Menus
 	 */
 	public $navigation;
+
+	/**
+	 * Les menus de navigation.
+	 *
+	 * @var Tao\Core\ApplicationOptions
+	 */
+	public $options;
 
 	/**
 	 * L'utilitaire de contenu de page.
@@ -205,6 +213,8 @@ class Application
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
+		$this->options = new ApplicationOptions();
+
 		$this->start();
 
 		$this->db = $this->database();
@@ -222,7 +232,7 @@ class Application
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
-		$this->session = new Session();
+		$this->session = new Session(null, null, new FlashMessages());
 		$this->request->setSession($this->session);
 
 		$this->languages = new Languages($this);

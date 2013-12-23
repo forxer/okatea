@@ -26,7 +26,7 @@ if (!empty($_GET['optimize']))
 		$okt->error->set($okt->db->error());
 	}
 
-	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_optimized'));
+	$okt->page->flash->success(__('c_a_infos_mysql_table_optimized'));
 
 	http::redirect('configuration.php?action=infos');
 }
@@ -38,7 +38,7 @@ if (!empty($_GET['truncate']))
 		$okt->error->set($okt->db->error());
 	}
 
-	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_truncated'));
+	$okt->page->flash->success(__('c_a_infos_mysql_table_truncated'));
 
 	http::redirect('configuration.php?action=infos');
 }
@@ -50,7 +50,7 @@ if (!empty($_GET['drop']))
 		$okt->error->set($okt->db->error());
 	}
 
-	$okt->page->flashMessages->addSuccess(__('c_a_infos_mysql_table_droped'));
+	$okt->page->flash->success(__('c_a_infos_mysql_table_droped'));
 
 	http::redirect('configuration.php?action=infos');
 }

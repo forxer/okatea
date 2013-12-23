@@ -42,14 +42,14 @@ $oktRevision = util::getRevision();
 	<div id="content" class="ui-widget-content ui-corner-bottom">
 
 	<?php if (isset($errors) && !$errors->isEmpty()) : ?>
-	<div class="error_box">
+	<div class="errors_box">
 		<h3><?php _e('i_errors') ?></h3>
 		<?php echo $errors->get(); ?>
 	</div>
 	<?php endif; ?>
 
 	<?php if (isset($okt) && !$okt->error->isEmpty()) : ?>
-	<div class="error_box">
+	<div class="errors_box">
 		<h3><?php _e('i_errors') ?></h3>
 		<?php echo $okt->error->get(); ?>
 	</div>

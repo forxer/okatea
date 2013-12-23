@@ -86,7 +86,7 @@ if (!empty($_POST['sended']))
 					'message' => 'menu #'.$iMenuId
 				));
 
-				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_updated'));
+				$okt->page->flash->success(__('c_a_config_navigation_menu_updated'));
 
 				http::redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}
@@ -112,7 +112,7 @@ if (!empty($_POST['sended']))
 					'message' => 'menu #'.$iMenuId
 				));
 
-				$okt->page->flashMessages->addSuccess(__('c_a_config_navigation_menu_added'));
+				$okt->page->flash->success(__('c_a_config_navigation_menu_added'));
 
 				http::redirect('configuration.php?action=navigation&do=menu&menu_id='.$iMenuId);
 			}

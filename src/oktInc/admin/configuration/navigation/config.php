@@ -52,7 +52,7 @@ if (!empty($_POST['sended']))
 		{
 			$okt->config->write($new_conf);
 
-			$okt->page->flashMessages->addSuccess(__('c_c_confirm_configuration_updated'));
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 			http::redirect('configuration.php?action=navigation&do=config');
 		}

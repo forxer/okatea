@@ -106,7 +106,10 @@ else if (!empty($_POST['bootstrap']))
 {
 	try {
 		$oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));
-		http::redirect('configuration.php?action=themes&bootstraped=1');
+
+		$okt->page->flash->success(__('c_a_themes_bootstrap_success'));
+
+		http::redirect('configuration.php?action=themes');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

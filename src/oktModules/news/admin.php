@@ -31,7 +31,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 			'message' => 'post #'.$_GET['post_id']
 		));
 
-		$okt->page->flashMessages->addSuccess(__('m_news_list_post_deleted'));
+		$okt->page->flash->success(__('m_news_list_post_deleted'));
 
 		http::redirect('module.php?m=news&action=index');
 	}

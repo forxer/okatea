@@ -55,7 +55,7 @@ if (!empty($_REQUEST['delete_cookies']))
 		setcookie($c,null);
 	}
 
-	$okt->page->flashMessages->addSuccess(__('m_users_cookies_has_been_deleted'));
+	$okt->page->flash->success(__('m_users_cookies_has_been_deleted'));
 
 	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }
@@ -72,7 +72,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password'))
 
 	$okt->users->changeUserPassword($upd_params);
 
-	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
+	$okt->page->flash->success(__('m_users_profile_edited'));
 
 	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }
@@ -101,7 +101,7 @@ if (!empty($_POST['form_sent']))
 
 	$okt->users->updUser($upd_params);
 
-	$okt->page->flashMessages->addSuccess(__('m_users_profile_edited'));
+	$okt->page->flash->success(__('m_users_profile_edited'));
 
 	http::redirect('module.php?m=users&action=profil&id='.$user_id);
 }

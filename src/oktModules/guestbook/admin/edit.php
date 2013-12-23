@@ -56,7 +56,7 @@ if (!empty($_POST['edit_form_sent']))
 	{
 		if ($okt->guestbook->updSig($aSigData))
 		{
-			$okt->page->flashMessages->addSuccess(__('m_guestbook_Signature_was_updated'));
+			$okt->page->flash->success(__('m_guestbook_Signature_was_updated'));
 
 			http::redirect('module.php?m=guestbook&amp;action=edit&id='.$sig_id . $url_params);
 		}

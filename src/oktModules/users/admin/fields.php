@@ -24,7 +24,7 @@ if (!empty($_GET['delete']))
 {
 	if ($okt->users->fields->delField($_GET['delete']))
 	{
-		$okt->page->flashMessages->addSuccess(__('m_users_fields_deleted'));
+		$okt->page->flash->success(__('m_users_fields_deleted'));
 
 		http::redirect('module.php?m=users&action=fields');
 	}
@@ -54,7 +54,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 		$okt->users->fields->updFieldOrder($id, $ord);
 	}
 
-	$okt->page->flashMessages->addSuccess(__('m_users_neworder'));
+	$okt->page->flash->success(__('m_users_neworder'));
 
 	http::redirect('module.php?m=users&action=fields');
 }

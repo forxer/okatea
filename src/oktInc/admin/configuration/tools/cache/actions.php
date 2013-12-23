@@ -20,7 +20,7 @@ use Tao\Misc\Utilities as util;
 if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Suppression d'un fichier cache
-if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'],$aCacheFiles))
+if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'], $aCacheFiles))
 {
 	if (is_dir(OKT_CACHE_PATH.'/'.$_GET['cache_file'])) {
 		files::deltree(OKT_CACHE_PATH.'/'.$_GET['cache_file']);
@@ -29,12 +29,14 @@ if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'],$aCacheFiles))
 		unlink(OKT_CACHE_PATH.'/'.$_GET['cache_file']);
 	}
 
-	http::redirect('configuration.php?action=tools&file_deleted=1');
+	$okt->page->flash->success(__('c_a_tools_cache_confirm'));
+
+	http::redirect('configuration.php?action=tools');
 }
 
 
 # Suppression d'un fichier cache public
-if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'],$aPublicCacheFiles))
+if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'], $aPublicCacheFiles))
 {
 	if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file'])) {
 		files::deltree(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
@@ -43,7 +45,9 @@ if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'],$a
 		unlink(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
 	}
 
-	http::redirect('configuration.php?action=tools&file_deleted=1');
+	$okt->page->flash->success(__('c_a_tools_cache_confirm'));
+
+	http::redirect('configuration.php?action=tools');
 }
 
 # Suppression des fichiers cache
@@ -53,5 +57,7 @@ if (!empty($_GET['all_cache_file']))
 
 	util::deleteOktPublicCacheFiles();
 
-	http::redirect('configuration.php?action=tools&files_deleted=1');
+	$okt->page->flash->success(__('c_a_tools_cache_confirms'));
+
+	http::redirect('configuration.php?action=tools');
 }
