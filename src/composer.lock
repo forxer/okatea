@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5eb87e441c9308db9b05c5758fbdb68a",
+    "hash": "2c716c6d56c809d2c7eff458df00d9c7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "ba4ab893cc0790f643bf7b0f89d89d0096ba6e68"
+                "reference": "2196da9cd9fc72e343560fce818affbcfbdf93d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/ba4ab893cc0790f643bf7b0f89d89d0096ba6e68",
-                "reference": "ba4ab893cc0790f643bf7b0f89d89d0096ba6e68",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/2196da9cd9fc72e343560fce818affbcfbdf93d0",
+                "reference": "2196da9cd9fc72e343560fce818affbcfbdf93d0",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -363,7 +363,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-12-22 10:47:16"
+            "time": "2013-12-23 05:23:06"
         },
         {
             "name": "doctrine/inflector",
@@ -497,7 +497,7 @@
             "source": {
                 "type": "hg",
                 "url": "http://bitbucket.org/dotclear/clearbricks",
-                "reference": "01432fa4beb3"
+                "reference": "d80e4972aaaa"
             },
             "require": {
                 "php": ">5.3.0"
@@ -523,7 +523,7 @@
                 }
             ],
             "description": "Clearbricks is not yet another framework.",
-            "time": "2013-12-12 09:38:13"
+            "time": "2013-12-24 10:04:32"
         },
         {
             "name": "erusev/parsedown",
@@ -615,12 +615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "50c5393062bc9035d0a872b9b2af8221f264ea19"
+                "reference": "e0df12243ee08a4d6fca3241142212428dfd632e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/50c5393062bc9035d0a872b9b2af8221f264ea19",
-                "reference": "50c5393062bc9035d0a872b9b2af8221f264ea19",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e0df12243ee08a4d6fca3241142212428dfd632e",
+                "reference": "e0df12243ee08a4d6fca3241142212428dfd632e",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-12-09 04:01:52"
+            "time": "2013-12-22 22:25:34"
         },
         {
             "name": "imagine/imagine",
@@ -707,12 +707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "016e17fd2469690abc9c015cf07b4898dff1471d"
+                "reference": "5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/016e17fd2469690abc9c015cf07b4898dff1471d",
-                "reference": "016e17fd2469690abc9c015cf07b4898dff1471d",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2",
+                "reference": "5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2",
                 "shasum": ""
             },
             "require": {
@@ -756,7 +756,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2013-12-03 16:47:33"
+            "time": "2013-12-23 10:54:18"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1263,12 +1263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "81c64d4567f7cf1a983f71f4a5b4d338165aa6e4"
+                "reference": "bdab22742ef40a9c5a6d000da19a7691f7efbb59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/81c64d4567f7cf1a983f71f4a5b4d338165aa6e4",
-                "reference": "81c64d4567f7cf1a983f71f4a5b4d338165aa6e4",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/bdab22742ef40a9c5a6d000da19a7691f7efbb59",
+                "reference": "bdab22742ef40a9c5a6d000da19a7691f7efbb59",
                 "shasum": ""
             },
             "require": {
@@ -1308,7 +1308,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2013-12-03 14:52:29"
+            "time": "2013-12-18 17:16:40"
         },
         {
             "name": "symfony/filesystem",
@@ -1650,7 +1650,7 @@
         "symfony/yaml": 20
     },
     "platform": {
-        "php": ">=5.3.7"
+        "php": ">=5.4.0"
     },
     "platform-dev": [
 

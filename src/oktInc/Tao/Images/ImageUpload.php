@@ -278,9 +278,9 @@ class ImageUpload
 				{
 					$aNewImages[$j] = $aCurrentImages[$i];
 
-					$aNewImages[$j]['alt'] = isset($_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)] : '';
+					$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
-					$aNewImages[$j]['title'] = isset($_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)] : '';
+					$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 					$j++;
 				}
@@ -338,10 +338,10 @@ class ImageUpload
 				$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir,$sCurrentImagesUrl,$sOutput);
 
 				# ajout d'un éventuel texte alternatif
-				$aNewImages[$j]['alt'] = isset($_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)] : '';
+				$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
 				# ajout d'un éventuel title
-				$aNewImages[$j]['title'] = isset($_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)] : '';
+				$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 				$j++;
 			}

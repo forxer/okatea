@@ -130,7 +130,7 @@ class FileUpload
 
 				$aFiles[$j] = array(
 					'filename' => basename($sDestination),
-					'title' => (!empty($_REQUEST[sprintf($this->config['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->config['files_title_patern'],$i)] : $j)
+					'title' => $this->okt->request->request->get(sprintf($this->config['files_title_patern'], $i), $j)
 				);
 
 				$j++;
@@ -162,7 +162,7 @@ class FileUpload
 				{
 					$aNewFiles[$j] = array(
 						'filename' => $aCurrentFiles[$i]['filename'],
-						'title' => (!empty($_REQUEST[sprintf($this->config['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->config['files_title_patern'],$i)] : $aCurrentFiles[$i]['title'])
+						'title' => $this->okt->request->request->get(sprintf($this->config['files_title_patern'], $i), $aCurrentFiles[$i]['title'])
 					);
 					$j++;
 				}
@@ -205,7 +205,7 @@ class FileUpload
 
 				$aNewFiles[$j] = array(
 					'filename' => basename($sDestination),
-					'title' => (!empty($_REQUEST[sprintf($this->config['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->config['files_title_patern'],$i)] : $j)
+					'title' => $this->okt->request->request->get(sprintf($this->config['files_title_patern'], $i), $j)
 				);
 
 				$j++;

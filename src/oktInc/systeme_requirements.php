@@ -40,7 +40,7 @@ $requirements[1] = array(
 # Vérification de la version PHP
 $requirements[0]['requirements'][] = array(
 	'id' 		=> 'php_version',
-	'test' 		=> version_compare(PHP_VERSION,'5.3.7','>='),
+	'test' 		=> version_compare(PHP_VERSION,'5.4.0','>='),
 	'msg_ok'	=> sprintf(__('pr_php_version_ok'),PHP_VERSION),
 	'msg_ko'	=> sprintf(__('pr_php_version_ko'),PHP_VERSION)
 );
@@ -165,7 +165,7 @@ $requirements[1]['requirements'][] = array(
 # Vérification des droits sur /oktConf/conf_site.yaml
 $requirements[1]['requirements'][] = array(
 	'id' 		=> 'conf_site',
-	'test' 		=> is_writable(OKT_CONFIG_PATH.'/conf_site.yaml'),
+	'test' 		=> is_writable(OKT_CONFIG_PATH.'/conf_site.yml'),
 	'msg_ok' 	=> sprintf(__('pr_conf_site_ok'), OKT_CONFIG_DIR),
 	'msg_ko'	=> sprintf(__('pr_conf_site_ko'), OKT_CONFIG_DIR)
 );
