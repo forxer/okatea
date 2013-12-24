@@ -242,10 +242,10 @@ class ImageUpload
 				$aImages[$j]['original_name'] = $sUploadedFile['name'];
 
 				# ajout d'un éventuel texte alternatif
-				$aImages[$j]['alt'] = (!empty($_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_alt_patern'],$i)] : '');
+				$aImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
 				# ajout d'un éventuel titre
-				$aImages[$j]['title'] = (!empty($_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)]) ? $_REQUEST[sprintf($this->aConfig['files_title_patern'],$i)] : '');
+				$aImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 				$j++;
 			}

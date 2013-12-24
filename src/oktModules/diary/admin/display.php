@@ -64,7 +64,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->diary->config->write($new_conf);
-			http::redirect('module.php?m=diary&action=display&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=diary&action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -101,9 +104,6 @@ $okt->page->tabs();
 
 # LightBox Like
 $okt->page->applyLbl($okt->diary->config->lightbox_type);
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

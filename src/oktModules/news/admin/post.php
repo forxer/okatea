@@ -194,7 +194,9 @@ if (!empty($_GET['publish']) && !empty($aPostData['post']['id']) && $bCanPublish
 		'message' => 'post #'.$aPostData['post']['id']
 	));
 
-	http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&published=1');
+	$okt->page->flash->success(__('m_news_post_published'));
+
+	http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id']);
 }
 
 # suppression d'une image
@@ -297,7 +299,9 @@ if (!empty($_POST['sended']) && $bCanEditPost)
 					'message' => 'post #'.$aPostData['post']['id']
 				));
 
-				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&updated=1');
+				$okt->page->flash->success(__('m_news_post_updated'));
+
+				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -324,7 +328,9 @@ if (!empty($_POST['sended']) && $bCanEditPost)
 					'message' => 'post #'.$aPostData['post']['id']
 				));
 
-				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id'].'&added=1');
+				$okt->page->flash->success(__('m_news_post_added'));
+
+				http::redirect('module.php?m=news&action=edit&post_id='.$aPostData['post']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -401,10 +407,6 @@ if (!empty($aPostData['post']['id']))
 		'url' 			=> $sPostUrl,
 		'ui-icon' 		=> 'extlink'
 	));
-
-	$okt->page->messages->success('added',__('m_news_post_added'));
-	$okt->page->messages->success('updated',__('m_news_post_updated'));
-	$okt->page->messages->success('published',__('m_news_post_published'));
 }
 
 # boutons add post

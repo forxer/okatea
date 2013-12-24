@@ -25,14 +25,20 @@ $oImageUploadConfig->setBaseUrl('module.php?m=##module_id##&amp;action=config&am
 if (!empty($_GET['minregen']))
 {
 	$okt->##module_id##->regenMinImages();
-	http::redirect('module.php?m=##module_id##&action=config&minregenerated=1');
+
+	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+
+	http::redirect('module.php?m=##module_id##&action=config');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->##module_id##->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	http::redirect('module.php?m=##module_id##&action=config&watermarkdeleted=1');
+
+	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+
+	http::redirect('module.php?m=##module_id##&action=config');
 }
 
 # enregistrement configuration
@@ -88,7 +94,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->##module_id##->config->write($new_conf);
-			http::redirect('module.php?m=##module_id##&action=config&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=##module_id##&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -111,11 +120,6 @@ $okt->page->lockable();
 
 # Tabs
 $okt->page->tabs();
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('minregenerated',__('c_c_confirm_thumb_regenerated'));
-$okt->page->messages->success('watermarkdeleted',__('c_c_confirm_watermark_deleted'));
 
 
 # En-tête

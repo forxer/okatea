@@ -29,14 +29,20 @@ $oImageUploadConfig->setBaseUrl('module.php?m=faq&amp;action=config&amp;');
 if (!empty($_GET['minregen']))
 {
 	$okt->faq->regenMinImages();
-	http::redirect('module.php?m=faq&action=config&minregenerated=1');
+
+	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+
+	http::redirect('module.php?m=faq&action=config');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->faq->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	http::redirect('module.php?m=faq&action=config&watermarkdeleted=1');
+
+	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+
+	http::redirect('module.php?m=faq&action=config');
 }
 
 
@@ -88,7 +94,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->faq->config->write($faq_conf);
-			http::redirect('module.php?m=faq&action=config&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=faq&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -116,10 +125,6 @@ if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
 
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('minregenerated',__('c_c_confirm_thumb_regenerated'));
-$okt->page->messages->success('watermarkdeleted',__('c_c_confirm_watermark_deleted'));
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

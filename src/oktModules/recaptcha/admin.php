@@ -43,7 +43,10 @@ if (!empty($_POST['config_send']))
 		try
 		{
 			$okt->recaptcha->config->write($new_conf);
-			http::redirect('module.php?m=recaptcha&action=index&edited=1');
+
+			$okt->page->flash->success(__('Les clés ont été éditées.'));
+
+			http::redirect('module.php?m=recaptcha&action=index');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -68,9 +71,6 @@ $aThemes = array(
 
 # Titre de la page
 $okt->page->addGlobalTitle('reCaptcha');
-
-# Confirmations
-$okt->page->messages->success('edited',__('Les clés ont été éditées.'));
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

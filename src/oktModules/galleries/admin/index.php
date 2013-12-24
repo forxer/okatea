@@ -22,8 +22,11 @@ $okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.list');
 # Régénération des miniatures d'une galerie
 if (!empty($_REQUEST['regenerate_thumbnails']))
 {
-	if ($okt->galleries->items->regenMinImages($_REQUEST['regenerate_thumbnails'])) {
-		http::redirect('module.php?m=galleries&minregenerated=1');
+	if ($okt->galleries->items->regenMinImages($_REQUEST['regenerate_thumbnails']))
+	{
+		$okt->page->flash->success(__('m_galleries_list_gallery_min_regenerated'));
+
+		http::redirect('module.php?m=galleries');
 	}
 }
 
@@ -41,7 +44,9 @@ if (!empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 			'message' => 'category #'.$_GET['switch_status']
 		));
 
-		http::redirect('module.php?m=galleries&switched=1');
+		$okt->page->flash->success(__('m_galleries_list_gallery_visibility_switched'));
+
+		http::redirect('module.php?m=galleries');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -51,8 +56,11 @@ if (!empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 # Suppression d'une galerie
 if (!empty($_GET['delete']) && $okt->checkPerm('galleries_manage'))
 {
-	if ($okt->galleries->tree->deleteGallery(intval($_GET['delete']))) {
-		http::redirect('module.php?m=galleries&deleted=1');
+	if ($okt->galleries->tree->deleteGallery(intval($_GET['delete'])))
+	{
+		$okt->page->flash->success(__('m_galleries_list_gallery_deleted'));
+
+		http::redirect('module.php?m=galleries');
 	}
 }
 
@@ -125,12 +133,6 @@ $okt->page->addButton('galleriesBtSt',array(
 	'url' 			=> html::escapeHTML(GalleriesHelpers::getGalleriesUrl()),
 	'ui-icon' 		=> 'extlink'
 ));
-
-
-# Confirmations
-$okt->page->messages->success('minregenerated', __('m_galleries_list_gallery_min_regenerated'));
-$okt->page->messages->success('switched', __('m_galleries_list_gallery_visibility_switched'));
-$okt->page->messages->success('deleted', __('m_galleries_list_gallery_deleted'));
 
 
 # En-tête

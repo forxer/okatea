@@ -124,7 +124,9 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemUpdate
 				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemUpdate', $cursor, $aItemData, $iItemId);
 
-				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&updated=1');
+				$okt->page->flash->success(__('m_##module_id##_confirm_edited'));
+
+				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId);
 			}
 		}
 
@@ -139,7 +141,9 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemCreate
 				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemCreate', $cursor, $aItemData, $iItemId);
 
-				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId.'&added=1');
+				$okt->page->flash->success(__('m_##module_id##_confirm_added'));
+
+				http::redirect('module.php?m=##module_id##&action=edit&item_id='.$iItemId);
 			}
 		}
 	}
@@ -187,9 +191,6 @@ if (!empty($iItemId))
 		'url' 			=> $sItemUrl,
 		'ui-icon' 		=> 'extlink'
 	));
-
-	$okt->page->messages->success('added',__('m_##module_id##_confirm_added'));
-	$okt->page->messages->success('updated',__('m_##module_id##_confirm_edited'));
 }
 
 # boutons ajout élément

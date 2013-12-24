@@ -35,7 +35,7 @@ if (!empty($_GET['init_filters']))
 if (!empty($_GET['switch_status']))
 {
 	$okt->diary->switchEventStatus($_GET['switch_status']);
-	http::redirect('module.php?m=diary&action=index&switched=1');
+	http::redirect('module.php?m=diary&action=index');
 }
 
 # Traitements par lots
@@ -49,7 +49,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->setEventStatus($iEventId,1);
 		}
 
-		http::redirect('module.php?m=diary&action=index&switcheds=1');
+		http::redirect('module.php?m=diary&action=index');
 	}
 	elseif ($_POST['actions'] == 'hide')
 	{
@@ -57,7 +57,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->setEventStatus($iEventId,0);
 		}
 
-		http::redirect('module.php?m=diary&action=index&switcheds=1');
+		http::redirect('module.php?m=diary&action=index');
 	}
 	elseif($_POST['actions'] == 'delete')
 	{
@@ -65,7 +65,7 @@ if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['ev
 			$okt->diary->delEvent($iEventId);
 		}
 
-		http::redirect('module.php?m=diary&action=index&deleteds=1');
+		http::redirect('module.php?m=diary&action=index');
 	}
 }
 
@@ -149,13 +149,8 @@ $aActionsChoices = array(
 	__('c_c_action_delete') => 'delete'
 );
 
-
 # checkboxes helper
 $okt->page->checkboxHelper('diary-list','checkboxHelper');
-
-
-# Confirmations
-$okt->page->messages->success('deleted',__('m_diary_confirm_deleted'));
 
 
 # En-tête

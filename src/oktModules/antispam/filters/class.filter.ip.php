@@ -69,7 +69,10 @@ class oktFilterIP extends oktSpamFilter
 			try
 			{
 				$this->addIP($ip_type,$_POST['addip']);
-				http::redirect($url.'&added=1&ip_type='.$ip_type);
+
+				$okt->page->flash->success(__('m_antispam_IP_successfully_added'));
+
+				http::redirect($url.'&ip_type='.$ip_type);
 			}
 			catch (Exception $e)
 			{
@@ -82,7 +85,10 @@ class oktFilterIP extends oktSpamFilter
 		{
 			try {
 				$this->removeRule($_POST['delip']);
-				http::redirect($url.'&removed=1&ip_type='.$ip_type);
+
+				$okt->page->flash->success(__('m_antispam_IP_successfully_removed'));
+
+				http::redirect($url.'&ip_type='.$ip_type);
 			}
 			catch (Exception $e)
 			{
@@ -92,8 +98,6 @@ class oktFilterIP extends oktSpamFilter
 
 		/* DISPLAY
 		---------------------------------------------- */
-		$this->okt->page->messages->success('added',__('m_antispam_IP_successfully_added'));
-		$this->okt->page->messages->success('removed',__('m_antispam_IP_successfully_removed'));
 
 		$res = '';
 

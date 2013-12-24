@@ -85,8 +85,11 @@ if (!empty($_GET['switch_status']))
 # suppression d’une catégorie
 if (!empty($_GET['delete']))
 {
-	if ($okt->catalog->delCategory(intval($_GET['delete']))) {
-		http::redirect('module.php?m=catalog&action=categories&deleted=1');
+	if ($okt->catalog->delCategory(intval($_GET['delete'])))
+	{
+		$okt->page->flash->success(__('Catégorie supprimée.'));
+
+		http::redirect('module.php?m=catalog&action=categories');
 	}
 }
 
@@ -104,8 +107,11 @@ if (!empty($_POST['add_category']))
 	{
 		$add_category_slug = util::strToSlug($add_category_name, false);
 
-		if (($neo_id = $okt->catalog->addCategory(1,$add_category_name,$add_category_slug,$add_category_parent)) !== false) {
-			http::redirect('module.php?m=catalog&action=categories&added=1');
+		if (($neo_id = $okt->catalog->addCategory(1,$add_category_name,$add_category_slug,$add_category_parent)) !== false)
+		{
+			$okt->page->flash->success(__('La catégorie a été ajoutée.'));
+
+			http::redirect('module.php?m=catalog&action=categories');
 		}
 		else {
 			$okt->error->set('Impossible d’ajouter la catégorie.');
@@ -128,8 +134,11 @@ if (!empty($_POST['edit_category']) && $category_id)
 	{
 		$edit_category_slug = util::strToSlug($edit_category_name, false);
 
-		if ($okt->catalog->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_slug, $edit_category_parent) !== false) {
-			http::redirect('module.php?m=catalog&action=categories&updated=1');
+		if ($okt->catalog->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_slug, $edit_category_parent) !== false)
+		{
+			$okt->page->flash->success(__('La catégorie a été  mise à jour.'));
+
+			http::redirect('module.php?m=catalog&action=categories');
 		}
 		else {
 			$okt->error->set('Impossible de mettre à jour la catégorie.');
@@ -163,7 +172,9 @@ if (!empty($_POST['ordered']) && !empty($order))
 
 	$okt->catalog->rebuildTree();
 
-	http::redirect('module.php?m=catalog&action=categories&category_id='.$category_id.'&neworder=1');
+	$okt->page->flash->success(__('L’ordre des catégories a été mis à jour.'));
+
+	http::redirect('module.php?m=catalog&action=categories&category_id='.$category_id);
 }
 
 
@@ -273,11 +284,6 @@ $okt->page->css->addCSS('
 	}
 ');
 
-# Confirmationss
-$okt->page->messages->success('added','La catégorie a été ajoutée.');
-$okt->page->messages->success('updated','La catégorie a été  mise à jour.');
-$okt->page->messages->success('neworder','L’ordre des catégories a été mis à jour.');
-$okt->page->messages->success('deleted','Catégorie supprimée.');
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>

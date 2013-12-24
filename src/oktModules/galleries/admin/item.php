@@ -153,7 +153,9 @@ if (!empty($_GET['delete_image']) && !empty($aItemData['item']['id']))
 		'message' => 'item #'.$aItemData['item']['id']
 	));
 
-	http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&updated=1');
+	$okt->page->flash->success(__('m_galleries_item_updated'));
+
+	http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id']);
 }
 
 #  ajout / modifications d'un élément
@@ -238,7 +240,9 @@ if (!empty($_POST['sended']))
 					'message' => 'item #'.$aItemData['item']['id']
 				));
 
-				http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id'].'&added=1');
+				$okt->page->flash->success(__('m_galleries_item_added'));
+
+				http::redirect('module.php?m=galleries&action=edit&item_id='.$aItemData['item']['id']);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -303,9 +307,6 @@ if (!empty($aItemData['item']['id']))
 		'url' 			=> GalleriesHelpers::getItemUrl($aItemData['locales'][$okt->user->language]['slug']),
 		'ui-icon' 		=> 'extlink'
 	));
-
-	$okt->page->messages->success('added', __('m_galleries_item_added'));
-	$okt->page->messages->success('updated', __('m_galleries_item_updated'));
 }
 
 # boutons add page

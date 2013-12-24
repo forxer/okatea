@@ -19,8 +19,11 @@ if (!$okt->checkPerm('faq')) {
 # suppression d'une question
 if ($okt->page->action === 'delete' && !empty($_GET['questions_id']) && $okt->checkPerm('faq_remove'))
 {
-	if ($okt->faq->deleteQuestion($_GET['questions_id'])) {
-		http::redirect('module.php?m=faq&action=index&deleted=1');
+	if ($okt->faq->deleteQuestion($_GET['questions_id']))
+	{
+		$okt->page->flash->success(__('m_faq_question_deleted'));
+
+		http::redirect('module.php?m=faq&action=index');
 	}
 	else {
 		$okt->page->action = 'index';

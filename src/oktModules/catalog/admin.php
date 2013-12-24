@@ -16,8 +16,11 @@ if (!$okt->checkPerm('catalog')) {
 # suppression d’un produit
 if ($okt->page->action === 'delete' && !empty($_GET['product_id']))
 {
-	if ($okt->catalog->deleteProd($_GET['product_id'])) {
-		http::redirect('module.php?m=catalog&action=index&deleted=1');
+	if ($okt->catalog->deleteProd($_GET['product_id']))
+	{
+		$okt->page->flash->success(__('Le produit a été supprimé.'));
+
+		http::redirect('module.php?m=catalog&action=index');
 	}
 	else {
 		$okt->page->action = 'index';

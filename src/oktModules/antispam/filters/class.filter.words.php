@@ -69,10 +69,15 @@ class oktFilterWords extends oktSpamFilter
 		# Create list
 		if (!empty($_POST['createlist']))
 		{
-			try {
+			try
+			{
 				$this->defaultWordsList();
-				http::redirect($url.'&list=1');
-			} catch (Exception $e) {
+
+				$okt->page->flash->success(__('m_antispam_Words_successfully_added'));
+
+				http::redirect($url);
+			}
+			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());
 			}
 		}
@@ -80,10 +85,15 @@ class oktFilterWords extends oktSpamFilter
 		# Adding a word
 		if (!empty($_POST['swa']))
 		{
-			try {
+			try
+			{
 				$this->addRule($_POST['swa']);
-				http::redirect($url.'&added=1');
-			} catch (Exception $e) {
+
+				$okt->page->flash->success(__('m_antispam_Word_successfully_added'));
+
+				http::redirect($url);
+			}
+			catch (Exception $e) {
 				$okt->error->add($e->getMessage());
 			}
 		}
@@ -91,10 +101,15 @@ class oktFilterWords extends oktSpamFilter
 		# Removing spamwords
 		if (!empty($_POST['swd']) && is_array($_POST['swd']))
 		{
-			try {
+			try
+			{
 				$this->removeRule($_POST['swd']);
-				http::redirect($url.'&removed=1');
-			} catch (Exception $e) {
+
+				$okt->page->flash->success(__('m_antispam_Words_successfully_removed'));
+
+				http::redirect($url);
+			}
+			catch (Exception $e) {
 				$okt->error->add($e->getMessage());
 			}
 		}
@@ -103,10 +118,6 @@ class oktFilterWords extends oktSpamFilter
 		---------------------------------------------- */
 
 		global $okt;
-
-		$okt->page->messages->success('list',__('m_antispam_Words_successfully_added'));
-		$okt->page->messages->success('added',__('m_antispam_Word_successfully_added'));
-		$okt->page->messages->success('removed',__('m_antispam_Words_successfully_removed'));
 
 		$res = '';
 

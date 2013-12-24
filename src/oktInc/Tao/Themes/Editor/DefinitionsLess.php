@@ -378,7 +378,7 @@ class DefinitionsLess
 	{
 		$aValues = array();
 		foreach (array_keys($this->getDefaultValues()) as $sKey) {
-			$aValues[$sKey] = !empty($_POST[$this->sPostPrefix.$sKey]) ?  $_POST[$this->sPostPrefix.$sKey] : '';
+			$aValues[$sKey] = $this->okt->request->request->get($this->sPostPrefix.$sKey, '');
 		}
 
 		return $aValues;

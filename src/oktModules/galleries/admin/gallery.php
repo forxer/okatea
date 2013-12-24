@@ -181,7 +181,9 @@ if (!empty($_POST['order_galleries']))
 
 			$okt->galleries->tree->rebuild();
 
-			http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId.'&ordered=1');
+			$okt->page->flash->success(__('m_galleries_gallery_order_update'));
+
+			http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId);
 		}
 		catch (Exception $e) {
 			$okt->error->set($e->getMessage());
@@ -222,7 +224,9 @@ if (!empty($_GET['delete_image']) && !empty($iGalleryId))
 		'message' => 'gallery #'.$iGalleryId
 	));
 
-	http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId.'&updated=1');
+	$okt->page->flash->success(__('m_galleries_gallery_updated'));
+
+	http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId);
 }
 
 
@@ -282,7 +286,9 @@ if (!empty($_POST['sended']))
 					'message' => 'gallery #'.$iGalleryId
 				));
 
-				http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId.'&updated=1');
+				$okt->page->flash->success(__('m_galleries_gallery_updated'));
+
+				http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -309,7 +315,9 @@ if (!empty($_POST['sended']))
 					'message' => 'gallery #'.$iGalleryId
 				));
 
-				http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId.'&added=1');
+				$okt->page->flash->success(__('m_galleries_gallery_added'));
+
+				http::redirect('module.php?m=galleries&action=gallery&gallery_id='.$iGalleryId);
 			}
 			catch (Exception $e) {
 				$okt->error->set($e->getMessage());
@@ -496,11 +504,6 @@ if ($iGalleryId)
 		$("#sortable").css("cursor", "move");
 	');
 }
-
-# Confirmations
-$okt->page->messages->success('added', __('m_galleries_gallery_added'));
-$okt->page->messages->success('updated', __('m_galleries_gallery_updated'));
-$okt->page->messages->success('ordered', __('m_galleries_gallery_order_update'));
 
 
 # En-tête

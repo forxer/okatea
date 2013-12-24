@@ -113,11 +113,13 @@ try
 		}
 
 		oktAntispam::$filters->saveFilterOpts($filters_opt);
-		http::redirect('module.php?m=antispam&upd=1');
+
+		$okt->page->flash->success(__('m_antispam_Filters_configuration_successfully_saved'));
+
+		http::redirect('module.php?m=antispam');
 	}
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
 	$okt->error->set($e->getMessage());
 }
 
@@ -125,14 +127,6 @@ catch (Exception $e)
 
 /* Affichage
 ----------------------------------------------------------*/
-
-# Confirmations
-$okt->page->messages->success('upd',__('m_antispam_Filters_configuration_successfully_saved'));
-
-//echo
-//dcPage::jsToolMan().
-//dcPage::jsPageTabs($default_tab).
-//dcPage::jsLoad('index.php?pf=antispam/antispam.js');
 
 # En-tête
 include OKT_ADMIN_HEADER_FILE;

@@ -18,10 +18,6 @@ if (!defined('ON_MODULE')) die;
 $okt->page->addGlobalTitle(__('m_development_bootstrap_title'));
 
 
-# Confirmations
-$okt->page->messages->success('bootstraped', __('m_development_bootstrap_success'));
-
-
 # Tabs
 $okt->page->tabs();
 

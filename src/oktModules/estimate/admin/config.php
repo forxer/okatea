@@ -91,6 +91,9 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->estimate->config->write($new_conf);
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
 			http::redirect('module.php?m=estimate&action=config&updated=1');
 		}
 		catch (InvalidArgumentException $e)
@@ -107,9 +110,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_estimate_configuration'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 # Lockable
 $okt->page->lockable();

@@ -202,11 +202,6 @@ if ($display_style == 'mosaic') {
 	$okt->page->smartColumns();
 }
 
-# Confirmationss
-$okt->page->messages->success('added','Le produit a été ajouté.');
-$okt->page->messages->success('deleted','Le produit a été supprimé.');
-
-
 # Affichage du résultat AJAX
 if ($bAjaxLoaded)  :
 	require __DIR__.'/productsList/productsList.php';

@@ -40,7 +40,9 @@ if (!empty($_GET['switch_status']))
 	{
 		$okt->galleries->items->switchItemStatus($_GET['switch_status']);
 
-		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&switched=1');
+		$okt->page->flash->success(__('m_galleries_items_item_switched'));
+
+		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -54,7 +56,9 @@ if (!empty($_GET['delete']) && $okt->checkPerm('galleries_remove'))
 	{
 		$okt->galleries->items->deleteItem($_GET['delete']);
 
-		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&deleted=1');
+		$okt->page->flash->success(__('m_galleries_items_item_deleted'));
+
+		http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -74,7 +78,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->setItemStatus($itemId,1);
 			}
 
-			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&sitems_witched=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id);
 		}
 		elseif ($_POST['actions'] == 'hide')
 		{
@@ -82,7 +86,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->setItemStatus($itemId,0);
 			}
 
-			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_switched=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id);
 		}
 		elseif ($_POST['actions'] == 'delete')
 		{
@@ -90,7 +94,7 @@ if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['ite
 				$okt->galleries->items->deleteItem($itemId);
 			}
 
-			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id.'&items_deleted=1');
+			http::redirect('module.php?m=galleries&action=items&gallery_id='.$gallery_id);
 		}
 		else {
 			throw new Exception('no valid action selected');
@@ -149,11 +153,6 @@ $rsItems = $okt->galleries->items->getItems(array(
 	'gallery_id' => $gallery_id,
 	'active' => 2
 ));
-
-
-# Confirmations
-$okt->page->messages->success('switched', __('m_galleries_items_item_switched'));
-$okt->page->messages->success('deleted', __('m_galleries_items_item_deleted'));
 
 # Smart columns
 $okt->page->smartColumns();

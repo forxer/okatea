@@ -20,8 +20,11 @@ if (!$okt->checkPerm('diary')) {
 # suppression d'un élément
 if ($okt->page->action === 'delete' && !empty($_GET['event_id']) && $okt->checkPerm('diary_remove'))
 {
-	if ($okt->diary->delEvent($_GET['event_id'])) {
-		http::redirect('module.php?m=diary&action=index&deleted=1');
+	if ($okt->diary->delEvent($_GET['event_id']))
+	{
+		$okt->page->flash->success(__('m_diary_confirm_deleted'));
+
+		http::redirect('module.php?m=diary&action=index');
 	}
 	else {
 		$okt->page->action = 'index';

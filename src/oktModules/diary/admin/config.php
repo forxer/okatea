@@ -28,14 +28,20 @@ $oImageUploadConfig->setBaseUrl('module.php?m=diary&amp;action=config&amp;');
 if (!empty($_GET['minregen']))
 {
 	$okt->diary->regenMinImages();
-	http::redirect('module.php?m=diary&action=config&minregenerated=1');
+
+	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+
+	http::redirect('module.php?m=diary&action=config');
 }
 
 # suppression filigrane
 if (!empty($_GET['delete_watermark']))
 {
 	$okt->diary->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
-	http::redirect('module.php?m=diary&action=config&watermarkdeleted=1');
+
+	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+
+	http::redirect('module.php?m=diary&action=config');
 }
 
 # enregistrement configuration
@@ -90,7 +96,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->diary->config->write($new_conf);
-			http::redirect('module.php?m=diary&action=config&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=diary&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -119,11 +128,6 @@ $okt->page->tabs();
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
-$okt->page->messages->success('minregenerated',__('c_c_confirm_thumb_regenerated'));
-$okt->page->messages->success('watermarkdeleted',__('c_c_confirm_watermark_deleted'));
 
 
 # En-tête

@@ -102,9 +102,6 @@ elseif ($okt->faq->config->admin_filters_style == 'dialog')
 }
 
 
-# Confirmation
-$okt->page->messages->success('deleted',__('m_faq_question_deleted'));
-
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 

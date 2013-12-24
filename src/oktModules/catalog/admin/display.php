@@ -55,7 +55,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->catalog->config->write($new_conf);
-			http::redirect('module.php?m=catalog&action=display&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=catalog&action=display');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -77,9 +80,6 @@ $okt->page->tabs();
 
 # Modal
 $okt->page->applyLbl($okt->catalog->config->lightbox_type);
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

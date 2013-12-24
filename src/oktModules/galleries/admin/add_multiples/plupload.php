@@ -37,6 +37,8 @@ if (!empty($_POST['sended']))
 {
 	$okt->galleries->items->regenMinImages($iGalleryId);
 
+	$okt->page->flash->success(__('m_galleries_items_added'));
+
 	http::redirect('module.php?m=galleries&action=items&gallery_id='.$iGalleryId);
 }
 
@@ -120,8 +122,6 @@ $okt->page->js->addReady('
 	$(".plupload_start").hide();
 
 ');
-
-$okt->page->messages->success('added', __('m_galleries_items_added'));
 
 
 # Lang switcher

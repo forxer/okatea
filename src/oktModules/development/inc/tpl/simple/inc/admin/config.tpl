@@ -45,7 +45,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->##module_id##->config->write($new_conf);
-			http::redirect('module.php?m=##module_id##&action=config&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=##module_id##&action=config');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -66,9 +69,6 @@ $okt->page->addGlobalTitle(__('m_##module_id##_configuration'));
 if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

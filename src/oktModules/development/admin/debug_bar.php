@@ -45,7 +45,10 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			$okt->development->config->write($new_conf);
-			http::redirect('module.php?m=development&action=debug_bar&updated=1');
+
+			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			http::redirect('module.php?m=development&action=debug_bar');
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -61,9 +64,6 @@ if (!empty($_POST['form_sent']))
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_development_menu_debugbar'));
-
-# Confirmations
-$okt->page->messages->success('updated',__('c_c_confirm_configuration_updated'));
 
 
 # En-tête

@@ -113,7 +113,9 @@ if (!empty($_POST['simple']) || !empty($_POST['advanced']))
 
 		$bootstraper->build();
 
-		http::redirect('module.php?m=development&action=bootstrap&bootstraped=1');
+		$okt->page->flash->success(__('m_development_bootstrap_success'));
+
+		http::redirect('module.php?m=development&action=bootstrap');
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());

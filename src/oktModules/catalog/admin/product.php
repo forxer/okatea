@@ -197,7 +197,9 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdUpdate
 				$okt->triggers->callTrigger('moduleNewsAfterProdUpdate',$cursor,$product_id);
 
-				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&updated=1');
+				$okt->page->flash->success(__('Le produit a été mis à jour.'));
+
+				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id);
 			}
 		}
 		# add product
@@ -211,7 +213,9 @@ if (!empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdCreate
 				$okt->triggers->callTrigger('moduleNewsAfterProdCreate',$cursor);
 
-				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id.'&added=1');
+				$okt->page->flash->success(__('Le produit a été ajouté.'));
+
+				http::redirect('module.php?m=catalog&action=edit&product_id='.$product_id);
 			}
 		}
 	}
@@ -274,10 +278,6 @@ else
 		'url' 			=> $prod_url,
 		'ui-icon' 		=> 'extlink'
 	));
-
-
-	$okt->page->messages->success('added','Le produit a été ajouté.');
-	$okt->page->messages->success('updated','Le produit a été mis à jour.');
 }
 
 

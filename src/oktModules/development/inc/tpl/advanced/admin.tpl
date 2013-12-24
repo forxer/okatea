@@ -15,8 +15,11 @@ if (!$okt->checkPerm('##module_id##')) {
 # suppression d’un élément
 if ($okt->page->action === 'delete' && !empty($_GET['item_id']) && $okt->checkPerm('##module_id##_remove'))
 {
-	if ($okt->##module_id##->delItem($_GET['item_id'])) {
-		http::redirect('module.php?m=##module_id##&action=index&deleted=1');
+	if ($okt->##module_id##->delItem($_GET['item_id']))
+	{
+		$okt->page->flash->success(__('m_##module_id##_confirm_deleted'));
+
+		http::redirect('module.php?m=##module_id##&action=index');
 	}
 	else {
 		$okt->page->action = 'index';
