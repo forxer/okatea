@@ -21,7 +21,7 @@ use Tao\Misc\Utilities as util;
 define('OKT_DEBUG', true);
 
 # Add system constants
-require_once __DIR__.'/constants.php';
+//require_once __DIR__.'/constants.php';
 
 # Lunch composer autoload
 $oktAutoloader = require OKT_VENDOR_PATH.'/autoload.php';

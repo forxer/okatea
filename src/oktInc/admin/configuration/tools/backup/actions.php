@@ -24,7 +24,7 @@ if (!empty($_GET['make_backup']))
 {
 	$sFilename = $sBackupFilenameBase.'-'.date('Y-m-d-H-i').'.zip';
 
-	$fp = fopen(OKT_ROOT_PATH.'/'.$sFilename,'wb');
+	$fp = fopen($okt->options->getRootPath().'/'.$sFilename,'wb');
 	if ($fp === false) {
 		$okt->error->set(__('c_a_tools_backup_unable_write_file'));
 	}
@@ -46,7 +46,7 @@ if (!empty($_GET['make_backup']))
 		$zip->addExclusion('#(^|/)'.preg_quote($sBackupFilenameBase,'#').'(.*?).zip$#');
 
 		$zip->addDirectory(
-			OKT_ROOT_PATH,
+			$okt->options->getRootPath(),
 			$sBackupFilenameBase,
 			true
 		);
@@ -113,7 +113,7 @@ if (!empty($_GET['make_db_backup']))
 	$sFilename = $sDbBackupFilenameBase.'-'.date('Y-m-d-H-i').'.sql';
 
 	# save the file
-	$fp = fopen(OKT_ROOT_PATH.'/'.$sFilename,'wb');
+	$fp = fopen($okt->options->getRootPath().'/'.$sFilename,'wb');
 	fwrite($fp,$return);
 	fclose($fp);
 
@@ -125,7 +125,7 @@ if (!empty($_GET['make_db_backup']))
 # suppression d'un fichier de backup
 if (!empty($_GET['delete_backup_file']) && (in_array($_GET['delete_backup_file'],$aBackupFiles) || in_array($_GET['delete_backup_file'],$aDbBackupFiles)))
 {
-	@unlink(OKT_ROOT_PATH.'/'.$_GET['delete_backup_file']);
+	@unlink($okt->options->getRootPath().'/'.$_GET['delete_backup_file']);
 
 	$okt->page->flash->success(__('c_a_tools_backup_deleted'));
 
@@ -136,6 +136,6 @@ if (!empty($_GET['delete_backup_file']) && (in_array($_GET['delete_backup_file']
 # téléchargement d'un fichier de backup
 if (!empty($_GET['dl_backup']) && (in_array($_GET['dl_backup'],$aBackupFiles) || in_array($_GET['dl_backup'],$aDbBackupFiles)))
 {
-	util::forceDownload(OKT_ROOT_PATH.'/'.$_GET['dl_backup']);
+	util::forceDownload($okt->options->getRootPath().'/'.$_GET['dl_backup']);
 	exit;
 }

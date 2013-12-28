@@ -29,7 +29,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 ini_set('max_execution_time', 0);
 
 # locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.update');
 
 
 /* Initialisations
@@ -50,7 +50,7 @@ if (!empty($_GET['update_db']))
 }
 
 if (!defined('OKT_BACKUP_PATH')) {
-	define('OKT_BACKUP_PATH',OKT_ROOT_PATH);
+	define('OKT_BACKUP_PATH',$okt->options->getRootPath());
 }
 
 $digest_is_readable = is_readable(OKT_DIGESTS);
@@ -61,7 +61,7 @@ if (!$digest_is_readable && empty($_GET['update_db'])) {
 
 $okatea_version = util::getVersion();
 
-$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
 $new_v = $updater->check($okatea_version);
 $zip_file = $new_v ? OKT_BACKUP_PATH.'/'.basename($updater->getFileURL()) : '';
 
@@ -128,7 +128,7 @@ if ($digest_is_readable && $new_v && $step)
 
 		# check integrity
 		if (empty($_GET['do_not_check'])) {
-			$updater->checkIntegrity(OKT_ROOT_PATH.'/oktInc/digests', OKT_ROOT_PATH);
+			$updater->checkIntegrity($okt->options->getRootPath().'/oktInc/digests', $okt->options->getRootPath());
 		}
 
 		# download
@@ -142,19 +142,19 @@ if ($digest_is_readable && $new_v && $step)
 		}
 
 		# backup config site separatly
-		copy(OKT_CONFIG_PATH.'/conf_site.yaml', OKT_CONFIG_PATH.'/conf_site.yaml.bak');
+		copy($okt->options->config_dir.'/conf_site.yaml', $okt->options->config_dir.'/conf_site.yaml.bak');
 
 		# backup old files
 		$updater->backup(
 			$zip_file, 'okatea/oktInc/digests',
-			OKT_ROOT_PATH, OKT_ROOT_PATH.'/oktInc/digests',
+			$okt->options->getRootPath(), $okt->options->getRootPath().'/oktInc/digests',
 			OKT_BACKUP_PATH.'/backup-'.$okatea_version.'.zip'
 		);
 
 		# upgrade
 		$updater->performUpgrade(
 			$zip_file, 'okatea/oktInc/digests', 'okatea',
-			OKT_ROOT_PATH, OKT_ROOT_PATH.'/oktInc/digests'
+			$okt->options->getRootPath(), $okt->options->getRootPath().'/oktInc/digests'
 		);
 
 		# update config for i18n

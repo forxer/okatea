@@ -50,7 +50,7 @@ if (!empty($_GET['install']) && array_key_exists($_GET['install'], $aUninstalled
 	set_time_limit(0);
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['install']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['install']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['install']);
 	$oInstallModule->doInstall();
 
 	# activation du module
@@ -118,7 +118,7 @@ else if (!empty($_GET['reinstall']) && array_key_exists($_GET['reinstall'], $aIn
 	}
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['reinstall']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['reinstall']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['reinstall']);
 
 	# désinstallation
 	$oInstallModule->doUninstall();
@@ -180,7 +180,7 @@ else if (!empty($_GET['testset']) && array_key_exists($_GET['testset'], $aInstal
 	set_time_limit(0);
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['testset']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['testset']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['testset']);
 
 	# d'abord on vident le module
 	$oInstallModule->doEmpty();
@@ -233,7 +233,7 @@ else if (!empty($_GET['defaultdata']) && array_key_exists($_GET['defaultdata'], 
 	set_time_limit(0);
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['defaultdata']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['defaultdata']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['defaultdata']);
 
 	# on installent les données par défaut
 	$oInstallModule->doInstallDefaultData();
@@ -280,7 +280,7 @@ else if (!empty($_GET['empty']) && array_key_exists($_GET['empty'], $aInstalledM
 	set_time_limit(0);
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['empty']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['empty']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['empty']);
 	$oInstallModule->doEmpty();
 
 	# Confirmations
@@ -325,7 +325,7 @@ else if (!empty($_GET['uninstall']) && array_key_exists($_GET['uninstall'], $aIn
 	set_time_limit(0);
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['uninstall']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['uninstall']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['uninstall']);
 	$oInstallModule->doUninstall();
 
 	# Confirmations
@@ -380,7 +380,7 @@ else if (!empty($_GET['update']) && array_key_exists($_GET['update'], $aInstalle
 
 	# Ensuite on met à jour
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['update']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['update']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['update']);
 	$oInstallModule->doUpdate();
 
 	# Confirmations
@@ -495,7 +495,7 @@ else if (!empty($_GET['download']) && array_key_exists($_GET['download'], $aAllM
 else if (!empty($_GET['templates']) && array_key_exists($_GET['templates'], $aInstalledModules))
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['templates']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['templates']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['templates']);
 	$oInstallModule->forceReplaceTpl();
 
 	# cache de la liste de module
@@ -511,9 +511,9 @@ else if (!empty($_GET['templates']) && array_key_exists($_GET['templates'], $aIn
 else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalledModules))
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['common']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['common']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['common']);
 	foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme) {
-		$oInstallModule->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId));
+		$oInstallModule->forceReplaceAssets($okt->options->get('themes_dir').'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId));
 	}
 
 	# cache de la liste de module
@@ -529,7 +529,7 @@ else if (!empty($_GET['common']) && array_key_exists($_GET['common'], $aInstalle
 else if (!empty($_GET['public']) && array_key_exists($_GET['public'], $aInstalledModules))
 {
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['public']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['public']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['public']);
 	$oInstallModule->forceReplacePublic();
 
 	# cache de la liste de module
@@ -546,7 +546,7 @@ else if (!empty($_GET['compare']) && array_key_exists($_GET['compare'], $aInstal
 {
 
 	$sInstallClassName = $okt->modules->getInstallClass($_GET['compare']);
-	$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $_GET['compare']);
+	$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $_GET['compare']);
 	$oInstallModule->compareFiles();
 
 	$okt->page->addGlobalTitle(sprintf(__('c_a_modules_file_comparison_module_%s'),$oInstallModule->name()));
@@ -671,7 +671,7 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 				throw new Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 			}
 
-			$dest = OKT_MODULES_PATH.'/'.$_FILES['pkg_file']['name'];
+			$dest = $okt->options->get('module_dir').'/'.$_FILES['pkg_file']['name'];
 			if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {
 				throw new Exception(__('Unable to move uploaded file.'));
 			}
@@ -688,7 +688,7 @@ else if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 				$url = urldecode($_POST['pkg_url']);
 			}
 
-			$dest = OKT_MODULES_PATH.'/'.basename($url);
+			$dest = $okt->options->get('module_dir').'/'.basename($url);
 
 
 			if (array_key_exists(basename($url), $aUninstalledModules)) {

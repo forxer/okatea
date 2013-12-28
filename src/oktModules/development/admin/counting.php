@@ -16,7 +16,7 @@ if (!defined('ON_MODULE')) die;
 
 if (!empty($_POST['form_sent']))
 {
-	$oCountig = new countingFilesAndLines(OKT_ROOT_PATH);
+	$oCountig = new countingFilesAndLines($okt->options->getRootPath());
 }
 
 

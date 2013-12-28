@@ -56,8 +56,8 @@ class module_partners extends Module
 		$this->config = $this->okt->newConfig('conf_partners');
 
 		#répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/partners/';
-		$this->upload_url = OKT_UPLOAD_URL.'/partners/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/partners/';
+		$this->upload_url = $this->okt->options->upload_url.'/partners/';
 
 		# initialisation arbre catégories
 		$this->tree = new NestedTree(

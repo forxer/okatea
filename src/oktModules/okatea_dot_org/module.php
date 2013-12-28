@@ -84,7 +84,7 @@ class module_okatea_dot_org extends Module
 
 		$sVersionType = ($sVersionType == 'dev'  ? 'dev' : 'stable');
 
-		$this->sCacheFile = OKT_CACHE_PATH.'/releases/okatea-'.$sVersionType;
+		$this->sCacheFile = $this->okt->options->get('cache_dir').'/releases/okatea-'.$sVersionType;
 
 		# Check cached file
 		if (is_readable($this->sCacheFile) && filemtime($this->sCacheFile) > strtotime($this->sCacheTtl))

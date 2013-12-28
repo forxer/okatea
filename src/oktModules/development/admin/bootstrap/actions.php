@@ -109,7 +109,7 @@ if (!empty($_POST['simple']) || !empty($_POST['advanced']))
 				),
 				'fem' => $bootstrap_module_l10n_fem
 			))
-			->setModulesDir(OKT_MODULES_PATH);
+			->setModulesDir($okt->options->get('module_dir'));
 
 		$bootstraper->build();
 

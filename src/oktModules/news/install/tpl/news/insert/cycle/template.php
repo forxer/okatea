@@ -17,12 +17,12 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php # début Okatea : jQuery Cycle
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cycle/jquery.cycle.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/cycle/jquery.cycle.min.js');
 $okt->page->js->addReady('
 	$("#news-list-insert").cycle({
 		fx: "fade",

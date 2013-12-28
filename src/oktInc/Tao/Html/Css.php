@@ -180,7 +180,7 @@ class Css
 	{
 		global $okt;
 
-		$outputFile = OKT_PUBLIC_PATH.'/cache/'.md5($inputFile).'.css';
+		$outputFile = $okt->options->public_dir.'/cache/'.md5($inputFile).'.css';
 		$cacheFile = $outputFile.'.cache';
 
 		if (file_exists($cacheFile)) {
@@ -197,7 +197,7 @@ class Css
 
 			$less->setImportDir(array(
 				(isset($okt->theme->path) ? $okt->theme->path.'/css/' : null),
-				OKT_PUBLIC_PATH.'/css/less/'
+				$okt->options->public_dir.'/css/less/'
 			));
 
 			$less->setVariables($okt->theme->getLessVariables());
@@ -216,7 +216,7 @@ class Css
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
 
-		return str_replace(OKT_PUBLIC_PATH, $okt->config->app_path.OKT_PUBLIC_DIR, $outputFile);
+		return str_replace($okt->options->public_dir, $okt->config->app_path.basename($okt->options->get('public_dir')), $outputFile);
 	}
 
 

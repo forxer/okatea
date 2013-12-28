@@ -44,7 +44,7 @@ $aFooterContent = array_filter((array)$aFooterContent);
 ?>
 <footer>
 	<p id="footer" class="clearb ui-widget ui-corner-all ui-state-default">
-	<img src="<?php echo OKT_PUBLIC_URL ?>/img/ajax-loader/big-circle-ball.gif" alt="" class="preload" />
+	<img src="<?php echo $okt->options->public_url ?>/img/ajax-loader/big-circle-ball.gif" alt="" class="preload" />
 	<?php echo implode('&nbsp;', $aFooterContent) ?></p>
 </footer>
 </div><!-- #page -->

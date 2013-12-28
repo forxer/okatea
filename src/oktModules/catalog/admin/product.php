@@ -511,7 +511,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 							$cur_image_attr = $post_images[$i]['square_attr'];
 						}
 						else {
-							$cur_image_url = OKT_PUBLIC_URL.'/img/media/image.png';
+							$cur_image_url = $okt->options->public_url.'/img/media/image.png';
 							$cur_image_attr = ' width="48" height="48" ';
 						}
 
@@ -561,7 +561,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 					<p class="field"><label for="p_files_title_<?php echo $i ?>">Titre fichier <?php echo $i ?></label>
 					<?php echo form::text('p_files_title_'.$i,40,255,html::escapeHTML($post_files[$i]['title'])) ?></p>
 
-					<p><a href="<?php echo $post_files[$i]['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$post_files[$i]['type'].'.png' ?>" alt="<?php echo html::escapeHTML($post_files[$i]['title']) ?>" /></a>
+					<p><a href="<?php echo $post_files[$i]['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$post_files[$i]['type'].'.png' ?>" alt="<?php echo html::escapeHTML($post_files[$i]['title']) ?>" /></a>
 					<?php echo $post_files[$i]['type'] ?> (<?php echo $post_files[$i]['mime'] ?>)
 					- <?php echo util::l10nFileSize($post_files[$i]['size']) ?></p>
 

@@ -36,7 +36,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	<tr>
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_INC_DIR.'/'.OKT_CACHE_DIR ?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_CACHE_PATH.'/'.$sFile)) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime($okt->options->get('cache_dir').'/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
@@ -55,8 +55,8 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
-		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_PUBLIC_DIR.'/cache'?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime(OKT_PUBLIC_PATH.'/cache/'.$sFile)) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('public_dir')).'/cache'?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime($okt->options->public_dir.'/cache/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>

@@ -27,7 +27,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 ----------------------------------------------------------*/
 
 # locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.languages');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.languages');
 
 $iLangId = !empty($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
 
@@ -225,7 +225,7 @@ $aTimezones = dt::getZones(true,true);
 
 # Liste des icônes
 $aFlags = array();
-foreach (new DirectoryIterator(OKT_PUBLIC_PATH.'/img/flags/') as $oFileInfo)
+foreach (new DirectoryIterator($okt->options->public_dir.'/img/flags/') as $oFileInfo)
 {
 	if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
 		continue;
@@ -276,12 +276,12 @@ $okt->page->validate('edit-language-form',array(
 ));
 
 
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/plugins/select2/select2.css');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/plugins/select2/select2.min.js');
+$okt->page->css->addFile($okt->options->public_url.'/plugins/select2/select2.css');
+$okt->page->js->addFile($okt->options->public_url.'/plugins/select2/select2.min.js');
 $okt->page->js->addReady('
 
 	function format(flag) {
-		return \'<img class="flag" src="'.OKT_PUBLIC_URL.'/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
+		return \'<img class="flag" src="'.$okt->options->public_url.'/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
 	}
 
 	$("#add_img, #edit_img").select2({
@@ -408,8 +408,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
-				<?php if (file_exists(OKT_PUBLIC_PATH.'/img/flags/'.$rsLanguages->img)) : ?>
-				<img src="<?php echo OKT_PUBLIC_URL.'/img/flags/'.$rsLanguages->img ?>" alt="" />
+				<?php if (file_exists($okt->options->public_dir.'/img/flags/'.$rsLanguages->img)) : ?>
+				<img src="<?php echo $okt->options->public_url.'/img/flags/'.$rsLanguages->img ?>" alt="" />
 				<?php endif; ?>
 
 				<?php echo html::escapeHTML($rsLanguages->title) ?></label>

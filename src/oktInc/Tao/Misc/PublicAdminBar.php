@@ -31,8 +31,8 @@ class PublicAdminBar
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
 			'Tao\Misc\PublicAdminBar::displayPublicAdminBar');
 
-		$this->okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin-bar.css');
-		$this->okt->page->js->addFile(OKT_PUBLIC_URL.'/js/admin-bar.js');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin-bar.css');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/admin-bar.js');
 	}
 
 	public static function displayPublicAdminBar($okt)
@@ -52,7 +52,7 @@ class PublicAdminBar
 
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
-			'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
+			'intitle' => '<img src="'.$this->okt->options->public_url.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
 			'items' => array()
 		);
 
@@ -84,7 +84,7 @@ class PublicAdminBar
 				$aSecondaryAdminBar[$iStartIdx++] = array(
 					'href' => \html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
 					'title' => \html::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
+					'intitle' => '<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
 				);
 			}
 		}
@@ -109,13 +109,13 @@ class PublicAdminBar
 			# avertissement nouvelle version disponible
 			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
 			{
-				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
 				$new_v = $updater->check(util::getVersion());
 
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+					$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.update');
 
 					$aPrimaryAdminBar[10]['items'][100] = array(
 						'href' => $aBasesUrl['admin'].'/configuration.php?action=update',
@@ -158,7 +158,7 @@ class PublicAdminBar
 			}
 
 			$aSecondaryAdminBar[1000] = array(
-				'intitle' => '<img src="'.OKT_PUBLIC_URL.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
+				'intitle' => '<img src="'.$this->okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'

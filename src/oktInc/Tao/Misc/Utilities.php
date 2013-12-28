@@ -1014,8 +1014,10 @@ class Utilities
 	 */
 	public static function getVersion()
 	{
-		if (file_exists(OKT_ROOT_PATH.'/VERSION')) {
-			return trim(file_get_contents(OKT_ROOT_PATH.'/VERSION'));
+		global $okt;
+
+		if (file_exists($okt->options->getRootPath().'/VERSION')) {
+			return trim(file_get_contents($okt->options->getRootPath().'/VERSION'));
 		}
 
 		return null;
@@ -1028,8 +1030,10 @@ class Utilities
 	 */
 	public static function getRevision()
 	{
-		if (file_exists(OKT_ROOT_PATH.'/oktDoc/REVISION')) {
-			return trim(file_get_contents(OKT_ROOT_PATH.'/oktDoc/REVISION'));
+		global $okt;
+
+		if (file_exists($okt->options->getRootPath().'/oktDoc/REVISION')) {
+			return trim(file_get_contents($okt->options->getRootPath().'/oktDoc/REVISION'));
 		}
 
 		return null;
@@ -1064,6 +1068,8 @@ class Utilities
 	 */
 	public static function getOktCacheFiles($bForce=false)
 	{
+		global $okt;
+
 		static $aCacheFiles=null;
 
 		if (is_array($aCacheFiles) && !$bForce) {
@@ -1071,7 +1077,7 @@ class Utilities
 		}
 
 		$aCacheFiles = array();
-		foreach (new \DirectoryIterator(OKT_CACHE_PATH) as $oFileInfo)
+		foreach (new \DirectoryIterator($okt->options->get('cache_dir')) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;
@@ -1105,15 +1111,17 @@ class Utilities
 	 */
 	public static function deleteOktCacheFiles()
 	{
+		global $okt;
+
 		$aCacheFiles = self::getOktCacheFiles();
 
 		foreach ($aCacheFiles as $file)
 		{
-			if (is_dir(OKT_CACHE_PATH.'/'.$file)) {
-				\files::deltree(OKT_CACHE_PATH.'/'.$file);
+			if (is_dir($okt->options->get('cache_dir').'/'.$file)) {
+				\files::deltree($okt->options->get('cache_dir').'/'.$file);
 			}
 			else {
-				unlink(OKT_CACHE_PATH.'/'.$file);
+				unlink($okt->options->get('cache_dir').'/'.$file);
 			}
 		}
 	}
@@ -1125,6 +1133,8 @@ class Utilities
 	 */
 	public static function getOktPublicCacheFiles($bForce=false)
 	{
+		global $okt;
+
 		static $aCacheFiles=null;
 
 		if (is_array($aCacheFiles) && !$bForce) {
@@ -1132,7 +1142,7 @@ class Utilities
 		}
 
 		$aCacheFiles = array();
-		foreach (new \DirectoryIterator(OKT_PUBLIC_PATH.'/cache') as $oFileInfo)
+		foreach (new \DirectoryIterator($okt->options->public_dir.'/cache') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;
@@ -1152,15 +1162,17 @@ class Utilities
 	 */
 	public static function deleteOktPublicCacheFiles($bForce=false)
 	{
+		global $okt;
+
 		$aCacheFiles = self::getOktPublicCacheFiles($bForce);
 
 		foreach ($aCacheFiles as $file)
 		{
-			if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$file)) {
-				\files::deltree(OKT_PUBLIC_PATH.'/cache/'.$file);
+			if (is_dir($okt->options->public_dir.'/cache/'.$file)) {
+				\files::deltree($okt->options->public_dir.'/cache/'.$file);
 			}
 			else {
-				unlink(OKT_PUBLIC_PATH.'/cache/'.$file);
+				unlink($okt->options->public_dir.'/cache/'.$file);
 			}
 		}
 	}
@@ -1239,6 +1251,8 @@ class Utilities
 
 	public static function getMinifyReplacements($oktConfig)
 	{
+		global $okt;
+
 		static $aReplacements = null;
 
 		if (is_null($aReplacements))
@@ -1254,9 +1268,9 @@ class Utilities
 				),
 				'aReplace' => array(
 					$oktConfig->app_path,
-					$oktConfig->app_path.OKT_PUBLIC_DIR,
-					$oktConfig->app_path.OKT_THEMES_DIR.'/'.$oktConfig->theme,
-					$oktConfig->app_path.OKT_THEMES_DIR.'/'.$oktConfig->theme_mobile,
+					$oktConfig->app_path.basename($okt->options->get('public_dir')),
+					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme,
+					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme_mobile,
 					$oktConfig->admin_theme,
 					$oktConfig->public_theme
 				)

@@ -119,14 +119,14 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php endif;?>
 
 				<p class="modal-box">
-					<a class="modal" rel="test_images" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/chutes_la_nuit.jpg">
-					<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-chutes_la_nuit.jpg" /></a>
+					<a class="modal" rel="test_images" href="<?php echo $okt->options->public_url ?>/img/sample/chutes_la_nuit.jpg">
+					<img width="60" height="60" alt="" src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes_la_nuit.jpg" /></a>
 
-					<a class="modal" rel="test_images" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/les_chutes.jpg">
-					<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-les_chutes.jpg" /></a>
+					<a class="modal" rel="test_images" href="<?php echo $okt->options->public_url ?>/img/sample/les_chutes.jpg">
+					<img width="60" height="60" alt="" src="<?php echo $okt->options->public_url ?>/img/sample/sq-les_chutes.jpg" /></a>
 
-					<a class="modal" rel="test_images" href="<?php echo OKT_PUBLIC_URL ?>/img/sample/chutes.jpg">
-					<img width="60" height="60" alt="" src="<?php echo OKT_PUBLIC_URL ?>/img/sample/sq-chutes.jpg" /></a>
+					<a class="modal" rel="test_images" href="<?php echo $okt->options->public_url ?>/img/sample/chutes.jpg">
+					<img width="60" height="60" alt="" src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes.jpg" /></a>
 				</p>
 			</fieldset>
 		</div><!-- #tab_images -->

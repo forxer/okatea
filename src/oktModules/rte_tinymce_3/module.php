@@ -156,7 +156,7 @@ class module_rte_tinymce_3 extends Module
 		global $okt;
 
 		$common_options = array(
-			'script_url' => OKT_MODULES_URL.'/rte_tinymce_3/tinyMCE_jquery/tiny_mce.js',
+			'script_url' => $this->okt->options->modules_url.'/rte_tinymce_3/tinyMCE_jquery/tiny_mce.js',
 			'language' => $okt->user->language,
 		);
 
@@ -177,7 +177,7 @@ class module_rte_tinymce_3 extends Module
 
 		$final_options = array_merge($options,$common_options,$user_options);
 
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce_3/tinyMCE_jquery/jquery.tinymce.js');
+		$okt->page->js->addFile($this->okt->options->modules_url.'/rte_tinymce_3/tinyMCE_jquery/jquery.tinymce.js');
 
 		$okt->page->js->addReady('
 			jQuery("'.$element.'").tinymce('.json_encode($final_options).');

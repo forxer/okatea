@@ -26,7 +26,7 @@ use Tao\Themes\Collection as ThemesCollection;
 ----------------------------------------------------------*/
 
 # locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.display');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.display');
 
 $aUiThemes = Page::getUiThemes();
 $aThemes = array_flip(ThemesCollection::getThemes());
@@ -67,7 +67,7 @@ if (!empty($_POST['form_sent']))
 	if (isset($_FILES['p_upload_theme']) && !empty($_FILES['p_upload_theme']['tmp_name']))
 	{
 		$sUploadedFile = $_FILES['p_upload_theme'];
-		$sTempDir = OKT_ROOT_PATH.'/temp/';
+		$sTempDir = $okt->options->getRootPath().'/temp/';
 		$sZipFilename = $sTempDir.$sUploadedFile['name'];
 
 		try {
@@ -133,7 +133,7 @@ if (!empty($_POST['form_sent']))
 			$oZip->close();
 			debug($sTempDir);
 
-			$sFinalPath = OKT_PUBLIC_PATH.'/ui-themes/custom';
+			$sFinalPath = $okt->options->public_dir.'/ui-themes/custom';
 
 			util::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
 
@@ -215,7 +215,7 @@ $okt->page->js->addScript('
 		currenStyle = "'.$okt->config->admin_theme.'";
 
 		// nouveau theme
-		cssLink = "<link href=\"'.$okt->config->app_path.OKT_PUBLIC_DIR.'/ui-themes/" + style + "/jquery-ui.css\" type=\"text/css\" rel=\"Stylesheet\" />";
+		cssLink = "<link href=\"'.$okt->config->app_path.basename($okt->options->get('public_dir')).'/ui-themes/" + style + "/jquery-ui.css\" type=\"text/css\" rel=\"Stylesheet\" />";
 
 		// si il y a deja une prévisualisation on ajoutent un theme
 		if ($(\'link[href*="jquery-ui.css"]\').size() > 0){

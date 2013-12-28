@@ -196,7 +196,7 @@ $okt->page->js->addReady('
 
 if (!empty($sSearch))
 {
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile($okt->options->public_url.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');
@@ -260,7 +260,7 @@ $okt->page->css->addCss('
 	margin: 0;
 }
 #search {
-	background: transparent url('.OKT_PUBLIC_URL.'/img/admin/preview.png) no-repeat center right;
+	background: transparent url('.$okt->options->public_url.'/img/admin/preview.png) no-repeat center right;
 }
 #post-count {
 	margin-top: 0;

@@ -218,7 +218,7 @@ $okt->page->js->addReady('
 
 			$.ajax({
 				data: result,
-				url: "'.OKT_MODULES_URL.'/catalog/service_ordering_categories.php",
+				url: "'.$okt->options->modules_url.'/catalog/service_ordering_categories.php",
 				success: function(data) {
 					$("#ajaxloader").fadeOut(400);
 				},
@@ -278,7 +278,7 @@ $okt->page->css->addCSS('
 	#ajaxloader {
 		float: right;
 		display: none;
-		background: transparent url('.OKT_PUBLIC_URL.'/img/ajax-loader/indicator.gif) no-repeat 0 0;
+		background: transparent url('.$okt->options->public_url.'/img/ajax-loader/indicator.gif) no-repeat 0 0;
 		width: 16px;
 		height: 16px;
 	}

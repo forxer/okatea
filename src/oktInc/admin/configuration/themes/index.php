@@ -62,9 +62,9 @@ if (!empty($_REQUEST['json']))
 }
 
 # affichage des notes d'un thème
-if (!empty($_GET['notes']) && file_exists(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'))
+if (!empty($_GET['notes']) && file_exists($okt->options->get('themes_dir').'/'.$_GET['notes'].'/notes.md'))
 {
-	echo Parsedown::instance()->parse(file_get_contents(OKT_THEMES_PATH.'/'.$_GET['notes'].'/notes.md'));
+	echo Parsedown::instance()->parse(file_get_contents($okt->options->get('themes_dir').'/'.$_GET['notes'].'/notes.md'));
 
 	exit;
 }
@@ -79,7 +79,7 @@ if (!empty($_GET['init_filters']))
 # Suppression d'un thème
 if (!empty($_GET['delete']) && isset($aInstalledThemes[$_GET['delete']]) && !$aInstalledThemes[$_GET['delete']]['is_active'])
 {
-	if (files::deltree(OKT_THEMES_PATH.'/'.$_GET['delete']))
+	if (files::deltree($okt->options->get('themes_dir').'/'.$_GET['delete']))
 	{
 		$okt->page->flash->success(__('c_a_themes_successfully_deleted'));
 
@@ -98,7 +98,7 @@ if (!empty($_GET['use']))
 		));
 
 		# modules config sheme
-		$sTplScheme = OKT_THEMES_PATH.'/'.$_GET['use'].'/modules_config_scheme.php';
+		$sTplScheme = $okt->options->get('themes_dir').'/'.$_GET['use'].'/modules_config_scheme.php';
 
 		if (file_exists($sTplScheme)) {
 			include $sTplScheme;
@@ -352,7 +352,7 @@ $okt->page->js->addReady('
 
 if (!empty($sSearch))
 {
-	$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile($okt->options->public_url.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');
@@ -400,7 +400,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<div class="theme-screenshot">
 				<?php if ($aTheme['screenshot']) : ?>
-				<img src="<?php echo $okt->config->app_path.OKT_THEMES_DIR.'/'.$aTheme['id'].'/screenshot.jpg' ?>" width="100%" height="100%" alt="" />
+				<img src="<?php echo $okt->config->app_path.basename($okt->options->get('themes_dir')).'/'.$aTheme['id'].'/screenshot.jpg' ?>" width="100%" height="100%" alt="" />
 				<?php else : ?>
 				<em class="note center"><?php _e('c_a_themes_no_screenshot') ?></em>
 				<?php endif; ?>
@@ -437,7 +437,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			$aActions[50] = '<a href="configuration.php?action=theme&amp;theme_id='.$aTheme['id'].'" class="button-config">'.__('c_a_themes_config').'</a>';
 
-			if (file_exists(OKT_THEMES_PATH.'/'.$aTheme['id'].'/notes.md')) {
+			if (file_exists($okt->options->get('themes_dir').'/'.$aTheme['id'].'/notes.md')) {
 				$aActions[60] = '<a href="configuration.php?action=themes&amp;notes='.$aTheme['id'].'" class="button-notes">'.__('c_a_themes_notes').'</a>';
 			}
 

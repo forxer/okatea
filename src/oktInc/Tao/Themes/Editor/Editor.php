@@ -108,16 +108,15 @@ class Editor
 	 * Constructor.
 	 *
 	 * @param oktCore $okt
-	 * @param string $sThemesDir
 	 * @param string $sThemesPath
 	 * @return void
 	 */
-	public function __construct($okt, $sThemesDir, $sThemesPath)
+	public function __construct($okt, $sThemesPath)
 	{
 		$this->okt = $okt;
 
 		$this->sThemesPath = $sThemesPath;
-		$this->sThemesDir = $sThemesDir;
+		$this->sThemesDir = basename($sThemesPath);
 
 		$this->oThemes = new Collection($okt, $sThemesPath);
 		$this->aThemes = $this->oThemes->getThemesAdminList();

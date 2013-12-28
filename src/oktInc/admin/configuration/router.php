@@ -28,9 +28,9 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 ----------------------------------------------------------*/
 
 # Locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.router');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.router');
 
-$oConfigHelpers = new ConfigHelpers($okt, OKT_CONFIG_PATH.'/routes');
+$oConfigHelpers = new ConfigHelpers($okt, $okt->options->config_dir.'/routes');
 
 # Liste des routes chargées
 $aRouteInfoss = $oConfigHelpers->getRoutesInfos();

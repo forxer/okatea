@@ -55,8 +55,8 @@ class module_lbl_nyromodal extends Module
 	{
 		global $okt;
 
-		$okt->page->css->addFile(OKT_THEME.'/modules/lbl_nyromodal/nyroModal.css');
-		$okt->page->js->addFile(OKT_THEME.'/modules/lbl_nyromodal/jquery.nyroModal.min.js');
+		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_nyromodal/nyroModal.css');
+		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_nyromodal/jquery.nyroModal.min.js');
 
 		$config = $okt->lbl_nyromodal->config;
 

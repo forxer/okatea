@@ -22,11 +22,11 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 # Suppression d'un fichier cache
 if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'], $aCacheFiles))
 {
-	if (is_dir(OKT_CACHE_PATH.'/'.$_GET['cache_file'])) {
-		files::deltree(OKT_CACHE_PATH.'/'.$_GET['cache_file']);
+	if (is_dir($okt->options->get('cache_dir').'/'.$_GET['cache_file'])) {
+		files::deltree($okt->options->get('cache_dir').'/'.$_GET['cache_file']);
 	}
 	else {
-		unlink(OKT_CACHE_PATH.'/'.$_GET['cache_file']);
+		unlink($okt->options->get('cache_dir').'/'.$_GET['cache_file']);
 	}
 
 	$okt->page->flash->success(__('c_a_tools_cache_confirm'));
@@ -38,11 +38,11 @@ if (!empty($_GET['cache_file']) && in_array($_GET['cache_file'], $aCacheFiles))
 # Suppression d'un fichier cache public
 if (!empty($_GET['public_cache_file']) && in_array($_GET['public_cache_file'], $aPublicCacheFiles))
 {
-	if (is_dir(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file'])) {
-		files::deltree(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
+	if (is_dir($okt->options->public_dir.'/cache/'.$_GET['public_cache_file'])) {
+		files::deltree($okt->options->public_dir.'/cache/'.$_GET['public_cache_file']);
 	}
 	else {
-		unlink(OKT_PUBLIC_PATH.'/cache/'.$_GET['public_cache_file']);
+		unlink($okt->options->public_dir.'/cache/'.$_GET['public_cache_file']);
 	}
 
 	$okt->page->flash->success(__('c_a_tools_cache_confirm'));

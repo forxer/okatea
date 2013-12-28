@@ -58,8 +58,8 @@ class module_lbl_pirobox extends Module
 
 		$config = $okt->lbl_pirobox->config;
 
-		$okt->page->css->addFile(OKT_THEME.'/modules/lbl_pirobox/'.$config->theme.'/style.css');
-		$okt->page->js->addFile(OKT_THEME.'/modules/lbl_pirobox/jquery.piroBox.js');
+		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_pirobox/'.$config->theme.'/style.css');
+		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_pirobox/jquery.piroBox.js');
 
 		$options = array(
 	//		'selector' => "a[class^='".$classe."']",

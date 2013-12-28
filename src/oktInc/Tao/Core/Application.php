@@ -112,13 +112,6 @@ class Application
 	public $options;
 
 	/**
-	 * L'utilitaire de contenu de page.
-	 *
-	 * @var Tao\Html\Page
-	 */
-	public $page;
-
-	/**
 	 * La requete en cours.
 	 *
 	 * @var Symfony\Component\HttpFoundation\Request
@@ -154,11 +147,18 @@ class Application
 	public $session;
 
 	/**
+	 * Le theme.
+	 *
+	 * @var Tao\Themes\Theme
+	 */
+	public $theme;
+
+	/**
 	 * L'identifiant tu theme à afficher.
 	 *
 	 * @var string
 	 */
-	public $theme;
+	public $theme_id;
 
 	/**
 	 * Le moteur de templates.
@@ -208,20 +208,20 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader)
+	public function __construct($autoloader, $sRootPath)
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		$this->options = new ApplicationOptions();
+		$this->options = new ApplicationOptions($sRootPath);
 
-		$this->start();
+		$this->start(OKT_DEBUG);
 
 		$this->db = $this->database();
 
 		$this->triggers = new Triggers();
 
-		$this->cache = new SingleFileCache(OKT_GLOBAL_CACHE_FILE);
+		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
 
 		$this->config = $this->loadConfig();
 
@@ -237,22 +237,23 @@ class Application
 
 		$this->languages = new Languages($this);
 
-		$this->router = new Router($this, OKT_CONFIG_PATH.'/routes', OKT_CACHE_PATH.'/routing', OKT_DEBUG);
+		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', OKT_DEBUG);
 
-		$this->user = new Authentification($this, OKT_COOKIE_AUTH_NAME, OKT_COOKIE_AUTH_FROM, $this->config->app_path, '', $this->request->isSecure());
+		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
 
-		$this->l10n = new Localisation($this->user->language, $this->user->timezone);
+		$this->l10n = new Localisation($this->options->get('locales_dir'), $this->user->language, $this->user->timezone);
 
 		$this->navigation = new Menus($this);
 
-		$this->modules = new ModulesCollection($this, OKT_MODULES_PATH, OKT_MODULES_URL);
+		$this->modules = new ModulesCollection($this, $this->options->get('module_dir'), $this->options->modules_url);
 
-		$this->theme = $this->getTheme();
-
-		$this->tpl = $this->initTplEngine();
+		$this->theme_id = $this->getTheme();
 	}
 
-	protected function start()
+	/**
+	 * Make common operations on start
+	 */
+	protected function start($debug=false)
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
@@ -265,7 +266,7 @@ class Application
 
 		$this->error = new Errors();
 
-		if (OKT_DEBUG)
+		if ($debug)
 		{
 			Debug::enable();
 			ErrorHandler::register();
@@ -273,10 +274,15 @@ class Application
 		}
 	}
 
+	/**
+	 * Make database connexion
+	 *
+	 * @return object
+	 */
 	protected function database()
 	{
-		if (file_exists(OKT_CONFIG_PATH.'/connexion.php')) {
-			require_once OKT_CONFIG_PATH.'/connexion.php';
+		if (file_exists($this->options->get('config_dir').'/connexion.php')) {
+			require_once $this->options->get('config_dir').'/connexion.php';
 		}
 		else {
 			$this->error->fatal('Fatal error: unable to find database connexion file !');
@@ -291,6 +297,11 @@ class Application
 		return $db;
 	}
 
+	/**
+	 * Return the theme to use.
+	 *
+	 * @return string
+	 */
 	protected function getTheme()
 	{
 		$sOktTheme = $this->config->theme;
@@ -314,13 +325,29 @@ class Application
 			$this->session->set('okt_theme', $sOktTheme);
 		}
 
-		# URL du thème
-		define('OKT_THEME', $this->config->app_path.OKT_THEMES_DIR.'/'.$sOktTheme);
-
-		# Chemin du thème
-		define('OKT_THEME_PATH', OKT_THEMES_PATH.'/'.$sOktTheme);
-
 		return $sOktTheme;
+	}
+
+	/**
+	 * Load public theme.
+	 *
+	 * @return void
+	 */
+	protected function loadTheme()
+	{
+		require_once $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
+
+		$this->theme = new \oktTheme($this);
+	}
+
+	/**
+	 * Load modules.
+	 *
+	 * @return void
+	 */
+	protected function loadModules($sPart)
+	{
+		$this->modules->loadModules($sPart, $this->user->language);
 	}
 
 
@@ -393,16 +420,12 @@ class Application
 	----------------------------------------------------------*/
 
 	/**
-	 * Initialise le moteur de templates.
+	 * Retourne le moteur de templates.
 	 *
 	 * @return void
 	 */
-	public function initTplEngine()
+	public function getTplEngine()
 	{
-		# enregistrement des répertoires de templates
-		$this->setTplDirectory(OKT_THEME_PATH.'/templates/%name%.php');
-		$this->setTplDirectory(OKT_THEMES_PATH.'/default/templates/%name%.php');
-
 		# initialisation
 		$tpl = new Templating($this->aTplDirectories);
 
@@ -453,13 +476,13 @@ class Application
 		$config = $this->newConfig('conf_site');
 
 		# URL du dossier modules
-		define('OKT_MODULES_URL', $config->app_path.OKT_MODULES_DIR);
+		$this->options->set('modules_url', $config->app_path.'/oktModules');
 
 		# URL du dossier des fichiers publics
-		define('OKT_PUBLIC_URL', $config->app_path.OKT_PUBLIC_DIR);
+		$this->options->set('public_url', $config->app_path.'/oktPublic');
 
 		# URL du dossier upload depuis la racine
-		define('OKT_UPLOAD_URL', $config->app_path.OKT_PUBLIC_DIR.'/'.OKT_UPLOAD_DIR);
+		$this->options->set('upload_url', $config->app_path.'/oktPublic/upload');
 
 		return $config;
 	}
@@ -472,7 +495,7 @@ class Application
 	 */
 	public function newConfig($file)
 	{
-		return new Config($this->cache, OKT_CONFIG_PATH.'/'.$file);
+		return new Config($this->cache, $this->options->get('config_dir').'/'.$file);
 	}
 
 
@@ -515,7 +538,7 @@ class Application
 		return array(
 			'app_path' => $this->config->app_path,
 			'user_language' => $this->user->language,
-			'theme_url' => OKT_THEME,
+			'theme_url' => $this->theme->url,
 			'website_title' => $this->config->title[$this->user->language],
 			'website_desc' => $this->config->desc[$this->user->language],
 
@@ -588,7 +611,7 @@ class Application
 
 		if ($this->htmlpurifier === null)
 		{
-			$sCacheFile = OKT_CACHE_PATH.'/htmlpurifier';
+			$sCacheFile = $this->options->get('cache_dir').'/htmlpurifier';
 
 			try
 			{
@@ -607,7 +630,7 @@ class Application
 			$config = \HTMLPurifier_Config::createDefault();
 
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-			$config->set('Cache.SerializerPath', OKT_CACHE_PATH.'/HTMLPurifier');
+			$config->set('Cache.SerializerPath', $this->options->get('cache_dir').'/HTMLPurifier');
 
 			$config->set('HTML.SafeEmbed', true);
 			$config->set('HTML.SafeObject', true);

@@ -524,7 +524,7 @@ if ($okt->news->config->images['enable'])
 						$sCurImageAttr = $aPostData['images'][$i]['square_attr'];
 					}
 					else {
-						$sCurImageUrl = OKT_PUBLIC_URL.'/img/media/image.png';
+						$sCurImageUrl = $okt->options->public_url.'/img/media/image.png';
 						$sCurImageAttr = ' width="48" height="48" ';
 					}
 
@@ -610,7 +610,7 @@ if ($okt->news->config->files['enable'])
 
 				<?php endforeach; ?>
 
-				<p><a href="<?php echo $aPostData['files'][$i]['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$aPostData['files'][$i]['type'].'.png' ?>" alt="" /></a>
+				<p><a href="<?php echo $aPostData['files'][$i]['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$aPostData['files'][$i]['type'].'.png' ?>" alt="" /></a>
 				<?php echo $aPostData['files'][$i]['type'] ?> (<?php echo $aPostData['files'][$i]['mime'] ?>)
 				- <?php echo util::l10nFileSize($aPostData['files'][$i]['size']) ?></p>
 

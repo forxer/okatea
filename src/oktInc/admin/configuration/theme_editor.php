@@ -26,13 +26,13 @@ if (!empty($_REQUEST['new_file'])) {
 }
 else if (!empty($_REQUEST['new_template']))
 {
-	$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
+	$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.theme.editor');
 
 	$sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 
 	$sBasicTemplate = !empty($_REQUEST['basic_template']) ? rawurldecode($_REQUEST['basic_template']) : null;
 
-	$oThemeEditor = new ThemesEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+	$oThemeEditor = new ThemesEditor($okt, $okt->options->get('themes_dir'));
 
 	if ($sThemeId)
 	{

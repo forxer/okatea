@@ -26,8 +26,8 @@ $oktRevision = util::getRevision();
 
 
 # vérification des pré-requis
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/pre-requisites');
-require OKT_INC_PATH.'/systeme_requirements.php';
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/pre-requisites');
+require $okt->options->inc_dir.'/systeme_requirements.php';
 
 foreach ($requirements as $group)
 {

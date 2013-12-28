@@ -55,9 +55,9 @@ class module_lbl_nyromodal_2 extends Module
 	{
 		global $okt;
 
-		$okt->page->css->addFile(OKT_THEME.'/modules/lbl_nyromodal_2/styles/nyroModal.css');
-		$okt->page->js->addFile(OKT_THEME.'/modules/lbl_nyromodal_2/js/jquery.nyroModal.min.js');
-		$okt->page->js->addCCFile(OKT_THEME.'/modules/lbl_nyromodal_2/js/jquery.nyroModal-ie6.min.js','IE 6');
+		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_nyromodal_2/styles/nyroModal.css');
+		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_nyromodal_2/js/jquery.nyroModal.min.js');
+		$okt->page->js->addCCFile($okt->theme->url.'/modules/lbl_nyromodal_2/js/jquery.nyroModal-ie6.min.js','IE 6');
 
 		$config = $okt->lbl_nyromodal_2->config;
 

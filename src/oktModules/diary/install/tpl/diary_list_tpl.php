@@ -12,7 +12,7 @@ $okt->diary->filters->getFiltersDate();
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/diary/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/diary/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML

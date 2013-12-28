@@ -7,12 +7,12 @@ $this->extend('layout');
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/guestbook/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/guestbook/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -60,8 +60,8 @@ if (!empty($aJsValidateRules))
 
 
 <?php # début Okatea : ajout jQuery UI
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
 # fin Okatea : ajout jQuery UI ?>
 
 
@@ -213,12 +213,12 @@ while ($signaturesList->fetch()) : ?>
 
 		<?php /* email */
 		if ($okt->guestbook->config->chp_mail && $signaturesList->email != '') : ?>
-		<li class="email"><a href="mailto:<?php echo $view->escapeHtmlAttr(Tao\Misc\Utilities::emailEncode($signaturesList->email)) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/email.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
+		<li class="email"><a href="mailto:<?php echo $view->escapeHtmlAttr(Tao\Misc\Utilities::emailEncode($signaturesList->email)) ?>"><img src="<?php echo $okt->theme->url ?>/modules/guestbook/email.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
 		<?php endif; ?>
 
 		<?php /* URL */
 		if ($okt->guestbook->config->chp_url && ($signaturesList->url != '' && $signaturesList->url != 'http://')) : ?>
-		<li class="url"><a href="<?php echo $view->escapeHtmlAttr($signaturesList->url) ?>"><img src="<?php echo OKT_THEME ?>/modules/guestbook/house.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_website')) ?>" /></a></li>
+		<li class="url"><a href="<?php echo $view->escapeHtmlAttr($signaturesList->url) ?>"><img src="<?php echo $okt->theme->url ?>/modules/guestbook/house.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_website')) ?>" /></a></li>
 		<?php endif; ?>
 
 		<?php /* note */

@@ -26,7 +26,7 @@ $sDbBackupFilenameBase = 'db-backup';
 
 # liste des fichiers de backup
 $aBackupFiles = $aDbBackupFiles = array();
-foreach (new DirectoryIterator(OKT_ROOT_PATH) as $oFileInfo)
+foreach (new DirectoryIterator($okt->options->getRootPath()) as $oFileInfo)
 {
 	if ($oFileInfo->isDot() || !$oFileInfo->isFile()) {
 		continue;

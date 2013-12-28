@@ -56,7 +56,7 @@ if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 		{
 			util::uploadStatus($_FILES['pkg_file']);
 
-			$dest = OKT_THEMES_PATH.'/'.$_FILES['pkg_file']['name'];
+			$dest = $okt->options->get('themes_dir').'/'.$_FILES['pkg_file']['name'];
 			if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {
 				throw new Exception(__('Unable to move uploaded file.'));
 			}
@@ -73,7 +73,7 @@ if ((!empty($_POST['upload_pkg']) && !empty($_FILES['pkg_file'])) ||
 				$url = urldecode($_POST['pkg_url']);
 			}
 
-			$dest = OKT_THEMES_PATH.'/'.basename($url);
+			$dest = $okt->options->get('themes_dir').'/'.basename($url);
 
 			try
 			{

@@ -21,11 +21,11 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 define('OKT_THEMES_MANAGEMENT', true);
 
 # Themes object
-$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, $okt->options->get('themes_dir'));
 
 
 # Locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.themes');
 
 if (!$okt->page->do || $okt->page->do === 'index') {
 	require __DIR__.'/themes/index.php';

@@ -26,10 +26,10 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 ----------------------------------------------------------*/
 
 # Locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.themes');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.themes');
 
 # Themes object
-$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, $okt->options->get('themes_dir'));
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();
@@ -48,7 +48,7 @@ $aThemeInfos = $aInstalledThemes[$sThemeId];
 
 
 # Notes de développement
-$sDevNotesFilename = OKT_THEMES_PATH.'/'.$sThemeId.'/notes.md';
+$sDevNotesFilename = $okt->options->get('themes_dir').'/'.$sThemeId.'/notes.md';
 $bHasDevNotes = $bEditDevNotes = false;
 if (file_exists($sDevNotesFilename))
 {
@@ -63,7 +63,7 @@ if (file_exists($sDevNotesFilename))
 
 
 # Definitions LESS
-$sDefinitionsLessFilename = OKT_THEMES_PATH.'/'.$sThemeId.'/css/definitions.less';
+$sDefinitionsLessFilename = $okt->options->get('themes_dir').'/'.$sThemeId.'/css/definitions.less';
 $bHasDefinitionsLess = false;
 if (file_exists($sDefinitionsLessFilename))
 {
@@ -153,7 +153,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<div id="theme-screenshot">
 					<?php if ($aThemeInfos['screenshot']) : ?>
-					<img src="<?php echo $okt->config->app_path.OKT_THEMES_DIR.'/'.$aThemeInfos['id'].'/screenshot.jpg' ?>" width="100%" height="100%" alt="" />
+					<img src="<?php echo $okt->config->app_path.basename($okt->options->get('themes_dir')).'/'.$aThemeInfos['id'].'/screenshot.jpg' ?>" width="100%" height="100%" alt="" />
 					<?php else : ?>
 					<div id="no-screenshot"><em class="note"><?php _e('c_a_themes_no_screenshot') ?></em></div>
 					<?php endif; ?>

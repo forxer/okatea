@@ -57,9 +57,9 @@ class module_rte_wymeditor extends Module
 		}
 
 		$okt->page->js->addFile('http://code.jquery.com/jquery-migrate-1.2.1.js');
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_wymeditor/'.self::wym_version.'/jquery.wymeditor.min.js');
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_wymeditor/'.self::wym_version.'/plugins/hovertools/jquery.wymeditor.hovertools.js');
-		$okt->page->js->addFile(OKT_MODULES_URL.'/rte_wymeditor/'.self::wym_version.'/plugins/resizable/jquery.wymeditor.resizable.js');
+		$okt->page->js->addFile($this->okt->options->modules_url.'/rte_wymeditor/'.self::wym_version.'/jquery.wymeditor.min.js');
+		$okt->page->js->addFile($this->okt->options->modules_url.'/rte_wymeditor/'.self::wym_version.'/plugins/hovertools/jquery.wymeditor.hovertools.js');
+		$okt->page->js->addFile($this->okt->options->modules_url.'/rte_wymeditor/'.self::wym_version.'/plugins/resizable/jquery.wymeditor.resizable.js');
 
 		$okt->page->js->addReady('
 			jQuery("'.$element.'").wymeditor('.json_encode($options).');

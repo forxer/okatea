@@ -26,7 +26,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 ----------------------------------------------------------*/
 
 # Locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.site');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.site');
 
 # Données de la page
 $aPageData = new ArrayObject();

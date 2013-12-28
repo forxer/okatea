@@ -5,12 +5,12 @@ $this->extend('layout');
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/##module_id##/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/##module_id##/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 

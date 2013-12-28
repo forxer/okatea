@@ -50,7 +50,7 @@ $language = (!empty($_REQUEST['language']) && in_array($_REQUEST['language'],$aL
 $url_params = '&amp;page='.$page.'&amp;show='.$show.'&amp;status='.$status;
 
 # css
-$okt->page->css->addFile(OKT_THEME.'/modules/guestbook/admin.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/guestbook/admin.css');
 
 # title tag
 $okt->page->addTitleTag($okt->guestbook->getTitle());

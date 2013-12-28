@@ -5,18 +5,18 @@ $this->extend('layout');
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/faq/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/faq/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php # début Okatea : ajout du JS de scrollToTopOfPage
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/easing/jquery.easing.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/easing/jquery.easing.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
 $okt->page->js->addReady('
 	$("a.scrollTop").scrollToTopOfPage({
 		"top": 300,					// hauteur avant affichage du lien

@@ -8,8 +8,9 @@
 
 namespace Tao\Website;
 
-use Tao\Html\Page as BasePage;
 use Tao\Core\Controller;
+use Tao\Html\Page as BasePage;
+use Tao\Navigation\Breadcrumb;
 
 /**
  * Construction des pages publiques.
@@ -20,13 +21,21 @@ use Tao\Core\Controller;
 class Page extends BasePage
 {
 	/**
+	 * Le fil d'ariane.
+	 */
+	public $breadcrumb;
+
+	/**
 	 * Constructeur.
 	 *
 	 * @return void
 	 */
 	public function __construct($okt)
 	{
-		parent::__construct($okt,'public');
+		parent::__construct($okt, 'public');
+
+		$this->breadcrumb = new Breadcrumb();
+		$this->breadcrumb->add(__('c_c_Home'), $this->getBaseUrl());
 	}
 
 	public function serve404()

@@ -31,12 +31,13 @@ class Theme
 	{
 		$this->okt = $okt;
 
-		$this->url = OKT_THEME;
-		$this->path = OKT_THEME_PATH;
+		$this->url = $this->okt->config->app_path.basename($this->okt->options->get('themes_dir')).'/'.$this->okt->theme_id;
+
+		$this->path = $this->okt->options->get('themes_dir').'/'.$this->okt->theme_id;
 
 		$this->setLessVariables(array(
-			'public_url' 	=> "'".OKT_PUBLIC_URL."'",
-			'theme_url' 	=> "'".OKT_THEME."'"
+			'public_url' 	=> "'".$this->okt->options->get('public_url')."'",
+			'theme_url' 	=> "'".$this->url."'"
 		));
 
 		# -- CORE TRIGGER : themeInit

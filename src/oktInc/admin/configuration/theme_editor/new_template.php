@@ -53,7 +53,7 @@ $p_tpl_author = '';
 $p_tpl_tags = '';
 
 
-$sBasicTemplatePath = OKT_THEMES_PATH.$sBasicTemplate;
+$sBasicTemplatePath = $okt->options->get('themes_dir').$sBasicTemplate;
 
 $sBasicTemplateTheme = TemplatesSet::getThemeIdFromTplPath($sBasicTemplatePath);
 
@@ -102,7 +102,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 		),
 		$sBasicTemplate);
 
-	$sTemplatePath = OKT_THEMES_PATH.$sTemplate;
+	$sTemplatePath = $okt->options->get('themes_dir').$sTemplate;
 
 	if (empty($p_tpl_id)) {
 		$okt->error->set(__('c_a_te_error_must_tpl_id'));

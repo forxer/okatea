@@ -44,8 +44,8 @@ class module_lbl_colorbox extends Module
 	{
 		global $okt;
 
-		$okt->page->css->addFile(OKT_THEME.'/modules/lbl_colorbox/'.$okt->lbl_colorbox->config->theme.'/colorbox.css');
-		$okt->page->js->addFile(OKT_THEME.'/modules/lbl_colorbox/jquery.colorbox-min.js');
+		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_colorbox/'.$okt->lbl_colorbox->config->theme.'/colorbox.css');
+		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_colorbox/jquery.colorbox-min.js');
 	}
 
 	/**

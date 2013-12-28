@@ -164,7 +164,7 @@ class Authentification
 
 		$this->authentication();
 
-		$this->initLanguage(OKT_COOKIE_LANGUAGE);
+		$this->initLanguage($this->okt->options->get('cookie_language'));
 	}
 
 	/**
@@ -602,7 +602,7 @@ class Authentification
 			$oMail->setFrom();
 			$oMail->message->setTo($sEmail);
 
-			$oMail->useFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
+			$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
 				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
 				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),

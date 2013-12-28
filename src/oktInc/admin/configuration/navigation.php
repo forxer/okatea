@@ -20,7 +20,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 
 
 # locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.navigation');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.navigation');
 
 
 # titre et fil d'ariane

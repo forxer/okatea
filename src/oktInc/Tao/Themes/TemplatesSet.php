@@ -85,7 +85,7 @@ class TemplatesSet
 
 		$this->loadTemplatesInfos();
 
-		$this->okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$this->okt->user->language.'/admin.templates.config');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.templates.config');
 
 		# get template id from query
 		$sTtplId = null;
@@ -212,11 +212,11 @@ class TemplatesSet
 
 		# first, get default theme templates
 		if ($this->okt->config->theme != 'default') {
-			$this->aTemplatesPath = (array)glob(OKT_THEMES_PATH.'/default/templates/'.$this->sBase.'/*/template.php');
+			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/default/templates/'.$this->sBase.'/*/template.php');
 		}
 
 		# then, get current theme templates
-		$aThemeTemplates = (array)glob(OKT_THEME_PATH.'/templates/'.$this->sBase.'/*/template.php');
+		$aThemeTemplates = (array)glob($this->okt->theme->path.'/templates/'.$this->sBase.'/*/template.php');
 
 		foreach ($aThemeTemplates as $sTemplatePath) {
 			$this->aTemplatesPath[] = $sTemplatePath;
@@ -239,7 +239,7 @@ class TemplatesSet
 			$sDir = dirname($sTplPath);
 
 			$sThemeId = self::getThemeIdFromTplPath($sTplPath);
-			$sThemePath = OKT_THEMES_PATH.'/'.$sThemeId;
+			$sThemePath = $this->okt->options->get('themes_dir').'/'.$sThemeId;
 
 			$sTplPathInTheme = str_replace($sThemePath, '', $sTplPath);
 
@@ -287,7 +287,9 @@ class TemplatesSet
 	 */
 	public static function getThemeIdFromTplPath($sTplPath)
 	{
-		return util::getNextSubDir($sTplPath, OKT_THEMES_PATH);
+		global $okt;
+
+		return util::getNextSubDir($sTplPath, $this->okt->options->get('themes_dir'));
 	}
 
 	/**

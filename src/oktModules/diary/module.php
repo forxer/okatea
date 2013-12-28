@@ -51,8 +51,8 @@ class module_diary extends Module
 		$this->config = $this->okt->newConfig('conf_diary');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/diary/';
-		$this->upload_url = OKT_UPLOAD_URL.'/diary/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/diary/';
+		$this->upload_url = $this->okt->options->upload_url.'/diary/';
 	}
 
 	protected function prepend_admin()

@@ -46,8 +46,8 @@ class module_##module_id## extends Module
 		$this->table = $this->db->prefix.'mod_##module_id##';
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/##module_id##/';
-		$this->upload_url = OKT_UPLOAD_URL.'/##module_id##/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/##module_id##/';
+		$this->upload_url = $okt->options->upload_url.'/##module_id##/';
 	}
 
 	protected function prepend_admin()

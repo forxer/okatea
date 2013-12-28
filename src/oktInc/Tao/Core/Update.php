@@ -568,7 +568,7 @@ class Update
 			$oChecklist = new Tao\Html\CheckList();
 		}
 
-		foreach (new DirectoryIterator(OKT_INC_PATH.'/sql_schema/') as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->inc_dir.'/sql_schema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;

@@ -406,7 +406,7 @@ if (!empty($aItemData['image'])) :
 		$sCurImageAttr = $aItemData['image']['square_attr'];
 	}
 	else {
-		$sCurImageUrl = OKT_PUBLIC_URL.'/img/media/image.png';
+		$sCurImageUrl = $okt->options->public_url.'/img/media/image.png';
 		$sCurImageAttr = ' width="48" height="48" ';
 	}
 

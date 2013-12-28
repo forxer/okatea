@@ -5,12 +5,12 @@ $this->extend('layout');
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/partners/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/partners/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -65,7 +65,7 @@ if (!$rsPartners->isEmpty()) : ?>
 				$logo_attr = $aPartnerLogoInfos['min_attr'];
 			}
 			else {
-				$logo_url = OKT_PUBLIC_URL.'/img/media/image.png';
+				$logo_url = $okt->options->public_url.'/img/media/image.png';
 				$logo_attr = ' width="48" height="48" ';
 			}
 			?>

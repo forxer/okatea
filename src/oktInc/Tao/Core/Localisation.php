@@ -14,14 +14,14 @@ namespace Tao\Core;
  */
 class Localisation
 {
-	public function __construct($sLanguage, $sTimeZone)
+	public function __construct($sLocalesDir, $sLanguage, $sTimeZone)
 	{
 		date_default_timezone_set($sTimeZone);
 
 		\l10n::init($sLanguage);
 
-		$this->loadFile(OKT_LOCALES_PATH.'/'.$sLanguage.'/main');
-		$this->loadFile(OKT_LOCALES_PATH.'/'.$sLanguage.'/date');
+		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/main');
+		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/date');
 	}
 
 	public function loadFile($sFile)

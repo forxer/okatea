@@ -169,7 +169,7 @@ function dcGetImageTitle($file, $pattern)
 if ($popup)
 {
 	/*
-	$okt->page->js->addFile(OKT_MODULES_URL.'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
+	$okt->page->js->addFile($okt->options->modules_url.'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
 
 
 	$sReadyStr = '

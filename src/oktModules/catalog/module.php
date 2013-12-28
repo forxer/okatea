@@ -54,8 +54,8 @@ class module_catalog extends Module
 		$this->config = $this->okt->newConfig('conf_catalog');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/catalog/';
-		$this->upload_url = OKT_UPLOAD_URL.'/catalog/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/catalog/';
+		$this->upload_url = $this->okt->options->upload_url.'/catalog/';
 
 		# categories
 		if ($this->config->categories_enable)

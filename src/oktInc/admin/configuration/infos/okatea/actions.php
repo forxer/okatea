@@ -19,8 +19,8 @@
 if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # affichage changelog Okatea
-if (!empty($_GET['show_changelog']) && file_exists(OKT_ROOT_PATH.'/CHANGELOG'))
+if (!empty($_GET['show_changelog']) && file_exists($okt->options->getRootPath().'/CHANGELOG'))
 {
-	echo '<pre class="changelog">'.html::escapeHTML(file_get_contents(OKT_ROOT_PATH.'/CHANGELOG')).'</pre>';
+	echo '<pre class="changelog">'.html::escapeHTML(file_get_contents($okt->options->getRootPath().'/CHANGELOG')).'</pre>';
 	die;
 }

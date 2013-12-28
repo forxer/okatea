@@ -19,7 +19,7 @@
 if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Notes de développement
-$sNotesFilename = OKT_ROOT_PATH.'/notes.md';
+$sNotesFilename = $okt->options->getRootPath().'/notes.md';
 $bHasNotes = $bEditNotes = false;
 if (file_exists($sNotesFilename))
 {

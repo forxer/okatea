@@ -36,7 +36,7 @@ class Process extends Module
 		'autoloader', 'cache', 'config', 'db', 'error',
 		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
 		'page', 'request', 'requestContext', 'response', 'router',
-		'session', 'theme', 'tpl', 'triggers', 'user',
+		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',
 		'htmlpurifier', 'permsStack', 'aTplDirectories'
 	);
 
@@ -202,7 +202,7 @@ class Process extends Module
 		}
 
 		# suppression des fichiers d'upload
-		$sUploadDir = OKT_UPLOAD_PATH.'/'.$this->id().'/';
+		$sUploadDir = $this->okt->options->get('upload_dir').'/'.$this->id().'/';
 		if (file_exists($sUploadDir))
 		{
 			$this->checklist->addItem(
@@ -216,7 +216,7 @@ class Process extends Module
 		# suppression des fichiers assets
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
-			$sAssetsDir = OKT_THEMES_PATH.'/'.$sThemeId.'/modules/'.$this->id().'/';
+			$sAssetsDir = $okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/';
 
 			if (file_exists($sAssetsDir))
 			{
@@ -269,7 +269,7 @@ class Process extends Module
 		$this->loadDbFile($this->root().'/install/db-truncate.xml');
 
 		# suppression des fichiers d'upload
-		$sUploadDir = OKT_UPLOAD_PATH.'/'.$this->id().'/';
+		$sUploadDir = $this->okt->options->get('upload_dir').'/'.$this->id().'/';
 		if (file_exists($sUploadDir))
 		{
 			$this->checklist->addItem(
@@ -347,7 +347,7 @@ class Process extends Module
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root().'/install/tpl/', OKT_THEMES_PATH.'/default/templates/');
+		$this->getComparator()->folder($this->root().'/install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -355,11 +355,11 @@ class Process extends Module
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/install/tpl/', OKT_THEMES_PATH.'/'.$sThemeId.'/templates/', true);
+			$this->getComparator()->folder($this->root().'/install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
 		}
 
 		# compare assets
-		$this->getComparator()->folder($this->root().'/install/assets/', OKT_THEMES_PATH.'/default/modules/'.$this->id().'/');
+		$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('themes_dir').'/default/modules/'.$this->id().'/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -367,11 +367,11 @@ class Process extends Module
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/install/assets/', OKT_THEMES_PATH.'/'.$sThemeId.'/modules/'.$this->id().'/', true);
+			$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/', true);
 		}
 
 		# compare publics
-		$this->getComparator()->folder($this->root().'/install/public/', OKT_ROOT_PATH.'/');
+		$this->getComparator()->folder($this->root().'/install/public/', $this->okt->options->getRootPath().'/');
 	}
 
 	/**
@@ -382,7 +382,7 @@ class Process extends Module
 	{
 		return $this->forceReplaceFiles(
 			$this->root().'/install/tpl/',
-			OKT_THEMES_PATH.'/default/templates/'
+			$this->okt->options->get('themes_dir').'/default/templates/'
 		);
 	}
 
@@ -407,7 +407,7 @@ class Process extends Module
 	{
 		return $this->forceReplaceFiles(
 			$this->root().'/install/public/',
-			OKT_ROOT_PATH.'/'
+			$this->okt->options->getRootPath().'/'
 		);
 	}
 
@@ -419,7 +419,7 @@ class Process extends Module
 	{
 		return $this->forceReplaceFiles(
 			$this->root().'/install/test_set/upload/',
-			OKT_UPLOAD_PATH.'/'.$this->id().'/'
+			$this->okt->options->get('upload_dir').'/'.$this->id().'/'
 		);
 	}
 
@@ -440,16 +440,16 @@ class Process extends Module
 		$filename = basename($file);
 
 		# suppression du fichier .bak de façon silencieuse
-		if (file_exists(OKT_THEMES_PATH.'/default/templates/'.$filename.'.bak')) {
-			@unlink(OKT_THEMES_PATH.'/default/templates/'.$filename.'.bak');
+		if (file_exists($this->okt->options->get('themes_dir').'/default/templates/'.$filename.'.bak')) {
+			@unlink($this->okt->options->get('themes_dir').'/default/templates/'.$filename.'.bak');
 		}
 
 		# si le fichier existe on le supprime
-		if (file_exists(OKT_THEMES_PATH.'/default/templates/'.$filename))
+		if (file_exists($this->okt->options->get('themes_dir').'/default/templates/'.$filename))
 		{
 			$this->checklist->addItem(
 				'tpl_file_'.$count,
-				(is_dir(OKT_THEMES_PATH.'/default/templates/'.$filename) ? \files::deltree(OKT_THEMES_PATH.'/default/templates/'.$filename) : unlink(OKT_THEMES_PATH.'/default/templates/'.$filename)),
+				(is_dir($this->okt->options->get('themes_dir').'/default/templates/'.$filename) ? \files::deltree($this->okt->options->get('themes_dir').'/default/templates/'.$filename) : unlink($this->okt->options->get('themes_dir').'/default/templates/'.$filename)),
 				'Remove template file '.$filename,
 				'Cannot remove template file '.$filename
 			);
@@ -483,16 +483,16 @@ class Process extends Module
 		$filename = basename($file);
 
 		# suppression du fichier .bak de façon silencieuse
-		if (file_exists(OKT_ROOT_PATH.'/'.$filename.'.bak')) {
-			@unlink(OKT_ROOT_PATH.'/'.$filename.'.bak');
+		if (file_exists($this->okt->options->getRootPath().'/'.$filename.'.bak')) {
+			@unlink($this->okt->options->getRootPath().'/'.$filename.'.bak');
 		}
 
 		# si le fichier existe on le supprime
-		if (file_exists(OKT_ROOT_PATH.'/'.$filename))
+		if (file_exists($this->okt->options->getRootPath().'/'.$filename))
 		{
 			$this->checklist->addItem(
 				'public_file_'.$count,
-				unlink(OKT_ROOT_PATH.'/'.$filename),
+				unlink($this->okt->options->getRootPath().'/'.$filename),
 				'Remove public file '.$filename,
 				'Cannot remove public file '.$filename
 			);
@@ -578,7 +578,7 @@ class Process extends Module
 			{
 				$this->checklist->addItem(
 					'assets_dir_'.$sThemeId,
-					$this->forceReplaceAssets(OKT_THEMES_PATH.'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId)),
+					$this->forceReplaceAssets($this->okt->options->get('themes_dir').'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId)),
 					'Create assets dir in '.$sTheme.' theme',
 					'Cannot create assets dir in '.$sTheme.' theme'
 				);

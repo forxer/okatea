@@ -70,8 +70,8 @@ class module_pages extends Module
 		$this->config = $this->okt->newConfig('conf_pages');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/pages/';
-		$this->upload_url = OKT_UPLOAD_URL.'/pages/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/pages/';
+		$this->upload_url = $this->okt->options->upload_url.'/pages/';
 
 		# rubriques
 		if ($this->config->categories['enable'])

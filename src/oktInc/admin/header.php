@@ -81,7 +81,7 @@ if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
 		}
 
 		$aUserBarB[50] = '<a href="'.html::escapeHTML($sBaseUri).'switch_lang='.html::escapeHTML($aLanguage['code']).'" title="'.html::escapeHTML($aLanguage['title']).'">'.
-		'<img src="'.OKT_PUBLIC_URL.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" /></a>';
+		'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" /></a>';
 	}
 
 	unset($sBaseUri,$aLanguage);
@@ -120,7 +120,7 @@ ob_start();
 	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
 	<title><?php echo html::escapeHtml($okt->page->titleTag(' - ')) ?></title>
 	<?php echo $okt->page->css ?>
-	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo OKT_PUBLIC_URL ?>/plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt->options->public_url ?>/plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>
 <body<?php if ($okt->page->hasPageId()) : ?> id="adminpage-<?php echo $okt->page->getPageId() ?>"<?php endif; ?>>
 <div id="page">

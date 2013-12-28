@@ -53,8 +53,8 @@ class module_users extends Module
 		$this->config = $this->okt->newConfig('conf_users');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/users/';
-		$this->upload_url = OKT_UPLOAD_URL.'/users/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/users/';
+		$this->upload_url = $this->okt->options->upload_url.'/users/';
 
 		# custom fieds
 		if ($this->config->enable_custom_fields) {

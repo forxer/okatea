@@ -109,7 +109,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		/* visible ? */	true,
 		/* ID */ 		null,
 		/* Sub */		($okt->page->homeSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
-		/* Icon */		OKT_PUBLIC_URL.'/img/admin/start-here.png'
+		/* Icon */		$okt->options->public_url.'/img/admin/start-here.png'
 	);
 		$okt->page->homeSubMenu->add(
 			__('c_a_menu_roundabout'),
@@ -128,7 +128,7 @@ if (!defined('OKT_DISABLE_MENU'))
 		$okt->checkPerm('configsite'),
 		null,
 		($okt->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
-		OKT_PUBLIC_URL.'/img/admin/network-server.png'
+		$okt->options->public_url.'/img/admin/network-server.png'
 	);
 		$okt->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',
 			(OKT_FILENAME == 'configuration.php') && (!$okt->page->action || $okt->page->action === 'site'),
@@ -206,19 +206,19 @@ if ($okt->config->admin_maintenance_mode) {
 }
 
 # Ajout des fichiers CSS de l'admin
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->admin_theme.'/jquery-ui.css');
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/init.css');
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/admin.css');
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/css/famfamfam.css');
+$okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$okt->config->admin_theme.'/jquery-ui.css');
+$okt->page->css->addFile($okt->options->public_url.'/css/init.css');
+$okt->page->css->addFile($okt->options->public_url.'/css/admin.css');
+$okt->page->css->addFile($okt->options->public_url.'/css/famfamfam.css');
 
 # Ajout des fichiers JS de l'admin
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/cookie/jquery.cookie.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/metadata/jquery.metadata.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/jquery.validate.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/validate/additional-methods.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/common_admin.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/cookie/jquery.cookie.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/metadata/jquery.metadata.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/validate/jquery.validate.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/validate/additional-methods.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/common_admin.js');
 
 # Chargement des parties admin des modules
 $okt->modules->loadModules('admin',$okt->user->language);

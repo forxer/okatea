@@ -72,8 +72,8 @@ class module_news extends Module
 		$this->config = $this->okt->newConfig('conf_news');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/news/';
-		$this->upload_url = OKT_UPLOAD_URL.'/news/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/news/';
+		$this->upload_url = $this->okt->options->upload_url.'/news/';
 
 		# rubriques
 		if ($this->config->categories['enable'])

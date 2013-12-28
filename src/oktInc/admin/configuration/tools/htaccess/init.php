@@ -22,13 +22,13 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 $sHtaccessContent= '';
 
 $bHtaccessExists = false;
-if (file_exists(OKT_ROOT_PATH.'/.htaccess'))
+if (file_exists($okt->options->getRootPath().'/.htaccess'))
 {
 	$bHtaccessExists = true;
-	$sHtaccessContent = file_get_contents(OKT_ROOT_PATH.'/.htaccess');
+	$sHtaccessContent = file_get_contents($okt->options->getRootPath().'/.htaccess');
 }
 
 $bHtaccessDistExists = false;
-if (file_exists(OKT_ROOT_PATH.'/.htaccess.oktDist')) {
+if (file_exists($okt->options->getRootPath().'/.htaccess.oktDist')) {
 	$bHtaccessDistExists = true;
 }

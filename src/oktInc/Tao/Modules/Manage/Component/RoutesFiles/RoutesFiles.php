@@ -27,7 +27,7 @@ class RoutesFiles extends ComponentBase
 
 		foreach ($oFiles as $oFile)
 		{
-			$sRouteFile = OKT_CONFIG_PATH.'/routes/'.$oFile->getRelativePathname();
+			$sRouteFile = $this->okt->options->get('config_dir').'/routes/'.$oFile->getRelativePathname();
 
 			if (file_exists($sRouteFile)) {
 				$this->merge($oFile, $sRouteFile);
@@ -52,7 +52,7 @@ class RoutesFiles extends ComponentBase
 
 		foreach ($oFiles as $oFile)
 		{
-			$sFilePath = OKT_CONFIG_PATH.'/routes/'.$oFile->getRelativePathname();
+			$sFilePath = $this->okt->options->get('config_dir').'/routes/'.$oFile->getRelativePathname();
 
 			if (file_exists($sFilePath))
 			{

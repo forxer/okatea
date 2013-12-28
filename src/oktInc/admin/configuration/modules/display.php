@@ -155,9 +155,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 					<a href="module.php?m=<?php echo $aModule['id'] ?>">
 				<?php endif; ?>
 					<?php if (file_exists($aModule['root'].'icon.png')) : ?>
-					<img src="<?php echo OKT_MODULES_URL.'/'.$aModule['id'] ?>/icon.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->modules_url.'/'.$aModule['id'] ?>/icon.png" width="32" height="32" alt="" />
 					<?php else: ?>
-					<img src="<?php echo OKT_PUBLIC_URL ?>/img/admin/module.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->modules_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 					<?php endif; ?>
 				<?php if ($aModule['status']): ?>
 					</a>
@@ -290,10 +290,10 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		?>
 		<tr>
 			<td class="<?php echo $td_class; ?> small">
-				<?php if (file_exists(OKT_MODULES_PATH.'/'.$id.'/icon.png')) : ?>
-					<img src="<?php echo OKT_MODULES_URL.'/'.$id.'/icon.png'; ?>" width="32" height="32" alt="" />
+				<?php if (file_exists($okt->options->get('module_dir').'/'.$id.'/icon.png')) : ?>
+					<img src="<?php echo $okt->options->modules_url.'/'.$id.'/icon.png'; ?>" width="32" height="32" alt="" />
 				<?php else: ?>
-					<img src="<?php echo OKT_PUBLIC_URL ?>/img/admin/module.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->modules_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 				<?php endif; ?>
 			</td>
 			<td class="<?php echo $td_class; ?>">

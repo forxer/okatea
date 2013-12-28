@@ -65,8 +65,8 @@ class module_faq extends Module
 		$this->config = $this->okt->newConfig('conf_faq');
 
 		# répertoire upload
-		$this->upload_dir = OKT_UPLOAD_PATH.'/faq/';
-		$this->upload_url = OKT_UPLOAD_URL.'/faq/';
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/faq/';
+		$this->upload_url = $this->okt->options->upload_url.'/faq/';
 	}
 
 	protected function prepend_admin()

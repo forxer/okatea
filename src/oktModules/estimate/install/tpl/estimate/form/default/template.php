@@ -12,13 +12,13 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php # début Okatea : ajout de jQuery UI
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/ui/jquery-ui.min.js');
-$okt->page->css->addFile(OKT_PUBLIC_URL.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
+$okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$okt->config->public_theme.'/jquery-ui.css');
 # fin Okatea : ajout de jQuery UI ?>
 
 
@@ -28,7 +28,7 @@ $okt->page->datePicker();
 
 
 <?php # début Okatea : ajout du JS de gestion du formulaire de demande de devis
-$okt->page->js->addFile(OKT_THEME.'/modules/estimate/estimate.form.js');
+$okt->page->js->addFile($okt->theme->url.'/modules/estimate/estimate.form.js');
 
 $okt->page->js->addReady('
 

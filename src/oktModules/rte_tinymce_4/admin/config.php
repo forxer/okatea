@@ -54,10 +54,10 @@ $okt->page->addGlobalTitle('Configuration TinyMCE');
 
 # Liste de fichiers CSS éventuellement utilisables
 $aUsableCSS = array(
-	OKT_THEME.'/css/style.css',
-	OKT_THEME.'/css/styles.css',
-	OKT_THEME.'/css/editor.css',
-	OKT_THEME.'/css/custom.css',
+	$okt->theme->url.'/css/style.css',
+	$okt->theme->url.'/css/styles.css',
+	$okt->theme->url.'/css/editor.css',
+	$okt->theme->url.'/css/custom.css',
 	$okt->config->app_path.'css/style.css',
 	$okt->config->app_path.'css/styles.css',
 	$okt->config->app_path.'css/editor.css',

@@ -79,7 +79,7 @@ class ImageUploadConfig
 
 		$this->oImageUpload = $oImageUpload;
 
-		$this->okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.images.config');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$okt->user->language.'/admin.images.config');
 
 		if (defined('OKT_MAX_FILE_UPLOADS')) {
 			$this->iMaxFileUploads = OKT_MAX_FILE_UPLOADS;
@@ -447,7 +447,7 @@ class ImageUploadConfig
 					{
 						$return .=
 						'<p><img src="'.$this->oImageUpload->getWatermarkUploadUrl().$this->oImageUpload->aConfig['watermark_file'].'" alt="" '.
-						'style="background: transparent url('.OKT_PUBLIC_URL.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
+						'style="background: transparent url('.$this->okt->options->public_url.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
 
 						'<p><a href="'.$this->sBaseUrl.'delete_watermark=1" '.
 						'onclick="return window.confirm(\''.\html::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.

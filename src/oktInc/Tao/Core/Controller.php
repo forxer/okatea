@@ -37,6 +37,9 @@ class Controller
 		$this->session =& $okt->session;
 		$this->page =& $okt->page;
 
+		# Title tag
+		$this->okt->page->addTitleTag($this->okt->page->getSiteTitleTag(null, $this->okt->page->getSiteTitle()));
+
 		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée
 		//$this->sRequestedLanguage = $this->setUserRequestLanguage();
 	//	if ($this->setUserRequestLanguage()) {

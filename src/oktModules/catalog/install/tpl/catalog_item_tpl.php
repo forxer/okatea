@@ -5,18 +5,18 @@ $this->extend('layout');
 
 
 <?php # début Okatea : ajout de la CSS spécifique au module
-$okt->page->css->addFile(OKT_THEME.'/modules/catalog/styles.css');
+$okt->page->css->addFile($okt->theme->url.'/modules/catalog/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php # début Okatea : ajout du JS de scrollToTopOfPage
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/easing/jquery.easing.min.js');
-$okt->page->js->addFile(OKT_PUBLIC_URL.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/easing/jquery.easing.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/js/jquery/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
 $okt->page->js->addReady('
 	$("a.scrollTop").scrollToTopOfPage({
 		"top": 300,					// hauteur avant affichage du lien
@@ -129,7 +129,7 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 			<?php # début Okatea : boucle sur les fichiers
 			foreach ($product->files as $i=>$file) : ?>
 
-			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo OKT_PUBLIC_URL.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo $view->escape($file['title']) ?>" /></a>
+			<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo $view->escape($file['title']) ?>" /></a>
 			<?php echo $view->escape($file['title']) ?> (<?php echo $file['mime'] ?>)
 			- <?php echo Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 

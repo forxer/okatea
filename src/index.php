@@ -6,69 +6,34 @@
  * file that was distributed with this source code.
  */
 
+
 /**
- * Okatea Front Controller ; one file to route them all
- *
- * @addtogroup Okatea
+ * Okatea Front Controller.
  */
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Tao\Website\Okatea;
 
-# Initialisation de la mécanique Okatea
-require_once __DIR__.'/oktInc/public/prepend.php';
+# Enable/disable debug mode
+define('OKT_DEBUG', true);
 
-
-# Si on est en mode maintenance, il faut être superadmin
-if ($okt->config->public_maintenance_mode && !$okt->user->is_superadmin) {
-	$okt->page->serve503();
-}
-
-
-# -- CORE TRIGGER : publicBeforeMatchRequest
-$okt->triggers->callTrigger('publicBeforeMatchRequest', $okt);
-
-
-# Résolution de la route à utiliser
-try {
-	$okt->request->attributes->add(
-		$okt->router->matchRequest($okt->request)
-	);
-}
-catch (ResourceNotFoundException $e) {
-	$okt->page->serve404();
-}
-catch (Exception $e) {
-	$okt->response->headers->set('Content-Type', 'text/plain');
-	$okt->response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-	$okt->response->setContent($e->getMessage());
-}
-
-
-# -- CORE TRIGGER : publicBeforeCallController
-$okt->triggers->callTrigger('publicBeforeCallController', $okt);
-
-
-if ($okt->router->callController() === false)
+# Environment ? 'dev' or 'prod'
+if (!defined('OKT_ENVIRONMENT'))
 {
-	$okt->response->headers->set('Content-Type', 'text/plain');
-	$okt->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
-	$okt->response->setContent('Unable to load controller.');
+	if (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === '127.0.0.1' || $_SERVER['SERVER_NAME'] === 'localhost')) {
+		define('OKT_ENVIRONMENT', 'dev');
+	}
+	else {
+		define('OKT_ENVIRONMENT', 'prod');
+	}
 }
 
-# -- CORE TRIGGER : publicBeforePrepareResponse
-$okt->triggers->callTrigger('publicBeforePrepareResponse', $okt);
+# Lunch composer autoload
+$oktAutoloader = require __DIR__.'/vendor/autoload.php';
 
+# Let the music play
+$okt = new Okatea($oktAutoloader, __DIR__);
 
-$okt->response->prepare($okt->request);
-
-
-# -- CORE TRIGGER : publicBeforeSendResponse
-$okt->triggers->callTrigger('publicBeforeSendResponse', $okt);
-
-
-$okt->response->send();
-
+$okt->run();
 
 # -- CORE TRIGGER : publicFinal
 $okt->triggers->callTrigger('publicFinal', $okt);

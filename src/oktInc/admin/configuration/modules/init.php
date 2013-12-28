@@ -21,7 +21,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 
 
 # Modules locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.modules');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.modules');
 
 
 # Récupération de la liste des modules dans le système de fichiers (tous les modules)

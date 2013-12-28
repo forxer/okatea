@@ -26,12 +26,12 @@ if (!defined('ON_THEME_EDITOR')) die;
 ----------------------------------------------------------*/
 
 # locales
-$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.theme.editor');
+$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.theme.editor');
 
 $sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 
 
-$oThemeEditor = new ThemesEditor($okt, OKT_THEMES_DIR, OKT_THEMES_PATH);
+$oThemeEditor = new ThemesEditor($okt, $okt->options->get('themes_dir'));
 
 
 

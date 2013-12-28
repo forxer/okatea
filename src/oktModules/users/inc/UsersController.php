@@ -339,7 +339,7 @@ class UsersController extends Controller
 		if (!empty($_REQUEST['cookies']))
 		{
 			$aCookies = array_keys($_COOKIE);
-			unset($aCookies[OKT_COOKIE_AUTH_NAME]);
+			unset($aCookies[$okt->options->get('cookie_auth_name')]);
 
 			foreach ($aCookies as $c)
 			{
