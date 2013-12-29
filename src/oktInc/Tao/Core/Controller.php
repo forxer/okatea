@@ -20,6 +20,10 @@ use Tao\Core\Application;
 class Controller
 {
 	protected $okt;
+	protected $request;
+	protected $response;
+	protected $session;
+	protected $page;
 
 	protected $sRequestedLanguage;
 
@@ -36,9 +40,6 @@ class Controller
 		$this->response =& $okt->response;
 		$this->session =& $okt->session;
 		$this->page =& $okt->page;
-
-		# Title tag
-		$this->okt->page->addTitleTag($this->okt->page->getSiteTitleTag(null, $this->okt->page->getSiteTitle()));
 
 		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée
 		//$this->sRequestedLanguage = $this->setUserRequestLanguage();

@@ -83,7 +83,7 @@ if (!empty($_POST['sended']))
 		foreach ($_POST['p_modules'] as $sModuleId)
 		{
 			$sInstallClassName = $okt->modules->getInstallClass($sModuleId);
-			$oInstallModule = new $sInstallClassName($okt, OKT_MODULES_PATH, $sModuleId);
+			$oInstallModule = new $sInstallClassName($okt, $okt->options->get('module_dir'), $sModuleId);
 			$oInstallModule->doInstall();
 			$okt->modules->enableModule($sModuleId);
 		}
@@ -102,7 +102,7 @@ else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config-
 		$repository = urldecode($_GET['repository']);
 		$module = urldecode($_GET['module']);
 		$url = urldecode($aModulesRepositories[$repository][$module]['href']);
-		$dest = OKT_MODULES_PATH.'/'.basename($url);
+		$dest = $okt->options->get('module_dir').'/'.basename($url);
 
 		try
 		{

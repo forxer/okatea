@@ -37,7 +37,7 @@ class Infos extends Stack
 	 */
 	public function getInfos($format='<div class="infos_box">%s</div>')
 	{
-		return sprintf($format, parent::getHTML());
+		return $this->hasInfo() ? sprintf($format, parent::getHTML()) : null;
 	}
 
 	/**

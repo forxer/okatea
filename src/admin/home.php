@@ -79,11 +79,11 @@ foreach ($okt->page->mainMenu->getItems() as $item)
 if ($okt->modules->moduleExists('users'))
 {
 	$roundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), 'module.php?m=users&amp;action=profil&amp;id='.$okt->user->id,
-			'<img src="'.OKT_PUBLIC_URL.'/img/admin/contact-new.png" alt="" />');
+			'<img src="'.$okt->options->public_url.'/img/admin/contact-new.png" alt="" />');
 }
 
 $roundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), 'index.php?logout=1',
-	'<img src="'.OKT_PUBLIC_URL.'/img/admin/system-log-out.png" alt="" />');
+	'<img src="'.$okt->options->public_url.'/img/admin/system-log-out.png" alt="" />');
 
 
 # -- CORE TRIGGER : adminIndexRoundaboutItems
@@ -112,11 +112,11 @@ if ($okt->config->news_feed['enabled'] && !empty($okt->config->news_feed['url'][
 	// We'll process this feed with all of the default options.
 	$feed = new SimplePie();
 
-	if (!is_dir(OKT_CACHE_PATH.'/feeds/')) {
-		files::makeDir(OKT_CACHE_PATH.'/feeds/',true);
+	if (!is_dir($okt->options->get('cache_dir').'/feeds/')) {
+		files::makeDir($okt->options->get('cache_dir').'/feeds/',true);
 	}
 
-	$feed->set_cache_location(OKT_CACHE_PATH.'/feeds/');
+	$feed->set_cache_location($okt->options->get('cache_dir').'/feeds/');
 
 	// Set which feed to process.
 	$feed->set_feed_url($okt->config->news_feed['url'][$okt->user->language]);
@@ -163,11 +163,11 @@ if (OKT_DEBUG) {
 $sNewVersion = null;
 if ($okt->config->update_enabled && $okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
 {
-	$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, OKT_CACHE_PATH.'/versions');
+	$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
 	$sNewVersion = $updater->check(util::getVersion());
 
 	if ($updater->getNotify() && $sNewVersion) {
-		$okt->l10n->loadFile(OKT_LOCALES_PATH.'/'.$okt->user->language.'/admin.update');
+		$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.update');
 	}
 }
 

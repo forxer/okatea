@@ -37,7 +37,7 @@ class Success extends Stack
 	 */
 	public function getSuccess($format='<div class="success_box">%s</div>')
 	{
-		return sprintf($format,parent::getHTML());
+		return $this->hasSuccess() ? sprintf($format,parent::getHTML()) : null;
 	}
 
 	/**

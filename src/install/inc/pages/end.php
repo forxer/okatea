@@ -28,7 +28,7 @@ if ($_SESSION['okt_install_process_type'] == 'install')
 	l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.modules');
 
 	# modules config sheme
-	$sTplScheme = OKT_THEMES_PATH.'/'.$_SESSION['okt_install_theme'].'/modules_config_scheme.php';
+	$sTplScheme = $okt->options->get('themes_dir').'/'.$_SESSION['okt_install_theme'].'/modules_config_scheme.php';
 
 	if (file_exists($sTplScheme)) {
 		include $sTplScheme;

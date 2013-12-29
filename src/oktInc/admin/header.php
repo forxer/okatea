@@ -138,30 +138,20 @@ ob_start();
 	<div id="helpers" class="ui-widget-content ui-corner-all">
 		<div id="messages">
 
-		<h2 id="breadcrumb"><?php $okt->page->breadcrumb->display('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
+			<h2 id="breadcrumb"><?php $okt->page->breadcrumb->display('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
-		<?php
-		# affichage des éventuels messages d'erreurs
-		if ($okt->page->errors->hasError()) {
-			echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>');
-		}
+			<?php # affichage des éventuels messages d'erreurs
+			echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>'); ?>
 
-		# affichage des éventuels messages d'avertissements
-		if ($okt->page->warnings->hasWarning()) {
-			echo $okt->page->warnings->getWarnings('<div class="warnings_box ui-corner-all">%s</div>');
-		}
+			<?php # affichage des éventuels messages d'avertissements
+			echo $okt->page->warnings->getWarnings('<div class="warnings_box ui-corner-all">%s</div>'); ?>
 
-		# affichage des éventuels messages de confirmation
-		if ($okt->page->success->hasSuccess()) {
-			echo $okt->page->success->getSuccess('<div class="success_box ui-corner-all">%s</div>');
-		}
+			<?php # affichage des éventuels messages de confirmation
+			echo $okt->page->success->getSuccess('<div class="success_box ui-corner-all">%s</div>'); ?>
 
-		# affichage des éventuels messages d'information
-		if ($okt->page->infos->hasInfo()) {
-			echo $okt->page->infos->getInfos('<div class="infos_box ui-corner-all">%s</div>');
-		}
+			<?php # affichage des éventuels messages d'information
+			echo $okt->page->infos->getInfos('<div class="infos_box ui-corner-all">%s</div>'); ?>
 
-		?>
 		</div><!-- #messages -->
 		<div id="welcome">
 			<?php if (!empty($aUserBarA)) : ?><p><?php echo implode(' - ', $aUserBarA) ?></p><?php endif; ?>

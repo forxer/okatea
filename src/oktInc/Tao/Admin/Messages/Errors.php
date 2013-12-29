@@ -37,7 +37,7 @@ class Errors extends Stack
 	 */
 	public function getErrors($format='<div class="errors_box">%s</div>')
 	{
-		return sprintf($format, parent::getHTML());
+		return $this->hasError() ? sprintf($format, parent::getHTML()) : null;
 	}
 
 	/**

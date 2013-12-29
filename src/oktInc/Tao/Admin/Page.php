@@ -115,6 +115,7 @@ class Page extends BasePage
 	{
 		parent::__construct($okt, 'admin');
 
+		$this->component = $okt->request->request->get('component', $okt->request->query->get('component'));
 		$this->action = $okt->request->request->get('action', $okt->request->query->get('action'));
 		$this->application = $okt->request->request->get('application', $okt->request->query->get('application'));
 		$this->do = $okt->request->request->get('do', $okt->request->query->get('do'));
@@ -427,5 +428,15 @@ class Page extends BasePage
 
 			jQuery("table.common").styleTable();
 		';
+	}
+
+	public function serve404()
+	{
+		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve404');
+	}
+
+	public function serve503()
+	{
+		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve503');
 	}
 }

@@ -8,8 +8,8 @@
 
 namespace Tao\Website;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-
 use Tao\Core\Application;
 use Tao\Misc\PublicAdminBar;
 use Tao\Website\Page;

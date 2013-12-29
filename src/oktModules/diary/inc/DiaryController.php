@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Core\Controller;
+use Tao\Website\Controller;
 use Tao\Misc\Utilities as util;
 
 class DiaryController extends Controller

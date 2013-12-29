@@ -6,7 +6,7 @@
  */
 
 use Tao\Misc\Utilities as util;
-use Tao\Core\Controller;
+use Tao\Website\Controller;
 use Tao\Misc\Mailer;
 
 class ContactController extends Controller

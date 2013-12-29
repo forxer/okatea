@@ -44,8 +44,8 @@ foreach ($requirements as $group)
 # création d'éventuels fichiers s'ils n'existent pas
 if ($pass_test)
 {
-	if (!file_exists(OKT_ROOT_PATH.'/.htaccess') && file_exists(OKT_ROOT_PATH.'/.htaccess.oktDist')) {
-		copy(OKT_ROOT_PATH.'/.htaccess.oktDist', OKT_ROOT_PATH.'/.htaccess');
+	if (!file_exists($okt->options->getRootPath().'/.htaccess') && file_exists($okt->options->getRootPath().'/.htaccess.oktDist')) {
+		copy($okt->options->getRootPath().'/.htaccess.oktDist', $okt->options->getRootPath().'/.htaccess');
 	}
 }
 

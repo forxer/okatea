@@ -40,6 +40,9 @@ class Theme
 			'theme_url' 	=> "'".$this->url."'"
 		));
 
+		# Chargement des éventuelles traductions personalisées
+		$this->okt->l10n->loadFile($this->path.'/locales/'.$this->okt->user->language.'/custom');
+
 		# -- CORE TRIGGER : themeInit
 		$okt->triggers->callTrigger('themeInit', $okt, $this);
 

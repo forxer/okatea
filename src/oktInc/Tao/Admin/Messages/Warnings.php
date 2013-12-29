@@ -37,7 +37,7 @@ class Warnings extends Stack
 	 */
 	public function getWarnings($format='<div class="warnings_box">%s</div>')
 	{
-		return sprintf($format, parent::getHTML());
+		return $this->hasWarning() ? sprintf($format, parent::getHTML()) : null;
 	}
 
 	/**

@@ -26,7 +26,7 @@ if (!function_exists('debug'))
 	 */
 	function debug($mData, $bDie=false, $bDoNotUseXdebug=false)
 	{
-		if (OKT_XDEBUG && !$bDoNotUseXdebug) {
+		if (!$bDoNotUseXdebug && defined('OKT_XDEBUG') && OKT_XDEBUG) {
 			var_dump($mData);
 		}
 		else

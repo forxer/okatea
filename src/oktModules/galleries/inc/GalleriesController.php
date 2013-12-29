@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Core\Controller;
+use Tao\Website\Controller;
 
 class GalleriesController extends Controller
 {

@@ -84,13 +84,6 @@ class Application
 	public $l10n;
 
 	/**
-	 * Le gestionnaire de log admin.
-	 *
-	 * @var Tao\Core\LogAdmin
-	 */
-	public $logAdmin;
-
-	/**
 	 * Le gestionnaire de modules.
 	 *
 	 * @var Tao\Core\Modules\Collection
@@ -203,19 +196,25 @@ class Application
 	 */
 	protected $aTplDirectories = array();
 
+
 	/**
-	 * Constructeur. Initialise toute la mécanique Okatea.
+	 * Constructor.
+	 *
+	 * @param Composer\Autoload\ClassLoader $autoloader
+	 * @param string $sRootPath
+	 * @param string $sEnv
+	 * @param boolean $bDebug
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader, $sRootPath)
+	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false)
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
 		$this->options = new ApplicationOptions($sRootPath);
 
-		$this->start(OKT_DEBUG);
+		$this->start($bDebug);
 
 		$this->db = $this->database();
 
@@ -237,7 +236,7 @@ class Application
 
 		$this->languages = new Languages($this);
 
-		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', OKT_DEBUG);
+		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', $bDebug);
 
 		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
 
@@ -251,9 +250,10 @@ class Application
 	}
 
 	/**
-	 * Make common operations on start
+	 * Make common operations on start.
+	 *
 	 */
-	protected function start($debug=false)
+	protected function start($bDebug = false)
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
@@ -266,7 +266,7 @@ class Application
 
 		$this->error = new Errors();
 
-		if ($debug)
+		if ($bDebug)
 		{
 			Debug::enable();
 			ErrorHandler::register();
@@ -275,18 +275,17 @@ class Application
 	}
 
 	/**
-	 * Make database connexion
+	 * Make database connexion.
 	 *
 	 * @return object
 	 */
 	protected function database()
 	{
-		if (file_exists($this->options->get('config_dir').'/connexion.php')) {
-			require_once $this->options->get('config_dir').'/connexion.php';
-		}
-		else {
+		if (!file_exists($this->options->get('config_dir').'/connexion.php')) {
 			$this->error->fatal('Fatal error: unable to find database connexion file !');
 		}
+
+		require $this->options->get('config_dir').'/connexion.php';
 
 		$db = Connexion::getInstance();
 
@@ -298,7 +297,7 @@ class Application
 	}
 
 	/**
-	 * Return the theme to use.
+	 * Return the theme id to use.
 	 *
 	 * @return string
 	 */
@@ -329,7 +328,7 @@ class Application
 	}
 
 	/**
-	 * Load public theme.
+	 * Load public theme instance.
 	 *
 	 * @return void
 	 */
@@ -341,7 +340,7 @@ class Application
 	}
 
 	/**
-	 * Load modules.
+	 * Load modules public or admin part.
 	 *
 	 * @return void
 	 */

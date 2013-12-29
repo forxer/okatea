@@ -8,10 +8,11 @@
 
 
 /**
- * Okatea Front Controller.
+ * Le front controller de la partie administration.
+ *
  */
 
-use Tao\Website\Okatea;
+use Tao\Admin\Okatea;
 
 # Enable/disable debug mode
 define('OKT_DEBUG', true);
@@ -27,13 +28,16 @@ if (!defined('OKT_ENVIRONMENT'))
 	}
 }
 
+$oktAppPath = realpath(__DIR__.'/../');
+
 # Lunch composer autoload
-$oktAutoloader = require __DIR__.'/vendor/autoload.php';
+$oktAutoloader = require $oktAppPath.'/vendor/autoload.php';
 
 # Let the music play
-$okt = new Okatea($oktAutoloader, __DIR__, OKT_DEBUG, OKT_ENVIRONMENT);
+$okt = new Okatea($oktAutoloader, $oktAppPath, OKT_DEBUG, OKT_ENVIRONMENT);
 
 $okt->run();
 
-# -- CORE TRIGGER : publicFinal
-$okt->triggers->callTrigger('publicFinal', $okt);
+# -- CORE TRIGGER : adminFinal
+$okt->triggers->callTrigger('adminFinal', $okt);
+

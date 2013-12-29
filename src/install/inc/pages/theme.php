@@ -25,7 +25,7 @@ l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/ins
 l10n::set(OKT_LOCALES_PATH.'/'.$_SESSION['okt_install_language'].'/admin.themes');
 
 # Themes object
-$oThemes = new ThemesCollection($okt, OKT_THEMES_PATH);
+$oThemes = new ThemesCollection($okt, $okt->options->get('themes_dir'));
 
 # Liste des thèmes présents
 $aInstalledThemes = $oThemes->getThemesAdminList();
@@ -80,7 +80,7 @@ else if ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config-
 		$theme = urldecode($_GET['theme']);
 		$url = urldecode($aThemesRepositories[$repository][$theme]['href']);
 
-		$dest = OKT_THEMES_PATH.'/'.basename($url);
+		$dest = $okt->options->get('themes_dir').'/'.basename($url);
 
 		try
 		{

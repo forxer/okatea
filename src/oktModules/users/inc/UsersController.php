@@ -7,7 +7,7 @@
 
 use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
-use Tao\Core\Controller;
+use Tao\Website\Controller;
 use Tao\Misc\Mailer;
 
 class UsersController extends Controller

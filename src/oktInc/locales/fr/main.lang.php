@@ -99,7 +99,6 @@ $GLOBALS['__l10n']['c_a_admin_maintenance_mode_enabled'] = 'L’interface d’ad
 
 # permissions par défaut
 $GLOBALS['__l10n']['c_a_def_perm_usage'] = 'Accès à l’interface d’administration';
-$GLOBALS['__l10n']['c_a_def_perm_help'] = 'Affichage de l’aide en ligne';
 $GLOBALS['__l10n']['c_a_def_perm_config'] = 'Configuration';
 $GLOBALS['__l10n']['c_a_def_perm_config_website'] = 'Configuration du site';
 $GLOBALS['__l10n']['c_a_def_perm_config_display'] = 'Configuration de l’affichage';

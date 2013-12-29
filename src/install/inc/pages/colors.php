@@ -31,7 +31,7 @@ $oDefinitionsLessEditor = new DefinitionsLess($okt);
 # formulaire envoyé
 if (!empty($_POST['sended']))
 {
-	$oDefinitionsLessEditor->writeFileFromPost(OKT_THEMES_PATH.'/'.$_SESSION['okt_install_theme'].'/css/definitions.less');
+	$oDefinitionsLessEditor->writeFileFromPost($okt->options->get('themes_dir').'/'.$_SESSION['okt_install_theme'].'/css/definitions.less');
 
 	http::redirect('index.php?step='.$stepper->getNextStep());
 }

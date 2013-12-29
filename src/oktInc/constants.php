@@ -15,34 +15,6 @@
  */
 
 
-/**
- * Chemin du dossier racine
- */
-define('OKT_ROOT_PATH', realpath(__DIR__.'/../'));
-
-/**
- * Chemin du dossier include
- */
-define('OKT_INC_DIR','oktInc');
-define('OKT_INC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_INC_DIR);
-
-/**
- * Nom et chemin du dossier modules
- */
-define('OKT_MODULES_DIR', 'oktModules');
-define('OKT_MODULES_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_MODULES_DIR);
-
-/**
- * Nom et chemin du dossier public
- */
-define('OKT_PUBLIC_DIR', 'oktPublic');
-define('OKT_PUBLIC_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_PUBLIC_DIR);
-
-/**
- * Nom et chemin du dossier upload
- */
-define('OKT_UPLOAD_DIR','upload');
-define('OKT_UPLOAD_PATH', OKT_PUBLIC_PATH.DIRECTORY_SEPARATOR.OKT_UPLOAD_DIR);
 
 /**
  * Chemin du dossier des thèmes
@@ -56,17 +28,6 @@ define('OKT_THEMES_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_THEMES_DIR);
 define('OKT_VENDOR_DIR', 'vendor');
 define('OKT_VENDOR_PATH', OKT_ROOT_PATH.DIRECTORY_SEPARATOR.OKT_VENDOR_DIR);
 
-
-/**
- * Nom et chemin du dossier cache
- */
-define('OKT_CACHE_DIR', 'cache');
-define('OKT_CACHE_PATH', OKT_INC_PATH.DIRECTORY_SEPARATOR.OKT_CACHE_DIR);
-
-/**
- * Nom et chemin du fichier cache global
- */
-define('OKT_GLOBAL_CACHE_FILE', OKT_CACHE_PATH.DIRECTORY_SEPARATOR.'static.php');
 
 /**
  * Chemin du dossier de configuration

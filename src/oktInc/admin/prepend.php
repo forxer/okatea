@@ -73,7 +73,6 @@ if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_
 
 # Permissions de base de l'administration
 $okt->addPerm('usage', __('c_a_def_perm_usage'));
-$okt->addPerm('displayhelp', __('c_a_def_perm_help'));
 
 $okt->addPermGroup('configuration', __('c_a_def_perm_config'));
 	$okt->addPerm('configsite', 	__('c_a_def_perm_config_website'), 'configuration');

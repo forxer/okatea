@@ -103,10 +103,10 @@ if (!empty($sUserId) && !empty($sUserPwd))
 	{
 		$redir = 'index.php';
 
-		if ($okt->request->cookies->has(OKT_COOKIE_AUTH_FROM))
+		if ($okt->request->cookies->has($okt->options->get('cookie_auth_from')))
 		{
-			if ($okt->request->cookies->get(OKT_COOKIE_AUTH_FROM) != $okt->request->getUri()) {
-				$redir = $okt->request->cookies->get(OKT_COOKIE_AUTH_FROM);
+			if ($okt->request->cookies->get($okt->options->get('cookie_auth_from')) != $okt->request->getUri()) {
+				$redir = $okt->request->cookies->get($okt->options->get('cookie_auth_from'));
 			}
 
 			$okt->user->setAuthFromCookie('', 0);
