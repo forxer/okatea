@@ -9,6 +9,7 @@
 namespace Tao\Admin;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
@@ -53,17 +54,17 @@ class Okatea extends Application
 
 		$this->defineAdminPerms();
 
-		//	$this->checkUser();
+		$this->buildAdminMenu();
 
-	//	$this->buildAdminMenu();
-
-		$this->loadTheme();
+	//	$this->loadTheme();
 
 		$this->loadTplEngine();
 
-		//	$this->loadModules('admin');
+		$this->loadModules('admin');
 
 		$this->matchRequest();
+
+		$this->checkUser();
 
 		$this->callController();
 
@@ -77,7 +78,7 @@ class Okatea extends Application
 	 */
 	protected function loadTplEngine()
 	{
-		$this->setTplDirectory($this->options->get('inc_dir').'/admin/templates/%name%.php');
+		$this->setTplDirectory(__DIR__.'/templates/%name%.php');
 
 		$this->tpl = $this->getTplEngine();
 	}
@@ -100,7 +101,7 @@ class Okatea extends Application
 	protected function checkUser()
 	{
 		# Vérification de l'utilisateur en cours
-		if (!defined('OKT_SKIP_USER_ADMIN_CHECK'))
+		if ($this->request->attributes->get('_route') !== 'login')
 		{
 			# on stocke l'URL de la page dans un cookie
 			$this->user->setAuthFromCookie($this->request->getUri());
@@ -109,7 +110,8 @@ class Okatea extends Application
 			if ($this->user->is_guest)
 			{
 				$this->page->flash->warning(__('c_c_auth_not_logged_in'));
-				http::redirect(OKT_ADMIN_LOGIN_PAGE);
+
+				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 
 			# si il n'a pas la permission, il dégage
@@ -117,7 +119,7 @@ class Okatea extends Application
 			{
 				$this->user->logout();
 				$this->page->flash->error(__('c_c_auth_restricted_access'));
-				http::redirect(OKT_ADMIN_LOGIN_PAGE);
+				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
@@ -125,7 +127,7 @@ class Okatea extends Application
 			{
 				$this->user->logout();
 				$this->page->flash->error(__('c_c_auth_admin_maintenance_mode'));
-				http::redirect(OKT_ADMIN_LOGIN_PAGE);
+				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 		}
 
@@ -134,7 +136,7 @@ class Okatea extends Application
 		{
 			$this->user->setAuthFromCookie('');
 			$this->user->logout();
-			http::redirect(OKT_ADMIN_LOGIN_PAGE);
+			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 		}
 
 		# Validation du CSRF token
@@ -142,7 +144,7 @@ class Okatea extends Application
 		{
 			$this->user->logout();
 			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
-			http::redirect(OKT_ADMIN_LOGIN_PAGE);
+			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 		}
 	}
 
@@ -160,8 +162,8 @@ class Okatea extends Application
 		# Accueil
 		$this->page->mainMenu->add(
 			/* titre*/ 		__('c_a_menu_home'),
-			/* URL */ 		'index.php',
-			/* actif ? */	(OKT_FILENAME == 'index.php'),
+			/* URL */ 		$this->adminRouter->generate('home'),
+			/* actif ? */	$this->request->attributes->get('_route') === 'home',
 			/* position */	1,
 			/* visible ? */	true,
 			/* ID */ 		null,
@@ -170,8 +172,8 @@ class Okatea extends Application
 		);
 			$this->page->homeSubMenu->add(
 				__('c_a_menu_roundabout'),
-				'index.php',
-				(OKT_FILENAME == 'index.php'),
+				$this->adminRouter->generate('home'),
+				$this->request->attributes->get('_route') === 'home',
 				10,
 				true
 			);
@@ -179,7 +181,7 @@ class Okatea extends Application
 			# Configuration
 			$this->page->mainMenu->add(
 				__('c_a_menu_configuration'),
-				'configuration.php',
+				$this->adminRouter->generate('config_site'),
 				(OKT_FILENAME == 'configuration.php'),
 				10000000,
 				$this->checkPerm('configsite'),
@@ -187,13 +189,13 @@ class Okatea extends Application
 				($this->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
 				$this->options->public_url.'/img/admin/network-server.png'
 			);
-				$this->page->configSubMenu->add(__('c_a_menu_general'), 'configuration.php?action=site',
-					(OKT_FILENAME == 'configuration.php') && (!$this->page->action || $this->page->action === 'site'),
+				$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_site'),
+					$this->request->attributes->get('_route') === 'config_site',
 					10,
 					$this->checkPerm('configsite')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_display'), 'configuration.php?action=display',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'display'),
+				$this->page->configSubMenu->add(__('c_a_menu_display'), $this->adminRouter->generate('config_display'),
+					$this->request->attributes->get('_route') === 'config_display',
 					20,
 					$this->checkPerm('display')
 				);

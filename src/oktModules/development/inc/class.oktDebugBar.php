@@ -49,7 +49,7 @@ class oktDebugBar
 		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag',
 			array('oktDebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/ui-themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
 
 		$this->addFiles();
 	}
@@ -68,7 +68,7 @@ class oktDebugBar
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
 			array('oktDebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/ui-themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
 
 		$this->addFiles();
 
@@ -95,8 +95,8 @@ class oktDebugBar
 	 */
 	public function addFiles()
 	{
-		$this->okt->page->js->addFile($okt->options->public_url .'/js/jquery/jquery.min.js');
-		$this->okt->page->js->addFile($okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url .'/js/jquery/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
 
 		$this->okt->page->js->addReady('
 
@@ -165,7 +165,7 @@ class oktDebugBar
 
 		if ($this->aConfig['holmes'])
 		{
-			$this->okt->page->css->addFile($okt->options->public_url.'/css/holmes/holmes.min.css');
+			$this->okt->page->css->addFile($this->okt->options->public_url.'/css/holmes/holmes.min.css');
 
 			$this->okt->page->js->addReady('
 				$("body").addClass("holmes-debug");
@@ -529,7 +529,7 @@ class oktDebugBar
 				<li>$okt->page->action&nbsp;: '.(!empty($this->okt->page->action) ? $this->okt->page->action : '').'</li>
 			</ul>
 			<ul>
-				<li><a href="'.$okt->options->public_url.'/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
+				<li><a href="'.$this->okt->options->public_url.'/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
 			</ul>
 		</div><!-- #debugTools -->';
 

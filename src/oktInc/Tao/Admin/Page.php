@@ -432,11 +432,11 @@ class Page extends BasePage
 
 	public function serve404()
 	{
-		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve404');
+		$this->okt->request->attributes->set('_controller', 'Tao\Admin\Controller::serve404');
 	}
 
 	public function serve503()
 	{
-		$this->okt->request->attributes->set('_controller', 'Tao\Core\Controller::serve503');
+		$this->okt->request->attributes->set('_controller', 'Tao\Admin\Controller::serve503');
 	}
 }

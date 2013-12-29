@@ -23,4 +23,30 @@ class Controller extends BaseController
 		# Title tag
 		$this->okt->page->addTitleTag($this->okt->page->getSiteTitleTag(null, $this->okt->page->getSiteTitle()));
 	}
+
+	/**
+	 * Generates a URL from the given parameters.
+	 *
+	 * @param string         $route         The name of the route
+	 * @param mixed          $parameters    An array of parameters
+	 * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+	 *
+	 * @return string The generated URL
+	 *
+	 * @see UrlGeneratorInterface
+	 */
+	public function generateUrl($route, $parameters = array(), $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	{
+		return $this->okt->router->generate($route, $parameters, $language = null, $referenceType);
+	}
+
+	public function serve404()
+	{
+		parent::serve404();
+	}
+
+	public function serve503()
+	{
+		parent::serve503();
+	}
 }

@@ -24,6 +24,21 @@ use Tao\Navigation\Menus\Menus;
 use Tao\Routing\Router;
 use Tao\Themes\SimpleReplacements;
 
+
+
+#-----------------------------------------------------------------
+# TO DELETE
+
+	define('OKT_XDEBUG', function_exists('xdebug_is_enabled'));
+
+	define('OKT_FILENAME' , 'truc');
+
+# TO DELETE
+#-----------------------------------------------------------------
+
+
+
+
 /**
  * Classe définissant le coeur de l'application (core).
  *
