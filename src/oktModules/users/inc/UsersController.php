@@ -669,7 +669,7 @@ class UsersController extends Controller
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 							'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
-							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=users&action=edit&id='.$rsUser->id
+							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 
 						$oMail->message->setTo($rsAdministrators->email);

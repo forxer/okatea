@@ -7,15 +7,15 @@
 '); ?>
 
 
-<form action="<?php echo $view->escapeHtmlAttr($view->generate('login')) ?>" method="post">
+<form action="<?php echo $view->escapeHtmlAttr($view->generateUrl('login')) ?>" method="post">
 
 	<p class="field"><label for="user_id" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-	<?php echo form::text('user_id', 30, 255, $sUserId) ?></p>
+	<input type="text" id="user_id" name="user_id" size="30" maxlength="255" value="<?php $view->escapeHtmlAttr($sUserId) ?>" /></p>
 
 	<p class="field"><label for="user_pwd" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
-	<?php echo form::password('user_pwd', 30, 255, '') ?></p>
+	<input type="password" id="user_pwd" name="user_pwd" size="30" maxlength="255" value="" /></p>
 
-	<p><?php echo form::checkbox('user_remember', 1) ?>
+	<p><input type="checkbox" id="user_remember" name="user_remember" value="1" />
 	<label class="inline" for="user_remember"><?php _e('c_c_auth_remember_me') ?></label></p>
 
 	<p><?php //echo Page::formtoken(); ?>

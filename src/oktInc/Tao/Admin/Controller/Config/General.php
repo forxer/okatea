@@ -6,11 +6,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Admin\Controller;
+namespace Tao\Admin\Controller\Config;
 
 use Tao\Admin\Controller;
 
-class Configuration extends Controller
+class General extends Controller
 {
+	public function page()
+	{
 
+	}
 }

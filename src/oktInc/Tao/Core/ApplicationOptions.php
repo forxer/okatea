@@ -44,6 +44,8 @@ class ApplicationOptions
 			'cookie_auth_name' => 'otk_auth',
 			'cookie_auth_from' => 'otk_auth_from',
 			'cookie_language' => 'otk_language',
+
+			'digests' => $this->sRootPath.'/oktInc/digests'
 		);
 	}
 

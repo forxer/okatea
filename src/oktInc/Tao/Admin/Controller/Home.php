@@ -180,7 +180,7 @@ class Home extends Controller
 
 	protected function updateNotification()
 	{
-		if ($this->okt->config->update_enabled && $this->okt->checkPerm('is_superadmin') && is_readable(OKT_DIGESTS))
+		if ($this->okt->config->update_enabled && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
 		{
 			$updater = new Updater($this->okt->config->update_url, 'okatea', $this->okt->config->update_type, $this->okt->options->get('cache_dir').'/versions');
 			$this->sNewVersion = $updater->check(util::getVersion());

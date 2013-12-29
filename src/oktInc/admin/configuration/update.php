@@ -53,7 +53,7 @@ if (!defined('OKT_BACKUP_PATH')) {
 	define('OKT_BACKUP_PATH',$okt->options->getRootPath());
 }
 
-$digest_is_readable = is_readable(OKT_DIGESTS);
+$digest_is_readable = is_readable($okt->options->get('digests'));
 
 if (!$digest_is_readable && empty($_GET['update_db'])) {
 	$okt->error->set(__('c_a_update_unable_read_digests'));

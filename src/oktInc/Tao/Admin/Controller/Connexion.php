@@ -54,6 +54,7 @@ class Connexion extends Controller
 		define('OKT_DISABLE_MENU', true);
 
 		return $this->render('connexion', array(
+			'sUserId' => $sUserId
 		));
 	}
 }

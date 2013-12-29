@@ -19,11 +19,11 @@ $collection->add('login',
 	new Route('/connexion', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
 );
 
-$collection->add('config_site',
-	new Route('/configuration/site', array('_controller' => 'Tao\Admin\Controller\Configuration::site'))
+$collection->add('config_general',
+	new Route('/configuration/general', array('_controller' => 'Tao\Admin\Controller\Config\General::page'))
 );
 $collection->add('config_display',
-	new Route('/configuration/display', array('_controller' => 'Tao\Admin\Controller\Configuration::display'))
+	new Route('/configuration/display', array('_controller' => 'Tao\Admin\Controller\Config\Display::page'))
 );
 
 

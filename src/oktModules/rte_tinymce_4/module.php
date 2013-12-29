@@ -88,7 +88,7 @@ class module_rte_tinymce_4 extends Module
 			$aOptions[] = 'file_browser_callback: function (field_name, url, type, win) {
 					tinymce.activeEditor.windowManager.open({
 						title: "Media manager",
-						url: "'.$okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=media_manager&popup=1&editor=1&type=" + type,
+						url: "'.$okt->config->app_path.'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type,
 						width: 700,
 						height: 450
 					}, {

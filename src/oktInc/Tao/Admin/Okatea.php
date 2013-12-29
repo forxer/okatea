@@ -80,7 +80,11 @@ class Okatea extends Application
 	{
 		$this->setTplDirectory(__DIR__.'/templates/%name%.php');
 
-		$this->tpl = $this->getTplEngine();
+		# initialisation
+		$this->tpl = new Templating($this, $this->aTplDirectories);
+
+		# assignation par défaut
+		$this->tpl->addGlobal('okt', $this);
 	}
 
 	/**
@@ -181,16 +185,16 @@ class Okatea extends Application
 			# Configuration
 			$this->page->mainMenu->add(
 				__('c_a_menu_configuration'),
-				$this->adminRouter->generate('config_site'),
-				(OKT_FILENAME == 'configuration.php'),
+				$this->adminRouter->generate('config_general'),
+					$this->request->attributes->get('_route') === 'config_general',
 				10000000,
 				$this->checkPerm('configsite'),
 				null,
 				($this->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
 				$this->options->public_url.'/img/admin/network-server.png'
 			);
-				$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_site'),
-					$this->request->attributes->get('_route') === 'config_site',
+				$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_general'),
+					$this->request->attributes->get('_route') === 'config_general',
 					10,
 					$this->checkPerm('configsite')
 				);

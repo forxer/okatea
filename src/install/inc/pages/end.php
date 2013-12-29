@@ -49,7 +49,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 <p><?php _e('i_end_'.$_SESSION['okt_install_process_type'].'_congrat') ?></p>
 
-<p><?php printf(__('i_end_connect'),'./../'.OKT_ADMIN_DIR.'/'.OKT_ADMIN_LOGIN_PAGE.'?user_id='.$user.'&amp;user_pwd='.$password) ?></p>
+<p><?php printf(__('i_end_connect'),'./../admin/connexion?user_id='.$user.'&amp;user_pwd='.$password) ?></p>
 
 
 <?php # Pied de page

@@ -196,7 +196,7 @@ class module_rte_tinymce_3 extends Module
 		$okt->page->js->addScript('
 			function filebrowser(field_name, url, type, win) {
 
-				fileBrowserURL = "'.$okt->config->app_path.OKT_ADMIN_DIR.'/module.php?m=media_manager&popup=1&editor=1&type=" + type;
+				fileBrowserURL = "'.$okt->config->app_path.'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type;
 
 				tinyMCE.activeEditor.windowManager.open({
 						title: "Media manager",

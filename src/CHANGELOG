@@ -12,6 +12,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-beta3
 # now require PHP >= 5.4.0
+# refactor admin interface
+	# use router
+	# use controllers
+	# use templates
 # replace Router by Symfony Routing component
 # replace PHPThumb by Imagine
 # refactor modules files structure

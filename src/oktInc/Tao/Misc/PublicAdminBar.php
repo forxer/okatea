@@ -41,7 +41,7 @@ class PublicAdminBar
 		$aPrimaryAdminBar = new \ArrayObject;
 		$aSecondaryAdminBar = new \ArrayObject;
 
-		$aBasesUrl['admin'] = $okt->config->app_path.OKT_ADMIN_DIR;
+		$aBasesUrl['admin'] = $okt->config->app_path.'admin';
 		$aBasesUrl['logout'] = $aBasesUrl['admin'].'/index.php?logout=1';
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 
@@ -52,7 +52,7 @@ class PublicAdminBar
 
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
-			'intitle' => '<img src="'.$this->okt->options->public_url.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
+			'intitle' => '<img src="'.$okt->options->public_url.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
 			'items' => array()
 		);
 
@@ -107,7 +107,7 @@ class PublicAdminBar
 			}
 
 			# avertissement nouvelle version disponible
-			if ($okt->config->update_enabled && is_readable(OKT_DIGESTS))
+			if ($okt->config->update_enabled && is_readable($okt->options->get('digests')))
 			{
 				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
 				$new_v = $updater->check(util::getVersion());
@@ -158,7 +158,7 @@ class PublicAdminBar
 			}
 
 			$aSecondaryAdminBar[1000] = array(
-				'intitle' => '<img src="'.$this->okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
+				'intitle' => '<img src="'.$okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'

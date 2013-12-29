@@ -8,6 +8,7 @@
 
 namespace Tao\Website;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tao\Core\Controller as BaseController;
 
 class Controller extends BaseController

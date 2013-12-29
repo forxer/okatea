@@ -110,8 +110,8 @@ class EstimateController extends Controller
 					}
 
 					# construction du mail
-					$sEstimateUrl = $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.OKT_ADMIN_DIR.
-						'/module.php?m=estimate&action=estimate&estimate_id='.$iEstimateId;
+					$sEstimateUrl = $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.
+						'admin/module.php?m=estimate&action=estimate&estimate_id='.$iEstimateId;
 
 					$oMail = new Mailer($this->okt);
 					$oMail->setFrom();
