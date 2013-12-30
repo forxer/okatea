@@ -10,7 +10,7 @@ namespace Tao\Admin\Controller;
 
 use Tao\Admin\Controller;
 use Tao\Core\Update as Updater;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class Home extends Controller
 {
@@ -183,7 +183,7 @@ class Home extends Controller
 		if ($this->okt->config->update_enabled && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
 		{
 			$updater = new Updater($this->okt->config->update_url, 'okatea', $this->okt->config->update_type, $this->okt->options->get('cache_dir').'/versions');
-			$this->sNewVersion = $updater->check(util::getVersion());
+			$this->sNewVersion = $updater->check(Utilities::getVersion());
 
 			if ($updater->getNotify() && $this->sNewVersion) {
 				$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.update');

@@ -222,8 +222,8 @@ class Okatea extends Application
 					20,
 					$this->checkPerm('display')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_localization'), 'configuration.php?action=languages',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'languages'),
+				$this->page->configSubMenu->add(__('c_a_menu_localization'), $this->adminRouter->generate('config_languages'),
+					$this->request->attributes->get('_route') === 'config_languages',
 					60,
 					$this->checkPerm('languages')
 				);

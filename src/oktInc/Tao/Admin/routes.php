@@ -39,6 +39,10 @@ $configCollection->add('config_display',
 $configCollection->add('config_logadmin',
 	new Route('/logadmin', array('_controller' => 'Tao\Admin\Controller\Config\Logadmin::page'))
 );
+$configCollection->add('config_languages',
+	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
+);
+
 
 
 $configCollection->addPrefix('/configuration');
