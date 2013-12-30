@@ -15,8 +15,14 @@ class Display extends Controller
 {
 	public function page()
 	{
+		if (!$this->okt->checkPerm('display')) {
+			return $this->serve401();
+		}
+
+		# Locales
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin.display');
 
+		# Liste des thèmes
 		$aUiThemes = Page::getUiThemes();
 
 		$aNotAllowedAdminThemes = array(

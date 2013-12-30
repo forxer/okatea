@@ -61,16 +61,16 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
-		$this->loadPageHelpers();
-
 		$this->loadLogAdmin();
 
-		$this->defineAdminPerms();
+		$this->loadPageHelpers();
 
 		$this->matchRequest();
 
 		if ($this->checkUser() === true)
 		{
+			$this->defineAdminPerms();
+
 			$this->buildAdminMenu();
 
 			$this->loadTplEngine();
@@ -262,8 +262,8 @@ class Okatea extends Application
 					130,
 					$this->config->update_enabled && $this->checkPerm('is_superadmin')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_log_admin'), 'configuration.php?action=logadmin',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'logadmin'),
+				$this->page->configSubMenu->add(__('c_a_menu_log_admin'), $this->adminRouter->generate('config_logadmin'),
+					$this->request->attributes->get('_route') === 'config_logadmin',
 					140,
 					$this->checkPerm('is_superadmin')
 				);

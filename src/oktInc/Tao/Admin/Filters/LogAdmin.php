@@ -97,12 +97,12 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('order_by'))
 		{
 			$this->params->order_by = $this->request->query->get('order_by');
-			$this->request->session->set($this->sess_prefix.'order_by', $this->params->order_by);
+			$this->session->set($this->sess_prefix.'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 		}
-		elseif ($this->request->session->has($this->sess_prefix.'order_by'))
+		elseif ($this->session->has($this->sess_prefix.'order_by'))
 		{
-			$this->params->order_by = $this->request->session->get($this->sess_prefix.'order_by');
+			$this->params->order_by = $this->session->get($this->sess_prefix.'order_by');
 			$this->params->show_filters = true;
 		}
 
@@ -139,12 +139,12 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('order_direction'))
 		{
 			$this->params->order_direction = $this->request->query->get('order_direction');
-			$this->request->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
+			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
 			$this->params->show_filters = true;
 		}
-		elseif ($this->request->session->has($this->sess_prefix.'order_direction'))
+		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{
-			$this->params->order_direction = $this->request->session->get($this->sess_prefix.'order_direction');
+			$this->params->order_direction = $this->session->get($this->sess_prefix.'order_direction');
 			$this->params->show_filters = true;
 		}
 
@@ -165,12 +165,12 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('date_min'))
 		{
 			$this->params->date_min = $this->request->query->get('date_min');
-			$this->request->session->set($this->sess_prefix.'date_min', $this->params->date_min);
+			$this->session->set($this->sess_prefix.'date_min', $this->params->date_min);
 			$this->params->show_filters = true;
 		}
-		elseif ($this->request->session->has($this->sess_prefix.'date_min'))
+		elseif ($this->session->has($this->sess_prefix.'date_min'))
 		{
-			$this->params->date_min = $this->request->session->get($this->sess_prefix.'date_min');
+			$this->params->date_min = $this->session->get($this->sess_prefix.'date_min');
 			$this->params->show_filters = true;
 		}
 
@@ -185,12 +185,12 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('date_max'))
 		{
 			$this->params->date_max = $this->request->query->get('date_max');
-			$this->request->session->set($this->sess_prefix.'date_max', $this->params->date_max);
+			$this->session->set($this->sess_prefix.'date_max', $this->params->date_max);
 			$this->params->show_filters = true;
 		}
-		elseif ($this->request->session->has($this->sess_prefix.'date_max'))
+		elseif ($this->session->has($this->sess_prefix.'date_max'))
 		{
-			$this->params->date_max = $this->request->session->get($this->sess_prefix.'date_max');
+			$this->params->date_max = $this->session->get($this->sess_prefix.'date_max');
 			$this->params->show_filters = true;
 		}
 

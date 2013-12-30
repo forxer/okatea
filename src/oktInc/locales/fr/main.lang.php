@@ -15,13 +15,17 @@ $GLOBALS['__l10n']['c_c_go_to_website'] = 'aller sur le site';
 $GLOBALS['__l10n']['c_c_administration'] = 'Administration';
 $GLOBALS['__l10n']['c_c_warning'] = 'avertissement';
 
+# 401
+$GLOBALS['__l10n']['c_c_unauthorized'] = 'Non autorisé';
+$GLOBALS['__l10n']['c_c_access_is_denied'] = 'L’accès est refusé car vous n’avez pas les permissions suffisantes.';
+
 # 404
 $GLOBALS['__l10n']['c_c_doc_not_fount'] = 'Document non trouvé';
 $GLOBALS['__l10n']['c_c_doc_not_exists'] = 'Le document que vous cherchez n’existe pas.';
 
 # 503
 $GLOBALS['__l10n']['c_c_service_unavailable'] = 'Service indisponible';
-$GLOBALS['__l10n']['c_c_server_currently_unavailable'] = 'Le serveur est actuellement indisponible (car il est surchargé ou en maintenance).';
+$GLOBALS['__l10n']['c_c_server_currently_unavailable'] = 'Le serveur est actuellement indisponible (car il est en maintenance).';
 
 # basic user
 $GLOBALS['__l10n']['c_c_user_hello_%s'] = 'Bonjour %s';

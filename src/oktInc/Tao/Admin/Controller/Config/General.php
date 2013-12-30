@@ -17,6 +17,10 @@ class General extends Controller
 
 	public function page()
 	{
+		if (!$this->okt->checkPerm('configsite')) {
+			return $this->serve401();
+		}
+
 		# Locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.site');
 

@@ -189,6 +189,20 @@ class Controller
 	}
 
 	/**
+	 * Affichage page 401
+	 *
+	 */
+	public function serve401()
+	{
+		$this->page->module = 'core';
+		$this->page->action = '401';
+
+		$this->response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+
+		return $this->render('401');
+	}
+
+	/**
 	 * Affichage page 404
 	 *
 	 */
