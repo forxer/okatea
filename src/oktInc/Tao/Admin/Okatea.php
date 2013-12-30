@@ -33,8 +33,21 @@ class Okatea extends Application
 	 */
 	public $logAdmin;
 
+	/**
+	 * Le routeur interne de l'administration.
+	 *
+	 * @var Tao\Routing\AdminRouter
+	 */
 	public $adminRouter;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param Composer\Autoload\ClassLoader $autoloader
+	 * @param string $sRootPath
+	 * @param string $sEnv
+	 * @param boolean $bDebug
+	 */
 	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false)
 	{
 		parent::__construct($autoloader, $sRootPath, $sEnv, $bDebug);
@@ -59,8 +72,6 @@ class Okatea extends Application
 		$this->checkUser();
 
 		$this->buildAdminMenu();
-
-	//	$this->loadTheme();
 
 		$this->loadTplEngine();
 
@@ -105,7 +116,7 @@ class Okatea extends Application
 	protected function checkUser()
 	{
 		# Vérification de l'utilisateur en cours
-		if ($this->request->attributes->get('_route') !== 'login')
+		if ($this->request->attributes->get('_route') !== 'login' && $this->request->attributes->get('_route') !== 'forget_password')
 		{
 			# on stocke l'URL de la page dans un cookie
 			$this->user->setAuthFromCookie($this->request->getUri());
@@ -144,12 +155,13 @@ class Okatea extends Application
 		}
 
 		# Validation du CSRF token
-		if (!defined('OKT_SKIP_CSRF_CONFIRM') && !empty($_POST) && (!isset($_POST['csrf_token']) || $this->user->csrf_token !== $_POST['csrf_token']))
+		if (count($this->request->request) > 0 && (!$this->request->request->has($this->options->get('csrf_token_name')) || !$this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
 		{
-			$this->user->logout();
 			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
+			$this->user->logout();
 			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 		}
+
 	}
 
 	protected function buildAdminMenu()

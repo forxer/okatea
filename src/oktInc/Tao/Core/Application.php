@@ -14,11 +14,11 @@ use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RequestContext;
 
 use Tao\Cache\SingleFileCache;
 use Tao\Misc\FlashMessages;
+use Tao\Misc\Utilities;
 use Tao\Modules\Collection as ModulesCollection;
 use Tao\Navigation\Menus\Menus;
 use Tao\Routing\Router;
@@ -143,7 +143,7 @@ class Application
 	/**
 	 * Le routeur interne.
 	 *
-	 * @var Tao\Core\Router
+	 * @var Tao\Routing\Router
 	 */
 	public $router;
 
@@ -153,20 +153,6 @@ class Application
 	 * @var Tao\Core\Session
 	 */
 	public $session;
-
-	/**
-	 * Le theme.
-	 *
-	 * @var Tao\Themes\Theme
-	 */
-	public $theme;
-
-	/**
-	 * L'identifiant tu theme à afficher.
-	 *
-	 * @var string
-	 */
-	public $theme_id;
 
 	/**
 	 * Le moteur de templates.
@@ -222,12 +208,12 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false)
+	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false, array $aOptions = array())
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		$this->options = new ApplicationOptions($sRootPath);
+		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
 		$this->start($bDebug);
 
@@ -246,7 +232,7 @@ class Application
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
-		$this->session = new Session(null, null, new FlashMessages());
+		$this->session = new Session(null, null, new FlashMessages(), $this->options->get('csrf_token_name'));
 		$this->request->setSession($this->session);
 
 		$this->languages = new Languages($this);
@@ -260,8 +246,6 @@ class Application
 		$this->navigation = new Menus($this);
 
 		$this->modules = new ModulesCollection($this, $this->options->get('module_dir'), $this->options->modules_url);
-
-		$this->theme_id = $this->getTheme();
 	}
 
 	/**
@@ -309,49 +293,6 @@ class Application
 		}
 
 		return $db;
-	}
-
-	/**
-	 * Return the theme id to use.
-	 *
-	 * @return string
-	 */
-	protected function getTheme()
-	{
-		$sOktTheme = $this->config->theme;
-
-		if ($this->session->has('okt_theme')) {
-			$sOktTheme = $this->session->get('okt_theme');
-		}
-		elseif (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
-		{
-			$oMobileDetect = new \Mobile_Detect();
-			$isMobile = $oMobileDetect->isMobile() && !empty($this->config->theme_mobile);
-			$isTablet = $oMobileDetect->isTablet() && !empty($this->config->theme_tablet);
-
-			if ($isMobile && !$isTablet) {
-				$sOktTheme = $this->config->theme_mobile;
-			}
-			elseif ($isTablet) {
-				$sOktTheme = $this->config->theme_tablet;
-			}
-
-			$this->session->set('okt_theme', $sOktTheme);
-		}
-
-		return $sOktTheme;
-	}
-
-	/**
-	 * Load public theme instance.
-	 *
-	 * @return void
-	 */
-	protected function loadTheme()
-	{
-		require_once $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
-
-		$this->theme = new \oktTheme($this);
 	}
 
 	/**

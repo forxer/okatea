@@ -14,9 +14,7 @@
 			`user_id` 		BIGINT(20) 		UNSIGNED 	NOT NULL 	DEFAULT 1,
 			`ident` 		VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`logged` 		INT(10) 		UNSIGNED 	NOT NULL 	DEFAULT 0,
-			`idle` 			TINYINT(1) 					NOT NULL 	DEFAULT 0,
-			`csrf_token` 	VARCHAR(40) 				NOT NULL 	DEFAULT '',
-			`prev_url` 		VARCHAR(255) 							DEFAULT NULL,
+			`idle` 			TINYINT(1) 					NOT NULL 	DEFAULT 0
 
 			UNIQUE KEY `{{PREFIX}}core_users_online_user_id_ident_idx` (`user_id`,`ident`(25)),
 			KEY `{{PREFIX}}core_users_online_ident_idx` (`ident`(25)),

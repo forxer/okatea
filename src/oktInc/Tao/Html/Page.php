@@ -132,6 +132,15 @@ class Page
 		$this->sPart = $sPart;
 	}
 
+	/**
+	 * Retourne un champ de formulaire caché pour le CSRF token
+	 */
+	public function formtoken()
+	{
+		return $this->okt->session->getTokenInputField();
+		return '<input type="hidden" name="csrf_token" id="csrf_token" value="'.$this->okt->session->get('csrf_token').'" />';
+	}
+
 	/* Gestion de l'élément title des pages
 	----------------------------------------------------------*/
 

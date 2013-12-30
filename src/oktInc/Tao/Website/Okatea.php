@@ -23,6 +23,34 @@ class Okatea extends Application
 	 */
 	public $page;
 
+	/**
+	 * Le theme.
+	 *
+	 * @var Tao\Themes\Theme
+	 */
+	public $theme;
+
+	/**
+	 * L'identifiant tu theme à afficher.
+	 *
+	 * @var string
+	 */
+	public $theme_id;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Composer\Autoload\ClassLoader $autoloader
+	 * @param string $sRootPath
+	 * @param string $sEnv
+	 * @param boolean $bDebug
+	 */
+	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false)
+	{
+		parent::__construct($autoloader, $sRootPath, $sEnv, $bDebug);
+
+		$this->theme_id = $this->getTheme();
+	}
 
 	/**
 	 * Run application.
@@ -49,6 +77,49 @@ class Okatea extends Application
 		$this->callController();
 
 		$this->sendResponse();
+	}
+
+	/**
+	 * Return the theme id to use.
+	 *
+	 * @return string
+	 */
+	protected function getTheme()
+	{
+		$sOktTheme = $this->config->theme;
+
+		if ($this->session->has('okt_theme')) {
+			$sOktTheme = $this->session->get('okt_theme');
+		}
+		elseif (!empty($this->config->theme_mobile) || !empty($this->config->theme_tablet))
+		{
+			$oMobileDetect = new \Mobile_Detect();
+			$isMobile = $oMobileDetect->isMobile() && !empty($this->config->theme_mobile);
+			$isTablet = $oMobileDetect->isTablet() && !empty($this->config->theme_tablet);
+
+			if ($isMobile && !$isTablet) {
+				$sOktTheme = $this->config->theme_mobile;
+			}
+			elseif ($isTablet) {
+				$sOktTheme = $this->config->theme_tablet;
+			}
+
+			$this->session->set('okt_theme', $sOktTheme);
+		}
+
+		return $sOktTheme;
+	}
+
+	/**
+	 * Load public theme instance.
+	 *
+	 * @return void
+	 */
+	protected function loadTheme()
+	{
+		require_once $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
+
+		$this->theme = new \oktTheme($this);
 	}
 
 	/**

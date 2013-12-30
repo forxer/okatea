@@ -32,20 +32,21 @@ class ApplicationOptions
 	{
 		$this->aOptions = array(
 
-			'inc_dir' => $this->sRootPath.'/oktInc',
-			'cache_dir' => $this->sRootPath.'/oktInc/cache',
-			'config_dir' => $this->sRootPath.'/oktInc/config',
-			'locales_dir' => $this->sRootPath.'/oktInc/locales',
-			'module_dir' => $this->sRootPath.'/oktModules',
-			'public_dir' => $this->sRootPath.'/oktPublic',
-			'upload_dir' => $this->sRootPath.'/oktPublic/upload',
-			'themes_dir' => $this->sRootPath.'/oktThemes',
+			'inc_dir' 			=> $this->sRootPath.'/oktInc',
+			'cache_dir' 		=> $this->sRootPath.'/oktInc/cache',
+			'config_dir' 		=> $this->sRootPath.'/oktInc/config',
+			'locales_dir' 		=> $this->sRootPath.'/oktInc/locales',
+			'module_dir' 		=> $this->sRootPath.'/oktModules',
+			'public_dir' 		=> $this->sRootPath.'/oktPublic',
+			'upload_dir' 		=> $this->sRootPath.'/oktPublic/upload',
+			'themes_dir' 		=> $this->sRootPath.'/oktThemes',
 
-			'cookie_auth_name' => 'otk_auth',
-			'cookie_auth_from' => 'otk_auth_from',
-			'cookie_language' => 'otk_language',
+			'cookie_auth_name' 	=> 'otk_auth',
+			'cookie_auth_from' 	=> 'otk_auth_from',
+			'cookie_language' 	=> 'otk_language',
 
-			'digests' => $this->sRootPath.'/oktInc/digests'
+			'digests' 			=> $this->sRootPath.'/oktInc/digests',
+			'csrf_token_name' 	=> 'okt_csrf_token'
 		);
 	}
 

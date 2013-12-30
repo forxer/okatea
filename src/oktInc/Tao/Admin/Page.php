@@ -163,14 +163,6 @@ class Page extends BasePage
 		$this->breadcrumb->add($label,$url);
 	}
 
-	/**
-	 * Retourne un champ de formulaire caché pour le CSRF token
-	 */
-	public function formtoken()
-	{
-		return form::hidden(array('csrf_token'), $this->okt->user->csrf_token);
-	}
-
 
 	/* Gestion des jeux de boutons
 	 * @TODO mettre ça dans une classe indépendante uiButonSet

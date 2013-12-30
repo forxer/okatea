@@ -18,6 +18,9 @@ $collection->add('home',
 $collection->add('login',
 	new Route('/connexion', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
 );
+$collection->add('forget_password',
+	new Route('/forget-password', array('_controller' => 'Tao\Admin\Controller\Connexion::forget_password'))
+);
 
 $collection->add('config_general',
 	new Route('/configuration/general', array('_controller' => 'Tao\Admin\Controller\Config\General::page'))

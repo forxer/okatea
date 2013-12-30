@@ -8,7 +8,7 @@
 
 namespace Tao\Core;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Misc\Mailer;
 
 /**
@@ -231,36 +231,32 @@ class Authentification
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').util::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
+			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
 			}
 
 			# Si nous sommes retournés à l'utilisateur par défaut, la connexion a échouée
 			if ($this->infos->f('id') == '1')
 			{
-				$this->setAuthCookie(base64_encode('1|'.util::random_key(8, false, true).'|'.$iTsExpire.'|'.util::random_key(8, false, true)), $iTsExpire);
+				$this->setAuthCookie(base64_encode('1|'.Utilities::random_key(8, false, true).'|'.$iTsExpire.'|'.Utilities::random_key(8, false, true)), $iTsExpire);
 				return;
 			}
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
-			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').util::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
+			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
 
 			# Mise à jour de la liste des utilisateurs en ligne
 			if ($this->infos->f('logged') == '')
 			{
 				$this->infos->set('logged', $iTsNow);
-				$this->infos->set('csrf_token', util::random_key(40, false, true));
-				$this->infos->set('prev_url', $this->get_current_url(255));
 
 				$sQuery =
-				'REPLACE INTO '.$this->t_online.' (user_id, ident, logged, csrf_token, prev_url) '.
+				'REPLACE INTO '.$this->t_online.' (user_id, ident, logged) '.
 				'VALUES ('.
 					$this->infos->f('id').', '.
 					'\''.$this->oDb->escapeStr($this->infos->f('username')).'\', '.
-					$this->infos->f('logged').', '.
-					'\''.$this->infos->f('csrf_token').'\', '.
-					(($this->infos->f('prev_url') != null) ? '\''.$this->oDb->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
+					$this->infos->f('logged').' '.
 				')';
 
 				if (!$this->oDb->execute($sQuery)) {
@@ -287,8 +283,7 @@ class Authentification
 				# Maintenant mise à jour du moment de la connexion
 				$sQuery =
 				'UPDATE '.$this->t_online.' SET '.
-					'logged='.$iTsNow.', '.
-					'prev_url=\''.$this->oDb->escapeStr($this->get_current_url(255)).'\' '.
+					'logged='.$iTsNow.' '.
 					($this->infos->f('idle') == '1' ? ', idle=0' : '').
 				'WHERE user_id='.$this->infos->f('id');
 
@@ -328,14 +323,14 @@ class Authentification
 	public function authenticateUser($mUser, $sPasswordHash)
 	{
 		$sQuery =
-		'SELECT u.*, g.*, o.logged, o.idle, o.csrf_token, o.prev_url '.
+		'SELECT u.*, g.*, o.logged, o.idle '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
 			'LEFT JOIN '.$this->t_online.' AS o ON o.user_id=u.id '.
 		'WHERE u.active = 1 AND ';
 
 
-		if (util::isInt($mUser)) {
+		if (Utilities::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';
 		}
 		else {
@@ -365,7 +360,7 @@ class Authentification
 
 		# Fetch guest user
 		$sQuery =
-		'SELECT u.*, g.*, o.logged, o.csrf_token, o.prev_url '.
+		'SELECT u.*, g.*, o.logged '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
 			'LEFT JOIN '.$this->t_online.' AS o ON o.ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\' '.
@@ -386,18 +381,14 @@ class Authentification
 		if ($this->infos->f('logged') == '')
 		{
 			$this->infos->set('logged', time());
-			$this->infos->set('csrf_token', util::random_key(40, false, true));
-			$this->infos->set('prev_url', $this->get_current_url(255));
 
 			# REPLACE INTO avoids a user having two rows in the online table
 			$sQuery =
-			'REPLACE INTO '.$this->t_online.' (user_id, ident, logged, csrf_token, prev_url) '.
+			'REPLACE INTO '.$this->t_online.' (user_id, ident, logged) '.
 			'VALUES ('.
 				'1,'.
 				'\''.$this->oDb->escapeStr($sRemoteAddr).'\', '.
-				$this->infos->f('logged').', '.
-				'\''.$this->infos->f('csrf_token').'\', '.
-				(($this->infos->f('prev_url') !== null) ? '\''.$this->oDb->escapeStr($this->infos->f('prev_url')).'\'' : 'NULL').
+				$this->infos->f('logged').' '.
 			')';
 
 			if (!$this->oDb->execute($sQuery)) {
@@ -408,8 +399,7 @@ class Authentification
 		{
 			$sQuery =
 			'UPDATE '.$this->t_online.' SET '.
-				'logged='.time().', '.
-				'prev_url=\''.$this->oDb->escapeStr($this->get_current_url(255)).'\' '.
+				'logged='.time().' '.
 			'WHERE ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\'';
 
 			if (!$this->oDb->execute($sQuery)) {
@@ -484,7 +474,7 @@ class Authentification
 		}
 
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.util::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.Utilities::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
@@ -558,7 +548,7 @@ class Authentification
 		$sEmail = strtolower(trim($sEmail));
 
 		# validation de l'adresse fournie
-		if (!text::isEmail($sEmail))
+		if (!Utilities::isEmail($sEmail))
 		{
 			$this->oError->set(__('c_c_auth_invalid_email'));
 			return false;
@@ -582,8 +572,8 @@ class Authentification
 		while ($rs->fetch())
 		{
 			# génération du nouveau mot de passe et du code d'activation
-			$sNewPassword = util::random_key(8, true);
-			$sNewPasswordKey = util::random_key(8);
+			$sNewPassword = Utilities::random_key(8, true);
+			$sNewPasswordKey = Utilities::random_key(8);
 
 			$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
 
@@ -607,7 +597,7 @@ class Authentification
 				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,
-				'ACTIVATION_URL' => $sActivateUrl.'?action=validate_password&uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
+				'ACTIVATION_URL' => $sActivateUrl.'?uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
 			));
 
 			$oMail->send();
@@ -825,16 +815,5 @@ class Authentification
 		}
 
 		return $sUsername;
-	}
-
-	public function get_current_url($iMaxLength=0)
-	{
-		$sUrl = $this->okt->request->getUri();
-
-		if ($iMaxLength == 0 || strlen($sUrl) <= $iMaxLength) {
-			return $sUrl;
-		}
-
-		return null;
 	}
 }

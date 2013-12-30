@@ -44,8 +44,42 @@ class Connexion extends Controller
 			}
 		}
 
-		# Titre de la page
-		$this->page->addGlobalTitle(__('c_c_auth_login'));
+		$this->page->pageId('connexion');
+
+		$this->page->breadcrumb->reset();
+
+		$this->page->display_menu = false;
+
+		return $this->render('Connexion/Login', array(
+			'sUserId' => $sUserId
+		));
+	}
+
+	public function forget_password()
+	{
+		# allready logged
+		if (!$this->okt->user->is_guest) {
+			$this->redirect($this->generateUrl('home'));
+		}
+
+		$bPasswordUpdated = false;
+		$bPasswordSended = false;
+
+		if ($this->request->query->has('key') && $this->request->query->has('uid'))
+		{
+			$bPasswordUpdated = $this->okt->user->validatePasswordKey(
+				$this->request->query->getInt('key'),
+				$this->request->query->get('key')
+			);
+		}
+		elseif ($this->request->request->has('email'))
+		{
+			$bPasswordSended = $this->okt->user->forgetPassword(
+				$this->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL),
+				$this->generateUrl('forget_password', array(), true)
+			);
+		}
+
 
 		$this->page->pageId('connexion');
 
@@ -53,8 +87,9 @@ class Connexion extends Controller
 
 		$this->page->display_menu = false;
 
-		return $this->render('connexion', array(
-			'sUserId' => $sUserId
+		return $this->render('Connexion/ForgetPassword', array(
+			'bPasswordUpdated' => $bPasswordUpdated,
+			'bPasswordSended' => $bPasswordSended
 		));
 	}
 }
