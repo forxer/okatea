@@ -58,7 +58,7 @@ class module_diary extends Module
 	protected function prepend_admin()
 	{
 		# on ajoutent un élément au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->diarySubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 

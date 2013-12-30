@@ -56,7 +56,7 @@ class module_##module_id## extends Module
 		$this->okt->l10n->loadFile(__DIR__.'/locales/'.$this->okt->user->language.'/admin');
 
 		# on ajoutent un item au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->##module_camel_case_id##SubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 

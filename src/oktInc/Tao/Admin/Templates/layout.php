@@ -19,7 +19,7 @@ $okt->page->errors->setItems($okt->page->flash->get('errors'));
 
 # construction du menu principal
 $mainMenuHtml = null;
-if (!defined('OKT_DISABLE_MENU'))
+if ($okt->page->display_menu)
 {
 	$mainMenuHtml = $okt->page->mainMenu->build();
 

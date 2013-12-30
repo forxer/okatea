@@ -51,7 +51,7 @@ class Connexion extends Controller
 
 		$this->page->breadcrumb->reset();
 
-		define('OKT_DISABLE_MENU', true);
+		$this->page->display_menu = false;
 
 		return $this->render('connexion', array(
 			'sUserId' => $sUserId

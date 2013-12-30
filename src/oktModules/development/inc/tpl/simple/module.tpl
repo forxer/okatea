@@ -32,7 +32,7 @@ class module_##module_id## extends Module
 	protected function prepend_admin()
 	{
 		# on ajoutent un item au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
 				$this->getName(),

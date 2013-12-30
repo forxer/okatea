@@ -27,7 +27,7 @@ class module_lbl_colorbox extends Module
 	protected function prepend_admin()
 	{
 		# on ajoutent un item au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
 				__('m_lbl_colorbox_menu_config'),

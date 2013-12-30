@@ -54,6 +54,10 @@ class Okatea extends Application
 
 		$this->defineAdminPerms();
 
+		$this->matchRequest();
+
+		$this->checkUser();
+
 		$this->buildAdminMenu();
 
 	//	$this->loadTheme();
@@ -61,10 +65,6 @@ class Okatea extends Application
 		$this->loadTplEngine();
 
 		$this->loadModules('admin');
-
-		$this->matchRequest();
-
-		$this->checkUser();
 
 		$this->callController();
 
@@ -154,7 +154,7 @@ class Okatea extends Application
 
 	protected function buildAdminMenu()
 	{
-		if (defined('OKT_DISABLE_MENU')) {
+		if (!$this->page->display_menu) {
 			return null;
 		}
 

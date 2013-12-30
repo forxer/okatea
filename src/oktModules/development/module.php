@@ -38,7 +38,7 @@ class module_development extends Module
 	protected function prepend_admin()
 	{
 		# On ajoutent un item au menu
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->developmentSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(

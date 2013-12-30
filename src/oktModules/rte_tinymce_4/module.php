@@ -25,7 +25,7 @@ class module_rte_tinymce_4 extends Module
 		$this->okt->page->addRte('tinymce_4','tinyMCE 4',array('module_rte_tinymce_4','tinyMCE'));
 
 		# on ajoutent un item au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 4'),

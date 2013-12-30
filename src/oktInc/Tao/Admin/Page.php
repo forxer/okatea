@@ -82,6 +82,8 @@ class Page extends BasePage
 	 */
 	public $buttonset = array();
 
+	public $display_menu = true;
+
 	/**
 	 * Format du HTML du menu principal
 	 * @var array
@@ -164,9 +166,9 @@ class Page extends BasePage
 	/**
 	 * Retourne un champ de formulaire caché pour le CSRF token
 	 */
-	public static function formtoken()
+	public function formtoken()
 	{
-		return form::hidden(array('csrf_token'), $GLOBALS['okt']->user->csrf_token);
+		return form::hidden(array('csrf_token'), $this->okt->user->csrf_token);
 	}
 
 

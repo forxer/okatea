@@ -27,7 +27,7 @@ class module_rte_tinymce_3 extends Module
 		$this->okt->page->addRte('tinymce_3_experts','tinyMCE 3 experts',array('module_rte_tinymce_3','tinyMCEexperts'));
 
 		# on ajoutent un item au menu admin
-		if (!defined('OKT_DISABLE_MENU'))
+		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 3'),
