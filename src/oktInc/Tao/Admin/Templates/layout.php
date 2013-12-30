@@ -46,7 +46,7 @@ if (!$okt->user->is_guest)
 	unset($sProfilLink);
 
 	# log off link
-	$aUserBarA[90] = '<a href="?logout=1">'.__('c_c_user_log_off_action').'</a>';
+	$aUserBarA[90] = '<a href="'.$okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
 
 	# last visit info
 	$aUserBarB[10] = sprintf(__('c_c_user_last_visit_on_%s'), dt::str('%A %d %B %Y %H:%M',$okt->user->last_visit));

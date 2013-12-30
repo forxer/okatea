@@ -69,15 +69,16 @@ class Okatea extends Application
 
 		$this->matchRequest();
 
-		$this->checkUser();
+		if ($this->checkUser() === true)
+		{
+			$this->buildAdminMenu();
 
-		$this->buildAdminMenu();
+			$this->loadTplEngine();
 
-		$this->loadTplEngine();
+			$this->loadModules('admin');
 
-		$this->loadModules('admin');
-
-		$this->callController();
+			$this->callController();
+		}
 
 		$this->sendResponse();
 	}
@@ -115,13 +116,30 @@ class Okatea extends Application
 
 	protected function checkUser()
 	{
-		# Vérification de l'utilisateur en cours
+		# Validation du CSRF token si un formulaire est envoyé
+		if (count($this->request->request) > 0 && (!$this->request->request->has($this->options->get('csrf_token_name')) || !$this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
+		{
+			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
+
+			$this->user->logout();
+
+			$this->logAdmin->critical(array(
+				'user_id' => $this->user->infos->f('id'),
+				'username' => $this->user->infos->f('username'),
+				'message' => 'Security CSRF blocking',
+				'code' => 0
+			));
+
+			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
+		}
+
+		# Vérification de l'utilisateur en cours sur les parties de l'administration où l'utilisateur doit être identifié
 		if ($this->request->attributes->get('_route') !== 'login' && $this->request->attributes->get('_route') !== 'forget_password')
 		{
 			# on stocke l'URL de la page dans un cookie
 			$this->user->setAuthFromCookie($this->request->getUri());
 
-			# si c'est un invité, rien à faire ici
+			# si c'est un invité, il n'a rien à faire ici
 			if ($this->user->is_guest)
 			{
 				$this->page->flash->warning(__('c_c_auth_not_logged_in'));
@@ -129,39 +147,28 @@ class Okatea extends Application
 				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 
-			# si il n'a pas la permission, il dégage
+			# il faut au minimum la permission d'utilisation de l'interface d'administration
 			elseif (!$this->checkPerm('usage'))
 			{
-				$this->user->logout();
 				$this->page->flash->error(__('c_c_auth_restricted_access'));
+
+				$this->user->logout();
+
 				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
 			elseif ($this->config->admin_maintenance_mode && !$this->user->is_superadmin)
 			{
-				$this->user->logout();
 				$this->page->flash->error(__('c_c_auth_admin_maintenance_mode'));
+
+				$this->user->logout();
+
 				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
 			}
 		}
 
-		# Demande de déconnexion
-		if (!empty($_REQUEST['logout']))
-		{
-			$this->user->setAuthFromCookie('');
-			$this->user->logout();
-			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
-		}
-
-		# Validation du CSRF token
-		if (count($this->request->request) > 0 && (!$this->request->request->has($this->options->get('csrf_token_name')) || !$this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
-		{
-			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
-			$this->user->logout();
-			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
-		}
-
+		return true;
 	}
 
 	protected function buildAdminMenu()

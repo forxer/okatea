@@ -232,7 +232,7 @@ class Application
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
-		$this->session = new Session(null, null, new FlashMessages(), $this->options->get('csrf_token_name'));
+		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
 		$this->request->setSession($this->session);
 
 		$this->languages = new Languages($this);

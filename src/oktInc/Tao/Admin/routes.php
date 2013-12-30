@@ -16,7 +16,10 @@ $collection->add('home',
 );
 
 $collection->add('login',
-	new Route('/connexion', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
+	new Route('/login', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
+);
+$collection->add('logout',
+	new Route('/logout', array('_controller' => 'Tao\Admin\Controller\Connexion::logout'))
 );
 $collection->add('forget_password',
 	new Route('/forget-password', array('_controller' => 'Tao\Admin\Controller\Connexion::forget_password'))

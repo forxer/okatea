@@ -124,8 +124,7 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 	</div><!-- #tabered -->
 
 	<p><?php echo form::hidden(array('form_sent'), 1); ?>
-	<input type="hidden" name="okt_csrf_token" value="sef541sedf56srdf5612sdrg51d5g1d5r1g" />
-	<?php //echo $okt->page->formtoken(); ?>
+	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

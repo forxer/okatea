@@ -55,6 +55,15 @@ class Connexion extends Controller
 		));
 	}
 
+	public function logout()
+	{
+		$this->okt->user->setAuthFromCookie('');
+
+		$this->okt->user->logout();
+
+		return $this->Redirect($this->generateUrl('login'));
+	}
+
 	public function forget_password()
 	{
 		# allready logged
