@@ -28,8 +28,8 @@ class General extends Controller
 		$this->aPageData = new \ArrayObject();
 		$this->aPageData['aNewConf'] = array();
 
-		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSitePageInit
-		$this->okt->triggers->callTrigger('adminConfigSitePageInit', $this->okt, $this->aPageData);
+		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSiteInit
+		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->okt, $this->aPageData);
 
 		$this->generalHandleRequest();
 
@@ -39,8 +39,8 @@ class General extends Controller
 
 		$this->seoHandleRequest();
 
-		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSitePageHandleRequest
-		$this->okt->triggers->callTrigger('adminConfigSitePageHandleRequest', $this->okt, $this->aPageData);
+		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
+		$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->okt, $this->aPageData);
 
 		# save configuration
 		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
@@ -60,7 +60,44 @@ class General extends Controller
 			}
 		}
 
-		return $this->render('Config/General', array(
+		# Construction des onglets
+		$this->aPageData['tabs'] = new \ArrayObject;
+
+		# onglet général
+		$this->aPageData['tabs'][10] = array(
+			'id' => 'tab_general',
+			'title' => __('c_a_config_tab_general'),
+			'content' => $this->renderView('Config/General/Tabs/General')
+		);
+
+		# onglet société
+		$this->aPageData['tabs'][20] = array(
+			'id' => 'tab_company',
+			'title' => __('c_a_config_tab_company'),
+			'content' => $this->renderView('Config/General/Tabs/Company')
+		);
+
+		# onglet emails
+		$this->aPageData['tabs'][30] = array(
+			'id' => 'tab_emails',
+			'title' => __('c_a_config_tab_email'),
+			'content' => $this->renderView('Config/General/Tabs/Emails')
+		);
+
+		# onglet seo
+		$this->aPageData['tabs'][40] = array(
+			'id' => 'tab_seo',
+			'title' => __('c_a_config_tab_seo'),
+			'content' => $this->renderView('Config/General/Tabs/Seo')
+		);
+
+		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteBuildTabs
+		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->okt, $this->aPageData);
+
+		$this->aPageData['tabs']->ksort();
+
+		return $this->render('Config/General/Page', array(
+			'aPageData' => $this->aPageData
 		));
 	}
 

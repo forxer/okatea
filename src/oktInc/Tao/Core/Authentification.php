@@ -356,7 +356,7 @@ class Authentification
 	 */
 	public function setDefaultUser()
 	{
-		$sRemoteAddr = \http::realIP();
+		$sRemoteAddr = $this->okt->request->getClientIp();
 
 		# Fetch guest user
 		$sQuery =
@@ -467,7 +467,7 @@ class Authentification
 		# Remove this user's guest entry from the online list
 		$sQuery =
 		'DELETE FROM '.$this->t_online.' '.
-		'WHERE ident=\''.$this->oDb->escapeStr(\http::realIP()).'\'';
+		'WHERE ident=\''.$this->oDb->escapeStr($this->okt->request->getClientIp()).'\'';
 
 		if (!$this->oDb->execute($sQuery)) {
 			return false;

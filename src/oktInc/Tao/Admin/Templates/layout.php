@@ -37,7 +37,7 @@ $aUserBarB = new ArrayObject;
 if (!$okt->user->is_guest)
 {
 	# profil link
-	$sProfilLink = html::escapeHTML($okt->user->usedname);
+	$sProfilLink = $view->escape($okt->user->usedname);
 	if ($okt->modules->moduleExists('users')) {
 		$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$okt->user->id.'">'.$sProfilLink.'</a>';
 	}
@@ -68,8 +68,8 @@ if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
 			continue;
 		}
 
-		$aUserBarB[50] = '<a href="'.html::escapeHTML($sBaseUri).'switch_lang='.html::escapeHTML($aLanguage['code']).'" title="'.html::escapeHTML($aLanguage['title']).'">'.
-		'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.html::escapeHTML($aLanguage['title']).'" /></a>';
+		$aUserBarB[50] = '<a href="'.$view->escape($sBaseUri).'switch_lang='.$view->escape($aLanguage['code']).'" title="'.$view->escape($aLanguage['title']).'">'.
+		'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.$view->escape($aLanguage['title']).'" /></a>';
 	}
 
 	unset($sBaseUri,$aLanguage);
@@ -113,8 +113,8 @@ $okt->triggers->callTrigger('adminBeforeSendHeader', $okt);
 		<a href="#mainMenu-<?php echo ($okt->config->admin_sidebar_position == 0 ? 'left' : 'right') ?>"><?php _e('c_c_go_to_menu') ?></a>
 	</p>
 	<div id="banner" class="ui-widget-header ui-corner-all">
-		<h1><?php echo html::escapeHTML($okt->page->getSiteTitle()) ?></h1>
-		<p id="desc"><?php echo html::escapeHTML($okt->page->getSiteDescription()) ?></p>
+		<h1><?php echo $view->escape($okt->page->getSiteTitle()) ?></h1>
+		<p id="desc"><?php echo $view->escape($okt->page->getSiteDescription()) ?></p>
 	</div><!-- #header -->
 
 	<div id="helpers" class="ui-widget-content ui-corner-all">

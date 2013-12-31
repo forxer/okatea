@@ -142,11 +142,7 @@ class Display extends Controller
 			}
 
 			# enregistrement de la configuration
-			$p_public_theme = $this->request->request->get('p_public_theme', 'base');
-			$p_enable_admin_bar = $this->request->request->has('p_enable_admin_bar') ? true : false;
-			$p_admin_sidebar_position = $this->request->request->getInt('p_admin_sidebar_position', 0);
 			$p_admin_theme = $this->request->request->get('p_admin_theme', 'base');
-			$p_admin_compress_output = $this->request->request->has('p_admin_compress_output') ? true : false;
 
 			if (!in_array($p_admin_theme, $aAllowedAdminThemes) && $p_admin_theme != 'custom') {
 				$p_admin_theme = $this->okt->config->admin_theme;
@@ -155,11 +151,11 @@ class Display extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				$aNewConfig = array(
-					'public_theme' 				=> $p_public_theme,
-					'enable_admin_bar' 			=> $p_enable_admin_bar,
+					'public_theme' 				=> $this->request->request->get('p_public_theme', 'base'),
+					'enable_admin_bar' 			=> $this->request->request->has('p_enable_admin_bar'),
 					'admin_theme' 				=> $p_admin_theme,
-					'admin_sidebar_position'	=> $p_admin_sidebar_position,
-					'admin_compress_output' 	=> $p_admin_compress_output
+					'admin_sidebar_position'	=> $this->request->request->getInt('p_admin_sidebar_position', 0),
+					'admin_compress_output' 	=> $this->request->request->has('p_admin_compress_output')
 				);
 
 				try

@@ -44,7 +44,7 @@ class GuestbookController extends Controller
 				'email' 	=> isset($_POST['email']) ? $_POST['email'] : null,
 				'url' 		=> isset($_POST['url']) ? $_POST['url'] : 'http://',
 				'note' 		=> isset($_POST['note']) ? $_POST['note'] : null,
-				'ip' 		=> http::realIP(),
+				'ip' 		=> $this->request->getClientIp(),
 				'visible'   => $this->okt->guestbook->config->validation ? 0 : 1
 			);
 

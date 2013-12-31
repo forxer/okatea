@@ -1,24 +1,5 @@
 <?php
-/*
- * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * Configuration avancée autres (partie affichage)
- *
- * @addtogroup Okatea
- *
- */
-
 use Tao\Forms\Statics\FormElements as form;
-
-
-# Accès direct interdit
-if (!defined('ON_OKT_CONFIGURATION')) die;
-
 ?>
 
 <h3><?php _e('c_a_config_advanced_tab_others') ?></h3>
@@ -46,10 +27,10 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	<legend><?php _e('c_a_config_advanced_user_visit_session') ?></legend>
 
 	<p class="field"><label for="p_user_visit_timeout"><?php _e('c_a_config_advanced_user_visit_timeout') ?></label>
-	<?php echo form::text('p_user_visit_timeout', 10, 255, html::escapeHTML($okt->config->user_visit['timeout'])) ?></p>
+	<?php echo form::text('p_user_visit_timeout', 10, 255, $view->escape($okt->config->user_visit['timeout'])) ?></p>
 
 	<p class="field"><label for="p_user_visit_remember_time"><?php _e('c_a_config_advanced_user_visit_remember_time') ?></label>
-	<?php echo form::text('p_user_visit_remember_time', 10, 255, html::escapeHTML($okt->config->user_visit['remember_time'])) ?></p>
+	<?php echo form::text('p_user_visit_remember_time', 10, 255, $view->escape($okt->config->user_visit['remember_time'])) ?></p>
 
 </fieldset>
 
@@ -57,7 +38,7 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	<legend><?php _e('c_a_config_advanced_logadmin') ?></legend>
 
 	<p><label for="p_log_admin_ttl_months"><?php printf(__('c_a_config_advanced_logadmin_ttl_%s_months'),
-	form::text('p_log_admin_ttl_months', 3, 255, html::escapeHTML($okt->config->log_admin['ttl_months']))) ?></label></p>
+	form::text('p_log_admin_ttl_months', 3, 255, $view->escape($okt->config->log_admin['ttl_months']))) ?></label></p>
 
 </fieldset>
 
@@ -68,8 +49,8 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	<?php _e('c_a_config_advanced_news_feed_enabled') ?></label></p>
 
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
-	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_news_feed_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_advanced_news_feed_url') : printf(__('c_a_config_advanced_news_feed_url_in_%s'), html::escapeHTML($aLanguage['title'])); ?><span class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($okt->config->news_feed['url'][$aLanguage['code']]) ? html::escapeHTML($okt->config->news_feed['url'][$aLanguage['code']]) : '')) ?>
+	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_news_feed_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_advanced_news_feed_url') : printf(__('c_a_config_advanced_news_feed_url_in_%s'), $view->escape($aLanguage['title'])); ?><span class="lang-switcher-buttons"></span></label>
+	<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($okt->config->news_feed['url'][$aLanguage['code']]) ? $view->escape($okt->config->news_feed['url'][$aLanguage['code']]) : '')) ?>
 	<?php endforeach; ?>
 
 </fieldset>

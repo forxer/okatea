@@ -36,11 +36,17 @@ $configCollection->add('config_general',
 $configCollection->add('config_display',
 	new Route('/display', array('_controller' => 'Tao\Admin\Controller\Config\Display::page'))
 );
+$configCollection->add('config_languages',
+	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
+);
 $configCollection->add('config_logadmin',
 	new Route('/logadmin', array('_controller' => 'Tao\Admin\Controller\Config\Logadmin::page'))
 );
-$configCollection->add('config_languages',
-	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
+$configCollection->add('config_router',
+	new Route('/router', array('_controller' => 'Tao\Admin\Controller\Config\Router::page'))
+);
+$configCollection->add('config_advanced',
+	new Route('/advanced', array('_controller' => 'Tao\Admin\Controller\Config\Advanced::page'))
 );
 
 

@@ -267,13 +267,13 @@ class Okatea extends Application
 					140,
 					$this->checkPerm('is_superadmin')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_router'), 'configuration.php?action=router',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'router'),
+				$this->page->configSubMenu->add(__('c_a_menu_router'), $this->adminRouter->generate('config_router'),
+					$this->request->attributes->get('_route') === 'config_router',
 					150,
 					$this->checkPerm('is_superadmin')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_advanced'), 'configuration.php?action=advanced',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'advanced'),
+				$this->page->configSubMenu->add(__('c_a_menu_advanced'), $this->adminRouter->generate('config_advanced'),
+					$this->request->attributes->get('_route') === 'config_advanced',
 					160,
 					$this->checkPerm('is_superadmin')
 				);

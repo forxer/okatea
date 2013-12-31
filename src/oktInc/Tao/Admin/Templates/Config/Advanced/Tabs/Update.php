@@ -1,24 +1,6 @@
 <?php
-/*
- * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-
-/**
- * Configuration avancée mises à jour (partie affichage)
- *
- * @addtogroup Okatea
- *
- */
 
 use Tao\Forms\Statics\FormElements as form;
-
-
-# Accès direct interdit
-if (!defined('ON_OKT_CONFIGURATION')) die;
 
 # Buttons
 $okt->page->js->addReady('
@@ -35,7 +17,7 @@ $okt->page->js->addReady('
 <label for="p_update_enabled"><?php _e('c_a_config_advanced_enable_update') ?></label></p>
 
 <p class="field"><label for="p_update_url"><?php _e('c_a_config_advanced_update_url') ?></label>
-<?php echo form::text('p_update_url', 60, 255, html::escapeHTML($okt->config->update_url)) ?></p>
+<?php echo form::text('p_update_url', 60, 255, $view->escape($okt->config->update_url)) ?></p>
 
 <p id="update_type_choice">
 	<?php echo form::radio(array('p_update_type','p_update_type_stable'),'stable',($okt->config->update_type == 'stable') ) ?>

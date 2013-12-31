@@ -180,7 +180,7 @@ class LogAdmin
 		}
 
 		if (empty($aParams['ip'])) {
-			$aParams['ip'] = \http::realIP();
+			$aParams['ip'] = $this->okt->request->getClientIp();
 		}
 
 		if (empty($aParams['type'])) {

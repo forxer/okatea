@@ -331,7 +331,7 @@ class module_users extends Module
 	{
 		$sQuery =
 		'SELECT 1 FROM '.$this->t_users.' AS u '.
-		'WHERE u.registration_ip=\''.$this->db->escapeStr(http::realIP()).'\' '.
+		'WHERE u.registration_ip=\''.$this->db->escapeStr($this->okt->request->getClientIp()).'\' '.
 		'AND u.registered>'.(time() - 3600);
 
 		if (($rs = $this->db->select($sQuery)) === false) {

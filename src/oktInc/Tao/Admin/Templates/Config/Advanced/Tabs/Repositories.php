@@ -1,25 +1,5 @@
 <?php
-/*
- * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-
-/**
- * Configuration avancée dépôts (partie affichage)
- *
- * @addtogroup Okatea
- *
- */
-
 use Tao\Forms\Statics\FormElements as form;
-
-
-# Accès direct interdit
-if (!defined('ON_OKT_CONFIGURATION')) die;
-
 
 # Buttons
 $okt->page->js->addReady('
@@ -50,10 +30,10 @@ $okt->page->js->addReady('
 	?>
 	<tr>
 		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$line_count), 40, 255, html::escapeHTML($repo_name)) ?></p>
+			<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
 		</th>
 		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$line_count), 60, 255, html::escapeHTML($repo_url)) ?></p>
+			<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
 		</td>
 	</tr>
 	<?php endforeach; ?>
@@ -87,10 +67,10 @@ $okt->page->js->addReady('
 	?>
 	<tr>
 		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$line_count), 40, 255, html::escapeHTML($repo_name)) ?></p>
+			<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
 		</th>
 		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$line_count), 60, 255, html::escapeHTML($repo_url)) ?></p>
+			<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
 		</td>
 	</tr>
 	<?php endforeach; ?>
