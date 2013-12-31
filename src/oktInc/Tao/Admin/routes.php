@@ -9,22 +9,22 @@
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 
-$rootCollection = new RouteCollection();
-
-# login / logout / forget password
-$rootCollection->add('login',
-	new Route('/login', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
-);
-$rootCollection->add('logout',
-	new Route('/logout', array('_controller' => 'Tao\Admin\Controller\Connexion::logout'))
-);
-$rootCollection->add('forget_password',
-	new Route('/forget-password', array('_controller' => 'Tao\Admin\Controller\Connexion::forget_password'))
-);
+$adminCollection = new RouteCollection();
 
 # home page
-$rootCollection->add('home',
+$adminCollection->add('home',
 	new Route('/', array('_controller' => 'Tao\Admin\Controller\Home::homePage'))
+);
+
+# login / logout / forget password
+$adminCollection->add('login',
+	new Route('/login', array('_controller' => 'Tao\Admin\Controller\Connexion::login'))
+);
+$adminCollection->add('logout',
+	new Route('/logout', array('_controller' => 'Tao\Admin\Controller\Connexion::logout'))
+);
+$adminCollection->add('forget_password',
+	new Route('/forget-password', array('_controller' => 'Tao\Admin\Controller\Connexion::forget_password'))
 );
 
 # configuration
@@ -39,6 +39,9 @@ $configCollection->add('config_display',
 $configCollection->add('config_languages',
 	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
 );
+$configCollection->add('config_update',
+	new Route('/update', array('_controller' => 'Tao\Admin\Controller\Config\Update::page'))
+);
 $configCollection->add('config_logadmin',
 	new Route('/logadmin', array('_controller' => 'Tao\Admin\Controller\Config\Logadmin::page'))
 );
@@ -52,9 +55,8 @@ $configCollection->add('config_advanced',
 
 
 $configCollection->addPrefix('/configuration');
-$rootCollection->addCollection($configCollection);
+$adminCollection->addCollection($configCollection);
 
 
 
-
-return $rootCollection;
+return $adminCollection;

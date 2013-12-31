@@ -12,6 +12,8 @@ class ApplicationOptions
 {
 	protected $aOptions;
 
+	protected $sRootPath;
+
 	public function __construct($sRootPath, array $aOptions = array())
 	{
 		$this->sRootPath = $sRootPath;

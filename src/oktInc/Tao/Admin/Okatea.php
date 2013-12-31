@@ -257,8 +257,8 @@ class Okatea extends Application
 					120,
 					$this->checkPerm('infos')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_update'), 'configuration.php?action=update',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'update'),
+				$this->page->configSubMenu->add(__('c_a_menu_update'), $this->adminRouter->generate('config_update'),
+					$this->request->attributes->get('_route') === 'config_update',
 					130,
 					$this->config->update_enabled && $this->checkPerm('is_superadmin')
 				);

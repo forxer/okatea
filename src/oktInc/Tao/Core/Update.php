@@ -14,7 +14,10 @@ namespace Tao\Core;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Tao\Core\Application;
 use Tao\Core\HttpClient;
+use Tao\Database\XmlSql;
+use Tao\Html\CheckList;
 
 /**
  * Mise à jour automatisée d'Okatea
@@ -560,21 +563,30 @@ class Update
 	{
 		global $okt;
 
-		if (empty($okt) || !($okt instanceof oktCore)) {
+		if (is_null($oChecklist) || !($oChecklist instanceof CheckList)) {
+			$oChecklist = new CheckList();
+		}
+
+		$bOktTest = (!empty($okt) && ($okt instanceof Application));
+
+		$oChecklist->addItem(
+			'okt',
+			$bOktTest,
+			'Valid Okatea instance founded',
+			'Unable to find valid Okatea instance'
+		);
+
+		if (!$bOktTest) {
 			return false;
 		}
 
-		if (is_null($oChecklist) || !($oChecklist instanceof checkList)) {
-			$oChecklist = new Tao\Html\CheckList();
-		}
-
-		foreach (new DirectoryIterator($okt->options->inc_dir.'/sql_schema/') as $oFileInfo)
+		foreach (new \DirectoryIterator($okt->options->inc_dir.'/sql_schema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;
 			}
 
-			$xsql = new xmlsql($okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, 'update');
+			$xsql = new XmlSql($okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, 'update');
 			$xsql->replace('{{PREFIX}}',OKT_DB_PREFIX);
 			$xsql->execute();
 		}

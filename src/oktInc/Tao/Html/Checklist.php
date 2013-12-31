@@ -15,7 +15,7 @@ namespace Tao\Html;
 class CheckList
 {
 	/**
-	 * Liste des varifications.
+	 * Liste des vérifications.
 	 * @var array
 	 */
 	protected $check;
