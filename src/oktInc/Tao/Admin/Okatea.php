@@ -52,7 +52,7 @@ class Okatea extends Application
 	{
 		parent::__construct($autoloader, $sRootPath, $sEnv, $bDebug);
 
-		$this->adminRouter = new AdminRouter($this, __DIR__.'/routes.php', $this->options->get('cache_dir').'/routing/admin', $bDebug);
+		$this->adminRouter = new AdminRouter($this, $this->options->get('config_dir').'/admin_routes.php', $this->options->get('cache_dir').'/routing/admin', $bDebug);
 	}
 
 	/**
@@ -252,8 +252,8 @@ class Okatea extends Application
 					110,
 					$this->checkPerm('tools')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_infos'), 'configuration.php?action=infos',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'infos'),
+				$this->page->configSubMenu->add(__('c_a_menu_infos'), $this->adminRouter->generate('config_infos'),
+					$this->request->attributes->get('_route') === 'config_infos',
 					120,
 					$this->checkPerm('infos')
 				);

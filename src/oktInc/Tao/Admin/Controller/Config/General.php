@@ -26,7 +26,15 @@ class General extends Controller
 
 		# Données de la page
 		$this->aPageData = new \ArrayObject();
-		$this->aPageData['aNewConf'] = array();
+		$this->aPageData['values'] = array();
+
+		$this->generalInit();
+
+		$this->companyInit();
+
+		$this->emailsInit();
+
+		$this->seoInit();
 
 		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSiteInit
 		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->okt, $this->aPageData);
@@ -47,7 +55,7 @@ class General extends Controller
 		{
 			try
 			{
-				$this->okt->config->write($this->aPageData['aNewConf']);
+				$this->okt->config->write($this->aPageData['values']);
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -67,28 +75,28 @@ class General extends Controller
 		$this->aPageData['tabs'][10] = array(
 			'id' => 'tab_general',
 			'title' => __('c_a_config_tab_general'),
-			'content' => $this->renderView('Config/General/Tabs/General')
+			'content' => $this->renderView('Config/General/Tabs/General', array('aPageData' => $this->aPageData))
 		);
 
 		# onglet société
 		$this->aPageData['tabs'][20] = array(
 			'id' => 'tab_company',
 			'title' => __('c_a_config_tab_company'),
-			'content' => $this->renderView('Config/General/Tabs/Company')
+			'content' => $this->renderView('Config/General/Tabs/Company', array('aPageData' => $this->aPageData))
 		);
 
 		# onglet emails
 		$this->aPageData['tabs'][30] = array(
 			'id' => 'tab_emails',
 			'title' => __('c_a_config_tab_email'),
-			'content' => $this->renderView('Config/General/Tabs/Emails')
+			'content' => $this->renderView('Config/General/Tabs/Emails', array('aPageData' => $this->aPageData))
 		);
 
 		# onglet seo
 		$this->aPageData['tabs'][40] = array(
 			'id' => 'tab_seo',
 			'title' => __('c_a_config_tab_seo'),
-			'content' => $this->renderView('Config/General/Tabs/Seo')
+			'content' => $this->renderView('Config/General/Tabs/Seo', array('aPageData' => $this->aPageData))
 		);
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteBuildTabs
@@ -101,14 +109,79 @@ class General extends Controller
 		));
 	}
 
+	protected function generalInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'title' => $this->okt->config->title,
+			'desc' => $this->okt->config->desc
+		));
+	}
+
+	protected function companyInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'company' 			 => array(
+				'name' 				=> $this->okt->config->company['name'],
+				'com_name' 			=> $this->okt->config->company['com_name'],
+				'siret' 			=> $this->okt->config->company['siret']
+			),
+			'schedule' 			 => $this->okt->config->schedule,
+			'leader' 			 => array(
+				'name' 				=> $this->okt->config->leader['name'],
+				'firstname' 		=> $this->okt->config->leader['firstname']
+			),
+			'address' 			 => array(
+				'street' 			=> $this->okt->config->address['street'],
+				'street_2' 			=> $this->okt->config->address['street_2'],
+				'code' 				=> $this->okt->config->address['code'],
+				'city' 				=> $this->okt->config->address['city'],
+				'country'			=> $this->okt->config->address['country'],
+				'tel'				=> $this->okt->config->address['tel'],
+				'mobile'			=> $this->okt->config->address['mobile'],
+				'fax'				=> $this->okt->config->address['fax']
+			),
+			'gps' 			 	=> array(
+				'lat' 			=> $this->okt->config->gps['lat'],
+				'long' 			=> $this->okt->config->gps['long']
+			)
+		));
+	}
+
+	protected function emailsInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'email' => array(
+				'to' => $this->okt->config->email['to'],
+				'from' => $this->okt->config->email['from'],
+				'name' => $this->okt->config->email['name'],
+				'transport' => $this->okt->config->email['transport'],
+				'smtp' => array(
+					'host' => $this->okt->config->email['smtp']['host'],
+					'port' => $this->okt->config->email['smtp']['port'],
+					'username' => $this->okt->config->email['smtp']['username'],
+					'password' => $this->okt->config->email['smtp']['password']
+				),
+				'sendmail' => $this->okt->config->email['sendmail']
+			)
+		));
+	}
+
+	protected function seoInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'title_tag' 		 => $this->okt->config->title_tag,
+			'meta_description' 	 => $this->okt->config->meta_description,
+			'meta_keywords' 	 => $this->okt->config->meta_keywords
+		));
+	}
+
 	protected function generalHandleRequest()
 	{
 		if (!$this->request->request->has('form_sent')) {
 			return null;
 		}
 
-		$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-		$p_desc = !empty($_POST['p_desc']) && is_array($_POST['p_desc'])  ? $_POST['p_desc'] : array();
+		$p_title = $this->request->request->get('p_title', array());
 
 		foreach ($p_title as $sLanguageCode=>$sTitle)
 		{
@@ -123,9 +196,9 @@ class General extends Controller
 			}
 		}
 
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
-			'title' => $p_title,
-			'desc' => $p_desc
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+				'title' => $p_title,
+				'desc' => $this->request->request->get('p_desc', array())
 		));
 	}
 
@@ -135,51 +208,30 @@ class General extends Controller
 			return null;
 		}
 
-		$p_company_name = !empty($_POST['p_company_name']) ? $_POST['p_company_name'] : '';
-		$p_company_com_name = !empty($_POST['p_company_com_name']) ? $_POST['p_company_com_name'] : '';
-		$p_company_siret = !empty($_POST['p_company_siret']) ? $_POST['p_company_siret'] : '';
-
-		$p_schedule = !empty($_POST['p_schedule']) && is_array($_POST['p_schedule']) ? $_POST['p_schedule'] : array();
-
-		$p_leader_name = !empty($_POST['p_leader_name']) ? $_POST['p_leader_name'] : '';
-		$p_leader_firstname = !empty($_POST['p_leader_firstname']) ? $_POST['p_leader_firstname'] : '';
-
-		$p_address_street = !empty($_POST['p_address_street']) ? $_POST['p_address_street'] : '';
-		$p_address_street_2 = !empty($_POST['p_address_street']) ? $_POST['p_address_street_2'] : '';
-		$p_address_code = !empty($_POST['p_address_code']) ? $_POST['p_address_code'] : '';
-		$p_address_city = !empty($_POST['p_address_city']) ? $_POST['p_address_city'] : '';
-		$p_address_country = !empty($_POST['p_address_country']) ? $_POST['p_address_country'] : '';
-		$p_address_tel = !empty($_POST['p_address_tel']) ? $_POST['p_address_tel'] : '';
-		$p_address_mobile = !empty($_POST['p_address_mobile']) ? $_POST['p_address_mobile'] : '';
-		$p_address_fax = !empty($_POST['p_address_fax']) ? $_POST['p_address_fax'] : '';
-
-		$p_gps_lat = !empty($_POST['p_gps_lat']) ? $_POST['p_gps_lat'] : '';
-		$p_gps_long = !empty($_POST['p_gps_long']) ? $_POST['p_gps_long'] : '';
-
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'company' 			 => array(
-					'name' 				=> $p_company_name,
-					'com_name' 			=> $p_company_com_name,
-					'siret' 			=> $p_company_siret
+				'name' 				=> $this->request->request->get('p_company_name'),
+				'com_name' 			=> $this->request->request->get('p_company_com_name'),
+				'siret' 			=> $this->request->request->get('p_company_siret')
 			),
-			'schedule' 			 => $p_schedule,
+			'schedule' 			 => $this->request->request->get('p_schedule', array()),
 			'leader' 			 => array(
-					'name' 				=> $p_leader_name,
-					'firstname' 		=> $p_leader_firstname
+				'name' 				=> $this->request->request->get('p_leader_name'),
+				'firstname' 		=> $this->request->request->get('p_leader_firstname')
 			),
 			'address' 			 => array(
-					'street' 			=> $p_address_street,
-					'street_2' 			=> $p_address_street_2,
-					'code' 				=> $p_address_code,
-					'city' 				=> $p_address_city,
-					'country'			=> $p_address_country,
-					'tel'				=> $p_address_tel,
-					'mobile'			=> $p_address_mobile,
-					'fax'				=> $p_address_fax
+				'street' 			=> $this->request->request->get('p_address_street'),
+				'street_2' 			=> $this->request->request->get('p_address_street_2'),
+				'code' 				=> $this->request->request->get('p_address_code'),
+				'city' 				=> $this->request->request->get('p_address_city'),
+				'country'			=> $this->request->request->get('p_address_country'),
+				'tel'				=> $this->request->request->get('p_address_tel'),
+				'mobile'			=> $this->request->request->get('p_address_mobile'),
+				'fax'				=> $this->request->request->get('p_address_fax')
 			),
 			'gps' 			 	=> array(
-					'lat' 			=> $p_gps_lat,
-					'long' 			=> $p_gps_long,
+				'lat' 			=> $this->request->request->get('p_gps_lat'),
+				'long' 			=> $this->request->request->get('p_gps_long')
 			)
 		));
 	}
@@ -190,7 +242,7 @@ class General extends Controller
 			return null;
 		}
 
-		$p_email_to = !empty($_POST['p_email_to']) ? $_POST['p_email_to'] : '';
+		$p_email_to = $this->request->request->get('p_email_to');
 		if (empty($p_email_to)) {
 			$this->okt->error->set(__('c_a_config_please_enter_email_to'));
 		}
@@ -198,7 +250,7 @@ class General extends Controller
 			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), \html::escapeHTML($p_email_to)));
 		}
 
-		$p_email_from = !empty($_POST['p_email_from']) ? $_POST['p_email_from'] : '';
+		$p_email_from = $this->request->request->get('p_email_from');
 		if (empty($p_email_from)) {
 			$this->okt->error->set(__('c_a_config_please_enter_email_from'));
 		}
@@ -206,29 +258,19 @@ class General extends Controller
 			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), \html::escapeHTML($p_email_from)));
 		}
 
-		$p_email_name = !empty($_POST['p_email_name']) ? $_POST['p_email_name'] : '';
-		$p_email_transport = !empty($_POST['p_email_transport']) ? $_POST['p_email_transport'] : 'mail';
-
-		$p_email_smtp_host = !empty($_POST['p_email_smtp_host']) ? $_POST['p_email_smtp_host'] : '';
-		$p_email_smtp_port = !empty($_POST['p_email_smtp_port']) ? intval($_POST['p_email_smtp_port']) : 25;
-		$p_email_smtp_username = !empty($_POST['p_email_smtp_username']) ? $_POST['p_email_smtp_username'] : '';
-		$p_email_smtp_password = !empty($_POST['p_email_smtp_password']) ? $_POST['p_email_smtp_password'] : '';
-
-		$p_email_sendmail = !empty($_POST['p_email_sendmail']) ? $_POST['p_email_sendmail'] : '';
-
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'email' => array(
 				'to' => $p_email_to,
 				'from' => $p_email_from,
-				'name' => $p_email_name,
-				'transport' => $p_email_transport,
+				'name' => $this->request->request->get('p_email_name'),
+				'transport' => $this->request->request->get('p_email_transport', 'mail'),
 				'smtp' => array(
-					'host' => $p_email_smtp_host,
-					'port' => (integer)$p_email_smtp_port,
-					'username' => $p_email_smtp_username,
-					'password' => $p_email_smtp_password
+					'host' => $this->request->request->get('p_email_smtp_host'),
+					'port' => $this->request->request->getInt('p_email_smtp_host', 25),
+					'username' => $this->request->request->get('p_email_smtp_username'),
+					'password' => $this->request->request->get('p_email_smtp_password')
 				),
-				'sendmail' => $p_email_sendmail
+				'sendmail' => $this->request->request->get('p_email_sendmail')
 			)
 		));
 	}
@@ -239,14 +281,10 @@ class General extends Controller
 			return null;
 		}
 
-		$p_title_tag = !empty($_POST['p_title_tag']) && is_array($_POST['p_title_tag'])  ? $_POST['p_title_tag'] : array();
-		$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description'])  ? $_POST['p_meta_description'] : array();
-		$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords'])  ? $_POST['p_meta_keywords'] : array();
-
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
-			'title_tag' 		 => $p_title_tag,
-			'meta_description' 	 => $p_meta_description,
-			'meta_keywords' 	 => $p_meta_keywords
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'title_tag' 		 => $this->request->request->get('p_title_tag', array()),
+			'meta_description' 	 => $this->request->request->get('p_meta_description', array()),
+			'meta_keywords' 	 => $this->request->request->get('p_meta_keywords', array())
 		));
 	}
 }

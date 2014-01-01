@@ -14,7 +14,7 @@ $okt->page->js->addReady('
 
 <h4><?php _e('c_a_config_advanced_modules_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $okt->config->modules_repositories_enabled) ?>
+<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $aPageData['values']['modules_repositories_enabled']) ?>
 <label for="p_modules_repositories_enabled"><?php _e('c_a_config_advanced_enable_modules_repo') ?></label></p>
 
 <table class="common">
@@ -51,7 +51,7 @@ $okt->page->js->addReady('
 
 <h4><?php _e('c_a_config_advanced_themes_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $okt->config->themes_repositories_enabled) ?>
+<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $aPageData['values']['themes_repositories_enabled']) ?>
 <label for="p_themes_repositories_enabled"><?php _e('c_a_config_advanced_enable_themes_repo') ?></label></p>
 
 <table class="common">

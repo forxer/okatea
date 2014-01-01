@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Route;
 
 $adminCollection = new RouteCollection();
 
-# home page
+# admin home page (will become dashboard ;)
 $adminCollection->add('home',
 	new Route('/', array('_controller' => 'Tao\Admin\Controller\Home::homePage'))
 );
@@ -38,6 +38,9 @@ $configCollection->add('config_display',
 );
 $configCollection->add('config_languages',
 	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
+);
+$configCollection->add('config_infos',
+	new Route('/infos', array('_controller' => 'Tao\Admin\Controller\Config\Infos::page'))
 );
 $configCollection->add('config_update',
 	new Route('/update', array('_controller' => 'Tao\Admin\Controller\Config\Update::page'))

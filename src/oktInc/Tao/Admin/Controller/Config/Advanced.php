@@ -1,10 +1,10 @@
 <?php
 /*
  * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
 namespace Tao\Admin\Controller\Config;
 
@@ -26,7 +26,15 @@ class Advanced extends Controller
 
 		# Données de la page
 		$this->aPageData = new \ArrayObject();
-		$this->aPageData['aNewConf'] = array();
+		$this->aPageData['values'] = array();
+
+		$this->othersInit();
+
+		$this->pathUrlInit();
+
+		$this->repositoriesInit();
+
+		$this->updateInit();
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigInit
 		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->okt, $this->aPageData);
@@ -47,7 +55,7 @@ class Advanced extends Controller
 		{
 			try
 			{
-				$this->okt->config->write($this->aPageData['aNewConf']);
+				$this->okt->config->write($this->aPageData['values']);
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -67,7 +75,7 @@ class Advanced extends Controller
 		$this->aPageData['tabs'][10] = array(
 			'id' => 'tab_path_url',
 			'title' => __('c_a_config_advanced_tab_path_url'),
-			'content' => $this->renderView('Config/Advanced/Tabs/PathUrl')
+			'content' => $this->renderView('Config/Advanced/Tabs/PathUrl', array('aPageData' => $this->aPageData))
 		);
 
 		# onglet dépôts
@@ -75,6 +83,7 @@ class Advanced extends Controller
 			'id' => 'tab_repositories',
 			'title' => __('c_a_config_advanced_tab_repositories'),
 			'content' => $this->renderView('Config/Advanced/Tabs/Repositories', array(
+				'aPageData' => $this->aPageData,
 				'aModulesRepositories' => (array)$this->okt->config->modules_repositories,
 				'aThemesRepositories' => (array)$this->okt->config->themes_repositories
 			))
@@ -84,14 +93,14 @@ class Advanced extends Controller
 		$this->aPageData['tabs'][30] = array(
 			'id' => 'tab_update',
 			'title' => __('c_a_config_advanced_tab_update'),
-			'content' => $this->renderView('Config/Advanced/Tabs/Update')
+			'content' => $this->renderView('Config/Advanced/Tabs/Update', array('aPageData' => $this->aPageData))
 		);
 
 		# onglet autres
 		$this->aPageData['tabs'][40] = array(
 			'id' => 'tab_others',
 			'title' => __('c_a_config_advanced_tab_others'),
-			'content' => $this->renderView('Config/Advanced/Tabs/Others')
+			'content' => $this->renderView('Config/Advanced/Tabs/Others', array('aPageData' => $this->aPageData))
 		);
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigBuildTabs
@@ -100,7 +109,61 @@ class Advanced extends Controller
 		$this->aPageData['tabs']->ksort();
 
 		return $this->render('Config/Advanced/Page', array(
-			'aPageData' => $this->aPageData
+				'aPageData' => $this->aPageData
+		));
+	}
+
+	protected function othersInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'public_maintenance_mode' => $this->okt->config->public_maintenance_mode,
+			'admin_maintenance_mode' => $this->okt->config->admin_maintenance_mode,
+
+			'htmlpurifier_disabled' => $this->okt->config->htmlpurifier_disabled,
+
+			'user_visit' => array(
+				'timeout' => $this->okt->config->user_visit['timeout'],
+				'remember_time' => $this->okt->config->user_visit['remember_time']
+			),
+
+			'log_admin' => array(
+				'ttl_months' => $this->okt->config->log_admin['ttl_months']
+			),
+
+			'news_feed' => array(
+				'enabled' => $this->okt->config->news_feed['enabled'],
+				'url' => $this->okt->config->news_feed['url']
+			),
+
+			'slug_type' => $this->okt->config->slug_type
+		));
+	}
+
+	protected function pathUrlInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'app_path' => $this->okt->config->app_path,
+			'domain' => $this->okt->config->domain
+		));
+	}
+
+	protected function repositoriesInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'modules_repositories_enabled' => $this->okt->config->modules_repositories_enabled,
+			'modules_repositories' => $this->okt->config->modules_repositories,
+
+			'themes_repositories_enabled' => $this->okt->config->themes_repositories_enabled,
+			'themes_repositories' => $this->okt->config->themes_repositories
+		));
+	}
+
+	protected function updateInit()
+	{
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+			'update_enabled' => $this->okt->config->update_enabled,
+			'update_url' => $this->okt->config->update_url,
+			'update_type' => $this->okt->config->update_type
 		));
 	}
 
@@ -110,7 +173,7 @@ class Advanced extends Controller
 			return null;
 		}
 
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'public_maintenance_mode' => $this->request->request->has('p_public_maintenance_mode'),
 			'admin_maintenance_mode' => $this->request->request->has('p_admin_maintenance_mode'),
 
@@ -140,9 +203,9 @@ class Advanced extends Controller
 			return null;
 		}
 
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
-			'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
-			'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
+				'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
+				'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
 		));
 	}
 	protected function repositoriesHandleRequest()
@@ -151,7 +214,7 @@ class Advanced extends Controller
 			return null;
 		}
 
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'modules_repositories_enabled' => $this->request->request->has('p_modules_repositories_enabled'),
 			'modules_repositories' => array_combine(
 				$this->request->request->get('p_modules_repositories_names', array()),
@@ -172,7 +235,7 @@ class Advanced extends Controller
 			return null;
 		}
 
-		$this->aPageData['aNewConf'] = array_merge($this->aPageData['aNewConf'], array(
+		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'update_enabled' => $this->request->request->has('p_update_enabled'),
 			'update_url' => $this->request->request->get('p_update_url'),
 			'update_type' => $this->request->request->get('p_update_type')
