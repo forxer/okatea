@@ -17,10 +17,10 @@ $okt->page->openLinkInDialog('#changelog_link',array(
 </p>
 
 <h4><?php _e('c_a_infos_okatea_prerequisites') ?></h4>
-<?php foreach ($aOkateaInfos['requirements'] as $group) : ?>
+<?php foreach ($aOkateaInfos['requirements'] as $i => $group) : ?>
 
 	<h5><?php echo $group['group_title'] ?></h5>
-	<?php echo ${'check_'.$group['group_id']}->getHTML(); ?>
+	<?php echo $aOkateaInfos['requirements'][$i]['check_'.$group['group_id']]->getHTML(); ?>
 
 <?php endforeach; ?>
 

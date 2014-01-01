@@ -45,7 +45,7 @@ class Infos extends Controller
 		# -- TRIGGER CORE INFOS PAGE : adminInfosInit
 		$this->okt->triggers->callTrigger('adminInfosInit', $this->okt, $this->aPageData);
 
-		$this->aNotesHandleRequest();
+		$this->notesHandleRequest();
 
 		$this->okateaHandleRequest();
 
@@ -143,22 +143,22 @@ class Infos extends Controller
 
 		require $this->okt->options->inc_dir.'/systeme_requirements.php';
 
-		foreach ($requirements as $group)
+		foreach ($requirements as $i => $group)
 		{
-			${'check_'.$group['group_id']} = new CheckList();
+			$requirements[$i]['check_'.$group['group_id']] = new CheckList();
 
 			foreach ($group['requirements'] as $requirement) {
-				${'check_'.$group['group_id']}->addItem($requirement['id'],$requirement['test'],$requirement['msg_ok'],$requirement['msg_ko']);
+				$requirements[$i]['check_'.$group['group_id']]->addItem($requirement['id'],$requirement['test'],$requirement['msg_ok'],$requirement['msg_ko']);
 			}
 		}
 
 		$pass_test = true;
 		$warning_empty = true;
 
-		foreach ($requirements as $group)
+		foreach ($requirements as $i => $group)
 		{
-			$pass_test = $pass_test && ${'check_'.$group['group_id']}->checkAll();
-			$warning_empty = $warning_empty && !${'check_'.$group['group_id']}->checkWarnings();
+			$pass_test = $pass_test && $requirements[$i]['check_'.$group['group_id']]->checkAll();
+			$warning_empty = $warning_empty && !$requirements[$i]['check_'.$group['group_id']]->checkWarnings();
 		}
 
 		$this->aOkateaInfos['pass_test'] = $pass_test;

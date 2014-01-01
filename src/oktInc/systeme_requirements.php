@@ -152,7 +152,7 @@ $requirements[0]['requirements'][] = array(
 
 
 /* Détails des pré-requis "files"
-----------------------------------------------------------*/
+----------------------------------------------------------
 
 # Vérification des droits sur /oktConf
 $requirements[1]['requirements'][] = array(
@@ -209,4 +209,4 @@ $requirements[1]['requirements'][] = array(
 	'msg_ok' 	=> sprintf(__('pr_oktthemes_ok'), OKT_THEMES_DIR),
 	'msg_ko'	=> sprintf(__('pr_oktthemes_ko'), OKT_THEMES_DIR)
 );
-
+*/
