@@ -1,24 +1,3 @@
-<?php
-/*
- * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-
-/**
- * Outil gestion du cache (partie affichage)
- *
- * @addtogroup Okatea
- *
- */
-
-
-# Accès direct interdit
-if (!defined('ON_OKT_CONFIGURATION')) die;
-
-?>
 
 <h3><?php _e('c_a_tools_cache_title') ?></h3>
 
@@ -34,15 +13,15 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	foreach ($aCacheFiles as $sFile) :
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
-		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
-		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.OKT_INC_DIR.'/'.OKT_CACHE_DIR ?></td>
+		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($sFile) ?></th>
+		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('inc_dir')).'/'.basename($okt->options->get('cache_dir')) ?></td>
 		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime($okt->options->get('cache_dir').'/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
-					<a href="configuration.php?action=tools&amp;cache_file=<?php echo html::escapeHTML($sFile) ?>"
-					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete')) ?>')"
-					title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($sFile)) ?>"
+					<a href="<?php echo $view->generateUrl('config_tools') ?>?cache_file=<?php echo $view->escape($sFile) ?>"
+					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
+					title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($sFile)) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
@@ -54,15 +33,15 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	<?php foreach ($aPublicCacheFiles as $sFile) :
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
-		<th class="<?php echo $sTdClass ?> fake-td"><?php echo html::escapeHTML($sFile) ?></th>
+		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($sFile) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('public_dir')).'/cache'?></td>
 		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime($okt->options->public_dir.'/cache/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
-					<a href="configuration.php?action=tools&amp;public_cache_file=<?php echo html::escapeHTML($sFile) ?>"
-					onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete')) ?>')"
-					title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($sFile)) ?>"
+					<a href="<?php echo $view->generateUrl('config_tools') ?>?public_cache_file=<?php echo $view->escape($sFile) ?>"
+					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
+					title="<?php printf(__('c_c_action_Delete_%s'),$view->escape($sFile)) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
@@ -73,6 +52,6 @@ if (!defined('ON_OKT_CONFIGURATION')) die;
 	</tbody>
 </table>
 
-<p><a href="configuration.php?action=tools&amp;all_cache_file=1"
-onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_tools_cache_confirm_delete_all')) ?>')"
+<p><a href="<?php echo $view->generateUrl('config_tools') ?>?all_cache_file=1"
+onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete_all')) ?>')"
 class="icon cross"><?php _e('c_a_tools_cache_delete_all') ?></a></p>

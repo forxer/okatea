@@ -39,6 +39,9 @@ $configCollection->add('config_display',
 $configCollection->add('config_languages',
 	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
 );
+$configCollection->add('config_tools',
+	new Route('/tools', array('_controller' => 'Tao\Admin\Controller\Config\Tools::page'))
+);
 $configCollection->add('config_infos',
 	new Route('/infos', array('_controller' => 'Tao\Admin\Controller\Config\Infos::page'))
 );

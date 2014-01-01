@@ -49,6 +49,7 @@ $GLOBALS['__l10n']['c_a_tools_htaccess_title'] = '.htaccess';
 
 $GLOBALS['__l10n']['c_a_tools_htaccess_created'] = 'The .htaccess file was created.';
 $GLOBALS['__l10n']['c_a_tools_htaccess_edited'] = 'The .htaccess file was edited.';
+$GLOBALS['__l10n']['c_a_tools_htaccess_deleted'] = 'The .htaccess file was deleted.';
 
 $GLOBALS['__l10n']['c_a_tools_htaccess_allready_exists'] = 'The .htaccess file already exists.';
 $GLOBALS['__l10n']['c_a_tools_htaccess_template_not_exists'] = 'The template file .htaccess.oktDist does not exist.';

@@ -50,6 +50,10 @@ class General extends Controller
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
 		$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->okt, $this->aPageData);
 
+		if ($this->response->isRedirect()) {
+			return $this->response;
+		}
+
 		# save configuration
 		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
 		{

@@ -75,6 +75,10 @@ class Languages extends Controller
 
 		$this->updateConfiguration();
 
+		if ($this->response->isRedirect()) {
+			return $this->response;
+		}
+
 		# Liste des langues
 		$rsLanguages = $this->okt->languages->getLanguages();
 

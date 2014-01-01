@@ -247,8 +247,8 @@ class Okatea extends Application
 					100,
 					$this->checkPerm('permissions')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_tools'), 'configuration.php?action=tools',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'tools'),
+				$this->page->configSubMenu->add(__('c_a_menu_tools'), $this->adminRouter->generate('config_tools'),
+					$this->request->attributes->get('_route') === 'config_tools',
 					110,
 					$this->checkPerm('tools')
 				);

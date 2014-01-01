@@ -198,7 +198,7 @@ $okt->page->js->addReady('
 				class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 				- <a href="<?php echo $view->generateUrl('config_languages') ?>?delete=<?php echo $rsLanguages->id ?>"
-				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_l10n_confirm_delete')) ?>')"
+				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_l10n_confirm_delete')) ?>')"
 				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsLanguages->title)) ?>"
 				class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 

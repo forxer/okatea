@@ -1,9 +1,10 @@
 <?php
 
+
 $view->extend('layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_infos'));
+$okt->page->addGlobalTitle(__('c_a_tools'));
 
 # js
 $okt->page->tabs();
@@ -16,7 +17,6 @@ $okt->page->tabs();
 		<li><a href="#<?php echo $aTabInfos['id'] ?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
 		<?php endforeach; ?>
 	</ul>
-
 	<?php foreach ($aPageData['tabs'] as $sTabUrl=>$aTabInfos) : ?>
 	<div id="<?php echo $aTabInfos['id'] ?>">
 		<?php echo $aTabInfos['content'] ?>

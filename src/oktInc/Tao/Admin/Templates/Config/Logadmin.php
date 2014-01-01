@@ -33,7 +33,7 @@ elseif ($okt->logAdmin->oConfig->admin_filters_style == 'dialog')
 	# Display a UI dialog box
 	$okt->page->js->addReady("
 		$('#filters-form').dialog({
-			title: '".html::escapeJS(__('c_a_config_logadmin_display_filters'))."',
+			title: '".$view->escapeJs(__('c_a_config_logadmin_display_filters'))."',
 			autoOpen: false,
 			modal: true,
 			width: 600,
@@ -110,7 +110,7 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 
 
 <p><a href="<?php $view->generateUrl('config_logadmin') ?>?truncate=1" class="icon cross" onclick="return window.confirm('<?php
-echo html::escapeJS(__('c_a_config_logadmin_confirm_truncate')) ?>')"><?php _e('c_a_config_logadmin_truncate') ?></a></p>
+echo $view->escapeJs(__('c_a_config_logadmin_confirm_truncate')) ?>')"><?php _e('c_a_config_logadmin_truncate') ?></a></p>
 
 
 <div class="checklistlegend">

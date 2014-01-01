@@ -22,6 +22,8 @@ class Infos extends Controller
 
 	protected $aOkateaInfos;
 
+	protected $aMysqlInfos;
+
 	public function page()
 	{
 		if (!$this->okt->checkPerm('infos')) {
@@ -55,6 +57,10 @@ class Infos extends Controller
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosHandleRequest
 		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->okt, $this->aPageData);
+
+		if ($this->response->isRedirect()) {
+			return $this->response;
+		}
 
 		# Construction des onglets
 		$this->aPageData['tabs'] = new \ArrayObject;
@@ -93,7 +99,10 @@ class Infos extends Controller
 		$this->aPageData['tabs'][40] = array(
 			'id' => 'tab-mysql',
 			'title' => __('c_a_infos_mysql'),
-			'content' => $this->renderView('Config/Infos/Tabs/Mysql', array('aPageData' => $this->aPageData))
+			'content' => $this->renderView('Config/Infos/Tabs/Mysql', array(
+				'aPageData' => $this->aPageData,
+				'aMysqlInfos' => $this->aMysqlInfos
+			))
 		);
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosBuildTabs
@@ -168,6 +177,31 @@ class Infos extends Controller
 
 	protected function mysqlInit()
 	{
+		$this->aMysqlInfos = array(
+			'table' => $this->request->query->get('table')
+		);
+
+		$rs = $this->okt->db->select('SELECT VERSION() AS db_version');
+		$this->aMysqlInfos['db_version'] = $rs->db_version;
+
+		if ($this->aMysqlInfos['table']) {
+			$this->aMysqlInfos['table_infos'] = $this->okt->db->select('SHOW FULL COLUMNS FROM `'.$this->okt->db->escapeStr($this->aMysqlInfos['table']).'`');
+		}
+
+		$this->aMysqlInfos['db_infos'] = $this->okt->db->select('SHOW TABLE STATUS FROM `'.$this->okt->db->escapeStr(OKT_DB_NAME).'`');
+
+		$this->aMysqlInfos['num_tables'] = 0;
+		$this->aMysqlInfos['num_rows'] = 0;
+		$this->aMysqlInfos['db_size'] = 0;
+		$this->aMysqlInfos['db_pertes'] = 0;
+
+		while ($this->aMysqlInfos['db_infos']->fetch())
+		{
+			$this->aMysqlInfos['num_tables']++;
+			$this->aMysqlInfos['num_rows'] += $this->aMysqlInfos['db_infos']->rows;
+			$this->aMysqlInfos['db_size'] += $this->aMysqlInfos['db_infos']->data_length + $this->aMysqlInfos['db_infos']->index_length;
+			$this->aMysqlInfos['db_pertes'] += $this->aMysqlInfos['db_infos']->data_free;
+		}
 	}
 
 	protected function phpInit()

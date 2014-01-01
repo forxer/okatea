@@ -50,6 +50,10 @@ class Advanced extends Controller
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigHandleRequest
 		$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->okt, $this->aPageData);
 
+		if ($this->response->isRedirect()) {
+			return $this->response;
+		}
+
 		# save configuration
 		if (!empty($_POST['form_sent']) && $this->okt->error->isEmpty())
 		{
