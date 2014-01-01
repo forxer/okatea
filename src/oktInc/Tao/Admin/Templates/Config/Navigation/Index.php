@@ -1,67 +1,6 @@
 <?php
-/*
- * This file is part of Okatea.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
-
-/**
- * Page d'administration des menus de navigation
- *
- * @addtogroup Okatea
- *
- */
-
-use Tao\Misc\Utilities as util;
-
-# Accès direct interdit
-if (!defined('ON_OKT_CONFIGURATION')) die;
-
-
-/* Initialisations
-----------------------------------------------------------*/
-
-
-/* Traitements
-----------------------------------------------------------*/
-
-# switch statut
-if (!empty($_GET['switch_status']))
-{
-	try
-	{
-		$okt->navigation->switchMenuStatus($_GET['switch_status']);
-
-		$okt->page->flash->success(__('c_a_config_navigation_menu_switched'));
-
-		http::redirect('configuration.php?action=navigation&do=index');
-	}
-	catch (Exception $e) {
-		$okt->error->set($e->getMessage());
-	}
-}
-
-# suppression d'un menu
-if (!empty($_GET['delete_menu']))
-{
-	try
-	{
-		$okt->navigation->delMenu($_GET['delete_menu']);
-
-		$okt->page->flash->success(__('c_a_config_navigation_menu_deleted'));
-
-		http::redirect('configuration.php?action=navigation&do=index');
-	}
-	catch (Exception $e) {
-		$okt->error->set($e->getMessage());
-	}
-}
-
-
-/* Affichage
-----------------------------------------------------------*/
+$view->extend('layout');
 
 $rsMenus = $okt->navigation->getMenus(array(
 	'active' => 2
@@ -87,21 +26,18 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' 	=> true,
 			'title' 		=> __('c_a_config_navigation_add_menu'),
-			'url' 			=> 'configuration.php?action=navigation&amp;do=menu',
+			'url' 			=> $view->generateUrl('config_navigation').'?do=menu',
 			'ui-icon' 		=> 'plusthick',
 		),
 		array(
 			'permission' 	=> true,
 			'title' 		=> __('c_a_config_navigation_config'),
-			'url' 			=> 'configuration.php?action=navigation&amp;do=config',
+			'url' 			=> $view->generateUrl('config_navigation').'?do=config',
 			'ui-icon' 		=> 'gear',
 		)
 	)
 ));
-
-
-# En-tête
-require OKT_ADMIN_HEADER_FILE; ?>
+?>
 
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
@@ -129,31 +65,31 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		}
 	?>
 	<tr>
-		<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="configuration.php?action=navigation&amp;do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
-		echo html::escapeHTML($rsMenus->title) ?></a></th>
+		<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
+		echo $view->escape($rsMenus->title) ?></a></th>
 
 		<td class="<?php echo $td_class ?> nowrap">
 			<ul class="actions">
 				<li>
 				<?php if ($rsMenus->active) : ?>
-				<a href="configuration.php?action=navigation&amp;do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Hide_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
-				<a href="configuration.php?action=navigation&amp;do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Display_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
 				<li>
-				<a href="configuration.php?action=navigation&amp;do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Edit_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_c_action_Edit_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon pencil"><?php _e('c_c_action_edit')?></a>
 				</li>
 				<li>
-				<a href="configuration.php?action=navigation&amp;do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
-				title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon delete"><?php _e('c_c_action_delete')?></a>
 				</li>
 			</ul>
@@ -173,7 +109,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<?php if (isset($rsMenus->items) && !$rsMenus->items->isEmpty()) : ?>
 			<ul>
 				<?php while ($rsMenus->items->fetch()) : ?>
-				<li><?php echo html::escapeHTML($rsMenus->items->title) ?></li>
+				<li><?php echo $view->escape($rsMenus->items->title) ?></li>
 				<?php endwhile; ?>
 			</ul>
 			<?php endif; ?>
@@ -182,13 +118,13 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<td class="<?php echo $td_class ?>">
 			<ul class="actions">
 				<li>
-				<a href="configuration.php?action=navigation&amp;do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
 				</li>
 				<li>
-				<a href="configuration.php?action=navigation&amp;do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), util::escapeAttrHTML($rsMenus->title)) ?>"
+				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
+				title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon application_add"><?php _e('c_a_config_navigation_add_item')?></a>
 				</li>
 			</ul>
@@ -198,7 +134,3 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	</tbody>
 </table>
 <?php endif; ?>
-
-
-<?php # Pied-de-page
-require OKT_ADMIN_FOOTER_FILE; ?>

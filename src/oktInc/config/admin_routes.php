@@ -39,6 +39,9 @@ $configCollection->add('config_display',
 $configCollection->add('config_languages',
 	new Route('/languages', array('_controller' => 'Tao\Admin\Controller\Config\Languages::page'))
 );
+$configCollection->add('config_navigation',
+	new Route('/navigation', array('_controller' => 'Tao\Admin\Controller\Config\Navigation::page'))
+);
 $configCollection->add('config_permissions',
 	new Route('/permissions', array('_controller' => 'Tao\Admin\Controller\Config\Permissions::page'))
 );

@@ -162,7 +162,7 @@ class Display extends Controller
 				{
 					$this->okt->config->write($aNewConfig);
 
-					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 					return $this->redirect($this->generateUrl('config_display'));
 				}

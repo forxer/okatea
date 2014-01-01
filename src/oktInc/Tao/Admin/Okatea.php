@@ -237,8 +237,8 @@ class Okatea extends Application
 					80,
 					$this->checkPerm('themes')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_navigation'), 'configuration.php?action=navigation',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'navigation' || $this->page->action === 'navigation'),
+				$this->page->configSubMenu->add(__('c_a_menu_navigation'), $this->adminRouter->generate('config_navigation'),
+					$this->request->attributes->get('_route') === 'config_navigation',
 					90,
 					$this->checkPerm('navigation')
 				);

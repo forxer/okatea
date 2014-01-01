@@ -272,7 +272,7 @@ class Infos extends Controller
 				$this->okt->error->set($this->okt->db->error());
 			}
 
-			$this->okt->page->flash->success(__('c_a_infos_mysql_table_optimized'));
+			$this->page->flash->success(__('c_a_infos_mysql_table_optimized'));
 
 			$this->redirect($this->generateUrl('config_infos'));
 		}
@@ -286,7 +286,7 @@ class Infos extends Controller
 				$this->okt->error->set($this->okt->db->error());
 			}
 
-			$this->okt->page->flash->success(__('c_a_infos_mysql_table_truncated'));
+			$this->page->flash->success(__('c_a_infos_mysql_table_truncated'));
 
 			$this->redirect($this->generateUrl('config_infos'));
 		}
@@ -300,7 +300,7 @@ class Infos extends Controller
 				$this->okt->error->set($this->okt->db->error());
 			}
 
-			$this->okt->page->flash->success(__('c_a_infos_mysql_table_droped'));
+			$this->page->flash->success(__('c_a_infos_mysql_table_droped'));
 
 			$this->redirect($this->generateUrl('config_infos'));
 		}

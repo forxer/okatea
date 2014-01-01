@@ -59,7 +59,7 @@ class Permissions extends Controller
 				$this->okt->db->execute($query);
 			}
 
-			$this->okt->page->flash->success(__('c_a_config_permissions_updated'));
+			$this->page->flash->success(__('c_a_config_permissions_updated'));
 
 			return $this->redirect($this->generateUrl('config_permissions'));
 		}
