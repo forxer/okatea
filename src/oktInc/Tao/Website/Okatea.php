@@ -117,7 +117,7 @@ class Okatea extends Application
 	 */
 	protected function loadTheme()
 	{
-		require_once $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
+		require $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
 
 		$this->theme = new \oktTheme($this);
 	}

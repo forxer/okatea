@@ -63,7 +63,7 @@ class Update extends Controller
 			return $this->redirect($this->generateUrl('home'));
 		}
 
-		$sBaseSelfUrl = $this->generateUrl('config_update').'?do_not_check='.(!empty($_GET['do_not_check']) ? '1' : '0');
+		$sBaseSelfUrl = $this->generateUrl('config_update').'?do_not_check='.($this->request->query->has('do_not_check') ? '1' : '0');
 
 		$sStep = $this->request->query->get('step', '');
 		$sStep = in_array($sStep, array('check', 'download', 'backup', 'unzip', 'done')) ? $sStep : '';

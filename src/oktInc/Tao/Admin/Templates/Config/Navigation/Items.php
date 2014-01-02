@@ -1,11 +1,8 @@
 <?php
 
-$rsItems = $okt->navigation->getItems(array(
-	'menu_id' => $iMenuId,
-	'language' => $okt->user->language,
-	'active' => 2
-));
+use Tao\Forms\Statics\FormElements as form;
 
+$view->extend('layout');
 
 # Sortable
 $okt->page->js->addReady('
@@ -85,21 +82,21 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 
 		<?php if ($rsItems->active) : ?>
 		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;disable=<?php echo $rsItems->id ?>"
-		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Disable_%s'), $rsItems->title)) ?>"
+		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $rsItems->title)) ?>"
 		class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 		<?php else : ?>
 		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;enable=<?php echo $rsItems->id ?>"
-		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Enable_%s'), $rsItems->title)) ?>"
+		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $rsItems->title)) ?>"
 		class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 		<?php endif; ?>
 
 		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $iMenuId ?>&amp;item_id=<?php echo $rsItems->id ?>"
-		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Edit_%s'), $rsItems->title)) ?>"
+		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $rsItems->title)) ?>"
 		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;delete=<?php echo $rsItems->id ?>"
 		onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_item_delete_confirm')) ?>')"
-		title="<?php echo util::escapeAttrHTML(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
+		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
 		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 
 	</li>

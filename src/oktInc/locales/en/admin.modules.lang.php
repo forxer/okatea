@@ -34,6 +34,8 @@ $GLOBALS['__l10n']['c_a_modules_remove_module_confirm'] = 'Are you sure you want
 $GLOBALS['__l10n']['c_a_modules_correctly_uninstalled'] = 'The module was correctly uninstalled.';
 $GLOBALS['__l10n']['c_a_modules_not_uninstalled'] = 'The module was not uninstalled.';
 
+$GLOBALS['__l10n']['c_a_modules_reinstall_module'] = 'Reinstall module';
+$GLOBALS['__l10n']['c_a_modules_reinstall_module_%s'] = 'Reinstall module %s';
 $GLOBALS['__l10n']['c_a_modules_reinstall_module_confirm'] = 'Are you sure you want to re-install this module? All data associated with him will be permanently removed.';
 $GLOBALS['__l10n']['c_a_modules_correctly_reinstalled'] = 'The module was correctly re-installed.';
 $GLOBALS['__l10n']['c_a_modules_not_correctly_reinstalled'] = 'The module was not correctly re-installed.';

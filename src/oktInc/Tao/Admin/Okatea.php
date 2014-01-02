@@ -227,8 +227,8 @@ class Okatea extends Application
 					60,
 					$this->checkPerm('languages')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_modules'), 'configuration.php?action=modules',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'modules'),
+				$this->page->configSubMenu->add(__('c_a_menu_modules'), $this->adminRouter->generate('config_modules'),
+					$this->request->attributes->get('_route') === 'config_modules',
 					70,
 					$this->checkPerm('modules')
 				);

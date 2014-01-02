@@ -55,7 +55,7 @@ class Advanced extends Controller
 		}
 
 		# save configuration
-		if (!empty($_POST['form_sent']) && $this->okt->error->isEmpty())
+		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
 		{
 			try
 			{

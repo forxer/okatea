@@ -567,43 +567,6 @@ class Collection
 	}
 
 	/**
-	 * Make a package of a module
-	 *
-	 * @param string $id
-	 * @return boolean
-	 */
-	public function dowloadModule($id)
-	{
-		$module_path = $full_entry = $this->path.'/'.$id;
-		$filename = 'module-'.$id.'-'.date('Y-m-d-H-i').'.zip';
-
-		if (!is_dir($module_path) || !is_readable($module_path) || !file_exists($full_entry.'/_define.php')) {
-			return false;
-		}
-
-		try
-		{
-			set_time_limit(0);
-			$fp = fopen('php://output','wb');
-			$zip = new \fileZip($fp);
-			$zip->addExclusion('#(^|/).svn$#');
-			$zip->addDirectory($module_path,'',true);
-
-			header('Content-Disposition: attachment;filename='.$filename);
-			header('Content-Type: application/x-zip');
-			$zip->write();
-			unset($zip);
-			exit;
-		}
-		catch (Exception $e)
-		{
-			$this->error->set($e->getMessage());
-			return false;
-		}
-	}
-
-
-	/**
 	 * Install a module from a zip file
 	 *
 	 * @param string $zip_file

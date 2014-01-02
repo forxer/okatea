@@ -1,5 +1,9 @@
 <?php
 
+use Tao\Forms\Statics\FormElements as form;
+
+$view->extend('layout');
+
 if (!empty($iMenuId)) {
 	$okt->page->addGlobalTitle(__('c_a_config_navigation_edit_menu'));
 }
@@ -39,14 +43,6 @@ if ($iMenuId)
 		'ui-icon' 		=> 'pencil'
 	));
 }
-
-
-# Liste des templates utilisables
-$oTemplates = new TemplatesSet($okt, $okt->config->navigation_tpl, 'navigation', 'navigation');
-$aTplChoices = array_merge(
-	array('&nbsp;' => null),
-	$oTemplates->getUsablesTemplatesForSelect($okt->config->navigation_tpl['usables'])
-);
 
 ?>
 

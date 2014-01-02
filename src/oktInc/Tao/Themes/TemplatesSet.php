@@ -216,10 +216,30 @@ class TemplatesSet
 		}
 
 		# then, get current theme templates
-		$aThemeTemplates = (array)glob($this->okt->theme->path.'/templates/'.$this->sBase.'/*/template.php');
+		$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme.'/templates/'.$this->sBase.'/*/template.php');
 
 		foreach ($aThemeTemplates as $sTemplatePath) {
 			$this->aTemplatesPath[] = $sTemplatePath;
+		}
+
+		# if we have a mobile theme, search in it
+		if (!empty($this->okt->config->theme_mobile))
+		{
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme_mobile.'/templates/'.$this->sBase.'/*/template.php');
+
+			foreach ($aThemeTemplates as $sTemplatePath) {
+				$this->aTemplatesPath[] = $sTemplatePath;
+			}
+		}
+
+		# finaly, search for templates in tablet theme
+		if (!empty($this->okt->config->theme_tablet))
+		{
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme_tablet.'/templates/'.$this->sBase.'/*/template.php');
+
+			foreach ($aThemeTemplates as $sTemplatePath) {
+				$this->aTemplatesPath[] = $sTemplatePath;
+			}
 		}
 	}
 
@@ -289,7 +309,7 @@ class TemplatesSet
 	{
 		global $okt;
 
-		return util::getNextSubDir($sTplPath, $this->okt->options->get('themes_dir'));
+		return util::getNextSubDir($sTplPath, $okt->options->get('themes_dir'));
 	}
 
 	/**

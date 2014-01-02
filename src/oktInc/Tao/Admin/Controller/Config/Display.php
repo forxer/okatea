@@ -133,7 +133,7 @@ class Display extends Controller
 
 					files::deltree($sTempDir);
 
-					$_POST['p_admin_theme'] = 'custom';
+					$this->request->request->set('p_admin_theme', 'custom');
 				}
 				catch (Exception $e) {
 					files::deltree($sTempDir);

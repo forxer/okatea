@@ -12,7 +12,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' 	=> true,
 			'title' 		=> __('c_c_action_Go_back'),
-			'url' 			=> 'configuration.php?action=navigation&amp;do=index',
+			'url' 			=> $view->generateUrl('config_navigation').'?do=index',
 			'ui-icon' 		=> 'arrowreturnthick-1-w',
 		)
 	)

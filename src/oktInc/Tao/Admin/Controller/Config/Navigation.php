@@ -48,15 +48,17 @@ class Navigation extends Controller
 	protected function index()
 	{
 		# switch statut
-		if (!empty($_GET['switch_status']))
+		$iMenuIdSwitchStatus = $this->request->query->getInt('switch_status');
+
+		if ($iMenuIdSwitchStatus)
 		{
 			try
 			{
-				$this->okt->navigation->switchMenuStatus($_GET['switch_status']);
+				$this->okt->navigation->switchMenuStatus($iMenuIdSwitchStatus);
 
 				$this->page->flash->success(__('c_a_config_navigation_menu_switched'));
 
-				return $this->redirect($this->generateUrl('config_navigation').'?do=index');
+				return $this->redirect($this->generateUrl('config_navigation'));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());
@@ -64,11 +66,12 @@ class Navigation extends Controller
 		}
 
 		# suppression d'un menu
-		if (!empty($_GET['delete_menu']))
+		$iMenuIdDelete = $this->request->query->getInt('delete_menu');
+		if ($iMenuIdDelete)
 		{
 			try
 			{
-				$this->okt->navigation->delMenu($_GET['delete_menu']);
+				$this->okt->navigation->delMenu($iMenuIdDelete);
 
 				$this->page->flash->success(__('c_a_config_navigation_menu_deleted'));
 
@@ -95,10 +98,9 @@ class Navigation extends Controller
 		);
 
 		# menu update ?
-		if (!empty($_REQUEST['menu_id']))
+		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
+		if ($iMenuId)
 		{
-			$iMenuId = intval($_REQUEST['menu_id']);
-
 			$rsMenu = $this->okt->navigation->getMenu($iMenuId);
 
 			if ($rsMenu->isEmpty())
@@ -117,12 +119,12 @@ class Navigation extends Controller
 		}
 
 		# add/update a menu
-		if (!empty($_POST['sended']))
+		if ($this->request->request->has('sended'))
 		{
 			$aMenuData = array(
-				'title' => !empty($_POST['p_title']) ? $_POST['p_title'] : '',
-				'active' => !empty($_POST['p_active']) ? 1 : 0,
-				'tpl' => !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : ''
+				'title' => $this->request->request->get('p_title', ''),
+				'active' => $this->request->request->has('p_active') ? 1 : 0,
+				'tpl' => $this->request->request->get('p_tpl', '')
 			);
 
 			# update menu
@@ -138,9 +140,9 @@ class Navigation extends Controller
 
 						# log admin
 						$this->okt->logAdmin->info(array(
-						'code' => 41,
-						'component' => 'menus',
-						'message' => 'menu #'.$iMenuId
+							'code' => 41,
+							'component' => 'menus',
+							'message' => 'menu #'.$iMenuId
 						));
 
 						$this->page->flash->success(__('c_a_config_navigation_menu_updated'));
@@ -164,9 +166,9 @@ class Navigation extends Controller
 
 						# log admin
 						$this->okt->logAdmin->info(array(
-						'code' => 40,
-						'component' => 'menus',
-						'message' => 'menu #'.$iMenuId
+							'code' => 40,
+							'component' => 'menus',
+							'message' => 'menu #'.$iMenuId
 						));
 
 						$this->page->flash->success(__('c_a_config_navigation_menu_added'));
@@ -180,15 +182,23 @@ class Navigation extends Controller
 			}
 		}
 
+		# Liste des templates utilisables
+		$oTemplates = new TemplatesSet($this->okt, $this->okt->config->navigation_tpl, 'navigation', 'navigation');
+		$aTplChoices = array_merge(
+			array('&nbsp;' => null),
+			$oTemplates->getUsablesTemplatesForSelect($this->okt->config->navigation_tpl['usables'])
+		);
+
 		return $this->render('Config/Navigation/Menu', array(
 			'iMenuId' => $iMenuId,
-			'aMenuData' => $aMenuData
+			'aMenuData' => $aMenuData,
+			'aTplChoices' => $aTplChoices
 		));
 	}
 
 	protected function items()
 	{
-		$iMenuId = !empty($_REQUEST['menu_id']) ? intval($_REQUEST['menu_id']) : null;
+		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
 
 		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
 
@@ -197,9 +207,9 @@ class Navigation extends Controller
 		}
 
 		# AJAX : changement de l'ordre des éléments
-		if (!empty($_GET['ajax_update_order']))
+		if ($this->request->query->has('ajax_update_order'))
 		{
-			$aItemsOrder = !empty($_GET['ord']) && is_array($_GET['ord']) ? $_GET['ord'] : array();
+			$aItemsOrder = $this->request->query->get('ord', array());
 
 			if (!empty($aItemsOrder))
 			{
@@ -214,11 +224,11 @@ class Navigation extends Controller
 		}
 
 		# POST : changement de l'ordre des langues
-		if (!empty($_POST['order_items']))
+		if ($this->request->request->has('order_items'))
 		{
 			try
 			{
-				$aItemsOrder = !empty($_POST['p_order']) && is_array($_POST['p_order']) ? $_POST['p_order'] : array();
+				$aItemsOrder = $this->request->query->get('p_order', array());
 
 				asort($aItemsOrder);
 
@@ -243,11 +253,12 @@ class Navigation extends Controller
 		}
 
 		# activation d'un élément
-		if (!empty($_GET['enable']))
+		$iItemIdEnable = $this->request->query->getInt('enable');
+		if ($iItemIdEnable)
 		{
 			try
 			{
-				$this->okt->navigation->setItemStatus($_GET['enable'], 1);
+				$this->okt->navigation->setItemStatus($iItemIdEnable, 1);
 
 				$this->page->flash->success(__('c_a_config_navigation_item_enabled'));
 
@@ -259,11 +270,12 @@ class Navigation extends Controller
 		}
 
 		# désactivation d'un élément
-		if (!empty($_GET['disable']))
+		$iItemIdDisable = $this->request->query->getInt('disable');
+		if ($iItemIdDisable)
 		{
 			try
 			{
-				$this->okt->navigation->setItemStatus($_GET['disable'], 0);
+				$this->okt->navigation->setItemStatus($iItemIdDisable, 0);
 
 				$this->page->flash->success(__('c_a_config_navigation_item_disabled'));
 
@@ -275,11 +287,12 @@ class Navigation extends Controller
 		}
 
 		# suppression d'un élément
-		if (!empty($_GET['delete']))
+		$iItemIdDelete = $this->request->query->getInt('delete');
+		if ($iItemIdDelete)
 		{
 			try
 			{
-				$this->okt->navigation->delItem($_GET['delete']);
+				$this->okt->navigation->delItem($iItemIdDelete);
 
 				$this->page->flash->success(__('c_a_config_navigation_item_deleted'));
 
@@ -290,14 +303,22 @@ class Navigation extends Controller
 			}
 		}
 
-		return $this->render('Config/Navigation/Items', array(
+		$rsItems = $this->okt->navigation->getItems(array(
+			'menu_id' => $iMenuId,
+			'language' => $this->okt->user->language,
+			'active' => 2
+		));
 
+		return $this->render('Config/Navigation/Items', array(
+			'iMenuId' => $iMenuId,
+			'rsMenu' => $rsMenu,
+			'rsItems' => $rsItems
 		));
 	}
 
 	protected function item()
 	{
-		$iMenuId = !empty($_REQUEST['menu_id']) ? intval($_REQUEST['menu_id']) : null;
+		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
 
 		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
 
@@ -306,10 +327,10 @@ class Navigation extends Controller
 		}
 
 		# Données de l'élément
-		$aItemData = new ArrayObject();
+		$aItemData = new \ArrayObject();
 
 		$aItemData['item'] = array();
-		$aItemData['item']['id'] = null;
+		$aItemData['item']['id'] = $this->request->query->getInt('item_id', $this->request->request->getInt('item_id'));
 
 		$aItemData['item']['menu_id'] = $iMenuId;
 		$aItemData['item']['active'] = 1;
@@ -326,10 +347,8 @@ class Navigation extends Controller
 		}
 
 		# item update ?
-		if (!empty($_REQUEST['item_id']))
+		if ($aItemData['item']['id'])
 		{
-			$aItemData['item']['id'] = intval($_REQUEST['item_id']);
-
 			$rsItem = $this->okt->navigation->getItem($aItemData['item']['id']);
 
 			if ($rsItem->isEmpty())
@@ -360,15 +379,15 @@ class Navigation extends Controller
 		}
 
 		#  ajout / modifications d'un élément
-		if (!empty($_POST['sended']))
+		if ($this->request->request->has('sended'))
 		{
-			$aItemData['item']['active'] = !empty($_POST['p_active']) ? 1 : 0;
-			$aItemData['item']['type'] = !empty($_POST['p_type']) ? intval($_POST['p_type']) : 0;
+			$aItemData['item']['active'] = $this->request->request->has('p_active') ? 1 : 0;
+			$aItemData['item']['type'] = $this->request->request->has('p_type') ? 1 : 0;
 
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				$aItemData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
-				$aItemData['locales'][$aLanguage['code']]['url'] = !empty($_POST['p_url'][$aLanguage['code']]) ? $_POST['p_url'][$aLanguage['code']] : '';
+				$aItemData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
+				$aItemData['locales'][$aLanguage['code']]['url'] = $this->request->request->get('p_url['.$aLanguage['code'].']', '', true);
 			}
 
 			# update item
@@ -407,9 +426,9 @@ class Navigation extends Controller
 
 						# log admin
 						$this->okt->logAdmin->info(array(
-						'code' => 40,
-						'component' => 'menu item',
-						'message' => 'item #'.$iItemId
+							'code' => 40,
+							'component' => 'menu item',
+							'message' => 'item #'.$iItemId
 						));
 
 						$this->page->flash->success(__('c_a_config_navigation_item_added'));
@@ -424,7 +443,9 @@ class Navigation extends Controller
 		}
 
 		return $this->render('Config/Navigation/Item', array(
-
+			'iMenuId' => $iMenuId,
+			'rsMenu' => $rsMenu,
+			'aItemData' => $aItemData
 		));
 	}
 
@@ -443,13 +464,11 @@ class Navigation extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$new_conf = array(
-					'navigation_tpl' => $p_tpl
-				);
-
 				try
 				{
-					$this->okt->config->write($new_conf);
+					$this->okt->config->write(array(
+						'navigation_tpl' => $p_tpl
+					));
 
 					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 

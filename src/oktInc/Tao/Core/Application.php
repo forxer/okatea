@@ -245,7 +245,7 @@ class Application
 
 		$this->navigation = new Menus($this);
 
-		$this->modules = new ModulesCollection($this, $this->options->get('module_dir'), $this->options->modules_url);
+		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'), $this->options->modules_url);
 	}
 
 	/**

@@ -54,10 +54,10 @@ class module_rte_tinymce_4 extends Module
 		$sLanguageCode = strtolower($okt->user->language);
 		$sSpecificLanguageCode = strtolower($okt->user->language).'_'.strtoupper($okt->user->language);
 
-		if (file_exists($this->okt->options->get('module_dir').'/rte_tinymce_4/tinymce/langs/'.$sLanguageCode.'.js')) {
+		if (file_exists($this->okt->options->get('modules_dir').'/rte_tinymce_4/tinymce/langs/'.$sLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sLanguageCode.'"';
 		}
-		elseif (file_exists($this->okt->options->get('module_dir').'/rte_tinymce_4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
+		elseif (file_exists($this->okt->options->get('modules_dir').'/rte_tinymce_4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sSpecificLanguageCode.'"';
 		}
 

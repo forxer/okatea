@@ -61,7 +61,7 @@ class Process extends Module
 	/**
 	 * Constructeur
 	 *
-	 * @param core $okt
+	 * @param core $this->okt
 	 * @param string $id
 	 * @return void
 	 */
@@ -216,7 +216,7 @@ class Process extends Module
 		# suppression des fichiers assets
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
-			$sAssetsDir = $okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/';
+			$sAssetsDir = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/';
 
 			if (file_exists($sAssetsDir))
 			{
