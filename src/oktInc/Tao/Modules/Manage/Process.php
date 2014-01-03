@@ -54,6 +54,12 @@ class Process extends Module
 
 	/**
 	 *
+	 * @var Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles
+	 */
+	protected $routesAdminFiles;
+
+	/**
+	 *
 	 * @var Tao\Modules\Manage\Component\Comparator\Comparator
 	 */
 	protected $comparator;
@@ -234,6 +240,9 @@ class Process extends Module
 
 		# suppression des fichiers de routes
 		$this->getRoutesFiles()->delete();
+
+		# suppression des fichiers des routes admin
+		$this->getRoutesAdminFiles()->delete();
 
 		# suppression du module de la base de données
 		$this->checklist->addItem(
@@ -658,10 +667,10 @@ class Process extends Module
 			'Module id can not be one of:'.implode('", "', self::$aReservedIds)
 		);
 
-		# présence du fichier /module.php
+		# présence du fichier /Module.php
 		$this->checklist->addItem(
 			'module_file',
-			file_exists($this->root().'/module.php'),
+			file_exists($this->root().'/Module.php'),
 			'Module handler file exists',
 			'Module handler file doesn\'t exists'
 		);
@@ -669,20 +678,22 @@ class Process extends Module
 		# existence de la class module_<id_module>
 		if ($this->checklist->checkItem('module_file'))
 		{
-			include $this->root().'/module.php';
+			include $this->root().'/Module.php';
+
+			$sClassName = 'Okatea\\Module\\'.$this->id().'\\Module';
 
 			$this->checklist->addItem(
 				'module_class',
-				class_exists('module_'.$this->id()),
-				'Module handler class "module_'.$this->id().'" exists',
-				'Module handler class "module_'.$this->id().'" doesn\'t exists'
+				class_exists($sClassName),
+				'Module handler class "'.$sClassName.'" exists',
+				'Module handler class "'.$sClassName.'" doesn\'t exists'
 			);
 
 			$this->checklist->addItem(
 				'module_class_valide',
-				is_subclass_of('module_'.$this->id(),'\\Tao\\Modules\\Module'),
-				'Module handler class "module_'.$this->id().'" is a valid module class',
-				'Module handler class "module_'.$this->id().'" is not a valid module class'
+				is_subclass_of($sClassName,'\\Tao\\Modules\\Module'),
+				'Module handler class "'.$sClassName.'" is a valid module class',
+				'Module handler class "'.$sClassName.'" is not a valid module class'
 			);
 		}
 
@@ -712,6 +723,9 @@ class Process extends Module
 
 		# copie des éventuels fichiers de routes
 		$this->getRoutesFiles()->process();
+
+		# copie des éventuels fichiers de routes admin
+		$this->getRoutesAdminFiles()->process();
 	}
 
 	/**
@@ -768,8 +782,19 @@ class Process extends Module
 	{
 		if (null === $this->routesFiles) {
 			$this->routesFiles = new RoutesFiles($this->okt, $this);
+			$this->routesFiles->setRoutesDirectory('routes');
 		}
 
 		return $this->routesFiles;
+	}
+
+	protected function getRoutesAdminFiles()
+	{
+		if (null === $this->routesAdminFiles) {
+			$this->routesAdminFiles = new RoutesFiles($this->okt, $this);
+			$this->routesAdminFiles->setRoutesDirectory('routes_admin');
+		}
+
+		return $this->routesAdminFiles;
 	}
 }

@@ -52,7 +52,12 @@ class Okatea extends Application
 	{
 		parent::__construct($autoloader, $sRootPath, $sEnv, $bDebug);
 
-		$this->adminRouter = new AdminRouter($this, $this->options->get('config_dir').'/admin_routes.php', $this->options->get('cache_dir').'/routing/admin', $bDebug);
+		$this->adminRouter = new AdminRouter(
+			$this,
+			$this->options->get('config_dir').'/routes_admin',
+			$this->options->get('cache_dir').'/routing/admin',
+			$bDebug
+		);
 	}
 
 	/**
@@ -91,6 +96,7 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		$this->setTplDirectory(__DIR__.'/templates/%name%.php');
+		$this->setTplDirectory($this->options->get('modules_dir').'/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);

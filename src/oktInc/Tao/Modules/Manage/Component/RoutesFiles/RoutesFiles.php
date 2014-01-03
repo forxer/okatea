@@ -12,6 +12,18 @@ use Tao\Modules\Manage\Component\ComponentBase;
 
 class RoutesFiles extends ComponentBase
 {
+	protected $sRoutesDirectory;
+
+	public function setRoutesDirectory($sRoutesDirectory)
+	{
+		$this->sRoutesDirectory = $sRoutesDirectory;
+	}
+
+	public function getRoutesDirectory()
+	{
+		return $this->sRoutesDirectory ? $this->sRoutesDirectory : 'routes';
+	}
+
 	/**
 	 * Copy/merge routes files.
 	 *
@@ -27,7 +39,7 @@ class RoutesFiles extends ComponentBase
 
 		foreach ($oFiles as $oFile)
 		{
-			$sRouteFile = $this->okt->options->get('config_dir').'/routes/'.$oFile->getRelativePathname();
+			$sRouteFile = $this->okt->options->get('config_dir').'/'.$this->getRoutesDirectory().'/'.$oFile->getRelativePathname();
 
 			if (file_exists($sRouteFile)) {
 				$this->merge($oFile, $sRouteFile);
@@ -52,12 +64,12 @@ class RoutesFiles extends ComponentBase
 
 		foreach ($oFiles as $oFile)
 		{
-			$sFilePath = $this->okt->options->get('config_dir').'/routes/'.$oFile->getRelativePathname();
+			$sFilePath = $this->okt->options->get('config_dir').'/'.$this->getRoutesDirectory().'/'.$oFile->getRelativePathname();
 
 			if (file_exists($sFilePath))
 			{
 				$this->checklist->addItem(
-					'routes_file_'.$oFile->getRelativePath().'_'.$oFile->getBasename($oFile->getExtension()),
+					$this->getRoutesDirectory().'_file_'.$oFile->getRelativePath().'_'.$oFile->getBasename($oFile->getExtension()),
 					unlink($sFilePath),
 					'Remove routes file '.$oFile->getRelativePathname(),
 					'Cannot remove routes file '.$oFile->getRelativePathname()
@@ -65,7 +77,7 @@ class RoutesFiles extends ComponentBase
 			}
 			else {
 				$this->checklist->addItem(
-					'routes_file_'.$oFile->getRelativePath().'_'.$oFile->getBasename($oFile->getExtension()),
+					$this->getRoutesDirectory().'_file_'.$oFile->getRelativePath().'_'.$oFile->getBasename($oFile->getExtension()),
 					null,
 					'Routes file '.$oFile->getRelativePathname().' doesn\'t exists',
 					'Routes file '.$oFile->getRelativePathname().' doesn\'t exists'
@@ -81,7 +93,7 @@ class RoutesFiles extends ComponentBase
 	protected function copy($sNewFile, $sRouteFile)
 	{
 		$this->checklist->addItem(
-			'routes_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
+			$this->getRoutesDirectory().'_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
 			$this->getFs()->copy($sNewFile->getRealPath(), $sRouteFile),
 			'Copy routes file '.$sNewFile->getRelativePathname(),
 			'Cannot copy routes file '.$sNewFile->getRelativePathname()
@@ -95,7 +107,7 @@ class RoutesFiles extends ComponentBase
 	protected function merge($sNewFile, $sRouteFile)
 	{
 		$this->checklist->addItem(
-			'merging_routes_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
+			$this->getRoutesDirectory().'_merging_file_'.$sNewFile->getRelativePath().'_'.$sNewFile->getBasename($sNewFile->getExtension()),
 			$this->doMerging($sNewFile->getRealPath(), $sRouteFile),
 			'Merging routes file '.$sNewFile->getRelativePathname(),
 			'Cannot merging routes file '.$sNewFile->getRelativePathname()
@@ -119,7 +131,7 @@ class RoutesFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/install/routes';
+		$sPath = $this->module->root().'/install/'.$this->getRoutesDirectory();
 
 		if (is_dir($sPath))
 		{

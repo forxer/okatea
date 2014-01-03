@@ -113,7 +113,7 @@ class Advanced extends Controller
 		$this->aPageData['tabs']->ksort();
 
 		return $this->render('Config/Advanced/Page', array(
-				'aPageData' => $this->aPageData
+			'aPageData' => $this->aPageData
 		));
 	}
 

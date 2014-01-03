@@ -13,7 +13,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Tao\Core\Application;
-use Tao\Routing\Loader\YamlDirectoryLoader;
+use Tao\Routing\Loader\YamlDirectoryLoaderLocalizer;
 
 class Router extends BaseRouter
 {
@@ -34,14 +34,16 @@ class Router extends BaseRouter
 		}
 
 		parent::__construct(
-			new YamlDirectoryLoader(
+			new YamlDirectoryLoaderLocalizer(
 				$app,
 				new FileLocator($ressources_dir
 			)),
 			$ressources_dir,
 			array(
 				'cache_dir' => $cache_dir,
-				'debug' => $debug
+				'debug' => $debug,
+				'generator_cache_class'  => 'OkateaUrlGenerator',
+				'matcher_cache_class'    => 'OkateaUrlMatcher'
 			),
 			$app->requestContext,
 			$logger
@@ -63,7 +65,11 @@ class Router extends BaseRouter
 			}
 		}
 
-		return $this->getGenerator()->generate($name, $parameters, $referenceType);
+		/*
+		 * @TODO : this is a quicky dirty hack to link from the admin to the website
+		 * str_replace('/admin/', '/', ...
+		 */
+		return str_replace('/admin/', '/', $this->getGenerator()->generate($name, $parameters, $referenceType));
 	}
 
 	/**

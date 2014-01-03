@@ -165,9 +165,9 @@ class Collection
 
 		foreach ($aModulesList as $module_id=>$module_infos)
 		{
-			$class = 'module_'.$module_id;
+			$class = 'Okatea\\Module\\'.$module_id.'\\Module';
 
-			require $this->path.'/'.$module_id.'/module.php';
+			require $this->path.'/'.$module_id.'/Module.php';
 
 			if (class_exists($class,false))
 			{

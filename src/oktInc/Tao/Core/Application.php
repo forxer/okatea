@@ -493,7 +493,7 @@ class Application
 		return array(
 			'app_path' => $this->config->app_path,
 			'user_language' => $this->user->language,
-			'theme_url' => $this->theme->url,
+		//	'theme_url' => $this->theme->url,
 			'website_title' => $this->config->title[$this->user->language],
 			'website_desc' => $this->config->desc[$this->user->language],
 

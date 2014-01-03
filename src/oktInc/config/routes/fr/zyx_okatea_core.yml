@@ -3,11 +3,11 @@
 
 404:
     path:     /404
-    defaults: { _controller: Tao\Core\Controller::serve404 }
+    defaults: { _controller: Tao\Website\Controller::serve404 }
 
 503:
     path:     /503
-    defaults: { _controller: Tao\Core\Controller::serve503 }
+    defaults: { _controller: Tao\Website\Controller::serve503 }
     
 remove_trailing_slash:
     path:     /{url}

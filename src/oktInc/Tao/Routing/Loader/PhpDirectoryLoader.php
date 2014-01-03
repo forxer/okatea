@@ -9,16 +9,15 @@
 namespace Tao\Routing\Loader;
 
 use Symfony\Component\Config\Resource\DirectoryResource;
-use Symfony\Component\Routing\Loader\YamlFileLoader as BaseYamlFileLoader;
-use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * YamlDirectoryLoader loads routing information
- * from Yaml routing files.
+ * PhpDirectoryLoader loads routing information
+ * from PHP routing files.
  *
  */
-class YamlDirectoryLoader extends BaseYamlFileLoader
+class PhpDirectoryLoader extends PhpFileLoader
 {
 	/**
 	 * Loads from Yaml file from a directory.
@@ -35,7 +34,7 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 		$dir = $this->locator->locate($path);
 
 		$collection = new RouteCollection();
-		$collection->addResource(new DirectoryResource($dir, '/\.yml$/'));
+		$collection->addResource(new DirectoryResource($dir, '/\.php$/'));
 		$files = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY));
 		usort($files, function (\SplFileInfo $a, \SplFileInfo $b) {
 			return (string) $a > (string) $b ? 1 : -1;
@@ -43,7 +42,7 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 
 		foreach ($files as $file)
 		{
-			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), -4)) {
+			if (!$file->isFile() || '.php' !== substr($file->getFilename(), -4)) {
 				continue;
 			}
 
@@ -53,17 +52,5 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 		return $collection;
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function supports($resource, $type = null)
-	{
-		try {
-			$path = $this->locator->locate($resource);
-		} catch (\Exception $e) {
-			return false;
-		}
 
-		return is_string($resource) && is_dir($path) && (!$type || 'yaml' === $type);
-	}
 }
