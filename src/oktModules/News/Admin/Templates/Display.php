@@ -15,7 +15,7 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 
 ?>
 
-<form action="<?php echo $view->generateUrl('news_display') ?>" method="post">
+<form action="<?php echo $view->generateUrl('News_display') ?>" method="post">
 	<div id="tabered">
 		<ul>
 			<li><a href="#tab_public"><span><?php _e('m_news_display_tab_public') ?></span></a></li>

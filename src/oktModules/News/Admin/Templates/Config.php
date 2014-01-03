@@ -26,7 +26,7 @@ $okt->page->updatePermissionsCheckboxes();
 
 ?>
 
-<form action="<?php $view->generateUrl('news_config') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php $view->generateUrl('News_config') ?>" method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>
 			<li><a href="#tab_general"><span><?php _e('m_news_config_tab_general') ?></span></a></li>

@@ -12,7 +12,7 @@ $okt->page->setButtonset('newsBtSt',array(
 		array(
 			'permission' => ($okt->page->action !== 'add'),
 			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('news_post_add'),
+			'url' => $view->generateUrl('News_post_add'),
 			'ui-icon' => 'plusthick',
 			'active' => empty($aPostData['post']['id']),
 		)
@@ -23,7 +23,7 @@ $okt->page->setButtonset('newsBtSt',array(
 $okt->page->addButton('newsBtSt',array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_Go_back'),
-	'url' 			=> $view->generateUrl('news_index'),
+	'url' 			=> $view->generateUrl('News_index'),
 	'ui-icon' 		=> 'arrowreturnthick-1-w',
 ),'before');
 
@@ -36,7 +36,7 @@ if (!empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt',array(
 		'permission' 	=> ($aPostData['post']['active'] <= 1 && $aPermissions['bCanEditPost']),
 		'title' 		=> ($aPostData['post']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
-		'url' 			=> $view->generateUrl('news_post', array('post_id' => $aPostData['post']['id'])).'?switch_status=1',
+		'url' 			=> $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?switch_status=1',
 		'ui-icon' 		=> ($aPostData['post']['active'] ? 'volume-on' : 'volume-off'),
 		'active' 		=> $aPostData['post']['active'],
 	));
@@ -44,14 +44,14 @@ if (!empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt',array(
 		'permission' 	=> ($aPostData['post']['active'] == 2 && $aPermissions['bCanPublish']),
 		'title' 		=> __('c_c_action_Publish'),
-		'url' 			=> $view->generateUrl('news_post', array('post_id' => $aPostData['post']['id'])).'?publish=1',
+		'url' 			=> $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?publish=1',
 		'ui-icon' 		=> 'clock'
 	));
 	# bouton de suppression si autorisé
 	$okt->page->addButton('newsBtSt',array(
 		'permission' 	=> $aPermissions['bCanDelete'],
 		'title' 		=> __('c_c_action_Delete'),
-		'url' 			=> $view->generateUrl('news_index').'?delete='.$aPostData['post']['id'],
+		'url' 			=> $view->generateUrl('News_index').'?delete='.$aPostData['post']['id'],
 		'ui-icon' 		=> 'closethick',
 		'onclick' 		=> 'return window.confirm(\''.html::escapeJS(__('m_news_post_delete_confirm')).'\')',
 	));
@@ -59,7 +59,7 @@ if (!empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt',array(
 		'permission' 	=> ($aPostData['post']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> $okt->router->generate('newsItem', array('slug' => $aPostData['locales'][$okt->user->language]['slug']), true),
+		'url' 			=> $okt->router->generate('newsItem', array('slug' => $aPostData['locales'][$okt->user->language]['slug']), null, true),
 		'ui-icon' 		=> 'extlink'
 	));
 }
@@ -110,7 +110,7 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 <?php endif; ?>
 
 
-<form id="post-form" action="<?php echo !empty($aPostData['post']['id']) ? $view->generateUrl('news_post', array('post_id' => $aPostData['post']['id'])) : $view->generateUrl('news_post_add'); ?>" method="post" enctype="multipart/form-data">
+<form id="post-form" action="<?php echo !empty($aPostData['post']['id']) ? $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])) : $view->generateUrl('News_post_add'); ?>" method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>
 			<?php foreach ($aPostData['tabs'] as $aTabInfos) : ?>

@@ -201,6 +201,10 @@ class Recordset extends BaseRecordset
 	 */
 	public function getPostUrl($sLanguage=null)
 	{
+		if (empty($this->slug)) {
+			return null;
+		}
+
 		return $this->okt->router->generate('newsItem', array('slug' => $this->slug), $sLanguage);
 	}
 
@@ -212,6 +216,10 @@ class Recordset extends BaseRecordset
 	 */
 	public function getCategoryUrl($sLanguage=null)
 	{
+		if (empty($this->category_slug)) {
+			return null;
+		}
+
 		return $this->okt->router->generate('newsCategory', array('slug' => $this->category_slug), $sLanguage);
 	}
 

@@ -1,38 +1,38 @@
 
-news_index:
+News_index:
     path:     /news/{page}
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Index::page, page: 1 }
     requirements:
         page:  \d+
 
-news_post_add:
+News_post_add:
     path:     /news/post/add
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Post::add }
     
-news_post:
+News_post:
     path:     /news/post/{post_id}
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Post::edit }
     requirements:
         post_id:  \d+
 
-news_categories:
+News_categories:
     path:     /news/categories
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Categories::page }
 
-news_category_add:
+News_category_add:
     path:     /news/category/add
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Category::add }
 
-news_category:
+News_category:
     path:     /news/category/{category_id}
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Category::edit }
     requirements:
         category_id:  \d+
 
-news_display:
+News_display:
     path:     /news/display
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Display::page }
 
-news_config:
+News_config:
     path:     /news/configuration
     defaults: { _controller: Okatea\Module\News\Admin\Controller\Config::page }

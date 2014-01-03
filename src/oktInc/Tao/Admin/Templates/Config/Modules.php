@@ -21,24 +21,6 @@ foreach ($aInstalledModules as $aModule)
 			'height' => 500
 		));
 	}
-
-	if (file_exists($aModule['root'].'/DEPENDANCE'))
-	{
-		$okt->page->openLinkInDialog('#'.$aModule['id'].'_dependance_link',array(
-			'title' => html::escapeJS($aModule['name_l10n']." DEPENDANCE"),
-			'width' => 730,
-			'height' => 500
-		));
-	}
-
-	if (file_exists($aModule['root'].'/READ_ME'))
-	{
-		$okt->page->openLinkInDialog('#'.$aModule['id'].'_readme_link',array(
-			'title' => html::escapeJS($aModule['name_l10n']." READ ME"),
-			'width' => 730,
-			'height' => 500
-		));
-	}
 }
 
 # Toggle
@@ -97,33 +79,23 @@ $okt->page->loader('.lazy-load');
 
 			# title
 			$module_title = '<h4 class="title">'.$aModule['name_l10n'].'</h4>';
-			if ($aModule['status']) {
-				$module_title = '<a href="module.php?m='.$aModule['id'].'">'.$module_title.'</a>';
+			if ($aModule['status'] && $okt->adminRouter->routeExists($aModule['id'].'_index')) {
+				$module_title = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_index').'">'.$module_title.'</a>';
 			}
 
 			# links
 			$module_links = array();
-			$changelog_content = array();
 			if (file_exists($aModule['root'].'/CHANGELOG'))
 			{
 				$module_links[] = '<a href="'.$view->generateUrl('config_modules').'?show_changelog='.$aModule['id'].'"'.
 				' id="'.$aModule['id'].'_changelog_link">'.__('c_a_modules_changelog').'</a>';
 			}
-			if (file_exists($aModule['root'].'/DEPENDANCE'))
-			{
-				$module_links[] = '<a href="'.$view->generateUrl('config_modules').'?show_dependance='.$aModule['id'].'"'.
-				' id="'.$aModule['id'].'_dependance_link">'.__('c_a_modules_dependance').'</a>';
+
+			if ($okt->adminRouter->routeExists($aModule['id'].'_display')) {
+				$module_links[] = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_display').'">'.__('c_a_modules_display').'</a>';
 			}
-			if (file_exists($aModule['root'].'/READ_ME'))
-			{
-				$module_links[] = '<a href="'.$view->generateUrl('config_modules').'?show_readme='.$aModule['id'].'"'.
-				' id="'.$aModule['id'].'_readme_link">'.__('c_a_modules_read_me').'</a>';
-			}
-			if (file_exists($aModule['root'].'/inc/admin/display.php')) {
-				$module_links[] = '<a href="module.php?m='.$aModule['id'].'&amp;action=display">'.__('c_a_modules_display').'</a>';
-			}
-			if (file_exists($aModule['root'].'/inc/admin/config.php')) {
-				$module_links[] = '<a href="module.php?m='.$aModule['id'].'&amp;action=config">'.__('c_a_modules_config').'</a>';
+			if ($okt->adminRouter->routeExists($aModule['id'].'_config')) {
+				$module_links[] = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_config').'">'.__('c_a_modules_config').'</a>';
 			}
 		?>
 		<tr>

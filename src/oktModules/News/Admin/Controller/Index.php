@@ -179,7 +179,7 @@ class Index extends Controller
 
 		$this->okt->News->filters->initFilters();
 
-		return $this->redirect($this->generateUrl('news_index'));
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 
 	protected function deletePost()
@@ -203,7 +203,7 @@ class Index extends Controller
 
 			$this->okt->page->flash->success(__('m_news_list_post_deleted'));
 
-			return $this->redirect($this->generateUrl('news_index'));
+			return $this->redirect($this->generateUrl('News_index'));
 		}
 		catch (Exception $e) {
 			$this->okt->error->set($e->getMessage());
@@ -230,7 +230,7 @@ class Index extends Controller
 				'message' => 'post #'.$iPostId
 			));
 
-			return $this->redirect($this->generateUrl('news_index'));
+			return $this->redirect($this->generateUrl('News_index'));
 		}
 		catch (Exception $e) {
 			$this->okt->error->set($e->getMessage());
@@ -255,7 +255,7 @@ class Index extends Controller
 			'message' => 'post #'.$iPostId
 		));
 
-		return $this->redirect($this->generateUrl('news_index'));
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 
 	protected function selectPost()
@@ -277,7 +277,7 @@ class Index extends Controller
 
 		$this->okt->page->flash->success(__('m_news_list_post_selected'));
 
-		return $this->redirect($this->generateUrl('news_index'));
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 
 	protected function unselectPost()
@@ -299,7 +299,7 @@ class Index extends Controller
 
 		$this->okt->page->flash->success(__('m_news_list_post_deselected'));
 
-		return $this->redirect($this->generateUrl('news_index'));
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 
 	protected function publishPost()
@@ -321,7 +321,7 @@ class Index extends Controller
 
 		$this->okt->page->flash->success(__('m_news_list_post_published'));
 
-		return $this->redirect($this->generateUrl('news_index'));
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 
 	protected function batches()
@@ -351,7 +351,7 @@ class Index extends Controller
 					));
 				}
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 			elseif ($sAction === 'hide')
 			{
@@ -367,7 +367,7 @@ class Index extends Controller
 					));
 				}
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 			elseif ($sAction === 'publish')
 			{
@@ -385,7 +385,7 @@ class Index extends Controller
 
 				$this->okt->page->flash->success(__('m_news_list_posts_published'));
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 			elseif ($sAction === 'selected')
 			{
@@ -403,7 +403,7 @@ class Index extends Controller
 
 				$this->okt->page->flash->success(__('m_news_list_posts_selected'));
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 			elseif ($sAction === 'unselected')
 			{
@@ -421,7 +421,7 @@ class Index extends Controller
 
 				$this->okt->page->flash->success(__('m_news_list_posts_deselected'));
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 			elseif ($sAction === 'delete' && $this->okt->checkPerm('news_delete'))
 			{
@@ -439,7 +439,7 @@ class Index extends Controller
 
 				$this->okt->page->flash->success(__('m_news_list_posts_deleted'));
 
-				return $this->redirect($this->generateUrl('news_index'));
+				return $this->redirect($this->generateUrl('News_index'));
 			}
 		}
 		catch (Exception $e) {

@@ -48,7 +48,7 @@ class Display extends Controller
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-				return $this->redirect($this->generateUrl('news_display'));
+				return $this->redirect($this->generateUrl('News_display'));
 			}
 			catch (InvalidArgumentException $e)
 			{

@@ -42,7 +42,7 @@ class Post extends Controller
 
 				$this->page->flash->success(__('m_news_post_added'));
 
-				return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+				return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());
@@ -139,7 +139,7 @@ class Post extends Controller
 					'message' => 'post #'.$this->aPostData['post']['id']
 				));
 
-				return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+				return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());
@@ -160,7 +160,7 @@ class Post extends Controller
 
 			$this->page->flash->success(__('m_news_post_published'));
 
-			return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+			return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 		}
 
 		# suppression d'une image
@@ -175,7 +175,7 @@ class Post extends Controller
 				'message' => 'post #'.$this->aPostData['post']['id']
 			));
 
-			return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+			return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 		}
 
 		# suppression d'un fichier
@@ -190,7 +190,7 @@ class Post extends Controller
 				'message' => 'post #'.$this->aPostData['post']['id']
 			));
 
-			return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+			return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 		}
 
 		if ($this->populateDataFromPost())
@@ -214,7 +214,7 @@ class Post extends Controller
 
 				$this->page->flash->success(__('m_news_post_updated'));
 
-				return $this->redirect($this->generateUrl('news_post', array('post_id' => $this->aPostData['post']['id'])));
+				return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());

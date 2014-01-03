@@ -11,7 +11,7 @@ $this->extend('layout');
 # Autocomplétion du formulaire de recherche
 $okt->page->js->addReady('
 	$("#search").autocomplete({
-		source: "'.$view->generateUrl('news_index').'?json=1&search=",
+		source: "'.$view->generateUrl('News_index').'?json=1&search=",
 		minLength: 2
 	});
 ');
@@ -32,7 +32,7 @@ $okt->page->setButtonset('newsBtSt',array(
 		array(
 			'permission' => ($okt->page->action !== 'add'),
 			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('news_post_add'),
+			'url' => $view->generateUrl('News_post_add'),
 			'ui-icon' => 'plusthick'
 		)
 	)
@@ -114,7 +114,7 @@ $okt->page->css->addCss('
 		<?php echo $okt->page->getButtonSet('newsBtSt'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="<?php echo $view->generateUrl('news_index') ?>" method="get" id="search_form" class="search_form">
+		<form action="<?php echo $view->generateUrl('News_index') ?>" method="get" id="search_form" class="search_form">
 			<p><label for="search"><?php _e('m_news_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, html::escapeHTML((isset($sSearch) ? $sSearch : ''))); ?>
 
@@ -124,14 +124,14 @@ $okt->page->css->addCss('
 </div>
 
 <?php # formulaire des filtres ?>
-<form action="<?php echo $view->generateUrl('news_index') ?>" method="get" id="filters-form">
+<form action="<?php echo $view->generateUrl('News_index') ?>" method="get" id="filters-form">
 	<fieldset>
 		<legend><?php _e('m_news_display_filters') ?></legend>
 
 		<?php echo $okt->News->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
 		<p><input type="submit" name="<?php echo $okt->News->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
-		<a href="<?php echo $view->generateUrl('news_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a></p>
+		<a href="<?php echo $view->generateUrl('News_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a></p>
 
 	</fieldset>
 </form>
@@ -154,7 +154,7 @@ if ($iNumFilteredPosts == 0) : ?>
 <?php # Si on as des articles à afficher
 if (!$rsPosts->isEmpty()) : ?>
 
-<form action="<?php echo $view->generateUrl('news_index') ?>" method="post" id="posts-list">
+<form action="<?php echo $view->generateUrl('News_index') ?>" method="post" id="posts-list">
 
 	<table class="common">
 		<caption><?php _e('m_news_list_table_caption') ?></caption>
@@ -178,7 +178,7 @@ if (!$rsPosts->isEmpty()) : ?>
 				<?php if ($rsPosts->selected) : ?><span class="icon star"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 2) : ?><span class="icon time"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 3) : ?><span class="icon clock"></span><?php endif; ?>
-				<a href="<?php echo $view->generateUrl('news_post', array('post_id' => $rsPosts->id)) ?>"><?php
+				<a href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"><?php
 				echo html::escapeHTML($rsPosts->title) ?></a>
 			</th>
 
@@ -224,18 +224,18 @@ if (!$rsPosts->isEmpty()) : ?>
 			<td class="<?php echo $rsPosts->odd_even ?> small nowrap">
 				<ul class="actions">
 				<?php if ($rsPosts->active == 0) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
 					class="icon cross"><?php _e('c_c_action_Hidden') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 1) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
 					class="icon tick"><?php _e('c_c_action_Visible') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 2) : ?>
 					<?php if ($rsPosts->isPublishable()) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?publish=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?publish=<?php echo $rsPosts->id ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_publish_%s'), $rsPosts->title)) ?>"
 					class="icon time"><?php _e('c_c_action_Publish') ?></a></li>
 					<?php else : ?>
@@ -247,27 +247,27 @@ if (!$rsPosts->isEmpty()) : ?>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->selected) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?deselect=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?deselect=<?php echo $rsPosts->id ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_deselect_%s'), $rsPosts->title))?>"
 					class="icon award_star_delete"><?php _e('c_c_action_Deselect')?></a></li>
 				<?php else : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?select=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?select=<?php echo $rsPosts->id ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_select_%s'), $rsPosts->title)) ?>"
 					class="icon award_star_add"><?php _e('c_c_action_Select')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isEditable()) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_post', array('post_id' => $rsPosts->id)) ?>"
+					<li><a href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_edit_%s'), $rsPosts->title)) ?>"
 					class="icon pencil"><?php _e('c_c_action_Edit') ?></a></li>
 				<?php else : ?>
-					<li><a href="<?php echo $view->generateUrl('news_post', array('post_id' => $rsPosts->id)) ?>"
+					<li><a href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_show_%s'), $rsPosts->title)) ?>"
 					class="icon application_form"><?php _e('c_c_action_Show') ?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isDeletable()) : ?>
-					<li><a href="<?php echo $view->generateUrl('news_index') ?>?delete=<?php echo $rsPosts->id ?>"
+					<li><a href="<?php echo $view->generateUrl('News_index') ?>?delete=<?php echo $rsPosts->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_news_list_post_delete_confirm')) ?>')"
 					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_news_list_delete_%s'), $rsPosts->title)) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>

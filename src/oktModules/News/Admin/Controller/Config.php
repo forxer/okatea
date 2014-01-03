@@ -25,35 +25,35 @@ class Config extends Controller
 
 		# Gestion des images
 		$oImageUploadConfig = new ImageUploadConfig($this->okt,$this->okt->News->getImageUpload());
-		$oImageUploadConfig->setBaseUrl($this->generateUrl('news_config').'?');
+		$oImageUploadConfig->setBaseUrl($this->generateUrl('News_config').'?');
 
 		# Gestionnaires de templates
 		$oTemplatesList = new TemplatesSet($this->okt,
 			$this->okt->News->config->templates['list'],
 			'news/list',
 			'list',
-			$this->generateUrl('news_config').'?'
+			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesItem = new TemplatesSet($this->okt,
 			$this->okt->News->config->templates['item'],
 			'news/item',
 			'item',
-			$this->generateUrl('news_config').'?'
+			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesInsert = new TemplatesSet($this->okt,
 			$this->okt->News->config->templates['insert'],
 			'news/insert',
 			'insert',
-			$this->generateUrl('news_config').'?'
+			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesFeed = new TemplatesSet($this->okt,
 			$this->okt->News->config->templates['feed'],
 			'news/feed',
 			'feed',
-			$this->generateUrl('news_config').'?'
+			$this->generateUrl('News_config').'?'
 		);
 
 		# régénération des miniatures
@@ -63,7 +63,7 @@ class Config extends Controller
 
 			$this->okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
 
-			return $this->redirect($this->generateUrl('news_config'));
+			return $this->redirect($this->generateUrl('News_config'));
 		}
 
 		# suppression filigrane
@@ -73,7 +73,7 @@ class Config extends Controller
 
 			$this->okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
 
-			return $this->redirect($this->generateUrl('news_config'));
+			return $this->redirect($this->generateUrl('News_config'));
 		}
 
 		# enregistrement configuration
@@ -153,7 +153,7 @@ class Config extends Controller
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('news_config'));
+					return $this->redirect($this->generateUrl('News_config'));
 				}
 				catch (InvalidArgumentException $e)
 				{

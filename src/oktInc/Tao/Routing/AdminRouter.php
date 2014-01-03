@@ -24,6 +24,9 @@ class AdminRouter extends BaseRouter
 	 */
 	protected $app;
 
+	/**
+	 *
+	 */
 	public function __construct(Application $app, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
 	{
 		$this->app = $app;
@@ -40,8 +43,16 @@ class AdminRouter extends BaseRouter
 			$app->requestContext,
 			$logger
 		);
-
 	}
 
+	/**
+	 * Check if a named route exists.
+	 *
+	 * @return boolean
+	 */
+	public function routeExists($sRouteName)
+	{
+		return (null === $this->getRouteCollection()->get($sRouteName)) ? false : true;
+	}
 
 }

@@ -145,7 +145,7 @@ class Filters extends BaseFilters
 		'<select id="'.$this->form_id.'_category_id" name="category_id" class="select '.$this->getActiveClass('category_id').'">'.
 			'<option value="0">'.__('c_c_All_f').'</option>';
 			while ($rubriques_list->fetch()) {
-				$sField .= '<option value="'.$rubriques_list->id.'"'.($rubriques_list->id == $this->params->category_id ? ' selected="selected"' : '').'>'.str_repeat('&nbsp;&nbsp;&nbsp;',$rubriques_list->level).'&bull; '.html::escapeHTML($rubriques_list->title).'</option>';
+				$sField .= '<option value="'.$rubriques_list->id.'"'.($rubriques_list->id == $this->params->category_id ? ' selected="selected"' : '').'>'.str_repeat('&nbsp;&nbsp;&nbsp;',$rubriques_list->level).'&bull; '.\html::escapeHTML($rubriques_list->title).'</option>';
 			}
 		$sField .= '</select>';
 
@@ -171,7 +171,7 @@ class Filters extends BaseFilters
 
 		$aSelectLanguagesValues = array();
 		foreach ($this->okt->languages->list as $aLanguage) {
-			$aSelectLanguagesValues[html::escapeHTML($aLanguage['title'])] = html::escapeHTML($aLanguage['code']);
+			$aSelectLanguagesValues[\html::escapeHTML($aLanguage['title'])] = \html::escapeHTML($aLanguage['code']);
 		}
 
 		$this->fields['language'] = array(

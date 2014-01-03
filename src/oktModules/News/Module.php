@@ -130,8 +130,8 @@ class Module extends BaseModule
 			$this->okt->page->newsSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 
 			$this->okt->page->mainMenu->add($this->getName(),
-				$this->okt->adminRouter->generate('news_index'),
-				$this->okt->request->attributes->get('_route') === 'news_index',
+				$this->okt->adminRouter->generate('News_index'),
+				$this->okt->request->attributes->get('_route') === 'News_index',
 				20,
 				($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
 				null,
@@ -139,30 +139,30 @@ class Module extends BaseModule
 				$this->url().'/icon.png'
 			);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_management'),
-					$this->okt->adminRouter->generate('news_index'),
-					in_array($this->okt->request->attributes->get('_route'), array('news_index', 'news_post')),
+					$this->okt->adminRouter->generate('News_index'),
+					in_array($this->okt->request->attributes->get('_route'), array('News_index', 'News_post')),
 					1
 				);
 				$this->okt->page->newsSubMenu->add(__('m_news_menu_add_post'),
-					$this->okt->adminRouter->generate('news_post_add'),
-					$this->okt->request->attributes->get('_route') === 'news_post_add',
+					$this->okt->adminRouter->generate('News_post_add'),
+					$this->okt->request->attributes->get('_route') === 'News_post_add',
 					2
 				);
 				$this->okt->page->newsSubMenu->add(__('m_news_menu_categories'),
-					$this->okt->adminRouter->generate('news_categories'),
-					$this->okt->request->attributes->get('_route') === 'news_categories',
+					$this->okt->adminRouter->generate('News_categories'),
+					$this->okt->request->attributes->get('_route') === 'News_categories',
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('news_categories'))
 				);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_display'),
-					$this->okt->adminRouter->generate('news_display'),
-					$this->okt->request->attributes->get('_route') === 'news_display',
+					$this->okt->adminRouter->generate('News_display'),
+					$this->okt->request->attributes->get('_route') === 'News_display',
 					10,
 					$this->okt->checkPerm('news_display')
 				);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'),
-					$this->okt->adminRouter->generate('news_config'),
-					$this->okt->request->attributes->get('_route') === 'news_config',
+					$this->okt->adminRouter->generate('News_config'),
+					$this->okt->request->attributes->get('_route') === 'News_config',
 					20,
 					$this->okt->checkPerm('news_config')
 				);
@@ -602,7 +602,8 @@ class Module extends BaseModule
 		$rsPost->url = $rsPost->getPostUrl();
 
 		# url rubrique
-		$rsPost->category_url = $rsPost->getCategoryUrl();
+		if ($this->config->categories['enable'])
+			$rsPost->category_url = $rsPost->getCategoryUrl();
 
 		# author
 		$rsPost->author = $rsPost->getPostAuthor();
@@ -676,11 +677,11 @@ class Module extends BaseModule
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->words = implode(' ',array_unique(text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
+			$oCursor->words = implode(' ',array_unique(\text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
 
-			$oCursor->meta_description = html::clean($oCursor->meta_description);
+			$oCursor->meta_description = \html::clean($oCursor->meta_description);
 
-			$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = \html::clean($oCursor->meta_keywords);
 
 			$oCursor->insertUpdate();
 
@@ -1284,7 +1285,7 @@ class Module extends BaseModule
 		}
 
 		while ($rsGroups->fetch()) {
-			$aGroups[$rsGroups->group_id] = html::escapeHTML($rsGroups->title);
+			$aGroups[$rsGroups->group_id] = \html::escapeHTML($rsGroups->title);
 		}
 
 		return $aGroups;
