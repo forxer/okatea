@@ -132,7 +132,11 @@ class Okatea extends Application
 		$this->setTplDirectory($this->theme->path.'/templates/%name%.php');
 		$this->setTplDirectory($this->options->get('themes_dir').'/default/templates/%name%.php');
 
-		$this->tpl = $this->getTplEngine();
+		# initialisation
+		$this->tpl = new Templating($this, $this->aTplDirectories);
+
+		# assignation par défaut
+		$this->tpl->addGlobal('okt', $this);
 	}
 
 	/**

@@ -69,10 +69,10 @@ $view->extend('main');
 				<?php endif; # fin Okatea : si le module okatea.org est présent, affichage de l'encart téléchargement ?>
 
 				<?php # début Okatea : si le module news est présent, affichage de l'encart
-				if ($okt->modules->moduleExists('news')) : ?>
+				if ($okt->modules->moduleExists('News')) : ?>
 				<div id="latest-news">
 					<h2><?php _e('Latest news') ?></h2>
-					<?php echo $view->render($okt->news->getInsertTplPath()); ?>
+					<?php echo $view->render($okt->News->getInsertTplPath()); ?>
 				</div>
 				<?php endif; # fin Okatea : si le module news est présent, affichage de l'encart ?>
 

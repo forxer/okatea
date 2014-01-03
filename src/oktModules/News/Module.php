@@ -176,7 +176,7 @@ class Module extends BaseModule
 
 		# Ajout d'éléments à la barre admin
 		$this->okt->triggers->registerTrigger('publicAdminBarItems',
-			array('module_news', 'publicAdminBarItems'));
+			array('Okatea\Module\News\Module', 'publicAdminBarItems'));
 	}
 
 	/**

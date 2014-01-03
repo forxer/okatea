@@ -9,10 +9,10 @@
 namespace Okatea\Module\News;
 
 use Tao\Misc\Utilities as util;
-use Tao\Website\Controller;
+use Tao\Website\Controller as BaseController;
 use Tao\Website\Pager;
 
-class Controller extends Controller
+class Controller extends BaseController
 {
 	/**
 	 * Affichage de la liste d'articles d'actualités classique.
@@ -28,7 +28,7 @@ class Controller extends Controller
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(NewsHelpers::getNewsUrl())));
+				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->generateUrl('newsList'))));
 			}
 			else {
 				return $this->serve404();
@@ -52,7 +52,7 @@ class Controller extends Controller
 		if ($this->request->query->has('init_news_filters'))
 		{
 			$this->okt->News->filters->initFilters();
-			return $this->redirect(NewsHelpers::getNewsUrl());
+			return $this->redirect($this->generateUrl('newsList'));
 		}
 
 		# initialisation des filtres
@@ -91,7 +91,7 @@ class Controller extends Controller
 
 		# fil d'ariane
 		if (!$bIsDefaultRoute) {
-			$this->page->breadcrumb->add($this->okt->News->getName(), NewsHelpers::getNewsUrl());
+			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
 		# ajout du numéro de page au title
@@ -177,7 +177,7 @@ class Controller extends Controller
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(NewsHelpers::getCategoryUrl($this->rsCategory->slug))));
+				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug)))));
 			}
 			else {
 				return $this->serve404();
@@ -206,7 +206,7 @@ class Controller extends Controller
 		if ($this->request->query->has('init_news_filters'))
 		{
 			$this->okt->News->filters->initFilters();
-			return $this->redirect(NewsHelpers::getNewsUrl());
+			return $this->redirect($this->generateUrl('newsList'));
 		}
 
 		# initialisation des filtres
@@ -260,12 +260,12 @@ class Controller extends Controller
 		# fil d'ariane
 		if (!$bIsDefaultRoute)
 		{
-			$this->page->breadcrumb->add($this->okt->News->getName(), NewsHelpers::getNewsUrl());
+			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			$rsPath = $this->okt->News->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 			while ($rsPath->fetch()) {
-				$this->page->breadcrumb->add($rsPath->title, NewsHelpers::getCategoryUrl($rsPath->slug));
+				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('newsCategory', array('slug' => $rsPath->slug)));
 			}
 		}
 
@@ -349,7 +349,7 @@ class Controller extends Controller
 
 		# début du fil d'ariane
 		if (!$bIsDefaultRoute) {
-			$this->page->breadcrumb->add($this->okt->News->getName(), NewsHelpers::getNewsUrl());
+			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
 		# si les rubriques sont activées
@@ -363,7 +363,7 @@ class Controller extends Controller
 			{
 				$rsPath = $this->okt->News->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
 				while ($rsPath->fetch()) {
-					$this->page->breadcrumb->add($rsPath->title, NewsHelpers::getCategoryUrl($rsPath->slug));
+					$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('newsCategory', array('slug' => $rsPath->slug)));
 				}
 			}
 		}

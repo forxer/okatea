@@ -201,7 +201,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getPostUrl($sLanguage=null)
 	{
-		return NewsHelpers::getPostUrl($this->slug, $sLanguage);
+		return $this->okt->router->generate('newsItem', array('slug' => $this->slug), $sLanguage);
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getCategoryUrl($sLanguage=null)
 	{
-		return NewsHelpers::getCategoryUrl($this->category_slug, $sLanguage);
+		return $this->okt->router->generate('newsCategory', array('slug' => $this->category_slug), $sLanguage);
 	}
 
 	/**

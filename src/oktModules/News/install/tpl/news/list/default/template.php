@@ -61,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape(NewsHelpers::getNewsFeedUrl()) ?>" />
+	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->generateUrl('newsFeed') ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();
@@ -77,14 +77,14 @@ if ($okt->News->config->enable_filters) : ?>
 	<?php endif; # fin Okatea : lien d'affichage des filtres ?>
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->escape(NewsHelpers::getNewsUrl()) ?>" id="<?php echo $okt->News->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->generateUrl('newsList') ?>" id="<?php echo $okt->News->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_news_display_filters') ?></legend>
 
 			<?php echo $okt->News->filters->getFiltersFields(); ?>
 
 			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->News->filters->getFilterSubmitName() ?>" />
-			<a href="<?php echo $view->escape(NewsHelpers::getNewsUrl()) ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
+			<a href="<?php echo $view->generateUrl('newsList') ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
 	<?php # fin Okatea : affichage des filtres ?>
@@ -129,12 +129,12 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 			<?php  # début Okatea : affichage date de l'article
 			if ($okt->News->config->public_display_date) : ?>
-			<?php printf(__('m_news_on_%s'),dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$rsPostsList->created_at)) ?>
+			<?php printf(__('m_news_on_%s'), dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $rsPostsList->created_at)) ?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
 			<?php # début Okatea : affichage l'auteur de l'article
 			if ($okt->News->config->public_display_author) : ?>
-			<?php printf(__('m_news_by_%s'),$view->escape($rsPostsList->author)) ?>
+			<?php printf(__('m_news_by_%s'), $view->escape($rsPostsList->author)) ?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
 			<?php # début Okatea : affichage rubrique
