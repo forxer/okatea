@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Bootstrap;
+namespace Okatea\Module\Development\Bootstrap\Module;
 
 use Tao\Misc\Utilities as util;
 
@@ -31,7 +31,7 @@ class Module
 
 	protected $templates_dir;
 	protected $templates = array(
-		'config'			=> 'install/conf.yaml',
+		'config'			=> 'install/conf.yml',
 		'db-install' 		=> 'install/db-install.tpl',
 		'db-truncate' 		=> 'install/db-truncate.tpl',
 		'db-uninstall' 		=> 'install/db-uninstall.tpl',
@@ -207,23 +207,23 @@ class Module
 	protected function makeDirs()
 	{
 		if (file_exists($this->dir)) {
-			throw new Exception(sprintf(__('m_development_bootstrap_module_allready_exists'),$this->id));
+			throw new \Exception(sprintf(__('m_development_bootstrap_module_allready_exists'),$this->id));
 		}
 
-		files::makeDir($this->dir);
-		files::makeDir($this->dir.'/install',true);
-		files::makeDir($this->dir.'/install/assets',true);
-		files::makeDir($this->dir.'/install/public',true);
-		files::makeDir($this->dir.'/install/tpl',true);
-//		files::makeDir($this->dir.'/install/test_set',true);
+		\files::makeDir($this->dir);
+		\files::makeDir($this->dir.'/install',true);
+		\files::makeDir($this->dir.'/install/assets',true);
+		\files::makeDir($this->dir.'/install/public',true);
+		\files::makeDir($this->dir.'/install/tpl',true);
+//		\files::makeDir($this->dir.'/install/test_set',true);
 
-		files::makeDir($this->dir.'/inc',true);
-		files::makeDir($this->dir.'/inc/admin',true);
-		files::makeDir($this->dir.'/inc/public',true);
+		\files::makeDir($this->dir.'/inc',true);
+		\files::makeDir($this->dir.'/inc/admin',true);
+		\files::makeDir($this->dir.'/inc/public',true);
 
-		files::makeDir($this->dir.'/locales',true);
-		files::makeDir($this->dir.'/locales/fr',true);
-		files::makeDir($this->dir.'/locales/en',true);
+		\files::makeDir($this->dir.'/locales',true);
+		\files::makeDir($this->dir.'/locales/fr',true);
+		\files::makeDir($this->dir.'/locales/en',true);
 	}
 
 	/**
@@ -237,7 +237,7 @@ class Module
 		$this->makeFile('db-install', 		$this->dir.'/install/db-install.xml', $replacements);
 		$this->makeFile('db-truncate', 		$this->dir.'/install/db-truncate.xml', $replacements);
 		$this->makeFile('db-uninstall', 	$this->dir.'/install/db-uninstall.xml', $replacements);
-		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yaml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yml', $replacements);
 
 		copy($this->getTplPath('preview_icon'), $this->dir.'/install/assets/preview.png');
 		$this->makeFile('common_css', 		$this->dir.'/install/assets/styles.css', $replacements);
@@ -460,7 +460,7 @@ class Module
 	protected function getTpl($tpl)
 	{
 		if (!$this->tplExists($tpl)) {
-			throw new Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'),$this->templates[$tpl],$this->templates_dir));
+			throw new \Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'),$this->templates[$tpl],$this->templates_dir));
 		}
 
 		return file_get_contents($this->getTplPath($tpl));

@@ -19,7 +19,7 @@ if (!defined('ON_MODULE')) die;
 
 if (!empty($_REQUEST['json']))
 {
-	$rsPages = $okt->pages->getPages(array(
+	$rsPages = $okt->Pages->getPages(array(
 		'language' => $okt->user->language,
 		'search' => $_GET['term']
 	));
@@ -43,7 +43,7 @@ if (!empty($_REQUEST['json']))
 $okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.list');
 
 # initialisation des filtres
-$okt->pages->filtersStart('admin');
+$okt->Pages->filtersStart('admin');
 
 
 /* Traitements
@@ -52,7 +52,7 @@ $okt->pages->filtersStart('admin');
 # Ré-initialisation filtres
 if (!empty($_GET['init_filters']))
 {
-	$okt->pages->filters->initFilters();
+	$okt->Pages->filters->initFilters();
 	http::redirect('module.php?m=pages&action=index');
 }
 
@@ -61,7 +61,7 @@ if (!empty($_GET['switch_status']))
 {
 	try
 	{
-		$okt->pages->switchPageStatus($_GET['switch_status']);
+		$okt->Pages->switchPageStatus($_GET['switch_status']);
 
 		# log admin
 		$okt->logAdmin->info(array(
@@ -88,7 +88,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 		{
 			foreach ($aPagesId as $pageId)
 			{
-				$okt->pages->setPageStatus($pageId,1);
+				$okt->Pages->setPageStatus($pageId,1);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -104,7 +104,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 		{
 			foreach ($aPagesId as $pageId)
 			{
-				$okt->pages->setPageStatus($pageId,0);
+				$okt->Pages->setPageStatus($pageId,0);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -120,7 +120,7 @@ if (!empty($_POST['actions']) && !empty($_POST['pages']) && is_array($_POST['pag
 		{
 			foreach ($aPagesId as $pageId)
 			{
-				$okt->pages->deletePage($pageId);
+				$okt->Pages->deletePage($pageId);
 
 				# log admin
 				$okt->logAdmin->warning(array(
@@ -152,28 +152,28 @@ if (!empty($_REQUEST['search']))
 	$sSearch = trim($_REQUEST['search']);
 	$aParams['search'] = $sSearch;
 }
-$okt->pages->filters->setPagesParams($aParams);
+$okt->Pages->filters->setPagesParams($aParams);
 
 # Création des filtres
-$okt->pages->filters->getFilters();
+$okt->Pages->filters->getFilters();
 
 # Initialisation de la pagination
-$iNumFilteredPosts = $okt->pages->getPagesCount($aParams);
+$iNumFilteredPosts = $okt->Pages->getPagesCount($aParams);
 
-$oPager = new Pager($okt->pages->filters->params->page, $iNumFilteredPosts, $okt->pages->filters->params->nb_per_page);
+$oPager = new Pager($okt->Pages->filters->params->page, $iNumFilteredPosts, $okt->Pages->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 
-$okt->pages->filters->normalizePage($iNumPages);
+$okt->Pages->filters->normalizePage($iNumPages);
 
-$aParams['limit'] = (($okt->pages->filters->params->page-1)*$okt->pages->filters->params->nb_per_page).','.$okt->pages->filters->params->nb_per_page;
+$aParams['limit'] = (($okt->Pages->filters->params->page-1)*$okt->Pages->filters->params->nb_per_page).','.$okt->Pages->filters->params->nb_per_page;
 
 # Récupération des pages
-$rsPages = $okt->pages->getPages($aParams);
+$rsPages = $okt->Pages->getPages($aParams);
 
 # Liste des groupes si les permissions sont activées
-if ($okt->pages->canUsePerms()) {
-	$aGroups = $okt->pages->getUsersGroupsForPerms(true,true);
+if ($okt->Pages->canUsePerms()) {
+	$aGroups = $okt->Pages->getUsersGroupsForPerms(true,true);
 }
 
 # Tableau de choix d'actions pour le traitement par lot
@@ -208,7 +208,7 @@ $okt->page->addButton('pagesBtSt',array(
 	'title' 		=> __('c_c_display_filters'),
 	'url' 			=> '#',
 	'ui-icon' 		=> 'search',
-	'active' 		=> $okt->pages->filters->params->show_filters,
+	'active' 		=> $okt->Pages->filters->params->show_filters,
 	'id'			=> 'filter-control',
 	'class'			=> 'button-toggleable'
 ));
@@ -223,12 +223,12 @@ $okt->page->addButton('pagesBtSt',array(
 ));
 
 # Filters control
-if ($okt->pages->config->admin_filters_style == 'slide')
+if ($okt->Pages->config->admin_filters_style == 'slide')
 {
 	# Slide down
-	$okt->page->filterControl($okt->pages->filters->params->show_filters);
+	$okt->page->filterControl($okt->Pages->filters->params->show_filters);
 }
-elseif ($okt->pages->config->admin_filters_style == 'dialog')
+elseif ($okt->Pages->config->admin_filters_style == 'dialog')
 {
 	# Display a UI dialog box
 	$okt->page->js->addReady("
@@ -292,11 +292,11 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<fieldset>
 		<legend><?php _e('m_pages_display_filters') ?></legend>
 
-		<?php echo $okt->pages->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
+		<?php echo $okt->Pages->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
 		<p><?php echo form::hidden('m','pages') ?>
 		<?php echo form::hidden('action','index') ?>
-		<input type="submit" name="<?php echo $okt->pages->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
+		<input type="submit" name="<?php echo $okt->Pages->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
 		<a href="module.php?m=pages&amp;action=index&amp;init_filters=1"><?php _e('c_c_reset_filters') ?></a></p>
 
 	</fieldset>
@@ -326,10 +326,10 @@ if (!$rsPages->isEmpty()) : ?>
 		<caption><?php _e('m_pages_list_table_caption') ?></caption>
 		<thead><tr>
 			<th scope="col"><?php _e('m_pages_list_table_th_title') ?></th>
-			<?php if ($okt->pages->config->categories['enable']) : ?>
+			<?php if ($okt->Pages->config->categories['enable']) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_category') ?></th>
 			<?php endif; ?>
-			<?php if ($okt->pages->canUsePerms()) : ?>
+			<?php if ($okt->Pages->canUsePerms()) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_access') ?></th>
 			<?php endif; ?>
 			<th scope="col"><?php _e('c_c_Actions') ?></th>
@@ -347,15 +347,15 @@ if (!$rsPages->isEmpty()) : ?>
 				echo html::escapeHTML($rsPages->title) ?></a>
 			</th>
 
-			<?php if ($okt->pages->config->categories['enable']) : ?>
+			<?php if ($okt->Pages->config->categories['enable']) : ?>
 			<td class="<?php echo $td_class ?>"><?php echo html::escapeHTML($rsPages->category_title) ?></td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
-			if ($okt->pages->canUsePerms()) :
+			if ($okt->Pages->canUsePerms()) :
 
 				$aGroupsAccess = array();
-				$aPerms = $okt->pages->getPagePermissions($rsPages->id);
+				$aPerms = $okt->Pages->getPagePermissions($rsPages->id);
 				foreach ($aPerms as $iPerm) {
 					$aGroupsAccess[] = html::escapeHTML($aGroups[$iPerm]);
 				}

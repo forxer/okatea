@@ -440,7 +440,7 @@ class Post extends Controller
 
 		$this->aPostData['tabs']->ksort();
 
-		return $this->render('news/Admin/Templates/Post/Page', array(
+		return $this->render('News/Admin/Templates/Post/Page', array(
 			'aPermissions' 	=> $this->aPermissions,
 			'aPostData' 	=> $this->aPostData,
 			'rsCategories' 	=> $rsCategories,

@@ -109,6 +109,16 @@ class Module extends BaseModule
 
 	protected function prepend_admin()
 	{
+		# autoload
+		$this->okt->autoloader->addClassMap(array(
+			'Okatea\Module\Pages\Admin\Controller\Index' 		=> __DIR__.'/Admin/Controller/Index.php',
+			'Okatea\Module\Pages\Admin\Controller\Post' 		=> __DIR__.'/Admin/Controller/Post.php',
+			'Okatea\Module\Pages\Admin\Controller\Categories' 	=> __DIR__.'/Admin/Controller/Categories.php',
+			'Okatea\Module\Pages\Admin\Controller\Category' 	=> __DIR__.'/Admin/Controller/Category.php',
+			'Okatea\Module\Pages\Admin\Controller\Display' 		=> __DIR__.'/Admin/Controller/Display.php',
+			'Okatea\Module\Pages\Admin\Controller\Config' 		=> __DIR__.'/Admin/Controller/Config.php'
+		));
+
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
@@ -248,7 +258,7 @@ class Module extends BaseModule
 	 *
 	 * @param array $aParams 			Paramètres de requete
 	 * @param boolean $bCountOnly 		Ne renvoi qu'un nombre de pages
-	 * @return integer/PagesRecordset
+	 * @return integer|Okatea\Module\Pages\Recordset
 	 */
 	public function getPagesRecordset($aParams=array(), $bCountOnly=false)
 	{
@@ -326,13 +336,13 @@ class Module extends BaseModule
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery, 'PagesRecordset')) === false)
+		if (($rs = $this->db->select($sQuery, 'Okatea\Module\Pages\Recordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
 			}
 			else {
-				$rs = new PagesRecordset(array());
+				$rs = new Recordset(array());
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -360,7 +370,7 @@ class Module extends BaseModule
 			'rl.title AS category_title', 'rl.slug AS category_slug', 'r.items_tpl AS category_items_tpl'
 		);
 
-		$oFields = new ArrayObject($aFields);
+		$oFields = new \ArrayObject($aFields);
 
 		# -- TRIGGER MODULE PAGES : getPagesSelectFields
 		$this->triggers->callTrigger('getPagesSelectFields', $oFields);
@@ -397,7 +407,7 @@ class Module extends BaseModule
 			);
 		}
 
-		$oFrom = new ArrayObject($aFrom);
+		$oFrom = new \ArrayObject($aFrom);
 
 		# -- TRIGGER MODULE PAGES : getPagesSqlFrom
 		$this->triggers->callTrigger('getPagesSqlFrom', $oFrom);
@@ -411,7 +421,7 @@ class Module extends BaseModule
 	 *
 	 * @param array $aParams 					Paramètres de requete
 	 * @param integer $iTruncatChar (null) 		Nombre de caractère avant troncature du contenu
-	 * @return object PagesRecordset
+	 * @return object Okatea\Module\Pages\Recordset
 	 */
 	public function getPages($aParams=array(), $iTruncatChar=null)
 	{
@@ -438,7 +448,7 @@ class Module extends BaseModule
 	 *
 	 * @param integer $mPageId 		Identifiant numérique ou slug de la page.
 	 * @param integer $iActive 		Statut requis de la page
-	 * @return object PagesRecordset
+	 * @return object Okatea\Module\Pages\Recordset
 	 */
 	public function getPage($mPageId, $iActive=2)
 	{
@@ -489,7 +499,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (($rs = $this->db->select($query)) === false) {
-			$rs = new recordset(array());
+			$rs = new Recordset(array());
 			return $rs;
 		}
 
@@ -497,13 +507,13 @@ class Module extends BaseModule
 	}
 
 	/**
-	 * Formatage des données d'un PagesRecordset en vue d'un affichage d'une liste.
+	 * Formatage des données d'un Recordset en vue d'un affichage d'une liste.
 	 *
-	 * @param PagesRecordset $rs
+	 * @param Okatea\Module\Pages\Recordset $rs
 	 * @param integer $iTruncatChar (null)
 	 * @return void
 	 */
-	public function preparePages(PagesRecordset $rs, $iTruncatChar=null)
+	public function preparePages(Recordset $rs, $iTruncatChar=null)
 	{
 		# on utilise une troncature personnalisée à cette préparation
 		if (!is_null($iTruncatChar)) {

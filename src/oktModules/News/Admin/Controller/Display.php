@@ -69,7 +69,7 @@ class Display extends Controller
 			__('c_c_sorting_Descending') => 'DESC'
 		);
 
-		return $this->render('news/Admin/Templates/Display', array(
+		return $this->render('News/Admin/Templates/Display', array(
 			'aFieldChoiceOrderBy' => $aFieldChoiceOrderBy,
 			'aFieldChoiceOrderDirection' => $aFieldChoiceOrderDirection
 		));

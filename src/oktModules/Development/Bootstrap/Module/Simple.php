@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Bootstrap;
+namespace Okatea\Module\Development\Bootstrap\Module;
 
-class ModuleSimple extends Module
+class Simple extends Module
 {
 
 	/**
@@ -18,20 +18,20 @@ class ModuleSimple extends Module
 	protected function makeDirs()
 	{
 		if (file_exists($this->dir)) {
-			throw new Exception(sprintf(__('m_development_bootstrap_module_allready_exists'),$this->id));
+			throw new \Exception(sprintf(__('m_development_bootstrap_module_allready_exists'),$this->id));
 		}
 
-		files::makeDir($this->dir);
+		\files::makeDir($this->dir);
 
-		files::makeDir($this->dir.'/install',true);
-			files::makeDir($this->dir.'/install/tpl',true);
+		\files::makeDir($this->dir.'/install',true);
+			\files::makeDir($this->dir.'/install/tpl',true);
 
-		files::makeDir($this->dir.'/inc',true);
-			files::makeDir($this->dir.'/inc/admin',true);
+		\files::makeDir($this->dir.'/inc',true);
+			\files::makeDir($this->dir.'/inc/admin',true);
 
-		files::makeDir($this->dir.'/locales',true);
-			files::makeDir($this->dir.'/locales/fr',true);
-			files::makeDir($this->dir.'/locales/en',true);
+		\files::makeDir($this->dir.'/locales',true);
+			\files::makeDir($this->dir.'/locales/fr',true);
+			\files::makeDir($this->dir.'/locales/en',true);
 	}
 
 	/**
@@ -42,7 +42,7 @@ class ModuleSimple extends Module
 	{
 		$replacements = $this->getReplacements();
 
-		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yaml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yml', $replacements);
 
 		$this->makeFile('tpl_base', 		$this->dir.'/install/tpl/'.$this->id.'_tpl.php', $replacements);
 

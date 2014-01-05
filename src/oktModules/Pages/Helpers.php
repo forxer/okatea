@@ -93,7 +93,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (!$okt->pages->config->categories['enable']) {
+		if (!$okt->Pages->config->categories['enable']) {
 			return null;
 		}
 
@@ -111,7 +111,7 @@ class Helpers
 			unset($aVars);
 		}
 
-		$rsCategories = $okt->pages->categories->getCategories(array(
+		$rsCategories = $okt->Pages->categories->getCategories(array(
 			'active' => 1,
 			'language' => $okt->user->language,
 			'with_count' => false
@@ -191,7 +191,7 @@ class Helpers
 		),$aCustomParams);
 
 		# on récupèrent les pages
-		$rsPages = $okt->pages->getPages($aParams);
+		$rsPages = $okt->Pages->getPages($aParams);
 
 		# on construient le HTML avec les données
 		$aItems = array();
@@ -226,7 +226,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (!$okt->pages->config->categories['enable']) {
+		if (!$okt->Pages->config->categories['enable']) {
 			return null;
 		}
 
@@ -243,7 +243,7 @@ class Helpers
 		}
 
 		# on récupèrent les sous-catégories
-		$rsChildren = $okt->pages->categories->getChildren($iCatId, false, $okt->user->language);
+		$rsChildren = $okt->Pages->categories->getChildren($iCatId, false, $okt->user->language);
 
 		# on construient le HTML avec les données
 		$aChildren = array();

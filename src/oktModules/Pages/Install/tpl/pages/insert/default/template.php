@@ -13,7 +13,7 @@ Exemples :
 - Pour afficher la page identifiant 4 :
 
 	<?php # début Okatea : affichage encart page id 4
-	echo $okt->tpl->render($okt->pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
 		'mPageIdentifier' => 4
 	)); # fin Okatea : affichage encart page id 4 ?>
 
@@ -21,7 +21,7 @@ Exemples :
 - Pour afficher la page ayant pour slug 'ma-page' :
 
 	<?php # début Okatea : affichage encart page slug 'ma-page'
-	echo $okt->tpl->render($okt->pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
 		'mPageIdentifier' => 'ma-page'
 	)); # fin Okatea : affichage encart page slug 'ma-page' ?>
 
@@ -39,11 +39,11 @@ Exemples :
 	}
 
 	# récupération de la page pour l'encart
-	$rsInsertPage = $okt->pages->getPage($mPageIdentifier);
+	$rsInsertPage = $okt->Pages->getPage($mPageIdentifier);
 
 	# troncature du contenu ?
-	if ($okt->pages->config->insert_truncat_char > 0) {
-		$rsInsertPage->content = text::cutString(html::clean($rsInsertPage->content), $okt->pages->config->insert_truncat_char);
+	if ($okt->Pages->config->insert_truncat_char > 0) {
+		$rsInsertPage->content = text::cutString(html::clean($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
 	}
 
 # fin Okatea : traitements avant affichage ?>
@@ -60,7 +60,7 @@ $okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->pages->config->lightbox_type);
+$okt->page->applyLbl($okt->Pages->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -93,7 +93,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 	<div class="page-content">
 
 		<?php # début Okatea : si les images sont activées
-		if ($okt->pages->config->images['enable'] && !empty($rsInsertPage->images)) : ?>
+		if ($okt->Pages->config->images['enable'] && !empty($rsInsertPage->images)) : ?>
 		<p class="page-images modal-box">
 
 			<?php # début Okatea : boucle sur les images
@@ -118,7 +118,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage texte tronqué
-		if ($okt->pages->config->insert_truncat_char > 0) : ?>
+		if ($okt->Pages->config->insert_truncat_char > 0) : ?>
 
 		<p><?php echo $rsInsertPage->content ?>…</p>
 
@@ -130,7 +130,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage texte pas tronqué
-		if (!$okt->pages->config->insert_truncat_char) : ?>
+		if (!$okt->Pages->config->insert_truncat_char) : ?>
 
 		<?php echo $rsInsertPage->content ?>
 

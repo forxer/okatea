@@ -18,7 +18,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['post_id']) && $okt->checkPe
 {
 	try
 	{
-		$okt->pages->deletePage($_GET['post_id']);
+		$okt->Pages->deletePage($_GET['post_id']);
 
 		# log admin
 		$okt->logAdmin->warning(array(
@@ -55,11 +55,11 @@ $okt->page->setButtonset('pagesBtSt',array(
 
 
 # title tag
-$okt->page->addTitleTag($okt->pages->getTitle());
+$okt->page->addTitleTag($okt->Pages->getTitle());
 
 
 # fil d'ariane
-$okt->page->addAriane($okt->pages->getName(),'module.php?m=pages');
+$okt->page->addAriane($okt->Pages->getName(),'module.php?m=pages');
 
 
 # inclusion du fichier requis en fonction de l'action demandée
@@ -72,7 +72,7 @@ elseif ($okt->page->action === 'add' && $okt->checkPerm('pages_add')) {
 elseif ($okt->page->action === 'edit') {
 	require __DIR__.'/admin/post.php';
 }
-elseif ($okt->page->action === 'categories' && $okt->pages->config->categories['enable'] && $okt->checkPerm('pages_categories'))
+elseif ($okt->page->action === 'categories' && $okt->Pages->config->categories['enable'] && $okt->checkPerm('pages_categories'))
 {
 	if ($okt->page->do === 'add' || $okt->page->do === 'edit') {
 		require __DIR__.'/admin/category.php';

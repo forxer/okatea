@@ -21,7 +21,7 @@ if (!defined('ON_MODULE')) die;
 $okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.categories');
 
 # Récupération de la liste complète des rubriques
-$rsCategories = $okt->pages->categories->getCategories(array(
+$rsCategories = $okt->Pages->categories->getCategories(array(
 	'active' => 2,
 	'with_count' => true,
 	'language' => $okt->user->language
@@ -44,7 +44,7 @@ foreach ($okt->languages->list as $aLanguage)
 	$aCategoryLocalesData[$aLanguage['code']]['title'] = '';
 	$aCategoryLocalesData[$aLanguage['code']]['content'] = '';
 
-	if ($okt->pages->config->enable_metas)
+	if ($okt->Pages->config->enable_metas)
 	{
 		$aCategoryLocalesData[$aLanguage['code']]['title_seo'] = '';
 		$aCategoryLocalesData[$aLanguage['code']]['title_tag'] = '';
@@ -59,7 +59,7 @@ if (!empty($_REQUEST['category_id']))
 {
 	$iCategoryId = intval($_REQUEST['category_id']);
 
-	$rsCategory = $okt->pages->categories->getCategory($iCategoryId);
+	$rsCategory = $okt->Pages->categories->getCategory($iCategoryId);
 
 	if ($rsCategory->isEmpty())
 	{
@@ -73,7 +73,7 @@ if (!empty($_REQUEST['category_id']))
 		$aCategoryData['tpl'] = $rsCategory->tpl;
 		$aCategoryData['items_tpl'] = $rsCategory->items_tpl;
 
-		$rsCategoryI18n = $okt->pages->categories->getCategoryI18n($iCategoryId);
+		$rsCategoryI18n = $okt->Pages->categories->getCategoryI18n($iCategoryId);
 
 		foreach ($okt->languages->list as $aLanguage)
 		{
@@ -84,7 +84,7 @@ if (!empty($_REQUEST['category_id']))
 					$aCategoryLocalesData[$aLanguage['code']]['title'] = $rsCategoryI18n->title;
 					$aCategoryLocalesData[$aLanguage['code']]['content'] = $rsCategoryI18n->content;
 
-					if ($okt->pages->config->enable_metas)
+					if ($okt->Pages->config->enable_metas)
 					{
 						$aCategoryLocalesData[$aLanguage['code']]['title_seo'] = $rsCategoryI18n->title_seo;
 						$aCategoryLocalesData[$aLanguage['code']]['title_tag'] = $rsCategoryI18n->title_tag;
@@ -97,7 +97,7 @@ if (!empty($_REQUEST['category_id']))
 		}
 
 		# rubriques voisines
-		$rsSiblings = $okt->pages->categories->getChildren($rsCategory->parent_id, false, $okt->user->language);
+		$rsSiblings = $okt->Pages->categories->getChildren($rsCategory->parent_id, false, $okt->user->language);
 
 		$iCategoryNumPages = $rsCategory->num_pages;
 
@@ -121,10 +121,10 @@ if (!empty($_GET['ajax_update_order']))
 			foreach ($order as $ord=>$id)
 			{
 				$ord = ((integer) $ord)+1;
-				$okt->pages->categories->setCategoryOrder($id,$ord);
+				$okt->Pages->categories->setCategoryOrder($id,$ord);
 			}
 
-			$okt->pages->categories->rebuild();
+			$okt->Pages->categories->rebuild();
 		}
 		catch (Exception $e) {
 			die($e->getMessage());
@@ -149,10 +149,10 @@ if (!empty($_POST['order_categories']))
 			foreach ($order as $ord=>$id)
 			{
 				$ord = ((integer) $ord)+1;
-				$okt->pages->categories->setCategoryOrder($id,$ord);
+				$okt->Pages->categories->setCategoryOrder($id,$ord);
 			}
 
-			$okt->pages->categories->rebuild();
+			$okt->Pages->categories->rebuild();
 
 			http::redirect('module.php?m=pages&action=categories&do=edit&category_id='.$iCategoryId.'&ordered=1');
 		}
@@ -167,7 +167,7 @@ if (!empty($_GET['switch_status']) && !empty($iCategoryId))
 {
 	try
 	{
-		$okt->pages->categories->switchCategoryStatus($iCategoryId);
+		$okt->Pages->categories->switchCategoryStatus($iCategoryId);
 
 		# log admin
 		$okt->logAdmin->info(array(
@@ -196,11 +196,11 @@ if (!empty($_POST['sended']))
 	{
 		$aCategoryLocalesData[$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
 
-		if ($okt->pages->config->categories['descriptions']) {
+		if ($okt->Pages->config->categories['descriptions']) {
 			$aCategoryLocalesData[$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
 		}
 
-		if ($okt->pages->config->enable_metas)
+		if ($okt->Pages->config->enable_metas)
 		{
 			$aCategoryLocalesData[$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
 			$aCategoryLocalesData[$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
@@ -211,9 +211,9 @@ if (!empty($_POST['sended']))
 	}
 
 	# vérification des données avant modification dans la BDD
-	if ($okt->pages->categories->checkPostData($aCategoryData, $aCategoryLocalesData))
+	if ($okt->Pages->categories->checkPostData($aCategoryData, $aCategoryLocalesData))
 	{
-		$oCategoryCursor = $okt->pages->categories->openCategoryCursor($aCategoryData);
+		$oCategoryCursor = $okt->Pages->categories->openCategoryCursor($aCategoryData);
 
 		# update category
 		if (!empty($iCategoryId))
@@ -221,12 +221,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforeCategoryUpdate
-				$okt->pages->triggers->callTrigger('beforeCategoryUpdate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
+				$okt->Pages->triggers->callTrigger('beforeCategoryUpdate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
 
-				$okt->pages->categories->updCategory($oCategoryCursor, $aCategoryLocalesData);
+				$okt->Pages->categories->updCategory($oCategoryCursor, $aCategoryLocalesData);
 
 				# -- TRIGGER MODULE PAGES : afterCategoryUpdate
-				$okt->pages->triggers->callTrigger('afterCategoryUpdate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
+				$okt->Pages->triggers->callTrigger('afterCategoryUpdate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -251,12 +251,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforeCategoryCreate
-				$okt->pages->triggers->callTrigger('beforeCategoryCreate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
+				$okt->Pages->triggers->callTrigger('beforeCategoryCreate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
 
-				$iCategoryId = $okt->pages->categories->addCategory($oCategoryCursor, $aCategoryLocalesData);
+				$iCategoryId = $okt->Pages->categories->addCategory($oCategoryCursor, $aCategoryLocalesData);
 
 				# -- TRIGGER MODULE PAGES : afterCategoryCreate
-				$okt->pages->triggers->callTrigger('afterCategoryCreate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
+				$okt->Pages->triggers->callTrigger('afterCategoryCreate', $oCategoryCursor, $aCategoryData, $aCategoryLocalesData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -281,16 +281,16 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Liste des templates utilisables
-$oTemplatesList = new TemplatesSet($okt, $okt->pages->config->templates['list'], 'pages/list', 'list');
+$oTemplatesList = new TemplatesSet($okt, $okt->Pages->config->templates['list'], 'pages/list', 'list');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
-	$oTemplatesList->getUsablesTemplatesForSelect($okt->pages->config->templates['list']['usables'])
+	$oTemplatesList->getUsablesTemplatesForSelect($okt->Pages->config->templates['list']['usables'])
 );
 
-$oTemplatesItems = new TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItems = new TemplatesSet($okt, $okt->Pages->config->templates['item'], 'pages/item', 'item');
 $aItemsTplChoices = array_merge(
 	array('&nbsp;' => null),
-	$oTemplatesItems->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])
+	$oTemplatesItems->getUsablesTemplatesForSelect($okt->Pages->config->templates['item']['usables'])
 );
 
 
@@ -300,7 +300,7 @@ $aAllowedParents = array(__('m_pages_cat_first_level')=>0);
 $aChildrens = array();
 if ($iCategoryId)
 {
-	$rsDescendants = $okt->pages->categories->getDescendants($iCategoryId,true);
+	$rsDescendants = $okt->Pages->categories->getDescendants($iCategoryId,true);
 
 	while ($rsDescendants->fetch()) {
 		$aChildrens[] = $rsDescendants->id;
@@ -371,7 +371,7 @@ $okt->page->addGlobalTitle(__('m_pages_cats_categories'),'module.php?m=pages&act
 
 if ($iCategoryId)
 {
-	$path = $okt->pages->categories->getPath($iCategoryId,true,$okt->user->language);
+	$path = $okt->Pages->categories->getPath($iCategoryId,true,$okt->user->language);
 
 	while ($path->fetch()) {
 		$okt->page->addGlobalTitle($path->title,'module.php?m=pages&action=categories&do=edit&category_id='.$path->id);
@@ -389,8 +389,8 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # RTE
-if ($okt->pages->config->categories['descriptions']) {
-	$okt->page->applyRte($okt->pages->config->categories['rte'],'textarea.richTextEditor');
+if ($okt->Pages->config->categories['descriptions']) {
+	$okt->page->applyRte($okt->Pages->config->categories['rte'],'textarea.richTextEditor');
 }
 
 # Lang switcher
@@ -447,7 +447,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<ul>
 			<li><a href="#tab_category"><span><?php _e('m_pages_cat_category')?></span></a></li>
 			<li><a href="#tab_options"><span><?php _e('m_pages_cat_options')?></span></a></li>
-			<?php if ($okt->pages->config->enable_metas) : ?>
+			<?php if ($okt->Pages->config->enable_metas) : ?>
 			<li><a href="#tab_seo"><span><?php _e('c_c_seo')?></span></a></li>
 			<?php endif; ?>
 		</ul>
@@ -459,7 +459,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>" title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt->languages->unique ? _e('m_pages_cat_title') : printf(__('m_pages_cat_title_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, html::escapeHTML($aCategoryLocalesData[$aLanguage['code']]['title'])) ?></p>
 
-			<?php if ($okt->pages->config->categories['descriptions']) : ?>
+			<?php if ($okt->Pages->config->categories['descriptions']) : ?>
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_content_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_pages_cat_desc') : printf(__('m_pages_cat_desc_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_content['.$aLanguage['code'].']','p_content_'.$aLanguage['code']), 57, 10, $aCategoryLocalesData[$aLanguage['code']]['content'],'richTextEditor') ?></p>
 			<?php endif; ?>
@@ -479,12 +479,12 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			</div>
 
 			<div class="two-cols">
-				<?php if (!empty($okt->pages->config->templates['list']['usables'])) : ?>
+				<?php if (!empty($okt->Pages->config->templates['list']['usables'])) : ?>
 				<p class="field col"><label for="p_tpl"><?php _e('m_pages_cat_tpl') ?></label>
 				<?php echo form::select('p_tpl', $aTplChoices, $aCategoryData['tpl'])?></p>
 				<?php endif; ?>
 
-				<?php if (!empty($okt->pages->config->templates['item']['usables'])) : ?>
+				<?php if (!empty($okt->Pages->config->templates['item']['usables'])) : ?>
 				<p class="field col"><label for="p_items_tpl"><?php _e('m_pages_cat_items_tpl') ?></label>
 				<?php echo form::select('p_items_tpl', $aItemsTplChoices, $aCategoryData['items_tpl'])?></p>
 				<?php endif; ?>
@@ -492,7 +492,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		</div><!-- #tab_options -->
 
-		<?php if ($okt->pages->config->enable_metas) : ?>
+		<?php if ($okt->Pages->config->enable_metas) : ?>
 		<div id="tab_seo">
 			<h3><?php _e('c_c_seo_help') ?></h3>
 

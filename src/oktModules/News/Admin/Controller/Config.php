@@ -175,7 +175,7 @@ class Config extends Controller
 			$aGroups = $this->okt->News->getUsersGroupsForPerms(true,true);
 		}
 
-		return $this->render('news/Admin/Templates/Config', array(
+		return $this->render('News/Admin/Templates/Config', array(
 			'oImageUploadConfig' 	=> $oImageUploadConfig,
 			'oTemplatesList' 		=> $oTemplatesList,
 			'oTemplatesItem' 		=> $oTemplatesItem,

@@ -10,6 +10,7 @@ namespace Okatea\Module\Pages;
 
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Misc\BaseFilters;
+use Tao\Misc\Utilities;
 
 class Filters extends BaseFilters
 {
@@ -21,9 +22,9 @@ class Filters extends BaseFilters
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'pages', $okt->pages->config, $part, $params);
+		parent::__construct($okt, 'pages', $okt->Pages->config, $part, $params);
 
-		$this->pages = $this->okt->pages;
+		$this->pages = $this->okt->Pages;
 	}
 
 	public function setDefaultParams()
@@ -142,7 +143,7 @@ class Filters extends BaseFilters
 		'<select id="'.$this->form_id.'_category_id" name="category_id" class="select '.$this->getActiveClass('category_id').'">'.
 			'<option value="0">'.__('c_c_All_f').'</option>';
 			while ($rubriques_list->fetch()) {
-				$sField .= '<option value="'.$rubriques_list->id.'"'.($rubriques_list->id == $this->params->category_id ? ' selected="selected"' : '').'>'.str_repeat('&nbsp;&nbsp;&nbsp;',$rubriques_list->level).'&bull; '.html::escapeHTML($rubriques_list->title).'</option>';
+				$sField .= '<option value="'.$rubriques_list->id.'"'.($rubriques_list->id == $this->params->category_id ? ' selected="selected"' : '').'>'.str_repeat('&nbsp;&nbsp;&nbsp;',$rubriques_list->level).'&bull; '.Utilities::escapeHTML($rubriques_list->title).'</option>';
 			}
 		$sField .= '</select>';
 
@@ -168,7 +169,7 @@ class Filters extends BaseFilters
 
 		$aSelectLanguagesValues = array();
 		foreach ($this->okt->languages->list as $aLanguage) {
-			$aSelectLanguagesValues[html::escapeHTML($aLanguage['title'])] = html::escapeHTML($aLanguage['code']);
+			$aSelectLanguagesValues[Utilities::escapeHTML($aLanguage['title'])] = Utilities::escapeHTML($aLanguage['code']);
 		}
 
 		$this->fields['language'] = array(

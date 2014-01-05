@@ -327,7 +327,7 @@ class Category extends Controller
 			}
 		}
 
-		return $this->render('news/Admin/Templates/Category', array(
+		return $this->render('News/Admin/Templates/Category', array(
 			'aCategoryData' 	=> $this->aCategoryData,
 			'aTplChoices' 		=> $aTplChoices,
 			'aItemsTplChoices' 	=> $aItemsTplChoices,

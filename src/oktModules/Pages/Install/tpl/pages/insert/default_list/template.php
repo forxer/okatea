@@ -23,14 +23,14 @@ Exemples :
 - Pour afficher l'encart avec les paramètres par défaut :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->pages->getInsertTplPath());
+	echo $okt->tpl->render($okt->Pages->getInsertTplPath());
 	# fin Okatea : affichage encart pages ?>
 
 
 - Pour afficher l'encart avec seulement 5 pages dans l'encart :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
 		'aParams' => array(
 			'limit' => 5,
 		)
@@ -40,7 +40,7 @@ Exemples :
 - Pour afficher l'encart avec seulement 5 pages dans l'encart et ce en anglais :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
 		'aParams' => array(
 			'limit' => 5,
 			'language' => 'en'
@@ -63,7 +63,7 @@ Exemples :
 	$aParams = !empty($aParams) ? array_merge($aDefaultParams, $aParams) : $aDefaultParams;
 
 	# récupération des pages pour l'encart
-	$rsInsertPages = $okt->pages->getPages($aParams, $okt->pages->config->insert_truncat_char);
+	$rsInsertPages = $okt->Pages->getPages($aParams, $okt->Pages->config->insert_truncat_char);
 
 # fin Okatea : traitements avant affichage ?>
 
@@ -79,7 +79,7 @@ $okt->page->js->addFile($okt->options->public_url.'/js/jquery/jquery.min.js');
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->pages->config->lightbox_type);
+$okt->page->applyLbl($okt->Pages->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -125,7 +125,7 @@ if (!$rsInsertPages->isEmpty()) : ?>
 		if ($rsInsertPages->isReadable()) : ?>
 
 			<?php # début Okatea : si les images sont activées
-			if ($okt->pages->config->images['enable'] && !empty($rsInsertPages->images)) : ?>
+			if ($okt->Pages->config->images['enable'] && !empty($rsInsertPages->images)) : ?>
 			<p class="page-images modal-box">
 
 				<?php # début Okatea : boucle sur les images
@@ -150,7 +150,7 @@ if (!$rsInsertPages->isEmpty()) : ?>
 
 
 			<?php # début Okatea : affichage texte tronqué
-			if ($okt->pages->config->insert_truncat_char > 0) : ?>
+			if ($okt->Pages->config->insert_truncat_char > 0) : ?>
 
 			<p><?php echo $rsInsertPages->content ?>…</p>
 
@@ -162,7 +162,7 @@ if (!$rsInsertPages->isEmpty()) : ?>
 
 
 			<?php # début Okatea : affichage texte pas tronqué
-			if (!$okt->pages->config->insert_truncat_char) : ?>
+			if (!$okt->Pages->config->insert_truncat_char) : ?>
 
 			<?php echo $rsInsertPages->content ?>
 

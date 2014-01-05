@@ -6,14 +6,14 @@ Pages_index:
         page:  \d+
 
 Pages_post_add:
-    path:     /pages/post/add
+    path:     /pages/page/add
     defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Post::add }
-    
+
 Pages_post:
-    path:     /pages/post/{post_id}
+    path:     /pages/page/{page_id}
     defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Post::edit }
     requirements:
-        post_id:  \d+
+        page_id:  \d+
 
 Pages_categories:
     path:     /pages/categories

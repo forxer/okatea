@@ -18,7 +18,7 @@ if (!defined('ON_MODULE')) die;
 $okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.categories');
 
 # Récupération de la liste complète des rubriques
-$rsCategories = $okt->pages->categories->getCategories(array(
+$rsCategories = $okt->Pages->categories->getCategories(array(
 	'active' => 2,
 	'with_count' => true,
 	'language' => $okt->user->language
@@ -33,7 +33,7 @@ if (!empty($_GET['switch_status']))
 {
 	try
 	{
-		$okt->pages->categories->switchCategoryStatus($_GET['switch_status']);
+		$okt->Pages->categories->switchCategoryStatus($_GET['switch_status']);
 
 		# log admin
 		$okt->logAdmin->info(array(
@@ -54,7 +54,7 @@ if (!empty($_GET['delete']))
 {
 	try
 	{
-		$okt->pages->categories->delCategory(intval($_GET['delete']));
+		$okt->Pages->categories->delCategory(intval($_GET['delete']));
 
 		# log admin
 		$okt->logAdmin->warning(array(

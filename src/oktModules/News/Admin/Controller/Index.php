@@ -1,10 +1,10 @@
 <?php
 /*
  * This file is part of Okatea.
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Okatea\Module\News\Admin\Controller;
 
@@ -133,7 +133,7 @@ class Index extends Controller
 			$aActionsChoices[__('c_c_action_Delete')][__('c_c_action_delete')] = 'delete';
 		}
 
-		return $this->render('news/Admin/Templates/Index', array(
+		return $this->render('News/Admin/Templates/Index', array(
 			'rsPosts' 			=> $rsPosts,
 			'aGroups' 			=> $aGroups,
 			'aActionsChoices' 	=> $aActionsChoices,

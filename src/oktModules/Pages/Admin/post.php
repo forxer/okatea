@@ -42,7 +42,7 @@ foreach ($okt->languages->list as $aLanguage)
 	$aPageData['locales'][$aLanguage['code']]['subtitle'] = '';
 	$aPageData['locales'][$aLanguage['code']]['content'] = '';
 
-	if ($okt->pages->config->enable_metas)
+	if ($okt->Pages->config->enable_metas)
 	{
 		$aPageData['locales'][$aLanguage['code']]['title_seo'] = '';
 		$aPageData['locales'][$aLanguage['code']]['title_tag'] = '';
@@ -64,7 +64,7 @@ if (!empty($_REQUEST['post_id']))
 {
 	$aPageData['post']['id'] = intval($_REQUEST['post_id']);
 
-	$rsPage = $okt->pages->getPagesRecordset(array(
+	$rsPage = $okt->Pages->getPagesRecordset(array(
 		'id' => $aPageData['post']['id'],
 		'active' => 2
 	));
@@ -82,7 +82,7 @@ if (!empty($_REQUEST['post_id']))
 		$aPageData['post']['created_at'] = $rsPage->created_at;
 		$aPageData['post']['updated_at'] = $rsPage->updated_at;
 
-		$rsPageI18n = $okt->pages->getPageI18n($aPageData['post']['id']);
+		$rsPageI18n = $okt->Pages->getPageI18n($aPageData['post']['id']);
 
 		foreach ($okt->languages->list as $aLanguage)
 		{
@@ -94,7 +94,7 @@ if (!empty($_REQUEST['post_id']))
 					$aPageData['locales'][$aLanguage['code']]['subtitle'] = $rsPageI18n->subtitle;
 					$aPageData['locales'][$aLanguage['code']]['content'] = $rsPageI18n->content;
 
-					if ($okt->pages->config->enable_metas)
+					if ($okt->Pages->config->enable_metas)
 					{
 						$aPageData['locales'][$aLanguage['code']]['title_seo'] = $rsPageI18n->title_seo;
 						$aPageData['locales'][$aLanguage['code']]['title_tag'] = $rsPageI18n->title_tag;
@@ -107,18 +107,18 @@ if (!empty($_REQUEST['post_id']))
 		}
 
 		# Images
-		if ($okt->pages->config->images['enable']) {
+		if ($okt->Pages->config->images['enable']) {
 			$aPageData['images'] = $rsPage->getImagesInfo();
 		}
 
 		# Fichiers
-		if ($okt->pages->config->files['enable']) {
+		if ($okt->Pages->config->files['enable']) {
 			$aPageData['files'] = $rsPage->getFilesInfo();
 		}
 
 		# Permissions
-		if ($okt->pages->canUsePerms()) {
-			$aPageData['perms'] = $okt->pages->getPagePermissions($aPageData['post']['id']);
+		if ($okt->Pages->canUsePerms()) {
+			$aPageData['perms'] = $okt->Pages->getPagePermissions($aPageData['post']['id']);
 		}
 
 		# URL
@@ -128,7 +128,7 @@ if (!empty($_REQUEST['post_id']))
 
 
 # -- TRIGGER MODULE PAGES : adminPostInit
-$okt->pages->triggers->callTrigger('adminPostInit', $okt, $aPageData, $rsPage, $rsPageI18n);
+$okt->Pages->triggers->callTrigger('adminPostInit', $okt, $aPageData, $rsPage, $rsPageI18n);
 
 
 
@@ -140,7 +140,7 @@ if (!empty($_GET['switch_status']) && !empty($aPageData['post']['id']))
 {
 	try
 	{
-		$okt->pages->switchPageStatus($aPageData['post']['id']);
+		$okt->Pages->switchPageStatus($aPageData['post']['id']);
 
 		# log admin
 		$okt->logAdmin->info(array(
@@ -159,7 +159,7 @@ if (!empty($_GET['switch_status']) && !empty($aPageData['post']['id']))
 # suppression d'une image
 if (!empty($_GET['delete_image']) && !empty($aPageData['post']['id']))
 {
-	$okt->pages->deleteImage($aPageData['post']['id'], $_GET['delete_image']);
+	$okt->Pages->deleteImage($aPageData['post']['id'], $_GET['delete_image']);
 
 	# log admin
 	$okt->logAdmin->info(array(
@@ -176,7 +176,7 @@ if (!empty($_GET['delete_image']) && !empty($aPageData['post']['id']))
 # suppression d'un fichier
 if (!empty($_GET['delete_file']) && !empty($aPageData['post']['id']))
 {
-	$okt->pages->deleteFile($aPageData['post']['id'],$_GET['delete_file']);
+	$okt->Pages->deleteFile($aPageData['post']['id'],$_GET['delete_file']);
 
 	# log admin
 	$okt->logAdmin->info(array(
@@ -205,7 +205,7 @@ if (!empty($_POST['sended']))
 		$aPageData['locales'][$aLanguage['code']]['subtitle'] = !empty($_POST['p_subtitle'][$aLanguage['code']]) ? $_POST['p_subtitle'][$aLanguage['code']] : '';
 		$aPageData['locales'][$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
 
-		if ($okt->pages->config->enable_metas)
+		if ($okt->Pages->config->enable_metas)
 		{
 			$aPageData['locales'][$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
 			$aPageData['locales'][$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
@@ -219,13 +219,13 @@ if (!empty($_POST['sended']))
 
 
 	# -- TRIGGER MODULE PAGES : adminPopulateData
-	$okt->pages->triggers->callTrigger('adminPopulateData', $okt, $aPageData);
+	$okt->Pages->triggers->callTrigger('adminPopulateData', $okt, $aPageData);
 
 
 	# vérification des données avant modification dans la BDD
-	if ($okt->pages->checkPostData($aPageData))
+	if ($okt->Pages->checkPostData($aPageData))
 	{
-		$aPageData['cursor'] = $okt->pages->openPageCursor($aPageData['post']);
+		$aPageData['cursor'] = $okt->Pages->openPageCursor($aPageData['post']);
 
 		# update page
 		if (!empty($aPageData['post']['id']))
@@ -233,12 +233,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageUpdate
-				$okt->pages->triggers->callTrigger('beforePageUpdate', $okt, $aPageData);
+				$okt->Pages->triggers->callTrigger('beforePageUpdate', $okt, $aPageData);
 
-				$okt->pages->updPage($aPageData['cursor'], $aPageData['locales'], $aPageData['perms']);
+				$okt->Pages->updPage($aPageData['cursor'], $aPageData['locales'], $aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageUpdate
-				$okt->pages->triggers->callTrigger('afterPageUpdate', $okt, $aPageData);
+				$okt->Pages->triggers->callTrigger('afterPageUpdate', $okt, $aPageData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -262,12 +262,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageCreate
-				$okt->pages->triggers->callTrigger('beforePageCreate', $okt, $aPageData);
+				$okt->Pages->triggers->callTrigger('beforePageCreate', $okt, $aPageData);
 
-				$aPageData['post']['id'] = $okt->pages->addPage($aPageData['cursor'], $aPageData['locales'], $aPageData['perms']);
+				$aPageData['post']['id'] = $okt->Pages->addPage($aPageData['cursor'], $aPageData['locales'], $aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageCreate
-				$okt->pages->triggers->callTrigger('afterPageCreate', $okt, $aPageData);
+				$okt->Pages->triggers->callTrigger('afterPageCreate', $okt, $aPageData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -292,24 +292,24 @@ if (!empty($_POST['sended']))
 ----------------------------------------------------------*/
 
 # Récupération de la liste complète des rubriques
-if ($okt->pages->config->categories['enable'])
+if ($okt->Pages->config->categories['enable'])
 {
-	$rsCategories = $okt->pages->categories->getCategories(array(
+	$rsCategories = $okt->Pages->categories->getCategories(array(
 		'active' => 2,
 		'language' => $okt->user->language
 	));
 }
 
 # Liste des templates utilisables
-$oTemplatesItem = new TemplatesSet($okt, $okt->pages->config->templates['item'], 'pages/item', 'item');
+$oTemplatesItem = new TemplatesSet($okt, $okt->Pages->config->templates['item'], 'pages/item', 'item');
 $aTplChoices = array_merge(
 	array('&nbsp;' => null),
-	$oTemplatesItem->getUsablesTemplatesForSelect($okt->pages->config->templates['item']['usables'])
+	$oTemplatesItem->getUsablesTemplatesForSelect($okt->Pages->config->templates['item']['usables'])
 );
 
 # Récupération de la liste des groupes si les permissions sont activées
-if ($okt->pages->canUsePerms()) {
-	$aGroups = $okt->pages->getUsersGroupsForPerms(false,true);
+if ($okt->Pages->canUsePerms()) {
+	$aGroups = $okt->Pages->getUsersGroupsForPerms(false,true);
 }
 
 # ajout bouton retour
@@ -362,10 +362,10 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Modal
-$okt->page->applyLbl($okt->pages->config->lightbox_type);
+$okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 # RTE
-$okt->page->applyRte($okt->pages->config->enable_rte,'textarea.richTextEditor');
+$okt->page->applyRte($okt->Pages->config->enable_rte,'textarea.richTextEditor');
 
 # Lang switcher
 if (!$okt->languages->unique) {
@@ -441,7 +441,7 @@ $aPageData['tabs'][10]['content'] = ob_get_clean();
 
 
 # onglet images
-if ($okt->pages->config->images['enable'])
+if ($okt->Pages->config->images['enable'])
 {
 	$aPageData['tabs'][20] = array(
 		'id' => 'tab-images',
@@ -453,7 +453,7 @@ if ($okt->pages->config->images['enable'])
 
 	<h3><?php _e('m_pages_page_tab_title_images')?></h3>
 	<div class="two-cols modal-box">
-	<?php for ($i=1; $i<=$okt->pages->config->images['number']; $i++) : ?>
+	<?php for ($i=1; $i<=$okt->Pages->config->images['number']; $i++) : ?>
 		<div class="col">
 			<fieldset>
 				<legend><?php printf(__('m_pages_page_image_%s'), $i) ?></legend>
@@ -528,7 +528,7 @@ if ($okt->pages->config->images['enable'])
 
 
 # onglet fichiers
-if ($okt->pages->config->files['enable'])
+if ($okt->Pages->config->files['enable'])
 {
 	$aPageData['tabs'][30] = array(
 		'id' => 'tab-files',
@@ -541,7 +541,7 @@ if ($okt->pages->config->files['enable'])
 	<h3><?php _e('m_pages_page_tab_title_files')?></h3>
 
 	<div class="two-cols">
-	<?php for ($i=1; $i<=$okt->pages->config->files['number']; $i++) : ?>
+	<?php for ($i=1; $i<=$okt->Pages->config->files['number']; $i++) : ?>
 		<div class="col">
 			<p class="field"><label for="p_files_<?php echo $i ?>"><?php printf(__('m_pages_page_file_%s'), $i)?> </label>
 			<?php echo form::file('p_files_'.$i) ?></p>
@@ -599,7 +599,7 @@ ob_start(); ?>
 	<h3><?php _e('m_pages_page_tab_title_options')?></h3>
 
 	<div class="two-cols">
-		<?php if ($okt->pages->config->categories['enable']) : ?>
+		<?php if ($okt->Pages->config->categories['enable']) : ?>
 		<p class="field col"><label for="p_category_id"><?php _e('m_pages_page_category')?></label>
 		<select id="p_category_id" name="p_category_id">
 			<option value="0"><?php _e('m_pages_page_category_first_level') ?></option>
@@ -618,13 +618,13 @@ ob_start(); ?>
 
 		<p class="field col"><label><?php echo form::checkbox('p_active', 1, $aPageData['post']['active']) ?> <?php _e('c_c_status_Online') ?></label></p>
 
-		<?php if (!empty($okt->pages->config->templates['item']['usables'])) : ?>
+		<?php if (!empty($okt->Pages->config->templates['item']['usables'])) : ?>
 		<p class="field col"><label for="p_tpl"><?php _e('m_pages_page_tpl') ?></label>
 		<?php echo form::select('p_tpl', $aTplChoices, $aPageData['post']['tpl'])?></p>
 		<?php endif; ?>
 
 		<?php # si les permissions de groupe sont activées
-		if ($okt->pages->canUsePerms()) : ?>
+		if ($okt->Pages->canUsePerms()) : ?>
 		<div class="col">
 			<p><?php _e('m_pages_page_permissions_group')?></p>
 
@@ -643,7 +643,7 @@ $aPageData['tabs'][40]['content'] = ob_get_clean();
 
 
 # onglet seo
-if ($okt->pages->config->enable_metas)
+if ($okt->Pages->config->enable_metas)
 {
 	$aPageData['tabs'][50] = array(
 		'id' => 'tab-seo',
@@ -684,7 +684,7 @@ if ($okt->pages->config->enable_metas)
 
 
 # -- TRIGGER MODULE PAGES : adminPostBuildTabs
-$okt->pages->triggers->callTrigger('adminPostBuildTabs', $okt, $aPageData);
+$okt->Pages->triggers->callTrigger('adminPostBuildTabs', $okt, $aPageData);
 
 $aPageData['tabs']->ksort();
 ?>

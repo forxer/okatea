@@ -38,7 +38,7 @@ class Categories extends Controller
 			return $deleteCategory;
 		}
 
-		return $this->render('news/Admin/Templates/Categories', array(
+		return $this->render('News/Admin/Templates/Categories', array(
 			'rsCategories' => $rsCategories
 		));
 	}

@@ -848,7 +848,7 @@ class module_##module_id## extends Module
 
 		# URL is empty?
 		if ($url == '') {
-			throw new Exception(__('Empty item URL'));
+			throw new \Exception(__('Empty item URL'));
 		}
 
 		return $url;
