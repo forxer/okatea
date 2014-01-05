@@ -1,7 +1,5 @@
 <?php
 
-use Tao\Misc\Utilities;
-
 $this->extend('layout');
 
 # Module title tag

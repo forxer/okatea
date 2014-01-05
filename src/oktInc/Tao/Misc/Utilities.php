@@ -261,7 +261,7 @@ class Utilities
 	 */
 	public static function formatNumber($number, $dec=2)
 	{
-		return \html::escapeHTML(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
+		return self::escapeHTML(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
 	}
 
 	/**
@@ -546,6 +546,19 @@ class Utilities
 	}
 
 	/**
+	 * HTML escape
+	 *
+	 * Replaces HTML special characters by entities.
+	 *
+	 * @param string $str	String to escape
+	 * @return	string
+	 */
+	public static function escapeHTML($str)
+	{
+		return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
+	}
+
+	/**
 	 * HTML attributes escape
 	 *
 	 * @param string $str	String to escape
@@ -553,7 +566,23 @@ class Utilities
 	 */
 	public static function escapeAttrHTML($str)
 	{
-		return \html::escapeHTML(str_replace(array('"','\''), array('','’'), $str));
+		return self::escapeHTML(str_replace(array('"', '\''), array('', '’'), $str));
+	}
+
+	/**
+	 * Javascript escape
+	 *
+	 * Returns a protected JavaScript string
+	 *
+	 * @param string	$str		String to protect
+	 * @return	string
+	 */
+	public static function escapeJS($str)
+	{
+		$str = htmlspecialchars($str, ENT_NOQUOTES, 'UTF-8');
+		$str = str_replace("'","\'",$str);
+		$str = str_replace('"','\"',$str);
+		return $str;
 	}
 
 	/**
@@ -724,7 +753,7 @@ class Utilities
 	 */
 	public static function clean($str)
 	{
-		$str = \html::clean($str);
+		$str = strip_tags($str);
 		$str = self::linebreaks($str);
 		$str = str_replace("\n", ' ', $str);
 
