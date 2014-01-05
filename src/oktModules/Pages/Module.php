@@ -1,9 +1,12 @@
 <?php
-/**
- * @ingroup okt_module_pages
- * @brief La classe principale du Module Pages.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+namespace Okatea\Module\Pages;
 
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
@@ -11,12 +14,12 @@ use Tao\Core\Authentification;
 use Tao\Core\Triggers;
 use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Misc\FileUpload;
-use Tao\Modules\Module;
+use Tao\Modules\Module as BaseModule;
 use Tao\Themes\SimpleReplacements;
 
-class module_pages extends Module
+class Module extends BaseModule
 {
 	public $config = null;
 	public $categories = null;
@@ -40,28 +43,28 @@ class module_pages extends Module
 	{
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'PagesCategories' => __DIR__.'/inc/PagesCategories.php',
-			'PagesController' => __DIR__.'/inc/PagesController.php',
-			'PagesFilters' => __DIR__.'/inc/PagesFilters.php',
-			'PagesHelpers' => __DIR__.'/inc/PagesHelpers.php',
-			'PagesRecordset' => __DIR__.'/inc/PagesRecordset.php'
+			'Okatea\Module\Pages\Categories' 	=> __DIR__.'/Categories.php',
+			'Okatea\Module\Pages\Controller' 	=> __DIR__.'/Controller.php',
+			'Okatea\Module\Pages\Filters' 		=> __DIR__.'/Filters.php',
+			'Okatea\Module\Pages\Helpers' 		=> __DIR__.'/Helpers.php',
+			'Okatea\Module\Pages\Recordset' 	=> __DIR__.'/Recordset.php'
 		));
 
 		# permissions
-		$this->okt->addPermGroup('pages', __('m_pages_perm_group'));
-			$this->okt->addPerm('pages', __('m_pages_perm_global'), 'pages');
-			$this->okt->addPerm('pages_categories', __('m_pages_perm_categories'), 'pages');
-			$this->okt->addPerm('pages_add', __('m_pages_perm_add'), 'pages');
-			$this->okt->addPerm('pages_remove', __('m_pages_perm_remove'), 'pages');
-			$this->okt->addPerm('pages_display', __('m_pages_perm_display'), 'pages');
-			$this->okt->addPerm('pages_config', __('m_pages_perm_config'), 'pages');
+		$this->okt->addPermGroup('pages', 	__('m_pages_perm_group'));
+			$this->okt->addPerm('pages', 				__('m_pages_perm_global'), 'pages');
+			$this->okt->addPerm('pages_categories', 	__('m_pages_perm_categories'), 'pages');
+			$this->okt->addPerm('pages_add', 			__('m_pages_perm_add'), 'pages');
+			$this->okt->addPerm('pages_remove', 		__('m_pages_perm_remove'), 'pages');
+			$this->okt->addPerm('pages_display', 		__('m_pages_perm_display'), 'pages');
+			$this->okt->addPerm('pages_config', 		__('m_pages_perm_config'), 'pages');
 
 		# tables
-		$this->t_pages = $this->db->prefix.'mod_pages';
-		$this->t_pages_locales = $this->db->prefix.'mod_pages_locales';
-		$this->t_permissions = $this->db->prefix.'mod_pages_permissions';
-		$this->t_categories = $this->db->prefix.'mod_pages_categories';
-		$this->t_categories_locales = $this->db->prefix.'mod_pages_categories_locales';
+		$this->t_pages 					= $this->db->prefix.'mod_pages';
+		$this->t_pages_locales 			= $this->db->prefix.'mod_pages_locales';
+		$this->t_permissions 			= $this->db->prefix.'mod_pages_permissions';
+		$this->t_categories 			= $this->db->prefix.'mod_pages_categories';
+		$this->t_categories_locales 	= $this->db->prefix.'mod_pages_categories_locales';
 
 		# déclencheurs
 		$this->triggers = new Triggers();
@@ -76,7 +79,7 @@ class module_pages extends Module
 		# rubriques
 		if ($this->config->categories['enable'])
 		{
-			$this->categories = new PagesCategories(
+			$this->categories = new Categories(
 				$this->okt,
 				$this->t_pages,
 				$this->t_pages_locales,
@@ -160,7 +163,7 @@ class module_pages extends Module
 	protected function prepend_public()
 	{
 		$this->okt->triggers->registerTrigger('publicAdminBarItems',
-			array('module_pages', 'publicAdminBarItems'));
+			array('Okatea\Module\Pages\Module', 'publicAdminBarItems'));
 	}
 
 	/**
@@ -231,8 +234,8 @@ class module_pages extends Module
 	 */
 	public function filtersStart($part='public')
 	{
-		if ($this->filters === null || !($this->filters instanceof PagesFilters)) {
-			$this->filters = new PagesFilters($this->okt,$part);
+		if ($this->filters === null || !($this->filters instanceof Filters)) {
+			$this->filters = new Filters($this->okt, $part);
 		}
 	}
 
@@ -444,7 +447,7 @@ class module_pages extends Module
 			'active' => $iActive
 		);
 
-		if (util::isInt($mPageId)) {
+		if (Utilities::isInt($mPageId)) {
 			$aParams['id'] = $mPageId;
 		}
 		else {
@@ -568,7 +571,7 @@ class module_pages extends Module
 
 		# contenu
 		if (!$this->config->enable_rte) {
-			$rs->content = util::nlToP($rs->content);
+			$rs->content = Utilities::nlToP($rs->content);
 		}
 
 		# perform content replacements
@@ -667,7 +670,7 @@ class module_pages extends Module
 			$sUrl = $rsPage->slug;
 		}
 
-		$sUrl = util::strToSlug($sUrl, false);
+		$sUrl = Utilities::strToSlug($sUrl, false);
 
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select(
@@ -693,9 +696,8 @@ class module_pages extends Module
 				$a[] = $rsCurrentSlugs->slug;
 			}
 
-			$sUrl = util::getIncrementedString($a, $sUrl, '-');
+			$sUrl = Utilities::getIncrementedString($a, $sUrl, '-');
 		}
-
 
 		$sQuery =
 		'UPDATE '.$this->t_pages_locales.' SET '.

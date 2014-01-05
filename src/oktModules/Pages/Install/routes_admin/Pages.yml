@@ -1,0 +1,38 @@
+
+Pages_index:
+    path:     /pages/{page}
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Index::page, page: 1 }
+    requirements:
+        page:  \d+
+
+Pages_post_add:
+    path:     /pages/post/add
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Post::add }
+    
+Pages_post:
+    path:     /pages/post/{post_id}
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Post::edit }
+    requirements:
+        post_id:  \d+
+
+Pages_categories:
+    path:     /pages/categories
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Categories::page }
+
+Pages_category_add:
+    path:     /pages/category/add
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Category::add }
+
+Pages_category:
+    path:     /pages/category/{category_id}
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Category::edit }
+    requirements:
+        category_id:  \d+
+
+Pages_display:
+    path:     /pages/display
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Display::page }
+
+Pages_config:
+    path:     /pages/configuration
+    defaults: { _controller: Okatea\Module\Pages\Admin\Controller\Config::page }

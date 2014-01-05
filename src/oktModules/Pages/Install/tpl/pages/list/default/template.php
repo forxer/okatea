@@ -61,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape(PagesHelpers::getNewsFeedUrl()) ?>" />
+	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape(PagesHelpers::getPagesFeedUrl()) ?>" />
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();

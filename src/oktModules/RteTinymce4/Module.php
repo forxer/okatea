@@ -1,13 +1,16 @@
 <?php
-/**
- * @ingroup okt_module_rte_tinyMCE_4
- * @brief La classe principale du module.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Tao\Modules\Module;
+namespace Okatea\Module\RteTinymce4;
 
-class module_rte_tinymce_4 extends Module
+use Tao\Modules\Module as BaseModule;
+
+class Module extends BaseModule
 {
 	public $config = null;
 
@@ -22,15 +25,20 @@ class module_rte_tinymce_4 extends Module
 
 	protected function prepend_admin()
 	{
-		$this->okt->page->addRte('tinymce_4','tinyMCE 4',array('module_rte_tinymce_4','tinyMCE'));
+		# autoload
+		$this->okt->autoloader->addClassMap(array(
+			'Okatea\Module\RteTinymce4\Admin\Controller\Config' => __DIR__.'/Admin/Controller/Config.php'
+		));
+
+		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Module\RteTinymce4\Module','tinyMCE'));
 
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 4'),
-				'module.php?m=rte_tinymce_4&amp;action=config',
-				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
+				$this->okt->adminRouter->generate('RteTinymce4_config'),
+				$this->okt->request->attributes->get('_route') === 'RteTinymce4_config',
 				40,
 				$this->okt->checkPerm('rte_tinymce_4_config'),
 				null
@@ -54,10 +62,10 @@ class module_rte_tinymce_4 extends Module
 		$sLanguageCode = strtolower($okt->user->language);
 		$sSpecificLanguageCode = strtolower($okt->user->language).'_'.strtoupper($okt->user->language);
 
-		if (file_exists($this->okt->options->get('modules_dir').'/rte_tinymce_4/tinymce/langs/'.$sLanguageCode.'.js')) {
+		if (file_exists($okt->options->get('modules_dir').'/RteTinymce4/tinymce/langs/'.$sLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sLanguageCode.'"';
 		}
-		elseif (file_exists($this->okt->options->get('modules_dir').'/rte_tinymce_4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
+		elseif (file_exists($okt->options->get('modules_dir').'/RteTinymce4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sSpecificLanguageCode.'"';
 		}
 
@@ -68,18 +76,18 @@ class module_rte_tinymce_4 extends Module
 		$aOptions[] = 'toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"';
 
 		# content CSS
-		if ($okt->rte_tinymce_4->config->content_css != '') {
-			$aOptions[] = 'content_css: "'.$okt->rte_tinymce_4->config->content_css.'"';
+		if ($okt->RteTinymce4->config->content_css != '') {
+			$aOptions[] = 'content_css: "'.$okt->RteTinymce4->config->content_css.'"';
 		}
 
 		# editor width
-		if ($okt->rte_tinymce_4->config->width != '') {
-			$aOptions[] = 'width: "'.$okt->rte_tinymce_4->config->width.'"';
+		if ($okt->RteTinymce4->config->width != '') {
+			$aOptions[] = 'width: "'.$okt->RteTinymce4->config->width.'"';
 		}
 
 		# editor height
-		if ($okt->rte_tinymce_4->config->height != '') {
-			$aOptions[] = 'height: "'.$okt->rte_tinymce_4->config->height.'"';
+		if ($okt->RteTinymce4->config->height != '') {
+			$aOptions[] = 'height: "'.$okt->RteTinymce4->config->height.'"';
 		}
 
 		# gestionnaire de media
@@ -108,7 +116,7 @@ class module_rte_tinymce_4 extends Module
 			}';
 		}
 
-		$okt->page->js->addFile($this->okt->options->modules_url.'/rte_tinymce_4/tinymce/tinymce.min.js');
+		$okt->page->js->addFile($okt->options->get('modules_url').'/RteTinymce4/tinymce/tinymce.min.js');
 
 		$okt->page->js->addScript('
 

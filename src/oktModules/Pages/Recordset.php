@@ -1,14 +1,17 @@
 <?php
-/**
- * @ingroup okt_module_pages
- * @brief Extension du recordset pour les pages
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Tao\Misc\Utilities as util;
-use Tao\Database\Recordset;
+namespace Okatea\Module\Pages;
 
-class PagesRecordset extends Recordset
+use Tao\Database\Recordset as BaseRecordset;
+use Tao\Misc\Utilities;
+
+class Recordset extends BaseRecordset
 {
 	/**
 	 * L'objet oktCore
@@ -156,7 +159,7 @@ class PagesRecordset extends Recordset
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
-					'type' => util::getMediaType($mime_type),
+					'type' => Utilities::getMediaType($mime_type),
 					'ext' => pathinfo($this->okt->pages->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);

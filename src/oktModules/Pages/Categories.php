@@ -1,14 +1,17 @@
 <?php
-/**
- * @ingroup okt_module_pages
- * @brief Pages categories management.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Tao\Misc\NestedTreei18n;
-use Tao\Misc\Utilities as util;
+namespace Okatea\Module\Pages;
 
-class PagesCategories extends NestedTreei18n
+use Tao\Misc\NestedTreei18n;
+use Tao\Misc\Utilities;
+
+class Categories extends NestedTreei18n
 {
 	protected $t_pages;
 	protected $t_pages_locales;
@@ -285,7 +288,7 @@ class PagesCategories extends NestedTreei18n
 			$sSlug = $rsCategory->slug;
 		}
 
-		$sSlug = util::strToSlug($sSlug, true);
+		$sSlug = Utilities::strToSlug($sSlug, true);
 
 		# Let's check if URL is taken…
 		$query =
@@ -312,7 +315,7 @@ class PagesCategories extends NestedTreei18n
 				$a[] = $rsCurrentSlugs->slug;
 			}
 
-			$sSlug = util::getIncrementedString($a, $sSlug, '-');
+			$sSlug = Utilities::getIncrementedString($a, $sSlug, '-');
 		}
 
 		$query =

@@ -209,7 +209,7 @@ class Category extends Controller
 	protected function init()
 	{
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.categories');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.categories');
 
 		# Récupération de la liste complète des rubriques
 		$this->rsCategories = $this->okt->News->categories->getCategories(array(

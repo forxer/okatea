@@ -167,7 +167,7 @@ class Module
 
 	final public function init()
 	{
-		$this->okt->l10n->loadFile($this->root().'/locales/'.$this->okt->user->language.'/main');
+		$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/main');
 
 		$this->prepend();
 	}
@@ -175,7 +175,7 @@ class Module
 	final public function initNs($ns)
 	{
 		if ($ns == 'admin') {
-			$this->okt->l10n->loadFile($this->root().'/locales/'.$this->okt->user->language.'/admin');
+			$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/admin');
 		}
 
 		$this->{'prepend_'.$ns}();

@@ -1,14 +1,17 @@
 <?php
-/**
- * @ingroup okt_module_pages
- * @brief Classe pour gérer les filtres de listes de pages.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Tao\Misc\BaseFilters;
-use Tao\Forms\Statics\FormElements as form;
+namespace Okatea\Module\Pages;
 
-class PagesFilters extends BaseFilters
+use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\BaseFilters;
+
+class Filters extends BaseFilters
 {
 	protected $pages;
 

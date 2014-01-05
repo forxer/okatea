@@ -1,15 +1,18 @@
 <?php
-/**
- * @ingroup okt_module_pages
- * @brief Controller public.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-use Tao\Website\Controller;
-use Tao\Misc\Utilities as util;
+namespace Okatea\Module\Pages;
+
+use Tao\Misc\Utilities;
+use Tao\Website\Controller as BaseController;
 use Tao\Website\Pager;
 
-class PagesController extends Controller
+class Controller extends BaseController
 {
 	/**
 	 * Affichage de la liste des pages classique.
@@ -174,7 +177,7 @@ class PagesController extends Controller
 
 		# formatage description rubrique
 		if (!$this->okt->pages->config->categories['rte']) {
-			$this->rsCategory->content = util::nlToP($this->rsCategory->content);
+			$this->rsCategory->content = Utilities::nlToP($this->rsCategory->content);
 		}
 
 		# initialisation paramètres

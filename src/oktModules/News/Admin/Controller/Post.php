@@ -227,7 +227,7 @@ class Post extends Controller
 	protected function init()
 	{
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.post');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.post');
 
 		$this->aPermissions = array(
 			'bCanViewPage' => true,

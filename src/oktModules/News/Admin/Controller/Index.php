@@ -25,7 +25,7 @@ class Index extends Controller
 		}
 
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.list');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.list');
 
 		# initialisation des filtres
 		$this->okt->News->filtersStart('admin');
