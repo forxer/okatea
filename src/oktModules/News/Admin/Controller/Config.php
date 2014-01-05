@@ -57,7 +57,7 @@ class Config extends Controller
 		);
 
 		# régénération des miniatures
-		if (!empty($_GET['minregen']))
+		if ($this->request->request->has('minregen'))
 		{
 			$this->okt->News->regenMinImages();
 
@@ -67,7 +67,7 @@ class Config extends Controller
 		}
 
 		# suppression filigrane
-		if (!empty($_GET['delete_watermark']))
+		if ($this->request->request->has('delete_watermark'))
 		{
 			$this->okt->News->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
@@ -77,19 +77,25 @@ class Config extends Controller
 		}
 
 		# enregistrement configuration
-		if (!empty($_POST['form_sent']))
+		if ($this->request->request->has('form_sent'))
 		{
-			$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
-			$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
+			$p_enable_metas = $this->request->request->has('p_enable_metas');
+			$p_enable_filters = $this->request->request->has('p_enable_filters');
 
-			$p_perms = !empty($_POST['p_perms']) && is_array($_POST['p_perms']) ? array_map('intval',$_POST['p_perms']) : array(0);
-			$p_enable_group_perms = !empty($_POST['p_enable_group_perms']) ? true : false;
+			if ($this->request->request->has('p_perms')) {
+				$p_perms = array_map('intval', $this->request->request->get('p_perms'));
+			}
+			else {
+				$p_perms =array(0);
+			}
 
-			$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
+			$p_enable_group_perms = $this->request->request->has('p_enable_group_perms');
 
-			$p_categories_enable = !empty($_POST['p_categories_enable']) ? true : false;
-			$p_categories_descriptions = !empty($_POST['p_categories_descriptions']) ? true : false;
-			$p_categories_rte = !empty($_POST['p_categories_rte']) ? $_POST['p_categories_rte'] : '';
+			$p_enable_rte = $this->request->request->get('p_enable_rte');
+
+			$p_categories_enable = $this->request->request->has('p_categories_enable');
+			$p_categories_descriptions = $this->request->request->has('p_categories_descriptions');
+			$p_categories_rte = $this->request->request->get('p_categories_rte');
 
 			$p_tpl_list = $oTemplatesList->getPostConfig();
 			$p_tpl_item = $oTemplatesItem->getPostConfig();
@@ -98,53 +104,53 @@ class Config extends Controller
 
 			$aImagesConfig = $oImageUploadConfig->getPostConfig();
 
-			$p_enable_files = !empty($_POST['p_enable_files']) ? true : false;
-			$p_number_files = !empty($_POST['p_number_files']) ? intval($_POST['p_number_files']) : 0;
-			$p_allowed_exts = !empty($_POST['p_allowed_exts']) ? $_POST['p_allowed_exts'] : '';
+			$p_enable_files = $this->request->request->has('p_enable_files');
+			$p_number_files = $this->request->request->getInt('p_number_files');
+			$p_allowed_exts = $this->request->request->get('p_allowed_exts');
 
-			$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name'])  ? $_POST['p_name'] : array();
-			$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo'])  ? $_POST['p_name_seo'] : array();
-			$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-			$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-			$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+			$p_name = $this->request->request->get('p_name', array());
+			$p_name_seo = $this->request->request->get('p_name_seo', array());
+			$p_title = $this->request->request->get('p_title', array());
+			$p_meta_description = $this->request->request->get('p_meta_description', array());
+			$p_meta_keywords = $this->request->request->get('p_meta_keywords', array());
 
 			if ($this->okt->error->isEmpty())
 			{
 				$new_conf = array(
-						'enable_metas' => (boolean)$p_enable_metas,
-						'enable_filters' => (boolean)$p_enable_filters,
+					'enable_metas' => (boolean)$p_enable_metas,
+					'enable_filters' => (boolean)$p_enable_filters,
 
-						'perms' => (array)$p_perms,
-						'enable_group_perms' => (boolean)$p_enable_group_perms,
+					'perms' => (array)$p_perms,
+					'enable_group_perms' => (boolean)$p_enable_group_perms,
 
-						'categories' => array(
-								'enable' => (boolean)$p_categories_enable,
-								'descriptions' => (boolean)$p_categories_descriptions,
-								'rte' => $p_categories_rte
-						),
+					'categories' => array(
+						'enable' => (boolean)$p_categories_enable,
+						'descriptions' => (boolean)$p_categories_descriptions,
+						'rte' => $p_categories_rte
+					),
 
-						'enable_rte' => $p_enable_rte,
+					'enable_rte' => $p_enable_rte,
 
-						'images' => $aImagesConfig,
+					'images' => $aImagesConfig,
 
-						'files' => array(
-								'enable' => (boolean)$p_enable_files,
-								'number' => (integer)$p_number_files,
-								'allowed_exts' => $p_allowed_exts
-						),
+					'files' => array(
+						'enable' => (boolean)$p_enable_files,
+						'number' => (integer)$p_number_files,
+						'allowed_exts' => $p_allowed_exts
+					),
 
-						'templates' => array(
-								'list' => $p_tpl_list,
-								'item' => $p_tpl_item,
-								'insert' => $p_tpl_insert,
-								'feed' => $p_tpl_feed
-						),
+					'templates' => array(
+						'list' => $p_tpl_list,
+						'item' => $p_tpl_item,
+						'insert' => $p_tpl_insert,
+						'feed' => $p_tpl_feed
+					),
 
-						'name' => $p_name,
-						'name_seo' => $p_name_seo,
-						'title' => $p_title,
-						'meta_description' => $p_meta_description,
-						'meta_keywords' => $p_meta_keywords
+					'name' => $p_name,
+					'name_seo' => $p_name_seo,
+					'title' => $p_title,
+					'meta_description' => $p_meta_description,
+					'meta_keywords' => $p_meta_keywords
 				);
 
 				try

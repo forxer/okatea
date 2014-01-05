@@ -141,13 +141,13 @@ class Page extends BasePage
 	 * @param string $url ('')
 	 * @return void
 	 */
-	public function addGlobalTitle($str,$url='')
+	public function addGlobalTitle($str, $url='')
 	{
 		# title tag
 		$this->addTitleTag($str);
 
 		# fil d'ariane
-		$this->addAriane($str,$url);
+		$this->addAriane($str, $url);
 	}
 
 	/**
@@ -158,9 +158,9 @@ class Page extends BasePage
 	 * @param string $url ('')
 	 * @return void
 	 */
-	public function addAriane($label,$url='')
+	public function addAriane($label, $url='')
 	{
-		$this->breadcrumb->add($label,$url);
+		$this->breadcrumb->add($label, $url);
 	}
 
 

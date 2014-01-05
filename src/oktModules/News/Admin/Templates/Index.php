@@ -6,6 +6,11 @@ use Tao\Misc\Utilities;
 
 $this->extend('layout');
 
+# module title tag
+$okt->page->addTitleTag($okt->News->getTitle());
+
+# module start breadcrumb
+$okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
 
 
 # Autocomplétion du formulaire de recherche

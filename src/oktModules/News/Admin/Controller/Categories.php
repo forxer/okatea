@@ -29,51 +29,73 @@ class Categories extends Controller
 		));
 
 		# switch statut
-		if (!empty($_GET['switch_status']))
-		{
-			try
-			{
-				$this->okt->News->categories->switchCategoryStatus($_GET['switch_status']);
-
-				# log admin
-				$this->okt->logAdmin->info(array(
-					'code' => 32,
-					'component' => 'news',
-					'message' => 'category #'.$_GET['switch_status']
-				));
-
-				$this->redirect($this->generateUrl('News_categories'));
-			}
-			catch (Exception $e) {
-				$this->okt->error->set($e->getMessage());
-			}
+		if ($switchCategoryStatus = $this->switchCategoryStatus() !== false) {
+			return $switchCategoryStatus;
 		}
 
 		# suppression d'une rubrique
-		if (!empty($_GET['delete']))
-		{
-			try
-			{
-				$this->okt->News->categories->delCategory(intval($_GET['delete']));
-
-				# log admin
-				$this->okt->logAdmin->warning(array(
-					'code' => 42,
-					'component' => 'news',
-					'message' => 'category #'.$_GET['delete']
-				));
-
-				$this->okt->page->flash->success(__('m_news_cat_deleted'));
-
-				$this->redirect($this->generateUrl('News_categories'));
-			}
-			catch (Exception $e) {
-				$this->okt->error->set($e->getMessage());
-			}
+		if ($deleteCategory = $this->deleteCategory() !== false) {
+			return $deleteCategory;
 		}
 
 		return $this->render('news/Admin/Templates/Categories', array(
 			'rsCategories' => $rsCategories
 		));
+	}
+
+	protected function switchCategoryStatus()
+	{
+		$iCategoryId = $this->request->query->getInt('switch_status');
+
+		if (!$iCategoryId) {
+			return false;
+		}
+
+		try
+		{
+			$this->okt->News->categories->switchCategoryStatus($iCategoryId);
+
+			# log admin
+			$this->okt->logAdmin->info(array(
+				'code' => 32,
+				'component' => 'news',
+				'message' => 'category #'.$iCategoryId
+			));
+
+			$this->redirect($this->generateUrl('News_categories'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function deleteCategory()
+	{
+		$iCategoryId = $this->request->query->getInt('delete');
+
+		if (!$iCategoryId) {
+			return false;
+		}
+
+		try
+		{
+			$this->okt->News->categories->delCategory($iCategoryId);
+
+			# log admin
+			$this->okt->logAdmin->warning(array(
+				'code' => 42,
+				'component' => 'news',
+				'message' => 'category #'.$iCategoryId
+			));
+
+			$this->okt->page->flash->success(__('m_news_cat_deleted'));
+
+			$this->redirect($this->generateUrl('News_categories'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
 	}
 }

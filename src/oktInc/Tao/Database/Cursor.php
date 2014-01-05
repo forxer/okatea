@@ -269,12 +269,14 @@ class Cursor
 	public function insert()
 	{
 		if (!$this->table) {
-			throw new Exception('No table name.');
+			throw new \Exception('No table name.');
 		}
 
 		$insReq = $this->getInsert();
 
-		if (!$this->db->execute($insReq)) {
+		if (!$this->db->execute($insReq))
+		{
+			throw new \Exception('Unable to execute '.$insReq);
 			return false;
 		}
 
@@ -284,12 +286,14 @@ class Cursor
 	public function insertUpdate()
 	{
 		if (!$this->table) {
-			throw new Exception('No table name.');
+			throw new \Exception('No table name.');
 		}
 
 		$insReq = $this->getInsertUpdate();
 
-		if (!$this->db->execute($insReq)) {
+		if (!$this->db->execute($insReq))
+		{
+			throw new \Exception('Unable to execute '.$insReq);
 			return false;
 		}
 
@@ -306,12 +310,14 @@ class Cursor
 	public function update($where)
 	{
 		if (!$this->table) {
-			throw new Exception('No table name.');
+			throw new \Exception('No table name.');
 		}
 
 		$updReq = $this->getUpdate($where);
 
-		if (!$this->db->execute($updReq)) {
+		if (!$this->db->execute($updReq))
+		{
+			throw new \Exception('Unable to execute '.$updReq);
 			return false;
 		}
 

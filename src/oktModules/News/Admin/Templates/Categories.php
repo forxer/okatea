@@ -4,6 +4,12 @@ use Tao\Misc\Utilities;
 
 $this->extend('layout');
 
+# Module title tag
+$okt->page->addTitleTag($okt->News->getTitle());
+
+# Module start breadcrumb
+$okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
+
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_news_cats_categories'), $view->generateUrl('News_categories'));
 

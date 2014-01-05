@@ -745,7 +745,7 @@ class MySqli
 		return $this->execute($sql);
 	}
 
-	public static function formatDateTime($sDate=null, $sOrder='dmyhis')
+	public static function formatDateTime($sDate=null, $sOrder='ymdhis')
 	{
 		$sDate = trim($sDate);
 
@@ -753,15 +753,15 @@ class MySqli
 			return null;
 		}
 		else {
-			$aResult = preg_split('/[^\d]/',$sDate);
+			$aResult = preg_split('/[^\d]/', $sDate);
 
 			$nCount = count($aResult);
 
 			if ($nCount<6) {
-				$aResult = $aResult + array_fill($nCount,6-$nCount,'00');
+				$aResult = $aResult + array_fill($nCount, 6-$nCount, '00');
 			}
 
-			$aResult = array_combine(str_split($sOrder),$aResult);
+			$aResult = array_combine(str_split($sOrder), $aResult);
 
 			return ($aResult['y'].'-'.$aResult['m'].'-'.$aResult['d'].' '.$aResult['h'].':'.$aResult['i'].':'.$aResult['s']);
 		}

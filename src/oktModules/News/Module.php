@@ -15,7 +15,6 @@ use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
 use Tao\Core\Authentification;
 use Tao\Core\Triggers;
-use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
 use Tao\Misc\Utilities;
 use Tao\Misc\FileUpload;
@@ -661,10 +660,6 @@ class Module extends BaseModule
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			if (empty($aPostLocalesData[$aLanguage['code']]['title'])) {
-				continue;
-			}
-
 			$oCursor = $this->db->openCursor($this->t_news_locales);
 
 			$oCursor->post_id = $iPostId;
@@ -704,7 +699,7 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if (empty($rsPost->slug)) {
@@ -773,7 +768,7 @@ class Module extends BaseModule
 		$oCursor->user_id = $this->okt->user->id;
 
 		if (!$oCursor->insert()) {
-			throw new Exception('Unable to insert post into database');
+			throw new \Exception('Unable to insert post into database');
 		}
 
 		# récupération de l'ID
@@ -784,17 +779,17 @@ class Module extends BaseModule
 
 		# ajout des images
 		if ($this->config->images['enable'] && $this->addImages($iNewId) === false) {
-			throw new Exception('Unable to insert images post');
+			throw new \Exception('Unable to insert images post');
 		}
 
 		# ajout des fichiers
 		if ($this->config->files['enable'] && $this->addFiles($iNewId) === false) {
-			throw new Exception('Unable to insert files post');
+			throw new \Exception('Unable to insert files post');
 		}
 
 		# ajout permissions
 		if (!$this->setPostPermissions($iNewId, (!empty($aPostPermsData) ? $aPostPermsData : array()))) {
-			throw new Exception('Unable to set post permissions');
+			throw new \Exception('Unable to set post permissions');
 		}
 
 		return $iNewId;
@@ -815,33 +810,33 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $oCursor->id));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $oCursor->id));
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		# modification dans la DB
 		$this->preparePostCursor($oCursor);
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new Exception('Unable to update post into database');
+			throw new \Exception('Unable to update post into database');
 		}
 
 		# modification des images
 		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new Exception('Unable to update files post');
+			throw new \Exception('Unable to update files post');
 		}
 
 		# modification des fichiers
 		if ($this->config->files['enable'] && $this->updFiles($oCursor->id) === false) {
-			throw new Exception('Unable to update files post');
+			throw new \Exception('Unable to update files post');
 		}
 
 		# modification permissions
 		if (!$this->setPostPermissions($oCursor->id, (!empty($aPostPermsData) ? $aPostPermsData : array()))) {
-			throw new Exception('Unable to set post permissions');
+			throw new \Exception('Unable to set post permissions');
 		}
 
 		# modification des textes internationnalisés
@@ -862,8 +857,10 @@ class Module extends BaseModule
 		if (empty($oCursor->created_at)) {
 			$oCursor->created_at = $sDate;
 		}
+		else {
+			$oCursor->created_at = date('Y-m-d H:i:s', strtotime($oCursor->created_at));
+		}
 
-		$oCursor->created_at = MySqli::formatDateTime($oCursor->created_at);
 		$oCursor->updated_at = $sDate;
 
 		if (strtotime($oCursor->created_at) > time()) {
@@ -928,15 +925,15 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		if ($rsPost->visibility == 2) {
-			throw new Exception(__('m_news_post_not_yet_validated'));
+			throw new \Exception(__('m_news_post_not_yet_validated'));
 		}
 
 		$sQuery =
@@ -946,7 +943,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update post in database.');
+			throw new \Exception('Unable to update post in database.');
 		}
 
 		return true;
@@ -966,7 +963,7 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if ($rsPost->active != 1) {
@@ -974,7 +971,7 @@ class Module extends BaseModule
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		$this->setPostStatus($iPostId, 0);
@@ -996,7 +993,7 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if ($rsPost->active != 0) {
@@ -1004,7 +1001,7 @@ class Module extends BaseModule
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		$this->setPostStatus($iPostId, 1);
@@ -1026,7 +1023,7 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if ($rsPost->active != 2) {
@@ -1034,11 +1031,11 @@ class Module extends BaseModule
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		if (!$rsPost->isPublishable()) {
-			throw new Exception(__('m_news_post_not_publishable'));
+			throw new \Exception(__('m_news_post_not_publishable'));
 		}
 
 		$this->setPostStatus($iPostId, 1);
@@ -1090,7 +1087,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update post in database.');
+			throw new \Exception('Unable to update post in database.');
 		}
 
 		return true;
@@ -1109,11 +1106,11 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		$sQuery =
@@ -1123,7 +1120,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update post in database.');
+			throw new \Exception('Unable to update post in database.');
 		}
 
 		return true;
@@ -1143,11 +1140,11 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if (!$rsPost->isEditable()) {
-			throw new Exception(__('m_news_post_not_editable'));
+			throw new \Exception(__('m_news_post_not_editable'));
 		}
 
 		$sQuery =
@@ -1157,7 +1154,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update post in database.');
+			throw new \Exception('Unable to update post in database.');
 		}
 
 		return true;
@@ -1176,19 +1173,19 @@ class Module extends BaseModule
 		));
 
 		if ($rsPost->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		if (!$rsPost->isDeletable()) {
-			throw new Exception(__('m_news_post_not_deletable'));
+			throw new \Exception(__('m_news_post_not_deletable'));
 		}
 
 		if ($this->deleteImages($iPostId) === false) {
-			throw new Exception('Unable to delete images post.');
+			throw new \Exception('Unable to delete images post.');
 		}
 
 		if ($this->deleteFiles($iPostId) === false) {
-			throw new Exception('Unable to delete files post.');
+			throw new \Exception('Unable to delete files post.');
 		}
 
 		$sQuery =
@@ -1196,7 +1193,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to remove post from database.');
+			throw new \Exception('Unable to remove post from database.');
 		}
 
 		$this->db->optimize($this->t_news);
@@ -1206,7 +1203,7 @@ class Module extends BaseModule
 		'WHERE post_id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to remove post locales from database.');
+			throw new \Exception('Unable to remove post locales from database.');
 		}
 
 		$this->db->optimize($this->t_news_locales);
@@ -1330,7 +1327,7 @@ class Module extends BaseModule
 		}
 
 		if (!$this->postExists($iPostId)) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
@@ -1381,7 +1378,7 @@ class Module extends BaseModule
 	protected function setDefaultPostPermissions($iPostId)
 	{
 		if (!$this->postExists($iPostId)) {
-			throw new Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
+			throw new \Exception(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 		}
 
 		# suppression de toutes les permissions éventuellement existantes
@@ -1409,7 +1406,7 @@ class Module extends BaseModule
 		') ';
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to insert post permissions into database');
+			throw new \Exception('Unable to insert post permissions into database');
 		}
 
 		return true;
@@ -1428,7 +1425,7 @@ class Module extends BaseModule
 		'WHERE post_id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to delete post permissions from database');
+			throw new \Exception('Unable to delete post permissions from database');
 		}
 
 		$this->db->optimize($this->t_permissions);
