@@ -21,7 +21,7 @@ use Tao\Misc\Utilities;
 			<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_files_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('m_news_post_file_title_%s'), $i) : printf(__('m_news_post_file_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
-			<?php echo form::text(array('p_files_title_'.$i.'['.$aLanguage['code'].']','p_files_title_'.$i.'_'.$aLanguage['code']), 40, 255, (isset($aCurFileTitle[$aLanguage['code']]) ? html::escapeHTML($aCurFileTitle[$aLanguage['code']]) : '')) ?></p>
+			<?php echo form::text(array('p_files_title_'.$i.'['.$aLanguage['code'].']','p_files_title_'.$i.'_'.$aLanguage['code']), 40, 255, (isset($aCurFileTitle[$aLanguage['code']]) ? $view->escape($aCurFileTitle[$aLanguage['code']]) : '')) ?></p>
 
 			<?php endforeach; ?>
 
@@ -32,7 +32,7 @@ use Tao\Misc\Utilities;
 			<?php if ($aPermissions['bCanEditPost']) : ?>
 			<p><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php
 			echo $aPostData['post']['id'] ?>&amp;delete_file=<?php echo $i ?>"
-			onclick="return window.confirm('<?php echo html::escapeJS(_e('m_news_post_delete_file_confirm')) ?>')"
+			onclick="return window.confirm('<?php echo $view->escapeJs(_e('m_news_post_delete_file_confirm')) ?>')"
 			class="icon delete"><?php _e('m_news_post_delete_file')?></a></p>
 			<?php endif; ?>
 

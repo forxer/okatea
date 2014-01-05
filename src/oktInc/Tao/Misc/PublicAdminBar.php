@@ -8,9 +8,10 @@
 
 namespace Tao\Misc;
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
 use Tao\Core\Update as Updater;
+use Tao\Misc\Utilities;
+use Tao\Routing\AdminRouter;
 
 /**
  * La classe pour afficher la barre admin côté publique
@@ -33,6 +34,13 @@ class PublicAdminBar
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin-bar.css');
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/admin-bar.js');
+
+		$this->okt->adminRouter = new AdminRouter(
+			$this->okt,
+			$this->okt->options->get('config_dir').'/routes_admin',
+			$this->okt->options->get('cache_dir').'/routing/admin',
+			$this->okt->debug
+		);
 	}
 
 	public static function displayPublicAdminBar($okt)
@@ -41,7 +49,7 @@ class PublicAdminBar
 		$aPrimaryAdminBar = new \ArrayObject;
 		$aSecondaryAdminBar = new \ArrayObject;
 
-		$aBasesUrl['admin'] = $okt->config->app_path.'admin';
+		$aBasesUrl['admin'] = $okt->config->app_path.'admin/';
 		$aBasesUrl['logout'] = $aBasesUrl['admin'].'/index.php?logout=1';
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 
@@ -84,7 +92,7 @@ class PublicAdminBar
 				$aSecondaryAdminBar[$iStartIdx++] = array(
 					'href' => \html::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
 					'title' => \html::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
+					'intitle' => '<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.\html::escapeHTML($aLanguage['title']).'" />'
 				);
 			}
 		}
@@ -110,7 +118,7 @@ class PublicAdminBar
 			if ($okt->config->update_enabled && is_readable($okt->options->get('digests')))
 			{
 				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
-				$new_v = $updater->check(util::getVersion());
+				$new_v = $updater->check(Utilities::getVersion());
 
 				if ($updater->getNotify() && $new_v)
 				{
@@ -144,17 +152,17 @@ class PublicAdminBar
 
 			# info execution
 			$aExecInfos = array();
-			$aExecInfos['execTime'] = util::getExecutionTime();
+			$aExecInfos['execTime'] = Utilities::getExecutionTime();
 
 			if (OKT_XDEBUG)
 			{
-				$aExecInfos['memUsage'] = util::l10nFileSize(xdebug_memory_usage());
-				$aExecInfos['peakUsage'] = util::l10nFileSize(xdebug_peak_memory_usage());
+				$aExecInfos['memUsage'] = Utilities::l10nFileSize(xdebug_memory_usage());
+				$aExecInfos['peakUsage'] = Utilities::l10nFileSize(xdebug_peak_memory_usage());
 			}
 			else {
 
-				$aExecInfos['memUsage'] = util::l10nFileSize(memory_get_usage());
-				$aExecInfos['peakUsage'] = util::l10nFileSize(memory_get_peak_usage());
+				$aExecInfos['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
+				$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 			}
 
 			$aSecondaryAdminBar[1000] = array(
@@ -164,7 +172,7 @@ class PublicAdminBar
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'
 					),
 					array(
-						'intitle' => 'Mémoire utilisée par PHP&nbsp;: '.$aExecInfos['memUsage']
+						'intitle' => 'Mémoire Utilities::isée par PHP&nbsp;: '.$aExecInfos['memUsage']
 					),
 					array(
 						'intitle' => 'Pic mémoire allouée par PHP&nbsp;: '.$aExecInfos['peakUsage']
@@ -238,7 +246,7 @@ class PublicAdminBar
 			<a class="screen-reader-shortcut" href="#okt-toolbar" tabindex="1"><?php _e('Skip to toolbar'); ?>
 			</a>
 			<div class="quicklinks" id="okt-toolbar" role="navigation"
-				aria-label="<?php echo util::escapeAttrHTML(__('Top navigation toolbar.')); ?>"
+				aria-label="<?php echo Utilities::escapeAttrHTML(__('Top navigation toolbar.')); ?>"
 				tabindex="0">
 				<ul class="ab-top-menu">
 					<?php foreach ($aPrimaryAdminBar as $aPrimaryItem) {
@@ -300,7 +308,7 @@ class PublicAdminBar
 		{
 			return
 				'<div class="ab-item ab-empty-item"'.
-				(!empty($aItem['title']) ? ' title="'.util::escapeAttrHTML($aItem['title']).'"' : '').'>'.
+				(!empty($aItem['title']) ? ' title="'.Utilities::escapeAttrHTML($aItem['title']).'"' : '').'>'.
 				$aItem['intitle'].'</div>';
 		}
 		else
@@ -308,7 +316,7 @@ class PublicAdminBar
 			return
 				'<a class="ab-item" href="'.$aItem['href'].'"'.
 				($haspopup ? ' aria-haspopup="true"' : '').
-				(!empty($aItem['title']) ? ' title="'.util::escapeAttrHTML($aItem['title']).'"' : '').'>'.
+				(!empty($aItem['title']) ? ' title="'.Utilities::escapeAttrHTML($aItem['title']).'"' : '').'>'.
 				$aItem['intitle'].'</a>';
 		}
 	}

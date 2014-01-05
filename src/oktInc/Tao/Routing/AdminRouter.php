@@ -46,6 +46,20 @@ class AdminRouter extends BaseRouter
 	}
 
 	/**
+	 * This is a quicky dirty hack to link from the admin to the website.
+	 *
+	 * @TODO : need to extends Symfony\Component\Routing\Generator\UrlGenerator
+	 */
+	public function generateFromWebsite($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
+	{
+		return str_replace(
+			$this->app->config->app_path,
+			$this->app->config->app_path.'admin/',
+			$this->getGenerator()->generate($name, $parameters, $referenceType)
+		);
+	}
+
+	/**
 	 * Check if a named route exists.
 	 *
 	 * @return boolean

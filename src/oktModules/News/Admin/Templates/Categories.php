@@ -82,14 +82,14 @@ $okt->page->setButtonset('newsCatsBtSt',array(
 		{
 			$sDeleteLink = ' - <a href="'.$view->generateUrl('News_categories').'?delete='.$rsCategories->id.'" '.
 			'class="icon delete" '.
-			'onclick="return window.confirm(\''.html::escapeJS(__('m_news_cats_delete_confirm')).'\')">'.
+			'onclick="return window.confirm(\''.$view->escapeJs(__('m_news_cats_delete_confirm')).'\')">'.
 			__('c_c_action_Delete').'</a></p>';
 		}
 		else {
 			$sDeleteLink = ' - <span class="disabled icon delete"></span>'.__('c_c_action_Delete');
 		}
 
-		echo '<p><strong>'.html::escapeHTML($rsCategories->title).'</strong> - '.$sNumPosts.'</p>';
+		echo '<p><strong>'.$view->escape($rsCategories->title).'</strong> - '.$sNumPosts.'</p>';
 
 		echo '<p>';
 
@@ -105,7 +105,7 @@ $okt->page->setButtonset('newsCatsBtSt',array(
 
 		echo
 		' - <a href="'.$view->generateUrl('News_category', array('category_id' => $rsCategories->id)).'" '.
-		'title="'.Utilities::escapeAttrHTML(sprintf(__('m_news_cats_edit_%s'), $rsCategories->title)).'" '.
+		'title="'.$view->escapeHtmlAttr(sprintf(__('m_news_cats_edit_%s'), $rsCategories->title)).'" '.
 		'class="icon pencil">'.__('c_c_action_Edit').'</a>';
 
 		echo $sDeleteLink.'</p>';

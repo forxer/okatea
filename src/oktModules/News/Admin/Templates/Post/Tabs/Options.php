@@ -34,7 +34,7 @@ use Okatea\Module\News\Helpers as NewsHelpers;
 			echo '<option value="'.$rsCategories->id.'"'.
 			($aPostData['post']['category_id'] == $rsCategories->id ? ' selected="selected"' : '').
 			'>'.str_repeat('&nbsp;&nbsp;&nbsp;', $rsCategories->level).
-			'&bull; '.html::escapeHTML($rsCategories->title).
+			'&bull; '.$view->escape($rsCategories->title).
 			'</option>';
 		}
 		?>

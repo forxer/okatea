@@ -33,7 +33,7 @@ class Process extends Module
 	public $checklist;
 
 	private static $aReservedIds = array(
-		'autoloader', 'cache', 'config', 'db', 'error',
+		'autoloader', 'debug', 'cache', 'config', 'db', 'error',
 		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
 		'page', 'request', 'requestContext', 'response', 'router',
 		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',

@@ -193,7 +193,7 @@ class Module extends BaseModule
 		if ($okt->checkPerm('news_usage') || $okt->checkPerm('news_contentadmin'))
 		{
 			$aPrimaryAdminBar[200]['items'][200] = array(
-				'href' => $aBasesUrl['admin'].'/module.php?m=news&amp;action=add',
+				'href' => $okt->adminRouter->generateFromWebsite('News_post_add'),
 				'title' => __('m_news_ab_post_title'),
 				'intitle' => __('m_news_ab_post')
 			);
@@ -205,7 +205,7 @@ class Module extends BaseModule
 			if (isset($okt->controller->rsPost) && $okt->controller->rsPost->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $aBasesUrl['admin'].'/module.php?m=news&amp;action=edit&amp;post_id='.$okt->controller->rsPost->id,
+					'href' => $okt->adminRouter->generateFromWebsite('News_post', array('post_id' => $okt->controller->rsPost->id)),
 					'intitle' => __('m_news_ab_edit_post')
 				);
 			}

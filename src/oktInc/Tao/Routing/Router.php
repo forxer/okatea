@@ -65,11 +65,19 @@ class Router extends BaseRouter
 			}
 		}
 
-		/*
-		 * @TODO : this is a quicky dirty hack to link from the admin to the website
-		 * str_replace('/admin/', '/', ...
-		 */
-		return str_replace('/admin/', '/', $this->getGenerator()->generate($name, $parameters, $referenceType));
+		return $this->getGenerator()->generate($name, $parameters, $referenceType);
+	}
+
+	/**
+	 * This is a quicky dirty hack to link from the website to the admin.
+	 *
+	 * @TODO : need to extends Symfony\Component\Routing\Generator\UrlGenerator
+	 */
+	public function generateFromAdmin($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	{
+		return str_replace('/admin/', '/',
+			$this->generate($name, $parameters, $language, $referenceType)
+		);
 	}
 
 	/**
