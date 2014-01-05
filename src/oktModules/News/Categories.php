@@ -247,16 +247,16 @@ class Categories extends NestedTreei18n
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->meta_description = html::clean($oCursor->meta_description);
+			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
-			$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			if (!$oCursor->insertUpdate()) {
-				throw new Exception('Unable to insert category locales in database for '.$aLanguage['code'].' language.');
+				throw new \Exception('Unable to insert category locales in database for '.$aLanguage['code'].' language.');
 			}
 
 			if (!$this->setCategorySlug($iCategoryId, $aLanguage['code'])) {
-				throw new Exception('Unable to insert category slug in database.');
+				throw new \Exception('Unable to insert category slug in database.');
 			}
 		}
 	}
@@ -277,7 +277,7 @@ class Categories extends NestedTreei18n
 		));
 
 		if ($rsCategory->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		if (empty($rsCategory->slug))
@@ -331,7 +331,7 @@ class Categories extends NestedTreei18n
 		'AND language=\''.$this->db->escapeStr($sLanguage).'\' ';
 
 		if (!$this->db->execute($query)) {
-			throw new Exception('Unable to update category in database.');
+			throw new \Exception('Unable to update category in database.');
 		}
 
 		return true;
@@ -384,7 +384,7 @@ class Categories extends NestedTreei18n
 		}
 
 		if (!$oCursor->insert()) {
-			throw new Exception('Unable to insert category in database.');
+			throw new \Exception('Unable to insert category in database.');
 		}
 
 		$iNewId =  $this->db->getLastID();
@@ -406,13 +406,13 @@ class Categories extends NestedTreei18n
 	public function updCategory($oCursor, $aCategoryLocalesData)
 	{
 		if (!$this->categoryExists($oCursor->id)) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $oCursor->id));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $oCursor->id));
 		}
 
 		if ($oCursor->parent_id > 0)
 		{
 			if ($this->isDescendantOf($oCursor->parent_id, $oCursor->id)) {
-				throw new Exception(__('m_news_cat_error_put_in_childs'));
+				throw new \Exception(__('m_news_cat_error_put_in_childs'));
 			}
 
 			$rsParent = $this->getCategory($oCursor->parent_id);
@@ -423,7 +423,7 @@ class Categories extends NestedTreei18n
 		}
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new Exception('Unable to update category in database.');
+			throw new \Exception('Unable to update category in database.');
 		}
 
 		if ($oCursor->active == 0)
@@ -451,7 +451,7 @@ class Categories extends NestedTreei18n
 	public function setCategoryOrder($iCategoryId, $iOrder)
 	{
 		if (!$this->categoryExists($iCategoryId)) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery =
@@ -460,7 +460,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update category in database.');
+			throw new \Exception('Unable to update category in database.');
 		}
 
 		return true;
@@ -477,7 +477,7 @@ class Categories extends NestedTreei18n
 		$rsCategory = $this->getCategory($iCategoryId);
 
 		if ($rsCategory->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$iStatus = $rsCategory->active ? 0 : 1;
@@ -496,7 +496,7 @@ class Categories extends NestedTreei18n
 			$rsParent = $this->getCategory($rsCategory->parent_id);
 
 			if ($rsParent->active == 0) {
-				throw new Exception(__('m_news_cat_error_parent_hidden'));
+				throw new \Exception(__('m_news_cat_error_parent_hidden'));
 			}
 		}
 
@@ -513,7 +513,7 @@ class Categories extends NestedTreei18n
 	public function setCategoryStatus($iCategoryId, $iStatus)
 	{
 		if (!$this->categoryExists($iCategoryId)) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery =
@@ -522,7 +522,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update category in database.');
+			throw new \Exception('Unable to update category in database.');
 		}
 
 		return true;
@@ -539,7 +539,7 @@ class Categories extends NestedTreei18n
 		$rsCategory = $this->getCategory($iCategoryId);
 
 		if ($rsCategory->isEmpty()) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$rsChildrens = $this->getChildren($iCategoryId);
@@ -552,7 +552,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to remove category from database.');
+			throw new \Exception('Unable to remove category from database.');
 		}
 
 		$this->db->optimize($this->t_categories);
@@ -562,7 +562,7 @@ class Categories extends NestedTreei18n
 		'WHERE category_id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($query)) {
-			throw new Exception('Unable to remove category locales from database.');
+			throw new \Exception('Unable to remove category locales from database.');
 		}
 
 		$this->db->optimize($this->t_categories_locales);
@@ -582,7 +582,7 @@ class Categories extends NestedTreei18n
 	public function setParentId($iCategoryId, $iParentId)
 	{
 		if (!$this->categoryExists($iCategoryId)) {
-			throw new Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
+			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery =
@@ -591,7 +591,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update category in database.');
+			throw new \Exception('Unable to update category in database.');
 		}
 
 		return true;

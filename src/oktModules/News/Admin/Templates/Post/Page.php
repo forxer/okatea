@@ -12,7 +12,7 @@ $okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
 
 
 # button set
-$okt->page->setButtonset('newsBtSt',array(
+$okt->page->setButtonset('newsBtSt', array(
 	'id' => 'news-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
@@ -27,7 +27,7 @@ $okt->page->setButtonset('newsBtSt',array(
 ));
 
 # ajout bouton retour
-$okt->page->addButton('newsBtSt',array(
+$okt->page->addButton('newsBtSt', array(
 	'permission' 	=> true,
 	'title' 		=> __('c_c_action_Go_back'),
 	'url' 			=> $view->generateUrl('News_index'),
@@ -40,7 +40,7 @@ if (!empty($aPostData['post']['id']))
 	$okt->page->addGlobalTitle(__('m_news_post_edit_a_post'));
 
 	# bouton switch statut
-	$okt->page->addButton('newsBtSt',array(
+	$okt->page->addButton('newsBtSt', array(
 		'permission' 	=> ($aPostData['post']['active'] <= 1 && $aPermissions['bCanEditPost']),
 		'title' 		=> ($aPostData['post']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
 		'url' 			=> $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?switch_status=1',
@@ -48,14 +48,14 @@ if (!empty($aPostData['post']['id']))
 		'active' 		=> $aPostData['post']['active'],
 	));
 	# bouton publier si autorisé
-	$okt->page->addButton('newsBtSt',array(
+	$okt->page->addButton('newsBtSt', array(
 		'permission' 	=> ($aPostData['post']['active'] == 2 && $aPermissions['bCanPublish']),
 		'title' 		=> __('c_c_action_Publish'),
 		'url' 			=> $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?publish=1',
 		'ui-icon' 		=> 'clock'
 	));
 	# bouton de suppression si autorisé
-	$okt->page->addButton('newsBtSt',array(
+	$okt->page->addButton('newsBtSt', array(
 		'permission' 	=> $aPermissions['bCanDelete'],
 		'title' 		=> __('c_c_action_Delete'),
 		'url' 			=> $view->generateUrl('News_index').'?delete='.$aPostData['post']['id'],
@@ -63,7 +63,7 @@ if (!empty($aPostData['post']['id']))
 		'onclick' 		=> 'return window.confirm(\''.html::escapeJS(__('m_news_post_delete_confirm')).'\')',
 	));
 	# bouton vers l'article côté public si publié
-	$okt->page->addButton('newsBtSt',array(
+	$okt->page->addButton('newsBtSt', array(
 		'permission' 	=> ($aPostData['post']['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
 		'url' 			=> $okt->router->generate('newsItem', array('slug' => $aPostData['locales'][$okt->user->language]['slug']), null, true),
