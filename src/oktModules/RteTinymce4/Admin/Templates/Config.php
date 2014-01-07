@@ -25,7 +25,7 @@ $aUsableCSS = array(
 ?>
 
 
-<form action="module.php" method="post">
+<form action="<?php echo $view->generateUrl('RteTinymce4_config'); ?>" method="post">
 
 	<div class="two-cols">
 		<p class="field col"><label for="p_width">Largeur de l'editeur</label>
