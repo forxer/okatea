@@ -125,7 +125,7 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
-				$this->okt->adminRouter->generate('News_index'),
+				$this->okt->adminRouter->generate('Pages_index'),
 				null,
 				20,
 				$this->okt->checkPerm('pages'),
@@ -149,7 +149,7 @@ class Module extends BaseModule
 				$this->okt->page->pagesSubMenu->add(
 					__('m_pages_menu_categories'),
 					$this->okt->adminRouter->generate('Pages_categories'),
-					$this->okt->request->attributes->get('_route') === 'Pages_categories',
+					in_array($this->okt->request->attributes->get('_route'), array('Pages_categories', 'Pages_category', 'Pages_category_add')),
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('pages_categories'))
 				);

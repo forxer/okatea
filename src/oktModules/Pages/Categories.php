@@ -242,9 +242,9 @@ class Categories extends NestedTreei18n
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->meta_description = html::clean($oCursor->meta_description);
+			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
-			$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			if (!$oCursor->insertUpdate()) {
 				throw new Exception('Unable to insert category locales in database for '.$aLanguage['code'].' language.');

@@ -148,7 +148,7 @@ class Module extends BaseModule
 				);
 				$this->okt->page->newsSubMenu->add(__('m_news_menu_categories'),
 					$this->okt->adminRouter->generate('News_categories'),
-					$this->okt->request->attributes->get('_route') === 'News_categories',
+					in_array($this->okt->request->attributes->get('_route'), array('News_categories', 'News_category', 'News_category_add')),
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('news_categories'))
 				);
