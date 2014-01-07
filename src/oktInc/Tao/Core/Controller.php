@@ -194,9 +194,6 @@ class Controller
 	 */
 	public function serve401()
 	{
-		$this->page->module = 'core';
-		$this->page->action = '401';
-
 		$this->response->setStatusCode(Response::HTTP_UNAUTHORIZED);
 
 		return $this->render('401');
@@ -208,9 +205,6 @@ class Controller
 	 */
 	public function serve404()
 	{
-		$this->page->module = 'core';
-		$this->page->action = '404';
-
 		$this->response->setStatusCode(Response::HTTP_NOT_FOUND);
 
 		return $this->render('404');
@@ -222,9 +216,6 @@ class Controller
 	 */
 	public function serve503()
 	{
-		$this->okt->page->module = 'core';
-		$this->okt->page->action = '503';
-
 		$this->response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
 
 		$this->response->headers->set('Retry-After', 3600);

@@ -53,7 +53,7 @@ class Logadmin extends Controller
 		$this->okt->logAdmin->filters->getFilters();
 
 		# Initialisation de la pagination
-		$oPager = new Pager($okt, $this->okt, $this->okt->logAdmin->filters->params->page, $this->okt->logAdmin->getLogs($aParams,true), $this->okt->logAdmin->filters->params->nb_per_page);
+		$oPager = new Pager($this->okt, $this->okt->logAdmin->filters->params->page, $this->okt->logAdmin->getLogs($aParams,true), $this->okt->logAdmin->filters->params->nb_per_page);
 		$iNumPages = $oPager->getNbPages();
 		$this->okt->logAdmin->filters->normalizePage($iNumPages);
 		$aParams['limit'] = (($this->okt->logAdmin->filters->params->page-1)*$this->okt->logAdmin->filters->params->nb_per_page).','.$this->okt->logAdmin->filters->params->nb_per_page;

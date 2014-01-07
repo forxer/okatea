@@ -568,7 +568,7 @@ class Module extends BaseModule
 	protected function commonPreparation(Recordset $rs)
 	{
 		# url page
-		$rs->url = $rs->getPageUrl();
+		$rs->url = $this->okt->router->generate('pagesItem', array('slug' => $rs->slug));
 
 		# url rubrique
 		$rs->category_url = $rs->getCategoryUrl();

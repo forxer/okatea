@@ -361,7 +361,7 @@ if ($iCategoryId)
 	$okt->page->addButton('pagesCatsBtSt',array(
 		'permission' 	=> ($aCategoryData['active'] ? true : false),
 		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> PagesHelpers::getCategoryUrl($aCategoryLocalesData[$okt->user->language]['slug']),
+		'url' 			=> $view->generateUrl('pagesCategory', array('slug' => $aCategoryLocalesData[$okt->user->language]['slug'])),
 		'ui-icon' 		=> 'extlink'
 	));
 }

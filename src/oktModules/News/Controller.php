@@ -20,10 +20,6 @@ class Controller extends BaseController
 	 */
 	public function newsList()
 	{
-		# module actuel
-		$this->page->module = 'news';
-		$this->page->action = 'list';
-
 		# permission de lecture ?
 		if (!$this->okt->News->isPublicAccessible())
 		{
@@ -129,10 +125,6 @@ class Controller extends BaseController
 	 */
 	public function newsFeed()
 	{
-		# module actuel
-		$this->page->module = 'news';
-		$this->page->action = 'feed';
-
 		# récupération des pages
 		$this->rsPostsList = $this->okt->News->getPosts(array(
 			'active' => 1,
@@ -153,10 +145,6 @@ class Controller extends BaseController
 	 */
 	public function newsCategory()
 	{
-		# module actuel
-		$this->page->module = 'news';
-		$this->page->action = 'category';
-
 		# si les rubriques ne sont pas actives -> 404
 		if (!$this->okt->News->config->categories['enable']) {
 			return $this->serve404();
@@ -297,10 +285,6 @@ class Controller extends BaseController
 	 */
 	public function newsItem()
 	{
-		# module actuel
-		$this->page->module = 'news';
-		$this->page->action = 'item';
-
 		# récupération de l'article en fonction du slug
 		if (!$sPostSlug = $this->request->attributes->get('slug')) {
 			return $this->serve404();

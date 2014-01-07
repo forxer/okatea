@@ -62,7 +62,7 @@ class Categories extends Controller
 				'message' => 'category #'.$iCategoryId
 			));
 
-			$this->redirect($this->generateUrl('News_categories'));
+			return $this->redirect($this->generateUrl('News_categories'));
 		}
 		catch (Exception $e) {
 			$this->okt->error->set($e->getMessage());
@@ -91,7 +91,7 @@ class Categories extends Controller
 
 			$this->okt->page->flash->success(__('m_news_cat_deleted'));
 
-			$this->redirect($this->generateUrl('News_categories'));
+			return $this->redirect($this->generateUrl('News_categories'));
 		}
 		catch (Exception $e) {
 			$this->okt->error->set($e->getMessage());

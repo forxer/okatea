@@ -20,15 +20,11 @@ class Controller extends BaseController
 	 */
 	public function pagesList()
 	{
-		# module actuel
-		$this->page->module = 'pages';
-		$this->page->action = 'list';
-
 		# permission de lecture ?
 		if (!$this->okt->Pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(PagesHelpers::getPagesUrl())));
+				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('pagesList')));
 			}
 			else {
 				return $this->serve404();
@@ -49,7 +45,7 @@ class Controller extends BaseController
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->Pages->filters->initFilters();
-			return $this->redirect(PagesHelpers::getPagesUrl());
+			return $this->redirect($this->generateUrl('pagesList'));
 		}
 
 		# initialisation des filtres
@@ -116,10 +112,6 @@ class Controller extends BaseController
 	 */
 	public function pagesFeed()
 	{
-		# module actuel
-		$this->page->module = 'pages';
-		$this->page->action = 'feed';
-
 		# récupération des pages
 		$this->rsPagesList = $this->okt->Pages->getPages(array(
 			'active' => 1,
@@ -139,10 +131,6 @@ class Controller extends BaseController
 	 */
 	public function pagesCategory()
 	{
-		# module actuel
-		$this->page->module = 'pages';
-		$this->page->action = 'category';
-
 		# si les rubriques ne sont pas actives -> 404
 		if (!$this->okt->Pages->config->categories['enable']) {
 			return $this->serve404();
@@ -168,7 +156,7 @@ class Controller extends BaseController
 		if (!$this->okt->Pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl(PagesHelpers::getCategoryUrl($this->rsCategory->slug))));
+				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('pagesCategory', array('slug' => $this->rsCategory->slug))));
 			}
 			else {
 				return $this->serve404();
@@ -194,7 +182,7 @@ class Controller extends BaseController
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->Pages->filters->initFilters();
-			return $this->redirect(PagesHelpers::getPagesUrl());
+			return $this->redirect($this->generateUrl('pagesList'));
 		}
 
 		# initialisation des filtres
@@ -249,11 +237,9 @@ class Controller extends BaseController
 		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
 		{
 			$rsPath = $this->okt->Pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
-			while ($rsPath->fetch())
-			{
-		//		$this->page->addTitleTag((!empty($rsPath->title_tag) ? $rsPath->title_tag : $rsPath->title));
 
-				$this->page->breadcrumb->add($rsPath->title, PagesHelpers::getCategoryUrl($rsPath->slug));
+			while ($rsPath->fetch()) {
+				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array('slug' => $rsPath->slug)));
 			}
 		}
 
@@ -280,10 +266,6 @@ class Controller extends BaseController
 	 */
 	public function pagesItem()
 	{
-		# module actuel
-		$this->page->module = 'pages';
-		$this->page->action = 'item';
-
 		# récupération de la page en fonction du slug
 		if (!$sPageSlug = $this->request->attributes->get('slug')) {
 			return $this->serve404();
@@ -300,7 +282,7 @@ class Controller extends BaseController
 		if (!$this->okt->Pages->isPublicAccessible() || !$this->rsPage->isReadable())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->rsPage->getPageUrl())));
+				return $this->redirect(usersHelpers::getLoginUrl($this->rsPage->url));
 			}
 			else {
 				return $this->serve404();
@@ -338,7 +320,7 @@ class Controller extends BaseController
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			$rsPath = $this->okt->Pages->categories->getPath($this->rsPage->category_id, true, $this->okt->user->language);
 			while ($rsPath->fetch()) {
-				$this->page->breadcrumb->add($rsPath->title, PagesHelpers::getCategoryUrl($rsPath->slug));
+				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array('slug' => $rsPath->slug)));
 			}
 		}
 

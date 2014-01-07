@@ -10,7 +10,7 @@ namespace Okatea\Module\News;
 
 use Tao\Database\Recordset;
 use Tao\Misc\NestedTreei18n;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class Categories extends NestedTreei18n
 {
@@ -294,7 +294,7 @@ class Categories extends NestedTreei18n
 			$sSlug = $rsCategory->slug;
 		}
 
-		$sSlug = util::strToSlug($sSlug, true);
+		$sSlug = Utilities::strToSlug($sSlug, true);
 
 		# Let's check if URL is taken…
 		$query =
@@ -321,7 +321,7 @@ class Categories extends NestedTreei18n
 				$a[] = $rsCurrentSlugs->slug;
 			}
 
-			$sSlug = util::getIncrementedString($a, $sSlug, '-');
+			$sSlug = Utilities::getIncrementedString($a, $sSlug, '-');
 		}
 
 		$query =

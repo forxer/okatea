@@ -11,80 +11,6 @@ namespace Okatea\Module\Pages;
 class Helpers
 {
 	/**
-	 * Retourne l'URL de la liste des pages.
-	 *
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getPagesUrl($sLanguage=null)
-	{
-		global $okt;
-
-		if (is_null($sLanguage)) {
-			$sLanguage = $okt->user->language;
-		}
-
-		return $okt->router->generate('pagesList');
-	}
-
-	/**
-	 * Retourne l'URL du flux RSS.
-	 *
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getPagesFeedUrl($sLanguage=null)
-	{
-		global $okt;
-
-		return $okt->router->generate('newsFeed');
-	}
-
-	/**
-	 * Retourne l'URL d'une page à partir de son slug et éventuellement d'une langue.
-	 *
-	 * @param string $sSlug
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getPageUrl($sSlug, $sLanguage=null)
-	{
-		global $okt;
-
-		if (empty($sSlug)) {
-			return null;
-		}
-
-		if (is_null($sLanguage)) {
-			$sLanguage = $okt->user->language;
-		}
-
-		return $okt->router->generate('pagesItem', array('slug' => $sSlug));
-	}
-
-	/**
-	 * Retourne l'URL d'une rubrique à partir de son slug et éventuellement d'une langue.
-	 *
-	 * @param string $sSlug
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getCategoryUrl($sSlug, $sLanguage=null)
-	{
-		global $okt;
-
-		if (empty($sSlug)) {
-			return null;
-		}
-
-		if (is_null($sLanguage)) {
-			$sLanguage = $okt->user->language;
-		}
-
-		return $okt->router->generate('pagesCategory', array('slug' => $sSlug));
-	}
-
-	/**
 	 * Retourne sous forme de liste HTML l'arbre des rubriques.
 	 *
 	 * @return string
@@ -137,7 +63,7 @@ class Helpers
 				$return .= '</li><li id="rub'.$rsCategories->id.'">';
 			}
 
-			$return .= '<a href="'.html::escapeHTML(self::getCategoryUrl($rsCategories->slug)).'">';
+			$return .= '<a href="'.$okt->router->generate('pagesCategory', array('slug' => $rsCategories->slug)).'">';
 
 			if ($iCurrentCat == $rsCategories->id) {
 				$return .= '<strong>'.html::escapeHTML($rsCategories->title).'</strong>';
@@ -198,7 +124,7 @@ class Helpers
 
 		while ($rsPages->fetch())
 		{
-			$sItem = sprintf($sLinkFormat, html::escapeHTML($rsPages->getPageUrl()), html::escapeHTML($rsPages->title));
+			$sItem = sprintf($sLinkFormat, html::escapeHTML($rsPages->url), html::escapeHTML($rsPages->title));
 
 			if ($rsPages->id == $iCurrentPage) {
 				$aItems[] = sprintf($sItemActiveFormat, $sItem);
@@ -250,7 +176,7 @@ class Helpers
 
 		while ($rsChildren->fetch())
 		{
-			$sChildren = sprintf($sLinkFormat, html::escapeHTML(self::getCategoryUrl($rsChildren->slug)), html::escapeHTML($rsChildren->title));
+			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array('slug' => $rsChildren->slug)), html::escapeHTML($rsChildren->title));
 
 			if ($rsChildren->id == $iCurrentCat) {
 				$aChildren[] = sprintf($sItemActiveFormat, $sChildren);

@@ -61,7 +61,7 @@ $view['slots']->start('head') ?>
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
 	<?php # début Okatea : lien vers le flux de syndication ?>
-	<link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->escape(PagesHelpers::getPagesFeedUrl()) ?>" />
+	<!-- <link rel="alternate" type="application/rss+xml" title="Syndication RSS" href="<?php echo $view->generateUrl('pagesFeed') ?>" /> -->
 	<?php # fin Okatea : lien vers le flux de syndication ?>
 
 <?php $view['slots']->stop();
@@ -78,14 +78,14 @@ if ($okt->Pages->config->enable_filters) : ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->escape(PagesHelpers::getPagesUrl()) ?>" id="<?php echo $okt->Pages->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->generateUrl('pagesList') ?>" id="<?php echo $okt->Pages->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_pages_display_filters') ?></legend>
 
 			<?php echo $okt->Pages->filters->getFiltersFields(); ?>
 
 			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->Pages->filters->getFilterSubmitName() ?>" />
-			<a href="<?php echo $view->escape(PagesHelpers::getPagesUrl()) ?>?init_pages_filters=1" rel="nofollow" class="filters-init"><?php _e('m_pages_display_filters_init') ?></a></p>
+			<a href="<?php echo $view->generateUrl('pagesList') ?>?init_pages_filters=1" rel="nofollow" class="filters-init"><?php _e('m_pages_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
 	<?php # fin Okatea : affichage des filtres ?>
@@ -120,7 +120,7 @@ if (!$rsPagesList->isEmpty()) : ?>
 	<div class="page <?php echo $rsPagesList->odd_even ?>">
 
 		<?php # début Okatea : affichage du titre ?>
-		<h2 class="page-title"><a href="<?php echo $view->escape($rsPagesList->url) ?>"><?php echo $view->escape($rsPagesList->title) ?></a></h2>
+		<h2 class="page-title"><a href="<?php echo $rsPagesList->url ?>"><?php echo $view->escape($rsPagesList->title) ?></a></h2>
 		<?php # fin Okatea : affichage du titre ?>
 
 		<?php # début Okatea : affichage du sous-titre

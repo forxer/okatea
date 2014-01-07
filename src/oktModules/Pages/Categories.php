@@ -8,6 +8,7 @@
 
 namespace Okatea\Module\Pages;
 
+use Tao\Database\Recordset;
 use Tao\Misc\NestedTreei18n;
 use Tao\Misc\Utilities;
 

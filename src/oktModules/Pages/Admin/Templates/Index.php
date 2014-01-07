@@ -211,22 +211,22 @@ if (!$rsPages->isEmpty()) : ?>
 				<ul class="actions">
 					<?php if ($rsPages->active) : ?>
 					<li><a href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
-					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 					class="icon tick"><?php _e('c_c_action_visible') ?></a></li>
 					<?php else : ?>
 					<li><a href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
-					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 					class="icon cross"><?php _e('c_c_action_hidden_fem') ?></a></li>
 					<?php endif; ?>
 
 					<li><a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"
-					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
 					class="icon pencil"><?php _e('c_c_action_edit') ?></a></li>
 
 					<?php if ($okt->checkPerm('pages_remove')) : ?>
 					<li><a href="<?php echo $view->generateurl('Pages_index') ?>?delete=<?php echo $rsPages->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_pages_list_page_delete_confirm')) ?>')"
-					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
 					class="icon delete"><?php _e('c_c_action_delete') ?></a></li>
 					<?php endif; ?>
 				</ul>

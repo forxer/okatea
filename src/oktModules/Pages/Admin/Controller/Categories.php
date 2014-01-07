@@ -14,12 +14,91 @@ class Categories extends Controller
 {
 	public function page()
 	{
-		if (!$this->okt->checkPerm('pages_usage')) {
+		if (!$this->okt->checkPerm('pages_categories')) {
 			return $this->serve401();
 		}
+		elseif (!$this->okt->Pages->config->categories['enable']) {
+			return $this->serve404();
+		}
 
+		# Chargement des locales
+		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.categories');
 
-		return $this->render('Pages/Admin/Templates/Index', array(
+		# Récupération de la liste complète des rubriques
+		$rsCategories = $this->okt->Pages->categories->getCategories(array(
+			'active' => 2,
+			'with_count' => true,
+			'language' => $this->okt->user->language
 		));
+
+		# switch statut
+		if ($switchCategoryStatus = $this->switchCategoryStatus() !== false) {
+			return $switchCategoryStatus;
+		}
+
+		# suppression d'une rubrique
+		if ($deleteCategory = $this->deleteCategory() !== false) {
+			return $deleteCategory;
+		}
+
+		return $this->render('Pages/Admin/Templates/Categories', array(
+			'rsCategories' => $rsCategories
+		));
+	}
+
+	protected function switchCategoryStatus()
+	{
+		$iCategoryId = $this->request->query->getInt('switch_status');
+
+		if (!$iCategoryId) {
+			return false;
+		}
+
+		try
+		{
+			$this->okt->Pages->categories->switchCategoryStatus($iCategoryId);
+
+			# log admin
+			$this->okt->logAdmin->info(array(
+				'code' => 32,
+				'component' => 'pages',
+				'message' => 'category #'.$iCategoryId
+			));
+
+			return $this->redirect($this->generateUrl('Pages_categories'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function deleteCategory()
+	{
+		$iCategoryId = $this->request->query->getInt('delete');
+
+		if (!$iCategoryId) {
+			return false;
+		}
+
+		try
+		{
+			$this->okt->Pages->categories->delCategory($iCategoryId);
+
+			# log admin
+			$this->okt->logAdmin->warning(array(
+				'code' => 42,
+				'component' => 'pages',
+				'message' => 'category #'.$iCategoryId
+			));
+
+			$this->okt->page->flash->success(__('m_pages_cat_deleted'));
+
+			return $this->redirect($this->generateUrl('Pages_categories'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
 	}
 }
