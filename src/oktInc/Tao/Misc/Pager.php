@@ -14,22 +14,24 @@ namespace Tao\Misc;
  */
 class Pager
 {
-	private $env;
-	private $nb_elements;
-	private $nb_per_page;
-	private $nb_pages_per_group;
-	private $nb_pages;
-	private $nb_groups;
+	protected $okt;
 
-	private $env_group;
-	private $index_group_start;
-	private $index_group_end;
-	private $page_url = null;
+	protected $env;
+	protected $nb_elements;
+	protected $nb_per_page;
+	protected $nb_pages_per_group;
+	protected $nb_pages;
+	protected $nb_groups;
+
+	protected $env_group;
+	protected $index_group_start;
+	protected $index_group_end;
+	protected $page_url;
 
 	public $index_start;
 	public $index_end;
 
-	public $base_url = null;
+	public $base_url;
 	public $var_page = 'page';
 
 	public $html_item		= '%s';
@@ -41,8 +43,10 @@ class Pager
 	public $html_next_grp	= '…';
 	public $html_link_class	= '';
 
-	public function __construct($env,$nb_elements,$nb_per_page=10,$nb_pages_per_group=10)
+	public function __construct($okt, $env, $nb_elements, $nb_per_page=10, $nb_pages_per_group=10)
 	{
+		$this->okt = $okt;
+
 		$this->env = abs((integer) $env);
 		$this->nb_elements = abs((integer) $nb_elements);
 		$this->nb_per_page = abs((integer) $nb_per_page);

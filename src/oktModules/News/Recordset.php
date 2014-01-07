@@ -10,7 +10,7 @@ namespace Okatea\Module\News;
 
 use Tao\Core\Authentification;
 use Tao\Database\Recordset as BaseRecordset;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 /**
  * Extension du recordset de base pour l'affichage des articles.
@@ -247,7 +247,7 @@ class Recordset extends BaseRecordset
 				continue;
 			}
 
-			$mime_type = files::getMimeType($this->okt->News->upload_dir.'files/'.$files_array[$i]['filename']);
+			$mime_type = \files::getMimeType($this->okt->News->upload_dir.'files/'.$files_array[$i]['filename']);
 
 			$files[$j++] = array_merge(
 				stat($this->okt->News->upload_dir.'files/'.$files_array[$i]['filename']),
@@ -256,7 +256,7 @@ class Recordset extends BaseRecordset
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
-					'type' => util::getMediaType($mime_type),
+					'type' => Utilities::getMediaType($mime_type),
 					'ext' => pathinfo($this->okt->News->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);

@@ -110,9 +110,13 @@ class Recordset extends BaseRecordset
 	 * @param string $sLanguage
 	 * @return string
 	 */
-	public function getPageUrl($sLanguage=null)
+	public function getPageUrl($sLanguage = null)
 	{
-		return PagesHelpers::getPageUrl($this->slug, $sLanguage);
+		if (empty($this->slug)) {
+			return null;
+		}
+
+		return $this->okt->router->generate('pagesItem', array('slug' => $this->slug), $sLanguage);
 	}
 
 	/**
@@ -121,9 +125,13 @@ class Recordset extends BaseRecordset
 	 * @param string $sLanguage
 	 * @return string
 	 */
-	public function getCategoryUrl($sLanguage=null)
+	public function getCategoryUrl($sLanguage = null)
 	{
-		return PagesHelpers::getCategoryUrl($this->category_slug, $sLanguage);
+		if (empty($this->category_slug)) {
+			return null;
+		}
+
+		return $this->okt->router->generate('pagesCategory', array('slug' => $this->category_slug), $sLanguage);
 	}
 
 	/**
@@ -150,7 +158,7 @@ class Recordset extends BaseRecordset
 				continue;
 			}
 
-			$mime_type = files::getMimeType($this->okt->Pages->upload_dir.'files/'.$files_array[$i]['filename']);
+			$mime_type = \files::getMimeType($this->okt->Pages->upload_dir.'files/'.$files_array[$i]['filename']);
 
 			$files[$j++] = array_merge(
 				stat($this->okt->Pages->upload_dir.'files/'.$files_array[$i]['filename']),

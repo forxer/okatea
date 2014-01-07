@@ -125,8 +125,8 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
-				'module.php?m=pages',
-				$this->bCurrentlyInUse,
+				$this->okt->adminRouter->generate('News_index'),
+				null,
 				20,
 				$this->okt->checkPerm('pages'),
 				null,
@@ -135,35 +135,35 @@ class Module extends BaseModule
 			);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_management'),
-					'module.php?m=pages&amp;action=index',
-					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'),
+					$this->okt->adminRouter->generate('Pages_index'),
+					in_array($this->okt->request->attributes->get('_route'), array('Pages_index', 'Pages_post')),
 					1
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('m_pages_menu_add_page'),
-					'module.php?m=pages&amp;action=add',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
+					$this->okt->adminRouter->generate('Pages_post_add'),
+					$this->okt->request->attributes->get('_route') === 'Pages_post_add',
 					2,
 					$this->okt->checkPerm('pages_add')
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('m_pages_menu_categories'),
-					'module.php?m=pages&amp;action=categories',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'categories'),
+					$this->okt->adminRouter->generate('Pages_categories'),
+					$this->okt->request->attributes->get('_route') === 'Pages_categories',
 					3,
 					($this->config->categories['enable'] && $this->okt->checkPerm('pages_categories'))
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_display'),
-					'module.php?m=pages&amp;action=display',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
+					$this->okt->adminRouter->generate('Pages_display'),
+					$this->okt->request->attributes->get('_route') === 'Pages_display',
 					10,
 					$this->okt->checkPerm('pages_display')
 				);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_configuration'),
-					'module.php?m=pages&amp;action=config',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
+					$this->okt->adminRouter->generate('Pages_config'),
+					$this->okt->request->attributes->get('_route') === 'Pages_config',
 					20,
 					$this->okt->checkPerm('pages_config')
 				);
@@ -548,24 +548,24 @@ class Module extends BaseModule
 	}
 
 	/**
-	 * Formatage des données d'un PagesRecordset en vue d'un affichage d'une page.
+	 * Formatage des données d'un Recordset en vue d'un affichage d'une page.
 	 *
-	 * @param PagesRecordset $rs
+	 * @param Recordset $rs
 	 * @return void
 	 */
-	public function preparePage(PagesRecordset $rs)
+	public function preparePage(Recordset $rs)
 	{
 		# formatages génériques
 		$this->commonPreparation($rs);
 	}
 
 	/**
-	 * Formatages des données d'un PagesRecordset communs aux listes et aux éléments.
+	 * Formatages des données d'un Recordset communs aux listes et aux éléments.
 	 *
-	 * @param PagesRecordset $rs
+	 * @param Recordset $rs
 	 * @return void
 	 */
-	protected function commonPreparation(PagesRecordset $rs)
+	protected function commonPreparation(Recordset $rs)
 	{
 		# url page
 		$rs->url = $rs->getPageUrl();

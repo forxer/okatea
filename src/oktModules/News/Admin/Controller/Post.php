@@ -166,7 +166,7 @@ class Post extends Controller
 		# suppression d'une image
 		if ($this->request->query->has('delete_image') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->News->deleteImage($this->aPostData['post']['id'],$this->request->query->get('delete_image'));
+			$this->okt->News->deleteImage($this->aPostData['post']['id'], $this->request->query->get('delete_image'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -181,7 +181,7 @@ class Post extends Controller
 		# suppression d'un fichier
 		if ($this->request->query->has('delete_file') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->News->deleteFile($this->aPostData['post']['id'],$this->request->query->get('delete_file'));
+			$this->okt->News->deleteFile($this->aPostData['post']['id'], $this->request->query->get('delete_file'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -288,7 +288,6 @@ class Post extends Controller
 		$rsPost = null;
 		$rsPostI18n = null;
 
-
 		# -- TRIGGER MODULE NEWS : adminPostInit
 		$this->okt->News->triggers->callTrigger('adminPostInit', $this->okt, $this->aPostData, $rsPost, $rsPostI18n);
 	}
@@ -333,10 +332,8 @@ class Post extends Controller
 
 		$this->aPostData['perms'] = $this->request->request->get('perms', array());
 
-
 		# -- TRIGGER MODULE NEWS : adminPopulateData
 		$this->okt->News->triggers->callTrigger('adminPopulateData', $this->okt, $this->aPostData);
-
 
 		# vérification des données avant modification dans la BDD
 		if ($this->okt->News->checkPostData($this->aPostData['post'], $this->aPostData['locales'], $this->aPostData['perms']))
@@ -381,7 +378,7 @@ class Post extends Controller
 		$this->aPostData['tabs'][10] = array(
 			'id' => 'tab-content',
 			'title' => __('m_news_post_tab_content'),
-			'content' => $this->renderView('news/Admin/Templates/Post/Tabs/Content', array(
+			'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Content', array(
 				'aPostData' => $this->aPostData
 			))
 		);
@@ -392,7 +389,7 @@ class Post extends Controller
 			$this->aPostData['tabs'][20] = array(
 				'id' => 'tab-images',
 				'title' => __('m_news_post_tab_images'),
-				'content' => $this->renderView('news/Admin/Templates/Post/Tabs/Images', array(
+				'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Images', array(
 					'aPermissions' 	=> $this->aPermissions,
 					'aPostData' 	=> $this->aPostData
 				))
@@ -405,7 +402,7 @@ class Post extends Controller
 			$this->aPostData['tabs'][30] = array(
 				'id' => 'tab-files',
 				'title' => __('m_news_post_tab_files'),
-				'content' => $this->renderView('news/Admin/Templates/Post/Tabs/Files', array(
+				'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Files', array(
 					'aPermissions' 	=> $this->aPermissions,
 					'aPostData' 	=> $this->aPostData
 				))
@@ -416,7 +413,7 @@ class Post extends Controller
 		$this->aPostData['tabs'][40] = array(
 			'id' => 'tab-options',
 			'title' => __('m_news_post_tab_options'),
-			'content' => $this->renderView('news/Admin/Templates/Post/Tabs/Options', array(
+			'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Options', array(
 				'rsCategories' => $rsCategories,
 				'aPermissions' 	=> $this->aPermissions,
 				'aPostData' => $this->aPostData
@@ -429,7 +426,7 @@ class Post extends Controller
 			$this->aPostData['tabs'][50] = array(
 				'id' => 'tab-seo',
 				'title' => __('m_news_post_tab_seo'),
-				'content' => $this->renderView('news/Admin/Templates/Post/Tabs/Seo', array(
+				'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Seo', array(
 					'aPostData' => $this->aPostData
 				))
 			);

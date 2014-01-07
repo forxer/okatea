@@ -86,7 +86,7 @@ class Config extends Controller
 				$p_perms = array_map('intval', $this->request->request->get('p_perms'));
 			}
 			else {
-				$p_perms =array(0);
+				$p_perms = array(0);
 			}
 
 			$p_enable_group_perms = $this->request->request->has('p_enable_group_perms');

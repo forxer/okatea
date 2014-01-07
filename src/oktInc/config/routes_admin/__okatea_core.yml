@@ -63,8 +63,10 @@ config_update:
     defaults: { _controller: Tao\Admin\Controller\Config\Update::page }
 
 config_logadmin:
-    path:     /configuration/logadmin
-    defaults: { _controller: Tao\Admin\Controller\Config\Logadmin::page }
+    path:     /configuration/logadmin/{page}
+    defaults: { _controller: Tao\Admin\Controller\Config\Logadmin::page, page: 1 }
+    requirements:
+        page:  \d+
 
 config_router:
     path:     /configuration/router

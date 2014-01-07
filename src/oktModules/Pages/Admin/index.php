@@ -160,7 +160,7 @@ $okt->Pages->filters->getFilters();
 # Initialisation de la pagination
 $iNumFilteredPosts = $okt->Pages->getPagesCount($aParams);
 
-$oPager = new Pager($okt->Pages->filters->params->page, $iNumFilteredPosts, $okt->Pages->filters->params->nb_per_page);
+$oPager = new Pager($okt, $okt->Pages->filters->params->page, $iNumFilteredPosts, $okt->Pages->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

@@ -62,7 +62,7 @@ class Index extends Controller
 		# Initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->Pages->getPagesCount($aParams);
 
-		$oPager = new Pager($this->okt->Pages->filters->params->page, $iNumFilteredPosts, $this->okt->Pages->filters->params->nb_per_page);
+		$oPager = new Pager($this->okt, $this->okt->Pages->filters->params->page, $iNumFilteredPosts, $this->okt->Pages->filters->params->nb_per_page);
 
 		$iNumPages = $oPager->getNbPages();
 
@@ -117,7 +117,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->request->query->getInt('delete');
 
-		if (!$iPostId || $this->okt->checkPerm('pages_remove')) {
+		if (!$iPostId || !$this->okt->checkPerm('pages_remove')) {
 			return false;
 		}
 

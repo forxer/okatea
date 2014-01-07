@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "637ef6a1826a6937a5ab4fc4c73b8ede46732a73"
+                "reference": "5b9e6a999727a46ba3b808dc0e1acce2e7713730"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/637ef6a1826a6937a5ab4fc4c73b8ede46732a73",
-                "reference": "637ef6a1826a6937a5ab4fc4c73b8ede46732a73",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5b9e6a999727a46ba3b808dc0e1acce2e7713730",
+                "reference": "5b9e6a999727a46ba3b808dc0e1acce2e7713730",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-01-05 09:03:50"
+            "time": "2014-01-05 19:31:37"
         },
         {
             "name": "doctrine/inflector",
@@ -1263,12 +1263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "6a30cf4f7951794e2179c29b3ce30fb478019cd8"
+                "reference": "f2ab66ab36bbbb0d07ae61637c73283074b91bf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/6a30cf4f7951794e2179c29b3ce30fb478019cd8",
-                "reference": "6a30cf4f7951794e2179c29b3ce30fb478019cd8",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f2ab66ab36bbbb0d07ae61637c73283074b91bf9",
+                "reference": "f2ab66ab36bbbb0d07ae61637c73283074b91bf9",
                 "shasum": ""
             },
             "require": {
@@ -1310,7 +1310,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-01 09:18:08"
+            "time": "2014-01-06 07:29:39"
         },
         {
             "name": "symfony/filesystem",

@@ -94,7 +94,7 @@ class Index extends Controller
 		# Initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->News->getPostsCount($aParams);
 
-		$oPager = new Pager($this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
 
 		$iNumPages = $oPager->getNbPages();
 

@@ -61,7 +61,7 @@ $okt->catalog->filters->getFilters();
 # initialisation de la pagination
 $num_filtered_posts = $okt->catalog->getProds($params,true);
 
-$pager = new Pager($okt->catalog->filters->params->page, $num_filtered_posts, $okt->catalog->filters->params->nb_per_page);
+$pager = new Pager($okt, $okt->catalog->filters->params->page, $num_filtered_posts, $okt->catalog->filters->params->nb_per_page);
 
 $num_pages = $pager->getNbPages();
 

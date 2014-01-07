@@ -1,15 +1,16 @@
 <?php
 
 use Tao\Forms\Statics\FormElements as form;
+use Tao\Misc\Utilities;
 
 $this->extend('layout');
 
 # Module title tag
 $okt->page->addTitleTag($okt->Pages->getTitle());
 
-
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateurl('Pages_index'));
+$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+
 
 # Autocomplétion du formulaire de recherche
 $okt->page->js->addReady('
@@ -114,7 +115,7 @@ $okt->page->css->addCss('
 		<?php echo $okt->page->getButtonSet('pagesBtSt'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="module.php" method="get" id="search_form" class="search_form">
+		<form action="<?php echo $view->generateurl('Pages_index') ?>" method="get" id="search_form" class="search_form">
 			<p><label for="search"><?php _e('m_pages_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, html::escapeHTML((isset($sSearch) ? $sSearch : ''))); ?>
 
@@ -179,7 +180,7 @@ if (!$rsPages->isEmpty()) : ?>
 		<tr>
 			<th class="<?php echo $td_class ?> fake-td">
 				<?php echo form::checkbox(array('pages[]'),$rsPages->id) ?>
-				<a href="module.php?m=pages&amp;action=edit&amp;post_id=<?php echo $rsPages->id ?>"><?php
+				<a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
 				echo html::escapeHTML($rsPages->title) ?></a>
 			</th>
 
@@ -209,23 +210,23 @@ if (!$rsPages->isEmpty()) : ?>
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">
 					<?php if ($rsPages->active) : ?>
-					<li><a href="<?php echo $view->generateurl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
+					<li><a href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
+					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 					class="icon tick"><?php _e('c_c_action_visible') ?></a></li>
 					<?php else : ?>
-					<li><a href="<?php echo $view->generateurl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
+					<li><a href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
+					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 					class="icon cross"><?php _e('c_c_action_hidden_fem') ?></a></li>
 					<?php endif; ?>
 
-					<li><a href="module.php?m=pages&amp;action=edit&amp;post_id=<?php echo $rsPages->id ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
+					<li><a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"
+					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
 					class="icon pencil"><?php _e('c_c_action_edit') ?></a></li>
 
 					<?php if ($okt->checkPerm('pages_remove')) : ?>
 					<li><a href="<?php echo $view->generateurl('Pages_index') ?>?delete=<?php echo $rsPages->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_pages_list_page_delete_confirm')) ?>')"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
+					title="<?php echo Utilities::escapeAttrHTML(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
 					class="icon delete"><?php _e('c_c_action_delete') ?></a></li>
 					<?php endif; ?>
 				</ul>

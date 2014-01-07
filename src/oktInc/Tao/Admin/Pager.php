@@ -9,6 +9,7 @@
 namespace Tao\Admin;
 
 use Tao\Misc\Pager as BasePager;
+use Tao\Misc\Utilities;
 
 /**
  * Extension de la classe pager pour l'administration.
@@ -25,9 +26,9 @@ class Pager extends BasePager
 	public $html_next_grp	= '…';
 	public $html_link_class = '';
 
-	public function __construct($env,$nb_elements,$nb_per_page=10,$nb_pages_per_group=10)
+	public function __construct($okt, $env, $nb_elements, $nb_per_page=10, $nb_pages_per_group=10)
 	{
-		parent::__construct($env,$nb_elements,$nb_per_page,$nb_pages_per_group);
+		parent::__construct($okt, $env, $nb_elements, $nb_per_page, $nb_pages_per_group);
 
 		$this->html_prev = '&#171;&nbsp;'.__('c_c_previous_f');
 		$this->html_next = __('c_c_next_f').'&nbsp;&#187;';
@@ -41,7 +42,9 @@ class Pager extends BasePager
 			return;
 		}
 
-		$url = $_SERVER['REQUEST_URI'];
+		$url = $this->okt->request->getBasePath().$this->okt->request->getPathInfo();
+
+	//	$url = $_SERVER['REQUEST_URI'];
 
 		# Escape page_url for sprintf
 		$url = preg_replace('/%/','%%',$url);
@@ -54,6 +57,6 @@ class Pager extends BasePager
 		}
 
 
-		return \html::escapeHTML($url);
+		return Utilities::escapeHTML($url);
 	}
 }

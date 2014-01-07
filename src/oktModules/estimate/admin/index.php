@@ -162,7 +162,7 @@ $okt->estimate->filters->getFilters();
 # Initialisation de la pagination
 $iNumFilteredEstimates = $okt->estimate->getEstimatesCount($aParams);
 
-$oPager = new Pager($okt->estimate->filters->params->page, $iNumFilteredEstimates, $okt->estimate->filters->params->nb_per_page);
+$oPager = new Pager($okt, $okt->estimate->filters->params->page, $iNumFilteredEstimates, $okt->estimate->filters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

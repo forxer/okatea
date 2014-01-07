@@ -189,7 +189,7 @@ $oFilters->getFilters();
 # Initialisation de la pagination
 $iNumInstalledThemes = count($aInstalledThemes);
 
-$oPager = new Pager($oFilters->params->page, $iNumInstalledThemes, $oFilters->params->nb_per_page);
+$oPager = new Pager($okt, $oFilters->params->page, $iNumInstalledThemes, $oFilters->params->nb_per_page);
 
 $iNumPages = $oPager->getNbPages();
 

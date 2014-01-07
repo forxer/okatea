@@ -296,7 +296,7 @@ if ($num_items == 0)
 }
 else
 {
-	$pager = new Pager($page,$num_items,$nb_per_page,10);
+	$pager = new Pager($okt, $page, $num_items, $nb_per_page,10);
 
 	echo
 	'<form action="module.php" method="get">'.

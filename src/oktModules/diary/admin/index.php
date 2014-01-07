@@ -85,7 +85,7 @@ $okt->diary->filters->getFilters();
 # initialisation de la pagination
 $iNumFilteredEvents = $okt->diary->getEvents($aParams,true);
 
-$oPager = new Pager($okt->diary->filters->params->page, $iNumFilteredEvents, $okt->diary->filters->params->nb_per_page);
+$oPager = new Pager($okt, $okt->diary->filters->params->page, $iNumFilteredEvents, $okt->diary->filters->params->nb_per_page);
 
 $iNumEvents = $oPager->getNbPages();
 
