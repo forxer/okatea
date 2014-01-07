@@ -6,24 +6,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Routing;
+namespace Tao\Routing\Helpers;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
-class ConfigHelpers
+class Config
 {
 	protected $okt;
 	protected $sPath;
+	protected $aCollection;
+	protected $bUniqueLanguage;
 
 	protected $oFiles;
 	protected $aLoadedRoutes;
 	protected $aRoutesFromFiles;
 
-	public function __construct($okt, $sPath)
+	public function __construct($okt, $sPath, $aCollection)
 	{
 		$this->okt = $okt;
 		$this->sPath = $sPath;
+		$this->aCollection = $aCollection;
 	}
 
 	public function getRoutesInfos()
@@ -36,28 +39,13 @@ class ConfigHelpers
 		{
 			$aRoutesInfos[$sName] = array_merge($this->getEmptyRoute(), $aRoutesFromFiles[$sName]);
 
-			$aRoutesInfos[$sName]['loaded'] = array_key_exists(($this->okt->languages->unique ? $aRoutesInfos[$sName]['basename'] : $sName), $aLoadedRoutes);
-
-			if ($this->okt->languages->unique && $aRoutesInfos[$sName]['language'] != $this->okt->config->language) {
-				$aRoutesInfos[$sName]['loaded'] = false;
-			}
+			$aRoutesInfos[$sName]['loaded'] = null;
+			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['_controller'];
+			unset($aRoutesInfos[$sName]['defaults']['_controller']);
 		}
 
-		uasort($aRoutesInfos, function($a, $b)
-		{
-			# put loaded routes at top
-			if ($a['loaded'] !== $b['loaded']) {
-				return $b['loaded'] - $a['loaded'];
-			}
-
-			# group by filename
-			$c = strcasecmp($a['file'],$b['file']);
-
-			if ($c !== 0) {
-				return $c;
-			}
-
-			return 0;
+		uasort($aRoutesInfos, function($a, $b) {
+			return strcasecmp($a['file'], $b['file']);
 		});
 
 		return $aRoutesInfos;
@@ -76,7 +64,7 @@ class ConfigHelpers
 
 		$this->aLoadedRoutes = array();
 
-		foreach ($this->okt->router->getRouteCollection()->all() as $sName=>$oRoute)
+		foreach ($this->aCollection as $sName=>$oRoute)
 		{
 			$this->aLoadedRoutes[$sName] = array(
 				'path' => $oRoute->getPath(),
@@ -116,17 +104,11 @@ class ConfigHelpers
 		{
 			$aRoutes = Yaml::parse(file_get_contents($oFile->getPathname()));
 
-			$sLanguage = basename(dirname($oFile->getPathname()));
-
 			foreach ($aRoutes as $sName=>$aRoute)
 			{
 				$aRoute['file'] = $oFile->getPathname();
 				$aRoute['basename'] = $sName;
 				$aRoute['basepath'] = $aRoute['path'];
-				$aRoute['language'] = $sLanguage;
-
-				$aRoute['path'] = '/'.$sLanguage.$aRoute['path'];
-				$sName .= '-'.$sLanguage;
 
 				$this->aRoutesFromFiles[$sName] = $aRoute;
 			}

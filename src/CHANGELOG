@@ -12,18 +12,16 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-beta3
 # now require PHP >= 5.4.0
-# refactor admin interface
-	# use router
-	# use controllers
-	# use templates
 # replace Router by Symfony Routing component
 # replace PHPThumb by Imagine
+# refactor admin interface
+	# use internal router
+	# use controllers
+	# use templates
 # refactor modules files structure
-# refactore flash messages device
-# change Yaml files extension to .yml
+# refactor flash messages device
+# change Yaml files extension .yaml to .yml
 ! implement Symfony HttpFoundation
-! CodeMirror 3.20
-! Spectrum Colorpicker 1.2.0
 
 
 2.0-beta2 (2013-12-08)

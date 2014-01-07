@@ -13,7 +13,7 @@ use Tao\Database\XmlSql;
 use Tao\Diff\Engine as DiffEngine;
 use Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Tao\Html\CheckList;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Modules\Module;
 use Tao\Modules\Manage\Component\Comparator\Comparator;
 use Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles;
@@ -608,7 +608,7 @@ class Process extends Module
 
 		foreach (array_reverse($aFiles['dirs']) as $sDir)
 		{
-			if (!util::dirHasFiles($sDir)) {
+			if (!Utilities::dirHasFiles($sDir)) {
 				\files::deltree($sDir);
 			}
 		}

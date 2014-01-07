@@ -14,7 +14,7 @@ namespace Tao\FileManager;
 
 use Tao\FileManager\Filemanager;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 /**
  * Un gestionnaire de fichiers en ligne.
@@ -116,7 +116,7 @@ class WebFileManager extends Filemanager
 
 		$filesize = filesize($v['fname']);
 
-		$res .= '<td class="'.$td_class.' small nowrap">'.($filesize > 0 ? util::l10nFileSize($filesize) : '-').'</td>';
+		$res .= '<td class="'.$td_class.' small nowrap">'.($filesize > 0 ? Utilities::l10nFileSize($filesize) : '-').'</td>';
 
 		$res .= '<td class="'.$td_class.' small nowrap">'.strftime('%d-%m-%Y %H:%M:%S',$v['mtime']).'</td>';
 
@@ -167,7 +167,7 @@ class WebFileManager extends Filemanager
 
 		$filesize = filesize($v['fname']);
 
-		$res .= '<td class="'.$td_class.' small nowrap">'.($filesize > 0 ? util::l10nFileSize($filesize) : '-').'</td>';
+		$res .= '<td class="'.$td_class.' small nowrap">'.($filesize > 0 ? Utilities::l10nFileSize($filesize) : '-').'</td>';
 
 		$res .= '<td class="'.$td_class.' small nowrap">'.strftime('%d-%m-%Y %H:%M:%S',$v['mtime']).'</td>';
 

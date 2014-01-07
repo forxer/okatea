@@ -9,7 +9,8 @@
 namespace Tao\Admin\Controller\Config;
 
 use Tao\Admin\Controller;
-use Tao\Routing\ConfigHelpers;
+use Tao\Routing\Helpers\Config;
+use Tao\Routing\Helpers\Website;
 
 class Router extends Controller
 {
@@ -22,13 +23,25 @@ class Router extends Controller
 		# Locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.router');
 
-		$oConfigHelpers = new ConfigHelpers($this->okt, $this->okt->options->config_dir.'/routes');
+		# Informations sur les routes du site
+		$oWebsiteHelpersConfig = new Website($this->okt,
+			$this->okt->options->config_dir.'/routes',
+			$this->okt->router->getRouteCollection()->all()
+		);
 
-		# Liste des routes chargées
-		$aRouteInfos = $oConfigHelpers->getRoutesInfos();
+		$aWebsiteRoutesInfos = $oWebsiteHelpersConfig->getRoutesInfos();
+
+		# Informations sur les routes de l'adminbistration
+		$oAdminHelpersConfig = new Config($this->okt,
+			$this->okt->options->config_dir.'/routes_admin',
+			$this->okt->adminRouter->getRouteCollection()->all()
+		);
+
+		$aAdminRoutesInfos = $oAdminHelpersConfig->getRoutesInfos();
 
 		return $this->render('Config/Router', array(
-			'aRouteInfos' => $aRouteInfos,
+			'aWebsiteRoutesInfos' => $aWebsiteRoutesInfos,
+			'aAdminRoutesInfos' => $aAdminRoutesInfos
 		));
 	}
 }

@@ -8,7 +8,7 @@
 
 namespace Tao\Misc;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 /**
  * Outil pour l'upload de fichier.
@@ -112,7 +112,7 @@ class FileUpload
 				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
-				util::uploadStatus($sUploadedFile);
+				Utilities::uploadStatus($sUploadedFile);
 
 				# vérification de l'extension
 				$this->checkFile($sExtension);
@@ -176,7 +176,7 @@ class FileUpload
 				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
-				util::uploadStatus($sUploadedFile);
+				Utilities::uploadStatus($sUploadedFile);
 
 				# vérification de l'extension
 				$this->checkFile($sExtension);

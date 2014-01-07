@@ -2,9 +2,9 @@
 
 $GLOBALS['__l10n']['c_a_config_router_internal_router'] = 'Routeur interne';
 
-$GLOBALS['__l10n']['c_a_config_router_route_id'] = 'ID';
 $GLOBALS['__l10n']['c_a_config_router_route_name'] = 'Nom';
 $GLOBALS['__l10n']['c_a_config_router_route_path'] = 'Chemin';
+$GLOBALS['__l10n']['c_a_config_router_route_controller'] = 'Contrôleur';
 $GLOBALS['__l10n']['c_a_config_router_route_defaults'] = 'Valeurs par défaut';
 $GLOBALS['__l10n']['c_a_config_router_route_requirements'] = 'Exigences';
 $GLOBALS['__l10n']['c_a_config_router_route_language'] = 'Langue';
@@ -17,4 +17,6 @@ $GLOBALS['__l10n']['c_a_config_router_route_methods'] = 'HTTP request method';
 $GLOBALS['__l10n']['c_a_config_router_route_loaded'] = 'Chargée';
 
 $GLOBALS['__l10n']['c_a_config_router_routes_list'] = 'Liste des routes actuellement définies';
+$GLOBALS['__l10n']['c_a_config_router_website_routes'] = 'Routes du site web';
+$GLOBALS['__l10n']['c_a_config_router_admin_routes'] = 'Routes de l’administration';
 $GLOBALS['__l10n']['c_a_config_router_no_route'] = 'Il n’y a aucune route de définie pour le moment.';

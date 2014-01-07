@@ -12,7 +12,7 @@
 
 namespace Tao\Misc;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 /**
  * @class iniFile
@@ -153,7 +153,7 @@ class IniFile
 		$res = '<?php'."\n\n";
 		foreach ($ini_array as $k=>$v)
 		{
-			if (is_bool($v) || util::isInt($v)) {
+			if (is_bool($v) || Utilities::isInt($v)) {
 				$res .= 'define(\''.$k.'\', '.$v.');'."\n\n";
 			}
 			else {

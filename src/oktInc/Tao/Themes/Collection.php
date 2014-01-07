@@ -8,8 +8,8 @@
 
 namespace Tao\Themes;
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\HttpClient;
+use Tao\Misc\Utilities;
 
 /**
  * Classe de gestion des thèmes.
@@ -256,7 +256,7 @@ class Collection
 	public function bootstrapTheme($sName, $sId=null)
 	{
 		if (empty($sId)) {
-			$sId = util::strToLowerURL($sName,false);
+			$sId = Utilities::strToLowerURL($sName,false);
 		}
 
 		$this->getThemesList();
@@ -474,7 +474,7 @@ class Collection
 	public static function getLockedFiles($sThemeId)
 	{
 		global $okt;
-		
+
 		$aLockedFiles = array();
 
 		$sThemePath = $okt->options->get('themes_dir').'/'.$sThemeId.'/';
@@ -561,7 +561,7 @@ class Collection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%', util::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%', Utilities::getVersion(),$repository_url);
 
 			$client = new HttpClient();
 			$response = $client->get($repository_url)->send();

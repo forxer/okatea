@@ -97,7 +97,7 @@ class Utilities
 	 * $str = 'dir1/dir2/dir3/dir4/filename.ext';
 	 * $dir = 'dir1/dir2';
 	 *
-	 * echo util::getNextSubDir($str, $dir); // Outputs dir3
+	 * echo Utilities::getNextSubDir($str, $dir); // Outputs dir3
 	 *
 	 * @param string $sPath Le chemin complet
 	 * @param string $sBasePath Le répertoire donné.

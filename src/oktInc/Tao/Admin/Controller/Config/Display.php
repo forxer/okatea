@@ -10,6 +10,7 @@ namespace Tao\Admin\Controller\Config;
 
 use Tao\Admin\Controller;
 use Tao\Admin\Page;
+use Tao\Misc\Utilities;
 
 class Display extends Controller
 {
@@ -71,7 +72,7 @@ class Display extends Controller
 					$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 					# des erreurs d'upload ?
-					util::uploadStatus($sUploadedFile);
+					Utilities::uploadStatus($sUploadedFile);
 
 					# vérification de l'extension
 					if ($sExtension != 'zip') {
@@ -126,7 +127,7 @@ class Display extends Controller
 
 					$sFinalPath = $this->okt->options->public_dir.'/ui-themes/custom';
 
-					util::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
+					Utilities::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
 
 					rename($sFinalPath.'/'.basename($sTargetDir).'.css', $sFinalPath.'/jquery-ui.css');
 					rename($sFinalPath.'/'.basename($sTargetDir).'.min.css', $sFinalPath.'/jquery-ui.min.css');

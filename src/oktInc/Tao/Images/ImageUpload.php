@@ -10,7 +10,7 @@ namespace Tao\Images;
 
 use Imagine\Gd\Imagine;
 use Imagine\Image;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 /**
  * Outil pour l'upload des images.
@@ -206,7 +206,7 @@ class ImageUpload
 				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
-				util::uploadStatus($sUploadedFile);
+				Utilities::uploadStatus($sUploadedFile);
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);
@@ -293,7 +293,7 @@ class ImageUpload
 				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
-				util::uploadStatus($sUploadedFile);
+				Utilities::uploadStatus($sUploadedFile);
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);
@@ -473,7 +473,7 @@ class ImageUpload
 			$j++;
 		}
 
-		if (!util::dirHasFiles($sCurrentImagesDir)) {
+		if (!Utilities::dirHasFiles($sCurrentImagesDir)) {
 			\files::deltree($sCurrentImagesDir);
 		}
 
@@ -965,7 +965,7 @@ class ImageUpload
 				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
 
 				# des erreurs d'upload ?
-				util::uploadStatus($sUploadedFile);
+				Utilities::uploadStatus($sUploadedFile);
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);

@@ -8,8 +8,8 @@
 
 namespace Tao\Modules;
 
-use Tao\Misc\Utilities as util;
 use Tao\Core\HttpClient;
+use Tao\Misc\Utilities;
 
 /**
  * Gestion des modules Okatea.
@@ -748,7 +748,7 @@ class Collection
 	 */
 	protected function getRepositoryInfos($repository_url)
 	{
-		$repository_url = str_replace('%VERSION%', util::getVersion(), $repository_url);
+		$repository_url = str_replace('%VERSION%', Utilities::getVersion(), $repository_url);
 
 		$client = new HttpClient();
 		$response = $client->get($repository_url)->send();

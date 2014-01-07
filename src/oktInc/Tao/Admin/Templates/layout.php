@@ -1,6 +1,6 @@
 <?php
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # récupération des erreurs du core
 if ($okt->error->notEmpty())
@@ -100,7 +100,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader', $okt);
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
-	<title><?php echo html::escapeHtml($okt->page->titleTag(' - ')) ?></title>
+	<title><?php echo $view->escape($okt->page->titleTag(' - ')) ?></title>
 	<?php echo $okt->page->css ?>
 	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt->options->public_url ?>/plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>
@@ -159,7 +159,7 @@ $aFooterContent = new ArrayObject;
 $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
 
 if (OKT_DEBUG) {
-	$aFooterContent[20] = util::getVersion();
+	$aFooterContent[20] = Utilities::getVersion();
 }
 
 # -- CORE TRIGGER : adminFooterContent
