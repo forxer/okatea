@@ -124,11 +124,11 @@ $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/famfamfam.css');
 $oHtmlPage->css->addCSS(file_get_contents(OKT_INSTAL_DIR.'/assets/install.css'));
 
 # JS
-$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/jquery.min.js');
-$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/cookie/jquery.cookie.min.js');
+$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/components/jquery/jquery.min.js');
+$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/components/jquery-cookie/jquery.cookie.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/ui/jquery-ui.min.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/common_admin.js');
-$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/blockUI/jquery.blockUI.min.js');
+$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/plugins/jquery.blockUI.min.js');
 
 # load page from stepper
 require_once __DIR__.'/inc/'.$_SESSION['okt_install_process_type'].'Stepper.php';

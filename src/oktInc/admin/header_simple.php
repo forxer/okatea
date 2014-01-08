@@ -42,7 +42,7 @@ ob_start();
 <meta http-equiv="Content-Language" content="fr" />
 <title><?php echo html::escapeHtml($okt->page->titleTag(' - ')) ?></title>
 <?php echo $okt->page->css ?>
-<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt->options->public_url ?>/plugins/html5shiv/dist/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt->options->public_url ?>/components/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>
 <body <?php if ($okt->page->hasPageId()) : ?>
 	id="adminpage-<?php echo $okt->page->getPageId() ?>" <?php endif; ?>>

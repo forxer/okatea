@@ -195,29 +195,29 @@ if ($sFilename && $sMode)
 	$okt->page->addGlobalTitle($sFilename);
 
 	# CSS
-	$okt->page->css->addFile($okt->options->public_url.'/plugins/codemirror/lib/codemirror.css');
-	$okt->page->css->addFile($okt->options->public_url.'/plugins/codemirror/addon/dialog/dialog.css');
+	$okt->page->css->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.css');
+	$okt->page->css->addFile($okt->options->public_url.'/components/codemirror/addon/dialog/dialog.css');
 
 	# JS
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/lib/codemirror.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.js');
 
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/clike/clike.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/css/css.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/htmlmixed/htmlmixed.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/javascript/javascript.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/less/less.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/php/php.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/xml/xml.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/mode/yaml/yaml.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/clike/clike.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/css/css.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/htmlmixed/htmlmixed.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/javascript/javascript.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/less/less.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/php/php.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/xml/xml.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/yaml/yaml.js');
 
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/addon/search/search.js');
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/addon/search/searchcursor.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/search.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/searchcursor.js');
 
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/addon/search/match-highlighter.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/match-highlighter.js');
 
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/addon/dialog/dialog.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/dialog/dialog.js');
 
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/codemirror/addon/selection/active-line.js');
+	$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/selection/active-line.js');
 
 	$okt->page->js->addScript('
 

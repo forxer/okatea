@@ -99,7 +99,7 @@ class DebugBar
 	 */
 	public function addFiles()
 	{
-		$this->okt->page->js->addFile($this->okt->options->public_url .'/js/jquery/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url .'/components/jquery/jquery.min.js');
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
 
 		$this->okt->page->js->addReady('

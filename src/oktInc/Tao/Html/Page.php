@@ -640,8 +640,8 @@ class Page
 	 */
 	public function roundabout($user_options=array(), $element='.roundabout')
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/easing/jquery.easing.min.js');
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/roundabout/jquery.roundabout.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/easing/jquery.easing.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/roundabout/jquery.roundabout.min.js');
 
 		$options = array(
 		);
@@ -795,7 +795,7 @@ class Page
 
 	public function loader($element)
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/blockUI/jquery.blockUI.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/blockUI/jquery.blockUI.min.js');
 
 		$this->js->addReady('
 			jQuery(\''.$element.'\').click(function() {
@@ -810,7 +810,7 @@ class Page
 
 	public function cycle($element='#diaporama', $user_options=array())
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/cycle/jquery.cycle.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/cycle/jquery.cycle.min.js');
 
 		$options = array(
 		);
@@ -826,7 +826,7 @@ class Page
 
 	public function cycleLite($element='#diaporama', $user_options=array())
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/cycle/jquery.cycle.lite.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/cycle/jquery.cycle.lite.min.js');
 
 		$options = array(
 		);
@@ -990,7 +990,7 @@ class Page
 
 	public function checkboxHelper($form_id, $helper_id)
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/checkboxes/jquery.checkboxes.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/checkboxes/jquery.checkboxes.min.js');
 
 		$this->js->addReady('
 			$(\'<a href="#" id="'.$helper_id.'-button-select-all">'.__('c_c_select_all').'</a>\')

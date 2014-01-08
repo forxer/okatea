@@ -189,8 +189,8 @@ class DefinitionsLess
 		));
 
 		# Color picker
-		$oPage->css->addFile($this->okt->options->public_url.'/plugins/spectrum/spectrum.css');
-		$oPage->js->addFile($this->okt->options->public_url.'/plugins/spectrum/spectrum.js');
+		$oPage->css->addFile($this->okt->options->public_url.'/components/spectrum/spectrum.css');
+		$oPage->js->addFile($this->okt->options->public_url.'/components/spectrum/spectrum.js');
 
 		$oPage->js->addReady('
 			$(".colorpicker").spectrum({
