@@ -88,7 +88,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 				</li>
 				<li>
 				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
-				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
+				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 				class="icon delete"><?php _e('c_c_action_delete')?></a>
 				</li>

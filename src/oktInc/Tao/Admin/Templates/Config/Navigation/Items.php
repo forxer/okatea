@@ -95,7 +95,7 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;delete=<?php echo $rsItems->id ?>"
-		onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_config_navigation_item_delete_confirm')) ?>')"
+		onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_item_delete_confirm')) ?>')"
 		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
 		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 

@@ -16,7 +16,7 @@ class oktTheme extends Theme
 
 		# CSS
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
-		$this->okt->page->css->addFile($this->okt->theme->url.'/css/styles.css');
+		$this->okt->page->css->addFile($this->url.'/css/styles.css');
 	}
 
 } # class

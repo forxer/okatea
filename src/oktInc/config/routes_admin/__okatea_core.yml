@@ -1,10 +1,16 @@
 # default Okatea routes
 # do not remove this file
 
+
 home:
     path:     /
     defaults: { _controller: Tao\Admin\Controller\Home::homePage }
-    
+
+
+#
+# error pages
+#
+
 401:
     path:     /401
     defaults: { _controller: Tao\Admin\Controller::serve401 }
@@ -17,6 +23,10 @@ home:
     path:     /503
     defaults: { _controller: Tao\Admin\Controller::serve503 }
 
+
+#
+# user pages
+#
 login:
     path:     /login
     defaults: { _controller: Tao\Admin\Controller\Connexion::login }
@@ -29,6 +39,10 @@ forget_password:
     path:     /forget-password
     defaults: { _controller: Tao\Admin\Controller\Connexion::forget_password }
 
+
+#
+# configuration pages
+#
 
 config_general:
     path:     /configuration/general
@@ -45,6 +59,20 @@ config_languages:
 config_modules:
     path:     /configuration/modules
     defaults: { _controller: Tao\Admin\Controller\Config\Modules::page }
+
+config_themes:
+    path:     /configuration/themes/{page}
+    defaults: { _controller: Tao\Admin\Controller\Config\Themes::index, page: 1 }
+    requirements:
+        page:  \d+
+
+config_theme_add:
+    path:     /configuration/theme/add
+    defaults: { _controller: Tao\Admin\Controller\Config\Themes::add }
+
+config_theme:
+    path:     /configuration/theme/{theme_id}
+    defaults: { _controller: Tao\Admin\Controller\Config\Themes::theme }
 
 config_navigation:
     path:     /configuration/navigation

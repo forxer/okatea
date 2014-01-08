@@ -238,8 +238,8 @@ class Okatea extends Application
 					70,
 					$this->checkPerm('modules')
 				);
-				$this->page->configSubMenu->add(__('c_a_menu_themes'), 'configuration.php?action=themes',
-					(OKT_FILENAME == 'configuration.php') && ($this->page->action === 'themes' || $this->page->action === 'theme'),
+				$this->page->configSubMenu->add(__('c_a_menu_themes'), $this->adminRouter->generate('config_themes'),
+					in_array($this->request->attributes->get('_route'), array('config_themes', 'config_theme', 'config_theme_add')),
 					80,
 					$this->checkPerm('themes')
 				);
