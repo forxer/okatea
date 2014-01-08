@@ -54,3 +54,6 @@ $RECYCLE.BIN/
 
 # vendor
 /src/vendor/
+
+# components
+/src/oktPublic/components/
