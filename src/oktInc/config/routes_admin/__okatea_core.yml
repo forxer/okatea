@@ -5,6 +5,10 @@ home:
     path:     /
     defaults: { _controller: Tao\Admin\Controller\Home::homePage }
     
+401:
+    path:     /401
+    defaults: { _controller: Tao\Admin\Controller::serve401 }
+    
 404:
     path:     /404
     defaults: { _controller: Tao\Admin\Controller::serve404 }
