@@ -257,29 +257,27 @@ class Post extends Controller
 			return false;
 		}
 
-		$this->aPageData['post']['category_id'] = !empty($_POST['p_category_id']) ? intval($_POST['p_category_id']) : 0;
-		$this->aPageData['post']['active'] = !empty($_POST['p_active']) ? 1 : 0;
-		$this->aPageData['post']['tpl'] = !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
-		$this->aPageData['post']['created_at'] = $this->aPageData['post']['created_at'];
-		$this->aPageData['post']['updated_at'] = $this->aPageData['post']['updated_at'];
+		$this->aPageData['post']['category_id'] = $this->request->request->getInt('p_category_id');
+		$this->aPageData['post']['active'] = $this->request->request->getInt('p_active');
+		$this->aPageData['post']['tpl'] = $this->request->request->get('p_tpl');
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aPageData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
-			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = !empty($_POST['p_subtitle'][$aLanguage['code']]) ? $_POST['p_subtitle'][$aLanguage['code']] : '';
-			$this->aPageData['locales'][$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
+			$this->aPageData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', null, true);
+			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $this->request->request->get('p_subtitle['.$aLanguage['code'].']', null, true);
+			$this->aPageData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content['.$aLanguage['code'].']', null, true);
 
 			if ($this->okt->Pages->config->enable_metas)
 			{
-				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
-				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
-				$this->aPageData['locales'][$aLanguage['code']]['slug'] = !empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
-				$this->aPageData['locales'][$aLanguage['code']]['meta_description'] = !empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
-				$this->aPageData['locales'][$aLanguage['code']]['meta_keywords'] = !empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
+				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description['.$aLanguage['code'].']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords['.$aLanguage['code'].']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug['.$aLanguage['code'].']', null, true);
 			}
 		}
 
-		$this->aPageData['perms'] = !empty($_POST['perms']) ? $_POST['perms'] : array();
+		$this->aPageData['perms'] = $this->request->request->get('perms', array());
 
 		# -- TRIGGER MODULE PAGES : adminPopulateData
 		$this->okt->Pages->triggers->callTrigger('adminPopulateData', $this->okt, $this->aPageData);

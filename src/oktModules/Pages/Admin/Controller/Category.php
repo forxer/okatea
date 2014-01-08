@@ -125,7 +125,7 @@ class Category extends Controller
 		}
 
 		# POST : changement de l'ordre des rubriques voisines
-		if (!empty($_POST['order_categories']))
+		if ($this->request->request->has('order_categories'))
 		{
 			$order = $this->request->request->get('p_order', array());
 
@@ -254,26 +254,26 @@ class Category extends Controller
 			return false;
 		}
 
-		$this->aCategoryData['cat']['active'] = !empty($_POST['p_active']) ? 1 : 0;
-		$this->aCategoryData['cat']['parent_id'] = !empty($_POST['p_parent_id']) ? intval($_POST['p_parent_id']) : 0;
-		$this->aCategoryData['cat']['tpl'] = !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
-		$this->aCategoryData['cat']['items_tpl'] = !empty($_POST['p_items_tpl']) ? $_POST['p_items_tpl'] : null;
+		$this->aCategoryData['cat']['active'] = $this->request->request->getInt('p_active');
+		$this->aCategoryData['cat']['parent_id'] = $this->request->request->getInt('p_parent_id');
+		$this->aCategoryData['cat']['tpl'] = $this->request->request->get('p_tpl');
+		$this->aCategoryData['cat']['items_tpl'] = $this->request->request->get('p_items_tpl');
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
+			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', null, true);
 
 			if ($this->okt->Pages->config->categories['descriptions']) {
-				$this->aCategoryData['locales'][$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
+				$this->aCategoryData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content['.$aLanguage['code'].']', null, true);
 			}
 
 			if ($this->okt->Pages->config->enable_metas)
 			{
-				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
-				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
-				$this->aCategoryData['locales'][$aLanguage['code']]['meta_description'] = !empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
-				$this->aCategoryData['locales'][$aLanguage['code']]['meta_keywords'] = !empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
-				$this->aCategoryData['locales'][$aLanguage['code']]['slug'] = !empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
+				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description['.$aLanguage['code'].']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords['.$aLanguage['code'].']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug['.$aLanguage['code'].']', null, true);
 			}
 		}
 

@@ -1,12 +1,14 @@
 <?php
-/**
- * @ingroup okt_module_users
- * @brief Helpers.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
+namespace Okatea\Module\Users;
 
-class UsersHelpers
+class Helpers
 {
 	/**
 	 * Retourne l'URL de la page du formulaire de mot de passe oublié.

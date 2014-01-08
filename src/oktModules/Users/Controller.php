@@ -1,16 +1,19 @@
 <?php
-/**
- * @ingroup okt_module_users
- * @brief Controller public.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+namespace Okatea\Module\Users;
 
 use Tao\Misc\Utilities as util;
 use Tao\Core\Authentification;
-use Tao\Website\Controller;
+use Tao\Website\Controller as BaseController;
 use Tao\Misc\Mailer;
 
-class UsersController extends Controller
+class Controller extends BaseController
 {
 	protected $sRedirectURL;
 	protected $sUserId = '';

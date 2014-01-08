@@ -53,8 +53,7 @@ use Tao\Misc\Utilities;
 				<?php echo $sCurImageAttr ?> alt="" /></a></p>
 
 				<?php if ($aPermissions['bCanEditPost']) : ?>
-				<p><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php
-				echo $aPostData['post']['id'] ?>&amp;delete_image=<?php echo $i ?>"
+				<p><a href="<?php echo $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])) ?>?delete_image=<?php echo $i ?>"
 				onclick="return window.confirm('<?php echo $view->escapeJs(_e('m_news_post_delete_image_confirm')) ?>')"
 				class="icon delete"><?php _e('m_news_post_delete_image') ?></a></p>
 				<?php endif; ?>

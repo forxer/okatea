@@ -34,9 +34,14 @@ class Controller extends BaseController
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
-			'search' => !empty($_REQUEST['search']) ? $_REQUEST['search'] : null
+			'language' => $this->okt->user->language
 		);
+
+		$sSearch = $this->request->query->get('search');
+
+		if ($sSearch) {
+			$aPagesParams['search'] = $sSearch;
+		}
 
 		# initialisation des filtres
 		$this->okt->Pages->filtersStart('public');

@@ -81,14 +81,14 @@ $okt->page->setButtonset('pagesCatsBtSt',array(
 		{
 			$sDeleteLink = ' - <a href="'.$view->generateUrl('Pages_categories').'?delete='.$rsCategories->id.'" '.
 			'class="icon delete" '.
-			'onclick="return window.confirm(\''.html::escapeJS(__('m_pages_cats_delete_confirm')).'\')">'.
+			'onclick="return window.confirm(\''.$view->escapeJs(__('m_pages_cats_delete_confirm')).'\')">'.
 			__('c_c_action_Delete').'</a></p>';
 		}
 		else {
 			$sDeleteLink = ' - <span class="disabled icon delete"></span>'.__('c_c_action_Delete').'';
 		}
 
-		echo '<p><strong>'.html::escapeHTML($rsCategories->title).'</strong> - '.$sNumPages.'</p>';
+		echo '<p><strong>'.$view->escape($rsCategories->title).'</strong> - '.$sNumPages.'</p>';
 
 		echo '<p>';
 

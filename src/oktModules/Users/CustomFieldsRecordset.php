@@ -1,14 +1,17 @@
 <?php
-/**
- * @ingroup okt_module_users
- * @brief Custom fields recordset.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+namespace Okatea\Module\Users;
 
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Database\Recordset;
 
-class UsersFieldRecordset extends Recordset
+class CustomFieldsRecordset extends Recordset
 {
 	/**
 	 * L'objet oktCore

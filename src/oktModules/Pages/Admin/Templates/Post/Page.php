@@ -53,7 +53,7 @@ if (!empty($aPageData['post']['id']))
 		'title' 		=> __('c_c_action_Delete'),
 		'url' 			=> $view->generateUrl('Pages_index').'?delete='.$aPageData['post']['id'],
 		'ui-icon' 		=> 'closethick',
-		'onclick' 		=> 'return window.confirm(\''.html::escapeJS(__('m_pages_page_delete_confirm')).'\')',
+		'onclick' 		=> 'return window.confirm(\''.$view->escapeJs(__('m_pages_page_delete_confirm')).'\')',
 	));
 	# bouton vers la page côté public si publié
 	$okt->page->addButton('pagesBtSt',array(

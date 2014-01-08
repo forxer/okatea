@@ -127,9 +127,10 @@ class Module extends BaseModule
 		{
 			$this->okt->page->newsSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 
-			$this->okt->page->mainMenu->add($this->getName(),
-				$this->okt->adminRouter->generate('News_index'),
-				$this->okt->request->attributes->get('_route') === 'News_index',
+			$this->okt->page->mainMenu->add(
+				$this->getName(),
+				null,
+				null,
 				20,
 				($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
 				null,

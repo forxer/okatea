@@ -1,7 +1,6 @@
 <?php
 
 use Tao\Forms\Statics\FormElements as form;
-use Tao\Misc\Utilities;
 
 $this->extend('layout');
 
@@ -74,7 +73,7 @@ elseif ($okt->Pages->config->admin_filters_style == 'dialog')
 	# Display a UI dialog box
 	$okt->page->js->addReady("
 		$('#filters-form').dialog({
-			title:'".html::escapeJS(__('c_c_display_filters'))."',
+			title:'".$view->escapeJs(__('c_c_display_filters'))."',
 			autoOpen: false,
 			modal: true,
 			width: 500,
@@ -117,7 +116,7 @@ $okt->page->css->addCss('
 	<div class="buttonsetB">
 		<form action="<?php echo $view->generateurl('Pages_index') ?>" method="get" id="search_form" class="search_form">
 			<p><label for="search"><?php _e('m_pages_list_Search') ?></label>
-			<?php echo form::text('search', 20, 255, html::escapeHTML((isset($sSearch) ? $sSearch : ''))); ?>
+			<?php echo form::text('search', 20, 255, $view->escape((isset($sSearch) ? $sSearch : ''))); ?>
 
 			<?php echo form::hidden('m','pages') ?>
 			<?php echo form::hidden('action','index') ?>
@@ -181,11 +180,11 @@ if (!$rsPages->isEmpty()) : ?>
 			<th class="<?php echo $td_class ?> fake-td">
 				<?php echo form::checkbox(array('pages[]'),$rsPages->id) ?>
 				<a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
-				echo html::escapeHTML($rsPages->title) ?></a>
+				echo $view->escape($rsPages->title) ?></a>
 			</th>
 
 			<?php if ($okt->Pages->config->categories['enable']) : ?>
-			<td class="<?php echo $td_class ?>"><?php echo html::escapeHTML($rsPages->category_title) ?></td>
+			<td class="<?php echo $td_class ?>"><?php echo $view->escape($rsPages->category_title) ?></td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
@@ -194,7 +193,7 @@ if (!$rsPages->isEmpty()) : ?>
 				$aGroupsAccess = array();
 				$aPerms = $okt->Pages->getPagePermissions($rsPages->id);
 				foreach ($aPerms as $iPerm) {
-					$aGroupsAccess[] = html::escapeHTML($aGroups[$iPerm]);
+					$aGroupsAccess[] = $view->escape($aGroups[$iPerm]);
 				}
 				unset($aPerms);
 			?>
@@ -225,7 +224,7 @@ if (!$rsPages->isEmpty()) : ?>
 
 					<?php if ($okt->checkPerm('pages_remove')) : ?>
 					<li><a href="<?php echo $view->generateurl('Pages_index') ?>?delete=<?php echo $rsPages->id ?>"
-					onclick="return window.confirm('<?php echo html::escapeJS(__('m_pages_list_page_delete_confirm')) ?>')"
+					onclick="return window.confirm('<?php echo $view->escapeJs(__('m_pages_list_page_delete_confirm')) ?>')"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_delete_%s'), $rsPages->title)) ?>"
 					class="icon delete"><?php _e('c_c_action_delete') ?></a></li>
 					<?php endif; ?>

@@ -1,18 +1,21 @@
 <?php
-/**
- * @ingroup okt_module_users
- * @brief La classe principale du module.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
+namespace Okatea\Module\Users;
+
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Core\Authentification;
 use Tao\Admin\Menu as AdminMenu;
-use Tao\Modules\Module;
+use Tao\Modules\Module as BaseModule;
 use Tao\Routing\Route;
 
-class module_users extends Module
+class Module extends BaseModule
 {
 	protected $t_users;
 	protected $t_groups;
@@ -26,24 +29,24 @@ class module_users extends Module
 	{
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'UsersController' => __DIR__.'/inc/UsersController.php',
-			'UsersCustomFields' => __DIR__.'/inc/UsersCustomFields.php',
-			'UsersFieldRecordset' => __DIR__.'/inc/UsersFieldRecordset.php',
-			'UsersFilters' => __DIR__.'/inc/UsersFilters.php',
-			'UsersHelpers' => __DIR__.'/inc/UsersHelpers.php'
+			'Okatea\Module\Users\Controller' 				=> __DIR__.'/Controller.php',
+			'Okatea\Module\Users\CustomFields' 				=> __DIR__.'/CustomFields.php',
+			'Okatea\Module\Users\CustomFieldsRecordset' 	=> __DIR__.'/CustomFieldsRecordset.php',
+			'Okatea\Module\Users\Filters' 					=> __DIR__.'/Filters.php',
+			'Okatea\Module\Users\Helpers' 					=> __DIR__.'/Helpers.php'
 		));
 
 		# permissions
-		$this->okt->addPermGroup('users',__('m_users_perm_group'));
-			$this->okt->addPerm('users', __('m_users_perm_global'), 'users');
-			$this->okt->addPerm('users_edit', __('m_users_perm_edit'), 'users');
-			$this->okt->addPerm('users_delete', __('m_users_perm_delete'), 'users');
-			$this->okt->addPerm('change_password', __('m_users_perm_change_password'), 'users');
-			$this->okt->addPerm('groups', __('m_users_perm_groups'), 'users');
-			$this->okt->addPerm('users_custom_fields', __('m_users_perm_custom_fields'), 'users');
-			$this->okt->addPerm('users_export', __('m_users_perm_export'), 'users');
-			$this->okt->addPerm('users_display', __('m_users_perm_display'), 'users');
-			$this->okt->addPerm('users_config', __('m_users_perm_config'), 'users');
+		$this->okt->addPermGroup('users',		__('m_users_perm_group'));
+			$this->okt->addPerm('users', 				__('m_users_perm_global'), 'users');
+			$this->okt->addPerm('users_edit', 			__('m_users_perm_edit'), 'users');
+			$this->okt->addPerm('users_delete', 		__('m_users_perm_delete'), 'users');
+			$this->okt->addPerm('change_password', 		__('m_users_perm_change_password'), 'users');
+			$this->okt->addPerm('groups', 				__('m_users_perm_groups'), 'users');
+			$this->okt->addPerm('users_custom_fields', 	__('m_users_perm_custom_fields'), 'users');
+			$this->okt->addPerm('users_export', 		__('m_users_perm_export'), 'users');
+			$this->okt->addPerm('users_display', 		__('m_users_perm_display'), 'users');
+			$this->okt->addPerm('users_config', 		__('m_users_perm_config'), 'users');
 
 		# les tables
 		$this->t_users = $this->db->prefix.'core_users';
@@ -69,9 +72,9 @@ class module_users extends Module
 		{
 			$this->okt->page->mainMenu->add(
 				__('Users'),
-				'module.php?m=users',
-				$this->bCurrentlyInUse,
-				5000000,
+				null,
+				null,
+				5000,
 				($this->okt->checkPerm('users')),
 				null,
 				($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
@@ -298,7 +301,7 @@ class module_users extends Module
 	{
 		$aParams = array();
 
-		if (util::isInt($user)) {
+		if (Utilities::isInt($user)) {
 			$aParams['id'] = $user;
 		}
 		else {
@@ -486,7 +489,7 @@ class module_users extends Module
 			'\''.$this->db->escapeStr($aParams['lastname']).'\', '.
 			'\''.$this->db->escapeStr($aParams['firstname']).'\', '.
 			'\''.$this->db->escapeStr($password_hash).'\', '.
-			'\''.$this->db->escapeStr(util::random_key(12)).'\', '.
+			'\''.$this->db->escapeStr(Utilities::random_key(12)).'\', '.
 			'\''.$this->db->escapeStr($aParams['email']).'\', '.
 			'\''.$this->db->escapeStr($aParams['timezone']).'\', '.
 			'\''.$this->db->escapeStr($aParams['language']).'\', '.
@@ -595,7 +598,7 @@ class module_users extends Module
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.
 			'password=\''.$this->db->escapeStr($password_hash).'\', '.
-			'salt=\''.$this->db->escapeStr(util::random_key(12)).'\' '.
+			'salt=\''.$this->db->escapeStr(Utilities::random_key(12)).'\' '.
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
@@ -840,7 +843,7 @@ class module_users extends Module
 	{
 		$aParams = array();
 
-		if (util::isInt($group)) {
+		if (Utilities::isInt($group)) {
 			$aParams['group_id'] = $group;
 		}
 		else {

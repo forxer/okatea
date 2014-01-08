@@ -17,7 +17,7 @@ use Tao\Forms\Statics\FormElements as form;
 			echo '<option value="'.$rsCategories->id.'"'.
 			($aPageData['post']['category_id'] == $rsCategories->id ? ' selected="selected"' : '').
 			'>'.str_repeat('&nbsp;&nbsp;&nbsp;', $rsCategories->level).
-			'&bull; '.html::escapeHTML($rsCategories->title).
+			'&bull; '.$view->escape($rsCategories->title).
 			'</option>';
 		}
 		?>

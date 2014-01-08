@@ -324,9 +324,9 @@ class Post extends Controller
 			{
 				$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
 				$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
-				$this->aPostData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug['.$aLanguage['code'].']', null, true);
 				$this->aPostData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description['.$aLanguage['code'].']', null, true);
 				$this->aPostData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords['.$aLanguage['code'].']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug['.$aLanguage['code'].']', null, true);
 			}
 		}
 

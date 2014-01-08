@@ -125,7 +125,7 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
-				$this->okt->adminRouter->generate('Pages_index'),
+				null,
 				null,
 				20,
 				$this->okt->checkPerm('pages'),

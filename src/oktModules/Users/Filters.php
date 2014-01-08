@@ -1,15 +1,18 @@
 <?php
-/**
- * @ingroup okt_module_users
- * @brief Classe pour gérer les filtres de listes d'utilisateurs.
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+namespace Okatea\Module\Users;
 
 use Tao\Misc\BaseFilters;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Core\Authentification;
 
-class UsersFilters extends BaseFilters
+class Filters extends BaseFilters
 {
 	protected $users;
 

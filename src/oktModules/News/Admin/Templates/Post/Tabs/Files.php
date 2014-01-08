@@ -30,8 +30,7 @@ use Tao\Misc\Utilities;
 			- <?php echo Utilities::l10nFileSize($aPostData['files'][$i]['size']) ?></p>
 
 			<?php if ($aPermissions['bCanEditPost']) : ?>
-			<p><a href="module.php?m=news&amp;action=edit&amp;post_id=<?php
-			echo $aPostData['post']['id'] ?>&amp;delete_file=<?php echo $i ?>"
+			<p><a href="<?php echo $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])) ?>?delete_file=<?php echo $i ?>"
 			onclick="return window.confirm('<?php echo $view->escapeJs(_e('m_news_post_delete_file_confirm')) ?>')"
 			class="icon delete"><?php _e('m_news_post_delete_file')?></a></p>
 			<?php endif; ?>
