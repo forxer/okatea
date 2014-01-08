@@ -57,7 +57,7 @@ class module_lbl_fancybox extends Module
 
 		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_fancybox/jquery.fancybox.css');
 		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_fancybox/jquery.fancybox.min.js');
-		$okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/mousewheel/jquery.mousewheel.min.js');
+		$okt->page->js->addFile($this->okt->options->public_url.'/components/jquery-mousewheel/jquery.mousewheel.js');
 
 		$okt->page->css->addCss("
 		/* IE6 */

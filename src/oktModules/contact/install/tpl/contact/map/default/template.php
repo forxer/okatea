@@ -20,7 +20,7 @@ $okt->page->js->addFile('http://maps.google.com/maps/api/js?sensor=false');
 
 
 <?php # début Okatea : ajout du plugin Gmap3
-$okt->page->js->addFile($okt->options->public_url.'/js/jquery/gmap3/gmap3.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/jquery-gmap3/gmap3.js');
 # fin Okatea : ajout du plugin Gmap3 ?>
 
 

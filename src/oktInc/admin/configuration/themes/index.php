@@ -352,7 +352,7 @@ $okt->page->js->addReady('
 
 if (!empty($sSearch))
 {
-	$okt->page->js->addFile($okt->options->public_url.'/js/jquery/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile($okt->options->public_url.'/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');

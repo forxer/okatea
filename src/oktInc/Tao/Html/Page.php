@@ -641,7 +641,7 @@ class Page
 	public function roundabout($user_options=array(), $element='.roundabout')
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/easing/jquery.easing.min.js');
-		$this->js->addFile($this->okt->options->public_url.'/plugins/roundabout/jquery.roundabout.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-roundabout/jquery.roundabout.min.js');
 
 		$options = array(
 		);
@@ -867,7 +867,7 @@ class Page
 
 	public function strToSlug($command, $target, $user_options=array())
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/stringToSlug/jquery.stringToSlug.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
 
 		$options = array(
 			'setEvents' => 'keyup keydown blur',
@@ -886,7 +886,7 @@ class Page
 
 	public function toggleWithLegend($command, $target, $user_options=array())
 	{
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/toggleWithLegend/jquery.toggleWithLegend.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
 		$options = array(
 			'img_on_src' => $this->okt->options->public_url.'/img/ico/plus.png',
@@ -1045,9 +1045,9 @@ class Page
 			$options = array_merge($options, $user_options);
 		}
 
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/validate/jquery.validate.min.js');
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/validate/additional-methods.min.js');
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/validate/l10n/messages_'.$options['lang'].'.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/additional-methods.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/localization/messages_'.$options['lang'].'.js');
 
 		$this->getValidateJs($options['selector'], $options['fields']);
 	}
@@ -1058,7 +1058,7 @@ class Page
 			$lang = $this->okt->user->language;
 		}
 
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/validate/l10n/messages_'.$lang.'.js');
+		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/localization/messages_'.$lang.'.js');
 
 		$this->getValidateJs($form_id, $fields);
 	}
@@ -1388,10 +1388,10 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new \DirectoryIterator($okt->options->public_dir.'/ui-themes') as $oFileInfo)
+		foreach (new \DirectoryIterator($okt->options->public_dir.'/plugins/jquery-ui/themes') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isDir() ||
-			!file_exists($okt->options->public_dir.'/ui-themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {
+			!file_exists($okt->options->public_dir.'/plugins/jquery-ui/themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {
 				continue;
 			}
 

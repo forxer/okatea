@@ -125,7 +125,7 @@ class Display extends Controller
 					$oZip->close();
 					debug($sTempDir);
 
-					$sFinalPath = $this->okt->options->public_dir.'/ui-themes/custom';
+					$sFinalPath = $this->okt->options->public_dir.'/plugins/jquery-ui/themes/custom';
 
 					Utilities::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
 

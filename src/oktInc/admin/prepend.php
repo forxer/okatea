@@ -205,7 +205,7 @@ if ($okt->config->admin_maintenance_mode) {
 }
 
 # Ajout des fichiers CSS de l'admin
-$okt->page->css->addFile($okt->options->public_url.'/ui-themes/'.$okt->config->admin_theme.'/jquery-ui.css');
+$okt->page->css->addFile($okt->options->public_url.'/plugins/jquery-ui/themes/'.$okt->config->admin_theme.'/jquery-ui.css');
 $okt->page->css->addFile($okt->options->public_url.'/css/init.css');
 $okt->page->css->addFile($okt->options->public_url.'/css/admin.css');
 $okt->page->css->addFile($okt->options->public_url.'/css/famfamfam.css');
@@ -213,10 +213,10 @@ $okt->page->css->addFile($okt->options->public_url.'/css/famfamfam.css');
 # Ajout des fichiers JS de l'admin
 $okt->page->js->addFile($okt->options->public_url.'/components/jquery/jquery.min.js');
 $okt->page->js->addFile($okt->options->public_url.'/components/jquery-cookie/jquery.cookie.js');
-$okt->page->js->addFile($okt->options->public_url.'/js/jquery/metadata/jquery.metadata.min.js');
-$okt->page->js->addFile($okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
-$okt->page->js->addFile($okt->options->public_url.'/js/jquery/validate/jquery.validate.min.js');
-$okt->page->js->addFile($okt->options->public_url.'/js/jquery/validate/additional-methods.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/plugins/metadata/jquery.metadata.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/jquery-validation/additional-methods.js');
 $okt->page->js->addFile($okt->options->public_url.'/js/common_admin.js');
 
 # Chargement des parties admin des modules

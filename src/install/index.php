@@ -117,7 +117,7 @@ l10n::set(OKT_INSTAL_DIR.'/inc/locales/'.$_SESSION['okt_install_language'].'/ins
 $oHtmlPage = new Page(null);
 
 # CSS
-$oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/ui-themes/redmond/jquery-ui.css');
+$oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/plugins/jquery-ui/themes/redmond/jquery-ui.css');
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/init.css');
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/admin.css');
 $oHtmlPage->css->addFile(OKT_INSTAL_COMMON_URL.'/css/famfamfam.css');
@@ -126,7 +126,7 @@ $oHtmlPage->css->addCSS(file_get_contents(OKT_INSTAL_DIR.'/assets/install.css'))
 # JS
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/components/jquery/jquery.min.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/components/jquery-cookie/jquery.cookie.js');
-$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/jquery/ui/jquery-ui.min.js');
+$oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/plugins/jquery-ui/jquery-ui.min.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/js/common_admin.js');
 $oHtmlPage->js->addFile(OKT_INSTAL_COMMON_URL.'/plugins/jquery.blockUI.min.js');
 

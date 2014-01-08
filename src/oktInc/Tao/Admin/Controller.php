@@ -22,7 +22,7 @@ class Controller extends BaseController
 		parent::__construct($okt);
 
 		# Ajout des fichiers CSS de l'admin
-		$this->okt->page->css->addFile($this->okt->options->public_url.'/ui-themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin.css');
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/famfamfam.css');
@@ -30,10 +30,10 @@ class Controller extends BaseController
 		# Ajout des fichiers JS de l'admin
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/jquery.min.js');
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery-cookie/jquery.cookie.js');
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/metadata/jquery.metadata.min.js');
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/ui/jquery-ui.min.js');
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/validate/jquery.validate.min.js');
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/jquery/validate/additional-methods.min.js');
+	//	$this->okt->page->js->addFile($this->okt->options->public_url.'/plugins/metadata/jquery.metadata.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/additional-methods.js');
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/common_admin.js');
 
 		# Title tag
