@@ -21,11 +21,6 @@ use Tao\Navigation\Breadcrumb;
 class Page extends BasePage
 {
 	/**
-	 * Le fil d'ariane.
-	 */
-	public $breadcrumb;
-
-	/**
 	 * Constructeur.
 	 *
 	 * @return void
@@ -34,7 +29,6 @@ class Page extends BasePage
 	{
 		parent::__construct($okt, 'public');
 
-		$this->breadcrumb = new Breadcrumb();
 		$this->breadcrumb->add(__('c_c_Home'), $this->getBaseUrl());
 	}
 

@@ -1,7 +1,7 @@
 
 <?php $view->extend('layout'); ?>
 
-<?php $okt->page->addTitleTag(__('c_c_doc_not_fount')); ?>
+<?php $okt->page->addGlobalTitle(__('c_c_doc_not_fount')); ?>
 
 <h1><?php _e('c_c_doc_not_fount') ?></h1>
 

@@ -8,6 +8,8 @@
 
 namespace Tao\Html;
 
+use Tao\Navigation\Breadcrumb;
+
 /**
  * Permet de gérer quelques éléments courant à une page HTML
  *
@@ -31,6 +33,11 @@ class Page
 	 * @var object htmlCss
 	 */
 	public $css;
+
+	/**
+	 * Le fil d'ariane.
+	 */
+	public $breadcrumb;
 
 	/**
 	 * Le JS de la page
@@ -128,6 +135,8 @@ class Page
 
 		$this->css = new Css($sPart);
 		$this->js = new Js($sPart);
+
+		$this->breadcrumb = new Breadcrumb();
 
 		$this->sPart = $sPart;
 	}

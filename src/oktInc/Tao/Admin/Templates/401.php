@@ -1,7 +1,7 @@
 
 <?php $view->extend('layout'); ?>
 
-<?php $okt->page->addTitleTag(__('c_c_unauthorized')); ?>
+<?php $okt->page->addGlobalTitle(__('c_c_unauthorized')); ?>
 
 <h1><?php _e('c_c_unauthorized') ?></h1>
 

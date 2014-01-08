@@ -14,7 +14,6 @@ use Tao\Admin\Messages\Success;
 use Tao\Admin\Messages\Warnings;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Html\Page as BasePage;
-use Tao\Navigation\Breadcrumb;
 
 /**
  * Construction des pages d'administration.
@@ -121,8 +120,6 @@ class Page extends BasePage
 		$this->action = $okt->request->request->get('action', $okt->request->query->get('action'));
 		$this->application = $okt->request->request->get('application', $okt->request->query->get('application'));
 		$this->do = $okt->request->request->get('do', $okt->request->query->get('do'));
-
-		$this->breadcrumb = new Breadcrumb();
 
 		$this->flash = $okt->session->getFlashBag();
 
