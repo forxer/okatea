@@ -20,10 +20,7 @@ $oktAppPath = realpath(__DIR__.'/../');
 $oktAutoloader = require $oktAppPath.'/vendor/autoload.php';
 
 # Let the music play
-$okt = new Okatea($oktAutoloader, $oktAppPath, array(
-	'debug' => true,
-	'env' => 'dev'
-));
+$okt = new Okatea($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.php');
 
 $okt->run();
 
