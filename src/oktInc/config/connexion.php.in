@@ -3,7 +3,7 @@
  * Configuration de connexion à la base de données
  */
 
-switch ($this->env)
+switch ($this->options->get('env'))
 {
 	/* environnement de production (serveur) */
 	case 'prod' :

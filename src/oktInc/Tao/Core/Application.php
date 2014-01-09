@@ -43,13 +43,6 @@ class Application
 	public $autoloader;
 
 	/**
-	 * Debug or not debug ?
-	 *
-	 * @var boolean
-	 */
-	public $debug;
-
-	/**
 	 * Le gestionnaire du fichier cache de configuration.
 	 *
 	 * @var Tao\Cache\SingleFileCache
@@ -201,9 +194,6 @@ class Application
 	 */
 	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
-		# Debug or not debug ?
-		$this->debug = true;
-
 		# Environment ? 'dev' or 'prod'
 		$this->env = 'dev';
 
@@ -212,7 +202,7 @@ class Application
 
 		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
-		$this->start($this->debug);
+		$this->start($this->options->get('debug'));
 
 		$this->db = $this->database();
 
@@ -234,7 +224,7 @@ class Application
 
 		$this->languages = new Languages($this);
 
-		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', $this->debug);
+		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', $this->options->get('debug'));
 
 		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
 

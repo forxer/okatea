@@ -39,7 +39,7 @@ class PublicAdminBar
 			$this->okt,
 			$this->okt->options->get('config_dir').'/routes_admin',
 			$this->okt->options->get('cache_dir').'/routing/admin',
-			$this->okt->debug
+			$this->okt->options->get('debug')
 		);
 	}
 
@@ -107,7 +107,7 @@ class PublicAdminBar
 		if ($okt->checkPerm('is_superadmin'))
 		{
 			# avertissement mode debug activé
-			if ($okt->debug)
+			if ($okt->options->get('debug'))
 			{
 				$aPrimaryAdminBar[10]['items'][300] = array(
 					'intitle' => __('c_a_public_debug_mode_enabled')
@@ -163,7 +163,7 @@ class PublicAdminBar
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'
 					),
 					array(
-						'intitle' => 'Mémoire Utilities::isée par PHP&nbsp;: '.$aExecInfos['memUsage']
+						'intitle' => 'Mémoire Utilisée par PHP&nbsp;: '.$aExecInfos['memUsage']
 					),
 					array(
 						'intitle' => 'Pic mémoire allouée par PHP&nbsp;: '.$aExecInfos['peakUsage']

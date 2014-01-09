@@ -17,7 +17,10 @@ use Tao\Website\Okatea;
 $oktAutoloader = require __DIR__.'/vendor/autoload.php';
 
 # Let the music play
-$okt = new Okatea($oktAutoloader, __DIR__);
+$okt = new Okatea($oktAutoloader, __DIR__, array(
+	'debug' => true,
+	'env' => 'dev'
+));
 
 $okt->run();
 

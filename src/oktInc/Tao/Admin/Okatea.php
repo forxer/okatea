@@ -55,7 +55,7 @@ class Okatea extends Application
 			$this,
 			$this->options->get('config_dir').'/routes_admin',
 			$this->options->get('cache_dir').'/routing/admin',
-			$this->debug
+			$this->options->get('debug')
 		);
 	}
 

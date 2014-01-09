@@ -33,6 +33,8 @@ class ApplicationOptions
 	protected function setDefaultOptions()
 	{
 		$this->aOptions = array(
+			'debug' 			=> false,
+			'env' 				=> 'prod',
 
 			'inc_dir' 			=> $this->sRootPath.'/oktInc',
 			'cache_dir' 		=> $this->sRootPath.'/oktInc/cache',

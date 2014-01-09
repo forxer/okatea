@@ -46,7 +46,7 @@ class DebugBar
 	 */
 	public function loadInAdminPart()
 	{
-		if (!$this->okt->debug || !$this->aConfig['admin']) {
+		if (!$this->okt->options->get('debug') || !$this->aConfig['admin']) {
 			return false;
 		}
 
@@ -65,7 +65,7 @@ class DebugBar
 	 */
 	public function loadInPublicPart()
 	{
-		if (!$this->okt->debug || !$this->aConfig['public']) {
+		if (!$this->okt->options->get('debug') || !$this->aConfig['public']) {
 			return false;
 		}
 
