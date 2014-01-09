@@ -8,6 +8,7 @@
 
 namespace Okatea\Install\Controller;
 
+use Symfony\Component\Yaml\Yaml;
 use Okatea\Install\Controller;
 
 class MergeConfig extends Controller
@@ -16,23 +17,24 @@ class MergeConfig extends Controller
 	{
 		$bConfigMerged = false;
 
-		/*
-		if (file_exists(OKT_CONFIG_PATH.'/conf_site.yaml.bak'))
+		$sConfigFile = $this->okt->options->get('config_dir').'/conf_site.yml';
+		$sConfigFileBak = $this->okt->options->get('config_dir').'/conf_site.yml.bak';
+
+		if (file_exists($sConfigFileBak))
 		{
 			$aMergedConf = array_merge(
-					(array)Yaml::parse(OKT_CONFIG_PATH.'/conf_site.yaml'),
-					(array)Yaml::parse(OKT_CONFIG_PATH.'/conf_site.yaml.bak')
+				Yaml::parse($sConfigFile),
+				Yaml::parse($sConfigFileBak)
 			);
 
-			$okt->config->write($aMergedConf);
+			file_put_contents($sConfigFile, Yaml::dump($aMergedConf));
 
-			util::deleteOktCacheFiles();
+			Utilities::deleteOktCacheFiles();
 
-			unlink(OKT_CONFIG_PATH.'/conf_site.yaml.bak');
+			unlink($sConfigFileBak);
 
 			$bConfigMerged = true;
 		}
-		*/
 
 		return $this->render('MergeConfig', array(
 			'bConfigMerged' => $bConfigMerged

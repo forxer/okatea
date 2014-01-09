@@ -28,7 +28,7 @@ class Update extends BaseStepper
 				'title' 	=> __('i_step_checks')
 			),
 			array(
-				'step' 		=> 'db',
+				'step' 		=> 'database',
 				'title' 	=> __('i_step_db')
 			),
 			array(

@@ -28,7 +28,7 @@ class Install extends BaseStepper
 				'title' 	=> __('i_step_db_conf')
 			),
 			array(
-				'step' 		=> 'db',
+				'step' 		=> 'database',
 				'title' 	=> __('i_step_db')
 			),
 			array(
