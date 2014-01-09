@@ -3,68 +3,50 @@
  * Configuration de connexion à la base de données
  */
 
-switch (OKT_ENVIRONMENT)
+switch ($this->env)
 {
 	/* environnement de production (serveur) */
 	case 'prod' :
 
-		define('OKT_DB_DRIVER',
-			'pdo_mysql' # driver de la base de données
-		);
+		# hote de la base de données
+		$sDbHost = '%%DB_PROD_HOST%%';
 
-		define('OKT_DB_HOST',
-			'%%DB_PROD_HOST%%' # hote de la base de données
-		);
+		# nom de la base de données
+		$sDbName = '%%DB_PROD_BASE%%';
 
-		define('OKT_DB_NAME',
-			'%%DB_PROD_BASE%%' # nom de la base de données
-		);
+		# nom d'utilisateur de la base de données
+		$sDbUser = '%%DB_PROD_USER%%';
 
-		define('OKT_DB_USER',
-			'%%DB_PROD_USER%%' # nom d'utilisateur de la base de données
-		);
+		# mot de passe de la base de données
+		$sDbPassword = '%%DB_PROD_PASS%%';
 
-		define('OKT_DB_PWD',
-			'%%DB_PROD_PASS%%' # mot de passe de la base de données
-		);
-
-		define('OKT_DB_PREFIX',
-			'%%DB_PROD_PREFIX%%' # préfix des tables de la base de données
-		);
+		# préfix des tables de la base de données
+		$sDbPrefix = '%%DB_PROD_PREFIX%%';
 
 		break ;
 
 	/* environnement de développement (local) */
 	case 'dev' :
 
-		define('OKT_DB_DRIVER',
-			'pdo_mysql' # driver de la base de données
-		);
+		# hote de la base de données
+		$sDbHost = '%%DB_DEV_HOST%%';
 
-		define('OKT_DB_HOST',
-			'%%DB_DEV_HOST%%' # hote de la base de données
-		);
+		# nom de la base de données
+		$sDbName = '%%DB_DEV_BASE%%';
 
-		define('OKT_DB_NAME',
-			'%%DB_DEV_BASE%%' # nom de la base de données
-		);
+		# nom d'utilisateur de la base de données
+		$sDbUser = '%%DB_DEV_USER%%';
 
-		define('OKT_DB_USER',
-			'%%DB_DEV_USER%%' # nom d'utilisateur de la base de données
-		);
+		# mot de passe de la base de données
+		$sDbPassword = '%%DB_DEV_PASS%%';
 
-		define('OKT_DB_PWD',
-			'%%DB_DEV_PASS%%' # mot de passe de la base de données
-		);
-
-		define('OKT_DB_PREFIX',
-			'%%DB_DEV_PREFIX%%' # préfix des tables de la base de données
-		);
+		# préfix des tables de la base de données
+		$sDbPrefix = '%%DB_DEV_PREFIX%%';
 
 		break ;
 
 
 	default :
-		die('ERREUR ENVIRONNEMENT DE CONNEXION DB (OKT_ENVIRONMENT)');
+		die('Okatea could not find good environment for database connexion.');
 		break ;
 }

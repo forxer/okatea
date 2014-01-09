@@ -149,9 +149,9 @@ class Authentification
 		$this->oDb = $okt->db;
 		$this->oError = $okt->error;
 
-		$this->t_users = OKT_DB_PREFIX.'core_users';
-		$this->t_groups = OKT_DB_PREFIX.'core_users_groups';
-		$this->t_online = OKT_DB_PREFIX.'core_users_online';
+		$this->t_users = $this->oDb->prefix.'core_users';
+		$this->t_groups = $this->oDb->prefix.'core_users_groups';
+		$this->t_online = $this->oDb->prefix.'core_users_online';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);

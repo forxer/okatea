@@ -45,18 +45,17 @@ class Okatea extends Application
 	 *
 	 * @param Composer\Autoload\ClassLoader $autoloader
 	 * @param string $sRootPath
-	 * @param string $sEnv
-	 * @param boolean $bDebug
+	 * @param array $aOptions
 	 */
-	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false)
+	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
-		parent::__construct($autoloader, $sRootPath, $sEnv, $bDebug);
+		parent::__construct($autoloader, $sRootPath, $aOptions);
 
 		$this->adminRouter = new AdminRouter(
 			$this,
 			$this->options->get('config_dir').'/routes_admin',
 			$this->options->get('cache_dir').'/routing/admin',
-			$bDebug
+			$this->debug
 		);
 	}
 

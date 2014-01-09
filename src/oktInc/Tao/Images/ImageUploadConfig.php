@@ -81,12 +81,15 @@ class ImageUploadConfig
 
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$okt->user->language.'/admin.images.config');
 
-		if (defined('OKT_MAX_FILE_UPLOADS')) {
-			$this->iMaxFileUploads = OKT_MAX_FILE_UPLOADS;
+		# Store upload_max_filesize in bytes
+		$u_max_size = \files::str2bytes(ini_get('upload_max_filesize'));
+		$p_max_size = \files::str2bytes(ini_get('post_max_size'));
+
+		if ($p_max_size < $u_max_size) {
+			$u_max_size = $p_max_size;
 		}
-		else {
-			$this->iMaxFileUploads = ini_get('max_file_uploads');
-		}
+
+		$this->iMaxFileUploads = $u_max_size;
 	}
 
 	/**

@@ -188,7 +188,7 @@ class Infos extends Controller
 			$this->aMysqlInfos['table_infos'] = $this->okt->db->select('SHOW FULL COLUMNS FROM `'.$this->okt->db->escapeStr($this->aMysqlInfos['table']).'`');
 		}
 
-		$this->aMysqlInfos['db_infos'] = $this->okt->db->select('SHOW TABLE STATUS FROM `'.$this->okt->db->escapeStr(OKT_DB_NAME).'`');
+		$this->aMysqlInfos['db_infos'] = $this->okt->db->select('SHOW TABLE STATUS FROM `'.$this->okt->db->escapeStr($this->okt->db->db_name).'`');
 
 		$this->aMysqlInfos['num_tables'] = 0;
 		$this->aMysqlInfos['num_rows'] = 0;

@@ -46,7 +46,7 @@ class DebugBar
 	 */
 	public function loadInAdminPart()
 	{
-		if (!OKT_DEBUG || !$this->aConfig['admin']) {
+		if (!$this->okt->debug || !$this->aConfig['admin']) {
 			return false;
 		}
 
@@ -65,7 +65,7 @@ class DebugBar
 	 */
 	public function loadInPublicPart()
 	{
-		if (!OKT_DEBUG || !$this->aConfig['public']) {
+		if (!$this->okt->debug || !$this->aConfig['public']) {
 			return false;
 		}
 
@@ -221,17 +221,8 @@ class DebugBar
 		if ($this->aConfig['tabs']['tools'])
 		{
 			$this->aDebugBarData['execTime'] = util::getExecutionTime();
-
-			if (OKT_XDEBUG)
-			{
-				$this->aDebugBarData['memUsage'] = util::l10nFileSize(xdebug_memory_usage());
-				$this->aDebugBarData['peakUsage'] = util::l10nFileSize(xdebug_peak_memory_usage());
-			}
-			else {
-
-				$this->aDebugBarData['memUsage'] = util::l10nFileSize(memory_get_usage());
-				$this->aDebugBarData['peakUsage'] = util::l10nFileSize(memory_get_peak_usage());
-			}
+			$this->aDebugBarData['memUsage'] = util::l10nFileSize(memory_get_usage());
+			$this->aDebugBarData['peakUsage'] = util::l10nFileSize(memory_get_peak_usage());
 		}
 
 		$aRequestAttributes = $this->okt->request->attributes->all();

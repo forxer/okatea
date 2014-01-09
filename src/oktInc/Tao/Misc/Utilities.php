@@ -1105,17 +1105,8 @@ class Utilities
 	 */
 	public static function getExecutionTime()
 	{
-		$exec_time = null;
-
-		if (OKT_XDEBUG)
-		{
-			$exec_time = sprintf('%.3f', xdebug_time_index());
-		}
-		elseif (defined('OKT_START_TIME'))
-		{
-			$time = explode(' ', microtime());
-			$exec_time = sprintf('%.3f', ((float)$time[0] + (float)$time[1]) - OKT_START_TIME);
-		}
+		$time = explode(' ', microtime());
+		$exec_time = sprintf('%.3f', ((float)$time[0] + (float)$time[1]) - OKT_START_TIME);
 
 		return $exec_time;
 	}

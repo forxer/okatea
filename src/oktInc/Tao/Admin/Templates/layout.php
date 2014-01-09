@@ -158,7 +158,7 @@ $aFooterContent = new ArrayObject;
 
 $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
 
-if (OKT_DEBUG) {
+if ($okt->debug) {
 	$aFooterContent[20] = Utilities::getVersion();
 }
 

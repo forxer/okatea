@@ -15,28 +15,14 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
-
 use Tao\Cache\SingleFileCache;
+use Tao\Database\MySqli;
 use Tao\Misc\FlashMessages;
 use Tao\Misc\Utilities;
 use Tao\Modules\Collection as ModulesCollection;
 use Tao\Navigation\Menus\Menus;
 use Tao\Routing\Router;
 use Tao\Themes\SimpleReplacements;
-
-
-
-#-----------------------------------------------------------------
-# TO DELETE
-
-	define('OKT_XDEBUG', function_exists('xdebug_is_enabled'));
-
-	define('OKT_FILENAME' , 'truc');
-
-# TO DELETE
-#-----------------------------------------------------------------
-
-
 
 
 /**
@@ -210,17 +196,19 @@ class Application
 	 *
 	 * @param Composer\Autoload\ClassLoader $autoloader
 	 * @param string $sRootPath
-	 * @param string $sEnv
-	 * @param boolean $bDebug
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader, $sRootPath, $sEnv = 'prod', $bDebug = false, array $aOptions = array())
+	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
+		# Debug or not debug ?
+		$this->debug = true;
+
+		# Environment ? 'dev' or 'prod'
+		$this->env = 'dev';
+
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
-
-		$this->debug = $bDebug;
 
 		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
@@ -295,7 +283,7 @@ class Application
 
 		require $this->options->get('config_dir').'/connexion.php';
 
-		$db = Connexion::getInstance();
+		$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
 
 		if ($db->hasError()) {
 			$this->error->fatal('Unable to connect to database', $db->error());

@@ -107,7 +107,7 @@ class PublicAdminBar
 		if ($okt->checkPerm('is_superadmin'))
 		{
 			# avertissement mode debug activé
-			if (OKT_DEBUG)
+			if ($okt->debug)
 			{
 				$aPrimaryAdminBar[10]['items'][300] = array(
 					'intitle' => __('c_a_public_debug_mode_enabled')
@@ -153,17 +153,8 @@ class PublicAdminBar
 			# info execution
 			$aExecInfos = array();
 			$aExecInfos['execTime'] = Utilities::getExecutionTime();
-
-			if (OKT_XDEBUG)
-			{
-				$aExecInfos['memUsage'] = Utilities::l10nFileSize(xdebug_memory_usage());
-				$aExecInfos['peakUsage'] = Utilities::l10nFileSize(xdebug_peak_memory_usage());
-			}
-			else {
-
-				$aExecInfos['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
-				$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
-			}
+			$aExecInfos['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
+			$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 
 			$aSecondaryAdminBar[1000] = array(
 				'intitle' => '<img src="'.$okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',

@@ -32,7 +32,7 @@ class Home extends Controller
 
 		$this->updateNotification();
 
-		if (OKT_DEBUG) {
+		if ($this->okt->debug) {
 			$this->page->flash->warning(__('c_a_public_debug_mode_enabled'));
 		}
 
@@ -131,16 +131,17 @@ class Home extends Controller
 			return null;
 		}
 
-		require_once OKT_VENDOR_PATH.'/simplepie/simplepie/autoloader.php';
-
 		// We'll process this feed with all of the default options.
-		$this->feed = new SimplePie();
+		$this->feed = new \SimplePie();
 
-		if (!is_dir($this->okt->options->get('cache_dir').'/feeds/')) {
-			files::makeDir($this->okt->options->get('cache_dir').'/feeds/',true);
+		# set cache directory
+		$sCacheDir = $this->okt->options->get('cache_dir').'/feeds/';
+
+		if (!is_dir($sCacheDir)) {
+			\files::makeDir($sCacheDir, true);
 		}
 
-		$this->feed->set_cache_location($this->okt->options->get('cache_dir').'/feeds/');
+		$this->feed->set_cache_location($sCacheDir);
 
 		// Set which feed to process.
 		$this->feed->set_feed_url($this->okt->config->news_feed['url'][$this->okt->user->language]);

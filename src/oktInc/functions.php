@@ -21,20 +21,13 @@ if (!function_exists('debug'))
 	 *
 	 * @param mixed $mData 				La variable à déboguer
 	 * @param boolean $bDie 			Kill the script after
-	 * @param boolean $bDoNotUseXdebug 	Do not use Xdebug displaying
 	 * @return void
 	 */
-	function debug($mData, $bDie=false, $bDoNotUseXdebug=false)
+	function debug($mData, $bDie=false)
 	{
-		if (!$bDoNotUseXdebug && defined('OKT_XDEBUG') && OKT_XDEBUG) {
-			var_dump($mData);
-		}
-		else
-		{
-			echo '<pre class="debug">';
-			var_export($mData);
-			echo '</pre>';
-		}
+		echo '<pre class="debug">';
+		var_export($mData);
+		echo '</pre>';
 
 		if ($bDie) {
 			die;

@@ -587,7 +587,7 @@ class Update
 			}
 
 			$xsql = new XmlSql($okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, 'update');
-			$xsql->replace('{{PREFIX}}',OKT_DB_PREFIX);
+			$xsql->replace('{{PREFIX}}', $okt->db->prefix);
 			$xsql->execute();
 		}
 	}

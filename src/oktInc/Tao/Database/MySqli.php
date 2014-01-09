@@ -60,7 +60,7 @@ class MySqli
 	 * Nom de la base de données.
 	 * @var	string
 	 */
-	protected $db_name;
+	public $db_name;
 
 	/**
 	 * Prefixe des tables.
@@ -116,7 +116,7 @@ class MySqli
 	 * @param string $dbprefix 	Préfixe de la base de donnée
 	 * @return void
 	 */
-	public function init($user='', $pwd='', $alias='', $dbname='', $dbprefix='')
+	public function __construct($user='', $pwd='', $alias='', $dbname='', $dbprefix='')
 	{
 		$this->error = '';
 		$this->nb_q = 0;
