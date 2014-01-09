@@ -38,8 +38,10 @@
 		"symfony/yaml": "2.5.*@dev"
 	},
 	"autoload": {
-		"psr-0": {
-			"Tao\\": "oktInc/"
+		"psr-4": {
+			"Tao\\": "oktInc/Tao",
+			"Okatea\\Module\\": "oktModules",
+			"Okatea\\Install\\": "install"
 		},
 		"classmap": [
 			"vendor/dotclear/clearbricks/common",

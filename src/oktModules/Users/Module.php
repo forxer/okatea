@@ -27,15 +27,6 @@ class Module extends BaseModule
 
 	protected function prepend()
 	{
-		# autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\Users\Controller' 				=> __DIR__.'/Controller.php',
-			'Okatea\Module\Users\CustomFields' 				=> __DIR__.'/CustomFields.php',
-			'Okatea\Module\Users\CustomFieldsRecordset' 	=> __DIR__.'/CustomFieldsRecordset.php',
-			'Okatea\Module\Users\Filters' 					=> __DIR__.'/Filters.php',
-			'Okatea\Module\Users\Helpers' 					=> __DIR__.'/Helpers.php'
-		));
-
 		# permissions
 		$this->okt->addPermGroup('users',		__('m_users_perm_group'));
 			$this->okt->addPerm('users', 				__('m_users_perm_global'), 'users');

@@ -41,15 +41,6 @@ class Module extends BaseModule
 
 	protected function prepend()
 	{
-		# autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\News\Categories' 	=> __DIR__.'/Categories.php',
-			'Okatea\Module\News\Controller' 	=> __DIR__.'/Controller.php',
-			'Okatea\Module\News\Filters' 		=> __DIR__.'/Filters.php',
-			'Okatea\Module\News\Helpers' 		=> __DIR__.'/Helpers.php',
-			'Okatea\Module\News\Recordset' 		=> __DIR__.'/Recordset.php'
-		));
-
 		# permissions
 		$this->okt->addPermGroup('news', 		__('m_news_perm_group'));
 			$this->okt->addPerm('news_usage', 			__('m_news_perm_global'), 'news');
@@ -112,16 +103,6 @@ class Module extends BaseModule
 
 	protected function prepend_admin()
 	{
-		# autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\News\Admin\Controller\Index' 		=> __DIR__.'/Admin/Controller/Index.php',
-			'Okatea\Module\News\Admin\Controller\Post' 			=> __DIR__.'/Admin/Controller/Post.php',
-			'Okatea\Module\News\Admin\Controller\Categories' 	=> __DIR__.'/Admin/Controller/Categories.php',
-			'Okatea\Module\News\Admin\Controller\Category' 		=> __DIR__.'/Admin/Controller/Category.php',
-			'Okatea\Module\News\Admin\Controller\Display' 		=> __DIR__.'/Admin/Controller/Display.php',
-			'Okatea\Module\News\Admin\Controller\Config' 		=> __DIR__.'/Admin/Controller/Config.php'
-		));
-
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{

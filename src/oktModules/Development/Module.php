@@ -37,18 +37,6 @@ class Module extends BaseModule
 
 	protected function prepend_admin()
 	{
-		# autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\Development\Admin\Controller\Index' 		=> __DIR__.'/Admin/Controller/Index.php',
-			'Okatea\Module\Development\Admin\Controller\Debugbar' 	=> __DIR__.'/Admin/Controller/Debugbar.php',
-			'Okatea\Module\Development\Admin\Controller\Bootstrap' 	=> __DIR__.'/Admin/Controller/Bootstrap.php',
-			'Okatea\Module\Development\Admin\Controller\Counting' 	=> __DIR__.'/Admin/Controller/Counting.php',
-			'Okatea\Module\Development\Bootstrap\Module\Module' 	=> __DIR__.'/Bootstrap/Module/Module.php',
-			'Okatea\Module\Development\Bootstrap\Module\Advanced' 	=> __DIR__.'/Bootstrap/Module/Advanced.php',
-			'Okatea\Module\Development\Bootstrap\Module\Simple' 	=> __DIR__.'/Bootstrap/Module/Simple.php',
-			'Okatea\Module\Development\CountingFilesAndLines' 		=> __DIR__.'/CountingFilesAndLines.php'
-		));
-
 		# On ajoutent un item au menu
 		if ($this->okt->page->display_menu)
 		{

@@ -418,13 +418,13 @@ class Application
 		$config = $this->newConfig('conf_site');
 
 		# URL du dossier modules
-		$this->options->set('modules_url', $config->app_path.'/oktModules');
+		$this->options->set('modules_url', $config->app_path.'oktModules');
 
 		# URL du dossier des fichiers publics
-		$this->options->set('public_url', $config->app_path.'/oktPublic');
+		$this->options->set('public_url', $config->app_path.'oktPublic');
 
 		# URL du dossier upload depuis la racine
-		$this->options->set('upload_url', $config->app_path.'/oktPublic/upload');
+		$this->options->set('upload_url', $config->app_path.'oktPublic/upload');
 
 		return $config;
 	}
