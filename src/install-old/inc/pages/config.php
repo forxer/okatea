@@ -143,7 +143,7 @@ if (!empty($_POST['sended']))
 			$_SESSION['okt_install_chemin'] = $new_conf['app_path'];
 
 			$okt->config->write($new_conf);
-			http::redirect('index.php?step='.$stepper->getNextStep());
+			http::redirect('index.php?step='.$okt->stepper->getNextStep());
 		}
 		catch (InvalidArgumentException $e)
 		{
@@ -306,7 +306,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 	<input type="hidden" name="sended" value="1" />
-	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
+	<input type="hidden" name="step" value="<?php echo $okt->stepper->getCurrentStep() ?>" /></p>
 </form>
 
 <?php # Pied de page

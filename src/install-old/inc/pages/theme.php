@@ -61,7 +61,7 @@ if (!empty($_POST['sended']) && !empty($_POST['p_theme']) && isset($aInstalledTh
 
 		$_SESSION['okt_install_theme'] = $_POST['p_theme'];
 
-		http::redirect('index.php?step='.$stepper->getNextStep());
+		http::redirect('index.php?step='.$okt->stepper->getNextStep());
 	}
 	catch (InvalidArgumentException $e)
 	{
@@ -111,7 +111,7 @@ else if (!empty($_POST['bootstrap']))
 	try {
 		$theme = $oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));
 
-		http::redirect('index.php?step='.$stepper->getCurrentStep().'&p_theme='.$theme);
+		http::redirect('index.php?step='.$okt->stepper->getCurrentStep().'&p_theme='.$theme);
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -151,7 +151,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 	<input type="hidden" name="sended" value="1" />
-	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
+	<input type="hidden" name="step" value="<?php echo $okt->stepper->getCurrentStep() ?>" /></p>
 </form>
 
 
@@ -214,7 +214,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 				<?php echo form::text('bootstrap_theme_id', 60, 255, ''); ?></p>
 			</div>
 
-			<p><?php echo form::hidden(array('step'), $stepper->getCurrentStep()) ?>
+			<p><?php echo form::hidden(array('step'), $okt->stepper->getCurrentStep()) ?>
 			<?php echo form::hidden('bootstrap', 1) ?>
 			<?php echo Page::formtoken() ?>
 			<input type="submit" value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" /></p>

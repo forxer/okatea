@@ -54,7 +54,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 		<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 		<input type="hidden" name="sended" value="1" />
-		<input type="hidden" name="step" value="<?php echo $stepper->getNextStep() ?>" /></p>
+		<input type="hidden" name="step" value="<?php echo $okt->stepper->getNextStep() ?>" /></p>
 	</form>
 
 <?php endif; ?>

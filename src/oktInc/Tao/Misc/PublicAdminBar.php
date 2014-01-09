@@ -11,7 +11,7 @@ namespace Tao\Misc;
 use Tao\Core\Authentification;
 use Tao\Core\Update as Updater;
 use Tao\Misc\Utilities;
-use Tao\Routing\AdminRouter;
+use Tao\Admin\Router as AdminRouter;
 
 /**
  * La classe pour afficher la barre admin côté publique

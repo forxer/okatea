@@ -1,0 +1,93 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Okatea\Install;
+
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Tao\Core\Controller as BaseController;
+
+class Controller extends BaseController
+{
+	/**
+	 * Constructor.
+	 *
+	 */
+	public function __construct($okt)
+	{
+		parent::__construct($okt);
+
+		# URL du dossier modules
+		$this->okt->options->set('modules_url', $this->request->getBasePath().'/../oktModules');
+
+		# URL du dossier des fichiers publics
+		$this->okt->options->set('public_url', $this->request->getBasePath().'/../oktPublic');
+
+		# URL du dossier upload depuis la racine
+		$this->okt->options->set('upload_url', $this->request->getBasePath().'/../oktPublic/upload');
+
+		# Initialisation localisation
+		$aAvailablesLocales = array('fr','en');
+		if (!$this->session->has('okt_install_language'))
+		{
+			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($aAvailablesLocales));
+
+			return $this->redirect($this->generateUrl('start'));
+		}
+
+		$sSwitchLanguage = $this->request->query->get('switch_language');
+		if ($sSwitchLanguage && in_array($sSwitchLanguage, $aAvailablesLocales))
+		{
+			$this->session->set('okt_install_language', $sSwitchLanguage);
+
+			return $this->redirect($this->generateUrl('start'));
+		}
+
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/redmond/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/famfamfam.css');
+		$this->okt->page->css->addCSS(file_get_contents(__DIR__.'/assets/install.css'));
+
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery-cookie/jquery.cookie.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/common_admin.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/plugins/blockUI/jquery.blockUI.min.js');
+	}
+
+	/**
+	 * Generates a URL from the given parameters.
+	 *
+	 * @param string         $route         The name of the route
+	 * @param mixed          $parameters    An array of parameters
+	 * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+	 *
+	 * @return string The generated URL
+	 *
+	 * @see UrlGeneratorInterface
+	 */
+	public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	{
+		return $this->okt->router->generate($route, $parameters, $referenceType);
+	}
+
+	public function serve401()
+	{
+		parent::serve401();
+	}
+
+	public function serve404()
+	{
+		parent::serve404();
+	}
+
+	public function serve503()
+	{
+		parent::serve503();
+	}
+}

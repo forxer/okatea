@@ -132,7 +132,7 @@ if (!empty($_POST['sended']))
 		}
 	}
 
-	http::redirect('index.php?step='.$stepper->getNextStep());
+	http::redirect('index.php?step='.$okt->stepper->getNextStep());
 }
 
 
@@ -192,7 +192,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 <?php endif; ?>
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 	<input type="hidden" name="sended" value="1" />
-	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
+	<input type="hidden" name="step" value="<?php echo $okt->stepper->getCurrentStep() ?>" /></p>
 </form>
 
 <?php # Pied de page

@@ -6,16 +6,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Routing;
+namespace Tao\Admin;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Router as BaseRouter;
-use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Tao\Core\Application;
 use Tao\Routing\Loader\YamlDirectoryLoader;
+use Tao\Routing\ControllerResolverTrait;
 
-class AdminRouter extends BaseRouter
+class Router extends BaseRouter
 {
 	use ControllerResolverTrait;
 

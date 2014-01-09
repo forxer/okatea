@@ -36,7 +36,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 	<p class="note"><?php _e('i_start_click_next') ?></p>
 
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
-	<input type="hidden" name="step" value="<?php echo $stepper->getNextStep() ?>" /></p>
+	<input type="hidden" name="step" value="<?php echo $okt->stepper->getNextStep() ?>" /></p>
 </form>
 
 <?php # Pied de page

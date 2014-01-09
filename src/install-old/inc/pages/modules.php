@@ -91,7 +91,7 @@ if (!empty($_POST['sended']))
 
 	util::deleteOktCacheFiles();
 
-	http::redirect('index.php?step='.$stepper->getNextStep());
+	http::redirect('index.php?step='.$okt->stepper->getNextStep());
 }
 
 # Plugin upload
@@ -121,7 +121,7 @@ else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config-
 		unset($client);
 
 		$ret_code = $okt->modules->installPackage($dest,$okt->modules);
-		http::redirect('index.php?step='.$stepper->getCurrentStep());
+		http::redirect('index.php?step='.$okt->stepper->getCurrentStep());
 	}
 	catch (Exception $e) {
 		$okt->error->set($e->getMessage());
@@ -150,7 +150,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" />
 	<input type="hidden" name="sended" value="1" />
-	<input type="hidden" name="step" value="<?php echo $stepper->getCurrentStep() ?>" /></p>
+	<input type="hidden" name="step" value="<?php echo $okt->stepper->getCurrentStep() ?>" /></p>
 </form>
 
 

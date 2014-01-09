@@ -15,7 +15,6 @@ use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
 use Tao\Core\Application;
 use Tao\Core\LogAdmin;
-use Tao\Routing\AdminRouter;
 
 class Okatea extends Application
 {
@@ -51,7 +50,7 @@ class Okatea extends Application
 	{
 		parent::__construct($autoloader, $sRootPath, $aOptions);
 
-		$this->adminRouter = new AdminRouter(
+		$this->adminRouter = new Router(
 			$this,
 			$this->options->get('config_dir').'/routes_admin',
 			$this->options->get('cache_dir').'/routing/admin',
@@ -87,6 +86,21 @@ class Okatea extends Application
 		$this->sendResponse();
 	}
 
+	protected function loadLogAdmin()
+	{
+		$this->logAdmin = new LogAdmin($this);
+	}
+
+	/**
+	 * Init content page helpers.
+	 *
+	 * @return \Tao\Website\Page
+	 */
+	protected function loadPageHelpers()
+	{
+		$this->page = new Page($this);
+	}
+
 	/**
 	 * Load templates engine.
 	 *
@@ -102,21 +116,6 @@ class Okatea extends Application
 
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);
-	}
-
-	/**
-	 * Init content page helpers.
-	 *
-	 * @return \Tao\Website\Page
-	 */
-	protected function loadPageHelpers()
-	{
-		$this->page = new Page($this);
-	}
-
-	protected function loadLogAdmin()
-	{
-		$this->logAdmin = new LogAdmin($this);
 	}
 
 	protected function checkUser()
