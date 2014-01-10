@@ -30,23 +30,6 @@ class Controller extends BaseController
 		# URL du dossier upload depuis la racine
 		$this->okt->options->set('upload_url', $this->request->getBasePath().'/../oktPublic/upload');
 
-		# Initialisation localisation
-		$aAvailablesLocales = array('fr','en');
-		if (!$this->session->has('okt_install_language'))
-		{
-			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($aAvailablesLocales));
-
-			return $this->redirect($this->generateUrl('start'));
-		}
-
-		$sSwitchLanguage = $this->request->query->get('switch_language');
-		if ($sSwitchLanguage && in_array($sSwitchLanguage, $aAvailablesLocales))
-		{
-			$this->session->set('okt_install_language', $sSwitchLanguage);
-
-			return $this->redirect($this->generateUrl('start'));
-		}
-
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/redmond/jquery-ui.css');
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin.css');

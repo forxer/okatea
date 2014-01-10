@@ -15,6 +15,7 @@ class Config extends Controller
 	public function page()
 	{
 		return $this->render('Config', array(
+			'title' => __('i_config_title'),
 
 		));
 	}

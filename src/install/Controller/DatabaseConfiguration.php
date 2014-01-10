@@ -15,7 +15,7 @@ class DatabaseConfiguration extends Controller
 	public function page()
 	{
 		return $this->render('DatabaseConfiguration', array(
-
+			'title' => __('i_db_conf_title'),
 		));
 	}
 }

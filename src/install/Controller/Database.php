@@ -9,13 +9,31 @@
 namespace Okatea\Install\Controller;
 
 use Okatea\Install\Controller;
+use Tao\Database\XmlSql;
+use Tao\Html\CheckList;
 
 class Database extends Controller
 {
 	public function page()
 	{
-		return $this->render('Database', array(
+		$db = $this->okt->getDb();
 
+		$oChecklist = new CheckList();
+
+		foreach (new \DirectoryIterator($this->okt->options->get('inc_dir').'/sql_schema/') as $oFileInfo)
+		{
+			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
+				continue;
+			}
+
+			$xsql = new XmlSql($db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->session->get('okt_install_process_type'));
+			$xsql->replace('{{PREFIX}}',$db->prefix);
+			$xsql->execute();
+		}
+
+
+		return $this->render('Database', array(
+			'oChecklist' => $oChecklist
 		));
 	}
 }

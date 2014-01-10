@@ -1,9 +1,5 @@
 
-<?php $view->extend('layout');
-
-
-$title = __('i_merge_config_title');
-?>
+<?php $view->extend('layout'); ?>
 
 
 <form action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>" method="post">

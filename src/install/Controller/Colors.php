@@ -15,6 +15,7 @@ class Colors extends Controller
 	public function page()
 	{
 		return $this->render('Colors', array(
+			'title' => __('i_colors_title'),
 
 		));
 	}

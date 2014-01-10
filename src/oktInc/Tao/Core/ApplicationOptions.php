@@ -40,6 +40,7 @@ class ApplicationOptions
 			'cache_dir' 		=> $this->sRootPath.'/oktInc/cache',
 			'config_dir' 		=> $this->sRootPath.'/oktInc/config',
 			'locales_dir' 		=> $this->sRootPath.'/oktInc/locales',
+			'logs_dir' 			=> $this->sRootPath.'/oktInc/logs',
 			'modules_dir' 		=> $this->sRootPath.'/oktModules',
 			'public_dir' 		=> $this->sRootPath.'/oktPublic',
 			'upload_dir' 		=> $this->sRootPath.'/oktPublic/upload',

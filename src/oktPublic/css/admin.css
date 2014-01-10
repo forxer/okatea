@@ -1049,12 +1049,12 @@ p.buttonset {
 	}
 
 #jWarning {
-	background: #FBEC88 url('../img/notify/warning.png') no-repeat 15px center;
-	color: #BF6814;
-	border-color: #F57900;
+	background: #FDB700 url('../img/notify/warning.png') no-repeat 15px center;
+	color: #FB3601;
+	border-color: #FB3601;
 }
 	#jWarning a {
-		color:#FAD42E !important;
+		color:#FB3601 !important;
 	}
 
 #jError {

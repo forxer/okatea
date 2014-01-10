@@ -15,6 +15,7 @@ class Pages extends Controller
 	public function page()
 	{
 		return $this->render('Pages', array(
+			'title' => __('i_pages_title'),
 
 		));
 	}

@@ -15,6 +15,7 @@ class Modules extends Controller
 	public function page()
 	{
 		return $this->render('Modules', array(
+			'title' => __('i_modules_title'),
 
 		));
 	}

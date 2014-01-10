@@ -15,6 +15,7 @@ class Supa extends Controller
 	public function page()
 	{
 		return $this->render('Supa', array(
+			'title' => __('i_supa_title'),
 
 		));
 	}

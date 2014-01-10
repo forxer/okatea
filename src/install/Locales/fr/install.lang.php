@@ -82,6 +82,9 @@ $GLOBALS['__l10n']['i_supa_must_admin_password'] = 'Vous devez saisir un mot de 
 $GLOBALS['__l10n']['i_supa_must_sudo_email'] = 'Vous devez saisir une adresse email pour le compte super-administrateur.';
 $GLOBALS['__l10n']['i_supa_must_admin_email'] = 'Vous devez saisir une adresse email pour le compte administrateur.';
 
+# configuration
+$GLOBALS['__l10n']['i_config_title'] = 'Configuration de base';
+
 # theme
 $GLOBALS['__l10n']['i_theme_title'] = 'Choix du thème';
 

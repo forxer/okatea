@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "71a5277650a53d56c8fe049e7ecafec9",
+    "hash": "84b7e609e454062ffa6b45dc058bba8c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -615,12 +615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "a2b9204c902bb3a28a3b3d94211a7ba995ba60f4"
+                "reference": "da029747d89287a44b9ef2f4d2f55560ffb8581a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a2b9204c902bb3a28a3b3d94211a7ba995ba60f4",
-                "reference": "a2b9204c902bb3a28a3b3d94211a7ba995ba60f4",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/da029747d89287a44b9ef2f4d2f55560ffb8581a",
+                "reference": "da029747d89287a44b9ef2f4d2f55560ffb8581a",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-01-08 23:43:14"
+            "time": "2014-01-09 21:31:09"
         },
         {
             "name": "imagine/imagine",
@@ -949,12 +949,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "a1e98f4e1da5b0235a74d11dcf7cdb2692b28ffc"
+                "reference": "d81ca5a8d2d97bf9d77605359a12399c0ca28653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/a1e98f4e1da5b0235a74d11dcf7cdb2692b28ffc",
-                "reference": "a1e98f4e1da5b0235a74d11dcf7cdb2692b28ffc",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d81ca5a8d2d97bf9d77605359a12399c0ca28653",
+                "reference": "d81ca5a8d2d97bf9d77605359a12399c0ca28653",
                 "shasum": ""
             },
             "require": {
@@ -1008,7 +1008,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-01-01 18:24:16"
+            "time": "2014-01-10 08:22:47"
         },
         {
             "name": "psr/log",

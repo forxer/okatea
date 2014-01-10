@@ -18,7 +18,7 @@ class LogAdmin
 {
 	/**
 	 * L'objet core.
-	 * @var object oktCore
+	 * @var object Tao\Core\Application
 	 */
 	protected $okt;
 
@@ -45,7 +45,7 @@ class LogAdmin
 	/**
 	 * Constructeur.
 	 *
-	 * @param oktCore $okt Instance de l'objet oktCore
+	 * @param Tao\Core\Application $okt
 	 * @return void
 	 */
 	public function __construct($okt)

@@ -9,8 +9,8 @@
 namespace Tao\Admin\Controller\Config;
 
 use Tao\Admin\Controller;
+use Tao\Core\Requirements;
 use Tao\Misc\Utilities;
-use Tao\Html\CheckList;
 
 class Infos extends Controller
 {
@@ -147,9 +147,15 @@ class Infos extends Controller
 			'requirements' => null
 		);
 
-		# vérification des pré-requis
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/pre-requisites');
+		$oRequirements = new Requirements($this->okt);
 
+		$aResults = $oRequirements->getResultsFromHtmlCheckList();
+
+		$this->aOkateaInfos['pass_test'] = $aResults['bCheckAll'];
+		$this->aOkateaInfos['warning_empty'] = $aResults['bCheckWarning'];
+		$this->aOkateaInfos['requirements'] = $oRequirements->getRequirements();
+
+		/*
 		require $this->okt->options->inc_dir.'/systeme_requirements.php';
 
 		foreach ($requirements as $i => $group)
@@ -173,6 +179,7 @@ class Infos extends Controller
 		$this->aOkateaInfos['pass_test'] = $pass_test;
 		$this->aOkateaInfos['warning_empty'] = $warning_empty;
 		$this->aOkateaInfos['requirements'] = $requirements;
+		*/
 	}
 
 	protected function mysqlInit()

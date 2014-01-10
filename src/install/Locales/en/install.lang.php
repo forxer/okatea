@@ -82,6 +82,9 @@ $GLOBALS['__l10n']['i_supa_must_admin_password'] = 'You must enter a password fo
 $GLOBALS['__l10n']['i_supa_must_sudo_email'] = 'You must enter an email address for the super-administrator account.';
 $GLOBALS['__l10n']['i_supa_must_admin_email'] = 'You must enter an email address for the administrator account.';
 
+# configuration
+$GLOBALS['__l10n']['i_config_title'] = 'Configuration de base';
+
 # theme
 $GLOBALS['__l10n']['i_theme_title'] = 'Theme choice';
 

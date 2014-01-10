@@ -9,13 +9,21 @@
 namespace Okatea\Install\Controller;
 
 use Okatea\Install\Controller;
+use Tao\Core\Requirements;
 
 class Checks extends Controller
 {
 	public function page()
 	{
-		return $this->render('Checks', array(
+		$oRequirements = new Requirements($this->okt, $this->session->get('okt_install_language'));
 
+		$aResults = $oRequirements->getResultsFromHtmlCheckList();
+
+		return $this->render('Checks', array(
+			'title' => __('i_checks_title'),
+			'pass_test' => $aResults['bCheckAll'],
+			'warning_empty' => $aResults['bCheckWarning'],
+			'requirements' => $oRequirements->getRequirements()
 		));
 	}
 }

@@ -112,19 +112,22 @@ class Application extends BaseApplication
 			$this->session->set('okt_old_version', $this->oldVersion);
 		}
 
-		if ($this->session->has('okt_install_language'))
-		{
-			$this->l10n = new Localisation($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
-
-			$this->l10n->loadFile(__DIR__.'/Locales/'.$this->session->get('okt_install_language').'/install');
+		# Initialisation localisation
+		$this->aAvailablesLocales = array('fr','en');
+		if (!$this->session->has('okt_install_language')) {
+			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->aAvailablesLocales));
 		}
+
+		$this->l10n = new Localisation($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
+
+		$this->l10n->loadFile(__DIR__.'/Locales/'.$this->session->get('okt_install_language').'/install');
 
 		# Install or update ?
 		if (!$this->session->has('okt_install_process_type'))
 		{
 			$this->session->set('okt_install_process_type', 'install');
 
-			if (file_exists($this->okt->options->get('config_dir').'/connexion.php')) {
+			if (file_exists($this->options->get('config_dir').'/connexion.php')) {
 				$this->session->set('okt_install_process_type', 'update');
 			}
 		}
@@ -146,6 +149,11 @@ class Application extends BaseApplication
 		$this->callController();
 
 		$this->sendResponse();
+	}
+
+	public function getDb()
+	{
+		return $this->database();
 	}
 
 	/**

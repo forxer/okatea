@@ -14,6 +14,14 @@ class Start extends Controller
 {
 	public function page()
 	{
+		$sSwitchLanguage = $this->request->query->get('switch_language');
+		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->aAvailablesLocales))
+		{
+			$this->session->set('okt_install_language', $sSwitchLanguage);
+
+			return $this->redirect($this->generateUrl('start'));
+		}
+
 		return $this->render('Start', array(
 
 		));
