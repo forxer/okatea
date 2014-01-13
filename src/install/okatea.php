@@ -14,3 +14,7 @@ $oktAppPath = realpath(__DIR__.'/../');
 $oktAutoloader = require $oktAppPath.'/vendor/autoload.php';
 
 $okt = new Application($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.php');
+
+# -- CORE TRIGGER : installFinal
+$okt->triggers->callTrigger('installFinal');
+

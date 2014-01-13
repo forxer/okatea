@@ -13,8 +13,8 @@
 $okt->session->clear();
 $okt->session->invalidate();
 
-
+# remove install dir
 //	if ($okt->env === 'prod')  {
-//		@files::deltree(__DIR__.'/../', true);
+//		@files::deltree($okt->options->getRootPath().'/install/', true);
 //	}
 

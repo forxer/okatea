@@ -26,4 +26,3 @@ $okt->run();
 
 # -- CORE TRIGGER : adminFinal
 $okt->triggers->callTrigger('adminFinal');
-
