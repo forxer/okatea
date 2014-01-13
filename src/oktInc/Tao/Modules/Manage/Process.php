@@ -82,12 +82,8 @@ class Process extends Module
 		$this->setInfosFromDefineFile();
 	}
 
-
-	/* Méthodes d'installation
-	----------------------------------------------------------*/
-
 	/**
-	 * Perform module install
+	 * Perform module install.
 	 *
 	 * @return void
 	 */
@@ -130,10 +126,6 @@ class Process extends Module
 		}
 	}
 
-
-	/* Méthodes de mise à jour
-	----------------------------------------------------------*/
-
 	/**
 	 * Perform update
 	 *
@@ -163,12 +155,8 @@ class Process extends Module
 		}
 	}
 
-
-	/* Méthodes de désinstallation
-	----------------------------------------------------------*/
-
 	/**
-	 * Perform uninstall
+	 * Perform uninstall.
 	 *
 	 * @return void
 	 */
@@ -258,12 +246,8 @@ class Process extends Module
 		}
 	}
 
-
-	/* Méthodes de vidage du module
-	----------------------------------------------------------*/
-
 	/**
-	 * Perform empty module
+	 * Perform empty module.
 	 *
 	 * @return void
 	 */
@@ -309,16 +293,7 @@ class Process extends Module
 		# ajout d'éventuelles données à la base de données
 		$this->loadDbFile($this->root().'/install/test_set/db-data.xml');
 
-		# création d'un répertoire upload
-		$this->copyUploadFiles();
-
-		if (method_exists($this,'installTestSet')) {
-			$this->installTestSet();
-		}
-	}
-
-	protected function copyUploadFiles()
-	{
+		# copie des éventuels fichiers upload
 		if (is_dir($this->root().'/install/test_set/upload/'))
 		{
 			$this->checklist->addItem(
@@ -328,11 +303,11 @@ class Process extends Module
 				'Cannot create upload dir'
 			);
 		}
+
+		if (method_exists($this,'installTestSet')) {
+			$this->installTestSet();
+		}
 	}
-
-
-	/* Méthodes d'installation des jeux de test
-	----------------------------------------------------------*/
 
 	/**
 	 * Perform install default data
@@ -348,10 +323,6 @@ class Process extends Module
 			$this->installDefaultData();
 		}
 	}
-
-
-	/* Méthodes sur les fichiers
-	----------------------------------------------------------*/
 
 	public function compareFiles()
 	{
@@ -616,10 +587,6 @@ class Process extends Module
 		return true;
 	}
 
-
-	/* Méthodes utilitaires
-	----------------------------------------------------------*/
-
 	/**
 	 * Installation de la base de données depuis un fichier
 	 *
@@ -657,7 +624,7 @@ class Process extends Module
 	 *
 	 * @return boolean
 	 */
-	private function preInstall()
+	protected function preInstall()
 	{
 		# identifiant non-réservé ?
 		$this->checklist->addItem(
@@ -704,7 +671,7 @@ class Process extends Module
 	}
 
 	/**
-	 * Action communes à l'installation et la mise à jour
+	 * Action communes à l'installation et la mise à jour.
 	 *
 	 */
 	protected function commonInstallUpdate($process)
@@ -735,11 +702,8 @@ class Process extends Module
 	 */
 	protected function setDefaultAdminPerms($aDefaultPerms=array())
 	{
-		$sTgroups = $this->db->prefix.'core_users_groups';
-
 		$query =
-		'SELECT perms '.
-		'FROM '.$sTgroups.' '.
+		'SELECT perms FROM '.$this->db->prefix.'core_users_groups '.
 		'WHERE group_id='.(integer)Authentification::admin_group_id;
 
 		$rsPerms = $this->db->select($query);
@@ -753,7 +717,7 @@ class Process extends Module
 		$aNewPerms = serialize($aNewPerms);
 
 		$query =
-		'UPDATE '.$sTgroups.' SET '.
+		'UPDATE '.$this->db->prefix.'core_users_groups SET '.
 		'perms=\''.$this->db->escapeStr($aNewPerms).'\' '.
 		'WHERE group_id='.(integer)Authentification::admin_group_id;
 

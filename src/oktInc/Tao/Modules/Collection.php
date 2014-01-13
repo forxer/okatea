@@ -474,7 +474,7 @@ class Collection
 	}
 
 	/**
-	 * Modification d'un module
+	 * Modification d'un module.
 	 *
 	 * @param string $id
 	 * @param string $version
@@ -505,7 +505,7 @@ class Collection
 	}
 
 	/**
-	 * Activation d'un module
+	 * Activation d'un module.
 	 *
 	 * @param string $id
 	 * @return boolean
@@ -525,7 +525,7 @@ class Collection
 	}
 
 	/**
-	 * Désactivation d'un module
+	 * Désactivation d'un module.
 	 *
 	 * @param string $id
 	 * @return boolean
@@ -545,7 +545,7 @@ class Collection
 	}
 
 	/**
-	 * Suppression d'un module
+	 * Suppression d'un module.
 	 *
 	 * @param string $id
 	 * @return boolean
@@ -566,7 +566,7 @@ class Collection
 	}
 
 	/**
-	 * Install a module from a zip file
+	 * Install a module from a zip file.
 	 *
 	 * @param string $zip_file
 	 * @param Collection $modules
@@ -671,7 +671,7 @@ class Collection
 	}
 
 	/**
-	 * Recherche et utilisation d'une classe d'installation d'un module donné
+	 * Recherche et utilisation d'une classe d'installation d'un module donné.
 	 *
 	 * @param string $module_id
 	 * @return string
@@ -710,7 +710,7 @@ class Collection
 	}
 
 	/**
-	 * Enregistre les infos des dépôts dans le cache
+	 * Enregistre les infos des dépôts dans le cache.
 	 *
 	 * @param array $aRepositories
 	 * @return boolean
@@ -808,7 +808,7 @@ class Collection
 	----------------------------------------------------------*/
 
 	/**
-	 * Fonction de "pluralisation" des modules
+	 * Fonction de "pluralisation" des modules.
 	 *
 	 * @param integer $count
 	 * @return string
@@ -837,7 +837,7 @@ class Collection
 	}
 
 	/**
-	 * Fonction de callback de tri des modules
+	 * Fonction de callback de tri des modules.
 	 *
 	 * @param string $a
 	 * @param string $b
