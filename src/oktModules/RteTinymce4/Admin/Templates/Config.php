@@ -2,7 +2,7 @@
 
 use Tao\Forms\Statics\FormElements as form;
 
-$this->extend('layout');
+$view->extend('layout');
 
 # Titre de la page
 $okt->page->addGlobalTitle('Configuration TinyMCE');

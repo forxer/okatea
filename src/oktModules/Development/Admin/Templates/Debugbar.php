@@ -2,7 +2,7 @@
 
 use Tao\Forms\Statics\FormElements as form;
 
-$this->extend('layout');
+$view->extend('layout');
 
 # Module title tag
 $okt->page->addTitleTag(__('Development'));

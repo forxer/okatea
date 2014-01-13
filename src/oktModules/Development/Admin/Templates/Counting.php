@@ -2,7 +2,7 @@
 
 use Tao\Misc\Utilities;
 
-$this->extend('layout');
+$view->extend('layout');
 
 # Module title tag
 $okt->page->addTitleTag(__('Development'));

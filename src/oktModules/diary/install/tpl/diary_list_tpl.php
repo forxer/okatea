@@ -1,6 +1,6 @@
 
 <?php # début Okatea : ce template étend le layout
-$this->extend('layout');
+$view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 <?php # début Okatea : initialisation des filtres

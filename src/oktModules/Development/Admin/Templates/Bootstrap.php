@@ -3,7 +3,7 @@
 use Tao\Forms\Statics\FormElements as form;
 use Okatea\Module\Development\Bootstrap\Module\Module as BootstrapModule;
 
-$this->extend('layout');
+$view->extend('layout');
 
 # Module title tag
 $okt->page->addTitleTag(__('Development'));

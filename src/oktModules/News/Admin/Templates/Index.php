@@ -3,7 +3,7 @@
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Core\Authentification;
 
-$this->extend('layout');
+$view->extend('layout');
 
 # module title tag
 $okt->page->addTitleTag($okt->News->getTitle());

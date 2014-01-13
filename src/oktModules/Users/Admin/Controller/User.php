@@ -10,12 +10,19 @@ namespace Okatea\Module\Users\Admin\Controller;
 
 use Tao\Admin\Controller;
 
-class Index extends Controller
+class User extends Controller
 {
-	public function page()
+	public function add()
 	{
 
-		return $this->render('Users/Admin/Templates/Index', array(
+		return $this->render('Users/Admin/Templates/User', array(
+		));
+	}
+
+	public function edit()
+	{
+
+		return $this->render('Users/Admin/Templates/User', array(
 		));
 	}
 }

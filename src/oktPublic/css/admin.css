@@ -1050,11 +1050,11 @@ p.buttonset {
 
 #jWarning {
 	background: #FEFCCB url('../img/notify/warning.png') no-repeat 15px center;
-	color: #878314;
-	border-color: #E5DB55;
+	color: #D16704;
+	border-color: #F57F0A;
 }
 	#jWarning a {
-		color: #878314 !important;
+		color: #D16704 !important;
 	}
 
 #jError {
