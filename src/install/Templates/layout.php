@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+
+# -- CORE TRIGGER : installBeforeSendHtml
+$okt->triggers->callTrigger('installBeforeSendHtml');
+
+?><!DOCTYPE html>
 <html class="" lang="<?php echo $okt->session->get('okt_install_language') ?>">
 <head>
 	<meta charset="utf-8">
@@ -40,7 +45,7 @@
 
 		<footer>
 			<p id="footer" class="clearb ui-widget ui-corner-all ui-state-default">
-			Okatea <?php if ($okt->getVersion()) { echo ' version <strong>'.$okt->getVersion().'</strong> '; } ?>
+			Okatea<?php if ($okt->getVersion()) { echo ' version <strong>'.$okt->getVersion().'</strong> '; } ?>
 			</p><!-- #footer -->
 		</footer>
 	</div><!-- #main -->
@@ -48,5 +53,7 @@
 
 <?php echo $okt->page->js ?>
 
+<?php # -- CORE TRIGGER : installBeforeHtmlBodyEndTag
+$okt->triggers->callTrigger('installBeforeHtmlBodyEndTag'); ?>
 </body>
 </html>

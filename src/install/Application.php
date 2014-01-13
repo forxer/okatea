@@ -124,12 +124,12 @@ class Application extends BaseApplication
 
 		$this->matchRequest();
 
-		# load page from stepper
+		# Load stepper
 		if ($this->session->get('okt_install_process_type') == 'install') {
-			$this->stepper = new Stepper\Install($this->request->attributes->get('_route'));
+			$this->stepper = new Stepper\Install($this, $this->request->attributes->get('_route'));
 		}
 		else {
-			$this->stepper = new Stepper\Update($this->request->attributes->get('_route'));
+			$this->stepper = new Stepper\Update($this, $this->request->attributes->get('_route'));
 		}
 
 		$this->loadTplEngine();

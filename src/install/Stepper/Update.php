@@ -12,9 +12,9 @@ use Tao\Html\Stepper as BaseStepper;
 
 class Update extends BaseStepper
 {
-	public function __construct($sCurrentStep)
+	public function __construct($okt, $sCurrentStep)
 	{
-		parent::__construct(array(
+		$aStep = new \ArrayObject(array(
 			array(
 				'step' 		=> 'start',
 				'title' 	=> __('i_step_start')
@@ -35,6 +35,11 @@ class Update extends BaseStepper
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')
 			)
-		), $sCurrentStep);
+		));
+
+		# -- CORE TRIGGER : installBeforeBuildUpdateStepper
+		$okt->triggers->callTrigger('installBeforeBuildUpdateStepper', $aStep);
+
+		parent::__construct((array)$aStep, $sCurrentStep);
 	}
 }

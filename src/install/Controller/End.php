@@ -16,9 +16,9 @@ class End extends Controller
 	{
 
 		return $this->render('End', array(
-			'title' => __('i_end_'.$this->session->get('okt_install_process_type').'_title'),
-			'user' => $this->session->get('okt_install_sudo_user'),
-			'password' => $this->session->get('okt_install_sudo_password')
+			'title' 	=> __('i_end_'.$this->session->get('okt_install_process_type').'_title'),
+			'user' 		=> $this->session->get('okt_install_sudo_user'),
+			'password' 	=> $this->session->get('okt_install_sudo_password')
 		));
 	}
 }

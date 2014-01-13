@@ -12,9 +12,9 @@ use Tao\Html\Stepper as BaseStepper;
 
 class Install extends BaseStepper
 {
-	public function __construct($sCurrentStep)
+	public function __construct($okt, $sCurrentStep)
 	{
-		parent::__construct(array(
+		$aStep = new \ArrayObject(array(
 			array(
 				'step' 		=> 'start',
 				'title' 	=> __('i_step_start')
@@ -35,11 +35,10 @@ class Install extends BaseStepper
 				'step' 		=> 'supa',
 				'title' 	=> __('i_step_supa')
 			),
-			array(
+/*			array(
 				'step' 		=> 'config',
 				'title' 	=> __('i_step_config')
 			),
-/*
 			array(
 				'step' 		=> 'theme',
 				'title' 	=> __('i_step_theme')
@@ -56,11 +55,15 @@ class Install extends BaseStepper
 				'step' 		=> 'pages',
 				'title' 	=> __('i_step_pages')
 			),
-*/
-			array(
+*/			array(
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')
 			)
-		), $sCurrentStep);
+		));
+
+		# -- CORE TRIGGER : installBeforeBuildInstallStepper
+		$okt->triggers->callTrigger('installBeforeBuildInstallStepper', $aStep);
+
+		parent::__construct((array)$aStep, $sCurrentStep);
 	}
 }
