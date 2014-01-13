@@ -225,16 +225,35 @@ class Application
 		$this->httpFoundation();
 
 		$this->start();
+	}
 
+	public function run()
+	{
 		$this->db = $this->database();
 
 		$this->languages = new Languages($this);
 
-		$this->router = new Router($this, $this->options->get('config_dir').'/routes', $this->options->get('cache_dir').'/routing', $this->options->get('debug'));
+		$this->router = new Router(
+				$this,
+				$this->options->get('config_dir').'/routes',
+				$this->options->get('cache_dir').'/routing',
+				$this->options->get('debug')
+		);
 
-		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
+		$this->user = new Authentification(
+				$this,
+				$this->options->get('cookie_auth_name'),
+				$this->options->get('cookie_auth_from'),
+				$this->config->app_path,
+				'',
+				$this->request->isSecure()
+		);
 
-		$this->l10n = new Localisation($this->options->get('locales_dir'), $this->user->language, $this->user->timezone);
+		$this->l10n = new Localisation(
+				$this->options->get('locales_dir'),
+				$this->user->language,
+				$this->user->timezone
+		);
 
 		$this->navigation = new Menus($this);
 

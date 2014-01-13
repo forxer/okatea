@@ -15,7 +15,7 @@ class Start extends Controller
 	public function page()
 	{
 		$sSwitchLanguage = $this->request->query->get('switch_language');
-		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->aAvailablesLocales))
+		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->availablesLocales))
 		{
 			$this->session->set('okt_install_language', $sSwitchLanguage);
 

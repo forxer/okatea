@@ -43,13 +43,11 @@ class Okatea extends Application
 	 * @param Composer\Autoload\ClassLoader $autoloader
 	 * @param string $sRootPath
 	 * @param array $aOptions
-	 */
 	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
 		parent::__construct($autoloader, $sRootPath, $aOptions);
-
-		$this->theme_id = $this->getTheme();
 	}
+	 */
 
 	/**
 	 * Run application.
@@ -57,6 +55,10 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
+		parent::run();
+
+		$this->theme_id = $this->getTheme();
+
 		$this->loadPageHelpers();
 
 		$this->loadTheme();

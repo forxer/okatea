@@ -28,8 +28,32 @@ use Tao\Core\Triggers;
 
 class Application extends BaseApplication
 {
+	/**
+	 * Tableau des codes de langues disponibles pour l'interface d'installation.
+	 *
+	 * @var array
+	 */
+	public $availablesLocales = array('fr','en');
+
+	/**
+	 * Le numéro de version que nous mettons à jour.
+	 *
+	 * @var string
+	 */
+	public $oldVersion;
+
+	/**
+	 * Les menus de navigation.
+	 *
+	 * @var Tao\Core\ApplicationOptions
+	 */
 	public $options;
 
+	/**
+	 * L'utilitaire de contenu de page.
+	 *
+	 * @var Tao\Html\Page
+	 */
 	public $page;
 
 	/**
@@ -67,23 +91,30 @@ class Application extends BaseApplication
 	 */
 	public $triggers;
 
+	/**
+	 * Le numéro de version que nous installons.
+	 *
+	 * @var string
+	 */
 	public $version;
 
-	public $oldVersion;
 
 	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		$this->options = new ApplicationOptions($sRootPath, $aOptions);
-
-		$this->start();
-
 		$this->triggers = new Triggers($this);
+
+		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
 		$this->httpFoundation();
 
+		$this->start();
+	}
+
+	public function run()
+	{
 		$this->router = new Router(
 			$this,
 			__DIR__.'/Routing/RouteProvider.php'
@@ -100,9 +131,8 @@ class Application extends BaseApplication
 		}
 
 		# Initialisation localisation
-		$this->aAvailablesLocales = array('fr','en');
 		if (!$this->session->has('okt_install_language')) {
-			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->aAvailablesLocales));
+			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
 		}
 
 		$this->l10n = new Localisation($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
