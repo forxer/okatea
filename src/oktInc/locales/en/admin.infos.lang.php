@@ -15,7 +15,6 @@ $GLOBALS['__l10n']['c_a_infos_create_notes_file'] = 'Create the file installatio
 # Okatea
 $GLOBALS['__l10n']['c_a_infos_okatea_title'] = 'Okatea information';
 $GLOBALS['__l10n']['c_a_infos_okatea_version'] = 'version';
-$GLOBALS['__l10n']['c_a_infos_okatea_revision'] = 'revision';
 $GLOBALS['__l10n']['c_a_infos_okatea_prerequisites'] = 'Checking prerequisites';
 $GLOBALS['__l10n']['c_a_infos_okatea_big_loose'] = 'The configuration server has major problems.';
 $GLOBALS['__l10n']['c_a_infos_okatea_warning'] = '<strong>Warning:</strong> the system audit issued alerts did not prevent the system from working but it is possible that some features are failing.';

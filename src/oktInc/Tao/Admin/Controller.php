@@ -34,6 +34,20 @@ class Controller extends BaseController
 		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/additional-methods.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/js/common_admin.js');
+
+		# Title tag
+		$this->page->addTitleTag($this->page->getSiteTitleTag(null, $this->page->getSiteTitle()));
+
+		# Fil d'ariane administration
+		$this->page->addAriane(__('Administration'), $this->generateUrl('home'));
+
+		# récupération des erreurs du core
+		if ($okt->error->notEmpty())
+		{
+			foreach($okt->error->get(false) as $error) {
+				$this->page->errors->set($error['message']);
+			}
+		}
 	}
 
 	/**

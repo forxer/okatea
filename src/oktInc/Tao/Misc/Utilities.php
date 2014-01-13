@@ -1075,27 +1075,7 @@ class Utilities
 	{
 		global $okt;
 
-		if (file_exists($okt->options->getRootPath().'/VERSION')) {
-			return trim(file_get_contents($okt->options->getRootPath().'/VERSION'));
-		}
-
-		return null;
-	}
-
-	/**
-	 * Retourne la révision de la distribution courante d'okatea, null si non trouvée
-	 *
-	 * @return string
-	 */
-	public static function getRevision()
-	{
-		global $okt;
-
-		if (file_exists($okt->options->getRootPath().'/oktDoc/REVISION')) {
-			return trim(file_get_contents($okt->options->getRootPath().'/oktDoc/REVISION'));
-		}
-
-		return null;
+		return $okt->getVersion();
 	}
 
 	/**

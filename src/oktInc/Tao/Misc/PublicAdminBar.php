@@ -118,7 +118,7 @@ class PublicAdminBar
 			if ($okt->config->update_enabled && is_readable($okt->options->get('digests')))
 			{
 				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
-				$new_v = $updater->check(Utilities::getVersion());
+				$new_v = $updater->check($okt->getVersion());
 
 				if ($updater->getNotify() && $new_v)
 				{

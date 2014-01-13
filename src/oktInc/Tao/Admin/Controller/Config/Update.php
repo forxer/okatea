@@ -11,7 +11,6 @@ namespace Tao\Admin\Controller\Config;
 use Tao\Admin\Controller;
 use Tao\Core\Update as Updater;
 use Tao\Html\CheckList;
-use Tao\Misc\Utilities;
 
 class Update extends Controller
 {
@@ -44,7 +43,7 @@ class Update extends Controller
 			$this->okt->error->set(__('c_a_update_unable_read_digests'));
 		}
 
-		$sOkateaVersion = Utilities::getVersion();
+		$sOkateaVersion = $this->okt->getVersion();
 
 		$updater = new Updater(
 			$this->okt->config->update_url,
@@ -149,12 +148,6 @@ class Update extends Controller
 					$this->okt->options->getRootPath(),
 					$this->okt->options->getRootPath().'/oktInc/digests'
 				);
-
-				# Merge config
-				//$this->okt->config->merge();
-
-				# Vidange du cache
-				//Utilities::deleteOktCacheFiles();
 
 				# log admin
 				$this->okt->logAdmin->critical(array(

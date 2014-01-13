@@ -1,22 +1,5 @@
 <?php
 
-use Tao\Misc\Utilities;
-
-
-# Title tag
-$okt->page->addTitleTag($okt->page->getSiteTitleTag(null, $okt->page->getSiteTitle()));
-
-# Fil d'ariane administration
-$okt->page->addAriane(__('Administration'), $view->generateUrl('home'));
-
-# récupération des erreurs du core
-if ($okt->error->notEmpty())
-{
-	foreach($okt->error->get(false) as $error) {
-		$okt->page->errors->set($error['message']);
-	}
-}
-
 # populates messages from flash messages queue
 $okt->page->infos->setItems($okt->page->flash->get('infos'));
 $okt->page->success->setItems($okt->page->flash->get('success'));
@@ -166,7 +149,7 @@ $aFooterContent = new ArrayObject;
 $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
 
 if ($okt->options->get('debug')) {
-	$aFooterContent[20] = Utilities::getVersion();
+	$aFooterContent[20] = $okt->getVersion();
 }
 
 # -- CORE TRIGGER : adminFooterContent

@@ -12,7 +12,6 @@ $okt->page->openLinkInDialog('#changelog_link',array(
 
 <p>Okatea
 	<?php if ($aOkateaInfos['version']) { echo ' '.__('c_a_infos_okatea_version').' <strong>'.$aOkateaInfos['version'].'</strong> '; } ?>
-	<?php if ($aOkateaInfos['revision']) { echo ' '.__('c_a_infos_okatea_revision').' <em>'.$aOkateaInfos['revision'].'</em> '; } ?>
 	[<a href="<?php echo $view->generateUrl('config_infos') ?>?show_changelog=1" id="changelog_link">changelog</a>]
 </p>
 

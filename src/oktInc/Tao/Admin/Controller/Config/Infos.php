@@ -10,7 +10,6 @@ namespace Tao\Admin\Controller\Config;
 
 use Tao\Admin\Controller;
 use Tao\Core\Requirements;
-use Tao\Misc\Utilities;
 
 class Infos extends Controller
 {
@@ -140,8 +139,7 @@ class Infos extends Controller
 	protected function okateaInit()
 	{
 		$this->aOkateaInfos = array(
-			'version' => Utilities::getVersion(),
-			'revision' => Utilities::getRevision(),
+			'version' => $this->okt->getVersion(),
 			'pass_test' => true,
 			'warning_empty' => true,
 			'requirements' => null
@@ -250,7 +248,7 @@ class Infos extends Controller
 	protected function okateaHandleRequest()
 	{
 		# affichage changelog Okatea
-		$sChangelogFile = $this->okt->options->getRootPath().'/CHANGELOG';
+		$sChangelogFile = $this->okt->options->get('inc_dir').'/CHANGELOG';
 		if ($this->request->query->has('show_changelog') && file_exists($sChangelogFile))
 		{
 			echo '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';

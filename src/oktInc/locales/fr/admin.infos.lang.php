@@ -15,7 +15,6 @@ $GLOBALS['__l10n']['c_a_infos_create_notes_file'] = 'Créer le fichier de notes 
 # Okatea
 $GLOBALS['__l10n']['c_a_infos_okatea_title'] = 'Informations Okatea';
 $GLOBALS['__l10n']['c_a_infos_okatea_version'] = 'version';
-$GLOBALS['__l10n']['c_a_infos_okatea_revision'] = 'revision';
 $GLOBALS['__l10n']['c_a_infos_okatea_prerequisites'] = 'Vérification des pré-requis';
 $GLOBALS['__l10n']['c_a_infos_okatea_big_loose'] = 'La configuration serveur présente des problèmes majeurs.';
 $GLOBALS['__l10n']['c_a_infos_okatea_warning'] = '<strong>Avertissement :</strong> le système de vérification à émis des alertes qui n’empêche pas le système de fonctionner mais il est possible que certaines fonctionnalités soient défaillantes.';

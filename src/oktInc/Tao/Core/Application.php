@@ -45,6 +45,8 @@ use Tao\Themes\SimpleReplacements;
  */
 class Application
 {
+	const version = '2.0-beta3';
+
 	/**
 	 * L'instance de l'autoloader.
 	 *
@@ -237,6 +239,11 @@ class Application
 		$this->navigation = new Menus($this);
 
 		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'), $this->options->modules_url);
+	}
+
+	public function getVersion()
+	{
+		return self::version;
 	}
 
 	/**

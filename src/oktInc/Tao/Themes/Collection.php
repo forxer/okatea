@@ -561,7 +561,11 @@ class Collection
 	{
 		try
 		{
-			$repository_url = str_replace('%VERSION%', Utilities::getVersion(),$repository_url);
+			$repository_url = str_replace('%VERSION%', $this->okt->getVersion(), $repository_url);
+
+			if (filter_var($repository_url, FILTER_VALIDATE_URL) === false) {
+				return false;
+			}
 
 			$client = new HttpClient();
 			$response = $client->get($repository_url)->send();
