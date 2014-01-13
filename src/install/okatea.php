@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Install\Application;
+use Tao\Install\Application;
 
 $oktAppPath = realpath(__DIR__.'/../');
 

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Install;
+namespace Tao\Install;
 
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
@@ -16,14 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use Okatea\Install\Routing\Router;
-
 use Tao\Admin\Page;
 use Tao\Core\Application as BaseApplication;
 use Tao\Core\ApplicationOptions;
 use Tao\Core\Errors;
 use Tao\Core\Localisation;
 use Tao\Core\Session;
+use Tao\Install\Routing\Router;
 use Tao\Misc\FlashMessages;
 use Tao\Core\Triggers;
 

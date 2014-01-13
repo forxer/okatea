@@ -6,16 +6,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Install\Controller;
+namespace Tao\Install\Controller;
 
-use Okatea\Install\Controller;
+use Tao\Install\Controller;
 
-class Pages extends Controller
+class Modules extends Controller
 {
 	public function page()
 	{
-		return $this->render('Pages', array(
-			'title' => __('i_pages_title'),
+		return $this->render('Modules', array(
+			'title' => __('i_modules_title'),
 
 		));
 	}

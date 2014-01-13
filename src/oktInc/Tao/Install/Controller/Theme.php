@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Install\Controller;
+namespace Tao\Install\Controller;
 
-use Okatea\Install\Controller;
+use Tao\Install\Controller;
 
 class Theme extends Controller
 {

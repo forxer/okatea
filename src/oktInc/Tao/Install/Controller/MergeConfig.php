@@ -6,10 +6,10 @@
 * file that was distributed with this source code.
 */
 
-namespace Okatea\Install\Controller;
+namespace Tao\Install\Controller;
 
 use Symfony\Component\Yaml\Yaml;
-use Okatea\Install\Controller;
+use Tao\Install\Controller;
 
 class MergeConfig extends Controller
 {
