@@ -2,7 +2,7 @@
 
 $view->extend('layout');
 
-$this->okt->page->addGlobalTitle(sprintf(__('c_a_modules_reinstall_module_%s'), $oInstallModule->name()));
+$okt->page->addGlobalTitle(sprintf(__('c_a_modules_reinstall_module_%s'), $oInstallModule->name()));
 ?>
 
 <?php echo $oInstallModule->checklist->getHTML(); ?>

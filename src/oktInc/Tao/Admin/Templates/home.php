@@ -1,5 +1,5 @@
 
-<?php $this->extend('layout'); ?>
+<?php $view->extend('layout'); ?>
 
 <?php if (!empty($sNewVersion)) : ?>
 <div id="updates-notifications"><h3><?php _e('c_a_update') ?></h3>

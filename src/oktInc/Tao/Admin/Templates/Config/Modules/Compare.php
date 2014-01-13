@@ -2,9 +2,9 @@
 
 $view->extend('layout');
 
-$this->okt->page->addGlobalTitle(sprintf(__('c_a_modules_file_comparison_module_%s'), $oInstallModule->name()));
+$okt->page->addGlobalTitle(sprintf(__('c_a_modules_file_comparison_module_%s'), $oInstallModule->name()));
 
-$this->okt->page->css->addCss('
+$okt->page->css->addCss('
 	.Differences {
 		width: 100%;
 		border-collapse: collapse;

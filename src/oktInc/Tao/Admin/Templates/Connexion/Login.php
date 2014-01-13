@@ -1,6 +1,6 @@
 <?php
 
-$this->extend('layout');
+$view->extend('layout');
 
 $okt->page->addGlobalTitle(__('c_c_auth_login'));
 

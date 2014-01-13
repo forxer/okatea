@@ -14,6 +14,31 @@
  *
  */
 
+use Monolog\Logger;
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Processor\IntrospectionProcessor;
+use Monolog\Processor\WebProcessor;
+use Monolog\Processor\MemoryUsageProcessor;
+use Monolog\Processor\MemoryPeakUsageProcessor;
+
+
+if (!function_exists('console'))
+{
+	function console($mData)
+	{
+		$console = new Logger('console',array(
+			new FirePHPHandler()
+		),array(
+			new IntrospectionProcessor(),
+			new WebProcessor(),
+			new MemoryUsageProcessor(),
+			new MemoryPeakUsageProcessor()
+		));
+
+		$console->addDebug($mData);
+	}
+}
+
 if (!function_exists('debug'))
 {
 	/**
