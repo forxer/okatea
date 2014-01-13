@@ -40,7 +40,7 @@ $aJsValidateRules[] = 'msg: { required: true }';
 
 
 <?php # -- CORE TRIGGER : publicModuleGuestbookJsValidateRules
-$okt->triggers->callTrigger('publicModuleGuestbookJsValidateRules', $okt, $aJsValidateRules, $okt->guestbook->config->captcha); ?>
+$okt->triggers->callTrigger('publicModuleGuestbookJsValidateRules', $aJsValidateRules, $okt->guestbook->config->captcha); ?>
 
 
 
@@ -182,7 +182,7 @@ if (!empty($_GET['added'])) : ?>
 
 
 		<?php # -- CORE TRIGGER : publicModuleGuestbookTplFormBottom
-		$okt->triggers->callTrigger('publicModuleGuestbookTplFormBottom', $okt, $okt->guestbook->config->captcha); ?>
+		$okt->triggers->callTrigger('publicModuleGuestbookTplFormBottom', $okt->guestbook->config->captcha); ?>
 
 
 		<p><input name="sign" type="hidden" id="sign" value="1" />

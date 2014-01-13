@@ -130,7 +130,7 @@ if (!empty($_REQUEST['gallery_id']))
 }
 
 # -- TRIGGER MODULE GALLERIES : adminGalleryInit
-$okt->galleries->triggers->callTrigger('adminGalleryInit', $okt, $aGalleryData, $rsGallery, $rsGalleryI18n);
+$okt->galleries->triggers->callTrigger('adminGalleryInit', $aGalleryData, $rsGallery, $rsGalleryI18n);
 
 
 /* Traitements
@@ -258,7 +258,7 @@ if (!empty($_POST['sended']))
 
 
 	# -- TRIGGER MODULE GALLERIES : adminPopulateGalleryData
-	$okt->galleries->triggers->callTrigger('adminPopulateGalleryData', $okt, $aGalleryData);
+	$okt->galleries->triggers->callTrigger('adminPopulateGalleryData', $aGalleryData);
 
 
 	# vérification des données avant modification dans la BDD
@@ -272,12 +272,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE GALLERIES : beforeGalleryUpdate
-				$okt->galleries->triggers->callTrigger('beforeGalleryUpdate', $okt, $oGalleryCursor, $aGalleryData);
+				$okt->galleries->triggers->callTrigger('beforeGalleryUpdate', $oGalleryCursor, $aGalleryData);
 
 				$okt->galleries->tree->updGallery($oGalleryCursor, $aGalleryData['locales']);
 
 				# -- TRIGGER MODULE GALLERIES : afterGalleryUpdate
-				$okt->galleries->triggers->callTrigger('afterGalleryUpdate', $okt, $oGalleryCursor, $aGalleryData);
+				$okt->galleries->triggers->callTrigger('afterGalleryUpdate', $oGalleryCursor, $aGalleryData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -301,12 +301,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE GALLERIES : beforeGalleryCreate
-				$okt->galleries->triggers->callTrigger('beforeGalleryCreate', $okt, $oGalleryCursor, $aGalleryData);
+				$okt->galleries->triggers->callTrigger('beforeGalleryCreate', $oGalleryCursor, $aGalleryData);
 
 				$iGalleryId = $okt->galleries->tree->addGallery($oGalleryCursor, $aGalleryData['locales']);
 
 				# -- TRIGGER MODULE GALLERIES : afterGalleryCreate
-				$okt->galleries->triggers->callTrigger('afterGalleryCreate', $okt, $oGalleryCursor, $aGalleryData);
+				$okt->galleries->triggers->callTrigger('afterGalleryCreate', $oGalleryCursor, $aGalleryData);
 
 				# log admin
 				$okt->logAdmin->info(array(

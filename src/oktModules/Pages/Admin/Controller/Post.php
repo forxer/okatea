@@ -28,12 +28,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageCreate
-				$this->okt->Pages->triggers->callTrigger('beforePageCreate', $this->okt, $this->aPageData);
+				$this->okt->Pages->triggers->callTrigger('beforePageCreate', $this->aPageData);
 
 				$this->aPageData['post']['id'] = $this->okt->Pages->addPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageCreate
-				$this->okt->Pages->triggers->callTrigger('afterPageCreate', $this->okt, $this->aPageData);
+				$this->okt->Pages->triggers->callTrigger('afterPageCreate', $this->aPageData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -177,12 +177,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageUpdate
-				$this->okt->Pages->triggers->callTrigger('beforePageUpdate', $this->okt, $this->aPageData);
+				$this->okt->Pages->triggers->callTrigger('beforePageUpdate', $this->aPageData);
 
 				$this->okt->Pages->updPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageUpdate
-				$this->okt->Pages->triggers->callTrigger('afterPageUpdate', $this->okt, $this->aPageData);
+				$this->okt->Pages->triggers->callTrigger('afterPageUpdate', $this->aPageData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -248,7 +248,7 @@ class Post extends Controller
 		$rsPageI18n = null;
 
 		# -- TRIGGER MODULE PAGES : adminPostInit
-		$this->okt->Pages->triggers->callTrigger('adminPostInit', $this->okt, $this->aPageData, $rsPage, $rsPageI18n);
+		$this->okt->Pages->triggers->callTrigger('adminPostInit', $this->aPageData, $rsPage, $rsPageI18n);
 	}
 
 	protected function populateDataFromPost()
@@ -280,7 +280,7 @@ class Post extends Controller
 		$this->aPageData['perms'] = $this->request->request->get('perms', array());
 
 		# -- TRIGGER MODULE PAGES : adminPopulateData
-		$this->okt->Pages->triggers->callTrigger('adminPopulateData', $this->okt, $this->aPageData);
+		$this->okt->Pages->triggers->callTrigger('adminPopulateData', $this->aPageData);
 
 		# vérification des données avant modification dans la BDD
 		if ($this->okt->Pages->checkPostData($this->aPageData))
@@ -377,7 +377,7 @@ class Post extends Controller
 		}
 
 		# -- TRIGGER MODULE PAGES : adminPostBuildTabs
-		$this->okt->Pages->triggers->callTrigger('adminPostBuildTabs', $this->okt, $this->aPageData);
+		$this->okt->Pages->triggers->callTrigger('adminPostBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

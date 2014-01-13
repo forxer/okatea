@@ -14,6 +14,8 @@ namespace Tao\Core;
  */
 class Triggers
 {
+	protected $okt;
+
 	/**
 	 * La pile qui contient les déclencheurs.
 	 *
@@ -28,8 +30,10 @@ class Triggers
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($okt)
 	{
+		$this->okt = $okt;
+
 		$this->aStack = array();
 	}
 
@@ -150,7 +154,9 @@ class Triggers
 		}
 
 		$args = func_get_args();
-		array_shift($args);
+	//	array_shift($args);
+
+		$args[0] = $this->okt;
 
 		$sReturn = '';
 		foreach ($this->aStack[$sTrigger] as $f) {

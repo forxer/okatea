@@ -45,7 +45,7 @@ class Infos extends Controller
 		$this->phpInit();
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosInit
-		$this->okt->triggers->callTrigger('adminInfosInit', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminInfosInit', $this->aPageData);
 
 		$this->notesHandleRequest();
 
@@ -56,7 +56,7 @@ class Infos extends Controller
 		$this->mysqlHandleRequest();
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosHandleRequest
-		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->aPageData);
 
 		if ($this->response->isRedirect()) {
 			return $this->response;
@@ -106,7 +106,7 @@ class Infos extends Controller
 		);
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosBuildTabs
-		$this->okt->triggers->callTrigger('adminInfosBuildTabs', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminInfosBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

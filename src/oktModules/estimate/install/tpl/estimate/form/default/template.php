@@ -210,7 +210,7 @@ else : ?>
 	<?php echo form::textarea('p_comment', 60, 8, $view->escape($aFormData['comment'])) ?></p>
 
 	<?php # -- CORE TRIGGER : publicModuleEstimateTplFormBottom
-	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt, $okt->estimate->config->captcha); ?>
+	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt->estimate->config->captcha); ?>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('c_c_action_send') ?>" name="sended" id="submit-estimate_form" /></p>
 </form>

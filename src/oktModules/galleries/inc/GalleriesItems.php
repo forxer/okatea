@@ -585,7 +585,7 @@ class GalleriesItems
 		}
 
 		# -- TRIGGER MODULE GALLERIES : checkItemData
-		$this->triggers->callTrigger('checkItemData', $this->okt, $aItemData);
+		$this->triggers->callTrigger('checkItemData', $aItemData);
 
 
 		return $this->error->isEmpty();

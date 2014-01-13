@@ -55,7 +55,7 @@ class PublicAdminBar
 
 
 		# -- CORE TRIGGER : publicAdminBarBeforeDefaultsItems
-		$okt->triggers->callTrigger('publicAdminBarBeforeDefaultsItems', $okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$okt->triggers->callTrigger('publicAdminBarBeforeDefaultsItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 
 
 		# éléments première barre
@@ -216,7 +216,7 @@ class PublicAdminBar
 
 
 		# -- CORE TRIGGER : publicAdminBarItems
-		$okt->triggers->callTrigger('publicAdminBarItems', $okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$okt->triggers->callTrigger('publicAdminBarItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 
 
 		# sort items of by keys

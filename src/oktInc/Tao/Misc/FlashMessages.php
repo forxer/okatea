@@ -8,13 +8,14 @@
 
 namespace Tao\Misc;
 
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+//use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 /**
  * La classe pour gérer les messages flash
  *
  */
-class FlashMessages extends FlashBag
+class FlashMessages extends AutoExpireFlashBag
 {
 	/**
 	 * Add a message type "info" to the queue.

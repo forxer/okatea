@@ -37,7 +37,7 @@ class General extends Controller
 		$this->seoInit();
 
 		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSiteInit
-		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
 
 		$this->generalHandleRequest();
 
@@ -48,7 +48,7 @@ class General extends Controller
 		$this->seoHandleRequest();
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
-		$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 		if ($this->response->isRedirect()) {
 			return $this->response;
@@ -104,7 +104,7 @@ class General extends Controller
 		);
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteBuildTabs
-		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

@@ -488,7 +488,7 @@ class Authentification
 		}
 
 		# -- CORE TRIGGER : userLogin
-		$this->okt->triggers->callTrigger('userLogin', $this->okt, $rs);
+		$this->okt->triggers->callTrigger('userLogin', $rs);
 
 		return true;
 	}

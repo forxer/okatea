@@ -2,6 +2,13 @@
 
 use Tao\Misc\Utilities;
 
+
+# Title tag
+$okt->page->addTitleTag($okt->page->getSiteTitleTag(null, $okt->page->getSiteTitle()));
+
+# Fil d'ariane administration
+$okt->page->addAriane(__('Administration'), $view->generateUrl('home'));
+
 # récupération des erreurs du core
 if ($okt->error->notEmpty())
 {
@@ -16,7 +23,6 @@ $okt->page->success->setItems($okt->page->flash->get('success'));
 $okt->page->warnings->setItems($okt->page->flash->get('warnings'));
 $okt->page->errors->setItems($okt->page->flash->get('errors'));
 
-
 # construction du menu principal
 $mainMenuHtml = null;
 if ($okt->page->display_menu)
@@ -24,14 +30,16 @@ if ($okt->page->display_menu)
 	$mainMenuHtml = $okt->page->mainMenu->build();
 
 	$okt->page->accordion(array(
-		'heightStyle' => 'auto',
-		'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
+			'heightStyle' => 'auto',
+			'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
 	), '#mainMenu-'.($okt->config->admin_sidebar_position == 0 ? 'left' : 'right'));
 }
 
+
+
 # init user bars
-$aUserBarA = new ArrayObject;
-$aUserBarB = new ArrayObject;
+$aUserBarA = new \ArrayObject;
+$aUserBarB = new \ArrayObject;
 
 # logged in user
 if (!$okt->user->is_guest)
@@ -49,7 +57,7 @@ if (!$okt->user->is_guest)
 	$aUserBarA[90] = '<a href="'.$okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
 
 	# last visit info
-	$aUserBarB[10] = sprintf(__('c_c_user_last_visit_on_%s'), dt::str('%A %d %B %Y %H:%M',$okt->user->last_visit));
+	$aUserBarB[10] = sprintf(__('c_c_user_last_visit_on_%s'), \dt::str('%A %d %B %Y %H:%M',$okt->user->last_visit));
 }
 # guest user
 else {
@@ -68,8 +76,8 @@ if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
 			continue;
 		}
 
-		$aUserBarB[50] = '<a href="'.$view->escape($sBaseUri).'switch_lang='.$view->escape($aLanguage['code']).'" title="'.$view->escape($aLanguage['title']).'">'.
-		'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.$view->escape($aLanguage['title']).'" /></a>';
+		$aUserBarB[50] = '<a href="'.$sBaseUri.'switch_lang='.$view->escape($aLanguage['code']).'" title="'.$view->escape($aLanguage['title']).'">'.
+				'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.$view->escape($aLanguage['title']).'" /></a>';
 	}
 
 	unset($sBaseUri,$aLanguage);
@@ -78,7 +86,7 @@ if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
 $aUserBarB[100] = '<a href="'.$okt->config->app_path.'">'.__('c_c_go_to_website').'</a>';
 
 # -- CORE TRIGGER : adminHeaderUserBars
-$okt->triggers->callTrigger('adminHeaderUserBars', $okt, $aUserBarA, $aUserBarB);
+$okt->triggers->callTrigger('adminHeaderUserBars', $aUserBarA, $aUserBarB);
 
 
 # sort items of user bars by keys
@@ -89,9 +97,8 @@ $aUserBarB->ksort();
 $aUserBarA = array_filter((array)$aUserBarA);
 $aUserBarB = array_filter((array)$aUserBarB);
 
-
 # -- CORE TRIGGER : adminBeforeSendHeader
-$okt->triggers->callTrigger('adminBeforeSendHeader', $okt);
+$okt->triggers->callTrigger('adminBeforeSendHeader');
 
 ?><!DOCTYPE html>
 <html class="" lang="<?php echo $okt->user->language ?>">
@@ -163,7 +170,7 @@ if ($okt->options->get('debug')) {
 }
 
 # -- CORE TRIGGER : adminFooterContent
-$okt->triggers->callTrigger('adminFooterContent', $okt, $aFooterContent);
+$okt->triggers->callTrigger('adminFooterContent', $aFooterContent);
 
 
 # sort items of footer content
@@ -180,10 +187,10 @@ $aFooterContent = array_filter((array)$aFooterContent);
 </footer>
 </div><!-- #page -->
 
+
 <?php echo $okt->page->js ?>
 
 <?php # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
-$okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag', $okt); ?>
-
+$okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag'); ?>
 </body>
 </html>

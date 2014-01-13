@@ -51,7 +51,7 @@ class Tools extends Controller
 		$this->htaccessInit();
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsInit
-		$this->okt->triggers->callTrigger('adminToolsInit', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminToolsInit', $this->aPageData);
 
 		$this->cacheHandleRequest();
 
@@ -62,7 +62,7 @@ class Tools extends Controller
 		$this->htaccessHandleRequest();
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsHandleRequest
-		$this->okt->triggers->callTrigger('adminToolsHandleRequest', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminToolsHandleRequest', $this->aPageData);
 
 		if ($this->response->isRedirect()) {
 			return $this->response;
@@ -116,7 +116,7 @@ class Tools extends Controller
 		);
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsBuildTabs
-		$this->okt->triggers->callTrigger('adminToolsBuildTabs', $this->okt, $this->aPageData);
+		$this->okt->triggers->callTrigger('adminToolsBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

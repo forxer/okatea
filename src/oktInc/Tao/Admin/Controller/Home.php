@@ -81,7 +81,7 @@ class Home extends Controller
 		');
 
 		# -- CORE TRIGGER : adminIndexRoundaboutOptions
-		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $this->okt, $roundAboutOptions);
+		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $roundAboutOptions);
 
 		$this->page->roundabout($roundAboutOptions,'#roundabout');
 
@@ -107,7 +107,7 @@ class Home extends Controller
 
 
 		# -- CORE TRIGGER : adminIndexaRoundAboutItems
-		$this->okt->triggers->callTrigger('adminIndexaRoundAboutItems', $this->okt, $this->aRoundAboutItems);
+		$this->okt->triggers->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);
 	}
 
 	protected function konami()

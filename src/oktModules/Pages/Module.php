@@ -58,7 +58,7 @@ class Module extends BaseModule
 		$this->t_categories_locales 	= $this->db->prefix.'mod_pages_categories_locales';
 
 		# déclencheurs
-		$this->triggers = new Triggers();
+		$this->triggers = new Triggers($this->okt);
 
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
@@ -823,7 +823,7 @@ class Module extends BaseModule
 
 
 		# -- TRIGGER MODULE PAGES : checkPostData
-		$this->triggers->callTrigger('checkPostData', $this->okt, $aPageData);
+		$this->triggers->callTrigger('checkPostData', $aPageData);
 
 
 		return $this->error->isEmpty();

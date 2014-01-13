@@ -8,15 +8,25 @@
 
 namespace Tao\Core;
 
+use Monolog\Logger;
+use Monolog\ErrorHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FingersCrossedHandler;
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Processor\IntrospectionProcessor;
+use Monolog\Processor\WebProcessor;
+use Monolog\Processor\MemoryUsageProcessor;
+use Monolog\Processor\MemoryPeakUsageProcessor;
+
 use Symfony\Component\Debug\Debug;
-use Symfony\Component\Debug\ErrorHandler;
-use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
+
 use Tao\Cache\SingleFileCache;
 use Tao\Database\MySqli;
+use Tao\Misc\DebugBar\DebugBar;
 use Tao\Misc\FlashMessages;
 use Tao\Misc\Utilities;
 use Tao\Modules\Collection as ModulesCollection;
@@ -62,6 +72,13 @@ class Application
 	 * @var Tao\Database\MySqli
 	 */
 	public $db;
+
+	/**
+	 * Le gestionnaire de base de données.
+	 *
+	 * @var Tao\Misc\DebugBar\DebugBar
+	 */
+	public $debugbar;
 
 	/**
 	 * Le gestionnaire d'erreurs.
@@ -194,33 +211,20 @@ class Application
 	 */
 	public function __construct($autoloader, $sRootPath, array $aOptions = array())
 	{
-		# Environment ? 'dev' or 'prod'
-		$this->env = 'dev';
-
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
+		$this->triggers = new Triggers($this);
+
 		$this->options = new ApplicationOptions($sRootPath, $aOptions);
-
-		$this->start($this->options->get('debug'));
-
-		$this->db = $this->database();
-
-		$this->triggers = new Triggers();
-
-		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
 
 		$this->config = $this->loadConfig();
 
-		$this->request = Request::createFromGlobals();
+		$this->httpFoundation();
 
-		$this->response = new Response();
+		$this->start();
 
-		$this->requestContext = new RequestContext();
-		$this->requestContext->fromRequest($this->request);
-
-		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
-		$this->request->setSession($this->session);
+		$this->db = $this->database();
 
 		$this->languages = new Languages($this);
 
@@ -239,7 +243,7 @@ class Application
 	 * Make common operations on start.
 	 *
 	 */
-	protected function start($bDebug = false)
+	protected function start()
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
@@ -252,11 +256,43 @@ class Application
 
 		$this->error = new Errors();
 
-		if ($bDebug)
+		// Create the logger
+		/*
+		$this->logger = new Logger('okatea');
+
+		$this->logger->pushProcessor(new IntrospectionProcessor());
+		$this->logger->pushProcessor(new WebProcessor());
+		$this->logger->pushProcessor(new MemoryUsageProcessor());
+		$this->logger->pushProcessor(new MemoryPeakUsageProcessor());
+
+		// Now add some handlers
+		$this->logger->pushHandler(new StreamHandler($okt->options->get('logs_dir').'/my_app.log', Logger::DEBUG));
+		$this->logger->pushHandler(new FirePHPHandler());
+		*/
+
+		# print errors in debug mode
+		if ($this->options->get('debug'))
 		{
 			Debug::enable();
-			ErrorHandler::register();
-			ExceptionHandler::register();
+
+//			$this->debugbar = new DebugBar($this);
+		}
+
+		# otherwise log them
+		else
+		{
+			$phpLoggerAll = new Logger('php_error',array(
+				new FingersCrossedHandler(
+					new StreamHandler($this->options->get('logs_dir').'/php_errors.log', Logger::INFO),
+					Logger::WARNING
+				)
+			),array(
+				new IntrospectionProcessor(),
+				new WebProcessor(),
+				new MemoryUsageProcessor(),
+				new MemoryPeakUsageProcessor()
+			));
+			ErrorHandler::register($phpLoggerAll);
 		}
 	}
 
@@ -280,6 +316,19 @@ class Application
 		}
 
 		return $db;
+	}
+
+	protected function httpFoundation()
+	{
+		$this->request = Request::createFromGlobals();
+
+		$this->response = new Response();
+
+		$this->requestContext = new RequestContext();
+		$this->requestContext->fromRequest($this->request);
+
+		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
+		$this->request->setSession($this->session);
 	}
 
 	/**
@@ -415,6 +464,8 @@ class Application
 	 */
 	public function loadConfig()
 	{
+		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
+
 		$config = $this->newConfig('conf_site');
 
 		# URL du dossier modules

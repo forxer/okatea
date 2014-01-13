@@ -25,5 +25,5 @@ $okt = new Okatea($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.
 $okt->run();
 
 # -- CORE TRIGGER : adminFinal
-$okt->triggers->callTrigger('adminFinal', $okt);
+$okt->triggers->callTrigger('adminFinal');
 

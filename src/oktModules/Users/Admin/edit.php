@@ -105,7 +105,7 @@ if ($user->group_id == Authentification::unverified_group_id) {
 
 
 # -- CORE TRIGGER : adminModUsersEditInit
-$okt->triggers->callTrigger('adminModUsersEditInit', $okt, $aEditPageInfos);
+$okt->triggers->callTrigger('adminModUsersEditInit', $aEditPageInfos);
 
 
 /* Traitements
@@ -239,7 +239,7 @@ if (!empty($_POST['form_sent']) && !isset($_POST['do']) && $okt->checkPerm('user
 
 
 # -- CORE TRIGGER : adminModUsersEditProcess
-$okt->triggers->callTrigger('adminModUsersEditProcess', $okt, $aEditPageInfos);
+$okt->triggers->callTrigger('adminModUsersEditProcess', $aEditPageInfos);
 
 
 /* Affichage
@@ -473,7 +473,7 @@ if ($okt->checkPerm('users_edit'))
 }
 
 # -- CORE TRIGGER : adminModUsersEditDisplayTabs
-$okt->triggers->callTrigger('adminModUsersEditDisplayTabs', $okt, $aEditPageInfos, $aEditTabs);
+$okt->triggers->callTrigger('adminModUsersEditDisplayTabs', $aEditPageInfos, $aEditTabs);
 
 $aEditTabs->ksort();
 

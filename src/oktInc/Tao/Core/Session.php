@@ -54,7 +54,7 @@ class Session extends BaseSession
 	{
 		$bIsValid = ($userToken === $this->getToken());
 
-		$this->removeToken();
+		$this->generateToken();
 
 		return $bIsValid;
 	}
@@ -80,11 +80,8 @@ class Session extends BaseSession
 	{
 		$storedToken = $this->getToken();
 
-		if ($storedToken === '')
-		{
-			$sToken = sha1(uniqid(mt_rand(), true));
-
-			$this->set($this->sTokenNamespace, $sToken);
+		if ($storedToken === '') {
+			$this->generateToken();
 		}
 	}
 
@@ -96,5 +93,12 @@ class Session extends BaseSession
 	protected function removeToken()
 	{
 		$this->remove($this->sTokenNamespace);
+	}
+
+	protected function generateToken()
+	{
+		$sToken = sha1(uniqid(mt_rand(), true));
+
+		$this->set($this->sTokenNamespace, $sToken);
 	}
 }

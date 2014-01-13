@@ -1031,36 +1031,36 @@ p.buttonset {
 }
 
 #jInfos {
-	background: #d8e6fc url('../img/notify/info.png') no-repeat 15px center;
-	color: #35517c;
-	border-color: #a7c3f0;
+	background: #DBECFF url('../img/notify/info.png') no-repeat 15px center;
+	color: #2850C1;
+	border-color: #9FC7F5;
 }
 	#jInfos a {
-		color:#35517c !important;
+		color: #2850C1 !important;
 	}
 
 #jSuccess {
-	background: #E6EFC2 url('../img/notify/success.png') no-repeat 15px center;
-	color: #264409;
-	border-color: #C6D880;
+	background: #D4FFCD url('../img/notify/success.png') no-repeat 15px center;
+	color: #258815;
+	border-color: #9ADF8F;
 }
 	#jSuccess a {
-		color:#264409 !important;
+		color: #258815 !important;
 	}
 
 #jWarning {
-	background: #FDB700 url('../img/notify/warning.png') no-repeat 15px center;
-	color: #FB3601;
-	border-color: #FB3601;
+	background: #FEFCCB url('../img/notify/warning.png') no-repeat 15px center;
+	color: #878314;
+	border-color: #E5DB55;
 }
 	#jWarning a {
-		color:#FB3601 !important;
+		color: #878314 !important;
 	}
 
 #jError {
-	background: #FBE3E4 url('../img/notify/error.png') no-repeat 15px center;
-	color: #8a1f11;
-	border-color: #FBC2C4;
+	background: #FFD2D3 url('../img/notify/error.png') no-repeat 15px center;
+	color: #8F2121;
+	border-color: #DF8F90;
 }
 	#jError a {
 		color: #8a1f11 !important;

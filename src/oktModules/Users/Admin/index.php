@@ -108,7 +108,7 @@ if (!empty($_GET['delete']) && $okt->checkPerm('users_delete'))
 		));
 
 		# -- CORE TRIGGER : adminModUsersDeleteProcess
-		$okt->triggers->callTrigger('adminModUsersDeleteProcess', $okt, $_GET['delete']);
+		$okt->triggers->callTrigger('adminModUsersDeleteProcess', $_GET['delete']);
 
 		$okt->page->flash->success(__('m_users_user_deleted'));
 

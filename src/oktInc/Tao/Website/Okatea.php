@@ -166,7 +166,7 @@ class Okatea extends Application
 	protected function matchRequest()
 	{
 		# -- CORE TRIGGER : publicBeforeMatchRequest
-		$this->triggers->callTrigger('publicBeforeMatchRequest', $this);
+		$this->triggers->callTrigger('publicBeforeMatchRequest');
 
 		try {
 			$this->request->attributes->add(
@@ -186,7 +186,7 @@ class Okatea extends Application
 	protected function callController()
 	{
 		# -- CORE TRIGGER : publicBeforeCallController
-		$this->triggers->callTrigger('publicBeforeCallController', $this);
+		$this->triggers->callTrigger('publicBeforeCallController');
 
 		if ($this->router->callController() === false)
 		{
@@ -199,12 +199,12 @@ class Okatea extends Application
 	protected function sendResponse()
 	{
 		# -- CORE TRIGGER : publicBeforePrepareResponse
-		$this->triggers->callTrigger('publicBeforePrepareResponse', $this);
+		$this->triggers->callTrigger('publicBeforePrepareResponse');
 
 		$this->response->prepare($this->request);
 
 		# -- CORE TRIGGER : publicBeforeSendResponse
-		$this->triggers->callTrigger('publicBeforeSendResponse', $this);
+		$this->triggers->callTrigger('publicBeforeSendResponse');
 
 		$this->response->send();
 	}

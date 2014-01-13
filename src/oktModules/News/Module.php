@@ -61,7 +61,7 @@ class Module extends BaseModule
 		$this->t_users 				= $this->db->prefix.'core_users';
 
 		# déclencheurs
-		$this->triggers = new Triggers();
+		$this->triggers = new Triggers($this->okt);
 
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
@@ -887,7 +887,7 @@ class Module extends BaseModule
 
 
 		# -- TRIGGER MODULE NEWS : checkPostData
-		$this->triggers->callTrigger('checkPostData', $this->okt, $aPostData, $aPostLocalesData, $aPostPermsData);
+		$this->triggers->callTrigger('checkPostData', $aPostData, $aPostLocalesData, $aPostPermsData);
 
 
 		return $this->error->isEmpty();

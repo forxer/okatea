@@ -26,7 +26,7 @@ while ($okt->contact->rsFields->fetch())
 
 
 <?php # -- CORE TRIGGER : publicModuleContactJsValidateRules
-$okt->triggers->callTrigger('publicModuleContactJsValidateRules', $okt, $aJsValidateRules, $okt->contact->config->captcha); ?>
+$okt->triggers->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->contact->config->captcha); ?>
 
 
 <?php # début Okatea : validation JS
@@ -45,7 +45,7 @@ if (!empty($aJsValidateRules))
 
 
 <?php # -- CORE TRIGGER : publicModuleContactBeforeDisplayPage
-$okt->triggers->callTrigger('publicModuleContactBeforeDisplayPage', $okt); ?>
+$okt->triggers->callTrigger('publicModuleContactBeforeDisplayPage'); ?>
 
 
 <?php # début Okatea : nécessaire pour la google map
@@ -157,7 +157,7 @@ if (empty($_GET['sended'])) : ?>
 	<?php endwhile; # fin Okatea : boucle sur les champs ?>
 
 	<?php # -- CORE TRIGGER : publicModuleContactTplFormBottom
-	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt, $okt->contact->config->captcha); ?>
+	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt->contact->config->captcha); ?>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('m_contact_send'); ?>" name="send" id="submit-contact-form" /></p>
 

@@ -26,12 +26,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforePostCreate
-				$this->okt->News->triggers->callTrigger('beforePostCreate', $this->okt, $this->aPostData);
+				$this->okt->News->triggers->callTrigger('beforePostCreate', $this->aPostData);
 
 				$this->aPostData['post']['id'] = $this->okt->News->addPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
 
 				# -- TRIGGER MODULE NEWS : afterPostCreate
-				$this->okt->News->triggers->callTrigger('afterPostCreate', $this->okt, $this->aPostData);
+				$this->okt->News->triggers->callTrigger('afterPostCreate', $this->aPostData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -198,12 +198,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforePostUpdate
-				$this->okt->News->triggers->callTrigger('beforePostUpdate', $this->okt, $this->aPostData);
+				$this->okt->News->triggers->callTrigger('beforePostUpdate', $this->aPostData);
 
 				$this->okt->News->updPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
 
 				# -- TRIGGER MODULE NEWS : afterPostUpdate
-				$this->okt->News->triggers->callTrigger('afterPostUpdate', $this->okt, $this->aPostData);
+				$this->okt->News->triggers->callTrigger('afterPostUpdate', $this->aPostData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -289,7 +289,7 @@ class Post extends Controller
 		$rsPostI18n = null;
 
 		# -- TRIGGER MODULE NEWS : adminPostInit
-		$this->okt->News->triggers->callTrigger('adminPostInit', $this->okt, $this->aPostData, $rsPost, $rsPostI18n);
+		$this->okt->News->triggers->callTrigger('adminPostInit', $this->aPostData, $rsPost, $rsPostI18n);
 	}
 
 	protected function populateDataFromPost()
@@ -333,7 +333,7 @@ class Post extends Controller
 		$this->aPostData['perms'] = $this->request->request->get('perms', array());
 
 		# -- TRIGGER MODULE NEWS : adminPopulateData
-		$this->okt->News->triggers->callTrigger('adminPopulateData', $this->okt, $this->aPostData);
+		$this->okt->News->triggers->callTrigger('adminPopulateData', $this->aPostData);
 
 		# vérification des données avant modification dans la BDD
 		if ($this->okt->News->checkPostData($this->aPostData['post'], $this->aPostData['locales'], $this->aPostData['perms']))
@@ -433,7 +433,7 @@ class Post extends Controller
 		}
 
 		# -- TRIGGER MODULE NEWS : adminPostBuildTabs
-		$this->okt->News->triggers->callTrigger('adminPostBuildTabs', $this->okt, $this->aPostData);
+		$this->okt->News->triggers->callTrigger('adminPostBuildTabs', $this->aPostData);
 
 		$this->aPostData['tabs']->ksort();
 

@@ -1,0 +1,28 @@
+
+Users_index:
+    path:     /users/{page}
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\Index::page, page: 1 }
+    requirements:
+        page:  \d+
+
+Users_user_add:
+    path:     /users/user/add
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\User::add }
+
+Users_user:
+    path:     /users/user/{post_id}
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\User::edit }
+    requirements:
+        post_id:  \d+
+
+Users_groups:
+    path:     /users/groups
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\Groups::page }
+
+Users_display:
+    path:     /users/display
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\Display::page }
+
+Users_config:
+    path:     /users/configuration
+    defaults: { _controller: Okatea\Module\Users\Admin\Controller\Config::page }

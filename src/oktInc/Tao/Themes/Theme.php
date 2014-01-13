@@ -44,7 +44,7 @@ class Theme
 		$this->okt->l10n->loadFile($this->path.'/locales/'.$this->okt->user->language.'/custom');
 
 		# -- CORE TRIGGER : themeInit
-		$okt->triggers->callTrigger('themeInit', $okt, $this);
+		$okt->triggers->callTrigger('themeInit');
 
 		if (method_exists($this, 'prepend')) {
 			$this->prepend();

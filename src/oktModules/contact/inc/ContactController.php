@@ -22,13 +22,13 @@ class ContactController extends Controller
 		$this->page->action = 'form';
 
 		# -- CORE TRIGGER : publicModuleContactControllerStart
-		$this->okt->triggers->callTrigger('publicModuleContactControllerStart', $this->okt, $this->okt->contact->config->captcha);
+		$this->okt->triggers->callTrigger('publicModuleContactControllerStart', $this->okt->contact->config->captcha);
 
 		# liste des champs
 		$this->okt->contact->rsFields = $this->okt->contact->getFields(array('active'=>true, 'language'=>$this->okt->user->language));
 
 		# -- CORE TRIGGER : publicModuleContactControllerBeforeFieldsValues
-		$this->okt->triggers->callTrigger('publicModuleContactControllerBeforeInitFieldsValues', $this->okt);
+		$this->okt->triggers->callTrigger('publicModuleContactControllerBeforeInitFieldsValues');
 
 		# intitialisation des données des champs
 		while ($this->okt->contact->rsFields->fetch())
@@ -68,7 +68,7 @@ class ContactController extends Controller
 		}
 
 		# -- CORE TRIGGER : publicModuleContactControllerAfterInitFieldsValues
-		$this->okt->triggers->callTrigger('publicModuleContactControllerAfterInitFieldsValues', $this->okt);
+		$this->okt->triggers->callTrigger('publicModuleContactControllerAfterInitFieldsValues');
 
 		# formulaire envoyé
 		if (!empty($_POST['send']))
@@ -85,7 +85,7 @@ class ContactController extends Controller
 			}
 
 			# -- CORE TRIGGER : publicModuleContactControllerFormCheckValues
-			$this->okt->triggers->callTrigger('publicModuleContactControllerFormCheckValues', $this->okt, $this->okt->contact->config->captcha);
+			$this->okt->triggers->callTrigger('publicModuleContactControllerFormCheckValues', $this->okt->contact->config->captcha);
 
 			# si on as pas d'erreur on se préparent à envoyer le mail
 			if ($this->okt->error->isEmpty())
@@ -93,7 +93,7 @@ class ContactController extends Controller
 				$oMail = new Mailer($this->okt);
 
 				# -- CORE TRIGGER : publicModuleContactBeforeBuildMail
-				$this->okt->triggers->callTrigger('publicModuleContactBeforeBuildMail', $this->okt, $oMail);
+				$this->okt->triggers->callTrigger('publicModuleContactBeforeBuildMail', $oMail);
 
 				# from to & reply to
 				if ($this->okt->contact->config->from_to == 'website')
@@ -128,12 +128,12 @@ class ContactController extends Controller
 				}
 
 				# -- CORE TRIGGER : publicModuleContactBeforeSendMail
-				$this->okt->triggers->callTrigger('publicModuleContactBeforeSendMail', $this->okt, $oMail);
+				$this->okt->triggers->callTrigger('publicModuleContactBeforeSendMail', $oMail);
 
 				if ($oMail->send())
 				{
 					# -- CORE TRIGGER : publicModuleContactAfterMailSent
-					$this->okt->triggers->callTrigger('publicModuleContactAfterMailSent', $this->okt, $oMail);
+					$this->okt->triggers->callTrigger('publicModuleContactAfterMailSent', $oMail);
 
 					return $this->redirect(ContactHelpers::getContactUrl().'?sended=1');
 				}

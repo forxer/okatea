@@ -23,7 +23,7 @@ class GuestbookController extends Controller
 		$this->page->action = 'guestbook';
 
 		# -- CORE TRIGGER : publicModuleGuestbookControllerStart
-		$this->okt->triggers->callTrigger('publicModuleGuestbookControllerStart', $this->okt, $this->okt->guestbook->config->captcha);
+		$this->okt->triggers->callTrigger('publicModuleGuestbookControllerStart', $this->okt->guestbook->config->captcha);
 
 		$aSigData = array(
 			'language' 	=> $this->okt->user->language,
@@ -51,7 +51,7 @@ class GuestbookController extends Controller
 			$aSigData = $this->okt->guestbook->handleUserData($aSigData);
 
 			# -- CORE TRIGGER : publicModuleGuestbookControllerFormCheckValues
-			$this->okt->triggers->callTrigger('publicModuleGuestbookControllerFormCheckValues', $this->okt, $this->okt->guestbook->config->captcha);
+			$this->okt->triggers->callTrigger('publicModuleGuestbookControllerFormCheckValues', $this->okt->guestbook->config->captcha);
 
 			if (!$this->okt->error->hasError())
 			{

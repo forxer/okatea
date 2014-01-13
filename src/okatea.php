@@ -22,4 +22,4 @@ $okt = new Okatea($oktAutoloader, __DIR__, require __DIR__.'/oktOptions.php');
 $okt->run();
 
 # -- CORE TRIGGER : publicFinal
-$okt->triggers->callTrigger('publicFinal', $okt);
+$okt->triggers->callTrigger('publicFinal');

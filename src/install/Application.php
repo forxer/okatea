@@ -83,15 +83,7 @@ class Application extends BaseApplication
 
 		$this->triggers = new Triggers();
 
-		$this->request = Request::createFromGlobals();
-
-		$this->response = new Response();
-
-		$this->requestContext = new RequestContext();
-		$this->requestContext->fromRequest($this->request);
-
-		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
-		$this->request->setSession($this->session);
+		$this->httpFoundation();
 
 		$this->router = new Router(
 			$this,
@@ -157,31 +149,6 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * Make common operations on start.
-	 *
-	 */
-	protected function start($bDebug = false)
-	{
-		# Register start time
-		define('OKT_START_TIME', microtime(true));
-
-		# Init MB ext
-		mb_internal_encoding('UTF-8');
-
-		# Default timezone
-		date_default_timezone_set('Europe/Paris');
-
-		$this->error = new Errors();
-
-		if ($bDebug)
-		{
-			Debug::enable();
-			ErrorHandler::register();
-			ExceptionHandler::register();
-		}
-	}
-
-	/**
 	 * Init content page helpers.
 	 *
 	 * @return Tao\Html\Page
@@ -197,7 +164,7 @@ class Application extends BaseApplication
 	protected function matchRequest()
 	{
 		# -- CORE TRIGGER : installBeforeMatchRequest
-		$this->triggers->callTrigger('installBeforeMatchRequest', $this);
+		$this->triggers->callTrigger('installBeforeMatchRequest');
 
 		try {
 			$this->request->attributes->add(
@@ -231,7 +198,7 @@ class Application extends BaseApplication
 	protected function callController()
 	{
 		# -- CORE TRIGGER : installBeforeCallController
-		$this->triggers->callTrigger('installBeforeCallController', $this);
+		$this->triggers->callTrigger('installBeforeCallController');
 
 		if ($this->router->callController() === false)
 		{
@@ -244,12 +211,12 @@ class Application extends BaseApplication
 	protected function sendResponse()
 	{
 		# -- CORE TRIGGER : installBeforePrepareResponse
-		$this->triggers->callTrigger('installBeforePrepareResponse', $this);
+		$this->triggers->callTrigger('installBeforePrepareResponse');
 
 		$this->response->prepare($this->request);
 
 		# -- CORE TRIGGER : installBeforeSendResponse
-		$this->triggers->callTrigger('installBeforeSendResponse', $this);
+		$this->triggers->callTrigger('installBeforeSendResponse');
 
 		$this->response->send();
 	}

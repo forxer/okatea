@@ -129,7 +129,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 	</fieldset>
 
 	<?php # -- CORE TRIGGER : adminModUsersProfileDisplay
-	$okt->triggers->callTrigger('adminModUsersProfileDisplay', $okt); ?>
+	$okt->triggers->callTrigger('adminModUsersProfileDisplay'); ?>
 
 	<fieldset>
 		<legend><?php _e('c_a_menu_localization') ?></legend>

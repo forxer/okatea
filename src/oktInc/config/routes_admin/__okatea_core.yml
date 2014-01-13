@@ -74,6 +74,10 @@ config_theme:
     path:     /configuration/theme/{theme_id}
     defaults: { _controller: Tao\Admin\Controller\Config\Themes::theme }
 
+config_themes_editor:
+    path:     /configuration/theme/editor/{theme_id}
+    defaults: { _controller: Tao\Admin\Controller\Config\ThemesEditor::page }
+
 config_navigation:
     path:     /configuration/navigation
     defaults: { _controller: Tao\Admin\Controller\Config\Navigation::page }

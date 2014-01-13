@@ -171,9 +171,11 @@ class MySqli
 	{
 		/* if (is_resource($this->con_id) && get_resource_type($this->con_id) == 'mysql link') */
 
+
 		if ($this->con_id)
 		{
 			mysqli_close($this->con_id);
+
 			return true;
 		}
 

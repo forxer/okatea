@@ -119,7 +119,7 @@ if (!empty($_POST['form_sent']))
 		try
 		{
 			# -- CORE TRIGGER : adminModUsersConfigProcess
-			$okt->triggers->callTrigger('adminModUsersConfigProcess', $okt);
+			$okt->triggers->callTrigger('adminModUsersConfigProcess');
 
 			$okt->users->config->write($new_conf);
 
@@ -293,7 +293,7 @@ $aEditTabs[30]['content'] =
 
 
 # -- CORE TRIGGER : adminModUsersEditDisplayTabs
-$okt->triggers->callTrigger('adminModUsersConfigTabs', $okt, $aEditTabs);
+$okt->triggers->callTrigger('adminModUsersConfigTabs', $aEditTabs);
 
 $aEditTabs->ksort();
 

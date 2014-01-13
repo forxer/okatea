@@ -107,6 +107,7 @@ $GLOBALS['__l10n']['c_a_def_perm_config'] = 'Configuration';
 $GLOBALS['__l10n']['c_a_def_perm_config_website'] = 'Configuration du site';
 $GLOBALS['__l10n']['c_a_def_perm_config_display'] = 'Configuration de l’affichage';
 $GLOBALS['__l10n']['c_a_def_perm_config_themes'] = 'Gestion des thèmes';
+$GLOBALS['__l10n']['c_a_def_perm_config_themes_editor'] = 'Editeur de thèmes';
 $GLOBALS['__l10n']['c_a_def_perm_config_navigation'] = 'Gestion des menus de navigation';
 $GLOBALS['__l10n']['c_a_def_perm_config_local'] = 'Gestion de la localisation';
 $GLOBALS['__l10n']['c_a_def_perm_config_modules'] = 'Gestion des modules';

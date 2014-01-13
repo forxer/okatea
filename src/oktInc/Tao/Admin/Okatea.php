@@ -293,6 +293,7 @@ class Okatea extends Application
 			$this->addPerm('languages', 	__('c_a_def_perm_config_local'), 'configuration');
 			$this->addPerm('modules', 		__('c_a_def_perm_config_modules'), 'configuration');
 			$this->addPerm('themes', 		__('c_a_def_perm_config_themes'), 'configuration');
+			$this->addPerm('themes_editor', __('c_a_def_perm_config_themes_editor'), 'configuration');
 			$this->addPerm('navigation', 	__('c_a_def_perm_config_navigation'), 'configuration');
 			$this->addPerm('permissions', 	__('c_a_def_perm_config_perms'), 'configuration');
 			$this->addPerm('tools', 		__('c_a_def_perm_config_tools'), 'configuration');
@@ -305,7 +306,7 @@ class Okatea extends Application
 	protected function matchRequest()
 	{
 		# -- CORE TRIGGER : adminBeforeMatchRequest
-		$this->triggers->callTrigger('adminBeforeMatchRequest', $this);
+		$this->triggers->callTrigger('adminBeforeMatchRequest');
 
 		try {
 			$this->request->attributes->add(
@@ -325,7 +326,7 @@ class Okatea extends Application
 	protected function callController()
 	{
 		# -- CORE TRIGGER : adminBeforeCallController
-		$this->triggers->callTrigger('adminBeforeCallController', $this);
+		$this->triggers->callTrigger('adminBeforeCallController');
 
 		if ($this->adminRouter->callController() === false)
 		{
@@ -338,12 +339,12 @@ class Okatea extends Application
 	protected function sendResponse()
 	{
 		# -- CORE TRIGGER : adminBeforePrepareResponse
-		$this->triggers->callTrigger('adminBeforePrepareResponse', $this);
+		$this->triggers->callTrigger('adminBeforePrepareResponse');
 
 		$this->response->prepare($this->request);
 
 		# -- CORE TRIGGER : adminBeforeSendResponse
-		$this->triggers->callTrigger('adminBeforeSendResponse', $this);
+		$this->triggers->callTrigger('adminBeforeSendResponse');
 
 		$this->response->send();
 	}

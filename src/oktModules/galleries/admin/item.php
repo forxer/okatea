@@ -113,7 +113,7 @@ if (!empty($_REQUEST['item_id']))
 
 
 # -- TRIGGER MODULE GALLERIES : adminItemInit
-$okt->galleries->triggers->callTrigger('adminItemInit', $okt, $aItemData, $rsItem, $rsItemI18n);
+$okt->galleries->triggers->callTrigger('adminItemInit', $aItemData, $rsItem, $rsItemI18n);
 
 
 
@@ -185,7 +185,7 @@ if (!empty($_POST['sended']))
 
 
 	# -- TRIGGER MODULE GALLERIES : adminPopulateItemData
-	$okt->galleries->triggers->callTrigger('adminPopulateItemData', $okt, $aItemData);
+	$okt->galleries->triggers->callTrigger('adminPopulateItemData', $aItemData);
 
 
 	# vérification des données avant modification dans la BDD
@@ -199,12 +199,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE GALLERIES : adminBeforeItemUpdate
-				$okt->galleries->triggers->callTrigger('adminBeforeItemUpdate', $okt, $aItemData);
+				$okt->galleries->triggers->callTrigger('adminBeforeItemUpdate', $aItemData);
 
 				$okt->galleries->items->updItem($aItemData['cursor'], $aItemData['locales']);
 
 				# -- TRIGGER MODULE GALLERIES : adminAfterItemUpdate
-				$okt->galleries->triggers->callTrigger('adminAfterItemUpdate', $okt, $aItemData);
+				$okt->galleries->triggers->callTrigger('adminAfterItemUpdate', $aItemData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -226,12 +226,12 @@ if (!empty($_POST['sended']))
 			try
 			{
 				# -- TRIGGER MODULE GALLERIES : adminBeforeItemCreate
-				$okt->galleries->triggers->callTrigger('adminBeforeItemCreate', $okt, $aItemData);
+				$okt->galleries->triggers->callTrigger('adminBeforeItemCreate', $aItemData);
 
 				$aItemData['item']['id'] = $okt->galleries->items->addItem($aItemData['cursor'], $aItemData['locales']);
 
 				# -- TRIGGER MODULE GALLERIES : adminAfterItemCreate
-				$okt->galleries->triggers->callTrigger('adminAfterItemCreate', $okt, $aItemData);
+				$okt->galleries->triggers->callTrigger('adminAfterItemCreate', $aItemData);
 
 				# log admin
 				$okt->logAdmin->info(array(
@@ -534,7 +534,7 @@ if ($okt->galleries->config->enable_metas)
 
 
 # -- TRIGGER MODULE GALLERIES : adminItemBuildTabs
-$okt->galleries->triggers->callTrigger('adminItemBuildTabs', $okt, $aItemData['tabs']);
+$okt->galleries->triggers->callTrigger('adminItemBuildTabs', $aItemData['tabs']);
 
 $aItemData['tabs']->ksort();
 ?>

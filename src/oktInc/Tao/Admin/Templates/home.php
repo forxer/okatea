@@ -58,4 +58,4 @@
 <![endif]-->
 
 <?php # -- CORE TRIGGER : adminIndexHtmlContent
-$okt->triggers->callTrigger('adminIndexHtmlContent', $okt); ?>
+$okt->triggers->callTrigger('adminIndexHtmlContent'); ?>

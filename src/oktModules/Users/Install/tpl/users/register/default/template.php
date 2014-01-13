@@ -159,7 +159,7 @@ if ($okt->error->notEmpty()) : ?>
 	</fieldset>
 
 	<?php # -- CORE TRIGGER : adminModUsersRegisterDisplay
-	$okt->triggers->callTrigger('adminModUsersRegisterDisplay', $okt); ?>
+	$okt->triggers->callTrigger('adminModUsersRegisterDisplay'); ?>
 
 	<fieldset>
 		<legend><?php _e('c_a_menu_localization') ?></legend>
