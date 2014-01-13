@@ -1129,7 +1129,7 @@ class Utilities
 		$aCacheFiles = array();
 		foreach (new \DirectoryIterator($okt->options->get('cache_dir')) as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
+			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
 				continue;
 			}
 
@@ -1137,7 +1137,7 @@ class Utilities
 			{
 				foreach (new \DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
 				{
-					if ($oFileInfoInDir->isDot() || in_array($oFileInfoInDir->getFilename(),array('.svn','.htaccess','index.html'))) {
+					if ($oFileInfoInDir->isDot() || in_array($oFileInfoInDir->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
 						continue;
 					}
 
