@@ -220,16 +220,16 @@ class Advanced extends Controller
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'modules_repositories_enabled' => $this->request->request->has('p_modules_repositories_enabled'),
-			'modules_repositories' => array_combine(
+			'modules_repositories' => array_filter(array_combine(
 				$this->request->request->get('p_modules_repositories_names', array()),
 				$this->request->request->get('p_modules_repositories_urls', array())
-			),
+			)),
 
 			'themes_repositories_enabled' => $this->request->request->has('p_themes_repositories_enabled'),
-			'themes_repositories' => array_combine(
+			'themes_repositories' => array_filter(array_combine(
 				$this->request->request->get('p_themes_repositories_names', array()),
 				$this->request->request->get('p_themes_repositories_urls', array())
-			)
+			))
 		));
 	}
 
