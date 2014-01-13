@@ -69,9 +69,9 @@ $GLOBALS['__l10n']['i_db_big_loose'] = 'Fatal errors occurred, unable to continu
 # supa
 $GLOBALS['__l10n']['i_supa_title'] = 'Create administrator accounts';
 $GLOBALS['__l10n']['i_supa_account_sudo'] = 'Super-administrator account';
-$GLOBALS['__l10n']['i_supa_account_sudo_note'] = 'The super-administrator account is the account that we use. Including the ability to configure the system.';
+$GLOBALS['__l10n']['i_supa_account_sudo_note'] = 'The super administrator account is the account that has full permissions. It’s you :)';
 $GLOBALS['__l10n']['i_supa_account_admin'] = 'Administrator account';
-$GLOBALS['__l10n']['i_supa_account_admin_note'] = 'The administrator account is the account that the client will use.';
+$GLOBALS['__l10n']['i_supa_account_admin_note'] = 'The administrator account is an account that has permissions by default, but not all. It can provide access to the website administration but not all features. Useful for example to allow another person to manage the website or just having a clean interface for managing everyday. This account is optional, it can be created later if needed.';
 $GLOBALS['__l10n']['i_supa_username'] = 'Username';
 $GLOBALS['__l10n']['i_supa_password'] = 'Password';
 $GLOBALS['__l10n']['i_supa_email'] = 'Email address';

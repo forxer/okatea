@@ -69,18 +69,16 @@ $GLOBALS['__l10n']['i_db_big_loose'] = 'Des erreurs bloquantes se sont produites
 # supa
 $GLOBALS['__l10n']['i_supa_title'] = 'Création des comptes administrateurs';
 $GLOBALS['__l10n']['i_supa_account_sudo'] = 'Compte super-administrateur';
-$GLOBALS['__l10n']['i_supa_account_sudo_note'] = 'Le compte super-administrateur est le compte que nous utilisons. Il permet notamment de configurer le système.';
+$GLOBALS['__l10n']['i_supa_account_sudo_note'] = 'Le compte super-administrateur est le compte qui a toutes les permissions. C’est vous :)';
 $GLOBALS['__l10n']['i_supa_account_admin'] = 'Compte administrateur';
-$GLOBALS['__l10n']['i_supa_account_admin_note'] = 'Le compte administrateur est le compte que le client va utiliser.';
+$GLOBALS['__l10n']['i_supa_account_admin_note'] = 'Le compte administrateur est un compte qui a des permissions par défaut, mais pas toutes. Il permet de donner un accès à l’administration du site mais pas à toutes les fonctionnalités. Utile par exemple pour laisser une autre personne administrer le site ou simplement avoir une interface épurée pour la gestion au quotidien. Ce compte est facultatif, il pourra être créé par la suite si besoin.';
 $GLOBALS['__l10n']['i_supa_username'] = 'Nom d’utilisateur';
 $GLOBALS['__l10n']['i_supa_password'] = 'Mot de passe';
 $GLOBALS['__l10n']['i_supa_email'] = 'Adresse email';
 $GLOBALS['__l10n']['i_supa_must_sudo_username'] = 'Vous devez saisir un nom d’utilisateur pour le compte super-administrateur.';
-$GLOBALS['__l10n']['i_supa_must_admin_username'] = 'Vous devez saisir un nom d’utilisateur pour le compte administrateur.';
 $GLOBALS['__l10n']['i_supa_must_sudo_password'] = 'Vous devez saisir un mot de passe pour le compte super-administrateur.';
-$GLOBALS['__l10n']['i_supa_must_admin_password'] = 'Vous devez saisir un mot de passe pour le compte administrateur.';
 $GLOBALS['__l10n']['i_supa_must_sudo_email'] = 'Vous devez saisir une adresse email pour le compte super-administrateur.';
-$GLOBALS['__l10n']['i_supa_must_admin_email'] = 'Vous devez saisir une adresse email pour le compte administrateur.';
+$GLOBALS['__l10n']['i_supa_must_admin_info'] = 'Si vous souhaitez ajouter un compte administrateur, vous devez indiquer un nom d’utilisateur, un mot de passe et une adresse email.';
 
 # configuration
 $GLOBALS['__l10n']['i_config_title'] = 'Configuration de base';
