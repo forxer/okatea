@@ -35,7 +35,7 @@ if (!function_exists('console'))
 			new MemoryPeakUsageProcessor()
 		));
 
-		$console->addDebug($mData);
+		$console->addDebug(var_export($mData, true));
 	}
 }
 

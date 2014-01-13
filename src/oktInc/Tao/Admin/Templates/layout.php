@@ -1,84 +1,13 @@
 <?php
 
-# populates messages from flash messages queue
+# populates messages from flash messages queues
 $okt->page->infos->setItems($okt->page->flash->get('infos'));
 $okt->page->success->setItems($okt->page->flash->get('success'));
 $okt->page->warnings->setItems($okt->page->flash->get('warnings'));
 $okt->page->errors->setItems($okt->page->flash->get('errors'));
 
-# construction du menu principal
-$mainMenuHtml = null;
-if ($okt->page->display_menu)
-{
-	$mainMenuHtml = $okt->page->mainMenu->build();
-
-	$okt->page->accordion(array(
-			'heightStyle' => 'auto',
-			'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
-	), '#mainMenu-'.($okt->config->admin_sidebar_position == 0 ? 'left' : 'right'));
-}
-
-
-
-# init user bars
-$aUserBarA = new \ArrayObject;
-$aUserBarB = new \ArrayObject;
-
-# logged in user
-if (!$okt->user->is_guest)
-{
-	# profil link
-	$sProfilLink = $view->escape($okt->user->usedname);
-	if ($okt->modules->moduleExists('users')) {
-		$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$okt->user->id.'">'.$sProfilLink.'</a>';
-	}
-
-	$aUserBarA[10] = sprintf(__('c_c_user_hello_%s'), $sProfilLink);
-	unset($sProfilLink);
-
-	# log off link
-	$aUserBarA[90] = '<a href="'.$okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
-
-	# last visit info
-	$aUserBarB[10] = sprintf(__('c_c_user_last_visit_on_%s'), \dt::str('%A %d %B %Y %H:%M',$okt->user->last_visit));
-}
-# guest user
-else {
-	$aUserBarA[10] = __('c_c_user_hello_you_are_not_logged');
-}
-
-# languages switcher
-if ($okt->config->admin_lang_switcher && !$okt->languages->unique)
-{
-	$sBaseUri = $okt->request->getUri();
-	$sBaseUri .= strpos($sBaseUri,'?') ? '&' : '?';
-
-	foreach ($okt->languages->list as $aLanguage)
-	{
-		if ($aLanguage['code'] == $okt->user->language) {
-			continue;
-		}
-
-		$aUserBarB[50] = '<a href="'.$sBaseUri.'switch_lang='.$view->escape($aLanguage['code']).'" title="'.$view->escape($aLanguage['title']).'">'.
-				'<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.$view->escape($aLanguage['title']).'" /></a>';
-	}
-
-	unset($sBaseUri,$aLanguage);
-}
-
-$aUserBarB[100] = '<a href="'.$okt->config->app_path.'">'.__('c_c_go_to_website').'</a>';
-
-# -- CORE TRIGGER : adminHeaderUserBars
-$okt->triggers->callTrigger('adminHeaderUserBars', $aUserBarA, $aUserBarB);
-
-
-# sort items of user bars by keys
-$aUserBarA->ksort();
-$aUserBarB->ksort();
-
-# remove empty values of user bars
-$aUserBarA = array_filter((array)$aUserBarA);
-$aUserBarB = array_filter((array)$aUserBarB);
+# Init and get user bars
+$aUserBars = $okt->page->getUserBars();
 
 # -- CORE TRIGGER : adminBeforeSendHeader
 $okt->triggers->callTrigger('adminBeforeSendHeader');
@@ -126,8 +55,8 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 		</div><!-- #messages -->
 		<div id="welcome">
-			<?php if (!empty($aUserBarA)) : ?><p><?php echo implode(' - ', $aUserBarA) ?></p><?php endif; ?>
-			<?php if (!empty($aUserBarB)) : ?><p><?php echo implode(' - ', $aUserBarB) ?></p><?php endif; ?>
+			<?php if (!empty($aUserBars['first'])) : ?><p><?php echo implode(' - ', $aUserBars['first']) ?></p><?php endif; ?>
+			<?php if (!empty($aUserBars['second'])) : ?><p><?php echo implode(' - ', $aUserBars['second']) ?></p><?php endif; ?>
 		</div><!-- #welcome -->
 	</div><!-- #helpers -->
 </header>
@@ -141,7 +70,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	</section><!-- #content -->
 </div><!-- #main -->
 
-<nav><?php echo $mainMenuHtml['html'] ?></nav>
+<nav><?php echo $okt->page->getMainMenHtml(); ?></nav>
 
 <?php # init footer content
 $aFooterContent = new ArrayObject;

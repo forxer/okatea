@@ -14,6 +14,7 @@ use Tao\Admin\Messages\Success;
 use Tao\Admin\Messages\Warnings;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Html\Page as BasePage;
+use Tao\Misc\Utilities;
 
 /**
  * Construction des pages d'administration.
@@ -116,12 +117,12 @@ class Page extends BasePage
 	{
 		parent::__construct($okt, 'admin');
 
-		$this->component = $okt->request->request->get('component', $okt->request->query->get('component'));
-		$this->action = $okt->request->request->get('action', $okt->request->query->get('action'));
-		$this->application = $okt->request->request->get('application', $okt->request->query->get('application'));
-		$this->do = $okt->request->request->get('do', $okt->request->query->get('do'));
+		$this->component = $this->okt->request->request->get('component', $this->okt->request->query->get('component'));
+		$this->action = $this->okt->request->request->get('action', $this->okt->request->query->get('action'));
+		$this->application = $this->okt->request->request->get('application', $this->okt->request->query->get('application'));
+		$this->do = $this->okt->request->request->get('do', $this->okt->request->query->get('do'));
 
-		$this->flash = $okt->session->getFlashBag();
+		$this->flash = $this->okt->session->getFlashBag();
 
 		$this->infos = new Infos();
 		$this->success = new Success();
@@ -160,6 +161,90 @@ class Page extends BasePage
 		$this->breadcrumb->add($label, $url);
 	}
 
+	public function getMainMenHtml()
+	{
+		$mainMenuHtml = array('html' => null, 'active' => null);
+
+		# construction du menu principal
+		if ($this->display_menu)
+		{
+			$mainMenuHtml = $this->mainMenu->build();
+
+			$this->accordion(array(
+					'heightStyle' => 'auto',
+					'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
+			), '#mainMenu-'.($this->okt->config->admin_sidebar_position == 0 ? 'left' : 'right'));
+		}
+
+		return $mainMenuHtml['html'];
+	}
+
+	public function getUserBars()
+	{
+		$aUserBars = new \ArrayObject(array(
+			'first' => array(),
+			'second' => array()
+		));
+
+		# logged in user
+		if (!$this->okt->user->is_guest)
+		{
+			# profil link
+			$sProfilLink = Utilities::escapeHTML($this->okt->user->usedname);
+			if ($this->okt->modules->moduleExists('users')) {
+				$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$this->okt->user->id.'">'.$sProfilLink.'</a>';
+			}
+
+			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'), $sProfilLink);
+			unset($sProfilLink);
+
+			# log off link
+			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
+
+			# last visit info
+			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), \dt::str('%A %d %B %Y %H:%M',$this->okt->user->last_visit));
+		}
+		# guest user
+		else {
+			$aUserBars['first'][10] = __('c_c_user_hello_you_are_not_logged');
+		}
+
+		# languages switcher
+		if ($this->okt->config->admin_lang_switcher && !$this->okt->languages->unique)
+		{
+			$sBaseUri = $this->okt->request->getUri();
+			$sBaseUri .= strpos($sBaseUri,'?') ? '&' : '?';
+
+			foreach ($this->okt->languages->list as $aLanguage)
+			{
+				if ($aLanguage['code'] == $this->okt->user->language) {
+					continue;
+				}
+
+				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'switch_lang='.Utilities::escapeHTML($aLanguage['code']).'" title="'.Utilities::escapeHTML($aLanguage['title']).'">'.
+						'<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" /></a>';
+			}
+
+			unset($sBaseUri,$aLanguage);
+		}
+
+		$aUserBars['second'][100] = '<a href="'.$this->okt->config->app_path.'">'.__('c_c_go_to_website').'</a>';
+
+
+		# -- CORE TRIGGER : adminHeaderUserBars
+		$this->okt->triggers->callTrigger('adminHeaderUserBars', $aUserBars);
+
+
+		# sort items of user bars by keys
+		ksort($aUserBars['first']);
+		ksort($aUserBars['second']);
+
+		# remove empty values of user bars
+		$aUserBars['first'] = array_filter($aUserBars['first']);
+		$aUserBars['second'] = array_filter($aUserBars['second']);
+
+		return $aUserBars;
+	}
 
 	/* Gestion des jeux de boutons
 	 * @TODO mettre ça dans une classe indépendante uiButonSet
