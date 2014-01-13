@@ -14,10 +14,10 @@
 			`user_id` 		BIGINT(20) 		UNSIGNED 	NOT NULL 	DEFAULT 1,
 			`ident` 		VARCHAR(255) 				NOT NULL 	DEFAULT '',
 			`logged` 		INT(10) 		UNSIGNED 	NOT NULL 	DEFAULT 0,
-			`idle` 			TINYINT(1) 					NOT NULL 	DEFAULT 0
+			`idle` 			TINYINT(1) 					NOT NULL 	DEFAULT 0,
 
-			UNIQUE KEY `{{PREFIX}}core_users_online_user_id_ident_idx` (`user_id`,`ident`(25)),
-			KEY `{{PREFIX}}core_users_online_ident_idx` (`ident`(25)),
+			UNIQUE KEY `{{PREFIX}}core_users_online_user_id_ident_idx` (`user_id`,`ident`),
+			KEY `{{PREFIX}}core_users_online_ident_idx` (`ident`),
 			KEY `{{PREFIX}}core_users_online_logged_idx` (`logged`)
 		) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>

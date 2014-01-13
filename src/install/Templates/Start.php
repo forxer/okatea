@@ -1,7 +1,7 @@
 
 <?php $view->extend('layout'); ?>
 
-<p><?php printf(__('i_start_about_'.$okt->session->get('okt_install_process_type')), $okt->version) ?></p>
+<p><?php printf(__('i_start_about_'.$okt->session->get('okt_install_process_type')), $okt->getVersion()) ?></p>
 
 <p><?php _e('i_start_choose_lang') ?></p>
 <ul id="languageChoice">

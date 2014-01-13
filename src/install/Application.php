@@ -79,9 +79,9 @@ class Application extends BaseApplication
 
 		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
-		$this->start($this->options->get('debug'));
+		$this->start();
 
-		$this->triggers = new Triggers();
+		$this->triggers = new Triggers($this);
 
 		$this->httpFoundation();
 
@@ -89,10 +89,6 @@ class Application extends BaseApplication
 			$this,
 			__DIR__.'/Routing/RouteProvider.php'
 		);
-
-		if (file_exists($sRootPath.'/VERSION')) {
-			$this->version = trim(file_get_contents($sRootPath.'/VERSION'));
-		}
 
 		if ($this->session->has('okt_old_version')) {
 			$this->oldVersion = $this->session->get('okt_old_version');

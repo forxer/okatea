@@ -39,6 +39,7 @@ class Install extends BaseStepper
 				'step' 		=> 'config',
 				'title' 	=> __('i_step_config')
 			),
+/*
 			array(
 				'step' 		=> 'theme',
 				'title' 	=> __('i_step_theme')
@@ -55,6 +56,7 @@ class Install extends BaseStepper
 				'step' 		=> 'pages',
 				'title' 	=> __('i_step_pages')
 			),
+*/
 			array(
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')

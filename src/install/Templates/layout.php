@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
 
-	<title><?php _e('i_'.$okt->session->get('okt_install_process_type').'_interface') ?> - Okatea <?php if ($okt->version) { echo $okt->version; } ?></title>
+	<title><?php _e('i_'.$okt->session->get('okt_install_process_type').'_interface') ?> - Okatea <?php if ($okt->getVersion()) { echo $okt->getVersion(); } ?></title>
 
 	<?php echo $okt->page->css ?>
 </head>
@@ -15,7 +15,7 @@
 <div id="page">
 	<header>
 		<div id="banner" class="ui-widget-header ui-corner-all">
-			<h1>Okatea <span class="version"><?php if ($okt->version) { echo $okt->version; } ?></span></h1>
+			<h1>Okatea <span class="version"><?php if ($okt->getVersion()) { echo $okt->getVersion(); } ?></span></h1>
 			<p id="desc"><?php _e('i_'.$okt->session->get('okt_install_process_type').'_interface') ?></p>
 		</div><!-- #banner -->
 
@@ -40,7 +40,7 @@
 
 		<footer>
 			<p id="footer" class="clearb ui-widget ui-corner-all ui-state-default">
-			Okatea <?php if ($okt->version) { echo ' version <strong>'.$okt->version.'</strong> '; } ?>
+			Okatea <?php if ($okt->getVersion()) { echo ' version <strong>'.$okt->getVersion().'</strong> '; } ?>
 			</p><!-- #footer -->
 		</footer>
 	</div><!-- #main -->
