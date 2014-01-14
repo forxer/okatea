@@ -16,7 +16,7 @@ class Connexion extends Controller
 	{
 		# allready logged
 		if (!$this->okt->user->is_guest) {
-			$this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home'));
 		}
 
 		# identification
@@ -40,7 +40,7 @@ class Connexion extends Controller
 					$this->okt->user->setAuthFromCookie('', 0);
 				}
 
-				$this->redirect($redir);
+				return $this->redirect($redir);
 			}
 		}
 
@@ -68,7 +68,7 @@ class Connexion extends Controller
 	{
 		# allready logged
 		if (!$this->okt->user->is_guest) {
-			$this->redirect($this->generateUrl('home'));
+			return $this->redirect($this->generateUrl('home'));
 		}
 
 		$bPasswordUpdated = false;
