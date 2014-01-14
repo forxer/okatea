@@ -21,7 +21,6 @@ class Controller
 {
 	protected $okt;
 	protected $request;
-	protected $response;
 	protected $session;
 	protected $page;
 
@@ -37,7 +36,6 @@ class Controller
 
 		# shortcuts
 		$this->request =& $okt->request;
-		$this->response =& $okt->response;
 		$this->session =& $okt->session;
 		$this->page =& $okt->page;
 
@@ -128,7 +126,7 @@ class Controller
 	 */
 	public function redirect($url, $status = 302, $headers = array())
 	{
-		return $this->response = new RedirectResponse($url, $status, $headers);
+		return new RedirectResponse($url, $status, $headers);
 	}
 
 	/**
@@ -156,7 +154,7 @@ class Controller
 	public function render($view, array $parameters = array(), Response $response = null)
 	{
 		if (null === $response) {
-			return $this->okt->tpl->renderResponse($view, $parameters, $this->response);
+			$response = new Response();
 		}
 
 		return $this->okt->tpl->renderResponse($view, $parameters, $response);
@@ -194,9 +192,10 @@ class Controller
 	 */
 	public function serve401()
 	{
-		$this->response->setStatusCode(Response::HTTP_UNAUTHORIZED);
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_UNAUTHORIZED);
 
-		return $this->render('401');
+		return $this->render('401', array(), $response);
 	}
 
 	/**
@@ -205,9 +204,10 @@ class Controller
 	 */
 	public function serve404()
 	{
-		$this->response->setStatusCode(Response::HTTP_NOT_FOUND);
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_NOT_FOUND);
 
-		return $this->render('404');
+		return $this->render('404', array(), $response);
 	}
 
 	/**
@@ -216,11 +216,11 @@ class Controller
 	 */
 	public function serve503()
 	{
-		$this->response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
+		$response->headers->set('Retry-After', 3600);
 
-		$this->response->headers->set('Retry-After', 3600);
-
-		return $this->render('503');
+		return $this->render('503', array(), $response);
 	}
 
 	/**

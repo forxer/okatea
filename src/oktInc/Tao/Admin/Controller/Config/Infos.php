@@ -46,20 +46,21 @@ class Infos extends Controller
 		# -- TRIGGER CORE INFOS PAGE : adminInfosInit
 		$this->okt->triggers->callTrigger('adminInfosInit', $this->aPageData);
 
-		$this->notesHandleRequest();
-
-		$this->okateaHandleRequest();
-
-		$this->phpHandleRequest();
-
-		$this->mysqlHandleRequest();
+		if (($action = $this->notesHandleRequest()) !== false) {
+			return $action;
+		}
+		if (($action = $this->okateaHandleRequest()) !== false) {
+			return $action;
+		}
+		if (($action = $this->phpHandleRequest()) !== false) {
+			return $action;
+		}
+		if (($action = $this->mysqlHandleRequest()) !== false) {
+			return $action;
+		}
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosHandleRequest
 		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->aPageData);
-
-		if ($this->response->isRedirect()) {
-			return $this->response;
-		}
 
 		# Construction des onglets
 		$this->aPageData['tabs'] = new \ArrayObject;
@@ -231,7 +232,7 @@ class Infos extends Controller
 		{
 			file_put_contents($this->aNotes['file'], '');
 
-			$this->redirect($this->generateUrl('config_infos').'?edit_notes=1');
+			return $this->redirect($this->generateUrl('config_infos').'?edit_notes=1');
 		}
 
 		# enregistrement notes
@@ -241,8 +242,10 @@ class Infos extends Controller
 				file_put_contents($this->aNotes['file'], $this->request->request->get('notes_content'));
 			}
 
-			$this->redirect($this->generateUrl('config_infos'));
+			return $this->redirect($this->generateUrl('config_infos'));
 		}
+
+		return false;
 	}
 
 	protected function okateaHandleRequest()
@@ -254,6 +257,8 @@ class Infos extends Controller
 			echo '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';
 			die;
 		}
+
+		return false;
 	}
 
 	protected function phpHandleRequest()
@@ -264,6 +269,8 @@ class Infos extends Controller
 			phpinfo();
 			exit;
 		}
+
+		return false;
 	}
 
 	protected function mysqlHandleRequest()
@@ -279,7 +286,7 @@ class Infos extends Controller
 
 			$this->page->flash->success(__('c_a_infos_mysql_table_optimized'));
 
-			$this->redirect($this->generateUrl('config_infos'));
+			return $this->redirect($this->generateUrl('config_infos'));
 		}
 
 		# vidange d'une table
@@ -293,7 +300,7 @@ class Infos extends Controller
 
 			$this->page->flash->success(__('c_a_infos_mysql_table_truncated'));
 
-			$this->redirect($this->generateUrl('config_infos'));
+			return $this->redirect($this->generateUrl('config_infos'));
 		}
 
 		# suppression d'une table
@@ -307,8 +314,9 @@ class Infos extends Controller
 
 			$this->page->flash->success(__('c_a_infos_mysql_table_droped'));
 
-			$this->redirect($this->generateUrl('config_infos'));
+			return $this->redirect($this->generateUrl('config_infos'));
 		}
 
+		return false;
 	}
 }

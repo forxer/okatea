@@ -1,5 +1,13 @@
 <?php
 
+# récupération des erreurs du core
+if ($okt->error->notEmpty())
+{
+	foreach($okt->error->get(false) as $error) {
+		$okt->page->errors->set($error['message']);
+	}
+}
+
 # populates messages from flash messages queues
 $okt->page->infos->setItems($okt->page->flash->get('infos'));
 $okt->page->success->setItems($okt->page->flash->get('success'));

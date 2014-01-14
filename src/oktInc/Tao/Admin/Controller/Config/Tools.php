@@ -53,20 +53,24 @@ class Tools extends Controller
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsInit
 		$this->okt->triggers->callTrigger('adminToolsInit', $this->aPageData);
 
-		$this->cacheHandleRequest();
+		if (($action = $this->cacheHandleRequest()) !== false) {
+			return $action;
+		}
 
-		$this->cleanupHandleRequest();
+		if (($action = $this->cleanupHandleRequest()) !== false) {
+			return $action;
+		}
 
-		$this->backupHandleRequest();
+		if (($action = $this->backupHandleRequest()) !== false) {
+			return $action;
+		}
 
-		$this->htaccessHandleRequest();
+		if (($action = $this->htaccessHandleRequest()) !== false) {
+			return $action;
+		}
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsHandleRequest
 		$this->okt->triggers->callTrigger('adminToolsHandleRequest', $this->aPageData);
-
-		if ($this->response->isRedirect()) {
-			return $this->response;
-		}
 
 		# Construction des onglets
 		$this->aPageData['tabs'] = new \ArrayObject;
@@ -237,6 +241,8 @@ class Tools extends Controller
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
+
+		return false;
 	}
 
 	protected function cleanupHandleRequest()
@@ -266,6 +272,8 @@ class Tools extends Controller
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
 		}
+
+		return false;
 	}
 
 	protected function backupHandleRequest()
@@ -391,6 +399,8 @@ class Tools extends Controller
 			Utilities::forceDownload($this->okt->options->getRootPath().'/'.$sBackupFileToDownload);
 			exit;
 		}
+
+		return false;
 	}
 
 	protected function htaccessHandleRequest()
@@ -437,5 +447,7 @@ class Tools extends Controller
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
+
+		return false;
 	}
 }

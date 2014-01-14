@@ -51,7 +51,7 @@ class Post extends Controller
 			}
 		}
 
-		$this->display();
+		return $this->display();
 	}
 
 	public function edit()
@@ -200,7 +200,7 @@ class Post extends Controller
 			}
 		}
 
-		$this->display();
+		return $this->display();
 	}
 
 	protected function init()

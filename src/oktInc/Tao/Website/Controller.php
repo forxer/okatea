@@ -41,13 +41,18 @@ class Controller extends BaseController
 		return $this->okt->router->generate($route, $parameters, $language = null, $referenceType);
 	}
 
+	public function serve401()
+	{
+		return parent::serve401();
+	}
+
 	public function serve404()
 	{
-		parent::serve404();
+		return parent::serve404();
 	}
 
 	public function serve503()
 	{
-		parent::serve503();
+		return parent::serve503();
 	}
 }

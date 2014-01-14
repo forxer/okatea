@@ -150,7 +150,9 @@ class Okatea extends Application
 			{
 				$this->page->flash->warning(__('c_c_auth_not_logged_in'));
 
-				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
+				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
+
+				return false;
 			}
 
 			# il faut au minimum la permission d'utilisation de l'interface d'administration
@@ -160,7 +162,9 @@ class Okatea extends Application
 
 				$this->user->logout();
 
-				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
+				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
+
+				return false;
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
@@ -170,7 +174,9 @@ class Okatea extends Application
 
 				$this->user->logout();
 
-				return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
+				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
+
+				return false;
 			}
 		}
 
@@ -330,8 +336,11 @@ class Okatea extends Application
 		# -- CORE TRIGGER : adminBeforeCallController
 		$this->triggers->callTrigger('adminBeforeCallController');
 
-		if ($this->adminRouter->callController() === false)
+		$this->response = $this->adminRouter->callController();
+
+		if (null === $this->response || false === $this->response)
 		{
+			$this->response = new Response();
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
 			$this->response->setContent('Unable to load controller.');

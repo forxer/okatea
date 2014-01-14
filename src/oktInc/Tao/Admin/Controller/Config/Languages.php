@@ -57,26 +57,40 @@ class Languages extends Controller
 			unset($rsLanguage);
 		}
 
-		$this->switchLanguageStatus();
+		if (($action = $this->switchLanguageStatus()) !== false) {
+			return $action;
+		}
 
-		$this->enableLanguage();
+		if (($action = $this->enableLanguage()) !== false) {
+			return $action;
+		}
 
-		$this->disableLanguage();
+		if (($action = $this->disableLanguage()) !== false) {
+			return $action;
+		}
 
-		$this->deleteLanguage();
+		if (($action = $this->deleteLanguage()) !== false) {
+			return $action;
+		}
 
-		$this->addLanguage();
+		if (($action = $this->addLanguage()) !== false) {
+			return $action;
+		}
 
-		$this->updateLanguage();
+		if (($action = $this->updateLanguage()) !== false) {
+			return $action;
+		}
 
-		$this->updateLanguagesOrderByAjax();
+		if (($action = $this->updateLanguagesOrderByAjax()) !== false) {
+			return $action;
+		}
 
-		$this->updateLanguagesOrderByPost();
+		if (($action = $this->updateLanguagesOrderByPost()) !== false) {
+			return $action;
+		}
 
-		$this->updateConfiguration();
-
-		if ($this->response->isRedirect()) {
-			return $this->response;
+		if (($action = $this->updateConfiguration()) !== false) {
+			return $action;
 		}
 
 		# Liste des langues
@@ -119,8 +133,10 @@ class Languages extends Controller
 		{
 			$this->okt->languages->switchLangStatus($this->request->query->get('switch_status'));
 
-			$this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_languages'));
 		}
+
+		return false;
 	}
 
 	protected function enableLanguage()
@@ -131,8 +147,10 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_enabled'));
 
-			$this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_languages'));
 		}
+
+		return false;
 	}
 
 	protected function disableLanguage()
@@ -143,8 +161,10 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_disabled'));
 
-			$this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_languages'));
 		}
+
+		return false;
 	}
 
 	protected function deleteLanguage()
@@ -155,8 +175,10 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_deleted'));
 
-			$this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_languages'));
 		}
+
+		return false;
 	}
 
 	protected function addLanguage()
@@ -176,9 +198,11 @@ class Languages extends Controller
 
 				$this->page->flash->success(__('c_a_config_l10n_added'));
 
-				$this->redirect($this->generateUrl('config_languages'));
+				return $this->redirect($this->generateUrl('config_languages'));
 			}
 		}
+
+		return false;
 	}
 
 	protected function updateLanguage()
@@ -199,9 +223,11 @@ class Languages extends Controller
 
 				$this->page->flash->success(__('c_a_config_l10n_edited'));
 
-				$this->redirect($this->generateUrl('config_languages'));
+				return $this->redirect($this->generateUrl('config_languages'));
 			}
 		}
+
+		return false;
 	}
 
 	protected function updateLanguagesOrderByAjax()
@@ -223,6 +249,8 @@ class Languages extends Controller
 
 			exit();
 		}
+
+		return false;
 	}
 
 	protected function updateLanguagesOrderByPost()
@@ -247,9 +275,11 @@ class Languages extends Controller
 
 				$this->page->flash->success(__('c_a_config_l10n_neworder'));
 
-				$this->redirect($this->generateUrl('config_languages'));
+				return $this->redirect($this->generateUrl('config_languages'));
 			}
 		}
+
+		return false;
 	}
 
 	protected function updateConfiguration()
@@ -270,7 +300,7 @@ class Languages extends Controller
 
 					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					$this->redirect($this->generateUrl('config_languages'));
+					return $this->redirect($this->generateUrl('config_languages'));
 				}
 				catch (InvalidArgumentException $e)
 				{
@@ -279,5 +309,7 @@ class Languages extends Controller
 				}
 			}
 		}
+
+		return false;
 	}
 }

@@ -428,7 +428,7 @@ class Page
 			$options = array_merge($options, $user_options);
 		}
 
-		$this->js->addFile($this->okt->options->public_url.'/js/jquery/ui/i18n/jquery-ui-i18n.min.js');
+		$this->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\''.$this->okt->user->language.'\']); '.

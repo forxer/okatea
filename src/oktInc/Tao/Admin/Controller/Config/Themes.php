@@ -62,7 +62,7 @@ class Themes extends Controller
 		if ($this->request->query->has('init_filters'))
 		{
 			$this->oFilters->initFilters();
-			$this->redirect($this->generateUrl('config_themes'));
+			return $this->redirect($this->generateUrl('config_themes'));
 		}
 
 		# Suppression d'un thème
@@ -73,7 +73,7 @@ class Themes extends Controller
 			{
 				$this->okt->page->flash->success(__('c_a_themes_successfully_deleted'));
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 		}
 
@@ -97,7 +97,7 @@ class Themes extends Controller
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (InvalidArgumentException $e)
 			{
@@ -123,7 +123,7 @@ class Themes extends Controller
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (InvalidArgumentException $e)
 			{
@@ -149,7 +149,7 @@ class Themes extends Controller
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (InvalidArgumentException $e)
 			{
@@ -202,7 +202,7 @@ class Themes extends Controller
 		$sThemeId = $this->request->attributes->get('theme_id');
 
 		if (!isset($this->aInstalledThemes[$sThemeId])) {
-			$this->redirect($this->generateUrl('config_themes'));
+			return $this->redirect($this->generateUrl('config_themes'));
 		}
 
 		$aThemeInfos = $this->aInstalledThemes[$sThemeId];
@@ -242,7 +242,7 @@ class Themes extends Controller
 				file_put_contents($sDevNotesFilename, $_POST['notes_content']);
 			}
 
-			$this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
+			return $this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
 		}
 
 		# enregistrement definitions less
@@ -252,7 +252,7 @@ class Themes extends Controller
 				$oDefinitionsLessEditor->writeFileFromPost($sDefinitionsLessFilename);
 			}
 
-			$this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
+			return $this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
 		}
 
 		return $this->render('Config/Themes/Theme', array(
@@ -348,7 +348,7 @@ class Themes extends Controller
 					$this->okt->page->flash->success(__('c_a_themes_successfully_added'));
 				}
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());
@@ -363,7 +363,7 @@ class Themes extends Controller
 
 				$this->okt->page->flash->success(__('c_a_themes_bootstrap_success'));
 
-				$this->redirect($this->generateUrl('config_themes'));
+				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (Exception $e) {
 				$this->okt->error->set($e->getMessage());

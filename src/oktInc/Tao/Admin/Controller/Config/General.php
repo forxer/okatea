@@ -39,36 +39,36 @@ class General extends Controller
 		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSiteInit
 		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
 
-		$this->generalHandleRequest();
-
-		$this->companyHandleRequest();
-
-		$this->emailsHandleRequest();
-
-		$this->seoHandleRequest();
-
-		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
-		$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
-
-		if ($this->response->isRedirect()) {
-			return $this->response;
-		}
-
-		# save configuration
-		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
+		if ($this->request->request->has('form_sent'))
 		{
-			try
-			{
-				$this->okt->config->write($this->aPageData['values']);
+			$this->generalHandleRequest();
 
-				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+			$this->companyHandleRequest();
 
-				return $this->redirect($this->generateUrl('config_general'));
-			}
-			catch (InvalidArgumentException $e)
+			$this->emailsHandleRequest();
+
+			$this->seoHandleRequest();
+
+			# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
+			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
+
+			# save configuration
+			if ($this->okt->error->isEmpty())
 			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
+				try
+				{
+					$this->okt->config->write($this->aPageData['values']);
+
+					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+
+					return $this->redirect($this->generateUrl('config_general'));
+				}
+				catch (InvalidArgumentException $e)
+				{
+					$this->okt->error->set(__('c_c_error_writing_configuration'));
+					$this->okt->error->set($e->getMessage());
+				}
 			}
 		}
 
@@ -181,10 +181,6 @@ class General extends Controller
 
 	protected function generalHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$p_title = $this->request->request->get('p_title', array());
 
 		foreach ($p_title as $sLanguageCode=>$sTitle)
@@ -201,17 +197,13 @@ class General extends Controller
 		}
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-				'title' => $p_title,
-				'desc' => $this->request->request->get('p_desc', array())
+			'title' => $p_title,
+			'desc' => $this->request->request->get('p_desc', array())
 		));
 	}
 
 	protected function companyHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'company' 			 => array(
 				'name' 				=> $this->request->request->get('p_company_name'),
@@ -242,10 +234,6 @@ class General extends Controller
 
 	protected function emailsHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$p_email_to = $this->request->request->get('p_email_to');
 		if (empty($p_email_to)) {
 			$this->okt->error->set(__('c_a_config_please_enter_email_to'));
@@ -281,10 +269,6 @@ class General extends Controller
 
 	protected function seoHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'title_tag' 		 => $this->request->request->get('p_title_tag', array()),
 			'meta_description' 	 => $this->request->request->get('p_meta_description', array()),

@@ -20,7 +20,7 @@ trait ControllerResolverTrait
 	public function callController()
 	{
 		if (false !== ($callable = $this->getController($this->app->request))) {
-			call_user_func($callable);
+			return call_user_func($callable);
 		}
 		else {
 			return false;
@@ -94,8 +94,8 @@ trait ControllerResolverTrait
 			throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
 		}
 
-		$this->app->controller = new $class($this->app);
+		$this->app->controllerInstance = new $class($this->app);
 
-		return array($this->app->controller, $method);
+		return array($this->app->controllerInstance, $method);
 	}
 }

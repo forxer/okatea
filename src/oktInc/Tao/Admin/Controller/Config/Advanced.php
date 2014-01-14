@@ -39,36 +39,37 @@ class Advanced extends Controller
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigInit
 		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->aPageData);
 
-		$this->othersHandleRequest();
-
-		$this->pathUrlHandleRequest();
-
-		$this->repositoriesHandleRequest();
-
-		$this->updateHandleRequest();
-
-		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigHandleRequest
-		$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
-
-		if ($this->response->isRedirect()) {
-			return $this->response;
-		}
 
 		# save configuration
 		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
 		{
-			try
-			{
-				$this->okt->config->write($this->aPageData['values']);
+			$this->othersHandleRequest();
 
-				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+			$this->pathUrlHandleRequest();
 
-				return $this->redirect($this->generateUrl('config_advanced'));
-			}
-			catch (InvalidArgumentException $e)
+			$this->repositoriesHandleRequest();
+
+			$this->updateHandleRequest();
+
+			# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigHandleRequest
+			$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
+
+			# save configuration
+			if ($this->okt->error->isEmpty())
 			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
+				try
+				{
+					$this->okt->config->write($this->aPageData['values']);
+
+					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+					return $this->redirect($this->generateUrl('config_advanced'));
+				}
+				catch (InvalidArgumentException $e)
+				{
+					$this->okt->error->set(__('c_c_error_writing_configuration'));
+					$this->okt->error->set($e->getMessage());
+				}
 			}
 		}
 
@@ -173,10 +174,6 @@ class Advanced extends Controller
 
 	protected function othersHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'public_maintenance_mode' => $this->request->request->has('p_public_maintenance_mode'),
 			'admin_maintenance_mode' => $this->request->request->has('p_admin_maintenance_mode'),
@@ -203,10 +200,6 @@ class Advanced extends Controller
 
 	protected function pathUrlHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 				'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
 				'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
@@ -214,10 +207,6 @@ class Advanced extends Controller
 	}
 	protected function repositoriesHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'modules_repositories_enabled' => $this->request->request->has('p_modules_repositories_enabled'),
 			'modules_repositories' => array_filter(array_combine(
@@ -235,10 +224,6 @@ class Advanced extends Controller
 
 	protected function updateHandleRequest()
 	{
-		if (!$this->request->request->has('form_sent')) {
-			return null;
-		}
-
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'update_enabled' => $this->request->request->has('p_update_enabled'),
 			'update_url' => $this->request->request->get('p_update_url'),

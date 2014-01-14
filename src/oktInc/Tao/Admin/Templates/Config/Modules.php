@@ -107,7 +107,7 @@ $okt->page->loader('.lazy-load');
 					<?php if (file_exists($aModule['root'].'icon.png')) : ?>
 					<img src="<?php echo $okt->options->modules_url.'/'.$aModule['id'] ?>/icon.png" width="32" height="32" alt="" />
 					<?php else: ?>
-					<img src="<?php echo $okt->options->modules_url ?>/img/admin/module.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 					<?php endif; ?>
 				<?php if ($aModule['status']): ?>
 					</a>
@@ -243,7 +243,7 @@ $okt->page->loader('.lazy-load');
 				<?php if (file_exists($okt->options->get('modules_dir').'/'.$id.'/icon.png')) : ?>
 					<img src="<?php echo $okt->options->modules_url.'/'.$id.'/icon.png'; ?>" width="32" height="32" alt="" />
 				<?php else: ?>
-					<img src="<?php echo $okt->options->modules_url ?>/img/admin/module.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 				<?php endif; ?>
 			</td>
 			<td class="<?php echo $td_class; ?>">

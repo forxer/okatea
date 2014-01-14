@@ -34,82 +34,82 @@ class Modules extends Controller
 		$this->init();
 
 		# Affichage changelog
-		if ($showChangelog = $this->showChangelog() !== false) {
+		if (($showChangelog = $this->showChangelog()) !== false) {
 			return $showChangelog;
 		}
 
 		# Enable a module
-		if ($enableModule = $this->enableModule() !== false) {
+		if (($enableModule = $this->enableModule()) !== false) {
 			return $enableModule;
 		}
 
 		# Disable a module
-		if ($disableModule = $this->disableModule() !== false) {
+		if (($disableModule = $this->disableModule()) !== false) {
 			return $disableModule;
 		}
 
 		# Install a module
-		if ($installModule = $this->installModule() !== false) {
+		if (($installModule = $this->installModule()) !== false) {
 			return $installModule;
 		}
 
 		# Update a module
-		if ($updateModule = $this->updateModule() !== false) {
+		if (($updateModule = $this->updateModule()) !== false) {
 			return $updateModule;
 		}
 
 		# Uninstall a module
-		if ($uninstallModule = $this->uninstallModule() !== false) {
+		if (($uninstallModule = $this->uninstallModule()) !== false) {
 			return $uninstallModule;
 		}
 
 		# Re-install a module
-		if ($reinstallModule = $this->reinstallModule() !== false) {
+		if (($reinstallModule = $this->reinstallModule()) !== false) {
 			return $reinstallModule;
 		}
 
 		# Install test set of a module
-		if ($installTestSet = $this->installTestSet() !== false) {
+		if (($installTestSet = $this->installTestSet()) !== false) {
 			return $installTestSet;
 		}
 
 		# Install default data of a module
-		if ($installDefaultData = $this->installDefaultData() !== false) {
+		if (($installDefaultData = $this->installDefaultData()) !== false) {
 			return $installDefaultData;
 		}
 
 		# Remove content of a module
-		if ($removeModuleContent = $this->removeModuleContent() !== false) {
+		if (($removeModuleContent = $this->removeModuleContent()) !== false) {
 			return $removeModuleContent;
 		}
 
 		# Remove a module
-		if ($removeModule = $this->removeModule() !== false) {
+		if (($removeModule = $this->removeModule()) !== false) {
 			return $removeModule;
 		}
 
 		# Replace templates files of a module by its default ones
-		if ($replaceTemplatesFiles = $this->replaceTemplatesFiles() !== false) {
+		if (($replaceTemplatesFiles = $this->replaceTemplatesFiles()) !== false) {
 			return $replaceTemplatesFiles;
 		}
 
 		# Replace assets files of a module by its default ones
-		if ($replaceAssetsFiles = $this->replaceAssetsFiles() !== false) {
+		if (($replaceAssetsFiles = $this->replaceAssetsFiles()) !== false) {
 			return $replaceAssetsFiles;
 		}
 
 		# Package and send a module
-		if ($packageAndSendModule = $this->packageAndSendModule() !== false) {
+		if (($packageAndSendModule = $this->packageAndSendModule()) !== false) {
 			return $packageAndSendModule;
 		}
 
 		# Compare module files
-		if ($compareFiles = $this->compareFiles() !== false) {
+		if (($compareFiles = $this->compareFiles()) !== false) {
 			return $compareFiles;
 		}
 
 		# Add a module to the system
-		if ($moduleUpload = $this->moduleUpload() !== false) {
+		if (($moduleUpload = $this->moduleUpload()) !== false) {
 			return $moduleUpload;
 		}
 

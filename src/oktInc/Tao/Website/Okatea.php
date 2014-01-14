@@ -190,7 +190,9 @@ class Okatea extends Application
 		# -- CORE TRIGGER : publicBeforeCallController
 		$this->triggers->callTrigger('publicBeforeCallController');
 
-		if ($this->router->callController() === false)
+		$this->response = $this->router->callController();
+
+		if (null === $this->response || false === $this->response)
 		{
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);

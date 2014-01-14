@@ -69,6 +69,13 @@ class Application
 	public $config;
 
 	/**
+	 * Le controller invoqué.
+	 *
+	 * @var Tao\Core\Controller
+	 */
+	public $controllerInstance;
+
+	/**
 	 * Le gestionnaire de base de données.
 	 *
 	 * @var Tao\Database\MySqli
@@ -348,7 +355,7 @@ class Application
 	{
 		$this->request = Request::createFromGlobals();
 
-		$this->response = new Response();
+	//	$this->response = new Response();
 
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
