@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Database\Recordset;
 
 class ##module_camel_case_id##Recordset extends Recordset
@@ -68,7 +68,7 @@ class ##module_camel_case_id##Recordset extends Recordset
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
-					'type' => util::getMediaType($mime_type),
+					'type' => Utilities::getMediaType($mime_type),
 					'ext' => pathinfo($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);

@@ -426,7 +426,7 @@ if (!empty($aItemData['image'])) :
 	<?php endforeach; ?>
 
 	<p><a href="<?php echo $aItemData['image']['img_url']?>" rel="item_images"
-	title="<?php echo util::escapeAttrHTML($aItemData['locales'][$aLanguage['code']]['title']) ?>"
+	title="<?php echo $view->escapeHtmlAttr($aItemData['locales'][$aLanguage['code']]['title']) ?>"
 	class="modal"><img src="<?php echo $sCurImageUrl ?>" <?php echo $sCurImageAttr ?> alt="" /></a></p>
 
 	<p><a href="module.php?m=galleries&amp;action=gallery&amp;gallery_id=<?php echo $iGalleryId ?>&amp;delete_image=1"
@@ -445,7 +445,7 @@ if (!empty($aItemData['image'])) :
 
 <?php endif; ?>
 
-<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
+<p class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></p>
 
 <?php
 

@@ -89,7 +89,7 @@ if (!empty($_POST['sended']))
 		}
 	}
 
-	util::deleteOktCacheFiles();
+	Utilities::deleteOktCacheFiles();
 
 	http::redirect('index.php?step='.$okt->stepper->getNextStep());
 }

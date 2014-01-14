@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -384,7 +384,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				</div>
 			<?php endfor; ?>
 			</div>
-			<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
+			<p class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></p>
 		</div><!-- #tab_images -->
 		<?php endif; ?>
 
@@ -402,7 +402,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				if (!empty($aEventFiles[$i])) : ?>
 					<p><a href="<?php echo $aEventFiles[$i]['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$aEventFiles[$i]['type'].'.png' ?>" alt="<?php echo $aEventFiles[$i]['filename'] ?>" /></a>
 					<?php echo $aEventFiles[$i]['type'] ?> (<?php echo $aEventFiles[$i]['mime'] ?>)
-					- <?php echo util::l10nFileSize($aEventFiles[$i]['size']) ?></p>
+					- <?php echo Utilities::l10nFileSize($aEventFiles[$i]['size']) ?></p>
 
 					<p><a href="module.php?m=diary&amp;action=edit&amp;event_id=<?php
 					echo $iEventId ?>&amp;delete_file=<?php echo $i ?>"
@@ -412,7 +412,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				</div>
 			<?php endfor; ?>
 			</div>
-			<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
+			<p class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></p>
 		</div><!-- #tab_files -->
 		<?php endif; ?>
 

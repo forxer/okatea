@@ -8,8 +8,8 @@
  */
 
 
-$oktVersion = util::getVersion();
-$oktRevision = util::getRevision();
+$oktVersion = Utilities::getVersion();
+$oktRevision = Utilities::getRevision();
 
 ?><!DOCTYPE html>
 <html class="" lang="<?php echo $_SESSION['okt_install_language'] ?>">

@@ -7,7 +7,7 @@
 
 use Tao\Website\Controller;
 use Tao\Misc\Mailer;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Pager;
 
 class GuestbookController extends Controller

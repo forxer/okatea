@@ -6,7 +6,7 @@
  */
 
 use Tao\Website\Controller;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class DiaryController extends Controller
 {
@@ -165,7 +165,7 @@ class DiaryController extends Controller
 
 		# description
 		if (!$this->okt->diary->config->enable_rte) {
-			$rsEvent->description = util::nlToP($rsEvent->description);
+			$rsEvent->description = Utilities::nlToP($rsEvent->description);
 		}
 
 		# récupération des images

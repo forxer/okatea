@@ -27,7 +27,7 @@ if ($okt->galleries->config->meta_description != '') {
 	$okt->page->meta_description = $okt->galleries->config->meta_description;
 }
 else {
-	$okt->page->meta_description = util::getSiteMetaDesc();
+	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
 
@@ -36,7 +36,7 @@ if ($okt->galleries->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->galleries->config->meta_keywords;
 }
 else {
-	$okt->page->meta_keywords = util::getSiteMetaKeywords();
+	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }
 
 

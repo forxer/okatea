@@ -3,7 +3,7 @@
 
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Images\ImageUploadConfig;
 
@@ -59,9 +59,9 @@ if (!empty($_POST['form_sent']))
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '';
 
 	$p_public_list_url = !empty($_POST['p_public_list_url']) ? $_POST['p_public_list_url'] : '';
-	$p_public_list_url = util::formatAppPath($p_public_list_url,false,false);
+	$p_public_list_url = Utilities::formatAppPath($p_public_list_url,false,false);
 	$p_public_item_url = !empty($_POST['p_public_item_url']) ? $_POST['p_public_item_url'] : '';
-	$p_public_item_url = util::formatAppPath($p_public_item_url,false,false);
+	$p_public_item_url = Utilities::formatAppPath($p_public_item_url,false,false);
 
 	$p_public_list_file = !empty($_POST['p_public_list_file']) ? $_POST['p_public_list_file'] : '';
 	$p_public_item_file = !empty($_POST['p_public_item_file']) ? $_POST['p_public_item_file'] : '';

@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -337,7 +337,7 @@ include OKT_ADMIN_HEADER_FILE; ?>
 						<?php endif; ?>
 					</div>
 				</div>
-				<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
+				<p class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></p>
 			</div><!-- #tab-logo -->
 		<?php endif; ?>
 

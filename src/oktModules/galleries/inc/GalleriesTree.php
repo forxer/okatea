@@ -7,7 +7,7 @@
 
 use Tao\Images\ImageUpload;
 use Tao\Misc\NestedTreei18n;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class GalleriesTree extends NestedTreei18n
 {
@@ -287,7 +287,7 @@ class GalleriesTree extends NestedTreei18n
 
 		# contenu
 		if (!$this->okt->galleries->config->enable_gal_rte) {
-			$rs->content = util::nlToP($rs->content);
+			$rs->content = Utilities::nlToP($rs->content);
 		}
 
 		$rs->content = $this->okt->performCommonContentReplacements($rs->content);
@@ -382,7 +382,7 @@ class GalleriesTree extends NestedTreei18n
 			$sSlug = $rsGallery->slug;
 		}
 
-		$sSlug = util::strToSlug($sSlug, true);
+		$sSlug = Utilities::strToSlug($sSlug, true);
 
 		# Let's check if URL is taken…
 		$query =
@@ -409,7 +409,7 @@ class GalleriesTree extends NestedTreei18n
 				$a[] = $rsCurrentSlugs->slug;
 			}
 
-			$sSlug = util::getIncrementedString($a, $sSlug, '-');
+			$sSlug = Utilities::getIncrementedString($a, $sSlug, '-');
 		}
 
 		$query =

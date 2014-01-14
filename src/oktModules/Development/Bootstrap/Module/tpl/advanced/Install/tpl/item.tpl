@@ -20,7 +20,7 @@ $okt->page->applyLbl($okt->##module_id##->config->lightbox_type);
 
 
 <h1><?php # début Okatea : affichage du titre du site
-echo html::escapeHTML(util::getSiteTitle());
+echo html::escapeHTML(Utilities::getSiteTitle());
 # fin Okatea : affichage du titre du site ?></h1>
 
 
@@ -46,10 +46,10 @@ if ($okt->##module_id##->config->images['enable'] && !empty($rsItem->images)) : 
 		if ($i == 1 && isset($image['min_url'])) : ?>
 
 		<a href="<?php echo $image['img_url'] ?>"
-		title="<?php echo util::escapeAttrHTML($rsItem->title) ?>, image <?php echo $i ?>" class="modal center" rel="images">
+		title="<?php echo $view->escapeHtmlAttr($rsItem->title) ?>, image <?php echo $i ?>" class="modal center" rel="images">
 		<img src="<?php echo $image['min_url'] ?>"
 		<?php echo $image['min_attr'] ?>
-		alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $rsItem->title)) ?>" /></a>
+		alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $rsItem->title)) ?>" /></a>
 
 		<br />
 
@@ -57,10 +57,10 @@ if ($okt->##module_id##->config->images['enable'] && !empty($rsItem->images)) : 
 		elseif (isset($image['square_url'])) : ?>
 
 		<a href="<?php echo $image['img_url'] ?>"
-		title="<?php echo util::escapeAttrHTML($rsItem->title) ?>, image <?php echo $i ?>" class="modal" rel="images">
+		title="<?php echo $view->escapeHtmlAttr($rsItem->title) ?>, image <?php echo $i ?>" class="modal" rel="images">
 		<img src="<?php echo $image['square_url'] ?>"
 		<?php echo $image['square_attr'] ?>
-		alt="<?php echo util::escapeAttrHTML((isset($image['alt']) ? $image['alt'] : $rsItem->title)) ?>" /></a>
+		alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) ? $image['alt'] : $rsItem->title)) ?>" /></a>
 
 		<?php endif; ?>
 
@@ -86,7 +86,7 @@ if ($okt->##module_id##->config->files['enable']) : ?>
 
 	<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
 	<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
-	- <?php echo util::l10nFileSize($file['size']) ?></p>
+	- <?php echo Utilities::l10nFileSize($file['size']) ?></p>
 
 	<?php endforeach; # fin Okatea : boucle sur les fichiers ?>
 

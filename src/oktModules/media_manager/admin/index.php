@@ -9,7 +9,7 @@
 
 use Tao\Admin\Page;
 use Tao\Admin\Pager;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -134,7 +134,7 @@ if ($dir && !empty($_FILES['upfile']))
 {
 	try
 	{
-		util::uploadStatus($_FILES['upfile']);
+		Utilities::uploadStatus($_FILES['upfile']);
 
 		$f_title = (isset($_POST['upfiletitle']) ? $_POST['upfiletitle'] : '');
 		$f_private = (isset($_POST['upfilepriv']) ? $_POST['upfilepriv'] : false);
@@ -334,7 +334,7 @@ if ($core_media_writable)
 	'<div class="col"><h3 id="add-file">'.__('Add files').'</h3>'.
 	'<form id="media-upload" action="'.html::escapeURL($page_url).'" method="post" enctype="multipart/form-data">'.
 
-	'<div>'.form::hidden(array('MAX_FILE_SIZE'), util::getMaxUploadSizeNotice()).
+	'<div>'.form::hidden(array('MAX_FILE_SIZE'), Utilities::getMaxUploadSizeNotice()).
 	Page::formtoken().'</div>'.
 
 	'<fieldset id="add-file-f">'.
@@ -342,7 +342,7 @@ if ($core_media_writable)
 	'<p class="field"><label for="upfile">'.__('Choose a file:').'</label>'.
 	'<input type="file" name="upfile" id="upfile" size="20" /></p>'.
 
-	'<p class="note">'.util::getMaxUploadSizeNotice().'</p>'.
+	'<p class="note">'.Utilities::getMaxUploadSizeNotice().'</p>'.
 
 	'<p class="field"><label for="upfiletitle">'.__('Title:').'</label>'.
 	form::text('upfiletitle',35,255).'</p>'.
@@ -422,7 +422,7 @@ function mediaItemLine($f,$i)
 		$res .=
 		'<li>'.$f->media_title.'</li>'.
 		'<li>'.$f->media_dtstr.' - '.
-		util::l10nFileSize($f->size).' - '.
+		Utilities::l10nFileSize($f->size).' - '.
 		'<a href="'.$f->file_url.'">'.__('c_c_action_open').'</a>'.
 		'</li>';
 	}

@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -224,7 +224,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <h3><?php _e('m_estimate_details_comment') ?></h3>
 
-	<p><?php echo util::nlToP(html::escapeHTML($rsEstimate->content['comment'])) ?></p>
+	<p><?php echo Utilities::nlToP(html::escapeHTML($rsEstimate->content['comment'])) ?></p>
 
 
 <?php # Pied-de-page

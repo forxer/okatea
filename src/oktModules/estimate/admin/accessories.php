@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -130,23 +130,23 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<li>
 				<?php if ($rsAccessories->active) : ?>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>"
-				title="<?php printf(__('c_c_action_Hide_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+				title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($rsAccessories->title)) ?>"
 				class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;switch_status=<?php echo $rsAccessories->id ?>"
-				title="<?php printf(__('c_c_action_Display_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+				title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($rsAccessories->title)) ?>"
 				class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
 				<li>
 				<a href="module.php?m=estimate&amp;action=accessory&amp;accessory_id=<?php echo $rsAccessories->id ?>"
-				title="<?php printf(__('c_c_action_Edit_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+				title="<?php printf(__('c_c_action_Edit_%s'), $view->escapeHtmlAttr($rsAccessories->title)) ?>"
 				class="icon pencil"><?php _e('c_c_action_edit')?></a>
 				</li>
 				<li>
 				<a href="module.php?m=estimate&amp;action=accessories&amp;delete_accessory=<?php echo $rsAccessories->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('m_estimate_estimate_accessory_delete_confirm')) ?>')"
-				title="<?php printf(__('c_c_action_Delete_%s'), util::escapeAttrHTML($rsAccessories->title)) ?>"
+				title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsAccessories->title)) ?>"
 				class="icon delete"><?php _e('c_c_action_delete')?></a>
 				</li>
 			</ul>

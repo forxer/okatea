@@ -6,7 +6,7 @@
  */
 
 use Tao\Images\ImageUpload;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class GalleriesItems
 {
@@ -255,7 +255,7 @@ class GalleriesItems
 			'active' => $iActive
 		);
 
-		if (util::isInt($mItemId)) {
+		if (Utilities::isInt($mItemId)) {
 			$aParams['id'] = $mItemId;
 		}
 		else {
@@ -355,7 +355,7 @@ class GalleriesItems
 
 		# contenu
 		if (!$this->config->enable_rte) {
-			$rs->content = util::nlToP($rs->content);
+			$rs->content = Utilities::nlToP($rs->content);
 		}
 
 		$rs->content = $this->okt->performCommonContentReplacements($rs->content);
@@ -445,7 +445,7 @@ class GalleriesItems
 			$sUrl = $rsItem->slug;
 		}
 
-		$sUrl = util::strToSlug($sUrl, false);
+		$sUrl = Utilities::strToSlug($sUrl, false);
 
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select(
@@ -471,7 +471,7 @@ class GalleriesItems
 				$a[] = $rsCurrentSlugs->slug;
 			}
 
-			$sUrl = util::getIncrementedString($a, $sUrl, '-');
+			$sUrl = Utilities::getIncrementedString($a, $sUrl, '-');
 		}
 
 

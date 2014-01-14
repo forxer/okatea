@@ -8,7 +8,7 @@
 use Tao\Admin\Page;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Forms\Statics\SelectOption;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
@@ -588,7 +588,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				<?php endforeach; ?>
 
 				<p><a href="<?php echo $aGalleryData['image']['img_url']?>" rel="post_images"
-				title="<?php echo util::escapeAttrHTML($aGalleryData['locales'][$aLanguage['code']]['title']) ?>"
+				title="<?php echo $view->escapeHtmlAttr($aGalleryData['locales'][$aLanguage['code']]['title']) ?>"
 				class="modal"><img src="<?php echo $sCurImageUrl ?>" <?php echo $sCurImageAttr ?> alt="" /></a></p>
 
 				<p><a href="module.php?m=galleries&amp;action=gallery&amp;gallery_id=<?php echo $iGalleryId ?>&amp;delete_image=1"
@@ -607,7 +607,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<?php endif; ?>
 
-			<p class="note"><?php echo util::getMaxUploadSizeNotice() ?></p>
+			<p class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></p>
 
 		</div><!-- #tab_image -->
 

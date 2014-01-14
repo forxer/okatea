@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Controller;
 use Tao\Misc\Mailer;
 

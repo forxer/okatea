@@ -36,7 +36,7 @@ if (file_exists(OKT_CONFIG_PATH.'/conf_site.yaml.bak'))
 
 	$okt->config->write($aMergedConf);
 
-	util::deleteOktCacheFiles();
+	Utilities::deleteOktCacheFiles();
 
 	unlink(OKT_CONFIG_PATH.'/conf_site.yaml.bak');
 

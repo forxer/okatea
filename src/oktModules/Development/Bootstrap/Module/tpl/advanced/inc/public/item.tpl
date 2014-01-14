@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';
@@ -45,7 +45,7 @@ else if ($okt->##module_id##->config->meta_description != '') {
 	$okt->page->meta_description = $okt->##module_id##->config->meta_description;
 }
 else {
-	$okt->page->meta_description = util::getSiteMetaDesc();
+	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
 
@@ -57,13 +57,13 @@ else if ($okt->##module_id##->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->##module_id##->config->meta_keywords;
 }
 else {
-	$okt->page->meta_keywords = util::getSiteMetaKeywords();
+	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }
 
 
 # description
 if (!$okt->##module_id##->config->enable_rte) {
-	$rsItem->description = util::nlToP($rsItem->description);
+	$rsItem->description = Utilities::nlToP($rsItem->description);
 }
 
 

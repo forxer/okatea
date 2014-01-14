@@ -14,7 +14,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Themes\TemplatesSet;
 
@@ -89,7 +89,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 	$p_tpl_author = !empty($_POST['p_tpl_author']) ? $_POST['p_tpl_author'] : '';
 	$p_tpl_tags = !empty($_POST['p_tpl_tags']) ? $_POST['p_tpl_tags'] : '';
 
-	$p_tpl_id = util::strToLowerURL($p_tpl_id,false);
+	$p_tpl_id = Utilities::strToLowerURL($p_tpl_id,false);
 
 	$sTemplate = str_replace(
 		array(
@@ -116,7 +116,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 
 	if ($okt->error->isEmpty())
 	{
-		util::rcopy(dirname($sBasicTemplatePath), dirname($sTemplatePath));
+		Utilities::rcopy(dirname($sBasicTemplatePath), dirname($sTemplatePath));
 
 		file_put_contents(dirname($sTemplatePath).'/_define.php',
 			'<?php'."\n\n".

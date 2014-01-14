@@ -97,10 +97,10 @@ if (!empty($_POST['sended']))
 	$p_meta_keywords = !empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '';
 
 	$p_app_path = !empty($_POST['p_app_path']) ? $_POST['p_app_path'] : '/';
-	$p_app_path = util::formatAppPath($p_app_path);
+	$p_app_path = Utilities::formatAppPath($p_app_path);
 
 	$p_domain = !empty($_POST['p_domain']) ? $_POST['p_domain'] : '';
-	$p_domain = util::formatAppPath($p_domain,false,false);
+	$p_domain = Utilities::formatAppPath($p_domain,false,false);
 
 	if ($okt->error->isEmpty())
 	{

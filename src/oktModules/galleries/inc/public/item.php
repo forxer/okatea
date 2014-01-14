@@ -66,7 +66,7 @@ $okt->page->breadcrumb->add($rsItem->title,$rsItem->getItemUrl());
 $rsItem->image = $rsItem->getImagesInfo();
 
 if ($okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
-	$rsItem->legend = util::nlToP($rsItem->legend);
+	$rsItem->legend = Utilities::nlToP($rsItem->legend);
 }
 
 
@@ -78,7 +78,7 @@ else if ($okt->galleries->config->meta_description != '') {
 	$okt->page->meta_description = $okt->galleries->config->meta_description;
 }
 else {
-	$okt->page->meta_description = util::getSiteMetaDesc();
+	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
 
@@ -90,5 +90,5 @@ else if ($okt->galleries->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->galleries->config->meta_keywords;
 }
 else {
-	$okt->page->meta_keywords = util::getSiteMetaKeywords();
+	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }

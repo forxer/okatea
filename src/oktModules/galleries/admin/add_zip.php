@@ -57,7 +57,7 @@ if (!empty($_POST['sended']))
 			}
 		}
 
-		util::uploadStatus($_FILES['p_zip_file']);
+		Utilities::uploadStatus($_FILES['p_zip_file']);
 
 		if (empty($_FILES['p_zip_file']) || empty($_FILES['p_zip_file']['tmp_name'])) {
 			throw new Exception(__('m_galleries_zip_error_must_zip_file').' (no file)');
@@ -199,7 +199,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		<p class="field col"><label for="p_zip_file" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_galleries_zip_file') ?></label>
 		<?php echo form::file('p_zip_file') ?>
-		<span class="note"><?php echo util::getMaxUploadSizeNotice() ?></span></p>
+		<span class="note"><?php echo Utilities::getMaxUploadSizeNotice() ?></span></p>
 	</div>
 
 

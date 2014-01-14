@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Development\Bootstrap\Module;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class Module
 {
@@ -121,10 +121,10 @@ class Module
 	protected function initBuilding()
 	{
 		$this->id = $this->getId();
-		$this->urlId = util::strToLowerURL($this->name);
-		$this->urlIdFr = util::strToLowerURL($this->nameFr);
+		$this->urlId = Utilities::strToLowerURL($this->name);
+		$this->urlIdFr = Utilities::strToLowerURL($this->nameFr);
 		$this->upperId = strtoupper($this->id);
-		$this->camelCaseId = util::strToCamelCase($this->id);
+		$this->camelCaseId = Utilities::strToCamelCase($this->id);
 
 		$this->dir = $this->modules_dir.'/'.$this->id;
 
@@ -526,7 +526,7 @@ class Module
 
 	protected function getId()
 	{
-		$id = util::strToUnderscored($this->name);
+		$id = Utilities::strToUnderscored($this->name);
 
 		$id = preg_replace('/^([0-9_])*([a-zA-Z0-9_\x7f-\xff]+)$/', '$2', $id);
 

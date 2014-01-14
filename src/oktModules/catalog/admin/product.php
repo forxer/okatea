@@ -8,7 +8,7 @@
 use Tao\Admin\Page;
 use Tao\Database\MySqli;
 use Tao\Forms\Statics\FormElements as form;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 
 # Accès direct interdit
@@ -156,8 +156,8 @@ if (!empty($_POST['sended']))
 		'subtitle' => (!empty($_POST['p_subtitle']) ? $_POST['p_subtitle'] : ''),
 		'content' => (!empty($_POST['p_content']) ? $_POST['p_content'] : ''),
 		'content_short' => (!empty($_POST['p_content_short']) ? $_POST['p_content_short'] : ''),
-		'price' => (!empty($_POST['p_price']) ? util::sysNumber($_POST['p_price']) : null),
-		'price_promo' => (!empty($_POST['p_price_promo']) ? util::sysNumber($_POST['p_price_promo']) : null),
+		'price' => (!empty($_POST['p_price']) ? Utilities::sysNumber($_POST['p_price']) : null),
+		'price_promo' => (!empty($_POST['p_price_promo']) ? Utilities::sysNumber($_POST['p_price_promo']) : null),
 
 		# statut du product
 		'promo' => (!empty($_POST['p_promo']) ? intval($_POST['p_promo']) : null),
@@ -563,7 +563,7 @@ echo $okt->page->getButtonSet('catalogBtSt'); ?>
 
 					<p><a href="<?php echo $post_files[$i]['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$post_files[$i]['type'].'.png' ?>" alt="<?php echo html::escapeHTML($post_files[$i]['title']) ?>" /></a>
 					<?php echo $post_files[$i]['type'] ?> (<?php echo $post_files[$i]['mime'] ?>)
-					- <?php echo util::l10nFileSize($post_files[$i]['size']) ?></p>
+					- <?php echo Utilities::l10nFileSize($post_files[$i]['size']) ?></p>
 
 					<?php if ($can_edit_product) : ?>
 						<p><a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php

@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 
@@ -117,9 +117,9 @@ if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
 
-$aFieldChoices = util::getStatusFieldChoices();
+$aFieldChoices = Utilities::getStatusFieldChoices();
 
-$aLanguageFieldChoices = util::getStatusFieldChoices(false);
+$aLanguageFieldChoices = Utilities::getStatusFieldChoices(false);
 
 # En-tête
 include OKT_ADMIN_HEADER_FILE; ?>

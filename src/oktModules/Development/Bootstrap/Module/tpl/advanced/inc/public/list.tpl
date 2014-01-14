@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Pager;
 
 # inclusion du preprend public général
@@ -67,7 +67,7 @@ while ($rsItemsList->fetch())
 	$rsItemsList->url = $rsItemsList->getItemUrl();
 
 	if (!$okt->##module_id##->config->enable_rte) {
-		$rsItemsList->description = util::nlToP($rsItemsList->description);
+		$rsItemsList->description = Utilities::nlToP($rsItemsList->description);
 	}
 
 //	if ($okt->##module_id##->config->public_truncat_char > 0) {
@@ -82,7 +82,7 @@ if ($okt->##module_id##->config->meta_description != '') {
 	$okt->page->meta_description = $okt->##module_id##->config->meta_description;
 }
 else {
-	$okt->page->meta_description = util::getSiteMetaDesc();
+	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
 
@@ -91,7 +91,7 @@ if ($okt->##module_id##->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->##module_id##->config->meta_keywords;
 }
 else {
-	$okt->page->meta_keywords = util::getSiteMetaKeywords();
+	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }
 
 

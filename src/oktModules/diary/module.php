@@ -10,7 +10,7 @@ use Tao\Admin\Page;
 use Tao\Database\MySqli;
 use Tao\Images\ImageUpload;
 use Tao\Misc\FileUpload;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -943,7 +943,7 @@ class module_diary extends Module
 			$url = $title;
 		}
 
-		$url = util::strToSlug($url, false);
+		$url = Utilities::strToSlug($url, false);
 
 		# Let's check if URL is taken
 		$query =
@@ -968,7 +968,7 @@ class module_diary extends Module
 				$a[] = $rs->slug;
 			}
 
-			$url = util::getIncrementedString($a, $url, '-');
+			$url = Utilities::getIncrementedString($a, $url, '-');
 		}
 
 		# URL is empty?

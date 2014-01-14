@@ -301,7 +301,7 @@ class Themes extends Controller
 			{
 				if (!empty($_POST['upload_pkg']))
 				{
-					util::uploadStatus($_FILES['pkg_file']);
+					Utilities::uploadStatus($_FILES['pkg_file']);
 
 					$dest = $this->okt->options->get('themes_dir').'/'.$_FILES['pkg_file']['name'];
 					if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {

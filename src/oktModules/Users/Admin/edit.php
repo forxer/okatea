@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Core\Authentification;
 use Tao\Misc\Mailer;
@@ -126,7 +126,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 		$oMail->setFrom();
 
 		$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/validate_user.tpl', array(
-			'SITE_TITLE' => util::getSiteTitle($edit_language),
+			'SITE_TITLE' => Utilities::getSiteTitle($edit_language),
 			'SITE_URL' => $okt->request->getSchemeAndHttpHost().$okt->config->app_path
 		));
 
@@ -159,7 +159,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 			$oMail->setFrom();
 
 			$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/admin_change_user_password.tpl', array(
-				'SITE_TITLE' => util::getSiteTitle($edit_language),
+				'SITE_TITLE' => Utilities::getSiteTitle($edit_language),
 				'SITE_URL' => $okt->request->getSchemeAndHttpHost().$okt->config->app_path,
 				'NEW_PASSWORD' => $upd_params['password']
 			));

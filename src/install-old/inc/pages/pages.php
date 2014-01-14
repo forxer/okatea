@@ -97,7 +97,7 @@ if (!empty($_POST['sended']))
 					array(
 						'fr' => array(
 							'title' => $aPageInfos['title'],
-							'content' => !empty($aPageInfos['content']) ? util::nlToP($aPageInfos['content']) : __('i_pages_first_default_content')
+							'content' => !empty($aPageInfos['content']) ? Utilities::nlToP($aPageInfos['content']) : __('i_pages_first_default_content')
 						)
 					),
 					array()
@@ -106,7 +106,7 @@ if (!empty($_POST['sended']))
 				if ($iPageHome == $i)
 				{
 					$iPageHome = $iNewId;
-					$iPageHomeSlug = util::strToSlug($aPageInfos['title']);
+					$iPageHomeSlug = Utilities::strToSlug($aPageInfos['title']);
 				}
 			}
 		}

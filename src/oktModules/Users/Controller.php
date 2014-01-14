@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Users;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Core\Authentification;
 use Tao\Website\Controller as BaseController;
 use Tao\Misc\Mailer;

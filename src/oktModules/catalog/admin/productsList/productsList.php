@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -147,10 +147,10 @@ elseif ($display_style == 'list') : ?>
 
 		<td class="<?php echo $td_class ?>">
 			<?php if ($okt->catalog->config->fields['promo'] && $list->is_promo && $list->price_promo > 0) : ?>
-				<del><?php echo util::formatNumber($list->price) ?>&nbsp;€</del><br />
-				<?php echo util::formatNumber($list->price_promo) ?>&nbsp;€
+				<del><?php echo Utilities::formatNumber($list->price) ?>&nbsp;€</del><br />
+				<?php echo Utilities::formatNumber($list->price_promo) ?>&nbsp;€
 			<?php elseif ($list->price > 0)  : ?>
-				<?php echo $list->price ? util::formatNumber($list->price).'&nbsp;€' : ''; ?>
+				<?php echo $list->price ? Utilities::formatNumber($list->price).'&nbsp;€' : ''; ?>
 			<?php endif; ?>
 		</td>
 

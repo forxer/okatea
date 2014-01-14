@@ -8,7 +8,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -56,7 +56,7 @@ if ($file && !empty($_FILES['upfile']) && $file->editable && $core_media_writabl
 {
 	try
 	{
-		util::uploadStatus($_FILES['upfile']);
+		Utilities::uploadStatus($_FILES['upfile']);
 
 		$okt->media->uploadFile($_FILES['upfile']['tmp_name'], $file->basename, null, false, true);
 
@@ -468,7 +468,7 @@ echo
 '<ul>'.
 	'<li><strong>'.__('File owner:').'</strong> '.$file->media_user.'</li>'.
 	'<li><strong>'.__('File type:').'</strong> '.$file->type.'</li>'.
-	'<li><strong>'.__('File size:').'</strong> '.util::l10nFileSize($file->size).'</li>'.
+	'<li><strong>'.__('File size:').'</strong> '.Utilities::l10nFileSize($file->size).'</li>'.
 	'<li><strong>'.__('File URL:').'</strong> <a href="'.$file->file_url.'">'.$file->file_url.'</a></li>'.
 '</ul>';
 
@@ -557,10 +557,10 @@ if ($file->editable && $core_media_writable)
 	echo
 	'<form class="clear" action="'.html::escapeURL($page_url).'" method="post" enctype="multipart/form-data">'.
 	'<fieldset><legend>'.__('Change file').'</legend>'.
-	'<div>'.form::hidden(array('MAX_FILE_SIZE'), util::getMaxUploadSizeNotice()).'</div>'.
+	'<div>'.form::hidden(array('MAX_FILE_SIZE'), Utilities::getMaxUploadSizeNotice()).'</div>'.
 	'<p class="field"><label for="upfile">'.__('Choose a file:').'</label>'.
 	'<input type="file" id="upfile" name="upfile" size="35" /></p>'.
-	'<p class="note">'.util::getMaxUploadSizeNotice().'</p>'.
+	'<p class="note">'.Utilities::getMaxUploadSizeNotice().'</p>'.
 	'<p><input type="submit" value="'.__('c_c_action_send').'" />'.
 	form::hidden(array('id'),$id).
 	Page::formtoken().'</p>'.

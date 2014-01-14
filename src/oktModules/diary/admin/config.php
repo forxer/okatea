@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Images\ImageUploadConfig;
 
@@ -115,7 +115,7 @@ if (!empty($_POST['form_sent']))
 ----------------------------------------------------------*/
 
 
-$aFieldChoices = util::getStatusFieldChoices();
+$aFieldChoices = Utilities::getStatusFieldChoices();
 
 
 # Titre de la page

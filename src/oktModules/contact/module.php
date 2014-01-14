@@ -7,7 +7,7 @@
 
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
@@ -832,7 +832,7 @@ class module_contact extends Module
 			$html_id = $title;
 		}
 
-		$html_id = util::strToUnderscored($html_id,false);
+		$html_id = Utilities::strToUnderscored($html_id,false);
 
 		# Let's check if URL is taken…
 		$query =
@@ -857,7 +857,7 @@ class module_contact extends Module
 				$a[] = $rs->html_id;
 			}
 
-			$html_id = util::getIncrementedString($a, $html_id, '-');
+			$html_id = Utilities::getIncrementedString($a, $html_id, '-');
 		}
 
 		# URL is empty?

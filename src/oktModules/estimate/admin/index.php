@@ -7,7 +7,7 @@
 
 use Tao\Admin\Page;
 use Tao\Admin\Pager;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -312,12 +312,12 @@ if (!$rsEstimates->isEmpty()) : ?>
 					<?php endif; ?>
 					</li>
 					<li><a href="module.php?m=estimate&amp;action=details&amp;estimate_id=<?php echo $rsEstimates->id ?>"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_estimate_list_show_%s'), $rsEstimates->id)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_estimate_list_show_%s'), $rsEstimates->id)) ?>"
 					class="icon table"><?php _e('m_estimate_list_show_details') ?></a></li>
 
 					<li><a href="module.php?m=estimate&amp;action=delete&amp;estimate_id=<?php echo $rsEstimates->id ?>"
 					onclick="return window.confirm('<?php echo html::escapeJS(__('m_estimate_list_delete_confirm')) ?>')"
-					title="<?php echo util::escapeAttrHTML(sprintf(__('m_estimate_list_delete_%s'), $rsEstimates->id)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_estimate_list_delete_%s'), $rsEstimates->id)) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				</ul>
 			</td>

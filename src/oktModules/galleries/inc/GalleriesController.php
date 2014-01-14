@@ -226,7 +226,7 @@ class GalleriesController extends Controller
 		$this->page->action = 'item';
 
 		if (empty($this->okt->galleries->config->enable_rte) && !empty($this->rsItem->legend)) {
-			$this->rsItem->legend = util::nlToP($this->rsItem->legend);
+			$this->rsItem->legend = Utilities::nlToP($this->rsItem->legend);
 		}
 
 		# title tag

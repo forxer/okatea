@@ -2,7 +2,7 @@
 ##header##
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -27,7 +27,7 @@ if (!empty($_POST['form_sent']))
 	$p_public_url = !empty($_POST['p_public_url']) && is_array($_POST['p_public_url']) ? $_POST['p_public_url'] : array();
 
 	foreach ($p_public_url as $lang=>$url) {
-		$p_public_url[$lang] = util::formatAppPath($url,false,false);
+		$p_public_url[$lang] = Utilities::formatAppPath($url,false,false);
 	}
 
 	if ($okt->error->isEmpty())

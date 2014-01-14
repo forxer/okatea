@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
@@ -366,7 +366,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 				?>" alt="<?php echo $files_infos[$aLanguage['code']][$i]['type'] ?>" />
 				<?php echo $files_infos[$aLanguage['code']][$i]['filename'] ?>
 				- <?php echo $files_infos[$aLanguage['code']][$i]['type'] ?> (<?php echo $files_infos[$aLanguage['code']][$i]['mime'] ?>)
-				- <?php echo util::l10nFileSize($files_infos[$aLanguage['code']][$i]['size']) ?>
+				- <?php echo Utilities::l10nFileSize($files_infos[$aLanguage['code']][$i]['size']) ?>
 				- <a href="module.php?m=faq&amp;action=edit&amp;questions_id=<?php echo $questions_id ?>&amp;delfile=<?php echo $files_infos[$aLanguage['code']][$i]['filename'] ?>"><?php _e('c_c_action_delete')?></a>
 				</p>
 				<?php endif; ?>

@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Users;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class CustomFields
 {
@@ -470,7 +470,7 @@ class CustomFields
 			$html_id = $title;
 		}
 
-		$html_id = util::strToUnderscored($html_id,false);
+		$html_id = Utilities::strToUnderscored($html_id,false);
 
 		# Let's check if URL is taken…
 		$query =
@@ -495,7 +495,7 @@ class CustomFields
 				$a[] = $rs->html_id;
 			}
 
-			$html_id = util::getIncrementedString($a, $html_id, '-');
+			$html_id = Utilities::getIncrementedString($a, $html_id, '-');
 		}
 
 		# URL is empty?

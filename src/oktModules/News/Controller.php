@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\News;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Controller as BaseController;
 use Tao\Website\Pager;
 
@@ -182,7 +182,7 @@ class Controller extends BaseController
 
 		# formatage description rubrique
 		if (!$this->okt->News->config->categories['rte']) {
-			$this->rsCategory->content = util::nlToP($this->rsCategory->content);
+			$this->rsCategory->content = Utilities::nlToP($this->rsCategory->content);
 		}
 
 		# initialisation paramètres

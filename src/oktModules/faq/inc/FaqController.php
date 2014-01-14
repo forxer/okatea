@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Controller;
 use Tao\Website\Pager;
 
@@ -64,7 +64,7 @@ class FaqController extends Controller
 			$this->rsQuestionsList->url = $this->rsQuestionsList->getQuestionUrl();
 
 			if (!$this->okt->faq->config->enable_rte) {
-				$this->rsQuestionsList->content = util::nlToP($this->rsQuestionsList->content);
+				$this->rsQuestionsList->content = Utilities::nlToP($this->rsQuestionsList->content);
 			}
 
 			if ($this->okt->faq->config->public_truncat_char > 0 )
@@ -142,7 +142,7 @@ class FaqController extends Controller
 		$this->rsQuestion->url = $this->rsQuestion->getQuestionUrl();
 
 		if (!$this->okt->faq->config->enable_rte) {
-			$this->rsQuestion->content = util::nlToP($this->rsQuestion->content);
+			$this->rsQuestion->content = Utilities::nlToP($this->rsQuestion->content);
 		}
 
 		# meta description

@@ -1,5 +1,7 @@
 <?php
 
+use Tao\Misc\Utilities;
+
 # récupération des erreurs du core
 if ($okt->error->notEmpty())
 {
@@ -85,8 +87,13 @@ $aFooterContent = new ArrayObject;
 
 $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
 
-if ($okt->options->get('debug')) {
-	$aFooterContent[20] = $okt->getVersion();
+if ($okt->options->get('debug'))
+{
+	$aFooterContent[20] =
+		' - version '.$okt->getVersion().' - '.
+		Utilities::getExecutionTime().' s - '.
+		Utilities::l10nFileSize(memory_get_usage()).
+		' ('.Utilities::l10nFileSize(memory_get_peak_usage()).')';
 }
 
 # -- CORE TRIGGER : adminFooterContent
@@ -106,7 +113,6 @@ $aFooterContent = array_filter((array)$aFooterContent);
 	<?php echo implode('&nbsp;', $aFooterContent) ?></p>
 </footer>
 </div><!-- #page -->
-
 
 <?php echo $okt->page->js ?>
 

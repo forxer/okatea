@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Development;
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 
 class DebugBar
 {
@@ -220,9 +220,9 @@ class DebugBar
 
 		if ($this->aConfig['tabs']['tools'])
 		{
-			$this->aDebugBarData['execTime'] = util::getExecutionTime();
-			$this->aDebugBarData['memUsage'] = util::l10nFileSize(memory_get_usage());
-			$this->aDebugBarData['peakUsage'] = util::l10nFileSize(memory_get_peak_usage());
+			$this->aDebugBarData['execTime'] = Utilities::getExecutionTime();
+			$this->aDebugBarData['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
+			$this->aDebugBarData['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 		}
 
 		$aRequestAttributes = $this->okt->request->attributes->all();

@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Database\Recordset;
 
 class FaqRecordset extends Recordset
@@ -82,7 +82,7 @@ class FaqRecordset extends Recordset
 						'path' => $path,
 						'url' => $url,
 						'mime' => $mime_type,
-						'type' => util::getMediaType($mime_type),
+						'type' => Utilities::getMediaType($mime_type),
 						'ext' => pathinfo($path,PATHINFO_EXTENSION)
 					)
 				);

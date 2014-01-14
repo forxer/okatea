@@ -2,7 +2,7 @@
 ##header##
 
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Controller;
 
 class ##module_camel_case_id##Controller extends Controller
@@ -18,7 +18,7 @@ class ##module_camel_case_id##Controller extends Controller
 			$this->okt->page->meta_description = $this->okt->##module_id##->config->meta_description[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_description = util::getSiteMetaDesc();
+			$this->okt->page->meta_description = Utilities::getSiteMetaDesc();
 		}
 
 		# meta keywords
@@ -26,7 +26,7 @@ class ##module_camel_case_id##Controller extends Controller
 			$this->okt->page->meta_keywords = $this->okt->##module_id##->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
-			$this->okt->page->meta_keywords = util::getSiteMetaKeywords();
+			$this->okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 		}
 
 		# title tag du module

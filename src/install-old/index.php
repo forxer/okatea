@@ -55,7 +55,7 @@ date_default_timezone_set('Europe/Paris');
  * register_globals est activé et inversion de
  * l'effet des magic_quotes
  */
-util::trimRequest();
+Utilities::trimRequest();
 try {
 	http::unsetGlobals();
 }

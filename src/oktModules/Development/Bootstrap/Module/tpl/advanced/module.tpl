@@ -3,7 +3,7 @@
 
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Images\ImageUpload;
 use Tao\Misc\FileUpload;
@@ -818,7 +818,7 @@ class module_##module_id## extends Module
 			$url = $title;
 		}
 
-		$url = util::strToSlug($url, false);
+		$url = Utilities::strToSlug($url, false);
 
 		# Let's check if URL is taken
 		$query =
@@ -843,7 +843,7 @@ class module_##module_id## extends Module
 				$a[] = $rs->slug;
 			}
 
-			$url = util::getIncrementedString($a, $url, '-');
+			$url = Utilities::getIncrementedString($a, $url, '-');
 		}
 
 		# URL is empty?

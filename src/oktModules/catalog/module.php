@@ -6,7 +6,7 @@
  */
 
 use Tao\Admin\Page;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Admin\Menu as AdminMenu;
@@ -641,7 +641,7 @@ class module_catalog extends Module
 			$url = $title;
 		}
 
-		$url = util::strToSlug($url, false);
+		$url = Utilities::strToSlug($url, false);
 
 		# Let's check if URL is taken…
 		$query =
@@ -666,7 +666,7 @@ class module_catalog extends Module
 				$a[] = $rs->slug;
 			}
 
-			$url = util::getIncrementedString($a, $url, '-');
+			$url = Utilities::getIncrementedString($a, $url, '-');
 		}
 
 		# URL is empty?

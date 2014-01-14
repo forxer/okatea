@@ -6,7 +6,7 @@
  */
 
 use Tao\Website\Controller;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Website\Pager;
 
 class CatalogController extends Controller
@@ -64,7 +64,7 @@ class CatalogController extends Controller
 			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$this->rsProductsList->content = util::nlToP($this->rsProductsList->content);
+				$this->rsProductsList->content = Utilities::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
@@ -199,7 +199,7 @@ class CatalogController extends Controller
 			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$this->rsProductsList->content = util::nlToP($this->rsProductsList->content);
+				$this->rsProductsList->content = Utilities::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
@@ -305,7 +305,7 @@ class CatalogController extends Controller
 		$this->rsProduct->url = $this->rsProduct->getProductUrl();
 
 		if (!$this->okt->catalog->config->rte_enable) {
-			$this->rsProduct->content = util::nlToP($this->rsProduct->content);
+			$this->rsProduct->content = Utilities::nlToP($this->rsProduct->content);
 		}
 
 		$this->rsProduct->category_url = $this->rsProduct->getCategoryUrl();

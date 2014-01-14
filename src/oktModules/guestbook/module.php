@@ -8,7 +8,7 @@
 use Tao\Admin\Menu as AdminMenu;
 use Tao\Admin\Page;
 use Tao\Database\MySqli;
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
@@ -200,7 +200,7 @@ class module_guestbook extends Module
 	public function handleUserData($data)
 	{
 		# champ message (est un champs requis)
-		$data['message'] = util::linebreaks(html::clean($data['message']));
+		$data['message'] = Utilities::linebreaks(html::clean($data['message']));
 
 		if (empty($data['message'])) {
 			$this->error->set(__('m_guestbook_must_message'));

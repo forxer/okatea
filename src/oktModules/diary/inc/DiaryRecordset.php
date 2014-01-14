@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Misc\Utilities as util;
+use Tao\Misc\Utilities;
 use Tao\Database\Recordset;
 
 class DiaryRecordset extends Recordset
@@ -73,7 +73,7 @@ class DiaryRecordset extends Recordset
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
-					'type' => util::getMediaType($mime_type),
+					'type' => Utilities::getMediaType($mime_type),
 					'ext' => pathinfo($this->okt->diary->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);

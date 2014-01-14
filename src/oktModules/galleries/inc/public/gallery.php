@@ -25,7 +25,7 @@ if ($rsGallery->isEmpty()) {
 
 # formatage description
 if (!$okt->galleries->config->enable_gal_rte && !empty($rsGallery->description)) {
-	$rsGallery->description = util::nlToP($rsGallery->description);
+	$rsGallery->description = Utilities::nlToP($rsGallery->description);
 }
 
 
@@ -90,7 +90,7 @@ if ($okt->galleries->config->meta_description != '') {
 	$okt->page->meta_description = $okt->galleries->config->meta_description;
 }
 else {
-	$okt->page->meta_description = util::getSiteMetaDesc();
+	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
 
@@ -99,7 +99,7 @@ if ($okt->galleries->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->galleries->config->meta_keywords;
 }
 else {
-	$okt->page->meta_keywords = util::getSiteMetaKeywords();
+	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }
 
 
