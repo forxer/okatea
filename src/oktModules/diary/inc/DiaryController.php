@@ -96,7 +96,7 @@ class DiaryController extends Controller
 		}
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 		}
 
@@ -178,7 +178,7 @@ class DiaryController extends Controller
 		$this->page->addTitleTag($this->okt->diary->getTitle());
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 

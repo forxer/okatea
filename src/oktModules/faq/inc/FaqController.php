@@ -76,7 +76,7 @@ class FaqController extends Controller
 		unset($count_line);
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 		}
 
@@ -186,7 +186,7 @@ class FaqController extends Controller
 		$this->page->setTitleSeo(!empty($this->rsQuestion->title_seo) ? $this->rsQuestion->title_seo : $this->rsQuestion->title);
 
 		# fil d'ariane du post
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 

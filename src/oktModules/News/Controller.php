@@ -32,7 +32,7 @@ class Controller extends BaseController
 		}
 
 		# is default route ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__);
+		$bIsHomePageRoute = $this->isHomePageRoute();
 
 		# initialisation paramètres
 		$aNewsParams = array(
@@ -91,7 +91,7 @@ class Controller extends BaseController
 		}
 
 		# fil d'ariane
-		if (!$bIsDefaultRoute) {
+		if (!$bIsHomePageRoute) {
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
@@ -178,7 +178,7 @@ class Controller extends BaseController
 		}
 
 		# is default route ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug);
+		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $sCategorySlug);
 
 		# formatage description rubrique
 		if (!$this->okt->News->config->categories['rte']) {
@@ -251,7 +251,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# fil d'ariane
-		if (!$bIsDefaultRoute)
+		if (!$bIsHomePageRoute)
 		{
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 
@@ -298,7 +298,7 @@ class Controller extends BaseController
 		}
 
 		# is default route ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $sPostSlug);
+		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $sPostSlug);
 
 		# permission de lecture ?
 		if (!$this->okt->News->isPublicAccessible() || !$this->rsPost->isReadable())
@@ -337,7 +337,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag($this->okt->News->getTitle());
 
 		# début du fil d'ariane
-		if (!$bIsDefaultRoute) {
+		if (!$bIsHomePageRoute) {
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
@@ -348,7 +348,7 @@ class Controller extends BaseController
 			$this->page->addTitleTag($this->rsPost->category_title);
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			if (!$bIsDefaultRoute)
+			if (!$bIsHomePageRoute)
 			{
 				$rsPath = $this->okt->News->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
 				while ($rsPath->fetch()) {
@@ -367,7 +367,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($this->rsPost->title_seo);
 
 		# fil d'ariane de la page
-		if (!$bIsDefaultRoute) {
+		if (!$bIsHomePageRoute) {
 			$this->page->breadcrumb->add($this->rsPost->title, $this->rsPost->url);
 		}
 

@@ -160,7 +160,7 @@ class ContactController extends Controller
 		$this->page->addTitleTag($this->okt->contact->getTitle());
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->contact->getName(), ContactHelpers::getContactUrl());
 		}
 
@@ -236,7 +236,7 @@ class ContactController extends Controller
 		$this->page->setTitleSeo($sNameSeo);
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($sName, ContactHelpers::getContactMapUrl());
 		}
 

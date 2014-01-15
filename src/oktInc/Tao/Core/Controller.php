@@ -38,12 +38,6 @@ class Controller
 		$this->request =& $okt->request;
 		$this->session =& $okt->session;
 		$this->page =& $okt->page;
-
-		// TODO : idéalement il faudrait faire des redirections vers la page demandée dans la langue demandée
-		//$this->sRequestedLanguage = $this->setUserRequestLanguage();
-	//	if ($this->setUserRequestLanguage()) {
-	//		\http::redirect($this->okt->page->getBaseUrl());
-	//	}
 	}
 
 	public function getRequestedLanguage()
@@ -56,7 +50,6 @@ class Controller
 	 * et retourne la langue définie. Retourne false si pas de changement.
 	 *
 	 * @return string/boolean
-	 */
 	protected function setUserRequestLanguage()
 	{
 		static $sRequestedLanguage = null;
@@ -88,32 +81,7 @@ class Controller
 
 		return $sRequestedLanguage;
 	}
-
-	/**
-	 * Indique si les arguments représentent la route par défaut.
-	 *
-	 * @param string $sClass
-	 * @param string $sMethod
-	 * @param string $sArgs
-	 * @return boolean
 	 */
-	public function isDefaultRoute($sClass, $sMethod, $sArgs=null)
-	{
-		$bClass = $this->okt->config->default_route['class'] == $sClass;
-		$bMethod = $this->okt->config->default_route['method'] == $sMethod;
-
-		$bArgs = true;
-
-		if (!is_null($sArgs)) {
-			$bArgs = $this->okt->config->default_route['args'] == $sArgs;
-		}
-
-		if ($bClass && $bMethod && $bArgs) {
-			return true;
-		}
-
-		return false;
-	}
 
 	/**
 	 * Returns a RedirectResponse to the given URL.

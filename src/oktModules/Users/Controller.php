@@ -67,7 +67,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_login'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add(__('c_c_auth_login'), UsersHelpers::getLoginUrl());
 		}
 
@@ -124,7 +124,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_register'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add(__('c_c_auth_register'), UsersHelpers::getRegisterUrl());
 		}
 
@@ -172,7 +172,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
 		}
 
@@ -237,7 +237,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_request_password'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add(__('c_c_auth_request_password'), UsersHelpers::getForgetPasswordUrl());
 		}
 
@@ -419,7 +419,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_user_profile'));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add(__('c_c_user_profile'), UsersHelpers::getProfileUrl());
 		}
 

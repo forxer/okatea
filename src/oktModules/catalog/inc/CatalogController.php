@@ -93,7 +93,7 @@ class CatalogController extends Controller
 		}
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 		}
 
@@ -154,7 +154,7 @@ class CatalogController extends Controller
 		}
 
 		# route par défaut ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
+		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug);
 
 		# initialisation des paramètres
 		$aProductsParams = array(
@@ -236,7 +236,7 @@ class CatalogController extends Controller
 		$this->page->addTitleTag($this->okt->catalog->getTitle());
 
 		# fil d'ariane
-		if (!$bIsDefaultRoute)
+		if (!$bIsHomePageRoute)
 		{
 			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 
@@ -295,7 +295,7 @@ class CatalogController extends Controller
 		}
 
 		# route par défaut ?
-		$bIsDefaultRoute = $this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug);
+		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug);
 
 		# Formatage des données
 		if ($this->rsProduct->title_tag == '') {
@@ -355,7 +355,7 @@ class CatalogController extends Controller
 		$this->page->setTitleSeo($this->rsProduct->title);
 
 		# fil d'ariane
-		if (!$bIsDefaultRoute)
+		if (!$bIsHomePageRoute)
 		{
 			$this->page->breadcrumb->add($this->okt->catalog->getName(), CatalogHelpers::getCatalogUrl());
 

@@ -152,7 +152,7 @@ class EstimateController extends Controller
 		$this->page->addTitleTag($this->okt->estimate->getTitle());
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->estimate->getName(), EstimateHelpers::getFormUrl());
 		}
 
@@ -360,7 +360,7 @@ class EstimateController extends Controller
 		$this->page->addTitleTag($this->okt->estimate->getTitle());
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->estimate->getName(), EstimateHelpers::getFormUrl());
 		}
 

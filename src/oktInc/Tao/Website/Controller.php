@@ -41,6 +41,16 @@ class Controller extends BaseController
 		return $this->okt->router->generate($route, $parameters, $language = null, $referenceType);
 	}
 
+	/**
+	 * Indique si le controlleur est appelé par la route de la page d'accueil.
+	 *
+	 * @return boolean
+	 */
+	public function isHomePageRoute()
+	{
+		return substr($this->request->attributes->get('_route'), 0, 8) === 'homePage';
+	}
+
 	public function serve401()
 	{
 		return parent::serve401();

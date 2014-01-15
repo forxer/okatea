@@ -170,7 +170,7 @@ class GuestbookController extends Controller
 		$this->page->setTitleSeo($this->okt->guestbook->getNameSeo());
 
 		# fil d'ariane de la page
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->guestbook->getName(), GuestbookHelpers::getGuestbookUrl());
 		}
 

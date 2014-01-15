@@ -239,7 +239,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
 		{
 			$rsPath = $this->okt->Pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 
@@ -339,7 +339,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($this->rsPage->title_seo);
 
 		# fil d'ariane de la page
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $sPageSlug)) {
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $sPageSlug)) {
 			$this->page->breadcrumb->add($this->rsPage->title, $this->rsPage->url);
 		}
 

@@ -46,7 +46,7 @@ class GalleriesController extends Controller
 		}
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__))
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 		}
@@ -174,7 +174,7 @@ class GalleriesController extends Controller
 		$this->page->addTitleTag((!empty($this->rsGallery->title_tag) ? $this->rsGallery->title_tag : $this->rsGallery->title));
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 
@@ -261,7 +261,7 @@ class GalleriesController extends Controller
 		}
 
 		# fil d'ariane
-		if (!$this->isDefaultRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 
