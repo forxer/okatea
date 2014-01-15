@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Development\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 use Okatea\Module\Development\Bootstrap\Module;
 
 class Bootstrap extends Controller

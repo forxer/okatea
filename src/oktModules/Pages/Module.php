@@ -8,8 +8,8 @@
 
 namespace Okatea\Module\Pages;
 
-use Tao\Admin\Menu as AdminMenu;
-use Tao\Admin\Page;
+use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
 use Tao\Core\Authentification;
 use Tao\Core\Triggers;
 use Tao\Database\MySqli;

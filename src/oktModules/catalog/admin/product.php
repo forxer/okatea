@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Database\MySqli;
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Misc\Utilities;

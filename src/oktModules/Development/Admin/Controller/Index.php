@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Development\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 
 class Index extends Controller
 {

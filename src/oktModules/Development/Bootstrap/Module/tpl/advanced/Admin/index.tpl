@@ -1,8 +1,8 @@
 <?php
 ##header##
 
-use Tao\Admin\Page;
-use Tao\Admin\Pager;
+use Okatea\Admin\Page;
+use Okatea\Admin\Pager;
 use Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit

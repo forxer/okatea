@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Misc\Utilities;
 
 # Accès direct interdit

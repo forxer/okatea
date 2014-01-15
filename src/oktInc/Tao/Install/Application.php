@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Core\Application as BaseApplication;
 use Tao\Core\ApplicationOptions;
 use Tao\Core\Errors;

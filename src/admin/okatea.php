@@ -12,7 +12,7 @@
  *
  */
 
-use Tao\Admin\Okatea;
+use Okatea\Admin\Okatea;
 
 $oktAppPath = realpath(__DIR__.'/../');
 

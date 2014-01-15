@@ -8,7 +8,7 @@
 
 namespace Tao\Core;
 
-use Tao\Admin\Filters\LogAdmin as LogAdminFilters;
+use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
 
 /**
  * Le gestionnnaire de log administration.

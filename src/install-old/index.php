@@ -7,7 +7,7 @@
  *
  */
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 
 define('OKT_SUDO_USERNAME', 'sudo');
 define('OKT_SUDO_EMAIL', 'sudo@localhost');

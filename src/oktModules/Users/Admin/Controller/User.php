@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Users\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 
 class User extends Controller
 {

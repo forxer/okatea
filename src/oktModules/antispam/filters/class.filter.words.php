@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Forms\Statics\FormElements as form;
 
 class oktFilterWords extends oktSpamFilter

@@ -5,8 +5,8 @@
  *
  */
 
-use Tao\Admin\Menu as AdminMenu;
-use Tao\Admin\Page;
+use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
 use Tao\Database\MySqli;
 use Tao\Misc\Utilities;
 use Tao\Modules\Module;

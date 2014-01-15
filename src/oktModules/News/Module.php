@@ -10,8 +10,8 @@ namespace Okatea\Module\News;
 
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
-use Tao\Admin\Menu as AdminMenu;
-use Tao\Admin\Page;
+use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
 use Tao\Core\Authentification;
 use Tao\Core\Triggers;
 use Tao\Images\ImageUpload;

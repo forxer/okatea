@@ -5,8 +5,8 @@
  *
  */
 
-use Tao\Admin\Page;
-use Tao\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
+use Okatea\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 use Tao\Core\Triggers;

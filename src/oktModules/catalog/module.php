@@ -5,11 +5,11 @@
  *
  */
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Misc\Utilities;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
-use Tao\Admin\Menu as AdminMenu;
+use Okatea\Admin\Menu as AdminMenu;
 use Tao\Images\ImageUpload;
 use Tao\Misc\FileUpload;
 use Tao\Misc\NestedTree;

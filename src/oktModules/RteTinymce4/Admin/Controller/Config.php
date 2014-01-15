@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\RteTinymce4\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 
 class Config extends Controller
 {

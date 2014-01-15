@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Admin\Pager;
+use Okatea\Admin\Pager;
 use Tao\Forms\Statics\FormElements as form;
 
 

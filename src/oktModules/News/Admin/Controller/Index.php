@@ -9,8 +9,8 @@
 namespace Okatea\Module\News\Admin\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tao\Admin\Controller;
-use Tao\Admin\Pager;
+use Okatea\Admin\Controller;
+use Okatea\Admin\Pager;
 
 class Index extends Controller
 {

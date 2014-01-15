@@ -9,7 +9,7 @@
 namespace Okatea\Module\Development\Admin\Controller;
 
 use Okatea\Module\Development\CountingFilesAndLines;
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 
 class Counting extends Controller
 {

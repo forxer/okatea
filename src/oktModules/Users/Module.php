@@ -8,10 +8,10 @@
 
 namespace Okatea\Module\Users;
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Misc\Utilities;
 use Tao\Core\Authentification;
-use Tao\Admin\Menu as AdminMenu;
+use Okatea\Admin\Menu as AdminMenu;
 use Tao\Modules\Module as BaseModule;
 use Tao\Routing\Route;
 

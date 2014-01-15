@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\News\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 
 class Display extends Controller
 {

@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\News\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 use Tao\Themes\TemplatesSet;
 
 class Post extends Controller

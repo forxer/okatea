@@ -8,7 +8,7 @@
 
 namespace Okatea\Module\Pages\Admin\Controller;
 
-use Tao\Admin\Controller;
+use Okatea\Admin\Controller;
 use Tao\Images\ImageUploadConfig;
 use Tao\Themes\TemplatesSet;
 

@@ -6,9 +6,9 @@
  */
 
 
-use Tao\Admin\Page;
+use Okatea\Admin\Page;
 use Tao\Misc\Utilities;
-use Tao\Admin\Menu as AdminMenu;
+use Okatea\Admin\Menu as AdminMenu;
 use Tao\Modules\Module;
 use Tao\Routing\Route;
 
