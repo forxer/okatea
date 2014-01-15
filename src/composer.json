@@ -40,8 +40,10 @@
 	"autoload": {
 		"psr-4": {
 			"Tao\\": "oktInc/Tao",
+			"Okatea\\Admin\\": "oktInc/Admin",
+			"Okatea\\Install\\": "oktInc/Install",
 			"Okatea\\Module\\": "oktModules",
-			"Okatea\\Install\\": "install"
+			"Okatea\\Website\\": "oktInc/Website"
 		},
 		"classmap": [
 			"vendor/dotclear/clearbricks/common",
