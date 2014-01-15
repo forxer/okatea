@@ -8,6 +8,7 @@
 
 namespace Tao\Website;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tao\Core\Controller as BaseController;
 
@@ -49,6 +50,12 @@ class Controller extends BaseController
 	public function isHomePageRoute()
 	{
 		return substr($this->request->attributes->get('_route'), 0, 8) === 'homePage';
+	}
+
+	public function homePage()
+	{
+		$response = new Response();
+		return $this->render('homePage', array(), $response);
 	}
 
 	public function serve401()

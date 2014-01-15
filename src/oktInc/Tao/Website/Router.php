@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Routing;
+namespace Tao\Website;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
@@ -14,6 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Tao\Core\Application;
 use Tao\Routing\Loader\YamlDirectoryLoaderLocalizer;
+use Tao\Routing\ControllerResolverTrait;
 
 class Router extends BaseRouter
 {

@@ -1,6 +1,10 @@
 # default Okatea routes
 # do not remove this file
 
+homePage:
+    path:     /
+    defaults: { _controller: Tao\Website\Controller::homePage }
+    
 401:
     path:     /401
     defaults: { _controller: Tao\Website\Controller::serve401 }
