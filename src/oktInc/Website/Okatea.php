@@ -6,13 +6,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Website;
+namespace Okatea\Website;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Tao\Core\Application;
 use Tao\Misc\PublicAdminBar;
-use Tao\Website\Page;
+use Okatea\Website\Page;
 
 class Okatea extends Application
 {
@@ -143,7 +143,7 @@ class Okatea extends Application
 	/**
 	 * Init content page helpers.
 	 *
-	 * @return \Tao\Website\Page
+	 * @return \Okatea\Website\Page
 	 */
 	protected function loadPageHelpers()
 	{

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Website;
+namespace Okatea\Website;
 
 use Tao\Core\Controller;
 use Tao\Html\Page as BasePage;

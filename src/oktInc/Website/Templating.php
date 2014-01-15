@@ -6,7 +6,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Tao\Website;
+namespace Okatea\Website;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tao\Core\Templating as BaseTemplating;
