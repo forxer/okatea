@@ -2,7 +2,7 @@
 ##header##
 
 use Tao\Misc\Utilities;
-use Tao\Website\Pager;
+use Okatea\Website\Pager;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';

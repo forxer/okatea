@@ -10,7 +10,7 @@ namespace Okatea\Module\Users;
 
 use Tao\Misc\Utilities;
 use Tao\Core\Authentification;
-use Tao\Website\Controller as BaseController;
+use Okatea\Website\Controller as BaseController;
 use Tao\Misc\Mailer;
 
 class Controller extends BaseController

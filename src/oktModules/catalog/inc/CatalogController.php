@@ -5,9 +5,9 @@
  *
  */
 
-use Tao\Website\Controller;
+use Okatea\Website\Controller;
 use Tao\Misc\Utilities;
-use Tao\Website\Pager;
+use Okatea\Website\Pager;
 
 class CatalogController extends Controller
 {

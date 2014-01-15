@@ -11,7 +11,7 @@
  * Okatea Front Controller.
  */
 
-use Tao\Website\Okatea;
+use Okatea\Website\Okatea;
 
 # Lunch composer autoload
 $oktAutoloader = require __DIR__.'/vendor/autoload.php';

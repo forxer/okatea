@@ -5,10 +5,10 @@
  *
  */
 
-use Tao\Website\Controller;
+use Okatea\Website\Controller;
 use Tao\Misc\Mailer;
 use Tao\Misc\Utilities;
-use Tao\Website\Pager;
+use Okatea\Website\Pager;
 
 class GuestbookController extends Controller
 {

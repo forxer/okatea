@@ -9,8 +9,8 @@
 namespace Okatea\Module\News;
 
 use Tao\Misc\Utilities;
-use Tao\Website\Controller as BaseController;
-use Tao\Website\Pager;
+use Okatea\Website\Controller as BaseController;
+use Okatea\Website\Pager;
 
 class Controller extends BaseController
 {

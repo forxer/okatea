@@ -6,8 +6,8 @@
  */
 
 use Tao\Misc\Utilities;
-use Tao\Website\Controller;
-use Tao\Website\Pager;
+use Okatea\Website\Controller;
+use Okatea\Website\Pager;
 
 class FaqController extends Controller
 {

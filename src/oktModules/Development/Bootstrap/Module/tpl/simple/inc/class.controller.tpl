@@ -3,7 +3,7 @@
 
 
 use Tao\Misc\Utilities;
-use Tao\Website\Controller;
+use Okatea\Website\Controller;
 
 class ##module_camel_case_id##Controller extends Controller
 {

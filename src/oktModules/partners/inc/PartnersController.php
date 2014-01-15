@@ -5,7 +5,7 @@
  *
  */
 
-use Tao\Website\Controller;
+use Okatea\Website\Controller;
 
 class PartnersController extends Controller
 {

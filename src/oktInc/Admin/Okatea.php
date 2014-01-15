@@ -97,7 +97,7 @@ class Okatea extends Application
 	/**
 	 * Init content page helpers.
 	 *
-	 * @return \Tao\Website\Page
+	 * @return \Okatea\Website\Page
 	 */
 	protected function loadPageHelpers()
 	{
