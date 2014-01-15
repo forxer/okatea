@@ -6,13 +6,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Install\Routing;
+namespace Okatea\Install\Routing;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
-use Tao\Install\Application;
+
+use Tao\Core\Application;
+
 use Tao\Routing\ControllerResolverTrait;
 
 class Router extends BaseRouter

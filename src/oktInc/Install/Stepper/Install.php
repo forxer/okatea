@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Install\Stepper;
+namespace Okatea\Install\Stepper;
 
 use Tao\Html\Stepper as BaseStepper;
 

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Install;
+namespace Okatea\Install;
 
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
@@ -17,16 +17,17 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use Okatea\Admin\Page;
-use Tao\Core\Application as BaseApplication;
+use Okatea\Install\Routing\Router;
+
+use Tao\Core\Application;
 use Tao\Core\ApplicationOptions;
 use Tao\Core\Errors;
 use Tao\Core\Localisation;
 use Tao\Core\Session;
-use Tao\Install\Routing\Router;
-use Tao\Misc\FlashMessages;
 use Tao\Core\Triggers;
+use Tao\Misc\FlashMessages;
 
-class Application extends BaseApplication
+class Okatea extends Application
 {
 	/**
 	 * Tableau des codes de langues disponibles pour l'interface d'installation.
@@ -103,6 +104,8 @@ class Application extends BaseApplication
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
+
+		$this->getLogger();
 
 		$this->triggers = new Triggers($this);
 
@@ -225,7 +228,9 @@ class Application extends BaseApplication
 		# -- CORE TRIGGER : installBeforeCallController
 		$this->triggers->callTrigger('installBeforeCallController');
 
-		if ($this->router->callController() === false)
+		$this->response = $this->router->callController();
+
+		if (null === $this->response || false === $this->response)
 		{
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);

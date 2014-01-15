@@ -6,7 +6,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Tao\Install;
+namespace Okatea\Install;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tao\Core\Templating as BaseTemplating;
@@ -19,7 +19,7 @@ class Templating extends BaseTemplating
 	{
 		$this->okt = $okt;
 
-		parent::__construct($aTplDirectories);
+		parent::__construct($okt, $aTplDirectories);
 	}
 
 	/**

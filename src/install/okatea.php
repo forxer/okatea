@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
-use Tao\Install\Application;
+use Okatea\Install\Okatea;
 
 $oktAppPath = realpath(__DIR__.'/../');
 
 # Lunch composer autoload
 $oktAutoloader = require $oktAppPath.'/vendor/autoload.php';
 
-$okt = new Application($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.php');
+$okt = new Okatea($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.php');
 
 $okt->run();
 

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tao\Install;
+namespace Okatea\Install;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tao\Core\Controller as BaseController;
@@ -61,16 +61,16 @@ class Controller extends BaseController
 
 	public function serve401()
 	{
-		parent::serve401();
+		return parent::serve401();
 	}
 
 	public function serve404()
 	{
-		parent::serve404();
+		return parent::serve404();
 	}
 
 	public function serve503()
 	{
-		parent::serve503();
+		return parent::serve503();
 	}
 }
