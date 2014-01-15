@@ -43,11 +43,12 @@ $RECYCLE.BIN/
 /src/oktInc/cache/versions/
 /src/oktInc/cache/routing/
 
+# oktatea assets
 /src/oktPublic/cache/**
-
-# oktatea themes
-/src/oktThemes/*/modules/**
-!/src/oktThemes/*/modules/index.html
+/src/oktPublic/modules/**
+!/src/oktPublic/modules/index.html
+/src/oktPublic/upload/**
+!/src/oktPublic/upload/index.html
 
 # oktatea build
 /build/

@@ -14,6 +14,7 @@ use Okatea\Admin\Controller;
 use Tao\Core\HttpClient;
 use Tao\Misc\Utilities;
 use Tao\Modules\Collection as ModulesCollection;
+use Tao\Themes\Collection as ThemesCollection;
 
 class Modules extends Controller
 {
@@ -593,9 +594,8 @@ class Modules extends Controller
 
 		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
 		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme) {
-			$oInstallModule->forceReplaceAssets($this->okt->options->get('themes_dir').'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId));
-		}
+
+		$oInstallModule->forceReplaceAssets();
 
 		# cache de la liste de module
 		$this->okt->modules->generateCacheList();

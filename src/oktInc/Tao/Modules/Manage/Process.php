@@ -15,6 +15,7 @@ use Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Tao\Html\CheckList;
 use Tao\Misc\Utilities;
 use Tao\Modules\Module;
+use Tao\Modules\Manage\Component\AssetsFiles\AssetsFiles;
 use Tao\Modules\Manage\Component\Comparator\Comparator;
 use Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles;
 use Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles;
@@ -39,6 +40,12 @@ class Process extends Module
 		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',
 		'htmlpurifier', 'permsStack', 'aTplDirectories'
 	);
+
+	/**
+	 *
+	 * @var Tao\Modules\Manage\Component\AssetsFiles\AssetsFiles
+	 */
+	protected $assetsFiles;
 
 	/**
 	 *
@@ -208,20 +215,7 @@ class Process extends Module
 		}
 
 		# suppression des fichiers assets
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
-		{
-			$sAssetsDir = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/';
-
-			if (file_exists($sAssetsDir))
-			{
-				$this->checklist->addItem(
-					'remove_assets_dir_'.$sThemeId,
-					$this->removeAssetsFiles($sAssetsDir, ThemesCollection::getLockedFiles($sThemeId)),
-					'Remove assets dir in '.$sTheme.' theme',
-					'Cannot remove assets dir '.$sTheme.' theme'
-				);
-			}
-		}
+		$this->getAssetsFiles()->delete();
 
 		# suppression des fichiers de config
 		$this->getConfigFiles()->delete();
@@ -339,19 +333,7 @@ class Process extends Module
 		}
 
 		# compare assets
-		$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('themes_dir').'/default/modules/'.$this->id().'/');
-
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
-		{
-			if ($sThemeId == 'default') {
-				continue;
-			}
-
-			$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/modules/'.$this->id().'/', true);
-		}
-
-		# compare publics
-		$this->getComparator()->folder($this->root().'/install/public/', $this->okt->options->getRootPath().'/');
+		$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
 	}
 
 	/**
@@ -370,25 +352,9 @@ class Process extends Module
 	 * Force le remplacement des fichiers actifs
 	 *
 	 */
-	public function forceReplaceAssets($sBaseDir, $aLockedFiles=array())
+	public function forceReplaceAssets()
 	{
-		return $this->forceReplaceFiles(
-			$this->root().'/install/assets/',
-			$sBaseDir.'/modules/'.$this->id().'/',
-			$aLockedFiles
-		);
-	}
-
-	/**
-	 * Force le remplacement des fichiers public
-	 *
-	 */
-	public function forceReplacePublic()
-	{
-		return $this->forceReplaceFiles(
-			$this->root().'/install/public/',
-			$this->okt->options->getRootPath().'/'
-		);
+		return $this->getAssetsFiles()->process();
 	}
 
 	/**
@@ -440,49 +406,6 @@ class Process extends Module
 				null,
 				'Template file '.$filename.' doesn\'t exists',
 				'Template file '.$filename.' doesn\'t exists'
-			);
-		}
-
-		$count++;
-	}
-
-	/**
-	 * Désinstallation d'un fichier public
-	 *
-	 * @param string $file
-	 * @return void
-	 */
-	protected function uninstallPublicFile($file)
-	{
-		static $count;
-
-		if (empty($count)) {
-			$count = 1;
-		}
-
-		$filename = basename($file);
-
-		# suppression du fichier .bak de façon silencieuse
-		if (file_exists($this->okt->options->getRootPath().'/'.$filename.'.bak')) {
-			@unlink($this->okt->options->getRootPath().'/'.$filename.'.bak');
-		}
-
-		# si le fichier existe on le supprime
-		if (file_exists($this->okt->options->getRootPath().'/'.$filename))
-		{
-			$this->checklist->addItem(
-				'public_file_'.$count,
-				unlink($this->okt->options->getRootPath().'/'.$filename),
-				'Remove public file '.$filename,
-				'Cannot remove public file '.$filename
-			);
-		}
-		else {
-			$this->checklist->addItem(
-				'public_file_'.$count,
-				null,
-				'Public file '.$filename.' doesn\'t exists',
-				'Public file '.$filename.' doesn\'t exists'
 			);
 		}
 
@@ -554,37 +477,13 @@ class Process extends Module
 	{
 		if (is_dir($this->root().'/install/assets/'))
 		{
-			foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
-			{
-				$this->checklist->addItem(
-					'assets_dir_'.$sThemeId,
-					$this->forceReplaceAssets($this->okt->options->get('themes_dir').'/'.$sThemeId, ThemesCollection::getLockedFiles($sThemeId)),
-					'Create assets dir in '.$sTheme.' theme',
-					'Cannot create assets dir in '.$sTheme.' theme'
-				);
-			}
+			$this->checklist->addItem(
+				'assets',
+				$this->forceReplaceAssets(),
+				'Create assets files',
+				'Cannot create assets files'
+			);
 		}
-	}
-
-	protected function removeAssetsFiles($sAssetsDir, $aLockedFiles=array())
-	{
-		$aFiles = \files::getDirList($sAssetsDir);
-
-		foreach ($aFiles['files'] as $sFiles)
-		{
-			if (!in_array($sFiles, $aLockedFiles)) {
-				unlink($sFiles);
-			}
-		}
-
-		foreach (array_reverse($aFiles['dirs']) as $sDir)
-		{
-			if (!Utilities::dirHasFiles($sDir)) {
-				\files::deltree($sDir);
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -682,7 +581,7 @@ class Process extends Module
 		# copie des éventuels fichiers templates
 		$this->copyTplFiles();
 
-		# création d'un répertoire common
+		# copie des éventuels fichiers assets
 		$this->copyAssetsFiles();
 
 		# copie des éventuels fichiers de configurations
@@ -722,6 +621,15 @@ class Process extends Module
 		'WHERE group_id='.(integer)Authentification::admin_group_id;
 
 		$this->db->execute($query);
+	}
+
+	protected function getAssetsFiles()
+	{
+		if (null === $this->assetsFiles) {
+			$this->assetsFiles = new AssetsFiles($this->okt, $this);
+		}
+
+		return $this->assetsFiles;
 	}
 
 	protected function getComparator()

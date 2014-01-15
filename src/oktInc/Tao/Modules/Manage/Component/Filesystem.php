@@ -26,4 +26,25 @@ class Filesystem extends BaseFilesystem
 			return false;
 		}
 	}
+
+	public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = array())
+	{
+		try {
+			parent::mirror($originDir, $targetDir, $iterator, $options);
+			return true;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function remove($files)
+	{
+		try {
+			parent::remove($files);
+			return true;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 }
