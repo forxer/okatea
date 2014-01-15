@@ -41,7 +41,7 @@ class ApplicationOptions
 			'config_dir' 		=> $this->sRootPath.'/oktInc/config',
 			'locales_dir' 		=> $this->sRootPath.'/oktInc/locales',
 			'logs_dir' 			=> $this->sRootPath.'/oktInc/logs',
-			'modules_dir' 		=> $this->sRootPath.'/oktModules',
+			'modules_dir' 		=> $this->sRootPath.'/oktInc/Modules',
 			'public_dir' 		=> $this->sRootPath.'/oktPublic',
 			'upload_dir' 		=> $this->sRootPath.'/oktPublic/upload',
 			'themes_dir' 		=> $this->sRootPath.'/oktThemes',

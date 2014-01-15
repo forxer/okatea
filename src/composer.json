@@ -39,11 +39,11 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Tao\\": "oktInc/Tao",
-			"Okatea\\Admin\\": "oktInc/Admin",
-			"Okatea\\Install\\": "oktInc/Install",
-			"Okatea\\Module\\": "oktModules",
-			"Okatea\\Website\\": "oktInc/Website"
+			"Okatea\\Admin\\": 		"oktInc/Admin",
+			"Okatea\\Install\\": 	"oktInc/Install",
+			"Okatea\\Module\\": 	"oktInc/Modules",
+			"Okatea\\Website\\": 	"oktInc/Website",
+			"Tao\\": 				"oktInc/Tao"
 		},
 		"classmap": [
 			"vendor/dotclear/clearbricks/common",

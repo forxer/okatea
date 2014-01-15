@@ -166,15 +166,15 @@ class Requirements
 		/* Détails des pré-requis "files"
 		----------------------------------------------------------*/
 
-		# Vérification des droits sur /oktConf
+		# Vérification des droits sur le répertoire des fichiers de configuration
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktConf',
 			'test' 		=> is_writable($this->okt->options->get('config_dir')),
-			'msg_ok' 	=> sprintf(__('pr_oktconf_ok'), $this->okt->options->get('config_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktconf_ko'), $this->okt->options->get('config_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_conf_ok'), $this->okt->options->get('config_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_conf_ko'), $this->okt->options->get('config_dir'))
 		);
 
-		# Vérification des droits sur /oktConf/conf_site.yaml
+		# Vérification des droits sur le fichier de configuration général
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'conf_site',
 			'test' 		=> is_writable($this->okt->options->get('config_dir').'/conf_site.yml'),
@@ -182,44 +182,44 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_conf_site_ko'), $this->okt->options->get('config_dir').'/conf_site.yml')
 		);
 
-		# Vérification des droits sur /oktCache
+		# Vérification des droits sur le répertoire de cache
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktCache',
 			'test' 		=> is_writable($this->okt->options->get('cache_dir')) ? true : null,
-			'msg_ok' 	=> sprintf(__('pr_oktcache_ok'), $this->okt->options->get('cache_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktcache_ko'), $this->okt->options->get('cache_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_cache_ok'), $this->okt->options->get('cache_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_cache_ko'), $this->okt->options->get('cache_dir'))
 		);
 
-		# Vérification des droits sur /oktLog
+		# Vérification des droits sur le répertoire des logs
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktLog',
 			'test' 		=> is_writable($this->okt->options->get('logs_dir')) ? true : null,
-			'msg_ok' 	=> sprintf(__('pr_oktlog_ok'), $this->okt->options->get('logs_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktlog_ko'), $this->okt->options->get('logs_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_log_ok'), $this->okt->options->get('logs_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_log_ko'), $this->okt->options->get('logs_dir'))
 		);
 
-		# Vérification des droits sur /oktModules
+		# Vérification des droits sur le répertoire des modules
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktModules',
 			'test' 		=> is_writable($this->okt->options->get('modules_dir')) ? true : null,
-			'msg_ok' 	=> sprintf(__('pr_oktmodules_ok'), $this->okt->options->get('modules_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktmodules_ko'), $this->okt->options->get('modules_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_modules_ok'), $this->okt->options->get('modules_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_modules_ko'), $this->okt->options->get('modules_dir'))
 		);
 
-		# Vérification des droits sur /oktPublic
+		# Vérification des droits sur le répertoire des fichiers publics
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktPublic',
 			'test' 		=> is_writable($this->okt->options->get('public_dir')) ? true : null,
-			'msg_ok' 	=> sprintf(__('pr_oktpublic_ok'), $this->okt->options->get('public_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktpublic_ko'), $this->okt->options->get('public_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_public_ok'), $this->okt->options->get('public_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_public_ko'), $this->okt->options->get('public_dir'))
 		);
 
-		# Vérification des droits sur /oktThemes
+		# Vérification des droits sur le répertoire des thèmes
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktThemes',
 			'test' 		=> is_writable($this->okt->options->get('themes_dir')) ? true : null,
-			'msg_ok' 	=> sprintf(__('pr_oktthemes_ok'), $this->okt->options->get('themes_dir')),
-			'msg_ko'	=> sprintf(__('pr_oktthemes_ko'), $this->okt->options->get('themes_dir'))
+			'msg_ok' 	=> sprintf(__('pr_okatea_themes_ok'), $this->okt->options->get('themes_dir')),
+			'msg_ko'	=> sprintf(__('pr_okatea_themes_ko'), $this->okt->options->get('themes_dir'))
 		);
 	}
 

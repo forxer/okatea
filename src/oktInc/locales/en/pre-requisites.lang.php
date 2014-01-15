@@ -42,23 +42,23 @@ $GLOBALS['__l10n']['pr_spl_ko'] = 'The SPL module is absent.';
 $GLOBALS['__l10n']['pr_gd2_ok'] = 'GD 2 library is present.';
 $GLOBALS['__l10n']['pr_gd2_ko'] = 'GD 2 library is absent.';
 
-$GLOBALS['__l10n']['pr_oktconf_ok'] = 'The configuration directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktconf_ko'] = 'The configuration directory (%s) is not writable. Please change its permissions to perform the installation.';
+$GLOBALS['__l10n']['pr_okatea_conf_ok'] = 'The configuration directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_conf_ko'] = 'The configuration directory (%s) is not writable. Please change its permissions to perform the installation.';
 
 $GLOBALS['__l10n']['pr_conf_site_ok'] = 'The configuration file (%s) is writable.';
 $GLOBALS['__l10n']['pr_conf_site_ko'] = 'The configuration file (%s) is not writable. Please change its permissions to perform the installation.';
 
-$GLOBALS['__l10n']['pr_oktcache_ok'] = 'The cache directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktcache_ko'] = 'The cache directory (%s) is not writable. Please change its permissions.';
+$GLOBALS['__l10n']['pr_okatea_cache_ok'] = 'The cache directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_cache_ko'] = 'The cache directory (%s) is not writable. Please change its permissions.';
 
-$GLOBALS['__l10n']['pr_oktlog_ok'] = 'The log directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktlog_ko'] = 'The log directory (%s) is not writable. Please change its permissions.';
+$GLOBALS['__l10n']['pr_okatea_log_ok'] = 'The log directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_log_ko'] = 'The log directory (%s) is not writable. Please change its permissions.';
 
-$GLOBALS['__l10n']['pr_oktmodules_ok'] = 'The modules directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktmodules_ko'] = 'The modules directory (%s) is not writable. Please change its permissions.';
+$GLOBALS['__l10n']['pr_okatea_modules_ok'] = 'The modules directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_modules_ko'] = 'The modules directory (%s) is not writable. Please change its permissions.';
 
-$GLOBALS['__l10n']['pr_oktpublic_ok'] = 'The public cache directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktpublic_ko'] = 'The public cache directory (%s) is not writable. Please change its permissions.';
+$GLOBALS['__l10n']['pr_okatea_public_ok'] = 'The public cache directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_public_ko'] = 'The public cache directory (%s) is not writable. Please change its permissions.';
 
-$GLOBALS['__l10n']['pr_oktthemes_ok'] = 'The themes directory (%s) is writable.';
-$GLOBALS['__l10n']['pr_oktthemes_ko'] = 'The themes directory (%s) is not writable. Please change its permissions.';
+$GLOBALS['__l10n']['pr_okatea_themes_ok'] = 'The themes directory (%s) is writable.';
+$GLOBALS['__l10n']['pr_okatea_themes_ko'] = 'The themes directory (%s) is not writable. Please change its permissions.';

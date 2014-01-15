@@ -520,9 +520,6 @@ class Application
 		{
 			$this->config = $this->newConfig('conf_site');
 
-			# URL du dossier modules
-			$this->options->set('modules_url', $this->config->app_path.'oktModules');
-
 			# URL du dossier des fichiers publics
 			$this->options->set('public_url', $this->config->app_path.'oktPublic');
 

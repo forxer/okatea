@@ -21,9 +21,6 @@ class Controller extends BaseController
 	{
 		parent::__construct($okt);
 
-		# URL du dossier modules
-		$this->okt->options->set('modules_url', $this->request->getBasePath().'/../oktModules');
-
 		# URL du dossier des fichiers publics
 		$this->okt->options->set('public_url', $this->request->getBasePath().'/../oktPublic');
 

@@ -42,23 +42,23 @@ $GLOBALS['__l10n']['pr_spl_ko'] = 'Le module SPL est absent.';
 $GLOBALS['__l10n']['pr_gd2_ok'] = 'La librairie GD 2 est présente.';
 $GLOBALS['__l10n']['pr_gd2_ko'] = 'La librairie GD 2 est absente.';
 
-$GLOBALS['__l10n']['pr_oktconf_ok'] = 'Le répertoire de configuration (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktconf_ko'] = 'Le répertoire de configuration (%s) n’est pas accessible en écriture. Veuillez changer ses permissions pour procéder à l’installation.';
+$GLOBALS['__l10n']['pr_okatea_conf_ok'] = 'Le répertoire de configuration (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_conf_ko'] = 'Le répertoire de configuration (%s) n’est pas accessible en écriture. Veuillez changer ses permissions pour procéder à l’installation.';
 
 $GLOBALS['__l10n']['pr_conf_site_ok'] = 'Le fichier de configuration (%s) est accessible en écriture.';
 $GLOBALS['__l10n']['pr_conf_site_ko'] = 'Le fichier de configuration (%s) n’est pas accessible en écriture. Veuillez changer ses permissions pour procéder à l’installation.';
 
-$GLOBALS['__l10n']['pr_oktcache_ok'] = 'Le répertoire de cache (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktcache_ko'] = 'Le répertoire de cache (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
+$GLOBALS['__l10n']['pr_okatea_cache_ok'] = 'Le répertoire de cache (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_cache_ko'] = 'Le répertoire de cache (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
 
-$GLOBALS['__l10n']['pr_oktlog_ok'] = 'Le répertoire de log (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktlog_ko'] = 'Le répertoire de log (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
+$GLOBALS['__l10n']['pr_okatea_log_ok'] = 'Le répertoire de log (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_log_ko'] = 'Le répertoire de log (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
 
-$GLOBALS['__l10n']['pr_oktmodules_ok'] = 'Le répertoire des modules (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktmodules_ko'] = 'Le répertoire des modules (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
+$GLOBALS['__l10n']['pr_okatea_modules_ok'] = 'Le répertoire des modules (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_modules_ko'] = 'Le répertoire des modules (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
 
-$GLOBALS['__l10n']['pr_oktpublic_ok'] = 'Le répertoire de cache public (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktpublic_ko'] = 'Le répertoire de cache public (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
+$GLOBALS['__l10n']['pr_okatea_public_ok'] = 'Le répertoire de cache public (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_public_ko'] = 'Le répertoire de cache public (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
 
-$GLOBALS['__l10n']['pr_oktthemes_ok'] = 'Le répertoire des thèmes (%s) est accessible en écriture.';
-$GLOBALS['__l10n']['pr_oktthemes_ko'] = 'Le répertoire des thèmes (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
+$GLOBALS['__l10n']['pr_okatea_themes_ok'] = 'Le répertoire des thèmes (%s) est accessible en écriture.';
+$GLOBALS['__l10n']['pr_okatea_themes_ko'] = 'Le répertoire des thèmes (%s) n’est pas accessible en écriture. Veuillez changer ses permissions.';
