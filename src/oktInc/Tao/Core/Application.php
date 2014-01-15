@@ -19,6 +19,7 @@ use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 
 use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,16 +100,23 @@ class Application
 	/**
 	 * Le gestionnaire de langues.
 	 *
+	 * @var Tao\Core\Localisation
+	 */
+	public $l10n;
+
+	/**
+	 * Le gestionnaire de langues.
+	 *
 	 * @var Tao\Core\Languages
 	 */
 	public $languages;
 
 	/**
-	 * Le gestionnaire de langues.
+	 * Logger instance.
 	 *
-	 * @var Tao\Core\Localisation
+	 * @var Psr\Log\LoggerInterface
 	 */
-	public $l10n;
+	public $logger;
 
 	/**
 	 * Le gestionnaire de modules.
@@ -223,11 +231,15 @@ class Application
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
+		$this->getLogger();
+
 		$this->triggers = new Triggers($this);
 
 		$this->options = new ApplicationOptions($sRootPath, $aOptions);
 
-		$this->config = $this->loadConfig();
+		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
+
+		$this->getConfig();
 
 		$this->httpFoundation();
 
@@ -241,30 +253,35 @@ class Application
 		$this->languages = new Languages($this);
 
 		$this->router = new Router(
-				$this,
-				$this->options->get('config_dir').'/routes',
-				$this->options->get('cache_dir').'/routing',
-				$this->options->get('debug')
+			$this,
+			$this->options->get('config_dir').'/routes',
+			$this->options->get('cache_dir').'/routing',
+			$this->options->get('debug'),
+			$this->logger
 		);
 
 		$this->user = new Authentification(
-				$this,
-				$this->options->get('cookie_auth_name'),
-				$this->options->get('cookie_auth_from'),
-				$this->config->app_path,
-				'',
-				$this->request->isSecure()
+			$this,
+			$this->options->get('cookie_auth_name'),
+			$this->options->get('cookie_auth_from'),
+			$this->config->app_path,
+			'',
+			$this->request->isSecure()
 		);
 
 		$this->l10n = new Localisation(
-				$this->options->get('locales_dir'),
-				$this->user->language,
-				$this->user->timezone
+			$this->options->get('locales_dir'),
+			$this->user->language,
+			$this->user->timezone
 		);
 
 		$this->navigation = new Menus($this);
 
-		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'), $this->options->modules_url);
+		$this->modules = new ModulesCollection(
+			$this,
+			$this->options->get('modules_dir'),
+			$this->options->modules_url
+		);
 	}
 
 	public function getVersion()
@@ -289,24 +306,11 @@ class Application
 
 		$this->error = new Errors();
 
-		// Create the logger
-		/*
-		$this->logger = new Logger('okatea');
-
-		$this->logger->pushProcessor(new IntrospectionProcessor());
-		$this->logger->pushProcessor(new WebProcessor());
-		$this->logger->pushProcessor(new MemoryUsageProcessor());
-		$this->logger->pushProcessor(new MemoryPeakUsageProcessor());
-
-		// Now add some handlers
-		$this->logger->pushHandler(new StreamHandler($okt->options->get('logs_dir').'/my_app.log', Logger::DEBUG));
-		$this->logger->pushHandler(new FirePHPHandler());
-		*/
-
 		# print errors in debug mode
 		if ($this->options->get('debug'))
 		{
 			Debug::enable();
+			DebugErrorHandler::setLogger($this->logger);
 
 //			$this->debugbar = new DebugBar($this);
 		}
@@ -355,8 +359,6 @@ class Application
 	{
 		$this->request = Request::createFromGlobals();
 
-	//	$this->response = new Response();
-
 		$this->requestContext = new RequestContext();
 		$this->requestContext->fromRequest($this->request);
 
@@ -372,6 +374,23 @@ class Application
 	protected function loadModules($sPart)
 	{
 		$this->modules->loadModules($sPart, $this->user->language);
+	}
+
+	protected function getLogger()
+	{
+		if (null === $this->logger)
+		{
+			$this->logger = new Logger('okatea',array(
+				new FirePHPHandler()
+			),array(
+				new IntrospectionProcessor(),
+				new WebProcessor(),
+				new MemoryUsageProcessor(),
+				new MemoryPeakUsageProcessor()
+			));
+		}
+
+		return $this->logger;
 	}
 
 
@@ -491,26 +510,27 @@ class Application
 	----------------------------------------------------------*/
 
 	/**
-	 * Chargement de la configuration du site.
+	 * Retourne la configuration du site.
 	 *
 	 * @return void
 	 */
-	public function loadConfig()
+	public function getConfig()
 	{
-		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
+		if (null === $this->config)
+		{
+			$this->config = $this->newConfig('conf_site');
 
-		$config = $this->newConfig('conf_site');
+			# URL du dossier modules
+			$this->options->set('modules_url', $this->config->app_path.'oktModules');
 
-		# URL du dossier modules
-		$this->options->set('modules_url', $config->app_path.'oktModules');
+			# URL du dossier des fichiers publics
+			$this->options->set('public_url', $this->config->app_path.'oktPublic');
 
-		# URL du dossier des fichiers publics
-		$this->options->set('public_url', $config->app_path.'oktPublic');
+			# URL du dossier upload depuis la racine
+			$this->options->set('upload_url', $this->config->app_path.'oktPublic/upload');
+		}
 
-		# URL du dossier upload depuis la racine
-		$this->options->set('upload_url', $config->app_path.'oktPublic/upload');
-
-		return $config;
+		return $this->config;
 	}
 
 	/**

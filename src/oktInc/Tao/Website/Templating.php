@@ -17,9 +17,7 @@ class Templating extends BaseTemplating
 
 	public function __construct($okt, $aTplDirectories)
 	{
-		$this->okt = $okt;
-
-		parent::__construct($aTplDirectories);
+		parent::__construct($okt, $aTplDirectories);
 	}
 
 	/**

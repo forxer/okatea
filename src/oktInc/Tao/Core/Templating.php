@@ -22,9 +22,15 @@ use Symfony\Component\Templating\Helper\SlotsHelper;
  */
 class Templating extends PhpEngine
 {
-	public function __construct($aTplDirectories)
+	protected $okt;
+
+	public function __construct($okt, $aTplDirectories)
 	{
+		$this->okt = $okt;
+
 		$loader = new FilesystemLoader($aTplDirectories);
+
+		$loader->setLogger($this->okt->logger);
 
 		parent::__construct(new TemplateNameParser(), $loader);
 

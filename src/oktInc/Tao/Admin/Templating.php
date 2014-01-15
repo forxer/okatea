@@ -14,13 +14,9 @@ use Tao\Core\Templating as BaseTemplating;
 
 class Templating extends BaseTemplating
 {
-	protected $okt;
-
 	public function __construct($okt, $aTplDirectories)
 	{
-		$this->okt = $okt;
-
-		parent::__construct($aTplDirectories);
+		parent::__construct($okt, $aTplDirectories);
 	}
 
 	/**

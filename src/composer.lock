@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "2790ee79ff0fc09dc224e4529c24ff5d9f9a3936"
+                "reference": "0a7df7c58aeab4d1cef55a78e5ca50299a12a62b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/2790ee79ff0fc09dc224e4529c24ff5d9f9a3936",
-                "reference": "2790ee79ff0fc09dc224e4529c24ff5d9f9a3936",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/0a7df7c58aeab4d1cef55a78e5ca50299a12a62b",
+                "reference": "0a7df7c58aeab4d1cef55a78e5ca50299a12a62b",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-01-08 19:26:50"
+            "time": "2014-01-15 00:19:18"
         },
         {
             "name": "doctrine/inflector",
@@ -893,16 +893,16 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "1.9",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "ec6a857a308373fb61449e74a5aaf06af5f2ce87"
+                "reference": "12997a339db150b64a2a6f4e0505351257a3189a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/ec6a857a308373fb61449e74a5aaf06af5f2ce87",
-                "reference": "ec6a857a308373fb61449e74a5aaf06af5f2ce87",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/12997a339db150b64a2a6f4e0505351257a3189a",
+                "reference": "12997a339db150b64a2a6f4e0505351257a3189a",
                 "shasum": ""
             },
             "require": {
@@ -939,7 +939,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-01-07 20:49:48"
+            "time": "2014-01-14 00:37:10"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -999,12 +999,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "d81ca5a8d2d97bf9d77605359a12399c0ca28653"
+                "reference": "01a01a4841ea749426834d127c897f4dc9d62611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d81ca5a8d2d97bf9d77605359a12399c0ca28653",
-                "reference": "d81ca5a8d2d97bf9d77605359a12399c0ca28653",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/01a01a4841ea749426834d127c897f4dc9d62611",
+                "reference": "01a01a4841ea749426834d127c897f4dc9d62611",
                 "shasum": ""
             },
             "require": {
@@ -1058,7 +1058,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-01-10 08:22:47"
+            "time": "2014-01-15 09:37:32"
         },
         {
             "name": "psr/log",
@@ -1516,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "bb71627ce99c82f09021efb3a71ddd6eff73832e"
+                "reference": "89fa1fc6c1134cc8149262056d994f88cbea7603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/bb71627ce99c82f09021efb3a71ddd6eff73832e",
-                "reference": "bb71627ce99c82f09021efb3a71ddd6eff73832e",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/89fa1fc6c1134cc8149262056d994f88cbea7603",
+                "reference": "89fa1fc6c1134cc8149262056d994f88cbea7603",
                 "shasum": ""
             },
             "require": {
@@ -1573,7 +1573,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-01-07 13:29:57"
+            "time": "2014-01-13 20:29:22"
         },
         {
             "name": "symfony/templating",
