@@ -41,8 +41,7 @@ class veryBadHackClass
 
 		return $this->aCurrent;
 	}
-
-} # class veryBadHackClass
+}
 
 
 $p_tpl_id = '';

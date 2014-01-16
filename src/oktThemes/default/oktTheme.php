@@ -12,6 +12,4 @@ class oktTheme extends Theme
 {
 
 
-} # class
-
-
+}

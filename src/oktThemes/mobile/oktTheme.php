@@ -18,5 +18,4 @@ class oktTheme extends Theme
 		$this->okt->page->js->addFile('http://code.jquery.com/jquery-1.10.1.min.js');
 		$this->okt->page->js->addFile('http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js');
 	}
-
-} # class
+}

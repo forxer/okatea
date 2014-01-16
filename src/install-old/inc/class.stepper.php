@@ -91,4 +91,4 @@ class oktStepper
 		return isset($this->aSteps[($this->iCurrentStepPosition+1)]['step']) ? $this->aSteps[($this->iCurrentStepPosition+1)]['step'] : null;
 	}
 
-} # class
+}
