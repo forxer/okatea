@@ -10,49 +10,11 @@ namespace Tao\Core;
 
 class ApplicationOptions
 {
-	protected $aOptions;
+	protected $aOptions = array();
 
-	protected $sRootPath;
-
-	public function __construct($sRootPath, array $aOptions = array())
+	public function __construct($aOptions)
 	{
-		$this->sRootPath = $sRootPath;
-
-		$this->setDefaultOptions();
-
-		if (!empty($aOptions)) {
-			$this->setOptions($aOptions);
-		}
-	}
-
-	public function getRootPath()
-	{
-		return $this->sRootPath;
-	}
-
-	protected function setDefaultOptions()
-	{
-		$this->aOptions = array(
-			'debug' 			=> false,
-			'env' 				=> 'prod',
-
-			'inc_dir' 			=> $this->sRootPath.'/oktInc',
-			'cache_dir' 		=> $this->sRootPath.'/oktInc/cache',
-			'config_dir' 		=> $this->sRootPath.'/oktInc/config',
-			'locales_dir' 		=> $this->sRootPath.'/oktInc/locales',
-			'logs_dir' 			=> $this->sRootPath.'/oktInc/logs',
-			'modules_dir' 		=> $this->sRootPath.'/oktInc/Modules',
-			'public_dir' 		=> $this->sRootPath.'/oktPublic',
-			'upload_dir' 		=> $this->sRootPath.'/oktPublic/upload',
-			'themes_dir' 		=> $this->sRootPath.'/oktThemes',
-
-			'cookie_auth_name' 	=> 'otk_auth',
-			'cookie_auth_from' 	=> 'otk_auth_from',
-			'cookie_language' 	=> 'otk_language',
-
-			'digests' 			=> $this->sRootPath.'/oktInc/digests',
-			'csrf_token_name' 	=> 'okt_csrf_token'
-		);
+		$this->setOptions($aOptions);
 	}
 
 	public function setOptions(array $aOptions = array())

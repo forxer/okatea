@@ -157,7 +157,7 @@ class Tools extends Controller
 		# liste des fichiers de backup
 		$this->aBackupFiles = array();
 		$this->aDbBackupFiles = array();
-		foreach (new \DirectoryIterator($this->okt->options->getRootPath()) as $oFileInfo)
+		foreach (new \DirectoryIterator($this->okt->options->get('root_path')) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile()) {
 				continue;
@@ -184,14 +184,14 @@ class Tools extends Controller
 		$this->sHtaccessContent = '';
 
 		$this->bHtaccessExists = false;
-		if (file_exists($this->okt->options->getRootPath().'/.htaccess'))
+		if (file_exists($this->okt->options->get('root_path').'/.htaccess'))
 		{
 			$this->bHtaccessExists = true;
-			$this->sHtaccessContent = file_get_contents($this->okt->options->getRootPath().'/.htaccess');
+			$this->sHtaccessContent = file_get_contents($this->okt->options->get('root_path').'/.htaccess');
 		}
 
 		$this->bHtaccessDistExists = false;
-		if (file_exists($this->okt->options->getRootPath().'/.htaccess.oktDist')) {
+		if (file_exists($this->okt->options->get('root_path').'/.htaccess.oktDist')) {
 			$this->bHtaccessDistExists = true;
 		}
 	}
@@ -265,7 +265,7 @@ class Tools extends Controller
 				@ini_set('memory_limit',-1);
 				set_time_limit(480);
 
-				$iNumProcessed = Utilities::recursiveCleanup($this->okt->options->getRootPath(),$aToDelete);
+				$iNumProcessed = Utilities::recursiveCleanup($this->okt->options->get('root_path'),$aToDelete);
 
 				$this->page->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'),$iNumProcessed));
 
@@ -283,7 +283,7 @@ class Tools extends Controller
 		{
 			$sFilename = $this->sBackupFilenameBase.'-'.date('Y-m-d-H-i').'.zip';
 
-			$fp = fopen($this->okt->options->getRootPath().'/'.$sFilename,'wb');
+			$fp = fopen($this->okt->options->get('root_path').'/'.$sFilename,'wb');
 			if ($fp === false) {
 				$this->okt->error->set(__('c_a_tools_backup_unable_write_file'));
 			}
@@ -305,7 +305,7 @@ class Tools extends Controller
 				$zip->addExclusion('#(^|/)'.preg_quote($this->sBackupFilenameBase,'#').'(.*?).zip$#');
 
 				$zip->addDirectory(
-					$this->okt->options->getRootPath(),
+					$this->okt->options->get('root_path'),
 					$this->sBackupFilenameBase,
 					true
 				);
@@ -372,7 +372,7 @@ class Tools extends Controller
 			$sFilename = $this->sDbBackupFilenameBase.'-'.date('Y-m-d-H-i').'.sql';
 
 			# save the file
-			$fp = fopen($this->okt->options->getRootPath().'/'.$sFilename,'wb');
+			$fp = fopen($this->okt->options->get('root_path').'/'.$sFilename,'wb');
 			fwrite($fp,$return);
 			fclose($fp);
 
@@ -385,7 +385,7 @@ class Tools extends Controller
 		$sBackupFileToDelete = $this->request->query->get('delete_backup_file');
 		if ($sBackupFileToDelete && (in_array($sBackupFileToDelete,$this->aBackupFiles) || in_array($sBackupFileToDelete,$this->aDbBackupFiles)))
 		{
-			@unlink($this->okt->options->getRootPath().'/'.$sBackupFileToDelete);
+			@unlink($this->okt->options->get('root_path').'/'.$sBackupFileToDelete);
 
 			$this->page->flash->success(__('c_a_tools_backup_deleted'));
 
@@ -396,7 +396,7 @@ class Tools extends Controller
 		$sBackupFileToDownload = $this->request->query->get('dl_backup');
 		if ($sBackupFileToDownload && (in_array($sBackupFileToDownload, $this->aBackupFiles) || in_array($sBackupFileToDownload, $this->aDbBackupFiles)))
 		{
-			Utilities::forceDownload($this->okt->options->getRootPath().'/'.$sBackupFileToDownload);
+			Utilities::forceDownload($this->okt->options->get('root_path').'/'.$sBackupFileToDownload);
 			exit;
 		}
 
@@ -418,8 +418,8 @@ class Tools extends Controller
 			else
 			{
 				file_put_contents(
-					$this->okt->options->getRootPath().'/.htaccess',
-					file_get_contents($this->okt->options->getRootPath().'/.htaccess.oktDist'
+					$this->okt->options->get('root_path').'/.htaccess',
+					file_get_contents($this->okt->options->get('root_path').'/.htaccess.oktDist'
 				));
 
 				$this->page->flash->success(__('c_a_tools_htaccess_created'));
@@ -431,7 +431,7 @@ class Tools extends Controller
 		# suppression du fichier .htaccess
 		if ($this->request->query->has('delete_htaccess'))
 		{
-			@unlink($this->okt->options->getRootPath().'/.htaccess');
+			@unlink($this->okt->options->get('root_path').'/.htaccess');
 
 			$this->page->flash->success(__('c_a_tools_htaccess_deleted'));
 
@@ -441,7 +441,7 @@ class Tools extends Controller
 		# modification du fichier .htaccess
 		if ($this->request->request->has('htaccess_form_sent'))
 		{
-			file_put_contents($this->okt->options->getRootPath().'/.htaccess', $this->request->request->get('p_htaccess_content'));
+			file_put_contents($this->okt->options->get('root_path').'/.htaccess', $this->request->request->get('p_htaccess_content'));
 
 			$this->page->flash->success(__('c_a_tools_htaccess_edited'));
 

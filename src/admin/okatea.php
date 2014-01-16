@@ -8,13 +8,11 @@
 
 use Okatea\Admin\Okatea;
 
-$oktAppPath = realpath(__DIR__.'/../');
-
 # Lunch composer autoload
-$oktAutoloader = require $oktAppPath.'/vendor/autoload.php';
+$oktAutoloader = require __DIR__.'/../vendor/autoload.php';
 
 # Let the music play
-$okt = new Okatea($oktAutoloader, $oktAppPath, require $oktAppPath.'/oktOptions.php');
+$okt = new Okatea($oktAutoloader, require __DIR__.'/../oktOptions.php');
 
 $okt->run();
 

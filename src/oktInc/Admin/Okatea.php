@@ -43,11 +43,10 @@ class Okatea extends Application
 	 * Constructor.
 	 *
 	 * @param Composer\Autoload\ClassLoader $autoloader
-	 * @param string $sRootPath
 	 * @param array $aOptions
-	public function __construct($autoloader, $sRootPath, array $aOptions = array())
+	public function __construct($autoloader, array $aOptions = array())
 	{
-		parent::__construct($autoloader, $sRootPath, $aOptions);
+		parent::__construct($autoloader, $aOptions);
 	}
 	 */
 

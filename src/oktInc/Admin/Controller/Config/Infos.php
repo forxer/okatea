@@ -118,7 +118,7 @@ class Infos extends Controller
 	protected function notesInit()
 	{
 		$this->aNotes = array(
-			'file' => $this->okt->options->getRootPath().'/notes.md',
+			'file' => $this->okt->options->get('root_path').'/notes.md',
 			'has' => false,
 			'edit' => false,
 			'md' => null,

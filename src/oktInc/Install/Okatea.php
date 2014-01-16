@@ -100,7 +100,7 @@ class Okatea extends Application
 	public $version;
 
 
-	public function __construct($autoloader, $sRootPath, array $aOptions = array())
+	public function __construct($autoloader, array $aOptions = array())
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
@@ -109,7 +109,7 @@ class Okatea extends Application
 
 		$this->triggers = new Triggers($this);
 
-		$this->options = new ApplicationOptions($sRootPath, $aOptions);
+		$this->options = new ApplicationOptions($aOptions);
 
 		$this->httpFoundation();
 

@@ -52,7 +52,7 @@ class Update extends Controller
 			$this->okt->options->get('cache_dir').'/versions'
 		);
 		$new_v = $updater->check($sOkateaVersion);
-		$zip_file = $new_v ? $this->okt->options->getRootPath().'/'.basename($updater->getFileURL()) : '';
+		$zip_file = $new_v ? $this->okt->options->get('root_path').'/'.basename($updater->getFileURL()) : '';
 
 		# Hide "update me" message
 		if ($this->request->query->has('hide_msg'))
@@ -69,7 +69,7 @@ class Update extends Controller
 
 		$aArchives = array();
 
-		foreach (\files::scanDir($this->okt->options->getRootPath()) as $v)
+		foreach (\files::scanDir($this->okt->options->get('root_path')) as $v)
 		{
 			if (preg_match('/backup-([0-9A-Za-z\.-]+).zip/',$v)) {
 				$aArchives[] = $v;
@@ -84,7 +84,7 @@ class Update extends Controller
 			{
 				if ($this->request->request->has('b_del'))
 				{
-					if (!@unlink($this->okt->options->getRootPath().'/'.$b_file)) {
+					if (!@unlink($this->okt->options->get('root_path').'/'.$b_file)) {
 						throw new Exception(sprintf(__('c_a_update_unable_delete_file_%s'),html::escapeHTML($b_file)));
 					}
 
@@ -93,9 +93,9 @@ class Update extends Controller
 
 				if ($this->request->request->has('b_revert'))
 				{
-					$zip = new fileUnzip($this->okt->options->getRootPath().'/'.$b_file);
-					$zip->unzipAll($this->okt->options->getRootPath().'/');
-					@unlink($this->okt->options->getRootPath().'/'.$b_file);
+					$zip = new fileUnzip($this->okt->options->get('root_path').'/'.$b_file);
+					$zip->unzipAll($this->okt->options->get('root_path').'/');
+					@unlink($this->okt->options->get('root_path').'/'.$b_file);
 
 					return $this->redirect($sBaseSelfUrl);
 				}
@@ -111,11 +111,11 @@ class Update extends Controller
 		{
 			try
 			{
-				$updater->setForcedFiles('oktInc/digests');
+				$updater->setForcedFiles($this->okt->options->get('digests'));
 
 				# check integrity
 				if (!$this->request->query->has('do_not_check')) {
-					$updater->checkIntegrity($this->okt->options->getRootPath().'/oktInc/digests', $this->okt->options->getRootPath());
+					$updater->checkIntegrity($this->okt->options->get('digests'), $this->okt->options->get('root_path'));
 				}
 
 				# download
@@ -135,9 +135,9 @@ class Update extends Controller
 				$updater->backup(
 					$zip_file,
 					'okatea/oktInc/digests',
-					$this->okt->options->getRootPath(),
-					$this->okt->options->getRootPath().'/oktInc/digests',
-					$this->okt->options->getRootPath().'/backup-'.$sOkateaVersion.'.zip'
+					$this->okt->options->get('root_path'),
+					$this->okt->options->get('digests'),
+					$this->okt->options->get('root_path').'/backup-'.$sOkateaVersion.'.zip'
 				);
 
 				# upgrade
@@ -145,8 +145,8 @@ class Update extends Controller
 					$zip_file,
 					'okatea/oktInc/digests',
 					'okatea',
-					$this->okt->options->getRootPath(),
-					$this->okt->options->getRootPath().'/oktInc/digests'
+					$this->okt->options->get('root_path'),
+					$this->okt->options->get('digests')
 				);
 
 				# log admin

@@ -59,7 +59,7 @@ class Display extends Controller
 			if (isset($_FILES['p_upload_theme']) && !empty($_FILES['p_upload_theme']['tmp_name']))
 			{
 				$sUploadedFile = $_FILES['p_upload_theme'];
-				$sTempDir = $this->okt->options->getRootPath().'/temp/';
+				$sTempDir = $this->okt->options->get('root_path').'/temp/';
 				$sZipFilename = $sTempDir.$sUploadedFile['name'];
 
 				try {

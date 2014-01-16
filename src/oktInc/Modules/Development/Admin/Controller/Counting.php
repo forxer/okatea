@@ -22,7 +22,7 @@ class Counting extends Controller
 		$oCountig = null;
 
 		if ($this->request->request->has('form_sent')) {
-			$oCountig = new CountingFilesAndLines($this->okt->options->getRootPath());
+			$oCountig = new CountingFilesAndLines($this->okt->options->get('root_path'));
 		}
 
 		return $this->render('Development/Admin/Templates/Counting', array(

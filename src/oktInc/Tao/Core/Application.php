@@ -226,7 +226,7 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader, $sRootPath, array $aOptions = array())
+	public function __construct($autoloader, array $aOptions = array())
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
@@ -235,7 +235,7 @@ class Application
 
 		$this->triggers = new Triggers($this);
 
-		$this->options = new ApplicationOptions($sRootPath, $aOptions);
+		$this->options = new ApplicationOptions($aOptions);
 
 		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
 
