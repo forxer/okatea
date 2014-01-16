@@ -87,7 +87,7 @@ class module_partners extends Module
 				$this->okt->checkPerm('partners'),
 				null,
 				$this->okt->page->partnersSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->partnersSubMenu->add(
 					__('c_a_menu_management'),

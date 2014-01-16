@@ -792,6 +792,15 @@ class Utilities
 		return preg_replace('/(&|(?<=\?))'.$sParamKey.'=.*?(?=&|$)/', '', $sUrl);
 	}
 
+	public static function base64EncodeImage($filename, $filetype)
+	{
+		$handle = fopen($filename, 'rb');
+		$imgbinary = fread($handle, filesize($filename));
+		fclose($handle);
+
+		return 'data:image/'.$filetype.';base64,'.base64_encode($imgbinary);
+	}
+
 	/**
 	 * Force le téléchargement d'un fichier $fileName
 	 *

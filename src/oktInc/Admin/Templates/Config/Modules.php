@@ -2,6 +2,7 @@
 
 use Tao\Forms\Statics\FormElements as form;
 use Tao\Modules\Collection as ModulesCollection;
+use Tao\Misc\Utilities;
 
 $view->extend('layout');
 
@@ -104,8 +105,8 @@ $okt->page->loader('.lazy-load');
 				<?php if ($aModule['status']): ?>
 					<a href="module.php?m=<?php echo $aModule['id'] ?>">
 				<?php endif; ?>
-					<?php if (file_exists($aModule['root'].'icon.png')) : ?>
-					<img src="<?php echo $okt->options->modules_url.'/'.$aModule['id'] ?>/icon.png" width="32" height="32" alt="" />
+					<?php if (file_exists($okt->options->get('public_dir').'/modules/'.$aModule['id'].'/module_icon.png')) : ?>
+					<img src="<?php echo $okt->options->public_url.'/modules/'.$aModule['id'] ?>/module_icon.png" width="32" height="32" alt="" />
 					<?php else: ?>
 					<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 					<?php endif; ?>
@@ -240,8 +241,8 @@ $okt->page->loader('.lazy-load');
 		?>
 		<tr>
 			<td class="<?php echo $td_class; ?> small">
-				<?php if (file_exists($okt->options->get('modules_dir').'/'.$id.'/icon.png')) : ?>
-					<img src="<?php echo $okt->options->modules_url.'/'.$id.'/icon.png'; ?>" width="32" height="32" alt="" />
+				<?php if (file_exists($okt->options->get('modules_dir').'/'.$id.'/install/assets/module_icon.png')) : ?>
+					<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('modules_dir').'/'.$id.'/install/assets/module_icon.png', 'png'); ?>" width="32" height="32" alt="" />
 				<?php else: ?>
 					<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 				<?php endif; ?>

@@ -49,7 +49,7 @@ class Module extends BaseModule
 				$this->okt->checkPerm('development_usage'),
 				null,
 				$this->okt->page->DevelopmentSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->DevelopmentSubMenu->add(
 					__('m_development_menu_development'),

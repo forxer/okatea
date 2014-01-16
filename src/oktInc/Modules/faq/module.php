@@ -83,7 +83,7 @@ class module_faq extends Module
 				$this->okt->checkPerm('faq'),
 				null,
 				$this->okt->page->faqSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->faqSubMenu->add(
 					__('c_a_menu_management'),

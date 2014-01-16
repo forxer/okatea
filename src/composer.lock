@@ -615,12 +615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "6ef45a4097c4c99faa0c815e059dffa8e4c3b0bd"
+                "reference": "cd97afb9dd564869d607eb18abf8ec84be647e87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6ef45a4097c4c99faa0c815e059dffa8e4c3b0bd",
-                "reference": "6ef45a4097c4c99faa0c815e059dffa8e4c3b0bd",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/cd97afb9dd564869d607eb18abf8ec84be647e87",
+                "reference": "cd97afb9dd564869d607eb18abf8ec84be647e87",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-01-10 18:51:00"
+            "time": "2014-01-15 23:31:19"
         },
         {
             "name": "imagine/imagine",
@@ -1163,12 +1163,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "f0be8302f28913af7bd7df6639e5bec5b5e79257"
+                "reference": "74ddf4b94c035224079ae5ec4401aaf0b0caf151"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/f0be8302f28913af7bd7df6639e5bec5b5e79257",
-                "reference": "f0be8302f28913af7bd7df6639e5bec5b5e79257",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/74ddf4b94c035224079ae5ec4401aaf0b0caf151",
+                "reference": "74ddf4b94c035224079ae5ec4401aaf0b0caf151",
                 "shasum": ""
             },
             "require": {
@@ -1204,7 +1204,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-12-03 13:34:24"
+            "time": "2014-01-16 10:20:22"
         },
         {
             "name": "symfony/config",

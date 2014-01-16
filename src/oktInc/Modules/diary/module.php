@@ -70,7 +70,7 @@ class module_diary extends Module
 				$this->okt->checkPerm('diary'),
 				null,
 				$this->okt->page->diarySubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 
 				$this->okt->page->diarySubMenu->add(

@@ -37,14 +37,14 @@ $RECYCLE.BIN/
 !/src/oktInc/config/routes/*/__okatea_core.yml
 
 # oktatea cache
-/src/oktInc/cache/htmlpurifier/
-/src/oktInc/cache/modulesRepositoriesInfos.php
-/src/oktInc/cache/static.php
-/src/oktInc/cache/versions/
-/src/oktInc/cache/routing/
+/src/oktInc/cache/**
+!/src/oktPublic/cache/.gitkeep
 
 # oktatea assets
 /src/oktPublic/cache/**
+!/src/oktPublic/cache/index.html
+/src/oktPublic/components/**
+!/src/oktPublic/components/index.html
 /src/oktPublic/modules/**
 !/src/oktPublic/modules/index.html
 /src/oktPublic/upload/**
@@ -55,6 +55,3 @@ $RECYCLE.BIN/
 
 # vendor
 /src/vendor/
-
-# components
-/src/oktPublic/components/

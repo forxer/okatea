@@ -53,7 +53,7 @@ class module_guestbook extends Module
 				$this->okt->checkPerm('guestbook'),
 				null,
 				$this->okt->page->guestbookSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->guestbookSubMenu->add(
 					__('c_a_menu_management'),

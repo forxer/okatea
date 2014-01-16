@@ -116,7 +116,7 @@ class Module extends BaseModule
 				($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
 				null,
 				$this->okt->page->newsSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_management'),
 					$this->okt->adminRouter->generate('News_index'),

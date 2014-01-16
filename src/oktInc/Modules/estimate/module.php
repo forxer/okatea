@@ -70,7 +70,7 @@ class module_estimate extends Module
 				$this->okt->checkPerm('estimate'),
 				null,
 				$this->okt->page->estimateSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->estimateSubMenu->add(
 					__('m_estimate_menu_Estimates_list'),

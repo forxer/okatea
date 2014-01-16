@@ -112,7 +112,7 @@ class Module extends BaseModule
 				$this->okt->checkPerm('pages'),
 				null,
 				$this->okt->page->pagesSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_management'),

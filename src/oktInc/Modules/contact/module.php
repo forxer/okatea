@@ -73,7 +73,7 @@ class module_contact extends Module
 				$this->okt->checkPerm('contact_recipients'),
 				null,
 				$this->okt->page->contactSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_recipients'),

@@ -91,7 +91,7 @@ class module_catalog extends Module
 				$this->okt->checkPerm('catalog'),
 				null,
 				$this->okt->page->catalogSubMenu,
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->catalogSubMenu->add(
 					'Gestion',

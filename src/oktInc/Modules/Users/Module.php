@@ -69,7 +69,7 @@ class Module extends BaseModule
 				($this->okt->checkPerm('users')),
 				null,
 				($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
-				$this->url().'/icon.png'
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_management'),
