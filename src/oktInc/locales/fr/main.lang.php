@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 $GLOBALS['__l10n']['c_c_proudly_propulsed_%s'] = 'Fièrement propulsé par %s';
 
