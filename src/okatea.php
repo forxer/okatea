@@ -6,11 +6,6 @@
  * file that was distributed with this source code.
  */
 
-
-/**
- * Okatea Front Controller.
- */
-
 use Okatea\Website\Okatea;
 
 # Lunch composer autoload
@@ -21,5 +16,5 @@ $okt = new Okatea($oktAutoloader, __DIR__, require __DIR__.'/oktOptions.php');
 
 $okt->run();
 
-# -- CORE TRIGGER : publicFinal
-$okt->triggers->callTrigger('publicFinal');
+# -- CORE TRIGGER : websiteFinal
+$okt->triggers->callTrigger('websiteFinal');

@@ -6,12 +6,6 @@
  * file that was distributed with this source code.
  */
 
-
-/**
- * Le front controller de la partie administration.
- *
- */
-
 use Okatea\Admin\Okatea;
 
 $oktAppPath = realpath(__DIR__.'/../');
