@@ -13,6 +13,12 @@ else
 {
 	return array(
 		'debug' => false,
-		'env' => 'prod'
+		'env' => 'prod',
+
+		'cookie_auth_name' 	=> 'otk_auth',
+		'cookie_auth_from' 	=> 'otk_auth_from',
+		'cookie_language' 	=> 'otk_language',
+
+		'csrf_token_name' 	=> 'okt_csrf_token'
 	);
 }
