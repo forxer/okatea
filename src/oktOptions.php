@@ -7,7 +7,7 @@
  */
 
 if (file_exists(__DIR__.'/oktOptions.custom.php')) {
-	return __DIR__.'/oktOptions.custom.php';
+	return require __DIR__.'/oktOptions.custom.php';
 }
 else
 {
