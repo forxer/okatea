@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 $okt->page->openLinkInDialog('#changelog_link',array(
 	'title' => 'CHANGELOG',

@@ -1,10 +1,10 @@
 <?php
-/**
- * @ingroup okt_theme_default
- * @brief Fichier de définition du thème
+/*
+ * This file is part of Okatea.
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
-
 
 $this->registerTheme(array(
 	'name' 			=> 'Default',
@@ -13,4 +13,3 @@ $this->registerTheme(array(
 	'author' 		=> 'okatea.org',
 	'tags' 			=> 'default'
 ));
-

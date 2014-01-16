@@ -1,4 +1,11 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');

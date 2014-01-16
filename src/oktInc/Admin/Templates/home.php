@@ -1,5 +1,12 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-<?php $view->extend('layout'); ?>
+$view->extend('layout'); ?>
 
 <?php if (!empty($sNewVersion)) : ?>
 <div id="updates-notifications"><h3><?php _e('c_a_update') ?></h3>

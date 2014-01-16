@@ -32,7 +32,7 @@ $RECYCLE.BIN/
 /src/oktInc/config/conf_*.yml
 !/src/oktInc/config/conf_site.yml
 /src/oktInc/config/routes/*/*.yml
-!/src/oktInc/config/routes/*/zyx_okatea_core.yml
+!/src/oktInc/config/routes/*/__okatea_core.yml
 /src/oktInc/config/routes_admin/*.yml
 !/src/oktInc/config/routes/*/__okatea_core.yml
 

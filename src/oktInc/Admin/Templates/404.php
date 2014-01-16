@@ -1,5 +1,12 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-<?php $view->extend('layout'); ?>
+$view->extend('layout'); ?>
 
 <?php $okt->page->addGlobalTitle(__('c_c_doc_not_fount')); ?>
 

@@ -1,6 +1,14 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-<?php $view->extend('layout'); ?>
+$view->extend('layout');
 
+?>
 
 <p><?php _e('i_end_'.$okt->session->get('okt_install_process_type').'_congrat') ?></p>
 

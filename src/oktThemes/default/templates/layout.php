@@ -1,3 +1,12 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+?>
 
 <?php # début Okatea : ce template étend le template principal "main"
 $view->extend('main');
