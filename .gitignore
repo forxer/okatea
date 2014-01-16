@@ -28,17 +28,17 @@ $RECYCLE.BIN/
 /src/oktOptions.custom.php
 
 # oktatea config
-/src/oktInc/config/connexion.php
-/src/oktInc/config/conf_*.yml
-!/src/oktInc/config/conf_site.yml
-/src/oktInc/config/routes/*/*.yml
-!/src/oktInc/config/routes/*/__okatea_core.yml
-/src/oktInc/config/routes_admin/*.yml
-!/src/oktInc/config/routes/*/__okatea_core.yml
+/src/Okatea/config/connexion.php
+/src/Okatea/config/conf_*.yml
+!/src/Okatea/config/conf_site.yml
+/src/Okatea/config/routes/*/*.yml
+!/src/Okatea/config/routes/*/__okatea_core.yml
+/src/Okatea/config/routes_admin/*.yml
+!/src/Okatea/config/routes/*/__okatea_core.yml
 
 # oktatea cache
-/src/oktInc/cache/**
-!/src/oktPublic/cache/.gitkeep
+/src/Okatea/cache/**
+!/src/Okatea/cache/.gitkeep
 
 # oktatea assets
 /src/oktPublic/cache/**

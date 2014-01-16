@@ -9,7 +9,7 @@
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
-use Tao\Themes\Editor\DefinitionsLess;
+use Okatea\Tao\Themes\Editor\DefinitionsLess;
 
 
 /* Initialisations

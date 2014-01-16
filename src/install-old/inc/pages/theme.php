@@ -10,8 +10,8 @@
 if (!defined('OKT_INSTAL_PROCESS')) die;
 
 use Okatea\Admin\Page;
-use Tao\Themes\Collection as ThemesCollection;
-use Tao\Core\HttpClient;
+use Okatea\Tao\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Core\HttpClient;
 
 
 /* Initialisations

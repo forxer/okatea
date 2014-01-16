@@ -39,11 +39,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Okatea\\Admin\\": 		"oktInc/Admin",
-			"Okatea\\Install\\": 	"oktInc/Install",
-			"Okatea\\Module\\": 	"oktInc/Modules",
-			"Okatea\\Website\\": 	"oktInc/Website",
-			"Tao\\": 				"oktInc/Tao"
+			"Okatea\\": "Okatea"
 		},
 		"classmap": [
 			"vendor/dotclear/clearbricks/common",
@@ -51,6 +47,6 @@
 			"vendor/dotclear/clearbricks/image",
 			"vendor/dotclear/clearbricks/zip"
 		],
-		"files": ["oktInc/functions.php"]
+		"files": ["Okatea/functions.php"]
 	}
 }

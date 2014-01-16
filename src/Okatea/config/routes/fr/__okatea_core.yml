@@ -1,0 +1,25 @@
+# default Okatea routes
+# do not remove this file
+
+homePage:
+    path:     /
+    defaults: { _controller: Okatea\Website\Controller::homePage }
+    
+401:
+    path:     /401
+    defaults: { _controller: Okatea\Website\Controller::serve401 }
+
+404:
+    path:     /404
+    defaults: { _controller: Okatea\Website\Controller::serve404 }
+
+503:
+    path:     /503
+    defaults: { _controller: Okatea\Website\Controller::serve503 }
+    
+remove_trailing_slash:
+    path:     /{url}
+    defaults: { _controller: Okatea\Tao\Core\Controller::removeTrailingSlash }
+    requirements:
+        url: .*/$
+        _method: GET
