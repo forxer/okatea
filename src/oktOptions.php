@@ -6,7 +6,13 @@
  * file that was distributed with this source code.
  */
 
-return array(
-	'debug' => true,
-	'env' => 'dev'
-);
+if (file_exists(__DIR__.'/oktOptions.custom.php')) {
+	return __DIR__.'/oktOptions.custom.php';
+}
+else
+{
+	return array(
+		'debug' => false,
+		'env' => 'prod'
+	);
+}
