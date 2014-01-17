@@ -10,18 +10,18 @@ namespace Okatea\Tao\Modules\Manage\Component;
 
 use Okatea\Tao\Modules\Manage\Component\ComponentBase;
 
-class AssetsFiles extends ComponentBase
+class TemplatesFiles extends ComponentBase
 {
 	/**
-	 * Copy/replace assets files.
+	 * Copy/replace templates files.
 	 *
 	 * @return void
 	 */
 	public function process()
 	{
-		$sAssetsDir = $this->module->root().'/install/assets';
+		$sTemplatesDir = $this->module->root().'/install/templates';
 
-		if (!is_dir($sAssetsDir)) {
+		if (!is_dir($sTemplatesDir)) {
 			return null;
 		}
 
@@ -32,14 +32,14 @@ class AssetsFiles extends ComponentBase
 		}
 
 		$this->checklist->addItem(
-			'assets',
+			'templates_files',
 			$this->mirror(
-				$sAssetsDir,
-				$this->okt->options->get('public_dir').'/modules/'.$this->module->id(),
+				$sTemplatesDir,
+				$this->okt->options->get('themes_dir').'/default/templates/'.$this->module->id(),
 				$oFiles
 			),
-			'Create assets files',
-			'Cannot create assets files'
+			'Create templates files',
+			'Cannot create templates files'
 		);
 	}
 
@@ -49,23 +49,23 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('public_dir').'/modules/'.$this->module->id();
+		$sPath = $this->okt->options->get('themes_dir').'/default/templates/'.$this->module->id();
 
 		if (!is_dir($sPath)) {
 			return null;
 		}
 
 		$this->checklist->addItem(
-			'remove_assets',
+			'remove_templates',
 			$this->getFs()->remove($sPath),
-			'Remove assets files',
-			'Cannot remove assets files'
+			'Remove templates files',
+			'Cannot remove templates files'
 		);
 	}
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/install/assets';
+		$sPath = $this->module->root().'/install/templates';
 
 		if (is_dir($sPath))
 		{

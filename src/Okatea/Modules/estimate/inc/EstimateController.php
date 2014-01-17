@@ -163,7 +163,7 @@ class EstimateController extends Controller
 		$this->page->setTitleSeo($this->okt->estimate->getNameSeo());
 
 		# affichage du template
-		return $this->render('estimate/summary/'.$this->okt->estimate->config->templates['summary']['default'].'/template', array(
+		return $this->render('Estimate/summary/'.$this->okt->estimate->config->templates['summary']['default'].'/template', array(
 			'aEstimateData' => $aFormatedData
 		));
 	}
@@ -371,7 +371,7 @@ class EstimateController extends Controller
 		$this->page->setTitleSeo($this->okt->estimate->getNameSeo());
 
 		# affichage du template
-		return $this->render('estimate/form/'.$this->okt->estimate->config->templates['form']['default'].'/template', array(
+		return $this->render('Estimate/form/'.$this->okt->estimate->config->templates['form']['default'].'/template', array(
 			'aFormData' => $this->aFormData,
 			'rsProducts' => $rsProducts,
 			'aProductsSelect' => $aProductsSelect,

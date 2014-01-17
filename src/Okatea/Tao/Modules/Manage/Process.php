@@ -19,6 +19,7 @@ use Okatea\Tao\Modules\Manage\Component\AssetsFiles;
 use Okatea\Tao\Modules\Manage\Component\Comparator;
 use Okatea\Tao\Modules\Manage\Component\ConfigFiles;
 use Okatea\Tao\Modules\Manage\Component\RoutesFiles;
+use Okatea\Tao\Modules\Manage\Component\TemplatesFiles;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 
 /**
@@ -43,33 +44,39 @@ class Process extends Module
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\AssetsFiles\AssetsFiles
+	 * @var Okatea\Tao\Modules\Manage\Component\AssetsFiles
 	 */
 	protected $assetsFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles
+	 * @var Okatea\Tao\Modules\Manage\Component\Comparator
+	 */
+	protected $comparator;
+
+	/**
+	 *
+	 * @var Okatea\Tao\Modules\Manage\Component\ConfigFiles
 	 */
 	protected $configFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles
+	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles
 	 */
 	protected $routesFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles
+	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles
 	 */
 	protected $routesAdminFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\Comparator\Comparator
+	 * @var Okatea\Tao\Modules\Manage\Component\TemplatesFiles
 	 */
-	protected $comparator;
+	protected $templatesFiles;
 
 	/**
 	 * Constructeur
@@ -177,30 +184,7 @@ class Process extends Module
 		$this->loadDbFile($this->root().'/install/db-uninstall.xml');
 
 		# suppression des fichiers templates
-		if (is_dir($this->root().'/install/tpl'))
-		{
-			$d = dir($this->root().'/install/tpl');
-			while (false !== ($entry = $d->read()))
-			{
-				if (!is_dir($entry) && $entry != '.' && $entry != '..' && $entry != '.svn') {
-					$this->uninstallTplFile($this->root().'/install/tpl/'.$entry);
-				}
-			}
-			$d->close();
-		}
-
-		# suppression des fichiers public
-		if (is_dir($this->root().'/install/public'))
-		{
-			$d = dir($this->root().'/install/public');
-			while (false !== ($entry = $d->read()))
-			{
-				if (!is_dir($entry) && $entry != '.' && $entry != '..' && $entry != '.svn') {
-					$this->uninstallPublicFile($this->root().'/install/public/'.$entry);
-				}
-			}
-			$d->close();
-		}
+		$this->getTemplatesFiles()->delete();
 
 		# suppression des fichiers d'upload
 		$sUploadDir = $this->okt->options->get('upload_dir').'/'.$this->id().'/';
@@ -337,18 +321,6 @@ class Process extends Module
 	}
 
 	/**
-	 * Force le remplacement des fichiers de template
-	 *
-	 */
-	public function forceReplaceTpl()
-	{
-		return $this->forceReplaceFiles(
-			$this->root().'/install/tpl/',
-			$this->okt->options->get('themes_dir').'/default/templates/'
-		);
-	}
-
-	/**
 	 * Force le remplacement des fichiers d'upload
 	 *
 	 */
@@ -358,49 +330,6 @@ class Process extends Module
 			$this->root().'/install/test_set/upload/',
 			$this->okt->options->get('upload_dir').'/'.$this->id().'/'
 		);
-	}
-
-	/**
-	 * Désinstallation d'un fichier de template
-	 *
-	 * @param string $file
-	 * @return void
-	 */
-	protected function uninstallTplFile($file)
-	{
-		static $count;
-
-		if (empty($count)) {
-			$count = 1;
-		}
-
-		$filename = basename($file);
-
-		# suppression du fichier .bak de façon silencieuse
-		if (file_exists($this->okt->options->get('themes_dir').'/default/templates/'.$filename.'.bak')) {
-			@unlink($this->okt->options->get('themes_dir').'/default/templates/'.$filename.'.bak');
-		}
-
-		# si le fichier existe on le supprime
-		if (file_exists($this->okt->options->get('themes_dir').'/default/templates/'.$filename))
-		{
-			$this->checklist->addItem(
-				'tpl_file_'.$count,
-				(is_dir($this->okt->options->get('themes_dir').'/default/templates/'.$filename) ? \files::deltree($this->okt->options->get('themes_dir').'/default/templates/'.$filename) : unlink($this->okt->options->get('themes_dir').'/default/templates/'.$filename)),
-				'Remove template file '.$filename,
-				'Cannot remove template file '.$filename
-			);
-		}
-		else {
-			$this->checklist->addItem(
-				'tpl_file_'.$count,
-				null,
-				'Template file '.$filename.' doesn\'t exists',
-				'Template file '.$filename.' doesn\'t exists'
-			);
-		}
-
-		$count++;
 	}
 
 	/**
@@ -449,19 +378,6 @@ class Process extends Module
 		}
 
 		return true;
-	}
-
-	protected function copyTplFiles()
-	{
-		if (is_dir($this->root().'/install/tpl/'))
-		{
-			$this->checklist->addItem(
-				'tpl_dir',
-				$this->forceReplaceTpl(),
-				'Create templates files',
-				'Cannot create templates files'
-			);
-		}
 	}
 
 	/**
@@ -557,7 +473,7 @@ class Process extends Module
 		$this->loadDbFile($this->root().'/install/db-install.xml',$process);
 
 		# copie des éventuels fichiers templates
-		$this->copyTplFiles();
+		$this->getTemplatesFiles()->process();
 
 		# copie des éventuels fichiers assets
 		$this->getAssetsFiles()->process();
@@ -646,5 +562,14 @@ class Process extends Module
 		}
 
 		return $this->routesAdminFiles;
+	}
+
+	protected function getTemplatesFiles()
+	{
+		if (null === $this->templatesFiles) {
+			$this->templatesFiles = new TemplatesFiles($this->okt, $this);
+		}
+
+		return $this->templatesFiles;
 	}
 }

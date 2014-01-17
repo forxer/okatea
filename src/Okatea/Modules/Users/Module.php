@@ -1236,7 +1236,7 @@ class Module extends BaseModule
 	 */
 	public function getForgottenPasswordTplPath()
 	{
-		return 'users/forgotten_password/'.$this->config->templates['forgotten_password']['default'].'/template';
+		return 'Users/forgotten_password/'.$this->config->templates['forgotten_password']['default'].'/template';
 	}
 
 	/**
@@ -1246,7 +1246,7 @@ class Module extends BaseModule
 	 */
 	public function getLoginTplPath()
 	{
-		return 'users/login/'.$this->config->templates['login']['default'].'/template';
+		return 'Users/login/'.$this->config->templates['login']['default'].'/template';
 	}
 
 	/**
@@ -1256,7 +1256,7 @@ class Module extends BaseModule
 	 */
 	public function getLoginRegisterTplPath()
 	{
-		return 'users/login_register/'.$this->config->templates['login_register']['default'].'/template';
+		return 'Users/login_register/'.$this->config->templates['login_register']['default'].'/template';
 	}
 
 	/**
@@ -1266,7 +1266,7 @@ class Module extends BaseModule
 	 */
 	public function getProfileTplPath()
 	{
-		return 'users/profile/'.$this->config->templates['profile']['default'].'/template';
+		return 'Users/profile/'.$this->config->templates['profile']['default'].'/template';
 	}
 
 	/**
@@ -1276,7 +1276,7 @@ class Module extends BaseModule
 	 */
 	public function getRegisterTplPath()
 	{
-		return 'users/register/'.$this->config->templates['register']['default'].'/template';
+		return 'Users/register/'.$this->config->templates['register']['default'].'/template';
 	}
 
 	/**
@@ -1286,7 +1286,7 @@ class Module extends BaseModule
 	 */
 	public function getUserBarTplPath()
 	{
-		return 'users/user_bar/'.$this->config->templates['user_bar']['default'].'/template';
+		return 'Users/user_bar/'.$this->config->templates['user_bar']['default'].'/template';
 	}
 
 
@@ -1354,5 +1354,4 @@ class Module extends BaseModule
 
 		return $aGroups;
 	}
-
 }

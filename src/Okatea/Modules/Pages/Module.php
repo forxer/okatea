@@ -1484,7 +1484,6 @@ class Module extends BaseModule
 	}
 
 
-
 	/* Utilitaires
 	----------------------------------------------------------*/
 
@@ -1495,7 +1494,7 @@ class Module extends BaseModule
 	 */
 	public function getListTplPath()
 	{
-		return 'pages/list/'.$this->config->templates['list']['default'].'/template';
+		return 'Pages/list/'.$this->config->templates['list']['default'].'/template';
 	}
 
 	/**
@@ -1505,7 +1504,7 @@ class Module extends BaseModule
 	 */
 	public function getFeedTplPath()
 	{
-		return 'pages/feed/'.$this->config->templates['feed']['default'].'/template';
+		return 'Pages/feed/'.$this->config->templates['feed']['default'].'/template';
 	}
 
 	/**
@@ -1515,7 +1514,7 @@ class Module extends BaseModule
 	 */
 	public function getInsertTplPath()
 	{
-		return 'pages/insert/'.$this->config->templates['insert']['default'].'/template';
+		return 'Pages/insert/'.$this->config->templates['insert']['default'].'/template';
 	}
 
 	/**
@@ -1531,7 +1530,7 @@ class Module extends BaseModule
 			$sTemplate = $sCategoryTemplate;
 		}
 
-		return 'pages/list/'.$sTemplate.'/template';
+		return 'Pages/list/'.$sTemplate.'/template';
 	}
 
 	/**
@@ -1550,7 +1549,7 @@ class Module extends BaseModule
 			$sTemplate = $sCatPageTemplate;
 		}
 
-		return 'pages/item/'.$sTemplate.'/template';
+		return 'Pages/item/'.$sTemplate.'/template';
 	}
 
 	/**
@@ -1580,48 +1579,4 @@ class Module extends BaseModule
 
 		return true;
 	}
-
-
-	/* Helpers
-	----------------------------------------------------------*/
-
-	/**
-	 * Retourne sous forme de liste HTML les pages d'une catégorie donnée.
-	 *
-	 * @param integer $iCatId
-	 * @param string $sBlockFormat 	Masque de formatage du bloc ('<ul>%s</ul>')
-	 * @param string $sItemFormat 	Masque de formatage d'un élément ('<li>%s</li>')
-	 * @param string $sItemActiveFormat 	Masque de formatage d'un élément actif ('<li class="active"><strong>%s</strong></li>')
-	 * @param string $sLinkFormat 	Masque de formatage d'un lien ('<a href="%s">%s</a>')
-	 * @param string $sItemsGlue 	Liant entre les différents éléments ('')
-	 * @param array $aCustomParams Paramètres de sélection personnalisés (array())
-	 * @return string
-	 * @deprecated use PagesHelpers::getPagesByCatId() instead
-	 */
-	public function getPagesByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='', $aCustomParams=array())
-	{
-		trigger_error('Deprecated method, please use PagesHelpers::getPagesByCatId() instead', E_USER_WARNING);
-
-		return PagesHelpers::getPagesByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue, $aCustomParams);
-	}
-
-	/**
-	 * Retourne sous forme de liste HTML les sous-catégories d'une catégorie donnée.
-	 *
-	 * @param integer $iCatId				L'identifiant de la catégorie a lister.
-	 * @param string $sBlockFormat			Masque de formatage du bloc de la liste.
-	 * @param string $sItemFormat 			Masque de formatage d'un élément de la liste.
-	 * @param string $sItemActiveFormat 	Masque de formatage de l'élément actif de la liste.
-	 * @param string $sLinkFormat 			Masque de formatage d'un lien de la liste.
-	 * @param string $sItemsGlue 			Chaine de liaison entre les éléments.
-	 * @return string
-	 */
-	public function getSubCatsByCatId($iCatId, $sBlockFormat='<ul>%s</ul>', $sItemFormat='<li>%s</li>', $sItemActiveFormat='<li class="active"><strong>%s</strong></li>', $sLinkFormat='<a href="%s">%s</a>', $sItemsGlue='')
-	{
-		trigger_error('Deprecated method, please use PagesHelpers::getSubCatsByCatId() instead', E_USER_WARNING);
-
-		return PagesHelpers::getSubCatsByCatId($iCatId, $sBlockFormat, $sItemFormat, $sItemActiveFormat, $sLinkFormat, $sItemsGlue);
-	}
-
-
 }

@@ -265,7 +265,7 @@ class Controller extends BaseController
 
 		# invité non convié
 		if ($this->okt->user->is_guest) {
-			return $this->redirect(html::escapeHTML(UsersHelpers::getLoginUrl(UsersHelpers::getProfileUrl())));
+			return $this->redirect(UsersHelpers::getLoginUrl(UsersHelpers::getProfileUrl()));
 		}
 
 		# données utilisateur
@@ -350,7 +350,7 @@ class Controller extends BaseController
 				setcookie($c,null);
 			}
 
-			return $this->redirect(html::escapeHTML(UsersHelpers::getProfileUrl()));
+			return $this->redirect(UsersHelpers::getProfileUrl());
 		}
 
 		# Formulaire de changement de mot de passe
@@ -361,7 +361,7 @@ class Controller extends BaseController
 
 			$this->okt->users->changeUserPassword($aUserProfilData);
 
-			return $this->redirect(html::escapeHTML(UsersHelpers::getProfileUrl()));
+			return $this->redirect(UsersHelpers::getProfileUrl());
 		}
 
 		# Formulaire de modification de l'utilisateur envoyé
@@ -399,7 +399,7 @@ class Controller extends BaseController
 					}
 				}
 
-				return $this->redirect(html::escapeHTML(UsersHelpers::getProfileUrl()));
+				return $this->redirect(UsersHelpers::getProfileUrl());
 			}
 		}
 

@@ -1763,7 +1763,7 @@ class Module extends BaseModule
 	 */
 	public function getListTplPath()
 	{
-		return 'news/list/'.$this->config->templates['list']['default'].'/template';
+		return 'News/list/'.$this->config->templates['list']['default'].'/template';
 	}
 
 	/**
@@ -1773,7 +1773,7 @@ class Module extends BaseModule
 	 */
 	public function getFeedTplPath()
 	{
-		return 'news/feed/'.$this->config->templates['feed']['default'].'/template';
+		return 'News/feed/'.$this->config->templates['feed']['default'].'/template';
 	}
 
 	/**
@@ -1783,7 +1783,7 @@ class Module extends BaseModule
 	 */
 	public function getInsertTplPath()
 	{
-		return 'news/insert/'.$this->config->templates['insert']['default'].'/template';
+		return 'News/insert/'.$this->config->templates['insert']['default'].'/template';
 	}
 
 	/**
@@ -1799,7 +1799,7 @@ class Module extends BaseModule
 			$sTemplate = $sCategoryTemplate;
 		}
 
-		return 'news/list/'.$sTemplate.'/template';
+		return 'News/list/'.$sTemplate.'/template';
 	}
 
 	/**
@@ -1818,7 +1818,7 @@ class Module extends BaseModule
 			$sTemplate = $sCatPostTemplate;
 		}
 
-		return 'news/item/'.$sTemplate.'/template';
+		return 'News/item/'.$sTemplate.'/template';
 	}
 
 	/**
@@ -1849,5 +1849,4 @@ class Module extends BaseModule
 
 		return true;
 	}
-
 }
