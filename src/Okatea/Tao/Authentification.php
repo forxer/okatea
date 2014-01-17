@@ -43,19 +43,19 @@ class Authentification
 	const member_group_id = 4;
 
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
-	 * L'objet gestionnaire de base de données.
+	 * The database manager instance.
 	 * @var object
 	 */
 	protected $oDb;
 
 	/**
-	 * L'objet gestionnaire d'erreurs.
+	 * The errors manager instance.
 	 * @var object
 	 */
 	protected $oError;
@@ -136,7 +136,7 @@ class Authentification
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt				Instance de l'objet oktCore
+	 * @param object $okt				Okatea application instance.
 	 * @param string $sCookieName 		Le nom du cookie d'authentification (otk_auth)
 	 * @param string $sCookiePath 		Le chemin du cookie d'authentification ('/')
 	 * @param string $sCookieDomain 	Le domaine du cookie d'authentification ('')

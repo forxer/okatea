@@ -23,8 +23,8 @@ use Okatea\Tao\Navigation\Breadcrumb;
 class Page
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 

@@ -17,14 +17,20 @@ class Theme
 	public $url;
 	public $path;
 
+	/**
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
+	 */
 	protected $okt;
+
 	protected $aLessVariables = array();
+
 	protected $aRubriques = array();
 
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
 	public function __construct($okt)

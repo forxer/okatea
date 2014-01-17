@@ -20,8 +20,8 @@ use Okatea\Tao\Misc\Utilities;
 class AdminBar
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 

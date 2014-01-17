@@ -17,8 +17,8 @@ use Okatea\Tao\HttpClient;
 class Collection
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -97,7 +97,7 @@ class Collection
 	/**
 	 * Constructeur.
 	 *
-	 * @param	object	$okt		Instance d'un objet de type oktCore
+	 * @param	object	$okt		Okatea application instance.
 	 * @param	string 	$path		Le chemin du répertoire des modules à charger.
 	 * @param	string 	$url		L'URL du répertoire des modules.
 	 * @return void

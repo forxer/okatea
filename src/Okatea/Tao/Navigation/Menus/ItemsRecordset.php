@@ -17,17 +17,16 @@ use Okatea\Tao\Database\Recordset;
 class ItemsRecordset extends Recordset
 {
 	/**
-	 * L'objet oktCore
-	 * @access private
-	 * @var object
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
-	private $okt;
+	protected $okt;
 
 	/**
-	 * Défini l'objet de type oktCore qui sera passé à la classe après
+	 * Défini l'instance application qui sera passé à la classe après
 	 * qu'elle ait été instanciée.
 	 *
-	 * @param oktCore okt 	Objet de type core
+	 * @param Okatea\Tao\Application $okt 	Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)

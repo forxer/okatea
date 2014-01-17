@@ -17,8 +17,8 @@ use Okatea\Tao\Misc\Utilities;
 class Menus
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -56,7 +56,7 @@ class Menus
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt 	Okatea application instance.
 	 * @return void
 	 */
 	public function __construct($okt)

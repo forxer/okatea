@@ -13,8 +13,8 @@ use Okatea\Tao\Misc\Utilities;
 class CustomFields
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 

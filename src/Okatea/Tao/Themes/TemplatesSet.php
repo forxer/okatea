@@ -18,20 +18,20 @@ use Okatea\Tao\Misc\Utilities;
 class TemplatesSet
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Le chemin de base du template
-	 * @var object oktCore
+	 * @var string
 	 */
 	protected $sBase;
 
 	/**
 	 * La famille du template
-	 * @var object oktCore
+	 * @var string
 	 */
 	protected $sTplFamily;
 
@@ -62,7 +62,7 @@ class TemplatesSet
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @param array $aConfig
 	 * @param string $sBase
 	 * @param string $sTplFamily

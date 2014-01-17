@@ -16,9 +16,23 @@ use Okatea\Tao\Database\Recordset;
  */
 class NestedTreei18n
 {
+	/**
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
+	 */
 	protected $okt;
-	protected $error;
+
+	/**
+	 * The database manager instance.
+	 * @var object
+	 */
 	protected $db;
+
+	/**
+	 * The errors manager instance.
+	 * @var object
+	 */
+	protected $error;
 
 	protected $sTable;
 	protected $tablePrefix;
@@ -35,7 +49,7 @@ class NestedTreei18n
 	/**
 	 * Constructor. Set the database table name and necessary field names
 	 *
-	 * @param   object 	$okt				Instance of oktCore
+	 * @param   object 	$okt				Instance of core application
 	 * @param   string  $sTable 			Name of the tree database table
 	 * @param   string  $sTableLocales 		Name of the locales database table
 	 * @param   string  $idField 			Name of the primary key ID field

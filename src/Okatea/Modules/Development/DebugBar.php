@@ -13,8 +13,8 @@ use Okatea\Tao\Misc\Utilities;
 class DebugBar
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -85,7 +85,7 @@ class DebugBar
 	/**
 	 * Le behavior qui affiche le HTML de la debug barre.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 */
 	public static function addHtmlByBehavior($okt)
 	{

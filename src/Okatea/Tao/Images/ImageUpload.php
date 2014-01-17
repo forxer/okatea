@@ -19,8 +19,8 @@ use Okatea\Tao\Misc\Utilities;
 class ImageUpload
 {
 	/**
-	 * Référence de l'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -91,7 +91,7 @@ class ImageUpload
 	/**
 	 * Constructeur.
 	 *
-	 * @param oktCore $okt
+	 * @param object $okt
 	 * @param array $aConfig
 	 * @return void
 	 */

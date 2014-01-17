@@ -33,8 +33,8 @@ class Languages
 	public $unique;
 
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -71,7 +71,7 @@ class Languages
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
 	public function __construct($okt)

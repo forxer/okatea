@@ -8,8 +8,8 @@
 class EstimateProducts
 {
 	/**
-	 * Référence de l'objet du core d'Okatea.
-	 * @var oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 

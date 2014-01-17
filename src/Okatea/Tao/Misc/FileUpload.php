@@ -17,8 +17,8 @@ use Okatea\Tao\Misc\Utilities;
 class FileUpload
 {
 	/**
-	 * Référence de l'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 

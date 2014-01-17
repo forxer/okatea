@@ -13,14 +13,14 @@ use Okatea\Tao\Html\CheckList;
 class Requirements
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
-	 * L'objet core.
-	 * @var object Okatea\Tao\Application
+	 * The prerequisites list.
+	 * @var array
 	 */
 	protected $aRequirements = array();
 

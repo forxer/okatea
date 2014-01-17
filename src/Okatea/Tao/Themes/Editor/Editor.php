@@ -19,8 +19,8 @@ use Okatea\Tao\Themes\Editor\Iterator\ThemeDirsForSelect;
 class Editor
 {
 	/**
-	 * Référence du core.
-	 * @var oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -107,7 +107,7 @@ class Editor
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @param string $sThemesPath
 	 * @return void
 	 */

@@ -17,8 +17,8 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 class ImageUploadConfig
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -68,8 +68,8 @@ class ImageUploadConfig
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
-	 * @param oktImageUpload $oImageUpload
+	 * @param object $okt
+	 * @param ImageUpload $oImageUpload
 	 * @return void
 	 */
 	public function __construct($okt, $oImageUpload)

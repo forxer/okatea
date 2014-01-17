@@ -15,8 +15,8 @@ namespace Okatea\Tao\Modules;
 class Module
 {
 	/**
-	 * L'objet core.
-	 * @var object oktCore
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -53,7 +53,7 @@ class Module
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt		Instance d'un objet de type oktCore
+	 * @param object $okt		Okatea application instance.
 	 * @return void
 	 */
 	public function __construct($okt)

@@ -11,17 +11,16 @@ use Okatea\Tao\Database\Recordset;
 class FaqRecordset extends Recordset
 {
 	/**
-	 * L'objet core
-	 * @access private
-	 * @var object
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
-	private $okt;
+	protected $okt;
 
 	/**
-	 * Défini l'objet de type core qui sera passé à la classe après
-	 * qu'elle ait été instanciée.
+	 * Défini l'instance de l'application qui sera passée à l'objet après
+	 * qu'il ait été instancié.
 	 *
-	 * @param    object        $okt            Objet de type oktCore
+	 * @param Okatea\Tao\Application okt 	Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)

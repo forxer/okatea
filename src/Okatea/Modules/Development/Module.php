@@ -103,7 +103,7 @@ class Module extends BaseModule
 	/**
 	 * Ajout d'un avertissement sur la page d'accueil de l'admin.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
 	public static function adminIndexHtmlContent($okt)
@@ -120,7 +120,7 @@ class Module extends BaseModule
 	/**
 	 * Ajout d'un avertissement sur la barre admin côté publique.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @param arrayObject $aPrimaryAdminBar
 	 * @param arrayObject $aSecondaryAdminBar
 	 * @param arrayObject $aBasesUrl

@@ -18,6 +18,24 @@ use Okatea\Tao\Misc\Utilities;
 class Collection
 {
 	/**
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
+	 */
+	protected $okt;
+
+	/**
+	 * The database manager instance.
+	 * @var object
+	 */
+	protected $db;
+
+	/**
+	 * The errors manager instance.
+	 * @var object
+	 */
+	protected $error;
+
+	/**
 	 * Le chemin du répertoire des thèmes
 	 * @var string
 	 */
@@ -56,7 +74,7 @@ class Collection
 	/**
 	 * Constructor.
 	 *
-	 * @param oktCore $okt
+	 * @param Okatea\Tao\Application $okt 	Okatea application instance.
 	 * @param string $sPath
 	 */
 	public function __construct($okt, $sPath)

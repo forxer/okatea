@@ -27,7 +27,7 @@ class GalleriesItems
 	/**
 	 * Constructor.
 	 *
-	 * @param object $okt					Instance of oktCore
+	 * @param object $okt					Okatea\Tao\Application
 	 * @param string $t_items 				Name of the items database table
 	 * @param string $t_items_locales 		Name of the items locales database table
 	 * @param string $t_galleries 			Name of the tree database table

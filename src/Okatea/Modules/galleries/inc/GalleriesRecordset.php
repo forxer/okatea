@@ -10,17 +10,16 @@ use Okatea\Tao\Database\Recordset;
 class GalleriesRecordset extends Recordset
 {
 	/**
-	 * L'objet oktCore
-	 * @access private
-	 * @var object
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
 	 */
-	private $okt;
+	protected $okt;
 
 	/**
-	 * Défini l'objet de type oktCore qui sera passé à la classe après
-	 * qu'elle ait été instanciée.
+	 * Défini l'instance de l'application qui sera passée à l'objet après
+	 * qu'il ait été instancié.
 	 *
-	 * @param oktCore okt 	Objet de type core
+	 * @param Okatea\Tao\Application okt 	Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)
