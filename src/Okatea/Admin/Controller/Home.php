@@ -186,7 +186,7 @@ class Home extends Controller
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
 
 			if ($updater->getNotify() && $this->sNewVersion) {
-				$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.update');
+				$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/update');
 			}
 		}
 	}

@@ -22,7 +22,7 @@ class General extends Controller
 		}
 
 		# Locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.site');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/site');
 
 		# Données de la page
 		$this->aPageData = new \ArrayObject();

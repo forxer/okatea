@@ -383,7 +383,7 @@ class Themes extends Controller
 		}
 
 		# Locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.themes');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/themes');
 
 		# Themes object
 		$this->oThemes = new ThemesCollection($this->okt, $this->okt->options->get('themes_dir'));

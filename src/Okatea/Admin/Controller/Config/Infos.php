@@ -30,7 +30,7 @@ class Infos extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.infos');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/infos');
 
 		# Données de la page
 		$this->aPageData = new \ArrayObject();

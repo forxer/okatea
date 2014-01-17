@@ -125,7 +125,7 @@ class Modules extends Controller
 	protected function init()
 	{
 		# Modules locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.modules');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
 
 		# Récupération de la liste des modules dans le système de fichiers (tous les modules)
 		$this->aAllModules = $this->okt->modules->getModulesFromFileSystem();

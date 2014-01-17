@@ -37,7 +37,7 @@ class Tools extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.tools');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/tools');
 
 		# Données de la page
 		$this->aPageData = new \ArrayObject();

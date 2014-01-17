@@ -20,7 +20,7 @@ class Navigation extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.navigation');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/navigation');
 
 		# titre et fil d'ariane
 		$this->page->addGlobalTitle(__('c_a_config_navigation'), $this->generateUrl('config_navigation'));

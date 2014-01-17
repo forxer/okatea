@@ -25,7 +25,7 @@ class Languages extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.languages');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/languages');
 
 		$this->iLanguageId = $this->request->request->getInt('id', $this->request->query->getInt('id'));
 

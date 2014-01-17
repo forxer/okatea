@@ -21,7 +21,7 @@ class Update extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.update');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/update');
 
 		# mise à jour de la base de données
 		if ($this->request->query->has('update_db'))
