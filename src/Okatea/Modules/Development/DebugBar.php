@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development;
+namespace Okatea\Modules\Development;
 
 use Okatea\Tao\Misc\Utilities;
 
@@ -51,7 +51,7 @@ class DebugBar
 		}
 
 		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag',
-			array('Okatea\Module\Development\DebugBar','addHtmlByBehavior'));
+			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
 
@@ -70,7 +70,7 @@ class DebugBar
 		}
 
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
-			array('Okatea\Module\Development\DebugBar','addHtmlByBehavior'));
+			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
 

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\News;
+namespace Okatea\Modules\News;
 
 class Helpers
 {

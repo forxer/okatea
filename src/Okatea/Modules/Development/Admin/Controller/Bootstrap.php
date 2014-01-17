@@ -6,10 +6,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Admin\Controller;
+namespace Okatea\Modules\Development\Admin\Controller;
 
 use Okatea\Admin\Controller;
-use Okatea\Module\Development\Bootstrap\Module;
+use Okatea\Modules\Development\Bootstrap\Module;
 
 class Bootstrap extends Controller
 {

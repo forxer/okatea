@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Admin\Controller;
+namespace Okatea\Modules\Development\Admin\Controller;
 
-use Okatea\Module\Development\CountingFilesAndLines;
+use Okatea\Modules\Development\CountingFilesAndLines;
 use Okatea\Admin\Controller;
 
 class Counting extends Controller

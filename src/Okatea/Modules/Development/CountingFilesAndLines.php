@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development;
+namespace Okatea\Modules\Development;
 
 class CountingFilesAndLines
 {

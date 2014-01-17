@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Users;
+namespace Okatea\Modules\Users;
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Database\Recordset;

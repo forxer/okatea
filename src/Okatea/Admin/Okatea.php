@@ -33,13 +33,6 @@ class Okatea extends Application
 	public $logAdmin;
 
 	/**
-	 * Le routeur interne de l'administration.
-	 *
-	 * @var Okatea\Tao\Routing\AdminRouter
-	 */
-	public $adminRouter;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param Composer\Autoload\ClassLoader $autoloader

@@ -164,7 +164,7 @@ class Collection
 
 		foreach ($aModulesList as $module_id=>$module_infos)
 		{
-			$class = 'Okatea\\Module\\'.$module_id.'\\Module';
+			$class = 'Okatea\\Modules\\'.$module_id.'\\Module';
 
 			require $this->path.'/'.$module_id.'/Module.php';
 

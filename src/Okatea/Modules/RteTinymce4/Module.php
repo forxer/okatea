@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\RteTinymce4;
+namespace Okatea\Modules\RteTinymce4;
 
 use Okatea\Tao\Modules\Module as BaseModule;
 
@@ -27,10 +27,10 @@ class Module extends BaseModule
 	{
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\RteTinymce4\Admin\Controller\Config' => __DIR__.'/Admin/Controller/Config.php'
+			'Okatea\Modules\RteTinymce4\Admin\Controller\Config' => __DIR__.'/Admin/Controller/Config.php'
 		));
 
-		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Module\RteTinymce4\Module','tinyMCE'));
+		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Modules\RteTinymce4\Module','tinyMCE'));
 
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)

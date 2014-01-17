@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Pages;
+namespace Okatea\Modules\Pages;
 
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
@@ -153,8 +153,8 @@ class Module extends BaseModule
 
 	protected function prepend_public()
 	{
-		$this->okt->triggers->registerTrigger('publicAdminBarItems',
-			array('Okatea\Module\Pages\Module', 'publicAdminBarItems'));
+		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
+			array('Okatea\Modules\Pages\Module', 'websiteAdminBarItems'));
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Module extends BaseModule
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function publicAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter une page
 		if ($okt->checkPerm('pages_add'))
@@ -239,7 +239,7 @@ class Module extends BaseModule
 	 *
 	 * @param array $aParams 			Paramètres de requete
 	 * @param boolean $bCountOnly 		Ne renvoi qu'un nombre de pages
-	 * @return integer|Okatea\Module\Pages\Recordset
+	 * @return integer|Okatea\Modules\Pages\Recordset
 	 */
 	public function getPagesRecordset($aParams=array(), $bCountOnly=false)
 	{
@@ -317,7 +317,7 @@ class Module extends BaseModule
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery, 'Okatea\Module\Pages\Recordset')) === false)
+		if (($rs = $this->db->select($sQuery, 'Okatea\Modules\Pages\Recordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;
@@ -402,7 +402,7 @@ class Module extends BaseModule
 	 *
 	 * @param array $aParams 					Paramètres de requete
 	 * @param integer $iTruncatChar (null) 		Nombre de caractère avant troncature du contenu
-	 * @return object Okatea\Module\Pages\Recordset
+	 * @return object Okatea\Modules\Pages\Recordset
 	 */
 	public function getPages($aParams=array(), $iTruncatChar=null)
 	{
@@ -429,7 +429,7 @@ class Module extends BaseModule
 	 *
 	 * @param integer $mPageId 		Identifiant numérique ou slug de la page.
 	 * @param integer $iActive 		Statut requis de la page
-	 * @return object Okatea\Module\Pages\Recordset
+	 * @return object Okatea\Modules\Pages\Recordset
 	 */
 	public function getPage($mPageId, $iActive=2)
 	{
@@ -490,7 +490,7 @@ class Module extends BaseModule
 	/**
 	 * Formatage des données d'un Recordset en vue d'un affichage d'une liste.
 	 *
-	 * @param Okatea\Module\Pages\Recordset $rs
+	 * @param Okatea\Modules\Pages\Recordset $rs
 	 * @param integer $iTruncatChar (null)
 	 * @return void
 	 */

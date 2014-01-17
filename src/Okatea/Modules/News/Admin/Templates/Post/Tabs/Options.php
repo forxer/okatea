@@ -1,7 +1,7 @@
 <?php
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Module\News\Helpers as NewsHelpers;
+use Okatea\Modules\News\Helpers as NewsHelpers;
 
 ?>
 

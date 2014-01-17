@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\News;
+namespace Okatea\Modules\News;
 
 use Okatea\Tao\Core\Authentification;
 use Okatea\Tao\Database\Recordset as BaseRecordset;

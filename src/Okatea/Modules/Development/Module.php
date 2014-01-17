@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development;
+namespace Okatea\Modules\Development;
 
 use Okatea\Admin\Page;
 use Okatea\Admin\Menu as AdminMenu;
@@ -16,11 +16,6 @@ class Module extends BaseModule
 {
 	protected function prepend()
 	{
-		# Autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Module\Development\DebugBar' 					=> __DIR__.'/DebugBar.php'
-		));
-
 		# permissions
 		$this->okt->addPermGroup('development', 		__('m_development_perm_group'));
 			$this->okt->addPerm('development_usage', 		__('m_development_perm_usage'), 'development');
@@ -85,7 +80,7 @@ class Module extends BaseModule
 		if ($this->okt->user->is_superadmin)
 		{
 			$this->okt->triggers->registerTrigger('adminIndexHtmlContent',
-				array('module_development','adminIndexHtmlContent'));
+				array('Okatea\Modules\Development\Module', 'adminIndexHtmlContent'));
 		}
 
 		# Add admin debug bar
@@ -100,8 +95,8 @@ class Module extends BaseModule
 		# Ajout d'éléments à la barre admin
 		if ($this->okt->user->is_superadmin)
 		{
-			$this->okt->triggers->registerTrigger('publicAdminBarItems',
-				array('module_development', 'publicAdminBarItems'));
+			$this->okt->triggers->registerTrigger('websiteAdminBarItems',
+				array('Okatea\Modules\Development\Module', 'websiteAdminBarItems'));
 		}
 	}
 
@@ -131,10 +126,10 @@ class Module extends BaseModule
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function publicAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		$aPrimaryAdminBar[10]['items'][100] = array(
-			'href' => $aBasesUrl['admin'].'/configuration.php?action=modules',
+			'href' => $okt->adminRouter->generateFromWebsite('config_modules'),
 			'title' => __('m_development_ab_module_enable_title'),
 			'intitle' => __('m_development_ab_module_enable')
 		);

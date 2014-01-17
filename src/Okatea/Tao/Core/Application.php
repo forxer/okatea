@@ -168,6 +168,13 @@ class Application
 	public $router;
 
 	/**
+	 * Le routeur interne de l'administration.
+	 *
+	 * @var Okatea\Tao\Routing\AdminRouter
+	 */
+	public $adminRouter;
+
+	/**
 	 * Le gestionnaire de session.
 	 *
 	 * @var Okatea\Tao\Core\Session

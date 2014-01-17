@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Users;
+namespace Okatea\Modules\Users;
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Misc\Utilities;
@@ -118,11 +118,11 @@ class Module extends BaseModule
 
 	protected function prepend_public()
 	{
-		$this->okt->triggers->registerTrigger('publicAdminBarBeforeDefaultsItems',
-			array('module_users', 'publicAdminBarBeforeDefaultsItems'));
+		$this->okt->triggers->registerTrigger('websiteAdminBarBeforeDefaultsItems',
+			array('module_users', 'websiteAdminBarBeforeDefaultsItems'));
 
-		$this->okt->triggers->registerTrigger('publicAdminBarItems',
-			array('module_users', 'publicAdminBarItems'));
+		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
+			array('module_users', 'websiteAdminBarItems'));
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Module extends BaseModule
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function publicAdminBarBeforeDefaultsItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public static function websiteAdminBarBeforeDefaultsItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		$aBasesUrl['logout'] = html::escapeHTML(UsersHelpers::getLogoutUrl());
 
@@ -150,7 +150,7 @@ class Module extends BaseModule
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function publicAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter un utilisateur
 		if ($okt->checkPerm('users'))

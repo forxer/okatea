@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Pages;
+namespace Okatea\Modules\Pages;
 
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\NestedTreei18n;

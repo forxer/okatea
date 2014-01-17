@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\News\Admin\Controller;
+namespace Okatea\Modules\News\Admin\Controller;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Images\ImageUploadConfig;

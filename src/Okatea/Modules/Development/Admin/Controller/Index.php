@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Admin\Controller;
+namespace Okatea\Modules\Development\Admin\Controller;
 
 use Okatea\Admin\Controller;
 

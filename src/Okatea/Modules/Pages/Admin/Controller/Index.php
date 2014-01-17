@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Pages\Admin\Controller;
+namespace Okatea\Modules\Pages\Admin\Controller;
 
 use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;

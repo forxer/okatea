@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\Development\Bootstrap\Module;
+namespace Okatea\Modules\Development\Bootstrap\Module;
 
 use Okatea\Tao\Misc\Utilities;
 

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Module\News;
+namespace Okatea\Modules\News;
 
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
@@ -155,8 +155,8 @@ class Module extends BaseModule
 		$this->publishScheduledPosts();
 
 		# Ajout d'éléments à la barre admin
-		$this->okt->triggers->registerTrigger('publicAdminBarItems',
-			array('Okatea\Module\News\Module', 'publicAdminBarItems'));
+		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
+			array('Okatea\Modules\News\Module', 'websiteAdminBarItems'));
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Module extends BaseModule
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function publicAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter un article
 		if ($okt->checkPerm('news_usage') || $okt->checkPerm('news_contentadmin'))
@@ -341,7 +341,7 @@ class Module extends BaseModule
 			}
 		}
 
-		if (($rsPosts = $this->db->select($sQuery, 'Okatea\Module\News\Recordset')) === false)
+		if (($rsPosts = $this->db->select($sQuery, 'Okatea\Modules\News\Recordset')) === false)
 		{
 			if ($bCountOnly) {
 				return 0;

@@ -546,7 +546,7 @@ class Process extends Module
 		{
 			include $this->root().'/Module.php';
 
-			$sClassName = 'Okatea\\Module\\'.$this->id().'\\Module';
+			$sClassName = 'Okatea\\Modules\\'.$this->id().'\\Module';
 
 			$this->checklist->addItem(
 				'module_class',

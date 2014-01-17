@@ -10,8 +10,10 @@ namespace Okatea\Website;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+
 use Okatea\Tao\Core\Application;
-use Okatea\Tao\Misc\PublicAdminBar;
+
+use Okatea\Website\AdminBar;
 use Okatea\Website\Page;
 
 class Okatea extends Application
@@ -19,7 +21,7 @@ class Okatea extends Application
 	/**
 	 * L'utilitaire de contenu de page.
 	 *
-	 * @var Okatea\Tao\Html\Page
+	 * @var Okatea\Website\Page
 	 */
 	public $page;
 
@@ -36,6 +38,13 @@ class Okatea extends Application
 	 * @var string
 	 */
 	public $theme_id;
+
+	/**
+	 * The admin bar for the website part.
+	 *
+	 * @var Okatea\Website\AdminBar
+	 */
+	public $websiteAdminBar;
 
 	/**
 	 * Constructor.
@@ -156,8 +165,8 @@ class Okatea extends Application
 	 */
 	protected function loadAdminBar()
 	{
-		if ($this->user->is_superadmin || ($this->user->is_admin && $this->config->enable_admin_bar)) {
-			$this->publicAdminBar = new PublicAdminBar($this);
+		if (null === $this->websiteAdminBar && $this->user->is_superadmin || ($this->user->is_admin && $this->config->enable_admin_bar)) {
+			$this->websiteAdminBar = new AdminBar($this);
 		}
 	}
 
