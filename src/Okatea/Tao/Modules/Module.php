@@ -102,8 +102,6 @@ class Module
 		foreach ($infos as $name=>$value) {
 			$this->setInfo($name,$value);
 		}
-
-		$this->bCurrentlyInUse = $this->okt->modules->isActiveModule($this->id());
 	}
 
 	/**

@@ -13,6 +13,9 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class ComponentBase
 {
+	protected $okt;
+	protected $module;
+	protected $checklist;
 	protected $fs;
 
 	public function __construct($okt, $module)

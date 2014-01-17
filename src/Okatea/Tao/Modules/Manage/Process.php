@@ -15,10 +15,10 @@ use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Okatea\Tao\Html\CheckList;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module;
-use Okatea\Tao\Modules\Manage\Component\AssetsFiles\AssetsFiles;
-use Okatea\Tao\Modules\Manage\Component\Comparator\Comparator;
-use Okatea\Tao\Modules\Manage\Component\ConfigFiles\ConfigFiles;
-use Okatea\Tao\Modules\Manage\Component\RoutesFiles\RoutesFiles;
+use Okatea\Tao\Modules\Manage\Component\AssetsFiles;
+use Okatea\Tao\Modules\Manage\Component\Comparator;
+use Okatea\Tao\Modules\Manage\Component\ConfigFiles;
+use Okatea\Tao\Modules\Manage\Component\RoutesFiles;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 
 /**
@@ -34,9 +34,9 @@ class Process extends Module
 	public $checklist;
 
 	private static $aReservedIds = array(
-		'autoloader', 'debug', 'cache', 'config', 'db', 'error',
+		'autoloader', 'debug', 'debugBar', 'cache', 'config', 'db', 'error',
 		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
-		'page', 'request', 'requestContext', 'response', 'router',
+		'page', 'request', 'requestContext', 'response', 'router', 'adminRouter',
 		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',
 		'htmlpurifier', 'permsStack', 'aTplDirectories'
 	);
@@ -349,15 +349,6 @@ class Process extends Module
 	}
 
 	/**
-	 * Force le remplacement des fichiers actifs
-	 *
-	 */
-	public function forceReplaceAssets()
-	{
-		return $this->getAssetsFiles()->process();
-	}
-
-	/**
 	 * Force le remplacement des fichiers d'upload
 	 *
 	 */
@@ -473,19 +464,6 @@ class Process extends Module
 		}
 	}
 
-	protected function copyAssetsFiles()
-	{
-		if (is_dir($this->root().'/install/assets/'))
-		{
-			$this->checklist->addItem(
-				'assets',
-				$this->forceReplaceAssets(),
-				'Create assets files',
-				'Cannot create assets files'
-			);
-		}
-	}
-
 	/**
 	 * Installation de la base de données depuis un fichier
 	 *
@@ -582,7 +560,7 @@ class Process extends Module
 		$this->copyTplFiles();
 
 		# copie des éventuels fichiers assets
-		$this->copyAssetsFiles();
+		$this->getAssetsFiles()->process();
 
 		# copie des éventuels fichiers de configurations
 		$this->getConfigFiles()->process();

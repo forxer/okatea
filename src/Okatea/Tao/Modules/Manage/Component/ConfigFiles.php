@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component\ConfigFiles;
+namespace Okatea\Tao\Modules\Manage\Component;
 
 use Okatea\Tao\Modules\Manage\Component\ComponentBase;
 

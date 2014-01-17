@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component\AssetsFiles;
+namespace Okatea\Tao\Modules\Manage\Component;
 
 use Okatea\Tao\Modules\Manage\Component\ComponentBase;
 
@@ -19,21 +19,27 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function process()
 	{
+		$sAssetsDir = $this->module->root().'/install/assets';
+
+		if (is_dir($sAssetsDir)) {
+			return null;
+		}
+
 		$oFiles = $this->getFiles();
 
 		if (empty($oFiles)) {
 			return null;
 		}
 
-		return $this->getFs()->mirror(
-			$this->module->root().'/install/assets',
-			$this->okt->options->get('public_dir').'/modules/'.$this->module->id(),
-			$oFiles,
-			array(
-				'override' 			=> true,
-				'copy_on_windows' 	=> true,
-				'delete' 			=> false
-			)
+		$this->checklist->addItem(
+			'assets',
+			$this->mirror(
+				$sAssetsDir,
+				$this->okt->options->get('public_dir').'/modules/'.$this->module->id(),
+				$oFiles
+			),
+			'Create assets files',
+			'Cannot create assets files'
 		);
 	}
 
@@ -70,5 +76,14 @@ class AssetsFiles extends ComponentBase
 		}
 
 		return null;
+	}
+
+	protected function mirror($src, $dest, $oFiles)
+	{
+		return $this->getFs()->mirror($src, $dest, $oFiles, array(
+			'override' 			=> true,
+			'copy_on_windows' 	=> true,
+			'delete' 			=> false
+		));
 	}
 }
