@@ -19,7 +19,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sTemplatesDir = $this->module->root().'/install/templates';
+		$sTemplatesDir = $this->module->root().'/Install/templates';
 
 		if (!is_dir($sTemplatesDir)) {
 			return null;
@@ -44,7 +44,7 @@ class TemplatesFiles extends ComponentBase
 	}
 
 	/**
-	 * Delete assets directory.
+	 * Delete templates directory.
 	 *
 	 */
 	public function delete()
@@ -65,7 +65,7 @@ class TemplatesFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/install/templates';
+		$sPath = $this->module->root().'/Install/templates';
 
 		if (is_dir($sPath))
 		{

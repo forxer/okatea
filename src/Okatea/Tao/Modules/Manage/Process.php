@@ -21,6 +21,7 @@ use Okatea\Tao\Modules\Manage\Component\ConfigFiles;
 use Okatea\Tao\Modules\Manage\Component\RoutesFiles;
 use Okatea\Tao\Modules\Manage\Component\TemplatesFiles;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Modules\Manage\Component\UploadsFiles;
 
 /**
  * Installation d'un module Okatea.
@@ -77,6 +78,12 @@ class Process extends Module
 	 * @var Okatea\Tao\Modules\Manage\Component\TemplatesFiles
 	 */
 	protected $templatesFiles;
+
+	/**
+	 *
+	 * @var Okatea\Tao\Modules\Manage\Component\UploadsFiles
+	 */
+	protected $uploadsFiles;
 
 	/**
 	 * Constructeur
@@ -181,22 +188,13 @@ class Process extends Module
 		}
 
 		# désinstallation de la base de données
-		$this->loadDbFile($this->root().'/install/db-uninstall.xml');
+		$this->loadDbFile($this->root().'/Install/db-uninstall.xml');
 
 		# suppression des fichiers templates
 		$this->getTemplatesFiles()->delete();
 
 		# suppression des fichiers d'upload
-		$sUploadDir = $this->okt->options->get('upload_dir').'/'.$this->id().'/';
-		if (file_exists($sUploadDir))
-		{
-			$this->checklist->addItem(
-				'remove_upload_dir',
-				\files::deltree($sUploadDir),
-				'Remove upload dir',
-				'Cannot remove upload dir'
-			);
-		}
+		$this->getUploadsFiles()->delete();
 
 		# suppression des fichiers assets
 		$this->getAssetsFiles()->delete();
@@ -237,19 +235,10 @@ class Process extends Module
 		}
 
 		# vidange de la base de données
-		$this->loadDbFile($this->root().'/install/db-truncate.xml');
+		$this->loadDbFile($this->root().'/Install/db-truncate.xml');
 
 		# suppression des fichiers d'upload
-		$sUploadDir = $this->okt->options->get('upload_dir').'/'.$this->id().'/';
-		if (file_exists($sUploadDir))
-		{
-			$this->checklist->addItem(
-				'remove_upload_dir',
-				\files::deltree($sUploadDir),
-				'Remove upload dir',
-				'Cannot remove upload dir'
-			);
-		}
+		$this->getUploadsFiles()->delete();
 
 		# utilisation d'une méthode personnalisée si elle existe
 		if (method_exists($this,'truncateEnd')) {
@@ -269,18 +258,10 @@ class Process extends Module
 	public function doInstallTestSet()
 	{
 		# ajout d'éventuelles données à la base de données
-		$this->loadDbFile($this->root().'/install/test_set/db-data.xml');
+		$this->loadDbFile($this->root().'/Install/test_set/db-data.xml');
 
 		# copie des éventuels fichiers upload
-		if (is_dir($this->root().'/install/test_set/upload/'))
-		{
-			$this->checklist->addItem(
-				'upload_dir',
-				$this->forceReplaceUploads(),
-				'Create upload dir',
-				'Cannot create upload dir'
-			);
-		}
+		$this->getUploadsFiles()->process();
 
 		if (method_exists($this,'installTestSet')) {
 			$this->installTestSet();
@@ -295,7 +276,7 @@ class Process extends Module
 	public function doInstallDefaultData()
 	{
 		# ajout d'éventuelles données à la base de données
-		$this->loadDbFile($this->root().'/install/db-data.xml');
+		$this->loadDbFile($this->root().'/Install/db-data.xml');
 
 		if (method_exists($this,'installDefaultData')) {
 			$this->installDefaultData();
@@ -305,7 +286,7 @@ class Process extends Module
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root().'/install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
+		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -313,71 +294,11 @@ class Process extends Module
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
+			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
 		}
 
 		# compare assets
-		$this->getComparator()->folder($this->root().'/install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
-	}
-
-	/**
-	 * Force le remplacement des fichiers d'upload
-	 *
-	 */
-	public function forceReplaceUploads()
-	{
-		return $this->forceReplaceFiles(
-			$this->root().'/install/test_set/upload/',
-			$this->okt->options->get('upload_dir').'/'.$this->id().'/'
-		);
-	}
-
-	/**
-	 * Force le remplacement des fichiers de façon récursive dans les fichiers
-	 *
-	 */
-	protected function forceReplaceFiles($sSourceDir, $sDestDir, $aLockedFiles=array())
-	{
-		if (!is_dir($sSourceDir)) {
-			return false;
-		}
-
-		$aSources = \files::getDirList($sSourceDir);
-		$aDests = array();
-
-		foreach ($aSources['files'] as $file) {
-			$aDests[] = str_replace($sSourceDir,'',$file);
-		}
-
-		if (!is_dir($sDestDir)) {
-			\files::makeDir($sDestDir,true);
-		}
-
-		foreach ($aDests as $file)
-		{
-			$parent_dir = dirname($sDestDir.$file);
-
-			if (!is_dir($parent_dir)) {
-				\files::makeDir($parent_dir,true);
-			}
-
-			if (in_array($sDestDir.$file, $aLockedFiles)) {
-				continue;
-			}
-
-			if (file_exists($sDestDir.$file))
-			{
-				if (file_exists($sDestDir.$file.'.bak')) {
-					unlink($sDestDir.$file.'.bak');
-				}
-
-				rename($sDestDir.$file, $sDestDir.$file.'.bak');
-			}
-
-			copy($sSourceDir.$file, $sDestDir.$file);
-		}
-
-		return true;
+		$this->getComparator()->folder($this->root().'/Install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
 	}
 
 	/**
@@ -470,7 +391,7 @@ class Process extends Module
 	protected function commonInstallUpdate($process)
 	{
 		# installation/mise à jour de la base de données
-		$this->loadDbFile($this->root().'/install/db-install.xml',$process);
+		$this->loadDbFile($this->root().'/Install/db-install.xml',$process);
 
 		# copie des éventuels fichiers templates
 		$this->getTemplatesFiles()->process();
@@ -571,5 +492,14 @@ class Process extends Module
 		}
 
 		return $this->templatesFiles;
+	}
+
+	protected function getUploadsFiles()
+	{
+		if (null === $this->uploadsFiles) {
+			$this->uploadsFiles = new UploadsFiles($this->okt, $this);
+		}
+
+		return $this->uploadsFiles;
 	}
 }

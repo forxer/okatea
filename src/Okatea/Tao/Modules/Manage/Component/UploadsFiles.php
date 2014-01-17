@@ -10,18 +10,18 @@ namespace Okatea\Tao\Modules\Manage\Component;
 
 use Okatea\Tao\Modules\Manage\Component\ComponentBase;
 
-class AssetsFiles extends ComponentBase
+class UploadsFiles extends ComponentBase
 {
 	/**
-	 * Copy/replace assets files.
+	 * Copy/replace uploads files.
 	 *
 	 * @return void
 	 */
 	public function process()
 	{
-		$sAssetsDir = $this->module->root().'/Install/assets';
+		$sUploadsDir = $this->module->root().'/Install/test_set/upload';
 
-		if (!is_dir($sAssetsDir)) {
+		if (!is_dir($sUploadsDir)) {
 			return null;
 		}
 
@@ -32,24 +32,24 @@ class AssetsFiles extends ComponentBase
 		}
 
 		$this->checklist->addItem(
-			'assets',
+			'upload_files',
 			$this->mirror(
-				$sAssetsDir,
-				$this->okt->options->get('public_dir').'/modules/'.$this->module->id(),
+				$sUploadsDir,
+				$this->okt->options->get('upload_dir').'/'.$this->module->id(),
 				$oFiles
 			),
-			'Create assets files',
-			'Cannot create assets files'
+			'Create upload files',
+			'Cannot create upload files'
 		);
 	}
 
 	/**
-	 * Delete assets directory.
+	 * Delete upload directory.
 	 *
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('public_dir').'/modules/'.$this->module->id();
+		$sPath = $this->okt->options->get('upload_dir').'/'.$this->module->id();
 
 		if (!is_dir($sPath)) {
 			return null;
@@ -58,14 +58,14 @@ class AssetsFiles extends ComponentBase
 		$this->checklist->addItem(
 			'remove_assets',
 			$this->getFs()->remove($sPath),
-			'Remove assets files',
-			'Cannot remove assets files'
+			'Remove upload files',
+			'Cannot remove upload files'
 		);
 	}
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/Install/assets';
+		$sPath = $this->module->root().'/Install/test_set/upload';
 
 		if (is_dir($sPath))
 		{

@@ -139,7 +139,7 @@ class ConfigFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/install';
+		$sPath = $this->module->root().'/Install';
 
 		if (is_dir($sPath))
 		{
