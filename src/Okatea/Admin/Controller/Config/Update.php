@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Core\Update as Updater;
+use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Html\CheckList;
 
 class Update extends Controller

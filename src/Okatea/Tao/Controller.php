@@ -6,11 +6,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Okatea\Tao\Core\Application;
+use Okatea\Tao\Application;
 
 /**
  * Controller de base.

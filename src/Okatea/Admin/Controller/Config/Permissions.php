@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 
 class Permissions extends Controller
 {

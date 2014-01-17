@@ -8,7 +8,7 @@
 
 namespace Okatea\Website;
 
-use Okatea\Tao\Core\Controller;
+use Okatea\Tao\Controller;
 use Okatea\Tao\Html\Page as BasePage;
 use Okatea\Tao\Navigation\Breadcrumb;
 
@@ -34,11 +34,11 @@ class Page extends BasePage
 
 	public function serve404()
 	{
-		$this->okt->request->attributes->set('_controller', 'Okatea\Tao\Core\Controller::serve404');
+		$this->okt->request->attributes->set('_controller', 'Okatea\Tao\Controller::serve404');
 	}
 
 	public function serve503()
 	{
-		$this->okt->request->attributes->set('_controller', 'Okatea\Tao\Core\Controller::serve503');
+		$this->okt->request->attributes->set('_controller', 'Okatea\Tao\Controller::serve503');
 	}
 }

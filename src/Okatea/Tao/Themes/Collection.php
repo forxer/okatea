@@ -8,7 +8,7 @@
 
 namespace Okatea\Tao\Themes;
 
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 
 /**

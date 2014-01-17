@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Okatea\Tao\Html\CheckList;
 
@@ -20,7 +20,7 @@ class Requirements
 
 	/**
 	 * L'objet core.
-	 * @var object Okatea\Tao\Core\Application
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $aRequirements = array();
 

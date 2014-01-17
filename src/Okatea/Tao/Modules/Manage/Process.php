@@ -8,7 +8,7 @@
 
 namespace Okatea\Tao\Modules\Manage;
 
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;

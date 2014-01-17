@@ -8,7 +8,7 @@
  */
 
 use Okatea\Tao\Modules\Collection as ModulesCollection;
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\HttpClient;
 
 if (!defined('OKT_INSTAL_PROCESS')) die;
 

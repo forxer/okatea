@@ -9,7 +9,7 @@
 namespace Okatea\Modules\Users;
 
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 use Okatea\Website\Controller as BaseController;
 use Okatea\Tao\Misc\Mailer;
 

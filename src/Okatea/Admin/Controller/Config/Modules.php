@@ -11,7 +11,7 @@ namespace Okatea\Admin\Controller\Config;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Okatea\Admin\Controller;
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Themes\Collection as ThemesCollection;

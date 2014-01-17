@@ -10,7 +10,7 @@ namespace Okatea\Modules\Users;
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Tao\Modules\Module as BaseModule;
 use Okatea\Tao\Routing\Route;

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Monolog\Logger;
 use Monolog\ErrorHandler;
@@ -65,14 +65,14 @@ class Application
 	/**
 	 * Le gestionnaire de configuration.
 	 *
-	 * @var Okatea\Tao\Core\Config
+	 * @var Okatea\Tao\Config
 	 */
 	public $config;
 
 	/**
 	 * Le controller invoqué.
 	 *
-	 * @var Okatea\Tao\Core\Controller
+	 * @var Okatea\Tao\Controller
 	 */
 	public $controllerInstance;
 
@@ -93,21 +93,21 @@ class Application
 	/**
 	 * Le gestionnaire d'erreurs.
 	 *
-	 * @var Okatea\Tao\Core\Errors
+	 * @var Okatea\Tao\Errors
 	 */
 	public $error;
 
 	/**
 	 * Le gestionnaire de langues.
 	 *
-	 * @var Okatea\Tao\Core\Localisation
+	 * @var Okatea\Tao\Localisation
 	 */
 	public $l10n;
 
 	/**
 	 * Le gestionnaire de langues.
 	 *
-	 * @var Okatea\Tao\Core\Languages
+	 * @var Okatea\Tao\Languages
 	 */
 	public $languages;
 
@@ -121,7 +121,7 @@ class Application
 	/**
 	 * Le gestionnaire de modules.
 	 *
-	 * @var Okatea\Tao\Core\Modules\Collection
+	 * @var Okatea\Tao\Modules\Collection
 	 */
 	public $modules;
 
@@ -135,7 +135,7 @@ class Application
 	/**
 	 * Les menus de navigation.
 	 *
-	 * @var Okatea\Tao\Core\ApplicationOptions
+	 * @var Okatea\Tao\ApplicationOptions
 	 */
 	public $options;
 
@@ -177,28 +177,28 @@ class Application
 	/**
 	 * Le gestionnaire de session.
 	 *
-	 * @var Okatea\Tao\Core\Session
+	 * @var Okatea\Tao\Session
 	 */
 	public $session;
 
 	/**
 	 * Le moteur de templates.
 	 *
-	 * @var Okatea\Tao\Core\Templating
+	 * @var Okatea\Tao\Templating
 	 */
 	public $tpl;
 
 	/**
 	 * Le gestionnaire de déclencheurs.
 	 *
-	 * @var Okatea\Tao\Core\Triggers
+	 * @var Okatea\Tao\Triggers
 	 */
 	public $triggers;
 
 	/**
 	 * Le gestionnaire d'utilisateur en cours.
 	 *
-	 * @var Okatea\Tao\Core\Authentification
+	 * @var Okatea\Tao\Authentification
 	 */
 	public $user;
 

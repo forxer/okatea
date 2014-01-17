@@ -10,8 +10,8 @@ namespace Okatea\Modules\Pages;
 
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
-use Okatea\Tao\Core\Authentification;
-use Okatea\Tao\Core\Triggers;
+use Okatea\Tao\Authentification;
+use Okatea\Tao\Triggers;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\Utilities;

@@ -13,7 +13,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 
-use Okatea\Tao\Core\Application;
+use Okatea\Tao\Application;
 
 use Okatea\Tao\Routing\ControllerResolverTrait;
 

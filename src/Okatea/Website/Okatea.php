@@ -11,7 +11,7 @@ namespace Okatea\Website;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use Okatea\Tao\Core\Application;
+use Okatea\Tao\Application;
 
 use Okatea\Website\AdminBar;
 use Okatea\Website\Page;

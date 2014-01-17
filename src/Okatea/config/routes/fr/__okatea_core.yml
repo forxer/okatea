@@ -19,7 +19,7 @@ homePage:
     
 remove_trailing_slash:
     path:     /{url}
-    defaults: { _controller: Okatea\Tao\Core\Controller::removeTrailingSlash }
+    defaults: { _controller: Okatea\Tao\Controller::removeTrailingSlash }
     requirements:
         url: .*/$
         _method: GET

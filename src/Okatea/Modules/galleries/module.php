@@ -9,7 +9,7 @@ use Okatea\Admin\Page;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Tao\Modules\Module;
 use Okatea\Tao\Routing\Route;
-use Okatea\Tao\Core\Triggers;
+use Okatea\Tao\Triggers;
 
 class module_galleries extends Module
 {

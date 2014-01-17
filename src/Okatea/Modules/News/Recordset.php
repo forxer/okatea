@@ -8,7 +8,7 @@
 
 namespace Okatea\Modules\News;
 
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 use Okatea\Tao\Database\Recordset as BaseRecordset;
 use Okatea\Tao\Misc\Utilities;
 

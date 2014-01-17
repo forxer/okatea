@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 /**
  * Le système de gestion des déclencheurs.

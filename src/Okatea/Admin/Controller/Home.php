@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Core\Update as Updater;
+use Okatea\Tao\Update as Updater;
 
 class Home extends Controller
 {

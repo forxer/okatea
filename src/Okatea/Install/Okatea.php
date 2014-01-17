@@ -19,12 +19,12 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Page;
 use Okatea\Install\Routing\Router;
 
-use Okatea\Tao\Core\Application;
-use Okatea\Tao\Core\ApplicationOptions;
-use Okatea\Tao\Core\Errors;
-use Okatea\Tao\Core\Localisation;
-use Okatea\Tao\Core\Session;
-use Okatea\Tao\Core\Triggers;
+use Okatea\Tao\Application;
+use Okatea\Tao\ApplicationOptions;
+use Okatea\Tao\Errors;
+use Okatea\Tao\Localisation;
+use Okatea\Tao\Session;
+use Okatea\Tao\Triggers;
 use Okatea\Tao\Misc\FlashMessages;
 
 class Okatea extends Application
@@ -46,7 +46,7 @@ class Okatea extends Application
 	/**
 	 * Les menus de navigation.
 	 *
-	 * @var Okatea\Tao\Core\ApplicationOptions
+	 * @var Okatea\Tao\ApplicationOptions
 	 */
 	public $options;
 
@@ -88,7 +88,7 @@ class Okatea extends Application
 	/**
 	 * Le gestionnaire de déclencheurs.
 	 *
-	 * @var Okatea\Tao\Core\Triggers
+	 * @var Okatea\Tao\Triggers
 	 */
 	public $triggers;
 

@@ -10,7 +10,7 @@ namespace Okatea\Modules\Users;
 
 use Okatea\Tao\Misc\BaseFilters;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 
 class Filters extends BaseFilters
 {

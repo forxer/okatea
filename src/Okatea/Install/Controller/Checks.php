@@ -8,7 +8,7 @@
 
 namespace Okatea\Install\Controller;
 
-use Okatea\Tao\Core\Requirements;
+use Okatea\Tao\Requirements;
 use Okatea\Install\Controller;
 
 class Checks extends Controller

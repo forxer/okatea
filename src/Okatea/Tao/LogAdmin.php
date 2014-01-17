@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
 
@@ -18,7 +18,7 @@ class LogAdmin
 {
 	/**
 	 * L'objet core.
-	 * @var object Okatea\Tao\Core\Application
+	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -45,7 +45,7 @@ class LogAdmin
 	/**
 	 * Constructeur.
 	 *
-	 * @param Okatea\Tao\Core\Application $okt
+	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
 	public function __construct($okt)

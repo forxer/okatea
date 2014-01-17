@@ -10,7 +10,7 @@ namespace Okatea\Admin;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Okatea\Tao\Core\Templating as BaseTemplating;
+use Okatea\Tao\Templating as BaseTemplating;
 
 class Templating extends BaseTemplating
 {

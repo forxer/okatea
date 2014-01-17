@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Core\Requirements;
+use Okatea\Tao\Requirements;
 
 class Infos extends Controller
 {

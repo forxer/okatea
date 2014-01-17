@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Core\LogAdmin;
+use Okatea\Tao\LogAdmin;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');

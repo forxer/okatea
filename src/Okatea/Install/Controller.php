@@ -9,7 +9,7 @@
 namespace Okatea\Install;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Okatea\Tao\Core\Controller as BaseController;
+use Okatea\Tao\Controller as BaseController;
 
 class Controller extends BaseController
 {

@@ -8,7 +8,7 @@
 
 namespace Okatea\Tao\Modules;
 
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\HttpClient;
 
 /**
  * Gestion des modules Okatea.

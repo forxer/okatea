@@ -13,7 +13,7 @@ use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\Loader\YamlFileLoader as BaseYamlFileLoader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Okatea\Tao\Core\Application;
+use Okatea\Tao\Application;
 
 /**
  * YamlDirectoryLoader loads routing information

@@ -11,7 +11,7 @@ if (!defined('OKT_INSTAL_PROCESS')) die;
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\HttpClient;
 
 
 /* Initialisations

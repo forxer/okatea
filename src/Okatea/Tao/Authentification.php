@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\Mailer;

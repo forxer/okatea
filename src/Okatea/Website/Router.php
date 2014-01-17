@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Router as BaseRouter;
-use Okatea\Tao\Core\Application;
+use Okatea\Tao\Application;
 use Okatea\Tao\Routing\Loader\YamlDirectoryLoaderLocalizer;
 use Okatea\Tao\Routing\ControllerResolverTrait;
 

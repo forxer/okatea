@@ -10,12 +10,12 @@
  * Licensed under the GPL version 2.0 license.
  */
 
-namespace Okatea\Tao\Core;
+namespace Okatea\Tao;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-use Okatea\Tao\Core\Application;
-use Okatea\Tao\Core\HttpClient;
+use Okatea\Tao\Application;
+use Okatea\Tao\HttpClient;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Html\CheckList;
 

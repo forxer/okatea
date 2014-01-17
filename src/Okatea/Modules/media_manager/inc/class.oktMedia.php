@@ -7,7 +7,7 @@
  *
  */
 
-use Okatea\Tao\Core\Authentification;
+use Okatea\Tao\Authentification;
 use Okatea\Tao\Misc\ImageTools;
 
 class oktMedia extends filemanager

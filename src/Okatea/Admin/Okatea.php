@@ -13,8 +13,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
-use Okatea\Tao\Core\Application;
-use Okatea\Tao\Core\LogAdmin;
+use Okatea\Tao\Application;
+use Okatea\Tao\LogAdmin;
 
 class Okatea extends Application
 {
@@ -28,7 +28,7 @@ class Okatea extends Application
 	/**
 	 * Le gestionnaire de log admin.
 	 *
-	 * @var Okatea\Tao\Core\LogAdmin
+	 * @var Okatea\Tao\LogAdmin
 	 */
 	public $logAdmin;
 

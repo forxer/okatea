@@ -10,7 +10,7 @@ namespace Okatea\Website;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Okatea\Tao\Core\Controller as BaseController;
+use Okatea\Tao\Controller as BaseController;
 
 class Controller extends BaseController
 {
