@@ -24,9 +24,6 @@ class module_partners extends Module
 	protected $locales = null;
 	protected $params = array();
 
-	public $upload_dir;
-	public $upload_url;
-
 	public $tree;
 
 	protected function prepend()
@@ -54,10 +51,6 @@ class module_partners extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_partners');
-
-		#répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/partners/';
-		$this->upload_url = $this->okt->options->upload_url.'/partners/';
 
 		# initialisation arbre catégories
 		$this->tree = new NestedTree(
@@ -1029,8 +1022,8 @@ class module_partners extends Module
 	{
 		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir.'img/',
-			'upload_url' => $this->upload_url.'img/'
+			'upload_dir' => $this->upload_dir.'/img',
+			'upload_url' => $this->upload_url.'/img'
 		));
 
 		return $o;

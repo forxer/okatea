@@ -74,7 +74,7 @@ class GalleriesItemsRecordset extends Recordset
 	 */
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->galleries->upload_dir.'img/items/'.$this->id.'/';
+		return $this->okt->galleries->upload_dir.'/img/items/'.$this->id;
 	}
 
 	/**
@@ -84,7 +84,7 @@ class GalleriesItemsRecordset extends Recordset
 	 */
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->galleries->upload_url.'img/items/'.$this->id.'/';
+		return $this->okt->galleries->upload_url.'/img/items/'.$this->id;
 	}
 
 }

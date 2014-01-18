@@ -65,12 +65,12 @@ class PartnersRecordset extends Recordset
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->partners->upload_dir.'img/'.$this->id.'/';
+		return $this->okt->partners->upload_dir.'/img/'.$this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->partners->upload_url.'img/'.$this->id.'/';
+		return $this->okt->partners->upload_url.'/img/'.$this->id;
 	}
 
 }

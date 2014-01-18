@@ -13,7 +13,24 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class ComponentBase
 {
+	/**
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
+	 */
 	protected $okt;
+
+	/**
+	 * The database manager instance.
+	 * @var object
+	 */
+	protected $db;
+
+	/**
+	 * The errors manager instance.
+	 * @var object
+	 */
+	protected $error;
+
 	protected $module;
 	protected $checklist;
 	protected $fs;
@@ -21,6 +38,9 @@ abstract class ComponentBase
 	public function __construct($okt, $module)
 	{
 		$this->okt = $okt;
+		$this->db = $okt->db;
+		$this->error = $okt->error;
+
 		$this->module = $module;
 		$this->checklist = $module->checklist;
 	}

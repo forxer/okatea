@@ -21,10 +21,6 @@ class module_galleries extends Module
 	public $config = null;
 	public $tree;
 
-	public $upload_dir;
-	public $upload_url;
-
-
 	protected function prepend()
 	{
 		# autoload
@@ -51,10 +47,6 @@ class module_galleries extends Module
 		$this->t_galleries_locales = $this->db->prefix.'mod_galleries_locales';
 		$this->t_items = $this->db->prefix.'mod_galleries_items';
 		$this->t_items_locales = $this->db->prefix.'mod_galleries_items_locales';
-
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/galleries/';
-		$this->upload_url = $this->okt->options->upload_url.'/galleries/';
 
 		# déclencheurs
 		$this->triggers = new Triggers();

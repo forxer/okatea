@@ -55,12 +55,12 @@ class GalleriesRecordset extends Recordset
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->galleries->upload_dir.'img/galleries/'.$this->id.'/';
+		return $this->okt->galleries->upload_dir.'/img/galleries/'.$this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->galleries->upload_url.'img/galleries/'.$this->id.'/';
+		return $this->okt->galleries->upload_url.'/img/galleries/'.$this->id;
 	}
 
 }

@@ -53,22 +53,22 @@ class ##module_camel_case_id##Recordset extends Recordset
 		for ($i=1; $i<=$this->okt->##module_id##->config->files['number']; $i++)
 		{
 			if (!isset($files_array[$i]) || empty($files_array[$i]['filename'])
-				|| !file_exists($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename']))
+				|| !file_exists($this->okt->##module_id##->upload_dir.'/files/'.$files_array[$i]['filename']))
 			{
 				continue;
 			}
 
-			$mime_type = files::getMimeType($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename']);
+			$mime_type = files::getMimeType($this->okt->##module_id##->upload_dir.'/files/'.$files_array[$i]['filename']);
 
 			$files[$j] = array_merge(
-				stat($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename']),
+				stat($this->okt->##module_id##->upload_dir.'/files/'.$files_array[$i]['filename']),
 				array(
 					'url' => $this->okt->##module_id##->upload_url.'files/'.$files_array[$i]['filename'],
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
 					'type' => Utilities::getMediaType($mime_type),
-					'ext' => pathinfo($this->okt->##module_id##->upload_dir.'files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
+					'ext' => pathinfo($this->okt->##module_id##->upload_dir.'/files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);
 
@@ -116,12 +116,12 @@ class ##module_camel_case_id##Recordset extends Recordset
 
 	protected function getCurrentImagesDir()
 	{
-		return $this->okt->##module_id##->upload_dir.'img/'.$this->id.'/';
+		return $this->okt->##module_id##->upload_dir.'/img/'.$this->id;
 	}
 
 	protected function getCurrentImagesUrl()
 	{
-		return $this->okt->##module_id##->upload_url.'img/'.$this->id.'/';
+		return $this->okt->##module_id##->upload_url.'/img/'.$this->id;
 	}
 
 }

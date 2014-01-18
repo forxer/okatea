@@ -25,9 +25,6 @@ class Module extends BaseModule
 	public $categories = null;
 	public $filters = null;
 
-	public $upload_dir;
-	public $upload_url;
-
 	protected $locales = null;
 
 	protected $t_pages;
@@ -62,10 +59,6 @@ class Module extends BaseModule
 
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
-
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/pages/';
-		$this->upload_url = $this->okt->options->upload_url.'/pages/';
 
 		# rubriques
 		if ($this->config->categories['enable'])
@@ -1158,8 +1151,8 @@ class Module extends BaseModule
 	{
 		$o = new ImageUpload($this->okt, $this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir.'img/',
-			'upload_url' => $this->upload_url.'img/'
+			'upload_dir' => $this->upload_dir.'/img',
+			'upload_url' => $this->upload_url.'/img'
 		));
 
 		return $o;
@@ -1345,8 +1338,8 @@ class Module extends BaseModule
 		return new FileUpload(
 			$this->okt,
 			$this->config->files,
-			$this->upload_dir.'files/',
-			$this->upload_url.'files/'
+			$this->upload_dir.'/files',
+			$this->upload_url.'/files'
 		);
 	}
 

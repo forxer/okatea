@@ -23,10 +23,6 @@ class module_faq extends Module
 
 	protected $params = array();
 
-	public $upload_dir;
-
-	public $upload_url;
-
 	public $filters = null;
 
 	/**
@@ -63,10 +59,6 @@ class module_faq extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_faq');
-
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/faq/';
-		$this->upload_url = $this->okt->options->upload_url.'/faq/';
 	}
 
 	protected function prepend_admin()
@@ -815,7 +807,7 @@ class module_faq extends Module
 						files::makeDir($this->upload_dir,true);
 					}
 
-					$sDestination = $this->upload_dir.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
+					$sDestination = $this->upload_dir.'/'.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -876,11 +868,11 @@ class module_faq extends Module
 						files::makeDir($this->upload_dir,true);
 					}
 
-					if (!empty($aCurrentFiles[$aLanguage['code']][$i]) && files::isDeletable($this->upload_dir.$aCurrentFiles[$aLanguage['code']][$i]['filename'])) {
-						unlink($this->upload_dir.$aCurrentFiles[$aLanguage['code']][$i]['filename']);
+					if (!empty($aCurrentFiles[$aLanguage['code']][$i]) && files::isDeletable($this->upload_dir.'/'.$aCurrentFiles[$aLanguage['code']][$i]['filename'])) {
+						unlink($this->upload_dir.'/'.$aCurrentFiles[$aLanguage['code']][$i]['filename']);
 					}
 
-					$sDestination = $this->upload_dir.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
+					$sDestination = $this->upload_dir.'/'.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -910,8 +902,8 @@ class module_faq extends Module
 		$i18n = $this->getQuestionI18n($question_id);
 
 		# suppression du fichier sur le disque
-		if (file_exists($this->upload_dir.$filename)) {
-			unlink($this->upload_dir.$filename);
+		if (file_exists($this->upload_dir.'/'.$filename)) {
+			unlink($this->upload_dir.'/'.$filename);
 		}
 
 		# suppression du nom dans les infos de la question
@@ -945,8 +937,8 @@ class module_faq extends Module
 				$sExtension = pathinfo($v,PATHINFO_EXTENSION);
 				$question_name = Utilities::strToLowerURL($slug,false).'-'.$locale.'-'.($k+1).'.'.$sExtension;
 
-				if (file_exists($this->upload_dir.$v)) {
-					rename($this->upload_dir.$v, $this->upload_dir.$question_name);
+				if (file_exists($this->upload_dir.'/'.$v)) {
+					rename($this->upload_dir.'/'.$v, $this->upload_dir.'/'.$question_name);
 				}
 
 				$files_db[$locale][$k] = $question_name;
@@ -978,8 +970,8 @@ class module_faq extends Module
 	{
 		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir.'img/',
-			'upload_url' => $this->upload_url.'img/'
+			'upload_dir' => $this->upload_dir.'/img',
+			'upload_url' => $this->upload_url.'/img'
 		));
 
 		return $o;

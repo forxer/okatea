@@ -35,6 +35,10 @@ class Process extends Module
 	 */
 	public $checklist;
 
+	/**
+	 * Reserved modules ID
+	 * @var array
+	 */
 	private static $aReservedIds = array(
 		'autoloader', 'debug', 'debugBar', 'cache', 'config', 'db', 'error',
 		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
@@ -308,29 +312,12 @@ class Process extends Module
 	 */
 	protected function loadDbFile($db_file, $process=null)
 	{
-		static $count;
-
-		if (empty($count)) {
-			$count = 1;
-		}
-
 		if (file_exists($db_file))
 		{
 			$xsql = new XmlSql($this->db, file_get_contents($db_file), $this->checklist, $process);
 			$xsql->replace('{{PREFIX}}',$this->okt->db->prefix);
 			$xsql->execute();
 		}
-		else
-		{
-			$this->checklist->addItem(
-				'db_file_'.$count,
-				null,
-				'DB file '.$db_file.' doesn\'t exists',
-				'DB file '.$db_file.' doesn\'t exists'
-			);
-		}
-
-		$count++;
 	}
 
 	/**

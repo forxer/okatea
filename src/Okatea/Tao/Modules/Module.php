@@ -21,13 +21,13 @@ class Module
 	protected $okt;
 
 	/**
-	 * L'objet gestionnaire de base de données.
+	 * The database manager instance.
 	 * @var object
 	 */
 	protected $db;
 
 	/**
-	 * L'objet  gestionnaire d'erreurs
+	 * The errors manager instance.
 	 * @var object
 	 */
 	protected $error;
@@ -44,11 +44,8 @@ class Module
 	 */
 	public $infos;
 
-	/**
-	 * Indique si le module est actuellement en cours d'utilisation
-	 * @var boolean
-	 */
-	public $bCurrentlyInUse;
+	public $upload_dir;
+	public $upload_url;
 
 	/**
 	 * Constructeur.
@@ -168,6 +165,10 @@ class Module
 		$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/main');
 
 		$this->prepend();
+
+		# répertoire upload
+		$this->upload_dir = $this->okt->options->get('upload_dir').'/'.$this->getInfo('id');
+		$this->upload_url = $this->okt->options->get('upload_url').'/'.$this->getInfo('id');
 	}
 
 	final public function initNs($ns)

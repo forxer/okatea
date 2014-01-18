@@ -16,6 +16,7 @@
 		"php": ">=5.4.0",
 		"doctrine/dbal": "2.5.*@dev",
 		"dotclear/clearbricks": "dev-default",
+		"dunglas/php-socialshare": "dev-master",
 		"erusev/parsedown": "dev-master",
 		"ezyang/htmlpurifier": "dev-master",
 		"guzzle/guzzle": "~3.7",

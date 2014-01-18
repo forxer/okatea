@@ -23,13 +23,13 @@ class Collection
 	protected $okt;
 
 	/**
-	 * L'objet gestionnaire de base de données.
+	 * The database manager instance.
 	 * @var object
 	 */
 	protected $db;
 
 	/**
-	 * L'objet gestionnaire d'erreurs
+	 * The errors manager instance.
 	 * @var object
 	 */
 	protected $error;

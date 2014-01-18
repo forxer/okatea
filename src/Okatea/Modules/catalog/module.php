@@ -21,9 +21,6 @@ class module_catalog extends Module
 
 	public $filters = null;
 
-	public $upload_dir;
-	public $upload_url;
-
 	protected $t_products;
 	protected $t_categories;
 
@@ -52,10 +49,6 @@ class module_catalog extends Module
 
 		# config
 		$this->config = $this->okt->newConfig('conf_catalog');
-
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/catalog/';
-		$this->upload_url = $this->okt->options->upload_url.'/catalog/';
 
 		# categories
 		if ($this->config->categories_enable)
@@ -725,8 +718,8 @@ class module_catalog extends Module
 	{
 		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir.'img/',
-			'upload_url' => $this->upload_url.'img/'
+			'upload_dir' => $this->upload_dir.'/img',
+			'upload_url' => $this->upload_url.'/img'
 		));
 
 		return $o;
@@ -904,8 +897,8 @@ class module_catalog extends Module
 		return new FileUpload(
 			$this->okt,
 			$this->config->files,
-			$this->upload_dir.'files/',
-			$this->upload_url.'files/'
+			$this->upload_dir.'/files',
+			$this->upload_url.'/files'
 		);
 	}
 

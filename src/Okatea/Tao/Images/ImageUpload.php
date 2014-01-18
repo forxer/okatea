@@ -162,13 +162,13 @@ class ImageUpload
 				}
 
 				# copie de l'originale
-				copy($sCurrentImagesDir.$sOutput,$sCurrentImagesDir.'o-'.$sOutput);
+				copy($sCurrentImagesDir.'/'.$sOutput, $sCurrentImagesDir.'/o-'.$sOutput);
 
 				# création des miniatures
 				$this->buildThumbnails($iItemId, $sOutput, $sExtension);
 
 				# récupération des infos des images
-				$aImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir,$sCurrentImagesUrl,$sOutput);
+				$aImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sOutput);
 
 				$j++;
 			}
@@ -230,7 +230,7 @@ class ImageUpload
 				}
 
 				# copie de l'originale
-				copy($sCurrentImagesDir.$sOutput,$sCurrentImagesDir.'o-'.$sOutput);
+				copy($sCurrentImagesDir.'/'.$sOutput, $sCurrentImagesDir.'/o-'.$sOutput);
 
 				# création des miniatures
 				$this->buildThumbnails($iItemId, $sOutput, $sExtension);
@@ -331,7 +331,7 @@ class ImageUpload
 				# copie de l'originale
 				copy($sCurrentImagesDir.$sOutput,$sCurrentImagesDir.'o-'.$sOutput);
 
-				# création de la miniature et du square
+				# création des miniatures et du square
 				$this->buildThumbnails($iItemId, $sOutput, $sExtension);
 
 				# récupération des infos des images
@@ -387,36 +387,36 @@ class ImageUpload
 		$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
 
 		# suppression des fichiers sur le disque
-		if (\files::isDeletable($sCurrentImagesDir.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'o-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/o-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/o-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'min-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'min-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/min-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/min-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'min2-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'min2-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/min2-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/min2-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'min3-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'min3-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/min3-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/min3-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'min4-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'min4-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/min4-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/min4-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'min5-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'min5-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/min5-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/min5-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'sq-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'sq-'.$aCurrentImages[$iImgId]['img_name']);
+		if (\files::isDeletable($sCurrentImagesDir.'/sq-'.$aCurrentImages[$iImgId]['img_name'])) {
+			unlink($sCurrentImagesDir.'/sq-'.$aCurrentImages[$iImgId]['img_name']);
 		}
 
 		# suppression du nom pour les infos de la BDD
@@ -435,40 +435,40 @@ class ImageUpload
 
 			$sNewName = $j.'.'.$sExtension;
 
-			if (file_exists($sCurrentImagesDir.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'o-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'o-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'min-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'min-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/min-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/min-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'min2-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'min2-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min2-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/min2-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/min2-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min2-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'min3-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'min3-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min3-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/min3-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/min3-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min3-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'min4-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'min4-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min4-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/min4-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/min4-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min4-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'min5-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'min5-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min5-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/min5-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/min5-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min5-'.$sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir.'sq-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'sq-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'sq-'.$sNewName);
+			if (file_exists($sCurrentImagesDir.'/sq-'.$aCurrentImages[$i]['img_name'])) {
+				rename($sCurrentImagesDir.'/sq-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'sq-'.$sNewName);
 			}
 
 			# récupération des infos des images
-			$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir,$sCurrentImagesUrl,$sNewName);
+			$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sNewName);
 
 			$j++;
 		}
@@ -495,21 +495,21 @@ class ImageUpload
 
 		# extension du fichier
 		if (is_null($sExtension)) {
-			$sExtension = pathinfo($sOutput,PATHINFO_EXTENSION);
+			$sExtension = pathinfo($sOutput, PATHINFO_EXTENSION);
 		}
 
 		# fichier source ?
-		if (file_exists($sCurrentImagesDir.'o-'.$sOutput)) {
-			$sSourceFile = $sCurrentImagesDir.'o-'.$sOutput;
+		if (file_exists($sCurrentImagesDir.'/o-'.$sOutput)) {
+			$sSourceFile = $sCurrentImagesDir.'/o-'.$sOutput;
 		}
 		else {
-			$sSourceFile = $sCurrentImagesDir.$sOutput;
+			$sSourceFile = $sCurrentImagesDir.'/'.$sOutput;
 		}
 
 		# si l'image est trop grande on la redimensionne
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.$sOutput,
+			$sCurrentImagesDir.'/'.$sOutput,
 			$this->aConfig['resize_type'],
 			$this->aConfig['width'],
 			$this->aConfig['height'],
@@ -520,7 +520,7 @@ class ImageUpload
 		# miniature
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'min-'.$sOutput,
+			$sCurrentImagesDir.'/min-'.$sOutput,
 			$this->aConfig['resize_type_min'],
 			$this->aConfig['width_min'],
 			$this->aConfig['height_min'],
@@ -531,7 +531,7 @@ class ImageUpload
 		# miniature 2
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'min2-'.$sOutput,
+			$sCurrentImagesDir.'/min2-'.$sOutput,
 			$this->aConfig['resize_type_min_2'],
 			$this->aConfig['width_min_2'],
 			$this->aConfig['height_min_2'],
@@ -542,7 +542,7 @@ class ImageUpload
 		# miniature 3
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'min3-'.$sOutput,
+			$sCurrentImagesDir.'/min3-'.$sOutput,
 			$this->aConfig['resize_type_min_3'],
 			$this->aConfig['width_min_3'],
 			$this->aConfig['height_min_3'],
@@ -553,7 +553,7 @@ class ImageUpload
 		# miniature 4
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'min4-'.$sOutput,
+			$sCurrentImagesDir.'/min4-'.$sOutput,
 			$this->aConfig['resize_type_min_4'],
 			$this->aConfig['width_min_4'],
 			$this->aConfig['height_min_4'],
@@ -564,7 +564,7 @@ class ImageUpload
 		# miniature 5
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'min5-'.$sOutput,
+			$sCurrentImagesDir.'/min5-'.$sOutput,
 			$this->aConfig['resize_type_min_5'],
 			$this->aConfig['width_min_5'],
 			$this->aConfig['height_min_5'],
@@ -575,7 +575,7 @@ class ImageUpload
 		# square
 		$this->imageResize(
 			$sSourceFile,
-			$sCurrentImagesDir.'sq-'.$sOutput,
+			$sCurrentImagesDir.'/sq-'.$sOutput,
 			'crop',
 			$this->aConfig['square_size'],
 			$this->aConfig['square_size'],
@@ -600,8 +600,8 @@ class ImageUpload
 		{
 			# si l'image est trop grande on la redimensionne
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/'.$sOutput,
 				$this->aConfig['resize_type'],
 				$this->aConfig['width'],
 				$this->aConfig['height'],
@@ -610,8 +610,8 @@ class ImageUpload
 
 			# miniature
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'min-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/min-'.$sOutput,
 				$this->aConfig['resize_type_min'],
 				$this->aConfig['width_min'],
 				$this->aConfig['height_min'],
@@ -620,8 +620,8 @@ class ImageUpload
 
 			# miniature 2
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'min2-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/min2-'.$sOutput,
 				$this->aConfig['resize_type_min_2'],
 				$this->aConfig['width_min_2'],
 				$this->aConfig['height_min_2'],
@@ -630,8 +630,8 @@ class ImageUpload
 
 			# miniature 3
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'min3-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/min3-'.$sOutput,
 				$this->aConfig['resize_type_min_3'],
 				$this->aConfig['width_min_3'],
 				$this->aConfig['height_min_3'],
@@ -640,8 +640,8 @@ class ImageUpload
 
 			# miniature 4
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'min4-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/min4-'.$sOutput,
 				$this->aConfig['resize_type_min_4'],
 				$this->aConfig['width_min_4'],
 				$this->aConfig['height_min_4'],
@@ -650,8 +650,8 @@ class ImageUpload
 
 			# miniature 5
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'min5-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/min5-'.$sOutput,
 				$this->aConfig['resize_type_min_5'],
 				$this->aConfig['width_min_5'],
 				$this->aConfig['height_min_5'],
@@ -660,8 +660,8 @@ class ImageUpload
 
 			# square
 			$this->imageResize(
-				$sDirectory.$sOutput,
-				$sDirectory.'sq-'.$sOutput,
+				$sDirectory.'/'.$sOutput,
+				$sDirectory.'/sq-'.$sOutput,
 				'crop',
 				$this->aConfig['square_size'],
 				$this->aConfig['square_size'],
@@ -853,16 +853,16 @@ class ImageUpload
 			$sKeyPrefix = 'img_';
 		}
 
-		if (!file_exists($sImagesPath.$sImage)) {
+		if (!file_exists($sImagesPath.'/'.$sImage)) {
 			return array();
 		}
 
-		$aInfos = getimagesize($sImagesPath.$sImage);
+		$aInfos = getimagesize($sImagesPath.'/'.$sImage);
 
 		return array(
 			$sKeyPrefix.'name' 		=> $sImage,
-			$sKeyPrefix.'file' 		=> $sImagesPath.$sImage,
-			$sKeyPrefix.'url' 		=> $sImagesUrl.$sImage,
+			$sKeyPrefix.'file' 		=> $sImagesPath.'/'.$sImage,
+			$sKeyPrefix.'url' 		=> $sImagesUrl.'/'.$sImage,
 			$sKeyPrefix.'width' 	=> $aInfos[0],
 			$sKeyPrefix.'height' 	=> $aInfos[1],
 			$sKeyPrefix.'type' 		=> image_type_to_mime_type($aInfos[2]),
@@ -904,7 +904,7 @@ class ImageUpload
 	 */
 	public function getCurrentUploadDir($iItemId)
 	{
-		return $this->aConfig['upload_dir'].$iItemId.'/';
+		return $this->aConfig['upload_dir'].'/'.$iItemId;
 	}
 
 	/**
@@ -915,7 +915,7 @@ class ImageUpload
 	 */
 	public function getCurrentUploadUrl($iItemId)
 	{
-		return $this->aConfig['upload_url'].$iItemId.'/';
+		return $this->aConfig['upload_url'].'/'.$iItemId;
 	}
 
 	/**
@@ -925,7 +925,7 @@ class ImageUpload
 	 */
 	public function getWatermarkUploadDir()
 	{
-		return $this->aConfig['upload_dir'].'watermark/';
+		return $this->aConfig['upload_dir'].'/watermark';
 	}
 
 	/**
@@ -935,7 +935,7 @@ class ImageUpload
 	 */
 	public function getWatermarkUploadUrl()
 	{
-		return $this->aConfig['upload_url'].'watermark/';
+		return $this->aConfig['upload_url'].'/watermark';
 	}
 
 	/**

@@ -60,16 +60,16 @@ class oktMedia extends filemanager
 
 		$this->icon_img = $okt->options->public_url.'/img/media/%s.png';
 
-		$root = $this->okt->options->get('upload_dir').'/media_manager/';
+		$root = $this->okt->options->get('upload_dir').'/media_manager';
 
 		if (!is_dir($root)) {
 			files::makeDir($root,true);
 		}
 
-		if (preg_match('#^http(s)?://#',$okt->options->upload_url.'/media_manager/')) {
-			$root_url = rawurldecode($okt->options->upload_url.'/media_manager/');
+		if (preg_match('#^http(s)?://#',$okt->options->upload_url.'/media_manager')) {
+			$root_url = rawurldecode($okt->options->upload_url.'/media_manager');
 		} else {
-			$root_url = rawurldecode($this->okt->request->getSchemeAndHttpHost().path::clean($okt->options->upload_url.'/media_manager/'));
+			$root_url = rawurldecode($this->okt->request->getSchemeAndHttpHost().path::clean($okt->options->upload_url.'/media_manager'));
 		}
 
 		if (!is_dir($root)) {

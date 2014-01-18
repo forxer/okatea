@@ -109,7 +109,7 @@
 	*/
 
 	# define the target directory
-	$targetDir = $okt->galleries->upload_dir.'img/items/'.$iNewId;
+	$targetDir = $okt->galleries->upload_dir.'/img/items/'.$iNewId;
 
 	if (!file_exists($targetDir)) {
 		files::makeDir($targetDir,true);

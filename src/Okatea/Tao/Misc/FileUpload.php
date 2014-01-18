@@ -119,10 +119,10 @@ class FileUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					files::makeDir($this->upload_dir,true);
+					files::makeDir($this->upload_dir, true);
 				}
 
-				$sDestination = $this->upload_dir.$iItemId.'-'.$j.'.'.$sExtension;
+				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -189,15 +189,15 @@ class FileUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					files::makeDir($this->upload_dir,true);
+					files::makeDir($this->upload_dir, true);
 				}
 
 				# suppression de l'éventuel ancien fichier
-				if (isset($aCurrentFiles[$i]) && files::isDeletable($this->upload_dir.$aCurrentFiles[$i])) {
-					unlink($this->upload_dir.$aCurrentFiles[$i]);
+				if (isset($aCurrentFiles[$i]) && files::isDeletable($this->upload_dir.'/'.$aCurrentFiles[$i])) {
+					unlink($this->upload_dir.'/'.$aCurrentFiles[$i]);
 				}
 
-				$sDestination = $this->upload_dir.$iItemId.'-'.$j.'.'.$sExtension;
+				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -223,9 +223,9 @@ class FileUpload
 		foreach ($aCurrentFiles as $file_id=>$file)
 		{
 			if (isset($aCurrentFiles[$file_id]) && !empty($aCurrentFiles[$file_id]['filename'])
-				&& file_exists($this->upload_dir.$aCurrentFiles[$file_id]['filename']))
+				&& file_exists($this->upload_dir.'/'.$aCurrentFiles[$file_id]['filename']))
 			{
-				unlink($this->upload_dir.$aCurrentFiles[$file_id]['filename']);
+				unlink($this->upload_dir.'/'.$aCurrentFiles[$file_id]['filename']);
 			}
 		}
 	}
@@ -246,8 +246,8 @@ class FileUpload
 		}
 
 		# suppression des fichiers sur le disque
-		if (file_exists($this->upload_dir.$aCurrentFiles[$iFileId]['filename'])) {
-			unlink($this->upload_dir.$aCurrentFiles[$iFileId]['filename']);
+		if (file_exists($this->upload_dir.'/'.$aCurrentFiles[$iFileId]['filename'])) {
+			unlink($this->upload_dir.'/'.$aCurrentFiles[$iFileId]['filename']);
 		}
 
 		# suppression du nom pour les infos de la BDD
@@ -266,8 +266,8 @@ class FileUpload
 
 			$sNewName = $iItemId.'-'.$j.'.'.$sExtension;
 
-			if (file_exists($this->upload_dir.$aCurrentFiles[$i]['filename'])) {
-				rename($this->upload_dir.$aCurrentFiles[$i]['filename'], $this->upload_dir.'/'.$sNewName);
+			if (file_exists($this->upload_dir.'/'.$aCurrentFiles[$i]['filename'])) {
+				rename($this->upload_dir.'/'.$aCurrentFiles[$i]['filename'], $this->upload_dir.'/'.$sNewName);
 			}
 
 			$aNewFiles[$j] = array(

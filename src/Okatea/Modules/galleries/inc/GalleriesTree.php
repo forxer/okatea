@@ -716,8 +716,8 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$o = new ImageUpload($this->okt, $this->okt->galleries->config->images_gal);
 		$o->setConfig(array(
-			'upload_dir' => $this->okt->galleries->upload_dir.'img/galleries/',
-			'upload_url' => $this->okt->galleries->upload_url.'img/galleries/'
+			'upload_dir' => $this->okt->galleries->upload_dir.'/img/galleries',
+			'upload_url' => $this->okt->galleries->upload_url.'/img/galleries'
 		));
 
 		return $o;

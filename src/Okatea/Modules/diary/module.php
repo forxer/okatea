@@ -20,9 +20,6 @@ class module_diary extends Module
 	protected $locales = null;
 	public $filters = null;
 
-	public $upload_dir;
-	public $upload_url;
-
 	protected $table;
 
 	protected function prepend()
@@ -49,10 +46,6 @@ class module_diary extends Module
 
 		# configuration
 		$this->config = $this->okt->newConfig('conf_diary');
-
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/diary/';
-		$this->upload_url = $this->okt->options->upload_url.'/diary/';
 	}
 
 	protected function prepend_admin()
@@ -579,8 +572,8 @@ class module_diary extends Module
 	{
 		$o = new ImageUpload($this->okt,$this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir.'img/',
-			'upload_url' => $this->upload_url.'img/'
+			'upload_dir' => $this->upload_dir.'/img',
+			'upload_url' => $this->upload_url.'/img'
 		));
 
 		return $o;
@@ -761,8 +754,8 @@ class module_diary extends Module
 		return new FileUpload(
 			$this->okt,
 			$this->config->files,
-			$this->upload_dir.'files/',
-			$this->upload_url.'files/'
+			$this->upload_dir.'/files',
+			$this->upload_url.'/files'
 		);
 	}
 

@@ -46,10 +46,6 @@ class Module extends BaseModule
 		# config
 		$this->config = $this->okt->newConfig('conf_users');
 
-		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir').'/users/';
-		$this->upload_url = $this->okt->options->upload_url.'/users/';
-
 		# custom fieds
 		if ($this->config->enable_custom_fields) {
 			$this->fields = new UsersCustomFields($this->okt);
@@ -655,7 +651,7 @@ class Module extends BaseModule
 		}
 
 		# delete user directory
-		$user_dir = $this->upload_dir.$id.'/';
+		$user_dir = $this->upload_dir.'/'.$id;
 
 		if (files::isDeletable($user_dir)) {
 			files::deltree($user_dir);

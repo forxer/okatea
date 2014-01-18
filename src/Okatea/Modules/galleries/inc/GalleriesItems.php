@@ -719,8 +719,8 @@ class GalleriesItems
 	{
 		$o = new ImageUpload($this->okt, $this->config->images);
 		$o->setConfig(array(
-			'upload_dir' => $this->okt->galleries->upload_dir.'img/items/',
-			'upload_url' => $this->okt->galleries->upload_url.'img/items/'
+			'upload_dir' => $this->okt->galleries->upload_dir.'/img/items',
+			'upload_url' => $this->okt->galleries->upload_url.'/img/items'
 		));
 
 		return $o;

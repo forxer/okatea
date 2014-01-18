@@ -65,8 +65,8 @@ class FaqRecordset extends Recordset
 			$i = 0;
 			foreach ($files as $file)
 			{
-				$path = $this->okt->faq->upload_dir.$file;
-				$url = $this->okt->faq->upload_url.$file;
+				$path = $this->okt->faq->upload_dir.'/'.$file;
+				$url = $this->okt->faq->upload_url.'/'.$file;
 
 				if (!file_exists($path)) {
 					continue;
@@ -131,12 +131,12 @@ class FaqRecordset extends Recordset
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->faq->upload_dir.'img/'.$this->id.'/';
+		return $this->okt->faq->upload_dir.'/img/'.$this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->faq->upload_url.'img/'.$this->id.'/';
+		return $this->okt->faq->upload_url.'/img/'.$this->id;
 	}
 
 
