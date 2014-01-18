@@ -409,9 +409,9 @@ class GalleriesItems
 
 			$oCursor->words = implode(' ',array_unique(text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content.' '.$oCursor->author.' '.$oCursor->place)));
 
-			$oCursor->meta_description = html::clean($oCursor->meta_description);
+			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
-			$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			$oCursor->insertUpdate();
 

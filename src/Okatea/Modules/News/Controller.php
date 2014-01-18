@@ -24,7 +24,7 @@ class Controller extends BaseController
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->generateUrl('newsList'))));
+				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('newsList')));
 			}
 			else {
 				return $this->serve404();
@@ -170,7 +170,7 @@ class Controller extends BaseController
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug)))));
+				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug))));
 			}
 			else {
 				return $this->serve404();
@@ -304,7 +304,7 @@ class Controller extends BaseController
 		if (!$this->okt->News->isPublicAccessible() || !$this->rsPost->isReadable())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(html::escapeHTML(usersHelpers::getLoginUrl($this->rsPost->url)));
+				return $this->redirect(usersHelpers::getLoginUrl($this->rsPost->url));
 			}
 			else {
 				return $this->serve404();

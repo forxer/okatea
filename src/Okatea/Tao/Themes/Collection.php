@@ -291,7 +291,7 @@ class Collection
 		);
 		$aReplace = array(
 			$sId,
-			\html::escapeHTML($sName)
+			Utilities::escapeHTML($sName)
 		);
 
 		try

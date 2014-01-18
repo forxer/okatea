@@ -279,7 +279,7 @@ class Languages
 			'title, code, img, active, ord '.
 		' ) VALUES ( '.
 			'\''.$this->db->escapeStr($aData['title']).'\', '.
-			'\''.$this->db->escapeStr(\html::clean($aData['code'])).'\', '.
+			'\''.$this->db->escapeStr(strip_tags($aData['code'])).'\', '.
 			'\''.$this->db->escapeStr($aData['img']).'\', '.
 			(integer)$aData['active'].', '.
 			(integer)($max_ord+1).
@@ -305,7 +305,7 @@ class Languages
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
 			'title=\''.$this->db->escapeStr($aData['title']).'\', '.
-			'code=\''.$this->db->escapeStr(\html::clean($aData['code'])).'\', '.
+			'code=\''.$this->db->escapeStr(strip_tags($aData['code'])).'\', '.
 			'img=\''.$this->db->escapeStr($aData['img']).'\', '.
 			'active='.(integer)$aData['active'].' '.
 		'WHERE id='.(integer)$aData['id'];

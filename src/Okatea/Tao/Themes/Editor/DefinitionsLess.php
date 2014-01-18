@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Themes\Editor;
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Misc\Utilities;
 
 /**
  * Classe de l'éditeur de fichier de définitions LESS
@@ -201,8 +202,8 @@ class DefinitionsLess
 				showInput: true,
 				showAlpha: false,
 
-				cancelText: "'.\html::escapeJS(__('c_c_action_cancel')).'",
-				chooseText: "'.\html::escapeJS(__('c_c_action_choose')).'",
+				cancelText: "'.Utilities::escapeJS(__('c_c_action_cancel')).'",
+				chooseText: "'.Utilities::escapeJS(__('c_c_action_choose')).'",
 
 				showPalette: true,
 				showSelectionPalette: true,

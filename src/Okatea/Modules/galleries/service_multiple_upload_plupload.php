@@ -93,9 +93,9 @@
 
 	$cursor->legend = $okt->HTMLfilter($cursor->legend);
 
-	$cursor->meta_description = html::clean($cursor->meta_description);
+	$cursor->meta_description = strip_tags($cursor->meta_description);
 
-	$cursor->meta_keywords = html::clean($cursor->meta_keywords);
+	$cursor->meta_keywords = strip_tags($cursor->meta_keywords);
 
 	if (!$cursor->insert()) {
 		die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "unable to create item"}, "id" : "id"}');

@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Html;
 
+use Okatea\Tao\Misc\Utilities;
+
 /**
  * Permet de gérer les piles pour le Javascript et de retourner le HTML résultant.
  *
@@ -356,6 +358,6 @@ class Js
 	 */
 	public static function variable($n,$v)
 	{
-		return $n." = '".html::escapeJS($v)."';\n";
+		return $n." = '".Utilities::escapeJS($v)."';\n";
 	}
 }

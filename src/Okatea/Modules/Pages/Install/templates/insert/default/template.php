@@ -43,7 +43,7 @@ Exemples :
 
 	# troncature du contenu ?
 	if ($okt->Pages->config->insert_truncat_char > 0) {
-		$rsInsertPage->content = text::cutString(html::clean($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
+		$rsInsertPage->content = text::cutString(strip_tags($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
 	}
 
 # fin Okatea : traitements avant affichage ?>

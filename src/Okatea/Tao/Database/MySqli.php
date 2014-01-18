@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Database;
 
+use Okatea\Tao\Misc\Utilities;
+
 /**
  * Classe de connexion MySQLi
  *
@@ -833,7 +835,7 @@ class MySqli
 		$str = $this->escapeStr($str);
 		$str = addcslashes($str, '%_');
 		$str = trim($str);
-		$str = html::escapeHTML($str);
+		$str = Utilities::escapeHTML($str);
 
 		return $str;
 	}

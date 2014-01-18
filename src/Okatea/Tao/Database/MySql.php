@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Database;
 
+use Okatea\Tao\Misc\Utilities;
+
 /**
  * Classe de connexion MySQL
  * @deprecated 1.0
@@ -851,7 +853,7 @@ class MySql
 		$str = $this->escapeStr($str);
 		$str = addcslashes($str, '%_');
 		$str = trim($str);
-		$str = html::escapeHTML($str);
+		$str = Utilities::escapeHTML($str);
 
 		return $str;
 	}

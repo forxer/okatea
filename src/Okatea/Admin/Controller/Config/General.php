@@ -239,7 +239,7 @@ class General extends Controller
 			$this->okt->error->set(__('c_a_config_please_enter_email_to'));
 		}
 		elseif (!Utilities::isEmail($p_email_to)) {
-			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), \html::escapeHTML($p_email_to)));
+			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Utilities::escapeHTML($p_email_to)));
 		}
 
 		$p_email_from = $this->request->request->get('p_email_from');
@@ -247,7 +247,7 @@ class General extends Controller
 			$this->okt->error->set(__('c_a_config_please_enter_email_from'));
 		}
 		elseif (!Utilities::isEmail($p_email_from)) {
-			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), \html::escapeHTML($p_email_from)));
+			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Utilities::escapeHTML($p_email_from)));
 		}
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(

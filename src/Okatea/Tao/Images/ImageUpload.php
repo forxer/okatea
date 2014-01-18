@@ -181,6 +181,68 @@ class ImageUpload
 	}
 
 	/**
+	 * Réalise l'upload d'une simple image et retourne son chemin.
+	 *
+	 * Par exemple utilisé pour l'upload des filigrane.
+	 *
+	 * Il n'y a PAS de création de miniature.
+	 *
+	 * @param $form_input_name 		Le nom du champs du formulaire
+	 * @param $sCurrentImageDir 	Le chemin du répertoire destination
+	 * @param $sFilename 			Le nom du fichier destination sans l'extension
+	 * @return string 				Le nom de l'image
+	 */
+	public static function getSingleUploadedFile($form_input_name='p_file', $sCurrentImageDir, $sFilename)
+	{
+		global $okt;
+
+		$return = '';
+
+		if (isset($_FILES[$form_input_name]) && !empty($_FILES[$form_input_name]['tmp_name']))
+		{
+			$sUploadedFile = $_FILES[$form_input_name];
+
+			try {
+				# extension du fichier
+				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
+
+				# des erreurs d'upload ?
+				Utilities::uploadStatus($sUploadedFile);
+
+				# vérification de l'extension
+				self::checkExtension($sExtension);
+
+				# vérification du type
+				self::checkType($sUploadedFile['type']);
+
+				# création du répertoire s'il existe pas
+				if (!file_exists($sCurrentImageDir)) {
+					\files::makeDir($sCurrentImageDir,true);
+				}
+
+				# nom du fichier
+				$sOutput = $sFilename.'.'.$sExtension;
+
+				# suppression de l'éventuel ancien fichier
+				if (file_exists($sCurrentImageDir.'/'.$sOutput) && \files::isDeletable($sCurrentImageDir.'/'.$sOutput)) {
+					unlink($sCurrentImageDir.'/'.$sOutput);
+				}
+
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir.$sOutput)) {
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+				}
+
+				$return = $sOutput;
+			}
+			catch (\Exception $e) {
+				$okt->error->set('Problème avec l’image : '.$e->getMessage());
+			}
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Ajout des images d'un élément donné.
 	 *
 	 * @param integer $iItemId
@@ -699,9 +761,9 @@ class ImageUpload
 
 		$image = $imagine->open($sSourceFile)->thumbnail($size, $mode);
 
-		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().$sWatermarkFile))
+		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir().'/'.$sWatermarkFile))
 		{
-			$watermark = $imagine->open($this->getWatermarkUploadDir().$sWatermarkFile);
+			$watermark = $imagine->open($this->getWatermarkUploadDir().'/'.$sWatermarkFile);
 
 			$size = $image->getSize();
 			$wSize = $watermark->getSize();
@@ -937,67 +999,5 @@ class ImageUpload
 	public function getWatermarkUploadUrl()
 	{
 		return $this->aConfig['upload_url'].'/watermark';
-	}
-
-	/**
-	 * Réalise l'upload d'une simple image et retourne son chemin.
-	 *
-	 * Par exemple utilisé pour l'upload des filigrane.
-	 *
-	 * Il n'y a PAS de création de miniature.
-	 *
-	 * @param $form_input_name 		Le nom du champs du formulaire
-	 * @param $sCurrentImageDir 	Le chemin du répertoire destination
-	 * @param $sFilename 			Le nom du fichier destination sans l'extension
-	 * @return string 				Le nom de l'image
-	 */
-	public static function getSingleUploadedFile($form_input_name='p_file', $sCurrentImageDir, $sFilename)
-	{
-		global $okt;
-
-		$return = '';
-
-		if (isset($_FILES[$form_input_name]) && !empty($_FILES[$form_input_name]['tmp_name']))
-		{
-			$sUploadedFile = $_FILES[$form_input_name];
-
-			try {
-				# extension du fichier
-				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
-
-				# des erreurs d'upload ?
-				Utilities::uploadStatus($sUploadedFile);
-
-				# vérification de l'extension
-				self::checkExtension($sExtension);
-
-				# vérification du type
-				self::checkType($sUploadedFile['type']);
-
-				# création du répertoire s'il existe pas
-				if (!file_exists($sCurrentImageDir)) {
-					\files::makeDir($sCurrentImageDir,true);
-				}
-
-				# nom du fichier
-				$sOutput = $sFilename.'.'.$sExtension;
-
-				# suppression de l'éventuel ancien fichier
-				if (file_exists($sCurrentImageDir.$sOutput) && \files::isDeletable($sCurrentImageDir.$sOutput)) {
-					unlink($sCurrentImageDir.$sOutput);
-				}
-
-				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir.$sOutput)) {
-					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
-				}
-
-				$return = $sOutput;
-			}
-			catch (\Exception $e) {
-				$okt->error->set('Problème avec l’image : '.$e->getMessage());
-			}
-		}
-
-		return $return;
 	}
 }

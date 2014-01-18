@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Misc;
 
+use Okatea\Tao\Misc\Utilities;
+
 /**
  * Classe d'affichage de données sur plusieurs pages
  *
@@ -166,7 +168,7 @@ class Pager
 			$url .= '?'.$this->var_page.'=%1$d';
 		}
 
-		return \html::escapeHTML($url);
+		return Utilities::escapeHTML($url);
 	}
 
 	/**

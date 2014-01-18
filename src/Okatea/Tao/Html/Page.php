@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Html;
 
 use Okatea\Tao\Navigation\Breadcrumb;
+use Okatea\Tao\Misc\Utilities;
 
 /**
  * Permet de gérer quelques éléments courant à une page HTML
@@ -196,7 +197,7 @@ class Page
 
 	public function getPageId()
 	{
-		return \html::escapeHTML($this->sPageId);
+		return Utilities::escapeHTML($this->sPageId);
 	}
 
 	public function hasPageId()
@@ -899,9 +900,9 @@ class Page
 
 		$options = array(
 			'img_on_src' => $this->okt->options->public_url.'/img/ico/plus.png',
-			'img_on_alt' => \html::escapeJS(__('c_c_action_show')),
+			'img_on_alt' => Utilities::escapeJS(__('c_c_action_show')),
 			'img_off_src' => $this->okt->options->public_url.'/img/ico/minus.png',
-			'img_off_alt' => \html::escapeJS(__('c_c_action_hide')),
+			'img_off_alt' => Utilities::escapeJS(__('c_c_action_hide')),
 			'hide' => true,
 			'speed' => 0,
 			'legend_click' => true,

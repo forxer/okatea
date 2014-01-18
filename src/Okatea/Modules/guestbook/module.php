@@ -200,7 +200,7 @@ class module_guestbook extends Module
 	public function handleUserData($data)
 	{
 		# champ message (est un champs requis)
-		$data['message'] = Utilities::linebreaks(html::clean($data['message']));
+		$data['message'] = Utilities::linebreaks(strip_tags($data['message']));
 
 		if (empty($data['message'])) {
 			$this->error->set(__('m_guestbook_must_message'));

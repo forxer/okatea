@@ -341,8 +341,8 @@ class module_diary extends Module
 
 		$oCursor->disponibility = $oCursor->disponibility;
 
-		$oCursor->meta_description = html::clean($oCursor->meta_description);
-		$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+		$oCursor->meta_description = strip_tags($oCursor->meta_description);
+		$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 		if (!$oCursor->insert()) {
 			return false;
@@ -398,8 +398,8 @@ class module_diary extends Module
 
 		$oCursor->disponibility = $oCursor->disponibility;
 
-		$oCursor->meta_description = html::clean($oCursor->meta_description);
-		$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+		$oCursor->meta_description = strip_tags($oCursor->meta_description);
+		$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 		if (!$oCursor->update('WHERE id='.(integer)$iEventId.' ')) {
 			return false;

@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Misc;
 
 use Okatea\Tao\Themes\SimpleReplacements;
+use Okatea\Tao\Misc\Utilities;
 
 /**
  * La classe pour envoyer gentillement des emails
@@ -77,7 +78,7 @@ class Mailer
 	public function setFrom()
 	{
 		if (!empty($this->okt->config->email['name'])) {
-			$this->message->setFrom(array($this->okt->config->email['from'] => html::escapeHTML($this->okt->config->email['name'])));
+			$this->message->setFrom(array($this->okt->config->email['from'] => Utilities::escapeHTML($this->okt->config->email['name'])));
 		}
 		else {
 			$this->message->setFrom($this->okt->config->email['from']);

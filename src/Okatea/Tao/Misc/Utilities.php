@@ -566,7 +566,9 @@ class Utilities
 	 */
 	public static function escapeAttrHTML($str)
 	{
-		return self::escapeHTML(str_replace(array('"', '\''), array('', '’'), $str));
+		$str = str_replace(array('"', '\''), array('', '’'), $str);
+
+		return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
 	}
 
 	/**
@@ -579,10 +581,8 @@ class Utilities
 	 */
 	public static function escapeJS($str)
 	{
-		$str = htmlspecialchars($str, ENT_NOQUOTES, 'UTF-8');
-		$str = str_replace("'","\'",$str);
-		$str = str_replace('"','\"',$str);
-		return $str;
+		$str = str_replace(array('"', "'"), array('\"', "\'"), $str);
+		return htmlspecialchars($str, ENT_NOQUOTES, 'UTF-8');
 	}
 
 	/**

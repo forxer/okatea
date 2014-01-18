@@ -257,8 +257,8 @@ class module_##module_id## extends Module
 
 		$cursor->description = $this->okt->HTMLfilter($cursor->description);
 
-		$cursor->meta_description = html::clean($cursor->meta_description);
-		$cursor->meta_keywords = html::clean($cursor->meta_keywords);
+		$cursor->meta_description = strip_tags($cursor->meta_description);
+		$cursor->meta_keywords = strip_tags($cursor->meta_keywords);
 
 		if (!$cursor->insert()) {
 			return false;
@@ -303,8 +303,8 @@ class module_##module_id## extends Module
 
 		$cursor->description = $this->okt->HTMLfilter($cursor->description);
 
-		$cursor->meta_description = html::clean($cursor->meta_description);
-		$cursor->meta_keywords = html::clean($cursor->meta_keywords);
+		$cursor->meta_description = strip_tags($cursor->meta_description);
+		$cursor->meta_keywords = strip_tags($cursor->meta_keywords);
 
 		if (!$cursor->update('WHERE id='.(integer)$id.' ')) {
 			return false;

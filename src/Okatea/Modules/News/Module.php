@@ -1256,7 +1256,7 @@ class Module extends BaseModule
 		}
 
 		while ($rsGroups->fetch()) {
-			$aGroups[$rsGroups->group_id] = \html::escapeHTML($rsGroups->title);
+			$aGroups[$rsGroups->group_id] = Utilities::escapeHTML($rsGroups->title);
 		}
 
 		return $aGroups;

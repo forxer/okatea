@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Navigation;
 
+use Okatea\Tao\Misc\Utilities;
+
 /**
  * @class breadcrumb
  * @ingroup okt_classes_html
@@ -138,10 +140,10 @@ class Breadcrumb
 		{
 			if (!isset($this->stack[$i]['url']) || $i == $this->iNum-1)
 			{
-				$res[] = sprintf($this->htmlItem, \html::escapeHTML($this->stack[$i]['label']));
+				$res[] = sprintf($this->htmlItem, Utilities::escapeHTML($this->stack[$i]['label']));
 			}
 			else {
-				$res[] = sprintf($this->htmlItem, sprintf($this->htmlLink, \html::escapeHTML($this->stack[$i]['url']), \html::escapeHTML($this->stack[$i]['label'])));
+				$res[] = sprintf($this->htmlItem, sprintf($this->htmlLink, Utilities::escapeHTML($this->stack[$i]['url']), Utilities::escapeHTML($this->stack[$i]['label'])));
 			}
 		}
 

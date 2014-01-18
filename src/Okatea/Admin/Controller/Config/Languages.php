@@ -9,6 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
+use Okatea\Tao\Misc\Utilities;
 
 class Languages extends Controller
 {
@@ -98,7 +99,7 @@ class Languages extends Controller
 
 		$aLanguages = array();
 		while ($rsLanguages->fetch()) {
-			$aLanguages[\html::escapeHTML($rsLanguages->title)] = $rsLanguages->code;
+			$aLanguages[Utilities::escapeHTML($rsLanguages->title)] = $rsLanguages->code;
 		}
 
 		# Liste des fuseaux horraires
