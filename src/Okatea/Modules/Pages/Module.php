@@ -268,7 +268,7 @@ class Module extends BaseModule
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = text::splitWords($aParams['search']);
+			$aWords = \text::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{
@@ -515,8 +515,8 @@ class Module extends BaseModule
 			# troncature
 			if ($iNumCharBeforeTruncate > 0)
 			{
-				$rs->content = html::clean($rs->content);
-				$rs->content = text::cutString($rs->content, $iNumCharBeforeTruncate);
+				$rs->content = strip_tags($rs->content);
+				$rs->content = \text::cutString($rs->content, $iNumCharBeforeTruncate);
 			}
 		}
 	}
@@ -542,7 +542,9 @@ class Module extends BaseModule
 	protected function commonPreparation(Recordset $rs)
 	{
 		# url page
-		$rs->url = $this->okt->router->generate('pagesItem', array('slug' => $rs->slug));
+		$rs->url = $rs->getPageUrl();
+
+		//$this->okt->router->generate('pagesItem', array('slug' => $rs->slug));
 
 		# url rubrique
 		$rs->category_url = $rs->getCategoryUrl();
@@ -616,11 +618,11 @@ class Module extends BaseModule
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->words = implode(' ',array_unique(text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
+			$oCursor->words = implode(' ',array_unique(\text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
 
-			$oCursor->meta_description = html::clean($oCursor->meta_description);
+			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
-			$oCursor->meta_keywords = html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			$oCursor->insertUpdate();
 
@@ -637,14 +639,14 @@ class Module extends BaseModule
 	 */
 	protected function setPageSlug($iPageId, $sLanguage)
 	{
-		$rsPage = $this->getPages(array(
+		$rsPage = $this->getPagesRecordset(array(
 			'id' => $iPageId,
 			'language' => $sLanguage,
 			'active' => 2
 		));
 
 		if ($rsPage->isEmpty()) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		if (empty($rsPage->slug)) {
@@ -711,7 +713,7 @@ class Module extends BaseModule
 		$oCursor->updated_at = $sDate;
 
 		if (!$oCursor->insert()) {
-			throw new Exception('Unable to insert page into database');
+			throw new \Exception('Unable to insert page into database');
 		}
 
 		# récupération de l'ID
@@ -722,17 +724,17 @@ class Module extends BaseModule
 
 		# ajout des images
 		if ($this->config->images['enable'] && $this->addImages($iNewId) === false) {
-			throw new Exception('Unable to insert images page');
+			throw new \Exception('Unable to insert images page');
 		}
 
 		# ajout des fichiers
 		if ($this->config->files['enable'] && $this->addFiles($iNewId) === false) {
-			throw new Exception('Unable to insert files page');
+			throw new \Exception('Unable to insert files page');
 		}
 
 		# ajout permissions
 		if (!$this->setPagePermissions($iNewId, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new Exception('Unable to set page permissions');
+			throw new \Exception('Unable to set page permissions');
 		}
 
 		return $iNewId;
@@ -749,29 +751,29 @@ class Module extends BaseModule
 	public function updPage($oCursor, $aPageLocalesData, $aPagePermsData)
 	{
 		if (!$this->pageExists($oCursor->id)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $oCursor->id));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $oCursor->id));
 		}
 
 		# modification dans la DB
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new Exception('Unable to update page into database');
+			throw new \Exception('Unable to update page into database');
 		}
 
 		# modification des images
 		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new Exception('Unable to update images page');
+			throw new \Exception('Unable to update images page');
 		}
 
 		# modification des fichiers
 		if ($this->config->files['enable'] && $this->updFiles($oCursor->id) === false) {
-			throw new Exception('Unable to update files page');
+			throw new \Exception('Unable to update files page');
 		}
 
 		# modification permissions
 		if (!$this->setPagePermissions($oCursor->id, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new Exception('Unable to set page permissions');
+			throw new \Exception('Unable to set page permissions');
 		}
 
 		# modification des textes internationnalisés
@@ -831,7 +833,7 @@ class Module extends BaseModule
 	public function switchPageStatus($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		$sQuery =
@@ -841,7 +843,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update page in database.');
+			throw new \Exception('Unable to update page in database.');
 		}
 
 		return true;
@@ -857,7 +859,7 @@ class Module extends BaseModule
 	public function setPageStatus($iPageId,$status)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		$sQuery =
@@ -867,7 +869,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to update page in database.');
+			throw new \Exception('Unable to update page in database.');
 		}
 
 		return true;
@@ -882,15 +884,15 @@ class Module extends BaseModule
 	public function deletePage($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		if ($this->deleteImages($iPageId) === false) {
-			throw new Exception('Unable to delete images page.');
+			throw new \Exception('Unable to delete images page.');
 		}
 
 		if ($this->deleteFiles($iPageId) === false) {
-			throw new Exception('Unable to delete files page.');
+			throw new \Exception('Unable to delete files page.');
 		}
 
 		$sQuery =
@@ -898,7 +900,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to remove page from database.');
+			throw new \Exception('Unable to remove page from database.');
 		}
 
 		$this->db->optimize($this->t_pages);
@@ -908,7 +910,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to remove page locales from database.');
+			throw new \Exception('Unable to remove page locales from database.');
 		}
 
 		$this->db->optimize($this->t_pages_locales);
@@ -1032,7 +1034,7 @@ class Module extends BaseModule
 		}
 
 		if (!$this->pageExists($iPageId)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
@@ -1083,7 +1085,7 @@ class Module extends BaseModule
 	protected function setDefaultPagePermissions($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 		}
 
 		# suppression de toutes les permissions éventuellement existantes
@@ -1111,7 +1113,7 @@ class Module extends BaseModule
 		') ';
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to insert page permissions into database');
+			throw new \Exception('Unable to insert page permissions into database');
 		}
 
 		return true;
@@ -1130,7 +1132,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to delete page permissions from database');
+			throw new \Exception('Unable to delete page permissions from database');
 		}
 
 		$this->db->optimize($this->t_permissions);
@@ -1560,7 +1562,7 @@ class Module extends BaseModule
 				$rsPages->subtitle.' '.
 				$rsPages->content.' ';
 
-			$words = implode(' ',text::splitWords($words));
+			$words = implode(' ',\text::splitWords($words));
 
 			$query =
 			'UPDATE '.$this->t_pages.' SET '.

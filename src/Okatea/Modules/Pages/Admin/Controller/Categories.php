@@ -32,13 +32,13 @@ class Categories extends Controller
 		));
 
 		# switch statut
-		if ($switchCategoryStatus = $this->switchCategoryStatus() !== false) {
-			return $switchCategoryStatus;
+		if (($action = $this->switchCategoryStatus()) !== false) {
+			return $action;
 		}
 
 		# suppression d'une rubrique
-		if ($deleteCategory = $this->deleteCategory() !== false) {
-			return $deleteCategory;
+		if (($action = $this->deleteCategory()) !== false) {
+			return $action;
 		}
 
 		return $this->render('Pages/Admin/Templates/Categories', array(

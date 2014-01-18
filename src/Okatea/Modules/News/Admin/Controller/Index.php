@@ -31,43 +31,43 @@ class Index extends Controller
 		$this->okt->News->filtersStart('admin');
 
 		# Ré-initialisation filtres
-		if ($initFilters = $this->initFilters() !== false) {
-			return $initFilters;
+		if (($action = $this->initFilters()) !== false) {
+			return $action;
 		}
 
 		# Suppression d'un article
-		if ($deletePost = $this->deletePost() !== false) {
-			return $deletePost;
+		if (($action = $this->deletePost()) !== false) {
+			return $action;
 		}
 
 		# Switch post statut
-		if ($switchPostStatus = $this->switchPostStatus() !== false) {
-			return $switchPostStatus;
+		if (($action = $this->switchPostStatus()) !== false) {
+			return $action;
 		}
 
 		# Switch article selection
-		if ($switchPostSelect = $this->switchPostSelect() !== false) {
-			return $switchPostSelect;
+		if (($action = $this->switchPostSelect()) !== false) {
+			return $action;
 		}
 
 		# Sélectionne un article
-		if ($selectPost = $this->selectPost() !== false) {
-			return $selectPost;
+		if (($action = $this->selectPost()) !== false) {
+			return $action;
 		}
 
 		# Déselectionne un article
-		if ($unselectPost = $this->unselectPost() !== false) {
-			return $unselectPost;
+		if (($action = $this->unselectPost()) !== false) {
+			return $action;
 		}
 
 		# Publication d'un article
-		if ($publishPost = $this->publishPost() !== false) {
-			return $publishPost;
+		if (($action = $this->publishPost()) !== false) {
+			return $action;
 		}
 
 		# Traitements par lots
-		if ($batches = $this->batches() !== false) {
-			return $batches;
+		if (($action = $this->batches()) !== false) {
+			return $action;
 		}
 
 		# Publication des articles différés

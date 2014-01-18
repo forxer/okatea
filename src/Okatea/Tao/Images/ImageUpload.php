@@ -225,7 +225,7 @@ class ImageUpload
 
 				$sOutput = $j.'.'.$sExtension;
 
-				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sCurrentImagesDir.$sOutput)) {
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImagesDir.'/'.$sOutput)) {
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
@@ -236,7 +236,7 @@ class ImageUpload
 				$this->buildThumbnails($iItemId, $sOutput, $sExtension);
 
 				# récupération des infos des images
-				$aImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir,$sCurrentImagesUrl,$sOutput);
+				$aImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sOutput);
 
 				# stockage du nom original
 				$aImages[$j]['original_name'] = $sUploadedFile['name'];
@@ -313,29 +313,29 @@ class ImageUpload
 				# suppression des éventuels ancien fichier et ancien original
 				if (isset($aCurrentImages[$i]['img_name']))
 				{
-					if (\files::isDeletable($sCurrentImagesDir.$aCurrentImages[$i]['img_name'])) {
-						unlink($sCurrentImagesDir.$aCurrentImages[$i]['img_name']);
+					if (\files::isDeletable($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'])) {
+						unlink($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name']);
 					}
 
-					if (\files::isDeletable($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name'])) {
-						unlink($sCurrentImagesDir.'o-'.$aCurrentImages[$i]['img_name']);
+					if (\files::isDeletable($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'])) {
+						unlink($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name']);
 					}
 				}
 
 				$sOutput = $j.'.'.$sExtension;
 
-				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sCurrentImagesDir.$sOutput)) {
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImagesDir.'/'.$sOutput)) {
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				# copie de l'originale
-				copy($sCurrentImagesDir.$sOutput,$sCurrentImagesDir.'o-'.$sOutput);
+				copy($sCurrentImagesDir.'/'.$sOutput, $sCurrentImagesDir.'/o-'.$sOutput);
 
 				# création des miniatures et du square
 				$this->buildThumbnails($iItemId, $sOutput, $sExtension);
 
 				# récupération des infos des images
-				$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir,$sCurrentImagesUrl,$sOutput);
+				$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sOutput);
 
 				# ajout d'un éventuel texte alternatif
 				$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
@@ -431,40 +431,40 @@ class ImageUpload
 				continue;
 			}
 
-			$sExtension = pathinfo($aCurrentImages[$i]['img_name'],PATHINFO_EXTENSION);
+			$sExtension = pathinfo($aCurrentImages[$i]['img_name'], PATHINFO_EXTENSION);
 
 			$sNewName = $j.'.'.$sExtension;
 
 			if (file_exists($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.$sNewName);
+				rename($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'o-'.$sNewName);
+				rename($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/o-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/min-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/min-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min-'.$sNewName);
+				rename($sCurrentImagesDir.'/min-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/min-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/min2-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/min2-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min2-'.$sNewName);
+				rename($sCurrentImagesDir.'/min2-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/min2-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/min3-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/min3-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min3-'.$sNewName);
+				rename($sCurrentImagesDir.'/min3-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/min3-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/min4-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/min4-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min4-'.$sNewName);
+				rename($sCurrentImagesDir.'/min4-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/min4-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/min5-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/min5-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'min5-'.$sNewName);
+				rename($sCurrentImagesDir.'/min5-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/min5-'.$sNewName);
 			}
 
 			if (file_exists($sCurrentImagesDir.'/sq-'.$aCurrentImages[$i]['img_name'])) {
-				rename($sCurrentImagesDir.'/sq-'.$aCurrentImages[$i]['img_name'],$sCurrentImagesDir.'sq-'.$sNewName);
+				rename($sCurrentImagesDir.'/sq-'.$aCurrentImages[$i]['img_name'], $sCurrentImagesDir.'/sq-'.$sNewName);
 			}
 
 			# récupération des infos des images

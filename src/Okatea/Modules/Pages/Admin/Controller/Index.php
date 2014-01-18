@@ -26,23 +26,23 @@ class Index extends Controller
 		$this->okt->Pages->filtersStart('admin');
 
 		# Ré-initialisation filtres
-		if ($initFilters = $this->initFilters() !== false) {
-			return $initFilters;
+		if (($action = $this->initFilters()) !== false) {
+			return $action;
 		}
 
 		# Delete page
-		if ($deletePost = $this->deletePost() !== false) {
-			return $deletePost;
+		if (($action = $this->deletePost()) !== false) {
+			return $action;
 		}
 
 		# Switch page statut
-		if ($switchPostStatus = $this->switchPostStatus() !== false) {
-			return $switchPostStatus;
+		if (($action = $this->switchPostStatus()) !== false) {
+			return $action;
 		}
 
 		# Traitements par lots
-		if ($batches = $this->batches() !== false) {
-			return $batches;
+		if (($action = $this->batches()) !== false) {
+			return $action;
 		}
 
 		# Initialisation des filtres

@@ -56,12 +56,15 @@ if (!empty($aPageData['post']['id']))
 		'onclick' 		=> 'return window.confirm(\''.$view->escapeJs(__('m_pages_page_delete_confirm')).'\')',
 	));
 	# bouton vers la page côté public si publié
-	$okt->page->addButton('pagesBtSt',array(
-		'permission' 	=> ($aPageData['post']['active'] ? true : false),
-		'title' 		=> __('c_c_action_Show'),
-		'url' 			=> $okt->router->generateFromAdmin('pagesItem', array('slug' => $aPageData['locales'][$okt->user->language]['slug']), null, true),
-		'ui-icon' 		=> 'extlink'
-	));
+	if (!empty($aPageData['locales'][$okt->user->language]['slug']))
+	{
+		$okt->page->addButton('pagesBtSt',array(
+			'permission' 	=> ($aPageData['post']['active'] ? true : false),
+			'title' 		=> __('c_c_action_Show'),
+			'url' 			=> $okt->router->generateFromAdmin('pagesItem', array('slug' => $aPageData['locales'][$okt->user->language]['slug']), null, true),
+			'ui-icon' 		=> 'extlink'
+		));
+	}
 }
 
 # boutons add page
@@ -119,7 +122,7 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 <?php endif; ?>
 
 
-<form id="page-form" action="module.php" method="post" enctype="multipart/form-data">
+<form id="page-form" action="<?php echo !empty($aPageData['post']['id']) ? $view->generateUrl('Pages_post', array('page_id' => $aPageData['post']['id'])) : $view->generateUrl('Pages_post_add'); ?>" method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>
 			<?php foreach ($aPageData['tabs'] as $aTabInfos) : ?>

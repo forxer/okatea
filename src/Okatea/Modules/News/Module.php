@@ -292,7 +292,7 @@ class Module extends BaseModule
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = text::splitWords($aParams['search']);
+			$aWords = \text::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{
@@ -545,7 +545,7 @@ class Module extends BaseModule
 			# troncature
 			if ($iNumCharBeforeTruncate > 0)
 			{
-				$rsPosts->content = \html::clean($rsPosts->content);
+				$rsPosts->content = strip_tags($rsPosts->content);
 				$rsPosts->content = \text::cutString($rsPosts->content, $iNumCharBeforeTruncate);
 			}
 		}
@@ -648,9 +648,9 @@ class Module extends BaseModule
 
 			$oCursor->words = implode(' ',array_unique(\text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
 
-			$oCursor->meta_description = \html::clean($oCursor->meta_description);
+			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
-			$oCursor->meta_keywords = \html::clean($oCursor->meta_keywords);
+			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			$oCursor->insertUpdate();
 
@@ -1829,7 +1829,7 @@ class Module extends BaseModule
 				$rsPosts->subtitle.' '.
 				$rsPosts->content.' ';
 
-			$words = implode(' ',text::splitWords($words));
+			$words = implode(' ',\text::splitWords($words));
 
 			$query =
 			'UPDATE '.$this->t_news.' SET '.
