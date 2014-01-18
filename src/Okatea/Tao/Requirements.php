@@ -85,12 +85,20 @@ class Requirements
 			'msg_ko'	=> __('pr_mysqli_ko')
 		);
 
-		# Vérification de la présence des fonctions MySQL
+		# Vérification de la présence des fonctions CURL
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'curl',
 			'test' 		=> function_exists('curl_init'),
 			'msg_ok'	=> __('pr_curl_ok'),
 			'msg_ko'	=> __('pr_curl_ko')
+		);
+
+		# Vérification de la présence des fonctions fileinfo
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'fileinfo',
+			'test' 		=> function_exists('finfo_open'),
+			'msg_ok'	=> __('pr_fileinfo_ok'),
+			'msg_ko'	=> __('pr_fileinfo_ko')
 		);
 
 		# Vérification de la présence du module XML

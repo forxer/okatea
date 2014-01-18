@@ -18,6 +18,9 @@ $GLOBALS['__l10n']['pr_mysqli_ko'] = 'The MySQLi module is absent.';
 $GLOBALS['__l10n']['pr_curl_ok'] = 'The Curl module is present.';
 $GLOBALS['__l10n']['pr_curl_ko'] = 'The Curl module is absent.';
 
+$GLOBALS['__l10n']['pr_fileinfo_ok'] = 'The Fileinfo module is present.';
+$GLOBALS['__l10n']['pr_fileinfo_ko'] = 'The Fileinfo module is absent.';
+
 $GLOBALS['__l10n']['pr_xml_ok'] = 'The XML module is present.';
 $GLOBALS['__l10n']['pr_xml_ko'] = 'The XML module is absent.';
 

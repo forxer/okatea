@@ -116,7 +116,7 @@ class Okatea extends Application
 	protected function checkUser()
 	{
 		# Validation du CSRF token si un formulaire est envoyé
-		if (count($this->request->request) > 0 && (!$this->request->request->has($this->options->get('csrf_token_name')) || !$this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
+		if (!$this->options->get('debug') && count($this->request->request) > 0 && (!$this->request->request->has($this->options->get('csrf_token_name')) || !$this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
 		{
 			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
 

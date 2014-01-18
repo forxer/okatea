@@ -800,7 +800,7 @@ class Module extends BaseModule
 
 		# modification des images
 		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new \Exception('Unable to update files post');
+			throw new \Exception('Unable to update images post');
 		}
 
 		# modification des fichiers

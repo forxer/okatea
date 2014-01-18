@@ -79,7 +79,7 @@ class ImageUpload
 	 * Liste des extensions autorisées.
 	 * @var array
 	 */
-	protected static $aAllowedExts = array('gif','jpg','jpeg','png');
+	protected static $aAllowedExts = array('gif', 'jpg', 'jpeg', 'png');
 
 	/**
 	 * Liste des types d'images autorisés.
@@ -157,7 +157,7 @@ class ImageUpload
 
 				$sOutput = $j.'.'.$sExtension;
 
-				if (!copy($sFilename,$sCurrentImagesDir.$sOutput)) {
+				if (!copy($sFilename, $sCurrentImagesDir.'/'.$sOutput)) {
 					throw new \Exception('Impossible de copier le fichier image.');
 				}
 
@@ -196,38 +196,33 @@ class ImageUpload
 		{
 			$aImages[$j] = '';
 
-			if (!isset($_FILES[sprintf($this->aConfig['files_patern'],$i)]) || empty($_FILES[sprintf($this->aConfig['files_patern'],$i)]['tmp_name'])) {
+			if (!$this->okt->request->files->has(sprintf($this->aConfig['files_patern'],$i))) {
 				continue;
 			}
 
-			$sUploadedFile = $_FILES[sprintf($this->aConfig['files_patern'],$i)];
+			try
+			{
+				$oUploadedFile = $this->okt->request->files->get(sprintf($this->aConfig['files_patern'],$i));
 
-			try {
-				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
+				if (null === $oUploadedFile) {
+					continue;
+				}
 
-				# des erreurs d'upload ?
-				Utilities::uploadStatus($sUploadedFile);
+				$sExtension = $oUploadedFile->guessExtension();
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);
 
 				# vérification du type
-				self::checkType($sUploadedFile['type']);
+				self::checkType($oUploadedFile->getMimeType());
 
 				# répertoire des images
 				$sCurrentImagesDir = $this->getCurrentUploadDir($iItemId);
 				$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
 
-				# création du répertoire s'il existe pas
-				if (!file_exists($sCurrentImagesDir)) {
-					\files::makeDir($sCurrentImagesDir,true);
-				}
-
 				$sOutput = $j.'.'.$sExtension;
 
-				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImagesDir.'/'.$sOutput)) {
-					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
-				}
+				$oUploadedFile->move($sCurrentImagesDir, $sOutput);
 
 				# copie de l'originale
 				copy($sCurrentImagesDir.'/'.$sOutput, $sCurrentImagesDir.'/o-'.$sOutput);
@@ -250,7 +245,7 @@ class ImageUpload
 				$j++;
 			}
 			catch (\Exception $e) {
-				$this->error->set('Problème avec l’image '.$i.' : '.$e->getMessage());
+				$this->error->set('Problème avec l’image '.$i.' : '.__($e->getMessage()));
 			}
 		}
 
@@ -272,7 +267,7 @@ class ImageUpload
 
 		for ($i=1; $i<=$this->aConfig['number']; $i++)
 		{
-			if (!isset($_FILES[sprintf($this->aConfig['files_patern'],$i)]) || empty($_FILES[sprintf($this->aConfig['files_patern'],$i)]['tmp_name']))
+			if (!$this->okt->request->files->has(sprintf($this->aConfig['files_patern'],$i)))
 			{
 				if (isset($aCurrentImages[$i]))
 				{
@@ -287,28 +282,36 @@ class ImageUpload
 				continue;
 			}
 
-			$sUploadedFile = $_FILES[sprintf($this->aConfig['files_patern'],$i)];
+			try
+			{
+				$oUploadedFile = $this->okt->request->files->get(sprintf($this->aConfig['files_patern'],$i));
 
-			try {
-				$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
+				if (null === $oUploadedFile)
+				{
+					if (isset($aCurrentImages[$i]))
+					{
+						$aNewImages[$j] = $aCurrentImages[$i];
 
-				# des erreurs d'upload ?
-				Utilities::uploadStatus($sUploadedFile);
+						$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
+
+						$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
+
+						$j++;
+					}
+					continue;
+				}
+
+				$sExtension = $oUploadedFile->guessExtension();
 
 				# vérification de l'extension
 				self::checkExtension($sExtension);
 
 				# vérification du type
-				self::checkType($sUploadedFile['type']);
+				self::checkType($oUploadedFile->getMimeType());
 
 				# répertoire des images
 				$sCurrentImagesDir = $this->getCurrentUploadDir($iItemId);
 				$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
-
-				# création du répertoire s'il existe pas
-				if (!file_exists($sCurrentImagesDir)) {
-					\files::makeDir($sCurrentImagesDir,true);
-				}
 
 				# suppression des éventuels ancien fichier et ancien original
 				if (isset($aCurrentImages[$i]['img_name']))
@@ -324,9 +327,7 @@ class ImageUpload
 
 				$sOutput = $j.'.'.$sExtension;
 
-				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImagesDir.'/'.$sOutput)) {
-					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
-				}
+				$oUploadedFile->move($sCurrentImagesDir, $sOutput);
 
 				# copie de l'originale
 				copy($sCurrentImagesDir.'/'.$sOutput, $sCurrentImagesDir.'/o-'.$sOutput);
