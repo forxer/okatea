@@ -11,40 +11,6 @@ namespace Okatea\Modules\Users;
 class Helpers
 {
 	/**
-	 * Retourne l'URL de la page du formulaire de mot de passe oublié.
-	 *
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getForgetPasswordUrl($sLanguage=null)
-	{
-		global $okt;
-
-		if (is_null($sLanguage)) {
-			$sLanguage = $okt->user->language;
-		}
-
-		return $okt->router->generate('usersForgetPassword');
-	}
-
-	/**
-	 * Retourne l'URL de la page de déconnexion.
-	 *
-	 * @param string $sLanguage
-	 * @return string
-	 */
-	public static function getLogoutUrl($sLanguage=null)
-	{
-		global $okt;
-
-		if (is_null($sLanguage)) {
-			$sLanguage = $okt->user->language;
-		}
-
-		return $okt->router->generate('usersLogout');
-	}
-
-	/**
 	 * Retourne l'URL de la page de connexion.
 	 *
 	 * @param string $sRedirectUrl

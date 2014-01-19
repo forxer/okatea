@@ -42,7 +42,7 @@ elseif ($password_updated) : ?>
 <?php # sinon on affiche le formulaire
 else : ?>
 
-<form id="forget-password-form" class="userform" action="<?php echo $view->escape(UsersHelpers::getForgetPasswordUrl()) ?>" method="post">
+<form id="forget-password-form" class="userform" action="<?php echo $view->generateUrl('usersForgetPassword') ?>" method="post">
 
 	<p class="field"><label for="email"><?php _e('c_c_auth_give_account_email') ?></label>
 	<input id="email" type="text" name="email" maxlength="255" /></p>

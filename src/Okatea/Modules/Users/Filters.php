@@ -9,6 +9,7 @@
 namespace Okatea\Modules\Users;
 
 use Okatea\Tao\Misc\BaseFilters;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Authentification;
 
@@ -22,9 +23,9 @@ class Filters extends BaseFilters
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'users', $okt->users->config, $part, $params);
+		parent::__construct($okt, 'users', $okt->Users->config, $part, $params);
 
-		$this->users = $okt->users;
+		$this->Users = $okt->Users;
 
 		$this->order_by_array = array();
 	}
@@ -113,7 +114,7 @@ class Filters extends BaseFilters
 			$this->get_users_params['group_id'] = $this->params->group_id;
 		}
 
-		$rs = $this->users->getGroups();
+		$rs = $this->Users->getGroups();
 		$groups_array = array(
 			__('c_c_All') => -1,
 			__('m_users_wait_of_validation') => Authentification::unverified_group_id
@@ -125,7 +126,7 @@ class Filters extends BaseFilters
 				continue;
 			}
 
-			$groups_array[html::escapeHTML($rs->title)] = $rs->group_id;
+			$groups_array[Utilities::escapeHTML($rs->title)] = $rs->group_id;
 		}
 		unset($rs);
 

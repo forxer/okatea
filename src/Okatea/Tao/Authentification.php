@@ -703,13 +703,13 @@ class Authentification
 	 */
 	protected function getDefaultLang()
 	{
-		$sLang = '';
+		$sLang = null;
 
 		if (isset($_COOKIE[$this->sCookieLangName])) {
 			$sLang = $_COOKIE[$this->sCookieLangName];
 		}
-		elseif (($acceptLanguage = \http::getAcceptLanguage()) != '') {
-			$sLang = $acceptLanguage;
+		else {
+			$sLang = $this->okt->request->getPreferredLanguage();
 		}
 
 		if ($this->okt->languages->isActive($sLang)) {

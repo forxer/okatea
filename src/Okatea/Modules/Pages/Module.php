@@ -21,11 +21,11 @@ use Okatea\Tao\Themes\SimpleReplacements;
 
 class Module extends BaseModule
 {
-	public $config = null;
-	public $categories = null;
-	public $filters = null;
+	public $config;
+	public $categories;
+	public $filters;
 
-	protected $locales = null;
+	protected $locales;
 
 	protected $t_pages;
 	protected $t_pages_locales;
@@ -105,7 +105,7 @@ class Module extends BaseModule
 				$this->okt->checkPerm('pages'),
 				null,
 				$this->okt->page->pagesSubMenu,
-				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
+				$this->okt->options->public_url.'/modules/Pages/module_icon.png'
 			);
 				$this->okt->page->pagesSubMenu->add(
 					__('c_a_menu_management'),

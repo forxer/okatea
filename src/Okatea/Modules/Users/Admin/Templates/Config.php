@@ -1,6 +1,0 @@
-<?php
-
-$view->extend('layout');
-
-?>
-

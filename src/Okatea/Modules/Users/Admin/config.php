@@ -142,11 +142,11 @@ if (!empty($_POST['form_sent']))
 # liste des groupes
 $rsGroups = $okt->users->getGroups();
 
-$groups_array = array();
+$aGroups = array();
 while ($rsGroups->fetch())
 {
 	if (!in_array($rsGroups->group_id, array(Authentification::superadmin_group_id,Authentification::admin_group_id,Authentification::guest_group_id))) {
-		$groups_array[html::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
+		$aGroups[html::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
 	}
 }
 unset($rsGroups);
@@ -201,14 +201,14 @@ $okt->page->js->addReady('
 
 
 # Construction des onglets
-$aEditTabs = new ArrayObject;
-$aEditTabs[10] = array(
+$aConfigTabs = new ArrayObject;
+$aConfigTabs[10] = array(
 	'id' => 'tab_general',
 	'title' => __('m_users_General'),
 	'content' => ''
 );
 
-$aEditTabs[10]['content'] =
+$aConfigTabs[10]['content'] =
 	'<h3>'.__('m_users_General').'</h3>
 
 	<p class="field"><label>'.form::checkbox('p_enable_custom_fields', 1, $okt->users->config->enable_custom_fields).
@@ -236,13 +236,13 @@ $aEditTabs[10]['content'] =
 	</fieldset>';
 
 
-$aEditTabs[20] = array(
+$aConfigTabs[20] = array(
 	'id' => 'tab_register',
 	'title' => __('m_users_Registration'),
 	'content' => ''
 );
 
-$aEditTabs[20]['content'] =
+$aConfigTabs[20]['content'] =
 	'<h3>'.__('m_users_Registration').'</h3>
 
 	<p class="field"><label for="p_mail_new_registration">'.form::checkbox('p_mail_new_registration',1,$okt->users->config->mail_new_registration).
@@ -261,16 +261,16 @@ $aEditTabs[20]['content'] =
 	__('m_users_Let_users_choose_their_group').'</label></p>
 
 	<p class="field"><label for="p_default_group">'.__('m_users_Default_group').'</label>'.
-	form::select('p_default_group', $groups_array, $okt->users->config->default_group).'</p>';
+	form::select('p_default_group', $aGroups, $okt->users->config->default_group).'</p>';
 
 
-$aEditTabs[30] = array(
+$aConfigTabs[30] = array(
 	'id' => 'tab_tpl',
 	'title' => __('m_users_config_tab_tpl'),
 	'content' => ''
 );
 
-$aEditTabs[30]['content'] =
+$aConfigTabs[30]['content'] =
 	'<h3>'.__('m_users_config_tab_tpl_title').'</h3>
 
 	<h4>'. __('m_users_config_tpl_forgotten_password').'</h4>'.
@@ -293,9 +293,9 @@ $aEditTabs[30]['content'] =
 
 
 # -- CORE TRIGGER : adminModUsersEditDisplayTabs
-$okt->triggers->callTrigger('adminModUsersConfigTabs', $aEditTabs);
+$okt->triggers->callTrigger('adminModUsersConfigTabs', $aConfigTabs);
 
-$aEditTabs->ksort();
+$aConfigTabs->ksort();
 
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
@@ -303,12 +303,12 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <form action="module.php" method="post">
 	<div id="tabered">
 		<ul>
-		<?php foreach ($aEditTabs as $aTabInfos) : ?>
+		<?php foreach ($aConfigTabs as $aTabInfos) : ?>
 			<li><a href="#<?php echo $aTabInfos['id'] ?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
 		<?php endforeach; ?>
 		</ul>
 
-		<?php foreach ($aEditTabs as $sTabUrl=>$aTabInfos) : ?>
+		<?php foreach ($aConfigTabs as $sTabUrl=>$aTabInfos) : ?>
 		<div id="<?php echo $aTabInfos['id'] ?>">
 			<?php echo $aTabInfos['content'] ?>
 		</div><!-- #<?php echo $aTabInfos['id'] ?> -->

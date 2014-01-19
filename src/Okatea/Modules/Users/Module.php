@@ -8,10 +8,10 @@
 
 namespace Okatea\Modules\Users;
 
-use Okatea\Admin\Page;
-use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Authentification;
 use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
+use Okatea\Tao\Authentification;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module as BaseModule;
 use Okatea\Tao\Routing\Route;
 
@@ -20,10 +20,8 @@ class Module extends BaseModule
 	protected $t_users;
 	protected $t_groups;
 
-	protected $locales = null;
-
 	public $config;
-	public $users_dir;
+	public $filters;
 
 	protected function prepend()
 	{
@@ -65,22 +63,23 @@ class Module extends BaseModule
 				($this->okt->checkPerm('users')),
 				null,
 				($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
-				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
+				$this->okt->options->public_url.'/modules/Users/module_icon.png'
 			);
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_management'),
-					'module.php?m=users&amp;action=index',
-					$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'add' || $this->okt->page->action === 'edit'),
+					$this->okt->adminRouter->generate('Users_index'),
+					in_array($this->okt->request->attributes->get('_route'), array('Users_index', 'Users_user_add', 'Users_user')),
 					10,
 					$this->okt->checkPerm('users')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Groups'),
-					'module.php?m=users&amp;action=groups',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'groups'),
+					$this->okt->adminRouter->generate('Users_groups'),
+					$this->okt->request->attributes->get('_route') === 'Users_groups',
 					20,
 					$this->okt->checkPerm('groups')
 				);
+				/*
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Custom_fields'),
 					'module.php?m=users&amp;action=fields',
@@ -95,17 +94,18 @@ class Module extends BaseModule
 					40,
 					$this->okt->checkPerm('users_export')
 				);
+				*/
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_display'),
-					'module.php?m=users&amp;action=display',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
+					$this->okt->adminRouter->generate('Users_display'),
+					$this->okt->request->attributes->get('_route') === 'Users_display',
 					90,
 					$this->okt->checkPerm('users_display')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('c_a_menu_configuration'),
-					'module.php?m=users&amp;action=config',
-					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
+					$this->okt->adminRouter->generate('Users_config'),
+					$this->okt->request->attributes->get('_route') === 'Users_config',
 					100,
 					$this->okt->checkPerm('users_config')
 				);
@@ -115,10 +115,10 @@ class Module extends BaseModule
 	protected function prepend_public()
 	{
 		$this->okt->triggers->registerTrigger('websiteAdminBarBeforeDefaultsItems',
-			array('module_users', 'websiteAdminBarBeforeDefaultsItems'));
+			array('Okatea\Modules\Users\Module', 'websiteAdminBarBeforeDefaultsItems'));
 
 		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
-			array('module_users', 'websiteAdminBarItems'));
+			array('Okatea\Modules\Users\Module', 'websiteAdminBarItems'));
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Module extends BaseModule
 	 */
 	public static function websiteAdminBarBeforeDefaultsItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
-		$aBasesUrl['logout'] = html::escapeHTML(UsersHelpers::getLogoutUrl());
+		$aBasesUrl['logout'] = $okt->router->generate('usersLogout');
 
 		$aBasesUrl['profil'] = $aBasesUrl['admin'].'/module.php?m=users&amp;action=profil&amp;id='.$okt->user->id;
 	}
@@ -156,6 +156,18 @@ class Module extends BaseModule
 				'title' => __('m_users_ab_user_title'),
 				'intitle' => __('m_users_ab_user')
 			);
+		}
+	}
+
+	/**
+	 * Initialisation des filtres
+	 *
+	 * @param string $part 	'public' ou 'admin'
+	 */
+	public function filtersStart($part='public')
+	{
+		if ($this->filters === null || !($this->filters instanceof Filters)) {
+			$this->filters = new Filters($this->okt, $part);
 		}
 	}
 

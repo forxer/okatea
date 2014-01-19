@@ -212,7 +212,7 @@ class Controller extends BaseController
 
 		if (!empty($_POST['form_sent']) && !empty($_POST['email']))
 		{
-			if ($this->okt->user->forgetPassword($_POST['email'], html::escapeHTML($this->request->getSchemeAndHttpHost().UsersHelpers::getForgetPasswordUrl()))) {
+			if ($this->okt->user->forgetPassword($_POST['email'], $this->generateUrl('usersForgetPassword', null, true))) {
 				$password_sended = true;
 			}
 		}
@@ -238,7 +238,7 @@ class Controller extends BaseController
 
 		# fil d'ariane
 		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_auth_request_password'), UsersHelpers::getForgetPasswordUrl());
+			$this->page->breadcrumb->add(__('c_c_auth_request_password'), $this->generateUrl('usersForgetPassword'));
 		}
 
 		# affichage du template
@@ -265,7 +265,7 @@ class Controller extends BaseController
 
 		# invité non convié
 		if ($this->okt->user->is_guest) {
-			return $this->redirect(UsersHelpers::getLoginUrl(UsersHelpers::getProfileUrl()));
+			return $this->redirect(UsersHelpers::getLoginUrl($this->generateUrl('usersProfile')));
 		}
 
 		# données utilisateur
@@ -350,7 +350,7 @@ class Controller extends BaseController
 				setcookie($c,null);
 			}
 
-			return $this->redirect(UsersHelpers::getProfileUrl());
+			return $this->redirect($this->generateUrl('usersProfile'));
 		}
 
 		# Formulaire de changement de mot de passe
@@ -361,7 +361,7 @@ class Controller extends BaseController
 
 			$this->okt->users->changeUserPassword($aUserProfilData);
 
-			return $this->redirect(UsersHelpers::getProfileUrl());
+			return $this->redirect($this->generateUrl('usersProfile'));
 		}
 
 		# Formulaire de modification de l'utilisateur envoyé
@@ -399,7 +399,7 @@ class Controller extends BaseController
 					}
 				}
 
-				return $this->redirect(UsersHelpers::getProfileUrl());
+				return $this->redirect($this->generateUrl('usersProfile'));
 			}
 		}
 
@@ -420,7 +420,7 @@ class Controller extends BaseController
 
 		# fil d'ariane
 		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_user_profile'), UsersHelpers::getProfileUrl());
+			$this->page->breadcrumb->add(__('c_c_user_profile'), $this->generateUrl('usersProfile'));
 		}
 
 		# affichage du template
