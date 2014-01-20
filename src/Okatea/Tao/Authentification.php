@@ -306,7 +306,7 @@ class Authentification
 
 		# And finally, store perms array
 		if ($this->infos->f('perms') != '' && !is_array($this->infos->perms)) {
-			$this->infos->set('perms', unserialize($this->infos->perms));
+			$this->infos->set('perms', json_decode($this->infos->perms));
 		}
 		elseif (!is_array($this->infos->f('perms'))) {
 			$this->infos->set('perms', array());

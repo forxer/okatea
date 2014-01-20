@@ -25,9 +25,9 @@
 			(`group_id`, `title`, `perms`)
 		VALUES
 			(1, 'Super-administrateur', NULL),
-			(2, 'Administrateur', 'a:3:{i:0;s:5:"usage";i:1;s:10:"configsite";i:2;s:7:"display";}'),
+			(2, 'Administrateur', '["usage","configsite"]'),
 			(3, 'Invité', NULL),
-			(4, 'Membre', 'a:0:{}') ;
+			(4, 'Membre', NULL) ;
 	</action>
 
 

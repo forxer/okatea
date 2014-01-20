@@ -107,7 +107,7 @@ class Supa extends Controller
 				$this->session->set('okt_install_sudo_email', $aUsersData['sudo']['password']);
 
 				# insertion admin id 3
-				if (empty($aUsersData['admin']['username']) && empty($aUsersData['admin']['password']) && empty($aUsersData['admin']['email']))
+				if (!empty($aUsersData['admin']['username']) || !empty($aUsersData['admin']['password']) || !empty($aUsersData['admin']['email']))
 				{
 					$query =
 					'INSERT INTO `'.$db->prefix.'core_users` ('.

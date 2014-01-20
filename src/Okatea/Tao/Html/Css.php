@@ -197,7 +197,7 @@ class Css
 
 			$less->setImportDir(array(
 				(isset($okt->theme->path) ? $okt->theme->path.'/css/' : null),
-				$okt->options->public_dir.'/css/less/'
+				$okt->options->get('public_dir').'/css/less/'
 			));
 
 			$less->setVariables($okt->theme->getLessVariables());

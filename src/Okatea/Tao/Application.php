@@ -286,7 +286,7 @@ class Application
 
 		$this->triggers = new Triggers($this);
 
-//		$this->navigation = new Menus($this);
+		$this->navigation = new Menus($this);
 	}
 
 	public function getVersion()

@@ -411,11 +411,11 @@ class Process extends Module
 
 		$aCurrentPerms = array();
 		if (!$rsPerms->isEmpty()) {
-			$aCurrentPerms = unserialize($rsPerms->perms);
+			$aCurrentPerms = json_decode($rsPerms->perms);
 		}
 
 		$aNewPerms = array_merge($aCurrentPerms,$aDefaultPerms);
-		$aNewPerms = serialize($aNewPerms);
+		$aNewPerms = json_encode($aNewPerms);
 
 		$query =
 		'UPDATE '.$this->db->prefix.'core_users_groups SET '.

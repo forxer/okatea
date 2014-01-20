@@ -90,8 +90,8 @@ class Update
 		# Check cached file
 		if (is_readable($this->sCacheFile) && filemtime($this->sCacheFile) > strtotime($this->sCacheTtl))
 		{
-			$c = @file_get_contents($this->sCacheFile);
-			$c = @unserialize($c);
+			$c = file_get_contents($this->sCacheFile);
+			$c = json_decode($c);
 
 			if (is_array($c))
 			{
@@ -142,7 +142,7 @@ class Update
 		}
 
 		# Create cache
-		file_put_contents($this->sCacheFile, serialize($this->aVersionInfo));
+		file_put_contents($this->sCacheFile, json_encode($this->aVersionInfo));
 	}
 
 	public function getVersion()
@@ -197,7 +197,7 @@ class Update
 		}
 
 		$this->aVersionInfo['notify'] = (boolean)$n;
-		file_put_contents($this->sCacheFile, serialize($this->aVersionInfo));
+		file_put_contents($this->sCacheFile, json_encode($this->aVersionInfo));
 	}
 
 	/**

@@ -995,12 +995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "bea11a6f0f702f8263da7e02d91b36ba27da5c26"
+                "reference": "f1018c8481f73df56a574372e1cad9f7d70e0238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/bea11a6f0f702f8263da7e02d91b36ba27da5c26",
-                "reference": "bea11a6f0f702f8263da7e02d91b36ba27da5c26",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/f1018c8481f73df56a574372e1cad9f7d70e0238",
+                "reference": "f1018c8481f73df56a574372e1cad9f7d70e0238",
                 "shasum": ""
             },
             "require": {
@@ -1039,7 +1039,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2014-01-17 15:58:35"
+            "time": "2014-01-20 12:15:47"
         },
         {
             "name": "monolog/monolog",

@@ -38,7 +38,8 @@ class Permissions extends Controller
 			}
 
 			$aGroups[$rsGroups->group_id] = $rsGroups->title;
-			$aPerms[$rsGroups->group_id] = $rsGroups->perms ? unserialize($rsGroups->perms) : array();
+
+			$aPerms[$rsGroups->group_id] = $rsGroups->perms ? json_decode($rsGroups->perms) : array();
 		}
 		unset($rsGroups);
 
@@ -49,7 +50,7 @@ class Permissions extends Controller
 			foreach ($aGroups as $group_id=>$group_title)
 			{
 				$group_perms = !empty($perms[$group_id]) ? array_keys($perms[$group_id]) : array();
-				$group_perms = serialize($group_perms);
+				$group_perms = json_encode($group_perms);
 
 				$query =
 				'UPDATE '.$sTgroups.' SET '.
