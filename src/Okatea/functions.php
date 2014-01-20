@@ -12,21 +12,27 @@ use Monolog\Processor\WebProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 
+if (!function_exists('__'))
+{
+	/**
+	 * Translate string.
+	 *
+	 */
+	function __($str)
+	{
+		return isset($GLOBALS['__l10n'][$str]) ? $GLOBALS['__l10n'][$str] : $str;
+	}
+}
+
 if (!function_exists('_e'))
 {
 	/**
 	 * Translate and display string.
 	 *
-	 * @see l10n::trans()
-	 *
-	 * @param string $singular Singular form of the string
-	 * @param string $pural Plural form of the string (optionnal)
-	 * @param integer $count Context number for plural form (optionnal)
-	 * @return string translated string
 	 */
-	function _e($singular, $plural=null, $count=null)
+	function _e($str)
 	{
-		echo __($singular, $plural, $count);
+		echo __($str);
 	}
 }
 

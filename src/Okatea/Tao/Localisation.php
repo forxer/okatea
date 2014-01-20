@@ -16,9 +16,9 @@ class Localisation
 {
 	public function __construct($sLocalesDir, $sLanguage, $sTimeZone)
 	{
-		date_default_timezone_set($sTimeZone);
+	//	date_default_timezone_set($sTimeZone);
 
-		\l10n::init($sLanguage);
+		$GLOBALS['__l10n'] = array();
 
 		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/main');
 		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/date');
@@ -26,6 +26,8 @@ class Localisation
 
 	public function loadFile($sFile)
 	{
-		\l10n::set($sFile);
+		if (file_exists($sFile.'.lang.php')) {
+			require $sFile.'.lang.php';
+		}
 	}
 }

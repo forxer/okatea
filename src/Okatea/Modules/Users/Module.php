@@ -31,7 +31,7 @@ class Module extends BaseModule
 			$this->okt->addPerm('users_edit', 			__('m_users_perm_edit'), 'users');
 			$this->okt->addPerm('users_delete', 		__('m_users_perm_delete'), 'users');
 			$this->okt->addPerm('change_password', 		__('m_users_perm_change_password'), 'users');
-			$this->okt->addPerm('groups', 				__('m_users_perm_groups'), 'users');
+			$this->okt->addPerm('users_groups', 		__('m_users_perm_groups'), 'users');
 			$this->okt->addPerm('users_custom_fields', 	__('m_users_perm_custom_fields'), 'users');
 			$this->okt->addPerm('users_export', 		__('m_users_perm_export'), 'users');
 			$this->okt->addPerm('users_display', 		__('m_users_perm_display'), 'users');

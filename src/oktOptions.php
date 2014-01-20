@@ -9,10 +9,10 @@
 $aOktDefaultOptions = array(
 
 	# enable or disable debug mode
-	'debug' => false,
+	'debug' 			=> false,
 
 	# set the environement, should be 'prod' or 'dev'
-	'env' => 'prod',
+	'env' 				=> 'prod',
 
 	# define several directories paths
 	'root_dir' 			=> __DIR__,

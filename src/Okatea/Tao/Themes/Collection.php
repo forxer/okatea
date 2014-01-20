@@ -83,7 +83,7 @@ class Collection
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->cache = $okt->cache;
+		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'themes';
 		$this->cache_repo_id = 'themes_repositories';
 

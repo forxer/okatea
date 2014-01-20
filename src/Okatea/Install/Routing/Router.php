@@ -42,7 +42,7 @@ class Router extends BaseRouter
 				'generator_cache_class'  => 'OkateaInstallUrlGenerator',
 				'matcher_cache_class'    => 'OkateaInstallUrlMatcher'
 			),
-			$app->requestContext,
+			$app->getRequestContext(),
 			$logger
 		);
 	}

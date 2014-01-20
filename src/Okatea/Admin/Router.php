@@ -40,7 +40,7 @@ class Router extends BaseRouter
 				'generator_cache_class'  => 'OkateaAdminUrlGenerator',
 				'matcher_cache_class'    => 'OkateaAdminUrlMatcher'
 			),
-			$app->requestContext,
+			$app->getRequestContext(),
 			$logger
 		);
 	}

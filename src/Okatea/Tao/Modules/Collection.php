@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Modules;
 
+use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\HttpClient;
 
 /**
@@ -16,6 +17,12 @@ use Okatea\Tao\HttpClient;
  */
 class Collection
 {
+	/**
+	 * Le chemin du répertoir des modules
+	 * @var string
+	 */
+	public $path;
+
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -39,24 +46,6 @@ class Collection
 	 * @var string
 	 */
 	protected $t_modules;
-
-	/**
-	 * L'espace 'admin' ou 'public'
-	 * @var string
-	 */
-	public $ns;
-
-	/**
-	 * Le chemin du répertoir des modules
-	 * @var string
-	 */
-	public $path;
-
-	/**
-	 * L'URL du répertoir des modules
-	 * @var string
-	 */
-	public $url;
 
 	/**
 	 * La liste des modules installés
@@ -99,60 +88,50 @@ class Collection
 	 *
 	 * @param	object	$okt		Okatea application instance.
 	 * @param	string 	$path		Le chemin du répertoire des modules à charger.
-	 * @param	string 	$url		L'URL du répertoire des modules.
 	 * @return void
 	 */
-	public function __construct($okt, $path, $url)
+	public function __construct($okt, $path)
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->cache = $okt->cache;
+		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'modules';
 		$this->cache_repo_id = 'modules_repositories';
 
 		$this->t_modules = $okt->db->prefix.'core_modules';
 
 		$this->path = $path;
-		$this->url = $url;
 	}
 
 	/**
 	 * Charge les modules disponibles.
 	 *
 	 * @param	string	ns			Le namespace à prendre en compte (null)
-	 * @param	string	lang		La langue à charger. (null)
 	 * @return void
 	 */
-	public function loadModules($ns=null, $lang=null)
+	public function loadModules($ns = null)
 	{
-		$this->ns = $ns;
-
 		if (!$this->cache->contains($this->cache_id)) {
 			$this->generateCacheList();
 		}
 
 		$aModulesList = $this->cache->fetch($this->cache_id);
 
-		foreach ($aModulesList as $module_id=>$module_infos)
+		foreach ($aModulesList as $sModuleId=>$module_infos)
 		{
-			$class = 'Okatea\\Modules\\'.$module_id.'\\Module';
+			$sModuleClass = 'Okatea\\Modules\\'.$sModuleId.'\\Module';
 
-			require $this->path.'/'.$module_id.'/Module.php';
+			$this->list[$sModuleId] = new $sModuleClass($this->okt);
 
-			if (class_exists($class,false))
-			{
-				$this->list[$module_id] = new $class($this->okt);
-
-				$this->list[$module_id]->setInfos($module_infos);
-			}
+			$this->list[$sModuleId]->setInfos($module_infos);
 		}
 
-		foreach ($aModulesList as $module_id=>$module_infos)
+		foreach ($aModulesList as $sModuleId=>$module_infos)
 		{
-			$this->list[$module_id]->init();
-			$this->list[$module_id]->initNs($ns);
+			$this->list[$sModuleId]->init();
+			$this->list[$sModuleId]->initNs($ns);
 		}
 	}
 
@@ -171,7 +150,6 @@ class Collection
 			$aModulesList[$rsModules->f('module_id')] = array(
 				'id' 			=> $rsModules->f('module_id'),
 				'root'			=> $this->path.'/'.$rsModules->f('module_id'),
-				'url'			=> $this->url.'/'.$rsModules->f('module_id'),
 				'name'			=> $rsModules->f('module_name'),
 				'version'		=> $rsModules->f('module_version'),
 				'desc'			=> $rsModules->f('module_description'),
@@ -206,23 +184,23 @@ class Collection
 	/**
 	 * Indique si un module donné existe dans la liste des modules actifs.
 	 *
-	 * @param string $module_id
+	 * @param string $sModuleId
 	 * @return boolean
 	 */
-	public function moduleExists($module_id)
+	public function moduleExists($sModuleId)
 	{
-		return isset($this->list[$module_id]);
+		return isset($this->list[$sModuleId]);
 	}
 
 	/**
 	 * Retourne la liste complète des modules.
 	 *
-	 * @param string $module_id
+	 * @param string $sModuleId
 	 */
-	public function getCompleteList($module_id=null)
+	public function getCompleteList($sModuleId = null)
 	{
-		if ($module_id && isset($this->complete_list[$module_id])) {
-			return $this->complete_list[$module_id];
+		if ($sModuleId && isset($this->complete_list[$sModuleId])) {
+			return $this->complete_list[$sModuleId];
 		}
 
 		return $this->complete_list;
@@ -241,21 +219,21 @@ class Collection
 	/**
 	 * Retourne l'instance d'un module handler donné.
 	 *
-	 * @param string $module_id
+	 * @param string $sModuleId
 	 * @throws Exception
 	 */
-	public function getModuleObject($module_id)
+	public function getModuleObject($sModuleId)
 	{
-		if (!$this->moduleExists($module_id)) {
-			throw new \Exception(__('The module specified ('.$module_id.') does not appear to be a valid installed module.'));
+		if (!$this->moduleExists($sModuleId)) {
+			throw new \Exception(__('The module specified ('.$sModuleId.') does not appear to be a valid installed module.'));
 		}
 
-		return $this->list[$module_id];
+		return $this->list[$sModuleId];
 	}
 
-	public function __get($module_id)
+	public function __get($sModuleId)
 	{
-		return $this->getModuleObject($module_id);
+		return $this->getModuleObject($sModuleId);
 	}
 
 	public function requireDefine($dir,$id)
@@ -363,7 +341,7 @@ class Collection
 		'ORDER BY module_priority ASC, module_id ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new Okatea\Tao\Database\Recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -403,12 +381,12 @@ class Collection
 	/**
 	 * Retourne les informations d'un module donné.
 	 *
-	 * @param string $module_id
+	 * @param string $sModuleId
 	 * @return recordset
 	 */
-	public function getModule($module_id)
+	public function getModule($sModuleId)
 	{
-		return $this->getModulesFromDB(array('mod_id'=>$module_id));
+		return $this->getModulesFromDB(array('mod_id'=>$sModuleId));
 	}
 
 	/**
@@ -646,18 +624,18 @@ class Collection
 	/**
 	 * Recherche et utilisation d'une classe d'installation d'un module donné.
 	 *
-	 * @param string $module_id
+	 * @param string $sModuleId
 	 * @return string
 	 */
-	public function getInstallClass($module_id)
+	public function getInstallClass($sModuleId)
 	{
 		$return = '\\Okatea\Tao\\Modules\\Manage\\Process';
 
-		if (file_exists($this->path.'/'.$module_id.'/install/module_install.php'))
+		if (file_exists($this->path.'/'.$sModuleId.'/install/module_install.php'))
 		{
-			require_once $this->path.'/'.$module_id.'/install/module_install.php';
+			require_once $this->path.'/'.$sModuleId.'/install/module_install.php';
 
-			$class_install = 'moduleInstall_'.$module_id;
+			$class_install = 'moduleInstall_'.$sModuleId;
 
 			if (class_exists($class_install,false) && is_subclass_of($class_install, '\\Okatea\Tao\\Modules\\Manage\\Process')) {
 				$return = $class_install;
@@ -755,12 +733,12 @@ class Collection
 				if (isset($module['id']))
 				{
 					$return[(string)$module['id']] = array(
-						'id' => (string)$module['id'],
-						'name' => (string)$module['name'],
-						'version' => (string)$module['version'],
-						'href' => (string)$module['href'],
-						'checksum' => (string)$module['checksum'],
-						'info' => (string)$module['info']
+						'id' 		=> (string)$module['id'],
+						'name' 		=> (string)$module['name'],
+						'version' 	=> (string)$module['version'],
+						'href' 		=> (string)$module['href'],
+						'checksum' 	=> (string)$module['checksum'],
+						'info' 		=> (string)$module['info']
 					);
 				}
 			}

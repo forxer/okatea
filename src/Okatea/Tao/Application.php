@@ -60,7 +60,7 @@ class Application
 	 *
 	 * @var Okatea\Tao\Cache\SingleFileCache
 	 */
-	public $cache;
+	public $cacheConfig;
 
 	/**
 	 * Le gestionnaire de configuration.
@@ -238,13 +238,9 @@ class Application
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
-		$this->getLogger();
-
-		$this->triggers = new Triggers($this);
-
 		$this->options = new ApplicationOptions($aOptions);
 
-		$this->cache = new SingleFileCache($this->options->get('cache_dir').'/static.php');
+		$this->getLogger();
 
 		$this->getConfig();
 
@@ -282,13 +278,15 @@ class Application
 			$this->user->timezone
 		);
 
-		$this->navigation = new Menus($this);
-
 		$this->modules = new ModulesCollection(
 			$this,
 			$this->options->get('modules_dir'),
 			$this->options->modules_url
 		);
+
+		$this->triggers = new Triggers($this);
+
+//		$this->navigation = new Menus($this);
 	}
 
 	public function getVersion()
@@ -309,7 +307,7 @@ class Application
 		mb_internal_encoding('UTF-8');
 
 		# Default timezone (crushed later by user settings)
-		date_default_timezone_set('Europe/Paris');
+//		date_default_timezone_set('Europe/Paris');
 
 		$this->error = new Errors();
 
@@ -366,9 +364,6 @@ class Application
 	{
 		$this->request = Request::createFromGlobals();
 
-		$this->requestContext = new RequestContext();
-		$this->requestContext->fromRequest($this->request);
-
 		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
 		$this->request->setSession($this->session);
 	}
@@ -383,7 +378,18 @@ class Application
 		$this->modules->loadModules($sPart, $this->user->language);
 	}
 
-	protected function getLogger()
+	public function getRequestContext()
+	{
+		if (null === $this->requestContext)
+		{
+			$this->requestContext = new RequestContext();
+			$this->requestContext->fromRequest($this->request);
+		}
+
+		return $this->requestContext;
+	}
+
+	public function getLogger()
 	{
 		if (null === $this->logger)
 		{
@@ -521,20 +527,17 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function getConfig()
+	protected function getConfig()
 	{
-		if (null === $this->config)
-		{
-			$this->config = $this->newConfig('conf_site');
+		$this->cacheConfig = new SingleFileCache($this->options->get('cache_dir').'/static.php');
 
-			# URL du dossier des fichiers publics
-			$this->options->set('public_url', $this->config->app_path.'oktPublic');
+		$this->config = $this->newConfig('conf_site');
 
-			# URL du dossier upload depuis la racine
-			$this->options->set('upload_url', $this->config->app_path.'oktPublic/upload');
-		}
+		# URL du dossier des fichiers publics
+		$this->options->set('public_url', $this->config->getData('app_path').'oktPublic');
 
-		return $this->config;
+		# URL du dossier upload depuis la racine
+		$this->options->set('upload_url', $this->config->getData('app_path').'oktPublic/upload');
 	}
 
 	/**
@@ -545,7 +548,7 @@ class Application
 	 */
 	public function newConfig($file)
 	{
-		return new Config($this->cache, $this->options->get('config_dir').'/'.$file);
+		return new Config($this->cacheConfig, $this->options->get('config_dir').'/'.$file);
 	}
 
 

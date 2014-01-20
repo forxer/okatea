@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4e6e0774a2cdfa087336b48d78fea762",
+    "hash": "50653ef2828a25c267a9afca5562defc",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -531,12 +531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dunglas/php-socialshare.git",
-                "reference": "e3a479cf4214106a3cde8b1a8b708085bb299fd3"
+                "reference": "de5a49f07dbffad472518551cbcc6cb57b108016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dunglas/php-socialshare/zipball/e3a479cf4214106a3cde8b1a8b708085bb299fd3",
-                "reference": "e3a479cf4214106a3cde8b1a8b708085bb299fd3",
+                "url": "https://api.github.com/repos/dunglas/php-socialshare/zipball/de5a49f07dbffad472518551cbcc6cb57b108016",
+                "reference": "de5a49f07dbffad472518551cbcc6cb57b108016",
                 "shasum": ""
             },
             "require": {
@@ -571,7 +571,7 @@
                 "share",
                 "social"
             ],
-            "time": "2014-01-17 17:41:21"
+            "time": "2014-01-19 08:20:28"
         },
         {
             "name": "erusev/parsedown",
@@ -579,12 +579,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "fee5b71998719917c802ad8a9fda94652c6dc997"
+                "reference": "4e83d79d76bcbcd554f02576e78744dd218b2687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/fee5b71998719917c802ad8a9fda94652c6dc997",
-                "reference": "fee5b71998719917c802ad8a9fda94652c6dc997",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/4e83d79d76bcbcd554f02576e78744dd218b2687",
+                "reference": "4e83d79d76bcbcd554f02576e78744dd218b2687",
                 "shasum": ""
             },
             "type": "library",
@@ -610,7 +610,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-01-16 23:33:20"
+            "time": "2014-01-20 07:26:25"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1109,17 +1109,63 @@
             "time": "2014-01-17 14:16:06"
         },
         {
+            "name": "nesbot/carbon",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/21c4cb4301969c7d85aee8a62eefdfa881413af0",
+                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Carbon": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Nesbitt",
+                    "email": "brian@nesbot.com",
+                    "homepage": "http://nesbot.com"
+                }
+            ],
+            "description": "A simple API extension for DateTime.",
+            "homepage": "https://github.com/briannesbitt/Carbon",
+            "keywords": [
+                "date",
+                "datetime",
+                "time"
+            ],
+            "time": "2014-01-07 05:10:44"
+        },
+        {
             "name": "psr/log",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc"
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/65f363ac44058796a8e1428cf41e6d92d8a75ddc",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/a78d6504ff5d4367497785ab2ade91db3a9fbe11",
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11",
                 "shasum": ""
             },
             "type": "library",
@@ -1149,7 +1195,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-12-25 11:17:50"
+            "time": "2014-01-18 15:33:09"
         },
         {
             "name": "simplepie/simplepie",
@@ -1211,12 +1257,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "74ddf4b94c035224079ae5ec4401aaf0b0caf151"
+                "reference": "b93bd22c8c15d3d0272eb2ab3138c9b588871286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/74ddf4b94c035224079ae5ec4401aaf0b0caf151",
-                "reference": "74ddf4b94c035224079ae5ec4401aaf0b0caf151",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/b93bd22c8c15d3d0272eb2ab3138c9b588871286",
+                "reference": "b93bd22c8c15d3d0272eb2ab3138c9b588871286",
                 "shasum": ""
             },
             "require": {
@@ -1252,7 +1298,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-01-16 10:20:22"
+            "time": "2014-01-18 17:45:04"
         },
         {
             "name": "symfony/config",
@@ -1742,6 +1788,7 @@
         "jdorn/sql-formatter": 20,
         "mobiledetect/mobiledetectlib": 20,
         "monolog/monolog": 20,
+        "nesbot/carbon": 20,
         "simplepie/simplepie": 20,
         "swiftmailer/swiftmailer": 20,
         "symfony/config": 20,

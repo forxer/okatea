@@ -33,12 +33,6 @@ class Module
 	protected $error;
 
 	/**
-	 * Le nom de la table module
-	 * @var string
-	 */
-	protected $t_module;
-
-	/**
 	 * Les informations concernant le module
 	 * @var array
 	 */
@@ -59,17 +53,14 @@ class Module
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->t_module = $okt->db->prefix.'core_modules';
-
 		$this->infos = array(
-			'id'			=> null,
-			'root'			=> null,
-			'url'			=> null,
-			'name'			=> null,
-			'version'		=> null,
-			'desc'			=> null,
-			'author'		=> null,
-			'status'		=> null
+			'id'		=> null,
+			'root'		=> null,
+			'name'		=> null,
+			'version'	=> null,
+			'desc'		=> null,
+			'author'	=> null,
+			'status'	=> null
 		);
 	}
 
@@ -94,10 +85,10 @@ class Module
 	 * @param array $infos
 	 * @return void
 	 */
-	public function setInfos($infos=array())
+	public function setInfos(array $infos = array())
 	{
 		foreach ($infos as $name=>$value) {
-			$this->setInfo($name,$value);
+			$this->setInfo($name, $value);
 		}
 	}
 
@@ -108,7 +99,7 @@ class Module
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function setInfo($name,$value)
+	public function setInfo($name, $value)
 	{
 		$this->infos[$name] = $value;
 	}
@@ -147,12 +138,12 @@ class Module
 	{
 		$this->setInfos(array(
 			'root'			=> $this->okt->modules->path.'/'.$this->id(),
-			'name' 			=> (!empty($aParams['name']) ? $aParams['name'] : $this->_id),
-			'desc' 			=> (!empty($aParams['desc']) ? $aParams['desc'] : null),
-			'version' 		=> (!empty($aParams['version']) ? $aParams['version'] : null),
-			'author' 		=> (!empty($aParams['author']) ? $aParams['author'] : null),
-			'priority' 		=> (!empty($aParams['priority']) ? (integer)$aParams['priority'] : 1000),
-			'updatable' 	=> (!empty($aParams['updatable']) ? (boolean)$aParams['updatable'] : true)
+			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->_id),
+			'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
+			'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
+			'author' 		=> (!empty($aParams['author']) 		? $aParams['author'] 				: null),
+			'priority' 		=> (!empty($aParams['priority']) 	? (integer)$aParams['priority'] 	: 1000),
+			'updatable' 	=> (!empty($aParams['updatable']) 	? (boolean)$aParams['updatable'] 	: true)
 		));
 	}
 
@@ -173,7 +164,7 @@ class Module
 
 	final public function initNs($ns)
 	{
-		if ($ns == 'admin') {
+		if ($ns === 'admin') {
 			$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/admin');
 		}
 
@@ -297,16 +288,6 @@ class Module
 	public function root()
 	{
 		return $this->getInfo('root');
-	}
-
-	/**
-	 * Retourne l'URL du répertoire du module
-	 *
-	 * @return string
-	 */
-	public function url()
-	{
-		return $this->getInfo('url');
 	}
 
 	/**

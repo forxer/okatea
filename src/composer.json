@@ -27,6 +27,7 @@
 		"maximebf/debugbar": "1.*",
 		"mobiledetect/mobiledetectlib": "dev-master",
 		"monolog/monolog": "1.7.*@dev",
+		"nesbot/carbon": "dev-master",
 		"simplepie/simplepie": "dev-master",
 		"swiftmailer/swiftmailer": "5.1.*@dev",
 		"symfony/config": "2.5.*@dev",

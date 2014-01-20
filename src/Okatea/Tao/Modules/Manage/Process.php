@@ -40,7 +40,7 @@ class Process extends Module
 	 * @var array
 	 */
 	private static $aReservedIds = array(
-		'autoloader', 'debug', 'debugBar', 'cache', 'config', 'db', 'error',
+		'autoloader', 'debug', 'debugBar', 'cacheConfig', 'config', 'db', 'error',
 		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
 		'page', 'request', 'requestContext', 'response', 'router', 'adminRouter',
 		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',

@@ -6,7 +6,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # titre de la page
-$okt->page->addGlobalTitle(__('Users'), 'module.php?m=users');
+$okt->page->addGlobalTitle(__('Users'), $view->generateUrl('Users_index'));
 
 # button set
 $okt->page->setButtonset('users', array(
@@ -89,27 +89,23 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 		<?php echo $okt->page->getButtonSet('users'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="module.php" method="get" id="search_form" class="search_form">
+		<form action="<?php echo $view->generateUrl('Users_index') ?>" method="get" id="search_form" class="search_form">
 			<p><label for="search"><?php _e('m_users_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, html::escapeHTML($sSearch)); ?>
 
-			<?php echo form::hidden('m','users') ?>
-			<?php echo form::hidden('action','index') ?>
 			<input type="submit" name="search_submit" id="search_submit" value="ok" /></p>
 		</form>
 	</div>
 </div>
 
 <?php # formulaire des filtres ?>
-<form action="module.php" method="get" id="filters-form">
+<form action="<?php echo $view->generateUrl('Users_index') ?>" method="get" id="filters-form">
 	<fieldset>
 		<legend><?php _e('m_users_users_display_filters')?></legend>
 
 		<?php echo $okt->Users->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
-		<p><?php echo form::hidden('m','users') ?>
-		<?php echo form::hidden('action','index') ?>
-		<input type="submit" name="<?php echo $okt->Users->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_Display') ?>" />
+		<p><input type="submit" name="<?php echo $okt->Users->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_Display') ?>" />
 		<a href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters')?></a></p>
 	</fieldset>
 </form>

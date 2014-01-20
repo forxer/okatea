@@ -51,7 +51,7 @@ else {
 	elseif ($okt->page->action === 'edit') {
 		require __DIR__.'/admin/edit.php';
 	}
-	elseif ($okt->page->action === 'groups' && $okt->checkPerm('groups')) {
+	elseif ($okt->page->action === 'groups' && $okt->checkPerm('users_groups')) {
 		require __DIR__.'/admin/groups.php';
 	}
 	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {

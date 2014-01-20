@@ -80,7 +80,7 @@ class Languages
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->cache = $okt->cache;
+		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'languages';
 
 		$this->t_languages = $okt->db->prefix.'core_languages';

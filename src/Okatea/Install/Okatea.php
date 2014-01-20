@@ -44,53 +44,11 @@ class Okatea extends Application
 	public $oldVersion;
 
 	/**
-	 * Les menus de navigation.
-	 *
-	 * @var Okatea\Tao\ApplicationOptions
-	 */
-	public $options;
-
-	/**
-	 * L'utilitaire de contenu de page.
-	 *
-	 * @var Okatea\Tao\Html\Page
-	 */
-	public $page;
-
-	/**
-	 * La requete en cours.
-	 *
-	 * @var Symfony\Component\HttpFoundation\Request
-	 */
-	public $request;
-
-	/**
-	 * Le contexte de le requete en cours.
-	 *
-	 * @var Symfony\Component\Routing\RequestContext
-	 */
-	public $requestContext;
-
-	/**
-	 * La réponse qui va être renvoyée.
-	 *
-	 * @var Symfony\Component\HttpFoundation\Response
-	 */
-	public $response;
-
-	/**
 	 * Le "stepper".
 	 *
 	 * @var Okatea\Tao\Html\Stepper
 	 */
 	public $stepper;
-
-	/**
-	 * Le gestionnaire de déclencheurs.
-	 *
-	 * @var Okatea\Tao\Triggers
-	 */
-	public $triggers;
 
 	/**
 	 * Le numéro de version que nous installons.
