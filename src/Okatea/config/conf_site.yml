@@ -106,6 +106,14 @@ navigation_tpl:
     default: default
     usables: {  }
 
+users_registration:
+	mail_new_registration: true
+	validate_users_registration: true
+	merge_username_email: false
+	auto_log_after_registration: false
+	user_choose_group: false
+	default_group: 4
+
 users_templates:
   forgotten_password:
     default: default
@@ -125,3 +133,10 @@ users_templates:
   user_bar:
     default: default
     usables: {}
+
+users_pages:
+	login: true
+	register: false
+	log_reg: false
+	forget_password: false
+	profile: false

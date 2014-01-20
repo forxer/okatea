@@ -117,7 +117,7 @@ if ($okt->error->notEmpty()) : ?>
 					<p class="field col"><label for="add_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
 					<?php echo form::text('add_email', 30, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 
-					<?php if ($okt->users->config->user_choose_group) : ?>
+					<?php if ($okt->config->users_registration['user_choose_group']) : ?>
 					<p class="field col"><label for="add_group_id"><?php _e('c_c_Group') ?></label>
 					<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>
 					<?php endif; ?>

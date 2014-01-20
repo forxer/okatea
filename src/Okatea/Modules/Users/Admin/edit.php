@@ -116,7 +116,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId'],
-		'group_id' => $okt->users->config->default_group
+		'group_id' => $okt->config->users_registration['default_group']
 	);
 
 	if ($okt->users->updUser($upd_params))

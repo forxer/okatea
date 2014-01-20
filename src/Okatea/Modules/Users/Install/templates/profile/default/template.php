@@ -101,13 +101,13 @@ if ($okt->users->config->enable_custom_fields) : ?>
 		<div class="two-cols">
 
 		<?php # début Okatea : affichage des champs "username" et "email" fusionnés
-		if ($okt->users->config->merge_username_email) : ?>
+		if ($okt->config->users_registration['merge_username_email']) : ?>
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required">Email</label>
 			<?php echo form::text('edit_email', 40, 255, $view->escape($aUserProfilData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" fusionnés ?>
 
 		<?php # début Okatea : affichage des champs "username" et "email" distincts
-		if (!$okt->users->config->merge_username_email) : ?>
+		if (!$okt->config->users_registration['merge_username_email']) : ?>
 			<p class="field col"><label for="edit_username" title="<?php _e('c_c_required_field') ?>" class="required">Nom d'utilisateur</label>
 			<?php echo form::text('edit_username', 35, 255, $view->escape($aUserProfilData['username'])) ?></p>
 

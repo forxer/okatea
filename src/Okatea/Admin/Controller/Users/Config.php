@@ -74,20 +74,24 @@ class Config extends Controller
 			{
 				$new_conf = array(
 					'enable_custom_fields' 			=> $this->okt->request->request->has('p_enable_custom_fields'),
-					'enable_login_page' 			=> $this->okt->request->request->has('p_enable_login_page'),
-					'enable_register_page' 			=> $this->okt->request->request->has('p_enable_register_page'),
-					'enable_log_reg_page' 			=> $this->okt->request->request->has('p_enable_log_reg_page'),
-					'enable_forget_password_page' 	=> $this->okt->request->request->has('p_enable_forget_password_page'),
-					'enable_profile_page' 			=> $this->okt->request->request->has('p_enable_profile_page'),
+					'users_pages' => array(
+						'login' 			=> $this->okt->request->request->has('p_enable_login_page'),
+						'register' 			=> $this->okt->request->request->has('p_enable_register_page'),
+						'log_reg' 			=> $this->okt->request->request->has('p_enable_log_reg_page'),
+						'forget_password' 	=> $this->okt->request->request->has('p_enable_forget_password_page'),
+						'profile' 			=> $this->okt->request->request->has('p_enable_profile_page')
+					),
 
-					'mail_new_registration' 		=> $this->okt->request->request->has('p_mail_new_registration'),
-					'validate_users_registration' 	=> $this->okt->request->request->has('p_validate_users_registration'),
-					'merge_username_email' 			=> $this->okt->request->request->has('p_merge_username_email'),
-					'auto_log_after_registration' 	=> $this->okt->request->request->has('p_auto_log_after_registration'),
-					'user_choose_group' 			=> $this->okt->request->request->has('p_user_choose_group'),
-					'default_group' 				=> $this->okt->request->request->getInt('p_default_group'),
+					'users_registration' => array(
+						'mail_new_registration' 		=> $this->okt->request->request->has('p_mail_new_registration'),
+						'validate_users_registration' 	=> $this->okt->request->request->has('p_validate_users_registration'),
+						'merge_username_email' 			=> $this->okt->request->request->has('p_merge_username_email'),
+						'auto_log_after_registration' 	=> $this->okt->request->request->has('p_auto_log_after_registration'),
+						'user_choose_group' 			=> $this->okt->request->request->has('p_user_choose_group'),
+						'default_group' 				=> $this->okt->request->request->getInt('p_default_group'),
+					),
 
-					'templates' => array(
+					'users_templates' => array(
 						'forgotten_password' 	=> $oTemplatesForgottenPassword->getPostConfig(),
 						'login' 				=> $oTemplatesLogin->getPostConfig(),
 						'login_register' 		=> $oTemplatesLoginRegister->getPostConfig(),
@@ -132,14 +136,14 @@ class Config extends Controller
 		$aConfigTabs[10] = array(
 			'id' => 'tab_general',
 			'title' => __('m_users_General'),
-			'content' => $this->renderView('Users/Admin/Templates/Config/Tabs/General', array(
+			'content' => $this->renderView('Users/Config/Tabs/General', array(
 			))
 		);
 
 		$aConfigTabs[20] = array(
 			'id' => 'tab_register',
 			'title' => __('m_users_Registration'),
-			'content' => $this->renderView('Users/Admin/Templates/Config/Tabs/Registration', array(
+			'content' => $this->renderView('Users/Config/Tabs/Registration', array(
 				'aGroups' 						=> $aGroups
 			))
 		);
@@ -147,7 +151,7 @@ class Config extends Controller
 		$aConfigTabs[30] = array(
 			'id' => 'tab_tpl',
 			'title' => __('m_users_config_tab_tpl'),
-			'content' => $this->renderView('Users/Admin/Templates/Config/Tabs/Tpl', array(
+			'content' => $this->renderView('Users/Config/Tabs/Tpl', array(
 				'oTemplatesForgottenPassword' 	=> $oTemplatesForgottenPassword,
 				'oTemplatesLogin' 				=> $oTemplatesLogin,
 				'oTemplatesLoginRegister' 		=> $oTemplatesLoginRegister,
