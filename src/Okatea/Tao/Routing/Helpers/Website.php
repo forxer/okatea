@@ -28,8 +28,8 @@ class Website extends Config
 				$aRoutesInfos[$sName]['loaded'] = false;
 			}
 
-			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['_controller'];
-			unset($aRoutesInfos[$sName]['defaults']['_controller']);
+			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['controller'];
+			unset($aRoutesInfos[$sName]['defaults']['controller']);
 		}
 
 		uasort($aRoutesInfos, function($a, $b)

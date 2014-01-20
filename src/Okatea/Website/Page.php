@@ -34,11 +34,11 @@ class Page extends BasePage
 
 	public function serve404()
 	{
-		$this->okt->request->attributes->set('_controller', 'Okatea\Website\Controller::serve404');
+		$this->okt->request->attributes->set('controller', 'Okatea\Website\Controller::serve404');
 	}
 
 	public function serve503()
 	{
-		$this->okt->request->attributes->set('_controller', 'Okatea\Website\Controller::serve503');
+		$this->okt->request->attributes->set('controller', 'Okatea\Website\Controller::serve503');
 	}
 }

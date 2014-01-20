@@ -30,7 +30,7 @@ trait ControllerResolverTrait
 	/**
 	 * Returns the Controller instance associated with a Request.
 	 *
-	 * This method looks for a '_controller' request attribute that represents
+	 * This method looks for a 'controller' request attribute that represents
 	 * the controller name (a string like ClassName::MethodName).
 	 *
 	 * @param Request $request A Request instance
@@ -44,9 +44,9 @@ trait ControllerResolverTrait
 	 */
 	public function getController(Request $request)
 	{
-		if (!$controller = $request->attributes->get('_controller')) {
+		if (!$controller = $request->attributes->get('controller')) {
 			if (null !== $this->logger) {
-				$this->logger->warning('Unable to look for the controller as the "_controller" parameter is missing');
+				$this->logger->warning('Unable to look for the controller as the "controller" parameter is missing');
 			}
 
 			return false;

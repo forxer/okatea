@@ -1,10 +1,10 @@
 
 diaryList:
     path:     /agenda/{date}
-    defaults: { _controller: DiaryController::diaryList, date: '' }
+    defaults: { controller: DiaryController::diaryList, date: '' }
     requirements:
         date: '([0-9]{4}/[0-9]{2})?'
 
 diaryEvent:
     path:     /evenement/{slug}
-    defaults: { _controller: DiaryController::diaryEvent }
+    defaults: { controller: DiaryController::diaryEvent }

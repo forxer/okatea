@@ -1,38 +1,38 @@
 
 Pages_index:
     path:     /pages/{page}
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Index::page, page: 1 }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Index::page, page: 1 }
     requirements:
         page:  \d+
 
 Pages_post_add:
     path:     /pages/page/add
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Post::add }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Post::add }
 
 Pages_post:
     path:     /pages/page/{page_id}
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Post::edit }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Post::edit }
     requirements:
         page_id:  \d+
 
 Pages_categories:
     path:     /pages/categories
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Categories::page }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Categories::page }
 
 Pages_category_add:
     path:     /pages/category/add
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Category::add }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Category::add }
 
 Pages_category:
     path:     /pages/category/{category_id}
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Category::edit }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Category::edit }
     requirements:
         category_id:  \d+
 
 Pages_display:
     path:     /pages/display
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Display::page }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Display::page }
 
 Pages_config:
     path:     /pages/configuration
-    defaults: { _controller: Okatea\Modules\Pages\Admin\Controller\Config::page }
+    defaults: { controller: Okatea\Modules\Pages\Admin\Controller\Config::page }

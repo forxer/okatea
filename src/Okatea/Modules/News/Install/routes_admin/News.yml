@@ -1,38 +1,38 @@
 
 News_index:
     path:     /news/{page}
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Index::page, page: 1 }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Index::page, page: 1 }
     requirements:
         page:  \d+
 
 News_post_add:
     path:     /news/post/add
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Post::add }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Post::add }
     
 News_post:
     path:     /news/post/{post_id}
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Post::edit }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Post::edit }
     requirements:
         post_id:  \d+
 
 News_categories:
     path:     /news/categories
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Categories::page }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Categories::page }
 
 News_category_add:
     path:     /news/category/add
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Category::add }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Category::add }
 
 News_category:
     path:     /news/category/{category_id}
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Category::edit }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Category::edit }
     requirements:
         category_id:  \d+
 
 News_display:
     path:     /news/display
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Display::page }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Display::page }
 
 News_config:
     path:     /news/configuration
-    defaults: { _controller: Okatea\Modules\News\Admin\Controller\Config::page }
+    defaults: { controller: Okatea\Modules\News\Admin\Controller\Config::page }

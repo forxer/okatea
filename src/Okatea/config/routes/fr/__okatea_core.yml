@@ -3,23 +3,47 @@
 
 homePage:
     path:     /
-    defaults: { _controller: Okatea\Website\Controller::homePage }
+    defaults: { controller: Okatea\Website\Controller::homePage }
     
 401:
     path:     /401
-    defaults: { _controller: Okatea\Website\Controller::serve401 }
+    defaults: { controller: Okatea\Website\Controller::serve401 }
 
 404:
     path:     /404
-    defaults: { _controller: Okatea\Website\Controller::serve404 }
+    defaults: { controller: Okatea\Website\Controller::serve404 }
 
 503:
     path:     /503
-    defaults: { _controller: Okatea\Website\Controller::serve503 }
-    
+    defaults: { controller: Okatea\Website\Controller::serve503 }
+
+usersLogin:
+    path:     /connexion
+    defaults: { controller: 'UsersController::usersLogin' }
+
+usersLogout:
+    path:     /deconnexion
+    defaults: { controller: 'UsersController::usersLogout' }
+
+usersProfile:
+    path:     /profil
+    defaults: { controller: 'UsersController::usersProfile' }
+
+usersRegister:
+    path:     /inscription
+    defaults: { controller: 'UsersController::usersRegister' }
+
+usersLoginRegister:
+    path:     /connexion-inscription
+    defaults: { controller: 'UsersController::usersLoginRegister' }
+
+usersForgetPassword:
+    path:     /mot-de-passe-oublie
+    defaults: { controller: 'UsersController::usersForgetPassword' }
+
 remove_trailing_slash:
     path:     /{url}
-    defaults: { _controller: Okatea\Tao\Controller::removeTrailingSlash }
+    defaults: { controller: Okatea\Tao\Controller::removeTrailingSlash }
     requirements:
         url: .*/$
         _method: GET

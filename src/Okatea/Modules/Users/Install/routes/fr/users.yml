@@ -1,24 +1,24 @@
 
 usersLogin:
     path:     /connexion
-    defaults: { _controller: 'UsersController::usersLogin' }
+    defaults: { controller: 'UsersController::usersLogin' }
 
 usersLogout:
     path:     /deconnexion
-    defaults: { _controller: 'UsersController::usersLogout' }
+    defaults: { controller: 'UsersController::usersLogout' }
 
 usersProfile:
     path:     /profil
-    defaults: { _controller: 'UsersController::usersProfile' }
+    defaults: { controller: 'UsersController::usersProfile' }
 
 usersRegister:
     path:     /inscription
-    defaults: { _controller: 'UsersController::usersRegister' }
+    defaults: { controller: 'UsersController::usersRegister' }
 
 usersLoginRegister:
     path:     /connexion-inscription
-    defaults: { _controller: 'UsersController::usersLoginRegister' }
+    defaults: { controller: 'UsersController::usersLoginRegister' }
 
 usersForgetPassword:
     path:     /mot-de-passe-oublie
-    defaults: { _controller: 'UsersController::usersForgetPassword' }
+    defaults: { controller: 'UsersController::usersForgetPassword' }

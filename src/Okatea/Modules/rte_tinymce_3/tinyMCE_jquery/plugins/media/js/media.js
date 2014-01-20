@@ -135,7 +135,7 @@
 			defaultStates = {
 				// QuickTime
 				quicktime_autoplay : true,
-				quicktime_controller : true,
+				quicktimecontroller : true,
 
 				// Flash
 				flash_play : true,

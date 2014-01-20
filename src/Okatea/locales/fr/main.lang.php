@@ -109,8 +109,21 @@ $GLOBALS['__l10n']['c_a_admin_maintenance_mode_enabled'] = 'L’interface d’ad
 
 # permissions par défaut
 $GLOBALS['__l10n']['c_a_def_perm_usage'] = 'Accès à l’interface d’administration';
+
+$GLOBALS['__l10n']['c_a_def_perm_users_group'] = 'Utilisateurs';
+$GLOBALS['__l10n']['c_a_def_perm_users_global'] = 'Gestion des utilisateurs';
+$GLOBALS['__l10n']['c_a_def_perm_users_edit'] = 'Modification des utilisateurs';
+$GLOBALS['__l10n']['c_a_def_perm_users_delete'] = 'Suppression des utilisateurs';
+$GLOBALS['__l10n']['c_a_def_perm_users_private_space'] = 'Gestion espace privé';
+$GLOBALS['__l10n']['c_a_def_perm_users_change_password'] = 'Modification des mots de passe';
+$GLOBALS['__l10n']['c_a_def_perm_users_groups'] = 'Gestion des groupes';
+$GLOBALS['__l10n']['c_a_def_perm_users_custom_fields'] = 'Gestion des champs personnalisés';
+$GLOBALS['__l10n']['c_a_def_perm_users_export'] = 'Export des utilisateurs';
+$GLOBALS['__l10n']['c_a_def_perm_users_display'] = 'Affichage';
+$GLOBALS['__l10n']['c_a_def_perm_users_config'] = 'Configuration';
+
 $GLOBALS['__l10n']['c_a_def_perm_config'] = 'Configuration';
-$GLOBALS['__l10n']['c_a_def_perm_config_website'] = 'Configuration du site';
+$GLOBALS['__l10n']['c_a_config_router_route_controller'] = 'Configuration du site';
 $GLOBALS['__l10n']['c_a_def_perm_config_display'] = 'Configuration de l’affichage';
 $GLOBALS['__l10n']['c_a_def_perm_config_themes'] = 'Gestion des thèmes';
 $GLOBALS['__l10n']['c_a_def_perm_config_themes_editor'] = 'Editeur de thèmes';

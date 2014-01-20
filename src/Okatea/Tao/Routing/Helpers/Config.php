@@ -40,8 +40,8 @@ class Config
 			$aRoutesInfos[$sName] = array_merge($this->getEmptyRoute(), $aRoutesFromFiles[$sName]);
 
 			$aRoutesInfos[$sName]['loaded'] = null;
-			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['_controller'];
-			unset($aRoutesInfos[$sName]['defaults']['_controller']);
+			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['controller'];
+			unset($aRoutesInfos[$sName]['defaults']['controller']);
 		}
 
 		uasort($aRoutesInfos, function($a, $b) {

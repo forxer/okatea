@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Modules\Users\Admin\Controller;
+namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Authentification;
@@ -23,42 +23,42 @@ class Config extends Controller
 
 		# Gestionnaires de templates
 		$oTemplatesForgottenPassword = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['forgotten_password'],
+			$this->okt->config->users_templates['forgotten_password'],
 			'users/forgotten_password',
 			'forgotten_password',
 			$this->generateUrl('Users_config').'?'
 		);
 
 		$oTemplatesLogin = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['login'],
+			$this->okt->config->users_templates['login'],
 			'users/login',
 			'login',
 			$this->generateUrl('Users_config').'?'
 		);
 
 		$oTemplatesLoginRegister = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['login_register'],
+			$this->okt->config->users_templates['login_register'],
 			'users/login_register',
 			'login_register',
 			$this->generateUrl('Users_config').'?'
 		);
 
 		$oTemplatesProfile = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['profile'],
+			$this->okt->config->users_templates['profile'],
 			'users/profile',
 			'profile',
 			$this->generateUrl('Users_config').'?'
 		);
 
 		$oTemplatesRegister = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['register'],
+			$this->okt->config->users_templates['register'],
 			'users/register',
 			'register',
 			$this->generateUrl('Users_config').'?'
 		);
 
 		$oTemplatesUserBar = new TemplatesSet($this->okt,
-			$this->okt->Users->config->templates['user_bar'],
+			$this->okt->config->users_templates['user_bar'],
 			'users/user_bar',
 			'user_bar',
 			$this->generateUrl('Users_config').'?'

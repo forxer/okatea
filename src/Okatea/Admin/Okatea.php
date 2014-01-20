@@ -206,99 +206,166 @@ class Okatea extends Application
 				true
 			);
 
-			# Configuration
-			$this->page->mainMenu->add(
-				__('c_a_menu_configuration'),
-				$this->adminRouter->generate('config_general'),
-					$this->request->attributes->get('_route') === 'config_general',
-				10000000,
-				$this->checkPerm('configsite'),
-				null,
-				($this->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
-				$this->options->public_url.'/img/admin/network-server.png'
+		# Users
+		$this->page->mainMenu->add(
+			__('Users'),
+			null,
+			null,
+			9000000,
+			($this->checkPerm('users')),
+			null,
+			($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
+			$this->options->public_url.'/modules/Users/module_icon.png'
+		);
+			$this->page->usersSubMenu->add(
+				__('c_a_menu_management'),
+				$this->adminRouter->generate('Users_index'),
+				in_array($this->request->attributes->get('_route'), array('Users_index', 'Users_user_add', 'Users_user')),
+				10,
+				$this->checkPerm('users')
 			);
-				$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_general'),
-					$this->request->attributes->get('_route') === 'config_general',
-					10,
-					$this->checkPerm('configsite')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_display'), $this->adminRouter->generate('config_display'),
-					$this->request->attributes->get('_route') === 'config_display',
-					20,
-					$this->checkPerm('display')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_localization'), $this->adminRouter->generate('config_languages'),
-					$this->request->attributes->get('_route') === 'config_languages',
-					60,
-					$this->checkPerm('languages')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_modules'), $this->adminRouter->generate('config_modules'),
-					$this->request->attributes->get('_route') === 'config_modules',
-					70,
-					$this->checkPerm('modules')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_themes'), $this->adminRouter->generate('config_themes'),
-					in_array($this->request->attributes->get('_route'), array('config_themes', 'config_theme', 'config_theme_add')),
-					80,
-					$this->checkPerm('themes')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_navigation'), $this->adminRouter->generate('config_navigation'),
-					$this->request->attributes->get('_route') === 'config_navigation',
-					90,
-					$this->checkPerm('navigation')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_permissions'), $this->adminRouter->generate('config_permissions'),
-					$this->request->attributes->get('_route') === 'config_permissions',
-					100,
-					$this->checkPerm('permissions')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_tools'), $this->adminRouter->generate('config_tools'),
-					$this->request->attributes->get('_route') === 'config_tools',
-					110,
-					$this->checkPerm('tools')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_infos'), $this->adminRouter->generate('config_infos'),
-					$this->request->attributes->get('_route') === 'config_infos',
-					120,
-					$this->checkPerm('infos')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_update'), $this->adminRouter->generate('config_update'),
-					$this->request->attributes->get('_route') === 'config_update',
-					130,
-					$this->config->update_enabled && $this->checkPerm('is_superadmin')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_log_admin'), $this->adminRouter->generate('config_logadmin'),
-					$this->request->attributes->get('_route') === 'config_logadmin',
-					140,
-					$this->checkPerm('is_superadmin')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_router'), $this->adminRouter->generate('config_router'),
-					$this->request->attributes->get('_route') === 'config_router',
-					150,
-					$this->checkPerm('is_superadmin')
-				);
-				$this->page->configSubMenu->add(__('c_a_menu_advanced'), $this->adminRouter->generate('config_advanced'),
-					$this->request->attributes->get('_route') === 'config_advanced',
-					160,
-					$this->checkPerm('is_superadmin')
-				);
+			$this->page->usersSubMenu->add(
+				__('m_users_Groups'),
+				$this->adminRouter->generate('Users_groups'),
+				$this->request->attributes->get('_route') === 'Users_groups',
+				20,
+				$this->checkPerm('groups')
+			);
+			/*
+			$this->page->usersSubMenu->add(
+				__('m_users_Custom_fields'),
+				'module.php?m=users&amp;action=fields',
+				$this->bCurrentlyInUse && ($this->page->action === 'fields' || $this->page->action === 'field'),
+				30,
+				$this->config->enable_custom_fields && $this->checkPerm('users_custom_fields')
+			);
+			$this->page->usersSubMenu->add(
+				__('m_users_Export'),
+				'module.php?m=users&amp;action=export',
+				$this->bCurrentlyInUse && ($this->page->action === 'export'),
+				40,
+				$this->checkPerm('users_export')
+			);
+			*/
+			$this->page->usersSubMenu->add(
+				__('c_a_menu_display'),
+				$this->adminRouter->generate('Users_display'),
+				$this->request->attributes->get('_route') === 'Users_display',
+				90,
+				$this->checkPerm('users_display')
+			);
+			$this->page->usersSubMenu->add(
+				__('c_a_menu_configuration'),
+				$this->adminRouter->generate('Users_config'),
+				$this->request->attributes->get('_route') === 'Users_config',
+				100,
+				$this->checkPerm('users_config')
+			);
+
+		# Configuration
+		$this->page->mainMenu->add(
+			__('c_a_menu_configuration'),
+			null,
+			null,
+			10000000,
+			$this->checkPerm('configsite'),
+			null,
+			($this->page->configSubMenu = new AdminMenu(null,Page::$formatHtmlSubMenu)),
+			$this->options->public_url.'/img/admin/network-server.png'
+		);
+			$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_general'),
+				$this->request->attributes->get('_route') === 'config_general',
+				10,
+				$this->checkPerm('configsite')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_display'), $this->adminRouter->generate('config_display'),
+				$this->request->attributes->get('_route') === 'config_display',
+				20,
+				$this->checkPerm('display')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_localization'), $this->adminRouter->generate('config_languages'),
+				$this->request->attributes->get('_route') === 'config_languages',
+				60,
+				$this->checkPerm('languages')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_modules'), $this->adminRouter->generate('config_modules'),
+				$this->request->attributes->get('_route') === 'config_modules',
+				70,
+				$this->checkPerm('modules')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_themes'), $this->adminRouter->generate('config_themes'),
+				in_array($this->request->attributes->get('_route'), array('config_themes', 'config_theme', 'config_theme_add')),
+				80,
+				$this->checkPerm('themes')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_navigation'), $this->adminRouter->generate('config_navigation'),
+				$this->request->attributes->get('_route') === 'config_navigation',
+				90,
+				$this->checkPerm('navigation')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_permissions'), $this->adminRouter->generate('config_permissions'),
+				$this->request->attributes->get('_route') === 'config_permissions',
+				100,
+				$this->checkPerm('permissions')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_tools'), $this->adminRouter->generate('config_tools'),
+				$this->request->attributes->get('_route') === 'config_tools',
+				110,
+				$this->checkPerm('tools')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_infos'), $this->adminRouter->generate('config_infos'),
+				$this->request->attributes->get('_route') === 'config_infos',
+				120,
+				$this->checkPerm('infos')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_update'), $this->adminRouter->generate('config_update'),
+				$this->request->attributes->get('_route') === 'config_update',
+				130,
+				$this->config->update_enabled && $this->checkPerm('is_superadmin')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_log_admin'), $this->adminRouter->generate('config_logadmin'),
+				$this->request->attributes->get('_route') === 'config_logadmin',
+				140,
+				$this->checkPerm('is_superadmin')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_router'), $this->adminRouter->generate('config_router'),
+				$this->request->attributes->get('_route') === 'config_router',
+				150,
+				$this->checkPerm('is_superadmin')
+			);
+			$this->page->configSubMenu->add(__('c_a_menu_advanced'), $this->adminRouter->generate('config_advanced'),
+				$this->request->attributes->get('_route') === 'config_advanced',
+				160,
+				$this->checkPerm('is_superadmin')
+			);
 	}
 
 	protected function defineAdminPerms()
 	{
 		$this->addPerm('usage', __('c_a_def_perm_usage'));
 
-		$this->addPermGroup('configuration', __('c_a_def_perm_config'));
-			$this->addPerm('configsite', 	__('c_a_def_perm_config_website'), 'configuration');
-			$this->addPerm('display', 		__('c_a_def_perm_config_display'), 'configuration');
-			$this->addPerm('languages', 	__('c_a_def_perm_config_local'), 'configuration');
-			$this->addPerm('modules', 		__('c_a_def_perm_config_modules'), 'configuration');
-			$this->addPerm('themes', 		__('c_a_def_perm_config_themes'), 'configuration');
-			$this->addPerm('themes_editor', __('c_a_def_perm_config_themes_editor'), 'configuration');
-			$this->addPerm('navigation', 	__('c_a_def_perm_config_navigation'), 'configuration');
-			$this->addPerm('permissions', 	__('c_a_def_perm_config_perms'), 'configuration');
-			$this->addPerm('tools', 		__('c_a_def_perm_config_tools'), 'configuration');
-			$this->addPerm('infos', 		__('c_a_def_perm_config_infos'), 'configuration');
+		$this->addPermGroup('users',			__('c_a_def_perm_users_group'));
+			$this->addPerm('users', 				__('c_a_def_perm_users_global'), 			'users');
+			$this->addPerm('users_edit', 			__('c_a_def_perm_users_edit'), 				'users');
+			$this->addPerm('users_delete', 			__('c_a_def_perm_users_delete'), 			'users');
+			$this->addPerm('change_password', 		__('c_a_def_perm_users_change_password'), 	'users');
+			$this->addPerm('users_groups', 			__('c_a_def_perm_users_groups'), 			'users');
+			$this->addPerm('users_custom_fields', 	__('c_a_def_perm_users_custom_fields'), 	'users');
+			$this->addPerm('users_export', 			__('c_a_def_perm_users_export'), 			'users');
+			$this->addPerm('users_display', 		__('c_a_def_perm_users_display'), 			'users');
+			$this->addPerm('users_config', 			__('c_a_def_perm_users_config'), 			'users');
+
+		$this->addPermGroup('configuration', 	__('c_a_def_perm_config'));
+			$this->addPerm('configsite', 			__('c_a_config_router_route_controller'), 	'configuration');
+			$this->addPerm('display', 				__('c_a_def_perm_config_display'), 			'configuration');
+			$this->addPerm('languages', 			__('c_a_def_perm_config_local'), 			'configuration');
+			$this->addPerm('modules', 				__('c_a_def_perm_config_modules'), 			'configuration');
+			$this->addPerm('themes', 				__('c_a_def_perm_config_themes'), 			'configuration');
+			$this->addPerm('themes_editor', 		__('c_a_def_perm_config_themes_editor'), 	'configuration');
+			$this->addPerm('navigation', 			__('c_a_def_perm_config_navigation'), 		'configuration');
+			$this->addPerm('permissions', 			__('c_a_def_perm_config_perms'), 			'configuration');
+			$this->addPerm('tools', 				__('c_a_def_perm_config_tools'), 			'configuration');
+			$this->addPerm('infos', 				__('c_a_def_perm_config_infos'), 			'configuration');
 	}
 
 	/**

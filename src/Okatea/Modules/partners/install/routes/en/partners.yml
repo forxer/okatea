@@ -1,4 +1,4 @@
 
 partners:
     path:     /partners
-    defaults: { _controller: PartnersController::partners }
+    defaults: { controller: PartnersController::partners }

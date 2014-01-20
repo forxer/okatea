@@ -1,22 +1,22 @@
 
 pagesList:
     path:     /pages/{page}
-    defaults: { _controller: 'Okatea\Modules\Pages\Controller::pagesList', page: 1 }    
+    defaults: { controller: 'Okatea\Modules\Pages\Controller::pagesList', page: 1 }    
     requirements:
         page:  \d+
     
 pagesCategory:
     path:     /pages/{slug}/{page}
-    defaults: { _controller: 'Okatea\Modules\Pages\Controller::pagesCategory', page: 1 }
+    defaults: { controller: 'Okatea\Modules\Pages\Controller::pagesCategory', page: 1 }
     requirements:
         slug: .+?[^/]?$
         page: \d+
     
 pagesItem:
     path:     /page/{slug}
-    defaults: { _controller: 'Okatea\Modules\Pages\Controller::pagesItem' }
+    defaults: { controller: 'Okatea\Modules\Pages\Controller::pagesItem' }
     
 pagesFeed:
     path:     /pages/rss
-    defaults: { _controller: 'Okatea\Modules\Pages\Controller::pagesFeed' }
+    defaults: { controller: 'Okatea\Modules\Pages\Controller::pagesFeed' }
     

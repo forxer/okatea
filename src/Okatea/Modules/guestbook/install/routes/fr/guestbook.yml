@@ -1,4 +1,4 @@
 
 guestbook:
     path:     /livre-d-or
-    defaults: { _controller: GuestbookController::guestbook }
+    defaults: { controller: GuestbookController::guestbook }

@@ -178,12 +178,12 @@ class AdminBar
 				unset($aRequestAttributes['_route']);
 			}
 
-			if (!empty($aRequestAttributes['_controller']))
+			if (!empty($aRequestAttributes['controller']))
 			{
 				$aSecondaryAdminBar[1000]['items'][] = array(
-					'intitle' => 'Controller&nbsp;: '.$aRequestAttributes['_controller']
+					'intitle' => 'Controller&nbsp;: '.$aRequestAttributes['controller']
 				);
-				unset($aRequestAttributes['_controller']);
+				unset($aRequestAttributes['controller']);
 			}
 
 			if (!empty($aRequestAttributes))

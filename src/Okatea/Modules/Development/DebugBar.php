@@ -235,10 +235,10 @@ class DebugBar
 		}
 
 		$this->aDebugBarData['controller'] = '';
-		if (!empty($aRequestAttributes['_controller']))
+		if (!empty($aRequestAttributes['controller']))
 		{
-			$this->aDebugBarData['controller'] = $aRequestAttributes['_controller'];
-			unset($aRequestAttributes['_controller']);
+			$this->aDebugBarData['controller'] = $aRequestAttributes['controller'];
+			unset($aRequestAttributes['controller']);
 		}
 
 		$this->aDebugBarData['requestAttributes'] = array();

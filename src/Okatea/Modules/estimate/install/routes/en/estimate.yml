@@ -1,8 +1,8 @@
 
 estimateForm:
     path:     /estimate
-    defaults: { _controller: EstimateController::estimateForm }  
+    defaults: { controller: EstimateController::estimateForm }  
 
 estimateSummary:
     path:     /summary
-    defaults: { _controller: EstimateController::estimateSummary }
+    defaults: { controller: EstimateController::estimateSummary }

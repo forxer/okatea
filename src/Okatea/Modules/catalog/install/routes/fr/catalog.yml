@@ -1,17 +1,17 @@
 
 catalogList:
     path:     /catalogue/{page}
-    defaults: { _controller: 'CatalogController::catalogList', page: 1 }    
+    defaults: { controller: 'CatalogController::catalogList', page: 1 }    
     requirements:
         page:  \d+
 
 catalogCategory:
     path:     /catalogue/{slug}/{page}
-    defaults: { _controller: 'CatalogController::catalogCategory', page: 1 }
+    defaults: { controller: 'CatalogController::catalogCategory', page: 1 }
     requirements:
         slug: .+?[^/]?$
         page: \d+
 
 catalogProduct:
     path:     /produit/{slug}
-    defaults: { _controller: 'CatalogController::catalogProduct' }
+    defaults: { controller: 'CatalogController::catalogProduct' }

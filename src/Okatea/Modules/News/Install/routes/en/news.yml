@@ -1,22 +1,22 @@
 
 newsList:
     path:     /news/{page}
-    defaults: { _controller: 'Okatea\Modules\News\Controller::newsList', page: 1 }    
+    defaults: { controller: 'Okatea\Modules\News\Controller::newsList', page: 1 }    
     requirements:
         page:  \d+
     
 newsCategory:
     path:     /news/{slug}/{page}
-    defaults: { _controller: 'Okatea\Modules\News\Controller::newsCategory', page: 1 }
+    defaults: { controller: 'Okatea\Modules\News\Controller::newsCategory', page: 1 }
     requirements:
         slug: .+?[^/]?$
         page: \d+
     
 newsItem:
     path:     /post/{slug}
-    defaults: { _controller: 'Okatea\Modules\News\Controller::newsItem' }
+    defaults: { controller: 'Okatea\Modules\News\Controller::newsItem' }
     
 newsFeed:
     path:     /news/rss
-    defaults: { _controller: 'Okatea\Modules\News\Controller::newsFeed' }
+    defaults: { controller: 'Okatea\Modules\News\Controller::newsFeed' }
     

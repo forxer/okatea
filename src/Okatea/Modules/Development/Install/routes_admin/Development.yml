@@ -1,16 +1,16 @@
 
 Development_index:
     path:     /development
-    defaults: { _controller: Okatea\Modules\Development\Admin\Controller\Index::page }
+    defaults: { controller: Okatea\Modules\Development\Admin\Controller\Index::page }
 
 Development_debugbar:
     path:     /development/debugbar
-    defaults: { _controller: Okatea\Modules\Development\Admin\Controller\Debugbar::page }
+    defaults: { controller: Okatea\Modules\Development\Admin\Controller\Debugbar::page }
 
 Development_bootstrap:
     path:     /development/bootstrap
-    defaults: { _controller: Okatea\Modules\Development\Admin\Controller\Bootstrap::page }
+    defaults: { controller: Okatea\Modules\Development\Admin\Controller\Bootstrap::page }
 
 Development_counting:
     path:     /development/counting
-    defaults: { _controller: Okatea\Modules\Development\Admin\Controller\Counting::page }
+    defaults: { controller: Okatea\Modules\Development\Admin\Controller\Counting::page }
