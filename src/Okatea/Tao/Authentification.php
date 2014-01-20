@@ -73,12 +73,6 @@ class Authentification
 	protected $t_groups;
 
 	/**
-	 * Le nom de la table online.
-	 * @var string
-	 */
-	protected $t_online;
-
-	/**
 	 * Le nom du cookie d'authentification.
 	 * @var string
 	 */
@@ -151,7 +145,6 @@ class Authentification
 
 		$this->t_users = $this->oDb->prefix.'core_users';
 		$this->t_groups = $this->oDb->prefix.'core_users_groups';
-		$this->t_online = $this->oDb->prefix.'core_users_online';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
@@ -246,51 +239,6 @@ class Authentification
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
 			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
 
-			# Mise à jour de la liste des utilisateurs en ligne
-			if ($this->infos->f('logged') == '')
-			{
-				$this->infos->set('logged', $iTsNow);
-
-				$sQuery =
-				'REPLACE INTO '.$this->t_online.' (user_id, ident, logged) '.
-				'VALUES ('.
-					$this->infos->f('id').', '.
-					'\''.$this->oDb->escapeStr($this->infos->f('username')).'\', '.
-					$this->infos->f('logged').' '.
-				')';
-
-				if (!$this->oDb->execute($sQuery)) {
-					return false;
-				}
-			}
-			else
-			{
-				# Cas particulier: session expirée mais aucun autre utilisateur a navigué sur le site
-				if ($this->infos->f('logged') < ($iTsNow - $this->iVisitTimeout))
-				{
-					$sQuery =
-					'UPDATE '.$this->t_users.' SET '.
-						'last_visit='.$this->infos->f('logged').' '.
-					'WHERE id='.$this->infos->f('id');
-
-					if (!$this->oDb->execute($sQuery)) {
-						return false;
-					}
-
-					$this->infos->set('last_visit', $this->infos->f('logged'));
-				}
-
-				# Maintenant mise à jour du moment de la connexion
-				$sQuery =
-				'UPDATE '.$this->t_online.' SET '.
-					'logged='.$iTsNow.' '.
-					($this->infos->f('idle') == '1' ? ', idle=0' : '').
-				'WHERE user_id='.$this->infos->f('id');
-
-				if (!$this->oDb->execute($sQuery)) {
-					return false;
-				}
-			}
 
 			$this->infos->set('is_guest', false);
 			$this->infos->set('is_admin',($this->infos->f('group_id') == self::superadmin_group_id || $this->infos->f('group_id') == self::admin_group_id));
@@ -323,12 +271,10 @@ class Authentification
 	public function authenticateUser($mUser, $sPasswordHash)
 	{
 		$sQuery =
-		'SELECT u.*, g.*, o.logged, o.idle '.
+		'SELECT u.*, g.* '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
-			'LEFT JOIN '.$this->t_online.' AS o ON o.user_id=u.id '.
 		'WHERE u.active = 1 AND ';
-
 
 		if (Utilities::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';
@@ -360,10 +306,9 @@ class Authentification
 
 		# Fetch guest user
 		$sQuery =
-		'SELECT u.*, g.*, o.logged '.
+		'SELECT u.*, g.* '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
-			'LEFT JOIN '.$this->t_online.' AS o ON o.ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\' '.
 		'WHERE u.id=1';
 
 		if (($rs = $this->oDb->select($sQuery)) === false) {
@@ -375,36 +320,6 @@ class Authentification
 		}
 		else {
 			$this->infos = $rs;
-		}
-
-		# Update online list
-		if ($this->infos->f('logged') == '')
-		{
-			$this->infos->set('logged', time());
-
-			# REPLACE INTO avoids a user having two rows in the online table
-			$sQuery =
-			'REPLACE INTO '.$this->t_online.' (user_id, ident, logged) '.
-			'VALUES ('.
-				'1,'.
-				'\''.$this->oDb->escapeStr($sRemoteAddr).'\', '.
-				$this->infos->f('logged').' '.
-			')';
-
-			if (!$this->oDb->execute($sQuery)) {
-				return false;
-			}
-		}
-		else
-		{
-			$sQuery =
-			'UPDATE '.$this->t_online.' SET '.
-				'logged='.time().' '.
-			'WHERE ident=\''.$this->oDb->escapeStr($sRemoteAddr).'\'';
-
-			if (!$this->oDb->execute($sQuery)) {
-				return false;
-			}
 		}
 
 		$this->infos->set('timezone', $this->okt->config->timezone);
@@ -464,15 +379,6 @@ class Authentification
 			return false;
 		}
 
-		# Remove this user's guest entry from the online list
-		$sQuery =
-		'DELETE FROM '.$this->t_online.' '.
-		'WHERE ident=\''.$this->oDb->escapeStr($this->okt->request->getClientIp()).'\'';
-
-		if (!$this->oDb->execute($sQuery)) {
-			return false;
-		}
-
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
 		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.Utilities::hash($iTsExpire, $rs->salt))), $iTsExpire);
 
@@ -500,14 +406,6 @@ class Authentification
 	 */
 	public function logout()
 	{
-		$sQuery =
-		'DELETE FROM '.$this->t_online.' '.
-		'WHERE user_id='.$this->infos->f('id');
-
-		if (!$this->oDb->execute($sQuery)) {
-			return false;
-		}
-
 		# Update last_visit (make sure there's something to update it with)
 		if ($this->infos->f('logged') != '')
 		{

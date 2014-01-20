@@ -10,10 +10,10 @@
 		string="{{PREFIX}}core_nav_menus">SHOW TABLES LIKE '{{PREFIX}}core_nav_menus'</test>
 
 		CREATE TABLE `{{PREFIX}}core_nav_menus` (
-			`id` 				SERIAL,
-			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
-			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL,
-			`tpl` 				VARCHAR(255) 				NULL,
+			`id` 			SERIAL,
+			`title` 		VARCHAR(255) 				NOT NULL DEFAULT '',
+			`active` 		TINYINT(1) 		UNSIGNED	NOT NULL,
+			`tpl` 			VARCHAR(255) 				NULL,
 
 			PRIMARY KEY (`id`),
 			KEY `{{PREFIX}}core_nav_menus_items_idx_active` (`active`)

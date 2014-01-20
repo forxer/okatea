@@ -3,24 +3,26 @@
 
 <!-- INSTALL -->
 
-	<!-- core_modules -->
-	<action id="core_modules" label="Create table %s" string="{{PREFIX}}core_modules">
+	<!-- core_extensions -->
+	<action id="core_extensions" label="Create table %s" string="{{PREFIX}}core_extensions">
 
-		<test eq="neq" value="{{PREFIX}}core_modules" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}core_modules">SHOW TABLES LIKE '{{PREFIX}}core_modules'</test>
+		<test eq="neq" value="{{PREFIX}}core_extensions" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}core_extensions">SHOW TABLES LIKE '{{PREFIX}}core_extensions'</test>
 
-		CREATE TABLE `{{PREFIX}}core_modules` (
-			`module_id` 			VARCHAR(32) 			NOT NULL,
-			`module_name` 			VARCHAR(255) 			NOT NULL,
-			`module_description` 	TEXT 					NULL,
-			`module_author` 		VARCHAR(255)			NULL,
-			`module_version` 		VARCHAR(32)				NOT NULL 	DEFAULT '',
-			`module_priority` 		INT(10) 	UNSIGNED	NOT NULL 	DEFAULT 0,
-			`module_updatable` 		TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 1,
-			`module_status` 		TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 0,
+		CREATE TABLE `{{PREFIX}}core_extensions` (
+			`id` 				VARCHAR(128) 			NOT NULL,
+			`name` 				VARCHAR(255) 			NOT NULL,
+			`description` 		TEXT 					NULL,
+			`author` 			VARCHAR(255)			NULL,
+			`version` 			VARCHAR(32)				NOT NULL,
+			`priority` 			INT(10) 	UNSIGNED	NOT NULL 	DEFAULT 0,
+			`updatable` 		TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 1,
+			`status` 			TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 0,
+			`type` 				VARCHAR(32) 			NOT NULL,
 
-			PRIMARY KEY (`module_id`),
-			INDEX `{{PREFIX}}core_modules_status_idx` (`module_status`)
+			PRIMARY KEY (`id`),
+			INDEX `{{PREFIX}}core_extensions_priority_idx` (`priority`),
+			INDEX `{{PREFIX}}core_extensions_status_idx` (`status`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 

@@ -10,12 +10,12 @@
 		string="{{PREFIX}}core_languages">SHOW TABLES LIKE '{{PREFIX}}core_languages'</test>
 
 		CREATE TABLE `{{PREFIX}}core_languages` (
-			`id` 				SERIAL,
-			`title` 			VARCHAR(255) 				NOT NULL 	DEFAULT '',
-			`code` 				VARCHAR(10) 				NOT NULL 	DEFAULT '',
-			`img` 				VARCHAR(20) 				NOT NULL 	DEFAULT '',
-			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 0,
-			`ord` 				INT(10) 		UNSIGNED	NOT NULL 	DEFAULT 0,
+			`id` 			SERIAL,
+			`title` 		VARCHAR(255) 				NOT NULL 	DEFAULT '',
+			`code` 			VARCHAR(10) 				NOT NULL 	DEFAULT '',
+			`img` 			VARCHAR(20) 				NOT NULL 	DEFAULT '',
+			`active` 		TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 0,
+			`ord` 			INT(10) 		UNSIGNED	NOT NULL 	DEFAULT 0,
 
 			PRIMARY KEY (`id`),
 			INDEX `{{PREFIX}}core_languages_active_idx` (`active`),
