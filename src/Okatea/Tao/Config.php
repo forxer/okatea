@@ -133,14 +133,14 @@ class Config
 	{
 		$aData = array_merge($this->loadSource(), $aData);
 
-		file_put_contents($this->sSourceFile, Yaml::dump($aData));
+		file_put_contents($this->sSourceFile, Yaml::dump($aData, 4));
 
 		$this->generateCacheFile();
 	}
 
 	public function writeCurrent()
 	{
-		file_put_contents($this->sSourceFile, Yaml::dump($this->aData));
+		file_put_contents($this->sSourceFile, Yaml::dump($this->aData, 4));
 
 		$this->generateCacheFile();
 	}

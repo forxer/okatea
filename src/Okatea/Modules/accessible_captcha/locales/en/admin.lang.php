@@ -1,4 +1,4 @@
 <?php
 
-$GLOBALS['__l10n']['Questions and answers'] = 'Questions and answers';
-$GLOBALS['__l10n']['Configuration captcha edited.'] = 'Configuration captcha edited.';
+$GLOBALS['okt_l10n']['Questions and answers'] = 'Questions and answers';
+$GLOBALS['okt_l10n']['Configuration captcha edited.'] = 'Configuration captcha edited.';

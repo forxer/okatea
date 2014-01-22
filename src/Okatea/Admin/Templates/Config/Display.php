@@ -122,10 +122,6 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 				<span class="note"><?php _e('c_a_config_display_upload_theme_note'); ?></span></p>
 
 			</fieldset>
-			<!--
-			<p class="field"><label for="p_admin_compress_output"><?php echo form::checkbox('p_admin_compress_output', 1, $okt->config->admin_compress_output) ?>
-			<?php _e('c_a_config_display_compress_output') ?></label></p>
-			-->
 		</div><!-- #tab_admin -->
 	</div><!-- #tabered -->
 

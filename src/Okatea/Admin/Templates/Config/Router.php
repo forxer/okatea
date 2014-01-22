@@ -94,8 +94,8 @@ $okt->page->tabs();
 			<tr id="route_<?php echo $sRouteName ?>">
 				<th class="<?php echo $td_class ?> fake-td" scope="row"><h4 class="title"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basename'] : $sRouteName; ?></h4></th>
 				<td class="<?php echo $td_class ?>">
-					<?php echo (isset($GLOBALS['__l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['__l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
-					<?php echo (isset($GLOBALS['__l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['__l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
+					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
+					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
 				</td>
 				<td class="<?php echo $td_class ?>"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basepath'] : $aWebsiteRouteInfos['path']; ?></td>
 				<td class="<?php echo $td_class ?>"><?php echo $aWebsiteRouteInfos['controller']; ?></td>
@@ -167,8 +167,8 @@ $okt->page->tabs();
 			<tr id="route_<?php echo $sRouteName ?>">
 				<th class="<?php echo $td_class ?> fake-td" scope="row"><h4 class="title"><?php echo $okt->languages->unique ? $aAdminRouteInfos['basename'] : $sRouteName; ?></h4></th>
 				<td class="<?php echo $td_class ?>">
-					<?php echo (isset($GLOBALS['__l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['__l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
-					<?php echo (isset($GLOBALS['__l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['__l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
+					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
+					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
 				</td>
 				<td class="<?php echo $td_class ?>"><?php echo $aAdminRouteInfos['path']; ?></td>
 				<td class="<?php echo $td_class ?>"><?php echo $aAdminRouteInfos['controller']; ?></td>

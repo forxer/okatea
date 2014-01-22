@@ -33,6 +33,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
+use Okatea\Tao\Users\Authentification;
 use Okatea\Website\Router;
 
 
@@ -100,7 +101,7 @@ class Application
 	/**
 	 * Le gestionnaire de langues.
 	 *
-	 * @var Okatea\Tao\Localisation
+	 * @var Okatea\Tao\Localization
 	 */
 	public $l10n;
 
@@ -272,7 +273,7 @@ class Application
 			$this->request->isSecure()
 		);
 
-		$this->l10n = new Localisation(
+		$this->l10n = new Localization(
 			$this->options->get('locales_dir'),
 			$this->user->language,
 			$this->user->timezone

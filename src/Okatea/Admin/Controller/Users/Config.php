@@ -135,14 +135,14 @@ class Config extends Controller
 		$aConfigTabs = new \ArrayObject;
 		$aConfigTabs[10] = array(
 			'id' => 'tab_general',
-			'title' => __('m_users_General'),
+			'title' => __('c_a_users_General'),
 			'content' => $this->renderView('Users/Config/Tabs/General', array(
 			))
 		);
 
 		$aConfigTabs[20] = array(
 			'id' => 'tab_register',
-			'title' => __('m_users_Registration'),
+			'title' => __('c_a_users_Registration'),
 			'content' => $this->renderView('Users/Config/Tabs/Registration', array(
 				'aGroups' 						=> $aGroups
 			))
@@ -150,7 +150,7 @@ class Config extends Controller
 
 		$aConfigTabs[30] = array(
 			'id' => 'tab_tpl',
-			'title' => __('m_users_config_tab_tpl'),
+			'title' => __('c_a_users_config_tab_tpl'),
 			'content' => $this->renderView('Users/Config/Tabs/Tpl', array(
 				'oTemplatesForgottenPassword' 	=> $oTemplatesForgottenPassword,
 				'oTemplatesLogin' 				=> $oTemplatesLogin,
@@ -166,7 +166,7 @@ class Config extends Controller
 
 		$aConfigTabs->ksort();
 
-		return $this->render('Users/Admin/Templates/Config/Page', array(
+		return $this->render('Users/Config/Page', array(
 			'aConfigTabs' 					=> $aConfigTabs
 		));
 	}

@@ -155,7 +155,7 @@ $okt->page->loader('.lazy-load');
 					<?php if (file_exists($aModule['root'].'/install/db-truncate.xml')) : ?>
 					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?empty=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_empty_module_confirm')) ?>')"
-					title="<?php printf(__('c_a_modules_empty_module_%s'),$aModule['name_l10n']) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_modules_empty_module_%s'),$aModule['name_l10n'])) ?>"
 					class="icon package_delete"><?php _e('c_a_modules_empty_module') ?></a></li>
 					<?php endif; ?>
 				</ul>
@@ -188,30 +188,30 @@ $okt->page->loader('.lazy-load');
 				<ul class="actions">
 					<li>
 						<a href="<?php echo $view->generateUrl('config_modules') ?>?download=<?php echo $aModule['id']; ?>"
-						title="<?php printf(__('c_c_action_Download_%s'),$aModule['name_l10n']) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aModule['name_l10n'])) ?>"
 						class="icon package_go"><?php _e('c_c_action_Download') ?></a>
 					</li>
 					<li>
 						<?php if (!$aModule['status']) : ?>
 						<a href="<?php echo $view->generateUrl('config_modules') ?>?enable=<?php echo $aModule['id']; ?>"
-						title="<?php printf(__('c_c_action_Enable_%s'),$aModule['name_l10n']) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aModule['name_l10n'])) ?>"
 						class="icon plugin_disabled"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_modules') ?>?disable=<?php echo $aModule['id']; ?>"
-						title="<?php printf(__('c_c_action_Disable_%s'),$aModule['name_l10n']) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aModule['name_l10n'])) ?>"
 						class="icon plugin"><?php _e('c_c_action_Disable') ?></a>
 						<?php endif; ?>
 					</li>
 					<li>
 						<a href="<?php echo $view->generateUrl('config_modules') ?>?reinstall=<?php echo $aModule['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_reinstall_module_confirm')) ?>')"
-						title="<?php printf(__('c_c_action_Re-install_%s'),$aModule['name_l10n']) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Re-install_%s'),$aModule['name_l10n'])) ?>"
 						class="icon plugin_go"><?php _e('c_c_action_Re-install') ?></a>
 					</li>
 					<li>
 						<a href="<?php echo $view->generateUrl('config_modules') ?>?uninstall=<?php echo $aModule['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_remove_module_confirm')) ?>')"
-						title="<?php printf(__('c_c_action_Uninstall_%s'),$aModule['name_l10n']) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Uninstall_%s'),$aModule['name_l10n'])) ?>"
 						class="icon plugin_delete"><?php _e('c_c_action_Uninstall') ?></a>
 					</li>
 				</ul>
@@ -263,16 +263,16 @@ $okt->page->loader('.lazy-load');
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">
 					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?install=<?php echo $id ?>"
-					title="<?php printf(__('c_c_action_Install_%s'),__($module['name'])) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Install_%s'),__($module['name']))) ?>"
 					class="icon plugin_add"><?php _e('c_c_action_Install') ?></a></li>
 
 					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?download=<?php echo $id ?>"
-					title="<?php printf(__('c_c_action_Download_%s'),__($module['name'])) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),__($module['name']))) ?>"
 					class="icon package_go"><?php _e('c_c_action_Download') ?></a></li>
 
 					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?delete=<?php echo $id ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_delete_module_confirm')) ?>')"
-					title="<?php printf(__('c_c_action_Delete_%s'),__($module['name'])) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'),__($module['name']))) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				</ul>
 			</td>

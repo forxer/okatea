@@ -1,27 +1,21 @@
 title:
     fr: 'Projet Okatea'
     en: 'Okatea project'
-
 desc:
     fr: 'Un autre CMS modulaire en PHP'
     en: 'Another modular CMS in PHP'
-
 title_tag:
     fr: ''
     en: ''
-
 meta_description:
     fr: ''
     en: ''
-
 meta_keywords:
     fr: ''
     en: ''
-
 schedule:
     fr: ''
     en: ''
-
 address:
     street: ''
     street_2: ''
@@ -31,112 +25,99 @@ address:
     tel: ''
     mobile: ''
     fax: ''
-
 gps:
     lat: ''
     long: ''
-
 company:
     name: ''
     com_name: ''
     siret: ''
-
 leader:
     name: ''
     firstname: ''
-
 email:
     to: ''
     from: ''
     name: ''
     transport: ''
-    smtp: { host: '', port: 25, username: '', password: '' }
+    smtp:
+        host: ''
+        port: 25
+        username: ''
+        password: ''
     sendmail: ''
-
 theme: okatea
 theme_mobile: ''
 theme_tablet: ''
-
 public_theme: black-tie
 admin_theme: redmond
-
 enable_admin_bar: true
 admin_sidebar_position: 0
-
 language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
-
 app_path: /okatea/src/
 domain: ''
-
 app_file: index.php
-
 public_maintenance_mode: false
 admin_maintenance_mode: false
-
 modules_repositories_enabled: true
 modules_repositories:
     'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.xml'
-    
 themes_repositories_enabled: true
 themes_repositories:
     'Okatea themes': 'http://repository.okatea.org/themes/%VERSION%/index.xml'
-    
 update_enabled: true
 update_url: 'http://repository.okatea.org/packages/versions.xml'
 update_type: stable
-
 user_visit:
     timeout: 1800
     remember_time: 1209600
-    
 log_admin:
     ttl_months: 3
-    
 news_feed:
     enabled: false
-    url: { fr: 'http://okatea.org/fr/actualites/rss', en: 'http://okatea.org/en/news/rss' }
-    
+    url:
+        fr: 'http://okatea.org/fr/actualites/rss'
+        en: 'http://okatea.org/en/news/rss'
 htmlpurifier_disabled: false
-
 slug_type: ascii
-
 navigation_tpl:
     default: default
     usables: {  }
-
+users_filters:
+    admin_default_nb_per_page: 10
+    public_default_nb_per_page: 10
 users_registration:
-	mail_new_registration: true
-	validate_users_registration: true
-	merge_username_email: false
-	auto_log_after_registration: false
-	user_choose_group: false
-	default_group: 4
-
+    mail_new_registration: true
+    validate_users_registration: true
+    merge_username_email: false
+    auto_log_after_registration: false
+    user_choose_group: false
+    default_group: 4
 users_templates:
-  forgotten_password:
-    default: default
-    usables: {}
-  login:
-    default: default
-    usables: {}
-  login_register:
-    default: default
-    usables: {}
-  profile:
-    default: default
-    usables: {}
-  register:
-    default: default
-    usables: {}
-  user_bar:
-    default: default
-    usables: {}
-
+    forgotten_password:
+        default: default
+        usables: {  }
+    login:
+        default: default
+        usables: {  }
+    login_register:
+        default: default
+        usables: {  }
+    profile:
+        default: default
+        usables: {  }
+    register:
+        default: default
+        usables: {  }
+    user_bar:
+        default: default
+        usables: {  }
 users_pages:
-	login: true
-	register: false
-	log_reg: false
-	forget_password: false
-	profile: false
+    login: true
+    register: false
+    log_reg: false
+    forget_password: false
+    profile: false
+admin_compress_output: false

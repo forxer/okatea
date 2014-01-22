@@ -208,7 +208,7 @@ class Okatea extends Application
 
 		# Users
 		$this->page->mainMenu->add(
-			__('Users'),
+			__('c_a_menu_users'),
 			null,
 			null,
 			9000000,

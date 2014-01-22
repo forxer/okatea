@@ -36,14 +36,14 @@ class Groups extends Controller
 			$add_title = $this->okt->request->request->get('add_title');
 
 			if (empty($add_title)) {
-				$this->okt->error->set(__('m_users_must_enter_group_title'));
+				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
 			}
 
 			if ($this->okt->error->isEmpty())
 			{
 				$this->okt->Users->addGroup($add_title);
 
-				$this->okt->page->flash->success(__('m_users_group_added'));
+				$this->okt->page->flash->success(__('c_a_users_group_added'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}
@@ -55,14 +55,14 @@ class Groups extends Controller
 			$edit_title = $this->okt->request->request->get('edit_title');
 
 			if (empty($edit_title)) {
-				$this->okt->error->set(__('m_users_must_enter_group_title'));
+				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
 			}
 
 			if ($this->okt->error->isEmpty())
 			{
 				$this->okt->Users->updGroup($iGroupId, $edit_title);
 
-				$this->okt->page->flash->success(__('m_users_group_edited'));
+				$this->okt->page->flash->success(__('c_a_users_group_edited'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}
@@ -74,13 +74,13 @@ class Groups extends Controller
 			$iGroupIdToDelete = $this->okt->request->query->get('delete_id');
 
 			if (in_array($iGroupIdToDelete, array(Authentification::superadmin_group_id, Authentification::admin_group_id, Authentification::guest_group_id, Authentification::member_group_id))) {
-				$this->okt->error->set(__('m_users_cannot_remove_group'));
+				$this->okt->error->set(__('c_a_users_cannot_remove_group'));
 			}
 			else
 			{
 				$this->okt->Users->deleteGroup($iGroupIdToDelete);
 
-				$this->okt->page->flash->success(__('m_users_group_deleted'));
+				$this->okt->page->flash->success(__('c_a_users_group_deleted'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}
@@ -89,7 +89,7 @@ class Groups extends Controller
 		# Liste des groupes
 		$rsGroups = $this->okt->Users->getGroups();
 
-		return $this->render('Users/Admin/Templates/Groups', array(
+		return $this->render('Users/Groups', array(
 			'iGroupId' => $iGroupId,
 			'rsGroups' => $rsGroups,
 			'add_title' => $add_title,

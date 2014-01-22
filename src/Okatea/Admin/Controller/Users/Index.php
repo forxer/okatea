@@ -10,7 +10,9 @@ namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
+use Okatea\Admin\Filters\Users as UsersFilters;
 use Okatea\Tao\Users\Authentification;
+use Okatea\Tao\Users\Users;
 
 class Index extends Controller
 {
@@ -20,18 +22,21 @@ class Index extends Controller
 			return $this->serve401();
 		}
 
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
+		
+		$oUsers = new Users($this->okt);
+
 		# initialisation des filtres
-		$this->okt->Users->filtersStart('admin');
+		$oFilters = new UsersFilters($this->okt, 'admin');
 
 		# Enable user status
 		if ($iUserId = $this->request->query->getInt('enable'))
 		{
-			if ($this->okt->Users->setUserStatus($iUserId, 1))
+			if ($oUsers->setUserStatus($iUserId, 1))
 			{
 				# log admin
 				$this->okt->logAdmin->info(array(
 					'code' => 30,
-					'component' => 'users',
 					'message' => 'user #'.$iUserId
 				));
 
@@ -42,7 +47,7 @@ class Index extends Controller
 		# Disable user status
 		if ($iUserId = $this->request->query->getInt('disable'))
 		{
-			if ($this->okt->Users->setUserStatus($iUserId, 0))
+			if ($oUsers->setUserStatus($iUserId, 0))
 			{
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -58,7 +63,7 @@ class Index extends Controller
 		# Supprimer utilisateur
 		if ($iUserId = $this->request->query->getInt('delete') && $this->okt->checkPerm('users_delete'))
 		{
-			if ($this->okt->Users->deleteUser($iUserId))
+			if ($oUsers->deleteUser($iUserId))
 			{
 				# log admin
 				$this->okt->logAdmin->warning(array(
@@ -70,7 +75,7 @@ class Index extends Controller
 				# -- CORE TRIGGER : adminModUsersDeleteProcess
 				$this->okt->triggers->callTrigger('adminModUsersDeleteProcess', $iUserId);
 
-				$this->okt->page->flash->success(__('m_users_user_deleted'));
+				$this->okt->page->flash->success(__('c_a_users_user_deleted'));
 
 				return $this->redirect($this->generateUrl('Users_index'));
 			}
@@ -79,7 +84,7 @@ class Index extends Controller
 		# Ré-initialisation filtres
 		if ($this->request->query->has('init_filters'))
 		{
-			$this->okt->Users->filters->initFilters();
+			$oFilters->initFilters();
 			return $this->redirect($this->generateUrl('Users_index'));
 		}
 
@@ -102,36 +107,38 @@ class Index extends Controller
 			$aParams['search'] = $sSearch;
 		}
 
-		$this->okt->Users->filters->setUsersParams($aParams);
+		$oFilters->setUsersParams($aParams);
 
 		# création des filtres
-		$this->okt->Users->filters->getFilters();
+		$oFilters->getFilters();
 
 		# initialisation de la pagination
-		$iNumFilteredUsers = $this->okt->Users->getUsers($aParams,true);
+		$iNumFilteredUsers = $oUsers->getUsers($aParams,true);
 
-		$pager = new Pager($this->okt, $this->okt->Users->filters->params->page, $iNumFilteredUsers, $this->okt->Users->filters->params->nb_per_page);
+		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
 
 		$iNumPages = $pager->getNbPages();
 
-		$this->okt->Users->filters->normalizePage($iNumPages);
+		$oFilters->normalizePage($iNumPages);
 
-		$aParams['limit'] = (($this->okt->Users->filters->params->page-1)*$this->okt->Users->filters->params->nb_per_page).','.$this->okt->Users->filters->params->nb_per_page;
+		$aParams['limit'] = (($oFilters->params->page-1)*$oFilters->params->nb_per_page).','.$oFilters->params->nb_per_page;
 
 		# liste des utilisateurs
-		$rsUsers = $this->okt->Users->getUsers($aParams);
+		$rsUsers = $oUsers->getUsers($aParams);
 
 		# nombre d'utilisateur en attente de validation
-		$iNumUsersWaitingValidation = $this->okt->Users->getUsers(array('group_id'=>Authentification::unverified_group_id), true);
+		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id'=>Authentification::unverified_group_id), true);
 
 		if ($iNumUsersWaitingValidation === 1) {
-			$this->okt->page->warnings->set(__('m_users_one_user_in_wait_of_validation'));
+			$this->okt->page->warnings->set(__('c_a_users_one_user_in_wait_of_validation'));
 		}
 		elseif ($iNumUsersWaitingValidation > 1) {
-			$this->okt->page->warnings->set(sprintf(__('m_users_%s_users_in_wait_of_validation'), $iNumUsersWaitingValidation));
+			$this->okt->page->warnings->set(sprintf(__('c_a_users_%s_users_in_wait_of_validation'), $iNumUsersWaitingValidation));
 		}
 
-		return $this->render('Users/Admin/Templates/Index', array(
+		return $this->render('Users/Index', array(
+		    'users'                         => $oUsers,
+		    'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
 			'sSearch' 						=> $sSearch,
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,

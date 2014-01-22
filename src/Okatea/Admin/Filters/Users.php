@@ -12,20 +12,17 @@ use Okatea\Tao\Misc\BaseFilters;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Authentification;
+use Okatea\Tao\Users\Groups;
 
 class Users extends BaseFilters
 {
-	protected $users;
-
 	protected $get_users_params = array();
 
 	protected $order_by_array = array();
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'users', $okt->Users->config, $part, $params);
-
-		$this->Users = $okt->Users;
+		parent::__construct($okt, 'users', $okt->config->users_filters, $part, $params);
 
 		$this->order_by_array = array();
 	}
@@ -114,21 +111,21 @@ class Users extends BaseFilters
 			$this->get_users_params['group_id'] = $this->params->group_id;
 		}
 
-		$rs = $this->Users->getGroups();
+		$oUsersGroups = new Groups($this->okt);
+		$rsGroups = $oUsersGroups->getGroups();
 		$groups_array = array(
 			__('c_c_All') => -1,
 			__('m_users_wait_of_validation') => Authentification::unverified_group_id
 		);
-		while ($rs->fetch())
+		while ($rsGroups->fetch())
 		{
-			if ($rs->group_id == Authentification::guest_group_id ||
-				$rs->group_id == Authentification::superadmin_group_id && !$GLOBALS['okt']->user->is_superadmin) {
+			if ($rsGroups->group_id == Authentification::guest_group_id ||
+				$rsGroups->group_id == Authentification::superadmin_group_id && !$this->okt->user->is_superadmin) {
 				continue;
 			}
 
-			$groups_array[Utilities::escapeHTML($rs->title)] = $rs->group_id;
+			$groups_array[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
 		}
-		unset($rs);
 
 		$this->fields['group_id'] = array(
 			$this->form_id.'_group_id',

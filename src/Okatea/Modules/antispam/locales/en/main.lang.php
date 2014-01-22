@@ -1,8 +1,8 @@
 <?php
 
 # define
-$GLOBALS['__l10n']['Antispam'] = 'Antispam';
-$GLOBALS['__l10n']['Generic antispam'] = 'Generic antispam';
+$GLOBALS['okt_l10n']['Antispam'] = 'Antispam';
+$GLOBALS['okt_l10n']['Generic antispam'] = 'Generic antispam';
 
 # permissions
-$GLOBALS['__l10n']['m_antispam_perm_global'] = 'Manage antispam';
+$GLOBALS['okt_l10n']['m_antispam_perm_global'] = 'Manage antispam';

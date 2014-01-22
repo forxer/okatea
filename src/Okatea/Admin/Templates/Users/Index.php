@@ -6,7 +6,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # titre de la page
-$okt->page->addGlobalTitle(__('Users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
 
 # button set
 $okt->page->setButtonset('users', array(
@@ -21,7 +21,7 @@ $okt->page->setButtonset('users', array(
 		),
 		array(
 			'permission' => true,
-			'title' => __('m_users_Add_user'),
+			'title' => __('c_a_users_Add_user'),
 			'url' => 'module.php?m=users&amp;action=add',
 			'ui-icon' => 'plusthick'
 		)
@@ -51,35 +51,26 @@ $okt->page->addButton('users',array(
 	'title' 		=> __('c_c_display_filters'),
 	'url' 			=> '#',
 	'ui-icon' 		=> 'search',
-	'active' 		=> $okt->Users->filters->params->show_filters,
+	'active' 		=> $filters->params->show_filters,
 	'id'			=> 'filter-control',
 	'class'			=> 'button-toggleable'
 ));
 
 
-# Filters control
-if ($okt->Users->config->admin_filters_style == 'slide')
-{
-	# Slide down
-	$okt->page->filterControl($okt->Users->filters->params->show_filters);
-}
-elseif ($okt->Users->config->admin_filters_style == 'dialog')
-{
-	# Display a UI dialog box
-	$okt->page->js->addReady("
-		$('#filters-form').dialog({
-			title:'".html::escapeJS(__('m_users_users_display_filters'))."',
-			autoOpen: false,
-			modal: true,
-			width: 500,
-			height: 300
-		});
+# Display a UI dialog box
+$okt->page->js->addReady("
+	$('#filters-form').dialog({
+		title:'".html::escapeJS(__('c_a_users_users_display_filters'))."',
+		autoOpen: false,
+		modal: true,
+		width: 500,
+		height: 300
+	});
 
-		$('#filter-control').click(function() {
-			$('#filters-form').dialog('open');
-		})
-	");
-}
+	$('#filter-control').click(function() {
+		$('#filters-form').dialog('open');
+	})
+");
 
 ?>
 
@@ -90,7 +81,7 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 	</div>
 	<div class="buttonsetB">
 		<form action="<?php echo $view->generateUrl('Users_index') ?>" method="get" id="search_form" class="search_form">
-			<p><label for="search"><?php _e('m_users_list_Search') ?></label>
+			<p><label for="search"><?php _e('c_a_users_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, html::escapeHTML($sSearch)); ?>
 
 			<input type="submit" name="search_submit" id="search_submit" value="ok" /></p>
@@ -101,11 +92,11 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 <?php # formulaire des filtres ?>
 <form action="<?php echo $view->generateUrl('Users_index') ?>" method="get" id="filters-form">
 	<fieldset>
-		<legend><?php _e('m_users_users_display_filters')?></legend>
+		<legend><?php _e('c_a_users_users_display_filters')?></legend>
 
-		<?php echo $okt->Users->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
+		<?php echo $filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
-		<p><input type="submit" name="<?php echo $okt->Users->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_Display') ?>" />
+		<p><input type="submit" name="<?php echo $filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_Display') ?>" />
 		<a href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters')?></a></p>
 	</fieldset>
 </form>
@@ -113,13 +104,13 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 <?php if ($rsUsers->isEmpty()) : ?>
 
 	<?php if (!empty($sSearch)) : ?>
-	<p><?php _e('m_users_no_searched_user') ?></p>
+	<p><?php _e('c_a_users_no_searched_user') ?></p>
 
-	<?php elseif ($okt->Users->filters->params->show_filters) : ?>
-	<p><?php _e('m_users_no_filtered_user') ?></p>
+	<?php elseif ($filters->params->show_filters) : ?>
+	<p><?php _e('c_a_users_no_filtered_user') ?></p>
 
 	<?php else : ?>
-	<p><?php _e('m_users_no_user') ?></p>
+	<p><?php _e('c_a_users_no_user') ?></p>
 
 	<?php endif; ?>
 
@@ -127,13 +118,13 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 
 <?php if (!$rsUsers->isEmpty()) : ?>
 <table class="common">
-	<caption><?php _e('m_users_users_list')?></caption>
+	<caption><?php _e('c_a_users_users_list')?></caption>
 	<thead><tr>
 		<th scope="col"><?php _e('c_c_user_Username')?></th>
 		<th scope="col"><?php _e('c_c_Email')?></th>
 		<th scope="col"><?php _e('c_c_Group')?></th>
-		<th scope="col"><?php _e('m_users_last_connection')?></th>
-		<th scope="col"><?php _e('m_users_registration_date')?></th>
+		<th scope="col"><?php _e('c_a_users_last_connection')?></th>
+		<th scope="col"><?php _e('c_a_users_registration_date')?></th>
 		<th scope="col" class="small"><?php _e('c_c_Actions')?></th>
 	</tr></thead>
 	<tbody>
@@ -156,7 +147,7 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 		<td class="<?php echo $sTdClass ?>"><?php
 
 		if ($rsUsers->group_id == Authentification::unverified_group_id) {
-			_e('m_users_wait_of_validation');
+			_e('c_a_users_wait_of_validation');
 		}
 		elseif (!empty($rsUsers->title)) {
 			echo html::escapeHTML($rsUsers->title);
@@ -171,10 +162,10 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 				<li>
 				<?php if ($rsUsers->group_id == Authentification::unverified_group_id && $okt->checkPerm('users_edit')) : ?>
 					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
-					title="<?php _e('m_users_validate_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
-					class="icon time"><?php _e('m_users_validate_the_user')?></a>
+				    title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user', $rsUsers->username))); ?>"
+					class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 					<?php else : ?>
-					<span class="icon user"></span><?php _e('m_users_validated_user')?>
+					<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
 				<?php endif; ?>
 				</li>
 
@@ -190,14 +181,14 @@ elseif ($okt->Users->config->admin_filters_style == 'dialog')
 
 				<?php if ($okt->checkPerm('users_edit')) : ?>
 				<li><a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>"
-				title="<?php _e('m_users_edit_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
+				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user', $rsUsers->username))); ?>"
 				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($okt->checkPerm('users_delete')) : ?>
 				<li><a href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
-				onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_user_deletion')) ?>')"
-				title="<?php _e('m_users_delete_the_user')?> <?php echo html::escapeHTML($rsUsers->username) ?>"
+				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_users_confirm_user_deletion')) ?>')"
+				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user', $rsUsers->username))); ?>"
 				class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
 				<?php endif; ?>
 

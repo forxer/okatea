@@ -20,7 +20,7 @@ if (!function_exists('__'))
 	 */
 	function __($str)
 	{
-		return isset($GLOBALS['__l10n'][$str]) ? $GLOBALS['__l10n'][$str] : $str;
+		return isset($GLOBALS['okt_l10n'][$str]) ? $GLOBALS['okt_l10n'][$str] : $str;
 	}
 }
 

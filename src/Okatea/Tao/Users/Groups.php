@@ -33,7 +33,7 @@ class Groups
 
 	protected $t_groups;
 
-	public function __construct()
+	public function __construct($okt)
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
