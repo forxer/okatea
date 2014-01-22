@@ -85,7 +85,7 @@ slug_type: ascii
 navigation_tpl:
     default: default
     usables: {  }
-users_custom_fields_enabled: false
+users_custom_fields_enabled: true
 users_filters:
     admin_default_nb_per_page: 10
     public_default_nb_per_page: 10
@@ -98,27 +98,26 @@ users_registration:
     default_group: 4
 users_templates:
     forgotten_password:
-        default: default
+        default: null
         usables: {  }
     login:
-        default: default
+        default: null
         usables: {  }
     login_register:
-        default: default
+        default: null
         usables: {  }
     profile:
-        default: default
+        default: null
         usables: {  }
     register:
-        default: default
+        default: null
         usables: {  }
     user_bar:
-        default: default
+        default: null
         usables: {  }
 users_pages:
     login: true
-    register: false
+    register: true
     log_reg: false
     forget_password: false
     profile: false
-admin_compress_output: false

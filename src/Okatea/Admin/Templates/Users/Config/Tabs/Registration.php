@@ -2,24 +2,44 @@
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
+
+$okt->page->js->addScript('
+
+	function handleValidateOptionStatus() {
+		if ($("#p_validate_users_registration").is(":checked")) {
+			$("#p_user_choose_group,#p_auto_log_after_registration").attr("disabled", "")
+				.parent().addClass("disabled");
+		}
+		else {
+			$("#p_user_choose_group,#p_auto_log_after_registration").removeAttr("disabled")
+				.parent().removeClass("disabled");
+		}
+	}
+');
+
+$okt->page->js->addReady('
+	handleValidateOptionStatus();
+	$("#p_validate_users_registration").change(function(){handleValidateOptionStatus();});
+');
+
 ?>
 
-<h3><?php _e('m_users_Registration') ?></h3>
+<h3><?php _e('c_a_users_Registration') ?></h3>
 
-	<p class="field"><label for="p_mail_new_registration"><?php echo form::checkbox('p_mail_new_registration', 1, $okt->config->users_registration['mail_new_registration']) ?>
-	<?php _e('m_users_send_mail_new_registration') ?></label></p>
+	<p class="field"><label for="p_mail_new_registration"><?php echo form::checkbox('p_mail_new_registration', 1, $aPageData['config']['users_registration']['mail_new_registration']) ?>
+	<?php _e('c_a_users_send_mail_new_registration') ?></label></p>
 
-	<p class="field"><label for="p_validate_users_registration"><?php echo form::checkbox('p_validate_users_registration', 1, $okt->config->users_registration['validate_users_registration']) ?>
-	<?php _e('m_users_Validation_of_registration_by_administrator') ?></label></p>
+	<p class="field"><label for="p_validate_users_registration"><?php echo form::checkbox('p_validate_users_registration', 1, $aPageData['config']['users_registration']['validate_users_registration']) ?>
+	<?php _e('c_a_users_Validation_of_registration_by_administrator') ?></label></p>
 
-	<p class="field"><label for="p_merge_username_email"><?php echo form::checkbox('p_merge_username_email', 1, $okt->config->users_registration['merge_username_email']) ?>
-	<?php _e('m_users_merge_username_email') ?></label></p>
+	<p class="field"><label for="p_merge_username_email"><?php echo form::checkbox('p_merge_username_email', 1, $aPageData['config']['users_registration']['merge_username_email']) ?>
+	<?php _e('c_a_users_merge_username_email') ?></label></p>
 
-	<p class="field"><label for="p_auto_log_after_registration"><?php echo form::checkbox('p_auto_log_after_registration', 1, $okt->config->users_registration['auto_log_after_registration']) ?>
-	<?php _e('m_users_auto_log_after_registration') ?></label></p>
+	<p class="field"><label for="p_auto_log_after_registration"><?php echo form::checkbox('p_auto_log_after_registration', 1, $aPageData['config']['users_registration']['auto_log_after_registration']) ?>
+	<?php _e('c_a_users_auto_log_after_registration') ?></label></p>
 
-	<p class="field"><label for="p_user_choose_group"><?php echo form::checkbox('p_user_choose_group', 1, $okt->config->users_registration['user_choose_group']) ?>
-	<?php _e('m_users_Let_users_choose_their_group') ?></label></p>
+	<p class="field"><label for="p_user_choose_group"><?php echo form::checkbox('p_user_choose_group', 1, $aPageData['config']['users_registration']['user_choose_group']) ?>
+	<?php _e('c_a_users_Let_users_choose_their_group') ?></label></p>
 
-	<p class="field"><label for="p_default_group"><?php _e('m_users_Default_group') ?></label>
-	<?php echo form::select('p_default_group', $aGroups, $okt->config->users_registration['default_group']) ?></p>
+	<p class="field"><label for="p_default_group"><?php _e('c_a_users_Default_group') ?></label>
+	<?php echo form::select('p_default_group', $aGroups, $aPageData['config']['users_registration']['default_group']) ?></p>

@@ -30,7 +30,7 @@ $okt->page->tabs();
 				<legend><?php _e('c_a_users_Display_of_user_lists')?></legend>
 
 				<p class="field"><label for="p_public_default_nb_per_page"><?php _e('c_a_users_number_of_user_on_public_part')?></label>
-				<?php echo form::text('p_public_default_nb_per_page', 3, 3, $okt->Users->config->public_default_nb_per_page) ?></p>
+				<?php echo form::text('p_public_default_nb_per_page', 3, 3, $okt->config->users_filters['public_default_nb_per_page']) ?></p>
 			</fieldset>
 
 		</div><!-- #tab_public -->
@@ -42,16 +42,7 @@ $okt->page->tabs();
 				<legend><?php _e('c_a_users_Display_of_user_lists') ?></legend>
 
 				<p class="field"><label for="p_admin_default_nb_per_page"><?php _e('c_a_users_number_of_user_on_admin')?></label>
-				<?php echo form::text('p_admin_default_nb_per_page', 3, 3, $okt->Users->config->admin_default_nb_per_page) ?></p>
-			</fieldset>
-
-			<fieldset>
-				<legend><?php _e('c_a_users_Filters_users_list')?></legend>
-
-				<p class="field"><?php _e('c_a_users_Display_filters')?>
-					<label><?php _e('c_a_users_in_dialog_box')?> <?php echo form::radio(array('p_admin_filters_style'),'dialog',($okt->Users->config->admin_filters_style=='dialog'))?></label>
-					<label><?php _e('c_a_users_in_page')?> <?php echo form::radio(array('p_admin_filters_style'),'slide',($okt->Users->config->admin_filters_style=='slide'))?></label>
-				</p>
+				<?php echo form::text('p_admin_default_nb_per_page', 3, 3, $okt->config->users_filters['admin_default_nb_per_page']) ?></p>
 			</fieldset>
 
 		</div><!-- #tab_admin -->
