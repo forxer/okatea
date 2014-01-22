@@ -12,7 +12,37 @@ use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\Utilities;
 
 class Groups
-{
+{ 
+    /**
+     * Group identifier of unverified users.
+     * @var integer
+     */
+	const UNVERIFIED = 0;
+
+	/**
+	 * Group identifier of super-administrator users.
+     * @var integer
+	 */
+	const SUPERADMIN = 1;
+	
+	/**
+	 * Group identifier of administrator users.
+     * @var integer
+	 */
+	const ADMIN = 2;
+	
+	/**
+	 * Group identifier of guest users.
+     * @var integer
+	 */
+	const GUEST = 3;
+
+	/**
+	 * Group identifier of member users.
+	 * @var integer
+	 */
+	const MEMBER = 4;
+	
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -238,7 +268,7 @@ class Groups
 
 		if ($nbUser > 0)
 		{
-			$this->error->set(__('m_users_error_users_in_group_cannot_remove'));
+			$this->error->set(__('c_c_users_error_users_in_group_cannot_remove'));
 			return false;
 		}
 		else {

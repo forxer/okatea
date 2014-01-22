@@ -1,7 +1,7 @@
 <?php
 
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Users\Groups;
 
 $view->extend('layout');
 
@@ -13,12 +13,6 @@ $okt->page->setButtonset('users', array(
 	'id' => 'users-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
-		array(
-			'permission' => ($okt->page->action === 'add' || $okt->page->action === 'edit'),
-			'title' => __('c_c_action_Go_back'),
-			'url' => 'module.php?m=users&amp;action=index',
-			'ui-icon' => 'arrowreturnthick-1-w'
-		),
 		array(
 			'permission' => true,
 			'title' => __('c_a_users_Add_user'),
@@ -53,7 +47,7 @@ $okt->page->addButton('users',array(
 	'ui-icon' 		=> 'search',
 	'active' 		=> $filters->params->show_filters,
 	'id'			=> 'filter-control',
-	'class'			=> 'button-toggleable'
+	'class'			=> 'filter-control button-toggleable'
 ));
 
 
@@ -67,7 +61,7 @@ $okt->page->js->addReady("
 		height: 300
 	});
 
-	$('#filter-control').click(function() {
+	$('.filter-control').click(function() {
 		$('#filters-form').dialog('open');
 	})
 ");
@@ -107,8 +101,10 @@ $okt->page->js->addReady("
 	<p><?php _e('c_a_users_no_searched_user') ?></p>
 
 	<?php elseif ($filters->params->show_filters) : ?>
-	<p><?php _e('c_a_users_no_filtered_user') ?></p>
-
+	<p><?php _e('c_a_users_no_filtered_user') ?> 
+	   <a href="#" class="filter-control"><?php _e('c_a_users_users_edit_filters') ?></a> - 
+	   <a href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+	</p>
 	<?php else : ?>
 	<p><?php _e('c_a_users_no_user') ?></p>
 
@@ -146,7 +142,7 @@ $okt->page->js->addReady("
 		<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
 		<td class="<?php echo $sTdClass ?>"><?php
 
-		if ($rsUsers->group_id == Authentification::unverified_group_id) {
+		if ($rsUsers->group_id == Groups::UNVERIFIED) {
 			_e('c_a_users_wait_of_validation');
 		}
 		elseif (!empty($rsUsers->title)) {
@@ -160,9 +156,9 @@ $okt->page->js->addReady("
 			<ul class="actions">
 
 				<li>
-				<?php if ($rsUsers->group_id == Authentification::unverified_group_id && $okt->checkPerm('users_edit')) : ?>
+				<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
 					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
-				    title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user', $rsUsers->username))); ?>"
+				    title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
 					class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 					<?php else : ?>
 					<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
@@ -181,14 +177,14 @@ $okt->page->js->addReady("
 
 				<?php if ($okt->checkPerm('users_edit')) : ?>
 				<li><a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>"
-				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user', $rsUsers->username))); ?>"
+				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
 				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($okt->checkPerm('users_delete')) : ?>
 				<li><a href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
 				onclick="return window.confirm('<?php echo html::escapeJS(__('c_a_users_confirm_user_deletion')) ?>')"
-				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user', $rsUsers->username))); ?>"
+				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $rsUsers->username)); ?>"
 				class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
 				<?php endif; ?>
 

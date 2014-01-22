@@ -85,6 +85,7 @@ slug_type: ascii
 navigation_tpl:
     default: default
     usables: {  }
+users_custom_fields_enabled: false
 users_filters:
     admin_default_nb_per_page: 10
     public_default_nb_per_page: 10

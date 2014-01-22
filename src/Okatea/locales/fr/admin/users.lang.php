@@ -14,8 +14,7 @@ $GLOBALS['okt_l10n']['c_a_users_Groups'] = 'Groupes';
 $GLOBALS['okt_l10n']['c_a_users_users_display_filters'] = 'Filtres d’affichage des utilisateurs';
 $GLOBALS['okt_l10n']['c_a_users_filters_status'] = 'Statut';
 $GLOBALS['okt_l10n']['c_a_users_wait_of_validation'] = 'Attente de validation';
-$GLOBALS['okt_l10n']['c_a_users_Sorted_by'] = 'Triés par';
-$GLOBALS['okt_l10n']['c_a_users_Order'] = 'Ordre';
+$GLOBALS['okt_l10n']['c_a_users_users_edit_filters'] = 'Modifier les filtres';
 
 # Index
 $GLOBALS['okt_l10n']['c_a_users_user_deleted'] = 'Utilisateur supprimé.';
@@ -25,11 +24,18 @@ $GLOBALS['okt_l10n']['c_a_users_list_Search'] = 'Recherche';
 $GLOBALS['okt_l10n']['c_a_users_users_list'] = 'Liste des utilisateurs';
 $GLOBALS['okt_l10n']['c_a_users_last_connection'] = 'Dernière connexion';
 $GLOBALS['okt_l10n']['c_a_users_registration_date'] = 'Date d’inscription';
-$GLOBALS['okt_l10n']['c_a_users_validate_the_user'] = 'Valider l’utilisateur';
-$GLOBALS['okt_l10n']['c_a_users_edit_the_user'] = 'Modifier l’utilisateur';
-$GLOBALS['okt_l10n']['c_a_users_delete_the_user'] = 'Supprimer l’utilisateur';
 $GLOBALS['okt_l10n']['c_a_users_validated_user'] = 'Utilisateur validé';
+$GLOBALS['okt_l10n']['c_a_users_validate_the_user'] = 'Valider l’utilisateur';
+$GLOBALS['okt_l10n']['c_a_users_validate_the_user_%s'] = 'Valider l’utilisateur %s';
+$GLOBALS['okt_l10n']['c_a_users_edit_the_user'] = 'Modifier l’utilisateur';
+$GLOBALS['okt_l10n']['c_a_users_edit_the_user_%s'] = 'Modifier l’utilisateur %s';
+$GLOBALS['okt_l10n']['c_a_users_delete_the_user'] = 'Supprimer l’utilisateur';
+$GLOBALS['okt_l10n']['c_a_users_delete_the_user_%s'] = 'Supprimer l’utilisateur %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_user_deletion'] = 'Etes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.';
+
+$GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'Il n’y a aucun utilisateur qui correspondent à votre recherche.';
+$GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'Il n’y a aucun utilisateur qui correspondent à vos filtres d’affichage.';
+$GLOBALS['okt_l10n']['c_a_users_no_user'] = 'Il n’y a aucun utilisateur.';
 
 # Groupes
 $GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'Vous devez saisir un titre de groupe.';

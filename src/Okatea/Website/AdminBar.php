@@ -9,9 +9,9 @@
 namespace Okatea\Website;
 
 use Okatea\Admin\Router as AdminRouter;
-use Okatea\Tao\Users\Authentification;
-use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Update as Updater;
+use Okatea\Tao\Users\Users;
 
 /**
  * La classe pour afficher la barre admin côté site web.
@@ -75,7 +75,7 @@ class AdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Authentification::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
 		);
 
 		if (!$okt->languages->unique)

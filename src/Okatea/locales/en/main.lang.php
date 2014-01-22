@@ -87,6 +87,7 @@ $GLOBALS['okt_l10n']['c_a_menu_home'] = 'Home';
 $GLOBALS['okt_l10n']['c_a_menu_roundabout'] = 'Roundabout';
 $GLOBALS['okt_l10n']['c_a_menu_Online_help'] = 'Online help';
 $GLOBALS['okt_l10n']['c_a_menu_users'] = 'Users';
+$GLOBALS['okt_l10n']['c_a_menu_users_groups'] = 'Groups';
 $GLOBALS['okt_l10n']['c_a_menu_configuration'] = 'Configuration';
 $GLOBALS['okt_l10n']['c_a_menu_general'] = 'General';
 $GLOBALS['okt_l10n']['c_a_menu_display'] = 'Display';

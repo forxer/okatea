@@ -8,7 +8,6 @@
 
 namespace Okatea\Tao\Modules\Manage;
 
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
@@ -20,8 +19,9 @@ use Okatea\Tao\Modules\Manage\Component\Comparator;
 use Okatea\Tao\Modules\Manage\Component\ConfigFiles;
 use Okatea\Tao\Modules\Manage\Component\RoutesFiles;
 use Okatea\Tao\Modules\Manage\Component\TemplatesFiles;
-use Okatea\Tao\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Modules\Manage\Component\UploadsFiles;
+use Okatea\Tao\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Users\Groups;
 
 /**
  * Installation d'un module Okatea.
@@ -405,7 +405,7 @@ class Process extends Module
 	{
 		$query =
 		'SELECT perms FROM '.$this->db->prefix.'core_users_groups '.
-		'WHERE group_id='.(integer)Authentification::admin_group_id;
+		'WHERE group_id='.Groups::ADMIN;
 
 		$rsPerms = $this->db->select($query);
 
@@ -420,7 +420,7 @@ class Process extends Module
 		$query =
 		'UPDATE '.$this->db->prefix.'core_users_groups SET '.
 		'perms=\''.$this->db->escapeStr($aNewPerms).'\' '.
-		'WHERE group_id='.(integer)Authentification::admin_group_id;
+		'WHERE group_id='.Groups::ADMIN;
 
 		$this->db->execute($query);
 	}

@@ -231,19 +231,19 @@ class Users
 		$username = preg_replace('#\s+#s', ' ', $username);
 
 		if (mb_strlen($username) < 2) {
-			$this->error->set(__('m_users_error_username_too_short'));
+			$this->error->set(__('c_c_users_error_username_too_short'));
 		}
 		elseif (mb_strlen($username) > 255) {
-			$this->error->set(__('m_users_error_username_too_long'));
+			$this->error->set(__('c_c_users_error_username_too_long'));
 		}
 		elseif (mb_strtolower($username) == 'guest') {
-			$this->error->set(__('m_users_error_reserved_username'));
+			$this->error->set(__('c_c_users_error_reserved_username'));
 		}
 		elseif (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $username) || preg_match('/((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))/', $username)) {
-			$this->error->set(__('m_users_error_reserved_username'));
+			$this->error->set(__('c_c_users_error_reserved_username'));
 		}
 		elseif ((strpos($username, '[') !== false || strpos($username, ']') !== false) && strpos($username, '\'') !== false && strpos($username, '"') !== false) {
-			$this->error->set(__('m_users_error_forbidden_characters'));
+			$this->error->set(__('c_c_users_error_forbidden_characters'));
 		}
 		elseif ($this->userExists($username))
 		{
@@ -261,10 +261,10 @@ class Users
 			if ($dupe)
 			{
 				if ($this->config->merge_username_email) {
-					$this->error->set(__('m_users_error_email_already_exist'));
+					$this->error->set(__('c_c_users_error_email_already_exist'));
 				}
 				else {
-					$this->error->set(__('m_users_error_username_already_exist'));
+					$this->error->set(__('c_c_users_error_username_already_exist'));
 				}
 			}
 		}
@@ -279,7 +279,7 @@ class Users
 	public function checkEmail($aParams=array())
 	{
 		if (empty($aParams['email'])) {
-			$this->error->set(__('m_users_must_enter_email_address'));
+			$this->error->set(__('c_c_users_must_enter_email_address'));
 		}
 
 		$this->isEmail($aParams['email']);
@@ -307,16 +307,16 @@ class Users
 	public function checkPassword($aParams=array())
 	{
 		if (empty($aParams['password'])) {
-			$this->error->set(__('m_users_must_enter_password'));
+			$this->error->set(__('c_c_users_must_enter_password'));
 		}
 		elseif (mb_strlen($aParams['password']) < 4) {
-			$this->error->set(__('m_users_must_enter_password_of_at_least_4_characters'));
+			$this->error->set(__('c_c_users_must_enter_password_of_at_least_4_characters'));
 		}
 		elseif (empty($aParams['password_confirm'])) {
-			$this->error->set(__('m_users_must_confirm_password'));
+			$this->error->set(__('c_c_users_must_confirm_password'));
 		}
 		elseif ($aParams['password'] != $aParams['password_confirm']) {
-			$this->error->set(__('m_users_error_passwords_do_not_match'));
+			$this->error->set(__('c_c_users_error_passwords_do_not_match'));
 		}
 	}
 
@@ -491,30 +491,30 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->error->set(sprintf(__('m_users_error_user_%s_not_exists'), $id));
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $id));
 			return false;
 		}
 
 		# si on veut supprimer un super-admin alors il faut vérifier qu'il y en as d'autres
-		if ($rsUser->group_id == Authentification::superadmin_group_id)
+		if ($rsUser->group_id == Groups::SUPERADMIN)
 		{
-			$iCountSudo = $this->getUsers(array('group_id'=>Authentification::superadmin_group_id), true);
+			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN), true);
 
 			if ($iCountSudo < 2)
 			{
-				$this->error->set(__('m_users_error_cannot_remove_last_super_administrator'));
+				$this->error->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
 				return false;
 			}
 		}
 
 		# si on veut supprimer un admin alors il faut vérifier qu'il y en as d'autres
-		if ($rsUser->group_id == Authentification::admin_group_id)
+		if ($rsUser->group_id == Groups::ADMIN)
 		{
-			$iCountAdmin = $this->getUsers(array('group_id'=>Authentification::admin_group_id), true);
+			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN), true);
 
 			if ($iCountAdmin < 2)
 			{
-				$this->error->set(__('m_users_error_cannot_remove_last_administrator'));
+				$this->error->set(__('c_c_users_error_cannot_remove_last_administrator'));
 				return false;
 			}
 		}
@@ -530,7 +530,7 @@ class Users
 		$this->db->optimize($this->t_users);
 
 		# delete user custom fields
-		if ($this->config->enable_custom_fields) {
+		if ($this->okt->config->users_custom_fields_enabled) {
 			$this->fields->delUserValue($id);
 		}
 
@@ -553,7 +553,7 @@ class Users
 	public function switchUserStatus($iUserId)
 	{
 		if (!$this->userExists($iUserId)) {
-			$this->error->set(sprintf(__('m_users_error_user_%s_not_exists'), $iUserId));
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -584,30 +584,30 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->error->set(sprintf(__('m_users_error_user_%s_not_exists'), $iUserId));
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
 		# si on veut désactiver un super-admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == Authentification::superadmin_group_id)
+		if ($iActive == 0 && $rsUser->group_id == Groups::SUPERADMIN)
 		{
-			$iCountSudo = $this->getUsers(array('group_id' => Authentification::superadmin_group_id, 'active' => 1), true);
+			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'active' => 1), true);
 
 			if ($iCountSudo < 2)
 			{
-				$this->error->set(__('m_users_error_cannot_disable_last_super_administrator'));
+				$this->error->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
 				return false;
 			}
 		}
 
 		# si on veut désactiver un admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == Authentification::admin_group_id)
+		if ($iActive == 0 && $rsUser->group_id == Groups::ADMIN)
 		{
-			$iCountAdmin = $this->getUsers(array('group_id'=>Authentification::admin_group_id, 'active' => 1), true);
+			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN, 'active' => 1), true);
 
 			if ($iCountAdmin < 2)
 			{
-				$this->error->set(__('m_users_error_cannot_disable_last_administrator'));
+				$this->error->set(__('c_c_users_error_cannot_disable_last_administrator'));
 				return false;
 			}
 		}
@@ -624,5 +624,34 @@ class Users
 		return true;
 	}
 
-
+	/**
+	 * Static function that returns user's common name given to his
+	 * username, lastname, firstname and displayname.
+	 *
+	 * @param string $sUsername			User name
+	 * @param string $sLastname			User's last name
+	 * @param string $sFirstname		User's first name
+	 * @param string $sDisplayName		User's display name
+	 * @return string
+	 */
+	public static function getUserCN($sUsername, $sLastname, $sFirstname, $sDisplayName=null)
+	{
+	    if (!empty($sDisplayName)) {
+	        return $sDisplayName;
+	    }
+	
+	    if (!empty($sLastname))
+	    {
+	        if (!empty($sFirstname)) {
+	            return $sFirstname.' '.$sLastname;
+	        }
+	
+	        return $sLastname;
+	    }
+	    elseif (!empty($sFirstname)) {
+	        return $sFirstname;
+	    }
+	
+	    return $sUsername;
+	}
 }

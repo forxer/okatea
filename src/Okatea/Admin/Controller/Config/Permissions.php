@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Users\Authentification;
+use Okatea\Tao\Users\Groups;
 
 class Permissions extends Controller
 {
@@ -30,10 +30,10 @@ class Permissions extends Controller
 
 		while ($rsGroups->fetch())
 		{
-			if ($rsGroups->group_id == Authentification::superadmin_group_id || $rsGroups->group_id == Authentification::guest_group_id) {
+			if ($rsGroups->group_id == Groups::SUPERADMIN || $rsGroups->group_id == Groups::GUEST) {
 				continue;
 			}
-			elseif (!$this->okt->user->is_superadmin && $rsGroups->group_id == Authentification::admin_group_id) {
+			elseif (!$this->okt->user->is_superadmin && $rsGroups->group_id == Groups::ADMIN) {
 				continue;
 			}
 

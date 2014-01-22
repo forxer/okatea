@@ -12,13 +12,13 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Modules\Module as BaseModule;
 use Okatea\Tao\Themes\SimpleReplacements;
+use Okatea\Tao\Users\Groups;
 
 class Module extends BaseModule
 {
@@ -1238,13 +1238,13 @@ class Module extends BaseModule
 
 		$aParams = array(
 			'group_id_not' => array(
-				Authentification::guest_group_id,
-				Authentification::superadmin_group_id
+				Groups::GUEST,
+				Groups::SUPERADMIN
 			)
 		);
 
 		if (!$this->okt->user->is_admin && !$bWithAdmin) {
-			$aParams['group_id_not'][] = Authentification::admin_group_id;
+			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
 		$rsGroups = $this->okt->users->getGroups($aParams);
@@ -1307,7 +1307,7 @@ class Module extends BaseModule
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
 		if (!$this->okt->user->is_admin) {
-			$aGroupsIds[] = Authentification::admin_group_id;
+			$aGroupsIds[] = Groups::ADMIN;
 		}
 
 		# qu'une seule ligne par groupe pleaz
@@ -1317,8 +1317,8 @@ class Module extends BaseModule
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-				Authentification::guest_group_id,
-				Authentification::superadmin_group_id
+    			Groups::GUEST,
+    			Groups::SUPERADMIN
 			)
 		));
 

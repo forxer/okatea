@@ -11,8 +11,8 @@ namespace Okatea\Admin\Controller\Users;
 use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
 use Okatea\Admin\Filters\Users as UsersFilters;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Users;
+use Okatea\Tao\Users\Groups;
 
 class Index extends Controller
 {
@@ -37,6 +37,7 @@ class Index extends Controller
 				# log admin
 				$this->okt->logAdmin->info(array(
 					'code' => 30,
+					'component' => 'users',
 					'message' => 'user #'.$iUserId
 				));
 
@@ -61,7 +62,7 @@ class Index extends Controller
 		}
 
 		# Supprimer utilisateur
-		if ($iUserId = $this->request->query->getInt('delete') && $this->okt->checkPerm('users_delete'))
+		if (($iUserId = $this->request->query->getInt('delete')) && $this->okt->checkPerm('users_delete'))
 		{
 			if ($oUsers->deleteUser($iUserId))
 			{
@@ -91,14 +92,14 @@ class Index extends Controller
 
 		# initialisation des filtres
 		$aParams = array();
-		$aParams['group_id_not'][] = Authentification::guest_group_id;
+		$aParams['group_id_not'][] = Groups::GUEST;
 
 		if (!$this->okt->user->is_superadmin) {
-			$aParams['group_id_not'][] = Authentification::superadmin_group_id;
+			$aParams['group_id_not'][] = Groups::SUPERADMIN;
 		}
 
 		if (!$this->okt->user->is_admin) {
-			$aParams['group_id_not'][] = Authentification::admin_group_id;
+			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
 		$sSearch = $this->request->query->get('search');
@@ -127,7 +128,7 @@ class Index extends Controller
 		$rsUsers = $oUsers->getUsers($aParams);
 
 		# nombre d'utilisateur en attente de validation
-		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id'=>Authentification::unverified_group_id), true);
+		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id'=>Groups::UNVERIFIED), true);
 
 		if ($iNumUsersWaitingValidation === 1) {
 			$this->okt->page->warnings->set(__('c_a_users_one_user_in_wait_of_validation'));

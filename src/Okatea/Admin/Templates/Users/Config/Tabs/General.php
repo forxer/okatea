@@ -7,8 +7,8 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 <h3><?php _e('m_users_General') ?></h3>
 
-<p class="field"><label><?php echo form::checkbox('p_enable_custom_fields', 1, $okt->Users->config->enable_custom_fields) ?>
-<?php _e('m_users_Enable_custom_fields') ?></label></p>
+<p class="field"><label><?php echo form::checkbox('p_users_custom_fields_enabled', 1, $okt->Users->config->users_custom_fields_enabled) ?>
+<?php _e('m_users_users_custom_fields_enabled') ?></label></p>
 
 <fieldset>
 	<legend><?php _e('m_users_Activation_of_public_pages') ?></legend>

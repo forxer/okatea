@@ -9,9 +9,9 @@
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Themes\TemplatesSet;
+use Okatea\Tao\Users\Groups;
 
 class Config extends Controller
 {
@@ -73,7 +73,7 @@ class Config extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				$new_conf = array(
-					'enable_custom_fields' 			=> $this->okt->request->request->has('p_enable_custom_fields'),
+					'users_custom_fields_enabled' 	=> $this->okt->request->request->has('p_users_custom_fields_enabled'),
 					'users_pages' => array(
 						'login' 			=> $this->okt->request->request->has('p_enable_login_page'),
 						'register' 			=> $this->okt->request->request->has('p_enable_register_page'),
@@ -126,7 +126,7 @@ class Config extends Controller
 		$aGroups = array();
 		while ($rsGroups->fetch())
 		{
-			if (!in_array($rsGroups->group_id, array(Authentification::superadmin_group_id, Authentification::admin_group_id, Authentification::guest_group_id))) {
+			if (!in_array($rsGroups->group_id, array(Groups::SUPERADMIN, Groups::ADMIN, Groups::GUEST))) {
 				$aGroups[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
 			}
 		}

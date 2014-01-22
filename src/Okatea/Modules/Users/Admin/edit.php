@@ -97,7 +97,7 @@ if ($edit_group_id == Authentification::admin_group_id && !$okt->user->is_admin)
 	http::redirect('module.php?m=users');
 }
 
-if ($user->group_id == Authentification::unverified_group_id) {
+if ($user->group_id == Groups::UNVERIFIED) {
 	$aEditPageInfos['bWaitingValidation'] = true;
 } else {
 	$aEditPageInfos['bWaitingValidation'] = false;

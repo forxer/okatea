@@ -1,7 +1,7 @@
 <?php
 
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Users\Groups;
 
 $view->extend('layout');
 
@@ -9,7 +9,7 @@ $view->extend('layout');
 $okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_users_Groups'));
+$okt->page->addGlobalTitle(__('c_a_menu_users_groups'));
 
 # Tabs
 $okt->page->tabs();
@@ -51,7 +51,7 @@ $okt->page->tabs();
 			<?php $count_line = 0;
 			while ($rsGroups->fetch()) :
 
-				if ($rsGroups->group_id == Authentification::superadmin_group_id) {
+				if ($rsGroups->group_id == Groups::SUPERADMIN) {
 					continue;
 				}
 
@@ -66,7 +66,7 @@ $okt->page->tabs();
 						title="<?php _e('c_c_action_Edit') ?> <?php echo html::escapeHTML($rsGroups->title) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
-					<?php if (in_array($rsGroups->group_id, array(Authentification::superadmin_group_id, Authentification::admin_group_id, Authentification::guest_group_id, Authentification::member_group_id))) : ?>
+					<?php if (in_array($rsGroups->group_id, array(Groups::SUPERADMIN, Groups::ADMIN, Groups::ADMIN, Groups::MEMBER))) : ?>
 						<li class="disabled"><span class="icon delete"></span><?php _e('c_c_action_Delete')?></li>
 					<?php else : ?>
 						<li><a href="<?php echo $view->generateUrl('Users_groups') ?>?delete_id=<?php echo $rsGroups->group_id ?>"

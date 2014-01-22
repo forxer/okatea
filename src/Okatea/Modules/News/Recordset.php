@@ -8,9 +8,9 @@
 
 namespace Okatea\Modules\News;
 
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Database\Recordset as BaseRecordset;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Users\Users;
 
 /**
  * Extension du recordset de base pour l'affichage des articles.
@@ -189,7 +189,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getPostAuthor()
 	{
-		return Authentification::getUserCN($this->username, $this->lastname, $this->firstname);
+		return Users::getUserCN($this->username, $this->lastname, $this->firstname);
 	}
 
 	/**

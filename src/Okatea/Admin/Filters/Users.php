@@ -11,7 +11,6 @@ namespace Okatea\Admin\Filters;
 use Okatea\Tao\Misc\BaseFilters;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups;
 
 class Users extends BaseFilters
@@ -59,7 +58,7 @@ class Users extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array[__('m_users_registration_date')] = 'registration_date';
+		$this->order_by_array[__('c_a_users_registration_date')] = 'registration_date';
 		$this->order_by_array[__('c_c_user_Username')] = 'username';
 		$this->order_by_array[__('c_c_Group')] = 'group_id';
 
@@ -93,7 +92,7 @@ class Users extends BaseFilters
 
 		$this->fields['active'] = array(
 			$this->form_id.'_visibility',
-			__('m_users_filters_status'),
+			__('c_a_users_filters_status'),
 			form::select(
 				array('active',$this->form_id.'_visibility'),
 				array(__('c_c_All')=>2,__('c_c_Enabled')=>1,__('c_c_Disabled')=>0),
@@ -115,12 +114,12 @@ class Users extends BaseFilters
 		$rsGroups = $oUsersGroups->getGroups();
 		$groups_array = array(
 			__('c_c_All') => -1,
-			__('m_users_wait_of_validation') => Authentification::unverified_group_id
+			__('c_a_users_wait_of_validation') => Groups::UNVERIFIED
 		);
 		while ($rsGroups->fetch())
 		{
-			if ($rsGroups->group_id == Authentification::guest_group_id ||
-				$rsGroups->group_id == Authentification::superadmin_group_id && !$this->okt->user->is_superadmin) {
+			if ($rsGroups->group_id == Groups::GUEST ||
+				$rsGroups->group_id == Groups::SUPERADMIN && !$this->okt->user->is_superadmin) {
 				continue;
 			}
 
@@ -172,7 +171,7 @@ class Users extends BaseFilters
 
 		$this->fields['order_by'] = array(
 			$this->form_id.'_order_by',
-			__('m_users_Sorted_by'),
+			__('c_c_sorting_Sorted_by'),
 			form::select(
 				array('order_by', $this->form_id.'_order_by'),
 				$this->order_by_array,
@@ -181,7 +180,7 @@ class Users extends BaseFilters
 
 		$this->fields['order_direction'] = array(
 			$this->form_id.'_order_direction',
-			__('m_users_Order'),
+			__('c_c_sorting_Sort_direction'),
 			form::select(
 				array('order_direction', $this->form_id.'_order_direction'),
 				array(__('c_c_sorting_Descending')=>'desc',__('c_c_sorting_Ascending')=>'asc'),

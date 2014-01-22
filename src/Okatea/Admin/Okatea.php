@@ -225,7 +225,7 @@ class Okatea extends Application
 				$this->checkPerm('users')
 			);
 			$this->page->usersSubMenu->add(
-				__('m_users_Groups'),
+				__('c_a_menu_users_groups'),
 				$this->adminRouter->generate('Users_groups'),
 				$this->request->attributes->get('_route') === 'Users_groups',
 				20,

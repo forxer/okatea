@@ -8,10 +8,11 @@
 
 namespace Okatea\Modules\Users;
 
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Authentification;
-use Okatea\Website\Controller as BaseController;
 use Okatea\Tao\Misc\Mailer;
+use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Users\Groups;
+use Okatea\Website\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -665,7 +666,7 @@ class Controller extends BaseController
 						$template_file = 'registration.tpl';
 					}
 
-					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>Authentification::admin_group_id));
+					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>Groups::ADMIN));
 					while ($rsAdministrators->fetch())
 					{
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
@@ -708,9 +709,9 @@ class Controller extends BaseController
 
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-				Authentification::superadmin_group_id,
-				Authentification::admin_group_id,
-				Authentification::guest_group_id)
+				Groups::SUPERADMIN,
+				Groups::ADMIN,
+				Groups::GUEST)
 		));
 
 		while ($rsGroups->fetch()) {

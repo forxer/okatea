@@ -222,7 +222,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?>">
-				<?php echo $view->escape(Authentification::getUserCN($rsPosts->username, $rsPosts->lastname, $rsPosts->firstname)) ?>
+				<?php echo $view->escape($rsPosts->getPostAuthor()) ?>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?> small nowrap">

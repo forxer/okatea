@@ -10,6 +10,7 @@ namespace Okatea\Tao\Users;
 
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Users\Users;
 
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.
@@ -17,31 +18,6 @@ use Okatea\Tao\Misc\Utilities;
  */
 class Authentification
 {
-	/**
-	 * Identifiant groupe utilisateurs non-vérifiés.
-	 */
-	const unverified_group_id = 0;
-
-	/**
-	 * Identifiant groupe utilisateurs super-admin.
-	 */
-	const superadmin_group_id = 1;
-
-	/**
-	 * Identifiant groupe utilisateurs admin.
-	 */
-	const admin_group_id = 2;
-
-	/**
-	 * Identifiant groupe utilisateurs invités.
-	 */
-	const guest_group_id = 3;
-
-	/**
-	 * Identifiant groupe utilisateurs membres.
-	 */
-	const member_group_id = 4;
-
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -222,7 +198,7 @@ class Authentification
 		if (intval($aCookie['user_id']) > 1 && intval($aCookie['expiration_time']) > $iTsNow)
 		{
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
-
+			
 			# Nous validons maintenans le hash du cookie
 			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
@@ -241,8 +217,8 @@ class Authentification
 
 
 			$this->infos->set('is_guest', false);
-			$this->infos->set('is_admin',($this->infos->f('group_id') == self::superadmin_group_id || $this->infos->f('group_id') == self::admin_group_id));
-			$this->infos->set('is_superadmin',($this->infos->f('group_id') == self::superadmin_group_id));
+			$this->infos->set('is_admin',($this->infos->f('group_id') == Groups::SUPERADMIN || $this->infos->f('group_id') == Groups::ADMIN));
+			$this->infos->set('is_superadmin',($this->infos->f('group_id') == Groups::SUPERADMIN));
 		}
 		# sinon l'utilisateur n'est plus connecté
 		else {
@@ -250,7 +226,7 @@ class Authentification
 		}
 
 		# Store common name
-		$this->infos->set('usedname', self::getUserCN($this->infos->username, $this->infos->lastname, $this->infos->firstname));
+		$this->infos->set('usedname', Users::getUserCN($this->infos->username, $this->infos->lastname, $this->infos->firstname));
 
 		# And finally, store perms array
 		if ($this->infos->f('perms') != '' && !is_array($this->infos->perms)) {
@@ -296,7 +272,7 @@ class Authentification
 	}
 
 	/**
-	 * Set default user informations.
+	 * Set default guest user informations.
 	 *
 	 * @return void
 	 */
@@ -374,7 +350,7 @@ class Authentification
 			}
 		}
 
-		if ($rs->group_id == self::unverified_group_id) {
+		if ($rs->group_id == Groups::UNVERIFIED) {
 			$this->oError->set(__('c_c_auth_account_awaiting_validation'));
 			return false;
 		}
@@ -493,7 +469,7 @@ class Authentification
 			$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
 				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
 				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-				'USERNAME' => self::getUserCN($rs->username, $rs->lastname, $rs->firstname),
+				'USERNAME' => Users::getUserCN($rs->username, $rs->lastname, $rs->firstname),
 				'NEW_PASSWORD' => $sNewPassword,
 				'ACTIVATION_URL' => $sActivateUrl.'?uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
 			));
@@ -681,37 +657,5 @@ class Authentification
 		}
 
 		setcookie($this->sCookieLangName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
-	}
-
-	/**
-	 * Static function that returns user's common name given to his
-	 * <var>username</var>, <var>lastname</var>, <var>firstname</var> and
-	 * <var>displayname</var>.
-	 *
-	 * @param string $sUsername			User name
-	 * @param string $sLastname			User's last name
-	 * @param string $sFirstname		User's first name
-	 * @param string $sDisplayName		User's display name
-	 * @return string
-	*/
-	public static function getUserCN($sUsername, $sLastname, $sFirstname, $sDisplayName=null)
-	{
-		if (!empty($sDisplayName)) {
-			return $sDisplayName;
-		}
-
-		if (!empty($sLastname))
-		{
-			if (!empty($sFirstname)) {
-				return $sFirstname.' '.$sLastname;
-			}
-
-			return $sLastname;
-		}
-		elseif (!empty($sFirstname)) {
-			return $sFirstname;
-		}
-
-		return $sUsername;
 	}
 }

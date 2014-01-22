@@ -117,7 +117,7 @@ class Filters extends BaseFilters
 		$rs = $this->Users->getGroups();
 		$groups_array = array(
 			__('c_c_All') => -1,
-			__('m_users_wait_of_validation') => Authentification::unverified_group_id
+			__('m_users_wait_of_validation') => Groups::UNVERIFIED
 		);
 		while ($rs->fetch())
 		{

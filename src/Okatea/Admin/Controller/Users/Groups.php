@@ -10,6 +10,8 @@ namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Users\Authentification;
+use Okatea\Tao\Users\Groups as UsersGroups;
+use Okatea\Tao\Users\Users;
 
 class Groups extends Controller
 {
@@ -18,6 +20,9 @@ class Groups extends Controller
 		if (!$this->okt->checkPerm('users_groups')) {
 			return $this->serve401();
 		}
+		
+		$oUsers = new Users($this->okt);
+		$oUsersGroups = new UsersGroups($this->okt);
 
 		$iGroupId = $this->okt->request->query->getInt('group_id');
 
@@ -25,8 +30,9 @@ class Groups extends Controller
 
 		$edit_title = '';
 
-		if ($iGroupId) {
-			$group = $this->okt->Users->getGroup($iGroupId);
+		if ($iGroupId) 
+		{
+			$group = $oUsersGroups->getGroup($iGroupId);
 			$edit_title = $group->title;
 		}
 
@@ -41,7 +47,7 @@ class Groups extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$this->okt->Users->addGroup($add_title);
+				$oUsersGroups->addGroup($add_title);
 
 				$this->okt->page->flash->success(__('c_a_users_group_added'));
 
@@ -60,7 +66,7 @@ class Groups extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$this->okt->Users->updGroup($iGroupId, $edit_title);
+				$oUsersGroups->updGroup($iGroupId, $edit_title);
 
 				$this->okt->page->flash->success(__('c_a_users_group_edited'));
 
@@ -73,7 +79,7 @@ class Groups extends Controller
 		{
 			$iGroupIdToDelete = $this->okt->request->query->get('delete_id');
 
-			if (in_array($iGroupIdToDelete, array(Authentification::superadmin_group_id, Authentification::admin_group_id, Authentification::guest_group_id, Authentification::member_group_id))) {
+			if (in_array($iGroupIdToDelete, array(UsersGroups::SUPERADMIN, UsersGroups::ADMIN, UsersGroups::GUEST, UsersGroups::MEMBER))) {
 				$this->okt->error->set(__('c_a_users_cannot_remove_group'));
 			}
 			else
@@ -87,13 +93,15 @@ class Groups extends Controller
 		}
 
 		# Liste des groupes
-		$rsGroups = $this->okt->Users->getGroups();
+		$rsGroups = $oUsersGroups->getGroups();
 
 		return $this->render('Users/Groups', array(
-			'iGroupId' => $iGroupId,
-			'rsGroups' => $rsGroups,
-			'add_title' => $add_title,
-			'edit_title' => $edit_title
+		    'users'          => $oUsers,
+		    'groups'         => $oUsersGroups,
+			'iGroupId'       => $iGroupId,
+			'rsGroups'       => $rsGroups,
+			'add_title'      => $add_title,
+			'edit_title'     => $edit_title
 		));
 	}
 }
