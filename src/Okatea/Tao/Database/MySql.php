@@ -331,7 +331,7 @@ class MySql
 	public function getTables($db_prefix=null)
 	{
 		if (($tablesList = $this->select('SHOW TABLES FROM '.$this->db_name)) === false) {
-			throw new Exception('Unable to retrieve tables '.$this->db->error());
+			throw new \Exception('Unable to retrieve tables '.$this->db->error());
 		}
 
 		$tables = array();

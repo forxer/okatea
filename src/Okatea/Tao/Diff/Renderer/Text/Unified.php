@@ -42,9 +42,9 @@
 
 namespace Okatea\Tao\Diff\Renderer\Text;
 
-use Okatea\Tao\Diff\Renderer;
+use Okatea\Tao\Diff\Renderer\AbstractRenderer;
 
-class Unified extends Renderer
+class Unified extends AbstractRenderer
 {
 	/**
 	 * Render and return a unified diff.

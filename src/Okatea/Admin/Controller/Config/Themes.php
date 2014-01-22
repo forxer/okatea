@@ -11,6 +11,8 @@ namespace Okatea\Admin\Controller\Config;
 use Okatea\Admin\Controller;
 use Okatea\Admin\Filters\Themes as ThemesFilters;
 use Okatea\Admin\Pager;
+use Okatea\Tao\HttpClient;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Themes\Editor\DefinitionsLess;
 
@@ -305,7 +307,7 @@ class Themes extends Controller
 
 					$dest = $this->okt->options->get('themes_dir').'/'.$_FILES['pkg_file']['name'];
 					if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {
-						throw new Exception(__('Unable to move uploaded file.'));
+						throw new \Exception(__('Unable to move uploaded file.'));
 					}
 				}
 				else
@@ -333,7 +335,7 @@ class Themes extends Controller
 						$request->send();
 					}
 					catch( Exception $e) {
-						throw new Exception(__('An error occurred while downloading the file.'));
+						throw new \Exception(__('An error occurred while downloading the file.'));
 					}
 
 					unset($client);

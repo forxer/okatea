@@ -344,7 +344,7 @@ class Collection
 	 * @param string $zip_file
 	 * @param Okatea\Tao\Themes\Collection $oThemes
 	 */
-	public static function installPackage($zip_file, Okatea\Tao\Themes\Collection $oThemes)
+	public static function installPackage($zip_file, Collection $oThemes)
 	{
 		$zip = new \fileUnzip($zip_file);
 		$zip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');

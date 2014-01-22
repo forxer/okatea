@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Themes\Collection as ThemesCollection;
 
 $view->extend('layout');
 

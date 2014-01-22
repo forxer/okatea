@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Html;
 
+use Okatea\Tao\Errors;
 /**
  * Permet de gérer les piles pour les CSS et de retourner le HTML résultant.
  *
@@ -206,7 +207,7 @@ class Css
 		}
 		catch (Exception $e) {
 			$okt->error->set('lessphp fatal error: '.$e->getMessage());
-			oktErrors::fatalScreen($e->getMessage());
+			Errors::fatalScreen($e->getMessage());
 		}
 
 

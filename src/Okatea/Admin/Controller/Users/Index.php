@@ -10,7 +10,7 @@ namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 
 class Index extends Controller
 {

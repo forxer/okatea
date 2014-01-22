@@ -10,6 +10,7 @@ namespace Okatea\Install\Controller;
 
 use Symfony\Component\Yaml\Yaml;
 use Okatea\Install\Controller;
+use Okatea\Tao\Misc\Utilities;
 
 class MergeConfig extends Controller
 {

@@ -131,11 +131,11 @@ class ParametersHolder
 		if ($prefix === 'set')
 		{
 			if (!$arg) {
-				throw new myException(get_class($this).' un second argument est nécessaire pour une méthode set');
+				throw new \Exception(get_class($this).' un second argument est nécessaire pour une méthode set');
 			}
 			return $this->setParameter($key,$arg);
 		}
 
-		throw new myException('notre __call ne gère que les get ou les set ! méthode indéfinie : '.$name);
+		throw new \Exception('notre __call ne gère que les get ou les set ! méthode indéfinie : '.$name);
 	}
 }

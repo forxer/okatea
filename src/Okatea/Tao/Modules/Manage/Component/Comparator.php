@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Modules\Manage\Component;
 
+use Okatea\Tao\Diff\Engine as DiffEngine;
+use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Okatea\Tao\Modules\Manage\Component\ComponentBase;
 
 class Comparator extends ComponentBase

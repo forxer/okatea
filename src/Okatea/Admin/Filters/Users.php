@@ -11,7 +11,7 @@ namespace Okatea\Admin\Filters;
 use Okatea\Tao\Misc\BaseFilters;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 
 class Users extends BaseFilters
 {

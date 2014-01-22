@@ -6,10 +6,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao;
+namespace Okatea\Tao\Users;
 
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\Mailer;
+use Okatea\Tao\Misc\Utilities;
 
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.

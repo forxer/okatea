@@ -9,6 +9,7 @@
 namespace Okatea\Tao;
 
 use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
+use Okatea\Tao\Database\Recordset;
 
 /**
  * Le gestionnnaire de log administration.
@@ -148,7 +149,7 @@ class LogAdmin
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new Okatea\Tao\Database\Recordset(array());
+			return new Recordset(array());
 		}
 
 		if ($bCountOnly) {

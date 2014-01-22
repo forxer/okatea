@@ -66,7 +66,7 @@ class Display extends Controller
 
 					# on supprime l'éventuel répertoire temporaire s'il existe déjà
 					if (is_dir($sTempDir)) {
-						files::deltree($sTempDir);
+						\files::deltree($sTempDir);
 					}
 
 					$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
@@ -76,17 +76,17 @@ class Display extends Controller
 
 					# vérification de l'extension
 					if ($sExtension != 'zip') {
-						throw new Exception(__('c_a_config_display_not_zip_file'));
+						throw new \Exception(__('c_a_config_display_not_zip_file'));
 					}
 
 					# création répertoire temporaire
-					files::makeDir($sTempDir);
+					\files::makeDir($sTempDir);
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sZipFilename)) {
-						throw new Exception(__('c_a_config_display_unable_move_file'));
+						throw new \Exception(__('c_a_config_display_unable_move_file'));
 					}
 
-					$oZip = new fileUnzip($sZipFilename);
+					$oZip = new \fileUnzip($sZipFilename);
 					$oZip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db|development-bundle|js)(/|$)#');
 
 					$zip_root_dir = $oZip->getRootDir();
@@ -110,15 +110,15 @@ class Display extends Controller
 					if ($oZip->isEmpty())
 					{
 						$oZip->close();
-						files::deltree($sTempDir);
-						throw new Exception(__('c_a_config_display_empty_zip_file'));
+						\files::deltree($sTempDir);
+						throw new \Exception(__('c_a_config_display_empty_zip_file'));
 					}
 
 					if (!$hasCssFile)
 					{
 						$oZip->close();
-						files::deltree($sTempDir);
-						throw new Exception(__('c_a_config_display_not_valid_theme'));
+						\files::deltree($sTempDir);
+						throw new \Exception(__('c_a_config_display_not_valid_theme'));
 					}
 
 					$oZip->unzipAll($sTempDir);
@@ -132,12 +132,12 @@ class Display extends Controller
 					rename($sFinalPath.'/'.basename($sTargetDir).'.css', $sFinalPath.'/jquery-ui.css');
 					rename($sFinalPath.'/'.basename($sTargetDir).'.min.css', $sFinalPath.'/jquery-ui.min.css');
 
-					files::deltree($sTempDir);
+					\files::deltree($sTempDir);
 
 					$this->request->request->set('p_admin_theme', 'custom');
 				}
 				catch (Exception $e) {
-					files::deltree($sTempDir);
+					\files::deltree($sTempDir);
 					$this->okt->error->set($e->getMessage());
 				}
 			}

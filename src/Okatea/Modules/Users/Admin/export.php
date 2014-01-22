@@ -7,7 +7,7 @@
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;

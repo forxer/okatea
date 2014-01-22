@@ -45,7 +45,7 @@
 
 namespace Okatea\Tao\Diff;
 
-use Okatea\Tao\Diff\Renderer\Renderer;
+use Okatea\Tao\Diff\Renderer\AbstractRenderer;
 
 class Engine
 {
@@ -97,10 +97,10 @@ class Engine
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param Okatea\Tao\Diff\Renderer\Renderer $renderer An instance of the rendering object to use for generating the diff.
+	 * @param Okatea\Tao\Diff\Renderer\AbstractRenderer $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
-	public function render(Renderer $renderer)
+	public function render(AbstractRenderer $renderer)
 	{
 		$renderer->diff = $this;
 		return $renderer->render();

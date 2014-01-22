@@ -27,7 +27,7 @@ class Filemanager
 
 	function filemanager($root_path,$base_path)
 	{
-		$this->root = path::real($root_path);
+		$this->root = \path::real($root_path);
 		$this->base_path = $this->__cleanPath('/'.$base_path);
 
 		# Type de fichiers images
@@ -44,11 +44,11 @@ class Filemanager
 			$l = array();
 			foreach ($f as $v)
 			{
-				if (($V = path::real($v)) !== false)
+				if (($V = \path::real($v)) !== false)
 					$this->exclude_list[] = $V;
 			}
 		}
-		elseif (($F = path::real($f)) !== false)
+		elseif (($F = \path::real($f)) !== false)
 		{
 			$this->exclude_list[] = $F;
 		}
@@ -102,7 +102,7 @@ class Filemanager
 					$tmp['f'] = is_file($fname);
 					$tmp['d'] = is_dir($fname);
 					$tmp['l'] = $this->__getRelPath($fname);
-					$tmp['del'] = ($file != '.') ? files::isDeletable($fname) : false;
+					$tmp['del'] = ($file != '.') ? \files::isDeletable($fname) : false;
 					$tmp['type'] = $this->__getType($fname);
 				}
 
@@ -153,7 +153,7 @@ class Filemanager
 
 	function isDeletable()
 	{
-		return files::isDeletable($this->root.$this->base_path);
+		return \files::isDeletable($this->root.$this->base_path);
 	}
 
 	function isParentWritable()
@@ -175,12 +175,12 @@ class Filemanager
 	{
 		$name = str_replace('/','',$name);
 
-		return files::makeDir($this->root.$this->base_path.'/'.$name);
+		return \files::makeDir($this->root.$this->base_path.'/'.$name);
 	}
 
 	function putContent($c)
 	{
-		return files::putContent($this->root.$this->base_path,$c);
+		return \files::putContent($this->root.$this->base_path,$c);
 	}
 
 	function rename($name)
@@ -222,7 +222,7 @@ class Filemanager
 
 	function __inJail($f)
 	{
-		if (($f = path::real($f)) !== false)
+		if (($f = \path::real($f)) !== false)
 		{
 			if (preg_match('|^'.preg_quote($this->root,'|').'|',$f))
 				return true;
@@ -237,7 +237,7 @@ class Filemanager
 	{
 		if ($this->__inJail($f))
 		{
-			$f = path::real($f);
+			$f = \path::real($f);
 			return preg_replace('|^'.preg_quote($this->root,'|').'|','',$f);
 		}
 

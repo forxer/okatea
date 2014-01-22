@@ -42,7 +42,9 @@
 
 namespace Okatea\Tao\Diff\Renderer;
 
-class ToArray extends Renderer
+use Okatea\Tao\Diff\Renderer\AbstractRenderer;
+
+class ToArray extends AbstractRenderer
 {
 	/**
 	 * @var array Array of the default options that apply to this renderer.

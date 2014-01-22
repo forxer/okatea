@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 
 class Groups extends Controller
 {

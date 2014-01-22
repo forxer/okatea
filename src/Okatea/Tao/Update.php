@@ -13,7 +13,6 @@
 namespace Okatea\Tao;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Okatea\Tao\Application;
 use Okatea\Tao\HttpClient;
 use Okatea\Tao\Database\XmlSql;
@@ -118,8 +117,8 @@ class Update
 			try {
 				$fs->mkdir($sCacheDir);
 			}
-			catch (IOExceptionInterface $e) {
-				throw new Exception("An error occurred while creating cache directory at ".$e->getPath());
+			catch (IO\ExceptionInterface $e) {
+				throw new \Exception("An error occurred while creating cache directory at ".$e->getPath());
 				return;
 			}
 		}
@@ -137,7 +136,7 @@ class Update
 				return false;
 			}
 		}
-		catch (Exception $e) {
+		catch (\Exception $e) {
 			return false;
 		}
 
@@ -205,20 +204,20 @@ class Update
 	 *
 	 * @param unknown_type $sDigestsFile
 	 * @param unknown_type $sRoot
-	 * @throws Exception
+	 * @throws \Exception
 	 * @return boolean
 	 */
 	public function checkIntegrity($sDigestsFile, $sRoot)
 	{
 		if (!$sDigestsFile) {
-			throw new Exception(__('c_a_update_digests_not_found'));
+			throw new \Exception(__('c_a_update_digests_not_found'));
 		}
 
 		$aChanges = $this->md5sum($sRoot, $sDigestsFile);
 
 		if (!empty($aChanges))
 		{
-			$e = new Exception('Some files have changed.', self::ERR_FILES_CHANGED);
+			$e = new \Exception('Some files have changed.', self::ERR_FILES_CHANGED);
 			$e->bad_files = $aChanges;
 			throw $e;
 		}
@@ -230,18 +229,18 @@ class Update
 	 * Downloads new version to destination $sDest.
 	 *
 	 * @param string $sDest
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function download($sDest)
 	{
 		$sUrl = $this->getFileURL();
 
 		if (!$sUrl) {
-			throw new Exception(__('c_a_update_no_file_to_download'));
+			throw new \Exception(__('c_a_update_no_file_to_download'));
 		}
 
 		if (!is_writable(dirname($sDest))) {
-			throw new Exception(__('c_a_update_root_directory_not_writable'));
+			throw new \Exception(__('c_a_update_root_directory_not_writable'));
 		}
 
 		try
@@ -258,9 +257,9 @@ class Update
 				@unlink($sDest);
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
-			throw new Exception(__('c_a_update_error_occurred_while_downloading'));
+			throw new \Exception(__('c_a_update_error_occurred_while_downloading'));
 		}
 	}
 
@@ -285,23 +284,23 @@ class Update
 	 * @param string $sRoot
 	 * @param string $sRootDigests
 	 * @param string $sDest
-	 * @throws Exception
+	 * @throws \Exception
 	 * @return boolean
 	 */
 	public function backup($sZipFile, $sZipDigests, $sRoot, $sRootDigests, $sDest)
 	{
 		if (!is_readable($sZipFile)) {
-			throw new Exception(__('c_a_update_archive_not_found'));
+			throw new \Exception(__('c_a_update_archive_not_found'));
 		}
 
 		if (!is_readable($sRootDigests)) {
 			@unlink($sZipFile);
-			throw new Exception(__('c_a_update_unable_read_digests'));
+			throw new \Exception(__('c_a_update_unable_read_digests'));
 		}
 
 		# Stop everything if a backup already exists and can not be overrided
 		if (!is_writable(dirname($sDest)) && !file_exists($sDest)) {
-			throw new Exception(__('c_a_update_root_directory_not_writable'));
+			throw new \Exception(__('c_a_update_root_directory_not_writable'));
 		}
 
 		if (file_exists($sDest) && !is_writable($sDest)) {
@@ -313,13 +312,13 @@ class Update
 			return false;
 		}
 
-		$oZip = new fileUnzip($sZipFile);
-		$b_zip = new fileZip($b_fp);
+		$oZip = new \fileUnzip($sZipFile);
+		$b_zip = new \fileZip($b_fp);
 
 		if (!$oZip->hasFile($sZipDigests))
 		{
 			@unlink($sZipFile);
-			throw new Exception(__('c_a_update_downloaded_file_not_valid_archive'));
+			throw new \Exception(__('c_a_update_downloaded_file_not_valid_archive'));
 		}
 
 		$opts = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
@@ -343,7 +342,7 @@ class Update
 
 			try {
 				$b_zip->addFile($sRoot.'/'.$file, $file);
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				$aNotReadable[] = $file;
 			}
 		}
@@ -351,7 +350,7 @@ class Update
 		# If only one file is not readable, stop everything now
 		if (!empty($aNotReadable))
 		{
-			$e = new Exception('Some files are not readable.', self::ERR_FILES_UNREADABLE);
+			$e = new \Exception('Some files are not readable.', self::ERR_FILES_UNREADABLE);
 			$e->bad_files = $aNotReadable;
 			throw $e;
 		}
@@ -371,25 +370,25 @@ class Update
 	 * @param string $sZipRoot
 	 * @param string $sRoot
 	 * @param string $sRootDigests
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function performUpgrade($sZipFile, $sZipDigests, $sZipRoot, $sRoot, $sRootDigests)
 	{
 		if (!is_readable($sZipFile)) {
-			throw new Exception(__('Archive not found.'));
+			throw new \Exception(__('Archive not found.'));
 		}
 
 		if (!is_readable($sRootDigests)) {
 			@unlink($sZipFile);
-			throw new Exception(__('Unable to read current digests file.'));
+			throw new \Exception(__('Unable to read current digests file.'));
 		}
 
-		$oZip = new fileUnzip($sZipFile);
+		$oZip = new \fileUnzip($sZipFile);
 
 		if (!$oZip->hasFile($sZipDigests))
 		{
 			@unlink($sZipFile);
-			throw new Exception(__('Downloaded file does not seem to be a valid archive.'));
+			throw new \Exception(__('Downloaded file does not seem to be a valid archive.'));
 		}
 
 		# force /install dir
@@ -422,7 +421,7 @@ class Update
 
 			if (!$oZip->hasFile($sZipRoot.'/'.$file)) {
 				@unlink($sZipFile);
-				throw new Exception(__('c_a_update_incomplete_archive'));
+				throw new \Exception(__('c_a_update_incomplete_archive'));
 			}
 
 			$sDest = $sDest_dir = $sRoot.'/'.$file;
@@ -440,7 +439,7 @@ class Update
 		# If only one file is not writable, stop everything now
 		if (!empty($aNotWritable))
 		{
-			$e = new Exception('Some files are not writable', self::ERR_FILES_UNWRITALBE);
+			$e = new \Exception('Some files are not writable', self::ERR_FILES_UNWRITALBE);
 			$e->bad_files = $aNotWritable;
 			throw $e;
 		}
@@ -491,7 +490,7 @@ class Update
 				$this->aVersionInfo['info'] = isset($r['info']) ? (string) $r['info'] : null;
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}
@@ -500,7 +499,7 @@ class Update
 	protected function md5sum($sRoot, $sDigestsFile)
 	{
 		if (!is_readable($sDigestsFile)) {
-			throw new Exception(__('c_a_update_unable_read_digests'));
+			throw new \Exception(__('c_a_update_unable_read_digests'));
 		}
 
 		$opts = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
@@ -525,7 +524,7 @@ class Update
 
 		# No checksum found in digests file
 		if (empty($md5)) {
-			throw new Exception(__('c_a_update_invalid_digests'));
+			throw new \Exception(__('c_a_update_invalid_digests'));
 		}
 
 		return $changes;

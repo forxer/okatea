@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao;
 
+use Okatea\Tao\Database\Recordset;
+
 /**
  * Le gestionnnaire de langues.
  *
@@ -222,7 +224,7 @@ class Languages
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new Okatea\Tao\Database\Recordset(array());
+			return new Recordset(array());
 		}
 
 		if ($count_only) {

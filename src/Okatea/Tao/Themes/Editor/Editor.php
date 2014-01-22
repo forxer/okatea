@@ -135,7 +135,7 @@ class Editor
 	public function loadTheme($sThemeId)
 	{
 		if (!isset($this->aThemes[$sThemeId])) {
-			throw new Exception(sprintf(__('c_a_te_error_theme_%s_not_exists'), $sThemeId));
+			throw new \Exception(sprintf(__('c_a_te_error_theme_%s_not_exists'), $sThemeId));
 		}
 
 		$this->sThemeId = $sThemeId;
@@ -273,7 +273,7 @@ class Editor
 	public function loadFile($sFilename)
 	{
 		if (!file_exists($this->sThemePath.$sFilename)) {
-			throw new Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sFilename));
+			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sFilename));
 		}
 
 		$this->sFilename = $sFilename;
@@ -380,7 +380,7 @@ class Editor
 	public function restoreBackupFile($sBackupFile)
 	{
 		if (!in_array($sBackupFile,$this->aBackupFiles)) {
-			throw new Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
+			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
 
 		$this->makeBackup();
@@ -393,7 +393,7 @@ class Editor
 	public function deleteBackupFile($sBackupFile)
 	{
 		if (!in_array($sBackupFile,$this->aBackupFiles)) {
-			throw new Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
+			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
 
 		unlink($this->sThemePath.$sBackupFile);

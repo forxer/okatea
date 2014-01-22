@@ -12,7 +12,7 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\Utilities;

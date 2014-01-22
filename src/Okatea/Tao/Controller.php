@@ -10,6 +10,7 @@ namespace Okatea\Tao;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Okatea\Tao\Application;
 
 /**

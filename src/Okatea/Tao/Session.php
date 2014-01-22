@@ -9,6 +9,7 @@
 namespace Okatea\Tao;
 
 use Symfony\Component\HttpFoundation\Session\Session as BaseSession;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 class Session extends BaseSession
 {

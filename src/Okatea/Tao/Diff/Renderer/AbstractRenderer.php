@@ -42,7 +42,7 @@
 
 namespace Okatea\Tao\Diff\Renderer;
 
-abstract class Renderer
+abstract class AbstractRenderer
 {
 	/**
 	 * @var object Instance of the diff class that this renderer is generating the rendered diff for.

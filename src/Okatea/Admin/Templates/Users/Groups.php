@@ -1,6 +1,6 @@
 <?php
 
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');

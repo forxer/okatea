@@ -465,7 +465,7 @@ class TemplatesSet
 		{
 			set_time_limit(0);
 			$fp = fopen('php://output','wb');
-			$zip = new fileZip($fp);
+			$zip = new \fileZip($fp);
 			$zip->addExclusion('#(^|/).svn$#');
 			$zip->addDirectory($aTplInfos['dir'],'',true);
 

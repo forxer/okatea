@@ -83,7 +83,7 @@ class FileUpload
 	private function checkFile($sExtension)
 	{
 		if (!in_array($sExtension,$this->config['allowed_exts'])) {
-			throw new Exception('Type de fichier non-autorisé.');
+			throw new \Exception('Type de fichier non-autorisé.');
 		}
 	}
 
@@ -119,13 +119,13 @@ class FileUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					files::makeDir($this->upload_dir, true);
+					\files::makeDir($this->upload_dir, true);
 				}
 
 				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
-					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				$aFiles[$j] = array(
@@ -184,23 +184,23 @@ class FileUpload
 				# vérification du type
 //				$aAllowedTypes = array('image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
 //				if (!in_array($sUploadedFile['type'], $aAllowedTypes)) {
-//					throw new Exception('Type de fichier non-autorisé.');
+//					throw new \Exception('Type de fichier non-autorisé.');
 //				}
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					files::makeDir($this->upload_dir, true);
+					\files::makeDir($this->upload_dir, true);
 				}
 
 				# suppression de l'éventuel ancien fichier
-				if (isset($aCurrentFiles[$i]) && files::isDeletable($this->upload_dir.'/'.$aCurrentFiles[$i])) {
+				if (isset($aCurrentFiles[$i]) && \files::isDeletable($this->upload_dir.'/'.$aCurrentFiles[$i])) {
 					unlink($this->upload_dir.'/'.$aCurrentFiles[$i]);
 				}
 
 				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
-					throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
+					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
 
 				$aNewFiles[$j] = array(

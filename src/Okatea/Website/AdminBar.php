@@ -9,7 +9,7 @@
 namespace Okatea\Website;
 
 use Okatea\Admin\Router as AdminRouter;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Misc\Utilities;
 

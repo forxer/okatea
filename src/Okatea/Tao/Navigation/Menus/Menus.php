@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Navigation\Menus;
 
+use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\Utilities;
 
 /**
@@ -126,7 +127,7 @@ class Menus
 	 * Retourne une liste de menus sous forme de recordset.
 	 *
 	 * @param array $aParams
-	 * @return Okatea\Tao\Database\Recordset
+	 * @return Recordset
 	 */
 	public function getMenus(array $aParams=array())
 	{
@@ -165,7 +166,7 @@ class Menus
 		'GROUP BY m.id ';
 
 		if (($rs = $this->db->select($sQuery)) === false) {
-			return new Okatea\Tao\Database\Recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -176,7 +177,7 @@ class Menus
 	 *
 	 * @param integer $iMenuId
 	 * @param integer $iActive
-	 * @return Okatea\Tao\Database\Recordset
+	 * @return Recordset
 	 */
 	public function getMenu($iMenuId, $iActive=2)
 	{
@@ -212,7 +213,7 @@ class Menus
 		$oCursor = $this->openMenuCursor($aData);
 
 		if (!$oCursor->insert()) {
-			throw new Exception('Unable to insert menu into database.');
+			throw new \Exception('Unable to insert menu into database.');
 		}
 
 		return $this->db->getLastID();
@@ -227,13 +228,13 @@ class Menus
 	public function updMenu($aData)
 	{
 		if (!$this->menuExists($aData['id'])) {
-			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $aData['id']));
+			throw new \Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $aData['id']));
 		}
 
 		$oCursor = $this->openMenuCursor($aData);
 
 		if (!$oCursor->update('WHERE id='.(integer)$aData['id'])) {
-			throw new Exception('Unable to update menu into database.');
+			throw new \Exception('Unable to update menu into database.');
 		}
 
 		return true;
@@ -263,7 +264,7 @@ class Menus
 	public function switchMenuStatus($iMenuId)
 	{
 		if (!$this->menuExists($iMenuId)) {
-			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+			throw new \Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 		}
 
 		$query =
@@ -272,7 +273,7 @@ class Menus
 		'WHERE id='.(integer)$iMenuId;
 
 		if (!$this->db->execute($query)) {
-			throw new Exception('Unable to update menu into database.');
+			throw new \Exception('Unable to update menu into database.');
 		}
 
 		return true;
@@ -287,7 +288,7 @@ class Menus
 	public function delMenu($iMenuId)
 	{
 		if (!$this->menuExists($iMenuId)) {
-			throw new Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+			throw new \Exception(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 		}
 
 		# first, remove items
@@ -306,7 +307,7 @@ class Menus
 		'WHERE id='.(integer)$iMenuId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to delete menu from database.');
+			throw new \Exception('Unable to delete menu from database.');
 		}
 
 		$this->db->optimize($this->t_menus);
@@ -338,7 +339,7 @@ class Menus
 	 * Retourne une liste d'éléments sous forme de recordset.
 	 *
 	 * @param array $aParams
-	 * @return Okatea\Tao\Database\Recordset
+	 * @return Recordset
 	 */
 	public function getItems(array $aParams=array())
 	{
@@ -387,7 +388,7 @@ class Menus
 		}
 
 		if (($rs = $this->db->select($sQuery, 'Okatea\Tao\Navigation\Menus\ItemsRecordset')) === false) {
-			$rs = new Okatea\Tao\Navigation\Menus\ItemsRecordset(array());
+			$rs = new ItemsRecordset(array());
 		}
 
 		$rs->setCore($this->okt);
@@ -428,7 +429,7 @@ class Menus
 	 * Retourne les localisations d'un élément donné.
 	 *
 	 * @param integer $iItemId
-	 * @return Okatea\Tao\Database\Recordset
+	 * @return Recordset
 	 */
 	public function getItemI18n($iItemId)
 	{
@@ -437,7 +438,7 @@ class Menus
 		'WHERE item_id='.(integer)$iItemId;
 
 		if (($rs = $this->db->select($query)) === false) {
-			$rs = new Okatea\Tao\Database\Recordset(array());
+			$rs = new Recordset(array());
 			return $rs;
 		}
 
@@ -458,14 +459,14 @@ class Menus
 		$rs = $this->db->select($sQuery);
 
 		if ($rs->isEmpty()) {
-			throw new Exception('Unable to retrieve max ord from database.');
+			throw new \Exception('Unable to retrieve max ord from database.');
 		}
 
 		$max_ord = $rs->f(0);
 		$oCursor->ord = (integer)($max_ord+1);
 
 		if (!$oCursor->insert()) {
-			throw new Exception('Unable to insert item into database.');
+			throw new \Exception('Unable to insert item into database.');
 		}
 
 		$iItemId = $this->db->getLastID();
@@ -484,13 +485,13 @@ class Menus
 	public function updItem($aData)
 	{
 		if (!$this->itemExists($aData['item']['id'])) {
-			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aData['item']['id']));
+			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aData['item']['id']));
 		}
 
 		$oCursor = $this->openItemCursor($aData['item']);
 
 		if (!$oCursor->update('WHERE id='.(integer)$aData['item']['id'])) {
-			throw new Exception('Unable to update item into database.');
+			throw new \Exception('Unable to update item into database.');
 		}
 
 		$this->setItemI18n($aData['item']['id'], $aData['locales']);
@@ -541,7 +542,7 @@ class Menus
 	public function delItem($iItemId)
 	{
 		if (!$this->itemExists($iItemId)) {
-			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
 		}
 
 		$sQuery =
@@ -549,7 +550,7 @@ class Menus
 		'WHERE id='.(integer)$iItemId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to delete item from database.');
+			throw new \Exception('Unable to delete item from database.');
 		}
 
 		$this->db->optimize($this->t_items);
@@ -559,7 +560,7 @@ class Menus
 		'WHERE item_id='.(integer)$iItemId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new Exception('Unable to delete item locales from database.');
+			throw new \Exception('Unable to delete item locales from database.');
 		}
 
 		$this->db->optimize($this->t_items_locales);
@@ -577,7 +578,7 @@ class Menus
 	public function setItemStatus($iItemId, $iStatus)
 	{
 		if (!$this->itemExists($iItemId)) {
-			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
 		}
 
 		$iStatus = ($iStatus == 1) ? 1 : 0;
@@ -588,7 +589,7 @@ class Menus
 		'WHERE id='.(integer)$iItemId;
 
 		if (!$this->db->execute($query)) {
-			throw new Exception('Unable to update item in database.');
+			throw new \Exception('Unable to update item in database.');
 		}
 
 		return true;
@@ -604,7 +605,7 @@ class Menus
 	public function updItemOrder($iItemId, $iPosition)
 	{
 		if (!$this->itemExists($iItemId)) {
-			throw new Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
 		}
 
 		$query =
@@ -613,7 +614,7 @@ class Menus
 		'WHERE id='.(integer)$iItemId;
 
 		if (!$this->db->execute($query)) {
-			throw new Exception('Unable to update item in database.');
+			throw new \Exception('Unable to update item in database.');
 		}
 
 		return true;
@@ -640,7 +641,7 @@ class Menus
 			}
 
 			if (!$oCursor->insertUpdate()) {
-				throw new Exception('Unable to insert item locales in database for '.$aLanguage['code'].' language.');
+				throw new \Exception('Unable to insert item locales in database for '.$aLanguage['code'].' language.');
 			}
 		}
 	}

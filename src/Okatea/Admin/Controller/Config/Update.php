@@ -86,7 +86,7 @@ class Update extends Controller
 				if ($this->request->request->has('b_del'))
 				{
 					if (!@unlink($this->okt->options->get('root_dir').'/'.$b_file)) {
-						throw new Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Utilities::escapeHTML($b_file)));
+						throw new \Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Utilities::escapeHTML($b_file)));
 					}
 
 					return $this->redirect($sBaseSelfUrl);
@@ -94,7 +94,7 @@ class Update extends Controller
 
 				if ($this->request->request->has('b_revert'))
 				{
-					$zip = new fileUnzip($this->okt->options->get('root_dir').'/'.$b_file);
+					$zip = new \fileUnzip($this->okt->options->get('root_dir').'/'.$b_file);
 					$zip->unzipAll($this->okt->options->get('root_dir').'/');
 					@unlink($this->okt->options->get('root_dir').'/'.$b_file);
 
@@ -124,7 +124,7 @@ class Update extends Controller
 
 				if (!$updater->checkDownload($zip_file))
 				{
-					throw new Exception(
+					throw new \Exception(
 						sprintf(__('c_a_update_downloaded_archive_corrupted'), 'href="'.$sBaseSelfUrl.'&step=download"')
 					);
 				}

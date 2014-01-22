@@ -8,7 +8,7 @@
 use Okatea\Admin\Page;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Authentification;
+use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Misc\Mailer;
 
 # Accès direct interdit

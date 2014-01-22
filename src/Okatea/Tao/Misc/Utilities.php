@@ -57,7 +57,7 @@ class Utilities
 	public static function uploadStatus($aFile)
 	{
 		if (!isset($aFile['error'])) {
-			throw new Exception(__('c_c_upload_error_1'));
+			throw new \Exception(__('c_c_upload_error_1'));
 		}
 
 		switch ($aFile['error'])
@@ -68,24 +68,19 @@ class Utilities
 
 			case UPLOAD_ERR_INI_SIZE:
 			case UPLOAD_ERR_FORM_SIZE:
-				throw new Exception(__('c_c_upload_error_2'));
-				return false;
+				throw new \Exception(__('c_c_upload_error_2'));
 
 			case UPLOAD_ERR_PARTIAL:
-				throw new Exception(__('c_c_upload_error_3'));
-				return false;
+				throw new \Exception(__('c_c_upload_error_3'));
 
 			case UPLOAD_ERR_NO_FILE:
-				throw new Exception(__('c_c_upload_error_4'));
-				return false;
+				throw new \Exception(__('c_c_upload_error_4'));
 
 			case UPLOAD_ERR_NO_TMP_DIR:
-				throw new Exception(__('c_c_upload_error_5'));
-				return false;
+				throw new \Exception(__('c_c_upload_error_5'));
 
 			case UPLOAD_ERR_CANT_WRITE:
-				throw new Exception(__('c_c_upload_error_6'));
-				return false;
+				throw new \Exception(__('c_c_upload_error_6'));
 		}
 	}
 

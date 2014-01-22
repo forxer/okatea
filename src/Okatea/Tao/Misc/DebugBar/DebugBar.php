@@ -15,6 +15,7 @@ use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\ExceptionsCollector;
+use Symfony\Component\HttpFoundation\Response;
 
 class DebugBar extends BaseDebugBar
 {
@@ -119,7 +120,7 @@ class DebugBar extends BaseDebugBar
 	 *
 	 * @param Exception $e
 	 */
-	public function addException(Exception $e)
+	public function addException(\Exception $e)
 	{
 		if ($this->hasCollector('exceptions')) {
 			$this->getCollector('exceptions')->addException($e);

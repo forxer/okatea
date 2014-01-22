@@ -220,7 +220,7 @@ class Tools extends Controller
 		if ($sPublicCacheFile && in_array($sPublicCacheFile, $this->aPublicCacheFiles))
 		{
 			if (is_dir($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile)) {
-				files::deltree($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
+				\files::deltree($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
 			}
 			else {
 				unlink($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
@@ -293,7 +293,7 @@ class Tools extends Controller
 		//		@ini_set('memory_limit',-1);
 				set_time_limit(0);
 
-				$zip = new fileZip($fp);
+				$zip = new \fileZip($fp);
 
 				//$zip->addExclusion('#(^|/).(.*?)_(m|s|sq|t).jpg$#');
 				$zip->addExclusion('#(^|/)_notes$#');

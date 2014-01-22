@@ -675,7 +675,7 @@ class Modules extends Controller
 				if ($upload_pkg)
 				{
 					if (array_key_exists($pkg_file->getClientOriginalName(), $this->aUninstalledModules)) {
-						throw new Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
+						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
 					$pkg_file->move($this->okt->options->get('modules_dir'));
@@ -695,7 +695,7 @@ class Modules extends Controller
 					$dest = $this->okt->options->get('modules_dir').'/'.basename($url);
 
 					if (array_key_exists(basename($url), $aUninstalledModules)) {
-						throw new Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
+						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
 					try
@@ -707,7 +707,7 @@ class Modules extends Controller
 						));
 					}
 					catch( Exception $e) {
-						throw new Exception(__('An error occurred while downloading the file.'));
+						throw new \Exception(__('An error occurred while downloading the file.'));
 					}
 
 					unset($client);

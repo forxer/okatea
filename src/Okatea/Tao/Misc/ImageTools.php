@@ -30,7 +30,7 @@ class ImageTools
 	public function __construct()
 	{
 		if (!function_exists('imagegd2')) {
-			throw new Exception('GD is not installed');
+			throw new \Exception('GD is not installed');
 		}
 		$this->res = null;
 	}
@@ -61,7 +61,7 @@ class ImageTools
 	public function loadImage($f)
 	{
 		if (!file_exists($f)) {
-			throw new Exception('Image '.$f.' doest not exists');
+			throw new \Exception('Image '.$f.' doest not exists');
 		}
 
 		if (($info = @getimagesize($f)) !== false)
@@ -86,7 +86,7 @@ class ImageTools
 		}
 
 		if (!is_resource($this->res)) {
-			throw new Exception('Unable to load image');
+			throw new \Exception('Unable to load image');
 		}
 	}
 
@@ -117,14 +117,14 @@ class ImageTools
 		$mem_limit = @ini_get('memory_limit');
 		if ($mem_used || $mem_limit)
 		{
-			$mem_limit = files::str2bytes($mem_limit);
+			$mem_limit = \files::str2bytes($mem_limit);
 			$mem_avail = $mem_limit-$mem_used-(512*1024);
 			$mem_needed = $w*$h*8;
 
 			if ($mem_needed > $mem_avail)
 			{
 				if (@ini_set('memory_limit',$mem_limit+$mem_needed+$mem_used) === false) {
-					throw new Exception(__('Not enough memory to open image.'));
+					throw new \Exception(__('Not enough memory to open image.'));
 				}
 
 				if (!$this->memory_limit) {

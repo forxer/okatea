@@ -42,9 +42,9 @@
 
 namespace Okatea\Tao\Diff\Renderer\Text;
 
-use Okatea\Tao\Diff\Renderer;
+use Okatea\Tao\Diff\Renderer\AbstractRenderer;
 
-class Context extends Renderer
+class Context extends AbstractRenderer
 {
 	/**
 	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
