@@ -478,7 +478,7 @@ class Controller extends BaseController
 		if (!empty($_POST['sended']) && empty($_POST['user_id']) && empty($_POST['user_pwd'])) {
 			$this->okt->error->set(__('c_c_auth_please_enter_username_password'));
 		}
-		else if (!empty($_POST['user_id']) && !empty($_POST['user_pwd']))
+		elseif (!empty($_POST['user_id']) && !empty($_POST['user_pwd']))
 		{
 			$this->sUserId = $_POST['user_id'];
 			$user_remember = !empty($_POST['user_remember']) ? true : false;

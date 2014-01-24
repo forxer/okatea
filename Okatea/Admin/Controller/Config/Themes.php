@@ -356,7 +356,7 @@ class Themes extends Controller
 		}
 
 		# Bootstrap a theme
-		else if (!empty($_POST['bootstrap']))
+		elseif (!empty($_POST['bootstrap']))
 		{
 			try {
 				$this->oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));

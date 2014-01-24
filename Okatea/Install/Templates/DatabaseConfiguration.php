@@ -30,7 +30,7 @@ $okt->page->js->addReady('
 			$("#dev-part").addClass("unselectedPart").removeClass("selectedPart");
 			$("#prod-part").addClass("selectedPart").removeClass("unselectedPart");
 		}
-		else if ($("#connect_dev").is(":checked")) {
+		elseif ($("#connect_dev").is(":checked")) {
 			$("#dev-part").addClass("selectedPart").removeClass("unselectedPart");
 			$("#prod-part").addClass("unselectedPart").removeClass("selectedPart");
 		}

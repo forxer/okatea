@@ -72,7 +72,7 @@ if (!empty($_POST['sended']) && !empty($_POST['p_theme']) && isset($aInstalledTh
 }
 
 # Theme upload
-else if ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config->themes_repositories_enabled))
+elseif ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config->themes_repositories_enabled))
 {
 	try
 	{
@@ -106,7 +106,7 @@ else if ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config-
 		$okt->error->set($e->getMessage());
 	}
 }
-else if (!empty($_POST['bootstrap']))
+elseif (!empty($_POST['bootstrap']))
 {
 	try {
 		$theme = $oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));

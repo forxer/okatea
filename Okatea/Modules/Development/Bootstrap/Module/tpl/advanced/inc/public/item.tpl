@@ -41,7 +41,7 @@ $okt->page->action = 'item';
 if ($rsItem->meta_description != '') {
 	$okt->page->meta_description = $rsItem->meta_description;
 }
-else if ($okt->##module_id##->config->meta_description != '') {
+elseif ($okt->##module_id##->config->meta_description != '') {
 	$okt->page->meta_description = $okt->##module_id##->config->meta_description;
 }
 else {
@@ -53,7 +53,7 @@ else {
 if ($rsItem->meta_keywords != '') {
 	$okt->page->meta_keywords = $rsItem->meta_keywords;
 }
-else if ($okt->##module_id##->config->meta_keywords != '') {
+elseif ($okt->##module_id##->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->##module_id##->config->meta_keywords;
 }
 else {

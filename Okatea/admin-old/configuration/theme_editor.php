@@ -24,7 +24,7 @@ define('ON_THEME_EDITOR',true);
 if (!empty($_REQUEST['new_file'])) {
 	require __DIR__.'/theme_editor/new_file.php';
 }
-else if (!empty($_REQUEST['new_template']))
+elseif (!empty($_REQUEST['new_template']))
 {
 	$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.theme.editor');
 

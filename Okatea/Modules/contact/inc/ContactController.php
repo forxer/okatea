@@ -79,7 +79,7 @@ class ContactController extends Controller
 				if ($this->okt->contact->rsFields->active == 2 && empty($this->okt->contact->aPostedData[$this->okt->contact->rsFields->id])) {
 					$this->okt->error->set('Vous devez renseigner le champ "'.html::escapeHtml($this->okt->contact->rsFields->title).'".');
 				}
-				else if ($this->okt->contact->rsFields->id == 4 && !text::isEmail($this->okt->contact->aPostedData[4])) {
+				elseif ($this->okt->contact->rsFields->id == 4 && !text::isEmail($this->okt->contact->aPostedData[4])) {
 					$this->okt->error->set('Veuillez saisir une adresse email valide.');
 				}
 			}

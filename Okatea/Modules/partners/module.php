@@ -887,7 +887,7 @@ class module_partners extends Module
 				$this->setCategoryStatus($childrens->id,0);
 			}
 		}
-		else if ($rsCategory->parent_id != 0)
+		elseif ($rsCategory->parent_id != 0)
 		{
 			$rsParent = $this->getCategory($rsCategory->parent_id);
 

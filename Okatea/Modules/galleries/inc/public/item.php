@@ -74,7 +74,7 @@ if ($okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
 if ($rsItem->meta_description != '') {
 	$okt->page->meta_description = $rsItem->meta_description;
 }
-else if ($okt->galleries->config->meta_description != '') {
+elseif ($okt->galleries->config->meta_description != '') {
 	$okt->page->meta_description = $okt->galleries->config->meta_description;
 }
 else {
@@ -86,7 +86,7 @@ else {
 if ($rsItem->meta_keywords != '') {
 	$okt->page->meta_keywords = $rsItem->meta_keywords;
 }
-else if ($okt->galleries->config->meta_keywords != '') {
+elseif ($okt->galleries->config->meta_keywords != '') {
 	$okt->page->meta_keywords = $okt->galleries->config->meta_keywords;
 }
 else {

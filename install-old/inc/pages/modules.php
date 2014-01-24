@@ -95,7 +95,7 @@ if (!empty($_POST['sended']))
 }
 
 # Plugin upload
-else if (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config->modules_repositories_enabled)
+elseif (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config->modules_repositories_enabled)
 {
 	try
 	{
