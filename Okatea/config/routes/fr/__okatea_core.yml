@@ -1,0 +1,49 @@
+# default Okatea routes
+# do not remove this file
+
+homePage:
+    path:     /
+    defaults: { controller: 'Okatea\Website\Controller::homePage' }
+
+401:
+    path:     /401
+    defaults: { controller: 'Okatea\Website\Controller::serve401' }
+
+404:
+    path:     /404
+    defaults: { controller: 'Okatea\Website\Controller::serve404' }
+
+503:
+    path:     /503
+    defaults: { controller: 'Okatea\Website\Controller::serve503' }
+
+usersLogin:
+    path:     /connexion
+    defaults: { controller: 'Okatea\Website\UsersController::usersLogin' }
+
+usersLogout:
+    path:     /deconnexion
+    defaults: { controller: 'Okatea\Website\UsersController::usersLogout' }
+
+usersProfile:
+    path:     /profil
+    defaults: { controller: 'Okatea\Website\UsersController::usersProfile' }
+
+usersRegister:
+    path:     /inscription
+    defaults: { controller: 'Okatea\Website\UsersController::usersRegister' }
+
+usersLoginRegister:
+    path:     /connexion-inscription
+    defaults: { controller: 'Okatea\Website\UsersController::usersLoginRegister' }
+
+usersForgetPassword:
+    path:     /mot-de-passe-oublie
+    defaults: { controller: 'Okatea\Website\UsersController::usersForgetPassword' }
+
+remove_trailing_slash:
+    path:     /{url}
+    defaults: { controller: 'Okatea\Tao\Controller::removeTrailingSlash' }
+    requirements:
+        url: .*/$
+        _method: GET

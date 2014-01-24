@@ -24,34 +24,34 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # oktatea
-/src/.htaccess
-/src/oktOptions.custom.php
+/.htaccess
+/oktOptions.custom.php
 
 # oktatea config
-/src/Okatea/config/connexion.php
-/src/Okatea/config/conf_*.yml
-!/src/Okatea/config/conf_site.yml
-/src/Okatea/config/routes/*/*.yml
-!/src/Okatea/config/routes/*/__okatea_core.yml
-/src/Okatea/config/routes_admin/*.yml
-!/src/Okatea/config/routes/*/__okatea_core.yml
+/Okatea/config/connexion.php
+/Okatea/config/conf_*.yml
+!/Okatea/config/conf_site.yml
+/Okatea/config/routes/*/*.yml
+!/Okatea/config/routes/*/__okatea_core.yml
+/Okatea/config/routes_admin/*.yml
+!/Okatea/config/routes/*/__okatea_core.yml
 
 # oktatea cache
-/src/Okatea/cache/**
-!/src/Okatea/cache/.gitkeep
+/Okatea/cache/**
+!/Okatea/cache/.gitkeep
 
 # oktatea assets
-/src/oktPublic/cache/**
-!/src/oktPublic/cache/index.html
-/src/oktPublic/components/**
-!/src/oktPublic/components/index.html
-/src/oktPublic/modules/**
-!/src/oktPublic/modules/index.html
-/src/oktPublic/upload/**
-!/src/oktPublic/upload/index.html
+/oktPublic/cache/**
+!/oktPublic/cache/index.html
+/oktPublic/components/**
+!/oktPublic/components/index.html
+/oktPublic/modules/**
+!/oktPublic/modules/index.html
+/oktPublic/upload/**
+!/oktPublic/upload/index.html
 
 # oktatea build
 /build/
 
 # vendor
-/src/vendor/
+/vendor/

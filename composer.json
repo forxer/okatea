@@ -1,0 +1,63 @@
+{
+	"name" : "okatea/okatea",
+	"description" : "Another modular CMS in PHP",
+	"type" : "project",
+	"keywords" : [
+		"cms",
+		"modular",
+		"php"
+	],
+	"homepage" : "http://okatea.org",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Vincent Garnier",
+			"email" : "contact@okatea.org"
+		}
+	],
+	"support" : {
+		"email" : "contact@okatea.org",
+		"issues" : "https://github.com/forxer/okatea/issues"
+	},
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=5.4.0",
+		"doctrine/dbal" : "2.5.*@dev",
+		"dotclear/clearbricks" : "dev-default",
+		"dunglas/php-socialshare" : "dev-master",
+		"erusev/parsedown" : "dev-master",
+		"ezyang/htmlpurifier" : "dev-master",
+		"guzzle/guzzle" : "~3.7",
+		"imagine/imagine" : "0.6.*@dev",
+		"ircmaxell/password-compat" : "dev-master",
+		"jdorn/sql-formatter" : "1.3.*@dev",
+		"leafo/lessphp" : "0.4.*",
+		"maximebf/debugbar" : "1.*",
+		"mobiledetect/mobiledetectlib" : "dev-master",
+		"monolog/monolog" : "1.7.*@dev",
+		"nesbot/carbon" : "dev-master",
+		"simplepie/simplepie" : "dev-master",
+		"swiftmailer/swiftmailer" : "5.1.*@dev",
+		"symfony/config" : "2.5.*@dev",
+		"symfony/debug" : "2.5.*@dev",
+		"symfony/filesystem" : "2.5.*@dev",
+		"symfony/finder" : "2.5.*@dev",
+		"symfony/http-foundation" : "2.5.*@dev",
+		"symfony/routing" : "2.5.*@dev",
+		"symfony/templating" : "2.5.*@dev",
+		"symfony/yaml" : "2.5.*@dev"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Okatea\\" : "Okatea"
+		},
+		"classmap" : [
+			"vendor/dotclear/clearbricks/common",
+			"vendor/dotclear/clearbricks/filemanager",
+			"vendor/dotclear/clearbricks/image",
+			"vendor/dotclear/clearbricks/zip"
+		],
+		"files" : [
+			"Okatea/functions.php"
+		]
+	}
+}
