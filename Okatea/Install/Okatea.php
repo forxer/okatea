@@ -22,7 +22,7 @@ use Okatea\Install\Routing\Router;
 use Okatea\Tao\Application;
 use Okatea\Tao\ApplicationOptions;
 use Okatea\Tao\Errors;
-use Okatea\Tao\Localisation;
+use Okatea\Tao\Localization;
 use Okatea\Tao\Session;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Misc\FlashMessages;
@@ -96,7 +96,7 @@ class Okatea extends Application
 			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
 		}
 
-		$this->l10n = new Localisation($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
+		$this->l10n = new Localization($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
 
 		$this->l10n->loadFile(__DIR__.'/Locales/'.$this->session->get('okt_install_language').'/install');
 

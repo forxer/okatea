@@ -636,22 +636,43 @@ class Users
 	 */
 	public static function getUserCN($sUsername, $sLastname, $sFirstname, $sDisplayName=null)
 	{
-	    if (!empty($sDisplayName)) {
-	        return $sDisplayName;
-	    }
-	
-	    if (!empty($sLastname))
-	    {
-	        if (!empty($sFirstname)) {
-	            return $sFirstname.' '.$sLastname;
-	        }
-	
-	        return $sLastname;
-	    }
-	    elseif (!empty($sFirstname)) {
-	        return $sFirstname;
-	    }
-	
-	    return $sUsername;
+		if (!empty($sDisplayName)) {
+			return $sDisplayName;
+		}
+
+		if (!empty($sLastname))
+		{
+			if (!empty($sFirstname)) {
+				return $sFirstname.' '.$sLastname;
+			}
+
+			return $sLastname;
+		}
+		elseif (!empty($sFirstname)) {
+			return $sFirstname;
+		}
+
+		return $sUsername;
+	}
+
+	/**
+	 * Retourne la liste des civilités.
+	 *
+	 * @param boolean $flip
+	 * @return array
+	 */
+	public static function getCivilities($flip=false)
+	{
+		$a = array(
+			1 => __('c_c_user_civility_1'),
+			2 => __('c_c_user_civility_2'),
+			3 => __('c_c_user_civility_3')
+		);
+
+		if ($flip) {
+			$a = array_flip($a);
+		}
+
+		return $a;
 	}
 }

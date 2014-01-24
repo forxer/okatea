@@ -469,7 +469,7 @@ class Application
 			return true;
 		}
 
-		return in_array($permissions,$this->user->perms);
+		return in_array($permissions, $this->user->perms);
 	}
 
 

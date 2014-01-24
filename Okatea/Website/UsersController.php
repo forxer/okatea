@@ -185,7 +185,7 @@ class Controller extends BaseController
 		}
 
 		# allready logged
-		if (!$this->okt->user->is_guest && !defined('OKT_DONT_REDIRECT_IF_LOGGED')) {
+		if (!$this->okt->user->is_guest) {
 			$this->performRedirect();
 		}
 
@@ -464,7 +464,7 @@ class Controller extends BaseController
 	 */
 	protected function handleGuest()
 	{
-		if (!$this->okt->user->is_guest && !defined('OKT_DONT_REDIRECT_IF_LOGGED')) {
+		if (!$this->okt->user->is_guest) {
 			$this->performRedirect();
 		}
 	}
@@ -629,7 +629,6 @@ class Controller extends BaseController
 
 				$oMail->send();
 
-
 				# Initialisation du mailer et envoi du mail à l'administrateur
 				if ($this->okt->config->users_registration['mail_new_registration'])
 				{
@@ -658,7 +657,6 @@ class Controller extends BaseController
 						$oMail->send();
 					}
 				}
-
 
 				# eventuel connexion du nouvel utilisateur
 				if (!$this->okt->config->users_registration['validate_users_registration'] && $this->okt->config->users_registration['auto_log_after_registration']) {
