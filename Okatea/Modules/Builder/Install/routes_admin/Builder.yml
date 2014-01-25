@@ -1,0 +1,8 @@
+
+Okatea_builder:
+    path:     /builder
+    defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Builder::page' }
+
+Okatea_builder_config:
+    path:     /builder
+    defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Config::page' }

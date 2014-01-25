@@ -129,7 +129,9 @@ class Okatea extends Application
 				'code' => 0
 			));
 
-			return $this->response = new RedirectResponse($this->adminRouter->generate('login'));
+			$this->response = new RedirectResponse($this->adminRouter->generate('login'));
+
+			return false;
 		}
 
 		# Vérification de l'utilisateur en cours sur les parties de l'administration où l'utilisateur doit être identifié
@@ -215,7 +217,7 @@ class Okatea extends Application
 			($this->checkPerm('users')),
 			null,
 			($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
-			$this->options->public_url.'/modules/Users/module_icon.png'
+			$this->options->public_url.'/img/admin/users.png'
 		);
 			$this->page->usersSubMenu->add(
 				__('c_a_menu_management'),
@@ -396,7 +398,17 @@ class Okatea extends Application
 		# -- CORE TRIGGER : adminBeforeCallController
 		$this->triggers->callTrigger('adminBeforeCallController');
 
-		$this->response = $this->adminRouter->callController();
+		# Special case : user lang switch
+		if (null !== $sLanguage = $this->request->query->get('lang'))
+		{
+			$this->user->setUserLang($sLanguage);
+
+			$this->response = new RedirectResponse($this->adminRouter->generate($this->request->attributes->get('_route')));
+		}
+		# else, call the controller
+		else {
+			$this->response = $this->adminRouter->callController();
+		}
 
 		if (null === $this->response || false === $this->response)
 		{

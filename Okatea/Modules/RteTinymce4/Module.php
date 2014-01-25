@@ -32,7 +32,7 @@ class Module extends BaseModule
 
 		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Modules\RteTinymce4\Module','tinyMCE'));
 
-		# on ajoutent un item au menu admin
+		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(

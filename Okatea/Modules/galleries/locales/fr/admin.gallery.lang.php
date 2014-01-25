@@ -31,7 +31,7 @@ $GLOBALS['okt_l10n']['m_galleries_gallery_image_title_in_%s'] = 'Titre de l’im
 $GLOBALS['okt_l10n']['m_galleries_gallery_image_alt_text'] = 'Texte alternatif de l’image';
 $GLOBALS['okt_l10n']['m_galleries_gallery_image_alt_text_in_%s'] = 'Texte alternatif de l’image en %s';
 $GLOBALS['okt_l10n']['m_galleries_gallery_delete_image'] = 'Supprimer cette image';
-$GLOBALS['okt_l10n']['m_galleries_gallery_delete_image_confirm'] = 'Etes-vous sûr de vouloir supprimer cette images ? Cette action est irréversible.';
+$GLOBALS['okt_l10n']['m_galleries_gallery_delete_image_confirm'] = 'Etes-vous sûr de vouloir supprimer cette image ? Cette action est irréversible.';
 
 $GLOBALS['okt_l10n']['m_galleries_gallery_options'] = 'Options';
 $GLOBALS['okt_l10n']['m_galleries_gallery_options_title'] = 'Options de la galerie';
@@ -41,7 +41,7 @@ $GLOBALS['okt_l10n']['m_galleries_gallery_parent'] = 'Galerie parent';
 $GLOBALS['okt_l10n']['m_galleries_gallery_password'] = 'Mot de passe';
 $GLOBALS['okt_l10n']['m_galleries_gallery_password_empty'] = 'Laissez vide pour ne pas utiliser de mot de passe';
 
-$GLOBALS['okt_l10n']['m_galleries_gallery_locked'] = 'Vérrouillée';
+$GLOBALS['okt_l10n']['m_galleries_gallery_locked'] = 'Verrouillée';
 
 $GLOBALS['okt_l10n']['m_galleries_gallery_tpl'] = 'Modèle d’affichage';
 $GLOBALS['okt_l10n']['m_galleries_gallery_items_tpl'] = 'Modèle d’affichage des éléments de cette galerie';

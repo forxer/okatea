@@ -221,7 +221,7 @@ class Page extends BasePage
 					continue;
 				}
 
-				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'switch_lang='.Utilities::escapeHTML($aLanguage['code']).'" title="'.Utilities::escapeHTML($aLanguage['title']).'">'.
+				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'lang='.Utilities::escapeHTML($aLanguage['code']).'" title="'.Utilities::escapeHTML($aLanguage['title']).'">'.
 						'<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" /></a>';
 			}
 

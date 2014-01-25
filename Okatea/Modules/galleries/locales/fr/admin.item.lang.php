@@ -32,7 +32,7 @@ $GLOBALS['okt_l10n']['m_galleries_item_image_title_in_%s'] = 'Titre de l’image
 $GLOBALS['okt_l10n']['m_galleries_item_image_alt_text'] = 'Texte alternatif de l’image';
 $GLOBALS['okt_l10n']['m_galleries_item_image_alt_text_in_%s'] = 'Texte alternatif de l’image en %s';
 $GLOBALS['okt_l10n']['m_galleries_item_delete_image'] = 'Supprimer cette image';
-$GLOBALS['okt_l10n']['m_galleries_item_delete_image_confirm'] = 'Etes-vous sûr de vouloir supprimer cette images ? Cette action est irréversible.';
+$GLOBALS['okt_l10n']['m_galleries_item_delete_image_confirm'] = 'Etes-vous sûr de vouloir supprimer cette image ? Cette action est irréversible.';
 
 $GLOBALS['okt_l10n']['m_galleries_item_gallery'] = 'Galerie';
 

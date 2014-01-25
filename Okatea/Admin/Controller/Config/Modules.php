@@ -258,7 +258,7 @@ class Modules extends Controller
 
 		# activation du module
 		$oInstallModule->checklist->addItem(
-			'add_module_to_db',
+			'enable_module',
 			$this->okt->modules->enableModule($sModuleId),
 			'Enable module',
 			'Cannot enable module'
@@ -406,7 +406,7 @@ class Modules extends Controller
 
 		# activation du module
 		$oInstallModule->checklist->addItem(
-			'add_module_to_db',
+			'enable_module',
 			$this->okt->modules->enableModule($sModuleId),
 			'Enable module',
 			'Cannot enable module'

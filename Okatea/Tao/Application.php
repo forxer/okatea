@@ -47,7 +47,7 @@ use Okatea\Website\Router;
  */
 class Application
 {
-	const version = '2.0-beta3';
+	const VERSION = '2.0-beta3';
 
 	/**
 	 * L'instance de l'autoloader.
@@ -292,7 +292,7 @@ class Application
 
 	public function getVersion()
 	{
-		return self::version;
+		return self::VERSION;
 	}
 
 	/**

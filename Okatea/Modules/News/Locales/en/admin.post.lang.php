@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 $GLOBALS['okt_l10n']['m_news_post_add_a_post'] = 'Add a post';
 $GLOBALS['okt_l10n']['m_news_post_edit_a_post'] = 'Edit a post';

@@ -100,7 +100,7 @@ class Collection
 		$this->cache_id = 'modules';
 		$this->cache_repo_id = 'modules_repositories';
 
-		$this->t_modules = $okt->db->prefix.'core_modules';
+		$this->t_modules = $okt->db->prefix.'core_extensions';
 
 		$this->path = $path;
 	}
@@ -147,14 +147,14 @@ class Collection
 
 		while ($rsModules->fetch())
 		{
-			$aModulesList[$rsModules->f('module_id')] = array(
-				'id' 			=> $rsModules->f('module_id'),
-				'root'			=> $this->path.'/'.$rsModules->f('module_id'),
-				'name'			=> $rsModules->f('module_name'),
-				'version'		=> $rsModules->f('module_version'),
-				'desc'			=> $rsModules->f('module_description'),
-				'author'		=> $rsModules->f('module_author'),
-				'status'		=> $rsModules->f('module_status')
+			$aModulesList[$rsModules->f('id')] = array(
+				'id' 			=> $rsModules->f('id'),
+				'root'			=> $this->path.'/'.$rsModules->f('id'),
+				'name'			=> $rsModules->f('name'),
+				'version'		=> $rsModules->f('version'),
+				'desc'			=> $rsModules->f('description'),
+				'author'		=> $rsModules->f('author'),
+				'status'		=> $rsModules->f('status')
 			);
 		}
 
@@ -305,7 +305,7 @@ class Collection
 			$this->complete_list[$this->id] = array(
 				'id' 			=> $this->id,
 				'root' 			=> $this->mroot,
-				'name' 			=> (!empty($aParams['name']) ? $aParams['name'] : $this->_id),
+				'name' 			=> (!empty($aParams['name']) ? $aParams['name'] : $this->id),
 				'desc' 			=> (!empty($aParams['desc']) ? $aParams['desc'] : null),
 				'version' 		=> (!empty($aParams['version']) ? $aParams['version'] : null),
 				'author' 		=> (!empty($aParams['author']) ? $aParams['author'] : null),
@@ -323,22 +323,22 @@ class Collection
 	 */
 	public function getModulesFromDB($params=array())
 	{
-		$reqPlus = 'WHERE 1 ';
+		$reqPlus = 'WHERE type=\'module\' ';
 
 		if (!empty($params['mod_id'])) {
-			$reqPlus .= 'AND module_id=\''.$this->db->escapeStr($params['mod_id']).'\' ';
+			$reqPlus .= 'AND id=\''.$this->db->escapeStr($params['mod_id']).'\' ';
 		}
 
 		if (!empty($params['status'])) {
-			$reqPlus .= 'AND module_status='.(integer)$params['status'].' ';
+			$reqPlus .= 'AND status='.(integer)$params['status'].' ';
 		}
 
 		$strReq =
-		'SELECT module_id, module_name, module_description, module_author, '.
-		'module_version, module_priority, module_updatable, module_status '.
+		'SELECT id, name, description, author, '.
+		'version, priority, updatable, status '.
 		'FROM '.$this->t_modules.' '.
 		$reqPlus.
-		'ORDER BY module_priority ASC, module_id ASC ';
+		'ORDER BY priority ASC, id ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
 			return new Recordset(array());
@@ -360,18 +360,18 @@ class Collection
 
 		while ($rsInstalledModules->fetch())
 		{
-			$aInstalledModules[$rsInstalledModules->module_id] = array(
-				'id' 			=> $rsInstalledModules->module_id,
-				'root' 			=> $this->path.'/'.$rsInstalledModules->module_id.'/',
-				'name' 			=> $rsInstalledModules->module_name,
-				'name_l10n' 	=> __($rsInstalledModules->module_name),
-				'desc' 			=> $rsInstalledModules->module_description,
-				'desc_l10n' 	=> __($rsInstalledModules->module_description),
-				'author' 		=> $rsInstalledModules->module_author,
-				'version' 		=> $rsInstalledModules->module_version,
-				'priority' 		=> $rsInstalledModules->module_priority,
-				'status' 		=> $rsInstalledModules->module_status,
-				'updatable' 	=> $rsInstalledModules->module_updatable
+			$aInstalledModules[$rsInstalledModules->id] = array(
+				'id' 			=> $rsInstalledModules->id,
+				'root' 			=> $this->path.'/'.$rsInstalledModules->id.'/',
+				'name' 			=> $rsInstalledModules->name,
+				'name_l10n' 	=> __($rsInstalledModules->name),
+				'desc' 			=> $rsInstalledModules->description,
+				'desc_l10n' 	=> __($rsInstalledModules->description),
+				'author' 		=> $rsInstalledModules->author,
+				'version' 		=> $rsInstalledModules->version,
+				'priority' 		=> $rsInstalledModules->priority,
+				'status' 		=> $rsInstalledModules->status,
+				'updatable' 	=> $rsInstalledModules->updatable
 			);
 		}
 
@@ -401,12 +401,12 @@ class Collection
 	 * @param integer $status
 	 * @return booolean
 	 */
-	public function addModule($id,$version,$name='',$desc='',$author='',$priority=1000,$status=0)
+	public function addModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
 	{
 		$query =
 		'INSERT INTO '.$this->t_modules.' ('.
-			'module_id, module_name, module_description, module_author, '.
-			'module_version, module_priority, module_status'.
+			'id, name, description, author, '.
+			'version, priority, status, type'.
 		') VALUES ('.
 			'\''.$this->db->escapeStr($id).'\', '.
 			'\''.$this->db->escapeStr($name).'\', '.
@@ -414,7 +414,8 @@ class Collection
 			'\''.$this->db->escapeStr($author).'\', '.
 			'\''.$this->db->escapeStr($version).'\', '.
 			(integer)$priority.', '.
-			(integer)$status.' '.
+			(integer)$status.', '.
+			'\'module\''.
 		') ';
 
 		if ($this->db->execute($query) === false) {
@@ -436,17 +437,17 @@ class Collection
 	 * @param integer $status
 	 * @return boolean
 	 */
-	public function updModule($id,$version,$name='',$desc='',$author='',$priority=1000,$status=null)
+	public function updModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = null)
 	{
 		$query =
 		'UPDATE '.$this->t_modules.' SET '.
-			'module_name=\''.$this->db->escapeStr($name).'\', '.
-			'module_description=\''.$this->db->escapeStr($desc).'\', '.
-			'module_author=\''.$this->db->escapeStr($author).'\', '.
-			'module_version=\''.$this->db->escapeStr($version).'\', '.
-			'module_priority='.(integer)$priority.', '.
-			'module_status='.($status === null ? 'module_status' : (integer)$status).' '.
-		'WHERE module_id=\''.$this->db->escapeStr($id).'\' ';
+			'name=\''.$this->db->escapeStr($name).'\', '.
+			'description=\''.$this->db->escapeStr($desc).'\', '.
+			'author=\''.$this->db->escapeStr($author).'\', '.
+			'version=\''.$this->db->escapeStr($version).'\', '.
+			'priority='.(integer)$priority.', '.
+			'status='.($status === null ? 'status' : (integer)$status).' '.
+		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
 		if ($this->db->execute($query) === false) {
 			return false;
@@ -465,8 +466,8 @@ class Collection
 	{
 		$query =
 		'UPDATE '.$this->t_modules.' SET '.
-			'module_status=1 '.
-		'WHERE module_id=\''.$this->db->escapeStr($id).'\' ';
+			'status=1 '.
+		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
 		if ($this->db->execute($query) === false) {
 			return false;
@@ -485,8 +486,8 @@ class Collection
 	{
 		$query =
 		'UPDATE '.$this->t_modules.' SET '.
-			'module_status=0 '.
-		'WHERE module_id=\''.$this->db->escapeStr($id).'\' ';
+			'status=0 '.
+		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
 		if ($this->db->execute($query) === false) {
 			return false;
@@ -505,7 +506,7 @@ class Collection
 	{
 		$query =
 		'DELETE FROM '.$this->t_modules.' '.
-		'WHERE module_id=\''.$this->db->escapeStr($id).'\' ';
+		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
 		if ($this->db->execute($query) === false) {
 			return false;

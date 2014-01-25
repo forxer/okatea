@@ -58,7 +58,7 @@ $okt->page->js->addScript('
 			$("#themePreviewNotification").remove();
 		}
 		// sinon on affichent la notification
-		elseif ($("#themePreviewNotification").size() == 0) {
+		else if ($("#themePreviewNotification").size() == 0) {
 			$("label[for=p_admin_theme]").append("<span id=\"themePreviewNotification\"> (apercu)</span>");
 		}
 
