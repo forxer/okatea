@@ -28,16 +28,16 @@ class Module extends BaseModule
 		{
 			$this->okt->page->configSubMenu->add(
 				__('m_builder_menu'),
-				$this->okt->adminRouter->generate('Okatea_builder'),
-				$this->okt->request->attributes->get('_route') === 'Okatea_builder',
+				$this->okt->adminRouter->generate('Builder'),
+				$this->okt->request->attributes->get('_route') === 'Builder',
 				141,
 				$this->okt->checkPerm('okatea_builder'),
 				null
 			);
 			$this->okt->page->configSubMenu->add(
 				__('m_builder_menu_config'),
-				$this->okt->adminRouter->generate('Okatea_builder_config'),
-				$this->okt->request->attributes->get('_route') === 'Okatea_builder_config',
+				$this->okt->adminRouter->generate('Builder_config'),
+				$this->okt->request->attributes->get('_route') === 'Builder_config',
 				142,
 				$this->okt->checkPerm('okatea_builder'),
 				null

@@ -57,31 +57,31 @@ class module_accessible_captcha extends Module
 			'publicModuleContactControllerStart' =>
 				array('module_accessible_captcha','publicControllerStart'),
 			'publicModuleContactControllerFormCheckValues' =>
-				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+				array('module_accessible_captcha','publicControllerFormCheckValues'),
 			'publicModuleContactJsValidateRules' =>
-				 array('module_accessible_captcha','publicJsValidateRules'),
+				array('module_accessible_captcha','publicJsValidateRules'),
 			'publicModuleContactTplFormBottom' =>
-				 array('module_accessible_captcha','publicTplFormBottom'),
+				array('module_accessible_captcha','publicTplFormBottom'),
 
 			# behaviors estimate
 			'publicModuleEstimateControllerStart' =>
-				 array('module_accessible_captcha','publicControllerStart'),
+				array('module_accessible_captcha','publicControllerStart'),
 			'publicModuleEstimateControllerFormCheckValues' =>
-				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+				array('module_accessible_captcha','publicControllerFormCheckValues'),
 			'publicModuleEstimateJsValidateRules' =>
-				 array('module_accessible_captcha','publicJsValidateRules'),
+				array('module_accessible_captcha','publicJsValidateRules'),
 			'publicModuleEstimateTplFormBottom' =>
-				 array('module_accessible_captcha','publicTplFormBottom'),
+				array('module_accessible_captcha','publicTplFormBottom'),
 
 			# behaviors livre d'or
 			'publicModuleGuestbookControllerStart' =>
-				 array('module_accessible_captcha','publicControllerStart'),
+				array('module_accessible_captcha','publicControllerStart'),
 			'publicModuleGuestbookControllerFormCheckValues' =>
-				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+				array('module_accessible_captcha','publicControllerFormCheckValues'),
 			'publicModuleGuestbookJsValidateRules' =>
-				 array('module_accessible_captcha','publicJsValidateRules'),
+				array('module_accessible_captcha','publicJsValidateRules'),
 			'publicModuleGuestbookTplFormBottom' =>
-				 array('module_accessible_captcha','publicTplFormBottom')
+				array('module_accessible_captcha','publicTplFormBottom')
 		));
 	}
 
@@ -189,7 +189,7 @@ class module_accessible_captcha extends Module
 		}
 
 		if (($rs = $this->db->select($query)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
