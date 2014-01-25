@@ -54,22 +54,34 @@ class module_accessible_captcha extends Module
 		$this->okt->page->addCaptcha('accessible_captcha',__('Accessible Captcha'), array(
 
 			# behaviors page contact
-			'publicModuleContactControllerStart' => array('module_accessible_captcha','publicControllerStart'),
-			'publicModuleContactControllerFormCheckValues' => array('module_accessible_captcha','publicControllerFormCheckValues'),
-			'publicModuleContactJsValidateRules' => array('module_accessible_captcha','publicJsValidateRules'),
-			'publicModuleContactTplFormBottom' => array('module_accessible_captcha','publicTplFormBottom'),
+			'publicModuleContactControllerStart' =>
+				array('module_accessible_captcha','publicControllerStart'),
+			'publicModuleContactControllerFormCheckValues' =>
+				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+			'publicModuleContactJsValidateRules' =>
+				 array('module_accessible_captcha','publicJsValidateRules'),
+			'publicModuleContactTplFormBottom' =>
+				 array('module_accessible_captcha','publicTplFormBottom'),
 
 			# behaviors estimate
-			'publicModuleEstimateControllerStart' => array('module_accessible_captcha','publicControllerStart'),
-			'publicModuleEstimateControllerFormCheckValues' => array('module_accessible_captcha','publicControllerFormCheckValues'),
-			'publicModuleEstimateJsValidateRules' => array('module_accessible_captcha','publicJsValidateRules'),
-			'publicModuleEstimateTplFormBottom' => array('module_accessible_captcha','publicTplFormBottom'),
+			'publicModuleEstimateControllerStart' =>
+				 array('module_accessible_captcha','publicControllerStart'),
+			'publicModuleEstimateControllerFormCheckValues' =>
+				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+			'publicModuleEstimateJsValidateRules' =>
+				 array('module_accessible_captcha','publicJsValidateRules'),
+			'publicModuleEstimateTplFormBottom' =>
+				 array('module_accessible_captcha','publicTplFormBottom'),
 
 			# behaviors livre d'or
-			'publicModuleGuestbookControllerStart' => array('module_accessible_captcha','publicControllerStart'),
-			'publicModuleGuestbookControllerFormCheckValues' => array('module_accessible_captcha','publicControllerFormCheckValues'),
-			'publicModuleGuestbookJsValidateRules' => array('module_accessible_captcha','publicJsValidateRules'),
-			'publicModuleGuestbookTplFormBottom' => array('module_accessible_captcha','publicTplFormBottom')
+			'publicModuleGuestbookControllerStart' =>
+				 array('module_accessible_captcha','publicControllerStart'),
+			'publicModuleGuestbookControllerFormCheckValues' =>
+				 array('module_accessible_captcha','publicControllerFormCheckValues'),
+			'publicModuleGuestbookJsValidateRules' =>
+				 array('module_accessible_captcha','publicJsValidateRules'),
+			'publicModuleGuestbookTplFormBottom' =>
+				 array('module_accessible_captcha','publicTplFormBottom')
 		));
 	}
 

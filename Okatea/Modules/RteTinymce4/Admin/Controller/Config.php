@@ -22,20 +22,20 @@ class Config extends Controller
 		{
 			try
 			{
-				$okt->RteTinymce4->config->write(array(
+				$this->okt->RteTinymce4->config->write(array(
 					'width' 		=> $this->request->request->get('p_width'),
 					'height' 		=> $this->request->request->get('p_height'),
 					'content_css' 	=> $this->request->request->get('p_content_css')
 				));
 
-				$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
 				$this->redirect($this->generateUrl('RteTinymce4_config'));
 			}
 			catch (InvalidArgumentException $e)
 			{
-				$okt->error->set(__('c_c_error_writing_configuration'));
-				$okt->error->set($e->getMessage());
+				$this->okt->error->set(__('c_c_error_writing_configuration'));
+				$this->okt->error->set($e->getMessage());
 			}
 		}
 
