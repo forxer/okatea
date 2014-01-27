@@ -14,7 +14,7 @@ use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Website\Controller as BaseController;
 
-class Controller extends BaseController
+class UsersController extends BaseController
 {
 	protected $sRedirectUrl;
 	protected $sUserId = '';
@@ -31,10 +31,6 @@ class Controller extends BaseController
 	{
 		parent::__construct($okt);
 
-		$this->page->meta_description = $this->page->getSiteMetaDesc();
-
-		$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
-
 		$this->defineRedirectUrl();
 	}
 
@@ -42,30 +38,20 @@ class Controller extends BaseController
 	 * Affichage de la page d'identification.
 	 *
 	 */
-	public function usersLogin()
+	public function login()
 	{
 		# page désactivée ?
-		if (!$this->okt->users->config->enable_login_page) {
+		if (!$this->okt->config->users_pages['login']) {
 			return $this->serve404();
 		}
 
-		# allready logged
-		$this->handleGuest();
+		# allready logged ?
+		if (!$this->okt->user->is_guest) {
+			return $this->performRedirect();
+		}
 
-		$this->performLogin();
-
-		# title tag
-		$this->page->addTitleTag(__('c_c_auth_login'));
-
-		# titre de la page
-		$this->page->setTitle(__('c_c_auth_login'));
-
-		# titre SEO de la page
-		$this->page->setTitleSeo(__('c_c_auth_login'));
-
-		# fil d'ariane
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_auth_login'), $this->okt->router->generateLoginUrl());
+		if ($this->performLogin() === true) {
+			return $this->performRedirect();
 		}
 
 		# affichage du template
@@ -79,7 +65,7 @@ class Controller extends BaseController
 	 * Affichage de la page de déconnexion.
 	 *
 	 */
-	public function usersLogout()
+	public function logout()
 	{
 		# déconnexion et redirection
 		$this->okt->user->logout();
@@ -91,31 +77,19 @@ class Controller extends BaseController
 	 * Affichage de la page d'inscription.
 	 *
 	 */
-	public function usersRegister()
+	public function register()
 	{
 		# page désactivée ?
-		if (!$this->okt->users->config->enable_register_page) {
+		if (!$this->okt->config->users_pages['register']) {
 			return $this->serve404();
 		}
 
-		# allready logged
-		$this->handleGuest();
+		# allready logged ?
+		if (!$this->okt->user->is_guest) {
+			return $this->performRedirect();
+		}
 
 		$this->performRegister();
-
-		# title tag
-		$this->page->addTitleTag(__('c_c_auth_register'));
-
-		# titre de la page
-		$this->page->setTitle(__('c_c_auth_register'));
-
-		# titre SEO de la page
-		$this->page->setTitleSeo(__('c_c_auth_register'));
-
-		# fil d'ariane
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_auth_register'), $this->okt->router->generateLoginUrl());
-		}
 
 		# affichage du template
 		return $this->render($this->okt->users->getRegisterTplPath(), array(
@@ -133,33 +107,23 @@ class Controller extends BaseController
 	 * Affichage de la page d'identification et d'inscription unifiée.
 	 *
 	 */
-	public function usersLoginRegister()
+	public function loginRegister()
 	{
 		# page désactivée ?
-		if (!$this->okt->users->config->enable_login_page || !$this->okt->users->config->enable_register_page) {
+		if (!$this->okt->config->users_pages['log_reg'] || !$this->okt->config->users_pages['login'] || !$this->okt->config->users_pages['register']) {
 			return $this->serve404();
 		}
 
-		# allready logged
-		$this->handleGuest();
+		# allready logged ?
+		if (!$this->okt->user->is_guest) {
+			return $this->performRedirect();
+		}
 
-		$this->performLogin();
+		if ($this->performLogin() === true) {
+			return $this->performRedirect();
+		}
 
 		$this->performRegister();
-
-		# title tag
-		$this->page->addTitleTag(__('c_c_auth_login').' / '.__('c_c_auth_register'));
-
-		# titre de la page
-		$this->page->setTitle(__('c_c_auth_login').' / '.__('c_c_auth_register'));
-
-		# titre SEO de la page
-		$this->page->setTitleSeo(__('c_c_auth_login').' / '.__('c_c_auth_register'));
-
-		# fil d'ariane
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_auth_login').' / '.__('c_c_auth_register'), '');
-		}
 
 		# affichage du template
 		return $this->render($this->okt->users->getLoginRegisterTplPath(), array(
@@ -176,16 +140,16 @@ class Controller extends BaseController
 	 * Affichage de la page de récupération de mot de passe perdu.
 	 *
 	 */
-	public function usersForgetPassword()
+	public function forgetPassword()
 	{
 		# page désactivée ?
-		if (!$this->okt->users->config->enable_forget_password_page) {
+		if (!$this->okt->config->users_pages['forget_password']) {
 			return $this->serve404();
 		}
 
-		# allready logged
+		# allready logged ?
 		if (!$this->okt->user->is_guest) {
-			$this->performRedirect();
+			return $this->performRedirect();
 		}
 
 		$password_sended = false;
@@ -208,20 +172,6 @@ class Controller extends BaseController
 			}
 		}
 
-		# title tag
-		$this->page->addTitleTag(__('c_c_auth_request_password'));
-
-		# titre de la page
-		$this->page->setTitle(__('c_c_auth_request_password'));
-
-		# titre SEO de la page
-		$this->page->setTitleSeo(__('c_c_auth_request_password'));
-
-		# fil d'ariane
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_auth_request_password'), $this->generateUrl('usersForgetPassword'));
-		}
-
 		# affichage du template
 		return $this->render($this->okt->users->getForgottenPasswordTplPath(), array(
 			'password_sended' => $password_sended,
@@ -233,10 +183,10 @@ class Controller extends BaseController
 	 * Affichage de la page de profil utilisateur.
 	 *
 	 */
-	public function usersProfile()
+	public function profile()
 	{
 		# page désactivée ?
-		if (!$this->okt->users->config->enable_profile_page) {
+		if (!$this->okt->config->users_pages['profile']) {
 			return $this->serve404();
 		}
 
@@ -246,29 +196,29 @@ class Controller extends BaseController
 		}
 
 		# données utilisateur
-		$rsUser = $this->okt->users->getUser($this->okt->user->id);
+//		$rsUser = $this->okt->users->getUser($this->okt->user->id);
 
 		$aUserProfilData = array(
-			'id' => $this->okt->user->id,
-			'username' => $rsUser->username,
-			'email' => $rsUser->email,
-			'civility' => $rsUser->civility,
-			'lastname' => $rsUser->lastname,
-			'firstname' => $rsUser->firstname,
-			'displayname' => $rsUser->displayname,
-			'language' => $rsUser->language,
-			'timezone' => $rsUser->timezone,
-			'password' => '',
+			'id'             => $this->okt->user->id,
+			'username'       => $this->okt->user->username,
+			'email'          => $this->okt->user->email,
+			'civility'       => $this->okt->user->civility,
+			'lastname'       => $this->okt->user->lastname,
+			'firstname'      => $this->okt->user->firstname,
+			'displayname'    => $this->okt->user->displayname,
+			'language'       => $this->okt->user->language,
+			'timezone'       => $this->okt->user->timezone,
+			'password'       => '',
 			'password_confirm' => ''
 		);
 
-		unset($rsUser);
+//		unset($rsUser);
 
 		# Champs personnalisés
 		$aPostedData = array();
 		$aFieldsValues = array();
 
-		if ($this->okt->users->config->enable_custom_fields)
+		if ($this->okt->config->users_custom_fields_enabled)
 		{
 			$this->rsAdminFields = $this->okt->users->fields->getFields(array(
 				'status' => true,
@@ -362,7 +312,7 @@ class Controller extends BaseController
 			}
 
 			# peuplement et vérification des champs personnalisés obligatoires
-			if ($this->okt->users->config->enable_custom_fields) {
+			if ($this->okt->config->users_custom_fields_enabled) {
 				$this->okt->users->fields->getPostData($this->rsUserFields, $aPostedData);
 			}
 
@@ -371,7 +321,7 @@ class Controller extends BaseController
 				# -- CORE TRIGGER : adminModUsersProfileProcess
 				$this->okt->triggers->callTrigger('adminModUsersProfileProcess', $_POST);
 
-				if ($this->okt->users->config->enable_custom_fields)
+				if ($this->okt->config->users_custom_fields_enabled)
 				{
 					while ($this->rsUserFields->fetch()) {
 						$this->okt->users->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
@@ -388,22 +338,8 @@ class Controller extends BaseController
 		# langues
 		$aLanguages = $this->getLanguages();
 
-		# title tag
-		$this->page->addTitleTag(__('c_c_user_profile'));
-
-		# titre de la page
-		$this->page->setTitle(__('c_c_user_profile'));
-
-		# titre SEO de la page
-		$this->page->setTitleSeo(__('c_c_user_profile'));
-
-		# fil d'ariane
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add(__('c_c_user_profile'), $this->generateUrl('usersProfile'));
-		}
-
 		# affichage du template
-		return $this->render($this->okt->users->getProfileTplPath(), array(
+		return $this->render('Users/profile/'.$this->okt->config->users_templates['profile']['default'].'/template', array(
 			'aUserProfilData' => $aUserProfilData,
 			'aTimezone' => $aTimezone,
 			'aLanguages' => $aLanguages,
@@ -432,7 +368,7 @@ class Controller extends BaseController
 			$sRedirectUrl = $this->session->get('okt_redirect_url');
 		}
 		else {
-			$sRedirectUrl = $this->page->generateUrl('homePage');
+			$sRedirectUrl = $this->generateUrl('homePage');
 		}
 
 		$this->sRedirectURL = $sRedirectUrl;
@@ -460,17 +396,6 @@ class Controller extends BaseController
 	}
 
 	/**
-	 * Redirige l'utilisateur si il est logué.
-	 *
-	 */
-	protected function handleGuest()
-	{
-		if (!$this->okt->user->is_guest) {
-			$this->performRedirect();
-		}
-	}
-
-	/**
 	 * Réalise une connexion.
 	 *
 	 */
@@ -485,7 +410,7 @@ class Controller extends BaseController
 			$user_remember = !empty($_POST['user_remember']) ? true : false;
 
 			if ($this->okt->user->login($this->sUserId, $_POST['user_pwd'], $user_remember)) {
-				$this->performRedirect();
+				return true;
 			}
 		}
 		else {
@@ -515,7 +440,7 @@ class Controller extends BaseController
 		);
 
 		# Champs personnalisés
-		if ($this->okt->users->config->enable_custom_fields)
+		if ($this->okt->config->users_custom_fields_enabled)
 		{
 			$aPostedData = array();
 
@@ -582,7 +507,7 @@ class Controller extends BaseController
 			}
 
 			# vérification des champs personnalisés obligatoires
-			if ($this->okt->users->config->enable_custom_fields)
+			if ($this->okt->config->users_custom_fields_enabled)
 			{
 				while ($this->rsUserFields->fetch())
 				{
@@ -601,7 +526,7 @@ class Controller extends BaseController
 
 				$rsUser = $this->okt->users->getUser($new_id);
 
-				if ($this->okt->users->config->enable_custom_fields)
+				if ($this->okt->config->users_custom_fields_enabled)
 				{
 					while ($this->rsUserFields->fetch()) {
 						$this->okt->users->fields->setUserValues($new_id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);

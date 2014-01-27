@@ -9,6 +9,7 @@
 namespace Okatea\Website;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use Okatea\Tao\Application;
@@ -202,6 +203,7 @@ class Okatea extends Application
 
 		if (null === $this->response || false === $this->response)
 		{
+			$this->response = new Response();
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
 			$this->response->setContent('Unable to load controller.');

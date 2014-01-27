@@ -25,8 +25,6 @@ class Controller
 	protected $session;
 	protected $page;
 
-	protected $sRequestedLanguage;
-
 	/**
 	 * Constructor.
 	 *
@@ -41,49 +39,6 @@ class Controller
 		$this->page =& $okt->page;
 	}
 
-	public function getRequestedLanguage()
-	{
-		return $this->sRequestedLanguage;
-	}
-
-	/**
-	 * Change la langue de l'utilisateur en fonction de la requete URL
-	 * et retourne la langue définie. Retourne false si pas de changement.
-	 *
-	 * @return string/boolean
-	protected function setUserRequestLanguage()
-	{
-		static $sRequestedLanguage = null;
-
-		if ($sRequestedLanguage !== null) {
-			return $sRequestedLanguage;
-		}
-
-		$sRequestLanguage = $this->okt->router->getLanguage();
-
-		if (empty($sRequestLanguage))
-		{
-			$sRequestedLanguage = false;
-			return $sRequestedLanguage;
-		}
-
-		if ($sRequestLanguage === $this->okt->user->language)
-		{
-			$sRequestedLanguage = false;
-			return $sRequestedLanguage;
-		}
-
-		if (!$this->okt->user->setUserLang($sRequestLanguage)) {
-			$sRequestedLanguage = false;
-		}
-		else {
-			$sRequestedLanguage = $sRequestLanguage;
-		}
-
-		return $sRequestedLanguage;
-	}
-	 */
-
 	/**
 	 * Returns a RedirectResponse to the given URL.
 	 *
@@ -97,10 +52,10 @@ class Controller
 	{
 		return new RedirectResponse($url, $status, $headers);
 	}
-	
+
 	public function jsonResponse($data = null, $status = 200, array $headers = array())
 	{
-	    return new JsonResponse($data, $status, $headers);
+		return new JsonResponse($data, $status, $headers);
 	}
 
 	/**

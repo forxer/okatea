@@ -73,7 +73,7 @@ class Router extends BaseRouter
 	 * This is a quicky dirty hack to link from the website to the admin.
 	 *
 	 * @TODO : need to extends Symfony\Component\Routing\Generator\UrlGenerator
-	 * 
+	 *
 	 * @param string $name
 	 * @param mixed $parameters
 	 * @param string $language
@@ -86,7 +86,7 @@ class Router extends BaseRouter
 			$this->generate($name, $parameters, $language, $referenceType)
 		);
 	}
-	
+
 	/**
 	 * Retourne l'URL de la page de connexion.
 	 *
@@ -97,21 +97,21 @@ class Router extends BaseRouter
 	 * @return string
 	 */
 	public function generateLoginUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
-	{	
-	    if ($this->app->config->users_pages['log_reg']) {
-	        $sLoginUrl = $this->generate('usersLoginRegister');
-	    }
-	    else {
-	        $sLoginUrl = $this->generate('usersLogin');
-	    }
-	
-	    if (!is_null($sRedirectUrl)) {
-	        $this->app->session->set('okt_redirect_url', $sRedirectUrl);
-	    }
-	
-	    return $sLoginUrl;
+	{
+		if ($this->app->config->users_pages['log_reg']) {
+			$sLoginUrl = $this->generate('usersLoginRegister');
+		}
+		else {
+			$sLoginUrl = $this->generate('usersLogin');
+		}
+
+		if (!is_null($sRedirectUrl)) {
+			$this->app->session->set('okt_redirect_url', $sRedirectUrl);
+		}
+
+		return $sLoginUrl;
 	}
-	
+
 	/**
 	 * Touch collection resources to force cache regenerating.
 	 *
@@ -125,5 +125,15 @@ class Router extends BaseRouter
 
 		$fs = new Filesystem();
 		$fs->touch($aResources);
+	}
+
+	/**
+	 * Check if a named route exists.
+	 *
+	 * @return boolean
+	 */
+	public function routeExists($sRouteName)
+	{
+		return (null === $this->getRouteCollection()->get($sRouteName)) ? false : true;
 	}
 }

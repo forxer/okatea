@@ -1,11 +1,33 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Okatea\Tao\Forms\Statics\FormElements as form;
 
 
-<?php use Okatea\Tao\Forms\Statics\FormElements as form; ?>
+# title tag
+$okt->page->addTitleTag(__('c_c_user_profile'));
 
-<?php # début Okatea : ce template étend le layout
+# titre de la page
+$okt->page->setTitle(__('c_c_user_profile'));
+
+# titre SEO de la page
+$okt->page->setTitleSeo(__('c_c_user_profile'));
+
+$okt->page->meta_description = $okt->page->getSiteMetaDesc();
+
+$okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
+
+# fil d'ariane
+$okt->page->breadcrumb->add(__('c_c_user_profile'), $this->generateUrl('usersProfile'));
+
 $view->extend('layout');
-# fin Okatea : ce template étend le layout ?>
 
+?>
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML
 $view['slots']->start('head') ?>
@@ -47,7 +69,7 @@ $aJsValidateRules = new ArrayObject(array(
 	)
 ));
 
-if ($okt->users->config->enable_custom_fields)
+if ($okt->config->users_custom_fields_enabled)
 {
 	while ($rsUserFields->fetch())
 	{
@@ -80,7 +102,7 @@ if ($okt->error->notEmpty()) : ?>
 
 
 <?php  # début Okatea : affichage des champs personnalisés non-modifiables par l'utilisateur
-if ($okt->users->config->enable_custom_fields) : ?>
+if ($okt->config->users_custom_fields_enabled) : ?>
 <div id="user-infos">
 	<div class="two-cols">
 	<?php while ($rsAdminFields->fetch()) : ?>
@@ -92,11 +114,11 @@ if ($okt->users->config->enable_custom_fields) : ?>
 <?php endif; # fin Okatea : affichage des champs personnalisés non-modifiables par l'utilisateur ?>
 
 
-<h2><?php _e('m_users_Update_user_profile') ?></h2>
+<h2><?php _e('c_c_users_Update_user_profile') ?></h2>
 
 <form id="edit-user-form" class="userform" action="<?php echo $view->generateUrl('usersProfile') ?>" method="post">
 	<fieldset>
-		<legend><?php _e('m_users_Identity') ?></legend>
+		<legend><?php _e('c_c_users_Identity') ?></legend>
 
 		<div class="three-cols">
 			<p class="field col"><label for="edit_civility"><?php _e('c_c_Civility') ?></label>
@@ -109,24 +131,24 @@ if ($okt->users->config->enable_custom_fields) : ?>
 			<?php echo form::text('edit_firstname', 20, 255, $view->escape($aUserProfilData['firstname'])) ?></p>
 		</div>
 
-		<div class="two-cols">
+		<div class="three-cols">
 		<?php # début Okatea : affichage des champs "username" et "email" fusionnés
 		if ($okt->config->users_registration['merge_username_email']) : ?>
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-			<?php echo form::text('edit_email', 40, 255, $view->escape($aUserProfilData['email'])) ?></p>
+			<?php echo form::text('edit_email', 20, 255, $view->escape($aUserProfilData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" fusionnés ?>
 
 		<?php # début Okatea : affichage des champs "username" et "email" distincts
 		if (!$okt->config->users_registration['merge_username_email']) : ?>
 			<p class="field col"><label for="edit_username" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
-			<?php echo form::text('edit_username', 35, 255, $view->escape($aUserProfilData['username'])) ?></p>
+			<?php echo form::text('edit_username', 20, 255, $view->escape($aUserProfilData['username'])) ?></p>
 
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
-			<?php echo form::text('edit_email', 35, 255, $view->escape($aUserProfilData['email'])) ?></p>
+			<?php echo form::text('edit_email', 20, 255, $view->escape($aUserProfilData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" distincts ?>
 
 			<p class="field col"><label for="edit_displayname"><?php _e('c_c_user_Display_name') ?></label>
-			<?php echo form::text('edit_displayname', 35, 255, $view->escape($aUserProfilData['displayname'])) ?></p>
+			<?php echo form::text('edit_displayname', 20, 255, $view->escape($aUserProfilData['displayname'])) ?></p>
 		</div>
 	</fieldset>
 
@@ -145,7 +167,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 	</fieldset>
 
 	<?php # début Okatea : affichage des champs personnalisés si ils sont activés
-	if ($okt->users->config->enable_custom_fields) : ?>
+	if ($okt->config->users_custom_fields_enabled) : ?>
 	<div class="two-cols">
 		<?php while ($rsUserFields->fetch()) : ?>
 			<div class="col">
@@ -160,10 +182,10 @@ if ($okt->users->config->enable_custom_fields) : ?>
 </form>
 
 <?php if ($okt->checkPerm('change_password')) : ?>
-<h2><?php _e('m_users_Update_paswword') ?></h2>
+<h2><?php _e('c_c_users_Update_paswword') ?></h2>
 <form class="userform" id="change-password-form" action="<?php echo $view->generateUrl('usersProfile') ?>" method="post">
 	<fieldset>
-		<legend><?php _e('m_users_Update_paswword') ?></legend>
+		<legend><?php _e('c_c_users_Update_paswword') ?></legend>
 		<div class="two-cols">
 			<p class="field col"><label for="edit_password"><?php _e('c_c_user_Password') ?></label>
 			<?php echo form::password('edit_password', 35, 255, $view->escape($aUserProfilData['password'])) ?></p>
@@ -171,7 +193,7 @@ if ($okt->users->config->enable_custom_fields) : ?>
 			<p class="field col"><label for="edit_password_confirm"><?php _e('c_c_auth_confirm_password') ?></label>
 			<?php echo form::password('edit_password_confirm', 35, 255, $view->escape($aUserProfilData['password_confirm'])) ?></p>
 		</div>
-		<p class="note"><?php _e('m_users_Note_password') ?></p>
+		<p class="note"><?php _e('c_c_users_Note_password') ?></p>
 	</fieldset>
 
 	<p><input type="submit" value="<?php _e('c_c_action_Edit') ?>" />

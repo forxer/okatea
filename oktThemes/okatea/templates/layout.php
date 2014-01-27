@@ -27,7 +27,7 @@ $view->extend('main');
 		if (!$okt->languages->unique) : ?>
 		<ul id="lang-switcher">
 			<?php foreach ($okt->languages->list as $aLanguage) : ?>
-			<li id="lang_switcher_<?php echo $view->escape($aLanguage['code']) ?>"><a href="<?php echo $view->escape($aLanguage['code']) ?>" title="<?php echo $view->escape($aLanguage['title']) ?>"><img
+			<li id="lang_switcher_<?php echo $view->escape($aLanguage['code']) ?>"><a href="<?php echo $view->generateUrl('homePage', array(), $aLanguage['code'])  ?>" title="<?php echo $view->escape($aLanguage['title']) ?>"><img
 			src="<?php echo $okt->options->public_url.'/img/flags/'.$aLanguage['img'] ?>" alt="<?php echo $view->escape($aLanguage['title']) ?>" /></a></li>
 			<?php endforeach; ?>
 		</ul><!-- #lang-switcher -->

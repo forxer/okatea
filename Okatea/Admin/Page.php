@@ -168,8 +168,8 @@ class Page extends BasePage
 		{
 			# profil link
 			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'),
-				 '<a href="'.$this->okt->adminRouter->generate('User_profile').'">'.
-				 Utilities::escapeHTML($this->okt->user->usedname).'</a>');
+				'<a href="'.$this->okt->adminRouter->generate('User_profile').'">'.
+				Utilities::escapeHTML($this->okt->user->usedname).'</a>');
 
 			# log off link
 			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
@@ -190,7 +190,7 @@ class Page extends BasePage
 
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				if ($aLanguage['code'] == $this->okt->user->language) {
+				if ($aLanguage['code'] === $this->okt->user->language) {
 					continue;
 				}
 

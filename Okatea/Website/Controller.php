@@ -54,8 +54,22 @@ class Controller extends BaseController
 
 	public function homePage()
 	{
-		$response = new Response();
-		return $this->render('homePage', array(), $response);
+		# Special case : user lang switch
+		if (!$this->okt->languages->unique)
+		{
+			# recherche d'un code ISO de langue
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->request->getPathInfo(), $m)) {
+				$sLanguage = $m[1];
+			}
+
+			if ($sLanguage != $this->okt->user->language)
+			{
+				$this->okt->user->setUserLang($sLanguage);
+				return $this->redirect($this->generateUrl('homePage', array(), $sLanguage));
+			}
+		}
+
+		return $this->render('homePage');
 	}
 
 	public function serve401()

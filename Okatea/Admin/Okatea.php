@@ -222,7 +222,7 @@ class Okatea extends Application
 			$this->page->usersSubMenu->add(
 				__('c_a_menu_management'),
 				$this->adminRouter->generate('Users_index'),
-				in_array($this->request->attributes->get('_route'), array('Users_index', 'Users_user_add', 'Users_user')),
+				in_array($this->request->attributes->get('_route'), array('Users_index', 'Users_add', 'Users_edit')),
 				10,
 				$this->checkPerm('users')
 			);

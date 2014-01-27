@@ -20,8 +20,9 @@ class User extends Controller
 	{
 		$this->init();
 
+		$this->aPageData['user']['id'] = $this->okt->user->id;
+
 		$this->aPageData['user'] = array(
-			'id'                 => $this->okt->user->id,
 			'civility'           => $this->okt->user->civility,
 			'status'             => $this->okt->user->status,
 			'username'           => $this->okt->user->username,
@@ -79,7 +80,6 @@ class User extends Controller
 		$this->aPageData = new \ArrayObject();
 
 		$this->aPageData['user'] = array(
-			'id'                 => null,
 			'civility'           => 0,
 			'status'             => 1,
 			'username'           => '',

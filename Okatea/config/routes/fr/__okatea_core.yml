@@ -19,27 +19,27 @@ homePage:
 
 usersLogin:
     path:     /connexion
-    defaults: { controller: 'Okatea\Website\UsersController::usersLogin' }
+    defaults: { controller: 'Okatea\Website\UsersController::login' }
 
 usersLogout:
     path:     /deconnexion
-    defaults: { controller: 'Okatea\Website\UsersController::usersLogout' }
+    defaults: { controller: 'Okatea\Website\UsersController::logout' }
 
 usersProfile:
     path:     /profil
-    defaults: { controller: 'Okatea\Website\UsersController::usersProfile' }
+    defaults: { controller: 'Okatea\Website\UsersController::profile' }
 
 usersRegister:
     path:     /inscription
-    defaults: { controller: 'Okatea\Website\UsersController::usersRegister' }
+    defaults: { controller: 'Okatea\Website\UsersController::register' }
 
 usersLoginRegister:
     path:     /connexion-inscription
-    defaults: { controller: 'Okatea\Website\UsersController::usersLoginRegister' }
+    defaults: { controller: 'Okatea\Website\UsersController::loginRegister' }
 
 usersForgetPassword:
     path:     /mot-de-passe-oublie
-    defaults: { controller: 'Okatea\Website\UsersController::usersForgetPassword' }
+    defaults: { controller: 'Okatea\Website\UsersController::forgetPassword' }
 
 remove_trailing_slash:
     path:     /{url}

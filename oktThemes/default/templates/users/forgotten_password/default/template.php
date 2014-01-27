@@ -1,8 +1,33 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-<?php # début Okatea : ce template étend le layout
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
+
+# title tag
+$okt->page->addTitleTag(__('c_c_auth_request_password'));
+
+# titre de la page
+$okt->page->setTitle(__('c_c_auth_request_password'));
+
+# titre SEO de la page
+$okt->page->setTitleSeo(__('c_c_auth_request_password'));
+
+$okt->page->meta_description = $okt->page->getSiteMetaDesc();
+
+$okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
+
+# fil d'ariane
+$okt->page->breadcrumb->add(__('c_c_auth_request_password'), $this->generateUrl('usersForgetPassword'));
+
 $view->extend('layout');
-# fin Okatea : ce template étend le layout ?>
 
+?>
 
 <?php # début Okatea : on ajoutent des éléments à l'en-tête HTML
 $view['slots']->start('head') ?>
