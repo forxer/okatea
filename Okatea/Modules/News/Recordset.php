@@ -189,7 +189,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getPostAuthor()
 	{
-		return Users::getUserCN($this->username, $this->lastname, $this->firstname);
+		return Users::getUserDisplayName($this->username, $this->lastname, $this->firstname, $this->displayname);
 	}
 
 	/**

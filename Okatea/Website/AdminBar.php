@@ -75,7 +75,7 @@ class AdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserCN($okt->user->username, $okt->user->lastname, $okt->user->firstname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserDisplayName($okt->user->username, $okt->user->lastname, $okt->user->firstname, $okt->user->displayname)))
 		);
 
 		if (!$okt->languages->unique)

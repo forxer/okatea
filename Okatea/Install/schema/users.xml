@@ -13,10 +13,11 @@
 			`id` 				SERIAL,
 			`group_id` 			BIGINT(20) 		UNSIGNED 	NOT NULL 	DEFAULT 0,
 			`civility` 			TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 0,
-			`active` 			TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 1,
+			`status` 			TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 1,
 			`username` 			VARCHAR(255) 				NOT NULL,
 			`lastname` 			VARCHAR(255) 				NULL,
 			`firstname` 		VARCHAR(255) 				NULL,
+			`displayname` 		VARCHAR(255) 				NULL,
 			`password` 			VARCHAR(255) 				NULL,
 			`salt` 				VARCHAR(255) 				NOT NULL,
 			`email` 			VARCHAR(255) 				NOT NULL,
@@ -30,6 +31,7 @@
 
 			PRIMARY KEY (`id`),
 			KEY `{{PREFIX}}core_users_group_id_idx` (`group_id`),
+			KEY `{{PREFIX}}core_users_status_idx` (`status`),
 			KEY `{{PREFIX}}core_users_registered_idx` (`registered`),
 			KEY `{{PREFIX}}core_users_username_idx` (`username`(8))
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin ;

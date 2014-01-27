@@ -4,7 +4,7 @@
 
 home:
     path:     /
-    defaults: { controller: Okatea\Admin\Controller\Home::homePage }
+    defaults: { controller: 'Okatea\Admin\Controller\Home::homePage' }
 
 
 #
@@ -13,135 +13,140 @@ home:
 
 401:
     path:     /401
-    defaults: { controller: Okatea\Admin\Controller::serve401 }
+    defaults: { controller: 'Okatea\Admin\Controller::serve401' }
     
 404:
     path:     /404
-    defaults: { controller: Okatea\Admin\Controller::serve404 }
+    defaults: { controller: 'Okatea\Admin\Controller::serve404' }
 
 503:
     path:     /503
-    defaults: { controller: Okatea\Admin\Controller::serve503 }
+    defaults: { controller: 'Okatea\Admin\Controller::serve503' }
 
 
 #
-# Admin login/forget password/lagout pages
+# Admin login/logout/forget-password pages
 #
+
 login:
     path:     /login
-    defaults: { controller: Okatea\Admin\Controller\Connexion::login }
+    defaults: { controller: 'Okatea\Admin\Controller\Connexion::login' }
 
 logout:
     path:     /logout
-    defaults: { controller: Okatea\Admin\Controller\Connexion::logout }
+    defaults: { controller: 'Okatea\Admin\Controller\Connexion::logout' }
 
 forget_password:
     path:     /forget-password
-    defaults: { controller: Okatea\Admin\Controller\Connexion::forget_password }
+    defaults: { controller: 'Okatea\Admin\Controller\Connexion::forget_password' }
 
 
 #
-# Users configuration pages
+# Users management pages
 #
 
 Users_index:
     path:     /users/{page}
-    defaults: { controller: Okatea\Admin\Controller\Users\Index::page, page: 1 }
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Index::page', page: 1 }
     requirements:
         page:  \d+
 
-Users_user_add:
-    path:     /users/user/add
-    defaults: { controller: Okatea\Admin\Controller\Users\User::add }
+User_profile:
+    path:     /profile
+    defaults: { controller: 'Okatea\Admin\Controller\Users\User::profile' }
 
-Users_user:
-    path:     /users/user/{post_id}
-    defaults: { controller: Okatea\Admin\Controller\Users\User::edit }
+Users_add:
+    path:     /users/add
+    defaults: { controller: 'Okatea\Admin\Controller\Users\User::add' }
+
+Users_edit:
+    path:     /user/{user_id}
+    defaults: { controller: 'Okatea\Admin\Controller\Users\User::edit' }
     requirements:
-        post_id:  \d+
+        user_id:  \d+
 
 Users_groups:
     path:     /users/groups
-    defaults: { controller: Okatea\Admin\Controller\Users\Groups::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Groups::page' }
 
 Users_display:
     path:     /users/display
-    defaults: { controller: Okatea\Admin\Controller\Users\Display::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Display::page' }
 
 Users_config:
     path:     /users/configuration
-    defaults: { controller: Okatea\Admin\Controller\Users\Config::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Config::page' }
 
 
 #
-# configuration pages
+# Configuration pages
 #
 
 config_general:
     path:     /configuration/general
-    defaults: { controller: Okatea\Admin\Controller\Config\General::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\General::page' }
 
 config_display:
     path:     /configuration/display
-    defaults: { controller: Okatea\Admin\Controller\Config\Display::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Display::page' }
 
 config_languages:
     path:     /configuration/languages
-    defaults: { controller: Okatea\Admin\Controller\Config\Languages::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Languages::page' }
 
 config_modules:
     path:     /configuration/modules
-    defaults: { controller: Okatea\Admin\Controller\Config\Modules::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Modules::page' }
 
 config_themes:
     path:     /configuration/themes/{page}
-    defaults: { controller: Okatea\Admin\Controller\Config\Themes::index, page: 1 }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::index', page: 1 }
     requirements:
         page:  \d+
 
 config_theme_add:
     path:     /configuration/theme/add
-    defaults: { controller: Okatea\Admin\Controller\Config\Themes::add }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::add' }
 
 config_theme:
     path:     /configuration/theme/{theme_id}
-    defaults: { controller: Okatea\Admin\Controller\Config\Themes::theme }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::theme' }
 
 config_themes_editor:
     path:     /configuration/theme/editor/{theme_id}
-    defaults: { controller: Okatea\Admin\Controller\Config\ThemesEditor::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\ThemesEditor::page' }
 
 config_navigation:
     path:     /configuration/navigation
-    defaults: { controller: Okatea\Admin\Controller\Config\Navigation::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Navigation::page' }
 
 config_permissions:
     path:     /configuration/permissions
-    defaults: { controller: Okatea\Admin\Controller\Config\Permissions::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Permissions::page' }
 
 config_tools:
     path:     /configuration/tools
-    defaults: { controller: Okatea\Admin\Controller\Config\Tools::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Tools::page' }
 
 config_infos:
     path:     /configuration/infos
-    defaults: { controller: Okatea\Admin\Controller\Config\Infos::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Infos::page' }
 
 config_update:
     path:     /configuration/update
-    defaults: { controller: Okatea\Admin\Controller\Config\Update::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Update::page' }
 
 config_logadmin:
     path:     /configuration/logadmin/{page}
-    defaults: { controller: Okatea\Admin\Controller\Config\Logadmin::page, page: 1 }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Logadmin::page', page: 1 }
     requirements:
         page:  \d+
 
 config_router:
     path:     /configuration/router
-    defaults: { controller: Okatea\Admin\Controller\Config\Router::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Router::page' }
 
 config_advanced:
     path:     /configuration/advanced
-    defaults: { controller: Okatea\Admin\Controller\Config\Advanced::page }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Advanced::page' }
 

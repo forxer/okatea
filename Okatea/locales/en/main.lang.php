@@ -33,23 +33,6 @@ $GLOBALS['okt_l10n']['c_c_doc_not_exists'] = 'The document you are looking for d
 $GLOBALS['okt_l10n']['c_c_service_unavailable'] = 'Service unavailable';
 $GLOBALS['okt_l10n']['c_c_server_currently_unavailable'] = 'The server is currently unavailable (because it is down for maintenance).';
 
-# basic user
-$GLOBALS['okt_l10n']['c_c_user_hello_%s'] = 'Hello %s';
-$GLOBALS['okt_l10n']['c_c_user_last_visit_on_%s'] = 'Last visit on %s';
-$GLOBALS['okt_l10n']['c_c_user_hello_you_are_not_logged'] = 'Hello, you’re not logged.';
-$GLOBALS['okt_l10n']['c_c_user_log_off_action'] = 'log off';
-$GLOBALS['okt_l10n']['c_c_user_Log_off_action'] = 'Log off';
-$GLOBALS['okt_l10n']['c_c_user_you_are_here'] = 'You are here:';
-$GLOBALS['okt_l10n']['c_c_user_username'] = 'username';
-$GLOBALS['okt_l10n']['c_c_user_Username'] = 'Username';
-$GLOBALS['okt_l10n']['c_c_user_password'] = 'password';
-$GLOBALS['okt_l10n']['c_c_user_Password'] = 'Password';
-$GLOBALS['okt_l10n']['c_c_user_profile'] = 'Profile';
-
-$GLOBALS['okt_l10n']['c_c_user_civility_1'] = 'Ms';
-$GLOBALS['okt_l10n']['c_c_user_civility_2'] = 'Mrs';
-$GLOBALS['okt_l10n']['c_c_user_civility_3'] = 'Mr';
-
 # authentication
 $GLOBALS['okt_l10n']['c_c_auth_login'] = 'Login';
 $GLOBALS['okt_l10n']['c_c_auth_login_action'] = 'connection';

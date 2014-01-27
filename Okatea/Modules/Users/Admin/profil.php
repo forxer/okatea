@@ -36,7 +36,7 @@ $edit_timezone = $rsUser->timezone;
 $edit_password = '';
 $edit_password_confirm = '';
 
-$sUserCN = Authentification::getUserCN($rsUser->username,$rsUser->lastname,$rsUser->firstname);
+$sUserCN = Authentification::getUserDisplayName($rsUser->username,$rsUser->lastname,$rsUser->firstname);
 unset($rsUser);
 
 

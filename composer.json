@@ -21,10 +21,11 @@
 	"minimum-stability" : "stable",
 	"require" : {
 		"php" : ">=5.4.0",
-		"alchemy/zippy": " ~0.1",
+		"alchemy/zippy" : " ~0.1",
 		"doctrine/dbal" : "~2.4",
 		"dotclear/clearbricks" : "dev-default",
 		"dunglas/php-socialshare" : "~0.1",
+		"emberlabs/gravatarlib": "dev-master",
 		"erusev/parsedown" : "~0.9",
 		"ezyang/htmlpurifier" : "~4.6",
 		"guzzle/guzzle" : "~3.7",

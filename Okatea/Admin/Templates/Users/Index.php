@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Groups;
@@ -15,9 +21,9 @@ $okt->page->setButtonset('users', array(
 	'buttons' => array(
 		array(
 			'permission' => true,
-			'title' => __('c_a_users_Add_user'),
-			'url' => 'module.php?m=users&amp;action=add',
-			'ui-icon' => 'plusthick'
+			'title'      => __('c_a_users_Add_user'),
+			'url'        => $view->generateUrl('Users_add'),
+			'ui-icon'    => 'plusthick'
 		)
 	)
 ));
@@ -33,12 +39,12 @@ $okt->page->js->addReady('
 # CSS
 $okt->page->css->addCss('
 .ui-autocomplete {
-    max-height: 150px;
-    overflow-y: auto;
-    overflow-x: hidden;
+	max-height: 150px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 .search_form p {
-    margin: 0;
+	margin: 0;
 }
 ');
 
@@ -112,9 +118,9 @@ $okt->page->js->addReady("
 	<p><?php _e('c_a_users_no_searched_user') ?></p>
 
 	<?php elseif ($filters->params->show_filters) : ?>
-	<p><?php _e('c_a_users_no_filtered_user') ?> 
-	   <a href="#" class="filter-control"><?php _e('c_a_users_users_edit_filters') ?></a> - 
-	   <a href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+	<p><?php _e('c_a_users_no_filtered_user') ?>
+	<a href="#" class="filter-control"><?php _e('c_a_users_users_edit_filters') ?></a> -
+	<a href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
 	</p>
 	<?php else : ?>
 	<p><?php _e('c_a_users_no_user') ?></p>
@@ -169,7 +175,7 @@ $okt->page->js->addReady("
 				<li>
 				<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
 					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
-				    title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
 					class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 					<?php else : ?>
 					<span class="icon user"></span><?php _e('c_a_users_validated_user')?>

@@ -66,15 +66,15 @@ class Users
 			$sReqPlus .= 'AND u.username=\''.$this->db->escapeStr($aParams['username']).'\' ';
 		}
 
-		if (isset($aParams['active']))
+		if (isset($aParams['status']))
 		{
-			if ($aParams['active'] == 0) {
-				$sReqPlus .= 'AND u.active=0 ';
+			if ($aParams['status'] == 0) {
+				$sReqPlus .= 'AND u.status=0 ';
 			}
-			elseif ($aParams['active'] == 1) {
-				$sReqPlus .= 'AND u.active=1 ';
+			elseif ($aParams['status'] == 1) {
+				$sReqPlus .= 'AND u.status=1 ';
 			}
-			elseif ($aParams['active'] == 2) {
+			elseif ($aParams['status'] == 2) {
 				$sReqPlus .= '';
 			}
 		}
@@ -83,8 +83,8 @@ class Users
 		{
 			if (is_array($aParams['group_id']))
 			{
-				$aParams['group_id'] = array_map('intval',$aParams['group_id']);
-				$sReqPlus .= 'AND u.group_id IN ('.implode(',',$aParams['group_id']).') ';
+				$aParams['group_id'] = array_map('intval', $aParams['group_id']);
+				$sReqPlus .= 'AND u.group_id IN ('.implode(',', $aParams['group_id']).') ';
 			}
 			else {
 				$sReqPlus .= 'AND u.group_id='.(integer)$aParams['group_id'].' ';
@@ -95,8 +95,8 @@ class Users
 		{
 			if (is_array($aParams['group_id_not']))
 			{
-				$aParams['group_id_not'] = array_map('intval',$aParams['group_id_not']);
-				$sReqPlus .= 'AND u.group_id NOT IN ('.implode(',',$aParams['group_id_not']).') ';
+				$aParams['group_id_not'] = array_map('intval', $aParams['group_id_not']);
+				$sReqPlus .= 'AND u.group_id NOT IN ('.implode(',', $aParams['group_id_not']).') ';
 			}
 			else {
 				$sReqPlus .= 'AND u.group_id<>'.(integer)$aParams['group_id_not'].' ';
@@ -350,12 +350,12 @@ class Users
 
 		$sQuery =
 		'INSERT INTO '.$this->t_users.' ( '.
-		'group_id, civility, active, username, lastname, firstname, password, salt, email, '.
+		'group_id, civility, status, username, lastname, firstname, password, salt, email, '.
 		'timezone, language, registered, registration_ip, last_visit '.
 		') VALUES ( '.
 		(integer)$aParams['group_id'].', '.
 		(integer)$aParams['civility'].', '.
-		(integer)$aParams['active'].', '.
+		(integer)$aParams['status'].', '.
 		'\''.$this->db->escapeStr($aParams['username']).'\', '.
 		'\''.$this->db->escapeStr($aParams['lastname']).'\', '.
 		'\''.$this->db->escapeStr($aParams['firstname']).'\', '.
@@ -409,8 +409,8 @@ class Users
 			$sql[] = 'civility='.(integer)$aParams['civility'];
 		}
 
-		if (isset($aParams['active'])) {
-			$sql[] = 'active='.(integer)$aParams['active'];
+		if (isset($aParams['status'])) {
+			$sql[] = 'status='.(integer)$aParams['status'];
 		}
 
 		if (isset($aParams['lastname'])) {
@@ -559,7 +559,7 @@ class Users
 
 		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'active = 1-active '.
+		'status = 1-status '.
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {
@@ -591,7 +591,7 @@ class Users
 		# si on veut désactiver un super-admin alors il faut vérifier qu'il y en as d'autres
 		if ($iActive == 0 && $rsUser->group_id == Groups::SUPERADMIN)
 		{
-			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'active' => 1), true);
+			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
 			if ($iCountSudo < 2)
 			{
@@ -603,7 +603,7 @@ class Users
 		# si on veut désactiver un admin alors il faut vérifier qu'il y en as d'autres
 		if ($iActive == 0 && $rsUser->group_id == Groups::ADMIN)
 		{
-			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN, 'active' => 1), true);
+			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN, 'status' => 1), true);
 
 			if ($iCountAdmin < 2)
 			{
@@ -614,7 +614,7 @@ class Users
 
 		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'active = '.($iActive == 1 ? 1 : 0).' '.
+		'status = '.($iActive == 1 ? 1 : 0).' '.
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {
@@ -634,7 +634,7 @@ class Users
 	 * @param string $sDisplayName		User's display name
 	 * @return string
 	 */
-	public static function getUserCN($sUsername, $sLastname, $sFirstname, $sDisplayName=null)
+	public static function getUserDisplayName($sUsername, $sLastname=null, $sFirstname=null, $sDisplayName=null)
 	{
 		if (!empty($sDisplayName)) {
 			return $sDisplayName;

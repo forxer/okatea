@@ -23,24 +23,6 @@ use Okatea\Tao\Misc\Utilities;
 class Page extends BasePage
 {
 	/**
-	 * _REQUEST['action']
-	 * @var string
-	 */
-	public $action;
-
-	/**
-	 * _REQUEST['application']
-	 * @var string
-	 */
-	public $application;
-
-	/**
-	 * _REQUEST['do']
-	 * @var string
-	 */
-	public $do;
-
-	/**
 	 * Le fil d'ariane
 	 * @var object breadcrumb
 	 */
@@ -117,11 +99,6 @@ class Page extends BasePage
 	{
 		parent::__construct($okt, 'admin');
 
-		$this->component = $this->okt->request->request->get('component', $this->okt->request->query->get('component'));
-		$this->action = $this->okt->request->request->get('action', $this->okt->request->query->get('action'));
-		$this->application = $this->okt->request->request->get('application', $this->okt->request->query->get('application'));
-		$this->do = $this->okt->request->request->get('do', $this->okt->request->query->get('do'));
-
 		$this->flash = $this->okt->session->getFlashBag();
 
 		$this->infos = new Infos();
@@ -190,13 +167,9 @@ class Page extends BasePage
 		if (!$this->okt->user->is_guest)
 		{
 			# profil link
-			$sProfilLink = Utilities::escapeHTML($this->okt->user->usedname);
-			if ($this->okt->modules->moduleExists('users')) {
-				$sProfilLink = '<a href="module.php?m=users&amp;action=profil&amp;id='.$this->okt->user->id.'">'.$sProfilLink.'</a>';
-			}
-
-			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'), $sProfilLink);
-			unset($sProfilLink);
+			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'),
+				 '<a href="'.$this->okt->adminRouter->generate('User_profile').'">'.
+				 Utilities::escapeHTML($this->okt->user->usedname).'</a>');
 
 			# log off link
 			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';

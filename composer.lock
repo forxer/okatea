@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c6a71ddc180a5c733affd093dabebdbb",
+    "hash": "04abb821727779dbea6e7959f1c50a25",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -617,6 +617,56 @@
                 "social"
             ],
             "time": "2014-01-17 17:41:21"
+        },
+        {
+            "name": "emberlabs/gravatarlib",
+            "version": "dev-master",
+            "target-dir": "emberlabs/gravatarlib",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emberlabs/gravatarlib.git",
+                "reference": "6bd70321aa59a8002d5fa08d9b592121683801df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emberlabs/gravatarlib/zipball/6bd70321aa59a8002d5fa08d9b592121683801df",
+                "reference": "6bd70321aa59a8002d5fa08d9b592121683801df",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "twig/twig": ">=1.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "emberlabs\\gravatarlib\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Thompson",
+                    "email": "sam@emberlabs.org"
+                },
+                {
+                    "name": "Damian Bushong",
+                    "email": "damian@emberlabs.org"
+                }
+            ],
+            "description": "A lightweight PHP 5.3 OOP library providing easy gravatar integration.",
+            "homepage": "http://emberlabs.org/",
+            "keywords": [
+                "gravatar",
+                "templating",
+                "twig"
+            ],
+            "time": "2011-12-28 22:28:37"
         },
         {
             "name": "erusev/parsedown",
@@ -1901,7 +1951,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dotclear/clearbricks": 20
+        "dotclear/clearbricks": 20,
+        "emberlabs/gravatarlib": 20
     },
     "platform": {
         "php": ">=5.4.0"

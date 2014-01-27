@@ -643,7 +643,7 @@ class Controller extends BaseController
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-					'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+					'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
 				));
@@ -672,7 +672,7 @@ class Controller extends BaseController
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-							'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+							'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 

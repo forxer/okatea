@@ -23,56 +23,56 @@ class Index extends Controller
 		}
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
-		
+
 		$oUsers = new Users($this->okt);
 
 		# json users list for autocomplete
 		if ($this->request->query->has('json') && $this->request->query->has('term') && $this->request->isXmlHttpRequest())
 		{
-		    $aParams = array();
-		    $aParams['group_id_not'][] = Groups::GUEST;
-		    
-		    if (!$this->okt->user->is_superadmin) {
-		        $aParams['group_id_not'][] = Groups::SUPERADMIN;
-		    }
-		    
-		    if (!$this->okt->user->is_admin) {
-		        $aParams['group_id_not'][] = Groups::ADMIN;
-		    }
-		    
-		    $aParams['search'] = $this->request->query->get('term');
-		    
-		    $rsUsers = $oUsers->getUsers($aParams);
-		    
-		    $aResults = array();
-		    while ($rsUsers->fetch())
-		    {
-		        $aResults[] = $rsUsers->username;
-		        $aResults[] = $rsUsers->email;
-		        if (!empty($rsUsers->firstname)) {
-		            $aResults[] = $rsUsers->firstname;
-		        }
-		        if (!empty($rsUsers->lastname)) {
-		            $aResults[] = $rsUsers->lastname;
-		        }
-		    }
-		
-		    return $this->jsonResponse(array_unique($aResults));
+			$aParams = array();
+			$aParams['group_id_not'][] = Groups::GUEST;
+
+			if (!$this->okt->user->is_superadmin) {
+				$aParams['group_id_not'][] = Groups::SUPERADMIN;
+			}
+
+			if (!$this->okt->user->is_admin) {
+				$aParams['group_id_not'][] = Groups::ADMIN;
+			}
+
+			$aParams['search'] = $this->request->query->get('term');
+
+			$rsUsers = $oUsers->getUsers($aParams);
+
+			$aResults = array();
+			while ($rsUsers->fetch())
+			{
+				$aResults[] = $rsUsers->username;
+				$aResults[] = $rsUsers->email;
+				if (!empty($rsUsers->firstname)) {
+					$aResults[] = $rsUsers->firstname;
+				}
+				if (!empty($rsUsers->lastname)) {
+					$aResults[] = $rsUsers->lastname;
+				}
+			}
+
+			return $this->jsonResponse(array_unique($aResults));
 		}
 
 		# initialisation des filtres
 		$oFilters = new UsersFilters($this->okt, 'admin');
 
 		# Enable user status
-		if ($iUserId = $this->request->query->getInt('enable'))
+		if ($iEnableUserId = $this->request->query->getInt('enable'))
 		{
-			if ($oUsers->setUserStatus($iUserId, 1))
+			if ($oUsers->setUserStatus($iEnableUserId, 1))
 			{
 				# log admin
 				$this->okt->logAdmin->info(array(
 					'code' => 30,
 					'component' => 'users',
-					'message' => 'user #'.$iUserId
+					'message' => 'user #'.$iEnableUserId
 				));
 
 				return $this->redirect($this->generateUrl('Users_index'));
@@ -80,15 +80,15 @@ class Index extends Controller
 		}
 
 		# Disable user status
-		if ($iUserId = $this->request->query->getInt('disable'))
+		if ($iDisableUserId = $this->request->query->getInt('disable'))
 		{
-			if ($oUsers->setUserStatus($iUserId, 0))
+			if ($oUsers->setUserStatus($iDisableUserId, 0))
 			{
 				# log admin
 				$this->okt->logAdmin->info(array(
 					'code' => 31,
 					'component' => 'users',
-					'message' => 'user #'.$iUserId
+					'message' => 'user #'.$iDisableUserId
 				));
 
 				return $this->redirect($this->generateUrl('Users_index'));
@@ -96,19 +96,19 @@ class Index extends Controller
 		}
 
 		# Supprimer utilisateur
-		if (($iUserId = $this->request->query->getInt('delete')) && $this->okt->checkPerm('users_delete'))
+		if (($iDeleteUserId = $this->request->query->getInt('delete')) && $this->okt->checkPerm('users_delete'))
 		{
-			if ($oUsers->deleteUser($iUserId))
+			if ($oUsers->deleteUser($iDeleteUserId))
 			{
 				# log admin
 				$this->okt->logAdmin->warning(array(
 					'code' => 42,
 					'component' => 'users',
-					'message' => 'user #'.$iUserId
+					'message' => 'user #'.$iDeleteUserId
 				));
 
 				# -- CORE TRIGGER : adminModUsersDeleteProcess
-				$this->okt->triggers->callTrigger('adminModUsersDeleteProcess', $iUserId);
+				$this->okt->triggers->callTrigger('adminModUsersDeleteProcess', $iDeleteUserId);
 
 				$this->okt->page->flash->success(__('c_a_users_user_deleted'));
 
@@ -172,8 +172,8 @@ class Index extends Controller
 		}
 
 		return $this->render('Users/Index', array(
-		    'users'                         => $oUsers,
-		    'filters'                       => $oFilters,
+			'users'                         => $oUsers,
+			'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
 			'sSearch' 						=> $sSearch,
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,

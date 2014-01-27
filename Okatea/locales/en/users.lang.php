@@ -6,6 +6,27 @@
 * file that was distributed with this source code.
 */
 
+# basic user
+$GLOBALS['okt_l10n']['c_c_user_hello_%s'] = 'Hello %s';
+$GLOBALS['okt_l10n']['c_c_user_last_visit_on_%s'] = 'Last visit on %s';
+$GLOBALS['okt_l10n']['c_c_user_hello_you_are_not_logged'] = 'Hello, you’re not logged.';
+$GLOBALS['okt_l10n']['c_c_user_log_off_action'] = 'log off';
+$GLOBALS['okt_l10n']['c_c_user_Log_off_action'] = 'Log off';
+$GLOBALS['okt_l10n']['c_c_user_you_are_here'] = 'You are here:';
+$GLOBALS['okt_l10n']['c_c_user_Username'] = 'Username';
+$GLOBALS['okt_l10n']['c_c_user_Display_name'] = 'Displayed name';
+$GLOBALS['okt_l10n']['c_c_user_Password'] = 'Password';
+$GLOBALS['okt_l10n']['c_c_user_profile'] = 'Profile';
+
+$GLOBALS['okt_l10n']['c_c_user_civility_1'] = 'Ms';
+$GLOBALS['okt_l10n']['c_c_user_civility_2'] = 'Mrs';
+$GLOBALS['okt_l10n']['c_c_user_civility_3'] = 'Mr';
+
+$GLOBALS['okt_l10n']['c_c_users_Update_user_profile'] = 'Update the user profile';
+$GLOBALS['okt_l10n']['c_c_users_Identity'] = 'Identity';
+$GLOBALS['okt_l10n']['c_c_users_Account'] = 'Account';
+$GLOBALS['okt_l10n']['c_c_users_Update_paswword'] = 'Update paswword';
+$GLOBALS['okt_l10n']['c_c_users_Note_password'] = '<strong>Warning&nbsp;:</strong> if you change your password you will be logged out. You can then log in with the new password';
 
 # Error messages
 $GLOBALS['okt_l10n']['c_c_users_error_user_%s_not_exists'] = 'The user #%s does not exist.';
@@ -33,19 +54,3 @@ $GLOBALS['okt_l10n']['c_c_users_ab_user_title'] = 'Add a user';
 
 # Others things...
 $GLOBALS['okt_l10n']['c_c_users_confirm_resgitration'] = 'Thank you, your subscription has been taken into account.';
-
-$GLOBALS['okt_l10n']['c_c_users_General'] = 'General';
-$GLOBALS['okt_l10n']['c_c_users_my_account'] = 'my account';
-$GLOBALS['okt_l10n']['c_c_users_My_account'] = 'My account';
-$GLOBALS['okt_l10n']['c_c_users_hello'] = 'hello';
-$GLOBALS['okt_l10n']['c_c_users_Hello'] = 'Hello';
-$GLOBALS['okt_l10n']['c_c_users_my_informations'] = 'my information';
-$GLOBALS['okt_l10n']['c_c_users_My_informations'] = 'My information';
-$GLOBALS['okt_l10n']['c_c_users_your_informations'] = 'your informations';
-$GLOBALS['okt_l10n']['c_c_users_Your_informations'] = 'Your informations';
-
-$GLOBALS['okt_l10n']['c_c_users_Update_user_profile'] = 'Update the user profile';
-$GLOBALS['okt_l10n']['c_c_users_Identity'] = 'Identity';
-$GLOBALS['okt_l10n']['c_c_users_Account'] = 'Account';
-$GLOBALS['okt_l10n']['c_c_users_Update_paswword'] = 'Update paswword';
-$GLOBALS['okt_l10n']['c_c_users_Note_password'] = '<strong>Warning&nbsp;:</strong> if you change your password you will be logged out. You can then log in with the new password';

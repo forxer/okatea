@@ -365,7 +365,7 @@ class Module extends BaseModule
 		$aFields = array(
 			'p.id', 'p.user_id', 'p.category_id', 'p.active', 'p.selected', 'p.created_at', 'p.updated_at', 'p.images', 'p.files', 'p.tpl',
 			'pl.language', 'pl.title', 'pl.subtitle', 'pl.title_tag', 'pl.title_seo', 'pl.slug', 'pl.content', 'pl.meta_description', 'pl.meta_keywords', 'pl.words',
-			'u.username', 'u.lastname', 'u.firstname',
+			'u.username', 'u.lastname', 'u.firstname', 'u.displayname',
 			'rl.title AS category_title', 'rl.slug AS category_slug', 'r.items_tpl AS category_items_tpl'
 		);
 
@@ -1317,8 +1317,8 @@ class Module extends BaseModule
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-    			Groups::GUEST,
-    			Groups::SUPERADMIN
+				Groups::GUEST,
+				Groups::SUPERADMIN
 			)
 		));
 

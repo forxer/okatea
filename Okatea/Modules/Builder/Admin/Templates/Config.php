@@ -26,7 +26,7 @@ $okt->page->tabs();
 
 	</div><!-- #tabered -->
 
-	<p><?php echo form::hidden(array('form_sent'), 1); ?>
+	<p><?php echo form::hidden('form_sent', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>

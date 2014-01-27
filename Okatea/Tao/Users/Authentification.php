@@ -198,7 +198,7 @@ class Authentification
 		if (intval($aCookie['user_id']) > 1 && intval($aCookie['expiration_time']) > $iTsNow)
 		{
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
-			
+
 			# Nous validons maintenans le hash du cookie
 			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
 				$this->setDefaultUser();
@@ -226,7 +226,7 @@ class Authentification
 		}
 
 		# Store common name
-		$this->infos->set('usedname', Users::getUserCN($this->infos->username, $this->infos->lastname, $this->infos->firstname));
+		$this->infos->set('usedname', Users::getUserDisplayName($this->infos->username, $this->infos->lastname, $this->infos->firstname, $this->infos->displayname));
 
 		# And finally, store perms array
 		if ($this->infos->f('perms') != '' && !is_array($this->infos->perms)) {
@@ -469,7 +469,7 @@ class Authentification
 			$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
 				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
 				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-				'USERNAME' => Users::getUserCN($rs->username, $rs->lastname, $rs->firstname),
+				'USERNAME' => Users::getUserDisplayName($rs->username, $rs->lastname, $rs->firstname, $rs->displayname),
 				'NEW_PASSWORD' => $sNewPassword,
 				'ACTIVATION_URL' => $sActivateUrl.'?uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
 			));

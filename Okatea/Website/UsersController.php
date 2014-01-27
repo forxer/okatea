@@ -10,7 +10,6 @@ namespace Okatea\Website;
 
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Website\Controller as BaseController;
@@ -256,6 +255,7 @@ class Controller extends BaseController
 			'civility' => $rsUser->civility,
 			'lastname' => $rsUser->lastname,
 			'firstname' => $rsUser->firstname,
+			'displayname' => $rsUser->displayname,
 			'language' => $rsUser->language,
 			'timezone' => $rsUser->timezone,
 			'password' => '',
@@ -352,6 +352,7 @@ class Controller extends BaseController
 				'civility' => isset($_POST['edit_civility']) ? $_POST['edit_civility'] : '',
 				'lastname' => isset($_POST['edit_lastname']) ? $_POST['edit_lastname'] : '',
 				'firstname' => isset($_POST['edit_firstname']) ? $_POST['edit_firstname'] : '',
+				'displayname' => isset($_POST['edit_displayname']) ? $_POST['edit_displayname'] : '',
 				'language' => isset($_POST['edit_language']) ? $_POST['edit_language'] : '',
 				'timezone' => isset($_POST['edit_timezone']) ? $_POST['edit_timezone'] : ''
 			);
@@ -504,6 +505,7 @@ class Controller extends BaseController
 			'username' => '',
 			'lastname' => '',
 			'firstname' => '',
+			'displayname' => '',
 			'password' => '',
 			'password_confirm' => '',
 			'email' => '',
@@ -620,7 +622,7 @@ class Controller extends BaseController
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-					'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+					'USER_CN' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
 				));
@@ -648,7 +650,7 @@ class Controller extends BaseController
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-							'USER_CN' => Authentification::getUserCN($rsUser->username, $rsUser->lastname, $rsUser->firstname),
+							'USER_CN' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 
