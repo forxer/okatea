@@ -54,7 +54,7 @@ class Users
 	 * @param	boolean	count_only	Permet de ne retourner que le compte
 	 * @return	Recordset
 	 */
-	public function getUsers(array $aParams = array(), $bCountOnly=false)
+	public function getUsers(array $aParams = array(), $bCountOnly = false)
 	{
 		$sReqPlus = 'WHERE 1 ';
 
@@ -222,10 +222,8 @@ class Users
 	/**
 	 * Vérifie la validité d'un nom d'utilisateur.
 	 *
-	 * @param $username
-	 * @return void
 	 */
-	public function checkUsername($aParams=array())
+	public function checkUsername(array $aParams = array())
 	{
 		$username = !empty($aParams['username']) ? $aParams['username'] : null;
 		$username = preg_replace('#\s+#s', ' ', $username);
@@ -260,7 +258,7 @@ class Users
 
 			if ($dupe)
 			{
-				if ($this->config->merge_username_email) {
+				if ($this->okt->config->users_registration['merge_username_email']) {
 					$this->error->set(__('c_c_users_error_email_already_exist'));
 				}
 				else {
@@ -276,7 +274,7 @@ class Users
 	 * @param $aParams
 	 * @return void
 	 */
-	public function checkEmail($aParams=array())
+	public function checkEmail(array $aParams = array())
 	{
 		if (empty($aParams['email'])) {
 			$this->error->set(__('c_c_users_must_enter_email_address'));
@@ -304,7 +302,7 @@ class Users
 	 * @param $aParams
 	 * @return void
 	 */
-	public function checkPassword($aParams=array())
+	public function checkPassword(array $aParams = array())
 	{
 		if (empty($aParams['password'])) {
 			$this->error->set(__('c_c_users_must_enter_password'));
@@ -326,7 +324,7 @@ class Users
 	 * @param $aParams
 	 * @return integer
 	 */
-	public function addUser($aParams=array())
+	public function addUser(array $aParams = array())
 	{
 		$this->checkUsername($aParams);
 
@@ -338,35 +336,35 @@ class Users
 			return false;
 		}
 
-		if ($this->config->validate_users_registration == 1) {
+		if ($this->okt->config->users_registration['validate_users_registration']) {
 			$aParams['group_id'] = 0;
 		}
 		elseif (empty($aParams['group_id']) || !$this->groupExists($aParams['group_id'])) {
-			$aParams['group_id'] = $this->config->default_group;
+			$aParams['group_id'] = $this->okt->config->users_registration['default_group'];
 		}
 
 		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
-		$iTime= time();
+		$iTime = time();
 
 		$sQuery =
 		'INSERT INTO '.$this->t_users.' ( '.
-		'group_id, civility, status, username, lastname, firstname, password, salt, email, '.
-		'timezone, language, registered, registration_ip, last_visit '.
+			'group_id, civility, status, username, lastname, firstname, displayname, '.
+			'password, email, timezone, language, registered, registration_ip, last_visit '.
 		') VALUES ( '.
-		(integer)$aParams['group_id'].', '.
-		(integer)$aParams['civility'].', '.
-		(integer)$aParams['status'].', '.
-		'\''.$this->db->escapeStr($aParams['username']).'\', '.
-		'\''.$this->db->escapeStr($aParams['lastname']).'\', '.
-		'\''.$this->db->escapeStr($aParams['firstname']).'\', '.
-		'\''.$this->db->escapeStr($password_hash).'\', '.
-		'\''.$this->db->escapeStr(Utilities::random_key(12)).'\', '.
-		'\''.$this->db->escapeStr($aParams['email']).'\', '.
-		'\''.$this->db->escapeStr($aParams['timezone']).'\', '.
-		'\''.$this->db->escapeStr($aParams['language']).'\', '.
-		$iTime.', '.
-		(!empty($aParams['registration_ip']) ? '\''.$this->db->escapeStr($aParams['registration_ip']).'\', ' : '\'0.0.0.0\', ').
-		$iTime.
+			(integer)$aParams['group_id'].', '.
+			(integer)$aParams['civility'].', '.
+			(integer)$aParams['status'].', '.
+			'\''.$this->db->escapeStr($aParams['username']).'\', '.
+			(!empty($aParams['lastname']) ? '\''.$this->db->escapeStr($aParams['lastname']).'\', ' : 'null,').
+			(!empty($aParams['firstname']) ? '\''.$this->db->escapeStr($aParams['firstname']).'\', ' : 'null,').
+			(!empty($aParams['displayname']) ? '\''.$this->db->escapeStr($aParams['displayname']).'\', ' : 'null,').
+			'\''.$this->db->escapeStr($password_hash).'\', '.
+			'\''.$this->db->escapeStr($aParams['email']).'\', '.
+			(!empty($aParams['timezone']) ? '\''.$this->db->escapeStr($aParams['timezone']).'\', ' : 'null,').
+			(!empty($aParams['language']) ? '\''.$this->db->escapeStr($aParams['language']).'\', ' : 'null,').
+			$iTime.', '.
+			(!empty($aParams['registration_ip']) ? '\''.$this->db->escapeStr($aParams['registration_ip']).'\', ' : '\'0.0.0.0\', ').
+			$iTime.
 		'); ';
 
 		if (!$this->db->execute($sQuery)) {
@@ -421,6 +419,10 @@ class Users
 			$sql[] = 'firstname=\''.$this->db->escapeStr($aParams['firstname']).'\'';
 		}
 
+		if (isset($aParams['displayname'])) {
+			$sql[] = 'displayname=\''.$this->db->escapeStr($aParams['displayname']).'\'';
+		}
+
 		if (isset($aParams['email'])) {
 			$this->checkEmail($aParams);
 			$sql[] = 'email=\''.$this->db->escapeStr($aParams['email']).'\'';
@@ -456,7 +458,7 @@ class Users
 	 * @param $aParams
 	 * @return boolean
 	 */
-	public function changeUserPassword($aParams=array())
+	public function changeUserPassword(array $aParams = array())
 	{
 		$this->checkPassword($aParams);
 
@@ -468,8 +470,7 @@ class Users
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'password=\''.$this->db->escapeStr($password_hash).'\', '.
-		'salt=\''.$this->db->escapeStr(Utilities::random_key(12)).'\' '.
+			'password=\''.$this->db->escapeStr($password_hash).'\' '.
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
@@ -573,12 +574,12 @@ class Users
 	* Définit le statut d'un utilisateur donné
 	*
 	* @param integer $iUserId
-	* @param integer $iActive
+	* @param integer $iStatus
 	* @return boolean
 	*/
-	public function setUserStatus($iUserId, $iActive)
+	public function setUserStatus($iUserId, $iStatus)
 	{
-		$iActive = intval($iActive);
+		$iStatus = intval($iStatus);
 
 		$rsUser = $this->getUsers(array('id' => $iUserId));
 
@@ -589,7 +590,7 @@ class Users
 		}
 
 		# si on veut désactiver un super-admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == Groups::SUPERADMIN)
+		if ($iStatus == 0 && $rsUser->group_id == Groups::SUPERADMIN)
 		{
 			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
@@ -601,7 +602,7 @@ class Users
 		}
 
 		# si on veut désactiver un admin alors il faut vérifier qu'il y en as d'autres
-		if ($iActive == 0 && $rsUser->group_id == Groups::ADMIN)
+		if ($iStatus == 0 && $rsUser->group_id == Groups::ADMIN)
 		{
 			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN, 'status' => 1), true);
 
@@ -614,7 +615,7 @@ class Users
 
 		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'status = '.($iActive == 1 ? 1 : 0).' '.
+		'status = '.($iStatus == 1 ? 1 : 0).' '.
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {

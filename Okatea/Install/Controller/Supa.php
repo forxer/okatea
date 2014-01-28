@@ -86,12 +86,11 @@ class Supa extends Controller
 				# insertion superadmin (id 2)
 				$query =
 				'INSERT INTO `'.$db->prefix.'core_users` ('.
-					'`id`, `username`, `group_id`, `salt`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
+					'`id`, `username`, `group_id`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
 				') VALUES ( '.
 					'2, '.
 					'\''.$db->escapeStr($aUsersData['sudo']['username']).'\', '.
 					'1, '.
-					'\''.$db->escapeStr(Utilities::random_key(12)).'\', '.
 					'\''.$db->escapeStr(password_hash($aUsersData['sudo']['password'], PASSWORD_DEFAULT)).'\', '.
 					'\'fr\', '.
 					'\'Europe/Paris\', '.
@@ -111,12 +110,11 @@ class Supa extends Controller
 				{
 					$query =
 					'INSERT INTO `'.$db->prefix.'core_users` ('.
-						'`id`, `username`, `group_id`, `salt`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
+						'`id`, `username`, `group_id`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`'.
 					') VALUES ( '.
 						'3, '.
 						'\''.$db->escapeStr($aUsersData['admin']['username']).'\', '.
 						'2, '.
-						'\''.$db->escapeStr(Utilities::random_key(12)).'\', '.
 						'\''.$db->escapeStr(password_hash($aUsersData['admin']['password'], PASSWORD_DEFAULT)).'\', '.
 						'\'fr\', '.
 						'\'Europe/Paris\', '.

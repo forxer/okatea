@@ -34,7 +34,7 @@ $okt->page->tabs();
 		<form id="edit-user-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
 
 			<?php echo $view->render('Users/User/form_user', array(
-				'userData'       => $userData,
+				'aPageData'      => $aPageData,
 				'aLanguages'     => $aLanguages,
 				'aCivilities'    => $aCivilities
 			)); ?>
@@ -50,7 +50,7 @@ $okt->page->tabs();
 		<form id="change-password-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
 
 			<?php echo $view->render('Users/User/form_password', array(
-				'userData'       => $userData
+				'aPageData'      => $aPageData
 			)); ?>
 
 		<p class="note"><?php _e('c_c_users_Note_password')?></p>

@@ -200,7 +200,7 @@ class Authentification
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($aCookie['expire_hash'] !== sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash(intval($aCookie['expiration_time']), $this->infos->f('salt')))) {
+			if ($aCookie['expire_hash'] !== sha1($this->infos->f('password').intval($aCookie['expiration_time']))) {
 				$this->setDefaultUser();
 			}
 
@@ -213,7 +213,7 @@ class Authentification
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
-			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('salt').$this->infos->f('password').Utilities::hash($iTsExpire, $this->infos->f('salt')))), $iTsExpire);
+			$this->setAuthCookie(base64_encode($this->infos->f('id').'|'.$this->infos->f('password').'|'.$iTsExpire.'|'.sha1($this->infos->f('password').$iTsExpire)), $iTsExpire);
 
 
 			$this->infos->set('is_guest', false);
@@ -250,7 +250,7 @@ class Authentification
 		'SELECT u.*, g.* '.
 		'FROM '.$this->t_users.' AS u '.
 			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
-		'WHERE u.active = 1 AND ';
+		'WHERE u.status = 1 AND ';
 
 		if (Utilities::isInt($mUser)) {
 			$sQuery .= 'u.id='.(integer)$mUser.' ';
@@ -316,7 +316,7 @@ class Authentification
 	public function login($sUsername, $sPassword, $save_pass=false)
 	{
 		$sQuery =
-		'SELECT id, group_id, password, salt '.
+		'SELECT id, group_id, password '.
 			'FROM '.$this->t_users.' '.
 		'WHERE username=\''.$this->oDb->escapeStr($sUsername).'\' ';
 
@@ -356,7 +356,7 @@ class Authentification
 		}
 
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
-		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($rs->salt.$sPasswordHash.Utilities::hash($iTsExpire, $rs->salt))), $iTsExpire);
+		$this->setAuthCookie(base64_encode($rs->id.'|'.$sPasswordHash.'|'.$iTsExpire.'|'.sha1($sPasswordHash.$iTsExpire)), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
@@ -430,7 +430,7 @@ class Authentification
 
 		# récupération des infos de l'utilisateur
 		$sQuery =
-		'SELECT id, username, lastname, firstname, salt '.
+		'SELECT id, username, lastname, firstname '.
 		'FROM '.$this->t_users.' '.
 		'WHERE email=\''.$this->oDb->escapeStr($sEmail).'\'';
 

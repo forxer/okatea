@@ -1271,18 +1271,6 @@ class Utilities
 		return $key;
 	}
 
-	/**
-	 * Generates a salted, SHA-1 hash of $str
-	 *
-	 * @param $str
-	 * @param $salt
-	 * @return string
-	 */
-	public static function hash($str, $salt)
-	{
-		return sha1($salt.sha1($str));
-	}
-
 	public static function getMinifyReplacements($oktConfig)
 	{
 		global $okt;

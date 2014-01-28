@@ -18,8 +18,7 @@
 			`lastname` 			VARCHAR(255) 				NULL,
 			`firstname` 		VARCHAR(255) 				NULL,
 			`displayname` 		VARCHAR(255) 				NULL,
-			`password` 			VARCHAR(255) 				NULL,
-			`salt` 				VARCHAR(255) 				NOT NULL,
+			`password` 			VARCHAR(255) 				NOT NULL,
 			`email` 			VARCHAR(255) 				NOT NULL,
 			`timezone` 			VARCHAR(255)				NULL,
 			`language` 			VARCHAR(12)				 	NULL,
@@ -33,7 +32,7 @@
 			KEY `{{PREFIX}}core_users_group_id_idx` (`group_id`),
 			KEY `{{PREFIX}}core_users_status_idx` (`status`),
 			KEY `{{PREFIX}}core_users_registered_idx` (`registered`),
-			KEY `{{PREFIX}}core_users_username_idx` (`username`(8))
+			KEY `{{PREFIX}}core_users_username_idx` (`username`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin ;
 	</action>
 

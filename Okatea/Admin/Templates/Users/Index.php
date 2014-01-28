@@ -147,13 +147,13 @@ $okt->page->js->addReady("
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd';
 		$iCountLine++;
 
-		if (!$rsUsers->active) {
+		if (!$rsUsers->status) {
 			$sTdClass .= ' disabled';
 		}
 	?>
 	<tr>
 		<th class="<?php echo $sTdClass ?> fake-td">
-			<h3 class="title"><a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>"><?php echo $view->escape($rsUsers->username) ?></a></h3>
+			<h3 class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"><?php echo $view->escape($rsUsers->username) ?></a></h3>
 			<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
 		</th>
 		<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
@@ -183,7 +183,7 @@ $okt->page->js->addReady("
 				</li>
 
 				<li>
-				<?php if ($rsUsers->active) : ?>
+				<?php if ($rsUsers->status) : ?>
 				<a href="<?php echo $view->generateUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
 				class="icon tick"><?php _e('c_c_status_Active')?></a>
 				<?php else : ?>
@@ -193,7 +193,7 @@ $okt->page->js->addReady("
 				</li>
 
 				<?php if ($okt->checkPerm('users_edit')) : ?>
-				<li><a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>"
+				<li><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
 				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
 				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 				<?php endif; ?>

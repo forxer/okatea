@@ -810,7 +810,8 @@ ul.smartColumns li.column ul.note li {
 }
 
 .two-cols textarea,
-.two-cols input[type=text] {
+.two-cols input[type=text],
+.two-cols input[type=password] {
 	width: 70%;
 }
 .two-cols select {
@@ -818,19 +819,21 @@ ul.smartColumns li.column ul.note li {
 }
 
 .three-cols textarea,
-.three-cols input[type=text] {
+.three-cols input[type=text],
+.three-cols input[type=password] {
 	width: 80%;
 }
 .three-cols select {
-	width: 82%;
+	width: 81%;
 }
 
 .four-cols textarea,
-.four-cols input[type=text] {
+.four-cols input[type=text],
+.four-cols input[type=password] {
 	width: 90%;
 }
 .four-cols select {
-	width: 93%;
+	width: 92%;
 }
 
 .clearer {
