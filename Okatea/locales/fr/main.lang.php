@@ -565,7 +565,7 @@ $GLOBALS['okt_l10n']['c_c_error_invalid_email'] = 'L’adresse %s est invalide.'
 $GLOBALS['okt_l10n']['c_c_error_sending_email'] = 'Erreur lors de l’envoi de l’email.';
 $GLOBALS['okt_l10n']['c_c_error_sending_email_to_%s'] = 'Impossible d’envoyer l’email à cette adresse&nbsp;: %s';
 $GLOBALS['okt_l10n']['c_c_confirm_need_editing_this'] = 'Êtes-vous sûr de devoir modifier cela&nbsp;? Est-ce vraiment nécessaire&nbsp;?';
-$GLOBALS['okt_l10n']['c_c_confirm_configuration_imported'] = 'La configuration a été importée avec succès';
+$GLOBALS['okt_l10n']['c_c_confirm_configuration_imported'] = 'La configuration a été importée avec succès.';
 
 # upload status
 $GLOBALS['okt_l10n']['c_c_upload_error_1'] = 'Pas un fichier déposé.';

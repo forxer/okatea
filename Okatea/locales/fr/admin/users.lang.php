@@ -33,15 +33,26 @@ $GLOBALS['okt_l10n']['c_a_users_delete_the_user'] = 'Supprimer l’utilisateur';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_user_%s'] = 'Supprimer l’utilisateur %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_user_deletion'] = 'Etes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.';
 
-$GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'Il n’y a aucun utilisateur qui correspondent à votre recherche.';
-$GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'Il n’y a aucun utilisateur qui correspondent à vos filtres d’affichage.';
+$GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'Il n’y a aucun utilisateur qui correspond à votre recherche.';
+$GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'Il n’y a aucun utilisateur qui correspond à vos filtres d’affichage.';
 $GLOBALS['okt_l10n']['c_a_users_no_user'] = 'Il n’y a aucun utilisateur.';
+
+# Edit
+$GLOBALS['okt_l10n']['c_a_users_user_%s'] = 'Utilisateur %s';
+$GLOBALS['okt_l10n']['c_a_users_user_added'] = 'L’utilisateur a été ajouté avec succès.';
+$GLOBALS['okt_l10n']['c_a_users_user_edited'] = 'Les informations de l’utilisateur ont été modifiées avec succès.';
+$GLOBALS['okt_l10n']['c_a_users_user_in_wait_of_validation'] = 'Cet utilisateur est en attente de validation.';
+$GLOBALS['okt_l10n']['c_a_users_validate_this_user'] = 'Valider cet utilisateur';
+$GLOBALS['okt_l10n']['c_a_users_edit_informations_of_user_%s'] = 'Modifier les informations de l’utilisateur %s';
+$GLOBALS['okt_l10n']['c_a_users_Edit_informations'] = 'Modifier informations';
+$GLOBALS['okt_l10n']['c_a_users_Edit_password'] = 'Modifier le mot de passe';
+$GLOBALS['okt_l10n']['c_a_users_Alert_user_by_email'] = 'Prévenir l’utilisateur par courriel.';
 
 # Groupes
 $GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'Vous devez saisir un titre de groupe.';
-$GLOBALS['okt_l10n']['c_a_users_group_added'] = 'Groupe ajouté';
-$GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'Groupe modifié';
-$GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'Groupe supprimé';
+$GLOBALS['okt_l10n']['c_a_users_group_added'] = 'Le groupe ajouté a été ajouté avec succès.';
+$GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'Le groupe a été modifié.';
+$GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'Le groupe a été supprimé.';
 $GLOBALS['okt_l10n']['c_a_users_group_list'] = 'Liste des groupes';
 $GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Modifier un groupe';
 $GLOBALS['okt_l10n']['c_a_users_add_group'] = 'Ajouter un groupe';

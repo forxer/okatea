@@ -21,9 +21,8 @@ class User extends Controller
 	{
 		$this->init();
 
-		$this->aPageData['user']['id'] = $this->okt->user->id;
-
 		$this->aPageData['user'] = array(
+			'id'                 => $this->okt->user->id,
 			'group_id'           => $this->okt->user->group_id,
 			'civility'           => $this->okt->user->civility,
 			'status'             => $this->okt->user->status,
@@ -84,7 +83,7 @@ class User extends Controller
 					}
 					*/
 
-					$this->page->flash->success(__('m_users_user_added'));
+					$this->page->flash->success(__('c_a_users_user_added'));
 
 					return $this->redirect($this->generateUrl('Users_edit', array('user_id' => $iUserId)));
 				}
@@ -106,17 +105,18 @@ class User extends Controller
 
 		$this->init();
 
-		$this->aPageData['user']['id'] = $this->request->attributes->getInt('user_id');
+		$iUserId = $this->request->attributes->getInt('user_id');
 
 		$oUsers = new Users($this->okt);
 
-		$rsUser = $oUsers->getUser($this->aPageData['user']['id']);
+		$rsUser = $oUsers->getUser($iUserId);
 
-		if (0 === $this->aPageData['user']['id'] || 1 === $this->aPageData['user']['id'] || $rsUser->isEmpty()) {
+		if (0 === $iUserId || 1 === $iUserId || $rsUser->isEmpty()) {
 			return $this->serve404();
 		}
 
 		$this->aPageData['user'] = array(
+			'id'                 => $iUserId,
 			'group_id'           => $rsUser->group_id,
 			'civility'           => $rsUser->civility,
 			'status'             => $rsUser->status,
@@ -159,7 +159,7 @@ class User extends Controller
 
 		$this->aPageData['tabs'][10] = array(
 			'id'         => 'tab-edit-user',
-			'title'      => __('m_users_General'),
+			'title'      => __('c_a_users_General'),
 			'content'    => $this->renderView('Users/User/Edit/Tabs/General', array(
 
 			))

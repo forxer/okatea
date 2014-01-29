@@ -11,10 +11,10 @@ $view->extend('layout');
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
 
-$okt->page->addGlobalTitle(sprintf(__('m_users_user_%s'), $userData['username']));
+$okt->page->addGlobalTitle(sprintf(__('c_a_users_user_%s'), $aPageData['user']['username']));
 
 if ($aPageData['bWaitingValidation']) {
-	$okt->page->warnings->set(__('m_users_user_in_wait_of_validation'));
+	$okt->page->warnings->set(__('c_a_users_user_in_wait_of_validation'));
 }
 
 # button set
@@ -29,8 +29,14 @@ $okt->page->setButtonset('users', array(
 			'ui-icon'   => 'arrowreturnthick-1-w',
 		),
 		array(
+			'permission' => true,
+			'title'      => __('c_a_users_Add_user'),
+			'url'        => $view->generateUrl('Users_add'),
+			'ui-icon'    => 'plusthick'
+		),
+		array(
 			'permission' => $aPageData['bWaitingValidation'],
-			'title' => __('m_users_validate_this_user'),
+			'title' => __('c_a_users_validate_this_user'),
 			'url' => $view->generateUrl('Users_edit', array('user_id' => $aPageData['user']['id'])).'?validate=1',
 			'ui-icon' => 'check',
 		),
@@ -39,7 +45,7 @@ $okt->page->setButtonset('users', array(
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateUrl('Users_index').'?delete='.$aPageData['user']['id'],
 			'ui-icon' => 'closethick',
-			'onclick' => 'return window.confirm(\''.html::escapeJS(__('m_users_confirm_user_deletion')).'\')',
+			'onclick' => 'return window.confirm(\''.html::escapeJS(__('c_a_users_confirm_user_deletion')).'\')',
 		)
 	)
 ));
@@ -59,7 +65,7 @@ echo $okt->page->getButtonSet('users'); ?>
 		<?php endforeach; ?>
 	</ul>
 
-	<?php foreach ($aEditTabs as $sTabUrl=>$aTabInfos) : ?>
+	<?php foreach ($aPageData['tabs'] as $sTabUrl => $aTabInfos) : ?>
 	<div id="<?php echo $aTabInfos['id'] ?>">
 		<?php echo $aTabInfos['content'] ?>
 	</div><!-- #<?php echo $aTabInfos['id'] ?> -->

@@ -33,34 +33,29 @@ $okt->page->setButtonset('pagesBtSt',array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add') && $okt->checkPerm('pages_add'),
-			'title' => __('m_pages_menu_add_page'),
-			'url' => $view->generateUrl('Pages_post_add'),
-			'ui-icon' => 'plusthick',
-			'active' => ($okt->page->action === 'add'),
+			'permission'    => $okt->checkPerm('pages_add'),
+			'title'         => __('m_pages_menu_add_page'),
+			'url'           => $view->generateUrl('Pages_post_add'),
+			'ui-icon'       => 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_display_filters'),
+			'url' 			=> '#',
+			'ui-icon' 		=> 'search',
+			'active' 		=> $okt->Pages->filters->params->show_filters,
+			'id'			=> 'filter-control',
+			'class'			=> 'button-toggleable'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_action_show'),
+			'url' 			=> $okt->router->generateFromAdmin('pagesList'),
+			'ui-icon' 		=> 'extlink'
 		)
 	)
 ));
 
-# Ajout de boutons
-$okt->page->addButton('pagesBtSt',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_display_filters'),
-	'url' 			=> '#',
-	'ui-icon' 		=> 'search',
-	'active' 		=> $okt->Pages->filters->params->show_filters,
-	'id'			=> 'filter-control',
-	'class'			=> 'button-toggleable'
-));
-
-
-# Bouton vers le module côté public
-$okt->page->addButton('pagesBtSt',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_action_show'),
-	'url' 			=> $okt->router->generateFromAdmin('pagesList'),
-	'ui-icon' 		=> 'extlink'
-));
 
 # Filters control
 if ($okt->Pages->config->admin_filters_style == 'slide')

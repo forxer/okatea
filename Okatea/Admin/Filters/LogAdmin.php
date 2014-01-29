@@ -99,11 +99,13 @@ class LogAdmin extends BaseFilters
 			$this->params->order_by = $this->request->query->get('order_by');
 			$this->session->set($this->sess_prefix.'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_by');
 		}
 		elseif ($this->session->has($this->sess_prefix.'order_by'))
 		{
 			$this->params->order_by = $this->session->get($this->sess_prefix.'order_by');
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_by');
 		}
 
 		switch ($this->params->order_by)
@@ -132,7 +134,9 @@ class LogAdmin extends BaseFilters
 			form::select(
 				array('order_by', $this->form_id.'_order_by'),
 				$this->order_by_array,
-				$this->params->order_by)
+				$this->params->order_by,
+				$this->getActiveClass('order_by')
+			)
 		);
 
 		# sens du tri
@@ -141,11 +145,13 @@ class LogAdmin extends BaseFilters
 			$this->params->order_direction = $this->request->query->get('order_direction');
 			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_direction');
 		}
 		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{
 			$this->params->order_direction = $this->session->get($this->sess_prefix.'order_direction');
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_direction');
 		}
 
 		$this->aLogParams['order_direction'] = $this->params->order_direction;
@@ -156,7 +162,9 @@ class LogAdmin extends BaseFilters
 			form::select(
 				array('order_direction', $this->form_id.'_order_direction'),
 				array(__('c_c_sorting_descending')=>'DESC',__('c_c_sorting_ascending')=>'ASC'),
-				$this->params->order_direction)
+				$this->params->order_direction,
+				$this->getActiveClass('order_direction')
+			)
 		);
 	}
 
@@ -167,11 +175,13 @@ class LogAdmin extends BaseFilters
 			$this->params->date_min = $this->request->query->get('date_min');
 			$this->session->set($this->sess_prefix.'date_min', $this->params->date_min);
 			$this->params->show_filters = true;
+			$this->setActiveFilter('date_min');
 		}
 		elseif ($this->session->has($this->sess_prefix.'date_min'))
 		{
 			$this->params->date_min = $this->session->get($this->sess_prefix.'date_min');
 			$this->params->show_filters = true;
+			$this->setActiveFilter('date_min');
 		}
 
 		$this->aLogParams['date_min'] = $this->params->date_min;
@@ -179,7 +189,14 @@ class LogAdmin extends BaseFilters
 		$this->fields['date_min'] = array(
 			$this->form_id.'date_min',
 			__('c_a_config_logadmin_Date_min'),
-			form::text(array('date_min',$this->form_id.'_date_min'),15,0,$this->params->date_min, 'datepicker')
+			form::text(
+				array('date_min',$this->form_id.'_date_min'),
+				15,
+				0,
+				$this->params->date_min,
+				'datepicker',
+				$this->getActiveClass('date_min')
+			)
 		);
 
 		if ($this->request->query->has('date_max'))
@@ -187,11 +204,13 @@ class LogAdmin extends BaseFilters
 			$this->params->date_max = $this->request->query->get('date_max');
 			$this->session->set($this->sess_prefix.'date_max', $this->params->date_max);
 			$this->params->show_filters = true;
+			$this->setActiveFilter('date_max');
 		}
 		elseif ($this->session->has($this->sess_prefix.'date_max'))
 		{
 			$this->params->date_max = $this->session->get($this->sess_prefix.'date_max');
 			$this->params->show_filters = true;
+			$this->setActiveFilter('date_max');
 		}
 
 		$this->aLogParams['date_max'] = $this->params->date_max;
@@ -199,7 +218,14 @@ class LogAdmin extends BaseFilters
 		$this->fields['date_max'] = array(
 			$this->form_id.'date_max',
 			__('c_a_config_logadmin_Date_max'),
-			form::text(array('date_max',$this->form_id.'_date_max'),15,0,$this->params->date_max, 'datepicker')
+			form::text(
+				array('date_max',$this->form_id.'_date_max'),
+				15,
+				0,
+				$this->params->date_max,
+				'datepicker',
+				$this->getActiveClass('date_max')
+			)
 		);
 	}
 
@@ -220,7 +246,8 @@ class LogAdmin extends BaseFilters
 			form::select(
 				array('type', $this->form_id.'_type'),
 				$this->type_array,
-				$this->params->type
+				$this->params->type,
+				$this->getActiveClass('type')
 			)
 		);
 	}
@@ -242,7 +269,9 @@ class LogAdmin extends BaseFilters
 			form::select(
 				array('code', $this->form_id.'_code'),
 				$this->action_array,
-				$this->params->code)
+				$this->params->code,
+				$this->getActiveClass('code')
+			)
 		);
 	}
 

@@ -34,7 +34,7 @@ class Users extends BaseFilters
 			'page' => 1,
 			'nb_per_page' => 5,
 
-			'active' => 2,
+			'status' => 2,
 
 			'group_id' => -1,
 
@@ -62,7 +62,7 @@ class Users extends BaseFilters
 		$this->order_by_array[__('c_c_user_Username')] = 'username';
 		$this->order_by_array[__('c_c_Group')] = 'group_id';
 
-		# active (seulement sur l'admin)
+		# status (seulement sur l'admin)
 		$this->setFilterActive();
 
 		# page
@@ -84,20 +84,20 @@ class Users extends BaseFilters
 			return null;
 		}
 
-		if (!isset($this->get_users_params['active']))
+		if (!isset($this->get_users_params['status']))
 		{
-			$this->setIntFilter('active');
-			$this->get_users_params['active'] = $this->params->active;
+			$this->setIntFilter('status');
+			$this->get_users_params['status'] = $this->params->status;
 		}
 
-		$this->fields['active'] = array(
-			$this->form_id.'_visibility',
+		$this->fields['status'] = array(
+			$this->form_id.'_status',
 			__('c_a_users_filters_status'),
 			form::select(
-				array('active',$this->form_id.'_visibility'),
+				array('status',$this->form_id.'_status'),
 				array(__('c_c_All')=>2,__('c_c_Enabled')=>1,__('c_c_Disabled')=>0),
-				$this->get_users_params['active'],
-				$this->getActiveClass('visibility')
+				$this->get_users_params['status'],
+				$this->getActiveClass('status')
 			)
 		);
 	}
@@ -119,6 +119,7 @@ class Users extends BaseFilters
 		while ($rsGroups->fetch())
 		{
 			if ($rsGroups->group_id == Groups::GUEST ||
+				$rsGroups->group_id == Groups::ADMIN && !$this->okt->user->is_admin ||
 				$rsGroups->group_id == Groups::SUPERADMIN && !$this->okt->user->is_superadmin) {
 				continue;
 			}
@@ -132,17 +133,19 @@ class Users extends BaseFilters
 			form::select(
 				array('group_id',$this->form_id.'_group_id'),
 				$groups_array,
-				$this->params->group_id)
+				$this->params->group_id,
+				$this->getActiveClass('group_id')
+			)
 		);
 	}
 
 	protected function setFilterOrderBy()
 	{
-		if (isset($_GET['order_direction']))
+		if ($this->request->query->has('order_direction'))
 		{
 			$this->params->show_filters = true;
 
-			if (strtolower($_GET['order_direction']) == 'desc') {
+			if (strtolower($this->request->query->get('order_direction')) === 'desc') {
 				$this->params->order_direction = 'desc';
 			}
 			else {
@@ -150,23 +153,27 @@ class Users extends BaseFilters
 			}
 
 			$this->session->set($this->sess_prefix.'order_direction', $this->params->order_direction);
+			$this->setActiveFilter('order_direction');
 		}
 		elseif ($this->session->has($this->sess_prefix.'order_direction'))
 		{
 			$this->params->show_filters = true;
 			$this->params->order_direction = $this->session->get($this->sess_prefix.'order_direction');
+			$this->setActiveFilter('order_direction');
 		}
 
-		if (isset($_GET['order_by']))
+		if ($this->request->query->has('order_by'))
 		{
-			$this->params->order_by = $_GET['order_by'];
+			$this->params->order_by = $this->request->query->get('order_by');
 			$this->session->set($this->sess_prefix.'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_by');
 		}
 		elseif ($this->session->has($this->sess_prefix.'order_by'))
 		{
 			$this->params->order_by = $this->session->get($this->sess_prefix.'order_by');
 			$this->params->show_filters = true;
+			$this->setActiveFilter('order_by');
 		}
 
 		$this->fields['order_by'] = array(
@@ -175,7 +182,9 @@ class Users extends BaseFilters
 			form::select(
 				array('order_by', $this->form_id.'_order_by'),
 				$this->order_by_array,
-				$this->params->order_by)
+				$this->params->order_by,
+				$this->getActiveClass('order_by')
+			)
 		);
 
 		$this->fields['order_direction'] = array(
@@ -184,7 +193,9 @@ class Users extends BaseFilters
 			form::select(
 				array('order_direction', $this->form_id.'_order_direction'),
 				array(__('c_c_sorting_Descending')=>'desc',__('c_c_sorting_Ascending')=>'asc'),
-				$this->params->order_direction)
+				$this->params->order_direction,
+				$this->getActiveClass('order_direction')
+			)
 		);
 
 		switch ($this->params->order_by)
@@ -221,7 +232,7 @@ class Users extends BaseFilters
 		$return = '';
 
 		$block = '';
-		$block .= $this->getFilter('active', $item_format);
+		$block .= $this->getFilter('status', $item_format);
 		$block .= $this->getFilter('group_id',$item_format);
 
 		$return .= sprintf($bloc_format,$block);

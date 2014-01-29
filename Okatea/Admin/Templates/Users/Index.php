@@ -174,7 +174,7 @@ $okt->page->js->addReady("
 
 				<li>
 				<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
-					<a href="module.php?m=users&amp;action=edit&amp;id=<?php echo $rsUsers->id ?>&amp;valide=1"
+					<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
 					class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 					<?php else : ?>

@@ -34,35 +34,28 @@ $okt->page->setButtonset('newsBtSt',array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add'),
-			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('News_post_add'),
-			'ui-icon' => 'plusthick'
+			'permission'    => true,
+			'title'         => __('m_news_menu_add_post'),
+			'url'           => $view->generateUrl('News_post_add'),
+			'ui-icon'       => 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_display_filters'),
+			'url' 			=> '#',
+			'ui-icon' 		=> 'search',
+			'active' 		=> $okt->News->filters->params->show_filters,
+			'id'			=> 'filter-control',
+			'class'			=> 'button-toggleable'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_action_show'),
+			'url' 			=> $okt->router->generateFromAdmin('newsList'),
+			'ui-icon' 		=> 'extlink'
 		)
 	)
 ));
-
-
-# Ajout de boutons
-$okt->page->addButton('newsBtSt',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_display_filters'),
-	'url' 			=> '#',
-	'ui-icon' 		=> 'search',
-	'active' 		=> $okt->News->filters->params->show_filters,
-	'id'			=> 'filter-control',
-	'class'			=> 'button-toggleable'
-));
-
-
-# Bouton vers le module côté public
-$okt->page->addButton('newsBtSt',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_action_show'),
-	'url' 			=> $okt->router->generateFromAdmin('newsList'),
-	'ui-icon' 		=> 'extlink'
-));
-
 
 # Filters control
 if ($okt->News->config->admin_filters_style == 'slide')

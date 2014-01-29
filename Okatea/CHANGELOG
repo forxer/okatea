@@ -12,16 +12,18 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-beta3
 # now require PHP >= 5.4.0
-# use Composer and Bower as much as possible
-in order to outsource at the maximum
+# use Composer and Bower as much as possible in order to outsource at the maximum
 # replace Router by Symfony Routing component
-# replace PHPThumb by Imagine
-# refactor admin interface
+# refactor administration application
+	# use internal router
+	# use controllers
+	# use templates
+# refactor install application
 	# use internal router
 	# use controllers
 	# use templates
 # refactor modules files structure
-# refactor install application
+# replace PHPThumb by Imagine
 # refactor flash messages device
 # change Yaml files extension .yaml to .yml
 ! implement Symfony HttpFoundation

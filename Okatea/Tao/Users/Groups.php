@@ -12,28 +12,28 @@ use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\Utilities;
 
 class Groups
-{ 
-    /**
-     * Group identifier of unverified users.
-     * @var integer
-     */
+{
+	/**
+	 * Group identifier of unverified users.
+	 * @var integer
+	 */
 	const UNVERIFIED = 0;
 
 	/**
 	 * Group identifier of super-administrator users.
-     * @var integer
+	 * @var integer
 	 */
 	const SUPERADMIN = 1;
-	
+
 	/**
 	 * Group identifier of administrator users.
-     * @var integer
+	 * @var integer
 	 */
 	const ADMIN = 2;
-	
+
 	/**
 	 * Group identifier of guest users.
-     * @var integer
+	 * @var integer
 	 */
 	const GUEST = 3;
 
@@ -42,7 +42,7 @@ class Groups
 	 * @var integer
 	 */
 	const MEMBER = 4;
-	
+
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -264,7 +264,8 @@ class Groups
 			return false;
 		}
 
-		$nbUser = $this->getUsers(array('group_id'=>$iGroupId),true);
+		$oUsers = new Users($this->okt);
+		$nbUser = $oUsers->getUsers(array('group_id'=>$iGroupId),true);
 
 		if ($nbUser > 0)
 		{

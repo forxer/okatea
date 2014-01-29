@@ -108,13 +108,13 @@ class Filters extends BaseFilters
 		}
 
 		$this->fields['active'] = array(
-			$this->form_id.'_visibility',
+			$this->form_id.'_active',
 			__('m_pages_filters_visibility'),
 			form::select(
-				array('active',$this->form_id.'_visibility'),
+				array('active',$this->form_id.'_active'),
 				array(__('c_c_All_f')=>2, __('c_c_action_Visibles')=>1, __('c_c_action_Hiddens_fem')=>0),
 				$this->get_pages_params['active'],
-				$this->getActiveClass('visibility')
+				$this->getActiveClass('active')
 			)
 		);
 	}

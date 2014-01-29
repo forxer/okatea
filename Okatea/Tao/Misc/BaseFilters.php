@@ -141,7 +141,7 @@ class BaseFilters
 
 	protected function setIntFilter($name)
 	{
-		if ($this->request->query->has($name) && $this->request->query->getInt($name) != -1)
+		if ($this->request->query->has($name) /*&& $this->request->query->getInt($name) != -1 */)
 		{
 			$this->params->$name = $this->request->query->getInt($name);
 			$this->session->set($this->sess_prefix.$name, $this->params->$name);

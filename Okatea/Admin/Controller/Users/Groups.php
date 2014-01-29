@@ -22,7 +22,7 @@ class Groups extends Controller
 		}
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
-		
+
 		$oUsersGroups = new UsersGroups($this->okt);
 
 		$iGroupId = $this->okt->request->query->getInt('group_id');
@@ -31,7 +31,7 @@ class Groups extends Controller
 
 		$edit_title = '';
 
-		if ($iGroupId) 
+		if ($iGroupId)
 		{
 			$group = $oUsersGroups->getGroup($iGroupId);
 			$edit_title = $group->title;
@@ -85,7 +85,7 @@ class Groups extends Controller
 			}
 			else
 			{
-				$this->okt->Users->deleteGroup($iGroupIdToDelete);
+				$oUsersGroups->deleteGroup($iGroupIdToDelete);
 
 				$this->okt->page->flash->success(__('c_a_users_group_deleted'));
 
@@ -97,7 +97,7 @@ class Groups extends Controller
 		$rsGroups = $oUsersGroups->getGroups();
 
 		return $this->render('Users/Groups', array(
-		    'groups'         => $oUsersGroups,
+			'groups'         => $oUsersGroups,
 			'iGroupId'       => $iGroupId,
 			'rsGroups'       => $rsGroups,
 			'add_title'      => $add_title,

@@ -113,13 +113,14 @@ class Filters extends BaseFilters
 		}
 
 		$this->fields['active'] = array(
-			$this->form_id.'_visibility',
+			$this->form_id.'_active',
 			__('m_news_filters_visibility'),
 			form::select(
-				array('active',$this->form_id.'_visibility'),
+				array('active',$this->form_id.'_active'),
 				array_merge(array(__('c_c_All_f')=>-1), Helpers::getPostsStatuses(true)),
-				$this->get_posts_params['active']),
+				$this->get_posts_params['active'],
 				$this->getActiveClass('active')
+			)
 		);
 	}
 

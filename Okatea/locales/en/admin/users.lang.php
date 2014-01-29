@@ -37,11 +37,22 @@ $GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'There are no user that mat
 $GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'There are no user that match your display filters.';
 $GLOBALS['okt_l10n']['c_a_users_no_user'] = 'There are no users.';
 
+# Edit
+$GLOBALS['okt_l10n']['c_a_users_user_%s'] = 'User %s';
+$GLOBALS['okt_l10n']['c_a_users_user_added'] = 'The user was added successfully.';
+$GLOBALS['okt_l10n']['c_a_users_user_edited'] = 'The user information has been changed successfully.';
+$GLOBALS['okt_l10n']['c_a_users_user_in_wait_of_validation'] = 'This user is in wait of validation.';
+$GLOBALS['okt_l10n']['c_a_users_validate_this_user'] = 'Validate this user';
+$GLOBALS['okt_l10n']['c_a_users_edit_informations_of_user_%s'] = 'Edit user %s informations';
+$GLOBALS['okt_l10n']['c_a_users_Edit_informations'] = 'Edit informations';
+$GLOBALS['okt_l10n']['c_a_users_Edit_password'] = 'Modify password';
+$GLOBALS['okt_l10n']['c_a_users_Alert_user_by_email'] = 'Alert user by email.';
+
 # Groupes
 $GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'You must enter a title for the group';
-$GLOBALS['okt_l10n']['c_a_users_group_added'] = 'Group added';
-$GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'Group edited';
-$GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'Group deleted';
+$GLOBALS['okt_l10n']['c_a_users_group_added'] = 'The group was added successfully.';
+$GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'The group was edited.';
+$GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'The group was deleted.';
 $GLOBALS['okt_l10n']['c_a_users_group_list'] = 'List of groups';
 $GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Edit a group';
 $GLOBALS['okt_l10n']['c_a_users_add_group'] = 'Add a group';
