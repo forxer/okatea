@@ -52,7 +52,7 @@ theme_tablet: ''
 public_theme: black-tie
 admin_theme: redmond
 enable_admin_bar: true
-admin_sidebar_position: 0
+admin_menu_position: top
 language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
@@ -98,26 +98,26 @@ users_registration:
     default_group: 4
 users_templates:
     forgotten_password:
-        default: null
+        default: default
         usables: {  }
     login:
-        default: null
+        default: default
         usables: {  }
     login_register:
-        default: null
+        default: default
         usables: {  }
     profile:
-        default: null
+        default: default
         usables: {  }
     register:
-        default: null
+        default: default
         usables: {  }
     user_bar:
-        default: null
+        default: default
         usables: {  }
 users_pages:
     login: true
-    register: true
+    register: false
     log_reg: false
     forget_password: false
     profile: false

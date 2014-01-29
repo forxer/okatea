@@ -152,11 +152,10 @@ class Display extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				$aNewConfig = array(
-					'public_theme' 				=> $this->request->request->get('p_public_theme', 'base'),
-					'enable_admin_bar' 			=> $this->request->request->has('p_enable_admin_bar'),
-					'admin_theme' 				=> $p_admin_theme,
-					'admin_sidebar_position'	=> $this->request->request->getInt('p_admin_sidebar_position', 0),
-					'admin_compress_output' 	=> $this->request->request->has('p_admin_compress_output')
+					'public_theme'             => $this->request->request->get('p_public_theme', 'base'),
+					'enable_admin_bar'         => $this->request->request->has('p_enable_admin_bar'),
+					'admin_theme'              => $p_admin_theme,
+					'admin_menu_position'      => $this->request->request->get('p_admin_menu_position', 'top')
 				);
 
 				try

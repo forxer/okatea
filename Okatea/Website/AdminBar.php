@@ -195,20 +195,6 @@ class AdminBar
 					);
 				}
 			}
-
-			if (!empty($okt->page->module))
-			{
-				$aSecondaryAdminBar[1000]['items'][] = array(
-					'intitle' => '$okt->page->module&nbsp;: '.$okt->page->module
-				);
-			}
-
-			if (!empty($okt->page->action))
-			{
-				$aSecondaryAdminBar[1000]['items'][] = array(
-					'intitle' => '$okt->page->action&nbsp;: '.$okt->page->action
-				);
-			}
 		}
 
 		# -- CORE TRIGGER : websiteAdminBarItems

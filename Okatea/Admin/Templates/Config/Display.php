@@ -104,10 +104,12 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 			<p class="field"><?php _e('c_a_config_display_menu_pos') ?></p>
 
 			<p id="sidebar_position_choice">
-				<?php echo form::radio(array('p_admin_sidebar_position', 'p_admin_sidebar_position_0'), 0, ($okt->config->admin_sidebar_position == 0)) ?>
-				<label for="p_admin_sidebar_position_0"><?php _e('c_c_direction_Left') ?></label>
-				<?php echo form::radio(array('p_admin_sidebar_position', 'p_admin_sidebar_position_1'), 1, $okt->config->admin_sidebar_position) ?>
-				<label for="p_admin_sidebar_position_1"><?php _e('c_c_direction_Right') ?></label>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_left'), 'left', ($okt->config->admin_menu_position == 'left')) ?>
+				<label for="p_admin_menu_position_left"><?php _e('c_c_direction_Left') ?></label>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_top'), 'top', $okt->config->admin_menu_position == 'top') ?>
+				<label for="p_admin_menu_position_top"><?php _e('c_c_direction_Top') ?></label>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_right'), 'right', $okt->config->admin_menu_position == 'right') ?>
+				<label for="p_admin_menu_position_right"><?php _e('c_c_direction_Right') ?></label>
 			</p>
 
 			<fieldset>

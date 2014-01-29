@@ -99,8 +99,8 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
-				null,
-				null,
+				$this->okt->adminRouter->generate('Pages_index'),
+				$this->okt->request->attributes->get('_route') === 'Pages_index',
 				20,
 				$this->okt->checkPerm('pages'),
 				null,
@@ -971,8 +971,8 @@ class Module extends BaseModule
 
 		$aParams = array(
 			'group_id_not' => array(
-    			Groups::GUEST,
-    			Groups::SUPERADMIN
+				Groups::GUEST,
+				Groups::SUPERADMIN
 			)
 		);
 
@@ -1050,8 +1050,8 @@ class Module extends BaseModule
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(
-    			Groups::GUEST,
-    			Groups::SUPERADMIN
+				Groups::GUEST,
+				Groups::SUPERADMIN
 			)
 		));
 

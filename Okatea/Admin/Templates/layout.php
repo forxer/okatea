@@ -43,14 +43,18 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 <div id="page">
 <header>
 	<p id="access-link">
-		<a href="#main-<?php echo ($okt->config->admin_sidebar_position == 0 ? 'right' : 'left') ?>"><?php _e('c_c_go_to_content') ?></a>
+		<a href="#main-<?php echo $okt->config->admin_menu_position ?>"><?php _e('c_c_go_to_content') ?></a>
 		-
-		<a href="#mainMenu-<?php echo ($okt->config->admin_sidebar_position == 0 ? 'left' : 'right') ?>"><?php _e('c_c_go_to_menu') ?></a>
+		<a href="#mainMenu-<?php echo $okt->config->admin_menu_position ?>"><?php _e('c_c_go_to_menu') ?></a>
 	</p>
 	<div id="banner" class="ui-widget-header ui-corner-all">
 		<h1><?php echo $view->escape($okt->page->getSiteTitle()) ?></h1>
 		<p id="desc"><?php echo $view->escape($okt->page->getSiteDescription()) ?></p>
 	</div><!-- #header -->
+
+	<?php if ($okt->config->admin_menu_position == 'top') : ?>
+	<nav><?php echo $okt->page->getMainMenuHtml(); ?></nav>
+	<?php endif; ?>
 
 	<div id="helpers" class="ui-widget-content ui-corner-all">
 		<div id="messages">
@@ -77,7 +81,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	</div><!-- #helpers -->
 </header>
 
-<div id="main-<?php echo ($okt->config->admin_sidebar_position == 0 ? 'right' : 'left') ?>">
+<div id="main-<?php echo $okt->config->admin_menu_position ?>">
 
 	<section id="content" class="ui-widget-content">
 
@@ -86,7 +90,9 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	</section><!-- #content -->
 </div><!-- #main -->
 
-<nav><?php echo $okt->page->getMainMenHtml(); ?></nav>
+<?php if ($okt->config->admin_menu_position != 'top') : ?>
+<nav><?php echo $okt->page->getMainMenuHtml(); ?></nav>
+<?php endif; ?>
 
 <?php # init footer content
 $aFooterContent = new ArrayObject;
@@ -98,8 +104,7 @@ if ($okt->options->get('debug'))
 	$aFooterContent[20] =
 		' - version '.$okt->getVersion().' - '.
 		Utilities::getExecutionTime().' s - '.
-		Utilities::l10nFileSize(memory_get_usage()).
-		' ('.Utilities::l10nFileSize(memory_get_peak_usage()).')';
+		Utilities::l10nFileSize(memory_get_usage());
 }
 
 # -- CORE TRIGGER : adminFooterContent

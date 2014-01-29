@@ -38,8 +38,8 @@ class Module extends BaseModule
 			$this->okt->page->DevelopmentSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(
 				__('m_development_menu_development'),
-				null,
-				null,
+				$this->okt->adminRouter->generate('Development_index'),
+				$this->okt->request->attributes->get('_route') === 'Development_index',
 				25061978,
 				$this->okt->checkPerm('development_usage'),
 				null,

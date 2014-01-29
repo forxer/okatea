@@ -17,22 +17,21 @@ $okt->page->setButtonset('newsBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add'),
-			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('News_post_add'),
-			'ui-icon' => 'plusthick',
-			'active' => empty($aPostData['post']['id']),
+			'permission' 	 => true,
+			'title' 		 => __('c_c_action_Go_back'),
+			'url' 			 => $view->generateUrl('News_index'),
+			'ui-icon' 		 => 'arrowreturnthick-1-w'
+		),
+		array(
+			'permission'     => true,
+			'title'          => __('m_news_menu_add_post'),
+			'url'            => $view->generateUrl('News_post_add'),
+			'ui-icon'        => 'plusthick',
+			'active'         => empty($aPostData['post']['id'])
 		)
 	)
 ));
 
-# ajout bouton retour
-$okt->page->addButton('newsBtSt', array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_action_Go_back'),
-	'url' 			=> $view->generateUrl('News_index'),
-	'ui-icon' 		=> 'arrowreturnthick-1-w',
-),'before');
 
 # boutons update post
 if (!empty($aPostData['post']['id']))

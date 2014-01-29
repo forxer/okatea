@@ -51,7 +51,7 @@ class Menu
 	 * @param	array	html		Eléments HTML du menu
 	 * @return void
 	 */
-	public function __construct($id=null, $html=array())
+	public function __construct($id = null, array $html = array())
 	{
 		$this->id = $id;
 		$this->items = array();
@@ -59,7 +59,7 @@ class Menu
 		$this->setDefaultHtml($html);
 	}
 
-	private function setDefaultHtml($html=array())
+	protected function setDefaultHtml(array $html = array())
 	{
 		$this->html = array();
 		$this->html = array_merge(
@@ -74,9 +74,9 @@ class Menu
 		);
 	}
 
-	public function setHtml($html,$str)
+	public function setHtml($html, $str)
 	{
-		if (array_key_exists($html,$this->html)) {
+		if (array_key_exists($html, $this->html)) {
 			$this->html[$html] = $str;
 		}
 	}
@@ -94,7 +94,7 @@ class Menu
 	 * @param	string		$icon			URL d'une icone (null)
 	 * @return void
 	 */
-	public function add($title,$url='', $active=false, $position='', $show=true, $id=null, $sub=null, $icon=null)
+	public function add($title, $url = '', $active = false, $position = '', $show = true, $id = null, $sub = null, $icon = null)
 	{
 		if ($show)
 		{
@@ -118,7 +118,10 @@ class Menu
 
 	public function getItems()
 	{
-		usort($this->items, array('self', 'sortItems'));
+		usort($this->items, function($a, $b) {
+			if ($a['position'] == $b['position']) return 0;
+			return ($a['position'] > $b['position']) ? 1 : -1;
+		});
 
 		return $this->items;
 	}
@@ -130,7 +133,10 @@ class Menu
 	{
 		if ($this->num > 0)
 		{
-			usort($this->items, array('self','sortItems'));
+			usort($this->items, function($a, $b) {
+				if ($a['position'] == $b['position']) return 0;
+				return ($a['position'] > $b['position']) ? 1 : -1;
+			});
 
 			$res = array();
 			$active = null;
@@ -139,9 +145,10 @@ class Menu
 			{
 				$this->items[$i]['i'] = $i;
 
-				$sub = array('html'=>null,'active'=>null);
+				$sub = array('html' => null, 'active' => null);
 
-				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof Menu) {
+				if ($this->items[$i]['sub'] !== null && $this->items[$i]['sub'] instanceof Menu)
+				{
 					$sub = $this->items[$i]['sub']->build();
 				}
 
@@ -179,15 +186,5 @@ class Menu
 				'active' => null
 			);
 		}
-	}
-
-	/**
-	 * Fonction de callback pour trier les éléments du menu
-	 *
-	 */
-	protected static function sortItems($a, $b)
-	{
-		if ($a['position'] == $b['position']) return 0;
-		return ($a['position'] > $b['position']) ? 1 : -1;
 	}
 }

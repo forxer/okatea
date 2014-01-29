@@ -70,25 +70,13 @@ class Page extends BasePage
 	 * Format du HTML du menu principal
 	 * @var array
 	 */
-	public static $formatHtmlMainMenu = array(
-		'block' => '<div%2$s>%1$s</div>',
-		'item' => '<h2%3$s><a href="%2$s">%1$s</a></h2>%4$s',
-		'active' => '<h2%3$s><a href="%2$s">%1$s</a></h2>%4$s',
-		'separator' => '',
-		'emptyBlock' => '<div%s>&nbsp;</div>'
-	);
+	public static $formatHtmlMainMenu = array();
 
 	/**
 	 * Format du HTML des sous-menu
 	 * @var array
 	 */
-	public static $formatHtmlSubMenu = array(
-		'block' => '<div%2$s><ul class="sub-menu">%1$s</ul></div>',
-		'item' => '<li%3$s class=""><span class="ui-icon ui-icon-arrow-1-e"></span><a href="%2$s">%1$s</a>%4$s</li>',
-		'active' => '<li%3$s class=""><span class="ui-icon ui-icon-arrowthick-1-e"></span><a href="%2$s"><strong>%1$s</strong></a>%4$s</li>',
-		'separator' => '',
-		'emptyBlock' => '<div%s>&nbsp;</div>'
-	);
+	public static $formatHtmlSubMenu = array();
 
 	/**
 	 * Constructeur.
@@ -138,7 +126,7 @@ class Page extends BasePage
 		$this->breadcrumb->add($label, $url);
 	}
 
-	public function getMainMenHtml()
+	public function getMainMenuHtml()
 	{
 		$mainMenuHtml = array('html' => null, 'active' => null);
 
@@ -147,10 +135,51 @@ class Page extends BasePage
 		{
 			$mainMenuHtml = $this->mainMenu->build();
 
-			$this->accordion(array(
+			if ($this->okt->config->admin_menu_position != 'top')
+			{
+				$this->accordion(array(
 					'heightStyle' => 'auto',
 					'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
-			), '#mainMenu-'.($this->okt->config->admin_sidebar_position == 0 ? 'left' : 'right'));
+				), '#mainMenu-'.$this->okt->config->admin_menu_position);
+			}
+			else
+			{
+				$this->js->addReady('
+					$("#mainMenu-top").menu({
+						position: { using: positionnerSousMenu }
+					});
+
+					function positionnerSousMenu(position, elements) {
+						var options = {
+							of: elements.target.element
+						};
+
+						if (elements.element.element.parent().parent().attr("id") === "mainMenu-top") {
+							options.my = "left top";
+							options.at = "left bottom";
+						}
+						else {
+							options.my = "left top";
+							options.at = "right top";
+						}
+
+						elements.element.element.position(options);
+					}
+
+					$("#mainMenu-top > li > a > span.ui-icon-carat-1-e").removeClass("ui-icon-carat-1-e").addClass("ui-icon-carat-1-s");
+
+					$(window).scroll(function(e){
+						var top = $(window).scrollTop();
+
+						if (top > 180) {
+							$("#mainMenu-top").addClass("fixed");
+						}
+						else {
+							$("#mainMenu-top").removeClass("fixed");
+						}
+					});
+				');
+			}
 		}
 
 		return $mainMenuHtml['html'];

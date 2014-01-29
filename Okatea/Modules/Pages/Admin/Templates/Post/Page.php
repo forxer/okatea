@@ -17,22 +17,20 @@ $okt->page->setButtonset('pagesBtSt',array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add') && $okt->checkPerm('pages_add'),
-			'title' => __('m_pages_menu_add_page'),
-			'url' => $view->generateUrl('Pages_post_add'),
-			'ui-icon' => 'plusthick',
-			'active' => ($okt->page->action === 'add')
+			'permission' 	 => true,
+			'title' 		 => __('c_c_action_Go_back'),
+			'url' 			 => $view->generateUrl('Pages_index'),
+			'ui-icon' 		 => 'arrowreturnthick-1-w'
+		),
+		array(
+			'permission'     => $okt->checkPerm('pages_add'),
+			'title'          => __('m_pages_menu_add_page'),
+			'url'            => $view->generateUrl('Pages_post_add'),
+			'ui-icon'        => 'plusthick',
+			'active'         => empty($aPageData['post']['id'])
 		)
 	)
 ));
-
-# ajout bouton retour
-$okt->page->addButton('pagesBtSt',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_action_Go_back'),
-	'url' 			=> $view->generateUrl('Pages_index'),
-	'ui-icon' 		=> 'arrowreturnthick-1-w',
-),'before');
 
 # boutons update page
 if (!empty($aPageData['post']['id']))
