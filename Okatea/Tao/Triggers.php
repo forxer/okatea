@@ -160,7 +160,7 @@ class Triggers
 
 		$sReturn = '';
 		foreach ($this->aStack[$sTrigger] as $f) {
-			$sReturn .= call_user_func_array($f,$args);
+			$sReturn .= call_user_func_array($f, $args);
 		}
 
 		return $sReturn;

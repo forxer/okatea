@@ -12,9 +12,11 @@ use Okatea\Tao\Html\Stepper as BaseStepper;
 
 class Install extends BaseStepper
 {
+	public $aStepsList;
+
 	public function __construct($okt, $sCurrentStep)
 	{
-		$aStep = new \ArrayObject(array(
+		$this->aStepsList = array(
 			array(
 				'step' 		=> 'start',
 				'title' 	=> __('i_step_start')
@@ -35,35 +37,15 @@ class Install extends BaseStepper
 				'step' 		=> 'supa',
 				'title' 	=> __('i_step_supa')
 			),
-/*			array(
-				'step' 		=> 'config',
-				'title' 	=> __('i_step_config')
-			),
 			array(
-				'step' 		=> 'theme',
-				'title' 	=> __('i_step_theme')
-			),
-			array(
-				'step' 		=> 'colors',
-				'title' 	=> __('i_step_colors')
-			),
-			array(
-				'step' 		=> 'modules',
-				'title' 	=> __('i_step_modules')
-			),
-			array(
-				'step' 		=> 'pages',
-				'title' 	=> __('i_step_pages')
-			),
-*/			array(
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')
 			)
-		));
+		);
 
 		# -- CORE TRIGGER : installBeforeBuildInstallStepper
-		$okt->triggers->callTrigger('installBeforeBuildInstallStepper', $aStep);
+		$okt->triggers->callTrigger('installBeforeBuildInstallStepper', $this);
 
-		parent::__construct((array)$aStep, $sCurrentStep);
+		parent::__construct((array)$this->aStepsList, $sCurrentStep);
 	}
 }

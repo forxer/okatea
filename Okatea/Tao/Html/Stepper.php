@@ -19,7 +19,6 @@ class Stepper
 
 	public function __construct($aSteps, $sCurrentStep = null)
 	{
-	//	$this->sCurrentStep = !empty($_REQUEST['step']) ? $_REQUEST['step'] : $this->defaultStepName;
 		$this->sCurrentStep = $sCurrentStep !== null ? $sCurrentStep : $this->defaultStepName;
 
 		$this->iNumSteps = count($aSteps);

@@ -11,6 +11,7 @@ namespace Okatea\Install;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
@@ -23,9 +24,9 @@ use Okatea\Tao\Application;
 use Okatea\Tao\ApplicationOptions;
 use Okatea\Tao\Errors;
 use Okatea\Tao\Localization;
+use Okatea\Tao\Misc\FlashMessages;
 use Okatea\Tao\Session;
 use Okatea\Tao\Triggers;
-use Okatea\Tao\Misc\FlashMessages;
 
 class Okatea extends Application
 {
@@ -34,7 +35,7 @@ class Okatea extends Application
 	 *
 	 * @var array
 	 */
-	public $availablesLocales = array('fr','en');
+	public $availablesLocales = array('fr', 'en');
 
 	/**
 	 * Le numéro de version que nous mettons à jour.
@@ -57,6 +58,8 @@ class Okatea extends Application
 	 */
 	public $version;
 
+	public $extensions = array();
+
 
 	public function __construct($autoloader, array $aOptions = array())
 	{
@@ -76,11 +79,6 @@ class Okatea extends Application
 
 	public function run()
 	{
-		$this->router = new Router(
-			$this,
-			__DIR__.'/Routing/RouteProvider.php'
-		);
-
 		if ($this->session->has('okt_old_version')) {
 			$this->oldVersion = $this->session->get('okt_old_version');
 		}
@@ -110,28 +108,79 @@ class Okatea extends Application
 			}
 		}
 
+		$this->loadExtensions();
+
+		# -- CORE TRIGGER : installBeforeStartRouter
+		$this->triggers->callTrigger('installBeforeStartRouter');
+
+		$this->router = new Router(
+			$this,
+			__DIR__.'/Routing/RouteProvider.php'
+		);
+
+		# -- CORE TRIGGER : installBeforeLoadPageHelpers
+		$this->triggers->callTrigger('installBeforeLoadPageHelpers');
+
 		$this->loadPageHelpers();
+
+		# -- CORE TRIGGER : installBeforeMatchRequest
+		$this->triggers->callTrigger('installBeforeMatchRequest');
 
 		$this->matchRequest();
 
-		# Load stepper
-		if ($this->session->get('okt_install_process_type') == 'install') {
-			$this->stepper = new Stepper\Install($this, $this->request->attributes->get('_route'));
-		}
-		else {
-			$this->stepper = new Stepper\Update($this, $this->request->attributes->get('_route'));
-		}
+		# -- CORE TRIGGER : installBeforeLoadStepper
+		$this->triggers->callTrigger('installBeforeLoadStepper');
+
+		$this->loadStepper();
+
+		# -- CORE TRIGGER : installBeforeLoadTplEngine
+		$this->triggers->callTrigger('installBeforeLoadTplEngine');
 
 		$this->loadTplEngine();
 
+		# -- CORE TRIGGER : installBeforeCallController
+		$this->triggers->callTrigger('installBeforeCallController');
+
 		$this->callController();
 
-		$this->sendResponse();
+		# -- CORE TRIGGER : installBeforePrepareResponse
+		$this->triggers->callTrigger('installBeforePrepareResponse');
+
+		$this->response->prepare($this->request);
+
+		# -- CORE TRIGGER : installBeforeSendResponse
+		$this->triggers->callTrigger('installBeforeSendResponse');
+
+		$this->response->send();
 	}
 
 	public function getDb()
 	{
 		return $this->database();
+	}
+
+	/**
+	 * Load install extensions.
+	 *
+	 */
+	protected function loadExtensions()
+	{
+		$finder = new Finder();
+
+		$finder
+			->files()
+			->in(__DIR__.'/Extensions')
+			->name('Extension.php');
+
+		foreach ($finder as $file)
+		{
+			$sExtensionId = $file->getRelativePath();
+
+			$class = 'Okatea\\Install\\Extensions\\'.$sExtensionId.'\\Extension';
+
+			$this->extensions[$sExtensionId] = new $class($this);
+			$this->extensions[$sExtensionId]->load();
+		}
 	}
 
 	/**
@@ -149,9 +198,6 @@ class Okatea extends Application
 	 */
 	protected function matchRequest()
 	{
-		# -- CORE TRIGGER : installBeforeMatchRequest
-		$this->triggers->callTrigger('installBeforeMatchRequest');
-
 		try {
 			$this->request->attributes->add(
 				$this->router->matchRequest($this->request)
@@ -168,6 +214,21 @@ class Okatea extends Application
 	}
 
 	/**
+	 * Load stepper.
+	 *
+	 * return void
+	 */
+	protected function loadStepper()
+	{
+		if ($this->session->get('okt_install_process_type') == 'install') {
+			$this->stepper = new Stepper\Install($this, $this->request->attributes->get('_route'));
+		}
+		else {
+			$this->stepper = new Stepper\Update($this, $this->request->attributes->get('_route'));
+		}
+	}
+
+	/**
 	 * Load templates engine.
 	 *
 	 * return void
@@ -175,7 +236,10 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		# initialisation
-		$this->tpl = new Templating($this, array(__DIR__.'/templates/%name%.php'));
+		$this->tpl = new Templating($this, array(
+			__DIR__.'/Templates/%name%.php',
+			__DIR__.'/Extensions/%name%.php',
+		));
 
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);
@@ -183,9 +247,6 @@ class Okatea extends Application
 
 	protected function callController()
 	{
-		# -- CORE TRIGGER : installBeforeCallController
-		$this->triggers->callTrigger('installBeforeCallController');
-
 		$this->response = $this->router->callController();
 
 		if (null === $this->response || false === $this->response)
@@ -194,18 +255,5 @@ class Okatea extends Application
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
 			$this->response->setContent('Unable to load controller.');
 		}
-	}
-
-	protected function sendResponse()
-	{
-		# -- CORE TRIGGER : installBeforePrepareResponse
-		$this->triggers->callTrigger('installBeforePrepareResponse');
-
-		$this->response->prepare($this->request);
-
-		# -- CORE TRIGGER : installBeforeSendResponse
-		$this->triggers->callTrigger('installBeforeSendResponse');
-
-		$this->response->send();
 	}
 }

@@ -29,26 +29,6 @@ $collection->add(
 	new Route('/users', array('controller' => 'Okatea\Install\Controller\Supa::page'))
 );
 $collection->add(
-	'config',
-	new Route('/configuration', array('controller' => 'Okatea\Install\Controller\Config::page'))
-);
-$collection->add(
-	'theme',
-	new Route('/theme', array('controller' => 'Okatea\Install\Controller\Theme::page'))
-);
-$collection->add(
-	'colors',
-	new Route('/colors', array('controller' => 'Okatea\Install\Controller\Colors::page'))
-);
-$collection->add(
-	'modules',
-	new Route('/modules', array('controller' => 'Okatea\Install\Controller\Modules::page'))
-);
-$collection->add(
-	'pages',
-	new Route('/pages', array('controller' => 'Okatea\Install\Controller\Pages::page'))
-);
-$collection->add(
 	'end',
 	new Route('/end', array('controller' => 'Okatea\Install\Controller\End::page'))
 );

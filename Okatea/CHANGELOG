@@ -22,6 +22,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 	# use internal router
 	# use controllers
 	# use templates
+	# add extensions
 # refactor modules files structure
 # reintroduced users module into the core
 # replace PHPThumb by Imagine
@@ -43,20 +44,7 @@ where moved to oktInc/Tao and follow psr-0
 
 2.0-beta1 (2013-12-03)
 # introduce composer components
-	# remove oktInc/vendor
-	! doctrine/dbal 2.5.*@dev
-	! dotclear/clearbricks dev-default
-	! erusev/parsedown dev-master
-	! ezyang/htmlpurifier dev-master
-	! ircmaxell/password-compat dev-master
-	! leafo/lessphp 0.4.*
-	! masterexploder/phpthumb dev-master
-	! mobiledetect/mobiledetectlib dev-master
-	! simplepie/simplepie dev-master
-	! swiftmailer/swiftmailer 5.1.*@dev
-	! symfony/debug 2.3.*@dev
-	! symfony/templating 2.5.*@dev
-	! symfony/yaml 2.5.*@dev
+# remove oktInc/vendor
 # remove minify lib
 # remove oktDebug class
 # remove internal autoloader, now use composer autoloader instead

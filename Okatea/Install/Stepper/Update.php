@@ -12,9 +12,11 @@ use Okatea\Tao\Html\Stepper as BaseStepper;
 
 class Update extends BaseStepper
 {
+	public $aStepsList;
+
 	public function __construct($okt, $sCurrentStep)
 	{
-		$aStep = new \ArrayObject(array(
+		$this->aStepsList = array(
 			array(
 				'step' 		=> 'start',
 				'title' 	=> __('i_step_start')
@@ -35,11 +37,11 @@ class Update extends BaseStepper
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')
 			)
-		));
+		);
 
 		# -- CORE TRIGGER : installBeforeBuildUpdateStepper
-		$okt->triggers->callTrigger('installBeforeBuildUpdateStepper', $aStep);
+		$okt->triggers->callTrigger('installBeforeBuildUpdateStepper', $this->aStepsList);
 
-		parent::__construct((array)$aStep, $sCurrentStep);
+		parent::__construct((array)$this->aStepsList, $sCurrentStep);
 	}
 }
