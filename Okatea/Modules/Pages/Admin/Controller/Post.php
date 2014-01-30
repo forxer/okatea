@@ -113,7 +113,7 @@ class Post extends Controller
 		}
 
 		# Permissions
-		if ($this->okt->Pages->canUsePerms()) {
+		if ($this->okt->Pages->config->enable_group_perms) {
 			$this->aPageData['perms'] = $this->okt->Pages->getPagePermissions($this->aPageData['post']['id']);
 		}
 
@@ -314,7 +314,7 @@ class Post extends Controller
 
 		# Récupération de la liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->Pages->canUsePerms()) {
+		if ($this->okt->Pages->config->enable_group_perms) {
 			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(false,true);
 		}
 

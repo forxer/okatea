@@ -12,8 +12,8 @@ use Okatea\Admin\Controller;
 
 class Display extends Controller
 {
-    protected $aPageData;
-    
+	protected $aPageData;
+
 	public function page()
 	{
 		if (!$this->okt->checkPerm('users_display')) {
@@ -23,24 +23,28 @@ class Display extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
 
 		$this->aPageData = new \ArrayObject(array());
-        $this->aPageData['config'] = array(
-	        'users_filters' => array(
-    		    'public_default_nb_per_page' 	=> $this->okt->config->users_filters['public_default_nb_per_page'],
-    		    'admin_default_nb_per_page' 	=> $this->okt->config->users_filters['admin_default_nb_per_page']
-	        )    
+		$this->aPageData['config'] = array(
+			'users' => array(
+				'filters' => array(
+					'public_default_nb_per_page' 	=> $this->okt->config->users['filters']['public_default_nb_per_page'],
+					'admin_default_nb_per_page' 	=> $this->okt->config->users['filters']['admin_default_nb_per_page']
+				)
+			)
 		);
-		
+
 		# enregistrement configuration
 		if ($this->okt->request->request->has('form_sent'))
 		{
-		    $this->aPageData['config'] = array(
-		        'users_filters' => array(
-		            'public_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_public_default_nb_per_page', 10),
-		            'admin_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_admin_default_nb_per_page', 10)
-		        )
-		    );
-		    
-		    if ($this->okt->error->isEmpty())
+			$this->aPageData['config'] = array(
+				'users' => array(
+					'filters' => array(
+						'public_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_public_default_nb_per_page', 10),
+						'admin_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_admin_default_nb_per_page', 10)
+					)
+				)
+			);
+
+			if ($this->okt->error->isEmpty())
 			{
 				try
 				{
@@ -59,7 +63,7 @@ class Display extends Controller
 		}
 
 		return $this->render('Users/Display', array(
-            'aPageData' => $this->aPageData
+			'aPageData' => $this->aPageData
 		));
 	}
 }

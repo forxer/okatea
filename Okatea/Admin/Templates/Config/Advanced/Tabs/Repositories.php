@@ -21,7 +21,7 @@ $okt->page->js->addReady('
 
 <h4><?php _e('c_a_config_advanced_modules_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $aPageData['values']['modules_repositories_enabled']) ?>
+<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $aPageData['values']['repositories']['modules']['enabled']) ?>
 <label for="p_modules_repositories_enabled"><?php _e('c_a_config_advanced_enable_modules_repo') ?></label></p>
 
 <table class="common">
@@ -31,7 +31,7 @@ $okt->page->js->addReady('
 	</tr></thead>
 	<tbody>
 	<?php $line_count = 0;
-	foreach ($aModulesRepositories as $repo_name=>$repo_url) :
+	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name=>$repo_url) :
 		$odd_even = $line_count%2 == 0 ? 'even' : 'odd';
 		$line_count++;
 	?>
@@ -58,7 +58,7 @@ $okt->page->js->addReady('
 
 <h4><?php _e('c_a_config_advanced_themes_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $aPageData['values']['themes_repositories_enabled']) ?>
+<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $aPageData['values']['repositories']['themes']['enabled']) ?>
 <label for="p_themes_repositories_enabled"><?php _e('c_a_config_advanced_enable_themes_repo') ?></label></p>
 
 <table class="common">
@@ -68,7 +68,7 @@ $okt->page->js->addReady('
 	</tr></thead>
 	<tbody>
 	<?php $line_count = 0;
-	foreach ($aThemesRepositories as $repo_name=>$repo_url) :
+	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name=>$repo_url) :
 		$odd_even = $line_count%2 == 0 ? 'even' : 'odd';
 		$line_count++;
 	?>

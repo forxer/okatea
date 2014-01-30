@@ -115,10 +115,11 @@ class Modules extends Controller
 		}
 
 		return $this->render('Config/Modules', array(
-			'aAllModules' => $this->aAllModules,
-			'aInstalledModules' => $this->aInstalledModules,
-			'aUninstalledModules' => $this->aUninstalledModules,
-			'aUpdatablesModules' => $this->aUpdatablesModules
+			'aAllModules'             => $this->aAllModules,
+			'aInstalledModules'       => $this->aInstalledModules,
+			'aUninstalledModules'     => $this->aUninstalledModules,
+			'aUpdatablesModules'      => $this->aUpdatablesModules,
+			'aModulesRepositories'    => $this->aModulesRepositories
 		));
 	}
 
@@ -146,20 +147,18 @@ class Modules extends Controller
 		}
 
 		# Liste des dépôts de modules
-		$aModulesRepositories = array();
-		if ($this->okt->config->modules_repositories_enabled)
-		{
-			$aRepositories = $this->okt->config->modules_repositories;
-			$aModulesRepositories = $this->okt->modules->getRepositoriesInfos($aRepositories);
+		$this->aModulesRepositories = array();
+		if ($this->okt->config->repositories['modules']['enabled']) {
+			$this->aModulesRepositories = $this->okt->modules->getRepositoriesInfos($this->okt->config->repositories['modules']['list']);
 		}
 
 		# Liste des éventuelles mise à jours disponibles sur les dépots
 		$this->aUpdatablesModules = array();
-		foreach ($aModulesRepositories as $repo_name=>$modules)
+		foreach ($this->aModulesRepositories as $repo_name=>$modules)
 		{
 			foreach ($modules as $module)
 			{
-				$aModulesRepositories[$repo_name][$module['id']]['name_l10n'] = $module['name'];
+				$this->aModulesRepositories[$repo_name][$module['id']]['name_l10n'] = $module['name'];
 
 				if (isset($this->aAllModules[$module['id']]) && $this->aAllModules[$module['id']]['updatable'] && version_compare($this->aAllModules[$module['id']]['version'],$module['version'], '<'))
 				{
@@ -178,8 +177,8 @@ class Modules extends Controller
 		ModulesCollection::sortModules($this->aInstalledModules);
 		ModulesCollection::sortModules($this->aUninstalledModules);
 
-		foreach ($aModulesRepositories as $repo_name=>$modules) {
-			ModulesCollection::sortModules($aModulesRepositories[$repo_name]);
+		foreach ($this->aModulesRepositories as $repo_name=>$modules) {
+			ModulesCollection::sortModules($this->aModulesRepositories[$repo_name]);
 		}
 	}
 
@@ -668,7 +667,7 @@ class Modules extends Controller
 
 		# Plugin upload
 		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) ||
-			($repository && $module && $this->okt->config->modules_repositories_enabled))
+			($repository && $module && $this->okt->config->repositories['modules']['enabled']))
 		{
 			try
 			{
@@ -686,7 +685,7 @@ class Modules extends Controller
 					{
 						$repository = urldecode($repository);
 						$module = urldecode($module);
-						$url = urldecode($aModulesRepositories[$repository][$module]['href']);
+						$url = urldecode($this->aModulesRepositories[$repository][$module]['href']);
 					}
 					else {
 						$url = urldecode($pkg_url);

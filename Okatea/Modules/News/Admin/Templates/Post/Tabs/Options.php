@@ -42,7 +42,7 @@ use Okatea\Modules\News\Helpers as NewsHelpers;
 	<?php endif; ?>
 
 	<?php # si les permissions de groupe sont activées
-	if ($okt->News->canUsePerms()) : ?>
+	if ($okt->News->config->enable_group_perms) : ?>
 	<div class="col">
 		<p><?php _e('m_news_post_permissions_group')?></p>
 

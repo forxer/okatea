@@ -98,7 +98,7 @@ class Router extends BaseRouter
 	 */
 	public function generateLoginUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if ($this->app->config->users_pages['log_reg']) {
+		if ($this->app->config->users['pages']['log_reg']) {
 			$sLoginUrl = $this->generate('usersLoginRegister');
 		}
 		else {

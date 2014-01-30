@@ -60,7 +60,7 @@ if ($iMenuId)
 	<h3><?php _e('c_a_config_navigation_add_menu') ?></h3>
 <?php endif; ?>
 
-<form id="menu-form" action="<?php echo $view->generateUrl('config_navigation') ?>" method="post">
+<form id="menu-form" action="<?php echo $view->generateUrl('config_navigation') ?>?do=menu" method="post">
 
 	<div class="two-cols">
 		<p class="field col"><label for="p_title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_navigation_menu_title') ?></label>
@@ -74,8 +74,7 @@ if ($iMenuId)
 
 	<p class="field"><label for="p_active"><?php echo form::checkbox('p_active', 1, $aMenuData['active']) ?> <?php _e('c_c_action_visible') ?></label></p>
 
-	<p><?php echo form::hidden('do', 'menu'); ?>
-	<?php echo !empty($iMenuId) ? form::hidden('menu_id', $iMenuId) : ''; ?>
+	<p><?php echo !empty($iMenuId) ? form::hidden('menu_id', $iMenuId) : ''; ?>
 	<?php echo form::hidden('sended', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php empty($iMenuId) ? _e('c_c_action_add') : _e('c_c_action_edit'); ?>" /></p>

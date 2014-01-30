@@ -191,11 +191,6 @@ class Module extends BaseModule
 	 */
 	public function isPublicAccessible()
 	{
-		# si on as pas le module users alors on as le droit
-		if (!$this->moduleUsersExists()) {
-			return true;
-		}
-
 		# si on est superadmin on as droit à tout
 		if ($this->okt->user->is_superadmin) {
 			return true;
@@ -812,7 +807,7 @@ class Module extends BaseModule
 			}
 		}
 
-		if ($this->canUsePerms() && empty($aPageData['perms'])) {
+		if ($this->config->enable_group_perms && empty($aPageData['perms'])) {
 			$this->error->set(__('m_pages_page_must_set_perms'));
 		}
 
@@ -925,38 +920,6 @@ class Module extends BaseModule
 	----------------------------------------------------------*/
 
 	/**
-	 * Indique si les permissions sont utilisables.
-	 *
-	 * @return boolean
-	 */
-	public function canUsePerms()
-	{
-		static $bCanUse = null;
-
-		if (is_null($bCanUse)) {
-			$bCanUse = (boolean)($this->config->enable_group_perms && $this->moduleUsersExists());
-		}
-
-		return $bCanUse;
-	}
-
-	/**
-	 * Indique si le module users est installé et activé.
-	 *
-	 * @return boolean
-	 */
-	public function moduleUsersExists()
-	{
-		static $bExists = null;
-
-		if (is_null($bExists)) {
-			$bExists = (boolean)$this->okt->modules->moduleExists('users');
-		}
-
-		return $bExists;
-	}
-
-	/**
 	 * Retourne la liste des groupes pour les permissions.
 	 *
 	 * @param $bWithAdmin
@@ -965,10 +928,6 @@ class Module extends BaseModule
 	 */
 	public function getUsersGroupsForPerms($bWithAdmin=false,$bWithAll=false)
 	{
-		if (!$this->moduleUsersExists()) {
-			return array();
-		}
-
 		$aParams = array(
 			'group_id_not' => array(
 				Groups::GUEST,
@@ -1003,12 +962,16 @@ class Module extends BaseModule
 	 */
 	public function getPagePermissions($iPageId)
 	{
+		if (!$this->config->enable_group_perms) {
+			return array();
+		}
+
 		$sQuery =
 		'SELECT page_id, group_id '.
 		'FROM '.$this->t_permissions.' '.
 		'WHERE page_id='.(integer)$iPageId.' ';
 
-		if (!$this->canUsePerms() || ($rs = $this->db->select($sQuery)) === false) {
+		if (($rs = $this->db->select($sQuery)) === false) {
 			return array();
 		}
 
@@ -1029,7 +992,7 @@ class Module extends BaseModule
 	 */
 	protected function setPagePermissions($iPageId,$aGroupsIds)
 	{
-		if (!$this->canUsePerms() || empty($aGroupsIds)) {
+		if (!$this->config->enable_group_perms|| empty($aGroupsIds)) {
 			return $this->setDefaultPagePermissions($iPageId);
 		}
 

@@ -15,7 +15,6 @@ $GLOBALS['okt_l10n']['m_news_config_enable_news_seo'] = 'Activer l’aide au ré
 $GLOBALS['okt_l10n']['m_news_config_filters_website'] = 'Afficher les filtres sur la partie publique';
 
 $GLOBALS['okt_l10n']['m_news_config_access_restrictions'] = 'Restrictions d’accès';
-$GLOBALS['okt_l10n']['m_news_config_install_users'] = 'Vous devez installer et activer le module "Utilisateurs" pour pouvoir utiliser les permissions de groupe.';
 $GLOBALS['okt_l10n']['m_news_config_enable_group_permissions'] = 'Activer les permissions de groupe indépendantes sur les actualités';
 
 $GLOBALS['okt_l10n']['m_news_config_rich_text_editor'] = 'Éditeur de texte riche';

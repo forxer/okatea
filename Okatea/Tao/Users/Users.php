@@ -258,7 +258,7 @@ class Users
 
 			if ($dupe)
 			{
-				if ($this->okt->config->users_registration['merge_username_email']) {
+				if ($this->okt->config->users['registration']['merge_username_email']) {
 					$this->error->set(__('c_c_users_error_email_already_exist'));
 				}
 				else {
@@ -336,11 +336,11 @@ class Users
 			return false;
 		}
 
-		if ($this->okt->config->users_registration['validate_users_registration']) {
+		if ($this->okt->config->users['registration']['validation']) {
 			$aParams['group_id'] = 0;
 		}
 		elseif (empty($aParams['group_id']) || !$this->groupExists($aParams['group_id'])) {
-			$aParams['group_id'] = $this->okt->config->users_registration['default_group'];
+			$aParams['group_id'] = $this->okt->config->users['registration']['default_group'];
 		}
 
 		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
@@ -531,7 +531,7 @@ class Users
 		$this->db->optimize($this->t_users);
 
 		# delete user custom fields
-		if ($this->okt->config->users_custom_fields_enabled) {
+		if ($this->okt->config->users['custom_fields_enabled']) {
 			$this->fields->delUserValue($id);
 		}
 

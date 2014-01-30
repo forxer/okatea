@@ -41,7 +41,7 @@ class UsersController extends BaseController
 	public function login()
 	{
 		# page désactivée ?
-		if (!$this->okt->config->users_pages['login']) {
+		if (!$this->okt->config->users['pages']['login']) {
 			return $this->serve404();
 		}
 
@@ -80,7 +80,7 @@ class UsersController extends BaseController
 	public function register()
 	{
 		# page désactivée ?
-		if (!$this->okt->config->users_pages['register']) {
+		if (!$this->okt->config->users['pages']['register']) {
 			return $this->serve404();
 		}
 
@@ -110,7 +110,7 @@ class UsersController extends BaseController
 	public function loginRegister()
 	{
 		# page désactivée ?
-		if (!$this->okt->config->users_pages['log_reg'] || !$this->okt->config->users_pages['login'] || !$this->okt->config->users_pages['register']) {
+		if (!$this->okt->config->users['pages']['log_reg'] || !$this->okt->config->users['pages']['login'] || !$this->okt->config->users['pages']['register']) {
 			return $this->serve404();
 		}
 
@@ -143,7 +143,7 @@ class UsersController extends BaseController
 	public function forgetPassword()
 	{
 		# page désactivée ?
-		if (!$this->okt->config->users_pages['forget_password']) {
+		if (!$this->okt->config->users['pages']['forget_password']) {
 			return $this->serve404();
 		}
 
@@ -186,7 +186,7 @@ class UsersController extends BaseController
 	public function profile()
 	{
 		# page désactivée ?
-		if (!$this->okt->config->users_pages['profile']) {
+		if (!$this->okt->config->users['pages']['profile']) {
 			return $this->serve404();
 		}
 
@@ -218,7 +218,7 @@ class UsersController extends BaseController
 		$aPostedData = array();
 		$aFieldsValues = array();
 
-		if ($this->okt->config->users_custom_fields_enabled)
+		if ($this->okt->config->users['custom_fields_enabled'])
 		{
 			$this->rsAdminFields = $this->okt->users->fields->getFields(array(
 				'status' => true,
@@ -307,12 +307,12 @@ class UsersController extends BaseController
 				'timezone' => isset($_POST['edit_timezone']) ? $_POST['edit_timezone'] : ''
 			);
 
-			if ($this->okt->config->users_registration['merge_username_email']) {
+			if ($this->okt->config->users['registration']['merge_username_email']) {
 				$aUserProfilData['username'] = $aUserProfilData['email'];
 			}
 
 			# peuplement et vérification des champs personnalisés obligatoires
-			if ($this->okt->config->users_custom_fields_enabled) {
+			if ($this->okt->config->users['custom_fields_enabled']) {
 				$this->okt->users->fields->getPostData($this->rsUserFields, $aPostedData);
 			}
 
@@ -321,7 +321,7 @@ class UsersController extends BaseController
 				# -- CORE TRIGGER : adminModUsersProfileProcess
 				$this->okt->triggers->callTrigger('adminModUsersProfileProcess', $_POST);
 
-				if ($this->okt->config->users_custom_fields_enabled)
+				if ($this->okt->config->users['custom_fields_enabled'])
 				{
 					while ($this->rsUserFields->fetch()) {
 						$this->okt->users->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
@@ -339,7 +339,7 @@ class UsersController extends BaseController
 		$aLanguages = $this->getLanguages();
 
 		# affichage du template
-		return $this->render('Users/profile/'.$this->okt->config->users_templates['profile']['default'].'/template', array(
+		return $this->render('Users/profile/'.$this->okt->config->users['templates']['profile']['default'].'/template', array(
 			'aUserProfilData' => $aUserProfilData,
 			'aTimezone' => $aTimezone,
 			'aLanguages' => $aLanguages,
@@ -434,13 +434,13 @@ class UsersController extends BaseController
 			'password' => '',
 			'password_confirm' => '',
 			'email' => '',
-			'group_id' => $this->okt->config->users_registration['default_group'],
+			'group_id' => $this->okt->config->users['registration']['default_group'],
 			'timezone' => $this->okt->config->timezone,
 			'language' => $this->okt->config->language
 		);
 
 		# Champs personnalisés
-		if ($this->okt->config->users_custom_fields_enabled)
+		if ($this->okt->config->users['custom_fields_enabled'])
 		{
 			$aPostedData = array();
 
@@ -496,18 +496,18 @@ class UsersController extends BaseController
 				'password' => !empty($_POST['add_password']) ? $_POST['add_password'] : '',
 				'password_confirm' => !empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '',
 				'email' => !empty($_POST['add_email']) ? $_POST['add_email'] : '',
-				'group_id' => ($this->okt->config->users_registration['user_choose_group'] && !empty($_POST['add_group_id']) && in_array($_POST['add_group_id'],$this->getGroups())) ? $_POST['add_group_id'] : $this->okt->config->users_registration['default_group'],
+				'group_id' => ($this->okt->config->users['registration']['user_choose_group'] && !empty($_POST['add_group_id']) && in_array($_POST['add_group_id'],$this->getGroups())) ? $_POST['add_group_id'] : $this->okt->config->users['registration']['default_group'],
 				'timezone' => !empty($_POST['add_timezone']) ? $_POST['add_timezone'] : $this->okt->config->timezone,
 				'language' => !empty($_POST['add_language']) && in_array($_POST['add_language'], $this->getLanguages()) ? $_POST['add_language'] : $this->okt->config->language,
 				'civility' => !empty($_POST['add_civility']) ? $_POST['add_civility'] : ''
 			);
 
-			if ($this->okt->config->users_registration['merge_username_email']) {
+			if ($this->okt->config->users['registration']['merge_username_email']) {
 				$this->aUserRegisterData['username'] = $this->aUserRegisterData['email'];
 			}
 
 			# vérification des champs personnalisés obligatoires
-			if ($this->okt->config->users_custom_fields_enabled)
+			if ($this->okt->config->users['custom_fields_enabled'])
 			{
 				while ($this->rsUserFields->fetch())
 				{
@@ -526,7 +526,7 @@ class UsersController extends BaseController
 
 				$rsUser = $this->okt->users->getUser($new_id);
 
-				if ($this->okt->config->users_custom_fields_enabled)
+				if ($this->okt->config->users['custom_fields_enabled'])
 				{
 					while ($this->rsUserFields->fetch()) {
 						$this->okt->users->fields->setUserValues($new_id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
@@ -538,7 +538,7 @@ class UsersController extends BaseController
 
 				$oMail->setFrom();
 
-				if ($this->okt->config->users_registration['validate_users_registration']) {
+				if ($this->okt->config->users['registration']['validation']) {
 					$template_file = 'welcom_waiting.tpl';
 				} else {
 					$template_file = 'welcom.tpl';
@@ -557,13 +557,13 @@ class UsersController extends BaseController
 				$oMail->send();
 
 				# Initialisation du mailer et envoi du mail à l'administrateur
-				if ($this->okt->config->users_registration['mail_new_registration'])
+				if ($this->okt->config->users['registration']['mail_new_registration'])
 				{
 					$oMail = new Mailer($this->okt);
 
 					$oMail->setFrom();
 
-					if ($this->okt->config->users_registration['validate_users_registration']) {
+					if ($this->okt->config->users['registration']['validation']) {
 						$template_file = 'registration_validate.tpl';
 					} else {
 						$template_file = 'registration.tpl';
@@ -586,7 +586,7 @@ class UsersController extends BaseController
 				}
 
 				# eventuel connexion du nouvel utilisateur
-				if (!$this->okt->config->users_registration['validate_users_registration'] && $this->okt->config->users_registration['auto_log_after_registration']) {
+				if (!$this->okt->config->users['registration']['validation'] && $this->okt->config->users['registration']['auto_log_after_registration']) {
 					$this->okt->user->login($this->aUserRegisterData['username'],$this->aUserRegisterData['password'],false);
 				}
 

@@ -45,7 +45,7 @@ class Display extends Controller
 
 		foreach ($aAllowedAdminThemes as $theme)
 		{
-			if ($theme == $this->okt->config->admin_theme) {
+			if ($theme == $this->okt->config->jquery_ui['admin']) {
 				$aAllowedAdminThemes[$theme] = $theme.__('c_a_config_display_current_theme');
 			}
 		}
@@ -134,7 +134,7 @@ class Display extends Controller
 
 					\files::deltree($sTempDir);
 
-					$this->request->request->set('p_admin_theme', 'custom');
+					$this->request->request->set('p_jquery_ui_admin_theme', 'custom');
 				}
 				catch (Exception $e) {
 					\files::deltree($sTempDir);
@@ -143,18 +143,20 @@ class Display extends Controller
 			}
 
 			# enregistrement de la configuration
-			$p_admin_theme = $this->request->request->get('p_admin_theme', 'base');
+			$p_jquery_ui_admin_theme = $this->request->request->get('p_jquery_ui_admin_theme', 'base');
 
-			if (!in_array($p_admin_theme, $aAllowedAdminThemes) && $p_admin_theme != 'custom') {
-				$p_admin_theme = $this->okt->config->admin_theme;
+			if (!in_array($p_jquery_ui_admin_theme, $aAllowedAdminThemes) && $p_jquery_ui_admin_theme != 'custom') {
+				$p_jquery_ui_admin_theme = $this->okt->config->jquery_ui['admin'];
 			}
 
 			if ($this->okt->error->isEmpty())
 			{
 				$aNewConfig = array(
-					'public_theme'             => $this->request->request->get('p_public_theme', 'base'),
+					'jquery_ui' => array(
+						'public' => $this->request->request->get('p_jquery_ui_public_theme', 'base'),
+						'admin' => $p_jquery_ui_admin_theme
+					),
 					'enable_admin_bar'         => $this->request->request->has('p_enable_admin_bar'),
-					'admin_theme'              => $p_admin_theme,
 					'admin_menu_position'      => $this->request->request->get('p_admin_menu_position', 'top')
 				);
 

@@ -121,7 +121,7 @@ class Post extends Controller
 		}
 
 		# Permissions
-		if ($this->okt->News->canUsePerms()) {
+		if ($this->okt->News->config->enable_group_perms) {
 			$this->aPostData['perms'] = $this->okt->News->getPostPermissions($this->aPostData['post']['id']);
 		}
 
@@ -367,7 +367,7 @@ class Post extends Controller
 
 		# Récupération de la liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->News->canUsePerms()) {
+		if ($this->okt->News->config->enable_group_perms) {
 			$aGroups = $this->okt->News->getUsersGroupsForPerms(false,true);
 		}
 
@@ -414,9 +414,10 @@ class Post extends Controller
 			'id' => 'tab-options',
 			'title' => __('m_news_post_tab_options'),
 			'content' => $this->renderView('News/Admin/Templates/Post/Tabs/Options', array(
-				'rsCategories' => $rsCategories,
+				'rsCategories'  => $rsCategories,
 				'aPermissions' 	=> $this->aPermissions,
-				'aPostData' => $this->aPostData
+				'aPostData'     => $this->aPostData,
+				'aGroups' 		=> $aGroups
 			))
 		);
 

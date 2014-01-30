@@ -51,7 +51,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 		<h3 id="add_theme_repo_title"><?php _e('c_a_themes_add_theme_from_remote_repository') ?></h3>
 
 		<div id="add_theme_repo_content">
-		<?php if (!$okt->config->themes_repositories_enabled) : ?>
+		<?php if (!$okt->config->repositories['themes']['enabled']) : ?>
 			<p><?php _e('c_a_themes_repositories_themes_disabled') ?></p>
 
 		<?php elseif (!empty($aThemesRepositories)) : ?>

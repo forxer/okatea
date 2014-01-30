@@ -112,9 +112,9 @@ class AdminBar
 			}
 
 			# avertissement nouvelle version disponible
-			if ($okt->config->update_enabled && is_readable($okt->options->get('digests')))
+			if ($okt->config->updates['enabled'] && is_readable($okt->options->get('digests')))
 			{
-				$updater = new Updater($okt->config->update_url, 'okatea', $okt->config->update_type, $okt->options->get('cache_dir').'/versions');
+				$updater = new Updater($okt->config->updates['url'], 'okatea', $okt->config->updates['type'], $okt->options->get('cache_dir').'/versions');
 				$new_v = $updater->check($okt->getVersion());
 
 				if ($updater->getNotify() && $new_v)
@@ -130,20 +130,20 @@ class AdminBar
 			}
 
 			# avertissement mode maintenance est activé sur la partie publique
-			if ($okt->config->public_maintenance_mode)
+			if ($okt->config->maintenance['public'])
 			{
 				$aPrimaryAdminBar[10]['items'][130] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => __('c_a_public_maintenance_mode_enabled')
+					'intitle' => __('c_a_maintenance_public_enabled')
 				);
 			}
 
 			# avertissement mode maintenance est activé sur l'admin
-			if ($okt->config->admin_maintenance_mode)
+			if ($okt->config->maintenance['admin'])
 			{
 				$aPrimaryAdminBar[10]['items'][140] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
-					'intitle' => __('c_a_admin_maintenance_mode_enabled')
+					'intitle' => __('c_a_maintenance_admin_enabled')
 				);
 			}
 

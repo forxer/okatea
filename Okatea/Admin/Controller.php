@@ -22,7 +22,7 @@ class Controller extends BaseController
 		parent::__construct($okt);
 
 		# Ajout des fichiers CSS de l'admin
-		$this->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
+		$this->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->jquery_ui['admin'].'/jquery-ui.css');
 		$this->page->css->addFile($this->okt->options->public_url.'/css/init.css');
 		$this->page->css->addFile($this->okt->options->public_url.'/css/admin.css');
 		$this->page->css->addFile($this->okt->options->public_url.'/css/famfamfam.css');

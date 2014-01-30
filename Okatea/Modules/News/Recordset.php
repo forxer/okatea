@@ -153,7 +153,7 @@ class Recordset extends BaseRecordset
 		}
 
 		# si les permissions sont désactivées alors on as le droit
-		if (!$this->okt->News->canUsePerms())
+		if (!$this->okt->News->config->enable_group_perms)
 		{
 			$perms[$this->id] = true;
 			return true;

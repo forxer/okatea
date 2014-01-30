@@ -160,7 +160,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			<?php if ($okt->News->config->categories['enable']) : ?>
 			<th scope="col"><?php _e('m_news_list_table_th_category') ?></th>
 			<?php endif; ?>
-			<?php if ($okt->News->canUsePerms()) : ?>
+			<?php if ($okt->News->config->enable_group_perms) : ?>
 			<th scope="col"><?php _e('m_news_list_table_th_access') ?></th>
 			<?php endif; ?>
 			<th scope="col"><?php _e('m_news_list_table_th_dates') ?></th>
@@ -184,7 +184,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			<?php endif; ?>
 
 			<?php # droits d'accès
-			if ($okt->News->canUsePerms()) :
+			if ($okt->News->config->enable_group_perms) :
 
 				$aGroupsAccess = array();
 				$aPerms = $okt->News->getPostPermissions($rsPosts->id);

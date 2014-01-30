@@ -171,9 +171,7 @@ class Config extends Controller
 
 		# Liste des groupes pour les permissions
 		$aGroups = null;
-		if ($this->okt->News->moduleUsersExists()) {
-			$aGroups = $this->okt->News->getUsersGroupsForPerms(true,true);
-		}
+		$aGroups = $this->okt->News->getUsersGroupsForPerms(true, true);
 
 		return $this->render('News/Admin/Templates/Config', array(
 			'oImageUploadConfig' 	=> $oImageUploadConfig,

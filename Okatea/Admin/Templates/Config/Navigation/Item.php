@@ -75,7 +75,7 @@ $okt->page->js->addReady('
 
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
-<form id="item-form" action="<?php echo $view->generateUrl('config_navigation') ?>" method="post">
+<form id="item-form" action="<?php echo $view->generateUrl('config_navigation') ?>?do=item" method="post">
 
 	<div class="two-cols">
 		<p class="field col"><label for="p_type"><?php _e('c_a_config_navigation_item_type') ?></label>
@@ -95,8 +95,7 @@ $okt->page->js->addReady('
 	</div>
 	<?php endforeach; ?>
 
-	<p><?php echo form::hidden('do', 'item'); ?>
-	<?php echo form::hidden('menu_id', $iMenuId); ?>
+	<p><?php echo form::hidden('menu_id', $iMenuId); ?>
 	<?php echo !empty($aItemData['item']['id']) ? form::hidden('item_id', $aItemData['item']['id']) : ''; ?>
 	<?php echo form::hidden('sended', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>

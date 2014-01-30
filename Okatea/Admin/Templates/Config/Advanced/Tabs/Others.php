@@ -15,11 +15,11 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 <fieldset>
 	<legend><?php _e('c_a_config_advanced_maintenance_mode') ?></legend>
 
-	<p class="field"><label for="p_public_maintenance_mode"><?php echo form::checkbox('p_public_maintenance_mode', 1, $aPageData['values']['public_maintenance_mode']) ?>
-	<?php _e('c_a_config_advanced_enable_public_maintenance_mode') ?></label></p>
+	<p class="field"><label for="p_maintenance_public"><?php echo form::checkbox('p_maintenance_public', 1, $aPageData['values']['maintenance']['public']) ?>
+	<?php _e('c_a_config_advanced_enable_maintenance_public') ?></label></p>
 
-	<p class="field"><label for="p_admin_maintenance_mode"><?php echo form::checkbox('p_admin_maintenance_mode', 1, $aPageData['values']['admin_maintenance_mode']) ?>
-	<?php _e('c_a_config_advanced_enable_admin_maintenance_mode') ?></label></p>
+	<p class="field"><label for="p_maintenance_admin"><?php echo form::checkbox('p_maintenance_admin', 1, $aPageData['values']['maintenance']['admin']) ?>
+	<?php _e('c_a_config_advanced_enable_maintenance_admin') ?></label></p>
 
 </fieldset>
 

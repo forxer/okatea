@@ -178,7 +178,7 @@ class Collection
 			array_unshift($aThemes[$iThemeId]['index'], $iThemeId);
 
 			# is active ?
-			if ($aTheme['id'] == $this->okt->config->theme)
+			if ($aTheme['id'] == $this->okt->config->themes['desktop'])
 			{
 				$aThemes[$iThemeId]['is_active'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'active');
@@ -189,7 +189,7 @@ class Collection
 			}
 
 			# is mobile ?
-			if ($aTheme['id'] == $this->okt->config->theme_mobile)
+			if ($aTheme['id'] == $this->okt->config->themes['mobile'])
 			{
 				$aThemes[$iThemeId]['is_mobile'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'mobile');
@@ -202,7 +202,7 @@ class Collection
 			}
 
 			# is tablet ?
-			if ($aTheme['id'] == $this->okt->config->theme_tablet)
+			if ($aTheme['id'] == $this->okt->config->themes['tablet'])
 			{
 				$aThemes[$iThemeId]['is_tablet'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'tablet');

@@ -88,9 +88,7 @@ class Advanced extends Controller
 			'id' => 'tab_repositories',
 			'title' => __('c_a_config_advanced_tab_repositories'),
 			'content' => $this->renderView('Config/Advanced/Tabs/Repositories', array(
-				'aPageData' => $this->aPageData,
-				'aModulesRepositories' => (array)$this->okt->config->modules_repositories,
-				'aThemesRepositories' => (array)$this->okt->config->themes_repositories
+				'aPageData' => $this->aPageData
 			))
 		);
 
@@ -121,8 +119,10 @@ class Advanced extends Controller
 	protected function othersInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'public_maintenance_mode' => $this->okt->config->public_maintenance_mode,
-			'admin_maintenance_mode' => $this->okt->config->admin_maintenance_mode,
+			'maintenance' => array(
+				'public' => $this->okt->config->maintenance['public'],
+				'admin' => $this->okt->config->maintenance['admin']
+			),
 
 			'htmlpurifier_disabled' => $this->okt->config->htmlpurifier_disabled,
 
@@ -155,28 +155,37 @@ class Advanced extends Controller
 	protected function repositoriesInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'modules_repositories_enabled' => $this->okt->config->modules_repositories_enabled,
-			'modules_repositories' => $this->okt->config->modules_repositories,
-
-			'themes_repositories_enabled' => $this->okt->config->themes_repositories_enabled,
-			'themes_repositories' => $this->okt->config->themes_repositories
+			'repositories' => array(
+				'themes' => array(
+					'enabled' => $this->okt->config->repositories['themes']['enabled'],
+					'list' => $this->okt->config->repositories['themes']['list']
+				),
+				'modules' => array(
+					'enabled' => $this->okt->config->repositories['modules']['enabled'],
+					'list' => $this->okt->config->repositories['modules']['list']
+				)
+			)
 		));
 	}
 
 	protected function updateInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'update_enabled' => $this->okt->config->update_enabled,
-			'update_url' => $this->okt->config->update_url,
-			'update_type' => $this->okt->config->update_type
+			'updates' => array(
+				'enabled'   => $this->okt->config->updates['enabled'],
+				'url'       => $this->okt->config->updates['url'],
+				'type'      => $this->okt->config->updates['type']
+			)
 		));
 	}
 
 	protected function othersHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'public_maintenance_mode' => $this->request->request->has('p_public_maintenance_mode'),
-			'admin_maintenance_mode' => $this->request->request->has('p_admin_maintenance_mode'),
+			'maintenance' => array(
+				'public' => $this->request->request->has('p_maintenance_public'),
+				'admin' => $this->request->request->has('p_maintenance_admin')
+			),
 
 			'htmlpurifier_disabled' => $this->request->request->has('p_htmlpurifier_disabled'),
 
@@ -208,26 +217,33 @@ class Advanced extends Controller
 	protected function repositoriesHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'modules_repositories_enabled' => $this->request->request->has('p_modules_repositories_enabled'),
-			'modules_repositories' => array_filter(array_combine(
-				$this->request->request->get('p_modules_repositories_names', array()),
-				$this->request->request->get('p_modules_repositories_urls', array())
-			)),
-
-			'themes_repositories_enabled' => $this->request->request->has('p_themes_repositories_enabled'),
-			'themes_repositories' => array_filter(array_combine(
-				$this->request->request->get('p_themes_repositories_names', array()),
-				$this->request->request->get('p_themes_repositories_urls', array())
-			))
+			'repositories' => array(
+				'themes' => array(
+					'enabled' => $this->request->request->has('p_themes_repositories_enabled'),
+					'list' => array_filter(array_combine(
+						$this->request->request->get('p_themes_repositories_names', array()),
+						$this->request->request->get('p_themes_repositories_urls', array())
+					))
+				),
+				'modules' => array(
+					'enabled' => $this->request->request->has('p_modules_repositories_enabled'),
+					'list' => array_filter(array_combine(
+						$this->request->request->get('p_modules_repositories_names', array()),
+						$this->request->request->get('p_modules_repositories_urls', array())
+					))
+				)
+			)
 		));
 	}
 
 	protected function updateHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'update_enabled' => $this->request->request->has('p_update_enabled'),
-			'update_url' => $this->request->request->get('p_update_url'),
-			'update_type' => $this->request->request->get('p_update_type')
+			'updates' => array(
+				'enabled' => $this->request->request->has('p_updates_enabled'),
+				'url' => $this->request->request->get('p_updates_url'),
+				'type' => $this->request->request->get('p_updates_type')
+			)
 		));
 	}
 }

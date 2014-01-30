@@ -163,9 +163,9 @@ class Okatea extends Application
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
-			elseif ($this->config->admin_maintenance_mode && !$this->user->is_superadmin)
+			elseif ($this->config->maintenance['admin'] && !$this->user->is_superadmin)
 			{
-				$this->page->flash->error(__('c_c_auth_admin_maintenance_mode'));
+				$this->page->flash->error(__('c_c_auth_maintenance_admin'));
 
 				$this->user->logout();
 
@@ -367,7 +367,7 @@ class Okatea extends Application
 				$this->adminRouter->generate('config_update'),
 				$this->request->attributes->get('_route') === 'config_update',
 				130,
-				$this->config->update_enabled && $this->checkPerm('is_superadmin')
+				$this->config->updates['enabled'] && $this->checkPerm('is_superadmin')
 			);
 			$this->page->configSubMenu->add(__('c_a_menu_log_admin'),
 				$this->adminRouter->generate('config_logadmin'),

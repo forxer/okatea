@@ -316,7 +316,7 @@ $okt->page->loader('.lazy-load');
 	<h4 id="add_module_repo_title"><?php _e('c_a_modules_add_module_from_remote_repository') ?></h4>
 
 	<div id="add_module_repo_content">
-	<?php if (!$okt->config->modules_repositories_enabled) : ?>
+	<?php if (!$okt->config->repositories['modules']['enabled']) : ?>
 		<p><?php _e('c_a_modules_repositories_modules_disabled') ?></p>
 
 	<?php elseif (!empty($aModulesRepositories)) : ?>

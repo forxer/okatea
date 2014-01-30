@@ -26,13 +26,13 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<div class="three-cols">
 	<?php # affichage des champs "username" et "email" fusionnés
-	if ($okt->config->users_registration['merge_username_email']) : ?>
+	if ($okt->config->users['registration']['merge_username_email']) : ?>
 		<p class="field col"><label for="email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
 		<?php echo form::text('email', 40, 255, $view->escape($aPageData['user']['email'])) ?></p>
 	<?php endif; ?>
 
 	<?php # affichage des champs "username" et "email" distincts
-	if (!$okt->config->users_registration['merge_username_email']) : ?>
+	if (!$okt->config->users['registration']['merge_username_email']) : ?>
 		<p class="field col"><label for="username" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Username') ?></label>
 		<?php echo form::text('username', 40, 255, $view->escape($aPageData['user']['username'])) ?></p>
 

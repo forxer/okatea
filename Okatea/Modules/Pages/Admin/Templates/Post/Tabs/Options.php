@@ -32,7 +32,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<?php endif; ?>
 
 	<?php # si les permissions de groupe sont activées
-	if ($okt->Pages->canUsePerms()) : ?>
+	if ($okt->Pages->config->enable_group_perms) : ?>
 	<div class="col">
 		<p><?php _e('m_pages_page_permissions_group')?></p>
 

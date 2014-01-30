@@ -31,8 +31,8 @@ $GLOBALS['okt_l10n']['c_a_config_advanced_update_stable'] = 'versions stables';
 $GLOBALS['okt_l10n']['c_a_config_advanced_update_dev'] = 'versions de développement';
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_maintenance_mode'] = 'Mode maintenance';
-$GLOBALS['okt_l10n']['c_a_config_advanced_enable_admin_maintenance_mode'] = 'Activer le mode maintenance sur l’interface d’administration';
-$GLOBALS['okt_l10n']['c_a_config_advanced_enable_public_maintenance_mode'] = 'Activer le mode maintenance sur la partie publique';
+$GLOBALS['okt_l10n']['c_a_config_advanced_enable_maintenance_admin'] = 'Activer le mode maintenance sur l’interface d’administration';
+$GLOBALS['okt_l10n']['c_a_config_advanced_enable_maintenance_public'] = 'Activer le mode maintenance sur la partie publique';
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_htmlpurifier'] = 'HTML purifier';
 $GLOBALS['okt_l10n']['c_a_config_advanced_htmlpurifier_disabled'] = 'Désactiver HTML purifier';

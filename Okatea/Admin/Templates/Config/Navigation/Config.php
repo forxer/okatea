@@ -31,12 +31,11 @@ $okt->page->addGlobalTitle(__('c_a_config_navigation_config'));
 
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
-<form action="<?php echo $view->generateUrl('config_navigation') ?>" method="post">
+<form action="<?php echo $view->generateUrl('config_navigation') ?>?do=config" method="post">
 
 	<?php echo $oTemplates->getHtmlConfigUsablesTemplates(); ?>
 
-	<p><?php echo form::hidden('do', 'config'); ?>
-	<?php echo form::hidden('sended', 1) ?>
+	<p><?php echo form::hidden('sended', 1) ?>
 	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>

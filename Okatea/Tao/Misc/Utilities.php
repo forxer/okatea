@@ -1293,8 +1293,8 @@ class Utilities
 					$oktConfig->app_path.basename($okt->options->get('public_dir')),
 					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme,
 					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme_mobile,
-					$oktConfig->admin_theme,
-					$oktConfig->public_theme
+					$oktConfig->jquery_ui['admin'],
+					$oktConfig->jquery_ui['public']
 				)
 			);
 		}

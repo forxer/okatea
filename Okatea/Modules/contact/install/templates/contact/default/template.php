@@ -93,7 +93,7 @@ if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google
 
 		# ajout jQuery UI
 		$okt->page->js->addFile($okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
-		$okt->page->css->addFile($okt->options->public_url.'/plugins/jquery-ui/themes/'.$okt->config->public_theme.'/jquery-ui.css');
+		$okt->page->css->addFile($okt->options->public_url.'/plugins/jquery-ui/themes/'.$okt->config->jquery_ui['public'].'/jquery-ui.css');
 
 		$okt->page->js->addReady('
 			$("#google_map").dialog({

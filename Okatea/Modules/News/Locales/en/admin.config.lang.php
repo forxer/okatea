@@ -15,7 +15,6 @@ $GLOBALS['okt_l10n']['m_news_config_enable_news_seo'] = 'Enable SEO assistance o
 $GLOBALS['okt_l10n']['m_news_config_filters_website'] = 'Display filters on website';
 
 $GLOBALS['okt_l10n']['m_news_config_access_restrictions'] = 'Access restrictions';
-$GLOBALS['okt_l10n']['m_news_config_install_users'] = 'You must install and enable "User" module to use group permissions';
 $GLOBALS['okt_l10n']['m_news_config_enable_group_permissions'] = 'Enable independent group permissions on posts';
 
 $GLOBALS['okt_l10n']['m_news_config_rich_text_editor'] = 'Rich text editor';

@@ -25,19 +25,20 @@ class Navigation extends Controller
 		# titre et fil d'ariane
 		$this->page->addGlobalTitle(__('c_a_config_navigation'), $this->generateUrl('config_navigation'));
 
-		if (!$this->page->do || $this->page->do === 'index') {
+		$sDo = $this->request->query->get('do');
+		if (!$sDo || $sDo === 'index') {
 			return $this->index();
 		}
-		elseif ($this->page->do === 'menu') {
+		elseif ($sDo === 'menu') {
 			return $this->menu();
 		}
-		elseif ($this->page->do === 'items') {
+		elseif ($sDo === 'items') {
 			return $this->items();
 		}
-		elseif ($this->page->do === 'item') {
+		elseif ($sDo === 'item') {
 			return $this->item();
 		}
-		elseif ($this->page->do === 'config') {
+		elseif ($sDo === 'config') {
 			return $this->config();
 		}
 		else {

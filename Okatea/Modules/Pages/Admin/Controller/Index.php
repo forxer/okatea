@@ -79,7 +79,7 @@ class Index extends Controller
 
 		# Liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->Pages->canUsePerms()) {
+		if ($this->okt->Pages->config->enable_group_perms) {
 			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true,true);
 		}
 
@@ -106,26 +106,26 @@ class Index extends Controller
 
 	protected function getPagesJson()
 	{
-	    $json = $this->request->query->get('json');
-	    $term = $this->request->query->get('term');
-	
-	    if (!$json || !$term || !$this->request->isXmlHttpRequest()) {
-	        return false;
-	    }
-	
-	    $rsPages = $this->okt->Pages->getPagesRecordset(array(
-	        'language' => $this->okt->user->language,
-	        'search' => $term
-	    ));
-	
-	    $aResults = array();
-	    while ($rsPages->fetch()) {
-	        $aResults[$rsPages->title] = $rsPages->title;
-	    }
-	
-	    return $this->jsonResponse(array_unique($aResults));
+		$json = $this->request->query->get('json');
+		$term = $this->request->query->get('term');
+
+		if (!$json || !$term || !$this->request->isXmlHttpRequest()) {
+			return false;
+		}
+
+		$rsPages = $this->okt->Pages->getPagesRecordset(array(
+			'language' => $this->okt->user->language,
+			'search' => $term
+		));
+
+		$aResults = array();
+		while ($rsPages->fetch()) {
+			$aResults[$rsPages->title] = $rsPages->title;
+		}
+
+		return $this->jsonResponse(array_unique($aResults));
 	}
-	
+
 	protected function initFilters()
 	{
 		$bInit = $this->request->query->has('init_filters');

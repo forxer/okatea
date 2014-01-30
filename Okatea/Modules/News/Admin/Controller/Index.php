@@ -106,8 +106,8 @@ class Index extends Controller
 
 		# Liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->News->canUsePerms()) {
-			$aGroups = $this->okt->News->getUsersGroupsForPerms(true,true);
+		if ($this->okt->News->config->enable_group_perms) {
+			$aGroups = $this->okt->News->getUsersGroupsForPerms(true, true);
 		}
 
 		# Tableau de choix d'actions pour le traitement par lot

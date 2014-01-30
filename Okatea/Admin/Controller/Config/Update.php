@@ -47,9 +47,9 @@ class Update extends Controller
 		$sOkateaVersion = $this->okt->getVersion();
 
 		$updater = new Updater(
-			$this->okt->config->update_url,
+			$this->okt->config->updates['url'],
 			'okatea',
-			$this->okt->config->update_type,
+			$this->okt->config->updates['type'],
 			$this->okt->options->get('cache_dir').'/versions'
 		);
 		$new_v = $updater->check($sOkateaVersion);

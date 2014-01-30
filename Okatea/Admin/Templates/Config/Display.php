@@ -14,8 +14,8 @@ $view->extend('layout');
 $okt->page->js->addScript('
 
 	// quand on changent de theme, on rechargent la CSS
-	$("#p_admin_theme").change(function() {
-		$("#p_admin_theme option:selected").each(function () {
+	$("#p_jquery_ui_admin_theme").change(function() {
+		$("#p_jquery_ui_admin_theme option:selected").each(function () {
 			reloadCSS($(this).val());
 		});
 	});
@@ -34,7 +34,7 @@ $okt->page->js->addScript('
 	function reloadCSS(style)
 	{
 		// theme actuel (dans la config PHP)
-		currenStyle = "'.$okt->config->admin_theme.'";
+		currenStyle = "'.$okt->config->jquery_ui['admin'].'";
 
 		// nouveau theme
 		cssLink = "<link href=\"'.$okt->config->app_path.basename($okt->options->get('public_dir')).'/plugins/jquery-ui/themes/" + style + "/jquery-ui.css\" type=\"text/css\" rel=\"Stylesheet\" />";
@@ -59,7 +59,7 @@ $okt->page->js->addScript('
 		}
 		// sinon on affichent la notification
 		else if ($("#themePreviewNotification").size() == 0) {
-			$("label[for=p_admin_theme]").append("<span id=\"themePreviewNotification\"> (apercu)</span>");
+			$("label[for=p_jquery_ui_admin_theme]").append("<span id=\"themePreviewNotification\"> (apercu)</span>");
 		}
 
 		// a la première prévisualisation on chargent les styles communs à tous les thèmes
@@ -91,8 +91,8 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 
 		<div id="tab_public">
 
-			<p class="field"><label for="p_public_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
-			<?php echo form::select('p_public_theme',array_combine($aUiThemes,$aUiThemes),$okt->config->public_theme) ?></p>
+			<p class="field"><label for="p_jquery_ui_public_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
+			<?php echo form::select('p_jquery_ui_public_theme', array_combine($aUiThemes,$aUiThemes), $okt->config->jquery_ui['public']) ?></p>
 
 			<p><?php echo form::checkbox('p_enable_admin_bar', 1, $okt->config->enable_admin_bar) ?>
 			<label for="p_enable_admin_bar"><?php _e('c_a_config_display_admin_bar') ?></label>
@@ -115,8 +115,8 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 			<fieldset>
 				<legend><?php _e('c_a_config_display_theme') ?></legend>
 
-				<p class="field"><label for="p_admin_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
-				<?php echo form::select('p_admin_theme', $aAllowedAdminThemes, $okt->config->admin_theme) ?>
+				<p class="field"><label for="p_jquery_ui_admin_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
+				<?php echo form::select('p_jquery_ui_admin_theme', $aAllowedAdminThemes, $okt->config->jquery_ui['admin']) ?>
 				<span class="note"><?php _e('c_a_config_display_choose_theme_note') ?></span></p>
 
 				<p class="field"><label for="p_upload_theme"><?php _e('c_a_config_display_upload_theme') ?></label>

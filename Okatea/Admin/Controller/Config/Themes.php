@@ -28,13 +28,15 @@ class Themes extends Controller
 	{
 		$this->init();
 
+		$aThemesConfig = $this->okt->config->themes;
+
 		# Initialisation des filtres
 		$this->oFilters = new ThemesFilters($this->okt, array());
 
 		# json themes list for autocomplete
 		if ($this->request->query->has('json') && $this->request->query->has('term') && $this->request->isXmlHttpRequest())
 		{
-		    $sTerm = $this->request->query->get('term');
+			$sTerm = $this->request->query->get('term');
 			$aResults = array();
 			foreach ($this->aInstalledThemes as $aTheme)
 			{
@@ -83,10 +85,10 @@ class Themes extends Controller
 		{
 			try
 			{
+				$aThemesConfig['desktop'] = $sUseThemeId;
+
 				# write config
-				$this->okt->config->write(array(
-					'theme' => $sUseThemeId
-				));
+				$this->okt->config->write(array('themes' => $aThemesConfig));
 
 				# modules config sheme
 				$sTplScheme = $this->okt->options->get('themes_dir').'/'.$sUseThemeId.'/modules_config_scheme.php';
@@ -113,13 +115,12 @@ class Themes extends Controller
 			try
 			{
 				# switch ?
-				if ($sUseMobileThemeId == $this->okt->config->theme_mobile) {
+				if ($sUseMobileThemeId == $this->okt->config->themes['mobile']) {
 					$sUseMobileThemeId = '';
 				}
 
-				$this->okt->config->write(array(
-					'theme_mobile' => $sUseMobileThemeId
-				));
+				$aThemesConfig['mobile'] = $sUseMobileThemeId;
+				$this->okt->config->write(array('themes' => $aThemesConfig));
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -139,13 +140,12 @@ class Themes extends Controller
 			try
 			{
 				# switch ?
-				if ($sUseTabletThemeId == $this->okt->config->theme_tablet) {
+				if ($sUseTabletThemeId == $this->okt->config->themes['tablet']) {
 					$sUseTabletThemeId = '';
 				}
 
-				$this->okt->config->write(array(
-					'theme_tablet' => $sUseTabletThemeId
-				));
+				$aThemesConfig['tablet'] = $sUseTabletThemeId;
+				$this->okt->config->write(array('themes' => $aThemesConfig));
 
 				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -273,10 +273,8 @@ class Themes extends Controller
 
 		# Liste de thèmes des dépôts de thèmes
 		$aThemesRepositories = array();
-		if ($this->okt->config->themes_repositories_enabled)
-		{
-			$aRepositories = $this->okt->config->themes_repositories;
-			$aThemesRepositories = $this->oThemes->getRepositoriesInfos($aRepositories);
+		if ($this->okt->config->repositories['themes']['enabled']) {
+			$aThemesRepositories = $this->oThemes->getRepositoriesInfos($this->okt->config->repositories['themes']['list']);
 		}
 
 		# Tri par ordre alphabétique des listes de thèmes des dépots
@@ -295,7 +293,7 @@ class Themes extends Controller
 		$theme = $this->request->query->get('theme');
 
 		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) ||
-			($repository && $theme && $this->okt->config->themes_repositories_enabled))
+			($repository && $theme && $this->okt->config->repositories['themes']['enabled']))
 		{
 			try
 			{
@@ -372,7 +370,7 @@ class Themes extends Controller
 
 
 		return $this->render('Config/Themes/Add', array(
-//			'' => $,
+			'aThemesRepositories' => $aThemesRepositories,
 		));
 	}
 

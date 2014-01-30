@@ -74,7 +74,7 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 
 <?php else : ?>
 
-<form action="<?php echo $view->generateUrl('config_navigation') ?>" method="post" id="ordering">
+<form action="<?php echo $view->generateUrl('config_navigation') ?>?do=items" method="post" id="ordering">
 	<ul id="sortable" class="ui-sortable">
 	<?php $i = 1;
 	while ($rsItems->fetch()) : ?>
@@ -108,8 +108,7 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 	</li>
 	<?php endwhile; ?>
 	</ul>
-	<p><?php echo form::hidden('do', 'items'); ?>
-	<?php echo form::hidden('menu_id', $iMenuId); ?>
+	<p><?php echo form::hidden('menu_id', $iMenuId); ?>
 	<?php echo form::hidden('ordered', 1); ?>
 	<?php echo form::hidden('order_items', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>

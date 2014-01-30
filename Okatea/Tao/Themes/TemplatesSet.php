@@ -211,21 +211,21 @@ class TemplatesSet
 		$this->aTemplatesPath = array();
 
 		# first, get default theme templates
-		if ($this->okt->config->theme != 'default') {
+		if ($this->okt->config->themes['desktop'] != 'default') {
 			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/default/templates/'.$this->sBase.'/*/template.php');
 		}
 
 		# then, get current theme templates
-		$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme.'/templates/'.$this->sBase.'/*/template.php');
+		$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['desktop'].'/templates/'.$this->sBase.'/*/template.php');
 
 		foreach ($aThemeTemplates as $sTemplatePath) {
 			$this->aTemplatesPath[] = $sTemplatePath;
 		}
 
 		# if we have a mobile theme, search in it
-		if (!empty($this->okt->config->theme_mobile))
+		if (!empty($this->okt->config->themes['mobile']))
 		{
-			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme_mobile.'/templates/'.$this->sBase.'/*/template.php');
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['mobile'].'/templates/'.$this->sBase.'/*/template.php');
 
 			foreach ($aThemeTemplates as $sTemplatePath) {
 				$this->aTemplatesPath[] = $sTemplatePath;
@@ -233,9 +233,9 @@ class TemplatesSet
 		}
 
 		# finaly, search for templates in tablet theme
-		if (!empty($this->okt->config->theme_tablet))
+		if (!empty($this->okt->config->themes['tablet']))
 		{
-			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->theme_tablet.'/templates/'.$this->sBase.'/*/template.php');
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['tablet'].'/templates/'.$this->sBase.'/*/template.php');
 
 			foreach ($aThemeTemplates as $sTemplatePath) {
 				$this->aTemplatesPath[] = $sTemplatePath;
@@ -402,7 +402,7 @@ class TemplatesSet
 							if ($aTplInfos['is_in_default'])
 							{
 								$sReturn .=
-								'<li><a href="configuration.php?action=theme_editor&amp;theme='.$this->okt->config->theme.'&amp;new_template=1&amp;basic_template='.
+								'<li><a href="configuration.php?action=theme_editor&amp;theme='.$this->okt->config->themes['desktop'].'&amp;new_template=1&amp;basic_template='.
 								rawurlencode('/'.$aTplInfos['theme'].$aTplInfos['path_in_theme']).'" '.
 								'class="icon pencil">'.__('c_a_tpl_config_Customize').'</a></li>';
 							}

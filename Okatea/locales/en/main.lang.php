@@ -63,7 +63,7 @@ $GLOBALS['okt_l10n']['c_c_auth_validation_key_not_match'] = 'The validation key 
 $GLOBALS['okt_l10n']['c_c_auth_bad_csrf_token'] = 'Access problems with this form.';
 $GLOBALS['okt_l10n']['c_c_auth_restricted_access'] = 'Your session has expired or you do not have access to that part.';
 $GLOBALS['okt_l10n']['c_c_auth_not_logged_in'] = 'Your session has expired or you are not logged.';
-$GLOBALS['okt_l10n']['c_c_auth_admin_maintenance_mode'] = 'The administration interface is currently in maintenance mode, please come back later.';
+$GLOBALS['okt_l10n']['c_c_auth_maintenance_admin'] = 'The administration interface is currently in maintenance mode, please come back later.';
 
 # admin menu
 $GLOBALS['okt_l10n']['c_a_menu_home'] = 'Home';
@@ -89,8 +89,8 @@ $GLOBALS['okt_l10n']['c_a_menu_management'] = 'Management';
 
 # debug and maintenance modes
 $GLOBALS['okt_l10n']['c_a_public_debug_mode_enabled'] = 'The debug mode is currently in enabled.';
-$GLOBALS['okt_l10n']['c_a_public_maintenance_mode_enabled'] = 'The public part of the website is currently in maintenance mode.';
-$GLOBALS['okt_l10n']['c_a_admin_maintenance_mode_enabled'] = 'The administration interface is currently in maintenance mode.';
+$GLOBALS['okt_l10n']['c_a_maintenance_public_enabled'] = 'The public part of the website is currently in maintenance mode.';
+$GLOBALS['okt_l10n']['c_a_maintenance_admin_enabled'] = 'The administration interface is currently in maintenance mode.';
 
 # permissions par défaut
 $GLOBALS['okt_l10n']['c_a_def_perm_usage'] = 'Access to the administration interface';

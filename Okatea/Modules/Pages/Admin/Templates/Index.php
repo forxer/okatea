@@ -160,7 +160,7 @@ if (!$rsPages->isEmpty()) : ?>
 			<?php if ($okt->Pages->config->categories['enable']) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_category') ?></th>
 			<?php endif; ?>
-			<?php if ($okt->Pages->canUsePerms()) : ?>
+			<?php if ($okt->Pages->config->enable_group_perms) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_access') ?></th>
 			<?php endif; ?>
 			<th scope="col"><?php _e('c_c_Actions') ?></th>
@@ -183,7 +183,7 @@ if (!$rsPages->isEmpty()) : ?>
 			<?php endif; ?>
 
 			<?php # droits d'accès
-			if ($okt->Pages->canUsePerms()) :
+			if ($okt->Pages->config->enable_group_perms) :
 
 				$aGroupsAccess = array();
 				$aPerms = $okt->Pages->getPagePermissions($rsPages->id);

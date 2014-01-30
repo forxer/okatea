@@ -16,7 +16,7 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery/jquery.min
 
 <?php # début Okatea : ajout de jQuery UI
 $okt->page->js->addFile($okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
-$okt->page->css->addFile($okt->options->public_url.'/plugins/jquery-ui/themes/'.$okt->config->public_theme.'/jquery-ui.css');
+$okt->page->css->addFile($okt->options->public_url.'/plugins/jquery-ui/themes/'.$okt->config->jquery_ui['public'].'/jquery-ui.css');
 # fin Okatea : ajout de jQuery UI ?>
 
 

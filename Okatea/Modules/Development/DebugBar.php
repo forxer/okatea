@@ -53,7 +53,7 @@ class DebugBar
 		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag',
 			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->admin_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->jquery_ui['admin'].'/jquery-ui.css');
 
 		$this->addFiles();
 	}
@@ -72,7 +72,7 @@ class DebugBar
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
 			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
 
-		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->public_theme.'/jquery-ui.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->jquery_ui['public'].'/jquery-ui.css');
 
 		$this->addFiles();
 

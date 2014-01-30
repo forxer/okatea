@@ -144,7 +144,7 @@ class Config extends Controller
 
 		# Liste des groupes pour les permissions
 		$aGroups = null;
-		if ($this->okt->Pages->moduleUsersExists()) {
+		if ($this->okt->Pages->config->enable_group_perms) {
 			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true,true);
 		}
 

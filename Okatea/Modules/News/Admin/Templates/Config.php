@@ -58,20 +58,14 @@ $okt->page->updatePermissionsCheckboxes();
 			<fieldset>
 				<legend><?php _e('m_news_config_access_restrictions') ?></legend>
 
-				<?php if (!$okt->News->moduleUsersExists()) : ?>
-				<p class="note"><?php _e('m_news_config_install_users') ?></p>
-				<?php endif; ?>
-
-				<?php if ($okt->News->moduleUsersExists()) : ?>
 				<ul class="checklist">
 					<?php foreach ($aGroups as $g_id=>$g_title) : ?>
 					<li><label for="p_perm_g_<?php echo $g_id ?>"><?php echo form::checkbox(array('p_perms[]', 'p_perm_g_'.$g_id),
 					$g_id, in_array($g_id,$okt->News->config->perms)) ?> <?php echo $g_title ?></label></li>
 					<?php endforeach; ?>
 				</ul>
-				<?php endif; ?>
 
-				<p class="field"><label><?php echo form::checkbox('p_enable_group_perms', 1, $okt->News->config->enable_group_perms, '', '', !$okt->News->moduleUsersExists()) ?>
+				<p class="field"><label><?php echo form::checkbox('p_enable_group_perms', 1, $okt->News->config->enable_group_perms) ?>
 				<?php _e('m_news_config_enable_group_permissions') ?></label></p>
 			</fieldset>
 
