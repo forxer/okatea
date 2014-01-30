@@ -42,7 +42,7 @@ foreach ($aAllModules as $sModuleId=>$aModuleInfos)
 
 # Liste des dépôts de modules
 $aModulesRepositories = array();
-if ($okt->config->modules_repositories_enabled)
+if ($okt->config->modules['repositories']['enabled'])
 {
 	$aRepositories = $okt->config->modules_repositories;
 	$aModulesRepositories = $okt->modules->getRepositoriesInfos($aRepositories);
@@ -95,7 +95,7 @@ if (!empty($_POST['sended']))
 }
 
 # Plugin upload
-elseif (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config->modules_repositories_enabled)
+elseif (!empty($_GET['repository']) && !empty($_GET['module']) && $okt->config->modules['repositories']['enabled'])
 {
 	try
 	{
@@ -157,7 +157,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 <h4 id="add_module_repo_title"><?php _e('c_a_modules_add_module_from_remote_repository') ?></h4>
 
 <div id="add_module_repo_content">
-<?php if (!$okt->config->modules_repositories_enabled) : ?>
+<?php if (!$okt->config->modules['repositories']['enabled']) : ?>
 	<p><?php _e('c_a_modules_repositories_modules_disabled') ?></p>
 
 <?php elseif (!empty($aModulesRepositories)) : ?>

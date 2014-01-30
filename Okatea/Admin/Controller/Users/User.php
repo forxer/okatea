@@ -9,6 +9,7 @@
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
+use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Groups;
@@ -148,12 +149,22 @@ class User extends Controller
 			$this->aPageData['bWaitingValidation'] = false;
 		}
 
-	// ---- traitements
-
-
-
 		# -- CORE TRIGGER : adminUsersEditInit
 		$this->okt->triggers->callTrigger('adminUsersEditInit', $this->aPageData);
+
+		# validate user
+		if (false !== ($mUserValidated = $this->validateUser())) {
+			return $mUserValidated;
+		}
+
+		# change user password
+		if (false !== ($mPasswordChanged = $this->updateUserPassword())) {
+			return $mPasswordChanged;
+		}
+
+
+		# -- CORE TRIGGER : adminUsersEditProcess
+		$this->okt->triggers->callTrigger('adminUsersEditProcess', $this->aPageData);
 
 		$this->aPageData['tabs'] = new \ArrayObject();
 
@@ -161,7 +172,10 @@ class User extends Controller
 			'id'         => 'tab-edit-user',
 			'title'      => __('c_a_users_General'),
 			'content'    => $this->renderView('Users/User/Edit/Tabs/General', array(
-
+				'aPageData'      => $this->aPageData,
+				'aLanguages'     => $this->getLanguages(),
+				'aCivilities'    => $this->getCivilities(),
+				'aGroups'        => $this->getGroups()
 			))
 		);
 
@@ -171,7 +185,7 @@ class User extends Controller
 				'id'        => 'tab-change-password',
 				'title'     => __('c_c_user_Password'),
 				'content'   => $this->renderView('Users/User/Edit/Tabs/Password', array(
-
+					'aPageData'    => $this->aPageData
 				))
 			);
 		}
@@ -247,5 +261,80 @@ class User extends Controller
 		}
 
 		return $aGroups;
+	}
+
+	protected function validateUser()
+	{
+		if (!$this->request->query->has('validate')) {
+			return false;
+		}
+
+		$aParams = array(
+			'id'         => $this->aPageData['user']['id'],
+			'group_id'   => $this->okt->config->users['registration']['default_group']
+		);
+
+		$oUsers = new Users($this->okt);
+		if ($oUsers->updUser($aParams))
+		{
+			$oMail = new Mailer($this->okt);
+
+			$oMail->setFrom();
+
+			$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/validate_user.tpl', array(
+				'SITE_TITLE'    => Utilities::getSiteTitle($this->aPageData['user']['language']),
+				'SITE_URL'      => $this->request->getSchemeAndHttpHost().$okt->config->app_path
+			));
+
+			$oMail->message->setTo($this->aPageData['user']['email']);
+
+			$oMail->send();
+
+			$this->page->flash->success(__('m_users_validated_user'));
+
+			return $this->redirect($this->generateUrl('Users_edit', array('user_id' => $this->aPageData['user']['id'])));
+		}
+
+		return false;
+	}
+
+	protected function updateUserPassword()
+	{
+		if (!$this->request->request->has('change_password') || !$this->okt->checkPerm('change_password')) {
+			return false;
+		}
+
+		$aParams = array(
+			'id' => $this->aPageData['user']['id']
+		);
+
+		$aParams['password'] = $this->request->request->get('password');
+		$aParams['password_confirm'] = $this->request->request->get('password_confirm');
+
+		$oUsers = new Users($this->okt);
+		if ($oUsers->changeUserPassword($aParams))
+		{
+			if ($this->request->request->has('send_password_mail'))
+			{
+				$oMail = new Mailer($this->okt);
+
+				$oMail->setFrom();
+
+				$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/admin_change_user_password.tpl', array(
+					'SITE_TITLE'      => Utilities::getSiteTitle($edit_language),
+					'SITE_URL'        => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+					'NEW_PASSWORD'    => $aParams['password']
+				));
+
+				$oMail->message->setTo($this->aPageData['user']['email']);
+				$oMail->send();
+			}
+
+			$this->page->flash->success(__('c_a_users_user_edited'));
+
+			return $this->redirect($this->generateUrl('Users_edit', array('user_id' => $this->aPageData['user']['id'])));
+		}
+
+		return false;
 	}
 }

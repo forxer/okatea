@@ -26,7 +26,7 @@ class Config extends Controller
 		{
 			$this->aPageData['config'] = array(
 				'users' => array(
-					'custom_fields_enabled' => $this->okt->request->request->has('p_users['custom_fields_enabled']'),
+					'custom_fields_enabled' => $this->okt->request->request->has('p_users_custom_fields_enabled'),
 					'pages' => array(
 						'login' => $this->okt->request->request->has('p_enable_login_page'),
 						'register' => $this->okt->request->request->has('p_enable_register_page'),
@@ -94,12 +94,12 @@ class Config extends Controller
 					'profile'           => $this->okt->config->users['pages']['profile']
 				),
 				'registration' => array(
-					'mail_new_registration'         => $this->okt->config->users_registration['mail_new_registration'],
-					'validation'                    => $this->okt->config->users_registration['validation'],
-					'merge_username_email'          => $this->okt->config->users_registration['merge_username_email'],
-					'auto_log_after_registration'   => $this->okt->config->users_registration['auto_log_after_registration'],
-					'user_choose_group'             => $this->okt->config->users_registration['user_choose_group'],
-					'default_group'                 => $this->okt->config->users_registration['default_group']
+					'mail_new_registration'         => $this->okt->config->users['registration']['mail_new_registration'],
+					'validation'                    => $this->okt->config->users['registration']['validation'],
+					'merge_username_email'          => $this->okt->config->users['registration']['merge_username_email'],
+					'auto_log_after_registration'   => $this->okt->config->users['registration']['auto_log_after_registration'],
+					'user_choose_group'             => $this->okt->config->users['registration']['user_choose_group'],
+					'default_group'                 => $this->okt->config->users['registration']['default_group']
 				)
 			)
 		);

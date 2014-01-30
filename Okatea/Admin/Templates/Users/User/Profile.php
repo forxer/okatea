@@ -53,7 +53,7 @@ $okt->page->tabs();
 				'aPageData'      => $aPageData
 			)); ?>
 
-		<p class="note"><?php _e('c_c_users_Note_password')?></p>
+			<p class="note"><?php _e('c_c_users_Note_password')?></p>
 
 			<p><?php echo form::hidden('change_password', 1) ?>
 			<?php echo $okt->page->formtoken(); ?>

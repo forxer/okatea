@@ -926,7 +926,7 @@ class Module extends BaseModule
 	 * @param $bWithAll
 	 * @return array
 	 */
-	public function getUsersGroupsForPerms($bWithAdmin=false,$bWithAll=false)
+	public function getUsersGroupsForPerms($bWithAdmin=false, $bWithAll=false)
 	{
 		$aParams = array(
 			'group_id_not' => array(
@@ -939,7 +939,8 @@ class Module extends BaseModule
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $this->okt->users->getGroups($aParams);
+		$oGroups = new Groups($this->okt);
+		$rsGroups = $oGroups->getGroups($aParams);
 
 		$aGroups = array();
 

@@ -23,6 +23,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 	# use controllers
 	# use templates
 # refactor modules files structure
+# reintroduced users module into the core
 # replace PHPThumb by Imagine
 # refactor flash messages device
 # change Yaml files extension .yaml to .yml

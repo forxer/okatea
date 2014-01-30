@@ -535,13 +535,6 @@ class Users
 			$this->fields->delUserValue($id);
 		}
 
-		# delete user directory
-		$user_dir = $this->upload_dir.'/'.$id;
-
-		if (\files::isDeletable($user_dir)) {
-			\files::deltree($user_dir);
-		}
-
 		return true;
 	}
 

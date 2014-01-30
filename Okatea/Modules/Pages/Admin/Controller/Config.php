@@ -143,10 +143,7 @@ class Config extends Controller
 		}
 
 		# Liste des groupes pour les permissions
-		$aGroups = null;
-		if ($this->okt->Pages->config->enable_group_perms) {
-			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true,true);
-		}
+		$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true, true);
 
 		return $this->render('Pages/Admin/Templates/Config', array(
 			'oImageUploadConfig' => $oImageUploadConfig,

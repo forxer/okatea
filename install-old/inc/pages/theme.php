@@ -32,7 +32,7 @@ $aInstalledThemes = $oThemes->getThemesAdminList();
 
 # Liste des dépôts de thèmes
 $aThemesRepositories = array();
-if ($okt->config->themes_repositories_enabled)
+if ($okt->config->themes['repositories']['enabled'])
 {
 	$aRepositories = $okt->config->themes_repositories;
 	$aThemesRepositories = $oThemes->getRepositoriesInfos($aRepositories);
@@ -72,7 +72,7 @@ if (!empty($_POST['sended']) && !empty($_POST['p_theme']) && isset($aInstalledTh
 }
 
 # Theme upload
-elseif ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config->themes_repositories_enabled))
+elseif ((!empty($_GET['repository']) && !empty($_GET['theme']) && $okt->config->themes['repositories']['enabled']))
 {
 	try
 	{
@@ -159,7 +159,7 @@ require OKT_INSTAL_DIR.'/header.php'; ?>
 
 <div id="add_theme_repo_content">
 
-<?php if (!$okt->config->themes_repositories_enabled) : ?>
+<?php if (!$okt->config->themes['repositories']['enabled']) : ?>
 	<p><?php _e('c_a_themes_repositories_themes_disabled') ?></p>
 
 <?php elseif (!empty($aThemesRepositories)) : ?>
