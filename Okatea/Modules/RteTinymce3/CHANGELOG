@@ -1,0 +1,18 @@
+CHANGELOG and HISTORY ( we try )                             module RteTinyMCE3
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+2.0-rc1
+# support for Okatea 2.0
+
+
+1.0
+! first public release

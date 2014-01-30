@@ -1,0 +1,4 @@
+
+RteTinymce3_config:
+    path:     /tinymce4/configuration
+    defaults: { controller: Okatea\Modules\RteTinymce3\Admin\Controller\Config::page }
