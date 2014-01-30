@@ -30,13 +30,13 @@ class Module extends BaseModule
 			'Okatea\Modules\RteTinymce3\Admin\Controller\Config' => __DIR__.'/Admin/Controller/Config.php'
 		));
 
-		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Modules\RteTinymce3\Module','tinyMCE'));
+		$this->okt->page->addRte('tinymce_3','tinyMCE 3', array('Okatea\Modules\RteTinymce3\Module','tinyMCE'));
 
 		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->configSubMenu->add(
-				__('TinyMCE 4'),
+				__('TinyMCE 3'),
 				$this->okt->adminRouter->generate('RteTinymce3_config'),
 				$this->okt->request->attributes->get('_route') === 'RteTinymce3_config',
 				40,
