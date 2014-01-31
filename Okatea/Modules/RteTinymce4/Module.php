@@ -25,12 +25,7 @@ class Module extends BaseModule
 
 	protected function prepend_admin()
 	{
-		# autoload
-		$this->okt->autoloader->addClassMap(array(
-			'Okatea\Modules\RteTinymce4\Admin\Controller\Config' => __DIR__.'/Admin/Controller/Config.php'
-		));
-
-		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\Modules\RteTinymce4\Module','tinyMCE'));
+		$this->okt->page->addRte('tinymce_4','tinyMCE 4', array('Okatea\\Modules\\RteTinymce4\\Module','tinyMCE'));
 
 		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
@@ -62,10 +57,10 @@ class Module extends BaseModule
 		$sLanguageCode = strtolower($okt->user->language);
 		$sSpecificLanguageCode = strtolower($okt->user->language).'_'.strtoupper($okt->user->language);
 
-		if (file_exists($okt->options->get('modules_dir').'/RteTinymce4/tinymce/langs/'.$sLanguageCode.'.js')) {
+		if (file_exists($okt->options->get('public_dir').'/modules/RteTinymce4/tinymce/langs/'.$sLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sLanguageCode.'"';
 		}
-		elseif (file_exists($okt->options->get('modules_dir').'/RteTinymce4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
+		elseif (file_exists($okt->options->get('public_dir').'/modules/RteTinymce4/tinymce/langs/'.$sSpecificLanguageCode.'.js')) {
 			$aOptions[] = 'language: "'.$sSpecificLanguageCode.'"';
 		}
 
@@ -116,7 +111,7 @@ class Module extends BaseModule
 			}';
 		}
 
-		$okt->page->js->addFile($okt->options->get('modules_url').'/RteTinymce4/tinymce/tinymce.min.js');
+		$okt->page->js->addFile($okt->options->get('public_url').'/modules/RteTinymce4/tinymce/tinymce.min.js');
 
 		$okt->page->js->addScript('
 
