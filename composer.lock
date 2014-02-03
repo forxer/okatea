@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "04abb821727779dbea6e7959f1c50a25",
+    "hash": "6c13a6b186f582b9dec544371ab6ca64",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -670,16 +670,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "0.9.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba"
+                "reference": "f5f1706e58664b2c7bb303d602e8a0b004b99fcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba",
-                "reference": "f0fbdaa6ca02e7437da12cc40ff7ea1af380a4ba",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/f5f1706e58664b2c7bb303d602e8a0b004b99fcf",
+                "reference": "f5f1706e58664b2c7bb303d602e8a0b004b99fcf",
                 "shasum": ""
             },
             "type": "library",
@@ -705,7 +705,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-01-22 19:28:29"
+            "time": "2014-02-02 20:27:22"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -751,6 +751,27 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "forxer/languages-list",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/forxer/languages-list.git",
+                "reference": "359de4b95a4104aa59fb033c8d804e3e4f667c48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/forxer/languages-list/zipball/359de4b95a4104aa59fb033c8d804e3e4f667c48",
+                "reference": "359de4b95a4104aa59fb033c8d804e3e4f667c48",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2014-02-02 21:00:40"
         },
         {
             "name": "guzzle/guzzle",
@@ -1243,16 +1264,16 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "471c7d7c52ad6594e17b8ec33efdd1be592b5d83"
+                "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/471c7d7c52ad6594e17b8ec33efdd1be592b5d83",
-                "reference": "471c7d7c52ad6594e17b8ec33efdd1be592b5d83",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/2019c145fe393923f3441b23f29bbdfaa5c58c4d",
+                "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d",
                 "shasum": ""
             },
             "require": {
@@ -1285,7 +1306,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-09-19 04:53:08"
+            "time": "2013-11-22 08:30:29"
         },
         {
             "name": "psr/log",
@@ -1941,6 +1962,54 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2013-12-28 08:12:03"
+        },
+        {
+            "name": "umpirsky/country-list",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umpirsky/country-list.git",
+                "reference": "abb111a0fd537455670fa394b3f39eebb0087614"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umpirsky/country-list/zipball/abb111a0fd537455670fa394b3f39eebb0087614",
+                "reference": "abb111a0fd537455670fa394b3f39eebb0087614",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/dbal": "2.*",
+                "symfony/class-loader": "2.1.*",
+                "symfony/console": "2.1.*",
+                "symfony/filesystem": "2.1.*",
+                "symfony/finder": "2.1.*",
+                "symfony/locale": "2.1.*",
+                "symfony/yaml": "2.1.*",
+                "zendframework/zend-db": "2.0.*",
+                "zendframework/zendframework1": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Umpirsky\\Country": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Саша Стаменковић",
+                    "email": "umpirsky@gmail.com",
+                    "homepage": "http://umpirsky.com"
+                }
+            ],
+            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats.",
+            "time": "2012-11-27 09:51:19"
         }
     ],
     "packages-dev": [
@@ -1952,7 +2021,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dotclear/clearbricks": 20,
-        "emberlabs/gravatarlib": 20
+        "emberlabs/gravatarlib": 20,
+        "forxer/languages-list": 20
     },
     "platform": {
         "php": ">=5.4.0"

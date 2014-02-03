@@ -11,56 +11,11 @@ namespace Okatea\Admin\Controller\Config;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
 
-class Languages extends Controller
+class L10n extends Controller
 {
-	protected $iLanguageId;
-
-	protected $aAddLanguageData;
-
-	protected $aUpdLanguageData;
-
-	public function page()
+	public function index()
 	{
-		if (!$this->okt->checkPerm('languages')) {
-			return $this->serve401();
-		}
-
-		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/languages');
-
-		$this->iLanguageId = $this->request->request->getInt('id', $this->request->query->getInt('id'));
-
-		$this->aAddLanguageData = array(
-			'title' 	=> '',
-			'code' 		=> '',
-			'img' 		=> '',
-			'active' 	=> 1
-		);
-
-		$this->aUpdLanguageData = array(
-			'title' 	=> '',
-			'code' 		=> '',
-			'img' 		=> '',
-			'active' 	=> 1
-		);
-
-		if ($this->iLanguageId)
-		{
-			$rsLanguage = $this->okt->languages->getLanguages(array('id'=>$this->iLanguageId));
-
-			$this->aUpdLanguageData = array(
-				'title' 	=> $rsLanguage->title,
-				'code' 		=> $rsLanguage->code,
-				'img' 		=> $rsLanguage->img,
-				'active' 	=> $rsLanguage->active
-			);
-
-			unset($rsLanguage);
-		}
-
-		if (($action = $this->switchLanguageStatus()) !== false) {
-			return $action;
-		}
+		$this->init();
 
 		if (($action = $this->enableLanguage()) !== false) {
 			return $action;
@@ -71,14 +26,6 @@ class Languages extends Controller
 		}
 
 		if (($action = $this->deleteLanguage()) !== false) {
-			return $action;
-		}
-
-		if (($action = $this->addLanguage()) !== false) {
-			return $action;
-		}
-
-		if (($action = $this->updateLanguage()) !== false) {
 			return $action;
 		}
 
@@ -105,7 +52,134 @@ class Languages extends Controller
 		# Liste des fuseaux horraires
 		$aTimezones = \dt::getZones(true, true);
 
-		# Liste des icônes
+		return $this->render('Config/L10n/Index', array(
+			'rsLanguages' => $rsLanguages,
+			'aLanguages' => $aLanguages,
+			'aTimezones' => $aTimezones
+		));
+	}
+
+	public function edit()
+	{
+		$this->init();
+
+		$iLanguageId = $this->request->attributes->getInt('language_id');
+
+		$rsLanguage = $this->okt->languages->getLanguages(array('id' => $iLanguageId));
+
+		$aUpdLanguageData = array(
+			'id'        => $iLanguageId,
+			'title' 	=> $rsLanguage->title,
+			'code' 		=> $rsLanguage->code,
+			'img' 		=> $rsLanguage->img,
+			'active' 	=> $rsLanguage->active
+		);
+
+		if ($this->request->request->has('form_sent'))
+		{
+			$aUpdLanguageData = array(
+				'id' 		=> $iLanguageId,
+				'title' 	=> $this->request->request->get('edit_title'),
+				'code' 		=> $this->request->request->get('edit_code'),
+				'img' 		=> $this->request->request->get('edit_img'),
+				'active' 	=> $this->request->request->getInt('edit_active')
+			);
+
+			if ($this->okt->languages->checkPostData($aUpdLanguageData))
+			{
+				$this->okt->languages->updLanguage($aUpdLanguageData);
+
+				$this->page->flash->success(__('c_a_config_l10n_edited'));
+
+				return $this->redirect($this->generateUrl('config_l10n_edit_language', array('language_id'=>$iLanguageId)));
+			}
+		}
+
+		return $this->render('Config/L10n/edit', array(
+			'aUpdLanguageData' => $aUpdLanguageData,
+			'aFlags' => $this->getIconsList()
+		));
+	}
+
+	public function add()
+	{
+		$this->init();
+
+		$aAddLanguageData = array(
+			'language' 	=> '',
+			'country' 	=> '',
+			'title' 	=> '',
+			'code' 		=> '',
+			'img' 		=> '',
+			'active' 	=> 1
+		);
+
+		if ($this->request->request->has('form_sent'))
+		{
+			$aAddLanguageData = array(
+				'title' 	=> $this->request->request->get('add_title'),
+				'code' 		=> $this->request->request->get('add_code'),
+				'img' 		=> $this->request->request->get('add_img'),
+				'active' 	=> $this->request->request->getInt('add_active', 0)
+			);
+
+			if ($this->okt->languages->checkPostData($aAddLanguageData))
+			{
+				$iLanguageId = $this->okt->languages->addLanguage($aAddLanguageData);
+
+				$this->page->flash->success(__('c_a_config_l10n_added'));
+
+				return $this->redirect($this->generateUrl('config_l10n_edit_language', array('language_id'=>$iLanguageId)));
+			}
+		}
+
+		# fetch languages infos
+		$sLanguagesListInfos = $this->okt->options->get('root_dir').'/vendor/forxer/languages-list/languages.php';
+
+		$aLanguagesList = array(' ' => null);
+		if (file_exists($sLanguagesListInfos))
+		{
+			$aLanguagesListInfos = require $sLanguagesListInfos;
+
+			foreach ($aLanguagesListInfos as $aLanguageInfo) {
+				$aLanguagesList[$aLanguageInfo['Native name']] = $aLanguageInfo['639-1'];
+			}
+
+			unset($aLanguagesListInfos);
+		}
+
+		# fetch country infos
+		$sCountryListInfos = $this->okt->options->get('root_dir').'/vendor/umpirsky/country-list/country/cldr/'.$this->okt->user->language.'/country.php';
+
+		$aCountryList = array(' ' => null);
+		if (file_exists($sCountryListInfos))
+		{
+			$aCountryListInfos = require $sCountryListInfos;
+
+			$aCountryList = array_merge($aCountryList, array_flip($aCountryListInfos));
+
+			unset($aCountryListInfos);
+		}
+
+		return $this->render('Config/L10n/add', array(
+			'aAddLanguageData' => $aAddLanguageData,
+			'aLanguagesList' => $aLanguagesList,
+			'aCountryList' => $aCountryList,
+			'aFlags' => $this->getIconsList()
+		));
+	}
+
+	protected function init()
+	{
+		if (!$this->okt->checkPerm('languages')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/l10n');
+	}
+
+	protected function getIconsList()
+	{
 		$aFlags = array();
 		foreach (new \DirectoryIterator($this->okt->options->public_dir.'/img/flags/') as $oFileInfo)
 		{
@@ -117,15 +191,7 @@ class Languages extends Controller
 		}
 		natsort($aFlags);
 
-		return $this->render('Config/Languages', array(
-			'iLangId' => $this->iLanguageId,
-			'aAddLanguageData' => $this->aAddLanguageData,
-			'aUpdLanguageData' => $this->aUpdLanguageData,
-			'rsLanguages' => $rsLanguages,
-			'aLanguages' => $aLanguages,
-			'aTimezones' => $aTimezones,
-			'aFlags' => $aFlags
-		));
+		return $aFlags;
 	}
 
 	protected function switchLanguageStatus()
@@ -134,7 +200,7 @@ class Languages extends Controller
 		{
 			$this->okt->languages->switchLangStatus($this->request->query->get('switch_status'));
 
-			return $this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_l10n'));
 		}
 
 		return false;
@@ -148,7 +214,7 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_enabled'));
 
-			return $this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_l10n'));
 		}
 
 		return false;
@@ -162,7 +228,7 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_disabled'));
 
-			return $this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_l10n'));
 		}
 
 		return false;
@@ -176,7 +242,7 @@ class Languages extends Controller
 
 			$this->page->flash->success(__('c_a_config_l10n_deleted'));
 
-			return $this->redirect($this->generateUrl('config_languages'));
+			return $this->redirect($this->generateUrl('config_l10n'));
 		}
 
 		return false;
@@ -199,32 +265,7 @@ class Languages extends Controller
 
 				$this->page->flash->success(__('c_a_config_l10n_added'));
 
-				return $this->redirect($this->generateUrl('config_languages'));
-			}
-		}
-
-		return false;
-	}
-
-	protected function updateLanguage()
-	{
-		if ($this->request->request->has('edit_languages') && $this->iLanguageId)
-		{
-			$this->aUpdLanguageData = array(
-				'id' 		=> $this->iLanguageId,
-				'title' 	=> $this->request->request->get('edit_title'),
-				'code' 		=> $this->request->request->get('edit_code'),
-				'img' 		=> $this->request->request->get('edit_img'),
-				'active' 	=> $this->request->request->getInt('edit_active', 0)
-			);
-
-			if ($this->okt->languages->checkPostData($this->aUpdLanguageData))
-			{
-				$this->okt->languages->updLanguage($this->aUpdLanguageData);
-
-				$this->page->flash->success(__('c_a_config_l10n_edited'));
-
-				return $this->redirect($this->generateUrl('config_languages'));
+				return $this->redirect($this->generateUrl('config_l10n'));
 			}
 		}
 
@@ -276,7 +317,7 @@ class Languages extends Controller
 
 				$this->page->flash->success(__('c_a_config_l10n_neworder'));
 
-				return $this->redirect($this->generateUrl('config_languages'));
+				return $this->redirect($this->generateUrl('config_l10n'));
 			}
 		}
 
@@ -301,7 +342,7 @@ class Languages extends Controller
 
 					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('config_languages'));
+					return $this->redirect($this->generateUrl('config_l10n'));
 				}
 				catch (InvalidArgumentException $e)
 				{

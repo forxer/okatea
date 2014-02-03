@@ -15,10 +15,14 @@ $GLOBALS['okt_l10n']['c_a_config_l10n_neworder'] = 'L’ordre des langues a ét�
 $GLOBALS['okt_l10n']['c_a_config_l10n_enabled'] = 'La langue a été activée. Pensez à configurer les modules.';
 $GLOBALS['okt_l10n']['c_a_config_l10n_disabled'] = 'La langue a été désactivée.';
 
-$GLOBALS['okt_l10n']['c_a_config_l10n_tab_edit'] = 'Modifier une langue';
 $GLOBALS['okt_l10n']['c_a_config_l10n_tab_list'] = 'Liste des langues';
-$GLOBALS['okt_l10n']['c_a_config_l10n_tab_add'] = 'Ajouter une langue';
 $GLOBALS['okt_l10n']['c_a_config_l10n_tab_config'] = 'Configuration';
+
+$GLOBALS['okt_l10n']['c_a_config_l10n_add_language'] = 'Ajouter une langue';
+$GLOBALS['okt_l10n']['c_a_config_l10n_edit_language'] = 'Modifier une langue';
+
+$GLOBALS['okt_l10n']['c_a_config_l10n_language'] = 'Langue';
+$GLOBALS['okt_l10n']['c_a_config_l10n_country'] = 'Pays';
 
 $GLOBALS['okt_l10n']['c_a_config_l10n_title'] = 'Titre';
 $GLOBALS['okt_l10n']['c_a_config_l10n_code'] = 'Code';

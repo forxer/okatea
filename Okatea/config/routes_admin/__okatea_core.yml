@@ -90,9 +90,19 @@ config_display:
     path:     /configuration/display
     defaults: { controller: 'Okatea\Admin\Controller\Config\Display::page' }
 
-config_languages:
-    path:     /configuration/languages
-    defaults: { controller: 'Okatea\Admin\Controller\Config\Languages::page' }
+config_l10n:
+    path:     /configuration/localization
+    defaults: { controller: 'Okatea\Admin\Controller\Config\L10n::index' }
+
+config_l10n_add_language:
+    path:     /configuration/localization/language/add
+    defaults: { controller: 'Okatea\Admin\Controller\Config\L10n::add' }
+
+config_l10n_edit_language:
+    path:     /configuration/localization/language/{language_id}
+    defaults: { controller: 'Okatea\Admin\Controller\Config\L10n::edit' }
+    requirements:
+        language_id:  \d+
 
 config_modules:
     path:     /configuration/modules

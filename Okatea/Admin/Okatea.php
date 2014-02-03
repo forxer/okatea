@@ -322,8 +322,8 @@ class Okatea extends Application
 				$this->checkPerm('display')
 			);
 			$this->page->configSubMenu->add(__('c_a_menu_localization'),
-				$this->adminRouter->generate('config_languages'),
-				$this->request->attributes->get('_route') === 'config_languages',
+				$this->adminRouter->generate('config_l10n'),
+				in_array($this->request->attributes->get('_route'), array('config_l10n', 'config_l10n_add_language', 'config_l10n_edit_language')),
 				60,
 				$this->checkPerm('languages')
 			);
