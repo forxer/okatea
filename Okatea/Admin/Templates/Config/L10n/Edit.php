@@ -30,6 +30,12 @@ $okt->page->setButtonset('l10nBtSt', array(
 			'title' 		=> __('c_a_config_l10n_add_language'),
 			'url' 			=> $view->generateUrl('config_l10n_add_language'),
 			'ui-icon' 		=> 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_action_Delete'),
+			'url' 			=> $view->generateUrl('config_l10n').'?delete='.$aUpdLanguageData['id'],
+			'ui-icon' 		=> 'closethick'
 		)
 	)
 ));

@@ -87,7 +87,7 @@ $okt->page->js->addReady('
 
 <?php echo $okt->page->getButtonSet('l10nBtSt'); ?>
 
-<form id="add-language-form" action="<?php echo $view->generateUrl('config_languages') ?>" method="post">
+<form id="add-language-form" action="<?php echo $view->generateUrl('config_l10n_add_language') ?>" method="post">
 	<h3><?php _e('c_a_config_l10n_add_language') ?></h3>
 
 	<div class="two-cols">
@@ -116,7 +116,7 @@ $okt->page->js->addReady('
 		</p>
 	</div>
 
-	<p><?php echo form::hidden('add_languages', 1) ?>
+	<p><?php echo form::hidden('form_sent', 1) ?>
 	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_add') ?>" /></p>
 </form>

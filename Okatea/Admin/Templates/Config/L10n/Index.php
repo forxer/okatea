@@ -106,7 +106,7 @@ $okt->page->js->addReady('
 
 				<?php echo form::text(array('p_order['.$rsLanguages->id.']','p_order_'.$rsLanguages->id), 5, 10, $i++) ?>
 
-				(<?php echo $rsLanguages->code ?>)
+				- <?php echo $rsLanguages->code ?>
 
 				<?php if ($rsLanguages->active) : ?>
 				- <a href="<?php echo $view->generateUrl('config_l10n') ?>?disable=<?php echo $rsLanguages->id ?>"

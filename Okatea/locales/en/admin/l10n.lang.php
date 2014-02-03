@@ -28,6 +28,9 @@ $GLOBALS['okt_l10n']['c_a_config_l10n_title'] = 'Title';
 $GLOBALS['okt_l10n']['c_a_config_l10n_code'] = 'Code';
 $GLOBALS['okt_l10n']['c_a_config_l10n_icon'] = 'Icon';
 
+$GLOBALS['okt_l10n']['c_a_config_l10n_error_need_title'] = 'You must enter a language title.';
+$GLOBALS['okt_l10n']['c_a_config_l10n_error_need_code'] = 'You must enter a language code.';
+
 $GLOBALS['okt_l10n']['c_a_config_l10n_confirm_delete'] = 'Are you sure you want to delete this language? This action is irreversible.';
 
 $GLOBALS['okt_l10n']['c_a_config_l10n_default_language'] = 'Default language';

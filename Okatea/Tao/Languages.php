@@ -132,14 +132,14 @@ class Languages
 	/**
 	 * Retourne le d'une langue selon son identifiant.
 	 *
-	 * @param string $id
+	 * @param string $iLanguageId
 	 * @return integer
 	 */
-	public function getCodeById($id)
+	public function getCodeById($iLanguageId)
 	{
 		foreach ($this->list as $lang)
 		{
-			if ($lang['id'] == $id) {
+			if ($lang['id'] == $iLanguageId) {
 				return $lang['code'];
 			}
 		}
@@ -238,23 +238,23 @@ class Languages
 	/**
 	 * Retourne, sous forme de recordset, une langue donnée.
 	 *
-	 * @param integer $id
+	 * @param integer $iLanguageId
 	 * @return Okatea\Tao\Database\Recordset
 	 */
-	public function getLanguage($id)
+	public function getLanguage($iLanguageId)
 	{
-		return $this->getLanguages(array('id'=>$id));
+		return $this->getLanguages(array('id' => $iLanguageId));
 	}
 
 	/**
 	 * Indique si une langue donnée existe.
 	 *
-	 * @param integer $id
+	 * @param integer $iLanguageId
 	 * @param boolean
 	 */
-	public function languageExists($id)
+	public function languageExists($iLanguageId)
 	{
-		if ($this->getLanguage($id)->isEmpty()) {
+		if ($this->getLanguage($iLanguageId)->isEmpty()) {
 			return false;
 		}
 
@@ -267,7 +267,7 @@ class Languages
 	 * @param array $aData
 	 * @return integer
 	 */
-	public function addLanguage($aData=array())
+	public function addLanguage(array $aData = array())
 	{
 		$query = 'SELECT MAX(ord) FROM '.$this->t_languages;
 		$rs = $this->db->select($query);
@@ -291,9 +291,11 @@ class Languages
 			return false;
 		}
 
+		$iNewId = $this->db->getLastID();
+
 		$this->afterProcess();
 
-		return $this->db->getLastID();
+		return $iNewId;
 	}
 
 	/**
@@ -302,7 +304,7 @@ class Languages
 	 * @param array $aData
 	 * @return boolean
 	 */
-	public function updLanguage($aData=array())
+	public function updLanguage(array $aData = array())
 	{
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
@@ -327,14 +329,14 @@ class Languages
 	 * @param array $aData
 	 * @return boolean
 	 */
-	public function checkPostData($aData=array())
+	public function checkPostData(array $aData = array())
 	{
 		if (empty($aData['title'])) {
-			$this->error->set('Vous devez saisir un titre de langue.');
+			$this->error->set(__('c_a_config_l10n_error_need_title'));
 		}
 
 		if (empty($aData['code'])) {
-			$this->error->set('Vous devez saisir un code de langue.');
+			$this->error->set(__('c_a_config_l10n_error_need_code'));
 		}
 
 		return $this->error->isEmpty();
@@ -343,19 +345,19 @@ class Languages
 	/**
 	 * Switch le statut d'une langue donnée.
 	 *
-	 * @param integer $id
+	 * @param integer $iLanguageId
 	 * @return boolean
 	 */
-	public function switchLangStatus($id)
+	public function switchLangStatus($iLanguageId)
 	{
-		if (!$this->languageExists($id)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
 			'active = 1-active '.
-		'WHERE id='.(integer)$id;
+		'WHERE id='.(integer)$iLanguageId;
 
 		if (!$this->db->execute($query)) {
 			return false;
@@ -369,13 +371,13 @@ class Languages
 	/**
 	 * Définit le statut d'une langue donnée.
 	 *
-	 * @param integer $id
+	 * @param integer $iLanguageId
 	 * @param integer $iStatus
 	 * @return boolean
 	 */
-	public function setLangStatus($id, $iStatus)
+	public function setLangStatus($iLanguageId, $iStatus)
 	{
-		if (!$this->languageExists($id)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
@@ -383,8 +385,8 @@ class Languages
 
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
-		'active = '.$iStatus.' '.
-		'WHERE id='.(integer)$id;
+			'active = '.$iStatus.' '.
+		'WHERE id='.(integer)$iLanguageId;
 
 		if (!$this->db->execute($query)) {
 			return false;
@@ -398,16 +400,16 @@ class Languages
 	/**
 	 * Met à jour la position d'une langue donnée.
 	 *
-	 * @param integer $id	ID langue
-	 * @param integer $ord	Ordre
+	 * @param integer $iLanguageId	ID langue
+	 * @param integer $iOrd	Ordre
 	 * @return boolean
 	 */
-	public function updLanguageOrder($id,$ord)
+	public function updLanguageOrder($iLanguageId, $iOrd)
 	{
 		$query =
 		'UPDATE '.$this->t_languages.' SET '.
-			'ord='.(integer)$ord.' '.
-		'WHERE id='.(integer)$id;
+			'ord='.(integer)$iOrd.' '.
+		'WHERE id='.(integer)$iLanguageId;
 
 		if (!$this->db->execute($query)) {
 			return false;
@@ -419,18 +421,18 @@ class Languages
 	/**
 	 * Suppression d'une langue.
 	 *
-	 * @param integer $id
+	 * @param integer $iLanguageId
 	 * @return boolean
 	 */
-	public function delLanguage($id)
+	public function delLanguage($iLanguageId)
 	{
-		if (!$this->languageExists($id)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
 		$query =
 		'DELETE FROM '.$this->t_languages.' '.
-		'WHERE id='.(integer)$id;
+		'WHERE id='.(integer)$iLanguageId;
 
 		if (!$this->db->execute($query)) {
 			return false;

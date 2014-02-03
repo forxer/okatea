@@ -28,6 +28,9 @@ $GLOBALS['okt_l10n']['c_a_config_l10n_title'] = 'Titre';
 $GLOBALS['okt_l10n']['c_a_config_l10n_code'] = 'Code';
 $GLOBALS['okt_l10n']['c_a_config_l10n_icon'] = 'Icône';
 
+$GLOBALS['okt_l10n']['c_a_config_l10n_error_need_title'] = 'Vous devez saisir un titre de langue.';
+$GLOBALS['okt_l10n']['c_a_config_l10n_error_need_code'] = 'Vous devez saisir un code de langue.';
+
 $GLOBALS['okt_l10n']['c_a_config_l10n_confirm_delete'] = 'Êtes-vous sûr de vouloir supprimer cette langue ? Cette action est irréversible.';
 
 $GLOBALS['okt_l10n']['c_a_config_l10n_default_language'] = 'Langue par défaut';
