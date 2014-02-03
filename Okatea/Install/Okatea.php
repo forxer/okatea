@@ -174,12 +174,15 @@ class Okatea extends Application
 
 		foreach ($finder as $file)
 		{
-			$sExtensionId = $file->getRelativePath();
+			if (!file_exists(dirname($file->getRealPath()).'/_disabled'))
+			{
+				$sExtensionId = $file->getRelativePath();
 
-			$class = 'Okatea\\Install\\Extensions\\'.$sExtensionId.'\\Extension';
+				$class = 'Okatea\\Install\\Extensions\\'.$sExtensionId.'\\Extension';
 
-			$this->extensions[$sExtensionId] = new $class($this);
-			$this->extensions[$sExtensionId]->load();
+				$this->extensions[$sExtensionId] = new $class($this);
+				$this->extensions[$sExtensionId]->load();
+			}
 		}
 	}
 
