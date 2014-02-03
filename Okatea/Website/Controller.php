@@ -79,6 +79,22 @@ class Controller extends BaseController
 
 	public function serve404()
 	{
+		# Special case : language not specified in URL
+		if (!$this->okt->languages->unique)
+		{
+			$sLanguage = null;
+			# recherche d'un code ISO de langue
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->request->getPathInfo(), $m)) {
+				$sLanguage = $m[1];
+			}
+
+			if (null === $sLanguage)
+			{
+				$this->okt->user->setUserLang($this->okt->config->language);
+				return $this->redirect($this->generateUrl('homePage', array(), $this->okt->config->language));
+			}
+		}
+
 		return parent::serve404();
 	}
 
