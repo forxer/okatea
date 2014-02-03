@@ -17,8 +17,6 @@ $GLOBALS['okt_l10n']['i_step_checks'] = 'pré-requis';
 $GLOBALS['okt_l10n']['i_step_db_conf'] = 'base de données';
 $GLOBALS['okt_l10n']['i_step_db'] = 'tables';
 $GLOBALS['okt_l10n']['i_step_supa'] = 'utilisateurs';
-$GLOBALS['okt_l10n']['i_step_config'] = 'configuration';
-$GLOBALS['okt_l10n']['i_step_log'] = 'enregistrement';
 $GLOBALS['okt_l10n']['i_step_theme'] = 'thème';
 $GLOBALS['okt_l10n']['i_step_colors'] = 'couleurs';
 $GLOBALS['okt_l10n']['i_step_modules'] = 'modules';
@@ -85,9 +83,6 @@ $GLOBALS['okt_l10n']['i_supa_must_sudo_username'] = 'Vous devez saisir un nom d�
 $GLOBALS['okt_l10n']['i_supa_must_sudo_password'] = 'Vous devez saisir un mot de passe pour le compte super-administrateur.';
 $GLOBALS['okt_l10n']['i_supa_must_sudo_email'] = 'Vous devez saisir une adresse email pour le compte super-administrateur.';
 $GLOBALS['okt_l10n']['i_supa_must_admin_info'] = 'Si vous souhaitez ajouter un compte administrateur, vous devez indiquer un nom d’utilisateur, un mot de passe et une adresse email.';
-
-# configuration
-$GLOBALS['okt_l10n']['i_config_title'] = 'Configuration de base';
 
 # theme
 $GLOBALS['okt_l10n']['i_theme_title'] = 'Choix du thème';

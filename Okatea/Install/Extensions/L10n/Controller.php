@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Install\Extensions\Config;
+namespace Okatea\Install\Extensions\L10n;
 
 use Okatea\Install\Controller as BaseController;
 
@@ -20,8 +20,8 @@ class Controller extends BaseController
 			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
 		}
 
-		return $this->render('Config/Template', array(
-			'title' => __('i_config_title'),
+		return $this->render('L10n/Template', array(
+			'title' => __('i_l10n_title'),
 		));
 	}
 }

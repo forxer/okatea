@@ -17,8 +17,6 @@ $GLOBALS['okt_l10n']['i_step_checks'] = 'pre-requisites';
 $GLOBALS['okt_l10n']['i_step_db_conf'] = 'database';
 $GLOBALS['okt_l10n']['i_step_db'] = 'tables';
 $GLOBALS['okt_l10n']['i_step_supa'] = 'users';
-$GLOBALS['okt_l10n']['i_step_config'] = 'configuration';
-$GLOBALS['okt_l10n']['i_step_log'] = 'registration';
 $GLOBALS['okt_l10n']['i_step_theme'] = 'theme';
 $GLOBALS['okt_l10n']['i_step_colors'] = 'colors';
 $GLOBALS['okt_l10n']['i_step_modules'] = 'modules';
@@ -87,9 +85,6 @@ $GLOBALS['okt_l10n']['i_supa_must_sudo_password'] = 'You must enter a password f
 $GLOBALS['okt_l10n']['i_supa_must_admin_password'] = 'You must enter a password for the administrator account.';
 $GLOBALS['okt_l10n']['i_supa_must_sudo_email'] = 'You must enter an email address for the super-administrator account.';
 $GLOBALS['okt_l10n']['i_supa_must_admin_email'] = 'You must enter an email address for the administrator account.';
-
-# configuration
-$GLOBALS['okt_l10n']['i_config_title'] = 'Configuration de base';
 
 # theme
 $GLOBALS['okt_l10n']['i_theme_title'] = 'Theme choice';
