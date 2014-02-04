@@ -44,8 +44,6 @@ class Pager extends BasePager
 
 		$url = $this->okt->request->getBasePath().$this->okt->request->getPathInfo();
 
-	//	$url = $_SERVER['REQUEST_URI'];
-
 		# Escape page_url for sprintf
 		$url = preg_replace('/%/','%%',$url);
 

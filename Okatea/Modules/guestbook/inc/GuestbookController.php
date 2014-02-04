@@ -105,7 +105,7 @@ class GuestbookController extends Controller
 
 		# initialisation de la pagination
 		$iPage = !empty($_GET['page']) ? intval($_GET['page']) : 1;
-		$oGuestbookPager = new Pager($iPage, $this->okt->guestbook->getSig($aGuestbookParams,true), $this->okt->guestbook->config->nbparpage_public);
+		$oGuestbookPager = new Pager($this->okt, $iPage, $this->okt->guestbook->getSig($aGuestbookParams,true), $this->okt->guestbook->config->nbparpage_public);
 
 		$iNumPages = $oGuestbookPager->getNbPages();
 

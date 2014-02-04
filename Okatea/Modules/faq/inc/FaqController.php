@@ -44,7 +44,7 @@ class FaqController extends Controller
 		# initialisation de la pagination
 		$iNumFilteredQuestions = $this->okt->faq->getQuestions($aFaqParams,true);
 
-		$oFaqPager = new Pager($this->okt->faq->filters->params->page, $iNumFilteredQuestions, $this->okt->faq->filters->params->nb_per_page);
+		$oFaqPager = new Pager($this->okt, $this->okt->faq->filters->params->page, $iNumFilteredQuestions, $this->okt->faq->filters->params->nb_per_page);
 
 		$iNumPages = $oFaqPager->getNbPages();
 

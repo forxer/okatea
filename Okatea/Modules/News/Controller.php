@@ -31,9 +31,6 @@ class Controller extends BaseController
 			}
 		}
 
-		# is default route ?
-		$bIsHomePageRoute = $this->isHomePageRoute();
-
 		# initialisation paramètres
 		$aNewsParams = array(
 			'active' => 1,
@@ -63,7 +60,7 @@ class Controller extends BaseController
 		# initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->News->getPostsCount($aNewsParams);
 
-		$oNewsPager = new Pager($this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
 
 		$iNumPages = $oNewsPager->getNbPages();
 
@@ -91,7 +88,7 @@ class Controller extends BaseController
 		}
 
 		# fil d'ariane
-		if (!$bIsHomePageRoute) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
@@ -177,9 +174,6 @@ class Controller extends BaseController
 			}
 		}
 
-		# is default route ?
-		$bIsHomePageRoute = $this->isHomePageRoute();
-
 		# formatage description rubrique
 		if (!$this->okt->News->config->categories['rte']) {
 			$this->rsCategory->content = Utilities::nlToP($this->rsCategory->content);
@@ -209,7 +203,7 @@ class Controller extends BaseController
 		# initialisation de la pagination
 		$iNumFilteredPosts = $this->okt->News->getPostsCount($aNewsParams);
 
-		$oNewsPager = new Pager($this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
 
 		$iNumPages = $oNewsPager->getNbPages();
 
@@ -251,7 +245,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# fil d'ariane
-		if (!$bIsHomePageRoute)
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 
@@ -297,9 +291,6 @@ class Controller extends BaseController
 			return $this->serve404();
 		}
 
-		# is default route ?
-		$bIsHomePageRoute = $this->isHomePageRoute();
-
 		# permission de lecture ?
 		if (!$this->okt->News->isPublicAccessible() || !$this->rsPost->isReadable())
 		{
@@ -337,7 +328,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag($this->okt->News->getTitle());
 
 		# début du fil d'ariane
-		if (!$bIsHomePageRoute) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
 		}
 
@@ -348,7 +339,7 @@ class Controller extends BaseController
 			$this->page->addTitleTag($this->rsPost->category_title);
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			if (!$bIsHomePageRoute)
+			if (!$this->isHomePageRoute())
 			{
 				$rsPath = $this->okt->News->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
 				while ($rsPath->fetch()) {
@@ -367,7 +358,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($this->rsPost->title_seo);
 
 		# fil d'ariane de la page
-		if (!$bIsHomePageRoute) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->rsPost->title, $this->rsPost->url);
 		}
 

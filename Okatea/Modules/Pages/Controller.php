@@ -60,7 +60,7 @@ class Controller extends BaseController
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->Pages->getPagesCount($aPagesParams);
 
-		$oPagesPager = new Pager($this->okt->Pages->filters->params->page, $iNumFilteredPages, $this->okt->Pages->filters->params->nb_per_page);
+		$oPagesPager = new Pager($this->okt, $this->okt->Pages->filters->params->page, $iNumFilteredPages, $this->okt->Pages->filters->params->nb_per_page);
 
 		$iNumPages = $oPagesPager->getNbPages();
 
@@ -197,7 +197,7 @@ class Controller extends BaseController
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->Pages->getPagesCount($aPagesParams);
 
-		$oPagesPager = new Pager($this->okt->Pages->filters->params->page, $iNumFilteredPages, $this->okt->Pages->filters->params->nb_per_page);
+		$oPagesPager = new Pager($this->okt, $this->okt->Pages->filters->params->page, $iNumFilteredPages, $this->okt->Pages->filters->params->nb_per_page);
 
 		$iNumPages = $oPagesPager->getNbPages();
 

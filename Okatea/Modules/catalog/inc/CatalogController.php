@@ -44,7 +44,7 @@ class CatalogController extends Controller
 		# initialisation de la pagination
 		$num_filtered_products = $this->okt->catalog->getProds($aProductsParams,true);
 
-		$oProductsPager = new Pager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
+		$oProductsPager = new Pager($this->okt, $this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
 
 		$iNumPages = $oProductsPager->getNbPages();
 
@@ -179,7 +179,7 @@ class CatalogController extends Controller
 		# initialisation de la pagination
 		$num_filtered_products = $this->okt->catalog->getProds($aProductsParams,true);
 
-		$oProductsPager = new Pager($this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
+		$oProductsPager = new Pager($this->okt, $this->okt->catalog->filters->params->page, $num_filtered_products, $this->okt->catalog->filters->params->nb_per_page);
 
 		$iNumPages = $oProductsPager->getNbPages();
 
