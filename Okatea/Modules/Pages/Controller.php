@@ -24,7 +24,7 @@ class Controller extends BaseController
 		if (!$this->okt->Pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('pagesList')));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('pagesList')));
 			}
 			else {
 				return $this->serve404();
@@ -161,7 +161,7 @@ class Controller extends BaseController
 		if (!$this->okt->Pages->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('pagesCategory', array('slug' => $this->rsCategory->slug))));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('pagesCategory', array('slug' => $this->rsCategory->slug))));
 			}
 			else {
 				return $this->serve404();
@@ -239,7 +239,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $sCategorySlug))
+		if (!$this->isHomePageRoute())
 		{
 			$rsPath = $this->okt->Pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 
@@ -287,7 +287,7 @@ class Controller extends BaseController
 		if (!$this->okt->Pages->isPublicAccessible() || !$this->rsPage->isReadable())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->rsPage->url));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->rsPage->url));
 			}
 			else {
 				return $this->serve404();
@@ -339,7 +339,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($this->rsPage->title_seo);
 
 		# fil d'ariane de la page
-		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $sPageSlug)) {
+		if (!$this->isHomePageRoute()) {
 			$this->page->breadcrumb->add($this->rsPage->title, $this->rsPage->url);
 		}
 

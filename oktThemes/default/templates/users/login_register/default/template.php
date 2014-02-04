@@ -101,7 +101,7 @@ if ($okt->error->notEmpty()) : ?>
 
 <div id="forms-log-reg" class="one-third-two-thirds">
 	<div class="one-third">
-		<form id="login-form" class="userform" action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
+		<form id="login-form" class="userform" action="<?php echo $okt->router->generateLoginUrl() ?>" method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_login') ?></legend>
 
@@ -122,14 +122,14 @@ if ($okt->error->notEmpty()) : ?>
 			<p class="note"><?php _e('c_c_auth_must_accept_cookies_private_area') ?></p>
 
 			<?php # début Okatea : lien page mot de passe oublié
-			if ($okt->users->config->enable_forget_password_page) : ?>
+		if ($okt->config->users['pages']['forget_password']) : ?>
 			<p><a href="<?php echo $view->generateUrl('usersForgetPassword') ?>"><?php
 			_e('c_c_auth_forgot_password') ?></a></p>
 			<?php endif; # fin Okatea : lien page mot de passe oublié ?>
 		</form>
 	</div><!-- .one-third -->
 	<div class="two-thirds">
-		<form id="register-form" class="userform" action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>" method="post">
+		<form id="register-form" class="userform" action="<?php echo $okt->router->generateLoginUrl() ?>" method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_register') ?></legend>
 				<div class="two-cols">

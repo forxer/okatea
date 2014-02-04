@@ -186,7 +186,7 @@ class FaqController extends Controller
 		$this->page->setTitleSeo(!empty($this->rsQuestion->title_seo) ? $this->rsQuestion->title_seo : $this->rsQuestion->title);
 
 		# fil d'ariane du post
-		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 

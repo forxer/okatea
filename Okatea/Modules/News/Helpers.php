@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\News;
 
+use Okatea\Tao\Misc\Utilities;
 class Helpers
 {
 	/**
@@ -108,10 +109,10 @@ class Helpers
 			$return .= '<a href="'.$okt->router->generate('newsCategory', array('slug' => $rsCategories->slug)).'">';
 
 			if ($iCurrentCat == $rsCategories->id) {
-				$return .= '<strong>'.html::escapeHTML($rsCategories->title).'</strong>';
+				$return .= '<strong>'.Utilities::escapeHTML($rsCategories->title).'</strong>';
 			}
 			else {
-				$return .= html::escapeHTML($rsCategories->title);
+				$return .= Utilities::escapeHTML($rsCategories->title);
 			}
 
 
@@ -166,7 +167,7 @@ class Helpers
 
 		while ($rsPosts->fetch())
 		{
-			$sItem = sprintf($sLinkFormat, html::escapeHTML($rsPosts->url), html::escapeHTML($rsPosts->title));
+			$sItem = sprintf($sLinkFormat, Utilities::escapeHTML($rsPosts->url), Utilities::escapeHTML($rsPosts->title));
 
 			if ($rsPosts->id == $iCurrentPage) {
 				$aItems[] = sprintf($sItemActiveFormat, $sItem);
@@ -218,7 +219,7 @@ class Helpers
 
 		while ($rsChildren->fetch())
 		{
-			$sChildren = sprintf($sLinkFormat, $okt->router->generate('newsCategory', array('slug' => $rsChildren->slug)), html::escapeHTML($rsChildren->title));
+			$sChildren = sprintf($sLinkFormat, $okt->router->generate('newsCategory', array('slug' => $rsChildren->slug)), Utilities::escapeHTML($rsChildren->title));
 
 			if ($rsChildren->id == $iCurrentCat) {
 				$aChildren[] = sprintf($sItemActiveFormat, $sChildren);

@@ -55,9 +55,9 @@ class UsersController extends BaseController
 		}
 
 		# affichage du template
-		return $this->render($this->okt->users->getLoginTplPath(), array(
-			'user_id' => $this->sUserId,
-			'redirect' => $this->sRedirectURL
+		return $this->render('Users/login/'.$this->okt->config->users['templates']['login']['default'].'/template', array(
+			'user_id'    => $this->sUserId,
+			'redirect'   => $this->sRedirectURL
 		));
 	}
 
@@ -70,7 +70,7 @@ class UsersController extends BaseController
 		# déconnexion et redirection
 		$this->okt->user->logout();
 
-		$this->performRedirect();
+		return $this->performRedirect();
 	}
 
 	/**
@@ -92,14 +92,14 @@ class UsersController extends BaseController
 		$this->performRegister();
 
 		# affichage du template
-		return $this->render($this->okt->users->getRegisterTplPath(), array(
-			'aUsersGroups' => $this->getGroups(),
-			'aTimezone' => \dt::getZones(true,true),
-			'aLanguages' => $this->getLanguages(),
-			'aCivilities' => $this->getCivities(false),
-			'aUserRegisterData' => $this->aUserRegisterData,
-			'redirect' => $this->sRedirectURL,
-			'rsUserFields' => $this->rsUserFields
+		return $this->render('Users/register/'.$this->okt->config->users['templates']['register']['default'].'/template', array(
+			'aUsersGroups'       => $this->getGroups(),
+			'aTimezone'          => \dt::getZones(true,true),
+			'aLanguages'         => $this->getLanguages(),
+			'aCivilities'        => $this->getCivities(false),
+			'aUserRegisterData'  => $this->aUserRegisterData,
+			'redirect'           => $this->sRedirectURL,
+			'rsUserFields'       => $this->rsUserFields
 		));
 	}
 
@@ -126,13 +126,13 @@ class UsersController extends BaseController
 		$this->performRegister();
 
 		# affichage du template
-		return $this->render($this->okt->users->getLoginRegisterTplPath(), array(
-			'aUsersGroups' => $this->getGroups(),
-			'aTimezone' => \dt::getZones(true,true),
-			'aLanguages' => $this->getLanguages(),
-			'aUserRegisterData' => $this->aUserRegisterData,
-			'user_id' => $this->sUserId,
-			'redirect' => $this->sRedirectURL
+		return $this->render('Users/login_register/'.$this->okt->config->users['templates']['login_register']['default'].'/template', array(
+			'aUsersGroups'       => $this->getGroups(),
+			'aTimezone'          => \dt::getZones(true,true),
+			'aLanguages'         => $this->getLanguages(),
+			'aUserRegisterData'  => $this->aUserRegisterData,
+			'user_id'            => $this->sUserId,
+			'redirect'           => $this->sRedirectURL
 		));
 	}
 
@@ -173,9 +173,9 @@ class UsersController extends BaseController
 		}
 
 		# affichage du template
-		return $this->render($this->okt->users->getForgottenPasswordTplPath(), array(
-			'password_sended' => $password_sended,
-			'password_updated' => $password_updated
+		return $this->render('Users/forgotten_password/'.$this->okt->config->users['templates']['forgotten_password']['default'].'/template', array(
+			'password_sended'    => $password_sended,
+			'password_updated'   => $password_updated
 		));
 	}
 
@@ -296,15 +296,15 @@ class UsersController extends BaseController
 		if (!empty($_POST['form_sent']))
 		{
 			$aUserProfilData = array(
-				'id' => $this->okt->user->id,
-				'username' => isset($_POST['edit_username']) ? $_POST['edit_username'] : '',
-				'email' => isset($_POST['edit_email']) ? $_POST['edit_email'] : '',
-				'civility' => isset($_POST['edit_civility']) ? $_POST['edit_civility'] : '',
-				'lastname' => isset($_POST['edit_lastname']) ? $_POST['edit_lastname'] : '',
-				'firstname' => isset($_POST['edit_firstname']) ? $_POST['edit_firstname'] : '',
-				'displayname' => isset($_POST['edit_displayname']) ? $_POST['edit_displayname'] : '',
-				'language' => isset($_POST['edit_language']) ? $_POST['edit_language'] : '',
-				'timezone' => isset($_POST['edit_timezone']) ? $_POST['edit_timezone'] : ''
+				'id'            => $this->okt->user->id,
+				'username'      => isset($_POST['edit_username']) ? $_POST['edit_username'] : '',
+				'email'         => isset($_POST['edit_email']) ? $_POST['edit_email'] : '',
+				'civility'      => isset($_POST['edit_civility']) ? $_POST['edit_civility'] : '',
+				'lastname'      => isset($_POST['edit_lastname']) ? $_POST['edit_lastname'] : '',
+				'firstname'     => isset($_POST['edit_firstname']) ? $_POST['edit_firstname'] : '',
+				'displayname'   => isset($_POST['edit_displayname']) ? $_POST['edit_displayname'] : '',
+				'language'      => isset($_POST['edit_language']) ? $_POST['edit_language'] : '',
+				'timezone'      => isset($_POST['edit_timezone']) ? $_POST['edit_timezone'] : ''
 			);
 
 			if ($this->okt->config->users['registration']['merge_username_email']) {
@@ -340,14 +340,14 @@ class UsersController extends BaseController
 
 		# affichage du template
 		return $this->render('Users/profile/'.$this->okt->config->users['templates']['profile']['default'].'/template', array(
-			'aUserProfilData' => $aUserProfilData,
-			'aTimezone' => $aTimezone,
-			'aLanguages' => $aLanguages,
-			'aCivilities' => $this->getCivities(false),
-			'rsAdminFields' => $this->rsAdminFields,
-			'rsUserFields' => $this->rsUserFields,
-			'aPostedData' => $aPostedData,
-			'aFieldsValues' => $aFieldsValues
+			'aUserProfilData'    => $aUserProfilData,
+			'aTimezone'          => $aTimezone,
+			'aLanguages'         => $aLanguages,
+			'aCivilities'        => $this->getCivities(false),
+			'rsAdminFields'      => $this->rsAdminFields,
+			'rsUserFields'       => $this->rsUserFields,
+			'aPostedData'        => $aPostedData,
+			'aFieldsValues'      => $aFieldsValues
 		));
 	}
 
@@ -426,17 +426,17 @@ class UsersController extends BaseController
 	{
 		# default data
 		$this->aUserRegisterData = array(
-			'civility' => 1,
-			'username' => '',
-			'lastname' => '',
-			'firstname' => '',
-			'displayname' => '',
-			'password' => '',
-			'password_confirm' => '',
-			'email' => '',
-			'group_id' => $this->okt->config->users['registration']['default_group'],
-			'timezone' => $this->okt->config->timezone,
-			'language' => $this->okt->config->language
+			'civility'           => 1,
+			'username'           => '',
+			'lastname'           => '',
+			'firstname'          => '',
+			'displayname'        => '',
+			'password'           => '',
+			'password_confirm'   => '',
+			'email'              => '',
+			'group_id'           => $this->okt->config->users['registration']['default_group'],
+			'timezone'           => $this->okt->config->timezone,
+			'language'           => $this->okt->config->language
 		);
 
 		# Champs personnalisés
@@ -489,17 +489,17 @@ class UsersController extends BaseController
 		if (!empty($_POST['add_user']))
 		{
 			$this->aUserRegisterData = array(
-				'active' => 1,
-				'username' => !empty($_POST['add_username']) ? $_POST['add_username'] : '',
-				'lastname' => !empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '',
-				'firstname' => !empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '',
-				'password' => !empty($_POST['add_password']) ? $_POST['add_password'] : '',
-				'password_confirm' => !empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '',
-				'email' => !empty($_POST['add_email']) ? $_POST['add_email'] : '',
-				'group_id' => ($this->okt->config->users['registration']['user_choose_group'] && !empty($_POST['add_group_id']) && in_array($_POST['add_group_id'],$this->getGroups())) ? $_POST['add_group_id'] : $this->okt->config->users['registration']['default_group'],
-				'timezone' => !empty($_POST['add_timezone']) ? $_POST['add_timezone'] : $this->okt->config->timezone,
-				'language' => !empty($_POST['add_language']) && in_array($_POST['add_language'], $this->getLanguages()) ? $_POST['add_language'] : $this->okt->config->language,
-				'civility' => !empty($_POST['add_civility']) ? $_POST['add_civility'] : ''
+				'active'            => 1,
+				'username'          => !empty($_POST['add_username']) ? $_POST['add_username'] : '',
+				'lastname'          => !empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '',
+				'firstname'         => !empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '',
+				'password'          => !empty($_POST['add_password']) ? $_POST['add_password'] : '',
+				'password_confirm'  => !empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '',
+				'email'             => !empty($_POST['add_email']) ? $_POST['add_email'] : '',
+				'group_id'          => ($this->okt->config->users['registration']['user_choose_group'] && !empty($_POST['add_group_id']) && in_array($_POST['add_group_id'],$this->getGroups())) ? $_POST['add_group_id'] : $this->okt->config->users['registration']['default_group'],
+				'timezone'          => !empty($_POST['add_timezone']) ? $_POST['add_timezone'] : $this->okt->config->timezone,
+				'language'          => !empty($_POST['add_language']) && in_array($_POST['add_language'], $this->getLanguages()) ? $_POST['add_language'] : $this->okt->config->language,
+				'civility'          => !empty($_POST['add_civility']) ? $_POST['add_civility'] : ''
 			);
 
 			if ($this->okt->config->users['registration']['merge_username_email']) {
@@ -545,11 +545,11 @@ class UsersController extends BaseController
 				}
 
 				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
-					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-					'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-					'USER_CN' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
-					'USERNAME' => $rsUser->username,
-					'PASSWORD' => $this->aUserRegisterData['password']
+					'SITE_TITLE'   => $this->page->getSiteTitle($rsUser->language),
+					'SITE_URL'     => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+					'USER_CN'      => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+					'USERNAME'     => $rsUser->username,
+					'PASSWORD'     => $this->aUserRegisterData['password']
 				));
 
 				$oMail->message->setTo($rsUser->email);
@@ -573,10 +573,10 @@ class UsersController extends BaseController
 					while ($rsAdministrators->fetch())
 					{
 						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
-							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-							'USER_CN' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
-							'PROFIL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
+							'SITE_TITLE'     => $this->page->getSiteTitle($rsUser->language),
+							'SITE_URL'       => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+							'USER_CN'        => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+							'PROFIL'         => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 
 						$oMail->message->setTo($rsAdministrators->email);
@@ -609,7 +609,8 @@ class UsersController extends BaseController
 
 		$aUsersGroups = array();
 
-		$rsGroups = $this->okt->users->getGroups(array(
+		$oGroups = new Groups($this->okt);
+		$rsGroups = $oGroups->getGroups(array(
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,

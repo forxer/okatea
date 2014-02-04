@@ -206,7 +206,7 @@ class Okatea extends Application
 			$this->response = new Response();
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
-			$this->response->setContent('Unable to load controller.');
+			$this->response->setContent('Unable to load controller '.$this->request->attributes->get('controller'));
 		}
 	}
 

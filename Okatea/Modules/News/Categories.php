@@ -35,7 +35,7 @@ class Categories extends NestedTreei18n
 	 *
 	 * @param array $aParams Paramètres de requete
 	 * @param boolean $bCountOnly Ne renvoi qu'un compte de rubrique
-	 * @return object recordset/integer
+	 * @return object Recordset/integer
 	 */
 	public function getCategories($aParams=array(), $bCountOnly=false)
 	{
@@ -108,7 +108,7 @@ class Categories extends NestedTreei18n
 		}
 
 		if (($rs = $this->db->select($sQuery)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		if ($bCountOnly) {
@@ -149,7 +149,7 @@ class Categories extends NestedTreei18n
 					array_unshift($aData,$rubrique);
 				}
 
-				return new recordset($aData);
+				return new Recordset($aData);
 			}
 			else {
 				return $rs;
@@ -162,7 +162,7 @@ class Categories extends NestedTreei18n
 	 *
 	 * @param integer $iCategoryId
 	 * @param integer $iActive
-	 * @return object recordset
+	 * @return object Recordset
 	 */
 	public function getCategory($iCategoryId,$iActive=2)
 	{
@@ -188,7 +188,7 @@ class Categories extends NestedTreei18n
 	 * Retourne les localisations d'une rubrique donnée.
 	 *
 	 * @param integer $iCategoryId
-	 * @return recordset
+	 * @return Recordset
 	 */
 	public function getCategoryI18n($iCategoryId)
 	{
@@ -198,7 +198,7 @@ class Categories extends NestedTreei18n
 		'WHERE category_id='.(integer)$iCategoryId;
 
 		if (($rs = $this->db->select($query)) === false) {
-			$rs = new recordset(array());
+			$rs = new Recordset(array());
 			return $rs;
 		}
 

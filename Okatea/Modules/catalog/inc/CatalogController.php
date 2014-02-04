@@ -154,7 +154,7 @@ class CatalogController extends Controller
 		}
 
 		# route par défaut ?
-		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug);
+		$bIsHomePageRoute = $this->isHomePageRoute();
 
 		# initialisation des paramètres
 		$aProductsParams = array(
@@ -295,7 +295,7 @@ class CatalogController extends Controller
 		}
 
 		# route par défaut ?
-		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug);
+		$bIsHomePageRoute = $this->isHomePageRoute();
 
 		# Formatage des données
 		if ($this->rsProduct->title_tag == '') {

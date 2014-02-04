@@ -23,7 +23,7 @@ $okt->page->meta_description = $okt->page->getSiteMetaDesc();
 $okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
 
 # fil d'ariane
-$okt->page->breadcrumb->add(__('c_c_auth_request_password'), $this->generateUrl('usersForgetPassword'));
+$okt->page->breadcrumb->add(__('c_c_auth_request_password'), $view->generateUrl('usersForgetPassword'));
 
 $view->extend('layout');
 
@@ -56,13 +56,13 @@ if ($okt->error->notEmpty()) : ?>
 if ($password_sended) : ?>
 
 <p><?php _e('c_c_auth_email_sent_with_instructions') ?></p>
-<p><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
+<p><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a></p>
 
 <?php # si le mot de passe a été mis à jour on l'indique
 elseif ($password_updated) : ?>
 
 <p><?php _e('c_c_auth_password_updated') ?></p>
-<p><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php _e('c_c_auth_login') ?></a></p>
+<p><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a></p>
 
 <?php # sinon on affiche le formulaire
 else : ?>
@@ -78,14 +78,14 @@ else : ?>
 
 	<ul>
 		<?php # début Okatea : lien page connexion
-		if ($okt->users->config->enable_login_page) : ?>
-		<li><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php
+		if ($okt->config->users['pages']['login']) : ?>
+		<li><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php
 		_e('c_c_auth_login') ?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page inscription
-		if ($okt->users->config->enable_register_page) : ?>
-		<li><a href="<?php echo $view->escape(UsersHelpers::getRegisterUrl()) ?>"><?php
+		if ($okt->config->users['pages']['register']) : ?>
+		<li><a href="<?php echo $view->generateUrl('usersRegister') ?>"><?php
 		_e('c_c_auth_register') ?></a></li>
 		<?php endif; # fin Okatea : lien page inscription ?>
 	</ul>

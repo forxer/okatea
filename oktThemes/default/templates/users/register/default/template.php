@@ -82,7 +82,7 @@ $aJsValidateRules = new ArrayObject(array(
 	)
 ));
 
-if ($okt->users->config->enable_custom_fields)
+if ($okt->config->users['custom_fields_enabled'])
 {
 	while ($rsUserFields->fetch())
 	{
@@ -108,9 +108,9 @@ $okt->page->validate('register-form', $aJsValidateRules);
 <?php # début Okatea : message de confirmation de l'inscription
 if (!empty($_REQUEST['registered'])) : ?>
 
-		<div class="valid_box">
-			<p><?php _e('m_users_confirm_resgitration') ?></p>
-		</div>
+	<div class="valid_box">
+		<p><?php _e('c_c_users_confirm_resgitration') ?></p>
+	</div>
 
 <?php else : ?>
 
@@ -122,10 +122,10 @@ if ($okt->error->notEmpty()) : ?>
 	</div>
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
-<form id="register-form" class="userform" action="<?php echo $view->escape(UsersHelpers::getRegisterUrl()) ?>" method="post">
+<form id="register-form" class="userform" action="<?php echo $view->generateUrl('usersRegister') ?>" method="post">
 
 	<fieldset>
-		<legend><?php _e('m_users_Account') ?></legend>
+		<legend><?php _e('c_c_users_Account') ?></legend>
 
 		<div class="two-cols">
 
@@ -165,7 +165,7 @@ if ($okt->error->notEmpty()) : ?>
 	</fieldset>
 
 	<fieldset>
-		<legend><?php _e('m_users_Identity') ?></legend>
+		<legend><?php _e('c_c_users_Identity') ?></legend>
 
 		<div class="three-cols">
 						<p class="field col"><label for="add_civility"><?php _e('c_c_Civility') ?></label>
@@ -195,7 +195,7 @@ if ($okt->error->notEmpty()) : ?>
 	</fieldset>
 
 	<?php # début Okatea : affichage des champs personnalisés si ils sont activés
-	if ($okt->users->config->enable_custom_fields) : ?>
+	if ($okt->config->users['custom_fields_enabled']) : ?>
 	<div class="two-cols">
 		<?php while ($rsUserFields->fetch()) : ?>
 			<div class="col">
@@ -211,13 +211,13 @@ if ($okt->error->notEmpty()) : ?>
 
 	<ul>
 		<?php # début Okatea : lien page connexion
-		if ($okt->users->config->enable_login_page) : ?>
-		<li><a href="<?php echo $view->escape(UsersHelpers::getLoginUrl()) ?>"><?php
+		if ($okt->config->users['pages']['login']) : ?>
+		<li><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php
 		_e('c_c_auth_login') ?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page mot de passe oublié
-		if ($okt->users->config->enable_forget_password_page) : ?>
+		if ($okt->config->users['pages']['forget_password']) : ?>
 		<li><a href="<?php echo $view->generateUrl('usersForgetPassword') ?>"><?php
 		_e('c_c_auth_forgot_password') ?></a></li>
 		<?php endif; # fin Okatea : lien page mot de passe oublié ?>

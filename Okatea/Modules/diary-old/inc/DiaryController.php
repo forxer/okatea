@@ -178,7 +178,7 @@ class DiaryController extends Controller
 		$this->page->addTitleTag($this->okt->diary->getTitle());
 
 		# fil d'ariane
-		if (!$this->isHomePageRoute(__CLASS__, __FUNCTION__, $slug))
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 

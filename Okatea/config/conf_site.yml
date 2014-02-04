@@ -100,9 +100,6 @@ users:
         log_reg: false
         forget_password: false
         profile: false
-    filters:
-        public_default_nb_per_page: 10
-        admin_default_nb_per_page: 10
     registration:
         mail_new_registration: true
         validation: true
@@ -129,3 +126,6 @@ users:
         user_bar:
             default: default
             usables: {  }
+users_filters:
+    public_default_nb_per_page: 10
+    admin_default_nb_per_page: 10

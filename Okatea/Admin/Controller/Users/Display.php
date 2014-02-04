@@ -24,11 +24,9 @@ class Display extends Controller
 
 		$this->aPageData = new \ArrayObject(array());
 		$this->aPageData['config'] = array(
-			'users' => array(
-				'filters' => array(
-					'public_default_nb_per_page' 	=> $this->okt->config->users['filters']['public_default_nb_per_page'],
-					'admin_default_nb_per_page' 	=> $this->okt->config->users['filters']['admin_default_nb_per_page']
-				)
+			'users_filters' => array(
+				'public_default_nb_per_page' 	=> $this->okt->config->users_filters['public_default_nb_per_page'],
+				'admin_default_nb_per_page' 	=> $this->okt->config->users_filters['admin_default_nb_per_page']
 			)
 		);
 
@@ -36,11 +34,9 @@ class Display extends Controller
 		if ($this->okt->request->request->has('form_sent'))
 		{
 			$this->aPageData['config'] = array(
-				'users' => array(
-					'filters' => array(
-						'public_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_public_default_nb_per_page', 10),
-						'admin_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_admin_default_nb_per_page', 10)
-					)
+				'users_filters' => array(
+					'public_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_public_default_nb_per_page', 10),
+					'admin_default_nb_per_page' 	=> $this->okt->request->request->getInt('p_admin_default_nb_per_page', 10)
 				)
 			);
 

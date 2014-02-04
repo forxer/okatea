@@ -24,7 +24,7 @@ class Controller extends BaseController
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('newsList')));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsList')));
 			}
 			else {
 				return $this->serve404();
@@ -170,7 +170,7 @@ class Controller extends BaseController
 		if (!$this->okt->News->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug))));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug))));
 			}
 			else {
 				return $this->serve404();
@@ -178,7 +178,7 @@ class Controller extends BaseController
 		}
 
 		# is default route ?
-		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $sCategorySlug);
+		$bIsHomePageRoute = $this->isHomePageRoute();
 
 		# formatage description rubrique
 		if (!$this->okt->News->config->categories['rte']) {
@@ -298,13 +298,13 @@ class Controller extends BaseController
 		}
 
 		# is default route ?
-		$bIsHomePageRoute = $this->isHomePageRoute(__CLASS__, __FUNCTION__, $sPostSlug);
+		$bIsHomePageRoute = $this->isHomePageRoute();
 
 		# permission de lecture ?
 		if (!$this->okt->News->isPublicAccessible() || !$this->rsPost->isReadable())
 		{
 			if ($this->okt->user->is_guest) {
-				return $this->redirect(usersHelpers::getLoginUrl($this->rsPost->url));
+				return $this->redirect($this->okt->router->generateLoginUrl($this->rsPost->url));
 			}
 			else {
 				return $this->serve404();
