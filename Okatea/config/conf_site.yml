@@ -4,6 +4,13 @@ title:
 desc:
     fr: 'Un autre CMS modulaire en PHP'
     en: 'Another modular CMS in PHP'
+home_page:
+    item:
+        fr: ''
+        en: ''
+    details:
+        fr: ''
+        en: ''
 title_tag:
     fr: ''
     en: ''

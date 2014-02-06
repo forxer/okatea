@@ -321,7 +321,7 @@ class Page
 	 *
 	 * @return string
 	 */
-	public function getSiteTitleTag($sLanguage=null, $sDefault=null)
+	public function getSiteTitleTag($sLanguage = null, $sDefault = null)
 	{
 		if ($sLanguage !== null && !empty($this->okt->config->title_tag[$sLanguage])) {
 			return $this->okt->config->title_tag[$sLanguage];
@@ -1360,7 +1360,7 @@ class Page
 		if (isset($this->captchaList[$captchaId]) && !in_array($captchaId,$loaded))
 		{
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior=>$callback) {
-				$this->okt->triggers->registerTrigger($behavior,$callback);
+				$this->okt->triggers->registerTrigger($behavior, $callback);
 			}
 
 			$loaded[] = $captchaId;

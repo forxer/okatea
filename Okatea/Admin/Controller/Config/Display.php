@@ -123,7 +123,6 @@ class Display extends Controller
 
 					$oZip->unzipAll($sTempDir);
 					$oZip->close();
-					debug($sTempDir);
 
 					$sFinalPath = $this->okt->options->public_dir.'/plugins/jquery-ui/themes/custom';
 

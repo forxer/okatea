@@ -60,7 +60,6 @@ class Okatea extends Application
 
 	public $extensions = array();
 
-
 	public function __construct($autoloader, array $aOptions = array())
 	{
 		# Autoloader shortcut
@@ -68,7 +67,7 @@ class Okatea extends Application
 
 		$this->getLogger();
 
-		$this->triggers = new Triggers($this);
+		$this->triggers = new Triggers();
 
 		$this->options = new ApplicationOptions($aOptions);
 

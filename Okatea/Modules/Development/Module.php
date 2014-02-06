@@ -80,7 +80,7 @@ class Module extends BaseModule
 		if ($this->okt->user->is_superadmin)
 		{
 			$this->okt->triggers->registerTrigger('adminIndexHtmlContent',
-				array('Okatea\Modules\Development\Module', 'adminIndexHtmlContent'));
+				array($this, 'adminIndexHtmlContent'));
 		}
 
 		# Add admin debug bar
@@ -96,7 +96,7 @@ class Module extends BaseModule
 		if ($this->okt->user->is_superadmin)
 		{
 			$this->okt->triggers->registerTrigger('websiteAdminBarItems',
-				array('Okatea\Modules\Development\Module', 'websiteAdminBarItems'));
+				array($this, 'websiteAdminBarItems'));
 		}
 	}
 
@@ -106,7 +106,7 @@ class Module extends BaseModule
 	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
-	public static function adminIndexHtmlContent($okt)
+	public function adminIndexHtmlContent()
 	{
 		echo
 		'<div class="ui-widget" style="width: 700px; margin:0 auto 20px auto;">'.
@@ -120,20 +120,17 @@ class Module extends BaseModule
 	/**
 	 * Ajout d'un avertissement sur la barre admin côté publique.
 	 *
-	 * @param Okatea\Tao\Application $okt
 	 * @param arrayObject $aPrimaryAdminBar
 	 * @param arrayObject $aSecondaryAdminBar
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		$aPrimaryAdminBar[10]['items'][100] = array(
-			'href' => $okt->adminRouter->generateFromWebsite('config_modules'),
+			'href' => $this->okt->adminRouter->generateFromWebsite('config_modules'),
 			'title' => __('m_development_ab_module_enable_title'),
 			'intitle' => __('m_development_ab_module_enable')
 		);
 	}
-
-
 }

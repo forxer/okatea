@@ -21,7 +21,7 @@ class Extension extends AbstractExtension
 		$this->okt->triggers->registerTrigger('installBeforeLoadPageHelpers', array($this, 'addRoute'));
 	}
 
-	public function addStep($okt, $stepper)
+	public function addStep($stepper)
 	{
 		$this->insertStepAfter($stepper, 'supa', array(
 			'step' 		=> 'localization',
@@ -29,9 +29,9 @@ class Extension extends AbstractExtension
 		));
 	}
 
-	public function addRoute($okt)
+	public function addRoute()
 	{
-		$okt->router->getRouteCollection()->add( 'localization',
+		$this->okt->router->getRouteCollection()->add( 'localization',
 			new Route('/localization', array('controller' => 'Okatea\Install\Extensions\L10n\Controller::page'))
 		);
 	}

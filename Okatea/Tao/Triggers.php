@@ -14,8 +14,6 @@ namespace Okatea\Tao;
  */
 class Triggers
 {
-	protected $okt;
-
 	/**
 	 * La pile qui contient les déclencheurs.
 	 *
@@ -30,10 +28,8 @@ class Triggers
 	 *
 	 * @return void
 	 */
-	public function __construct($okt)
+	public function __construct()
 	{
-		$this->okt = $okt;
-
 		$this->aStack = array();
 	}
 
@@ -154,9 +150,7 @@ class Triggers
 		}
 
 		$args = func_get_args();
-	//	array_shift($args);
-
-		$args[0] = $this->okt;
+		array_shift($args);
 
 		$sReturn = '';
 		foreach ($this->aStack[$sTrigger] as $f) {

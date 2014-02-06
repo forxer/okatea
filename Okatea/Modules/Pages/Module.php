@@ -55,7 +55,7 @@ class Module extends BaseModule
 		$this->t_categories_locales 	= $this->db->prefix.'mod_pages_categories_locales';
 
 		# déclencheurs
-		$this->triggers = new Triggers($this->okt);
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
@@ -142,27 +142,91 @@ class Module extends BaseModule
 					$this->okt->checkPerm('pages_config')
 				);
 		}
+
+		$this->okt->triggers->registerTrigger('adminConfigSiteInit',
+			array($this, 'adminConfigSiteInit'));
 	}
 
 	protected function prepend_public()
 	{
+		$this->okt->triggers->registerTrigger('handleWebsiteHomePage',
+			array($this, 'handleWebsiteHomePage'));
+
 		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
-			array('Okatea\Modules\Pages\Module', 'websiteAdminBarItems'));
+			array($this, 'websiteAdminBarItems'));
+	}
+
+	public function handleWebsiteHomePage($item, $details)
+	{
+		if ($item == 'pagesItem')
+		{
+			$this->okt->controllerInstance = new Controller($this->okt);
+			$this->okt->response = $this->okt->controllerInstance->pagesItemForHomePage($details);
+		}
+	}
+
+	public function adminConfigSiteInit($aPageData)
+	{
+		$aPageData['home_page_items'][__('m_pages_config_homepage_item')] = 'pagesItem';
+
+		$rsPages = $this->getPagesRecordset();
+		$aPages = array();
+		while ($rsPages->fetch())
+		{
+			$aPages[$rsPages->language][] = array(
+				'id' => $rsPages->id,
+				'title' => $rsPages->title
+			);
+		}
+
+		foreach ($this->okt->config->home_page['item'] as $language=>$item)
+		{
+			if ($item == 'pagesItem' && !empty($aPages[$language]))
+			{
+				foreach ($aPages[$language] as $page) {
+					$aPageData['home_page_details'][$language][$page['title']] = $page['id'];
+				}
+			}
+		}
+
+		$this->okt->page->js->addScript('
+			var pages = '.json_encode($aPages).';
+		');
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$this->okt->page->js->addReady('
+				$("#p_home_page_item_'.$aLanguage['code'].'").change(function(){
+
+					var selected = $("#p_home_page_item_'.$aLanguage['code'].' option:selected").val();
+					var details = $("#p_home_page_details_'.$aLanguage['code'].'");
+
+					if (selected == "pagesList") {
+						details.find("option").remove();
+					}
+					else if (selected == "pagesItem")
+					{
+						$(pages.'.$aLanguage['code'].').each(function() {
+							details.append($("<option>").attr("value", this.id).text(this.title));
+						});
+					}
+				});
+			');
+		}
 	}
 
 	/**
 	 * Ajout d'éléments à la barre admin côté publique.
 	 *
-	 * @param Okatea\Tao\Application $okt
 	 * @param arrayObject $aPrimaryAdminBar
 	 * @param arrayObject $aSecondaryAdminBar
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter une page
-		if ($okt->checkPerm('pages_add'))
+		if ($this->okt->checkPerm('pages_add'))
 		{
 			$aPrimaryAdminBar[200]['items'][100] = array(
 				'href' => $aBasesUrl['admin'].'/module.php?m=pages&amp;action=add',
@@ -172,12 +236,12 @@ class Module extends BaseModule
 		}
 
 		# modification de la page en cours
-		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action) && $okt->page->action == 'item')
+		if (isset($this->okt->page->module) && $this->okt->page->module == 'pages' && isset($this->okt->page->action) && $this->okt->page->action == 'item')
 		{
-			if (isset($okt->controller->rsPage) && $okt->controller->rsPage->isEditable())
+			if (isset($this->okt->controller->rsPage) && $this->okt->controller->rsPage->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $aBasesUrl['admin'].'/module.php?m=pages&amp;action=edit&amp;post_id='.$okt->controller->rsPage->id,
+					'href' => $aBasesUrl['admin'].'/module.php?m=pages&amp;action=edit&amp;post_id='.$this->okt->controller->rsPage->id,
 					'intitle' => __('m_pages_ab_edit_page')
 				);
 			}

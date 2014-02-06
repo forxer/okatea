@@ -69,7 +69,40 @@ class Controller extends BaseController
 			}
 		}
 
-		return $this->render('homePage');
+		$item = null;
+		if (!empty($this->okt->config->home_page['item'][$this->okt->user->language])) {
+			$item = $this->okt->config->home_page['item'][$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->home_page['item'][$this->okt->config->language])) {
+			$item = $this->okt->config->home_page['item'][$this->okt->config->language];
+		}
+		else {
+			return $this->serve404();
+		}
+
+		$details = null;
+		if (!empty($this->okt->config->home_page['details'][$this->okt->user->language])) {
+			$details = $this->okt->config->home_page['details'][$this->okt->user->language];
+		}
+		elseif (!empty($this->okt->config->home_page['details'][$this->okt->config->language])) {
+			$details = $this->okt->config->home_page['details'][$this->okt->config->language];
+		}
+
+		# reset title tag because we will recall the main controller
+		$this->okt->page->resetTitleTag();
+
+		# -- TRIGGER : handleWebsiteHomePage
+		$this->okt->triggers->callTrigger('handleWebsiteHomePage', $item, $details);
+
+		if (null === $this->okt->response || false === $this->okt->response)
+		{
+			$this->okt->response = new Response();
+			$this->okt->response->headers->set('Content-Type', 'text/plain');
+			$this->okt->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
+			$this->okt->response->setContent('Unable to load homePage controller for item "'.$item.'", please check your website configuration.');
+		}
+
+		return $this->okt->response;
 	}
 
 	public function serve401()
@@ -88,10 +121,8 @@ class Controller extends BaseController
 				$sLanguage = $m[1];
 			}
 
-			if (null === $sLanguage)
-			{
-				$this->okt->user->setUserLang($this->okt->config->language);
-				return $this->redirect($this->generateUrl('homePage', array(), $this->okt->config->language));
+			if (null === $sLanguage) {
+				return $this->redirect($this->generateUrl('homePage', array(), $this->okt->user->language), 301);
 			}
 		}
 

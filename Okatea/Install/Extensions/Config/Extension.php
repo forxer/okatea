@@ -21,7 +21,7 @@ class Extension extends AbstractExtension
 		$this->okt->triggers->registerTrigger('installBeforeLoadPageHelpers', array($this, 'addRoute'));
 	}
 
-	public function addStep($okt, $stepper)
+	public function addStep($stepper)
 	{
 		$this->insertStepAfter($stepper, 'supa', array(
 			'step' 		=> 'configuration',
@@ -29,9 +29,9 @@ class Extension extends AbstractExtension
 		));
 	}
 
-	public function addRoute($okt)
+	public function addRoute()
 	{
-		$okt->router->getRouteCollection()->add( 'configuration',
+		$this->okt->router->getRouteCollection()->add( 'configuration',
 			new Route('/configuration', array('controller' => 'Okatea\Install\Extensions\Config\Controller::page'))
 		);
 	}

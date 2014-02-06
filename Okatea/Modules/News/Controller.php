@@ -62,13 +62,15 @@ class Controller extends BaseController
 
 		$oNewsPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
 
+		$oNewsPager->base_url = $this->generateUrl('newsList');
+
 		$iNumPages = $oNewsPager->getNbPages();
 
 		$this->okt->News->filters->normalizePage($iNumPages);
 
 		$aNewsParams['limit'] = (($this->okt->News->filters->params->page-1)*$this->okt->News->filters->params->nb_per_page).','.$this->okt->News->filters->params->nb_per_page;
 
-		# récupération des pages
+		# récupération des articles
 		$this->rsPostsList = $this->okt->News->getPosts($aNewsParams);
 
 		# meta description
@@ -114,6 +116,11 @@ class Controller extends BaseController
 		return $this->render($this->okt->News->getListTplPath(), array(
 			'rsPostsList' => $this->rsPostsList
 		));
+	}
+
+	public function newsListForHomePage($details)
+	{
+		return $this->newsList();
 	}
 
 	/**

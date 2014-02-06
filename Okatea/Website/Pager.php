@@ -37,13 +37,12 @@ class Pager extends BasePager
 
 	protected function setURL()
 	{
-		if ($this->base_url !== null)
-		{
-			$this->page_url = $this->base_url;
-			return;
+		if ($this->base_url !== null) {
+			$url = $this->base_url;
 		}
-
-		$url = $this->okt->request->getBasePath().$this->okt->request->getPathInfo();
+		else {
+			$url = $this->okt->request->getBasePath().$this->okt->request->getPathInfo();
+		}
 
 		# Escape page_url for sprintf
 		$url = preg_replace('/%/','%%',$url);
@@ -51,7 +50,8 @@ class Pager extends BasePager
 		# Changing page ref
 		if (preg_match('#/[0-9]+$#',$url)) {
 			$url = preg_replace('#(/)[0-9]+#','$1%1$d',$url);
-		} else {
+		}
+		else {
 			$url .= '/%1$d';
 		}
 

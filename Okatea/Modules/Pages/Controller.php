@@ -239,13 +239,10 @@ class Controller extends BaseController
 		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		if (!$this->isHomePageRoute())
-		{
-			$rsPath = $this->okt->Pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
+		$rsPath = $this->okt->Pages->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 
-			while ($rsPath->fetch()) {
-				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array('slug' => $rsPath->slug)));
-			}
+		while ($rsPath->fetch()) {
+			$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array('slug' => $rsPath->slug)));
 		}
 
 		# titre de la page
@@ -339,9 +336,48 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($this->rsPage->title_seo);
 
 		# fil d'ariane de la page
-		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add($this->rsPage->title, $this->rsPage->url);
+		$this->page->breadcrumb->add($this->rsPage->title, $this->rsPage->url);
+
+		# affichage du template
+		return $this->render($this->okt->Pages->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(
+			'rsPage' => $this->rsPage
+		));
+	}
+
+
+	public function pagesItemForHomePage($mPageId = null)
+	{
+		# récupération de la page en fonction du slug
+		if (empty($mPageId)) {
+			return $this->serve404();
 		}
+
+		# récupération de la page
+		$this->rsPage = $this->okt->Pages->getPage($mPageId, 1);
+
+		if ($this->rsPage->isEmpty()) {
+			return $this->serve404();
+		}
+
+		# permission de lecture ?
+		if (!$this->okt->Pages->isPublicAccessible() || !$this->rsPage->isReadable())
+		{
+			if ($this->okt->user->is_guest) {
+				return $this->redirect($this->okt->router->generateLoginUrl($this->rsPage->url));
+			}
+			else {
+				return $this->serve404();
+			}
+		}
+
+		# title tag de la page
+		$this->page->addTitleTag(($this->rsPage->title_tag == '' ? $this->rsPage->title : $this->rsPage->title_tag));
+
+		# titre de la page
+		$this->page->setTitle($this->rsPage->title);
+
+		# titre SEO de la page
+		$this->page->setTitleSeo($this->rsPage->title_seo);
 
 		# affichage du template
 		return $this->render($this->okt->Pages->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(

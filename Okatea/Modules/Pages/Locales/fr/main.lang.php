@@ -10,6 +10,9 @@
 $GLOBALS['okt_l10n']['Pages'] = 'Pages';
 $GLOBALS['okt_l10n']['Allow to add a pages system'] = 'Permet d’ajouter un système de pages';
 
+# Homepage config
+$GLOBALS['okt_l10n']['m_pages_config_homepage_item'] = 'Une page du module Pages';
+
 # permissions
 $GLOBALS['okt_l10n']['m_pages_perm_group'] = 'Pages';
 $GLOBALS['okt_l10n']['m_pages_perm_global'] = 'Gestion des pages';

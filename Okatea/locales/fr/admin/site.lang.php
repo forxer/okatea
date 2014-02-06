@@ -18,6 +18,13 @@ $GLOBALS['okt_l10n']['c_a_config_website_title_in_%s'] = 'Titre du site en %s';
 $GLOBALS['okt_l10n']['c_a_config_website_desc'] = 'Description du site';
 $GLOBALS['okt_l10n']['c_a_config_website_desc_in_%s'] = 'Description du site en %s';
 
+$GLOBALS['okt_l10n']['c_a_config_website_home_page'] = 'Page d’accueil du site';
+$GLOBALS['okt_l10n']['c_a_config_website_no_home_page_item'] = 'Il n’y a aucun élément à afficher sur la page d’accueil. Vous pouvez installer, par exemple, le module Pages.';
+$GLOBALS['okt_l10n']['c_a_config_website_home_page_item'] = 'Élément à afficher sur la page d’accueil';
+$GLOBALS['okt_l10n']['c_a_config_website_home_page_item_in_%s'] = 'Élément à afficher sur la page d’accueil en %s';
+$GLOBALS['okt_l10n']['c_a_config_website_home_page_details'] = 'Détail de l’élément à afficher sur la page d’accueil';
+$GLOBALS['okt_l10n']['c_a_config_website_home_page_details_in_%s'] = 'Détail de l’élément à afficher sur la page d’accueil en %s';
+
 $GLOBALS['okt_l10n']['c_a_config_please_enter_website_title'] = 'Veuillez saisir un titre de site.';
 $GLOBALS['okt_l10n']['c_a_config_please_enter_website_title_in_%s'] = 'Veuillez saisir un titre de site en %s.';
 

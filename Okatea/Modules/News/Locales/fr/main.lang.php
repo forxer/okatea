@@ -10,6 +10,9 @@
 $GLOBALS['okt_l10n']['News'] = 'Actualités';
 $GLOBALS['okt_l10n']['Allow to add a news system'] = 'Permet d’ajouter un système d’actualités';
 
+# Homepage config
+$GLOBALS['okt_l10n']['m_news_config_homepage_newsList'] = 'La liste des actualités';
+
 # permissions
 $GLOBALS['okt_l10n']['m_news_perm_group'] = 'Actualités';
 $GLOBALS['okt_l10n']['m_news_perm_global'] = 'Gérer ses propres articles (ajout et modification)';

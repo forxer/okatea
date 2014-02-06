@@ -58,7 +58,7 @@ class Module extends BaseModule
 		$this->t_users 				= $this->db->prefix.'core_users';
 
 		# déclencheurs
-		$this->triggers = new Triggers($this->okt);
+		$this->triggers = new Triggers();
 
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
@@ -140,6 +140,9 @@ class Module extends BaseModule
 					$this->okt->checkPerm('news_config')
 				);
 		}
+
+		$this->okt->triggers->registerTrigger('adminConfigSiteInit',
+			array($this, 'adminConfigSiteInit'));
 	}
 
 	protected function prepend_public()
@@ -147,39 +150,71 @@ class Module extends BaseModule
 		# Publication des articles différés
 		$this->publishScheduledPosts();
 
+		# Handle website home page
+		$this->okt->triggers->registerTrigger('handleWebsiteHomePage',
+			array($this, 'handleWebsiteHomePage'));
+
 		# Ajout d'éléments à la barre admin
 		$this->okt->triggers->registerTrigger('websiteAdminBarItems',
-			array('Okatea\Modules\News\Module', 'websiteAdminBarItems'));
+			array($this, 'websiteAdminBarItems'));
+	}
+
+	public function handleWebsiteHomePage($item, $details)
+	{
+		if ($item == 'newsList')
+		{
+			$this->okt->controllerInstance = new Controller($this->okt);
+			$this->okt->response = $this->okt->controllerInstance->newsListForHomePage($details);
+		}
+	}
+
+	public function adminConfigSiteInit($aPageData)
+	{
+		$aPageData['home_page_items'][__('m_news_config_homepage_newsList')] = 'newsList';
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$this->okt->page->js->addReady('
+				$("#p_home_page_item_'.$aLanguage['code'].'").change(function(){
+
+					var selected = $("#p_home_page_item_'.$aLanguage['code'].' option:selected").val();
+					var details = $("#p_home_page_details_'.$aLanguage['code'].'");
+
+					if (selected == "newsList") {
+						details.find("option").remove();
+					}
+				});
+			');
+		}
 	}
 
 	/**
 	 * Ajout d'éléments à la barre admin côté publique.
 	 *
-	 * @param Okatea\Tao\Application $okt
 	 * @param arrayObject $aPrimaryAdminBar
 	 * @param arrayObject $aSecondaryAdminBar
 	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
-	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
+	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter un article
-		if ($okt->checkPerm('news_usage') || $okt->checkPerm('news_contentadmin'))
+		if ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin'))
 		{
 			$aPrimaryAdminBar[200]['items'][200] = array(
-				'href' => $okt->adminRouter->generateFromWebsite('News_post_add'),
+				'href' => $this->okt->adminRouter->generateFromWebsite('News_post_add'),
 				'title' => __('m_news_ab_post_title'),
 				'intitle' => __('m_news_ab_post')
 			);
 		}
 
 		# modification de l'article en cours
-		if (isset($okt->page->module) && $okt->page->module == 'news' && isset($okt->page->action) && $okt->page->action == 'item')
+		if (isset($this->okt->page->module) && $this->okt->page->module == 'news' && isset($this->okt->page->action) && $this->okt->page->action == 'item')
 		{
-			if (isset($okt->controller->rsPost) && $okt->controller->rsPost->isEditable())
+			if (isset($this->okt->controller->rsPost) && $this->okt->controller->rsPost->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $okt->adminRouter->generateFromWebsite('News_post', array('post_id' => $okt->controller->rsPost->id)),
+					'href' => $this->okt->adminRouter->generateFromWebsite('News_post', array('post_id' => $this->okt->controller->rsPost->id)),
 					'intitle' => __('m_news_ab_edit_post')
 				);
 			}

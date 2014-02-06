@@ -51,7 +51,7 @@ class DebugBar
 		}
 
 		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag',
-			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
+			array($this, 'addHtmlByBehavior'));
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->jquery_ui['admin'].'/jquery-ui.css');
 
@@ -70,7 +70,7 @@ class DebugBar
 		}
 
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
-			array('Okatea\Modules\Development\DebugBar','addHtmlByBehavior'));
+			array($this, 'addHtmlByBehavior'));
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/plugins/jquery-ui/themes/'.$this->okt->config->jquery_ui['public'].'/jquery-ui.css');
 
@@ -87,9 +87,9 @@ class DebugBar
 	 *
 	 * @param Okatea\Tao\Application $okt
 	 */
-	public static function addHtmlByBehavior($okt)
+	public function addHtmlByBehavior()
 	{
-		echo $okt->Development->debugBar->getHtml();
+		echo $this->okt->Development->debugBar->getHtml();
 	}
 
 	/**

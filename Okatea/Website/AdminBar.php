@@ -30,7 +30,7 @@ class AdminBar
 		$this->okt = $okt;
 
 		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag',
-			'Okatea\Website\AdminBar::displayWebsiteAdminBar');
+			array($this, 'displayWebsiteAdminBar'));
 
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/admin-bar.css');
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/js/admin-bar.js');
@@ -43,22 +43,22 @@ class AdminBar
 		);
 	}
 
-	public static function displayWebsiteAdminBar($okt)
+	public function displayWebsiteAdminBar()
 	{
 		$aBasesUrl = new \ArrayObject;
 		$aPrimaryAdminBar = new \ArrayObject;
 		$aSecondaryAdminBar = new \ArrayObject;
 
-		$aBasesUrl['admin'] = $okt->config->app_path.'admin/';
-		$aBasesUrl['logout'] = $okt->router->generate('usersLogout');
+		$aBasesUrl['admin'] = $this->okt->config->app_path.'admin/';
+		$aBasesUrl['logout'] = $this->okt->router->generate('usersLogout');
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 
 		# -- CORE TRIGGER : websiteAdminBarBeforeDefaultsItems
-		$okt->triggers->callTrigger('websiteAdminBarBeforeDefaultsItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$this->okt->triggers->callTrigger('websiteAdminBarBeforeDefaultsItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
-			'intitle' => '<img src="'.$okt->options->public_url.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
+			'intitle' => '<img src="'.$this->okt->options->public_url.'/img/notify/error.png" width="22" height="22" alt="'.__('c_c_warning').'" />',
 			'items' => array()
 		);
 
@@ -75,22 +75,22 @@ class AdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserDisplayName($okt->user->username, $okt->user->lastname, $okt->user->firstname, $okt->user->displayname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserDisplayName($this->okt->user->username, $this->okt->user->lastname, $this->okt->user->firstname, $this->okt->user->displayname)))
 		);
 
-		if (!$okt->languages->unique)
+		if (!$this->okt->languages->unique)
 		{
 			$iStartIdx = 150;
-			foreach ($okt->languages->list as $aLanguage)
+			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				if ($aLanguage['code'] == $okt->user->language) {
+				if ($aLanguage['code'] == $this->okt->user->language) {
 					continue;
 				}
 
 				$aSecondaryAdminBar[$iStartIdx++] = array(
-					'href' => Utilities::escapeHTML($okt->config->app_path.$aLanguage['code'].'/'),
+					'href' => Utilities::escapeHTML($this->okt->config->app_path.$aLanguage['code'].'/'),
 					'title' => Utilities::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.$okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" />'
+					'intitle' => '<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" />'
 				);
 			}
 		}
@@ -101,10 +101,10 @@ class AdminBar
 		);
 
 		# infos super-admin
-		if ($okt->checkPerm('is_superadmin'))
+		if ($this->okt->checkPerm('is_superadmin'))
 		{
 			# avertissement mode debug activé
-			if ($okt->options->get('debug'))
+			if ($this->okt->options->get('debug'))
 			{
 				$aPrimaryAdminBar[10]['items'][110] = array(
 					'intitle' => __('c_a_public_debug_mode_enabled')
@@ -112,15 +112,15 @@ class AdminBar
 			}
 
 			# avertissement nouvelle version disponible
-			if ($okt->config->updates['enabled'] && is_readable($okt->options->get('digests')))
+			if ($this->okt->config->updates['enabled'] && is_readable($this->okt->options->get('digests')))
 			{
-				$updater = new Updater($okt->config->updates['url'], 'okatea', $okt->config->updates['type'], $okt->options->get('cache_dir').'/versions');
-				$new_v = $updater->check($okt->getVersion());
+				$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir').'/versions');
+				$new_v = $updater->check($this->okt->getVersion());
 
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.update');
+					$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin.update');
 
 					$aPrimaryAdminBar[10]['items'][120] = array(
 						'href' => $aBasesUrl['admin'].'/configuration.php?action=update',
@@ -130,7 +130,7 @@ class AdminBar
 			}
 
 			# avertissement mode maintenance est activé sur la partie publique
-			if ($okt->config->maintenance['public'])
+			if ($this->okt->config->maintenance['public'])
 			{
 				$aPrimaryAdminBar[10]['items'][130] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
@@ -139,7 +139,7 @@ class AdminBar
 			}
 
 			# avertissement mode maintenance est activé sur l'admin
-			if ($okt->config->maintenance['admin'])
+			if ($this->okt->config->maintenance['admin'])
 			{
 				$aPrimaryAdminBar[10]['items'][140] = array(
 					'href' => $aBasesUrl['admin'].'/configuration.php?action=advanced#tab_others',
@@ -154,7 +154,7 @@ class AdminBar
 			$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 
 			$aSecondaryAdminBar[1000] = array(
-				'intitle' => '<img src="'.$okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
+				'intitle' => '<img src="'.$this->okt->options->public_url.'/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
 						'intitle' => 'Temps d\'execution du script&nbsp;: '.$aExecInfos['execTime'].' s'
@@ -168,7 +168,7 @@ class AdminBar
 				)
 			);
 
-			$aRequestAttributes = $okt->request->attributes->all();
+			$aRequestAttributes = $this->okt->request->attributes->all();
 
 			if (!empty($aRequestAttributes['_route']))
 			{
@@ -198,7 +198,7 @@ class AdminBar
 		}
 
 		# -- CORE TRIGGER : websiteAdminBarItems
-		$okt->triggers->callTrigger('websiteAdminBarItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$this->okt->triggers->callTrigger('websiteAdminBarItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 
 		# sort items of by keys
 		$aPrimaryAdminBar->ksort();

@@ -36,7 +36,7 @@ class General extends Controller
 
 		$this->seoInit();
 
-		# -- TRIGGER CORE CONFIG SITE PAGE : adminConfigSiteInit
+		# -- TRIGGER CORE : adminConfigSiteInit
 		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
 
 		if ($this->request->request->has('form_sent'))
@@ -49,7 +49,7 @@ class General extends Controller
 
 			$this->seoHandleRequest();
 
-			# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteHandleRequest
+			# -- TRIGGER CORE : adminConfigSiteHandleRequest
 			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 			# save configuration
@@ -103,7 +103,7 @@ class General extends Controller
 			'content' => $this->renderView('Config/General/Tabs/Seo', array('aPageData' => $this->aPageData))
 		);
 
-		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminConfigSiteBuildTabs
+		# -- TRIGGER CORE : adminConfigSiteBuildTabs
 		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
@@ -115,9 +115,16 @@ class General extends Controller
 
 	protected function generalInit()
 	{
+		$this->aPageData['home_page_items'] = array(' ' => null);
+		$this->aPageData['home_page_details'] = array();
+
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'title' => $this->okt->config->title,
-			'desc' => $this->okt->config->desc
+			'title'          => $this->okt->config->title,
+			'desc'           => $this->okt->config->desc,
+			'home_page'  => array(
+				'item'       => $this->okt->config->home_page['item'],
+				'details'    => $this->okt->config->home_page['details'],
+			)
 		));
 	}
 
@@ -197,8 +204,12 @@ class General extends Controller
 		}
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'title' => $p_title,
-			'desc' => $this->request->request->get('p_desc', array())
+			'title'             => $p_title,
+			'desc'              => $this->request->request->get('p_desc', array()),
+			'home_page'      => array(
+				'item'          => $this->request->request->get('p_home_page_item', array()),
+				'details'       => $this->request->request->get('p_home_page_details', array())
+			)
 		));
 	}
 

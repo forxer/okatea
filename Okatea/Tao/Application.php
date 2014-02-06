@@ -285,7 +285,7 @@ class Application
 			$this->options->modules_url
 		);
 
-		$this->triggers = new Triggers($this);
+		$this->triggers = new Triggers();
 
 		$this->navigation = new Menus($this);
 	}
