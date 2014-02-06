@@ -2,7 +2,3 @@
 Builder:
     path:     /builder
     defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Builder::page' }
-
-Builder_config:
-    path:     /builder/config
-    defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Config::page' }

@@ -34,14 +34,6 @@ class Module extends BaseModule
 				$this->okt->checkPerm('okatea_builder'),
 				null
 			);
-			$this->okt->page->configSubMenu->add(
-				__('m_builder_menu_config'),
-				$this->okt->adminRouter->generate('Builder_config'),
-				$this->okt->request->attributes->get('_route') === 'Builder_config',
-				142,
-				$this->okt->checkPerm('okatea_builder'),
-				null
-			);
 		}
 	}
 }

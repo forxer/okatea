@@ -7,4 +7,4 @@
  */
 
 $GLOBALS['okt_l10n']['m_builder_menu'] = 'Builder';
-$GLOBALS['okt_l10n']['m_builder_menu_config'] = 'Builder config';
+$GLOBALS['okt_l10n']['m_builder_menu_config'] = 'Configuration';
