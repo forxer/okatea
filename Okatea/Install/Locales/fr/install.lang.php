@@ -38,6 +38,7 @@ $GLOBALS['okt_l10n']['i_checks_big_loose'] = 'La configuration serveur présente
 
 # db conf
 $GLOBALS['okt_l10n']['i_db_conf_title'] = 'Connexion à la base de données';
+$GLOBALS['okt_l10n']['i_db_conf_create_db'] = 'La base de données a été créée.';
 $GLOBALS['okt_l10n']['i_db_conf_ok'] = 'Connexion à la base de données réussie, fichier de connexion créé. Cliquez sur suivant pour créer les tables.';
 $GLOBALS['okt_l10n']['i_db_conf_environement_choice'] = 'Tester la connexion sur l’environnement de :';
 $GLOBALS['okt_l10n']['i_db_conf_environement_prod'] = 'production';

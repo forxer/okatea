@@ -14,6 +14,14 @@ class End extends Controller
 {
 	public function page()
 	{
+		if (!file_exists($this->okt->options->get('root_dir').'/.htaccess')
+			&& file_exists($this->okt->options->get('root_dir').'/.htaccess.oktDist'))
+		{
+			copy(
+				$this->okt->options->get('root_dir').'/.htaccess.oktDist',
+				$this->okt->options->get('root_dir').'/.htaccess'
+			);
+		}
 
 		return $this->render('End', array(
 			'title' 	=> __('i_end_'.$this->session->get('okt_install_process_type').'_title'),

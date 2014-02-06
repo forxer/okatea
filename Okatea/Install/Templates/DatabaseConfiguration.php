@@ -45,6 +45,10 @@ $okt->page->js->addReady('
 
 	<form action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>" method="post">
 
+		<?php if ($bDatabaseCreateDb) : ?>
+		<p><?php _e('i_db_conf_create_db') ?></p>
+		<?php endif; ?>
+
 		<p><?php _e('i_db_conf_ok') ?></p>
 
 		<p><input type="submit" value="<?php _e('c_c_next') ?>" /></p>

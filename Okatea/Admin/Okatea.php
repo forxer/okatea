@@ -33,17 +33,6 @@ class Okatea extends Application
 	public $logAdmin;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param Composer\Autoload\ClassLoader $autoloader
-	 * @param array $aOptions
-	public function __construct($autoloader, array $aOptions = array())
-	{
-		parent::__construct($autoloader, $aOptions);
-	}
-	 */
-
-	/**
 	 * Run application.
 	 *
 	 */

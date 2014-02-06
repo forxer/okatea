@@ -528,7 +528,7 @@ class Application
 	 *
 	 * @return void
 	 */
-	protected function getConfig()
+	public function getConfig()
 	{
 		$this->cacheConfig = new SingleFileCache($this->options->get('cache_dir').'/static.php');
 

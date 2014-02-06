@@ -57,8 +57,7 @@ language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
 app_path: /okatea/
-domain: ''
-app_file: index.php
+domain: localhost
 htmlpurifier_disabled: false
 slug_type: ascii
 updates:
@@ -95,7 +94,6 @@ news_feed:
     enabled: false
     url:
         fr: 'http://okatea.org/fr/actualites/rss'
-        en: 'http://okatea.org/en/news/rss'
 navigation_tpl:
     default: default
     usables: {  }

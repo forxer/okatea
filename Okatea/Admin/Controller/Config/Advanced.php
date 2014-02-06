@@ -183,35 +183,35 @@ class Advanced extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'maintenance' => array(
-				'public' => $this->request->request->has('p_maintenance_public'),
-				'admin' => $this->request->request->has('p_maintenance_admin')
+				'public'        => $this->request->request->has('p_maintenance_public'),
+				'admin'         => $this->request->request->has('p_maintenance_admin')
 			),
 
 			'htmlpurifier_disabled' => $this->request->request->has('p_htmlpurifier_disabled'),
 
 			'user_visit' => array(
-				'timeout' => $this->request->request->getInt('p_user_visit_timeout', 1800),
+				'timeout'       => $this->request->request->getInt('p_user_visit_timeout', 1800),
 				'remember_time' => $this->request->request->getInt('p_user_visit_remember_time', 1209600)
 			),
 
 			'log_admin' => array(
-				'ttl_months' => $this->request->request->getInt('p_log_admin_ttl_months', 3)
+				'ttl_months'    => $this->request->request->getInt('p_log_admin_ttl_months', 3)
 			),
 
 			'news_feed' => array(
-				'enabled' => $this->request->request->has('p_news_feed_enabled'),
-				'url' => $this->request->request->get('p_news_feed_url', array())
+				'enabled'       => $this->request->request->has('p_news_feed_enabled'),
+				'url'           => $this->request->request->get('p_news_feed_url', array())
 			),
 
-			'slug_type' => $this->request->request->get('p_slug_type', 'ascii')
+			'slug_type'         => $this->request->request->get('p_slug_type', 'ascii')
 		));
 	}
 
 	protected function pathUrlHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-				'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
-				'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
+			'app_path'   => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
+			'domain'     => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
 		));
 	}
 	protected function repositoriesHandleRequest()

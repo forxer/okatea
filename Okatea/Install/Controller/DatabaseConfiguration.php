@@ -16,6 +16,7 @@ class DatabaseConfiguration extends Controller
 	public function page()
 	{
 		$bDatabaseConfigurationOk = false;
+		$bDatabaseCreateDb = false;
 
 		$aDatabaseParams = array(
 			'env' => $this->okt->options->env,
@@ -123,8 +124,10 @@ class DatabaseConfiguration extends Controller
 					if (!$db) {
 						$this->okt->error->set('MySQL: '.mysqli_errno($con_id).' '.mysqli_error($con_id));
 					}
-					else {
+					else
+					{
 						mysqli_close($con_id);
+						$bDatabaseCreateDb = true;
 					}
 				}
 			}
@@ -186,6 +189,7 @@ class DatabaseConfiguration extends Controller
 		return $this->render('DatabaseConfiguration', array(
 			'title' => __('i_db_conf_title'),
 			'aDatabaseParams' => $aDatabaseParams,
+			'bDatabaseCreateDb' => $bDatabaseCreateDb,
 			'bDatabaseConfigurationOk' => $bDatabaseConfigurationOk
 		));
 	}
