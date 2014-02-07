@@ -38,10 +38,9 @@ $GLOBALS['okt_l10n']['c_c_users_error_username_too_long'] = 'The username is too
 $GLOBALS['okt_l10n']['c_c_users_error_reserved_username'] = 'You do not have right to use this username.';
 $GLOBALS['okt_l10n']['c_c_users_error_forbidden_characters'] = 'You do not have right to use the characters [, ], \' eand " in the username.';
 $GLOBALS['okt_l10n']['c_c_users_error_users_in_group_cannot_remove'] = 'There are users in this group, you can not remove it.';
-$GLOBALS['okt_l10n']['c_c_users_error_cannot_remove_last_administrator'] = 'You do not have the right to delete the last administrator.';
 $GLOBALS['okt_l10n']['c_c_users_error_cannot_remove_last_super_administrator'] = 'You do not have the right to remove the last super-administrator.';
-$GLOBALS['okt_l10n']['c_c_users_error_cannot_disable_last_administrator'] = 'You do not have the right to disable the last administrator.';
 $GLOBALS['okt_l10n']['c_c_users_error_cannot_disable_last_super_administrator'] = 'You do not have the right to disable the last super-administrator.';
+$GLOBALS['okt_l10n']['c_c_users_error_cannot_change_group_last_super_administrator'] = 'You do not have the right to change the group of the last super-administrator.';
 
 $GLOBALS['okt_l10n']['c_c_users_must_confirm_password'] = 'You must confirm the password.';
 $GLOBALS['okt_l10n']['c_c_users_must_enter_password_of_at_least_4_characters'] = 'You must enter a password of a least 4 characters.';

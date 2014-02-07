@@ -386,18 +386,48 @@ class Users
 	 */
 	public function updUser($aParams=array())
 	{
-		if (!$this->userExists($aParams['id'])) {
+		$rsUser = $this->getUsers(array('id' => $aParams['id']));
+
+		if ($rsUser->isEmpty())
+		{
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $aParams['id']));
 			return false;
+		}
+
+		if ($rsUser->group_id == Groups::SUPERADMIN)
+		{
+			# si on veut désactiver un super-admin alors il faut vérifier qu'il y en as d'autres
+			if ($aParams['status'] == 0)
+			{
+				$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
+
+				if ($iCountSudo < 2)
+				{
+					$this->error->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
+					return false;
+				}
+			}
+
+			# si on veut changer le groupe d'un super-admin alors il faut vérifier qu'il y en as d'autres
+			if ($aParams['group_id'] != Groups::SUPERADMIN)
+			{
+				$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
+
+				if ($iCountSudo < 2)
+				{
+					$this->error->set(__('c_c_users_error_cannot_change_group_last_super_administrator'));
+					return false;
+				}
+			}
 		}
 
 		$sql = array();
 
-		if (isset($aParams['username']))
-		{
-			$this->checkUsername($aParams);
+		$this->checkUsername($aParams);
+		$sql[] = 'username=\''.$this->db->escapeStr($aParams['username']).'\'';
 
-			$sql[] = 'username=\''.$this->db->escapeStr($aParams['username']).'\'';
-		}
+		$this->checkEmail($aParams);
+		$sql[] = 'email=\''.$this->db->escapeStr($aParams['email']).'\'';
 
 		if (isset($aParams['group_id'])) {
 			$sql[] = 'group_id='.(integer)$aParams['group_id'];
@@ -423,11 +453,6 @@ class Users
 			$sql[] = 'displayname=\''.$this->db->escapeStr($aParams['displayname']).'\'';
 		}
 
-		if (isset($aParams['email'])) {
-			$this->checkEmail($aParams);
-			$sql[] = 'email=\''.$this->db->escapeStr($aParams['email']).'\'';
-		}
-
 		if (isset($aParams['language'])) {
 			$sql[] = 'language=\''.$this->db->escapeStr($aParams['language']).'\'';
 		}
@@ -442,7 +467,7 @@ class Users
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		implode(', ',$sql).' '.
+			implode(', ',$sql).' '.
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
@@ -499,23 +524,11 @@ class Users
 		# si on veut supprimer un super-admin alors il faut vérifier qu'il y en as d'autres
 		if ($rsUser->group_id == Groups::SUPERADMIN)
 		{
-			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN), true);
+			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
 			if ($iCountSudo < 2)
 			{
 				$this->error->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
-				return false;
-			}
-		}
-
-		# si on veut supprimer un admin alors il faut vérifier qu'il y en as d'autres
-		if ($rsUser->group_id == Groups::ADMIN)
-		{
-			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN), true);
-
-			if ($iCountAdmin < 2)
-			{
-				$this->error->set(__('c_c_users_error_cannot_remove_last_administrator'));
 				return false;
 			}
 		}
@@ -553,7 +566,7 @@ class Users
 
 		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'status = 1-status '.
+			'status = 1-status '.
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {
@@ -594,21 +607,9 @@ class Users
 			}
 		}
 
-		# si on veut désactiver un admin alors il faut vérifier qu'il y en as d'autres
-		if ($iStatus == 0 && $rsUser->group_id == Groups::ADMIN)
-		{
-			$iCountAdmin = $this->getUsers(array('group_id' => Groups::ADMIN, 'status' => 1), true);
-
-			if ($iCountAdmin < 2)
-			{
-				$this->error->set(__('c_c_users_error_cannot_disable_last_administrator'));
-				return false;
-			}
-		}
-
 		$sSqlQuery =
 		'UPDATE '.$this->t_users.' SET '.
-		'status = '.($iStatus == 1 ? 1 : 0).' '.
+			'status = '.($iStatus == 1 ? 1 : 0).' '.
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {

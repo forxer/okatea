@@ -81,7 +81,9 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 				<?php # si c'est la première image on affiche la miniature
 				if ($i == 1 && isset($image['min_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal center" rel="news-images">
+				<a href="<?php echo $image['img_url'] ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt->user->language]) ? $image[1]['title'][$okt->user->language] : $rsPostsList->title)) ?>"
+				class="modal center" rel="news-images">
 				<img src="<?php echo $image['min_url'] ?>" <?php echo $image['min_attr'] ?>
 				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
 
@@ -90,7 +92,9 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 				<?php # si c'est pas la première image on affiche le square
 				elseif (isset($image['square_url'])) : ?>
 
-				<a href="<?php echo $image['img_url'] ?>" title="<?php echo $view->escapeHtmlAttr($rsPost->title) ?>, image <?php echo $i ?>" class="modal" rel="news-images">
+				<a href="<?php echo $image['img_url'] ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt->user->language]) ? $image[1]['title'][$okt->user->language] : $rsPostsList->title)) ?>"
+				class="modal" rel="news-images">
 				<img src="<?php echo $image['square_url'] ?>" <?php echo $image['square_attr'] ?>
 				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
 

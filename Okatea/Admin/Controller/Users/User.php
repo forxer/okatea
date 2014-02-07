@@ -18,6 +18,8 @@ class User extends Controller
 {
 	protected $aPageData;
 
+	protected $iUserId;
+
 	public function profile()
 	{
 		$this->init();
@@ -37,6 +39,37 @@ class User extends Controller
 			'timezone'           => $this->okt->user->timezone,
 			'language'           => $this->okt->user->language
 		);
+
+		if ($this->request->request->has('form_sent'))
+		{
+			$this->aPageData['user'] = array(
+				'id'                 => $this->okt->user->id,
+				'status'             => 1,
+				'group_id'           => $this->okt->user->group_id,
+				'civility'           => $this->request->request->getInt('civility'),
+				'username'           => $this->request->request->get('username'),
+				'lastname'           => $this->request->request->get('lastname'),
+				'firstname'          => $this->request->request->get('firstname'),
+				'displayname'        => $this->request->request->get('displayname'),
+				'password'           => '',
+				'password_confirm'   => '',
+				'email'              => $this->request->request->get('email'),
+				'timezone'           => $this->request->request->get('timezone'),
+				'language'           => $this->request->request->get('language')
+			);
+
+			if ($this->okt->error->isEmpty())
+			{
+				$oUsers = new Users($this->okt);
+
+				if ($oUsers->updUser($this->aPageData['user']) !== false)
+				{
+					$this->page->flash->success(__('c_a_users_profil_edited'));
+
+					return $this->redirect($this->generateUrl('User_profile'));
+				}
+			}
+		}
 
 		return $this->render('Users/User/Profile', array(
 			'aPageData'      => $this->aPageData,
@@ -76,7 +109,7 @@ class User extends Controller
 				if (($iUserId = $oUsers->addUser($this->aPageData['user'])) !== false)
 				{
 					/*
-					if ($okt->users->config->enable_custom_fields)
+					if ($this->okt->config->users->custom_fields_enabled)
 					{
 						while ($rsFields->fetch()) {
 							$okt->users->fields->setUserValues($iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
@@ -106,18 +139,18 @@ class User extends Controller
 
 		$this->init();
 
-		$iUserId = $this->request->attributes->getInt('user_id');
+		$this->iUserId = $this->request->attributes->getInt('user_id');
 
 		$oUsers = new Users($this->okt);
 
-		$rsUser = $oUsers->getUser($iUserId);
+		$rsUser = $oUsers->getUser($this->iUserId);
 
-		if (0 === $iUserId || 1 === $iUserId || $rsUser->isEmpty()) {
+		if (0 === $this->iUserId || 1 === $this->iUserId || $rsUser->isEmpty()) {
 			return $this->serve404();
 		}
 
 		$this->aPageData['user'] = array(
-			'id'                 => $iUserId,
+			'id'                 => $this->iUserId,
 			'group_id'           => $rsUser->group_id,
 			'civility'           => $rsUser->civility,
 			'status'             => $rsUser->status,
@@ -137,7 +170,7 @@ class User extends Controller
 			return $this->serve401();
 		}
 
-		# un admin ne peut etre modifié par un non admin
+		# un admin ne peut etre modifié par un non admin / super admin
 		if ($this->aPageData['user']['group_id'] == Groups::ADMIN && !$this->okt->user->is_admin) {
 			return $this->serve401();
 		}
@@ -160,6 +193,11 @@ class User extends Controller
 		# change user password
 		if (false !== ($mPasswordChanged = $this->updateUserPassword())) {
 			return $mPasswordChanged;
+		}
+
+		# update user
+		if (false !== ($mUserChanged = $this->updateUser())) {
+			return $mUserChanged;
 		}
 
 
@@ -196,10 +234,7 @@ class User extends Controller
 		$this->aPageData['tabs']->ksort();
 
 		return $this->render('Users/User/Edit/Page', array(
-			'aPageData'      => $this->aPageData,
-			'aLanguages'     => $this->getLanguages(),
-			'aCivilities'    => $this->getCivilities(),
-			'aGroups'        => $this->getGroups()
+			'aPageData'      => $this->aPageData
 		));
 	}
 
@@ -229,9 +264,8 @@ class User extends Controller
 	{
 		$aLanguages = array();
 
-		$rsLanguages = $this->okt->languages->getLanguages();
-		while ($rsLanguages->fetch()) {
-			$aLanguages[Utilities::escapeHTML($rsLanguages->title)] = $rsLanguages->code;
+		foreach ($this->okt->languages->list as $aLanguage) {
+			$aLanguages[Utilities::escapeHTML($aLanguage['title'])] = $aLanguage['code'];
 		}
 
 		return $aLanguages;
@@ -337,4 +371,56 @@ class User extends Controller
 
 		return false;
 	}
+
+	protected function updateUser()
+	{
+		if (!$this->request->request->has('form_sent')) {
+			return false;
+		}
+
+		$this->aPageData['user'] = array(
+			'id'                 => $this->iUserId,
+			'group_id'           => $this->request->request->getInt('group_id'),
+			'civility'           => $this->request->request->getInt('civility'),
+			'status'             => $this->request->request->getInt('status'),
+			'username'           => $this->request->request->get('username'),
+			'lastname'           => $this->request->request->get('lastname'),
+			'firstname'          => $this->request->request->get('firstname'),
+			'displayname'        => $this->request->request->get('displayname'),
+			'password'           => $this->request->request->get('password'),
+			'password_confirm'   => $this->request->request->get('password_confirm'),
+			'email'              => $this->request->request->get('email'),
+			'timezone'           => $this->request->request->get('timezone'),
+			'language'           => $this->request->request->get('language')
+		);
+
+		# peuplement et vérification des champs personnalisés obligatoires
+//		if ($this->okt->config->users->custom_fields_enabled) {
+//			$okt->users->fields->getPostData($rsFields, $aPostedData);
+//		}
+
+		if ($this->okt->error->isEmpty())
+		{
+			$oUsers = new Users($this->okt);
+
+			if ($oUsers->updUser($this->aPageData['user']) !== false)
+			{
+				/*
+				if ($this->okt->config->users->custom_fields_enabled)
+				{
+					while ($rsFields->fetch()) {
+						$okt->users->fields->setUserValues($this->iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
+					}
+				}
+				*/
+
+				$this->page->flash->success(__('c_a_users_user_edited'));
+
+				return $this->redirect($this->generateUrl('Users_edit', array('user_id' => $this->iUserId)));
+			}
+		}
+
+		return false;
+	}
+
 }

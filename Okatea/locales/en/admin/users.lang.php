@@ -40,6 +40,7 @@ $GLOBALS['okt_l10n']['c_a_users_no_user'] = 'There are no users.';
 # Edit
 $GLOBALS['okt_l10n']['c_a_users_user_%s'] = 'User %s';
 $GLOBALS['okt_l10n']['c_a_users_user_added'] = 'The user was added successfully.';
+$GLOBALS['okt_l10n']['c_a_users_profil_edited'] = 'The informations of your profile were changed successfully.';
 $GLOBALS['okt_l10n']['c_a_users_user_edited'] = 'The user information has been changed successfully.';
 $GLOBALS['okt_l10n']['c_a_users_user_in_wait_of_validation'] = 'This user is in wait of validation.';
 $GLOBALS['okt_l10n']['c_a_users_validate_this_user'] = 'Validate this user';

@@ -165,7 +165,7 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 			<div class="modal-box">
 				<a href="<?php echo $rsPostsList->images[1]['img_url']?>"
-				title="<?php echo $view->escapeHtmlAttr($rsPostsList->title) ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($rsPostsList->images[1]['title'][$okt->user->language]) ? $rsPostsList->images[1]['title'][$okt->user->language] : $rsPostsList->title)) ?>"
 				class="modal"><img src="<?php echo $rsPostsList->images[1]['min_url'] ?>"
 				<?php echo $rsPostsList->images[1]['min_attr']?>
 				alt="<?php echo $view->escapeHtmlAttr((isset($rsPostsList->images[1]['alt'][$okt->user->language]) ? $rsPostsList->images[1]['alt'][$okt->user->language] : $rsPostsList->title)) ?>" /></a>

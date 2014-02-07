@@ -1,20 +1,20 @@
 {
 	"name": "okatea",
 	"dependencies": {
-		"codemirror": "marijnh/CodeMirror",
-		"html5shiv": "aFarkas/html5shiv",
-		"jquery": "1.*",
-		"jquery-color": "jquery/jquery-color",
-		"jquery-cookie": "carhartl/jquery-cookie",
-		"jquery-gmap3": "jbdemonte/gmap3",
-		"jquery-mousewheel": "brandonaaron/jquery-mousewheel",
-		"jquery-roundabout": "fredhq/roundabout",
-		"jquery-stringtoslug": "leocaseiro/jQuery-Plugin-stringToSlug",
-		"jquery-validation": "jzaefferer/jquery-validation",
-		"normalize-css": "2.*",
-		"plupload": "https://github.com/moxiecode/plupload/archive/v1.5.8.tar.gz",
-		"select2": "ivaynberg/select2",
-		"spectrum": "bgrins/spectrum",
-		"world-flags-sprite": "lafeber/world-flags-sprite"
+		"codemirror": 				"marijnh/CodeMirror",
+		"html5shiv": 				"aFarkas/html5shiv",
+		"jquery": 					"1.*",
+		"jquery-color": 			"jquery/jquery-color",
+		"jquery-cookie": 			"carhartl/jquery-cookie",
+		"jquery-gmap3": 			"jbdemonte/gmap3",
+		"jquery-mousewheel": 		"brandonaaron/jquery-mousewheel",
+		"jquery-roundabout": 		"fredhq/roundabout",
+		"jquery-stringtoslug": 		"leocaseiro/jQuery-Plugin-stringToSlug",
+		"jquery-validation": 		"jzaefferer/jquery-validation",
+		"normalize-css": 			"2.*",
+		"plupload": 				"https://github.com/moxiecode/plupload/archive/v1.5.8.tar.gz",
+		"select2": 					"ivaynberg/select2",
+		"spectrum": 				"bgrins/spectrum",
+		"world-flags-sprite": 		"lafeber/world-flags-sprite"
 	}
 }

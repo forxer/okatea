@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "alchemy/zippy",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/Zippy.git",
-                "reference": "cf347b6dfee84a135bb5791004d1ce1ac04f095e"
+                "reference": "7c9211377881a98f84ca382f1e5792e8a27019e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/cf347b6dfee84a135bb5791004d1ce1ac04f095e",
-                "reference": "cf347b6dfee84a135bb5791004d1ce1ac04f095e",
+                "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/7c9211377881a98f84ca382f1e5792e8a27019e5",
+                "reference": "7c9211377881a98f84ca382f1e5792e8a27019e5",
                 "shasum": ""
             },
             "require": {
@@ -29,6 +29,7 @@
             },
             "require-dev": {
                 "ext-zip": "*",
+                "sami/sami": "dev-master@dev",
                 "symfony/finder": "~2.0"
             },
             "suggest": {
@@ -51,9 +52,9 @@
             ],
             "authors": [
                 {
-                    "name": "Phraseanet Team",
-                    "email": "info@alchemy.fr",
-                    "homepage": "http://www.phraseanet.com/"
+                    "name": "Alchemy",
+                    "email": "dev.team@alchemy.fr",
+                    "homepage": "http://www.alchemy.fr/"
                 }
             ],
             "description": "Zippy, the archive manager companion",
@@ -63,7 +64,7 @@
                 "tar",
                 "zip"
             ],
-            "time": "2013-03-11 20:39:21"
+            "time": "2013-04-12 10:24:45"
         },
         {
             "name": "doctrine/annotations",
@@ -670,16 +671,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "0.9.3",
+            "version": "0.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "95e9878fb05afe5ce3a80421ca2e0fcfe99709c6"
+                "reference": "d29ff18299210b52a75a631a70963e7c8b35b04f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/95e9878fb05afe5ce3a80421ca2e0fcfe99709c6",
-                "reference": "95e9878fb05afe5ce3a80421ca2e0fcfe99709c6",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/d29ff18299210b52a75a631a70963e7c8b35b04f",
+                "reference": "d29ff18299210b52a75a631a70963e7c8b35b04f",
                 "shasum": ""
             },
             "type": "library",
@@ -705,7 +706,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-02-06 00:37:09"
+            "time": "2014-02-06 12:16:14"
         },
         {
             "name": "ezyang/htmlpurifier",

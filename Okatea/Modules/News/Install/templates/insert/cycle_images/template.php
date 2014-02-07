@@ -85,7 +85,7 @@ $okt->page->js->addReady('
 
 				<div class="modal-box">
 					<a href="<?php echo $post_image['img_url']?>"
-					title="<?php echo $view->escapeHtmlAttr($rsInsertPosts->title) ?>"
+					title="<?php echo $view->escapeHtmlAttr((isset($post_image['title'][$okt->user->language]) ? $post_image['title'][$okt->user->language] : $rsInsertPosts->title)) ?>"
 					class="modal"><img src="<?php echo $post_image['square_url'] ?>"
 					<?php echo $post_image['square_attr']?>
 					alt="<?php echo $view->escapeHtmlAttr((isset($post_image['alt'][$okt->user->language]) ? $post_image['alt'][$okt->user->language] : $rsInsertPosts->title)) ?>" /></a>

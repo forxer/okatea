@@ -30,6 +30,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 		<?php echo form::select('group_id', $aGroups, $aPageData['user']['group_id']) ?></p>
 	<?php endif; ?>
 
+
+		<p class="field col"><label for="status"><?php echo form::checkbox('status', 1, $aPageData['user']['status'])?>
+		<?php _e('c_c_status_Active') ?></label></p>
+
 	</div>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
