@@ -9,6 +9,7 @@
 namespace Okatea\Modules\RteTinymce4;
 
 use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Misc\Utilities;
 
 class Module extends BaseModule
 {
@@ -46,6 +47,9 @@ class Module extends BaseModule
 		global $okt;
 
 		$aOptions = array();
+
+		$aOptions[] = 'relative_urls: true';
+		$aOptions[] = 'document_base_url: "'.Utilities::escapeJS($okt->request->getSchemeAndHttpHost().$okt->config->app_path).'"';
 
 		# selector
 		$aOptions[] = 'selector: "'.$element.'"';

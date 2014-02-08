@@ -61,6 +61,16 @@ class Groups
 	 */
 	protected $error;
 
+	/**
+	 * Core users table
+	 * @var string
+	 */
+	protected $t_users;
+
+	/**
+	 * Core users groups table
+	 * @var string
+	 */
 	protected $t_groups;
 
 	public function __construct($okt)
@@ -69,6 +79,7 @@ class Groups
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
+		$this->t_users = $this->db->prefix.'core_users';
 		$this->t_groups = $this->db->prefix.'core_users_groups';
 	}
 
@@ -81,17 +92,17 @@ class Groups
 	 */
 	public function getGroups(array $aParams = array(), $bCountOnly = false)
 	{
-		$sReqPlus = '1 ';
+		$sReqPlus = '';
 
 		if (isset($aParams['group_id']))
 		{
 			if (is_array($aParams['group_id']))
 			{
 				$aParams['group_id'] = array_map('intval',$aParams['group_id']);
-				$sReqPlus .= 'AND group_id IN ('.implode(',',$aParams['group_id']).') ';
+				$sReqPlus .= 'AND g.group_id IN ('.implode(',',$aParams['group_id']).') ';
 			}
 			else {
-				$sReqPlus .= 'AND group_id='.(integer)$aParams['group_id'].' ';
+				$sReqPlus .= 'AND g.group_id='.(integer)$aParams['group_id'].' ';
 			}
 		}
 
@@ -100,35 +111,39 @@ class Groups
 			if (is_array($aParams['group_id_not']))
 			{
 				$aParams['group_id_not'] = array_map('intval',$aParams['group_id_not']);
-				$sReqPlus .= 'AND group_id NOT IN ('.implode(',',$aParams['group_id_not']).') ';
+				$sReqPlus .= 'AND g.group_id NOT IN ('.implode(',',$aParams['group_id_not']).') ';
 			}
 			else {
-				$sReqPlus .= 'AND group_id<>'.(integer)$aParams['group_id_not'].' ';
+				$sReqPlus .= 'AND g.group_id<>'.(integer)$aParams['group_id_not'].' ';
 			}
 		}
 
 		if (!empty($aParams['title'])) {
-			$sReqPlus .= 'AND title=\''.$this->db->escapeStr($aParams['title']).'\' ';
+			$sReqPlus .= 'AND g.title=\''.$this->db->escapeStr($aParams['title']).'\' ';
 		}
 
 		if ($bCountOnly)
 		{
 			$sQuery =
-			'SELECT COUNT(group_id) AS num_groups '.
-			'FROM '.$this->t_groups.' '.
+			'SELECT COUNT(g.group_id) AS num_groups '.
+			'FROM '.$this->t_groups.' AS g '.
+				'LEFT JOIN '.$this->t_users.' AS u ON u.group_id=g.group_id '.
 			'WHERE '.$sReqPlus;
 		}
 		else {
 			$sQuery =
-			'SELECT group_id, title, perms '.
-			'FROM '.$this->t_groups.' '.
-			'WHERE '.$sReqPlus;
+			'SELECT g.group_id, g.title, g.perms, count(u.id) AS num_users '.
+			'FROM '.$this->t_groups.' AS g '.
+				'LEFT JOIN '.$this->t_users.' AS u ON u.group_id=g.group_id '.
+			'WHERE 1 '.
+			$sReqPlus.' '.
+			'GROUP BY g.group_id ';
 
 			if (!empty($aParams['order'])) {
 				$sQuery .= 'ORDER BY '.$aParams['order'].' ';
 			}
 			else {
-				$sQuery .= 'ORDER BY group_id ASC ';
+				$sQuery .= 'ORDER BY g.group_id ASC ';
 			}
 
 			if (!empty($aParams['limit'])) {

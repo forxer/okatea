@@ -543,7 +543,7 @@
             "source": {
                 "type": "hg",
                 "url": "http://bitbucket.org/dotclear/clearbricks",
-                "reference": "d80e4972aaaa"
+                "reference": "ea3c26b80754"
             },
             "require": {
                 "php": ">5.3.0"
@@ -569,7 +569,7 @@
                 }
             ],
             "description": "Clearbricks is not yet another framework.",
-            "time": "2013-12-24 10:04:32"
+            "time": "2014-02-07 12:59:12"
         },
         {
             "name": "dunglas/php-socialshare",

@@ -67,8 +67,18 @@ Users_edit:
 
 Users_groups:
     path:     /users/groups
-    defaults: { controller: 'Okatea\Admin\Controller\Users\Groups::page' }
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Groups::index' }
 
+Users_groups_add:
+    path:     /users/groups/add
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Groups::add' }
+
+Users_groups_edit:
+    path:     /users/group/{group_id}
+    defaults: { controller: 'Okatea\Admin\Controller\Users\Groups::edit' }
+    requirements:
+        group_id:  \d+
+        
 Users_display:
     path:     /users/display
     defaults: { controller: 'Okatea\Admin\Controller\Users\Display::page' }

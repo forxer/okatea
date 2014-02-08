@@ -252,9 +252,9 @@ class Okatea extends Application
 			$this->page->usersSubMenu->add(
 				__('c_a_menu_users_groups'),
 				$this->adminRouter->generate('Users_groups'),
-				$this->request->attributes->get('_route') === 'Users_groups',
+				in_array($this->request->attributes->get('_route'), array('Users_groups', 'Users_groups_add', 'Users_groups_edit')),
 				20,
-				$this->checkPerm('groups')
+				$this->checkPerm('users_groups')
 			);
 			/*
 			$this->page->usersSubMenu->add(

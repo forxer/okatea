@@ -31,8 +31,16 @@ class Users
 	 */
 	protected $error;
 
+	/**
+	 * Core users table
+	 * @var string
+	 */
 	protected $t_users;
 
+	/**
+	 * Core users groups table
+	 * @var string
+	 */
 	protected $t_groups;
 
 	public function __construct($okt)

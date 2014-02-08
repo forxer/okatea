@@ -66,10 +66,10 @@ class Helpers
 			$return .= '<a href="'.$okt->router->generate('pagesCategory', array('slug' => $rsCategories->slug)).'">';
 
 			if ($iCurrentCat == $rsCategories->id) {
-				$return .= '<strong>'.html::escapeHTML($rsCategories->title).'</strong>';
+				$return .= '<strong>'.Utilities::escapeHTML($rsCategories->title).'</strong>';
 			}
 			else {
-				$return .= html::escapeHTML($rsCategories->title);
+				$return .= Utilities::escapeHTML($rsCategories->title);
 			}
 
 
@@ -124,7 +124,7 @@ class Helpers
 
 		while ($rsPages->fetch())
 		{
-			$sItem = sprintf($sLinkFormat, html::escapeHTML($rsPages->url), html::escapeHTML($rsPages->title));
+			$sItem = sprintf($sLinkFormat, Utilities::escapeHTML($rsPages->url), Utilities::escapeHTML($rsPages->title));
 
 			if ($rsPages->id == $iCurrentPage) {
 				$aItems[] = sprintf($sItemActiveFormat, $sItem);
@@ -176,7 +176,7 @@ class Helpers
 
 		while ($rsChildren->fetch())
 		{
-			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array('slug' => $rsChildren->slug)), html::escapeHTML($rsChildren->title));
+			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array('slug' => $rsChildren->slug)), Utilities::escapeHTML($rsChildren->title));
 
 			if ($rsChildren->id == $iCurrentCat) {
 				$aChildren[] = sprintf($sItemActiveFormat, $sChildren);

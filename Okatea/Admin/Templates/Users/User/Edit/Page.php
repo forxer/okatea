@@ -45,7 +45,7 @@ $okt->page->setButtonset('users', array(
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateUrl('Users_index').'?delete='.$aPageData['user']['id'],
 			'ui-icon' => 'closethick',
-			'onclick' => 'return window.confirm(\''.html::escapeJS(__('c_a_users_confirm_user_deletion')).'\')',
+			'onclick' => 'return window.confirm(\''.$view->escapeJS(__('c_a_users_confirm_user_deletion')).'\')',
 		)
 	)
 ));
