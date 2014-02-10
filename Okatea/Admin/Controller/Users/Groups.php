@@ -50,26 +50,31 @@ class Groups extends Controller
 		{
 			$title = $this->okt->request->request->get('title');
 
+			$aPerms = array();
+			if ($this->okt->request->request->has('perms')) {
+				$aPerms = array_keys($this->okt->request->request->get('perms'));
+			}
+
 			if (empty($title)) {
 				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
 			}
 
+			$oUsersGroups = new UsersGroups($this->okt);
+
 			if ($this->okt->error->isEmpty())
 			{
-				$oUsersGroups = new UsersGroups($this->okt);
+				if (($iGroupId = $oUsersGroups->addGroup($title)) !== false && $oUsersGroups->updGroupPerms($iGroupId, $aPerms))
+				{
+					$this->okt->page->flash->success(__('c_a_users_group_added'));
 
-				$iGroupId = $oUsersGroups->addGroup($title);
-
-				$this->okt->page->flash->success(__('c_a_users_group_added'));
-
-				return $this->redirect($this->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)));
-
-				return $this->redirect($this->generateUrl('Users_groups'));
+					return $this->redirect($this->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)));
+				}
 			}
 		}
 
 		return $this->render('Users/Groups/Add', array(
-			'title' => $title
+			'title'          => $title,
+			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
 	}
 
