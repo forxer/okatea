@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\Users;
 
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 
 class CustomFields
@@ -470,7 +471,7 @@ class CustomFields
 			$html_id = $title;
 		}
 
-		$html_id = Utilities::strToUnderscored($html_id,false);
+		$html_id = Modifiers::strToUnderscored($html_id,false);
 
 		# Let's check if URL is taken…
 		$query =

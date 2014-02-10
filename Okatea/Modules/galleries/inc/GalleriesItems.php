@@ -6,6 +6,7 @@
  */
 
 use Okatea\Tao\Images\ImageUpload;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 
 class GalleriesItems
@@ -355,7 +356,7 @@ class GalleriesItems
 
 		# contenu
 		if (!$this->config->enable_rte) {
-			$rs->content = Utilities::nlToP($rs->content);
+			$rs->content = Modifiers::nlToP($rs->content);
 		}
 
 		$rs->content = $this->okt->performCommonContentReplacements($rs->content);
@@ -445,7 +446,7 @@ class GalleriesItems
 			$sUrl = $rsItem->slug;
 		}
 
-		$sUrl = Utilities::strToSlug($sUrl, false);
+		$sUrl = Modifiers::strToSlug($sUrl, false);
 
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select(

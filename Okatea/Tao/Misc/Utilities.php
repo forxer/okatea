@@ -176,28 +176,6 @@ class Utilities
 	}
 
 	/**
-	 * Fonction de remplacement à la fonction PHP native number_format()
-	 *
-	 * @param float $number
-	 * @param integer $decimals
-	 * @param string $decimal_point
-	 * @param string $thousand_separator
-	 * @return string
-	 */
-	/*
-	public static function numberFormat($number, $decimals=0, $decimal_point = '.', $thousand_separator='')
-	{
-		$tmp1 = round((float) $number, $decimals);
-
-		while (($tmp2 = preg_replace('/(\d+)(\d\d\d)/', '\1 \2', $tmp1)) != $tmp1) {
-			$tmp1 = $tmp2;
-		}
-
-		return strtr($tmp1, array(' ' => $thousand_separator, '.' => $decimal_point));
-	}
-	*/
-
-	/**
 	 * Formatage d'un prix selon les préférences locales et le taux de conversion
 	 *
 	 * @param	float	price		Le prix à formater
@@ -346,30 +324,6 @@ class Utilities
 	}
 
 	/**
-	 * Checks intersection of two ranges
-	 *
-	 * @param int $nA1
-	 * @param int $nA2
-	 * @param int $nB1
-	 * @param int $nB2
-	 * @return boolean true if $nA1-$nA2 intersects $nB1-$nB2
-	 */
-	public static function isIntersecting($nA1,$nA2,$nB1, $nB2)
-	{
-		$nALow = min(intval($nA1),intval($nA2));
-		$nAHigh = max(intval($nA1),intval($nA2));
-
-		$nBLow = min(intval($nB1),intval($nB2));
-		$nBHigh = max(intval($nB1),intval($nB2));
-
-		if (($nALow<$nBLow && $nAHigh<$nBLow && $nAHigh<$nBHigh) || ($nALow>$nBHigh && $nAHigh>$nBHigh)) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Calcul le nombre de d'heures, de minutes et de secondes
 	 * à partir d'un nombre de seconde.
 	 *
@@ -435,28 +389,6 @@ class Utilities
 	 */
 
 	/**
-	 * Vérifie qu'une chaine de caractères est bien encodée en UTF-8 et,
-	 * si tel n(est pas le cas, la convertie.
-	 *
-	 * @param string $string
-	 * @return string
-	 */
-	public static function toUtf8($string)
-	{
-		if ('UTF-8' != ($encoding = mb_detect_encoding($string, mb_detect_order(), true)))
-		{
-			if ($encoding) {
-				$string = mb_convert_encoding($string, 'UTF-8', $encoding);
-			}
-			else {
-				$string = mb_convert_encoding($string, 'UTF-8');
-			}
-		}
-
-		return $string;
-	}
-
-	/**
 	 * Encode une adresse email pour le HTML
 	 *
 	 * @param string $str
@@ -475,131 +407,12 @@ class Utilities
 	 *
 	 * Returns true if $email is a valid email address.
 	 *
-	 * @copyright Cal Henderson
-	 * @license http://creativecommons.org/licenses/by-sa/2.5/ CC-BY-SA
-	 * @link http://www.iamcal.com/publish/articles/php/parsing_email/
-	 *
-	 * @param string	$email	Email string
+	 * @param string	$sEmail	Email string
 	 * @return boolean
 	 */
-	public static function isEmail($email)
+	public static function isEmail($sEmail)
 	{
 		return Swift_Validate::email($sEmail);
-	}
-
-	/**
-	 * String to lower URL
-	 *
-	 * Transforms a string to a lowercase proper URL.
-	 *
-	 * @param string	$str			String to transform
-	 * @param boolean	$with_slashes	Keep slashes in URL
-	 * @return string
-	 */
-	public static function strToLowerURL($str,$with_slashes=true)
-	{
-		return strtolower(\text::str2URL($str,$with_slashes));
-	}
-
-	/**
-	 * Transform a string in a camelCase style
-	 *
-	 * @param string $str
-	 */
-	static public function strToCamelCase($str)
-	{
-		$str = self::strToLowerURL($str,false);
-
-		$str = implode('',array_map('ucfirst',explode('_',$str)));
-		$str = implode('',array_map('ucfirst',explode('-',$str)));
-
-		return (string)(strtolower(substr($str,0,1)).substr($str,1));
-	}
-
-	/**
-	 * Transform a string in underscored style
-	 *
-	 * @param string $str
-	 */
-	static public function strToUnderscored($str)
-	{
-		$str = self::strToLowerURL($str,false);
-		return (string)str_replace('-','_',$str);
-	}
-
-	/**
-	 * Transform a string in slug regarding to configuration.
-	 *
-	 * @param string $str
-	 */
-	static public function strToSlug($str, $with_slashes=true)
-	{
-		switch ($GLOBALS['okt']->config->slug_type)
-		{
-			case 'utf8':
-				return \text::tidyURL($str, $with_slashes);
-
-			case 'ascii':
-			default:
-				return self::strToLowerURL($str, $with_slashes);
-		}
-	}
-
-	/**
-	 * Convertis \r\n et \r en \n
-	 *
-	 * @param	string	str		La chaine à convertir
-	 * @return string La chaine convertie
-	 */
-	public static function linebreaks($str)
-	{
-		return str_replace("\r", "\n", str_replace("\r\n", "\n", $str));
-	}
-
-	/**
-	 * Convertis les sauts de ligne en paragraphes HTML
-	 *
-	 * @param	string	str		La chaine à convertir
-	 * @return string La chaine convertie
-	 */
-	public static function nlToP($str)
-	{
-		$str = trim($str);
-		$str = self::linebreaks($str);
-		$str = str_replace("\n", "</p>\n<p>", $str);
-		$str = str_replace('<p></p>', '', $str);
-		return '<p>'.$str.'</p>'.PHP_EOL;
-	}
-
-	/**
-	 * Convertis les sauts de ligne en paragraphes et saut de lignes HTML
-	 *
-	 * @param	string	str		La chaine à convertir
-	 * @return string La chaine convertie
-	 */
-	public static function nlToPbr($str)
-	{
-		$str = trim($str);
-		$str = self::linebreaks($str);
-		$str = str_replace("\n", '<br />', $str);
-		$str = str_replace('<br /><br />', "</p>\n<p>", $str);
-		$str = str_replace('<p></p>', '', $str);
-		return '<p>'.$str.'</p>'.PHP_EOL;
-	}
-
-	/**
-	 * Supprime les sauts de ligne dans la chaine
-	 *
-	 * @param	string	str		La chaine à convertir
-	 * @return string La chaine convertie
-	 */
-	public static function clean($str)
-	{
-		$str = strip_tags($str);
-		$str = self::linebreaks($str);
-		$str = str_replace("\n", ' ', $str);
-
-		return $str;
 	}
 
 	/**
@@ -627,11 +440,6 @@ class Utilities
 		}
 
 		return $str.$prefix.($i+1);
-	}
-
-	public static function removeAttrFromUrl($sParamKey,$sUrl)
-	{
-		return preg_replace('/(&|(?<=\?))'.$sParamKey.'=.*?(?=&|$)/', '', $sUrl);
 	}
 
 	public static function base64EncodeImage($filename, $filetype)
@@ -1059,34 +867,6 @@ class Utilities
 	}
 
 	/**
-	 * Cherche la classe html2pdf sur le serveur
-	 *
-	 * @return boolean
-	 */
-	public static function serverHasHtml2pdf()
-	{
-		static $bFounded = null;
-
-		if ($bFounded !== null) {
-			return $bFounded;
-		}
-
-		$bFounded = false;
-		$sFilepath = '/PDF/html2pdf_v4.03/html2pdf.class.php';
-		$aIncludePath = explode(PATH_SEPARATOR,get_include_path());
-
-		foreach ($aIncludePath as $sPath)
-		{
-			if (file_exists($sPath.$sFilepath)) {
-				$bFounded = true;
-				break;
-			}
-		}
-
-		return $bFounded;
-	}
-
-	/**
 	 * Generate a random key of length $len
 	 *
 	 * @param $len
@@ -1118,37 +898,6 @@ class Utilities
 		return $key;
 	}
 
-	public static function getMinifyReplacements($oktConfig)
-	{
-		global $okt;
-
-		static $aReplacements = null;
-
-		if (is_null($aReplacements))
-		{
-			$aReplacements = array(
-				'aSearch' => array(
-					'%APP_URL%',
-					'%PUBLIC_URL%',
-					'%THEME%',
-					'%MOBILE_THEME%',
-					'%ADMIN_THEME%',
-					'%PUBLIC_THEME%'
-				),
-				'aReplace' => array(
-					$oktConfig->app_path,
-					$oktConfig->app_path.basename($okt->options->get('public_dir')),
-					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme,
-					$oktConfig->app_path.basename($okt->options->get('themes_dir')).'/'.$oktConfig->theme_mobile,
-					$oktConfig->jquery_ui['admin'],
-					$oktConfig->jquery_ui['public']
-				)
-			);
-		}
-
-		return $aReplacements;
-	}
-
 	/**
 	 * Format un chemin d'application en supprimant et/ou laissant les slash de début et de fin.
 	 *
@@ -1173,24 +922,5 @@ class Utilities
 		$sPath = preg_replace('|/+|', '/', $sPath);
 
 		return $sPath;
-	}
-
-	/**
-	 * Construit un lien vers un phpMyAdmin.
-	 *
-	 * @param string $url
-	 * @param string $user
-	 * @param string $password
-	 * @return string
-	 */
-	public static function getPhpMyAdminUrl($url, $user, $password)
-	{
-		$a = explode('://',$url);
-
-		if (count($a) == 1) {
-			$a = array('http',$url);
-		}
-
-		return $a[0].'://'.$user.':'.$password.'@'.$a[1];
 	}
 }

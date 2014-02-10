@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Tao\Html\Modifiers;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';
@@ -66,7 +67,7 @@ $okt->page->breadcrumb->add($rsItem->title,$rsItem->getItemUrl());
 $rsItem->image = $rsItem->getImagesInfo();
 
 if ($okt->galleries->config->enable_rte == '' && $rsItem->legend != '') {
-	$rsItem->legend = Utilities::nlToP($rsItem->legend);
+	$rsItem->legend = Modifiers::nlToP($rsItem->legend);
 }
 
 

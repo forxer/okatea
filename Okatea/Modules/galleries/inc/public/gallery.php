@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Tao\Html\Modifiers;
 
 # inclusion du preprend public général
 require_once __DIR__.'/../../../../oktInc/public/prepend.php';
@@ -25,7 +26,7 @@ if ($rsGallery->isEmpty()) {
 
 # formatage description
 if (!$okt->galleries->config->enable_gal_rte && !empty($rsGallery->description)) {
-	$rsGallery->description = Utilities::nlToP($rsGallery->description);
+	$rsGallery->description = Modifiers::nlToP($rsGallery->description);
 }
 
 

@@ -1,6 +1,7 @@
 <?php
 ##header##
 
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 
 # inclusion du preprend public général
@@ -63,7 +64,7 @@ else {
 
 # description
 if (!$okt->##module_id##->config->enable_rte) {
-	$rsItem->description = Utilities::nlToP($rsItem->description);
+	$rsItem->description = Modifiers::nlToP($rsItem->description);
 }
 
 

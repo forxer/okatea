@@ -8,7 +8,7 @@
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Forms\Statics\SelectOption;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Modifiers;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -105,7 +105,7 @@ if (!empty($_POST['add_category']))
 
 	if ($okt->error->isEmpty())
 	{
-		$add_category_slug = Utilities::strToSlug($add_category_name, false);
+		$add_category_slug = Modifiers::strToSlug($add_category_name, false);
 
 		if (($neo_id = $okt->catalog->addCategory(1,$add_category_name,$add_category_slug,$add_category_parent)) !== false)
 		{
@@ -132,7 +132,7 @@ if (!empty($_POST['edit_category']) && $category_id)
 
 	if ($okt->error->isEmpty())
 	{
-		$edit_category_slug = Utilities::strToSlug($edit_category_name, false);
+		$edit_category_slug = Modifiers::strToSlug($edit_category_name, false);
 
 		if ($okt->catalog->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_slug, $edit_category_parent) !== false)
 		{

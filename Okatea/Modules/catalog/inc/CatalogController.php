@@ -5,8 +5,9 @@
  *
  */
 
-use Okatea\Website\Controller;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Website\Controller;
 use Okatea\Website\Pager;
 
 class CatalogController extends Controller
@@ -64,7 +65,7 @@ class CatalogController extends Controller
 			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$this->rsProductsList->content = Utilities::nlToP($this->rsProductsList->content);
+				$this->rsProductsList->content = Modifiers::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
@@ -199,7 +200,7 @@ class CatalogController extends Controller
 			$this->rsProductsList->url = $this->rsProductsList->getProductUrl();
 
 			if (!$this->okt->catalog->config->rte_enable) {
-				$this->rsProductsList->content = Utilities::nlToP($this->rsProductsList->content);
+				$this->rsProductsList->content = Modifiers::nlToP($this->rsProductsList->content);
 			}
 
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
@@ -305,7 +306,7 @@ class CatalogController extends Controller
 		$this->rsProduct->url = $this->rsProduct->getProductUrl();
 
 		if (!$this->okt->catalog->config->rte_enable) {
-			$this->rsProduct->content = Utilities::nlToP($this->rsProduct->content);
+			$this->rsProduct->content = Modifiers::nlToP($this->rsProduct->content);
 		}
 
 		$this->rsProduct->category_url = $this->rsProduct->getCategoryUrl();

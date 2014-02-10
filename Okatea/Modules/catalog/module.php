@@ -6,6 +6,7 @@
  */
 
 use Okatea\Admin\Page;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module;
 use Okatea\Tao\Routing\Route;
@@ -634,7 +635,7 @@ class module_catalog extends Module
 			$url = $title;
 		}
 
-		$url = Utilities::strToSlug($url, false);
+		$url = Modifiers::strToSlug($url, false);
 
 		# Let's check if URL is taken…
 		$query =

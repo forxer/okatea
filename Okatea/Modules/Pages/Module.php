@@ -11,6 +11,7 @@ namespace Okatea\Modules\Pages;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
@@ -616,7 +617,7 @@ class Module extends BaseModule
 
 		# contenu
 		if (!$this->config->enable_rte) {
-			$rs->content = Utilities::nlToP($rs->content);
+			$rs->content = Modifiers::nlToP($rs->content);
 		}
 
 		# perform content replacements
@@ -715,7 +716,7 @@ class Module extends BaseModule
 			$sUrl = $rsPage->slug;
 		}
 
-		$sUrl = Utilities::strToSlug($sUrl, false);
+		$sUrl = Modifiers::strToSlug($sUrl, false);
 
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select(

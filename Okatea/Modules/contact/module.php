@@ -6,9 +6,10 @@
  */
 
 
-use Okatea\Admin\Page;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
+use Okatea\Tao\Html\Modifiers;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module;
 use Okatea\Tao\Routing\Route;
 
@@ -832,7 +833,7 @@ class module_contact extends Module
 			$html_id = $title;
 		}
 
-		$html_id = Utilities::strToUnderscored($html_id,false);
+		$html_id = Modifiers::strToUnderscored($html_id,false);
 
 		# Let's check if URL is taken…
 		$query =

@@ -9,8 +9,8 @@
 namespace Okatea\Tao\Themes;
 
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\HttpClient;
-use Okatea\Tao\Misc\Utilities;
 
 /**
  * Classe de gestion des thèmes.
@@ -275,7 +275,7 @@ class Collection
 	public function bootstrapTheme($sName, $sId=null)
 	{
 		if (empty($sId)) {
-			$sId = Utilities::strToLowerURL($sName,false);
+			$sId = Modifiers::strToLowerUrl($sName, false);
 		}
 
 		$this->getThemesList();

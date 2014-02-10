@@ -9,6 +9,7 @@
 namespace Okatea\Modules\Development\Bootstrap\Module;
 
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Modifiers;
 
 class Module
 {
@@ -121,10 +122,10 @@ class Module
 	protected function initBuilding()
 	{
 		$this->id = $this->getId();
-		$this->urlId = Utilities::strToLowerURL($this->name);
-		$this->urlIdFr = Utilities::strToLowerURL($this->nameFr);
+		$this->urlId = Modifiers::strToLowerUrl($this->name);
+		$this->urlIdFr = Modifiers::strToLowerUrl($this->nameFr);
 		$this->upperId = strtoupper($this->id);
-		$this->camelCaseId = Utilities::strToCamelCase($this->id);
+		$this->camelCaseId = Modifiers::strToCamelCase($this->id);
 
 		$this->dir = $this->modules_dir.'/'.$this->id;
 
@@ -526,7 +527,7 @@ class Module
 
 	protected function getId()
 	{
-		$id = Utilities::strToUnderscored($this->name);
+		$id = Modifiers::strToUnderscored($this->name);
 
 		$id = preg_replace('/^([0-9_])*([a-zA-Z0-9_\x7f-\xff]+)$/', '$2', $id);
 

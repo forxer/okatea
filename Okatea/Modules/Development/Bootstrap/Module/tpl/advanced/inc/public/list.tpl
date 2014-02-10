@@ -1,6 +1,7 @@
 <?php
 ##header##
 
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Website\Pager;
 
@@ -67,7 +68,7 @@ while ($rsItemsList->fetch())
 	$rsItemsList->url = $rsItemsList->getItemUrl();
 
 	if (!$okt->##module_id##->config->enable_rte) {
-		$rsItemsList->description = Utilities::nlToP($rsItemsList->description);
+		$rsItemsList->description = Modifiers::nlToP($rsItemsList->description);
 	}
 
 //	if ($okt->##module_id##->config->public_truncat_char > 0) {

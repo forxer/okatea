@@ -43,9 +43,9 @@ leader:
     name: ''
     firstname: ''
 email:
-    to: ''
-    from: ''
-    name: ''
+    to: 'contact@okatea.org'
+    from: 'contact@okatea.org'
+    name: 'Okatea'
     transport: ''
     smtp:
         host: ''

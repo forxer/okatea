@@ -8,6 +8,7 @@
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Images\ImageUpload;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module;
 use Okatea\Tao\Routing\Route;
@@ -807,7 +808,7 @@ class module_faq extends Module
 						files::makeDir($this->upload_dir,true);
 					}
 
-					$sDestination = $this->upload_dir.'/'.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
+					$sDestination = $this->upload_dir.'/'.Modifiers::strToLowerUrl($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -872,7 +873,7 @@ class module_faq extends Module
 						unlink($this->upload_dir.'/'.$aCurrentFiles[$aLanguage['code']][$i]['filename']);
 					}
 
-					$sDestination = $this->upload_dir.'/'.Utilities::strToLowerURL($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
+					$sDestination = $this->upload_dir.'/'.Modifiers::strToLowerUrl($this->params['title'][$aLanguage['code']],false).'-'.$aLanguage['code'].'-'.$j.'.'.$sExtension;
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sDestination)) {
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -935,7 +936,7 @@ class module_faq extends Module
 			foreach ($files as $k=>$v)
 			{
 				$sExtension = pathinfo($v,PATHINFO_EXTENSION);
-				$question_name = Utilities::strToLowerURL($slug,false).'-'.$locale.'-'.($k+1).'.'.$sExtension;
+				$question_name = Modifiers::strToLowerUrl($slug, false).'-'.$locale.'-'.($k+1).'.'.$sExtension;
 
 				if (file_exists($this->upload_dir.'/'.$v)) {
 					rename($this->upload_dir.'/'.$v, $this->upload_dir.'/'.$question_name);
@@ -1267,7 +1268,7 @@ class module_faq extends Module
 			$url = $title;
 		}
 
-		$url = Utilities::strToSlug($url, false);
+		$url = Modifiers::strToSlug($url, false);
 
 		# URL is empty?
 		if ($url == '') {

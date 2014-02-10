@@ -5,6 +5,7 @@
  *
  */
 
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Website\Controller;
 
 class GalleriesController extends Controller
@@ -226,7 +227,7 @@ class GalleriesController extends Controller
 		$this->page->action = 'item';
 
 		if (empty($this->okt->galleries->config->enable_rte) && !empty($this->rsItem->legend)) {
-			$this->rsItem->legend = Utilities::nlToP($this->rsItem->legend);
+			$this->rsItem->legend = Modifiers::nlToP($this->rsItem->legend);
 		}
 
 		# title tag

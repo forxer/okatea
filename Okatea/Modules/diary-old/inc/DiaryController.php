@@ -5,8 +5,9 @@
  *
  */
 
-use Okatea\Website\Controller;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Website\Controller;
 
 class DiaryController extends Controller
 {
@@ -165,7 +166,7 @@ class DiaryController extends Controller
 
 		# description
 		if (!$this->okt->diary->config->enable_rte) {
-			$rsEvent->description = Utilities::nlToP($rsEvent->description);
+			$rsEvent->description = Modifiers::nlToP($rsEvent->description);
 		}
 
 		# récupération des images

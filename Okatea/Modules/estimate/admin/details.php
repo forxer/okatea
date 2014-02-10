@@ -5,7 +5,8 @@
  *
  */
 
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Html\Modifiers;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -171,21 +172,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<div class="col">
 		<h3><?php _e('m_estimate_details_user_infos') ?></h3>
 
-		<p><?php echo html::escapeHTML($rsEstimate->content['firstname'].' '.$rsEstimate->content['lastname']) ?></p>
-		<p><a href="mailto:<?php echo html::escapeHTML($rsEstimate->content['email']) ?>"><?php echo html::escapeHTML($rsEstimate->content['email']) ?></a></p>
-		<p><?php echo html::escapeHTML($rsEstimate->content['phone']) ?></p>
+		<p><?php echo Escaper::html($rsEstimate->content['firstname'].' '.$rsEstimate->content['lastname']) ?></p>
+		<p><a href="mailto:<?php echo Escaper::html($rsEstimate->content['email']) ?>"><?php echo Escaper::html($rsEstimate->content['email']) ?></a></p>
+		<p><?php echo Escaper::html($rsEstimate->content['phone']) ?></p>
 	</div>
 	<div class="col">
 		<h3><?php _e('m_estimate_details_projected_dates') ?></h3>
 
 			<p>
 				<?php if ($rsEstimate->start_at == $rsEstimate->end_at) : ?>
-				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at))) ?>
+				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at))) ?>
 
 				<?php else : ?>
 				<?php printf(__('From %s to %s'),
-					dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at)),
-					dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->end_at))
+					dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at)),
+					dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->end_at))
 				); ?>
 				<?php endif; ?>
 			</p>
@@ -204,16 +205,16 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php foreach ($rsEstimate->content['products'] as $aProduct) : ?>
 	<div class="product_wrapper">
 		<div class="product_line ui-helper-clearfix">
-			<div class="product_title"><?php echo html::escapeHTML($aProduct['title']) ?></div>
-			<div class="product_quantity"><?php echo html::escapeHTML($aProduct['quantity']) ?></div>
+			<div class="product_title"><?php echo Escaper::html($aProduct['title']) ?></div>
+			<div class="product_quantity"><?php echo Escaper::html($aProduct['quantity']) ?></div>
 		</div>
 
 		<?php if ($okt->estimate->config->enable_accessories && !empty($aProduct['accessories'])) : ?>
 		<div class="accessories_wrapper">
 			<?php foreach ($aProduct['accessories'] as $aAccessory) : ?>
 			<div class="accessory_line ui-helper-clearfix">
-				<div class="accessory_title"><?php echo html::escapeHTML($aAccessory['title']) ?></div>
-				<div class="accessory_quantity"><?php echo html::escapeHTML($aAccessory['quantity']) ?></div>
+				<div class="accessory_title"><?php echo Escaper::html($aAccessory['title']) ?></div>
+				<div class="accessory_quantity"><?php echo Escaper::html($aAccessory['quantity']) ?></div>
 			</div>
 			<?php endforeach; ?>
 		</div>
@@ -224,7 +225,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <h3><?php _e('m_estimate_details_comment') ?></h3>
 
-	<p><?php echo Utilities::nlToP(html::escapeHTML($rsEstimate->content['comment'])) ?></p>
+	<p><?php echo Modifiers::nlToP(Escaper::html($rsEstimate->content['comment'])) ?></p>
 
 
 <?php # Pied-de-page

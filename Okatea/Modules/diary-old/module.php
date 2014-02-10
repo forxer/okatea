@@ -8,6 +8,7 @@
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Database\MySqli;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Misc\Utilities;
@@ -936,7 +937,7 @@ class module_diary extends Module
 			$url = $title;
 		}
 
-		$url = Utilities::strToSlug($url, false);
+		$url = Modifiers::strToSlug($url, false);
 
 		# Let's check if URL is taken
 		$query =

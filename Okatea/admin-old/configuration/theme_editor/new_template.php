@@ -14,11 +14,11 @@
  */
 
 use Okatea\Admin\Page;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Html\Modifiers;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Themes\TemplatesSet;
 use Symfony\Component\Filesystem\Filesystem;
-
 
 # Accès direct interdit
 if (!defined('ON_THEME_EDITOR')) die;
@@ -89,7 +89,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 	$p_tpl_author = !empty($_POST['p_tpl_author']) ? $_POST['p_tpl_author'] : '';
 	$p_tpl_tags = !empty($_POST['p_tpl_tags']) ? $_POST['p_tpl_tags'] : '';
 
-	$p_tpl_id = Utilities::strToLowerURL($p_tpl_id,false);
+	$p_tpl_id = Modifiers::strToLowerUrl($p_tpl_id,false);
 
 	$sTemplate = str_replace(
 		array(

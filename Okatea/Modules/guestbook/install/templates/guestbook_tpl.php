@@ -1,5 +1,9 @@
+<?php
 
-<?php use Okatea\Tao\Forms\Statics\FormElements as form; ?>
+use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Html\Modifiers;
+
+?>
 
 <?php # début Okatea : ce template étend le layout
 $view->extend('layout');
@@ -227,7 +231,7 @@ while ($signaturesList->fetch()) : ?>
 		<?php endif; ?>
 	</ul>
 
-	<p class="msg"><?php echo Okatea\Tao\Misc\Utilities::nlToP($view->escape($signaturesList->message)) ?></p>
+	<p class="msg"><?php echo Modifiers::nlToP($view->escape($signaturesList->message)) ?></p>
 
 </div><!-- .signature -->
 <?php endwhile;

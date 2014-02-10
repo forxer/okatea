@@ -2,10 +2,11 @@
 ##header##
 
 
-use Okatea\Admin\Page;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Images\ImageUpload;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Modules\Module;
 
@@ -811,7 +812,7 @@ class module_##module_id## extends Module
 			$url = $title;
 		}
 
-		$url = Utilities::strToSlug($url, false);
+		$url = Modifiers::strToSlug($url, false);
 
 		# Let's check if URL is taken
 		$query =

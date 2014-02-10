@@ -6,6 +6,7 @@
  */
 
 use Okatea\Tao\Images\ImageUpload;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\NestedTreei18n;
 use Okatea\Tao\Misc\Utilities;
 
@@ -287,7 +288,7 @@ class GalleriesTree extends NestedTreei18n
 
 		# contenu
 		if (!$this->okt->galleries->config->enable_gal_rte) {
-			$rs->content = Utilities::nlToP($rs->content);
+			$rs->content = Modifiers::nlToP($rs->content);
 		}
 
 		$rs->content = $this->okt->performCommonContentReplacements($rs->content);
@@ -382,7 +383,7 @@ class GalleriesTree extends NestedTreei18n
 			$sSlug = $rsGallery->slug;
 		}
 
-		$sSlug = Utilities::strToSlug($sSlug, true);
+		$sSlug = Modifiers::strToSlug($sSlug, true);
 
 		# Let's check if URL is taken…
 		$query =

@@ -1,3 +1,8 @@
+<?php
+
+use Okatea\Tao\Html\Modifiers;
+
+?>
 
 <?php # début Okatea : ce template étend le layout
 $view->extend('layout');
@@ -94,7 +99,7 @@ et les valider ou les modifier si besoin.</p>
 
 <h2>Commentaire</h2>
 
-	<p><?php echo Okatea\Tao\Misc\Utilities::nlToP($view->escape($aEstimateData['comment'])) ?></p>
+	<p><?php echo Modifiers::nlToP($view->escape($aEstimateData['comment'])) ?></p>
 
 <p id="buttons">
 	<a href="<?php echo $view->escapeHtmlAttr(EstimateHelpers::getSummaryUrl()) ?>?send=1" id="send_estimate">Valider et envoyer</a>

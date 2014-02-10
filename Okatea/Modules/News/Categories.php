@@ -9,6 +9,7 @@
 namespace Okatea\Modules\News;
 
 use Okatea\Tao\Database\Recordset;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\NestedTreei18n;
 use Okatea\Tao\Misc\Utilities;
 
@@ -294,7 +295,7 @@ class Categories extends NestedTreei18n
 			$sSlug = $rsCategory->slug;
 		}
 
-		$sSlug = Utilities::strToSlug($sSlug, true);
+		$sSlug = Modifiers::strToSlug($sSlug, true);
 
 		# Let's check if URL is taken…
 		$query =
