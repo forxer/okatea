@@ -93,24 +93,31 @@ class Groups extends Controller
 		{
 			$title = $this->okt->request->request->get('title');
 
+			$aPerms = array();
+			if ($this->okt->request->request->has('perms')) {
+				$aPerms = array_keys($this->okt->request->request->get('perms'));
+			}
+
 			if (empty($title)) {
 				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
 			}
 
 			if ($this->okt->error->isEmpty())
 			{
+				if ($oUsersGroups->updGroup($iGroupId, $title) && $oUsersGroups->updGroupPerms($iGroupId, $aPerms))
+				{
+					$this->okt->page->flash->success(__('c_a_users_group_edited'));
 
-				$oUsersGroups->updGroup($iGroupId, $title);
-
-				$this->okt->page->flash->success(__('c_a_users_group_edited'));
-
-				return $this->redirect($this->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)));
+					return $this->redirect($this->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)));
+				}
 			}
 		}
 
 		return $this->render('Users/Groups/Edit', array(
-			'iGroupId'   => $iGroupId,
-			'title'      => $title
+			'iGroupId'       => $iGroupId,
+			'title'          => $title,
+			'aPerms'         => $rsGroup->perms ? json_decode($rsGroup->perms) : array(),
+			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
 	}
 

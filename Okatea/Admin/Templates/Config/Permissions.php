@@ -41,7 +41,7 @@ if ($iNumGroup > 1) {
 			<h4><?php echo $group['libelle'] ?></h4>
 			<?php endif; ?>
 
-			<ul class="actions">
+			<ul class="checklist">
 				<?php foreach ($group['perms'] as $perm=>$libelle) : ?>
 				<li><label for="perms_<?php echo $group_id ?>_<?php echo $perm ?>"><?php
 				echo form::checkbox(array('perms['.$group_id.']['.$perm.']','perms_'.$group_id.'_'.$perm),1,in_array($perm,$aPerms[$group_id])) ?>

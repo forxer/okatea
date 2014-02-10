@@ -66,6 +66,10 @@ $GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Modifier un groupe';
 $GLOBALS['okt_l10n']['c_a_users_edit_the_group_%s'] = 'Modifier le groupe %s';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_group_%s'] = 'Supprimer le groupe %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_group_deletion'] = 'Etes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible.';
+$GLOBALS['okt_l10n']['c_a_users_groups_definition'] = 'Définition';
+$GLOBALS['okt_l10n']['c_a_users_groups_permissions'] = 'Permissions';
+$GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_sudo'] = 'Le groupe %s (%s) a toutes les permissions.';
+$GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_guest'] = 'Le groupe %s (%s) ne peut avoir aucune permission.';
 
 # Affichage
 $GLOBALS['okt_l10n']['c_a_users_Administration_interface'] = 'Interface d’administration';

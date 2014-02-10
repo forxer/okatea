@@ -264,7 +264,7 @@ class Groups
 		}
 
 		if (is_array($perms)) {
-			$perms = serialize($perms);
+			$perms = json_encode($perms);
 		}
 
 		$sQuery =

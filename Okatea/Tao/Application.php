@@ -472,6 +472,47 @@ class Application
 		return in_array($permissions, $this->user->perms);
 	}
 
+	public function getPermsForDisplay()
+	{
+		$aPermissions = array();
+
+		foreach ($this->getPerms() as $k=>$v)
+		{
+			if (!is_array($v))
+			{
+				if (!isset($aPermissions['others']))
+				{
+					$aPermissions['others'] = array(
+						'libelle' => '',
+						'perms' => array()
+					);
+				}
+
+				if ($this->checkPerm($k)) {
+					$aPermissions['others']['perms'][$k] = $v;
+				}
+			}
+			else
+			{
+				$aPermissions[$k] = array(
+					'libelle' => $v['libelle'],
+					'perms' => array()
+				);
+
+				foreach ($v['perms'] as $perm=>$libelle)
+				{
+					if ($this->checkPerm($perm)) {
+						$aPermissions[$k]['perms'][$perm] = $libelle;
+					}
+				}
+			}
+		}
+
+		asort($aPermissions);
+
+		return $aPermissions;
+	}
+
 
 	/* Templates engine
 	----------------------------------------------------------*/

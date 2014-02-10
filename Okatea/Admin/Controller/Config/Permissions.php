@@ -24,24 +24,27 @@ class Permissions extends Controller
 
 		$aGroups = array();
 		$aPerms = array();
-		$sTgroups = $this->okt->db->prefix.'core_users_groups';
 
-		$rsGroups = $this->okt->db->select('SELECT group_id, title, perms FROM '.$sTgroups);
+		$oUsersGroups = new Groups($this->okt);
+		$aparams = array(
+			'group_id_not' => array(
+				Groups::SUPERADMIN,
+				Groups::GUEST
+			)
+		);
+
+		if (!$this->okt->user->is_superadmin) {
+			$aparams['group_id_not'][] = Groups::ADMIN;
+		}
+
+		$rsGroups = $oUsersGroups->getGroups($aparams);
 
 		while ($rsGroups->fetch())
 		{
-			if ($rsGroups->group_id == Groups::SUPERADMIN || $rsGroups->group_id == Groups::GUEST) {
-				continue;
-			}
-			elseif (!$this->okt->user->is_superadmin && $rsGroups->group_id == Groups::ADMIN) {
-				continue;
-			}
-
 			$aGroups[$rsGroups->group_id] = $rsGroups->title;
 
 			$aPerms[$rsGroups->group_id] = $rsGroups->perms ? json_decode($rsGroups->perms) : array();
 		}
-		unset($rsGroups);
 
 		if ($this->request->request->has('sended_form'))
 		{
@@ -50,14 +53,8 @@ class Permissions extends Controller
 			foreach ($aGroups as $group_id=>$group_title)
 			{
 				$group_perms = !empty($perms[$group_id]) ? array_keys($perms[$group_id]) : array();
-				$group_perms = json_encode($group_perms);
 
-				$query =
-				'UPDATE '.$sTgroups.' SET '.
-				'perms=\''.$this->okt->db->escapeStr($group_perms).'\' '.
-				'WHERE group_id='.(integer)$group_id;
-
-				$this->okt->db->execute($query);
+				$oUsersGroups->updGroupPerms($group_id, $group_perms);
 			}
 
 			$this->page->flash->success(__('c_a_config_permissions_updated'));
@@ -65,46 +62,10 @@ class Permissions extends Controller
 			return $this->redirect($this->generateUrl('config_permissions'));
 		}
 
-
-		$aPermissions = array();
-
-		foreach ($this->okt->getPerms() as $k=>$v)
-		{
-			if (!is_array($v))
-			{
-				if (!isset($aPermissions['others']))
-				{
-					$aPermissions['others'] = array(
-						'libelle' => '',
-						'perms' => array()
-					);
-				}
-
-				if ($this->okt->checkPerm($k)) {
-					$aPermissions['others']['perms'][$k] = $v;
-				}
-			}
-			else {
-				$aPermissions[$k] = array(
-					'libelle' => $v['libelle'],
-					'perms' => array()
-				);
-
-				foreach ($v['perms'] as $perm=>$libelle)
-				{
-					if ($this->okt->checkPerm($perm)) {
-						$aPermissions[$k]['perms'][$perm] = $libelle;
-					}
-				}
-			}
-		}
-
-		asort($aPermissions);
-
 		return $this->render('Config/Permissions', array(
-			'aGroups' => $aGroups,
-			'aPerms' => $aPerms,
-			'aPermissions' => $aPermissions
+			'aGroups'        => $aGroups,
+			'aPerms'         => $aPerms,
+			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
 	}
 }
