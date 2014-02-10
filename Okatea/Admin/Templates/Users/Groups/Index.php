@@ -46,10 +46,6 @@ $okt->page->setButtonset('usersGroups', array(
 	<?php $count_line = 0;
 	while ($rsGroups->fetch()) :
 
-		if ($rsGroups->group_id == Groups::SUPERADMIN) {
-			continue;
-		}
-
 		$td_class = $count_line%2 == 0 ? 'even' : 'odd';
 		$count_line++;
 	?>
@@ -62,14 +58,17 @@ $okt->page->setButtonset('usersGroups', array(
 			<a href="<?php echo $view->generateUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
 			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_group_%s_show_users'), $rsGroups->title)); ?>">
 			<?php
-			if ($rsGroups->num_users <= 0) {
-				_e('c_a_users_group_no_user');
-			}
-			elseif ($rsGroups->num_users == 1) {
-				_e('c_a_users_group_one_user');
-			}
-			else {
-				printf(__('c_a_users_group_%s_users'), $rsGroups->num_users);
+			if ($rsGroups->group_id != Groups::GUEST)
+			{
+				if ($rsGroups->num_users <= 0) {
+					_e('c_a_users_group_no_user');
+				}
+				elseif ($rsGroups->num_users == 1) {
+					_e('c_a_users_group_one_user');
+				}
+				else {
+					printf(__('c_a_users_group_%s_users'), $rsGroups->num_users);
+				}
 			}
 			?></a>
 		</td>

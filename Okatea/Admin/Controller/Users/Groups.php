@@ -33,7 +33,17 @@ class Groups extends Controller
 			}
 		}
 
-		$rsGroups = $oUsersGroups->getGroups();
+		$aParams = array();
+
+		if (!$this->okt->user->is_superadmin) {
+			$aparams['group_id_not'][] = UsersGroups::SUPERADMIN;
+		}
+
+		if (!$this->okt->user->is_admin) {
+			$aparams['group_id_not'][] = Groups::ADMIN;
+		}
+
+		$rsGroups = $oUsersGroups->getGroups($aparams);
 
 		return $this->render('Users/Groups/Index', array(
 			'rsGroups'       => $rsGroups
