@@ -9,7 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 
 class L10n extends Controller
 {
@@ -46,7 +46,7 @@ class L10n extends Controller
 
 		$aLanguages = array();
 		while ($rsLanguages->fetch()) {
-			$aLanguages[Utilities::escapeHTML($rsLanguages->title)] = $rsLanguages->code;
+			$aLanguages[Escaper::html($rsLanguages->title)] = $rsLanguages->code;
 		}
 
 		# Liste des fuseaux horraires

@@ -11,6 +11,7 @@ namespace Okatea\Admin\Controller\Config;
 use Okatea\Admin\Controller;
 use Okatea\Admin\Page;
 use Okatea\Tao\Misc\Utilities;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Display extends Controller
 {
@@ -63,13 +64,14 @@ class Display extends Controller
 				$sZipFilename = $sTempDir.$sUploadedFile['name'];
 
 				try {
+					$fs = new Filesystem();
 
 					# on supprime l'éventuel répertoire temporaire s'il existe déjà
 					if (is_dir($sTempDir)) {
-						\files::deltree($sTempDir);
+						$fs->remove($sTempDir);
 					}
 
-					$sExtension = pathinfo($sUploadedFile['name'],PATHINFO_EXTENSION);
+					$sExtension = pathinfo($sUploadedFile['name'], PATHINFO_EXTENSION);
 
 					# des erreurs d'upload ?
 					Utilities::uploadStatus($sUploadedFile);
@@ -80,7 +82,7 @@ class Display extends Controller
 					}
 
 					# création répertoire temporaire
-					\files::makeDir($sTempDir);
+					$fs->mkdir($sTempDir);
 
 					if (!move_uploaded_file($sUploadedFile['tmp_name'],$sZipFilename)) {
 						throw new \Exception(__('c_a_config_display_unable_move_file'));
@@ -110,14 +112,14 @@ class Display extends Controller
 					if ($oZip->isEmpty())
 					{
 						$oZip->close();
-						\files::deltree($sTempDir);
+						$fs->remove($sTempDir);
 						throw new \Exception(__('c_a_config_display_empty_zip_file'));
 					}
 
 					if (!$hasCssFile)
 					{
 						$oZip->close();
-						\files::deltree($sTempDir);
+						$fs->remove($sTempDir);
 						throw new \Exception(__('c_a_config_display_not_valid_theme'));
 					}
 
@@ -126,17 +128,16 @@ class Display extends Controller
 
 					$sFinalPath = $this->okt->options->public_dir.'/plugins/jquery-ui/themes/custom';
 
-					Utilities::rcopy($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
+					$fs->mirror($sTempDir.$zip_root_dir.'/css/custom-theme', $sFinalPath);
+					$fs->rename($sFinalPath.'/'.basename($sTargetDir).'.css', $sFinalPath.'/jquery-ui.css');
+					$fs->rename($sFinalPath.'/'.basename($sTargetDir).'.min.css', $sFinalPath.'/jquery-ui.min.css');
 
-					rename($sFinalPath.'/'.basename($sTargetDir).'.css', $sFinalPath.'/jquery-ui.css');
-					rename($sFinalPath.'/'.basename($sTargetDir).'.min.css', $sFinalPath.'/jquery-ui.min.css');
-
-					\files::deltree($sTempDir);
+					$fs->remove($sTempDir);
 
 					$this->request->request->set('p_jquery_ui_admin_theme', 'custom');
 				}
 				catch (Exception $e) {
-					\files::deltree($sTempDir);
+					$fs->remove($sTempDir);
 					$this->okt->error->set($e->getMessage());
 				}
 			}

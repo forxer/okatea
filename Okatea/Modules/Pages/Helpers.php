@@ -8,6 +8,8 @@
 
 namespace Okatea\Modules\Pages;
 
+use Okatea\Tao\Html\Escaper;
+
 class Helpers
 {
 	/**
@@ -66,10 +68,10 @@ class Helpers
 			$return .= '<a href="'.$okt->router->generate('pagesCategory', array('slug' => $rsCategories->slug)).'">';
 
 			if ($iCurrentCat == $rsCategories->id) {
-				$return .= '<strong>'.Utilities::escapeHTML($rsCategories->title).'</strong>';
+				$return .= '<strong>'.Escaper::html($rsCategories->title).'</strong>';
 			}
 			else {
-				$return .= Utilities::escapeHTML($rsCategories->title);
+				$return .= Escaper::html($rsCategories->title);
 			}
 
 
@@ -124,7 +126,7 @@ class Helpers
 
 		while ($rsPages->fetch())
 		{
-			$sItem = sprintf($sLinkFormat, Utilities::escapeHTML($rsPages->url), Utilities::escapeHTML($rsPages->title));
+			$sItem = sprintf($sLinkFormat, Escaper::html($rsPages->url), Escaper::html($rsPages->title));
 
 			if ($rsPages->id == $iCurrentPage) {
 				$aItems[] = sprintf($sItemActiveFormat, $sItem);
@@ -176,7 +178,7 @@ class Helpers
 
 		while ($rsChildren->fetch())
 		{
-			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array('slug' => $rsChildren->slug)), Utilities::escapeHTML($rsChildren->title));
+			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array('slug' => $rsChildren->slug)), Escaper::html($rsChildren->title));
 
 			if ($rsChildren->id == $iCurrentCat) {
 				$aChildren[] = sprintf($sItemActiveFormat, $sChildren);

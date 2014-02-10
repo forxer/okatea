@@ -17,6 +17,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Themes\TemplatesSet;
+use Symfony\Component\Filesystem\Filesystem;
 
 
 # Accès direct interdit
@@ -115,7 +116,8 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 
 	if ($okt->error->isEmpty())
 	{
-		Utilities::rcopy(dirname($sBasicTemplatePath), dirname($sTemplatePath));
+		$fs = new Filesystem();
+		$fs->mirror(dirname($sBasicTemplatePath), dirname($sTemplatePath));
 
 		file_put_contents(dirname($sTemplatePath).'/_define.php',
 			'<?php'."\n\n".

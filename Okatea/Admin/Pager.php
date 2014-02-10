@@ -8,8 +8,8 @@
 
 namespace Okatea\Admin;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Pager as BasePager;
-use Okatea\Tao\Misc\Utilities;
 
 /**
  * Extension de la classe pager pour l'administration.
@@ -50,11 +50,11 @@ class Pager extends BasePager
 		# Changing page ref
 		if (preg_match('#/[0-9]+$#',$url)) {
 			$url = preg_replace('#(/)[0-9]+#','$1%1$d',$url);
-		} else {
+		}
+		else {
 			$url .= '/%1$d';
 		}
 
-
-		return Utilities::escapeHTML($url);
+		return Escaper::html($url);
 	}
 }

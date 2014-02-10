@@ -8,8 +8,8 @@
 
 namespace Okatea\Website;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Pager as BasePager;
-use Okatea\Tao\Misc\Utilities;
 
 /**
  * Extension de la classe pager pour le coté publique.
@@ -55,6 +55,6 @@ class Pager extends BasePager
 			$url .= '/%1$d';
 		}
 
-		return Utilities::escapeHTML($url);
+		return Escaper::html($url);
 	}
 }

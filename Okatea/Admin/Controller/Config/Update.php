@@ -11,7 +11,7 @@ namespace Okatea\Admin\Controller\Config;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Html\CheckList;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 use Symfony\Component\Finder\Finder;
 
 class Update extends Controller
@@ -91,7 +91,7 @@ class Update extends Controller
 				if ($this->request->request->has('b_del'))
 				{
 					if (!@unlink($this->okt->options->get('root_dir').'/'.$b_file)) {
-						throw new \Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Utilities::escapeHTML($b_file)));
+						throw new \Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Escaper::html($b_file)));
 					}
 
 					return $this->redirect($sBaseSelfUrl);

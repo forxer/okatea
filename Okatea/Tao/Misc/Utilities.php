@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Misc;
 
 use Swift_Validate;
+use Okatea\Tao\Html\Escaper;
 
 /**
  * Utilitaires divers et variés...
@@ -117,40 +118,6 @@ class Utilities
 		}
 	}
 
-	/**
-	 * Permet de copier un répertoire de façon récursive.
-	 *
-	 * @param string $src
-	 * @param string $dst
-	 */
-	public static function rcopy($src,$dst)
-	{
-		if (is_file($src)) {
-			copy($src, $dst);
-		}
-		elseif (is_dir($src))
-		{
-			\files::makeDir($dst,true);
-
-			$dir = opendir($src);
-
-			while (false !== ($file = readdir($dir)))
-			{
-				if ($file == '.' || $file == '..' || $file == '.svn') {
-					continue;
-				}
-
-				if (is_dir($src.'/'.$file) ) {
-					self::rcopy($src.'/'.$file, $dst.'/'.$file);
-				}
-				else {
-					copy($src.'/'.$file, $dst.'/'.$file);
-				}
-			}
-			closedir($dir);
-		}
-	}
-
 	/*
 	 * Utilitaires sur les chiffres
 	 *
@@ -205,7 +172,7 @@ class Utilities
 	 */
 	public static function formatNumber($number, $dec=2)
 	{
-		return self::escapeHTML(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
+		return Escaper::html(number_format((float)$number, $dec, __('c_c_number_decimals_separator'), __('c_c_number_thousands_separator')));
 	}
 
 	/**
@@ -487,46 +454,6 @@ class Utilities
 		}
 
 		return $string;
-	}
-
-	/**
-	 * HTML escape
-	 *
-	 * Replaces HTML special characters by entities.
-	 *
-	 * @param string $str	String to escape
-	 * @return	string
-	 */
-	public static function escapeHTML($str)
-	{
-		return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
-	}
-
-	/**
-	 * HTML attributes escape
-	 *
-	 * @param string $str	String to escape
-	 * @return	string
-	 */
-	public static function escapeAttrHTML($str)
-	{
-		$str = str_replace(array('"', '\''), array('', '’'), $str);
-
-		return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
-	}
-
-	/**
-	 * Javascript escape
-	 *
-	 * Returns a protected JavaScript string
-	 *
-	 * @param string	$str		String to protect
-	 * @return	string
-	 */
-	public static function escapeJS($str)
-	{
-		$str = str_replace(array('"', "'"), array('\"', "\'"), $str);
-		return htmlspecialchars($str, ENT_NOQUOTES, 'UTF-8');
 	}
 
 	/**

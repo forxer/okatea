@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Themes;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 
@@ -291,7 +292,7 @@ class Collection
 		);
 		$aReplace = array(
 			$sId,
-			Utilities::escapeHTML($sName)
+			Escaper::html($sName)
 		);
 
 		try

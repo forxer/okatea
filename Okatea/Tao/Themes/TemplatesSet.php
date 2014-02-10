@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Themes;
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
 
 /**
@@ -427,7 +428,7 @@ class TemplatesSet
 								'<a href="'.$this->sBaseUrl.'tpl_delete=1'.
 								'&amp;tpl_family='.rawurlencode($this->sTplFamily).
 								'&amp;tpl_id='.rawurlencode($aTplInfos['id']).'" '.
-								'onclick="return window.confirm(\''.Utilities::escapeJS(__('c_a_tpl_config_delete_confirm')).'\')" '.
+								'onclick="return window.confirm(\''.Escaper::js(__('c_a_tpl_config_delete_confirm')).'\')" '.
 								'class="icon package_delete">'.__('c_c_action_Delete').'</a>'.
 							'</li>';
 

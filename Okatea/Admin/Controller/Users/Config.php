@@ -5,7 +5,7 @@
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Themes\TemplatesSet;
 use Okatea\Tao\Users\Groups;
 
@@ -167,7 +167,7 @@ class Config extends Controller
 		while ($rsGroups->fetch())
 		{
 			if (!in_array($rsGroups->group_id, array(Groups::SUPERADMIN, Groups::ADMIN, Groups::GUEST))) {
-				$aGroups[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
+				$aGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
 			}
 		}
 

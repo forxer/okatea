@@ -9,7 +9,7 @@
 namespace Okatea\Tao\Images;
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 
 /**
  * Aide à la configuration de l'upload des images.
@@ -454,7 +454,7 @@ class ImageUploadConfig
 						'style="background: transparent url('.$this->okt->options->public_url.'/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>'.
 
 						'<p><a href="'.$this->sBaseUrl.'delete_watermark=1" '.
-						'onclick="return window.confirm(\''.Utilities::escapeJS(__('a_image_config_watermark_confirm')).'\')" '.
+						'onclick="return window.confirm(\''.Escaper::js(__('a_image_config_watermark_confirm')).'\')" '.
 						'class="icon delete">'.__('a_image_config_watermark_delete').'</a></p>';
 					}
 

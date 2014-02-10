@@ -8,8 +8,8 @@
 
 namespace Okatea\Modules\Users;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\BaseFilters;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Authentification;
 
@@ -126,7 +126,7 @@ class Filters extends BaseFilters
 				continue;
 			}
 
-			$groups_array[Utilities::escapeHTML($rs->title)] = $rs->group_id;
+			$groups_array[Escaper::html($rs->title)] = $rs->group_id;
 		}
 		unset($rs);
 

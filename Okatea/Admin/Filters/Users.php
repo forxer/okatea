@@ -8,9 +8,9 @@
 
 namespace Okatea\Admin\Filters;
 
-use Okatea\Tao\Misc\BaseFilters;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Misc\BaseFilters;
 use Okatea\Tao\Users\Groups;
 
 class Users extends BaseFilters
@@ -124,7 +124,7 @@ class Users extends BaseFilters
 				continue;
 			}
 
-			$groups_array[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
+			$groups_array[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
 		}
 
 		$this->fields['group_id'] = array(

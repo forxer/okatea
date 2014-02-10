@@ -9,6 +9,7 @@
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Users;
@@ -265,7 +266,7 @@ class User extends Controller
 		$aLanguages = array();
 
 		foreach ($this->okt->languages->list as $aLanguage) {
-			$aLanguages[Utilities::escapeHTML($aLanguage['title'])] = $aLanguage['code'];
+			$aLanguages[Escaper::html($aLanguage['title'])] = $aLanguage['code'];
 		}
 
 		return $aLanguages;
@@ -291,7 +292,7 @@ class User extends Controller
 				continue;
 			}
 
-			$aGroups[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
+			$aGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
 		}
 
 		return $aGroups;

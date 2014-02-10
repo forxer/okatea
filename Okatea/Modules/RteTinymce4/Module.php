@@ -8,8 +8,8 @@
 
 namespace Okatea\Modules\RteTinymce4;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Modules\Module as BaseModule;
-use Okatea\Tao\Misc\Utilities;
 
 class Module extends BaseModule
 {
@@ -49,7 +49,7 @@ class Module extends BaseModule
 		$aOptions = array();
 
 		$aOptions[] = 'relative_urls: true';
-		$aOptions[] = 'document_base_url: "'.Utilities::escapeJS($okt->request->getSchemeAndHttpHost().$okt->config->app_path).'"';
+		$aOptions[] = 'document_base_url: "'.Escaper::js($okt->request->getSchemeAndHttpHost().$okt->config->app_path).'"';
 
 		# selector
 		$aOptions[] = 'selector: "'.$element.'"';

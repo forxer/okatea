@@ -8,8 +8,8 @@
 
 namespace Okatea\Website;
 
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Website\Controller as BaseController;
@@ -512,7 +512,7 @@ class UsersController extends BaseController
 				while ($this->rsUserFields->fetch())
 				{
 					if ($this->rsUserFields->active == 2 && empty($aPostedData[$this->rsUserFields->id])) {
-						$this->okt->error->set('Vous devez renseigner le champ "'.Utilities::escapeHtml($this->rsUserFields->title).'".');
+						$this->okt->error->set('Vous devez renseigner le champ "'.Escaper::html($this->rsUserFields->title).'".');
 					}
 				}
 			}
@@ -618,7 +618,7 @@ class UsersController extends BaseController
 		));
 
 		while ($rsGroups->fetch()) {
-			$aUsersGroups[Utilities::escapeHTML($rsGroups->title)] = $rsGroups->group_id;
+			$aUsersGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
 		}
 
 		return $aUsersGroups;
@@ -631,7 +631,7 @@ class UsersController extends BaseController
 	protected function getLanguages()
 	{
 		foreach ($this->okt->languages->list as $aLanguage) {
-			$aLanguages[Utilities::escapeHTML($aLanguage['title'])] = $aLanguage['code'];
+			$aLanguages[Escaper::html($aLanguage['title'])] = $aLanguage['code'];
 		}
 
 		return $aLanguages;

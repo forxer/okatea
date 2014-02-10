@@ -10,7 +10,7 @@ namespace Okatea\Modules\Pages\Admin\Controller;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Forms\Statics\SelectOption;
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Themes\TemplatesSet;
 
 class Category extends Controller
@@ -321,7 +321,7 @@ class Category extends Controller
 			if (!in_array($this->rsCategories->id, $aChildrens))
 			{
 				$aAllowedParents[] = new SelectOption(
-					str_repeat('&nbsp;&nbsp;&nbsp;', $this->rsCategories->level-1).'&bull; '.Utilities::escapeHTML($this->rsCategories->title),
+					str_repeat('&nbsp;&nbsp;&nbsp;', $this->rsCategories->level-1).'&bull; '.Escaper::html($this->rsCategories->title),
 					$this->rsCategories->id
 				);
 			}

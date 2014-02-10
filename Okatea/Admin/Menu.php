@@ -8,7 +8,7 @@
 
 namespace Okatea\Admin;
 
-use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Html\Escaper;
 
 /**
  * Permet de construire les menus de l'administration.
@@ -160,7 +160,7 @@ class Menu
 
 				$res[] = sprintf(
 					($this->items[$i]['active'] ? $this->html['active'] : $this->html['item']),
-					Utilities::escapeHTML($this->items[$i]['title']),
+					Escaper::html($this->items[$i]['title']),
 					$this->items[$i]['url'],
 					($this->items[$i]['id'] !== null ? ' id="'.$this->items[$i]['id'].'"' : ''),
 					$sub['html']

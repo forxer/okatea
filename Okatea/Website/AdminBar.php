@@ -9,6 +9,7 @@
 namespace Okatea\Website;
 
 use Okatea\Admin\Router as AdminRouter;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Users\Users;
@@ -75,7 +76,7 @@ class AdminBar
 		# éléments seconde barre
 		$aSecondaryAdminBar[100] = array(
 			'href' => $aBasesUrl['profil'],
-			'intitle' => sprintf(__('c_c_user_hello_%s'), Utilities::escapeHTML(Users::getUserDisplayName($this->okt->user->username, $this->okt->user->lastname, $this->okt->user->firstname, $this->okt->user->displayname)))
+			'intitle' => sprintf(__('c_c_user_hello_%s'), Escaper::html(Users::getUserDisplayName($this->okt->user->username, $this->okt->user->lastname, $this->okt->user->firstname, $this->okt->user->displayname)))
 		);
 
 		if (!$this->okt->languages->unique)
@@ -88,9 +89,9 @@ class AdminBar
 				}
 
 				$aSecondaryAdminBar[$iStartIdx++] = array(
-					'href' => Utilities::escapeHTML($this->okt->config->app_path.$aLanguage['code'].'/'),
-					'title' => Utilities::escapeHTML($aLanguage['title']),
-					'intitle' => '<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" />'
+					'href' => Escaper::html($this->okt->config->app_path.$aLanguage['code'].'/'),
+					'title' => Escaper::html($aLanguage['title']),
+					'intitle' => '<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Escaper::html($aLanguage['title']).'" />'
 				);
 			}
 		}
@@ -217,7 +218,7 @@ class AdminBar
 			<a class="screen-reader-shortcut" href="#okt-toolbar" tabindex="1"><?php _e('Skip to toolbar'); ?>
 			</a>
 			<div class="quicklinks" id="okt-toolbar" role="navigation"
-				aria-label="<?php echo Utilities::escapeAttrHTML(__('Top navigation toolbar.')); ?>"
+				aria-label="<?php echo Escaper::attribute(__('Top navigation toolbar.')); ?>"
 				tabindex="0">
 				<ul class="ab-top-menu">
 					<?php foreach ($aPrimaryAdminBar as $aPrimaryItem) {
@@ -279,7 +280,7 @@ class AdminBar
 		{
 			return
 				'<div class="ab-item ab-empty-item"'.
-				(!empty($aItem['title']) ? ' title="'.Utilities::escapeAttrHTML($aItem['title']).'"' : '').'>'.
+				(!empty($aItem['title']) ? ' title="'.Escaper::attribute($aItem['title']).'"' : '').'>'.
 				$aItem['intitle'].'</div>';
 		}
 		else
@@ -287,7 +288,7 @@ class AdminBar
 			return
 				'<a class="ab-item" href="'.$aItem['href'].'"'.
 				($haspopup ? ' aria-haspopup="true"' : '').
-				(!empty($aItem['title']) ? ' title="'.Utilities::escapeAttrHTML($aItem['title']).'"' : '').'>'.
+				(!empty($aItem['title']) ? ' title="'.Escaper::attribute($aItem['title']).'"' : '').'>'.
 				$aItem['intitle'].'</a>';
 		}
 	}

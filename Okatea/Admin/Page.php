@@ -13,8 +13,8 @@ use Okatea\Admin\Messages\Infos;
 use Okatea\Admin\Messages\Success;
 use Okatea\Admin\Messages\Warnings;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Page as BasePage;
-use Okatea\Tao\Misc\Utilities;
 
 /**
  * Construction des pages d'administration.
@@ -198,7 +198,7 @@ class Page extends BasePage
 			# profil link
 			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'),
 				'<a href="'.$this->okt->adminRouter->generate('User_profile').'">'.
-				Utilities::escapeHTML($this->okt->user->usedname).'</a>');
+				Escaper::html($this->okt->user->usedname).'</a>');
 
 			# log off link
 			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
@@ -223,8 +223,8 @@ class Page extends BasePage
 					continue;
 				}
 
-				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'lang='.Utilities::escapeHTML($aLanguage['code']).'" title="'.Utilities::escapeHTML($aLanguage['title']).'">'.
-						'<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Utilities::escapeHTML($aLanguage['title']).'" /></a>';
+				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'lang='.Escaper::html($aLanguage['code']).'" title="'.Escaper::html($aLanguage['title']).'">'.
+						'<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Escaper::html($aLanguage['title']).'" /></a>';
 			}
 
 			unset($sBaseUri,$aLanguage);

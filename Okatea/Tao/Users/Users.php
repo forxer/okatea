@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Users;
 
 use Okatea\Tao\Database\Recordset;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
 
 class Users
@@ -300,7 +301,7 @@ class Users
 	public function isEmail($sEmail)
 	{
 		if (!Utilities::isEmail($sEmail)) {
-			$this->error->set(sprintf(__('c_c_error_invalid_email'), Utilities::escapeHTML($sEmail)));
+			$this->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
 		}
 	}
 
