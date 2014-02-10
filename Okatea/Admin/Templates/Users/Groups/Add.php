@@ -36,7 +36,7 @@ $okt->page->setButtonset('usersGroups', array(
 
 <form action="<?php echo $view->generateUrl('Users_groups_add') ?>" method="post">
 
-	<p class="field"><label for="title"><?php _e('c_c_Title') ?></label>
+	<p class="field"><label for="title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Title') ?></label>
 	<?php echo form::text('title', 40, 255, $view->escape($title)) ?></p>
 
 	<p><?php echo $okt->page->formtoken(); ?>

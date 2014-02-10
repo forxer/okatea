@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Misc;
 
+use Swift_Validate;
+
 /**
  * Utilitaires divers et variés...
  *
@@ -147,59 +149,6 @@ class Utilities
 			}
 			closedir($dir);
 		}
-	}
-
-	/**
-	 * Suppression récursive et agressive d'une liste
-	 * de fichiers dans un répertoire donné.
-	 *
-	 * Les fichiers à supprimer peuvent êtres des répertoires.
-	 *
-	 * @param string $sDirectoryPath	Le répertoire à nettoyer
-	 * @param array $aToDelete			Les fichiers à supprimer
-	 * @return integer Le nombre de fichier supprimés.
-	 */
-	public static function recursiveCleanup($sDirectoryPath,$aToDelete)
-	{
-		static $iNumProcessed = null;
-
-		if (is_null($iNumProcessed)) {
-			$iNumProcessed = 0;
-		}
-
-		$oDirectory = dir($sDirectoryPath);
-
-		while (($sFilename = $oDirectory->read()) !== false)
-		{
-			if ($sFilename == '.' || $sFilename == '..') {
-				continue;
-			}
-
-			$sFile = $sDirectoryPath.'/'.$sFilename;
-
-			if (is_dir($sFile))
-			{
-				if (in_array($sFilename,$aToDelete))
-				{
-					\files::deltree($sFile);
-					$iNumProcessed++;
-				}
-				else {
-					self::recursiveCleanup($sFile,$aToDelete);
-				}
-			}
-			elseif (is_file($sFile))
-			{
-				if (in_array($sFilename,$aToDelete))
-				{
-					unlink($sFile);
-					$iNumProcessed++;
-				}
-			}
-		}
-
-		$oDirectory->close();
-		return $iNumProcessed;
 	}
 
 	/*
@@ -608,20 +557,7 @@ class Utilities
 	 */
 	public static function isEmail($email)
 	{
-		$qtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
-		$dtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
-		$atom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
-		$quoted_pair = '\\x5c[\\x00-\\x7f]';
-		$domain_literal = "\\x5b($dtext|$quoted_pair)*\\x5d";
-		$quoted_string = "\\x22($qtext|$quoted_pair)*\\x22";
-		$domain_ref = $atom;
-		$sub_domain = "($domain_ref|$domain_literal)";
-		$word = "($atom|$quoted_string)";
-		$domain = "$sub_domain(\\x2e$sub_domain)*";
-		$local_part = "$word(\\x2e$word)*";
-		$addr_spec = "$local_part\\x40$domain";
-
-		return (boolean) preg_match("!^$addr_spec$!", $email);
+		return Swift_Validate::email($sEmail);
 	}
 
 	/**
@@ -671,22 +607,6 @@ class Utilities
 	 */
 	static public function strToSlug($str, $with_slashes=true)
 	{
-		/*
-		static $sType = null;
-
-		if (is_null($sType))
-		{
-			global $okt;
-
-			if (isset($okt) && !empty($okt->config->slug_type)) {
-				$sType = $okt->config->slug_type;
-			}
-			else {
-				$sType = 'ascii';
-			}
-		}
-		*/
-
 		switch ($GLOBALS['okt']->config->slug_type)
 		{
 			case 'utf8':

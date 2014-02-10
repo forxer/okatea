@@ -10,6 +10,8 @@ namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Tools extends Controller
 {
@@ -80,9 +82,9 @@ class Tools extends Controller
 			'id' => 'tab-cache',
 			'title' => __('c_a_tools_cache'),
 			'content' => $this->renderView('Config/Tools/Tabs/Cache', array(
-				'aPageData' => $this->aPageData,
-				'aCacheFiles' => $this->aCacheFiles,
-				'aPublicCacheFiles' => $this->aPublicCacheFiles
+				'aPageData'             => $this->aPageData,
+				'aCacheFiles'           => $this->aCacheFiles,
+				'aPublicCacheFiles'     => $this->aPublicCacheFiles
 			))
 		);
 
@@ -91,8 +93,8 @@ class Tools extends Controller
 			'id' => 'tab-cleanup',
 			'title' => __('c_a_tools_cleanup'),
 			'content' => $this->renderView('Config/Tools/Tabs/Cleanup', array(
-				'aPageData' => $this->aPageData,
-				'aCleanableFiles' => $this->aCleanableFiles
+				'aPageData'         => $this->aPageData,
+				'aCleanableFiles'   => $this->aCleanableFiles
 			))
 		);
 
@@ -101,9 +103,9 @@ class Tools extends Controller
 			'id' => 'tab-backup',
 			'title' => __('c_a_tools_backup'),
 			'content' => $this->renderView('Config/Tools/Tabs/Backup', array(
-				'aPageData' => $this->aPageData,
-				'aBackupFiles' => $this->aBackupFiles,
-				'aDbBackupFiles' => $this->aDbBackupFiles
+				'aPageData'         => $this->aPageData,
+				'aBackupFiles'      => $this->aBackupFiles,
+				'aDbBackupFiles'    => $this->aDbBackupFiles
 			))
 		);
 
@@ -113,9 +115,9 @@ class Tools extends Controller
 			'title' => __('c_a_tools_htaccess'),
 			'content' => $this->renderView('Config/Tools/Tabs/Htaccess', array(
 				'aPageData' => $this->aPageData,
-				'bHtaccessExists' => $this->bHtaccessExists,
-				'bHtaccessDistExists' => $this->bHtaccessDistExists,
-				'sHtaccessContent' => $this->sHtaccessContent
+				'bHtaccessExists'       => $this->bHtaccessExists,
+				'bHtaccessDistExists'   => $this->bHtaccessDistExists,
+				'sHtaccessContent'      => $this->sHtaccessContent
 			))
 		);
 
@@ -142,9 +144,36 @@ class Tools extends Controller
 	{
 		# liste des fichiers supprimables
 		$this->aCleanableFiles = array(
-			1 => 'Thumbs.db',
-			2 => '_notes',
-			3 => '.svn'
+
+			'.DS_Store',
+
+			'Thumbs.db',
+			'ehthumbs.db',
+			'Desktop.ini',
+
+			'*.tmp',
+			'tmp',
+			'bak',
+			'*.bak',
+			'*.swp',
+
+			'.project',
+			'.settings',
+			'.metadata',
+			'.loadpath',
+			'.buildpath',
+
+			'_notes',
+
+			'.svn',
+			'_svn',
+			'CVS',
+			'_darcs',
+			'.arch-params',
+			'.monotone',
+			'.bzr',
+			'.git',
+			'.hg'
 		);
 	}
 
@@ -263,12 +292,29 @@ class Tools extends Controller
 
 			if (!empty($aToDelete))
 			{
-				@ini_set('memory_limit',-1);
-				set_time_limit(480);
+				ini_set('memory_limit',-1);
+				set_time_limit(0);
 
-				$iNumProcessed = Utilities::recursiveCleanup($this->okt->options->get('root_dir'),$aToDelete);
+				$finder = new Finder();
+				$finder
+					->in($this->okt->options->get('root_dir'))
+					->exclude('/vendor')
+					->ignoreVCS(false)
+				;
 
-				$this->page->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'),$iNumProcessed));
+				foreach ($aToDelete as $sToDelete) {
+					$finder->name($sToDelete);
+				}
+
+				$iNumFindedFiles = count($finder);
+
+				if ($iNumFindedFiles > 0)
+				{
+					$fs = new Filesystem();
+					$fs->remove($finder);
+				}
+
+				$this->page->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}

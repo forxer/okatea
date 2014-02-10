@@ -32,6 +32,7 @@ $GLOBALS['okt_l10n']['c_a_users_edit_the_user_%s'] = 'Modifier l’utilisateur %
 $GLOBALS['okt_l10n']['c_a_users_delete_the_user'] = 'Supprimer l’utilisateur';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_user_%s'] = 'Supprimer l’utilisateur %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_user_deletion'] = 'Etes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.';
+$GLOBALS['okt_l10n']['c_a_users_list_users_action'] = 'Action sur les utilisateurs sélectionnés : ';
 
 $GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'Il n’y a aucun utilisateur qui correspond à votre recherche.';
 $GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'Il n’y a aucun utilisateur qui correspond à vos filtres d’affichage.';
@@ -56,13 +57,15 @@ $GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'Le groupe a été modifié.';
 $GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'Le groupe a été supprimé.';
 $GLOBALS['okt_l10n']['c_a_users_group_list'] = 'Liste des groupes';
 $GLOBALS['okt_l10n']['c_a_users_group_num_users'] = 'Nombre d’utilisateurs';
+$GLOBALS['okt_l10n']['c_a_users_group_%s_show_users'] = 'Afficher les utilisateurs du groupe %s';
 $GLOBALS['okt_l10n']['c_a_users_group_no_user'] = 'Aucun utilisateur';
 $GLOBALS['okt_l10n']['c_a_users_group_one_user'] = 'Un utilisateur';
-$GLOBALS['okt_l10n']['c_a_users_group_%s_users'] = '%S utilisateurs';
-$GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Modifier un groupe';
+$GLOBALS['okt_l10n']['c_a_users_group_%s_users'] = '%s utilisateurs';
 $GLOBALS['okt_l10n']['c_a_users_add_group'] = 'Ajouter un groupe';
+$GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Modifier un groupe';
+$GLOBALS['okt_l10n']['c_a_users_edit_the_group_%s'] = 'Modifier le groupe %s';
+$GLOBALS['okt_l10n']['c_a_users_delete_the_group_%s'] = 'Supprimer le groupe %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_group_deletion'] = 'Etes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible.';
-$GLOBALS['okt_l10n']['c_a_users_cannot_remove_group'] = 'Vous ne pouvez pas supprimer ce groupe.';
 
 # Affichage
 $GLOBALS['okt_l10n']['c_a_users_Administration_interface'] = 'Interface d’administration';

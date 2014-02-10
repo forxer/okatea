@@ -43,6 +43,14 @@ class Groups
 	 */
 	const MEMBER = 4;
 
+	public static $native = array(
+		self::UNVERIFIED,
+		self::SUPERADMIN,
+		self::ADMIN,
+		self::GUEST,
+		self::MEMBER
+	);
+
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -98,8 +106,8 @@ class Groups
 		{
 			if (is_array($aParams['group_id']))
 			{
-				$aParams['group_id'] = array_map('intval',$aParams['group_id']);
-				$sReqPlus .= 'AND g.group_id IN ('.implode(',',$aParams['group_id']).') ';
+				$aParams['group_id'] = array_map('intval', $aParams['group_id']);
+				$sReqPlus .= 'AND g.group_id IN ('.implode(',', $aParams['group_id']).') ';
 			}
 			else {
 				$sReqPlus .= 'AND g.group_id='.(integer)$aParams['group_id'].' ';
@@ -208,16 +216,18 @@ class Groups
 	{
 		$sQuery =
 		'INSERT INTO '.$this->t_groups.' ( '.
-		'title'.
+			'title'.
 		') VALUES ( '.
-		'\''.$this->db->escapeStr($title).'\' '.
+			'\''.$this->db->escapeStr($title).'\' '.
 		'); ';
 
 		if (!$this->db->execute($sQuery)) {
 			return false;
 		}
 
-		return $this->db->getLastID();
+		$iNewId = $this->db->getLastID();
+
+		return $iNewId;
 	}
 
 	/**
@@ -230,12 +240,13 @@ class Groups
 	public function updGroup($iGroupId, $title)
 	{
 		if (!$this->groupExists($iGroupId)) {
+			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 
 		$sQuery =
 		'UPDATE '.$this->t_groups.' SET '.
-		'title=\''.$this->db->escapeStr($title).'\' '.
+			'title=\''.$this->db->escapeStr($title).'\' '.
 		'WHERE group_id='.(integer)$iGroupId;
 
 		if (!$this->db->execute($sQuery)) {
@@ -248,6 +259,7 @@ class Groups
 	public function updGroupPerms($iGroupId, $perms)
 	{
 		if (!$this->groupExists($iGroupId)) {
+			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 
@@ -257,7 +269,7 @@ class Groups
 
 		$sQuery =
 		'UPDATE '.$this->t_groups.' SET '.
-		'perms=\''.$this->db->escapeStr($perms).'\' '.
+			'perms=\''.$this->db->escapeStr($perms).'\' '.
 		'WHERE group_id='.(integer)$iGroupId;
 
 		if (!$this->db->execute($sQuery)) {
@@ -275,30 +287,34 @@ class Groups
 	 */
 	public function deleteGroup($iGroupId)
 	{
-		if (!$this->groupExists($iGroupId)) {
+		$rsGroup = $this->getGroups(array('group_id' => $iGroupId));
+
+		if ($rsGroup->isEmpty())
+		{
+			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
-
-		$oUsers = new Users($this->okt);
-		$nbUser = $oUsers->getUsers(array('group_id'=>$iGroupId),true);
-
-		if ($nbUser > 0)
+		elseif (in_array($iGroupId, self::$native))
+		{
+			$this->okt->error->set(__('c_c_users_error_cannot_remove_group'));
+			return false;
+		}
+		elseif ($rsGroup->num_users > 0)
 		{
 			$this->error->set(__('c_c_users_error_users_in_group_cannot_remove'));
 			return false;
 		}
-		else {
-			$sQuery =
-			'DELETE FROM '.$this->t_groups.' '.
-			'WHERE group_id='.(integer)$iGroupId;
 
-			if (!$this->db->execute($sQuery)) {
-				return false;
-			}
+		$sQuery =
+		'DELETE FROM '.$this->t_groups.' '.
+		'WHERE group_id='.(integer)$iGroupId;
 
-			$this->db->optimize($this->t_groups);
-
-			return true;
+		if (!$this->db->execute($sQuery)) {
+			return false;
 		}
+
+		$this->db->optimize($this->t_groups);
+
+		return true;
 	}
 }

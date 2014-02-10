@@ -25,13 +25,8 @@ class Groups extends Controller
 		{
 			$iGroupIdToDelete = $this->okt->request->query->get('delete_id');
 
-			if (in_array($iGroupIdToDelete, array(UsersGroups::SUPERADMIN, UsersGroups::ADMIN, UsersGroups::GUEST, UsersGroups::MEMBER))) {
-				$this->okt->error->set(__('c_a_users_cannot_remove_group'));
-			}
-			else
+			if ($oUsersGroups->deleteGroup($iGroupIdToDelete))
 			{
-				$oUsersGroups->deleteGroup($iGroupIdToDelete);
-
 				$this->okt->page->flash->success(__('c_a_users_group_deleted'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
@@ -63,9 +58,11 @@ class Groups extends Controller
 			{
 				$oUsersGroups = new UsersGroups($this->okt);
 
-				$oUsersGroups->addGroup($title);
+				$iGroupId = $oUsersGroups->addGroup($title);
 
 				$this->okt->page->flash->success(__('c_a_users_group_added'));
+
+				return $this->redirect($this->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}

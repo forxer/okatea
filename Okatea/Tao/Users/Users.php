@@ -1,10 +1,10 @@
 <?php
 /*
  * This file is part of Okatea.
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Okatea\Tao\Users;
 
@@ -299,7 +299,7 @@ class Users
 	 */
 	public function isEmail($sEmail)
 	{
-		if (!\text::isEmail($sEmail)) {
+		if (!Utilities::isEmail($sEmail)) {
 			$this->error->set(sprintf(__('c_c_error_invalid_email'), Utilities::escapeHTML($sEmail)));
 		}
 	}
@@ -376,7 +376,7 @@ class Users
 		'); ';
 
 		if (!$this->db->execute($sQuery)) {
-			return false;
+			throw new \Exception('Unable to insert user into database');
 		}
 
 		$iNewId = $this->db->getLastID();
@@ -387,12 +387,9 @@ class Users
 	/**
 	 * Mise à jour d'une page
 	 *
-	 * @param integer $id
-	 * @param string $title
-	 * @param string $code
 	 * @return boolean
 	 */
-	public function updUser($aParams=array())
+	public function updUser(array $aParams = array())
 	{
 		$rsUser = $this->getUsers(array('id' => $aParams['id']));
 
@@ -479,7 +476,7 @@ class Users
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
-			return false;
+			throw new \Exception('Unable to update user in database.');
 		}
 
 		return true;
@@ -507,25 +504,25 @@ class Users
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
-			return false;
+			throw new \Exception('Unable to update user in database.');
 		}
 
 		return true;
 	}
 
 	/**
-	 * Suppression d'un utilisateur.
+	 * Delete a user.
 	 *
-	 * @param $id
+	 * @param integer $id
+	 * @throws \Exception
 	 * @return boolean
 	 */
-	public function deleteUser($id)
+	public function deleteUser($iUserId)
 	{
-		$rsUser = $this->getUsers(array('id'=>$id));
+		$rsUser = $this->getUsers(array('id' => $iUserId));
 
-		if ($rsUser->isEmpty())
-		{
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $id));
+		if ($rsUser->isEmpty()) {
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -534,8 +531,7 @@ class Users
 		{
 			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
-			if ($iCountSudo < 2)
-			{
+			if ($iCountSudo < 2) {
 				$this->error->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
 				return false;
 			}
@@ -543,17 +539,42 @@ class Users
 
 		$sQuery =
 		'DELETE FROM '.$this->t_users.' '.
-		'WHERE id='.(integer)$id;
+		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sQuery)) {
-			return false;
+			throw new \Exception('Unable to remove user from database.');
 		}
 
 		$this->db->optimize($this->t_users);
 
 		# delete user custom fields
 		if ($this->okt->config->users['custom_fields_enabled']) {
-			$this->fields->delUserValue($id);
+			$this->fields->delUserValue($iUserId);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Valide un utilisateur (le place dans le groupe par défaut)
+	 *
+	 * @param integer $iUserId
+	 * @return boolean
+	 */
+	public function validateUser($iUserId)
+	{
+		if (!$this->userExists($iUserId)) {
+			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			return false;
+		}
+
+		$sSqlQuery =
+		'UPDATE '.$this->t_users.' SET '.
+			'group_id = '.(integer)$this->okt->config->users['registration']['default_group'].' '.
+		'WHERE id='.(integer)$iUserId;
+
+		if (!$this->db->execute($sSqlQuery)) {
+			throw new \Exception('Unable to update user in database.');
 		}
 
 		return true;
@@ -578,7 +599,7 @@ class Users
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {
-			return false;
+			throw new \Exception('Unable to update user in database.');
 		}
 
 		return true;
@@ -597,8 +618,7 @@ class Users
 
 		$rsUser = $this->getUsers(array('id' => $iUserId));
 
-		if ($rsUser->isEmpty())
-		{
+		if ($rsUser->isEmpty()) {
 			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
@@ -608,8 +628,7 @@ class Users
 		{
 			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
-			if ($iCountSudo < 2)
-			{
+			if ($iCountSudo < 2) {
 				$this->error->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
 				return false;
 			}
@@ -621,7 +640,7 @@ class Users
 		'WHERE id='.(integer)$iUserId;
 
 		if (!$this->db->execute($sSqlQuery)) {
-			return false;
+			throw new \Exception('Unable to update user in database.');
 		}
 
 		return true;

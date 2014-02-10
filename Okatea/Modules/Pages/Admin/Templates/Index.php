@@ -81,8 +81,6 @@ elseif ($okt->Pages->config->admin_filters_style == 'dialog')
 	");
 }
 
-# Checkboxes helper
-$okt->page->checkboxHelper('pages-list','checkboxHelper');
 
 # Un peu de CSS
 $okt->page->css->addCss('
@@ -115,7 +113,7 @@ $okt->page->css->addCss('
 
 			<?php echo form::hidden('m','pages') ?>
 			<?php echo form::hidden('action','index') ?>
-			<input type="submit" name="search_submit" id="search_submit" value="ok" /></p>
+			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
 		</form>
 	</div>
 </div>
@@ -172,7 +170,7 @@ if (!$rsPages->isEmpty()) : ?>
 			$count_line++;
 		?>
 		<tr>
-			<th class="<?php echo $td_class ?> fake-td">
+			<th scope="row" class="<?php echo $td_class ?> fake-td">
 				<?php echo form::checkbox(array('pages[]'),$rsPages->id) ?>
 				<a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
 				echo $view->escape($rsPages->title) ?></a>
@@ -229,17 +227,11 @@ if (!$rsPages->isEmpty()) : ?>
 		<?php endwhile; ?>
 		</tbody>
 	</table>
-
-	<div class="two-cols">
-		<div class="col">
-			<p id="checkboxHelper"></p>
-		</div>
-		<div class="col right"><p><?php _e('m_pages_list_pages_action')?>
-		<?php echo form::select('actions', $aActionsChoices) ?>
-		<?php echo form::hidden('sended', 1); ?>
-		<?php echo $okt->page->formtoken(); ?>
-		<input type="submit" value="<?php echo 'ok' ?>" /></p></div>
-	</div>
+	<?php echo $view->render('Common/FormListBatches', array(
+		'sFormId'             => 'pages-list',
+		'sActionsLabel'       => __('m_pages_list_pages_action'),
+		'aActionsChoices'     => $aActionsChoices
+	)); ?>
 </form>
 
 <?php if ($iNumPages > 1) : ?>

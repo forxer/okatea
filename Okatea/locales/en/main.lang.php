@@ -144,6 +144,8 @@ $GLOBALS['okt_l10n']['c_c_action_Move_last'] = 'Move in last';
 $GLOBALS['okt_l10n']['c_c_action_Move'] = 'Move';
 $GLOBALS['okt_l10n']['c_c_action_Sort'] = 'Sort';
 
+$GLOBALS['okt_l10n']['c_c_action_ok'] = 'ok';
+
 $GLOBALS['okt_l10n']['c_c_action_go_back'] = 'go back';
 $GLOBALS['okt_l10n']['c_c_action_Go_back'] = 'Go back';
 

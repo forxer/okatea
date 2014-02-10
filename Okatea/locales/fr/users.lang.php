@@ -30,6 +30,7 @@ $GLOBALS['okt_l10n']['c_c_users_Note_password'] = '<strong>Attention&nbsp;:</str
 
 # Error messages
 $GLOBALS['okt_l10n']['c_c_users_error_user_%s_not_exists'] = 'L’utilisateur #%s n’existe pas.';
+$GLOBALS['okt_l10n']['c_c_users_error_group_%s_not_exists'] = 'Le groupe #%s n’existe pas.';
 $GLOBALS['okt_l10n']['c_c_users_error_passwords_do_not_match'] = 'Les mots de passe ne correspondent pas.';
 $GLOBALS['okt_l10n']['c_c_users_error_email_already_exist'] = 'L’adresse email existe déjà.';
 $GLOBALS['okt_l10n']['c_c_users_error_username_already_exist'] = 'Ce nom d’utilisateur existe déjà.';
@@ -37,8 +38,9 @@ $GLOBALS['okt_l10n']['c_c_users_error_username_too_short'] = 'Le nom d’utilisa
 $GLOBALS['okt_l10n']['c_c_users_error_username_too_long'] = 'Le nom d’utilisateur est trop long.';
 $GLOBALS['okt_l10n']['c_c_users_error_reserved_username'] = 'Vous n’avez pas le droit d’utiliser ce nom d’utilisateur.';
 $GLOBALS['okt_l10n']['c_c_users_error_forbidden_characters'] = 'Vous n’avez pas le droit d’utiliser les caractères [, ], \' et " dans le nom d’utilisateur.';
+$GLOBALS['okt_l10n']['c_c_users_error_cannot_remove_group'] = 'Vous ne pouvez pas supprimer ce groupe.';
 $GLOBALS['okt_l10n']['c_c_users_error_users_in_group_cannot_remove'] = 'Il y a des utilisateurs dans ce groupe, vous ne pouvez pas le supprimer.';
-$GLOBALS['okt_l10n']['c_c_users_error_cannot_remove_last_super_administrator'] = 'Vous n’avez pas le droit de supprimer le dernier super-administrateur.';
+$GLOBALS['okt_l10n']['c_c_users_error_cannot_remove_last_super_administrator'] = 'Vous n’avez pas le droit de supprimer le dernier super-administrateur actif.';
 $GLOBALS['okt_l10n']['c_c_users_error_cannot_disable_last_super_administrator'] = 'Vous n’avez pas le droit de désactiver le dernier super-administrateur.';
 $GLOBALS['okt_l10n']['c_c_users_error_cannot_change_group_last_super_administrator'] = 'Vous n’avez pas le droit de changer de groupe le dernier super-administrateur.';
 

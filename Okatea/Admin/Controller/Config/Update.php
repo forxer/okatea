@@ -12,6 +12,7 @@ use Okatea\Admin\Controller;
 use Okatea\Tao\Update as Updater;
 use Okatea\Tao\Html\CheckList;
 use Okatea\Tao\Misc\Utilities;
+use Symfony\Component\Finder\Finder;
 
 class Update extends Controller
 {
@@ -68,13 +69,17 @@ class Update extends Controller
 		$sStep = $this->request->query->get('step', '');
 		$sStep = in_array($sStep, array('check', 'download', 'backup', 'unzip', 'done')) ? $sStep : '';
 
-		$aArchives = array();
+		# find backup archives files
+		$finder = new Finder();
+		$finder
+			->files()
+			->in($this->okt->options->get('root_dir'))
+			->depth('== 0')
+			->name('/^backup-([0-9A-Za-z\.-]+).zip$/');
 
-		foreach (\files::scanDir($this->okt->options->get('root_dir')) as $v)
-		{
-			if (preg_match('/backup-([0-9A-Za-z\.-]+).zip/',$v)) {
-				$aArchives[] = $v;
-			}
+		$aArchives = array();
+		foreach ($finder as $file) {
+			$aArchives[] = $file->getFilename();
 		}
 
 		# Revert or delete backup file

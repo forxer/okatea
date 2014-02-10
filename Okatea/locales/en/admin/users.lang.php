@@ -32,6 +32,7 @@ $GLOBALS['okt_l10n']['c_a_users_edit_the_user_%s'] = 'Edit the user %s';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_user'] = 'Delete the user';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_user_%s'] = 'Delete the user %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_user_deletion'] = 'Are you sure you want to delete this user? This action is irreversible.';
+$GLOBALS['okt_l10n']['c_a_users_list_users_action'] = 'Action on the selected users: ';
 
 $GLOBALS['okt_l10n']['c_a_users_no_searched_user'] = 'There are no user that match your search.';
 $GLOBALS['okt_l10n']['c_a_users_no_filtered_user'] = 'There are no user that match your display filters.';
@@ -56,13 +57,15 @@ $GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'The group was edited.';
 $GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'The group was deleted.';
 $GLOBALS['okt_l10n']['c_a_users_group_list'] = 'List of groups';
 $GLOBALS['okt_l10n']['c_a_users_group_num_users'] = 'Number of users';
+$GLOBALS['okt_l10n']['c_a_users_group_%s_show_users'] = 'Show users of the %s group';
 $GLOBALS['okt_l10n']['c_a_users_group_no_user'] = 'No user';
 $GLOBALS['okt_l10n']['c_a_users_group_one_user'] = 'One user';
 $GLOBALS['okt_l10n']['c_a_users_group_%s_users'] = '%s users';
-$GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Edit a group';
 $GLOBALS['okt_l10n']['c_a_users_add_group'] = 'Add a group';
+$GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Edit a group';
+$GLOBALS['okt_l10n']['c_a_users_edit_the_group_%s'] = 'Edit the group %s';
+$GLOBALS['okt_l10n']['c_a_users_delete_the_group_%s'] = 'Delete the group %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_group_deletion'] = 'Are you sure you want to delete this group? This action is irreversible.';
-$GLOBALS['okt_l10n']['c_a_users_cannot_remove_group'] = 'You can not delete this group.';
 
 # Affichage
 $GLOBALS['okt_l10n']['c_a_users_Administration_interface'] = 'Administration interface';

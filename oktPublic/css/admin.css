@@ -956,6 +956,36 @@ ul.smartColumns li.column ul.note li {
 }
 
 
+/* Outils gestion par lots
+----------------------------------------------------------*/
+
+#form-list-batches {
+	position: static;
+	zoom: 1;
+}
+#form-list-batches:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+#form-list-batches #checkboxHelper {
+	float: left;
+	text-align: left;
+	width: 49%
+}
+#form-list-batches #actionsChoices {
+	float: right;
+	text-align: right;
+	width: 49%;
+	white-space: nowrap;
+}
+#form-list-batches #actionsChoices {
+	width: auto;
+}
+
+
 /* Boutons
 ----------------------------------------------------------*/
 

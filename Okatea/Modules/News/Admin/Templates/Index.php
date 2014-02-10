@@ -82,10 +82,6 @@ elseif ($okt->News->config->admin_filters_style == 'dialog')
 }
 
 
-# Checkboxes helper
-$okt->page->checkboxHelper('posts-list', 'checkboxHelper');
-
-
 # Un peu de CSS
 $okt->page->css->addCss('
 .ui-autocomplete {
@@ -115,7 +111,7 @@ $okt->page->css->addCss('
 			<p><label for="search"><?php _e('m_news_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, $view->escape((isset($sSearch) ? $sSearch : ''))); ?>
 
-			<input type="submit" name="search_submit" id="search_submit" value="ok" /></p>
+			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
 		</form>
 	</div>
 </div>
@@ -275,16 +271,11 @@ if (!$rsPosts->isEmpty()) : ?>
 		<?php endwhile; ?>
 		</tbody>
 	</table>
-
-	<div class="two-cols">
-		<div class="col">
-			<p id="checkboxHelper"></p>
-		</div>
-		<div class="col right"><p><?php _e('m_news_list_posts_action')?>
-		<?php echo form::select('actions', $aActionsChoices) ?>
-		<?php echo $okt->page->formtoken(); ?>
-		<input type="submit" value="<?php echo 'ok'; ?>" /></p></div>
-	</div>
+	<?php echo $view->render('Common/FormListBatches', array(
+		'sFormId'             => 'posts-list',
+		'sActionsLabel'       => __('m_news_list_posts_action'),
+		'aActionsChoices'     => $aActionsChoices
+	)); ?>
 </form>
 
 <?php if ($iNumPages > 1) : ?>

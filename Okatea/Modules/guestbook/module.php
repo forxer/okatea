@@ -220,7 +220,7 @@ class module_guestbook extends Module
 		# champ email
 		if ($this->config->chp_mail > 0)
 		{
-			if ($data['email'] != '' && !text::isEmail($data['email'])) {
+			if ($data['email'] != '' && !Utilities::isEmail($data['email'])) {
 				$this->error->set(__('m_guestbook_email_invalid'));
 			}
 

@@ -44,7 +44,7 @@ if (!empty($_POST['form_sent']))
 	foreach ($p_emails_list as $i=>$mail)
 	{
 		$mail = trim($mail);
-		if ($mail != '' && !text::isEmail($mail)) {
+		if ($mail != '' && !Utilities::isEmail($mail)) {
 			$okt->error->set(sprintf(__('m_guestbook_address_%s_is_invalid'), $mail));
 		}
 		$p_emails_list[$i] = $mail;

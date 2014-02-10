@@ -44,7 +44,7 @@ if (!empty($_POST['form_sent']))
 	$p_notifications_recipients = array_map('trim', explode(',', $p_notifications_recipients));
 	foreach ($p_notifications_recipients as $i=>$sEmail)
 	{
-		if ($sEmail != '' && !text::isEmail($sEmail)) {
+		if ($sEmail != '' && !Utilities::isEmail($sEmail)) {
 			$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($sEmail)));
 		}
 		$p_notifications_recipients[$i] = $sEmail;

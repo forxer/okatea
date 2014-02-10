@@ -24,97 +24,33 @@ class Index extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
 
-		$oUsers = new Users($this->okt);
-
 		# json users list for autocomplete
-		if ($this->request->query->has('json') && $this->request->query->has('term') && $this->request->isXmlHttpRequest())
-		{
-			$aParams = array();
-			$aParams['group_id_not'][] = Groups::GUEST;
+		if (($json = $this->getUsersJson()) !== false) {
+			return $json;
+		}
 
-			if (!$this->okt->user->is_superadmin) {
-				$aParams['group_id_not'][] = Groups::SUPERADMIN;
-			}
+		# Enable user status
+		if (($action = $this->enableUser()) !== false) {
+			return $action;
+		}
 
-			if (!$this->okt->user->is_admin) {
-				$aParams['group_id_not'][] = Groups::ADMIN;
-			}
+		# Disable user status
+		if (($action = $this->disableUser()) !== false) {
+			return $action;
+		}
 
-			$aParams['search'] = $this->request->query->get('term');
+		# Delete user
+		if (($action = $this->deleteUser()) !== false) {
+			return $action;
+		}
 
-			$rsUsers = $oUsers->getUsers($aParams);
-
-			$aResults = array();
-			while ($rsUsers->fetch())
-			{
-				$aResults[] = $rsUsers->username;
-				$aResults[] = $rsUsers->email;
-				if (!empty($rsUsers->firstname)) {
-					$aResults[] = $rsUsers->firstname;
-				}
-				if (!empty($rsUsers->lastname)) {
-					$aResults[] = $rsUsers->lastname;
-				}
-			}
-
-			return $this->jsonResponse(array_unique($aResults));
+		# Traitements par lots
+		if (($action = $this->batches()) !== false) {
+			return $action;
 		}
 
 		# initialisation des filtres
 		$oFilters = new UsersFilters($this->okt, 'admin');
-
-		# Enable user status
-		if ($iEnableUserId = $this->request->query->getInt('enable'))
-		{
-			if ($oUsers->setUserStatus($iEnableUserId, 1))
-			{
-				# log admin
-				$this->okt->logAdmin->info(array(
-					'code' => 30,
-					'component' => 'users',
-					'message' => 'user #'.$iEnableUserId
-				));
-
-				return $this->redirect($this->generateUrl('Users_index'));
-			}
-		}
-
-		# Disable user status
-		if ($iDisableUserId = $this->request->query->getInt('disable'))
-		{
-			if ($oUsers->setUserStatus($iDisableUserId, 0))
-			{
-				# log admin
-				$this->okt->logAdmin->info(array(
-					'code' => 31,
-					'component' => 'users',
-					'message' => 'user #'.$iDisableUserId
-				));
-
-				return $this->redirect($this->generateUrl('Users_index'));
-			}
-		}
-
-		# Supprimer utilisateur
-		if (($iDeleteUserId = $this->request->query->getInt('delete')) && $this->okt->checkPerm('users_delete'))
-		{
-			if ($oUsers->deleteUser($iDeleteUserId))
-			{
-				# log admin
-				$this->okt->logAdmin->warning(array(
-					'code' => 42,
-					'component' => 'users',
-					'message' => 'user #'.$iDeleteUserId
-				));
-
-				# -- CORE TRIGGER : adminModUsersDeleteProcess
-				$this->okt->triggers->callTrigger('adminModUsersDeleteProcess', $iDeleteUserId);
-
-				$this->okt->page->flash->success(__('c_a_users_user_deleted'));
-
-				return $this->redirect($this->generateUrl('Users_index'));
-			}
-		}
 
 		# Ré-initialisation filtres
 		if ($this->request->query->has('init_filters'))
@@ -123,8 +59,6 @@ class Index extends Controller
 			return $this->redirect($this->generateUrl('Users_index'));
 		}
 
-
-		# initialisation des filtres
 		$aParams = array();
 		$aParams['group_id_not'][] = Groups::GUEST;
 
@@ -148,6 +82,7 @@ class Index extends Controller
 		$oFilters->getFilters();
 
 		# initialisation de la pagination
+		$oUsers = new Users($this->okt);
 		$iNumFilteredUsers = $oUsers->getUsers($aParams,true);
 
 		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
@@ -161,8 +96,18 @@ class Index extends Controller
 		# liste des utilisateurs
 		$rsUsers = $oUsers->getUsers($aParams);
 
+		# Tableau de choix d'actions pour le traitement par lot
+		$aActionsChoices = array(
+			__('c_c_action_enable') 	=> 'enable',
+			__('c_c_action_disable') 	=> 'disable'
+		);
+
+		if ($this->okt->checkPerm('users_delete')) {
+			$aActionsChoices[__('c_c_action_delete')] = 'delete';
+		}
+
 		# nombre d'utilisateur en attente de validation
-		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id'=>Groups::UNVERIFIED), true);
+		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id' => Groups::UNVERIFIED), true);
 
 		if ($iNumUsersWaitingValidation === 1) {
 			$this->okt->page->warnings->set(__('c_a_users_one_user_in_wait_of_validation'));
@@ -179,7 +124,211 @@ class Index extends Controller
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,
 			'iNumUsersWaitingValidation' 	=> $iNumUsersWaitingValidation,
 			'iNumPages' 					=> $iNumPages,
-			'pager' 						=> $pager
+			'pager' 						=> $pager,
+			'aActionsChoices'               => $aActionsChoices
 		));
+	}
+
+	protected function getUsersJson()
+	{
+		$term = $this->request->query->get('term');
+
+		if (!$this->request->isXmlHttpRequest() || !$this->request->query->has('json') || empty($term)) {
+			return false;
+		}
+
+		$aParams = array(
+			'search' => $term
+		);
+
+		$aParams['group_id_not'][] = Groups::GUEST;
+
+		if (!$this->okt->user->is_superadmin) {
+			$aParams['group_id_not'][] = Groups::SUPERADMIN;
+		}
+
+		if (!$this->okt->user->is_admin) {
+			$aParams['group_id_not'][] = Groups::ADMIN;
+		}
+
+		$oUsers = new Users($this->okt);
+		$rsUsers = $oUsers->getUsers($aParams);
+
+		$aResults = array();
+		while ($rsUsers->fetch())
+		{
+			$aResults[] = $rsUsers->username;
+			$aResults[] = $rsUsers->email;
+			if (!empty($rsUsers->firstname)) {
+				$aResults[] = $rsUsers->firstname;
+			}
+			if (!empty($rsUsers->lastname)) {
+				$aResults[] = $rsUsers->lastname;
+			}
+		}
+
+		return $this->jsonResponse(array_unique($aResults));
+	}
+
+	protected function enableUser()
+	{
+		$iUserId = $this->request->query->getInt('enable');
+
+		if (empty($iUserId)) {
+			return false;
+		}
+
+		try
+		{
+			$oUsers = new Users($this->okt);
+			$oUsers->setUserStatus($iUserId, 1);
+
+			# log admin
+			$this->okt->logAdmin->info(array(
+				'code'      => 30,
+				'component' => 'users',
+				'message'   => 'user #'.$iUserId
+			));
+
+			return $this->redirect($this->generateUrl('Users_index'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function disableUser()
+	{
+		$iUserId = $this->request->query->getInt('disable');
+
+		if (empty($iUserId)) {
+			return false;
+		}
+
+		try
+		{
+			$oUsers = new Users($this->okt);
+			$oUsers->setUserStatus($iUserId, 0);
+
+			# log admin
+			$this->okt->logAdmin->info(array(
+				'code'       => 31,
+				'component'  => 'users',
+				'message'    => 'user #'.$iUserId
+			));
+
+			return $this->redirect($this->generateUrl('Users_index'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function deleteUser()
+	{
+		$iUserId = $this->request->query->getInt('delete');
+
+		if (!$iUserId || !$this->okt->checkPerm('users_delete')) {
+			return false;
+		}
+
+		try
+		{
+			# -- CORE TRIGGER : adminUsersBeforeDeleteProcess
+			$this->okt->triggers->callTrigger('adminUsersBeforeDeleteProcess', $iUserId);
+
+			$oUsers = new Users($this->okt);
+			$oUsers->deleteUser($iUserId);
+
+			# log admin
+			$this->okt->logAdmin->warning(array(
+				'code'      => 42,
+				'component' => 'users',
+				'message'   => 'user #'.$iUserId
+			));
+
+			# -- CORE TRIGGER : adminUsersAfterDeleteProcess
+			$this->okt->triggers->callTrigger('adminUsersAfterDeleteProcess', $iUserId);
+
+			$this->okt->page->flash->success(__('c_a_users_user_deleted'));
+
+			return $this->redirect($this->generateUrl('Users_index'));
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function batches()
+	{
+		$sAction = $this->request->request->get('action');
+		$aUsersIds = $this->request->request->get('users');
+
+		if (!$sAction || empty($aUsersIds) || !is_array($aUsersIds)) {
+			return false;
+		}
+
+		$aUsersIds = array_map('intval', $aUsersIds);
+
+		$oUsers = new Users($this->okt);
+
+		try
+		{
+			if ($sAction == 'enable')
+			{
+				foreach ($aUsersIds as $iUserId)
+				{
+					$oUsers->setUserStatus($iUserId, 1);
+
+					# log admin
+					$this->okt->logAdmin->info(array(
+						'code'        => 30,
+						'component'   => 'users',
+						'message'     => 'user #'.$iUserId
+					));
+				}
+
+				return $this->redirect($this->generateUrl('Users_index'));
+			}
+			elseif ($sAction == 'disable')
+			{
+				foreach ($aUsersIds as $iUserId)
+				{
+					$oUsers->setUserStatus($iUserId, 0);
+
+					# log admin
+					$this->okt->logAdmin->info(array(
+						'code'        => 31,
+						'component'   => 'users',
+						'message'     => 'user #'.$iUserId
+					));
+				}
+
+				return $this->redirect($this->generateUrl('Users_index'));
+			}
+			elseif ($sAction == 'delete' && $this->okt->checkPerm('users_delete'))
+			{
+				foreach ($aUsersIds as $iUserId)
+				{
+					$oUsers->deleteUser($iUserId);
+
+					# log admin
+					$this->okt->logAdmin->warning(array(
+						'code'        => 42,
+						'component'   => 'users',
+						'message'     => 'user #'.$iUserId
+					));
+				}
+
+				return $this->redirect($this->generateUrl('Users_index'));
+			}
+		}
+		catch (Exception $e) {
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
 	}
 }

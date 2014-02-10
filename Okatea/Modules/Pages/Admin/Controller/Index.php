@@ -19,6 +19,7 @@ class Index extends Controller
 			return $this->serve401();
 		}
 
+		# json pages list for autocomplete
 		if (($json = $this->getPagesJson()) !== false) {
 			return $json;
 		}
@@ -106,10 +107,9 @@ class Index extends Controller
 
 	protected function getPagesJson()
 	{
-		$json = $this->request->query->get('json');
 		$term = $this->request->query->get('term');
 
-		if (!$json || !$term || !$this->request->isXmlHttpRequest()) {
+		if (!$this->request->isXmlHttpRequest() || !$this->request->query->has('json') || empty($term)) {
 			return false;
 		}
 
@@ -153,9 +153,9 @@ class Index extends Controller
 
 			# log admin
 			$this->okt->logAdmin->warning(array(
-				'code' => 42,
+				'code'      => 42,
 				'component' => 'pages',
-				'message' => 'page #'.$iPostId
+				'message'   => 'page #'.$iPostId
 			));
 
 			$this->okt->page->flash->success(__('m_pages_list_page_deleted'));
@@ -182,9 +182,9 @@ class Index extends Controller
 
 			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 32,
+				'code'      => 32,
 				'component' => 'pages',
-				'message' => 'post #'.$iPostId
+				'message'   => 'post #'.$iPostId
 			));
 
 			return $this->redirect($this->generateUrl('Pages_index'));
@@ -216,9 +216,9 @@ class Index extends Controller
 
 					# log admin
 					$this->okt->logAdmin->info(array(
-					'code' => 30,
-					'component' => 'pages',
-					'message' => 'page #'.$pageId
+						'code'        => 30,
+						'component'   => 'pages',
+						'message'     => 'page #'.$pageId
 					));
 				}
 
@@ -232,9 +232,9 @@ class Index extends Controller
 
 					# log admin
 					$this->okt->logAdmin->info(array(
-						'code' => 31,
-						'component' => 'pages',
-						'message' => 'page #'.$pageId
+						'code'        => 31,
+						'component'   => 'pages',
+						'message'     => 'page #'.$pageId
 					));
 				}
 
@@ -248,9 +248,9 @@ class Index extends Controller
 
 					# log admin
 					$this->okt->logAdmin->warning(array(
-						'code' => 42,
-						'component' => 'pages',
-						'message' => 'page #'.$pageId
+						'code'        => 42,
+						'component'   => 'pages',
+						'message'     => 'page #'.$pageId
 					));
 				}
 

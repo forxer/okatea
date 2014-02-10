@@ -36,6 +36,7 @@ $okt->page->js->addReady('
 		minLength: 2
 	});
 ');
+
 # CSS
 $okt->page->css->addCss('
 .ui-autocomplete {
@@ -95,7 +96,7 @@ $okt->page->js->addReady("
 			<p><label for="search"><?php _e('c_a_users_list_Search') ?></label>
 			<?php echo form::text('search', 20, 255, $view->escape($sSearch)); ?>
 
-			<input type="submit" name="search_submit" id="search_submit" value="ok" /></p>
+			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
 		</form>
 	</div>
 </div>
@@ -130,87 +131,97 @@ $okt->page->js->addReady("
 <?php endif; ?>
 
 <?php if (!$rsUsers->isEmpty()) : ?>
-<table class="common">
-	<caption><?php _e('c_a_users_users_list')?></caption>
-	<thead><tr>
-		<th scope="col"><?php _e('c_c_user_Username')?></th>
-		<th scope="col"><?php _e('c_c_Email')?></th>
-		<th scope="col"><?php _e('c_c_Group')?></th>
-		<th scope="col"><?php _e('c_a_users_last_connection')?></th>
-		<th scope="col"><?php _e('c_a_users_registration_date')?></th>
-		<th scope="col" class="small"><?php _e('c_c_Actions')?></th>
-	</tr></thead>
-	<tbody>
-	<?php $iCountLine = 0;
-	while ($rsUsers->fetch()) :
+<form action="<?php echo $view->generateurl('Users_index') ?>" method="post" id="users-list">
+	<table class="common">
+		<caption><?php _e('c_a_users_users_list')?></caption>
+		<thead><tr>
+			<th scope="col" colspan="2"><?php _e('c_c_user_Username')?></th>
+			<th scope="col"><?php _e('c_c_Email')?></th>
+			<th scope="col"><?php _e('c_c_Group')?></th>
+			<th scope="col"><?php _e('c_a_users_last_connection')?></th>
+			<th scope="col"><?php _e('c_a_users_registration_date')?></th>
+			<th scope="col" class="small"><?php _e('c_c_Actions')?></th>
+		</tr></thead>
+		<tbody>
+		<?php $iCountLine = 0;
+		while ($rsUsers->fetch()) :
 
-		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd';
-		$iCountLine++;
+			$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd';
+			$iCountLine++;
 
-		if (!$rsUsers->status) {
-			$sTdClass .= ' disabled';
-		}
-	?>
-	<tr>
-		<th class="<?php echo $sTdClass ?> fake-td">
-			<h3 class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"><?php echo $view->escape($rsUsers->username) ?></a></h3>
-			<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
-		</th>
-		<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
-		<td class="<?php echo $sTdClass ?>"><?php
+			if (!$rsUsers->status) {
+				$sTdClass .= ' disabled';
+			}
+		?>
+		<tr>
+			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
+			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
+				<h3 class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
+				<?php echo $view->escape($rsUsers->username) ?></a></h3>
+				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
+			</th>
+			<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
+			<td class="<?php echo $sTdClass ?>"><?php
 
-		if ($rsUsers->group_id == Groups::UNVERIFIED) {
-			_e('c_a_users_wait_of_validation');
-		}
-		elseif (!empty($rsUsers->title)) {
-			echo $view->escape($rsUsers->title);
-		}
+			if ($rsUsers->group_id == Groups::UNVERIFIED) {
+				_e('c_a_users_wait_of_validation');
+			}
+			elseif (!empty($rsUsers->title)) {
+				echo $view->escape($rsUsers->title);
+			}
 
-		?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->last_visit) ?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->registered) ?></td>
-		<td class="<?php echo $sTdClass ?> nowrap">
-			<ul class="actions">
+			?></td>
+			<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->last_visit) ?></td>
+			<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->registered) ?></td>
+			<td class="<?php echo $sTdClass ?> nowrap">
+				<ul class="actions">
 
-				<li>
-				<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
-					<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
-					class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
+					<li>
+					<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
+						<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
+						class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
+						<?php else : ?>
+						<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
+					<?php endif; ?>
+					</li>
+
+					<li>
+					<?php if ($rsUsers->status) : ?>
+					<a href="<?php echo $view->generateUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
+					class="icon tick"><?php _e('c_c_status_Active')?></a>
 					<?php else : ?>
-					<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
-				<?php endif; ?>
-				</li>
+					<a href="<?php echo $view->generateUrl('Users_index') ?>?enable=<?php echo $rsUsers->id ?>"
+					class="icon cross"><?php _e('c_c_status_Inactive')?></a>
+					<?php endif; ?>
+					</li>
 
-				<li>
-				<?php if ($rsUsers->status) : ?>
-				<a href="<?php echo $view->generateUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
-				class="icon tick"><?php _e('c_c_status_Active')?></a>
-				<?php else : ?>
-				<a href="<?php echo $view->generateUrl('Users_index') ?>?enable=<?php echo $rsUsers->id ?>"
-				class="icon cross"><?php _e('c_c_status_Inactive')?></a>
-				<?php endif; ?>
-				</li>
+					<?php if ($okt->checkPerm('users_edit')) : ?>
+					<li><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
+					class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
+					<?php endif; ?>
 
-				<?php if ($okt->checkPerm('users_edit')) : ?>
-				<li><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
-				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
-				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
-				<?php endif; ?>
+					<?php if ($okt->checkPerm('users_delete')) : ?>
+					<li><a href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
+					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $rsUsers->username)); ?>"
+					class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
+					<?php endif; ?>
 
-				<?php if ($okt->checkPerm('users_delete')) : ?>
-				<li><a href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
-				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"
-				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $rsUsers->username)); ?>"
-				class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
-				<?php endif; ?>
+				</ul>
+			</td>
+		</tr>
+		<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php echo $view->render('Common/FormListBatches', array(
+		'sFormId'             => 'users-list',
+		'sActionsLabel'       => __('c_a_users_list_users_action'),
+		'aActionsChoices'     => $aActionsChoices
+	)); ?>
+</form>
 
-			</ul>
-		</td>
-	</tr>
-	<?php endwhile; ?>
-	</tbody>
-</table>
 
 <?php if ($iNumPages > 1) : ?>
 <ul class="pagination"><?php echo $pager->getLinks(); ?></ul>

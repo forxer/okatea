@@ -35,7 +35,7 @@ $okt->page->setButtonset('usersGroups', array(
 			'ui-icon'    => 'plusthick'
 		),
 		array(
-			'permission' => !in_array($iGroupId, array(Groups::ADMIN, Groups::ADMIN, Groups::MEMBER, Groups::GUEST)),
+			'permission' => !in_array($iGroupId, Groups::$native),
 			'title'      => __('c_c_action_Delete'),
 			'url'        => $view->generateUrl('Users_groups').'?delete_id='.$iGroupId,
 			'ui-icon'    => 'closethick',
@@ -50,7 +50,7 @@ $okt->page->setButtonset('usersGroups', array(
 
 <form action="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)) ?>" method="post">
 
-	<p class="field"><label for="title"><?php _e('c_c_Title') ?></label>
+	<p class="field"><label for="title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Title') ?></label>
 	<?php echo form::text('title', 40, 255, $view->escape($title)) ?></p>
 
 	<p><?php echo $okt->page->formtoken(); ?>

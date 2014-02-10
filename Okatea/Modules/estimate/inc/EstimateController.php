@@ -302,7 +302,7 @@ class EstimateController extends Controller
 			if (empty($this->aFormData['email'])) {
 				$this->okt->error->set(__('m_estimate_must_enter_email'));
 			}
-			elseif (!text::isEmail($this->aFormData['email'])) {
+			elseif (!Utilities::isEmail($this->aFormData['email'])) {
 				$this->okt->error->set(__('m_estimate_must_enter_validate_email'));
 			}
 

@@ -7,6 +7,7 @@
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Misc\Utilities;
 
 # Accès direct interdit
 if (!defined('ON_MODULE')) die;
@@ -23,20 +24,21 @@ if (!empty($_POST['form_sent']))
 
 	foreach ($p_recipients_to as $mail)
 	{
-		if (!text::isEmail($mail)) {
+		if (!Utilities::isEmail($mail)) {
 			$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
 		}
 	}
 
 	foreach ($p_recipients_cc as $mail)
 	{
-		if (!text::isEmail($mail)) {
+		if (!Utilities::isEmail($mail)) {
 			$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
 		}
 	}
+
 	foreach ($p_recipients_bcc as $mail)
 	{
-		if (!text::isEmail($mail)) {
+		if (!Utilities::isEmail($mail)) {
 			$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
 		}
 	}

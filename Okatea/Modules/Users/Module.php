@@ -421,7 +421,7 @@ class Module extends BaseModule
 	 */
 	public function isEmail($sEmail)
 	{
-		if (!text::isEmail($sEmail)) {
+		if (!Utilities::isEmail($sEmail)) {
 			$this->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($sEmail)));
 		}
 	}

@@ -303,13 +303,8 @@ class User extends Controller
 			return false;
 		}
 
-		$aParams = array(
-			'id'         => $this->aPageData['user']['id'],
-			'group_id'   => $this->okt->config->users['registration']['default_group']
-		);
-
 		$oUsers = new Users($this->okt);
-		if ($oUsers->updUser($aParams))
+		if ($oUsers->validateUser($this->aPageData['user']['id']))
 		{
 			$oMail = new Mailer($this->okt);
 
