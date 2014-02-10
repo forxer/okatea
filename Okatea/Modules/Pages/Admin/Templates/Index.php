@@ -10,24 +10,7 @@ $okt->page->addTitleTag($okt->Pages->getTitle());
 # Start breadcrumb
 $okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
 
-
-# Autocomplétion du formulaire de recherche
-$okt->page->js->addReady('
-	$("#search").autocomplete({
-		source: "'.$view->generateurl('Pages_index').'?json=1",
-		minLength: 2
-	});
-');
-
-if (!empty($sSearch))
-{
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
-	$okt->page->js->addReady('
-		$("#search").putCursorAtEnd();
-	');
-}
-
-# button set
+# Buttons set
 $okt->page->setButtonset('pagesBtSt',array(
 	'id' => 'pages-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
@@ -56,7 +39,6 @@ $okt->page->setButtonset('pagesBtSt',array(
 	)
 ));
 
-
 # Filters control
 if ($okt->Pages->config->admin_filters_style == 'slide')
 {
@@ -84,17 +66,6 @@ elseif ($okt->Pages->config->admin_filters_style == 'dialog')
 
 # Un peu de CSS
 $okt->page->css->addCss('
-.ui-autocomplete {
-	max-height: 150px;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-.search_form p {
-	margin: 0;
-}
-#search {
-	background: transparent url('.$okt->options->public_url.'/img/admin/preview.png) no-repeat center right;
-}
 #post-count {
 	margin-top: 0;
 }
@@ -107,14 +78,12 @@ $okt->page->css->addCss('
 		<?php echo $okt->page->getButtonSet('pagesBtSt'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="<?php echo $view->generateurl('Pages_index') ?>" method="get" id="search_form" class="search_form">
-			<p><label for="search"><?php _e('m_pages_list_Search') ?></label>
-			<?php echo form::text('search', 20, 255, $view->escape((isset($sSearch) ? $sSearch : ''))); ?>
-
-			<?php echo form::hidden('m','pages') ?>
-			<?php echo form::hidden('action','index') ?>
-			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
-		</form>
+		<?php echo $view->render('Common/Search', array(
+			'sFormAction'         => $view->generateUrl('Pages_index'),
+			'sSearchLabel'        => __('m_pages_list_Search'),
+			'sSearch'             => $sSearch,
+			'sAutocompleteSrc'    => $view->generateUrl('Pages_index').'?json=1'
+		)); ?>
 	</div>
 </div>
 

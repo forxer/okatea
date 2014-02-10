@@ -11,24 +11,7 @@ $okt->page->addTitleTag($okt->News->getTitle());
 # module start breadcrumb
 $okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
 
-
-# Autocomplétion du formulaire de recherche
-$okt->page->js->addReady('
-	$("#search").autocomplete({
-		source: "'.$view->generateUrl('News_index').'?json=1",
-		minLength: 2
-	});
-');
-
-if (!empty($sSearch))
-{
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
-	$okt->page->js->addReady('
-		$("#search").putCursorAtEnd();
-	');
-}
-
-# button set
+# Buttons set
 $okt->page->setButtonset('newsBtSt',array(
 	'id' => 'news-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
@@ -84,17 +67,6 @@ elseif ($okt->News->config->admin_filters_style == 'dialog')
 
 # Un peu de CSS
 $okt->page->css->addCss('
-.ui-autocomplete {
-	max-height: 150px;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-.search_form p {
-	margin: 0;
-}
-#search {
-	background: transparent url('.$okt->options->public_url.'/img/admin/preview.png) no-repeat center right;
-}
 #post-count {
 	margin-top: 0;
 }
@@ -107,12 +79,12 @@ $okt->page->css->addCss('
 		<?php echo $okt->page->getButtonSet('newsBtSt'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="<?php echo $view->generateUrl('News_index') ?>" method="get" id="search_form" class="search_form">
-			<p><label for="search"><?php _e('m_news_list_Search') ?></label>
-			<?php echo form::text('search', 20, 255, $view->escape((isset($sSearch) ? $sSearch : ''))); ?>
-
-			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
-		</form>
+		<?php echo $view->render('Common/Search', array(
+			'sFormAction'         => $view->generateUrl('News_index'),
+			'sSearchLabel'        => __('m_news_list_Search'),
+			'sSearch'             => $sSearch,
+			'sAutocompleteSrc'    => $view->generateUrl('News_index').'?json=1'
+		)); ?>
 	</div>
 </div>
 

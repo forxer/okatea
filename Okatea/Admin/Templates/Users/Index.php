@@ -14,7 +14,7 @@ $view->extend('layout');
 # titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
 
-# button set
+# Buttons set
 $okt->page->setButtonset('users', array(
 	'id' => 'users-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
@@ -24,48 +24,17 @@ $okt->page->setButtonset('users', array(
 			'title'      => __('c_a_users_Add_user'),
 			'url'        => $view->generateUrl('Users_add'),
 			'ui-icon'    => 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('c_c_display_filters'),
+			'url' 			=> '#',
+			'ui-icon' 		=> 'search',
+			'active' 		=> $filters->params->show_filters,
+			'id'			=> 'filter-control',
+			'class'			=> 'filter-control button-toggleable'
 		)
 	)
-));
-
-
-# Autocomplétion du formulaire de recherche
-$okt->page->js->addReady('
-	$("#search").autocomplete({
-		source: "'.$view->generateUrl('Users_index').'?json=1",
-		minLength: 2
-	});
-');
-
-# CSS
-$okt->page->css->addCss('
-.ui-autocomplete {
-	max-height: 150px;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-.search_form p {
-	margin: 0;
-}
-');
-
-if (!empty($sSearch))
-{
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
-	$okt->page->js->addReady('
-		$("#search").putCursorAtEnd();
-	');
-}
-
-# ajout de boutons
-$okt->page->addButton('users',array(
-	'permission' 	=> true,
-	'title' 		=> __('c_c_display_filters'),
-	'url' 			=> '#',
-	'ui-icon' 		=> 'search',
-	'active' 		=> $filters->params->show_filters,
-	'id'			=> 'filter-control',
-	'class'			=> 'filter-control button-toggleable'
 ));
 
 
@@ -86,18 +55,17 @@ $okt->page->js->addReady("
 
 ?>
 
-
 <div class="double-buttonset">
 	<div class="buttonsetA">
 		<?php echo $okt->page->getButtonSet('users'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="<?php echo $view->generateUrl('Users_index') ?>" method="get" id="search_form" class="search_form">
-			<p><label for="search"><?php _e('c_a_users_list_Search') ?></label>
-			<?php echo form::text('search', 20, 255, $view->escape($sSearch)); ?>
-
-			<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
-		</form>
+		<?php echo $view->render('Common/Search', array(
+			'sFormAction'         => $view->generateUrl('Users_index'),
+			'sSearchLabel'        => __('c_a_users_list_Search'),
+			'sSearch'             => $sSearch,
+			'sAutocompleteSrc'    => $view->generateUrl('Users_index').'?json=1'
+		)); ?>
 	</div>
 </div>
 
