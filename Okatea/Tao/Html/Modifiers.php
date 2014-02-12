@@ -13,66 +13,66 @@ class Modifiers
 	/**
 	 * Convert \r\n an \r in \n
 	 *
-	 * @param string $str      String to transform
+	 * @param string $string      String to transform
 	 * @return string
 	 */
-	public static function linebreaks($str)
+	public static function linebreaks($string)
 	{
 		return str_replace(
 			array("\r\n", "\r"),
 			array("\n", "\n"),
-			$str
+			$string
 		);
 	}
 
 	/**
 	 * Converts text line breaks into HTML paragraphs.
 	 *
-	 * @param string $str      String to transform
+	 * @param string $string      String to transform
 	 * @return string
 	 */
-	public static function nlToP($str)
+	public static function nlToP($string)
 	{
-		$str = trim($str);
-		$str = self::linebreaks($str);
-		$str = str_replace("\n", "</p>\n<p>", $str);
-		$str = str_replace('<p></p>', '', $str);
-		return '<p>'.$str.'</p>'.PHP_EOL;
+		$string = trim($string);
+		$string = self::linebreaks($string);
+		$string = str_replace("\n", "</p>\n<p>", $string);
+		$string = str_replace('<p></p>', '', $string);
+		return '<p>'.$string.'</p>'.PHP_EOL;
 	}
 
 	/**
 	 * Converts text line breaks into HTML paragraphs and HTML line breaks.
 	 *
-	 * @param string $str      String to transform
+	 * @param string $string      String to transform
 	 * @return string
 	 */
-	public static function nlToPbr($str)
+	public static function nlToPbr($string)
 	{
-		$str = trim($str);
-		$str = self::linebreaks($str);
-		$str = str_replace("\n", '<br />', $str);
-		$str = str_replace('<br /><br />', "</p>\n<p>", $str);
-		$str = str_replace('<p></p>', '', $str);
-		return '<p>'.$str.'</p>'.PHP_EOL;
+		$string = trim($string);
+		$string = self::linebreaks($string);
+		$string = str_replace("\n", '<br />', $string);
+		$string = str_replace('<br /><br />', "</p>\n<p>", $string);
+		$string = str_replace('<p></p>', '', $string);
+		return '<p>'.$string.'</p>'.PHP_EOL;
 	}
 
 	/**
-	 * Transform a string in slug regarding to configuration.
+	 * Transform a string in slug regarding to Okatea configuration.
 	 *
-	 * @param string	$str			String to transform
+	 * @param string	$string			String to transform
 	 * @param boolean	$bWithSlashes	Keep slashes in URL
 	 * @return string
 	 */
-	static public function strToSlug($str, $bWithSlashes = true)
+	static public function strToSlug($string, $bWithSlashes = true)
 	{
 		switch ($GLOBALS['okt']->config->slug_type)
 		{
 			case 'utf8':
-				return self::tidyURL($str, $bWithSlashes);
+				return self::tidyURL($string, $bWithSlashes);
 
 			case 'ascii':
 			default:
-				return self::strToLowerURL($str, $bWithSlashes);
+				return self::strToLowerURL($string, $bWithSlashes);
 		}
 	}
 
@@ -84,16 +84,16 @@ class Modifiers
 	 * @copyright Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
 	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 	 *
-	 * @param string	$str			String to transform
+	 * @param string	$string			String to transform
 	 * @param boolean	$bWithSlashes	Keep slashes in URL
 	 * @return string
 	 */
-	public static function strToUrl($str, $bWithSlashes = true)
+	public static function strToUrl($string, $bWithSlashes = true)
 	{
-		$str = self::deaccent($str);
-		$str = preg_replace('/[^A-Za-z0-9_\s\'\:\/[\]-]/', '', $str);
+		$string = self::deaccent($string);
+		$string = preg_replace('/[^A-Za-z0-9_\s\'\:\/[\]-]/', '', $string);
 
-		return self::tidyUrl($str, $bWithSlashes);
+		return self::tidyUrl($string, $bWithSlashes);
 	}
 
 	/**
@@ -101,46 +101,46 @@ class Modifiers
 	 *
 	 * Transforms a string to a lowercase proper URL.
 	 *
-	 * @param string	$str			String to transform
+	 * @param string	$string			String to transform
 	 * @param boolean	$bWithSlashes	Keep slashes in URL
 	 * @return string
 	 */
-	public static function strToLowerUrl($str, $bWithSlashes = true)
+	public static function strToLowerUrl($string, $bWithSlashes = true)
 	{
-		return strtolower(self::strToUrl($str, $bWithSlashes));
+		return strtolower(self::strToUrl($string, $bWithSlashes));
 	}
 
 	/**
 	 * Transform a string in a camelCase style.
 	 *
-	 * @param string $str
+	 * @param string $string
 	 * @return string
 	 */
-	static public function strToCamelCase($str)
+	static public function strToCamelCase($string)
 	{
-		$str = self::strToLowerUrl($str, false);
+		$string = self::strToLowerUrl($string, false);
 
-		$str = implode('', array_map('ucfirst', explode('_',$str)));
-		$str = implode('', array_map('ucfirst', explode('-',$str)));
+		$string = implode('', array_map('ucfirst', explode('_', $string)));
+		$string = implode('', array_map('ucfirst', explode('-', $string)));
 
-		return strtolower(substr($str, 0, 1)).substr($str, 1);
+		return strtolower(substr($string, 0, 1)).substr($string, 1);
 	}
 
 	/**
 	 * Transform a string in underscored style.
 	 *
-	 * @param string $str
+	 * @param string $string
 	 * @return string
 	 */
-	static public function strToUnderscored($str)
+	static public function strToUnderscored($string)
 	{
-		$str = self::strToLowerUrl($str, false);
+		$string = self::strToLowerUrl($string, false);
 
-		return str_replace('-', '_', $str);
+		return str_replace('-', '_', $string);
 	}
 
 	/**
-	 * Accents replacement
+	 * Accents replacement.
 	 *
 	 * Replaces some occidental accentuated characters by their ASCII
 	 * representation.
@@ -148,10 +148,10 @@ class Modifiers
 	 * @copyright Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
 	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 	 *
-	 * @param	string	$str		String to deaccent
+	 * @param	string	$string		String to deaccent
 	 * @return	string
 	 */
-	public static function deaccent($str)
+	public static function deaccent($string)
 	{
 		$pattern['A'] = '\x{00C0}-\x{00C5}';
 		$pattern['AE'] = '\x{00C6}';
@@ -184,44 +184,116 @@ class Modifiers
 		$pattern['ss'] = '\x{00DF}';
 
 		foreach ($pattern as $r => $p) {
-			$str = preg_replace('/['.$p.']/u', $r, $str);
+			$string = preg_replace('/['.$p.']/u', $r, $string);
 		}
 
-		return $str;
+		return $string;
 	}
 
 	/**
-	 * URL cleanup
+	 * URL cleanup.
 	 *
 	 * @copyright Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
 	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 	 *
-	 * @param string	$str			URL to tidy
+	 * @param string	$string			URL to tidy
 	 * @param boolean	$bKeepSlashes	Keep slashes in URL
 	 * @param boolean	$bKeepSpaces	Keep spaces in URL
 	 * @return string
 	 */
-	public static function tidyUrl($str, $bKeepSlashes = true, $bKeepSpaces = false)
+	public static function tidyUrl($string, $bKeepSlashes = true, $bKeepSpaces = false)
 	{
-		$str = strip_tags($str);
-		$str = str_replace(array('?', '&', '#', '=', '+', '<', '>', '"', '%'), '', $str);
-		$str = str_replace("'", ' ', $str);
-		$str = preg_replace('/[\s]+/u', ' ', trim($str));
+		$string = strip_tags($string);
+		$string = str_replace(array('?', '&', '#', '=', '+', '<', '>', '"', '%'), '', $string);
+		$string = str_replace("'", ' ', $string);
+		$string = preg_replace('/[\s]+/u', ' ', trim($string));
 
 		if (!$bKeepSlashes) {
-			$str = str_replace('/', '-', $str);
+			$string = str_replace('/', '-', $string);
 		}
 
 		if (!$bKeepSpaces) {
-			$str = str_replace(' ', '-', $str);
+			$string = str_replace(' ', '-', $string);
 		}
 
-		$str = preg_replace('/[-]+/', '-', $str);
+		$string = preg_replace('/[-]+/', '-', $string);
 
 		# Remove path changes in URL
-		$str = preg_replace('%^/%', '', $str);
-		$str = preg_replace('%\.+/%', '', $str);
+		$string = preg_replace('%^/%', '', $string);
+		$string = preg_replace('%\.+/%', '', $string);
 
-		return $str;
+		return $string;
+	}
+
+	/**
+	 * Split words
+	 *
+	 * Returns an array of words from a given string.
+	 *
+	 * @copyright Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
+	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+	 *
+	 * @param string	$string		Words to split
+	 * @return array
+	 */
+	public static function splitWords($string)
+	{
+		//		return mb_split("\s", $string);
+
+		$non_word = '\x{0000}-\x{002F}\x{003A}-\x{0040}\x{005b}-\x{0060}\x{007B}-\x{007E}\x{00A0}-\x{00BF}\s';
+		if (preg_match_all('/([^'.$non_word.']{3,})/msu', strip_tags($string), $match))
+		{
+			foreach ($match[1] as $i => $v) {
+				$match[1][$i] = mb_strtolower($v);
+			}
+			return $match[1];
+		}
+		return array();
+	}
+
+	/**
+	 * Encode an email address for HTML.
+	 *
+	 * @param string $sEmail
+	 * @return string encoded email
+	 */
+	public static function emailEncode($sEmail)
+	{
+		$sEmail = bin2hex($sEmail);
+		$sEmail = chunk_split($sEmail, 2, '%');
+		$sEmail = '%'.substr($sEmail, 0, strlen($sEmail) - 1);
+		return $sEmail;
+	}
+
+	/**
+	 * Truncate a string to a certain length if necessary,
+	 * optionally splitting in the middle of a word, and
+	 * appending the $etc string or inserting $etc into the middle.
+	 *
+	 * @param string $string
+	 * @param integer $length
+	 * @param string $etc
+	 * @param boolean $bBreakWords
+	 * @param boolean $bMiddle
+	 * @return string truncated string
+	 */
+	public static function truncate($string, $length = 80, $etc = '...', $bBreakWords = false, $bMiddle = false)
+	{
+		if (mb_strlen($string) > $length)
+		{
+			$length -= min($length, mb_strlen($etc));
+
+			if (!$bBreakWords && !$bMiddle) {
+				$string = preg_replace('/\s+?(\S+)?$/u', '', mb_substr($string, 0, $length + 1));
+			}
+
+			if (!$bMiddle) {
+				return mb_substr($string, 0, $length) . $etc;
+			}
+
+			return mb_substr($string, 0, $length / 2) . $etc . mb_substr($string, - $length / 2, $length);
+		}
+
+		return $string;
 	}
 }

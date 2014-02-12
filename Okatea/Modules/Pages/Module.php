@@ -328,7 +328,7 @@ class Module extends BaseModule
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = \text::splitWords($aParams['search']);
+			$aWords = Modifiers::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{
@@ -576,7 +576,7 @@ class Module extends BaseModule
 			if ($iNumCharBeforeTruncate > 0)
 			{
 				$rs->content = strip_tags($rs->content);
-				$rs->content = \text::cutString($rs->content, $iNumCharBeforeTruncate);
+				$rs->content = Modifiers::truncate($rs->content, $iNumCharBeforeTruncate);
 			}
 		}
 	}
@@ -678,7 +678,7 @@ class Module extends BaseModule
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->words = implode(' ',array_unique(\text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
+			$oCursor->words = implode(' ', array_unique(Modifiers::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content)));
 
 			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 
@@ -1591,7 +1591,7 @@ class Module extends BaseModule
 				$rsPages->subtitle.' '.
 				$rsPages->content.' ';
 
-			$words = implode(' ',\text::splitWords($words));
+			$words = implode(' ', Modifiers::splitWords($words));
 
 			$query =
 			'UPDATE '.$this->t_pages.' SET '.

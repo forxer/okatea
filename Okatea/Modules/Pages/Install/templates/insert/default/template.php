@@ -1,4 +1,5 @@
-<?php /*
+<?php
+/*
 
 Utilisation de ce template d'encart :
 ------------------------------------------------------------
@@ -26,7 +27,11 @@ Exemples :
 	)); # fin Okatea : affichage encart page slug 'ma-page' ?>
 
 
-*/ ?>
+*/
+
+use Okatea\Tao\Html\Modifiers;
+
+?>
 
 
 <?php # début Okatea : traitements avant affichage
@@ -43,7 +48,7 @@ Exemples :
 
 	# troncature du contenu ?
 	if ($okt->Pages->config->insert_truncat_char > 0) {
-		$rsInsertPage->content = text::cutString(strip_tags($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
+		$rsInsertPage->content = Modifiers::truncate(strip_tags($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
 	}
 
 # fin Okatea : traitements avant affichage ?>

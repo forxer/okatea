@@ -217,7 +217,7 @@ while ($signaturesList->fetch()) : ?>
 
 		<?php /* email */
 		if ($okt->guestbook->config->chp_mail && $signaturesList->email != '') : ?>
-		<li class="email"><a href="mailto:<?php echo $view->escapeHtmlAttr(Okatea\Tao\Misc\Utilities::emailEncode($signaturesList->email)) ?>"><img src="<?php echo $okt->theme->url ?>/modules/guestbook/email.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
+		<li class="email"><a href="mailto:<?php echo $view->escapeHtmlAttr(Modifiers::emailEncode($signaturesList->email)) ?>"><img src="<?php echo $okt->theme->url ?>/modules/guestbook/email.png" alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
 		<?php endif; ?>
 
 		<?php /* URL */

@@ -14,6 +14,7 @@ use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Modules\Module as BaseModule;
 use Okatea\Tao\Routing\Route;
+use Okatea\Tao\Html\Modifiers;
 
 class Module extends BaseModule
 {
@@ -234,7 +235,7 @@ class Module extends BaseModule
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = text::splitWords($aParams['search']);
+			$aWords = Modifiers::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{

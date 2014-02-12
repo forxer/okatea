@@ -122,9 +122,16 @@ if (!$okt->languages->unique) {
 }
 
 
-$field_choice = Utilities::getStatusFieldChoices();
+$field_choice = array(
+	__('c_c_Disabled') => 0,
+	__('c_c_Enabled') => 1,
+	__('c_c_Enabled_Mandatory') => 2
+);
 
-$field_logo_choice = Utilities::getStatusFieldChoices(false);
+$field_logo_choice = array(
+	__('c_c_Disabled') => 0,
+	__('c_c_Enabled') => 1
+);
 
 
 # En-tête

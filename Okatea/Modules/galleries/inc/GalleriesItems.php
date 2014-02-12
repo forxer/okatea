@@ -92,7 +92,7 @@ class GalleriesItems
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = text::splitWords($aParams['search']);
+			$aWords = Modifiers::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{
@@ -408,7 +408,7 @@ class GalleriesItems
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
 
-			$oCursor->words = implode(' ',array_unique(text::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content.' '.$oCursor->author.' '.$oCursor->place)));
+			$oCursor->words = implode(' ', array_unique(Modifiers::splitWords($oCursor->title.' '.$oCursor->subtitle.' '.$oCursor->content.' '.$oCursor->author.' '.$oCursor->place)));
 
 			$oCursor->meta_description = strip_tags($oCursor->meta_description);
 

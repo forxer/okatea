@@ -389,20 +389,6 @@ class Utilities
 	 */
 
 	/**
-	 * Encode une adresse email pour le HTML
-	 *
-	 * @param string $str
-	 * @return	string
-	 */
-	public static function emailEncode($str)
-	{
-		$encoded = bin2hex($str);
-		$encoded = chunk_split($encoded, 2, '%');
-		$encoded = '%'.substr($encoded, 0, strlen($encoded) - 1);
-		return $encoded;
-	}
-
-	/**
 	 * Check email address
 	 *
 	 * Returns true if $email is a valid email address.
@@ -703,38 +689,6 @@ class Utilities
 		$okt->{$sModuleId}->config->writeCurrent();
 
 		return true;
-	}
-
-	/**
-	 * Retourne les choix possibles d'activation d'un champ (désactivé/activé/activé et obligatoire).
-	 *
-	 * @param boolean $bMandatory
-	 * @return array
-	 */
-	public static function getStatusFieldChoices($bMandatory=true)
-	{
-		$aChoices = array(
-			__('c_c_Disabled') => 0,
-			__('c_c_Enabled') => 1
-		);
-
-		if ($bMandatory) {
-			$aChoices[__('c_c_Enabled_Mandatory')] = 2;
-		}
-
-		return $aChoices;
-	}
-
-	/**
-	 * Retourne la version courante d'okatea, null si non trouvée
-	 *
-	 * @return string
-	 */
-	public static function getVersion()
-	{
-		global $okt;
-
-		return $okt->getVersion();
 	}
 
 	/**

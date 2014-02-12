@@ -43,7 +43,7 @@ class Groups extends Controller
 			$aparams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $oUsersGroups->getGroups($aparams);
+		$rsGroups = $oUsersGroups->getGroups($aParams);
 
 		return $this->render('Users/Groups/Index', array(
 			'rsGroups'       => $rsGroups

@@ -306,6 +306,7 @@ class Application
 
 		# Init MB ext
 		mb_internal_encoding('UTF-8');
+		mb_regex_encoding('UTF-8');
 
 		# Default timezone (crushed later by user settings)
 //		date_default_timezone_set('Europe/Paris');

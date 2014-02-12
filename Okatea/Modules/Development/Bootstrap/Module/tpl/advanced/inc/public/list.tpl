@@ -72,7 +72,7 @@ while ($rsItemsList->fetch())
 	}
 
 //	if ($okt->##module_id##->config->public_truncat_char > 0) {
-//		$rsItemsList->description = text::cutString(strip_tags($rsItemsList->description),$okt->##module_id##->config->public_truncat_char);
+//		$rsItemsList->description = Modifiers::truncate(strip_tags($rsItemsList->description),$okt->##module_id##->config->public_truncat_char);
 //	}
 }
 unset($iCountLine);

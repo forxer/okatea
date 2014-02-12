@@ -70,7 +70,7 @@ class FaqController extends Controller
 			if ($this->okt->faq->config->public_truncat_char > 0 )
 			{
 				$this->rsQuestionsList->content = strip_tags($this->rsQuestionsList->content);
-				$this->rsQuestionsList->content = text::cutString($this->rsQuestionsList->content,$this->okt->faq->config->public_truncat_char);
+				$this->rsQuestionsList->content = Modifiers::truncate($this->rsQuestionsList->content,$this->okt->faq->config->public_truncat_char);
 			}
 		}
 		unset($count_line);

@@ -213,7 +213,7 @@ class module_catalog extends Module
 
 		if (!empty($aParams['search']))
 		{
-			$words = text::splitWords($aParams['search']);
+			$words = Modifiers::splitWords($aParams['search']);
 
 			if (!empty($words))
 			{
@@ -392,7 +392,7 @@ class module_catalog extends Module
 		$cursor->created_at = date('Y-m-d H:i:s');
 		$cursor->content = $this->okt->HTMLfilter($cursor->content);
 
-		$cursor->words = implode(' ',array_unique(text::splitWords($cursor->title.' '.$cursor->subtitle.' '.$cursor->content_short.' '.$cursor->content)));
+		$cursor->words = implode(' ',array_unique(Modifiers::splitWords($cursor->title.' '.$cursor->subtitle.' '.$cursor->content_short.' '.$cursor->content)));
 
 		if (!$cursor->insert()) {
 			return false;
@@ -449,7 +449,7 @@ class module_catalog extends Module
 		$cursor->updated_at = date('Y-m-d H:i:s');
 		$cursor->content = $this->okt->HTMLfilter($cursor->content);
 
-		$cursor->words = implode(' ',text::splitWords($cursor->title.' '.$cursor->subtitle.' '.$cursor->content_short.' '.$cursor->content));
+		$cursor->words = implode(' ', Modifiers::splitWords($cursor->title.' '.$cursor->subtitle.' '.$cursor->content_short.' '.$cursor->content));
 
 		if (!$cursor->update('WHERE id='.(integer)$product_id.' ')) {
 			return false;
@@ -1283,7 +1283,7 @@ class module_catalog extends Module
 				$rsProducts->content_short.' '.
 				$rsProducts->content.' ';
 
-			$words = implode(' ',text::splitWords($words));
+			$words = implode(' ', Modifiers::splitWords($words));
 
 			$query =
 			'UPDATE '.$this->t_products.' SET '.

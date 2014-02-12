@@ -173,7 +173,7 @@ class Collection
 		foreach ($aThemes as $iThemeId=>$aTheme)
 		{
 			# search indexes
-			$aThemes[$iThemeId]['index'] = \text::splitWords($aThemes[$iThemeId]['name'].' '.$aThemes[$iThemeId]['desc'].' '.$aThemes[$iThemeId]['tags']);
+			$aThemes[$iThemeId]['index'] = Modifiers::splitWords($aThemes[$iThemeId]['name'].' '.$aThemes[$iThemeId]['desc'].' '.$aThemes[$iThemeId]['tags']);
 			$aThemes[$iThemeId]['index'] = array_map('strtolower', $aThemes[$iThemeId]['index']);
 			$aThemes[$iThemeId]['index'] = array_unique($aThemes[$iThemeId]['index']);
 			array_unshift($aThemes[$iThemeId]['index'], $iThemeId);

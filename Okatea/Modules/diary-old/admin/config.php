@@ -115,7 +115,11 @@ if (!empty($_POST['form_sent']))
 ----------------------------------------------------------*/
 
 
-$aFieldChoices = Utilities::getStatusFieldChoices();
+$aFieldChoices = array(
+	__('c_c_Disabled') => 0,
+	__('c_c_Enabled') => 1,
+	__('c_c_Enabled_Mandatory') => 2
+);
 
 
 # Titre de la page

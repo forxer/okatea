@@ -175,7 +175,7 @@ class module_faq extends Module
 		# mots clés
 		if (!empty($params['keyword_search']))
 		{
-			$words = text::splitWords($params['keyword_search']);
+			$words = Modifiers::splitWords($params['keyword_search']);
 
 			if (!empty($words))
 			{
@@ -1160,7 +1160,7 @@ class module_faq extends Module
 					$rsQuestionLocales->subtitle.' '.
 					$rsQuestionLocales->content.' ';
 
-				$words = implode(' ',text::splitWords($words));
+				$words = implode(' ', Modifiers::splitWords($words));
 
 				$query =
 				'UPDATE '.$this->t_faq_locales.' SET '.
@@ -1184,7 +1184,7 @@ class module_faq extends Module
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
 			$this->params['content'][$aLanguage['code']] = $this->okt->HTMLfilter($this->params['content'][$aLanguage['code']]);
-			$words = implode(' ',text::splitWords($this->params['title'][$aLanguage['code']].' '.$this->params['content'][$aLanguage['code']]));
+			$words = implode(' ', Modifiers::splitWords($this->params['title'][$aLanguage['code']].' '.$this->params['content'][$aLanguage['code']]));
 
 			$query =
 			'INSERT INTO '.$this->t_faq_locales.' '.

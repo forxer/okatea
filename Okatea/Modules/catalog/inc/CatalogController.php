@@ -71,7 +71,7 @@ class CatalogController extends Controller
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
 			{
 				$this->rsProductsList->content = strip_tags($this->rsProductsList->content);
-				$this->rsProductsList->content = text::cutString($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
+				$this->rsProductsList->content = Modifiers::truncate($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
 			}
 
 			$this->rsProductsList->category_url = $this->rsProductsList->getCategoryUrl();
@@ -206,7 +206,7 @@ class CatalogController extends Controller
 			if ($this->okt->catalog->config->public_truncat_char > 0 )
 			{
 				$this->rsProductsList->content = strip_tags($this->rsProductsList->content);
-				$this->rsProductsList->content = text::cutString($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
+				$this->rsProductsList->content = Modifiers::truncate($this->rsProductsList->content,$this->okt->catalog->config->public_truncat_char);
 			}
 
 			$this->rsProductsList->category_url = $this->rsProductsList->getCategoryUrl();

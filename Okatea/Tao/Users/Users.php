@@ -10,6 +10,7 @@ namespace Okatea\Tao\Users;
 
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 
 class Users
@@ -114,7 +115,7 @@ class Users
 
 		if (!empty($aParams['search']))
 		{
-			$aWords = \text::splitWords($aParams['search']);
+			$aWords = Modifiers::splitWords($aParams['search']);
 
 			if (!empty($aWords))
 			{
