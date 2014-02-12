@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use forxer\GravatarLib\Gravatar;
 
 $view->extend('layout');
 
@@ -16,6 +17,15 @@ $okt->page->addGlobalTitle($view->escape($okt->user->usedname));
 # Tabs
 $okt->page->tabs();
 
+
+$gravatar = new Gravatar();
+
+$avatar = $gravatar
+	->setDefaultImage('mm')
+	->setAvatarSize(150)
+	->buildGravatarURL($aPageData['user']['email']);
+
+echo $avatar;
 ?>
 
 <div id="tabered">
@@ -28,6 +38,8 @@ $okt->page->tabs();
 	</ul>
 
 	<div id="tab-show-profil">
+
+
 	</div><!-- #tab-show-profil -->
 
 	<div id="tab-user-form">
