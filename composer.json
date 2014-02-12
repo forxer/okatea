@@ -18,16 +18,17 @@
 		"email" : "contact@okatea.org",
 		"issues" : "https://github.com/forxer/okatea/issues"
 	},
-	"minimum-stability" : "stable",
+	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.4.0",
 		"alchemy/zippy" : " ~0.1",
 		"doctrine/dbal" : "~2.4",
 		"dotclear/clearbricks" : "dev-default",
 		"dunglas/php-socialshare" : "~0.1",
-		"emberlabs/gravatarlib" : "dev-master",
 		"erusev/parsedown" : "~0.9",
 		"ezyang/htmlpurifier" : "~4.6",
+		"forxer/languages-list" : "dev-master",
+		"forxer/gravatarlib" : "dev-master",
 		"guzzle/guzzle" : "~3.7",
 		"imagine/imagine" : "~0.5",
 		"ircmaxell/password-compat" : "~1.0",
@@ -47,8 +48,7 @@
 		"symfony/routing" : "~2.4",
 		"symfony/templating" : "~2.4",
 		"symfony/yaml" : "~2.4",
-		"umpirsky/country-list" : "~1.0",
-		"forxer/languages-list" : "dev-master"
+		"umpirsky/country-list" : "~1.0"
 	},
 	"autoload" : {
 		"psr-4" : {
