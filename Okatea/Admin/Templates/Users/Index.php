@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use forxer\GravatarLib\Gravatar;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Groups;
 
@@ -52,6 +53,23 @@ $okt->page->js->addReady("
 		$('#filters-form').dialog('open');
 	})
 ");
+
+
+$okt->page->css->addCss('
+.avatar {
+	float: left;
+	margin: 0 1em 1em 0;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+');
+
+$gravatar = new Gravatar();
+$gravatar
+	->setDefaultImage('mm')
+	->setAvatarSize(60);
 
 ?>
 
@@ -124,9 +142,11 @@ $okt->page->js->addReady("
 		<tr>
 			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
 			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
-				<h3 class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<?php echo $view->escape($rsUsers->username) ?></a></h3>
+				<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
+				<img src="<?php echo $gravatar->buildGravatarURL($rsUsers->email); ?>" alt="" class="avatar">
+				<p class="title"><?php echo $view->escape($rsUsers->username) ?></p></a>
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
+				<p><?php echo $view->escape($rsUsers->displayname) ?></p>
 			</th>
 			<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
 			<td class="<?php echo $sTdClass ?>"><?php

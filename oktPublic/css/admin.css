@@ -422,7 +422,8 @@ table.common td.even {
 table.common th .title,
 table.common td .title {
 	margin: 0;
-	font-size: inherit;
+	font-size: 1.2em;
+	font-weight: bold;
 	white-space: normal;
 }
 

@@ -6,8 +6,8 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Forms\Statics\FormElements as form;
 use forxer\GravatarLib\Gravatar;
+use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');
 
@@ -20,12 +20,12 @@ $okt->page->tabs();
 
 $gravatar = new Gravatar();
 
-$avatar = $gravatar
+$avatarUrl = $gravatar
 	->setDefaultImage('mm')
-	->setAvatarSize(150)
+	->setAvatarSize(120)
 	->buildGravatarURL($aPageData['user']['email']);
 
-echo $avatar;
+
 ?>
 
 <div id="tabered">
@@ -38,7 +38,7 @@ echo $avatar;
 	</ul>
 
 	<div id="tab-show-profil">
-
+		<p><img src="<?php echo $avatarUrl ?>" alt=""></p>
 
 	</div><!-- #tab-show-profil -->
 

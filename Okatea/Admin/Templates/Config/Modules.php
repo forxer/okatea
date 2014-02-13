@@ -85,7 +85,7 @@ $okt->page->loader('.lazy-load');
 			}
 
 			# title
-			$module_title = '<h4 class="title">'.$aModule['name_l10n'].'</h4>';
+			$module_title = $aModule['name_l10n'];
 			if ($aModule['status'] && $okt->adminRouter->routeExists($aModule['id'].'_index')) {
 				$module_title = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_index').'">'.$module_title.'</a>';
 			}
@@ -122,7 +122,7 @@ $okt->page->loader('.lazy-load');
 				</p>
 			</td>
 			<td class="<?php echo $td_class ?>">
-				<h4 class="title"><?php echo $module_title ?></h4>
+				<p class="title"><?php echo $module_title ?></p>
 				<p><?php echo $aModule['desc_l10n'] ?></p>
 
 				<?php if (!empty($module_links)) : ?>
@@ -254,7 +254,7 @@ $okt->page->loader('.lazy-load');
 				<?php endif; ?>
 			</td>
 			<td class="<?php echo $td_class; ?>">
-				<h4 class="title"><?php _e($module['name']) ?></h4>
+				<p class="title"><?php _e($module['name']) ?></p>
 				<p><?php _e($module['desc']) ?></p>
 			</td>
 			<td class="<?php echo $td_class; ?> center">

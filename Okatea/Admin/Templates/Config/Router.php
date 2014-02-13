@@ -92,7 +92,7 @@ $okt->page->tabs();
 
 			?>
 			<tr id="route_<?php echo $sRouteName ?>">
-				<th class="<?php echo $td_class ?> fake-td" scope="row"><h4 class="title"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basename'] : $sRouteName; ?></h4></th>
+				<th class="<?php echo $td_class ?> fake-td" scope="row"><p class="title"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basename'] : $sRouteName; ?></p></th>
 				<td class="<?php echo $td_class ?>">
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>
@@ -165,7 +165,7 @@ $okt->page->tabs();
 
 			?>
 			<tr id="route_<?php echo $sRouteName ?>">
-				<th class="<?php echo $td_class ?> fake-td" scope="row"><h4 class="title"><?php echo $okt->languages->unique ? $aAdminRouteInfos['basename'] : $sRouteName; ?></h4></th>
+				<th class="<?php echo $td_class ?> fake-td" scope="row"><p class="title"><?php echo $okt->languages->unique ? $aAdminRouteInfos['basename'] : $sRouteName; ?></p></th>
 				<td class="<?php echo $td_class ?>">
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '') ?>
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '') ?>

@@ -51,8 +51,8 @@ $okt->page->setButtonset('usersGroups', array(
 	?>
 	<tr>
 		<th scope="row" class="<?php echo $td_class ?> fake-td">
-			<h3 class="title"><a href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
-			<?php echo $view->escape($rsGroups->title) ?></a></h3>
+			<p class="title"><a href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
+			<?php echo $view->escape($rsGroups->title) ?></a></p>
 		</th>
 		<td class="<?php echo $td_class ?>">
 			<a href="<?php echo $view->generateUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
