@@ -94,9 +94,10 @@ $GLOBALS['okt_l10n']['c_a_users_Enable_profile_page'] = 'Enable the profile page
 
 $GLOBALS['okt_l10n']['c_a_users_Registration'] = 'Registration';
 $GLOBALS['okt_l10n']['c_a_users_send_mail_new_registration'] = 'Send an email for new registrations';
-$GLOBALS['okt_l10n']['c_a_users_Validation_of_registration_by_administrator'] = 'Validation of registrations by the administrator';
+$GLOBALS['okt_l10n']['c_a_users_send_mail_new_registration_recipients'] = 'Recipients email for new registrations';
+$GLOBALS['okt_l10n']['c_a_users_Validation_of_registration_by_administrator'] = 'Validation of registrations by the administrators';
 $GLOBALS['okt_l10n']['c_a_users_merge_username_email'] = 'Merge fields "Username" and "Email" (use of email instead of "Username")';
-$GLOBALS['okt_l10n']['c_a_users_auto_log_after_registration'] = 'Automatically login after registration';
+$GLOBALS['okt_l10n']['c_a_users_auto_log_after_registration'] = 'Automatically login after registration (works only if the validation by the administrator is disabled)';
 $GLOBALS['okt_l10n']['c_a_users_Let_users_choose_their_group'] = 'Let users choose their group (works only if the validation by the administrator is disabled)';
 $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Default group';
 
@@ -108,3 +109,6 @@ $GLOBALS['okt_l10n']['c_a_users_config_tpl_login_register'] = 'Login/registratio
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_profile'] = 'User profile form page templates';
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_register'] = 'Register form page templates';
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_user_bar'] = 'User bar templates';
+
+$GLOBALS['okt_l10n']['c_c_users_error_specify_at_least_one_recipients'] = 'You must specify at least one recipient.';
+$GLOBALS['okt_l10n']['c_c_users_error_recipients_%s_not_exists'] = 'The recipient %s does not exist.';

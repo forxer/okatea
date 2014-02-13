@@ -94,6 +94,7 @@ news_feed:
     enabled: false
     url:
         fr: 'http://okatea.org/fr/actualites/rss'
+        en: 'http://okatea.org/en/news/rss'
 navigation_tpl:
     default: default
     usables: {  }
@@ -106,7 +107,8 @@ users:
         forget_password: false
         profile: false
     registration:
-        mail_new_registration: true
+        mail_new_registration: false
+        mail_new_registration_recipients: {  }
         validation: true
         merge_username_email: false
         auto_log_after_registration: false

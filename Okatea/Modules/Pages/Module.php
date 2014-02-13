@@ -1004,8 +1004,7 @@ class Module extends BaseModule
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$oGroups = new Groups($this->okt);
-		$rsGroups = $oGroups->getGroups($aParams);
+		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
 
 		$aGroups = array();
 

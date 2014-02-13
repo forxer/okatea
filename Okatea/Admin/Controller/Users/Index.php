@@ -11,7 +11,6 @@ namespace Okatea\Admin\Controller\Users;
 use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
 use Okatea\Admin\Filters\Users as UsersFilters;
-use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Groups;
 
 class Index extends Controller
@@ -82,8 +81,7 @@ class Index extends Controller
 		$oFilters->getFilters();
 
 		# initialisation de la pagination
-		$oUsers = new Users($this->okt);
-		$iNumFilteredUsers = $oUsers->getUsers($aParams,true);
+		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams,true);
 
 		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
 
@@ -94,7 +92,7 @@ class Index extends Controller
 		$aParams['limit'] = (($oFilters->params->page-1)*$oFilters->params->nb_per_page).','.$oFilters->params->nb_per_page;
 
 		# liste des utilisateurs
-		$rsUsers = $oUsers->getUsers($aParams);
+		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
 
 		# Tableau de choix d'actions pour le traitement par lot
 		$aActionsChoices = array(
@@ -107,7 +105,7 @@ class Index extends Controller
 		}
 
 		# nombre d'utilisateur en attente de validation
-		$iNumUsersWaitingValidation = $oUsers->getUsers(array('group_id' => Groups::UNVERIFIED), true);
+		$iNumUsersWaitingValidation = $this->okt->getUsers()->getUsers(array('group_id' => Groups::UNVERIFIED), true);
 
 		if ($iNumUsersWaitingValidation === 1) {
 			$this->okt->page->warnings->set(__('c_a_users_one_user_in_wait_of_validation'));
@@ -117,7 +115,7 @@ class Index extends Controller
 		}
 
 		return $this->render('Users/Index', array(
-			'users'                         => $oUsers,
+			'users'                         => $this->okt->getUsers(),
 			'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
 			'sSearch' 						=> $sSearch,
@@ -151,8 +149,7 @@ class Index extends Controller
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$oUsers = new Users($this->okt);
-		$rsUsers = $oUsers->getUsers($aParams);
+		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
 
 		$aResults = array();
 		while ($rsUsers->fetch())
@@ -180,8 +177,7 @@ class Index extends Controller
 
 		try
 		{
-			$oUsers = new Users($this->okt);
-			$oUsers->setUserStatus($iUserId, 1);
+			$this->okt->getUsers()->setUserStatus($iUserId, 1);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -208,8 +204,7 @@ class Index extends Controller
 
 		try
 		{
-			$oUsers = new Users($this->okt);
-			$oUsers->setUserStatus($iUserId, 0);
+			$this->okt->getUsers()->setUserStatus($iUserId, 0);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -239,8 +234,7 @@ class Index extends Controller
 			# -- CORE TRIGGER : adminUsersBeforeDeleteProcess
 			$this->okt->triggers->callTrigger('adminUsersBeforeDeleteProcess', $iUserId);
 
-			$oUsers = new Users($this->okt);
-			$oUsers->deleteUser($iUserId);
+			$this->okt->getUsers()->deleteUser($iUserId);
 
 			# log admin
 			$this->okt->logAdmin->warning(array(
@@ -273,15 +267,13 @@ class Index extends Controller
 
 		$aUsersIds = array_map('intval', $aUsersIds);
 
-		$oUsers = new Users($this->okt);
-
 		try
 		{
 			if ($sAction == 'enable')
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$oUsers->setUserStatus($iUserId, 1);
+					$this->okt->getUsers()->setUserStatus($iUserId, 1);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -297,7 +289,7 @@ class Index extends Controller
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$oUsers->setUserStatus($iUserId, 0);
+					$this->okt->getUsers()->setUserStatus($iUserId, 0);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -313,7 +305,7 @@ class Index extends Controller
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$oUsers->deleteUser($iUserId);
+					$this->okt->getUsers()->deleteUser($iUserId);
 
 					# log admin
 					$this->okt->logAdmin->warning(array(

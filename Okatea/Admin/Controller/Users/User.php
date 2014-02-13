@@ -12,8 +12,6 @@ use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Users\Users;
-use Okatea\Tao\Users\Groups;
 
 class User extends Controller
 {
@@ -61,9 +59,7 @@ class User extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$oUsers = new Users($this->okt);
-
-				if ($oUsers->updUser($this->aPageData['user']) !== false)
+				if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 				{
 					$this->page->flash->success(__('c_a_users_profil_edited'));
 
@@ -105,9 +101,7 @@ class User extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$oUsers = new Users($this->okt);
-
-				if (($iUserId = $oUsers->addUser($this->aPageData['user'])) !== false)
+				if (($iUserId = $this->okt->getUsers()->addUser($this->aPageData['user'])) !== false)
 				{
 					/*
 					if ($this->okt->config->users->custom_fields_enabled)
@@ -142,9 +136,7 @@ class User extends Controller
 
 		$this->iUserId = $this->request->attributes->getInt('user_id');
 
-		$oUsers = new Users($this->okt);
-
-		$rsUser = $oUsers->getUser($this->iUserId);
+		$rsUser = $this->okt->getUsers()->getUser($this->iUserId);
 
 		if (0 === $this->iUserId || 1 === $this->iUserId || $rsUser->isEmpty()) {
 			return $this->serve404();
@@ -304,8 +296,7 @@ class User extends Controller
 			return false;
 		}
 
-		$oUsers = new Users($this->okt);
-		if ($oUsers->validateUser($this->aPageData['user']['id']))
+		if ($this->okt->getUsers()->validateUser($this->aPageData['user']['id']))
 		{
 			$oMail = new Mailer($this->okt);
 
@@ -341,8 +332,7 @@ class User extends Controller
 		$aParams['password'] = $this->request->request->get('password');
 		$aParams['password_confirm'] = $this->request->request->get('password_confirm');
 
-		$oUsers = new Users($this->okt);
-		if ($oUsers->changeUserPassword($aParams))
+		if ($this->okt->getUsers()->changeUserPassword($aParams))
 		{
 			if ($this->request->request->has('send_password_mail'))
 			{
@@ -397,9 +387,7 @@ class User extends Controller
 
 		if ($this->okt->error->isEmpty())
 		{
-			$oUsers = new Users($this->okt);
-
-			if ($oUsers->updUser($this->aPageData['user']) !== false)
+			if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 			{
 				/*
 				if ($this->okt->config->users->custom_fields_enabled)

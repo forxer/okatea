@@ -71,8 +71,14 @@ class FormElements
 			elseif ($v instanceof SelectOption) {
 				$res .= $v->render($mDefault);
 			}
-			else {
-				$s = $v == $mDefault ? ' selected="selected"' : '';
+			else
+			{
+				if (is_array($mDefault)) {
+					$s = in_array($v, $mDefault) ? ' selected="selected"' : '';
+				}
+				else {
+					$s = $v == $mDefault ? ' selected="selected"' : '';
+				}
 				$res .= sprintf($option, $v, $k, $s);
 			}
 		}

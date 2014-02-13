@@ -66,10 +66,10 @@ class LogAdmin extends BaseFilters
 	{
 		# tableau de type de tri de base
 		$this->order_by_array = array(
-			'date' => 'date',
-			'type' => 'type',
-			'action' => 'code',
-			'IP' => 'ip'
+			'date'       => 'date',
+			'type'       => 'type',
+			'action'     => 'code',
+			'IP'         => 'ip'
 		);
 
 		# dates

@@ -10,8 +10,6 @@ namespace Okatea\Website;
 
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
-use Okatea\Tao\Users\Groups;
-use Okatea\Tao\Users\Users;
 use Okatea\Website\Controller as BaseController;
 
 class UsersController extends BaseController
@@ -557,7 +555,8 @@ class UsersController extends BaseController
 				$oMail->send();
 
 				# Initialisation du mailer et envoi du mail à l'administrateur
-				if ($this->okt->config->users['registration']['mail_new_registration'])
+				if ($this->okt->config->users['registration']['mail_new_registration']
+					&& !empty($this->okt->config->users['registration']['mail_new_registration_recipients']))
 				{
 					$oMail = new Mailer($this->okt);
 
@@ -565,14 +564,26 @@ class UsersController extends BaseController
 
 					if ($this->okt->config->users['registration']['validation']) {
 						$template_file = 'registration_validate.tpl';
-					} else {
+					}
+					else {
 						$template_file = 'registration.tpl';
 					}
 
-					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>Groups::ADMIN));
+					foreach ($this->okt->config->users['registration']['mail_new_registration_recipients'] as $sUser)
+					{
+
+					}
+
+					$rsAdministrators = $this->okt->users->getUsers(array(
+						'group_id' => array(
+							Groups::SUPERADMIN,
+							Groups::ADMIN
+						)
+					));
+
 					while ($rsAdministrators->fetch())
 					{
-						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
+						$oMail->useFile($this->okt->options->get('locales_dir').'/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE'     => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL'       => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 							'USER_CN'        => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
@@ -586,7 +597,9 @@ class UsersController extends BaseController
 				}
 
 				# eventuel connexion du nouvel utilisateur
-				if (!$this->okt->config->users['registration']['validation'] && $this->okt->config->users['registration']['auto_log_after_registration']) {
+				if (!$this->okt->config->users['registration']['validation']
+					&& $this->okt->config->users['registration']['auto_log_after_registration'])
+				{
 					$this->okt->user->login($this->aUserRegisterData['username'],$this->aUserRegisterData['password'],false);
 				}
 
@@ -609,8 +622,7 @@ class UsersController extends BaseController
 
 		$aUsersGroups = array();
 
-		$oGroups = new Groups($this->okt);
-		$rsGroups = $oGroups->getGroups(array(
+		$rsGroups = $this->okt->getGroups()->getGroups(array(
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,

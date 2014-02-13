@@ -111,14 +111,17 @@ class LogAdmin
 			$reqPlus .= ' AND code='.(integer)$aParams['code'].' ';
 		}
 
-		if (!empty($aParams['date_max']) && !empty($aParams['date_min'])) {
-			$reqPlus .= ' AND date BETWEEN \''.date('Y-m-d H:i:s',strtotime($aParams['date_min'])).'\' AND \''.date('Y-m-d H:i:s' ,strtotime($aParams['date_max'])).'\' ';
+		if (!empty($aParams['date_max']) && !empty($aParams['date_min']))
+		{
+			$reqPlus .=
+				' AND date BETWEEN \''.date('Y-m-d H:i:s', strtotime($aParams['date_min'])).'\''.
+				' AND \''.date('Y-m-d H:i:s', strtotime($aParams['date_max'])).'\' ';
 		}
 		elseif (!empty($aParams['date_min'])) {
-			$reqPlus .= ' AND date > \''.date('Y-m-d H:i:s',strtotime($aParams['date_min'])).'\' ';
+			$reqPlus .= ' AND date > \''.date('Y-m-d H:i:s', strtotime($aParams['date_min'])).'\' ';
 		}
 		elseif (!empty($aParams['date_max'])) {
-			$reqPlus .= ' AND date < \''.date('Y-m-d H:i:s',strtotime($aParams['date_max'])).'\' ';
+			$reqPlus .= ' AND date < \''.date('Y-m-d H:i:s', strtotime($aParams['date_max'])).'\' ';
 		}
 
 		if ($bCountOnly)

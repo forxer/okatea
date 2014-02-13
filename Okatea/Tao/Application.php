@@ -34,6 +34,8 @@ use Okatea\Tao\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Authentification;
+use Okatea\Tao\Users\Groups;
+use Okatea\Tao\Users\Users;
 use Okatea\Website\Router;
 
 
@@ -97,6 +99,13 @@ class Application
 	 * @var Okatea\Tao\Errors
 	 */
 	public $error;
+
+	/**
+	 * Le gestionnaire des groupes utilisateurs.
+	 *
+	 * @var Okatea\Tao\Users\Groups
+	 */
+	public $groups;
 
 	/**
 	 * Le gestionnaire de langues.
@@ -202,6 +211,13 @@ class Application
 	 * @var Okatea\Tao\Authentification
 	 */
 	public $user;
+
+	/**
+	 * Le gestionnaire des utilisateurs.
+	 *
+	 * @var Okatea\Tao\Users\Users
+	 */
+	public $users;
 
 	/**
 	 * L'objet HTMLPurifier si il est instancié, sinon null.
@@ -406,6 +422,24 @@ class Application
 		}
 
 		return $this->logger;
+	}
+
+	public function getUsers()
+	{
+		if (null === $this->users) {
+			$this->users = new Users($this);
+		}
+
+		return $this->users;
+	}
+
+	public function getGroups()
+	{
+		if (null === $this->groups) {
+			$this->groups = new Groups($this);
+		}
+
+		return $this->groups;
 	}
 
 

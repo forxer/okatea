@@ -25,7 +25,6 @@ class Permissions extends Controller
 		$aGroups = array();
 		$aPerms = array();
 
-		$oUsersGroups = new Groups($this->okt);
 		$aparams = array(
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
@@ -37,7 +36,7 @@ class Permissions extends Controller
 			$aparams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $oUsersGroups->getGroups($aparams);
+		$rsGroups = $this->okt->getGroups()->getGroups($aparams);
 
 		while ($rsGroups->fetch())
 		{
@@ -54,7 +53,7 @@ class Permissions extends Controller
 			{
 				$group_perms = !empty($perms[$group_id]) ? array_keys($perms[$group_id]) : array();
 
-				$oUsersGroups->updGroupPerms($group_id, $group_perms);
+				$this->okt->getGroups()->updGroupPerms($group_id, $group_perms);
 			}
 
 			$this->page->flash->success(__('c_a_config_permissions_updated'));

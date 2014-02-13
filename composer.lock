@@ -381,12 +381,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/forxer/gravatarlib.git",
-                "reference": "8f740e1fd122e56e5be98693ada85a7ac60a1ec9"
+                "reference": "6a1038c354a1772fc39366c352f1e3a1bd993477"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/forxer/gravatarlib/zipball/8f740e1fd122e56e5be98693ada85a7ac60a1ec9",
-                "reference": "8f740e1fd122e56e5be98693ada85a7ac60a1ec9",
+                "url": "https://api.github.com/repos/forxer/gravatarlib/zipball/6a1038c354a1772fc39366c352f1e3a1bd993477",
+                "reference": "6a1038c354a1772fc39366c352f1e3a1bd993477",
                 "shasum": ""
             },
             "require": {
@@ -420,7 +420,7 @@
             "keywords": [
                 "gravatar"
             ],
-            "time": "2014-02-13 13:12:35"
+            "time": "2014-02-13 14:16:42"
         },
         {
             "name": "forxer/languages-list",

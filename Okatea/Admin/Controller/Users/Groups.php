@@ -11,7 +11,6 @@ namespace Okatea\Admin\Controller\Users;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups as UsersGroups;
-use Okatea\Tao\Users\Users;
 
 class Groups extends Controller
 {
@@ -19,13 +18,11 @@ class Groups extends Controller
 	{
 		$this->init();
 
-		$oUsersGroups = new UsersGroups($this->okt);
-
 		if ($this->okt->request->query->has('delete_id'))
 		{
 			$iGroupIdToDelete = $this->okt->request->query->get('delete_id');
 
-			if ($oUsersGroups->deleteGroup($iGroupIdToDelete))
+			if ($this->okt->getGroups()->deleteGroup($iGroupIdToDelete))
 			{
 				$this->okt->page->flash->success(__('c_a_users_group_deleted'));
 
@@ -40,10 +37,10 @@ class Groups extends Controller
 		}
 
 		if (!$this->okt->user->is_admin) {
-			$aparams['group_id_not'][] = Groups::ADMIN;
+			$aparams['group_id_not'][] = UsersGroups::ADMIN;
 		}
 
-		$rsGroups = $oUsersGroups->getGroups($aParams);
+		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
 
 		return $this->render('Users/Groups/Index', array(
 			'rsGroups'       => $rsGroups
@@ -69,11 +66,10 @@ class Groups extends Controller
 				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
 			}
 
-			$oUsersGroups = new UsersGroups($this->okt);
-
 			if ($this->okt->error->isEmpty())
 			{
-				if (($iGroupId = $oUsersGroups->addGroup($title)) !== false && $oUsersGroups->updGroupPerms($iGroupId, $aPerms))
+				if (($iGroupId = $this->okt->getGroups()->addGroup($title)) !== false
+					&& $this->okt->getGroups()->updGroupPerms($iGroupId, $aPerms))
 				{
 					$this->okt->page->flash->success(__('c_a_users_group_added'));
 
@@ -98,9 +94,7 @@ class Groups extends Controller
 			return $this->serve404();
 		}
 
-		$oUsersGroups = new UsersGroups($this->okt);
-
-		$rsGroup = $oUsersGroups->getGroup($iGroupId);
+		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
 
 		$title = $rsGroup->title;
 
@@ -119,7 +113,7 @@ class Groups extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				if ($oUsersGroups->updGroup($iGroupId, $title) && $oUsersGroups->updGroupPerms($iGroupId, $aPerms))
+				if ($this->okt->getGroups()->updGroup($iGroupId, $title) && $this->okt->getGroups()->updGroupPerms($iGroupId, $aPerms))
 				{
 					$this->okt->page->flash->success(__('c_a_users_group_edited'));
 
