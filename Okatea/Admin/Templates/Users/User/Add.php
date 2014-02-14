@@ -26,6 +26,14 @@ $okt->page->setButtonset('users', array(
 		)
 	)
 ));
+
+$okt->page->css->addFile($okt->options->public_url.'/components/passfield/css/passfield.css');
+$okt->page->js->addFile($okt->options->public_url.'/components/passfield/js/locales.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/passfield/js/passfield.js');
+$okt->page->js->addReady('
+	$("#password").passField({ /*options*/ });
+');
+
 ?>
 
 <?php echo $okt->page->getButtonSet('users'); ?>
@@ -42,11 +50,14 @@ $okt->page->setButtonset('users', array(
 	<legend><?php _e('c_c_user_Password')?></legend>
 
 	<div class="three-cols">
-		<p class="field col"><label for="password" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
+
+		<p class="field col control-group">
+		<label for="password" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_user_Password') ?></label>
 		<?php echo form::password('password', 40, 255, $view->escape($aPageData['user']['password'])) ?></p>
 
 		<p class="field col"><label for="password_confirm" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_auth_confirm_password') ?></label>
 		<?php echo form::password('password_confirm', 40, 255, $view->escape($aPageData['user']['password_confirm'])) ?></p>
+
 	</div>
 </fieldset>
 

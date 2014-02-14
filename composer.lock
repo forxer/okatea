@@ -245,16 +245,16 @@
         },
         {
             "name": "dunglas/php-socialshare",
-            "version": "v0.1.4",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dunglas/php-socialshare.git",
-                "reference": "da511e70ab328dc9ba7b50c22ca1f15c291b471b"
+                "reference": "62e9dfada9b121015d1635a921049a8a1f866928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dunglas/php-socialshare/zipball/da511e70ab328dc9ba7b50c22ca1f15c291b471b",
-                "reference": "da511e70ab328dc9ba7b50c22ca1f15c291b471b",
+                "url": "https://api.github.com/repos/dunglas/php-socialshare/zipball/62e9dfada9b121015d1635a921049a8a1f866928",
+                "reference": "62e9dfada9b121015d1635a921049a8a1f866928",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +289,7 @@
                 "share",
                 "social"
             ],
-            "time": "2014-01-29 08:08:42"
+            "time": "2014-02-13 23:12:56"
         },
         {
             "name": "erusev/parsedown",
@@ -449,12 +449,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "b4c0948f1e6d1c73047895f9432fa83a69a176c7"
+                "reference": "c03449e8830d9bd32bef544de1b1de7d1d876982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b4c0948f1e6d1c73047895f9432fa83a69a176c7",
-                "reference": "b4c0948f1e6d1c73047895f9432fa83a69a176c7",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/c03449e8830d9bd32bef544de1b1de7d1d876982",
+                "reference": "c03449e8830d9bd32bef544de1b1de7d1d876982",
                 "shasum": ""
             },
             "require": {
@@ -533,7 +533,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-02-12 17:53:56"
+            "time": "2014-02-14 01:12:10"
         },
         {
             "name": "imagine/imagine",
@@ -724,16 +724,16 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "d68b8aded0f1b79a77845e926bd993cd470be2e1"
+                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/d68b8aded0f1b79a77845e926bd993cd470be2e1",
-                "reference": "d68b8aded0f1b79a77845e926bd993cd470be2e1",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
+                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
                 "shasum": ""
             },
             "require": {
@@ -770,7 +770,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-02-09 13:36:32"
+            "time": "2014-02-14 16:30:44"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

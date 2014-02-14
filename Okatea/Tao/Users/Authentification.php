@@ -8,7 +8,6 @@
 
 namespace Okatea\Tao\Users;
 
-use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Users;
 
@@ -405,113 +404,6 @@ class Authentification
 				'username' => $this->infos->f('username'),
 				'code' => 11
 			));
-		}
-
-		return true;
-	}
-
-	/**
-	 * Envoi un email avec un nouveau mot de passe.
-	 *
-	 * @param string $sEmail    		L'adresse email où envoyer le nouveau mot de passe
-	 * @param string $sActivateUrl		L'URL de la page de validation
-	 * @return boolean
-	 */
-	public function forgetPassword($sEmail, $sActivateUrl)
-	{
-		$sEmail = strtolower(trim($sEmail));
-
-		# validation de l'adresse fournie
-		if (!Utilities::isEmail($sEmail))
-		{
-			$this->oError->set(__('c_c_auth_invalid_email'));
-			return false;
-		}
-
-		# récupération des infos de l'utilisateur
-		$sQuery =
-		'SELECT id, username, lastname, firstname '.
-		'FROM '.$this->t_users.' '.
-		'WHERE email=\''.$this->oDb->escapeStr($sEmail).'\'';
-
-		if (($rs = $this->oDb->select($sQuery)) === false) {
-			return false;
-		}
-
-		if ($rs->isEmpty()) {
-			$this->oError->set(__('c_c_auth_unknown_email'));
-			return false;
-		}
-
-		while ($rs->fetch())
-		{
-			# génération du nouveau mot de passe et du code d'activation
-			$sNewPassword = Utilities::random_key(8, true);
-			$sNewPasswordKey = Utilities::random_key(8);
-
-			$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
-
-			$sQuery =
-			'UPDATE '.$this->t_users.' SET '.
-				'activate_string=\''.$sPasswordHash.'\', '.
-				'activate_key=\''.$sNewPasswordKey.'\' '.
-			'WHERE id='.(integer)$rs->id;
-
-			if (!$this->oDb->execute($sQuery)) {
-				return false;
-			}
-
-			# Initialisation du mailer et envoi du mail
-			$oMail = new Mailer($this->okt);
-			$oMail->setFrom();
-			$oMail->message->setTo($sEmail);
-
-			$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
-				'SITE_TITLE' => $this->okt->page->getSiteTitle(),
-				'SITE_URL' => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-				'USERNAME' => Users::getUserDisplayName($rs->username, $rs->lastname, $rs->firstname, $rs->displayname),
-				'NEW_PASSWORD' => $sNewPassword,
-				'ACTIVATION_URL' => $sActivateUrl.'?uid='.$rs->id.'&key='.rawurlencode($sNewPasswordKey),
-			));
-
-			$oMail->send();
-		}
-
-		return true;
-	}
-
-
-	public function validatePasswordKey($iUserId, $sKey)
-	{
-		# récupération des infos de l'utilisateur
-		$sQuery =
-		'SELECT activate_string, activate_key '.
-		'FROM '.$this->t_users.' '.
-		'WHERE id='.(integer)$iUserId.' ';
-
-		if (($rs = $this->oDb->select($sQuery)) === false) {
-			return false;
-		}
-
-		if ($rs->isEmpty()) {
-			$this->oError->set(__('c_c_auth_unknown_user'));
-			return false;
-		}
-
-		if (rawurldecode($sKey) != $rs->activate_key) {
-			$this->oError->set(__('c_c_auth_validation_key_not_match'));
-			return false;
-		}
-
-		$sQuery =
-		'UPDATE '.$this->t_users.' SET '.
-			'password=\''.$rs->activate_string.'\', '.
-			'activate_string=NULL, '.
-			'activate_key=NULL '.
-		'WHERE id='.(integer)$iUserId.' ';
-
-		if (!$this->oDb->execute($sQuery)) {
-			return false;
 		}
 
 		return true;

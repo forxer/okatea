@@ -24,7 +24,7 @@ class Mailer
 	public $mailer;
 	public $failures;
 
-	public function __construct($okt, $subject=null, $body=null, $contentType=null, $charset=null)
+	public function __construct($okt, $subject = null, $body = null, $contentType = null, $charset = null)
 	{
 		$this->okt = $okt;
 
@@ -58,7 +58,7 @@ class Mailer
 					$this->transport->setUsername($this->okt->config->email['smtp']['username']);
 				}
 
-				if (!empty($this->okt->config->courriel['smtp']['password'])) {
+				if (!empty($this->okt->config->email['smtp']['password'])) {
 					$this->transport->setPassword($this->okt->config->email['smtp']['password']);
 				}
 			break;
@@ -75,14 +75,32 @@ class Mailer
 		}
 	}
 
-	public function setFrom()
+	public function setFrom($mFrom = null)
 	{
-		if (!empty($this->okt->config->email['name'])) {
+		if ($mFrom !== null) {
+			$this->message->setFrom($mFrom);
+		}
+		elseif (!empty($this->okt->config->email['name'])) {
 			$this->message->setFrom(array($this->okt->config->email['from'] => Escaper::html($this->okt->config->email['name'])));
 		}
 		else {
 			$this->message->setFrom($this->okt->config->email['from']);
 		}
+	}
+
+	public function setSubject($sSubject)
+	{
+		$this->message->setSubject($sSubject);
+	}
+
+	public function setBody($body, $contentType = null, $charset = null)
+	{
+		$this->message->setBody($body, $contentType, $charset);
+	}
+
+	public function addPart($body, $contentType = null, $charset = null)
+	{
+		$this->message->addPart($body, $contentType, $charset);
 	}
 
 	/**
@@ -91,6 +109,7 @@ class Mailer
 	 * @param $template_file
 	 * @param $variables
 	 * @return void
+	 * @deprecated 2.0
 	 */
 	public function useFile($template_file, $variables=array())
 	{

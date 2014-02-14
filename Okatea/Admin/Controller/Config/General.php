@@ -270,7 +270,7 @@ class General extends Controller
 				'transport' => $this->request->request->get('p_email_transport', 'mail'),
 				'smtp' => array(
 					'host' => $this->request->request->get('p_email_smtp_host'),
-					'port' => $this->request->request->getInt('p_email_smtp_host', 25),
+					'port' => $this->request->request->getInt('p_email_smtp_port', 25),
 					'username' => $this->request->request->get('p_email_smtp_username'),
 					'password' => $this->request->request->get('p_email_smtp_password')
 				),

@@ -46,7 +46,7 @@ email:
     to: contact@okatea.org
     from: contact@okatea.org
     name: Okatea
-    transport: ''
+    transport: mail
     smtp:
         host: ''
         port: 25
@@ -102,15 +102,16 @@ users:
     custom_fields_enabled: false
     pages:
         login: true
-        register: false
+        register: true
         log_reg: false
-        forget_password: false
-        profile: false
+        forget_password: true
+        profile: true
     registration:
+        merge_username_email: false
         mail_new_registration: false
         mail_new_registration_recipients: {  }
-        validation: true
-        merge_username_email: false
+        validation_email: true
+        validation_admin: false
         auto_log_after_registration: false
         user_choose_group: false
         default_group: 4

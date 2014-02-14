@@ -12,7 +12,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $okt->page->js->addScript('
 
 	function handleValidateOptionStatus() {
-		if ($("#p_validation").is(":checked")) {
+		if ($("#p_validation_admin").is(":checked")) {
 			$("#p_user_choose_group,#p_auto_log_after_registration").attr("disabled", "")
 				.parent().addClass("disabled");
 		}
@@ -36,7 +36,7 @@ $okt->page->js->addScript('
 
 $okt->page->js->addReady('
 	handleValidateOptionStatus();
-	$("#p_validation").change(function(){handleValidateOptionStatus();});
+	$("#p_validation_admin").change(function(){handleValidateOptionStatus();});
 
 	handleMailNewRegistrationOptionStatus();
 	$("#p_mail_new_registration").change(function(){handleMailNewRegistrationOptionStatus();});
@@ -64,7 +64,10 @@ $okt->page->js->addReady('
 	<p class="field"><label for="p_mail_new_registration_recipients"><?php _e('c_a_users_send_mail_new_registration_recipients') ?></label>
 	<?php echo form::select(array('p_mail_new_registration_recipients[]','p_mail_new_registration_recipients'), $aUsers, $aPageData['config']['users']['registration']['mail_new_registration_recipients'], '', '', '', 'multiple') ?></p>
 
-	<p class="field"><label for="p_validation"><?php echo form::checkbox('p_validation', 1, $aPageData['config']['users']['registration']['validation']) ?>
+	<p class="field"><label for="p_validation_email"><?php echo form::checkbox('p_validation_email', 1, $aPageData['config']['users']['registration']['validation_email']) ?>
+	<?php _e('c_a_users_Validation_of_registration_by_email') ?></label></p>
+
+	<p class="field"><label for="p_validation_admin"><?php echo form::checkbox('p_validation_admin', 1, $aPageData['config']['users']['registration']['validation_admin']) ?>
 	<?php _e('c_a_users_Validation_of_registration_by_administrator') ?></label></p>
 
 	<p class="field"><label for="p_auto_log_after_registration"><?php echo form::checkbox('p_auto_log_after_registration', 1, $aPageData['config']['users']['registration']['auto_log_after_registration']) ?>

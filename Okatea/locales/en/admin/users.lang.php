@@ -93,10 +93,11 @@ $GLOBALS['okt_l10n']['c_a_users_Enable_page_forgotten_password'] = 'Enable the f
 $GLOBALS['okt_l10n']['c_a_users_Enable_profile_page'] = 'Enable the profile page';
 
 $GLOBALS['okt_l10n']['c_a_users_Registration'] = 'Registration';
+$GLOBALS['okt_l10n']['c_a_users_merge_username_email'] = 'Merge fields "Username" and "Email" (use of email instead of "Username")';
 $GLOBALS['okt_l10n']['c_a_users_send_mail_new_registration'] = 'Send an email for new registrations';
 $GLOBALS['okt_l10n']['c_a_users_send_mail_new_registration_recipients'] = 'Recipients email for new registrations';
+$GLOBALS['okt_l10n']['c_a_users_Validation_of_registration_by_email'] = 'Validation of registrations by email';
 $GLOBALS['okt_l10n']['c_a_users_Validation_of_registration_by_administrator'] = 'Validation of registrations by the administrators';
-$GLOBALS['okt_l10n']['c_a_users_merge_username_email'] = 'Merge fields "Username" and "Email" (use of email instead of "Username")';
 $GLOBALS['okt_l10n']['c_a_users_auto_log_after_registration'] = 'Automatically login after registration (works only if the validation by the administrator is disabled)';
 $GLOBALS['okt_l10n']['c_a_users_Let_users_choose_their_group'] = 'Let users choose their group (works only if the validation by the administrator is disabled)';
 $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Default group';

@@ -11,6 +11,7 @@ namespace Okatea\Tao\Users;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
+use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
 
 class Users
@@ -60,20 +61,24 @@ class Users
 	 * Renvoie les données concernant un ou plusieurs utilisateurs.
 	 * La méthode renvoie false si elle échoue.
 	 *
-	 * @param	array	params		Les paramètres
-	 * @param	boolean	count_only	Permet de ne retourner que le compte
+	 * @param	array	$aParams		Les paramètres
+	 * @param	boolean	$bCountOnly	    Permet de ne retourner que le compte
 	 * @return	Recordset
 	 */
 	public function getUsers(array $aParams = array(), $bCountOnly = false)
 	{
 		$sReqPlus = 'WHERE 1 ';
 
-		if (isset($aParams['id'])) {
+		if (!empty($aParams['id'])) {
 			$sReqPlus .= 'AND u.id='.(integer)$aParams['id'].' ';
 		}
 
-		if (isset($aParams['username'])) {
+		if (!empty($aParams['username'])) {
 			$sReqPlus .= 'AND u.username=\''.$this->db->escapeStr($aParams['username']).'\' ';
+		}
+
+		if (!empty($aParams['email'])) {
+			$sReqPlus .= 'AND u.email=\''.$this->db->escapeStr($aParams['email']).'\' ';
 		}
 
 		if (isset($aParams['status']))
@@ -346,20 +351,30 @@ class Users
 			return false;
 		}
 
-		if ($this->okt->config->users['registration']['validation']) {
+		if ($this->okt->config->users['registration']['validation_admin']) {
 			$aParams['group_id'] = 0;
 		}
-		elseif (empty($aParams['group_id']) || !$this->groupExists($aParams['group_id'])) {
+		elseif (empty($aParams['group_id']) || !$this->okt->getGroups()->groupExists($aParams['group_id'])) {
 			$aParams['group_id'] = $this->okt->config->users['registration']['default_group'];
 		}
 
-		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
+		$sPasswordHash = password_hash($aParams['password'], PASSWORD_DEFAULT);
+
+		if ($this->okt->config->users['registration']['validation_email'])
+		{
+			$aParams['activate_string'] = $sPasswordHash;
+			$aParams['activate_key'] = Utilities::random_key(8);
+		}
+
+		$aParams['status'] = 0;
+
 		$iTime = time();
 
 		$sQuery =
 		'INSERT INTO '.$this->t_users.' ( '.
 			'group_id, civility, status, username, lastname, firstname, displayname, '.
-			'password, email, timezone, language, registered, registration_ip, last_visit '.
+			'password, email, timezone, language, registered, registration_ip, last_visit, '.
+			'activate_string, activate_key'.
 		') VALUES ( '.
 			(integer)$aParams['group_id'].', '.
 			(integer)$aParams['civility'].', '.
@@ -368,13 +383,15 @@ class Users
 			(!empty($aParams['lastname']) ? '\''.$this->db->escapeStr($aParams['lastname']).'\', ' : 'null,').
 			(!empty($aParams['firstname']) ? '\''.$this->db->escapeStr($aParams['firstname']).'\', ' : 'null,').
 			(!empty($aParams['displayname']) ? '\''.$this->db->escapeStr($aParams['displayname']).'\', ' : 'null,').
-			'\''.$this->db->escapeStr($password_hash).'\', '.
+			'\''.$this->db->escapeStr($sPasswordHash).'\', '.
 			'\''.$this->db->escapeStr($aParams['email']).'\', '.
 			(!empty($aParams['timezone']) ? '\''.$this->db->escapeStr($aParams['timezone']).'\', ' : 'null,').
 			(!empty($aParams['language']) ? '\''.$this->db->escapeStr($aParams['language']).'\', ' : 'null,').
 			$iTime.', '.
 			(!empty($aParams['registration_ip']) ? '\''.$this->db->escapeStr($aParams['registration_ip']).'\', ' : '\'0.0.0.0\', ').
-			$iTime.
+			$iTime.', '.
+			(!empty($aParams['activate_string']) ? '\''.$this->db->escapeStr($aParams['activate_string']).'\', ' : 'null,').
+			(!empty($aParams['activate_key']) ? '\''.$this->db->escapeStr($aParams['activate_key']).'\' ' : 'null').
 		'); ';
 
 		if (!$this->db->execute($sQuery)) {
@@ -498,11 +515,11 @@ class Users
 			return false;
 		}
 
-		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
+		$sPasswordHash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 
 		$sQuery =
 		'UPDATE '.$this->t_users.' SET '.
-			'password=\''.$this->db->escapeStr($password_hash).'\' '.
+			'password=\''.$this->db->escapeStr($sPasswordHash).'\' '.
 		'WHERE id='.(integer)$aParams['id'];
 
 		if (!$this->db->execute($sQuery)) {
@@ -649,6 +666,98 @@ class Users
 	}
 
 	/**
+	 * Envoi un email avec un nouveau mot de passe.
+	 *
+	 * @param string $sEmail    		L'adresse email où envoyer le nouveau mot de passe
+	 * @param string $sActivateUrl		L'URL de la page de validation
+	 * @return boolean
+	 */
+	public function forgetPassword($sEmail, $sActivateUrl)
+	{
+		# validation de l'adresse fournie
+		if (!Utilities::isEmail($sEmail)) {
+			$this->oError->set(__('c_c_auth_invalid_email'));
+			return false;
+		}
+
+		# récupération des infos de l'utilisateur
+		$rsUser = $this->getUsers(array('email' => $sEmail));
+
+		if ($rsUser === false || $rsUser->isEmpty()) {
+			$this->oError->set(__('c_c_auth_unknown_email'));
+			return false;
+		}
+
+		# génération du nouveau mot de passe et du code d'activation
+		$sNewPassword = Utilities::random_key(8, true);
+		$sNewPasswordKey = Utilities::random_key(8);
+
+		$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
+
+		$sQuery =
+		'UPDATE '.$this->t_users.' SET '.
+			'activate_string=\''.$this->db->escapeStr($sPasswordHash).'\', '.
+			'activate_key=\''.$this->db->escapeStr($sNewPasswordKey).'\' '.
+		'WHERE id='.(integer)$rsUser->id;
+
+		if (!$this->db->execute($sQuery)) {
+			return false;
+		}
+
+		# Initialisation du mailer et envoi du mail
+		$oMail = new Mailer($this->okt);
+		$oMail->setFrom();
+		$oMail->message->setTo($sEmail);
+
+		$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
+			'SITE_TITLE'        => $this->okt->page->getSiteTitle(),
+			'SITE_URL'          => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+			'USERNAME'          => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+			'NEW_PASSWORD'      => $sNewPassword,
+			'ACTIVATION_URL'    => $sActivateUrl.'?uid='.$rsUser->id.'&key='.rawurlencode($sNewPasswordKey)
+		));
+
+		$oMail->send();
+
+		return true;
+	}
+
+	/**
+	 * Validate a password key for a given user id.
+	 *
+	 * @param integer $iUserId
+	 * @param string $sKey
+	 * @return boolean
+	 */
+	public function validatePasswordKey($iUserId, $sKey)
+	{
+		$rsUser = $this->getUser($iUserId);
+
+		if ($rsUser === false || $rsUser->isEmpty()) {
+			$this->oError->set(__('c_c_auth_unknown_email'));
+			return false;
+		}
+
+		if (rawurldecode($sKey) != $rsUser->activate_key) {
+			$this->oError->set(__('c_c_auth_validation_key_not_match'));
+			return false;
+		}
+
+		$sQuery =
+		'UPDATE '.$this->t_users.' SET '.
+			'password=\''.$rsUser->activate_string.'\', '.
+			'activate_string=NULL, '.
+			'activate_key=NULL '.
+		'WHERE id='.(integer)$iUserId.' ';
+
+		if (!$this->db->execute($sQuery)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Static function that returns user's common name given to his
 	 * username, lastname, firstname and displayname.
 	 *
@@ -658,7 +767,7 @@ class Users
 	 * @param string $sDisplayName		User's display name
 	 * @return string
 	 */
-	public static function getUserDisplayName($sUsername, $sLastname=null, $sFirstname=null, $sDisplayName=null)
+	public static function getUserDisplayName($sUsername, $sLastname = null, $sFirstname = null, $sDisplayName = null)
 	{
 		if (!empty($sDisplayName)) {
 			return $sDisplayName;

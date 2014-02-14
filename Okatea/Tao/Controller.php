@@ -59,6 +59,18 @@ class Controller
 	}
 
 	/**
+	 * Returns true if the template view exists.
+	 *
+	 * @param string|Symfony\Component\Templating\TemplateReferenceInterface $view    A template name or a TemplateReferenceInterface instance
+	 *
+	 * @return Boolean      true if the template view exists, false otherwise
+	 */
+	public function viewExists($view)
+	{
+		return $this->okt->tpl->exists($view);
+	}
+
+	/**
 	 * Returns a rendered view.
 	 *
 	 * @param string $view       The view name

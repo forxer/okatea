@@ -10,6 +10,8 @@ namespace Okatea\Website;
 
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
+use Okatea\Tao\Users\Users;
+use Okatea\Tao\Users\Groups;
 use Okatea\Website\Controller as BaseController;
 
 class UsersController extends BaseController
@@ -53,19 +55,18 @@ class UsersController extends BaseController
 		}
 
 		# affichage du template
-		return $this->render('Users/login/'.$this->okt->config->users['templates']['login']['default'].'/template', array(
+		return $this->render('users/login/'.$this->okt->config->users['templates']['login']['default'].'/template', array(
 			'user_id'    => $this->sUserId,
 			'redirect'   => $this->sRedirectURL
 		));
 	}
 
 	/**
-	 * Affichage de la page de déconnexion.
+	 * Déconnexion et redirection.
 	 *
 	 */
 	public function logout()
 	{
-		# déconnexion et redirection
 		$this->okt->user->logout();
 
 		return $this->performRedirect();
@@ -90,7 +91,7 @@ class UsersController extends BaseController
 		$this->performRegister();
 
 		# affichage du template
-		return $this->render('Users/register/'.$this->okt->config->users['templates']['register']['default'].'/template', array(
+		return $this->render('users/register/'.$this->okt->config->users['templates']['register']['default'].'/template', array(
 			'aUsersGroups'       => $this->getGroups(),
 			'aTimezone'          => \dt::getZones(true,true),
 			'aLanguages'         => $this->getLanguages(),
@@ -124,7 +125,7 @@ class UsersController extends BaseController
 		$this->performRegister();
 
 		# affichage du template
-		return $this->render('Users/login_register/'.$this->okt->config->users['templates']['login_register']['default'].'/template', array(
+		return $this->render('users/login_register/'.$this->okt->config->users['templates']['login_register']['default'].'/template', array(
 			'aUsersGroups'       => $this->getGroups(),
 			'aTimezone'          => \dt::getZones(true,true),
 			'aLanguages'         => $this->getLanguages(),
@@ -135,7 +136,7 @@ class UsersController extends BaseController
 	}
 
 	/**
-	 * Affichage de la page de récupération de mot de passe perdu.
+	 * Affichage de la page de régénération de mot de passe perdu.
 	 *
 	 */
 	public function forgetPassword()
@@ -150,30 +151,28 @@ class UsersController extends BaseController
 			return $this->performRedirect();
 		}
 
-		$password_sended = false;
-		$password_updated = false;
+		$bPasswordUpdated = false;
+		$bPasswordSended = false;
 
-		if (!empty($_POST['form_sent']) && !empty($_POST['email']))
+		if ($this->request->query->has('key') && $this->request->query->has('uid'))
 		{
-			if ($this->okt->user->forgetPassword($_POST['email'], $this->generateUrl('usersForgetPassword', null, true))) {
-				$password_sended = true;
-			}
+			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey(
+				$this->request->query->getInt('key'),
+				$this->request->query->get('key')
+			);
 		}
-
-		if (!empty($_GET['action']) && $_GET['action'] == 'validate_password' && !empty($_GET['key']) && !empty($_GET['uid']))
+		elseif ($this->request->request->has('email'))
 		{
-			$uid = intval($_GET['uid']);
-			$key = $_GET['key'];
-
-			if ($this->okt->user->validatePasswordKey($uid, $key)) {
-				$password_updated = true;
-			}
+			$bPasswordSended = $this->okt->getUsers()->forgetPassword(
+				$this->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL),
+				$this->generateUrl('usersForgetPassword', array(), true)
+			);
 		}
 
 		# affichage du template
-		return $this->render('Users/forgotten_password/'.$this->okt->config->users['templates']['forgotten_password']['default'].'/template', array(
-			'password_sended'    => $password_sended,
-			'password_updated'   => $password_updated
+		return $this->render('users/forgotten_password/'.$this->okt->config->users['templates']['forgotten_password']['default'].'/template', array(
+			'password_updated'   => $bPasswordUpdated,
+			'password_sended'    => $bPasswordSended
 		));
 	}
 
@@ -194,7 +193,7 @@ class UsersController extends BaseController
 		}
 
 		# données utilisateur
-//		$rsUser = $this->okt->users->getUser($this->okt->user->id);
+//		$rsUser = $this->okt->getUsers()->getUser($this->okt->user->id);
 
 		$aUserProfilData = array(
 			'id'             => $this->okt->user->id,
@@ -218,21 +217,21 @@ class UsersController extends BaseController
 
 		if ($this->okt->config->users['custom_fields_enabled'])
 		{
-			$this->rsAdminFields = $this->okt->users->fields->getFields(array(
+			$this->rsAdminFields = $this->okt->getUsers()->fields->getFields(array(
 				'status' => true,
 				'admin_editable' => true,
 				'language' => $this->okt->user->language
 			));
 
 			# Liste des champs utilisateur
-			$this->rsUserFields = $this->okt->users->fields->getFields(array(
+			$this->rsUserFields = $this->okt->getUsers()->fields->getFields(array(
 				'status' => true,
 				'user_editable' => true,
 				'language' => $this->okt->user->language
 			));
 
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt->getUsers()->fields->getUserValues($this->okt->user->id);
 
 			while ($rsFieldsValues->fetch()) {
 				$aFieldsValues[$rsFieldsValues->field_id] = $rsFieldsValues->value;
@@ -285,7 +284,7 @@ class UsersController extends BaseController
 			$aUserProfilData['password'] = !empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
 			$aUserProfilData['password_confirm'] = !empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 
-			$this->okt->users->changeUserPassword($aUserProfilData);
+			$this->okt->getUsers()->changeUserPassword($aUserProfilData);
 
 			return $this->redirect($this->generateUrl('usersProfile'));
 		}
@@ -311,10 +310,10 @@ class UsersController extends BaseController
 
 			# peuplement et vérification des champs personnalisés obligatoires
 			if ($this->okt->config->users['custom_fields_enabled']) {
-				$this->okt->users->fields->getPostData($this->rsUserFields, $aPostedData);
+				$this->okt->getUsers()->fields->getPostData($this->rsUserFields, $aPostedData);
 			}
 
-			if ($this->okt->users->updUser($aUserProfilData))
+			if ($this->okt->getUsers()->updUser($aUserProfilData))
 			{
 				# -- CORE TRIGGER : adminModUsersProfileProcess
 				$this->okt->triggers->callTrigger('adminModUsersProfileProcess', $_POST);
@@ -322,7 +321,7 @@ class UsersController extends BaseController
 				if ($this->okt->config->users['custom_fields_enabled'])
 				{
 					while ($this->rsUserFields->fetch()) {
-						$this->okt->users->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
+						$this->okt->getUsers()->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
 					}
 				}
 
@@ -337,7 +336,7 @@ class UsersController extends BaseController
 		$aLanguages = $this->getLanguages();
 
 		# affichage du template
-		return $this->render('Users/profile/'.$this->okt->config->users['templates']['profile']['default'].'/template', array(
+		return $this->render('users/profile/'.$this->okt->config->users['templates']['profile']['default'].'/template', array(
 			'aUserProfilData'    => $aUserProfilData,
 			'aTimezone'          => $aTimezone,
 			'aLanguages'         => $aLanguages,
@@ -443,15 +442,15 @@ class UsersController extends BaseController
 			$aPostedData = array();
 
 			# Liste des champs
-			$this->rsUserFields = $this->okt->users->fields->getFields(array(
-				'status' => true,
+			$this->rsUserFields = $this->okt->getUsers()->fields->getFields(array(
+				'status'        => true,
 				'user_editable' => true,
-				'register' => true,
-				'language' => $this->okt->user->language
+				'register'      => true,
+				'language'      => $this->okt->user->language
 			));
 
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt->getUsers()->fields->getUserValues($this->okt->user->id);
 			$aFieldsValues = array();
 			while ($rsFieldsValues->fetch()) {
 				$aFieldsValues[$rsFieldsValues->field_id] = $rsFieldsValues->value;
@@ -515,54 +514,52 @@ class UsersController extends BaseController
 				}
 			}
 
-			if (($new_id = $this->okt->users->addUser($this->aUserRegisterData)) !== false)
+			if (($iNewUserId = $this->okt->getUsers()->addUser($this->aUserRegisterData)) !== false)
 			{
-				$_POST['user_id'] = $new_id;
+				$_POST['user_id'] = $iNewUserId;
 
 				# -- CORE TRIGGER : adminModUsersRegisterProcess
 				$this->okt->triggers->callTrigger('adminModUsersRegisterProcess', $_POST);
 
-				$rsUser = $this->okt->users->getUser($new_id);
+				$rsUser = $this->okt->getUsers()->getUser($iNewUserId);
 
 				if ($this->okt->config->users['custom_fields_enabled'])
 				{
 					while ($this->rsUserFields->fetch()) {
-						$this->okt->users->fields->setUserValues($new_id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
+						$this->okt->getUsers()->fields->setUserValues($iNewUserId, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
 					}
 				}
 
-				# Initialisation du mailer et envoi du mail
+				# Initialisation du mailer et envoi du mail au nouvel utilisateur
 				$oMail = new Mailer($this->okt);
 
 				$oMail->setFrom();
 
-				if ($this->okt->config->users['registration']['validation']) {
-					$template_file = 'welcom_waiting.tpl';
-				} else {
-					$template_file = 'welcom.tpl';
-				}
+				$aMailParams = array(
+					'site_title'    => $this->page->getSiteTitle($rsUser->language),
+					'site_url'      => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+					'user'          => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+					'username'      => $rsUser->username,
+					'password'      => $this->aUserRegisterData['password'],
+					'validate_url'  => $this->okt->router->generateRegisterUrl(null, array(), null, true).'?uid='.$rsUser->id.'&key='.rawurlencode($rsUser->activate_key)
+				);
 
-				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
-					'SITE_TITLE'   => $this->page->getSiteTitle($rsUser->language),
-					'SITE_URL'     => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-					'USER_CN'      => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
-					'USERNAME'     => $rsUser->username,
-					'PASSWORD'     => $this->aUserRegisterData['password']
-				));
+				$oMail->setSubject(sprintf(__('c_c_emails_welcom_on_%s'), $aMailParams['site_title']));
+				$oMail->setBody($this->renderView('emails/welcom/text', $aMailParams), 'text/plain');
+
+				if ($this->viewExists('emails/welcom/html')) {
+					$oMail->addPart($this->renderView('emails/welcom/html', $aMailParams), 'text/html');
+				}
 
 				$oMail->message->setTo($rsUser->email);
 
 				$oMail->send();
 
-				# Initialisation du mailer et envoi du mail à l'administrateur
+				# Email notification des administrateurs
 				if ($this->okt->config->users['registration']['mail_new_registration']
 					&& !empty($this->okt->config->users['registration']['mail_new_registration_recipients']))
 				{
-					$oMail = new Mailer($this->okt);
-
-					$oMail->setFrom();
-
-					if ($this->okt->config->users['registration']['validation']) {
+					if ($this->okt->config->users['registration']['validation_admin']) {
 						$template_file = 'registration_validate.tpl';
 					}
 					else {
@@ -571,36 +568,26 @@ class UsersController extends BaseController
 
 					foreach ($this->okt->config->users['registration']['mail_new_registration_recipients'] as $sUser)
 					{
+						$rsRecipient = $this->okt->getUsers()->getUser($sUser);
 
-					}
-
-					$rsAdministrators = $this->okt->users->getUsers(array(
-						'group_id' => array(
-							Groups::SUPERADMIN,
-							Groups::ADMIN
-						)
-					));
-
-					while ($rsAdministrators->fetch())
-					{
-						$oMail->useFile($this->okt->options->get('locales_dir').'/'.$rsAdministrators->language.'/templates/'.$template_file, array(
-							'SITE_TITLE'     => $this->page->getSiteTitle($rsUser->language),
-							'SITE_URL'       => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-							'USER_CN'        => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
-							'PROFIL'         => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
+						$oMail->useFile($this->okt->options->get('locales_dir').'/'.$rsRecipient->language.'/templates/'.$template_file, array(
+							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
+							'SITE_URL'   => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+							'USER_CN'    => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+							'PROFIL'     => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path.'admin/module.php?m=users&action=edit&id='.$rsUser->id
 						));
 
-						$oMail->message->setTo($rsAdministrators->email);
+						$oMail->message->setTo($rsRecipient->email);
 
 						$oMail->send();
 					}
 				}
 
 				# eventuel connexion du nouvel utilisateur
-				if (!$this->okt->config->users['registration']['validation']
+				if (!$this->okt->config->users['registration']['validation_admin']
 					&& $this->okt->config->users['registration']['auto_log_after_registration'])
 				{
-					$this->okt->user->login($this->aUserRegisterData['username'],$this->aUserRegisterData['password'],false);
+					$this->okt->user->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
 				}
 
 				$this->performRedirect();

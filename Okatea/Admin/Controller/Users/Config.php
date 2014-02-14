@@ -60,10 +60,11 @@ class Config extends Controller
 						'profile'                             => $this->okt->request->request->has('p_enable_profile_page')
 					),
 					'registration'     => array(
+						'merge_username_email'                => $this->okt->request->request->has('p_merge_username_email'),
 						'mail_new_registration'               => $mail_new_registration,
 						'mail_new_registration_recipients'    => $mail_new_registration_recipients,
-						'validation'                          => $this->okt->request->request->has('p_validation'),
-						'merge_username_email'                => $this->okt->request->request->has('p_merge_username_email'),
+						'validation_email'                    => $this->okt->request->request->has('p_validation_email'),
+						'validation_admin'                    => $this->okt->request->request->has('p_validation_admin'),
 						'auto_log_after_registration'         => $this->okt->request->request->has('p_auto_log_after_registration'),
 						'user_choose_group'                   => $this->okt->request->request->has('p_user_choose_group'),
 						'default_group'                       => $this->okt->request->request->getInt('p_default_group')
@@ -118,10 +119,11 @@ class Config extends Controller
 					'profile'                          => $this->okt->config->users['pages']['profile']
 				),
 				'registration'      => array(
+					'merge_username_email'             => $this->okt->config->users['registration']['merge_username_email'],
 					'mail_new_registration'            => $this->okt->config->users['registration']['mail_new_registration'],
 					'mail_new_registration_recipients' => $this->okt->config->users['registration']['mail_new_registration_recipients'],
-					'validation'                       => $this->okt->config->users['registration']['validation'],
-					'merge_username_email'             => $this->okt->config->users['registration']['merge_username_email'],
+					'validation_email'                 => $this->okt->config->users['registration']['validation_email'],
+					'validation_admin'                 => $this->okt->config->users['registration']['validation_admin'],
 					'auto_log_after_registration'      => $this->okt->config->users['registration']['auto_log_after_registration'],
 					'user_choose_group'                => $this->okt->config->users['registration']['user_choose_group'],
 					'default_group'                    => $this->okt->config->users['registration']['default_group']

@@ -12,6 +12,8 @@ use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Misc\Utilities;
+use Okatea\Tao\Users\Groups;
+use Okatea\Tao\Users\Users;
 
 class User extends Controller
 {
@@ -340,8 +342,8 @@ class User extends Controller
 
 				$oMail->setFrom();
 
-				$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/admin_change_user_password.tpl', array(
-					'SITE_TITLE'      => Utilities::getSiteTitle($edit_language),
+				$oMail->useFile(__DIR__.'/../../locales/'.$this->aPageData['user']['language'].'/templates/admin_change_user_password.tpl', array(
+					'SITE_TITLE'      => $this->okt->page->getSiteTitle($this->aPageData['user']['language']),
 					'SITE_URL'        => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 					'NEW_PASSWORD'    => $aParams['password']
 				));

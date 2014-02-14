@@ -113,6 +113,31 @@ class Router extends BaseRouter
 	}
 
 	/**
+	 * Retourne l'URL de la page d'inscription.
+	 *
+	 * @param string $sRedirectUrl
+	 * @param mixed $parameters
+	 * @param string $language
+	 * @param Boolean|string $referenceType
+	 * @return string
+	 */
+	public function generateRegisterUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	{
+		if ($this->app->config->users['pages']['log_reg']) {
+			$sRegisterUrl = $this->generate('usersLoginRegister');
+		}
+		else {
+			$sRegisterUrl = $this->generate('usersRegister');
+		}
+
+		if (!is_null($sRedirectUrl)) {
+			$this->app->session->set('okt_redirect_url', $sRedirectUrl);
+		}
+
+		return $sRegisterUrl;
+	}
+
+	/**
 	 * Touch collection resources to force cache regenerating.
 	 *
 	 */

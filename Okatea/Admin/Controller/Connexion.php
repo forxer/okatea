@@ -76,14 +76,14 @@ class Connexion extends Controller
 
 		if ($this->request->query->has('key') && $this->request->query->has('uid'))
 		{
-			$bPasswordUpdated = $this->okt->user->validatePasswordKey(
+			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey(
 				$this->request->query->getInt('key'),
 				$this->request->query->get('key')
 			);
 		}
 		elseif ($this->request->request->has('email'))
 		{
-			$bPasswordSended = $this->okt->user->forgetPassword(
+			$bPasswordSended = $this->okt->getUsers()->forgetPassword(
 				$this->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL),
 				$this->generateUrl('forget_password', array(), true)
 			);
