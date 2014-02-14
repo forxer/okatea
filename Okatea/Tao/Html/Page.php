@@ -107,12 +107,6 @@ class Page
 	protected $lblList = array();
 
 	/**
-	 * La pile des paiements CB disponibles
-	 * @var array
-	 */
-	protected $cbpList = array();
-
-	/**
 	 * La pile des Captcha disponibles
 	 * @var array
 	 */
@@ -130,7 +124,7 @@ class Page
 	 *
 	 * @return void
 	 */
-	public function __construct($okt, $sPart=null)
+	public function __construct($okt, $sPart = null)
 	{
 		$this->okt = $okt;
 
@@ -160,7 +154,7 @@ class Page
 	 * @param string $sTitleTagSep
 	 * @return string
 	 */
-	public function titleTag($sTitleTagSep=' - ')
+	public function titleTag($sTitleTagSep = ' - ')
 	{
 		return implode($sTitleTagSep,array_filter($this->aTitleTagStack));
 	}
@@ -263,7 +257,7 @@ class Page
 	 * @param string $sLanguage
 	 * @return string
 	 */
-	public function getBaseUrl($sLanguage=null)
+	public function getBaseUrl($sLanguage = null)
 	{
 		$str = $this->okt->config->app_path;
 
@@ -279,7 +273,7 @@ class Page
 	 *
 	 * @return string
 	 */
-	public function getSiteTitle($sLanguage=null, $sDefault=null)
+	public function getSiteTitle($sLanguage = null, $sDefault = null)
 	{
 		if ($sLanguage !== null && !empty($this->okt->config->title[$sLanguage])) {
 			return $this->okt->config->title[$sLanguage];
@@ -300,7 +294,7 @@ class Page
 	 *
 	 * @return string
 	 */
-	public function getSiteDescription($sLanguage=null, $sDefault=null)
+	public function getSiteDescription($sLanguage = null, $sDefault = null)
 	{
 		if ($sLanguage !== null && !empty($this->okt->config->desc[$sLanguage])) {
 			return $this->okt->config->desc[$sLanguage];

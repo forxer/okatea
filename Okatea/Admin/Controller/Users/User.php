@@ -109,7 +109,7 @@ class User extends Controller
 					if ($this->okt->config->users->custom_fields_enabled)
 					{
 						while ($rsFields->fetch()) {
-							$okt->users->fields->setUserValues($iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
+							$okt->getUsers()->fields->setUserValues($iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
 						}
 					}
 					*/
@@ -305,7 +305,7 @@ class User extends Controller
 			$oMail->setFrom();
 
 			$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/validate_user.tpl', array(
-				'SITE_TITLE'    => Utilities::getSiteTitle($this->aPageData['user']['language']),
+				'SITE_TITLE'    => $okt->page->getSiteTitle($this->aPageData['user']['language']),
 				'SITE_URL'      => $this->request->getSchemeAndHttpHost().$okt->config->app_path
 			));
 
@@ -384,7 +384,7 @@ class User extends Controller
 
 		# peuplement et vérification des champs personnalisés obligatoires
 //		if ($this->okt->config->users->custom_fields_enabled) {
-//			$okt->users->fields->getPostData($rsFields, $aPostedData);
+//			$okt->getUsers()->fields->getPostData($rsFields, $aPostedData);
 //		}
 
 		if ($this->okt->error->isEmpty())
@@ -395,7 +395,7 @@ class User extends Controller
 				if ($this->okt->config->users->custom_fields_enabled)
 				{
 					while ($rsFields->fetch()) {
-						$okt->users->fields->setUserValues($this->iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
+						$okt->getUsers()->fields->setUserValues($this->iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
 					}
 				}
 				*/

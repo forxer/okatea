@@ -95,13 +95,12 @@ class Home extends Controller
 				($item['icon'] ? '<img src="'.$item['icon'].'" alt="" />' : ''));
 		}
 
-		if ($this->okt->modules->moduleExists('users'))
-		{
-			$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), 'module.php?m=users&amp;action=profil&amp;id='.$this->okt->user->id,
-				'<img src="'.$this->okt->options->public_url.'/img/admin/contact-new.png" alt="" />');
-		}
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'),
+			$this->okt->adminRouter->generate('User_profile'),
+			'<img src="'.$this->okt->options->public_url.'/img/admin/contact-new.png" alt="" />');
 
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), 'index.php?logout=1',
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'),
+			$this->okt->adminRouter->generate('logout'),
 			'<img src="'.$this->okt->options->public_url.'/img/admin/system-log-out.png" alt="" />');
 
 

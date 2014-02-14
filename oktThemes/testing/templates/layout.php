@@ -48,9 +48,8 @@ $this->extend('main');
 	<?php endif; # fin Okatea : titre SEO de la page (h1) ?>
 
 	<?php # début Okatea : affichage de la barre utilisateur
-	if ($okt->modules->moduleExists('users')) :
-	echo $okt->tpl->render($okt->users->getUserBarTplPath());
-	endif; # fin Okatea : affichage de la barre utilisateur ?>
+	echo $okt->tpl->render('users/user_bar/'.$okt->config->users['templates']['user_bar']['default'].'/template');
+	# fin Okatea : affichage de la barre utilisateur ?>
 
 
 	<div id="sidebar">

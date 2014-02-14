@@ -40,7 +40,7 @@ if (!$okt->##module_id##->filters->params->show_filters)
 
 
 <h1><?php # début Okatea : affichage du titre du site
-echo html::escapeHTML(Utilities::getSiteTitle());
+echo html::escapeHTML($okt->page->getSiteTitle());
 # fin Okatea : affichage du titre du site ?></h1>
 
 

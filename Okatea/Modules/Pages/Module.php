@@ -1076,7 +1076,7 @@ class Module extends BaseModule
 
 		# liste des groupes existants réellement dans la base de données
 		# (sauf invités et superadmin)
-		$rsGroups = $this->okt->users->getGroups(array(
+		$rsGroups = $this->okt->getGroups()->getGroups(array(
 			'group_id_not' => array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
