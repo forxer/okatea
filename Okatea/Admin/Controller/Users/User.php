@@ -300,14 +300,25 @@ class User extends Controller
 
 		if ($this->okt->getUsers()->validateUser($this->aPageData['user']['id']))
 		{
+			# Initialisation du mailer et envoi du mail
 			$oMail = new Mailer($this->okt);
 
 			$oMail->setFrom();
 
-			$oMail->useFile(__DIR__.'/../../locales/'.$edit_language.'/templates/validate_user.tpl', array(
-				'SITE_TITLE'    => $okt->page->getSiteTitle($this->aPageData['user']['language']),
-				'SITE_URL'      => $this->request->getSchemeAndHttpHost().$okt->config->app_path
-			));
+			$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->aPageData['user']['language'].'/emails', true);
+
+			$aMailParams = array(
+				'site_title'    => $this->okt->page->getSiteTitle($rsUser->language),
+				'site_url'      => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+				'user'          => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname'])
+			);
+
+			$oMail->setSubject(sprintf(__('c_c_emails_registration_validated_on_%s'), $aMailParams['site_title']));
+			$oMail->setBody($this->renderView('emails/registrationValidated/text', $aMailParams), 'text/plain');
+
+			if ($this->viewExists('emails/registrationValidated/html')) {
+				$oMail->addPart($this->renderView('emails/registrationValidated/html', $aMailParams), 'text/html');
+			}
 
 			$oMail->message->setTo($this->aPageData['user']['email']);
 
@@ -338,17 +349,29 @@ class User extends Controller
 		{
 			if ($this->request->request->has('send_password_mail'))
 			{
+				# Initialisation du mailer et envoi du mail
 				$oMail = new Mailer($this->okt);
 
 				$oMail->setFrom();
 
-				$oMail->useFile(__DIR__.'/../../locales/'.$this->aPageData['user']['language'].'/templates/admin_change_user_password.tpl', array(
-					'SITE_TITLE'      => $this->okt->page->getSiteTitle($this->aPageData['user']['language']),
-					'SITE_URL'        => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-					'NEW_PASSWORD'    => $aParams['password']
-				));
+				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->aPageData['user']['language'].'/emails', true);
+
+				$aMailParams = array(
+					'site_title'    => $this->okt->page->getSiteTitle($rsUser->language),
+					'site_url'      => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+					'user'          => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname']),
+					'password'      => $aParams['password']
+				);
+
+				$oMail->setSubject(sprintf(__('c_c_emails_update_password_on_%s'), $aMailParams['site_title']));
+				$oMail->setBody($this->renderView('emails/adminChangeUserPassword/text', $aMailParams), 'text/plain');
+
+				if ($this->viewExists('emails/adminChangeUserPassword/html')) {
+					$oMail->addPart($this->renderView('emails/adminChangeUserPassword/html', $aMailParams), 'text/html');
+				}
 
 				$oMail->message->setTo($this->aPageData['user']['email']);
+
 				$oMail->send();
 			}
 

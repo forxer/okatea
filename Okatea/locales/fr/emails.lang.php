@@ -17,7 +17,7 @@ $GLOBALS['okt_l10n']['c_c_emails_validate_account_%s'] = 'Afin de valider votre 
 $GLOBALS['okt_l10n']['c_c_emails_admin_will_validate_account'] = 'Un administrateur va procéder à la validation de votre compte. Vous serez avertis lorsque cela sera effectué.';
 
 $GLOBALS['okt_l10n']['c_c_emails_registration_on_%s'] = 'Inscription sur %s';
-$GLOBALS['okt_l10n']['c_c_emails_new_user_%s_registered_on_%s'] = 'Un nouvel utilisateur %s s’est inscrit sur votre site %s (%s).';
+$GLOBALS['okt_l10n']['c_c_emails_new_user_%s_registered_on_%s'] = 'Un nouvel utilisateur %s s’est inscrit sur le site %s (%s).';
 $GLOBALS['okt_l10n']['c_c_emails_validate_user_on_%s'] = 'Vous pouvez valider son inscription en vous rendant à cette adresse : %s';
 
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password'] = 'Demande de nouveau mot de passe';
@@ -26,6 +26,13 @@ $GLOBALS['okt_l10n']['c_c_emails_request_new_password_not_requested'] = 'Si vous
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password_updated_after_validate'] = 'Votre mot de passe ne sera changé que si vous visitez la page d’activation ci-dessous.';
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password_is_%s'] = 'Votre nouveau mot de passe est : %s';
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password_validate_on_%s'] = 'Pour activer votre nouveau mot de passe, merci de visiter la page suivante : %s';
+
+$GLOBALS['okt_l10n']['c_c_emails_update_password_on_%s'] = 'Changement de mot de passe sur %s';
+$GLOBALS['okt_l10n']['c_c_emails_admin_update_password_on_%s'] = 'Un administrateur a changé votre mot de passe sur le site %s (%s).';
+$GLOBALS['okt_l10n']['c_c_emails_new_update_password_is_%s'] = 'Votre nouveau mot de passe est : %s';
+
+$GLOBALS['okt_l10n']['c_c_emails_registration_validated_on_%s'] = 'Inscription validée sur %s';
+$GLOBALS['okt_l10n']['c_c_emails_your_registration_validated_on_%s'] = 'Votre inscription sur notre site %s (%s) a été validée.';
 
 $GLOBALS['okt_l10n']['c_c_emails_best_regards'] = 'Cordialement';
 $GLOBALS['okt_l10n']['c_c_emails_automatic_email'] = 'Ceci est un message automatique.';

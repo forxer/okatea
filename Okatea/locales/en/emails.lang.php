@@ -27,6 +27,13 @@ $GLOBALS['okt_l10n']['c_c_emails_request_new_password_updated_after_validate'] =
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password_is_%s'] = 'Your new password is: %s';
 $GLOBALS['okt_l10n']['c_c_emails_request_new_password_validate_on_%s'] = 'To activate your new password, thank you for visiting the following page: %s';
 
+$GLOBALS['okt_l10n']['c_c_emails_registration_validated_on_%s'] = 'Registration validated on %s';
+$GLOBALS['okt_l10n']['c_c_emails_your_registration_validated_on_%s'] = 'Your registration on our website %s (%s) has been validated.';
+
+$GLOBALS['okt_l10n']['c_c_emails_update_password_on_%s'] = 'Changing password on %s';
+$GLOBALS['okt_l10n']['c_c_emails_admin_update_password_on_%s'] = 'An administrator has changed your password on the website %s (%s).';
+$GLOBALS['okt_l10n']['c_c_emails_new_update_password_is_%s'] = 'Your new password is: %s';
+
 $GLOBALS['okt_l10n']['c_c_emails_best_regards'] = 'Best regards';
 $GLOBALS['okt_l10n']['c_c_emails_automatic_email'] = 'Automatic email.';
 $GLOBALS['okt_l10n']['c_c_emails_do_not_reply'] = 'Thank you not to reply to this message, your response would be lost.';
