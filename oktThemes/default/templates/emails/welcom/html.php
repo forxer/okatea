@@ -6,12 +6,12 @@
  * file that was distributed with this source code.
  */
 
-$view->extend('emails/layout');
+//$view->extend('emails/layout');
 
 ?>
 <p><?php printf(__('c_c_emails_hello_%s'), $view->escape($user)) ?></p>
 
-<p><?php printf(__('c_c_emails_thanks_register_on_%s'), $view->escape($site_title), $view->escape($site_title)) ?></p>
+<p><?php printf(__('c_c_emails_thanks_register_on_%s'), $view->escape($site_title), $view->escape($site_url)) ?></p>
 
 <p><?php _e('c_c_emails_details_of_account_are') ?></p>
 
@@ -21,7 +21,7 @@ $view->extend('emails/layout');
 </ul>
 
 <?php if ($okt->config->users['registration']['validation_email']) : ?>
-<p><?php printf(__('c_c_emails_validate_account_%s'), $view->escape($validate_url)) ?></p>
+<p><?php printf(__('c_c_emails_validate_account_%s'), $validate_url) ?></p>
 <?php endif; ?>
 
 <?php if ($okt->config->users['registration']['validation_admin']) : ?>

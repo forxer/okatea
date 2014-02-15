@@ -40,13 +40,7 @@ class Okatea extends Application
 	{
 		parent::run();
 
-		$this->adminRouter = new Router(
-			$this,
-			$this->options->get('config_dir').'/routes_admin',
-			$this->options->get('cache_dir').'/routing/admin',
-			$this->options->get('debug'),
-			$this->logger
-		);
+		$this->loadAdminRouter();
 
 		$this->loadLogAdmin();
 

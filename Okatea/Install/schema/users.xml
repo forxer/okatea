@@ -25,7 +25,7 @@
 			`registered` 		INT(10) 		UNSIGNED 	NOT NULL 	DEFAULT 0,
 			`registration_ip` 	VARCHAR(39) 				NOT NULL 	DEFAULT '0.0.0.0',
 			`last_visit` 		INT(10) 		UNSIGNED 	NOT NULL 	DEFAULT 0,
-			`activate_string` 	VARCHAR(80) 							DEFAULT NULL,
+			`activate_string` 	VARCHAR(255) 							DEFAULT NULL,
 			`activate_key` 		VARCHAR(8) 								DEFAULT NULL,
 
 			PRIMARY KEY (`id`),

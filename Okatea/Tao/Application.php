@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RequestContext;
 
+use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
@@ -394,6 +395,17 @@ class Application
 	protected function loadModules($sPart)
 	{
 		$this->modules->loadModules($sPart, $this->user->language);
+	}
+
+	public function loadAdminRouter()
+	{
+		$this->adminRouter = new adminRouter(
+			$this,
+			$this->options->get('config_dir').'/routes_admin',
+			$this->options->get('cache_dir').'/routing/admin',
+			$this->options->get('debug'),
+			$this->logger
+		);
 	}
 
 	public function getRequestContext()

@@ -706,16 +706,27 @@ class Users
 
 		# Initialisation du mailer et envoi du mail
 		$oMail = new Mailer($this->okt);
-		$oMail->setFrom();
-		$oMail->message->setTo($sEmail);
 
-		$oMail->useFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/templates/activate_password.tpl', array(
-			'SITE_TITLE'        => $this->okt->page->getSiteTitle(),
-			'SITE_URL'          => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
-			'USERNAME'          => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
-			'NEW_PASSWORD'      => $sNewPassword,
-			'ACTIVATION_URL'    => $sActivateUrl.'?uid='.$rsUser->id.'&key='.rawurlencode($sNewPasswordKey)
-		));
+		$oMail->setFrom();
+
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$rsUser->language.'/emails', true);
+
+		$aMailParams = array(
+			'site_title'    => $this->okt->page->getSiteTitle($rsUser->language),
+			'site_url'      => $this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path,
+			'user'          => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
+			'password'      => $sNewPassword,
+			'validate_url'  => $sActivateUrl.'?uid='.$rsUser->id.'&key='.rawurlencode($sNewPasswordKey)
+		);
+
+		$oMail->setSubject(__('c_c_emails_request_new_password'));
+		$oMail->setBody($this->renderView('emails/newPassword/text', $aMailParams), 'text/plain');
+
+		if ($this->viewExists('emails/newPassword/html')) {
+			$oMail->addPart($this->renderView('emails/newPassword/html', $aMailParams), 'text/html');
+		}
+
+		$oMail->message->setTo($rsUser->email);
 
 		$oMail->send();
 

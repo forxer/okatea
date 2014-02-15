@@ -75,6 +75,11 @@ class Mailer
 		}
 	}
 
+	public function setTo($sTo)
+	{
+		$this->message->setTo($sTo);
+	}
+
 	public function setFrom($mFrom = null)
 	{
 		if ($mFrom !== null) {
