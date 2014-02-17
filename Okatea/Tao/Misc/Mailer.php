@@ -11,6 +11,8 @@ namespace Okatea\Tao\Misc;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Themes\SimpleReplacements;
 
+require_once 'lib/swift_required.php';
+
 /**
  * La classe pour envoyer gentillement des emails
  *
@@ -33,6 +35,8 @@ class Mailer
 		$this->mailer = \Swift_Mailer::newInstance($this->transport);
 
 		$this->message = \Swift_Message::newInstance($subject, $body, $contentType, $charset);
+
+		$this->mailer->registerPlugin(new \Swift_Plugins_AntiFloodPlugin(100, 30));
 	}
 
 	/**

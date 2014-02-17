@@ -121,17 +121,6 @@ if ($okt->config->users['custom_fields_enabled']) : ?>
 		<legend><?php _e('c_c_users_Identity') ?></legend>
 
 		<div class="three-cols">
-			<p class="field col"><label for="edit_civility"><?php _e('c_c_Civility') ?></label>
-			<?php echo form::select('edit_civility', $aCivilities, $view->escape($aUserProfilData['civility'])) ?></p>
-
-			<p class="field col"><label for="edit_lastname"><?php _e('c_c_Last_name') ?></label>
-			<?php echo form::text('edit_lastname', 20, 255, $view->escape($aUserProfilData['lastname'])) ?></p>
-
-			<p class="field col"><label for="edit_firstname"><?php _e('c_c_First_name') ?></label>
-			<?php echo form::text('edit_firstname', 20, 255, $view->escape($aUserProfilData['firstname'])) ?></p>
-		</div>
-
-		<div class="three-cols">
 		<?php # début Okatea : affichage des champs "username" et "email" fusionnés
 		if ($okt->config->users['registration']['merge_username_email']) : ?>
 			<p class="field col"><label for="edit_email" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Email') ?></label>
@@ -149,6 +138,17 @@ if ($okt->config->users['custom_fields_enabled']) : ?>
 
 			<p class="field col"><label for="edit_displayname"><?php _e('c_c_user_Display_name') ?></label>
 			<?php echo form::text('edit_displayname', 20, 255, $view->escape($aUserProfilData['displayname'])) ?></p>
+		</div>
+
+		<div class="three-cols">
+			<p class="field col"><label for="edit_civility"><?php _e('c_c_Civility') ?></label>
+			<?php echo form::select('edit_civility', $aCivilities, $view->escape($aUserProfilData['civility'])) ?></p>
+
+			<p class="field col"><label for="edit_lastname"><?php _e('c_c_Last_name') ?></label>
+			<?php echo form::text('edit_lastname', 20, 255, $view->escape($aUserProfilData['lastname'])) ?></p>
+
+			<p class="field col"><label for="edit_firstname"><?php _e('c_c_First_name') ?></label>
+			<?php echo form::text('edit_firstname', 20, 255, $view->escape($aUserProfilData['firstname'])) ?></p>
 		</div>
 	</fieldset>
 

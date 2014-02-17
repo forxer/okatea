@@ -66,6 +66,7 @@ $okt->page->css->addCss('
 }
 ');
 
+# Avatars
 $gravatar = new Gravatar();
 $gravatar
 	->setDefaultImage('mm')
@@ -143,7 +144,7 @@ $gravatar
 			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
 			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
 				<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<img src="<?php echo $gravatar->buildGravatarURL($rsUsers->email); ?>" alt="" class="avatar">
+				<img src="<?php echo $gravatar->getAvatar($rsUsers->email) ?>" width="<?php echo $gravatar->getAvatarSize() ?>" height="<?php echo $gravatar->getAvatarSize() ?>" alt="" class="avatar">
 				<p class="title"><?php echo $view->escape($rsUsers->username) ?></p></a>
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
 				<p><?php echo $view->escape($rsUsers->displayname) ?></p>

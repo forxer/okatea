@@ -18,12 +18,24 @@ $okt->page->addGlobalTitle($view->escape($okt->user->usedname));
 $okt->page->tabs();
 
 
+$okt->page->css->addCss('
+.avatar {
+	float: left;
+	margin: 0 1em 1em 0;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+');
+
+# Avatar
 $gravatar = new Gravatar();
 
 $avatarUrl = $gravatar
 	->setDefaultImage('mm')
 	->setAvatarSize(120)
-	->buildGravatarURL($aPageData['user']['email']);
+	->getAvatar($aPageData['user']['email']);
 
 
 ?>
@@ -38,7 +50,7 @@ $avatarUrl = $gravatar
 	</ul>
 
 	<div id="tab-show-profil">
-		<p><img src="<?php echo $avatarUrl ?>" alt=""></p>
+		<p><img src="<?php echo $avatarUrl ?>" width="<?php echo $gravatar->getAvatarSize() ?>" height="<?php echo $gravatar->getAvatarSize() ?>" alt="" class="avatar"></p>
 
 	</div><!-- #tab-show-profil -->
 
