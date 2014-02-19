@@ -13,7 +13,7 @@ class oktTheme extends Theme
 	public function prepend()
 	{
 		# Ajout de jQuery
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 
 		# CSS
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');

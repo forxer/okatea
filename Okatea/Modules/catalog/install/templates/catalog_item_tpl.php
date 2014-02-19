@@ -10,7 +10,7 @@ $okt->page->css->addFile($okt->theme->url.'/modules/catalog/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url.'/components/jquery/jquery.min.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 

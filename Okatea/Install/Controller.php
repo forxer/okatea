@@ -33,7 +33,7 @@ class Controller extends BaseController
 		$this->page->css->addFile($this->okt->options->public_url.'/css/famfamfam.css');
 		$this->page->css->addCSS(file_get_contents($this->okt->options->get('root_dir').'/install/assets/install.css'));
 
-		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery/jquery.min.js');
+		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-cookie/jquery.cookie.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/js/common_admin.js');

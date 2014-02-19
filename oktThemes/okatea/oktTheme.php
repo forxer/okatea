@@ -13,7 +13,7 @@ class oktTheme extends Theme
 	public function prepend()
 	{
 		# JS
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 		$this->okt->page->js->addCCFile($this->okt->options->public_url.'/components/html5shiv/dist/html5shiv.js', 'lt IE 9');
 
 		# CSS
