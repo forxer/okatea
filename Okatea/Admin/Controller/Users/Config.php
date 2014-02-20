@@ -52,6 +52,9 @@ class Config extends Controller
 			$this->aPageData['config'] = array(
 				'users'     => array(
 					'custom_fields_enabled' => $this->okt->request->request->has('p_users_custom_fields_enabled'),
+					'gravatar'         => array(
+						'enabled'							  => $this->okt->request->request->has('p_users_gravatar_enabled'),
+					),
 					'pages'            => array(
 						'login'                               => $this->okt->request->request->has('p_enable_login_page'),
 						'register'                            => $this->okt->request->request->has('p_enable_register_page'),
@@ -111,6 +114,9 @@ class Config extends Controller
 		$this->aPageData['config'] = array(
 			'users' => array(
 				'custom_fields_enabled' => $this->okt->config->users['custom_fields_enabled'],
+				'gravatar'             => array(
+					'enabled' 		=> $this->okt->config->users['gravatar']['enabled'],
+				),
 				'pages'             => array(
 					'login'                            => $this->okt->config->users['pages']['login'],
 					'register'                         => $this->okt->config->users['pages']['register'],
@@ -234,6 +240,14 @@ class Config extends Controller
 		);
 
 		$this->aPageData['Tabs'][30] = array(
+			'id'         => 'tab_image',
+			'title'      => __('c_a_users_config_tab_image'),
+			'content'    => $this->renderView('Users/Config/Tabs/Image', array(
+				'aPageData'     => $this->aPageData
+			))
+		);
+
+		$this->aPageData['Tabs'][40] = array(
 			'id'         => 'tab_tpl',
 			'title'      => __('c_a_users_config_tab_tpl'),
 			'content'    => $this->renderView('Users/Config/Tabs/Tpl', array(

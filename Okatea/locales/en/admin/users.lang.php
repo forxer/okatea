@@ -102,6 +102,10 @@ $GLOBALS['okt_l10n']['c_a_users_auto_log_after_registration'] = 'Automatically l
 $GLOBALS['okt_l10n']['c_a_users_Let_users_choose_their_group'] = 'Let users choose their group (works only if the validation by the administrator is disabled)';
 $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Default group';
 
+$GLOBALS['okt_l10n']['c_a_users_config_tab_image'] = 'Image';
+$GLOBALS['okt_l10n']['c_a_users_config_tab_image_title'] = 'Users image';
+$GLOBALS['okt_l10n']['c_a_users_config_enable_gravatar_%s'] = 'Enable support for %s';
+
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl'] = 'Templates';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_forgotten_password'] = 'Forgotten password form page templates';

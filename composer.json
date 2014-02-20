@@ -27,7 +27,7 @@
 		"erusev/parsedown" : "~0.9",
 		"ezyang/htmlpurifier" : "~4.6",
 		"forxer/languages-list" : "dev-master",
-		"forxer/gravatarlib" : "dev-master",
+		"forxer/gravatar" : "~1.1",
 		"guzzle/guzzle" : "~3.7",
 		"imagine/imagine" : "~0.5",
 		"ircmaxell/password-compat" : "~1.0",

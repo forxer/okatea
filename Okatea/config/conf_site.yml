@@ -100,6 +100,8 @@ navigation_tpl:
     usables: {  }
 users:
     custom_fields_enabled: false
+    gravatar:
+        enabled: true
     pages:
         login: true
         register: true

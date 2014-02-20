@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3a77ef30dbe5f26e1b4eeb046e8fda58",
+    "hash": "16568b97e1ce59cdca6ee2075abaf260",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alchemy-fr/Zippy.git",
-                "reference": "3babeb4b56bb28bee8a902fe7d8a028a9fbee39d"
+                "reference": "8ccc695f66c3b61ffdb3b9e88474602da52401ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/3babeb4b56bb28bee8a902fe7d8a028a9fbee39d",
-                "reference": "3babeb4b56bb28bee8a902fe7d8a028a9fbee39d",
+                "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/8ccc695f66c3b61ffdb3b9e88474602da52401ae",
+                "reference": "8ccc695f66c3b61ffdb3b9e88474602da52401ae",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 "tar",
                 "zip"
             ],
-            "time": "2014-02-06 15:28:14"
+            "time": "2014-02-18 22:09:18"
         },
         {
             "name": "doctrine/cache",
@@ -376,17 +376,17 @@
             "time": "2013-11-30 08:25:19"
         },
         {
-            "name": "forxer/gravatarlib",
-            "version": "dev-master",
+            "name": "forxer/gravatar",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/forxer/gravatarlib.git",
-                "reference": "e5096e5314d3589b92de192b6a56cafe78e75567"
+                "url": "https://github.com/forxer/gravatar.git",
+                "reference": "e8c121406dd0890e3899825d53381aa8415c003c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/forxer/gravatarlib/zipball/e5096e5314d3589b92de192b6a56cafe78e75567",
-                "reference": "e5096e5314d3589b92de192b6a56cafe78e75567",
+                "url": "https://api.github.com/repos/forxer/gravatar/zipball/e8c121406dd0890e3899825d53381aa8415c003c",
+                "reference": "e8c121406dd0890e3899825d53381aa8415c003c",
                 "shasum": ""
             },
             "require": {
@@ -395,7 +395,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "forxer\\GravatarLib\\": ""
+                    "forxer\\Gravatar\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -404,23 +404,15 @@
             ],
             "authors": [
                 {
-                    "name": "Sam Thompson",
-                    "email": "sam@emberlabs.org"
-                },
-                {
-                    "name": "Damian Bushong",
-                    "email": "damian@emberlabs.org"
-                },
-                {
                     "name": "Vincent Garnier",
                     "email": "contact@okatea.org"
                 }
             ],
-            "description": "A lightweight PHP 5.3 OOP library providing easy gravatar integration.",
+            "description": "A library providing easy gravatar integration.",
             "keywords": [
                 "gravatar"
             ],
-            "time": "2014-02-16 21:14:08"
+            "time": "2014-02-19 19:23:41"
         },
         {
             "name": "forxer/languages-list",
@@ -449,12 +441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "c03449e8830d9bd32bef544de1b1de7d1d876982"
+                "reference": "256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/c03449e8830d9bd32bef544de1b1de7d1d876982",
-                "reference": "c03449e8830d9bd32bef544de1b1de7d1d876982",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5",
+                "reference": "256ffce458c5b1a44b2f0ba98b5766fe9e21e3e5",
                 "shasum": ""
             },
             "require": {
@@ -533,7 +525,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-02-14 01:12:10"
+            "time": "2014-02-18 07:26:30"
         },
         {
             "name": "imagine/imagine",
@@ -830,12 +822,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "6cabe95f23322735f446b00ca8582b6c875dcbfe"
+                "reference": "4c74b127eb5f1475157bb54c2b7cb3d529fe18f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/6cabe95f23322735f446b00ca8582b6c875dcbfe",
-                "reference": "6cabe95f23322735f446b00ca8582b6c875dcbfe",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/4c74b127eb5f1475157bb54c2b7cb3d529fe18f7",
+                "reference": "4c74b127eb5f1475157bb54c2b7cb3d529fe18f7",
                 "shasum": ""
             },
             "require": {
@@ -866,8 +858,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Monolog": "src/"
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -889,7 +881,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-02-06 20:35:10"
+            "time": "2014-02-18 14:12:15"
         },
         {
             "name": "nesbot/carbon",
@@ -1186,12 +1178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "cb1965864a27a74685860bfe4babca593100f503"
+                "reference": "57ad6f754ede53488e8613c0a50334b26e14753e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/cb1965864a27a74685860bfe4babca593100f503",
-                "reference": "cb1965864a27a74685860bfe4babca593100f503",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/57ad6f754ede53488e8613c0a50334b26e14753e",
+                "reference": "57ad6f754ede53488e8613c0a50334b26e14753e",
                 "shasum": ""
             },
             "require": {
@@ -1234,7 +1226,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-02-16 10:08:14"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1395,12 +1387,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "ddc6db30611ebea269434dfb1a53f365bfcbdd1a"
+                "reference": "0fa4996401cf4e97e621357b6f6a9efa8eee678e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/ddc6db30611ebea269434dfb1a53f365bfcbdd1a",
-                "reference": "ddc6db30611ebea269434dfb1a53f365bfcbdd1a",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/0fa4996401cf4e97e621357b6f6a9efa8eee678e",
+                "reference": "0fa4996401cf4e97e621357b6f6a9efa8eee678e",
                 "shasum": ""
             },
             "require": {
@@ -1438,7 +1430,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-02-18 15:41:30"
         },
         {
             "name": "symfony/process",
@@ -1447,12 +1439,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "c9c0e81d16363f9e9f651ea7eedea8286b0162c8"
+                "reference": "9d3f26789d21d2dd685e95640f3abea47112a971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/c9c0e81d16363f9e9f651ea7eedea8286b0162c8",
-                "reference": "c9c0e81d16363f9e9f651ea7eedea8286b0162c8",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/9d3f26789d21d2dd685e95640f3abea47112a971",
+                "reference": "9d3f26789d21d2dd685e95640f3abea47112a971",
                 "shasum": ""
             },
             "require": {
@@ -1487,7 +1479,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-02-18 16:30:05"
         },
         {
             "name": "symfony/routing",
@@ -1564,12 +1556,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Templating.git",
-                "reference": "8c06f112f34c3b52aeb3734d2abf6c7b4fbc7dc2"
+                "reference": "80d7c32753dc1db31b82b5f5fce02ebe10f7b62f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Templating/zipball/8c06f112f34c3b52aeb3734d2abf6c7b4fbc7dc2",
-                "reference": "8c06f112f34c3b52aeb3734d2abf6c7b4fbc7dc2",
+                "url": "https://api.github.com/repos/symfony/Templating/zipball/80d7c32753dc1db31b82b5f5fce02ebe10f7b62f",
+                "reference": "80d7c32753dc1db31b82b5f5fce02ebe10f7b62f",
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1602,7 @@
             ],
             "description": "Symfony Templating Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-02-18 15:41:30"
         },
         {
             "name": "symfony/yaml",
@@ -1717,8 +1709,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "dotclear/clearbricks": 20,
-        "forxer/languages-list": 20,
-        "forxer/gravatarlib": 20
+        "forxer/languages-list": 20
     },
     "platform": {
         "php": ">=5.4.0"

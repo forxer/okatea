@@ -102,6 +102,10 @@ $GLOBALS['okt_l10n']['c_a_users_auto_log_after_registration'] = 'Identifier auto
 $GLOBALS['okt_l10n']['c_a_users_Let_users_choose_their_group'] = 'Laisser les utilisateurs choisir leur groupe (ne fonctionne que si la validation par l’administrateur est désactivée)';
 $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Groupe par défaut';
 
+$GLOBALS['okt_l10n']['c_a_users_config_tab_image'] = 'Image';
+$GLOBALS['okt_l10n']['c_a_users_config_tab_image_title'] = 'Image des utilisateurs';
+$GLOBALS['okt_l10n']['c_a_users_config_enable_gravatar_%s'] = 'Activer le support de %s';
+
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl'] = 'Modèles';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_forgotten_password'] = 'Modèles de la page du formulaire de mot de passe oublié';

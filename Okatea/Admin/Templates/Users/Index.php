@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use forxer\GravatarLib\Gravatar;
+use forxer\Gravatar\Image as GravatarImage;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Groups;
 
@@ -67,10 +67,13 @@ $okt->page->css->addCss('
 ');
 
 # Avatars
-$gravatar = new Gravatar();
-$gravatar
-	->setDefaultImage('mm')
-	->setAvatarSize(60);
+if ($okt->config->users['gravatar']['enabled'])
+{
+	$gravatarImage = new GravatarImage();
+	$gravatarImage
+		->setDefaultImage('mm')
+		->setSize(60);
+}
 
 ?>
 
@@ -144,7 +147,9 @@ $gravatar
 			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
 			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
 				<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<img src="<?php echo $gravatar->getAvatar($rsUsers->email) ?>" width="<?php echo $gravatar->getAvatarSize() ?>" height="<?php echo $gravatar->getAvatarSize() ?>" alt="" class="avatar">
+				<?php if ($okt->config->users['gravatar']['enabled']) : ?>
+				<img src="<?php echo $gravatarImage->getUrl($rsUsers->email) ?>" width="<?php echo $gravatarImage->getSize() ?>" height="<?php echo $gravatarImage->getSize() ?>" alt="" class="avatar" />
+				<?php endif; ?>
 				<p class="title"><?php echo $view->escape($rsUsers->username) ?></p></a>
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
 				<p><?php echo $view->escape($rsUsers->displayname) ?></p>
