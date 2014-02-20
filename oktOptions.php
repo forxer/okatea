@@ -8,6 +8,14 @@
 
 $aOktDefaultOptions = array(
 
+	# the name of the software, if you want to change it,
+	# for example for companies who want to develop their own version
+	'software_name'		=> 'Okatea',
+
+	# the URL of the software website, if you want to change it,
+	# for example for companies who want to develop their own version
+	'software_url'		=> 'http://okatea.org/',
+
 	# enable or disable debug mode
 	'debug' 			=> false,
 

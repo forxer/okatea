@@ -97,7 +97,12 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 <?php # init footer content
 $aFooterContent = new ArrayObject;
 
-$aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), '<a href="http://okatea.org/">Okatea</a>');
+$sSoftware = $okt->options->get('software_name');
+if ($okt->options->has('software_url')) {
+	$sSoftware = '<a href="'.$okt->options->get('software_url').'">'.$okt->options->get('software_name').'</a>';
+}
+
+$aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), $sSoftware);
 
 if ($okt->options->get('debug'))
 {

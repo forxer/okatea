@@ -30,6 +30,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # change Yaml files extension .yaml to .yml
 ! implement Symfony HttpFoundation
 ! remove version file and move changelog file for security reasons
+! add the ability to customise the software name
 
 
 2.0-beta2 (2013-12-08)

@@ -39,6 +39,11 @@ class ApplicationOptions
 		}
 	}
 
+	public function has($sKey)
+	{
+		return !empty($this->aOptions[$sKey]);
+	}
+
 	public function __get($sKey)
 	{
 		return $this->get($sKey);

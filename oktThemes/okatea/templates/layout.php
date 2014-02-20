@@ -91,7 +91,7 @@ $view->extend('main');
 
 	<footer>
 		<div id="bottom">
-			<p id="bottom-line"><?php printf(__('c_c_proudly_propulsed_%s'), 'Okatea') ?></p>
+			<p id="bottom-line"><?php printf(__('c_c_proudly_propulsed_%s'), $okt->options->get('software_name')) ?></p>
 		</div>
 	</footer>
 </div><!-- #global -->
