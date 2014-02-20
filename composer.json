@@ -18,7 +18,7 @@
 		"email" : "contact@okatea.org",
 		"issues" : "https://github.com/forxer/okatea/issues"
 	},
-	"minimum-stability" : "dev",
+	"minimum-stability" : "stable",
 	"require" : {
 		"php" : ">=5.4.0",
 		"alchemy/zippy" : " ~0.1",
