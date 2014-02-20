@@ -828,7 +828,7 @@ class Utilities
 	 * @param $hash
 	 * @return string
 	 */
-	public static function random_key($len, $readable=false, $hash=false)
+	public static function random_key($len, $readable = false, $hash = false)
 	{
 		$key = '';
 

@@ -49,36 +49,42 @@ class Config extends Controller
 				}
 			}
 
+			$sGravatarDefaultImage = $this->okt->request->request->get('p_users_gravatar_default_image');
+			if (empty($sGravatarDefaultImage)) {
+				$sGravatarDefaultImage = null;
+			}
+
 			$this->aPageData['config'] = array(
-				'users'     => array(
+				'users'		=> array(
 					'custom_fields_enabled' => $this->okt->request->request->has('p_users_custom_fields_enabled'),
-					'gravatar'         => array(
-						'enabled'							  => $this->okt->request->request->has('p_users_gravatar_enabled'),
+					'gravatar'			=> array(
+						'enabled'								=> $this->okt->request->request->has('p_users_gravatar_enabled'),
+						'default_image'							=> $sGravatarDefaultImage
 					),
-					'pages'            => array(
-						'login'                               => $this->okt->request->request->has('p_enable_login_page'),
-						'register'                            => $this->okt->request->request->has('p_enable_register_page'),
-						'log_reg'                             => $this->okt->request->request->has('p_enable_log_reg_page'),
-						'forget_password'                     => $this->okt->request->request->has('p_enable_forget_password_page'),
-						'profile'                             => $this->okt->request->request->has('p_enable_profile_page')
+					'pages'				=> array(
+						'login'									=> $this->okt->request->request->has('p_enable_login_page'),
+						'register'								=> $this->okt->request->request->has('p_enable_register_page'),
+						'log_reg'								=> $this->okt->request->request->has('p_enable_log_reg_page'),
+						'forget_password'						=> $this->okt->request->request->has('p_enable_forget_password_page'),
+						'profile'								=> $this->okt->request->request->has('p_enable_profile_page')
 					),
-					'registration'     => array(
-						'merge_username_email'                => $this->okt->request->request->has('p_merge_username_email'),
-						'mail_new_registration'               => $mail_new_registration,
-						'mail_new_registration_recipients'    => $mail_new_registration_recipients,
-						'validation_email'                    => $this->okt->request->request->has('p_validation_email'),
-						'validation_admin'                    => $this->okt->request->request->has('p_validation_admin'),
-						'auto_log_after_registration'         => $this->okt->request->request->has('p_auto_log_after_registration'),
-						'user_choose_group'                   => $this->okt->request->request->has('p_user_choose_group'),
-						'default_group'                       => $this->okt->request->request->getInt('p_default_group')
+					'registration'		=> array(
+						'merge_username_email'					=> $this->okt->request->request->has('p_merge_username_email'),
+						'mail_new_registration'					=> $mail_new_registration,
+						'mail_new_registration_recipients'		=> $mail_new_registration_recipients,
+						'validation_email'						=> $this->okt->request->request->has('p_validation_email'),
+						'validation_admin'						=> $this->okt->request->request->has('p_validation_admin'),
+						'auto_log_after_registration'			=> $this->okt->request->request->has('p_auto_log_after_registration'),
+						'user_choose_group'						=> $this->okt->request->request->has('p_user_choose_group'),
+						'default_group'							=> $this->okt->request->request->getInt('p_default_group')
 					),
-					'templates'        => array(
-						'forgotten_password'                  => $this->oTemplatesForgottenPassword->getPostConfig(),
-						'login'                               => $this->oTemplatesLogin->getPostConfig(),
-						'login_register'                      => $this->oTemplatesLoginRegister->getPostConfig(),
-						'profile'                             => $this->oTemplatesProfile->getPostConfig(),
-						'register'                            => $this->oTemplatesRegister->getPostConfig(),
-						'user_bar'                            => $this->oTemplatesUserBar->getPostConfig()
+					'templates'			=> array(
+						'forgotten_password'					=> $this->oTemplatesForgottenPassword->getPostConfig(),
+						'login'									=> $this->oTemplatesLogin->getPostConfig(),
+						'login_register'						=> $this->oTemplatesLoginRegister->getPostConfig(),
+						'profile'								=> $this->oTemplatesProfile->getPostConfig(),
+						'register'								=> $this->oTemplatesRegister->getPostConfig(),
+						'user_bar'								=> $this->oTemplatesUserBar->getPostConfig()
 					)
 				)
 			);
@@ -115,24 +121,25 @@ class Config extends Controller
 			'users' => array(
 				'custom_fields_enabled' => $this->okt->config->users['custom_fields_enabled'],
 				'gravatar'             => array(
-					'enabled' 		=> $this->okt->config->users['gravatar']['enabled'],
+					'enabled' 							=> $this->okt->config->users['gravatar']['enabled'],
+					'default_image' 					=> $this->okt->config->users['gravatar']['default_image']
 				),
 				'pages'             => array(
-					'login'                            => $this->okt->config->users['pages']['login'],
-					'register'                         => $this->okt->config->users['pages']['register'],
-					'log_reg'                          => $this->okt->config->users['pages']['log_reg'],
-					'forget_password'                  => $this->okt->config->users['pages']['forget_password'],
-					'profile'                          => $this->okt->config->users['pages']['profile']
+					'login'								=> $this->okt->config->users['pages']['login'],
+					'register'							=> $this->okt->config->users['pages']['register'],
+					'log_reg'							=> $this->okt->config->users['pages']['log_reg'],
+					'forget_password'					=> $this->okt->config->users['pages']['forget_password'],
+					'profile'							=> $this->okt->config->users['pages']['profile']
 				),
 				'registration'      => array(
-					'merge_username_email'             => $this->okt->config->users['registration']['merge_username_email'],
-					'mail_new_registration'            => $this->okt->config->users['registration']['mail_new_registration'],
-					'mail_new_registration_recipients' => $this->okt->config->users['registration']['mail_new_registration_recipients'],
-					'validation_email'                 => $this->okt->config->users['registration']['validation_email'],
-					'validation_admin'                 => $this->okt->config->users['registration']['validation_admin'],
-					'auto_log_after_registration'      => $this->okt->config->users['registration']['auto_log_after_registration'],
-					'user_choose_group'                => $this->okt->config->users['registration']['user_choose_group'],
-					'default_group'                    => $this->okt->config->users['registration']['default_group']
+					'merge_username_email'				=> $this->okt->config->users['registration']['merge_username_email'],
+					'mail_new_registration'				=> $this->okt->config->users['registration']['mail_new_registration'],
+					'mail_new_registration_recipients'	=> $this->okt->config->users['registration']['mail_new_registration_recipients'],
+					'validation_email'					=> $this->okt->config->users['registration']['validation_email'],
+					'validation_admin'					=> $this->okt->config->users['registration']['validation_admin'],
+					'auto_log_after_registration'		=> $this->okt->config->users['registration']['auto_log_after_registration'],
+					'user_choose_group'					=> $this->okt->config->users['registration']['user_choose_group'],
+					'default_group'						=> $this->okt->config->users['registration']['default_group']
 				)
 			)
 		);

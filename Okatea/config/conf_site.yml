@@ -102,6 +102,7 @@ users:
     custom_fields_enabled: false
     gravatar:
         enabled: true
+        default_image: identicon
     pages:
         login: true
         register: true

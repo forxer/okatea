@@ -105,6 +105,16 @@ $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Default group';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_image'] = 'Image';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_image_title'] = 'Users image';
 $GLOBALS['okt_l10n']['c_a_users_config_enable_gravatar_%s'] = 'Enable support for %s';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image'] = 'Default Gravatar image';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_note'] = 'Select the image to display if the user has no Gravatar image associated with his email address.';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_gravatar'] = 'gravatar: the default gravatar image (does not vary by email)';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_mm'] = 'mystery-man: a simple, cartoon-style silhouetted outline of a person (does not vary by email)';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_identicon'] = 'identicon: a geometric pattern based on an email';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_monsterid'] = 'monsterid: a generated "monster" with different colors, faces, etc';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_wavatar'] = 'wavatar: generated faces with differing features and backgrounds';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_retro'] = 'retro: awesome generated, 8-bit arcade-style pixelated faces';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_blank'] = 'blank: a transparent PNG image';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_404'] = '404: do not load any image, instead return an HTTP 404 (File Not Found) response';
 
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl'] = 'Templates';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl_title'] = 'Templates display';

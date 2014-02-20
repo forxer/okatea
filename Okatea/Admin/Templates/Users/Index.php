@@ -71,7 +71,7 @@ if ($okt->config->users['gravatar']['enabled'])
 {
 	$gravatarImage = new GravatarImage();
 	$gravatarImage
-		->setDefaultImage('mm')
+		->setDefaultImage($okt->config->users['gravatar']['default_image'])
 		->setSize(60);
 }
 

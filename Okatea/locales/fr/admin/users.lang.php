@@ -105,6 +105,16 @@ $GLOBALS['okt_l10n']['c_a_users_Default_group'] = 'Groupe par défaut';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_image'] = 'Image';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_image_title'] = 'Image des utilisateurs';
 $GLOBALS['okt_l10n']['c_a_users_config_enable_gravatar_%s'] = 'Activer le support de %s';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image'] = 'Image Gravatar par défaut';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_note'] = 'Choisissez l’image à afficher si l’utilisateur n’a pas d’image Gravatar associée à son adresse email.';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_gravatar'] = 'gravatar: l’image Gravatar par défaut (ne varie pas en fonction de l’adresse email)';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_mm'] = 'mystery-man: (l’homme mystère) l’esquisse de la silhouette d’une personne dans un style de bande dessinée (ne varie pas en fonction de l’adresse email)';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_identicon'] = 'identicon: un motif géométrique basé sur l’adresse email';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_monsterid'] = 'monsterid: un "monstre" généré avec des couleurs différentes, des visages, etc. en fonction de l’adresse email';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_wavatar'] = 'wavatar: un visage dans un style de bande dessinée générée en fonction de l’adresse email';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_retro'] = 'retro: une image pixélisé dans un style 8-bit';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_blank'] = 'blank: une image transparente PNG';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_404'] = '404: ne charger aucune image, envoyer à la place une réponse HTTP erreur 404 (Fichier introuvable)';
 
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl'] = 'Modèles';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';
