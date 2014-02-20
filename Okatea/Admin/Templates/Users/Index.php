@@ -72,6 +72,7 @@ if ($okt->config->users['gravatar']['enabled'])
 	$gravatarImage = new GravatarImage();
 	$gravatarImage
 		->setDefaultImage($okt->config->users['gravatar']['default_image'])
+		->setMaxRating($okt->config->users['gravatar']['rating'])
 		->setSize(60);
 }
 

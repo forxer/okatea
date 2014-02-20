@@ -116,6 +116,11 @@ $GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_retro'] = 'retro: 
 $GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_blank'] = 'blank: a transparent PNG image';
 $GLOBALS['okt_l10n']['c_a_users_config_gravatar_default_image_404'] = '404: do not load any image, instead return an HTTP 404 (File Not Found) response';
 
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_rating_g'] = 'G: A G rated gravatar is suitable for display on all websites with any audience type. ';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_rating_pg'] = 'PG: PG rated gravatars may contain rude gestures, provocatively dressed individuals, the lesser swear words, or mild violence. ';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_rating_r'] = 'R: R rated gravatars may contain such things as harsh profanity, intense violence, nudity, or hard drug use.';
+$GLOBALS['okt_l10n']['c_a_users_config_gravatar_rating_x'] = 'X: X rated gravatars may contain hardcore sexual imagery or extremely disturbing violence. ';
+
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl'] = 'Templates';
 $GLOBALS['okt_l10n']['c_a_users_config_tab_tpl_title'] = 'Templates display';
 $GLOBALS['okt_l10n']['c_a_users_config_tpl_forgotten_password'] = 'Forgotten password form page templates';

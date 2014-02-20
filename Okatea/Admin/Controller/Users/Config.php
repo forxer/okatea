@@ -1,7 +1,11 @@
 <?php
 /*
- * This file is part of Okatea. For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace Okatea\Admin\Controller\Users;
 
 use Okatea\Admin\Controller;
@@ -59,7 +63,8 @@ class Config extends Controller
 					'custom_fields_enabled' => $this->okt->request->request->has('p_users_custom_fields_enabled'),
 					'gravatar'			=> array(
 						'enabled'								=> $this->okt->request->request->has('p_users_gravatar_enabled'),
-						'default_image'							=> $sGravatarDefaultImage
+						'default_image'							=> $sGravatarDefaultImage,
+						'rating' 								=> $this->okt->request->request->get('p_users_gravatar_rating')
 					),
 					'pages'				=> array(
 						'login'									=> $this->okt->request->request->has('p_enable_login_page'),
@@ -122,7 +127,8 @@ class Config extends Controller
 				'custom_fields_enabled' => $this->okt->config->users['custom_fields_enabled'],
 				'gravatar'             => array(
 					'enabled' 							=> $this->okt->config->users['gravatar']['enabled'],
-					'default_image' 					=> $this->okt->config->users['gravatar']['default_image']
+					'default_image' 					=> $this->okt->config->users['gravatar']['default_image'],
+					'rating' 							=> $this->okt->config->users['gravatar']['rating']
 				),
 				'pages'             => array(
 					'login'								=> $this->okt->config->users['pages']['login'],

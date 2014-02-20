@@ -17,6 +17,13 @@ $aDefaultGravatarImages = array(
 	'404' 		=> __('c_a_users_config_gravatar_default_image_404')
 );
 
+$aGravatarRatings = array(
+	'g' 		=> __('c_a_users_config_gravatar_rating_g'),
+	'pg' 		=> __('c_a_users_config_gravatar_rating_pg'),
+	'r' 		=> __('c_a_users_config_gravatar_rating_r'),
+	'x' 		=> __('c_a_users_config_gravatar_rating_x')
+);
+
 $okt->page->css->addCss('
 #gravatar_default_image .col1 {
 	width: 65%;
@@ -64,10 +71,10 @@ $okt->page->js->addReady('
 
 		<div id="gravatar_default_image" class="two-cols">
 			<div class="col col1">
-			<?php foreach ($aDefaultGravatarImages as $k=>$v) : ?>
-			<p class="field"><label for="p_users_gravatar_default_image_<?php echo $k ?>"><?php echo form::radio(array('p_users_gravatar_default_image','p_users_gravatar_default_image_'.$k), $k, ($aPageData['config']['users']['gravatar']['default_image'] == $k)) ?>
-			<?php _e($v) ?></label></p>
-			<?php endforeach; ?>
+				<?php foreach ($aDefaultGravatarImages as $k=>$v) : ?>
+				<p class="field"><label for="p_users_gravatar_default_image_<?php echo $k ?>"><?php echo form::radio(array('p_users_gravatar_default_image','p_users_gravatar_default_image_'.$k), $k, ($aPageData['config']['users']['gravatar']['default_image'] == $k)) ?>
+				<?php _e($v) ?></label></p>
+				<?php endforeach; ?>
 			</div>
 			<div class="col col2">
 				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=140" id="gravatar_default_image_" class="gravatar_default_image_preview" alt="" />
@@ -79,4 +86,15 @@ $okt->page->js->addReady('
 				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&amp;s=140" id="gravatar_default_image_blank" class="gravatar_default_image_preview" alt="" />
 			</div>
 		</div>
+	</fieldset>
+	<fieldset>
+		<legend><?php _e('c_a_users_config_gravatar_rating') ?></legend>
+
+		<p><?php _e('c_a_users_config_gravatar_rating_note') ?></p>
+
+		<?php foreach ($aGravatarRatings as $k=>$v) : ?>
+		<p class="field"><label for="p_users_gravatar_rating_<?php echo $k ?>"><?php echo form::radio(array('p_users_gravatar_rating','p_users_gravatar_rating_'.$k), $k, ($aPageData['config']['users']['gravatar']['rating'] == $k)) ?>
+		<?php _e($v) ?></label></p>
+		<?php endforeach; ?>
+
 	</fieldset>
