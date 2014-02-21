@@ -224,7 +224,7 @@ class Collection
 	 */
 	public function getModuleObject($sModuleId)
 	{
-		if (!$this->loaded($sModuleId)) {
+		if (!$this->isLoaded($sModuleId)) {
 			throw new \Exception(__('The module specified ('.$sModuleId.') does not appear to be a valid installed module.'));
 		}
 

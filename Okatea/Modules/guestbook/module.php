@@ -280,7 +280,7 @@ class module_guestbook extends Module
 	{
 		$data['is_spam'] = null;
 
-		if ($this->okt->modules->loaded('antispam')) {
+		if ($this->okt->modules->isLoaded('antispam')) {
 			$data['is_spam'] = oktAntispam::isSpam('guestbook',$data['nom'],$data['email'],$data['url'],$data['ip'],$data['message']);
 		}
 

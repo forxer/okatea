@@ -13,7 +13,7 @@ class module_pages_example_extra_fields extends Module
 {
 	protected function prepend()
 	{
-		if (!$this->okt->modules->loaded('pages')) {
+		if (!$this->okt->modules->isLoaded('pages')) {
 			return null;
 		}
 

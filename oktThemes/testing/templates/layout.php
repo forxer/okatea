@@ -21,7 +21,7 @@ $this->extend('main');
 
 		<div id="search">
 			<?php # début Okatea : affichage de la boite de recherche de véhicules
-			if ($okt->modules->loaded('vehicles')) :
+			if ($okt->modules->isLoaded('vehicles')) :
 			echo $okt->tpl->render('vehicles_search_tpl');
 			endif; # fin Okatea : affichage de la boite de recherche de véhicules ?>
 
@@ -58,39 +58,39 @@ $this->extend('main');
 		# fin Okatea : affichage menu milieu ?>
 
 		<?php # début Okatea : si le module news est présent, affichage de l'encart
-		if ($okt->modules->loaded('news')) :
+		if ($okt->modules->isLoaded('news')) :
 			echo $this->render($okt->news->getInsertTplPath());
 		endif; # fin Okatea : si le module news est présent, affichage de l'encart ?>
 
 
 		<?php # début Okatea : affichage des pages de la rubrique id 1
-		if ($okt->modules->loaded('pages')) :
+		if ($okt->modules->isLoaded('pages')) :
 			echo pagesHelpers::getPagesByCatId(1);
 		endif; # fin Okatea : affichage des pages de la rubrique id 1 ?>
 
 		<?php # début Okatea : affichage des sous-rubriques de la rubrique id 1
-		if ($okt->modules->loaded('pages')) :
+		if ($okt->modules->isLoaded('pages')) :
 			echo pagesHelpers::getSubCatsByCatId(1);
 		endif; # fin Okatea : affichage des sous-rubriques de la rubrique id 1 ?>
 
 		<?php # début Okatea : affichage de l'arbre des rubriques
-		if ($okt->modules->loaded('pages')) :
+		if ($okt->modules->isLoaded('pages')) :
 			echo pagesHelpers::getCategories();
 		endif; # fin Okatea : affichage de l'arbre des rubriques ?>
 
 
 		<?php # début Okatea : affichage des news de la rubrique id 1
-		if ($okt->modules->loaded('news')) :
+		if ($okt->modules->isLoaded('news')) :
 			echo newsHelpers::getPostsByCatId(1);
 		endif; # fin Okatea : affichage des news de la rubrique id 1 ?>
 
 		<?php # début Okatea : affichage des sous-rubriques de la rubrique id 1
-		if ($okt->modules->loaded('news')) :
+		if ($okt->modules->isLoaded('news')) :
 			echo newsHelpers::getSubCatsByCatId(1);
 		endif; # fin Okatea : affichage des sous-rubriques de la rubrique id 1 ?>
 
 		<?php # début Okatea : affichage de l'arbre des rubriques
-		if ($okt->modules->loaded('news')) :
+		if ($okt->modules->isLoaded('news')) :
 			echo newsHelpers::getCategories();
 		endif; # fin Okatea : affichage de l'arbre des rubriques ?>
 

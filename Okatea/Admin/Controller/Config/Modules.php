@@ -129,7 +129,7 @@ class Modules extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
 
 		# Récupération de la liste des modules dans le système de fichiers (tous les modules)
-		$this->aAllModules = $this->okt->modules->getAll();
+		$this->aAllModules = $this->okt->modules->manage()->getAll();
 
 		# Load all modules admin locales files
 		foreach ($this->aAllModules as $id=>$infos) {
@@ -137,7 +137,7 @@ class Modules extends Controller
 		}
 
 		# Récupération de la liste des modules dans la base de données (les modules installés)
-		$this->aInstalledModules = $this->okt->modules->getInstalled();
+		$this->aInstalledModules = $this->okt->modules->manage()->getInstalled();
 
 		# Calcul de la liste des modules non-installés
 		$this->aUninstalledModules = array_diff_key($this->aAllModules,$this->aInstalledModules);
@@ -293,7 +293,7 @@ class Modules extends Controller
 		}
 
 		# D'abord on active le module
-		if (!$this->okt->modules->loaded($sModuleId))
+		if (!$this->okt->modules->isLoaded($sModuleId))
 		{
 			$this->okt->modules->enableModule($sModuleId);
 
