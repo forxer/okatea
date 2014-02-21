@@ -27,11 +27,12 @@ class FormElements
 	 * @param	mixed	$mDefault		La valeur sélectionnée par défaut
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
+	 * @param	boolean	$bMultiple		Choix multiple
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function select($mNameId, $aData, $mDefault=null, $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function select($mNameId, $aData, $mDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $bMultiple = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -40,6 +41,7 @@ class FormElements
 		$res .= ' class="select'.(null === $sClass ? '' : ' '.$sClass).'"';
 		$res .= null === $iTabindex ? '' : ' tabindex="'.$iTabindex.'"';
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
+		$res .= $bMultiple ? ' multiple="multiple"' : '';
 		$res .= $sExtraHtml;
 		$res .= '>'.PHP_EOL;
 
@@ -94,11 +96,11 @@ class FormElements
 	 * @param	boolean	$checked		L'état par défaut de l'élément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function radio($mNameId, $value, $checked='', $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function radio($mNameId, $value, $checked = '', $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -122,11 +124,11 @@ class FormElements
 	 * @param	boolean	$checked		L'état par défaut de l'élément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function checkbox($mNameId, $value, $checked='', $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function checkbox($mNameId, $value, $checked = '', $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -151,11 +153,11 @@ class FormElements
 	 * @param	string	$sDefault		La valeur par défaut de lélément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function text($mNameId, $size, $max=null, $sDefault=null, $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function text($mNameId, $size, $max = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -179,11 +181,11 @@ class FormElements
 	 * @param	string	$sDefault		La valeur par défaut de lélément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function file($mNameId, $sDefault=null, $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function file($mNameId, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -208,11 +210,11 @@ class FormElements
 	 * @param	string	$sDefault		La valeur par défaut de lélément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function password($mNameId, $size, $max=null, $sDefault=null, $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function password($mNameId, $size, $max = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 
@@ -238,11 +240,11 @@ class FormElements
 	 * @param	string	$sDefault		La valeur par défaut de lélément
 	 * @param	string	$sClass			La classe CSS de l'élément
 	 * @param	integer	$iTabindex		Le tabindex de l'élément
-	 * @param	boolean	$disable		Désactiver ou non le champ
+	 * @param	boolean	$bDisabled		Désactiver ou non le champ
 	 * @param	string	$sExtraHtml		Du HTML en plus à mettre dans l'élément
 	 * @return string
 	 */
-	public static function textarea($mNameId, $iCols=null, $iRows=null, $sDefault=null, $sClass=null, $iTabindex=null, $bDisabled=false, $sExtraHtml=null)
+	public static function textarea($mNameId, $iCols = null, $iRows = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled  =  false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
 

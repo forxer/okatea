@@ -46,7 +46,7 @@ $okt->page->js->addReady('
 	<p class="field"><label><?php echo form::checkbox('p_enable_register_page', 1, $aPageData['config']['users']['pages']['register']) ?>
 	<?php _e('c_a_users_Enable_registration_page') ?></label></p>
 
-	<p class="field"><label><?php echo form::checkbox('p_enable_log_reg_page', 1, $aPageData['config']['users']['pages']['log_reg'], '', '', (!$aPageData['config']['users']['pages']['login'] || !$aPageData['config']['users']['pages']['register'])) ?>
+	<p class="field"><label><?php echo form::checkbox('p_enable_log_reg_page', 1, $aPageData['config']['users']['pages']['log_reg'], null, null, (!$aPageData['config']['users']['pages']['login'] || !$aPageData['config']['users']['pages']['register'])) ?>
 	<?php _e('c_a_users_Enable_log_reg_page') ?></label>
 	<span class="note"><?php _e('c_a_users_Enable_log_reg_page_note') ?></span></p>
 

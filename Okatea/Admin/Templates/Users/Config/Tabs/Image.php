@@ -7,30 +7,27 @@
  */
 
 $aDefaultGravatarImages = array(
-	null		=> __('c_a_users_config_gravatar_default_image_gravatar'),
-	'mm' 		=> __('c_a_users_config_gravatar_default_image_mm'),
-	'identicon' => __('c_a_users_config_gravatar_default_image_identicon'),
-	'monsterid' => __('c_a_users_config_gravatar_default_image_monsterid'),
-	'wavatar' 	=> __('c_a_users_config_gravatar_default_image_wavatar'),
-	'retro' 	=> __('c_a_users_config_gravatar_default_image_retro'),
-	'blank' 	=> __('c_a_users_config_gravatar_default_image_blank'),
-	'404' 		=> __('c_a_users_config_gravatar_default_image_404')
+	null		=> 'c_a_users_config_gravatar_default_image_gravatar',
+	'mm' 		=> 'c_a_users_config_gravatar_default_image_mm',
+	'identicon' => 'c_a_users_config_gravatar_default_image_identicon',
+	'monsterid' => 'c_a_users_config_gravatar_default_image_monsterid',
+	'wavatar' 	=> 'c_a_users_config_gravatar_default_image_wavatar',
+	'retro' 	=> 'c_a_users_config_gravatar_default_image_retro',
+	'blank' 	=> 'c_a_users_config_gravatar_default_image_blank',
+	'404' 		=> 'c_a_users_config_gravatar_default_image_404'
 );
 
 $aGravatarRatings = array(
-	'g' 		=> __('c_a_users_config_gravatar_rating_g'),
-	'pg' 		=> __('c_a_users_config_gravatar_rating_pg'),
-	'r' 		=> __('c_a_users_config_gravatar_rating_r'),
-	'x' 		=> __('c_a_users_config_gravatar_rating_x')
+	'g' 		=> 'c_a_users_config_gravatar_rating_g',
+	'pg' 		=> 'c_a_users_config_gravatar_rating_pg',
+	'r' 		=> 'c_a_users_config_gravatar_rating_r',
+	'x' 		=> 'c_a_users_config_gravatar_rating_x'
 );
 
 $okt->page->css->addCss('
-#gravatar_default_image .col1 {
-	width: 65%;
-}
-#gravatar_default_image .col2 {
-	width: 33%;
-	text-align: center;
+#gravatar_default_image_preview {
+	float: left;
+	margin: 1em 1em 1em 0;
 }
 .gravatar_default_image_preview {
 	display: none;
@@ -39,21 +36,39 @@ $okt->page->css->addCss('
 
 $okt->page->js->addScript('
 	function handleGravatarDefaultImagePreview() {
-		var selected = $("input[name=\'p_users_gravatar_default_image\']:checked").val();
+		var selected = $("#p_users_gravatar_default_image option:checked");
+
+		$("#gravatar_default_image_note").text(selected.attr("title"));
 
 		$(".gravatar_default_image_preview").each(function() {
-			if ($(this).attr("id") == "gravatar_default_image_" + selected) {
-				$(this).show();
-			} else {
+			if ($(this).attr("id") == "gravatar_default_image_" + selected.val()) {
+				$(this).show()
+			}
+			else {
 				$(this).hide();
 			}
 		});
 	}
+
+	function handleGravatarRating() {
+		var selected = $("#p_users_gravatar_rating option:checked");
+		$("#gravatar_default_rating_note").text(selected.attr("title"));
+	}
 ');
 
 $okt->page->js->addReady('
+	$("#p_users_gravatar_default_image_label").tooltip();
+	$("#p_users_gravatar_rating_label").tooltip();
+
 	handleGravatarDefaultImagePreview();
-	$("input[name=\'p_users_gravatar_default_image\']").change(function(){handleGravatarDefaultImagePreview();});
+	$("#p_users_gravatar_default_image").change(function(){
+		handleGravatarDefaultImagePreview();
+	});
+
+	handleGravatarRating();
+	$("#p_users_gravatar_rating").change(function(){
+		handleGravatarRating();
+	});
 ');
 
 
@@ -64,37 +79,37 @@ $okt->page->js->addReady('
 	<p class="field"><label><?php echo form::checkbox('p_users_gravatar_enabled', 1, $aPageData['config']['users']['gravatar']['enabled']) ?>
 	<?php printf(__('c_a_users_config_enable_gravatar_%s'), '<a href="https://'.$okt->user->language.'.gravatar.com/">Gravatar</a>') ?></label></p>
 
-	<fieldset>
-		<legend><?php _e('c_a_users_config_gravatar_default_image') ?></legend>
+	<div class="two-cols">
+		<div class="col">
+			<div id="gravatar_default_image_preview">
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=60" id="gravatar_default_image_" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=60" id="gravatar_default_image_mm" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&amp;s=60" id="gravatar_default_image_identicon" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=60" id="gravatar_default_image_monsterid" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&amp;s=60" id="gravatar_default_image_wavatar" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&amp;s=60" id="gravatar_default_image_retro" class="gravatar_default_image_preview" alt="" />
+				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&amp;s=60" id="gravatar_default_image_blank" class="gravatar_default_image_preview" alt="" />
+			</div>
 
-		<p><?php _e('c_a_users_config_gravatar_default_image_note') ?></p>
-
-		<div id="gravatar_default_image" class="two-cols">
-			<div class="col col1">
+			<p class="field"><label for="p_users_gravatar_default_image" id="p_users_gravatar_default_image_label" title="<?php
+			_e('c_a_users_config_gravatar_default_image_note') ?>"><?php _e('c_a_users_config_gravatar_default_image') ?></label>
+			<select name="p_users_gravatar_default_image" id="p_users_gravatar_default_image">
 				<?php foreach ($aDefaultGravatarImages as $k=>$v) : ?>
-				<p class="field"><label for="p_users_gravatar_default_image_<?php echo $k ?>"><?php echo form::radio(array('p_users_gravatar_default_image','p_users_gravatar_default_image_'.$k), $k, ($aPageData['config']['users']['gravatar']['default_image'] == $k)) ?>
-				<?php _e($v) ?></label></p>
+				<option value="<?php echo $k ?>" title="<?php echo $view->escapeHtmlAttr(__($v.'_note')) ?>"<?php
+				if ($aPageData['config']['users']['gravatar']['default_image'] == $k) echo ' selected="selected"'; ?>><?php _e($v) ?></option>
 				<?php endforeach; ?>
-			</div>
-			<div class="col col2">
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=140" id="gravatar_default_image_" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=140" id="gravatar_default_image_mm" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&amp;s=140" id="gravatar_default_image_identicon" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=140" id="gravatar_default_image_monsterid" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&amp;s=140" id="gravatar_default_image_wavatar" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&amp;s=140" id="gravatar_default_image_retro" class="gravatar_default_image_preview" alt="" />
-				<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&amp;s=140" id="gravatar_default_image_blank" class="gravatar_default_image_preview" alt="" />
-			</div>
+			</select>
+			<span id="gravatar_default_image_note" class="note"></span></p>
 		</div>
-	</fieldset>
-	<fieldset>
-		<legend><?php _e('c_a_users_config_gravatar_rating') ?></legend>
-
-		<p><?php _e('c_a_users_config_gravatar_rating_note') ?></p>
-
-		<?php foreach ($aGravatarRatings as $k=>$v) : ?>
-		<p class="field"><label for="p_users_gravatar_rating_<?php echo $k ?>"><?php echo form::radio(array('p_users_gravatar_rating','p_users_gravatar_rating_'.$k), $k, ($aPageData['config']['users']['gravatar']['rating'] == $k)) ?>
-		<?php _e($v) ?></label></p>
-		<?php endforeach; ?>
-
-	</fieldset>
+		<div class="col">
+			<p class="field"><label for="p_users_gravatar_rating" id="p_users_gravatar_rating_label" title="<?php
+			_e('c_a_users_config_gravatar_rating_note') ?>"><?php _e('c_a_users_config_gravatar_rating') ?></label>
+			<select name="p_users_gravatar_rating" id="p_users_gravatar_rating">
+			<?php foreach ($aGravatarRatings as $k=>$v) : ?>
+				<option value="<?php echo $k ?>" title="<?php echo $view->escapeHtmlAttr(__($v.'_note')) ?>"<?php
+				if ($aPageData['config']['users']['gravatar']['rating'] == $k) echo ' selected="selected"'; ?>><?php _e($v) ?></option>
+			<?php endforeach; ?>
+			</select>
+			<span id="gravatar_default_rating_note" class="note"></span></p>
+		</div>
+	</div><!-- .two-cols -->
