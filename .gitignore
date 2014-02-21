@@ -58,3 +58,4 @@ $RECYCLE.BIN/
 
 # vendor
 /vendor/
+/test.php
