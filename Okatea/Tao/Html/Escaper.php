@@ -51,7 +51,7 @@ class Escaper
 			return $value;
 		}
 
-		$value = htmlspecialchars($str, ENT_NOQUOTES | ENT_SUBSTITUTE);
+		$value = htmlspecialchars($value, ENT_NOQUOTES | ENT_SUBSTITUTE);
 		$value = str_replace("'", "\'", $value);
 		$value = str_replace('"', '\"', $value);
 
