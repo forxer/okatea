@@ -111,7 +111,7 @@ class Module
 	 */
 	public function setInfosFromDefineFile()
 	{
-		$define_file = $this->okt->modules->path.'/'.$this->id().'/_define.php';
+		$define_file = $this->okt->options->get('modules_dir').'/'.$this->id().'/_define.php';
 
 		if (file_exists($define_file)) {
 			require $define_file;
@@ -137,7 +137,7 @@ class Module
 	public function registerModule(array $aParams=array())
 	{
 		$this->setInfos(array(
-			'root'			=> $this->okt->modules->path.'/'.$this->id(),
+			'root'			=> $this->okt->options->get('modules_dir').'/'.$this->id(),
 			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->_id),
 			'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
 			'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),

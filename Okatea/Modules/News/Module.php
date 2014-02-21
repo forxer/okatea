@@ -17,7 +17,7 @@ use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Images\ImageUpload;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
-use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Users\Groups;

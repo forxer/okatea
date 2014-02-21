@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'piroBox',
 	'desc' 			=> 'Allow to integrate piroBox in Okatea',
 	'version' 		=> '2.0-rc1',

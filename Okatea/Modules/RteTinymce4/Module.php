@@ -9,7 +9,7 @@
 namespace Okatea\Modules\RteTinymce4;
 
 use Okatea\Tao\Html\Escaper;
-use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 
 class Module extends BaseModule
 {

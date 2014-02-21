@@ -69,8 +69,7 @@ $okt->page->css->addCss('
 # Avatars
 if ($okt->config->users['gravatar']['enabled'])
 {
-	$gravatarImage = new GravatarImage();
-	$gravatarImage
+	$gravatarImage = (new GravatarImage())
 		->setDefaultImage($okt->config->users['gravatar']['default_image'])
 		->setMaxRating($okt->config->users['gravatar']['rating'])
 		->setSize(60);

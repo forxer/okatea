@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Images sets',
 	'desc' 			=> 'A module to manage images sets.',
 	'version' 		=> '0.1',

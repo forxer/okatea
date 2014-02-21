@@ -8,7 +8,7 @@
 
 namespace Okatea\Modules\Builder;
 
-use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 
 class Module extends BaseModule
 {

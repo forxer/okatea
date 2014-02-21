@@ -129,7 +129,7 @@ class Modules extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
 
 		# Récupération de la liste des modules dans le système de fichiers (tous les modules)
-		$this->aAllModules = $this->okt->modules->getModulesFromFileSystem();
+		$this->aAllModules = $this->okt->modules->getAll();
 
 		# Load all modules admin locales files
 		foreach ($this->aAllModules as $id=>$infos) {
@@ -137,7 +137,7 @@ class Modules extends Controller
 		}
 
 		# Récupération de la liste des modules dans la base de données (les modules installés)
-		$this->aInstalledModules = $this->okt->modules->getInstalledModules();
+		$this->aInstalledModules = $this->okt->modules->getInstalled();
 
 		# Calcul de la liste des modules non-installés
 		$this->aUninstalledModules = array_diff_key($this->aAllModules,$this->aInstalledModules);
@@ -185,7 +185,7 @@ class Modules extends Controller
 	protected function showChangelog()
 	{
 		$sModuleId = $this->request->query->get('show_changelog');
-		$sChangelogFile = $this->okt->modules->path.'/'.$sModuleId.'/CHANGELOG';
+		$sChangelogFile = $this->okt->options->get('modules_dir').'/'.$sModuleId.'/CHANGELOG';
 
 		if (!$sModuleId || !file_exists($sChangelogFile)) {
 			return false;
@@ -546,7 +546,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		if (\files::deltree($this->okt->modules->path.'/'.$sModuleId))
+		if (\files::deltree($this->okt->options->get('modules_dir').'/'.$sModuleId))
 		{
 			$this->okt->page->flash->success(__('c_a_modules_successfully_deleted'));
 

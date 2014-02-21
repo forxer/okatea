@@ -45,7 +45,7 @@ class Collection
 	 * Le nom de la table modules
 	 * @var string
 	 */
-	protected $t_modules;
+	protected $t_extensions;
 
 	/**
 	 * La liste des modules installés
@@ -100,7 +100,7 @@ class Collection
 		$this->cache_id = 'modules';
 		$this->cache_repo_id = 'modules_repositories';
 
-		$this->t_modules = $okt->db->prefix.'core_extensions';
+		$this->t_extensions = $okt->db->prefix.'core_extensions';
 
 		$this->path = $path;
 	}
@@ -336,7 +336,7 @@ class Collection
 		$strReq =
 		'SELECT id, name, description, author, '.
 		'version, priority, updatable, status '.
-		'FROM '.$this->t_modules.' '.
+		'FROM '.$this->t_extensions.' '.
 		$reqPlus.
 		'ORDER BY priority ASC, id ASC ';
 
@@ -404,7 +404,7 @@ class Collection
 	public function addModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
 	{
 		$query =
-		'INSERT INTO '.$this->t_modules.' ('.
+		'INSERT INTO '.$this->t_extensions.' ('.
 			'id, name, description, author, '.
 			'version, priority, status, type'.
 		') VALUES ('.
@@ -440,7 +440,7 @@ class Collection
 	public function updModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = null)
 	{
 		$query =
-		'UPDATE '.$this->t_modules.' SET '.
+		'UPDATE '.$this->t_extensions.' SET '.
 			'name=\''.$this->db->escapeStr($name).'\', '.
 			'description=\''.$this->db->escapeStr($desc).'\', '.
 			'author=\''.$this->db->escapeStr($author).'\', '.
@@ -465,7 +465,7 @@ class Collection
 	public function enableModule($id)
 	{
 		$query =
-		'UPDATE '.$this->t_modules.' SET '.
+		'UPDATE '.$this->t_extensions.' SET '.
 			'status=1 '.
 		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
@@ -485,7 +485,7 @@ class Collection
 	public function disableModule($id)
 	{
 		$query =
-		'UPDATE '.$this->t_modules.' SET '.
+		'UPDATE '.$this->t_extensions.' SET '.
 			'status=0 '.
 		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
@@ -505,14 +505,14 @@ class Collection
 	public function deleteModule($id)
 	{
 		$query =
-		'DELETE FROM '.$this->t_modules.' '.
+		'DELETE FROM '.$this->t_extensions.' '.
 		'WHERE id=\''.$this->db->escapeStr($id).'\' ';
 
 		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
-		$this->db->optimize($this->t_modules);
+		$this->db->optimize($this->t_extensions);
 
 		return true;
 	}

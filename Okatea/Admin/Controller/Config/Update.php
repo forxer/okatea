@@ -70,8 +70,7 @@ class Update extends Controller
 		$sStep = in_array($sStep, array('check', 'download', 'backup', 'unzip', 'done')) ? $sStep : '';
 
 		# find backup archives files
-		$finder = new Finder();
-		$finder
+		$finder = (new Finder())
 			->files()
 			->in($this->okt->options->get('root_dir'))
 			->depth('== 0')

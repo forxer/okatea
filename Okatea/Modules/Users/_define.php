@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Users',
 	'desc' 			=> 'Allow to manage users and groups',
 	'version' 		=> '2.0-rc1',

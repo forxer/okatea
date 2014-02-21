@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'tinyMCE 3',
 	'desc' 			=> 'Allow to integrate tinyMCE 3 in Okatea',
 	'version' 		=> '2.0-rc1',

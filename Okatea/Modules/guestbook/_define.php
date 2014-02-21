@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Guestbook',
 	'desc' 			=> 'Allow to add a guestbook system',
 	'version' 		=> '2.0-rc1',

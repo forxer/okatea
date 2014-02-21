@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Galleries',
 	'desc' 			=> 'Allow to add an images gallery system',
 	'version' 		=> '2.0-rc1',

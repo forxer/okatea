@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Catalog',
 	'desc' 			=> 'Allow to add a simple catalog system',
 	'version' 		=> '2.0-rc1',

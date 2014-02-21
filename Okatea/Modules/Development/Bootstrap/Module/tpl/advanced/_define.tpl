@@ -1,7 +1,7 @@
 <?php
 ##header##
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> "##module_name##",
 	'desc' 			=> "##module_description##",
 	'version' 		=> "##module_version##",

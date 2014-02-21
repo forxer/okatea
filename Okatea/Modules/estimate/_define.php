@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Estimate',
 	'desc' 			=> 'Allow to add an estimate page',
 	'version' 		=> '2.0-rc1',

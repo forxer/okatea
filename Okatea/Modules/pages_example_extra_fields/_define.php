@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Pages extra fields',
 	'desc' 			=> 'Example of adding extra fields in pages module',
 	'version' 		=> '2.0-rc1',

@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Development',
 	'desc' 			=> 'Tools for web development',
 	'version' 		=> '2.0-rc1',

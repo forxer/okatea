@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Media manager',
 	'desc' 			=> 'Allow to add a media manager',
 	'version' 		=> '2.0-rc1',

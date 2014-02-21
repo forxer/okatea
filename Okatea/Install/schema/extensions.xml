@@ -22,7 +22,8 @@
 
 			PRIMARY KEY (`id`),
 			INDEX `{{PREFIX}}core_extensions_priority_idx` (`priority`),
-			INDEX `{{PREFIX}}core_extensions_status_idx` (`status`)
+			INDEX `{{PREFIX}}core_extensions_status_idx` (`status`),
+			INDEX `{{PREFIX}}core_extensions_type_idx` (`type`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 

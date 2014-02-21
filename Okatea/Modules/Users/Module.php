@@ -12,7 +12,7 @@ use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 use Okatea\Tao\Routing\Route;
 use Okatea\Tao\Html\Modifiers;
 

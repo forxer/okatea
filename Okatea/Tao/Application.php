@@ -31,7 +31,7 @@ use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\FlashMessages;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Modules\Collection as ModulesCollection;
+use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Authentification;
@@ -394,7 +394,7 @@ class Application
 	 */
 	protected function loadModules($sPart)
 	{
-		$this->modules->loadModules($sPart, $this->user->language);
+		$this->modules->load($sPart, $this->user->language);
 	}
 
 	public function loadAdminRouter()
@@ -647,23 +647,23 @@ class Application
 	/**
 	 * Magic get retourne un objet module
 	 *
-	 * @param $module_id
-	 * @return object Okatea\Tao\Modules\Module
+	 * @param $sModuleId
+	 * @return object Okatea\Tao\Extensions\Modules\Module
 	 */
-	public function __get($module_id)
+	public function __get($sModuleId)
 	{
-		return $this->modules->getModuleObject($module_id);
+		return $this->modules->getInstance($sModuleId);
 	}
 
 	/**
 	 * Retourne un objet module
 	 *
-	 * @param $module_id
-	 * @return object Okatea\Tao\Modules\Module
+	 * @param $sModuleId
+	 * @return object Okatea\Tao\Extensions\Modules\Module
 	 */
-	public function module($module_id)
+	public function module($sModuleId)
 	{
-		return $this->modules->getModuleObject($module_id);
+		return $this->modules->getInstance($sModuleId);
 	}
 
 

@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Antispam',
 	'desc' 			=> 'Generic antispam',
 	'version' 		=> '0.2-rc1',

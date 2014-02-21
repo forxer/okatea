@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Diary',
 	'desc' 			=> 'A management module calendar.',
 	'version' 		=> '2.0-rc1',

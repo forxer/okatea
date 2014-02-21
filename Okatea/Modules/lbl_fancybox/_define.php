@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Fancybox',
 	'desc' 			=> 'Allow to integrate Fancybox in Okatea',
 	'version' 		=> '2.0-rc1',

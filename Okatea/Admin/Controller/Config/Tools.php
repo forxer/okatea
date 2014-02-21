@@ -295,12 +295,10 @@ class Tools extends Controller
 				ini_set('memory_limit',-1);
 				set_time_limit(0);
 
-				$finder = new Finder();
-				$finder
+				$finder = (new Finder())
 					->in($this->okt->options->get('root_dir'))
 					->exclude('/vendor')
-					->ignoreVCS(false)
-				;
+					->ignoreVCS(false);
 
 				foreach ($aToDelete as $sToDelete) {
 					$finder->name($sToDelete);

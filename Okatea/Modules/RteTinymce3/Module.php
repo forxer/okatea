@@ -8,7 +8,7 @@
 
 namespace Okatea\Modules\RteTinymce3;
 
-use Okatea\Tao\Modules\Module as BaseModule;
+use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 
 class Module extends BaseModule
 {

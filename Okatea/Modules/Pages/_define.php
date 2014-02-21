@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Pages',
 	'desc' 			=> 'Allow to add a pages system',
 	'version' 		=> '2.0-rc1',

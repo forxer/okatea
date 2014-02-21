@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Okatea Builder',
 	'desc' 			=> 'Tool to build Okatea packages.',
 	'version' 		=> '2.0-rc1',

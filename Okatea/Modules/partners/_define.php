@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Partners',
 	'desc' 			=> 'Allow to add a partners management system',
 	'version' 		=> '2.0-rc1',

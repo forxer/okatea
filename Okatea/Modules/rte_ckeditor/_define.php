@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'CKEditor',
 	'desc' 			=> 'Allow to integrate CKEditor in Okatea',
 	'version' 		=> '2.0-rc1',

@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'okatea.org',
 	'desc' 			=> 'Module for the specific needs of the okatea.org website.',
 	'version' 		=> '2.0-rc1',

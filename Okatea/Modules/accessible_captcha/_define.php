@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Accessible Captcha',
 	'desc' 			=> 'An accessible captcha',
 	'version' 		=> '2.0-rc1',

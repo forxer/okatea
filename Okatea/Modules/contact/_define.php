@@ -5,7 +5,7 @@
  *
  */
 
-$this->registerModule(array(
+$this->register(array(
 	'name' 			=> 'Contact',
 	'desc' 			=> 'Allow to add a contact page',
 	'version' 		=> '2.0-rc1',
