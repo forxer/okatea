@@ -11,7 +11,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 # JS pour qu'on ne puissent activer la page de connexion/inscription unifiée
 # que si les deux pages connexion ET inscription sont activées
 $okt->page->js->addScript('
-	function setEnableLogRegStatus() {
+	function handleEnableLogRegStatus() {
 		if ($("#p_enable_login_page").is(":checked") && $("#p_enable_register_page").is(":checked")) {
 			$("#p_enable_log_reg_page").removeAttr("disabled")
 				.parent().removeClass("disabled")
@@ -25,8 +25,10 @@ $okt->page->js->addScript('
 ');
 
 $okt->page->js->addReady('
-	setEnableLogRegStatus();
-	$("#p_enable_login_page,#p_enable_register_page").change(function(){setEnableLogRegStatus();});
+	handleEnableLogRegStatus();
+	$("#p_enable_login_page,#p_enable_register_page").change(function(){
+		handleEnableLogRegStatus();
+	});
 ');
 
 ?>

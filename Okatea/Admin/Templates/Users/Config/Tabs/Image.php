@@ -31,6 +31,10 @@ $okt->page->css->addCss('
 }
 .gravatar_default_image_preview {
 	display: none;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 ');
 
@@ -54,11 +58,27 @@ $okt->page->js->addScript('
 		var selected = $("#p_users_gravatar_rating option:checked");
 		$("#gravatar_default_rating_note").text(selected.attr("title"));
 	}
+
+
+	function handleGravatarStatus() {
+		if ($("#p_users_gravatar_enabled").is(":checked")) {
+			$("#p_users_gravatar_default_image,#p_users_gravatar_rating").removeAttr("disabled")
+				.parent().parent().removeClass("disabled");
+		} else {
+			$("#p_users_gravatar_default_image,#p_users_gravatar_rating").attr("disabled", "")
+				.parent().parent().addClass("disabled");
+		}
+	}
 ');
 
 $okt->page->js->addReady('
 	$("#p_users_gravatar_default_image_label").tooltip();
 	$("#p_users_gravatar_rating_label").tooltip();
+
+	handleGravatarStatus();
+	$("#p_users_gravatar_enabled").change(function(){
+		handleGravatarStatus();
+	});
 
 	handleGravatarDefaultImagePreview();
 	$("#p_users_gravatar_default_image").change(function(){
