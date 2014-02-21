@@ -90,7 +90,7 @@ class Module extends BaseModule
 		}
 
 		# gestionnaire de media
-		if ($okt->modules->moduleExists('media_manager'))
+		if ($okt->modules->loaded('media_manager'))
 		{
 			$aOptions[] = 'file_browser_callback: function (field_name, url, type, win) {
 					tinymce.activeEditor.windowManager.open({

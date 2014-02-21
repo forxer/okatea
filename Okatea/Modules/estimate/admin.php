@@ -23,7 +23,7 @@ $okt->page->addAriane(__('m_estimate_main_title'), 'module.php?m=estimate');
 
 
 # Test si le module users est installé
-if (!$okt->modules->moduleExists('users'))
+if (!$okt->modules->loaded('users'))
 {
 	$okt->page->flash->error(__('m_estimate_mod_users_exist'));
 

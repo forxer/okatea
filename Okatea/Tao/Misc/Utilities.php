@@ -651,7 +651,7 @@ class Utilities
 	{
 		global $okt;
 
-		if (!$okt->modules->moduleExists($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->templates)) {
+		if (!$okt->modules->loaded($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->templates)) {
 			return false;
 		}
 
@@ -680,7 +680,7 @@ class Utilities
 	{
 		global $okt;
 
-		if (!$okt->modules->moduleExists($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->images)) {
+		if (!$okt->modules->loaded($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->images)) {
 			return false;
 		}
 

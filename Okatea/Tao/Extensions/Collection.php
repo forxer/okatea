@@ -9,7 +9,6 @@
 namespace Okatea\Tao\Extensions;
 
 use Okatea\Tao\Database\Recordset;
-use Okatea\Tao\HttpClient;
 use Symfony\Component\Finder\Finder;
 
 class Collection
@@ -55,12 +54,6 @@ class Collection
 	 * @var string
 	 */
 	protected $sCacheId;
-
-	/**
-	 * Repository cache identifier.
-	 * @var string
-	 */
-	protected $sCacheRepositoryId;
 
 	/**
 	 * Extensions class name pattern.
@@ -164,7 +157,7 @@ class Collection
 	 * @param string $sModuleId
 	 * @return boolean
 	 */
-	public function extensionExists($sExtensionId)
+	public function loaded($sExtensionId)
 	{
 		return isset($this->aLoaded[$sExtensionId]);
 	}
@@ -177,7 +170,7 @@ class Collection
 	 */
 	public function getInstance($sExtensionId)
 	{
-		if (!$this->extensionExists($sExtensionId)) {
+		if (!$this->loaded($sExtensionId)) {
 			throw new \Exception(__('The extension specified ('.$sExtensionId.') does not appear to be a valid installed extension.'));
 		}
 
@@ -364,117 +357,27 @@ class Collection
 		return $aInstalled;
 	}
 
-
-
+	/**
+	 * Sort an array of extensions alphabetically.
+	 *
+	 * @param array $aExtensions
+	 * @return void
+	 */
+	public static function sort(array &$aExtensions)
+	{
+		uasort($aExtensions, function($a, $b){
+			return strcasecmp($a['name_l10n'], $b['name_l10n']);
+		});
+	}
 
 	/**
-	 * Retourne les informations concernant les dépôts des extensions.
+	 * Return repositories data about a list of given repositories.
 	 *
 	 * @param array $aRepositories
 	 * @return array
 	 */
-	public function getRepositoriesInfos(array $aRepositories = array())
+	public function getRepositoriesData(array $aRepositories = array())
 	{
-		if (!$this->cache->contains($this->sCacheRepositoryId)) {
-			$this->saveRepositoriesInfosCache($aRepositories);
-		}
-
-		return $this->cache->fetch($this->sCacheRepositoryId);
+		return (new Repositories($this->okt))->getData($aRepositories);
 	}
-
-	/**
-	 * Enregistre les infos des dépôts dans le cache.
-	 *
-	 * @param array $aRepositories
-	 * @return boolean
-	 */
-	protected function saveRepositoriesInfosCache(array $aRepositories = array())
-	{
-		return $this->cache->save($this->sCacheRepositoryId, $this->readRepositoriesInfos($aRepositories));
-	}
-
-	/**
-	 * Lit les informations concernant les dépôts de modules et les retournes.
-	 *
-	 * @param array $aRepositories
-	 * @return array
-	 */
-	protected function readRepositoriesInfos($aRepositories)
-	{
-		$aModulesRepositories = array();
-
-		foreach ($aRepositories as $sRepositoryId => $sRepositoryUrl)
-		{
-			if (($infos = $this->getRepositoryInfos($sRepositoryUrl)) !== false) {
-				$aModulesRepositories[$sRepositoryId] = $infos;
-			}
-		}
-
-		return $aModulesRepositories;
-	}
-
-	/**
-	 * Retourne les informations d'un dépôt de modules donné.
-	 *
-	 * @param array $sRepositoryUrl
-	 * @return array
-	 */
-	protected function getRepositoryInfos($sRepositoryUrl)
-	{
-		$sRepositoryUrl = str_replace('%VERSION%', $this->okt->getVersion(), $sRepositoryUrl);
-
-		if (filter_var($sRepositoryUrl, FILTER_VALIDATE_URL) === false) {
-			return false;
-		}
-
-		$client = new HttpClient();
-		$response = $client->get($sRepositoryUrl)->send();
-
-		if ($response->isSuccessful()) {
-			return $this->readRepositoryInfos($response->getBody(true));
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * Lit les informations XML d'un dépôt de modules donné et les retournes.
-	 *
-	 * @param sting $str
-	 * @return array
-	 */
-	protected function readRepositoryInfos($str)
-	{
-		try
-		{
-			$xml = new \SimpleXMLElement($str, LIBXML_NOERROR);
-
-			$return = array();
-			foreach ($xml->module as $module)
-			{
-				if (isset($module['id']))
-				{
-					$return[(string)$module['id']] = array(
-						'id' 		=> (string)$module['id'],
-						'name' 		=> (string)$module['name'],
-						'version' 	=> (string)$module['version'],
-						'href' 		=> (string)$module['href'],
-						'checksum' 	=> (string)$module['checksum'],
-						'info' 		=> (string)$module['info']
-					);
-				}
-			}
-
-			if (empty($return)) {
-				return false;
-			}
-
-			return $return;
-		}
-		catch (Exception $e) {
-			throw $e;
-		}
-	}
-
 }

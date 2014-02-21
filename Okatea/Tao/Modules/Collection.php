@@ -187,7 +187,7 @@ class Collection
 	 * @param string $sModuleId
 	 * @return boolean
 	 */
-	public function moduleExists($sModuleId)
+	public function loaded($sModuleId)
 	{
 		return isset($this->list[$sModuleId]);
 	}
@@ -224,7 +224,7 @@ class Collection
 	 */
 	public function getModuleObject($sModuleId)
 	{
-		if (!$this->moduleExists($sModuleId)) {
+		if (!$this->loaded($sModuleId)) {
 			throw new \Exception(__('The module specified ('.$sModuleId.') does not appear to be a valid installed module.'));
 		}
 

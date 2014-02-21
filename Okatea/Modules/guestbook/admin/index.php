@@ -32,7 +32,7 @@ if (!empty($_REQUEST['sigs_ids']))
 
 
 # marquer comme étant du SPAM
-if ($do == 'spam' && $okt->modules->moduleExists('antispam'))
+if ($do == 'spam' && $okt->modules->loaded('antispam'))
 {
 	if ($multiple)
 	{
@@ -160,7 +160,7 @@ $sigs_actions = array(
 	__('c_c_action_Delete') => 'supp'
 );
 
-if ($okt->modules->moduleExists('antispam'))
+if ($okt->modules->loaded('antispam'))
 {
 	$sigs_actions[__('m_guestbook_Stand_out_as_unwanted')] = 'spam';
 	$sigs_actions[__('m_guestbook_Stand_out_as_acceptable')] = 'nospam';
@@ -334,14 +334,14 @@ include OKT_ADMIN_HEADER_FILE; ?>
 				class="icon cross"><?php _e('c_c_action_Delete')?></a></li>
 
 
-		<?php if ($okt->modules->moduleExists('antispam')) : ?>
+		<?php if ($okt->modules->loaded('antispam')) : ?>
 			<?php if (!$signature->spam_status) : ?>
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=spam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
 				class="icon flag_red"><?php _e('m_guestbook_Stand_out_as_unwanted') ?></a></li>
 			<?php else : ?>
 				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=nospam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
 				class="icon flag_green"><?php _e('m_guestbook_Stand_out_as_acceptable') ?></a>
-				<?php if ($okt->modules->moduleExists('antispam')) {
+				<?php if ($okt->modules->loaded('antispam')) {
 				echo oktAntispam::statusMessage($signature);
 				} ?></li>
 			<?php endif; ?>

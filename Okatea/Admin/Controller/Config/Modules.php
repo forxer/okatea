@@ -13,8 +13,8 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Okatea\Admin\Controller;
 use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Modules\Collection as ModulesCollection;
-use Okatea\Tao\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
+use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
 class Modules extends Controller
 {
@@ -149,7 +149,7 @@ class Modules extends Controller
 		# Liste des dépôts de modules
 		$this->aModulesRepositories = array();
 		if ($this->okt->config->repositories['modules']['enabled']) {
-			$this->aModulesRepositories = $this->okt->modules->getRepositoriesInfos($this->okt->config->repositories['modules']['list']);
+			$this->aModulesRepositories = $this->okt->modules->getRepositoriesData($this->okt->config->repositories['modules']['list']);
 		}
 
 		# Liste des éventuelles mise à jours disponibles sur les dépots
@@ -174,11 +174,11 @@ class Modules extends Controller
 		}
 
 		# Tri par ordre alphabétique des listes de modules
-		ModulesCollection::sortModules($this->aInstalledModules);
-		ModulesCollection::sortModules($this->aUninstalledModules);
+		ModulesCollection::sort($this->aInstalledModules);
+		ModulesCollection::sort($this->aUninstalledModules);
 
 		foreach ($this->aModulesRepositories as $repo_name=>$modules) {
-			ModulesCollection::sortModules($this->aModulesRepositories[$repo_name]);
+			ModulesCollection::sort($this->aModulesRepositories[$repo_name]);
 		}
 	}
 
@@ -293,7 +293,7 @@ class Modules extends Controller
 		}
 
 		# D'abord on active le module
-		if (!$this->okt->modules->moduleExists($sModuleId))
+		if (!$this->okt->modules->loaded($sModuleId))
 		{
 			$this->okt->modules->enableModule($sModuleId);
 

@@ -225,7 +225,7 @@ if ($popup)
 
 	*/
 
-	if ($okt->modules->moduleExists('rte_tinymce_4'))
+	if ($okt->modules->loaded('rte_tinymce_4'))
 	{
 		$okt->page->js->addReady('
 			var windowManager = top.tinymce.activeEditor.windowManager;
