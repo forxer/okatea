@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
-use Okatea\Tao\Modules\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class ConfigFiles extends ComponentBase
 {
@@ -139,7 +139,7 @@ class ConfigFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/Install';
+		$sPath = $this->extension->root().'/Install';
 
 		if (is_dir($sPath))
 		{

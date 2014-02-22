@@ -28,4 +28,22 @@ class Collection extends BaseCollection
 
 		$this->sExtensionClassPatern = 'Okatea\\Modules\\%s\\Module';
 	}
+
+	/**
+	 * Fonction de "pluralisation" des modules.
+	 *
+	 * @param integer $count
+	 * @return string
+	 */
+	public static function pluralizeModuleCount($count)
+	{
+		if ($count == 1) {
+			return __('c_a_modules_one_module');
+		}
+		elseif ($count > 1) {
+			return sprintf(__('c_a_modules_%s_modules'),$count);
+		}
+
+		return __('c_a_modules_no_module');
+	}
 }

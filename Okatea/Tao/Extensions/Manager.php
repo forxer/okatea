@@ -8,9 +8,10 @@
 
 namespace Okatea\Tao\Extensions;
 
+use Okatea\Tao\Database\Recordset;
 use Symfony\Component\Finder\Finder;
 
-class Manage extends Collection
+class Manager extends Collection
 {
 	/**
 	 * List of all extensions in the file system.
@@ -23,6 +24,42 @@ class Manage extends Collection
 	 * @var string
 	 */
 	protected $sTempId;
+
+
+	/**
+	 * Returns a list of extensions registered in the database.
+	 *
+	 * @param array $aParams
+	 * @return object Recordset
+	 */
+	public function getFromDatabase(array $aParams = array())
+	{
+		$reqPlus = 'WHERE 1 ';
+
+		if (!empty($aParams['id'])) {
+			$reqPlus .= 'AND id=\''.$this->db->escapeStr($aParams['id']).'\' ';
+		}
+
+		if (!empty($aParams['status'])) {
+			$reqPlus .= 'AND status='.(integer)$aParams['status'].' ';
+		}
+
+		if (!empty($aParams['type'])) {
+			$reqPlus .= 'AND type=\''.$this->db->escapeStr($aParams['type']).'\' ';
+		}
+
+		$strReq =
+		'SELECT id, name, description, author, version, priority, updatable, status, type '.
+		'FROM '.$this->t_extensions.' '.
+		$reqPlus.
+		'ORDER BY priority ASC, id ASC ';
+
+		if (($rs = $this->db->select($strReq)) === false) {
+			return new Recordset(array());
+		}
+
+		return $rs;
+	}
 
 	/**
 	 * Returns a list of extensions from the file system.
@@ -53,23 +90,19 @@ class Manage extends Collection
 	/**
 	 * Returns a list of all the extensions in the file system.
 	 *
-	 * @param string $sModuleId
+	 * @return array
 	 */
-	public function getAll($sModuleId = null)
+	public function getAll()
 	{
 		if (null === $this->aAll) {
 			$this->getFromFileSystem();
-		}
-
-		if ($sModuleId && isset($this->aAll[$sModuleId])) {
-			return $this->aAll[$sModuleId];
 		}
 
 		return $this->aAll;
 	}
 
 	/**
-	 * Ré-initialise la liste complète des modules.
+	 * Resets the list of all the extensions in the file system.
 	 *
 	 * @return void
 	 */
@@ -142,4 +175,25 @@ class Manage extends Collection
 		return $aInstalled;
 	}
 
+	/**
+	 * Looking for an install class of a given extension.
+	 *
+	 * @param string $sExtensionId
+	 * @return string
+	 */
+	public function getInstallClassName($sExtensionId)
+	{
+		if (file_exists($this->path.'/'.$sExtensionId.'/Install/installer.php'))
+		{
+			require_once $this->path.'/'.$sExtensionId.'/Install/installer.php';
+
+			$sClassInstall = $sExtensionId.'_installer';
+
+			if (class_exists($sClassInstall, false) && is_subclass_of($sClassInstall, '\\Okatea\Tao\\Extensions\\Manage\\Installer')) {
+				return $sClassInstall;
+			}
+		}
+
+		return '\\Okatea\Tao\\Extensions\\Manage\\Installer';
+	}
 }

@@ -251,7 +251,7 @@ class Infos extends Controller
 	protected function okateaHandleRequest()
 	{
 		# affichage changelog Okatea
-		$sChangelogFile = $this->okt->options->get('inc_dir').'/CHANGELOG';
+		$sChangelogFile = $this->okt->options->get('okt_dir').'/CHANGELOG';
 		if ($this->request->query->has('show_changelog') && file_exists($sChangelogFile))
 		{
 			echo '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';

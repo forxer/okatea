@@ -6,28 +6,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage;
+namespace Okatea\Tao\Extensions\Manage;
 
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Okatea\Tao\Html\CheckList;
-use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Modules\Module;
-use Okatea\Tao\Modules\Manage\Component\AssetsFiles;
-use Okatea\Tao\Modules\Manage\Component\Comparator;
-use Okatea\Tao\Modules\Manage\Component\ConfigFiles;
-use Okatea\Tao\Modules\Manage\Component\RoutesFiles;
-use Okatea\Tao\Modules\Manage\Component\TemplatesFiles;
-use Okatea\Tao\Modules\Manage\Component\UploadsFiles;
+use Okatea\Tao\Extensions\Extension;
+use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
+use Okatea\Tao\Extensions\Manage\Component\Comparator;
+use Okatea\Tao\Extensions\Manage\Component\ConfigFiles;
+use Okatea\Tao\Extensions\Manage\Component\RoutesFiles;
+use Okatea\Tao\Extensions\Manage\Component\TemplatesFiles;
+use Okatea\Tao\Extensions\Manage\Component\UploadsFiles;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Users\Groups;
 
 /**
- * Installation d'un module Okatea.
+ * Installation d'une extension Okatea.
  *
  */
-class Process extends Module
+class Installer extends Extension
 {
 	/**
 	 * Une checklist
@@ -49,43 +48,43 @@ class Process extends Module
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\AssetsFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\AssetsFiles
 	 */
 	protected $assetsFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\Comparator
+	 * @var Okatea\Tao\Extensions\Manage\Component\Comparator
 	 */
 	protected $comparator;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\ConfigFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\ConfigFiles
 	 */
 	protected $configFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\RoutesFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesAdminFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\TemplatesFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\TemplatesFiles
 	 */
 	protected $templatesFiles;
 
 	/**
 	 *
-	 * @var Okatea\Tao\Modules\Manage\Component\UploadsFiles
+	 * @var Okatea\Tao\Extensions\Manage\Component\UploadsFiles
 	 */
 	protected $uploadsFiles;
 
@@ -96,9 +95,9 @@ class Process extends Module
 	 * @param string $id
 	 * @return void
 	 */
-	public function __construct($okt, $modules_path, $id)
+	public function __construct($okt, $path, $id)
 	{
-		parent::__construct($okt, $modules_path);
+		parent::__construct($okt, $path);
 
 		$this->checklist = new CheckList();
 
@@ -108,7 +107,7 @@ class Process extends Module
 	}
 
 	/**
-	 * Perform module install.
+	 * Perform install.
 	 *
 	 * @return void
 	 */
@@ -133,20 +132,20 @@ class Process extends Module
 		$this->doInstallDefaultData();
 
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this,'install')) {
+		if (method_exists($this, 'install')) {
 			$this->install();
 		}
 
-		# ajout du module à la base de données
+		# ajout à la base de données
 		$this->checklist->addItem(
-			'add_module_to_db',
-			$this->okt->modules->addModule($this->id(),$this->version(),$this->name(),$this->desc(),$this->author(),$this->priority(),0),
-			'Add module to database',
-			'Cannot add module to database'
+			'add_extension_to_db',
+			$this->okt->modules->addModule($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority(), 0),
+			'Add extension to database',
+			'Cannot add extension to database'
 		);
 
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this,'installEnd')) {
+		if (method_exists($this, 'installEnd')) {
 			$this->installEnd();
 		}
 	}
@@ -162,20 +161,20 @@ class Process extends Module
 		$this->commonInstallUpdate('update');
 
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this,'update')) {
+		if (method_exists($this, 'update')) {
 			$this->update();
 		}
 
-		# ajout du module à la base de données
+		# modification dans la base de données
 		$this->checklist->addItem(
-			'update_module_in_db',
-			$this->okt->modules->updModule($this->id(),$this->version(),$this->name(),$this->desc(),$this->author(),$this->priority()),
-			'Update module into database',
-			'Cannot update module into database'
+			'update_extension_in_db',
+			$this->okt->modules->updModule($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority()),
+			'Update extension into database',
+			'Cannot update extension into database'
 		);
 
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this,'updateEnd')) {
+		if (method_exists($this, 'updateEnd')) {
 			$this->updateEnd();
 		}
 	}
@@ -212,22 +211,22 @@ class Process extends Module
 		# suppression des fichiers des routes admin
 		$this->getRoutesAdminFiles()->delete();
 
-		# suppression du module de la base de données
+		# suppression de la base de données
 		$this->checklist->addItem(
-			'remove_module_from_db',
+			'remove_extension_from_db',
 			$this->okt->modules->deleteModule($this->id()),
-			'Remove module from database',
-			'Cannot remove module from database'
+			'Remove extension from database',
+			'Cannot remove extension from database'
 		);
 
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this,'uninstallEnd')) {
+		if (method_exists($this, 'uninstallEnd')) {
 			$this->uninstallEnd();
 		}
 	}
 
 	/**
-	 * Perform empty module.
+	 * Perform empty extension.
 	 *
 	 * @return void
 	 */
@@ -321,7 +320,7 @@ class Process extends Module
 	}
 
 	/**
-	 * Cette fonction test les pré-requis pour installer un module.
+	 * Cette fonction test les pré-requis pour installer une extension.
 	 *
 	 * @return boolean
 	 */
@@ -359,7 +358,7 @@ class Process extends Module
 
 			$this->checklist->addItem(
 				'module_class_valide',
-				is_subclass_of($sClassName,'\\Okatea\Tao\\Modules\\Module'),
+				is_subclass_of($sClassName, '\\Okatea\\Tao\\Modules\\Module'),
 				'Module handler class "'.$sClassName.'" is a valid module class',
 				'Module handler class "'.$sClassName.'" is not a valid module class'
 			);

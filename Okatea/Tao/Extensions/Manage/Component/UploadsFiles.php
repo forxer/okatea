@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
-use Okatea\Tao\Modules\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class UploadsFiles extends ComponentBase
 {
@@ -19,7 +19,7 @@ class UploadsFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sUploadsDir = $this->module->root().'/Install/test_set/upload';
+		$sUploadsDir = $this->extension->root().'/Install/test_set/upload';
 
 		if (!is_dir($sUploadsDir)) {
 			return null;
@@ -35,7 +35,7 @@ class UploadsFiles extends ComponentBase
 			'upload_files',
 			$this->mirror(
 				$sUploadsDir,
-				$this->okt->options->get('upload_dir').'/'.$this->module->id(),
+				$this->okt->options->get('upload_dir').'/'.$this->extension->id(),
 				$oFiles
 			),
 			'Create upload files',
@@ -49,7 +49,7 @@ class UploadsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('upload_dir').'/'.$this->module->id();
+		$sPath = $this->okt->options->get('upload_dir').'/'.$this->extension->id();
 
 		if (!is_dir($sPath)) {
 			return null;
@@ -65,7 +65,7 @@ class UploadsFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/Install/test_set/upload';
+		$sPath = $this->extension->root().'/Install/test_set/upload';
 
 		if (is_dir($sPath))
 		{

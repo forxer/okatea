@@ -6,11 +6,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
 use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
-use Okatea\Tao\Modules\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class Comparator extends ComponentBase
 {

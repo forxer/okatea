@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Modules\Manage\Process as ModuleInstall;
+use Okatea\Tao\Extensions\Manage\Installer;
 
-class moduleInstall_news extends ModuleInstall
+class News_installer extends Installer
 {
 	public function installTestSet()
 	{

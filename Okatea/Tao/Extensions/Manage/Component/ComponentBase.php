@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
@@ -31,18 +31,18 @@ abstract class ComponentBase
 	 */
 	protected $error;
 
-	protected $module;
+	protected $extension;
 	protected $checklist;
 	protected $fs;
 
-	public function __construct($okt, $module)
+	public function __construct($okt, $extension)
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 
-		$this->module = $module;
-		$this->checklist = $module->checklist;
+		$this->extension = $extension;
+		$this->checklist = $extension->checklist;
 	}
 
 	protected function getFs()

@@ -129,7 +129,7 @@ class Modules extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
 
 		# Récupération de la liste des modules dans le système de fichiers (tous les modules)
-		$this->aAllModules = $this->okt->modules->manage()->getAll();
+		$this->aAllModules = $this->okt->modules->getManager()->getAll();
 
 		# Load all modules admin locales files
 		foreach ($this->aAllModules as $id=>$infos) {
@@ -137,7 +137,7 @@ class Modules extends Controller
 		}
 
 		# Récupération de la liste des modules dans la base de données (les modules installés)
-		$this->aInstalledModules = $this->okt->modules->manage()->getInstalled();
+		$this->aInstalledModules = $this->okt->modules->getManager()->getInstalled();
 
 		# Calcul de la liste des modules non-installés
 		$this->aUninstalledModules = array_diff_key($this->aAllModules,$this->aInstalledModules);
@@ -251,8 +251,7 @@ class Modules extends Controller
 		@ini_set('memory_limit',-1);
 		set_time_limit(0);
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doInstall();
 
 		# activation du module
@@ -303,8 +302,7 @@ class Modules extends Controller
 		}
 
 		# Ensuite on met à jour
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doUpdate();
 
 		# Confirmations
@@ -347,8 +345,7 @@ class Modules extends Controller
 		@ini_set('memory_limit',-1);
 		set_time_limit(0);
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doUninstall();
 
 		# vidange du cache global
@@ -394,8 +391,7 @@ class Modules extends Controller
 			return $this->redirect($this->generateUrl('config_modules').'?reinstall='.$sModuleId);
 		}
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 
 		# désinstallation
 		$oInstallModule->doUninstall();
@@ -443,8 +439,7 @@ class Modules extends Controller
 		@ini_set('memory_limit',-1);
 		set_time_limit(0);
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 
 		# d'abord on vident le module
 		$oInstallModule->doEmpty();
@@ -483,8 +478,7 @@ class Modules extends Controller
 		@ini_set('memory_limit',-1);
 		set_time_limit(0);
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 
 		# on installent les données par défaut
 		$oInstallModule->doInstallDefaultData();
@@ -517,8 +511,7 @@ class Modules extends Controller
 		@ini_set('memory_limit',-1);
 		set_time_limit(0);
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doEmpty();
 
 		if ($oInstallModule->checklist->checkAll()) {
@@ -571,8 +564,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->forceReplaceTpl();
 
 		# cache de la liste de module
@@ -591,9 +583,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
-
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->forceReplaceAssets();
 
 		# cache de la liste de module
@@ -645,8 +635,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$sInstallClassName = $this->okt->modules->getInstallClass($sModuleId);
-		$oInstallModule = new $sInstallClassName($this->okt, $this->okt->options->get('modules_dir'), $sModuleId);
+		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->compareFiles();
 
 		return $this->render('Config/Modules/Compare', array(

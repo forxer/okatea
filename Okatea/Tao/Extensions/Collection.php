@@ -8,8 +8,6 @@
 
 namespace Okatea\Tao\Extensions;
 
-use Okatea\Tao\Database\Recordset;
-
 class Collection
 {
 	/**
@@ -66,6 +64,10 @@ class Collection
 	 */
 	protected $aLoaded;
 
+	/**
+	 * Extensions manager instance.
+	 * @var Okatea\Tao\Extensions\Manage
+	 */
 	protected $manager;
 
 	/**
@@ -86,20 +88,6 @@ class Collection
 		$this->t_extensions = $okt->db->prefix.'core_extensions';
 
 		$this->path = $sPath;
-	}
-
-	/**
-	 * Return an instance of Okatea\Tao\Extensions\Manage
-	 *
-	 * @return \Okatea\Tao\Extensions\Manage
-	 */
-	public function manage()
-	{
-		if (null === $this->manager) {
-			return ($this->manager = new Manage($this->okt, $this->path));
-		}
-
-		return $this->manager;
 	}
 
 	/**
@@ -175,7 +163,7 @@ class Collection
 	public function getInstance($sExtensionId)
 	{
 		if (!isset($this->aLoaded[$sExtensionId])) {
-			throw new \Exception(__('The extension specified ('.$sExtensionId.') does not appear to be a valid installed extension.'));
+			throw new \Exception(__('The extension specified ('.$sExtensionId.') does not appear to be a valid loaded extension.'));
 		}
 
 		return $this->aLoaded[$sExtensionId];
@@ -190,7 +178,7 @@ class Collection
 	{
 		$aLoaded = array();
 
-		$rsExtensions = $this->getFromDatabase(array(
+		$rsExtensions = $this->getManager()->getFromDatabase(array(
 			'status' => 1
 		));
 
@@ -208,41 +196,6 @@ class Collection
 		}
 
 		return $this->cache->save($this->sCacheId, $aLoaded);
-	}
-
-	/**
-	 * Returns a list of extensions registered in the database.
-	 *
-	 * @param array $aParams
-	 * @return object Recordset
-	 */
-	public function getFromDatabase(array $aParams = array())
-	{
-		$reqPlus = 'WHERE 1 ';
-
-		if (!empty($aParams['id'])) {
-			$reqPlus .= 'AND id=\''.$this->db->escapeStr($aParams['id']).'\' ';
-		}
-
-		if (!empty($aParams['status'])) {
-			$reqPlus .= 'AND status='.(integer)$aParams['status'].' ';
-		}
-
-		if (!empty($aParams['type'])) {
-			$reqPlus .= 'AND type=\''.$this->db->escapeStr($aParams['type']).'\' ';
-		}
-
-		$strReq =
-		'SELECT id, name, description, author, version, priority, updatable, status, type '.
-		'FROM '.$this->t_extensions.' '.
-		$reqPlus.
-		'ORDER BY priority ASC, id ASC ';
-
-		if (($rs = $this->db->select($strReq)) === false) {
-			return new Recordset(array());
-		}
-
-		return $rs;
 	}
 
 	/**
@@ -267,5 +220,31 @@ class Collection
 	public function getRepositoriesData(array $aRepositories = array())
 	{
 		return (new Repositories($this->okt))->getData($aRepositories);
+	}
+
+	/**
+	 * Return manager instance.
+	 *
+	 * @return \Okatea\Tao\Extensions\Manage
+	 */
+	public function getManager()
+	{
+		if (null === $this->manager) {
+			return ($this->manager = new Manager($this->okt, $this->path));
+		}
+
+		return $this->manager;
+	}
+
+	/**
+	 * Return installer instance for a given module.
+	 *
+	 * @param string $sModuleId
+	 * @return string
+	 */
+	public function getInstaller($sModuleId)
+	{
+		$sClassName = $this->getManager()->getInstallClassName($sModuleId);
+		return new $sClassName($this->okt, $this->path, $sModuleId);
 	}
 }

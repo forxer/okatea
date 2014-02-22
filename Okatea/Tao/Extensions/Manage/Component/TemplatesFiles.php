@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
-use Okatea\Tao\Modules\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class TemplatesFiles extends ComponentBase
 {
@@ -19,7 +19,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sTemplatesDir = $this->module->root().'/Install/templates';
+		$sTemplatesDir = $this->extension->root().'/Install/templates';
 
 		if (!is_dir($sTemplatesDir)) {
 			return null;
@@ -35,7 +35,7 @@ class TemplatesFiles extends ComponentBase
 			'templates_files',
 			$this->mirror(
 				$sTemplatesDir,
-				$this->okt->options->get('themes_dir').'/default/templates/'.$this->module->id(),
+				$this->okt->options->get('themes_dir').'/default/templates/'.$this->extension->id(),
 				$oFiles
 			),
 			'Create templates files',
@@ -49,7 +49,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('themes_dir').'/default/templates/'.$this->module->id();
+		$sPath = $this->okt->options->get('themes_dir').'/default/templates/'.$this->extension->id();
 
 		if (!is_dir($sPath)) {
 			return null;
@@ -65,7 +65,7 @@ class TemplatesFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/Install/templates';
+		$sPath = $this->extension->root().'/Install/templates';
 
 		if (is_dir($sPath))
 		{

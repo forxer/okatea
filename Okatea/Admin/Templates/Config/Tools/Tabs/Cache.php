@@ -22,7 +22,7 @@
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
 		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($sFile) ?></th>
-		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('inc_dir')).'/'.basename($okt->options->get('cache_dir')) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('okt_dir')).'/'.basename($okt->options->get('cache_dir')) ?></td>
 		<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M',filemtime($okt->options->get('cache_dir').'/'.$sFile)) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">

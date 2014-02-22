@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
 use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
 

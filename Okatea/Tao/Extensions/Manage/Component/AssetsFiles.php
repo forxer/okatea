@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Modules\Manage\Component;
+namespace Okatea\Tao\Extensions\Manage\Component;
 
-use Okatea\Tao\Modules\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class AssetsFiles extends ComponentBase
 {
@@ -19,7 +19,7 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sAssetsDir = $this->module->root().'/Install/assets';
+		$sAssetsDir = $this->extension->root().'/Install/assets';
 
 		if (!is_dir($sAssetsDir)) {
 			return null;
@@ -35,7 +35,7 @@ class AssetsFiles extends ComponentBase
 			'assets',
 			$this->mirror(
 				$sAssetsDir,
-				$this->okt->options->get('public_dir').'/modules/'.$this->module->id(),
+				$this->okt->options->get('public_dir').'/modules/'.$this->extension->id(),
 				$oFiles
 			),
 			'Create assets files',
@@ -49,7 +49,7 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('public_dir').'/modules/'.$this->module->id();
+		$sPath = $this->okt->options->get('public_dir').'/modules/'.$this->extension->id();
 
 		if (!is_dir($sPath)) {
 			return null;
@@ -65,7 +65,7 @@ class AssetsFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->module->root().'/Install/assets';
+		$sPath = $this->extension->root().'/Install/assets';
 
 		if (is_dir($sPath))
 		{

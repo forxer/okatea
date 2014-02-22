@@ -5,9 +5,9 @@
  *
  */
 
-use Okatea\Tao\Modules\Manage\Process as ModuleInstall;
+use Okatea\Tao\Extensions\Manage\Installer;
 
-class moduleInstall_pages extends ModuleInstall
+class Pages_installer extends Installer
 {
 	public function installTestSet()
 	{
