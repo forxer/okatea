@@ -139,7 +139,7 @@ class Collection
 	 *
 	 * @return void
 	 */
-	public function resetsLoaded()
+	public function resetLoaded()
 	{
 		$this->aLoaded = array();
 	}
