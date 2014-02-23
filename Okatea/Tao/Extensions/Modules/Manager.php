@@ -1,0 +1,19 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Okatea\Tao\Extensions\Modules;
+
+use Okatea\Tao\Extensions\Manager as BaseManager;
+
+class Manager extends BaseManager
+{
+	public function addExtension($type, $id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
+	{
+		return parent::addExtension('module', $id, $version, $name, $desc, $author, $priority, $status);
+	}
+}

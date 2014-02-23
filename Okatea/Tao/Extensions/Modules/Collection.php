@@ -28,6 +28,8 @@ class Collection extends BaseCollection
 
 		$this->sExtensionClassPatern = 'Okatea\\Modules\\%s\\Module';
 
+		$this->sManagerClass = '\\Okatea\Tao\\Extensions\\Modules\\Manager';
+
 		$this->sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Modules\\Manage\\Installer';
 	}
 

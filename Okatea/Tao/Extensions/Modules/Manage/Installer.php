@@ -31,6 +31,21 @@ class Installer extends BaseInstaller
 	);
 
 	/**
+	 * Constructor.
+	 *
+	 * @param object $okt Okatea application instance.
+	 * @param string $sPath The extensions directory path to load.
+	 * @param string $sExtensionId
+	 * @return void
+	 */
+	public function __construct($okt, $sPath, $sExtensionId)
+	{
+		parent::__construct($okt, $sPath, $sExtensionId);
+
+		$this->sManagerClass = '\\Okatea\Tao\\Extensions\\Modules\\Manager';
+	}
+
+	/**
 	 * Test prerequisites to install an extension.
 	 *
 	 * @return boolean

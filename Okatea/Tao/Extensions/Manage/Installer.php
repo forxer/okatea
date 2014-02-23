@@ -71,6 +71,8 @@ class Installer extends Extension
 	 */
 	protected $uploadsFiles;
 
+	protected $sManagerClass = '\\Okatea\Tao\\Extensions\\Manager';
+
 	/**
 	 * Constructor.
 	 *
@@ -123,7 +125,7 @@ class Installer extends Extension
 		# ajout de l'extension à la base de données
 		$this->checklist->addItem(
 			'add_extension_to_db',
-			$this->okt->modules->addModule($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority(), 0),
+			$this->getManager()->addExtension($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority(), 0),
 			'Add extension to database',
 			'Cannot add extension to database'
 		);
@@ -411,5 +413,19 @@ class Installer extends Extension
 		}
 
 		return $this->uploadsFiles;
+	}
+
+	/**
+	 * Return manager instance.
+	 *
+	 * @return \Okatea\Tao\Extensions\Manage
+	 */
+	protected function getManager()
+	{
+		if (null === $this->manager) {
+			return ($this->manager = new $this->sManagerClass($this->okt, $this->path));
+		}
+
+		return $this->manager;
 	}
 }

@@ -70,6 +70,8 @@ class Collection
 	 */
 	protected $manager;
 
+	protected $sManagerClass = '\\Okatea\Tao\\Extensions\\Manager';
+
 	protected $sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Manage\\Installer';
 
 	/**
@@ -232,7 +234,7 @@ class Collection
 	public function getManager()
 	{
 		if (null === $this->manager) {
-			return ($this->manager = new Manager($this->okt, $this->path));
+			return ($this->manager = new $this->sManagerClass($this->okt, $this->path));
 		}
 
 		return $this->manager;

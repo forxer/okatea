@@ -268,7 +268,7 @@ class Manager extends Collection
 	 * @param string $sExtensionId
 	 * @return boolean
 	 */
-	public function disableModule($sExtensionId)
+	public function disableExtension($sExtensionId)
 	{
 		$query =
 		'UPDATE '.$this->t_extensions.' SET '.
@@ -283,12 +283,12 @@ class Manager extends Collection
 	}
 
 	/**
-	 * Disable an extension from the database.
+	 * Delete an extension from the database.
 	 *
 	 * @param string $sExtensionId
 	 * @return boolean
 	 */
-	public function deleteModule($sExtensionId)
+	public function deleteExtension($sExtensionId)
 	{
 		$query =
 		'DELETE FROM '.$this->t_extensions.' '.
