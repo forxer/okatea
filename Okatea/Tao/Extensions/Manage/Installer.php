@@ -19,90 +19,74 @@ use Okatea\Tao\Extensions\Manage\Component\ConfigFiles;
 use Okatea\Tao\Extensions\Manage\Component\RoutesFiles;
 use Okatea\Tao\Extensions\Manage\Component\TemplatesFiles;
 use Okatea\Tao\Extensions\Manage\Component\UploadsFiles;
-use Okatea\Tao\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Users\Groups;
 
-/**
- * Installation d'une extension Okatea.
- *
- */
 class Installer extends Extension
 {
 	/**
-	 * Une checklist
-	 * @var object
+	 * A checklist utility.
+	 * @var Okatea\Tao\Html\CheckList
 	 */
 	public $checklist;
 
 	/**
-	 * Reserved modules ID
-	 * @var array
-	 */
-	private static $aReservedIds = array(
-		'autoloader', 'debug', 'debugBar', 'cacheConfig', 'config', 'db', 'error',
-		'languages', 'l10n', 'logAdmin', 'modules', 'navigation',
-		'page', 'request', 'requestContext', 'response', 'router', 'adminRouter',
-		'session', 'theme', 'theme_id', 'tpl', 'triggers', 'user',
-		'htmlpurifier', 'permsStack', 'aTplDirectories'
-	);
-
-	/**
-	 *
+	 * Assets files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\AssetsFiles
 	 */
 	protected $assetsFiles;
 
 	/**
-	 *
+	 * Files comparator utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\Comparator
 	 */
 	protected $comparator;
 
 	/**
-	 *
+	 * Configuration files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\ConfigFiles
 	 */
 	protected $configFiles;
 
 	/**
-	 *
+	 * Public routes files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesFiles;
 
 	/**
-	 *
+	 * Admin routes files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesAdminFiles;
 
 	/**
-	 *
+	 * Templates files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\TemplatesFiles
 	 */
 	protected $templatesFiles;
 
 	/**
-	 *
+	 * Upload files utility.
 	 * @var Okatea\Tao\Extensions\Manage\Component\UploadsFiles
 	 */
 	protected $uploadsFiles;
 
 	/**
-	 * Constructeur
+	 * Constructor.
 	 *
-	 * @param core $this->okt
-	 * @param string $id
+	 * @param object $okt Okatea application instance.
+	 * @param string $sPath The extensions directory path to load.
+	 * @param string $sExtensionId
 	 * @return void
 	 */
-	public function __construct($okt, $path, $id)
+	public function __construct($okt, $sPath, $sExtensionId)
 	{
-		parent::__construct($okt, $path);
+		parent::__construct($okt, $sPath);
 
 		$this->checklist = new CheckList();
 
-		# get infos from define file
-		$this->setInfo('id', $id);
+		# get extension infos from define file
+		$this->setInfo('id', $sExtensionId);
 		$this->setInfosFromDefineFile();
 	}
 
@@ -136,7 +120,7 @@ class Installer extends Extension
 			$this->install();
 		}
 
-		# ajout à la base de données
+		# ajout de l'extension à la base de données
 		$this->checklist->addItem(
 			'add_extension_to_db',
 			$this->okt->modules->addModule($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority(), 0),
@@ -249,12 +233,8 @@ class Installer extends Extension
 		}
 	}
 
-
-	/* Méthodes d'installation des jeux de test
-	----------------------------------------------------------*/
-
 	/**
-	 * Perform install test set
+	 * Perform install test set.
 	 *
 	 * @return void
 	 */
@@ -272,7 +252,7 @@ class Installer extends Extension
 	}
 
 	/**
-	 * Perform install default data
+	 * Perform install default data.
 	 *
 	 * @return void
 	 */
@@ -286,98 +266,42 @@ class Installer extends Extension
 		}
 	}
 
-	public function compareFiles()
-	{
-		# compare templates
-		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
-
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
-		{
-			if ($sThemeId == 'default') {
-				continue;
-			}
-
-			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
-		}
-
-		# compare assets
-		$this->getComparator()->folder($this->root().'/Install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
-	}
-
 	/**
-	 * Installation de la base de données depuis un fichier
+	 * Installing the tables in the database from a file.
 	 *
-	 * @param string $db_file
+	 * @param string $sDbFilename
+	 * @param string $sProcess Install or update process.
 	 */
-	protected function loadDbFile($db_file, $process=null)
+	protected function loadDbFile($sDbFilename, $sProcess = null)
 	{
-		if (file_exists($db_file))
+		if (file_exists($sDbFilename))
 		{
-			$xsql = new XmlSql($this->db, file_get_contents($db_file), $this->checklist, $process);
+			$xsql = new XmlSql($this->db, file_get_contents($sDbFilename), $this->checklist, $sProcess);
 			$xsql->replace('{{PREFIX}}',$this->okt->db->prefix);
 			$xsql->execute();
 		}
 	}
 
 	/**
-	 * Cette fonction test les pré-requis pour installer une extension.
+	 * Test prerequisites to install an extension.
 	 *
 	 * @return boolean
 	 */
 	protected function preInstall()
 	{
-		# identifiant non-réservé ?
-		$this->checklist->addItem(
-			'module_id_not_reserved',
-			!in_array($this->id(), self::$aReservedIds),
-			'Module id not reserved',
-			'Module id can not be one of:'.implode('", "', self::$aReservedIds)
-		);
-
-		# présence du fichier /Module.php
-		$this->checklist->addItem(
-			'module_file',
-			file_exists($this->root().'/Module.php'),
-			'Module handler file exists',
-			'Module handler file doesn\'t exists'
-		);
-
-		# existence de la class module_<id_module>
-		if ($this->checklist->checkItem('module_file'))
-		{
-			include $this->root().'/Module.php';
-
-			$sClassName = 'Okatea\\Modules\\'.$this->id().'\\Module';
-
-			$this->checklist->addItem(
-				'module_class',
-				class_exists($sClassName),
-				'Module handler class "'.$sClassName.'" exists',
-				'Module handler class "'.$sClassName.'" doesn\'t exists'
-			);
-
-			$this->checklist->addItem(
-				'module_class_valide',
-				is_subclass_of($sClassName, '\\Okatea\\Tao\\Modules\\Module'),
-				'Module handler class "'.$sClassName.'" is a valid module class',
-				'Module handler class "'.$sClassName.'" is not a valid module class'
-			);
-		}
-
-		return
-			$this->checklist->checkItem('module_file')
-			&& $this->checklist->checkItem('module_class')
-			&& $this->checklist->checkItem('module_class_valide');
+		return true;
 	}
 
 	/**
-	 * Action communes à l'installation et la mise à jour.
+	 * Common actions to installing and updating extensions.
 	 *
+	 * @param string $sProcess Install or update process.
+	 * @return void
 	 */
-	protected function commonInstallUpdate($process)
+	protected function commonInstallUpdate($sProcess)
 	{
 		# installation/mise à jour de la base de données
-		$this->loadDbFile($this->root().'/Install/db-install.xml',$process);
+		$this->loadDbFile($this->root().'/Install/db-install.xml', $sProcess);
 
 		# copie des éventuels fichiers templates
 		$this->getTemplatesFiles()->process();
@@ -400,7 +324,7 @@ class Installer extends Extension
 	 *
 	 * @param array $aDefaultPerms
 	 */
-	protected function setDefaultAdminPerms($aDefaultPerms=array())
+	protected function setDefaultAdminPerms($aDefaultPerms = array())
 	{
 		$query =
 		'SELECT perms FROM '.$this->db->prefix.'core_users_groups '.
@@ -413,7 +337,7 @@ class Installer extends Extension
 			$aCurrentPerms = json_decode($rsPerms->perms);
 		}
 
-		$aNewPerms = array_merge($aCurrentPerms,$aDefaultPerms);
+		$aNewPerms = array_merge($aCurrentPerms, $aDefaultPerms);
 		$aNewPerms = json_encode($aNewPerms);
 
 		$query =
@@ -427,7 +351,7 @@ class Installer extends Extension
 	protected function getAssetsFiles()
 	{
 		if (null === $this->assetsFiles) {
-			$this->assetsFiles = new AssetsFiles($this->okt, $this);
+			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt->options->get('public_dir').'/extensions/%s');
 		}
 
 		return $this->assetsFiles;

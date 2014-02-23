@@ -12,6 +12,15 @@ use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class AssetsFiles extends ComponentBase
 {
+	protected $sDestinationPattern;
+
+	public function __construct($okt, $extension, $sDestinationPattern)
+	{
+		parent::__construct($okt, $extension);
+
+		$this->sDestinationPattern = sprintf($sDestinationPattern, $this->extension->id());
+	}
+
 	/**
 	 * Copy/replace assets files.
 	 *

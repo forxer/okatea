@@ -70,6 +70,8 @@ class Collection
 	 */
 	protected $manager;
 
+	protected $sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Manage\\Installer';
+
 	/**
 	 * Constructor.
 	 *
@@ -237,14 +239,37 @@ class Collection
 	}
 
 	/**
-	 * Return installer instance for a given module.
+	 * Return installer instance for a given extension.
 	 *
-	 * @param string $sModuleId
+	 * @param string $sExtensionId
 	 * @return string
 	 */
-	public function getInstaller($sModuleId)
+	public function getInstaller($sExtensionId)
 	{
-		$sClassName = $this->getManager()->getInstallClassName($sModuleId);
-		return new $sClassName($this->okt, $this->path, $sModuleId);
+		$sClassName = $this->getInstallerClass($sExtensionId);
+
+		return new $sClassName($this->okt, $this->path, $sExtensionId);
+	}
+
+	/**
+	 * Looking for an install class of a given extension.
+	 *
+	 * @param string $sExtensionId
+	 * @return string
+	 */
+	public function getInstallerClass($sExtensionId)
+	{
+		if (file_exists($this->path.'/'.$sExtensionId.'/Install/installer.php'))
+		{
+			require_once $this->path.'/'.$sExtensionId.'/Install/installer.php';
+
+			$sInstallerClass = $sExtensionId.'_installer';
+
+			if (class_exists($sInstallerClass, false) && is_subclass_of($sInstallerClass, $this->sInstallerBaseClass)) {
+				return $sInstallerClass;
+			}
+		}
+
+		return $this->sInstallerBaseClass;
 	}
 }

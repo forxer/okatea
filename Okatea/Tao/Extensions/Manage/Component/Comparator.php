@@ -51,7 +51,7 @@ class Comparator extends ComponentBase
 	 * @param boolean $bOptional
 	 * @return void
 	 */
-	public function file($sFile, $sSourceDir, $sDestDir, $bTestBackup=false, $bOptional=false)
+	public function file($sFile, $sSourceDir, $sDestDir, $bTestBackup = false, $bOptional = false)
 	{
 		$sSourceFile = $sSourceDir.$sFile;
 

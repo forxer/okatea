@@ -174,26 +174,4 @@ class Manager extends Collection
 
 		return $aInstalled;
 	}
-
-	/**
-	 * Looking for an install class of a given extension.
-	 *
-	 * @param string $sExtensionId
-	 * @return string
-	 */
-	public function getInstallClassName($sExtensionId)
-	{
-		if (file_exists($this->path.'/'.$sExtensionId.'/Install/installer.php'))
-		{
-			require_once $this->path.'/'.$sExtensionId.'/Install/installer.php';
-
-			$sClassInstall = $sExtensionId.'_installer';
-
-			if (class_exists($sClassInstall, false) && is_subclass_of($sClassInstall, '\\Okatea\Tao\\Extensions\\Manage\\Installer')) {
-				return $sClassInstall;
-			}
-		}
-
-		return '\\Okatea\Tao\\Extensions\\Manage\\Installer';
-	}
 }

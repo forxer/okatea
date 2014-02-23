@@ -27,6 +27,8 @@ class Collection extends BaseCollection
 		$this->sCacheRepositoryId = 'modules_repositories';
 
 		$this->sExtensionClassPatern = 'Okatea\\Modules\\%s\\Module';
+
+		$this->sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Modules\\Manage\\Installer';
 	}
 
 	/**
