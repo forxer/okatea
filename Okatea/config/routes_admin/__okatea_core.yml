@@ -119,10 +119,8 @@ config_modules:
     defaults: { controller: 'Okatea\Admin\Controller\Config\Modules::page' }
 
 config_themes:
-    path:     /configuration/themes/{page}
-    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::index', page: 1 }
-    requirements:
-        page:  \d+
+    path:     /configuration/themes
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::page' }
 
 config_theme_add:
     path:     /configuration/theme/add

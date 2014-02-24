@@ -8,281 +8,495 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Okatea\Admin\Controller;
-use Okatea\Admin\Filters\Themes as ThemesFilters;
-use Okatea\Admin\Pager;
 use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Themes\Collection as ThemesCollection;
-use Okatea\Tao\Themes\Editor\DefinitionsLess;
+use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
 class Themes extends Controller
 {
-	protected $oThemes;
+	protected $aAllThemes;
 
 	protected $aInstalledThemes;
 
-	protected $oFilters;
+	protected $aUninstalledThemes;
 
-	public function index()
+	protected $aUpdatablesThemes;
+
+	protected $aThemesRepositories;
+
+	public function page()
 	{
+		if (!$this->okt->checkPerm('themes')) {
+			return $this->serve401();
+		}
+
 		$this->init();
 
-		$aThemesConfig = $this->okt->config->themes;
-
-		# Initialisation des filtres
-		$this->oFilters = new ThemesFilters($this->okt, array());
-
-		# json themes list for autocomplete
-		if ($this->request->query->has('json') && $this->request->query->has('term') && $this->request->isXmlHttpRequest())
-		{
-			$sTerm = $this->request->query->get('term');
-			$aResults = array();
-			foreach ($this->aInstalledThemes as $aTheme)
-			{
-				foreach ($aTheme['index'] as $s)
-				{
-					if (strpos($s, $sTerm) !== false) {
-						$aResults[$s] = $s;
-					}
-				}
-			}
-
-			return $this->jsonResponse(array_unique($aResults));
+		# Affichage changelog
+		if (($showChangelog = $this->showChangelog()) !== false) {
+			return $showChangelog;
 		}
 
-		# affichage des notes d'un thème
-		$sNotesThemeId = $this->request->query->get('notes');
-		if ($sNotesThemeId && file_exists($this->okt->options->get('themes_dir').'/'.$sNotesThemeId.'/notes.md'))
-		{
-			echo \Parsedown::instance()->parse(file_get_contents($this->okt->options->get('themes_dir').'/'.$sNotesThemeId.'/notes.md'));
-
-			exit;
+		# Enable a theme
+		if (($enableTheme = $this->enableTheme()) !== false) {
+			return $enableTheme;
 		}
 
-		# Ré-initialisation filtres
-		if ($this->request->query->has('init_filters'))
-		{
-			$this->oFilters->initFilters();
-			return $this->redirect($this->generateUrl('config_themes'));
+		# Disable a theme
+		if (($disableTheme = $this->disableTheme()) !== false) {
+			return $disableTheme;
 		}
 
-		# Suppression d'un thème
-		$sDeleteThemeId = $this->request->query->get('delete');
-		if ($sDeleteThemeId && isset($this->aInstalledThemes[$sDeleteThemeId]) && !$this->aInstalledThemes[$sDeleteThemeId]['is_active'])
-		{
-			if (\files::deltree($this->okt->options->get('themes_dir').'/'.$sDeleteThemeId))
-			{
-				$this->okt->page->flash->success(__('c_a_themes_successfully_deleted'));
-
-				return $this->redirect($this->generateUrl('config_themes'));
-			}
+		# Install a theme
+		if (($installTheme = $this->installTheme()) !== false) {
+			return $installTheme;
 		}
 
-		# Utilisation d'un thème
-		$sUseThemeId = $this->request->query->get('use');
-		if ($sUseThemeId)
-		{
-			try
-			{
-				$aThemesConfig['desktop'] = $sUseThemeId;
-
-				# write config
-				$this->okt->config->write(array('themes' => $aThemesConfig));
-
-				# modules config sheme
-				$sTplScheme = $this->okt->options->get('themes_dir').'/'.$sUseThemeId.'/modules_config_scheme.php';
-
-				if (file_exists($sTplScheme)) {
-					include $sTplScheme;
-				}
-
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-				return $this->redirect($this->generateUrl('config_themes'));
-			}
-			catch (InvalidArgumentException $e)
-			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
-			}
+		# Update a theme
+		if (($updateTheme = $this->updateTheme()) !== false) {
+			return $updateTheme;
 		}
 
-		# Utilisation d'un thème mobile
-		$sUseMobileThemeId = $this->request->query->get('use_mobile');
-		if ($sUseMobileThemeId)
-		{
-			try
-			{
-				# switch ?
-				if ($sUseMobileThemeId == $this->okt->config->themes['mobile']) {
-					$sUseMobileThemeId = '';
-				}
-
-				$aThemesConfig['mobile'] = $sUseMobileThemeId;
-				$this->okt->config->write(array('themes' => $aThemesConfig));
-
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-				return $this->redirect($this->generateUrl('config_themes'));
-			}
-			catch (InvalidArgumentException $e)
-			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
-			}
+		# Uninstall a theme
+		if (($uninstallTheme = $this->uninstallTheme()) !== false) {
+			return $uninstallTheme;
 		}
 
-		# Utilisation d'un thème tablette
-		$sUseTabletThemeId = $this->request->query->get('use_tablet');
-		if ($sUseTabletThemeId)
-		{
-			try
-			{
-				# switch ?
-				if ($sUseTabletThemeId == $this->okt->config->themes['tablet']) {
-					$sUseTabletThemeId = '';
-				}
-
-				$aThemesConfig['tablet'] = $sUseTabletThemeId;
-				$this->okt->config->write(array('themes' => $aThemesConfig));
-
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-				return $this->redirect($this->generateUrl('config_themes'));
-			}
-			catch (InvalidArgumentException $e)
-			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
-			}
+		# Re-install a theme
+		if (($reinstallTheme = $this->reinstallTheme()) !== false) {
+			return $reinstallTheme;
 		}
 
-		# Initialisation des filtres
-		$sSearch = $this->request->query->get('search');
-
-		if ($sSearch)
-		{
-			$sSearch = strtolower(trim($sSearch));
-
-			foreach ($this->aInstalledThemes as $iThemeId=>$aTheme)
-			{
-				if (!in_array($sSearch, $aTheme['index'])) {
-					unset($this->aInstalledThemes[$iThemeId]);
-				}
-			}
+		# Remove a theme
+		if (($removeTheme = $this->removeTheme()) !== false) {
+			return $removeTheme;
 		}
 
-		# Création des filtres
-		$this->oFilters->getFilters();
+		# Replace assets files of a theme by its default ones
+		if (($replaceAssetsFiles = $this->replaceAssetsFiles()) !== false) {
+			return $replaceAssetsFiles;
+		}
 
-		# Initialisation de la pagination
-		$oPager = new Pager($this->okt, $this->oFilters->params->page, count($this->aInstalledThemes), $this->oFilters->params->nb_per_page);
+		# Package and send a theme
+		if (($packageAndSendTheme = $this->packageAndSendTheme()) !== false) {
+			return $packageAndSendTheme;
+		}
 
-		$iNumPages = $oPager->getNbPages();
+		# Compare theme files
+		if (($compareFiles = $this->compareFiles()) !== false) {
+			return $compareFiles;
+		}
 
-		$this->oFilters->normalizePage($iNumPages);
+		# Add a theme to the system
+		if (($themeUpload = $this->themeUpload()) !== false) {
+			return $themeUpload;
+		}
 
-		$this->aInstalledThemes = array_slice($this->aInstalledThemes, (($this->oFilters->params->page-1)*$this->oFilters->params->nb_per_page), $this->oFilters->params->nb_per_page);
-
-		return $this->render('Config/Themes/Index', array(
-			'oFilters' => $this->oFilters,
-			'aInstalledThemes' => $this->aInstalledThemes,
-			'iNumPages' => $iNumPages,
-			'sSearch' => $sSearch,
-			'oPager' => $oPager
+		return $this->render('Config/Themes', array(
+			'aAllThemes'			=> $this->aAllThemes,
+			'aInstalledThemes'		=> $this->aInstalledThemes,
+			'aUninstalledThemes'	=> $this->aUninstalledThemes,
+			'aUpdatablesThemes'		=> $this->aUpdatablesThemes,
+			'aThemesRepositories'	=> $this->aThemesRepositories
 		));
 	}
 
-	public function theme()
+	protected function init()
 	{
-		$this->init();
+		# Themes locales
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/themes');
 
-		# Theme infos
-		$sThemeId = $this->request->attributes->get('theme_id');
+		# Récupération de la liste des themes dans le système de fichiers (tous les themes)
+		$this->aAllThemes = $this->okt->themes->getManager()->getAll();
 
-		if (!isset($this->aInstalledThemes[$sThemeId])) {
-			return $this->redirect($this->generateUrl('config_themes'));
+		# Load all themes admin locales files
+		foreach ($this->aAllThemes as $id=>$infos) {
+			$this->okt->l10n->loadFile($infos['root'].'/locales/'.$this->okt->user->language.'/main');
 		}
 
-		$aThemeInfos = $this->aInstalledThemes[$sThemeId];
+		# Récupération de la liste des themes dans la base de données (les themes installés)
+		$this->aInstalledThemes = $this->okt->themes->getManager()->getInstalled();
 
-		# Notes de développement
-		$sDevNotesFilename = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/notes.md';
-		$bHasDevNotes = $bEditDevNotes = false;
-		$sDevNotesMd = $sDevNotesHtml = null;
-		if (file_exists($sDevNotesFilename))
-		{
-			$bHasDevNotes = true;
+		# Calcul de la liste des themes non-installés
+		$this->aUninstalledThemes = array_diff_key($this->aAllThemes,$this->aInstalledThemes);
 
-			$bEditDevNotes = $this->request->query->has('edit_notes');
-
-			$sDevNotesMd = file_get_contents($sDevNotesFilename);
-
-			$sDevNotesHtml = \Parsedown::instance()->parse($sDevNotesMd);
+		foreach ($this->aUninstalledThemes as $sThemeId=>$aThemeInfos) {
+			$this->aUninstalledThemes[$sThemeId]['name_l10n'] = __($aThemeInfos['name']);
 		}
 
-
-		# Definitions LESS
-		$sDefinitionsLessFilename = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/css/definitions.less';
-		$oDefinitionsLessEditor = null;
-		$bHasDefinitionsLess = false;
-		if (file_exists($sDefinitionsLessFilename))
-		{
-			$bHasDefinitionsLess = true;
-
-			$oDefinitionsLessEditor = new DefinitionsLess($this->okt);
-			$aCurrentDefinitionsLess = $oDefinitionsLessEditor->getValuesFromFile($sDefinitionsLessFilename);
-		}
-
-		# enregistrement notes
-		if (!empty($_POST['save_notes']))
-		{
-			if ($bHasDevNotes) {
-				file_put_contents($sDevNotesFilename, $_POST['notes_content']);
-			}
-
-			return $this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
-		}
-
-		# enregistrement definitions less
-		if (!empty($_POST['save_def_less']))
-		{
-			if ($bHasDefinitionsLess) {
-				$oDefinitionsLessEditor->writeFileFromPost($sDefinitionsLessFilename);
-			}
-
-			return $this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
-		}
-
-		return $this->render('Config/Themes/Theme', array(
-			'sThemeId' => $sThemeId,
-			'aThemeInfos' => $aThemeInfos,
-			'bHasDevNotes' => $bHasDevNotes,
-			'bEditDevNotes' => $bEditDevNotes,
-			'sDevNotesMd' => $sDevNotesMd,
-			'sDevNotesHtml' => $sDevNotesHtml,
-			'bHasDefinitionsLess' => $bHasDefinitionsLess,
-			'oDefinitionsLessEditor' => $oDefinitionsLessEditor
-		));
-	}
-
-	public function add()
-	{
-		$this->init();
-
-		# Liste de thèmes des dépôts de thèmes
-		$aThemesRepositories = array();
+		# Liste des dépôts de themes
+		$this->aThemesRepositories = array();
 		if ($this->okt->config->repositories['themes']['enabled']) {
-			$aThemesRepositories = $this->oThemes->getRepositoriesInfos($this->okt->config->repositories['themes']['list']);
+			$this->aThemesRepositories = $this->okt->themes->getRepositoriesData($this->okt->config->repositories['themes']['list']);
 		}
 
-		# Tri par ordre alphabétique des listes de thèmes des dépots
-		foreach ($aThemesRepositories as $repo_name=>$themes) {
-			ThemesCollection::sortThemes($aThemesRepositories[$repo_name]);
+		# Liste des éventuelles mise à jours disponibles sur les dépots
+		$this->aUpdatablesThemes = array();
+		foreach ($this->aThemesRepositories as $repo_name=>$themes)
+		{
+			foreach ($themes as $theme)
+			{
+				$this->aThemesRepositories[$repo_name][$theme['id']]['name_l10n'] = $theme['name'];
+
+				if (isset($this->aAllThemes[$theme['id']]) && $this->aAllThemes[$theme['id']]['updatable'] && version_compare($this->aAllThemes[$theme['id']]['version'],$theme['version'], '<'))
+				{
+					$this->aUpdatablesThemes[$theme['id']] = array(
+						'id' => $theme['id'],
+						'name' => $theme['name'],
+						'version' => $theme['version'],
+						'info' => $theme['info'],
+						'repository' => $repo_name
+					);
+				}
+			}
 		}
 
-		# Theme upload
+		# Tri par ordre alphabétique des listes de themes
+		ThemesCollection::sort($this->aInstalledThemes);
+		ThemesCollection::sort($this->aUninstalledThemes);
+
+		foreach ($this->aThemesRepositories as $repo_name=>$themes) {
+			ThemesCollection::sort($this->aThemesRepositories[$repo_name]);
+		}
+	}
+
+	protected function showChangelog()
+	{
+		$sThemeId = $this->request->query->get('show_changelog');
+		$sChangelogFile = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/CHANGELOG';
+
+		if (!$sThemeId || !file_exists($sChangelogFile)) {
+			return false;
+		}
+
+		$sChangelogContent = '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';
+
+		return (new Response())->setContent($sChangelogContent);
+	}
+
+	protected function enableTheme()
+	{
+		$sThemeId = $this->request->query->get('enable');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		$this->okt->themes->getManager()->enableExtension($sThemeId);
+
+		# vidange du cache global
+		Utilities::deleteOktCacheFiles();
+
+		# log admin
+		$this->okt->logAdmin->warning(array(
+			'code' => 30,
+			'message' => $sThemeId
+		));
+
+		return $this->redirect($this->generateUrl('config_themes'));
+	}
+
+	protected function disableTheme()
+	{
+		$sThemeId = $this->request->query->get('disable');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		$this->okt->themes->getManager()->disableExtension($sThemeId);
+
+		# vidange du cache global
+		Utilities::deleteOktCacheFiles();
+
+		# log admin
+		$this->okt->logAdmin->warning(array(
+			'code' => 31,
+			'message' => $sThemeId
+		));
+
+		return $this->redirect($this->generateUrl('config_themes'));
+	}
+
+	protected function installTheme()
+	{
+		$sThemeId = $this->request->query->get('install');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aUninstalledThemes)) {
+			return false;
+		}
+
+		@ini_set('memory_limit',-1);
+		set_time_limit(0);
+
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme->doInstall();
+
+		# activation du theme
+		$oInstallTheme->checklist->addItem(
+			'enable_theme',
+			$this->okt->themes->getManager()->enableExtension($sThemeId),
+			'Enable theme',
+			'Cannot enable theme'
+		);
+
+		# vidange du cache global
+		Utilities::deleteOktCacheFiles();
+
+		if ($oInstallTheme->checklist->checkAll()) {
+			$this->okt->page->success->set(__('c_a_themes_correctly_installed'));
+		}
+		else {
+			$this->okt->error->set(__('c_a_themes_not_installed'));
+		}
+
+		# log admin
+		$this->okt->logAdmin->warning(array(
+			'code' => 20,
+			'message' => $sThemeId
+		));
+
+		return $this->render('Config/Themes/Install', array(
+			'oInstallTheme' => $oInstallTheme
+		));
+	}
+
+	protected function updateTheme()
+	{
+		$sThemeId = $this->request->query->get('update');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		# D'abord on active le theme
+		if (!$this->okt->themes->isLoaded($sThemeId))
+		{
+			$this->okt->themes->getManager()->enableExtension($sThemeId);
+
+			$this->okt->themes->generateCacheList();
+
+			return $this->redirect($this->generateUrl('config_themes').'?reinstall='.$sThemeId);
+		}
+
+		# Ensuite on met à jour
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme->doUpdate();
+
+		if ($oInstallTheme->checklist->checkAll()) {
+			$this->okt->page->success->set(__('c_a_themes_correctly_updated'));
+		}
+		else {
+			$this->okt->error->set(__('c_a_themes_not_updated'));
+		}
+
+		Utilities::deleteOktCacheFiles();
+
+		$this->okt->logAdmin->critical(array(
+			'code' => 21,
+			'message' => $sThemeId
+		));
+
+		$sNextUrl = $this->generateUrl('config_themes');
+
+		if (file_exists($oInstallTheme->root().'/install/tpl/') || file_exists($oInstallTheme->root().'/install/assets/')) {
+			$sNextUrl .= '?compare='.$oInstallTheme->id();
+		}
+
+		return $this->render('Config/Themes/Update', array(
+			'oInstallTheme' => $oInstallTheme,
+			'sNextUrl' => $sNextUrl
+		));
+	}
+
+	protected function uninstallTheme()
+	{
+		$sThemeId = $this->request->query->get('uninstall');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		@ini_set('memory_limit',-1);
+		set_time_limit(0);
+
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme->doUninstall();
+
+		Utilities::deleteOktCacheFiles();
+
+		if ($oInstallTheme->checklist->checkAll()) {
+			$this->okt->page->success->set(__('c_a_themes_correctly_uninstalled'));
+		}
+		else {
+			$this->okt->error->set(__('c_a_themes_not_uninstalled'));
+		}
+
+		$this->okt->logAdmin->critical(array(
+			'code' => 22,
+			'message' => $sThemeId
+		));
+
+		return $this->render('Config/Themes/Uninstall', array(
+			'oInstallTheme' => $oInstallTheme
+		));
+	}
+
+	protected function reinstallTheme()
+	{
+		$sThemeId = $this->request->query->get('reinstall');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		@ini_set('memory_limit',-1);
+		set_time_limit(0);
+
+		# il faut d'abord désactiver le theme
+		if ($this->aInstalledThemes[$sThemeId]['status'])
+		{
+			$this->okt->themes->getManager()->disableExtension($sThemeId);
+
+			# cache de la liste de theme
+			$this->okt->themes->generateCacheList();
+
+			return $this->redirect($this->generateUrl('config_themes').'?reinstall='.$sThemeId);
+		}
+
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+
+		# désinstallation
+		$oInstallTheme->doUninstall();
+
+		# installation
+		$oInstallTheme->doInstall();
+
+		# activation du theme
+		$oInstallTheme->checklist->addItem(
+			'enable_theme',
+			$this->okt->themes->getManager()->enableExtension($sThemeId),
+			'Enable theme',
+			'Cannot enable theme'
+		);
+
+		# vidange du cache global
+		Utilities::deleteOktCacheFiles();
+
+		if ($oInstallTheme->checklist->checkAll()) {
+			$this->okt->page->success->set(__('c_a_themes_correctly_reinstalled'));
+		}
+		else {
+			$this->okt->error->set(__('c_a_themes_not_correctly_reinstalled.'));
+		}
+
+		# log admin
+		$this->okt->logAdmin->critical(array(
+			'code' => 23,
+			'message' => $sThemeId
+		));
+
+		return $this->render('Config/Themes/Reinstall', array(
+			'oInstallTheme' => $oInstallTheme
+		));
+	}
+
+	protected function removeTheme()
+	{
+		$sThemeId = $this->request->query->get('delete');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aUninstalledThemes)) {
+			return false;
+		}
+
+		if (\files::deltree($this->okt->options->get('themes_dir').'/'.$sThemeId))
+		{
+			$this->okt->page->flash->success(__('c_a_themes_successfully_deleted'));
+
+			$this->okt->logAdmin->warning(array(
+				'code' => 42,
+				'message' => $sThemeId
+			));
+
+			return $this->redirect($this->generateUrl('config_themes'));
+		}
+		else {
+			$this->okt->error->set(__('c_a_themes_not_deleted.'));
+		}
+	}
+
+	protected function replaceAssetsFiles()
+	{
+		$sThemeId = $this->request->query->get('common');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme->forceReplaceAssets();
+
+		$this->okt->themes->generateCacheList();
+
+		$this->okt->page->flash->success(__('c_a_themes_common_files_replaced'));
+
+		return $this->redirect($this->generateUrl('config_themes'));
+	}
+
+	protected function packageAndSendTheme()
+	{
+		$sThemeId = $this->request->query->get('download');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aAllThemes)) {
+			return false;
+		}
+
+		$sThemePath = $this->okt->options->get('themes_dir').'/'.$sThemeId;
+
+		if (!is_readable($sThemePath) ) {
+			return false;
+		}
+
+		$sFilename = 'theme-'.$sThemeId.'-'.date('Y-m-d-H-i').'.zip';
+
+		ob_start();
+
+		$fp = fopen('php://output', 'wb');
+
+		$zip = new \fileZip($fp);
+		$zip->addDirectory($sThemePath, '', true);
+
+		$zip->write();
+
+		$this->response->headers->set('Content-Disposition',
+				$this->response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $sFilename));
+
+		$this->response->setContent(ob_get_clean());
+
+		return $this->response;
+	}
+
+	protected function compareFiles()
+	{
+		$sThemeId = $this->request->query->get('compare');
+
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+			return false;
+		}
+
+		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme->compareFiles();
+
+		return $this->render('Config/Themes/Compare', array(
+			'oInstallTheme' => $oInstallTheme
+		));
+	}
+
+	protected function themeUpload()
+	{
 		$upload_pkg = $this->request->request->get('upload_pkg');
 		$pkg_file = $this->request->files->get('pkg_file');
 
@@ -292,33 +506,37 @@ class Themes extends Controller
 		$repository = $this->request->query->get('repository');
 		$theme = $this->request->query->get('theme');
 
+		# Plugin upload
 		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) ||
 			($repository && $theme && $this->okt->config->repositories['themes']['enabled']))
 		{
 			try
 			{
-				if (!empty($_POST['upload_pkg']))
+				if ($upload_pkg)
 				{
-					Utilities::uploadStatus($_FILES['pkg_file']);
-
-					$dest = $this->okt->options->get('themes_dir').'/'.$_FILES['pkg_file']['name'];
-					if (!move_uploaded_file($_FILES['pkg_file']['tmp_name'],$dest)) {
-						throw new \Exception(__('Unable to move uploaded file.'));
+					if (array_key_exists($pkg_file->getClientOriginalName(), $this->aUninstalledThemes)) {
+						throw new \Exception(__('c_a_themes_theme_already_exists_not_installed_install_before_update'));
 					}
+
+					$pkg_file->move($this->okt->options->get('themes_dir'));
 				}
 				else
 				{
-					if (!empty($_GET['repository']) && !empty($_GET['theme']))
+					if ($repository && $theme)
 					{
-						$repository = urldecode($_GET['repository']);
+						$repository = urldecode($repository);
 						$theme = urldecode($theme);
-						$url = urldecode($aThemesRepositories[$repository][$theme]['href']);
+						$url = urldecode($this->aThemesRepositories[$repository][$theme]['href']);
 					}
 					else {
-						$url = urldecode($_POST['pkg_url']);
+						$url = urldecode($pkg_url);
 					}
 
 					$dest = $this->okt->options->get('themes_dir').'/'.basename($url);
+
+					if (array_key_exists(basename($url), $aUninstalledThemes)) {
+						throw new \Exception(__('c_a_themes_theme_already_exists_not_installed_install_before_update'));
+					}
 
 					try
 					{
@@ -327,8 +545,6 @@ class Themes extends Controller
 						$request = $client->get($url, array(), array(
 							'save_to' => $dest
 						));
-
-						$request->send();
 					}
 					catch( Exception $e) {
 						throw new \Exception(__('An error occurred while downloading the file.'));
@@ -337,59 +553,24 @@ class Themes extends Controller
 					unset($client);
 				}
 
-				$iReturnedCode = $this->oThemes->installPackage($dest, $this->oThemes);
+				$ret_code = $this->okt->themes->installPackage($dest, $this->okt->themes);
 
-				if ($iReturnedCode == 2) {
-					$this->okt->page->flash->success(__('c_a_themes_successfully_upgraded'));
+				if ($ret_code == 2) {
+					$this->okt->page->flash->success(__('c_a_themes_theme_successfully_upgraded'));
 				}
 				else {
-					$this->okt->page->flash->success(__('c_a_themes_successfully_added'));
+					$this->okt->page->flash->success(__('c_a_themes_theme_successfully_added'));
 				}
 
 				return $this->redirect($this->generateUrl('config_themes'));
 			}
-			catch (Exception $e) {
+			catch (Exception $e)
+			{
 				$this->okt->error->set($e->getMessage());
+				return false;
 			}
 		}
 
-		# Bootstrap a theme
-		elseif (!empty($_POST['bootstrap']))
-		{
-			try {
-				$this->oThemes->bootstrapTheme($_POST['bootstrap_theme_name'], (!empty($_POST['bootstrap_theme_id']) ? $_POST['bootstrap_theme_id'] : null));
-
-				$this->okt->page->flash->success(__('c_a_themes_bootstrap_success'));
-
-				return $this->redirect($this->generateUrl('config_themes'));
-			}
-			catch (Exception $e) {
-				$this->okt->error->set($e->getMessage());
-			}
-		}
-
-
-		return $this->render('Config/Themes/Add', array(
-			'aThemesRepositories' => $aThemesRepositories,
-		));
-	}
-
-	protected function init()
-	{
-		if (!$this->okt->checkPerm('themes')) {
-			return $this->serve401();
-		}
-
-		# Locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/themes');
-
-		# Themes object
-		$this->oThemes = new ThemesCollection($this->okt, $this->okt->options->get('themes_dir'));
-
-		# Liste des thèmes présents
-		$this->aInstalledThemes = $this->oThemes->getThemesAdminList();
-
-		# Tri par ordre alphabétique des listes de thème
-		ThemesCollection::sortThemes($this->aInstalledThemes);
+		return false;
 	}
 }

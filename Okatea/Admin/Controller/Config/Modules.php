@@ -26,6 +26,8 @@ class Modules extends Controller
 
 	protected $aUpdatablesModules;
 
+	protected $aModulesRepositories;
+
 	public function page()
 	{
 		if (!$this->okt->checkPerm('modules')) {
