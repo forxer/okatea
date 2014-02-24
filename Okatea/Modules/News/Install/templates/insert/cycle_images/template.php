@@ -1,13 +1,13 @@
 
 <?php # début Okatea : récupération des news pour l'encart
-$rsInsertPosts = $okt->News->getPosts(array(
+$rsInsertPosts = $okt->module('News')->getPosts(array(
 	'active' => 1, 		# articles visibles
 //	'selected' => 1, 	# articles sélectionnés
 //	'created_after' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a moins d'un mois
 //	'created_before' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a plus d'un mois
 	'limit' => 10, 		# limitation du nombre d'articles
 	'language' => $okt->user->language, # langue de l'utilisateur en cours
-), $okt->News->config->insert_truncat_char);
+), $okt->module('News')->config->insert_truncat_char);
 # fin Okatea : récupération des news pour l'encart ?>
 
 
@@ -22,7 +22,7 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquer
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->News->config->lightbox_type);
+$okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -94,7 +94,7 @@ $okt->page->js->addReady('
 
 
 				<?php # début Okatea : affichage texte tronqué
-				if ($okt->News->config->insert_truncat_char > 0) : ?>
+				if ($okt->module('News')->config->insert_truncat_char > 0) : ?>
 
 				<p><?php echo $rsInsertPosts->content ?>…</p>
 
@@ -106,7 +106,7 @@ $okt->page->js->addReady('
 
 
 				<?php # début Okatea : affichage texte pas tronqué
-				if (!$okt->News->config->insert_truncat_char) : ?>
+				if (!$okt->module('News')->config->insert_truncat_char) : ?>
 
 				<?php echo $rsInsertPosts->content ?>
 

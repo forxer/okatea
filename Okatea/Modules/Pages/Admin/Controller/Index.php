@@ -28,7 +28,7 @@ class Index extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.list');
 
 		# initialisation des filtres
-		$this->okt->Pages->filtersStart('admin');
+		$this->okt->module('Pages')->filtersStart('admin');
 
 		# Ré-initialisation filtres
 		if (($action = $this->initFilters()) !== false) {
@@ -59,29 +59,29 @@ class Index extends Controller
 			$aParams['search'] = $sSearch;
 		}
 
-		$this->okt->Pages->filters->setPagesParams($aParams);
+		$this->okt->module('Pages')->filters->setPagesParams($aParams);
 
 		# Création des filtres
-		$this->okt->Pages->filters->getFilters();
+		$this->okt->module('Pages')->filters->getFilters();
 
 		# Initialisation de la pagination
-		$iNumFilteredPosts = $this->okt->Pages->getPagesCount($aParams);
+		$iNumFilteredPosts = $this->okt->module('Pages')->getPagesCount($aParams);
 
-		$oPager = new Pager($this->okt, $this->okt->Pages->filters->params->page, $iNumFilteredPosts, $this->okt->Pages->filters->params->nb_per_page);
+		$oPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPosts, $this->okt->module('Pages')->filters->params->nb_per_page);
 
 		$iNumPages = $oPager->getNbPages();
 
-		$this->okt->Pages->filters->normalizePage($iNumPages);
+		$this->okt->module('Pages')->filters->normalizePage($iNumPages);
 
-		$aParams['limit'] = (($this->okt->Pages->filters->params->page-1)*$this->okt->Pages->filters->params->nb_per_page).','.$this->okt->Pages->filters->params->nb_per_page;
+		$aParams['limit'] = (($this->okt->module('Pages')->filters->params->page-1)*$this->okt->module('Pages')->filters->params->nb_per_page).','.$this->okt->module('Pages')->filters->params->nb_per_page;
 
 		# Récupération des pages
-		$rsPages = $this->okt->Pages->getPages($aParams);
+		$rsPages = $this->okt->module('Pages')->getPages($aParams);
 
 		# Liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->Pages->config->enable_group_perms) {
-			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true,true);
+		if ($this->okt->module('Pages')->config->enable_group_perms) {
+			$aGroups = $this->okt->module('Pages')->getUsersGroupsForPerms(true,true);
 		}
 
 		# Tableau de choix d'actions pour le traitement par lot
@@ -113,7 +113,7 @@ class Index extends Controller
 			return false;
 		}
 
-		$rsPages = $this->okt->Pages->getPagesRecordset(array(
+		$rsPages = $this->okt->module('Pages')->getPagesRecordset(array(
 			'language' => $this->okt->user->language,
 			'search' => $term
 		));
@@ -134,7 +134,7 @@ class Index extends Controller
 			return false;
 		}
 
-		$this->okt->Pages->filters->initFilters();
+		$this->okt->module('Pages')->filters->initFilters();
 
 		return $this->redirect($this->generateUrl('Pages_index'));
 	}
@@ -149,7 +149,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->Pages->deletePage($iPostId);
+			$this->okt->module('Pages')->deletePage($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->warning(array(
@@ -178,7 +178,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->Pages->switchPageStatus($iPostId);
+			$this->okt->module('Pages')->switchPageStatus($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -212,7 +212,7 @@ class Index extends Controller
 			{
 				foreach ($aPagesId as $pageId)
 				{
-					$this->okt->Pages->setPageStatus($pageId,1);
+					$this->okt->module('Pages')->setPageStatus($pageId,1);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -228,7 +228,7 @@ class Index extends Controller
 			{
 				foreach ($aPagesId as $pageId)
 				{
-					$this->okt->Pages->setPageStatus($pageId,0);
+					$this->okt->module('Pages')->setPageStatus($pageId,0);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -244,7 +244,7 @@ class Index extends Controller
 			{
 				foreach ($aPagesId as $pageId)
 				{
-					$this->okt->Pages->deletePage($pageId);
+					$this->okt->module('Pages')->deletePage($pageId);
 
 					# log admin
 					$this->okt->logAdmin->warning(array(

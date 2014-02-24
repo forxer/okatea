@@ -13,7 +13,7 @@ class Pages_installer extends Installer
 	{
 		$this->checklist->addItem(
 			'regenerate_thumbnails',
-			$this->okt->Pages->regenMinImages(),
+			$this->okt->module('Pages')->regenMinImages(),
 			'Regeneration of thumbnails',
 			'Cannot regenerate thumbnails'
 		);

@@ -28,22 +28,22 @@ $okt->page->js->addReady('
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->News->config->lightbox_type);
+$okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
 <?php # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if ($okt->News->config->enable_filters && !$okt->News->filters->params->show_filters)
+if ($okt->module('News')->config->enable_filters && !$okt->module('News')->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#news-filters-control").html("<a href=\"#\">'.$view->escapeJS(__('m_news_display_filters')).'</a>");
 
 		c.css("display","block");
 
-		$("#'.$okt->News->filters->getFilterFormId().'").hide();
+		$("#'.$okt->module('News')->filters->getFilterFormId().'").hide();
 
 		c.click(function() {
-			$("#'.$okt->News->filters->getFilterFormId().'").slideDown("slow");
+			$("#'.$okt->module('News')->filters->getFilterFormId().'").slideDown("slow");
 			$(this).hide();
 			return false;
 		});
@@ -56,7 +56,7 @@ if ($okt->News->config->enable_filters && !$okt->News->filters->params->show_fil
 $view['slots']->start('head') ?>
 
 	<?php # début Okatea : si les filtres ont été utilisés, on index pas
-	if ($okt->News->filters->params->show_filters) : ?>
+	if ($okt->module('News')->filters->params->show_filters) : ?>
 	<meta name="robots" content="none" />
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
@@ -69,21 +69,21 @@ $view['slots']->start('head') ?>
 
 
 <?php # début Okatea : si les filtres sont activés
-if ($okt->News->config->enable_filters) : ?>
+if ($okt->module('News')->config->enable_filters) : ?>
 
 	<?php # début Okatea : lien d'affichage des filtres
-	if (!$okt->News->filters->params->show_filters) : ?>
+	if (!$okt->module('News')->filters->params->show_filters) : ?>
 	<p id="news-filters-control" class="filters-control"></p>
 	<?php endif; # fin Okatea : lien d'affichage des filtres ?>
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->generateUrl('newsList') ?>" id="<?php echo $okt->News->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->generateUrl('newsList') ?>" id="<?php echo $okt->module('News')->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_news_display_filters') ?></legend>
 
-			<?php echo $okt->News->filters->getFiltersFields(); ?>
+			<?php echo $okt->module('News')->filters->getFiltersFields(); ?>
 
-			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->News->filters->getFilterSubmitName() ?>" />
+			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->module('News')->filters->getFilterSubmitName() ?>" />
 			<a href="<?php echo $view->generateUrl('newsList') ?>?init_news_filters=1" rel="nofollow" class="filters-init"><?php _e('m_news_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
@@ -123,22 +123,22 @@ if (!$rsPostsList->isEmpty()) : ?>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage des infos
-		if ($okt->News->config->public_display_date || $okt->News->config->public_display_author || $okt->News->config->categories['enable']) : ?>
+		if ($okt->module('News')->config->public_display_date || $okt->module('News')->config->public_display_author || $okt->module('News')->config->categories['enable']) : ?>
 		<p class="post-infos">
 			<?php _e('m_news_published') ?>
 
 			<?php  # début Okatea : affichage date de l'article
-			if ($okt->News->config->public_display_date) : ?>
+			if ($okt->module('News')->config->public_display_date) : ?>
 			<?php printf(__('m_news_on_%s'), dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $rsPostsList->created_at)) ?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
 			<?php # début Okatea : affichage l'auteur de l'article
-			if ($okt->News->config->public_display_author) : ?>
+			if ($okt->module('News')->config->public_display_author) : ?>
 			<?php printf(__('m_news_by_%s'), $view->escape($rsPostsList->author)) ?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
 			<?php # début Okatea : affichage rubrique
-			if ($okt->News->config->categories['enable'] && $rsPostsList->category_title) : ?>
+			if ($okt->module('News')->config->categories['enable'] && $rsPostsList->category_title) : ?>
 			<?php printf(__('m_news_in_%s'),'<a href="'.$view->escape($rsPostsList->category_url).'">'.$view->escape($rsPostsList->category_title).'</a>') ?>
 			<?php endif; # fin Okatea : affichage rubrique ?>
 
@@ -174,7 +174,7 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 
 			<?php # début Okatea : affichage texte tronqué
-			if ($okt->News->config->public_truncat_char > 0) : ?>
+			if ($okt->module('News')->config->public_truncat_char > 0) : ?>
 
 			<p><?php echo $rsPostsList->content ?>… <a href="<?php echo $view->escape($rsPostsList->url) ?>"
 			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_read_more_of_%s'),$rsPostsList->title)) ?>"
@@ -184,7 +184,7 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 
 			<?php # début Okatea : affichage texte pas tronqué
-			if (!$okt->News->config->public_truncat_char) : ?>
+			if (!$okt->module('News')->config->public_truncat_char) : ?>
 
 			<?php echo $rsPostsList->content ?>
 

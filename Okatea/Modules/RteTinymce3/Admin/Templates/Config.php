@@ -29,17 +29,17 @@ $aUsableCSS = array(
 
 	<div class="two-cols">
 		<p class="field col"><label for="p_width">Largeur de l'editeur</label>
-		<?php echo form::text('p_width', 10, 255, $okt->RteTinymce3->config->width) ?></p>
+		<?php echo form::text('p_width', 10, 255, $okt->module('RteTinymce3')->config->width) ?></p>
 
 		<p class="field col"><label for="p_height">Hauteur de l'editeur</label>
-		<?php echo form::text('p_height', 10, 255, $okt->RteTinymce3->config->height) ?></p>
+		<?php echo form::text('p_height', 10, 255, $okt->module('RteTinymce3')->config->height) ?></p>
 	</div>
 
 	<p class="field">Feuille de styles du contenu</p>
 	<ul class="checklist">
-		<li><?php echo form::radio(array('p_content_css','p_content_css_0'), 0, ($okt->RteTinymce3->config->content_css == 0))?> <label for="p_content_css_0"><?php _e('c_c_none_f') ?></label></li>
+		<li><?php echo form::radio(array('p_content_css','p_content_css_0'), 0, ($okt->module('RteTinymce3')->config->content_css == 0))?> <label for="p_content_css_0"><?php _e('c_c_none_f') ?></label></li>
 		<?php foreach ($aUsableCSS as $sCss) : ?>
-		<li><?php echo form::radio(array('p_content_css','p_content_css_'.$sCss), $sCss, ($okt->RteTinymce3->config->content_css == $sCss), '', '', !file_exists($_SERVER['DOCUMENT_ROOT'].$sCss)) ?>
+		<li><?php echo form::radio(array('p_content_css','p_content_css_'.$sCss), $sCss, ($okt->module('RteTinymce3')->config->content_css == $sCss), '', '', !file_exists($_SERVER['DOCUMENT_ROOT'].$sCss)) ?>
 		<label for="p_content_css_<?php echo $sCss ?>"><?php echo $sCss ?></label></li>
 		<?php endforeach; ?>
 	</ul>

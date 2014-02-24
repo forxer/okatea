@@ -22,9 +22,9 @@ class Filters extends BaseFilters
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'pages', $okt->Pages->config, $part, $params);
+		parent::__construct($okt, 'pages', $okt->module('Pages')->config, $part, $params);
 
-		$this->pages = $this->okt->Pages;
+		$this->pages = $this->okt->module('Pages');
 	}
 
 	public function setDefaultParams()

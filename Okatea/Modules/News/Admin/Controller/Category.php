@@ -25,12 +25,12 @@ class Category extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforeCategoryCreate
-				$this->okt->News->triggers->callTrigger('beforeCategoryCreate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
+				$this->okt->module('News')->triggers->callTrigger('beforeCategoryCreate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 
-				$this->aCategoryData['cat']['id'] = $this->okt->News->categories->addCategory($this->aCategoryData['cursor'], $this->aCategoryData['locales']);
+				$this->aCategoryData['cat']['id'] = $this->okt->module('News')->categories->addCategory($this->aCategoryData['cursor'], $this->aCategoryData['locales']);
 
 				# -- TRIGGER MODULE NEWS : afterCategoryCreate
-				$this->okt->News->triggers->callTrigger('afterCategoryCreate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
+				$this->okt->module('News')->triggers->callTrigger('afterCategoryCreate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -57,7 +57,7 @@ class Category extends Controller
 
 		$this->aCategoryData['cat']['id'] = $this->request->attributes->getInt('category_id');
 
-		$rsCategory = $this->okt->News->categories->getCategory($this->aCategoryData['cat']['id']);
+		$rsCategory = $this->okt->module('News')->categories->getCategory($this->aCategoryData['cat']['id']);
 
 		if (null === $this->aCategoryData['cat']['id'] || $rsCategory->isEmpty())
 		{
@@ -71,7 +71,7 @@ class Category extends Controller
 		$this->aCategoryData['cat']['tpl'] = $rsCategory->tpl;
 		$this->aCategoryData['cat']['items_tpl'] = $rsCategory->items_tpl;
 
-		$rsCategoryI18n = $this->okt->News->categories->getCategoryI18n($this->aCategoryData['cat']['id']);
+		$rsCategoryI18n = $this->okt->module('News')->categories->getCategoryI18n($this->aCategoryData['cat']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -82,7 +82,7 @@ class Category extends Controller
 					$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $rsCategoryI18n->title;
 					$this->aCategoryData['locales'][$aLanguage['code']]['content'] = $rsCategoryI18n->content;
 
-					if ($this->okt->News->config->enable_metas)
+					if ($this->okt->module('News')->config->enable_metas)
 					{
 						$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = $rsCategoryI18n->title_seo;
 						$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = $rsCategoryI18n->title_tag;
@@ -95,7 +95,7 @@ class Category extends Controller
 		}
 
 		# rubriques voisines
-		$this->aCategoryData['extra']['rsSiblings'] = $this->okt->News->categories->getChildren($rsCategory->parent_id, false, $this->okt->user->language);
+		$this->aCategoryData['extra']['rsSiblings'] = $this->okt->module('News')->categories->getChildren($rsCategory->parent_id, false, $this->okt->user->language);
 
 		$this->aCategoryData['extra']['iNumPosts'] = $rsCategory->num_posts;
 
@@ -111,10 +111,10 @@ class Category extends Controller
 					foreach ($order as $ord=>$id)
 					{
 						$ord = ((integer) $ord)+1;
-						$this->okt->News->categories->setCategoryOrder($id, $ord);
+						$this->okt->module('News')->categories->setCategoryOrder($id, $ord);
 					}
 
-					$this->okt->News->categories->rebuild();
+					$this->okt->module('News')->categories->rebuild();
 				}
 				catch (Exception $e) {
 					die($e->getMessage());
@@ -139,10 +139,10 @@ class Category extends Controller
 					foreach ($order as $ord=>$id)
 					{
 						$ord = ((integer) $ord)+1;
-						$this->okt->News->categories->setCategoryOrder($id, $ord);
+						$this->okt->module('News')->categories->setCategoryOrder($id, $ord);
 					}
 
-					$this->okt->News->categories->rebuild();
+					$this->okt->module('News')->categories->rebuild();
 
 					return $this->redirect($this->generateUrl('News_category', array('category_id' => $this->aCategoryData['cat']['id'])));
 				}
@@ -157,7 +157,7 @@ class Category extends Controller
 		{
 			try
 			{
-				$this->okt->News->categories->switchCategoryStatus($this->aCategoryData['cat']['id']);
+				$this->okt->module('News')->categories->switchCategoryStatus($this->aCategoryData['cat']['id']);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -179,12 +179,12 @@ class Category extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforeCategoryUpdate
-				$this->okt->News->triggers->callTrigger('beforeCategoryUpdate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
+				$this->okt->module('News')->triggers->callTrigger('beforeCategoryUpdate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 
-				$this->okt->News->categories->updCategory($this->aCategoryData['cursor'], $this->aCategoryData['locales']);
+				$this->okt->module('News')->categories->updCategory($this->aCategoryData['cursor'], $this->aCategoryData['locales']);
 
 				# -- TRIGGER MODULE NEWS : afterCategoryUpdate
-				$this->okt->News->triggers->callTrigger('afterCategoryUpdate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
+				$this->okt->module('News')->triggers->callTrigger('afterCategoryUpdate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -212,7 +212,7 @@ class Category extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.categories');
 
 		# Récupération de la liste complète des rubriques
-		$this->rsCategories = $this->okt->News->categories->getCategories(array(
+		$this->rsCategories = $this->okt->module('News')->categories->getCategories(array(
 			'active' => 2,
 			'with_count' => true,
 			'language' => $this->okt->user->language
@@ -233,7 +233,7 @@ class Category extends Controller
 			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = '';
 			$this->aCategoryData['locales'][$aLanguage['code']]['content'] = '';
 
-			if ($this->okt->News->config->enable_metas)
+			if ($this->okt->module('News')->config->enable_metas)
 			{
 				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = '';
 				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = '';
@@ -263,11 +263,11 @@ class Category extends Controller
 		{
 			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', null, true);
 
-			if ($this->okt->News->config->categories['descriptions']) {
+			if ($this->okt->module('News')->config->categories['descriptions']) {
 				$this->aCategoryData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content['.$aLanguage['code'].']', null, true);
 			}
 
-			if ($this->okt->News->config->enable_metas)
+			if ($this->okt->module('News')->config->enable_metas)
 			{
 				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
 				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
@@ -278,9 +278,9 @@ class Category extends Controller
 		}
 
 		# vérification des données avant modification dans la BDD
-		if ($this->okt->News->categories->checkPostData($this->aCategoryData['cat'], $this->aCategoryData['locales']))
+		if ($this->okt->module('News')->categories->checkPostData($this->aCategoryData['cat'], $this->aCategoryData['locales']))
 		{
-			$this->aCategoryData['cursor'] = $this->okt->News->categories->openCategoryCursor($this->aCategoryData['cat']);
+			$this->aCategoryData['cursor'] = $this->okt->module('News')->categories->openCategoryCursor($this->aCategoryData['cat']);
 
 			return true;
 		}
@@ -291,16 +291,16 @@ class Category extends Controller
 	protected function display()
 	{
 		# Liste des templates utilisables
-		$oTemplatesList = new TemplatesSet($this->okt, $this->okt->News->config->templates['list'], 'news/list', 'list');
+		$oTemplatesList = new TemplatesSet($this->okt, $this->okt->module('News')->config->templates['list'], 'news/list', 'list');
 		$aTplChoices = array_merge(
 			array('&nbsp;' => null),
-			$oTemplatesList->getUsablesTemplatesForSelect($this->okt->News->config->templates['list']['usables'])
+			$oTemplatesList->getUsablesTemplatesForSelect($this->okt->module('News')->config->templates['list']['usables'])
 		);
 
-		$oItemsTemplatesList = new TemplatesSet($this->okt, $this->okt->News->config->templates['item'], 'news/item', 'item');
+		$oItemsTemplatesList = new TemplatesSet($this->okt, $this->okt->module('News')->config->templates['item'], 'news/item', 'item');
 		$aItemsTplChoices = array_merge(
 			array('&nbsp;' => null),
-			$oItemsTemplatesList->getUsablesTemplatesForSelect($this->okt->News->config->templates['item']['usables'])
+			$oItemsTemplatesList->getUsablesTemplatesForSelect($this->okt->module('News')->config->templates['item']['usables'])
 		);
 
 		# Calcul de la liste des parents possibles
@@ -309,7 +309,7 @@ class Category extends Controller
 		$aChildrens = array();
 		if ($this->aCategoryData['cat']['id'])
 		{
-			$rsDescendants = $this->okt->News->categories->getDescendants($this->aCategoryData['cat']['id'], true);
+			$rsDescendants = $this->okt->module('News')->categories->getDescendants($this->aCategoryData['cat']['id'], true);
 
 			while ($rsDescendants->fetch()) {
 				$aChildrens[] = $rsDescendants->id;

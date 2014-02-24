@@ -25,7 +25,7 @@ class Display extends Controller
 		{
 			try
 			{
-				$this->okt->News->config->write(array(
+				$this->okt->module('News')->config->write(array(
 					'admin_dysplay_style' => $this->request->request->get('p_admin_dysplay_style', 'list'),
 					'admin_filters_style' => $this->request->request->get('p_admin_filters_style', 'dialog'),
 

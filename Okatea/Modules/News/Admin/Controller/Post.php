@@ -26,12 +26,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforePostCreate
-				$this->okt->News->triggers->callTrigger('beforePostCreate', $this->aPostData);
+				$this->okt->module('News')->triggers->callTrigger('beforePostCreate', $this->aPostData);
 
-				$this->aPostData['post']['id'] = $this->okt->News->addPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
+				$this->aPostData['post']['id'] = $this->okt->module('News')->addPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
 
 				# -- TRIGGER MODULE NEWS : afterPostCreate
-				$this->okt->News->triggers->callTrigger('afterPostCreate', $this->aPostData);
+				$this->okt->module('News')->triggers->callTrigger('afterPostCreate', $this->aPostData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -58,7 +58,7 @@ class Post extends Controller
 
 		$this->aPostData['post']['id'] = $this->request->attributes->getInt('post_id');
 
-		$rsPost = $this->okt->News->getPostsRecordset(array(
+		$rsPost = $this->okt->module('News')->getPostsRecordset(array(
 			'id' => $this->aPostData['post']['id']
 		));
 
@@ -86,7 +86,7 @@ class Post extends Controller
 		$this->aPostData['extra']['hours'] = date('H', $iPotsTs);
 		$this->aPostData['extra']['minutes'] = date('i', $iPotsTs);
 
-		$rsPostI18n = $this->okt->News->getPostI18n($this->aPostData['post']['id']);
+		$rsPostI18n = $this->okt->module('News')->getPostI18n($this->aPostData['post']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -98,7 +98,7 @@ class Post extends Controller
 					$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = $rsPostI18n->subtitle;
 					$this->aPostData['locales'][$aLanguage['code']]['content'] = $rsPostI18n->content;
 
-					if ($this->okt->News->config->enable_metas)
+					if ($this->okt->module('News')->config->enable_metas)
 					{
 						$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = $rsPostI18n->title_seo;
 						$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = $rsPostI18n->title_tag;
@@ -111,18 +111,18 @@ class Post extends Controller
 		}
 
 		# Images
-		if ($this->okt->News->config->images['enable']) {
+		if ($this->okt->module('News')->config->images['enable']) {
 			$this->aPostData['images'] = $rsPost->getImagesInfo();
 		}
 
 		# Fichiers
-		if ($this->okt->News->config->files['enable']) {
+		if ($this->okt->module('News')->config->files['enable']) {
 			$this->aPostData['files'] = $rsPost->getFilesInfo();
 		}
 
 		# Permissions
-		if ($this->okt->News->config->enable_group_perms) {
-			$this->aPostData['perms'] = $this->okt->News->getPostPermissions($this->aPostData['post']['id']);
+		if ($this->okt->module('News')->config->enable_group_perms) {
+			$this->aPostData['perms'] = $this->okt->module('News')->getPostPermissions($this->aPostData['post']['id']);
 		}
 
 		# switch post status
@@ -130,7 +130,7 @@ class Post extends Controller
 		{
 			try
 			{
-				$this->okt->News->switchPostStatus($this->aPostData['post']['id']);
+				$this->okt->module('News')->switchPostStatus($this->aPostData['post']['id']);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -149,7 +149,7 @@ class Post extends Controller
 		# publication de l'article
 		if ($this->request->query->has('publish') && $this->aPermissions['bCanPublish'])
 		{
-			$this->okt->News->publishPost($this->aPostData['post']['id']);
+			$this->okt->module('News')->publishPost($this->aPostData['post']['id']);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -166,7 +166,7 @@ class Post extends Controller
 		# suppression d'une image
 		if ($this->request->query->has('delete_image') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->News->deleteImage($this->aPostData['post']['id'], $this->request->query->get('delete_image'));
+			$this->okt->module('News')->deleteImage($this->aPostData['post']['id'], $this->request->query->get('delete_image'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -181,7 +181,7 @@ class Post extends Controller
 		# suppression d'un fichier
 		if ($this->request->query->has('delete_file') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->News->deleteFile($this->aPostData['post']['id'], $this->request->query->get('delete_file'));
+			$this->okt->module('News')->deleteFile($this->aPostData['post']['id'], $this->request->query->get('delete_file'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -198,12 +198,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE NEWS : beforePostUpdate
-				$this->okt->News->triggers->callTrigger('beforePostUpdate', $this->aPostData);
+				$this->okt->module('News')->triggers->callTrigger('beforePostUpdate', $this->aPostData);
 
-				$this->okt->News->updPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
+				$this->okt->module('News')->updPost($this->aPostData['cursor'], $this->aPostData['locales'], $this->aPostData['perms']);
 
 				# -- TRIGGER MODULE NEWS : afterPostUpdate
-				$this->okt->News->triggers->callTrigger('afterPostUpdate', $this->aPostData);
+				$this->okt->module('News')->triggers->callTrigger('afterPostUpdate', $this->aPostData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -271,7 +271,7 @@ class Post extends Controller
 			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = '';
 			$this->aPostData['locales'][$aLanguage['code']]['content'] = '';
 
-			if ($this->okt->News->config->enable_metas)
+			if ($this->okt->module('News')->config->enable_metas)
 			{
 				$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = '';
 				$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = '';
@@ -289,7 +289,7 @@ class Post extends Controller
 		$rsPostI18n = null;
 
 		# -- TRIGGER MODULE NEWS : adminPostInit
-		$this->okt->News->triggers->callTrigger('adminPostInit', $this->aPostData, $rsPost, $rsPostI18n);
+		$this->okt->module('News')->triggers->callTrigger('adminPostInit', $this->aPostData, $rsPost, $rsPostI18n);
 	}
 
 	protected function populateDataFromPost()
@@ -320,7 +320,7 @@ class Post extends Controller
 			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = $this->request->request->get('p_subtitle['.$aLanguage['code'].']', null, true);
 			$this->aPostData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content['.$aLanguage['code'].']', null, true);
 
-			if ($this->okt->News->config->enable_metas)
+			if ($this->okt->module('News')->config->enable_metas)
 			{
 				$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
 				$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
@@ -333,12 +333,12 @@ class Post extends Controller
 		$this->aPostData['perms'] = $this->request->request->get('perms', array());
 
 		# -- TRIGGER MODULE NEWS : adminPopulateData
-		$this->okt->News->triggers->callTrigger('adminPopulateData', $this->aPostData);
+		$this->okt->module('News')->triggers->callTrigger('adminPopulateData', $this->aPostData);
 
 		# vérification des données avant modification dans la BDD
-		if ($this->okt->News->checkPostData($this->aPostData['post'], $this->aPostData['locales'], $this->aPostData['perms']))
+		if ($this->okt->module('News')->checkPostData($this->aPostData['post'], $this->aPostData['locales'], $this->aPostData['perms']))
 		{
-			$this->aPostData['cursor'] = $this->okt->News->openPostCursor($this->aPostData['post']);
+			$this->aPostData['cursor'] = $this->okt->module('News')->openPostCursor($this->aPostData['post']);
 
 			return true;
 		}
@@ -350,25 +350,25 @@ class Post extends Controller
 	{
 		# Récupération de la liste complète des rubriques
 		$rsCategories = null;
-		if ($this->okt->News->config->categories['enable'])
+		if ($this->okt->module('News')->config->categories['enable'])
 		{
-			$rsCategories = $this->okt->News->categories->getCategories(array(
+			$rsCategories = $this->okt->module('News')->categories->getCategories(array(
 				'active' => 2,
 				'language' => $this->okt->user->language
 			));
 		}
 
 		# Liste des templates utilisables
-		$oTemplatesItem = new TemplatesSet($this->okt, $this->okt->News->config->templates['item'], 'news/item', 'item');
+		$oTemplatesItem = new TemplatesSet($this->okt, $this->okt->module('News')->config->templates['item'], 'news/item', 'item');
 		$aTplChoices = array_merge(
 			array('&nbsp;' => null),
-			$oTemplatesItem->getUsablesTemplatesForSelect($this->okt->News->config->templates['item']['usables'])
+			$oTemplatesItem->getUsablesTemplatesForSelect($this->okt->module('News')->config->templates['item']['usables'])
 		);
 
 		# Récupération de la liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->News->config->enable_group_perms) {
-			$aGroups = $this->okt->News->getUsersGroupsForPerms(false,true);
+		if ($this->okt->module('News')->config->enable_group_perms) {
+			$aGroups = $this->okt->module('News')->getUsersGroupsForPerms(false,true);
 		}
 
 		# Construction des onglets
@@ -384,7 +384,7 @@ class Post extends Controller
 		);
 
 		# onglet images
-		if ($this->okt->News->config->images['enable'])
+		if ($this->okt->module('News')->config->images['enable'])
 		{
 			$this->aPostData['tabs'][20] = array(
 				'id' => 'tab-images',
@@ -397,7 +397,7 @@ class Post extends Controller
 		}
 
 		# onglet fichiers
-		if ($this->okt->News->config->files['enable'])
+		if ($this->okt->module('News')->config->files['enable'])
 		{
 			$this->aPostData['tabs'][30] = array(
 				'id' => 'tab-files',
@@ -422,7 +422,7 @@ class Post extends Controller
 		);
 
 		# onglet seo
-		if ($this->okt->News->config->enable_metas)
+		if ($this->okt->module('News')->config->enable_metas)
 		{
 			$this->aPostData['tabs'][50] = array(
 				'id' => 'tab-seo',
@@ -434,7 +434,7 @@ class Post extends Controller
 		}
 
 		# -- TRIGGER MODULE NEWS : adminPostBuildTabs
-		$this->okt->News->triggers->callTrigger('adminPostBuildTabs', $this->aPostData);
+		$this->okt->module('News')->triggers->callTrigger('adminPostBuildTabs', $this->aPostData);
 
 		$this->aPostData['tabs']->ksort();
 

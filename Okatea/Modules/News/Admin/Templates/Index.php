@@ -6,10 +6,10 @@ use Okatea\Tao\Users\Authentification;
 $view->extend('layout');
 
 # module title tag
-$okt->page->addTitleTag($okt->News->getTitle());
+$okt->page->addTitleTag($okt->module('News')->getTitle());
 
 # module start breadcrumb
-$okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
+$okt->page->addAriane($okt->module('News')->getName(), $view->generateUrl('News_index'));
 
 # Buttons set
 $okt->page->setButtonset('newsBtSt',array(
@@ -27,7 +27,7 @@ $okt->page->setButtonset('newsBtSt',array(
 			'title' 		=> __('c_c_display_filters'),
 			'url' 			=> '#',
 			'ui-icon' 		=> 'search',
-			'active' 		=> $okt->News->filters->params->show_filters,
+			'active' 		=> $okt->module('News')->filters->params->show_filters,
 			'id'			=> 'filter-control',
 			'class'			=> 'button-toggleable'
 		),
@@ -41,12 +41,12 @@ $okt->page->setButtonset('newsBtSt',array(
 ));
 
 # Filters control
-if ($okt->News->config->admin_filters_style == 'slide')
+if ($okt->module('News')->config->admin_filters_style == 'slide')
 {
 	# Slide down
-	$okt->page->filterControl($okt->News->filters->params->show_filters);
+	$okt->page->filterControl($okt->module('News')->filters->params->show_filters);
 }
-elseif ($okt->News->config->admin_filters_style == 'dialog')
+elseif ($okt->module('News')->config->admin_filters_style == 'dialog')
 {
 	# Display a UI dialog box
 	$okt->page->js->addReady("
@@ -93,9 +93,9 @@ $okt->page->css->addCss('
 	<fieldset>
 		<legend><?php _e('m_news_display_filters') ?></legend>
 
-		<?php echo $okt->News->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
+		<?php echo $okt->module('News')->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
-		<p><input type="submit" name="<?php echo $okt->News->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
+		<p><input type="submit" name="<?php echo $okt->module('News')->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
 		<a href="<?php echo $view->generateUrl('News_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a></p>
 
 	</fieldset>
@@ -125,10 +125,10 @@ if (!$rsPosts->isEmpty()) : ?>
 		<caption><?php _e('m_news_list_table_caption') ?></caption>
 		<thead><tr>
 			<th scope="col"><?php _e('m_news_list_table_th_title') ?></th>
-			<?php if ($okt->News->config->categories['enable']) : ?>
+			<?php if ($okt->module('News')->config->categories['enable']) : ?>
 			<th scope="col"><?php _e('m_news_list_table_th_category') ?></th>
 			<?php endif; ?>
-			<?php if ($okt->News->config->enable_group_perms) : ?>
+			<?php if ($okt->module('News')->config->enable_group_perms) : ?>
 			<th scope="col"><?php _e('m_news_list_table_th_access') ?></th>
 			<?php endif; ?>
 			<th scope="col"><?php _e('m_news_list_table_th_dates') ?></th>
@@ -147,15 +147,15 @@ if (!$rsPosts->isEmpty()) : ?>
 				echo $view->escape($rsPosts->title) ?></a>
 			</th>
 
-			<?php if ($okt->News->config->categories['enable']) : ?>
+			<?php if ($okt->module('News')->config->categories['enable']) : ?>
 			<td class="<?php echo $rsPosts->odd_even ?>"><?php echo $view->escape($rsPosts->category_title) ?></td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
-			if ($okt->News->config->enable_group_perms) :
+			if ($okt->module('News')->config->enable_group_perms) :
 
 				$aGroupsAccess = array();
-				$aPerms = $okt->News->getPostPermissions($rsPosts->id);
+				$aPerms = $okt->module('News')->getPostPermissions($rsPosts->id);
 				foreach ($aPerms as $iPerm) {
 					$aGroupsAccess[] = $view->escape($aGroups[$iPerm]);
 				}

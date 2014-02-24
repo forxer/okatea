@@ -26,9 +26,9 @@ class Filters extends BaseFilters
 
 	public function __construct($okt, $part='public', $params=array())
 	{
-		parent::__construct($okt, 'News', $okt->News->config, $part, $params);
+		parent::__construct($okt, 'News', $okt->module('News')->config, $part, $params);
 
-		$this->News = $this->okt->News;
+		$this->News = $this->okt->module('News');
 	}
 
 	public function setDefaultParams()

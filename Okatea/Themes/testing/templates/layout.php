@@ -59,7 +59,7 @@ $this->extend('main');
 
 		<?php # début Okatea : si le module news est présent, affichage de l'encart
 		if ($okt->modules->isLoaded('news')) :
-			echo $this->render($okt->news->getInsertTplPath());
+			echo $this->render($okt->module('News')->getInsertTplPath());
 		endif; # fin Okatea : si le module news est présent, affichage de l'encart ?>
 
 

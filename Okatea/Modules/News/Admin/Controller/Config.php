@@ -24,33 +24,33 @@ class Config extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.config');
 
 		# Gestion des images
-		$oImageUploadConfig = new ImageUploadConfig($this->okt,$this->okt->News->getImageUpload());
+		$oImageUploadConfig = new ImageUploadConfig($this->okt,$this->okt->module('News')->getImageUpload());
 		$oImageUploadConfig->setBaseUrl($this->generateUrl('News_config').'?');
 
 		# Gestionnaires de templates
 		$oTemplatesList = new TemplatesSet($this->okt,
-			$this->okt->News->config->templates['list'],
+			$this->okt->module('News')->config->templates['list'],
 			'news/list',
 			'list',
 			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesItem = new TemplatesSet($this->okt,
-			$this->okt->News->config->templates['item'],
+			$this->okt->module('News')->config->templates['item'],
 			'news/item',
 			'item',
 			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesInsert = new TemplatesSet($this->okt,
-			$this->okt->News->config->templates['insert'],
+			$this->okt->module('News')->config->templates['insert'],
 			'news/insert',
 			'insert',
 			$this->generateUrl('News_config').'?'
 		);
 
 		$oTemplatesFeed = new TemplatesSet($this->okt,
-			$this->okt->News->config->templates['feed'],
+			$this->okt->module('News')->config->templates['feed'],
 			'news/feed',
 			'feed',
 			$this->generateUrl('News_config').'?'
@@ -59,7 +59,7 @@ class Config extends Controller
 		# régénération des miniatures
 		if ($this->request->query->has('minregen'))
 		{
-			$this->okt->News->regenMinImages();
+			$this->okt->module('News')->regenMinImages();
 
 			$this->okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
 
@@ -69,7 +69,7 @@ class Config extends Controller
 		# suppression filigrane
 		if ($this->request->request->has('delete_watermark'))
 		{
-			$this->okt->News->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
+			$this->okt->module('News')->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
 			$this->okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
 
@@ -155,7 +155,7 @@ class Config extends Controller
 
 				try
 				{
-					$this->okt->News->config->write($new_conf);
+					$this->okt->module('News')->config->write($new_conf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -171,7 +171,7 @@ class Config extends Controller
 
 		# Liste des groupes pour les permissions
 		$aGroups = null;
-		$aGroups = $this->okt->News->getUsersGroupsForPerms(true, true);
+		$aGroups = $this->okt->module('News')->getUsersGroupsForPerms(true, true);
 
 		return $this->render('News/Admin/Templates/Config', array(
 			'oImageUploadConfig' 	=> $oImageUploadConfig,

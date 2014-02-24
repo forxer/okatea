@@ -74,7 +74,7 @@ class Recordset extends BaseRecordset
 		}
 
 		# si les permissions sont désactivées alors on as le droit
-		if (!$this->okt->Pages->config->enable_group_perms)
+		if (!$this->okt->module('Pages')->config->enable_group_perms)
 		{
 			$perms[$this->id] = true;
 			return true;
@@ -88,7 +88,7 @@ class Recordset extends BaseRecordset
 		}
 
 		# récupération des permissions de la page
-		$aPerms = $this->okt->Pages->getPagePermissions($this->id);
+		$aPerms = $this->okt->module('Pages')->getPagePermissions($this->id);
 
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
@@ -142,32 +142,32 @@ class Recordset extends BaseRecordset
 	{
 		$files = array();
 
-		if (!$this->okt->Pages->config->files['enable']) {
+		if (!$this->okt->module('Pages')->config->files['enable']) {
 			return $files;
 		}
 
 		$files_array = array_filter((array)unserialize($this->files));
 
 		$j=1;
-		for ($i=1; $i<=$this->okt->Pages->config->files['number']; $i++)
+		for ($i=1; $i<=$this->okt->module('Pages')->config->files['number']; $i++)
 		{
 			if (!isset($files_array[$i]) || empty($files_array[$i]['filename'])
-				|| !file_exists($this->okt->Pages->upload_dir.'/files/'.$files_array[$i]['filename']))
+				|| !file_exists($this->okt->module('Pages')->upload_dir.'/files/'.$files_array[$i]['filename']))
 			{
 				continue;
 			}
 
-			$mime_type = \files::getMimeType($this->okt->Pages->upload_dir.'/files/'.$files_array[$i]['filename']);
+			$mime_type = \files::getMimeType($this->okt->module('Pages')->upload_dir.'/files/'.$files_array[$i]['filename']);
 
 			$files[$j++] = array_merge(
-				stat($this->okt->Pages->upload_dir.'/files/'.$files_array[$i]['filename']),
+				stat($this->okt->module('Pages')->upload_dir.'/files/'.$files_array[$i]['filename']),
 				array(
-					'url' => $this->okt->Pages->upload_url.'files/'.$files_array[$i]['filename'],
+					'url' => $this->okt->module('Pages')->upload_url.'files/'.$files_array[$i]['filename'],
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
 					'type' => Utilities::getMediaType($mime_type),
-					'ext' => pathinfo($this->okt->Pages->upload_dir.'/files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
+					'ext' => pathinfo($this->okt->module('Pages')->upload_dir.'/files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);
 		}
@@ -182,7 +182,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getImagesInfo()
 	{
-		if (!$this->okt->Pages->config->images['enable']) {
+		if (!$this->okt->module('Pages')->config->images['enable']) {
 			return array();
 		}
 
@@ -197,7 +197,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (!$this->okt->Pages->config->images['enable']) {
+		if (!$this->okt->module('Pages')->config->images['enable']) {
 			return array();
 		}
 
@@ -213,12 +213,12 @@ class Recordset extends BaseRecordset
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->Pages->upload_dir.'/img/'.$this->id;
+		return $this->okt->module('Pages')->upload_dir.'/img/'.$this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->Pages->upload_url.'/img/'.$this->id;
+		return $this->okt->module('Pages')->upload_url.'/img/'.$this->id;
 	}
 
 }

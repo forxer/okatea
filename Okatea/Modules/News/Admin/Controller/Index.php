@@ -27,7 +27,7 @@ class Index extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.list');
 
 		# initialisation des filtres
-		$this->okt->News->filtersStart('admin');
+		$this->okt->module('News')->filtersStart('admin');
 
 		# Ré-initialisation filtres
 		if (($action = $this->initFilters()) !== false) {
@@ -70,7 +70,7 @@ class Index extends Controller
 		}
 
 		# Publication des articles différés
-		$this->okt->News->publishScheduledPosts();
+		$this->okt->module('News')->publishScheduledPosts();
 
 		# Initialisation des filtres
 		$aParams = array();
@@ -85,29 +85,29 @@ class Index extends Controller
 			$aParams['search'] = $sSearch;
 		}
 
-		$this->okt->News->filters->setPostsParams($aParams);
+		$this->okt->module('News')->filters->setPostsParams($aParams);
 
 		# Création des filtres
-		$this->okt->News->filters->getFilters();
+		$this->okt->module('News')->filters->getFilters();
 
 		# Initialisation de la pagination
-		$iNumFilteredPosts = $this->okt->News->getPostsCount($aParams);
+		$iNumFilteredPosts = $this->okt->module('News')->getPostsCount($aParams);
 
-		$oPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oPager = new Pager($this->okt, $this->okt->module('News')->filters->params->page, $iNumFilteredPosts, $this->okt->module('News')->filters->params->nb_per_page);
 
 		$iNumPages = $oPager->getNbPages();
 
-		$this->okt->News->filters->normalizePage($iNumPages);
+		$this->okt->module('News')->filters->normalizePage($iNumPages);
 
-		$aParams['limit'] = (($this->okt->News->filters->params->page-1)*$this->okt->News->filters->params->nb_per_page).','.$this->okt->News->filters->params->nb_per_page;
+		$aParams['limit'] = (($this->okt->module('News')->filters->params->page-1)*$this->okt->module('News')->filters->params->nb_per_page).','.$this->okt->module('News')->filters->params->nb_per_page;
 
 		# Récupération des articles
-		$rsPosts = $this->okt->News->getPosts($aParams);
+		$rsPosts = $this->okt->module('News')->getPosts($aParams);
 
 		# Liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->News->config->enable_group_perms) {
-			$aGroups = $this->okt->News->getUsersGroupsForPerms(true, true);
+		if ($this->okt->module('News')->config->enable_group_perms) {
+			$aGroups = $this->okt->module('News')->getUsersGroupsForPerms(true, true);
 		}
 
 		# Tableau de choix d'actions pour le traitement par lot
@@ -152,7 +152,7 @@ class Index extends Controller
 			return false;
 		}
 
-		$rsPosts = $this->okt->News->getPostsRecordset(array(
+		$rsPosts = $this->okt->module('News')->getPostsRecordset(array(
 			'language' => $this->okt->user->language,
 			'search' => $term
 		));
@@ -173,7 +173,7 @@ class Index extends Controller
 			return false;
 		}
 
-		$this->okt->News->filters->initFilters();
+		$this->okt->module('News')->filters->initFilters();
 
 		return $this->redirect($this->generateUrl('News_index'));
 	}
@@ -188,7 +188,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->deletePost($iPostId);
+			$this->okt->module('News')->deletePost($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->warning(array(
@@ -217,7 +217,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->switchPostStatus($iPostId);
+			$this->okt->module('News')->switchPostStatus($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -244,7 +244,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->switchPostSelected($iPostId);
+			$this->okt->module('News')->switchPostSelected($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -271,7 +271,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->setPostSelected($iPostId, true);
+			$this->okt->module('News')->setPostSelected($iPostId, true);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -300,7 +300,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->setPostSelected($iPostId, false);
+			$this->okt->module('News')->setPostSelected($iPostId, false);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -329,7 +329,7 @@ class Index extends Controller
 
 		try
 		{
-			$this->okt->News->publishPost($iPostId);
+			$this->okt->module('News')->publishPost($iPostId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -365,7 +365,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->showPost($iPostId,1);
+					$this->okt->module('News')->showPost($iPostId,1);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -381,7 +381,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->hidePost($iPostId);
+					$this->okt->module('News')->hidePost($iPostId);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -397,7 +397,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->publishPost($iPostId);
+					$this->okt->module('News')->publishPost($iPostId);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -415,7 +415,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->setPostSelected($iPostId,1);
+					$this->okt->module('News')->setPostSelected($iPostId,1);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -433,7 +433,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->setPostSelected($iPostId, 0);
+					$this->okt->module('News')->setPostSelected($iPostId, 0);
 
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -451,7 +451,7 @@ class Index extends Controller
 			{
 				foreach ($aPostsId as $iPostId)
 				{
-					$this->okt->News->deletePost($iPostId);
+					$this->okt->module('News')->deletePost($iPostId);
 
 					# log admin
 					$this->okt->logAdmin->warning(array(

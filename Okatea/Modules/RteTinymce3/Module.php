@@ -173,18 +173,18 @@ class Module extends BaseModule
 		}
 
 		# content CSS
-		if ($okt->RteTinymce3->config->content_css != '') {
-			$common_options['content_css'] = $okt->RteTinymce3->config->content_css;
+		if ($okt->module('RteTinymce3')->config->content_css != '') {
+			$common_options['content_css'] = $okt->module('RteTinymce3')->config->content_css;
 		}
 
 		# editor width
-		if ($okt->RteTinymce3->config->width != '') {
-		$common_options['width'] = $okt->RteTinymce3->config->width;
+		if ($okt->module('RteTinymce3')->config->width != '') {
+		$common_options['width'] = $okt->module('RteTinymce3')->config->width;
 		}
 
 		# editor height
-		if ($okt->RteTinymce3->config->height != '') {
-			$common_options['height'] = $okt->RteTinymce3->config->height;
+		if ($okt->module('RteTinymce3')->config->height != '') {
+			$common_options['height'] = $okt->module('RteTinymce3')->config->height;
 		}
 
 		$final_options = array_merge($options,$common_options,$user_options);

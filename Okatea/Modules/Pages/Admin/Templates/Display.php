@@ -5,10 +5,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_display'));
@@ -17,7 +17,7 @@ $okt->page->addGlobalTitle(__('c_a_menu_display'));
 $okt->page->tabs();
 
 # LightBox Like
-$okt->page->applyLbl($okt->Pages->config->lightbox_type);
+$okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 
 ?>
 
@@ -26,7 +26,7 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 		<ul>
 			<li><a href="#tab_public"><span><?php _e('m_pages_display_tab_public') ?></span></a></li>
 			<li><a href="#tab_admin"><span><?php _e('m_pages_display_tab_admin') ?></span></a></li>
-			<?php if ($okt->Pages->config->images['enable']) : ?>
+			<?php if ($okt->module('Pages')->config->images['enable']) : ?>
 			<li><a href="#tab_images"><span><?php _e('m_pages_display_tab_images') ?></span></a></li>
 			<?php endif; ?>
 		</ul>
@@ -39,13 +39,13 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 				<div class="three-cols">
 				<p class="field col"><label for="p_public_default_order_by"><?php _e('m_pages_display_public_order_display') ?></label>
-				<?php echo form::select('p_public_default_order_by', $aFieldChoiceOrderBy, $okt->Pages->config->public_default_order_by) ?></p>
+				<?php echo form::select('p_public_default_order_by', $aFieldChoiceOrderBy, $okt->module('Pages')->config->public_default_order_by) ?></p>
 
 				<p class="field col"><label for="p_public_default_order_direction"><?php _e('m_pages_display_public_display_direction') ?></label>
-				<?php echo form::select('p_public_default_order_direction', $aFieldChoiceOrderDirection, $okt->Pages->config->public_default_order_direction) ?></p>
+				<?php echo form::select('p_public_default_order_direction', $aFieldChoiceOrderDirection, $okt->module('Pages')->config->public_default_order_direction) ?></p>
 
 				<p class="field col"><label for="p_public_default_nb_per_page"><?php _e('m_pages_display_public_number_page') ?></label>
-				<?php echo form::text('p_public_default_nb_per_page', 3, 3, $okt->Pages->config->public_default_nb_per_page) ?></p>
+				<?php echo form::text('p_public_default_nb_per_page', 3, 3, $okt->module('Pages')->config->public_default_nb_per_page) ?></p>
 				</div>
 			</fieldset>
 
@@ -56,10 +56,10 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 				<div class="two-cols">
 					<p class="field col"><label for="p_public_truncat_char"><?php _e('m_pages_display_truncate_char_number_on_list') ?></label>
-					<?php echo form::text('p_public_truncat_char', 5, 5, $okt->Pages->config->public_truncat_char) ?></p>
+					<?php echo form::text('p_public_truncat_char', 5, 5, $okt->module('Pages')->config->public_truncat_char) ?></p>
 
 					<p class="field col"><label for="p_insert_truncat_char"><?php _e('m_pages_display_truncate_char_number_on_insert') ?></label>
-					<?php echo form::text('p_insert_truncat_char', 5, 5, $okt->Pages->config->insert_truncat_char) ?></p>
+					<?php echo form::text('p_insert_truncat_char', 5, 5, $okt->module('Pages')->config->insert_truncat_char) ?></p>
 				</div>
 			</fieldset>
 
@@ -73,13 +73,13 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 				<div class="three-cols">
 				<p class="field col"><label for="p_admin_default_order_by"><?php _e('m_pages_display_admin_order_display') ?></label>
-				<?php echo form::select('p_admin_default_order_by',$aFieldChoiceOrderBy, $okt->Pages->config->admin_default_order_by) ?></p>
+				<?php echo form::select('p_admin_default_order_by',$aFieldChoiceOrderBy, $okt->module('Pages')->config->admin_default_order_by) ?></p>
 
 				<p class="field col"><label for="p_admin_default_order_direction"><?php _e('m_pages_display_admin_display_direction') ?></label>
-				<?php echo form::select('p_admin_default_order_direction', $aFieldChoiceOrderDirection, $okt->Pages->config->admin_default_order_direction) ?></p>
+				<?php echo form::select('p_admin_default_order_direction', $aFieldChoiceOrderDirection, $okt->module('Pages')->config->admin_default_order_direction) ?></p>
 
 				<p class="field col"><label for="p_admin_default_nb_per_page"><?php _e('m_pages_display_admin_number_page') ?></label>
-				<?php echo form::text('p_admin_default_nb_per_page', 3, 3, $okt->Pages->config->admin_default_nb_per_page) ?></p>
+				<?php echo form::text('p_admin_default_nb_per_page', 3, 3, $okt->module('Pages')->config->admin_default_nb_per_page) ?></p>
 				</div>
 			</fieldset>
 
@@ -87,15 +87,15 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 				<legend><?php _e('m_pages_display_filters_style') ?></legend>
 
 				<ul class="checklist">
-					<li><label for="p_admin_filters_style_dialog"><?php echo form::radio(array('p_admin_filters_style','p_admin_filters_style_dialog'),'dialog',($okt->Pages->config->admin_filters_style=='dialog')) ?> <?php _e('m_pages_display_filters_dialog') ?></label></li>
-					<li><label for="p_admin_filters_style_slide"><?php echo form::radio(array('p_admin_filters_style','p_admin_filters_style_slide'),'slide',($okt->Pages->config->admin_filters_style=='slide')) ?> <?php _e('m_pages_display_filters_slide') ?></label></li>
+					<li><label for="p_admin_filters_style_dialog"><?php echo form::radio(array('p_admin_filters_style','p_admin_filters_style_dialog'),'dialog',($okt->module('Pages')->config->admin_filters_style=='dialog')) ?> <?php _e('m_pages_display_filters_dialog') ?></label></li>
+					<li><label for="p_admin_filters_style_slide"><?php echo form::radio(array('p_admin_filters_style','p_admin_filters_style_slide'),'slide',($okt->module('Pages')->config->admin_filters_style=='slide')) ?> <?php _e('m_pages_display_filters_slide') ?></label></li>
 				</ul>
 
 			</fieldset>
 
 		</div><!-- #tab_admin -->
 
-		<?php if ($okt->Pages->config->images['enable']) : ?>
+		<?php if ($okt->module('Pages')->config->images['enable']) : ?>
 		<div id="tab_images">
 			<h3><?php _e('m_pages_display_tab_title_images')?></h3>
 			<fieldset>
@@ -103,10 +103,10 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 				<?php if ($okt->page->hasLbl()) : ?>
 					<p class="field"><label for="p_lightbox_type"><?php _e('m_pages_display_select_interface_display_images') ?></label>
-					<?php echo form::select('p_lightbox_type', array_merge(array(__('c_c_action_Disable')=>0), $okt->page->getLblList(true)), $okt->Pages->config->lightbox_type) ?></p>
+					<?php echo form::select('p_lightbox_type', array_merge(array(__('c_c_action_Disable')=>0), $okt->page->getLblList(true)), $okt->module('Pages')->config->lightbox_type) ?></p>
 
 					<p><?php _e('m_pages_display_currently_used')?> : <em><?php $aChoices = array_merge(array(''=>__('c_c_none_f')), $okt->page->getLblList());
-					echo $aChoices[$okt->Pages->config->lightbox_type] ?></em></p>
+					echo $aChoices[$okt->module('Pages')->config->lightbox_type] ?></em></p>
 				<?php else : ?>
 					<p><span class="icon error"></span><?php _e('m_pages_display_no_interface_display_images') ?>
 					<?php echo form::hidden('p_lightbox_type', 0) ?></p>

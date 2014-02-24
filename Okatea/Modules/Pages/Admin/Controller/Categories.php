@@ -17,7 +17,7 @@ class Categories extends Controller
 		if (!$this->okt->checkPerm('pages_categories')) {
 			return $this->serve401();
 		}
-		elseif (!$this->okt->Pages->config->categories['enable']) {
+		elseif (!$this->okt->module('Pages')->config->categories['enable']) {
 			return $this->serve404();
 		}
 
@@ -25,7 +25,7 @@ class Categories extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.categories');
 
 		# Récupération de la liste complète des rubriques
-		$rsCategories = $this->okt->Pages->categories->getCategories(array(
+		$rsCategories = $this->okt->module('Pages')->categories->getCategories(array(
 			'active' => 2,
 			'with_count' => true,
 			'language' => $this->okt->user->language
@@ -56,7 +56,7 @@ class Categories extends Controller
 
 		try
 		{
-			$this->okt->Pages->categories->switchCategoryStatus($iCategoryId);
+			$this->okt->module('Pages')->categories->switchCategoryStatus($iCategoryId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -83,7 +83,7 @@ class Categories extends Controller
 
 		try
 		{
-			$this->okt->Pages->categories->delCategory($iCategoryId);
+			$this->okt->module('Pages')->categories->delCategory($iCategoryId);
 
 			# log admin
 			$this->okt->logAdmin->warning(array(

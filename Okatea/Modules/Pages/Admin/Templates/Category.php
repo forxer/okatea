@@ -54,17 +54,17 @@ if ($aCategoryData['cat']['id'])
 
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Module start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_pages_cats_categories'), $view->generateUrl('Pages_categories'));
 
 if ($aCategoryData['cat']['id'])
 {
-	$path = $okt->Pages->categories->getPath($aCategoryData['cat']['id'], true, $okt->user->language);
+	$path = $okt->module('Pages')->categories->getPath($aCategoryData['cat']['id'], true, $okt->user->language);
 
 	while ($path->fetch()) {
 		$okt->page->addGlobalTitle($path->title, $view->generateUrl('Pages_category', array('category_id' => $path->id)));
@@ -82,8 +82,8 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # RTE
-if ($okt->Pages->config->categories['descriptions']) {
-	$okt->page->applyRte($okt->Pages->config->categories['rte'],'textarea.richTextEditor');
+if ($okt->module('Pages')->config->categories['descriptions']) {
+	$okt->page->applyRte($okt->module('Pages')->config->categories['rte'],'textarea.richTextEditor');
 }
 
 # Lang switcher
@@ -138,7 +138,7 @@ if ($aCategoryData['cat']['id'])
 		<ul>
 			<li><a href="#tab_category"><span><?php _e('m_pages_cat_category')?></span></a></li>
 			<li><a href="#tab_options"><span><?php _e('m_pages_cat_options')?></span></a></li>
-			<?php if ($okt->Pages->config->enable_metas) : ?>
+			<?php if ($okt->module('Pages')->config->enable_metas) : ?>
 			<li><a href="#tab_seo"><span><?php _e('c_c_seo')?></span></a></li>
 			<?php endif; ?>
 		</ul>
@@ -150,7 +150,7 @@ if ($aCategoryData['cat']['id'])
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>" title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt->languages->unique ? _e('m_pages_cat_title') : printf(__('m_pages_cat_title_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, $view->escape($aCategoryData['locales'][$aLanguage['code']]['title'])) ?></p>
 
-			<?php if ($okt->Pages->config->categories['descriptions']) : ?>
+			<?php if ($okt->module('Pages')->config->categories['descriptions']) : ?>
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_content_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_pages_cat_desc') : printf(__('m_pages_cat_desc_in_%s'),$aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_content['.$aLanguage['code'].']','p_content_'.$aLanguage['code']), 57, 10, $aCategoryData['locales'][$aLanguage['code']]['content'],'richTextEditor') ?></p>
 			<?php endif; ?>
@@ -170,12 +170,12 @@ if ($aCategoryData['cat']['id'])
 			</div>
 
 			<div class="two-cols">
-				<?php if (!empty($okt->Pages->config->templates['list']['usables'])) : ?>
+				<?php if (!empty($okt->module('Pages')->config->templates['list']['usables'])) : ?>
 				<p class="field col"><label for="p_tpl"><?php _e('m_pages_cat_tpl') ?></label>
 				<?php echo form::select('p_tpl', $aTplChoices, $aCategoryData['cat']['tpl'])?></p>
 				<?php endif; ?>
 
-				<?php if (!empty($okt->Pages->config->templates['item']['usables'])) : ?>
+				<?php if (!empty($okt->module('Pages')->config->templates['item']['usables'])) : ?>
 				<p class="field col"><label for="p_items_tpl"><?php _e('m_pages_cat_items_tpl') ?></label>
 				<?php echo form::select('p_items_tpl', $aItemsTplChoices, $aCategoryData['cat']['items_tpl'])?></p>
 				<?php endif; ?>
@@ -183,7 +183,7 @@ if ($aCategoryData['cat']['id'])
 
 		</div><!-- #tab_options -->
 
-		<?php if ($okt->Pages->config->enable_metas) : ?>
+		<?php if ($okt->module('Pages')->config->enable_metas) : ?>
 		<div id="tab_seo">
 			<h3><?php _e('c_c_seo_help') ?></h3>
 

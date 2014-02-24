@@ -14,7 +14,7 @@ class News_installer extends Installer
 	{
 		$this->checklist->addItem(
 			'regenerate_thumbnails',
-			$this->okt->News->regenMinImages(),
+			$this->okt->module('News')->regenMinImages(),
 			'Regeneration of thumbnails',
 			'Cannot regenerate thumbnails'
 		);

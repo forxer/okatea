@@ -1,13 +1,13 @@
 
 <?php # début Okatea : récupération des news pour l'encart
-$rsInsertPosts = $okt->News->getPosts(array(
+$rsInsertPosts = $okt->module('News')->getPosts(array(
 	'active' => 1, 		# articles visibles
 //	'selected' => 1, 	# articles sélectionnés
 //	'created_after' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a moins d'un mois
 //	'created_before' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a plus d'un mois
 	'limit' => 10, 		# limitation du nombre d'articles
 	'language' => $okt->user->language, # langue de l'utilisateur en cours
-), $okt->News->config->insert_truncat_char);
+), $okt->module('News')->config->insert_truncat_char);
 # fin Okatea : récupération des news pour l'encart ?>
 
 

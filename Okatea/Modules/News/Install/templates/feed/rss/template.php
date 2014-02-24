@@ -5,7 +5,7 @@ xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 xmlns:content="http://purl.org/rss/1.0/modules/content/"
 xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title><?php echo $view->escape($okt->page->getSiteTitle().' - '.$okt->News->getTitle()) ?></title>
+		<title><?php echo $view->escape($okt->page->getSiteTitle().' - '.$okt->module('News')->getTitle()) ?></title>
 		<link><?php echo $view->escape($okt->request->getSchemeAndHttpHost().$view->generateUrl('newsList')) ?></link>
 		<atom:link href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$view->generateUrl('newsFeed')) ?>" rel="self" type="application/rss+xml"/>
 		<description><?php echo $view->escape($okt->page->getSiteDescription()) ?></description>
@@ -29,7 +29,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
 			<pubDate><?php echo dt::rfc822(strtotime($rsPostsList->created_at),$okt->config->timezone) ?></pubDate>
 			<dc:creator><?php echo $view->escape($rsPostsList->author) ?></dc:creator>
 
-			<?php if ($okt->News->config->categories['enable'] && $rsPostsList->rubrique_name) : ?>
+			<?php if ($okt->module('News')->config->categories['enable'] && $rsPostsList->rubrique_name) : ?>
 			<category><?php echo $view->escape($rsPostsList->rubrique_name) ?></category>
 			<?php endif; ?>
 

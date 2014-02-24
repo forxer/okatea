@@ -28,22 +28,22 @@ $okt->page->js->addReady('
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->Pages->config->lightbox_type);
+$okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
 <?php # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if (!$okt->Pages->filters->params->show_filters)
+if (!$okt->module('Pages')->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#pages-filter-control").html("<a href=\"#\">'.$view->escapeJS(__('m_pages_display_filters')).'</a>");
 
 		c.css("display","block");
 
-		$("#'.$okt->Pages->filters->getFilterFormId().'").hide();
+		$("#'.$okt->module('Pages')->filters->getFilterFormId().'").hide();
 
 		c.click(function() {
-			$("#'.$okt->Pages->filters->getFilterFormId().'").slideDown("slow");
+			$("#'.$okt->module('Pages')->filters->getFilterFormId().'").slideDown("slow");
 			$(this).hide();
 			return false;
 		});
@@ -56,7 +56,7 @@ if (!$okt->Pages->filters->params->show_filters)
 $view['slots']->start('head') ?>
 
 	<?php # début Okatea : si les filtres ont été utilisés, on index pas
-	if ($okt->Pages->filters->params->show_filters) : ?>
+	if ($okt->module('Pages')->filters->params->show_filters) : ?>
 	<meta name="robots" content="none" />
 	<?php endif; # fin Okatea : si les filtres ont été utilisés, on index pas ?>
 
@@ -69,22 +69,22 @@ $view['slots']->start('head') ?>
 
 
 <?php # début Okatea : si les filtres sont activés
-if ($okt->Pages->config->enable_filters) : ?>
+if ($okt->module('Pages')->config->enable_filters) : ?>
 
 	<?php # début Okatea : lien d'affichage des filtres
-	if (!$okt->Pages->filters->params->show_filters) : ?>
+	if (!$okt->module('Pages')->filters->params->show_filters) : ?>
 	<p id="pages-filter-control" class="filters-control"></p>
 	<?php endif; # fin Okatea : lien d'affichage des filtres ?>
 
 
 	<?php # début Okatea : affichage des filtres ?>
-	<form action="<?php echo $view->generateUrl('pagesList') ?>" id="<?php echo $okt->Pages->filters->getFilterFormId() ?>" class="filters-form" method="get">
+	<form action="<?php echo $view->generateUrl('pagesList') ?>" id="<?php echo $okt->module('Pages')->filters->getFilterFormId() ?>" class="filters-form" method="get">
 		<fieldset>
 			<legend><?php _e('m_pages_display_filters') ?></legend>
 
-			<?php echo $okt->Pages->filters->getFiltersFields(); ?>
+			<?php echo $okt->module('Pages')->filters->getFiltersFields(); ?>
 
-			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->Pages->filters->getFilterSubmitName() ?>" />
+			<p class="center"><input type="submit" value="<?php _e('c_c_action_display') ?>" name="<?php echo $okt->module('Pages')->filters->getFilterSubmitName() ?>" />
 			<a href="<?php echo $view->generateUrl('pagesList') ?>?init_pages_filters=1" rel="nofollow" class="filters-init"><?php _e('m_pages_display_filters_init') ?></a></p>
 		</fieldset>
 	</form>
@@ -143,7 +143,7 @@ if (!$rsPagesList->isEmpty()) : ?>
 		if ($rsPagesList->isReadable()) : ?>
 
 			<?php # début Okatea : affichage texte tronqué
-			if ($okt->Pages->config->public_truncat_char > 0) : ?>
+			if ($okt->module('Pages')->config->public_truncat_char > 0) : ?>
 
 			<p><?php echo $rsPagesList->content ?>… </p>
 
@@ -155,7 +155,7 @@ if (!$rsPagesList->isEmpty()) : ?>
 
 
 			<?php # début Okatea : affichage texte pas tronqué
-			if (!$okt->Pages->config->public_truncat_char) : ?>
+			if (!$okt->module('Pages')->config->public_truncat_char) : ?>
 
 			<?php echo $rsPagesList->content ?>
 

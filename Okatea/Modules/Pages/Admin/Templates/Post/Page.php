@@ -5,10 +5,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 
 # button set
@@ -77,10 +77,10 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Modal
-$okt->page->applyLbl($okt->Pages->config->lightbox_type);
+$okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 
 # RTE
-$okt->page->applyRte($okt->Pages->config->enable_rte,'textarea.richTextEditor');
+$okt->page->applyRte($okt->module('Pages')->config->enable_rte,'textarea.richTextEditor');
 
 # Lang switcher
 if (!$okt->languages->unique) {

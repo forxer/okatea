@@ -28,12 +28,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageCreate
-				$this->okt->Pages->triggers->callTrigger('beforePageCreate', $this->aPageData);
+				$this->okt->module('Pages')->triggers->callTrigger('beforePageCreate', $this->aPageData);
 
-				$this->aPageData['post']['id'] = $this->okt->Pages->addPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
+				$this->aPageData['post']['id'] = $this->okt->module('Pages')->addPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageCreate
-				$this->okt->Pages->triggers->callTrigger('afterPageCreate', $this->aPageData);
+				$this->okt->module('Pages')->triggers->callTrigger('afterPageCreate', $this->aPageData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -60,7 +60,7 @@ class Post extends Controller
 
 		$this->aPageData['post']['id'] = $this->request->attributes->getInt('page_id');
 
-		$rsPage = $this->okt->Pages->getPagesRecordset(array(
+		$rsPage = $this->okt->module('Pages')->getPagesRecordset(array(
 			'id' => $this->aPageData['post']['id'],
 			'active' => 2
 		));
@@ -78,7 +78,7 @@ class Post extends Controller
 		$this->aPageData['post']['created_at'] = $rsPage->created_at;
 		$this->aPageData['post']['updated_at'] = $rsPage->updated_at;
 
-		$rsPageI18n = $this->okt->Pages->getPageI18n($this->aPageData['post']['id']);
+		$rsPageI18n = $this->okt->module('Pages')->getPageI18n($this->aPageData['post']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -90,7 +90,7 @@ class Post extends Controller
 					$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $rsPageI18n->subtitle;
 					$this->aPageData['locales'][$aLanguage['code']]['content'] = $rsPageI18n->content;
 
-					if ($this->okt->Pages->config->enable_metas)
+					if ($this->okt->module('Pages')->config->enable_metas)
 					{
 						$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = $rsPageI18n->title_seo;
 						$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = $rsPageI18n->title_tag;
@@ -103,18 +103,18 @@ class Post extends Controller
 		}
 
 		# Images
-		if ($this->okt->Pages->config->images['enable']) {
+		if ($this->okt->module('Pages')->config->images['enable']) {
 			$this->aPageData['images'] = $rsPage->getImagesInfo();
 		}
 
 		# Fichiers
-		if ($this->okt->Pages->config->files['enable']) {
+		if ($this->okt->module('Pages')->config->files['enable']) {
 			$this->aPageData['files'] = $rsPage->getFilesInfo();
 		}
 
 		# Permissions
-		if ($this->okt->Pages->config->enable_group_perms) {
-			$this->aPageData['perms'] = $this->okt->Pages->getPagePermissions($this->aPageData['post']['id']);
+		if ($this->okt->module('Pages')->config->enable_group_perms) {
+			$this->aPageData['perms'] = $this->okt->module('Pages')->getPagePermissions($this->aPageData['post']['id']);
 		}
 
 		# switch page status
@@ -122,7 +122,7 @@ class Post extends Controller
 		{
 			try
 			{
-				$this->okt->Pages->switchPageStatus($this->aPageData['post']['id']);
+				$this->okt->module('Pages')->switchPageStatus($this->aPageData['post']['id']);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -141,7 +141,7 @@ class Post extends Controller
 		# suppression d'une image
 		if ($this->request->query->has('delete_image'))
 		{
-			$this->okt->Pages->deleteImage($this->aPageData['post']['id'], $this->request->query->get('delete_image'));
+			$this->okt->module('Pages')->deleteImage($this->aPageData['post']['id'], $this->request->query->get('delete_image'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -158,7 +158,7 @@ class Post extends Controller
 		# suppression d'un fichier
 		if ($this->request->query->has('delete_file'))
 		{
-			$this->okt->Pages->deleteFile($this->aPageData['post']['id'], $this->request->query->get('delete_file'));
+			$this->okt->module('Pages')->deleteFile($this->aPageData['post']['id'], $this->request->query->get('delete_file'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -177,12 +177,12 @@ class Post extends Controller
 			try
 			{
 				# -- TRIGGER MODULE PAGES : beforePageUpdate
-				$this->okt->Pages->triggers->callTrigger('beforePageUpdate', $this->aPageData);
+				$this->okt->module('Pages')->triggers->callTrigger('beforePageUpdate', $this->aPageData);
 
-				$this->okt->Pages->updPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
+				$this->okt->module('Pages')->updPage($this->aPageData['cursor'], $this->aPageData['locales'], $this->aPageData['perms']);
 
 				# -- TRIGGER MODULE PAGES : afterPageUpdate
-				$this->okt->Pages->triggers->callTrigger('afterPageUpdate', $this->aPageData);
+				$this->okt->module('Pages')->triggers->callTrigger('afterPageUpdate', $this->aPageData);
 
 				# log admin
 				$this->okt->logAdmin->info(array(
@@ -230,7 +230,7 @@ class Post extends Controller
 			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = '';
 			$this->aPageData['locales'][$aLanguage['code']]['content'] = '';
 
-			if ($this->okt->Pages->config->enable_metas)
+			if ($this->okt->module('Pages')->config->enable_metas)
 			{
 				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = '';
 				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = '';
@@ -248,7 +248,7 @@ class Post extends Controller
 		$rsPageI18n = null;
 
 		# -- TRIGGER MODULE PAGES : adminPostInit
-		$this->okt->Pages->triggers->callTrigger('adminPostInit', $this->aPageData, $rsPage, $rsPageI18n);
+		$this->okt->module('Pages')->triggers->callTrigger('adminPostInit', $this->aPageData, $rsPage, $rsPageI18n);
 	}
 
 	protected function populateDataFromPost()
@@ -267,7 +267,7 @@ class Post extends Controller
 			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $this->request->request->get('p_subtitle['.$aLanguage['code'].']', null, true);
 			$this->aPageData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content['.$aLanguage['code'].']', null, true);
 
-			if ($this->okt->Pages->config->enable_metas)
+			if ($this->okt->module('Pages')->config->enable_metas)
 			{
 				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo['.$aLanguage['code'].']', null, true);
 				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag['.$aLanguage['code'].']', null, true);
@@ -280,12 +280,12 @@ class Post extends Controller
 		$this->aPageData['perms'] = $this->request->request->get('perms', array());
 
 		# -- TRIGGER MODULE PAGES : adminPopulateData
-		$this->okt->Pages->triggers->callTrigger('adminPopulateData', $this->aPageData);
+		$this->okt->module('Pages')->triggers->callTrigger('adminPopulateData', $this->aPageData);
 
 		# vérification des données avant modification dans la BDD
-		if ($this->okt->Pages->checkPostData($this->aPageData))
+		if ($this->okt->module('Pages')->checkPostData($this->aPageData))
 		{
-			$this->aPageData['cursor'] = $this->okt->Pages->openPageCursor($this->aPageData['post']);
+			$this->aPageData['cursor'] = $this->okt->module('Pages')->openPageCursor($this->aPageData['post']);
 
 			return true;
 		}
@@ -297,25 +297,25 @@ class Post extends Controller
 	{
 		# Récupération de la liste complète des rubriques
 		$rsCategories = null;
-		if ($this->okt->Pages->config->categories['enable'])
+		if ($this->okt->module('Pages')->config->categories['enable'])
 		{
-			$rsCategories = $this->okt->Pages->categories->getCategories(array(
+			$rsCategories = $this->okt->module('Pages')->categories->getCategories(array(
 				'active' => 2,
 				'language' => $this->okt->user->language
 			));
 		}
 
 		# Liste des templates utilisables
-		$oTemplatesItem = new TemplatesSet($this->okt, $this->okt->Pages->config->templates['item'], 'pages/item', 'item');
+		$oTemplatesItem = new TemplatesSet($this->okt, $this->okt->module('Pages')->config->templates['item'], 'pages/item', 'item');
 		$aTplChoices = array_merge(
 			array('&nbsp;' => null),
-			$oTemplatesItem->getUsablesTemplatesForSelect($this->okt->Pages->config->templates['item']['usables'])
+			$oTemplatesItem->getUsablesTemplatesForSelect($this->okt->module('Pages')->config->templates['item']['usables'])
 		);
 
 		# Récupération de la liste des groupes si les permissions sont activées
 		$aGroups = null;
-		if ($this->okt->Pages->config->enable_group_perms) {
-			$aGroups = $this->okt->Pages->getUsersGroupsForPerms(false,true);
+		if ($this->okt->module('Pages')->config->enable_group_perms) {
+			$aGroups = $this->okt->module('Pages')->getUsersGroupsForPerms(false,true);
 		}
 
 		# Construction des onglets
@@ -331,7 +331,7 @@ class Post extends Controller
 		);
 
 		# onglet images
-		if ($this->okt->Pages->config->images['enable'])
+		if ($this->okt->module('Pages')->config->images['enable'])
 		{
 			$this->aPageData['tabs'][20] = array(
 				'id' => 'tab-images',
@@ -343,7 +343,7 @@ class Post extends Controller
 		}
 
 		# onglet fichiers
-		if ($this->okt->Pages->config->files['enable'])
+		if ($this->okt->module('Pages')->config->files['enable'])
 		{
 			$this->aPageData['tabs'][30] = array(
 				'id' => 'tab-files',
@@ -365,7 +365,7 @@ class Post extends Controller
 		);
 
 		# onglet seo
-		if ($this->okt->Pages->config->enable_metas)
+		if ($this->okt->module('Pages')->config->enable_metas)
 		{
 			$this->aPageData['tabs'][50] = array(
 				'id' => 'tab-seo',
@@ -377,7 +377,7 @@ class Post extends Controller
 		}
 
 		# -- TRIGGER MODULE PAGES : adminPostBuildTabs
-		$this->okt->Pages->triggers->callTrigger('adminPostBuildTabs', $this->aPageData);
+		$this->okt->module('Pages')->triggers->callTrigger('adminPostBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

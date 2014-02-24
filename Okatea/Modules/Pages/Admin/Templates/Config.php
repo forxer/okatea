@@ -5,10 +5,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_configuration'));
@@ -48,10 +48,10 @@ $okt->page->updatePermissionsCheckboxes();
 			<fieldset>
 				<legend><?php _e('m_pages_config_features') ?></legend>
 
-				<p class="field"><label for="p_enable_metas"><?php echo form::checkbox('p_enable_metas', 1, $okt->Pages->config->enable_metas) ?>
+				<p class="field"><label for="p_enable_metas"><?php echo form::checkbox('p_enable_metas', 1, $okt->module('Pages')->config->enable_metas) ?>
 				<?php _e('m_pages_config_enable_pages_seo') ?></label></p>
 
-				<p class="field"><label for="p_enable_filters"><?php echo form::checkbox('p_enable_filters', 1, $okt->Pages->config->enable_filters) ?>
+				<p class="field"><label for="p_enable_filters"><?php echo form::checkbox('p_enable_filters', 1, $okt->module('Pages')->config->enable_filters) ?>
 				<?php _e('m_pages_config_filters_website') ?></label></p>
 			</fieldset>
 
@@ -61,11 +61,11 @@ $okt->page->updatePermissionsCheckboxes();
 				<ul class="checklist">
 					<?php foreach ($aGroups as $g_id=>$g_title) : ?>
 					<li><label for="p_perm_g_<?php echo $g_id ?>"><?php echo form::checkbox(array('p_perms[]','p_perm_g_'.$g_id),
-					$g_id, in_array($g_id,$okt->Pages->config->perms)) ?> <?php echo $g_title ?></label></li>
+					$g_id, in_array($g_id,$okt->module('Pages')->config->perms)) ?> <?php echo $g_title ?></label></li>
 					<?php endforeach; ?>
 				</ul>
 
-				<p class="field"><label><?php echo form::checkbox('p_enable_group_perms', 1, $okt->Pages->config->enable_group_perms) ?>
+				<p class="field"><label><?php echo form::checkbox('p_enable_group_perms', 1, $okt->module('Pages')->config->enable_group_perms) ?>
 				<?php _e('m_pages_config_enable_group_permissions') ?></label></p>
 			</fieldset>
 
@@ -74,7 +74,7 @@ $okt->page->updatePermissionsCheckboxes();
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_enable_rte"><?php _e('m_pages_config_rich_text_editor') ?></label>
-				<?php echo form::select('p_enable_rte', array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->Pages->config->enable_rte) ?></p>
+				<?php echo form::select('p_enable_rte', array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->module('Pages')->config->enable_rte) ?></p>
 			<?php else : ?>
 				<p><?php _e('m_pages_config_no_rich_text_editor') ?>
 				<?php echo form::hidden('p_enable_rte', null); ?></p>
@@ -85,15 +85,15 @@ $okt->page->updatePermissionsCheckboxes();
 		<div id="tab_categories">
 			<h3><?php _e('m_pages_config_tab_categories') ?></h3>
 
-			<p class="field"><label for="p_categories_enable"><?php echo form::checkbox('p_categories_enable',1,$okt->Pages->config->categories['enable']) ?>
+			<p class="field"><label for="p_categories_enable"><?php echo form::checkbox('p_categories_enable',1,$okt->module('Pages')->config->categories['enable']) ?>
 			<?php _e('m_pages_config_categories_enable') ?></label></p>
 
-			<p class="field"><label for="p_categories_descriptions"><?php echo form::checkbox('p_categories_descriptions',1,$okt->Pages->config->categories['descriptions']) ?>
+			<p class="field"><label for="p_categories_descriptions"><?php echo form::checkbox('p_categories_descriptions',1,$okt->module('Pages')->config->categories['descriptions']) ?>
 			<?php _e('m_pages_config_categories_desc_enable') ?></label></p>
 
 			<?php if ($okt->page->hasRte()) : ?>
 				<p class="field"><label for="p_categories_rte"><?php _e('m_pages_config_rich_text_editor') ?></label>
-				<?php echo form::select('p_categories_rte',array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->Pages->config->categories['rte']) ?></p>
+				<?php echo form::select('p_categories_rte',array_merge(array(__('c_c_Disabled')=>0),$okt->page->getRteList(true)),$okt->module('Pages')->config->categories['rte']) ?></p>
 			<?php else : ?>
 				<p><?php _e('m_pages_config_no_rich_text_editor') ?>
 				<?php echo form::hidden('p_categories_rte', null); ?></p>
@@ -131,14 +131,14 @@ $okt->page->updatePermissionsCheckboxes();
 
 			<h4><?php _e('m_pages_config_other_files') ?></h4>
 
-			<p class="field"><label><?php echo form::checkbox('p_enable_files',1,$okt->Pages->config->files['enable']) ?>
+			<p class="field"><label><?php echo form::checkbox('p_enable_files',1,$okt->module('Pages')->config->files['enable']) ?>
 			<?php _e('m_pages_config_enable_attached_files') ?></label></p>
 
 			<p class="field"><label for="p_number_files"><?php _e('m_pages_config_num_attached_files') ?></label>
-			<?php echo form::text('p_number_files', 10, 255, $okt->Pages->config->files['number']) ?></p>
+			<?php echo form::text('p_number_files', 10, 255, $okt->module('Pages')->config->files['number']) ?></p>
 
 			<p class="field"><label for="p_allowed_exts"><?php _e('m_pages_config_extensions_list_allowed') ?></label>
-			<?php echo form::text('p_allowed_exts', 60, 255, $okt->Pages->config->files['allowed_exts']) ?></p>
+			<?php echo form::text('p_allowed_exts', 60, 255, $okt->module('Pages')->config->files['allowed_exts']) ?></p>
 
 		</div><!-- #tab_files -->
 
@@ -151,19 +151,19 @@ $okt->page->updatePermissionsCheckboxes();
 				<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_intitle') : printf(__('c_c_seo_module_intitle_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_name['.$aLanguage['code'].']','p_name_'.$aLanguage['code']), 60, 255, (isset($okt->Pages->config->name[$aLanguage['code']]) ? $view->escape($okt->Pages->config->name[$aLanguage['code']]) : '')) ?></p>
+				<?php echo form::text(array('p_name['.$aLanguage['code'].']','p_name_'.$aLanguage['code']), 60, 255, (isset($okt->module('Pages')->config->name[$aLanguage['code']]) ? $view->escape($okt->module('Pages')->config->name[$aLanguage['code']]) : '')) ?></p>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_title_tag') : printf(__('c_c_seo_module_title_tag_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, (isset($okt->Pages->config->title[$aLanguage['code']]) ? $view->escape($okt->Pages->config->title[$aLanguage['code']]) : '')) ?></p>
+				<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, (isset($okt->module('Pages')->config->title[$aLanguage['code']]) ? $view->escape($okt->module('Pages')->config->title[$aLanguage['code']]) : '')) ?></p>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_meta_desc') : printf(__('c_c_seo_meta_desc_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, (isset($okt->Pages->config->meta_description[$aLanguage['code']]) ? $view->escape($okt->Pages->config->meta_description[$aLanguage['code']]) : '')) ?></p>
+				<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, (isset($okt->module('Pages')->config->meta_description[$aLanguage['code']]) ? $view->escape($okt->module('Pages')->config->meta_description[$aLanguage['code']]) : '')) ?></p>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_title_seo') : printf(__('c_c_seo_module_title_seo_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->Pages->config->name_seo[$aLanguage['code']]) ? $view->escape($okt->Pages->config->name_seo[$aLanguage['code']]) : '')) ?></p>
+				<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->module('Pages')->config->name_seo[$aLanguage['code']]) ? $view->escape($okt->module('Pages')->config->name_seo[$aLanguage['code']]) : '')) ?></p>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->Pages->config->meta_keywords[$aLanguage['code']]) ? $view->escape($okt->Pages->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
+				<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->module('Pages')->config->meta_keywords[$aLanguage['code']]) ? $view->escape($okt->module('Pages')->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
 				<?php endforeach; ?>
 

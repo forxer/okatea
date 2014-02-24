@@ -28,7 +28,7 @@ $okt->page->js->addReady('
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->Pages->config->lightbox_type);
+$okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -41,7 +41,7 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 
 	<?php # début Okatea : si les images sont activées
-	if ($okt->Pages->config->images['enable'] && !empty($rsPage->images)) : ?>
+	if ($okt->module('Pages')->config->images['enable'] && !empty($rsPage->images)) : ?>
 	<p class="page-images modal-box">
 
 		<?php # début Okatea : boucle sur les images
@@ -85,7 +85,7 @@ $okt->page->applyLbl($okt->Pages->config->lightbox_type);
 
 
 	<?php # début Okatea : si les fichiers sont activées
-	if ($okt->Pages->config->files['enable'] && !empty($rsPage->files)) : ?>
+	if ($okt->module('Pages')->config->files['enable'] && !empty($rsPage->files)) : ?>
 	<div class="page-files three-cols">
 
 		<?php # début Okatea : boucle sur les fichiers

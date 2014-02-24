@@ -5,10 +5,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 # Buttons set
 $okt->page->setButtonset('pagesBtSt',array(
@@ -26,7 +26,7 @@ $okt->page->setButtonset('pagesBtSt',array(
 			'title' 		=> __('c_c_display_filters'),
 			'url' 			=> '#',
 			'ui-icon' 		=> 'search',
-			'active' 		=> $okt->Pages->filters->params->show_filters,
+			'active' 		=> $okt->module('Pages')->filters->params->show_filters,
 			'id'			=> 'filter-control',
 			'class'			=> 'button-toggleable'
 		),
@@ -40,12 +40,12 @@ $okt->page->setButtonset('pagesBtSt',array(
 ));
 
 # Filters control
-if ($okt->Pages->config->admin_filters_style == 'slide')
+if ($okt->module('Pages')->config->admin_filters_style == 'slide')
 {
 	# Slide down
-	$okt->page->filterControl($okt->Pages->filters->params->show_filters);
+	$okt->page->filterControl($okt->module('Pages')->filters->params->show_filters);
 }
-elseif ($okt->Pages->config->admin_filters_style == 'dialog')
+elseif ($okt->module('Pages')->config->admin_filters_style == 'dialog')
 {
 	# Display a UI dialog box
 	$okt->page->js->addReady("
@@ -92,9 +92,9 @@ $okt->page->css->addCss('
 	<fieldset>
 		<legend><?php _e('m_pages_display_filters') ?></legend>
 
-		<?php echo $okt->Pages->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
+		<?php echo $okt->module('Pages')->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
-		<p><input type="submit" name="<?php echo $okt->Pages->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
+		<p><input type="submit" name="<?php echo $okt->module('Pages')->filters->getFilterSubmitName() ?>" value="<?php _e('c_c_action_display') ?>" />
 		<a href="<?php echo $view->generateurl('Pages_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a></p>
 
 	</fieldset>
@@ -124,10 +124,10 @@ if (!$rsPages->isEmpty()) : ?>
 		<caption><?php _e('m_pages_list_table_caption') ?></caption>
 		<thead><tr>
 			<th scope="col"><?php _e('m_pages_list_table_th_title') ?></th>
-			<?php if ($okt->Pages->config->categories['enable']) : ?>
+			<?php if ($okt->module('Pages')->config->categories['enable']) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_category') ?></th>
 			<?php endif; ?>
-			<?php if ($okt->Pages->config->enable_group_perms) : ?>
+			<?php if ($okt->module('Pages')->config->enable_group_perms) : ?>
 			<th scope="col"><?php _e('m_pages_list_table_th_access') ?></th>
 			<?php endif; ?>
 			<th scope="col"><?php _e('c_c_Actions') ?></th>
@@ -145,15 +145,15 @@ if (!$rsPages->isEmpty()) : ?>
 				echo $view->escape($rsPages->title) ?></a>
 			</th>
 
-			<?php if ($okt->Pages->config->categories['enable']) : ?>
+			<?php if ($okt->module('Pages')->config->categories['enable']) : ?>
 			<td class="<?php echo $td_class ?>"><?php echo $view->escape($rsPages->category_title) ?></td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
-			if ($okt->Pages->config->enable_group_perms) :
+			if ($okt->module('Pages')->config->enable_group_perms) :
 
 				$aGroupsAccess = array();
-				$aPerms = $okt->Pages->getPagePermissions($rsPages->id);
+				$aPerms = $okt->module('Pages')->getPagePermissions($rsPages->id);
 				foreach ($aPerms as $iPerm) {
 					$aGroupsAccess[] = $view->escape($aGroups[$iPerm]);
 				}

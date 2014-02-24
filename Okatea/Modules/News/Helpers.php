@@ -65,7 +65,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (!$okt->News->config->categories['enable']) {
+		if (!$okt->module('News')->config->categories['enable']) {
 			return null;
 		}
 
@@ -81,7 +81,7 @@ class Helpers
 			}
 		}
 
-		$rsCategories = $okt->News->categories->getCategories(array(
+		$rsCategories = $okt->module('News')->categories->getCategories(array(
 			'active' => 1,
 			'language' => $okt->user->language,
 			'with_count' => false
@@ -161,7 +161,7 @@ class Helpers
 		),$aCustomParams);
 
 		# on récupèrent les articles
-		$rsPosts = $okt->News->getPosts($aParams);
+		$rsPosts = $okt->module('News')->getPosts($aParams);
 
 		# on construient le HTML avec les données
 		$aItems = array();
@@ -196,7 +196,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (!$okt->News->config->categories['enable']) {
+		if (!$okt->module('News')->config->categories['enable']) {
 			return null;
 		}
 
@@ -213,7 +213,7 @@ class Helpers
 		}
 
 		# on récupèrent les sous-catégories
-		$rsChildren = $okt->News->categories->getChildren($iCatId, false, $okt->user->language);
+		$rsChildren = $okt->module('News')->categories->getChildren($iCatId, false, $okt->user->language);
 
 		# on construient le HTML avec les données
 		$aChildren = array();

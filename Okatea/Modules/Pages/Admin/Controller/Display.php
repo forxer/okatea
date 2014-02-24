@@ -60,7 +60,7 @@ class Display extends Controller
 
 				try
 				{
-					$this->okt->Pages->config->write($new_conf);
+					$this->okt->module('Pages')->config->write($new_conf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

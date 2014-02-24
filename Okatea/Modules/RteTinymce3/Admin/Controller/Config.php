@@ -22,7 +22,7 @@ class Config extends Controller
 		{
 			try
 			{
-				$this->okt->RteTinymce3->config->write(array(
+				$this->okt->module('RteTinymce3')->config->write(array(
 					'width' 		=> $this->request->request->get('p_width'),
 					'height' 		=> $this->request->request->get('p_height'),
 					'content_css' 	=> $this->request->request->get('p_content_css')

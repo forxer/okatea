@@ -7,7 +7,7 @@ use Okatea\Tao\Misc\Utilities;
 
 <h3><?php _e('m_pages_page_tab_title_images')?></h3>
 <div class="two-cols modal-box">
-<?php for ($i=1; $i<=$okt->Pages->config->images['number']; $i++) : ?>
+<?php for ($i=1; $i<=$okt->module('Pages')->config->images['number']; $i++) : ?>
 	<div class="col">
 		<fieldset>
 			<legend><?php printf(__('m_pages_page_image_%s'), $i) ?></legend>

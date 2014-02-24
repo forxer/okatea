@@ -153,7 +153,7 @@ class Recordset extends BaseRecordset
 		}
 
 		# si les permissions sont désactivées alors on as le droit
-		if (!$this->okt->News->config->enable_group_perms)
+		if (!$this->okt->module('News')->config->enable_group_perms)
 		{
 			$perms[$this->id] = true;
 			return true;
@@ -167,7 +167,7 @@ class Recordset extends BaseRecordset
 		}
 
 		# récupération des permissions de l'actualité
-		$aPerms = $this->okt->News->getPostPermissions($this->id);
+		$aPerms = $this->okt->module('News')->getPostPermissions($this->id);
 
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
@@ -231,32 +231,32 @@ class Recordset extends BaseRecordset
 	{
 		$files = array();
 
-		if (!$this->okt->News->config->files['enable']) {
+		if (!$this->okt->module('News')->config->files['enable']) {
 			return $files;
 		}
 
 		$files_array = array_filter((array)unserialize($this->files));
 
 		$j=1;
-		for ($i=1; $i<=$this->okt->News->config->files['number']; $i++)
+		for ($i=1; $i<=$this->okt->module('News')->config->files['number']; $i++)
 		{
 			if (!isset($files_array[$i]) || empty($files_array[$i]['filename'])
-				|| !file_exists($this->okt->News->upload_dir.'/files/'.$files_array[$i]['filename']))
+				|| !file_exists($this->okt->module('News')->upload_dir.'/files/'.$files_array[$i]['filename']))
 			{
 				continue;
 			}
 
-			$mime_type = \files::getMimeType($this->okt->News->upload_dir.'/files/'.$files_array[$i]['filename']);
+			$mime_type = \files::getMimeType($this->okt->module('News')->upload_dir.'/files/'.$files_array[$i]['filename']);
 
 			$files[$j++] = array_merge(
-				stat($this->okt->News->upload_dir.'/files/'.$files_array[$i]['filename']),
+				stat($this->okt->module('News')->upload_dir.'/files/'.$files_array[$i]['filename']),
 				array(
-					'url' => $this->okt->News->upload_url.'files/'.$files_array[$i]['filename'],
+					'url' => $this->okt->module('News')->upload_url.'files/'.$files_array[$i]['filename'],
 					'filename' => $files_array[$i]['filename'],
 					'title' => $files_array[$i]['title'],
 					'mime' => $mime_type,
 					'type' => Utilities::getMediaType($mime_type),
-					'ext' => pathinfo($this->okt->News->upload_dir.'/files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
+					'ext' => pathinfo($this->okt->module('News')->upload_dir.'/files/'.$files_array[$i]['filename'],PATHINFO_EXTENSION)
 				)
 			);
 		}
@@ -271,7 +271,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getImagesInfo()
 	{
-		if (!$this->okt->News->config->images['enable']) {
+		if (!$this->okt->module('News')->config->images['enable']) {
 			return array();
 		}
 
@@ -286,7 +286,7 @@ class Recordset extends BaseRecordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (!$this->okt->News->config->images['enable']) {
+		if (!$this->okt->module('News')->config->images['enable']) {
 			return array();
 		}
 
@@ -302,12 +302,12 @@ class Recordset extends BaseRecordset
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->News->upload_dir.'/img/'.$this->id;
+		return $this->okt->module('News')->upload_dir.'/img/'.$this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->News->upload_url.'/img/'.$this->id;
+		return $this->okt->module('News')->upload_url.'/img/'.$this->id;
 	}
 
 }

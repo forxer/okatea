@@ -7,7 +7,7 @@ use Okatea\Tao\Misc\Utilities;
 
 <h3><?php _e('m_news_post_tab_title_images')?></h3>
 <div class="two-cols modal-box">
-<?php for ($i=1; $i<=$okt->News->config->images['number']; $i++) : ?>
+<?php for ($i=1; $i<=$okt->module('News')->config->images['number']; $i++) : ?>
 	<div class="col">
 		<fieldset>
 			<legend><?php printf(__('m_news_post_image_%s'), $i) ?></legend>

@@ -28,7 +28,7 @@ $okt->page->js->addReady('
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->News->config->lightbox_type);
+$okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -45,22 +45,22 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
 		<?php # début Okatea : affichage des infos
-		if ($okt->News->config->public_display_date || $okt->News->config->public_display_author || $okt->News->config->categories['enable']) : ?>
+		if ($okt->module('News')->config->public_display_date || $okt->module('News')->config->public_display_author || $okt->module('News')->config->categories['enable']) : ?>
 		<p id="post-infos">
 			<?php _e('m_news_published') ?>
 
 			<?php  # début Okatea : affichage date de l'article
-			if ($okt->News->config->public_display_date) : ?>
+			if ($okt->module('News')->config->public_display_date) : ?>
 			<?php printf(__('m_news_on_%s'),dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$rsPost->created_at)) ?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
 			<?php # début Okatea : affichage l'auteur de l'article
-			if ($okt->News->config->public_display_author) : ?>
+			if ($okt->module('News')->config->public_display_author) : ?>
 			<?php printf(__('m_news_by_%s'),$view->escape($rsPost->author)) ?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
 			<?php # début Okatea : affichage rubrique
-			if ($okt->News->config->categories['enable'] && $rsPost->category_title) : ?>
+			if ($okt->module('News')->config->categories['enable'] && $rsPost->category_title) : ?>
 			<?php printf(__('m_news_in_%s'),'<a href="'.$view->escape($rsPost->category_url).'">'.$view->escape($rsPost->category_title).'</a>') ?>
 			<?php endif; # fin Okatea : affichage rubrique ?>
 
@@ -72,7 +72,7 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 	<div id="post-body">
 
 		<?php # début Okatea : si les images sont activées
-		if ($okt->News->config->images['enable'] && !empty($rsPost->images)) : ?>
+		if ($okt->module('News')->config->images['enable'] && !empty($rsPost->images)) : ?>
 		<p id="post-images" class="modal-box">
 
 			<?php # début Okatea : boucle sur les images
@@ -117,7 +117,7 @@ $okt->page->applyLbl($okt->News->config->lightbox_type);
 	<div id="post-footer">
 
 		<?php # début Okatea : si les fichiers sont activées
-		if ($okt->News->config->files['enable']) : ?>
+		if ($okt->module('News')->config->files['enable']) : ?>
 		<div id="post-files" class="three-cols">
 
 			<?php # début Okatea : boucle sur les fichiers

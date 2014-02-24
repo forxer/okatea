@@ -41,7 +41,7 @@ if (!empty($_GET['delete_watermark']))
 {
 	$okt->partners->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
-	$okt->news->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
+	$okt->module('Partners')->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
 	http::redirect('module.php?m=partners&action=config');
 }

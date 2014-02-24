@@ -24,7 +24,7 @@ use Okatea\Modules\News\Helpers as NewsHelpers;
 </div>
 
 <div class="two-cols">
-	<?php if ($okt->News->config->categories['enable']) : ?>
+	<?php if ($okt->module('News')->config->categories['enable']) : ?>
 	<p class="field col"><label for="p_category_id"><?php _e('m_news_post_category')?></label>
 	<select id="p_category_id" name="p_category_id">
 		<option value="0"><?php _e('m_news_post_category_first_level') ?></option>
@@ -42,7 +42,7 @@ use Okatea\Modules\News\Helpers as NewsHelpers;
 	<?php endif; ?>
 
 	<?php # si les permissions de groupe sont activées
-	if ($okt->News->config->enable_group_perms) : ?>
+	if ($okt->module('News')->config->enable_group_perms) : ?>
 	<div class="col">
 		<p><?php _e('m_news_post_permissions_group')?></p>
 
@@ -91,7 +91,7 @@ use Okatea\Modules\News\Helpers as NewsHelpers;
 
 	<?php endif; ?>
 
-	<?php if (!empty($okt->News->config->templates['item']['usables'])) : ?>
+	<?php if (!empty($okt->module('News')->config->templates['item']['usables'])) : ?>
 	<p class="field col"><label for="p_tpl"><?php _e('m_news_post_tpl') ?></label>
 	<?php echo form::select('p_tpl', $aTplChoices, $aPostData['post']['tpl'])?></p>
 	<?php endif; ?>

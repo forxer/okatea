@@ -18,13 +18,13 @@ class module_pages_example_extra_fields extends Module
 		}
 
 		# enregistrement des triggers
-		$this->okt->pages->triggers->registerTrigger('getPagesSelectFields',  array($this, 'getPagesSelectFields'));
-		$this->okt->pages->triggers->registerTrigger('adminPostInit',         array($this, 'adminPostInit'));
-		$this->okt->pages->triggers->registerTrigger('adminPopulateData',     array($this, 'adminPopulateData'));
-		$this->okt->pages->triggers->registerTrigger('checkPostData',         array($this, 'checkPostData'));
-		$this->okt->pages->triggers->registerTrigger('beforePageUpdate',      array($this, 'beforePageUpdate'));
-		$this->okt->pages->triggers->registerTrigger('beforePageCreate',      array($this, 'beforePageCreate'));
-		$this->okt->pages->triggers->registerTrigger('adminPostBuildTabs',    array($this, 'adminPostBuildTabs'));
+		$this->okt->module('Pages')->triggers->registerTrigger('getPagesSelectFields',  array($this, 'getPagesSelectFields'));
+		$this->okt->module('Pages')->triggers->registerTrigger('adminPostInit',         array($this, 'adminPostInit'));
+		$this->okt->module('Pages')->triggers->registerTrigger('adminPopulateData',     array($this, 'adminPopulateData'));
+		$this->okt->module('Pages')->triggers->registerTrigger('checkPostData',         array($this, 'checkPostData'));
+		$this->okt->module('Pages')->triggers->registerTrigger('beforePageUpdate',      array($this, 'beforePageUpdate'));
+		$this->okt->module('Pages')->triggers->registerTrigger('beforePageCreate',      array($this, 'beforePageCreate'));
+		$this->okt->module('Pages')->triggers->registerTrigger('adminPostBuildTabs',    array($this, 'adminPostBuildTabs'));
 	}
 
 	/**

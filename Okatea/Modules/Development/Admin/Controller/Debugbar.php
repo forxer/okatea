@@ -48,7 +48,7 @@ class Debugbar extends Controller
 
 				try
 				{
-					$this->okt->Development->config->write($new_conf);
+					$this->okt->module('Development')->config->write($new_conf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

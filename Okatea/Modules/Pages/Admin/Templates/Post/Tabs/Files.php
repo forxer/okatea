@@ -8,7 +8,7 @@ use Okatea\Tao\Misc\Utilities;
 <h3><?php _e('m_pages_post_tab_title_files')?></h3>
 
 <div class="two-cols">
-<?php for ($i=1; $i<=$okt->Pages->config->files['number']; $i++) : ?>
+<?php for ($i=1; $i<=$okt->module('Pages')->config->files['number']; $i++) : ?>
 	<div class="col">
 		<p class="field"><label for="p_files_<?php echo $i ?>"><?php printf(__('m_pages_post_file_%s'), $i)?> </label>
 		<?php echo form::file('p_files_'.$i) ?></p>

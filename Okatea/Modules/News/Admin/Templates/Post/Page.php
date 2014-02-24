@@ -5,10 +5,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->News->getTitle());
+$okt->page->addTitleTag($okt->module('News')->getTitle());
 
 # Module start breadcrumb
-$okt->page->addAriane($okt->News->getName(), $view->generateUrl('News_index'));
+$okt->page->addAriane($okt->module('News')->getName(), $view->generateUrl('News_index'));
 
 
 # button set
@@ -87,10 +87,10 @@ $okt->page->tabs();
 $okt->page->datePicker();
 
 # Modal
-$okt->page->applyLbl($okt->News->config->lightbox_type);
+$okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 # RTE
-$okt->page->applyRte($okt->News->config->enable_rte,'textarea.richTextEditor');
+$okt->page->applyRte($okt->module('News')->config->enable_rte,'textarea.richTextEditor');
 
 # Lang switcher
 if (!$okt->languages->unique) {

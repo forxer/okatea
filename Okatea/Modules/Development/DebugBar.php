@@ -89,7 +89,7 @@ class DebugBar
 	 */
 	public function addHtmlByBehavior()
 	{
-		echo $this->okt->Development->debugBar->getHtml();
+		echo $this->okt->module('Development')->debugBar->getHtml();
 	}
 
 	/**

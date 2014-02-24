@@ -24,33 +24,33 @@ class Config extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/admin.config');
 
 		# Gestion des images
-		$oImageUploadConfig = new ImageUploadConfig($this->okt, $this->okt->Pages->getImageUpload());
+		$oImageUploadConfig = new ImageUploadConfig($this->okt, $this->okt->module('Pages')->getImageUpload());
 		$oImageUploadConfig->setBaseUrl($this->generateUrl('Pages_config').'?');
 
 		# Gestionnaires de templates
 		$oTemplatesList = new TemplatesSet($this->okt,
-			$this->okt->Pages->config->templates['list'],
+			$this->okt->module('Pages')->config->templates['list'],
 			'pages/list',
 			'list',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesItem = new TemplatesSet($this->okt,
-			$this->okt->Pages->config->templates['item'],
+			$this->okt->module('Pages')->config->templates['item'],
 			'pages/item',
 			'item',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesInsert = new TemplatesSet($this->okt,
-			$this->okt->Pages->config->templates['insert'],
+			$this->okt->module('Pages')->config->templates['insert'],
 			'pages/insert',
 			'insert',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesFeed = new TemplatesSet($this->okt,
-			$this->okt->Pages->config->templates['feed'],
+			$this->okt->module('Pages')->config->templates['feed'],
 			'pages/feed',
 			'feed',
 			$this->generateUrl('Pages_config').'?'
@@ -60,7 +60,7 @@ class Config extends Controller
 		# régénération des miniatures
 		if ($this->okt->request->query->has('minregen'))
 		{
-			$this->okt->Pages->regenMinImages();
+			$this->okt->module('Pages')->regenMinImages();
 
 			$this->okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
 
@@ -70,7 +70,7 @@ class Config extends Controller
 		# suppression filigrane
 		if ($this->okt->request->query->has('delete_watermark'))
 		{
-			$this->okt->Pages->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
+			$this->okt->module('Pages')->config->write(array('images'=>$oImageUploadConfig->removeWatermak()));
 
 			$this->okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
 
@@ -128,7 +128,7 @@ class Config extends Controller
 
 				try
 				{
-					$this->okt->Pages->config->write($new_conf);
+					$this->okt->module('Pages')->config->write($new_conf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
@@ -143,7 +143,7 @@ class Config extends Controller
 		}
 
 		# Liste des groupes pour les permissions
-		$aGroups = $this->okt->Pages->getUsersGroupsForPerms(true, true);
+		$aGroups = $this->okt->module('Pages')->getUsersGroupsForPerms(true, true);
 
 		return $this->render('Pages/Admin/Templates/Config', array(
 			'oImageUploadConfig' => $oImageUploadConfig,

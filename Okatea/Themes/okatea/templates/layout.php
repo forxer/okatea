@@ -79,7 +79,7 @@ $view->extend('main');
 				if ($okt->modules->isLoaded('News')) : ?>
 				<div id="latest-news">
 					<h2><?php _e('Latest news') ?></h2>
-					<?php echo $view->render($okt->News->getInsertTplPath()); ?>
+					<?php echo $view->render($okt->module('News')->getInsertTplPath()); ?>
 				</div>
 				<?php endif; # fin Okatea : si le module news est présent, affichage de l'encart ?>
 

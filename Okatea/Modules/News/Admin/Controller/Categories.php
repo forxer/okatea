@@ -14,7 +14,7 @@ class Categories extends Controller
 {
 	public function page()
 	{
-		if (!$this->okt->News->config->categories['enable'] || !$this->okt->checkPerm('news_categories')) {
+		if (!$this->okt->module('News')->config->categories['enable'] || !$this->okt->checkPerm('news_categories')) {
 			return $this->serve401();
 		}
 
@@ -22,7 +22,7 @@ class Categories extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.categories');
 
 		# Récupération de la liste complète des rubriques
-		$rsCategories = $this->okt->News->categories->getCategories(array(
+		$rsCategories = $this->okt->module('News')->categories->getCategories(array(
 			'active' => 2,
 			'with_count' => true,
 			'language' => $this->okt->user->language
@@ -53,7 +53,7 @@ class Categories extends Controller
 
 		try
 		{
-			$this->okt->News->categories->switchCategoryStatus($iCategoryId);
+			$this->okt->module('News')->categories->switchCategoryStatus($iCategoryId);
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -80,7 +80,7 @@ class Categories extends Controller
 
 		try
 		{
-			$this->okt->News->categories->delCategory($iCategoryId);
+			$this->okt->module('News')->categories->delCategory($iCategoryId);
 
 			# log admin
 			$this->okt->logAdmin->warning(array(

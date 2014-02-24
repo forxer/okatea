@@ -14,7 +14,7 @@ Exemples :
 - Pour afficher la page identifiant 4 :
 
 	<?php # début Okatea : affichage encart page id 4
-	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
 		'mPageIdentifier' => 4
 	)); # fin Okatea : affichage encart page id 4 ?>
 
@@ -22,7 +22,7 @@ Exemples :
 - Pour afficher la page ayant pour slug 'ma-page' :
 
 	<?php # début Okatea : affichage encart page slug 'ma-page'
-	echo $okt->tpl->render($okt->Pages->getInsertTplPath(), array(
+	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
 		'mPageIdentifier' => 'ma-page'
 	)); # fin Okatea : affichage encart page slug 'ma-page' ?>
 
@@ -44,11 +44,11 @@ use Okatea\Tao\Html\Modifiers;
 	}
 
 	# récupération de la page pour l'encart
-	$rsInsertPage = $okt->Pages->getPage($mPageIdentifier);
+	$rsInsertPage = $okt->module('Pages')->getPage($mPageIdentifier);
 
 	# troncature du contenu ?
-	if ($okt->Pages->config->insert_truncat_char > 0) {
-		$rsInsertPage->content = Modifiers::truncate(strip_tags($rsInsertPage->content), $okt->Pages->config->insert_truncat_char);
+	if ($okt->module('Pages')->config->insert_truncat_char > 0) {
+		$rsInsertPage->content = Modifiers::truncate(strip_tags($rsInsertPage->content), $okt->module('Pages')->config->insert_truncat_char);
 	}
 
 # fin Okatea : traitements avant affichage ?>
@@ -65,7 +65,7 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquer
 
 
 <?php # début Okatea : ajout du modal
-$okt->page->applyLbl($okt->Pages->config->lightbox_type);
+$okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
@@ -98,7 +98,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 	<div class="page-content">
 
 		<?php # début Okatea : si les images sont activées
-		if ($okt->Pages->config->images['enable'] && !empty($rsInsertPage->images)) : ?>
+		if ($okt->module('Pages')->config->images['enable'] && !empty($rsInsertPage->images)) : ?>
 		<p class="page-images modal-box">
 
 			<?php # début Okatea : boucle sur les images
@@ -123,7 +123,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage texte tronqué
-		if ($okt->Pages->config->insert_truncat_char > 0) : ?>
+		if ($okt->module('Pages')->config->insert_truncat_char > 0) : ?>
 
 		<p><?php echo $rsInsertPage->content ?>…</p>
 
@@ -135,7 +135,7 @@ if (!$rsInsertPage->isEmpty()) : ?>
 
 
 		<?php # début Okatea : affichage texte pas tronqué
-		if (!$okt->Pages->config->insert_truncat_char) : ?>
+		if (!$okt->module('Pages')->config->insert_truncat_char) : ?>
 
 		<?php echo $rsInsertPage->content ?>
 

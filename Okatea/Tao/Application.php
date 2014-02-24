@@ -656,21 +656,6 @@ class Application
 		return new Config($this->cacheConfig, $this->options->get('config_dir').'/'.$file);
 	}
 
-
-	/* Raccourcis modules
-	----------------------------------------------------------*/
-
-	/**
-	 * Magic get retourne un objet module
-	 *
-	 * @param $sModuleId
-	 * @return object Okatea\Tao\Extensions\Modules\Module
-	 */
-	public function __get($sModuleId)
-	{
-		return $this->modules->getInstance($sModuleId);
-	}
-
 	/**
 	 * Retourne un objet module
 	 *

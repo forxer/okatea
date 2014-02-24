@@ -21,7 +21,7 @@ class Controller extends BaseController
 	public function newsList()
 	{
 		# permission de lecture ?
-		if (!$this->okt->News->isPublicAccessible())
+		if (!$this->okt->module('News')->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
 				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsList')));
@@ -44,46 +44,46 @@ class Controller extends BaseController
 		}
 
 		# initialisation des filtres
-		$this->okt->News->filtersStart('public');
+		$this->okt->module('News')->filtersStart('public');
 
 		# ré-initialisation filtres
 		if ($this->request->query->has('init_news_filters'))
 		{
-			$this->okt->News->filters->initFilters();
+			$this->okt->module('News')->filters->initFilters();
 			return $this->redirect($this->generateUrl('newsList'));
 		}
 
 		# initialisation des filtres
-		$this->okt->News->filters->setPostsParams($aNewsParams);
-		$this->okt->News->filters->getFilters();
+		$this->okt->module('News')->filters->setPostsParams($aNewsParams);
+		$this->okt->module('News')->filters->getFilters();
 
 		# initialisation de la pagination
-		$iNumFilteredPosts = $this->okt->News->getPostsCount($aNewsParams);
+		$iNumFilteredPosts = $this->okt->module('News')->getPostsCount($aNewsParams);
 
-		$oNewsPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt, $this->okt->module('News')->filters->params->page, $iNumFilteredPosts, $this->okt->module('News')->filters->params->nb_per_page);
 
 		$oNewsPager->base_url = $this->generateUrl('newsList');
 
 		$iNumPages = $oNewsPager->getNbPages();
 
-		$this->okt->News->filters->normalizePage($iNumPages);
+		$this->okt->module('News')->filters->normalizePage($iNumPages);
 
-		$aNewsParams['limit'] = (($this->okt->News->filters->params->page-1)*$this->okt->News->filters->params->nb_per_page).','.$this->okt->News->filters->params->nb_per_page;
+		$aNewsParams['limit'] = (($this->okt->module('News')->filters->params->page-1)*$this->okt->module('News')->filters->params->nb_per_page).','.$this->okt->module('News')->filters->params->nb_per_page;
 
 		# récupération des articles
-		$this->rsPostsList = $this->okt->News->getPosts($aNewsParams);
+		$this->rsPostsList = $this->okt->module('News')->getPosts($aNewsParams);
 
 		# meta description
-		if (!empty($this->okt->News->config->meta_description[$this->okt->user->language])) {
-			$this->page->meta_description = $this->okt->News->config->meta_description[$this->okt->user->language];
+		if (!empty($this->okt->module('News')->config->meta_description[$this->okt->user->language])) {
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
 
 		# meta keywords
-		if (!empty($this->okt->News->config->meta_keywords[$this->okt->user->language])) {
-			$this->page->meta_keywords = $this->okt->News->config->meta_keywords[$this->okt->user->language];
+		if (!empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language])) {
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
@@ -91,29 +91,29 @@ class Controller extends BaseController
 
 		# fil d'ariane
 		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
+			$this->page->breadcrumb->add($this->okt->module('News')->getName(), $this->generateUrl('newsList'));
 		}
 
 		# ajout du numéro de page au title
-		if ($this->okt->News->filters->params->page > 1) {
-			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->News->filters->params->page));
+		if ($this->okt->module('News')->filters->params->page > 1) {
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->module('News')->filters->params->page));
 		}
 
 		# title tag du module
-		$this->page->addTitleTag($this->okt->News->getTitle());
+		$this->page->addTitleTag($this->okt->module('News')->getTitle());
 
 		# titre de la page
-		$this->page->setTitle($this->okt->News->getName());
+		$this->page->setTitle($this->okt->module('News')->getName());
 
 		# titre SEO de la page
-		$this->page->setTitleSeo($this->okt->News->getNameSeo());
+		$this->page->setTitleSeo($this->okt->module('News')->getNameSeo());
 
 		# raccourcis
 		$this->rsPostsList->numPages = $iNumPages;
 		$this->rsPostsList->pager = $oNewsPager;
 
 		# rendu du template
-		return $this->render($this->okt->News->getListTplPath(), array(
+		return $this->render($this->okt->module('News')->getListTplPath(), array(
 			'rsPostsList' => $this->rsPostsList
 		));
 	}
@@ -130,7 +130,7 @@ class Controller extends BaseController
 	public function newsFeed()
 	{
 		# récupération des pages
-		$this->rsPostsList = $this->okt->News->getPosts(array(
+		$this->rsPostsList = $this->okt->module('News')->getPosts(array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
 			'limit' => 20
@@ -138,7 +138,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		$this->response->headers->set('Content-Type', 'application/rss+xml');
-		return $this->render($this->okt->News->getFeedTplPath(), array(
+		return $this->render($this->okt->module('News')->getFeedTplPath(), array(
 			'rsPostsList' => $this->rsPostsList
 		));
 	}
@@ -150,7 +150,7 @@ class Controller extends BaseController
 	public function newsCategory()
 	{
 		# si les rubriques ne sont pas actives -> 404
-		if (!$this->okt->News->config->categories['enable']) {
+		if (!$this->okt->module('News')->config->categories['enable']) {
 			return $this->serve404();
 		}
 
@@ -160,7 +160,7 @@ class Controller extends BaseController
 		}
 
 		# récupération de la rubrique
-		$this->rsCategory = $this->okt->News->categories->getCategories(array(
+		$this->rsCategory = $this->okt->module('News')->categories->getCategories(array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
 			'slug' => $sCategorySlug
@@ -171,7 +171,7 @@ class Controller extends BaseController
 		}
 
 		# permission de lecture ?
-		if (!$this->okt->News->isPublicAccessible())
+		if (!$this->okt->module('News')->isPublicAccessible())
 		{
 			if ($this->okt->user->is_guest) {
 				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsCategory', array('slug' => $this->rsCategory->slug))));
@@ -182,7 +182,7 @@ class Controller extends BaseController
 		}
 
 		# formatage description rubrique
-		if (!$this->okt->News->config->categories['rte']) {
+		if (!$this->okt->module('News')->config->categories['rte']) {
 			$this->rsCategory->content = Modifiers::nlToP($this->rsCategory->content);
 		}
 
@@ -194,39 +194,39 @@ class Controller extends BaseController
 		);
 
 		# initialisation des filtres
-		$this->okt->News->filtersStart('public');
+		$this->okt->module('News')->filtersStart('public');
 
 		# ré-initialisation filtres
 		if ($this->request->query->has('init_news_filters'))
 		{
-			$this->okt->News->filters->initFilters();
+			$this->okt->module('News')->filters->initFilters();
 			return $this->redirect($this->generateUrl('newsList'));
 		}
 
 		# initialisation des filtres
-		$this->okt->News->filters->setPostsParams($aNewsParams);
-		$this->okt->News->filters->getFilters();
+		$this->okt->module('News')->filters->setPostsParams($aNewsParams);
+		$this->okt->module('News')->filters->getFilters();
 
 		# initialisation de la pagination
-		$iNumFilteredPosts = $this->okt->News->getPostsCount($aNewsParams);
+		$iNumFilteredPosts = $this->okt->module('News')->getPostsCount($aNewsParams);
 
-		$oNewsPager = new Pager($this->okt, $this->okt->News->filters->params->page, $iNumFilteredPosts, $this->okt->News->filters->params->nb_per_page);
+		$oNewsPager = new Pager($this->okt, $this->okt->module('News')->filters->params->page, $iNumFilteredPosts, $this->okt->module('News')->filters->params->nb_per_page);
 
 		$iNumPages = $oNewsPager->getNbPages();
 
-		$this->okt->News->filters->normalizePage($iNumPages);
+		$this->okt->module('News')->filters->normalizePage($iNumPages);
 
-		$aNewsParams['limit'] = (($this->okt->News->filters->params->page-1)*$this->okt->News->filters->params->nb_per_page).','.$this->okt->News->filters->params->nb_per_page;
+		$aNewsParams['limit'] = (($this->okt->module('News')->filters->params->page-1)*$this->okt->module('News')->filters->params->nb_per_page).','.$this->okt->module('News')->filters->params->nb_per_page;
 
 		# récupération des articles
-		$this->rsPostsList = $this->okt->News->getPosts($aNewsParams);
+		$this->rsPostsList = $this->okt->module('News')->getPosts($aNewsParams);
 
 		# meta description
 		if (!empty($this->rsCategory->meta_description)) {
 			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
-		elseif (!empty($this->okt->News->config->meta_description[$this->okt->user->language])) {
-			$this->page->meta_description = $this->okt->News->config->meta_description[$this->okt->user->language];
+		elseif (!empty($this->okt->module('News')->config->meta_description[$this->okt->user->language])) {
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
@@ -236,16 +236,16 @@ class Controller extends BaseController
 		if (!empty($this->rsCategory->meta_keywords)) {
 			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
-		elseif (!empty($this->okt->News->config->meta_keywords[$this->okt->user->language])) {
-			$this->page->meta_keywords = $this->okt->News->config->meta_keywords[$this->okt->user->language];
+		elseif (!empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language])) {
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# ajout du numéro de page au title
-		if ($this->okt->News->filters->params->page > 1) {
-			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->News->filters->params->page));
+		if ($this->okt->module('News')->filters->params->page > 1) {
+			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->module('News')->filters->params->page));
 		}
 
 		# title tag
@@ -254,10 +254,10 @@ class Controller extends BaseController
 		# fil d'ariane
 		if (!$this->isHomePageRoute())
 		{
-			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
+			$this->page->breadcrumb->add($this->okt->module('News')->getName(), $this->generateUrl('newsList'));
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			$rsPath = $this->okt->News->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
+			$rsPath = $this->okt->module('News')->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
 			while ($rsPath->fetch()) {
 				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('newsCategory', array('slug' => $rsPath->slug)));
 			}
@@ -274,7 +274,7 @@ class Controller extends BaseController
 		$this->rsPostsList->pager = $oNewsPager;
 
 		# affichage du template
-		return $this->render($this->okt->News->getCategoryTplPath($this->rsCategory->tpl), array(
+		return $this->render($this->okt->module('News')->getCategoryTplPath($this->rsCategory->tpl), array(
 			'rsPostsList' => $this->rsPostsList,
 			'rsCategory' => $this->rsCategory
 		));
@@ -292,14 +292,14 @@ class Controller extends BaseController
 		}
 
 		# récupération de l'article
-		$this->rsPost = $this->okt->News->getPost($sPostSlug, 1);
+		$this->rsPost = $this->okt->module('News')->getPost($sPostSlug, 1);
 
 		if ($this->rsPost->isEmpty()) {
 			return $this->serve404();
 		}
 
 		# permission de lecture ?
-		if (!$this->okt->News->isPublicAccessible() || !$this->rsPost->isReadable())
+		if (!$this->okt->module('News')->isPublicAccessible() || !$this->rsPost->isReadable())
 		{
 			if ($this->okt->user->is_guest) {
 				return $this->redirect($this->okt->router->generateLoginUrl($this->rsPost->url));
@@ -313,8 +313,8 @@ class Controller extends BaseController
 		if (!empty($this->rsPost->meta_description)) {
 			$this->page->meta_description = $this->rsPost->meta_description;
 		}
-		elseif (!empty($this->okt->News->config->meta_description[$this->okt->user->language])) {
-			$this->page->meta_description = $this->okt->News->config->meta_description[$this->okt->user->language];
+		elseif (!empty($this->okt->module('News')->config->meta_description[$this->okt->user->language])) {
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
@@ -324,23 +324,23 @@ class Controller extends BaseController
 		if (!empty($this->rsPost->meta_keywords)) {
 			$this->page->meta_keywords = $this->rsPost->meta_keywords;
 		}
-		elseif (!empty($this->okt->News->config->meta_keywords[$this->okt->user->language])) {
-			$this->page->meta_keywords = $this->okt->News->config->meta_keywords[$this->okt->user->language];
+		elseif (!empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language])) {
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
 		}
 		else {
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
 
 		# title tag du module
-		$this->page->addTitleTag($this->okt->News->getTitle());
+		$this->page->addTitleTag($this->okt->module('News')->getTitle());
 
 		# début du fil d'ariane
 		if (!$this->isHomePageRoute()) {
-			$this->page->breadcrumb->add($this->okt->News->getName(), $this->generateUrl('newsList'));
+			$this->page->breadcrumb->add($this->okt->module('News')->getName(), $this->generateUrl('newsList'));
 		}
 
 		# si les rubriques sont activées
-		if ($this->okt->News->config->categories['enable'] && $this->rsPost->category_id)
+		if ($this->okt->module('News')->config->categories['enable'] && $this->rsPost->category_id)
 		{
 			# title tag de la rubrique
 			$this->page->addTitleTag($this->rsPost->category_title);
@@ -348,7 +348,7 @@ class Controller extends BaseController
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			if (!$this->isHomePageRoute())
 			{
-				$rsPath = $this->okt->News->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
+				$rsPath = $this->okt->module('News')->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
 				while ($rsPath->fetch()) {
 					$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('newsCategory', array('slug' => $rsPath->slug)));
 				}
@@ -370,7 +370,7 @@ class Controller extends BaseController
 		}
 
 		# affichage du template
-		return $this->render($this->okt->News->getItemTplPath($this->rsPost->tpl, $this->rsPost->category_items_tpl), array(
+		return $this->render($this->okt->module('News')->getItemTplPath($this->rsPost->tpl, $this->rsPost->category_items_tpl), array(
 			'rsPost' => $this->rsPost
 		));
 	}

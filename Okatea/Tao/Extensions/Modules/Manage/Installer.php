@@ -15,22 +15,6 @@ use Okatea\Tao\Themes\Collection as ThemesCollection;
 class Installer extends BaseInstaller
 {
 	/**
-	 * Reserved modules ID
-	 * @var array
-	 */
-	private static $aReservedIds = array(
-		'autoloader', 			'debug', 				'debugBar',
-		'cacheConfig', 			'config', 				'db',
-		'error', 				'languages', 			'l10n',
-		'logAdmin', 			'modules', 				'navigation',
-		'page', 				'request', 				'requestContext',
-		'response', 			'router', 				'adminRouter',
-		'session', 				'themes',				'theme', 				'theme_id',
-		'tpl', 					'triggers', 			'user',
-		'htmlpurifier', 		'permsStack', 			'aTplDirectories'
-	);
-
-	/**
 	 * Constructor.
 	 *
 	 * @param object $okt Okatea application instance.
@@ -52,14 +36,6 @@ class Installer extends BaseInstaller
 	 */
 	protected function preInstall()
 	{
-		# identifiant non-réservé ?
-		$this->checklist->addItem(
-			'module_id_not_reserved',
-			!in_array($this->id(), self::$aReservedIds),
-			'Module id not reserved',
-			'Module id can not be one of: "'.implode('", "', self::$aReservedIds).'"'
-		);
-
 		# présence du fichier /Module.php
 		$this->checklist->addItem(
 			'module_file',

@@ -75,18 +75,18 @@ class Module extends BaseModule
 		$aOptions[] = 'toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"';
 
 		# content CSS
-		if ($okt->RteTinymce4->config->content_css != '') {
-			$aOptions[] = 'content_css: "'.$okt->RteTinymce4->config->content_css.'"';
+		if ($okt->module('RteTinymce4')->config->content_css != '') {
+			$aOptions[] = 'content_css: "'.$okt->module('RteTinymce4')->config->content_css.'"';
 		}
 
 		# editor width
-		if ($okt->RteTinymce4->config->width != '') {
-			$aOptions[] = 'width: "'.$okt->RteTinymce4->config->width.'"';
+		if ($okt->module('RteTinymce4')->config->width != '') {
+			$aOptions[] = 'width: "'.$okt->module('RteTinymce4')->config->width.'"';
 		}
 
 		# editor height
-		if ($okt->RteTinymce4->config->height != '') {
-			$aOptions[] = 'height: "'.$okt->RteTinymce4->config->height.'"';
+		if ($okt->module('RteTinymce4')->config->height != '') {
+			$aOptions[] = 'height: "'.$okt->module('RteTinymce4')->config->height.'"';
 		}
 
 		# gestionnaire de media

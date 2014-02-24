@@ -3,10 +3,10 @@
 $view->extend('layout');
 
 # Module title tag
-$okt->page->addTitleTag($okt->Pages->getTitle());
+$okt->page->addTitleTag($okt->module('Pages')->getTitle());
 
 # Start breadcrumb
-$okt->page->addAriane($okt->Pages->getName(), $view->generateUrl('Pages_index'));
+$okt->page->addAriane($okt->module('Pages')->getName(), $view->generateUrl('Pages_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_pages_cats_categories'), $view->generateUrl('Pages_categories'));
