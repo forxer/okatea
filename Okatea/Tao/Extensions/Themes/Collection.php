@@ -27,5 +27,9 @@ class Collection extends BaseCollection
 		$this->sCacheRepositoryId = 'themes_repositories';
 
 		$this->sExtensionClassPatern = 'Okatea\\Themes\\%s\\Theme';
+
+		$this->sManagerClass = '\\Okatea\Tao\\Extensions\\Themes\\Manager';
+
+		$this->sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Themes\\Manage\\Installer';
 	}
 }

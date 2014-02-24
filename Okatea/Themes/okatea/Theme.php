@@ -12,7 +12,7 @@ use Okatea\Tao\Themes\Theme as baseTheme;
 
 class Theme extends baseTheme
 {
-	public function prepend()
+	public function prepend_public()
 	{
 		# JS
 		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');

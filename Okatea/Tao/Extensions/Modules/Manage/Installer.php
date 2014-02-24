@@ -68,7 +68,7 @@ class Installer extends BaseInstaller
 			'Module handler file doesn\'t exists'
 		);
 
-		# existence de la class module_<id_module>
+		# existence de la class Okatea\Modules\<id_module>\Module
 		if ($this->checklist->checkItem('module_file'))
 		{
 			include $this->root().'/Module.php';
