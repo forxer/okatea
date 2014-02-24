@@ -13,10 +13,8 @@ $GLOBALS['okt_l10n']['c_a_themes_no_theme'] = 'no theme';
 $GLOBALS['okt_l10n']['c_a_themes_name'] = 'Name';
 $GLOBALS['okt_l10n']['c_a_themes_version'] = 'Version';
 $GLOBALS['okt_l10n']['c_a_themes_tools'] = 'Tools';
-$GLOBALS['okt_l10n']['c_a_themes_data'] = 'Data';
 $GLOBALS['okt_l10n']['c_a_themes_actions'] = 'Actions';
 $GLOBALS['okt_l10n']['c_a_themes_changelog'] = 'Changelog';
-$GLOBALS['okt_l10n']['c_a_themes_dependance'] = 'Dependencies';
 $GLOBALS['okt_l10n']['c_a_themes_read_me'] = 'Read me';
 $GLOBALS['okt_l10n']['c_a_themes_display'] = 'Display';
 $GLOBALS['okt_l10n']['c_a_themes_config'] = 'Configuration';
@@ -51,41 +49,15 @@ $GLOBALS['okt_l10n']['c_a_themes_update_theme_%s'] = 'Update theme %s';
 $GLOBALS['okt_l10n']['c_a_themes_correctly_updated'] = 'The theme was correctly updated.';
 $GLOBALS['okt_l10n']['c_a_themes_not_updated'] = 'The theme was not updated.';
 
-$GLOBALS['okt_l10n']['c_a_themes_replace_templates_files'] = 'Replace templates files';
-$GLOBALS['okt_l10n']['c_a_themes_replace_templates_files_confirm'] = 'Are you sure you want to replace the templates files by the default ones?';
-$GLOBALS['okt_l10n']['c_a_themes_templates_files_replaced'] = 'The templates files were replaced.';
-
-$GLOBALS['okt_l10n']['c_a_themes_replace_common_files'] = 'Replace common files';
-$GLOBALS['okt_l10n']['c_a_themes_replace_common_files_confirm'] = 'Are you sure you want to replace the common files by the default ones?';
-$GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'The common files were replaced.';
+$GLOBALS['okt_l10n']['c_a_themes_replace_common_files'] = 'Replace assets files (css, js, etc.)';
+$GLOBALS['okt_l10n']['c_a_themes_replace_common_files_confirm'] = 'Are you sure you want to replace the assets files by the default ones?';
+$GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'The assets files were replaced.';
 
 $GLOBALS['okt_l10n']['c_a_themes_compare_files'] = 'Compare files';
 $GLOBALS['okt_l10n']['c_a_themes_file_comparison_theme_%s'] = 'File comparison theme %s';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_not_exists'] = 'The file %s not exists.';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_identical'] = 'The file %s is identical.';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_different_%s'] = 'The file %s is different. %s';
-
-$GLOBALS['okt_l10n']['c_a_themes_replace_public_files'] = 'Replace public files';
-$GLOBALS['okt_l10n']['c_a_themes_replace_public_files_confirm'] = 'Are you sure you want to replace the public files by the default ones?';
-$GLOBALS['okt_l10n']['c_a_themes_public_files_replaced'] = 'The public files were replaced.';
-
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set'] = 'Install test set';
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set_%s'] = 'Install test set of %s theme';
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set_theme_confirm'] = 'Are you sure you want to install the test set of this theme? All data currently associated with him will be permanently removed.';
-$GLOBALS['okt_l10n']['c_a_themes_test_set_correctly_installed'] = 'The test set was correctly installed.';
-$GLOBALS['okt_l10n']['c_a_themes_test_set_not_correctly_installed'] = 'The test set was not correctly installed.';
-
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data'] = 'Install default data';
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data_%s'] = 'Install default data of %s theme';
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data_theme_confirm'] = 'Are you sure you want to install the default data of this theme? All data currently associated with him will be permanently removed.';
-$GLOBALS['okt_l10n']['c_a_themes_default_data_correctly_installed'] = 'The default data were correctly installed.';
-$GLOBALS['okt_l10n']['c_a_themes_default_data_not_correctly_installed'] = 'The default datat were not correctly installed.';
-
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme'] = 'Empty theme';
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme_%s'] = 'Empty theme %s';
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme_confirm'] = 'Are you sure you want to empty this theme? All data currently associated with him will be permanently removed.';
-$GLOBALS['okt_l10n']['c_a_themes_correctly_emptied'] = 'The theme was correctly emptied.';
-$GLOBALS['okt_l10n']['c_a_themes_not_correctly_emptied'] = 'The theme was not correctly emptied.';
 
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme'] = 'Delete theme';
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme_confirm'] = 'Are you sure you want to delete this theme?';

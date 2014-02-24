@@ -65,10 +65,6 @@ $GLOBALS['okt_l10n']['c_a_modules_file_%s_not_exists'] = 'The file %s not exists
 $GLOBALS['okt_l10n']['c_a_modules_file_%s_identical'] = 'The file %s is identical.';
 $GLOBALS['okt_l10n']['c_a_modules_file_%s_different_%s'] = 'The file %s is different. %s';
 
-$GLOBALS['okt_l10n']['c_a_modules_replace_public_files'] = 'Replace public files';
-$GLOBALS['okt_l10n']['c_a_modules_replace_public_files_confirm'] = 'Are you sure you want to replace the public files by the default ones?';
-$GLOBALS['okt_l10n']['c_a_modules_public_files_replaced'] = 'The public files were replaced.';
-
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set'] = 'Install test set';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_%s'] = 'Install test set of %s module';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_module_confirm'] = 'Are you sure you want to install the test set of this module? All data currently associated with him will be permanently removed.';

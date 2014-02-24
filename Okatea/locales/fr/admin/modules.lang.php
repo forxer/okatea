@@ -65,10 +65,6 @@ $GLOBALS['okt_l10n']['c_a_modules_file_%s_not_exists'] = 'Le fichier %s n’exis
 $GLOBALS['okt_l10n']['c_a_modules_file_%s_identical'] = 'Le fichier %s est identique.';
 $GLOBALS['okt_l10n']['c_a_modules_file_%s_different_%s'] = 'Le fichier %s est différent. %s';
 
-$GLOBALS['okt_l10n']['c_a_modules_replace_public_files'] = 'Remplacer les fichiers public';
-$GLOBALS['okt_l10n']['c_a_modules_replace_public_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers public par ceux par défaut ?';
-$GLOBALS['okt_l10n']['c_a_modules_public_files_replaced'] = 'Les fichiers public ont été remplacés.';
-
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set'] = 'Installer le jeu de test';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_%s'] = 'Installer le jeu de test du module %s';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_module_confirm'] = 'Êtes-vous sûr de vouloir installer le jeu de test de ce module ? Toutes les données actuellement associées à celui-ci seront définitivement supprimées.';

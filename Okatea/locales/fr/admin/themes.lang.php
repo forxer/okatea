@@ -13,10 +13,8 @@ $GLOBALS['okt_l10n']['c_a_themes_no_theme'] = 'aucun thème';
 $GLOBALS['okt_l10n']['c_a_themes_name'] = 'Nom';
 $GLOBALS['okt_l10n']['c_a_themes_version'] = 'Version';
 $GLOBALS['okt_l10n']['c_a_themes_tools'] = 'Outils';
-$GLOBALS['okt_l10n']['c_a_themes_data'] = 'Données';
 $GLOBALS['okt_l10n']['c_a_themes_actions'] = 'Actions';
 $GLOBALS['okt_l10n']['c_a_themes_changelog'] = 'Changelog';
-$GLOBALS['okt_l10n']['c_a_themes_dependance'] = 'Dépendance(s)';
 $GLOBALS['okt_l10n']['c_a_themes_read_me'] = 'Read me';
 $GLOBALS['okt_l10n']['c_a_themes_display'] = 'Affichage';
 $GLOBALS['okt_l10n']['c_a_themes_config'] = 'Configuration';
@@ -51,41 +49,15 @@ $GLOBALS['okt_l10n']['c_a_themes_update_theme_%s'] = 'Mise à jour du thème %s'
 $GLOBALS['okt_l10n']['c_a_themes_correctly_updated'] = 'Le thème a été correctement mis à jour.';
 $GLOBALS['okt_l10n']['c_a_themes_not_updated'] = 'Le thème n’a pas été mis à jour.';
 
-$GLOBALS['okt_l10n']['c_a_themes_replace_templates_files'] = 'Remplacer les fichiers de template';
-$GLOBALS['okt_l10n']['c_a_themes_replace_templates_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers de template par ceux par défaut ?';
-$GLOBALS['okt_l10n']['c_a_themes_templates_files_replaced'] = 'Les fichiers de template ont été remplacés.';
-
-$GLOBALS['okt_l10n']['c_a_themes_replace_common_files'] = 'Remplacer les fichiers communs';
-$GLOBALS['okt_l10n']['c_a_themes_replace_common_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers communs par ceux par défaut ?';
-$GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'Les fichiers communs ont été remplacés.';
+$GLOBALS['okt_l10n']['c_a_themes_replace_common_files'] = 'Remplacer les fichiers actifs (css, js, etc.)';
+$GLOBALS['okt_l10n']['c_a_themes_replace_common_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers actifs par ceux par défaut ?';
+$GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'Les fichiers actifs ont été remplacés.';
 
 $GLOBALS['okt_l10n']['c_a_themes_compare_files'] = 'Comparer les fichiers';
 $GLOBALS['okt_l10n']['c_a_themes_file_comparison_theme_%s'] = 'Comparer les fichiers du thème %s';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_not_exists'] = 'Le fichier %s n’existe pas.';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_identical'] = 'Le fichier %s est identique.';
 $GLOBALS['okt_l10n']['c_a_themes_file_%s_different_%s'] = 'Le fichier %s est différent. %s';
-
-$GLOBALS['okt_l10n']['c_a_themes_replace_public_files'] = 'Remplacer les fichiers public';
-$GLOBALS['okt_l10n']['c_a_themes_replace_public_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers public par ceux par défaut ?';
-$GLOBALS['okt_l10n']['c_a_themes_public_files_replaced'] = 'Les fichiers public ont été remplacés.';
-
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set'] = 'Installer le jeu de test';
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set_%s'] = 'Installer le jeu de test du thème %s';
-$GLOBALS['okt_l10n']['c_a_themes_install_test_set_theme_confirm'] = 'Êtes-vous sûr de vouloir installer le jeu de test de ce thème ? Toutes les données actuellement associées à celui-ci seront définitivement supprimées.';
-$GLOBALS['okt_l10n']['c_a_themes_test_set_correctly_installed'] = 'Le jeu de test a été correctement installé.';
-$GLOBALS['okt_l10n']['c_a_themes_test_set_not_correctly_installed'] = 'Le jeu de test n’a pas été correctement installé.';
-
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data'] = 'Installer les données par défaut';
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data_%s'] = 'Installer les données par défaut du thème %s';
-$GLOBALS['okt_l10n']['c_a_themes_install_default_data_theme_confirm'] = 'Êtes-vous sûr de vouloir installer les données par défaut de ce thème ? Toutes les données actuellement associées à celui-ci seront définitivement supprimées.';
-$GLOBALS['okt_l10n']['c_a_themes_default_data_correctly_installed'] = 'Les données par défaut ont été correctement installés.';
-$GLOBALS['okt_l10n']['c_a_themes_default_data_not_correctly_installed'] = 'Les données par défaut n’ont pas été correctement installés.';
-
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme'] = 'Vider le thème';
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme_%s'] = 'Vider le thème %s';
-$GLOBALS['okt_l10n']['c_a_themes_empty_theme_confirm'] = 'Êtes-vous sûr de vouloir vider ce thème ? Toutes les données actuellement associées à celui-ci seront définitivement supprimées.';
-$GLOBALS['okt_l10n']['c_a_themes_correctly_emptied'] = 'Le thème a été correctement vidé.';
-$GLOBALS['okt_l10n']['c_a_themes_not_correctly_emptied'] = 'Le thème n’a pas été correctement vidé.';
 
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme'] = 'Suppression thème';
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme_confirm'] = 'Êtes-vous sûr de vouloir supprimer ce thème ?';
