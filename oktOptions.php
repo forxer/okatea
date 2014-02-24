@@ -30,9 +30,9 @@ $aOktDefaultOptions = array(
 	'locales_dir' 		=> __DIR__.'/Okatea/locales',
 	'logs_dir' 			=> __DIR__.'/Okatea/logs',
 	'modules_dir' 		=> __DIR__.'/Okatea/Modules',
+	'themes_dir' 		=> __DIR__.'/Okatea/Themes',
 	'public_dir' 		=> __DIR__.'/oktPublic',
 	'upload_dir' 		=> __DIR__.'/oktPublic/upload',
-	'themes_dir' 		=> __DIR__.'/oktThemes',
 
 	# cookies names
 	'cookie_auth_name' 	=> 'otk_auth',

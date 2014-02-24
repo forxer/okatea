@@ -6,9 +6,11 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Themes\Theme;
+namespace Okatea\Themes\Default;
 
-class oktTheme extends Theme
+use Okatea\Tao\Themes\Theme as baseTheme;
+
+class Theme extends baseTheme
 {
 
 

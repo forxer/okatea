@@ -6,10 +6,11 @@
  * file that was distributed with this source code.
  */
 
-$this->registerTheme(array(
-	'name' 			=> 'Default',
-	'desc' 			=> 'The default theme, host templates.',
+$this->register(array(
+	'name' 			=> 'Testing',
+	'desc' 			=> 'The theme dedicated to the development and testing.',
 	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org',
-	'tags' 			=> 'default'
+	'tags' 			=> 'dev, test'
 ));
+

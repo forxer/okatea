@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$this->registerTheme(array(
+$this->register(array(
 	'name' 			=> "Okatea",
 	'desc' 			=> '',
 	'version' 		=> '1.0',
