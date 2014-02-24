@@ -57,7 +57,7 @@ class Config extends Controller
 		);
 
 		# régénération des miniatures
-		if ($this->request->request->has('minregen'))
+		if ($this->request->query->has('minregen'))
 		{
 			$this->okt->News->regenMinImages();
 

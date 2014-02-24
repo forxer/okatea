@@ -84,7 +84,7 @@ class Installer extends BaseInstaller
 
 			$this->checklist->addItem(
 				'module_class_valide',
-				is_subclass_of($sClassName, '\\Okatea\\Tao\\Modules\\Module'),
+				is_subclass_of($sClassName, '\\Okatea\\Tao\\Extensions\\Modules\\Module'),
 				'Module handler class "'.$sClassName.'" is a valid module class',
 				'Module handler class "'.$sClassName.'" is not a valid module class'
 			);

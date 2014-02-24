@@ -193,7 +193,7 @@ class Modules extends Controller
 
 		$sChangelogContent = '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';
 
-		return $this->response->setContent($sChangelogContent);
+		return (new Response())->setContent($sChangelogContent);
 	}
 
 	protected function enableModule()
@@ -204,7 +204,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$this->okt->modules->enableModule($sModuleId);
+		$this->okt->modules->getManager()->enableExtension($sModuleId);
 
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
@@ -226,7 +226,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$this->okt->modules->disableModule($sModuleId);
+		$this->okt->modules->getManager()->disableExtension($sModuleId);
 
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
@@ -257,7 +257,7 @@ class Modules extends Controller
 		# activation du module
 		$oInstallModule->checklist->addItem(
 			'enable_module',
-			$this->okt->modules->enableModule($sModuleId),
+			$this->okt->modules->getManager()->enableExtension($sModuleId),
 			'Enable module',
 			'Cannot enable module'
 		);
@@ -294,7 +294,7 @@ class Modules extends Controller
 		# D'abord on active le module
 		if (!$this->okt->modules->isLoaded($sModuleId))
 		{
-			$this->okt->modules->enableModule($sModuleId);
+			$this->okt->modules->getManager()->enableExtension($sModuleId);
 
 			$this->okt->modules->generateCacheList();
 
@@ -305,7 +305,6 @@ class Modules extends Controller
 		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doUpdate();
 
-		# Confirmations
 		if ($oInstallModule->checklist->checkAll()) {
 			$this->okt->page->success->set(__('c_a_modules_correctly_updated'));
 		}
@@ -313,10 +312,8 @@ class Modules extends Controller
 			$this->okt->error->set(__('c_a_modules_not_updated'));
 		}
 
-		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
 
-		# log admin
 		$this->okt->logAdmin->critical(array(
 			'code' => 21,
 			'message' => $sModuleId
@@ -348,7 +345,6 @@ class Modules extends Controller
 		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->doUninstall();
 
-		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
 
 		if ($oInstallModule->checklist->checkAll()) {
@@ -358,7 +354,6 @@ class Modules extends Controller
 			$this->okt->error->set(__('c_a_modules_not_uninstalled'));
 		}
 
-		# log admin
 		$this->okt->logAdmin->critical(array(
 			'code' => 22,
 			'message' => $sModuleId
@@ -383,7 +378,7 @@ class Modules extends Controller
 		# il faut d'abord désactiver le module
 		if ($this->aInstalledModules[$sModuleId]['status'])
 		{
-			$this->okt->modules->disableModule($sModuleId);
+			$this->okt->modules->getManager()->disableExtension($sModuleId);
 
 			# cache de la liste de module
 			$this->okt->modules->generateCacheList();
@@ -402,7 +397,7 @@ class Modules extends Controller
 		# activation du module
 		$oInstallModule->checklist->addItem(
 			'enable_module',
-			$this->okt->modules->enableModule($sModuleId),
+			$this->okt->modules->getManager()->enableExtension($sModuleId),
 			'Enable module',
 			'Cannot enable module'
 		);
@@ -457,7 +452,6 @@ class Modules extends Controller
 			$this->okt->error->set(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		# log admin
 		$this->okt->logAdmin->critical(array(
 			'message' => 'install test set '.$sModuleId
 		));
@@ -480,7 +474,6 @@ class Modules extends Controller
 
 		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 
-		# on installent les données par défaut
 		$oInstallModule->doInstallDefaultData();
 
 		if ($oInstallModule->checklist->checkAll()) {
@@ -490,7 +483,6 @@ class Modules extends Controller
 			$this->okt->error->set(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		# log admin
 		$this->okt->logAdmin->warning(array(
 			'message' => 'install default data '.$sModuleId
 		));
@@ -521,7 +513,6 @@ class Modules extends Controller
 			$this->okt->error->set(__('c_a_modules_not_correctly_emptied'));
 		}
 
-		# log admin
 		$this->okt->logAdmin->critical(array(
 			'message' => 'remove content of module '.$sModuleId
 		));
@@ -543,7 +534,6 @@ class Modules extends Controller
 		{
 			$this->okt->page->flash->success(__('c_a_modules_successfully_deleted'));
 
-			# log admin
 			$this->okt->logAdmin->warning(array(
 				'code' => 42,
 				'message' => $sModuleId
@@ -567,7 +557,6 @@ class Modules extends Controller
 		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->forceReplaceTpl();
 
-		# cache de la liste de module
 		$this->okt->modules->generateCacheList();
 
 		$this->okt->page->flash->success(__('c_a_modules_templates_files_replaced'));
@@ -586,7 +575,6 @@ class Modules extends Controller
 		$oInstallModule = $this->okt->modules->getInstaller($sModuleId);
 		$oInstallModule->forceReplaceAssets();
 
-		# cache de la liste de module
 		$this->okt->modules->generateCacheList();
 
 		$this->okt->page->flash->success(__('c_a_modules_common_files_replaced'));

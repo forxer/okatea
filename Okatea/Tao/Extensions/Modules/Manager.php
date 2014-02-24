@@ -12,8 +12,8 @@ use Okatea\Tao\Extensions\Manager as BaseManager;
 
 class Manager extends BaseManager
 {
-	public function addExtension($type, $id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
+	public function addExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0, $type = 'module')
 	{
-		return parent::addExtension('module', $id, $version, $name, $desc, $author, $priority, $status);
+		return parent::addExtension($id, $version, $name, $desc, $author, $priority, $status, $type);
 	}
 }

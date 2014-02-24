@@ -5,7 +5,7 @@
  *
  */
 
-use Okatea\Tao\Extensions\Manage\Installer;
+use Okatea\Tao\Extensions\Modules\Manage\Installer;
 
 class Pages_installer extends Installer
 {

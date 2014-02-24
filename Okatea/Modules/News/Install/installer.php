@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Extensions\Manage\Installer;
+use Okatea\Tao\Extensions\Modules\Manage\Installer;
 
 class News_installer extends Installer
 {

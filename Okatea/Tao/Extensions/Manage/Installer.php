@@ -71,19 +71,25 @@ class Installer extends Extension
 	 */
 	protected $uploadsFiles;
 
+	/**
+	 * Extensions manager instance.
+	 * @var Okatea\Tao\Extensions\Manage
+	 */
+	protected $manager;
+
 	protected $sManagerClass = '\\Okatea\Tao\\Extensions\\Manager';
 
 	/**
 	 * Constructor.
 	 *
 	 * @param object $okt Okatea application instance.
-	 * @param string $sPath The extensions directory path to load.
+	 * @param string $sExtensionsPath The extensions directory path to load.
 	 * @param string $sExtensionId
 	 * @return void
 	 */
-	public function __construct($okt, $sPath, $sExtensionId)
+	public function __construct($okt, $sExtensionsPath, $sExtensionId)
 	{
-		parent::__construct($okt, $sPath);
+		parent::__construct($okt, $sExtensionsPath);
 
 		$this->checklist = new CheckList();
 
@@ -154,7 +160,7 @@ class Installer extends Extension
 		# modification dans la base de données
 		$this->checklist->addItem(
 			'update_extension_in_db',
-			$this->okt->modules->updModule($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority()),
+			$this->getManager()->updateExtension($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority()),
 			'Update extension into database',
 			'Cannot update extension into database'
 		);
@@ -200,7 +206,7 @@ class Installer extends Extension
 		# suppression de la base de données
 		$this->checklist->addItem(
 			'remove_extension_from_db',
-			$this->okt->modules->deleteModule($this->id()),
+			$this->getManager()->deleteExtension($this->id()),
 			'Remove extension from database',
 			'Cannot remove extension from database'
 		);
@@ -266,6 +272,16 @@ class Installer extends Extension
 		if (method_exists($this,'installDefaultData')) {
 			$this->installDefaultData();
 		}
+	}
+
+	public function forceReplaceTpl()
+	{
+		$this->getTemplatesFiles()->process();
+	}
+
+	public function forceReplaceAssets()
+	{
+		$this->getAssetsFiles()->process();
 	}
 
 	/**
@@ -423,7 +439,7 @@ class Installer extends Extension
 	protected function getManager()
 	{
 		if (null === $this->manager) {
-			return ($this->manager = new $this->sManagerClass($this->okt, $this->path));
+			return ($this->manager = new $this->sManagerClass($this->okt, $this->sExtensionsPath));
 		}
 
 		return $this->manager;

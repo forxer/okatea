@@ -187,7 +187,7 @@ class Manager extends Collection
 	 * @param string $type
 	 * @return booolean
 	 */
-	public function addExtension($type, $id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
+	public function addExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0, $type = null)
 	{
 		$query =
 		'INSERT INTO '.$this->t_extensions.' ('.
