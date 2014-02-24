@@ -32,4 +32,22 @@ class Collection extends BaseCollection
 
 		$this->sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Themes\\Manage\\Installer';
 	}
+
+	/**
+	 * Fonction de "pluralisation" des thèmes.
+	 *
+	 * @param integer $count
+	 * @return string
+	 */
+	public static function pluralizeThemeCount($count)
+	{
+		if ($count == 1) {
+			return __('c_a_themes_one_theme');
+		}
+		elseif ($count > 1) {
+			return sprintf(__('c_a_themes_%s_themes'),$count);
+		}
+
+		return __('c_a_themes_no_theme');
+	}
 }

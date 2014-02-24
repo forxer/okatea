@@ -16,4 +16,10 @@ class Manager extends BaseManager
 	{
 		return parent::addExtension($id, $version, $name, $desc, $author, $priority, $status, $type);
 	}
+
+	public function getFromDatabase(array $aParams = array())
+	{
+		$aParams['type'] = 'theme';
+		return parent::getFromDatabase($aParams);
+	}
 }

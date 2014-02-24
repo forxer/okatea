@@ -18,12 +18,12 @@ $okt->page->addGlobalTitle(__('Themes'));
 $okt->page->dialog(array(), '.changelog_link');
 
 # Display a UI dialog box for each theme
-foreach ($aInstalledThemes as $aModule)
+foreach ($aInstalledThemes as $aTheme)
 {
-	if (file_exists($aModule['root'].'/CHANGELOG'))
+	if (file_exists($aTheme['root'].'/CHANGELOG'))
 	{
-		$okt->page->openLinkInDialog('#'.$aModule['id'].'_changelog_link',array(
-			'title' => $view->escapeJs($aModule['name_l10n']." CHANGELOG"),
+		$okt->page->openLinkInDialog('#'.$aTheme['id'].'_changelog_link',array(
+			'title' => $view->escapeJs($aTheme['name_l10n']." CHANGELOG"),
 			'width' => 730,
 			'height' => 500
 		));
@@ -31,8 +31,8 @@ foreach ($aInstalledThemes as $aModule)
 }
 
 # Toggle
-$okt->page->toggleWithLegend('add_theme_zip_title','add_theme_zip_content',array('cookie'=>'oktAdminAddModuleZip'));
-$okt->page->toggleWithLegend('add_theme_repo_title','add_theme_repo_content',array('cookie'=>'oktAdminAddModuleRepo'));
+$okt->page->toggleWithLegend('add_theme_zip_title','add_theme_zip_content',array('cookie'=>'oktAdminAddThemeZip'));
+$okt->page->toggleWithLegend('add_theme_repo_title','add_theme_repo_content',array('cookie'=>'oktAdminAddThemeRepo'));
 
 # Tabs
 $okt->page->tabs();
@@ -54,7 +54,7 @@ $okt->page->loader('.lazy-load');
 	</ul>
 
 <div id="tab-installed">
-	<h3><?php _e('c_a_themes_installed_themes') ?> (<?php echo ThemesCollection::pluralizeModuleCount(count($aInstalledThemes)); ?>)</h3>
+	<h3><?php _e('c_a_themes_installed_themes') ?> (<?php echo ThemesCollection::pluralizeThemeCount(count($aInstalledThemes)); ?>)</h3>
 
 	<?php if (empty($aInstalledThemes)) : ?>
 		<p><?php _e('c_a_themes_no_themes_installed') ?></p>
@@ -73,57 +73,57 @@ $okt->page->loader('.lazy-load');
 		<?php
 		$line_count = 0;
 
-		foreach ($aInstalledThemes as $aModule) :
+		foreach ($aInstalledThemes as $aTheme) :
 
 			# odd/even
 			$td_class = $line_count%2 == 0 ? 'even' : 'odd';
 			$line_count++;
 
 			# disabled ?
-			if (!$aModule['status']) {
+			if (!$aTheme['status']) {
 				$td_class .= ' disabled';
 			}
 
 			# title
-			$theme_title = $aModule['name_l10n'];
-			if ($aModule['status'] && $okt->adminRouter->routeExists($aModule['id'].'_index')) {
-				$theme_title = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_index').'">'.$theme_title.'</a>';
+			$theme_title = $aTheme['name_l10n'];
+			if ($aTheme['status'] && $okt->adminRouter->routeExists($aTheme['id'].'_index')) {
+				$theme_title = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_index').'">'.$theme_title.'</a>';
 			}
 
 			# links
 			$theme_links = array();
-			if (file_exists($aModule['root'].'/CHANGELOG'))
+			if (file_exists($aTheme['root'].'/CHANGELOG'))
 			{
-				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_changelog='.$aModule['id'].'"'.
-				' id="'.$aModule['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
+				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_changelog='.$aTheme['id'].'"'.
+				' id="'.$aTheme['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
 			}
 
-			if ($okt->adminRouter->routeExists($aModule['id'].'_display')) {
-				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_display').'">'.__('c_a_themes_display').'</a>';
+			if ($okt->adminRouter->routeExists($aTheme['id'].'_display')) {
+				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_display').'">'.__('c_a_themes_display').'</a>';
 			}
-			if ($okt->adminRouter->routeExists($aModule['id'].'_config')) {
-				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aModule['id'].'_config').'">'.__('c_a_themes_config').'</a>';
+			if ($okt->adminRouter->routeExists($aTheme['id'].'_config')) {
+				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_config').'">'.__('c_a_themes_config').'</a>';
 			}
 		?>
 		<tr>
 			<td class="<?php echo $td_class ?> small">
 				<p>
-				<?php if ($aModule['status']): ?>
-					<a href="theme.php?m=<?php echo $aModule['id'] ?>">
+				<?php if ($aTheme['status']): ?>
+					<a href="theme.php?m=<?php echo $aTheme['id'] ?>">
 				<?php endif; ?>
-					<?php if (file_exists($okt->options->get('public_dir').'/themes/'.$aModule['id'].'/theme_icon.png')) : ?>
-					<img src="<?php echo $okt->options->public_url.'/themes/'.$aModule['id'] ?>/theme_icon.png" width="32" height="32" alt="" />
+					<?php if (file_exists($okt->options->get('public_dir').'/themes/'.$aTheme['id'].'/theme_icon.png')) : ?>
+					<img src="<?php echo $okt->options->public_url.'/themes/'.$aTheme['id'] ?>/theme_icon.png" width="32" height="32" alt="" />
 					<?php else: ?>
 					<img src="<?php echo $okt->options->public_url ?>/img/admin/theme.png" width="32" height="32" alt="" />
 					<?php endif; ?>
-				<?php if ($aModule['status']): ?>
+				<?php if ($aTheme['status']): ?>
 					</a>
 				<?php endif; ?>
 				</p>
 			</td>
 			<td class="<?php echo $td_class ?>">
 				<p class="title"><?php echo $theme_title ?></p>
-				<p><?php echo $aModule['desc_l10n'] ?></p>
+				<p><?php echo $aTheme['desc_l10n'] ?></p>
 
 				<?php if (!empty($theme_links)) : ?>
 				<p><?php echo implode(' - ',$theme_links) ?></p>
@@ -131,87 +131,87 @@ $okt->page->loader('.lazy-load');
 			</td>
 			<td class="<?php echo $td_class ?> center">
 				<p>
-				<?php echo $aModule['version'] ?>
-				<?php if (version_compare($aAllThemes[$aModule['id']]['version'], $aModule['version'], '>')) : ?>
-				<br /><a href="<?php echo $view->generateUrl('config_themes') ?>?update=<?php echo $aModule['id']; ?>"
-				class="icon plugin_error">Mettre à jour à la version <?php echo $aAllThemes[$aModule['id']]['version'] ?></a>
+				<?php echo $aTheme['version'] ?>
+				<?php if (version_compare($aAllThemes[$aTheme['id']]['version'], $aTheme['version'], '>')) : ?>
+				<br /><a href="<?php echo $view->generateUrl('config_themes') ?>?update=<?php echo $aTheme['id']; ?>"
+				class="icon plugin_error">Mettre à jour à la version <?php echo $aAllThemes[$aTheme['id']]['version'] ?></a>
 				<?php endif; ?>
 				</p>
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aModule['root'].'/Install/db-data.xml')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?defaultdata=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/db-data.xml')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?defaultdata=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_install_default_data_theme_confirm')) ?>')"
 					class="lazy-load icon database_add"><?php _e('c_a_themes_install_default_data') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/Install/test_set/')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?testset=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/test_set/')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?testset=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_install_test_set_theme_confirm')) ?>')"
 					class="lazy-load icon package"><?php _e('c_a_themes_install_test_set') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/Install/db-truncate.xml')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?empty=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/db-truncate.xml')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?empty=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_empty_theme_confirm')) ?>')"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_themes_empty_theme_%s'),$aModule['name_l10n'])) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_themes_empty_theme_%s'),$aTheme['name_l10n'])) ?>"
 					class="icon package_delete"><?php _e('c_a_themes_empty_theme') ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aModule['root'].'/Install/templates/')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?templates=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/templates/')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?templates=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_templates_files_confirm')) ?>')"
 					class="icon layout"><?php _e('c_a_themes_replace_templates_files') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/Install/assets/')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?common=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/assets/')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?common=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_common_files_confirm')) ?>')"
 					class="icon folder_page"><?php _e('c_a_themes_replace_common_files') ?></a></li>
 					<?php endif; ?>
 
-					<?php if (file_exists($aModule['root'].'/Install/public/')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?public=<?php echo $aModule['id']; ?>"
+					<?php if (file_exists($aTheme['root'].'/Install/public/')) : ?>
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?public=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_public_files_confirm')) ?>')"
 					class="icon script"><?php _e('c_a_themes_replace_public_files') ?></a></li>
 					<?php endif; ?>
 
-					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?compare=<?php echo $aModule['id']; ?>"
+					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?compare=<?php echo $aTheme['id']; ?>"
 					class="icon page_copy"><?php _e('c_a_themes_compare_files') ?></a></li>
 				</ul>
 			</td>
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">
 					<li>
-						<a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $aModule['id']; ?>"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aModule['name_l10n'])) ?>"
+						<a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $aTheme['id']; ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon package_go"><?php _e('c_c_action_Download') ?></a>
 					</li>
 					<li>
-						<?php if (!$aModule['status']) : ?>
-						<a href="<?php echo $view->generateUrl('config_themes') ?>?enable=<?php echo $aModule['id']; ?>"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aModule['name_l10n'])) ?>"
+						<?php if (!$aTheme['status']) : ?>
+						<a href="<?php echo $view->generateUrl('config_themes') ?>?enable=<?php echo $aTheme['id']; ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon plugin_disabled"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
-						<a href="<?php echo $view->generateUrl('config_themes') ?>?disable=<?php echo $aModule['id']; ?>"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aModule['name_l10n'])) ?>"
+						<a href="<?php echo $view->generateUrl('config_themes') ?>?disable=<?php echo $aTheme['id']; ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon plugin"><?php _e('c_c_action_Disable') ?></a>
 						<?php endif; ?>
 					</li>
 					<li>
-						<a href="<?php echo $view->generateUrl('config_themes') ?>?reinstall=<?php echo $aModule['id']; ?>"
+						<a href="<?php echo $view->generateUrl('config_themes') ?>?reinstall=<?php echo $aTheme['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_reinstall_theme_confirm')) ?>')"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Re-install_%s'),$aModule['name_l10n'])) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Re-install_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon plugin_go"><?php _e('c_c_action_Re-install') ?></a>
 					</li>
 					<li>
-						<a href="<?php echo $view->generateUrl('config_themes') ?>?uninstall=<?php echo $aModule['id']; ?>"
+						<a href="<?php echo $view->generateUrl('config_themes') ?>?uninstall=<?php echo $aTheme['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_remove_theme_confirm')) ?>')"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Uninstall_%s'),$aModule['name_l10n'])) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Uninstall_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon plugin_delete"><?php _e('c_c_action_Uninstall') ?></a>
 					</li>
 				</ul>
@@ -224,7 +224,7 @@ $okt->page->loader('.lazy-load');
 </div><!-- #tab-installed -->
 
 <div id="tab-uninstalled">
-	<h3><?php echo __('c_a_themes_uninstalled_themes').' ('.ThemesCollection::pluralizeModuleCount(count($aUninstalledThemes)).')' ?></h3>
+	<h3><?php echo __('c_a_themes_uninstalled_themes').' ('.ThemesCollection::pluralizeThemeCount(count($aUninstalledThemes)).')' ?></h3>
 
 	<?php if (empty($aUninstalledThemes)) : ?>
 		<p><?php _e('c_a_themes_no_themes_uninstalled') ?></p>
@@ -322,7 +322,7 @@ $okt->page->loader('.lazy-load');
 	<?php elseif (!empty($aThemesRepositories)) : ?>
 		<?php foreach($aThemesRepositories as $repo_name=>$themes) : ?>
 
-		<h5><?php echo $view->escape($repo_name).' ('.ThemesCollection::pluralizeModuleCount(count($themes)).')'; ?></h5>
+		<h5><?php echo $view->escape($repo_name).' ('.ThemesCollection::pluralizeThemeCount(count($themes)).')'; ?></h5>
 
 		<table class="common">
 			<caption><?php printf('c_a_themes_list_themes_available_%s', $view->escape($repo_name)) ?></caption>

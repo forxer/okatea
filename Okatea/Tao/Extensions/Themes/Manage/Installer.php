@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao\Extensions\Modules\Manage;
+namespace Okatea\Tao\Extensions\Themes\Manage;
 
 use Okatea\Tao\Extensions\Manage\Installer as BaseInstaller;
 use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
