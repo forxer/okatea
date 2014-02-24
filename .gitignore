@@ -51,7 +51,7 @@ $RECYCLE.BIN/
 !/oktPublic/upload/index.html
 
 # oktatea templates
-/oktThemes/*/templates/*
+/Okatea/Themes/*/templates/*
 
 # oktatea build
 /build/
