@@ -25,7 +25,7 @@ class Installer extends BaseInstaller
 		'logAdmin', 			'modules', 				'navigation',
 		'page', 				'request', 				'requestContext',
 		'response', 			'router', 				'adminRouter',
-		'session', 				'theme', 				'theme_id',
+		'session', 				'themes',				'theme', 				'theme_id',
 		'tpl', 					'triggers', 			'user',
 		'htmlpurifier', 		'permsStack', 			'aTplDirectories'
 	);

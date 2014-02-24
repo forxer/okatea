@@ -34,6 +34,10 @@ class Module extends Extension
 
 	final public function initNs($ns)
 	{
+		if ($ns === 'admin') {
+			$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/admin');
+		}
+
 		parent::initNs($ns);
 	}
 

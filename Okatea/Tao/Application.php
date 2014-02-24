@@ -18,13 +18,6 @@ use Monolog\Processor\WebProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 
-use Symfony\Component\Debug\Debug;
-use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RequestContext;
-
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
 use Okatea\Tao\Database\MySqli;
@@ -32,12 +25,20 @@ use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\FlashMessages;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
+use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Website\Router;
+
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RequestContext;
 
 
 /**
@@ -132,9 +133,16 @@ class Application
 	/**
 	 * Le gestionnaire de modules.
 	 *
-	 * @var Okatea\Tao\Modules\Collection
+	 * @var Okatea\Tao\Extensions\Modules\Collection
 	 */
 	public $modules;
+
+	/**
+	 * Le gestionnaire de themes.
+	 *
+	 * @var Okatea\Tao\Extensions\Themes\Collection
+	 */
+	public $themes;
 
 	/**
 	 * Les menus de navigation.
@@ -296,11 +304,9 @@ class Application
 			$this->user->timezone
 		);
 
-		$this->modules = new ModulesCollection(
-			$this,
-			$this->options->get('modules_dir'),
-			$this->options->modules_url
-		);
+		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
+
+		$this->themes = new ThemesCollection($this, $this->options->get('themes_dir'));
 
 		$this->triggers = new Triggers();
 
@@ -395,6 +401,16 @@ class Application
 	protected function loadModules($sPart)
 	{
 		$this->modules->load($sPart, $this->user->language);
+	}
+
+	/**
+	 * Load themes public or admin part.
+	 *
+	 * @return void
+	 */
+	protected function loadThemes($sPart)
+	{
+		$this->themes->load($sPart, $this->user->language);
 	}
 
 	public function loadAdminRouter()

@@ -158,10 +158,6 @@ class Extension
 
 	public function initNs($ns)
 	{
-		if ($ns === 'admin') {
-			$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/admin');
-		}
-
 		$this->{'prepend_'.$ns}();
 	}
 
