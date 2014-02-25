@@ -300,7 +300,7 @@ class Modules extends Controller
 
 			$this->okt->modules->generateCacheList();
 
-			return $this->redirect($this->generateUrl('config_modules').'?reinstall='.$sModuleId);
+			return $this->redirect($this->generateUrl('config_modules').'?update='.$sModuleId);
 		}
 
 		# Ensuite on met à jour
@@ -378,11 +378,10 @@ class Modules extends Controller
 		set_time_limit(0);
 
 		# il faut d'abord désactiver le module
-		if ($this->aInstalledModules[$sModuleId]['status'])
+		if ($this->okt->modules->isLoaded($sModuleId))
 		{
 			$this->okt->modules->getManager()->disableExtension($sModuleId);
 
-			# cache de la liste de module
 			$this->okt->modules->generateCacheList();
 
 			return $this->redirect($this->generateUrl('config_modules').'?reinstall='.$sModuleId);

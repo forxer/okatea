@@ -203,7 +203,7 @@ class Themes extends Controller
 	{
 		$sThemeId = $this->request->query->get('disable');
 
-		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId) {
 			return false;
 		}
 
@@ -279,7 +279,7 @@ class Themes extends Controller
 
 			$this->okt->themes->generateCacheList();
 
-			return $this->redirect($this->generateUrl('config_themes').'?reinstall='.$sThemeId);
+			return $this->redirect($this->generateUrl('config_themes').'?update='.$sThemeId);
 		}
 
 		# Ensuite on met à jour
@@ -316,7 +316,7 @@ class Themes extends Controller
 	{
 		$sThemeId = $this->request->query->get('uninstall');
 
-		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId) {
 			return false;
 		}
 
@@ -349,7 +349,7 @@ class Themes extends Controller
 	{
 		$sThemeId = $this->request->query->get('reinstall');
 
-		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes)) {
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId) {
 			return false;
 		}
 
@@ -357,11 +357,10 @@ class Themes extends Controller
 		set_time_limit(0);
 
 		# il faut d'abord désactiver le theme
-		if ($this->aInstalledThemes[$sThemeId]['status'])
+		if ($this->okt->themes->isLoaded($sThemeId))
 		{
 			$this->okt->themes->getManager()->disableExtension($sThemeId);
 
-			# cache de la liste de theme
 			$this->okt->themes->generateCacheList();
 
 			return $this->redirect($this->generateUrl('config_themes').'?reinstall='.$sThemeId);
@@ -408,7 +407,7 @@ class Themes extends Controller
 	{
 		$sThemeId = $this->request->query->get('delete');
 
-		if (!$sThemeId || !array_key_exists($sThemeId, $this->aUninstalledThemes)) {
+		if (!$sThemeId || !array_key_exists($sThemeId, $this->aUninstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId) {
 			return false;
 		}
 

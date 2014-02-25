@@ -63,7 +63,7 @@ $okt->page->loader('.lazy-load');
 	<table class="common">
 		<caption><?php _e('c_a_themes_list_installed_themes') ?></caption>
 		<thead><tr>
-			<th scope="col" class="left" colspan="2"><?php _e('c_a_themes_name') ?></th>
+			<th scope="col" class="left"><?php _e('c_a_themes_name') ?></th>
 			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
 			<th scope="col"><?php _e('c_a_themes_tools') ?></th>
 			<th scope="col"><?php _e('c_a_themes_actions') ?></th>
@@ -101,15 +101,6 @@ $okt->page->loader('.lazy-load');
 			*/
 		?>
 		<tr>
-			<td class="<?php echo $td_class ?> small">
-				<p>
-					<?php if (file_exists($okt->options->get('public_dir').'/themes/'.$aTheme['id'].'/theme_icon.png')) : ?>
-					<img src="<?php echo $okt->options->public_url.'/themes/'.$aTheme['id'] ?>/theme_icon.png" alt="" />
-					<?php else: ?>
-					<img src="<?php echo $okt->options->public_url ?>/img/admin/theme.png" width="32" height="32" alt="" />
-					<?php endif; ?>
-				</p>
-			</td>
 			<td class="<?php echo $td_class ?>">
 				<p class="title"><?php echo $aTheme['name_l10n'] ?></p>
 				<p><?php echo $aTheme['desc_l10n'] ?></p>
@@ -145,35 +136,51 @@ $okt->page->loader('.lazy-load');
 					class="icon page_copy"><?php _e('c_a_themes_compare_files') ?></a></li>
 				</ul>
 			</td>
-			<td class="<?php echo $td_class ?> small">
+			<td class="<?php echo $td_class ?> small nowrap">
 				<ul class="actions">
 					<li>
+					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
+						<span class="icon package_go"></span><?php _e('c_c_action_Download') ?>
+					<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon package_go"><?php _e('c_c_action_Download') ?></a>
+					<?php endif; ?>
 					</li>
 					<li>
+					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
+						<span class="icon picture"></span><?php _e('c_c_action_Disable') ?>
+					<?php else : ?>
 						<?php if (!$aTheme['status']) : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?enable=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aTheme['name_l10n'])) ?>"
-						class="icon plugin_disabled"><?php _e('c_c_action_Enable') ?></a>
+						class="icon picture_disabled"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?disable=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aTheme['name_l10n'])) ?>"
-						class="icon plugin"><?php _e('c_c_action_Disable') ?></a>
+						class="icon picture"><?php _e('c_c_action_Disable') ?></a>
 						<?php endif; ?>
+					<?php endif; ?>
 					</li>
 					<li>
+					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
+						<span class="icon picture_go"></span><?php _e('c_c_action_Re-install') ?>
+					<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?reinstall=<?php echo $aTheme['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_reinstall_theme_confirm')) ?>')"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Re-install_%s'),$aTheme['name_l10n'])) ?>"
-						class="icon plugin_go"><?php _e('c_c_action_Re-install') ?></a>
+						class="icon picture_go"><?php _e('c_c_action_Re-install') ?></a>
+					<?php endif; ?>
 					</li>
 					<li>
+					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
+						<span class="icon picture_delete"></span><?php _e('c_c_action_Uninstall') ?>
+					<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?uninstall=<?php echo $aTheme['id']; ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_remove_theme_confirm')) ?>')"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Uninstall_%s'),$aTheme['name_l10n'])) ?>"
-						class="icon plugin_delete"><?php _e('c_c_action_Uninstall') ?></a>
+						class="icon picture_delete"><?php _e('c_c_action_Uninstall') ?></a>
+					<?php endif; ?>
 					</li>
 				</ul>
 			</td>
@@ -225,7 +232,7 @@ $okt->page->loader('.lazy-load');
 				<ul class="actions">
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?install=<?php echo $id ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Install_%s'),__($theme['name']))) ?>"
-					class="icon plugin_add"><?php _e('c_c_action_Install') ?></a></li>
+					class="icon picture_add"><?php _e('c_c_action_Install') ?></a></li>
 
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $id ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),__($theme['name']))) ?>"

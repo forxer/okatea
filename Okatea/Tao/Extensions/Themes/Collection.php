@@ -13,6 +13,12 @@ use Okatea\Tao\Extensions\Collection as BaseCollection;
 class Collection extends BaseCollection
 {
 	/**
+	 * Default theme identifier.
+	 * @var integer
+	 */
+	const DEFAULT_THEME = 'DefaultTheme';
+
+	/**
 	 * Constructeur.
 	 *
 	 * @param	object	$okt		Okatea application instance.
