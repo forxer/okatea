@@ -7,7 +7,7 @@
  */
 
 $this->register(array(
-	'name' 			=> 'Default',
+	'name' 			=> 'Default theme',
 	'desc' 			=> 'The default theme, host templates.',
 	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org',

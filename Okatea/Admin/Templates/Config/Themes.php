@@ -91,12 +91,6 @@ $okt->page->loader('.lazy-load');
 				' id="'.$aTheme['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
 			}
 
-			if (file_exists($aTheme['root'].'/CHANGELOG'))
-			{
-				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_changelog='.$aTheme['id'].'"'.
-				' id="'.$aTheme['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
-			}
-
 			/*
 			if ($okt->adminRouter->routeExists($aTheme['id'].'_display')) {
 				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_display').'">'.__('c_a_themes_display').'</a>';
@@ -110,7 +104,7 @@ $okt->page->loader('.lazy-load');
 			<td class="<?php echo $td_class ?> small">
 				<p>
 					<?php if (file_exists($okt->options->get('public_dir').'/themes/'.$aTheme['id'].'/theme_icon.png')) : ?>
-					<img src="<?php echo $okt->options->public_url.'/themes/'.$aTheme['id'] ?>/theme_icon.png" width="32" height="32" alt="" />
+					<img src="<?php echo $okt->options->public_url.'/themes/'.$aTheme['id'] ?>/theme_icon.png" alt="" />
 					<?php else: ?>
 					<img src="<?php echo $okt->options->public_url ?>/img/admin/theme.png" width="32" height="32" alt="" />
 					<?php endif; ?>

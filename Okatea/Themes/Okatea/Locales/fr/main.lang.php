@@ -6,6 +6,11 @@
  * file that was distributed with this source code.
  */
 
+# define
+$GLOBALS['okt_l10n']['Okatea website'] = 'Site web Okatea';
+$GLOBALS['okt_l10n']['The theme of the Okatea.org website.'] = 'Le thème du site web Okatea.org';
+
+# others stuff
 $GLOBALS['okt_l10n']['Download'] = 'Télécharger';
 $GLOBALS['okt_l10n']['Stable'] = 'Stable';
 $GLOBALS['okt_l10n']['Dev'] = 'Dev';

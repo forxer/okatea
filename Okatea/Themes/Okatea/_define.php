@@ -7,8 +7,8 @@
  */
 
 $this->register(array(
-	'name' 			=> "Okatea",
-	'desc' 			=> '',
+	'name' 			=> "Okatea website",
+	'desc' 			=> 'The theme of the Okatea.org website.',
 	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org',
 	'tags' 			=> ''
