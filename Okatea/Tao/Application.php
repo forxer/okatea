@@ -400,7 +400,7 @@ class Application
 	 */
 	protected function loadModules($sPart)
 	{
-		$this->modules->load($sPart, $this->user->language);
+		$this->modules->load($sPart);
 	}
 
 	/**
@@ -410,7 +410,7 @@ class Application
 	 */
 	protected function loadThemes($sPart)
 	{
-		$this->themes->load($sPart, $this->user->language);
+		$this->themes->load($sPart);
 	}
 
 	public function loadAdminRouter()

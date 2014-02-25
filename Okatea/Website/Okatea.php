@@ -59,6 +59,8 @@ class Okatea extends Application
 
 		$this->loadPageHelpers();
 
+		$this->loadThemes('public');
+
 		$this->loadTheme();
 
 		$this->loadTplEngine();
@@ -116,9 +118,7 @@ class Okatea extends Application
 	 */
 	protected function loadTheme()
 	{
-		require $this->options->get('themes_dir').'/'.$this->theme_id.'/oktTheme.php';
-
-		$this->theme = new \oktTheme($this);
+		$this->theme = $this->themes->getInstance($this->theme_id);
 	}
 
 	/**
@@ -128,8 +128,8 @@ class Okatea extends Application
 	 */
 	protected function loadTplEngine()
 	{
-		$this->setTplDirectory($this->theme->path.'/templates/%name%.php');
-		$this->setTplDirectory($this->options->get('themes_dir').'/default/templates/%name%.php');
+		$this->setTplDirectory($this->options->get('themes_dir').'/'.$this->theme_id.'/templates/%name%.php');
+		$this->setTplDirectory($this->options->get('themes_dir').'/DefaultTheme/templates/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);

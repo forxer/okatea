@@ -8,7 +8,7 @@
 
 namespace Okatea\Themes\Testing;
 
-use Okatea\Tao\Themes\Theme as baseTheme;
+use Okatea\Tao\Extensions\Themes\Theme as baseTheme;
 
 class Theme extends baseTheme
 {
@@ -19,6 +19,6 @@ class Theme extends baseTheme
 
 		# CSS
 		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
-		$this->okt->page->css->addFile($this->url.'/css/styles.css');
+		$this->okt->page->css->addFile($this->public_url.'/css/styles.css');
 	}
 }

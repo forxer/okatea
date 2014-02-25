@@ -58,6 +58,8 @@ class Okatea extends Application
 
 			$this->loadModules('admin');
 
+			//$this->loadThemes('admin');
+
 			$this->callController();
 		}
 

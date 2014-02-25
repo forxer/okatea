@@ -197,7 +197,7 @@ class Css
 			$less->setPreserveComments(true);
 
 			$less->setImportDir(array(
-				(isset($okt->theme->path) ? $okt->theme->path.'/css/' : null),
+				$okt->options->get('public_dir').'/themes/'.$okt->theme->id().'/css/',
 				$okt->options->get('public_dir').'/css/less/'
 			));
 
