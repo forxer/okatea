@@ -74,7 +74,7 @@ repositories:
         list:
             'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.xml'
 themes:
-    desktop: okatea
+    desktop: Okatea
     mobile: ''
     tablet: ''
 jquery_ui:
