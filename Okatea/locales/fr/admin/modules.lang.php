@@ -55,9 +55,9 @@ $GLOBALS['okt_l10n']['c_a_modules_replace_templates_files'] = 'Remplacer les fic
 $GLOBALS['okt_l10n']['c_a_modules_replace_templates_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers de template par ceux par défaut ?';
 $GLOBALS['okt_l10n']['c_a_modules_templates_files_replaced'] = 'Les fichiers de template ont été remplacés.';
 
-$GLOBALS['okt_l10n']['c_a_modules_replace_common_files'] = 'Remplacer les fichiers communs';
-$GLOBALS['okt_l10n']['c_a_modules_replace_common_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers communs par ceux par défaut ?';
-$GLOBALS['okt_l10n']['c_a_modules_common_files_replaced'] = 'Les fichiers communs ont été remplacés.';
+$GLOBALS['okt_l10n']['c_a_modules_replace_assets_files'] = 'Remplacer les fichiers actifs (css, js, etc.)';
+$GLOBALS['okt_l10n']['c_a_modules_replace_assets_files_confirm'] = 'Êtes-vous sûr de vouloir remplacer les fichiers actifs par ceux par défaut ?';
+$GLOBALS['okt_l10n']['c_a_modules_assets_files_replaced'] = 'Les fichiers actifs ont été remplacés.';
 
 $GLOBALS['okt_l10n']['c_a_modules_compare_files'] = 'Comparer les fichiers';
 $GLOBALS['okt_l10n']['c_a_modules_file_comparison_module_%s'] = 'Comparer les fichiers du module %s';

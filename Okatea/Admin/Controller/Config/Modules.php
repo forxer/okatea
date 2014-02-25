@@ -568,7 +568,7 @@ class Modules extends Controller
 
 	protected function replaceAssetsFiles()
 	{
-		$sModuleId = $this->request->query->get('common');
+		$sModuleId = $this->request->query->get('assets');
 
 		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
@@ -579,7 +579,7 @@ class Modules extends Controller
 
 		$this->okt->modules->generateCacheList();
 
-		$this->okt->page->flash->success(__('c_a_modules_common_files_replaced'));
+		$this->okt->page->flash->success(__('c_a_modules_assets_files_replaced'));
 
 		return $this->redirect($this->generateUrl('config_modules'));
 	}

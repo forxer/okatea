@@ -16,7 +16,7 @@ class Collection extends BaseCollection
 	 * Constructeur.
 	 *
 	 * @param	object	$okt		Okatea application instance.
-	 * @param	string 	$path		Le chemin du répertoire des modules à charger.
+	 * @param	string 	$path		Le chemin du répertoire des thèmes à charger.
 	 * @return void
 	 */
 	public function __construct($okt, $path)

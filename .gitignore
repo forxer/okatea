@@ -47,6 +47,8 @@ $RECYCLE.BIN/
 !/oktPublic/components/index.html
 /oktPublic/modules/**
 !/oktPublic/modules/index.html
+/oktPublic/themes/**
+!/oktPublic/themes/index.html
 /oktPublic/upload/**
 !/oktPublic/upload/index.html
 

@@ -12,13 +12,13 @@ use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class AssetsFiles extends ComponentBase
 {
-	protected $sDestinationPattern;
+	protected $sDestination;
 
 	public function __construct($okt, $extension, $sDestinationPattern)
 	{
 		parent::__construct($okt, $extension);
 
-		$this->sDestinationPattern = sprintf($sDestinationPattern, $this->extension->id());
+		$this->sDestination = sprintf($sDestinationPattern, $this->extension->id());
 	}
 
 	/**
@@ -44,7 +44,7 @@ class AssetsFiles extends ComponentBase
 			'assets',
 			$this->mirror(
 				$sAssetsDir,
-				$this->okt->options->get('public_dir').'/modules/'.$this->extension->id(),
+				$this->sDestination,
 				$oFiles
 			),
 			'Create assets files',
@@ -58,15 +58,13 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('public_dir').'/modules/'.$this->extension->id();
-
-		if (!is_dir($sPath)) {
+		if (!is_dir($this->sDestination)) {
 			return null;
 		}
 
 		$this->checklist->addItem(
 			'remove_assets',
-			$this->getFs()->remove($sPath),
+			$this->getFs()->remove($this->sDestination),
 			'Remove assets files',
 			'Cannot remove assets files'
 		);

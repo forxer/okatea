@@ -169,9 +169,9 @@ $okt->page->loader('.lazy-load');
 					<?php endif; ?>
 
 					<?php if (file_exists($aModule['root'].'/Install/assets/')) : ?>
-					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?common=<?php echo $aModule['id']; ?>"
-					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_replace_common_files_confirm')) ?>')"
-					class="icon folder_page"><?php _e('c_a_modules_replace_common_files') ?></a></li>
+					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?assets=<?php echo $aModule['id']; ?>"
+					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_replace_assets_files_confirm')) ?>')"
+					class="icon folder_page"><?php _e('c_a_modules_replace_assets_files') ?></a></li>
 					<?php endif; ?>
 
 					<?php if (file_exists($aModule['root'].'/Install/public/')) : ?>

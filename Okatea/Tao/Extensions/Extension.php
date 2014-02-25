@@ -139,7 +139,7 @@ class Extension
 	public function register(array $aParams = array())
 	{
 		$this->setInfos(array(
-			'root'			=> $this->okt->options->get('modules_dir').'/'.$this->id(),
+			'root'			=> $this->sExtensionsPath.'/'.$this->id(),
 			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->_id),
 			'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
 			'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
@@ -158,6 +158,10 @@ class Extension
 
 	public function initNs($ns)
 	{
+		if ($ns === 'admin') {
+			$this->okt->l10n->loadFile($this->root().'/Locales/'.$this->okt->user->language.'/admin');
+		}
+
 		$this->{'prepend_'.$ns}();
 	}
 
@@ -247,7 +251,7 @@ class Extension
 	}
 
 	/**
-	 * Indique si le module est activé
+	 * Indique si l'extension est activée.
 	 *
 	 * @return boolean
 	 */
