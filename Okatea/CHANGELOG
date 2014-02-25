@@ -23,6 +23,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 	# use controllers
 	# use templates
 	# add extensions
+# refactor modules/themes into extensions
 # refactor modules files structure
 # reintroduced users module into the core
 # replace PHPThumb by Imagine
