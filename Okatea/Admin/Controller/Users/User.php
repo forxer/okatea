@@ -276,16 +276,22 @@ class User extends Controller
 
 	protected function getGroups()
 	{
+		$aParams = array();
+
+		$aParams['group_id_not'][] = Groups::GUEST;
+
+		if (!$this->okt->user->is_superadmin) {
+			$aParams['group_id_not'][] = Groups::SUPERADMIN;
+		}
+
+		if (!$this->okt->user->is_admin) {
+			$aParams['group_id_not'][] = Groups::ADMIN;
+		}
+
+		$rsGroups = (new Groups($this->okt))->getGroups($aParams);
+
 		$aGroups = array();
-
-		$oGroups = new Groups($this->okt);
-		$rsGroups = $oGroups->getGroups();
-		while ($rsGroups->fetch())
-		{
-			if ($rsGroups->group_id == Groups::SUPERADMIN && !$this->okt->user->is_superadmin) {
-				continue;
-			}
-
+		while ($rsGroups->fetch()) {
 			$aGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
 		}
 
