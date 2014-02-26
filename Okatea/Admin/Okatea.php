@@ -56,9 +56,9 @@ class Okatea extends Application
 
 			$this->loadTplEngine();
 
-			$this->loadModules('admin');
+			$this->loadThemes('admin');
 
-			//$this->loadThemes('admin');
+			$this->loadModules('admin');
 
 			$this->callController();
 		}

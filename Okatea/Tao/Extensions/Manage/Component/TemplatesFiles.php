@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Extensions\Manage\Component;
 
 use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
+use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
 class TemplatesFiles extends ComponentBase
 {
@@ -35,7 +36,7 @@ class TemplatesFiles extends ComponentBase
 			'templates_files',
 			$this->mirror(
 				$sTemplatesDir,
-				$this->okt->options->get('themes_dir').'/default/templates/'.$this->extension->id(),
+				$this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/templates/'.$this->extension->id(),
 				$oFiles
 			),
 			'Create templates files',
@@ -49,7 +50,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('themes_dir').'/default/templates/'.$this->extension->id();
+		$sPath = $this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/templates/'.$this->extension->id();
 
 		if (!is_dir($sPath)) {
 			return null;

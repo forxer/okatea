@@ -148,6 +148,7 @@ class Collection
 	public function isInstalled($sExtensionId)
 	{
 		$this->aInstalledThemes = $this->getManager()->getInstalled();
+
 		return isset($this->aInstalledThemes[$sExtensionId]);
 	}
 

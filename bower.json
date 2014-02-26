@@ -2,6 +2,7 @@
 	"name": "okatea",
 	"dependencies": {
 		"codemirror": 				"marijnh/CodeMirror",
+		"ghostdown":				"timsayshey/Ghost-Markdown-Editor",
 		"html5shiv": 				"aFarkas/html5shiv",
 		"jquery": 					"1.*",
 		"jquery-color": 			"jquery/jquery-color",

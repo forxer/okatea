@@ -31,6 +31,8 @@ class Theme extends Controller
 		# theme infos
 		$aThemeInfos = $this->okt->themes->getInstance($sThemeId)->getInfos();
 
+		$aThemeInfos['screenshot'] = file_exists($this->okt->options->get('public_dir').'/themes/'.$sThemeId.'/screenshot.png');
+
 		# Notes de développement
 		$sDevNotesFilename = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/notes.md';
 		$bHasDevNotes = $bEditDevNotes = false;
@@ -49,8 +51,10 @@ class Theme extends Controller
 
 		# Definitions LESS
 		$sDefinitionsLessFilename = $this->okt->options->get('public_dir').'/themes/'.$sThemeId.'/css/definitions.less';
-		$oDefinitionsLessEditor = null;
+
 		$bHasDefinitionsLess = false;
+		$oDefinitionsLessEditor = null;
+		$aCurrentDefinitionsLess = array();
 		if (file_exists($sDefinitionsLessFilename))
 		{
 			$bHasDefinitionsLess = true;
@@ -79,7 +83,7 @@ class Theme extends Controller
 			return $this->redirect($this->generateUrl('config_theme', array('theme_id' => $sThemeId)));
 		}
 
-		return $this->render('Config/Theme', array(
+		return $this->render('Config/Themes/Theme', array(
 			'sThemeId' => $sThemeId,
 			'aThemeInfos' => $aThemeInfos,
 			'bHasDevNotes' => $bHasDevNotes,
@@ -87,7 +91,8 @@ class Theme extends Controller
 			'sDevNotesMd' => $sDevNotesMd,
 			'sDevNotesHtml' => $sDevNotesHtml,
 			'bHasDefinitionsLess' => $bHasDefinitionsLess,
-			'oDefinitionsLessEditor' => $oDefinitionsLessEditor
+			'oDefinitionsLessEditor' => $oDefinitionsLessEditor,
+			'aCurrentDefinitionsLess' => $aCurrentDefinitionsLess
 		));
 	}
 

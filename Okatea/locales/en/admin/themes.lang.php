@@ -10,6 +10,11 @@ $GLOBALS['okt_l10n']['c_a_themes_one_theme'] = 'one theme';
 $GLOBALS['okt_l10n']['c_a_themes_%s_themes'] = '%s themes';
 $GLOBALS['okt_l10n']['c_a_themes_no_theme'] = 'no theme';
 
+$GLOBALS['okt_l10n']['c_a_themes_no_screenshot'] = 'no screenshot';
+$GLOBALS['okt_l10n']['c_a_themes_version_%s'] = 'Version: %s';
+$GLOBALS['okt_l10n']['c_a_themes_version'] = 'Version';
+$GLOBALS['okt_l10n']['c_a_themes_author_%s'] = 'Author&nbsp: %s';
+
 $GLOBALS['okt_l10n']['c_a_themes_name'] = 'Name';
 $GLOBALS['okt_l10n']['c_a_themes_version'] = 'Version';
 $GLOBALS['okt_l10n']['c_a_themes_use'] = 'Use';
