@@ -97,30 +97,24 @@ $okt->page->loader('.lazy-load');
 
 			# links
 			$theme_links = array();
-			if (file_exists($aTheme['root'].'/CHANGELOG'))
-			{
+			if (file_exists($aTheme['root'].'/CHANGELOG')) {
 				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_changelog='.$aTheme['id'].'"'.
 				' id="'.$aTheme['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
 			}
-
-			if (file_exists($aTheme['root'].'/notes.md'))
-			{
+			if (file_exists($aTheme['root'].'/notes.md')) {
 				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_notes='.$aTheme['id'].'"'.
 				' id="'.$aTheme['id'].'_notes_link">'.__('c_a_themes_notes').'</a>';
 			}
-
-			/*
 			if ($okt->adminRouter->routeExists($aTheme['id'].'_display')) {
 				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_display').'">'.__('c_a_themes_display').'</a>';
 			}
 			if ($okt->adminRouter->routeExists($aTheme['id'].'_config')) {
 				$theme_links[] = '<a href="'.$okt->adminRouter->generate($aTheme['id'].'_config').'">'.__('c_a_themes_config').'</a>';
 			}
-			*/
 		?>
 		<tr>
 			<td class="<?php echo $td_class ?>">
-				<p class="title"><?php echo $aTheme['name_l10n'] ?></p>
+				<p class="title"><a href="<?php echo $view->generateUrl('config_theme', array('theme_id' => $aTheme['id'])) ?>"><?php echo $aTheme['name_l10n'] ?></a></p>
 				<p><?php echo $aTheme['desc_l10n'] ?></p>
 
 				<?php if (!empty($theme_links)) : ?>

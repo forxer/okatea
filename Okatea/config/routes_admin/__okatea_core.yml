@@ -122,17 +122,9 @@ config_themes:
     path:     /configuration/themes
     defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::page' }
 
-config_theme_add:
-    path:     /configuration/theme/add
-    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::add' }
-
 config_theme:
     path:     /configuration/theme/{theme_id}
-    defaults: { controller: 'Okatea\Admin\Controller\Config\Themes::theme' }
-
-config_themes_editor:
-    path:     /configuration/theme/editor/{theme_id}
-    defaults: { controller: 'Okatea\Admin\Controller\Config\ThemesEditor::page' }
+    defaults: { controller: 'Okatea\Admin\Controller\Config\Theme::page' }
 
 config_navigation:
     path:     /configuration/navigation

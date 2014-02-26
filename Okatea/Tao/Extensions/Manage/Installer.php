@@ -13,6 +13,7 @@ use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
 use Okatea\Tao\Html\CheckList;
 use Okatea\Tao\Extensions\Extension;
+use Okatea\Tao\Extensions\Manager;
 use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
 use Okatea\Tao\Extensions\Manage\Component\Comparator;
 use Okatea\Tao\Extensions\Manage\Component\ConfigFiles;
@@ -76,8 +77,6 @@ class Installer extends Extension
 	 * @var Okatea\Tao\Extensions\Manage
 	 */
 	protected $manager;
-
-	protected $sManagerClass = '\\Okatea\Tao\\Extensions\\Manager';
 
 	/**
 	 * Constructor.
@@ -434,12 +433,12 @@ class Installer extends Extension
 	/**
 	 * Return manager instance.
 	 *
-	 * @return \Okatea\Tao\Extensions\Manage
+	 * @return \Okatea\Tao\Extensions\Manager
 	 */
 	protected function getManager()
 	{
 		if (null === $this->manager) {
-			return ($this->manager = new $this->sManagerClass($this->okt, $this->sExtensionsPath));
+			return ($this->manager = new Manager($this->okt, $this->sExtensionsPath));
 		}
 
 		return $this->manager;

@@ -29,14 +29,14 @@ class Collection extends BaseCollection
 	{
 		parent::__construct($okt, $path);
 
+		$this->type = 'theme';
+
 		$this->sCacheId = 'themes';
 		$this->sCacheRepositoryId = 'themes_repositories';
 
 		$this->sExtensionClassPatern = 'Okatea\\Themes\\%s\\Theme';
 
-		$this->sManagerClass = '\\Okatea\Tao\\Extensions\\Themes\\Manager';
-
-		$this->sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Themes\\Manage\\Installer';
+		$this->sInstallerClass = 'Okatea\\Tao\\Extensions\\Themes\\Manage\\Installer';
 	}
 
 	/**

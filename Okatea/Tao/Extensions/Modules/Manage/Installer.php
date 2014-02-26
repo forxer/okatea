@@ -15,18 +15,13 @@ use Okatea\Tao\Themes\Collection as ThemesCollection;
 class Installer extends BaseInstaller
 {
 	/**
-	 * Constructor.
+	 * Return manager instance.
 	 *
-	 * @param object $okt Okatea application instance.
-	 * @param string $sPath The extensions directory path to load.
-	 * @param string $sExtensionId
-	 * @return void
+	 * @return \Okatea\Tao\Extensions\Manager
 	 */
-	public function __construct($okt, $sPath, $sExtensionId)
+	protected function getManager()
 	{
-		parent::__construct($okt, $sPath, $sExtensionId);
-
-		$this->sManagerClass = '\\Okatea\Tao\\Extensions\\Modules\\Manager';
+		return $this->okt->modules->getManager();
 	}
 
 	/**

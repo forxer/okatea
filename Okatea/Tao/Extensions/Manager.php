@@ -11,8 +11,44 @@ namespace Okatea\Tao\Extensions;
 use Okatea\Tao\Database\Recordset;
 use Symfony\Component\Finder\Finder;
 
-class Manager extends Collection
+class Manager
 {
+	/**
+	 * Okatea application instance.
+	 * @var object Okatea\Tao\Application
+	 */
+	protected $okt;
+
+	/**
+	 * The database manager instance.
+	 * @var object
+	 */
+	protected $db;
+
+	/**
+	 * The errors manager instance.
+	 * @var object
+	 */
+	protected $error;
+
+	/**
+	 * The name of the extensions table.
+	 * @var string
+	 */
+	protected $t_extensions;
+
+	/**
+	 * The type of extensions.
+	 * @var string
+	 */
+	protected $type;
+
+	/**
+	 * The directory path extensions.
+	 * @var string
+	 */
+	protected $path;
+
 	/**
 	 * List of all extensions in the file system.
 	 * @var array
@@ -24,6 +60,25 @@ class Manager extends Collection
 	 * @var string
 	 */
 	protected $sTempId;
+
+	/**
+	 * Extensions collection instance.
+	 * @var Okatea\Tao\Extensions\Collection
+	 */
+	protected $collection;
+
+	public function __construct($okt, $sType, $sPath)
+	{
+		$this->okt = $okt;
+		$this->db = $okt->db;
+		$this->error = $okt->error;
+
+		$this->t_extensions = $okt->db->prefix.'core_extensions';
+
+		$this->type = $sType;
+
+		$this->path = $sPath;
+	}
 
 	/**
 	 * Returns a list of extensions from the file system.
@@ -116,7 +171,7 @@ class Manager extends Collection
 	 */
 	public function getFromDatabase(array $aParams = array())
 	{
-		$reqPlus = 'WHERE 1 ';
+		$reqPlus = 'WHERE type=\''.$this->db->escapeStr($this->type).'\' ';
 
 		if (!empty($aParams['id'])) {
 			$reqPlus .= 'AND id=\''.$this->db->escapeStr($aParams['id']).'\' ';
@@ -124,10 +179,6 @@ class Manager extends Collection
 
 		if (!empty($aParams['status'])) {
 			$reqPlus .= 'AND status='.(integer)$aParams['status'].' ';
-		}
-
-		if (!empty($aParams['type'])) {
-			$reqPlus .= 'AND type=\''.$this->db->escapeStr($aParams['type']).'\' ';
 		}
 
 		$strReq =
@@ -184,10 +235,9 @@ class Manager extends Collection
 	 * @param string $author
 	 * @param integer $priority
 	 * @param integer $status
-	 * @param string $type
 	 * @return booolean
 	 */
-	public function addExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0, $type = null)
+	public function addExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
 	{
 		$query =
 		'INSERT INTO '.$this->t_extensions.' ('.
@@ -201,7 +251,7 @@ class Manager extends Collection
 			'\''.$this->db->escapeStr($version).'\', '.
 			(integer)$priority.', '.
 			(integer)$status.', '.
-			'\''.$this->db->escapeStr($type).'\' '.
+			'\''.$this->db->escapeStr($this->type).'\' '.
 		') ';
 
 		if ($this->db->execute($query) === false) {

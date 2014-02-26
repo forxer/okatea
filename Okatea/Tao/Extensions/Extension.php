@@ -67,6 +67,16 @@ class Extension
 	}
 
 	/**
+	 * Retourne les informations de l'extension.
+	 *
+	 * @return array
+	 */
+	public function getInfos()
+	{
+		return $this->infos;
+	}
+
+	/**
 	 * Retourne une information de l'extension.
 	 *
 	 * @param string $sKey

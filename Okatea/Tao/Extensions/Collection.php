@@ -17,22 +17,10 @@ class Collection
 	protected $okt;
 
 	/**
-	 * The database manager instance.
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * The errors manager instance.
-	 * @var object
-	 */
-	protected $error;
-
-	/**
-	 * The name of the extensions table.
+	 * The type of extensions.
 	 * @var string
 	 */
-	protected $t_extensions;
+	protected $type;
 
 	/**
 	 * The directory path extensions.
@@ -65,14 +53,10 @@ class Collection
 	protected $aLoaded;
 
 	/**
-	 * Extensions manager instance.
-	 * @var Okatea\Tao\Extensions\Manage
+	 * Base installer class
+	 * @var string
 	 */
-	protected $manager;
-
-	protected $sManagerClass = '\\Okatea\Tao\\Extensions\\Manager';
-
-	protected $sInstallerBaseClass = '\\Okatea\Tao\\Extensions\\Manage\\Installer';
+	protected $sInstallerClass = '\\Okatea\Tao\\Extensions\\Manage\\Installer';
 
 	/**
 	 * Constructor.
@@ -84,12 +68,10 @@ class Collection
 	public function __construct($okt, $sPath)
 	{
 		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
 
 		$this->cache = $okt->cacheConfig;
 
-		$this->t_extensions = $okt->db->prefix.'core_extensions';
+		$this->type = 'extension';
 
 		$this->path = $sPath;
 	}
@@ -149,12 +131,24 @@ class Collection
 	/**
 	 * Indicates whether a given extension is in the list of loaded extensions.
 	 *
-	 * @param string $sModuleId
+	 * @param string $sExtensionId
 	 * @return boolean
 	 */
 	public function isLoaded($sExtensionId)
 	{
 		return isset($this->aLoaded[$sExtensionId]);
+	}
+
+	/**
+	 * Indicates whether a given extension is installed.
+	 *
+	 * @param string $sExtensionId
+	 * @return boolean
+	 */
+	public function isInstalled($sExtensionId)
+	{
+		$this->aInstalledThemes = $this->getManager()->getInstalled();
+		return isset($this->aInstalledThemes[$sExtensionId]);
 	}
 
 	/**
@@ -231,15 +225,11 @@ class Collection
 	/**
 	 * Return manager instance.
 	 *
-	 * @return \Okatea\Tao\Extensions\Manage
+	 * @return \Okatea\Tao\Extensions\Manager
 	 */
 	public function getManager()
 	{
-		if (null === $this->manager) {
-			return ($this->manager = new $this->sManagerClass($this->okt, $this->path));
-		}
-
-		return $this->manager;
+		return new Manager($this->okt, $this->type, $this->path);
 	}
 
 	/**
@@ -269,11 +259,11 @@ class Collection
 
 			$sInstallerClass = $sExtensionId.'_installer';
 
-			if (class_exists($sInstallerClass, false) && is_subclass_of($sInstallerClass, $this->sInstallerBaseClass)) {
+			if (class_exists($sInstallerClass, false) && is_subclass_of($sInstallerClass, $this->sInstallerClass)) {
 				return $sInstallerClass;
 			}
 		}
 
-		return $this->sInstallerBaseClass;
+		return $this->sInstallerClass;
 	}
 }
