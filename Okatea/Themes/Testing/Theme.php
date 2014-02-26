@@ -14,11 +14,6 @@ class Theme extends baseTheme
 {
 	public function prepend_public()
 	{
-		# Ajout de jQuery
-		$this->okt->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 
-		# CSS
-		$this->okt->page->css->addFile($this->okt->options->public_url.'/css/init.css');
-		$this->okt->page->css->addFile($this->public_url.'/css/styles.css');
 	}
 }

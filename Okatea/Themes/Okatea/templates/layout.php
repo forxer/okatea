@@ -8,7 +8,17 @@
 
 # début Okatea : ce template étend le template principal "main"
 $view->extend('main');
-# fin Okatea : ce template étend le template principal "main" ?>
+# fin Okatea : ce template étend le template principal "main"
+
+# JS
+$okt->page->js->addFile($okt->options->get('public_url').'/components/jquery/dist/jquery.min.js');
+$okt->page->js->addCCFile($okt->options->get('public_url').'/components/html5shiv/dist/html5shiv.js', 'lt IE 9');
+
+# CSS
+$okt->page->css->addFile($okt->options->get('public_url').'/components/normalize-css/normalize.css');
+$okt->page->css->addLessFile($okt->theme->public_path.'/css/styles.less');
+
+?>
 
 
 <div id="global">

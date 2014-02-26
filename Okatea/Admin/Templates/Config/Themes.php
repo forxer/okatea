@@ -17,6 +17,8 @@ $okt->page->addGlobalTitle(__('Themes'));
 
 $okt->page->dialog(array(), '.changelog_link');
 
+$okt->page->dialog(array(), '.notes_link');
+
 # Display a UI dialog box for each theme
 foreach ($aInstalledThemes as $aTheme)
 {
@@ -24,6 +26,15 @@ foreach ($aInstalledThemes as $aTheme)
 	{
 		$okt->page->openLinkInDialog('#'.$aTheme['id'].'_changelog_link',array(
 			'title' => $view->escapeJs($aTheme['name_l10n']." CHANGELOG"),
+			'width' => 730,
+			'height' => 500
+		));
+	}
+
+	if (file_exists($aTheme['root'].'/notes.md'))
+	{
+		$okt->page->openLinkInDialog('#'.$aTheme['id'].'_notes_link',array(
+			'title' => $view->escapeJs($aTheme['name_l10n']." Notes"),
 			'width' => 730,
 			'height' => 500
 		));
@@ -66,6 +77,7 @@ $okt->page->loader('.lazy-load');
 			<th scope="col" class="left"><?php _e('c_a_themes_name') ?></th>
 			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
 			<th scope="col"><?php _e('c_a_themes_tools') ?></th>
+			<th scope="col"><?php _e('c_a_themes_use') ?></th>
 			<th scope="col"><?php _e('c_a_themes_actions') ?></th>
 		</tr></thead>
 		<tbody>
@@ -89,6 +101,12 @@ $okt->page->loader('.lazy-load');
 			{
 				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_changelog='.$aTheme['id'].'"'.
 				' id="'.$aTheme['id'].'_changelog_link">'.__('c_a_themes_changelog').'</a>';
+			}
+
+			if (file_exists($aTheme['root'].'/notes.md'))
+			{
+				$theme_links[] = '<a href="'.$view->generateUrl('config_themes').'?show_notes='.$aTheme['id'].'"'.
+				' id="'.$aTheme['id'].'_notes_link">'.__('c_a_themes_notes').'</a>';
 			}
 
 			/*
@@ -139,13 +157,34 @@ $okt->page->loader('.lazy-load');
 			<td class="<?php echo $td_class ?> small nowrap">
 				<ul class="actions">
 					<li>
-					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
-						<span class="icon package_go"></span><?php _e('c_c_action_Download') ?>
-					<?php else : ?>
+						<?php if ($aTheme['id'] == $this->okt->config->themes['desktop']) : ?>
+						<span class="icon tick"></span><?php _e('c_a_themes_current') ?>
+						<?php else : ?>
+						<a href="<?php echo $view->generateUrl('config_themes').'?use='.$aTheme['id'] ?>" class="icon cross"><?php _e('c_a_themes_use_desktop') ?></a>
+						<?php endif; ?>
+					</li>
+					<li>
+						<?php if ($aTheme['id'] == $this->okt->config->themes['mobile']) : ?>
+						<a href="<?php echo $view->generateUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>" class="icon tick"><?php _e('c_a_themes_current_mobile') ?></a>
+						<?php else : ?>
+						<a href="<?php echo $view->generateUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>" class="icon cross"><?php _e('c_a_themes_use_mobile') ?></a>
+						<?php endif; ?>
+					</li>
+					<li>
+						<?php if ($aTheme['id'] == $this->okt->config->themes['tablet']) : ?>
+						<a href="<?php echo $view->generateUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>" class="icon tick"><?php _e('c_a_themes_current_tablet') ?></a>
+						<?php else : ?>
+						<a href="<?php echo $view->generateUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>" class="icon cross"><?php _e('c_a_themes_use_tablet') ?></a>
+						<?php endif; ?>
+					</li>
+				</ul>
+			</td>
+			<td class="<?php echo $td_class ?> small nowrap">
+				<ul class="actions">
+					<li>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aTheme['name_l10n'])) ?>"
 						class="icon package_go"><?php _e('c_c_action_Download') ?></a>
-					<?php endif; ?>
 					</li>
 					<li>
 					<?php if (ThemesCollection::DEFAULT_THEME === $aTheme['id']) : ?>
@@ -154,7 +193,7 @@ $okt->page->loader('.lazy-load');
 						<?php if (!$aTheme['status']) : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?enable=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aTheme['name_l10n'])) ?>"
-						class="icon picture_disabled"><?php _e('c_c_action_Enable') ?></a>
+						class="icon picture_empty"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
 						<a href="<?php echo $view->generateUrl('config_themes') ?>?disable=<?php echo $aTheme['id']; ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aTheme['name_l10n'])) ?>"
@@ -201,7 +240,7 @@ $okt->page->loader('.lazy-load');
 	<table class="common">
 		<caption><?php _e('c_a_themes_uninstalled_list_themes') ?></caption>
 		<thead><tr>
-			<th scope="col" class="left" colspan="2"><?php _e('c_c_Name') ?></th>
+			<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
 			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
 			<th scope="col"><?php _e('c_a_themes_actions') ?></th>
 		</tr></thead>
@@ -214,13 +253,6 @@ $okt->page->loader('.lazy-load');
 			$line_count++;
 		?>
 		<tr>
-			<td class="<?php echo $td_class; ?> small">
-				<?php if (file_exists($okt->options->get('themes_dir').'/'.$id.'/Install/assets/theme_icon.png')) : ?>
-					<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('themes_dir').'/'.$id.'/Install/assets/theme_icon.png', 'png'); ?>" width="32" height="32" alt="" />
-				<?php else: ?>
-					<img src="<?php echo $okt->options->public_url ?>/img/admin/theme.png" width="32" height="32" alt="" />
-				<?php endif; ?>
-			</td>
 			<td class="<?php echo $td_class; ?>">
 				<p class="title"><?php _e($theme['name']) ?></p>
 				<p><?php _e($theme['desc']) ?></p>

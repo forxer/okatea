@@ -12,12 +12,21 @@ $GLOBALS['okt_l10n']['c_a_themes_no_theme'] = 'aucun thème';
 
 $GLOBALS['okt_l10n']['c_a_themes_name'] = 'Nom';
 $GLOBALS['okt_l10n']['c_a_themes_version'] = 'Version';
+$GLOBALS['okt_l10n']['c_a_themes_use'] = 'Utilisation';
 $GLOBALS['okt_l10n']['c_a_themes_tools'] = 'Outils';
 $GLOBALS['okt_l10n']['c_a_themes_actions'] = 'Actions';
 $GLOBALS['okt_l10n']['c_a_themes_changelog'] = 'Changelog';
-$GLOBALS['okt_l10n']['c_a_themes_read_me'] = 'Read me';
+$GLOBALS['okt_l10n']['c_a_themes_notes'] = 'Notes';
+$GLOBALS['okt_l10n']['c_a_themes_read_me'] = 'Lisez-moi';
 $GLOBALS['okt_l10n']['c_a_themes_display'] = 'Affichage';
 $GLOBALS['okt_l10n']['c_a_themes_config'] = 'Configuration';
+
+$GLOBALS['okt_l10n']['c_a_themes_use_desktop'] = 'Bureau';
+$GLOBALS['okt_l10n']['c_a_themes_use_mobile'] = 'Mobile';
+$GLOBALS['okt_l10n']['c_a_themes_use_tablet'] = 'Tablette';
+$GLOBALS['okt_l10n']['c_a_themes_current'] = 'Bureau actuel';
+$GLOBALS['okt_l10n']['c_a_themes_current_mobile'] = 'Mobile actuel';
+$GLOBALS['okt_l10n']['c_a_themes_current_tablet'] = 'Tablette actuel';
 
 $GLOBALS['okt_l10n']['c_a_themes_installed_themes'] = 'Thèmes installés';
 $GLOBALS['okt_l10n']['c_a_themes_no_themes_installed'] = 'Il n’y a pas de thème installé';

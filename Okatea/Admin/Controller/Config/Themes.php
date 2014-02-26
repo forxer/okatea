@@ -35,9 +35,14 @@ class Themes extends Controller
 
 		$this->init();
 
-		# Affichage changelog
+		# Show changelog
 		if (($showChangelog = $this->showChangelog()) !== false) {
 			return $showChangelog;
+		}
+
+		# Show notes
+		if (($showNotes = $this->showNotes()) !== false) {
+			return $showNotes;
 		}
 
 		# Enable a theme
@@ -93,6 +98,21 @@ class Themes extends Controller
 		# Add a theme to the system
 		if (($themeUpload = $this->themeUpload()) !== false) {
 			return $themeUpload;
+		}
+
+		# Use a theme
+		if (($useTheme = $this->useTheme()) !== false) {
+			return $useTheme;
+		}
+
+		# Use a mobile theme
+		if (($useMobileTheme = $this->useMobileTheme()) !== false) {
+			return $useMobileTheme;
+		}
+
+		# Use a tablet theme
+		if (($useTabletTheme = $this->useTabletTheme()) !== false) {
+			return $useTabletTheme;
 		}
 
 		return $this->render('Config/Themes', array(
@@ -175,6 +195,20 @@ class Themes extends Controller
 		$sChangelogContent = '<pre class="changelog">'.file_get_contents($sChangelogFile).'</pre>';
 
 		return (new Response())->setContent($sChangelogContent);
+	}
+
+	protected function showNotes()
+	{
+		$sThemeId = $this->request->query->get('show_notes');
+		$sNotesFile = $this->okt->options->get('themes_dir').'/'.$sThemeId.'/notes.md';
+
+		if (!$sThemeId || !file_exists($sNotesFile)) {
+			return false;
+		}
+
+		$sNotesContent = \Parsedown::instance()->parse(file_get_contents($this->okt->options->get('themes_dir').'/'.$sThemeId.'/notes.md'));
+
+		return (new Response())->setContent($sNotesContent);
 	}
 
 	protected function enableTheme()
@@ -571,5 +605,104 @@ class Themes extends Controller
 		}
 
 		return false;
+	}
+
+	protected function useTheme()
+	{
+		$sUseThemeId = $this->request->query->get('use');
+		if (!$sUseThemeId) {
+			return false;
+		}
+
+		try
+		{
+			$aThemesConfig = $this->okt->config->themes;
+
+			$aThemesConfig['desktop'] = $sUseThemeId;
+
+			# write config
+			$this->okt->config->write(array('themes' => $aThemesConfig));
+
+			# modules config sheme
+			$sTplScheme = $this->okt->options->get('themes_dir').'/'.$sUseThemeId.'/modules_config_scheme.php';
+
+			if (file_exists($sTplScheme)) {
+				include $sTplScheme;
+			}
+
+			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			return $this->redirect($this->generateUrl('config_themes'));
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$this->okt->error->set(__('c_c_error_writing_configuration'));
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function useMobileTheme()
+	{
+		$sUseMobileThemeId = $this->request->query->get('use_mobile');
+
+		if (!$sUseMobileThemeId) {
+			return false;
+		}
+
+		try
+		{
+			$aThemesConfig = $this->okt->config->themes;
+
+			# switch ?
+			if ($sUseMobileThemeId == $this->okt->config->themes['mobile']) {
+				$sUseMobileThemeId = '';
+			}
+
+			$aThemesConfig['mobile'] = $sUseMobileThemeId;
+			$this->okt->config->write(array('themes' => $aThemesConfig));
+
+			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			return $this->redirect($this->generateUrl('config_themes'));
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$this->okt->error->set(__('c_c_error_writing_configuration'));
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
+	}
+
+	protected function useTabletTheme()
+	{
+		$sUseTabletThemeId = $this->request->query->get('use_tablet');
+
+		if (!$sUseTabletThemeId) {
+			return false;
+		}
+
+		try
+		{
+			$aThemesConfig = $this->okt->config->themes;
+
+			# switch ?
+			if ($sUseTabletThemeId == $this->okt->config->themes['tablet']) {
+				$sUseTabletThemeId = '';
+			}
+
+			$aThemesConfig['tablet'] = $sUseTabletThemeId;
+			$this->okt->config->write(array('themes' => $aThemesConfig));
+
+			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+			return $this->redirect($this->generateUrl('config_themes'));
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$this->okt->error->set(__('c_c_error_writing_configuration'));
+			$this->okt->error->set($e->getMessage());
+			return false;
+		}
 	}
 }

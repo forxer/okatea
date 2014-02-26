@@ -8,7 +8,15 @@
 
 # début Okatea : ce template étend le template principal "main"
 $this->extend('main');
-# fin Okatea : ce template étend le template principal "main" ?>
+# fin Okatea : ce template étend le template principal "main"
+
+# Ajout de jQuery
+$okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquery.min.js');
+
+# CSS
+$okt->page->css->addFile($okt->options->public_url.'/css/init.css');
+$okt->page->css->addFile($okt->theme->public_url.'/css/styles.css');
+?>
 
 
 <div id="page">
