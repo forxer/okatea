@@ -115,7 +115,7 @@ class Themes extends Controller
 			return $useTabletTheme;
 		}
 
-		return $this->render('Config/Themes', array(
+		return $this->render('Config/Themes/List', array(
 			'aAllThemes'			=> $this->aAllThemes,
 			'aInstalledThemes'		=> $this->aInstalledThemes,
 			'aUninstalledThemes'	=> $this->aUninstalledThemes,
