@@ -12,6 +12,7 @@
 		"jquery-roundabout": 		"fredhq/roundabout",
 		"jquery-stringtoslug": 		"leocaseiro/jQuery-Plugin-stringToSlug",
 		"jquery-validation": 		"jzaefferer/jquery-validation",
+		"lightbox2": 				"lokesh/lightbox2",
 		"normalize-css": 			"2.*",
 		"passfield": 				"antelle/passfield",
 		"plupload": 				"https://github.com/moxiecode/plupload/archive/v1.5.8.tar.gz",
