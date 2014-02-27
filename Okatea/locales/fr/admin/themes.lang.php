@@ -71,9 +71,6 @@ $GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'Les fichiers actifs 
 
 $GLOBALS['okt_l10n']['c_a_themes_compare_files'] = 'Comparer les fichiers';
 $GLOBALS['okt_l10n']['c_a_themes_file_comparison_theme_%s'] = 'Comparer les fichiers du thème %s';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_not_exists'] = 'Le fichier %s n’existe pas.';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_identical'] = 'Le fichier %s est identique.';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_different_%s'] = 'Le fichier %s est différent. %s';
 
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme'] = 'Suppression thème';
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme_confirm'] = 'Êtes-vous sûr de vouloir supprimer ce thème ?';

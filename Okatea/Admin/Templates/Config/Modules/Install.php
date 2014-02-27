@@ -8,6 +8,7 @@
 
 $view->extend('layout');
 
+$okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateUrl('config_modules'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_modules_install_module_%s'), $oInstallModule->name()));
 
 ?>

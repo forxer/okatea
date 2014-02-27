@@ -63,9 +63,6 @@ $GLOBALS['okt_l10n']['c_a_modules_assets_files_replaced'] = 'Les fichiers actifs
 
 $GLOBALS['okt_l10n']['c_a_modules_compare_files'] = 'Comparer les fichiers';
 $GLOBALS['okt_l10n']['c_a_modules_file_comparison_module_%s'] = 'Comparer les fichiers du module %s';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_not_exists'] = 'Le fichier %s n’existe pas.';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_identical'] = 'Le fichier %s est identique.';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_different_%s'] = 'Le fichier %s est différent. %s';
 
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set'] = 'Installer le jeu de test';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_%s'] = 'Installer le jeu de test du module %s';

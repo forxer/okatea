@@ -71,9 +71,6 @@ $GLOBALS['okt_l10n']['c_a_themes_common_files_replaced'] = 'The assets files wer
 
 $GLOBALS['okt_l10n']['c_a_themes_compare_files'] = 'Compare files';
 $GLOBALS['okt_l10n']['c_a_themes_file_comparison_theme_%s'] = 'File comparison theme %s';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_not_exists'] = 'The file %s not exists.';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_identical'] = 'The file %s is identical.';
-$GLOBALS['okt_l10n']['c_a_themes_file_%s_different_%s'] = 'The file %s is different. %s';
 
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme'] = 'Delete theme';
 $GLOBALS['okt_l10n']['c_a_themes_delete_theme_confirm'] = 'Are you sure you want to delete this theme?';

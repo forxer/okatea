@@ -8,6 +8,7 @@
 
 $view->extend('layout');
 
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_themes_file_comparison_theme_%s'), $oInstallTheme->name()));
 
 $okt->page->css->addCss('

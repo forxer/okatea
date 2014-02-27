@@ -24,25 +24,10 @@ class Installer extends BaseInstaller
 		return $this->okt->themes->getManager();
 	}
 
-	/*
 	public function compareFiles()
 	{
-		# compare templates
-		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
-
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
-		{
-			if ($sThemeId == 'default') {
-				continue;
-			}
-
-			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
-		}
-
-		# compare assets
-		$this->getComparator()->folder($this->root().'/Install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
+		$this->getComparator()->folder($this->root().'/Install/assets/', $this->okt->options->get('public_dir').'/themes/'.$this->id().'/');
 	}
-	*/
 
 	protected function getAssetsFiles()
 	{

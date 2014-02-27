@@ -577,6 +577,11 @@ $GLOBALS['okt_l10n']['c_c_upload_error_4'] = 'Aucun fichier chargé.';
 $GLOBALS['okt_l10n']['c_c_upload_error_5'] = 'Il manque un répertoire temporaire.';
 $GLOBALS['okt_l10n']['c_c_upload_error_6'] = 'Impossible d’écrire le fichier.';
 
+# files comparison
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_not_exists'] = 'Le fichier %s n’existe pas.';
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_identical'] = 'Le fichier %s est identique.';
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_different_%s'] = 'Le fichier %s est différent. %s';
+
 # plupload
 $GLOBALS['okt_l10n']['c_c_plupload_select_files'] = 'Sélectionner des fichiers';
 $GLOBALS['okt_l10n']['c_c_plupload_explanatory_sentence'] = 'Ajoutez des fichiers à la file d’envoi et cliquez sur le bouton "Envoyer les fichiers".';

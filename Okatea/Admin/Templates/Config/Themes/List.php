@@ -8,7 +8,7 @@
 
 $view->extend('layout');
 
-# Infos page par défaut
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
 $okt->page->addGlobalTitle(__('c_a_themes_management'));
 
 # Tabs

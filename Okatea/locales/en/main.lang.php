@@ -578,6 +578,11 @@ $GLOBALS['okt_l10n']['c_c_upload_error_4'] = 'No file was uploaded.';
 $GLOBALS['okt_l10n']['c_c_upload_error_5'] = 'Missing a temporary folder.';
 $GLOBALS['okt_l10n']['c_c_upload_error_6'] = 'Failed to write file to disk.';
 
+# files comparison
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_not_exists'] = 'The file %s not exists.';
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_identical'] = 'The file %s is identical.';
+$GLOBALS['okt_l10n']['c_a_compare_file_%s_different_%s'] = 'The file %s is different. %s';
+
 # plupload
 $GLOBALS['okt_l10n']['c_c_plupload_select_files'] = 'Select files';
 $GLOBALS['okt_l10n']['c_c_plupload_explanatory_sentence'] = 'Add files to the upload queue and click the start button.';

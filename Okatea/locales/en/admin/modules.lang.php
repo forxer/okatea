@@ -63,9 +63,6 @@ $GLOBALS['okt_l10n']['c_a_modules_assets_files_replaced'] = 'The assets files we
 
 $GLOBALS['okt_l10n']['c_a_modules_compare_files'] = 'Compare files';
 $GLOBALS['okt_l10n']['c_a_modules_file_comparison_module_%s'] = 'File comparison module %s';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_not_exists'] = 'The file %s not exists.';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_identical'] = 'The file %s is identical.';
-$GLOBALS['okt_l10n']['c_a_modules_file_%s_different_%s'] = 'The file %s is different. %s';
 
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set'] = 'Install test set';
 $GLOBALS['okt_l10n']['c_a_modules_install_test_set_%s'] = 'Install test set of %s module';

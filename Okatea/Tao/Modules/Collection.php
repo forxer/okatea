@@ -298,7 +298,7 @@ class Collection
 	 * @param array $aParams 			Le tableau de paramètres
 	 * @return void
 	 */
-	public function registerModule(array $aParams=array())
+	public function register(array $aParams=array())
 	{
 		if ($this->id)
 		{

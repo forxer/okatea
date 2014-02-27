@@ -27,15 +27,19 @@ class Comparator extends ComponentBase
 			return null;
 		}
 
-		$oFiles = $this->getFinder();
-		$oFiles
+		$finder = $this->getFinder()
 			->files()
 			->in($sSourceDir);
 
-		foreach ($oFiles as $oFile)
+		foreach ($finder as $file)
 		{
-			$this->file($oFile->getFilename(), $sSourceDir, $sDestDir, false, $bOptional);
-			$this->file($oFile->getFilename(), $sSourceDir, $sDestDir, true, $bOptional);
+			$sRelativePath = $file->getRelativePath();
+			if (!empty($sRelativePath)) {
+				$sRelativePath .= '/';
+			}
+
+			$this->file($file->getFilename(), $sSourceDir.$sRelativePath, $sDestDir.$sRelativePath, false, $bOptional);
+			$this->file($file->getFilename(), $sSourceDir.$sRelativePath, $sDestDir.$sRelativePath, true, $bOptional);
 		}
 
 		return true;
@@ -73,8 +77,8 @@ class Comparator extends ComponentBase
 				$this->checklist->addItem(
 					'file_exists_'.$sFile,
 					($bOptional ? null : false),
-					sprintf(__('c_a_modules_file_%s_not_exists'), '<code>'.$sBaseDestFile.'</code>'),
-					sprintf(__('c_a_modules_file_%s_not_exists'), '<code>'.$sBaseDestFile.'</code>')
+					sprintf(__('c_a_compare_file_%s_not_exists'), '<code>'.$sBaseDestFile.'</code>'),
+					sprintf(__('c_a_compare_file_%s_not_exists'), '<code>'.$sBaseDestFile.'</code>')
 				);
 			}
 		}
@@ -102,7 +106,7 @@ class Comparator extends ComponentBase
 				$renderer->diff = $diff;
 
 				$ze_string = sprintf(
-					__('c_a_modules_file_%s_different_%s'),
+					__('c_a_compare_file_%s_different_%s'),
 					'<code>'.$sBaseDestFile.'</code>',
 					$renderer->render($sBaseSourceFile, $sBaseDestFile)
 				);
@@ -119,8 +123,8 @@ class Comparator extends ComponentBase
 				$this->checklist->addItem(
 					'files_'.$sFile.'_identical',
 					true,
-					sprintf(__('c_a_modules_file_%s_identical'), '<code>'.$sDestBase.$sFile.'</code>'),
-					sprintf(__('c_a_modules_file_%s_identical'), '<code>'.$sDestBase.$sFile.'</code>')
+					sprintf(__('c_a_compare_file_%s_identical'), '<code>'.$sDestBase.$sFile.'</code>'),
+					sprintf(__('c_a_compare_file_%s_identical'), '<code>'.$sDestBase.$sFile.'</code>')
 				);
 			}
 		}

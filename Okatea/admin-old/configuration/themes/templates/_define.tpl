@@ -6,7 +6,7 @@
  */
 
 
-$this->registerTheme(array(
+$this->register(array(
 	'name' 			=> "{{theme_name}}",
 	'desc' 			=> '',
 	'version' 		=> '1.0',

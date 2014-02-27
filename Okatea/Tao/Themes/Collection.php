@@ -242,7 +242,7 @@ class Collection
 	 * @param array $aParams
 	 * @return void
 	 */
-	public function registerTheme($aParams=array())
+	public function register($aParams=array())
 	{
 		if ($this->_id)
 		{

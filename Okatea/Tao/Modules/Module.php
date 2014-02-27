@@ -134,7 +134,7 @@ class Module
 	 * @param array $aParams 			Le tableau de paramètres
 	 * @return void
 	 */
-	public function registerModule(array $aParams=array())
+	public function register(array $aParams=array())
 	{
 		$this->setInfos(array(
 			'root'			=> $this->okt->options->get('modules_dir').'/'.$this->id(),
