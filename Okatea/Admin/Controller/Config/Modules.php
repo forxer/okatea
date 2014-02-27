@@ -116,7 +116,7 @@ class Modules extends Controller
 			return $moduleUpload;
 		}
 
-		return $this->render('Config/Modules', array(
+		return $this->render('Config/Modules/List', array(
 			'aAllModules'             => $this->aAllModules,
 			'aInstalledModules'       => $this->aInstalledModules,
 			'aUninstalledModules'     => $this->aUninstalledModules,

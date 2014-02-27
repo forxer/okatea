@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+$GLOBALS['okt_l10n']['c_a_modules_management'] = 'Gestion des modules';
+
 $GLOBALS['okt_l10n']['c_a_modules_one_module'] = 'un module';
 $GLOBALS['okt_l10n']['c_a_modules_%s_modules'] = '%s modules';
 $GLOBALS['okt_l10n']['c_a_modules_no_module'] = 'aucun module';

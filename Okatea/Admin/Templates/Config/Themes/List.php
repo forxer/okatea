@@ -31,23 +31,23 @@ $okt->page->loader('.lazy-load');
 	</ul>
 
 	<?php # render installed themes tab
-	echo $view->render('Config/Themes/Tabs/installed', array(
+	echo $view->render('Config/Themes/ListTabs/installed', array(
 		'aInstalledThemes' => $aInstalledThemes,
 		'aAllThemes' => $aAllThemes
 	)); ?>
 
 	<?php # render uninstalled themes tab
-	echo $view->render('Config/Themes/Tabs/uninstalled', array(
+	echo $view->render('Config/Themes/ListTabs/uninstalled', array(
 		'aUninstalledThemes' => $aUninstalledThemes
 	)); ?>
 
 	<?php # render add theme tab
-	echo $view->render('Config/Themes/Tabs/add', array(
-		'aUninstalledThemes' => $aUninstalledThemes
+	echo $view->render('Config/Themes/ListTabs/add', array(
+		'aThemesRepositories' => $aThemesRepositories
 	)); ?>
 
 	<?php # render updatables themes tab
-	echo $view->render('Config/Themes/Tabs/updatables', array(
+	echo $view->render('Config/Themes/ListTabs/updatables', array(
 		'aUpdatablesThemes' => $aUpdatablesThemes
 	)); ?>
 
