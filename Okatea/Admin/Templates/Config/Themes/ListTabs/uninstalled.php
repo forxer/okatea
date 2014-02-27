@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Misc\Utilities;
 
 ?>
 
@@ -20,7 +21,7 @@ use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 	<table class="common">
 		<caption><?php _e('c_a_themes_uninstalled_list_themes') ?></caption>
 		<thead><tr>
-			<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
+			<th scope="col" class="left" colspan="2"><?php _e('c_c_Name') ?></th>
 			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
 			<th scope="col"><?php _e('c_a_themes_actions') ?></th>
 		</tr></thead>
@@ -28,31 +29,40 @@ use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 		<?php
 		$line_count = 0;
 
-		foreach ($aUninstalledThemes as $id=>$theme) :
+		foreach ($aUninstalledThemes as $id => $aTheme) :
 			$td_class = $line_count%2 == 0 ? 'even' : 'odd';
 			$line_count++;
 		?>
 		<tr>
+			<td class="<?php echo $td_class ?> small">
+				<p>
+					<?php if ($aTheme['icon']) : ?>
+					<img src="<?php echo  Utilities::base64EncodeImage($aTheme['root'].'/Install/Assets/'.$aTheme['icon']) ?>" alt="" width="64" height="64">
+					<?php else : ?>
+					<div class="no-icon"><em>n/a</em></div>
+					<?php endif; ?>
+				</p>
+			</td>
 			<td class="<?php echo $td_class; ?>">
-				<p class="title"><?php _e($theme['name']) ?></p>
-				<p><?php _e($theme['desc']) ?></p>
+				<p class="title"><?php _e($aTheme['name']) ?></p>
+				<p><?php _e($aTheme['desc']) ?></p>
 			</td>
 			<td class="<?php echo $td_class; ?> center">
-				<?php echo $theme['version'] ?>
+				<?php echo $aTheme['version'] ?>
 			</td>
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?install=<?php echo $id ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Install_%s'),__($theme['name']))) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Install_%s'),__($aTheme['name']))) ?>"
 					class="icon picture_add"><?php _e('c_c_action_Install') ?></a></li>
 
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $id ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),__($theme['name']))) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),__($aTheme['name']))) ?>"
 					class="icon package_go"><?php _e('c_c_action_Download') ?></a></li>
 
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?delete=<?php echo $id ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_delete_theme_confirm')) ?>')"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'),__($theme['name']))) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'),__($aTheme['name']))) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 				</ul>
 			</td>

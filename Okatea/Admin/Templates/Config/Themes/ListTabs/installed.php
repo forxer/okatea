@@ -48,7 +48,7 @@ foreach ($aInstalledThemes as $aTheme)
 	<table class="common">
 		<caption><?php _e('c_a_themes_list_installed_themes') ?></caption>
 		<thead><tr>
-			<th scope="col" class="left"><?php _e('c_a_themes_name') ?></th>
+			<th scope="col" class="left" colspan="2"><?php _e('c_a_themes_name') ?></th>
 			<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
 			<th scope="col"><?php _e('c_a_themes_tools') ?></th>
 			<th scope="col"><?php _e('c_a_themes_use') ?></th>
@@ -87,6 +87,15 @@ foreach ($aInstalledThemes as $aTheme)
 			}
 		?>
 		<tr>
+			<td class="<?php echo $td_class ?> small">
+				<p>
+					<?php if ($aTheme['icon']) : ?>
+					<img src="<?php echo  $okt->options->get('public_url').'/themes/'.$aTheme['id'].'/'.$aTheme['icon'] ?>" alt="" width="64" height="64">
+					<?php else : ?>
+					<div class="no-icon"><em>n/a</em></div>
+					<?php endif; ?>
+				</p>
+			</td>
 			<td class="<?php echo $td_class ?>">
 				<p class="title">
 				<?php if ($aTheme['status']) : ?>

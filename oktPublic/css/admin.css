@@ -439,6 +439,8 @@ table.common .large {
 .small,
 table.common .small {
 	width: 1px;
+	padding-left: 0.5em;
+	padding-right: 1em;
 }
 .nowrap,
 table.common .nowrap {

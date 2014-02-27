@@ -100,7 +100,6 @@ class Manager
 			require $file->getRealpath();
 
 			$this->id = null;
-			$this->mroot = null;
 		}
 
 		return $this->aAll;

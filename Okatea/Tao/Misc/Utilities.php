@@ -428,13 +428,17 @@ class Utilities
 		return $str.$prefix.($i+1);
 	}
 
-	public static function base64EncodeImage($filename, $filetype)
+	public static function base64EncodeImage($sFilename, $sMimeType = null)
 	{
-		$handle = fopen($filename, 'rb');
-		$imgbinary = fread($handle, filesize($filename));
+		$handle = fopen($sFilename, 'rb');
+		$imgbinary = fread($handle, filesize($sFilename));
 		fclose($handle);
 
-		return 'data:image/'.$filetype.';base64,'.base64_encode($imgbinary);
+		if (null === $sMimeType) {
+			$sMimeType = getimagesize($sFilename)['mime'];
+		}
+
+		return 'data:'.$sMimeType.';base64,'.base64_encode($imgbinary);
 	}
 
 	/**

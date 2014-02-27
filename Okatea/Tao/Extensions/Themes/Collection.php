@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Extensions\Themes;
 
 use Okatea\Tao\Extensions\Collection as BaseCollection;
+use Symfony\Component\Finder\Finder;
 
 class Collection extends BaseCollection
 {
@@ -55,5 +56,28 @@ class Collection extends BaseCollection
 		}
 
 		return __('c_a_themes_no_theme');
+	}
+
+	public static function findIcon($sDir)
+	{
+		return self::findImg($sDir, 'theme_icon');
+	}
+
+	public static function findScreenshot($sDir)
+	{
+		return self::findImg($sDir, 'screenshot');
+	}
+
+	protected static function findImg($sDir, $simage)
+	{
+		$finder = (new Finder())
+			->in($sDir)
+			->depth('== 0')
+			->files()
+			->name($simage.'.*');
+
+		foreach ($finder as $file) {
+			return $file->getFilename();
+		}
 	}
 }

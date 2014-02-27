@@ -36,7 +36,7 @@ use Okatea\Tao\Misc\Utilities;
 		<tr>
 			<td class="<?php echo $td_class; ?> small">
 				<?php if (file_exists($okt->options->get('modules_dir').'/'.$id.'/Install/assets/module_icon.png')) : ?>
-					<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('modules_dir').'/'.$id.'/Install/assets/module_icon.png', 'png'); ?>" width="32" height="32" alt="" />
+					<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('modules_dir').'/'.$id.'/Install/assets/module_icon.png', 'image/png'); ?>" width="32" height="32" alt="" />
 				<?php else: ?>
 					<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png" width="32" height="32" alt="" />
 				<?php endif; ?>

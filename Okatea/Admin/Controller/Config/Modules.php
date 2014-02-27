@@ -127,36 +127,35 @@ class Modules extends Controller
 
 	protected function init()
 	{
-		# Modules locales
+		# Modules management locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
 
-		# Récupération de la liste des modules dans le système de fichiers (tous les modules)
+		# Retrieving the list of modules in the file system (all modules)
 		$this->aAllModules = $this->okt->modules->getManager()->getAll();
 
-		# Load all modules admin locales files
-		foreach ($this->aAllModules as $id=>$infos) {
-			$this->okt->l10n->loadFile($infos['root'].'/locales/'.$this->okt->user->language.'/main');
-		}
-
-		# Récupération de la liste des modules dans la base de données (les modules installés)
+		# Retrieving the list of modules in the database (installed modules)
 		$this->aInstalledModules = $this->okt->modules->getManager()->getInstalled();
 
-		# Calcul de la liste des modules non-installés
-		$this->aUninstalledModules = array_diff_key($this->aAllModules,$this->aInstalledModules);
+		# Computing the list of uninstalled modules
+		$this->aUninstalledModules = array_diff_key($this->aAllModules, $this->aInstalledModules);
 
-		foreach ($this->aUninstalledModules as $sModuleId=>$aModuleInfos) {
+		# Load uninstalled modules main locales files
+		foreach ($this->aUninstalledModules as $sModuleId => $aModuleInfos)
+		{
+			$this->okt->l10n->loadFile($aModuleInfos['root'].'/locales/'.$this->okt->user->language.'/main');
+
 			$this->aUninstalledModules[$sModuleId]['name_l10n'] = __($aModuleInfos['name']);
 		}
 
-		# Liste des dépôts de modules
+		# Modules repositories list
 		$this->aModulesRepositories = array();
 		if ($this->okt->config->repositories['modules']['enabled']) {
 			$this->aModulesRepositories = $this->okt->modules->getRepositoriesData($this->okt->config->repositories['modules']['list']);
 		}
 
-		# Liste des éventuelles mise à jours disponibles sur les dépots
+		# List of updates available on any repositories
 		$this->aUpdatablesModules = array();
-		foreach ($this->aModulesRepositories as $repo_name=>$modules)
+		foreach ($this->aModulesRepositories as $repo_name => $modules)
 		{
 			foreach ($modules as $module)
 			{
@@ -175,7 +174,7 @@ class Modules extends Controller
 			}
 		}
 
-		# Tri par ordre alphabétique des listes de modules
+		# Sorting alphabetically lists
 		ModulesCollection::sort($this->aInstalledModules);
 		ModulesCollection::sort($this->aUninstalledModules);
 

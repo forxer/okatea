@@ -47,12 +47,13 @@ $okt->page->css->addCss ( '
 	width: 400px;
 	height: 300px;
 	background: #f1f1f1;
-	border: 1px solid #f1f1f1;
+	border: 1px solid #e1e1e1;
 	text-align: center;
 }
 #no-screenshot em {
 	position: relative;
 	top: 45%;
+	color: #999;
 }
 ');
 

@@ -8,12 +8,13 @@
 
 namespace Okatea\Admin\Controller\Config;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Okatea\Admin\Controller;
 use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class Themes extends Controller
 {
@@ -126,55 +127,79 @@ class Themes extends Controller
 
 	protected function init()
 	{
-		# Themes locales
+		# Themes management locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/themes');
 
-		# Récupération de la liste des themes dans le système de fichiers (tous les themes)
+		# Retrieving the list of themes in the file system (all themes)
 		$this->aAllThemes = $this->okt->themes->getManager()->getAll();
 
-		# Load all themes admin locales files
-		foreach ($this->aAllThemes as $id=>$infos) {
-			$this->okt->l10n->loadFile($infos['root'].'/locales/'.$this->okt->user->language.'/main');
-		}
-
-		# Récupération de la liste des themes dans la base de données (les themes installés)
+		# Retrieving the list of themes in the database (the themes installed)
 		$this->aInstalledThemes = $this->okt->themes->getManager()->getInstalled();
 
-		# Calcul de la liste des themes non-installés
-		$this->aUninstalledThemes = array_diff_key($this->aAllThemes,$this->aInstalledThemes);
+		foreach ($this->aInstalledThemes as $sThemeId => $aThemeInfos)
+		{
+			# Searching for icons
+			$this->aInstalledThemes[$sThemeId]['icon'] = null;
 
-		foreach ($this->aUninstalledThemes as $sThemeId=>$aThemeInfos) {
-			$this->aUninstalledThemes[$sThemeId]['name_l10n'] = __($aThemeInfos['name']);
+			$sInstallDirPath = $this->okt->options->get('public_dir').'/themes/'.$sThemeId;
+
+			if (!is_dir($sInstallDirPath)) {
+				continue;
+			}
+
+			$this->aInstalledThemes[$sThemeId]['icon'] = ThemesCollection::findIcon($sInstallDirPath);
 		}
 
-		# Liste des dépôts de themes
+		# Computing the list of uninstalled themes
+		$this->aUninstalledThemes = array_diff_key($this->aAllThemes, $this->aInstalledThemes);
+
+
+		foreach ($this->aUninstalledThemes as $sThemeId => $aThemeInfos)
+		{
+			# Load uninstalled themes main locales files
+			$this->okt->l10n->loadFile($aThemeInfos['root'].'/locales/'.$this->okt->user->language.'/main');
+
+			$this->aUninstalledThemes[$sThemeId]['name_l10n'] = __($aThemeInfos['name']);
+
+			# Searching for icons
+			$this->aUninstalledThemes[$sThemeId]['icon'] = null;
+
+			$sInstallDirPath = $aThemeInfos['root'].'/Install/Assets';
+
+			if (is_dir($sInstallDirPath)) {
+				$this->aUninstalledThemes[$sThemeId]['icon'] = ThemesCollection::findIcon($sInstallDirPath);
+			}
+		}
+
+		# Themes repositories list
 		$this->aThemesRepositories = array();
 		if ($this->okt->config->repositories['themes']['enabled']) {
 			$this->aThemesRepositories = $this->okt->themes->getRepositoriesData($this->okt->config->repositories['themes']['list']);
 		}
 
-		# Liste des éventuelles mise à jours disponibles sur les dépots
+		# List of updates available on any repositories
 		$this->aUpdatablesThemes = array();
-		foreach ($this->aThemesRepositories as $repo_name=>$themes)
+		foreach ($this->aThemesRepositories as $repo_name => $themes)
 		{
 			foreach ($themes as $theme)
 			{
 				$this->aThemesRepositories[$repo_name][$theme['id']]['name_l10n'] = $theme['name'];
 
-				if (isset($this->aAllThemes[$theme['id']]) && $this->aAllThemes[$theme['id']]['updatable'] && version_compare($this->aAllThemes[$theme['id']]['version'],$theme['version'], '<'))
+				if (isset($this->aAllThemes[$theme['id']]) && $this->aAllThemes[$theme['id']]['updatable']
+					&& version_compare($this->aAllThemes[$theme['id']]['version'], $theme['version'], '<'))
 				{
 					$this->aUpdatablesThemes[$theme['id']] = array(
-						'id' => $theme['id'],
-						'name' => $theme['name'],
-						'version' => $theme['version'],
-						'info' => $theme['info'],
-						'repository' => $repo_name
+						'id' 			=> $theme['id'],
+						'name' 			=> $theme['name'],
+						'version' 		=> $theme['version'],
+						'info' 			=> $theme['info'],
+						'repository' 	=> $repo_name
 					);
 				}
 			}
 		}
 
-		# Tri par ordre alphabétique des listes de themes
+		# Sorting alphabetically lists
 		ThemesCollection::sort($this->aInstalledThemes);
 		ThemesCollection::sort($this->aUninstalledThemes);
 
