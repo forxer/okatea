@@ -21,7 +21,7 @@ class Theme extends Controller
 
 		$sThemeId = $this->request->attributes->get('theme_id');
 
-		if (!$this->okt->themes->isInstalled($sThemeId)) {
+		if (!$this->okt->themes->isLoaded($sThemeId)) {
 			return $this->serve404();
 		}
 

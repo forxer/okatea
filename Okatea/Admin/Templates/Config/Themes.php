@@ -13,7 +13,7 @@ use Okatea\Tao\Misc\Utilities;
 $view->extend('layout');
 
 # Infos page par défaut
-$okt->page->addGlobalTitle(__('Themes'));
+$okt->page->addGlobalTitle(__('c_a_themes_management'));
 
 $okt->page->dialog(array(), '.changelog_link');
 
@@ -42,8 +42,8 @@ foreach ($aInstalledThemes as $aTheme)
 }
 
 # Toggle
-$okt->page->toggleWithLegend('add_theme_zip_title','add_theme_zip_content',array('cookie'=>'oktAdminAddThemeZip'));
-$okt->page->toggleWithLegend('add_theme_repo_title','add_theme_repo_content',array('cookie'=>'oktAdminAddThemeRepo'));
+$okt->page->toggleWithLegend('add_theme_zip_title', 'add_theme_zip_content', array('cookie'=>'oktAdminAddThemeZip'));
+$okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', array('cookie'=>'oktAdminAddThemeRepo'));
 
 # Tabs
 $okt->page->tabs();
@@ -114,7 +114,14 @@ $okt->page->loader('.lazy-load');
 		?>
 		<tr>
 			<td class="<?php echo $td_class ?>">
-				<p class="title"><a href="<?php echo $view->generateUrl('config_theme', array('theme_id' => $aTheme['id'])) ?>"><?php echo $aTheme['name_l10n'] ?></a></p>
+				<p class="title">
+				<?php if ($aTheme['status']) : ?>
+				<a href="<?php echo $view->generateUrl('config_theme', array('theme_id' => $aTheme['id'])) ?>">
+				<?php echo $aTheme['name_l10n'] ?></a>
+				<?php else : ?>
+				<?php echo $aTheme['name_l10n'] ?>
+				<?php endif; ?>
+				</p>
 				<p><?php echo $aTheme['desc_l10n'] ?></p>
 
 				<?php if (!empty($theme_links)) : ?>

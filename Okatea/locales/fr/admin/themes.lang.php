@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+$GLOBALS['okt_l10n']['c_a_themes_management'] = 'Gestion des thèmes';
+
 $GLOBALS['okt_l10n']['c_a_themes_one_theme'] = 'un thème';
 $GLOBALS['okt_l10n']['c_a_themes_%s_themes'] = '%s thèmes';
 $GLOBALS['okt_l10n']['c_a_themes_no_theme'] = 'aucun thème';
