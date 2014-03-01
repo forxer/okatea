@@ -6,10 +6,10 @@
  * file that was distributed with this source code.
  */
 
-$this->register(array(
+return array(
 	'name' 			=> 'Default theme',
 	'desc' 			=> 'The default theme, host templates.',
 	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org',
 	'tags' 			=> 'default'
-));
+);

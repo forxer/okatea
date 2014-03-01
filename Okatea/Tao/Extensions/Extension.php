@@ -125,8 +125,11 @@ class Extension
 	{
 		$define = $this->sExtensionsPath.'/'.$this->id().'/_define.php';
 
-		if (file_exists($define)) {
-			require $define;
+		if (file_exists($define))
+		{
+			$aInfos = require $define;
+
+			$this->setInfos($aInfos);
 		}
 	}
 
@@ -150,7 +153,7 @@ class Extension
 	{
 		$this->setInfos(array(
 			'root'			=> $this->sExtensionsPath.'/'.$this->id(),
-			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->_id),
+			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->id),
 			'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
 			'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
 			'author' 		=> (!empty($aParams['author']) 		? $aParams['author'] 				: null),

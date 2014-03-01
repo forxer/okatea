@@ -198,9 +198,11 @@ class DefinitionsLess
 
 				preferredFormat: "hex",
 
+				allowEmpty: true,
+
 				showInitial: true,
 				showInput: true,
-				showAlpha: false,
+				showAlpha: true,
 
 				cancelText: "'.Escaper::js(__('c_c_action_cancel')).'",
 				chooseText: "'.Escaper::js(__('c_c_action_choose')).'",
@@ -208,12 +210,20 @@ class DefinitionsLess
 				showPalette: true,
 				showSelectionPalette: true,
 				//maxPaletteSize: 5,
-				palette: [ '.implode(',', array_map('json_encode', $aPaletteColors)).' ],
-				localStorageKey: "spectrum.oktTeme.'.$sThemeId.'"
 
+				palette: [ '.implode(',', array_map('json_encode', $aPaletteColors)).' ],
+				localStorageKey: "spectrum.oktTeme.'.$sThemeId.'",
+
+				change: function(color) {
+					$(this).val(color.toHexString());
+				},
+				move: function(color) {
+					$(this).val(color.toHexString());
+				}
 			})
 			.show()
-			.css("width","45%");
+			.css("width","35%")
+			;
 		');
 	}
 

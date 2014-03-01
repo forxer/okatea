@@ -6,11 +6,10 @@
  * file that was distributed with this source code.
  */
 
-$this->register(array(
+return array(
 	'name' 			=> "Okatea website",
 	'desc' 			=> 'The theme of the Okatea.org website.',
 	'version' 		=> '1.0',
 	'author' 		=> 'okatea.org',
 	'tags' 			=> ''
-));
-
+);

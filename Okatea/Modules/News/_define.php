@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-$this->register(array(
+return array(
 	'name' 			=> 'News',
 	'desc' 			=> 'Allow to add a news system',
 	'version' 		=> '2.0-rc1',
 	'author' 		=> 'okatea.org'
-));
+);

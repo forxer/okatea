@@ -99,7 +99,7 @@ class Manager
 
 			require $file->getRealpath();
 
-			$this->id = null;
+			$this->sTempId = null;
 		}
 
 		return $this->aAll;
@@ -152,7 +152,7 @@ class Manager
 			$this->aAll[$this->sTempId] = array(
 				'id' 			=> $this->sTempId,
 				'root'			=> $this->path.'/'.$this->sTempId,
-				'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->id),
+				'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->sTempId),
 				'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
 				'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
 				'author' 		=> (!empty($aParams['author']) 		? $aParams['author'] 				: null),
