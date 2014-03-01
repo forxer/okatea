@@ -56,13 +56,15 @@ class Extension
 		$this->sExtensionsPath = $sExtensionsPath;
 
 		$this->infos = array(
-			'id'		=> null,
-			'root'		=> null,
-			'name'		=> null,
-			'version'	=> null,
-			'desc'		=> null,
-			'author'	=> null,
-			'status'	=> null
+			'id'			=> null,
+			'root'			=> null,
+			'name'			=> null,
+			'version'		=> null,
+			'desc'			=> null,
+			'author'		=> null,
+			'status'		=> null,
+			'priority'		=> 1000,
+			'updatable'		=> true
 		);
 	}
 
@@ -130,6 +132,7 @@ class Extension
 			$aInfos = require $define;
 
 			$this->setInfos($aInfos);
+			$this->setInfo('root', $this->sExtensionsPath.'/'.$this->id());
 		}
 	}
 

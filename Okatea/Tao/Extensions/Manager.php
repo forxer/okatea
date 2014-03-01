@@ -56,12 +56,6 @@ class Manager
 	protected $aAll;
 
 	/**
-	 * Temporary extension identifier.
-	 * @var string
-	 */
-	protected $sTempId;
-
-	/**
 	 * Extensions collection instance.
 	 * @var Okatea\Tao\Extensions\Collection
 	 */
@@ -93,16 +87,27 @@ class Manager
 			->depth('== 1')
 			->name('_define.php');
 
+		$aExstensions = array();
+
 		foreach ($finder as $file)
 		{
-			$this->sTempId = $file->getRelativePath();
+			$sId = $file->getRelativePath();
 
-			require $file->getRealpath();
+			$aInfos = require $file->getRealpath();
 
-			$this->sTempId = null;
+			$aExstensions[$sId] = array(
+				'id' 			=> $sId,
+				'root'			=> $this->path.'/'.$sId,
+				'name' 			=> (!empty($aInfos['name']) 		? $aInfos['name'] 					: $sId),
+				'desc' 			=> (!empty($aInfos['desc']) 		? $aInfos['desc'] 					: null),
+				'version' 		=> (!empty($aInfos['version']) 		? $aInfos['version'] 				: null),
+				'author' 		=> (!empty($aInfos['author']) 		? $aInfos['author'] 				: null),
+				'priority' 		=> (!empty($aInfos['priority']) 	? (integer)$aInfos['priority'] 		: 1000),
+				'updatable' 	=> (!empty($aInfos['updatable']) 	? (boolean)$aInfos['updatable'] 	: true)
+			);
 		}
 
-		return $this->aAll;
+		return $aExstensions;
 	}
 
 	/**
@@ -113,7 +118,7 @@ class Manager
 	public function getAll()
 	{
 		if (null === $this->aAll) {
-			$this->getFromFileSystem();
+			$this->aAll = $this->getFromFileSystem();
 		}
 
 		return $this->aAll;
@@ -127,39 +132,6 @@ class Manager
 	public function resetAll()
 	{
 		$this->aAll = array();
-	}
-
-	/**
-	 * Cette fonction est utilisée dans les fichiers _define.php
-	 * des extensions pour qu'elles soient prises en compte par le système.
-	 *
-	 * Cette méthode reçoit en argument un tableau de paramètres,
-	 * les paramètres possibles sont les suivants :
-	 * 	- name 		Le nom de l'extension
-	 * 	- desc 		La description de l'extension
-	 * 	- version 	Le numero de version de l'extension
-	 * 	- author 	L'auteur de l'extension ('')
-	 * 	- priority 	Priorité de l'extension (1000)
-	 * 	- updatable	Blocage de mise à jour (true)
-	 *
-	 * @param array $aParams Le tableau de paramètres
-	 * @return void
-	 */
-	public function register(array $aParams = array())
-	{
-		if (null !== $this->sTempId)
-		{
-			$this->aAll[$this->sTempId] = array(
-				'id' 			=> $this->sTempId,
-				'root'			=> $this->path.'/'.$this->sTempId,
-				'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->sTempId),
-				'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
-				'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
-				'author' 		=> (!empty($aParams['author']) 		? $aParams['author'] 				: null),
-				'priority' 		=> (!empty($aParams['priority']) 	? (integer)$aParams['priority'] 	: 1000),
-				'updatable' 	=> (!empty($aParams['updatable']) 	? (boolean)$aParams['updatable'] 	: true)
-			);
-		}
 	}
 
 	/**
