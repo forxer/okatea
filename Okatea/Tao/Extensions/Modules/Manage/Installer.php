@@ -25,7 +25,7 @@ class Installer extends BaseInstaller
 	}
 
 	/**
-	 * Test prerequisites to install an extension.
+	 * Test prerequisites to install a module.
 	 *
 	 * @return boolean
 	 */
@@ -54,7 +54,7 @@ class Installer extends BaseInstaller
 			);
 
 			$this->checklist->addItem(
-				'module_class_valide',
+				'module_class_valid',
 				is_subclass_of($sClassName, '\\Okatea\\Tao\\Extensions\\Modules\\Module'),
 				'Module handler class "'.$sClassName.'" is a valid module class',
 				'Module handler class "'.$sClassName.'" is not a valid module class'
@@ -63,7 +63,7 @@ class Installer extends BaseInstaller
 
 		return $this->checklist->checkItem('module_file')
 			&& $this->checklist->checkItem('module_class')
-			&& $this->checklist->checkItem('module_class_valide');
+			&& $this->checklist->checkItem('module_class_valid');
 	}
 
 	public function compareFiles()
