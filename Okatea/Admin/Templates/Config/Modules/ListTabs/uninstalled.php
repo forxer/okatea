@@ -46,7 +46,7 @@ use Okatea\Tao\Misc\Utilities;
 				<p><?php _e($module['desc']) ?></p>
 			</td>
 			<td class="<?php echo $td_class; ?> center">
-				<?php echo $module['version'] ?>
+				<p><?php echo $module['version'] ?></p>
 			</td>
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">

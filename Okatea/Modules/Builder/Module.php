@@ -28,8 +28,8 @@ class Module extends BaseModule
 		{
 			$this->okt->page->configSubMenu->add(
 				__('m_builder_menu'),
-				$this->okt->adminRouter->generate('Builder'),
-				$this->okt->request->attributes->get('_route') === 'Builder',
+				$this->okt->adminRouter->generate('Builder_index'),
+				$this->okt->request->attributes->get('_route') === 'Builder_index',
 				141,
 				$this->okt->checkPerm('okatea_builder'),
 				null

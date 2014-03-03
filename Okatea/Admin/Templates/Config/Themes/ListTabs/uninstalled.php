@@ -48,7 +48,7 @@ use Okatea\Tao\Misc\Utilities;
 				<p><?php _e($aTheme['desc']) ?></p>
 			</td>
 			<td class="<?php echo $td_class; ?> center">
-				<?php echo $aTheme['version'] ?>
+				<p><?php echo $aTheme['version'] ?></p>
 			</td>
 			<td class="<?php echo $td_class ?> small">
 				<ul class="actions">

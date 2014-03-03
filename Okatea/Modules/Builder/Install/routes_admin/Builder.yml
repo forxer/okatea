@@ -1,4 +1,4 @@
 
-Builder:
+Builder_index:
     path:     /builder
     defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Builder::page' }

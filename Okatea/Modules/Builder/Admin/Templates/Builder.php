@@ -26,7 +26,7 @@ $okt->page->tabs();
 	</div><!-- #tab_builder -->
 
 	<div id="tab_config">
-		<form action="<?php echo $view->generateUrl('Builder'); ?>" method="post">
+		<form action="<?php echo $view->generateUrl('Builder_index'); ?>" method="post">
 
 			<h3>Modules</h3>
 
