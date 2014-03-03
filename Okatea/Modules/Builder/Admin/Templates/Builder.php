@@ -28,6 +28,11 @@ $okt->page->tabs();
 	<div id="tab_config">
 		<form action="<?php echo $view->generateUrl('Builder'); ?>" method="post">
 
+			<h3>Modules</h3>
+
+			<?php foreach ($aModules as $sModuleId => $aModuleInfos) : ?>
+				<?php debug($aModuleInfos) ?>
+			<?php endforeach; ?>
 
 			<p><?php echo form::hidden('config_sent', 1); ?>
 			<?php echo $okt->page->formtoken(); ?>
