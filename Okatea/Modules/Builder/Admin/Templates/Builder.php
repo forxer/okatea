@@ -6,8 +6,6 @@
  * file that was distributed with this source code.
  */
 
-use Okatea\Tao\Forms\Statics\FormElements as form;
-
 $view->extend('layout');
 
 $okt->page->css->addFile($okt->options->public_url.'/modules/Builder/builder.css');
@@ -18,3 +16,5 @@ $okt->page->addGlobalTitle(__('m_builder_menu'));
 ?>
 
 <?php echo $stepper->display() ?>
+
+<?php $view['slots']->output('_content'); ?>

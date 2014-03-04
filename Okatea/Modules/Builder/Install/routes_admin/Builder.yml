@@ -1,8 +1,10 @@
 
-Builder_index:
-    path:     /builder
-    defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Builder::page' }
 
 Builder_config:
     path:     /builder/configuration
     defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Config::page' }
+    
+Builder_index:
+    path:     /builder/{step}
+    defaults: { controller: 'Okatea\Modules\Builder\Admin\Controller\Builder::page', step: 'start'  }
+

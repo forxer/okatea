@@ -8,3 +8,7 @@
 
 $GLOBALS['okt_l10n']['m_builder_menu'] = 'Builder';
 $GLOBALS['okt_l10n']['m_builder_menu_config'] = 'Configuration';
+
+$GLOBALS['okt_l10n']['m_builder_step_start'] = 'home';
+$GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
+$GLOBALS['okt_l10n']['m_builder_step_end'] = 'end';
