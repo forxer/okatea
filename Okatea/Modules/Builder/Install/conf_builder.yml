@@ -1,0 +1,14 @@
+modules_repository:
+  - Builder
+  - Development
+  - News
+  - Pages
+  - RteTinymce3
+  - RteTinymce4
+modules_package:
+  - Pages
+themes_repository:
+  - DefaultTheme
+  - Okatea
+themes_package:
+  - DefaultTheme

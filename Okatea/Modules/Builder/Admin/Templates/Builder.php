@@ -6,37 +6,15 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $view->extend('layout');
+
+$okt->page->css->addFile($okt->options->public_url.'/modules/Builder/builder.css');
 
 # module title tag
 $okt->page->addGlobalTitle(__('m_builder_menu'));
 
-# tabs
-$okt->page->tabs();
-
 ?>
 
-<div id="tabered">
-	<ul>
-		<li><a href="#tab_builder"><?php _e('m_builder_menu') ?></a></li>
-		<li><a href="#tab_config"><?php _e('m_builder_menu_config') ?></a></li>
-	</ul>
-
-	<div id="tab_builder">
-	</div><!-- #tab_builder -->
-
-	<div id="tab_config">
-		<form action="<?php echo $view->generateUrl('Builder_index'); ?>" method="post">
-
-			<h3>Modules</h3>
-
-			<?php foreach ($aModules as $sModuleId => $aModuleInfos) : ?>
-				<?php debug($aModuleInfos) ?>
-			<?php endforeach; ?>
-
-			<p><?php echo form::hidden('config_sent', 1); ?>
-			<?php echo $okt->page->formtoken(); ?>
-			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
-		</form>
-	</div><!-- #tab_config -->
-</div><!-- #tabered -->
+<?php echo $stepper->display() ?>

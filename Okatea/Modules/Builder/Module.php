@@ -8,6 +8,8 @@
 
 namespace Okatea\Modules\Builder;
 
+use Okatea\Admin\Menu as AdminMenu;
+use Okatea\Admin\Page;
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 
 class Module extends BaseModule
@@ -23,17 +25,30 @@ class Module extends BaseModule
 
 	protected function prepend_admin()
 	{
-		# on ajoutent les items au menu configuration
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(
+			$this->okt->page->builderSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
+
+			$this->okt->page->mainMenu->add(
 				__('m_builder_menu'),
 				$this->okt->adminRouter->generate('Builder_index'),
 				$this->okt->request->attributes->get('_route') === 'Builder_index',
-				141,
+				12000000,
 				$this->okt->checkPerm('okatea_builder'),
-				null
+				null,
+				$this->okt->page->builderSubMenu,
+				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
 			);
+				$this->okt->page->builderSubMenu->add(__('m_builder_menu'),
+					$this->okt->adminRouter->generate('Builder_index'),
+					$this->okt->request->attributes->get('_route') === 'Builder_index',
+					1
+				);
+				$this->okt->page->builderSubMenu->add(__('m_builder_menu_config'),
+					$this->okt->adminRouter->generate('Builder_config'),
+					$this->okt->request->attributes->get('_route') === 'Builder_config',
+					10
+				);
 		}
 	}
 }
