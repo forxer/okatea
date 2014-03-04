@@ -38,6 +38,7 @@ use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Routing\RequestContext;
 
 
@@ -389,7 +390,22 @@ class Application
 	{
 		$this->request = Request::createFromGlobals();
 
-		$this->session = new Session(null, null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
+		$this->session = new Session(
+			new NativeSessionStorage(
+				array(
+					'cookie_lifetime' 	=> 0,
+					'cookie_path' 		=> $this->config->app_path,
+					'cookie_secure' 	=> $this->request->isSecure(),
+					'cookie_httponly' 	=> true,
+					'use_trans_sid' 	=> false,
+					'use_only_cookies' 	=> true
+				),
+				new \SessionHandler()
+			),
+			null,
+			new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name')
+		);
+
 		$this->request->setSession($this->session);
 	}
 
