@@ -45,7 +45,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'admin_filters_style' => $p_admin_filters_style,
 
 			'admin_default_order_by' => $p_admin_default_order_by,
@@ -63,7 +63,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->diary->config->write($new_conf);
+			$okt->diary->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

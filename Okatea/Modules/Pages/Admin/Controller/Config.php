@@ -89,7 +89,7 @@ class Config extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$new_conf = array(
+				$aNewConf = array(
 					'enable_metas' => $this->okt->request->request->has('p_enable_metas'),
 					'enable_filters' => $this->okt->request->request->has('p_enable_filters'),
 
@@ -128,7 +128,7 @@ class Config extends Controller
 
 				try
 				{
-					$this->okt->module('Pages')->config->write($new_conf);
+					$this->okt->module('Pages')->config->write($aNewConf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

@@ -27,7 +27,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'theme' => $p_theme,
 
 			'my_speed' => (integer)$p_my_speed,
@@ -39,7 +39,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->lbl_pirobox->config->write($new_conf);
+			$okt->lbl_pirobox->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

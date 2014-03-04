@@ -30,7 +30,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'admin_dysplay_style' => $p_admin_dysplay_style,
 			'admin_filters_style' => $p_admin_filters_style,
 			'admin_default_nb_per_page' => $p_admin_default_nb_per_page,
@@ -54,7 +54,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->catalog->config->write($new_conf);
+			$okt->catalog->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

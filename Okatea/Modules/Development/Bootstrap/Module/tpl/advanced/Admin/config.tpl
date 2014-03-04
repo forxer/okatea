@@ -68,7 +68,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_rte' => $p_enable_rte,
 
@@ -93,7 +93,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->##module_id##->config->write($new_conf);
+			$okt->##module_id##->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

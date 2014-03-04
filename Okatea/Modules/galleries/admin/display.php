@@ -30,7 +30,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'dysplay_clic_gal_image' => $p_dysplay_clic_gal_image,
 			'dysplay_clic_items_image' => $p_dysplay_clic_items_image,
 			'lightbox_type' => $p_lightbox_type
@@ -38,7 +38,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->galleries->config->write($new_conf);
+			$okt->galleries->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

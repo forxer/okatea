@@ -34,7 +34,7 @@ if (!empty($_POST['config_send']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'publickey' => $p_publickey,
 			'privatekey' => $p_privatekey,
 			'theme' => $p_theme
@@ -42,7 +42,7 @@ if (!empty($_POST['config_send']))
 
 		try
 		{
-			$okt->recaptcha->config->write($new_conf);
+			$okt->recaptcha->config->write($aNewConf);
 
 			$okt->page->flash->success(__('Les clés ont été éditées.'));
 

@@ -68,7 +68,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'enable_metas' => (boolean)$p_enable_metas,
 			'enable_rte' => $p_enable_rte,
 			'enable_filters' => (boolean)$p_enable_filters,
@@ -95,7 +95,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->diary->config->write($new_conf);
+			$okt->diary->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

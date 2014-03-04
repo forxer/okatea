@@ -97,7 +97,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'name' => $p_name,
 			'title' => $p_title,
 			'meta_description' => $p_meta_description,
@@ -128,7 +128,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->catalog->config->write($new_conf);
+			$okt->catalog->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

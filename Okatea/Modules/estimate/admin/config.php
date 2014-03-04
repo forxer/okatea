@@ -65,7 +65,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'name' => $p_name,
 			'name_seo' => $p_name_seo,
 			'title' => $p_title,
@@ -90,7 +90,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->estimate->config->write($new_conf);
+			$okt->estimate->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

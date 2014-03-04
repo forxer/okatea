@@ -21,13 +21,13 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'bgColor' => $p_bgColor,
 		);
 
 		try
 		{
-			$okt->lbl_nyromodal->config->write($new_conf);
+			$okt->lbl_nyromodal->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

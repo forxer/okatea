@@ -25,7 +25,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'modal' => $p_modal,
 			'closeOnEscape' => $p_closeOnEscape,
 			'closeOnClick' => $p_closeOnClick,
@@ -35,7 +35,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->lbl_nyromodal_2->config->write($new_conf);
+			$okt->lbl_nyromodal_2->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

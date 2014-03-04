@@ -116,7 +116,7 @@ class Config extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$new_conf = array(
+				$aNewConf = array(
 					'enable_metas' => (boolean)$p_enable_metas,
 					'enable_filters' => (boolean)$p_enable_filters,
 
@@ -155,7 +155,7 @@ class Config extends Controller
 
 				try
 				{
-					$this->okt->module('News')->config->write($new_conf);
+					$this->okt->module('News')->config->write($aNewConf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

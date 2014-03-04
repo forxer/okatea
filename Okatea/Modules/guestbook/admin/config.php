@@ -62,7 +62,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'chp_language' => (integer)$p_chp_language,
 			'chp_nom' => (integer)$p_chp_nom,
 			'chp_mail' => (integer)$p_chp_mail,
@@ -85,7 +85,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->guestbook->config->write($new_conf);
+			$okt->guestbook->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

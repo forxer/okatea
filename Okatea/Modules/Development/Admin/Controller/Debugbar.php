@@ -32,7 +32,7 @@ class Debugbar extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				$new_conf = array(
+				$aNewConf = array(
 					'debug_bar' => array(
 						'admin' => (boolean)$p_admin,
 						'public' => (boolean)$p_public,
@@ -48,7 +48,7 @@ class Debugbar extends Controller
 
 				try
 				{
-					$this->okt->module('Development')->config->write($new_conf);
+					$this->okt->module('Development')->config->write($aNewConf);
 
 					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

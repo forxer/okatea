@@ -70,12 +70,12 @@ if (!empty($_POST['config_send']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 		);
 
 		try
 		{
-			$okt->accessible_captcha->config->write($new_conf);
+			$okt->accessible_captcha->config->write($aNewConf);
 
 			$okt->page->flash->success(__('Configuration captcha edited.'));
 

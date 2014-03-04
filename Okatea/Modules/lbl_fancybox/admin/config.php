@@ -40,7 +40,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'titleShow' => $p_titleShow,
 			'titlePosition' => $p_titlePosition,
 
@@ -62,7 +62,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->lbl_fancybox->config->write($new_conf);
+			$okt->lbl_fancybox->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

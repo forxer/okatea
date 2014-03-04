@@ -31,14 +31,14 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'nbparpage_admin' => (integer)$p_nbparpage_admin,
 			'nbparpage_public' => (integer)$p_nbparpage_public,
 		);
 
 		try
 		{
-			$okt->guestbook->config->write($new_conf);
+			$okt->guestbook->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

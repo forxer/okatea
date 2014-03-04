@@ -29,7 +29,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'theme' => $p_theme,
 
 			'loop' => (boolean)$p_loop,
@@ -43,7 +43,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->lbl_colorbox->config->write($new_conf);
+			$okt->lbl_colorbox->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

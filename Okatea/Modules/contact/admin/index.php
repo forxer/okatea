@@ -45,7 +45,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'recipients_to' => (array)$p_recipients_to,
 			'recipients_cc' => (array)$p_recipients_cc,
 			'recipients_bcc' => (array)$p_recipients_bcc,
@@ -53,7 +53,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->contact->config->write($new_conf);
+			$okt->contact->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

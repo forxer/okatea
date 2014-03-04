@@ -21,14 +21,14 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 
 			'lightbox_type' => $p_lightbox_type
 		);
 
 		try
 		{
-			$okt->partners->config->write($new_conf);
+			$okt->partners->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

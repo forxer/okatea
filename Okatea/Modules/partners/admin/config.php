@@ -68,7 +68,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'enable_categories' => (boolean)$p_enable_categories,
 			'enable_rte' => $p_enable_rte,
 
@@ -89,7 +89,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->partners->config->write($new_conf);
+			$okt->partners->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 

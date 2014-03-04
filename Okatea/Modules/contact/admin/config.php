@@ -71,7 +71,7 @@ if (!empty($_POST['form_sent']))
 
 	if ($okt->error->isEmpty())
 	{
-		$new_conf = array(
+		$aNewConf = array(
 			'captcha' => $p_captcha,
 			'from_to' => $p_from_to,
 
@@ -109,7 +109,7 @@ if (!empty($_POST['form_sent']))
 
 		try
 		{
-			$okt->contact->config->write($new_conf);
+			$okt->contact->config->write($aNewConf);
 
 			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
