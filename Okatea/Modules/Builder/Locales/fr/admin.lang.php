@@ -11,4 +11,5 @@ $GLOBALS['okt_l10n']['m_builder_menu_config'] = 'Configuration';
 
 $GLOBALS['okt_l10n']['m_builder_step_start'] = 'accueil';
 $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
+$GLOBALS['okt_l10n']['m_builder_step_copy'] = 'copie';
 $GLOBALS['okt_l10n']['m_builder_step_end'] = 'fin';

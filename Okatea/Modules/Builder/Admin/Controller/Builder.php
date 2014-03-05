@@ -9,8 +9,8 @@
 namespace Okatea\Modules\Builder\Admin\Controller;
 
 use Okatea\Admin\Controller;
+use Okatea\Modules\Builder\BuilderTools;
 use Okatea\Modules\Builder\Stepper;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 
 class Builder extends Controller
 {
@@ -46,7 +46,7 @@ class Builder extends Controller
 			$sPackageType = 'dev';
 		}
 
-		if ($this->request->request->has('config_sent'))
+		if ($this->request->request->has('form_sent'))
 		{
 			$this->session->set('release_type', $this->request->request->get('type'));
 
@@ -56,6 +56,21 @@ class Builder extends Controller
 		return $this->render('Builder/Admin/Templates/Steps/version', array(
 			'version' => $sVersion,
 			'type' => $sPackageType
+		));
+	}
+
+	protected function copy()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+			$builder = new BuilderTools($this->okt);
+
+			$builder->copy();
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/copy', array(
 		));
 	}
 

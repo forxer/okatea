@@ -10,8 +10,6 @@ $view->extend('Builder/Admin/Templates/Builder');
 
 ?>
 
-<?php debug($type) ?>
-
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getNextStep())) ?>" method="post">
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" /></p>
 </form>
