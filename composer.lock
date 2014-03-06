@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1af816bc825c9de412573ca10d358a78",
+    "hash": "3f59c829fd92223c82db0856a8d9b0b1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -533,12 +533,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "e26c6e472ec3de139d905dfc8ed568afdb585adf"
+                "reference": "852d86227059f2c418f7bb6d1d2058f7bdc4ffa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/e26c6e472ec3de139d905dfc8ed568afdb585adf",
-                "reference": "e26c6e472ec3de139d905dfc8ed568afdb585adf",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/852d86227059f2c418f7bb6d1d2058f7bdc4ffa2",
+                "reference": "852d86227059f2c418f7bb6d1d2058f7bdc4ffa2",
                 "shasum": ""
             },
             "require": {
@@ -582,7 +582,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2014-03-02 22:23:54"
+            "time": "2014-03-05 12:40:36"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -716,21 +716,22 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "1.9.4",
+            "version": "1.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f"
+                "reference": "d076e51b3a28dccbb1b2683c8abb303551e17d27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
-                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/d076e51b3a28dccbb1b2683c8abb303551e17d27",
+                "reference": "d076e51b3a28dccbb1b2683c8abb303551e17d27",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "psr/log": "~1.0"
+                "psr/log": "~1.0",
+                "raveren/kint": "0.9"
             },
             "require-dev": {
                 "php": ">=5.3.0"
@@ -762,7 +763,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-02-14 16:30:44"
+            "time": "2014-03-04 17:18:45"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -1019,6 +1020,52 @@
                 "psr-3"
             ],
             "time": "2014-01-18 15:33:09"
+        },
+        {
+            "name": "raveren/kint",
+            "version": "v0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raveren/kint.git",
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/ada810111ced4e3a926b4040da9b86442e43b613",
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Kint.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/raveren/kint/contributors"
+                }
+            ],
+            "description": "Kint - debugging helper for PHP developers",
+            "homepage": "https://github.com/raveren/kint",
+            "keywords": [
+                "debug",
+                "kint",
+                "php"
+            ],
+            "time": "2013-08-12 22:46:16"
         },
         {
             "name": "simplepie/simplepie",
@@ -1395,12 +1442,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "0fa4996401cf4e97e621357b6f6a9efa8eee678e"
+                "reference": "eae69c6e62a0ce9e4a8518ff2aed6803b5b6aad5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/0fa4996401cf4e97e621357b6f6a9efa8eee678e",
-                "reference": "0fa4996401cf4e97e621357b6f6a9efa8eee678e",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/eae69c6e62a0ce9e4a8518ff2aed6803b5b6aad5",
+                "reference": "eae69c6e62a0ce9e4a8518ff2aed6803b5b6aad5",
                 "shasum": ""
             },
             "require": {
@@ -1438,7 +1485,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-18 15:41:30"
+            "time": "2014-03-04 07:36:44"
         },
         {
             "name": "symfony/process",
@@ -1619,12 +1666,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab"
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e49a47d60348665261f6e279ba383241deb73cab",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6194137af5f12fbcfc0cb21e269f47542b8beb47",
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1706,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-24 16:21:51"
+            "time": "2014-03-03 12:53:01"
         },
         {
             "name": "umpirsky/country-list",

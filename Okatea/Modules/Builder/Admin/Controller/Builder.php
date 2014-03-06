@@ -74,6 +74,21 @@ class Builder extends Controller
 		));
 	}
 
+	protected function cleanup()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+			$builder = new BuilderTools($this->okt);
+
+			$builder->cleanup();
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/cleanup', array(
+		));
+	}
+
 	protected function end()
 	{
 		$this->session->remove('release_type');

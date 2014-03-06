@@ -14,7 +14,7 @@ $view->extend('Builder/Admin/Templates/Builder');
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Cette étape va copier les fichiers dans un répertoire de travail temporaire.</p>
+	<p>Cette étape va supprimer les fichiers inutiles.</p>
 
 	<p>Ceci peux prendre beaucoup de temps, soyez patient.</p>
 

@@ -28,6 +28,10 @@ class Stepper extends BaseStepper
 				'title' 	=> __('m_builder_step_copy')
 			),
 			array(
+				'step' 		=> 'cleanup',
+				'title' 	=> __('m_builder_step_cleanup')
+			),
+			array(
 				'step' 		=> 'end',
 				'title' 	=> __('m_builder_step_end')
 			)

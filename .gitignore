@@ -57,6 +57,7 @@ $RECYCLE.BIN/
 
 # oktatea build
 /build/
+/_tmp
 
 # vendor
 /vendor/

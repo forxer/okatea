@@ -13,6 +13,9 @@ $okt->page->css->addFile($okt->options->public_url.'/modules/Builder/builder.css
 # module title tag
 $okt->page->addGlobalTitle(__('m_builder_menu'));
 
+# Loader
+$okt->page->loader('.lazy-load');
+
 ?>
 
 <?php echo $stepper->display() ?>
