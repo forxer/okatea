@@ -64,22 +64,35 @@ class BuilderTools
 		$this->sTempDir = $this->okt->options->root_dir.'/_tmp';
 	}
 
+	public function getTempDir($sDirPath = null)
+	{
+		if (null === $sDirPath) {
+			return $this->sTempDir;
+		}
+
+		return str_replace($this->okt->options->get('root_dir'), $this->sTempDir, $sDirPath);
+	}
+
 	public function copy()
 	{
 		$fs = new Filesystem();
 
-		$fs->mkdir($this->sTempDir);
+		if (is_dir($this->getTempDir())) {
+			$fs->remove($this->getTempDir());
+		}
 
-		$fs->mirror($this->okt->options->root_dir.'/admin', $this->sTempDir.'/admin');
-		$fs->mirror($this->okt->options->root_dir.'/install', $this->sTempDir.'/install');
-		$fs->mirror($this->okt->options->root_dir.'/Okatea', $this->sTempDir.'/Okatea');
-		$fs->mirror($this->okt->options->root_dir.'/oktPublic', $this->sTempDir.'/oktPublic');
-		$fs->mirror($this->okt->options->root_dir.'/vendor', $this->sTempDir.'/vendor');
+		$fs->mkdir($this->getTempDir());
 
-		$fs->copy($this->okt->options->root_dir.'/.htaccess.oktDist', $this->sTempDir.'/.htaccess.oktDist');
-		$fs->copy($this->okt->options->root_dir.'/LICENSE', $this->sTempDir.'/LICENSE');
-		$fs->copy($this->okt->options->root_dir.'/okatea.php', $this->sTempDir.'/okatea.php');
-		$fs->copy($this->okt->options->root_dir.'/oktOptions.php', $this->sTempDir.'/oktOptions.php');
+		$fs->mirror($this->okt->options->root_dir.'/admin', 			$this->getTempDir().'/admin');
+		$fs->mirror($this->okt->options->root_dir.'/install', 			$this->getTempDir().'/install');
+		$fs->mirror($this->okt->options->root_dir.'/Okatea', 			$this->getTempDir().'/Okatea');
+		$fs->mirror($this->okt->options->root_dir.'/oktPublic', 		$this->getTempDir().'/oktPublic');
+		$fs->mirror($this->okt->options->root_dir.'/vendor', 			$this->getTempDir().'/vendor');
+
+		$fs->copy($this->okt->options->root_dir.'/.htaccess.oktDist', 	$this->getTempDir().'/.htaccess.oktDist');
+		$fs->copy($this->okt->options->root_dir.'/LICENSE', 			$this->getTempDir().'/LICENSE');
+		$fs->copy($this->okt->options->root_dir.'/okatea.php', 			$this->getTempDir().'/okatea.php');
+		$fs->copy($this->okt->options->root_dir.'/oktOptions.php', 		$this->getTempDir().'/oktOptions.php');
 	}
 
 	public function cleanup()
@@ -92,7 +105,8 @@ class BuilderTools
 			->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->in($sCacheDir)
-			->notName('.gitkeep');
+			->notName('.gitkeep')
+		;
 
 		foreach ($finder as $files) {
 			$aToDelete[] = $files->getRealpath();
@@ -107,7 +121,8 @@ class BuilderTools
 			->in($sConfigDir)
 			->notName('__okatea_core.yml')
 			->notName('conf_site.yml')
-			->notName('connexion.php.in');
+			->notName('connexion.php.in')
+		;
 
 		foreach ($finder as $files) {
 			$aToDelete[] = $files->getRealpath();
@@ -119,7 +134,8 @@ class BuilderTools
 			->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->in($sLogsDir)
-			->notName('.gitkeep');
+			->notName('.gitkeep')
+		;
 
 		foreach ($finder as $files) {
 			$aToDelete[] = $files->getRealpath();
@@ -133,14 +149,15 @@ class BuilderTools
 			->in($sPublicDir.'/cache')
 			->in($sPublicDir.'/modules')
 			->in($sPublicDir.'/themes')
-			->notName('index.html');
+			->notName('index.html')
+		;
 
 		foreach ($finder as $files) {
 			$aToDelete[] = $files->getRealpath();
 		}
 
 		# search files to delete into vendor dir
-		$sVendorDir = $this->sTempDir.'/vendor';
+		$sVendorDir = $this->getTempDir().'/vendor';
 
 		$aCommonRules = array(
 			'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore',
@@ -163,7 +180,8 @@ class BuilderTools
 					->ignoreVCS(false)
 					->ignoreDotFiles(false)
 					->in($sVendorDir.'/'.$sPackageDir)
-					->name($pattern);
+					->name($pattern)
+				;
 
 				foreach ($finder as $files) {
 					$aToDelete[] = $files->getRealpath();
@@ -178,12 +196,35 @@ class BuilderTools
 		}
 	}
 
-	protected function getTempDir($sDirPath = null)
+	public function modules()
 	{
-		if (null === $sDirPath) {
-			return $this->sTempDir;
+		$finder = (new Finder())
+			->directories()
+			->in($this->getTempDir($this->okt->options->modules_dir))
+			->depth('== 0')
+		;
+
+		foreach ($finder as $module)
+		{
+dd($module);
+		}
+	}
+
+
+	protected function setPackagesDir($sDir = null)
+	{
+		$sPackageDir = $this->okt->options->get('public_dir').'/packages';
+
+		if (null !== $sDir) {
+			$sPackageDir .= '/'.$sDir;
 		}
 
-		return str_replace($this->okt->options->get('root_dir'), $this->sTempDir, $sDirPath);
+		$fs = new Filesystem();
+
+		if (is_dir($sPackageDir)) {
+			$fs->remove($sPackageDir);
+		}
+
+		$fs->mkdir($sPackageDir);
 	}
 }

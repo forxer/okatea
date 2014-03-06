@@ -14,7 +14,7 @@ use Okatea\Modules\Builder\Stepper;
 
 class Builder extends Controller
 {
-	protected $storage;
+	protected $builderTools;
 	protected $stepper;
 
 	public function page()
@@ -24,6 +24,8 @@ class Builder extends Controller
 		}
 
 		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->request->attributes->get('step'));
+
+		$this->builderTools = new BuilderTools($this->okt);
 
 		$this->okt->tpl->addGlobal('stepper', $this->stepper);
 
@@ -63,9 +65,7 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$builder = new BuilderTools($this->okt);
-
-			$builder->copy();
+			$this->builderTools->copy();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -78,14 +78,52 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$builder = new BuilderTools($this->okt);
-
-			$builder->cleanup();
+			$this->builderTools->cleanup();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
 
 		return $this->render('Builder/Admin/Templates/Steps/cleanup', array(
+		));
+	}
+
+	protected function config()
+	{
+		$sConfigFile = $this->builderTools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
+
+		if ($this->request->request->has('form_sent'))
+		{
+			file_put_contents($sConfigFile, $this->request->request->get('editor'));
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/config', array(
+			'sConfig' => file_get_contents($sConfigFile)
+		));
+	}
+
+	protected function modules()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+			$this->builderTools->modules();
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/modules', array(
+		));
+	}
+
+	protected function themes()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/themes', array(
 		));
 	}
 

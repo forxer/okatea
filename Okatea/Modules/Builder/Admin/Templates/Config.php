@@ -49,8 +49,8 @@ $okt->page->tabs();
 					<th scope="row" class="fake-td"><?php echo $aModuleInfos['name_l10n'] ?></th>
 					<td><?php echo $sModuleId ?></td>
 					<td><?php echo $aModuleInfos['version'] ?></td>
-					<td class="center small"><?php echo form::checkbox(array('modules_repository[]', 'modules_repository_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules_repository)) ?></td>
-					<td class="center small"><?php echo form::checkbox(array('modules_package[]', 'modules_package_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules_package)) ?></td>
+					<td class="center small"><?php echo form::checkbox(array('modules_repository[]', 'modules_repository_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules['repository'])) ?></td>
+					<td class="center small"><?php echo form::checkbox(array('modules_package[]', 'modules_package_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules['package'])) ?></td>
 				</tr>
 				<?php endforeach; ?>
 				</tbody>
@@ -77,8 +77,8 @@ $okt->page->tabs();
 					<th scope="row" class="fake-td"><?php echo $aThemeInfos['name_l10n'] ?></th>
 					<td><?php echo $sThemeId ?></td>
 					<td><?php echo $aThemeInfos['version'] ?></td>
-					<td class="center small"><?php echo form::checkbox(array('themes_repository[]', 'themes_repository_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes_repository)) ?></td>
-					<td class="center small"><?php echo form::checkbox(array('themes_package[]', 'themes_package_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes_package)) ?></td>
+					<td class="center small"><?php echo form::checkbox(array('themes_repository[]', 'themes_repository_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes['repository'])) ?></td>
+					<td class="center small"><?php echo form::checkbox(array('themes_package[]', 'themes_package_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes['package'])) ?></td>
 				</tr>
 				<?php endforeach; ?>
 				</tbody>

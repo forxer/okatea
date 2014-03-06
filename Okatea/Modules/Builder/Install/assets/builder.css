@@ -1,6 +1,7 @@
 
 #ariane {
 	margin-bottom: 1em;
+	padding: 10px;
 }
 #ariane { display: inline-block; zoom: 1; }
 #ariane:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
@@ -9,9 +10,9 @@
 #ariane { display:block; }
 /* end clearfix */
 
-#ariane ul {width:600px; list-style:none; margin:10px auto; clear:both;}
+#ariane ul {width:800px; list-style:none; margin: 0 auto; clear:both;}
 #ariane ul a {text-decoration:none; color:#a9a9a9;}
-#ariane ul li {float:left; width:15%; background:url(arrow.gif) repeat-x right 6px; text-align:left;}
+#ariane ul li {float:left; width:10%; background:url(arrow.gif) repeat-x right 6px; text-align:left;}
 #ariane ul li span {display:block; margin:auto; margin-right:50%; text-align:center; border:1px solid #a9a9a9; width:19px; height:19px; line-height:19px; background-color:#ffffff;}
 #ariane ul li span a {display:block; width:19px; height:19px; margin:0px;}
 #ariane ul li span a.active,
