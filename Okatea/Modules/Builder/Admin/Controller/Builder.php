@@ -23,6 +23,10 @@ class Builder extends Controller
 			return $this->serve401();
 		}
 
+		# need ressources
+		@ini_set('memory_limit',-1);
+		set_time_limit(0);
+
 		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->request->attributes->get('step'));
 
 		$this->builderTools = new BuilderTools($this->okt);
@@ -120,7 +124,9 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->builderTools->themes();
 
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
 
 		return $this->render('Builder/Admin/Templates/Steps/themes', array(

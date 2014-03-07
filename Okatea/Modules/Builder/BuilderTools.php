@@ -62,6 +62,7 @@ class BuilderTools
 		$this->okt = $okt;
 
 		$this->sTempDir = $this->okt->options->root_dir.'/_tmp';
+		$this->sPackageDir = $this->okt->options->root_dir.'/packages';
 	}
 
 	public function getTempDir($sDirPath = null)
@@ -198,6 +199,10 @@ class BuilderTools
 
 	public function modules()
 	{
+		$fs = new Filesystem();
+
+		$fs->mkdir($this->sPackageDir.'/modules');
+
 		$finder = (new Finder())
 			->directories()
 			->in($this->getTempDir($this->okt->options->modules_dir))
@@ -206,10 +211,53 @@ class BuilderTools
 
 		foreach ($finder as $module)
 		{
-dd($module);
+			$sModuleId = $module->getFilename();
+
+			$bInRepository = in_array($sModuleId, $this->okt->module('Builder')->config->modules['repository']);
+			$bInPackage = in_array($sModuleId, $this->okt->module('Builder')->config->modules['package']);
+
+			if (!$bInRepository && !$bInPackage) {
+				$fs->remove($module->getRealpath());
+			}
+			elseif ($bInRepository && !$bInPackage) {
+				$fs->rename($module->getRealpath(), $this->sPackageDir.'/modules/'.$sModuleId);
+			}
+			elseif ($bInRepository && $bInPackage) {
+				$fs->mirror($module->getRealpath(), $this->sPackageDir.'/modules/'.$sModuleId);
+			}
 		}
 	}
 
+	public function themes()
+	{
+		$fs = new Filesystem();
+
+		$fs->mkdir($this->sPackageDir.'/themes');
+
+		$finder = (new Finder())
+			->directories()
+			->in($this->getTempDir($this->okt->options->themes_dir))
+			->depth('== 0')
+		;
+
+		foreach ($finder as $theme)
+		{
+			$sThemeId = $theme->getFilename();
+
+			$bInRepository = in_array($sThemeId, $this->okt->module('Builder')->config->themes['repository']);
+			$bInPackage = in_array($sThemeId, $this->okt->module('Builder')->config->themes['package']);
+
+			if (!$bInRepository && !$bInPackage) {
+				$fs->remove($theme->getRealpath());
+			}
+			elseif ($bInRepository && !$bInPackage) {
+				$fs->rename($theme->getRealpath(), $this->sPackageDir.'/themes/'.$sThemeId);
+			}
+			elseif ($bInRepository && $bInPackage) {
+				$fs->mirror($theme->getRealpath(), $this->sPackageDir.'/themes/'.$sThemeId);
+			}
+		}
+	}
 
 	protected function setPackagesDir($sDir = null)
 	{
