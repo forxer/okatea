@@ -78,10 +78,7 @@ class BuilderTools
 	{
 		$fs = new Filesystem();
 
-		if (is_dir($this->getTempDir())) {
-			$fs->remove($this->getTempDir());
-		}
-
+		$fs->remove($this->getTempDir());
 		$fs->mkdir($this->getTempDir());
 
 		$fs->mirror($this->okt->options->root_dir.'/admin', 			$this->getTempDir().'/admin');
@@ -199,9 +196,12 @@ class BuilderTools
 
 	public function modules()
 	{
+		$sPackagesDir = $this->sPackageDir.'/modules';
+
 		$fs = new Filesystem();
 
-		$fs->mkdir($this->sPackageDir.'/modules');
+		$fs->remove($sPackagesDir);
+		$fs->mkdir($sPackagesDir);
 
 		$finder = (new Finder())
 			->directories()
@@ -220,19 +220,22 @@ class BuilderTools
 				$fs->remove($module->getRealpath());
 			}
 			elseif ($bInRepository && !$bInPackage) {
-				$fs->rename($module->getRealpath(), $this->sPackageDir.'/modules/'.$sModuleId);
+				$fs->rename($module->getRealpath(), $sPackagesDir.'/'.$sModuleId);
 			}
 			elseif ($bInRepository && $bInPackage) {
-				$fs->mirror($module->getRealpath(), $this->sPackageDir.'/modules/'.$sModuleId);
+				$fs->mirror($module->getRealpath(), $sPackagesDir.'/'.$sModuleId);
 			}
 		}
 	}
 
 	public function themes()
 	{
+		$sPackagesDir = $this->sPackageDir.'/themes';
+
 		$fs = new Filesystem();
 
-		$fs->mkdir($this->sPackageDir.'/themes');
+		$fs->remove($sPackagesDir);
+		$fs->mkdir($sPackagesDir);
 
 		$finder = (new Finder())
 			->directories()
@@ -251,28 +254,11 @@ class BuilderTools
 				$fs->remove($theme->getRealpath());
 			}
 			elseif ($bInRepository && !$bInPackage) {
-				$fs->rename($theme->getRealpath(), $this->sPackageDir.'/themes/'.$sThemeId);
+				$fs->rename($theme->getRealpath(), $sPackagesDir.'/'.$sThemeId);
 			}
 			elseif ($bInRepository && $bInPackage) {
-				$fs->mirror($theme->getRealpath(), $this->sPackageDir.'/themes/'.$sThemeId);
+				$fs->mirror($theme->getRealpath(), $sPackagesDir.'/'.$sThemeId);
 			}
 		}
-	}
-
-	protected function setPackagesDir($sDir = null)
-	{
-		$sPackageDir = $this->okt->options->get('public_dir').'/packages';
-
-		if (null !== $sDir) {
-			$sPackageDir .= '/'.$sDir;
-		}
-
-		$fs = new Filesystem();
-
-		if (is_dir($sPackageDir)) {
-			$fs->remove($sPackageDir);
-		}
-
-		$fs->mkdir($sPackageDir);
 	}
 }
