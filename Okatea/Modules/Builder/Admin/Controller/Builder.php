@@ -9,12 +9,12 @@
 namespace Okatea\Modules\Builder\Admin\Controller;
 
 use Okatea\Admin\Controller;
-use Okatea\Modules\Builder\BuilderTools;
+use Okatea\Modules\Builder\Tools\BaseTools;
 use Okatea\Modules\Builder\Stepper;
 
 class Builder extends Controller
 {
-	protected $builderTools;
+	protected $tools;
 	protected $stepper;
 
 	public function page()
@@ -23,13 +23,9 @@ class Builder extends Controller
 			return $this->serve401();
 		}
 
-		# need ressources
-		@ini_set('memory_limit',-1);
-		set_time_limit(0);
-
 		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->request->attributes->get('step'));
 
-		$this->builderTools = new BuilderTools($this->okt);
+		$this->tools = new BaseTools($this->okt);
 
 		$this->okt->tpl->addGlobal('stepper', $this->stepper);
 
@@ -69,7 +65,7 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$this->builderTools->copy();
+			$this->tools->getCopier()->process();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -82,7 +78,7 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$this->builderTools->cleanup();
+			$this->tools->getCleaner()->process();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -93,7 +89,7 @@ class Builder extends Controller
 
 	protected function config()
 	{
-		$sConfigFile = $this->builderTools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
+		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
 
 		if ($this->request->request->has('form_sent'))
 		{
@@ -109,7 +105,7 @@ class Builder extends Controller
 
 	protected function options()
 	{
-		$sOptionsFile = $this->builderTools->getTempDir().'/oktOptions.php';
+		$sOptionsFile = $this->tools->getTempDir().'/oktOptions.php';
 
 		if ($this->request->request->has('form_sent'))
 		{
@@ -127,7 +123,8 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$this->builderTools->modules();
+			$modules = new Modules($this->okt);
+			$modules->process();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
