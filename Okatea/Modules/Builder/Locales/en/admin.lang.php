@@ -13,6 +13,7 @@ $GLOBALS['okt_l10n']['m_builder_step_start'] = 'home';
 $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'cleanup';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
+$GLOBALS['okt_l10n']['m_builder_step_options'] = 'options';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'themes';
 $GLOBALS['okt_l10n']['m_builder_step_end'] = 'end';

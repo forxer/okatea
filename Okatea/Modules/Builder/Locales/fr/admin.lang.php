@@ -14,6 +14,7 @@ $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_copy'] = 'copie';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'nettoyage';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
+$GLOBALS['okt_l10n']['m_builder_step_options'] = 'options';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'thèmes';
 $GLOBALS['okt_l10n']['m_builder_step_end'] = 'fin';

@@ -60,7 +60,8 @@ $okt->page->css->addFile($okt->options->public_url.'/components/codemirror/addon
 
 # JS
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.js');
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/yaml/yaml.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/clike/clike.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/php/php.js');
 
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/search.js');
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/searchcursor.js');
@@ -99,7 +100,7 @@ $okt->page->js->addScript('
 		});
 
 		var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-			mode:  "text/x-yaml",
+			mode:  "text/x-php",
 			indentUnit: 4,
 			indentWithTabs: true,
 			styleActiveLine: true,
@@ -121,17 +122,9 @@ $okt->page->js->addScript('
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Cette étape permet de modifier le fichier de configuration qui sera fourni avec le package.</p>
+	<p>Cette étape permet de modifier le fichier d'options qui sera fourni avec le package.</p>
 
-	<p>En général on vérifie les valeurs des champs suivants&nbsp;:</p>
-
-	<ul>
-		<li><code>app_path</code> doit être réglé sur <code>/</code></li>
-		<li><code>domain</code> doit être réglé sur <code>''</code></li>
-		<li><code>maintenance public et admin</code> doivent être réglés sur <code>false</code></li>
-	</ul>
-
-	<textarea id="editor" name="editor" rows="35" cols="97"><?php echo $sConfig ?></textarea>
+	<textarea id="editor" name="editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
 	<input type="submit" value="<?php _e('c_c_next') ?>" /></p>

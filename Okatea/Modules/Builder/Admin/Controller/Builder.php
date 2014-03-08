@@ -107,6 +107,22 @@ class Builder extends Controller
 		));
 	}
 
+	protected function options()
+	{
+		$sOptionsFile = $this->builderTools->getTempDir().'/oktOptions.php';
+
+		if ($this->request->request->has('form_sent'))
+		{
+			file_put_contents($sOptionsFile, $this->request->request->get('editor'));
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/options', array(
+			'sOptions' => file_get_contents($sOptionsFile)
+		));
+	}
+
 	protected function modules()
 	{
 		if ($this->request->request->has('form_sent'))

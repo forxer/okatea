@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3f59c829fd92223c82db0856a8d9b0b1",
+    "hash": "9d9ad272eeab55c86a667c1e109cc6b8",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -533,12 +533,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "852d86227059f2c418f7bb6d1d2058f7bdc4ffa2"
+                "reference": "2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/852d86227059f2c418f7bb6d1d2058f7bdc4ffa2",
-                "reference": "852d86227059f2c418f7bb6d1d2058f7bdc4ffa2",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec",
+                "reference": "2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec",
                 "shasum": ""
             },
             "require": {
@@ -582,7 +582,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2014-03-05 12:40:36"
+            "time": "2014-03-07 15:00:25"
         },
         {
             "name": "ircmaxell/password-compat",
