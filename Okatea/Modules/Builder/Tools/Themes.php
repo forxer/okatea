@@ -11,7 +11,7 @@ namespace Okatea\Modules\Builder\Tools;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
-class Modules extends BaseTools
+class Themes extends BaseTools
 {
 	protected $sPackagesDir;
 
@@ -21,7 +21,7 @@ class Modules extends BaseTools
 	{
 		parent::__construct($okt);
 
-		$this->sPackagesDir = $this->sPackageDir.'/modules'.$this->okt->getVersion();
+		$this->sPackagesDir = $this->sPackageDir.'/themes/'.$this->okt->getVersion();
 
 		$this->aRepositoryInfos = array();
 	}
@@ -35,49 +35,49 @@ class Modules extends BaseTools
 
 		$finder = (new Finder())
 			->directories()
-			->in($this->getTempDir($this->okt->options->modules_dir))
+			->in($this->getTempDir($this->okt->options->themes_dir))
 			->depth('== 0')
 		;
 
-		foreach ($finder as $module)
+		foreach ($finder as $theme)
 		{
-			if (!file_exists($module->getRealpath().'/_define.php')) {
+			if (!file_exists($theme->getRealpath().'/_define.php')) {
 				continue;
 			}
 
-			$sModuleId = $module->getFilename();
+			$sThemeId = $theme->getFilename();
 
-			$bInRepository = in_array($sModuleId, $this->okt->module('Builder')->config->modules['repository']);
-			$bInPackage = in_array($sModuleId, $this->okt->module('Builder')->config->modules['package']);
+			$bInRepository = in_array($sThemeId, $this->okt->module('Builder')->config->themes['repository']);
+			$bInPackage = in_array($sThemeId, $this->okt->module('Builder')->config->themes['package']);
 
 			if (!$bInRepository && !$bInPackage)
 			{
-				$fs->remove($module->getRealpath());
+				$fs->remove($theme->getRealpath());
 				continue;
 			}
 			elseif ($bInRepository)
 			{
 				if ($bInPackage) {
-					$fs->mirror($module->getRealpath(), $this->sPackagesDir.'/'.$sModuleId);
+					$fs->mirror($theme->getRealpath(), $this->sPackagesDir.'/'.$sThemeId);
 				}
 				else {
-					$fs->rename($module->getRealpath(), $this->sPackagesDir.'/'.$sModuleId);
+					$fs->rename($theme->getRealpath(), $this->sPackagesDir.'/'.$sThemeId);
 				}
 
-				$aModuleInfos = require $this->sPackagesDir.'/'.$sModuleId.'/_define.php';
+				$aThemeInfos = require $this->sPackagesDir.'/'.$sThemeId.'/_define.php';
 
 				$this->aRepositoryInfos[$sThemeId] = array_merge(
 					array(
-						'id' => $sModuleId,
+						'id' => $sThemeId,
 						'url' => ''
 					),
-					$aModuleInfos
+					$aThemeInfos
 				);
 			}
 		}
 
 		file_put_contents(
-			$this->sPackagesDir.'/modules.json',
+			$this->sPackagesDir.'/themes.json',
 			json_encode($this->aRepositoryInfos, JSON_PRETTY_PRINT)
 		);
 	}

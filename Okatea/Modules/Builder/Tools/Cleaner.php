@@ -16,11 +16,9 @@ class Cleaner extends BaseTools
 	protected $aToRemove;
 
 	protected $aVendorCleanupRules = array(
-		'alchemy/zippy' => 'docs',
 		'dotclear/clearbricks' => '.atoum*',
 		'dunglas/php-socialshare' => 'examples spec',
 		'doctrine/cache' => '',
-		'doctrine/collections' => '',
 		'erusev/parsedown' => '',
 		'ezyang/htmlpurifier' => 'art benchmarks configdoc docs extras maintenance plugins smoketests',
 		'forxer/gravatar' => '',

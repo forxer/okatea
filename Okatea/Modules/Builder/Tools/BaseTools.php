@@ -51,46 +51,8 @@ class BaseTools
 		return new Modules($this->okt);
 	}
 
-	public function themes()
+	public function getThemes()
 	{
-		$sPackagesDir = $this->sPackageDir.'/themes';
-
-		$fs = new Filesystem();
-
-		$fs->remove($sPackagesDir);
-		$fs->mkdir($sPackagesDir);
-
-		$finder = (new Finder())
-			->directories()
-			->in($this->getTempDir($this->okt->options->themes_dir))
-			->depth('== 0')
-		;
-
-		foreach ($finder as $theme)
-		{
-			if (!file_exists($theme->getRealpath().'/_define.php')) {
-				continue;
-			}
-
-			$sThemeId = $theme->getFilename();
-
-			$bInRepository = in_array($sThemeId, $this->okt->module('Builder')->config->themes['repository']);
-			$bInPackage = in_array($sThemeId, $this->okt->module('Builder')->config->themes['package']);
-
-			if (!$bInRepository && !$bInPackage)
-			{
-				$fs->remove($theme->getRealpath());
-				continue;
-			}
-			elseif ($bInRepository)
-			{
-				if ($bInPackage) {
-					$fs->mirror($theme->getRealpath(), $sPackagesDir.'/'.$sThemeId);
-				}
-				else {
-					$fs->rename($theme->getRealpath(), $sPackagesDir.'/'.$sThemeId);
-				}
-			}
-		}
+		return new Themes($this->okt);
 	}
 }

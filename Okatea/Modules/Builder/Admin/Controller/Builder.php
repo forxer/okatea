@@ -123,8 +123,7 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$modules = new Modules($this->okt);
-			$modules->process();
+			$this->tools->getModules()->process();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -137,7 +136,7 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
-			$this->builderTools->themes();
+			$this->tools->getThemes()->process();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}

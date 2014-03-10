@@ -21,7 +21,6 @@
 	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.4.0",
-		"alchemy/zippy" : " ~0.1",
 		"dotclear/clearbricks" : "dev-default",
 		"dunglas/php-socialshare" : "~0.1",
 		"erusev/parsedown" : "~0.9",
