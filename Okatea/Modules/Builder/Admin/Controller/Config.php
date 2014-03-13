@@ -28,13 +28,16 @@ class Config extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				$aNewConf = array(
+					'repository_url' => $this->request->request->get('repository_url'),
 					'modules' 	=> array(
-						'repository' 	=> $this->request->request->get('modules_repository', array()),
-						'package' 		=> $this->request->request->get('modules_package', array())
+						'repository_url' 	=> $this->request->request->get('modules_repository_url'),
+						'repository' 		=> $this->request->request->get('modules_repository', array()),
+						'package' 			=> $this->request->request->get('modules_package', array())
 					),
 					'themes' 	=> array(
-						'repository' 	=> $this->request->request->get('themes_repository', array()),
-						'package' 		=> $this->request->request->get('themes_package', array())
+						'repository_url' 	=> $this->request->request->get('themes_repository_url'),
+						'repository' 		=> $this->request->request->get('themes_repository', array()),
+						'package' 			=> $this->request->request->get('themes_package', array())
 					)
 				);
 

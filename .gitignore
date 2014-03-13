@@ -60,7 +60,9 @@ $RECYCLE.BIN/
 /_tmp/
 /packages/
 
-# vendor
+# composer
 /vendor/
+/composer.lock
 
+# misc
 /test.php

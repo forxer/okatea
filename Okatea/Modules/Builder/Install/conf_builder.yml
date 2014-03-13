@@ -1,5 +1,8 @@
 
+repository_url: http://repository.okatea.org/packages/
+
 modules:
+  repository_url: http://repository.okatea.org/themes/
   repository:
     - Builder
     - Development
@@ -11,6 +14,7 @@ modules:
     - Pages
 
 themes:
+  repository_url: http://repository.okatea.org/modules/
   repository:
     - DefaultTheme
     - Okatea

@@ -12,6 +12,8 @@ use Okatea\Tao\Html\CheckList;
 
 class Requirements
 {
+	const PHP_VERSION = '5.4.0';
+
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -64,17 +66,9 @@ class Requirements
 		# Vérification de la version PHP
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'php_version',
-			'test' 		=> version_compare(PHP_VERSION,'5.4.0','>='),
-			'msg_ok'	=> sprintf(__('pr_php_version_ok'),PHP_VERSION),
-			'msg_ko'	=> sprintf(__('pr_php_version_ko'),PHP_VERSION)
-		);
-
-		# Vérification de la présence du module SPL
-		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'SPL',
-			'test' 		=> function_exists('spl_classes'),
-			'msg_ok'	=> __('pr_spl_ok'),
-			'msg_ko'	=> __('pr_spl_ko')
+			'test' 		=> version_compare(PHP_VERSION, self::PHP_VERSION, '>='),
+			'msg_ok'	=> sprintf(__('pr_php_version_ok'), PHP_VERSION),
+			'msg_ko'	=> sprintf(__('pr_php_version_ko'), PHP_VERSION, self::PHP_VERSION)
 		);
 
 		# Vérification de la présence des fonctions MySQLi
@@ -101,22 +95,6 @@ class Requirements
 			'msg_ko'	=> __('pr_fileinfo_ko')
 		);
 
-		# Vérification de la présence du module XML
-		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'xml',
-			'test' 		=> function_exists('xml_parser_create'),
-			'msg_ok'	=> __('pr_xml_ok'),
-			'msg_ko'	=> __('pr_xml_ko')
-		);
-
-		# Vérification de la présence du module mb_string
-		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'mb_string',
-			'test' 		=> function_exists('mb_detect_encoding'),
-			'msg_ok'	=> __('pr_mb_string_ok'),
-			'msg_ko'	=> __('pr_mb_string_ko')
-		);
-
 		# Vérification de la présence des fonctions json_*
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'json_encode',
@@ -130,6 +108,14 @@ class Requirements
 			'test' 		=> function_exists('json_decode'),
 			'msg_ok'	=> __('pr_json_decode_ok'),
 			'msg_ko'	=> __('pr_json_decode_ko')
+		);
+
+		# Vérification de la présence de l'extension zip
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'zip',
+			'test' 		=> class_exists('ZipArchive'),
+			'msg_ok'	=> __('pr_zip_ok'),
+			'msg_ko'	=> __('pr_zip_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
@@ -146,12 +132,28 @@ class Requirements
 			'msg_ko'	=> __('pr_crypt_ko')
 		);
 
+		# Vérification de la présence du module XML
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'xml',
+			'test' 		=> function_exists('xml_parser_create'),
+			'msg_ok'	=> __('pr_xml_ok'),
+			'msg_ko'	=> __('pr_xml_ko')
+		);
+
 		# Vérification de la présence du module simplexml
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'simplexml',
 			'test' 		=> function_exists('simplexml_load_string') ? true : null,
 			'msg_ok'	=> __('pr_simplexml_ok'),
 			'msg_ko'	=> __('pr_simplexml_ko')
+		);
+
+		# Vérification de la présence du module mb_string
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'mb_string',
+			'test' 		=> function_exists('mb_detect_encoding'),
+			'msg_ok'	=> __('pr_mb_string_ok'),
+			'msg_ko'	=> __('pr_mb_string_ko')
 		);
 
 		# Vérification de la présence du module iconv

@@ -19,6 +19,10 @@ class BaseTools
 	 */
 	protected $okt;
 
+	protected $sTempDir;
+
+	protected $sPackageDir;
+
 	public function __construct($okt)
 	{
 		$this->okt = $okt;

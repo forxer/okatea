@@ -27,6 +27,19 @@ $okt->page->tabs();
 		</ul>
 
 		<div id="tab_general">
+			<fieldset>
+				<legend>Dépôts</legend>
+
+				<p class="field"><label for="repository_url">URL du dépôt de packages</label>
+				<?php echo form::text('repository_url', 40, 255, $view->escape($okt->module('Builder')->config->repository_url)) ?></p>
+
+				<p class="field"><label for="modules_repository_url">URL du dépôt de modules</label>
+				<?php echo form::text('modules_repository_url', 40, 255, $view->escape($okt->module('Builder')->config->modules['repository_url'])) ?></p>
+
+				<p class="field"><label for="themes_repository_url">URL du dépôt de thèmes</label>
+				<?php echo form::text('themes_repository_url', 40, 255, $view->escape($okt->module('Builder')->config->themes['repository_url'])) ?></p>
+
+			</fieldset>
 		</div><!-- #tab_general -->
 
 		<div id="tab_modules">

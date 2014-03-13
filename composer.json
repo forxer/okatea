@@ -11,7 +11,8 @@
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Vincent Garnier",
-			"email" : "contact@okatea.org"
+			"email" : "contact@okatea.org",
+			"homepage" : "http://forx.fr"
 		}
 	],
 	"support" : {
@@ -25,6 +26,7 @@
 		"dunglas/php-socialshare" : "~0.1",
 		"erusev/parsedown" : "~0.9",
 		"ezyang/htmlpurifier" : "~4.6",
+		"forxer/archiver" : "dev-master",
 		"forxer/languages-list" : "dev-master",
 		"forxer/gravatar" : "~1.1",
 		"guzzle/guzzle" : "~3.7",
