@@ -18,7 +18,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 	# use internal router
 	# use controllers
 	# use templates
-# refactor install application
+# refactor installation application
 	# use internal router
 	# use controllers
 	# use templates
@@ -30,6 +30,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # refactor flash messages device
 # change Yaml files extension .yaml to .yml
 ! implement Symfony HttpFoundation
+! new Okatea Builder module
 ! remove version file and move changelog file for security reasons
 ! add the ability to customise the software name
 
