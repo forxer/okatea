@@ -62,7 +62,7 @@ htmlpurifier_disabled: false
 slug_type: ascii
 updates:
     enabled: true
-    url: 'http://repository.okatea.org/packages/versions.xml'
+    url: 'http://repository.okatea.org/packages/versions.json'
     type: stable
 repositories:
     themes:

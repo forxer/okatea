@@ -158,9 +158,23 @@ class Builder extends Controller
 		));
 	}
 
+	protected function packages()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+			$this->tools->getPackages()->process();
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/digests', array(
+		));
+	}
+
 	protected function end()
 	{
 		$this->session->remove('release_type');
+		$this->tools->removeTempDir();
 
 		return $this->render('Builder/Admin/Templates/Steps/end', array(
 		));

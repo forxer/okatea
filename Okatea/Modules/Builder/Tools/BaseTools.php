@@ -9,7 +9,6 @@
 namespace Okatea\Modules\Builder\Tools;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
 class BaseTools
 {
@@ -40,6 +39,12 @@ class BaseTools
 		return str_replace($this->okt->options->get('root_dir'), $this->sTempDir, $sDirPath);
 	}
 
+	public function removeTempDir()
+	{
+		$fs = new Filesystem();
+		$fs->remove($this->sTempDir);
+	}
+
 	public function getCopier()
 	{
 		return new Copier($this->okt);
@@ -63,5 +68,10 @@ class BaseTools
 	public function getDigests()
 	{
 		return new Digests($this->okt);
+	}
+
+	public function getPackages()
+	{
+		return new Packages($this->okt);
 	}
 }
