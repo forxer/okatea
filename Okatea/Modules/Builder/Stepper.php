@@ -48,6 +48,10 @@ class Stepper extends BaseStepper
 				'title' 	=> __('m_builder_step_themes')
 			),
 			array(
+				'step' 		=> 'digests',
+				'title' 	=> __('m_builder_step_digests')
+			),
+			array(
 				'step' 		=> 'end',
 				'title' 	=> __('m_builder_step_end')
 			)

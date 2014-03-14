@@ -59,4 +59,9 @@ class BaseTools
 	{
 		return new Themes($this->okt);
 	}
+
+	public function getDigests()
+	{
+		return new Digests($this->okt);
+	}
 }

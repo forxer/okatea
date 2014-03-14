@@ -145,6 +145,19 @@ class Builder extends Controller
 		));
 	}
 
+	protected function digests()
+	{
+		if ($this->request->request->has('form_sent'))
+		{
+			$this->tools->getDigests()->process();
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/digests', array(
+		));
+	}
+
 	protected function end()
 	{
 		$this->session->remove('release_type');

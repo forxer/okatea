@@ -33,6 +33,7 @@ $aOktDefaultOptions = array(
 	'themes_dir' 		=> __DIR__.'/Okatea/Themes',
 	'public_dir' 		=> __DIR__.'/oktPublic',
 	'upload_dir' 		=> __DIR__.'/oktPublic/upload',
+	'digests' 			=> __DIR__.'/Okatea/digests',
 
 	# cookies names
 	'cookie_auth_name' 	=> 'otk_auth',

@@ -23,6 +23,8 @@ class Extensions extends BaseTools
 		parent::__construct($okt);
 
 		$this->aRepositoryInfos = array();
+
+		$this->sRepositoryHash = sha1($this->okt->module('Builder')->config->repository_url);
 	}
 
 	public function process()
@@ -68,8 +70,9 @@ class Extensions extends BaseTools
 
 				$this->aRepositoryInfos[$sExtensionId] = array_merge(
 					array(
-						'id' => $sExtensionId,
-						'url' => $this->aConfig['repository_url'].'/'.$this->okt->getVersion().'/'.$sExtensionId.'.zip'
+						'id' 				=> $sExtensionId,
+						'url' 				=> $this->aConfig['repository_url'].'/'.$this->okt->getVersion().'/'.$sExtensionId.'.zip',
+						'repository_hash' 	=> $this->sRepositoryHash
 					),
 					$aExtensionInfos
 				);

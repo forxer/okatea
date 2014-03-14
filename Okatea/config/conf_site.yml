@@ -68,11 +68,11 @@ repositories:
     themes:
         enabled: true
         list:
-            'Okatea themes': 'http://repository.okatea.org/themes/%VERSION%/index.xml'
+            'Okatea themes': 'http://repository.okatea.org/themes/%VERSION%/index.json'
     modules:
         enabled: true
         list:
-            'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.xml'
+            'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.json'
 themes:
     desktop: Okatea
     mobile: ''
