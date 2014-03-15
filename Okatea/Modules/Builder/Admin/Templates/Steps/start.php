@@ -10,9 +10,13 @@ $view->extend('Builder/Admin/Templates/Builder');
 
 ?>
 
-<p>Vous êtes sur l'interface de création de packages de nouvelle version d'Okatea.</p>
+<p><?php _e('m_builder_step_start_1') ?></p>
 
-<p>Ce package sera basé sur cette installation d'Okatea.</p>
+<p><?php _e('m_builder_step_start_2') ?></p>
+
+<p><?php _e('m_builder_step_start_3') ?></p>
+
+<p><?php _e('m_builder_step_start_4') ?></p>
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getNextStep())) ?>" method="post">
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" /></p>

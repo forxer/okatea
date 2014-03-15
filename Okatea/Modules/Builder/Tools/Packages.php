@@ -27,9 +27,6 @@ class Packages extends BaseTools
 
 	public function process()
 	{
-		ini_set('memory_limit',-1);
-		set_time_limit(0);
-
 		$fs = new Filesystem();
 
 		$fs->remove($this->sPackagesDir);

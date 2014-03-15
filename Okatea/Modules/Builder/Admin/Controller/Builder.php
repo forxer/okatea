@@ -14,8 +14,15 @@ use Okatea\Modules\Builder\Stepper;
 
 class Builder extends Controller
 {
-	protected $tools;
 	protected $stepper;
+
+	protected $tools;
+
+	protected $bSetMaxRessourcesCalled = false;
+
+	protected $sInitialMemoryLimit;
+
+	protected $sInitialMaxExecutionTime;
 
 	public function page()
 	{
@@ -65,7 +72,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getCopier()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -78,7 +89,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getCleaner()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -123,7 +138,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getModules()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -136,7 +155,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getThemes()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -149,7 +172,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getDigests()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -162,7 +189,11 @@ class Builder extends Controller
 	{
 		if ($this->request->request->has('form_sent'))
 		{
+			$this->setMaxRessources();
+
 			$this->tools->getPackages()->process();
+
+			$this->restoreInitialRessources();
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
@@ -173,10 +204,35 @@ class Builder extends Controller
 
 	protected function end()
 	{
+		$this->setMaxRessources();
+
 		$this->session->remove('release_type');
+
 		$this->tools->removeTempDir();
+
+		$this->restoreInitialRessources();
 
 		return $this->render('Builder/Admin/Templates/Steps/end', array(
 		));
+	}
+
+	protected function setMaxRessources()
+	{
+		$this->bSetMaxRessourcesCalled = true;
+
+		$this->sInitialMemoryLimit = ini_get('memory_limit');
+		$this->sInitialMaxExecutionTime = ini_get('max_execution_time');
+
+		ini_set('memory_limit',-1);
+		ini_set('max_execution_time', 0);
+	}
+
+	protected function restoreInitialRessources()
+	{
+		if ($this->bSetMaxRessourcesCalled)
+		{
+			ini_set('memory_limit', $this->sInitialMemoryLimit);
+			ini_set('max_execution_time', $this->sInitialMaxExecutionTime);
+		}
 	}
 }

@@ -14,7 +14,9 @@ $view->extend('Builder/Admin/Templates/Builder');
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Cette étape va créer les packages des modules.</p>
+	<p><?php _e('m_builder_step_modules_1') ?></p>
+
+	<p class="note"><span class="icon clock"></span> <?php _e('m_builder_long_time_note') ?></p>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
 	<input type="submit" value="<?php _e('c_c_next') ?>" class="lazy-load" /></p>

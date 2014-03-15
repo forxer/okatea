@@ -121,14 +121,14 @@ $okt->page->js->addScript('
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Cette étape permet de modifier le fichier de configuration qui sera fourni avec le package.</p>
+	<p><?php _e(m_builder_step_config_1) ?></p>
 
-	<p>En général on vérifie les valeurs des champs suivants&nbsp;:</p>
+	<p><?php _e(m_builder_step_config_2) ?></p>
 
 	<ul>
-		<li><code>app_path</code> doit être réglé sur <code>/</code></li>
-		<li><code>domain</code> doit être réglé sur <code>''</code></li>
-		<li><code>maintenance public et admin</code> doivent être réglés sur <code>false</code></li>
+		<li><?php printf(__('m_builder_step_config_3'), '<code>app_path</code>', '<code>/</code>')?></li>
+		<li><?php printf(__('m_builder_step_config_3'), '<code>domain</code>', '<code>\'\'</code>')?></li>
+		<li><?php printf(__('m_builder_step_config_4'), '<code>maintenance public / maintenance admin</code>', '<code>false</code>')?></li>
 	</ul>
 
 	<textarea id="editor" name="editor" rows="35" cols="97"><?php echo $sConfig ?></textarea>

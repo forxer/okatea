@@ -122,7 +122,7 @@ $okt->page->js->addScript('
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Cette étape permet de modifier le fichier d'options qui sera fourni avec le package.</p>
+	<p><?php _e('m_builder_step_options_1') ?></p>
 
 	<textarea id="editor" name="editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
 

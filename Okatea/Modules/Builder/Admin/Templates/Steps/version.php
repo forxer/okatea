@@ -14,12 +14,12 @@ $view->extend('Builder/Admin/Templates/Builder');
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
 
-	<p>Vous allez créer un package pour la version <strong><?php echo $version ?></strong></p>
+	<p><?php printf(__('m_builder_step_version_1'), '<strong>'.$version.'</strong>') ?></p>
 
-	<p>Quel est le type de cette version ?</p>
+	<p><?php _e('m_builder_step_version_2') ?></p>
 	<ul class="col field">
-		<li><label for="type_stable"><?php echo form::radio(array('type', 'type_stable'), 'stable', ($type == 'stable')) ?> Stable</label></li>
-		<li><label for="type_dev"><?php echo form::radio(array('type', 'type_dev'), 'dev', ($type == 'dev')) ?> Développement</label></li>
+		<li><label for="type_stable"><?php echo form::radio(array('type', 'type_stable'), 'stable', ($type == 'stable')) ?> <?php _e('m_builder_step_version_3') ?></label></li>
+		<li><label for="type_dev"><?php echo form::radio(array('type', 'type_dev'), 'dev', ($type == 'dev')) ?> <?php _e('m_builder_step_version_4') ?></label></li>
 	</ul>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
