@@ -34,13 +34,13 @@ class Extensions extends BaseTools
 		$fs->remove($this->sPackagesDir);
 		$fs->mkdir($this->sPackagesDir);
 
-		$finder = (new Finder())
+		$ExtensionsFinder = (new Finder())
 			->directories()
 			->in($this->sTempDir)
 			->depth('== 0')
 		;
 
-		foreach ($finder as $extension)
+		foreach ($ExtensionsFinder as $extension)
 		{
 			$sExtensionId = $extension->getFilename();
 			$sExtensionPath = $extension->getRealpath();
@@ -76,6 +76,27 @@ class Extensions extends BaseTools
 					),
 					$aExtensionInfos
 				);
+
+				if (is_dir($sExtensionPath.'/Locales'))
+				{
+					$LocalesFinder = (new Finder())
+						->directories()
+						->in($sExtensionPath.'/Locales')
+						->depth('== 0')
+					;
+
+					foreach ($LocalesFinder as $LocalesDir)
+					{
+						$sMainLocalesFile = $LocalesDir->getRealpath().'/main.lang.php';
+
+						if (is_file($sMainLocalesFile))
+						{
+							require $sMainLocalesFile;
+
+							$this->aRepositoryInfos[$sExtensionId]['name_'.$LocalesDir->getFilename()] = __($aExtensionInfos['name']);
+						}
+					}
+				}
 
 				if (!$bInPackage) {
 					$fs->remove($sExtensionPath);
