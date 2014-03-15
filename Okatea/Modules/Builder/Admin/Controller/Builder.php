@@ -167,7 +167,7 @@ class Builder extends Controller
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
 
-		return $this->render('Builder/Admin/Templates/Steps/digests', array(
+		return $this->render('Builder/Admin/Templates/Steps/packages', array(
 		));
 	}
 
