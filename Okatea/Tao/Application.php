@@ -284,7 +284,7 @@ class Application
 
 		$this->router = new Router(
 			$this,
-			$this->options->get('config_dir').'/routes',
+			$this->options->get('config_dir').'/Routes',
 			$this->options->get('cache_dir').'/routing',
 			$this->options->get('debug'),
 			$this->logger
@@ -433,7 +433,7 @@ class Application
 	{
 		$this->adminRouter = new adminRouter(
 			$this,
-			$this->options->get('config_dir').'/routes_admin',
+			$this->options->get('config_dir').'/RoutesAdmin',
 			$this->options->get('cache_dir').'/routing/admin',
 			$this->options->get('debug'),
 			$this->logger

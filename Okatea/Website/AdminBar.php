@@ -38,7 +38,7 @@ class AdminBar
 
 		$this->okt->adminRouter = new AdminRouter(
 			$this->okt,
-			$this->okt->options->get('config_dir').'/routes_admin',
+			$this->okt->options->get('config_dir').'/RoutesAdmin',
 			$this->okt->options->get('cache_dir').'/routing/admin',
 			$this->okt->options->get('debug')
 		);

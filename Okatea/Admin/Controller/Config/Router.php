@@ -25,7 +25,7 @@ class Router extends Controller
 
 		# Informations sur les routes du site
 		$oWebsiteHelpersConfig = new Website($this->okt,
-			$this->okt->options->config_dir.'/routes',
+			$this->okt->options->config_dir.'/Routes',
 			$this->okt->router->getRouteCollection()->all()
 		);
 
@@ -33,7 +33,7 @@ class Router extends Controller
 
 		# Informations sur les routes de l'adminbistration
 		$oAdminHelpersConfig = new Config($this->okt,
-			$this->okt->options->config_dir.'/routes_admin',
+			$this->okt->options->config_dir.'/RoutesAdmin',
 			$this->okt->adminRouter->getRouteCollection()->all()
 		);
 

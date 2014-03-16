@@ -396,7 +396,7 @@ class Installer extends Extension
 	{
 		if (null === $this->routesFiles) {
 			$this->routesFiles = new RoutesFiles($this->okt, $this);
-			$this->routesFiles->setRoutesDirectory('routes');
+			$this->routesFiles->setRoutesDirectory('Routes');
 		}
 
 		return $this->routesFiles;
@@ -406,7 +406,7 @@ class Installer extends Extension
 	{
 		if (null === $this->routesAdminFiles) {
 			$this->routesAdminFiles = new RoutesFiles($this->okt, $this);
-			$this->routesAdminFiles->setRoutesDirectory('routes_admin');
+			$this->routesAdminFiles->setRoutesDirectory('RoutesAdmin');
 		}
 
 		return $this->routesAdminFiles;

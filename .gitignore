@@ -31,10 +31,10 @@ $RECYCLE.BIN/
 /Okatea/Config/connexion.php
 /Okatea/Config/conf_*.yml
 !/Okatea/Config/conf_site.yml
-/Okatea/Config/routes/*/*.yml
-!/Okatea/Config/routes/*/__okatea_core.yml
-/Okatea/Config/routes_admin/*.yml
-!/Okatea/Config/routes/*/__okatea_core.yml
+/Okatea/Config/Routes/*/*.yml
+!/Okatea/Config/Routes/*/__okatea_core.yml
+/Okatea/Config/RoutesAdmin/*.yml
+!/Okatea/Config/Routes/*/__okatea_core.yml
 
 # oktatea cache
 /Okatea/Cache/**
