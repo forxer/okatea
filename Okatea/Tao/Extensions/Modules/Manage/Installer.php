@@ -10,7 +10,7 @@ namespace Okatea\Tao\Extensions\Modules\Manage;
 
 use Okatea\Tao\Extensions\Manage\Installer as BaseInstaller;
 use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
-use Okatea\Tao\Themes\Collection as ThemesCollection;
+//use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
 class Installer extends BaseInstaller
 {
@@ -71,9 +71,9 @@ class Installer extends BaseInstaller
 		# compare templates
 		$this->getComparator()->folder($this->root().'/Install/Templates/', $this->okt->options->get('themes_dir').'/DefaultTheme/Templates/');
 
-		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
+		foreach ($this->okt->themes->getLoaded() as $sThemeId=>$sTheme)
 		{
-			if ($sThemeId == 'default') {
+			if ($sThemeId == 'DefaultTheme') {
 				continue;
 			}
 

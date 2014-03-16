@@ -97,9 +97,9 @@ class Collection
 	 * @param boolean $bForce
 	 * @return array
 	 */
-	public static function getThemes($bForce=false)
+	public static function getThemes($bForce = false)
 	{
-		static $aThemes=null;
+		static $aThemes = null;
 
 		if (is_array($aThemes) && !$bForce) {
 			return $aThemes;
