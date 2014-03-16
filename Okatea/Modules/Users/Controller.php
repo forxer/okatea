@@ -640,7 +640,7 @@ class Controller extends BaseController
 					$template_file = 'welcom.tpl';
 				}
 
-				$oMail->useFile(__DIR__.'/../locales/'.$rsUser->language.'/templates/'.$template_file, array(
+				$oMail->useFile(__DIR__.'/../Locales/'.$rsUser->language.'/templates/'.$template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 					'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 					'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
@@ -669,7 +669,7 @@ class Controller extends BaseController
 					$rsAdministrators = $this->okt->users->getUsers(array('group_id'=>Groups::ADMIN));
 					while ($rsAdministrators->fetch())
 					{
-						$oMail->useFile(__DIR__.'/../locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
+						$oMail->useFile(__DIR__.'/../Locales/'.$rsAdministrators->language.'/templates/'.$template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
 							'SITE_URL' => $this->request->getSchemeAndHttpHost().$this->okt->config->app_path,
 							'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),

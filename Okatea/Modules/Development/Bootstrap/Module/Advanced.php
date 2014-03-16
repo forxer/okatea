@@ -70,10 +70,10 @@ class Advanced extends Module
 		$this->makeFile('filters', 			$this->dir.'/inc/class.'.$this->id.'.filters.php', $replacements);
 		$this->makeFile('recordset', 		$this->dir.'/inc/class.'.$this->id.'.recordset.php', $replacements);
 
-		$this->makeFile('locales_main_en', 	$this->dir.'/locales/en/main.lang.php', $replacements);
-		$this->makeFile('locales_main_fr', 	$this->dir.'/locales/fr/main.lang.php', $replacements);
-		$this->makeFile('locales_admin_en', $this->dir.'/locales/en/admin.lang.php', $replacements);
-		$this->makeFile('locales_admin_fr', $this->dir.'/locales/fr/admin.lang.php', $replacements);
+		$this->makeFile('locales_main_en', 	$this->dir.'/Locales/en/main.lang.php', $replacements);
+		$this->makeFile('locales_main_fr', 	$this->dir.'/Locales/fr/main.lang.php', $replacements);
+		$this->makeFile('locales_admin_en', $this->dir.'/Locales/en/admin.lang.php', $replacements);
+		$this->makeFile('locales_admin_fr', $this->dir.'/Locales/fr/admin.lang.php', $replacements);
 
 		$this->makeFile('define', 			$this->dir.'/_define.php', $replacements);
 		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);

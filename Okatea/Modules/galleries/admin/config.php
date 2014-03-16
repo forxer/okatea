@@ -19,7 +19,7 @@ if (!defined('ON_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.config');
+$okt->l10n->loadFile(__DIR__.'/../Locales/'.$okt->user->language.'/admin.config');
 
 # Gestion des images des éléments
 $oItemImageUploadConfig = new ImageUploadConfig($okt, $okt->galleries->items->getImageUploadInstance());

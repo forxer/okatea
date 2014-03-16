@@ -16,7 +16,7 @@ if (!defined('ON_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.zip');
+$okt->l10n->loadFile(__DIR__.'/../Locales/'.$okt->user->language.'/admin.zip');
 
 $iGalleryId = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
