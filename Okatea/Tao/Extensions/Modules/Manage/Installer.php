@@ -69,7 +69,7 @@ class Installer extends BaseInstaller
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/templates/');
+		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/Templates/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -77,7 +77,7 @@ class Installer extends BaseInstaller
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/templates/', true);
+			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/Templates/', true);
 		}
 
 		# compare assets

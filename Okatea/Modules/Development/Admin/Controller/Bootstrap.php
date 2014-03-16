@@ -33,7 +33,7 @@ class Bootstrap extends Controller
 	protected function init()
 	{
 		# Modules locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../locales/'.$this->okt->user->language.'/bootstrap');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/bootstrap');
 
 		$this->aBootstrapData = array(
 			'name' 				=> 'My new module',

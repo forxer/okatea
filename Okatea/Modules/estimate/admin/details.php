@@ -16,7 +16,7 @@ if (!defined('ON_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../locales/'.$okt->user->language.'/admin.details');
+$okt->l10n->loadFile(__DIR__.'/../Locales/'.$okt->user->language.'/admin.details');
 
 $iEstimateId = !empty($_REQUEST['estimate_id']) ? intval($_REQUEST['estimate_id']) : null;
 

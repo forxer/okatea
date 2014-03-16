@@ -319,9 +319,9 @@ class Collection
 				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/js/index.html');
 
 			# locales files
-			\files::makeDir($sThemePath.'/locales');
-				\files::makeDir($sThemePath.'/locales/fr');
-					copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/locales/fr/index.html');
+			\files::makeDir($sThemePath.'/Locales');
+				\files::makeDir($sThemePath.'/Locales/fr');
+					copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/Locales/fr/index.html');
 
 			# modules files
 			\files::makeDir($sThemePath.'/modules');

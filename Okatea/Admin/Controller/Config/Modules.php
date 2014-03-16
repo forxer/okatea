@@ -144,7 +144,7 @@ class Modules extends Controller
 		# Load uninstalled modules main locales files
 		foreach ($this->aUninstalledModules as $sModuleId => $aModuleInfos)
 		{
-			$this->okt->l10n->loadFile($aModuleInfos['root'].'/locales/'.$this->okt->user->language.'/main');
+			$this->okt->l10n->loadFile($aModuleInfos['root'].'/Locales/'.$this->okt->user->language.'/main');
 
 			$this->aUninstalledModules[$sModuleId]['name_l10n'] = __($aModuleInfos['name']);
 		}

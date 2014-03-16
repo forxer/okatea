@@ -59,10 +59,10 @@ class Module
 		'filters'			=> 'inc/class.filters.tpl',
 		'recordset' 		=> 'inc/recordset.tpl',
 
-		'locales_main_en'	=> 'locales/locales_main_en.tpl',
-		'locales_main_fr'	=> 'locales/locales_main_fr.tpl',
-		'locales_admin_en'	=> 'locales/locales_admin_en.tpl',
-		'locales_admin_fr'	=> 'locales/locales_admin_fr.tpl',
+		'locales_main_en'	=> 'Locales/locales_main_en.tpl',
+		'locales_main_fr'	=> 'Locales/locales_main_fr.tpl',
+		'locales_admin_en'	=> 'Locales/locales_admin_en.tpl',
+		'locales_admin_fr'	=> 'Locales/locales_admin_fr.tpl',
 
 		'define' 			=> '_define.tpl',
 		'admin'				=> 'admin.tpl',
@@ -222,9 +222,9 @@ class Module
 		\files::makeDir($this->dir.'/inc/admin',true);
 		\files::makeDir($this->dir.'/inc/public',true);
 
-		\files::makeDir($this->dir.'/locales',true);
-		\files::makeDir($this->dir.'/locales/fr',true);
-		\files::makeDir($this->dir.'/locales/en',true);
+		\files::makeDir($this->dir.'/Locales',true);
+		\files::makeDir($this->dir.'/Locales/fr',true);
+		\files::makeDir($this->dir.'/Locales/en',true);
 	}
 
 	/**
@@ -260,10 +260,10 @@ class Module
 		$this->makeFile('filters', 			$this->dir.'/inc/class.'.$this->id.'.filters.php', $replacements);
 		$this->makeFile('recordset', 		$this->dir.'/inc/class.'.$this->id.'.recordset.php', $replacements);
 
-		$this->makeFile('locales_main_en', 	$this->dir.'/locales/en/main.lang.php', $replacements);
-		$this->makeFile('locales_main_fr', 	$this->dir.'/locales/fr/main.lang.php', $replacements);
-		$this->makeFile('locales_admin_en', $this->dir.'/locales/en/admin.lang.php', $replacements);
-		$this->makeFile('locales_admin_fr', $this->dir.'/locales/fr/admin.lang.php', $replacements);
+		$this->makeFile('locales_main_en', 	$this->dir.'/Locales/en/main.lang.php', $replacements);
+		$this->makeFile('locales_main_fr', 	$this->dir.'/Locales/fr/main.lang.php', $replacements);
+		$this->makeFile('locales_admin_en', $this->dir.'/Locales/en/admin.lang.php', $replacements);
+		$this->makeFile('locales_admin_fr', $this->dir.'/Locales/fr/admin.lang.php', $replacements);
 
 		$this->makeFile('define', 			$this->dir.'/_define.php', $replacements);
 		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);

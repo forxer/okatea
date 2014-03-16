@@ -158,7 +158,7 @@ class Themes extends Controller
 		foreach ($this->aUninstalledThemes as $sThemeId => $aThemeInfos)
 		{
 			# Load uninstalled themes main locales files
-			$this->okt->l10n->loadFile($aThemeInfos['root'].'/locales/'.$this->okt->user->language.'/main');
+			$this->okt->l10n->loadFile($aThemeInfos['root'].'/Locales/'.$this->okt->user->language.'/main');
 
 			$this->aUninstalledThemes[$sThemeId]['name_l10n'] = __($aThemeInfos['name']);
 

@@ -128,8 +128,8 @@ class Okatea extends Application
 	 */
 	protected function loadTplEngine()
 	{
-		$this->setTplDirectory($this->options->get('themes_dir').'/'.$this->theme_id.'/templates/%name%.php');
-		$this->setTplDirectory($this->options->get('themes_dir').'/DefaultTheme/templates/%name%.php');
+		$this->setTplDirectory($this->options->get('themes_dir').'/'.$this->theme_id.'/Templates/%name%.php');
+		$this->setTplDirectory($this->options->get('themes_dir').'/DefaultTheme/Templates/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);

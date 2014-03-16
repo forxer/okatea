@@ -213,11 +213,11 @@ class TemplatesSet
 
 		# first, get default theme templates
 		if ($this->okt->config->themes['desktop'] != 'default') {
-			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/default/templates/'.$this->sBase.'/*/template.php');
+			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/default/Templates/'.$this->sBase.'/*/template.php');
 		}
 
 		# then, get current theme templates
-		$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['desktop'].'/templates/'.$this->sBase.'/*/template.php');
+		$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['desktop'].'/Templates/'.$this->sBase.'/*/template.php');
 
 		foreach ($aThemeTemplates as $sTemplatePath) {
 			$this->aTemplatesPath[] = $sTemplatePath;
@@ -226,7 +226,7 @@ class TemplatesSet
 		# if we have a mobile theme, search in it
 		if (!empty($this->okt->config->themes['mobile']))
 		{
-			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['mobile'].'/templates/'.$this->sBase.'/*/template.php');
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['mobile'].'/Templates/'.$this->sBase.'/*/template.php');
 
 			foreach ($aThemeTemplates as $sTemplatePath) {
 				$this->aTemplatesPath[] = $sTemplatePath;

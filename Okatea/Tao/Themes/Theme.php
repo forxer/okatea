@@ -47,7 +47,7 @@ class Theme
 		));
 
 		# Chargement des éventuelles traductions personalisées
-		$this->okt->l10n->loadFile($this->path.'/locales/'.$this->okt->user->language.'/custom');
+		$this->okt->l10n->loadFile($this->path.'/Locales/'.$this->okt->user->language.'/custom');
 
 		# -- CORE TRIGGER : themeInit
 		$okt->triggers->callTrigger('themeInit');

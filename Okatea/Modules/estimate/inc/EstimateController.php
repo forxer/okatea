@@ -117,7 +117,7 @@ class EstimateController extends Controller
 					$oMail->setFrom();
 					$oMail->message->setTo($aRecipients);
 
-					$oMail->useFile(dirname(__FILE__).'/../locales/'.$this->okt->user->language.'/mails_tpl/admin_notification.tpl', array(
+					$oMail->useFile(dirname(__FILE__).'/../Locales/'.$this->okt->user->language.'/mails_tpl/admin_notification.tpl', array(
 						'SITE_TITLE' => html::escapeHTML($this->page->getSiteTitle()),
 						'USER_FIRSTNAME' => $aFormatedData['firstname'],
 						'USER_LASTNAME' => $aFormatedData['lastname'],

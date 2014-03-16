@@ -29,9 +29,9 @@ class Simple extends Module
 		\files::makeDir($this->dir.'/inc',true);
 			\files::makeDir($this->dir.'/inc/admin',true);
 
-		\files::makeDir($this->dir.'/locales',true);
-			\files::makeDir($this->dir.'/locales/fr',true);
-			\files::makeDir($this->dir.'/locales/en',true);
+		\files::makeDir($this->dir.'/Locales',true);
+			\files::makeDir($this->dir.'/Locales/fr',true);
+			\files::makeDir($this->dir.'/Locales/en',true);
 	}
 
 	/**
@@ -50,10 +50,10 @@ class Simple extends Module
 
 		$this->makeFile('controller', 		$this->dir.'/inc/class.'.$this->id.'.controller.php', $replacements);
 
-		$this->makeFile('locales_main_en', 	$this->dir.'/locales/en/main.lang.php', $replacements);
-		$this->makeFile('locales_main_fr', 	$this->dir.'/locales/fr/main.lang.php', $replacements);
-		$this->makeFile('locales_admin_en', $this->dir.'/locales/en/admin.lang.php', $replacements);
-		$this->makeFile('locales_admin_fr', $this->dir.'/locales/fr/admin.lang.php', $replacements);
+		$this->makeFile('locales_main_en', 	$this->dir.'/Locales/en/main.lang.php', $replacements);
+		$this->makeFile('locales_main_fr', 	$this->dir.'/Locales/fr/main.lang.php', $replacements);
+		$this->makeFile('locales_admin_en', $this->dir.'/Locales/en/admin.lang.php', $replacements);
+		$this->makeFile('locales_admin_fr', $this->dir.'/Locales/fr/admin.lang.php', $replacements);
 
 		$this->makeFile('define', 			$this->dir.'/_define.php', $replacements);
 		$this->makeFile('admin', 			$this->dir.'/admin.php', $replacements);

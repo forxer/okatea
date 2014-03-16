@@ -213,7 +213,7 @@ class Editor
 		{
 	//		$this->aTemplatesPath[$aTheme['name']] = array();
 
-			$i = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->sThemesPath.'/'.$aTheme['id'].'/templates'), \RecursiveIteratorIterator::SELF_FIRST);
+			$i = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->sThemesPath.'/'.$aTheme['id'].'/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
 
 			foreach ($i as $f)
 			{
@@ -222,7 +222,7 @@ class Editor
 		//				&& $f->getFilename() != 'layout.php'
 						&& $f->getFilename() != '_define.php')
 				{
-					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath.'/'.$aTheme['id'].'/templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
+					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath.'/'.$aTheme['id'].'/Templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
 				}
 			}
 		}

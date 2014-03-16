@@ -20,7 +20,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sTemplatesDir = $this->extension->root().'/Install/templates';
+		$sTemplatesDir = $this->extension->root().'/Install/Templates';
 
 		if (!is_dir($sTemplatesDir)) {
 			return null;
@@ -36,7 +36,7 @@ class TemplatesFiles extends ComponentBase
 			'templates_files',
 			$this->mirror(
 				$sTemplatesDir,
-				$this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/templates/'.$this->extension->id(),
+				$this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/Templates/'.$this->extension->id(),
 				$oFiles
 			),
 			'Create templates files',
@@ -50,7 +50,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/templates/'.$this->extension->id();
+		$sPath = $this->okt->options->get('themes_dir').'/'.ThemesCollection::DEFAULT_THEME.'/Templates/'.$this->extension->id();
 
 		if (!is_dir($sPath)) {
 			return null;
@@ -66,7 +66,7 @@ class TemplatesFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->extension->root().'/Install/templates';
+		$sPath = $this->extension->root().'/Install/Templates';
 
 		if (is_dir($sPath))
 		{

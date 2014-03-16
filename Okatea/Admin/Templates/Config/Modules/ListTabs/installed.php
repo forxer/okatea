@@ -135,7 +135,7 @@ foreach ($aInstalledModules as $aModule)
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aModule['root'].'/Install/templates/')) : ?>
+					<?php if (file_exists($aModule['root'].'/Install/Templates/')) : ?>
 					<li><a href="<?php echo $view->generateUrl('config_modules') ?>?templates=<?php echo $aModule['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_modules_replace_templates_files_confirm')) ?>')"
 					class="icon layout"><?php _e('c_a_modules_replace_templates_files') ?></a></li>

@@ -32,9 +32,9 @@ class Advanced extends Module
 		\files::makeDir($this->dir.'/inc/admin',true);
 		\files::makeDir($this->dir.'/inc/public',true);
 
-		\files::makeDir($this->dir.'/locales',true);
-		\files::makeDir($this->dir.'/locales/fr',true);
-		\files::makeDir($this->dir.'/locales/en',true);
+		\files::makeDir($this->dir.'/Locales',true);
+		\files::makeDir($this->dir.'/Locales/fr',true);
+		\files::makeDir($this->dir.'/Locales/en',true);
 	}
 
 	/**
