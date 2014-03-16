@@ -24,6 +24,8 @@ class Digests extends BaseTools
 		$this->sDigests = '';
 
 		$finder = (new Finder())
+			->ignoreVCS(false)
+			->ignoreDotFiles(false)
 			->files()
 			->in($this->sTempDir)
 			->notName('.htaccess.oktDist')

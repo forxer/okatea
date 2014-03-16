@@ -12,7 +12,7 @@ namespace Okatea\Tao\Html;
  * Permet de construire et d'afficher facilement une liste de vérifications.
  *
  */
-class CheckList
+class Checklister
 {
 	/**
 	 * Liste des vérifications.

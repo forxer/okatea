@@ -10,7 +10,7 @@ namespace Okatea\Install\Controller;
 
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Install\Controller;
-use Okatea\Tao\Html\CheckList;
+use Okatea\Tao\Html\Checklister;
 
 class Database extends Controller
 {
@@ -18,7 +18,7 @@ class Database extends Controller
 	{
 		$db = $this->okt->getDb();
 
-		$oChecklist = new CheckList();
+		$oChecklist = new Checklister();
 
 		foreach (new \DirectoryIterator($this->okt->options->get('okt_dir').'/Install/schema/') as $oFileInfo)
 		{

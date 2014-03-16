@@ -35,7 +35,7 @@ class Home extends Controller
 			$this->page->warnings->set(__('c_a_public_debug_mode_enabled'));
 		}
 
-		return $this->render('home', array(
+		return $this->render('Home', array(
 			'sNewVersion' => $this->sNewVersion,
 			'bFeedSuccess' => $this->bFeedSuccess,
 			'feed' => $this->feed,

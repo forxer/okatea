@@ -8,7 +8,7 @@
 
 namespace Okatea\Tao;
 
-use Okatea\Tao\Html\CheckList;
+use Okatea\Tao\Html\Checklister;
 
 class Requirements
 {
@@ -260,7 +260,7 @@ class Requirements
 	{
 		foreach ($this->aRequirements as $i => $group)
 		{
-			$this->aRequirements[$i]['check_'.$group['group_id']] = new CheckList();
+			$this->aRequirements[$i]['check_'.$group['group_id']] = new Checklister();
 
 			foreach ($group['requirements'] as $requirement)
 			{

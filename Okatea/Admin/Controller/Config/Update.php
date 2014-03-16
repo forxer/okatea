@@ -10,7 +10,7 @@ namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
 use Okatea\Tao\Update as Updater;
-use Okatea\Tao\Html\CheckList;
+use Okatea\Tao\Html\Checklister;
 use Okatea\Tao\Html\Escaper;
 use Symfony\Component\Finder\Finder;
 
@@ -28,7 +28,7 @@ class Update extends Controller
 		# mise à jour de la base de données
 		if ($this->request->query->has('update_db'))
 		{
-			$oChecklist = new CheckList();
+			$oChecklist = new Checklister();
 
 			Updater::dbUpdate($oChecklist);
 

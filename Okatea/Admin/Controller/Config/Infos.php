@@ -159,7 +159,7 @@ class Infos extends Controller
 
 		foreach ($requirements as $i => $group)
 		{
-			$requirements[$i]['check_'.$group['group_id']] = new CheckList();
+			$requirements[$i]['check_'.$group['group_id']] = new Checklister();
 
 			foreach ($group['requirements'] as $requirement) {
 				$requirements[$i]['check_'.$group['group_id']]->addItem($requirement['id'],$requirement['test'],$requirement['msg_ok'],$requirement['msg_ko']);

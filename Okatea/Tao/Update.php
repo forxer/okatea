@@ -16,7 +16,7 @@ use GuzzleHttp\Client;
 
 use Okatea\Tao\Application;
 use Okatea\Tao\Database\XmlSql;
-use Okatea\Tao\Html\CheckList;
+use Okatea\Tao\Html\Checklister;
 
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -568,7 +568,7 @@ class Update
 		global $okt;
 
 		if (is_null($oChecklist) || !($oChecklist instanceof CheckList)) {
-			$oChecklist = new CheckList();
+			$oChecklist = new Checklister();
 		}
 
 		$bOktTest = (!empty($okt) && ($okt instanceof Application));

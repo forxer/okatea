@@ -11,7 +11,7 @@ namespace Okatea\Tao\Extensions\Manage;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Diff\Engine as DiffEngine;
 use Okatea\Tao\Diff\Renderer\Html\SideBySide as DiffRenderer;
-use Okatea\Tao\Html\CheckList;
+use Okatea\Tao\Html\Checklister;
 use Okatea\Tao\Extensions\Extension;
 use Okatea\Tao\Extensions\Manager;
 use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
@@ -90,7 +90,7 @@ class Installer extends Extension
 	{
 		parent::__construct($okt, $sExtensionsPath);
 
-		$this->checklist = new CheckList();
+		$this->checklist = new Checklister();
 
 		# get extension infos from define file
 		$this->setInfo('id', $sExtensionId);
