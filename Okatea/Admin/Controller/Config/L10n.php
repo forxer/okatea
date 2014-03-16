@@ -95,7 +95,7 @@ class L10n extends Controller
 			}
 		}
 
-		return $this->render('Config/L10n/edit', array(
+		return $this->render('Config/L10n/Edit', array(
 			'aUpdLanguageData' => $aUpdLanguageData,
 			'aFlags' => $this->getIconsList()
 		));
@@ -161,7 +161,7 @@ class L10n extends Controller
 			unset($aCountryListInfos);
 		}
 
-		return $this->render('Config/L10n/add', array(
+		return $this->render('Config/L10n/Add', array(
 			'aAddLanguageData' => $aAddLanguageData,
 			'aLanguagesList' => $aLanguagesList,
 			'aCountryList' => $aCountryList,

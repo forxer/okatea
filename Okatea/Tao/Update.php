@@ -134,8 +134,16 @@ class Update
 			{
 				$sExtension = pathinfo($this->sUrl, PATHINFO_EXTENSION);
 
-				if ($sExtension == 'json') {
-					$this->aVersionInfo = $response->json();
+				if ($sExtension == 'json')
+				{
+					$aJson = $response->json();
+
+					if (!empty($aJson[$this->sVersion])) {
+						$this->aVersionInfo = $aJson[$this->sVersion];
+					}
+					else {
+						return false;
+					}
 				}
 				elseif ($sExtension == 'xml') {
 					$this->readXmlVersion($response->getBody());

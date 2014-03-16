@@ -88,7 +88,7 @@ class Okatea extends Application
 	 */
 	protected function loadTplEngine()
 	{
-		$this->setTplDirectory(__DIR__.'/templates/%name%.php');
+		$this->setTplDirectory(__DIR__.'/Templates/%name%.php');
 		$this->setTplDirectory($this->options->get('modules_dir').'/%name%.php');
 
 		# initialisation

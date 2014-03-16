@@ -71,7 +71,7 @@ $okt->page->toggleWithLegend('add_module_repo_title', 'add_module_repo_content',
 				$line_count++; ?>
 			<tr>
 				<th scope="row" class="<?php echo $td_class; ?> fake-td">
-				<?php echo $view->escape($module['name']) ?>
+				<?php echo $view->escape((isset($module['name_'.$okt->user->language]) ? $module['name_'.$okt->user->language] : $module['name'])) ?>
 				<?php echo !empty($module['info']) ? '<br />'.$view->escape($module['info']) : ''; ?>
 				</th>
 				<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($module['version']) ?></td>

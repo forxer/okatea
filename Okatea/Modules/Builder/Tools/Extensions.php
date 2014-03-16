@@ -71,7 +71,7 @@ class Extensions extends BaseTools
 				$this->aRepositoryInfos[$sExtensionId] = array_merge(
 					array(
 						'id' 				=> $sExtensionId,
-						'url' 				=> $this->aConfig['repository_url'].'/'.$this->okt->getVersion().'/'.$sExtensionId.'.zip',
+						'href' 				=> $this->aConfig['repository_url'].'/'.$this->okt->getVersion().'/'.$sExtensionId.'.zip',
 						'repository_hash' 	=> $this->sRepositoryHash
 					),
 					$aExtensionInfos
