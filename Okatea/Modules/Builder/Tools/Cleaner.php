@@ -15,15 +15,23 @@ class Cleaner extends BaseTools
 {
 	protected $aToRemove;
 
+	protected $aCommonRules = array(
+		'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore',
+		'.travis.yml', 'composer.json', 'composer.lock', '.bower.json', '.bowerrc',
+		'tests', 'test', 'phpunit*',
+		'README*', 'CHANGELOG*', 'UPGRADING*', 'CONTRIBUTING*'
+	);
+
 	protected $aVendorCleanupRules = array(
+		'doctrine/cache' => '',
 		'dotclear/clearbricks' => '.atoum*',
 		'dunglas/php-socialshare' => 'examples spec',
-		'doctrine/cache' => '',
 		'erusev/parsedown' => '',
 		'ezyang/htmlpurifier' => 'art benchmarks configdoc docs extras maintenance plugins smoketests',
+		'forxer/archiver' => '',
 		'forxer/gravatar' => '',
 		'forxer/languages-list' => 'src',
-		'guzzle/guzzle' => 'docs phing build.xml',
+		'guzzlehttp/guzzle' => 'docs',
 		'imagine/imagine' => 'docs',
 		'ircmaxell/password-compat' => '',
 		'jdorn/sql-formatter' => 'examples',
@@ -39,16 +47,13 @@ class Cleaner extends BaseTools
 		'swiftmailer/swiftmailer' => 'CHANGES build* doc docs notes test-suite create_pear_package.php package*',
 		'symfony/config/Symfony/Component/Config' => 'Tests',
 		'symfony/debug/Symfony/Component/Debug' => 'Tests',
-		'symfony/event-dispatcher/Symfony/Component/EventDispatcher' => 'Tests',
 		'symfony/filesystem/Symfony/Component/Filesystem' => 'Tests',
 		'symfony/finder/Symfony/Component/Finder' => 'Tests',
 		'symfony/http-foundation/Symfony/Component/HttpFoundation' => 'Tests',
-		'symfony/http-kernel/Symfony/Component/HttpKernel' => 'CHANGELOG* README* Tests',
-		'symfony/process/Symfony/Component/Process' => 'Tests',
 		'symfony/routing/Symfony/Component/Routing' => 'Tests',
 		'symfony/templating/Symfony/Component/Templating' => 'Tests',
 		'symfony/yaml/Symfony/Component/Yaml' => 'Tests',
-		'umpirsky/country-list' => ''
+		'umpirsky/country-list' => 'src'
 	);
 
 	public function __construct($okt)
@@ -182,20 +187,13 @@ class Cleaner extends BaseTools
 
 		$sVendorDir = $this->getTempDir().'/vendor';
 
-		$aCommonRules = array(
-			'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore',
-			'.travis.yml', 'composer.json', 'composer.lock', '.bower.json', '.bowerrc',
-			'tests', 'test', 'phpunit*',
-			'README*', 'CHANGELOG*', 'CONTRIBUTING*'
-		);
-
 		foreach ($this->aVendorCleanupRules as $sPackageDir => $rule)
 		{
 			if (!file_exists($sVendorDir.'/'.$sPackageDir)) {
 				continue;
 			}
 
-			$aPatterns = array_merge($aCommonRules, explode(' ', $rule));
+			$aPatterns = array_merge($this->aCommonRules, explode(' ', $rule));
 
 			foreach ($aPatterns as $pattern)
 			{

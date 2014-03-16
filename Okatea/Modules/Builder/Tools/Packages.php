@@ -9,7 +9,7 @@
 namespace Okatea\Modules\Builder\Tools;
 
 use Forxer\Archiver\Archiver;
-use Okatea\Tao\HttpClient;
+use GuzzleHttp\Client;
 use Symfony\Component\Filesystem\Filesystem;
 
 class Packages extends BaseTools
