@@ -362,7 +362,7 @@ class Themes extends Controller
 
 		$sNextUrl = $this->generateUrl('config_themes');
 
-		if (file_exists($oInstallTheme->root().'/install/tpl/') || file_exists($oInstallTheme->root().'/install/assets/')) {
+		if (file_exists($oInstallTheme->root().'/Install/Templates/') || file_exists($oInstallTheme->root().'/Install/Assets/')) {
 			$sNextUrl .= '?compare='.$oInstallTheme->id();
 		}
 

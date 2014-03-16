@@ -325,7 +325,7 @@ class Modules extends Controller
 
 		$sNextUrl = $this->generateUrl('config_modules');
 
-		if (file_exists($oInstallModule->root().'/install/tpl/') || file_exists($oInstallModule->root().'/install/assets/')) {
+		if (file_exists($oInstallModule->root().'/Install/Templates/') || file_exists($oInstallModule->root().'/Install/Assets/')) {
 			$sNextUrl .= '?compare='.$oInstallModule->id();
 		}
 

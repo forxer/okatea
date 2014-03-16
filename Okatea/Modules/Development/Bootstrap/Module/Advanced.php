@@ -22,11 +22,11 @@ class Advanced extends Module
 		}
 
 		\files::makeDir($this->dir);
-		\files::makeDir($this->dir.'/install',true);
-		\files::makeDir($this->dir.'/install/assets',true);
-		\files::makeDir($this->dir.'/install/public',true);
-		\files::makeDir($this->dir.'/install/tpl',true);
-//		\files::makeDir($this->dir.'/install/test_set',true);
+		\files::makeDir($this->dir.'/Install',true);
+		\files::makeDir($this->dir.'/Install/Assets',true);
+		\files::makeDir($this->dir.'/Install/public',true);
+		\files::makeDir($this->dir.'/Install/Templates',true);
+//		\files::makeDir($this->dir.'/Install/test_set',true);
 
 		\files::makeDir($this->dir.'/inc',true);
 		\files::makeDir($this->dir.'/inc/admin',true);
@@ -45,24 +45,24 @@ class Advanced extends Module
 	{
 		$replacements = $this->getReplacements();
 
-		$this->makeFile('db-install', 		$this->dir.'/install/db-install.xml', $replacements);
-		$this->makeFile('db-truncate', 		$this->dir.'/install/db-truncate.xml', $replacements);
-		$this->makeFile('db-uninstall', 	$this->dir.'/install/db-uninstall.xml', $replacements);
-		$this->makeFile('config', 			$this->dir.'/install/conf_'.$this->id.'.yml', $replacements);
+		$this->makeFile('db-install', 		$this->dir.'/Install/db-install.xml', $replacements);
+		$this->makeFile('db-truncate', 		$this->dir.'/Install/db-truncate.xml', $replacements);
+		$this->makeFile('db-uninstall', 	$this->dir.'/Install/db-uninstall.xml', $replacements);
+		$this->makeFile('config', 			$this->dir.'/Install/conf_'.$this->id.'.yml', $replacements);
 
-		copy($this->getTplPath('preview_icon'), $this->dir.'/install/assets/preview.png');
-		$this->makeFile('common_css', 		$this->dir.'/install/assets/styles.css', $replacements);
+		copy($this->getTplPath('preview_icon'), $this->dir.'/Install/Assets/preview.png');
+		$this->makeFile('common_css', 		$this->dir.'/Install/Assets/styles.css', $replacements);
 
-		$this->makeFile('public_list', 		$this->dir.'/install/public/oktPublic_'.$this->id.'_list.php', $replacements);
-		$this->makeFile('public_item', 		$this->dir.'/install/public/oktPublic_'.$this->id.'_item.php', $replacements);
+		$this->makeFile('public_list', 		$this->dir.'/Install/public/oktPublic_'.$this->id.'_list.php', $replacements);
+		$this->makeFile('public_item', 		$this->dir.'/Install/public/oktPublic_'.$this->id.'_item.php', $replacements);
 
-		$this->makeFile('tpl_list', 		$this->dir.'/install/tpl/'.$this->id.'_list_tpl.php', $replacements);
-		$this->makeFile('tpl_item', 		$this->dir.'/install/tpl/'.$this->id.'_item_tpl.php', $replacements);
+		$this->makeFile('tpl_list', 		$this->dir.'/Install/tpl/'.$this->id.'_list_tpl.php', $replacements);
+		$this->makeFile('tpl_item', 		$this->dir.'/Install/tpl/'.$this->id.'_item_tpl.php', $replacements);
 
-		$this->makeFile('admin_index', 		$this->dir.'/admin/index.php', $replacements);
-		$this->makeFile('admin_display', 	$this->dir.'/admin/display.php', $replacements);
-		$this->makeFile('admin_config', 	$this->dir.'/admin/config.php', $replacements);
-		$this->makeFile('admin_item', 		$this->dir.'/admin/item.php', $replacements);
+		$this->makeFile('admin_index', 		$this->dir.'/Admin/index.php', $replacements);
+		$this->makeFile('admin_display', 	$this->dir.'/Admin/display.php', $replacements);
+		$this->makeFile('admin_config', 	$this->dir.'/Admin/config.php', $replacements);
+		$this->makeFile('admin_item', 		$this->dir.'/Admin/item.php', $replacements);
 
 		$this->makeFile('public_prepend_list', 		$this->dir.'/inc/public/list.php', $replacements);
 		$this->makeFile('public_prepend_item', 		$this->dir.'/inc/public/item.php', $replacements);

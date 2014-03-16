@@ -122,7 +122,7 @@ foreach ($aInstalledThemes as $aTheme)
 			</td>
 			<td class="<?php echo $td_class ?> nowrap">
 				<ul class="actions">
-					<?php if (file_exists($aTheme['root'].'/Install/assets/')) : ?>
+					<?php if (file_exists($aTheme['root'].'/Install/Assets/')) : ?>
 					<li><a href="<?php echo $view->generateUrl('config_themes') ?>?common=<?php echo $aTheme['id']; ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_common_files_confirm')) ?>')"
 					class="icon folder_page"><?php _e('c_a_themes_replace_common_files') ?></a></li>

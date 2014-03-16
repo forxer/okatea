@@ -28,7 +28,7 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sAssetsDir = $this->extension->root().'/Install/assets';
+		$sAssetsDir = $this->extension->root().'/Install/Assets';
 
 		if (!is_dir($sAssetsDir)) {
 			return null;
@@ -72,7 +72,7 @@ class AssetsFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->extension->root().'/Install/assets';
+		$sPath = $this->extension->root().'/Install/Assets';
 
 		if (is_dir($sPath))
 		{

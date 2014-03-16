@@ -69,7 +69,7 @@ class Installer extends BaseInstaller
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/default/Templates/');
+		$this->getComparator()->folder($this->root().'/Install/Templates/', $this->okt->options->get('themes_dir').'/DefaultTheme/Templates/');
 
 		foreach (ThemesCollection::getThemes() as $sThemeId=>$sTheme)
 		{
@@ -77,11 +77,11 @@ class Installer extends BaseInstaller
 				continue;
 			}
 
-			$this->getComparator()->folder($this->root().'/Install/tpl/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/Templates/', true);
+			$this->getComparator()->folder($this->root().'/Install/Templates/', $this->okt->options->get('themes_dir').'/'.$sThemeId.'/Templates/', true);
 		}
 
 		# compare assets
-		$this->getComparator()->folder($this->root().'/Install/assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
+		$this->getComparator()->folder($this->root().'/Install/Assets/', $this->okt->options->get('public_dir').'/modules/'.$this->id().'/');
 	}
 
 	protected function getAssetsFiles()
