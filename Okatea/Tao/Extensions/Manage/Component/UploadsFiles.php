@@ -19,7 +19,7 @@ class UploadsFiles extends ComponentBase
 	 */
 	public function process()
 	{
-		$sUploadsDir = $this->extension->root().'/Install/test_set/upload';
+		$sUploadsDir = $this->extension->root().'/Install/TestSet/upload';
 
 		if (!is_dir($sUploadsDir)) {
 			return null;
@@ -65,7 +65,7 @@ class UploadsFiles extends ComponentBase
 
 	protected function getFiles()
 	{
-		$sPath = $this->extension->root().'/Install/test_set/upload';
+		$sPath = $this->extension->root().'/Install/TestSet/upload';
 
 		if (is_dir($sPath))
 		{

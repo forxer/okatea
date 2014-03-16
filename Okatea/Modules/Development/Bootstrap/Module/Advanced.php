@@ -26,7 +26,7 @@ class Advanced extends Module
 		\files::makeDir($this->dir.'/Install/Assets',true);
 		\files::makeDir($this->dir.'/Install/public',true);
 		\files::makeDir($this->dir.'/Install/Templates',true);
-//		\files::makeDir($this->dir.'/Install/test_set',true);
+//		\files::makeDir($this->dir.'/Install/TestSet',true);
 
 		\files::makeDir($this->dir.'/inc',true);
 		\files::makeDir($this->dir.'/inc/admin',true);

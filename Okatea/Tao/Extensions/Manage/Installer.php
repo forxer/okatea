@@ -248,7 +248,7 @@ class Installer extends Extension
 	public function doInstallTestSet()
 	{
 		# ajout d'éventuelles données à la base de données
-		$this->loadDbFile($this->root().'/Install/test_set/db-data.xml');
+		$this->loadDbFile($this->root().'/Install/TestSet/db-data.xml');
 
 		# copie des éventuels fichiers upload
 		$this->getUploadsFiles()->process();
