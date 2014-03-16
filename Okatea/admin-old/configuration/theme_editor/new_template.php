@@ -93,11 +93,11 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 
 	$sTemplate = str_replace(
 		array(
-			$sBasicTemplateTheme.'/templates',
+			$sBasicTemplateTheme.'/Templates',
 			$sBasicTemplateId.'/template.php'
 		),
 		array(
-			$sThemeId.'/templates',
+			$sThemeId.'/Templates',
 			$p_tpl_id.'/template.php'
 		),
 		$sBasicTemplate);
@@ -130,7 +130,7 @@ if (!empty($_POST['form_sent']) && $sThemeId)
 			');'."\n"
 		);
 
-		http::redirect('configuration.php?action=theme_editor&amp;theme='.$sThemeId.'&amp;file='.rawurlencode(str_replace('/'.$sThemeId.'/templates', '/templates', $sTemplate)));
+		http::redirect('configuration.php?action=theme_editor&amp;theme='.$sThemeId.'&amp;file='.rawurlencode(str_replace('/'.$sThemeId.'/Templates', '/Templates', $sTemplate)));
 	}
 }
 

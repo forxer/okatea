@@ -299,38 +299,38 @@ class Collection
 		{
 			# required files
 			\files::makeDir($sThemePath);
-				file_put_contents($sThemePath.'/_define.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/_define.tpl')));
-				file_put_contents($sThemePath.'/index.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.tpl')));
-				file_put_contents($sThemePath.'/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/oktTheme.tpl')));
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/locked_files.txt', $sThemePath.'/locked_files.txt');
+				file_put_contents($sThemePath.'/_define.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/_define.tpl')));
+				file_put_contents($sThemePath.'/index.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.tpl')));
+				file_put_contents($sThemePath.'/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/oktTheme.tpl')));
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/locked_files.txt', $sThemePath.'/locked_files.txt');
 
 			# css files
 			\files::makeDir($sThemePath.'/css');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/definitions.less.tpl', $sThemePath.'/css/definitions.less');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/css/index.html');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/overload.less.tpl', $sThemePath.'/css/overload.less');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/definitions.less.tpl', $sThemePath.'/css/definitions.less');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/css/index.html');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/overload.less.tpl', $sThemePath.'/css/overload.less');
 
 			# images files
 			\files::makeDir($sThemePath.'/images');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/images/index.html');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/images/index.html');
 
 			# js
 			\files::makeDir($sThemePath.'/js');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/js/index.html');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/js/index.html');
 
 			# locales files
 			\files::makeDir($sThemePath.'/Locales');
 				\files::makeDir($sThemePath.'/Locales/fr');
-					copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/Locales/fr/index.html');
+					copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/Locales/fr/index.html');
 
 			# modules files
 			\files::makeDir($sThemePath.'/modules');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/modules/index.html');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/modules/index.html');
 
 			# templates files
-			\files::makeDir($sThemePath.'/templates');
-				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/templates/index.html.tpl', $sThemePath.'/templates/index.html');
-				copy($this->okt->options->get('themes_dir').'/default/templates/layout.php', $sThemePath.'/templates/layout.php');
+			\files::makeDir($sThemePath.'/Templates');
+				copy($this->okt->options->get('okt_dir').'/admin/configuration/themes/Templates/index.html.tpl', $sThemePath.'/Templates/index.html');
+				copy($this->okt->options->get('themes_dir').'/default/Templates/layout.php', $sThemePath.'/Templates/layout.php');
 
 			return $sId;
 

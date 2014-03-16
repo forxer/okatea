@@ -25,10 +25,10 @@ $aOktDefaultOptions = array(
 	# define several directories paths
 	'root_dir' 			=> __DIR__,
 	'okt_dir' 			=> __DIR__.'/Okatea',
-	'cache_dir' 		=> __DIR__.'/Okatea/cache',
-	'config_dir' 		=> __DIR__.'/Okatea/config',
+	'cache_dir' 		=> __DIR__.'/Okatea/Cache',
+	'config_dir' 		=> __DIR__.'/Okatea/Config',
 	'locales_dir' 		=> __DIR__.'/Okatea/Locales',
-	'logs_dir' 			=> __DIR__.'/Okatea/logs',
+	'logs_dir' 			=> __DIR__.'/Okatea/Logs',
 	'modules_dir' 		=> __DIR__.'/Okatea/Modules',
 	'themes_dir' 		=> __DIR__.'/Okatea/Themes',
 	'public_dir' 		=> __DIR__.'/oktPublic',

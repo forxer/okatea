@@ -125,7 +125,7 @@ if (!empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 
 		$oMail->setFrom();
 
-		$oMail->useFile(__DIR__.'/../../Locales/'.$edit_language.'/templates/validate_user.tpl', array(
+		$oMail->useFile(__DIR__.'/../../Locales/'.$edit_language.'/Templates/validate_user.tpl', array(
 			'SITE_TITLE' => $okt->page->getSiteTitle($edit_language),
 			'SITE_URL' => $okt->request->getSchemeAndHttpHost().$okt->config->app_path
 		));
@@ -158,7 +158,7 @@ if (!empty($_POST['change_password']) && $okt->checkPerm('change_password') && $
 
 			$oMail->setFrom();
 
-			$oMail->useFile(__DIR__.'/../../Locales/'.$edit_language.'/templates/admin_change_user_password.tpl', array(
+			$oMail->useFile(__DIR__.'/../../Locales/'.$edit_language.'/Templates/admin_change_user_password.tpl', array(
 				'SITE_TITLE' => $okt->page->getSiteTitle($edit_language),
 				'SITE_URL' => $okt->request->getSchemeAndHttpHost().$okt->config->app_path,
 				'NEW_PASSWORD' => $upd_params['password']

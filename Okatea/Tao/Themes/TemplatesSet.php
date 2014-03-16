@@ -236,7 +236,7 @@ class TemplatesSet
 		# finaly, search for templates in tablet theme
 		if (!empty($this->okt->config->themes['tablet']))
 		{
-			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['tablet'].'/templates/'.$this->sBase.'/*/template.php');
+			$aThemeTemplates = (array)glob($this->okt->options->get('themes_dir').'/'.$this->okt->config->themes['tablet'].'/Templates/'.$this->sBase.'/*/template.php');
 
 			foreach ($aThemeTemplates as $sTemplatePath) {
 				$this->aTemplatesPath[] = $sTemplatePath;
