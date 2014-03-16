@@ -8,8 +8,9 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use GuzzleHttp\Client;
+
 use Okatea\Admin\Controller;
-use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
@@ -598,17 +599,14 @@ class Themes extends Controller
 
 					try
 					{
-						$client = new HttpClient();
-
-						$request = $client->get($url, array(), array(
+						$response = (new Client())->get($url, [
+							'exceptions' => false,
 							'save_to' => $dest
-						));
+						]);
 					}
-					catch( Exception $e) {
+					catch (\Exception $e) {
 						throw new \Exception(__('An error occurred while downloading the file.'));
 					}
-
-					unset($client);
 				}
 
 				$ret_code = $this->okt->themes->installPackage($dest, $this->okt->themes);

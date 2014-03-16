@@ -8,13 +8,15 @@
 
 namespace Okatea\Admin\Controller\Config;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use GuzzleHttp\Client;
+
 use Okatea\Admin\Controller;
-use Okatea\Tao\HttpClient;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class Modules extends Controller
 {
@@ -161,7 +163,8 @@ class Modules extends Controller
 			{
 				$this->aModulesRepositories[$repo_name][$module['id']]['name_l10n'] = $module['name'];
 
-				if (isset($this->aAllModules[$module['id']]) && $this->aAllModules[$module['id']]['updatable'] && version_compare($this->aAllModules[$module['id']]['version'],$module['version'], '<'))
+				if (isset($this->aAllModules[$module['id']]) && $this->aAllModules[$module['id']]['updatable']
+					&& version_compare($this->aAllModules[$module['id']]['version'], $module['version'], '<'))
 				{
 					$this->aUpdatablesModules[$module['id']] = array(
 						'id' => $module['id'],
@@ -178,7 +181,7 @@ class Modules extends Controller
 		ModulesCollection::sort($this->aInstalledModules);
 		ModulesCollection::sort($this->aUninstalledModules);
 
-		foreach ($this->aModulesRepositories as $repo_name=>$modules) {
+		foreach ($this->aModulesRepositories as $repo_name => $modules) {
 			ModulesCollection::sort($this->aModulesRepositories[$repo_name]);
 		}
 	}
@@ -608,7 +611,7 @@ class Modules extends Controller
 		$zip->write();
 
 		$this->response->headers->set('Content-Disposition',
-				$this->response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $sFilename));
+		$this->response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $sFilename));
 
 		$this->response->setContent(ob_get_clean());
 
@@ -676,17 +679,14 @@ class Modules extends Controller
 
 					try
 					{
-						$client = new HttpClient();
-
-						$request = $client->get($url, array(), array(
+						$response = (new Client())->get($url, [
+							'exceptions' => false,
 							'save_to' => $dest
-						));
+						]);
 					}
-					catch( Exception $e) {
+					catch (\Exception $e) {
 						throw new \Exception(__('An error occurred while downloading the file.'));
 					}
-
-					unset($client);
 				}
 
 				$ret_code = $this->okt->modules->installPackage($dest, $this->okt->modules);

@@ -94,6 +94,7 @@ class Extensions extends BaseTools
 							require $sMainLocalesFile;
 
 							$this->aRepositoryInfos[$sExtensionId]['name_'.$LocalesDir->getFilename()] = __($aExtensionInfos['name']);
+							$this->aRepositoryInfos[$sExtensionId]['desc_'.$LocalesDir->getFilename()] = __($aExtensionInfos['desc']);
 						}
 					}
 				}

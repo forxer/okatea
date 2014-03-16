@@ -12,11 +12,13 @@
 
 namespace Okatea\Tao;
 
-use Symfony\Component\Filesystem\Filesystem;
+use GuzzleHttp\Client;
+
 use Okatea\Tao\Application;
-use Okatea\Tao\HttpClient;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Tao\Html\CheckList;
+
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Mise à jour automatisée d'Okatea
@@ -34,11 +36,11 @@ class Update
 	protected $sCacheFile;
 
 	protected $aVersionInfo = array(
-		'version' => null,
-		'href' => null,
-		'checksum' => null,
-		'info' => null,
-		'notify' => true
+		'version' 	=> null,
+		'href' 		=> null,
+		'checksum' 	=> null,
+		'info' 		=> null,
+		'notify' 	=> true
 	);
 
 	protected $sCacheTtl = '-6 hours';
@@ -102,8 +104,8 @@ class Update
 		$sCacheDir = dirname($this->sCacheFile);
 
 		$bCanWrite = (!is_dir($sCacheDir) && is_writable(dirname($sCacheDir)))
-		|| (!file_exists($this->sCacheFile) && is_writable($sCacheDir))
-		|| is_writable($this->sCacheFile);
+			|| (!file_exists($this->sCacheFile) && is_writable($sCacheDir))
+			|| is_writable($this->sCacheFile);
 
 		# If we can't write file, don't bug host with queries
 		if (!$bCanWrite) {
@@ -126,11 +128,21 @@ class Update
 		# Try to get latest version number
 		try
 		{
-			$client = new HttpClient();
-			$response = $client->get($this->sUrl)->send();
+			$response = (new Client())->get($this->sUrl, ['exceptions' => false]);
 
-			if ($response->isSuccessful()) {
-				return $this->readVersion($response->getBody(true));
+			if (200 == $response->getStatusCode())
+			{
+				$sExtension = pathinfo($this->sUrl, PATHINFO_EXTENSION);
+
+				if ($sExtension == 'json') {
+					$this->aVersionInfo = $response->json();
+				}
+				elseif ($sExtension == 'xml') {
+					$this->readXmlVersion($response->getBody());
+				}
+				else {
+					return false;
+				}
 			}
 			else {
 				return false;
@@ -245,17 +257,10 @@ class Update
 
 		try
 		{
-			$client = new HttpClient();
-
-			$request = $client->get($sUrl, array(), array(
+			$response = (new Client())->get($sUrl, [
+				'exceptions' => false,
 				'save_to' => $sDest
-			));
-
-			$response = $request->send();
-
-			if (!$response->isSuccessful()) {
-				@unlink($sDest);
-			}
+			]);
 		}
 		catch (\Exception $e)
 		{
@@ -474,7 +479,7 @@ class Update
 		return array_values(array_diff_key($new,$cur));
 	}
 
-	protected function readVersion($str)
+	protected function readXmlVersion($str)
 	{
 		try
 		{

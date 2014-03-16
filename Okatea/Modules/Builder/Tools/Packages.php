@@ -42,11 +42,10 @@ class Packages extends BaseTools
 
 		try
 		{
-			$client = new HttpClient();
-			$response = $client->get($this->sRepositoryUrl.'/index.json')->send();
+			$response = (new Client())->get($this->sRepositoryUrl.'/index.json', ['exceptions' => false]);
 
-			if ($response->isSuccessful()) {
-				$aRepositoryInfos = json_decode($response->getBody(true));
+			if (200 == $response->getStatusCode()) {
+				$aRepositoryInfos = $response->json();
 			}
 		}
 		catch (Exception $e) {

@@ -29,7 +29,7 @@
 		"forxer/archiver" : "dev-master",
 		"forxer/languages-list" : "dev-master",
 		"forxer/gravatar" : "~1.1",
-		"guzzle/guzzle" : "~3.7",
+		"guzzlehttp/guzzle" : "4.*",
 		"imagine/imagine" : "~0.5",
 		"ircmaxell/password-compat" : "~1.0",
 		"jdorn/sql-formatter" : "~1.2",

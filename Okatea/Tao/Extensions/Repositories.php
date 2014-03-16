@@ -8,7 +8,7 @@
 
 namespace Okatea\Tao\Extensions;
 
-use Okatea\Tao\HttpClient;
+use GuzzleHttp\Client;
 
 class Repositories
 {
@@ -104,11 +104,21 @@ class Repositories
 			return false;
 		}
 
-		$client = new HttpClient();
-		$response = $client->get($sRepositoryUrl)->send();
+		$response = (new Client())->get($sRepositoryUrl, ['exceptions' => false]);
 
-		if ($response->isSuccessful()) {
-			return $this->readRepositoryData($response->getBody(true));
+		if (200 == $response->getStatusCode())
+		{
+			$sExtension = pathinfo($sRepositoryUrl, PATHINFO_EXTENSION);
+
+			if ($sExtension == 'json') {
+				return $response->json();
+			}
+			elseif ($sExtension == 'xml') {
+				return $this->readRepositoryXmlData($response->getBody());
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			return false;
@@ -121,7 +131,7 @@ class Repositories
 	 * @param sting $str
 	 * @return array
 	 */
-	protected function readRepositoryData($str)
+	protected function readRepositoryXmlData($str)
 	{
 		try
 		{
