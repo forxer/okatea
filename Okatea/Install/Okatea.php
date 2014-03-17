@@ -65,11 +65,13 @@ class Okatea extends Application
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
+		$this->options = new ApplicationOptions($aOptions);
+
 		$this->getLogger();
 
 		$this->triggers = new Triggers();
 
-		$this->options = new ApplicationOptions($aOptions);
+		$this->getConfig();
 
 		$this->httpFoundation();
 
