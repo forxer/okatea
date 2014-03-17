@@ -36,12 +36,13 @@ class Repositories
 	 */
 	protected $sCacheId;
 
-	public function __construct($okt)
+	public function __construct($okt, $sCacheId)
 	{
 		$this->okt = $okt;
 		$this->error = $okt->error;
 
 		$this->cache = $okt->cacheConfig;
+		$this->sCacheId = $sCacheId;
 	}
 
 	/**

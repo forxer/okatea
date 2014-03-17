@@ -593,7 +593,7 @@ class Themes extends Controller
 
 					$dest = $this->okt->options->get('themes_dir').'/'.basename($url);
 
-					if (array_key_exists(basename($url), $aUninstalledThemes)) {
+					if (array_key_exists(basename($url), $this->aUninstalledThemes)) {
 						throw new \Exception(__('c_a_themes_theme_already_exists_not_installed_install_before_update'));
 					}
 
@@ -609,7 +609,7 @@ class Themes extends Controller
 					}
 				}
 
-				$ret_code = $this->okt->themes->installPackage($dest, $this->okt->themes);
+				$ret_code = $this->okt->themes->installPackage($dest);
 
 				if ($ret_code == 2) {
 					$this->okt->page->flash->success(__('c_a_themes_theme_successfully_upgraded'));

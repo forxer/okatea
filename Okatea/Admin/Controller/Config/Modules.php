@@ -673,7 +673,7 @@ class Modules extends Controller
 
 					$dest = $this->okt->options->get('modules_dir').'/'.basename($url);
 
-					if (array_key_exists(basename($url), $aUninstalledModules)) {
+					if (array_key_exists(basename($url), $this->aUninstalledModules)) {
 						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
@@ -689,7 +689,7 @@ class Modules extends Controller
 					}
 				}
 
-				$ret_code = $this->okt->modules->installPackage($dest, $this->okt->modules);
+				$ret_code = $this->okt->modules->installPackage($dest);
 
 				if ($ret_code == 2) {
 					$this->okt->page->flash->success(__('c_a_modules_module_successfully_upgraded'));

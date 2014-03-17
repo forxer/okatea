@@ -323,4 +323,111 @@ class Manager
 
 		return true;
 	}
+
+	/**
+	 * Install an extension from a zip file.
+	 *
+	 * @param string $zip_file
+	 * @param Collection $extensions
+	 */
+	public function installPackage($zip_file, $extensions)
+	{
+		$zip = new \fileUnzip($zip_file);
+		$zip->getList(false,'#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
+
+		$zip_root_dir = $zip->getRootDir();
+
+		if ($zip_root_dir !== false)
+		{
+			$target = dirname($zip_file);
+			$destination = $target.'/'.$zip_root_dir;
+			$define = $zip_root_dir.'/_define.php';
+			$has_define = $zip->hasFile($define);
+		}
+		else {
+			$target = dirname($zip_file).'/'.preg_replace('/\.([^.]+)$/', '', basename($zip_file));
+			$destination = $target;
+			$define = '_define.php';
+			$has_define = $zip->hasFile($define);
+		}
+
+		if ($zip->isEmpty())
+		{
+			$zip->close();
+			unlink($zip_file);
+			throw new \Exception(__('Empty module zip file.'));
+		}
+
+		if (!$has_define)
+		{
+			$zip->close();
+			unlink($zip_file);
+			throw new \Exception(__('The zip file does not appear to be a valid module.'));
+		}
+
+		$ret_code = 1;
+
+		if (is_dir($destination))
+		{
+			copy($target.'/_define.php', $target.'/_define.php.bak');
+
+			# test for update
+			$sandbox = clone $extensions;
+			$zip->unzip($define, $target.'/_define.php');
+
+			$sandbox->resetCompleteList();
+			$sandbox->requireDefine($target, basename($destination));
+			unlink($target.'/_define.php');
+			$new_modules = $sandbox->getCompleteList();
+			$old_modules = $extensions->getModulesFromFileSystem();
+
+			$extensions->disableModule(basename($destination));
+			$extensions->generateCacheList();
+
+			if (!empty($new_modules))
+			{
+				$tmp = array_keys($new_modules);
+				$id = $tmp[0];
+				$cur_module = $old_modules[$id];
+
+				if (!empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
+				{
+					# delete old module
+					if (!\files::deltree($destination)) {
+						throw new \Exception(__('An error occurred during module deletion.'));
+					}
+
+					$ret_code = 2;
+				}
+				else
+				{
+					$zip->close();
+					unlink($zip_file);
+
+					if (file_exists($target.'/_define.php.bak')) {
+						rename($target.'/_define.php.bak', $target.'/_define.php');
+					}
+
+					throw new \Exception(sprintf(__('Unable to upgrade "%s". (same version)'), basename($destination)));
+				}
+			}
+			else
+			{
+				$zip->close();
+				unlink($zip_file);
+
+				if (file_exists($target.'/_define.php.bak')) {
+					rename($target.'/_define.php.bak', $target.'/_define.php');
+				}
+
+				throw new \Exception(sprintf(__('Unable to read new _define.php file')));
+			}
+		}
+
+		$zip->unzipAll($target);
+		$zip->close();
+		unlink($zip_file);
+
+		return $ret_code;
+	}
 }

@@ -220,7 +220,7 @@ class Collection
 	 */
 	public function getRepositoriesData(array $aRepositories = array())
 	{
-		return (new Repositories($this->okt))->getData($aRepositories);
+		return (new Repositories($this->okt, $this->sCacheRepositoryId))->getData($aRepositories);
 	}
 
 	/**
@@ -231,6 +231,11 @@ class Collection
 	public function getManager()
 	{
 		return new Manager($this->okt, $this->type, $this->path);
+	}
+
+	public function installPackage($zip_file)
+	{
+		return $this->getManager()->installPackage($zip_file, $this);
 	}
 
 	/**
