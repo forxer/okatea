@@ -10,7 +10,11 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-2.0-beta3
+2.0-beta4
+- many bugs fixes
+
+
+2.0-beta3 (2014-03-16)
 # now require PHP >= 5.4.0
 # use Composer and Bower as much as possible in order to outsource at the maximum
 # replace old internal Router by Symfony Routing component

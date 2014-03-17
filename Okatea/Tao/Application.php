@@ -52,7 +52,7 @@ use Symfony\Component\Routing\RequestContext;
  */
 class Application
 {
-	const VERSION = '2.0-beta3';
+	const VERSION = '2.0-beta4';
 
 	/**
 	 * L'instance de l'autoloader.
