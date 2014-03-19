@@ -16,13 +16,34 @@ class Cleaner extends BaseTools
 	protected $aToRemove;
 
 	protected $aCommonRules = array(
-		'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore',
-		'.travis.yml', 'composer.json', 'composer.lock', '.bower.json', '.bowerrc',
+		'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore', '.gitmodules',
+		'.travis.yml', 'composer.json', 'composer.lock',
+		'grunt.js', 'Gruntfile.js', 'bower.json', '.bowerrc', 'package.json',
 		'tests', 'test', 'phpunit*',
-		'README*', 'CHANGELOG*', 'UPGRADING*', 'CONTRIBUTING*'
+		'readme*', 'README*', 'changelog*', 'CHANGELOG*', 'UPGRADING*', 'CONTRIBUTING*'
 	);
 
-	protected $aVendorCleanupRules = array(
+	protected $aComponentsRules = array(
+		'codemirror' => '',
+		'ghostdown' => '*.html',
+		'jquery' => 'src',
+		'jquery-color' => '.jshintrc',
+		'jquery-cookie' => '',
+		'jquery-gmap3' => 'demo examples jquery',
+		'jquery-mousewheel' => 'ChangeLog.md',
+		'jquery-roundabout' => '',
+		'jquery-stringtoslug' => 'samples.html',
+		'jquery-validation' => 'demo lib todo',
+		'lightbox2' => 'releases sass .jshintrc .npmignore config.rb Gemfile* index.html',
+		'normalize-css' => '',
+		'passfield' => '.idea lib build.sh release-notes.md',
+		'plupload' => 'examples release.sh',
+		'select2' => '',
+		'spectrum' => 'build docs example index.html',
+		'world-flags-sprite' => ''
+	);
+
+	protected $aVendorRules = array(
 		'doctrine/cache' => '',
 		'dotclear/clearbricks' => '.atoum*',
 		'dunglas/php-socialshare' => 'examples spec',
@@ -76,6 +97,7 @@ class Cleaner extends BaseTools
 		$this->config(false);
 		$this->logs(false);
 		$this->publics(false);
+		$this->components(false);
 		$this->vendor(false);
 	}
 
@@ -179,6 +201,42 @@ class Cleaner extends BaseTools
 		}
 	}
 
+	public function components($bProcess = true)
+	{
+		if ($bProcess) {
+			$this->aToRemove = array();
+		}
+
+		$sComponentsDir = $this->getTempDir($this->okt->options->public_dir).'/components';
+
+		foreach ($this->aComponentsRules as $sPackageDir => $rule)
+		{
+			if (!file_exists($sComponentsDir.'/'.$sPackageDir)) {
+				continue;
+			}
+
+			$aPatterns = array_merge($this->aCommonRules, explode(' ', $rule));
+
+			foreach ($aPatterns as $pattern)
+			{
+				$finder = (new Finder())
+					->ignoreVCS(false)
+					->ignoreDotFiles(false)
+					->in($sComponentsDir.'/'.$sPackageDir)
+					->name($pattern)
+				;
+
+				foreach ($finder as $files) {
+					$this->aToRemove[] = $files->getRealpath();
+				}
+			}
+		}
+
+		if ($bProcess) {
+			$this->remove();
+		}
+	}
+
 	public function vendor($bProcess = true)
 	{
 		if ($bProcess) {
@@ -187,7 +245,7 @@ class Cleaner extends BaseTools
 
 		$sVendorDir = $this->getTempDir().'/vendor';
 
-		foreach ($this->aVendorCleanupRules as $sPackageDir => $rule)
+		foreach ($this->aVendorRules as $sPackageDir => $rule)
 		{
 			if (!file_exists($sVendorDir.'/'.$sPackageDir)) {
 				continue;
