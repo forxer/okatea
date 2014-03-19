@@ -14,7 +14,6 @@ $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_copy'] = 'copie';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'nettoyage';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
-$GLOBALS['okt_l10n']['m_builder_step_options'] = 'options';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'thèmes';
 $GLOBALS['okt_l10n']['m_builder_step_digests'] = 'digests';
@@ -37,12 +36,12 @@ $GLOBALS['okt_l10n']['m_builder_step_copy_1'] = 'Cette étape va copier les fich
 
 $GLOBALS['okt_l10n']['m_builder_step_cleanup_1'] = 'Cette étape va supprimer les fichiers inutiles.';
 
-$GLOBALS['okt_l10n']['m_builder_step_config_1'] = 'Cette étape permet de modifier le fichier de configuration qui sera fourni avec le package.';
-$GLOBALS['okt_l10n']['m_builder_step_config_2'] = 'En général on vérifie les valeurs des champs suivants&nbsp;:';
-$GLOBALS['okt_l10n']['m_builder_step_config_3'] = '%s doit être réglé sur %s';
-$GLOBALS['okt_l10n']['m_builder_step_config_4'] = '%s doivent être réglés sur %s';
-
-$GLOBALS['okt_l10n']['m_builder_step_options_1'] = 'Cette étape permet de modifier le fichier d’options qui sera fourni avec le package.';
+$GLOBALS['okt_l10n']['m_builder_step_config_1'] = 'Cette étape permet de modifier le fichier de configuration et le fichier d’options qui seront fournis avec le package.';
+$GLOBALS['okt_l10n']['m_builder_step_config_2'] = 'Configuration';
+$GLOBALS['okt_l10n']['m_builder_step_config_3'] = 'En général on vérifie les valeurs des champs suivants&nbsp;:';
+$GLOBALS['okt_l10n']['m_builder_step_config_4'] = '%s doit être réglé sur %s';
+$GLOBALS['okt_l10n']['m_builder_step_config_5'] = '%s doivent être réglés sur %s';
+$GLOBALS['okt_l10n']['m_builder_step_config_6'] = 'Options';
 
 $GLOBALS['okt_l10n']['m_builder_step_modules_1'] = 'Cette étape va créer les packages des modules, ainsi que le fichier du dépot de modules.';
 

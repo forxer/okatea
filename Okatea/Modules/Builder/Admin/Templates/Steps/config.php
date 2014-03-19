@@ -61,6 +61,8 @@ $okt->page->css->addFile($okt->options->public_url.'/components/codemirror/addon
 # JS
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.js');
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/yaml/yaml.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/clike/clike.js');
+$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/php/php.js');
 
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/search.js');
 $okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/searchcursor.js');
@@ -98,8 +100,26 @@ $okt->page->js->addScript('
 			showing.CodeMirror.getWrapperElement().style.height = winHeight() + "px";
 		});
 
-		var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+		var config_editor = CodeMirror.fromTextArea(document.getElementById("config_editor"), {
 			mode:  "text/x-yaml",
+			indentUnit: 4,
+			indentWithTabs: true,
+			styleActiveLine: true,
+			lineNumbers: true,
+			lineWrapping: true,
+			highlightSelectionMatches: true,
+			extraKeys: {
+				"F11": function(cm) {
+					setFullScreen(cm, !isFullScreen(cm));
+				},
+				"Esc": function(cm) {
+					if (isFullScreen(cm)) setFullScreen(cm, false);
+				}
+			}
+		});
+
+		var options_editor = CodeMirror.fromTextArea(document.getElementById("options_editor"), {
+			mode:  "text/x-php",
 			indentUnit: 4,
 			indentWithTabs: true,
 			styleActiveLine: true,
@@ -123,15 +143,21 @@ $okt->page->js->addScript('
 
 	<p><?php _e('m_builder_step_config_1') ?></p>
 
-	<p><?php _e('m_builder_step_config_2') ?></p>
+	<h3><?php _e('m_builder_step_config_2') ?></h3>
+
+	<p><?php _e('m_builder_step_config_3') ?></p>
 
 	<ul>
-		<li><?php printf(__('m_builder_step_config_3'), '<code>app_path</code>', '<code>/</code>')?></li>
-		<li><?php printf(__('m_builder_step_config_3'), '<code>domain</code>', '<code>\'\'</code>')?></li>
-		<li><?php printf(__('m_builder_step_config_4'), '<code>maintenance public / maintenance admin</code>', '<code>false</code>')?></li>
+		<li><?php printf(__('m_builder_step_config_4'), '<code>app_path</code>', '<code>/</code>')?></li>
+		<li><?php printf(__('m_builder_step_config_4'), '<code>domain</code>', '<code>\'\'</code>')?></li>
+		<li><?php printf(__('m_builder_step_config_5'), '<code>maintenance public / maintenance admin</code>', '<code>false</code>')?></li>
 	</ul>
 
-	<textarea id="editor" name="editor" rows="35" cols="97"><?php echo $sConfig ?></textarea>
+	<textarea id="config_editor" name="config_editor" rows="35" cols="97"><?php echo $sConfig ?></textarea>
+
+	<h3><?php _e('m_builder_step_config_6') ?></h3>
+
+	<textarea id="options_editor" name="options_editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
 	<input type="submit" value="<?php _e('c_c_next') ?>" /></p>

@@ -13,7 +13,6 @@ $GLOBALS['okt_l10n']['m_builder_step_start'] = 'home';
 $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'cleanup';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
-$GLOBALS['okt_l10n']['m_builder_step_options'] = 'options';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'themes';
 $GLOBALS['okt_l10n']['m_builder_step_digests'] = 'digests';
@@ -36,12 +35,12 @@ $GLOBALS['okt_l10n']['m_builder_step_copy_1'] = 'This step will copy the files t
 
 $GLOBALS['okt_l10n']['m_builder_step_cleanup_1'] = 'This step will delete unnecessary files.';
 
-$GLOBALS['okt_l10n']['m_builder_step_config_1'] = 'This step allows you to edit the configuration file that will be included with the package.';
-$GLOBALS['okt_l10n']['m_builder_step_config_2'] = 'In general we check the values ​​of the following fields:';
-$GLOBALS['okt_l10n']['m_builder_step_config_3'] = '%s must be set to %s';
+$GLOBALS['okt_l10n']['m_builder_step_config_1'] = 'This step allows you to edit the configuration file and the options file that were be included with the package.';
+$GLOBALS['okt_l10n']['m_builder_step_config_2'] = 'Configuration';
+$GLOBALS['okt_l10n']['m_builder_step_config_3'] = 'In general we check the values ​​of the following fields:';
 $GLOBALS['okt_l10n']['m_builder_step_config_4'] = '%s must be set to %s';
-
-$GLOBALS['okt_l10n']['m_builder_step_options_1'] = 'This step allows you to modify the options file that will be included with the package.';
+$GLOBALS['okt_l10n']['m_builder_step_config_5'] = '%s must be set to %s';
+$GLOBALS['okt_l10n']['m_builder_step_config_6'] = 'Options';
 
 $GLOBALS['okt_l10n']['m_builder_step_modules_1'] = 'This step will create the modules packages, and the modules repository file.';
 

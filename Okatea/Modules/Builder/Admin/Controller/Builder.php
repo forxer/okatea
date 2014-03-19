@@ -105,32 +105,20 @@ class Builder extends Controller
 	protected function config()
 	{
 		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
+		$sOptionsFile = $this->tools->getTempDir().'/oktOptions.php';
 
 		if ($this->request->request->has('form_sent'))
 		{
-			file_put_contents($sConfigFile, $this->request->request->get('editor'));
+			file_put_contents($sConfigFile, $this->request->request->get('config_editor'));
+
+			file_put_contents($sOptionsFile, $this->request->request->get('options_editor'));
 
 			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
 		}
 
 		return $this->render('Builder/Admin/Templates/Steps/config', array(
-			'sConfig' => file_get_contents($sConfigFile)
-		));
-	}
-
-	protected function options()
-	{
-		$sOptionsFile = $this->tools->getTempDir().'/oktOptions.php';
-
-		if ($this->request->request->has('form_sent'))
-		{
-			file_put_contents($sOptionsFile, $this->request->request->get('editor'));
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
-		}
-
-		return $this->render('Builder/Admin/Templates/Steps/options', array(
-			'sOptions' => file_get_contents($sOptionsFile)
+			'sConfig' 	=> file_get_contents($sConfigFile),
+			'sOptions' 	=> file_get_contents($sOptionsFile)
 		));
 	}
 

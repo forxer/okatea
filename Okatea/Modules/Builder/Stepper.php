@@ -36,10 +36,6 @@ class Stepper extends BaseStepper
 				'title' 	=> __('m_builder_step_config')
 			),
 			array(
-				'step' 		=> 'options',
-				'title' 	=> __('m_builder_step_options')
-			),
-			array(
 				'step' 		=> 'modules',
 				'title' 	=> __('m_builder_step_modules')
 			),
