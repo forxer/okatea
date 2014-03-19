@@ -1,0 +1,56 @@
+name:
+  fr: 'Contact'
+  en: 'Contact'
+name_seo:
+  fr: ''
+  en: ''
+title:
+  fr: 'Contact'
+  en: 'Contact'
+meta_description:
+  fr: ''
+  en: ''
+meta_keywords:
+  fr: ''
+  en: ''
+  
+name_map:
+  fr: 'Plan d’accès'
+  en: 'Access map'
+name_seo_map:
+  fr: ''
+  en: ''
+title_map:
+  fr: 'Plan d’accès'
+  en: 'Access map'
+meta_description_map:
+  fr: ''
+  en: ''
+meta_keywords_map:
+  fr: ''
+  en: ''
+  
+mail_color: '000000'
+mail_size: 12
+
+templates:
+  contact:
+    default: default
+    usables: {}
+  map:
+    default: default
+    usables: {}
+    
+google_map:
+  enable: true
+  display: inside
+  options:
+    zoom: 14
+    mode: HYBRID
+
+recipients_to: {  }
+recipients_cc: {  }
+recipients_bcc: {  }
+
+captcha: 'accessible_captcha'
+from_to: 'website'

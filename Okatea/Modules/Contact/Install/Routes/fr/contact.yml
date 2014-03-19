@@ -1,0 +1,8 @@
+
+contactPage:
+    path:     /contact
+    defaults: { controller: ContactController::contactPage }  
+
+contactMapPage:
+    path:     /plan-acces
+    defaults: { controller: ContactController::contactMapPage }

@@ -1,0 +1,135 @@
+
+@import "common";
+
+
+.errors_box {
+	.commonErrorBox();
+}
+
+
+/* Formulaire
+--------------------------------------------------------*/
+
+#contact-form {
+	.commonFormElements();
+}
+
+#contact-form input.text,
+#contact-form textarea {
+	width: 96%;
+}
+
+#contact-form fieldset {
+	border-bottom: none;
+}
+
+/* liste de checkbox */
+ul.checkboxlist {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+	margin-bottom: 15px;
+	display: table;
+}
+	ul.checkboxlist li {
+		display: table-cell;
+		padding-right: 2em;
+	}
+
+
+/* liste de boutons radio */
+ul.radiolist {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+	margin-bottom: 15px;
+	display: table;
+}
+	ul.radiolist li {
+		display: table-cell;
+		padding-right: 2em;
+	}
+
+
+#civilite-wrapper {
+	display: none;
+}
+
+#contact-form .submit-wrapper {
+	text-align: center;
+}
+#contact-form input[type="submit"] {
+	margin: 0 auto;
+}
+
+
+/* Erreurs
+--------------------------------------------------------*/
+
+#contact-form label.error {
+	color: #c00;
+	font-style: italic;
+	font-size: 0.9em;
+	display: block
+}
+
+#contact-form input.error,
+#contact-form textarea.error {
+	border: 1px dotted #c00;
+}
+
+
+/* Coordonnées
+--------------------------------------------------------*/
+
+#coordonnees {
+	text-align: center;
+}
+	#coordonnees p {
+		margin: 0;
+		padding: 0;
+	}
+		#coordonnees p:first-child strong {
+			color: @second_title_color;
+		}
+	#coordonnees span.label {
+		font-weight: bold;
+	}
+
+
+/* Google Map
+--------------------------------------------------------*/
+
+#google_map,
+.ui-dialog #google_map {
+	height: 500px;
+
+	border: 1px solid @second_border_color;
+}
+
+#google_map img,
+.ui-dialog #google_map img {
+	max-width: none;
+}
+
+#infobulle,
+.ui-dialog #infobulle {
+	width: 200px;
+	height: 70px;
+}
+
+#infobulle,
+#infobulle strong,
+.ui-dialog #infobulle strong {
+	color: #000;
+}
+
+#infobulle strong,
+.ui-dialog #infobulle strong {
+	font-size: 1.2em;
+	color: @second_title_color;
+}
+
+.google_map_added_class {
+	font-size: 1em;
+}

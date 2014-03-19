@@ -967,7 +967,7 @@ class module_contact extends Module
 	 */
 	public function isDeletable($iFieldId)
 	{
-		return (boolean)(!in_array($iFieldId,self::getUnDeletableFields()));
+		return !in_array($iFieldId, self::getUnDeletableFields());
 	}
 
 	/**
@@ -978,7 +978,7 @@ class module_contact extends Module
 	 */
 	public function isDefaultField($iFieldId)
 	{
-		return (boolean)in_array($iFieldId,self::getUnDeletableFields());
+		return in_array($iFieldId, self::getUnDeletableFields());
 	}
 
 	/**
@@ -999,7 +999,7 @@ class module_contact extends Module
 	 */
 	public function isDisablable($iFieldId)
 	{
-		return (boolean)(!in_array($iFieldId,self::getUnDisablableFields()));
+		return !in_array($iFieldId,self::getUnDisablableFields());
 	}
 
 	/**
@@ -1075,5 +1075,4 @@ class module_contact extends Module
 
 		return "data:image/png;base64,".base64_encode($contenu_image);
 	}
-
 }

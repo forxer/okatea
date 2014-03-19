@@ -106,7 +106,7 @@ class Module extends BaseModule
 			$this->okt->page->mainMenu->add(
 				$this->getName(),
 				$this->okt->adminRouter->generate('News_index'),
-					$this->okt->request->attributes->get('_route') === 'News_index',
+				$this->okt->request->attributes->get('_route') === 'News_index',
 				15,
 				($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
 				null,
@@ -116,29 +116,29 @@ class Module extends BaseModule
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_management'),
 					$this->okt->adminRouter->generate('News_index'),
 					in_array($this->okt->request->attributes->get('_route'), array('News_index', 'News_post')),
-					1
+					10
 				);
 				$this->okt->page->newsSubMenu->add(__('m_news_menu_add_post'),
 					$this->okt->adminRouter->generate('News_post_add'),
 					$this->okt->request->attributes->get('_route') === 'News_post_add',
-					2
+					20
 				);
 				$this->okt->page->newsSubMenu->add(__('m_news_menu_categories'),
 					$this->okt->adminRouter->generate('News_categories'),
 					in_array($this->okt->request->attributes->get('_route'), array('News_categories', 'News_category', 'News_category_add')),
-					3,
+					30,
 					($this->config->categories['enable'] && $this->okt->checkPerm('news_categories'))
 				);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_display'),
 					$this->okt->adminRouter->generate('News_display'),
 					$this->okt->request->attributes->get('_route') === 'News_display',
-					10,
+					40,
 					$this->okt->checkPerm('news_display')
 				);
 				$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'),
 					$this->okt->adminRouter->generate('News_config'),
 					$this->okt->request->attributes->get('_route') === 'News_config',
-					20,
+					50,
 					$this->okt->checkPerm('news_config')
 				);
 		}

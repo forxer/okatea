@@ -1,0 +1,18 @@
+
+Contact_index:
+    path:     /contact/recipients
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Recipients::page' }
+
+Contact_fields:
+    path:     /contact/fields
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::page' }
+
+Contact_field:
+    path:     /contact/field/{field_id}
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::field' }
+    requirements:
+        field_id:  \d+
+
+Contact_config:
+    path:     /contact/configuration
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Config::page' }
