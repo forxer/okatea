@@ -16,7 +16,7 @@ class Themes extends Extensions
 
 		$this->sPackagesDir = $this->sPackageDir.'/themes/'.$this->okt->getVersion();
 
-		$this->sTempDir = $this->getTempDir($this->okt->options->themes_dir);
+		$this->sTempDir = $this->getTempDir($this->getTempOptions('themes_dir'));
 
 		$this->aConfig = $this->okt->module('Builder')->config->themes;
 	}
