@@ -268,6 +268,21 @@ class Cleaner extends BaseTools
 			}
 		}
 
+		# special case for umpirsky/country-list
+		$this->aToRemove[] = $sVendorDir.'/umpirsky/country-list/country/icu';
+
+		$finder = (new Finder())
+			->ignoreVCS(false)
+			->ignoreDotFiles(false)
+			->files()
+			->in($sVendorDir.'/umpirsky/country-list/country/cldr')
+			->notName('*.php');
+		;
+
+		foreach ($finder as $files) {
+			$this->aToRemove[] = $files->getRealpath();
+		}
+
 		if ($bProcess) {
 			$this->remove();
 		}
