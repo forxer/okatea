@@ -20,8 +20,6 @@ class BaseTools
 
 	protected $sTempDir;
 
-	protected $aTempOptions;
-
 	protected $sPackageDir;
 
 	public function __construct($okt)
@@ -45,33 +43,6 @@ class BaseTools
 	{
 		$fs = new Filesystem();
 		$fs->remove($this->sTempDir);
-	}
-
-	public function getTempOptions($sOption = null, $bRelativePath = false)
-	{
-		if (null === $this->aTempOptions)
-		{
-			$sOptionsFile = $this->getTempDir().'/oktOptions.php';
-
-			if (!file_exists($sOptionsFile)) {
-				return null;
-			}
-
-			$this->aTempOptions = require $sOptionsFile;
-		}
-
-		if (null === $sOption) {
-			return $this->aTempOptions;
-		}
-
-		if (isset($this->aTempOptions[$sOption]))
-		{
-			if ($bRelativePath) {
-				return str_replace($this->getTempDir(), '', $this->aTempOptions[$sOption]);
-			}
-
-			return $this->aTempOptions[$sOption];
-		}
 	}
 
 	public function getCopier()

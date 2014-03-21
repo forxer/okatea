@@ -106,7 +106,7 @@ class Builder extends Controller
 	{
 		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
 		$sOptionsFile = $this->tools->getTempDir().'/oktOptions.php';
-debug($this->tools->getTempOptions('cache_dir', true));
+
 		if ($this->request->request->has('form_sent'))
 		{
 			file_put_contents($sConfigFile, $this->request->request->get('config_editor'));

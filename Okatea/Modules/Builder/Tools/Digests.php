@@ -32,7 +32,7 @@ class Digests extends BaseTools
 			->notName('conf_site.yml')
 			->notPath('install')
 			->notName('digests')
-			->notPath($this->getTempOptions('cache_dir', true))
+			->notPath('Okatea/cache')
 			->notPath('Okatea/Modules')
 			->notPath('Okatea/Themes')
 			->notPath('oktPublic')
