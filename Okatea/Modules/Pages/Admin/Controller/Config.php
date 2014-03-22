@@ -30,28 +30,28 @@ class Config extends Controller
 		# Gestionnaires de templates
 		$oTemplatesList = new TemplatesSet($this->okt,
 			$this->okt->module('Pages')->config->templates['list'],
-			'pages/list',
+			'Pages/list',
 			'list',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesItem = new TemplatesSet($this->okt,
 			$this->okt->module('Pages')->config->templates['item'],
-			'pages/item',
+			'Pages/item',
 			'item',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesInsert = new TemplatesSet($this->okt,
 			$this->okt->module('Pages')->config->templates['insert'],
-			'pages/insert',
+			'Pages/insert',
 			'insert',
 			$this->generateUrl('Pages_config').'?'
 		);
 
 		$oTemplatesFeed = new TemplatesSet($this->okt,
 			$this->okt->module('Pages')->config->templates['feed'],
-			'pages/feed',
+			'Pages/feed',
 			'feed',
 			$this->generateUrl('Pages_config').'?'
 		);

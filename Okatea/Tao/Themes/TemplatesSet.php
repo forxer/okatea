@@ -212,8 +212,8 @@ class TemplatesSet
 		$this->aTemplatesPath = array();
 
 		# first, get default theme templates
-		if ($this->okt->config->themes['desktop'] != 'default') {
-			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/default/Templates/'.$this->sBase.'/*/template.php');
+		if ($this->okt->config->themes['desktop'] != 'DefaultTheme') {
+			$this->aTemplatesPath = (array)glob($this->okt->options->get('themes_dir').'/DefaultTheme/Templates/'.$this->sBase.'/*/template.php');
 		}
 
 		# then, get current theme templates
@@ -267,18 +267,18 @@ class TemplatesSet
 			$this->getTemplateInfos($sDir);
 
 			$this->aTemplatesInfos[$sId] = array(
-				'id' => $sId,
-				'name' => (!empty($this->aCurrent['name']) ? $this->aCurrent['name'] : self::tplIdToName($sId)),
-				'desc' => (!empty($this->aCurrent['desc']) ? $this->aCurrent['desc'] : null),
-				'version' => (!empty($this->aCurrent['version']) ? $this->aCurrent['version'] : null),
-				'author' => (!empty($this->aCurrent['author']) ? $this->aCurrent['author'] : null),
-				'tags' => (!empty($this->aCurrent['tags']) ? $this->aCurrent['tags'] : null),
-				'dir' => $sDir,
-				'path' => $sTplPath,
-				'path_in_theme' => $sTplPathInTheme,
-				'theme' => $sThemeId,
-				'theme_path' => $sThemePath,
-				'is_in_default' => ($sThemeId == 'default')
+				'id' 				=> $sId,
+				'name' 				=> (!empty($this->aCurrent['name']) ? $this->aCurrent['name'] : self::tplIdToName($sId)),
+				'desc' 				=> (!empty($this->aCurrent['desc']) ? $this->aCurrent['desc'] : null),
+				'version' 			=> (!empty($this->aCurrent['version']) ? $this->aCurrent['version'] : null),
+				'author' 			=> (!empty($this->aCurrent['author']) ? $this->aCurrent['author'] : null),
+				'tags' 				=> (!empty($this->aCurrent['tags']) ? $this->aCurrent['tags'] : null),
+				'dir' 				=> $sDir,
+				'path' 				=> $sTplPath,
+				'path_in_theme' 	=> $sTplPathInTheme,
+				'theme' 			=> $sThemeId,
+				'theme_path' 		=> $sThemePath,
+				'is_in_default' 	=> ($sThemeId == 'DefaultTheme')
 			);
 		}
 	}
