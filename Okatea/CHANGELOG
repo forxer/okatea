@@ -10,7 +10,11 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
-2.0-beta4
+2.0-beta5
+# new way to load locales
+
+
+2.0-beta4 (2014-03-21)
 - many bugs fixes
 
 
