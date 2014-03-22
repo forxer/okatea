@@ -21,7 +21,7 @@ class Config extends Controller
 		}
 
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.config');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.config');
 
 		# Gestion des images
 		$oImageUploadConfig = new ImageUploadConfig($this->okt, $this->okt->module('Pages')->getImageUpload());

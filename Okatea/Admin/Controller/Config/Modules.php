@@ -130,7 +130,7 @@ class Modules extends Controller
 	protected function init()
 	{
 		# Modules management locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/modules');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/modules');
 
 		# Retrieving the list of modules in the file system (all modules)
 		$this->aAllModules = $this->okt->modules->getManager()->getAll();
@@ -144,7 +144,7 @@ class Modules extends Controller
 		# Load uninstalled modules main locales files
 		foreach ($this->aUninstalledModules as $sModuleId => $aModuleInfos)
 		{
-			$this->okt->l10n->loadFile($aModuleInfos['root'].'/Locales/'.$this->okt->user->language.'/main');
+			$this->okt->l10n->loadFile($aModuleInfos['root'].'/Locales/%s/main');
 
 			$this->aUninstalledModules[$sModuleId]['name_l10n'] = __($aModuleInfos['name']);
 		}

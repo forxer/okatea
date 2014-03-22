@@ -30,18 +30,8 @@ class Requirements
 	{
 		$this->okt = $okt;
 
-		if (null === $sLanguage)
-		{
-			if (isset($this->okt->user)) {
-				$sLanguage = $this->okt->user->language;
-			}
-			else {
-				$sLanguage = 'en';
-			}
-		}
-
 		# vérification des pré-requis
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$sLanguage.'/pre-requisites');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/pre-requisites', $sLanguage);
 
 
 		/* Groupes de pré-requis

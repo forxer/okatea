@@ -16,7 +16,7 @@ if (!defined('ON_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../Locales/'.$okt->user->language.'/admin.display');
+$okt->l10n->loadFile(__DIR__.'/../Locales/%s/admin.display');
 
 
 /* Traitements

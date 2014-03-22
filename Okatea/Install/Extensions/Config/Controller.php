@@ -16,7 +16,7 @@ class Controller extends BaseController
 	public function page()
 	{
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->session->get('okt_install_language').'/admin/advanced');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/advanced');
 
 		$aValues= array(
 			'app_path'   => str_replace('install', '', dirname($this->request->getRequestUri())),

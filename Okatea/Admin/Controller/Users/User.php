@@ -235,7 +235,7 @@ class User extends Controller
 
 	protected function init()
 	{
-		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
 		$this->aPageData = new \ArrayObject();
 
@@ -311,7 +311,7 @@ class User extends Controller
 
 			$oMail->setFrom();
 
-			$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->aPageData['user']['language'].'/emails', true);
+			$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/emails', $this->aPageData['user']['language']);
 
 			$aMailParams = array(
 				'site_title'    => $this->okt->page->getSiteTitle($rsUser->language),
@@ -360,7 +360,7 @@ class User extends Controller
 
 				$oMail->setFrom();
 
-				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->aPageData['user']['language'].'/emails', true);
+				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/emails', $this->aPageData['user']['language']);
 
 				$aMailParams = array(
 					'site_title'    => $this->okt->page->getSiteTitle($rsUser->language),

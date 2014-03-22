@@ -18,7 +18,7 @@ if (!defined('ON_MODULE')) die;
 ----------------------------------------------------------*/
 
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../Locales/'.$okt->user->language.'/admin.list');
+$okt->l10n->loadFile(__DIR__.'/../Locales/%s/admin.list');
 
 # initialisation des filtres
 $okt->estimate->filtersStart('admin');

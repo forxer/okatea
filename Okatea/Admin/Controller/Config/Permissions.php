@@ -20,7 +20,7 @@ class Permissions extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/permissions');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/permissions');
 
 		$aGroups = array();
 		$aPerms = array();

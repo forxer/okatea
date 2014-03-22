@@ -91,7 +91,7 @@ class Config extends Controller
 	{
 		foreach ($aExtensions as $sExtensionId => $aExtensionInfos)
 		{
-			$this->okt->l10n->loadFile($aExtensionInfos['root'].'/Locales/'.$this->okt->user->language.'/main');
+			$this->okt->l10n->loadFile($aExtensionInfos['root'].'/Locales/%s/main');
 
 			$aExtensions[$sExtensionId]['name_l10n'] = __($aExtensionInfos['name']);
 		}

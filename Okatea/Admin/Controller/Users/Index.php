@@ -21,7 +21,7 @@ class Index extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$this->okt->user->language.'/admin/users');
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
 		# json users list for autocomplete
 		if (($json = $this->getUsersJson()) !== false) {

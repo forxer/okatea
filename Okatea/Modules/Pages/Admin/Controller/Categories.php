@@ -22,7 +22,7 @@ class Categories extends Controller
 		}
 
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/'.$this->okt->user->language.'/admin.categories');
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.categories');
 
 		# Récupération de la liste complète des rubriques
 		$rsCategories = $this->okt->module('Pages')->categories->getCategories(array(

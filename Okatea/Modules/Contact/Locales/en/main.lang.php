@@ -7,6 +7,7 @@ $GLOBALS['okt_l10n']['m_contact_access_map'] = 'Access map';
 
 # permissions
 $GLOBALS['okt_l10n']['m_contact_perm_group'] = 'Contact';
+$GLOBALS['okt_l10n']['m_contact_perm_global'] = 'Module contact management';
 $GLOBALS['okt_l10n']['m_contact_perm_recipients'] = 'Manage recipients';
 $GLOBALS['okt_l10n']['m_contact_perm_fields'] = 'Manage fields';
 $GLOBALS['okt_l10n']['m_contact_perm_config'] = 'Configuration';

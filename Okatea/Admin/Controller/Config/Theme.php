@@ -26,7 +26,7 @@ class Theme extends Controller
 		}
 
 		# Themes locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/themes');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/themes');
 
 		# theme infos
 		$aThemeInfos = $this->okt->themes->getInstance($sThemeId)->getInfos();

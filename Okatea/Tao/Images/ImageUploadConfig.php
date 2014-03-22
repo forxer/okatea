@@ -80,7 +80,7 @@ class ImageUploadConfig
 
 		$this->oImageUpload = $oImageUpload;
 
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$okt->user->language.'/admin/images.config');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/images.config');
 
 		# Store upload_max_filesize in bytes
 		$u_max_size = \files::str2bytes(ini_get('upload_max_filesize'));

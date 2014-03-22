@@ -15,7 +15,7 @@ class Extension extends AbstractExtension
 {
 	public function load()
 	{
-		$this->okt->l10n->loadFile(__DIR__.'/Locales/'.$this->okt->session->get('okt_install_language').'/l10n');
+		$this->okt->l10n->loadFile(__DIR__.'/Locales/%s/l10n');
 
 		$this->okt->triggers->registerTrigger('installBeforeBuildInstallStepper', array($this, 'addStep'));
 		$this->okt->triggers->registerTrigger('installBeforeLoadPageHelpers', array($this, 'addRoute'));

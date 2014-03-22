@@ -300,10 +300,13 @@ class Application
 		);
 
 		$this->l10n = new Localization(
-			$this->options->get('locales_dir'),
 			$this->user->language,
 			$this->user->timezone
 		);
+
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/main');
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/date');
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/users');
 
 		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
 

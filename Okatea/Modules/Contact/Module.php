@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Modules\News;
+namespace Okatea\Modules\Contact;
 
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
@@ -58,21 +58,21 @@ class Module extends BaseModule
 					$this->okt->adminRouter->generate('Contact_index'),
 					$this->okt->request->attributes->get('_route') === 'Contact_index',
 					10,
-					$this->okt->checkPerm('contact_recipients')
+					$this->okt->checkPerm('contact_usage') && $this->okt->checkPerm('contact_recipients')
 				);
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_fields'),
 					$this->okt->adminRouter->generate('Contact_fields'),
 					in_array($this->okt->request->attributes->get('_route'), array('Contact_fields', 'Contact_field')),
 					20,
-					$this->okt->checkPerm('contact_fields')
+					$this->okt->checkPerm('contact_usage') && $this->okt->checkPerm('contact_fields')
 				);
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_configuration'),
 					$this->okt->adminRouter->generate('Contact_config'),
 					$this->okt->request->attributes->get('_route') === 'Contact_config',
 					30,
-					$this->okt->checkPerm('contact_config')
+					$this->okt->checkPerm('contact_usage') && $this->okt->checkPerm('contact_config')
 				);
 		}
 	}

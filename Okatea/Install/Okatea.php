@@ -95,9 +95,12 @@ class Okatea extends Application
 			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
 		}
 
-		$this->l10n = new Localization($this->options->get('locales_dir'), $this->session->get('okt_install_language'), 'Europe/Paris');
+		$this->l10n = new Localization($this->session->get('okt_install_language'), 'Europe/Paris');
 
-		$this->l10n->loadFile(__DIR__.'/Locales/'.$this->session->get('okt_install_language').'/install');
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/main');
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/date');
+		$this->l10n->loadFile($this->options->get('locales_dir').'/%s/users');
+		$this->l10n->loadFile(__DIR__.'/Locales/%s/install');
 
 		# Install or update ?
 		if (!$this->session->has('okt_install_process_type'))

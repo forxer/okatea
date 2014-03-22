@@ -26,7 +26,7 @@ if (!empty($_REQUEST['new_file'])) {
 }
 elseif (!empty($_REQUEST['new_template']))
 {
-	$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.theme.editor');
+	$okt->l10n->loadFile($okt->options->locales_dir.'/%s/admin.theme.editor');
 
 	$sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 

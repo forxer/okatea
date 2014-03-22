@@ -546,7 +546,7 @@ class UsersController extends BaseController
 
 				$oMail->setFrom();
 
-				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$rsUser->language.'/emails', true);
+				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/emails', $rsUser->language);
 
 				$aMailParams = array(
 					'site_title'    => $this->page->getSiteTitle($rsUser->language),
@@ -587,7 +587,7 @@ class UsersController extends BaseController
 						$aMailParams['site_title'] = $this->page->getSiteTitle($rsRecipient->language);
 						$aMailParams['admin'] = Users::getUserDisplayName($rsRecipient->username, $rsRecipient->lastname, $rsRecipient->firstname, $rsRecipient->displayname);
 
-						$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/'.$rsRecipient->language.'/emails', true);
+						$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/emails', $rsRecipient->language);
 
 						$oMail->setSubject(sprintf(__('c_c_emails_registration_on_%s'), $aMailParams['site_title']));
 						$oMail->setBody($this->renderView('emails/alertNewRegistration/text', $aMailParams), 'text/plain');

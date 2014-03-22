@@ -677,7 +677,7 @@ class Page
 		# TODO : remove when it will be corrected
 		$this->css->addCss('.jPicker tr, .jPicker td { vertical-align: middle; } ');
 
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/jPicker');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/jPicker');
 
 		$options = array(
 			'images' => array(

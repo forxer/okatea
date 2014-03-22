@@ -13,6 +13,7 @@ class Contact_installer extends Installer
 	public function install()
 	{
 		$this->setDefaultAdminPerms(array(
+			'contact_usage',
 			'contact_recipients'
 		));
 	}

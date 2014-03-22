@@ -175,7 +175,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/admin/l10n');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/l10n');
 	}
 
 	protected function getIconsList()

@@ -25,7 +25,7 @@ if (!defined('ON_THEME_EDITOR')) die;
 ----------------------------------------------------------*/
 
 # locales
-$okt->l10n->loadFile($okt->options->locales_dir.'/'.$okt->user->language.'/admin.theme.editor');
+$okt->l10n->loadFile($okt->options->locales_dir.'/%s/admin.theme.editor');
 
 $sThemeId = !empty($_REQUEST['theme']) ? $_REQUEST['theme'] : null;
 $sFilename = !empty($_REQUEST['file']) ? rawurldecode($_REQUEST['file']) : null;

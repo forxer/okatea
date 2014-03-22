@@ -14,25 +14,24 @@ namespace Okatea\Tao;
  */
 class Localization
 {
+	protected $sLanguage;
+
 	protected $aLoaded;
 
 	/**
 	 * Initialize this primary class.
 	 *
-	 * @param string $sLocalesDir
 	 * @param string $sLanguage
 	 * @param string $sTimeZone
 	 */
-	public function __construct($sLocalesDir, $sLanguage, $sTimeZone)
+	public function __construct($sLanguage, $sTimeZone)
 	{
+		$this->sLanguage = $sLanguage;
+
 	//	date_default_timezone_set($sTimeZone);
 
 		$GLOBALS['okt_l10n'] = array();
 		$this->aLoaded = array();
-
-		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/main');
-		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/date');
-		$this->loadFile($sLocalesDir.'/'.$sLanguage.'/users');
 	}
 
 	/**
@@ -41,7 +40,6 @@ class Localization
 	 * @param string $sFilename    The file to be loaded.
 	 * @param boolean $bForce      Force loading file.
 	 * @return boolean|NULL
-	 */
 	public function loadFile($sFilename, $bForce = false)
 	{
 		if (!file_exists($sFilename.'.lang.php')) {
@@ -49,6 +47,37 @@ class Localization
 		}
 
 		if (!$bForce && in_array($sFilename, $this->aLoaded))  {
+			return null;
+		}
+
+		require $sFilename.'.lang.php';
+
+		$this->aLoaded[] = $sFilename;
+
+		return true;
+	}
+	 */
+
+	/**
+	 * Load a l10n file.
+	 *
+	 * @param string $sFilename 	The file to be loaded.
+	 * @param string $sLanguage 	Force loading language file.
+	 * @return boolean|NULL
+	 */
+	public function loadFile($sFilename, $sLanguage = null)
+	{
+		if (null === $sLanguage) {
+			$sLanguage = $this->sLanguage;
+		}
+
+		$sFilename = sprintf($sFilename, $sLanguage);
+
+		if (!file_exists($sFilename.'.lang.php')) {
+			return false;
+		}
+
+		if (in_array($sFilename, $this->aLoaded))  {
 			return null;
 		}
 

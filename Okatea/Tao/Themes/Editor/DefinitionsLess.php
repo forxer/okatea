@@ -31,7 +31,7 @@ class DefinitionsLess
 		$this->sPostPrefix = $sPostPrefix;
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/'.$this->okt->user->language.'/definitions.less.editor');
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/definitions.less.editor');
 	}
 
 	/**
