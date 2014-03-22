@@ -301,6 +301,7 @@ class Application
 
 		$this->l10n = new Localization(
 			$this->user->language,
+			$this->config->language,
 			$this->user->timezone
 		);
 
