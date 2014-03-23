@@ -8,6 +8,9 @@
 
 namespace Okatea\Modules\Contact;
 
+use Okatea\Tao\Html\Modifiers;
+use Okatea\Tao\Misc\Utilities;
+
 class Fields
 {
 	/**
@@ -32,6 +35,10 @@ class Fields
 
 	protected $t_fields_locales;
 
+	protected $params = array();
+
+	protected static $aUnDeletableFields = array(1,2,3,4,5,6,7);
+	protected static $aUnDisablableFields = array(4,6,7);
 
 	/**
 	 * Constructeur.
@@ -356,4 +363,221 @@ class Fields
 		return true;
 	}
 
+	/**
+	 * Création de l'ID HTML d'un champ donné
+	 *
+	 * @param integer $post_id
+	 * @return boolean
+	 */
+	protected function setFieldHtmlId($iFieldId)
+	{
+		$rs = $this->getField($iFieldId);
+
+		$html_id = $this->buildFieldHtmlId($rs->title,$rs->html_id,$iFieldId);
+
+		$query =
+		'UPDATE '.$this->t_fields.' SET '.
+		'html_id=\''.$this->db->escapeStr($html_id).'\' '.
+		'WHERE id='.(integer)$iFieldId;
+
+		if (!$this->db->execute($query)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Construit l'ID HTML d'un champ donné
+	 *
+	 * @param string $title
+	 * @param string $html_id
+	 * @param integer $iFieldId
+	 * @return string
+	 */
+	protected function buildFieldHtmlId($title,$html_id,$iFieldId)
+	{
+		if (empty($html_id)) {
+			$html_id = $title;
+		}
+
+		$html_id = Modifiers::strToUnderscored($html_id,false);
+
+		# Let's check if URL is taken…
+		$query =
+		'SELECT html_id FROM '.$this->t_fields.' '.
+		'WHERE html_id=\''.$this->db->escapeStr($html_id).'\' '.
+		'AND id <> '.(integer)$iFieldId. ' '.
+		'ORDER BY html_id DESC';
+
+		$rs = $this->db->select($query);
+
+		if (!$rs->isEmpty())
+		{
+			$query =
+			'SELECT html_id FROM '.$this->t_fields.' '.
+			'WHERE html_id LIKE \''.$this->db->escapeStr($html_id).'%\' '.
+			'AND id <> '.(integer)$iFieldId. ' '.
+			'ORDER BY html_id DESC ';
+
+			$rs = $this->db->select($query);
+			$a = array();
+			while ($rs->fetch()) {
+				$a[] = $rs->html_id;
+			}
+
+			$html_id = Utilities::getIncrementedString($a, $html_id, '-');
+		}
+
+		# URL is empty?
+		if ($html_id == '') {
+			throw new \Exception(__('m_contact_Empty_HTML_ID'));
+		}
+
+		return $html_id;
+	}
+
+
+	/**
+	 * Retourne la liste des types de statuts au pluriel (masqués/visibles/obligatoires)
+	 *
+	 * @param boolean $flip
+	 * @return array
+	 */
+	public static function getFieldsStatuses($flip = false, $unDisablable = false)
+	{
+		$aStatus = array(
+			0 => __('m_contact_masked'),
+			1 => __('m_contact_visible'),
+			2 => __('m_contact_mandatory')
+		);
+
+		if ($unDisablable) {
+			unset($aStatus[0]);
+		}
+
+		if ($flip) {
+			$aStatus = array_flip($aStatus);
+		}
+
+		return $aStatus;
+	}
+
+	/**
+	 * Retourne la liste des types de statuts au singulier (masqué/visible/obligatoire)
+	 *
+	 * @param boolean $flip
+	 * @param boolean $unDisablable
+	 * @return array
+	 */
+	public static function getFieldsStatus($flip = false, $unDisablable = false)
+	{
+		$aStatus = array(
+			0 => __('m_contact_masked'),
+			1 => __('m_contact_visible'),
+			2 => __('m_contact_mandatory')
+		);
+
+		if ($unDisablable) {
+			unset($aStatus[0]);
+		}
+
+		if ($flip) {
+			$aStatus = array_flip($aStatus);
+		}
+
+		return $aStatus;
+	}
+
+	/**
+	 * Retourne la liste des types de champs
+	 *
+	 * @param boolean $flip
+	 * @return array
+	 */
+	public static function getFieldsTypes($flip = false)
+	{
+		$aTypes = array(
+			1 => __('m_contact_Text_fields'),
+			2 => __('m_contact_Text_aeras'),
+			3 => __('m_contact_drop_down_menu'),
+			4 => __('m_contact_Radio_buttons'),
+			5 => __('m_contact_check_boxes')
+		);
+
+		if ($flip) {
+			$aTypes = array_flip($aTypes);
+		}
+
+		return $aTypes;
+	}
+
+	/**
+	 * Indique de quelle forme est le type. Simple (Champ texte et Zone de texte)
+	 * ou multiple (Menu déroulant, Cases à cocher ou Boutons radio).
+	 *
+	 * @param integer $type
+	 */
+	public static function getFormType($type)
+	{
+		if ($type == 1 || $type == 2) {
+			return 'simple';
+		}
+		else {
+			return 'multiple';
+		}
+	}
+
+	/**
+	 * Indique si un champ donné est supprimable.
+	 *
+	 * @param integer $iFieldId
+	 * @return boolean
+	 */
+	public function isDeletable($iFieldId)
+	{
+		return !in_array($iFieldId, self::getUnDeletableFields());
+	}
+
+	/**
+	 * Indique si un champ donné est un champs par défaut.
+	 *
+	 * @param integer $iFieldId
+	 * @return boolean
+	 */
+	public function isDefaultField($iFieldId)
+	{
+		return in_array($iFieldId, self::getUnDeletableFields());
+	}
+
+	/**
+	 * Retourne la liste des ID des champs qui ne peuvent êtres supprimés.
+	 *
+	 * @return array
+	 */
+	public static function getUnDeletableFields()
+	{
+		return self::$aUnDeletableFields;
+	}
+
+	/**
+	 * Indique si un champ donné est désactivable.
+	 *
+	 * @param integer $iFieldId
+	 * @return boolean
+	 */
+	public function isDisablable($iFieldId)
+	{
+		return !in_array($iFieldId, self::getUnDisablableFields());
+	}
+
+	/**
+	 * Retourne la liste des ID des champs qui ne peuvent êtres désactivés.
+	 *
+	 * @return array
+	 */
+	public static function getUnDisablableFields()
+	{
+		return self::$aUnDisablableFields;
+	}
 }

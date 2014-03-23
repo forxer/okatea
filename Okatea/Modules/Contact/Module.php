@@ -80,6 +80,379 @@ class Module extends BaseModule
 	}
 
 	/**
+	 * Retourne les destinataires To.
+	 *
+	 * @return array
+	 */
+	public function getRecipientsTo()
+	{
+		if (empty($this->aRecipientsTo))
+		{
+			if (!empty($this->config->recipients_to)) {
+				$this->aRecipientsTo = (array)$this->config->recipients_to;
+			}
+	
+			if (empty($this->aRecipientsTo))
+			{
+				if (!empty($this->okt->config->email['name'])) {
+					$this->aRecipientsTo = array($this->okt->config->email['to'] => html::escapeHTML($this->okt->config->email['name']));
+				}
+				else {
+					$this->aRecipientsTo = array($this->okt->config->email['to']);
+				}
+			}
+		}
+	
+		return $this->aRecipientsTo;
+	}
+	
+	/**
+	 * Définit les destinataires To.
+	 *
+	 * @param array $aRecipientsTo
+	 * @return void
+	 */
+	public function setRecipientsTo($aRecipientsTo)
+	{
+		$this->aRecipientsTo = $aRecipientsTo;
+	}
+	
+	/**
+	 * Retourne les destinataires Cc.
+	 *
+	 * @return array
+	 */
+	public function getRecipientsCc()
+	{
+		if (empty($this->aRecipientsCc)) {
+			$this->aRecipientsCc = !empty($this->config->recipients_cc) ? (array)$this->config->recipients_cc : array();
+		}
+	
+		return $this->aRecipientsCc;
+	}
+	
+	/**
+	 * Définit les destinataires Cc.
+	 *
+	 * @param array $aRecipientsCc
+	 * @return void
+	 */
+	public function setRecipientsCc($aRecipientsCc)
+	{
+		$this->aRecipientsCc = $aRecipientsCc;
+	}
+	
+	/**
+	 * Retourne les destinataires Bcc.
+	 *
+	 * @return array
+	 */
+	public function getRecipientsBcc()
+	{
+		if (empty($this->aRecipientsBcc)) {
+			$this->aRecipientsBcc = !empty($this->config->recipients_bcc) ? (array)$this->config->recipients_bcc : array();
+		}
+	
+		return $this->aRecipientsBcc;
+	}
+	
+	/**
+	 * Définit les destinataires Bcc.
+	 *
+	 * @param array $aRecipientsBcc
+	 * @return void
+	 */
+	public function setRecipientsBcc($aRecipientsBcc)
+	{
+		$this->aRecipientsBcc = $aRecipientsBcc;
+	}
+	
+	/**
+	 * Retourne la valeur de FromTo.
+	 *
+	 * @return mixed
+	 */
+	public function getFromTo()
+	{
+		if (empty($this->mFromTo)) {
+			$this->setFromToFromPostedData();
+		}
+	
+		return $this->mFromTo;
+	}
+	
+	/**
+	 * Définit le FromTO.
+	 *
+	 * @param mixed $mFromTo
+	 * @return void
+	 */
+	public function setFromTo($mFromTo)
+	{
+		$this->mFromTo = $mFromTo;
+	}
+	
+	/**
+	 * Définit le FromTO en fonction des données saisies dans le formulaire.
+	 *
+	 * @return void
+	 */
+	public function setFromToFromPostedData()
+	{
+		$this->mFromTo = $this->aPostedData[4];
+	
+		if (!empty($this->aPostedData[2]))
+		{
+			if (!empty($this->aPostedData[3])) {
+				$this->mFromTo = array($this->aPostedData[4] => $this->aPostedData[3].' '.$this->aPostedData[2]);
+			}
+			else {
+				$this->mFromTo = array($this->aPostedData[4] => $this->aPostedData[2]);
+			}
+		}
+	}
+	
+	/**
+	 * Retourne la valeur de ReplyTo.
+	 *
+	 * @return mixed
+	 */
+	public function getReplyTo()
+	{
+		if (empty($this->mReplyTo)) {
+			$this->setReplyToFromPostedData();
+		}
+	
+		return $this->mReplyTo;
+	}
+	
+	/**
+	 * Définit le ReplyTo.
+	 *
+	 * @param mixed $mReplyTo
+	 * @return void
+	 */
+	public function setReplyTo($mReplyTo)
+	{
+		$this->mReplyTo = $mReplyTo;
+	}
+	
+	/**
+	 * Définit le ReplyTo en fonction des données saisies dans le formulaire.
+	 *
+	 * @return void
+	 */
+	public function setReplyToFromPostedData()
+	{
+		$this->mReplyTo = $this->aPostedData[4];
+	
+		if (!empty($this->aPostedData[2]))
+		{
+			if (!empty($this->aPostedData[3])) {
+				$this->mReplyTo = array($this->aPostedData[4] => $this->aPostedData[3].' '.$this->aPostedData[2]);
+			}
+			else {
+				$this->mReplyTo = array($this->aPostedData[4] => $this->aPostedData[2]);
+			}
+		}
+	}
+	
+	/**
+	 * Retourne le nom de l'expediteur.
+	 *
+	 * @return string
+	 */
+	public function getSenderName()
+	{
+		if (empty($this->sSenderName)) {
+			$this->setSenderNameFromPostedData();
+		}
+	
+		return (string)$this->sSenderName;
+	}
+	
+	/**
+	 * Définit le nom de l'expediteur.
+	 *
+	 * @param string $sSenderName
+	 * @return void
+	 */
+	public function setSenderName($sSenderName)
+	{
+		$this->sSenderName = (string)$sSenderName;
+	}
+	
+	/**
+	 * Définit le nom de l'expediteur en fonction des données saisies dans le formulaire.
+	 *
+	 * @return void
+	 */
+	public function setSenderNameFromPostedData()
+	{
+		$this->sSenderName = '';
+	
+		if (isset($this->aPostedData[1]))
+		{
+			switch ($this->aPostedData[1])
+			{
+				case 0:
+					$this->sSenderName .= 'Madame ';
+					break;
+	
+				case 1:
+					$this->sSenderName .= 'Mademoiselle ';
+					break;
+	
+				case 2:
+					$this->sSenderName .= 'Monsieur ';
+					break;
+			}
+		}
+	
+		if (!empty($this->aPostedData[2])) {
+			$this->sSenderName .= $this->aPostedData[2].' ';
+		}
+	
+		if (!empty($this->aPostedData[3])) {
+			$this->sSenderName .= $this->aPostedData[3];
+		}
+	}
+	
+	/**
+	 * Retourne le sujet du mail.
+	 *
+	 * @return string
+	 */
+	public function getSubject()
+	{
+		if (empty($this->sSubject)) {
+			$this->setSubjectFromPostedData();
+		}
+	
+		return (string)$this->sSubject;
+	}
+	
+	/**
+	 * Définit le sujet du mail.
+	 *
+	 * @param string $sSubject
+	 * @return void
+	 */
+	public function setSubject($sSubject)
+	{
+		$this->sSubject = (string)$sSubject;
+	}
+	
+	/**
+	 * Définit le sujet du mail en fonction des données saisies dans le formulaire.
+	 *
+	 * @return void
+	 */
+	public function setSubjectFromPostedData()
+	{
+		if (!empty($this->aPostedData[6])) {
+			$this->sSubject = html::escapeHTML($this->aPostedData[6]);
+		}
+		else {
+			$this->sSubject = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle());
+		}
+	}
+	
+	/**
+	 * Retourne le corps du mail.
+	 *
+	 * @return string
+	 */
+	public function getBody()
+	{
+		if (empty($this->sBody)) {
+			$this->setBodyFromPostedData();
+		}
+	
+		return (string)$this->sBody;
+	}
+	
+	/**
+	 * Définit le corps du mail.
+	 *
+	 * @param string $sSubject
+	 * @return void
+	 */
+	public function setBody($sBody)
+	{
+		$this->sBody = (string)$sBody;
+	}
+	
+	/**
+	 * Définit le corps du mail en fonction des données saisies dans le formulaire.
+	 *
+	 * @return void
+	 */
+	public function setBodyFromPostedData()
+	{
+		$this->sBody = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle()).
+		' ['.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.']'.PHP_EOL.PHP_EOL;
+	
+		$sSenderName = $this->getSenderName();
+		if (!empty($sSenderName)) {
+			$this->sBody .= 'Nom : '.$sSenderName.PHP_EOL;
+		}
+	
+		$this->sBody .= 'E-mail : '.$this->aPostedData[4].PHP_EOL;
+	
+		if (!empty($this->aPostedData[5])) {
+			$this->sBody .= 'Téléphone : '.$this->aPostedData[5].PHP_EOL;
+		}
+	
+		$this->sBody .= PHP_EOL.'Sujet : '.$this->getSubject().PHP_EOL;
+	
+		$this->sBody .= 'Message : '.PHP_EOL.PHP_EOL;
+		$this->sBody .= $this->aPostedData[7].PHP_EOL.PHP_EOL;
+	
+		# ajout des autres champs
+		while ($this->rsFields->fetch())
+		{
+			if ($this->isDefaultField($this->rsFields->id)) {
+				continue;
+			}
+	
+			if (!empty($this->aPostedData[$this->rsFields->id]))
+			{
+				$sFieldValue = null;
+	
+				switch ($this->rsFields->type)
+				{
+					default:
+					case 1 : # Champ texte
+					case 2 : # Zone de texte
+						$sFieldValue = $this->aPostedData[$this->rsFields->id];
+						break;
+	
+					case 3 : # Menu déroulant
+					case 4 : # Boutons radio
+					case 5 : # Cases à cocher
+						$aValues = array_filter((array)unserialize($this->rsFields->value));
+	
+						if(is_array($this->aPostedData[$this->rsFields->id])){
+							$aFieldValue = array();
+							foreach($this->aPostedData[$this->rsFields->id] as $value){
+								if(isset($aValues[$value])){
+									$aFieldValue[] = $aValues[$value];
+								}
+							}
+							$sFieldValue = implode(', ', $aFieldValue);
+						}else{
+							$sFieldValue = (isset($aValues[$this->aPostedData[$this->rsFields->id]]) ? $aValues[$this->aPostedData[$this->rsFields->id]] : '');
+						}
+						break;
+				}
+	
+				$this->sBody .= html::escapeHtml($this->rsFields->title).' : '.html::escapeHtml($sFieldValue).PHP_EOL;
+			}
+		}
+	}
+	
+	/**
 	 * Retourne l'adresse de la société pour le plan Google Map.
 	 * Si les coordonnées GPS  sont remplies, elles prennent le pas sur l'adresse complète.
 	 *

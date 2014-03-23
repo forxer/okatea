@@ -83,7 +83,7 @@ $okt->page->setButtonset('fieldsBtSt',array(
 ));
 
 # liste des champs
-$rsFields = $okt->contact->getFields(array("language" => $okt->user->language));
+$rsFields = $okt->contact->fields->getFields(array("language" => $okt->user->language));
 
 # liste des types de champs
 $aTypes = module_contact::getFieldsTypes();
