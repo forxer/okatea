@@ -12,6 +12,7 @@ $GLOBALS['okt_l10n']['m_builder_menu_config'] = 'Configuration';
 $GLOBALS['okt_l10n']['m_builder_step_start'] = 'home';
 $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'cleanup';
+$GLOBALS['okt_l10n']['m_builder_step_changelog'] = 'changelog';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'themes';
@@ -41,6 +42,9 @@ $GLOBALS['okt_l10n']['m_builder_step_config_3'] = 'In general we check the value
 $GLOBALS['okt_l10n']['m_builder_step_config_4'] = '%s must be set to %s';
 $GLOBALS['okt_l10n']['m_builder_step_config_5'] = '%s must be set to %s';
 $GLOBALS['okt_l10n']['m_builder_step_config_6'] = 'Options';
+
+$GLOBALS['okt_l10n']['m_builder_step_changelog_1'] = 'This step allows you to change the version number and date using the following suggestion: %s';
+$GLOBALS['okt_l10n']['m_builder_step_changelog_2'] = 'Where appropriate, beyond the version number, it\'s time to add things to this file.';
 
 $GLOBALS['okt_l10n']['m_builder_step_modules_1'] = 'This step will create the modules packages, and the modules repository file.';
 

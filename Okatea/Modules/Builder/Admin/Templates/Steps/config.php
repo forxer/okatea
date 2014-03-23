@@ -137,6 +137,9 @@ $okt->page->js->addScript('
 		});
 
 	');
+
+$okt->page->toggleWithLegend('options_title', 'options', array('cookie'=>'oktBuilderOptions'));
+
 ?>
 
 <form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
@@ -155,9 +158,11 @@ $okt->page->js->addScript('
 
 	<textarea id="config_editor" name="config_editor" rows="35" cols="97"><?php echo $sConfig ?></textarea>
 
-	<h3><?php _e('m_builder_step_config_6') ?></h3>
+	<h3 id="options_title"><?php _e('m_builder_step_config_6') ?></h3>
 
-	<textarea id="options_editor" name="options_editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
+	<div id="options">
+		<textarea id="options_editor" name="options_editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
+	</div>
 
 	<p><?php echo form::hidden('form_sent', 1) ?>
 	<input type="submit" value="<?php _e('c_c_next') ?>" /></p>

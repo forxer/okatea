@@ -13,6 +13,7 @@ $GLOBALS['okt_l10n']['m_builder_step_start'] = 'accueil';
 $GLOBALS['okt_l10n']['m_builder_step_version'] = 'version';
 $GLOBALS['okt_l10n']['m_builder_step_copy'] = 'copie';
 $GLOBALS['okt_l10n']['m_builder_step_cleanup'] = 'nettoyage';
+$GLOBALS['okt_l10n']['m_builder_step_changelog'] = 'changelog';
 $GLOBALS['okt_l10n']['m_builder_step_config'] = 'config';
 $GLOBALS['okt_l10n']['m_builder_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['m_builder_step_themes'] = 'thèmes';
@@ -42,6 +43,9 @@ $GLOBALS['okt_l10n']['m_builder_step_config_3'] = 'En général on vérifie les 
 $GLOBALS['okt_l10n']['m_builder_step_config_4'] = '%s doit être réglé sur %s';
 $GLOBALS['okt_l10n']['m_builder_step_config_5'] = '%s doivent être réglés sur %s';
 $GLOBALS['okt_l10n']['m_builder_step_config_6'] = 'Options';
+
+$GLOBALS['okt_l10n']['m_builder_step_changelog_1'] = 'Cette étape permet de modifier le numéro de version et la date en suivant la suggestion suivante&nbsp;: %s';
+$GLOBALS['okt_l10n']['m_builder_step_changelog_2'] = 'Le cas échéant, au delà du numéro de version, c’est le moment d’ajouter des choses à ce fichier.';
 
 $GLOBALS['okt_l10n']['m_builder_step_modules_1'] = 'Cette étape va créer les packages des modules, ainsi que le fichier du dépot de modules.';
 

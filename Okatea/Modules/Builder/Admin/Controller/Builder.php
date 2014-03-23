@@ -102,6 +102,22 @@ class Builder extends Controller
 		));
 	}
 
+	protected function changelog()
+	{
+		$sChangelog = $this->tools->getTempDir($this->okt->options->okt_dir).'/CHANGELOG';
+
+		if ($this->request->request->has('form_sent'))
+		{
+			file_put_contents($sChangelog, $this->request->request->get('changelog_editor'));
+
+			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+		}
+
+		return $this->render('Builder/Admin/Templates/Steps/changelog', array(
+			'sChangelog' 	=> file_get_contents($sChangelog)
+		));
+	}
+
 	protected function config()
 	{
 		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
