@@ -30,8 +30,8 @@ meta_keywords_map:
   fr: ''
   en: ''
   
-mail_color: '000000'
-mail_size: 12
+email_color: '000000'
+email_size: 12
 
 templates:
   contact:

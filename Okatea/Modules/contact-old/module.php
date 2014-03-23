@@ -1061,7 +1061,7 @@ class module_contact extends Module
 		imagecopyresampled($image_out, $image_in, 0,0,0,0, $dest_w, $dest_h, $width_orig, $height_orig);
 
 		# Ajout du texte dans l'image
-		$txt_color = imagecolorallocate($image_out, hexdec(substr($this->config->mail_color,0,2)), hexdec(substr($this->config->mail_color,2,2)), hexdec(substr($this->config->mail_color,4,2)));
+		$txt_color = imagecolorallocate($image_out, hexdec(substr($this->config->email_color,0,2)), hexdec(substr($this->config->email_color,2,2)), hexdec(substr($this->config->email_color,4,2)));
 		imagettftext($image_out,$size,0,0,12,$txt_color,$font,$this->okt->config->email['to']);
 
 		# Génération du src de l'image et destruction des ressources

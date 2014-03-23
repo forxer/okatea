@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 # routes
 $GLOBALS['okt_l10n']['c_a_route_name_contactPage'] = 'Page contact';
@@ -15,41 +21,6 @@ $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'L’ordre des champs a ét�
 $GLOBALS['okt_l10n']['m_contact_fields_deleted'] = 'Le champ a été supprimé.';
 $GLOBALS['okt_l10n']['m_contact_fields_add'] = 'Ajouter un champ';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'Il n’y a aucun champ pour le moment.';
-
-# config general
-$GLOBALS['okt_l10n']['m_contact_configuration'] = 'Configuration';
-$GLOBALS['okt_l10n']['m_contact_General'] = 'Général';
-$GLOBALS['okt_l10n']['m_contact_from_to_choice'] = 'Expéditeur';
-$GLOBALS['okt_l10n']['m_contact_from_to_website'] = 'Le site';
-$GLOBALS['okt_l10n']['m_contact_from_to_user'] = 'L’utilisateur';
-$GLOBALS['okt_l10n']['m_contact_Captcha'] = 'Captcha';
-$GLOBALS['okt_l10n']['m_contact_no_captcha'] = 'Il n’y a aucun captcha de disponible.';
-
-# config access map
-$GLOBALS['okt_l10n']['m_contact_activation_access_map'] = 'Activation du plan d’accès';
-$GLOBALS['okt_l10n']['m_contact_enable_access_map'] = 'Activer le plan d’accès';
-$GLOBALS['okt_l10n']['m_contact_display_access_map'] = 'Affichage du plan d’accès';
-$GLOBALS['okt_l10n']['m_contact_display_mode_access_map'] = 'Afficher le plan d’accès';
-$GLOBALS['okt_l10n']['m_contact_display_mode_link'] = 'par un lien';
-$GLOBALS['okt_l10n']['m_contact_display_mode_other_page'] = 'dans une autre page';
-$GLOBALS['okt_l10n']['m_contact_display_mode_inside'] = 'dans la page contact';
-$GLOBALS['okt_l10n']['m_contact_zoom_access_map'] = 'Niveau de zoom par défaut';
-$GLOBALS['okt_l10n']['m_contact_mode_access_map'] = 'Mode du plan d’accès';
-$GLOBALS['okt_l10n']['m_contact_mode_access_map_roadmap'] = 'Carte routière';
-$GLOBALS['okt_l10n']['m_contact_mode_access_map_satellite'] = 'Satellite';
-$GLOBALS['okt_l10n']['m_contact_mode_access_map_hybrid'] = 'Hybride (carte routière et satellite mélangée)';
-$GLOBALS['okt_l10n']['m_contact_mode_access_map_terrain'] = 'Terrain';
-
-# config templates
-$GLOBALS['okt_l10n']['m_contact_config_tab_tpl'] = 'Modèles';
-$GLOBALS['okt_l10n']['m_contact_config_tab_tpl_title'] = 'Modèles d’affichage (templates)';
-
-$GLOBALS['okt_l10n']['m_contact_config_tpl_contact'] = 'Modèles de la page contact';
-$GLOBALS['okt_l10n']['m_contact_config_tpl_map'] = 'Modèles de la page plan d’accès';
-
-# config SEO
-$GLOBALS['okt_l10n']['m_contact_seo_contact'] = 'Page contact';
-$GLOBALS['okt_l10n']['m_contact_seo_map'] = 'Page plan d’accès';
 
 # recipients
 $GLOBALS['okt_l10n']['m_contact_recipients'] = 'Destinataires';
