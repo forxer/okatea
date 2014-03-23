@@ -5,7 +5,7 @@ Contact_index:
 
 Contact_fields:
     path:     /contact/fields
-    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::page' }
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::list' }
 
 Contact_field:
     path:     /contact/field/{field_id}
