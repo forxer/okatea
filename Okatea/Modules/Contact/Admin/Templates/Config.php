@@ -115,7 +115,7 @@ $okt->page->js->addReady('
 				<?php _e('m_contact_config_enable_access_map') ?></label>
 
 				<?php if ($bGoogleMapNotEnablable) : ?>
-				<span class="note">Les <a href="configuration.php?action=site#tab_company">informations de la société</a> ne sont pas renseignées, cette fonctionnalité ne peut être activée.</span>
+				<span class="note"><?php printf(__('m_contact_config_enable_access_map_note'), $view->generateUrl('config_general')) ?></span>
 				<?php endif; ?></p>
 
 			</fieldset>

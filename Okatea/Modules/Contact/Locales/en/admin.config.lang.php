@@ -21,6 +21,7 @@ $GLOBALS['okt_l10n']['m_contact_config_email_font_size'] = 'Font size';
 $GLOBALS['okt_l10n']['m_contact_config_access_map'] = 'Access map';
 $GLOBALS['okt_l10n']['m_contact_config_activation_access_map'] = 'Activation of the access map';
 $GLOBALS['okt_l10n']['m_contact_config_enable_access_map'] = 'Activate the access map';
+$GLOBALS['okt_l10n']['m_contact_config_enable_access_map_note'] = 'The <a href="%s">information society</a> is not indicated, this feature can not be activated.';
 $GLOBALS['okt_l10n']['m_contact_config_display_access_map'] = 'Display of the access map';
 $GLOBALS['okt_l10n']['m_contact_config_display_mode_access_map'] = 'Display the access map';
 $GLOBALS['okt_l10n']['m_contact_config_display_mode_link'] = 'in a link';

@@ -21,6 +21,7 @@ $GLOBALS['okt_l10n']['m_contact_config_email_font_size'] = 'Taille des caractèr
 $GLOBALS['okt_l10n']['m_contact_config_access_map'] = 'Plan d’accès';
 $GLOBALS['okt_l10n']['m_contact_config_activation_access_map'] = 'Activation du plan d’accès';
 $GLOBALS['okt_l10n']['m_contact_config_enable_access_map'] = 'Activer le plan d’accès';
+$GLOBALS['okt_l10n']['m_contact_config_enable_access_map_note'] = 'Les <a href="%s">informations de la société</a> ne sont pas renseignées, cette fonctionnalité ne peut être activée.';
 $GLOBALS['okt_l10n']['m_contact_config_display_access_map'] = 'Affichage du plan d’accès';
 $GLOBALS['okt_l10n']['m_contact_config_display_mode_access_map'] = 'Afficher le plan d’accès';
 $GLOBALS['okt_l10n']['m_contact_config_display_mode_link'] = 'par un lien';

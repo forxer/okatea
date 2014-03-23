@@ -1039,9 +1039,9 @@ class module_contact extends Module
 
 	public function genImgMail()
 	{
-		$font = $this->okt->options->public_dir.'/fonts/OpenSans/OpenSans-Regular.ttf';
+		$font = $this->okt->options->get('public_dir').'/fonts/OpenSans/OpenSans-Regular.ttf';
 		$size = ($this->config->mail_size * 72) / 96;
-		$image_src = $this->okt->options->public_dir.'/img/misc/empty.png';
+		$image_src = $this->okt->options->get('public_dir').'/img/misc/empty.png';
 
 		# Génération de l'image de base
 		list($width_orig, $height_orig) = getimagesize($image_src);
@@ -1058,11 +1058,16 @@ class module_contact extends Module
 		$image_out = imagecreatetruecolor($dest_w, $dest_h);
 		imagealphablending($image_out, false);
 		imagesavealpha($image_out, true);
-		imagecopyresampled($image_out, $image_in, 0,0,0,0, $dest_w, $dest_h, $width_orig, $height_orig);
+		imagecopyresampled($image_out, $image_in, 0, 0, 0, 0, $dest_w, $dest_h, $width_orig, $height_orig);
 
 		# Ajout du texte dans l'image
-		$txt_color = imagecolorallocate($image_out, hexdec(substr($this->config->email_color,0,2)), hexdec(substr($this->config->email_color,2,2)), hexdec(substr($this->config->email_color,4,2)));
-		imagettftext($image_out,$size,0,0,12,$txt_color,$font,$this->okt->config->email['to']);
+		$email_color = $this->config->email_color;
+		if ($email_color[0] === '#') {
+			$email_color = substr($email_color, 1);
+		}
+
+		$txt_color = imagecolorallocate($image_out, hexdec(substr($email_color, 0, 2)), hexdec(substr($email_color, 2, 2)), hexdec(substr($email_color, 4, 2)));
+		imagettftext($image_out, $size, 0, 0, 12, $txt_color, $font, $this->okt->config->email['to']);
 
 		# Génération du src de l'image et destruction des ressources
 		ob_start();
