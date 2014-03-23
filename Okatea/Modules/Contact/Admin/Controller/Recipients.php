@@ -9,65 +9,72 @@
 namespace Okatea\Modules\Contact\Admin\Controller;
 
 use Okatea\Admin\Controller;
+use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Misc\Utilities;
 
 class Recipients extends Controller
 {
 	public function page()
 	{
-		$aRecipientsTo = !empty($okt->contact->config->recipients_to) ? $okt->contact->config->recipients_to : array();
-		$aRecipientsCc = !empty($okt->contact->config->recipients_cc) ? $okt->contact->config->recipients_cc : array();
-		$aRecipientsBcc = !empty($okt->contact->config->recipients_bcc) ? $okt->contact->config->recipients_bcc : array();
+		$aRecipientsTo = !empty($this->okt->module('Contact')->config->recipients_to) ? $this->okt->module('Contact')->config->recipients_to : array();
+		$aRecipientsCc = !empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : array();
+		$aRecipientsBcc = !empty($this->okt->module('Contact')->config->recipients_bcc) ? $this->okt->module('Contact')->config->recipients_bcc : array();
 
-		if (!empty($_POST['form_sent']))
+		if ($this->request->request->has('form_sent'))
 		{
-			$p_recipients_to = !empty($_POST['p_recipients_to']) && is_array($_POST['p_recipients_to']) ? array_unique(array_filter(array_map('trim',$_POST['p_recipients_to']))) : array();
-			$p_recipients_cc = !empty($_POST['p_recipients_cc']) && is_array($_POST['p_recipients_cc']) ? array_unique(array_filter(array_map('trim',$_POST['p_recipients_cc']))) : array();
-			$p_recipients_bcc = !empty($_POST['p_recipients_bcc']) && is_array($_POST['p_recipients_bcc']) ? array_unique(array_filter(array_map('trim',$_POST['p_recipients_bcc']))) : array();
+			$aRecipientsTo = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_to', array()))));
+			$aRecipientsCc = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_cc', array()))));
+			$aRecipientsBcc = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_bcc', array()))));
 
-			foreach ($p_recipients_to as $mail)
+			foreach ($aRecipientsTo as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
+					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
 				}
 			}
 
-			foreach ($p_recipients_cc as $mail)
+			foreach ($aRecipientsCc as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
+					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
 				}
 			}
 
-			foreach ($p_recipients_bcc as $mail)
+			foreach ($aRecipientsBcc as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), html::escapeHTML($mail));
+					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
 				}
 			}
 
-			if ($okt->error->isEmpty())
+			if ($this->okt->error->isEmpty())
 			{
 				$aNewConf = array(
-					'recipients_to' => (array)$p_recipients_to,
-					'recipients_cc' => (array)$p_recipients_cc,
-					'recipients_bcc' => (array)$p_recipients_bcc,
+					'recipients_to' => $aRecipientsTo,
+					'recipients_cc' => $aRecipientsCc,
+					'recipients_bcc' => $aRecipientsBcc,
 				);
 
 				try
 				{
-					$okt->contact->config->write($aNewConf);
+					$this->okt->module('Contact')->config->write($aNewConf);
 
-					$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					http::redirect('module.php?m=contact&action=index');
+					return $this->redirect($this->generateUrl('Contact_index'));
 				}
 				catch (InvalidArgumentException $e)
 				{
-					$okt->error->set(__('c_c_error_writing_configuration'));
-					$okt->error->set($e->getMessage());
+					$this->okt->error->set(__('c_c_error_writing_configuration'));
+					$this->okt->error->set($e->getMessage());
 				}
 			}
 		}
 
+		return $this->render('Contact/Admin/Templates/Index', array(
+			'aRecipientsTo' => $aRecipientsTo,
+			'aRecipientsCc' => $aRecipientsCc,
+			'aRecipientsBcc' => $aRecipientsBcc
+		));
 	}
 }

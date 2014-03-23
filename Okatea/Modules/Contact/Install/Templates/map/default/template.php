@@ -28,21 +28,21 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery-gmap3/gmap
 $sJsGmap3Loader =
 '$("#google_map").gmap3({
 	map: {
-		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
+		address: "'.$view->escapeJs($okt->module('Contact')->getAdressForGmap()).'",
 		options: {
 			center: true,
-			zoom: '.$view->escapeJs($okt->contact->config->google_map['options']['zoom']).',
-			mapTypeId: google.maps.MapTypeId.'.$view->escapeJs($okt->contact->config->google_map['options']['mode']).'
+			zoom: '.$view->escapeJs($okt->module('Contact')->config->google_map['options']['zoom']).',
+			mapTypeId: google.maps.MapTypeId.'.$view->escapeJs($okt->module('Contact')->config->google_map['options']['mode']).'
 		}
 	},
 //	marker: {
-//		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
+//		address: "'.$view->escapeJs($okt->module('Contact')->getAdressForGmap()).'",
 //		options:{
 //			draggable: false
 //		}
 //	},
 	infowindow:{
-		address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
+		address: "'.$view->escapeJs($okt->module('Contact')->getAdressForGmap()).'",
 		options: {
 			content: "<div id=\"infobulle\"><strong>'.$view->escapeJs((!empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])).'</strong><br/> '.
 				$view->escapeJs($okt->config->address['street']).'<br/> '.

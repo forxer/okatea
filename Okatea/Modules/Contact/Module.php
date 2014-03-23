@@ -16,8 +16,7 @@ class Module extends BaseModule
 {
 	public $config = null;
 
-	protected $t_fields;
-	protected $t_fields_locales;
+	public $fields;
 
 	protected function prepend()
 	{
@@ -28,13 +27,11 @@ class Module extends BaseModule
 			$this->okt->addPerm('contact_fields', 		__('m_contact_perm_fields'), 'contact');
 			$this->okt->addPerm('contact_config', 		__('m_contact_perm_config'), 'contact');
 
-		# tables
-		$this->t_fields = $this->db->prefix.'mod_contact_fields';
-		$this->t_fields_locales = $this->db->prefix.'mod_contact_fields_locales';
-
 		# config
 		$this->config = $this->okt->newConfig('conf_contact');
 
+		# custom fields
+		$this->fields = new Fields($this->okt);
 	}
 
 	protected function prepend_admin()
@@ -82,5 +79,72 @@ class Module extends BaseModule
 		$this->okt->page->loadCaptcha($this->config->captcha);
 	}
 
+	/**
+	 * Retourne l'adresse de la société pour le plan Google Map.
+	 * Si les coordonnées GPS  sont remplies, elles prennent le pas sur l'adresse complète.
+	 *
+	 * @return string
+	 */
+	public function getAdressForGmap()
+	{
+		if ($this->okt->config->gps['lat'] != '' && $this->okt->config->gps['long'] != '')
+		{
+			return $this->okt->config->gps['lat'].', '.$this->okt->config->gps['long'];
+		}
+		else
+		{
+			$sAdressForGmap =
+			$this->okt->config->address['street'].' '.
+			(!empty($this->okt->config->address['street_2']) ? $this->okt->config->address['street_2'].' ' : '').
+			$this->okt->config->address['code'].' '.
+			$this->okt->config->address['city'].' '.
+			$this->okt->config->address['country'];
 
+			return str_replace(',', '', $sAdressForGmap);
+		}
+	}
+
+	public function genImgMail()
+	{
+		$font = $this->okt->options->get('public_dir').'/fonts/OpenSans/OpenSans-Regular.ttf';
+		$size = ($this->config->email_size * 72) / 96;
+		$image_src = $this->okt->options->get('public_dir').'/img/misc/empty.png';
+
+		# Génération de l'image de base
+		list($width_orig, $height_orig) = getimagesize($image_src);
+		$image_in = imagecreatefrompng($image_src);
+		imagealphablending($image_in, false);
+		imagesavealpha($image_in, true);
+
+		# Calcul de l'espace que prendra le texte
+		$aParam = imageftbbox($size, 0, $font, $this->okt->config->email['to']);
+		$dest_w = $aParam[4] - $aParam[6] + 2;
+		$dest_h = $aParam[1] - $aParam[7] + 2;
+
+		# Génération de l'image final
+		$image_out = imagecreatetruecolor($dest_w, $dest_h);
+		imagealphablending($image_out, false);
+		imagesavealpha($image_out, true);
+		imagecopyresampled($image_out, $image_in, 0, 0, 0, 0, $dest_w, $dest_h, $width_orig, $height_orig);
+
+		# Ajout du texte dans l'image
+		$email_color = $this->config->email_color;
+		if ($email_color[0] === '#') {
+			$email_color = substr($email_color, 1);
+		}
+
+		$txt_color = imagecolorallocate($image_out, hexdec(substr($email_color, 0, 2)), hexdec(substr($email_color, 2, 2)), hexdec(substr($email_color, 4, 2)));
+		imagettftext($image_out, $size, 0, 0, 12, $txt_color, $font, $this->okt->config->email['to']);
+
+		# Génération du src de l'image et destruction des ressources
+		ob_start();
+		imagepng($image_out, null, 9);
+		$contenu_image = ob_get_contents();
+		ob_end_clean();
+
+		imagedestroy($image_in);
+		imagedestroy($image_out);
+
+		return "data:image/png;base64,".base64_encode($contenu_image);
+	}
 }

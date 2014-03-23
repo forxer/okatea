@@ -1,8 +1,8 @@
 
 contactPage:
     path:     /contact
-    defaults: { controller: ContactController::contactPage }  
+    defaults: { controller: Okatea\Modules\Contact\Controller::contactPage }  
 
 contactMapPage:
     path:     /map
-    defaults: { controller: ContactController::contactMapPage }
+    defaults: { controller: Okatea\Modules\Contact\Controller::contactMapPage }

@@ -16,17 +16,17 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquer
 
 <?php # début Okatea : liste des champs obligatoires pour la validation JS
 $aJsValidateRules = new ArrayObject;
-while ($okt->contact->rsFields->fetch())
+while ($okt->module('Contact')->rsFields->fetch())
 {
-	if ($okt->contact->rsFields->active == 2) {
-		$aJsValidateRules[] = $okt->contact->rsFields->html_id.': { required: true }';
+	if ($okt->module('Contact')->rsFields->active == 2) {
+		$aJsValidateRules[] = $okt->module('Contact')->rsFields->html_id.': { required: true }';
 	}
 }
 # fin Okatea : liste des champs obligatoires pour la validation JS ?>
 
 
 <?php # -- CORE TRIGGER : publicModuleContactJsValidateRules
-$okt->triggers->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->contact->config->captcha); ?>
+$okt->triggers->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->module('Contact')->config->captcha); ?>
 
 
 <?php # début Okatea : validation JS
@@ -49,7 +49,7 @@ $okt->triggers->callTrigger('publicModuleContactBeforeDisplayPage'); ?>
 
 
 <?php # début Okatea : nécessaire pour la google map
-if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google_map['display'] != 'other_page') : ?>
+if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Contact')->config->google_map['display'] != 'other_page') : ?>
 
 	<?php # début Okatea : Google Maps API
 	$okt->page->js->addFile('http://maps.google.com/maps/api/js?sensor=false');
@@ -63,15 +63,15 @@ if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google
 	$sJsGmap3Loader =
 	'$("#google_map").gmap3({
 		map: {
-			address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
+			address: "'.$view->escapeJs($okt->module('Contact')->getAdressForGmap()).'",
 			options: {
 				center: true,
-				zoom: '.$view->escapeJs($okt->contact->config->google_map['options']['zoom']).',
-				mapTypeId: google.maps.MapTypeId.'.$view->escapeJs($okt->contact->config->google_map['options']['mode']).'
+				zoom: '.$view->escapeJs($okt->module('Contact')->config->google_map['options']['zoom']).',
+				mapTypeId: google.maps.MapTypeId.'.$view->escapeJs($okt->module('Contact')->config->google_map['options']['mode']).'
 			}
 		},
 		infowindow:{
-			address: "'.$view->escapeJs($okt->contact->getAdressForGmap()).'",
+			address: "'.$view->escapeJs($okt->module('Contact')->getAdressForGmap()).'",
 			options: {
 				content: "<div id=\"infobulle\"><strong>'.$view->escapeJs((!empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])).'</strong><br/> '.
 					$view->escapeJs($okt->config->address['street']).'<br/> '.
@@ -84,12 +84,12 @@ if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google
 	# fin Okatea : Gmap3 loader ?>
 
 	<?php # début Okatea : affichage du plan dans la page
-	if ($okt->contact->config->google_map['display'] == 'inside') :
+	if ($okt->module('Contact')->config->google_map['display'] == 'inside') :
 		$okt->page->js->addReady($sJsGmap3Loader);
 	endif; # fin Okatea : affichage du plan dans la page ?>
 
 	<?php # début Okatea : affichage du plan dans UI dialog
-	if ($okt->contact->config->google_map['display'] == 'link') :
+	if ($okt->module('Contact')->config->google_map['display'] == 'link') :
 
 		# ajout jQuery UI
 		$okt->page->js->addFile($okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
@@ -147,17 +147,17 @@ if (!empty($_GET['sended'])) : ?>
 
 <?php # début Okatea : si le mail n'est PAS envoyé on affiche le formulaire
 if (empty($_GET['sended'])) : ?>
-<form action="<?php echo $view->escape(ContactHelpers::getContactUrl()) ?>" method="post" id="contact-form">
+<form action="<?php echo $view->generateUrl('contactPage') ?>" method="post" id="contact-form">
 
 	<?php # début Okatea : boucle sur les champs
-	while ($okt->contact->rsFields->fetch()) : ?>
+	while ($okt->module('Contact')->rsFields->fetch()) : ?>
 
-		<?php echo $okt->contact->rsFields->getHtmlField() ?>
+		<?php echo $okt->module('Contact')->rsFields->getHtmlField() ?>
 
 	<?php endwhile; # fin Okatea : boucle sur les champs ?>
 
 	<?php # -- CORE TRIGGER : publicModuleContactTplFormBottom
-	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt->contact->config->captcha); ?>
+	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt->module('Contact')->config->captcha); ?>
 
 	<p class="submit-wrapper"><input type="submit" value="<?php _e('m_contact_send'); ?>" name="send" id="submit-contact-form" /></p>
 
@@ -197,15 +197,15 @@ if (empty($_GET['sended'])) : ?>
 	<?php endif; # fin Okatea : affichage du numéro de fax ?>
 
 	<?php # début Okatea : affichage de l'image de l'email ?>
-	<p><strong><?php _e('m_contact_email'); ?> : </strong><img src="<?php echo $okt->contact->genImgMail(); ?>" alt="E-mail <?php echo $view->escape($okt->config->company['name']) ?>"></p>
+	<p><strong><?php _e('m_contact_email'); ?> : </strong><img src="<?php echo $okt->module('Contact')->genImgMail(); ?>" alt="E-mail <?php echo $view->escape($okt->config->company['name']) ?>"></p>
 	<?php # fin Okatea : affichage de l'image de l'email ?>
 </div>
 
 <?php # début Okatea : affichage du template de la map si le plan est à afficher dans la page contact et si le plan d'accès est activé
-if ($okt->contact->config->google_map['enable'] && $okt->contact->config->google_map['display'] != 'other_page') : ?>
+if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Contact')->config->google_map['display'] != 'other_page') : ?>
 
 	<?php # début Okatea : lien pour afficher le plan dans UI dialog
-	if ($okt->contact->config->google_map['display'] == 'link') : ?>
+	if ($okt->module('Contact')->config->google_map['display'] == 'link') : ?>
 	<p id="google_map_link_wrapper"><a id="google_map_link" href="#google_map"><?php _e('m_contact_google_map_link') ?></a></p>
 	<?php endif; # fin Okatea : lien pour afficher le plan dans UI dialog ?>
 

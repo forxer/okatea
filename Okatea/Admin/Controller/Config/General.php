@@ -9,8 +9,8 @@
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\Misc\Utilities;
 
 class General extends Controller
 {

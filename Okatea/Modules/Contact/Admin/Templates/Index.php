@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $view->extend('layout');
 
 
@@ -14,7 +16,7 @@ $okt->page->addGlobalTitle(__('m_contact_recipients'));
 
 ?>
 
-<form action="module.php" method="post">
+<form action="<?php $view->generateUrl('Contact_index') ?>" method="post">
 
 	<p><?php _e('m_contact_recipients_page_description')?></p>
 
@@ -71,9 +73,7 @@ $okt->page->addGlobalTitle(__('m_contact_recipients'));
 		<?php echo form::text(array('p_recipients_bcc[]','p_recipients_bcc_'.($line_count+1)), 60, 255) ?></p>
 
 
-	<p><?php echo form::hidden(array('m'),'contact'); ?>
-	<?php echo form::hidden(array('form_sent'), 1); ?>
-	<?php echo form::hidden(array('action'), 'index'); ?>
-	<?php echo Page::formtoken(); ?>
+	<p><?php echo form::hidden(array('form_sent'), 1); ?>
+	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
