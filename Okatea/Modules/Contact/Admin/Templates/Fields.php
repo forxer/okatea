@@ -108,31 +108,21 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 
 		</div>
 		<div class="col right">
-<!-- trois valeurs !
-			<?php if ($rsFields->active) : ?>
-			- <a href="module.php?m=contact&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
-			title="<?php printf(__('c_c_action_Disable_%s'), $view->escape($rsFields->title)) ?>"
-			class="icon tick"><?php _e('c_c_action_Disable') ?></a>
-			<?php else : ?>
-			- <a href="module.php?m=contact&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
-			title="<?php printf(__('c_c_action_Enable_%s'), $view->escape($rsFields->title)) ?>"
-			class="icon cross"><?php _e('c_c_action_Enable') ?></a>
-			<?php endif; ?>
--->
+
 			<a href="<?php echo $view->generateUrl('Contact_field', array('field_id' => $rsFields->id)) ?>"
-			title="<?php _e('m_contact_modify_field_destination') ?> <?php echo $view->escape($rsFields->title) ?>"
-			class="icon pencil"><?php _e('m_contact_modify_definition')?></a>
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_contact_fields_edit_field_definition'), $rsFields->title)) ?>"
+			class="icon pencil"><?php _e('m_contact_fields_edit_definition') ?></a>
 
 			- <a href="<?php echo $view->generateUrl('Contact_field_values', array('field_id' => $rsFields->id)) ?>"
-			title="<?php _e('m_contact_modify_field_value') ?> <?php echo $view->escape($rsFields->title) ?>"
-			class="icon paintbrush"><?php _e('m_contact_modify_value')?></a>
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_contact_fields_edit_field_values'), $rsFields->title)) ?>"
+			class="icon paintbrush"><?php _e('m_contact_fields_edit_values') ?></a>
 
 			<?php if (in_array($rsFields->id, Fields::getUnDeletableFields())) : ?>
 			- <a class="icon delete disabled"><?php _e('c_c_action_Delete') ?></a>
 			<?php else : ?>
 			- <a href="<?php echo $view->generateUrl('Contact_fields') ?>?delete=<?php echo $rsFields->id ?>"
-			onclick="return window.confirm('<?php echo $view->escapeJs(__('m_contact_confirm_field_deletion')) ?>')"
-			title="Supprimer le champ <?php echo $view->escape($rsFields->title) ?>"
+			onclick="return window.confirm('<?php echo $view->escapeJs(__('m_contact_fields_confirm_field_deletion')) ?>')"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_contact_fields_delete_field'), $rsFields->title)) ?>"
 			class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 			<?php endif; ?>
 		</div>

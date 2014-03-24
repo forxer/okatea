@@ -18,7 +18,6 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 
-		# Load locales
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
 		if (($action = $this->deleteField()) !== false) {
@@ -44,9 +43,28 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 
-		# Load locales
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
+		$aFieldData = array(
+			'active' 	=> 0,
+			'type' 		=> 1,
+			'html_id' 	=> ''
+		);
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$aFieldData['title'][$aLanguage['code']] = '';
+			$aFieldData['description'][$aLanguage['code']] = '';
+		}
+		
+		if ($this->request->request->has('form_sent'))
+		{
+			
+		}
+
+		return $this->render('Contact/Admin/Templates/addField', array(
+			'aFieldData' 	=> $aFieldData
+		));
 	}
 
 	public function fieldValues()
@@ -55,7 +73,6 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 
-		# Load locales
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
 	}
@@ -66,11 +83,9 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 
-		# Load locales
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
 	}
-
 
 	protected function deleteField()
 	{

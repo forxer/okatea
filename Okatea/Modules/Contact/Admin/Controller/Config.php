@@ -19,17 +19,14 @@ class Config extends Controller
 			return $this->serve401();
 		}
 
-		# Chargement des locales
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.config');
 
-		# Google map enablable ?
 		$bGoogleMapNotEnablable = (
 			$this->okt->config->address['street'] == '' ||
 			$this->okt->config->address['code'] == '' ||
 			$this->okt->config->address['city'] == ''
 		);
 
-		# Templates managers
 		$oTemplatesContact = new TemplatesSet($this->okt,
 			$this->okt->module('Contact')->config->templates['contact'],
 			'Contact/contact',
@@ -44,7 +41,6 @@ class Config extends Controller
 			$this->generateUrl('Contact_config').'?'
 		);
 
-		# save configuration
 		if ($this->request->request->has('form_sent'))
 		{
 			// ...

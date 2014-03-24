@@ -447,9 +447,9 @@ class Fields
 	public static function getFieldsStatuses($flip = false, $unDisablable = false)
 	{
 		$aStatus = array(
-			0 => __('m_contact_masked'),
-			1 => __('m_contact_visible'),
-			2 => __('m_contact_mandatory')
+			0 => __('m_contact_fields_status_0'),
+			1 => __('m_contact_fields_status_1'),
+			2 => __('m_contact_fields_status_2')
 		);
 
 		if ($unDisablable) {
@@ -473,9 +473,9 @@ class Fields
 	public static function getFieldsStatus($flip = false, $unDisablable = false)
 	{
 		$aStatus = array(
-			0 => __('m_contact_masked'),
-			1 => __('m_contact_visible'),
-			2 => __('m_contact_mandatory')
+			0 => __('m_contact_fields_statuses_0'),
+			1 => __('m_contact_fields_statuses_1'),
+			2 => __('m_contact_fields_statuses_2')
 		);
 
 		if ($unDisablable) {
@@ -498,11 +498,11 @@ class Fields
 	public static function getFieldsTypes($flip = false)
 	{
 		$aTypes = array(
-			1 => __('m_contact_Text_fields'),
-			2 => __('m_contact_Text_aeras'),
-			3 => __('m_contact_drop_down_menu'),
-			4 => __('m_contact_Radio_buttons'),
-			5 => __('m_contact_check_boxes')
+			1 => __('m_contact_fields_type_1'),
+			2 => __('m_contact_fields_type_2'),
+			3 => __('m_contact_fields_type_3'),
+			4 => __('m_contact_fields_type_4'),
+			5 => __('m_contact_fields_type_5')
 		);
 
 		if ($flip) {

@@ -6,23 +6,47 @@
  * file that was distributed with this source code.
  */
 
-# fields
 $GLOBALS['okt_l10n']['m_contact_fields'] = 'Fields';
 $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'The order of fields was updated.';
 $GLOBALS['okt_l10n']['m_contact_fields_field_deleted'] = 'The field was deleted.';
 $GLOBALS['okt_l10n']['m_contact_fields_add_field'] = 'Add a field';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'There is no field for the moment.';
 
-# fields
+$GLOBALS['okt_l10n']['m_contact_fields_edit_definition'] = 'Edit definition';
+$GLOBALS['okt_l10n']['m_contact_fields_edit_field_definition'] = 'Edit the field "%s" definition';
+
+$GLOBALS['okt_l10n']['m_contact_fields_edit_values'] = 'Edit value(s)';
+$GLOBALS['okt_l10n']['m_contact_fields_edit_field_values'] = 'Edit field "%s" values';
+
+$GLOBALS['okt_l10n']['m_contact_fields_delete_field'] = 'Remove field "%s"';
+$GLOBALS['okt_l10n']['m_contact_fields_confirm_field_deletion'] = 'Are you sure to want to delete this field? This action is irreversible.';
+
+$GLOBALS['okt_l10n']['m_contact_fields_status_0'] = 'masked';
+$GLOBALS['okt_l10n']['m_contact_fields_status_1'] = 'visible';
+$GLOBALS['okt_l10n']['m_contact_fields_status_2'] = 'mandatory';
+
+$GLOBALS['okt_l10n']['m_contact_fields_statuses_0'] = 'masked';
+$GLOBALS['okt_l10n']['m_contact_fields_statuses_1'] = 'visible';
+$GLOBALS['okt_l10n']['m_contact_fields_statuses_2'] = 'mandatory';
+
+$GLOBALS['okt_l10n']['m_contact_fields_type_1'] = 'Text fields';
+$GLOBALS['okt_l10n']['m_contact_fields_type_2'] = 'Text areas';
+$GLOBALS['okt_l10n']['m_contact_fields_type_3'] = 'Drop down menu';
+$GLOBALS['okt_l10n']['m_contact_fields_type_4'] = 'Radio buttons';
+$GLOBALS['okt_l10n']['m_contact_fields_type_5'] = 'Checkboxes';
+
+$GLOBALS['okt_l10n']['m_contact_field_title'] = 'Field title';
+$GLOBALS['okt_l10n']['m_contact_field_title_in_%s'] = 'Field title in %s';
+$GLOBALS['okt_l10n']['m_contact_field_html_id'] = 'HTML identifier';
+$GLOBALS['okt_l10n']['m_contact_field_type'] = 'Field type';
+$GLOBALS['okt_l10n']['m_contact_field_status'] = 'Field status';
+$GLOBALS['okt_l10n']['m_contact_field_description'] = 'Field description';
+$GLOBALS['okt_l10n']['m_contact_field_description_in_%s'] = 'Field description in %s';
+
+
+
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'Empty ID HTML';
-$GLOBALS['okt_l10n']['m_contact_masked'] = 'masked';
-$GLOBALS['okt_l10n']['m_contact_visible'] = 'visible';
-$GLOBALS['okt_l10n']['m_contact_mandatory'] = 'mandatory';
-$GLOBALS['okt_l10n']['m_contact_Text_fields'] = 'Text fields';
-$GLOBALS['okt_l10n']['m_contact_Text_aeras'] = 'Text areas';
-$GLOBALS['okt_l10n']['m_contact_drop_down_menu'] = 'Drop down menu';
-$GLOBALS['okt_l10n']['m_contact_Radio_buttons'] = 'Radio buttons';
-$GLOBALS['okt_l10n']['m_contact_check_boxes'] = 'Checkboxes';
+
 $GLOBALS['okt_l10n']['m_contact_modify_field_destination'] = 'Modify the definition of the field';
 $GLOBALS['okt_l10n']['m_contact_modify_definition'] = 'Modify definition';
 $GLOBALS['okt_l10n']['m_contact_modify_value'] = 'Modify value(s)';

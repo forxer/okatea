@@ -11,6 +11,7 @@ namespace Okatea\Modules\Contact;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
+use Okatea\Tao\Html\Escaper;
 
 class Module extends BaseModule
 {
@@ -60,7 +61,7 @@ class Module extends BaseModule
 				$this->okt->page->contactSubMenu->add(
 					__('m_contact_menu_fields'),
 					$this->okt->adminRouter->generate('Contact_fields'),
-					in_array($this->okt->request->attributes->get('_route'), array('Contact_fields', 'Contact_field')),
+					in_array($this->okt->request->attributes->get('_route'), array('Contact_fields', 'Contact_field_add', 'Contact_field_values', 'Contact_field')),
 					20,
 					$this->okt->checkPerm('contact_usage') && $this->okt->checkPerm('contact_fields')
 				);
@@ -91,21 +92,21 @@ class Module extends BaseModule
 			if (!empty($this->config->recipients_to)) {
 				$this->aRecipientsTo = (array)$this->config->recipients_to;
 			}
-	
+
 			if (empty($this->aRecipientsTo))
 			{
 				if (!empty($this->okt->config->email['name'])) {
-					$this->aRecipientsTo = array($this->okt->config->email['to'] => html::escapeHTML($this->okt->config->email['name']));
+					$this->aRecipientsTo = array($this->okt->config->email['to'] => Escaper::html($this->okt->config->email['name']));
 				}
 				else {
 					$this->aRecipientsTo = array($this->okt->config->email['to']);
 				}
 			}
 		}
-	
+
 		return $this->aRecipientsTo;
 	}
-	
+
 	/**
 	 * Définit les destinataires To.
 	 *
@@ -116,7 +117,7 @@ class Module extends BaseModule
 	{
 		$this->aRecipientsTo = $aRecipientsTo;
 	}
-	
+
 	/**
 	 * Retourne les destinataires Cc.
 	 *
@@ -127,10 +128,10 @@ class Module extends BaseModule
 		if (empty($this->aRecipientsCc)) {
 			$this->aRecipientsCc = !empty($this->config->recipients_cc) ? (array)$this->config->recipients_cc : array();
 		}
-	
+
 		return $this->aRecipientsCc;
 	}
-	
+
 	/**
 	 * Définit les destinataires Cc.
 	 *
@@ -141,7 +142,7 @@ class Module extends BaseModule
 	{
 		$this->aRecipientsCc = $aRecipientsCc;
 	}
-	
+
 	/**
 	 * Retourne les destinataires Bcc.
 	 *
@@ -152,10 +153,10 @@ class Module extends BaseModule
 		if (empty($this->aRecipientsBcc)) {
 			$this->aRecipientsBcc = !empty($this->config->recipients_bcc) ? (array)$this->config->recipients_bcc : array();
 		}
-	
+
 		return $this->aRecipientsBcc;
 	}
-	
+
 	/**
 	 * Définit les destinataires Bcc.
 	 *
@@ -166,7 +167,7 @@ class Module extends BaseModule
 	{
 		$this->aRecipientsBcc = $aRecipientsBcc;
 	}
-	
+
 	/**
 	 * Retourne la valeur de FromTo.
 	 *
@@ -177,10 +178,10 @@ class Module extends BaseModule
 		if (empty($this->mFromTo)) {
 			$this->setFromToFromPostedData();
 		}
-	
+
 		return $this->mFromTo;
 	}
-	
+
 	/**
 	 * Définit le FromTO.
 	 *
@@ -191,7 +192,7 @@ class Module extends BaseModule
 	{
 		$this->mFromTo = $mFromTo;
 	}
-	
+
 	/**
 	 * Définit le FromTO en fonction des données saisies dans le formulaire.
 	 *
@@ -200,7 +201,7 @@ class Module extends BaseModule
 	public function setFromToFromPostedData()
 	{
 		$this->mFromTo = $this->aPostedData[4];
-	
+
 		if (!empty($this->aPostedData[2]))
 		{
 			if (!empty($this->aPostedData[3])) {
@@ -211,7 +212,7 @@ class Module extends BaseModule
 			}
 		}
 	}
-	
+
 	/**
 	 * Retourne la valeur de ReplyTo.
 	 *
@@ -222,10 +223,10 @@ class Module extends BaseModule
 		if (empty($this->mReplyTo)) {
 			$this->setReplyToFromPostedData();
 		}
-	
+
 		return $this->mReplyTo;
 	}
-	
+
 	/**
 	 * Définit le ReplyTo.
 	 *
@@ -236,7 +237,7 @@ class Module extends BaseModule
 	{
 		$this->mReplyTo = $mReplyTo;
 	}
-	
+
 	/**
 	 * Définit le ReplyTo en fonction des données saisies dans le formulaire.
 	 *
@@ -245,7 +246,7 @@ class Module extends BaseModule
 	public function setReplyToFromPostedData()
 	{
 		$this->mReplyTo = $this->aPostedData[4];
-	
+
 		if (!empty($this->aPostedData[2]))
 		{
 			if (!empty($this->aPostedData[3])) {
@@ -256,7 +257,7 @@ class Module extends BaseModule
 			}
 		}
 	}
-	
+
 	/**
 	 * Retourne le nom de l'expediteur.
 	 *
@@ -267,10 +268,10 @@ class Module extends BaseModule
 		if (empty($this->sSenderName)) {
 			$this->setSenderNameFromPostedData();
 		}
-	
+
 		return (string)$this->sSenderName;
 	}
-	
+
 	/**
 	 * Définit le nom de l'expediteur.
 	 *
@@ -281,7 +282,7 @@ class Module extends BaseModule
 	{
 		$this->sSenderName = (string)$sSenderName;
 	}
-	
+
 	/**
 	 * Définit le nom de l'expediteur en fonction des données saisies dans le formulaire.
 	 *
@@ -290,7 +291,7 @@ class Module extends BaseModule
 	public function setSenderNameFromPostedData()
 	{
 		$this->sSenderName = '';
-	
+
 		if (isset($this->aPostedData[1]))
 		{
 			switch ($this->aPostedData[1])
@@ -298,26 +299,26 @@ class Module extends BaseModule
 				case 0:
 					$this->sSenderName .= 'Madame ';
 					break;
-	
+
 				case 1:
 					$this->sSenderName .= 'Mademoiselle ';
 					break;
-	
+
 				case 2:
 					$this->sSenderName .= 'Monsieur ';
 					break;
 			}
 		}
-	
+
 		if (!empty($this->aPostedData[2])) {
 			$this->sSenderName .= $this->aPostedData[2].' ';
 		}
-	
+
 		if (!empty($this->aPostedData[3])) {
 			$this->sSenderName .= $this->aPostedData[3];
 		}
 	}
-	
+
 	/**
 	 * Retourne le sujet du mail.
 	 *
@@ -328,10 +329,10 @@ class Module extends BaseModule
 		if (empty($this->sSubject)) {
 			$this->setSubjectFromPostedData();
 		}
-	
+
 		return (string)$this->sSubject;
 	}
-	
+
 	/**
 	 * Définit le sujet du mail.
 	 *
@@ -342,7 +343,7 @@ class Module extends BaseModule
 	{
 		$this->sSubject = (string)$sSubject;
 	}
-	
+
 	/**
 	 * Définit le sujet du mail en fonction des données saisies dans le formulaire.
 	 *
@@ -351,13 +352,13 @@ class Module extends BaseModule
 	public function setSubjectFromPostedData()
 	{
 		if (!empty($this->aPostedData[6])) {
-			$this->sSubject = html::escapeHTML($this->aPostedData[6]);
+			$this->sSubject = Escaper::html($this->aPostedData[6]);
 		}
 		else {
-			$this->sSubject = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle());
+			$this->sSubject = 'Contact depuis le site internet '.Escaper::html($this->okt->page->getSiteTitle());
 		}
 	}
-	
+
 	/**
 	 * Retourne le corps du mail.
 	 *
@@ -368,10 +369,10 @@ class Module extends BaseModule
 		if (empty($this->sBody)) {
 			$this->setBodyFromPostedData();
 		}
-	
+
 		return (string)$this->sBody;
 	}
-	
+
 	/**
 	 * Définit le corps du mail.
 	 *
@@ -382,7 +383,7 @@ class Module extends BaseModule
 	{
 		$this->sBody = (string)$sBody;
 	}
-	
+
 	/**
 	 * Définit le corps du mail en fonction des données saisies dans le formulaire.
 	 *
@@ -390,36 +391,36 @@ class Module extends BaseModule
 	 */
 	public function setBodyFromPostedData()
 	{
-		$this->sBody = 'Contact depuis le site internet '.html::escapeHTML($this->okt->page->getSiteTitle()).
+		$this->sBody = 'Contact depuis le site internet '.Escaper::html($this->okt->page->getSiteTitle()).
 		' ['.$this->okt->request->getSchemeAndHttpHost().$this->okt->config->app_path.']'.PHP_EOL.PHP_EOL;
-	
+
 		$sSenderName = $this->getSenderName();
 		if (!empty($sSenderName)) {
 			$this->sBody .= 'Nom : '.$sSenderName.PHP_EOL;
 		}
-	
+
 		$this->sBody .= 'E-mail : '.$this->aPostedData[4].PHP_EOL;
-	
+
 		if (!empty($this->aPostedData[5])) {
 			$this->sBody .= 'Téléphone : '.$this->aPostedData[5].PHP_EOL;
 		}
-	
+
 		$this->sBody .= PHP_EOL.'Sujet : '.$this->getSubject().PHP_EOL;
-	
+
 		$this->sBody .= 'Message : '.PHP_EOL.PHP_EOL;
 		$this->sBody .= $this->aPostedData[7].PHP_EOL.PHP_EOL;
-	
+
 		# ajout des autres champs
 		while ($this->rsFields->fetch())
 		{
 			if ($this->isDefaultField($this->rsFields->id)) {
 				continue;
 			}
-	
+
 			if (!empty($this->aPostedData[$this->rsFields->id]))
 			{
 				$sFieldValue = null;
-	
+
 				switch ($this->rsFields->type)
 				{
 					default:
@@ -427,12 +428,12 @@ class Module extends BaseModule
 					case 2 : # Zone de texte
 						$sFieldValue = $this->aPostedData[$this->rsFields->id];
 						break;
-	
+
 					case 3 : # Menu déroulant
 					case 4 : # Boutons radio
 					case 5 : # Cases à cocher
 						$aValues = array_filter((array)unserialize($this->rsFields->value));
-	
+
 						if(is_array($this->aPostedData[$this->rsFields->id])){
 							$aFieldValue = array();
 							foreach($this->aPostedData[$this->rsFields->id] as $value){
@@ -446,12 +447,12 @@ class Module extends BaseModule
 						}
 						break;
 				}
-	
-				$this->sBody .= html::escapeHtml($this->rsFields->title).' : '.html::escapeHtml($sFieldValue).PHP_EOL;
+
+				$this->sBody .= Escaper::html($this->rsFields->title).' : '.Escaper::html($sFieldValue).PHP_EOL;
 			}
 		}
 	}
-	
+
 	/**
 	 * Retourne l'adresse de la société pour le plan Google Map.
 	 * Si les coordonnées GPS  sont remplies, elles prennent le pas sur l'adresse complète.
