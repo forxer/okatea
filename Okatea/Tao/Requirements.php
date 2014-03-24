@@ -12,8 +12,6 @@ use Okatea\Tao\Html\Checklister;
 
 class Requirements
 {
-	const PHP_VERSION = '5.4.0';
-
 	/**
 	 * Okatea application instance.
 	 * @var object Okatea\Tao\Application
@@ -54,11 +52,13 @@ class Requirements
 		----------------------------------------------------------*/
 
 		# Vérification de la version PHP
+		$sPhpVersionRequired = require $this->okt->options->okt_dir.'/php_version_required.php';
+
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'php_version',
-			'test' 		=> version_compare(PHP_VERSION, self::PHP_VERSION, '>='),
+			'test' 		=> version_compare(PHP_VERSION, $sPhpVersionRequired, '>='),
 			'msg_ok'	=> sprintf(__('pr_php_version_ok'), PHP_VERSION),
-			'msg_ko'	=> sprintf(__('pr_php_version_ko'), PHP_VERSION, self::PHP_VERSION)
+			'msg_ko'	=> sprintf(__('pr_php_version_ko'), PHP_VERSION, $sPhpVersionRequired)
 		);
 
 		# Vérification de la présence des fonctions MySQLi
