@@ -592,7 +592,7 @@ class Update
 			return false;
 		}
 
-		foreach (new \DirectoryIterator($okt->options->inc_dir.'/Install/schema/') as $oFileInfo)
+		foreach (new \DirectoryIterator($okt->options->inc_dir.'/Install/SqlSchema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;

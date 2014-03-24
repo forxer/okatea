@@ -20,7 +20,7 @@ class Database extends Controller
 
 		$oChecklist = new Checklister();
 
-		foreach (new \DirectoryIterator($this->okt->options->get('okt_dir').'/Install/schema/') as $oFileInfo)
+		foreach (new \DirectoryIterator($this->okt->options->get('okt_dir').'/Install/SqlSchema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;
