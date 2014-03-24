@@ -16,7 +16,11 @@ class Groups extends Controller
 {
 	public function index()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('users_groups')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
 		if ($this->okt->request->query->has('delete_id'))
 		{
@@ -49,7 +53,11 @@ class Groups extends Controller
 
 	public function add()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('users_groups')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
 		$title = '';
 
@@ -86,7 +94,11 @@ class Groups extends Controller
 
 	public function edit()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('users_groups')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
 		$iGroupId = $this->request->attributes->getInt('group_id');
 
@@ -128,14 +140,5 @@ class Groups extends Controller
 			'aPerms'         => $rsGroup->perms ? json_decode($rsGroup->perms) : array(),
 			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
-	}
-
-	protected function init()
-	{
-		if (!$this->okt->checkPerm('users_groups')) {
-			return $this->serve401();
-		}
-
-		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 	}
 }

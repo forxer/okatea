@@ -15,7 +15,11 @@ class L10n extends Controller
 {
 	public function index()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('languages')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/l10n');
 
 		if (($action = $this->enableLanguage()) !== false) {
 			return $action;
@@ -61,7 +65,11 @@ class L10n extends Controller
 
 	public function edit()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('languages')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/l10n');
 
 		$iLanguageId = $this->request->attributes->getInt('language_id');
 
@@ -103,7 +111,11 @@ class L10n extends Controller
 
 	public function add()
 	{
-		$this->init();
+		if (!$this->okt->checkPerm('languages')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/l10n');
 
 		$aAddLanguageData = array(
 			'language' 	=> '',
@@ -167,15 +179,6 @@ class L10n extends Controller
 			'aCountryList' => $aCountryList,
 			'aFlags' => $this->getIconsList()
 		));
-	}
-
-	protected function init()
-	{
-		if (!$this->okt->checkPerm('languages')) {
-			return $this->serve401();
-		}
-
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/l10n');
 	}
 
 	protected function getIconsList()
