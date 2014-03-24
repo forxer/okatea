@@ -340,7 +340,7 @@ class Fields
 	 * @param integer $iFieldId
 	 * @return boolean
 	 */
-	public function delField($iFieldId)
+	public function deleteField($iFieldId)
 	{
 		if (!$this->fieldExists($iFieldId)) {
 			return false;
