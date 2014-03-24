@@ -68,6 +68,8 @@ $GLOBALS['okt_l10n']['c_a_users_delete_the_group_%s'] = 'Delete the group %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_group_deletion'] = 'Are you sure you want to delete this group? This action is irreversible.';
 $GLOBALS['okt_l10n']['c_a_users_groups_definition'] = 'Definition';
 $GLOBALS['okt_l10n']['c_a_users_groups_permissions'] = 'Permissions';
+$GLOBALS['okt_l10n']['c_a_users_groups_title'] = 'Group title';
+$GLOBALS['okt_l10n']['c_a_users_groups_title_in_%s'] = 'Group title in %s';
 $GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_sudo'] = 'The %s group (%s) has all permissions.';
 $GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_guest'] = 'The %s group (%s) may have no permission.';
 

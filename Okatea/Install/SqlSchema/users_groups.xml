@@ -12,22 +12,52 @@
 
 		CREATE TABLE `{{PREFIX}}core_users_groups` (
 			`group_id` 			SERIAL,
-			`title` 			VARCHAR(255) 			NOT NULL DEFAULT '',
 			`perms` 			TEXT 					NULL,
 
 			PRIMARY KEY (`group_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
+	<!-- core_users_groups_locales -->
+	<action id="core_users_groups_locales" label="Create table %s" string="{{PREFIX}}core_users_groups_locales">
+		<test eq="neq" value="{{PREFIX}}core_users_groups_locales" label="Table %s exists" type="wrn"
+		string="{{PREFIX}}core_users_groups_locales">SHOW TABLES LIKE '{{PREFIX}}core_users_groups_locales'</test>
+
+		CREATE TABLE `{{PREFIX}}core_users_groups_locales` (
+			`group_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
+			`language` 			CHAR(5) 					NOT NULL,
+
+			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
+
+			PRIMARY KEY (`group_id`,`language`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+	</action>
+
 	<!-- default core_users_groups -->
 	<action id="firstusersgroups" label="Creation des premiers groupes utilisateurs" process="install">
 		INSERT INTO `{{PREFIX}}core_users_groups`
-			(`group_id`, `title`, `perms`)
+			(`group_id`, `perms`)
 		VALUES
-			(1, 'Super-administrateur', NULL),
-			(2, 'Administrateur', '["usage","configsite"]'),
-			(3, 'Invité', NULL),
-			(4, 'Membre', NULL) ;
+			(1, NULL),
+			(2, '["usage","configsite"]'),
+			(3, NULL),
+			(4, NULL)
+		;
+	</action>
+
+	<action id="firstusersgroupslocales" label="Creation des locales des premiers groupes utilisateurs" process="install">
+		INSERT INTO `{{PREFIX}}core_users_groups_locales`
+			(`group_id`, `language`, `title`)
+		VALUES
+			(1, 'fr', 'Super-administrateur'),
+			(1, 'en', 'Super-administrator'),
+			(2, 'fr', 'Administrateur'),
+			(2, 'en', 'Administrator'),
+			(3, 'fr', 'Invité'),
+			(3, 'en', 'Guest'),
+			(4, 'fr', 'Membre'),
+			(4, 'en', 'Member')
+		;
 	</action>
 
 

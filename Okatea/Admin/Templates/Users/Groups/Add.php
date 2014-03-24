@@ -33,11 +33,16 @@ $okt->page->setButtonset('usersGroups', array(
 # Tabs
 $okt->page->tabs();
 
+# Lang switcher
+if (!$okt->languages->unique) {
+	$okt->page->langSwitcher('#group-form', '.lang-switcher-buttons');
+}
+
 ?>
 
 <?php echo $okt->page->getButtonSet('usersGroups'); ?>
 
-<form action="<?php echo $view->generateUrl('Users_groups_add') ?>" method="post">
+<form action="<?php echo $view->generateUrl('Users_groups_add') ?>" method="post" id="group-form">
 	<div id="tabered">
 		<ul>
 			<li><a href="#tab-definition"><span><?php _e('c_a_users_groups_definition') ?></span></a></li>
@@ -47,8 +52,10 @@ $okt->page->tabs();
 		<div id="tab-definition">
 			<h3><?php _e('c_a_users_groups_definition') ?></h3>
 
-			<p class="field"><label for="title" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Title') ?></label>
-			<?php echo form::text('title', 40, 255, $view->escape($title)) ?></p>
+		<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_users_groups_title') : printf(__('c_a_users_groups_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, $view->escape($aGroupData['locales'][$aLanguage['code']]['title'])) ?></p>
+		<?php endforeach; ?>
 		</div><!-- #tab-definition -->
 
 		<div id="tab-permissions">

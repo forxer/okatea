@@ -36,16 +36,22 @@ class Authentification
 	protected $oError;
 
 	/**
-	 * Le nom de la table users.
+	 * Core users table.
 	 * @var string
 	 */
-	protected $t_users;
+	protected $sUsersTable;
 
 	/**
-	 * Le nom de la table groups.
+	 * Core users groups table.
 	 * @var string
 	 */
-	protected $t_groups;
+	protected $sGroupsTable;
+
+	/**
+	 * Core users groups locales table.
+	 * @var string
+	 */
+	protected $sGroupsL10nTable;
 
 	/**
 	 * Le nom du cookie d'authentification.
@@ -118,8 +124,9 @@ class Authentification
 		$this->oDb = $okt->db;
 		$this->oError = $okt->error;
 
-		$this->t_users = $this->oDb->prefix.'core_users';
-		$this->t_groups = $this->oDb->prefix.'core_users_groups';
+		$this->sUsersTable = $this->oDb->prefix.'core_users';
+		$this->sGroupsTable = $this->oDb->prefix.'core_users_groups';
+		$this->sGroupsL10nTable = $this->oDb->prefix.'core_users_groups_locales';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
@@ -247,8 +254,8 @@ class Authentification
 	{
 		$sQuery =
 		'SELECT u.*, g.* '.
-		'FROM '.$this->t_users.' AS u '.
-			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
+		'FROM '.$this->sUsersTable.' AS u '.
+			'INNER JOIN '.$this->sGroupsTable.' AS g ON g.group_id=u.group_id '.
 		'WHERE u.status = 1 AND ';
 
 		if (Utilities::isInt($mUser)) {
@@ -282,8 +289,8 @@ class Authentification
 		# Fetch guest user
 		$sQuery =
 		'SELECT u.*, g.* '.
-		'FROM '.$this->t_users.' AS u '.
-			'INNER JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
+		'FROM '.$this->sUsersTable.' AS u '.
+			'INNER JOIN '.$this->sGroupsTable.' AS g ON g.group_id=u.group_id '.
 		'WHERE u.id=1';
 
 		if (($rs = $this->oDb->select($sQuery)) === false) {
@@ -316,7 +323,7 @@ class Authentification
 	{
 		$sQuery =
 		'SELECT id, group_id, password '.
-			'FROM '.$this->t_users.' '.
+			'FROM '.$this->sUsersTable.' '.
 		'WHERE username=\''.$this->oDb->escapeStr($sUsername).'\' ';
 
 		if (($rs = $this->oDb->select($sQuery)) === false) {
@@ -340,7 +347,7 @@ class Authentification
 			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
 
 			$sQuery =
-			'UPDATE '.$this->t_users.' SET '.
+			'UPDATE '.$this->sUsersTable.' SET '.
 				'password=\''.$this->oDb->escapeStr($sPasswordHash).'\' '.
 			'WHERE id='.$rs->id;
 
@@ -385,7 +392,7 @@ class Authentification
 		if ($this->infos->f('logged') != '')
 		{
 			$sQuery =
-			'UPDATE '.$this->t_users.' SET '.
+			'UPDATE '.$this->sUsersTable.' SET '.
 			'last_visit='.$this->infos->f('logged').' '.
 			'WHERE id='.$this->infos->f('id');
 
@@ -450,7 +457,7 @@ class Authentification
 		if (!$this->infos->f('is_guest'))
 		{
 			$sQuery =
-			'UPDATE '.$this->t_users.' SET '.
+			'UPDATE '.$this->sUsersTable.' SET '.
 				'language=\''.$this->oDb->escapeStr($sLanguage).'\' '.
 			'WHERE id='.(integer)$this->infos->f('id');
 

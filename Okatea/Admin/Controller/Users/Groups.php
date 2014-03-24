@@ -34,20 +34,22 @@ class Groups extends Controller
 			}
 		}
 
-		$aParams = array();
+		$aParams = array(
+			'language' => $this->okt->user->language
+		);
 
 		if (!$this->okt->user->is_superadmin) {
-			$aparams['group_id_not'][] = UsersGroups::SUPERADMIN;
+			$aParams['group_id_not'][] = UsersGroups::SUPERADMIN;
 		}
 
 		if (!$this->okt->user->is_admin) {
-			$aparams['group_id_not'][] = UsersGroups::ADMIN;
+			$aParams['group_id_not'][] = UsersGroups::ADMIN;
 		}
 
 		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
 
 		return $this->render('Users/Groups/Index', array(
-			'rsGroups'       => $rsGroups
+			'rsGroups' 	=> $rsGroups
 		));
 	}
 
@@ -59,25 +61,37 @@ class Groups extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
-		$title = '';
+		$aGroupData = new \ArrayObject();
+
+		$aGroupData['locales'] = array();
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$aGroupData['locales'][$aLanguage['code']] = array();
+
+			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
+		}
+
+		$aGroupData['perms'] = array();
 
 		if ($this->okt->request->request->has('form_sent'))
 		{
-			$title = $this->okt->request->request->get('title');
+			foreach ($this->okt->languages->list as $aLanguage)
+			{
+				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
 
-			$aPerms = array();
-			if ($this->okt->request->request->has('perms')) {
-				$aPerms = array_keys($this->okt->request->request->get('perms'));
+				if (empty($aGroupData['locales'][$aLanguage['code']]['title'])) {
+					$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+				}
 			}
 
-			if (empty($title)) {
-				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+			if ($this->okt->request->request->has('perms')) {
+				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
 			if ($this->okt->error->isEmpty())
 			{
-				if (($iGroupId = $this->okt->getGroups()->addGroup($title)) !== false
-					&& $this->okt->getGroups()->updGroupPerms($iGroupId, $aPerms))
+				if (($iGroupId = $this->okt->getGroups()->addGroup($aGroupData)) !== false)
 				{
 					$this->okt->page->flash->success(__('c_a_users_group_added'));
 
@@ -87,7 +101,7 @@ class Groups extends Controller
 		}
 
 		return $this->render('Users/Groups/Add', array(
-			'title'          => $title,
+			'aGroupData'     => $aGroupData,
 			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
 	}
@@ -108,7 +122,25 @@ class Groups extends Controller
 
 		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
 
-		$title = $rsGroup->title;
+
+
+
+		$aGroupData = new \ArrayObject();
+
+		$aGroupData['locales'] = array();
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$aGroupData['locales'][$aLanguage['code']] = array();
+
+			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
+		}
+
+		$aGroupData['perms'] = array();
+
+
+
+
 
 		if ($this->okt->request->request->has('form_sent'))
 		{

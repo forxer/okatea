@@ -25,7 +25,7 @@ class Permissions extends Controller
 		$aGroups = array();
 		$aPerms = array();
 
-		$aparams = array(
+		$aParams = array(
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::GUEST
@@ -33,10 +33,10 @@ class Permissions extends Controller
 		);
 
 		if (!$this->okt->user->is_superadmin) {
-			$aparams['group_id_not'][] = Groups::ADMIN;
+			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $this->okt->getGroups()->getGroups($aparams);
+		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
 
 		while ($rsGroups->fetch())
 		{

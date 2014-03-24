@@ -26,34 +26,41 @@ class Users
 	 * The database manager instance.
 	 * @var object
 	 */
-	protected $db;
+	protected $oDb;
 
 	/**
 	 * The errors manager instance.
 	 * @var object
 	 */
-	protected $error;
+	protected $oError;
 
 	/**
-	 * Core users table
+	 * Core users table.
 	 * @var string
 	 */
-	protected $t_users;
+	protected $sUsersTable;
 
 	/**
-	 * Core users groups table
+	 * Core users groups table.
 	 * @var string
 	 */
-	protected $t_groups;
+	protected $sGroupsTable;
+
+	/**
+	 * Core users groups locales table.
+	 * @var string
+	 */
+	protected $sGroupsL10nTable;
 
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
+		$this->oDb = $okt->db;
+		$this->oError = $okt->error;
 
-		$this->t_users = $this->db->prefix.'core_users';
-		$this->t_groups = $this->db->prefix.'core_users_groups';
+		$this->sUsersTable = $this->oDb->prefix.'core_users';
+		$this->sGroupsTable = $this->oDb->prefix.'core_users_groups';
+		$this->sGroupsL10nTable = $this->oDb->prefix.'core_users_groups_locales';
 	}
 
 
@@ -74,11 +81,11 @@ class Users
 		}
 
 		if (!empty($aParams['username'])) {
-			$sReqPlus .= 'AND u.username=\''.$this->db->escapeStr($aParams['username']).'\' ';
+			$sReqPlus .= 'AND u.username=\''.$this->oDb->escapeStr($aParams['username']).'\' ';
 		}
 
 		if (!empty($aParams['email'])) {
-			$sReqPlus .= 'AND u.email=\''.$this->db->escapeStr($aParams['email']).'\' ';
+			$sReqPlus .= 'AND u.email=\''.$this->oDb->escapeStr($aParams['email']).'\' ';
 		}
 
 		if (isset($aParams['status']))
@@ -127,10 +134,10 @@ class Users
 				foreach ($aWords as $i=>$w)
 				{
 					$aWords[$i] =
-					'u.username LIKE \'%'.$this->db->escapeStr($w).'%\' OR '.
-					'u.lastname LIKE \'%'.$this->db->escapeStr($w).'%\' OR '.
-					'u.firstname LIKE \'%'.$this->db->escapeStr($w).'%\' OR '.
-					'u.email LIKE \'%'.$this->db->escapeStr($w).'%\' ';
+					'u.username LIKE \'%'.$this->oDb->escapeStr($w).'%\' OR '.
+					'u.lastname LIKE \'%'.$this->oDb->escapeStr($w).'%\' OR '.
+					'u.firstname LIKE \'%'.$this->oDb->escapeStr($w).'%\' OR '.
+					'u.email LIKE \'%'.$this->oDb->escapeStr($w).'%\' ';
 				}
 				$sReqPlus .= ' AND '.implode(' AND ',$aWords).' ';
 			}
@@ -140,15 +147,15 @@ class Users
 		{
 			$sQuery =
 			'SELECT COUNT(u.id) AS num_users '.
-			'FROM '.$this->t_users.' AS u '.
+			'FROM '.$this->sUsersTable.' AS u '.
 			$sReqPlus;
 		}
 		else
 		{
 			$sQuery =
 			'SELECT u.*, g.* '.
-			'FROM '.$this->t_users.' AS u '.
-				'LEFT JOIN '.$this->t_groups.' AS g ON g.group_id=u.group_id '.
+			'FROM '.$this->sUsersTable.' AS u '.
+				'LEFT JOIN '.$this->sGroupsTable.' AS g ON g.group_id=u.group_id '.
 			$sReqPlus;
 
 			if (isset($aParams['order'])) {
@@ -163,7 +170,7 @@ class Users
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery)) === false) {
+		if (($rs = $this->oDb->select($sQuery)) === false) {
 			return new Recordset(array());
 		}
 
@@ -219,11 +226,11 @@ class Users
 	public function checkRegistrationFlood()
 	{
 		$sQuery =
-		'SELECT 1 FROM '.$this->t_users.' AS u '.
-		'WHERE u.registration_ip=\''.$this->db->escapeStr($this->okt->request->getClientIp()).'\' '.
+		'SELECT 1 FROM '.$this->sUsersTable.' AS u '.
+		'WHERE u.registration_ip=\''.$this->oDb->escapeStr($this->okt->request->getClientIp()).'\' '.
 		'AND u.registered>'.(time() - 3600);
 
-		if (($rs = $this->db->select($sQuery)) === false) {
+		if (($rs = $this->oDb->select($sQuery)) === false) {
 			return false;
 		}
 
@@ -244,19 +251,19 @@ class Users
 		$username = preg_replace('#\s+#s', ' ', $username);
 
 		if (mb_strlen($username) < 2) {
-			$this->error->set(__('c_c_users_error_username_too_short'));
+			$this->oError->set(__('c_c_users_error_username_too_short'));
 		}
 		elseif (mb_strlen($username) > 255) {
-			$this->error->set(__('c_c_users_error_username_too_long'));
+			$this->oError->set(__('c_c_users_error_username_too_long'));
 		}
 		elseif (mb_strtolower($username) == 'guest') {
-			$this->error->set(__('c_c_users_error_reserved_username'));
+			$this->oError->set(__('c_c_users_error_reserved_username'));
 		}
 		elseif (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $username) || preg_match('/((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))/', $username)) {
-			$this->error->set(__('c_c_users_error_reserved_username'));
+			$this->oError->set(__('c_c_users_error_reserved_username'));
 		}
 		elseif ((strpos($username, '[') !== false || strpos($username, ']') !== false) && strpos($username, '\'') !== false && strpos($username, '"') !== false) {
-			$this->error->set(__('c_c_users_error_forbidden_characters'));
+			$this->oError->set(__('c_c_users_error_forbidden_characters'));
 		}
 		elseif ($this->userExists($username))
 		{
@@ -274,10 +281,10 @@ class Users
 			if ($dupe)
 			{
 				if ($this->okt->config->users['registration']['merge_username_email']) {
-					$this->error->set(__('c_c_users_error_email_already_exist'));
+					$this->oError->set(__('c_c_users_error_email_already_exist'));
 				}
 				else {
-					$this->error->set(__('c_c_users_error_username_already_exist'));
+					$this->oError->set(__('c_c_users_error_username_already_exist'));
 				}
 			}
 		}
@@ -292,7 +299,7 @@ class Users
 	public function checkEmail(array $aParams = array())
 	{
 		if (empty($aParams['email'])) {
-			$this->error->set(__('c_c_users_must_enter_email_address'));
+			$this->oError->set(__('c_c_users_must_enter_email_address'));
 		}
 
 		$this->isEmail($aParams['email']);
@@ -307,7 +314,7 @@ class Users
 	public function isEmail($sEmail)
 	{
 		if (!Utilities::isEmail($sEmail)) {
-			$this->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
+			$this->oError->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
 		}
 	}
 
@@ -320,16 +327,16 @@ class Users
 	public function checkPassword(array $aParams = array())
 	{
 		if (empty($aParams['password'])) {
-			$this->error->set(__('c_c_users_must_enter_password'));
+			$this->oError->set(__('c_c_users_must_enter_password'));
 		}
 		elseif (mb_strlen($aParams['password']) < 4) {
-			$this->error->set(__('c_c_users_must_enter_password_of_at_least_4_characters'));
+			$this->oError->set(__('c_c_users_must_enter_password_of_at_least_4_characters'));
 		}
 		elseif (empty($aParams['password_confirm'])) {
-			$this->error->set(__('c_c_users_must_confirm_password'));
+			$this->oError->set(__('c_c_users_must_confirm_password'));
 		}
 		elseif ($aParams['password'] != $aParams['password_confirm']) {
-			$this->error->set(__('c_c_users_error_passwords_do_not_match'));
+			$this->oError->set(__('c_c_users_error_passwords_do_not_match'));
 		}
 	}
 
@@ -347,7 +354,7 @@ class Users
 
 		$this->checkEmail($aParams);
 
-		if (!$this->error->isEmpty()) {
+		if (!$this->oError->isEmpty()) {
 			return false;
 		}
 
@@ -371,7 +378,7 @@ class Users
 		$iTime = time();
 
 		$sQuery =
-		'INSERT INTO '.$this->t_users.' ( '.
+		'INSERT INTO '.$this->sUsersTable.' ( '.
 			'group_id, civility, status, username, lastname, firstname, displayname, '.
 			'password, email, timezone, language, registered, registration_ip, last_visit, '.
 			'activate_string, activate_key'.
@@ -379,26 +386,26 @@ class Users
 			(integer)$aParams['group_id'].', '.
 			(integer)$aParams['civility'].', '.
 			(integer)$aParams['status'].', '.
-			'\''.$this->db->escapeStr($aParams['username']).'\', '.
-			(!empty($aParams['lastname']) ? '\''.$this->db->escapeStr($aParams['lastname']).'\', ' : 'null,').
-			(!empty($aParams['firstname']) ? '\''.$this->db->escapeStr($aParams['firstname']).'\', ' : 'null,').
-			(!empty($aParams['displayname']) ? '\''.$this->db->escapeStr($aParams['displayname']).'\', ' : 'null,').
-			'\''.$this->db->escapeStr($sPasswordHash).'\', '.
-			'\''.$this->db->escapeStr($aParams['email']).'\', '.
-			(!empty($aParams['timezone']) ? '\''.$this->db->escapeStr($aParams['timezone']).'\', ' : 'null,').
-			(!empty($aParams['language']) ? '\''.$this->db->escapeStr($aParams['language']).'\', ' : 'null,').
+			'\''.$this->oDb->escapeStr($aParams['username']).'\', '.
+			(!empty($aParams['lastname']) ? '\''.$this->oDb->escapeStr($aParams['lastname']).'\', ' : 'null,').
+			(!empty($aParams['firstname']) ? '\''.$this->oDb->escapeStr($aParams['firstname']).'\', ' : 'null,').
+			(!empty($aParams['displayname']) ? '\''.$this->oDb->escapeStr($aParams['displayname']).'\', ' : 'null,').
+			'\''.$this->oDb->escapeStr($sPasswordHash).'\', '.
+			'\''.$this->oDb->escapeStr($aParams['email']).'\', '.
+			(!empty($aParams['timezone']) ? '\''.$this->oDb->escapeStr($aParams['timezone']).'\', ' : 'null,').
+			(!empty($aParams['language']) ? '\''.$this->oDb->escapeStr($aParams['language']).'\', ' : 'null,').
 			$iTime.', '.
-			(!empty($aParams['registration_ip']) ? '\''.$this->db->escapeStr($aParams['registration_ip']).'\', ' : '\'0.0.0.0\', ').
+			(!empty($aParams['registration_ip']) ? '\''.$this->oDb->escapeStr($aParams['registration_ip']).'\', ' : '\'0.0.0.0\', ').
 			$iTime.', '.
-			(!empty($aParams['activate_string']) ? '\''.$this->db->escapeStr($aParams['activate_string']).'\', ' : 'null,').
-			(!empty($aParams['activate_key']) ? '\''.$this->db->escapeStr($aParams['activate_key']).'\' ' : 'null').
+			(!empty($aParams['activate_string']) ? '\''.$this->oDb->escapeStr($aParams['activate_string']).'\', ' : 'null,').
+			(!empty($aParams['activate_key']) ? '\''.$this->oDb->escapeStr($aParams['activate_key']).'\' ' : 'null').
 		'); ';
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			throw new \Exception('Unable to insert user into database');
 		}
 
-		$iNewId = $this->db->getLastID();
+		$iNewId = $this->oDb->getLastID();
 
 		return $iNewId;
 	}
@@ -414,7 +421,7 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $aParams['id']));
+			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $aParams['id']));
 			return false;
 		}
 
@@ -427,7 +434,7 @@ class Users
 
 				if ($iCountSudo < 2)
 				{
-					$this->error->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
+					$this->oError->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
 					return false;
 				}
 			}
@@ -439,7 +446,7 @@ class Users
 
 				if ($iCountSudo < 2)
 				{
-					$this->error->set(__('c_c_users_error_cannot_change_group_last_super_administrator'));
+					$this->oError->set(__('c_c_users_error_cannot_change_group_last_super_administrator'));
 					return false;
 				}
 			}
@@ -448,10 +455,10 @@ class Users
 		$sql = array();
 
 		$this->checkUsername($aParams);
-		$sql[] = 'username=\''.$this->db->escapeStr($aParams['username']).'\'';
+		$sql[] = 'username=\''.$this->oDb->escapeStr($aParams['username']).'\'';
 
 		$this->checkEmail($aParams);
-		$sql[] = 'email=\''.$this->db->escapeStr($aParams['email']).'\'';
+		$sql[] = 'email=\''.$this->oDb->escapeStr($aParams['email']).'\'';
 
 		if (isset($aParams['group_id'])) {
 			$sql[] = 'group_id='.(integer)$aParams['group_id'];
@@ -466,35 +473,35 @@ class Users
 		}
 
 		if (isset($aParams['lastname'])) {
-			$sql[] = 'lastname=\''.$this->db->escapeStr($aParams['lastname']).'\'';
+			$sql[] = 'lastname=\''.$this->oDb->escapeStr($aParams['lastname']).'\'';
 		}
 
 		if (isset($aParams['firstname'])) {
-			$sql[] = 'firstname=\''.$this->db->escapeStr($aParams['firstname']).'\'';
+			$sql[] = 'firstname=\''.$this->oDb->escapeStr($aParams['firstname']).'\'';
 		}
 
 		if (isset($aParams['displayname'])) {
-			$sql[] = 'displayname=\''.$this->db->escapeStr($aParams['displayname']).'\'';
+			$sql[] = 'displayname=\''.$this->oDb->escapeStr($aParams['displayname']).'\'';
 		}
 
 		if (isset($aParams['language'])) {
-			$sql[] = 'language=\''.$this->db->escapeStr($aParams['language']).'\'';
+			$sql[] = 'language=\''.$this->oDb->escapeStr($aParams['language']).'\'';
 		}
 
 		if (isset($aParams['timezone'])) {
-			$sql[] = 'timezone=\''.$this->db->escapeStr($aParams['timezone']).'\'';
+			$sql[] = 'timezone=\''.$this->oDb->escapeStr($aParams['timezone']).'\'';
 		}
 
-		if (!$this->error->isEmpty()) {
+		if (!$this->oError->isEmpty()) {
 			return false;
 		}
 
 		$sQuery =
-		'UPDATE '.$this->t_users.' SET '.
+		'UPDATE '.$this->sUsersTable.' SET '.
 			implode(', ',$sql).' '.
 		'WHERE id='.(integer)$aParams['id'];
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			throw new \Exception('Unable to update user in database.');
 		}
 
@@ -511,18 +518,18 @@ class Users
 	{
 		$this->checkPassword($aParams);
 
-		if (!$this->error->isEmpty()) {
+		if (!$this->oError->isEmpty()) {
 			return false;
 		}
 
 		$sPasswordHash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 
 		$sQuery =
-		'UPDATE '.$this->t_users.' SET '.
-			'password=\''.$this->db->escapeStr($sPasswordHash).'\' '.
+		'UPDATE '.$this->sUsersTable.' SET '.
+			'password=\''.$this->oDb->escapeStr($sPasswordHash).'\' '.
 		'WHERE id='.(integer)$aParams['id'];
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			throw new \Exception('Unable to update user in database.');
 		}
 
@@ -541,7 +548,7 @@ class Users
 		$rsUser = $this->getUsers(array('id' => $iUserId));
 
 		if ($rsUser->isEmpty()) {
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -551,20 +558,20 @@ class Users
 			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
 			if ($iCountSudo < 2) {
-				$this->error->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
+				$this->oError->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
 				return false;
 			}
 		}
 
 		$sQuery =
-		'DELETE FROM '.$this->t_users.' '.
+		'DELETE FROM '.$this->sUsersTable.' '.
 		'WHERE id='.(integer)$iUserId;
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			throw new \Exception('Unable to remove user from database.');
 		}
 
-		$this->db->optimize($this->t_users);
+		$this->oDb->optimize($this->sUsersTable);
 
 		# delete user custom fields
 		if ($this->okt->config->users['custom_fields_enabled']) {
@@ -583,16 +590,16 @@ class Users
 	public function validateUser($iUserId)
 	{
 		if (!$this->userExists($iUserId)) {
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
 		$sSqlQuery =
-		'UPDATE '.$this->t_users.' SET '.
+		'UPDATE '.$this->sUsersTable.' SET '.
 			'group_id = '.(integer)$this->okt->config->users['registration']['default_group'].' '.
 		'WHERE id='.(integer)$iUserId;
 
-		if (!$this->db->execute($sSqlQuery)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			throw new \Exception('Unable to update user in database.');
 		}
 
@@ -608,16 +615,16 @@ class Users
 	public function switchUserStatus($iUserId)
 	{
 		if (!$this->userExists($iUserId)) {
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
 		$sSqlQuery =
-		'UPDATE '.$this->t_users.' SET '.
+		'UPDATE '.$this->sUsersTable.' SET '.
 			'status = 1-status '.
 		'WHERE id='.(integer)$iUserId;
 
-		if (!$this->db->execute($sSqlQuery)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			throw new \Exception('Unable to update user in database.');
 		}
 
@@ -638,7 +645,7 @@ class Users
 		$rsUser = $this->getUsers(array('id' => $iUserId));
 
 		if ($rsUser->isEmpty()) {
-			$this->error->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -648,17 +655,17 @@ class Users
 			$iCountSudo = $this->getUsers(array('group_id' => Groups::SUPERADMIN, 'status' => 1), true);
 
 			if ($iCountSudo < 2) {
-				$this->error->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
+				$this->oError->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
 				return false;
 			}
 		}
 
 		$sSqlQuery =
-		'UPDATE '.$this->t_users.' SET '.
+		'UPDATE '.$this->sUsersTable.' SET '.
 			'status = '.($iStatus == 1 ? 1 : 0).' '.
 		'WHERE id='.(integer)$iUserId;
 
-		if (!$this->db->execute($sSqlQuery)) {
+		if (!$this->oDb->execute($sSqlQuery)) {
 			throw new \Exception('Unable to update user in database.');
 		}
 
@@ -695,12 +702,12 @@ class Users
 		$sPasswordHash = password_hash($sNewPassword, PASSWORD_DEFAULT);
 
 		$sQuery =
-		'UPDATE '.$this->t_users.' SET '.
-			'activate_string=\''.$this->db->escapeStr($sPasswordHash).'\', '.
-			'activate_key=\''.$this->db->escapeStr($sNewPasswordKey).'\' '.
+		'UPDATE '.$this->sUsersTable.' SET '.
+			'activate_string=\''.$this->oDb->escapeStr($sPasswordHash).'\', '.
+			'activate_key=\''.$this->oDb->escapeStr($sNewPasswordKey).'\' '.
 		'WHERE id='.(integer)$rsUser->id;
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 
@@ -755,13 +762,13 @@ class Users
 		}
 
 		$sQuery =
-		'UPDATE '.$this->t_users.' SET '.
+		'UPDATE '.$this->sUsersTable.' SET '.
 			'password=\''.$rsUser->activate_string.'\', '.
 			'activate_string=NULL, '.
 			'activate_key=NULL '.
 		'WHERE id='.(integer)$iUserId.' ';
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 

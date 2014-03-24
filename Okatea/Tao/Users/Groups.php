@@ -61,34 +61,41 @@ class Groups
 	 * The database manager instance.
 	 * @var object
 	 */
-	protected $db;
+	protected $oDb;
 
 	/**
 	 * The errors manager instance.
 	 * @var object
 	 */
-	protected $error;
+	protected $oError;
 
 	/**
-	 * Core users table
+	 * Core users table.
 	 * @var string
 	 */
-	protected $t_users;
+	protected $sUsersTable;
 
 	/**
-	 * Core users groups table
+	 * Core users groups table.
 	 * @var string
 	 */
-	protected $t_groups;
+	protected $sGroupsTable;
+
+	/**
+	 * Core users groups locales table.
+	 * @var string
+	 */
+	protected $sGroupsL10nTable;
 
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
+		$this->oDb = $okt->db;
+		$this->oError = $okt->error;
 
-		$this->t_users = $this->db->prefix.'core_users';
-		$this->t_groups = $this->db->prefix.'core_users_groups';
+		$this->sUsersTable = $this->oDb->prefix.'core_users';
+		$this->sGroupsTable = $this->oDb->prefix.'core_users_groups';
+		$this->sGroupsL10nTable = $this->oDb->prefix.'core_users_groups_locales';
 	}
 
 	/**
@@ -127,22 +134,28 @@ class Groups
 		}
 
 		if (!empty($aParams['title'])) {
-			$sReqPlus .= 'AND g.title=\''.$this->db->escapeStr($aParams['title']).'\' ';
+			$sReqPlus .= 'AND gl.title=\''.$this->oDb->escapeStr($aParams['title']).'\' ';
+		}
+
+		if (!empty($aParams['language'])) {
+			$sReqPlus .= 'AND gl.language=\''.$this->oDb->escapeStr($aParams['language']).'\' ';
 		}
 
 		if ($bCountOnly)
 		{
 			$sQuery =
 			'SELECT COUNT(g.group_id) AS num_groups '.
-			'FROM '.$this->t_groups.' AS g '.
-				'LEFT JOIN '.$this->t_users.' AS u ON u.group_id=g.group_id '.
+			'FROM '.$this->sGroupsTable.' AS g '.
+				'LEFT JOIN '.$this->sUsersTable.' AS u ON u.group_id=g.group_id '.
+				'LEFT JOIN '.$this->sGroupsL10nTable.' AS gl ON g.group_id=gl.group_id '.
 			'WHERE '.$sReqPlus;
 		}
 		else {
 			$sQuery =
-			'SELECT g.group_id, g.title, g.perms, count(u.id) AS num_users '.
-			'FROM '.$this->t_groups.' AS g '.
-				'LEFT JOIN '.$this->t_users.' AS u ON u.group_id=g.group_id '.
+			'SELECT g.group_id, g.perms, gl.title, count(u.id) AS num_users '.
+			'FROM '.$this->sGroupsTable.' AS g '.
+				'LEFT JOIN '.$this->sGroupsL10nTable.' AS gl ON g.group_id=gl.group_id '.
+				'LEFT JOIN '.$this->sUsersTable.' AS u ON u.group_id=g.group_id '.
 			'WHERE 1 '.
 			$sReqPlus.' '.
 			'GROUP BY g.group_id ';
@@ -159,7 +172,7 @@ class Groups
 			}
 		}
 
-		if (($rs = $this->db->select($sQuery)) === false) {
+		if (($rs = $this->oDb->select($sQuery)) === false) {
 			return new Recordset(array());
 		}
 
@@ -174,7 +187,7 @@ class Groups
 	/**
 	 * Retourne les infos d'un groupe donné.
 	 *
-	 * @param $group
+	 * @param mixed $mGroupId
 	 * @return recordset
 	 */
 	public function getGroup($mGroupId)
@@ -192,14 +205,14 @@ class Groups
 	}
 
 	/**
-	 * Indique si un groupe existe
+	 * Indique si un groupe existe.
 	 *
-	 * @param $id
+	 * @param integer $iGroupId
 	 * @return boolean
 	 */
-	public function groupExists($id)
+	public function groupExists($iGroupId)
 	{
-		if ($this->getGroup($id)->isEmpty()) {
+		if ($this->getGroup($iGroupId)->isEmpty()) {
 			return false;
 		}
 
@@ -207,72 +220,105 @@ class Groups
 	}
 
 	/**
-	 * Ajout d'un groupe
+	 * Retourne les localisations d'un groupe donné.
 	 *
-	 * @param $title
+	 * @param integer $iItemId
+	 * @return Recordset
+	 */
+	public function getItemI18n($iGroupId)
+	{
+		$query =
+		'SELECT * FROM '.$this->sGroupsL10nTable.' '.
+		'WHERE group_id='.(integer)$iGroupId;
+
+		if (($rs = $this->oDb->select($query)) === false) {
+			$rs = new Recordset(array());
+			return $rs;
+		}
+
+		return $rs;
+	}
+
+	/**
+	 * Ajout d'un groupe.
+	 *
+	 * @param array $aData
 	 * @return integer
 	 */
-	public function addGroup($title)
+	public function addGroup($aData)
 	{
 		$sQuery =
-		'INSERT INTO '.$this->t_groups.' ( '.
-			'title'.
+		'INSERT INTO '.$this->sGroupsTable.' ( '.
+
 		') VALUES ( '.
-			'\''.$this->db->escapeStr($title).'\' '.
+
 		'); ';
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 
-		$iNewId = $this->db->getLastID();
+		$iGroupId = $this->oDb->getLastID();
 
-		return $iNewId;
+		$this->setGroupI18n($iGroupId, $aData['locales']);
+
+		$this->updGroupPerms($iGroupId, $aData['perms']);
+
+		return $iGroupId;
 	}
 
 	/**
-	 * Mise à jour d'un groupe
+	 * Mise à jour d'un groupe.
 	 *
-	 * @param $iGroupId
-	 * @param $title
+	 * @param integer $iGroupId
+	 * @param array $aData
 	 * @return boolean
 	 */
-	public function updGroup($iGroupId, $title)
+	public function updGroup($iGroupId, $aData)
 	{
 		if (!$this->groupExists($iGroupId)) {
-			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 
+		/*
 		$sQuery =
-		'UPDATE '.$this->t_groups.' SET '.
-			'title=\''.$this->db->escapeStr($title).'\' '.
+		'UPDATE '.$this->sGroupsTable.' SET '.
+			'title=\''.$this->oDb->escapeStr($title).'\' '.
 		'WHERE group_id='.(integer)$iGroupId;
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
+		*/
+
+		$this->setGroupI18n($iGroupId, $aData['locales']);
+
+		$this->updGroupPerms($iGroupId, $aData['perms']);
 
 		return true;
 	}
 
-	public function updGroupPerms($iGroupId, $perms)
+	/**
+	 * Mise à jour des permissions d'un groupe.
+	 *
+	 * @param integer $iGroupId
+	 * @param array $aPerms
+	 * @return boolean
+	 */
+	public function updGroupPerms($iGroupId, $aPerms = null)
 	{
 		if (!$this->groupExists($iGroupId)) {
-			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 
-		if (is_array($perms)) {
-			$perms = json_encode($perms);
-		}
-
 		$sQuery =
-		'UPDATE '.$this->t_groups.' SET '.
-			'perms=\''.$this->db->escapeStr($perms).'\' '.
+		'UPDATE '.$this->sGroupsTable.' SET '.
+			'perms='.(is_array($aPerms) ? '\''.$this->oDb->escapeStr(json_encode($aPerms)).'\'' : 'NULL').' '.
 		'WHERE group_id='.(integer)$iGroupId;
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 
@@ -282,7 +328,7 @@ class Groups
 	/**
 	 * Suppression d'un groupe.
 	 *
-	 * @param $id
+	 * @param $iGroupId
 	 * @return boolean
 	 */
 	public function deleteGroup($iGroupId)
@@ -291,7 +337,7 @@ class Groups
 
 		if ($rsGroup->isEmpty())
 		{
-			$this->error->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 		elseif (in_array($iGroupId, self::$native))
@@ -301,20 +347,46 @@ class Groups
 		}
 		elseif ($rsGroup->num_users > 0)
 		{
-			$this->error->set(__('c_c_users_error_users_in_group_cannot_remove'));
+			$this->oError->set(__('c_c_users_error_users_in_group_cannot_remove'));
 			return false;
 		}
 
 		$sQuery =
-		'DELETE FROM '.$this->t_groups.' '.
+		'DELETE FROM '.$this->sGroupsTable.' '.
 		'WHERE group_id='.(integer)$iGroupId;
 
-		if (!$this->db->execute($sQuery)) {
+		if (!$this->oDb->execute($sQuery)) {
 			return false;
 		}
 
-		$this->db->optimize($this->t_groups);
+		$this->oDb->optimize($this->sGroupsTable);
 
 		return true;
+	}
+
+	/**
+	 * Ajout/modification des textes internationnalisés d'un groupe donné.
+	 *
+	 * @param integer $iGroupId
+	 * @param array $aData
+	 */
+	protected function setGroupI18n($iGroupId, $aData)
+	{
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$oCursor = $this->oDb->openCursor($this->sGroupsL10nTable);
+
+			$oCursor->group_id = $iGroupId;
+
+			$oCursor->language = $aLanguage['code'];
+
+			foreach ($aData[$aLanguage['code']] as $k=>$v) {
+				$oCursor->$k = $v;
+			}
+
+			if (!$oCursor->insertUpdate()) {
+				throw new \Exception('Unable to insert group locales in database for '.$aLanguage['code'].' language.');
+			}
+		}
 	}
 }
