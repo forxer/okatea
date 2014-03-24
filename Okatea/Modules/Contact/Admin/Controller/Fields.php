@@ -14,6 +14,13 @@ class Fields extends Controller
 {
 	public function page()
 	{
+		if (!$this->okt->checkPerm('contact_usage') || !$this->okt->checkPerm('contact_fields')) {
+			return $this->serve401();
+		}
+
+		# Chargement des locales
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
+
 		# suppression d'un champ
 		if (!empty($_GET['delete']))
 		{

@@ -16,6 +16,13 @@ class Recipients extends Controller
 {
 	public function page()
 	{
+		if (!$this->okt->checkPerm('contact_usage') || !$this->okt->checkPerm('contact_recipients')) {
+			return $this->serve401();
+		}
+
+		# Chargement des locales
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.recipients');
+
 		$aRecipientsTo = !empty($this->okt->module('Contact')->config->recipients_to) ? $this->okt->module('Contact')->config->recipients_to : array();
 		$aRecipientsCc = !empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : array();
 		$aRecipientsBcc = !empty($this->okt->module('Contact')->config->recipients_bcc) ? $this->okt->module('Contact')->config->recipients_bcc : array();
@@ -29,21 +36,21 @@ class Recipients extends Controller
 			foreach ($aRecipientsTo as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
+					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
 			}
 
 			foreach ($aRecipientsCc as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
+					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
 			}
 
 			foreach ($aRecipientsBcc as $mail)
 			{
 				if (!Utilities::isEmail($mail)) {
-					$this->okt->error->set(sprintf(__('m_contact_email_address_$s_is_invalid')), Escaper::html($mail));
+					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
 			}
 

@@ -22,22 +22,6 @@ $GLOBALS['okt_l10n']['m_contact_fields_deleted'] = 'Le champ a été supprimé.'
 $GLOBALS['okt_l10n']['m_contact_fields_add'] = 'Ajouter un champ';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'Il n’y a aucun champ pour le moment.';
 
-# recipients
-$GLOBALS['okt_l10n']['m_contact_recipients'] = 'Destinataires';
-$GLOBALS['okt_l10n']['m_contact_email_address_$s_is_invalid'] = 'L’adresse électronique %s est invalide.';
-$GLOBALS['okt_l10n']['m_contact_at_least_one_recipient'] = 'Vous devez définir au moins un destinataire.';
-$GLOBALS['okt_l10n']['m_contact_recipients_page_description'] = 'Cette page permet de gérer les destinataires de la page contact.';
-$GLOBALS['okt_l10n']['m_contact_default_recipient_%s'] = 'Si vous n’utilisez pas cette page, le destinataire sera celui du site %s.';
-$GLOBALS['okt_l10n']['m_contact_copy_hidden_copy'] = 'En plus des destinataires vous pouvez ajouter des destinataires en copie, ainsi que des destinataires en copie cachée.';
-$GLOBALS['okt_l10n']['m_contact_howto_delete_recipent'] = 'Pour supprimer un destinataire, supprimez son adresse.';
-$GLOBALS['okt_l10n']['m_contact_Recipients'] = 'Destinataires';
-$GLOBALS['okt_l10n']['m_contact_Recipient'] = 'Destinataire';
-$GLOBALS['okt_l10n']['m_contact_Add_recipient'] = 'Ajouter un destinataire';
-$GLOBALS['okt_l10n']['m_contact_Copy'] = 'Copie';
-$GLOBALS['okt_l10n']['m_contact_copy_recipient'] = 'Ajouter un destinataire en copie';
-$GLOBALS['okt_l10n']['m_contact_hidden_copy'] = 'Copie cachée';
-$GLOBALS['okt_l10n']['m_contact_hidden_copy_recipient'] = 'Ajouter un destinataire en copie cachée';
-
 # fields
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'ID HTML vide';
 $GLOBALS['okt_l10n']['m_contact_masked'] = 'masqués';
