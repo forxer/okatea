@@ -32,7 +32,7 @@ class Config extends Controller
 
 				$this->redirect($this->generateUrl('RteTinymce4_config'));
 			}
-			catch (InvalidArgumentException $e)
+			catch (Exception $e)
 			{
 				$this->okt->error->set(__('c_c_error_writing_configuration'));
 				$this->okt->error->set($e->getMessage());

@@ -253,11 +253,11 @@ class Categories extends NestedTreei18n
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
 			if (!$oCursor->insertUpdate()) {
-				throw new \Exception('Unable to insert category locales in database for '.$aLanguage['code'].' language.');
+				throw new \RuntimeException('Unable to insert category locales in database for '.$aLanguage['code'].' language.');
 			}
 
 			if (!$this->setCategorySlug($iCategoryId, $aLanguage['code'])) {
-				throw new \Exception('Unable to insert category slug in database.');
+				throw new \RuntimeException('Unable to insert category slug in database.');
 			}
 		}
 	}
@@ -332,7 +332,7 @@ class Categories extends NestedTreei18n
 		'AND language=\''.$this->db->escapeStr($sLanguage).'\' ';
 
 		if (!$this->db->execute($query)) {
-			throw new \Exception('Unable to update category in database.');
+			throw new \RuntimeException('Unable to update category in database.');
 		}
 
 		return true;
@@ -385,7 +385,7 @@ class Categories extends NestedTreei18n
 		}
 
 		if (!$oCursor->insert()) {
-			throw new \Exception('Unable to insert category in database.');
+			throw new \RuntimeException('Unable to insert category in database.');
 		}
 
 		$iNewId =  $this->db->getLastID();
@@ -424,7 +424,7 @@ class Categories extends NestedTreei18n
 		}
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new \Exception('Unable to update category in database.');
+			throw new \RuntimeException('Unable to update category in database.');
 		}
 
 		if ($oCursor->active == 0)
@@ -461,7 +461,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update category in database.');
+			throw new \RuntimeException('Unable to update category in database.');
 		}
 
 		return true;
@@ -523,7 +523,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update category in database.');
+			throw new \RuntimeException('Unable to update category in database.');
 		}
 
 		return true;
@@ -553,7 +553,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to remove category from database.');
+			throw new \RuntimeException('Unable to remove category from database.');
 		}
 
 		$this->db->optimize($this->t_categories);
@@ -563,7 +563,7 @@ class Categories extends NestedTreei18n
 		'WHERE category_id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($query)) {
-			throw new \Exception('Unable to remove category locales from database.');
+			throw new \RuntimeException('Unable to remove category locales from database.');
 		}
 
 		$this->db->optimize($this->t_categories_locales);
@@ -592,7 +592,7 @@ class Categories extends NestedTreei18n
 		'WHERE id='.(integer)$iCategoryId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update category in database.');
+			throw new \RuntimeException('Unable to update category in database.');
 		}
 
 		return true;

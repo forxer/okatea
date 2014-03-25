@@ -49,7 +49,7 @@ class Config extends Controller
 
 					return $this->redirect($this->generateUrl('Builder_config'));
 				}
-				catch (InvalidArgumentException $e)
+				catch (Exception $e)
 				{
 					$this->okt->error->set(__('c_c_error_writing_configuration'));
 					$this->okt->error->set($e->getMessage());

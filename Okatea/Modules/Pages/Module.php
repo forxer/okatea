@@ -773,7 +773,7 @@ class Module extends BaseModule
 		$oCursor->updated_at = $sDate;
 
 		if (!$oCursor->insert()) {
-			throw new \Exception('Unable to insert page into database');
+			throw new \RuntimeException('Unable to insert page into database');
 		}
 
 		# récupération de l'ID
@@ -784,17 +784,17 @@ class Module extends BaseModule
 
 		# ajout des images
 		if ($this->config->images['enable'] && $this->addImages($iNewId) === false) {
-			throw new \Exception('Unable to insert images page');
+			throw new \RuntimeException('Unable to insert images page');
 		}
 
 		# ajout des fichiers
 		if ($this->config->files['enable'] && $this->addFiles($iNewId) === false) {
-			throw new \Exception('Unable to insert files page');
+			throw new \RuntimeException('Unable to insert files page');
 		}
 
 		# ajout permissions
 		if (!$this->setPagePermissions($iNewId, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new \Exception('Unable to set page permissions');
+			throw new \RuntimeException('Unable to set page permissions');
 		}
 
 		return $iNewId;
@@ -818,22 +818,22 @@ class Module extends BaseModule
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new \Exception('Unable to update page into database');
+			throw new \RuntimeException('Unable to update page into database');
 		}
 
 		# modification des images
 		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new \Exception('Unable to update images page');
+			throw new \RuntimeException('Unable to update images page');
 		}
 
 		# modification des fichiers
 		if ($this->config->files['enable'] && $this->updFiles($oCursor->id) === false) {
-			throw new \Exception('Unable to update files page');
+			throw new \RuntimeException('Unable to update files page');
 		}
 
 		# modification permissions
 		if (!$this->setPagePermissions($oCursor->id, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new \Exception('Unable to set page permissions');
+			throw new \RuntimeException('Unable to set page permissions');
 		}
 
 		# modification des textes internationnalisés
@@ -903,7 +903,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update page in database.');
+			throw new \RuntimeException('Unable to update page in database.');
 		}
 
 		return true;
@@ -929,7 +929,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update page in database.');
+			throw new \RuntimeException('Unable to update page in database.');
 		}
 
 		return true;
@@ -948,11 +948,11 @@ class Module extends BaseModule
 		}
 
 		if ($this->deleteImages($iPageId) === false) {
-			throw new \Exception('Unable to delete images page.');
+			throw new \RuntimeException('Unable to delete images page.');
 		}
 
 		if ($this->deleteFiles($iPageId) === false) {
-			throw new \Exception('Unable to delete files page.');
+			throw new \RuntimeException('Unable to delete files page.');
 		}
 
 		$sQuery =
@@ -960,7 +960,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to remove page from database.');
+			throw new \RuntimeException('Unable to remove page from database.');
 		}
 
 		$this->db->optimize($this->t_pages);
@@ -970,7 +970,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to remove page locales from database.');
+			throw new \RuntimeException('Unable to remove page locales from database.');
 		}
 
 		$this->db->optimize($this->t_pages_locales);
@@ -1141,7 +1141,7 @@ class Module extends BaseModule
 		') ';
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to insert page permissions into database');
+			throw new \RuntimeException('Unable to insert page permissions into database');
 		}
 
 		return true;
@@ -1160,7 +1160,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to delete page permissions from database');
+			throw new \RuntimeException('Unable to delete page permissions from database');
 		}
 
 		$this->db->optimize($this->t_permissions);

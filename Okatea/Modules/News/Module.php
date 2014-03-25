@@ -37,7 +37,6 @@ class Module extends BaseModule
 	protected $t_permissions;
 	protected $t_users;
 
-
 	protected function prepend()
 	{
 		# permissions
@@ -774,7 +773,7 @@ class Module extends BaseModule
 		$oCursor->user_id = $this->okt->user->id;
 
 		if (!$oCursor->insert()) {
-			throw new \Exception('Unable to insert post into database');
+			throw new \RuntimeException('Unable to insert post into database');
 		}
 
 		# récupération de l'ID
@@ -785,17 +784,17 @@ class Module extends BaseModule
 
 		# ajout des images
 		if ($this->config->images['enable'] && $this->addImages($iNewId) === false) {
-			throw new \Exception('Unable to insert images post');
+			throw new \RuntimeException('Unable to insert images post');
 		}
 
 		# ajout des fichiers
 		if ($this->config->files['enable'] && $this->addFiles($iNewId) === false) {
-			throw new \Exception('Unable to insert files post');
+			throw new \RuntimeException('Unable to insert files post');
 		}
 
 		# ajout permissions
 		if (!$this->setPostPermissions($iNewId, (!empty($aPostPermsData) ? $aPostPermsData : array()))) {
-			throw new \Exception('Unable to set post permissions');
+			throw new \RuntimeException('Unable to set post permissions');
 		}
 
 		return $iNewId;
@@ -827,22 +826,22 @@ class Module extends BaseModule
 		$this->preparePostCursor($oCursor);
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new \Exception('Unable to update post into database');
+			throw new \RuntimeException('Unable to update post into database');
 		}
 
 		# modification des images
 		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new \Exception('Unable to update images post');
+			throw new \RuntimeException('Unable to update images post');
 		}
 
 		# modification des fichiers
 		if ($this->config->files['enable'] && $this->updFiles($oCursor->id) === false) {
-			throw new \Exception('Unable to update files post');
+			throw new \RuntimeException('Unable to update files post');
 		}
 
 		# modification permissions
 		if (!$this->setPostPermissions($oCursor->id, (!empty($aPostPermsData) ? $aPostPermsData : array()))) {
-			throw new \Exception('Unable to set post permissions');
+			throw new \RuntimeException('Unable to set post permissions');
 		}
 
 		# modification des textes internationnalisés
@@ -949,7 +948,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update post in database.');
+			throw new \RuntimeException('Unable to update post in database.');
 		}
 
 		return true;
@@ -1093,7 +1092,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update post in database.');
+			throw new \RuntimeException('Unable to update post in database.');
 		}
 
 		return true;
@@ -1126,7 +1125,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update post in database.');
+			throw new \RuntimeException('Unable to update post in database.');
 		}
 
 		return true;
@@ -1160,7 +1159,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to update post in database.');
+			throw new \RuntimeException('Unable to update post in database.');
 		}
 
 		return true;
@@ -1187,11 +1186,11 @@ class Module extends BaseModule
 		}
 
 		if ($this->deleteImages($iPostId) === false) {
-			throw new \Exception('Unable to delete images post.');
+			throw new \RuntimeException('Unable to delete images post.');
 		}
 
 		if ($this->deleteFiles($iPostId) === false) {
-			throw new \Exception('Unable to delete files post.');
+			throw new \RuntimeException('Unable to delete files post.');
 		}
 
 		$sQuery =
@@ -1199,7 +1198,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to remove post from database.');
+			throw new \RuntimeException('Unable to remove post from database.');
 		}
 
 		$this->db->optimize($this->t_news);
@@ -1209,7 +1208,7 @@ class Module extends BaseModule
 		'WHERE post_id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to remove post locales from database.');
+			throw new \RuntimeException('Unable to remove post locales from database.');
 		}
 
 		$this->db->optimize($this->t_news_locales);
@@ -1380,7 +1379,7 @@ class Module extends BaseModule
 		') ';
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to insert post permissions into database');
+			throw new \RuntimeException('Unable to insert post permissions into database');
 		}
 
 		return true;
@@ -1399,7 +1398,7 @@ class Module extends BaseModule
 		'WHERE post_id='.(integer)$iPostId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \Exception('Unable to delete post permissions from database');
+			throw new \RuntimeException('Unable to delete post permissions from database');
 		}
 
 		$this->db->optimize($this->t_permissions);

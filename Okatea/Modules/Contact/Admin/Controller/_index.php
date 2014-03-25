@@ -59,7 +59,7 @@ if (!empty($_POST['form_sent']))
 
 			http::redirect('module.php?m=contact&action=index');
 		}
-		catch (InvalidArgumentException $e)
+		catch (Exception $e)
 		{
 			$okt->error->set(__('c_c_error_writing_configuration'));
 			$okt->error->set($e->getMessage());
