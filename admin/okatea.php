@@ -11,10 +11,16 @@ use Okatea\Admin\Okatea;
 # Lunch composer autoload
 $oktAutoloader = require __DIR__.'/../vendor/autoload.php';
 
-# Let the music play
-$okt = new Okatea($oktAutoloader, require __DIR__.'/../oktOptions.php');
+try
+{
+	# Let the music play
+	$okt = new Okatea($oktAutoloader, require __DIR__.'/../oktOptions.php');
 
-$okt->run();
+	$okt->run();
 
-# -- CORE TRIGGER : adminFinal
-$okt->triggers->callTrigger('adminFinal');
+	# -- CORE TRIGGER : adminFinal
+	$okt->triggers->callTrigger('adminFinal');
+}
+catch (Exception $e) {
+	oktFatalScreen($e->getMessage());
+}

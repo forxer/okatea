@@ -86,3 +86,76 @@ if (!function_exists('debug'))
 		}
 	}
 }
+
+/**
+ * Display a fatal error screen.
+ *
+ * @param mixed $mMessage 	The fatal error message
+ */
+function oktFatalScreen($mMessage)
+{
+	header('Content-Type: text/html; charset=utf-8');
+
+	?><!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
+	<title>Fatal error</title>
+	<style type="text/css">
+	<!--
+	body {
+		margin: 10% 20% auto 20%;
+		font: 14px Verdana, Arial, Helvetica, sans-serif;
+	}
+	#errorbox {
+		background-color: #f1f1f1;
+		border: 1px solid #c94c26;
+
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}
+	h2 {
+		margin: 0;
+		color: #fff;
+		background-color: #c94c26;
+		font-size: 1.1em;
+		padding: 4px 5px;
+	}
+	#errorbox div {
+		padding: 0 5px;
+	}
+	-->
+	</style>
+</head>
+<body>
+	<div id="errorbox">
+		<h2>Fatal error! Aaaargh...</h2>
+		<div>
+		<?php
+			if (is_array($mMessage))
+			{
+				echo '<ul>';
+
+				foreach ($mMessage as $err) {
+					echo '<li>'.$err.'</li>';
+				}
+
+				echo '</ul>';
+			}
+			else {
+				echo '<p>'.$mMessage.'</p>';
+			}
+		?>
+		</div>
+	</div>
+</body>
+</html><?php
+
+	die();
+
+}
+

@@ -190,26 +190,18 @@ class Css
 			$cache = $inputFile;
 		}
 
-		try
-		{
-			$less = new \lessc;
+		$less = new \lessc;
 
-			$less->setPreserveComments(true);
+		$less->setPreserveComments(true);
 
-			$less->setImportDir(array(
-				$okt->options->get('public_dir').'/themes/'.$okt->theme->id().'/css/',
-				$okt->options->get('public_dir').'/css/less/'
-			));
+		$less->setImportDir(array(
+			$okt->options->get('public_dir').'/themes/'.$okt->theme->id().'/css/',
+			$okt->options->get('public_dir').'/css/less/'
+		));
 
-			$less->setVariables($okt->theme->getLessVariables());
+		$less->setVariables($okt->theme->getLessVariables());
 
-			$newCache = $less->cachedCompile($cache);
-		}
-		catch (Exception $e) {
-			$okt->error->set('lessphp fatal error: '.$e->getMessage());
-			Errors::fatalScreen($e->getMessage());
-		}
-
+		$newCache = $less->cachedCompile($cache);
 
 		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{

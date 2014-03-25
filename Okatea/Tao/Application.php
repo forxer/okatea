@@ -376,7 +376,7 @@ class Application
 	protected function database()
 	{
 		if (!file_exists($this->options->get('config_dir').'/connexion.php')) {
-			$this->error->fatal('Fatal error: unable to find database connexion file !');
+			throw new \RuntimeException('Unable to find database connexion file !');
 		}
 
 		require $this->options->get('config_dir').'/connexion.php';
@@ -384,7 +384,7 @@ class Application
 		$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
 
 		if ($db->hasError()) {
-			$this->error->fatal('Unable to connect to database', $db->error());
+			throw new \RuntimeException('Unable to connect to database. '.$db->error());
 		}
 
 		return $db;
