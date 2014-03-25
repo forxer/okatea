@@ -145,16 +145,18 @@ if (!$rsPosts->isEmpty()) : ?>
 		<?php while ($rsPosts->fetch()) : ?>
 		<tr class="<?php echo $rsPosts->odd_even ?>">
 			<th class="<?php echo $rsPosts->odd_even ?> fake-td">
-				<?php echo form::checkbox(array('posts[]'),$rsPosts->id) ?>
+				<p><?php echo form::checkbox(array('posts[]'), $rsPosts->id) ?>
 				<?php if ($rsPosts->selected) : ?><span class="icon star"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 2) : ?><span class="icon time"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 3) : ?><span class="icon clock"></span><?php endif; ?>
 				<a href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"><?php
-				echo $view->escape($rsPosts->title) ?></a>
+				echo $view->escape($rsPosts->title) ?></a></p>
 			</th>
 
 			<?php if ($okt->module('News')->config->categories['enable']) : ?>
-			<td class="<?php echo $rsPosts->odd_even ?>"><?php echo $view->escape($rsPosts->category_title) ?></td>
+			<td class="<?php echo $rsPosts->odd_even ?>">
+				<p><?php echo $view->escape($rsPosts->category_title) ?></p>
+			</td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
@@ -189,7 +191,7 @@ if (!$rsPosts->isEmpty()) : ?>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?>">
-				<?php echo $view->escape($rsPosts->getPostAuthor()) ?>
+				<p><?php echo $view->escape($rsPosts->getPostAuthor()) ?></p>
 			</td>
 
 			<td class="<?php echo $rsPosts->odd_even ?> small nowrap">

@@ -507,37 +507,31 @@ class Page
 
 	public function langSwitcher($target, $placeholder)
 	{
-		# récupération de la liste des langues et encodage
-		$jsonlanguages = json_encode(array_values($this->okt->languages->list));
-
 		$this->js->addScript('
-
-			// zone a traiter
 			var target = $("'.$target.'");
-
-			// object of language list
-			var oktLanguages = jQuery.parseJSON(\''.$jsonlanguages.'\');
-
-			// construction des boutons sur la liste des langues
 			var buttons = new Array;
+		');
 
-			$(oktLanguages).each(function(){
-				var oktLanguage = this;
-
-				var button = $(\'<a href="#" class="lang-switcher-button" data-lang-code="\' + oktLanguage.code + \'">\'
-				+ \'<img src="'.$this->okt->options->public_url.'/img/flags/\' + oktLanguage.img + \'" alt="\' + oktLanguage.title + \'" /></a>\')
+		$i = 0;
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$this->js->addScript('
+				buttons['.$i++.'] = $(\'<a href="#" class="lang-switcher-button" data-lang-code="'.$aLanguage['code'].'">\'
+				+ \'<img src="'.$this->okt->options->public_url.'/img/flags/'.Escaper::attribute($aLanguage['img']).'" '.
+						'title="'.Escaper::attribute($aLanguage['title']).' ('.Escaper::attribute($aLanguage['code']).')" '.
+						'alt="'.Escaper::attribute($aLanguage['title']).'" /></a>\')
 				.click(function(e) {
-					switch_language(oktLanguage.code);
+					switch_language(\''.$aLanguage['code'].'\');
 					e.preventDefault();
 				});
+			');
+		}
 
-				buttons.push(button);
-			});
-
+		$this->js->addScript('
 			// on ajoute ces boutons là où il faut
 			buttons.reverse();
 			$(buttons).each(function(){
-				$("'.$placeholder.'").prepend(this)
+				$("'.$placeholder.'").prepend(this);
 			});
 
 			// fonction pour activer une langue

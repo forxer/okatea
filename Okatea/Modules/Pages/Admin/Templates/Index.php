@@ -146,13 +146,15 @@ if (!$rsPages->isEmpty()) : ?>
 		?>
 		<tr>
 			<th scope="row" class="<?php echo $td_class ?> fake-td">
-				<?php echo form::checkbox(array('pages[]'),$rsPages->id) ?>
+				<p><?php echo form::checkbox(array('pages[]'), $rsPages->id) ?>
 				<a href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
-				echo $view->escape($rsPages->title) ?></a>
+				echo $view->escape($rsPages->title) ?></a></p>
 			</th>
 
 			<?php if ($okt->module('Pages')->config->categories['enable']) : ?>
-			<td class="<?php echo $td_class ?>"><?php echo $view->escape($rsPages->category_title) ?></td>
+			<td class="<?php echo $td_class ?>">
+				<p><?php echo $view->escape($rsPages->category_title) ?></p>
+			</td>
 			<?php endif; ?>
 
 			<?php # droits d'accès
