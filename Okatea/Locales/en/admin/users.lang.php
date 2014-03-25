@@ -51,7 +51,8 @@ $GLOBALS['okt_l10n']['c_a_users_Edit_password'] = 'Modify password';
 $GLOBALS['okt_l10n']['c_a_users_Alert_user_by_email'] = 'Alert user by email.';
 
 # Groupes
-$GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'You must enter a title for the group';
+$GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'You must enter a title for the group.';
+$GLOBALS['okt_l10n']['c_a_users_must_enter_group_title_in_%s'] = 'You must enter a title for the group in %s.';
 $GLOBALS['okt_l10n']['c_a_users_group_added'] = 'The group was added successfully.';
 $GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'The group was edited.';
 $GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'The group was deleted.';

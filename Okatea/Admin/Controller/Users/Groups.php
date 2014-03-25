@@ -80,8 +80,14 @@ class Groups extends Controller
 			{
 				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
 
-				if (empty($aGroupData['locales'][$aLanguage['code']]['title'])) {
-					$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
+				{
+					if ($this->okt->languages->unique) {
+						$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+					}
+					else {
+						$this->okt->error->set(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+					}
 				}
 			}
 
@@ -122,9 +128,6 @@ class Groups extends Controller
 
 		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
 
-
-
-
 		$aGroupData = new \ArrayObject();
 
 		$aGroupData['locales'] = array();
@@ -136,7 +139,7 @@ class Groups extends Controller
 			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
 		}
 
-		$aGroupData['perms'] = array();
+		$aGroupData['perms'] = $rsGroup->perms ? json_decode($rsGroup->perms) : array();
 
 
 
@@ -148,7 +151,7 @@ class Groups extends Controller
 
 			$aPerms = array();
 			if ($this->okt->request->request->has('perms')) {
-				$aPerms = array_keys($this->okt->request->request->get('perms'));
+				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
 			if (empty($title)) {
@@ -168,8 +171,7 @@ class Groups extends Controller
 
 		return $this->render('Users/Groups/Edit', array(
 			'iGroupId'       => $iGroupId,
-			'title'          => $title,
-			'aPerms'         => $rsGroup->perms ? json_decode($rsGroup->perms) : array(),
+			'aGroupData'     => $aGroupData,
 			'aPermissions'   => $this->okt->getPermsForDisplay()
 		));
 	}

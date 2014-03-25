@@ -71,7 +71,7 @@ if (!$okt->languages->unique) {
 				<ul class="checklist">
 					<?php foreach ($group['perms'] as $perm => $libelle) : ?>
 					<li><label for="perms_<?php echo $perm ?>"><?php
-					echo form::checkbox(array('perms['.$perm.']', 'perms_'.$perm), 1) ?>
+					echo form::checkbox(array('perms['.$perm.']', 'perms_'.$perm), 1, in_array($perm, $aGroupData['perms'])) ?>
 					<?php echo $libelle ?></label></li>
 					<?php endforeach; ?>
 				</ul>

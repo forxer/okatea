@@ -52,6 +52,7 @@ $GLOBALS['okt_l10n']['c_a_users_Alert_user_by_email'] = 'Prévenir l’utilisate
 
 # Groupes
 $GLOBALS['okt_l10n']['c_a_users_must_enter_group_title'] = 'Vous devez saisir un titre de groupe.';
+$GLOBALS['okt_l10n']['c_a_users_must_enter_group_title_in_%s'] = 'Vous devez saisir un titre de groupe en %s.';
 $GLOBALS['okt_l10n']['c_a_users_group_added'] = 'Le groupe ajouté a été ajouté avec succès.';
 $GLOBALS['okt_l10n']['c_a_users_group_edited'] = 'Le groupe a été modifié.';
 $GLOBALS['okt_l10n']['c_a_users_group_deleted'] = 'Le groupe a été supprimé.';
