@@ -657,7 +657,7 @@ class Themes extends Controller
 
 			return $this->redirect($this->generateUrl('config_themes'));
 		}
-		catch (InvalidArgumentException $e)
+		catch (Exception $e)
 		{
 			$this->okt->error->set(__('c_c_error_writing_configuration'));
 			$this->okt->error->set($e->getMessage());
@@ -689,7 +689,7 @@ class Themes extends Controller
 
 			return $this->redirect($this->generateUrl('config_themes'));
 		}
-		catch (InvalidArgumentException $e)
+		catch (Exception $e)
 		{
 			$this->okt->error->set(__('c_c_error_writing_configuration'));
 			$this->okt->error->set($e->getMessage());
@@ -721,7 +721,7 @@ class Themes extends Controller
 
 			return $this->redirect($this->generateUrl('config_themes'));
 		}
-		catch (InvalidArgumentException $e)
+		catch (Exception $e)
 		{
 			$this->okt->error->set(__('c_c_error_writing_configuration'));
 			$this->okt->error->set($e->getMessage());
