@@ -10,7 +10,7 @@
 /**
  * La page de l'éditeur de theme
  *
- * @addtogroup Okatea TEST
+ * @addtogroup Okatea
  *
  */
 
