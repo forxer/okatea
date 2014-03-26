@@ -167,15 +167,14 @@ class Index extends Controller
 
 	protected function initFilters()
 	{
-		$bInit = $this->request->query->has('init_filters');
+		if ($this->request->query->has('init_filters'))
+		{
+			$this->okt->module('News')->filters->initFilters();
 
-		if (!$bInit) {
-			return false;
+			return $this->redirect($this->generateUrl('News_index'));
 		}
 
-		$this->okt->module('News')->filters->initFilters();
-
-		return $this->redirect($this->generateUrl('News_index'));
+		return false;
 	}
 
 	protected function deletePost()
@@ -186,25 +185,20 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->deletePost($iPostId))
 		{
-			$this->okt->module('News')->deletePost($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->warning(array(
-				'code' => 42,
+				'code' 		=> 42,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			$this->okt->page->flash->success(__('m_news_list_post_deleted'));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function switchPostStatus()
@@ -215,23 +209,18 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->switchPostStatus($iPostId))
 		{
-			$this->okt->module('News')->switchPostStatus($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 32,
+				'code' 		=> 32,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function switchPostSelect()
@@ -242,23 +231,18 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->switchPostSelected($iPostId))
 		{
-			$this->okt->module('News')->switchPostSelected($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function selectPost()
@@ -269,25 +253,20 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->setPostSelected($iPostId, true))
 		{
-			$this->okt->module('News')->setPostSelected($iPostId, true);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			$this->okt->page->flash->success(__('m_news_list_post_selected'));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function unselectPost()
@@ -298,25 +277,20 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->setPostSelected($iPostId, false))
 		{
-			$this->okt->module('News')->setPostSelected($iPostId, false);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			$this->okt->page->flash->success(__('m_news_list_post_deselected'));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function publishPost()
@@ -327,30 +301,25 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('News')->publishPost($iPostId))
 		{
-			$this->okt->module('News')->publishPost($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 30,
+				'code' 		=> 30,
 				'component' => 'news',
-				'message' => 'post #'.$iPostId
+				'message' 	=> 'post #'.$iPostId
 			));
 
 			$this->okt->page->flash->success(__('m_news_list_post_published'));
 
 			return $this->redirect($this->generateUrl('News_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function batches()
 	{
-		$sAction = $this->request->request->get('actions');
+		$sAction = $this->request->request->get('action');
 		$aPostsId = $this->request->request->get('posts');
 
 		if (!$sAction || !$aPostsId || !is_array($aPostsId)) {
@@ -359,116 +328,99 @@ class Index extends Controller
 
 		$aPostsId = array_map('intval', $aPostsId);
 
-		try
+		if ($sAction === 'show')
 		{
-			if ($sAction === 'show')
+			foreach ($aPostsId as $iPostId)
 			{
-				foreach ($aPostsId as $iPostId)
+				if ($this->okt->module('News')->showPost($iPostId, 1))
 				{
-					$this->okt->module('News')->showPost($iPostId,1);
-
-					# log admin
 					$this->okt->logAdmin->info(array(
-						'code' => 30,
+						'code' 		=> 30,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
-			elseif ($sAction === 'hide')
+		}
+		elseif ($sAction === 'hide')
+		{
+			foreach ($aPostsId as $iPostId)
 			{
-				foreach ($aPostsId as $iPostId)
+				if ($this->okt->module('News')->hidePost($iPostId))
 				{
-					$this->okt->module('News')->hidePost($iPostId);
-
-					# log admin
 					$this->okt->logAdmin->info(array(
-						'code' => 31,
+						'code' 		=> 31,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
-			elseif ($sAction === 'publish')
+		}
+		elseif ($sAction === 'publish')
+		{
+			foreach ($aPostsId as $iPostId)
 			{
-				foreach ($aPostsId as $iPostId)
+				if ($this->okt->module('News')->publishPost($iPostId))
 				{
-					$this->okt->module('News')->publishPost($iPostId);
-
-					# log admin
 					$this->okt->logAdmin->info(array(
-						'code' => 30,
+						'code' 		=> 30,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				$this->okt->page->flash->success(__('m_news_list_posts_published'));
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
-			elseif ($sAction === 'selected')
-			{
-				foreach ($aPostsId as $iPostId)
-				{
-					$this->okt->module('News')->setPostSelected($iPostId,1);
 
-					# log admin
+			$this->okt->page->flash->success(__('m_news_list_posts_published'));
+		}
+		elseif ($sAction === 'selected')
+		{
+			foreach ($aPostsId as $iPostId)
+			{
+				if ($this->okt->module('News')->setPostSelected($iPostId,1))
+				{
 					$this->okt->logAdmin->info(array(
-						'code' => 41,
+						'code' 		=> 41,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				$this->okt->page->flash->success(__('m_news_list_posts_selected'));
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
-			elseif ($sAction === 'unselected')
-			{
-				foreach ($aPostsId as $iPostId)
-				{
-					$this->okt->module('News')->setPostSelected($iPostId, 0);
 
-					# log admin
+			$this->okt->page->flash->success(__('m_news_list_posts_selected'));
+		}
+		elseif ($sAction === 'unselected')
+		{
+			foreach ($aPostsId as $iPostId)
+			{
+				if ($this->okt->module('News')->setPostSelected($iPostId, 0))
+				{
 					$this->okt->logAdmin->info(array(
-						'code' => 41,
+						'code' 		=> 41,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				$this->okt->page->flash->success(__('m_news_list_posts_deselected'));
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
-			elseif ($sAction === 'delete' && $this->okt->checkPerm('news_delete'))
-			{
-				foreach ($aPostsId as $iPostId)
-				{
-					$this->okt->module('News')->deletePost($iPostId);
 
-					# log admin
+			$this->okt->page->flash->success(__('m_news_list_posts_deselected'));
+		}
+		elseif ($sAction === 'delete' && $this->okt->checkPerm('news_delete'))
+		{
+			foreach ($aPostsId as $iPostId)
+			{
+				if ($this->okt->module('News')->deletePost($iPostId))
+				{
 					$this->okt->logAdmin->warning(array(
-						'code' => 42,
+						'code' 		=> 42,
 						'component' => 'news',
-						'message' => 'post #'.$iPostId
+						'message' 	=> 'post #'.$iPostId
 					));
 				}
-
-				$this->okt->page->flash->success(__('m_news_list_posts_deleted'));
-
-				return $this->redirect($this->generateUrl('News_index'));
 			}
+
+			$this->okt->page->flash->success(__('m_news_list_posts_deleted'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return $this->redirect($this->generateUrl('News_index'));
 	}
 }

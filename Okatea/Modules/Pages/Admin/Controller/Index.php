@@ -128,15 +128,14 @@ class Index extends Controller
 
 	protected function initFilters()
 	{
-		$bInit = $this->request->query->has('init_filters');
+		if ($this->request->query->has('init_filters'))
+		{
+			$this->okt->module('Pages')->filters->initFilters();
 
-		if (!$bInit) {
-			return false;
+			return $this->redirect($this->generateUrl('Pages_index'));
 		}
 
-		$this->okt->module('Pages')->filters->initFilters();
-
-		return $this->redirect($this->generateUrl('Pages_index'));
+		return false;
 	}
 
 	protected function deletePost()
@@ -147,11 +146,8 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('Pages')->deletePage($iPostId))
 		{
-			$this->okt->module('Pages')->deletePage($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->warning(array(
 				'code'      => 42,
 				'component' => 'pages',
@@ -162,10 +158,8 @@ class Index extends Controller
 
 			return $this->redirect($this->generateUrl('Pages_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function switchPostStatus()
@@ -176,11 +170,8 @@ class Index extends Controller
 			return false;
 		}
 
-		try
+		if ($this->okt->module('Pages')->switchPageStatus($iPostId))
 		{
-			$this->okt->module('Pages')->switchPageStatus($iPostId);
-
-			# log admin
 			$this->okt->logAdmin->info(array(
 				'code'      => 32,
 				'component' => 'pages',
@@ -189,15 +180,13 @@ class Index extends Controller
 
 			return $this->redirect($this->generateUrl('Pages_index'));
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return false;
 	}
 
 	protected function batches()
 	{
-		$sAction = $this->request->request->get('actions');
+		$sAction = $this->request->request->get('action');
 		$aPagesId = $this->request->request->get('pages');
 
 		if (!$sAction || !$aPagesId || !is_array($aPagesId)) {
@@ -206,60 +195,49 @@ class Index extends Controller
 
 		$aPagesId = array_map('intval', $aPagesId);
 
-		try
+		if ($sAction === 'show')
 		{
-			if ($sAction == 'show')
+			foreach ($aPagesId as $pageId)
 			{
-				foreach ($aPagesId as $pageId)
+				if ($this->okt->module('Pages')->setPageStatus($pageId, 1))
 				{
-					$this->okt->module('Pages')->setPageStatus($pageId,1);
-
-					# log admin
 					$this->okt->logAdmin->info(array(
 						'code'        => 30,
 						'component'   => 'pages',
 						'message'     => 'page #'.$pageId
 					));
 				}
-
-				return $this->redirect($this->generateUrl('Pages_index'));
 			}
-			elseif ($sAction == 'hide')
+		}
+		elseif ($sAction === 'hide')
+		{
+			foreach ($aPagesId as $pageId)
 			{
-				foreach ($aPagesId as $pageId)
+				if ($this->okt->module('Pages')->setPageStatus($pageId, 0))
 				{
-					$this->okt->module('Pages')->setPageStatus($pageId,0);
-
-					# log admin
 					$this->okt->logAdmin->info(array(
 						'code'        => 31,
 						'component'   => 'pages',
 						'message'     => 'page #'.$pageId
 					));
 				}
-
-				return $this->redirect($this->generateUrl('Pages_index'));
 			}
-			elseif ($sAction == 'delete' && $this->okt->checkPerm('pages_remove'))
+		}
+		elseif ($sAction === 'delete' && $this->okt->checkPerm('pages_remove'))
+		{
+			foreach ($aPagesId as $pageId)
 			{
-				foreach ($aPagesId as $pageId)
+				if ($this->okt->module('Pages')->deletePage($pageId))
 				{
-					$this->okt->module('Pages')->deletePage($pageId);
-
-					# log admin
 					$this->okt->logAdmin->warning(array(
 						'code'        => 42,
 						'component'   => 'pages',
 						'message'     => 'page #'.$pageId
 					));
 				}
-
-				return $this->redirect($this->generateUrl('Pages_index'));
 			}
 		}
-		catch (Exception $e) {
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		return $this->redirect($this->generateUrl('Pages_index'));
 	}
 }

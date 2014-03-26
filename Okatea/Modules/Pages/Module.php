@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\Pages;
 
+use ArrayObject;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Html\Escaper;
@@ -19,14 +20,13 @@ use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Users\Groups;
+use RuntimeException;
 
 class Module extends BaseModule
 {
 	public $config;
 	public $categories;
 	public $filters;
-
-	protected $locales;
 
 	protected $t_pages;
 	protected $t_pages_locales;
@@ -404,7 +404,7 @@ class Module extends BaseModule
 			'rl.title AS category_title', 'rl.slug AS category_slug', 'r.items_tpl AS category_items_tpl'
 		);
 
-		$oFields = new \ArrayObject($aFields);
+		$oFields = new ArrayObject($aFields);
 
 		# -- TRIGGER MODULE PAGES : getPagesSelectFields
 		$this->triggers->callTrigger('getPagesSelectFields', $oFields);
@@ -441,7 +441,7 @@ class Module extends BaseModule
 			);
 		}
 
-		$oFrom = new \ArrayObject($aFrom);
+		$oFrom = new ArrayObject($aFrom);
 
 		# -- TRIGGER MODULE PAGES : getPagesSqlFrom
 		$this->triggers->callTrigger('getPagesSqlFrom', $oFrom);
@@ -684,7 +684,9 @@ class Module extends BaseModule
 
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
-			$oCursor->insertUpdate();
+			if (!$oCursor->insertUpdate()) {
+				throw new RuntimeException('Unable to insert/update page locales into database');
+			}
 
 			$this->setPageSlug($iPageId, $aLanguage['code']);
 		}
@@ -700,13 +702,14 @@ class Module extends BaseModule
 	protected function setPageSlug($iPageId, $sLanguage)
 	{
 		$rsPage = $this->getPagesRecordset(array(
-			'id' => $iPageId,
-			'language' => $sLanguage,
-			'active' => 2
+			'id' 		=> $iPageId,
+			'language' 	=> $sLanguage,
+			'active' 	=> 2
 		));
 
 		if ($rsPage->isEmpty()) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		if (empty($rsPage->slug)) {
@@ -766,14 +769,14 @@ class Module extends BaseModule
 	 * @param array $aPagePermsData
 	 * @return integer
 	 */
-	public function addPage($oCursor, $aPageLocalesData, $aPagePermsData)
+	public function addPage($oCursor, array $aPageLocalesData, array $aPagePermsData = array())
 	{
 		$sDate = date('Y-m-d H:i:s');
 		$oCursor->created_at = $sDate;
 		$oCursor->updated_at = $sDate;
 
 		if (!$oCursor->insert()) {
-			throw new \RuntimeException('Unable to insert page into database');
+			throw new RuntimeException('Unable to insert page into database');
 		}
 
 		# récupération de l'ID
@@ -783,18 +786,18 @@ class Module extends BaseModule
 		$this->setPageI18n($iNewId, $aPageLocalesData);
 
 		# ajout des images
-		if ($this->config->images['enable'] && $this->addImages($iNewId) === false) {
-			throw new \RuntimeException('Unable to insert images page');
+		if ($this->addImages($iNewId) === false) {
+			throw new RuntimeException('Unable to insert images page');
 		}
 
 		# ajout des fichiers
-		if ($this->config->files['enable'] && $this->addFiles($iNewId) === false) {
-			throw new \RuntimeException('Unable to insert files page');
+		if ($this->addFiles($iNewId) === false) {
+			throw new RuntimeException('Unable to insert files page');
 		}
 
 		# ajout permissions
-		if (!$this->setPagePermissions($iNewId, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new \RuntimeException('Unable to set page permissions');
+		if (!$this->setPagePermissions($iNewId, $aPagePermsData)) {
+			throw new RuntimeException('Unable to set page permissions');
 		}
 
 		return $iNewId;
@@ -808,32 +811,33 @@ class Module extends BaseModule
 	 * @param array $aPagePermsData
 	 * @return boolean
 	 */
-	public function updPage($oCursor, $aPageLocalesData, $aPagePermsData)
+	public function updPage($oCursor, array $aPageLocalesData, array $aPagePermsData = array())
 	{
 		if (!$this->pageExists($oCursor->id)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $oCursor->id));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $oCursor->id));
+			return false;
 		}
 
 		# modification dans la DB
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
-			throw new \RuntimeException('Unable to update page into database');
+			throw new RuntimeException('Unable to update page into database');
 		}
 
 		# modification des images
-		if ($this->config->images['enable'] && $this->updImages($oCursor->id) === false) {
-			throw new \RuntimeException('Unable to update images page');
+		if ($this->updImages($oCursor->id) === false) {
+			throw new RuntimeException('Unable to update images page');
 		}
 
 		# modification des fichiers
-		if ($this->config->files['enable'] && $this->updFiles($oCursor->id) === false) {
-			throw new \RuntimeException('Unable to update files page');
+		if ($this->updFiles($oCursor->id) === false) {
+			throw new RuntimeException('Unable to update files page');
 		}
 
 		# modification permissions
 		if (!$this->setPagePermissions($oCursor->id, (!empty($aPagePermsData) ? $aPagePermsData : array()))) {
-			throw new \RuntimeException('Unable to set page permissions');
+			throw new RuntimeException('Unable to set page permissions');
 		}
 
 		# modification des textes internationnalisés
@@ -893,7 +897,8 @@ class Module extends BaseModule
 	public function switchPageStatus($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		$sQuery =
@@ -903,7 +908,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to update page in database.');
+			throw new RuntimeException('Unable to update page in database.');
 		}
 
 		return true;
@@ -919,7 +924,8 @@ class Module extends BaseModule
 	public function setPageStatus($iPageId,$status)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		$sQuery =
@@ -929,7 +935,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to update page in database.');
+			throw new RuntimeException('Unable to update page in database.');
 		}
 
 		return true;
@@ -944,15 +950,16 @@ class Module extends BaseModule
 	public function deletePage($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		if ($this->deleteImages($iPageId) === false) {
-			throw new \RuntimeException('Unable to delete images page.');
+			throw new RuntimeException('Unable to delete images page.');
 		}
 
 		if ($this->deleteFiles($iPageId) === false) {
-			throw new \RuntimeException('Unable to delete files page.');
+			throw new RuntimeException('Unable to delete files page.');
 		}
 
 		$sQuery =
@@ -960,7 +967,7 @@ class Module extends BaseModule
 		'WHERE id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to remove page from database.');
+			throw new RuntimeException('Unable to remove page from database.');
 		}
 
 		$this->db->optimize($this->t_pages);
@@ -970,7 +977,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to remove page locales from database.');
+			throw new RuntimeException('Unable to remove page locales from database.');
 		}
 
 		$this->db->optimize($this->t_pages_locales);
@@ -1062,7 +1069,8 @@ class Module extends BaseModule
 		}
 
 		if (!$this->pageExists($iPageId)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
@@ -1113,7 +1121,8 @@ class Module extends BaseModule
 	protected function setDefaultPagePermissions($iPageId)
 	{
 		if (!$this->pageExists($iPageId)) {
-			throw new \Exception(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
 		}
 
 		# suppression de toutes les permissions éventuellement existantes
@@ -1141,7 +1150,7 @@ class Module extends BaseModule
 		') ';
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to insert page permissions into database');
+			throw new RuntimeException('Unable to insert page permissions into database');
 		}
 
 		return true;
@@ -1160,7 +1169,7 @@ class Module extends BaseModule
 		'WHERE page_id='.(integer)$iPageId;
 
 		if (!$this->db->execute($sQuery)) {
-			throw new \RuntimeException('Unable to delete page permissions from database');
+			throw new RuntimeException('Unable to delete page permissions from database');
 		}
 
 		$this->db->optimize($this->t_permissions);
@@ -1196,6 +1205,10 @@ class Module extends BaseModule
 	 */
 	public function addImages($iPageId)
 	{
+		if (!$this->config->images['enable']) {
+			return null;
+		}
+
 		$aImages = $this->getImageUpload()->addImages($iPageId);
 
 		if (!$this->error->isEmpty()) {
@@ -1213,6 +1226,10 @@ class Module extends BaseModule
 	 */
 	public function updImages($iPageId)
 	{
+		if (!$this->config->images['enable']) {
+			return null;
+		}
+
 		$aCurrentImages = $this->getImagesFromDb($iPageId);
 
 		if (!$this->error->isEmpty()) {
@@ -1381,6 +1398,10 @@ class Module extends BaseModule
 	 */
 	public function addFiles($iPageId)
 	{
+		if (!$this->config->files['enable']) {
+			return null;
+		}
+
 		$aFiles = $this->getFileUpload()->addFiles($iPageId);
 
 		if (!$this->error->isEmpty()) {
@@ -1398,6 +1419,10 @@ class Module extends BaseModule
 	 */
 	public function updFiles($iPageId)
 	{
+		if (!$this->config->files['enable']) {
+			return null;
+		}
+
 		$aCurrentFiles = $this->getPageFiles($iPageId);
 
 		if (!$this->error->isEmpty()) {

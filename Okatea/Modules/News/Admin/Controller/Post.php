@@ -134,9 +134,9 @@ class Post extends Controller
 
 				# log admin
 				$this->okt->logAdmin->info(array(
-					'code' => 32,
+					'code' 		=> 32,
 					'component' => 'news',
-					'message' => 'post #'.$this->aPostData['post']['id']
+					'message' 	=> 'post #'.$this->aPostData['post']['id']
 				));
 
 				return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
@@ -153,9 +153,9 @@ class Post extends Controller
 
 			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$this->aPostData['post']['id']
+				'message' 	=> 'post #'.$this->aPostData['post']['id']
 			));
 
 			$this->page->flash->success(__('m_news_post_published'));
@@ -170,9 +170,9 @@ class Post extends Controller
 
 			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$this->aPostData['post']['id']
+				'message' 	=> 'post #'.$this->aPostData['post']['id']
 			));
 
 			return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
@@ -185,9 +185,9 @@ class Post extends Controller
 
 			# log admin
 			$this->okt->logAdmin->info(array(
-				'code' => 41,
+				'code' 		=> 41,
 				'component' => 'news',
-				'message' => 'post #'.$this->aPostData['post']['id']
+				'message' 	=> 'post #'.$this->aPostData['post']['id']
 			));
 
 			return $this->redirect($this->generateUrl('News_post', array('post_id' => $this->aPostData['post']['id'])));
@@ -207,9 +207,9 @@ class Post extends Controller
 
 				# log admin
 				$this->okt->logAdmin->info(array(
-					'code' => 41,
+					'code' 		=> 41,
 					'component' => 'news',
-					'message' => 'post #'.$this->aPostData['post']['id']
+					'message' 	=> 'post #'.$this->aPostData['post']['id']
 				));
 
 				$this->page->flash->success(__('m_news_post_updated'));
@@ -230,10 +230,10 @@ class Post extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.post');
 
 		$this->aPermissions = array(
-			'bCanViewPage' => true,
-			'bCanEditPost' => ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
-			'bCanPublish' => ($this->okt->checkPerm('news_publish') || $this->okt->checkPerm('news_contentadmin')),
-			'bCanDelete' => ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'))
+			'bCanViewPage' 	=> true,
+			'bCanEditPost' 	=> ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
+			'bCanPublish' 	=> ($this->okt->checkPerm('news_publish') || $this->okt->checkPerm('news_contentadmin')),
+			'bCanDelete' 	=> ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'))
 		);
 
 		$this->aPermissions['bCanDelete'] = ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'));
