@@ -78,7 +78,7 @@ class Post extends Controller
 		$this->aPageData['post']['created_at'] = $rsPage->created_at;
 		$this->aPageData['post']['updated_at'] = $rsPage->updated_at;
 
-		$rsPageI18n = $this->okt->module('Pages')->getPageI18n($this->aPageData['post']['id']);
+		$rsPageI18n = $this->okt->module('Pages')->getPageL10n($this->aPageData['post']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

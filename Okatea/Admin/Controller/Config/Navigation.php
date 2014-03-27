@@ -363,7 +363,7 @@ class Navigation extends Controller
 				$aItemData['item']['active'] = $rsItem->active;
 				$aItemData['item']['type'] = $rsItem->type;
 
-				$rsItemI18n = $this->okt->navigation->getItemI18n($aItemData['item']['id']);
+				$rsItemI18n = $this->okt->navigation->getItemL10n($aItemData['item']['id']);
 
 				foreach ($this->okt->languages->list as $aLanguage)
 				{

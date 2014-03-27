@@ -186,7 +186,7 @@ class Categories extends NestedTreei18n
 	 * @param integer $iCategoryId
 	 * @return recordset
 	 */
-	public function getCategoryI18n($iCategoryId)
+	public function getCategoryL10n($iCategoryId)
 	{
 		$query =
 		'SELECT * '.
@@ -227,7 +227,7 @@ class Categories extends NestedTreei18n
 	 * @param integer $iCategoryId
 	 * @param ArrayObject $aCategoryLocalesData
 	 */
-	protected function setCategoryI18n($iCategoryId, $aCategoryLocalesData)
+	protected function setCategoryL10n($iCategoryId, $aCategoryLocalesData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -385,7 +385,7 @@ class Categories extends NestedTreei18n
 
 		$iNewId =  $this->db->getLastID();
 
-		$this->setCategoryI18n($iNewId, $aCategoryLocalesData);
+		$this->setCategoryL10n($iNewId, $aCategoryLocalesData);
 
 		$this->rebuild();
 
@@ -430,7 +430,7 @@ class Categories extends NestedTreei18n
 			}
 		}
 
-		$this->setCategoryI18n($oCursor->id, $aCategoryLocalesData);
+		$this->setCategoryL10n($oCursor->id, $aCategoryLocalesData);
 
 		$this->rebuild();
 

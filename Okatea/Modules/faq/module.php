@@ -280,7 +280,7 @@ class module_faq extends Module
 	 * @param integer $post_id
 	 * @return recordset
 	 */
-	public function getQuestionI18n($question_id)
+	public function getQuestionL10n($question_id)
 	{
 		$query =
 		'SELECT language, title, title_tag, title_seo, slug, content, meta_description, meta_keywords '.
@@ -366,7 +366,7 @@ class module_faq extends Module
 		}
 
 		# ajout des textes internationalisés
-		if (!$this->setQuestionI18n()) {
+		if (!$this->setQuestionL10n()) {
 			return false;
 		}
 
@@ -418,7 +418,7 @@ class module_faq extends Module
 		}
 
 		# modification des textes internationalisés
-		if (!$this->setQuestionI18n()) {
+		if (!$this->setQuestionL10n()) {
 			return false;
 		}
 
@@ -594,7 +594,7 @@ class module_faq extends Module
 	 * @param integer $post_id
 	 * @return recordset
 	 */
-	public function getCategoryI18n($iCategoryId)
+	public function getCategoryL10n($iCategoryId)
 	{
 		$query =
 		'SELECT language, title '.
@@ -639,7 +639,7 @@ class module_faq extends Module
 
 		$this->params['id'] = $this->db->getLastID();
 
-		if (!$this->setPostI18n()) {
+		if (!$this->setPostL10n()) {
 			return false;
 		}
 
@@ -670,7 +670,7 @@ class module_faq extends Module
 			return false;
 		}
 
-		if (!$this->setPostI18n()) {
+		if (!$this->setPostL10n()) {
 			return false;
 		}
 	}
@@ -744,7 +744,7 @@ class module_faq extends Module
 		return true;
 	}
 
-	protected function setPostI18n()
+	protected function setPostL10n()
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -900,7 +900,7 @@ class module_faq extends Module
 			return false;
 		}
 
-		$i18n = $this->getQuestionI18n($question_id);
+		$i18n = $this->getQuestionL10n($question_id);
 
 		# suppression du fichier sur le disque
 		if (file_exists($this->upload_dir.'/'.$filename)) {
@@ -1152,7 +1152,7 @@ class module_faq extends Module
 		$rsQuestions = $this->getQuestions(array());
 		while ($rsQuestions->fetch())
 		{
-			$rsQuestionLocales = $this->getQuestionI18n($rsQuestions->id);
+			$rsQuestionLocales = $this->getQuestionL10n($rsQuestions->id);
 			while($rsQuestionLocales->fetch())
 			{
 				$words =
@@ -1179,7 +1179,7 @@ class module_faq extends Module
 	 *
 	 * @return boolean
 	 */
-	protected function setQuestionI18n()
+	protected function setQuestionL10n()
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
