@@ -146,27 +146,34 @@ if ($okt->config->users['gravatar']['enabled'])
 		<tr>
 			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
 			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
-				<a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<?php if ($okt->config->users['gravatar']['enabled']) : ?>
-				<img src="<?php echo $gravatarImage->getUrl($rsUsers->email) ?>" width="<?php echo $gravatarImage->getSize() ?>" height="<?php echo $gravatarImage->getSize() ?>" alt="" class="avatar" />
-				<?php endif; ?>
-				<p class="title"><?php echo $view->escape($rsUsers->username) ?></p></a>
+				<p class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
+				<?php if ($okt->config->users['gravatar']['enabled']) : ?><img src="<?php
+				echo $gravatarImage->getUrl($rsUsers->email) ?>" width="<?php
+				echo $gravatarImage->getSize() ?>" height="<?php
+				echo $gravatarImage->getSize() ?>" alt="" class="avatar" /><?php endif; ?>
+				<?php echo $view->escape($rsUsers->username) ?></a></p>
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
 				<p><?php echo $view->escape($rsUsers->displayname) ?></p>
 			</th>
-			<td class="<?php echo $sTdClass ?>"><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></td>
-			<td class="<?php echo $sTdClass ?>"><?php
-
-			if ($rsUsers->group_id == Groups::UNVERIFIED) {
-				_e('c_a_users_wait_of_validation');
-			}
-			elseif (!empty($rsUsers->title)) {
-				echo $view->escape($rsUsers->title);
-			}
-
-			?></td>
-			<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->last_visit) ?></td>
-			<td class="<?php echo $sTdClass ?>"><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->registered) ?></td>
+			<td class="<?php echo $sTdClass ?>">
+				<p><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></p>
+			</td>
+			<td class="<?php echo $sTdClass ?>">
+				<p><?php
+				if ($rsUsers->group_id == Groups::UNVERIFIED) {
+					_e('c_a_users_wait_of_validation');
+				}
+				elseif (!empty($rsUsers->title)) {
+					echo $view->escape($rsUsers->title);
+				}
+				?></p>
+			</td>
+			<td class="<?php echo $sTdClass ?>">
+				<p><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->last_visit) ?></p>
+			</td>
+			<td class="<?php echo $sTdClass ?>">
+				<p><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->registered) ?></p>
+			</td>
 			<td class="<?php echo $sTdClass ?> nowrap">
 				<ul class="actions">
 

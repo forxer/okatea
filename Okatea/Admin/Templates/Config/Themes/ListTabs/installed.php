@@ -88,13 +88,11 @@ foreach ($aInstalledThemes as $aTheme)
 		?>
 		<tr>
 			<td class="<?php echo $td_class ?> small">
-				<p>
-					<?php if ($aTheme['icon']) : ?>
-					<img src="<?php echo  $okt->options->get('public_url').'/themes/'.$aTheme['id'].'/'.$aTheme['icon'] ?>" alt="" width="64" height="64">
-					<?php else : ?>
-					<div class="no-icon"><em>n/a</em></div>
-					<?php endif; ?>
-				</p>
+				<?php if ($aTheme['icon']) : ?>
+				<p><img src="<?php echo  $okt->options->get('public_url').'/themes/'.$aTheme['id'].'/'.$aTheme['icon'] ?>" alt="" width="64" height="64"></p>
+				<?php else : ?>
+				<div class="no-icon"><em>n/a</em></div>
+				<?php endif; ?>
 			</td>
 			<td class="<?php echo $td_class ?>">
 				<p class="title">

@@ -35,13 +35,12 @@ use Okatea\Tao\Misc\Utilities;
 		?>
 		<tr>
 			<td class="<?php echo $td_class ?> small">
-				<p>
-					<?php if ($aTheme['icon']) : ?>
-					<img src="<?php echo  Utilities::base64EncodeImage($aTheme['root'].'/Install/Assets/'.$aTheme['icon']) ?>" alt="" width="64" height="64">
-					<?php else : ?>
-					<div class="no-icon"><em>n/a</em></div>
-					<?php endif; ?>
-				</p>
+				<?php if ($aTheme['icon']) : ?>
+				<p><img src="<?php echo  Utilities::base64EncodeImage($aTheme['root'].'/Install/Assets/'.$aTheme['icon']) ?>" alt="" width="64" height="64"></p>
+				<?php else : ?>
+				<div class="no-icon"><em>n/a</em></div>
+				<?php endif; ?>
+
 			</td>
 			<td class="<?php echo $td_class; ?>">
 				<p class="title"><?php _e($aTheme['name']) ?></p>

@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Update as Updater;
 
@@ -36,19 +37,19 @@ class Home extends Controller
 		}
 
 		return $this->render('Home', array(
-			'sNewVersion' => $this->sNewVersion,
-			'bFeedSuccess' => $this->bFeedSuccess,
-			'feed' => $this->feed,
-			'aRoundAboutItems' => (array)$this->aRoundAboutItems
+			'sNewVersion' 		=> $this->sNewVersion,
+			'bFeedSuccess' 		=> $this->bFeedSuccess,
+			'feed' 				=> $this->feed,
+			'aRoundAboutItems' 	=> (array)$this->aRoundAboutItems
 		));
 	}
 
 	protected function roundAbout()
 	{
-		$roundAboutOptions = new ArrayObject(;
-		$roundAboutOptions['tilt'] = 4;
-		$roundAboutOptions['easing'] = 'easeOutElastic';
-		$roundAboutOptions['duration'] = 1400;
+		$aRoundAboutOptions 				= new ArrayObject();
+		$aRoundAboutOptions['tilt'] 		= 4;
+		$aRoundAboutOptions['easing'] 	= 'easeOutElastic';
+		$aRoundAboutOptions['duration'] 	= 1400;
 
 		$this->page->css->addCss('
 			#roundabout img {
@@ -80,12 +81,12 @@ class Home extends Controller
 		');
 
 		# -- CORE TRIGGER : adminIndexRoundaboutOptions
-		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $roundAboutOptions);
+		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $aRoundAboutOptions);
 
-		$this->page->roundabout($roundAboutOptions,'#roundabout');
+		$this->page->roundabout($aRoundAboutOptions, '#roundabout');
 
 		# RoundAbout defaults Items
-		$this->aRoundAboutItems = new ArrayObject(;
+		$this->aRoundAboutItems = new ArrayObject();
 
 		$sRoundAboutItemFormat = '<a href="%2$s">%3$s<span>%1$s</span></a>';
 

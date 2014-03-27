@@ -7,6 +7,7 @@
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Database\Recordset;
 
 class oktFilterWords extends oktSpamFilter
 {
@@ -184,7 +185,7 @@ class oktFilterWords extends oktSpamFilter
 		'ORDER BY rule_content ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -198,7 +199,7 @@ class oktFilterWords extends oktSpamFilter
 		"AND rule_content = '".$this->db->escapeStr($content)."' ";
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			$rs = new recordset(array());
+			$rs = new Recordset(array());
 		}
 
 		if (!$rs->isEmpty()) {

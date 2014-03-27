@@ -7,6 +7,7 @@
 
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Database\Recordset;
 
 class oktFilterIP extends oktSpamFilter
 {
@@ -226,7 +227,7 @@ class oktFilterIP extends oktSpamFilter
 		'ORDER BY rule_content ASC ';
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
@@ -240,7 +241,7 @@ class oktFilterIP extends oktSpamFilter
 		"AND rule_content LIKE '%:".(integer) $ip.":".(integer) $mask."' ";
 
 		if (($rs = $this->db->select($strReq)) === false) {
-			return new recordset(array());
+			return new Recordset(array());
 		}
 
 		return $rs;
