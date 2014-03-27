@@ -51,6 +51,7 @@ $okt->page->setButtonset('usersGroups', array(
 <form action="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)) ?>" method="post" id="group-form">
 
 	<?php echo $view->render('Users/Groups/GroupForm', array(
+		'iGroupId' 		 => $iGroupId,
 		'aGroupData'     => $aGroupData,
 		'aPermissions'   => $aPermissions
 	)) ?>

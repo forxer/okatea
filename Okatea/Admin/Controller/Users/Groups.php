@@ -126,6 +126,17 @@ class Groups extends Controller
 			return $this->serve404();
 		}
 
+		# @TODO : write warnings message for editing system groups
+		if ($iGroupId === UsersGroups::SUPERADMIN) {
+			$this->okt->page->warnings->set(__('SUPERADMIN'));
+		}
+		elseif ($iGroupId === UsersGroups::ADMIN) {
+			$this->okt->page->warnings->set(__('ADMIN'));
+		}
+		elseif ($iGroupId === UsersGroups::GUEST) {
+			$this->okt->page->warnings->set(__('GUEST'));
+		}
+
 		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
 		$rsGroupL10n = $this->okt->getGroups()->getGroupL10n($iGroupId);
 

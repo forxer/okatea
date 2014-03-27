@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Users\Groups;
 
 # Tabs
 $okt->page->tabs();
@@ -37,7 +38,16 @@ if (!$okt->languages->unique) {
 	<div id="tab-permissions">
 		<h3><?php _e('c_a_users_groups_permissions') ?></h3>
 
+		<?php if ($iGroupId === Groups::SUPERADMIN) : ?>
+			<p><em><?php printf(__('c_a_users_groups_error_permissions_sudo'), $aGroupData['locales'][$okt->user->language]['title'], $iGroupId) ?></em></p>
+
+		<?php elseif ($iGroupId === Groups::GUEST) : ?>
+			<p><em><?php printf(__('c_a_users_groups_error_permissions_guest'), $aGroupData['locales'][$okt->user->language]['title'], $iGroupId) ?></em></p>
+
+		<?php else : ?>
+
 		<?php foreach ($aPermissions as $aPermsGroup) :
+
 			if (empty($aPermsGroup['perms'])) continue; ?>
 
 			<?php if (!empty($aPermsGroup['libelle'])) : ?>
@@ -52,6 +62,8 @@ if (!$okt->languages->unique) {
 				<?php endforeach; ?>
 			</ul>
 		<?php endforeach; ?>
+
+		<?php endif; ?>
 
 	</div><!-- #tab-permissions -->
 
