@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Themes\TemplatesSet;
 
@@ -328,7 +329,7 @@ class Navigation extends Controller
 		}
 
 		# Données de l'élément
-		$aItemData = new \ArrayObject();
+		$aItemData = new ArrayObject();
 
 		$aItemData['item'] = array();
 		$aItemData['item']['id'] = $this->request->query->getInt('item_id', $this->request->request->getInt('item_id'));

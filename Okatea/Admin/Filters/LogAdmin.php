@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Filters;
 
+use ArrayObject;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Misc\BaseFilters;
 
@@ -25,7 +26,7 @@ class LogAdmin extends BaseFilters
 
 	public function __construct($okt, $logAdmin)
 	{
-		$oConfig = new \ArrayObject();
+		$oConfig = new ArrayObject();
 		$oConfig->admin_default_nb_per_page = 30;
 		$oConfig->admin_default_order_by = 'date';
 		$oConfig->admin_default_order_direction = 'DESC';

@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Users;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Mailer;
@@ -199,7 +200,7 @@ class User extends Controller
 		# -- CORE TRIGGER : adminUsersEditProcess
 		$this->okt->triggers->callTrigger('adminUsersEditProcess', $this->aPageData);
 
-		$this->aPageData['tabs'] = new \ArrayObject();
+		$this->aPageData['tabs'] = new ArrayObject();
 
 		$this->aPageData['tabs'][10] = array(
 			'id'         => 'tab-edit-user',
@@ -237,7 +238,7 @@ class User extends Controller
 	{
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 
 		$this->aPageData['user'] = array(
 			'group_id'           => 0,

@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
 use Symfony\Component\Finder\Finder;
@@ -42,7 +43,7 @@ class Tools extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/tools');
 
 		# Données de la page
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 
 		$this->cacheInit();
 

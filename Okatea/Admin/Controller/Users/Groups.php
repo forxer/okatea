@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Users;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups as UsersGroups;
@@ -61,7 +62,7 @@ class Groups extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
-		$aGroupData = new \ArrayObject();
+		$aGroupData = new ArrayObject();
 
 		$aGroupData['locales'] = array();
 
@@ -128,7 +129,7 @@ class Groups extends Controller
 		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
 		$rsGroupL10n = $this->okt->getGroups()->getGroupL10n($iGroupId);
 
-		$aGroupData = new \ArrayObject();
+		$aGroupData = new ArrayObject();
 
 		$aGroupData['locales'] = array();
 

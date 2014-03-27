@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Users;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Themes\TemplatesSet;
@@ -114,7 +115,7 @@ class Config extends Controller
 	{
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
-		$this->aPageData = new \ArrayObject(array());
+		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(
 			'users' => array(
 				'custom_fields_enabled' => $this->okt->config->users['custom_fields_enabled'],
@@ -226,7 +227,7 @@ class Config extends Controller
 		}
 
 		# Construction des onglets
-		$this->aPageData['Tabs'] = new \ArrayObject();
+		$this->aPageData['Tabs'] = new ArrayObject();
 		$this->aPageData['Tabs'][10] = array(
 			'id'         => 'tab_general',
 			'title'      => __('c_a_users_General'),

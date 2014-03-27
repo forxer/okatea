@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin;
 
+use ArrayObject;
 use Okatea\Admin\Messages\Errors;
 use Okatea\Admin\Messages\Infos;
 use Okatea\Admin\Messages\Success;
@@ -187,7 +188,7 @@ class Page extends BasePage
 
 	public function getUserBars()
 	{
-		$aUserBars = new \ArrayObject(array(
+		$aUserBars = new ArrayObject(array(
 			'first' => array(),
 			'second' => array()
 		));

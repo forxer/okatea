@@ -8,6 +8,8 @@
 
 namespace Okatea\Install;
 
+use ArrayObject;
+
 abstract class AbstractExtension
 {
 	protected $okt;
@@ -33,6 +35,6 @@ abstract class AbstractExtension
 			}
 		}
 
-		$stepper->aStepsList = new \ArrayObject($aNewSteps);
+		$stepper->aStepsList = new ArrayObject($aNewSteps);
 	}
 }

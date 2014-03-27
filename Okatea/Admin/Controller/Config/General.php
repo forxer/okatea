@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
@@ -26,7 +27,7 @@ class General extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/site');
 
 		# Données de la page
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();
 
 		$this->generalInit();

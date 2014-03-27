@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Requirements;
 
@@ -33,7 +34,7 @@ class Infos extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/infos');
 
 		# Données de la page
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 
 		$this->notesInit();
 

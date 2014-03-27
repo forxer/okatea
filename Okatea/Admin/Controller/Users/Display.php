@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Users;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 
 class Display extends Controller
@@ -22,7 +23,7 @@ class Display extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir').'/%s/admin/users');
 
-		$this->aPageData = new \ArrayObject(array());
+		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(
 			'users_filters' => array(
 				'public_default_nb_per_page' 	=> $this->okt->config->users_filters['public_default_nb_per_page'],

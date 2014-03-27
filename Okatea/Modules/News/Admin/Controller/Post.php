@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\News\Admin\Controller;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Themes\TemplatesSet;
 
@@ -239,7 +240,7 @@ class Post extends Controller
 		$this->aPermissions['bCanDelete'] = ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'));
 
 		# Données de l'article
-		$this->aPostData = new \ArrayObject();
+		$this->aPostData = new ArrayObject();
 
 		$this->aPostData['post'] = array();
 		$this->aPostData['post']['id'] = null;

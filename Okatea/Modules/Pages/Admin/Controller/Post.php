@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\Pages\Admin\Controller;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Themes\TemplatesSet;
 
@@ -209,7 +210,7 @@ class Post extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.post');
 
 		# Données de la page
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 
 		$this->aPageData['post'] = array();
 		$this->aPageData['post']['id'] = null;

@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\Pages\Admin\Controller;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Forms\Statics\SelectOption;
 use Okatea\Tao\Html\Escaper;
@@ -218,7 +219,7 @@ class Category extends Controller
 			'language' => $this->okt->user->language
 		));
 
-		$this->aCategoryData['cat'] = new \ArrayObject();
+		$this->aCategoryData['cat'] = new ArrayObject();
 
 		$this->aCategoryData['cat']['id'] = null;
 		$this->aCategoryData['cat']['active'] = 1;

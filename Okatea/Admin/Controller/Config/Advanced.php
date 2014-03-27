@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
 
@@ -25,7 +26,7 @@ class Advanced extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/advanced');
 
 		# Données de la page
-		$this->aPageData = new \ArrayObject();
+		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();
 
 		$this->othersInit();

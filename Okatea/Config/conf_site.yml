@@ -5,12 +5,8 @@ desc:
     fr: 'Un autre CMS modulaire en PHP'
     en: 'Another modular CMS in PHP'
 home_page:
-    item:
-        fr: ''
-        en: ''
-    details:
-        fr: ''
-        en: ''
+    item: {  }
+    details: {  }
 title_tag:
     fr: ''
     en: ''
