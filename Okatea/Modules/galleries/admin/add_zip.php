@@ -41,7 +41,7 @@ if (!empty($_POST['sended']))
 			throw new Exception(__('m_galleries_zip_error_must_gallery_id'));
 		}
 
-		$rsGalleryLocales = $okt->galleries->tree->getGalleryI18n($iGalleryId);
+		$rsGalleryLocales = $okt->galleries->tree->getGalleryL10n($iGalleryId);
 
 		foreach ($okt->languages->list as $aLanguage)
 		{

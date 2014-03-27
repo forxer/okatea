@@ -40,7 +40,7 @@ foreach ($okt->languages->list as $aLanguage)
 if (!is_null($field_id))
 {
 	$rsField = $okt->contact->getField($field_id);
-	$rsField_i18n = $okt->contact->getFieldI18n($field_id);
+	$rsField_i18n = $okt->contact->getFieldL10n($field_id);
 
 	$field_data = array(
 		'id' => $rsField->id,

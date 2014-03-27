@@ -60,7 +60,7 @@ if ($do == 'add')
 if ($do == 'edit' && $iCategoryId > 0)
 {
 	$rsCategory = $okt->faq->getCategory($iCategoryId);
-	$rsCategoryI18n = $okt->faq->getCategoryI18n($iCategoryId);
+	$rsCategoryI18n = $okt->faq->getCategoryL10n($iCategoryId);
 
 	foreach ($okt->languages->list as $aLanguage)
 	{

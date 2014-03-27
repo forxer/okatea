@@ -49,7 +49,7 @@
 		die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Empty gallery ID"}, "id" : "id"}');
 	}
 
-	$rsGalleryLocales = $okt->galleries->tree->getGalleryI18n($gallery_id);
+	$rsGalleryLocales = $okt->galleries->tree->getGalleryL10n($gallery_id);
 
 	foreach ($okt->languages->list as $aLanguage)
 	{

@@ -431,7 +431,7 @@ class Menus
 	 * @param integer $iItemId
 	 * @return Recordset
 	 */
-	public function getItemI18n($iItemId)
+	public function getItemL10n($iItemId)
 	{
 		$query =
 		'SELECT * FROM '.$this->t_items_locales.' '.
@@ -471,7 +471,7 @@ class Menus
 
 		$iItemId = $this->db->getLastID();
 
-		$this->setItemI18n($iItemId, $aData['locales']);
+		$this->setItemL10n($iItemId, $aData['locales']);
 
 		return $iItemId;
 	}
@@ -494,7 +494,7 @@ class Menus
 			throw new \Exception('Unable to update item into database.');
 		}
 
-		$this->setItemI18n($aData['item']['id'], $aData['locales']);
+		$this->setItemL10n($aData['item']['id'], $aData['locales']);
 
 		return true;
 	}
@@ -626,7 +626,7 @@ class Menus
 	 * @param integer $iItemId
 	 * @param array $aData
 	 */
-	protected function setItemI18n($iItemId, $aData)
+	protected function setItemL10n($iItemId, $aData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

@@ -225,7 +225,7 @@ class GalleriesTree extends NestedTreei18n
 	 * @param integer $iGalleryId
 	 * @return recordset
 	 */
-	public function getGalleryI18n($iGalleryId)
+	public function getGalleryL10n($iGalleryId)
 	{
 		$query =
 		'SELECT * '.
@@ -320,7 +320,7 @@ class GalleriesTree extends NestedTreei18n
 	 * @param integer $iGalleryId
 	 * @param ArrayObject $aGalleryLocalesData
 	 */
-	protected function setGalleryI18n($iGalleryId, $aGalleryLocalesData)
+	protected function setGalleryL10n($iGalleryId, $aGalleryLocalesData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -482,7 +482,7 @@ class GalleriesTree extends NestedTreei18n
 
 		$iNewId =  $this->db->getLastID();
 
-		$this->setGalleryI18n($iNewId, $aGalleryLocalesData);
+		$this->setGalleryL10n($iNewId, $aGalleryLocalesData);
 
 		$this->rebuild();
 
@@ -533,7 +533,7 @@ class GalleriesTree extends NestedTreei18n
 			}
 		}
 
-		$this->setGalleryI18n($oCursor->id, $aGalleryLocalesData);
+		$this->setGalleryL10n($oCursor->id, $aGalleryLocalesData);
 
 		$this->rebuild();
 

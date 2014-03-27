@@ -86,7 +86,7 @@ class Post extends Controller
 		$this->aPostData['extra']['hours'] = date('H', $iPotsTs);
 		$this->aPostData['extra']['minutes'] = date('i', $iPotsTs);
 
-		$rsPostI18n = $this->okt->module('News')->getPostI18n($this->aPostData['post']['id']);
+		$rsPostI18n = $this->okt->module('News')->getPostL10n($this->aPostData['post']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

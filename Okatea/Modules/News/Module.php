@@ -525,7 +525,7 @@ class Module extends BaseModule
 	 * @param integer $iPostId
 	 * @return recordset
 	 */
-	public function getPostI18n($iPostId)
+	public function getPostL10n($iPostId)
 	{
 		$query =
 		'SELECT * FROM '.$this->t_news_locales.' '.
@@ -659,7 +659,7 @@ class Module extends BaseModule
 	 * @param integer $iPostId
 	 * @param array $aPostLocalesData
 	 */
-	protected function setPostI18n($iPostId, $aPostLocalesData)
+	protected function setPostL10n($iPostId, $aPostLocalesData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -781,7 +781,7 @@ class Module extends BaseModule
 		$iNewId = $this->db->getLastID();
 
 		# ajout des textes internationnalisés
-		$this->setPostI18n($iNewId, $aPostLocalesData);
+		$this->setPostL10n($iNewId, $aPostLocalesData);
 
 		# ajout des images
 		if ($this->addImages($iNewId) === false) {
@@ -848,7 +848,7 @@ class Module extends BaseModule
 		}
 
 		# modification des textes internationnalisés
-		$this->setPostI18n($oCursor->id, $aPostLocalesData);
+		$this->setPostL10n($oCursor->id, $aPostLocalesData);
 
 		return true;
 	}

@@ -526,7 +526,7 @@ class Module extends BaseModule
 	 * @param integer $iPageId
 	 * @return recordset
 	 */
-	public function getPageI18n($iPageId)
+	public function getPageL10n($iPageId)
 	{
 		$query =
 		'SELECT * FROM '.$this->t_pages_locales.' '.
@@ -658,7 +658,7 @@ class Module extends BaseModule
 	 * @param integer $iPageId
 	 * @param array $aPageLocalesData
 	 */
-	protected function setPageI18n($iPageId, $aPageLocalesData)
+	protected function setPageL10n($iPageId, $aPageLocalesData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -783,7 +783,7 @@ class Module extends BaseModule
 		$iNewId = $this->db->getLastID();
 
 		# ajout des textes internationnalisés
-		$this->setPageI18n($iNewId, $aPageLocalesData);
+		$this->setPageL10n($iNewId, $aPageLocalesData);
 
 		# ajout des images
 		if ($this->addImages($iNewId) === false) {
@@ -841,7 +841,7 @@ class Module extends BaseModule
 		}
 
 		# modification des textes internationnalisés
-		$this->setPageI18n($oCursor->id, $aPageLocalesData);
+		$this->setPageL10n($oCursor->id, $aPageLocalesData);
 
 		return true;
 	}
