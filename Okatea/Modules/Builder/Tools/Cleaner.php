@@ -52,6 +52,7 @@ class Cleaner extends BaseTools
 		'forxer/archiver' => '',
 		'forxer/gravatar' => '',
 		'forxer/languages-list' => 'src',
+		'fzaninotto/faker' => '',
 		'guzzlehttp/guzzle' => 'docs',
 		'imagine/imagine' => 'docs',
 		'ircmaxell/password-compat' => '',
