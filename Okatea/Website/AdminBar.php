@@ -46,9 +46,9 @@ class AdminBar
 
 	public function displayWebsiteAdminBar()
 	{
-		$aBasesUrl = new \ArrayObject;
-		$aPrimaryAdminBar = new \ArrayObject;
-		$aSecondaryAdminBar = new \ArrayObject;
+		$aBasesUrl = new ArrayObject(;
+		$aPrimaryAdminBar = new ArrayObject(;
+		$aSecondaryAdminBar = new ArrayObject(;
 
 		$aBasesUrl['admin'] = $this->okt->config->app_path.'admin/';
 		$aBasesUrl['logout'] = $this->okt->router->generate('usersLogout');

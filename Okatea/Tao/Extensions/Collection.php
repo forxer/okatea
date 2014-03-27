@@ -161,10 +161,8 @@ class Collection
 	 */
 	public function getInstance($sExtensionId)
 	{
-		if (!isset($this->aLoaded[$sExtensionId]))
-		{
-			throw new \InvalidArgumentException(__('The extension specified ('.$sExtensionId.') does not appear to be a valid loaded extension.'));
-			return null;
+		if (!isset($this->aLoaded[$sExtensionId])) {
+			throw new \RuntimeException(__('The extension specified ('.$sExtensionId.') does not appear to be a valid loaded extension.'));
 		}
 
 		return $this->aLoaded[$sExtensionId];

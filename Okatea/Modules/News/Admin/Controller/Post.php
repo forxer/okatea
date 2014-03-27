@@ -373,7 +373,7 @@ class Post extends Controller
 		}
 
 		# Construction des onglets
-		$this->aPostData['tabs'] = new \ArrayObject;
+		$this->aPostData['tabs'] = new ArrayObject(;
 
 		# onglet contenu
 		$this->aPostData['tabs'][10] = array(

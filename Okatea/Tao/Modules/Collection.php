@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Modules;
 
+use SimpleXMLElement;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\HttpClient;
 
@@ -726,7 +727,7 @@ class Collection
 	{
 		try
 		{
-			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
+			$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
 
 			$return = array();
 			foreach ($xml->module as $module)

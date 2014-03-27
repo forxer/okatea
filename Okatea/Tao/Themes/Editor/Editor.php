@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Themes\Editor;
 
+use RecursiveDirectoryIterator;
+use SplFileInfo;
 use Okatea\Tao\Themes\Collection;
 use Okatea\Tao\Themes\Editor\Iterator\ThemeFiles;
 use Okatea\Tao\Themes\Editor\Iterator\ThemeDirsForSelect;
@@ -187,7 +189,7 @@ class Editor
 	public function loadThemeFilesTree()
 	{
 		if ($this->sThemeId) {
-			$this->oThemeFiles = new ThemeFiles(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
+			$this->oThemeFiles = new ThemeFiles(new RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
 
@@ -199,7 +201,7 @@ class Editor
 	public function loadThemeDirTree()
 	{
 		if ($this->sThemeId) {
-			$this->oThemeFiles = new ThemeDirsForSelect(new \RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
+			$this->oThemeFiles = new ThemeDirsForSelect(new RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
 
@@ -213,7 +215,7 @@ class Editor
 		{
 	//		$this->aTemplatesPath[$aTheme['name']] = array();
 
-			$i = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->sThemesPath.'/'.$aTheme['id'].'/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
+			$i = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->sThemesPath.'/'.$aTheme['id'].'/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
 
 			foreach ($i as $f)
 			{
@@ -278,7 +280,7 @@ class Editor
 
 		$this->sFilename = $sFilename;
 
-		$this->oFileInfos = new \SplFileInfo($this->sThemePath.$this->sFilename);
+		$this->oFileInfos = new SplFileInfo($this->sThemePath.$this->sFilename);
 
 		$this->sFileExtension = $this->oFileInfos->getExtension();
 

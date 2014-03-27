@@ -45,7 +45,7 @@ class Home extends Controller
 
 	protected function roundAbout()
 	{
-		$roundAboutOptions = new \ArrayObject;
+		$roundAboutOptions = new ArrayObject(;
 		$roundAboutOptions['tilt'] = 4;
 		$roundAboutOptions['easing'] = 'easeOutElastic';
 		$roundAboutOptions['duration'] = 1400;
@@ -85,7 +85,7 @@ class Home extends Controller
 		$this->page->roundabout($roundAboutOptions,'#roundabout');
 
 		# RoundAbout defaults Items
-		$this->aRoundAboutItems = new \ArrayObject;
+		$this->aRoundAboutItems = new ArrayObject(;
 
 		$sRoundAboutItemFormat = '<a href="%2$s">%3$s<span>%1$s</span></a>';
 

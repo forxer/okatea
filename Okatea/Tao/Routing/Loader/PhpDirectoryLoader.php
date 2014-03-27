@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao\Routing\Loader;
 
+use RecursiveIteratorIterator;
+use SplFileInfo;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\RouteCollection;
@@ -35,8 +37,8 @@ class PhpDirectoryLoader extends PhpFileLoader
 
 		$collection = new RouteCollection();
 		$collection->addResource(new DirectoryResource($dir, '/\.php$/'));
-		$files = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY));
-		usort($files, function (\SplFileInfo $a, \SplFileInfo $b) {
+		$files = iterator_to_array(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::LEAVES_ONLY));
+		usort($files, function (SplFileInfo $a, SplFileInfo $b) {
 			return (string) $a > (string) $b ? 1 : -1;
 		});
 

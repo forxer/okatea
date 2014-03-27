@@ -9,6 +9,7 @@
 namespace Okatea\Admin\Controller\Config;
 
 use ArrayObject;
+use DirectoryIterator;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
 use Symfony\Component\Finder\Finder;
@@ -76,7 +77,7 @@ class Tools extends Controller
 		$this->okt->triggers->callTrigger('adminToolsHandleRequest', $this->aPageData);
 
 		# Construction des onglets
-		$this->aPageData['tabs'] = new \ArrayObject;
+		$this->aPageData['tabs'] = new ArrayObject(;
 
 		# onglet cache
 		$this->aPageData['tabs'][10] = array(
@@ -188,7 +189,7 @@ class Tools extends Controller
 		$this->aBackupFiles = array();
 		$this->aDbBackupFiles = array();
 
-		foreach (new \DirectoryIterator($this->okt->options->get('root_dir')) as $oFileInfo)
+		foreach (new DirectoryIterator($this->okt->options->get('root_dir')) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile()) {
 				continue;

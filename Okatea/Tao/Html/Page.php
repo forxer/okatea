@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Html;
 
+use DirectoryIterator;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Navigation\Breadcrumb;
 
@@ -1386,7 +1387,7 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new \DirectoryIterator($okt->options->public_dir.'/plugins/jquery-ui/themes') as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->public_dir.'/plugins/jquery-ui/themes') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isDir() ||
 			!file_exists($okt->options->public_dir.'/plugins/jquery-ui/themes/'.$oFileInfo->getFilename().'/jquery-ui.css')) {

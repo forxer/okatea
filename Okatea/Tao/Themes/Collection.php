@@ -8,9 +8,11 @@
 
 namespace Okatea\Tao\Themes;
 
+use DirectoryIterator;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\HttpClient;
+use SimpleXMLElement;
 
 /**
  * Classe de gestion des thèmes.
@@ -144,7 +146,7 @@ class Collection
 		}
 		else
 		{
-			foreach (new \DirectoryIterator($this->sPath) as $oFileInfo)
+			foreach (new DirectoryIterator($this->sPath) as $oFileInfo)
 			{
 				if ($oFileInfo->isDot() || !$oFileInfo->isDir() || !file_exists($oFileInfo->getPathname().'/_define.php')) {
 					continue;
@@ -611,7 +613,7 @@ class Collection
 	{
 		try
 		{
-			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
+			$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
 
 			$return = array();
 			foreach ($xml->theme as $theme)

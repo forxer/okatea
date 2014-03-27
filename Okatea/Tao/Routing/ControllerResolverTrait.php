@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Routing;
 
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 
 trait ControllerResolverTrait
@@ -67,7 +68,7 @@ trait ControllerResolverTrait
 		$callable = $this->createController($controller);
 
 		if (!is_callable($callable)) {
-			throw new \InvalidArgumentException(sprintf('The controller for URI "%s" is not callable.', $request->getPathInfo()));
+			throw new InvalidArgumentException(sprintf('The controller for URI "%s" is not callable.', $request->getPathInfo()));
 		}
 
 		return $callable;
@@ -85,13 +86,13 @@ trait ControllerResolverTrait
 	protected function createController($controller)
 	{
 		if (false === strpos($controller, '::')) {
-			throw new \InvalidArgumentException(sprintf('Unable to find controller "%s".', $controller));
+			throw new InvalidArgumentException(sprintf('Unable to find controller "%s".', $controller));
 		}
 
 		list($class, $method) = explode('::', $controller, 2);
 
 		if (!class_exists($class)) {
-			throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
+			throw new InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
 		}
 
 		$this->app->controllerInstance = new $class($this->app);

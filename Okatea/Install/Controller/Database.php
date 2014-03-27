@@ -8,6 +8,7 @@
 
 namespace Okatea\Install\Controller;
 
+use DirectoryIterator;
 use Okatea\Tao\Database\XmlSql;
 use Okatea\Install\Controller;
 use Okatea\Tao\Html\Checklister;
@@ -20,7 +21,7 @@ class Database extends Controller
 
 		$oChecklist = new Checklister();
 
-		foreach (new \DirectoryIterator($this->okt->options->get('okt_dir').'/Install/SqlSchema/') as $oFileInfo)
+		foreach (new DirectoryIterator($this->okt->options->get('okt_dir').'/Install/SqlSchema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;

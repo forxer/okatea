@@ -12,6 +12,8 @@
 
 namespace Okatea\Tao;
 
+use DirectoryIterator;
+use SimpleXMLElement;
 use GuzzleHttp\Client;
 
 use Okatea\Tao\Application;
@@ -466,7 +468,7 @@ class Update
 
 	protected function readXmlVersion($str)
 	{
-		$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
+		$xml = new SimpleXMLElement($str,LIBXML_NOERROR);
 		$r = $xml->xpath("/versions/subject[@name='".$this->sSubject."']/release[@name='".$this->sVersion."']");
 
 		if (!empty($r) && is_array($r))
@@ -562,7 +564,7 @@ class Update
 			return false;
 		}
 
-		foreach (new \DirectoryIterator($okt->options->inc_dir.'/Install/SqlSchema/') as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->inc_dir.'/Install/SqlSchema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;

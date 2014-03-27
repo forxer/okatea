@@ -8,6 +8,7 @@
 
 namespace Okatea\Admin\Controller\Config;
 
+use DirectoryIterator;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
 
@@ -184,7 +185,7 @@ class L10n extends Controller
 	protected function getIconsList()
 	{
 		$aFlags = array();
-		foreach (new \DirectoryIterator($this->okt->options->public_dir.'/img/flags/') as $oFileInfo)
+		foreach (new DirectoryIterator($this->okt->options->public_dir.'/img/flags/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
 				continue;

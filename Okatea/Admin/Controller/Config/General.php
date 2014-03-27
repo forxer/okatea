@@ -66,7 +66,7 @@ class General extends Controller
 		}
 
 		# Construction des onglets
-		$this->aPageData['tabs'] = new \ArrayObject;
+		$this->aPageData['tabs'] = new ArrayObject;
 
 		# onglet général
 		$this->aPageData['tabs'][10] = array(

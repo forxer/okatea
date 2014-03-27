@@ -64,7 +64,7 @@ class Infos extends Controller
 		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->aPageData);
 
 		# Construction des onglets
-		$this->aPageData['tabs'] = new \ArrayObject;
+		$this->aPageData['tabs'] = new ArrayObject;
 
 		# onglet notes
 		$this->aPageData['tabs'][10] = array(

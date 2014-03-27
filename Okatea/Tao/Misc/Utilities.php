@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Misc;
 
+use DirectoryIterator;
 use Swift_Validate;
 use Okatea\Tao\Html\Escaper;
 
@@ -36,7 +37,7 @@ class Utilities
 
 		$bReturn = false;
 
-		foreach (new \DirectoryIterator($sDir) as $oFileInfo)
+		foreach (new DirectoryIterator($sDir) as $oFileInfo)
 		{
 			if (!$oFileInfo->isDot())
 			{
@@ -724,7 +725,7 @@ class Utilities
 		}
 
 		$aCacheFiles = array();
-		foreach (new \DirectoryIterator($okt->options->get('cache_dir')) as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->get('cache_dir')) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
 				continue;
@@ -732,7 +733,7 @@ class Utilities
 
 			if ($oFileInfo->isDir())
 			{
-				foreach (new \DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
+				foreach (new DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
 				{
 					if ($oFileInfoInDir->isDot() || in_array($oFileInfoInDir->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
 						continue;
@@ -789,7 +790,7 @@ class Utilities
 		}
 
 		$aCacheFiles = array();
-		foreach (new \DirectoryIterator($okt->options->public_dir.'/cache') as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->public_dir.'/cache') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
 				continue;

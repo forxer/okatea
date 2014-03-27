@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Extensions;
 
 use GuzzleHttp\Client;
+use SimpleXMLElement;
 
 class Repositories
 {
@@ -134,7 +135,7 @@ class Repositories
 	 */
 	protected function readRepositoryXmlData($str)
 	{
-		$xml = new \SimpleXMLElement($str, LIBXML_NOERROR);
+		$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
 
 		$return = array();
 		foreach ($xml->module as $module)
