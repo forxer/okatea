@@ -71,7 +71,7 @@ class Category extends Controller
 		$this->aCategoryData['cat']['tpl'] = $rsCategory->tpl;
 		$this->aCategoryData['cat']['items_tpl'] = $rsCategory->items_tpl;
 
-		$rsCategoryI18n = $this->okt->module('News')->categories->getCategoryL10n($this->aCategoryData['cat']['id']);
+		$rsCategoryI18n = $this->okt->module('News')->categories->getCategoryI18n($this->aCategoryData['cat']['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

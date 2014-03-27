@@ -95,7 +95,7 @@ if (!empty($_REQUEST['gallery_id']))
 		$aGalleryData['db']['created_at'] = $rsGallery->created_at;
 		$aGalleryData['db']['updated_at'] = $rsGallery->updated_at;
 
-		$rsGalleryI18n = $okt->galleries->tree->getGalleryL10n($iGalleryId);
+		$rsGalleryI18n = $okt->galleries->tree->getGalleryI18n($iGalleryId);
 
 		foreach ($okt->languages->list as $aLanguage)
 		{

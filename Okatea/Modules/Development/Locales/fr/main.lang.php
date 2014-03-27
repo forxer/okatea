@@ -12,6 +12,7 @@ $GLOBALS['okt_l10n']['Tools for web development'] = 'Outils pour le développeme
 
 # permissions
 $GLOBALS['okt_l10n']['m_development_perm_group'] = 'Développement';
+$GLOBALS['okt_l10n']['m_development_perm_usage'] = 'Utilisation du module développement';
 $GLOBALS['okt_l10n']['m_development_perm_debug_bar'] = 'Configuration de la barre de debug';
 $GLOBALS['okt_l10n']['m_development_perm_bootstrap'] = 'Utilisation du bootstrap de modules';
 $GLOBALS['okt_l10n']['m_development_perm_counting'] = 'Outil de comptage';

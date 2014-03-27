@@ -225,7 +225,7 @@ class Groups
 	 * @param integer $iItemId
 	 * @return Recordset
 	 */
-	public function getGroupL10n($iGroupId)
+	public function getGroupI18n($iGroupId)
 	{
 		$query =
 		'SELECT * FROM '.$this->sGroupsL10nTable.' '.
@@ -260,7 +260,7 @@ class Groups
 
 		$iGroupId = $this->oDb->getLastID();
 
-		$this->setGroupL10n($iGroupId, $aData['locales']);
+		$this->setGroupI18n($iGroupId, $aData['locales']);
 
 		$this->updGroupPerms($iGroupId, $aData['perms']);
 
@@ -292,7 +292,7 @@ class Groups
 		}
 		*/
 
-		$this->setGroupL10n($iGroupId, $aData['locales']);
+		$this->setGroupI18n($iGroupId, $aData['locales']);
 
 		$this->updGroupPerms($iGroupId, $aData['perms']);
 
@@ -370,7 +370,7 @@ class Groups
 	 * @param integer $iGroupId
 	 * @param array $aData
 	 */
-	protected function setGroupL10n($iGroupId, $aData)
+	protected function setGroupI18n($iGroupId, $aData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

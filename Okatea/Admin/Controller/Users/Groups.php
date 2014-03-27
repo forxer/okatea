@@ -68,7 +68,6 @@ class Groups extends Controller
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
 			$aGroupData['locales'][$aLanguage['code']] = array();
-
 			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
 		}
 
@@ -127,40 +126,47 @@ class Groups extends Controller
 		}
 
 		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
+		$rsGroupL10n = $this->okt->getGroups()->getGroupL10n($iGroupId);
 
 		$aGroupData = new \ArrayObject();
 
 		$aGroupData['locales'] = array();
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		while ($rsGroupL10n->fetch())
 		{
-			$aGroupData['locales'][$aLanguage['code']] = array();
-
-			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
+			if (isset($this->okt->languages->list[$rsGroupL10n->language]))
+			{
+				$aGroupData['locales'][$rsGroupL10n->language] = array();
+				$aGroupData['locales'][$rsGroupL10n->language]['title'] = $rsGroupL10n->title;
+			}
 		}
 
 		$aGroupData['perms'] = $rsGroup->perms ? json_decode($rsGroup->perms) : array();
 
-
-
-
-
 		if ($this->okt->request->request->has('form_sent'))
 		{
-			$title = $this->okt->request->request->get('title');
+			foreach ($this->okt->languages->list as $aLanguage)
+			{
+				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
 
-			$aPerms = array();
+				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
+				{
+					if ($this->okt->languages->unique) {
+						$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+					}
+					else {
+						$this->okt->error->set(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+					}
+				}
+			}
+
 			if ($this->okt->request->request->has('perms')) {
 				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
-			if (empty($title)) {
-				$this->okt->error->set(__('c_a_users_must_enter_group_title'));
-			}
-
 			if ($this->okt->error->isEmpty())
 			{
-				if ($this->okt->getGroups()->updGroup($iGroupId, $title) && $this->okt->getGroups()->updGroupPerms($iGroupId, $aPerms))
+				if ($this->okt->getGroups()->updGroup($iGroupId, $aGroupData))
 				{
 					$this->okt->page->flash->success(__('c_a_users_group_edited'));
 

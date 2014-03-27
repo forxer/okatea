@@ -132,7 +132,7 @@ class CustomFields
 	 * @param integer $iFieldId
 	 * @return recordset
 	 */
-	public function getFieldL10n($iFieldId)
+	public function getFieldI18n($iFieldId)
 	{
 		$query =
 		'SELECT field_id, language, title, value, description '.
@@ -187,7 +187,7 @@ class CustomFields
 		$this->params['id'] = $iNewId;
 
 		# modification des textes internationalisés
-		if (!$this->setFieldL10n()) {
+		if (!$this->setFieldI18n()) {
 			return false;
 		}
 
@@ -228,7 +228,7 @@ class CustomFields
 		# modification des textes internationalisés
 		$this->params = $aFieldData;
 		$this->params['id'] = (integer)$iFieldId;
-		if (!$this->setFieldL10n()) {
+		if (!$this->setFieldI18n()) {
 			return false;
 		}
 
@@ -285,7 +285,7 @@ class CustomFields
 	 *
 	 * @return boolean
 	 */
-	protected function setFieldL10n()
+	protected function setFieldI18n()
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

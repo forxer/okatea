@@ -82,7 +82,7 @@ if (!empty($_REQUEST['item_id']))
 		$aItemData['item']['created_at'] = $rsItem->created_at;
 		$aItemData['item']['updated_at'] = $rsItem->updated_at;
 
-		$rsItemI18n = $okt->galleries->items->getItemL10n($aItemData['item']['id']);
+		$rsItemI18n = $okt->galleries->items->getItemI18n($aItemData['item']['id']);
 
 		foreach ($okt->languages->list as $aLanguage)
 		{

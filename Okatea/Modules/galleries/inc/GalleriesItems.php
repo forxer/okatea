@@ -291,7 +291,7 @@ class GalleriesItems
 	 * @param integer $iItemId
 	 * @return recordset
 	 */
-	public function getItemL10n($iItemId)
+	public function getItemI18n($iItemId)
 	{
 		$query =
 		'SELECT * FROM '.$this->t_items_locales.' '.
@@ -388,7 +388,7 @@ class GalleriesItems
 	 * @param integer $iItemId
 	 * @param array $aItemLocalesData
 	 */
-	protected function setItemL10n($iItemId, $aItemLocalesData)
+	protected function setItemI18n($iItemId, $aItemLocalesData)
 	{
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -510,7 +510,7 @@ class GalleriesItems
 		$iNewId = $this->db->getLastID();
 
 		# ajout des textes internationnalisés
-		$this->setItemL10n($iNewId, $aItemLocalesData);
+		$this->setItemI18n($iNewId, $aItemLocalesData);
 
 		# ajout des images
 		if ($this->config->images['enable'] && $this->addImage($iNewId) === false) {
@@ -546,7 +546,7 @@ class GalleriesItems
 		}
 
 		# modification des textes internationnalisés
-		$this->setItemL10n($oCursor->id, $aItemLocalesData);
+		$this->setItemI18n($oCursor->id, $aItemLocalesData);
 
 		return true;
 	}

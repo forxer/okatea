@@ -18,5 +18,7 @@ themes:
   repository:
     - DefaultTheme
     - Okatea
+    - Testing
   package:
     - DefaultTheme
+    - Okatea

@@ -60,7 +60,7 @@ if (!empty($_REQUEST['questions_id']))
 	$questions_id = intval($_REQUEST['questions_id']);
 
 	$question_infos = $okt->faq->getQuestions(array('id'=>$questions_id,'active'=>2));
-	$question_i18n = $okt->faq->getQuestionL10n($questions_id);
+	$question_i18n = $okt->faq->getQuestionI18n($questions_id);
 
 	foreach ($okt->languages->list as $aLanguage)
 	{
