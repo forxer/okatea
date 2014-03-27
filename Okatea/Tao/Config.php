@@ -109,19 +109,7 @@ class Config
 
 	protected function loadSource()
 	{
-		try {
-			return Yaml::parse(file_get_contents($this->sSourceFile));
-		}
-		catch (Exception $e)
-		{
-			$trace = debug_backtrace();
-			trigger_error(
-				'Problème lecture configuration : ' . $e->getMessage() .
-				' dans ' . $trace[0]['file'] . ' à la ligne ' . $trace[0]['line'],
-				E_USER_WARNING);
-
-			return array();
-		}
+		return Yaml::parse(file_get_contents($this->sSourceFile));
 	}
 
 	protected function generateCacheFile()

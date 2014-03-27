@@ -116,47 +116,35 @@ class Update
 		{
 			$fs = new Filesystem();
 
-			try {
-				$fs->mkdir($sCacheDir);
-			}
-			catch (IO\ExceptionInterface $e) {
-				throw new \Exception("An error occurred while creating cache directory at ".$e->getPath());
-				return;
-			}
+			$fs->mkdir($sCacheDir);
 		}
 
 		# Try to get latest version number
-		try
+		$response = (new Client())->get($this->sUrl, ['exceptions' => false]);
+
+		if (200 == $response->getStatusCode())
 		{
-			$response = (new Client())->get($this->sUrl, ['exceptions' => false]);
+			$sExtension = pathinfo($this->sUrl, PATHINFO_EXTENSION);
 
-			if (200 == $response->getStatusCode())
+			if ($sExtension == 'json')
 			{
-				$sExtension = pathinfo($this->sUrl, PATHINFO_EXTENSION);
+				$aJson = $response->json();
 
-				if ($sExtension == 'json')
-				{
-					$aJson = $response->json();
-
-					if (!empty($aJson[$this->sVersion])) {
-						$this->aVersionInfo = $aJson[$this->sVersion];
-					}
-					else {
-						return false;
-					}
-				}
-				elseif ($sExtension == 'xml') {
-					$this->readXmlVersion($response->getBody());
+				if (!empty($aJson[$this->sVersion])) {
+					$this->aVersionInfo = $aJson[$this->sVersion];
 				}
 				else {
 					return false;
 				}
 			}
+			elseif ($sExtension == 'xml') {
+				$this->readXmlVersion($response->getBody());
+			}
 			else {
 				return false;
 			}
 		}
-		catch (\Exception $e) {
+		else {
 			return false;
 		}
 
@@ -263,17 +251,10 @@ class Update
 			throw new \Exception(__('c_a_update_root_directory_not_writable'));
 		}
 
-		try
-		{
-			$response = (new Client())->get($sUrl, [
-				'exceptions' => false,
-				'save_to' => $sDest
-			]);
-		}
-		catch (\Exception $e)
-		{
-			throw new \Exception(__('c_a_update_error_occurred_while_downloading'));
-		}
+		$response = (new Client())->get($sUrl, [
+			'exceptions' => false,
+			'save_to' => $sDest
+		]);
 	}
 
 	/**
@@ -353,11 +334,7 @@ class Update
 				continue;
 			}
 
-			try {
-				$b_zip->addFile($sRoot.'/'.$file, $file);
-			} catch (\Exception $e) {
-				$aNotReadable[] = $file;
-			}
+			$b_zip->addFile($sRoot.'/'.$file, $file);
 		}
 
 		# If only one file is not readable, stop everything now
@@ -489,23 +466,16 @@ class Update
 
 	protected function readXmlVersion($str)
 	{
-		try
-		{
-			$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
-			$r = $xml->xpath("/versions/subject[@name='".$this->sSubject."']/release[@name='".$this->sVersion."']");
+		$xml = new \SimpleXMLElement($str,LIBXML_NOERROR);
+		$r = $xml->xpath("/versions/subject[@name='".$this->sSubject."']/release[@name='".$this->sVersion."']");
 
-			if (!empty($r) && is_array($r))
-			{
-				$r = $r[0];
-				$this->aVersionInfo['version'] = isset($r['version']) ? (string) $r['version'] : null;
-				$this->aVersionInfo['href'] = isset($r['href']) ? (string) $r['href'] : null;
-				$this->aVersionInfo['checksum'] = isset($r['checksum']) ? (string) $r['checksum'] : null;
-				$this->aVersionInfo['info'] = isset($r['info']) ? (string) $r['info'] : null;
-			}
-		}
-		catch (\Exception $e)
+		if (!empty($r) && is_array($r))
 		{
-			throw $e;
+			$r = $r[0];
+			$this->aVersionInfo['version'] = isset($r['version']) ? (string) $r['version'] : null;
+			$this->aVersionInfo['href'] = isset($r['href']) ? (string) $r['href'] : null;
+			$this->aVersionInfo['checksum'] = isset($r['checksum']) ? (string) $r['checksum'] : null;
+			$this->aVersionInfo['info'] = isset($r['info']) ? (string) $r['info'] : null;
 		}
 	}
 

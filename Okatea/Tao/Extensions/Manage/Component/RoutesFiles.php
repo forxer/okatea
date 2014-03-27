@@ -116,15 +116,10 @@ class RoutesFiles extends ComponentBase
 
 	protected function doMerging($sNewFile, $sRouteFile)
 	{
-		try {
-			$aRoutes = $this->yamlParse($sRouteFile);
-			$aNewRoutes = $this->yamlParse($sNewFile);
+		$aRoutes = $this->yamlParse($sRouteFile);
+		$aNewRoutes = $this->yamlParse($sNewFile);
 
-			$aData = $aRoutes + $aNewRoutes;
-		}
-		catch (Exception $e) {
-			return false;
-		}
+		$aData = $aRoutes + $aNewRoutes;
 
 		return file_put_contents($sRouteFile, $this->yamlDump($aData));
 	}

@@ -134,34 +134,28 @@ class Repositories
 	 */
 	protected function readRepositoryXmlData($str)
 	{
-		try
+		$xml = new \SimpleXMLElement($str, LIBXML_NOERROR);
+
+		$return = array();
+		foreach ($xml->module as $module)
 		{
-			$xml = new \SimpleXMLElement($str, LIBXML_NOERROR);
-
-			$return = array();
-			foreach ($xml->module as $module)
+			if (isset($module['id']))
 			{
-				if (isset($module['id']))
-				{
-					$return[(string)$module['id']] = array(
-						'id' 		=> (string)$module['id'],
-						'name' 		=> (string)$module['name'],
-						'version' 	=> (string)$module['version'],
-						'href' 		=> (string)$module['href'],
-						'checksum' 	=> (string)$module['checksum'],
-						'info' 		=> (string)$module['info']
-					);
-				}
+				$return[(string)$module['id']] = array(
+					'id' 		=> (string)$module['id'],
+					'name' 		=> (string)$module['name'],
+					'version' 	=> (string)$module['version'],
+					'href' 		=> (string)$module['href'],
+					'checksum' 	=> (string)$module['checksum'],
+					'info' 		=> (string)$module['info']
+				);
 			}
-
-			if (empty($return)) {
-				return false;
-			}
-
-			return $return;
 		}
-		catch (Exception $e) {
-			throw $e;
+
+		if (empty($return)) {
+			return false;
 		}
+
+		return $return;
 	}
 }

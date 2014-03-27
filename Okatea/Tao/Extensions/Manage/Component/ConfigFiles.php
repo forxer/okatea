@@ -124,15 +124,10 @@ class ConfigFiles extends ComponentBase
 
 	protected function doMerging($sNewFile, $sConfigFile)
 	{
-		try {
-			$aConfig = $this->yamlParse($sConfigFile);
-			$aNewConfig = $this->yamlParse($sNewFile);
+		$aConfig = $this->yamlParse($sConfigFile);
+		$aNewConfig = $this->yamlParse($sNewFile);
 
-			$aData = $aConfig + $aNewConfig;
-		}
-		catch (Exception $e) {
-			return false;
-		}
+		$aData = $aConfig + $aNewConfig;
 
 		return file_put_contents($sConfigFile, $this->yamlDump($aData));
 	}

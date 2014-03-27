@@ -776,18 +776,11 @@ class Application
 		{
 			$sCacheFile = $this->options->get('cache_dir').'/htmlpurifier';
 
-			try
+			if (!file_exists($sCacheFile))
 			{
-				if (!file_exists($sCacheFile))
-				{
-					$fs = new Filesystem();
+				$fs = new Filesystem();
 
-					$fs->mkdir($sCacheFile);
-				}
-			}
-			catch (IOExceptionInterface $e) {
-				$this->error->set('An error occurred while creating your directory at '.$e->getPath());
-				return $str;
+				$fs->mkdir($sCacheFile);
 			}
 
 			$config = \HTMLPurifier_Config::createDefault();
