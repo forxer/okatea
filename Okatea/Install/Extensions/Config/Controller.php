@@ -33,18 +33,10 @@ class Controller extends BaseController
 			# save configuration
 			if ($this->okt->error->isEmpty())
 			{
-				try
-				{
-					$this->okt->getConfig();
-					$this->okt->config->write($aValues);
+				$this->okt->getConfig();
+				$this->okt->config->write($aValues);
 
-					return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
-				}
-				catch (InvalidArgumentException $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
 			}
 		}
 

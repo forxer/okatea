@@ -126,19 +126,11 @@ class Config extends Controller
 					'meta_keywords' => $this->okt->request->request->get('p_meta_keywords', array())
 				);
 
-				try
-				{
-					$this->okt->module('Pages')->config->write($aNewConf);
+				$this->okt->module('Pages')->config->write($aNewConf);
 
-					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('Pages_config'));
-				}
-				catch (Exception $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl('Pages_config'));
 			}
 		}
 

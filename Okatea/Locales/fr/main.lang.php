@@ -560,7 +560,6 @@ $GLOBALS['okt_l10n']['c_c_checklist_error'] = 'erreur';
 
 # messages
 $GLOBALS['okt_l10n']['c_c_confirm_configuration_updated'] = 'La configuration a été mise à jour.';
-$GLOBALS['okt_l10n']['c_c_error_writing_configuration'] = 'Une erreur est survenue lors de l’écriture du fichier de configuration.';
 $GLOBALS['okt_l10n']['c_c_confirm_thumb_regenerated'] = 'Les miniatures ont été régénérées.';
 $GLOBALS['okt_l10n']['c_c_confirm_watermark_deleted'] = 'Le filigrane a été supprimé.';
 $GLOBALS['okt_l10n']['c_c_error_invalid_email'] = 'L’adresse %s est invalide.';

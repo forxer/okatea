@@ -20,23 +20,15 @@ class Config extends Controller
 
 		if ($this->request->request->has('form_sent'))
 		{
-			try
-			{
-				$this->okt->module('RteTinymce3')->config->write(array(
-					'width' 		=> $this->request->request->get('p_width'),
-					'height' 		=> $this->request->request->get('p_height'),
-					'content_css' 	=> $this->request->request->get('p_content_css')
-				));
+			$this->okt->module('RteTinymce3')->config->write(array(
+				'width' 		=> $this->request->request->get('p_width'),
+				'height' 		=> $this->request->request->get('p_height'),
+				'content_css' 	=> $this->request->request->get('p_content_css')
+			));
 
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-				$this->redirect($this->generateUrl('RteTinymce3_config'));
-			}
-			catch (Exception $e)
-			{
-				$this->okt->error->set(__('c_c_error_writing_configuration'));
-				$this->okt->error->set($e->getMessage());
-			}
+			$this->redirect($this->generateUrl('RteTinymce3_config'));
 		}
 
 		return $this->render('RteTinymce3/Admin/Templates/Config', array(

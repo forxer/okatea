@@ -91,19 +91,11 @@ if (!empty($_POST['form_sent']))
 			'public_item_file' => $p_public_item_file
 		);
 
-		try
-		{
-			$okt->##module_id##->config->write($aNewConf);
+		$okt->##module_id##->config->write($aNewConf);
 
-			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-			http::redirect('module.php?m=##module_id##&action=config');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=##module_id##&action=config');
 	}
 }
 

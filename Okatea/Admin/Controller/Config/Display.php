@@ -160,19 +160,11 @@ class Display extends Controller
 					'admin_menu_position'      => $this->request->request->get('p_admin_menu_position', 'top')
 				);
 
-				try
-				{
-					$this->okt->config->write($aNewConfig);
+				$this->okt->config->write($aNewConfig);
 
-					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('config_display'));
-				}
-				catch (Exception $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl('config_display'));
 			}
 		}
 

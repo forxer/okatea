@@ -637,32 +637,23 @@ class Themes extends Controller
 			return false;
 		}
 
-		try
-		{
-			$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt->config->themes;
 
-			$aThemesConfig['desktop'] = $sUseThemeId;
+		$aThemesConfig['desktop'] = $sUseThemeId;
 
-			# write config
-			$this->okt->config->write(array('themes' => $aThemesConfig));
+		# write config
+		$this->okt->config->write(array('themes' => $aThemesConfig));
 
-			# modules config sheme
-			$sTplScheme = $this->okt->options->get('themes_dir').'/'.$sUseThemeId.'/modules_config_scheme.php';
+		# modules config sheme
+		$sTplScheme = $this->okt->options->get('themes_dir').'/'.$sUseThemeId.'/modules_config_scheme.php';
 
-			if (file_exists($sTplScheme)) {
-				include $sTplScheme;
-			}
-
-			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-			return $this->redirect($this->generateUrl('config_themes'));
+		if (file_exists($sTplScheme)) {
+			include $sTplScheme;
 		}
-		catch (Exception $e)
-		{
-			$this->okt->error->set(__('c_c_error_writing_configuration'));
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		return $this->redirect($this->generateUrl('config_themes'));
 	}
 
 	protected function useMobileTheme()
@@ -673,28 +664,18 @@ class Themes extends Controller
 			return false;
 		}
 
-		try
-		{
-			$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt->config->themes;
 
-			# switch ?
-			if ($sUseMobileThemeId == $this->okt->config->themes['mobile']) {
-				$sUseMobileThemeId = '';
-			}
-
-			$aThemesConfig['mobile'] = $sUseMobileThemeId;
-			$this->okt->config->write(array('themes' => $aThemesConfig));
-
-			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-			return $this->redirect($this->generateUrl('config_themes'));
+		if ($sUseMobileThemeId == $this->okt->config->themes['mobile']) {
+			$sUseMobileThemeId = '';
 		}
-		catch (Exception $e)
-		{
-			$this->okt->error->set(__('c_c_error_writing_configuration'));
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		$aThemesConfig['mobile'] = $sUseMobileThemeId;
+		$this->okt->config->write(array('themes' => $aThemesConfig));
+
+		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		return $this->redirect($this->generateUrl('config_themes'));
 	}
 
 	protected function useTabletTheme()
@@ -705,27 +686,17 @@ class Themes extends Controller
 			return false;
 		}
 
-		try
-		{
-			$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt->config->themes;
 
-			# switch ?
-			if ($sUseTabletThemeId == $this->okt->config->themes['tablet']) {
-				$sUseTabletThemeId = '';
-			}
-
-			$aThemesConfig['tablet'] = $sUseTabletThemeId;
-			$this->okt->config->write(array('themes' => $aThemesConfig));
-
-			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
-
-			return $this->redirect($this->generateUrl('config_themes'));
+		if ($sUseTabletThemeId == $this->okt->config->themes['tablet']) {
+			$sUseTabletThemeId = '';
 		}
-		catch (Exception $e)
-		{
-			$this->okt->error->set(__('c_c_error_writing_configuration'));
-			$this->okt->error->set($e->getMessage());
-			return false;
-		}
+
+		$aThemesConfig['tablet'] = $sUseTabletThemeId;
+		$this->okt->config->write(array('themes' => $aThemesConfig));
+
+		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+
+		return $this->redirect($this->generateUrl('config_themes'));
 	}
 }

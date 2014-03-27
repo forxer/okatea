@@ -46,19 +46,11 @@ class Debugbar extends Controller
 					)
 				);
 
-				try
-				{
-					$this->okt->module('Development')->config->write($aNewConf);
+				$this->okt->module('Development')->config->write($aNewConf);
 
-					$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					$this->redirect($this->generateUrl('Development_debugbar'));
-				}
-				catch (InvalidArgumentException $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				$this->redirect($this->generateUrl('Development_debugbar'));
 			}
 		}
 

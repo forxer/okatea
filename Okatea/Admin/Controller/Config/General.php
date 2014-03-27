@@ -56,20 +56,11 @@ class General extends Controller
 			# save configuration
 			if ($this->okt->error->isEmpty())
 			{
-				try
-				{
-					$this->okt->config->write($this->aPageData['values']);
+				$this->okt->config->write($this->aPageData['values']);
 
-					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-
-					return $this->redirect($this->generateUrl('config_general'));
-				}
-				catch (Exception $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl('config_general'));
 			}
 		}
 

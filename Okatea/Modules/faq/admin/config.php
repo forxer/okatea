@@ -91,19 +91,11 @@ if (!empty($_POST['form_sent']))
 			'images' => $aImagesConfig
 		);
 
-		try
-		{
-			$okt->faq->config->write($faq_conf);
+		$okt->faq->config->write($faq_conf);
 
-			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-			http::redirect('module.php?m=faq&action=config');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=faq&action=config');
 	}
 }
 

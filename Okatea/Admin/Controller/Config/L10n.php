@@ -333,25 +333,17 @@ class L10n extends Controller
 		{
 			if ($this->okt->error->isEmpty())
 			{
-				try
-				{
-					$this->okt->config->write(array(
-						'language' => $this->request->request->get('p_language'),
-						'timezone' => $this->request->request->get('p_timezone'),
-						'admin_lang_switcher' => $this->request->request->has('p_admin_lang_switcher')
-					));
+				$this->okt->config->write(array(
+					'language' 				=> $this->request->request->get('p_language'),
+					'timezone' 				=> $this->request->request->get('p_timezone'),
+					'admin_lang_switcher' 	=> $this->request->request->has('p_admin_lang_switcher')
+				));
 
-					$this->okt->languages->generateCacheList();
+				$this->okt->languages->generateCacheList();
 
-					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('config_l10n'));
-				}
-				catch (Exception $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl('config_l10n'));
 			}
 		}
 

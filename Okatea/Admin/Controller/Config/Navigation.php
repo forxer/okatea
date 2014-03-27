@@ -465,22 +465,13 @@ class Navigation extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				try
-				{
-					$this->okt->config->write(array(
-						'navigation_tpl' => $p_tpl
-					));
+				$this->okt->config->write(array(
+					'navigation_tpl' => $p_tpl
+				));
 
-					$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-					return $this->redirect($this->generateUrl('config_navigation').'?do=config');
-
-				}
-				catch (Exception $e)
-				{
-					$this->okt->error->set(__('c_c_error_writing_configuration'));
-					$this->okt->error->set($e->getMessage());
-				}
+				return $this->redirect($this->generateUrl('config_navigation').'?do=config');
 			}
 		}
 

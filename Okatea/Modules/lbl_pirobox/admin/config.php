@@ -37,19 +37,11 @@ if (!empty($_POST['form_sent']))
 			'slideSpeed' => (integer)$p_slideSpeed,
 		);
 
-		try
-		{
-			$okt->lbl_pirobox->config->write($aNewConf);
+		$okt->lbl_pirobox->config->write($aNewConf);
 
-			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-			http::redirect('module.php?m=lbl_pirobox&action=config');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=lbl_pirobox&action=config');
 	}
 }
 

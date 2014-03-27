@@ -126,19 +126,11 @@ if (!empty($_POST['form_sent']))
 			'images' => $aImagesConfig
 		);
 
-		try
-		{
-			$okt->catalog->config->write($aNewConf);
+		$okt->catalog->config->write($aNewConf);
 
-			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-			http::redirect('module.php?m=catalog&action=config');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=catalog&action=config');
 	}
 }
 

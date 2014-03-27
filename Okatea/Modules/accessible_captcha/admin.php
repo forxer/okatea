@@ -73,19 +73,11 @@ if (!empty($_POST['config_send']))
 		$aNewConf = array(
 		);
 
-		try
-		{
-			$okt->accessible_captcha->config->write($aNewConf);
+		$okt->accessible_captcha->config->write($aNewConf);
 
-			$okt->page->flash->success(__('Configuration captcha edited.'));
+		$okt->page->flash->success(__('Configuration captcha edited.'));
 
-			http::redirect('module.php?m=accessible_captcha&action=index');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=accessible_captcha&action=index');
 	}
 }
 

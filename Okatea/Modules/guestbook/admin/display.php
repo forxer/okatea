@@ -36,19 +36,11 @@ if (!empty($_POST['form_sent']))
 			'nbparpage_public' => (integer)$p_nbparpage_public,
 		);
 
-		try
-		{
-			$okt->guestbook->config->write($aNewConf);
+		$okt->guestbook->config->write($aNewConf);
 
-			$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
 
-			http::redirect('module.php?m=guestbook&action=display');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=guestbook&action=display');
 	}
 }
 

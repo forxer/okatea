@@ -40,19 +40,11 @@ if (!empty($_POST['config_send']))
 			'theme' => $p_theme
 		);
 
-		try
-		{
-			$okt->recaptcha->config->write($aNewConf);
+		$okt->recaptcha->config->write($aNewConf);
 
-			$okt->page->flash->success(__('Les clés ont été éditées.'));
+		$okt->page->flash->success(__('Les clés ont été éditées.'));
 
-			http::redirect('module.php?m=recaptcha&action=index');
-		}
-		catch (InvalidArgumentException $e)
-		{
-			$okt->error->set(__('c_c_error_writing_configuration'));
-			$okt->error->set($e->getMessage());
-		}
+		http::redirect('module.php?m=recaptcha&action=index');
 	}
 }
 

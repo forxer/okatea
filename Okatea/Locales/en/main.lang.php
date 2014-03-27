@@ -561,7 +561,6 @@ $GLOBALS['okt_l10n']['c_c_checklist_error'] = 'error';
 
 # messages
 $GLOBALS['okt_l10n']['c_c_confirm_configuration_updated'] = 'The configuration has been updated.';
-$GLOBALS['okt_l10n']['c_c_error_writing_configuration'] = 'An error occurred while writing the configuration file.';
 $GLOBALS['okt_l10n']['c_c_confirm_thumb_regenerated'] = 'The thumbnails have been regenerated.';
 $GLOBALS['okt_l10n']['c_c_confirm_watermark_deleted'] = 'The watermark has been deleted.';
 $GLOBALS['okt_l10n']['c_c_error_invalid_email'] = 'The address %s is invalid.';

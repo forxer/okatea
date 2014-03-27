@@ -88,7 +88,7 @@
 	</action>
 
 
-<!-- UPDATE -->
+<!-- UPDATE
 
 	<action id="add_core_nav_items_type" label="Add field %s" string="{{PREFIX}}core_nav_items.type" process="update">
 		<test eq="neq" value="type" label="Field %s exists"
@@ -97,6 +97,6 @@
 		</test>
 		ALTER TABLE `{{PREFIX}}core_nav_items` ADD `type` TINYINT(1) UNSIGNED NOT NULL AFTER `active`
 	</action>
-
+-->
 
 </database>
