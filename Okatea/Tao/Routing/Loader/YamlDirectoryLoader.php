@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Routing\Loader;
 
+use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\Loader\YamlFileLoader as BaseYamlFileLoader;
