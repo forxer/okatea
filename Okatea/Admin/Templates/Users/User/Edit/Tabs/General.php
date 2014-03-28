@@ -12,12 +12,11 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 <form id="edit-user-form" action="<?php echo $view->generateUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>" method="post">
 
-	<?php echo $view->render('Users/User/form_user', array(
+	<?php echo $view->render('Users/User/UserForm', array(
 		'aPageData'      => $aPageData,
 		'aLanguages'     => $aLanguages,
 		'aCivilities'    => $aCivilities
 	)); ?>
-
 
 	<div class="three-cols">
 
@@ -29,7 +28,6 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 		<p class="field col"><label for="group_id"><?php _e('c_c_Group') ?></label>
 		<?php echo form::select('group_id', $aGroups, $aPageData['user']['group_id']) ?></p>
 	<?php endif; ?>
-
 
 		<p class="field col"><label for="status"><?php echo form::checkbox('status', 1, $aPageData['user']['status'])?>
 		<?php _e('c_c_status_Active') ?></label></p>

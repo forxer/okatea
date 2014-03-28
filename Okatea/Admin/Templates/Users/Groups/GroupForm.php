@@ -32,6 +32,11 @@ if (!$okt->languages->unique) {
 		<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>" title="<?php _e('c_c_required_field') ?>" class="required"><?php
 		$okt->languages->unique ? _e('c_a_users_groups_title') : printf(__('c_a_users_groups_title_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
 		<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, $view->escape($aGroupData['locales'][$aLanguage['code']]['title'])) ?></p>
+
+		<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_description_<?php echo $aLanguage['code'] ?>"><?php
+		$okt->languages->unique ? _e('c_a_users_groups_description') : printf(__('c_a_users_groups_description_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+		<?php echo form::textarea(array('p_description['.$aLanguage['code'].']','p_description_'.$aLanguage['code']), 58, 4, $view->escape($aGroupData['locales'][$aLanguage['code']]['description'])) ?></p>
+
 	<?php endforeach; ?>
 	</div><!-- #tab-definition -->
 

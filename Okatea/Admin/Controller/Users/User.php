@@ -277,7 +277,9 @@ class User extends Controller
 
 	protected function getGroups()
 	{
-		$aParams = array();
+		$aParams = array(
+			'language' => $this->okt->user->language
+		);
 
 		$aParams['group_id_not'][] = Groups::GUEST;
 
@@ -289,7 +291,7 @@ class User extends Controller
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = (new Groups($this->okt))->getGroups($aParams);
+		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
 
 		$aGroups = array();
 		while ($rsGroups->fetch()) {

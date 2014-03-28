@@ -40,7 +40,7 @@ $okt->page->js->addReady('
 
 <form id="add-user-form" action="<?php echo $view->generateUrl('Users_add') ?>" method="post">
 
-	<?php echo $view->render('Users/User/form_user', array(
+	<?php echo $view->render('Users/User/UserForm', array(
 		'aPageData'      => $aPageData,
 		'aLanguages'     => $aLanguages,
 		'aCivilities'    => $aCivilities

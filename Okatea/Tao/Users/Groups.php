@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Users;
 
+use RuntimeException;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\Utilities;
 
@@ -152,7 +153,7 @@ class Groups
 		}
 		else {
 			$sQuery =
-			'SELECT g.group_id, g.perms, gl.title, count(u.id) AS num_users '.
+			'SELECT g.group_id, g.perms, gl.title, gl.description, count(u.id) AS num_users '.
 			'FROM '.$this->sGroupsTable.' AS g '.
 				'LEFT JOIN '.$this->sGroupsL10nTable.' AS gl ON g.group_id=gl.group_id '.
 				'LEFT JOIN '.$this->sUsersTable.' AS u ON u.group_id=g.group_id '.
@@ -255,7 +256,7 @@ class Groups
 		'); ';
 
 		if (!$this->oDb->execute($sQuery)) {
-			return false;
+			throw new RuntimeException('Unable to add group into database.');
 		}
 
 		$iGroupId = $this->oDb->getLastID();
@@ -319,7 +320,7 @@ class Groups
 		'WHERE group_id='.(integer)$iGroupId;
 
 		if (!$this->oDb->execute($sQuery)) {
-			return false;
+			throw new RuntimeException('Unable to update group permissions into database.');
 		}
 
 		return true;
@@ -356,7 +357,7 @@ class Groups
 		'WHERE group_id='.(integer)$iGroupId;
 
 		if (!$this->oDb->execute($sQuery)) {
-			return false;
+			throw new RuntimeException('Unable to remove group from database.');
 		}
 
 		$this->oDb->optimize($this->sGroupsTable);
@@ -385,7 +386,7 @@ class Groups
 			}
 
 			if (!$oCursor->insertUpdate()) {
-				throw new \Exception('Unable to insert group locales in database for '.$aLanguage['code'].' language.');
+				throw new RuntimeException('Unable to insert group locales in database for '.$aLanguage['code'].' language.');
 			}
 		}
 	}

@@ -28,6 +28,7 @@
 			`language` 			CHAR(5) 					NOT NULL,
 
 			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
+			`description` 		TEXT 						NULL,
 
 			PRIMARY KEY (`group_id`,`language`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
@@ -47,16 +48,16 @@
 
 	<action id="firstusersgroupslocales" label="Creation des locales des premiers groupes utilisateurs" process="install">
 		INSERT INTO `{{PREFIX}}core_users_groups_locales`
-			(`group_id`, `language`, `title`)
+			(`group_id`, `language`, `title`, `description`)
 		VALUES
-			(1, 'fr', 'Super-administrateur'),
-			(1, 'en', 'Super-administrator'),
-			(2, 'fr', 'Administrateur'),
-			(2, 'en', 'Administrator'),
-			(3, 'fr', 'Invité'),
-			(3, 'en', 'Guest'),
-			(4, 'fr', 'Membre'),
-			(4, 'en', 'Member')
+			(1, 'fr', 'Super-administrateur', ''),
+			(1, 'en', 'Super-administrator', ''),
+			(2, 'fr', 'Administrateur', ''),
+			(2, 'en', 'Administrator', ''),
+			(3, 'fr', 'Invité', ''),
+			(3, 'en', 'Guest', ''),
+			(4, 'fr', 'Membre', ''),
+			(4, 'en', 'Member', '')
 		;
 	</action>
 

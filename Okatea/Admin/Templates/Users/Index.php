@@ -146,14 +146,16 @@ if ($okt->config->users['gravatar']['enabled'])
 		<tr>
 			<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
 			<th scope="row" class="<?php echo $sTdClass ?> fake-td">
+
 				<p class="title"><a href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
 				<?php if ($okt->config->users['gravatar']['enabled']) : ?><img src="<?php
 				echo $gravatarImage->getUrl($rsUsers->email) ?>" width="<?php
 				echo $gravatarImage->getSize() ?>" height="<?php
-				echo $gravatarImage->getSize() ?>" alt="" class="avatar" /><?php endif; ?>
+				echo $gravatarImage->getSize() ?>" alt="" class="avatar"><?php endif; ?>
 				<?php echo $view->escape($rsUsers->username) ?></a></p>
-				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?></p>
-				<p><?php echo $view->escape($rsUsers->displayname) ?></p>
+
+				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?>
+				<?php echo $view->escape($rsUsers->displayname) ?></p>
 			</th>
 			<td class="<?php echo $sTdClass ?>">
 				<p><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></p>

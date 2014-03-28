@@ -72,6 +72,8 @@ $GLOBALS['okt_l10n']['c_a_users_groups_definition'] = 'Définition';
 $GLOBALS['okt_l10n']['c_a_users_groups_permissions'] = 'Permissions';
 $GLOBALS['okt_l10n']['c_a_users_groups_title'] = 'Intitulé du groupe';
 $GLOBALS['okt_l10n']['c_a_users_groups_title_in_%s'] = 'Intitulé du groupe en %s';
+$GLOBALS['okt_l10n']['c_a_users_groups_description'] = 'Description du groupe';
+$GLOBALS['okt_l10n']['c_a_users_groups_description_in_%s'] = 'Description du groupe en %s';
 $GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_sudo'] = 'Le groupe %s (%s) a toutes les permissions.';
 $GLOBALS['okt_l10n']['c_a_users_groups_error_permissions_guest'] = 'Le groupe %s (%s) ne peut avoir aucune permission.';
 

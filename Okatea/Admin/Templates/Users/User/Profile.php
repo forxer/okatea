@@ -50,7 +50,7 @@ $okt->page->css->addCss('
 	<div id="tab-user-form">
 		<form id="edit-user-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
 
-			<?php echo $view->render('Users/User/form_user', array(
+			<?php echo $view->render('Users/User/UserForm', array(
 				'aPageData'      => $aPageData,
 				'aLanguages'     => $aLanguages,
 				'aCivilities'    => $aCivilities
@@ -66,7 +66,7 @@ $okt->page->css->addCss('
 	<div id="tab-password-form">
 		<form id="change-password-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
 
-			<?php echo $view->render('Users/User/form_password', array(
+			<?php echo $view->render('Users/User/PasswordForm', array(
 				'aPageData'      => $aPageData
 			)); ?>
 

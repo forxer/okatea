@@ -70,6 +70,7 @@ class Groups extends Controller
 		{
 			$aGroupData['locales'][$aLanguage['code']] = array();
 			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
+			$aGroupData['locales'][$aLanguage['code']]['description'] = '';
 		}
 
 		$aGroupData['perms'] = array();
@@ -79,6 +80,7 @@ class Groups extends Controller
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
 				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('p_description['.$aLanguage['code'].']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
@@ -143,6 +145,7 @@ class Groups extends Controller
 			{
 				$aGroupData['locales'][$rsGroupL10n->language] = array();
 				$aGroupData['locales'][$rsGroupL10n->language]['title'] = $rsGroupL10n->title;
+				$aGroupData['locales'][$rsGroupL10n->language]['description'] = $rsGroupL10n->description;
 			}
 		}
 
@@ -153,6 +156,7 @@ class Groups extends Controller
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
 				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title['.$aLanguage['code'].']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('p_description['.$aLanguage['code'].']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
