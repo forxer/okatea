@@ -165,8 +165,8 @@ if ($okt->config->users['gravatar']['enabled'])
 				if ($rsUsers->group_id == Groups::UNVERIFIED) {
 					_e('c_a_users_wait_of_validation');
 				}
-				elseif (!empty($rsUsers->title)) {
-					echo $view->escape($rsUsers->title);
+				elseif (!empty($aGroups[$rsUsers->group_id])) {
+					echo $view->escape($aGroups[$rsUsers->group_id]);
 				}
 				?></p>
 			</td>

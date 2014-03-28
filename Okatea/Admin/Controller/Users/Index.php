@@ -12,6 +12,7 @@ use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
 use Okatea\Admin\Filters\Users as UsersFilters;
 use Okatea\Tao\Users\Groups;
+use Okatea\Tao\Html\Escaper;
 
 class Index extends Controller
 {
@@ -95,6 +96,13 @@ class Index extends Controller
 		# liste des utilisateurs
 		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
 
+		# liste des groupes
+		$rsGroups = $this->okt->getGroups()->getGroups(array('language' => $this->okt->user->language));
+		$aGroups = array();
+		while ($rsGroups->fetch()) {
+			$aGroups[$rsGroups->group_id] = Escaper::html($rsGroups->title);
+		}
+
 		# Tableau de choix d'actions pour le traitement par lot
 		$aActionsChoices = array(
 			__('c_c_action_enable') 	=> 'enable',
@@ -118,6 +126,7 @@ class Index extends Controller
 		return $this->render('Users/Index', array(
 			'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
+			'aGroups'						=> $aGroups,
 			'sSearch' 						=> $sSearch,
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,
 			'iNumUsersWaitingValidation' 	=> $iNumUsersWaitingValidation,
