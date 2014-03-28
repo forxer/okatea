@@ -26,7 +26,8 @@ class Permissions extends Controller
 		$aPerms = array();
 
 		$aParams = array(
-			'group_id_not' => array(
+			'language' 		=> $this->okt->user->language,
+			'group_id_not' 	=> array(
 				Groups::SUPERADMIN,
 				Groups::GUEST
 			)

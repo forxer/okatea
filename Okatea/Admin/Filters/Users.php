@@ -110,7 +110,10 @@ class Users extends BaseFilters
 			$this->get_users_params['group_id'] = $this->params->group_id;
 		}
 
-		$rsGroups = $this->okt->getGroups()->getGroups();
+		$rsGroups = $this->okt->getGroups()->getGroups(array(
+			'language' => $this->okt->user->language
+		));
+
 		$groups_array = array(
 			__('c_c_All') => -1,
 			__('c_a_users_wait_of_validation') => Groups::UNVERIFIED

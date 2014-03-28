@@ -59,6 +59,7 @@ class Index extends Controller
 		}
 
 		$aParams = array();
+
 		$aParams['group_id_not'][] = Groups::GUEST;
 
 		if (!$this->okt->user->is_superadmin) {
@@ -81,7 +82,7 @@ class Index extends Controller
 		$oFilters->getFilters();
 
 		# initialisation de la pagination
-		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams,true);
+		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams, true);
 
 		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
 
@@ -115,7 +116,6 @@ class Index extends Controller
 		}
 
 		return $this->render('Users/Index', array(
-			'users'                         => $this->okt->getUsers(),
 			'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
 			'sSearch' 						=> $sSearch,

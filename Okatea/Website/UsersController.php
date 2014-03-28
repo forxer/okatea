@@ -92,7 +92,9 @@ class UsersController extends BaseController
 
 		# affichage du template
 		return $this->render('users/register/'.$this->okt->config->users['templates']['register']['default'].'/template', array(
-			'aUsersGroups'       => $this->getGroups(),
+			'aUsersGroups'       => $this->getGroups(array(
+				'language' => $this->okt->user->language
+			)),
 			'aTimezone'          => \dt::getZones(true,true),
 			'aLanguages'         => $this->getLanguages(),
 			'aCivilities'        => $this->getCivities(false),
@@ -126,7 +128,9 @@ class UsersController extends BaseController
 
 		# affichage du template
 		return $this->render('users/login_register/'.$this->okt->config->users['templates']['login_register']['default'].'/template', array(
-			'aUsersGroups'       => $this->getGroups(),
+			'aUsersGroups'       => $this->getGroups(array(
+				'language' => $this->okt->user->language
+			)),
 			'aTimezone'          => \dt::getZones(true,true),
 			'aLanguages'         => $this->getLanguages(),
 			'aUserRegisterData'  => $this->aUserRegisterData,
@@ -630,7 +634,8 @@ class UsersController extends BaseController
 		$aUsersGroups = array();
 
 		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'group_id_not' => array(
+			'language' 		=> $this->okt->user->language,
+			'group_id_not' 	=> array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,
 				Groups::GUEST

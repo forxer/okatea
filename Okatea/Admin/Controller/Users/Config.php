@@ -214,7 +214,8 @@ class Config extends Controller
 
 		# Liste des groupes par défaut
 		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'group_id_not' => array(
+			'language' 		=> $this->okt->user->language,
+			'group_id_not' 	=> array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,
 				Groups::GUEST

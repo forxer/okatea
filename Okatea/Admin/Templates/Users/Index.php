@@ -155,7 +155,7 @@ if ($okt->config->users['gravatar']['enabled'])
 				<?php echo $view->escape($rsUsers->username) ?></a></p>
 
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?>
-				<?php echo $view->escape($rsUsers->displayname) ?></p>
+				<?php if (!empty($rsUsers->displayname)) : ?> - <?php echo $view->escape($rsUsers->displayname) ?><?php endif ?></p>
 			</th>
 			<td class="<?php echo $sTdClass ?>">
 				<p><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></p>
