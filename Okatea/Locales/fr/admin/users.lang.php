@@ -65,6 +65,7 @@ $GLOBALS['okt_l10n']['c_a_users_group_%s_users'] = '%s utilisateurs';
 $GLOBALS['okt_l10n']['c_a_users_add_group'] = 'Ajouter un groupe';
 $GLOBALS['okt_l10n']['c_a_users_edit_group'] = 'Modifier un groupe';
 $GLOBALS['okt_l10n']['c_a_users_edit_the_group_%s'] = 'Modifier le groupe %s';
+$GLOBALS['okt_l10n']['c_a_users_edit_native_group'] = 'Attention ! Il est déconseillé de modifier les groupes créés par le système.';
 $GLOBALS['okt_l10n']['c_a_users_delete_the_group_%s'] = 'Supprimer le groupe %s';
 $GLOBALS['okt_l10n']['c_a_users_confirm_group_deletion'] = 'Etes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible.';
 $GLOBALS['okt_l10n']['c_a_users_groups_definition'] = 'Définition';
