@@ -118,7 +118,7 @@ class MySqli
 	 * @param string $dbprefix 	Préfixe de la base de donnée
 	 * @return void
 	 */
-	public function __construct($user='', $pwd='', $alias='', $dbname='', $dbprefix='')
+	public function __construct($user = '', $pwd = '', $alias = '', $dbname = '', $dbprefix = '')
 	{
 		$this->error = '';
 		$this->nb_q = 0;
@@ -207,7 +207,7 @@ class MySqli
 	 *
 	 * @return array
 	 */
-	public function getLog($num=null)
+	public function getLog($num = null)
 	{
 		if ($num !== null) {
 			return $this->log[$num];
@@ -221,9 +221,10 @@ class MySqli
 	 *
 	 * @return array
 	 */
-	public function getLastLog($value=null)
+	public function getLastLog($value = null)
 	{
 		$logline = $this->getLog((integer)(count($this->log)-1));
+
 		return (!empty($logline[$value]) ? $logline[$value] : $logline);
 	}
 
@@ -332,7 +333,7 @@ class MySqli
 	/**
 	 *	Retrieve list of database table
 	 */
-	public function getTables($db_prefix=null)
+	public function getTables($db_prefix = null)
 	{
 		if (($tablesList = $this->select('SHOW TABLES FROM '.$this->db_name)) === false) {
 			throw new \RuntimeException('Unable to retrieve tables '.$this->db->error());
@@ -372,7 +373,7 @@ class MySqli
 	 * @param	string	class		Type d'objet à renvoyer ('Recordset')
 	 * @return	Okatea\Tao\Database\Recordset
 	 */
-	public function select($query, $class='Okatea\Tao\Database\Recordset')
+	public function select($query, $class = 'Okatea\Tao\Database\Recordset')
 	{
 		if (!$this->con_id) {
 			return false;
@@ -422,7 +423,7 @@ class MySqli
 	 * @param	string	query		Requête SQL
 	 * @return	boolean
 	 */
-	public function execute($query,$type=null)
+	public function execute($query, $type = null)
 	{
 		if (!$this->con_id) {
 			return false;
@@ -432,7 +433,7 @@ class MySqli
 		$cur = mysqli_query($this->con_id, $query);
 		$exec_time = $this->getTime();
 
-		$this->log($query,$exec_time);
+		$this->log($query, $exec_time);
 
 		if (!$cur)
 		{
@@ -471,7 +472,7 @@ class MySqli
 
 		$exec_time = $this->getTime();
 
-		$this->log($query,$exec_time);
+		$this->log($query, $exec_time);
 
 		if ($this->query_result) {
 			return $this->query_result;
@@ -496,7 +497,7 @@ class MySqli
 		{
 			$query = file_get_contents($file);
 			$query = trim($query);
-			$query = str_replace('{{DB_PREFIX}}',$this->prefix,$query);
+			$query = str_replace('{{DB_PREFIX}}', $this->prefix, $query);
 
 			if (!empty($query)) {
 				return $this->execute($query);
@@ -512,7 +513,7 @@ class MySqli
 	 * @see mysql_result
 	 * @return mixed
 	 */
-	public function result($row, $col=0)
+	public function result($row, $col = 0)
 	{
 		return ($this->query_result) ? mysql_result($this->query_result, $row, $col) : false;
 	}
@@ -623,7 +624,7 @@ class MySqli
 	 */
 	public function escapeStr($str)
 	{
-		return mysqli_real_escape_string($this->con_id,$str);
+		return mysqli_real_escape_string($this->con_id, $str);
 	}
 
 	public function escapeSystem($str)
@@ -798,19 +799,23 @@ class MySqli
 		);
 	}
 
+	public function databaseExists($db_name)
+	{
+		$result = $this->query('SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = \''.$this->escapeStr($db_name).'\'');
+		return $this->numRows($result) > 0;
+	}
+
 	public function tableExists($table_name)
 	{
 		$result = $this->query('SHOW TABLES LIKE \''.$this->escapeStr($table_name).'\'');
 		return $this->numRows($result) > 0;
 	}
 
-
 	public function fieldExists($table_name, $field_name)
 	{
 		$result = $this->query('SHOW COLUMNS FROM '.$table_name.' LIKE \''.$this->escapeStr($field_name).'\'');
 		return $this->numRows($result) > 0;
 	}
-
 
 	public function indexExists($table_name, $index_name)
 	{
@@ -828,7 +833,6 @@ class MySqli
 
 		return $exists;
 	}
-
 
 	public function safeString($str)
 	{

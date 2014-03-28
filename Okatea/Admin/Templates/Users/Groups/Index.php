@@ -39,8 +39,9 @@ $okt->page->setButtonset('usersGroups', array(
 	<caption><?php _e('c_a_users_group_list') ?></caption>
 	<thead><tr>
 		<th scope="col"><?php _e('c_c_Name') ?></th>
-		<th scope="col"><?php _e('c_a_users_group_num_users') ?></th>
-		<th scope="col"><?php _e('c_c_Actions') ?></th>
+		<th scope="col"><?php _e('c_c_Description') ?></th>
+		<th scope="col" class="small nowrap"><?php _e('c_a_users_group_num_users') ?></th>
+		<th scope="col" class="small nowrap"><?php _e('c_c_Actions') ?></th>
 	</tr></thead>
 	<tbody>
 	<?php $count_line = 0;
@@ -54,12 +55,14 @@ $okt->page->setButtonset('usersGroups', array(
 			<p class="title"><a href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
 			<?php echo $view->escape($rsGroups->title) ?></a></p>
 		</th>
-		<td class="<?php echo $td_class ?>">
-			<a href="<?php echo $view->generateUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
+		<td class="<?php echo $td_class ?>" style="min-width: 40%">
+			<p class="note"><?php echo $view->escape($rsGroups->description) ?></p>
+		</td>
+		<td class="<?php echo $td_class ?> small nowrap">
+			<?php if ($rsGroups->group_id != Groups::GUEST) : ?>
+			<p><a href="<?php echo $view->generateUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
 			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_group_%s_show_users'), $rsGroups->title)); ?>">
 			<?php
-			if ($rsGroups->group_id != Groups::GUEST)
-			{
 				if ($rsGroups->num_users <= 0) {
 					_e('c_a_users_group_no_user');
 				}
@@ -69,10 +72,10 @@ $okt->page->setButtonset('usersGroups', array(
 				else {
 					printf(__('c_a_users_group_%s_users'), $rsGroups->num_users);
 				}
-			}
-			?></a>
+			?></a></p>
+			<?php endif; ?>
 		</td>
-		<td class="<?php echo $td_class ?> small">
+		<td class="<?php echo $td_class ?> small nowrap">
 			<ul class="actions">
 				<li><a href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>"
 				title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_group_%s'), $rsGroups->title)) ?>"

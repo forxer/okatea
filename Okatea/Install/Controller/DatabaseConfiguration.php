@@ -117,17 +117,21 @@ class DatabaseConfiguration extends Controller
 				}
 				else
 				{
-					mysqli_query($con_id, 'CREATE DATABASE IF NOT EXISTS `'.$aParamsToTest['name'].'`');
+					$result = mysqli_query($con_id, 'SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = \''.mysqli_real_escape_string($con_id, $aParamsToTest['name']).'\'');
+
+					if (mysqli_num_rows($result) < 1)
+					{
+						mysqli_query($con_id, 'CREATE DATABASE IF NOT EXISTS `'.$aParamsToTest['name'].'`');
+						$bDatabaseCreateDb = true;
+					}
 
 					$db = mysqli_select_db($con_id, $aParamsToTest['name']);
 
 					if (!$db) {
 						$this->okt->error->set('MySQL: '.mysqli_errno($con_id).' '.mysqli_error($con_id));
 					}
-					else
-					{
+					else {
 						mysqli_close($con_id);
-						$bDatabaseCreateDb = true;
 					}
 				}
 			}
