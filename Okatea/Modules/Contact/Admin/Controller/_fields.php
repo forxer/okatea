@@ -77,7 +77,7 @@ $okt->page->setButtonset('fieldsBtSt',array(
 			'title' => __('m_contact_fields_add'),
 			'url' => 'module.php?m=contact&amp;action=field',
 			'ui-icon' => 'plusthick',
-			'active' => false
+			'status' => false
 		)
 	)
 ));
@@ -137,12 +137,12 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 
 			<?php echo form::text(array('order['.$rsFields->id.']','order_'.$rsFields->id),5,10,$i++) ?>
 
-			(<?php echo $aTypes[$rsFields->type] ?> - <?php echo $aStatus[$rsFields->active] ?>)
+			(<?php echo $aTypes[$rsFields->type] ?> - <?php echo $aStatus[$rsFields->status] ?>)
 
 		</div>
 		<div class="col right">
 <!-- trois valeurs !
-			<?php if ($rsFields->active) : ?>
+			<?php if ($rsFields->status) : ?>
 			- <a href="module.php?m=contact&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
 			title="<?php printf(__('c_c_action_Disable_%s'),html::escapeHTML($rsFields->title)) ?>"
 			class="icon tick"><?php _e('c_c_action_Disable') ?></a>

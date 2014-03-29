@@ -26,7 +26,7 @@ class Controller extends BaseController
 
 		# liste des champs
 		$this->okt->module('Contact')->rsFields = $this->okt->module('Contact')->fields->getFields(array(
-			'active' => true,
+			'status' => true,
 			'language' => $this->okt->user->language
 		));
 
@@ -79,7 +79,7 @@ class Controller extends BaseController
 			# vérification des champs obligatoires
 			while ($this->okt->module('Contact')->rsFields->fetch())
 			{
-				if ($this->okt->module('Contact')->rsFields->active == 2 && empty($this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id])) {
+				if ($this->okt->module('Contact')->rsFields->status == 2 && empty($this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id])) {
 					$this->okt->error->set('Vous devez renseigner le champ "'.Escaper::html($this->okt->module('Contact')->rsFields->title).'".');
 				}
 				elseif ($this->okt->module('Contact')->rsFields->id == 4 && !Utilities::isEmail($this->okt->module('Contact')->aPostedData[4])) {

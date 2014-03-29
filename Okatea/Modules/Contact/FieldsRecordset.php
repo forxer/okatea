@@ -55,7 +55,7 @@ class FieldsRecordset extends Recordset
 			case 1 :
 				$return = '<p class="field" id="'.$this->html_id.'-wrapper">'.
 				'<label for="'.$this->html_id.'"'.
-				($this->active == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
+				($this->status == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
 				Escaper::html($this->title).'</label>'.
 				form::text($this->html_id,60, 255, $this->okt->module('Contact')->aPostedData[$this->id]).'</p>';
 			break;
@@ -64,7 +64,7 @@ class FieldsRecordset extends Recordset
 			case 2 :
 				$return = '<p class="field" id="'.$this->html_id.'-wrapper">'.
 				'<label for="'.$this->html_id.'"'.
-				($this->active == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
+				($this->status == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
 				Escaper::html($this->title).'</label>'.
 				form::textarea($this->html_id, 58, 10, $this->okt->module('Contact')->aPostedData[$this->id]).'</p>';
 			break;
@@ -75,7 +75,7 @@ class FieldsRecordset extends Recordset
 
 				$return = '<p class="field" id="'.$this->html_id.'-wrapper">'.
 				'<label for="'.$this->html_id.'"'.
-				($this->active == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
+				($this->status == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
 				Escaper::html($this->title).'</label>'.
 				form::select($this->html_id, array_flip($values), $this->okt->module('Contact')->aPostedData[$this->id]).'</p>';
 			break;

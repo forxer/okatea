@@ -22,7 +22,7 @@ $do = (!empty($_REQUEST['do']) && $_REQUEST['do'] == 'value') ? 'value' : 'desc'
 
 $field_data = array(
 	'id' => $field_id,
-	'active' => 0,
+	'status' => 0,
 	'type' => 1,
 	'html_id' => ''
 );
@@ -44,7 +44,7 @@ if (!is_null($field_id))
 
 	$field_data = array(
 		'id' => $rsField->id,
-		'active' => $rsField->active,
+		'status' => $rsField->status,
 		'type' => $rsField->type,
 		'html_id' => $rsField->html_id
 	);
@@ -105,7 +105,7 @@ if (!empty($_POST['form_sent']))
 	{
 		$field_data = array(
 			'id' => $field_id,
-			'active' => (!empty($_POST['p_active']) ? intval($_POST['p_active']) : ''),
+			'status' => (!empty($_POST['p_status']) ? intval($_POST['p_status']) : ''),
 			'type' => (!empty($_POST['p_type']) ? intval($_POST['p_type']) : ''),
 			'title' => (!empty($_POST['p_title']) ? $_POST['p_title'] : array()),
 			'html_id' => (!empty($_POST['p_html_id']) ? $_POST['p_html_id'] : ''),
@@ -252,8 +252,8 @@ else : ?>
 		<p class="field col"><label for="p_type" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_contact_Type')?></label>
 		<?php echo form::select('p_type',module_contact::getFieldsTypes(true),$field_data['type'])?></p>
 
-		<p class="field col"><label for="p_active" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('Status')?></label>
-		<?php echo form::select('p_active',module_contact::getFieldsStatus(true,in_array($field_id,module_contact::getUnDisablableFields())),$field_data['active'])?></p>
+		<p class="field col"><label for="p_status" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('Status')?></label>
+		<?php echo form::select('p_status',module_contact::getFieldsStatus(true,in_array($field_id,module_contact::getUnDisablableFields())),$field_data['status'])?></p>
 	</div>
 
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>

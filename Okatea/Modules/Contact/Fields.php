@@ -72,8 +72,8 @@ class Fields
 			$reqPlus .= ' AND id='.(integer)$params['id'].' ';
 		}
 
-		if (!empty($params['active'])) {
-			$reqPlus .= ' AND active>0 ';
+		if (!empty($params['status'])) {
+			$reqPlus .= ' AND status>0 ';
 		}
 
 		if (!empty($params['language'])) {
@@ -81,7 +81,7 @@ class Fields
 		}
 
 		$query =
-		'SELECT f.id, f.active, f.type, f.ord, f.html_id, fl.title, fl.description, fl.value '.
+		'SELECT f.id, f.status, f.type, f.ord, f.html_id, fl.title, fl.description, fl.value '.
 		'FROM '.$this->t_fields.' f '.
 		'LEFT JOIN '.$this->t_fields_locales.' AS fl ON fl.field_id=f.id '.
 		'WHERE 1 '.
@@ -167,9 +167,9 @@ class Fields
 
 		$query =
 		'INSERT INTO '.$this->t_fields.' ( '.
-			'active, type, ord, html_id '.
+			'status, type, ord, html_id '.
 		' ) VALUES ( '.
-			(integer)$aFieldData['active'].', '.
+			(integer)$aFieldData['status'].', '.
 			(integer)$aFieldData['type'].', '.
 			(integer)($max_ord+1).', '.
 			'\''.$this->db->escapeStr($aFieldData['html_id']).'\' '.
@@ -209,15 +209,15 @@ class Fields
 			return false;
 		}
 
-		$aFieldData['active'] = (integer)$aFieldData['active'];
+		$aFieldData['status'] = (integer)$aFieldData['status'];
 
-		if ($aFieldData['active'] == 0 && in_array($iFieldId,self::getUnDisablableFields())) {
-			$aFieldData['active'] = 1;
+		if ($aFieldData['status'] == 0 && in_array($iFieldId, self::getUnDisablableFields())) {
+			$aFieldData['status'] = 1;
 		}
 
 		$query =
 		'UPDATE '.$this->t_fields.' SET '.
-		'active='.(integer)$aFieldData['active'].', '.
+		'status='.(integer)$aFieldData['status'].', '.
 		'type='.(integer)$aFieldData['type'].', '.
 		'html_id=\''.$this->db->escapeStr($aFieldData['html_id']).'\' '.
 		'WHERE id='.(integer)$iFieldId;

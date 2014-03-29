@@ -8,6 +8,7 @@
 
 namespace Okatea\Modules\Contact\Admin\Controller;
 
+use ArrayObject;
 use Okatea\Admin\Controller;
 
 class Fields extends Controller
@@ -45,21 +46,44 @@ class Fields extends Controller
 
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
-		$aFieldData = array(
-			'active' 	=> 0,
-			'type' 		=> 1,
-			'html_id' 	=> ''
-		);
+		$aFieldData = new ArrayObject();
+
+		$aFieldData['status'] = 0;
+		$aFieldData['type'] = 1;
+		$aFieldData['html_id'] = '';
+		$aFieldData['locales'] = array();
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$aFieldData['title'][$aLanguage['code']] = '';
-			$aFieldData['description'][$aLanguage['code']] = '';
+			$aFieldData['locales'][$aLanguage['code']] = array();
+			$aFieldData['locales'][$aLanguage['code']]['title'] = '';
+			$aFieldData['locales'][$aLanguage['code']]['description'] = '';
 		}
-		
+
 		if ($this->request->request->has('form_sent'))
 		{
-			
+			$field_data = array(
+				'type' 			=> $this->request->request->getInt('p_type'),
+				'status' 		=> $this->request->request->getInt('p_status'),
+				'title' 		=> (!empty($_POST['p_title']) ? $_POST['p_title'] : array()),
+				'html_id' 		=> (!empty($_POST['p_html_id']) ? $_POST['p_html_id'] : ''),
+				'description' 	=> (!empty($_POST['p_description']) ? $_POST['p_description'] : array())
+			);
+
+			if (empty($field_data['title']['fr'])) {
+				$okt->error->set('Vous devez saisir un titre.');
+			}
+
+			if (empty($field_data['type'])) {
+				$okt->error->set('Vous devez choisir un type.');
+			}
+
+			if ($okt->error->isEmpty())
+			{
+				if (($iFieldId = $okt->contact->addField($field_data)) !== false) {
+					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $iFieldId)));
+				}
+			}
 		}
 
 		return $this->render('Contact/Admin/Templates/addField', array(

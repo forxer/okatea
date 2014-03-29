@@ -29,8 +29,8 @@ if (!$okt->languages->unique) {
 	<p class="field col"><label for="p_type" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_contact_field_type') ?></label>
 	<?php echo form::select('p_type', Fields::getFieldsTypes(true), $aFieldData['type'])?></p>
 
-	<p class="field col"><label for="p_active" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_contact_field_status') ?></label>
-	<?php echo form::select('p_active', Fields::getFieldsStatus(true, in_array($iFieldId, Fields::getUnDisablableFields())), $aFieldData['active']) ?></p>
+	<p class="field col"><label for="p_status" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_contact_field_status') ?></label>
+	<?php echo form::select('p_status', Fields::getFieldsStatus(true, in_array($iFieldId, Fields::getUnDisablableFields())), $aFieldData['status']) ?></p>
 </div>
 
 <div class="two-cols">

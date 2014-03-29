@@ -31,7 +31,7 @@ $okt->page->setButtonset('fieldsBtSt',array(
 			'title' 	=> __('m_contact_fields_add_field'),
 			'url' 		=> $view->generateUrl('Contact_field_add'),
 			'ui-icon' 	=> 'plusthick',
-			'active' 	=> false
+			'status' 	=> false
 		)
 	)
 ));
@@ -104,7 +104,7 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 
 			<?php echo form::text(array('p_order['.$rsFields->id.']', 'p_order_'.$rsFields->id), 5, 10, $i++) ?>
 
-			(<?php echo $aTypes[$rsFields->type] ?> - <?php echo $aStatus[$rsFields->active] ?>)
+			(<?php echo $aTypes[$rsFields->type] ?> - <?php echo $aStatus[$rsFields->status] ?>)
 
 		</div>
 		<div class="col right">

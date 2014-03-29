@@ -18,7 +18,7 @@ $okt->page->js->addFile($okt->options->public_url.'/components/jquery/dist/jquer
 $aJsValidateRules = new ArrayObject;
 while ($okt->module('Contact')->rsFields->fetch())
 {
-	if ($okt->module('Contact')->rsFields->active == 2) {
+	if ($okt->module('Contact')->rsFields->status == 2) {
 		$aJsValidateRules[] = $okt->module('Contact')->rsFields->html_id.': { required: true }';
 	}
 }
