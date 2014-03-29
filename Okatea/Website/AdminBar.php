@@ -8,6 +8,7 @@
 
 namespace Okatea\Website;
 
+use ArrayObject;
 use Okatea\Admin\Router as AdminRouter;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
