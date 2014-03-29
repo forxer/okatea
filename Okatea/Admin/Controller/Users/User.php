@@ -196,7 +196,6 @@ class User extends Controller
 			return $mUserChanged;
 		}
 
-
 		# -- CORE TRIGGER : adminUsersEditProcess
 		$this->okt->triggers->callTrigger('adminUsersEditProcess', $this->aPageData);
 

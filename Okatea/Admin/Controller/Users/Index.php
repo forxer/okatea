@@ -12,6 +12,7 @@ use Okatea\Admin\Controller;
 use Okatea\Admin\Pager;
 use Okatea\Admin\Filters\Users as UsersFilters;
 use Okatea\Tao\Users\Groups;
+use Okatea\Tao\Html\Escaper;
 
 class Index extends Controller
 {
@@ -59,6 +60,7 @@ class Index extends Controller
 		}
 
 		$aParams = array();
+
 		$aParams['group_id_not'][] = Groups::GUEST;
 
 		if (!$this->okt->user->is_superadmin) {
@@ -81,7 +83,7 @@ class Index extends Controller
 		$oFilters->getFilters();
 
 		# initialisation de la pagination
-		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams,true);
+		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams, true);
 
 		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
 
@@ -93,6 +95,13 @@ class Index extends Controller
 
 		# liste des utilisateurs
 		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
+
+		# liste des groupes
+		$rsGroups = $this->okt->getGroups()->getGroups(array('language' => $this->okt->user->language));
+		$aGroups = array();
+		while ($rsGroups->fetch()) {
+			$aGroups[$rsGroups->group_id] = Escaper::html($rsGroups->title);
+		}
 
 		# Tableau de choix d'actions pour le traitement par lot
 		$aActionsChoices = array(
@@ -115,9 +124,9 @@ class Index extends Controller
 		}
 
 		return $this->render('Users/Index', array(
-			'users'                         => $this->okt->getUsers(),
 			'filters'                       => $oFilters,
 			'rsUsers' 						=> $rsUsers,
+			'aGroups'						=> $aGroups,
 			'sSearch' 						=> $sSearch,
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,
 			'iNumUsersWaitingValidation' 	=> $iNumUsersWaitingValidation,

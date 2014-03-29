@@ -155,7 +155,7 @@ if ($okt->config->users['gravatar']['enabled'])
 				<?php echo $view->escape($rsUsers->username) ?></a></p>
 
 				<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname) ?>
-				<?php echo $view->escape($rsUsers->displayname) ?></p>
+				<?php if (!empty($rsUsers->displayname)) : ?> - <?php echo $view->escape($rsUsers->displayname) ?><?php endif ?></p>
 			</th>
 			<td class="<?php echo $sTdClass ?>">
 				<p><a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a></p>
@@ -165,8 +165,8 @@ if ($okt->config->users['gravatar']['enabled'])
 				if ($rsUsers->group_id == Groups::UNVERIFIED) {
 					_e('c_a_users_wait_of_validation');
 				}
-				elseif (!empty($rsUsers->title)) {
-					echo $view->escape($rsUsers->title);
+				elseif (!empty($aGroups[$rsUsers->group_id])) {
+					echo $view->escape($aGroups[$rsUsers->group_id]);
 				}
 				?></p>
 			</td>

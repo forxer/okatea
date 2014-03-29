@@ -1251,7 +1251,8 @@ class Module extends BaseModule
 	public function getUsersGroupsForPerms($bWithAdmin = false, $bWithAll = false)
 	{
 		$aParams = array(
-			'group_id_not' => array(
+			'language' 		=> $this->okt->user->language,
+			'group_id_not' 	=> array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
 			)
@@ -1335,7 +1336,8 @@ class Module extends BaseModule
 		# liste des groupes existants réellement dans la base de données
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'group_id_not' => array(
+			'language' 		=> $this->okt->user->language,
+			'group_id_not' 	=> array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
 			)
