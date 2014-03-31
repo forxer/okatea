@@ -107,8 +107,9 @@ $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), $sSoftware);
 if ($okt->options->get('debug'))
 {
 	$aFooterContent[20] =
-		' - version '.$okt->getVersion().' - '.
-		Utilities::getExecutionTime().' s - '.
+		' - '.sprintf(__('c_c_version_%s'), $okt->getVersion()).
+		' - '.sprintf(__('c_c_env_%s'), __('c_c_env_'.$okt->options->get('env'))).
+		' - '.Utilities::getExecutionTime().' s - '.
 		Utilities::l10nFileSize(memory_get_usage());
 }
 

@@ -7,6 +7,10 @@
  */
 
 $GLOBALS['okt_l10n']['c_c_proudly_propulsed_%s'] = 'Proudly propulsed by %s';
+$GLOBALS['okt_l10n']['c_c_version_%s'] = 'Version %s';
+$GLOBALS['okt_l10n']['c_c_env_%s'] = 'Environement "%s"';
+$GLOBALS['okt_l10n']['c_c_env_prod'] = 'production';
+$GLOBALS['okt_l10n']['c_c_env_dev'] = 'development';
 
 # numbers format
 $GLOBALS['okt_l10n']['c_c_number_decimals_separator'] = '.';
