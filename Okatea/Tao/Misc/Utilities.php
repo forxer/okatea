@@ -264,8 +264,8 @@ class Utilities
 
 		if ($iMaxUploadSize === null)
 		{
-			$iMaxUploadSize = \files::str2bytes(ini_get('upload_max_filesize'));
-			$iMaxPostSize = \files::str2bytes(ini_get('post_max_size'));
+			$iMaxUploadSize = self::str2bytes(ini_get('upload_max_filesize'));
+			$iMaxPostSize = self::str2bytes(ini_get('post_max_size'));
 
 			if ($iMaxPostSize < $iMaxUploadSize) {
 				$iMaxUploadSize = $iMaxPostSize;
@@ -286,6 +286,31 @@ class Utilities
 		$aSize = self::getSize($size);
 
 		return sprintf(__('c_c_x_bytes_size_in_'.$aSize['unit']), self::formatNumber($aSize['size'], $dec));
+	}
+
+	/**
+	 * Converts a human readable file size to bytes.
+	 *
+	 * @param string $v Size
+	 * @return integer
+	 */
+	public static function str2bytes($v)
+	{
+		$v = trim($v);
+		$last = strtolower(substr($v,-1,1));
+		$v = (float)substr($v,0,-1);
+
+		switch ($last)
+		{
+			case 'g':
+				$v *= 1024;
+			case 'm':
+				$v *= 1024;
+			case 'k':
+				$v *= 1024;
+		}
+
+		return $v;
 	}
 
 	/**
@@ -650,50 +675,6 @@ class Utilities
 			}
 
 			return $media_type;
-	}
-
-	public static function setDefaultModuleTpl($sModuleId, $sSection, $sTemplate)
-	{
-		global $okt;
-
-		if (!$okt->modules->isLoaded($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->templates)) {
-			return false;
-		}
-
-		$aTemplates = $okt->{$sModuleId}->config->templates;
-		$aTemplates[$sSection]['default'] = $sTemplate;
-
-		$okt->{$sModuleId}->config->templates = $aTemplates;
-
-		$okt->{$sModuleId}->config->writeCurrent();
-
-		return true;
-	}
-
-	/**
-	 * Retourne la configuration des tailles des miniatures des images.
-	 *
-	 * @param string $sModuleId
-	 * @param string $sWidth_min
-	 * @param string $sheight_min
-	 * @param string $iWidth
-	 * @param string $iHeight
-	 *
-	 * @return string
-	 */
-	public static function setDefaultModuleImageSize($sModuleId, $aImages)
-	{
-		global $okt;
-
-		if (!$okt->modules->isLoaded($sModuleId) || !isset($okt->{$sModuleId}->config) || !isset($okt->{$sModuleId}->config->images)) {
-			return false;
-		}
-
-		$okt->{$sModuleId}->config->images = array_merge($okt->{$sModuleId}->config->images, $aImages);
-
-		$okt->{$sModuleId}->config->writeCurrent();
-
-		return true;
 	}
 
 	/**

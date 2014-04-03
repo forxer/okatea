@@ -8,6 +8,8 @@
 
 namespace Okatea\Modules\Contact;
 
+use Exception;
+use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Misc\Utilities;
 
@@ -35,10 +37,10 @@ class Fields
 
 	protected $t_fields_locales;
 
-	protected $params = array();
+	protected $aFieldData = array();
 
-	protected static $aUnDeletableFields = array(1,2,3,4,5,6,7);
-	protected static $aUnDisablableFields = array(4,6,7);
+	protected static $aUnDeletableFields = array(1, 2, 3, 4, 5, 6, 7);
+	protected static $aUnDisablableFields = array(4, 6, 7);
 
 	/**
 	 * Constructeur.
@@ -55,16 +57,15 @@ class Fields
 		# tables
 		$this->t_fields = $this->db->prefix.'mod_contact_fields';
 		$this->t_fields_locales = $this->db->prefix.'mod_contact_fields_locales';
-
 	}
 
 	/**
-	 * Retourne, sous forme de recordset, les champs selon des paramètres donnés
+	 * Retourne, sous forme de recordset, les champs selon des paramètres donnés.
 	 *
-	 * @param	array	params			Paramètres de requete
-	 * @return recordset
+	 * @param array $params
+	 * @return \Okatea\Modules\Contact\FieldsRecordset
 	 */
-	public function getFields($params=array())
+	public function getFields(array $params = array())
 	{
 		$reqPlus = '';
 
@@ -100,18 +101,18 @@ class Fields
 	}
 
 	/**
-	 * Retourne, sous forme de recordset, un champs donné
+	 * Retourne, sous forme de recordset, un champs donné.
 	 *
-	 * @param integer $id
-	 * @return recordset
+	 * @param integer $iFieldId
+	 * @return \Okatea\Modules\Contact\FieldsRecordset
 	 */
 	public function getField($iFieldId)
 	{
-		return $this->getFields(array('id'=>$iFieldId));
+		return $this->getFields(array('id' => $iFieldId));
 	}
 
 	/**
-	 * Indique si un champ donné existe
+	 * Indique si un champ donné existe.
 	 *
 	 * @param integer $iFieldId
 	 * @param boolean
@@ -126,10 +127,10 @@ class Fields
 	}
 
 	/**
-	 * Retourne les localisations d'un champ donné
+	 * Retourne les localisations d'un champ donné.
 	 *
 	 * @param integer $iFieldId
-	 * @return recordset
+	 * @return \Okatea\Tao\Database\Recordset
 	 */
 	public function getFieldL10n($iFieldId)
 	{
@@ -138,8 +139,9 @@ class Fields
 		'FROM '.$this->t_fields_locales.' '.
 		'WHERE field_id='.(integer)$iFieldId;
 
-		if (($rs = $this->db->select($query, 'Okatea\Modules\Contact\FieldsRecordset')) === false) {
-			$rs = new FieldsRecordset(array());
+		if (($rs = $this->db->select($query)) === false)
+		{
+			$rs = new Recordset(array());
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -149,14 +151,14 @@ class Fields
 	}
 
 	/**
-	 * Ajout d'un champ
+	 * Ajout d'un champ.
 	 *
 	 * @param array $aFieldData
 	 * @return integer
 	 */
 	public function addField($aFieldData)
 	{
-		$this->params = $aFieldData;
+		$this->aFieldData = $aFieldData;
 
 		$query = 'SELECT MAX(ord) FROM '.$this->t_fields;
 		$rs = $this->db->select($query);
@@ -181,7 +183,7 @@ class Fields
 
 		# récupération de l'ID
 		$iNewId = $this->db->getLastID();
-		$this->params['id'] = $iNewId;
+		$this->aFieldData['id'] = $iNewId;
 
 		# modification des textes internationalisés
 		if (!$this->setFieldL10n()) {
@@ -197,7 +199,7 @@ class Fields
 	}
 
 	/**
-	 * Modification d'un champ donné
+	 * Modification d'un champ donné.
 	 *
 	 * @param integer $iFieldId
 	 * @param array $aFieldData
@@ -209,17 +211,19 @@ class Fields
 			return false;
 		}
 
-		$aFieldData['status'] = (integer)$aFieldData['status'];
+		$this->aFieldData = $aFieldData;
 
-		if ($aFieldData['status'] == 0 && in_array($iFieldId, self::getUnDisablableFields())) {
-			$aFieldData['status'] = 1;
+		$this->aFieldData['status'] = (integer)$this->aFieldData['status'];
+
+		if ($this->aFieldData['status'] == 0 && in_array($iFieldId, self::getUnDisablableFields())) {
+			$this->aFieldData['status'] = 1;
 		}
 
 		$query =
 		'UPDATE '.$this->t_fields.' SET '.
-		'status='.(integer)$aFieldData['status'].', '.
-		'type='.(integer)$aFieldData['type'].', '.
-		'html_id=\''.$this->db->escapeStr($aFieldData['html_id']).'\' '.
+			'status='.(integer)$this->aFieldData['status'].', '.
+			'type='.(integer)$this->aFieldData['type'].', '.
+			'html_id=\''.$this->db->escapeStr($this->aFieldData['html_id']).'\' '.
 		'WHERE id='.(integer)$iFieldId;
 
 		if (!$this->db->execute($query)) {
@@ -227,8 +231,7 @@ class Fields
 		}
 
 		# modification des textes internationalisés
-		$this->params = $aFieldData;
-		$this->params['id'] = (integer)$iFieldId;
+		$this->aFieldData['id'] = (integer)$iFieldId;
 		if (!$this->setFieldL10n()) {
 			return false;
 		}
@@ -241,14 +244,38 @@ class Fields
 		return true;
 	}
 
+	public function checkPostData($aFieldData)
+	{
+		if (!array_key_exists($aFieldData['status'], self::getFieldsStatus())) {
+			$this->error->set(__('m_contact_field_error_status'));
+		}
+
+		if (empty($aFieldData['type']) || !array_key_exists($aFieldData['type'], self::getFieldsTypes())) {
+			$this->error->set(__('m_contact_field_error_type'));
+		}
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			if (empty($aFieldData['title'][$aLanguage['code']]))
+			{
+				if ($this->okt->languages->unique) {
+					$this->error->set(__('m_contact_field_error_title'));
+				}
+				else {
+					$this->error->set(sprintf(__('m_contact_field_error_title_in_%s'), $aLanguage['title']));
+				}
+			}
+		}
+	}
+
 	/**
-	 * Met à jour la valeur d'un champs donné
+	 * Met à jour la valeur d'un champs donné.
 	 *
 	 * @param integer $iFieldId
 	 * @param string $value
 	 * @return boolean
 	 */
-	public function setFieldValue($iFieldId,$value)
+	public function setFieldValue($iFieldId, $value)
 	{
 		$rsField = $this->getField($iFieldId);
 
@@ -281,7 +308,7 @@ class Fields
 	}
 
 	/**
-	 * Enregistrement des textes internationalisés
+	 * Enregistrement des textes internationalisés.
 	 *
 	 * @return boolean
 	 */
@@ -293,13 +320,13 @@ class Fields
 			'INSERT INTO '.$this->t_fields_locales.' '.
 				'(field_id, language, title, description) '.
 			'VALUES ('.
-				(integer)$this->params['id'].', '.
+				(integer)$this->aFieldData['id'].', '.
 				'\''.$this->db->escapeStr($aLanguage['code']).'\', '.
-				(empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->params['title'][$aLanguage['code']]).'\'').', '.
-				(empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->params['description'][$aLanguage['code']]).'\'').' '.
+				(empty($this->aFieldData['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['title'][$aLanguage['code']]).'\'').', '.
+				(empty($this->aFieldData['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['description'][$aLanguage['code']]).'\'').' '.
 			') ON DUPLICATE KEY UPDATE '.
-				'title='.(empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->params['title'][$aLanguage['code']]).'\'').', '.
-				'description='.(empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->params['description'][$aLanguage['code']]).'\'');
+				'title='.(empty($this->aFieldData['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['title'][$aLanguage['code']]).'\'').', '.
+				'description='.(empty($this->aFieldData['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['description'][$aLanguage['code']]).'\'');
 
 			if (!$this->db->execute($query)) {
 				return false;
@@ -310,7 +337,7 @@ class Fields
 	}
 
 	/**
-	 * Met à jour la position d'un champ donné
+	 * Met à jour la position d'un champ donné.
 	 *
 	 * @param integer $iFieldId
 	 * @param integer $ord
@@ -335,7 +362,7 @@ class Fields
 	}
 
 	/**
-	 * Suppression d'un champ donné
+	 * Suppression d'un champ donné.
 	 *
 	 * @param integer $iFieldId
 	 * @return boolean
@@ -364,7 +391,7 @@ class Fields
 	}
 
 	/**
-	 * Création de l'ID HTML d'un champ donné
+	 * Création de l'ID HTML d'un champ donné.
 	 *
 	 * @param integer $post_id
 	 * @return boolean
@@ -388,14 +415,14 @@ class Fields
 	}
 
 	/**
-	 * Construit l'ID HTML d'un champ donné
+	 * Construit l'ID HTML d'un champ donné.
 	 *
 	 * @param string $title
 	 * @param string $html_id
 	 * @param integer $iFieldId
 	 * @return string
 	 */
-	protected function buildFieldHtmlId($title,$html_id,$iFieldId)
+	protected function buildFieldHtmlId($title, $html_id, $iFieldId)
 	{
 		if (empty($html_id)) {
 			$html_id = $title;
@@ -431,7 +458,7 @@ class Fields
 
 		# URL is empty?
 		if ($html_id == '') {
-			throw new \Exception(__('m_contact_Empty_HTML_ID'));
+			throw new Exception(__('m_contact_Empty_HTML_ID'));
 		}
 
 		return $html_id;
@@ -439,38 +466,12 @@ class Fields
 
 
 	/**
-	 * Retourne la liste des types de statuts au pluriel (masqués/visibles/obligatoires)
+	 * Retourne la liste des types de statuts au pluriel (masqués/visibles/obligatoires).
 	 *
-	 * @param boolean $flip
+	 * @param boolean $bFlip
 	 * @return array
 	 */
-	public static function getFieldsStatuses($flip = false, $unDisablable = false)
-	{
-		$aStatus = array(
-			0 => __('m_contact_fields_status_0'),
-			1 => __('m_contact_fields_status_1'),
-			2 => __('m_contact_fields_status_2')
-		);
-
-		if ($unDisablable) {
-			unset($aStatus[0]);
-		}
-
-		if ($flip) {
-			$aStatus = array_flip($aStatus);
-		}
-
-		return $aStatus;
-	}
-
-	/**
-	 * Retourne la liste des types de statuts au singulier (masqué/visible/obligatoire)
-	 *
-	 * @param boolean $flip
-	 * @param boolean $unDisablable
-	 * @return array
-	 */
-	public static function getFieldsStatus($flip = false, $unDisablable = false)
+	public static function getFieldsStatuses($bFlip = false, $unDisablable = false)
 	{
 		$aStatus = array(
 			0 => __('m_contact_fields_statuses_0'),
@@ -482,7 +483,7 @@ class Fields
 			unset($aStatus[0]);
 		}
 
-		if ($flip) {
+		if ($bFlip) {
 			$aStatus = array_flip($aStatus);
 		}
 
@@ -490,12 +491,38 @@ class Fields
 	}
 
 	/**
-	 * Retourne la liste des types de champs
+	 * Retourne la liste des types de statuts au singulier (masqué/visible/obligatoire).
 	 *
-	 * @param boolean $flip
+	 * @param boolean $bFlip
+	 * @param boolean $unDisablable
 	 * @return array
 	 */
-	public static function getFieldsTypes($flip = false)
+	public static function getFieldsStatus($bFlip = false, $unDisablable = false)
+	{
+		$aStatus = array(
+			0 => __('m_contact_fields_status_0'),
+			1 => __('m_contact_fields_status_1'),
+			2 => __('m_contact_fields_status_2')
+		);
+
+		if ($unDisablable) {
+			unset($aStatus[0]);
+		}
+
+		if ($bFlip) {
+			$aStatus = array_flip($aStatus);
+		}
+
+		return $aStatus;
+	}
+
+	/**
+	 * Retourne la liste des types de champs.
+	 *
+	 * @param boolean $bFlip
+	 * @return array
+	 */
+	public static function getFieldsTypes($bFlip = false)
 	{
 		$aTypes = array(
 			1 => __('m_contact_fields_type_1'),
@@ -505,7 +532,7 @@ class Fields
 			5 => __('m_contact_fields_type_5')
 		);
 
-		if ($flip) {
+		if ($bFlip) {
 			$aTypes = array_flip($aTypes);
 		}
 
@@ -516,11 +543,11 @@ class Fields
 	 * Indique de quelle forme est le type. Simple (Champ texte et Zone de texte)
 	 * ou multiple (Menu déroulant, Cases à cocher ou Boutons radio).
 	 *
-	 * @param integer $type
+	 * @param integer $iType
 	 */
-	public static function getFormType($type)
+	public static function getFormType($iType)
 	{
-		if ($type == 1 || $type == 2) {
+		if ($iType == 1 || $iType == 2) {
 			return 'simple';
 		}
 		else {

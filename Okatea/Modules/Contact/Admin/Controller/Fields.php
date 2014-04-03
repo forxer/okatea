@@ -13,6 +13,8 @@ use Okatea\Admin\Controller;
 
 class Fields extends Controller
 {
+	protected $aFieldData;
+
 	public function page()
 	{
 		if (!$this->okt->checkPerm('contact_usage') || !$this->okt->checkPerm('contact_fields')) {
@@ -46,48 +48,24 @@ class Fields extends Controller
 
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
-		$aFieldData = new ArrayObject();
-
-		$aFieldData['status'] = 0;
-		$aFieldData['type'] = 1;
-		$aFieldData['html_id'] = '';
-		$aFieldData['locales'] = array();
-
-		foreach ($this->okt->languages->list as $aLanguage)
-		{
-			$aFieldData['locales'][$aLanguage['code']] = array();
-			$aFieldData['locales'][$aLanguage['code']]['title'] = '';
-			$aFieldData['locales'][$aLanguage['code']]['description'] = '';
-		}
+		$this->initFieldData();
 
 		if ($this->request->request->has('form_sent'))
 		{
-			$field_data = array(
-				'type' 			=> $this->request->request->getInt('p_type'),
-				'status' 		=> $this->request->request->getInt('p_status'),
-				'title' 		=> (!empty($_POST['p_title']) ? $_POST['p_title'] : array()),
-				'html_id' 		=> (!empty($_POST['p_html_id']) ? $_POST['p_html_id'] : ''),
-				'description' 	=> (!empty($_POST['p_description']) ? $_POST['p_description'] : array())
-			);
+			$this->populateFieldDataFromPost();
 
-			if (empty($field_data['title']['fr'])) {
-				$okt->error->set('Vous devez saisir un titre.');
-			}
+			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 
-			if (empty($field_data['type'])) {
-				$okt->error->set('Vous devez choisir un type.');
-			}
-
-			if ($okt->error->isEmpty())
+			if ($this->okt->error->isEmpty())
 			{
-				if (($iFieldId = $okt->contact->addField($field_data)) !== false) {
-					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $iFieldId)));
+				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false) {
+					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
 		}
 
 		return $this->render('Contact/Admin/Templates/addField', array(
-			'aFieldData' 	=> $aFieldData
+			'aFieldData' 	=> $this->aFieldData
 		));
 	}
 
@@ -108,6 +86,57 @@ class Fields extends Controller
 		}
 
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
+
+		$this->initFieldData();
+
+		$iFieldId = $this->request->attributes->get('field_id');
+
+		$this->aFieldData['id'] = $this->request->attributes->getInt('field_id');
+
+		$rsField = $this->okt->module('Contact')->fields->getField($this->aFieldData['id']);
+
+		if (null === $this->aFieldData['id'] || $rsField->isEmpty())
+		{
+			$this->page->flash->error(sprintf(__('m_contact_field_%s_not_exists'), $this->aFieldData['id']));
+
+			return $this->serve404();
+		}
+
+		$this->aFieldData['status'] = $rsField->status;
+		$this->aFieldData['type'] = $rsField->status;
+		$this->aFieldData['html_id'] = $rsField->html_id;
+
+		$rsFieldL10n = $this->okt->module('Contact')->getFieldL10n($this->aFieldData['id']);
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			while ($rsFieldL10n->fetch())
+			{
+				if ($rsFieldL10n->language == $aLanguage['code'])
+				{
+					$this->aFieldData['locales'][$aLanguage['code']]['title'] = $rsFieldL10n->title;
+					$this->aFieldData['locales'][$aLanguage['code']]['description'] = $rsFieldL10n->description;
+				}
+			}
+		}
+
+		if ($this->request->request->has('form_sent'))
+		{
+			$this->populateFieldDataFromPost();
+
+			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
+
+			if ($this->okt->error->isEmpty())
+			{
+				if ($this->okt->module('Contact')->fields->addField($this->aFieldData) !== false) {
+					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+				}
+			}
+		}
+
+		return $this->render('Contact/Admin/Templates/addField', array(
+			'aFieldData' 	=> $this->aFieldData
+		));
 
 	}
 
@@ -173,4 +202,36 @@ class Fields extends Controller
 		return false;
 	}
 
+	protected function initFieldData()
+	{
+		$this->aFieldData = new ArrayObject();
+
+		$this->aFieldData['id'] = null;
+		$this->aFieldData['status'] = 0;
+		$this->aFieldData['type'] = 1;
+		$this->aFieldData['html_id'] = '';
+		$this->aFieldData['locales'] = array();
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$this->aFieldData['locales'][$aLanguage['code']] = array();
+			$this->aFieldData['locales'][$aLanguage['code']]['title'] = '';
+			$this->aFieldData['locales'][$aLanguage['code']]['description'] = '';
+		}
+	}
+
+	protected function populateFieldDataFromPost()
+	{
+		$this->aFieldData = array(
+			'type' 		=> $this->request->request->getInt('field_type'),
+			'status' 	=> $this->request->request->getInt('field_status'),
+			'html_id' 	=> $this->request->request->get('field_html_id')
+		);
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$this->aFieldData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('field_title['.$aLanguage['code'].']', null, true);
+			$this->aFieldData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('field_description['.$aLanguage['code'].']', null, true);
+		}
+	}
 }

@@ -8,8 +8,7 @@
 
 $view->extend('layout');
 
-$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
-$okt->page->addGlobalTitle(__('c_a_themes_management'));
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes')); 
 
 # Tabs
 $okt->page->tabs();
