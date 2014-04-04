@@ -11,15 +11,15 @@ Contact_field_add:
     path:     /contact/field/add
     defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::addField' }
 
-Contact_field_values:
-    path:     /contact/field/{field_id}/values
-    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::fieldValues' }
-    requirements:
-        field_id:  \d+
-
 Contact_field:
     path:     /contact/field/{field_id}
     defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::field' }
+    requirements:
+        field_id:  \d+
+
+Contact_field_values:
+    path:     /contact/field/{field_id}/values
+    defaults: { controller: 'Okatea\Modules\Contact\Admin\Controller\Fields::fieldValues' }
     requirements:
         field_id:  \d+
 

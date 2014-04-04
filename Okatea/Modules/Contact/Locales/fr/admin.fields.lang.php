@@ -10,6 +10,7 @@ $GLOBALS['okt_l10n']['m_contact_fields'] = 'Champs';
 $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'L’ordre des champs a été mis à jour.';
 $GLOBALS['okt_l10n']['m_contact_fields_field_deleted'] = 'Le champ a été supprimé.';
 $GLOBALS['okt_l10n']['m_contact_fields_add_field'] = 'Ajouter un champ';
+$GLOBALS['okt_l10n']['m_contact_fields_edit_field'] = 'Modifier un champ';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'Il n’y a aucun champ pour le moment.';
 
 $GLOBALS['okt_l10n']['m_contact_fields_edit_definition'] = 'Modifier définition';

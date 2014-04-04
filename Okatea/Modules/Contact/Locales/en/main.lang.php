@@ -18,14 +18,13 @@ $GLOBALS['okt_l10n']['m_contact_perm_recipients'] = 'Manage recipients';
 $GLOBALS['okt_l10n']['m_contact_perm_fields'] = 'Manage fields';
 $GLOBALS['okt_l10n']['m_contact_perm_config'] = 'Configuration';
 
-$GLOBALS['okt_l10n']['m_contact_google_map_link'] = 'Link to the map';
-$GLOBALS['okt_l10n']['m_contact_print'] = 'Print';
-$GLOBALS['okt_l10n']['m_contact_google_map_print'] = 'Print the map';
-
-$GLOBALS['okt_l10n']['m_contact_tel'] = 'Phone.';
+$GLOBALS['okt_l10n']['m_contact_tel'] = 'Phone';
 $GLOBALS['okt_l10n']['m_contact_mobile'] = 'Mobile';
 $GLOBALS['okt_l10n']['m_contact_fax'] = 'Fax';
 $GLOBALS['okt_l10n']['m_contact_email'] = 'Mail';
 
 $GLOBALS['okt_l10n']['m_contact_send'] = 'Send';
 $GLOBALS['okt_l10n']['m_contact_success'] = 'We received your request, we will process it within the shortest possible time. Thank you.';
+
+$GLOBALS['okt_l10n']['m_contact_field_%s_not_exists'] = 'Field #%s does not exist.';
+

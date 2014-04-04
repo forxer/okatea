@@ -206,7 +206,7 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 
 	<?php # début Okatea : lien pour afficher le plan dans UI dialog
 	if ($okt->module('Contact')->config->google_map['display'] == 'link') : ?>
-	<p id="google_map_link_wrapper"><a id="google_map_link" href="#google_map"><?php _e('m_contact_google_map_link') ?></a></p>
+	<p id="google_map_link_wrapper"><a id="google_map_link" href="#google_map"><?php _e('m_contact_access_map') ?></a></p>
 	<?php endif; # fin Okatea : lien pour afficher le plan dans UI dialog ?>
 
 

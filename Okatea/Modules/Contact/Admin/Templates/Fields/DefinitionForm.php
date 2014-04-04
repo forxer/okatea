@@ -30,7 +30,7 @@ if (!$okt->languages->unique) {
 	<?php echo form::select('field_type', Fields::getFieldsTypes(true), $aFieldData['type'])?></p>
 
 	<p class="field col"><label for="field_status" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_contact_field_status') ?></label>
-	<?php echo form::select('field_status', Fields::getFieldsStatus(true, in_array($iFieldId, Fields::getUnDisablableFields())), $aFieldData['status']) ?></p>
+	<?php echo form::select('field_status', Fields::getFieldsStatus(true, in_array($aFieldData['id'], Fields::getUnDisablableFields())), $aFieldData['status']) ?></p>
 </div>
 
 <div class="two-cols">

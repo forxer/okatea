@@ -35,8 +35,7 @@ $okt->page->setButtonset('fieldBtSt',array(
 echo $okt->page->getButtonSet('fieldBtSt'); ?>
 
 <form action="<?php echo $view->generateUrl('Contact_field_add') ?>" method="post" id="field-definition-form">
-	<?php echo $view->render('Contact/Admin/Templates/FieldDefinitionForm', array(
-		'iFieldId' 		=> null,
+	<?php echo $view->render('Contact/Admin/Templates/Fields/DefinitionForm', array(
 		'aFieldData' 	=> $aFieldData
 	)) ?>
 </form>

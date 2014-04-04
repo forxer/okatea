@@ -10,6 +10,7 @@ namespace Okatea\Modules\Contact\Admin\Controller;
 
 use ArrayObject;
 use Okatea\Admin\Controller;
+use Acme;
 
 class Fields extends Controller
 {
@@ -35,7 +36,7 @@ class Fields extends Controller
 			return $action;
 		}
 
-		return $this->render('Contact/Admin/Templates/Fields', array(
+		return $this->render('Contact/Admin/Templates/Fields/Index', array(
 
 		));
 	}
@@ -64,19 +65,9 @@ class Fields extends Controller
 			}
 		}
 
-		return $this->render('Contact/Admin/Templates/addField', array(
+		return $this->render('Contact/Admin/Templates/Fields/Add', array(
 			'aFieldData' 	=> $this->aFieldData
 		));
-	}
-
-	public function fieldValues()
-	{
-		if (!$this->okt->checkPerm('contact_usage') || !$this->okt->checkPerm('contact_fields')) {
-			return $this->serve401();
-		}
-
-		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
-
 	}
 
 	public function field()
@@ -97,16 +88,15 @@ class Fields extends Controller
 
 		if (null === $this->aFieldData['id'] || $rsField->isEmpty())
 		{
-			$this->page->flash->error(sprintf(__('m_contact_field_%s_not_exists'), $this->aFieldData['id']));
-
+			$this->okt->error->set(sprintf(__('m_contact_field_%s_not_exists'), $this->aFieldData['id']));
 			return $this->serve404();
 		}
 
 		$this->aFieldData['status'] = $rsField->status;
-		$this->aFieldData['type'] = $rsField->status;
+		$this->aFieldData['type'] = $rsField->type;
 		$this->aFieldData['html_id'] = $rsField->html_id;
 
-		$rsFieldL10n = $this->okt->module('Contact')->getFieldL10n($this->aFieldData['id']);
+		$rsFieldL10n = $this->okt->module('Contact')->fields->getFieldL10n($this->aFieldData['id']);
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -128,16 +118,29 @@ class Fields extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				if ($this->okt->module('Contact')->fields->addField($this->aFieldData) !== false) {
+				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false) {
 					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
 		}
 
-		return $this->render('Contact/Admin/Templates/addField', array(
+		return $this->render('Contact/Admin/Templates/Fields/Edit', array(
 			'aFieldData' 	=> $this->aFieldData
 		));
+	}
 
+	public function fieldValues()
+	{
+		if (!$this->okt->checkPerm('contact_usage') || !$this->okt->checkPerm('contact_fields')) {
+			return $this->serve401();
+		}
+
+		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
+
+
+		return $this->render('Contact/Admin/Templates/Fields/Values', array(
+			'aFieldData' 	=> $this->aFieldData
+		));
 	}
 
 	protected function deleteField()
@@ -223,6 +226,7 @@ class Fields extends Controller
 	protected function populateFieldDataFromPost()
 	{
 		$this->aFieldData = array(
+			'id' 		=> null,
 			'type' 		=> $this->request->request->getInt('field_type'),
 			'status' 	=> $this->request->request->getInt('field_status'),
 			'html_id' 	=> $this->request->request->get('field_html_id')

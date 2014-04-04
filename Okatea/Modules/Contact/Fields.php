@@ -139,14 +139,10 @@ class Fields
 		'FROM '.$this->t_fields_locales.' '.
 		'WHERE field_id='.(integer)$iFieldId;
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			$rs = new Recordset(array());
-			$rs->setCore($this->okt);
-			return $rs;
+		if (($rs = $this->db->select($query)) === false) {
+			return new Recordset(array());
 		}
 
-		$rs->setCore($this->okt);
 		return $rs;
 	}
 
@@ -171,10 +167,10 @@ class Fields
 		'INSERT INTO '.$this->t_fields.' ( '.
 			'status, type, ord, html_id '.
 		' ) VALUES ( '.
-			(integer)$aFieldData['status'].', '.
-			(integer)$aFieldData['type'].', '.
+			(integer)$this->aFieldData['status'].', '.
+			(integer)$this->aFieldData['type'].', '.
 			(integer)($max_ord+1).', '.
-			'\''.$this->db->escapeStr($aFieldData['html_id']).'\' '.
+			'\''.$this->db->escapeStr($this->aFieldData['html_id']).'\' '.
 		'); ';
 
 		if (!$this->db->execute($query)) {
@@ -182,8 +178,7 @@ class Fields
 		}
 
 		# récupération de l'ID
-		$iNewId = $this->db->getLastID();
-		$this->aFieldData['id'] = $iNewId;
+		$this->aFieldData['id'] = $this->db->getLastID();
 
 		# modification des textes internationalisés
 		if (!$this->setFieldL10n()) {
@@ -191,23 +186,23 @@ class Fields
 		}
 
 		# modification de l'ID HTML
-		if ($this->setFieldHtmlId($iNewId) === false) {
+		if ($this->setFieldHtmlId() === false) {
 			return false;
 		}
 
-		return $iNewId;
+		return $this->aFieldData['id'];
 	}
 
 	/**
 	 * Modification d'un champ donné.
 	 *
-	 * @param integer $iFieldId
 	 * @param array $aFieldData
 	 * @return boolean
 	 */
-	public function updField($iFieldId, $aFieldData)
+	public function updField($aFieldData)
 	{
-		if (!$this->fieldExists($iFieldId)) {
+		if (!$this->fieldExists($aFieldData['id'])) {
+			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $aFieldData['id']));
 			return false;
 		}
 
@@ -215,7 +210,7 @@ class Fields
 
 		$this->aFieldData['status'] = (integer)$this->aFieldData['status'];
 
-		if ($this->aFieldData['status'] == 0 && in_array($iFieldId, self::getUnDisablableFields())) {
+		if ($this->aFieldData['status'] == 0 && in_array($aFieldData['id'], self::getUnDisablableFields())) {
 			$this->aFieldData['status'] = 1;
 		}
 
@@ -224,20 +219,19 @@ class Fields
 			'status='.(integer)$this->aFieldData['status'].', '.
 			'type='.(integer)$this->aFieldData['type'].', '.
 			'html_id=\''.$this->db->escapeStr($this->aFieldData['html_id']).'\' '.
-		'WHERE id='.(integer)$iFieldId;
+		'WHERE id='.(integer)$aFieldData['id'];
 
 		if (!$this->db->execute($query)) {
 			return false;
 		}
 
 		# modification des textes internationalisés
-		$this->aFieldData['id'] = (integer)$iFieldId;
 		if (!$this->setFieldL10n()) {
 			return false;
 		}
 
 		# modification de l'ID HTML
-		if ($this->setFieldHtmlId($iFieldId) === false) {
+		if ($this->setFieldHtmlId() === false) {
 			return false;
 		}
 
@@ -246,17 +240,19 @@ class Fields
 
 	public function checkPostData($aFieldData)
 	{
+		$aFieldData['status'] = intval($aFieldData['status']);
 		if (!array_key_exists($aFieldData['status'], self::getFieldsStatus())) {
 			$this->error->set(__('m_contact_field_error_status'));
 		}
 
-		if (empty($aFieldData['type']) || !array_key_exists($aFieldData['type'], self::getFieldsTypes())) {
+		$aFieldData['type'] = intval($aFieldData['type']);
+		if (!array_key_exists($aFieldData['type'], self::getFieldsTypes())) {
 			$this->error->set(__('m_contact_field_error_type'));
 		}
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			if (empty($aFieldData['title'][$aLanguage['code']]))
+			if (empty($aFieldData['locales'][$aLanguage['code']]['title']))
 			{
 				if ($this->okt->languages->unique) {
 					$this->error->set(__('m_contact_field_error_title'));
@@ -269,24 +265,25 @@ class Fields
 	}
 
 	/**
-	 * Met à jour la valeur d'un champs donné.
+	 * Met à jour les valeurs d'un champs donné.
 	 *
 	 * @param integer $iFieldId
-	 * @param string $value
+	 * @param array $aValues
 	 * @return boolean
 	 */
-	public function setFieldValue($iFieldId, $value)
+	public function setFieldValues($iFieldId, $aValues)
 	{
 		$rsField = $this->getField($iFieldId);
 
 		if ($rsField->isEmpty()) {
+			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $iFieldId));
 			return false;
 		}
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
 			if (!$rsField->isSimpleField()) {
-				$value[$aLanguage['code']] = serialize($value[$aLanguage['code']]);
+				$aValues[$aLanguage['code']] = serialize($aValues[$aLanguage['code']]);
 			}
 
 			$query =
@@ -295,9 +292,9 @@ class Fields
 			'VALUES ('.
 				(integer)$iFieldId.', '.
 				'\''.$this->db->escapeStr($aLanguage['code']).'\', '.
-				(empty($value[$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($value[$aLanguage['code']]).'\'').' '.
+				(empty($aValues[$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($aValues[$aLanguage['code']]).'\'').' '.
 			') ON DUPLICATE KEY UPDATE '.
-				'value='.(empty($value[$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($value[$aLanguage['code']]).'\'');
+				'value='.(empty($aValues[$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($aValues[$aLanguage['code']]).'\'');
 
 			if (!$this->db->execute($query)) {
 				return false;
@@ -322,11 +319,11 @@ class Fields
 			'VALUES ('.
 				(integer)$this->aFieldData['id'].', '.
 				'\''.$this->db->escapeStr($aLanguage['code']).'\', '.
-				(empty($this->aFieldData['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['title'][$aLanguage['code']]).'\'').', '.
-				(empty($this->aFieldData['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['description'][$aLanguage['code']]).'\'').' '.
+				(empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']).'\'').', '.
+				(empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']).'\'').' '.
 			') ON DUPLICATE KEY UPDATE '.
-				'title='.(empty($this->aFieldData['title'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['title'][$aLanguage['code']]).'\'').', '.
-				'description='.(empty($this->aFieldData['description'][$aLanguage['code']]) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['description'][$aLanguage['code']]).'\'');
+				'title='.(empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']).'\'').', '.
+				'description='.(empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\''.$this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']).'\'');
 
 			if (!$this->db->execute($query)) {
 				return false;
@@ -343,9 +340,10 @@ class Fields
 	 * @param integer $ord
 	 * @return boolean
 	 */
-	public function updFieldOrder($iFieldId,$ord)
+	public function updFieldOrder($iFieldId, $ord)
 	{
 		if (!$this->fieldExists($iFieldId)) {
+			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $iFieldId));
 			return false;
 		}
 
@@ -396,16 +394,21 @@ class Fields
 	 * @param integer $post_id
 	 * @return boolean
 	 */
-	protected function setFieldHtmlId($iFieldId)
+	protected function setFieldHtmlId()
 	{
-		$rs = $this->getField($iFieldId);
+		$rsField = $this->getField($this->aFieldData['id']);
 
-		$html_id = $this->buildFieldHtmlId($rs->title,$rs->html_id,$iFieldId);
+		if ($rsField->isEmpty()) {
+			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $this->aFieldData['id']));
+			return false;
+		}
+
+		$html_id = $this->buildFieldHtmlId($rsField->title, $rsField->html_id, $this->aFieldData['id']);
 
 		$query =
 		'UPDATE '.$this->t_fields.' SET '.
-		'html_id=\''.$this->db->escapeStr($html_id).'\' '.
-		'WHERE id='.(integer)$iFieldId;
+			'html_id=\''.$this->db->escapeStr($html_id).'\' '.
+		'WHERE id='.(integer)$this->aFieldData['id'];
 
 		if (!$this->db->execute($query)) {
 			return false;
