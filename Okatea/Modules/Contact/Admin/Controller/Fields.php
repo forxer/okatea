@@ -60,7 +60,7 @@ class Fields extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false) {
-					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+					return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
 		}
@@ -119,7 +119,7 @@ class Fields extends Controller
 			if ($this->okt->error->isEmpty())
 			{
 				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false) {
-					$this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+					return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
 		}
