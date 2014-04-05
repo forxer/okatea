@@ -10,7 +10,7 @@ namespace Okatea\Modules\Contact\Admin\Controller;
 
 use ArrayObject;
 use Okatea\Admin\Controller;
-use Acme;
+use Okatea\Modules\Contact\Fields as FieldsManager;
 
 class Fields extends Controller
 {
@@ -36,8 +36,14 @@ class Fields extends Controller
 			return $action;
 		}
 
-		return $this->render('Contact/Admin/Templates/Fields/Index', array(
+		$rsFields = $this->okt->module('Contact')->fields->getFields(array(
+			'language' => $this->okt->user->language
+		));
 
+		return $this->render('Contact/Admin/Templates/Fields/Index', array(
+			'rsFields' 	=> $rsFields,
+			'aTypes' 	=> FieldsManager::getFieldsTypes(),
+			'aStatus' 	=> FieldsManager::getFieldsStatus()
 		));
 	}
 
@@ -79,8 +85,6 @@ class Fields extends Controller
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
 		$this->initFieldData();
-
-		$iFieldId = $this->request->attributes->get('field_id');
 
 		$this->aFieldData['id'] = $this->request->attributes->getInt('field_id');
 
@@ -137,9 +141,63 @@ class Fields extends Controller
 
 		$this->okt->l10n->loadFile(__DIR__.'/../../Locales/%s/admin.fields');
 
+		$iFieldId = $this->request->attributes->get('field_id');
+
+		$rsField = $this->okt->module('Contact')->fields->getField($iFieldId);
+
+		if (null === $iFieldId || $rsField->isEmpty())
+		{
+			$this->okt->error->set(sprintf(__('m_contact_field_%s_not_exists'), $iFieldId));
+			return $this->serve404();
+		}
+
+		$rsFieldL10n = $this->okt->module('Contact')->fields->getFieldL10n($iFieldId);
+
+		$aValues = array();
+
+		foreach ($this->okt->languages->list as $aLanguage)
+		{
+			$aValues[$aLanguage['code']] = '';
+
+			while ($rsFieldL10n->fetch())
+			{
+				if ($rsFieldL10n->language == $aLanguage['code'])
+				{
+					if (FieldsManager::isSimpleType($rsFieldL10n->type)) {
+						$aValues[$aLanguage['code']] = $rsFieldL10n->value;
+					}
+					else {
+						$aValues[$aLanguage['code']] = array_filter((array)unserialize($rsFieldL10n->value));
+					}
+				}
+			}
+		}
+
+		if ($this->request->request->has('form_sent'))
+		{
+			if (FieldsManager::isSimpleType($rsField->type)) {
+				$aValues = $this->request->request->get('p_value', array());
+			}
+			else
+			{
+				foreach ($okt->languages->list as $aLanguage)
+				{
+					$value[$aLanguage['code']] =
+						!empty($_POST['p_value'][$aLanguage['code']])
+						&& is_array($_POST['p_value'][$aLanguage['code']])
+					? array_filter(array_map('trim', $_POST['p_value'][$aLanguage['code']]))
+					: '';
+				}
+			}
+
+			if ($okt->contact->setFieldValue($field_id, $value) !== false)
+			{
+				return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+			}
+		}
 
 		return $this->render('Contact/Admin/Templates/Fields/Values', array(
-			'aFieldData' 	=> $this->aFieldData
+			'aValues' 	=> $aValues
 		));
 	}
 

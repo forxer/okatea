@@ -11,14 +11,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');
 
-
-# Module title tag
+# Page title and breadcrumb
 $okt->page->addTitleTag($okt->module('Contact')->getTitle());
-
-# Module start breadcrumb
 $okt->page->addAriane($okt->module('Contact')->getName(), $view->generateUrl('Contact_index'));
 
-# Titre de la page
 $okt->page->addGlobalTitle(__('m_contact_fields'));
 
 # button set
@@ -35,15 +31,6 @@ $okt->page->setButtonset('fieldsBtSt',array(
 		)
 	)
 ));
-
-# liste des champs
-$rsFields = $okt->module('Contact')->fields->getFields(array("language" => $okt->user->language));
-
-# liste des types de champs
-$aTypes = Fields::getFieldsTypes();
-
-# liste des statut de champs
-$aStatus = Fields::getFieldsStatus();
 
 # Sortable
 $okt->page->js->addReady('

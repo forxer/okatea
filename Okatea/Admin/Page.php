@@ -218,13 +218,15 @@ class Page extends BasePage
 			$sBaseUri = $this->okt->request->getUri();
 			$sBaseUri .= strpos($sBaseUri,'?') ? '&' : '?';
 
+			$iCount = 50;
+
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
 				if ($aLanguage['code'] === $this->okt->user->language) {
 					continue;
 				}
 
-				$aUserBars['second'][50] = '<a href="'.$sBaseUri.'lang='.Escaper::html($aLanguage['code']).'" title="'.Escaper::html($aLanguage['title']).'">'.
+				$aUserBars['second'][$iCount++] = '<a href="'.$sBaseUri.'lang='.Escaper::html($aLanguage['code']).'" title="'.Escaper::html($aLanguage['title']).'">'.
 						'<img src="'.$this->okt->options->public_url.'/img/flags/'.$aLanguage['img'].'" alt="'.Escaper::html($aLanguage['title']).'" /></a>';
 			}
 

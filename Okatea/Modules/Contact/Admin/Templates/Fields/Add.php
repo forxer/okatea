@@ -8,7 +8,7 @@
 
 $view->extend('layout');
 
-# Titre de la page
+# Page title and breadcrumb
 $okt->page->addTitleTag($okt->module('Contact')->getTitle());
 $okt->page->addAriane($okt->module('Contact')->getName(), $view->generateUrl('Contact_index'));
 
@@ -24,7 +24,7 @@ $okt->page->setButtonset('fieldBtSt',array(
 			'permission' 	=> true,
 			'title' 		=> __('c_c_action_Go_back'),
 			'url' 			=> $view->generateUrl('Contact_fields'),
-			'ui-icon' 		=> 'arrowreturnthick-1-w',
+			'ui-icon' 		=> 'arrowreturnthick-1-w'
 		)
 	)
 ));

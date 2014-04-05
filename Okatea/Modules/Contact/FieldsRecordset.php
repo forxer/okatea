@@ -38,11 +38,7 @@ class FieldsRecordset extends Recordset
 
 	public function isSimpleField()
 	{
-		if ($this->type == 1 || $this->type == 2) {
-			return true;
-		}
-
-		return false;
+		return Fields::isSimpleType($this->type);
 	}
 
 	public function getHtmlField()

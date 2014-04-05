@@ -558,6 +558,15 @@ class Fields
 		}
 	}
 
+	public static function isSimpleType($iType)
+	{
+		if ($iType == 1 || $iType == 2) {
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Indique si un champ donné est supprimable.
 	 *

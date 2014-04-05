@@ -49,6 +49,8 @@ $GLOBALS['okt_l10n']['m_contact_field_error_status'] = 'Vous devez choisir un st
 $GLOBALS['okt_l10n']['m_contact_field_error_title'] = 'Veuillez saisir un intitulé de champ';
 $GLOBALS['okt_l10n']['m_contact_field_error_title_in_%s'] = 'Veuillez saisir un intitulé de champ en %s';
 
+$GLOBALS['okt_l10n']['m_contact_fields_field_values'] = 'Valeur(s) du champ';
+
 
 
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'ID HTML vide';
