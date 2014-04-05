@@ -53,7 +53,7 @@ class FieldsRecordset extends Recordset
 				'<label for="'.$this->html_id.'"'.
 				($this->status == 2 ? ' class="required" title="'.__('c_c_required_field').'"' : '').'>'.
 				Escaper::html($this->title).'</label>'.
-				form::text($this->html_id,60, 255, $this->okt->module('Contact')->aPostedData[$this->id]).'</p>';
+				form::text($this->html_id, 60, 255, $this->okt->module('Contact')->aPostedData[$this->id]).'</p>';
 			break;
 
 			# Zone de texte
@@ -97,7 +97,8 @@ class FieldsRecordset extends Recordset
 				$values = array_filter((array)unserialize($this->value));
 
 				$str = '';
-				foreach ($values as $k=>$v) {
+				foreach ($values as $k=>$v)
+				{
 					$str .= '<li><label>'.form::checkbox(array($this->html_id.'['.$k.']', $this->html_id.'_'.$k), $k, in_array($k,$this->okt->module('Contact')->aPostedData[$this->id])).
 					Escaper::html($v).'</label></li>';
 				}
@@ -110,5 +111,4 @@ class FieldsRecordset extends Recordset
 
 		return $return;
 	}
-
 }
