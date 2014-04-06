@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Extensions;
 
 use Okatea\Tao\Database\Recordset;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 class Manager
@@ -392,10 +393,7 @@ class Manager
 
 				if (!empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
 				{
-					# delete old module
-					if (!\files::deltree($destination)) {
-						throw new \Exception(__('An error occurred during module deletion.'));
-					}
+					$fs = (new Filesystem())->remove($destination);
 
 					$ret_code = 2;
 				}

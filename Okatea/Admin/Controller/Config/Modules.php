@@ -15,6 +15,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -533,7 +534,9 @@ class Modules extends Controller
 			return false;
 		}
 
-		if (\files::deltree($this->okt->options->get('modules_dir').'/'.$sModuleId))
+		$fs = new Filesystem();
+
+		if ($fs->remove($this->okt->options->get('modules_dir').'/'.$sModuleId))
 		{
 			$this->okt->page->flash->success(__('c_a_modules_successfully_deleted'));
 

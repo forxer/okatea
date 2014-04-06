@@ -14,6 +14,7 @@ use Okatea\Admin\Controller;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -471,7 +472,9 @@ class Themes extends Controller
 			return false;
 		}
 
-		if (\files::deltree($this->okt->options->get('themes_dir').'/'.$sThemeId))
+		$fs = new Filesystem();
+
+		if ($fs->remove($this->okt->options->get('themes_dir').'/'.$sThemeId))
 		{
 			$this->okt->page->flash->success(__('c_a_themes_successfully_deleted'));
 

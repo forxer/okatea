@@ -11,6 +11,7 @@ namespace Okatea\Admin\Controller;
 use ArrayObject;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Update as Updater;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Home extends Controller
 {
@@ -136,9 +137,7 @@ class Home extends Controller
 		# set cache directory
 		$sCacheDir = $this->okt->options->get('cache_dir').'/feeds/';
 
-		if (!is_dir($sCacheDir)) {
-			\files::makeDir($sCacheDir, true);
-		}
+		$fs = (new Filesystem())->mkdir($sCacheDir);
 
 		$this->feed->set_cache_location($sCacheDir);
 

@@ -234,12 +234,7 @@ class Tools extends Controller
 		$sCacheFile = $this->request->query->get('cache_file');
 		if ($sCacheFile && in_array($sCacheFile, $this->aCacheFiles))
 		{
-			if (is_dir($this->okt->options->get('cache_dir').'/'.$sCacheFile)) {
-				\files::deltree($this->okt->options->get('cache_dir').'/'.$sCacheFile);
-			}
-			else {
-				unlink($this->okt->options->get('cache_dir').'/'.$sCacheFile);
-			}
+			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir').'/'.$sCacheFile);
 
 			$this->page->flash->success(__('c_a_tools_cache_confirm'));
 
@@ -250,12 +245,7 @@ class Tools extends Controller
 		$sPublicCacheFile = $this->request->query->get('public_cache_file');
 		if ($sPublicCacheFile && in_array($sPublicCacheFile, $this->aPublicCacheFiles))
 		{
-			if (is_dir($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile)) {
-				\files::deltree($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
-			}
-			else {
-				unlink($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
-			}
+			$fs = (new Filesystem())->remove($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
 
 			$this->page->flash->success(__('c_a_tools_cache_confirm'));
 
