@@ -65,7 +65,10 @@ class Fields extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false) {
+				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false)
+				{
+					$this->page->flash->success(__('m_contact_fields_field_added'));
+
 					return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
@@ -122,8 +125,11 @@ class Fields extends Controller
 
 			if ($this->okt->error->isEmpty())
 			{
-				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false) {
-					return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false)
+				{
+					$this->page->flash->success(__('m_contact_fields_field_updated'));
+
+					return $this->redirect($this->generateUrl('Contact_field', array('field_id' => $this->aFieldData['id'])));
 				}
 			}
 		}
@@ -174,6 +180,8 @@ class Fields extends Controller
 
 			if ($this->okt->module('Contact')->fields->setFieldValues($iFieldId, $aValues) !== false)
 			{
+				$this->page->flash->success(__('m_contact_fields_field_updated'));
+
 				return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $iFieldId)));
 			}
 		}
@@ -268,12 +276,9 @@ class Fields extends Controller
 
 	protected function populateFieldDataFromPost()
 	{
-		$this->aFieldData = array(
-			'id' 		=> null,
-			'type' 		=> $this->request->request->getInt('field_type'),
-			'status' 	=> $this->request->request->getInt('field_status'),
-			'html_id' 	=> $this->request->request->get('field_html_id')
-		);
+		$this->aFieldData['type'] = $this->request->request->getInt('field_type');
+		$this->aFieldData['status'] = $this->request->request->getInt('field_status');
+		$this->aFieldData['html_id'] = $this->request->request->get('field_html_id');
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{

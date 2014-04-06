@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Modules\Contact\Fields;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');
@@ -28,6 +29,25 @@ $okt->page->setButtonset('fieldBtSt',array(
 			'title' 		=> __('c_c_action_Go_back'),
 			'url' 			=> $view->generateUrl('Contact_fields'),
 			'ui-icon' 		=> 'arrowreturnthick-1-w'
+		),
+		array(
+			'permission' => true,
+			'title' 	=> __('m_contact_fields_add_field'),
+			'url' 		=> $view->generateUrl('Contact_field_add'),
+			'ui-icon' 	=> 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('m_contact_fields_edit_definition'),
+			'url' 			=> $view->generateUrl('Contact_field', array('field_id' => $rsField->id)),
+			'ui-icon' 		=> 'pencil'
+		),
+		array(
+			'permission' 	=> !in_array($rsField->id, Fields::getUnDeletableFields()),
+			'title' 		=> __('c_c_action_Delete'),
+			'url' 			=> $view->generateUrl('Contact_fields').'?delete='.$rsField->id,
+			'ui-icon' 		=> 'closethick',
+			'onclick' 		=> 'return window.confirm(\''.$view->escapeJs(__('m_contact_fields_confirm_field_deletion')).'\')',
 		)
 	)
 ));
@@ -72,6 +92,6 @@ echo $okt->page->getButtonSet('fieldBtSt'); ?>
 
 	<p><?php echo form::hidden('form_sent', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>
-	<input type="submit" value="<?php _e('c_c_action_Save') ?>" /></p>
+	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
 </form>
 

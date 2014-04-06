@@ -26,8 +26,7 @@ $okt->page->setButtonset('fieldsBtSt',array(
 			'permission' => true,
 			'title' 	=> __('m_contact_fields_add_field'),
 			'url' 		=> $view->generateUrl('Contact_field_add'),
-			'ui-icon' 	=> 'plusthick',
-			'status' 	=> false
+			'ui-icon' 	=> 'plusthick'
 		)
 	)
 ));
@@ -97,12 +96,12 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 		<div class="col right">
 
 			<a href="<?php echo $view->generateUrl('Contact_field', array('field_id' => $rsFields->id)) ?>"
-			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_contact_fields_edit_field_definition'), $rsFields->title)) ?>"
-			class="icon pencil"><?php _e('m_contact_fields_edit_definition') ?></a>
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $rsFields->title)) ?>"
+			class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 
 			- <a href="<?php echo $view->generateUrl('Contact_field_values', array('field_id' => $rsFields->id)) ?>"
 			title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_contact_fields_edit_field_values'), $rsFields->title)) ?>"
-			class="icon paintbrush"><?php _e('m_contact_fields_edit_values') ?></a>
+			class="icon paintbrush"><?php _e('m_contact_fields_values') ?></a>
 
 			<?php if (in_array($rsFields->id, Fields::getUnDeletableFields())) : ?>
 			- <a class="icon delete disabled"><?php _e('c_c_action_Delete') ?></a>

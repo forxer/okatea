@@ -8,14 +8,15 @@
 
 $GLOBALS['okt_l10n']['m_contact_fields'] = 'Fields';
 $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'The order of fields was updated.';
+$GLOBALS['okt_l10n']['m_contact_fields_field_added'] = 'The field has been successfully added.';
+$GLOBALS['okt_l10n']['m_contact_fields_field_updated'] = 'The field has been successfully changed.';
 $GLOBALS['okt_l10n']['m_contact_fields_field_deleted'] = 'The field was deleted.';
 $GLOBALS['okt_l10n']['m_contact_fields_add_field'] = 'Add a field';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_field'] = 'Edit a field';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'There is no field for the moment.';
 
 $GLOBALS['okt_l10n']['m_contact_fields_edit_definition'] = 'Edit definition';
-$GLOBALS['okt_l10n']['m_contact_fields_edit_field_definition'] = 'Edit the field "%s" definition';
-
+$GLOBALS['okt_l10n']['m_contact_fields_values'] = 'Value(s)';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_values'] = 'Edit value(s)';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_field_values'] = 'Edit field "%s" values';
 

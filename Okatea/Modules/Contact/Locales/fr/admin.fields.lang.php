@@ -8,14 +8,15 @@
 
 $GLOBALS['okt_l10n']['m_contact_fields'] = 'Champs';
 $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'L’ordre des champs a été mis à jour.';
+$GLOBALS['okt_l10n']['m_contact_fields_field_added'] = 'Le champ a été ajouté avec succès.';
+$GLOBALS['okt_l10n']['m_contact_fields_field_updated'] = 'Le champ a été modifié avec succès.';
 $GLOBALS['okt_l10n']['m_contact_fields_field_deleted'] = 'Le champ a été supprimé.';
 $GLOBALS['okt_l10n']['m_contact_fields_add_field'] = 'Ajouter un champ';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_field'] = 'Modifier un champ';
 $GLOBALS['okt_l10n']['m_contact_fields_no_field'] = 'Il n’y a aucun champ pour le moment.';
 
 $GLOBALS['okt_l10n']['m_contact_fields_edit_definition'] = 'Modifier définition';
-$GLOBALS['okt_l10n']['m_contact_fields_edit_field_definition'] = 'Modifier la définition du champ "%s"';
-
+$GLOBALS['okt_l10n']['m_contact_fields_values'] = 'Valeur(s)';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_values'] = 'Modifier valeur(s)';
 $GLOBALS['okt_l10n']['m_contact_fields_edit_field_values'] = 'Modifier la (les) valeur(s) du champ "%s"';
 

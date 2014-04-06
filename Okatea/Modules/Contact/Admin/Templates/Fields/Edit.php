@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Modules\Contact\Fields;
+
 $view->extend('layout');
 
 # Page title and breadcrumb
@@ -25,6 +27,25 @@ $okt->page->setButtonset('fieldBtSt',array(
 			'title' 		=> __('c_c_action_Go_back'),
 			'url' 			=> $view->generateUrl('Contact_fields'),
 			'ui-icon' 		=> 'arrowreturnthick-1-w'
+		),
+		array(
+			'permission' => true,
+			'title' 	=> __('m_contact_fields_add_field'),
+			'url' 		=> $view->generateUrl('Contact_field_add'),
+			'ui-icon' 	=> 'plusthick'
+		),
+		array(
+			'permission' 	=> true,
+			'title' 		=> __('m_contact_fields_edit_values'),
+			'url' 			=> $view->generateUrl('Contact_field_values', array('field_id' => $aFieldData['id'])),
+			'ui-icon' 		=> 'pencil'
+		),
+		array(
+			'permission' 	=> !in_array($aFieldData['id'], Fields::getUnDeletableFields()),
+			'title' 		=> __('c_c_action_Delete'),
+			'url' 			=> $view->generateUrl('Contact_fields').'?delete='.$aFieldData['id'],
+			'ui-icon' 		=> 'closethick',
+			'onclick' 		=> 'return window.confirm(\''.$view->escapeJs(__('m_contact_fields_confirm_field_deletion')).'\')',
 		)
 	)
 ));
@@ -34,7 +55,7 @@ $okt->page->setButtonset('fieldBtSt',array(
 <?php # buttons set
 echo $okt->page->getButtonSet('fieldBtSt'); ?>
 
-<form action="<?php echo $view->generateUrl('Contact_field_add') ?>" method="post" id="field-definition-form">
+<form action="<?php echo $view->generateUrl('Contact_field', array('field_id' => $aFieldData['id'])) ?>" method="post" id="field-definition-form">
 	<?php echo $view->render('Contact/Admin/Templates/Fields/DefinitionForm', array(
 		'aFieldData' 	=> $aFieldData
 	)) ?>
