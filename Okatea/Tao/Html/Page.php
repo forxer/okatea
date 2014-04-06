@@ -829,28 +829,28 @@ class Page
 		');
 	}
 
-	public function checkboxHelper($form_id, $helper_id)
+	public function checkboxHelper($sFormId, $helper_id)
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/checkboxes/jquery.checkboxes.min.js');
 
 		$this->js->addReady('
 			$(\'<a href="#" id="'.$helper_id.'-button-select-all">'.__('c_c_select_all').'</a>\')
 			.click(function(event) {
-				$("#'.$form_id.'").checkCheckboxes();
+				$("#'.$sFormId.'").checkCheckboxes();
 				event.preventDefault();
 				$(this).blur();
 			}).appendTo("#'.$helper_id.'");
 
 			$(\'<a href="#" id="'.$helper_id.'-button-select-none">'.__('c_c_select_none').'</a>\')
 			.click(function(event) {
-				$("#'.$form_id.'").unCheckCheckboxes();
+				$("#'.$sFormId.'").unCheckCheckboxes();
 				event.preventDefault();
 				$(this).blur();
 			}).appendTo("#'.$helper_id.'");
 
 			$(\'<a href="#" id="'.$helper_id.'-button-select-toggle">'.__('c_c_toggle_select').'</a>\')
 			.click(function(event) {
-				$("#'.$form_id.'").toggleCheckboxes();
+				$("#'.$sFormId.'").toggleCheckboxes();
 				event.preventDefault();
 				$(this).blur();
 			}).appendTo("#'.$helper_id.'");
@@ -896,48 +896,51 @@ class Page
 		$this->getValidateJs($aOptions['selector'], $aOptions['fields']);
 	}
 
-	public function validate($form_id = null, $fields = array(), $sLanguage = null)
+	public function validate($sFormId = null, array $aFields = array(), $sLanguage = null)
 	{
 		if (null === $sLanguage) {
 			$sLanguage = $this->okt->user->language;
 		}
 
+		$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/dist/jquery.validate.min.js');
+		$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/dist/additional-methods.min.js');
+
 		if (file_exists($this->okt->options->get('public_dir').'/components/jquery-validation/src/localization/messages_'.$sLanguage.'.js')) {
 			$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/src/localization/messages_'.$sLanguage.'.js');
 		}
 
-		$this->getValidateJs($form_id, $fields);
+		$this->getValidateJs($sFormId, $aFields);
 	}
 
-	public function getValidateJs($form_id, $fields)
+	public function getValidateJs($sFormId, $aFields)
 	{
-		if (!empty($form_id) && !empty($fields))
+		if (!empty($sFormId) && !empty($aFields))
 		{
 			$aRules = array();
 			$aMessages = array();
 
-			foreach ($fields as $field)
+			foreach ($aFields as $aField)
 			{
-				if (is_array($field['rules'])) {
-					$aRules[] = $field['id'].': { '.implode(', ',$field['rules']).' }';
+				if (is_array($aField['rules'])) {
+					$aRules[] = $aField['id'].': { '.implode(', ',$aField['rules']).' }';
 				}
 				else {
-					$aRules[] = $field['id'].': { '.$field['rules'].' }';
+					$aRules[] = $aField['id'].': { '.$aField['rules'].' }';
 				}
 
-				if (!empty($field['messages']))
+				if (!empty($aField['messages']))
 				{
-					if (is_array($field['messages'])) {
-						$aMessages[] = $field['id'].': { '.implode(', ',$field['messages']).' }';
+					if (is_array($aField['messages'])) {
+						$aMessages[] = $aField['id'].': { '.implode(', ',$aField['messages']).' }';
 					}
 					else {
-						$aMessages[] = $field['id'].': { '.$field['messages'].' }';
+						$aMessages[] = $aField['id'].': { '.$aField['messages'].' }';
 					}
 				}
 			}
 
 			$this->js->addReady('
-				var validator = jQuery("#'.$form_id.'").validate({
+				var validator = jQuery("#'.$sFormId.'").validate({
 					rules: {
 						'.implode(",\n\t\t\t",$aRules).
 					'

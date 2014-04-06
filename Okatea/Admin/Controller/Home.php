@@ -83,7 +83,7 @@ class Home extends Controller
 		# -- CORE TRIGGER : adminIndexRoundaboutOptions
 		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $aRoundAboutOptions);
 
-		$this->page->roundabout($aRoundAboutOptions, '#roundabout');
+		$this->page->roundabout((array)$aRoundAboutOptions, '#roundabout');
 
 		# RoundAbout defaults Items
 		$this->aRoundAboutItems = new ArrayObject();
