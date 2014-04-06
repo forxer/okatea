@@ -75,7 +75,7 @@ class Page
 	 * L'ID de la page
 	 * @var string
 	 */
-	protected $sPageId = null;
+	protected $sPageId;
 
 	/**
 	 * Le titre de la page
@@ -93,7 +93,7 @@ class Page
 	 * L'ID du module en cours
 	 * @var string
 	 */
-	public $module = null;
+	public $module;
 
 	/**
 	 * La pile des RTE disponibles
@@ -117,7 +117,7 @@ class Page
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
 	 * @var string
 	 */
-	public $sPart = null;
+	public $sPart;
 
 
 	/**
@@ -157,7 +157,7 @@ class Page
 	 */
 	public function titleTag($sTitleTagSep = ' - ')
 	{
-		return implode($sTitleTagSep,array_filter($this->aTitleTagStack));
+		return implode($sTitleTagSep, array_filter($this->aTitleTagStack));
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Page
 	 */
 	public function addTitleTag($sTitle)
 	{
-		array_unshift($this->aTitleTagStack,$sTitle);
+		array_unshift($this->aTitleTagStack, $sTitle);
 	}
 
 	/**
@@ -337,7 +337,7 @@ class Page
 	 *
 	 * @return string
 	 */
-	public function getSiteMetaDesc($sLanguage=null, $sDefault=null)
+	public function getSiteMetaDesc($sLanguage = null, $sDefault = null)
 	{
 		if ($sLanguage !== null && !empty($this->okt->config->meta_description[$sLanguage])) {
 			return $this->okt->config->meta_description[$sLanguage];
@@ -358,7 +358,7 @@ class Page
 	 *
 	 * @return string
 	 */
-	public function getSiteMetaKeywords($sLanguage=null, $sDefault=null)
+	public function getSiteMetaKeywords($sLanguage = null, $sDefault = null)
 	{
 		if ($sLanguage !== null && !empty($this->okt->config->meta_keywords[$sLanguage])) {
 			return $this->okt->config->meta_keywords[$sLanguage];
@@ -384,21 +384,20 @@ class Page
 	 * Voir http://jqueryui.com/demos/accordion/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function accordion($user_options=array(), $element='#accordion')
+	public function accordion(array $aCustomOptions = array(), $sElement = '#accordion')
 	{
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').accordion('.json_encode($options).');
+			jQuery(\''.$sElement.'\').accordion('.json_encode($aOptions).');
 		');
 	}
 
@@ -408,27 +407,27 @@ class Page
 	 * Voir http://jqueryui.com/demos/datepicker/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function datePicker($user_options=array(), $element='.datepicker')
+	public function datePicker(array $aCustomOptions = array(), $sElement = '.datepicker')
 	{
-		$options = array(
+		$aOptions = array(
 			'dateFormat' => 'dd-mm-yy',
 			'changeMonth' => true,
 			'changeYear' => true
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\''.$this->okt->user->language.'\']); '.
-			'jQuery(\''.$element.'\').datepicker('.json_encode($options).');
+			'jQuery(\''.$sElement.'\').datepicker('.json_encode($aOptions).');
 		');
 	}
 
@@ -438,21 +437,20 @@ class Page
 	 * Voir http://jqueryui.com/demos/dialog/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function dialog($user_options=array(), $element='.dialog')
+	public function dialog(array $aCustomOptions = array(), $sElement = '.dialog')
 	{
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').dialog('.json_encode($options).');
+			jQuery(\''.$sElement.'\').dialog('.json_encode($aOptions).');
 		');
 	}
 
@@ -462,24 +460,24 @@ class Page
 	 * Voir http://jqueryui.com/demos/tabs/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function tabs($user_options=array(), $element='#tabered')
+	public function tabs(array $aCustomOptions = array(), $sElement = '#tabered')
 	{
-		$options = array(
+		$aOptions = array(
 			'show' => true,
 			'hide' => true,
 			'heightStyle' => 'content'
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addScript('
-			var tabsOptions = '.json_encode($options).';
+			var tabsOptions = '.json_encode($aOptions).';
 
 			var hasHash = location.href.indexOf("#");
 
@@ -498,7 +496,7 @@ class Page
 		');
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').tabs(tabsOptions);
+			jQuery(\''.$sElement.'\').tabs(tabsOptions);
 		');
 	}
 
@@ -574,169 +572,28 @@ class Page
 	}
 
 	/**
-	 * Met en place les "smart colonnes"
-	 *
-	 * Voir http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/
-	 *
-	 * légèrement "forké" pour okatea
-	 *
-	 * <ul class="smartColumns">
-	 *   <li class="column"></li>
-	 *   <li class="column"></li>
-	 *   <li class="column"></li>
-	 * </ul>
-	 *
-	 * @return void
-	 */
-	public function smartColumns($width=220)
-	{
-		# Create a function that calculates the smart columns
-		$this->js->addScript('
-			function smartColumns() {
-
-				var jElement = jQuery("ul.smartColumns");
-
-				// Reset column size to a 100% once view port has been adjusted
-				jElement.css({"width" : "100%"});
-
-				// Get the width of row
-				var colWrap = jElement.width();
-
-				// Find how many columns of $width px can fit per row / then round it down to a whole number
-				var colNum = Math.floor(colWrap / '.$width.');
-
-				// Get the width of the row and divide it by the number of columns it can fit / then round it down to a whole number. This value will be the exact width of the re-adjusted column
-				var colFixed = Math.floor(colWrap / colNum);
-
-				// Set exact width of row in pixels instead of using % - Prevents cross-browser bugs that appear in certain view port resolutions.
-				jElement.css({"width" : colWrap});
-
-				// Set exact width of the re-adjusted column
-				jQuery("ul.smartColumns li.column").css({"width" : colFixed});
-			}
-		');
-
-		$this->js->addReady('
-			// Execute the smartColumns function when page loads
-			smartColumns();
-
-			// Each time the viewport is adjusted/resized, execute the smartColumns function
-			jQuery(window).resize(function () {
-				smartColumns();
-			});
-		');
-	}
-
-	/**
 	 * Met en place un "roundabout"
 	 *
 	 * Voir http://fredhq.com/projects/roundabout/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function roundabout($user_options=array(), $element='.roundabout')
+	public function roundabout(array $aCustomOptions = array(), $sElement = '.roundabout')
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/easing/jquery.easing.min.js');
 		$this->js->addFile($this->okt->options->public_url.'/components/jquery-roundabout/jquery.roundabout.min.js');
 
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, (array)$user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').roundabout('.json_encode($options).');
-		');
-	}
-
-	/**
-	 * Met en place "jPicker"
-	 *
-	 * Voir http://www.digitalmagicpro.com/jPicker/
-	 *
-	 * @param array $element
-	 * @param array $user_options
-	 * @return void
-	 */
-	public function colorpicker($element='#colorpicker', $user_options=array())
-	{
-		$this->css->addFile($this->okt->options->public_url.'/plugins/jpicker/css/jPicker.min.css');
-		$this->js->addFile($this->okt->options->public_url.'/plugins/jpicker/jpicker.min.js');
-
-		# patch for 1.1.5 missing this property
-		# TODO : remove when it will be corrected
-		$this->css->addCss('.jPicker tr, .jPicker td { vertical-align: middle; } ');
-
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/jPicker');
-
-		$options = array(
-			'images' => array(
-				'clientPath' => $this->okt->options->public_url.'/plugins/jpicker/images/'
-			),
-			'localization' => array(
-				'text' => array(
-					'title' => __('jpicker_text_title'),
-					'newColor' => __('jpicker_text_newColor'),
-					'currentColor' => __('jpicker_text_currentColor'),
-					'ok' => __('jpicker_text_ok'),
-					'cancel' => __('jpicker_text_cancel')
-				),
-				'tooltips' => array(
-					'colors' => array(
-						'newColor' => __('jpicker_tooltips_colors_newColor'),
-						'currentColor' => __('jpicker_tooltips_colors_currentColor')
-					),
-					'buttons' => array(
-						'ok' => __('jpicker_tooltips_buttons_ok'),
-						'cancel' => __('jpicker_tooltips_buttons_cancel')
-					),
-					'hue' => array(
-						'radio' => __('jpicker_tooltips_hue_radio'),
-						'textbox' => __('jpicker_tooltips_hue_textbox')
-					),
-					'saturation' => array(
-						'radio' => __('jpicker_tooltips_saturation_radio'),
-						'textbox' => __('jpicker_tooltips_saturation_textbox')
-					),
-					'value' => array(
-						'radio' => __('jpicker_tooltips_value_radio'),
-						'textbox' => __('jpicker_tooltips_value_textbox')
-					),
-					'red' => array(
-						'radio' => __('jpicker_tooltips_red_radio'),
-						'textbox' => __('jpicker_tooltips_red_textbox')
-					),
-					'green' => array(
-						'radio' => __('jpicker_tooltips_green_radio'),
-						'textbox' => __('jpicker_tooltips_green_textbox')
-					),
-					'blue' => array(
-						'radio' => __('jpicker_tooltips_blue_radio'),
-						'textbox' => __('jpicker_tooltips_blue_textbox')
-					),
-					'alpha' => array(
-						'radio' => __('jpicker_tooltips_alpha_radio'),
-						'textbox' => __('jpicker_tooltips_alpha_textbox')
-					),
-					'hex' => array(
-						'textbox' => __('jpicker_tooltips_hex_textbox'),
-						'alpha' => __('jpicker_tooltips_hex_alpha')
-					)
-				)
-			)
-		);
-
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
-		}
-
-		$this->js->addReady('
-			jQuery(\''.$element.'\').jPicker('.json_encode($options).');
+			jQuery(\''.$sElement.'\').roundabout('.json_encode($aOptions).');
 		');
 	}
 
@@ -746,28 +603,27 @@ class Page
 	 * Voir http://docs.jquery.com/Plugins/Treeview/treeview#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $user_options
-	 * @param string $element
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
-	public function treeview($user_options=array(), $element='.browser')
+	public function treeview(array $aCustomOptions = array(), $sElement = '.browser')
 	{
 		$this->css->addFile($this->okt->options->public_url.'/plugins/treeview/jquery.treeview.css');
 		$this->js->addFile($this->okt->options->public_url.'/plugins/treeview/jquery.treeview.min.js');
 
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').treeview('.json_encode($options).');
+			jQuery(\''.$sElement.'\').treeview('.json_encode($aOptions).');
 		');
 	}
 
-	public function updatePermissionsCheckboxes($prefix='p_perm_g_')
+	public function updatePermissionsCheckboxes($prefix = 'p_perm_g_')
 	{
 		$this->js->addScript('
 
@@ -792,12 +648,12 @@ class Page
 		');
 	}
 
-	public function loader($element)
+	public function loader($sElement)
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/blockUI/jquery.blockUI.min.js');
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').click(function() {
+			jQuery(\''.$sElement.'\').click(function() {
 				$.blockUI({
 					theme:    true,
 					title:    "'.__('c_c_Please_wait').'",
@@ -807,39 +663,37 @@ class Page
 		');
 	}
 
-	public function cycle($element='#diaporama', $user_options=array())
+	public function cycle($sElement = '#diaporama', array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/cycle/jquery.cycle.min.js');
 
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').cycle('.json_encode($options).');
+			jQuery(\''.$sElement.'\').cycle('.json_encode($aOptions).');
 		');
 	}
 
-	public function cycleLite($element='#diaporama', $user_options=array())
+	public function cycleLite($sElement = '#diaporama', array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/cycle/jquery.cycle.lite.min.js');
 
-		$options = array(
-		);
+		$aOptions = array();
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery(\''.$element.'\').cycle('.json_encode($options).');
+			jQuery(\''.$sElement.'\').cycle('.json_encode($aOptions).');
 		');
 	}
 
-	public function filterControl($showFilter=false)
+	public function filterControl($showFilter = false)
 	{
 		$this->js->addReady('
 			if (!'.(integer)$showFilter.') {
@@ -850,44 +704,32 @@ class Page
 				return false;
 			});
 		');
-/*
-		$this->js->addReady('
-			var c = $("#filter-control");
-			c.css("display","inline");
-			$("#filters-form").hide();
-			c.click(function() {
-				$(this).hide();
-				$("#filters-form").slideToggle();
-				return false;
-			});
-		');
-*/
 	}
 
-	public function strToSlug($command, $target, $user_options=array())
+	public function strToSlug($command, $target, array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url.'/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
 
-		$options = array(
+		$aOptions = array(
 			'setEvents' => 'keyup keydown blur',
 			'getPut' => $target,
 			'space' => '-'
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery("'.$command.'").stringToSlug('.json_encode($options).');
+			jQuery("'.$command.'").stringToSlug('.json_encode($aOptions).');
 		');
 	}
 
-	public function toggleWithLegend($command, $target, $user_options=array())
+	public function toggleWithLegend($command, $target, array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url.'/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
-		$options = array(
+		$aOptions = array(
 			'img_on_src' => $this->okt->options->public_url.'/img/ico/plus.png',
 			'img_on_alt' => Escaper::js(__('c_c_action_show')),
 			'img_off_src' => $this->okt->options->public_url.'/img/ico/minus.png',
@@ -900,26 +742,26 @@ class Page
 			'reverse_cookie' => false // Reverse cookie behavior
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		$this->js->addReady('
-			jQuery("#'.$command.'").toggleWithLegend(jQuery("#'.$target.'"),'.json_encode($options).');
+			jQuery("#'.$command.'").toggleWithLegend(jQuery("#'.$target.'"),'.json_encode($aOptions).');
 		');
 	}
 
-	public function openLinkInDialog($element='#kink_id', $user_options=array(), $htmlID=null)
+	public function openLinkInDialog($sElement='#kink_id', array $aCustomOptions = array(), $htmlID = null)
 	{
 		static $loaded = null;
 
-		$options = array(
+		$aOptions = array(
 			'width' => 700,
 			'height' => 500
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
 		if(is_null($loaded))
@@ -943,14 +785,14 @@ class Page
 			$loaded = true;
 		}
 		$this->js->addReady('
-			openInDialog("'.$element.'", '.json_encode($options).', "'.$htmlID.'");
+			openInDialog("'.$sElement.'", '.json_encode($aOptions).', "'.$htmlID.'");
 		');
 	}
 
-	public function lockable($element='.lockable', $note='.lockable-note')
+	public function lockable($sElement = '.lockable', $note = '.lockable-note')
 	{
 		$this->js->addReady('
-			jQuery(\''.$element.'\').each(function() {
+			jQuery(\''.$sElement.'\').each(function() {
 				var current_lockable_div = this;
 				jQuery(this).find(\''.$note.'\').hide();
 				jQuery(this).find("input").each(function() {
@@ -1032,37 +874,42 @@ class Page
 		$this->js->addFile($this->okt->options->public_url.'/js/autocomplete/jquery.autocomplete.min.js');
 	}
 
-	public function validateForm($user_options=array())
+	public function validateForm(array $aCustomOptions = array())
 	{
-		$options = array(
+		$aOptions = array(
 			'selector' => 'form',
 			'lang' => $this->okt->user->language,
 			'fields' => array()
 		);
 
-		if (!empty($user_options)) {
-			$options = array_merge($options, $user_options);
+		if (!empty($aCustomOptions)) {
+			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
-		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
-		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/additional-methods.js');
-		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/localization/messages_'.$options['lang'].'.js');
+		$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/dist/jquery.validate.min.js');
+		$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/dist/additional-methods.min.js');
 
-		$this->getValidateJs($options['selector'], $options['fields']);
+		if (file_exists($this->okt->options->get('public_dir').'/components/jquery-validation/src/localization/messages_'.$aOptions['lang'].'.js')) {
+			$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/src/localization/messages_'.$aOptions['lang'].'.js');
+		}
+
+		$this->getValidateJs($aOptions['selector'], $aOptions['fields']);
 	}
 
-	public function validate($form_id=null, $fields=array(), $lang=null)
+	public function validate($form_id = null, $fields = array(), $sLanguage = null)
 	{
-		if (empty($lang)) {
-			$lang = $this->okt->user->language;
+		if (null === $sLanguage) {
+			$sLanguage = $this->okt->user->language;
 		}
 
-		$this->js->addFile($this->okt->options->public_url.'/components/jquery-validation/localization/messages_'.$lang.'.js');
+		if (file_exists($this->okt->options->get('public_dir').'/components/jquery-validation/src/localization/messages_'.$sLanguage.'.js')) {
+			$this->js->addFile($this->okt->options->get('public_url').'/components/jquery-validation/src/localization/messages_'.$sLanguage.'.js');
+		}
 
 		$this->getValidateJs($form_id, $fields);
 	}
 
-	public function getValidateJs($form_id,$fields)
+	public function getValidateJs($form_id, $fields)
 	{
 		if (!empty($form_id) && !empty($fields))
 		{
@@ -1147,32 +994,32 @@ class Page
 	 * Application d'un RTE donné
 	 *
 	 * @param string $retId
-	 * @param string $element
-	 * @param array $options
+	 * @param string $sElement
+	 * @param array $aOptions
 	 * @return void
 	 */
-	public function applyRte($retId, $element=null, $options=array())
+	public function applyRte($retId, $sElement = null, array $aOptions = array())
 	{
 		if (isset($this->rteList[$retId])) {
-			call_user_func_array($this->rteList[$retId]['callback'],array($element,$options));
+			call_user_func_array($this->rteList[$retId]['callback'], array($sElement, $aOptions));
 		}
 	}
 
 	/**
 	 * Retourne la liste des RTE disponibles
 	 *
-	 * @param boolean $flip
+	 * @param boolean $bFlip
 	 * @return array
 	 */
-	public function getRteList($flip=false)
+	public function getRteList($bFlip = false)
 	{
 		$res = array();
 
-		foreach ($this->rteList as $id=>$rte) {
+		foreach ($this->rteList as $id => $rte) {
 			$res[$id] = $rte['name'];
 		}
 
-		if ($flip) {
+		if ($bFlip) {
 			$res = array_flip($res);
 			ksort($res);
 		}
@@ -1203,7 +1050,7 @@ class Page
 	 * @param string $jsLoader
 	 * @return void
 	 */
-	public function addLbl($id, $name, $callback, $jsLoader=null)
+	public function addLbl($id, $name, $callback, $jsLoader = null)
 	{
 		if (is_callable($callback))
 		{
@@ -1220,15 +1067,15 @@ class Page
 	 * Application d'une LBL donnée
 	 *
 	 * @param string $lblId
-	 * @param string $element
+	 * @param string $sElement
 	 * @param string $conteneur
-	 * @param array $options
+	 * @param array $aOptions
 	 * @return void
 	 */
-	public function applyLbl($lblId, $element='a.modal', $conteneur=".modal-box", $options=array())
+	public function applyLbl($lblId, $sElement = 'a.modal', $conteneur = ".modal-box", array $aOptions = array())
 	{
 		if (isset($this->lblList[$lblId])) {
-			call_user_func_array($this->lblList[$lblId]['callback'],array($element,$conteneur,$options));
+			call_user_func_array($this->lblList[$lblId]['callback'], array($sElement, $conteneur, $aOptions));
 		}
 	}
 
@@ -1248,18 +1095,18 @@ class Page
 	/**
 	 * Retourne la liste des LBL disponibles
 	 *
-	 * @param boolean $flip
+	 * @param boolean $bFlip
 	 * @return array
 	 */
-	public function getLblList($flip=false)
+	public function getLblList($bFlip = false)
 	{
 		$res = array();
 
-		foreach ($this->lblList as $id=>$lbl) {
+		foreach ($this->lblList as $id => $lbl) {
 			$res[$id] = $lbl['name'];
 		}
 
-		if ($flip) {
+		if ($bFlip) {
 			$res = array_flip($res);
 			ksort($res);
 		}
@@ -1313,18 +1160,18 @@ class Page
 	/**
 	 * Retourne la liste des Captcha disponibles
 	 *
-	 * @param boolean $flip
+	 * @param boolean $bFlip
 	 * @return array
 	 */
-	public function getCaptchaList($flip=false)
+	public function getCaptchaList($bFlip = false)
 	{
 		$res = array();
 
-		foreach ($this->captchaList as $id=>$captcha) {
+		foreach ($this->captchaList as $id => $captcha) {
 			$res[$id] = $captcha['name'];
 		}
 
-		if ($flip) {
+		if ($bFlip) {
 			$res = array_flip($res);
 			ksort($res);
 		}
@@ -1346,7 +1193,7 @@ class Page
 			$loaded = array();
 		}
 
-		if (isset($this->captchaList[$captchaId]) && !in_array($captchaId,$loaded))
+		if (isset($this->captchaList[$captchaId]) && !in_array($captchaId, $loaded))
 		{
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior=>$callback) {
 				$this->okt->triggers->registerTrigger($behavior, $callback);
@@ -1376,7 +1223,7 @@ class Page
 	 * @param boolean $bForce 	Force le scan des fichiers/n'utilise pas le pseudo cache
 	 * @return array
 	 */
-	public static function getUiThemes($bForce=false)
+	public static function getUiThemes($bForce = false)
 	{
 		global $okt;
 
@@ -1400,7 +1247,7 @@ class Page
 		return $aThemes;
 	}
 
-	public static function formatCC($str,$condition='IE')
+	public static function formatCC($str, $condition = 'IE')
 	{
 		return '<!--[if '.$condition.']>'."\n".$str.'<![endif]-->'."\n";
 	}

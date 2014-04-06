@@ -93,25 +93,9 @@ if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
 
-# Validation javascript
-$okt->page->validate('page-form',array(
-	array(
-		'id' => 'p_title',
-		'rules' => array(
-			'required: true',
-			'minlength: 3'
-		)
-	),
-	array(
-		'id' => 'p_content',
-		'rules' => array(
-			'required: true',
-		)
-	)
-));
-
 # Permission checkboxes
 $okt->page->updatePermissionsCheckboxes('perm_g_');
+
 ?>
 
 <?php echo $okt->page->getButtonSet('pagesBtSt'); ?>

@@ -134,15 +134,6 @@ if (!$okt->languages->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
 
-# Color picker
-$okt->page->colorpicker('#p_mail_color');
-$okt->page->js->addReady('
-	$("#tabs_config").bind("tabsshow", function() {
-		$(".jPicker.Container").css({"top":"300px"});
-	});
-');
-
-
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 

@@ -277,15 +277,6 @@ $okt->page->validate('event-form',$aValidateFieldsJs);
 $okt->page->datePicker();
 
 
-# Color picker
-$okt->page->colorpicker('.colorpicker');
-$okt->page->js->addReady('
-	$("#tabered").bind("tabsshow", function() {
-		$(".jPicker.Container").css({"top":"300px"});
-	});
-');
-
-
 # En-tête
 require OKT_ADMIN_HEADER_FILE; ?>
 

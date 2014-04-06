@@ -154,20 +154,17 @@ $rsItems = $okt->galleries->items->getItems(array(
 	'active' => 2
 ));
 
-# Smart columns
-$okt->page->smartColumns();
-
 # Modal
 $okt->page->applyLbl($okt->galleries->config->lightbox_type);
 
 
-# Sortables smart columns
+# Sortables columns
 $okt->page->js->addReady('
-	$(".smartColumns").sortable({
+	$(".columns").sortable({
 		revert: true,
 		handle: "h3",
 		update: function(event, ui) {
-			var result = $(".smartColumns").sortable("serialize");
+			var result = $(".columns").sortable("serialize");
 
 			$("#ajaxloader").show();
 
@@ -184,16 +181,16 @@ $okt->page->js->addReady('
 		}
 	});
 
-	$(".smartColumns").disableSelection();
+	$(".columns").disableSelection();
 ');
 
 $okt->page->css->addCSS('
-	ul.smartColumns li.column .block {
+	ul.columns li.column .block {
 		height: 260px;
 	}
-	ul.smartColumns li.column {
+	ul.columns li.column {
 	}
-	ul.smartColumns li.column .block h3 {
+	ul.columns li.column .block h3 {
 		cursor: move
 	}
 	.ui-sortable-placeholder {
@@ -245,7 +242,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <form action="module.php" method="post" id="items-list">
 
-<ul class="smartColumns">
+<ul class="columns">
 	<?php while ($rsItems->fetch()) : ?>
 	<li class="column" id="ord_<?php echo $rsItems->id; ?>"><div class="block ui-widget ui-widget-content ui-corner-all">
 

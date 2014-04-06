@@ -31,8 +31,8 @@ class Controller extends BaseController
 		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery/dist/jquery.min.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-cookie/jquery.cookie.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/plugins/jquery-ui/jquery-ui.min.js');
-		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/jquery.validate.js');
-		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/additional-methods.js');
+		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/dist/jquery.validate.min.js');
+		$this->page->js->addFile($this->okt->options->public_url.'/components/jquery-validation/dist/additional-methods.min.js');
 		$this->page->js->addFile($this->okt->options->public_url.'/js/common_admin.js');
 
 		# Title tag

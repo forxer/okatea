@@ -24,10 +24,10 @@ if ($list->isEmpty()) : ?>
 
 <?php # affichage mosaique
 if ($display_style == 'mosaic') : ?>
-<ul class="smartColumns">
+<ul>
 	<?php # boucle sur la liste des produits
 	while ($list->fetch()) : ?>
-	<li class="column"><div class="block ui-widget ui-widget-content ui-corner-all">
+	<li><div class="block ui-widget ui-widget-content ui-corner-all">
 
 		<h3 class="ui-widget-header ui-corner-all"><a href="module.php?m=catalog&amp;action=edit&amp;product_id=<?php echo $list->id ?>"><?php
 			echo html::escapeHTML($list->title) ?></a></h3>

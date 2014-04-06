@@ -197,11 +197,6 @@ elseif ($okt->catalog->config->admin_filters_style == 'dialog')
 # Modal
 $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 
-# smart columns pour l'affichage mosaic
-if ($display_style == 'mosaic') {
-	$okt->page->smartColumns();
-}
-
 # Affichage du résultat AJAX
 if ($bAjaxLoaded)  :
 	require __DIR__.'/productsList/productsList.php';

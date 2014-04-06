@@ -18,7 +18,7 @@ class Cleaner extends BaseTools
 	protected $aCommonRules = array(
 		'bin', '.svn', '.git', '.hg', '.gitattributes', '.gitignore', '.gitmodules',
 		'.travis.yml', 'composer.json', 'composer.lock',
-		'grunt.js', 'Gruntfile.js', 'bower.json', '.bowerrc', 'package.json',
+		'grunt.js', 'Gruntfile.js', 'bower.json', '.bower.json', '.bowerrc', 'package.json', '*.jquery.json',
 		'tests', 'test', 'phpunit*',
 		'readme*', 'README*', 'changelog*', 'CHANGELOG*', 'UPGRADING*', 'CONTRIBUTING*'
 	);
@@ -33,8 +33,8 @@ class Cleaner extends BaseTools
 		'jquery-mousewheel' => 'ChangeLog.md',
 		'jquery-roundabout' => '',
 		'jquery-stringtoslug' => 'samples.html',
-		'jquery-validation' => 'demo lib todo',
-		'lightbox2' => 'releases sass .jshintrc .npmignore config.rb Gemfile* index.html',
+		'jquery-validation' => 'build additional .bower.json',
+		'lightbox2' => 'releases sass .jshintrc jsTestDriver.jstd .npmignore config.rb Gemfile* index.html',
 		'normalize-css' => '',
 		'passfield' => '.idea lib build.sh release-notes.md',
 		'plupload' => 'examples release.sh',
