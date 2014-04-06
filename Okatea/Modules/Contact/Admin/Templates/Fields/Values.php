@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $view->extend('layout');
 
 # Page title and breadcrumb
@@ -32,7 +34,7 @@ $okt->page->setButtonset('fieldBtSt',array(
 
 # Lang switcher
 if (!$okt->languages->unique) {
-	$okt->page->langSwitcher('#field-definition-form', '.lang-switcher-buttons');
+	$okt->page->langSwitcher('#field-values-form', '.lang-switcher-buttons');
 }
 
 ?>
@@ -40,4 +42,36 @@ if (!$okt->languages->unique) {
 <?php # buttons set
 echo $okt->page->getButtonSet('fieldBtSt'); ?>
 
+<form action="<?php echo $view->generateUrl('Contact_field_values', array('field_id' => $rsField->id)) ?>" method="post" id="field-values-form">
+
+<?php if ($rsField->isSimpleField()) : ?>
+
+	<p><?php printf(__('m_contact_fields_default_value_of_field_named_%s_of_type_%s'), '<strong>'.$view->escape($rsField->title).'</strong>', '<em>'.$aTypes[$rsField->type].'</em>') ?></p>
+
+	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_value_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_contact_fields_default_value') : printf(__('m_contact_fields_default_value_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+	<?php echo form::text(array('p_value['.$aLanguage['code'].']','p_value_'.$aLanguage['code']), 60, 255, $view->escape($aValues[$aLanguage['code']])) ?></p>
+	<?php endforeach; ?>
+
+<?php else : ?>
+
+	<p><?php printf(__('m_contact_fields_values_of_field_named_%s_of_type_%s'), '<strong>'.$view->escape($rsField->title).'</strong>', '<em>'.$aTypes[$rsField->type].'</em>') ?></p>
+
+	<?php for ($iValueCount = 1; $iValueCount <= $iNumValues; $iValueCount++) : ?>
+
+		<?php foreach ($okt->languages->list as $aLanguage) : ?>
+
+		<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_value_<?php echo $aLanguage['code'].'_'.$iValueCount ?>"><?php $okt->languages->unique ? printf(__('m_contact_fields_value_%s'), $iValueCount) : printf(__('m_contact_fields_value_%s_in_%s'), $iValueCount, $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
+		<?php echo form::text(array('p_value['.$aLanguage['code'].']['.$iValueCount.']', 'p_value_'.$aLanguage['code'].'_'.$iValueCount), 60, 255, (!empty($aValues[$aLanguage['code']]) && !empty($aValues[$aLanguage['code']][$iValueCount]) ? $view->escape($aValues[$aLanguage['code']][$iValueCount]) : '')) ?></p>
+
+		<?php endforeach; ?>
+
+	<?php endfor; ?>
+
+<?php endif; ?>
+
+	<p><?php echo form::hidden('form_sent', 1); ?>
+	<?php echo $okt->page->formtoken(); ?>
+	<input type="submit" value="<?php _e('c_c_action_Save') ?>" /></p>
+</form>
 

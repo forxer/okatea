@@ -39,17 +39,6 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-
-	<!-- upgrade -->
-	<action id="maj_mod_contact_fields_2" label="Delete fields %s" string="title, value, description" process="update">
-		<test eq="eq" value="title" label="Field %s not exists"	string="{{PREFIX}}mod_contact_fields.title" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_contact_fields` LIKE 'title'
-		</test>
-		ALTER TABLE {{PREFIX}}mod_contact_fields DROP COLUMN `title`, DROP COLUMN `value`, DROP COLUMN `description`
-	</action>
-
-
-
 <!-- DATA -->
 
 	<action id="add_mod_contact_fields_line_civilite" label="Add line %s" string="civilite" process="install">
@@ -69,8 +58,8 @@
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
 			(`field_id`, `language`, `title`, `value`, `description`)
 		VALUES
-			(1, 'fr', 'Civilité', 'a:3:{i:0;s:6:"Madame";i:1;s:12:"Mademoiselle";i:2;s:8:"Monsieur";}', NULL),
-			(1, 'en', 'Civility', 'a:3:{i:0;s:4:"Mrs.";i:1;s:4:"Miss";i:2;s:3:"Mr.";}', NULL)
+			(1, 'fr', 'Civilité', 'a:3:{i:1;s:6:"Madame";i:2;s:12:"Mademoiselle";i:3;s:8:"Monsieur";}', NULL),
+			(1, 'en', 'Civility', 'a:3:{i:1;s:4:"Mrs.";i:2;s:4:"Miss";i:3;s:3:"Mr.";}', NULL)
 	</action>
 
 	<action id="add_mod_contact_fields_line_nom" label="Add line %s" string="nom" process="install">

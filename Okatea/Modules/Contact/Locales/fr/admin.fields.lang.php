@@ -46,17 +46,22 @@ $GLOBALS['okt_l10n']['m_contact_field_description_in_%s'] = 'Description du cham
 
 $GLOBALS['okt_l10n']['m_contact_field_error_type'] = 'Vous devez choisir un type de champ valide.';
 $GLOBALS['okt_l10n']['m_contact_field_error_status'] = 'Vous devez choisir un statut de champ valide.';
-$GLOBALS['okt_l10n']['m_contact_field_error_title'] = 'Veuillez saisir un intitulé de champ';
-$GLOBALS['okt_l10n']['m_contact_field_error_title_in_%s'] = 'Veuillez saisir un intitulé de champ en %s';
+$GLOBALS['okt_l10n']['m_contact_field_error_title'] = 'Veuillez saisir un intitulé de champ.';
+$GLOBALS['okt_l10n']['m_contact_field_error_title_in_%s'] = 'Veuillez saisir un intitulé de champ en %s.';
 
 $GLOBALS['okt_l10n']['m_contact_fields_field_values'] = 'Valeur(s) du champ';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value_of_field_named_%s_of_type_%s'] = 'Valeur par défaut du champ intitulé %s de type %s';
+$GLOBALS['okt_l10n']['m_contact_fields_values_of_field_named_%s_of_type_%s'] = 'Valeur(s) du champ intitulé %s de type %s';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value'] = 'Valeur par défaut';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value_in_%s'] = 'Valeur par défaut en %s';
+$GLOBALS['okt_l10n']['m_contact_fields_value_%s'] = 'Valeur %s';
+$GLOBALS['okt_l10n']['m_contact_fields_value_%s_in_%s'] = 'Valeur %s en %s';
 
 
 
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'ID HTML vide';
 
 $GLOBALS['okt_l10n']['m_contact_modify_field_value'] = 'Modifier la(les) valeur(s) du champ';
-$GLOBALS['okt_l10n']['m_contact_value_of_field_named_%s_of_type_%s'] = 'Valeur(s) du champ intitulé %s de type %s';
 $GLOBALS['okt_l10n']['m_contact_Value'] = 'Valeur';
 $GLOBALS['okt_l10n']['m_contact_Add_a_value'] = 'Ajouter une valeur';
 $GLOBALS['okt_l10n']['m_contact_html_id'] = 'Identifiant HTML';

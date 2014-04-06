@@ -44,6 +44,19 @@ $GLOBALS['okt_l10n']['m_contact_field_status'] = 'Field status';
 $GLOBALS['okt_l10n']['m_contact_field_description'] = 'Field description';
 $GLOBALS['okt_l10n']['m_contact_field_description_in_%s'] = 'Field description in %s';
 
+$GLOBALS['okt_l10n']['m_contact_field_error_type'] = 'You must select a valid field type.';
+$GLOBALS['okt_l10n']['m_contact_field_error_status'] = 'You must select a valid field status.';
+$GLOBALS['okt_l10n']['m_contact_field_error_title'] = 'Please enter a field title.';
+$GLOBALS['okt_l10n']['m_contact_field_error_title_in_%s'] = 'Please enter a field title in %s.';
+
+$GLOBALS['okt_l10n']['m_contact_fields_field_values'] = 'Value(s) of the field';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value_of_field_named_%s_of_type_%s'] = 'Default value of field named %s of type %s';
+$GLOBALS['okt_l10n']['m_contact_fields_values_of_field_named_%s_of_type_%s'] = 'Value(s) of field named %s of type %s';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value'] = 'Default value';
+$GLOBALS['okt_l10n']['m_contact_fields_default_value_in_%s'] = 'Default value in %s';
+$GLOBALS['okt_l10n']['m_contact_fields_value_%s'] = 'Value %s';
+$GLOBALS['okt_l10n']['m_contact_fields_value_%s_in_%s'] = 'Value %s in %s';
+
 
 
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'Empty ID HTML';
@@ -53,7 +66,6 @@ $GLOBALS['okt_l10n']['m_contact_modify_definition'] = 'Modify definition';
 $GLOBALS['okt_l10n']['m_contact_modify_value'] = 'Modify value(s)';
 $GLOBALS['okt_l10n']['m_contact_confirm_field_deletion'] = 'Are you sure to want to delete this field? This action is irreversible.';
 $GLOBALS['okt_l10n']['m_contact_modify_field_value'] = 'Modify (the) value (s) of the field';
-$GLOBALS['okt_l10n']['m_contact_value_of_field_named_%s_of_type_%s'] = 'Value(s) of field entitled %s of type %s';
 $GLOBALS['okt_l10n']['m_contact_Value'] = 'Value';
 $GLOBALS['okt_l10n']['m_contact_Add_a_value'] = 'Add a value';
 $GLOBALS['okt_l10n']['m_contact_html_id'] = 'HTML identifier';

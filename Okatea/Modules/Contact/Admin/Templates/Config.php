@@ -130,7 +130,7 @@ $okt->page->js->addReady('
 				</ul>
 
 				<p class="field"><label for="p_google_map_zoom"><?php _e('m_contact_config_zoom_access_map') ?></label>
-				<?php echo form::text('p_google_map_zoom', 5, 255, html::escapeHTML($okt->module('Contact')->config->google_map['options']['zoom'])) ?></p>
+				<?php echo form::text('p_google_map_zoom', 5, 255, $view->escape($okt->module('Contact')->config->google_map['options']['zoom'])) ?></p>
 
 				<ul class="checklist"><?php _e('m_contact_config_mode_access_map')?>
 					<li><label><?php echo form::radio(array('p_google_map_mode'), 'ROADMAP', ($okt->module('Contact')->config->google_map['options']['mode'] == 'ROADMAP')) ?> <?php _e('m_contact_config_mode_access_map_roadmap') ?></label></li>
@@ -170,20 +170,20 @@ $okt->page->js->addReady('
 						<legend><?php _e('c_c_seo_identity_meta') ?></legend>
 
 						<?php foreach ($okt->languages->list as $aLanguage) : ?>
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_name['.$aLanguage['code'].']','p_name_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->name[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_name['.$aLanguage['code'].']','p_name_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->name[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_tag_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->title[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->title[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_tag_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->title[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->title[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_desc_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->meta_description[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->meta_description[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_desc_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->meta_description[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->meta_description[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_seo[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->name_seo[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_seo[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->name_seo[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->module('Contact')->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->module('Contact')->config->meta_keywords[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
 						<?php endforeach; ?>
 					</fieldset>
@@ -197,20 +197,20 @@ $okt->page->js->addReady('
 						<legend><?php _e('c_c_seo_identity_meta') ?></legend>
 
 						<?php foreach ($okt->languages->list as $aLanguage) : ?>
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_name_map['.$aLanguage['code'].']','p_name_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_map[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->name_map[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_name_map['.$aLanguage['code'].']','p_name_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_map[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->name_map[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_tag_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_title_map['.$aLanguage['code'].']','p_title_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->title_map[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->title_map[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_tag_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_title_map['.$aLanguage['code'].']','p_title_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->title_map[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->title_map[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_desc_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_meta_description_map['.$aLanguage['code'].']','p_meta_description_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->meta_description_map[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->meta_description_map[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_desc_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_meta_description_map['.$aLanguage['code'].']','p_meta_description_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->meta_description_map[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->meta_description_map[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::text(array('p_name_seo_map['.$aLanguage['code'].']','p_name_seo_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_seo_map[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->name_seo_map[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_title_seo_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::text(array('p_name_seo_map['.$aLanguage['code'].']','p_name_seo_map_'.$aLanguage['code']), 60, 255, (isset($okt->module('Contact')->config->name_seo_map[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->name_seo_map[$aLanguage['code']]) : '')) ?></p>
 
-						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
-						<?php echo form::textarea(array('p_meta_keywords_map['.$aLanguage['code'].']','p_meta_keywords_map_'.$aLanguage['code']), 57, 5, (isset($okt->module('Contact')->config->meta_keywords_map[$aLanguage['code']]) ? html::escapeHTML($okt->module('Contact')->config->meta_keywords_map[$aLanguage['code']]) : '')) ?></p>
+						<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_meta_keywords_in_%s'), $view->escape($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+						<?php echo form::textarea(array('p_meta_keywords_map['.$aLanguage['code'].']','p_meta_keywords_map_'.$aLanguage['code']), 57, 5, (isset($okt->module('Contact')->config->meta_keywords_map[$aLanguage['code']]) ? $view->escape($okt->module('Contact')->config->meta_keywords_map[$aLanguage['code']]) : '')) ?></p>
 
 						<?php endforeach; ?>
 					</fieldset>

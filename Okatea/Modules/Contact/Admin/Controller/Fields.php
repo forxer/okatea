@@ -143,7 +143,10 @@ class Fields extends Controller
 
 		$iFieldId = $this->request->attributes->get('field_id');
 
-		$rsField = $this->okt->module('Contact')->fields->getField($iFieldId);
+		$rsField = $this->okt->module('Contact')->fields->getFields(array(
+			'id' => $iFieldId,
+			'language' => $this->okt->user->language
+		));
 
 		if (null === $iFieldId || $rsField->isEmpty())
 		{
@@ -155,49 +158,31 @@ class Fields extends Controller
 
 		$aValues = array();
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		while ($rsFieldL10n->fetch())
 		{
-			$aValues[$aLanguage['code']] = '';
-
-			while ($rsFieldL10n->fetch())
-			{
-				if ($rsFieldL10n->language == $aLanguage['code'])
-				{
-					if (FieldsManager::isSimpleType($rsFieldL10n->type)) {
-						$aValues[$aLanguage['code']] = $rsFieldL10n->value;
-					}
-					else {
-						$aValues[$aLanguage['code']] = array_filter((array)unserialize($rsFieldL10n->value));
-					}
-				}
+			if ($rsField->isSimpleField()) {
+				$aValues[$rsFieldL10n->language] = $rsFieldL10n->value;
+			}
+			else  {
+				$aValues[$rsFieldL10n->language] = array_filter(unserialize($rsFieldL10n->value));
 			}
 		}
 
 		if ($this->request->request->has('form_sent'))
 		{
-			if (FieldsManager::isSimpleType($rsField->type)) {
-				$aValues = $this->request->request->get('p_value', array());
-			}
-			else
-			{
-				foreach ($okt->languages->list as $aLanguage)
-				{
-					$value[$aLanguage['code']] =
-						!empty($_POST['p_value'][$aLanguage['code']])
-						&& is_array($_POST['p_value'][$aLanguage['code']])
-					? array_filter(array_map('trim', $_POST['p_value'][$aLanguage['code']]))
-					: '';
-				}
-			}
+			$aValues = $this->request->request->get('p_value');
 
-			if ($okt->contact->setFieldValue($field_id, $value) !== false)
+			if ($this->okt->module('Contact')->fields->setFieldValues($iFieldId, $aValues) !== false)
 			{
-				return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $this->aFieldData['id'])));
+				return $this->redirect($this->generateUrl('Contact_field_values', array('field_id' => $iFieldId)));
 			}
 		}
 
 		return $this->render('Contact/Admin/Templates/Fields/Values', array(
-			'aValues' 	=> $aValues
+			'rsField' 		=> $rsField,
+			'aValues' 		=> $aValues,
+			'iNumValues' 	=> count(max($aValues)) + 1 ,
+			'aTypes' 		=> FieldsManager::getFieldsTypes()
 		));
 	}
 
