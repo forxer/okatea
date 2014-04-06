@@ -170,7 +170,7 @@ class Fields extends Controller
 				$aValues[$rsFieldL10n->language] = $rsFieldL10n->value;
 			}
 			else  {
-				$aValues[$rsFieldL10n->language] = array_filter(unserialize($rsFieldL10n->value));
+				$aValues[$rsFieldL10n->language] = array_filter((array)unserialize($rsFieldL10n->value));
 			}
 		}
 
@@ -189,7 +189,7 @@ class Fields extends Controller
 		return $this->render('Contact/Admin/Templates/Fields/Values', array(
 			'rsField' 		=> $rsField,
 			'aValues' 		=> $aValues,
-			'iNumValues' 	=> count(max($aValues)) + 1 ,
+			'iNumValues' 	=> count(max($aValues)),
 			'aTypes' 		=> FieldsManager::getFieldsTypes()
 		));
 	}
