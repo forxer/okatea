@@ -220,7 +220,7 @@ class DebugBar
 
 		if ($this->aConfig['tabs']['tools'])
 		{
-			$this->aDebugBarData['execTime'] = Utilities::getExecutionTime();
+			$this->aDebugBarData['execTime'] = Utilities::formatNumber(Utilities::getExecutionTime(), 3);
 			$this->aDebugBarData['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
 			$this->aDebugBarData['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 		}
