@@ -70,7 +70,7 @@ echo $okt->page->getButtonSet('fieldBtSt'); ?>
 
 	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_value_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_contact_fields_default_value') : printf(__('m_contact_fields_default_value_in_%s'), $aLanguage['title']) ?> <span class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_value['.$aLanguage['code'].']','p_value_'.$aLanguage['code']), 60, 255, $view->escape($aValues[$aLanguage['code']])) ?></p>
+	<?php echo form::text(array('p_value['.$aLanguage['code'].']','p_value_'.$aLanguage['code']), 60, 255, (!empty($aValues[$aLanguage['code']]) ? $view->escape($aValues[$aLanguage['code']]) : '')) ?></p>
 	<?php endforeach; ?>
 
 <?php else : ?>
