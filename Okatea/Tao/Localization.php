@@ -8,6 +8,8 @@
 
 namespace Okatea\Tao;
 
+use Okatea\Tao\Dates;
+
 /**
  * Very simple localization management.
  *
@@ -32,6 +34,9 @@ class Localization
 		$this->sLanguage = $sLanguage;
 
 		$this->sDefaultLanguage = $sDefaultLanguage;
+
+		Dates::setLocale($sLanguage);
+		Dates::setTimezone($sTimeZone);
 
 	//	date_default_timezone_set($sTimeZone);
 
