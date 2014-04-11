@@ -7,6 +7,7 @@
  */
 
 use forxer\Gravatar\Image as GravatarImage;
+use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Groups;
 
@@ -171,10 +172,10 @@ if ($okt->config->users['gravatar']['enabled'])
 				?></p>
 			</td>
 			<td class="<?php echo $sTdClass ?>">
-				<p><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->last_visit) ?></p>
+				<p><?php echo DateTime::full($rsUsers->last_visit) ?></p>
 			</td>
 			<td class="<?php echo $sTdClass ?>">
-				<p><?php echo dt::str('%A %d %B %Y %H:%M', $rsUsers->registered) ?></p>
+				<p><?php echo DateTime::full($rsUsers->registered) ?></p>
 			</td>
 			<td class="<?php echo $sTdClass ?> nowrap">
 				<ul class="actions">

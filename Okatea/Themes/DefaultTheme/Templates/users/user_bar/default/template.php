@@ -1,3 +1,5 @@
+<?php use Okatea\Tao\L10n\DateTime; ?>
+
 
 <?php # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__.'/styles.less');
@@ -22,7 +24,7 @@ $okt->page->css->addLessFile(__DIR__.'/styles.less');
 	</p>
 
 	<?php # début Okatea : date de dernière visite ?>
-	<p><?php printf(__('c_c_user_last_visit_on_%s'), dt::str(__('%A, %B %d, %Y, %H:%M'), $okt->user->last_visit)); ?></p>
+	<p><?php printf(__('c_c_user_last_visit_on_%s'), DateTime::full($okt->user->last_visit); ?></p>
 	<?php # fin Okatea : date de dernière visite ?>
 
 <?php else : ?>

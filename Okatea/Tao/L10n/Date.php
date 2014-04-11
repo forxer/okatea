@@ -51,6 +51,7 @@ class Date
 	}
 
 	/**
+	 * Format the date/time value as a string in long style (January 12, 1952 or 3:30:32pm)
 	 *
 	 * @param mixed $mDate
 	 * @param boolean $bWithTime
@@ -63,6 +64,7 @@ class Date
 	}
 
 	/**
+	 * Format the date/time value as a string in medium style (Jan 12, 1952)
 	 *
 	 * @param mixed $mDate
 	 * @param boolean $bWithTime
@@ -75,6 +77,7 @@ class Date
 	}
 
 	/**
+	 * Format the date/time value as a string in most abbreviated style, only essential data (12/13/52 or 3:30pm)
 	 *
 	 * @param mixed $mDate
 	 * @param boolean $bWithTime
@@ -88,7 +91,7 @@ class Date
 
 	/**
 	 *
-	 * @param unknown $mDate
+	 * @param mixed $mDate
 	 * @return Ambigous <\Carbon\Carbon, \Carbon\Carbon>|\DateTime|\Carbon\Carbon
 	 */
 	protected static function getDate($mDate)

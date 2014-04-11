@@ -21,7 +21,7 @@ class Localization
 	protected $aLoaded;
 
 	/**
-	 * Initialize this primary class.
+	 * Set default l10n configuration.
 	 *
 	 * @param string $sLanguage
 	 * @param string $sDefaultLanguage
@@ -41,13 +41,14 @@ class Localization
 	}
 
 	/**
-	 * Load a l10n file.
+	 * Load a translations file.
 	 *
 	 * @param string $sFilename 	The file to be loaded.
 	 * @param string $sLanguage 	Force loading specific language.
+	 * @param string $bForce 		Force loading file.
 	 * @return boolean|null
 	 */
-	public function loadFile($sFilename, $sLanguage = null)
+	public function loadFile($sFilename, $sLanguage = null, $bForce = false)
 	{
 		if (null === $sLanguage) {
 			$sLanguage = $this->sLanguage;
@@ -57,19 +58,18 @@ class Localization
 
 		if (!file_exists($sFileToLoad))
 		{
-			if ($sLanguage !== $this->sDefaultLanguage)
-			{
-				$sFileToLoad = sprintf($sFilename, $this->sDefaultLanguage).'.lang.php';
-
-				if (!file_exists($sFileToLoad)) {
-					return false;
-				}
+			if ($sLanguage === $this->sDefaultLanguage) {
+				return false;
 			}
 
-			return false;
+			$sFileToLoad = sprintf($sFilename, $this->sDefaultLanguage).'.lang.php';
+
+			if (!file_exists($sFileToLoad)) {
+				return false;
+			}
 		}
 
-		if (in_array($sFileToLoad, $this->aLoaded))  {
+		if (in_array($sFileToLoad, $this->aLoaded) && !$bForce)  {
 			return null;
 		}
 
