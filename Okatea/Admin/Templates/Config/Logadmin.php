@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\LogAdmin;
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Dates;
 
 $view->extend('layout');
 
@@ -102,7 +102,7 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 		<td><?php echo LogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
 		<td><?php echo $rsLogAdmin->user_id ?> - <?php echo $rsLogAdmin->username ?></td>
 		<td><?php echo $rsLogAdmin->ip ?></td>
-		<td><?php echo Dates::full($rsLogAdmin->date, true) ?></td>
+		<td><?php echo DateTime::full($rsLogAdmin->date) ?></td>
 		<td><?php echo $rsLogAdmin->component ?></td>
 		<td><?php echo $rsLogAdmin->code.' - '.$aLogAdminCodes[$rsLogAdmin->code] ?></td>
 		<td><?php echo $rsLogAdmin->message ?></td>

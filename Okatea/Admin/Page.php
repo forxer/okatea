@@ -13,7 +13,7 @@ use Okatea\Admin\Messages\Errors;
 use Okatea\Admin\Messages\Infos;
 use Okatea\Admin\Messages\Success;
 use Okatea\Admin\Messages\Warnings;
-use Okatea\Tao\Dates;
+use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Page as BasePage;
@@ -206,7 +206,7 @@ class Page extends BasePage
 			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
 
 			# last visit info
-			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), Dates::full($this->okt->user->last_visit, true));
+			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), DateTime::full($this->okt->user->last_visit));
 		}
 		# guest user
 		else {

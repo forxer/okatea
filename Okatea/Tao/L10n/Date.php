@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao;
+namespace Okatea\Tao\L10n;
 
 use Carbon\Carbon;
 use DateTime;
 use IntlDateFormatter;
 use Okatea\Tao\Misc\Utilities;
 
-class Dates
+class Date
 {
 	protected static $sLocale = 'en';
 

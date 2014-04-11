@@ -21,6 +21,7 @@ use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
 use Okatea\Tao\Database\MySqli;
+use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\FlashMessages;
 use Okatea\Tao\Misc\Utilities;

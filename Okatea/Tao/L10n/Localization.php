@@ -6,9 +6,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Okatea\Tao;
-
-use Okatea\Tao\Dates;
+namespace Okatea\Tao\L10n;
 
 /**
  * Very simple localization management.
@@ -35,10 +33,8 @@ class Localization
 
 		$this->sDefaultLanguage = $sDefaultLanguage;
 
-		Dates::setLocale($sLanguage);
-		Dates::setTimezone($sTimeZone);
-
-	//	date_default_timezone_set($sTimeZone);
+		Date::setLocale($sLanguage);
+		Date::setTimezone($sTimeZone);
 
 		$GLOBALS['okt_l10n'] = array();
 		$this->aLoaded = array();
