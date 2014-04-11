@@ -9,6 +9,7 @@
 namespace Okatea\Admin;
 
 use ArrayObject;
+use Carbon\Carbon;
 use Okatea\Admin\Messages\Errors;
 use Okatea\Admin\Messages\Infos;
 use Okatea\Admin\Messages\Success;
@@ -206,7 +207,7 @@ class Page extends BasePage
 			$aUserBars['first'][90] = '<a href="'.$this->okt->adminRouter->generate('logout').'">'.__('c_c_user_log_off_action').'</a>';
 
 			# last visit info
-			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), Dates::full($this->okt->user->last_visit, true));
+			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), Dates::full(Carbon::createFromTimeStamp($this->okt->user->last_visit), true));
 		}
 		# guest user
 		else {
