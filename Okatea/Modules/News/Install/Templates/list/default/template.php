@@ -1,3 +1,7 @@
+<?php
+
+use Okatea\Tao\L10n\DateTime;
+?>
 
 <?php # début Okatea : ce template étend le layout
 $view->extend('layout');
@@ -129,7 +133,7 @@ if (!$rsPostsList->isEmpty()) : ?>
 
 			<?php  # début Okatea : affichage date de l'article
 			if ($okt->module('News')->config->public_display_date) : ?>
-			<?php printf(__('m_news_on_%s'), dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $rsPostsList->created_at)) ?>
+			<?php printf(__('m_news_on_%s'), DateTime::full($rsPostsList->created_at)) ?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
 			<?php # début Okatea : affichage l'auteur de l'article

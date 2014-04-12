@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\Users\Authentification;
 
 $view->extend('layout');
@@ -180,11 +181,11 @@ if (!$rsPosts->isEmpty()) : ?>
 
 			<td class="<?php echo $rsPosts->odd_even ?>">
 			<?php if ($rsPosts->active == 3) : ?>
-				<p><?php printf(__('m_news_list_sheduled_%s'), dt::dt2str(__('%Y-%m-%d %H:%M'),$rsPosts->created_at)) ?>
+				<p><?php printf(__('m_news_list_sheduled_%s'), DateTime::full($rsPosts->created_at)) ?>
 			<?php else : ?>
-				<p><?php printf(($rsPosts->active == 2 ? __('m_news_list_added_%s') : __('m_news_list_published_%s')), dt::dt2str(__('%Y-%m-%d %H:%M'),$rsPosts->created_at)) ?>
+				<p><?php printf(($rsPosts->active == 2 ? __('m_news_list_added_%s') : __('m_news_list_published_%s')), DateTime::full($rsPosts->created_at)) ?>
 				<?php if ($rsPosts->updated_at > $rsPosts->created_at) : ?>
-				<span class="note"><?php printf(__('m_news_list_edited_%s'), dt::dt2str(__('%Y-%m-%d %H:%M'),$rsPosts->updated_at)) ?></span>
+				<span class="note"><?php printf(__('m_news_list_edited_%s'), DateTime::full($rsPosts->updated_at)) ?></span>
 				<?php endif; ?>
 				</p>
 			<?php endif; ?>

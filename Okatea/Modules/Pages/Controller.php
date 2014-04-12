@@ -12,6 +12,8 @@ use Okatea\Tao\Html\Modifiers;
 use Okatea\Website\Controller as BaseController;
 use Okatea\Website\Pager;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class Controller extends BaseController
 {
 	/**
@@ -117,17 +119,17 @@ class Controller extends BaseController
 	 */
 	public function pagesFeed()
 	{
-		# récupération des pages
 		$this->rsPagesList = $this->okt->module('Pages')->getPages(array(
 			'active' => 1,
 			'limit' => 20
 		));
 
-		# affichage du template
-		$this->response->headers->set('Content-Type', 'application/rss+xml');
+		$response = Response::create();
+		$response->headers->set('Content-Type', 'application/rss+xml');
+
 		return $this->render($this->okt->module('Pages')->getFeedTplPath(), array(
 			'rsPagesList' => $this->rsPagesList
-		));
+		), $response);
 	}
 
 	/**

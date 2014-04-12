@@ -19,6 +19,8 @@ class Date
 
 	protected static $sTimezone = 'UTC';
 
+	protected static $aTz;
+
 	/**
 	 * Define locale to use.
 	 * @param string $sLocale
@@ -87,6 +89,46 @@ class Date
 	{
 		return (new IntlDateFormatter(self::$sLocale, IntlDateFormatter::SHORT, self::getTimeType($bWithTime), self::$sTimezone))
 			->format(self::getDate($mDate));
+	}
+
+	/**
+	 * Returns an array of supported timezones, codes are keys and names are values.
+	 *
+	 * @param boolean $bFlip	Names are keys and codes are values
+	 * @param boolean $bGroups	Return timezones in arrays of continents
+	 * @return array
+	 */
+	public static function getTimezonesList($bFlip = false, $bGroups = false)
+	{
+		if (null === self::$aTz)
+		{
+			self::$aTz = require __DIR__.'/Timezones.php';
+
+			foreach (self::$aTz as $sTz) {
+				self::$aTz[$sTz] = str_replace('_', ' ', $sTz);
+			}
+		}
+
+		$res = self::$aTz;
+
+		if ($bFlip) {
+			$res = array_flip($res);
+		}
+
+		if ($bGroups)
+		{
+			$tmp = array();
+
+			foreach ($res as $k => $v)
+			{
+				$g = explode('/', $k);
+				$tmp[$g[0]][$k] = $v;
+			}
+
+			$res = $tmp;
+		}
+
+		return $res;
 	}
 
 	/**

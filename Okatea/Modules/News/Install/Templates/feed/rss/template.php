@@ -1,4 +1,7 @@
-<?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
+<?php
+use Carbon\Carbon;
+
+echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <rss version="2.0"
 xmlns:dc="http://purl.org/dc/elements/1.1/"
 xmlns:wfw="http://wellformedweb.org/CommentAPI/"
@@ -26,7 +29,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
 			<!--
 			<guid isPermaLink="false">{{tpl:EntryFeedID}}</guid>
 			-->
-			<pubDate><?php echo dt::rfc822(strtotime($rsPostsList->created_at),$okt->config->timezone) ?></pubDate>
+			<pubDate><?php echo Carbon::parse($rsPostsList->created_at)->toRFC2822String() ?></pubDate>
 			<dc:creator><?php echo $view->escape($rsPostsList->author) ?></dc:creator>
 
 			<?php if ($okt->module('News')->config->categories['enable'] && $rsPostsList->rubrique_name) : ?>

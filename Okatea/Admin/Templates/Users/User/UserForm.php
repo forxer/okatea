@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\L10n\Date;
 
 ?>
 
@@ -52,6 +53,6 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 		<?php echo form::select('language', $aLanguages, $view->escape($aPageData['user']['language'])) ?></p>
 
 		<p class="field col"><label for="timezone"><?php _e('c_c_Timezone') ?></label>
-		<?php echo form::select('timezone', \dt::getZones(true, true), $view->escape($aPageData['user']['timezone'])) ?></p>
+		<?php echo form::select('timezone', Date::getTimezonesList(true, true), $view->escape($aPageData['user']['timezone'])) ?></p>
 	</div>
 </fieldset>

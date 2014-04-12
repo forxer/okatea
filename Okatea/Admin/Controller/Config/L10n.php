@@ -11,6 +11,7 @@ namespace Okatea\Admin\Controller\Config;
 use DirectoryIterator;
 use Okatea\Admin\Controller;
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\L10n\Date;
 
 class L10n extends Controller
 {
@@ -55,7 +56,7 @@ class L10n extends Controller
 		}
 
 		# Liste des fuseaux horraires
-		$aTimezones = \dt::getZones(true, true);
+		$aTimezones = Date::getTimezonesList(true, true);
 
 		return $this->render('Config/L10n/Index', array(
 			'rsLanguages' => $rsLanguages,

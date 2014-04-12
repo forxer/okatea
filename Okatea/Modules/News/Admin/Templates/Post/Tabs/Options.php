@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Modules\News\Helpers as NewsHelpers;
 
@@ -15,7 +16,7 @@ use Okatea\Modules\News\Helpers as NewsHelpers;
 
 <div class="two-cols">
 	<p class="field col"><label for="p_date"><?php _e('m_news_post_date') ?></label>
-	<?php echo form::text('p_date', 20, 255, (!empty($aPostData['extra']['date']) ? dt::dt2str('%d-%m-%Y', $aPostData['extra']['date']) : ''), 'datepicker') ?>
+	<?php echo form::text('p_date', 20, 255, (!empty($aPostData['extra']['date']) ? Date::short($aPostData['extra']['date']) : ''), 'datepicker') ?>
 	<span class="note"><?php _e('m_news_post_date_note') ?></span></p>
 
 	<div class="col">

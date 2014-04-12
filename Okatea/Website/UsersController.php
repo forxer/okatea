@@ -9,6 +9,7 @@
 namespace Okatea\Website;
 
 use Okatea\Tao\Html\Escaper;
+use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Misc\Mailer;
 use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Groups;
@@ -95,7 +96,7 @@ class UsersController extends BaseController
 			'aUsersGroups'       => $this->getGroups(array(
 				'language' => $this->okt->user->language
 			)),
-			'aTimezone'          => \dt::getZones(true,true),
+			'aTimezone'          => Date::getTimezonesList(true, true),
 			'aLanguages'         => $this->getLanguages(),
 			'aCivilities'        => $this->getCivities(false),
 			'aUserRegisterData'  => $this->aUserRegisterData,
@@ -131,7 +132,7 @@ class UsersController extends BaseController
 			'aUsersGroups'       => $this->getGroups(array(
 				'language' => $this->okt->user->language
 			)),
-			'aTimezone'          => \dt::getZones(true,true),
+			'aTimezone'          => Date::getTimezonesList(true, true),
 			'aLanguages'         => $this->getLanguages(),
 			'aUserRegisterData'  => $this->aUserRegisterData,
 			'user_id'            => $this->sUserId,
@@ -334,7 +335,7 @@ class UsersController extends BaseController
 		}
 
 		# fuseaux horraires
-		$aTimezone = \dt::getZones(true,true);
+		$aTimezone = Date::getTimezonesList(true, true);
 
 		# langues
 		$aLanguages = $this->getLanguages();

@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\L10n\DateTime;
 
 $view->extend('layout');
 
@@ -112,13 +113,13 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 
 <?php if (!empty($aPostData['post']['id'])) : ?>
 	<?php if ($aPostData['post']['active'] == 3) : ?>
-	<p><?php printf(__('m_news_post_sheduled_%s'), '<em>'.dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$aPostData['post']['created_at']).'</em>') ?></p>
+	<p><?php printf(__('m_news_post_sheduled_%s'), '<em>'.DateTime::full($aPostData['post']['created_at']).'</em>') ?></p>
 
 	<?php else : ?>
-	<p><?php printf(($aPostData['post']['active'] == 2 ? __('m_news_post_added_on') : __('m_news_post_published_on')), '<em>'.dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$aPostData['post']['created_at']).'</em>') ?>
+	<p><?php printf(($aPostData['post']['active'] == 2 ? __('m_news_post_added_on') : __('m_news_post_published_on')), '<em>'.DateTime::full($aPostData['post']['created_at']).'</em>') ?>
 
 		<?php if ($aPostData['post']['updated_at'] > $aPostData['post']['created_at']) : ?>
-		<span class="note"><?php printf(__('m_news_post_last_edit'), '<em>'.dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$aPostData['post']['updated_at']).'</em>') ?></span>
+		<span class="note"><?php printf(__('m_news_post_last_edit'), '<em>'.DateTime::full($aPostData['post']['updated_at']).'</em>') ?></span>
 		<?php endif; ?>
 	</p>
 	<?php endif; ?>

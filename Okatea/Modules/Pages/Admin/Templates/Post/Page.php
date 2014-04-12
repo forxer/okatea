@@ -7,6 +7,7 @@
  */
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\L10n\DateTime;
 
 $view->extend('layout');
 
@@ -101,10 +102,10 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 <?php echo $okt->page->getButtonSet('pagesBtSt'); ?>
 
 <?php if (!empty($aPageData['post']['id'])) : ?>
-<p><?php printf(__('m_pages_page_added_on'), '<em>'.dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$aPageData['post']['created_at']).'</em>') ?>
+<p><?php printf(__('m_pages_page_added_on'), '<em>'.DateTime::full($aPageData['post']['created_at']).'</em>') ?>
 
 <?php if ($aPageData['post']['updated_at'] > $aPageData['post']['created_at']) : ?>
-<span class="note"><?php printf(__('m_pages_page_last_edit'), '<em>'.dt::dt2str(__('%A, %B %d, %Y, %H:%M'),$aPageData['post']['updated_at']).'</em>') ?></span>
+<span class="note"><?php printf(__('m_pages_page_last_edit'), '<em>'.DateTime::full($aPageData['post']['updated_at']).'</em>') ?></span>
 <?php endif; ?>
 </p>
 <?php endif; ?>

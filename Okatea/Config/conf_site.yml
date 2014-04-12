@@ -62,11 +62,11 @@ updates:
     type: stable
 repositories:
     themes:
-        enabled: true
+        enabled: false
         list:
             'Okatea themes': 'http://repository.okatea.org/themes/%VERSION%/index.json'
     modules:
-        enabled: true
+        enabled: false
         list:
             'Okatea modules': 'http://repository.okatea.org/modules/%VERSION%/index.json'
 themes:
@@ -91,6 +91,7 @@ news_feed:
     url:
         fr: 'http://okatea.org/fr/actualites/rss'
         en: 'http://okatea.org/en/news/rss'
+        es: ''
 navigation_tpl:
     default: default
     usables: {  }

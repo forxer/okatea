@@ -75,7 +75,4 @@
  *
  *  	<?php echo $rsPage->editor ?>
  *
- *
- * @ingroup okt_modules
- * @addtogroup okt_module_pages_example_extra_fields Pages example extra fields
  */
