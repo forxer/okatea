@@ -414,9 +414,9 @@ class Page
 	public function datePicker(array $aCustomOptions = array(), $sElement = '.datepicker')
 	{
 		$aOptions = array(
-			'dateFormat' => 'dd-mm-yy',
-			'changeMonth' => true,
-			'changeYear' => true
+			'dateFormat' 	=> 'dd-mm-yy',
+			'changeMonth' 	=> true,
+			'changeYear' 	=> true
 		);
 
 		if (!empty($aCustomOptions)) {
@@ -467,9 +467,9 @@ class Page
 	public function tabs(array $aCustomOptions = array(), $sElement = '#tabered')
 	{
 		$aOptions = array(
-			'show' => true,
-			'hide' => true,
-			'heightStyle' => 'content'
+			'show' 			=> true,
+			'hide' 			=> true,
+			'heightStyle' 	=> 'content'
 		);
 
 		if (!empty($aCustomOptions)) {
@@ -711,9 +711,9 @@ class Page
 		$this->js->addFile($this->okt->options->public_url.'/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
 
 		$aOptions = array(
-			'setEvents' => 'keyup keydown blur',
-			'getPut' => $target,
-			'space' => '-'
+			'setEvents' 	=> 'keyup keydown blur',
+			'getPut' 		=> $target,
+			'space' 		=> '-'
 		);
 
 		if (!empty($aCustomOptions)) {
@@ -730,16 +730,16 @@ class Page
 		$this->js->addFile($this->okt->options->public_url.'/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
 		$aOptions = array(
-			'img_on_src' => $this->okt->options->public_url.'/img/ico/plus.png',
-			'img_on_alt' => Escaper::js(__('c_c_action_show')),
-			'img_off_src' => $this->okt->options->public_url.'/img/ico/minus.png',
-			'img_off_alt' => Escaper::js(__('c_c_action_hide')),
-			'hide' => true,
-			'speed' => 0,
-			'legend_click' => true,
-			'fn' => false, // A function called on first display,
-			'cookie' => false,
-			'reverse_cookie' => false // Reverse cookie behavior
+			'img_on_src' 		=> $this->okt->options->public_url.'/img/ico/plus.png',
+			'img_on_alt' 		=> Escaper::js(__('c_c_action_show')),
+			'img_off_src' 		=> $this->okt->options->public_url.'/img/ico/minus.png',
+			'img_off_alt' 		=> Escaper::js(__('c_c_action_hide')),
+			'hide' 				=> true,
+			'speed' 			=> 0,
+			'legend_click' 		=> true,
+			'fn' 				=> false, // A function called on first display,
+			'cookie' 			=> false,
+			'reverse_cookie' 	=> false // Reverse cookie behavior
 		);
 
 		if (!empty($aCustomOptions)) {
@@ -986,9 +986,9 @@ class Page
 		if (is_callable($callback))
 		{
 			$this->rteList[$id] = array(
-				'id' => $id,
-				'name' => $name,
-				'callback' => $callback
+				'id' 		=> $id,
+				'name' 		=> $name,
+				'callback' 	=> $callback
 			);
 		}
 	}
@@ -1058,10 +1058,10 @@ class Page
 		if (is_callable($callback))
 		{
 			$this->lblList[$id] = array(
-				'id' => $id,
-				'name' => $name,
-				'callback' => $callback,
-				'jsLoader' => $jsLoader
+				'id' 		=> $id,
+				'name' 		=> $name,
+				'callback' 	=> $callback,
+				'jsLoader' 	=> $jsLoader
 			);
 		}
 	}
@@ -1153,9 +1153,9 @@ class Page
 		if (is_array($aBehaviors) && !empty($aBehaviors))
 		{
 			$this->captchaList[$sId] = array(
-				'id' => $sId,
-				'name' => $sName,
-				'behaviors' => $aBehaviors
+				'id' 			=> $sId,
+				'name' 			=> $sName,
+				'behaviors' 	=> $aBehaviors
 			);
 		}
 	}

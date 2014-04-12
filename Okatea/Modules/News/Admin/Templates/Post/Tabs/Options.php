@@ -10,13 +10,15 @@ use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Modules\News\Helpers as NewsHelpers;
 
+$okt->page->datePicker();
+
 ?>
 
 <h3><?php _e('m_news_post_tab_title_options')?></h3>
 
 <div class="two-cols">
 	<p class="field col"><label for="p_date"><?php _e('m_news_post_date') ?></label>
-	<?php echo form::text('p_date', 20, 255, (!empty($aPostData['extra']['date']) ? Date::short($aPostData['extra']['date']) : ''), 'datepicker') ?>
+	<?php echo form::text('p_date', 20, 255, (!empty($aPostData['extra']['date']) ? date('d-m-Y', strtotime($aPostData['extra']['date'])) : ''), 'datepicker') ?>
 	<span class="note"><?php _e('m_news_post_date_note') ?></span></p>
 
 	<div class="col">

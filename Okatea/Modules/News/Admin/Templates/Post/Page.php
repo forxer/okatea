@@ -90,9 +90,6 @@ $okt->page->lockable();
 # Tabs
 $okt->page->tabs();
 
-# Datepicker
-$okt->page->datePicker();
-
 # Modal
 $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
