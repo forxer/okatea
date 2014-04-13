@@ -874,6 +874,11 @@ class Module extends BaseModule
 		if (strtotime($oCursor->created_at) > time()) {
 			$oCursor->active = 3;
 		}
+		# TODO : need to refactor this !
+		else
+		{
+
+		}
 	}
 
 	/**
