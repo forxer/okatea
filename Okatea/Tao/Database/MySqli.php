@@ -8,6 +8,7 @@
 
 namespace Okatea\Tao\Database;
 
+use Carbon\Carbon;
 use Okatea\Tao\Html\Escaper;
 
 /**
@@ -748,6 +749,11 @@ class MySqli
 		}
 
 		return $this->execute($sql);
+	}
+
+	public function now()
+	{
+		return Carbon::now('UTC')->format('Y-m-d H:i:s');
 	}
 
 	public static function formatDateTime($sDate=null, $sOrder='ymdhis')

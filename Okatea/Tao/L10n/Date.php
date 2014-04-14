@@ -10,6 +10,7 @@ namespace Okatea\Tao\L10n;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use IntlDateFormatter;
 use Okatea\Tao\Misc\Utilities;
 
@@ -134,21 +135,21 @@ class Date
 	/**
 	 *
 	 * @param mixed $mDate
-	 * @return Ambigous <\Carbon\Carbon, \Carbon\Carbon>|\DateTime|\Carbon\Carbon
+	 * @return Carbon\Carbon>|\DateTime
 	 */
 	protected static function getDate($mDate)
 	{
 		if (null === $mDate) {
-			return Carbon::now(self::$sTimezone);
+			return Carbon::now()->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		elseif ($mDate instanceof DateTime) {
-			return $mDate;
+			return $mDate->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		elseif (Utilities::isInt($mDate)) {
-			return Carbon::createFromTimestamp($mDate, self::$sTimezone);
+			return Carbon::createFromTimestamp($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		else {
-			return Carbon::parse($mDate, self::$sTimezone);
+			return Carbon::parse($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 	}
 

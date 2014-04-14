@@ -819,7 +819,7 @@ class Module extends BaseModule
 		}
 
 		# modification dans la DB
-		$oCursor->updated_at = date('Y-m-d H:i:s');
+		$oCursor->updated_at = $this->db->now();
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
 			throw new RuntimeException('Unable to update page into database');

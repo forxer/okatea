@@ -21,6 +21,7 @@ use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
+use Carbon\Carbon;
 
 class Module extends BaseModule
 {
@@ -860,18 +861,20 @@ class Module extends BaseModule
 	 */
 	protected function preparePostCursor($oCursor)
 	{
-		$sDate = date('Y-m-d H:i:s');
+		$sDate = $this->db->now();
 
 		if (empty($oCursor->created_at)) {
 			$oCursor->created_at = $sDate;
 		}
+		/*
 		else {
 			$oCursor->created_at = date('Y-m-d H:i:s', strtotime($oCursor->created_at));
 		}
+		*/
 
 		$oCursor->updated_at = $sDate;
 
-		if (strtotime($oCursor->created_at) > time()) {
+		if (Carbon::parse($oCursor->created_at)->isFuture()) {
 			$oCursor->active = 3;
 		}
 		# TODO : need to refactor this !
