@@ -29,7 +29,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
 			<!--
 			<guid isPermaLink="false">{{tpl:EntryFeedID}}</guid>
 			-->
-			<pubDate><?php echo Carbon::parse($rsPagesList->created_at)->toRFC2822String() ?></pubDate>
+			<pubDate><?php echo Date::parse($rsPagesList->created_at)->toRSSString() ?></pubDate>
 			<!--<dc:creator><?php echo $view->escape($rsPagesList->author) ?></dc:creator>-->
 
 			<?php if ($okt->module('Pages')->config->categories['enable'] && !empty($rsPagesList->category_title)) : ?>

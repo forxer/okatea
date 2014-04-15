@@ -14,7 +14,7 @@ use DateTimeZone;
 use IntlDateFormatter;
 use Okatea\Tao\Misc\Utilities;
 
-class Date
+class Date extends Carbon
 {
 	protected static $sLocale = 'en';
 
@@ -26,7 +26,7 @@ class Date
 	 * Define locale to use.
 	 * @param string $sLocale
 	 */
-	public static function setLocale($sLocale)
+	public static function setUserLocale($sLocale)
 	{
 		self::$sLocale = $sLocale;
 	}
@@ -35,9 +35,14 @@ class Date
 	 * Define timezone to use.
 	 * @param string $sTimezone
 	 */
-	public static function setTimezone($sTimezone)
+	public static function setUserTimezone($sTimezone)
 	{
 		self::$sTimezone = $sTimezone;
+	}
+
+	public function toMysqlString()
+	{
+		return $this->format('Y-m-d H:i:s');
 	}
 
 	/**
@@ -140,16 +145,16 @@ class Date
 	protected static function getDate($mDate)
 	{
 		if (null === $mDate) {
-			return Carbon::now()->setTimezone(new DateTimeZone(self::$sTimezone));
+			return parent::now()->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		elseif ($mDate instanceof DateTime) {
 			return $mDate->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		elseif (Utilities::isInt($mDate)) {
-			return Carbon::createFromTimestamp($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
+			return parent::createFromTimestamp($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 		else {
-			return Carbon::parse($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
+			return parent::parse($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 	}
 

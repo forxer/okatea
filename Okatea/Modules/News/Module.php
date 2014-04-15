@@ -14,6 +14,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Images\ImageUpload;
+use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
@@ -21,7 +22,6 @@ use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
-use Carbon\Carbon;
 
 class Module extends BaseModule
 {
@@ -827,7 +827,7 @@ class Module extends BaseModule
 		}
 
 		# modification dans la DB
-		$this->preparePostCursor($oCursor);
+		$this->preparePostCursor($oCursor, $rsPost);
 
 		if (!$oCursor->update('WHERE id='.(integer)$oCursor->id.' ')) {
 			throw new RuntimeException('Unable to update post into database');
@@ -859,28 +859,27 @@ class Module extends BaseModule
 	 *
 	 * @param cursor $oCursor
 	 */
-	protected function preparePostCursor($oCursor)
+	protected function preparePostCursor($oCursor, $rsPost = null)
 	{
-		$sDate = $this->db->now();
+		$sDate = Date::now('UTC')->toMysqlString();
 
 		if (empty($oCursor->created_at)) {
 			$oCursor->created_at = $sDate;
 		}
-		/*
 		else {
-			$oCursor->created_at = date('Y-m-d H:i:s', strtotime($oCursor->created_at));
+			$oCursor->created_at = Date::parse($oCursor->created_at)->toMysqlString();
 		}
-		*/
 
 		$oCursor->updated_at = $sDate;
 
-		if (Carbon::parse($oCursor->created_at)->isFuture()) {
+		if (Date::parse($oCursor->created_at)->isFuture()) {
 			$oCursor->active = 3;
 		}
-		# TODO : need to refactor this !
-		else
+		elseif ($oCursor->active == 3)
 		{
-
+			if (null === $rsPost) {
+				$oCursor->active = 1;
+			}
 		}
 	}
 

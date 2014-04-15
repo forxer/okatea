@@ -604,8 +604,6 @@ class Module extends BaseModule
 		# url page
 		$rs->url = $rs->getPageUrl();
 
-		//$this->okt->router->generate('pagesItem', array('slug' => $rs->slug));
-
 		# url rubrique
 		$rs->category_url = $rs->getCategoryUrl();
 

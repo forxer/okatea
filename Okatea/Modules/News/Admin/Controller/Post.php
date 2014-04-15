@@ -10,6 +10,7 @@ namespace Okatea\Modules\News\Admin\Controller;
 
 use ArrayObject;
 use Okatea\Admin\Controller;
+use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Themes\TemplatesSet;
 
 class Post extends Controller
@@ -81,11 +82,10 @@ class Post extends Controller
 		$this->aPostData['post']['created_at'] = $rsPost->created_at;
 		$this->aPostData['post']['updated_at'] = $rsPost->updated_at;
 
-		$iPotsTs = strtotime($rsPost->created_at);
-
-		$this->aPostData['extra']['date'] = date('d-m-Y', $iPotsTs);
-		$this->aPostData['extra']['hours'] = date('H', $iPotsTs);
-		$this->aPostData['extra']['minutes'] = date('i', $iPotsTs);
+		$dt = Date::parse($rsPost->created_at);
+		$this->aPostData['extra']['date'] = $dt->format('d-m-Y');
+		$this->aPostData['extra']['hours'] = $dt->format('H');
+		$this->aPostData['extra']['minutes'] = $dt->format('i');
 
 		$rsPostI18n = $this->okt->module('News')->getPostL10n($this->aPostData['post']['id']);
 
@@ -232,9 +232,9 @@ class Post extends Controller
 
 		$this->aPermissions = array(
 			'bCanViewPage' 	=> true,
-			'bCanEditPost' 	=> ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')),
-			'bCanPublish' 	=> ($this->okt->checkPerm('news_publish') || $this->okt->checkPerm('news_contentadmin')),
-			'bCanDelete' 	=> ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'))
+			'bCanEditPost' 	=> ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_usage')),
+			'bCanPublish' 	=> ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_publish')),
+			'bCanDelete' 	=> ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_delete'))
 		);
 
 		$this->aPermissions['bCanDelete'] = ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'));

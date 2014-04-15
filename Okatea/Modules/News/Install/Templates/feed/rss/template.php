@@ -1,5 +1,6 @@
 <?php
-use Carbon\Carbon;
+
+use Okatea\Tao\L10n\Date;
 
 echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <rss version="2.0"
@@ -29,7 +30,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
 			<!--
 			<guid isPermaLink="false">{{tpl:EntryFeedID}}</guid>
 			-->
-			<pubDate><?php echo Carbon::parse($rsPostsList->created_at)->toRFC2822String() ?></pubDate>
+			<pubDate><?php echo Date::parse($rsPostsList->created_at)->toRSSString() ?></pubDate>
 			<dc:creator><?php echo $view->escape($rsPostsList->author) ?></dc:creator>
 
 			<?php if ($okt->module('News')->config->categories['enable'] && $rsPostsList->rubrique_name) : ?>

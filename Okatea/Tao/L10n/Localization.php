@@ -33,8 +33,8 @@ class Localization
 
 		$this->sDefaultLanguage = $sDefaultLanguage;
 
-		Date::setLocale($sLanguage);
-		Date::setTimezone($sTimeZone);
+		Date::setUserLocale($sLanguage);
+		Date::setUserTimezone($sTimeZone);
 
 		$GLOBALS['okt_l10n'] = array();
 		$this->aLoaded = array();

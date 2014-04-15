@@ -18,15 +18,15 @@ $okt->page->datePicker();
 
 <div class="two-cols">
 	<p class="field col"><label for="p_date"><?php _e('m_news_post_date') ?></label>
-	<?php echo form::text('p_date', 20, 255, (!empty($aPostData['extra']['date']) ? date('d-m-Y', strtotime($aPostData['extra']['date'])) : ''), 'datepicker') ?>
+	<?php echo form::text('p_date', 20, 255, $aPostData['extra']['date'], 'datepicker') ?>
 	<span class="note"><?php _e('m_news_post_date_note') ?></span></p>
 
 	<div class="col">
 		<p class="field floatLeftEspace"><label for="p_hours"><?php _e('m_news_post_hour') ?></label>
-		<?php echo form::text('p_hours', 2, 2, (!empty($aPostData['extra']['hours']) ? $aPostData['extra']['hours'] : '')) ?></p>
+		<?php echo form::text('p_hours', 2, 2, $aPostData['extra']['hours']) ?></p>
 
 		<p class="field floatLeftEspace"><label for="p_minutes"><?php _e('m_news_post_minute') ?></label>
-		<?php echo form::text('p_minutes', 2, 2, (!empty($aPostData['extra']['minutes']) ? $aPostData['extra']['minutes'] : '')) ?></p>
+		<?php echo form::text('p_minutes', 2, 2, $aPostData['extra']['minutes']) ?></p>
 
 		<div class="clearer"></div>
 	</div>
@@ -78,7 +78,7 @@ $okt->page->datePicker();
 
 		<?php elseif ($aPostData['post']['active'] == 2) : ?>
 
-			<?php if ($aPermissions['bCanPublish']) : ?>
+			<?php if ($aPermissions['bCanPublish']) :  ?>
 				<p class="field col"><a href="<?php echo $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?publish=1' ?>"
 				class="icon time"><?php _e('m_news_post_publish_post') ?></a></p>
 			<?php else : ?>
@@ -89,8 +89,6 @@ $okt->page->datePicker();
 			<?php if ($aPermissions['bCanPublish']) : ?>
 				<p class="field col"><label for="p_active"><?php _e('m_news_post_status') ?></label>
 				<?php echo form::select('p_active', NewsHelpers::getPostsStatus(true), $aPostData['post']['active']) ?></p>
-			<?php else : ?>
-				<p class="field col"><label><?php echo form::checkbox('p_active', 1, $aPostData['post']['active']) ?> <?php _e('c_c_status_Online') ?></label></p>
 			<?php endif; ?>
 		<?php endif; ?>
 

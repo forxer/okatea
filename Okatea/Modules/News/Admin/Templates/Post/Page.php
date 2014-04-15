@@ -48,7 +48,7 @@ if (!empty($aPostData['post']['id']))
 
 	# bouton switch statut
 	$okt->page->addButton('newsBtSt', array(
-		'permission' 	=> ($aPostData['post']['active'] <= 1 && $aPermissions['bCanEditPost']),
+		'permission' 	=> ($aPostData['post']['active'] <= 1 && $aPermissions['bCanEditPost'] && $aPermissions['bCanPublish']),
 		'title' 		=> ($aPostData['post']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
 		'url' 			=> $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?switch_status=1',
 		'ui-icon' 		=> ($aPostData['post']['active'] ? 'volume-on' : 'volume-off'),
