@@ -36,6 +36,9 @@ $GLOBALS['okt_l10n']['pr_json_decode_ko'] = 'La fonction json_decode() est absen
 $GLOBALS['okt_l10n']['pr_zip_ok'] = 'L’extension zip est présente.';
 $GLOBALS['okt_l10n']['pr_zip_ko'] = 'L’extension zip est absente.';
 
+$GLOBALS['okt_l10n']['pr_intl_ok'] = 'L’extension Intl est présente.';
+$GLOBALS['okt_l10n']['pr_intl_ko'] = 'L’extension Intl est absente.';
+
 $GLOBALS['okt_l10n']['pr_mb_string_ok'] = 'La bibliothèque Multibyte String (mbstring) est présente.';
 $GLOBALS['okt_l10n']['pr_mb_string_ko'] = 'La bibliothèque Multibyte String (mbstring) est absente.';
 

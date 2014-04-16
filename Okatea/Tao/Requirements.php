@@ -28,11 +28,10 @@ class Requirements
 	{
 		$this->okt = $okt;
 
-		# vérification des pré-requis
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/pre-requisites', $sLanguage);
 
 
-		/* Groupes de pré-requis
+		/* Groups
 		----------------------------------------------------------*/
 
 		$this->aRequirements[0] = array(
@@ -48,10 +47,9 @@ class Requirements
 		);
 
 
-		/* Détails des pré-requis "PHP"
+		/* PHP requirements
 		----------------------------------------------------------*/
 
-		# Vérification de la version PHP
 		$sPhpVersionRequired = require $this->okt->options->okt_dir.'/php_version_required.php';
 
 		$this->aRequirements[0]['requirements'][] = array(
@@ -61,7 +59,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_php_version_ko'), PHP_VERSION, $sPhpVersionRequired)
 		);
 
-		# Vérification de la présence des fonctions MySQLi
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'mysqli',
 			'test' 		=> function_exists('mysqli_connect'),
@@ -69,7 +66,6 @@ class Requirements
 			'msg_ko'	=> __('pr_mysqli_ko')
 		);
 
-		# Vérification de la présence des fonctions CURL
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'curl',
 			'test' 		=> function_exists('curl_init'),
@@ -77,7 +73,6 @@ class Requirements
 			'msg_ko'	=> __('pr_curl_ko')
 		);
 
-		# Vérification de la présence des fonctions fileinfo
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'fileinfo',
 			'test' 		=> function_exists('finfo_open'),
@@ -85,7 +80,6 @@ class Requirements
 			'msg_ko'	=> __('pr_fileinfo_ko')
 		);
 
-		# Vérification de la présence des fonctions json_*
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'json_encode',
 			'test' 		=> function_exists('json_encode'),
@@ -100,12 +94,25 @@ class Requirements
 			'msg_ko'	=> __('pr_json_decode_ko')
 		);
 
-		# Vérification de la présence de l'extension zip
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'zip',
 			'test' 		=> class_exists('ZipArchive'),
 			'msg_ok'	=> __('pr_zip_ok'),
 			'msg_ko'	=> __('pr_zip_ko')
+		);
+
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'zip',
+			'test' 		=> class_exists('ZipArchive'),
+			'msg_ok'	=> __('pr_zip_ok'),
+			'msg_ko'	=> __('pr_zip_ko')
+		);
+
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'intl',
+			'test' 		=> class_exists('IntlDateFormatter'),
+			'msg_ok'	=> __('pr_intl_ok'),
+			'msg_ko'	=> __('pr_intl_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
@@ -122,7 +129,6 @@ class Requirements
 			'msg_ko'	=> __('pr_crypt_ko')
 		);
 
-		# Vérification de la présence du module XML
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'xml',
 			'test' 		=> function_exists('xml_parser_create'),
@@ -130,7 +136,6 @@ class Requirements
 			'msg_ko'	=> __('pr_xml_ko')
 		);
 
-		# Vérification de la présence du module simplexml
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'simplexml',
 			'test' 		=> function_exists('simplexml_load_string') ? true : null,
@@ -138,7 +143,6 @@ class Requirements
 			'msg_ko'	=> __('pr_simplexml_ko')
 		);
 
-		# Vérification de la présence du module mb_string
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'mb_string',
 			'test' 		=> function_exists('mb_detect_encoding'),
@@ -146,7 +150,6 @@ class Requirements
 			'msg_ko'	=> __('pr_mb_string_ko')
 		);
 
-		# Vérification de la présence du module iconv
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'iconv',
 			'test' 		=> function_exists('iconv') ? true : null,
@@ -154,7 +157,6 @@ class Requirements
 			'msg_ko'	=> __('pr_iconv_ko')
 		);
 
-		# Vérification de la présence de GD2
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'GD 2',
 			'test' 		=> function_exists('imagegd2') ? true : null,
@@ -163,10 +165,9 @@ class Requirements
 		);
 
 
-		/* Détails des pré-requis "files"
+		/* Filesystem requirements
 		----------------------------------------------------------*/
 
-		# Vérification des droits sur le répertoire des fichiers de configuration
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktConf',
 			'test' 		=> is_writable($this->okt->options->get('config_dir')),
@@ -174,7 +175,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_okatea_conf_ko'), $this->okt->options->get('config_dir'))
 		);
 
-		# Vérification des droits sur le fichier de configuration général
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'conf_site',
 			'test' 		=> is_writable($this->okt->options->get('config_dir').'/conf_site.yml'),
@@ -182,7 +182,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_conf_site_ko'), $this->okt->options->get('config_dir').'/conf_site.yml')
 		);
 
-		# Vérification des droits sur le répertoire de cache
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktCache',
 			'test' 		=> is_writable($this->okt->options->get('cache_dir')) ? true : null,
@@ -190,7 +189,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_okatea_cache_ko'), $this->okt->options->get('cache_dir'))
 		);
 
-		# Vérification des droits sur le répertoire des logs
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktLog',
 			'test' 		=> is_writable($this->okt->options->get('logs_dir')) ? true : null,
@@ -198,7 +196,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_okatea_log_ko'), $this->okt->options->get('logs_dir'))
 		);
 
-		# Vérification des droits sur le répertoire des modules
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktModules',
 			'test' 		=> is_writable($this->okt->options->get('modules_dir')) ? true : null,
@@ -206,7 +203,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_okatea_modules_ko'), $this->okt->options->get('modules_dir'))
 		);
 
-		# Vérification des droits sur le répertoire des fichiers publics
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktPublic',
 			'test' 		=> is_writable($this->okt->options->get('public_dir')) ? true : null,
@@ -214,7 +210,6 @@ class Requirements
 			'msg_ko'	=> sprintf(__('pr_okatea_public_ko'), $this->okt->options->get('public_dir'))
 		);
 
-		# Vérification des droits sur le répertoire des thèmes
 		$this->aRequirements[1]['requirements'][] = array(
 			'id' 		=> 'oktThemes',
 			'test' 		=> is_writable($this->okt->options->get('themes_dir')) ? true : null,
@@ -264,14 +259,12 @@ class Requirements
 		}
 	}
 
-	# Vérification de la prise en charge d'UTF-8 par le moteur PCRE
 	protected function oktPcreSupportTest()
 	{
 		$pcre_str = base64_decode('w6nDqMOgw6o=');
 		return @preg_match('/'.$pcre_str.'/u', $pcre_str);
 	}
 
-	# Vérification du support pour la fonction crypt
 	protected function oktCryptSupportTest()
 	{
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
