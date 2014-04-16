@@ -5,6 +5,7 @@ modules:
   repository_url: http://repository.okatea.org/themes/
   repository:
     - Builder
+    - Contact
     - Development
     - News
     - Pages
