@@ -21,6 +21,7 @@ Modules
 - replace users module into the core
 - re-write Media manager module
 - re-write Diary/Calendar module
+- re-write LBL modules
 
 
 Vendor

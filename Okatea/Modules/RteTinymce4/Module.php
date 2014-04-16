@@ -42,7 +42,7 @@ class Module extends BaseModule
 		}
 	}
 
-	public static function tinyMCE($element='textarea', $user_options=array())
+	public static function tinyMCE($sSelector = 'textarea', array $aUserOptions = array())
 	{
 		global $okt;
 
@@ -52,7 +52,7 @@ class Module extends BaseModule
 		$aOptions[] = 'document_base_url: "'.Escaper::js($okt->request->getSchemeAndHttpHost().$okt->config->app_path).'"';
 
 		# selector
-		$aOptions[] = 'selector: "'.$element.'"';
+		$aOptions[] = 'selector: "'.$sSelector.'"';
 
 		# theme
 		$aOptions[] = 'theme: "modern"';
