@@ -12,6 +12,9 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 2.0-beta5
 # new way to load locales
+# use Carbon and Intl for displaying localized dates
+! reintroduced Contact module
+- many bugs fixes
 
 
 2.0-beta4 (2014-03-21)
