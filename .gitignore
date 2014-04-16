@@ -28,7 +28,7 @@ $RECYCLE.BIN/
 /oktOptions.custom.php
 
 # oktatea config
-/Okatea/Config/connexion.php
+/Okatea/Config/connection.php
 /Okatea/Config/conf_*.yml
 !/Okatea/Config/conf_site.yml
 /Okatea/Config/Routes/*/*.yml

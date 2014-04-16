@@ -376,11 +376,11 @@ class Application
 	 */
 	protected function database()
 	{
-		if (!file_exists($this->options->get('config_dir').'/connexion.php')) {
-			throw new \RuntimeException('Unable to find database connexion file !');
+		if (!file_exists($this->options->get('config_dir').'/connection.php')) {
+			throw new \RuntimeException('Unable to find database connection file !');
 		}
 
-		require $this->options->get('config_dir').'/connexion.php';
+		require $this->options->get('config_dir').'/connection.php';
 
 		$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
 

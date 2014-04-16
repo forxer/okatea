@@ -147,8 +147,8 @@ class DatabaseConfiguration extends Controller
 				else
 				{
 					# Création du fichier des paramètres de connexion
-					$configfile = $this->okt->options->get('config_dir').'/connexion.php';
-					$config = file_get_contents($configfile.'.in');
+					$sConnectionFile = $this->okt->options->get('config_dir').'/connection.php';
+					$config = file_get_contents($this->okt->options->get('config_dir').'/connection.dist.php');
 
 					$config = str_replace(array(
 						'%%DB_PROD_HOST%%',
@@ -166,16 +166,16 @@ class DatabaseConfiguration extends Controller
 						'%%DB_DEV_PREFIX%%'
 					), $aDatabaseParams['dev'], $config);
 
-					file_put_contents($configfile, $config);
+					file_put_contents($sConnectionFile, $config);
 
 					# aller, dernière tentative en utilisant le fichier
-					if (!file_exists($configfile)) {
-						$this->okt->error->set('Unable to find database connexion file.');
+					if (!file_exists($sConnectionFile)) {
+						$this->okt->error->set('Unable to find database connection file.');
 					}
 					else
 					{
 						$env = $aDatabaseParams['env'];
-						require $configfile;
+						require $sConnectionFile;
 
 						$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
 

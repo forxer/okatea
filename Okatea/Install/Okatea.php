@@ -107,7 +107,7 @@ class Okatea extends Application
 		{
 			$this->session->set('okt_install_process_type', 'install');
 
-			if (file_exists($this->options->get('config_dir').'/connexion.php')) {
+			if (file_exists($this->options->get('config_dir').'/connection.php')) {
 				$this->session->set('okt_install_process_type', 'update');
 			}
 		}
