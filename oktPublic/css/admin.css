@@ -11,45 +11,45 @@
 	margin: 0 2em;
 }
 #page-simple {
-	border: none;
 	padding: 0.5em;
+	border: none;
 }
 #access-link,
 #access-link a {
 	margin: 0;
 	color: #888;
 	text-align: right;
-	font-size: 0.9em;
 	text-decoration: none;
+	font-size: 0.9em;
 }
 
 #banner {
 	margin: 0;
 }
 	#banner h1 {
-		font-size: 1.5em;
 		margin: 0;
 		padding: 0.5em 0 0 0.8em;
+		font-size: 1.5em;
 	}
 	#banner #desc {
 		margin: 0;
 		padding: 0.2em 0 0.8em 1.2em;
 	}
 #mainMenu-top {
-	margin: 0.8em 0;
 	position: static;
+	margin: 0.8em 0;
 	zoom: 1;
 }
 #mainMenu-top:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 	#mainMenu-top>li {
-		width: auto;
 		float: left;
+		width: auto;
 	}
 		#mainMenu-top>li a {
 			padding: 0.3em 1em;
@@ -62,16 +62,16 @@
 	top:0;
 }
 #helpers {
-	margin: 0.8em 0;
 	position: static;
+	margin: 0.8em 0;
 	zoom: 1;
 }
 #helpers:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 	#messages {
 		float: left;
@@ -80,9 +80,9 @@
 		#breadcrumb {
 			margin: 1em 0;
 			padding: 0 0 0 0.5em;
-			font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
-			font-size: 1.1em;
 			font-weight: normal;
+			font-size: 1.1em;
+			font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
 		}
 			#breadcrumb a {
 				text-decoration: none;
@@ -91,20 +91,20 @@
 				text-decoration: underline;
 			}
 		#messages .errors_box, #messages .warnings_box, #messages .success_box, #messages .infos_box {
-			z-index: 100;
 			position: absolute;
-			right: 3em;
 			top: 2.5em;
+			right: 3em;
+			z-index: 100;
 			width: auto;
 		}
 	#welcome {
 		float: right;
-		width: 38%;
-		text-align: right;
 		margin: 0;
 		padding: 0.3em 0.8em;
-		font-size: 0.9em;
+		width: 38%;
 		list-style: none;
+		text-align: right;
+		font-size: 0.9em;
 	}
 		#welcome p {
 			margin: 0;
@@ -112,8 +112,8 @@
 
 #main-right {
 	float: left;
-	margin-right: -200px;
 	margin-top: 0;
+	margin-right: -200px;
 	width: 100%;
 }
 	#main-right #content {
@@ -121,8 +121,8 @@
 	}
 #main-left {
 	float: right;
-	margin-left: -200px;
 	margin-top: 0;
+	margin-left: -200px;
 	width: 100%;
 }
 	#main-left #content {
@@ -131,21 +131,21 @@
 
 #mainMenu-left {
 	float: left;
-	margin-bottom: 10px;
 	margin-top: 0;
+	margin-bottom: 10px;
 	width: 180px;
 }
 #mainMenu-right {
 	float: right;
-	margin-bottom: 10px;
 	margin-top: 0;
+	margin-bottom: 10px;
 	width: 180px;
 }
 	.sub-menu {
 		margin: 0;
 		list-style: none;
+		font-size: 1.1em;
 		line-height: 145%;
-		font-size: 1.1em
 	}
 		.sub-menu li {
 			position: relative;
@@ -188,10 +188,10 @@
 }
 #adminpage-connexion #page-title,
 #adminpage-connexion #content {
-	text-align: left;
-	width: 250px;
 	margin: 0 auto;
 	padding: 10px;
+	width: 250px;
+	text-align: left;
 }
 
 
@@ -214,8 +214,8 @@ fieldset {
 legend {
 	margin: 0;
 	padding: 0.2em 0.8em;
-	background-color: #f9f9f9;
 	border: 1px solid #ddd;
+	background-color: #f9f9f9;
 	font-style: italic;
 }
 
@@ -233,19 +233,19 @@ label.error {
 }
 
 input, textarea, select {
-	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
-	background-color: #fdfdfd;
 	border: 1px solid #ccc;
+	background-color: #fdfdfd;
 	font-size: 1em;
+	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
 }
 
 .checkbox {
-	vertical-align: middle;
 	border: none;
+	vertical-align: middle;
 }
 .radio {
-	vertical-align: text-bottom;
 	border: none;
+	vertical-align: text-bottom;
 }
 
 select {
@@ -268,23 +268,23 @@ input.error, textarea.error {
 
 
 p.tablefield {
-	padding-bottom: 1em;
 	margin: 0;
+	padding-bottom: 1em;
 	zoom: 1;
 }
 p.tablefield:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 p.tablefield label {
 	display: block;
 	float: left;
-	text-align: right;
-	width: 15em;
 	padding: 0 1em 0 0;
+	width: 15em;
+	text-align: right;
 }
 
 p.tablefield label.fichierRub {
@@ -296,11 +296,11 @@ p.tablefield label.labelCheckbox {
 }
 
 p.tablefield label.error {
-	float: none;
 	display: inline;
+	float: none;
 	padding: 0;
-	text-align: left;
 	padding: 0 0 0 1em;
+	text-align: left;
 }
 p.fake-tablefield {
 	margin-left: 16em;
@@ -343,54 +343,54 @@ p label.labelCheckbox {
 }
 
 ul.field {
-	list-style: none;
 	margin: 1em 0;
+	list-style: none;
 }
 
 ul.field li {
 	margin: 0.5em 0;
 }
 
-p.yesno {}
+p.yesno { }
 
-p.yesno label {}
+p.yesno label { }
 
 /* champs requis */
 .required {
 	font-weight: bold;
 }
 .required:before {
-	content: '* ';
 	color: #c00;
+	content: '* ';
 }
 
-.htaccess { white-space: pre; overflow-x: auto; overflow-y: hidden; width: 100%; }
+.htaccess { overflow-x: auto; overflow-y: hidden; width: 100%; white-space: pre; }
 
 
 /* Tableaux
 ----------------------------------------------------------*/
 
 table.common {
-	width: 100%;
 	margin: 0;
 	padding: 0;
-	vertical-align: top;
+	width: 100%;
 	border-collapse: separate;
+	vertical-align: top;
 }
 table.common p {
 	margin: 0;
 }
 table.common caption {
-	text-indent: -9999px;
 	position: absolute;
+	text-indent: -9999px;
 }
 table.common th,
 table.common td.fake-th {
 	padding: 0.3em 0.5em;
+	vertical-align: top;
+	text-align: left;
 /*	border-bottom: 1px solid #333; */
 	font-weight: bold;
-	text-align: left;
-	vertical-align: top;
 }
 table.common td,
 table.common th.fake-td {
@@ -410,9 +410,9 @@ table.common td.even {
 table.common th .title,
 table.common td .title {
 	margin: 0;
-	font-size: 1.1em;
-	font-weight: bold;
 	white-space: normal;
+	font-weight: bold;
+	font-size: 1.1em;
 }
 
 table.common tfoot td {
@@ -426,9 +426,9 @@ table.common .large {
 }
 .small,
 table.common .small {
-	width: 1px;
-	padding-left: 0.5em;
 	padding-right: 1em;
+	padding-left: 0.5em;
+	width: 1px;
 }
 .nowrap,
 table.common .nowrap {
@@ -452,26 +452,26 @@ table.common .right {
 ----------------------------------------------------------*/
 
 .pagination { display: inline-block; zoom: 1; }
-.pagination:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.pagination:after { display: block; visibility: hidden; clear: both; height: 0; content: "."; }
 /* required comment for clearfix to work in Opera \*/
 * html .pagination { height:1%; }
 .pagination { display:block; }
 /* end clearfix */
 
 .pagination {
-	border: 0;
 	margin: 1em 0;
 	padding: 0;
+	border: 0;
 	zoom: 1;
 }
 .pagination li {
-	border: 0;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	margin-right: 2px;
 	display: block;
 	float: left;
+	margin: 0;
+	margin-right: 2px;
+	padding: 0;
+	border: 0;
+	list-style: none;
 }
 .pagination .active,
 .pagination a {
@@ -487,18 +487,18 @@ table.common .right {
 /* Diff rendering
 ----------------------------------------------------------*/
 table.diff {
-	background-color: #fff;
 	width: 100%;
+	background-color: #fff;
 }
 td.diff-blockheader {
 	font-weight: bold;
 }
 table.diff th {
-	border-bottom: 1px solid #8cacbb;
-	font-size: 110%;
 	width: 50%;
-	font-weight: normal;
+	border-bottom: 1px solid #8cacbb;
 	text-align: left;
+	font-weight: normal;
+	font-size: 110%;
 }
 table.diff th a {
 		font-weight: bold;
@@ -508,15 +508,15 @@ table.diff th span.user {
 		font-size: 80%;
 }
 table.diff th span.sum {
-		font-size: 80%;
 		font-weight: bold;
+		font-size: 80%;
 }
 table.diff th.minor {
 	font-style: italic;
 }
 table.diff td {
-	font-family: monospace;
 	font-size: 100%;
+	font-family: monospace;
 }
 td.diff-addedline,
 span.diff-addedline {
@@ -538,7 +538,7 @@ table.diff td.diff-deletedline strong {
 /* Logs admin
 ----------------------------------------------------------*/
 
-#log-admin-list {}
+#log-admin-list { }
 #log-admin-list tr.type_0 { background-color: #eeffee; }
 #log-admin-list tr.type_10 { background-color: #ffffee; }
 #log-admin-list tr.type_20,
@@ -549,8 +549,8 @@ table.diff td.diff-deletedline strong {
 ----------------------------------------------------------*/
 
 ul.checklist {
-	list-style: none;
 	margin: 1em 0;
+	list-style: none;
 }
 	ul.checklist li {
 		list-style: none;
@@ -561,8 +561,8 @@ ul.checklist {
 	}
 
 div.checklistlegend {
-	font-size: 0.9em;
 	color: #666;
+	font-size: 0.9em;
 }
 div.checklistlegend p {
 	font-weight: bold;
@@ -571,14 +571,14 @@ ul.checklistlegend {
 	list-style: none;
 }
 ul.checklistlegend li {
-	list-style: none;
 	display: inline;
 	margin-right: 2em;
+	list-style: none;
 }
 
 ul.actions {
-	list-style: none;
 	margin: 0;
+	list-style: none;
 	font-weight: normal;
 }
 ul.actions li {
@@ -592,8 +592,8 @@ ul.menuList {
 }
 ul.menuList li {
 	display: inline;
-	list-style: none;
 	padding: 0.3em 1.2em 0.3em 0;
+	list-style: none;
 }
 
 .toggle-helpers {
@@ -605,9 +605,9 @@ ul.menuList li {
 }
 
 .disabled {
+	opacity: 0.5;
 	filter: alpha(opacity=50);
 	-moz-opacity: 0.5;
-	opacity: 0.5;
 }
 
 img.preload {
@@ -619,9 +619,9 @@ img.preload {
 }
 
 .debug-backtrace pre {
+	overflow: auto;
 	width: 250px;
 	height: auto;
-	overflow: auto;
 }
 
 
@@ -629,9 +629,9 @@ img.preload {
 #updates-notifications {
 	margin: 0.6em 35%;
 	padding: 0.2em 0.6em;
-	text-align: left;
-	background: #FFFFEE url(../img/admin/emblem-important.png) no-repeat 95% 15%;
 	border: 1px solid #FFFF00;
+	background: #FFFFEE url(../img/admin/emblem-important.png) no-repeat 95% 15%;
+	text-align: left;
 }
 
 /* message avertissement */
@@ -643,8 +643,8 @@ img.preload {
 /* note informative */
 .note {
 	display: block;
-	font-size: 0.9em;
 	color: #666;
+	font-size: 0.9em;
 }
 .note a {
 	color: #666;
@@ -652,9 +652,9 @@ img.preload {
 
 .lockable-note {
 	display: block;
-	font-size: 0.9em;
-	font-style: italic;
 	color: #c00;
+	font-style: italic;
+	font-size: 0.9em;
 }
 .lockable-note a {
 	color: #c00;
@@ -670,54 +670,54 @@ img.preload {
 	margin: 0;
 }
 .errors_box ul, .warnings_box ul, .success_box ul {
-	text-align: left;
 	margin: 0;
 	padding-left: 1em;
+	text-align: left;
 }
 
 /* boite erreur */
 .errors_box {
-	background-color: #FFEEEE;
 	border: 1px solid red;
+	background-color: #FFEEEE;
 }
 
 /* boite avertissement */
 .warnings_box {
-	background-color: #FFFFEE;
 	border: 1px solid #FFFF00;
+	background-color: #FFFFEE;
 }
 
 /* boite message */
 .success_box {
-	background-color: #EEFFEE;
 	border: 1px solid #009900;
+	background-color: #EEFFEE;
 }
 
 /* boite commune */
 .box {
+	margin-bottom: 1em;
 	border: 1px solid #cccccc;
 	border-top: 2px solid #cccccc;
-	margin-bottom: 1em;
 	-moz-border-radius: 8px;
 }
 
 .box .title {
 	margin: 0;
-	background-color: #E8E8E8;
 	padding: 0.3em;
 	-moz-border-radius-topleft: 6px;
 	-moz-border-radius-topright: 6px;
+	background-color: #E8E8E8;
 }
 
 .box .actions {
-	padding: 0.5em;
 	clear: both;
+	padding: 0.5em;
 }
 
 .box .actions ul {
-	list-style: none;
 	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 
 .box .actions li {
@@ -726,8 +726,8 @@ img.preload {
 }
 
 #alertMsie {
-	width: 80%;
 	margin: 0 auto;
+	width: 80%;
 }
 
 
@@ -739,11 +739,11 @@ img.preload {
 	zoom: 1;
 }
 .two-cols:after, .three-cols:after, .four-cols:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 .two-cols .col, .three-cols .col, .four-cols .col {
 	float: left;
@@ -822,18 +822,18 @@ img.preload {
 }
 
 #categories_lists ul, #rubriques_lists ul {
-	list-style: none;
 	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 
 #categories_lists ul li, #rubriques_lists ul li {
 	margin: 1em 0 0 0;
 	padding: 5px 10px 1em 30px;
 	border: 1px solid #ccc;
-	background: transparent url(../img/admin/cat-bg.png) repeat-y top left;
-	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	background: transparent url(../img/admin/cat-bg.png) repeat-y top left;
 }
 
 #categories_lists ul li p, #rubriques_lists ul li p {
@@ -850,9 +850,9 @@ img.preload {
 }
 
 #sortable, .sortable {
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	list-style-type: none;
 /*	width: 90%; */
 }
 
@@ -877,19 +877,19 @@ img.preload {
 	margin-bottom: 0px;
 }
 .lang-switcher-button {
-	padding: 0 3px 1px 3px;
 	margin: 2px;
+	padding: 0 3px 1px 3px;
 }
 .lang-switcher-buttons .button_on { }
 .lang-switcher-buttons .button_off {
+	opacity: 0.5;
 	filter: alpha(opacity=50);
 	-moz-opacity: 0.5;
-	opacity: 0.5;
 }
 .lang-switcher-buttons .button_off:hover {
+	opacity: 0.9;
 	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
-	opacity: 0.9;
 }
 
 
@@ -901,21 +901,21 @@ img.preload {
 	zoom: 1;
 }
 #form-list-batches:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 #form-list-batches #checkboxHelper {
 	float: left;
+	width: 49%;
 	text-align: left;
-	width: 49%
 }
 #form-list-batches #actionsChoices {
 	float: right;
-	text-align: right;
 	width: 49%;
+	text-align: right;
 	white-space: nowrap;
 }
 #form-list-batches #actionsChoices {
@@ -931,17 +931,17 @@ p.buttonset {
 }
 
 .double-buttonset {
+	position: static;
 	margin: 0;
 	padding: 0;
-	position: static;
 	zoom: 1;
 }
 .double-buttonset:after {
-	content: ".";
 	display: block;
-	height: 0;
-	clear: both;
 	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
 }
 	.double-buttonset .buttonsetA {
 		float: left;
@@ -979,10 +979,10 @@ p.buttonset {
 #overlay {
 	z-index: 9998;
 	background-color: #aaaaaa;
+	opacity: 0.4;
 
 	filter: alpha(opacity=40);
 	-moz-opacity: 0.4;
-	opacity: 0.4;
 }
 #loader {
 	z-index: 9999;
@@ -1002,15 +1002,15 @@ p.buttonset {
 #jWarning,
 #jError {
 	position: absolute;
-	font-size: 1.17em;
+	z-index: 9999;
+	margin: 15px;
 	padding: 10px;
 	padding-left: 50px;
-	margin: 15px;
 	border: 1px solid;
-	z-index: 9999;
+	-webkit-border-radius: 5px;
 	-moz-border-radius : 5px;
 	border-radius: 5px;
-	-webkit-border-radius: 5px;
+	font-size: 1.17em;
 }
 #jInfos a,
 #jSuccess a,
@@ -1020,46 +1020,46 @@ p.buttonset {
 }
 
 #jInfos {
+	border-color: #9FC7F5;
 	background: #DBECFF url('../img/notify/info.png') no-repeat 15px center;
 	color: #2850C1;
-	border-color: #9FC7F5;
 }
 	#jInfos a {
 		color: #2850C1 !important;
 	}
 
 #jSuccess {
+	border-color: #9ADF8F;
 	background: #D4FFCD url('../img/notify/success.png') no-repeat 15px center;
 	color: #258815;
-	border-color: #9ADF8F;
 }
 	#jSuccess a {
 		color: #258815 !important;
 	}
 
 #jWarning {
+	border-color: #F57F0A;
 	background: #FEFCCB url('../img/notify/warning.png') no-repeat 15px center;
 	color: #D16704;
-	border-color: #F57F0A;
 }
 	#jWarning a {
 		color: #D16704 !important;
 	}
 
 #jError {
+	border-color: #DF8F90;
 	background: #FFD2D3 url('../img/notify/error.png') no-repeat 15px center;
 	color: #8F2121;
-	border-color: #DF8F90;
 }
 	#jError a {
 		color: #8a1f11 !important;
 	}
 
 #jOverlay {
-	width: 100%;
-	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 9998
+	z-index: 9998;
+	width: 100%;
+	height: 100%;
 }
