@@ -74,8 +74,7 @@ class Cleaner extends BaseTools
 		'symfony/http-foundation/Symfony/Component/HttpFoundation' => 'Tests',
 		'symfony/routing/Symfony/Component/Routing' => 'Tests',
 		'symfony/templating/Symfony/Component/Templating' => 'Tests',
-		'symfony/yaml/Symfony/Component/Yaml' => 'Tests',
-		'umpirsky/country-list' => 'src'
+		'symfony/yaml/Symfony/Component/Yaml' => 'Tests'
 	);
 
 	public function __construct($okt)
@@ -267,21 +266,6 @@ class Cleaner extends BaseTools
 					$this->aToRemove[] = $files->getRealpath();
 				}
 			}
-		}
-
-		# special case for umpirsky/country-list
-		$this->aToRemove[] = $sVendorDir.'/umpirsky/country-list/country/icu';
-
-		$finder = (new Finder())
-			->ignoreVCS(false)
-			->ignoreDotFiles(false)
-			->files()
-			->in($sVendorDir.'/umpirsky/country-list/country/cldr')
-			->notName('*.php');
-		;
-
-		foreach ($finder as $files) {
-			$this->aToRemove[] = $files->getRealpath();
 		}
 
 		if ($bProcess) {

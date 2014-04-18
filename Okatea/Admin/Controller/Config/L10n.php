@@ -163,7 +163,7 @@ class L10n extends Controller
 		}
 
 		# fetch country infos
-		$sCountryListInfos = $this->okt->options->get('root_dir').'/vendor/umpirsky/country-list/country/cldr/'.$this->okt->user->language.'/country.php';
+		$sCountryListInfos = $this->okt->options->get('okt_dir').'/Tao/L10n/country-list/'.$this->okt->user->language.'/country.php';
 
 		$aCountryList = array(' ' => null);
 		if (file_exists($sCountryListInfos))
