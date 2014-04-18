@@ -1,12 +1,12 @@
 /*!
- * jQuery UI CSS Framework 1.10.3
+ * jQuery UI CSS Framework 1.10.4
  * http://jqueryui.com
  *
- * Copyright 2013 jQuery Foundation and other contributors
+ * Copyright 2014 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://docs.jquery.com/UI/Theming/API
+ * http://api.jqueryui.com/category/theming/
  *
  * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Gill%20Sans%2CArial%2Csans-serif&fwDefault=bold&fsDefault=1.2em&cornerRadius=4px&bgColorHeader=35414f&bgTextureHeader=dots_small&bgImgOpacityHeader=35&borderColorHeader=2c4359&fcHeader=e1e463&iconColorHeader=e1e463&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=2c4359&iconColorContent=c02669&bgColorDefault=93c3cd&bgTextureDefault=diagonals_small&bgImgOpacityDefault=50&borderColorDefault=93c3cd&fcDefault=333333&iconColorDefault=ffffff&bgColorHover=ccd232&bgTextureHover=diagonals_small&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=db4865&bgTextureActive=diagonals_small&bgImgOpacityActive=40&borderColorActive=ff6b7f&fcActive=ffffff&iconColorActive=ffffff&bgColorHighlight=ffff38&bgTextureHighlight=dots_medium&bgImgOpacityHighlight=80&borderColorHighlight=b4d100&fcHighlight=363636&iconColorHighlight=88a206&bgColorError=ff3853&bgTextureError=diagonals_small&bgImgOpacityError=50&borderColorError=ff6b7f&fcError=ffffff&iconColorError=ffeb33&bgColorOverlay=f7f7ba&bgTextureOverlay=white_lines&bgImgOpacityOverlay=85&opacityOverlay=80&bgColorShadow=ba9217&bgTextureShadow=flat&bgImgOpacityShadow=75&opacityShadow=20&thicknessShadow=10px&offsetTopShadow=8px&offsetLeftShadow=8px&cornerRadiusShadow=5px
  */
@@ -30,7 +30,7 @@
 }
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
-	background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
+	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
 	color: #2c4359;
 }
 .ui-widget-content a {
@@ -38,7 +38,7 @@
 }
 .ui-widget-header {
 	border: 1px solid #2c4359;
-	background: #35414f url(images/ui-bg_dots-small_35_35414f_2x2.png) 50% 50% repeat;
+	background: #35414f url("images/ui-bg_dots-small_35_35414f_2x2.png") 50% 50% repeat;
 	color: #e1e463;
 	font-weight: bold;
 }
@@ -52,7 +52,7 @@
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #93c3cd;
-	background: #93c3cd url(images/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat;
+	background: #93c3cd url("images/ui-bg_diagonals-small_50_93c3cd_40x40.png") 50% 50% repeat;
 	font-weight: bold;
 	color: #333333;
 }
@@ -69,14 +69,18 @@
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #999999;
-	background: #ccd232 url(images/ui-bg_diagonals-small_75_ccd232_40x40.png) 50% 50% repeat;
+	background: #ccd232 url("images/ui-bg_diagonals-small_75_ccd232_40x40.png") 50% 50% repeat;
 	font-weight: bold;
 	color: #212121;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
-.ui-state-hover a:visited {
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited {
 	color: #212121;
 	text-decoration: none;
 }
@@ -84,7 +88,7 @@
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #ff6b7f;
-	background: #db4865 url(images/ui-bg_diagonals-small_40_db4865_40x40.png) 50% 50% repeat;
+	background: #db4865 url("images/ui-bg_diagonals-small_40_db4865_40x40.png") 50% 50% repeat;
 	font-weight: bold;
 	color: #ffffff;
 }
@@ -101,7 +105,7 @@
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #b4d100;
-	background: #ffff38 url(images/ui-bg_dots-medium_80_ffff38_4x4.png) 50% 50% repeat;
+	background: #ffff38 url("images/ui-bg_dots-medium_80_ffff38_4x4.png") 50% 50% repeat;
 	color: #363636;
 }
 .ui-state-highlight a,
@@ -113,7 +117,7 @@
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #ff6b7f;
-	background: #ff3853 url(images/ui-bg_diagonals-small_50_ff3853_40x40.png) 50% 50% repeat;
+	background: #ff3853 url("images/ui-bg_diagonals-small_50_ff3853_40x40.png") 50% 50% repeat;
 	color: #ffffff;
 }
 .ui-state-error a,
@@ -159,27 +163,27 @@
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-	background-image: url(images/ui-icons_c02669_256x240.png);
+	background-image: url("images/ui-icons_c02669_256x240.png");
 }
 .ui-widget-header .ui-icon {
-	background-image: url(images/ui-icons_e1e463_256x240.png);
+	background-image: url("images/ui-icons_e1e463_256x240.png");
 }
 .ui-state-default .ui-icon {
-	background-image: url(images/ui-icons_ffffff_256x240.png);
+	background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-	background-image: url(images/ui-icons_454545_256x240.png);
+	background-image: url("images/ui-icons_454545_256x240.png");
 }
 .ui-state-active .ui-icon {
-	background-image: url(images/ui-icons_ffffff_256x240.png);
+	background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-highlight .ui-icon {
-	background-image: url(images/ui-icons_88a206_256x240.png);
+	background-image: url("images/ui-icons_88a206_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
-	background-image: url(images/ui-icons_ffeb33_256x240.png);
+	background-image: url("images/ui-icons_ffeb33_256x240.png");
 }
 
 /* positioning */
@@ -392,14 +396,14 @@
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #f7f7ba url(images/ui-bg_white-lines_85_f7f7ba_40x100.png) 50% 50% repeat;
+	background: #f7f7ba url("images/ui-bg_white-lines_85_f7f7ba_40x100.png") 50% 50% repeat;
 	opacity: .8;
 	filter: Alpha(Opacity=80);
 }
 .ui-widget-shadow {
 	margin: 8px 0 0 8px;
 	padding: 10px;
-	background: #ba9217 url(images/ui-bg_flat_75_ba9217_40x100.png) 50% 50% repeat-x;
+	background: #ba9217 url("images/ui-bg_flat_75_ba9217_40x100.png") 50% 50% repeat-x;
 	opacity: .2;
 	filter: Alpha(Opacity=20);
 	border-radius: 5px;
