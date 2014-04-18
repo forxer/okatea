@@ -776,12 +776,7 @@ class Application
 		{
 			$sCacheFile = $this->options->get('cache_dir').'/htmlpurifier';
 
-			if (!file_exists($sCacheFile))
-			{
-				$fs = new Filesystem();
-
-				$fs->mkdir($sCacheFile);
-			}
+			(new Filesystem())->mkdir($sCacheFile);
 
 			$config = \HTMLPurifier_Config::createDefault();
 

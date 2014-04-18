@@ -152,9 +152,7 @@ class ImageUpload
 				$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
 
 				# création du répertoire s'il existe pas
-				if (!file_exists($sCurrentImagesDir)) {
-					(new Filesystem())->mkdir($sCurrentImagesDir);
-				}
+				(new Filesystem())->mkdir($sCurrentImagesDir);
 
 				$sOutput = $j.'.'.$sExtension;
 
@@ -217,9 +215,7 @@ class ImageUpload
 				self::checkType($sUploadedFile['type']);
 
 				# création du répertoire s'il existe pas
-				if (!file_exists($sCurrentImageDir)) {
-					(new Filesystem())->mkdir($sCurrentImageDir);
-				}
+				(new Filesystem())->mkdir($sCurrentImageDir);
 
 				# nom du fichier
 				$sOutput = $sFilename.'.'.$sExtension;

@@ -119,9 +119,7 @@ class FileUpload
 				$this->checkFile($sExtension);
 
 				# création du répertoire s'il existe pas
-				if (!file_exists($this->upload_dir)) {
-					(new Filesystem())->mkdir($this->upload_dir);
-				}
+				(new Filesystem())->mkdir($this->upload_dir);
 
 				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
 
@@ -189,9 +187,7 @@ class FileUpload
 //				}
 
 				# création du répertoire s'il existe pas
-				if (!file_exists($this->upload_dir)) {
-					(new Filesystem())->mkdir($this->upload_dir);
-				}
+				(new Filesystem())->mkdir($this->upload_dir);
 
 				# suppression de l'éventuel ancien fichier
 				if (isset($aCurrentFiles[$i])) {

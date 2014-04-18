@@ -137,7 +137,7 @@ class Home extends Controller
 		# set cache directory
 		$sCacheDir = $this->okt->options->get('cache_dir').'/feeds/';
 
-		$fs = (new Filesystem())->mkdir($sCacheDir);
+		(new Filesystem())->mkdir($sCacheDir);
 
 		$this->feed->set_cache_location($sCacheDir);
 

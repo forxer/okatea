@@ -114,12 +114,7 @@ class Update
 			return;
 		}
 
-		if (!is_dir($sCacheDir))
-		{
-			$fs = new Filesystem();
-
-			$fs->mkdir($sCacheDir);
-		}
+		(new Filesystem())->mkdir($sCacheDir);
 
 		# Try to get latest version number
 		$response = (new Client())->get($this->sUrl, ['exceptions' => false]);
