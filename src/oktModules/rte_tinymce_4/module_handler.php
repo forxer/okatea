@@ -48,6 +48,9 @@ class module_rte_tinymce_4 extends oktModule
 
 		$aOptions = array();
 
+		$aOptions[] = 'relative_urls: true';
+		$aOptions[] = 'document_base_url: "'.html::escapeJS($okt->config->app_host.$okt->config->app_path).'"';
+
 		# selector
 		$aOptions[] = 'selector: "'.$element.'"';
 

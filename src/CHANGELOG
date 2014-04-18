@@ -11,6 +11,9 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.1
+! module rte_tinymce_4 1.0.1
+	! TinyMCE 4.0.22
+	- fix embeded documents urls
 ! module estimate 1.0.1
 	! add "phone", "organization", "address", "zip_code" and "city" fields
 	- fix end date bug
