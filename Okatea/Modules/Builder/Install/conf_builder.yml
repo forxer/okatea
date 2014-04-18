@@ -9,6 +9,7 @@ modules:
     - Development
     - News
     - Pages
+    - RteTinymce4
     - RteTinymce3
     - RteTinymce4
   package:
@@ -18,6 +19,7 @@ themes:
   repository_url: http://repository.okatea.org/modules/
   repository:
     - DefaultTheme
+    - HTML5Boilerplate
     - Okatea
     - Testing
   package:

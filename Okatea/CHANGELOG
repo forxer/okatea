@@ -13,6 +13,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 2.0-beta5
 # new way to load locales
 # use Carbon and Intl for displaying localized dates
+# removed dotclear/clearbricks
 ! reintroduced Contact module
 ! new CKEditor module
 - many bugs fixes
