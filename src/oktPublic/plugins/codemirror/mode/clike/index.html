@@ -105,6 +105,11 @@ enum Enum {
   VAL1, VAL2, VAL3
 };
 
+char32_t unicode_string = U"\U0010FFFF";
+string raw_string = R"delim(anything
+you
+want)delim";
+
 int Helper(const MyType& param) {
   return 0;
 }
@@ -165,12 +170,12 @@ public class Class<T, V> implements MyInterface {
 </textarea></div>
 
     <script>
-      var editor = CodeMirror.fromTextArea(document.getElementById("c-code"), {
+      var cEditor = CodeMirror.fromTextArea(document.getElementById("c-code"), {
         lineNumbers: true,
         matchBrackets: true,
         mode: "text/x-csrc"
       });
-      var editor = CodeMirror.fromTextArea(document.getElementById("cpp-code"), {
+      var cppEditor = CodeMirror.fromTextArea(document.getElementById("cpp-code"), {
         lineNumbers: true,
         matchBrackets: true,
         mode: "text/x-c++src"

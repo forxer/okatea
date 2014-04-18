@@ -11,6 +11,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 1.0.1
+! CodeMirror 3.23
+! jQuery Spectrum Colorpicker 1.3.4
 ! module rte_tinymce_4 1.0.1
 	! TinyMCE 4.0.22
 	- fix embeded documents urls
