@@ -1,8 +1,0 @@
-
-contactPage:
-    path:     /contact
-    defaults: { controller: ContactController::contactPage }  
-
-contactMapPage:
-    path:     /map
-    defaults: { controller: ContactController::contactMapPage }
