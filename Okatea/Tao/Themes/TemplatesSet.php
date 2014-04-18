@@ -122,7 +122,7 @@ class TemplatesSet
 
 			$this->okt->page->flash->success(__('c_a_tpl_config_tpl_deleted'));
 
-			\http::redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
+			$this->redirect($this->sBaseUrl.'tpl_family='.rawurlencode($this->sTplFamily).'&tpl_deleted=1');
 		}
 	}
 

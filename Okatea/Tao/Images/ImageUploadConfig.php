@@ -10,6 +10,7 @@ namespace Okatea\Tao\Images;
 
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Html\Escaper;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Aide à la configuration de l'upload des images.
@@ -232,21 +233,12 @@ class ImageUploadConfig
 	{
 		$sWatermarkPath = $this->oImageUpload->getWatermarkUploadDir();
 
-		if (\files::isDeletable($sWatermarkPath.$this->oImageUpload->aConfig['watermark_file'])) {
-			unlink($sWatermarkPath.$this->oImageUpload->aConfig['watermark_file']);
-		}
-
-		if (\files::isDeletable($sWatermarkPath.'min-'.$this->oImageUpload->aConfig['watermark_file'])) {
-			unlink($sWatermarkPath.'min-'.$this->oImageUpload->aConfig['watermark_file']);
-		}
-
-		if (\files::isDeletable($sWatermarkPath.'min2-'.$this->oImageUpload->aConfig['watermark_file'])) {
-			unlink($sWatermarkPath.'min2-'.$this->oImageUpload->aConfig['watermark_file']);
-		}
-
-		if (\files::isDeletable($sWatermarkPath.'sq-'.$this->oImageUpload->aConfig['watermark_file'])) {
-			unlink($sWatermarkPath.'sq-'.$this->oImageUpload->aConfig['watermark_file']);
-		}
+		(new Filesystem())->remove(array(
+			$sWatermarkPath.$this->oImageUpload->aConfig['watermark_file'],
+			$sWatermarkPath.'min-'.$this->oImageUpload->aConfig['watermark_file'],
+			$sWatermarkPath.'min2-'.$this->oImageUpload->aConfig['watermark_file'],
+			$sWatermarkPath.'sq-'.$this->oImageUpload->aConfig['watermark_file']
+		));
 
 		return array_merge($this->oImageUpload->aConfig, array('watermark_file' => ''));
 	}

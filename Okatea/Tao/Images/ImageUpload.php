@@ -11,6 +11,7 @@ namespace Okatea\Tao\Images;
 use Imagine\Gd\Imagine;
 use Imagine\Image;
 use Okatea\Tao\Misc\Utilities;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Outil pour l'upload des images.
@@ -152,7 +153,7 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImagesDir)) {
-					\files::makeDir($sCurrentImagesDir,true);
+					(new Filesystem())->mkdir($sCurrentImagesDir);
 				}
 
 				$sOutput = $j.'.'.$sExtension;
@@ -217,16 +218,14 @@ class ImageUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($sCurrentImageDir)) {
-					\files::makeDir($sCurrentImageDir,true);
+					(new Filesystem())->mkdir($sCurrentImageDir);
 				}
 
 				# nom du fichier
 				$sOutput = $sFilename.'.'.$sExtension;
 
 				# suppression de l'éventuel ancien fichier
-				if (file_exists($sCurrentImageDir.'/'.$sOutput) && \files::isDeletable($sCurrentImageDir.'/'.$sOutput)) {
-					unlink($sCurrentImageDir.'/'.$sOutput);
-				}
+				(new Filesystem())->remove($sCurrentImageDir.'/'.$sOutput);
 
 				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir.$sOutput)) {
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
@@ -378,13 +377,10 @@ class ImageUpload
 				# suppression des éventuels ancien fichier et ancien original
 				if (isset($aCurrentImages[$i]['img_name']))
 				{
-					if (\files::isDeletable($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'])) {
-						unlink($sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name']);
-					}
-
-					if (\files::isDeletable($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name'])) {
-						unlink($sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name']);
-					}
+					(new Filesystem())->remove(array(
+						$sCurrentImagesDir.'/'.$aCurrentImages[$i]['img_name'],
+						$sCurrentImagesDir.'/o-'.$aCurrentImages[$i]['img_name']
+					));
 				}
 
 				$sOutput = $j.'.'.$sExtension;
@@ -419,16 +415,12 @@ class ImageUpload
 	/**
 	 * Suppression de toutes les images d'un élément
 	 *
-	 * @param array $aCurrentImages
+	 * @param integer $iItemId
 	 * @return void
 	 */
-	public function deleteAllImages($iItemId, $aCurrentImages)
+	public function deleteAllImages($iItemId)
 	{
-		$sCurrentImagesDir = $this->getCurrentUploadDir($iItemId);
-
-		if (is_dir($sCurrentImagesDir) && is_writable($sCurrentImagesDir)) {
-			\files::deltree($sCurrentImagesDir);
-		}
+		(new Filesystem())->remove($this->getCurrentUploadDir($iItemId));
 	}
 
 	/**
@@ -450,37 +442,17 @@ class ImageUpload
 		$sCurrentImagesUrl = $this->getCurrentUploadUrl($iItemId);
 
 		# suppression des fichiers sur le disque
-		if (\files::isDeletable($sCurrentImagesDir.'/'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/'.$aCurrentImages[$iImgId]['img_name']);
-		}
 
-		if (\files::isDeletable($sCurrentImagesDir.'/o-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/o-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/min-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/min-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/min2-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/min2-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/min3-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/min3-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/min4-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/min4-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/min5-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/min5-'.$aCurrentImages[$iImgId]['img_name']);
-		}
-
-		if (\files::isDeletable($sCurrentImagesDir.'/sq-'.$aCurrentImages[$iImgId]['img_name'])) {
-			unlink($sCurrentImagesDir.'/sq-'.$aCurrentImages[$iImgId]['img_name']);
-		}
+		(new Filesystem())->remove(array(
+			$sCurrentImagesDir.'/'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/o-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/min-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/min2-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/min3-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/min4-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/min5-'.$aCurrentImages[$iImgId]['img_name'],
+			$sCurrentImagesDir.'/sq-'.$aCurrentImages[$iImgId]['img_name']
+		));
 
 		# suppression du nom pour les infos de la BDD
 		unset($aCurrentImages[$iImgId]);
@@ -537,7 +509,7 @@ class ImageUpload
 		}
 
 		if (!Utilities::dirHasFiles($sCurrentImagesDir)) {
-			\files::deltree($sCurrentImagesDir);
+			(new Filesystem())->remove($sCurrentImagesDir);
 		}
 
 		return array_filter($aNewImages);

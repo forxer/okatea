@@ -22,7 +22,6 @@
 	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.4.0",
-		"dotclear/clearbricks" : "dev-default",
 		"dunglas/php-socialshare" : "~0.1",
 		"erusev/parsedown" : "~0.9",
 		"ezyang/htmlpurifier" : "~4.6",
@@ -54,10 +53,6 @@
 			"Okatea\\" : "Okatea"
 		},
 		"classmap" : [
-			"vendor/dotclear/clearbricks/common",
-			"vendor/dotclear/clearbricks/filemanager",
-			"vendor/dotclear/clearbricks/image",
-			"vendor/dotclear/clearbricks/zip"
 		],
 		"files" : [
 			"Okatea/functions.php"
