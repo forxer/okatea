@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $view->extend('Builder/Admin/Templates/Builder');
 
 

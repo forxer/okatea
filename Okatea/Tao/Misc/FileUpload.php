@@ -9,6 +9,7 @@
 namespace Okatea\Tao\Misc;
 
 use Okatea\Tao\Misc\Utilities;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Outil pour l'upload de fichier.
@@ -119,7 +120,7 @@ class FileUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					\files::makeDir($this->upload_dir, true);
+					(new Filesystem())->mkdir($this->upload_dir);
 				}
 
 				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
@@ -189,12 +190,12 @@ class FileUpload
 
 				# création du répertoire s'il existe pas
 				if (!file_exists($this->upload_dir)) {
-					\files::makeDir($this->upload_dir, true);
+					(new Filesystem())->mkdir($this->upload_dir);
 				}
 
 				# suppression de l'éventuel ancien fichier
-				if (isset($aCurrentFiles[$i]) && \files::isDeletable($this->upload_dir.'/'.$aCurrentFiles[$i])) {
-					unlink($this->upload_dir.'/'.$aCurrentFiles[$i]);
+				if (isset($aCurrentFiles[$i])) {
+					(new Filesystem())->remove($this->upload_dir.'/'.$aCurrentFiles[$i]);
 				}
 
 				$sDestination = $this->upload_dir.'/'.$iItemId.'-'.$j.'.'.$sExtension;
