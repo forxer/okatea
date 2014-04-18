@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Filesystem\Filesystem;
+
 $view->extend('layout');
 
 ?>
@@ -16,13 +18,13 @@ $view->extend('layout');
 
 
 <?php
-# destroy session data
 
+# destroy session data
 $okt->session->clear();
 $okt->session->invalidate();
 
 # remove install dir
-//	if ($okt->env === 'prod')  {
-//		@files::deltree($okt->options->get('root_dir').'/install/', true);
-//	}
+if ($okt->env === 'prod')  {
+	(new Filesystem())->remove($okt->options->get('root_dir').'/install/');
+}
 

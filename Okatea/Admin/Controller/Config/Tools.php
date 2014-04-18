@@ -19,8 +19,8 @@ class Tools extends Controller
 {
 	protected $aPageData;
 
-	protected $aCacheFiles;
-	protected $aPublicCacheFiles;
+	protected $oCacheFiles;
+	protected $oPublicCacheFiles;
 
 	protected $aCleanableFiles;
 
@@ -85,8 +85,8 @@ class Tools extends Controller
 			'title' => __('c_a_tools_cache'),
 			'content' => $this->renderView('Config/Tools/Tabs/Cache', array(
 				'aPageData'             => $this->aPageData,
-				'aCacheFiles'           => $this->aCacheFiles,
-				'aPublicCacheFiles'     => $this->aPublicCacheFiles
+				'oCacheFiles'           => $this->oCacheFiles,
+				'oPublicCacheFiles'     => $this->oPublicCacheFiles
 			))
 		);
 
@@ -136,10 +136,10 @@ class Tools extends Controller
 	protected function cacheInit()
 	{
 		# liste des fichiers cache
-		$this->aCacheFiles = Utilities::getOktCacheFiles();
+		$this->oCacheFiles = Utilities::getOktCacheFiles();
 
 		# liste des fichiers cache public
-		$this->aPublicCacheFiles = Utilities::getOktPublicCacheFiles();
+		$this->oPublicCacheFiles = Utilities::getOktPublicCacheFiles();
 	}
 
 	protected function cleanupInit()
@@ -232,7 +232,7 @@ class Tools extends Controller
 	{
 		# Suppression d'un fichier cache
 		$sCacheFile = $this->request->query->get('cache_file');
-		if ($sCacheFile && in_array($sCacheFile, $this->aCacheFiles))
+		if ($sCacheFile)
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir').'/'.$sCacheFile);
 
@@ -243,7 +243,7 @@ class Tools extends Controller
 
 		# Suppression d'un fichier cache public
 		$sPublicCacheFile = $this->request->query->get('public_cache_file');
-		if ($sPublicCacheFile && in_array($sPublicCacheFile, $this->aPublicCacheFiles))
+		if ($sPublicCacheFile)
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->public_dir.'/cache/'.$sPublicCacheFile);
 

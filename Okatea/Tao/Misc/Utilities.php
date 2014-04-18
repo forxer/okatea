@@ -11,9 +11,11 @@ namespace Okatea\Tao\Misc;
 use DirectoryIterator;
 use Swift_Validate;
 use Okatea\Tao\Html\Escaper;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 /**
- * Utilitaires divers et variés...
+ * Diverse and varied utilities ...
  *
  */
 class Utilities
@@ -691,46 +693,25 @@ class Utilities
 	}
 
 	/**
-	 * Retourne la liste des fichiers cache d'Okatea
+	 * Retourne la liste des fichiers cache d'Okatea.
 	 *
 	 * @return array
 	 */
-	public static function getOktCacheFiles($bForce=false)
+	public static function getOktCacheFiles($bForce = false)
 	{
 		global $okt;
 
-		static $aCacheFiles=null;
+		static $oCacheFiles = null;
 
-		if (is_array($aCacheFiles) && !$bForce) {
-			return $aCacheFiles;
+		if (null !== $oCacheFiles && !$bForce) {
+			return $oCacheFiles;
 		}
 
-		$aCacheFiles = array();
-		foreach (new DirectoryIterator($okt->options->get('cache_dir')) as $oFileInfo)
-		{
-			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
-				continue;
-			}
+		$oCacheFiles = new Finder();
+		$oCacheFiles->in($okt->options->get('cache_dir'));
+		$oCacheFiles->sortByName();
 
-			if ($oFileInfo->isDir())
-			{
-				foreach (new DirectoryIterator($oFileInfo->getPathname()) as $oFileInfoInDir)
-				{
-					if ($oFileInfoInDir->isDot() || in_array($oFileInfoInDir->getFilename(),array('.svn','.htaccess','.gitkeep'))) {
-						continue;
-					}
-
-					$aCacheFiles[] = $oFileInfo->getFilename().'/'.$oFileInfoInDir->getFilename();
-				}
-			}
-			else {
-				$aCacheFiles[] = $oFileInfo->getFilename();
-			}
-
-		}
-		natsort($aCacheFiles);
-
-		return $aCacheFiles;
+		return $oCacheFiles;
 	}
 
 	/**
@@ -738,21 +719,9 @@ class Utilities
 	 *
 	 * @return void
 	 */
-	public static function deleteOktCacheFiles()
+	public static function deleteOktCacheFiles($bForce = false)
 	{
-		global $okt;
-
-		$aCacheFiles = self::getOktCacheFiles();
-
-		foreach ($aCacheFiles as $file)
-		{
-			if (is_dir($okt->options->get('cache_dir').'/'.$file)) {
-				\files::deltree($okt->options->get('cache_dir').'/'.$file);
-			}
-			else {
-				unlink($okt->options->get('cache_dir').'/'.$file);
-			}
-		}
+		return (new Filesystem())->remove(self::getOktCacheFiles($bForce));
 	}
 
 	/**
@@ -760,28 +729,23 @@ class Utilities
 	 *
 	 * @return array
 	 */
-	public static function getOktPublicCacheFiles($bForce=false)
+	public static function getOktPublicCacheFiles($bForce = false)
 	{
 		global $okt;
 
-		static $aCacheFiles=null;
+		static $oCacheFiles = null;
 
-		if (is_array($aCacheFiles) && !$bForce) {
-			return $aCacheFiles;
+		if (null !== $oCacheFiles && !$bForce) {
+			return $oCacheFiles;
 		}
 
-		$aCacheFiles = array();
-		foreach (new DirectoryIterator($okt->options->public_dir.'/cache') as $oFileInfo)
-		{
-			if ($oFileInfo->isDot() || in_array($oFileInfo->getFilename(),array('.svn','.htaccess','index.html'))) {
-				continue;
-			}
+		$oCacheFiles = new Finder();
+		$oCacheFiles
+			->in($okt->options->public_dir.'/cache')
+			->notName('index.html');
+		$oCacheFiles->sortByName();
 
-			$aCacheFiles[] = $oFileInfo->getFilename();
-		}
-		natsort($aCacheFiles);
-
-		return $aCacheFiles;
+		return $oCacheFiles;
 	}
 
 	/**
@@ -789,21 +753,9 @@ class Utilities
 	 *
 	 * @return void
 	 */
-	public static function deleteOktPublicCacheFiles($bForce=false)
+	public static function deleteOktPublicCacheFiles($bForce = false)
 	{
-		global $okt;
-
-		$aCacheFiles = self::getOktPublicCacheFiles($bForce);
-
-		foreach ($aCacheFiles as $file)
-		{
-			if (is_dir($okt->options->public_dir.'/cache/'.$file)) {
-				\files::deltree($okt->options->public_dir.'/cache/'.$file);
-			}
-			else {
-				unlink($okt->options->public_dir.'/cache/'.$file);
-			}
-		}
+		return (new Filesystem())->remove(self::getOktPublicCacheFiles($bForce));
 	}
 
 	/**

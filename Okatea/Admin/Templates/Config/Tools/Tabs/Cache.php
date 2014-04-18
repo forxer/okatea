@@ -21,18 +21,18 @@ use Okatea\Tao\L10n\DateTime;
 	</tr></thead>
 	<tbody>
 	<?php $iCountLine = 0;
-	foreach ($aCacheFiles as $sFile) :
+	foreach ($oCacheFiles as $oFileInfo) :
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
-		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($sFile) ?></th>
+		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('okt_dir')).'/'.basename($okt->options->get('cache_dir')) ?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full(filemtime($okt->options->get('cache_dir').'/'.$sFile)) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full($oFileInfo->getMTime()) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
-					<a href="<?php echo $view->generateUrl('config_tools') ?>?cache_file=<?php echo $view->escape($sFile) ?>"
+					<a href="<?php echo $view->generateUrl('config_tools') ?>?cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
-					title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($sFile)) ?>"
+					title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($oFileInfo->getRelativePathname())) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
@@ -41,18 +41,18 @@ use Okatea\Tao\L10n\DateTime;
 	<?php $iCountLine++;
 	endforeach; ?>
 
-	<?php foreach ($aPublicCacheFiles as $sFile) :
+	<?php foreach ($oPublicCacheFiles as $oFileInfo) :
 		$sTdClass = $iCountLine%2 == 0 ? 'even' : 'odd'; ?>
 	<tr>
-		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($sFile) ?></th>
+		<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
 		<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('public_dir')).'/cache'?></td>
-		<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full(filemtime($okt->options->public_dir.'/cache/'.$sFile)) ?></td>
+		<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full($oFileInfo->getMTime()) ?></td>
 		<td class="<?php echo $sTdClass ?> small nowrap">
 			<ul class="actions">
 				<li>
-					<a href="<?php echo $view->generateUrl('config_tools') ?>?public_cache_file=<?php echo $view->escape($sFile) ?>"
+					<a href="<?php echo $view->generateUrl('config_tools') ?>?public_cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
-					title="<?php printf(__('c_c_action_Delete_%s'),$view->escape($sFile)) ?>"
+					title="<?php printf(__('c_c_action_Delete_%s'),$view->escape($oFileInfo->getRelativePathname())) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
 				</li>
 			</ul>
