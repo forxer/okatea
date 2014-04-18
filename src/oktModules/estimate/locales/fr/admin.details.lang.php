@@ -14,6 +14,7 @@ $GLOBALS['__l10n']['m_estimate_details_delete'] = 'Supprimer définitivement';
 $GLOBALS['__l10n']['m_estimate_details_delete_confirm'] = 'Etes-vous sûr de vouloir supprimer définitivement cette demande ? Cette action est irréversible.';
 
 $GLOBALS['__l10n']['m_estimate_details_user_infos'] = 'Informations concernant le demandeur';
+$GLOBALS['__l10n']['m_estimate_details_organization_infos'] = 'Informations concernant l’organisation du demandeur';
 $GLOBALS['__l10n']['m_estimate_details_projected_dates'] = 'Dates prévisionnelles';
 $GLOBALS['__l10n']['m_estimate_details_products_accessories'] = 'Produits et accessoires';
 $GLOBALS['__l10n']['m_estimate_details_products'] = 'Produits';

@@ -17,6 +17,11 @@ $GLOBALS['__l10n']['m_estimate_must_enter_lastname'] = 'Please enter your last n
 $GLOBALS['__l10n']['m_estimate_must_enter_firstname'] = 'Please enter your first name.';
 $GLOBALS['__l10n']['m_estimate_must_enter_email'] = 'Please enter your email address.';
 $GLOBALS['__l10n']['m_estimate_must_enter_validate_email'] = 'Please enter a valid email address.';
+$GLOBALS['__l10n']['m_estimate_must_enter_phone'] = 'Please enter a phone number.';
+$GLOBALS['__l10n']['m_estimate_must_enter_organization'] = 'Please enter the name of your organization.';
+$GLOBALS['__l10n']['m_estimate_must_enter_address'] = 'Please enter the address of your organization.';
+$GLOBALS['__l10n']['m_estimate_must_enter_zip_code'] = 'Please enter the postcode of your organization.';
+$GLOBALS['__l10n']['m_estimate_must_enter_city'] = 'Please enter the city of your organization.';
 $GLOBALS['__l10n']['m_estimate_must_enter_start_date'] = 'Please enter a start date.';
 $GLOBALS['__l10n']['m_estimate_must_enter_at_least_one_product'] = 'Please select at least one product.';
 

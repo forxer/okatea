@@ -327,9 +327,9 @@ class module_estimate extends oktModule
 	{
 		$sDateTime = date('Y-m-d H:i:s');
 
-	//	if (empty($aData['status'])) {
-	//		$aData['status'] = 1;
-	//	}
+		if (empty($aData['end_date'])) {
+			$aData['end_date'] = $aData['start_date'];
+		}
 
 		$sQuery =
 		'INSERT INTO '.$this->t_estimate.' ( '.

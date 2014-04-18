@@ -88,6 +88,9 @@ if (!empty($_GET['added'])) : ?>
 		<br />Merci de l'intérêt que vous portez à nos prestations.</p>
 	</div>
 
+	<p style="text-align: center;"><a href="<?php echo util::escapeAttrHTML($okt->estimate->config->url) ?>">Réaliser une nouvelle demande de devis</a>
+	- <a href="/">Retour à l'accueil</a></p>
+
 <?php # début Okatea : sinon on affichent le formulaire de demande de devis
 else : ?>
 
@@ -113,7 +116,25 @@ else : ?>
 			<p class="field col"><label for="p_phone" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Phone') ?></label>
 			<?php echo form::text('p_phone', 40, 255, html::escapeHTML($aFormData['phone'])) ?></p>
 		</div>
+	</fieldset>
 
+	<fieldset>
+		<legend>Concernant votre organisation</legend>
+		<div class="two-cols">
+			<p class="field col"><label for="p_organization" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_organization') ?></label>
+			<?php echo form::text('p_organization', 40, 255, html::escapeHTML($aFormData['organization'])) ?></p>
+
+			<p class="field col"><label for="p_address" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_address') ?></label>
+			<?php echo form::text('p_address', 40, 255, html::escapeHTML($aFormData['address'])) ?></p>
+		</div>
+
+		<div class="two-cols">
+			<p class="field col"><label for="p_zip_code" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_zip_code') ?></label>
+			<?php echo form::text('p_zip_code', 40, 255, html::escapeHTML($aFormData['zip_code'])) ?></p>
+
+			<p class="field col"><label for="p_city" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_estimate_form_city') ?></label>
+			<?php echo form::text('p_city', 40, 255, html::escapeHTML($aFormData['city'])) ?></p>
+		</div>
 	</fieldset>
 
 	<fieldset>
@@ -139,7 +160,7 @@ else : ?>
 			<?php endif; ?>
 		</legend>
 
-		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis.
+		<p class="infos">Veuillez choisir les matériels pour lesquels porte ce devis.
 		<?php if ($okt->estimate->config->enable_accessories) : ?>Vous pouvez ajouter des accessoires pour chacun des matériels.<?php endif; ?></p>
 
 		<?php # boucle sur les produits

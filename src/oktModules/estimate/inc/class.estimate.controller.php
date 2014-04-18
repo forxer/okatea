@@ -212,6 +212,10 @@ class estimateController extends oktController
 			'firstname' => '',
 			'email' => '',
 			'phone' => '',
+			'organization' => '',
+			'address' => '',
+			'zip_code' => '',
+			'city' => '',
 			'start_date' => '',
 			'end_date' => '',
 			'products' => array(),
@@ -235,6 +239,10 @@ class estimateController extends oktController
 				'firstname' => !empty($_POST['p_firstname']) ? $_POST['p_firstname'] : '',
 				'email' => !empty($_POST['p_email']) ? $_POST['p_email'] : '',
 				'phone' => !empty($_POST['p_phone']) ? $_POST['p_phone'] : '',
+				'organization' => !empty($_POST['p_organization']) ? $_POST['p_organization'] : '',
+				'address' => !empty($_POST['p_address']) ? $_POST['p_address'] : '',
+				'zip_code' => !empty($_POST['p_zip_code']) ? $_POST['p_zip_code'] : '',
+				'city' => !empty($_POST['p_city']) ? $_POST['p_city'] : '',
 				'start_date' => !empty($_POST['p_start_date']) ? $_POST['p_start_date'] : '',
 				'end_date' => !empty($_POST['p_end_date']) ? $_POST['p_end_date'] : '',
 				'products' => !empty($_POST['p_product']) && is_array($_POST['p_product']) ? $_POST['p_product'] : array(),
@@ -286,7 +294,6 @@ class estimateController extends oktController
 			$this->aFormData['accessories'] = $aTempData['accessories'];
 			$this->aFormData['accessory_quantity'] = $aTempData['accessory_quantity'];
 
-
 			if (empty($this->aFormData['lastname'])) {
 				$this->okt->error->set(__('m_estimate_must_enter_lastname'));
 			}
@@ -300,6 +307,26 @@ class estimateController extends oktController
 			}
 			elseif (!text::isEmail($this->aFormData['email'])) {
 				$this->okt->error->set(__('m_estimate_must_enter_validate_email'));
+			}
+
+			if (empty($this->aFormData['phone'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_phone'));
+			}
+
+			if (empty($this->aFormData['organization'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_organization'));
+			}
+
+			if (empty($this->aFormData['address'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_address'));
+			}
+
+			if (empty($this->aFormData['zip_code'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_zip_code'));
+			}
+
+			if (empty($this->aFormData['city'])) {
+				$this->okt->error->set(__('m_estimate_must_enter_city'));
 			}
 
 			if (empty($this->aFormData['start_date'])) {

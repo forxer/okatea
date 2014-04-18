@@ -15,7 +15,7 @@
 			`status` 			TINYINT(1) 		UNSIGNED	NOT NULL,
 
 			`start_at` 			DATE		 				NOT NULL,
-			`end_at` 			DATE		 				NOT NULL,
+			`end_at` 			DATE		 				NULL,
 
 			`user_id` 			INT(10)		 	UNSIGNED 	NULL,
 

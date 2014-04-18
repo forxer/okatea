@@ -17,10 +17,19 @@ $GLOBALS['__l10n']['m_estimate_must_enter_lastname'] = 'Veuillez saisir votre no
 $GLOBALS['__l10n']['m_estimate_must_enter_firstname'] = 'Veuillez saisir votre prénom.';
 $GLOBALS['__l10n']['m_estimate_must_enter_email'] = 'Veuillez saisir votre adresse de courrier électronique.';
 $GLOBALS['__l10n']['m_estimate_must_enter_validate_email'] = 'Veuillez saisir une adresse de courrier électronique valide.';
+$GLOBALS['__l10n']['m_estimate_must_enter_phone'] = 'Veuillez saisir un numéro de téléphone.';
+$GLOBALS['__l10n']['m_estimate_must_enter_organization'] = 'Veuillez saisir le nom de votre organisation.';
+$GLOBALS['__l10n']['m_estimate_must_enter_address'] = 'Veuillez saisir l’adresse de votre organisation.';
+$GLOBALS['__l10n']['m_estimate_must_enter_zip_code'] = 'Veuillez saisir le code postal de votre organisation.';
+$GLOBALS['__l10n']['m_estimate_must_enter_city'] = 'Veuillez saisir la ville de votre organisation.';
 $GLOBALS['__l10n']['m_estimate_must_enter_start_date'] = 'Veuillez saisir une date de début.';
 $GLOBALS['__l10n']['m_estimate_must_enter_at_least_one_product'] = 'Veuillez choisir au moins un produit.';
 
 # formulaire
+$GLOBALS['__l10n']['m_estimate_form_organization'] = 'Organisation';
+$GLOBALS['__l10n']['m_estimate_form_address'] = 'Adresse';
+$GLOBALS['__l10n']['m_estimate_form_zip_code'] = 'Code postal';
+$GLOBALS['__l10n']['m_estimate_form_city'] = 'Ville';
 $GLOBALS['__l10n']['m_estimate_form_start_date'] = 'Date de début';
 $GLOBALS['__l10n']['m_estimate_form_end_date'] = 'Date de fin';
 $GLOBALS['__l10n']['m_estimate_form_quantity'] = 'Quantité';

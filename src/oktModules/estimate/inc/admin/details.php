@@ -174,22 +174,29 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<p><?php echo html::escapeHTML($rsEstimate->content['phone']) ?></p>
 	</div>
 	<div class="col">
-		<h3><?php _e('m_estimate_details_projected_dates') ?></h3>
+		<h3><?php _e('m_estimate_details_organization_infos') ?></h3>
 
-			<p>
-				<?php if ($rsEstimate->start_at == $rsEstimate->end_at) : ?>
-				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at))) ?>
-
-				<?php else : ?>
-				<?php printf(__('From %s to %s'),
-					dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at)),
-					dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->end_at))
-				); ?>
-				<?php endif; ?>
-			</p>
+		<p><?php echo html::escapeHTML($rsEstimate->content['organization']) ?></p>
+		<p><?php echo html::escapeHTML($rsEstimate->content['address']) ?>
+		<br><?php echo html::escapeHTML($rsEstimate->content['zip_code']) ?>
+		<?php echo html::escapeHTML($rsEstimate->content['city']) ?></p>
 	</div>
 </div>
 
+
+<h3><?php _e('m_estimate_details_projected_dates') ?></h3>
+
+<p>
+	<?php if (empty($rsEstimate->end_at) || $rsEstimate->start_at == $rsEstimate->end_at) : ?>
+	<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at))) ?>
+
+	<?php else : ?>
+	<?php printf(__('From %s to %s'),
+		dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->start_at)),
+		dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($rsEstimate->end_at))
+	); ?>
+	<?php endif; ?>
+</p>
 
 <?php if ($okt->estimate->config->enable_accessories) : ?>
 <h3><?php _e('m_estimate_details_products_accessories') ?></h3>

@@ -37,7 +37,8 @@ $okt->page->js->addReady('
 # fin Okatea : ajout du JS propre à la page ?>
 
 
-<p>Votre demande de devis n'est pas encore envoyée.</p>
+<p><strong><img src="<?php echo OKT_PUBLIC_URL ?>/img/ico/error.png" alt="Attention !"> Votre demande de devis n'est pas encore envoyée.</strong></p>
+
 <p>Veuillez vérifier les informations ci-dessous,
 et les valider ou les modifier si besoin.</p>
 
@@ -50,20 +51,27 @@ et les valider ou les modifier si besoin.</p>
 		<p><?php echo html::escapeHTML($aEstimateData['phone']) ?></p>
 	</div>
 	<div class="col">
-		<h2>Dates prévisionnelles</h2>
+		<h2>Informations concernant votre organisation</h2>
 
-		<?php if (empty($aEstimateData['end_date']) || $aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
-		<p><?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date']))) ?></p>
-
-		<?php else : ?>
-		<p><?php printf(__('From %s to %s'),
-			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date'])),
-			dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['end_date']))
-		); ?></p>
-
-		<?php endif; ?>
+		<p><?php echo html::escapeHTML($aEstimateData['organization']) ?></p>
+		<p><?php echo html::escapeHTML($aEstimateData['address']) ?>
+		<br><?php echo html::escapeHTML($aEstimateData['zip_code']) ?>
+		<?php echo html::escapeHTML($aEstimateData['city']) ?></p>
 	</div>
 </div>
+
+<h2>Dates prévisionnelles</h2>
+
+<?php if (empty($aEstimateData['end_date']) || $aEstimateData['start_date'] == $aEstimateData['end_date']) : ?>
+<p><?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date']))) ?></p>
+
+<?php else : ?>
+<p><?php printf(__('From %s to %s'),
+	dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['start_date'])),
+	dt::dt2str(__('%A, %B %d, %Y'), html::escapeHTML($aEstimateData['end_date']))
+); ?></p>
+
+<?php endif; ?>
 
 <?php if ($okt->estimate->config->enable_accessories) : ?>
 <h2>Produits et accessoires</h2>

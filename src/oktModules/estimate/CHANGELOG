@@ -10,6 +10,11 @@ CHANGELOG and HISTORY ( we try )                                     module_faq
 ==========================
 
 
+1.0.1
+! add "phone", "organization", "address", "zip_code" and "city" fields
+- fix end date bug
+
+
 1.0
 ! first public release
 

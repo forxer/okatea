@@ -10,6 +10,12 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
+1.0.1
+! module estimate 1.0.1
+	! add "phone", "organization", "address", "zip_code" and "city" fields
+	- fix end date bug
+
+
 1.0 (2013-11-26)
 ! improve perfs by replacing somes functions by PHP natives ones
 ! add captchas to estimate module
