@@ -22,8 +22,8 @@ class Start extends Controller
 			return $this->redirect($this->generateUrl('start'));
 		}
 
-		return $this->render('Start', array(
+		return $this->render('Start', [
 
-		));
+		]);
 	}
 }

@@ -19,11 +19,11 @@ class Checks extends Controller
 
 		$aResults = $oRequirements->getResultsFromHtmlCheckList();
 
-		return $this->render('Checks', array(
-			'title' => __('i_checks_title'),
-			'pass_test' => $aResults['bCheckAll'],
+		return $this->render('Checks', [
+			'title' 		=> __('i_checks_title'),
+			'pass_test' 	=> $aResults['bCheckAll'],
 			'warning_empty' => $aResults['bCheckWarning'],
-			'requirements' => $oRequirements->getRequirements()
-		));
+			'requirements' 	=> $oRequirements->getRequirements()
+		]);
 	}
 }

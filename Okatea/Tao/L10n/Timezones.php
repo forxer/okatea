@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
 	'Africa/Abidjan',
 	'Africa/Accra',
 	'Africa/Addis_Ababa',
@@ -476,4 +476,4 @@ return array(
 	'Pacific/Wake',
 	'Pacific/Wallis',
 	'Pacific/Yap'
-);
+];

@@ -15,33 +15,33 @@ class Supa extends Controller
 {
 	public function page()
 	{
-		$aUsersData = array(
-			'sudo' => array(
+		$aUsersData = [
+			'sudo' => [
 				'username' 	=> '',
 				'password' 	=> '',
 				'email' 	=> ''
-			),
-			'admin' => array(
+			],
+			'admin' => [
 				'username' 	=> '',
 				'password' 	=> '',
 				'email' 	=> ''
-			)
-		);
+			]
+		];
 
 		if ($this->request->request->has('sended'))
 		{
-			$aUsersData = array(
-				'sudo' => array(
+			$aUsersData = [
+				'sudo' => [
 					'username' 	=> $this->request->request->get('sudo_username'),
 					'password' 	=> $this->request->request->get('sudo_password'),
 					'email' 	=> $this->request->request->get('sudo_email')
-				),
-				'admin' => array(
+				],
+				'admin' => [
 					'username' 	=> $this->request->request->get('admin_username'),
 					'password' 	=> $this->request->request->get('admin_password'),
 					'email' 	=> $this->request->request->get('admin_email')
-				)
-			);
+				]
+			];
 
 			if (empty($aUsersData['sudo']['username'])) {
 				$this->okt->error->set(__('i_supa_must_sudo_username'));
@@ -130,9 +130,9 @@ class Supa extends Controller
 			}
 		}
 
-		return $this->render('Supa', array(
-			'title' => __('i_supa_title'),
-			'aUsersData' => $aUsersData
-		));
+		return $this->render('Supa', [
+			'title' 		=> __('i_supa_title'),
+			'aUsersData' 	=> $aUsersData
+		]);
 	}
 }

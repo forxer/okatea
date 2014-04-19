@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-$aOktDefaultOptions = array(
+$aOktDefaultOptions = [
 
 	# the name of the software, if you want to change it,
 	# for example for companies who want to develop their own version
@@ -42,7 +42,7 @@ $aOktDefaultOptions = array(
 
 	# the CSRF token name
 	'csrf_token_name' 	=> 'okt_csrf_token'
-);
+];
 
 # import customs options
 if (file_exists(__DIR__.'/oktOptions.custom.php'))

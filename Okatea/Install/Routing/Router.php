@@ -36,12 +36,12 @@ class Router extends BaseRouter
 		parent::__construct(
 			new PhpFileLoader(new FileLocator($ressources_dir)),
 			$ressources_dir,
-			array(
-				'cache_dir' => $cache_dir,
-				'debug' => $debug,
-				'generator_cache_class'  => 'OkateaInstallUrlGenerator',
-				'matcher_cache_class'    => 'OkateaInstallUrlMatcher'
-			),
+			[
+				'cache_dir' 				=> $cache_dir,
+				'debug' 					=> $debug,
+				'generator_cache_class'  	=> 'OkateaInstallUrlGenerator',
+				'matcher_cache_class'    	=> 'OkateaInstallUrlMatcher'
+			],
 			$app->getRequestContext(),
 			$logger
 		);

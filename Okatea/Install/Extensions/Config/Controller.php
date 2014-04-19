@@ -18,17 +18,17 @@ class Controller extends BaseController
 		# locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/advanced');
 
-		$aValues= array(
+		$aValues= [
 			'app_path'   => str_replace('install', '', dirname($this->request->getRequestUri())),
 			'domain'     => $this->request->getHttpHost()
-		);
+		];
 
 		if ($this->request->request->has('sended'))
 		{
-			$aValues = array(
+			$aValues = [
 				'app_path'   => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
 				'domain'     => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
-			);
+			];
 
 			# save configuration
 			if ($this->okt->error->isEmpty())
@@ -40,9 +40,9 @@ class Controller extends BaseController
 			}
 		}
 
-		return $this->render('Config/Template', array(
-			'title' => __('i_config_title'),
-			'aValues' => $aValues
-		));
+		return $this->render('Config/Template', [
+			'title' 	=> __('i_config_title'),
+			'aValues' 	=> $aValues
+		]);
 	}
 }

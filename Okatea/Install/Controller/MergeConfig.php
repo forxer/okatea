@@ -37,9 +37,9 @@ class MergeConfig extends Controller
 			$bConfigMerged = true;
 		}
 
-		return $this->render('MergeConfig', array(
-			'title' => __('i_merge_config_title'),
-			'bConfigMerged' => $bConfigMerged
-		));
+		return $this->render('MergeConfig', [
+			'title' 			=> __('i_merge_config_title'),
+			'bConfigMerged' 	=> $bConfigMerged
+		]);
 	}
 }

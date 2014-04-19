@@ -18,45 +18,45 @@ class DatabaseConfiguration extends Controller
 		$bDatabaseConfigurationOk = false;
 		$bDatabaseCreateDb = false;
 
-		$aDatabaseParams = array(
+		$aDatabaseParams = [
 			'env' => $this->okt->options->env,
-			'prod' => array(
+			'prod' => [
 				'host' 		=> '',
 				'name' 		=> '',
 				'user' 		=> '',
 				'password' 	=> '',
 				'prefix' 	=> 'okt_'
-			),
-			'dev' => array(
+			],
+			'dev' => [
 				'host' 		=> 'localhost',
 				'name' 		=> 'okatea',
 				'user' 		=> 'root',
 				'password' 	=> '',
 				'prefix' 	=> 'okt_'
-			)
-		);
+			]
+		];
 
 
 		if ($this->request->request->has('sended'))
 		{
 			# Données environnement de production
-			$aDatabaseParams = array(
+			$aDatabaseParams = [
 				'env' => $this->request->request->get('connect'),
-				'prod' => array(
+				'prod' => [
 					'host' 		=> $this->request->request->get('prod_host'),
 					'name' 		=> $this->request->request->get('prod_name'),
 					'user' 		=> $this->request->request->get('prod_user'),
 					'password' 	=> $this->request->request->get('prod_password'),
 					'prefix' 	=> $this->request->request->get('prod_prefix')
-				),
-				'dev' => array(
+				],
+				'dev' => [
 					'host' 		=> $this->request->request->get('dev_host'),
 					'name' 		=> $this->request->request->get('dev_name'),
 					'user' 		=> $this->request->request->get('dev_user'),
 					'password' 	=> $this->request->request->get('dev_password'),
 					'prefix' 	=> $this->request->request->get('dev_prefix')
-				)
-			);
+				]
+			];
 
 			if ($aDatabaseParams['env'] != 'dev' && $aDatabaseParams['env'] != 'prod') {
 				$aDatabaseParams['env'] == 'dev';
@@ -150,21 +150,21 @@ class DatabaseConfiguration extends Controller
 					$sConnectionFile = $this->okt->options->get('config_dir').'/connection.php';
 					$config = file_get_contents($this->okt->options->get('config_dir').'/connection.dist.php');
 
-					$config = str_replace(array(
+					$config = str_replace([
 						'%%DB_PROD_HOST%%',
 						'%%DB_PROD_BASE%%',
 						'%%DB_PROD_USER%%',
 						'%%DB_PROD_PASS%%',
 						'%%DB_PROD_PREFIX%%'
-					), $aDatabaseParams['prod'], $config);
+					], $aDatabaseParams['prod'], $config);
 
-					$config = str_replace(array(
+					$config = str_replace([
 						'%%DB_DEV_HOST%%',
 						'%%DB_DEV_BASE%%',
 						'%%DB_DEV_USER%%',
 						'%%DB_DEV_PASS%%',
 						'%%DB_DEV_PREFIX%%'
-					), $aDatabaseParams['dev'], $config);
+					], $aDatabaseParams['dev'], $config);
 
 					file_put_contents($sConnectionFile, $config);
 
@@ -190,11 +190,11 @@ class DatabaseConfiguration extends Controller
 			}
 		}
 
-		return $this->render('DatabaseConfiguration', array(
-			'title' => __('i_db_conf_title'),
-			'aDatabaseParams' => $aDatabaseParams,
-			'bDatabaseCreateDb' => $bDatabaseCreateDb,
-			'bDatabaseConfigurationOk' => $bDatabaseConfigurationOk
-		));
+		return $this->render('DatabaseConfiguration', [
+			'title' 					=> __('i_db_conf_title'),
+			'aDatabaseParams' 			=> $aDatabaseParams,
+			'bDatabaseCreateDb' 		=> $bDatabaseCreateDb,
+			'bDatabaseConfigurationOk' 	=> $bDatabaseConfigurationOk
+		]);
 	}
 }

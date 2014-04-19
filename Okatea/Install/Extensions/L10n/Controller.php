@@ -20,8 +20,8 @@ class Controller extends BaseController
 			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
 		}
 
-		return $this->render('L10n/Template', array(
+		return $this->render('L10n/Template', [
 			'title' => __('i_l10n_title'),
-		));
+		]);
 	}
 }

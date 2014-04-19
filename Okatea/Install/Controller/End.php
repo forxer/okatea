@@ -36,10 +36,10 @@ class End extends Controller
 		$this->okt->themes->getManager()->enableExtension('DefaultTheme');
 
 		# render HTML
-		return $this->render('End', array(
+		return $this->render('End', [
 			'title' 	=> __('i_end_'.$this->session->get('okt_install_process_type').'_title'),
 			'user' 		=> $this->session->get('okt_install_sudo_user'),
 			'password' 	=> $this->session->get('okt_install_sudo_password')
-		));
+		]);
 	}
 }

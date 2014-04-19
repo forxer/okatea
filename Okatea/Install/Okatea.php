@@ -35,7 +35,7 @@ class Okatea extends Application
 	 *
 	 * @var array
 	 */
-	public $availablesLocales = array('fr', 'en');
+	public $availablesLocales = ['fr', 'en'];
 
 	/**
 	 * Le numéro de version que nous mettons à jour.
@@ -241,10 +241,10 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		# initialisation
-		$this->tpl = new Templating($this, array(
+		$this->tpl = new Templating($this, [
 			__DIR__.'/Templates/%name%.php',
 			__DIR__.'/Extensions/%name%.php',
-		));
+		]);
 
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);

@@ -23,10 +23,10 @@ class Extension extends AbstractExtension
 
 	public function addStep($stepper)
 	{
-		$this->insertStepAfter($stepper, 'supa', array(
+		$this->insertStepAfter($stepper, 'supa', [
 			'step' 		=> 'configuration',
 			'title' 	=> __('i_step_config')
-		));
+		]);
 	}
 
 	public function addRoute()

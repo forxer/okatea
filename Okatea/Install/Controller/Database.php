@@ -33,8 +33,8 @@ class Database extends Controller
 		}
 
 
-		return $this->render('Database', array(
+		return $this->render('Database', [
 			'oChecklist' => $oChecklist
-		));
+		]);
 	}
 }

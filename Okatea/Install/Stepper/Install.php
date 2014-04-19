@@ -16,32 +16,32 @@ class Install extends BaseStepper
 
 	public function __construct($okt, $sCurrentStep)
 	{
-		$this->aStepsList = array(
-			array(
+		$this->aStepsList = [
+			[
 				'step' 		=> 'start',
 				'title' 	=> __('i_step_start')
-			),
-			array(
+			],
+			[
 				'step' 		=> 'checks',
 				'title' 	=> __('i_step_checks')
-			),
-			array(
+			],
+			[
 				'step' 		=> 'db_conf',
 				'title' 	=> __('i_step_db_conf')
-			),
-			array(
+			],
+			[
 				'step' 		=> 'database',
 				'title' 	=> __('i_step_db')
-			),
-			array(
+			],
+			[
 				'step' 		=> 'supa',
 				'title' 	=> __('i_step_supa')
-			),
-			array(
+			],
+			[
 				'step' 		=> 'end',
 				'title' 	=> __('i_step_end')
-			)
-		);
+			]
+		];
 
 		# -- CORE TRIGGER : installBeforeBuildInstallStepper
 		$okt->triggers->callTrigger('installBeforeBuildInstallStepper', $this);

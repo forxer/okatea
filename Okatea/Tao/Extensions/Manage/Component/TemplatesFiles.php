@@ -81,10 +81,10 @@ class TemplatesFiles extends ComponentBase
 
 	protected function mirror($src, $dest, $oFiles)
 	{
-		return $this->getFs()->mirror($src, $dest, $oFiles, array(
+		return $this->getFs()->mirror($src, $dest, $oFiles, [
 			'override' 			=> true,
 			'copy_on_windows' 	=> true,
 			'delete' 			=> false
-		));
+		]);
 	}
 }
