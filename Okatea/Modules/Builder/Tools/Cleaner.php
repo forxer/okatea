@@ -29,6 +29,7 @@ class Cleaner extends BaseTools
 		'jquery' => 'src',
 		'jquery-color' => '.jshintrc',
 		'jquery-cookie' => '',
+		'jquery-cycle2' => 'src core',
 		'jquery-gmap3' => 'demo examples jquery',
 		'jquery-mousewheel' => 'ChangeLog.md',
 		'jquery-roundabout' => '',

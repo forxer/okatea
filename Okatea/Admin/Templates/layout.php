@@ -59,7 +59,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	<div id="helpers" class="ui-widget-content ui-corner-all">
 		<div id="messages">
 
-			<h2 id="breadcrumb"><?php $okt->page->breadcrumb->display('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
+			<h2 id="breadcrumb"><?php echo $okt->page->breadcrumb->getBreadcrumb('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
 			<?php # affichage des éventuels messages d'erreurs
 			echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>'); ?>

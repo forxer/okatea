@@ -57,8 +57,7 @@ $okt->page->css->addLessFile($okt->theme->public_path.'/css/styles.less');
 			<?php endif; # fin Okatea : titre de la page (graphic title) ?>
 
 			<?php # début Okatea : affichage du fil d'ariane
-			$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-			$okt->page->breadcrumb->display('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
+			echo $okt->page->breadcrumb->getBreadcrumb('<div id="breadcrumb"><em>'.__('c_c_user_you_are_here').'</em> %s</div>');
 			# fin Okatea : affichage du fil d'ariane ?>
 		</div><!-- #navigation-helpers -->
 

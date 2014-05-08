@@ -32,6 +32,7 @@
 		"imagine/imagine" : "~0.5",
 		"ircmaxell/password-compat" : "~1.0",
 		"jdorn/sql-formatter" : "~1.2",
+		"kriswallsmith/assetic": "1.2.*@dev",
 		"leafo/lessphp" : "~0.4",
 		"mobiledetect/mobiledetectlib" : "~2.7",
 		"monolog/monolog" : "~1.7",
@@ -52,8 +53,6 @@
 		"psr-4" : {
 			"Okatea\\" : "Okatea"
 		},
-		"classmap" : [
-		],
 		"files" : [
 			"Okatea/functions.php"
 		]

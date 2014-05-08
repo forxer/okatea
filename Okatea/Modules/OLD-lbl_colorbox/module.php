@@ -21,7 +21,7 @@ class module_lbl_colorbox extends Module
 		# configuration
 		$this->config = $this->okt->newConfig('conf_lbl_colorbox');
 
-		$this->okt->page->addLbl('colorbox','ColorBox',array('module_lbl_colorbox','colorbox'),self::$jsLoader);
+		$this->okt->page->addLbl('colorbox', 'ColorBox', array('module_lbl_colorbox','colorbox'), self::$jsLoader);
 	}
 
 	protected function prepend_admin()
@@ -40,34 +40,38 @@ class module_lbl_colorbox extends Module
 		}
 	}
 
-	public static function getScripts()
+	public static function addFiles()
 	{
 		global $okt;
 
 		$okt->page->css->addFile($okt->theme->url.'/modules/lbl_colorbox/'.$okt->lbl_colorbox->config->theme.'/colorbox.css');
 		$okt->page->js->addFile($okt->theme->url.'/modules/lbl_colorbox/jquery.colorbox-min.js');
+
+		if (file_exists($okt->theme->path.'/modules/lbl_colorbox/i18n/jquery.colorbox-'.$okt->user->language.'.js')) {
+			$okt->page->js->addFile($okt->theme->url.'/modules/lbl_colorbox/i18n/jquery.colorbox-'.$okt->user->language.'.js');
+		}
 	}
 
 	/**
-	 * Met en place colorbox dans la page
+	 * Met en place colorbox dans la page.
 	 *
-	 * Voir http://colorpowered.com/colorbox/
-	 * pour la liste des options possibles
+	 * Voir http://www.jacklmoore.com/colorbox/
+	 * pour la liste des options possibles.
 	 *
-	 * @param string $element
-	 * @param string $conteneur
+	 * @param string $sElement
+	 * @param string $sConteneur
 	 * @param array $aUserOptions
 	 * @return void
 	 */
-	public static function colorbox($element='a.modal', $conteneur='.modal-box', $aUserOptions=array())
+	public static function colorbox($sElement = 'a.modal', $sConteneur = '.modal-box', array $aUserOptions = array())
 	{
 		global $okt;
 
-		self::getScripts();
+		self::addFiles();
 
 		$okt->page->js->addScript('
 			function loadColorbox() {
-				jQuery("'.$element.'").colorbox('.json_encode(self::getOptions($aUserOptions)).');
+				jQuery("'.$sElement.'").colorbox('.json_encode(self::getOptions($aUserOptions)).');
 			}
 		');
 
@@ -87,28 +91,23 @@ class module_lbl_colorbox extends Module
 		$oConfig = $okt->lbl_colorbox->config;
 
 		$aOptions = array(
-			'transition' => $oConfig->transition,
-			'speed' => $oConfig->speed,
-			'loop' => $oConfig->loop,
+			'transition' 		=> $oConfig->transition,
+			'speed' 			=> $oConfig->speed,
+			'loop' 				=> $oConfig->loop,
 
-			'slideshow' => $oConfig->slideshow,
-			'slideshowSpeed' => $oConfig->slideshowspeed,
-			'slideshowAuto' => $oConfig->slideshowauto,
+			'slideshow' 		=> $oConfig->slideshow,
+			'slideshowSpeed' 	=> $oConfig->slideshowspeed,
+			'slideshowAuto' 	=> $oConfig->slideshowauto,
 
-			'maxWidth' => '75%',
-			'maxHeight' => '75%',
+			'scalePhotos' 		=> true,
+			'maxWidth' 			=> '80%',
+			'maxHeight' 		=> '80%',
 
-			'close' => __('c_c_action_close'),
-			'slideshowStart' => __('start slideshow'),
-			'slideshowStop' => __('stop slideshow'),
-			'current' => __('{current} of {total}'),
-			'previous' => __('c_c_previous_f'),
-			'next' => __('c_c_next_f'),
-			'close' => __('c_c_action_close')
+			'scrolling' 		=> true
 		);
 
 		if (!empty($aUserOptions)) {
-			$aOptions = array_merge($aOptions,(array)$aUserOptions);
+			$aOptions = array_merge($aOptions, $aUserOptions);
 		}
 
 		return $aOptions;
@@ -123,5 +122,4 @@ class module_lbl_colorbox extends Module
 	{
 		return self::$jsLoader;
 	}
-
 }

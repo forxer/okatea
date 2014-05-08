@@ -10,12 +10,6 @@ namespace Okatea\Tao\Navigation;
 
 use Okatea\Tao\Html\Escaper;
 
-/**
- * @class breadcrumb
- * @ingroup okt_classes_html
- * @brief Fil d'ariane
- *
- */
 class Breadcrumb
 {
 	/**
@@ -34,25 +28,25 @@ class Breadcrumb
 	 * Format du bloc HTML
 	 * @var string
 	 */
-	protected $htmlBlock='<p class="breadcrumb">%s</p>';
+	protected $sHtmlBlock = '<p class="breadcrumb">%s</p>';
 
 	/**
 	 * Format d'un élément
 	 * @var string
 	 */
-	protected $htmlItem='%s';
+	protected $sHtmlItem = '%s';
 
 	/**
 	 * Format d'un lien
 	 * @var string
 	 */
-	protected $htmlLink='<a href="%s">%s</a>';
+	protected $sHtmlLink = '<a href="%s">%s</a>';
 
 	/**
 	 * Séparateur d'éléments
 	 * @var string
 	 */
-	protected $htmlSeparator=' &rsaquo; ';
+	protected $sHtmlSeparator = ' &rsaquo; ';
 
 
 	public function __construct()
@@ -66,11 +60,11 @@ class Breadcrumb
 		$this->iNum = 0;
 	}
 
-	public function add($label, $url='')
+	public function add($label, $url = null)
 	{
 		$this->stack[] = array(
-			'label' => $label,
-			'url' => $url
+			'label' 	=> $label,
+			'url' 		=> $url
 		);
 
 		++$this->iNum;
@@ -86,72 +80,77 @@ class Breadcrumb
 		return isset($this->stack[$this->iNum-1]) ? $this->stack[$this->iNum-1] : null;
 	}
 
-	public function setHtmlBlock($str)
+	public function setHtmlBlock($sHtmlBlock = null)
 	{
-		$this->htmlBlock = $str;
-	}
-
-	public function setHtmlItem($str)
-	{
-		$this->htmlItem = $str;
-	}
-
-	public function setHtmlLink($str)
-	{
-		$this->htmlLink = $str;
-	}
-
-	public function setHtmlSeparator($str)
-	{
-		$this->htmlSeparator = $str;
-	}
-
-	public function display($htmlBlock=null, $htmlItem=null, $htmlLink=null, $htmlSeparator=null)
-	{
-		if ($htmlBlock) {
-			$this->htmlBlock = $htmlBlock;
+		if (null === $sHtmlBlock) {
+			return false;
 		}
 
-		if ($htmlItem) {
-			$this->htmlItem = $htmlItem;
-		}
-
-		if ($htmlLink) {
-			$this->htmlLink = $htmlLink;
-		}
-
-		if ($htmlSeparator) {
-			$this->htmlSeparator = $htmlSeparator;
-		}
-
-		echo $this->getBreadcrumb();
+		$this->sHtmlBlock = $sHtmlBlock;
 	}
 
-	public function getBreadcrumb()
+	public function setHtmlItem($sHtmlItem = null)
 	{
+		if (null === $sHtmlItem) {
+			return false;
+		}
+
+		$this->sHtmlItem = $sHtmlItem;
+	}
+
+	public function setHtmlLink($sHtmlLink = null)
+	{
+		if (null === $sHtmlLink) {
+			return false;
+		}
+
+		$this->sHtmlLink = $sHtmlLink;
+	}
+
+	public function setHtmlSeparator($sHtmlSeparator = null)
+	{
+		if (null === $sHtmlSeparator) {
+			return false;
+		}
+
+		$this->sHtmlSeparator = $sHtmlSeparator;
+	}
+
+	public function getBreadcrumb($sHtmlBlock = null, $sHtmlItem = null, $sHtmlLink = null, $sHtmlSeparator = null)
+	{
+		$this->setHtmlBlock($sHtmlBlock);
+
+		$this->setHtmlItem($sHtmlItem);
+
+		$this->setHtmlLink($sHtmlLink);
+
+		$this->setHtmlSeparator($sHtmlSeparator);
+
 		return $this->buildBreadcrumb();
 	}
 
 	protected function buildBreadcrumb()
 	{
+		if (null === $this->iNum || $this->iNum <= 0) {
+			return null;
+		}
+
 		$res = array();
 
 		for ($i=0; $i<$this->iNum; $i++)
 		{
-			if (!isset($this->stack[$i]['url']) || $i == $this->iNum-1)
-			{
-				$res[] = sprintf($this->htmlItem, Escaper::html($this->stack[$i]['label']));
+			if (empty($this->stack[$i]['url']) || $i === $this->iNum-1) {
+				$res[] = sprintf($this->sHtmlItem, Escaper::html($this->stack[$i]['label']));
 			}
 			else {
-				$res[] = sprintf($this->htmlItem, sprintf($this->htmlLink, Escaper::html($this->stack[$i]['url']), Escaper::html($this->stack[$i]['label'])));
+				$res[] = sprintf($this->sHtmlItem, sprintf($this->sHtmlLink, Escaper::html($this->stack[$i]['url']), Escaper::html($this->stack[$i]['label'])));
 			}
 		}
 
-		if (!empty($res)) {
-			return sprintf($this->htmlBlock, implode($this->htmlSeparator,$res));
-		}
-		else {
+		if (empty($res)) {
 			return null;
 		}
+
+		return sprintf($this->sHtmlBlock, implode($this->sHtmlSeparator, $res));
 	}
 }

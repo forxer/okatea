@@ -7,6 +7,7 @@
 		"jquery": 					"1.*",
 		"jquery-color": 			"jquery/jquery-color",
 		"jquery-cookie": 			"carhartl/jquery-cookie",
+		"jquery-cycle2": 			"malsup/cycle2",
 		"jquery-gmap3": 			"jbdemonte/gmap3",
 		"jquery-mousewheel": 		"brandonaaron/jquery-mousewheel",
 		"jquery-roundabout": 		"fredhq/roundabout",

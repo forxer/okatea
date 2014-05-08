@@ -25,8 +25,7 @@ echo html::escapeHTML($okt->page->getSiteTitle());
 
 
 <?php # début Okatea : affichage du fil d'ariane
-$okt->page->breadcrumb->setHtmlSeparator(' &rsaquo; ');
-$okt->page->breadcrumb->display('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
+echo $okt->page->breadcrumb->getBreadcrumb('<p id="ariane"><em>'.__('c_c_user_you_are_here').'</em> %s</p>');
 # fin Okatea : affichage du fil d'ariane ?>
 
 
