@@ -647,7 +647,7 @@ class Module extends BaseModule
 		if (!empty($aPostData))
 		{
 			foreach ($aPostData as $k=>$v) {
-				$oCursor->$k = $v;
+				$oCursor->{$k} = $v;
 			}
 		}
 
@@ -671,7 +671,7 @@ class Module extends BaseModule
 			$oCursor->language = $aLanguage['code'];
 
 			foreach ($aPostLocalesData[$aLanguage['code']] as $k=>$v) {
-				$oCursor->$k = $v;
+				$oCursor->{$k} = $v;
 			}
 
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);

@@ -145,24 +145,24 @@ class Recordset extends BaseRecordset
 	 */
 	public function isReadable()
 	{
-		static $perms = array();
+		static $aPerms = array();
 
 		# si on as un "cache" on l'utilisent
-		if (isset($perms[$this->id])) {
-			return $perms[$this->id];
+		if (isset($aPerms[$this->id])) {
+			return $aPerms[$this->id];
 		}
 
 		# si les permissions sont désactivées alors on as le droit
 		if (!$this->okt->module('News')->config->enable_group_perms)
 		{
-			$perms[$this->id] = true;
+			$aPerms[$this->id] = true;
 			return true;
 		}
 
 		# si on est superadmin on as droit à tout
 		if ($this->okt->user->is_superadmin)
 		{
-			$perms[$this->id] = true;
+			$aPerms[$this->id] = true;
 			return true;
 		}
 
@@ -173,12 +173,12 @@ class Recordset extends BaseRecordset
 		# sinon il faut etre dans le bon groupe
 		if (in_array(0,$aPerms) || in_array($this->okt->user->group_id,$aPerms))
 		{
-			$perms[$this->id] = true;
+			$aPerms[$this->id] = true;
 			return true;
 		}
 
 		# toutes éventualités testées, on as pas le droit
-		$perms[$this->id] = false;
+		$aPerms[$this->id] = false;
 		return false;
 	}
 
