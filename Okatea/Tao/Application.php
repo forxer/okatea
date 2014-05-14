@@ -34,6 +34,8 @@ use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Website\Router;
 
+use Patchwork\Utf8\Bootup as Utf8Bootup;
+
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
@@ -268,6 +270,10 @@ class Application
 
 		$this->options = new ApplicationOptions($aOptions);
 
+		Utf8Bootup::initAll(); // Enables the portablity layer and configures PHP for UTF-8
+		Utf8Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
+		Utf8Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
+
 		$this->getLogger();
 
 		$this->getConfig();
@@ -333,8 +339,10 @@ class Application
 		define('OKT_START_TIME', microtime(true));
 
 		# Init MB ext
+		/* Done by patchwork UTF8
 		mb_internal_encoding('UTF-8');
 		mb_regex_encoding('UTF-8');
+		*/
 
 		# Default timezone (crushed later by user settings)
 //		date_default_timezone_set('Europe/Paris');

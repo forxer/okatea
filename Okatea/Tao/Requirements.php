@@ -74,13 +74,6 @@ class Requirements
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'fileinfo',
-			'test' 		=> function_exists('finfo_open'),
-			'msg_ok'	=> __('pr_fileinfo_ok'),
-			'msg_ko'	=> __('pr_fileinfo_ko')
-		);
-
-		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'json_encode',
 			'test' 		=> function_exists('json_encode'),
 			'msg_ok'	=> __('pr_json_encode_ok'),
@@ -95,22 +88,8 @@ class Requirements
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'zip',
-			'test' 		=> class_exists('ZipArchive'),
-			'msg_ok'	=> __('pr_zip_ok'),
-			'msg_ko'	=> __('pr_zip_ko')
-		);
-
-		$this->aRequirements[0]['requirements'][] = array(
-			'id' 		=> 'zip',
-			'test' 		=> class_exists('ZipArchive'),
-			'msg_ok'	=> __('pr_zip_ok'),
-			'msg_ko'	=> __('pr_zip_ko')
-		);
-
-		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'intl',
-			'test' 		=> class_exists('IntlDateFormatter'),
+			'test' 		=> extension_loaded('intl'),
 			'msg_ok'	=> __('pr_intl_ok'),
 			'msg_ko'	=> __('pr_intl_ko')
 		);
@@ -130,38 +109,52 @@ class Requirements
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'fileinfo',
+			'test' 		=> extension_loaded('fileinfo') ? true : null,
+			'msg_ok'	=> __('pr_fileinfo_ok'),
+			'msg_ko'	=> __('pr_fileinfo_ko')
+		);
+
+		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'xml',
-			'test' 		=> function_exists('xml_parser_create'),
+			'test' 		=> extension_loaded('xml') ? true : null,
 			'msg_ok'	=> __('pr_xml_ok'),
 			'msg_ko'	=> __('pr_xml_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'simplexml',
-			'test' 		=> function_exists('simplexml_load_string') ? true : null,
+			'test' 		=> extension_loaded('simplexml') ? true : null,
 			'msg_ok'	=> __('pr_simplexml_ok'),
 			'msg_ko'	=> __('pr_simplexml_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'mb_string',
-			'test' 		=> function_exists('mb_detect_encoding'),
+			'test' 		=> extension_loaded('mbstring') ? true : null,
 			'msg_ok'	=> __('pr_mb_string_ok'),
 			'msg_ko'	=> __('pr_mb_string_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'iconv',
-			'test' 		=> function_exists('iconv') ? true : null,
+			'test' 		=> extension_loaded('iconv') ? true : null,
 			'msg_ok'	=> __('pr_iconv_ok'),
 			'msg_ko'	=> __('pr_iconv_ko')
 		);
 
 		$this->aRequirements[0]['requirements'][] = array(
 			'id' 		=> 'GD 2',
-			'test' 		=> function_exists('imagegd2') ? true : null,
+			'test' 		=> extension_loaded('gd') ? true : null,
 			'msg_ok'	=> __('pr_gd2_ok'),
 			'msg_ko'	=> __('pr_gd2_ko')
+		);
+
+		$this->aRequirements[0]['requirements'][] = array(
+			'id' 		=> 'zip',
+			'test' 		=> extension_loaded('zip') ? true : null,
+			'msg_ok'	=> __('pr_zip_ok'),
+			'msg_ko'	=> __('pr_zip_ko')
 		);
 
 
