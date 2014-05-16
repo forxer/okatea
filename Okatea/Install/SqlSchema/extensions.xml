@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- core_extensions -->
 	<action id="core_extensions" label="Create table %s" string="{{PREFIX}}core_extensions">
 
-		<test eq="neq" value="{{PREFIX}}core_extensions" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}core_extensions">SHOW TABLES LIKE '{{PREFIX}}core_extensions'</test>
+		<test eq="neq" value="{{PREFIX}}core_extensions" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}core_extensions">SHOW TABLES LIKE '{{PREFIX}}core_extensions'</test>
 
 		CREATE TABLE `{{PREFIX}}core_extensions` (
-			`id` 				VARCHAR(128) 			NOT NULL,
-			`name` 				VARCHAR(255) 			NOT NULL,
-			`description` 		TEXT 					NULL,
-			`author` 			VARCHAR(255)			NULL,
-			`version` 			VARCHAR(32)				NOT NULL,
-			`priority` 			INT(10) 	UNSIGNED	NOT NULL 	DEFAULT 0,
-			`updatable` 		TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 1,
-			`status` 			TINYINT(1) 	UNSIGNED	NOT NULL 	DEFAULT 0,
-			`type` 				VARCHAR(32) 			NOT NULL,
+		`id` VARCHAR(128) NOT NULL,
+		`name` VARCHAR(255) NOT NULL,
+		`description` TEXT NULL,
+		`author` VARCHAR(255) NULL,
+		`version` VARCHAR(32) NOT NULL,
+		`priority` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+		`updatable` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+		`status` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+		`type` VARCHAR(32) NOT NULL,
 
-			PRIMARY KEY (`id`),
-			INDEX `{{PREFIX}}core_extensions_priority_idx` (`priority`),
-			INDEX `{{PREFIX}}core_extensions_status_idx` (`status`),
-			INDEX `{{PREFIX}}core_extensions_type_idx` (`type`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		INDEX `{{PREFIX}}core_extensions_priority_idx` (`priority`),
+		INDEX `{{PREFIX}}core_extensions_status_idx` (`status`),
+		INDEX `{{PREFIX}}core_extensions_type_idx` (`type`)
+		) ENGINE=MyISAM DEFAULT
+		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 
-<!-- UPDATE -->
+	<!-- UPDATE -->
 
 
 </database>

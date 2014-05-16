@@ -1,3 +1,5 @@
-<?php return array (
-  'ZM' => 'Zambia',
+<?php
+
+return array(
+	'ZM' => 'Zambia'
 );

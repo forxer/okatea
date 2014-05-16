@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Norwegian Nynorsk language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Norwegian Nynorsk language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Det var ikke mulig å utføre forespørselen. (Feil %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Ugyldig kommando.',
 		'11' => 'Ressurstypen ble ikke spesifisert i forepørselen.',
 		'12' => 'Ugyldig ressurstype.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Klarte ikke å flytte fil(er).',
 		'301' => 'Klarte ikke å kopiere fil(er).',
 		'500' => 'Filvelgeren ikke tilgjengelig av sikkerhetshensyn. Kontakt systemansvarlig og be han sjekke CKFinder\'s konfigurasjonsfil.',
-		'501' => 'Funksjon for minityrbilder er skrudd av.',
+		'501' => 'Funksjon for minityrbilder er skrudd av.'
 	)
 );

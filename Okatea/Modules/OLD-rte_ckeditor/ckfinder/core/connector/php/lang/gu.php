@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Gujarati language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Gujarati language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'તમારી રીક્વેસ્ટ માન્ય નથી. (એરર %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'કમાંડ માન્ય નથી.',
 		'11' => 'તમારી રીક્વેસ્ટ માન્ય નથી.',
 		'12' => 'તમારી રીક્વેસ્ટ રિસોર્સ માન્ય નથી.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'ફાઈલ મુવ શક્ય નથી.',
 		'301' => 'ફાઈલ કોપી શક્ય નથી.',
 		'500' => 'સિક્યોરીટીના કારણે ફાઈલ બ્રાઉઝર બંધ કરેલ છે. તમારા સિક્યોરીટી એડ્મીનીસ્ટેટરની મદદથી CKFinder કોન્ફીગ્યુંરેષન ફાઈલ તપાસો.',
-		'501' => 'થમ્બનેલનો સપોર્ટ બંધ કરેલો છે.',
+		'501' => 'થમ્બનેલનો સપોર્ટ બંધ કરેલો છે.'
 	)
 );

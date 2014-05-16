@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 ?>
@@ -14,31 +13,35 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 <div class="two-cols">
 	<?php if ($okt->module('Pages')->config->categories['enable']) : ?>
-	<p class="field col"><label for="p_category_id"><?php _e('m_pages_page_category')?></label>
-	<select id="p_category_id" name="p_category_id">
-		<option value="0"><?php _e('m_pages_page_category_first_level') ?></option>
+	<p class="field col">
+		<label for="p_category_id"><?php _e('m_pages_page_category')?></label>
+		<select id="p_category_id" name="p_category_id">
+			<option value="0"><?php _e('m_pages_page_category_first_level') ?></option>
 		<?php
 		while ($rsCategories->fetch())
 		{
-			echo '<option value="'.$rsCategories->id.'"'.
-			($aPageData['post']['category_id'] == $rsCategories->id ? ' selected="selected"' : '').
-			'>'.str_repeat('&nbsp;&nbsp;&nbsp;', $rsCategories->level).
-			'&bull; '.$view->escape($rsCategories->title).
-			'</option>';
+			echo '<option value="' . $rsCategories->id . '"' . ($aPageData['post']['category_id'] == $rsCategories->id ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;&nbsp;', $rsCategories->level) . '&bull; ' . $view->escape($rsCategories->title) . '</option>';
 		}
 		?>
-	</select></p>
+	</select>
+	</p>
 	<?php endif; ?>
 
-	<p class="field col"><label><?php echo form::checkbox('p_active', 1, $aPageData['post']['active']) ?> <?php _e('c_c_status_Online') ?></label></p>
+	<p class="field col">
+		<label><?php echo form::checkbox('p_active', 1, $aPageData['post']['active']) ?> <?php _e('c_c_status_Online') ?></label>
+	</p>
 
 	<?php if (!empty($okt->module('Pages')->config->templates['item']['usables'])) : ?>
-	<p class="field col"><label for="p_tpl"><?php _e('m_pages_page_tpl') ?></label>
+	<p class="field col">
+		<label for="p_tpl"><?php _e('m_pages_page_tpl') ?></label>
 	<?php echo form::select('p_tpl', $aTplChoices, $aPageData['post']['tpl'])?></p>
 	<?php endif; ?>
 
-	<?php # si les permissions de groupe sont activées
-	if ($okt->module('Pages')->config->enable_group_perms) : ?>
+	<?php
+	# si les permissions de groupe sont activées
+	if ($okt->module('Pages')->config->enable_group_perms)
+	:
+		?>
 	<div class="col">
 		<p><?php _e('m_pages_page_permissions_group')?></p>
 

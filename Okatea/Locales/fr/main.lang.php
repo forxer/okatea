@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_c_proudly_propulsed_%s'] = 'Fièrement propulsé par %s';
 $GLOBALS['okt_l10n']['c_c_version_%s'] = 'Version %s';
 $GLOBALS['okt_l10n']['c_c_env_%s'] = 'Environnement "%s"';

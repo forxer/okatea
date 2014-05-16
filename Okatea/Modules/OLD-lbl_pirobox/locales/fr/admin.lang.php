@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_lbl_pirobox_menu_config'] = 'piroBox';
 
 $GLOBALS['okt_l10n']['m_lbl_pirobox_config_title'] = 'Configuration piroBox';

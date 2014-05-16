@@ -4,13 +4,14 @@
  * @brief Extension du recordset pour les élément des galeries
  *
  */
-
 use Okatea\Tao\Database\Recordset;
 
 class GalleriesItemsRecordset extends Recordset
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
@@ -19,7 +20,8 @@ class GalleriesItemsRecordset extends Recordset
 	 * Défini l'instance de l'application qui sera passée à l'objet après
 	 * qu'il ait été instancié.
 	 *
-	 * @param Okatea\Tao\Application okt 	Okatea application instance.
+	 * @param
+	 *        	Okatea\Tao\Application okt Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)
@@ -32,7 +34,7 @@ class GalleriesItemsRecordset extends Recordset
 	 *
 	 * @return string
 	 */
-	public function getItemUrl($sLanguage=null)
+	public function getItemUrl($sLanguage = null)
 	{
 		return GalleriesHelpers::getItemUrl($this->slug, $sLanguage);
 	}
@@ -42,7 +44,7 @@ class GalleriesItemsRecordset extends Recordset
 	 *
 	 * @return string
 	 */
-	public function getGalleryUrl($sLanguage=null)
+	public function getGalleryUrl($sLanguage = null)
 	{
 		return GalleriesHelpers::getGalleryUrl($this->gallery_slug, $sLanguage);
 	}
@@ -50,7 +52,7 @@ class GalleriesItemsRecordset extends Recordset
 	/**
 	 * Retourne les informations de l'images de l'élément en cours en fonction des données de la BDD.
 	 *
-	 * @return 	array
+	 * @return array
 	 */
 	public function getImagesInfo()
 	{
@@ -60,11 +62,11 @@ class GalleriesItemsRecordset extends Recordset
 	/**
 	 * Retourne le tableau d'images de l'élément en cours.
 	 *
-	 * @return 	array
+	 * @return array
 	 */
 	public function getImagesArray()
 	{
-		return array_filter((array)unserialize($this->image));
+		return array_filter((array) unserialize($this->image));
 	}
 
 	/**
@@ -74,7 +76,7 @@ class GalleriesItemsRecordset extends Recordset
 	 */
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->galleries->upload_dir.'/img/items/'.$this->id;
+		return $this->okt->galleries->upload_dir . '/img/items/' . $this->id;
 	}
 
 	/**
@@ -84,7 +86,6 @@ class GalleriesItemsRecordset extends Recordset
 	 */
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->galleries->upload_url.'/img/items/'.$this->id;
+		return $this->okt->galleries->upload_url . '/img/items/' . $this->id;
 	}
-
 }

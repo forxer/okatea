@@ -1,3 +1,5 @@
-<?php return array (
-  'ZA' => 'iNingizimu Afrika',
+<?php
+
+return array(
+	'ZA' => 'iNingizimu Afrika'
 );

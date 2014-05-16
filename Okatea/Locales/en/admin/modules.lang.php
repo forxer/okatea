@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_modules_management'] = 'Modules management';
 
 $GLOBALS['okt_l10n']['c_a_modules_one_module'] = 'one module';

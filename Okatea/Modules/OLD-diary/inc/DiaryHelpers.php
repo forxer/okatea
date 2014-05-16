@@ -1,48 +1,54 @@
 <?php
+
 /**
  * @ingroup okt_module_diary
  * @brief Helpers.
  *
  */
-
 class DiaryHelpers
 {
+
 	/**
 	 * Retourne l'URL de la page agenda.
 	 *
-	 * @param string $sLanguage
+	 * @param string $sLanguage        	
 	 * @return string
 	 */
-	public static function getDiaryUrl($sLanguage=null)
+	public static function getDiaryUrl($sLanguage = null)
 	{
 		global $okt;
-
-		if (is_null($sLanguage)) {
+		
+		if (is_null($sLanguage))
+		{
 			$sLanguage = $okt->user->language;
 		}
-
+		
 		return $okt->router->generate('diaryList');
 	}
 
 	/**
 	 * Retourne l'URL de la page d'un évenement.
 	 *
-	 * @param string $sSlug
-	 * @param string $sLanguage
+	 * @param string $sSlug        	
+	 * @param string $sLanguage        	
 	 * @return string
 	 */
-	public static function getEventUrl($sSlug, $sLanguage=null)
+	public static function getEventUrl($sSlug, $sLanguage = null)
 	{
 		global $okt;
-
-		if (empty($sSlug)) {
+		
+		if (empty($sSlug))
+		{
 			return null;
 		}
-
-		if (is_null($sLanguage)) {
+		
+		if (is_null($sLanguage))
+		{
 			$sLanguage = $okt->user->language;
 		}
-
-		return $okt->router->generate('diaryEvent', array('slug' => $sSlug));
+		
+		return $okt->router->generate('diaryEvent', array(
+			'slug' => $sSlug
+		));
 	}
 }

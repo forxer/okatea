@@ -21,7 +21,6 @@ $GLOBALS['okt_l10n']['m_pages_cats_%s_total_%s'] = '%s, total&nbsp;: %s';
 $GLOBALS['okt_l10n']['m_pages_cats_delete_confirm'] = 'Etes-vous sûr de vouloir supprimer cette rubrique ? Cette action est irréversible.';
 $GLOBALS['okt_l10n']['m_pages_cats_edit_%s'] = 'Modifier la rubrique %s';
 
-
 # item
 $GLOBALS['okt_l10n']['m_pages_cat_category'] = 'Rubrique';
 $GLOBALS['okt_l10n']['m_pages_cat_category_title'] = 'Définition de la rubrique';

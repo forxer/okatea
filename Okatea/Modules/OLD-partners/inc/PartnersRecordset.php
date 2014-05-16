@@ -4,13 +4,14 @@
  * @brief Extension du recordset pour les partenaires
  *
  */
-
 use Okatea\Tao\Database\Recordset;
 
 class PartnersRecordset extends Recordset
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
@@ -19,7 +20,8 @@ class PartnersRecordset extends Recordset
 	 * Défini l'instance de l'application qui sera passée à l'objet après
 	 * qu'il ait été instancié.
 	 *
-	 * @param Okatea\Tao\Application okt 	Okatea application instance.
+	 * @param
+	 *        	Okatea\Tao\Application okt Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)
@@ -30,14 +32,15 @@ class PartnersRecordset extends Recordset
 	/**
 	 * Retourne les informations des images d'un partenaire en fonction des données de la BDD
 	 *
-	 * @return 	array
+	 * @return array
 	 */
 	public function getImagesInfo()
 	{
-		if (!$this->okt->partners->config->images['enable']) {
+		if (! $this->okt->partners->config->images['enable'])
+		{
 			return array();
 		}
-
+		
 		return $this->getImagesArray();
 	}
 
@@ -45,32 +48,32 @@ class PartnersRecordset extends Recordset
 	 * Retourne les informations de la première image d'un partenaire
 	 * en fonction des données de la BDD
 	 *
-	 * @return 	array
+	 * @return array
 	 */
 	public function getFirstImageInfo()
 	{
-		if (!$this->okt->partners->config->images['enable']) {
+		if (! $this->okt->partners->config->images['enable'])
+		{
 			return array();
 		}
-
+		
 		$a = $this->getImagesArray();
-
+		
 		return isset($a[1]) ? $a[1] : array();
 	}
 
 	public function getImagesArray()
 	{
-		return array_filter((array)unserialize($this->logo));
+		return array_filter((array) unserialize($this->logo));
 	}
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->partners->upload_dir.'/img/'.$this->id;
+		return $this->okt->partners->upload_dir . '/img/' . $this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->partners->upload_url.'/img/'.$this->id;
+		return $this->okt->partners->upload_url . '/img/' . $this->id;
 	}
-
 }

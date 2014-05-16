@@ -4,15 +4,16 @@
  * @brief La page d'administration.
  *
  */
-
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (!defined('ON_MODULE')) die;
-
-# Perm ?
-if (!$okt->checkPerm('recaptcha_config')) {
+if (! defined('ON_MODULE'))
+	die();
+	
+	# Perm ?
+if (! $okt->checkPerm('recaptcha_config'))
+{
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
@@ -21,17 +22,16 @@ $p_publickey = $okt->recaptcha->config->publickey;
 $p_privatekey = $okt->recaptcha->config->privatekey;
 $p_theme = $okt->recaptcha->config->theme;
 
-
 /* Traitements
 ----------------------------------------------------------*/
 
 # Configuration envoyée
-if (!empty($_POST['config_send']))
+if (! empty($_POST['config_send']))
 {
-	$p_publickey = !empty($_POST['p_publickey']) ? $_POST['p_publickey'] : '';
-	$p_privatekey = !empty($_POST['p_privatekey']) ? $_POST['p_privatekey'] : '';
-	$p_theme = !empty($_POST['p_theme']) ? $_POST['p_theme'] : 'clean';
-
+	$p_publickey = ! empty($_POST['p_publickey']) ? $_POST['p_publickey'] : '';
+	$p_privatekey = ! empty($_POST['p_privatekey']) ? $_POST['p_privatekey'] : '';
+	$p_theme = ! empty($_POST['p_theme']) ? $_POST['p_theme'] : 'clean';
+	
 	if ($okt->error->isEmpty())
 	{
 		$aNewConf = array(
@@ -39,15 +39,14 @@ if (!empty($_POST['config_send']))
 			'privatekey' => $p_privatekey,
 			'theme' => $p_theme
 		);
-
+		
 		$okt->recaptcha->config->write($aNewConf);
-
+		
 		$okt->page->flash->success(__('Les clés ont été éditées.'));
-
+		
 		http::redirect('module.php?m=recaptcha&action=index');
 	}
 }
-
 
 /* Affichage
 ----------------------------------------------------------*/
@@ -60,23 +59,26 @@ $aThemes = array(
 	__('m_recaptcha_theme_clean') => 'clean'
 );
 
-
 # Titre de la page
 $okt->page->addGlobalTitle('reCaptcha');
 
 # En-tête
-require OKT_ADMIN_HEADER_FILE; ?>
+require OKT_ADMIN_HEADER_FILE;
+?>
 
 <form action="module.php" method="post">
 
 	<div class="three-cols">
-		<p class="field col"><label for="p_publickey"><?php _e('m_recaptcha_public_key') ?></label>
+		<p class="field col">
+			<label for="p_publickey"><?php _e('m_recaptcha_public_key') ?></label>
 		<?php echo form::text('p_publickey', 45, 45, $p_publickey) ?></p>
 
-		<p class="field col"><label for="p_privatekey"><?php _e('m_recaptcha_private_key') ?></label>
+		<p class="field col">
+			<label for="p_privatekey"><?php _e('m_recaptcha_private_key') ?></label>
 		<?php echo form::text('p_privatekey', 45, 45, $p_privatekey) ?></p>
 
-		<p class="field col"><label for="p_theme"><?php _e('m_recaptcha_theme') ?></label>
+		<p class="field col">
+			<label for="p_theme"><?php _e('m_recaptcha_theme') ?></label>
 		<?php echo form::select('p_theme', $aThemes, $p_theme) ?></p>
 	</div>
 
@@ -85,7 +87,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden(array('config_send'), 1); ?>
 	<?php echo form::hidden(array('action'), 'index'); ?>
 	<?php echo Page::formtoken(); ?>
-	<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
+	<input type="submit" value="<?php _e('c_c_action_save') ?>" />
+	</p>
 
 </form>
 
@@ -95,15 +98,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 		<dl>
 			<dt><?php _e('m_recaptcha_public_key') ?></dt>
-			<dd><code>6LfxU9ISAAAAAE-DXwF9C4MlzpHxSYJO0lVMeiP_</code></dd>
+			<dd>
+				<code>6LfxU9ISAAAAAE-DXwF9C4MlzpHxSYJO0lVMeiP_</code>
+			</dd>
 
 			<dt><?php _e('m_recaptcha_private_key') ?></dt>
-			<dd><code>6LfxU9ISAAAAANvQGwaJ7sbZ5kVJZ0y_nO0g2BYU</code></dd>
+			<dd>
+				<code>6LfxU9ISAAAAANvQGwaJ7sbZ5kVJZ0y_nO0g2BYU</code>
+			</dd>
 		</dl>
 	</div>
 
-	<p class="col"><a href="https://www.google.com/recaptcha/admin/create"
-	class="icon key_add"><?php echo (__('m_recaptcha_get_keys'))?></a></p>
+	<p class="col">
+		<a href="https://www.google.com/recaptcha/admin/create"
+			class="icon key_add"><?php echo (__('m_recaptcha_get_keys'))?></a>
+	</p>
 </div>
 
 

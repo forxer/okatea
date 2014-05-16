@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_pages_page_add_a_page'] = 'Ajouter une page';
 $GLOBALS['okt_l10n']['m_pages_page_edit_a_page'] = 'Modifier une page';
 

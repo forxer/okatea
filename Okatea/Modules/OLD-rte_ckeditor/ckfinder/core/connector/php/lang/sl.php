@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Slovenian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Slovenian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Prišlo je do napake. (Napaka %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Napačen ukaz.',
 		'11' => 'V poizvedbi ni bil jasen tip (resource type).',
 		'12' => 'Tip datoteke ni primeren.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Premikanje datotek(e) ni uspelo.',
 		'301' => 'Kopiranje datotek(e) ni uspelo.',
 		'500' => 'Brskalnik je onemogočen zaradi varnostnih razlogov. Prosimo kontaktirajte upravljalca spletnih strani.',
-		'501' => 'Ni podpore za majhne sličice (predogled).',
+		'501' => 'Ni podpore za majhne sličice (predogled).'
 	)
 );

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_theme_editor'] = 'Theme editor';
 
 $GLOBALS['okt_l10n']['c_a_te_error_theme_%s_not_exists'] = '"%s" is not a valid existing theme';

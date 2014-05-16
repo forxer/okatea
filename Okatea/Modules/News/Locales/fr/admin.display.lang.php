@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_news_display_order_by_created'] = 'Date de création';
 $GLOBALS['okt_l10n']['m_news_display_order_by_updated'] = 'Date de modification';
 $GLOBALS['okt_l10n']['m_news_display_order_by_title'] = 'Titre';
@@ -27,7 +26,7 @@ $GLOBALS['okt_l10n']['m_news_display_public_number_page'] = 'Nombre par défaut 
 
 $GLOBALS['okt_l10n']['m_news_display_posts'] = 'Affichage des articles';
 $GLOBALS['okt_l10n']['m_news_display_show_date'] = 'Afficher la date';
-$GLOBALS['okt_l10n']['m_news_display_show_author'] =  'Afficher l’auteur';
+$GLOBALS['okt_l10n']['m_news_display_show_author'] = 'Afficher l’auteur';
 
 $GLOBALS['okt_l10n']['m_news_display_truncate_posts'] = 'Tronquer les articles';
 $GLOBALS['okt_l10n']['m_news_display_truncate_message'] = 'Vous pouvez choisir de tronquer les articles et d’afficher un lien "Lire la suite", laissez vide pour ne pas tronquer.';

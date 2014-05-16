@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_accessories'] = 'Accessoires';
 
 $GLOBALS['okt_l10n']['m_estimate_accessory_added'] = 'L’accessoire a été ajouté.';

@@ -5,7 +5,9 @@
 
 /* Filtres d'affichages
 ----------------------------------------------------------*/
-#filters-form{}
+#filters-form {
+	
+}
 
 /* Agenda
 ----------------------------------------------------------*/
@@ -32,9 +34,11 @@ table#diary td {
 	border: 1px solid #fdfdfd;
 	vertical-align: top;
 }
+
 table#diary td.disabled {
 	opacity: 0.35;
 }
+
 table#diary td.active {
 	background-color: #F9F9F9;
 	border: 1px solid #cacaca
@@ -48,14 +52,13 @@ table#diary .number {
 	margin: 0;
 	font-weight: normal;
 }
-table#diary .number a,
-table#diary .number a:link,
-table#diary .number a:visited {
+
+table#diary .number a,table#diary .number a:link,table#diary .number a:visited
+	{
 	text-decoration: none;
 }
 
-table#diary .number a:hover,
-table#diary .number a:active {
+table#diary .number a:hover,table#diary .number a:active {
 	text-decoration: underline;
 }
 
@@ -66,19 +69,20 @@ table#diary ul.events-list {
 
 /* Colonnes
 ----------------------------------------------------------*/
-
-.two-cols, .three-cols, .four-cols {
+.two-cols,.three-cols,.four-cols {
 	position: static;
 	zoom: 1;
 }
-.two-cols:after, .three-cols:after, .four-cols:after {
+
+.two-cols:after,.three-cols:after,.four-cols:after {
 	content: ".";
 	display: block;
 	height: 0;
 	clear: both;
 	visibility: hidden;
 }
-.two-cols .col, .three-cols .col, .four-cols .col {
+
+.two-cols .col,.three-cols .col,.four-cols .col {
 	float: left;
 	margin-left: 1%;
 	padding: 1px 0;
@@ -87,9 +91,11 @@ table#diary ul.events-list {
 .two-cols .col {
 	width: 48%;
 }
+
 .three-cols .col {
 	width: 32%;
 }
+
 .four-cols .col {
 	width: 24%;
 }

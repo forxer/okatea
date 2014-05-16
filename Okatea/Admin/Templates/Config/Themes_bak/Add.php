@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 
@@ -16,15 +15,15 @@ $okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('conf
 $okt->page->addGlobalTitle(__('c_a_themes_add'));
 
 # button set
-$okt->page->setButtonset('themesBtSt',array(
+$okt->page->setButtonset('themesBtSt', array(
 	'id' => 'themes-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_c_action_Go_back'),
-			'url' 			=> $view->generateUrl('config_themes'),
-			'ui-icon' 		=> 'arrowreturnthick-1-w'
+			'permission' => true,
+			'title' => __('c_c_action_Go_back'),
+			'url' => $view->generateUrl('config_themes'),
+			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
 ));
@@ -61,26 +60,35 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 
 			<table class="common">
 				<caption><?php printf('c_a_themes_list_themes_available_%s', $view->escape($repo_name)) ?></caption>
-				<thead><tr>
-					<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
-					<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
-					<th scope="col" class="small"><?php _e('c_c_action_Add') ?></th>
-					<th scope="col" class="small"><?php _e('c_c_action_Download') ?></th>
-				</tr></thead>
+				<thead>
+					<tr>
+						<th scope="col" class="left"><?php _e('c_c_Name') ?></th>
+						<th scope="col" class="center"><?php _e('c_a_themes_version') ?></th>
+						<th scope="col" class="small"><?php _e('c_c_action_Add') ?></th>
+						<th scope="col" class="small"><?php _e('c_c_action_Download') ?></th>
+					</tr>
+				</thead>
 				<tbody>
-				<?php $line_count = 0;
-				foreach ($aThemes as $aTheme) :
-					$td_class = $line_count%2 == 0 ? 'even' : 'odd';
-					$line_count++; ?>
+				<?php
+				
+$line_count = 0;
+				foreach ($aThemes as $aTheme)
+				:
+					$td_class = $line_count % 2 == 0 ? 'even' : 'odd';
+					$line_count ++;
+					?>
 				<tr>
-					<th scope="row" class="<?php echo $td_class; ?> fake-td">
-					<?php echo $view->escape($aTheme['name']) ?>
+						<th scope="row" class="<?php echo $td_class; ?> fake-td">
+					<?php echo $view->escape($aTheme['name'])?>
 					<?php echo !empty($aTheme['info']) ? '<br />'.$view->escape($aTheme['info']) : ''; ?>
 					</th>
-					<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($aTheme['version']) ?></td>
-					<td class="<?php echo $td_class; ?> center"><a href="<?php echo $view->generateUrl('config_theme_add') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($aTheme['id']) ?>" class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
-					<td class="<?php echo $td_class; ?> center"><a href="<?php echo $aTheme['href'] ?>"><?php _e('c_c_action_Download') ?></a></td>
-				</tr>
+						<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($aTheme['version']) ?></td>
+						<td class="<?php echo $td_class; ?> center"><a
+							href="<?php echo $view->generateUrl('config_theme_add') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($aTheme['id']) ?>"
+							class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
+						<td class="<?php echo $td_class; ?> center"><a
+							href="<?php echo $aTheme['href'] ?>"><?php _e('c_c_action_Download') ?></a></td>
+					</tr>
 				<?php endforeach; ?>
 				</tbody>
 			</table>
@@ -89,7 +97,8 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 			<p><?php _e('c_a_themes_no_repository_themes_defined') ?></p>
 		<?php endif; ?>
 		</div>
-	</div><!-- #add_theme_repo -->
+	</div>
+	<!-- #add_theme_repo -->
 
 	<?php # From zip ?>
 	<div id="add_theme_zip">
@@ -98,33 +107,44 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 		<div id="add_theme_zip_content" class="two-cols">
 
 			<?php # zip URL ?>
-			<form class="col" action="<?php echo $view->generateUrl('config_theme_add') ?>" method="post">
+			<form class="col"
+				action="<?php echo $view->generateUrl('config_theme_add') ?>"
+				method="post">
 				<fieldset>
 					<legend><?php _e('c_a_themes_download_zip_file') ?></legend>
-					<p class="field"><label for="pkg_url"><?php _e('c_a_themes_theme_zip_file_url') ?></label>
+					<p class="field">
+						<label for="pkg_url"><?php _e('c_a_themes_theme_zip_file_url') ?></label>
 					<?php echo form::text('pkg_url',40,255) ?></p>
 				</fieldset>
 
-				<p><?php echo form::hidden(array('do'), 'add') ?>
-				<?php echo form::hidden('fetch_pkg', 1) ?>
-				<?php echo $okt->page->formtoken() ?>
-				<input type="submit" class="lazy-load" value="<?php _e('c_a_themes_download_theme') ?>" /></p>
+				<p><?php echo form::hidden(array('do'), 'add')?>
+				<?php echo form::hidden('fetch_pkg', 1)?>
+				<?php echo $okt->page->formtoken()?>
+				<input type="submit" class="lazy-load"
+						value="<?php _e('c_a_themes_download_theme') ?>" />
+				</p>
 			</form>
 
 			<?php # zip file ?>
-			<form class="col" action="<?php echo $view->generateUrl('config_theme_add') ?>" method="post" enctype="multipart/form-data">
+			<form class="col"
+				action="<?php echo $view->generateUrl('config_theme_add') ?>"
+				method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend><?php _e('c_a_themes_upload_zip_file') ?></legend>
-					<p class="field"><label for="pkg_file"><?php _e('c_a_themes_theme_zip_file') ?></label>
+					<p class="field">
+						<label for="pkg_file"><?php _e('c_a_themes_theme_zip_file') ?></label>
 					<?php echo form::file('pkg_file')?></p>
 				</fieldset>
 
-				<p><?php echo form::hidden('upload_pkg', 1) ?>
-				<?php echo $okt->page->formtoken() ?>
-				<input type="submit" class="lazy-load" value="<?php _e('c_a_themes_upload_theme') ?>" /></p>
+				<p><?php echo form::hidden('upload_pkg', 1)?>
+				<?php echo $okt->page->formtoken()?>
+				<input type="submit" class="lazy-load"
+						value="<?php _e('c_a_themes_upload_theme') ?>" />
+				</p>
 			</form>
 		</div>
-	</div><!-- #add_theme_zip -->
+	</div>
+	<!-- #add_theme_zip -->
 
 	<?php # Bootstrap theme ?>
 	<div id="add_theme_bootstrap">
@@ -133,21 +153,30 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 		<div id="add_theme_bootstrap_content">
 			<p><?php _e('c_a_themes_bootstrap_feature_description') ?></p>
 
-			<form action="<?php echo $view->generateUrl('config_theme_add') ?>" method="post">
+			<form action="<?php echo $view->generateUrl('config_theme_add') ?>"
+				method="post">
 
 				<div class="two-cols">
-					<p class="field col"><label for="bootstrap_theme_name" class="required" title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_name'); ?></label>
+					<p class="field col">
+						<label for="bootstrap_theme_name" class="required"
+							title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_name'); ?></label>
 					<?php echo form::text('bootstrap_theme_name', 60, 255); ?></p>
 
-					<p class="field col"><label for="bootstrap_theme_id" title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_id'); ?></label>
+					<p class="field col">
+						<label for="bootstrap_theme_id"
+							title="<?php _e('c_c_required_field') ?>"><?php _e('c_a_themes_bootstrap_id'); ?></label>
 					<?php echo form::text('bootstrap_theme_id', 60, 255); ?></p>
 				</div>
 
-				<p><?php echo form::hidden('bootstrap', 1) ?>
-				<?php echo $okt->page->formtoken() ?>
-				<input type="submit" value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" /></p>
+				<p><?php echo form::hidden('bootstrap', 1)?>
+				<?php echo $okt->page->formtoken()?>
+				<input type="submit"
+						value="<?php _e('c_a_themes_bootstrap_submit_value') ?>" />
+				</p>
 			</form>
 		</div>
-	</div><!-- #add_theme_bootstrap -->
+	</div>
+	<!-- #add_theme_bootstrap -->
 
-</div><!-- #tabered -->
+</div>
+<!-- #tabered -->

@@ -1,34 +1,109 @@
-
 #ariane {
 	margin-bottom: 1em;
 	padding: 10px;
 }
-#ariane { display: inline-block; zoom: 1; }
-#ariane:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-/* required comment for clearfix to work in Opera \*/
-* html #ariane { height:1%; }
-#ariane { display:block; }
-/* end clearfix */
 
-#ariane ul {width:880px; list-style:none; margin: 0 auto; clear:both;}
-#ariane ul a {text-decoration:none; color:#a9a9a9;}
-#ariane ul li {float:left; width:9%; background:url(arrow.gif) repeat-x right 6px; text-align:left;}
-#ariane ul li span {display:block; margin:auto; margin-right:50%; text-align:center; border:1px solid #a9a9a9; width:19px; height:19px; line-height:19px; background-color:#ffffff;}
-#ariane ul li span a {display:block; width:19px; height:19px; margin:0px;}
-#ariane ul li span a.active,
-#ariane ul li.active span a,
-#ariane ul li.past span a:hover,
-#ariane ul li.past:hover span a {background-color:#1D5987; color:#ffffff; }
-#ariane ul li a {display:block; margin-right:20%; text-align:center;}
-#ariane ul li.past {background-position:right -106px;}
-#ariane ul li.active {background-position:right -48px;}
-#ariane ul li#lastStep {background-position:right -214px;}
-#ariane ul li#lastStep.active {background-position:right -162px;}
-#ariane ul li.active a:hover,
-#ariane ul li.past a:hover,
-#ariane ul li.past a,
-#ariane ul li.active a {color:#1D5987;}
-#ariane ul li.active span a:hover {color:#ffffff;}
-#ariane ul li.past:hover {cursor:hand; cursor:pointer;}
-#ariane ul li.past span,
-#ariane ul li.active span {border:1px solid #1D5987;}
+#ariane {
+	display: inline-block;
+	zoom: 1;
+}
+
+#ariane:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+/* required comment for clearfix to work in Opera \*/
+* html #ariane {
+	height: 1%;
+}
+
+#ariane {
+	display: block;
+}
+/* end clearfix */
+#ariane ul {
+	width: 880px;
+	list-style: none;
+	margin: 0 auto;
+	clear: both;
+}
+
+#ariane ul a {
+	text-decoration: none;
+	color: #a9a9a9;
+}
+
+#ariane ul li {
+	float: left;
+	width: 9%;
+	background: url(arrow.gif) repeat-x right 6px;
+	text-align: left;
+}
+
+#ariane ul li span {
+	display: block;
+	margin: auto;
+	margin-right: 50%;
+	text-align: center;
+	border: 1px solid #a9a9a9;
+	width: 19px;
+	height: 19px;
+	line-height: 19px;
+	background-color: #ffffff;
+}
+
+#ariane ul li span a {
+	display: block;
+	width: 19px;
+	height: 19px;
+	margin: 0px;
+}
+
+#ariane ul li span a.active,#ariane ul li.active span a,#ariane ul li.past span a:hover,#ariane ul li.past:hover span a
+	{
+	background-color: #1D5987;
+	color: #ffffff;
+}
+
+#ariane ul li a {
+	display: block;
+	margin-right: 20%;
+	text-align: center;
+}
+
+#ariane ul li.past {
+	background-position: right -106px;
+}
+
+#ariane ul li.active {
+	background-position: right -48px;
+}
+
+#ariane ul li#lastStep {
+	background-position: right -214px;
+}
+
+#ariane ul li#lastStep.active {
+	background-position: right -162px;
+}
+
+#ariane ul li.active a:hover,#ariane ul li.past a:hover,#ariane ul li.past a,#ariane ul li.active a
+	{
+	color: #1D5987;
+}
+
+#ariane ul li.active span a:hover {
+	color: #ffffff;
+}
+
+#ariane ul li.past:hover {
+	cursor: hand;
+	cursor: pointer;
+}
+
+#ariane ul li.past span,#ariane ul li.active span {
+	border: 1px solid #1D5987;
+}

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_news_config_tab_general'] = 'Général';
 $GLOBALS['okt_l10n']['m_news_config_tab_categories'] = 'Rubriques';
 $GLOBALS['okt_l10n']['m_news_config_tab_attached_files'] = 'Fichiers joints';

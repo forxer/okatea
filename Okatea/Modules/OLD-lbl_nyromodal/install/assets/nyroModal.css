@@ -2,6 +2,7 @@ div#nyroModalFull {
 	font-size: 12px;
 	color: #777;
 }
+
 div#nyroModalFull div#nyroModalLoading {
 	border: 4px solid #777;
 	width: 150px;
@@ -10,6 +11,7 @@ div#nyroModalFull div#nyroModalLoading {
 	background: #fff url(img/ajaxLoader.gif) no-repeat;
 	background-position: center;
 }
+
 div#nyroModalFull div#nyroModalLoading.error {
 	border: 4px solid #f66;
 	line-height: 20px;
@@ -19,10 +21,12 @@ div#nyroModalFull div#nyroModalLoading.error {
 	text-indent: 0;
 	background: #fff;
 }
+
 div#nyroModalFull div#nyroModalWrapper {
 	background: #fff;
 	border: 4px solid #777;
 }
+
 div#nyroModalFull div#nyroModalWrapper a#closeBut {
 	position: absolute;
 	display: block;
@@ -34,6 +38,7 @@ div#nyroModalFull div#nyroModalWrapper a#closeBut {
 	background: url(img/close.png) no-repeat;
 	outline: 0;
 }
+
 div#nyroModalFull div#nyroModalWrapper h1#nyroModalTitle {
 	margin: 0;
 	padding: 0;
@@ -43,21 +48,30 @@ div#nyroModalFull div#nyroModalWrapper h1#nyroModalTitle {
 	font-size: 12px;
 	color: #ddd;
 }
+
 div#nyroModalFull div#nyroModalWrapper div#nyroModalContent {
 	overflow: auto;
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapper div#nyroModalContent {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapper div#nyroModalContent
+	{
 	padding: 5px;
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent
+	{
 	position: relative;
 	overflow: hidden;
 	text-align: center;
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent img {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent img
+	{
 	vertical-align: baseline;
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent div {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent div
+	{
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -67,14 +81,18 @@ div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent div {
 	border: 1px white dotted;
 	overflow: hidden;
 	opacity: 0.2;
-	filter: alpha(opacity=20);
+	filter: alpha(opacity = 20);
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent div:hover {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapperImg div#nyroModalContent div:hover
+	{
 	opacity: 0.5;
-	filter: alpha(opacity=50);
+	filter: alpha(opacity = 50);
 	cursor: help;
 }
-div#nyroModalFull div#nyroModalWrapper a.nyroModalPrev, div#nyroModalFull div#nyroModalWrapper a.nyroModalNext {
+
+div#nyroModalFull div#nyroModalWrapper a.nyroModalPrev,div#nyroModalFull div#nyroModalWrapper a.nyroModalNext
+	{
 	z-index: 105;
 	outline: none;
 	position: absolute;
@@ -86,20 +104,30 @@ div#nyroModalFull div#nyroModalWrapper a.nyroModalPrev, div#nyroModalFull div#ny
 	background: left 20% no-repeat;
 	background-image: url(data:image/gif;base64,AAAA); /* Trick IE6 */
 }
-div#nyroModalFull div#nyroModalWrapper div.wrapperSwf a.nyroModalPrev, div#nyroModalFull div#nyroModalWrapper div.wrapperSwf a.nyroModalNext, div#nyroModalFull div#nyroModalWrapper div.wrapper a.nyroModalPrev, div#nyroModalFull div#nyroModalWrapper div.wrapper a.nyroModalNext {
+
+div#nyroModalFull div#nyroModalWrapper div.wrapperSwf a.nyroModalPrev,div#nyroModalFull div#nyroModalWrapper div.wrapperSwf a.nyroModalNext,div#nyroModalFull div#nyroModalWrapper div.wrapper a.nyroModalPrev,div#nyroModalFull div#nyroModalWrapper div.wrapper a.nyroModalNext
+	{
 	height: 60%;
 	width: 20%;
 }
-div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalPrev {
+
+div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalPrev
+	{
 	left: 0;
 }
-div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalPrev:hover {
+
+div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalPrev:hover
+	{
 	background-image: url(img/prev.gif);
 }
-div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalNext {
+
+div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalNext
+	{
 	right: 0;
 	background-position: right 20%;
 }
-div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalNext:hover {
+
+div#nyroModalFull div#nyroModalWrapper div#nyroModalContent a.nyroModalNext:hover
+	{
 	background-image: url(img/next.gif);
 }

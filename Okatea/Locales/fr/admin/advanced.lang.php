@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_config_advanced'] = 'Configuration avancée';
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_tab_path_url'] = 'Chemins et URL';

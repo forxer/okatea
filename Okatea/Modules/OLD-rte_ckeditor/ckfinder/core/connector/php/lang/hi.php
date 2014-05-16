@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Hindi language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Hindi language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'आपकी रिक्वेस्ट क्मप्लित नही कर सकते. (एरर %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'इन्वेलीड कमांड.',
 		'11' => 'यह रिसोर्स टाईप उपलब्ध नहीं है.',
 		'12' => 'यह रिसोर्स टाईप वेलिड नही हैं.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'फाएल मूव नहीं कर सके.',
 		'301' => 'फाएल कोपी नहीं कर सके.',
 		'500' => 'सिक्योरिटी कारण वष, फाएल ब्राउजर डिसेबल किया गया है. आपके सिस्टम एडमिनिस्ट्रेटर का सम्पर्क करे और CKFinder कोंफिग्युरेसन फाएल तपासे.',
-		'501' => 'थम्बनेल सपोर्ट डिसेबल किया है.',
+		'501' => 'थम्बनेल सपोर्ट डिसेबल किया है.'
 	)
 );

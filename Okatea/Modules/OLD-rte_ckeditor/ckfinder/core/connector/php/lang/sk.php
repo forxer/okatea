@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Slovak language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Slovak language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Server nemohol dokončiť spracovanie požiadavky. (Chyba %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Neplatný príkaz.',
 		'11' => 'V požiadavke nebol špecifikovaný typ súboru.',
 		'12' => 'Nepodporovaný typ súboru.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Presunutie súborov zlyhalo.',
 		'301' => 'Kopírovanie súborov zlyhalo.',
 		'500' => 'Prehliadanie súborov je zakázané kvôli bezpečnosti. Kontaktujte prosím administrátora a overte nastavenia v konfiguračnom súbore pre CKFinder.',
-		'501' => 'Momentálne nie je zapnutá podpora pre generáciu miniobrázkov.',
+		'501' => 'Momentálne nie je zapnutá podpora pre generáciu miniobrázkov.'
 	)
 );

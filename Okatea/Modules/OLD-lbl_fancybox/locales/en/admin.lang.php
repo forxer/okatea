@@ -1,7 +1,6 @@
 <?php
 $GLOBALS['okt_l10n']['m_lbl_fancybox_menu_config'] = 'Fancybox';
 
-
 $GLOBALS['okt_l10n']['m_lbl_fancybox_config_title'] = 'Fancybox configuration ';
 
 $GLOBALS['okt_l10n']['m_lbl_fancybox_legend_title'] = 'Title';

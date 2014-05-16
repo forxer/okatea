@@ -1,11 +1,9 @@
-body
-{
+body {
 	margin: 0px;
 	font-family: Georgia, Trebuchet, Trebuchet MS, Verdana;
 }
 
-h1
-{
+h1 {
 	background-color: #f5f5f5;
 	color: #696969;
 	padding-left: 20px;
@@ -16,45 +14,38 @@ h1
 	margin-bottom: 40px;
 }
 
-p, ul, ol
-{
+p,ul,ol {
 	margin-bottom: 30px;
 	margin-top: 0px;
 	margin-left: 40px;
 	margin-right: 40px;
 }
 
-ol, ul
-{
-	padding-left:40px;
+ol,ul {
+	padding-left: 40px;
 }
 
-h2
-{
+h2 {
 	margin-left: 20px;
 	margin-bottom: 30px;
 	margin-top: 0px;
 }
 
-h3
-{
+h3 {
 	margin-left: 40px;
 	margin-bottom: 15px;
 	margin-top: 0px;
 }
 
-hr
-{
+hr {
 	margin-top: 0px;
 }
 
-.info
-{
+.info {
 	font-weight: bold;
 }
 
-.warning
-{
+.warning {
 	font-weight: bold;
 	color: #ff0000;
 }

@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Italian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Italian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Impossibile completare la richiesta. (Errore %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Commando non valido.',
 		'11' => 'Il tipo di risorsa non è stato specificato nella richiesta.',
 		'12' => 'Il tipo di risorsa richiesto non è valido.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Non è stato possibile muovere i file.',
 		'301' => 'Non è stato possibile copiare i file.',
 		'500' => 'Questo programma è disabilitato per motivi di sicurezza. Prego contattare l\'amministratore del sistema e verificare le configurazioni di CKFinder.',
-		'501' => 'Il supporto alle anteprime non è attivo.',
+		'501' => 'Il supporto alle anteprime non è attivo.'
 	)
 );

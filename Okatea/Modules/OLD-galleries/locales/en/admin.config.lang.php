@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_config_tab_general'] = 'General';
 $GLOBALS['okt_l10n']['m_galleries_config_tab_images_items'] = 'Images of items';
 $GLOBALS['okt_l10n']['m_galleries_config_tab_images_galleries'] = 'Images of galleries';

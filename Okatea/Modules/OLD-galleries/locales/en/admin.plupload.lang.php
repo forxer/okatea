@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_plupload_add_items'] = 'Add items';
 
 $GLOBALS['okt_l10n']['m_galleries_plupload_items_title'] = 'Title elements';

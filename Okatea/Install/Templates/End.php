@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Symfony\Component\Filesystem\Filesystem;
 
 $view->extend('layout');
@@ -24,7 +23,8 @@ $okt->session->clear();
 $okt->session->invalidate();
 
 # remove install dir
-if ($okt->options->get('env') === 'prod')  {
-	(new Filesystem())->remove($okt->options->get('root_dir').'/install/');
+if ($okt->options->get('env') === 'prod')
+{
+	(new Filesystem())->remove($okt->options->get('root_dir') . '/install/');
 }
 

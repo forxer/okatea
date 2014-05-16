@@ -7,7 +7,6 @@
  */
 
 //$view->extend('emails/layout');
-
 ?>
 <p><?php printf(__('c_c_emails_hello_%s'), $view->escape($user)) ?></p>
 
@@ -30,5 +29,6 @@
 
 <p><?php _e('c_c_emails_best_regards') ?></p>
 
-<p><em><?php _e('c_c_emails_automatic_email') ?></em><br>
-<em><?php _e('c_c_emails_do_not_reply') ?></em></p>
+<p>
+	<em><?php _e('c_c_emails_automatic_email') ?></em><br> <em><?php _e('c_c_emails_do_not_reply') ?></em>
+</p>

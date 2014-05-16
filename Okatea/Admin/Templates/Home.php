@@ -5,31 +5,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-$view->extend('layout'); ?>
+$view->extend('layout');
+?>
 
 <?php if (!empty($sNewVersion)) : ?>
-<div id="updates-notifications"><h3><?php _e('c_a_update') ?></h3>
+<div id="updates-notifications">
+	<h3><?php _e('c_a_update') ?></h3>
 	<p><?php printf(__('c_a_update_okatea_%s_available'), $sNewVersion) ?></p>
 	<ul>
-		<li><strong><a href="<?php echo $view->generateUrl('config_update') ?>"><?php sprintf(__('c_a_update_upgrade_now'), $sNewVersion) ?></a></strong></li>
-		<li><a href="<?php echo $view->generateUrl('config_update') ?>?hide_msg=1"><?php _e('c_a_update_remind_later') ?></a></li>
+		<li><strong><a
+				href="<?php echo $view->generateUrl('config_update') ?>"><?php sprintf(__('c_a_update_upgrade_now'), $sNewVersion) ?></a></strong></li>
+		<li><a
+			href="<?php echo $view->generateUrl('config_update') ?>?hide_msg=1"><?php _e('c_a_update_remind_later') ?></a></li>
 	</ul>
 </div>
 <?php endif; ?>
 
 <div class="ui-helper-clearfix">
-	<?php # lecteur de flux d'actualités
-	if ($bFeedSuccess) : ?>
+	<?php 
+# lecteur de flux d'actualités
+	if ($bFeedSuccess)
+	:
+		?>
 
 	<div id="news_feed_list">
 		<?php foreach ($feed->get_items() as $item): ?>
 		<div class="ui-widget">
-			<h3 class="ui-widget-header ui-corner-top"><a href="<?php echo $item->get_permalink(); ?>"><?php echo $item->get_title(); ?></a></h3>
+			<h3 class="ui-widget-header ui-corner-top">
+				<a href="<?php echo $item->get_permalink(); ?>"><?php echo $item->get_title(); ?></a>
+			</h3>
 			<div class="ui-widget-content ui-corner-bottom"><?php echo $item->get_description(); ?></div>
 		</div>
 		<?php endforeach; ?>
-	</div><!-- #news_list -->
+	</div>
+	<!-- #news_list -->
 
 	<?php endif; ?>
 
@@ -46,7 +55,9 @@ $view->extend('layout'); ?>
 	<![endif]-->
 
 	<div id="roundabout-wrapper">
-		<ul id="roundabout"><li><?php echo implode("</li>\n<li>", $aRoundAboutItems) ?></li></ul>
+		<ul id="roundabout">
+			<li><?php echo implode("</li>\n<li>", $aRoundAboutItems) ?></li>
+		</ul>
 	</div>
 </div>
 <!--[if lte IE 8]>
@@ -64,5 +75,6 @@ $view->extend('layout'); ?>
 </div>
 <![endif]-->
 
-<?php # -- CORE TRIGGER : adminIndexHtmlContent
+<?php 
+# -- CORE TRIGGER : adminIndexHtmlContent
 $okt->triggers->callTrigger('adminIndexHtmlContent'); ?>

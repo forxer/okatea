@@ -5,11 +5,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('Builder/Admin/Templates/Builder');
-
 
 $okt->page->css->addCss('
 #editor_wrapper {
@@ -57,23 +55,23 @@ $okt->page->css->addCss('
 ');
 
 # CSS
-$okt->page->css->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.css');
-$okt->page->css->addFile($okt->options->public_url.'/components/codemirror/addon/dialog/dialog.css');
+$okt->page->css->addFile($okt->options->public_url . '/components/codemirror/lib/codemirror.css');
+$okt->page->css->addFile($okt->options->public_url . '/components/codemirror/addon/dialog/dialog.css');
 
 # JS
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/lib/codemirror.js');
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/yaml/yaml.js');
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/clike/clike.js');
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/mode/php/php.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/lib/codemirror.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/mode/yaml/yaml.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/mode/clike/clike.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/mode/php/php.js');
 
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/search.js');
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/searchcursor.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/addon/search/search.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/addon/search/searchcursor.js');
 
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/search/match-highlighter.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/addon/search/match-highlighter.js');
 
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/dialog/dialog.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/addon/dialog/dialog.js');
 
-$okt->page->js->addFile($okt->options->public_url.'/components/codemirror/addon/selection/active-line.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/codemirror/addon/selection/active-line.js');
 
 $okt->page->js->addScript('
 
@@ -140,11 +138,15 @@ $okt->page->js->addScript('
 
 	');
 
-$okt->page->toggleWithLegend('options_title', 'options', array('cookie'=>'oktBuilderOptions'));
+$okt->page->toggleWithLegend('options_title', 'options', array(
+	'cookie' => 'oktBuilderOptions'
+));
 
 ?>
 
-<form action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>" method="post">
+<form
+	action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>"
+	method="post">
 
 	<p><?php _e('m_builder_step_config_1') ?></p>
 
@@ -163,10 +165,12 @@ $okt->page->toggleWithLegend('options_title', 'options', array('cookie'=>'oktBui
 	<h3 id="options_title"><?php _e('m_builder_step_config_6') ?></h3>
 
 	<div id="options">
-		<textarea id="options_editor" name="options_editor" rows="35" cols="97"><?php echo $sOptions ?></textarea>
+		<textarea id="options_editor" name="options_editor" rows="35"
+			cols="97"><?php echo $sOptions ?></textarea>
 	</div>
 
-	<p><?php echo form::hidden('form_sent', 1) ?>
-	<input type="submit" value="<?php _e('c_c_next') ?>" /></p>
+	<p><?php echo form::hidden('form_sent', 1)?>
+	<input type="submit" value="<?php _e('c_c_next') ?>" />
+	</p>
 </form>
 

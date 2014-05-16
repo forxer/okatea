@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Themes\Editor;
 
 use RecursiveDirectoryIterator;
@@ -16,136 +15,148 @@ use Okatea\Tao\Themes\Editor\Iterator\ThemeDirsForSelect;
 
 /**
  * Classe de l'éditeur de thème.
- *
  */
 class Editor
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Instance du gestionnaire de thèmes.
+	 * 
 	 * @var Okatea\Tao\Themes\Collection
 	 */
 	protected $oThemes;
 
 	/**
 	 * Liste des thèmes
+	 * 
 	 * @var array
 	 */
 	protected $aThemes;
 
 	/**
 	 * Le nom du répertoire des thèmes.
+	 * 
 	 * @var string
 	 */
 	protected $sThemesDir;
 
 	/**
 	 * Le chemin du répertoire des thèmes.
+	 * 
 	 * @var string
 	 */
 	protected $sThemesPath;
 
-
 	/**
 	 * L'identifiant du thème en cours d'édition.
+	 * 
 	 * @var string
 	 */
 	protected $sThemeId = null;
 
 	/**
 	 * Les infos du thème en cours d'édition.
+	 * 
 	 * @var array
 	 */
 	protected $aThemeInfos = array();
 
 	/**
 	 * Le chemin du thème en cours d'édition.
+	 * 
 	 * @var string
 	 */
 	protected $sThemePath = null;
 
 	/**
 	 * L'URL du thème en cours d'édition.
+	 * 
 	 * @var string
 	 */
 	protected $sThemeUrl = null;
 
 	/**
 	 * La liste des fichiers du thème en cours d'édition.
+	 * 
 	 * @var ThemeFilesIterator
 	 */
 	protected $oThemeFiles = null;
 
 	/**
 	 * Le nom du fichier en cours d'édition.
+	 * 
 	 * @var string
 	 */
 	protected $sFilename = null;
 
 	/**
 	 * Les infos du fichier en cours d'édition.
+	 * 
 	 * @var \SplFileInfo
 	 */
 	protected $oFileInfos = null;
 
 	/**
 	 * L'extension du fichier en cours d'édition.
+	 * 
 	 * @var string
 	 */
 	protected $sFileExtension = null;
 
 	/**
 	 * La liste des fichiers backup du fichier en cours d'édition.
+	 * 
 	 * @var array
 	 */
 	protected $aBackupFiles = array();
 
-
 	/**
 	 * Constructor.
 	 *
-	 * @param Okatea\Tao\Application $okt
-	 * @param string $sThemesPath
+	 * @param Okatea\Tao\Application $okt        	
+	 * @param string $sThemesPath        	
 	 * @return void
 	 */
 	public function __construct($okt, $sThemesPath)
 	{
 		$this->okt = $okt;
-
+		
 		$this->sThemesPath = $sThemesPath;
 		$this->sThemesDir = basename($sThemesPath);
-
+		
 		$this->oThemes = new Collection($okt, $sThemesPath);
 		$this->aThemes = $this->oThemes->getThemesAdminList();
 	}
-
-
+	
 	/* Méthodes pour l'édition d'un thème
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Chargement d'un thème donné dans l'éditeur.
 	 *
-	 * @param string $sThemeId
+	 * @param string $sThemeId        	
 	 * @return void
 	 */
 	public function loadTheme($sThemeId)
 	{
-		if (!isset($this->aThemes[$sThemeId])) {
+		if (! isset($this->aThemes[$sThemeId]))
+		{
 			throw new \Exception(sprintf(__('c_a_te_error_theme_%s_not_exists'), $sThemeId));
 		}
-
+		
 		$this->sThemeId = $sThemeId;
-
+		
 		$this->aThemeInfos = $this->aThemes[$this->sThemeId];
-
-		$this->sThemePath = $this->sThemesPath.'/'.$this->sThemeId;
-		$this->sThemeUrl = $this->okt->config->app_path.$this->sThemesDir.'/'.$this->sThemeId;
+		
+		$this->sThemePath = $this->sThemesPath . '/' . $this->sThemeId;
+		$this->sThemeUrl = $this->okt->config->app_path . $this->sThemesDir . '/' . $this->sThemeId;
 	}
 
 	/**
@@ -172,11 +183,12 @@ class Editor
 	 * Retourne une info donnée du thème en cours d'édition.
 	 *
 	 * @param string $sName
-	 * return string
+	 *        	return string
 	 */
 	public function getThemeInfo($sName)
 	{
-		if (isset($this->aThemeInfos[$sName])) {
+		if (isset($this->aThemeInfos[$sName]))
+		{
 			return $this->aThemeInfos[$sName];
 		}
 	}
@@ -188,7 +200,8 @@ class Editor
 	 */
 	public function loadThemeFilesTree()
 	{
-		if ($this->sThemeId) {
+		if ($this->sThemeId)
+		{
 			$this->oThemeFiles = new ThemeFiles(new RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
@@ -200,7 +213,8 @@ class Editor
 	 */
 	public function loadThemeDirTree()
 	{
-		if ($this->sThemeId) {
+		if ($this->sThemeId)
+		{
 			$this->oThemeFiles = new ThemeDirsForSelect(new RecursiveDirectoryIterator($this->sThemePath), \RecursiveIteratorIterator::SELF_FIRST);
 		}
 	}
@@ -213,22 +227,23 @@ class Editor
 		$this->aTemplatesPath = array();
 		foreach ($this->aThemes as $aTheme)
 		{
-	//		$this->aTemplatesPath[$aTheme['name']] = array();
+			//		$this->aTemplatesPath[$aTheme['name']] = array();
+			
 
-			$i = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->sThemesPath.'/'.$aTheme['id'].'/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
-
+			$i = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->sThemesPath . '/' . $aTheme['id'] . '/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
+			
 			foreach ($i as $f)
 			{
-				if ($f->isFile()
-						&& $f->getExtension() == 'php'
+				if ($f->isFile() && $f->getExtension() == 'php'
 		//				&& $f->getFilename() != 'layout.php'
-						&& $f->getFilename() != '_define.php')
+						&& $f && 
+->getFilename() != '_define.php')
 				{
-					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath.'/'.$aTheme['id'].'/Templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
+					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath . '/' . $aTheme['id'] . '/Templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
 				}
 			}
 		}
-
+		
 		return $this->aTemplatesPath;
 	}
 
@@ -261,29 +276,29 @@ class Editor
 	{
 		return $this->sThemeUrl;
 	}
-
-
+	
 	/* Méthodes pour l'édition d'un fichier
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Chargement d'un fichier donné dans l'éditeur.
 	 *
-	 * @param string $sThemeId
+	 * @param string $sThemeId        	
 	 * @return void
 	 */
 	public function loadFile($sFilename)
 	{
-		if (!file_exists($this->sThemePath.$sFilename)) {
+		if (! file_exists($this->sThemePath . $sFilename))
+		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sFilename));
 		}
-
+		
 		$this->sFilename = $sFilename;
-
-		$this->oFileInfos = new SplFileInfo($this->sThemePath.$this->sFilename);
-
+		
+		$this->oFileInfos = new SplFileInfo($this->sThemePath . $this->sFilename);
+		
 		$this->sFileExtension = $this->oFileInfos->getExtension();
-
+		
 		$this->loadBackupFiles();
 	}
 
@@ -324,12 +339,13 @@ class Editor
 	 */
 	public function loadBackupFiles()
 	{
-		$sBasename = str_replace('.'.$this->sFileExtension, '', $this->sFilename);
-		$sPatern = $sBasename.'_????-??-??-??-??-??.'.$this->sFileExtension.'.bak';
-
-		$this->aBackupFiles = glob($this->sThemePath.$sPatern);
-
-		foreach ($this->aBackupFiles as $k=>$sFile) {
+		$sBasename = str_replace('.' . $this->sFileExtension, '', $this->sFilename);
+		$sPatern = $sBasename . '_????-??-??-??-??-??.' . $this->sFileExtension . '.bak';
+		
+		$this->aBackupFiles = glob($this->sThemePath . $sPatern);
+		
+		foreach ($this->aBackupFiles as $k => $sFile)
+		{
 			$this->aBackupFiles[$k] = str_replace($this->sThemePath, '', $sFile);
 		}
 	}
@@ -337,7 +353,7 @@ class Editor
 	/**
 	 * Retourne la liste des fichiers backup du fichier en cours d'édition.
 	 *
-	 *  @return array
+	 * @return array
 	 */
 	public function getBackupFiles()
 	{
@@ -347,58 +363,56 @@ class Editor
 	/**
 	 * Enregistre un nouveau contenu pour le fichier en cours d'édition.
 	 *
-	 * @param string $sContent
-	 * @param boolean $bMPakeBakcup
+	 * @param string $sContent        	
+	 * @param boolean $bMPakeBakcup        	
 	 */
 	public function saveFile($sContent, $bMPakeBakcup)
 	{
-		if ($bMPakeBakcup) {
+		if ($bMPakeBakcup)
+		{
 			$this->makeBackup();
 		}
-
-		return file_put_contents($this->sThemePath.$this->sFilename, $sContent);
+		
+		return file_put_contents($this->sThemePath . $this->sFilename, $sContent);
 	}
 
 	/**
 	 * Création d'une copie de sauvegarde.
-	 *
 	 */
 	public function makeBackup()
 	{
-		$sBackupFilename = str_replace(
-			'.'.$this->sFileExtension,
-			date('_Y-m-d-H-i-s').'.'.$this->sFileExtension.'.bak',
-			$this->sFilename
-		);
-
-		copy($this->sThemePath.$this->sFilename, $this->sThemePath.$sBackupFilename);
+		$sBackupFilename = str_replace('.' . $this->sFileExtension, date('_Y-m-d-H-i-s') . '.' . $this->sFileExtension . '.bak', $this->sFilename);
+		
+		copy($this->sThemePath . $this->sFilename, $this->sThemePath . $sBackupFilename);
 	}
 
 	/**
 	 * Restauration d'une copie de sauvegarde.
 	 *
-	 * @param string $sBackupFile
+	 * @param string $sBackupFile        	
 	 */
 	public function restoreBackupFile($sBackupFile)
 	{
-		if (!in_array($sBackupFile,$this->aBackupFiles)) {
+		if (! in_array($sBackupFile, $this->aBackupFiles))
+		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
-
+		
 		$this->makeBackup();
-
-		file_put_contents($this->sThemePath.$this->sFilename, file_get_contents($this->sThemePath.$sBackupFile));
-
+		
+		file_put_contents($this->sThemePath . $this->sFilename, file_get_contents($this->sThemePath . $sBackupFile));
+		
 		$this->deleteBackupFile($sBackupFile);
 	}
 
 	public function deleteBackupFile($sBackupFile)
 	{
-		if (!in_array($sBackupFile,$this->aBackupFiles)) {
+		if (! in_array($sBackupFile, $this->aBackupFiles))
+		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
-
-		unlink($this->sThemePath.$sBackupFile);
+		
+		unlink($this->sThemePath . $sBackupFile);
 	}
 
 	/**
@@ -409,26 +423,32 @@ class Editor
 	public function getCodeMirrorMode()
 	{
 		$sMode = null;
-
-		if ($this->sFileExtension == 'php') {
+		
+		if ($this->sFileExtension == 'php')
+		{
 			$sMode = 'application/x-httpd-php';
 		}
-		elseif ($this->sFileExtension == 'html') {
+		elseif ($this->sFileExtension == 'html')
+		{
 			$sMode = 'text/html';
 		}
-		elseif ($this->sFileExtension == 'js') {
+		elseif ($this->sFileExtension == 'js')
+		{
 			$sMode = 'text/javascript';
 		}
-		elseif ($this->sFileExtension == 'css') {
+		elseif ($this->sFileExtension == 'css')
+		{
 			$sMode = 'text/css';
 		}
-		elseif ($this->sFileExtension == 'less') {
+		elseif ($this->sFileExtension == 'less')
+		{
 			$sMode = 'text/x-less';
 		}
-		elseif ($this->sFileExtension == 'yml') {
+		elseif ($this->sFileExtension == 'yml')
+		{
 			$sMode = 'text/x-yaml';
 		}
-
+		
 		return $sMode;
 	}
 }

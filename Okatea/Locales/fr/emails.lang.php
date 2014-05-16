@@ -5,8 +5,6 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-
-
 $GLOBALS['okt_l10n']['c_c_emails_welcom_on_%s'] = 'Bienvenue sur %s';
 $GLOBALS['okt_l10n']['c_c_emails_hello_%s'] = 'Bonjour %s';
 $GLOBALS['okt_l10n']['c_c_emails_thanks_register_on_%s'] = 'Merci de vous être inscrit sur notre site %s (%s).';

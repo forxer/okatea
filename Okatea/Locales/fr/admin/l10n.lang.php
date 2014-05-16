@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_config_l10n'] = 'Configuration de la localisation';
 
 $GLOBALS['okt_l10n']['c_a_config_l10n_added'] = 'La langue a été ajoutée. Pensez à configurer les modules.';

@@ -1,15 +1,17 @@
-<?php return array (
-  'BR' => 'Brazil',
-  'CN' => 'China',
-  'DE' => 'Germany',
-  'DJ' => 'Yabuuti',
-  'ER' => 'Eretria',
-  'ET' => 'Otobbia',
-  'FR' => 'France',
-  'GB' => 'United Kingdom',
-  'IN' => 'India',
-  'IT' => 'Italy',
-  'JP' => 'Japan',
-  'RU' => 'Russia',
-  'US' => 'United States',
+<?php
+
+return array(
+	'BR' => 'Brazil',
+	'CN' => 'China',
+	'DE' => 'Germany',
+	'DJ' => 'Yabuuti',
+	'ER' => 'Eretria',
+	'ET' => 'Otobbia',
+	'FR' => 'France',
+	'GB' => 'United Kingdom',
+	'IN' => 'India',
+	'IT' => 'Italy',
+	'JP' => 'Japan',
+	'RU' => 'Russia',
+	'US' => 'United States'
 );

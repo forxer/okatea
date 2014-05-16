@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Lithuanian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Lithuanian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Užklausos įvykdyti nepavyko. (Klaida %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Neteisinga komanda.',
 		'11' => 'Resurso rūšis nenurodyta užklausoje.',
 		'12' => 'Neteisinga resurso rūšis.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Failų perkėlimas nepavyko.',
 		'301' => 'Failų kopijavimas nepavyko.',
 		'500' => 'Failų naršyklė yra išjungta dėl saugumo nustaymų. Prašau susisiekti su sistemų administratoriumi ir patikrinkite CKFinder konfigūracinį failą.',
-		'501' => 'Miniatiūrų palaikymas išjungtas.',
+		'501' => 'Miniatiūrų palaikymas išjungtas.'
 	)
 );

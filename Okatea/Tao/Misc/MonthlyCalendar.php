@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Misc;
 
 /**
@@ -15,64 +14,73 @@ namespace Okatea\Tao\Misc;
  *
  * Exemple :
  *
- *	$oCal = new MonthlyCalendar(array(
- *			'urlBase' 		=> 'calendar.php',
- *			'urlPattern' 	=> '?year=%s&amp;month=%s'
- *		),
- *		(!empty($_GET['year']) ? $_GET['year'] : null),
- *		(!empty($_GET['month']) ? $_GET['month'] : null)
- *	);
+ * $oCal = new MonthlyCalendar(array(
+ * 'urlBase' => 'calendar.php',
+ * 'urlPattern' => '?year=%s&amp;month=%s'
+ * ),
+ * (!empty($_GET['year']) ? $_GET['year'] : null),
+ * (!empty($_GET['month']) ? $_GET['month'] : null)
+ * );
  *
- * 	echo $oCal->getHtml();
+ * echo $oCal->getHtml();
  */
 class MonthlyCalendar
 {
+
 	protected $aConfig = array(
-		'htmlBlock' 			=> '<table class="calendar" summary="calendar">%s</table>',
-
-		'htmlNavigation' 		=> '<caption> %2$s %1$s %3$s</caption>',
-		'htmlPrevLink' 			=> '<a href="%1$s" title="%2$s">&laquo;</a>',
-		'htmlNextLink' 			=> '<a href="%1$s" title="%2$s">&raquo;</a>',
-
-		'htmlHead' 				=> '<thead>%s</thead>',
-		'htmlHeadLine' 			=> '<tr>%s</tr>',
-		'htmlHeadCel' 			=> '<th scope="col">%s</th>',
-		'htmlHeadCelContent' 	=> '<abbr title="%2$s">%1$s</abbr>',
-
-		'htmlBody' 				=> '<tbody>%s</tbody>',
-		'htmlBodyLine' 			=> '<tr>%s</tr>',
-		'htmlBodyCel' 			=> '<td class="%2$s" id="day-%3$s">%1$s</td>',
-		'htmlBodyCelContent' 	=> '<span class="number">%s</span>',
-
-		'htmlClassActive'		=> 'active',
-		'htmlClassDisabled'		=> 'disabled',
-
-		'htmlEmptyCelContent' 	=> '&nbsp;',
-
-		'urlBase' 				=> '/',
-		'urlPattern' 			=> '%s/%s/',
-
-		'mondayFirstDay' 		=> true # Monday is TRUE, FALSE is Sunday
+		'htmlBlock' => '<table class="calendar" summary="calendar">%s</table>',
+		
+		'htmlNavigation' => '<caption> %2$s %1$s %3$s</caption>',
+		'htmlPrevLink' => '<a href="%1$s" title="%2$s">&laquo;</a>',
+		'htmlNextLink' => '<a href="%1$s" title="%2$s">&raquo;</a>',
+		
+		'htmlHead' => '<thead>%s</thead>',
+		'htmlHeadLine' => '<tr>%s</tr>',
+		'htmlHeadCel' => '<th scope="col">%s</th>',
+		'htmlHeadCelContent' => '<abbr title="%2$s">%1$s</abbr>',
+		
+		'htmlBody' => '<tbody>%s</tbody>',
+		'htmlBodyLine' => '<tr>%s</tr>',
+		'htmlBodyCel' => '<td class="%2$s" id="day-%3$s">%1$s</td>',
+		'htmlBodyCelContent' => '<span class="number">%s</span>',
+		
+		'htmlClassActive' => 'active',
+		'htmlClassDisabled' => 'disabled',
+		
+		'htmlEmptyCelContent' => '&nbsp;',
+		
+		'urlBase' => '/',
+		'urlPattern' => '%s/%s/',
+		
+		'mondayFirstDay' => true # Monday is TRUE, FALSE is Sunday
 	);
 
 	protected $iCurrentDay;
+
 	protected $iCurrentMonth;
+
 	protected $iCurrentYear;
 
 	protected $iDay = 1;
+
 	protected $iMonth;
+
 	protected $iYear;
+
 	protected $iDate;
 
 	protected $iTimestamp;
 
 	protected $iPrevMonth;
+
 	protected $iPrevYear;
 
 	protected $iNextMonth;
+
 	protected $iNextYear;
 
 	protected $iFirstDay;
+
 	protected $iLastDay;
 
 	protected $bRealDay = false;
@@ -82,26 +90,26 @@ class MonthlyCalendar
 	/**
 	 * Constructor
 	 *
-	 * @param array $aConfig
-	 * @param integer $year
-	 * @param integer $month
+	 * @param array $aConfig        	
+	 * @param integer $year        	
+	 * @param integer $month        	
 	 * @return void
 	 */
-	public function __construct($aConfig=array(), $year=null, $month=null)
+	public function __construct($aConfig = array(), $year = null, $month = null)
 	{
 		$this->setConfig($aConfig);
-
-		$this->iCurrentDay = (integer)date('d',time());
-		$this->iCurrentMonth = (integer)date('m',time());
-		$this->iCurrentYear = (integer)date('Y',time());
-
-		$this->setDate($year,$month);
+		
+		$this->iCurrentDay = (integer) date('d', time());
+		$this->iCurrentMonth = (integer) date('m', time());
+		$this->iCurrentYear = (integer) date('Y', time());
+		
+		$this->setDate($year, $month);
 	}
 
 	/**
 	 * Définit la configuration.
 	 *
-	 * @param array $aConfig
+	 * @param array $aConfig        	
 	 * @return void
 	 */
 	public function setConfig($aConfig)
@@ -112,18 +120,18 @@ class MonthlyCalendar
 	/**
 	 * Définit la date du mois à afficher.
 	 *
-	 * @param integer $year
-	 * @param integer $month
+	 * @param integer $year        	
+	 * @param integer $month        	
 	 * @return void
 	 */
-	public function setDate($year=null, $month=null)
+	public function setDate($year = null, $month = null)
 	{
-		$this->iYear = !is_null($year) ? intval($year) : $this->iCurrentYear;
-		$this->iMonth = !is_null($month) ? intval($month) : $this->iCurrentMonth;
-
-		$this->iTimestamp = strtotime($this->iYear.'-'.$this->iMonth.'-01');
-
-/*		$this->iNextMonth = strtotime('next month',$this->iTimestamp);
+		$this->iYear = ! is_null($year) ? intval($year) : $this->iCurrentYear;
+		$this->iMonth = ! is_null($month) ? intval($month) : $this->iCurrentMonth;
+		
+		$this->iTimestamp = strtotime($this->iYear . '-' . $this->iMonth . '-01');
+		
+		/*		$this->iNextMonth = strtotime('next month',$this->iTimestamp);
 		$this->iLastMonth = strtotime('last month',$this->iTimestamp);
 		debug(date('d-m-Y',$this->iNextMonth));
 		debug(date('d-m-Y',$this->iLastMonth));
@@ -139,7 +147,7 @@ class MonthlyCalendar
 	 */
 	public function getStartDate()
 	{
-		return $this->iYear.'-'.$this->iMonth.'-01';
+		return $this->iYear . '-' . $this->iMonth . '-01';
 	}
 
 	/**
@@ -149,7 +157,7 @@ class MonthlyCalendar
 	 */
 	public function getEndDate()
 	{
-		return $this->iYear.'-'.$this->iMonth.'-'.$this->iLastDay;
+		return $this->iYear . '-' . $this->iMonth . '-' . $this->iLastDay;
 	}
 
 	/**
@@ -160,13 +168,13 @@ class MonthlyCalendar
 	public function getHtml()
 	{
 		$sHtml = '';
-
+		
 		$sHtml .= $this->getNavigation();
-
+		
 		$sHtml .= $this->getHead();
-
+		
 		$sHtml .= $this->getBody();
-
+		
 		return sprintf($this->aConfig['htmlBlock'], $sHtml);
 	}
 
@@ -177,8 +185,8 @@ class MonthlyCalendar
 	 */
 	protected function getNavigation()
 	{
-		$sCurrent = \dt::str('%B %Y',$this->iTimestamp);
-
+		$sCurrent = \dt::str('%B %Y', $this->iTimestamp);
+		
 		return sprintf($this->aConfig['htmlNavigation'], $sCurrent, $this->getPrevLink(), $this->getNextLink());
 	}
 
@@ -190,7 +198,7 @@ class MonthlyCalendar
 	protected function getPrevLink()
 	{
 		$this->definePrevDate();
-
+		
 		return sprintf($this->aConfig['htmlPrevLink'], $this->getPrevUrl(), $this->getPrevDate());
 	}
 
@@ -201,8 +209,7 @@ class MonthlyCalendar
 	 */
 	protected function getPrevUrl()
 	{
-
-		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'], $this->iPrevYear, (strlen($this->iPrevMonth) === 1 ? '0'.$this->iPrevMonth : $this->iPrevMonth));
+		return $this->aConfig['urlBase'] . sprintf($this->aConfig['urlPattern'], $this->iPrevYear, (strlen($this->iPrevMonth) === 1 ? '0' . $this->iPrevMonth : $this->iPrevMonth));
 	}
 
 	/**
@@ -212,7 +219,7 @@ class MonthlyCalendar
 	 */
 	protected function getPrevDate()
 	{
-		return \dt::str('%B %Y',strtotime($this->iPrevYear.'-'.$this->iPrevMonth.'-01'));
+		return \dt::str('%B %Y', strtotime($this->iPrevYear . '-' . $this->iPrevMonth . '-01'));
 	}
 
 	/**
@@ -223,7 +230,7 @@ class MonthlyCalendar
 	protected function getNextLink()
 	{
 		$this->defineNextDate();
-
+		
 		return sprintf($this->aConfig['htmlNextLink'], $this->getNextUrl(), $this->getNextDate());
 	}
 
@@ -234,7 +241,7 @@ class MonthlyCalendar
 	 */
 	protected function getNextUrl()
 	{
-		return $this->aConfig['urlBase'].sprintf($this->aConfig['urlPattern'], $this->iNextYear, (strlen($this->iNextMonth) === 1 ? '0'.$this->iNextMonth : $this->iNextMonth));
+		return $this->aConfig['urlBase'] . sprintf($this->aConfig['urlPattern'], $this->iNextYear, (strlen($this->iNextMonth) === 1 ? '0' . $this->iNextMonth : $this->iNextMonth));
 	}
 
 	/**
@@ -244,7 +251,7 @@ class MonthlyCalendar
 	 */
 	protected function getNextDate()
 	{
-		return \dt::str('%B %Y',strtotime($this->iNextYear.'-'.$this->iNextMonth.'-01'));
+		return \dt::str('%B %Y', strtotime($this->iNextYear . '-' . $this->iNextMonth . '-01'));
 	}
 
 	/**
@@ -254,37 +261,38 @@ class MonthlyCalendar
 	 */
 	protected function getHead()
 	{
-		$iFirstTs = self::SUNDAY_TS + ((integer)$this->aConfig['mondayFirstDay'] * 86400);
+		$iFirstTs = self::SUNDAY_TS + ((integer) $this->aConfig['mondayFirstDay'] * 86400);
 		$iLastTs = $iFirstTs + (6 * 86400);
-
+		
 		$res = '';
-		for ($j = $iFirstTs; $j <= $iLastTs; $j = $j+86400) {
+		for ($j = $iFirstTs; $j <= $iLastTs; $j = $j + 86400)
+		{
 			$res .= $this->getHeadCel($j);
 		}
-
+		
 		return sprintf($this->aConfig['htmlHead'], sprintf($this->aConfig['htmlHeadLine'], $res));
 	}
 
 	/**
 	 * Retourne le HTML d'une cellule de l'en-tête du calendrier.
 	 *
-	 * @param integer $j
+	 * @param integer $j        	
 	 * @return string
 	 */
 	protected function getHeadCel($j)
 	{
-		return sprintf($this->aConfig['htmlHeadCel'],$this->getHeadCelContent($j));
+		return sprintf($this->aConfig['htmlHeadCel'], $this->getHeadCelContent($j));
 	}
 
 	/**
 	 * Retourne le HTML du contenu d'une cellule de l'en-tête du calendrier.
 	 *
-	 * @param integer $j
+	 * @param integer $j        	
 	 * @return string
 	 */
 	protected function getHeadCelContent($j)
 	{
-		return sprintf($this->aConfig['htmlHeadCelContent'], \dt::str('%a',$j), \dt::str('%A',$j));
+		return sprintf($this->aConfig['htmlHeadCelContent'], \dt::str('%a', $j), \dt::str('%A', $j));
 	}
 
 	/**
@@ -297,20 +305,22 @@ class MonthlyCalendar
 		$i = 0;
 		$sBody = '';
 		$sLine = '';
-
-		while ($i<42)
+		
+		while ($i < 42)
 		{
-			$this->iDate = date('Y-m-d',strtotime($this->iYear.'-'.$this->iMonth.'-'.$this->iDay));
-
-			if ($i === $this->iFirstDay) {
+			$this->iDate = date('Y-m-d', strtotime($this->iYear . '-' . $this->iMonth . '-' . $this->iDay));
+			
+			if ($i === $this->iFirstDay)
+			{
 				$this->bRealDay = true;
 			}
-
-			if ($this->bRealDay && !checkdate($this->iMonth, $this->iDay, $this->iYear)) {
+			
+			if ($this->bRealDay && ! checkdate($this->iMonth, $this->iDay, $this->iYear))
+			{
 				$this->bRealDay = false;
 			}
-
-/*
+			
+			/*
 			if (!$this->bRealDay)
 			{
 				if ($this->iDay === 1) {
@@ -321,31 +331,33 @@ class MonthlyCalendar
 				}
 			}
 */
-
+			
 			# cellule du jour
 			$sLine .= $this->getBodyCel();
-
+			
 			# fin de semaine
-			if (($i+1)%7 == 0)
+			if (($i + 1) % 7 == 0)
 			{
-				$sBody .= sprintf($this->aConfig['htmlBodyLine'],$sLine);
-
+				$sBody .= sprintf($this->aConfig['htmlBodyLine'], $sLine);
+				
 				$sLine = '';
-
+				
 				# fin du mois
-				if ($this->iDay >= $this->iLastDay) {
+				if ($this->iDay >= $this->iLastDay)
+				{
 					$i = 42;
 				}
 			}
-
-			if ($this->bRealDay) {
-				$this->iDay++;
+			
+			if ($this->bRealDay)
+			{
+				$this->iDay ++;
 			}
-
-			$i++;
+			
+			$i ++;
 		}
-
-		return sprintf($this->aConfig['htmlBody'],$sBody);
+		
+		return sprintf($this->aConfig['htmlBody'], $sBody);
 	}
 
 	/**
@@ -356,22 +368,24 @@ class MonthlyCalendar
 	protected function getBodyCel()
 	{
 		$aClasses = array();
-
+		
 		# date du jour ?
-		if ($this->isToday()) {
+		if ($this->isToday())
+		{
 			$aClasses[] = $this->aConfig['htmlClassActive'];
 		}
-
+		
 		# jour inexistant ?
-		if (!$this->bRealDay) {
+		if (! $this->bRealDay)
+		{
 			$aClasses[] = $this->aConfig['htmlClassDisabled'];
 		}
-
+		
 		$sCell = $this->getDayNumber();
-
+		
 		$sCell .= $this->getDayContent();
-
-		return sprintf($this->aConfig['htmlBodyCel'], $sCell, implode(' ',$aClasses), $this->iDate);
+		
+		return sprintf($this->aConfig['htmlBodyCel'], $sCell, implode(' ', $aClasses), $this->iDate);
 	}
 
 	/**
@@ -381,13 +395,15 @@ class MonthlyCalendar
 	 */
 	protected function getDayNumber()
 	{
-		if ($this->bRealDay) {
+		if ($this->bRealDay)
+		{
 			$sDayNumber = sprintf($this->aConfig['htmlBodyCelContent'], $this->iDay);
 		}
-		else {
+		else
+		{
 			$sDayNumber = $this->aConfig['htmlEmptyCelContent'];
 		}
-
+		
 		return $sDayNumber;
 	}
 
@@ -411,10 +427,11 @@ class MonthlyCalendar
 		if ($this->iMonth == 1)
 		{
 			$this->iPrevMonth = 12;
-			$this->iPrevYear = $this->iYear-1;
+			$this->iPrevYear = $this->iYear - 1;
 		}
-		else {
-			$this->iPrevMonth = $this->iMonth-1;
+		else
+		{
+			$this->iPrevMonth = $this->iMonth - 1;
 			$this->iPrevYear = $this->iYear;
 		}
 	}
@@ -429,10 +446,11 @@ class MonthlyCalendar
 		if ($this->iMonth == 12)
 		{
 			$this->iNextMonth = 1;
-			$this->iNextYear = $this->iYear+1;
+			$this->iNextYear = $this->iYear + 1;
 		}
-		else {
-			$this->iNextMonth = $this->iMonth+1;
+		else
+		{
+			$this->iNextMonth = $this->iMonth + 1;
 			$this->iNextYear = $this->iYear;
 		}
 	}
@@ -444,11 +462,11 @@ class MonthlyCalendar
 	 */
 	protected function defineFirstDay()
 	{
-		$iFirstDay = (integer)date('w',$this->iTimestamp);
-
+		$iFirstDay = (integer) date('w', $this->iTimestamp);
+		
 		$iFirstDay = ($iFirstDay === 0) ? 7 : $iFirstDay;
-		$iFirstDay = $iFirstDay - (integer)$this->aConfig['mondayFirstDay'];
-
+		$iFirstDay = $iFirstDay - (integer) $this->aConfig['mondayFirstDay'];
+		
 		$this->iFirstDay = $iFirstDay;
 	}
 
@@ -459,23 +477,19 @@ class MonthlyCalendar
 	 */
 	protected function defineLastDay()
 	{
-		$this->iLastDay = (integer)date('t',$this->iTimestamp);
+		$this->iLastDay = (integer) date('t', $this->iTimestamp);
 	}
 
 	/**
 	 * Détermine si on est aujourd'hui.
-	 *
 	 */
 	protected function isToday()
 	{
-		if ($this->bRealDay
-			&& ($this->iYear === $this->iCurrentYear)
-			&& ($this->iMonth === $this->iCurrentMonth)
-			&& ($this->iDay === $this->iCurrentDay))
+		if ($this->bRealDay && ($this->iYear === $this->iCurrentYear) && ($this->iMonth === $this->iCurrentMonth) && ($this->iDay === $this->iCurrentDay))
 		{
 			return true;
 		}
-
+		
 		return false;
 	}
 }

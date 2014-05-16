@@ -5,23 +5,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Misc\DebugBar;
 
 use DebugBar\HttpDriverInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * HTTP driver for Symfony Request/Session
  */
 class SymfonyHttpDriver implements HttpDriverInterface
 {
-	/** @var \Symfony\Component\HttpFoundation\Session\Session  */
+
+	/**
+	 * @var \Symfony\Component\HttpFoundation\Session\Session
+	 */
 	protected $session;
-	/** @var \Symfony\Component\HttpFoundation\Response  */
+
+	/**
+	 * @var \Symfony\Component\HttpFoundation\Response
+	 */
 	protected $response;
 
-	public function __construct($session, $response = null){
+	public function __construct($session, $response = null)
+	{
 		$this->session = $session;
 		$this->response = $response;
 	}
@@ -31,7 +38,8 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function setHeaders(array $headers)
 	{
-		if(!is_null($this->response)){
+		if (! is_null($this->response))
+		{
 			$this->response->headers->add($headers);
 		}
 	}

@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the English language. This is the base file for all translations.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the English language. This is the base file for all translations.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'It was not possible to complete the request. (Error %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Invalid command.',
 		'11' => 'The resource type was not specified in the request.',
 		'12' => 'The requested resource type is not valid.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Moving file(s) failed.',
 		'301' => 'Copying file(s) failed.',
 		'500' => 'The file browser is disabled for security reasons. Please contact your system administrator and check the CKFinder configuration file.',
-		'501' => 'The thumbnails support is disabled.',
+		'501' => 'The thumbnails support is disabled.'
 	)
 );

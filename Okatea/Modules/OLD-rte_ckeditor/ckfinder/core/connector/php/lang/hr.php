@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Croatian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Croatian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Nije moguće završiti zahtjev. (Greška %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Nepoznata naredba.',
 		'11' => 'Nije navedena vrsta u zahtjevu.',
 		'12' => 'Zatražena vrsta nije važeća.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Premještanje datoteke(a) nije uspjelo.',
 		'301' => 'Kopiranje datoteke(a) nije uspjelo.',
 		'500' => 'Pretraživanje datoteka nije dozvoljeno iz sigurnosnih razloga. Molimo kontaktirajte administratora sustava kako bi provjerili postavke CKFinder konfiguracijske datoteke.',
-		'501' => 'The thumbnails support is disabled.',
+		'501' => 'The thumbnails support is disabled.'
 	)
 );

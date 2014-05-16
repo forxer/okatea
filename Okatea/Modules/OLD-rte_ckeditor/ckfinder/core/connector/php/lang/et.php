@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Estonian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Estonian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Päringu täitmine ei olnud võimalik. (Viga %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Vigane käsk.',
 		'11' => 'Allika liik ei olnud päringus määratud.',
 		'12' => 'Päritud liik ei ole sobiv.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Faili(de) liigutamine nurjus.',
 		'301' => 'Faili(de) kopeerimine nurjus.',
 		'500' => 'Failide sirvija on turvakaalutlustel keelatud. Palun võta ühendust oma süsteemi administraatoriga ja kontrolli CKFinderi seadistusfaili.',
-		'501' => 'Pisipiltide tugi on keelatud.',
+		'501' => 'Pisipiltide tugi on keelatud.'
 	)
 );

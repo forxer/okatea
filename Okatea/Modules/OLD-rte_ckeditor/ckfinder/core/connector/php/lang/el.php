@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Greek language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Greek language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Η ενέργεια δεν ήταν δυνατόν να εκτελεστεί. (Σφάλμα %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Λανθασμένη Εντολή.',
 		'11' => 'Το resource type δεν ήταν δυνατόν να προσδιοριστεί.',
 		'12' => 'Το resource type δεν είναι έγκυρο.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Η μετακίνηση των αρχείων απέτυχε.',
 		'301' => 'Η αντιγραφή των αρχείων απέτυχε.',
 		'500' => 'Ο πλοηγός αρχείων έχει απενεργοποιηθεί για λόγους ασφαλείας. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της ιστοσελίδας και ελέγξτε το αρχείο ρυθμίσεων του πλοηγού (CKFinder).',
-		'501' => 'Η υποστήριξη των μικρογραφιών έχει απενεργοποιηθεί.',
+		'501' => 'Η υποστήριξη των μικρογραφιών έχει απενεργοποιηθεί.'
 	)
 );

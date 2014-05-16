@@ -1,40 +1,61 @@
-
 #page {
 	margin: 0 2em;
 }
+
 #banner {
 	margin: 2em 0 1em 0;
 }
-	#banner h1 {
-		font-size: 1.5em;
-		margin: 0;
-		padding: 0.5em 0 0 0.8em;
-	}
-		#banner span.version {
-			font-size: 0.9em;
-			font-style: italic;
-			font-weight: normal;
-			font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
-		}
-	#banner #desc {
-		margin: 0;
-		padding: 0.2em 0 0.8em 1.2em;
-	}
+
+#banner h1 {
+	font-size: 1.5em;
+	margin: 0;
+	padding: 0.5em 0 0 0.8em;
+}
+
+#banner span.version {
+	font-size: 0.9em;
+	font-style: italic;
+	font-weight: normal;
+	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans",
+		sans-serif;
+}
+
+#banner #desc {
+	margin: 0;
+	padding: 0.2em 0 0.8em 1.2em;
+}
+
 #ariane {
 	margin-bottom: 1em;
 }
-#ariane { display: inline-block; zoom: 1; }
-#ariane:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-/* required comment for clearfix to work in Opera \*/
-* html #ariane { height:1%; }
-#ariane { display:block; }
-/* end clearfix */
 
+#ariane {
+	display: inline-block;
+	zoom: 1;
+}
+
+#ariane:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+/* required comment for clearfix to work in Opera \*/
+* html #ariane {
+	height: 1%;
+}
+
+#ariane {
+	display: block;
+}
+/* end clearfix */
 #page-title {
 	padding: 0.3em 0.5em;
 	margin: 0;
 	font-weight: normal;
 }
+
 #content {
 	padding: 0.8em 1em;
 	margin: 0;
@@ -48,93 +69,154 @@
 	text-align: right;
 	font-size: 0.9em;
 }
-	#footer p {
-		margin: 0;
-		text-align: right;
-	}
+
+#footer p {
+	margin: 0;
+	text-align: right;
+}
 
 #languageChoice {
 	list-style: none;
 }
-	#languageChoice a {
-		text-decoration: none;
-	}
-		#languageChoice a.current {
-			font-weight: bold;
-		}
 
+#languageChoice a {
+	text-decoration: none;
+}
+
+#languageChoice a.current {
+	font-weight: bold;
+}
 
 ul.checklist {
 	list-style: none;
 	margin: 1em 0;
 }
-	ul.checklist li {
-		list-style: none;
-		line-height: 1.6;
-	}
-	ul.checklist ul {
-		margin: 0 0 0 2em;
-	}
+
+ul.checklist li {
+	list-style: none;
+	line-height: 1.6;
+}
+
+ul.checklist ul {
+	margin: 0 0 0 2em;
+}
 
 div.checklistlegend {
 	font-size: 0.9em;
 	color: #666;
 }
+
 div.checklistlegend p {
 	font-weight: bold;
 }
+
 ul.checklistlegend {
 	list-style: none;
 }
+
 ul.checklistlegend li {
 	list-style: none;
 	display: inline;
 	margin-right: 2em;
 }
 
-
-#themes_list_choice, #modules_list_choice {
+#themes_list_choice,#modules_list_choice {
 	-webkit-column-count: 4;
 	-moz-column-count: 4;
 	column-count: 4;
-
 	-webkit-column-gap: 2em;
 	-moz-column-gap: 2em;
 	column-gap: 2em;
 }
 
-
 /* Stepper
 ----------------------------------------------------------*/
+#ariane ul {
+	width: 1020px;
+	list-style: none;
+	margin: 10px auto;
+	clear: both;
+}
 
-#ariane ul {width:1020px; list-style:none; margin:10px auto; clear:both;}
-#ariane ul a {text-decoration:none; color:#a9a9a9;}
-#ariane ul li {float:left; width:9%; background:url(Assets/img/arrow.gif) repeat-x right 6px; text-align:left;}
-#ariane ul li span {display:block; margin:auto; margin-right:50%; text-align:center; border:1px solid #a9a9a9; width:19px; height:19px; line-height:19px; background-color:#ffffff;}
-#ariane ul li span a {display:block; width:19px; height:19px; margin:0px;}
-#ariane ul li span a.active,
-#ariane ul li.active span a,
-#ariane ul li.past span a:hover,
-#ariane ul li.past:hover span a {background-color:#1D5987; color:#ffffff; }
-#ariane ul li a {display:block; margin-right:20%; text-align:center;}
-#ariane ul li.past {background-position:right -106px;}
-#ariane ul li.active {background-position:right -48px;}
-#ariane ul li#lastStep {background-position:right -214px;}
-#ariane ul li#lastStep.active {background-position:right -162px;}
-#ariane ul li.active a:hover,
-#ariane ul li.past a:hover,
-#ariane ul li.past a,
-#ariane ul li.active a {color:#1D5987;}
-#ariane ul li.active span a:hover {color:#ffffff;}
-#ariane ul li.past:hover {cursor:hand; cursor:pointer;}
-#ariane ul li.past span,
-#ariane ul li.active span {border:1px solid #1D5987;}
+#ariane ul a {
+	text-decoration: none;
+	color: #a9a9a9;
+}
 
+#ariane ul li {
+	float: left;
+	width: 9%;
+	background: url(Assets/img/arrow.gif) repeat-x right 6px;
+	text-align: left;
+}
 
+#ariane ul li span {
+	display: block;
+	margin: auto;
+	margin-right: 50%;
+	text-align: center;
+	border: 1px solid #a9a9a9;
+	width: 19px;
+	height: 19px;
+	line-height: 19px;
+	background-color: #ffffff;
+}
+
+#ariane ul li span a {
+	display: block;
+	width: 19px;
+	height: 19px;
+	margin: 0px;
+}
+
+#ariane ul li span a.active,#ariane ul li.active span a,#ariane ul li.past span a:hover,#ariane ul li.past:hover span a
+	{
+	background-color: #1D5987;
+	color: #ffffff;
+}
+
+#ariane ul li a {
+	display: block;
+	margin-right: 20%;
+	text-align: center;
+}
+
+#ariane ul li.past {
+	background-position: right -106px;
+}
+
+#ariane ul li.active {
+	background-position: right -48px;
+}
+
+#ariane ul li#lastStep {
+	background-position: right -214px;
+}
+
+#ariane ul li#lastStep.active {
+	background-position: right -162px;
+}
+
+#ariane ul li.active a:hover,#ariane ul li.past a:hover,#ariane ul li.past a,#ariane ul li.active a
+	{
+	color: #1D5987;
+}
+
+#ariane ul li.active span a:hover {
+	color: #ffffff;
+}
+
+#ariane ul li.past:hover {
+	cursor: hand;
+	cursor: pointer;
+}
+
+#ariane ul li.past span,#ariane ul li.active span {
+	border: 1px solid #1D5987;
+}
 
 /* Formulaires
 ----------------------------------------------------------*/
-
 form {
 	display: block;
 	margin: 0;
@@ -147,6 +229,7 @@ fieldset {
 	border: none;
 	border-top: 1px solid #ddd;
 }
+
 legend {
 	margin: 0;
 	padding: 0.2em 0.8em;
@@ -158,6 +241,7 @@ legend {
 label {
 	cursor: pointer;
 }
+
 label.error {
 	color: #c00;
 	font-style: italic;
@@ -168,8 +252,9 @@ label.error {
 	border: 1px solid #F09100;
 }
 
-input, textarea, select {
-	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
+input,textarea,select {
+	font-family: "Trebuchet MS", Verdana, helvetica, "Bitstream Vera Sans",
+		sans-serif;
 	background-color: #fdfdfd;
 	border: 1px solid #ccc;
 	font-size: 1em;
@@ -179,43 +264,52 @@ input, textarea, select {
 	vertical-align: middle;
 	border: none;
 }
+
 .radio {
 	vertical-align: text-bottom;
 	border: none;
 }
 
 select {
+	
 }
+
 option {
 	padding: 0 0.3em;
 }
+
 optgroup option {
 	padding-left: 1em;
 }
 
-
-input.text, textarea {
+input.text,textarea {
 	padding: 1px;
 }
 
-input.error, textarea.error {
+input.error,textarea.error {
 	border: 1px dotted #c00;
 }
-
 
 p.field {
 	margin: 0.5em 0;
 }
 
-p.field label, p.field .fake-label {
+p.field label,p.field .fake-label {
 	display: block;
 	display: table-cell;
 }
-p.field label.inline, label.inline { display: inline; }
-p.field label.inline2 { display: inline-block; width: 75px; }
+
+p.field label.inline,label.inline {
+	display: inline;
+}
+
+p.field label.inline2 {
+	display: inline-block;
+	width: 75px;
+}
 
 p label.labelCheckbox {
-	width:10em;
+	width: 10em;
 }
 
 ul.field {
@@ -227,22 +321,22 @@ ul.field li {
 	margin: 0.5em 0;
 }
 
-
 /* Colonnes
 ----------------------------------------------------------*/
-
-.two-cols, .three-cols, .four-cols {
+.two-cols,.three-cols,.four-cols {
 	position: static;
 	zoom: 1;
 }
-.two-cols:after, .three-cols:after, .four-cols:after {
+
+.two-cols:after,.three-cols:after,.four-cols:after {
 	content: ".";
 	display: block;
 	height: 0;
 	clear: both;
 	visibility: hidden;
 }
-.two-cols .col, .three-cols .col, .four-cols .col {
+
+.two-cols .col,.three-cols .col,.four-cols .col {
 	float: left;
 	margin-right: 1%;
 	padding: 1px 0;
@@ -251,9 +345,11 @@ ul.field li {
 .two-cols .col {
 	width: 48%;
 }
+
 .three-cols .col {
 	width: 32%;
 }
+
 .four-cols .col {
 	width: 24%;
 }

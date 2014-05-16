@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Admin;
 
 use Psr\Log\LoggerInterface;
@@ -20,29 +19,23 @@ class Router extends BaseRouter
 	use ControllerResolverTrait;
 
 	/**
+	 *
 	 * @var Application
 	 */
 	protected $app;
 
 	/**
-	 *
 	 */
 	public function __construct(Application $app, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
 	{
 		$this->app = $app;
-
-		parent::__construct(
-			new YamlDirectoryLoader(new FileLocator($ressources_dir)),
-			$ressources_dir,
-			array(
-				'cache_dir' => $cache_dir,
-				'debug' => $debug,
-				'generator_cache_class'  => 'OkateaAdminUrlGenerator',
-				'matcher_cache_class'    => 'OkateaAdminUrlMatcher'
-			),
-			$app->getRequestContext(),
-			$logger
-		);
+		
+		parent::__construct(new YamlDirectoryLoader(new FileLocator($ressources_dir)), $ressources_dir, array(
+			'cache_dir' => $cache_dir,
+			'debug' => $debug,
+			'generator_cache_class' => 'OkateaAdminUrlGenerator',
+			'matcher_cache_class' => 'OkateaAdminUrlMatcher'
+		), $app->getRequestContext(), $logger);
 	}
 
 	/**
@@ -52,11 +45,7 @@ class Router extends BaseRouter
 	 */
 	public function generateFromWebsite($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
 	{
-		return str_replace(
-			$this->app->config->app_path,
-			$this->app->config->app_path.'admin/',
-			$this->getGenerator()->generate($name, $parameters, $referenceType)
-		);
+		return str_replace($this->app->config->app_path, $this->app->config->app_path . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
 	}
 
 	/**
@@ -68,5 +57,4 @@ class Router extends BaseRouter
 	{
 		return (null === $this->getRouteCollection()->get($sRouteName)) ? false : true;
 	}
-
 }

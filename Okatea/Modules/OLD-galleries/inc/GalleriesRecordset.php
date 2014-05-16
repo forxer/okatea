@@ -4,13 +4,14 @@
  * @brief Extension du recordset pour les galeries
  *
  */
-
 use Okatea\Tao\Database\Recordset;
 
 class GalleriesRecordset extends Recordset
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
@@ -19,7 +20,8 @@ class GalleriesRecordset extends Recordset
 	 * Défini l'instance de l'application qui sera passée à l'objet après
 	 * qu'il ait été instancié.
 	 *
-	 * @param Okatea\Tao\Application okt 	Okatea application instance.
+	 * @param
+	 *        	Okatea\Tao\Application okt Okatea application instance.
 	 * @return void
 	 */
 	public function setCore($okt)
@@ -30,10 +32,10 @@ class GalleriesRecordset extends Recordset
 	/**
 	 * Retourne l'URL publique d'une galerie
 	 *
-	 * @param string $sLanguage
+	 * @param string $sLanguage        	
 	 * @return string
 	 */
-	public function getGalleryUrl($sLanguage=null)
+	public function getGalleryUrl($sLanguage = null)
 	{
 		return GalleriesHelpers::getGalleryUrl($this->slug, $sLanguage);
 	}
@@ -41,7 +43,7 @@ class GalleriesRecordset extends Recordset
 	/**
 	 * Retourne les informations de l'images d'un élément en fonction des données de la BDD
 	 *
-	 * @return 	array
+	 * @return array
 	 */
 	public function getImagesInfo()
 	{
@@ -50,17 +52,16 @@ class GalleriesRecordset extends Recordset
 
 	public function getImagesArray()
 	{
-		return array_filter((array)unserialize($this->image));
+		return array_filter((array) unserialize($this->image));
 	}
 
 	public function getCurrentImagesDir()
 	{
-		return $this->okt->galleries->upload_dir.'/img/galleries/'.$this->id;
+		return $this->okt->galleries->upload_dir . '/img/galleries/' . $this->id;
 	}
 
 	public function getCurrentImagesUrl()
 	{
-		return $this->okt->galleries->upload_url.'/img/galleries/'.$this->id;
+		return $this->okt->galleries->upload_url . '/img/galleries/' . $this->id;
 	}
-
 }

@@ -17,5 +17,11 @@
 */
 
 /* VISUAL FEEDBACK */
-ul, ol, dl { min-height: auto; line-height: 0px }
-li, dt, dd { line-height: 20px; }
+ul,ol,dl {
+	min-height: auto;
+	line-height: 0px
+}
+
+li,dt,dd {
+	line-height: 20px;
+}

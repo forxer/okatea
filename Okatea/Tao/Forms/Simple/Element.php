@@ -1,15 +1,16 @@
 <?php
+
 /**
  * @class oktFormElement
  * @ingroup okt_classes_form
  * @brief Form element.
  *
  */
-
 namespace Okatea\Tao\Forms\Simple;
 
 abstract class Element
 {
+
 	protected $aConfig = array(
 		'html' => '<p><label for="{{id}}">{{label}}</label><input{{attributes}} value="{{value}}" /></p>',
 		'label' => null,
@@ -20,15 +21,14 @@ abstract class Element
 
 	protected $aSearchReplace = array();
 
-
 	/**
 	 * Constructor
 	 *
-	 * @param array $aConfig
-	 * @param array $aAttributes
+	 * @param array $aConfig        	
+	 * @param array $aAttributes        	
 	 * @return void
 	 */
-	public function __construct($aConfig=array(), $aAttributes=array())
+	public function __construct($aConfig = array(), $aAttributes = array())
 	{
 		$this->setConfig($aConfig);
 		$this->setAttributes($aAttributes);
@@ -37,7 +37,7 @@ abstract class Element
 	/**
 	 * Définit les attributs de l'élément.
 	 *
-	 * @param array $aAttributes
+	 * @param array $aAttributes        	
 	 * @return void
 	 */
 	public function setAttributes($aAttributes)
@@ -48,13 +48,13 @@ abstract class Element
 	/**
 	 * Définit un attribut.
 	 *
-	 * @param string $sName
-	 * @param string $sValue
+	 * @param string $sName        	
+	 * @param string $sValue        	
 	 */
-	public function setAttribute($sName,$sValue=null)
+	public function setAttribute($sName, $sValue = null)
 	{
 		$this->aAttributes[$sName] = $sValue;
-
+		
 		return $this;
 	}
 
@@ -75,17 +75,18 @@ abstract class Element
 	 */
 	public function getAttribute($sName)
 	{
-		if (!isset($this->aAttributes[$sName])) {
+		if (! isset($this->aAttributes[$sName]))
+		{
 			return null;
 		}
-
+		
 		return $this->aAttributes[$sName];
 	}
 
 	/**
 	 * Définit la configuration.
 	 *
-	 * @param array $aConfig
+	 * @param array $aConfig        	
 	 * @return void
 	 */
 	public function setConfig($aConfig)
@@ -96,13 +97,13 @@ abstract class Element
 	/**
 	 * Définit une valeur de configuration.
 	 *
-	 * @param string $sName
-	 * @param string $sValue
+	 * @param string $sName        	
+	 * @param string $sValue        	
 	 */
-	public function setConfigValue($sName,$sValue=null)
+	public function setConfigValue($sName, $sValue = null)
 	{
 		$this->aConfig[$sName] = $sValue;
-
+		
 		return $this;
 	}
 
@@ -134,24 +135,24 @@ abstract class Element
 	public function render()
 	{
 		$this->setSearchReplace();
-
+		
 		return str_replace(array_keys($this->aSearchReplace), array_values($this->aSearchReplace), $this->aConfig['html']);
 	}
 
 	/**
 	 * Définit la liste des termes et des valeurs de remplacement.
-	 *
 	 */
 	protected function setSearchReplace()
 	{
 		$this->aSearchReplace = array(
-			'{{label}}' 		=> $this->aConfig['label'],
-			'{{value}}' 		=> $this->aConfig['value'],
-			'{{attributes}}' 	=> $this->renderAttributes()
+			'{{label}}' => $this->aConfig['label'],
+			'{{value}}' => $this->aConfig['value'],
+			'{{attributes}}' => $this->renderAttributes()
 		);
-
-		foreach ($this->aAttributes as $sName=>$sValue) {
-			$this->aSearchReplace['{{'.$sName.'}}'] = $sValue;
+		
+		foreach ($this->aAttributes as $sName => $sValue)
+		{
+			$this->aSearchReplace['{{' . $sName . '}}'] = $sValue;
 		}
 	}
 
@@ -163,12 +164,12 @@ abstract class Element
 	protected function renderAttributes()
 	{
 		$aAttributes = array();
-
-		foreach ($this->aAttributes as $sName=>$sValue) {
-			$aAttributes[] = ' '.$sName.'="'.$sValue.'"';
+		
+		foreach ($this->aAttributes as $sName => $sValue)
+		{
+			$aAttributes[] = ' ' . $sName . '="' . $sValue . '"';
 		}
-
-		return implode(' ',$aAttributes);
+		
+		return implode(' ', $aAttributes);
 	}
-
 }

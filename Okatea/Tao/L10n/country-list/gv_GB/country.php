@@ -1,3 +1,5 @@
-<?php return array (
-  'GB' => 'Rywvaneth Unys',
+<?php
+
+return array(
+	'GB' => 'Rywvaneth Unys'
 );

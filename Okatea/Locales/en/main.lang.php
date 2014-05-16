@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_c_proudly_propulsed_%s'] = 'Proudly propulsed by %s';
 $GLOBALS['okt_l10n']['c_c_version_%s'] = 'Version %s';
 $GLOBALS['okt_l10n']['c_c_env_%s'] = 'Environement "%s"';
@@ -503,7 +502,6 @@ $GLOBALS['okt_l10n']['c_c_resize_crop'] = 'crop';
 
 $GLOBALS['okt_l10n']['c_c_payment'] = 'payment';
 $GLOBALS['okt_l10n']['c_c_Payment'] = 'Payment';
-
 
 $GLOBALS['okt_l10n']['c_c_Example_%s'] = 'Exemple %s';
 

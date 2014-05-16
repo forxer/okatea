@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Romanian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Romanian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Nu a fost posibilă finalizarea cererii. (Eroare %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Comandă invalidă.',
 		'11' => 'Tipul de resursă nu a fost specificat în cerere.',
 		'12' => 'Tipul de resursă cerut nu este valid.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Mutare fișier(e) eșuată.',
 		'301' => 'Copiere fișier(e) eșuată.',
 		'500' => 'Browser-ul de fișiere este dezactivat din motive de securitate. Te rog contactează administratorul de sistem și verifică configurarea de fișiere CKFinder.',
-		'501' => 'Funcționalitatea de creat thumbnails este dezactivată.',
+		'501' => 'Funcționalitatea de creat thumbnails este dezactivată.'
 	)
 );

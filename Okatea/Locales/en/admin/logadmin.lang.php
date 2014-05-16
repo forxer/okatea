@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_config_logadmin_title'] = 'Logs administration';
 
 $GLOBALS['okt_l10n']['c_a_config_logadmin_no_log'] = 'There is no information to display at the moment.';

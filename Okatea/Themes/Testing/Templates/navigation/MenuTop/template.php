@@ -5,12 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 ?>
 
 <ul id="menu_top">
 <?php while ($rsItems->fetch()) : ?>
 	<li><a href="<?php echo $view->escapeHtmlAttr($rsItems->getUrl()) ?>"><?php
-	echo $view->escape($rsItems->title) ?></a></li>
+	echo $view->escape($rsItems->title)?></a></li>
 <?php endwhile; ?>
-</ul><!-- #menu_top -->
+</ul>
+<!-- #menu_top -->

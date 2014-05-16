@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_main_title'] = 'Demandes de devis';
 
 # menu

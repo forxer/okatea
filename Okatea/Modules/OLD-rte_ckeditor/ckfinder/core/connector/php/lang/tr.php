@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object, for the Turkish language. Turkish translation by Abdullah M CEYLAN a.k.a. Kenan Balamir. Updated.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object, for the Turkish language. Turkish translation by Abdullah M CEYLAN a.k.a. Kenan Balamir. Updated.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'İsteğinizi yerine getirmek mümkün değil. (Hata %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Geçersiz komut.',
 		'11' => 'İstekte kaynak türü belirtilmemiş.',
 		'12' => 'Talep edilen kaynak türü geçersiz.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Dosya taşıma işlemi başarısız.',
 		'301' => 'Dosya kopyalama işlemi başarısız.',
 		'500' => 'Güvenlik nedeni ile dosya gezgini devredışı bırakıldı. Lütfen sistem yöneticiniz ile irtibata geçin ve CKFinder yapılandırma dosyasını kontrol edin.',
-		'501' => 'Önizleme desteği devredışı.',
+		'501' => 'Önizleme desteği devredışı.'
 	)
 );

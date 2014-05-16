@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $view->extend('layout');
 
 $okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
@@ -20,4 +19,6 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_themes_update_theme_%s'), $oInstallTh
 	<?php echo $oInstallTheme->checklist->getLegend(); ?>
 </div>
 
-<p class="ui-helper-clearfix"><a class="button" href="<?php echo $sNextUrl ?>"><?php _e('Continue') ?></a></p>
+<p class="ui-helper-clearfix">
+	<a class="button" href="<?php echo $sNextUrl ?>"><?php _e('Continue') ?></a>
+</p>

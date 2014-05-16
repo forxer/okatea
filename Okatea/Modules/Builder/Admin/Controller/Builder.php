@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Modules\Builder\Admin\Controller;
 
 use Okatea\Admin\Controller;
@@ -14,6 +13,7 @@ use Okatea\Modules\Builder\Stepper;
 
 class Builder extends Controller
 {
+
 	protected $stepper;
 
 	protected $tools;
@@ -26,42 +26,44 @@ class Builder extends Controller
 
 	public function page()
 	{
-		if (!$this->okt->checkPerm('okatea_builder')) {
+		if (! $this->okt->checkPerm('okatea_builder'))
+		{
 			return $this->serve401();
 		}
-
+		
 		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->request->attributes->get('step'));
-
+		
 		$this->tools = new BaseTools($this->okt);
-
+		
 		$this->okt->tpl->addGlobal('stepper', $this->stepper);
-
+		
 		return $this->{$this->stepper->getCurrentStep()}();
 	}
 
 	protected function start()
 	{
-
-		return $this->render('Builder/Admin/Templates/Steps/start', array(
-		));
+		return $this->render('Builder/Admin/Templates/Steps/start', array());
 	}
 
 	protected function version()
 	{
 		$sVersion = $this->okt->getVersion();
 		$sPackageType = 'stable';
-
-		if (stripos($sVersion, 'beta') !== false || stripos($sVersion, 'rc') !== false) {
+		
+		if (stripos($sVersion, 'beta') !== false || stripos($sVersion, 'rc') !== false)
+		{
 			$sPackageType = 'dev';
 		}
-
+		
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->session->set('release_type', $this->request->request->get('type'));
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
+		
 		return $this->render('Builder/Admin/Templates/Steps/version', array(
 			'version' => $sVersion,
 			'type' => $sPackageType
@@ -73,16 +75,17 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getCopier()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/copy', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/copy', array());
 	}
 
 	protected function cleanup()
@@ -90,51 +93,56 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getCleaner()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/cleanup', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/cleanup', array());
 	}
 
 	protected function changelog()
 	{
-		$sChangelog = $this->tools->getTempDir($this->okt->options->okt_dir).'/CHANGELOG';
-
+		$sChangelog = $this->tools->getTempDir($this->okt->options->okt_dir) . '/CHANGELOG';
+		
 		if ($this->request->request->has('form_sent'))
 		{
 			file_put_contents($sChangelog, $this->request->request->get('changelog_editor'));
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
+		
 		return $this->render('Builder/Admin/Templates/Steps/changelog', array(
-			'sChangelog' 	=> file_get_contents($sChangelog)
+			'sChangelog' => file_get_contents($sChangelog)
 		));
 	}
 
 	protected function config()
 	{
-		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir).'/conf_site.yml';
-		$sOptionsFile = $this->tools->getTempDir().'/oktOptions.php';
-
+		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir) . '/conf_site.yml';
+		$sOptionsFile = $this->tools->getTempDir() . '/oktOptions.php';
+		
 		if ($this->request->request->has('form_sent'))
 		{
 			file_put_contents($sConfigFile, $this->request->request->get('config_editor'));
-
+			
 			file_put_contents($sOptionsFile, $this->request->request->get('options_editor'));
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
+		
 		return $this->render('Builder/Admin/Templates/Steps/config', array(
-			'sConfig' 	=> file_get_contents($sConfigFile),
-			'sOptions' 	=> file_get_contents($sOptionsFile)
+			'sConfig' => file_get_contents($sConfigFile),
+			'sOptions' => file_get_contents($sOptionsFile)
 		));
 	}
 
@@ -143,16 +151,17 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getModules()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/modules', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/modules', array());
 	}
 
 	protected function themes()
@@ -160,16 +169,17 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getThemes()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/themes', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/themes', array());
 	}
 
 	protected function digests()
@@ -177,16 +187,17 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getDigests()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/digests', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/digests', array());
 	}
 
 	protected function packages()
@@ -194,40 +205,40 @@ class Builder extends Controller
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
-
+			
 			$this->tools->getPackages()->process();
-
+			
 			$this->restoreInitialRessources();
-
-			return $this->redirect($this->generateUrl('Builder_index', array('step' => $this->stepper->getNextStep())));
+			
+			return $this->redirect($this->generateUrl('Builder_index', array(
+				'step' => $this->stepper->getNextStep()
+			)));
 		}
-
-		return $this->render('Builder/Admin/Templates/Steps/packages', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/packages', array());
 	}
 
 	protected function end()
 	{
 		$this->setMaxRessources();
-
+		
 		$this->session->remove('release_type');
-
+		
 		$this->tools->removeTempDir();
-
+		
 		$this->restoreInitialRessources();
-
-		return $this->render('Builder/Admin/Templates/Steps/end', array(
-		));
+		
+		return $this->render('Builder/Admin/Templates/Steps/end', array());
 	}
 
 	protected function setMaxRessources()
 	{
 		$this->bSetMaxRessourcesCalled = true;
-
+		
 		$this->sInitialMemoryLimit = ini_get('memory_limit');
 		$this->sInitialMaxExecutionTime = ini_get('max_execution_time');
-
-		ini_set('memory_limit',-1);
+		
+		ini_set('memory_limit', - 1);
 		ini_set('max_execution_time', 0);
 	}
 

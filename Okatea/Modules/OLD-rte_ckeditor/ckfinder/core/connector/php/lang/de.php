@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the German language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the German language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Ihre Anfrage konnte nicht bearbeitet werden. (Fehler %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Unbekannter Befehl.',
 		'11' => 'Der Ressourcentyp wurde nicht spezifiziert.',
 		'12' => 'Der Ressourcentyp ist nicht gültig.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Verschieben der Dateien fehlgeschlagen.',
 		'301' => 'Kopieren der Dateien fehlgeschlagen.',
 		'500' => 'Der Dateibrowser wurde aus Sicherheitsgründen deaktiviert. Bitte benachrichtigen Sie Ihren Systemadministrator und prüfen Sie die Konfigurationsdatei.',
-		'501' => 'Die Miniaturansicht wurde deaktivert.',
+		'501' => 'Die Miniaturansicht wurde deaktivert.'
 	)
 );

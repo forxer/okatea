@@ -2,9 +2,10 @@
 
 <database>
 
-	<action id="truncate_mod_media" label="Truncate table %s" string="{{PREFIX}}mod_media">
-		<test eq="eq" value="{{PREFIX}}mod_media" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_media">SHOW TABLES LIKE '{{PREFIX}}mod_media'</test>
+	<action id="truncate_mod_media" label="Truncate table %s"
+		string="{{PREFIX}}mod_media">
+		<test eq="eq" value="{{PREFIX}}mod_media" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_media">SHOW TABLES LIKE '{{PREFIX}}mod_media'</test>
 		TRUNCATE TABLE `{{PREFIX}}mod_media`
 	</action>
 

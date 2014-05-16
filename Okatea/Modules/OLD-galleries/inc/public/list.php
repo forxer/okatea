@@ -5,10 +5,8 @@
  *
  */
 
-
 # inclusion du preprend public général
-require_once __DIR__.'/../../../../oktInc/public/prepend.php';
-
+require_once __DIR__ . '/../../../../oktInc/public/prepend.php';
 
 # Récupération de la liste des galeries à la racine
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
@@ -16,33 +14,32 @@ $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
 	'parent_id' => 0
 ));
 
-
 # module actuel
 $okt->page->module = 'galleries';
 $okt->page->action = 'list';
 
-
 # meta description
-if ($okt->galleries->config->meta_description != '') {
+if ($okt->galleries->config->meta_description != '')
+{
 	$okt->page->meta_description = $okt->galleries->config->meta_description;
 }
-else {
+else
+{
 	$okt->page->meta_description = Utilities::getSiteMetaDesc();
 }
 
-
 # meta keywords
-if ($okt->galleries->config->meta_keywords != '') {
+if ($okt->galleries->config->meta_keywords != '')
+{
 	$okt->page->meta_keywords = $okt->galleries->config->meta_keywords;
 }
-else {
+else
+{
 	$okt->page->meta_keywords = Utilities::getSiteMetaKeywords();
 }
 
-
 # début du fil d'ariane
-$okt->page->breadcrumb->add($okt->galleries->getName(),$okt->galleries->config->url);
-
+$okt->page->breadcrumb->add($okt->galleries->getName(), $okt->galleries->config->url);
 
 # title tag du module
 $okt->page->addTitleTag($okt->galleries->getTitle());

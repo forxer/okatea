@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_items_item_switched'] = 'The visibility of the element has been tilted.';
 $GLOBALS['okt_l10n']['m_galleries_items_item_deleted'] = 'The item has been deleted.';
 

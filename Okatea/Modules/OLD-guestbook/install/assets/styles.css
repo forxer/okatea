@@ -1,9 +1,9 @@
 /* EXEMPLES de styles utilisables sur le livre d'or */
-
 img {
 	border: none;
 	vertical-align: middle;
 }
+
 a img {
 	border: none;
 }
@@ -16,6 +16,7 @@ a img {
 	padding: 0.5em;
 	margin: 1em 10%;
 }
+
 .success_box p {
 	margin: 0;
 }
@@ -28,19 +29,24 @@ a img {
 	padding: 0.5em;
 	margin: 1em 10%;
 }
+
 .errors_box p {
 	margin: 0;
 }
 
 /* la boite contenant le formulaire d'ajout */
 #guestbook-add {
+	
 }
 
 /* le formulaire d'ajout en lui-même */
 #guestbook-form {
+	
 }
 
-p.field {}
+p.field {
+	
+}
 
 p.field label {
 	display: block;
@@ -53,8 +59,7 @@ p.field label {
 	font-size: 0.9em;
 }
 
-#guestbook-form input.error,
-#guestbook-form textarea.error {
+#guestbook-form input.error,#guestbook-form textarea.error {
 	border: 1px dotted #c00;
 }
 
@@ -62,6 +67,7 @@ p.field label {
 #guestbook-form .required {
 	font-weight: bold;
 }
+
 #guestbook-form .required:before {
 	content: '* ';
 	color: #c00;
@@ -75,6 +81,7 @@ p.field label {
 
 /* la boite contenant la liste des signatures */
 #signatures-list {
+	
 }
 
 /* la boite contenant une signature */
@@ -84,63 +91,80 @@ p.field label {
 	margin-bottom: 1em;
 }
 
-	/* le titre d'une signature */
-	.signature .title {
-		margin: 0;
-		float: left;
-	}
+/* le titre d'une signature */
+.signature .title {
+	margin: 0;
+	float: left;
+}
 
-	/* le message d'une signature */
-	.signature .msg {
-		clear: both;
-	}
+/* le message d'une signature */
+.signature .msg {
+	clear: both;
+}
 
-	/* la liste d'infos sur la signature */
-	.signature .infos {
-		margin: 0;
-		padding: 0;
-		float: right;
-		font-size: 0.9em;
-	}
-		/* les éléments de la liste */
-		.signature .infos li {
-			display: inline;
-			margin-left: 2em;
-		}
+/* la liste d'infos sur la signature */
+.signature .infos {
+	margin: 0;
+	padding: 0;
+	float: right;
+	font-size: 0.9em;
+}
+/* les éléments de la liste */
+.signature .infos li {
+	display: inline;
+	margin-left: 2em;
+}
 
-		/* l'info email */
-		.signature .infos .email {
-		}
+/* l'info email */
+.signature .infos .email {
+	
+}
 
-		/* l'info url */
-		.signature .infos .url {
-		}
+/* l'info url */
+.signature .infos .url {
+	
+}
 
-		/* l'info date */
-		.signature .infos .date {
-		}
+/* l'info date */
+.signature .infos .date {
+	
+}
 
-		/* l'info note */
-		.signature .infos .note {
-		}
-
+/* l'info note */
+.signature .infos .note {
+	
+}
 
 /* Pagination
 ----------------------------------------------------------*/
+.pagination {
+	display: inline-block;
+	zoom: 1;
+}
 
-.pagination { display: inline-block; zoom: 1; }
-.pagination:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.pagination:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
 /* required comment for clearfix to work in Opera \*/
-* html .pagination { height:1%; }
-.pagination { display:block; }
-/* end clearfix */
+* html .pagination {
+	height: 1%;
+}
 
+.pagination {
+	display: block;
+}
+/* end clearfix */
 .pagination {
 	border: 0;
 	margin: 1em 0;
 	padding: 0;
 	clear: both;
 }
+
 .pagination li {
 	border: 0;
 	margin: 0;
@@ -151,8 +175,7 @@ p.field label {
 	float: left;
 }
 
-.pagination .active,
-.pagination a {
+.pagination .active,.pagination a {
 	border: 1px solid #5D0708;
 	background-color: #fdf2f2;
 	color: #5D0708;
@@ -160,11 +183,13 @@ p.field label {
 	padding: 3px 6px;
 	text-decoration: none;
 }
+
 .pagination .active {
 	border: 1px solid #9E0C0C;
 	background-color: #fdf2f2;
 	color: #9E0C0C;
 }
+
 .pagination a:hover {
 	border: 1px solid #fdf2f2;
 	background-color: #5D0708;

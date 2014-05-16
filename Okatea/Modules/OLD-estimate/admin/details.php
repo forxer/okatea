@@ -4,82 +4,80 @@
  * @brief La page d'administration des devis
  *
  */
-
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
 
 # Accès direct interdit
-if (!defined('ON_MODULE')) die;
-
-
-/* Initialisations
+if (! defined('ON_MODULE'))
+	die();
+	
+	/* Initialisations
 ----------------------------------------------------------*/
-
+	
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__.'/../Locales/%s/admin.details');
+$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.details');
 
-$iEstimateId = !empty($_REQUEST['estimate_id']) ? intval($_REQUEST['estimate_id']) : null;
+$iEstimateId = ! empty($_REQUEST['estimate_id']) ? intval($_REQUEST['estimate_id']) : null;
 
 $rsEstimate = $okt->estimate->getEstimate($iEstimateId);
 
 if (is_null($iEstimateId) || $rsEstimate->isEmpty())
 {
 	$okt->page->flash->error(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
-
+	
 	http::redirect('module.php?m=estimate&action=index');
 }
-
 
 /* Traitements
 ----------------------------------------------------------*/
 
-
 # Marque la demande comme traitée
-if (!empty($_GET['treated']))
+if (! empty($_GET['treated']))
 {
 	try
 	{
 		$okt->estimate->markAsTreated($iEstimateId);
-
+		
 		# log admin
 		$okt->logAdmin->info(array(
 			'code' => 32,
 			'component' => 'estimate',
-			'message' => 'estimate #'.$iEstimateId
+			'message' => 'estimate #' . $iEstimateId
 		));
-
+		
 		$okt->page->flash->success(__('m_estimate_details_marked_as_treated'));
-
-		http::redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
+		
+		http::redirect('module.php?m=estimate&action=details&estimate_id=' . $iEstimateId);
 	}
-	catch (Exception $e) {
+	catch (Exception $e)
+	{
 		$okt->error->set($e->getMessage());
 	}
 }
 
 # Marque la demande comme non traitée
-if (!empty($_GET['untreated']))
+if (! empty($_GET['untreated']))
 {
 	try
 	{
 		$okt->estimate->markAsUntreated($iEstimateId);
-
+		
 		# log admin
 		$okt->logAdmin->info(array(
 			'code' => 32,
 			'component' => 'estimate',
-			'message' => 'estimate #'.$iEstimateId
+			'message' => 'estimate #' . $iEstimateId
 		));
-
+		
 		$okt->page->flash->success(__('m_estimate_details_marked_as_untreated'));
-
-		http::redirect('module.php?m=estimate&action=details&estimate_id='.$iEstimateId);
+		
+		http::redirect('module.php?m=estimate&action=details&estimate_id=' . $iEstimateId);
 	}
-	catch (Exception $e) {
+	catch (Exception $e)
+	{
 		$okt->error->set($e->getMessage());
 	}
 }
-
 
 /* Affichage
 ----------------------------------------------------------*/
@@ -87,38 +85,37 @@ if (!empty($_GET['untreated']))
 # Titre de la page
 $okt->page->addGlobalTitle(sprintf(__('m_estimate_details_%s'), $iEstimateId));
 
-
 # button set
 $okt->page->setButtonset('estimateBtSt', array(
 	'id' => 'estimate-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_c_action_Go_back'),
-			'url' 			=> 'module.php?m=estimate&amp;action=index',
-			'ui-icon' 		=> 'arrowreturnthick-1-w'
+			'permission' => true,
+			'title' => __('c_c_action_Go_back'),
+			'url' => 'module.php?m=estimate&amp;action=index',
+			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
-			'permission' 	=> ($rsEstimate->status == 1),
-			'title' 		=> __('m_estimate_details_treated'),
-			'url' 			=> 'module.php?m=estimate&amp;action=details&amp;untreated=1&amp;estimate_id='.$iEstimateId,
-			'ui-icon' 		=> 'check',
-			'onclick' 		=> 'return window.confirm(\''.html::escapeJS(sprintf(__('m_estimate_details_mark_%s_as_untreated'), $iEstimateId)).'\')'
+			'permission' => ($rsEstimate->status == 1),
+			'title' => __('m_estimate_details_treated'),
+			'url' => 'module.php?m=estimate&amp;action=details&amp;untreated=1&amp;estimate_id=' . $iEstimateId,
+			'ui-icon' => 'check',
+			'onclick' => 'return window.confirm(\'' . html::escapeJS(sprintf(__('m_estimate_details_mark_%s_as_untreated'), $iEstimateId)) . '\')'
 		),
 		array(
-			'permission' 	=> ($rsEstimate->status == 0),
-			'title' 		=> __('m_estimate_details_untreated'),
-			'url' 			=> 'module.php?m=estimate&amp;action=details&amp;treated=1&amp;estimate_id='.$iEstimateId,
-			'ui-icon' 		=> 'clock',
-			'onclick' 		=> 'return window.confirm(\''.html::escapeJS(sprintf(__('m_estimate_details_mark_%s_as_treated'), $iEstimateId)).'\')'
+			'permission' => ($rsEstimate->status == 0),
+			'title' => __('m_estimate_details_untreated'),
+			'url' => 'module.php?m=estimate&amp;action=details&amp;treated=1&amp;estimate_id=' . $iEstimateId,
+			'ui-icon' => 'clock',
+			'onclick' => 'return window.confirm(\'' . html::escapeJS(sprintf(__('m_estimate_details_mark_%s_as_treated'), $iEstimateId)) . '\')'
 		),
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('m_estimate_details_delete'),
-			'url' 			=> 'module.php?m=estimate&amp;action=delete&amp;estimate_id='.$iEstimateId,
-			'ui-icon' 		=> 'closethick',
-			'onclick' 		=> 'return window.confirm(\''.html::escapeJS(__('m_estimate_details_delete_confirm')).'\')'
+			'permission' => true,
+			'title' => __('m_estimate_details_delete'),
+			'url' => 'module.php?m=estimate&amp;action=delete&amp;estimate_id=' . $iEstimateId,
+			'ui-icon' => 'closethick',
+			'onclick' => 'return window.confirm(\'' . html::escapeJS(__('m_estimate_details_delete_confirm')) . '\')'
 		)
 	)
 ));
@@ -164,7 +161,8 @@ $okt->page->css->addCss('
 ');
 
 # En-tête
-require OKT_ADMIN_HEADER_FILE; ?>
+require OKT_ADMIN_HEADER_FILE;
+?>
 
 <?php echo $okt->page->getButtonSet('estimateBtSt'); ?>
 
@@ -173,21 +171,24 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<h3><?php _e('m_estimate_details_user_infos') ?></h3>
 
 		<p><?php echo Escaper::html($rsEstimate->content['firstname'].' '.$rsEstimate->content['lastname']) ?></p>
-		<p><a href="mailto:<?php echo Escaper::html($rsEstimate->content['email']) ?>"><?php echo Escaper::html($rsEstimate->content['email']) ?></a></p>
+		<p>
+			<a
+				href="mailto:<?php echo Escaper::html($rsEstimate->content['email']) ?>"><?php echo Escaper::html($rsEstimate->content['email']) ?></a>
+		</p>
 		<p><?php echo Escaper::html($rsEstimate->content['phone']) ?></p>
 	</div>
 	<div class="col">
 		<h3><?php _e('m_estimate_details_projected_dates') ?></h3>
 
-			<p>
+		<p>
 				<?php if ($rsEstimate->start_at == $rsEstimate->end_at) : ?>
-				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at))) ?>
+				<?php printf(__('On %s'), dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at)))?>
 
 				<?php else : ?>
-				<?php printf(__('From %s to %s'),
-					dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at)),
-					dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->end_at))
-				); ?>
+				<?php
+					
+printf(__('From %s to %s'), dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->start_at)), dt::dt2str(__('%A, %B %d, %Y'), Escaper::html($rsEstimate->end_at)));
+					?>
 				<?php endif; ?>
 			</p>
 	</div>
@@ -203,30 +204,32 @@ require OKT_ADMIN_HEADER_FILE; ?>
 <?php endif; ?>
 
 	<?php foreach ($rsEstimate->content['products'] as $aProduct) : ?>
-	<div class="product_wrapper">
-		<div class="product_line ui-helper-clearfix">
-			<div class="product_title"><?php echo Escaper::html($aProduct['title']) ?></div>
-			<div class="product_quantity"><?php echo Escaper::html($aProduct['quantity']) ?></div>
-		</div>
+<div class="product_wrapper">
+	<div class="product_line ui-helper-clearfix">
+		<div class="product_title"><?php echo Escaper::html($aProduct['title']) ?></div>
+		<div class="product_quantity"><?php echo Escaper::html($aProduct['quantity']) ?></div>
+	</div>
 
 		<?php if ($okt->estimate->config->enable_accessories && !empty($aProduct['accessories'])) : ?>
 		<div class="accessories_wrapper">
 			<?php foreach ($aProduct['accessories'] as $aAccessory) : ?>
 			<div class="accessory_line ui-helper-clearfix">
-				<div class="accessory_title"><?php echo Escaper::html($aAccessory['title']) ?></div>
-				<div class="accessory_quantity"><?php echo Escaper::html($aAccessory['quantity']) ?></div>
-			</div>
+			<div class="accessory_title"><?php echo Escaper::html($aAccessory['title']) ?></div>
+			<div class="accessory_quantity"><?php echo Escaper::html($aAccessory['quantity']) ?></div>
+		</div>
 			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
 	</div>
-	<?php endforeach; ?>
+<?php endforeach; ?>
 
 
 <h3><?php _e('m_estimate_details_comment') ?></h3>
 
-	<p><?php echo Modifiers::nlToP(Escaper::html($rsEstimate->content['comment'])) ?></p>
+<p><?php echo Modifiers::nlToP(Escaper::html($rsEstimate->content['comment'])) ?></p>
 
 
-<?php # Pied-de-page
-require OKT_ADMIN_FOOTER_FILE; ?>
+<?php 
+# Pied-de-page
+require OKT_ADMIN_FOOTER_FILE;
+?>

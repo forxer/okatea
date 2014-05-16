@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_configuration'] = 'Configuration';
 $GLOBALS['okt_l10n']['m_estimate_config_tab_general'] = 'General';
 
@@ -14,7 +13,6 @@ $GLOBALS['okt_l10n']['m_estimate_config_enable_notifications'] = 'Enable email n
 $GLOBALS['okt_l10n']['m_estimate_config_notifications_recipients'] = 'Notification address recipients';
 $GLOBALS['okt_l10n']['m_estimate_config_notifications_recipients_note_1'] = 'If you do not specify address, notifications will be sent to the main recipient address of the website (%s).';
 $GLOBALS['okt_l10n']['m_estimate_config_notifications_recipients_note_2'] = 'You can specify multiple addresses separeted by comma.';
-
 
 $GLOBALS['okt_l10n']['m_estimate_config_tab_tpl'] = 'Templates';
 $GLOBALS['okt_l10n']['m_estimate_config_tab_tpl_title'] = 'Templates display';

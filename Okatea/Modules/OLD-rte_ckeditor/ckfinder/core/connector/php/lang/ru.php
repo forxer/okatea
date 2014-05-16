@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Russian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Russian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Невозможно завершить запрос. (Ошибка %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Неверная команда.',
 		'11' => 'Тип ресурса не указан в запросе.',
 		'12' => 'Неверный запрошенный тип ресурса.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Произошла ошибка при перемещении файла(ов).',
 		'301' => 'Произошла ошибка при копировании файла(ов).',
 		'500' => 'Браузер файлов отключен из-за соображений безопасности. Пожалуйста, сообщите вашему системному администратру и проверьте конфигурационный файл CKFinder.',
-		'501' => 'Поддержка миниатюр отключена.',
+		'501' => 'Поддержка миниатюр отключена.'
 	)
 );

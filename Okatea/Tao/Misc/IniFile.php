@@ -9,7 +9,6 @@
  * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
  * Licensed under the GPL version 2.0 license.
  */
-
 namespace Okatea\Tao\Misc;
 
 use Okatea\Tao\Misc\Utilities;
@@ -17,7 +16,8 @@ use Okatea\Tao\Misc\Utilities;
 /**
  * @class iniFile
  * @ingroup okt_classes_tools
- * @brief Permet de manipuler un fichier de configuration de type .ini
+ * @brief Permet de manipuler un fichier de configuration de type .
+ * ini
  *
  * Pour charger un fichier ini et transformer ses données en constantes,
  * utiliser simplement la méthode statique iniFile::read($fichier_ini)
@@ -32,12 +32,13 @@ use Okatea\Tao\Misc\Utilities;
  * $objIni->createVar('nom_3', $valeur_3, 'Un nouvelle variable de configuration');
  *
  * $objIni->saveFile();
- *
  */
 class IniFile
 {
+
 	/**
 	 * Le contenu du fichier de configuration
+	 * 
 	 * @var string
 	 * @access private
 	 */
@@ -45,16 +46,19 @@ class IniFile
 
 	/**
 	 * Le modèle des lignes de configuration
+	 * 
 	 * @var string
 	 * @access private
 	 */
 	private $var_reg = '/^[\s]*(%s)[\s]*?=[\s*](.*)$/m';
 
 	/**
-	 * Constructeur. Charge le contenu d'un fichier de configuration.
+	 * Constructeur.
+	 * Charge le contenu d'un fichier de configuration.
 	 *
 	 * @access public
-	 * @param	string	file	Le chemin du fichier de configuration à charger.
+	 * @param
+	 *        	string	file	Le chemin du fichier de configuration à charger.
 	 * @return void
 	 */
 	public function __construct($file)
@@ -62,9 +66,10 @@ class IniFile
 		if (file_exists($file))
 		{
 			$this->file = $file;
-			$this->content = implode('',file($file));
+			$this->content = implode('', file($file));
 		}
-		else {
+		else
+		{
 			$this->file = false;
 		}
 	}
@@ -73,23 +78,26 @@ class IniFile
 	 * Modification d'une variable de configuration
 	 *
 	 * @access public
-	 * @param	string	name		Le nom de la variable
-	 * @param	mixed	value		La valeur de la variable
+	 * @param
+	 *        	string	name		Le nom de la variable
+	 * @param
+	 *        	mixed	value		La valeur de la variable
 	 * @return void
 	 */
-	public function editVar($name,$value)
+	public function editVar($name, $value)
 	{
 		if ($this->file !== false)
 		{
-			$match = sprintf($this->var_reg,preg_quote($name));
-
-			if (preg_match($match,$this->content))
+			$match = sprintf($this->var_reg, preg_quote($name));
+			
+			if (preg_match($match, $this->content))
 			{
-				$replace = '$1 = '.$value;
-				$this->content = preg_replace($match,$replace,$this->content);
+				$replace = '$1 = ' . $value;
+				$this->content = preg_replace($match, $replace, $this->content);
 			}
-			else {
-				$this->createVar($name,$value);
+			else
+			{
+				$this->createVar($name, $value);
 			}
 		}
 	}
@@ -98,21 +106,26 @@ class IniFile
 	 * Création d'une variable de configuration.
 	 *
 	 * @access public
-	 * @param	string	name		Le nom de la variable
-	 * @param	mixed	value		La valeur de la variable
-	 * @param	string	comment		Un commentaire
+	 * @param
+	 *        	string	name		Le nom de la variable
+	 * @param
+	 *        	mixed	value		La valeur de la variable
+	 * @param
+	 *        	string	comment		Un commentaire
 	 * @return void
 	 */
-	public function createVar($name,$value,$comment='')
+	public function createVar($name, $value, $comment = '')
 	{
-		$match = sprintf($this->var_reg,preg_quote($name));
-
-		if ($comment != '') {
-			$comment = '; '.str_replace("\n","\n; ",$comment)."\n";
+		$match = sprintf($this->var_reg, preg_quote($name));
+		
+		if ($comment != '')
+		{
+			$comment = '; ' . str_replace("\n", "\n; ", $comment) . "\n";
 		}
-
-		if (!preg_match($match,$this->content)) {
-			$this->content .= "\n\n".$comment.$name.' = '.$value;
+		
+		if (! preg_match($match, $this->content))
+		{
+			$this->content .= "\n\n" . $comment . $name . ' = ' . $value;
 		}
 	}
 
@@ -124,44 +137,50 @@ class IniFile
 	 */
 	public function saveFile()
 	{
-		if (($fp = @fopen($this->file,'w')) !== false)
+		if (($fp = @fopen($this->file, 'w')) !== false)
 		{
-			if (@fwrite($fp,$this->content,strlen($this->content)) !== false) {
+			if (@fwrite($fp, $this->content, strlen($this->content)) !== false)
+			{
 				$res = true;
 			}
-			else {
+			else
+			{
 				$res = false;
 			}
-
+			
 			fclose($fp);
 			return $res;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}
 
-	public static function generateCacheFile($filesource,$filecache)
+	public static function generateCacheFile($filesource, $filecache)
 	{
-		if (!file_exists($filesource)) {
-			trigger_error('No config file',E_USER_WARNING);
+		if (! file_exists($filesource))
+		{
+			trigger_error('No config file', E_USER_WARNING);
 			return false;
 		}
-
+		
 		$ini_array = parse_ini_file($filesource);
-
-		$res = '<?php'."\n\n";
-		foreach ($ini_array as $k=>$v)
+		
+		$res = '<?php' . "\n\n";
+		foreach ($ini_array as $k => $v)
 		{
-			if (is_bool($v) || Utilities::isInt($v)) {
-				$res .= 'define(\''.$k.'\', '.$v.');'."\n\n";
+			if (is_bool($v) || Utilities::isInt($v))
+			{
+				$res .= 'define(\'' . $k . '\', ' . $v . ');' . "\n\n";
 			}
-			else {
-				$res .= 'define(\''.$k.'\', \''.addslashes($v).'\');'."\n\n";
+			else
+			{
+				$res .= 'define(\'' . $k . '\', \'' . addslashes($v) . '\');' . "\n\n";
 			}
 		}
-
-		return file_put_contents($filecache,$res);
+		
+		return file_put_contents($filecache, $res);
 	}
 
 	/**
@@ -169,46 +188,56 @@ class IniFile
 	 * ou de retourner un tableau indexé
 	 *
 	 * @static
+	 *
 	 * @access public
-	 * @param	string	file	Le chemin du fichier de configuration à lire
-	 * @param	boolean	return	Si mis à TRUE, la fonction retourne les valeurs dans un tableau indexé
+	 * @param
+	 *        	string	file	Le chemin du fichier de configuration à lire
+	 * @param
+	 *        	boolean	return	Si mis à TRUE, la fonction retourne les valeurs dans un tableau indexé
 	 * @return void/array
 	 */
-	public static function read($file,$return=false)
+	public static function read($file, $return = false)
 	{
-		if (!file_exists($file)) {
-			trigger_error('No config file',E_USER_ERROR);
-			exit;
+		if (! file_exists($file))
+		{
+			trigger_error('No config file', E_USER_ERROR);
+			exit();
 		}
-
-		if ($return) {
+		
+		if ($return)
+		{
 			$res = array();
 		}
-
+		
 		$ini_array = parse_ini_file($file);
-
-		foreach ($ini_array as $k=>$v)
+		
+		foreach ($ini_array as $k => $v)
 		{
-			if ($return) {
+			if ($return)
+			{
 				$res[$k] = $v;
 			}
-			elseif (!defined($k)) {
-				define($k,$v);
+			elseif (! defined($k))
+			{
+				define($k, $v);
 			}
 		}
-
-		if ($return) {
+		
+		if ($return)
+		{
 			return $res;
 		}
 	}
 
-	public static function readCache($filesource,$filecache)
+	public static function readCache($filesource, $filecache)
 	{
-		if (file_exists($filecache)) {
+		if (file_exists($filecache))
+		{
 			require $filecache;
 		}
-		else {
-			self::generateCacheFile($filesource,$filecache);
+		else
+		{
+			self::generateCacheFile($filesource, $filecache);
 			require $filecache;
 		}
 	}

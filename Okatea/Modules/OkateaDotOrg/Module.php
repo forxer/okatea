@@ -1,10 +1,10 @@
 <?php
+
 /**
  * @ingroup okt_module_okatea_dot_org
  * @brief La classe principale du Module Okatea.org.
  *
  */
-
 namespace Okatea\Modules\OkateaDotOrg;
 
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
@@ -12,11 +12,12 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Module extends BaseModule
 {
+
 	protected $sUrl;
 
 	protected function prepend()
 	{
-		$this->sRepositoryPath = realpath(__DIR__.'/../../../repository/');
+		$this->sRepositoryPath = realpath(__DIR__ . '/../../../repository/');
 	}
 
 	/**
@@ -43,22 +44,23 @@ class Module extends BaseModule
 	protected function getVersionInfo($sVersionType)
 	{
 		static $aVersionInfo = null;
-
+		
 		if (null === $aVersionInfo)
 		{
-			$sFilename = $this->sRepositoryPath.'/packages/index.json';
-
-			if (!file_exists($sFilename)) {
+			$sFilename = $this->sRepositoryPath . '/packages/index.json';
+			
+			if (! file_exists($sFilename))
+			{
 				$this->okt->error->set('json file of repository not found.');
 			}
-
+			
 			$aVersionInfo = json_decode(file_get_contents($sFilename));
 		}
-
+		
 		$this->resetVersionInfos();
-
-		$sVersionType = ($sVersionType == 'dev'  ? 'dev' : 'stable');
-
+		
+		$sVersionType = ($sVersionType == 'dev' ? 'dev' : 'stable');
+		
 		return $aVersionInfo[$sVersionType];
 	}
 }

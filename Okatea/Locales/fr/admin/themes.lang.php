@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['c_a_themes_management'] = 'Gestion des thèmes';
 
 $GLOBALS['okt_l10n']['c_a_themes_one_theme'] = 'un thème';

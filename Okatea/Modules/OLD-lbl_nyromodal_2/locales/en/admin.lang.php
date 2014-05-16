@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_lbl_nyromodal_2_menu_config'] = 'nyroModal 2';
 
 $GLOBALS['okt_l10n']['m_lbl_nyromodal_2_config_title'] = 'nyroModal 2 configuration ';

@@ -5,15 +5,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao;
 
 /**
  * Le système de gestion des déclencheurs.
- *
  */
 class Triggers
 {
+
 	/**
 	 * La pile qui contient les déclencheurs.
 	 *
@@ -36,12 +35,14 @@ class Triggers
 	/**
 	 * Ajout de plusieurs nouveaux callables à la pile de déclencheurs.
 	 *
-	 * @param array $aTriggers Tableaux des déclencheurs à ajouter
+	 * @param array $aTriggers
+	 *        	Tableaux des déclencheurs à ajouter
 	 * @return void
 	 */
 	public function registerTriggers($aTriggers)
 	{
-		foreach ($aTriggers as $sTrigger=>$mCallable) {
+		foreach ($aTriggers as $sTrigger => $mCallable)
+		{
 			$this->registerTrigger($sTrigger, $mCallable);
 		}
 	}
@@ -49,19 +50,23 @@ class Triggers
 	/**
 	 * Ajoute un nouveau callable à la pile de déclencheurs.
 	 *
-	 * @param string $sTrigger Nom du déclencheur
-	 * @param callable $mCallable Le "callable" (callback) à appeller
+	 * @param string $sTrigger
+	 *        	Nom du déclencheur
+	 * @param callable $mCallable
+	 *        	Le "callable" (callback) à appeller
 	 * @return void
 	 */
 	public function registerTrigger($sTrigger, $mCallable)
 	{
-		if (is_callable($mCallable)) {
+		if (is_callable($mCallable))
+		{
 			$this->aStack[$sTrigger][] = $mCallable;
 		}
 	}
 
 	/**
-	 * Magic __set method. Alias de la méthode registerTrigger().
+	 * Magic __set method.
+	 * Alias de la méthode registerTrigger().
 	 *
 	 * @see self::registerTrigger()
 	 */
@@ -73,7 +78,8 @@ class Triggers
 	/**
 	 * Test si un déclencheur particulier existe dans la pile de déclencheurs.
 	 *
-	 * @param string $sTrigger 	Nom du déclencheur
+	 * @param string $sTrigger
+	 *        	Nom du déclencheur
 	 * @return boolean
 	 */
 	public function hasTrigger($sTrigger)
@@ -82,7 +88,8 @@ class Triggers
 	}
 
 	/**
-	 * Magic __isset method. Alias de la méthode hasTrigger().
+	 * Magic __isset method.
+	 * Alias de la méthode hasTrigger().
 	 *
 	 * @see self::hasTrigger()
 	 */
@@ -95,29 +102,34 @@ class Triggers
 	 * Permet de récupérer la pile des déclencheurs
 	 * (ou un déclencheur si le paramètre est précisé).
 	 *
-	 * @param string $sTrigger 	Nom du déclencheur
+	 * @param string $sTrigger
+	 *        	Nom du déclencheur
 	 * @return array
 	 */
-	public function getTriggers($sTrigger=null)
+	public function getTriggers($sTrigger = null)
 	{
-		if (empty($this->aStack)) {
+		if (empty($this->aStack))
+		{
 			return null;
 		}
-
-		if (empty($sTrigger)) {
+		
+		if (empty($sTrigger))
+		{
 			return $this->aStack;
 		}
-		elseif ($this->hasTrigger($sTrigger)) {
+		elseif ($this->hasTrigger($sTrigger))
+		{
 			return $this->aStack[$sTrigger];
 		}
-
+		
 		return null;
 	}
 
 	/**
 	 * Permet de récupérer un déclencheur.
 	 *
-	 * @param string $sTrigger 	Nom du déclencheur
+	 * @param string $sTrigger
+	 *        	Nom du déclencheur
 	 * @return array
 	 */
 	public function getTrigger($sTrigger)
@@ -126,7 +138,8 @@ class Triggers
 	}
 
 	/**
-	 * Magic __get method. Alias de la méthode getTrigger().
+	 * Magic __get method.
+	 * Alias de la méthode getTrigger().
 	 *
 	 * @see self::getTrigger()
 	 */
@@ -140,23 +153,26 @@ class Triggers
 	 * un déclencheur donné et retourne les résultats concaténés
 	 * de chaques callables.
 	 *
-	 * @param string $sTrigger 	Nom du déclencheur
+	 * @param string $sTrigger
+	 *        	Nom du déclencheur
 	 * @return string
 	 */
 	public function callTrigger($sTrigger)
 	{
-		if (!$this->hasTrigger($sTrigger)) {
+		if (! $this->hasTrigger($sTrigger))
+		{
 			return null;
 		}
-
+		
 		$args = func_get_args();
 		array_shift($args);
-
+		
 		$sReturn = '';
-		foreach ($this->aStack[$sTrigger] as $f) {
+		foreach ($this->aStack[$sTrigger] as $f)
+		{
 			$sReturn .= call_user_func_array($f, $args);
 		}
-
+		
 		return $sReturn;
 	}
 }

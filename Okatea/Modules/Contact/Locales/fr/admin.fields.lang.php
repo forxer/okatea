@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_contact_fields'] = 'Champs';
 $GLOBALS['okt_l10n']['m_contact_fields_neworder'] = 'L’ordre des champs a été mis à jour.';
 $GLOBALS['okt_l10n']['m_contact_fields_field_added'] = 'Le champ a été ajouté avec succès.';
@@ -57,8 +56,6 @@ $GLOBALS['okt_l10n']['m_contact_fields_default_value'] = 'Valeur par défaut';
 $GLOBALS['okt_l10n']['m_contact_fields_default_value_in_%s'] = 'Valeur par défaut en %s';
 $GLOBALS['okt_l10n']['m_contact_fields_value_%s'] = 'Valeur %s';
 $GLOBALS['okt_l10n']['m_contact_fields_value_%s_in_%s'] = 'Valeur %s en %s';
-
-
 
 $GLOBALS['okt_l10n']['m_contact_Empty_HTML_ID'] = 'ID HTML vide';
 

@@ -140,32 +140,33 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		}
 		?>
 
-	<li id="ord_<?php echo $rsPartners->id ?>" class="ui-state-default"><label for="order_<?php echo $rsPartners->id ?>">
-
-		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+	<li id="ord_<?php echo $rsPartners->id ?>" class="ui-state-default"><label
+		for="order_<?php echo $rsPartners->id ?>"> <span
+			class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 		<?php echo html::escapeHTML($rsPartners->name) ?></label>
 
 		<?php echo form::text(array('order['.$rsPartners->id.']','order_'.$rsPartners->id),5,10,$i++) ?>
 
 		<?php if ($rsPartners->active) : ?>
-		- <a href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
+		- <a
+		href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Disable_%s'),html::escapeHTML($rsPartners->name)) ?>"
 		class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 		<?php else : ?>
-		- <a href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
+		- <a
+		href="module.php?m=partners&amp;action=index&amp;switch_status=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Enable_%s'),html::escapeHTML($rsPartners->name)) ?>"
 		class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 		<?php endif; ?>
 
-		- <a href="module.php?m=partners&amp;action=edit&amp;partner_id=<?php echo $rsPartners->id ?>"
+		- <a
+		href="module.php?m=partners&amp;action=edit&amp;partner_id=<?php echo $rsPartners->id ?>"
 		title="<?php printf(__('c_c_action_Edit_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
-
-		- <a href="module.php?m=partners&amp;action=delete&amp;partner_id=<?php echo $rsPartners->id ?>"
+		class="icon pencil"><?php _e('c_c_action_Edit') ?></a> - <a
+		href="module.php?m=partners&amp;action=delete&amp;partner_id=<?php echo $rsPartners->id ?>"
 		onclick="return window.confirm('<?php echo html::escapeJS(__('m_partners_confirm_delete')) ?>')"
 		title="<?php printf(__('c_c_action_Delete_%s'),html::escapeHTML($rsPartners->name)) ?>"
-		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
-	</li>
+		class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 
 	<?php endwhile; ?>
 
@@ -176,7 +177,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('ordered',1); ?>
 	<?php echo form::hidden('partners_order',''); ?>
 	<?php echo Page::formtoken(); ?>
-	<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
+	<input type="submit" id="save_order"
+			value="<?php _e('c_c_action_save_order') ?>" />
+	</p>
 </form>
 
 <?php endif; ?>

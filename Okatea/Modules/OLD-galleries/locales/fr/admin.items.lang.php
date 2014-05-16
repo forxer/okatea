@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_items_item_switched'] = 'La visibilité de l’élément a été basculée.';
 $GLOBALS['okt_l10n']['m_galleries_items_item_deleted'] = 'L’élément a été supprimé.';
 

@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_display_tab_public'] = 'Côté site';
 $GLOBALS['okt_l10n']['m_galleries_display_tab_images'] = 'Images';
 

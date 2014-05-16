@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Hebrew language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Hebrew language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'לא היה ניתן להשלים את הבקשה. (שגיאה %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'הוראה לא תקינה.',
 		'11' => 'סוג המשאב לא צויין בבקשה לשרת.',
 		'12' => 'סוג המשאב המצויין לא תקין.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'העברת הקבצים נכשלה.',
 		'301' => 'העתקת הקבצים נכשלה.',
 		'500' => 'דפדפן הקבצים מנוטרל מסיבות אבטחה. יש לפנות למנהל המערכת ולבדוק את קובץ התצורה של CKFinder.',
-		'501' => 'התמיכה בתמונות מוקטנות מבוטלת.',
+		'501' => 'התמיכה בתמונות מוקטנות מבוטלת.'
 	)
 );

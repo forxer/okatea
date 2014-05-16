@@ -5,16 +5,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-
 # Autocomplétion du formulaire de recherche
-if (!empty($sAutocompleteSrc))
+if (! empty($sAutocompleteSrc))
 {
 	$okt->page->js->addReady('
 		$("#search").autocomplete({
-			source: "'.$sAutocompleteSrc.'",
+			source: "' . $sAutocompleteSrc . '",
 			minLength: 2
 		});
 	');
@@ -31,13 +29,13 @@ $okt->page->css->addCss('
 	margin: 0;
 }
 #search {
-	background: transparent url('.$okt->options->public_url.'/img/admin/preview.png) no-repeat center right;
+	background: transparent url(' . $okt->options->public_url . '/img/admin/preview.png) no-repeat center right;
 }
 ');
 
-if (!empty($sSearch))
+if (! empty($sSearch))
 {
-	$okt->page->js->addFile($okt->options->public_url.'/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile($okt->options->public_url . '/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');
@@ -45,9 +43,13 @@ if (!empty($sSearch))
 
 ?>
 
-<form action="<?php echo $sFormAction ?>" method="get" id="search_form" class="search_form">
-	<p><label for="search"><?php echo $sSearchLabel; ?></label>
+<form action="<?php echo $sFormAction ?>" method="get" id="search_form"
+	class="search_form">
+	<p>
+		<label for="search"><?php echo $sSearchLabel; ?></label>
 	<?php echo form::text('search', 20, 255, (!empty($sSearch) ? $view->escape($sSearch) : '')); ?>
 
-	<input type="submit" name="search_submit" id="search_submit" value="<?php _e('c_c_action_ok') ?>" /></p>
+	<input type="submit" name="search_submit" id="search_submit"
+			value="<?php _e('c_c_action_ok') ?>" />
+	</p>
 </form>

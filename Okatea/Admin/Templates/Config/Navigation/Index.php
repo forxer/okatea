@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $view->extend('layout');
 
 $rsMenus = $okt->navigation->getMenus(array(
@@ -30,16 +29,16 @@ $okt->page->setButtonset('navigationBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_a_config_navigation_add_menu'),
-			'url' 			=> $view->generateUrl('config_navigation').'?do=menu',
-			'ui-icon' 		=> 'plusthick',
+			'permission' => true,
+			'title' => __('c_a_config_navigation_add_menu'),
+			'url' => $view->generateUrl('config_navigation') . '?do=menu',
+			'ui-icon' => 'plusthick'
 		),
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_a_config_navigation_config'),
-			'url' 			=> $view->generateUrl('config_navigation').'?do=config',
-			'ui-icon' 		=> 'gear',
+			'permission' => true,
+			'title' => __('c_a_config_navigation_config'),
+			'url' => $view->generateUrl('config_navigation') . '?do=config',
+			'ui-icon' => 'gear'
 		)
 	)
 ));
@@ -54,54 +53,61 @@ $okt->page->setButtonset('navigationBtSt', array(
 
 <table class="common">
 	<caption><?php _e('c_a_config_navigation_menus_list') ?></caption>
-	<thead><tr>
-		<th scope="col"><?php _e('c_a_config_navigation_menu_title') ?></th>
-		<th scope="col"><?php _e('c_a_config_navigation_menu_actions') ?></th>
-		<th scope="col"><?php _e('c_a_config_navigation_menu_items') ?></th>
-		<th scope="col"><?php _e('c_a_config_navigation_menu_items_actions') ?></th>
-	</tr></thead>
+	<thead>
+		<tr>
+			<th scope="col"><?php _e('c_a_config_navigation_menu_title') ?></th>
+			<th scope="col"><?php _e('c_a_config_navigation_menu_actions') ?></th>
+			<th scope="col"><?php _e('c_a_config_navigation_menu_items') ?></th>
+			<th scope="col"><?php _e('c_a_config_navigation_menu_items_actions') ?></th>
+		</tr>
+	</thead>
 	<tbody>
-	<?php $count_line = 0;
-	while ($rsMenus->fetch()) :
-		$td_class = $count_line%2 == 0 ? 'even' : 'odd';
-		$count_line++;
-
-		if (!$rsMenus->active) {
+	<?php
+	
+$count_line = 0;
+	while ($rsMenus->fetch())
+	:
+		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
+		$count_line ++;
+		
+		if (! $rsMenus->active)
+		{
 			$td_class = ' disabled';
 		}
-	?>
+		?>
 	<tr>
-		<th class="<?php echo $td_class ?> fake-td" scope="row"><a href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
-		echo $view->escape($rsMenus->title) ?></a></th>
+			<th class="<?php echo $td_class ?> fake-td" scope="row"><a
+				href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
+		echo $view->escape($rsMenus->title)?></a></th>
 
-		<td class="<?php echo $td_class ?> nowrap">
-			<ul class="actions">
-				<li>
+			<td class="<?php echo $td_class ?> nowrap">
+				<ul class="actions">
+					<li>
 				<?php if ($rsMenus->active) : ?>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon tick"><?php _e('c_c_action_visible')?></a>
+				<a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+						title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon cross"><?php _e('c_c_action_hidden')?></a>
+				<a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+						title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
-				<li>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_c_action_Edit_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon pencil"><?php _e('c_c_action_edit')?></a>
-				</li>
-				<li>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
-				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
-				title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon delete"><?php _e('c_c_action_delete')?></a>
-				</li>
-			</ul>
-		</td>
+					<li><a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
+						title="<?php printf(__('c_c_action_Edit_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon pencil"><?php _e('c_c_action_edit')?></a></li>
+					<li><a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
+						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
+						title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon delete"><?php _e('c_c_action_delete')?></a></li>
+				</ul>
+			</td>
 
-		<td class="<?php echo $td_class ?>">
+			<td class="<?php echo $td_class ?>">
 			<?php if ($rsMenus->num_items == 0) : ?>
 				<p><?php _e('c_a_config_navigation_no_item') ?></p>
 
@@ -121,21 +127,21 @@ $okt->page->setButtonset('navigationBtSt', array(
 			<?php endif; ?>
 		</td>
 
-		<td class="<?php echo $td_class ?>">
-			<ul class="actions">
-				<li>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
-				</li>
-				<li>
-				<a href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
-				title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
-				class="icon application_add"><?php _e('c_a_config_navigation_add_item')?></a>
-				</li>
-			</ul>
-		</td>
-	</tr>
+			<td class="<?php echo $td_class ?>">
+				<ul class="actions">
+					<li><a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+						title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
+					</li>
+					<li><a
+						href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
+						title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
+						class="icon application_add"><?php _e('c_a_config_navigation_add_item')?></a>
+					</li>
+				</ul>
+			</td>
+		</tr>
 	<?php endwhile; ?>
 	</tbody>
 </table>

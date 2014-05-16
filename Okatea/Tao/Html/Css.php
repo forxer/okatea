@@ -5,59 +5,64 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Html;
 
 use Okatea\Tao\Errors;
+
 /**
  * Permet de gérer les piles pour les CSS et de retourner le HTML résultant.
- *
  */
 class Css
 {
+
 	/**
 	 * Pile de fichiers CSS
+	 * 
 	 * @var array
 	 */
 	protected $aFilesStack = array();
 
 	/**
 	 * Pile de fichiers LESS CSS
+	 * 
 	 * @var array
 	 */
 	protected $aLessFilesStack = array();
 
 	/**
 	 * Pile de fichiers CSS en Comentaires Conditionnels
+	 * 
 	 * @var array
 	 */
 	protected $aCCFilesStack = array();
 
 	/**
 	 * Pile des conditions des Comentaires Conditionnels
+	 * 
 	 * @var array
 	 */
 	protected $aCCCondStack = array();
 
 	/**
 	 * Pile de code CSS
+	 * 
 	 * @var array
 	 */
 	protected $aCssStack = array();
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
+	 * 
 	 * @var string
 	 */
 	protected $sPart = null;
-
 
 	/**
 	 * Constructeur.
 	 *
 	 * @return void
 	 */
-	public function __construct($sPart=null)
+	public function __construct($sPart = null)
 	{
 		$this->sPart = $sPart;
 	}
@@ -69,32 +74,27 @@ class Css
 	 */
 	public function getCss()
 	{
-		return
-			$this->getHtmlFiles()."\n\n".
-			$this->getHtmlLessFiles()."\n\n".
-			$this->getHtmlCCFiles()."\n\n".
-			$this->getInlineCss();
+		return $this->getHtmlFiles() . "\n\n" . $this->getHtmlLessFiles() . "\n\n" . $this->getHtmlCCFiles() . "\n\n" . $this->getInlineCss();
 	}
 
 	public function __toString()
 	{
 		return $this->getCss();
 	}
-
-
+	
 	/* Pile de fichiers
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Ajoute un fichier à la pile des fichiers CSS
 	 *
-	 * @param $src string
-	 * @param $media string
+	 * @param $src string        	
+	 * @param $media string        	
 	 * @return void
 	 */
-	public function addFile($src, $media='screen')
+	public function addFile($src, $media = 'screen')
 	{
-		$this->aFilesStack[] = $src.'|'.$media;
+		$this->aFilesStack[] = $src . '|' . $media;
 	}
 
 	/**
@@ -105,8 +105,8 @@ class Css
 	public function getFilesStack()
 	{
 		$this->aFilesStack = array_unique($this->aFilesStack);
-
-		return (!empty($this->aFilesStack) ? $this->aFilesStack : false);
+		
+		return (! empty($this->aFilesStack) ? $this->aFilesStack : false);
 	}
 
 	/**
@@ -116,28 +116,28 @@ class Css
 	 */
 	public function getHtmlFiles()
 	{
-		if (($aFiles = $this->getFilesStack()) === false) {
+		if (($aFiles = $this->getFilesStack()) === false)
+		{
 			return false;
 		}
-
+		
 		$sHtml = '';
 		foreach ($aFiles as $sFileInfo)
 		{
-			list($sFile, $sMedia) = explode('|', $sFileInfo);
+			list ($sFile, $sMedia) = explode('|', $sFileInfo);
 			$sHtml .= self::formatHtmlCssFile($sFile, $sMedia);
 		}
-
+		
 		return $sHtml;
 	}
-
-
+	
 	/* Pile de fichiers LESS
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Ajoute un fichier à la pile des fichiers LESS CSS
 	 *
-	 * @param $src string
+	 * @param $src string        	
 	 * @return void
 	 */
 	public function addLessFile($src)
@@ -153,8 +153,8 @@ class Css
 	public function getLessFilesStack()
 	{
 		$this->aLessFilesStack = array_unique($this->aLessFilesStack);
-
-		return (!empty($this->aLessFilesStack) ? $this->aLessFilesStack : false);
+		
+		return (! empty($this->aLessFilesStack) ? $this->aLessFilesStack : false);
 	}
 
 	/**
@@ -164,65 +164,68 @@ class Css
 	 */
 	public function getHtmlLessFiles()
 	{
-		if (($aFiles = $this->getLessFilesStack()) === false) {
+		if (($aFiles = $this->getLessFilesStack()) === false)
+		{
 			return false;
 		}
-
+		
 		$sHtml = '';
 		foreach ($aFiles as $sFile)
 		{
 			$sHtml .= self::formatHtmlCssFile($this->autoCompileLess($sFile));
 		}
-
+		
 		return $sHtml;
 	}
 
 	protected function autoCompileLess($inputFile)
 	{
 		global $okt;
-
-		$outputFile = $okt->options->public_dir.'/cache/'.md5($inputFile).'.css';
-		$cacheFile = $outputFile.'.cache';
-
-		if (file_exists($cacheFile)) {
+		
+		$outputFile = $okt->options->public_dir . '/cache/' . md5($inputFile) . '.css';
+		$cacheFile = $outputFile . '.cache';
+		
+		if (file_exists($cacheFile))
+		{
 			$cache = unserialize(file_get_contents($cacheFile));
-		} else {
+		}
+		else
+		{
 			$cache = $inputFile;
 		}
-
-		$less = new \lessc;
-
+		
+		$less = new \lessc();
+		
 		$less->setPreserveComments(true);
-
+		
 		$less->setImportDir(array(
-			$okt->options->get('public_dir').'/themes/'.$okt->theme->id().'/css/',
-			$okt->options->get('public_dir').'/css/less/'
+			$okt->options->get('public_dir') . '/themes/' . $okt->theme->id() . '/css/',
+			$okt->options->get('public_dir') . '/css/less/'
 		));
-
+		
 		$less->setVariables($okt->theme->getLessVariables());
-
+		
 		$newCache = $less->cachedCompile($cache);
-
-		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
+		
+		if (! is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{
 			file_put_contents($cacheFile, serialize($newCache));
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
-
-		return str_replace($okt->options->public_dir, $okt->config->app_path.basename($okt->options->get('public_dir')), $outputFile);
+		
+		return str_replace($okt->options->public_dir, $okt->config->app_path . basename($okt->options->get('public_dir')), $outputFile);
 	}
-
-
+	
 	/* Pile de fichiers CC
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Ajoute un fichier CC à la pile des fichiers CSS.
 	 *
-	 * @param $src string
+	 * @param $src string        	
 	 * @return void
 	 */
-	public function addCCFile($src,$condition='IE')
+	public function addCCFile($src, $condition = 'IE')
 	{
 		$this->aCCFilesStack[] = $src;
 		$this->aCCCondStack[] = $condition;
@@ -236,8 +239,8 @@ class Css
 	public function getCCFilesStack()
 	{
 		$this->aCCFilesStack = array_unique($this->aCCFilesStack);
-
-		return (!empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
+		
+		return (! empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
 	}
 
 	/**
@@ -247,26 +250,28 @@ class Css
 	 */
 	public function getHtmlCCFiles()
 	{
-		if (($files = $this->getCCFilesStack()) === false) {
+		if (($files = $this->getCCFilesStack()) === false)
+		{
 			return false;
 		}
-
+		
 		$str = '';
-		foreach ($files as $i=>$file) {
-			$str .= self::formatCCFile($file,$this->aCCCondStack[$i]);
+		foreach ($files as $i => $file)
+		{
+			$str .= self::formatCCFile($file, $this->aCCCondStack[$i]);
 		}
-
+		
 		return $str;
 	}
-
-
+	
 	/* Pile de code en ligne
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Ajoute du CSS en ligne à la pile.
 	 *
-	 * @param $str
+	 * @param
+	 *        	$str
 	 * @return void
 	 */
 	public function addCSS($str)
@@ -281,60 +286,63 @@ class Css
 	 */
 	public function getInlineCss()
 	{
-		if (!empty($this->aCssStack)) {
-			return self::formatCss(implode("\n\n",$this->aCssStack));
+		if (! empty($this->aCssStack))
+		{
+			return self::formatCss(implode("\n\n", $this->aCssStack));
 		}
 	}
-
-
+	
 	/* Formatage du CSS pour le HTML
 	----------------------------------------------------------*/
-
+	
 	/**
 	 * Formate et retourne un lien CSS d'entête HTML
 	 *
-	 * @param string $src 		l'URL du fichier
-	 * @param string $media 	L'attribut media (screen)
-	 * @param string $rel 		L'attribut rel (stylesheet)
-	 * @param string $format 	La chaîne de format ('<link type="text/css" href="%s" rel="%s" media="%s" />')
+	 * @param string $src
+	 *        	l'URL du fichier
+	 * @param string $media
+	 *        	L'attribut media (screen)
+	 * @param string $rel
+	 *        	L'attribut rel (stylesheet)
+	 * @param string $format
+	 *        	La chaîne de format ('<link type="text/css" href="%s" rel="%s" media="%s" />')
 	 * @return string
 	 */
-	public static function formatHtmlCssFile($src,$media='screen',$rel='stylesheet',
-		$format="<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
+	public static function formatHtmlCssFile($src, $media = 'screen', $rel = 'stylesheet', $format = "<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
 	{
-		return sprintf($format,$src,$rel,$media);
+		return sprintf($format, $src, $rel, $media);
 	}
 
 	/**
 	 * Retourne le HTML de l'en-tête pour ajouter un fichier
 	 * CSS en comentaire conditionnel
 	 *
-	 * @param string $src 		L'URL du fichier javascript
-	 * @param string $condition La condition
-	 * @param string $media 	L'attribut media (screen)
-	 * @param string $rel 		L'attribut rel (stylesheet)
-	 * @param string $format	Le format de la chaine ('<link type="text/css" href="%s" rel="%s" media="%s" />')
+	 * @param string $src
+	 *        	L'URL du fichier javascript
+	 * @param string $condition
+	 *        	La condition
+	 * @param string $media
+	 *        	L'attribut media (screen)
+	 * @param string $rel
+	 *        	L'attribut rel (stylesheet)
+	 * @param string $format
+	 *        	format de la chaine ('<link type="text/css" href="%s" rel="%s" media="%s" />')
 	 * @return string
 	 */
-	public static function formatCCFile($src,$condition,$media='screen',$rel='stylesheet',
-		$format="<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
+	public static function formatCCFile($src, $condition, $media = 'screen', $rel = 'stylesheet', $format = "<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
 	{
-		return Page::formatCC(self::formatHtmlCssFile($src,$media,$rel,$format),$condition);
+		return Page::formatCC(self::formatHtmlCssFile($src, $media, $rel, $format), $condition);
 	}
 
 	/**
 	 * Retourne le HTML de l'en-tête pour ajouter du CSS en ligne
 	 *
-	 * @param string $css 		Le code CSS
+	 * @param string $css
+	 *        	Le code CSS
 	 * @return string
 	 */
 	public static function formatCss($css)
 	{
-		return
-		'<style type="text/css">'.PHP_EOL.
-		'/* <![CDATA[ */'.PHP_EOL.
-		$css.PHP_EOL.
-		'/* ]]> */'.PHP_EOL.
-		'</style>';
+		return '<style type="text/css">' . PHP_EOL . '/* <![CDATA[ */' . PHP_EOL . $css . PHP_EOL . '/* ]]> */' . PHP_EOL . '</style>';
 	}
 }

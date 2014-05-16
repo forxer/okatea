@@ -14,7 +14,6 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  */
-
 #fancybox-loading {
 	position: fixed;
 	top: 50%;
@@ -130,7 +129,7 @@
 	display: block;
 }
 
-#fancybox-left, #fancybox-right {
+#fancybox-left,#fancybox-right {
 	position: absolute;
 	bottom: 0px;
 	height: 100%;
@@ -150,7 +149,7 @@
 	right: 0px;
 }
 
-#fancybox-left-ico, #fancybox-right-ico {
+#fancybox-left-ico,#fancybox-right-ico {
 	position: absolute;
 	top: 50%;
 	left: -9999px;
@@ -172,7 +171,7 @@
 	background-position: -40px -60px;
 }
 
-#fancybox-left:hover, #fancybox-right:hover {
+#fancybox-left:hover,#fancybox-right:hover {
 	visibility: visible; /* IE6 */
 }
 

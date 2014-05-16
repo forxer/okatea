@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_recaptcha_public_key'] = 'Public key';
 $GLOBALS['okt_l10n']['m_recaptcha_private_key'] = 'Private key';
 $GLOBALS['okt_l10n']['m_recaptcha_theme'] = 'Theme';

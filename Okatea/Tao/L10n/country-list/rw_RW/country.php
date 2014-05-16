@@ -1,3 +1,5 @@
-<?php return array (
-  'TO' => 'Igitonga',
+<?php
+
+return array(
+	'TO' => 'Igitonga'
 );

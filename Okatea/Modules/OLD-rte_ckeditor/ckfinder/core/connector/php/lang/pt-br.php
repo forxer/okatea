@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Brazilian Portuguese language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Brazilian Portuguese language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Não foi possível completer o seu pedido. (Erro %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Comando inválido.',
 		'11' => 'O tipo de recurso não foi especificado na solicitação.',
 		'12' => 'O recurso solicitado não é válido.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Não foi possível mover o(s) arquivo(s).',
 		'301' => 'Não foi possível copiar o(s) arquivos(s).',
 		'500' => 'A navegação de arquivos está desativada por razões de segurança. Contacte o administrador do sistema.',
-		'501' => 'O suporte a miniaturas está desabilitado.',
+		'501' => 'O suporte a miniaturas está desabilitado.'
 	)
 );

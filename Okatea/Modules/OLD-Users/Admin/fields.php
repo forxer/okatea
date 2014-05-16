@@ -124,12 +124,12 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 	<ul id="sortable" class="ui-sortable">
 	<?php $i = 1;
 	while ($rsFields->fetch()) : ?>
-	<li id="ord_<?php echo $rsFields->id; ?>" class="ui-state-default two-cols">
+	<li id="ord_<?php echo $rsFields->id; ?>"
+			class="ui-state-default two-cols">
 
-		<div class="col">
-			<label for="order_<?php echo $rsFields->id ?>">
-
-			<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+			<div class="col">
+				<label for="order_<?php echo $rsFields->id ?>"> <span
+					class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
 			<?php echo html::escapeHTML($rsFields->title) ?></label>
 
@@ -138,8 +138,8 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 			(<?php echo $aTypes[$rsFields->type] ?> - <?php echo $aStatus[$rsFields->status] ?>)
 
 		</div>
-		<div class="col right">
-<!-- trois valeurs !
+			<div class="col right">
+				<!-- trois valeurs !
 			<?php if ($rsFields->active) : ?>
 			- <a href="module.php?m=users&action=fields&amp;switch_status=<?php echo $rsFields->id ?>"
 			title="<?php printf(__('c_c_action_Disable_%s'), html::escapeHTML($rsFields->title)) ?>"
@@ -150,21 +150,21 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 			class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 			<?php endif; ?>
 -->
-			<a href="module.php?m=users&amp;action=field&amp;field_id=<?php echo $rsFields->id ?>"
-			title="<?php _e('m_users_modify_field_destination') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="icon pencil"><?php _e('m_users_modify_definition') ?></a>
+				<a
+					href="module.php?m=users&amp;action=field&amp;field_id=<?php echo $rsFields->id ?>"
+					title="<?php _e('m_users_modify_field_destination') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
+					class="icon pencil"><?php _e('m_users_modify_definition') ?></a> -
+				<a
+					href="module.php?m=users&amp;action=field&amp;do=value&amp;field_id=<?php echo $rsFields->id ?>"
+					title="<?php _e('m_users_modify_field_value') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
+					class="icon paintbrush"><?php _e('m_users_modify_value') ?></a> - <a
+					href="module.php?m=users&amp;action=fields&amp;delete=<?php echo $rsFields->id ?>"
+					onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_field_deletion')) ?>')"
+					title="Supprimer le champ <?php echo html::escapeHTML($rsFields->title) ?>"
+					class="icon delete"><?php _e('c_c_action_Delete') ?></a>
+			</div>
 
-			- <a href="module.php?m=users&amp;action=field&amp;do=value&amp;field_id=<?php echo $rsFields->id ?>"
-			title="<?php _e('m_users_modify_field_value') ?> <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="icon paintbrush"><?php _e('m_users_modify_value') ?></a>
-
-			- <a href="module.php?m=users&amp;action=fields&amp;delete=<?php echo $rsFields->id ?>"
-			onclick="return window.confirm('<?php echo html::escapeJS(__('m_users_confirm_field_deletion')) ?>')"
-			title="Supprimer le champ <?php echo html::escapeHTML($rsFields->title) ?>"
-			class="icon delete"><?php _e('c_c_action_Delete') ?></a>
-		</div>
-
-	</li>
+		</li>
 	<?php endwhile; ?>
 	</ul>
 
@@ -173,7 +173,9 @@ echo $okt->page->getButtonSet('fieldsBtSt'); ?>
 	<?php echo form::hidden('ordered', 1); ?>
 	<?php echo form::hidden('fields_order', ''); ?>
 	<?php echo Page::formtoken(); ?>
-	<input type="submit" value="<?php _e('c_c_action_save_order') ?>" id="save_order" /></p>
+	<input type="submit" value="<?php _e('c_c_action_save_order') ?>"
+			id="save_order" />
+	</p>
 </form>
 <?php endif; ?>
 

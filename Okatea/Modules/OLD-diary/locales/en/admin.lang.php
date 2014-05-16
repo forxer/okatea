@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['c_a_route_name_diaryList'] = 'Calendar diary';
 $GLOBALS['okt_l10n']['c_a_route_desc_diaryList'] = 'List events diary module on the calendar';
 $GLOBALS['okt_l10n']['c_a_route_name_diaryEvent'] = 'Diary event';

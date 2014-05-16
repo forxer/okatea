@@ -2,9 +2,10 @@
 
 <database>
 
-	<action id="drop_mod_images_sets" label="Drop table %s" string="{{PREFIX}}mod_images_sets">
-		<test eq="eq" value="{{PREFIX}}mod_images_sets" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_images_sets">SHOW TABLES LIKE '{{PREFIX}}mod_images_sets'</test>
+	<action id="drop_mod_images_sets" label="Drop table %s"
+		string="{{PREFIX}}mod_images_sets">
+		<test eq="eq" value="{{PREFIX}}mod_images_sets" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_images_sets">SHOW TABLES LIKE '{{PREFIX}}mod_images_sets'</test>
 		DROP TABLE IF EXISTS `{{PREFIX}}mod_images_sets`
 	</action>
 

@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_list_marked_as_treated'] = 'The quote has been marked as treated.';
 $GLOBALS['okt_l10n']['m_estimate_list_marked_as_untreated'] = 'The quote has been marked as untreated.';
 $GLOBALS['okt_l10n']['m_estimate_list_marked_as_treateds'] = 'Quote requests have been marked as treated.';

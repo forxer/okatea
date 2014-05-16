@@ -3,33 +3,35 @@
 
 	<!-- products examples -->
 	<action id="firstproducts" label="Creation des produits exemples">
-		INSERT INTO `{{PREFIX}}mod_estimate_products`
-			(`id`, `active`, `title`)
+		INSERT INTO
+		`{{PREFIX}}mod_estimate_products`
+		(`id`, `active`, `title`)
 		VALUES
-			(1, 1, 'produit 1'),
-			(2, 1, 'produit 2'),
-			(3, 1, 'produit 3'),
-			(4, 0, 'produit 4'),
-			(5, 1, 'produit 5');
+		(1, 1, 'produit 1'),
+		(2, 1, 'produit 2'),
+		(3, 1, 'produit 3'),
+		(4, 0, 'produit 4'),
+		(5, 1, 'produit 5');
 	</action>
 
 	<!-- accessories examples -->
 	<action id="firstaccessories" label="Creation des accessoires exemples">
-		INSERT INTO `{{PREFIX}}mod_estimate_accessories`
-			(`id`, `product_id`, `active`, `title`)
+		INSERT INTO
+		`{{PREFIX}}mod_estimate_accessories`
+		(`id`, `product_id`, `active`, `title`)
 		VALUES
-			(1, 1, 1, 'accessoire 1.1'),
-			(2, 1, 1, 'accessoire 1.2'),
-			(3, 1, 1, 'accessoire 1.3'),
-			(4, 2, 1, 'accessoire 2.1'),
-			(5, 2, 1, 'accessoire 2.2'),
-			(6, 3, 1, 'accessoire 3.1'),
-			(7, 3, 1, 'accessoire 3.2'),
-			(8, 3, 1, 'accessoire 3.3'),
-			(9, 5, 1, 'accessoire 5.1'),
-			(10, 5, 1, 'accessoire 5.2'),
-			(11, 4, 1, 'accessoire 4.1'),
-			(12, 4, 1, 'accessoire 4.2');
+		(1, 1, 1, 'accessoire 1.1'),
+		(2, 1, 1, 'accessoire 1.2'),
+		(3, 1, 1, 'accessoire 1.3'),
+		(4, 2, 1, 'accessoire 2.1'),
+		(5, 2, 1, 'accessoire 2.2'),
+		(6, 3, 1, 'accessoire 3.1'),
+		(7, 3, 1, 'accessoire 3.2'),
+		(8, 3, 1, 'accessoire 3.3'),
+		(9, 5, 1, 'accessoire 5.1'),
+		(10, 5, 1, 'accessoire 5.2'),
+		(11, 4, 1, 'accessoire 4.1'),
+		(12, 4, 1, 'accessoire 4.2');
 	</action>
 
 </database>

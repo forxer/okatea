@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Czech language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Czech language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Příkaz nebylo možné dokončit. (Chyba %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Neplatný příkaz.',
 		'11' => 'Typ zdroje nebyl v požadavku určen.',
 		'12' => 'Požadovaný typ zdroje není platný.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Přesunování souboru(ů) selhalo.',
 		'301' => 'Kopírování souboru(ů) selhalo.',
 		'500' => 'Průzkumník souborů je z bezpečnostních důvodů zakázán. Zdělte to prosím správci systému a zkontrolujte soubor nastavení CKFinder.',
-		'501' => 'Podpora náhledů je zakázána.',
+		'501' => 'Podpora náhledů je zakázána.'
 	)
 );

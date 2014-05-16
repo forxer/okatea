@@ -10,5 +10,4 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-
-require_once 'core/ckfinder_php5.php' ;
+require_once 'core/ckfinder_php5.php';

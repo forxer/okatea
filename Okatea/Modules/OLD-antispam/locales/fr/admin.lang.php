@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_antispam_Akismet_spam_filter'] = 'Filtre de spam Akismet';
 
 $GLOBALS['okt_l10n']['m_antispam_filters_description'] = 'L’antispam est composé de plusieurs filtres. Chacun de ces filtres utilisent une technique différente pour détecter le spam.';

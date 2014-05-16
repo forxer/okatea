@@ -1,3 +1,5 @@
-<?php return array (
-  'RU' => 'Россия',
+<?php
+
+return array(
+	'RU' => 'Россия'
 );

@@ -3,51 +3,63 @@
 <database>
 
 	<!-- mod_accessible_captcha_question -->
-	<action id="mod_accessible_captcha_question" label="Create table %s" string="{{PREFIX}}mod_accessible_captcha_question">
-		<test eq="neq" value="{{PREFIX}}mod_accessible_captcha_question" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_accessible_captcha_question">SHOW TABLES LIKE '{{PREFIX}}mod_accessible_captcha_question'</test>
+	<action id="mod_accessible_captcha_question" label="Create table %s"
+		string="{{PREFIX}}mod_accessible_captcha_question">
+		<test eq="neq" value="{{PREFIX}}mod_accessible_captcha_question"
+			label="Table %s exists" type="wrn"
+			string="{{PREFIX}}mod_accessible_captcha_question">SHOW TABLES LIKE '{{PREFIX}}mod_accessible_captcha_question'</test>
 
-		CREATE TABLE IF NOT EXISTS `{{PREFIX}}mod_accessible_captcha_question` (
+		CREATE TABLE IF NOT EXISTS `{{PREFIX}}mod_accessible_captcha_question`
+		(
 
-		`id` 				SERIAL,
-		`question` 			VARCHAR(255)					NOT NULL 			DEFAULT '',
-		`reponse` 			VARCHAR(255)					NOT NULL 			DEFAULT '',
-		`language_code` 	VARCHAR(10) 					NOT NULL 	DEFAULT '',
+		`id` SERIAL,
+		`question` VARCHAR(255) NOT NULL DEFAULT '',
+		`reponse`
+		VARCHAR(255) NOT NULL DEFAULT '',
+		`language_code` VARCHAR(10) NOT NULL
+		DEFAULT '',
 
 		PRIMARY KEY (`id`),
-		INDEX `{{PREFIX}}idx_captcha_lang_id` (`language_code`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ;
+		INDEX `{{PREFIX}}idx_captcha_lang_id`
+		(`language_code`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+		;
 
 	</action>
 
 	<!-- default questions -->
 	<action id="firstcaptchaquestions" label="Creation des premieres questions du captcha">
-		INSERT INTO `{{PREFIX}}mod_accessible_captcha_question`
-			(`question`, `reponse`, `language_code`)
+		INSERT INTO
+		`{{PREFIX}}mod_accessible_captcha_question`
+		(`question`, `reponse`, `language_code`)
 		VALUES
-			('Combien font deux plus deux ?', '4', 'fr'),
-			('Combien font trois plus deux ?', '5', 'fr'),
-			('Combien font quatre moins un ?', '3', 'fr'),
-			('Combien font cinq moins deux ?', '3', 'fr'),
-			('Combien font six plus trois ?', '9', 'fr'),
-			('Combien font sept moins un ?', '6', 'fr'),
-			('Combien font huit fois deux ?', '16', 'fr'),
-			('Combien font neuf moins sept ?', '2', 'fr'),
-			('Combien font deux fois quatre ?', '8', 'fr'),
-			('Combien font trois fois deux ?', '6', 'fr'),
-			('Combien font quatre moins deux ?', '2', 'fr'),
-			('Combien font cinq moins trois ?', '2', 'fr'),
-			('Combien font six fois deux ?', '12', 'fr'),
-			('Combien font sept moins deux ?', '5', 'fr'),
-			('Combien font huit moins quatre ?', '4', 'fr'),
-			('Combien font neuf moins deux ?', '7', 'fr')
+		('Combien font deux plus deux ?', '4', 'fr'),
+		('Combien font trois plus deux ?', '5', 'fr'),
+		('Combien font quatre moins un ?', '3', 'fr'),
+		('Combien font cinq moins deux ?', '3', 'fr'),
+		('Combien font six plus trois ?', '9', 'fr'),
+		('Combien font sept moins un ?', '6', 'fr'),
+		('Combien font huit fois deux ?', '16', 'fr'),
+		('Combien font neuf moins sept ?', '2', 'fr'),
+		('Combien font deux fois quatre ?', '8', 'fr'),
+		('Combien font trois fois deux ?', '6', 'fr'),
+		('Combien font quatre moins deux ?', '2', 'fr'),
+		('Combien font cinq moins trois ?', '2', 'fr'),
+		('Combien font six fois deux ?', '12', 'fr'),
+		('Combien font sept moins deux ?', '5', 'fr'),
+		('Combien font huit moins quatre ?', '4', 'fr'),
+		('Combien font neuf moins deux ?', '7', 'fr')
 	</action>
 
-	<action id="add_mod_accessible_captcha_question_language_code" label="Add field %s" string="{{PREFIX}}mod_accessible_captcha_question.language_code">
+	<action id="add_mod_accessible_captcha_question_language_code"
+		label="Add field %s" string="{{PREFIX}}mod_accessible_captcha_question.language_code">
 		<test eq="neq" value="language_code" label="Field %s exists"
-		string="{{PREFIX}}mod_accessible_captcha_question.language_code" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_accessible_captcha_question` LIKE 'language_code'
+			string="{{PREFIX}}mod_accessible_captcha_question.language_code"
+			type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_accessible_captcha_question` LIKE
+			'language_code'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_accessible_captcha_question` ADD `language_code` VARCHAR(10) NOT NULL DEFAULT '' AFTER `reponse`
+		ALTER TABLE `{{PREFIX}}mod_accessible_captcha_question` ADD
+		`language_code` VARCHAR(10) NOT NULL DEFAULT '' AFTER `reponse`
 	</action>
 </database>

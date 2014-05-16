@@ -10,9 +10,11 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (!defined('IN_CKFINDER')) exit;
+if (! defined('IN_CKFINDER'))
+	exit();
 
 /**
+ *
  * @package CKFinder
  * @subpackage CommandHandlers
  * @copyright CKSource - Frederico Knabben
@@ -38,85 +40,91 @@ require_once CKFINDER_CONNECTOR_LIB_DIR . "/Core/Xml.php";
  */
 class CKFinder_Connector_CommandHandler_XmlCommandHandlerBase extends CKFinder_Connector_CommandHandler_CommandHandlerBase
 {
-    /**
-     * Connector node - Ckfinder_Connector_Utils_XmlNode object
-     *
-     * @var Ckfinder_Connector_Utils_XmlNode
-     * @access protected
-     */
-    var $_connectorNode;
 
-    /**
-     * send response
-     * @access public
-     *
-     */
-    function sendResponse()
-    {
-        $xml =& CKFinder_Connector_Core_Factory::getInstance("Core_Xml");
-        $this->_connectorNode =& $xml->getConnectorNode();
+	/**
+	 * Connector node - Ckfinder_Connector_Utils_XmlNode object
+	 *
+	 * @var Ckfinder_Connector_Utils_XmlNode
+	 * @access protected
+	 */
+	var $_connectorNode;
 
-        $this->checkConnector();
-        if ($this->mustCheckRequest()) {
-            $this->checkRequest();
-        }
+	/**
+	 * send response
+	 * 
+	 * @access public
+	 *        
+	 */
+	function sendResponse()
+	{
+		$xml = & CKFinder_Connector_Core_Factory::getInstance("Core_Xml");
+		$this->_connectorNode = & $xml->getConnectorNode();
+		
+		$this->checkConnector();
+		if ($this->mustCheckRequest())
+		{
+			$this->checkRequest();
+		}
+		
+		$resourceTypeName = $this->_currentFolder->getResourceTypeName();
+		if (! empty($resourceTypeName))
+		{
+			$this->_connectorNode->addAttribute("resourceType", $this->_currentFolder->getResourceTypeName());
+		}
+		
+		if ($this->mustAddCurrentFolderNode())
+		{
+			$_currentFolder = new Ckfinder_Connector_Utils_XmlNode("CurrentFolder");
+			$this->_connectorNode->addChild($_currentFolder);
+			$_currentFolder->addAttribute("path", CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($this->_currentFolder->getClientPath()));
+			
+			$this->_errorHandler->setCatchAllErros(true);
+			$_url = $this->_currentFolder->getUrl();
+			$_currentFolder->addAttribute("url", is_null($_url) ? "" : CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($_url));
+			$this->_errorHandler->setCatchAllErros(false);
+			
+			$_currentFolder->addAttribute("acl", $this->_currentFolder->getAclMask());
+		}
+		
+		$this->buildXml();
+		
+		$_oErrorNode = & $xml->getErrorNode();
+		$_oErrorNode->addAttribute("number", "0");
+		
+		echo $this->_connectorNode->asXML();
+		exit();
+	}
 
-        $resourceTypeName = $this->_currentFolder->getResourceTypeName();
-        if (!empty($resourceTypeName)) {
-            $this->_connectorNode->addAttribute("resourceType", $this->_currentFolder->getResourceTypeName());
-        }
+	/**
+	 * Must check request?
+	 *
+	 * @return boolean
+	 * @access protected
+	 */
+	function mustCheckRequest()
+	{
+		return true;
+	}
 
-        if ($this->mustAddCurrentFolderNode()) {
-            $_currentFolder = new Ckfinder_Connector_Utils_XmlNode("CurrentFolder");
-            $this->_connectorNode->addChild($_currentFolder);
-            $_currentFolder->addAttribute("path", CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($this->_currentFolder->getClientPath()));
+	/**
+	 * Must add CurrentFolder node?
+	 *
+	 * @return boolean
+	 * @access protected
+	 */
+	function mustAddCurrentFolderNode()
+	{
+		return true;
+	}
 
-            $this->_errorHandler->setCatchAllErros(true);
-            $_url = $this->_currentFolder->getUrl();
-            $_currentFolder->addAttribute("url", is_null($_url) ? "" : CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($_url));
-            $this->_errorHandler->setCatchAllErros(false);
-
-            $_currentFolder->addAttribute("acl", $this->_currentFolder->getAclMask());
-        }
-
-        $this->buildXml();
-
-        $_oErrorNode =& $xml->getErrorNode();
-        $_oErrorNode->addAttribute("number", "0");
-
-        echo $this->_connectorNode->asXML();
-        exit;
-    }
-
-    /**
-     * Must check request?
-     *
-     * @return boolean
-     * @access protected
-     */
-    function mustCheckRequest()
-    {
-        return true;
-    }
-
-    /**
-     * Must add CurrentFolder node?
-     *
-     * @return boolean
-     * @access protected
-     */
-    function mustAddCurrentFolderNode()
-    {
-        return true;
-    }
-
-    /**
-     * @access protected
-     * @abstract
-     * @return void
-     */
-    function buildXml()
-    {
-
-    }
+	/**
+	 *
+	 * @access protected
+	 * @abstract
+	 *
+	 * @return void
+	 */
+	function buildXml()
+	{
+	}
 }

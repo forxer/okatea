@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Context diff generator for PHP DiffLib.
  *
@@ -39,14 +40,15 @@
  * @version 1.1
  * @link http://github.com/chrisboulton/php-diff
  */
-
 namespace Okatea\Tao\Diff\Renderer\Text;
 
 use Okatea\Tao\Diff\Renderer\AbstractRenderer;
 
 class Context extends AbstractRenderer
 {
+
 	/**
+	 *
 	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
 	 */
 	private $tagMap = array(
@@ -65,63 +67,78 @@ class Context extends AbstractRenderer
 	{
 		$diff = '';
 		$opCodes = $this->diff->getGroupedOpcodes();
-		foreach($opCodes as $group) {
+		foreach ($opCodes as $group)
+		{
 			$diff .= "***************\n";
-			$lastItem = count($group)-1;
+			$lastItem = count($group) - 1;
 			$i1 = $group[0][1];
 			$i2 = $group[$lastItem][2];
 			$j1 = $group[0][3];
 			$j2 = $group[$lastItem][4];
-
-			if($i2 - $i1 >= 2) {
-				$diff .= '*** '.($group[0][1] + 1).','.$i2." ****\n";
+			
+			if ($i2 - $i1 >= 2)
+			{
+				$diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****\n";
 			}
-			else {
-				$diff .= '*** '.$i2." ****\n";
+			else
+			{
+				$diff .= '*** ' . $i2 . " ****\n";
 			}
-
-			if($j2 - $j1 >= 2) {
-				$separator = '--- '.($j1 + 1).','.$j2." ----\n";
+			
+			if ($j2 - $j1 >= 2)
+			{
+				$separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----\n";
 			}
-			else {
-				$separator = '--- '.$j2." ----\n";
+			else
+			{
+				$separator = '--- ' . $j2 . " ----\n";
 			}
-
+			
 			$hasVisible = false;
-			foreach($group as $code) {
-				if($code[0] == 'replace' || $code[0] == 'delete') {
+			foreach ($group as $code)
+			{
+				if ($code[0] == 'replace' || $code[0] == 'delete')
+				{
 					$hasVisible = true;
 					break;
 				}
 			}
-
-			if($hasVisible) {
-				foreach($group as $code) {
-					list($tag, $i1, $i2, $j1, $j2) = $code;
-					if($tag == 'insert') {
+			
+			if ($hasVisible)
+			{
+				foreach ($group as $code)
+				{
+					list ($tag, $i1, $i2, $j1, $j2) = $code;
+					if ($tag == 'insert')
+					{
 						continue;
 					}
-					$diff .= $this->tagMap[$tag].' '.implode("\n".$this->tagMap[$tag].' ', $this->diff->GetA($i1, $i2))."\n";
+					$diff .= $this->tagMap[$tag] . ' ' . implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->GetA($i1, $i2)) . "\n";
 				}
 			}
-
+			
 			$hasVisible = false;
-			foreach($group as $code) {
-				if($code[0] == 'replace' || $code[0] == 'insert') {
+			foreach ($group as $code)
+			{
+				if ($code[0] == 'replace' || $code[0] == 'insert')
+				{
 					$hasVisible = true;
 					break;
 				}
 			}
-
+			
 			$diff .= $separator;
-
-			if($hasVisible) {
-				foreach($group as $code) {
-					list($tag, $i1, $i2, $j1, $j2) = $code;
-					if($tag == 'delete') {
+			
+			if ($hasVisible)
+			{
+				foreach ($group as $code)
+				{
+					list ($tag, $i1, $i2, $j1, $j2) = $code;
+					if ($tag == 'delete')
+					{
 						continue;
 					}
-					$diff .= $this->tagMap[$tag].' '.implode("\n".$this->tagMap[$tag].' ', $this->diff->GetB($j1, $j2))."\n";
+					$diff .= $this->tagMap[$tag] . ' ' . implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->GetB($j1, $j2)) . "\n";
 				}
 			}
 		}

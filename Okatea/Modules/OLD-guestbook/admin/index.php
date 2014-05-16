@@ -4,32 +4,30 @@
  * @brief La page de la liste des signatures.
  *
  */
-
 use Okatea\Admin\Page;
 use Okatea\Admin\Pager;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-
 # Accès direct interdit
-if (!defined('ON_MODULE')) die;
+if (! defined('ON_MODULE'))
+	die();
 
 $aLanguages = l10n::getISOcodes();
 
-$do = !empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
-$id = !empty($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
+$do = ! empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
+$id = ! empty($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
 $ids = array();
 $multiple = false;
 
-
-if (!empty($_REQUEST['sigs_ids']))
+if (! empty($_REQUEST['sigs_ids']))
 {
-	foreach ($_REQUEST['sigs_ids'] as $k => $v) {
-		$ids[$k] = (integer)$v;
+	foreach ($_REQUEST['sigs_ids'] as $k => $v)
+	{
+		$ids[$k] = (integer) $v;
 	}
-
+	
 	$multiple = true;
 }
-
 
 # marquer comme étant du SPAM
 if ($do == 'spam' && $okt->modules->isLoaded('antispam'))
@@ -37,15 +35,16 @@ if ($do == 'spam' && $okt->modules->isLoaded('antispam'))
 	if ($multiple)
 	{
 		$ok = true;
-		foreach ($ids as $cur_id) {
+		foreach ($ids as $cur_id)
+		{
 			$ok = $ok && $okt->guestbook->markSigAsSpam($cur_id);
 		}
-
+		
 		if ($ok)
 		{
 			$okt->page->flash->success(__('m_guestbook_Signatures_were_updated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 	elseif ($id)
@@ -53,8 +52,8 @@ if ($do == 'spam' && $okt->modules->isLoaded('antispam'))
 		if ($okt->guestbook->markSigAsSpam($id))
 		{
 			$okt->page->flash->success(__('m_guestbook_Signature_was_updated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 }
@@ -65,15 +64,16 @@ elseif ($do == 'nospam')
 	if ($multiple)
 	{
 		$ok = true;
-		foreach ($ids as $cur_id) {
+		foreach ($ids as $cur_id)
+		{
 			$ok = $ok && $okt->guestbook->markSigAsNoSpam($cur_id);
 		}
-
+		
 		if ($ok)
 		{
 			$okt->page->flash->success(__('m_guestbook_Signatures_were_updated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 	elseif ($id)
@@ -81,8 +81,8 @@ elseif ($do == 'nospam')
 		if ($okt->guestbook->markSigAsNoSpam($id))
 		{
 			$okt->page->flash->success(__('m_guestbook_Signature_was_updated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 }
@@ -93,15 +93,16 @@ elseif ($do == 'valid')
 	if ($multiple)
 	{
 		$ok = true;
-		foreach ($ids as $cur_id) {
+		foreach ($ids as $cur_id)
+		{
 			$ok = $ok && $okt->guestbook->validateSig($cur_id);
 		}
-
+		
 		if ($ok)
 		{
 			$okt->page->flash->success(__('m_guestbook_Signatures_were_validated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 	elseif ($id)
@@ -109,8 +110,8 @@ elseif ($do == 'valid')
 		if ($okt->guestbook->validateSig($id))
 		{
 			$okt->page->flash->success(__('m_guestbook_Signature_was_validated'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 }
@@ -121,36 +122,43 @@ elseif ($do == 'supp')
 	if ($multiple)
 	{
 		$ok = true;
-		foreach ($ids as $cur_id) {
-			$ok = $ok && $okt->guestbook->delSig(array('id'=>$cur_id));
+		foreach ($ids as $cur_id)
+		{
+			$ok = $ok && $okt->guestbook->delSig(array(
+				'id' => $cur_id
+			));
 		}
-
+		
 		if ($ok)
 		{
 			$okt->page->flash->success(__('m_guestbook_Signatures_were_deleted'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 	elseif ($id)
 	{
-		if ($okt->guestbook->delSig(array('id'=>$id)))
+		if ($okt->guestbook->delSig(array(
+			'id' => $id
+		)))
 		{
 			$okt->page->flash->success(__('m_guestbook_Signature_was_deleted'));
-
-			http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+			
+			http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 		}
 	}
 }
 
 # supprimer tous ce qui est considéré comme SPAM
-if (!empty($_GET['delallspam']))
+if (! empty($_GET['delallspam']))
 {
-	if ($okt->guestbook->delSig(array('is_spam'=>true)))
+	if ($okt->guestbook->delSig(array(
+		'is_spam' => true
+	)))
 	{
 		$okt->page->flash->success(__('m_guestbook_SPAM_was_deleted'));
-
-		http::redirect('module.php?m=guestbook&amp;action=index'.$url_params);
+		
+		http::redirect('module.php?m=guestbook&amp;action=index' . $url_params);
 	}
 }
 
@@ -166,7 +174,6 @@ if ($okt->modules->isLoaded('antispam'))
 	$sigs_actions[__('m_guestbook_Stand_out_as_acceptable')] = 'nospam';
 }
 
-
 $params = array();
 
 # afficher ?
@@ -177,34 +184,35 @@ switch ($show)
 	case 'nospam':
 		$params['is_not_spam'] = true;
 		break;
-
+	
 	# spam
 	case 'spam':
 		$params['is_spam'] = true;
 		break;
-
+	
 	# toutes
 	case 'all':
 		break;
 }
 
-if(isset($language) && $language != 'all') {
+if (isset($language) && $language != 'all')
+{
 	$params['language'] = $language;
 }
 
 # statut ?
-switch($status)
+switch ($status)
 {
 	# validées
 	case 'validated':
 		$params['is_visible'] = true;
 		break;
-
+	
 	# non-validées
 	case 'not_validated':
 		$params['is_not_visible'] = true;
 		break;
-
+	
 	# toutes
 	default:
 	case 'all':
@@ -212,164 +220,199 @@ switch($status)
 }
 
 # pagination
-$pager = new Pager($okt, $page, $okt->guestbook->getSig($params,true), $okt->guestbook->config->nbparpage_admin);
+$pager = new Pager($okt, $page, $okt->guestbook->getSig($params, true), $okt->guestbook->config->nbparpage_admin);
 
 # récupération des éléments
-$params['limit'] = (($page-1)*$okt->guestbook->config->nbparpage_admin).','.$okt->guestbook->config->nbparpage_admin;
+$params['limit'] = (($page - 1) * $okt->guestbook->config->nbparpage_admin) . ',' . $okt->guestbook->config->nbparpage_admin;
 $signature = $okt->guestbook->getSig($params);
 
 # nombre d’éléments au total
-$nbsign = $okt->guestbook->getSig(array(),true);
+$nbsign = $okt->guestbook->getSig(array(), true);
 
 # nombre d’éléments SPAM
-$nbspam = $okt->guestbook->getSig(array('is_spam'=>true),true);
-
+$nbspam = $okt->guestbook->getSig(array(
+	'is_spam' => true
+), true);
 
 /* Affichage
 ----------------------------------------------------------*/
 
 # En-tête
-include OKT_ADMIN_HEADER_FILE; ?>
+include OKT_ADMIN_HEADER_FILE;
+?>
 
 <p>Il y a un total de <?php echo $nbsign; ?> signature<?php if ($nbsign > 1) echo 's'; ?> dans votre livre d'or dont <?php echo $nbspam; ?> considérée<?php if ($nbspam > 1) echo 's'; ?> comme étant du SPAM.</p>
 
 <form action="module.php" method="get">
-	<p>Afficher les signatures <label for="show">de type</label>
-	<?php echo form::select('show',$show_list,$show) ?>
+	<p>
+		Afficher les signatures <label for="show">de type</label>
+	<?php echo form::select('show',$show_list,$show)?>
 	<label for="status">et de statut</label>
-	<?php echo form::select('status',$status_list,$status) ?>
+	<?php echo form::select('status',$status_list,$status)?>
 	<label for="language">dans la langue </label>
-	<?php echo form::select('language',$aLanguagesList,$language) ?>
+	<?php echo form::select('language',$aLanguagesList,$language)?>
 	<?php echo form::hidden('m', 'guestbook'); ?>
-	<input type="hidden" name="action" value="index" />
-	<input type="submit" value="<?php _e('c_c_action_Display')?>" /></p>
+	<input type="hidden" name="action" value="index" /> <input
+			type="submit" value="<?php _e('c_c_action_Display')?>" />
+	</p>
 </form>
 
 <?php if ($show != 'nospam' && $nbspam > 0) : ?>
-	<p><a href="module.php?m=guestbook&amp;action=index&amp;delallspam=1&amp;<?php echo $url_params ?>"
-	onclick="return window.confirm('Etes-vous sür de vouloir supprimer toutes les signatures marquées comme étant du SPAM ? Ceci est irréversible. Nous vous conseillons de vérifier qu\'une signature légitime ne s\'est pas glissée dans le SPAM avant de valider la suppression.')"
-	class="icon delete"><?php _e('m_guestbook_Delete_SPAM')?></a></p>
+<p>
+	<a
+		href="module.php?m=guestbook&amp;action=index&amp;delallspam=1&amp;<?php echo $url_params ?>"
+		onclick="return window.confirm('Etes-vous sür de vouloir supprimer toutes les signatures marquées comme étant du SPAM ? Ceci est irréversible. Nous vous conseillons de vérifier qu\'une signature légitime ne s\'est pas glissée dans le SPAM avant de valider la suppression.')"
+		class="icon delete"><?php _e('m_guestbook_Delete_SPAM')?></a>
+</p>
 <?php endif; ?>
 
 <?php if ($signature->isEmpty()) : ?>
-	<p><?php _e('m_guestbook_No_signatures_to_display')?></p>
+<p><?php _e('m_guestbook_No_signatures_to_display')?></p>
 
 <?php else : ?>
 
 	<?php if ($pager->getNbPages() > 1) : ?>
-	<ul class="pagination"><?php echo $pager->getLinks(); ?></ul>
-	<?php endif; ?>
+<ul class="pagination"><?php echo $pager->getLinks(); ?></ul>
+<?php endif; ?>
 
-	<form action="module.php?m=guestbook" method="post" id="signatures">
+<form action="module.php?m=guestbook" method="post" id="signatures">
 
-	<?php # boucle sur les signatures
-	while ($signature->fetch()) : ?>
+	<?php 
+# boucle sur les signatures
+	while ($signature->fetch())
+	:
+		?>
 
 <div class="signature-box">
-	<h3 class="signature-title ui-widget-header ui-corner-top"><label>
+		<h3 class="signature-title ui-widget-header ui-corner-top">
+			<label>
 		<?php echo form::checkbox('sigs_ids[]',$signature->id); ?> <?php
-		if ($okt->guestbook->config->chp_nom && $signature->nom != '') {
+		if ($okt->guestbook->config->chp_nom && $signature->nom != '')
+		{
 			echo htmlspecialchars($signature->nom);
 		}
-		else {
-			echo __('m_guestbook_Signature').' #'.$signature->id;
+		else
+		{
+			echo __('m_guestbook_Signature') . ' #' . $signature->id;
 		}
-		?></label></h3>
+		?></label>
+		</h3>
 
-	<div class="ui-widget-content ui-corner-bottom">
+		<div class="ui-widget-content ui-corner-bottom">
 
-		<div class="signature" id="sig-<?php echo $signature->id ?>">
+			<div class="signature" id="sig-<?php echo $signature->id ?>">
 
 		<?php
 		$tmp_res = array();
-
+		
 		if ($okt->guestbook->config->chp_note)
 		{
-			if (!is_numeric($signature->note)) {
+			if (! is_numeric($signature->note))
+			{
 				$signature->note = 'n/a';
 			}
-			else {
-				$signature->note = ceil($signature->note).'/20';
+			else
+			{
+				$signature->note = ceil($signature->note) . '/20';
 			}
-			$tmp_res[] = __('m_guestbook_Note').': <strong><em>'.$signature->note.'</em></strong>';
+			$tmp_res[] = __('m_guestbook_Note') . ': <strong><em>' . $signature->note . '</em></strong>';
 		}
-
+		
 		if ($okt->guestbook->config->chp_language)
 		{
 			$signature->language = $aLanguages[$signature->language];
-
-			$tmp_res[] = __('c_c_Language').' : <strong>'.$signature->language.'</strong>';
+			
+			$tmp_res[] = __('c_c_Language') . ' : <strong>' . $signature->language . '</strong>';
 		}
-		$tmp_res[] = '<em>Le '.strftime('%d/%m/%Y &agrave; %H:%M', strtotime($signature->date_sign)).'</em>';
-
-		if ($okt->guestbook->config->chp_mail && $signature->email != '') {
-			$tmp_res[] = '<a href="mailto:'.htmlspecialchars($signature->email).'">'.__('c_c_Email').'</a>';
+		$tmp_res[] = '<em>Le ' . strftime('%d/%m/%Y &agrave; %H:%M', strtotime($signature->date_sign)) . '</em>';
+		
+		if ($okt->guestbook->config->chp_mail && $signature->email != '')
+		{
+			$tmp_res[] = '<a href="mailto:' . htmlspecialchars($signature->email) . '">' . __('c_c_Email') . '</a>';
 		}
-
-		if ($okt->guestbook->config->chp_url && $signature->url != '' && $signature->url != 'http://') {
-			$tmp_res[] = '<a href="'.htmlspecialchars($signature->url).'">'.__('m_guestbook_Website').'</a>';
+		
+		if ($okt->guestbook->config->chp_url && $signature->url != '' && $signature->url != 'http://')
+		{
+			$tmp_res[] = '<a href="' . htmlspecialchars($signature->url) . '">' . __('m_guestbook_Website') . '</a>';
 		}
-
-		if (!empty($tmp_res)) {
-			echo '<div class="signature-infos ui-widget-content ui-corner-all"><h4>'.__('m_guestbook_Infos').'</h4><ul><li>'.implode("</li><li>",$tmp_res).'</li></ul></div>';
+		
+		if (! empty($tmp_res))
+		{
+			echo '<div class="signature-infos ui-widget-content ui-corner-all"><h4>' . __('m_guestbook_Infos') . '</h4><ul><li>' . implode("</li><li>", $tmp_res) . '</li></ul></div>';
 		}
-
-		echo '<p class="message">'.nl2br(htmlspecialchars($signature->message)).'</p>';
-
+		
+		echo '<p class="message">' . nl2br(htmlspecialchars($signature->message)) . '</p>';
+		
 		?>
-		</div><!-- .signature -->
-		<div class="signature-actions">
-			<ul>
-				<li><a href="module.php?m=guestbook&amp;action=edit&amp;id=<?php echo $signature->id ?>&amp;<?php echo $url_params ?>"
-				class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
+		</div>
+			<!-- .signature -->
+			<div class="signature-actions">
+				<ul>
+					<li><a
+						href="module.php?m=guestbook&amp;action=edit&amp;id=<?php echo $signature->id ?>&amp;<?php echo $url_params ?>"
+						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
 			<?php if ($okt->guestbook->config->validation && $signature->visible == 0) : ?>
-				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=valid&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_validation') ?>')"
-				class="icon tick"><?php _e('m_guestbook_Validate')?></a></li>
+				<li><a
+						href="module.php?m=guestbook&amp;action=index&amp;do=valid&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
+						onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_validation') ?>')"
+						class="icon tick"><?php _e('m_guestbook_Validate')?></a></li>
 			<?php endif; ?>
 
-				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=supp&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_deletion') ?>')"
-				class="icon cross"><?php _e('c_c_action_Delete')?></a></li>
+				<li><a
+						href="module.php?m=guestbook&amp;action=index&amp;do=supp&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
+						onclick="return window.confirm('<?php _e('m_guestbook_Confirm_signature_deletion') ?>')"
+						class="icon cross"><?php _e('c_c_action_Delete')?></a></li>
 
 
 		<?php if ($okt->modules->isLoaded('antispam')) : ?>
 			<?php if (!$signature->spam_status) : ?>
-				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=spam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				class="icon flag_red"><?php _e('m_guestbook_Stand_out_as_unwanted') ?></a></li>
+				<li><a
+						href="module.php?m=guestbook&amp;action=index&amp;do=spam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
+						class="icon flag_red"><?php _e('m_guestbook_Stand_out_as_unwanted') ?></a></li>
 			<?php else : ?>
-				<li><a href="module.php?m=guestbook&amp;action=index&amp;do=nospam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
-				class="icon flag_green"><?php _e('m_guestbook_Stand_out_as_acceptable') ?></a>
-				<?php if ($okt->modules->isLoaded('antispam')) {
-				echo oktAntispam::statusMessage($signature);
-				} ?></li>
+				<li><a
+						href="module.php?m=guestbook&amp;action=index&amp;do=nospam&amp;id=<?php echo $signature->id ?><?php echo $url_params ?>"
+						class="icon flag_green"><?php _e('m_guestbook_Stand_out_as_acceptable') ?></a>
+				<?php
+				
+if ($okt->modules->isLoaded('antispam'))
+				{
+					echo oktAntispam::statusMessage($signature);
+				}
+				?></li>
 			<?php endif; ?>
 		<?php endif; ?>
 
 			</ul>
-		</div><!-- .signature-actions -->
-	</div>
+			</div>
+			<!-- .signature-actions -->
+		</div>
 
-</div><!-- .signature-box -->
+	</div>
+	<!-- .signature-box -->
 	<?php endwhile; ?>
 
 	<p class="right">
 	<?php echo form::hidden('m', 'guestbook'); ?>
-	<?php echo form::hidden('action','index') ?>
-	<?php echo form::hidden('page',$page) ?>
-	<?php echo form::hidden('show',$show) ?>
-	<?php echo form::hidden('status',$status) ?>
+	<?php echo form::hidden('action','index')?>
+	<?php echo form::hidden('page',$page)?>
+	<?php echo form::hidden('show',$show)?>
+	<?php echo form::hidden('status',$status)?>
 	<?php echo Page::formtoken(); ?>
 	<label>Action sur les signatures sélectionnées&nbsp;<?php
-	echo form::select('do', $sigs_actions) ?>
-	</label>&nbsp;<input type="submit" name="submit" value="ok" /></p>
+	echo form::select('do', $sigs_actions)?>
+	</label>&nbsp;<input type="submit" name="submit" value="ok" />
+	</p>
 
-	</form><!-- #signatures -->
+</form>
+<!-- #signatures -->
 
-	<?php # affichage pagination
-	if ($pager->getNbPages() > 1) {
-		echo '<ul class="pagination">'.$pager->getLinks().'</ul>';
+<?php 
+# affichage pagination
+	if ($pager->getNbPages() > 1)
+	{
+		echo '<ul class="pagination">' . $pager->getLinks().'</ul>';
 	}
 
 endif; ?>

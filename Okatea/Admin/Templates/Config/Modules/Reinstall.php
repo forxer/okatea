@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $view->extend('layout');
 
 $okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateUrl('config_modules'));
@@ -20,4 +19,7 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_modules_reinstall_module_%s'), $oInst
 	<?php echo $oInstallModule->checklist->getLegend(); ?>
 </div>
 
-<p class="ui-helper-clearfix"><a class="button" href="<?php echo $view->generateUrl('config_modules') ?>"><?php _e('Continue') ?></a></p>
+<p class="ui-helper-clearfix">
+	<a class="button"
+		href="<?php echo $view->generateUrl('config_modules') ?>"><?php _e('Continue') ?></a>
+</p>

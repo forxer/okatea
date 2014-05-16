@@ -1,3 +1,5 @@
-<?php return array (
-  'KG' => 'Кыргызстан',
+<?php
+
+return array(
+	'KG' => 'Кыргызстан'
 );

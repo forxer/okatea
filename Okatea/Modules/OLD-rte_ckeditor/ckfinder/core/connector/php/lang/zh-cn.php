@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Chinese-Simplified language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Chinese-Simplified language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => '请求的操作未能完成. (错误 %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => '无效的指令.',
 		'11' => '文件类型不在许可范围之内.',
 		'12' => '文件类型无效.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => '移动文件失败.',
 		'301' => '复制文件失败.',
 		'500' => '因为安全原因，文件不可浏览. 请联系系统管理员并检查CKFinder配置文件.',
-		'501' => '不支持缩略图方式.',
+		'501' => '不支持缩略图方式.'
 	)
 );

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_news_display_order_by_created'] = 'Created date';
 $GLOBALS['okt_l10n']['m_news_display_order_by_updated'] = 'Updated date';
 $GLOBALS['okt_l10n']['m_news_display_order_by_title'] = 'Title';
@@ -27,7 +26,7 @@ $GLOBALS['okt_l10n']['m_news_display_public_number_page'] = 'Default number of p
 
 $GLOBALS['okt_l10n']['m_news_display_posts'] = 'Display posts';
 $GLOBALS['okt_l10n']['m_news_display_show_date'] = 'Display date';
-$GLOBALS['okt_l10n']['m_news_display_show_author'] =  'Display author';
+$GLOBALS['okt_l10n']['m_news_display_show_author'] = 'Display author';
 
 $GLOBALS['okt_l10n']['m_news_display_truncate_posts'] = 'Truncate posts';
 $GLOBALS['okt_l10n']['m_news_display_truncate_message'] = 'You can choose to truncate the posts and display a link "Read more", leave blank to not truncate.';

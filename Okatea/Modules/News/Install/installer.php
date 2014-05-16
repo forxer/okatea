@@ -5,19 +5,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Extensions\Modules\Manage\Installer;
 
 class News_installer extends Installer
 {
+
 	public function installTestSet()
 	{
-		$this->checklist->addItem(
-			'regenerate_thumbnails',
-			$this->okt->module('News')->regenMinImages(),
-			'Regeneration of thumbnails',
-			'Cannot regenerate thumbnails'
-		);
+		$this->checklist->addItem('regenerate_thumbnails', $this->okt->module('News')
+			->regenMinImages(), 'Regeneration of thumbnails', 'Cannot regenerate thumbnails');
 	}
 
 	public function install()
@@ -35,5 +31,4 @@ class News_installer extends Installer
 	public function update()
 	{
 	}
-
 }

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_contact_recipients'] = 'Destinataires';
 $GLOBALS['okt_l10n']['m_contact_recipients_email_address_$s_is_invalid'] = 'L’adresse électronique "%s" est invalide.';
 $GLOBALS['okt_l10n']['m_contact_recipients_page_description'] = 'Cette page permet de gérer les destinataires de la page contact.';

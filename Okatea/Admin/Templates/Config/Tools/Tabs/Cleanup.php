@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $okt->page->loader('.lazy-load');
@@ -16,7 +15,8 @@ $okt->page->loader('.lazy-load');
 
 <p><?php _e('c_a_tools_cleanup_desc') ?></p>
 
-<form action="<?php echo $view->generateUrl('config_tools') ?>" method="post">
+<form action="<?php echo $view->generateUrl('config_tools') ?>"
+	method="post">
 
 	<ul class="checklist">
 	<?php foreach ($aCleanableFiles as $fileId=>$fileName) : ?>
@@ -24,6 +24,8 @@ $okt->page->loader('.lazy-load');
 	<?php endforeach; ?>
 	</ul>
 
-	<p><?php echo $okt->page->formtoken() ?>
-	<input type="submit" class="lazy-load" value="<?php _e('c_c_action_delete') ?>" /></p>
+	<p><?php echo $okt->page->formtoken()?>
+	<input type="submit" class="lazy-load"
+			value="<?php _e('c_c_action_delete') ?>" />
+	</p>
 </form>

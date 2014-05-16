@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Modules\Builder\Tools;
 
 use Symfony\Component\Finder\Finder;
 
 class Digests extends BaseTools
 {
+
 	protected $sDigests;
 
 	public function __construct($okt)
@@ -22,9 +22,8 @@ class Digests extends BaseTools
 	public function process()
 	{
 		$this->sDigests = '';
-
-		$finder = (new Finder())
-			->ignoreVCS(false)
+		
+		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->files()
 			->in($this->sTempDir)
@@ -36,13 +35,13 @@ class Digests extends BaseTools
 			->notPath('Okatea/Modules')
 			->notPath('Okatea/Themes')
 			->notPath('oktPublic')
-			->notPath('vendor')
-		;
-
-		foreach ($finder as $file) {
-			$this->sDigests .= md5_file($file->getRealpath()).' .'.$file->getRelativePathname()."\n";
+			->notPath('vendor');
+		
+		foreach ($finder as $file)
+		{
+			$this->sDigests .= md5_file($file->getRealpath()) . ' .' . $file->getRelativePathname() . "\n";
 		}
-
+		
 		file_put_contents($this->getTempDir($this->okt->options->digests), $this->sDigests);
 	}
 }

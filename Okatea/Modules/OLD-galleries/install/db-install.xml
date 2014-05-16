@@ -2,110 +2,118 @@
 
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- mod_galleries -->
 	<action id="mod_galleries" label="Create table %s" string="{{PREFIX}}mod_galleries">
-		<test eq="neq" value="{{PREFIX}}mod_galleries" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_galleries">SHOW TABLES LIKE '{{PREFIX}}mod_galleries'</test>
+		<test eq="neq" value="{{PREFIX}}mod_galleries" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_galleries">SHOW TABLES LIKE '{{PREFIX}}mod_galleries'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_galleries` (
-			`id` 				SERIAL,
+		`id` SERIAL,
 
-			`active` 			TINYINT(1) 	UNSIGNED		NOT NULL,
-			`locked` 			TINYINT(1) 	UNSIGNED		NOT NULL,
-			`password` 			VARCHAR(255) 				NULL,
-			`image` 			TEXT		 				NULL,
-			`created_at` 		DATETIME 					NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`updated_at` 		DATETIME 					NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`tpl` 				VARCHAR(255) 				NULL,
-			`items_tpl` 		VARCHAR(255) 				NULL,
+		`active` TINYINT(1) UNSIGNED NOT NULL,
+		`locked` TINYINT(1) UNSIGNED NOT NULL,
+		`password` VARCHAR(255) NULL,
+		`image` TEXT NULL,
+		`created_at` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`updated_at` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`tpl` VARCHAR(255) NULL,
+		`items_tpl` VARCHAR(255) NULL,
 
-			`ord` 				BIGINT(20) 	UNSIGNED		NOT NULL,
-			`parent_id` 		BIGINT(20) 	UNSIGNED		NOT NULL,
-			`nleft` 			BIGINT(20) 	UNSIGNED		NOT NULL,
-			`nright` 			BIGINT(20) 	UNSIGNED		NOT NULL,
-			`level` 			BIGINT(20) 	UNSIGNED		NOT NULL,
+		`ord` BIGINT(20) UNSIGNED NOT NULL,
+		`parent_id` BIGINT(20) UNSIGNED NOT NULL,
+		`nleft` BIGINT(20) UNSIGNED NOT NULL,
+		`nright` BIGINT(20) UNSIGNED NOT NULL,
+		`level` BIGINT(20) UNSIGNED NOT NULL,
 
-			PRIMARY KEY (`id`),
-			KEY `{{PREFIX}}mod_galleries_idx_active` (`active`),
-			KEY `{{PREFIX}}mod_galleries_idx_ord` (`ord`),
-			KEY `{{PREFIX}}mod_galleries_idx_parent_id` (`parent_id`),
-			KEY `{{PREFIX}}mod_galleries_idx_nright` (`nright`),
-			KEY `{{PREFIX}}mod_galleries_idx_level` (`level`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		KEY `{{PREFIX}}mod_galleries_idx_active` (`active`),
+		KEY `{{PREFIX}}mod_galleries_idx_ord` (`ord`),
+		KEY `{{PREFIX}}mod_galleries_idx_parent_id` (`parent_id`),
+		KEY `{{PREFIX}}mod_galleries_idx_nright` (`nright`),
+		KEY `{{PREFIX}}mod_galleries_idx_level` (`level`)
+		) ENGINE=MyISAM DEFAULT
+		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- mod_galleries_locales -->
-	<action id="mod_galleries_locales" label="Create table %s" string="{{PREFIX}}mod_galleries_locales">
-		<test eq="neq" value="{{PREFIX}}mod_galleries_locales" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_galleries_locales">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_locales'</test>
+	<action id="mod_galleries_locales" label="Create table %s"
+		string="{{PREFIX}}mod_galleries_locales">
+		<test eq="neq" value="{{PREFIX}}mod_galleries_locales" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_galleries_locales">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_galleries_locales` (
-			`gallery_id` 		BIGINT(20) 		UNSIGNED	NOT NULL,
-			`language` 			CHAR(5) 					NOT NULL,
+		`gallery_id` BIGINT(20) UNSIGNED NOT NULL,
+		`language` CHAR(5) NOT NULL,
 
-			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
-			`title_tag` 		VARCHAR(255) 				NULL,
-			`title_seo` 		VARCHAR(255) 				NULL,
-			`slug` 				VARCHAR(255) 				NOT NULL DEFAULT '',
-			`content` 			LONGTEXT 					NOT NULL DEFAULT '',
+		`title` VARCHAR(255) NOT NULL DEFAULT '',
+		`title_tag` VARCHAR(255) NULL,
+		`title_seo` VARCHAR(255) NULL,
+		`slug` VARCHAR(255) NOT NULL DEFAULT '',
+		`content` LONGTEXT NOT NULL DEFAULT '',
 
-			`meta_description` 	VARCHAR(255) 				NULL,
-			`meta_keywords` 	TEXT 						NULL,
+		`meta_description` VARCHAR(255) NULL,
+		`meta_keywords` TEXT NULL,
 
-			PRIMARY KEY (`gallery_id`,`language`),
-			KEY `{{PREFIX}}mod_galleries_locales_idx_slug` (`slug`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`gallery_id`,`language`),
+		KEY `{{PREFIX}}mod_galleries_locales_idx_slug` (`slug`)
+		) ENGINE=MyISAM
+		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- mod_galleries_items -->
-	<action id="mod_galleries_items" label="Create table %s" string="{{PREFIX}}mod_galleries_items">
-		<test eq="neq" value="{{PREFIX}}mod_galleries_items" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_galleries_items">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_items'</test>
+	<action id="mod_galleries_items" label="Create table %s"
+		string="{{PREFIX}}mod_galleries_items">
+		<test eq="neq" value="{{PREFIX}}mod_galleries_items" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_galleries_items">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_items'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_galleries_items` (
-			`id` 				SERIAL,
-			`user_id` 			BIGINT(20) 	UNSIGNED 		NOT NULL DEFAULT 0,
-			`gallery_id` 		BIGINT(20) 	UNSIGNED		NOT NULL,
-			`ord` 				BIGINT(20) 	UNSIGNED		NOT NULL,
-			`active` 			TINYINT(1) 	UNSIGNED		NOT NULL,
-			`image` 			TEXT 						NULL,
-			`created_at` 		DATETIME 					NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`updated_at` 		DATETIME 					NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`tpl` 				VARCHAR(255) 				NULL,
+		`id` SERIAL,
+		`user_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+		`gallery_id` BIGINT(20) UNSIGNED NOT NULL,
+		`ord` BIGINT(20) UNSIGNED NOT NULL,
+		`active` TINYINT(1) UNSIGNED NOT NULL,
+		`image` TEXT NULL,
+		`created_at` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`updated_at` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`tpl` VARCHAR(255) NULL,
 
-			PRIMARY KEY (`id`),
-			KEY `{{PREFIX}}mod_galleries_items_idx_user_id` (`user_id`),
-			KEY `{{PREFIX}}mod_galleries_items_idx_gallery_id` (`gallery_id`),
-			KEY `{{PREFIX}}mod_galleries_items_idx_ord` (`ord`),
-			KEY `{{PREFIX}}mod_galleries_items_idx_active` (`active`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		KEY `{{PREFIX}}mod_galleries_items_idx_user_id` (`user_id`),
+		KEY `{{PREFIX}}mod_galleries_items_idx_gallery_id` (`gallery_id`),
+		KEY `{{PREFIX}}mod_galleries_items_idx_ord` (`ord`),
+		KEY `{{PREFIX}}mod_galleries_items_idx_active` (`active`)
+		) ENGINE=MyISAM
+		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- mod_galleries_items_locales -->
-	<action id="mod_galleries_items_locales" label="Create table %s" string="{{PREFIX}}mod_galleries_items_locales">
-		<test eq="neq" value="{{PREFIX}}mod_galleries_items_locales" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_galleries_items_locales">SHOW TABLES LIKE '{{PREFIX}}mod_galleries_items_locales'</test>
+	<action id="mod_galleries_items_locales" label="Create table %s"
+		string="{{PREFIX}}mod_galleries_items_locales">
+		<test eq="neq" value="{{PREFIX}}mod_galleries_items_locales"
+			label="Table %s exists" type="wrn" string="{{PREFIX}}mod_galleries_items_locales">SHOW TABLES LIKE
+			'{{PREFIX}}mod_galleries_items_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_galleries_items_locales` (
-			`item_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
-			`language` 			CHAR(5) 					NOT NULL,
+		`item_id` BIGINT(20) UNSIGNED NOT NULL,
+		`language` CHAR(5) NOT NULL,
 
-			`title` 			VARCHAR(255) 				NULL,
-			`subtitle` 			VARCHAR(255) 				NULL,
-			`title_tag` 		VARCHAR(255) 				NULL,
-			`title_seo` 		VARCHAR(255) 				NULL,
-			`slug` 				VARCHAR(255) 				NULL,
-			`content` 			TEXT 						NULL,
-			`meta_description` 	VARCHAR(255) 				NULL,
-			`meta_keywords` 	TEXT 						NULL,
+		`title` VARCHAR(255) NULL,
+		`subtitle` VARCHAR(255) NULL,
+		`title_tag` VARCHAR(255) NULL,
+		`title_seo` VARCHAR(255) NULL,
+		`slug` VARCHAR(255) NULL,
+		`content` TEXT NULL,
+		`meta_description` VARCHAR(255) NULL,
+		`meta_keywords` TEXT NULL,
 
-			`words` 			TEXT 						NULL,
+		`words` TEXT NULL,
 
-			PRIMARY KEY (`item_id`,`language`),
-			KEY `{{PREFIX}}mod_galleries_items_locales_idx_slug` (`slug`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`item_id`,`language`),
+		KEY `{{PREFIX}}mod_galleries_items_locales_idx_slug` (`slug`)
+		)
+		ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 

@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_min_regenerated'] = 'The thumbnails were regenerated.';
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_visibility_switched'] = 'The visibility of the gallery has been switched.';
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_deleted'] = 'The gallery has been removed.';

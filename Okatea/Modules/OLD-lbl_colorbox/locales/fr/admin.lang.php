@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_lbl_colorbox_menu_config'] = 'ColorBox';
 
 $GLOBALS['okt_l10n']['m_lbl_colorbox_config_title'] = 'Configuration ColorBox';

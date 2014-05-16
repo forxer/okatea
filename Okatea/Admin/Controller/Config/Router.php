@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Admin\Controller\Config;
 
 use Okatea\Admin\Controller;
@@ -14,31 +13,27 @@ use Okatea\Tao\Routing\Helpers\Website;
 
 class Router extends Controller
 {
+
 	public function page()
 	{
-		if (!$this->okt->checkPerm('is_superadmin')) {
+		if (! $this->okt->checkPerm('is_superadmin'))
+		{
 			return $this->serve401();
 		}
-
+		
 		# Locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/router');
-
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/router');
+		
 		# Informations sur les routes du site
-		$oWebsiteHelpersConfig = new Website($this->okt,
-			$this->okt->options->config_dir.'/Routes',
-			$this->okt->router->getRouteCollection()->all()
-		);
-
+		$oWebsiteHelpersConfig = new Website($this->okt, $this->okt->options->config_dir . '/Routes', $this->okt->router->getRouteCollection()->all());
+		
 		$aWebsiteRoutesInfos = $oWebsiteHelpersConfig->getRoutesInfos();
-
+		
 		# Informations sur les routes de l'adminbistration
-		$oAdminHelpersConfig = new Config($this->okt,
-			$this->okt->options->config_dir.'/RoutesAdmin',
-			$this->okt->adminRouter->getRouteCollection()->all()
-		);
-
+		$oAdminHelpersConfig = new Config($this->okt, $this->okt->options->config_dir . '/RoutesAdmin', $this->okt->adminRouter->getRouteCollection()->all());
+		
 		$aAdminRoutesInfos = $oAdminHelpersConfig->getRoutesInfos();
-
+		
 		return $this->render('Config/Router', array(
 			'aWebsiteRoutesInfos' => $aWebsiteRoutesInfos,
 			'aAdminRoutesInfos' => $aAdminRoutesInfos

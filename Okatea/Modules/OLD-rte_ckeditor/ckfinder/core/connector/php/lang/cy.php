@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Welsh language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Welsh language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Does dim modd cwblhau\'r cais. (Gwall %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Gorchymyn annilys.',
 		'11' => 'Doedd math yr adnodd heb ei benodi yn y cais.',
 		'12' => 'Dyw math yr adnodd ddim yn ddilys.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Methodd symud y ffeil(iau).',
 		'301' => 'Methodd copïo\'r ffeil(iau).',
 		'500' => 'Cafodd y porwr ffeiliau ei anallogi oherwydd rhesymau diogelwch. Cysylltwch â\'ch gweinyddwr system a gwirio\'ch ffeil ffurfwedd CKFinder.',
-		'501' => 'Mae cynhaliaeth bawdluniau wedi\'i hanalluogi.',
+		'501' => 'Mae cynhaliaeth bawdluniau wedi\'i hanalluogi.'
 	)
 );

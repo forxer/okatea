@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Latvian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Latvian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Nebija iespējams pabeigt pieprasījumu. (Kļūda %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Nederīga komanda.',
 		'11' => 'Resursa veids netika norādīts pieprasījumā.',
 		'12' => 'Pieprasītais resursa veids nav derīgs.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Moving file(s) failed.',
 		'301' => 'Copying file(s) failed.',
 		'500' => 'Failu pārlūks ir atslēgts drošības apsvērumu dēļ. Lūdzu sazinieties ar šīs sistēmas tehnisko administratoru vai pārbaudiet CKFinder konfigurācijas failu.',
-		'501' => 'Sīkbilžu atbalsts ir atslēgts.',
+		'501' => 'Sīkbilžu atbalsts ir atslēgts.'
 	)
 );

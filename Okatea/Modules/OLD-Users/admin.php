@@ -6,22 +6,26 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_MODULE')) die;
-
-# Perm ?
-if (!$okt->checkPerm('users') && $okt->page->action !== 'profil') {
+if (! defined('ON_MODULE'))
+	die();
+	
+	# Perm ?
+if (! $okt->checkPerm('users') && $okt->page->action !== 'profil')
+{
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
-if ($okt->page->action === 'profil') {
-	require __DIR__.'/admin/profil.php';
+if ($okt->page->action === 'profil')
+{
+	require __DIR__ . '/admin/profil.php';
 }
-else {
+else
+{
 	# titre de la page
-	$okt->page->addGlobalTitle(__('Users'),'module.php?m=users');
-
+	$okt->page->addGlobalTitle(__('Users'), 'module.php?m=users');
+	
 	# button set
-	$okt->page->setButtonset('users',array(
+	$okt->page->setButtonset('users', array(
 		'id' => 'users-buttonset',
 		'type' => '', #  buttonset-single | buttonset-multi | ''
 		'buttons' => array(
@@ -29,48 +33,56 @@ else {
 				'permission' => ($okt->page->action === 'add' || $okt->page->action === 'edit'),
 				'title' => __('c_c_action_Go_back'),
 				'url' => 'module.php?m=users&amp;action=index',
-				'ui-icon' => 'arrowreturnthick-1-w',
+				'ui-icon' => 'arrowreturnthick-1-w'
 			),
 			array(
-				'permission' => (!$okt->page->action || $okt->page->action === 'index' || $okt->page->action === 'edit'),
+				'permission' => (! $okt->page->action || $okt->page->action === 'index' || $okt->page->action === 'edit'),
 				'title' => __('m_users_Add_user'),
 				'url' => 'module.php?m=users&amp;action=add',
 				'ui-icon' => 'plusthick'
 			)
 		)
 	));
-
-
+	
 	# inclusion du fichier requis
-	if (!$okt->page->action || $okt->page->action === 'index') {
-		require __DIR__.'/admin/index.php';
+	if (! $okt->page->action || $okt->page->action === 'index')
+	{
+		require __DIR__ . '/admin/index.php';
 	}
-	elseif ($okt->page->action === 'add') {
-		require __DIR__.'/admin/add.php';
+	elseif ($okt->page->action === 'add')
+	{
+		require __DIR__ . '/admin/add.php';
 	}
-	elseif ($okt->page->action === 'edit') {
-		require __DIR__.'/admin/edit.php';
+	elseif ($okt->page->action === 'edit')
+	{
+		require __DIR__ . '/admin/edit.php';
 	}
-	elseif ($okt->page->action === 'groups' && $okt->checkPerm('users_groups')) {
-		require __DIR__.'/admin/groups.php';
+	elseif ($okt->page->action === 'groups' && $okt->checkPerm('users_groups'))
+	{
+		require __DIR__ . '/admin/groups.php';
 	}
-	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {
-		require __DIR__.'/admin/fields.php';
+	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields'))
+	{
+		require __DIR__ . '/admin/fields.php';
 	}
-	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields')) {
-		require __DIR__.'/admin/field.php';
+	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields'))
+	{
+		require __DIR__ . '/admin/field.php';
 	}
-	elseif ($okt->page->action === 'export' && $okt->checkPerm('users_export')) {
-		require __DIR__.'/admin/export.php';
+	elseif ($okt->page->action === 'export' && $okt->checkPerm('users_export'))
+	{
+		require __DIR__ . '/admin/export.php';
 	}
-	elseif ($okt->page->action === 'display' && $okt->checkPerm('users_display')) {
-		require __DIR__.'/admin/display.php';
+	elseif ($okt->page->action === 'display' && $okt->checkPerm('users_display'))
+	{
+		require __DIR__ . '/admin/display.php';
 	}
-	elseif ($okt->page->action === 'config' && $okt->checkPerm('users_config')) {
-		require __DIR__.'/admin/config.php';
+	elseif ($okt->page->action === 'config' && $okt->checkPerm('users_config'))
+	{
+		require __DIR__ . '/admin/config.php';
 	}
-	else {
+	else
+	{
 		http::redirect('index.php');
 	}
-
 }

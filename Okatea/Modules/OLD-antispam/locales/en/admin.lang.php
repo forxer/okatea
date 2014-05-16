@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_antispam_Akismet_spam_filter'] = 'Akismet spam filter';
 
 $GLOBALS['okt_l10n']['m_antispam_filters_description'] = 'The antispam consists of several filters. Each of these filters use a different technique to detect the spam.';

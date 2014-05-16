@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Danish language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Danish language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Det var ikke muligt at fuldføre handlingen. (Fejl: %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Ugyldig handling.',
 		'11' => 'Ressourcetypen blev ikke angivet i anmodningen.',
 		'12' => 'Ressourcetypen er ikke gyldig.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Flytning af fil(er) fejlede.',
 		'301' => 'Kopiering af fil(er) fejlede.',
 		'500' => 'Filbrowseren er deaktiveret af sikkerhedsmæssige årsager. Kontakt systemadministratoren eller kontrollér CKFinders konfigurationsfil.',
-		'501' => 'Understøttelse af thumbnails er deaktiveret.',
+		'501' => 'Understøttelse af thumbnails er deaktiveret.'
 	)
 );

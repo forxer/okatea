@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_min_regenerated'] = 'Les miniatures ont été régénérées.';
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_visibility_switched'] = 'La visiblité de la galerie a été basculée.';
 $GLOBALS['okt_l10n']['m_galleries_list_gallery_deleted'] = 'La galerie a été supprimée.';

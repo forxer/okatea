@@ -10,9 +10,11 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (!defined('IN_CKFINDER')) exit;
+if (! defined('IN_CKFINDER'))
+	exit();
 
 /**
+ *
  * @package CKFinder
  * @subpackage CommandHandlers
  * @copyright CKSource - Frederico Knabben
@@ -32,44 +34,50 @@ require_once CKFINDER_CONNECTOR_LIB_DIR . "/CommandHandler/XmlCommandHandlerBase
  */
 class CKFinder_Connector_CommandHandler_DeleteFolder extends CKFinder_Connector_CommandHandler_XmlCommandHandlerBase
 {
-    /**
-     * Command name
-     *
-     * @access private
-     * @var string
-     */
-    var $command = "DeleteFolder";
 
+	/**
+	 * Command name
+	 *
+	 * @access private
+	 * @var string
+	 */
+	var $command = "DeleteFolder";
 
-    /**
-     * handle request and build XML
-     * @access protected
-     *
-     */
-    function buildXml()
-    {
-        if (empty($_POST['CKFinderCommand']) || $_POST['CKFinderCommand'] != 'true') {
-            $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
-        }
-
-        if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_DELETE)) {
-            $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
-        }
-
-        // The root folder cannot be deleted.
-        if ($this->_currentFolder->getClientPath() == "/") {
-            $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
-        }
-
-        $folderServerPath = $this->_currentFolder->getServerPath();
-        if (!file_exists($folderServerPath) || !is_dir($folderServerPath)) {
-            $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
-        }
-
-        if (!CKFinder_Connector_Utils_FileSystem::unlink($folderServerPath)) {
-            $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
-        }
-
-        CKFinder_Connector_Utils_FileSystem::unlink($this->_currentFolder->getThumbsServerPath());
-    }
+	/**
+	 * handle request and build XML
+	 * 
+	 * @access protected
+	 *        
+	 */
+	function buildXml()
+	{
+		if (empty($_POST['CKFinderCommand']) || $_POST['CKFinderCommand'] != 'true')
+		{
+			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
+		}
+		
+		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_DELETE))
+		{
+			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
+		}
+		
+		// The root folder cannot be deleted.
+		if ($this->_currentFolder->getClientPath() == "/")
+		{
+			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
+		}
+		
+		$folderServerPath = $this->_currentFolder->getServerPath();
+		if (! file_exists($folderServerPath) || ! is_dir($folderServerPath))
+		{
+			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
+		}
+		
+		if (! CKFinder_Connector_Utils_FileSystem::unlink($folderServerPath))
+		{
+			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
+		}
+		
+		CKFinder_Connector_Utils_FileSystem::unlink($this->_currentFolder->getThumbsServerPath());
+	}
 }

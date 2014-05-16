@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_item_add_an_item'] = 'Ajouter un élément';
 $GLOBALS['okt_l10n']['m_galleries_item_edit_an_item'] = 'Modifier un élément';
 $GLOBALS['okt_l10n']['m_galleries_item_delete_an_item'] = 'Supprimer un élément';

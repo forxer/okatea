@@ -5,11 +5,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao;
 
 class ApplicationOptions
 {
+
 	protected $aOptions = array();
 
 	public function __construct($aOptions)
@@ -34,14 +34,15 @@ class ApplicationOptions
 
 	public function get($sKey)
 	{
-		if (isset($this->aOptions[$sKey])) {
+		if (isset($this->aOptions[$sKey]))
+		{
 			return $this->aOptions[$sKey];
 		}
 	}
 
 	public function has($sKey)
 	{
-		return !empty($this->aOptions[$sKey]);
+		return ! empty($this->aOptions[$sKey]);
 	}
 
 	public function __get($sKey)
@@ -61,7 +62,8 @@ class ApplicationOptions
 
 	public function __unset($sKey)
 	{
-		if (isset($this->aOptions[$sKey])) {
+		if (isset($this->aOptions[$sKey]))
+		{
 			unset($this->aOptions[$sKey]);
 		}
 	}

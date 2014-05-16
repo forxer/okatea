@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['By names, ascendant'] = 'Par noms, croissants';
 $GLOBALS['okt_l10n']['By names, descendant'] = 'Par noms, décroissants';
 $GLOBALS['okt_l10n']['By dates, ascendant'] = 'Par dates, croissantes';

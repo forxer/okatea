@@ -1,3 +1,5 @@
-<?php return array (
-  'GL' => 'Kalaallit Nunaat',
+<?php
+
+return array(
+	'GL' => 'Kalaallit Nunaat'
 );

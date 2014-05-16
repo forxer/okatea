@@ -1,5 +1,7 @@
-<?php return array (
-  'GH' => 'Gaana',
-  'NE' => 'Nijer',
-  'NG' => 'Nijeriya',
+<?php
+
+return array(
+	'GH' => 'Gaana',
+	'NE' => 'Nijer',
+	'NG' => 'Nijeriya'
 );

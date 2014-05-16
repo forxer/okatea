@@ -1,5 +1,7 @@
-<?php return array (
-  'IN' => 'ਭਾਰਤ',
-  'TO' => 'TO',
-  'ZZ' => 'ਅਣਜਾਣ',
+<?php
+
+return array(
+	'IN' => 'ਭਾਰਤ',
+	'TO' => 'TO',
+	'ZZ' => 'ਅਣਜਾਣ'
 );

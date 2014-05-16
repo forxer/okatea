@@ -10,9 +10,11 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (!defined('IN_CKFINDER')) exit;
+if (! defined('IN_CKFINDER'))
+	exit();
 
 /**
+ *
  * @package CKFinder
  * @subpackage Core
  * @copyright CKSource - Frederico Knabben
@@ -32,99 +34,106 @@ require_once CKFINDER_CONNECTOR_LIB_DIR . "/Utils/XmlNode.php";
  */
 class CKFinder_Connector_Core_Xml
 {
-    /**
-     * Connector node (root)
-     *
-     * @var Ckfinder_Connector_Utils_XmlNode
-     * @access private
-     */
-    private $_connectorNode;
-    /**
-     * Error node
-     *
-     * @var Ckfinder_Connector_Utils_XmlNode
-     * @access private
-     */
-    private $_errorNode;
 
-    function __construct()
-    {
-        $this->sendXmlHeaders();
-        echo $this->getXMLDeclaration();
-        $this->_connectorNode = new Ckfinder_Connector_Utils_XmlNode("Connector");
-        $this->_errorNode = new Ckfinder_Connector_Utils_XmlNode("Error");
-        $this->_connectorNode->addChild($this->_errorNode);
-    }
+	/**
+	 * Connector node (root)
+	 *
+	 * @var Ckfinder_Connector_Utils_XmlNode
+	 * @access private
+	 */
+	private $_connectorNode;
 
-    /**
-     * Return connector node
-     *
-     * @return Ckfinder_Connector_Utils_XmlNode
-     * @access public
-     */
-    public function &getConnectorNode()
-    {
-    	return $this->_connectorNode;
-    }
+	/**
+	 * Error node
+	 *
+	 * @var Ckfinder_Connector_Utils_XmlNode
+	 * @access private
+	 */
+	private $_errorNode;
 
-    /**
-     * Return error node
-     *
-     * @return Ckfinder_Connector_Utils_XmlNode
-     * @access public
-     */
-    public function &getErrorNode()
-    {
-    	return $this->_errorNode;
-    }
+	function __construct()
+	{
+		$this->sendXmlHeaders();
+		echo $this->getXMLDeclaration();
+		$this->_connectorNode = new Ckfinder_Connector_Utils_XmlNode("Connector");
+		$this->_errorNode = new Ckfinder_Connector_Utils_XmlNode("Error");
+		$this->_connectorNode->addChild($this->_errorNode);
+	}
 
-    /**
-     * Send XML headers to the browser (and force browser not to use cache)
-     * @access private
-     */
-    private function sendXmlHeaders()
-    {
-        // Prevent the browser from caching the result.
-        // Date in the past
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT') ;
-        // always modified
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT') ;
-        // HTTP/1.1
-        header('Cache-Control: no-store, no-cache, must-revalidate') ;
-        header('Cache-Control: post-check=0, pre-check=0', false) ;
-        // HTTP/1.0
-        header('Pragma: no-cache') ;
+	/**
+	 * Return connector node
+	 *
+	 * @return Ckfinder_Connector_Utils_XmlNode
+	 * @access public
+	 */
+	public function &getConnectorNode()
+	{
+		return $this->_connectorNode;
+	}
 
-        // Set the response format.
-        header( 'Content-Type: text/xml; charset=utf-8' ) ;
-    }
+	/**
+	 * Return error node
+	 *
+	 * @return Ckfinder_Connector_Utils_XmlNode
+	 * @access public
+	 */
+	public function &getErrorNode()
+	{
+		return $this->_errorNode;
+	}
 
-    /**
-     * Return XML declaration
-     *
-     * @access private
-     * @return string
-     */
-    private function getXMLDeclaration()
-    {
-    	return '<?xml version="1.0" encoding="utf-8"?>';
-    }
+	/**
+	 * Send XML headers to the browser (and force browser not to use cache)
+	 * 
+	 * @access private
+	 */
+	private function sendXmlHeaders()
+	{
+		// Prevent the browser from caching the result.
+		// Date in the past
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		// always modified
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+		// HTTP/1.1
+		header('Cache-Control: no-store, no-cache, must-revalidate');
+		header('Cache-Control: post-check=0, pre-check=0', false);
+		// HTTP/1.0
+		header('Pragma: no-cache');
+		
+		// Set the response format.
+		header('Content-Type: text/xml; charset=utf-8');
+	}
 
-    /**
-     * Send error message to the browser. If error number is set to 1, $text (custom error message) will be displayed
-     * Don't call this function directly
-     *
-     * @access public
-     * @param int $number error number
-     * @param string $text Custom error message (optional)
-     */
-    public function raiseError( $number, $text = false)
-    {
-        $this->_errorNode->addAttribute("number", intval($number));
-        if (false!=$text) {
-            $this->_errorNode->addAttribute("text", $text);
-        }
+	/**
+	 * Return XML declaration
+	 *
+	 * @access private
+	 * @return string
+	 */
+	private function getXMLDeclaration()
+	{
+		return '<?xml version="1.0" encoding="utf-8"?>';
+	}
 
-        echo $this->_connectorNode->asXML();
-    }
+	/**
+	 * Send error message to the browser.
+	 * If error number is set to 1, $text (custom error message) will be displayed
+	 * Don't call this function directly
+	 *
+	 * @access public
+	 * @param int $number
+	 *        	error number
+	 * @param string $text
+	 *        	Custom error message (optional)
+	 */
+	public function raiseError($number, $text = false)
+	{
+		$this->_errorNode->addAttribute("number", intval($number));
+		if (false != $text)
+		{
+			$this->_errorNode->addAttribute("text", $text);
+		}
+		
+		echo $this->_connectorNode->asXML();
+	}
 }

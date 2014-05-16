@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Japanese language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Japanese language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'リクエストの処理に失敗しました。 (Error %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => '不正なコマンドです。',
 		'11' => 'リソースタイプが特定できませんでした。',
 		'12' => '要求されたリソースのタイプが正しくありません。',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'ファイルの移動に失敗しました。',
 		'301' => 'ファイルのコピーに失敗しました。',
 		'500' => 'ファイルブラウザはセキュリティ上の制限から無効になっています。システム担当者に連絡をして、CKFinderの設定をご確認下さい。',
-		'501' => 'サムネイル機能は無効になっています。',
+		'501' => 'サムネイル機能は無効になっています。'
 	)
 );

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['a_image_config_legend_base'] = 'Configuration de base';
 $GLOBALS['okt_l10n']['a_image_config_enable'] = 'Activer les images';
 $GLOBALS['okt_l10n']['a_image_config_regenerate_thumbnails'] = 'Régénérer les miniatures';

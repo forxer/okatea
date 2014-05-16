@@ -5,30 +5,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');
 
 # button set
-$okt->page->setButtonset ( 'themesBtSt', array (
+$okt->page->setButtonset('themesBtSt', array(
 	'id' => 'themes-buttonset',
 	'type' => '', # buttonset-single | buttonset-multi | ''
-	'buttons' => array (
-		array (
+	'buttons' => array(
+		array(
 			'permission' => true,
-			'title' => __ ( 'c_c_action_Go_back' ),
-			'url' => $view->generateUrl ( 'config_themes' ),
+			'title' => __('c_c_action_Go_back'),
+			'url' => $view->generateUrl('config_themes'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
-) );
+));
 
 # Onglets
 $okt->page->tabs();
 
 # Color picker et autres joyeusetés
-if ($bHasDefinitionsLess) {
+if ($bHasDefinitionsLess)
+{
 	$oDefinitionsLessEditor->setFormAssets($okt->page, $sThemeId);
 }
 
@@ -37,7 +37,7 @@ $okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('conf
 $okt->page->addGlobalTitle($aThemeInfos['name']);
 
 # CSS
-$okt->page->css->addCss ( '
+$okt->page->css->addCss('
 #theme-screenshot {
 	float: left;
 	margin: 0 1em 1em 0;
@@ -58,17 +58,16 @@ $okt->page->css->addCss ( '
 ');
 
 # ghostdown for notes
-$okt->page->js->addFile($okt->options->public_url.'/components/ghostdown/ghostdown.js');
-$okt->page->css->addFile($okt->options->public_url.'/components/ghostdown/ghostdown.css');
-$okt->page->js->addFile($okt->options->public_url.'/components/ghostdown/jquery.ghostdown.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.js');
+$okt->page->css->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/jquery.ghostdown.js');
 $okt->page->js->addReady('
 	$(".editor").ghostDown();
 ');
 
-
 # lightbox2 for screenshot
-$okt->page->js->addFile($okt->options->public_url.'/components/lightbox2/js/lightbox-2.6.min.js');
-$okt->page->css->addFile($okt->options->public_url.'/components/lightbox2/css/lightbox.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/lightbox2/js/lightbox-2.6.min.js');
+$okt->page->css->addFile($okt->options->public_url . '/components/lightbox2/css/lightbox.css');
 
 ?>
 
@@ -90,11 +89,16 @@ $okt->page->css->addFile($okt->options->public_url.'/components/lightbox2/css/li
 
 		<div id="theme-screenshot">
 			<?php if ($aThemeInfos['screenshot']) : ?>
-			<a href="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>" data-lightbox="screenshot">
-				<img src="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>" width="100%" height="100%" alt="" />
+			<a
+				href="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
+				data-lightbox="screenshot"> <img
+				src="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
+				width="100%" height="100%" alt="" />
 			</a>
 			<?php else : ?>
-			<div id="no-screenshot"><em class="note"><?php _e('c_a_themes_no_screenshot') ?></em></div>
+			<div id="no-screenshot">
+				<em class="note"><?php _e('c_a_themes_no_screenshot') ?></em>
+			</div>
 			<?php endif; ?>
 		</div>
 
@@ -108,12 +112,15 @@ $okt->page->css->addFile($okt->options->public_url.'/components/lightbox2/css/li
 
 			<p><?php #echo $view->escape($aThemeInfos['tags']) ?></p>
 		</div>
-	</div><!-- #tab_infos -->
+	</div>
+	<!-- #tab_infos -->
 
 	<?php if ($bHasDevNotes) : ?>
 	<div id="tab_dev_notes">
 		<?php if ($bEditDevNotes) : ?>
-		<form action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>" method="post">
+		<form
+			action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
+			method="post">
 			<div class="features">
 				<section class="editor">
 					<div class="outer">
@@ -137,30 +144,43 @@ $okt->page->css->addFile($okt->options->public_url.'/components/lightbox2/css/li
 				</section>
 			</div>
 
-			<p><?php echo form::hidden('save_notes', 1) ?>
+			<p><?php echo form::hidden('save_notes', 1)?>
 			<?php echo $okt->page->formtoken(); ?>
-			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
+			<input type="submit" value="<?php _e('c_c_action_save') ?>" />
+			</p>
 		</form>
 		<?php else : ?>
-			<?php echo $sDevNotesHtml ?>
-			<p><a href="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>?edit_notes=1"class="button"><?php _e('c_c_action_edit') ?></a></p>
+			<?php echo $sDevNotesHtml?>
+			<p>
+			<a
+				href="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>?edit_notes=1"
+				class="button"><?php _e('c_c_action_edit') ?></a>
+		</p>
 		<?php endif; ?>
-	</div><!-- #tab_dev_notes -->
+	</div>
+	<!-- #tab_dev_notes -->
 	<?php endif; ?>
 
 	<?php if ($bHasDefinitionsLess) : ?>
 	<div id="tab_def_less">
 		<h3>definitions.less</h3>
 
-		<form action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>" method="post">
-			<?php # affichage champs definitions.less
-			echo $oDefinitionsLessEditor->getHtmlFields ( $aCurrentDefinitionsLess, 4 ); ?>
+		<form
+			action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
+			method="post">
+			<?php 
+# affichage champs definitions.less
+		echo $oDefinitionsLessEditor->getHtmlFields($aCurrentDefinitionsLess, 4);
+		?>
 
 			<p><?php echo form::hidden('save_def_less', 1)?>
 			<?php echo $okt->page->formtoken(); ?>
-			<input type="submit" value="<?php _e('c_c_action_save') ?>" /></p>
+			<input type="submit" value="<?php _e('c_c_action_save') ?>" />
+			</p>
 		</form>
-	</div><!-- #tab_def_less -->
+	</div>
+	<!-- #tab_def_less -->
 	<?php endif; ?>
 
-</div><!-- #tabered -->
+</div>
+<!-- #tabered -->

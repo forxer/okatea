@@ -4,11 +4,11 @@
  * @brief La classe d'installation du module véhicules.
  *
  */
-
 use Okatea\Tao\Modules\Manage\Process as ModuleInstall;
 
 class moduleInstall_users extends ModuleInstall
 {
+
 	public function install()
 	{
 		$this->setDefaultAdminPerms(array(
@@ -24,5 +24,4 @@ class moduleInstall_users extends ModuleInstall
 	public function update()
 	{
 	}
-
 }

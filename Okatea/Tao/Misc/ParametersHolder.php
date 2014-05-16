@@ -5,22 +5,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Misc;
 
 /**
  * Gestion et manipulation de paramètres
- *
  */
 class ParametersHolder
 {
+
 	/**
 	 * La pile de paramètres
+	 * 
 	 * @var array
 	 */
-	private $parameters=array();
+	private $parameters = array();
 
-	public function __construct($parameters=array())
+	public function __construct($parameters = array())
 	{
 		$this->setParameters($parameters);
 	}
@@ -28,15 +28,16 @@ class ParametersHolder
 	/**
 	 * alimente en paramètres à partir d'un tableau
 	 *
-	 * @param $parameters array
+	 * @param $parameters array        	
 	 * @return void
 	 */
-	public function setParameters($parameters=array())
+	public function setParameters($parameters = array())
 	{
-		if (!empty($parameters))
+		if (! empty($parameters))
 		{
-			foreach ($parameters as $key=>$value) {
-				$this->setParameter($key,$value);
+			foreach ($parameters as $key => $value)
+			{
+				$this->setParameter($key, $value);
 			}
 		}
 	}
@@ -45,11 +46,11 @@ class ParametersHolder
 	 * créer un paramètre
 	 * attention la clef est strtolowerisée
 	 *
-	 * @param $key string
-	 * @param $value mixed
+	 * @param $key string        	
+	 * @param $value mixed        	
 	 * @return void
 	 */
-	public function setParameter($key,$value)
+	public function setParameter($key, $value)
 	{
 		$this->parameters[strtolower($key)] = $value;
 	}
@@ -57,7 +58,7 @@ class ParametersHolder
 	/**
 	 * Test l'existence d'un paramètre
 	 *
-	 * @param $key string
+	 * @param $key string        	
 	 * @return boolean
 	 */
 	public function hasParameter($key)
@@ -68,19 +69,22 @@ class ParametersHolder
 	/**
 	 * Récuperation d'un paramètre
 	 *
-	 * @param $key string
-	 * @param $default string
+	 * @param $key string        	
+	 * @param $default string        	
 	 * @return mixed
 	 */
-	public function getParameter($key, $default=null)
+	public function getParameter($key, $default = null)
 	{
-		if ($this->hasParameter($key)) {
+		if ($this->hasParameter($key))
+		{
 			return $this->parameters[$key];
 		}
-		elseif (!is_null($default)) {
+		elseif (! is_null($default))
+		{
 			return $default;
 		}
-		else {
+		else
+		{
 			return null;
 		}
 	}
@@ -106,9 +110,9 @@ class ParametersHolder
 	/**
 	 * setParameter automagic alias
 	 */
-	public function __set($key,$value)
+	public function __set($key, $value)
 	{
-		return $this->setParameter($key,$value);
+		return $this->setParameter($key, $value);
 	}
 
 	/**
@@ -116,26 +120,29 @@ class ParametersHolder
 	 */
 	public function __call($name, $arguments)
 	{
-		$prefix = substr($name,0,3);
-		$key = strtolower(substr($name,3));
+		$prefix = substr($name, 0, 3);
+		$key = strtolower(substr($name, 3));
 		$arg = isset($arguments[0]) ? $arguments[0] : null;
-
-		if ($prefix === 'has') {
+		
+		if ($prefix === 'has')
+		{
 			return $this->hasParameter($key, $arg);
 		}
-
-		if ($prefix === 'get') {
+		
+		if ($prefix === 'get')
+		{
 			return $this->getParameter($key, $arg);
 		}
-
+		
 		if ($prefix === 'set')
 		{
-			if (!$arg) {
-				throw new \Exception(get_class($this).' un second argument est nécessaire pour une méthode set');
+			if (! $arg)
+			{
+				throw new \Exception(get_class($this) . ' un second argument est nécessaire pour une méthode set');
 			}
-			return $this->setParameter($key,$arg);
+			return $this->setParameter($key, $arg);
 		}
-
-		throw new \Exception('notre __call ne gère que les get ou les set ! méthode indéfinie : '.$name);
+		
+		throw new \Exception('notre __call ne gère que les get ou les set ! méthode indéfinie : ' . $name);
 	}
 }

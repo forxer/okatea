@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['c_a_route_name_galleriesList'] = 'Galleries list';
 $GLOBALS['okt_l10n']['c_a_route_desc_galleriesList'] = 'Galleries list of galleries module';
 $GLOBALS['okt_l10n']['c_a_route_name_galleriesGallery'] = 'Gallery';

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Admin\Messages;
 
 use Okatea\Tao\Html\Stack;
@@ -14,14 +13,14 @@ use Okatea\Tao\Html\Stack;
  * Pile de messages d'information pour l'administration.
  *
  * @addtogroup Okatea
- *
  */
 class Infos extends Stack
 {
+
 	/**
 	 * Ajoute une information à la pile des informations.
 	 *
-	 * @param $msg string
+	 * @param $msg string        	
 	 * @return void
 	 */
 	public function set($msg)
@@ -32,10 +31,10 @@ class Infos extends Stack
 	/**
 	 * Formate et retourne les messages d'informations présents dans la pile.
 	 *
-	 * @param $format string
+	 * @param $format string        	
 	 * @return string
 	 */
-	public function getInfos($format='<div class="infos_box">%s</div>')
+	public function getInfos($format = '<div class="infos_box">%s</div>')
 	{
 		return $this->hasInfo() ? sprintf($format, parent::getHTML()) : null;
 	}

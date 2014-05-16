@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Install;
 
 use ArrayObject;
 
 abstract class AbstractExtension
 {
+
 	protected $okt;
 
 	public function __construct($okt)
@@ -24,17 +24,18 @@ abstract class AbstractExtension
 	protected function insertStepAfter($stepper, $sAfterStep, array $aStep)
 	{
 		$aNewSteps = [];
-
+		
 		$iCurrentPosition = 0;
 		foreach ($stepper->aStepsList as $aStepInfo)
 		{
-			$aNewSteps[$iCurrentPosition++] = $aStepInfo;
-
-			if ($aStepInfo['step'] === $sAfterStep) {
-				$aNewSteps[$iCurrentPosition++] = $aStep;
+			$aNewSteps[$iCurrentPosition ++] = $aStepInfo;
+			
+			if ($aStepInfo['step'] === $sAfterStep)
+			{
+				$aNewSteps[$iCurrentPosition ++] = $aStep;
 			}
 		}
-
+		
 		$stepper->aStepsList = new ArrayObject($aNewSteps);
 	}
 }

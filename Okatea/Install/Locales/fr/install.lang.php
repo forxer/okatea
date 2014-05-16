@@ -107,7 +107,6 @@ $GLOBALS['okt_l10n']['i_pages_first_home_content'] = "Bienvenue sur notre nouvea
 $GLOBALS['okt_l10n']['i_pages_first_about_title'] = 'À propos';
 $GLOBALS['okt_l10n']['i_pages_first_default_content'] = 'Ce site web est en cours d’enrichissement, merci de revenir le consulter ultérieurement.';
 
-
 # merge config
 $GLOBALS['okt_l10n']['i_merge_config_title'] = 'Fusion des données de configuration';
 $GLOBALS['okt_l10n']['i_merge_config_done'] = 'Les données de configuration ont été fusionnées avec succès.';

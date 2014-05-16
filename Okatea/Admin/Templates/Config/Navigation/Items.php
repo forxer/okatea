@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('layout');
@@ -25,7 +24,7 @@ $okt->page->js->addReady('
 
 			$.ajax({
 				data: result,
-				url: "'.$view->generateUrl('config_navigation').'?do=items&menu_id='.$iMenuId.'&ajax_update_order=1",
+				url: "' . $view->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId . '&ajax_update_order=1",
 				success: function(data) {
 					$("#page").css("cursor", "default");
 					$("#sortable").css("cursor", "move");
@@ -49,16 +48,16 @@ $okt->page->setButtonset('navigationBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_c_action_Go_back'),
-			'url' 			=> $view->generateUrl('config_navigation').'?do=index',
-			'ui-icon' 		=> 'arrowreturnthick-1-w'
+			'permission' => true,
+			'title' => __('c_c_action_Go_back'),
+			'url' => $view->generateUrl('config_navigation') . '?do=index',
+			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
-			'permission' 	=> true,
-			'title' 		=> __('c_a_config_navigation_add_item'),
-			'url' 			=> $view->generateUrl('config_navigation').'?do=item&amp;menu_id='.$iMenuId,
-			'ui-icon' 		=> 'plusthick'
+			'permission' => true,
+			'title' => __('c_a_config_navigation_add_item'),
+			'url' => $view->generateUrl('config_navigation') . '?do=item&amp;menu_id=' . $iMenuId,
+			'ui-icon' => 'plusthick'
 		)
 	)
 ));
@@ -74,45 +73,53 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 
 <?php else : ?>
 
-<form action="<?php echo $view->generateUrl('config_navigation') ?>?do=items" method="post" id="ordering">
+<form
+	action="<?php echo $view->generateUrl('config_navigation') ?>?do=items"
+	method="post" id="ordering">
 	<ul id="sortable" class="ui-sortable">
-	<?php $i = 1;
-	while ($rsItems->fetch()) : ?>
-	<li id="ord_<?php echo $rsItems->id ?>" class="ui-state-default"><label for="p_order_<?php echo $rsItems->id ?>">
-
-		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+	<?php
+	
+$i = 1;
+	while ($rsItems->fetch())
+	:
+		?>
+	<li id="ord_<?php echo $rsItems->id ?>" class="ui-state-default"><label
+			for="p_order_<?php echo $rsItems->id ?>"> <span
+				class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
 		<?php echo $view->escape($rsItems->title) ?></label>
 
-		<?php echo form::text(array('p_order['.$rsItems->id.']','p_order_'.$rsItems->id), 5, 10, $i++) ?>
+		<?php echo form::text(array('p_order['.$rsItems->id.']','p_order_'.$rsItems->id), 5, 10, $i++)?>
 
 		<?php if ($rsItems->active) : ?>
-		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;disable=<?php echo $rsItems->id ?>"
-		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $rsItems->title)) ?>"
-		class="icon tick"><?php _e('c_c_action_Disable') ?></a>
+		- <a
+			href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;disable=<?php echo $rsItems->id ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $rsItems->title)) ?>"
+			class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 		<?php else : ?>
-		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;enable=<?php echo $rsItems->id ?>"
-		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $rsItems->title)) ?>"
-		class="icon cross"><?php _e('c_c_action_Enable') ?></a>
+		- <a
+			href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;enable=<?php echo $rsItems->id ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $rsItems->title)) ?>"
+			class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 		<?php endif; ?>
 
-		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $iMenuId ?>&amp;item_id=<?php echo $rsItems->id ?>"
-		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $rsItems->title)) ?>"
-		class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
-
-		- <a href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;delete=<?php echo $rsItems->id ?>"
-		onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_item_delete_confirm')) ?>')"
-		title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
-		class="icon delete"><?php _e('c_c_action_Delete') ?></a>
-
-	</li>
+		- <a
+			href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $iMenuId ?>&amp;item_id=<?php echo $rsItems->id ?>"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $rsItems->title)) ?>"
+			class="icon pencil"><?php _e('c_c_action_Edit') ?></a> - <a
+			href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $iMenuId ?>&amp;delete=<?php echo $rsItems->id ?>"
+			onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_item_delete_confirm')) ?>')"
+			title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsItems->title)) ?>"
+			class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
 	<?php endwhile; ?>
 	</ul>
 	<p><?php echo form::hidden('menu_id', $iMenuId); ?>
 	<?php echo form::hidden('ordered', 1); ?>
 	<?php echo form::hidden('order_items', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>
-	<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" /></p>
+	<input type="submit" id="save_order"
+			value="<?php _e('c_c_action_save_order') ?>" />
+	</p>
 
 </form>
 

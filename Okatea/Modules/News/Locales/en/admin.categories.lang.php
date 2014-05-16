@@ -9,7 +9,6 @@
 # list
 $GLOBALS['okt_l10n']['m_news_cats_categories'] = 'Categories';
 
-
 $GLOBALS['okt_l10n']['m_news_cats_add_category'] = 'Add a category';
 
 $GLOBALS['okt_l10n']['m_news_cats_no_cat'] = 'There is no category for the moment';
@@ -21,7 +20,6 @@ $GLOBALS['okt_l10n']['m_news_cats_%s_total_%s'] = '%s, total: %s';
 
 $GLOBALS['okt_l10n']['m_news_cats_delete_confirm'] = 'Are you sure you want to delete this section? This action is irreversible.';
 $GLOBALS['okt_l10n']['m_news_cats_edit_%s'] = 'Edit category %s';
-
 
 # item
 $GLOBALS['okt_l10n']['m_news_cat_category'] = 'Category';

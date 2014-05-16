@@ -4,7 +4,6 @@
 $GLOBALS['okt_l10n']['Galleries'] = 'Galleries';
 $GLOBALS['okt_l10n']['Allow to add a galleries system'] = 'Allow to add a galleries system';
 
-
 $GLOBALS['okt_l10n']['m_galleries_Gallery_protected_by_password'] = 'Gallery_protected_by_password';
 $GLOBALS['okt_l10n']['m_galleries_Author'] = 'Author';
 $GLOBALS['okt_l10n']['m_galleries_Place'] = 'Place';

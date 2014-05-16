@@ -3,33 +3,56 @@
 
 	<!-- partenaires exemples -->
 	<action id="firstpartners" label="Creation des partenaires exemples">
-		INSERT INTO `{{PREFIX}}mod_partners`
-			(`id`, `active`, `name`, `logo`, `created_at`, `updated_at`, `ord`)
+		INSERT INTO
+		`{{PREFIX}}mod_partners`
+		(`id`, `active`, `name`, `logo`, `created_at`, `updated_at`, `ord`)
 		VALUES
-			(1, 1, 'okatea.org', NULL, '2011-07-08 14:27:00', '2013-08-11 23:40:28', 1),
-			(2, 1, 'PHP', 'a:21:{s:8:"img_name";s:5:"1.gif";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/2/1.gif";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/2/1.gif";s:9:"img_width";i:120;s:10:"img_height";i:67;s:8:"img_type";s:9:"image/gif";s:8:"img_attr";s:23:"width="120" height="67"";s:8:"min_name";s:9:"min-1.gif";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/2/min-1.gif";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/2/min-1.gif";s:9:"min_width";i:120;s:10:"min_height";i:67;s:8:"min_type";s:9:"image/gif";s:8:"min_attr";s:23:"width="120" height="67"";s:11:"square_name";s:8:"sq-1.gif";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/2/sq-1.gif";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/2/sq-1.gif";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:9:"image/gif";s:11:"square_attr";s:22:"width="60" height="60"";}', '2011-07-08 14:30:16', '2011-07-08 14:30:16', 2),
-			(3, 1, 'Google', 'a:21:{s:8:"img_name";s:5:"1.png";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/3/1.png";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/3/1.png";s:9:"img_width";i:250;s:10:"img_height";i:86;s:8:"img_type";s:9:"image/png";s:8:"img_attr";s:23:"width="250" height="86"";s:8:"min_name";s:9:"min-1.png";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/3/min-1.png";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/3/min-1.png";s:9:"min_width";i:200;s:10:"min_height";i:68;s:8:"min_type";s:9:"image/png";s:8:"min_attr";s:23:"width="200" height="68"";s:11:"square_name";s:8:"sq-1.png";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/3/sq-1.png";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/3/sq-1.png";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:9:"image/png";s:11:"square_attr";s:22:"width="60" height="60"";}', '2011-07-08 14:32:00', '2011-07-08 14:32:38', 3),
-			(4, 1, 'MySQL', 'a:21:{s:8:"img_name";s:5:"1.png";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/4/1.png";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/4/1.png";s:9:"img_width";i:100;s:10:"img_height";i:52;s:8:"img_type";s:9:"image/png";s:8:"img_attr";s:23:"width="100" height="52"";s:8:"min_name";s:9:"min-1.png";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/4/min-1.png";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/4/min-1.png";s:9:"min_width";i:100;s:10:"min_height";i:52;s:8:"min_type";s:9:"image/png";s:8:"min_attr";s:23:"width="100" height="52"";s:11:"square_name";s:8:"sq-1.png";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/4/sq-1.png";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/4/sq-1.png";s:12:"square_width";i:60;s:13:"square_height";i:52;s:11:"square_type";s:9:"image/png";s:11:"square_attr";s:22:"width="60" height="52"";}', '2011-07-08 14:36:06', '2011-07-08 14:36:06', 4)
+		(1, 1, 'okatea.org', NULL, '2011-07-08 14:27:00', '2013-08-11
+		23:40:28', 1),
+		(2, 1, 'PHP',
+		'a:21:{s:8:"img_name";s:5:"1.gif";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/2/1.gif";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/2/1.gif";s:9:"img_width";i:120;s:10:"img_height";i:67;s:8:"img_type";s:9:"image/gif";s:8:"img_attr";s:23:"width="120"
+		height="67"";s:8:"min_name";s:9:"min-1.gif";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/2/min-1.gif";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/2/min-1.gif";s:9:"min_width";i:120;s:10:"min_height";i:67;s:8:"min_type";s:9:"image/gif";s:8:"min_attr";s:23:"width="120"
+		height="67"";s:11:"square_name";s:8:"sq-1.gif";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/2/sq-1.gif";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/2/sq-1.gif";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:9:"image/gif";s:11:"square_attr";s:22:"width="60"
+		height="60"";}', '2011-07-08 14:30:16', '2011-07-08 14:30:16', 2),
+		(3, 1, 'Google',
+		'a:21:{s:8:"img_name";s:5:"1.png";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/3/1.png";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/3/1.png";s:9:"img_width";i:250;s:10:"img_height";i:86;s:8:"img_type";s:9:"image/png";s:8:"img_attr";s:23:"width="250"
+		height="86"";s:8:"min_name";s:9:"min-1.png";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/3/min-1.png";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/3/min-1.png";s:9:"min_width";i:200;s:10:"min_height";i:68;s:8:"min_type";s:9:"image/png";s:8:"min_attr";s:23:"width="200"
+		height="68"";s:11:"square_name";s:8:"sq-1.png";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/3/sq-1.png";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/3/sq-1.png";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:9:"image/png";s:11:"square_attr";s:22:"width="60"
+		height="60"";}', '2011-07-08 14:32:00', '2011-07-08 14:32:38', 3),
+		(4, 1, 'MySQL',
+		'a:21:{s:8:"img_name";s:5:"1.png";s:8:"img_file";s:57:"D:\\www\\okatea_project\\upload/modules/partners/img/4/1.png";s:7:"img_url";s:51:"/okatea_project/upload/modules/partners/img/4/1.png";s:9:"img_width";i:100;s:10:"img_height";i:52;s:8:"img_type";s:9:"image/png";s:8:"img_attr";s:23:"width="100"
+		height="52"";s:8:"min_name";s:9:"min-1.png";s:8:"min_file";s:61:"D:\\www\\okatea_project\\upload/modules/partners/img/4/min-1.png";s:7:"min_url";s:55:"/okatea_project/upload/modules/partners/img/4/min-1.png";s:9:"min_width";i:100;s:10:"min_height";i:52;s:8:"min_type";s:9:"image/png";s:8:"min_attr";s:23:"width="100"
+		height="52"";s:11:"square_name";s:8:"sq-1.png";s:11:"square_file";s:60:"D:\\www\\okatea_project\\upload/modules/partners/img/4/sq-1.png";s:10:"square_url";s:54:"/okatea_project/upload/modules/partners/img/4/sq-1.png";s:12:"square_width";i:60;s:13:"square_height";i:52;s:11:"square_type";s:9:"image/png";s:11:"square_attr";s:22:"width="60"
+		height="52"";}', '2011-07-08 14:36:06', '2011-07-08 14:36:06', 4)
 		;
 	</action>
 
 	<!-- partenaires internationalisés exemples -->
 	<action id="firstpartnersinter" label="Creation des partenaires internationalises exemples">
-		INSERT INTO `{{PREFIX}}mod_partners_locales`
-			(`partner_id`, `language`, `description`, `url`, `url_title`)
+		INSERT INTO
+		`{{PREFIX}}mod_partners_locales`
+		(`partner_id`, `language`, `description`, `url`, `url_title`)
 		VALUES
-			(1, 'de', NULL, NULL, NULL),
-			(1, 'en', NULL, NULL, NULL),
-			(1, 'fr', NULL, 'http://okatea.org/', 'Création de site internet avec un CMS simple.'),
-			(2, 'de', NULL, NULL, NULL),
-			(2, 'en', NULL, NULL, NULL),
-			(2, 'fr', NULL, NULL, 'http://www.php.net'),
-			(3, 'de', NULL, NULL, NULL),
-			(3, 'en', NULL, NULL, NULL),
-			(3, 'fr', 'Le plus célèbre des moteurs de recherche.', 'http://www.google.fr', 'Google'),
-			(4, 'de', NULL, NULL, NULL),
-			(4, 'en', NULL, NULL, NULL),
-			(4, 'fr', 'MySQL est un système de gestion de base de données (SGBD). Selon le type d''application, sa licence est libre ou propriétaire. Il fait partie des logiciels de gestion de base de données les plus utilisés au monde, autant par le grand public (applications web principalement) que par des professionnels, en concurrence avec Oracle et Microsoft SQL Server.', 'http://www.mysql.fr', 'Site Français de MySQL')
+		(1, 'de', NULL, NULL, NULL),
+		(1, 'en', NULL, NULL, NULL),
+		(1, 'fr', NULL, 'http://okatea.org/', 'Création de site internet avec un
+		CMS simple.'),
+		(2, 'de', NULL, NULL, NULL),
+		(2, 'en', NULL, NULL, NULL),
+		(2, 'fr', NULL, NULL, 'http://www.php.net'),
+		(3, 'de', NULL, NULL, NULL),
+		(3, 'en', NULL, NULL, NULL),
+		(3, 'fr', 'Le plus célèbre des moteurs de recherche.',
+		'http://www.google.fr', 'Google'),
+		(4, 'de', NULL, NULL, NULL),
+		(4, 'en', NULL, NULL, NULL),
+		(4, 'fr', 'MySQL est un système de gestion de base de données (SGBD).
+		Selon le type d''application, sa licence est libre ou propriétaire. Il
+		fait partie des logiciels de gestion de base de données les plus
+		utilisés au monde, autant par le grand public (applications web
+		principalement) que par des professionnels, en concurrence avec Oracle
+		et Microsoft SQL Server.', 'http://www.mysql.fr', 'Site Français de
+		MySQL')
 		;
 	</action>
 

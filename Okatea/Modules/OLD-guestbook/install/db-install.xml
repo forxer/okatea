@@ -4,34 +4,37 @@
 
 	<!-- mod_guestbook -->
 	<action id="mod_guestbook" label="Create table %s" string="{{PREFIX}}mod_guestbook">
-		<test eq="neq" value="{{PREFIX}}mod_guestbook" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_guestbook">SHOW TABLES LIKE '{{PREFIX}}mod_guestbook'</test>
+		<test eq="neq" value="{{PREFIX}}mod_guestbook" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_guestbook">SHOW TABLES LIKE '{{PREFIX}}mod_guestbook'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_guestbook` (
-			`id` 			SERIAL,
-			`language` 		CHAR(5) 				NOT NULL,
-			`message` 		TEXT 					NOT NULL,
-			`nom` 			VARCHAR(255) 			DEFAULT NULL,
-			`email` 		VARCHAR(255) 			DEFAULT NULL,
-			`url` 			VARCHAR(255) 			DEFAULT NULL,
-			`note` 			TINYINT(1) 	UNSIGNED	DEFAULT NULL,
-			`ip` 			VARCHAR(40) 			DEFAULT NULL,
-			`date_sign` 	DATETIME 				NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`visible` 		TINYINT(1) 	UNSIGNED	NOT NULL DEFAULT 0,
-			`spam_status` 	varchar(128) 			DEFAULT NULL,
-			`spam_filter` 	varchar(32) 			DEFAULT NULL,
+		`id` SERIAL,
+		`language` CHAR(5) NOT NULL,
+		`message` TEXT NOT NULL,
+		`nom` VARCHAR(255) DEFAULT NULL,
+		`email` VARCHAR(255) DEFAULT NULL,
+		`url` VARCHAR(255) DEFAULT NULL,
+		`note` TINYINT(1) UNSIGNED DEFAULT NULL,
+		`ip` VARCHAR(40) DEFAULT NULL,
+		`date_sign` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`visible` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+		`spam_status` varchar(128) DEFAULT NULL,
+		`spam_filter` varchar(32) DEFAULT NULL,
 
-			PRIMARY KEY (`id`),
-			KEY `{{PREFIX}}mod_guestbook_idx_visible` (`visible`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		KEY `{{PREFIX}}mod_guestbook_idx_visible` (`visible`)
+		) ENGINE=MyISAM
+		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-	<action id="add_mod_guestbook_language" label="Add field %s" string="{{PREFIX}}mod_guestbook.language">
+	<action id="add_mod_guestbook_language" label="Add field %s"
+		string="{{PREFIX}}mod_guestbook.language">
 		<test eq="neq" value="language" label="Field %s exists"
-		string="{{PREFIX}}mod_guestbook.language" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_guestbook` LIKE 'language'
+			string="{{PREFIX}}mod_guestbook.language" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_guestbook` LIKE 'language'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_guestbook` ADD `language` TEXT NULL AFTER `id`
+		ALTER TABLE `{{PREFIX}}mod_guestbook` ADD `language` TEXT NULL AFTER
+		`id`
 	</action>
 
 </database>

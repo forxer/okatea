@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_details_%s'] = 'Demande de devis # %s';
 
 $GLOBALS['okt_l10n']['m_estimate_details_marked_as_treated'] = 'La demande a été marquée comme traitée.';

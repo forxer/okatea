@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Finnish language. Translated into Finnish 2010-12-15 by Petteri Salmela, updated.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Finnish language. Translated into Finnish 2010-12-15 by Petteri Salmela, updated.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Pyyntöä ei voitu suorittaa. (Virhe %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Virheellinen komento.',
 		'11' => 'Pyynnön resurssityyppi on määrittelemättä.',
 		'12' => 'Pyynnön resurssityyppi on virheellinen.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Tiedostosiirto epäonnistui.',
 		'301' => 'Tiedostokopiointi epäonnistui.',
 		'500' => 'Tiedostoselain on kytketty käytöstä turvallisuussyistä. Pyydä pääkäyttäjää tarkastamaan CKFinderin asetustiedosto.',
-		'501' => 'Esikatselukuvien tuki on kytketty toiminnasta.',
+		'501' => 'Esikatselukuvien tuki on kytketty toiminnasta.'
 	)
 );

@@ -1,3 +1,5 @@
-<?php return array (
-  'IN' => 'भारतम्',
+<?php
+
+return array(
+	'IN' => 'भारतम्'
 );

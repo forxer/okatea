@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Side by Side HTML diff generator for PHP DiffLib.
  *
@@ -39,121 +40,140 @@
  * @version 1.1
  * @link http://github.com/chrisboulton/php-diff
  */
-
 namespace Okatea\Tao\Diff\Renderer\Html;
 
 use Okatea\Tao\Diff\Renderer\ToArray;
 
 class SideBySide extends ToArray
 {
+
 	/**
 	 * Render a and return diff with changes between the two sequences
 	 * displayed side by side.
 	 *
-	 * @param string $th_old
-	 * @param string $th_new
+	 * @param string $th_old        	
+	 * @param string $th_new        	
 	 * @return string The generated side by side diff.
 	 */
-	public function render($th_old='Old Version', $th_new='New Version')
+	public function render($th_old = 'Old Version', $th_new = 'New Version')
 	{
 		$changes = parent::render();
-
+		
 		$html = '';
-		if(empty($changes)) {
+		if (empty($changes))
+		{
 			return $html;
 		}
-
+		
 		$html .= '<table class="Differences DifferencesSideBySide">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th colspan="2">'.$th_old.'</th>';
-		$html .= '<th colspan="2">'.$th_new.'</th>';
+		$html .= '<th colspan="2">' . $th_old . '</th>';
+		$html .= '<th colspan="2">' . $th_new . '</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
-		foreach($changes as $i => $blocks) {
-			if($i > 0) {
+		foreach ($changes as $i => $blocks)
+		{
+			if ($i > 0)
+			{
 				$html .= '<tbody class="Skipped">';
 				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
 				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
 				$html .= '</tbody>';
 			}
-
-			foreach($blocks as $change) {
-				$html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
+			
+			foreach ($blocks as $change)
+			{
+				$html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';
 				// Equal changes should be shown on both sides of the diff
-				if($change['tag'] == 'equal') {
-					foreach($change['base']['lines'] as $no => $line) {
+				if ($change['tag'] == 'equal')
+				{
+					foreach ($change['base']['lines'] as $no => $line)
+					{
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</span></td>';
-						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><span>'.$line.'</span>&nbsp;</span></td>';
+						$html .= '<th>' . $fromLine . '</th>';
+						$html .= '<td class="Left"><span>' . $line . '</span>&nbsp;</span></td>';
+						$html .= '<th>' . $toLine . '</th>';
+						$html .= '<td class="Right"><span>' . $line . '</span>&nbsp;</span></td>';
 						$html .= '</tr>';
 					}
 				}
 				// Added lines only on the right side
-				elseif($change['tag'] == 'insert') {
-					foreach($change['changed']['lines'] as $no => $line) {
+				elseif ($change['tag'] == 'insert')
+				{
+					foreach ($change['changed']['lines'] as $no => $line)
+					{
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>&nbsp;</th>';
 						$html .= '<td class="Left">&nbsp;</td>';
-						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
+						$html .= '<th>' . $toLine . '</th>';
+						$html .= '<td class="Right"><ins>' . $line . '</ins>&nbsp;</td>';
 						$html .= '</tr>';
 					}
 				}
 				// Show deleted lines only on the left side
-				elseif($change['tag'] == 'delete') {
-					foreach($change['base']['lines'] as $no => $line) {
+				elseif ($change['tag'] == 'delete')
+				{
+					foreach ($change['base']['lines'] as $no => $line)
+					{
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
+						$html .= '<th>' . $fromLine . '</th>';
+						$html .= '<td class="Left"><del>' . $line . '</del>&nbsp;</td>';
 						$html .= '<th>&nbsp;</th>';
 						$html .= '<td class="Right">&nbsp;</td>';
 						$html .= '</tr>';
 					}
 				}
 				// Show modified lines on both sides
-				elseif($change['tag'] == 'replace') {
-					if(count($change['base']['lines']) >= count($change['changed']['lines'])) {
-						foreach($change['base']['lines'] as $no => $line) {
+				elseif ($change['tag'] == 'replace')
+				{
+					if (count($change['base']['lines']) >= count($change['changed']['lines']))
+					{
+						foreach ($change['base']['lines'] as $no => $line)
+						{
 							$fromLine = $change['base']['offset'] + $no + 1;
 							$html .= '<tr>';
-							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
-							if(!isset($change['changed']['lines'][$no])) {
+							$html .= '<th>' . $fromLine . '</th>';
+							$html .= '<td class="Left"><span>' . $line . '</span>&nbsp;</td>';
+							if (! isset($change['changed']['lines'][$no]))
+							{
 								$toLine = '&nbsp;';
 								$changedLine = '&nbsp;';
 							}
-							else {
+							else
+							{
 								$toLine = $change['base']['offset'] + $no + 1;
-								$changedLine = '<span>'.$change['changed']['lines'][$no].'</span>';
+								$changedLine = '<span>' . $change['changed']['lines'][$no] . '</span>';
 							}
-							$html .= '<th>'.$toLine.'</th>';
-							$html .= '<td class="Right">'.$changedLine.'</td>';
+							$html .= '<th>' . $toLine . '</th>';
+							$html .= '<td class="Right">' . $changedLine . '</td>';
 							$html .= '</tr>';
 						}
 					}
-					else {
-						foreach($change['changed']['lines'] as $no => $changedLine) {
-							if(!isset($change['base']['lines'][$no])) {
+					else
+					{
+						foreach ($change['changed']['lines'] as $no => $changedLine)
+						{
+							if (! isset($change['base']['lines'][$no]))
+							{
 								$fromLine = '&nbsp;';
 								$line = '&nbsp;';
 							}
-							else {
+							else
+							{
 								$fromLine = $change['base']['offset'] + $no + 1;
-								$line = '<span>'.$change['base']['lines'][$no].'</span>';
+								$line = '<span>' . $change['base']['lines'][$no] . '</span>';
 							}
 							$html .= '<tr>';
-							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$html .= '<th>' . $fromLine . '</th>';
+							$html .= '<td class="Left"><span>' . $line . '</span>&nbsp;</td>';
 							$toLine = $change['changed']['offset'] + $no + 1;
-							$html .= '<th>'.$toLine.'</th>';
-							$html .= '<td class="Right">'.$changedLine.'</td>';
+							$html .= '<th>' . $toLine . '</th>';
+							$html .= '<td class="Right">' . $changedLine . '</td>';
 							$html .= '</tr>';
 						}
 					}

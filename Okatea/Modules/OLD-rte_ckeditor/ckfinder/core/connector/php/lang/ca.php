@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Catalan language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Catalan language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'No ha estat possible completar la solicitut. (Error %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Ordre incorrecte.',
 		'11' => 'El tipus de recurs no ha estat especificat a la solicitut.',
 		'12' => 'El tipus de recurs solicitat no és vàlid.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Ha fallat el moure el(s) fitxer(s).',
 		'301' => 'Ha fallat el copiar el(s) fitxer(s).',
 		'500' => 'El navegador de fitxers està deshabilitat per raons de seguretat. Si us plau, contacti amb l\'administrador del sistema i comprovi el fitxer de configuració de CKFinder.',
-		'501' => 'El suport per a icones està deshabilitat.',
+		'501' => 'El suport per a icones està deshabilitat.'
 	)
 );

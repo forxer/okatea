@@ -1,4 +1,5 @@
-<html><body>
+<html>
+<body>
 <?
 require_once ("recaptchalib.php");
 
@@ -14,4 +15,5 @@ The Mailhide version of example@example.com is
 The url for the email is:
 <? echo recaptcha_mailhide_url ($mailhide_pubkey, $mailhide_privkey, "example@example.com"); ?> <br>
 
-</body></html>
+</body>
+</html>

@@ -2,29 +2,30 @@
 
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- mod_images_sets -->
 	<action id="mod_images_sets" label="Create table %s" string="{{PREFIX}}mod_images_sets">
-		<test eq="neq" value="{{PREFIX}}mod_images_sets" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_images_sets">SHOW TABLES LIKE '{{PREFIX}}mod_images_sets'</test>
+		<test eq="neq" value="{{PREFIX}}mod_images_sets" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_images_sets">SHOW TABLES LIKE '{{PREFIX}}mod_images_sets'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_images_sets` (
-			`id` 				SERIAL,
+		`id` SERIAL,
 
-			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
+		`title` VARCHAR(255) NOT NULL DEFAULT '',
 
-			`number` 			TINYINT 		UNSIGNED		NOT NULL,
-			`width` 			INT 			UNSIGNED		NOT NULL,
-			`height` 			INT 			UNSIGNED		NOT NULL,
+		`number` TINYINT UNSIGNED NOT NULL,
+		`width` INT UNSIGNED NOT NULL,
+		`height` INT UNSIGNED NOT NULL,
 
-			`resize_type` 		TINYINT(1)		UNSIGNED		NOT NULL,
+		`resize_type` TINYINT(1) UNSIGNED NOT NULL,
 
-			`images` 			TEXT		 				NULL,
-			`tpl` 				VARCHAR(255) 				NULL,
+		`images` TEXT NULL,
+		`tpl` VARCHAR(255) NULL,
 
-			PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE
+		utf8_general_ci ;
 	</action>
 
 </database>

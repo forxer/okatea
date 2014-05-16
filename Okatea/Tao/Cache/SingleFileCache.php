@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Cache;
 
 use Doctrine\Common\Cache\CacheProvider;
@@ -15,12 +14,15 @@ use Doctrine\Common\Cache\CacheProvider;
  */
 class SingleFileCache extends CacheProvider
 {
+
 	/**
+	 *
 	 * @var string $file
 	 */
 	protected $file;
 
 	/**
+	 *
 	 * @var array $data
 	 */
 	protected $data = null;
@@ -28,19 +30,21 @@ class SingleFileCache extends CacheProvider
 	/**
 	 * Construct the file cache
 	 *
-	 * @param string $file - the location where the cache file will be stored
-	 * @param array $aData
+	 * @param string $file
+	 *        	- the location where the cache file will be stored
+	 * @param array $aData        	
 	 */
-	public function __construct($file, $aData=array())
+	public function __construct($file, $aData = array())
 	{
 		$this->file = $file;
-
-		if (!file_exists($this->file))
+		
+		if (! file_exists($this->file))
 		{
 			$this->data = $aData;
 			$this->writeData();
 		}
-		else {
+		else
+		{
 			$this->data = $this->loadData(true);
 		}
 	}
@@ -48,20 +52,22 @@ class SingleFileCache extends CacheProvider
 	/**
 	 * Load file data
 	 *
-	 * @param boolean $bForce
+	 * @param boolean $bForce        	
 	 * @return array
 	 */
-	protected function loadData($bForce=false)
+	protected function loadData($bForce = false)
 	{
-		if (is_array($this->data) && !$bForce) {
+		if (is_array($this->data) && ! $bForce)
+		{
 			return $this->data;
 		}
-
-		if (($json = file_get_contents($this->file)) === false) {
+		
+		if (($json = file_get_contents($this->file)) === false)
+		{
 			return null;
 		}
-
-		return json_decode($json,true);
+		
+		return json_decode($json, true);
 	}
 
 	/**
@@ -75,7 +81,9 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	public function getIds()
 	{
@@ -83,19 +91,24 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doFetch($id)
 	{
-		if (isset($this->data[$id])) {
+		if (isset($this->data[$id]))
+		{
 			return $this->data[$id];
 		}
-
+		
 		return false;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doContains($id)
 	{
@@ -103,41 +116,49 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doSave($id, $data, $lifeTime = 0)
 	{
 		$this->data[$id] = $data;
-
+		
 		$this->writeData();
-
+		
 		return true;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doDelete($id)
 	{
 		unset($this->data[$id]);
-
+		
 		$this->writeData();
-
+		
 		return true;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doFlush()
 	{
 		$this->data = array();
-
+		
 		return true;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 *
+	 * @ERROR!!!
+	 *
 	 */
 	protected function doGetStats()
 	{

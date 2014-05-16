@@ -2,21 +2,26 @@
 
 <database>
 
-	<action id="truncate_mod_users_fields" label="Truncate table %s" string="{{PREFIX}}mod_users_fields">
-		<test eq="eq" value="{{PREFIX}}mod_users_fields" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_users_fields">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields'</test>
+	<action id="truncate_mod_users_fields" label="Truncate table %s"
+		string="{{PREFIX}}mod_users_fields">
+		<test eq="eq" value="{{PREFIX}}mod_users_fields" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_users_fields">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields'</test>
 		TRUNCATE TABLE `{{PREFIX}}mod_users_fields`
 	</action>
 
-	<action id="truncate_mod_users_fields_locales" label="Truncate table %s" string="{{PREFIX}}mod_users_fields_locales">
-		<test eq="eq" value="{{PREFIX}}mod_users_fields_locales" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_users_fields_locales">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields_locales'</test>
+	<action id="truncate_mod_users_fields_locales" label="Truncate table %s"
+		string="{{PREFIX}}mod_users_fields_locales">
+		<test eq="eq" value="{{PREFIX}}mod_users_fields_locales" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_users_fields_locales">SHOW TABLES LIKE
+			'{{PREFIX}}mod_users_fields_locales'</test>
 		TRUNCATE TABLE `{{PREFIX}}mod_users_fields_locales`
 	</action>
 
-	<action id="truncate_mod_users_fields_values" label="Truncate table %s" string="{{PREFIX}}mod_users_fields_values">
-		<test eq="eq" value="{{PREFIX}}mod_users_fields_values" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_users_fields_values">SHOW TABLES LIKE '{{PREFIX}}mod_users_fields_values'</test>
+	<action id="truncate_mod_users_fields_values" label="Truncate table %s"
+		string="{{PREFIX}}mod_users_fields_values">
+		<test eq="eq" value="{{PREFIX}}mod_users_fields_values" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_users_fields_values">SHOW TABLES LIKE
+			'{{PREFIX}}mod_users_fields_values'</test>
 		TRUNCATE TABLE `{{PREFIX}}mod_users_fields_values`
 	</action>
 

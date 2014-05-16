@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Esperanto language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Esperanto language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Ne eblis plenumi la peton. (Eraro %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Nevalida komando.',
 		'11' => 'La risurctipo ne estas indikita en la komando.',
 		'12' => 'La risurctipo ne estas valida.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'La movo de la dosieroj malsukcesis.',
 		'301' => 'La kopio de la dosieroj malsukcesis.',
 		'500' => 'La dosieradministra sistemo estas malvalidigita. Kontaktu vian administranton kaj kontrolu la agordodosieron de CKFinder.',
-		'501' => 'La eblo de miniaturoj estas malvalidigita.',
+		'501' => 'La eblo de miniaturoj estas malvalidigita.'
 	)
 );

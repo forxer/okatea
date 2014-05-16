@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Admin\Controller;
 
 use ArrayObject;
@@ -15,6 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Home extends Controller
 {
+
 	protected $sNewVersion;
 
 	protected $aRoundAboutItems;
@@ -26,32 +26,33 @@ class Home extends Controller
 	public function homePage()
 	{
 		$this->roundAbout();
-
+		
 		$this->konami();
-
+		
 		$this->newsFeed();
-
+		
 		$this->updateNotification();
-
-		if ($this->okt->options->get('debug')) {
+		
+		if ($this->okt->options->get('debug'))
+		{
 			$this->page->warnings->set(__('c_a_public_debug_mode_enabled'));
 		}
-
+		
 		return $this->render('Home', array(
-			'sNewVersion' 		=> $this->sNewVersion,
-			'bFeedSuccess' 		=> $this->bFeedSuccess,
-			'feed' 				=> $this->feed,
-			'aRoundAboutItems' 	=> (array)$this->aRoundAboutItems
+			'sNewVersion' => $this->sNewVersion,
+			'bFeedSuccess' => $this->bFeedSuccess,
+			'feed' => $this->feed,
+			'aRoundAboutItems' => (array) $this->aRoundAboutItems
 		));
 	}
 
 	protected function roundAbout()
 	{
-		$aRoundAboutOptions 				= new ArrayObject();
-		$aRoundAboutOptions['tilt'] 		= 4;
-		$aRoundAboutOptions['easing'] 	= 'easeOutElastic';
-		$aRoundAboutOptions['duration'] 	= 1400;
-
+		$aRoundAboutOptions = new ArrayObject();
+		$aRoundAboutOptions['tilt'] = 4;
+		$aRoundAboutOptions['easing'] = 'easeOutElastic';
+		$aRoundAboutOptions['duration'] = 1400;
+		
 		$this->page->css->addCss('
 			#roundabout img {
 				display: block;
@@ -80,32 +81,26 @@ class Home extends Controller
 				cursor: auto;
 			}
 		');
-
+		
 		# -- CORE TRIGGER : adminIndexRoundaboutOptions
 		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $aRoundAboutOptions);
-
-		$this->page->roundabout((array)$aRoundAboutOptions, '#roundabout');
-
+		
+		$this->page->roundabout((array) $aRoundAboutOptions, '#roundabout');
+		
 		# RoundAbout defaults Items
 		$this->aRoundAboutItems = new ArrayObject();
-
+		
 		$sRoundAboutItemFormat = '<a href="%2$s">%3$s<span>%1$s</span></a>';
-
+		
 		foreach ($this->page->mainMenu->getItems() as $item)
 		{
-			$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, $item['title'], $item['url'],
-				($item['icon'] ? '<img src="'.$item['icon'].'" alt="" />' : ''));
+			$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, $item['title'], $item['url'], ($item['icon'] ? '<img src="' . $item['icon'] . '" alt="" />' : ''));
 		}
-
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'),
-			$this->okt->adminRouter->generate('User_profile'),
-			'<img src="'.$this->okt->options->public_url.'/img/admin/contact-new.png" alt="" />');
-
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'),
-			$this->okt->adminRouter->generate('logout'),
-			'<img src="'.$this->okt->options->public_url.'/img/admin/system-log-out.png" alt="" />');
-
-
+		
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), $this->okt->adminRouter->generate('User_profile'), '<img src="' . $this->okt->options->public_url . '/img/admin/contact-new.png" alt="" />');
+		
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt->adminRouter->generate('logout'), '<img src="' . $this->okt->options->public_url . '/img/admin/system-log-out.png" alt="" />');
+		
 		# -- CORE TRIGGER : adminIndexaRoundAboutItems
 		$this->okt->triggers->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);
 	}
@@ -127,29 +122,30 @@ class Home extends Controller
 
 	protected function newsFeed()
 	{
-		if (!$this->okt->config->news_feed['enabled'] || empty($this->okt->config->news_feed['url'][$this->okt->user->language])) {
+		if (! $this->okt->config->news_feed['enabled'] || empty($this->okt->config->news_feed['url'][$this->okt->user->language]))
+		{
 			return null;
 		}
-
+		
 		// We'll process this feed with all of the default options.
 		$this->feed = new \SimplePie();
-
+		
 		# set cache directory
-		$sCacheDir = $this->okt->options->get('cache_dir').'/feeds/';
-
+		$sCacheDir = $this->okt->options->get('cache_dir') . '/feeds/';
+		
 		(new Filesystem())->mkdir($sCacheDir);
-
+		
 		$this->feed->set_cache_location($sCacheDir);
-
+		
 		// Set which feed to process.
 		$this->feed->set_feed_url($this->okt->config->news_feed['url'][$this->okt->user->language]);
-
+		
 		// Run SimplePie.
 		$this->bFeedSuccess = $this->feed->init();
-
+		
 		// This makes sure that the content is sent to the browser as text/html and the UTF-8 character set (since we didn't change it).
 		$this->feed->handle_content_type();
-
+		
 		$this->page->css->addCss('
 			#news_feed_list {
 				height: 13em;
@@ -181,11 +177,12 @@ class Home extends Controller
 	{
 		if ($this->okt->config->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
 		{
-			$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir').'/versions');
+			$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
-
-			if ($updater->getNotify() && $this->sNewVersion) {
-				$this->okt->l10n->loadFile($this->okt->options->locales_dir.'/%s/admin/update');
+			
+			if ($updater->getNotify() && $this->sNewVersion)
+			{
+				$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/update');
 			}
 		}
 	}

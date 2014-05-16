@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Bulgarian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Bulgarian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Не е възможно да се извърши заявката. (ГРЕШКА %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Невалидна команда.',
 		'11' => 'Типът на ресурса не е определен в заявката.',
 		'12' => 'Заявеният тип на ресурса не е намерен.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Преместването на файловете пропадна.',
 		'301' => 'Копирането на файловете пропадна.',
 		'500' => 'Файловият браузър е изключен заради проблеми със сигурността. Моля свържете се с Вашия системен администратор и проверете конфигурацията.',
-		'501' => 'Поддръжката за миниатюри е изключена.',
+		'501' => 'Поддръжката за миниатюри е изключена.'
 	)
 );

@@ -3,8 +3,8 @@
 <database>
 
 	<action id="drop_mod_media" label="Drop table %s" string="{{PREFIX}}mod_media">
-		<test eq="eq" value="{{PREFIX}}mod_media" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_media">SHOW TABLES LIKE '{{PREFIX}}mod_media'</test>
+		<test eq="eq" value="{{PREFIX}}mod_media" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_media">SHOW TABLES LIKE '{{PREFIX}}mod_media'</test>
 		DROP TABLE IF EXISTS `{{PREFIX}}mod_media`
 	</action>
 

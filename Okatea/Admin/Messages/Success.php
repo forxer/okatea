@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Admin\Messages;
 
 use Okatea\Tao\Html\Stack;
@@ -14,14 +13,14 @@ use Okatea\Tao\Html\Stack;
  * Pile de messages de succès pour l'administration.
  *
  * @addtogroup Okatea
- *
  */
 class Success extends Stack
 {
+
 	/**
 	 * Ajoute un message à la pile de messages.
 	 *
-	 * @param $msg string
+	 * @param $msg string        	
 	 * @return void
 	 */
 	public function set($msg)
@@ -32,12 +31,12 @@ class Success extends Stack
 	/**
 	 * Formate et retourne les messages présents dans la pile.
 	 *
-	 * @param $format string
+	 * @param $format string        	
 	 * @return string
 	 */
-	public function getSuccess($format='<div class="success_box">%s</div>')
+	public function getSuccess($format = '<div class="success_box">%s</div>')
 	{
-		return $this->hasSuccess() ? sprintf($format,parent::getHTML()) : null;
+		return $this->hasSuccess() ? sprintf($format, parent::getHTML()) : null;
 	}
 
 	/**

@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Install\Controller;
 
 use DirectoryIterator;
@@ -15,24 +14,25 @@ use Okatea\Tao\Html\Checklister;
 
 class Database extends Controller
 {
+
 	public function page()
 	{
 		$db = $this->okt->getDb();
-
+		
 		$oChecklist = new Checklister();
-
-		foreach (new DirectoryIterator($this->okt->options->get('okt_dir').'/Install/SqlSchema/') as $oFileInfo)
+		
+		foreach (new DirectoryIterator($this->okt->options->get('okt_dir') . '/Install/SqlSchema/') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
+			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml')
+			{
 				continue;
 			}
-
+			
 			$xsql = new XmlSql($db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->session->get('okt_install_process_type'));
-			$xsql->replace('{{PREFIX}}',$db->prefix);
+			$xsql->replace('{{PREFIX}}', $db->prefix);
 			$xsql->execute();
 		}
-
-
+		
 		return $this->render('Database', [
 			'oChecklist' => $oChecklist
 		]);

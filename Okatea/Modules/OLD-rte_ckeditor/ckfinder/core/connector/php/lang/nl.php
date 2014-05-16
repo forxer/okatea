@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Dutch language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Dutch language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Het was niet mogelijk om deze actie uit te voeren. (Fout %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Ongeldig commando.',
 		'11' => 'Het bestandstype komt niet voor in de aanvraag.',
 		'12' => 'Het gevraagde brontype is niet geldig.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Bestand(en) verplaatsen is mislukt.',
 		'301' => 'Bestand(en) kopiëren is mislukt.',
 		'500' => 'Het uploaden van een bestand is momenteel niet mogelijk. Contacteer de beheerder en controleer het CKFinder configuratiebestand.',
-		'501' => 'De ondersteuning voor miniatuurafbeeldingen is uitgeschakeld.',
+		'501' => 'De ondersteuning voor miniatuurafbeeldingen is uitgeschakeld.'
 	)
 );

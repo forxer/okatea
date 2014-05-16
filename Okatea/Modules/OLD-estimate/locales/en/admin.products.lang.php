@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_products'] = 'Products';
 
 $GLOBALS['okt_l10n']['m_estimate_product_added'] = 'The product has been added.';

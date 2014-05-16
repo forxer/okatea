@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- core_languages -->
 	<action id="core_languages" label="Create table %s" string="{{PREFIX}}core_languages">
 
-		<test eq="neq" value="{{PREFIX}}core_languages" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}core_languages">SHOW TABLES LIKE '{{PREFIX}}core_languages'</test>
+		<test eq="neq" value="{{PREFIX}}core_languages" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}core_languages">SHOW TABLES LIKE '{{PREFIX}}core_languages'</test>
 
 		CREATE TABLE `{{PREFIX}}core_languages` (
-			`id` 			SERIAL,
-			`title` 		VARCHAR(255) 				NOT NULL 	DEFAULT '',
-			`code` 			VARCHAR(10) 				NOT NULL 	DEFAULT '',
-			`img` 			VARCHAR(20) 				NOT NULL 	DEFAULT '',
-			`active` 		TINYINT(1) 		UNSIGNED	NOT NULL 	DEFAULT 0,
-			`ord` 			INT(10) 		UNSIGNED	NOT NULL 	DEFAULT 0,
+		`id` SERIAL,
+		`title` VARCHAR(255) NOT NULL DEFAULT '',
+		`code` VARCHAR(10) NOT NULL DEFAULT '',
+		`img` VARCHAR(20) NOT NULL DEFAULT '',
+		`active` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+		`ord` INT(10) UNSIGNED NOT NULL DEFAULT 0,
 
-			PRIMARY KEY (`id`),
-			INDEX `{{PREFIX}}core_languages_active_idx` (`active`),
-			INDEX `{{PREFIX}}core_languages_ord_idx` (`ord`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		INDEX `{{PREFIX}}core_languages_active_idx` (`active`),
+		INDEX `{{PREFIX}}core_languages_ord_idx` (`ord`)
+		) ENGINE=MyISAM DEFAULT
+		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- default core_languages -->
-	<action id="firstlanguages" label="Creation des premieres langues" process="install">
+	<action id="firstlanguages" label="Creation des premieres langues"
+		process="install">
 		INSERT INTO `{{PREFIX}}core_languages`
-			(`id`, `title`, `code`, `img`, `active`, `ord`)
+		(`id`, `title`, `code`, `img`, `active`, `ord`)
 		VALUES
-			(1, 'Français', 'fr', 'fr.png', 1, 1),
-			(2, 'English', 'en', 'en.png', 0, 2) ;
+		(1, 'Français', 'fr', 'fr.png', 1, 1),
+		(2, 'English', 'en', 'en.png', 0, 2) ;
 	</action>
 
 
-<!-- UPDATE -->
+	<!-- UPDATE -->
 
 
 </database>

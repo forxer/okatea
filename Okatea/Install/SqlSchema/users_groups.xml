@@ -2,66 +2,89 @@
 
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- core_users_groups -->
-	<action id="core_users_groups" label="Create table %s" string="{{PREFIX}}core_users_groups">
+	<action id="core_users_groups" label="Create table %s"
+		string="{{PREFIX}}core_users_groups">
 
-		<test eq="neq" value="{{PREFIX}}core_users_groups" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}core_users_groups">SHOW TABLES LIKE '{{PREFIX}}core_users_groups'</test>
+		<test eq="neq" value="{{PREFIX}}core_users_groups" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}core_users_groups">SHOW TABLES LIKE '{{PREFIX}}core_users_groups'</test>
 
 		CREATE TABLE `{{PREFIX}}core_users_groups` (
-			`group_id` 			SERIAL,
-			`perms` 			TEXT 					NULL,
+		`group_id` SERIAL,
+		`perms` TEXT NULL,
 
-			PRIMARY KEY (`group_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`group_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE
+		utf8_general_ci ;
 	</action>
 
 	<!-- core_users_groups_locales -->
-	<action id="core_users_groups_locales" label="Create table %s" string="{{PREFIX}}core_users_groups_locales">
-		<test eq="neq" value="{{PREFIX}}core_users_groups_locales" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}core_users_groups_locales">SHOW TABLES LIKE '{{PREFIX}}core_users_groups_locales'</test>
+	<action id="core_users_groups_locales" label="Create table %s"
+		string="{{PREFIX}}core_users_groups_locales">
+		<test eq="neq" value="{{PREFIX}}core_users_groups_locales" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}core_users_groups_locales">SHOW TABLES LIKE
+			'{{PREFIX}}core_users_groups_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}core_users_groups_locales` (
-			`group_id` 			BIGINT(20) 		UNSIGNED	NOT NULL,
-			`language` 			CHAR(5) 					NOT NULL,
+		`group_id` BIGINT(20) UNSIGNED NOT NULL,
+		`language` CHAR(5) NOT NULL,
 
-			`title` 			VARCHAR(255) 				NOT NULL DEFAULT '',
-			`description` 		TEXT 						NULL,
+		`title` VARCHAR(255) NOT NULL DEFAULT '',
+		`description` TEXT NULL,
 
-			PRIMARY KEY (`group_id`,`language`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`group_id`,`language`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8
+		COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- default core_users_groups -->
-	<action id="firstusersgroups" label="Creation des premiers groupes utilisateurs" process="install">
+	<action id="firstusersgroups" label="Creation des premiers groupes utilisateurs"
+		process="install">
 		INSERT INTO `{{PREFIX}}core_users_groups`
-			(`group_id`, `perms`)
+		(`group_id`, `perms`)
 		VALUES
-			(1, NULL),
-			(2, '["usage","configsite"]'),
-			(3, NULL),
-			(4, NULL)
+		(1, NULL),
+		(2, '["usage","configsite"]'),
+		(3, NULL),
+		(4, NULL)
 		;
 	</action>
 
-	<action id="firstusersgroupslocales" label="Creation des locales des premiers groupes utilisateurs" process="install">
+	<action id="firstusersgroupslocales"
+		label="Creation des locales des premiers groupes utilisateurs"
+		process="install">
 		INSERT INTO `{{PREFIX}}core_users_groups_locales`
-			(`group_id`, `language`, `title`, `description`)
+		(`group_id`, `language`, `title`, `description`)
 		VALUES
-			(1, 'fr', 'Super-administrateur', 'Les utilisateurs du groupe Super-administrateur ont toutes les permissions, ceci ne peut être changé.'),
-			(1, 'en', 'Super-administrator', 'Users of Super-administrator group have all the permissions, this can not be changed.'),
-			(2, 'fr', 'Administrateur', 'Le groupe Administrateur est conçu pour donner un accès limité à l\'administration. Utile par exemple pour laisser d\'autres personnes administrer le site ou simplement avoir une interface épurée pour la gestion au quotidien.'),
-			(2, 'en', 'Administrator', 'Administrator group is designed to give limited access to the administration. Useful for example to let other people administer the site or just having a clean interface for managing everyday.'),
-			(3, 'fr', 'Invité', 'Le groupe Invité est requis pour les internautes qui ne sont pas identifiés. Typiquement ce sont les visiteurs anonymes. Ce groupe ne peut avoir aucune permissions.'),
-			(3, 'en', 'Guest', 'The Guest group is required for users who are not identified. Typically these are anonymous visitors. This group may have no permissions.'),
-			(4, 'fr', 'Membre', 'Le groupe Membre est le groupe par défaut des utilisateurs identifiés.'),
-			(4, 'en', 'Member', 'The Member group is the default group of identified users.')
+		(1, 'fr', 'Super-administrateur', 'Les utilisateurs du groupe
+		Super-administrateur ont toutes les permissions, ceci ne peut être
+		changé.'),
+		(1, 'en', 'Super-administrator', 'Users of Super-administrator group have
+		all the permissions, this can not be changed.'),
+		(2, 'fr', 'Administrateur', 'Le groupe Administrateur est conçu pour
+		donner un accès limité à l\'administration. Utile par exemple pour
+		laisser d\'autres personnes administrer le site ou simplement avoir
+		une interface épurée pour la gestion au quotidien.'),
+		(2, 'en', 'Administrator', 'Administrator group is designed to give
+		limited access to the administration. Useful for example to let other
+		people administer the site or just having a clean interface for
+		managing everyday.'),
+		(3, 'fr', 'Invité', 'Le groupe Invité est requis pour les internautes qui
+		ne sont pas identifiés. Typiquement ce sont les visiteurs anonymes. Ce
+		groupe ne peut avoir aucune permissions.'),
+		(3, 'en', 'Guest', 'The Guest group is required for users who are not
+		identified. Typically these are anonymous visitors. This group may
+		have no permissions.'),
+		(4, 'fr', 'Membre', 'Le groupe Membre est le groupe par défaut des
+		utilisateurs identifiés.'),
+		(4, 'en', 'Member', 'The Member group is the default group of identified
+		users.')
 		;
 	</action>
 
 
-<!-- UPDATE -->
+	<!-- UPDATE -->
 
 </database>

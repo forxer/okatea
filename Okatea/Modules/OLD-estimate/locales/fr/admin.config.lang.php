@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_estimate_configuration'] = 'Configuration';
 $GLOBALS['okt_l10n']['m_estimate_config_tab_general'] = 'Générale';
 

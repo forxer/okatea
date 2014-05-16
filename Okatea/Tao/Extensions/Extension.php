@@ -5,37 +5,42 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Extensions;
 
 class Extension
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
+	 * 
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * The errors manager instance.
+	 * 
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le chemin du répertoire des extensions
+	 * 
 	 * @var string
 	 */
 	protected $sExtensionsPath;
 
 	/**
 	 * Les informations concernant l'extension
+	 * 
 	 * @var array
 	 */
 	protected $infos;
@@ -43,8 +48,10 @@ class Extension
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt Okatea application instance.
-	 * @param string $sExtensionsPath Le chemin du répertoire des extensions.
+	 * @param object $okt
+	 *        	Okatea application instance.
+	 * @param string $sExtensionsPath
+	 *        	Le chemin du répertoire des extensions.
 	 * @return void
 	 */
 	public function __construct($okt, $sExtensionsPath)
@@ -52,19 +59,19 @@ class Extension
 		$this->okt = $okt;
 		$this->db = $okt->db;
 		$this->error = $okt->error;
-
+		
 		$this->sExtensionsPath = $sExtensionsPath;
-
+		
 		$this->infos = array(
-			'id'			=> null,
-			'root'			=> null,
-			'name'			=> null,
-			'version'		=> null,
-			'desc'			=> null,
-			'author'		=> null,
-			'status'		=> null,
-			'priority'		=> 1000,
-			'updatable'		=> true
+			'id' => null,
+			'root' => null,
+			'name' => null,
+			'version' => null,
+			'desc' => null,
+			'author' => null,
+			'status' => null,
+			'priority' => 1000,
+			'updatable' => true
 		);
 	}
 
@@ -81,23 +88,24 @@ class Extension
 	/**
 	 * Retourne une information de l'extension.
 	 *
-	 * @param string $sKey
+	 * @param string $sKey        	
 	 * @return mixed
 	 */
 	public function getInfo($sKey)
 	{
-		if (isset($this->infos[$sKey])) {
+		if (isset($this->infos[$sKey]))
+		{
 			return $this->infos[$sKey];
 		}
-
+		
 		return null;
 	}
 
 	/**
 	 * Définit une information donnée d'une extension
 	 *
-	 * @param string $sKey
-	 * @param mixed $mValue
+	 * @param string $sKey        	
+	 * @param mixed $mValue        	
 	 * @return void
 	 */
 	public function setInfo($sKey, $mValue)
@@ -108,12 +116,13 @@ class Extension
 	/**
 	 * Définit les informations d'une extension
 	 *
-	 * @param array $aInfos
+	 * @param array $aInfos        	
 	 * @return void
 	 */
 	public function setInfos(array $aInfos = array())
 	{
-		foreach ($aInfos as $sKey => $mValue) {
+		foreach ($aInfos as $sKey => $mValue)
+		{
 			$this->setInfo($sKey, $mValue);
 		}
 	}
@@ -125,14 +134,14 @@ class Extension
 	 */
 	public function setInfosFromDefineFile()
 	{
-		$define = $this->sExtensionsPath.'/'.$this->id().'/_define.php';
-
+		$define = $this->sExtensionsPath . '/' . $this->id() . '/_define.php';
+		
 		if (file_exists($define))
 		{
 			$aInfos = require $define;
-
+			
 			$this->setInfos($aInfos);
-			$this->setInfo('root', $this->sExtensionsPath.'/'.$this->id());
+			$this->setInfo('root', $this->sExtensionsPath . '/' . $this->id());
 		}
 	}
 
@@ -142,43 +151,45 @@ class Extension
 	 *
 	 * Cette méthode reçoit en argument un tableau de paramètres,
 	 * les paramètres possibles sont les suivants :
-	 * 	- name 		Le nom de l'extension
-	 * 	- desc 		La description de l'extension
-	 * 	- version 	Le numero de version de l'extension
-	 * 	- author 	L'auteur de l'extension ('')
-	 * 	- priority 	Priorité de l'extension (1000)
-	 * 	- updatable	Blocage de mise à jour (true)
+	 * - name Le nom de l'extension
+	 * - desc La description de l'extension
+	 * - version Le numero de version de l'extension
+	 * - author L'auteur de l'extension ('')
+	 * - priority Priorité de l'extension (1000)
+	 * - updatable	Blocage de mise à jour (true)
 	 *
-	 * @param array $aParams 			Le tableau de paramètres
+	 * @param array $aParams
+	 *        	Le tableau de paramètres
 	 * @return void
 	 */
 	public function register(array $aParams = array())
 	{
 		$this->setInfos(array(
-			'root'			=> $this->sExtensionsPath.'/'.$this->id(),
-			'name' 			=> (!empty($aParams['name']) 		? $aParams['name'] 					: $this->id),
-			'desc' 			=> (!empty($aParams['desc']) 		? $aParams['desc'] 					: null),
-			'version' 		=> (!empty($aParams['version']) 	? $aParams['version'] 				: null),
-			'author' 		=> (!empty($aParams['author']) 		? $aParams['author'] 				: null),
-			'priority' 		=> (!empty($aParams['priority']) 	? (integer)$aParams['priority'] 	: 1000),
-			'updatable' 	=> (!empty($aParams['updatable']) 	? (boolean)$aParams['updatable'] 	: true)
+			'root' => $this->sExtensionsPath . '/' . $this->id(),
+			'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->id),
+			'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
+			'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
+			'author' => (! empty($aParams['author']) ? $aParams['author'] : null),
+			'priority' => (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
+			'updatable' => (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
 		));
 	}
 
 	public function init()
 	{
-		$this->okt->l10n->loadFile($this->root().'/Locales/%s/main');
-
+		$this->okt->l10n->loadFile($this->root() . '/Locales/%s/main');
+		
 		$this->prepend();
 	}
 
 	public function initNs($ns)
 	{
-		if ($ns === 'admin') {
-			$this->okt->l10n->loadFile($this->root().'/Locales/%s/admin');
+		if ($ns === 'admin')
+		{
+			$this->okt->l10n->loadFile($this->root() . '/Locales/%s/admin');
 		}
-
-		$this->{'prepend_'.$ns}();
+		
+		$this->{'prepend_' . $ns}();
 	}
 
 	protected function prepend()
@@ -273,7 +284,7 @@ class Extension
 	 */
 	final public function isEnabled()
 	{
-		return (boolean)$this->getInfo('status');
+		return (boolean) $this->getInfo('status');
 	}
 
 	/**

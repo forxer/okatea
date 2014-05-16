@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Chinese (Taiwan) language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Chinese (Taiwan) language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => '無法連接到伺服器 ! (錯誤代碼 %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => '不合法的指令.',
 		'11' => '連接過程中 , 未指定資源形態 !',
 		'12' => '連接過程中出現不合法的資源形態 !',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Moving file(s) failed.',
 		'301' => 'Copying file(s) failed.',
 		'500' => '因為安全因素 , 檔案瀏覽器已被停用 ! 請聯絡您的系統管理者並檢查 CKFinder 的設定檔 config.php !',
-		'501' => '縮圖預覽功能已被停用 !',
+		'501' => '縮圖預覽功能已被停用 !'
 	)
 );

@@ -6,31 +6,40 @@
 
 /* Liste des partenaires
 ----------------------------------------------------------*/
-
 #partners_list {
-	/*margin-left:34px;*/ /*Décommenter pour gérer l'alignement dans la page*/
+	/*margin-left:34px;*/
+	/*Décommenter pour gérer l'alignement dans la page*/
+	
 }
-	.partner {
-		margin:20px;
-		/*float:left;
-		width:150px; */ /* Décommenter pour gérer l'affichage de plusieurs partenaires sur une seule ligne (5 par défaut lorsque le margin est à 10) */
-		min-height:150px;
-	}
-	.logo {
-		float:left;
-		margin:0;
-		margin-right:20px;
-		clear:left;
-		min-width:150px;
-		/*min-height:90px; */ /* Utile lorsqu'il y a plusieurs logos sur une seule ligne */
-	}
-	.partner-name {
-		/* text-align:center; */  /* Utile lorsqu'il y a plusieurs logos sur une seule ligne */
-	}
-	.partner-description {
-		margin-left:170px;
-	}
-	.partner-url {
-		line-height:2;
-	}
 
+.partner {
+	margin: 20px;
+	/*float:left;
+		width:150px; */
+	/* Décommenter pour gérer l'affichage de plusieurs partenaires sur une seule ligne (5 par défaut lorsque le margin est à 10) */
+	min-height: 150px;
+}
+
+.logo {
+	float: left;
+	margin: 0;
+	margin-right: 20px;
+	clear: left;
+	min-width: 150px;
+	/*min-height:90px; */
+	/* Utile lorsqu'il y a plusieurs logos sur une seule ligne */
+}
+
+.partner-name {
+	/* text-align:center; */
+	/* Utile lorsqu'il y a plusieurs logos sur une seule ligne */
+	
+}
+
+.partner-description {
+	margin-left: 170px;
+}
+
+.partner-url {
+	line-height: 2;
+}

@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Hungarian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Hungarian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'A parancsot nem sikerült végrehajtani. (Hiba: %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Érvénytelen parancs.',
 		'11' => 'A fájl típusa nem lett a kérés során beállítva.',
 		'12' => 'A kívánt fájl típus érvénytelen.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Moving file(s) failed.',
 		'301' => 'Copying file(s) failed.',
 		'500' => 'A fájl-tallózó biztonsági okok miatt nincs engedélyezve. Kérjük vegye fel a kapcsolatot a rendszer üzemeltetőjével és ellenőrizze a CKFinder konfigurációs fájlt.',
-		'501' => 'A bélyegkép támogatás nincs engedélyezve.',
+		'501' => 'A bélyegkép támogatás nincs engedélyezve.'
 	)
 );

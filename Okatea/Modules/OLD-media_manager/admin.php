@@ -6,25 +6,29 @@
  */
 
 # Accès direct interdit
-if (!defined('ON_MODULE')) die;
-
-
-# title tag
+if (! defined('ON_MODULE'))
+	die();
+	
+	# title tag
 $okt->page->addTitleTag(__('Media manager'));
 
 # fil d'ariane
-$okt->page->addAriane(__('Media manager'),'module.php?m=media_manager');
+$okt->page->addAriane(__('Media manager'), 'module.php?m=media_manager');
 
 # inclusion du fichier requis en fonction de l'action demandée
-if ((!$okt->page->action || $okt->page->action === 'index') && ($okt->checkPerm('media') || $okt->checkPerm('media_admin'))) {
-	require __DIR__.'/admin/index.php';
+if ((! $okt->page->action || $okt->page->action === 'index') && ($okt->checkPerm('media') || $okt->checkPerm('media_admin')))
+{
+	require __DIR__ . '/admin/index.php';
 }
-elseif ($okt->page->action === 'item' && ($okt->checkPerm('media') || $okt->checkPerm('media_admin'))) {
-	require __DIR__.'/admin/item.php';
+elseif ($okt->page->action === 'item' && ($okt->checkPerm('media') || $okt->checkPerm('media_admin')))
+{
+	require __DIR__ . '/admin/item.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('media_config')) {
-	require __DIR__.'/admin/config.php';
+elseif ($okt->page->action === 'config' && $okt->checkPerm('media_config'))
+{
+	require __DIR__ . '/admin/config.php';
 }
-else {
+else
+{
 	http::redirect('index.php');
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
@@ -39,31 +40,36 @@
  * @version 1.1
  * @link http://github.com/chrisboulton/php-diff
  */
-
 namespace Okatea\Tao\Diff\Renderer;
 
 abstract class AbstractRenderer
 {
+
 	/**
+	 *
 	 * @var object Instance of the diff class that this renderer is generating the rendered diff for.
 	 */
 	public $diff;
 
 	/**
+	 *
 	 * @var array Array of the default options that apply to this renderer.
 	 */
 	protected $defaultOptions = array();
 
 	/**
+	 *
 	 * @var array Array containing the user applied and merged default options for the renderer.
 	 */
 	protected $options = array();
 
 	/**
-	 * The constructor. Instantiates the rendering engine and if options are passed,
+	 * The constructor.
+	 * Instantiates the rendering engine and if options are passed,
 	 * sets the options for the renderer.
 	 *
-	 * @param array $options Optionally, an array of the options for the renderer.
+	 * @param array $options
+	 *        	Optionally, an array of the options for the renderer.
 	 */
 	public function __construct(array $options = array())
 	{
@@ -75,7 +81,8 @@ abstract class AbstractRenderer
 	 * Options are merged with the default to ensure that there aren't any missing
 	 * options.
 	 *
-	 * @param array $options Array of options to set.
+	 * @param array $options
+	 *        	Array of options to set.
 	 */
 	public function setOptions(array $options)
 	{

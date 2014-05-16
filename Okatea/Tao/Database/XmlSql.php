@@ -9,99 +9,106 @@
  * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
  * Licensed under the GPL version 2.0 license.
  */
-
 namespace Okatea\Tao\Database;
 
 /**
  * Génération de requêtes SQL via un fichier XML
- *
  */
 class XmlSql
 {
+
 	protected $job;
+
 	protected $xml;
+
 	protected $db;
+
 	protected $_action;
+
 	protected $_current_tag_cdata;
+
 	protected $_subtable;
+
 	protected $checklist;
+
 	protected $process = null;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param mysql $db
-	 * @param string $xml
-	 * @param checkList $checklist
+	 * @param mysql $db        	
+	 * @param string $xml        	
+	 * @param checkList $checklist        	
 	 * @return void
 	 */
-	public function __construct($db, $xml, $checklist, $process=null)
+	public function __construct($db, $xml, $checklist, $process = null)
 	{
 		$this->xml = $xml;
 		$this->db = $db;
 		$this->checklist = $checklist;
 		$this->job = array();
 		$this->_current_tag_cdata = '';
-
-		if ($process !== null) {
+		
+		if ($process !== null)
+		{
 			$this->process = $process;
 		}
-
+		
 		$this->_subtable = array(
 			'test' => array(
-				'sql' 		=> null,
-				'eq' 		=> 'eq',
-				'value' 	=> null,
-				'label' 	=> null,
-				'string' 	=> null,
-				'type' 		=> 'err'
+				'sql' => null,
+				'eq' => 'eq',
+				'value' => null,
+				'label' => null,
+				'string' => null,
+				'type' => 'err'
 			),
 			'request' => array(
-				'label' 	=> null,
-				'string' 	=> null,
-				'type' 		=> null,
-				'sql' 		=> null,
-//				'process' 	=> 'install'
-			)
+				'label' => null,
+				'string' => null,
+				'type' => null,
+				'sql' => null
+			//				'process' 	=> 'install'
+			
 		);
 	}
 
 	/**
-	 *
 	 */
-	public function replace($needle,$str)
+	public function replace($needle, $str)
 	{
-		$this->xml = str_replace($needle,$str,$this->xml);
+		$this->xml = str_replace($needle, $str, $this->xml);
 	}
 
 	/**
-	 *
 	 */
 	public function execute()
 	{
 		$this->parse();
-
+		
 		$test = true;
-
+		
 		foreach ($this->job as $k => $v)
 		{
-			if ($test === null) {
+			if ($test === null)
+			{
 				$test = true;
 			}
-
-			if (!empty($v['request']['process']) && $v['request']['process'] !== $this->process) {
+			
+			if (! empty($v['request']['process']) && $v['request']['process'] !== $this->process)
+			{
 				continue;
 			}
-
+			
 			$ok = $err = '';
 			$silent = false;
-
+			
 			# Si $test n'est pas faux et qu'on a un test SQL et une action non silencieuse
 			if ($test !== false && $v['test']['sql'] !== null && $v['test']['value'] !== null && $v['request']['type'] != 'silent')
 			{
 				$req = $v['test']['sql'];
-				$err = sprintf($v['test']['label'],$v['test']['string']);
-
+				$err = sprintf($v['test']['label'], $v['test']['string']);
+				
 				if (($rs = $this->db->select($req)) === false)
 				{
 					$test = false;
@@ -109,35 +116,39 @@ class XmlSql
 				}
 				else
 				{
-					if ($v['test']['eq'] == 'neq') {
+					if ($v['test']['eq'] == 'neq')
+					{
 						$test = ($rs->f(0) != $v['test']['value']);
 					}
-					else {
+					else
+					{
 						$test = ($rs->f(0) == $v['test']['value']);
 					}
-
-					if ($test == false && $v['test']['type'] == 'wrn') {
+					
+					if ($test == false && $v['test']['type'] == 'wrn')
+					{
 						$test = null;
 					}
 				}
 			}
-
+			
 			# Si le test est passé, on tente la requête
 			if ($test === true)
 			{
-				$ok = sprintf($v['request']['label'],$v['request']['string']);
-
+				$ok = sprintf($v['request']['label'], $v['request']['string']);
+				
 				$req = $v['request']['sql'];
-
+				
 				if ($this->db->execute($req) === false)
 				{
 					$test = false;
-					$err = sprintf($v['request']['label'],$v['request']['string']).' - '.$this->db->error();
+					$err = sprintf($v['request']['label'], $v['request']['string']) . ' - ' . $this->db->error();
 				}
-				else {
+				else
+				{
 					$test = true;
 				}
-
+				
 				if ($v['request']['type'] == 'silent')
 				{
 					$silent = true;
@@ -145,103 +156,112 @@ class XmlSql
 					$ok = $err = '';
 				}
 			}
-			elseif ($err == '') {
-				$err = sprintf($v['request']['label'],$v['request']['string']);
+			elseif ($err == '')
+			{
+				$err = sprintf($v['request']['label'], $v['request']['string']);
 			}
-
-			if (!$silent) {
-				$this->checklist->addItem($k,$test,$ok,$err);
+			
+			if (! $silent)
+			{
+				$this->checklist->addItem($k, $test, $ok, $err);
 			}
 		}
-
+		
 		return $test;
 	}
 
 	/**
-	 *
 	 */
 	private function parse()
 	{
 		$parser = xml_parser_create('UTF-8');
 		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
-		xml_set_object($parser,$this);
-		xml_set_element_handler($parser,'_openTag','_closeTag');
+		xml_set_object($parser, $this);
+		xml_set_element_handler($parser, '_openTag', '_closeTag');
 		xml_set_character_data_handler($parser, '_cdata');
-		xml_parse($parser,$this->xml);
+		xml_parse($parser, $this->xml);
 		xml_parser_free($parser);
 	}
 
 	/**
-	 *
 	 */
-	private function _openTag($p,$tag,$attr)
+	private function _openTag($p, $tag, $attr)
 	{
-		if ($tag == 'action' && !empty($attr['id']))
+		if ($tag == 'action' && ! empty($attr['id']))
 		{
 			$id = $this->_action = $attr['id'];
 			$this->job[$id] = $this->_subtable;
-
-			if (!empty($attr['label'])) {
+			
+			if (! empty($attr['label']))
+			{
 				$this->job[$id]['request']['label'] = $attr['label'];
 			}
-
-			if (!empty($attr['string'])) {
+			
+			if (! empty($attr['string']))
+			{
 				$this->job[$id]['request']['string'] = $attr['string'];
 			}
-
-			if (!empty($attr['type'])) {
+			
+			if (! empty($attr['type']))
+			{
 				$this->job[$id]['request']['type'] = $attr['type'];
 			}
-
-			if (!empty($attr['process'])) {
+			
+			if (! empty($attr['process']))
+			{
 				$this->job[$id]['request']['process'] = $attr['process'];
 			}
 		}
 		elseif ($tag == 'test')
 		{
 			$id = $this->_action;
-
-			if (!empty($attr['eq'])) {
+			
+			if (! empty($attr['eq']))
+			{
 				$this->job[$id]['test']['eq'] = $attr['eq'];
 			}
-
-			if (!empty($attr['value'])) {
+			
+			if (! empty($attr['value']))
+			{
 				$this->job[$id]['test']['value'] = $attr['value'];
 			}
-
-			if (!empty($attr['label'])) {
+			
+			if (! empty($attr['label']))
+			{
 				$this->job[$id]['test']['label'] = $attr['label'];
 			}
-
-			if (!empty($attr['string'])) {
+			
+			if (! empty($attr['string']))
+			{
 				$this->job[$id]['test']['string'] = $attr['string'];
 			}
-
-			if (!empty($attr['type'])) {
+			
+			if (! empty($attr['type']))
+			{
 				$this->job[$id]['test']['type'] = $attr['type'];
 			}
 		}
 	}
 
 	/**
-	 *
 	 */
-	private function _closeTag($p,$tag)
+	private function _closeTag($p, $tag)
 	{
-		if ($tag == 'action') {
+		if ($tag == 'action')
+		{
 			$this->job[$this->_action]['request']['sql'] = trim($this->_current_tag_cdata);
 		}
-		elseif ($tag == 'test') {
+		elseif ($tag == 'test')
+		{
 			$this->job[$this->_action]['test']['sql'] = trim($this->_current_tag_cdata);
 		}
-
+		
 		$this->_current_tag_cdata = '';
 	}
 
 	/**
-	 *
 	 */
-	private function _cdata($p,$cdata)
+	private function _cdata($p, $cdata)
 	{
 		$this->_current_tag_cdata .= $cdata;
 	}

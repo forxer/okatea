@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_zip_main_title'] = 'Ajouter des éléments depuis un fichier zip';
 
 $GLOBALS['okt_l10n']['m_galleries_zip_items_title'] = 'Titre des éléments';

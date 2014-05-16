@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
 
-	<action id="truncate_mod_diary" label="Truncate table %s" string="{{PREFIX}}mod_diary">
-		<test eq="eq" value="{{PREFIX}}mod_diary" label="Table %s doesn't exists" type="wrn"
-		string="{{PREFIX}}mod_diary">SHOW TABLES LIKE '{{PREFIX}}mod_diary'</test>
+	<action id="truncate_mod_diary" label="Truncate table %s"
+		string="{{PREFIX}}mod_diary">
+		<test eq="eq" value="{{PREFIX}}mod_diary" label="Table %s doesn't exists"
+			type="wrn" string="{{PREFIX}}mod_diary">SHOW TABLES LIKE '{{PREFIX}}mod_diary'</test>
 		TRUNCATE TABLE `{{PREFIX}}mod_diary`
 	</action>
 

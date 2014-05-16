@@ -13,7 +13,7 @@
  */
 
 # inclusion d'Okatea
-require_once __DIR__.'/../../../oktInc/admin/prepend.php';
+require_once __DIR__ . '/../../../oktInc/admin/prepend.php';
 
 /**
  * This function must check the user session to be sure that he/she is
@@ -26,13 +26,14 @@ function CheckAuthentication()
 	// WARNING : DO NOT simply return "true". By doing so, you are allowing
 	// "anyone" to upload and list the files in your server. You must implement
 	// some kind of session validation here. Even something very simple as...
+	
 
 	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
+	
 
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
-
 	return $GLOBALS['okt']->checkPerm('usage');
 }
 
@@ -47,6 +48,7 @@ Do not do this on a production server. Might be helpful when debugging why CKFin
 */
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
+
 
 /*
 To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
@@ -63,7 +65,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = $okt->options->upload_url.'/ckfinder/';
+$baseUrl = $okt->options->upload_url . '/ckfinder/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -93,23 +95,25 @@ Thumbnails : thumbnails settings. All thumbnails will end up in the same
 directory, no matter the resource type.
 */
 $config['Thumbnails'] = Array(
-		'url' => $baseUrl . '_thumbs',
-		'directory' => $baseDir . '_thumbs',
-		'enabled' => true,
-		'directAccess' => false,
-		'maxWidth' => 100,
-		'maxHeight' => 100,
-		'bmpSupported' => false,
-		'quality' => 80);
+	'url' => $baseUrl . '_thumbs',
+	'directory' => $baseDir . '_thumbs',
+	'enabled' => true,
+	'directAccess' => false,
+	'maxWidth' => 100,
+	'maxHeight' => 100,
+	'bmpSupported' => false,
+	'quality' => 80
+);
 
 /*
 Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
 $config['Images'] = Array(
-		'maxWidth' => 1600,
-		'maxHeight' => 1200,
-		'quality' => 80);
+	'maxWidth' => 1600,
+	'maxHeight' => 1200,
+	'quality' => 80
+);
 
 /*
 RoleSessionVar : the session variable name that CKFinder must use to retrieve
@@ -121,6 +125,7 @@ uncommenting the following "session_start()" call.
 */
 $config['RoleSessionVar'] = 'CKFinder_UserRole';
 //session_start();
+
 
 /*
 AccessControl : used to restrict access or features to specific folders.
@@ -135,19 +140,20 @@ Subfolders inherit their default settings from their parents' definitions.
 */
 
 $config['AccessControl'][] = Array(
-		'role' => '*',
-		'resourceType' => '*',
-		'folder' => '/',
-
-		'folderView' => true,
-		'folderCreate' => true,
-		'folderRename' => true,
-		'folderDelete' => true,
-
-		'fileView' => true,
-		'fileUpload' => true,
-		'fileRename' => true,
-		'fileDelete' => true);
+	'role' => '*',
+	'resourceType' => '*',
+	'folder' => '/',
+	
+	'folderView' => true,
+	'folderCreate' => true,
+	'folderRename' => true,
+	'folderDelete' => true,
+	
+	'fileView' => true,
+	'fileUpload' => true,
+	'fileRename' => true,
+	'fileDelete' => true
+);
 
 /*
 For example, if you want to restrict the upload, rename or delete of files in
@@ -190,28 +196,31 @@ Example: 'maxSize' => "8M",
 $config['DefaultResourceTypes'] = '';
 
 $config['ResourceType'][] = Array(
-		'name' => 'Files',				// Single quotes not allowed
-		'url' => $baseUrl . 'files',
-		'directory' => $baseDir . 'files',
-		'maxSize' => 0,
-		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
-		'deniedExtensions' => '');
+	'name' => 'Files', // Single quotes not allowed
+	'url' => $baseUrl . 'files',
+	'directory' => $baseDir . 'files',
+	'maxSize' => 0,
+	'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+	'deniedExtensions' => ''
+);
 
 $config['ResourceType'][] = Array(
-		'name' => 'Images',
-		'url' => $baseUrl . 'images',
-		'directory' => $baseDir . 'images',
-		'maxSize' => 0,
-		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
-		'deniedExtensions' => '');
+	'name' => 'Images',
+	'url' => $baseUrl . 'images',
+	'directory' => $baseDir . 'images',
+	'maxSize' => 0,
+	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
+	'deniedExtensions' => ''
+);
 
 $config['ResourceType'][] = Array(
-		'name' => 'Flash',
-		'url' => $baseUrl . 'flash',
-		'directory' => $baseDir . 'flash',
-		'maxSize' => 0,
-		'allowedExtensions' => 'swf,flv',
-		'deniedExtensions' => '');
+	'name' => 'Flash',
+	'url' => $baseUrl . 'flash',
+	'directory' => $baseDir . 'flash',
+	'maxSize' => 0,
+	'allowedExtensions' => 'swf,flv',
+	'deniedExtensions' => ''
+);
 
 /*
 Due to security issues with Apache modules, it is recommended to leave the
@@ -270,21 +279,31 @@ $config['CheckSizeAfterScaling'] = true;
 For security, HTML is allowed in the first Kb of data for files having the
 following extensions only.
 */
-$config['HtmlExtensions'] = array('html', 'htm', 'xml', 'js');
+$config['HtmlExtensions'] = array(
+	'html',
+	'htm',
+	'xml',
+	'js'
+);
 
 /*
 Folders to not display in CKFinder, no matter their location.
 No paths are accepted, only the folder name.
 The * and ? wildcards are accepted.
 */
-$config['HideFolders'] = Array(".svn", "CVS");
+$config['HideFolders'] = Array(
+	".svn",
+	"CVS"
+);
 
 /*
 Files to not display in CKFinder, no matter their location.
 No paths are accepted, only the file name, including extension.
 The * and ? wildcards are accepted.
 */
-$config['HideFiles'] = Array(".*");
+$config['HideFiles'] = Array(
+	".*"
+);
 
 /*
 After file is uploaded, sometimes it is required to change its permissions
@@ -293,13 +312,13 @@ If possible, it is recommended to set more restrictive permissions, like 0755.
 Set to 0 to disable this feature.
 Note: not needed on Windows-based servers.
 */
-$config['ChmodFiles'] = 0777 ;
+$config['ChmodFiles'] = 0777;
 
 /*
 See comments above.
 Used when creating folders that does not exist.
 */
-$config['ChmodFolders'] = 0755 ;
+$config['ChmodFolders'] = 0755;
 
 /*
 Force ASCII names for files and folders.
@@ -320,7 +339,6 @@ For more complex configuration options visit our Developer's Guide
 http://docs.cksource.com/CKFinder_2.x/Developers_Guide/PHP
 */
 $config['XSendfile'] = false;
-
 
 include_once "plugins/imageresize/plugin.php";
 include_once "plugins/fileeditor/plugin.php";

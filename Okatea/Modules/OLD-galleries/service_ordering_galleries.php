@@ -5,19 +5,19 @@
  *
  */
 
-
 # inclusion du preprend public général
-require_once __DIR__.'/../../oktInc/admin/prepend.php';
+require_once __DIR__ . '/../../oktInc/admin/prepend.php';
 
-if (!$okt->checkPerm('galleries')) {
-	exit;
+if (! $okt->checkPerm('galleries'))
+{
+	exit();
 }
 
-$order = !empty($_GET['ord']) ? $_GET['ord'] : array();
+$order = ! empty($_GET['ord']) ? $_GET['ord'] : array();
 
-foreach ($order as $ord=>$id)
+foreach ($order as $ord => $id)
 {
-	$ord = ((integer) $ord)+1;
+	$ord = ((integer) $ord) + 1;
 	$okt->galleries->setGalleryPosition($id, $ord);
 }
 

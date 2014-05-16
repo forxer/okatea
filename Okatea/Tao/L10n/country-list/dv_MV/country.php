@@ -1,3 +1,5 @@
-<?php return array (
-  'MV' => 'ދިވެހި ރާއްޖެ',
+<?php
+
+return array(
+	'MV' => 'ދިވެހި ރާއްޖެ'
 );

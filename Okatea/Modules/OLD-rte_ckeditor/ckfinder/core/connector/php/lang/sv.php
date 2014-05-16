@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Swedish language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Swedish language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Begäran kunde inte utföras eftersom ett fel uppstod. (Fel %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Ogiltig begäran.',
 		'11' => 'Resursens typ var inte specificerad i förfrågan.',
 		'12' => 'Den efterfrågade resurstypen är inte giltig.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Flytt av fil(er) misslyckades.',
 		'301' => 'Kopiering av fil(er) misslyckades.',
 		'500' => 'Filhanteraren har stoppats av säkerhetsskäl. Var god kontakta administratören för att kontrollera konfigurationsfilen för CKFinder.',
-		'501' => 'Stöd för tumnaglar har stängts av.',
+		'501' => 'Stöd för tumnaglar har stängts av.'
 	)
 );

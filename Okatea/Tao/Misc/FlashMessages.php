@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Misc;
 
 //use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -13,15 +12,16 @@ use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 /**
  * La classe pour gérer les messages flash
- *
  */
 class FlashMessages extends AutoExpireFlashBag
 {
+
 	/**
 	 * Add a message type "info" to the queue.
 	 *
-	 * @param  string   $sMessage     	The message
-	 * @return  void
+	 * @param string $sMessage
+	 *        	The message
+	 * @return void
 	 */
 	public function info($sMessage)
 	{
@@ -31,8 +31,9 @@ class FlashMessages extends AutoExpireFlashBag
 	/**
 	 * Add a message type "success" to the queue.
 	 *
-	 * @param  string   $sMessage     	The message
-	 * @return  void
+	 * @param string $sMessage
+	 *        	The message
+	 * @return void
 	 */
 	public function success($sMessage)
 	{
@@ -42,8 +43,9 @@ class FlashMessages extends AutoExpireFlashBag
 	/**
 	 * Add a message type "warning" to the queue.
 	 *
-	 * @param  string   $sMessage     	The message
-	 * @return  void
+	 * @param string $sMessage
+	 *        	The message
+	 * @return void
 	 */
 	public function warning($sMessage)
 	{
@@ -53,12 +55,12 @@ class FlashMessages extends AutoExpireFlashBag
 	/**
 	 * Add a message type "error" to the queue.
 	 *
-	 * @param  string   $sMessage     	The message
-	 * @return  void
+	 * @param string $sMessage
+	 *        	The message
+	 * @return void
 	 */
 	public function error($sMessage)
 	{
 		$this->add('errors', $sMessage);
 	}
-
 }

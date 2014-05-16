@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Misc\Utilities;
 
 $view->extend('layout');
@@ -28,8 +27,12 @@ $okt->page->addAriane(__('Development'), $view->generateUrl('Development_index')
 </ul>
 <?php endif; ?>
 
-<form action="<?php echo $view->generateUrl('Development_counting') ?>" method="post">
-	<p><input type="hidden" name="form_sent" value="1" />
-	<?php echo $okt->page->formtoken() ?>
-	<input type="submit" class="lazy-load" value="<?php _e('m_development_counting_action') ?>" /></p>
+<form action="<?php echo $view->generateUrl('Development_counting') ?>"
+	method="post">
+	<p>
+		<input type="hidden" name="form_sent" value="1" />
+	<?php echo $okt->page->formtoken()?>
+	<input type="submit" class="lazy-load"
+			value="<?php _e('m_development_counting_action') ?>" />
+	</p>
 </form>

@@ -4,23 +4,24 @@
  * @brief La classe principale du Module Media manager.
  *
  */
-
 use Okatea\Tao\Modules\Module;
 
 class module_media_manager extends Module
 {
+
 	protected function prepend()
 	{
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
-			'oktMedia' => __DIR__.'/inc/class.oktMedia.php'
+			'oktMedia' => __DIR__ . '/inc/class.oktMedia.php'
 		));
-
+		
 		# permissions
-		$this->okt->addPermGroup('media_manager',__('m_media_manager_perm_group'));
-			$this->okt->addPerm('media',__('m_media_manager_perm_own'),'media_manager');
-			$this->okt->addPerm('media_admin', __('m_media_manager_perm_all'),'media_manager');
-//			$this->okt->addPerm('media_config', __('m_media_manager_perm_config'),'media_manager');
+		$this->okt->addPermGroup('media_manager', __('m_media_manager_perm_group'));
+		$this->okt->addPerm('media', __('m_media_manager_perm_own'), 'media_manager');
+		$this->okt->addPerm('media_admin', __('m_media_manager_perm_all'), 'media_manager');
+		//			$this->okt->addPerm('media_config', __('m_media_manager_perm_config'),'media_manager');
+		
 
 		# config
 		$this->config = $this->okt->newConfig('conf_media_manager');
@@ -31,15 +32,8 @@ class module_media_manager extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->homeSubMenu->add(
-				__('Media manager'),
-				'module.php?m=media_manager',
-				$this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'),
-				30,
-				($this->okt->checkPerm('media') || $this->okt->checkPerm('media_admin')),
-				null
-			);
-/*
+			$this->okt->page->homeSubMenu->add(__('Media manager'), 'module.php?m=media_manager', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, ($this->okt->checkPerm('media') || $this->okt->checkPerm('media_admin')), null);
+			/*
 			$this->okt->page->configSubMenu->add(
 				__('Media manager'),
 				'module.php?m=media_manager&amp;action=config',
@@ -51,7 +45,5 @@ class module_media_manager extends Module
 */
 		}
 	}
-
-
 }
 

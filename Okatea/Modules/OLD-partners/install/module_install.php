@@ -4,19 +4,14 @@
  * @brief La classe d'installation du module partenaires.
  *
  */
-
 use Okatea\Tao\Modules\Manage\Process as ModuleInstall;
 
 class moduleInstall_partners extends ModuleInstall
 {
+
 	public function installTestSet()
 	{
-		$this->checklist->addItem(
-			'regenerate_thumbnails',
-			$this->okt->partners->regenMinLogos(),
-			'Regeneration of thumbnails',
-			'Cannot regenerate thumbnails'
-		);
+		$this->checklist->addItem('regenerate_thumbnails', $this->okt->partners->regenMinLogos(), 'Regeneration of thumbnails', 'Cannot regenerate thumbnails');
 	}
 
 	public function install()
@@ -28,5 +23,4 @@ class moduleInstall_partners extends ModuleInstall
 			'partners_display'
 		));
 	}
-
 }

@@ -5,59 +5,62 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 -->
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Output for Flash &mdash; CKEditor Sample</title>
-	<script src="../../../ckeditor.js"></script>
-	<script src="../../../samples/sample.js"></script>
-	<script src="assets/outputforflash/swfobject.js"></script>
-	<link href="../../../samples/sample.css" rel="stylesheet">
-	<meta name="ckeditor-sample-required-plugins" content="sourcearea">
-	<meta name="ckeditor-sample-name" content="Output for Flash">
-	<meta name="ckeditor-sample-group" content="Advanced Samples">
-	<meta name="ckeditor-sample-description" content="Configuring CKEditor to produce HTML code that can be used with Adobe Flash.">
-	<style>
-
-		.alert
-		{
-			background: #ffa84c;
-			padding: 10px 15px;
-			font-weight: bold;
-			display: block;
-			margin-bottom: 20px;
-		}
-
-	</style>
+<meta charset="utf-8">
+<title>Output for Flash &mdash; CKEditor Sample</title>
+<script src="../../../ckeditor.js"></script>
+<script src="../../../samples/sample.js"></script>
+<script src="assets/outputforflash/swfobject.js"></script>
+<link href="../../../samples/sample.css" rel="stylesheet">
+<meta name="ckeditor-sample-required-plugins" content="sourcearea">
+<meta name="ckeditor-sample-name" content="Output for Flash">
+<meta name="ckeditor-sample-group" content="Advanced Samples">
+<meta name="ckeditor-sample-description"
+	content="Configuring CKEditor to produce HTML code that can be used with Adobe Flash.">
+<style>
+.alert {
+	background: #ffa84c;
+	padding: 10px 15px;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
 	<h1 class="samples">
-		<a href="../../../samples/index.html">CKEditor Samples</a> &raquo; Producing Flash Compliant HTML Output
+		<a href="../../../samples/index.html">CKEditor Samples</a> &raquo;
+		Producing Flash Compliant HTML Output
 	</h1>
 	<div class="description">
 		<p>
-			This sample shows how to configure CKEditor to output
-			HTML code that can be used with
-			<a class="samples" href="http://www.adobe.com/livedocs/flash/9.0/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&amp;file=00000922.html">
-			Adobe Flash</a>.
-			The code will contain a subset of standard HTML elements like <code>&lt;b&gt;</code>,
-			<code>&lt;i&gt;</code>, and <code>&lt;p&gt;</code> as well as HTML attributes.
+			This sample shows how to configure CKEditor to output HTML code that
+			can be used with <a class="samples"
+				href="http://www.adobe.com/livedocs/flash/9.0/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&amp;file=00000922.html">
+				Adobe Flash</a>. The code will contain a subset of standard HTML
+			elements like
+			<code>&lt;b&gt;</code>
+			,
+			<code>&lt;i&gt;</code>
+			, and
+			<code>&lt;p&gt;</code>
+			as well as HTML attributes.
 		</p>
-		<p>
-			To add a CKEditor instance outputting Flash compliant HTML code, load the editor using a standard
-			JavaScript call, and define CKEditor features to use HTML elements and attributes.
-		</p>
-		<p>
-			For details on how to create this setup check the source code of this sample page.
-		</p>
+		<p>To add a CKEditor instance outputting Flash compliant HTML
+			code, load the editor using a standard JavaScript call, and define
+			CKEditor features to use HTML elements and attributes.</p>
+		<p>For details on how to create this setup check the source code
+			of this sample page.</p>
 	</div>
 	<p>
-		To see how it works, create some content in the editing area of CKEditor on the left
-		and send it to the Flash object on the right side of the page by using the
-		<strong>Send to Flash</strong> button.
+		To see how it works, create some content in the editing area of
+		CKEditor on the left and send it to the Flash object on the right side
+		of the page by using the <strong>Send to Flash</strong> button.
 	</p>
-	<table style="width: 100%; border-spacing: 0; border-collapse:collapse;">
+	<table
+		style="width: 100%; border-spacing: 0; border-collapse: collapse;">
 		<tr>
-			<td style="width: 100%">
-				<textarea cols="80" id="editor1" name="editor1" rows="10">&lt;p&gt;&lt;b&gt;&lt;font size=&quot;18&quot; style=&quot;font-size:18px;&quot;&gt;Flash and HTML&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;It is possible to have &lt;a href=&quot;http://ckeditor.com&quot;&gt;CKEditor&lt;/a&gt; creating content that will be later loaded inside &lt;b&gt;Flash&lt;/b&gt; objects and animations.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Flash has a few limitations when dealing with HTML:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;It has limited support on tags.&lt;/li&gt;&lt;li&gt;There is no margin between block elements, like paragraphs.&lt;/li&gt;&lt;/ul&gt;</textarea>
+			<td style="width: 100%"><textarea cols="80" id="editor1"
+					name="editor1" rows="10">&lt;p&gt;&lt;b&gt;&lt;font size=&quot;18&quot; style=&quot;font-size:18px;&quot;&gt;Flash and HTML&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;It is possible to have &lt;a href=&quot;http://ckeditor.com&quot;&gt;CKEditor&lt;/a&gt; creating content that will be later loaded inside &lt;b&gt;Flash&lt;/b&gt; objects and animations.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Flash has a few limitations when dealing with HTML:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;It has limited support on tags.&lt;/li&gt;&lt;li&gt;There is no margin between block elements, like paragraphs.&lt;/li&gt;&lt;/ul&gt;</textarea>
 				<script>
 
 					if ( document.location.protocol == 'file:' )
@@ -259,8 +262,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				</script>
 				<p>
 					<input type="button" value="Send to Flash" onclick="sendToFlash();">
-				</p>
-			</td>
+				</p></td>
 			<td style="vertical-align: top; padding-left: 20px">
 				<div id="ckFlashContainer"></div>
 			</td>
@@ -269,11 +271,13 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<div id="footer">
 		<hr>
 		<p>
-			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+			CKEditor - The text editor for the Internet - <a class="samples"
+				href="http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
-			Knabben. All rights reserved.
+			Copyright &copy; 2003-2014, <a class="samples"
+				href="http://cksource.com/">CKSource</a> - Frederico Knabben. All
+			rights reserved.
 		</p>
 	</div>
 </body>

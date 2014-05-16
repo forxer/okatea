@@ -1,3 +1,5 @@
-<?php return array (
-  'SY' => 'ܣܘܪܝܝܐ',
+<?php
+
+return array(
+	'SY' => 'ܣܘܪܝܝܐ'
 );

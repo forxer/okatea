@@ -1,5 +1,4 @@
 <?php
-
 $GLOBALS['okt_l10n']['m_galleries_gallery_added'] = 'La galerie a été ajoutée.';
 $GLOBALS['okt_l10n']['m_galleries_gallery_updated'] = 'La galerie a été mise à jour.';
 $GLOBALS['okt_l10n']['m_galleries_gallery_order_update'] = 'L’ordre des galeries a été mis à jour.';

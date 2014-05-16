@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Vietnamese language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Vietnamese language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'Không thể hoàn tất yêu cầu. (Lỗi %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Lệnh không hợp lệ.',
 		'11' => 'Kiểu tài nguyên không được chỉ định trong yêu cầu.',
 		'12' => 'Kiểu tài nguyên yêu cầu không hợp lệ.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Di chuyển tập tin thất bại.',
 		'301' => 'Chép tập tin thất bại.',
 		'500' => 'Trình duyệt tập tin bị vô hiệu vì lí do bảo mật. Xin liên hệ quản trị hệ thống và kiểm tra tập tin cấu hình CKFinder.',
-		'501' => 'Chức năng hỗ trợ ảnh mẫu bị vô hiệu.',
+		'501' => 'Chức năng hỗ trợ ảnh mẫu bị vô hiệu.'
 	)
 );

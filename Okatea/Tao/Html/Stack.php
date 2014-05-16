@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Tao\Html;
 
 /**
@@ -16,19 +15,22 @@ namespace Okatea\Tao\Html;
  */
 class Stack
 {
+
 	protected $aStack;
 
 	/**
 	 * Constructeur.
 	 *
-	 * @param array $items 		Les éléments de la pile
+	 * @param array $items
+	 *        	Les éléments de la pile
 	 * @return void
 	 */
-	public function __construct($aItems=array())
+	public function __construct($aItems = array())
 	{
 		$this->reset();
-
-		if (is_array($aItems)) {
+		
+		if (is_array($aItems))
+		{
 			$this->setItems($aItems);
 		}
 	}
@@ -46,7 +48,7 @@ class Stack
 	/**
 	 * Ajoute un élément à la pile.
 	 *
-	 * @param string $str
+	 * @param string $str        	
 	 * @return void
 	 */
 	public function setItem($str)
@@ -57,15 +59,16 @@ class Stack
 	/**
 	 * Ajoute des éléments à la pile.
 	 *
-	 * @param array $aItems
+	 * @param array $aItems        	
 	 * @return void
 	 */
 	public function setItems($aItems)
 	{
-		if (!is_array($aItems)) {
+		if (! is_array($aItems))
+		{
 			return null;
 		}
-
+		
 		$this->aStack = array_merge($this->aStack, $aItems);
 	}
 
@@ -76,17 +79,18 @@ class Stack
 	 */
 	public function hasItem()
 	{
-		return !empty($this->aStack);
+		return ! empty($this->aStack);
 	}
 
 	public function __toString()
 	{
 		$str = $this->getHTML();
-
-		if (null === $str) {
+		
+		if (null === $str)
+		{
 			return '';
 		}
-
+		
 		return $str;
 	}
 
@@ -97,45 +101,50 @@ class Stack
 	 */
 	public function getHTML()
 	{
-		if (!$this->hasItem()) {
+		if (! $this->hasItem())
+		{
 			return null;
 		}
-
+		
 		if (count($this->aStack) > 1)
 		{
 			$str = '<ul>';
-
-			foreach ($this->aStack as $k=>$v)
+			
+			foreach ($this->aStack as $k => $v)
 			{
-				if (is_int($k)) {
-					$str .= '<li>'.$v.'</li>';
+				if (is_int($k))
+				{
+					$str .= '<li>' . $v . '</li>';
 				}
-				else {
-					$str .= '<li>'.$k.': '.$v.'</li>';
+				else
+				{
+					$str .= '<li>' . $k . ': ' . $v . '</li>';
 				}
 			}
-
+			
 			$str .= '</ul>';
-
+			
 			return $str;
 		}
 		else
 		{
 			$str = '<p>';
-
-			foreach ($this->aStack as $k=>$v)
+			
+			foreach ($this->aStack as $k => $v)
 			{
-				if (is_int($k)) {
+				if (is_int($k))
+				{
 					$str .= $v;
 				}
-				else {
-					$str .= $k.': '.$v;
+				else
+				{
+					$str .= $k . ': ' . $v;
 				}
 			}
-
+			
 			$str .= '</p>';
 		}
-
+		
 		return $str;
 	}
 }

@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Persian language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Persian language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'امکان تکمیل درخواست فوق وجود ندارد (خطا: %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'دستور نامعتبر.',
 		'11' => 'نوع منبع در درخواست تعریف نشده است.',
 		'12' => 'نوع منبع درخواست شده معتبر نیست.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'انتقال فایل (ها) شکست خورد.',
 		'301' => 'کپی فایل (ها) شکست خورد.',
 		'500' => 'مرورگر فایل به دلایل امنیتی غیر فعال است. لطفا با مدیر سامانه تماس بگیرید تا تنظیمات این بخش را بررسی نماید.',
-		'501' => 'پشتیبانی از تصاویر کوچک غیرفعال شده است',
+		'501' => 'پشتیبانی از تصاویر کوچک غیرفعال شده است'
 	)
 );

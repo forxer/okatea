@@ -4,11 +4,11 @@
  * @brief La classe d'installation du module guestbook.
  *
  */
-
 use Okatea\Tao\Modules\Manage\Process as ModuleInstall;
 
 class moduleInstall_guestbook extends ModuleInstall
 {
+
 	public function install()
 	{
 		$this->setDefaultAdminPerms(array(
@@ -19,5 +19,4 @@ class moduleInstall_guestbook extends ModuleInstall
 	public function update()
 	{
 	}
-
 }

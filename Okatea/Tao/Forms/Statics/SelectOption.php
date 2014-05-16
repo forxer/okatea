@@ -9,18 +9,20 @@
  * Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
  * Licensed under the GPL version 2.0 license.
  */
-
 namespace Okatea\Tao\Forms\Statics;
 
 /**
  * Option element creation helpers
- *
  */
 class SelectOption
 {
+
 	public $name;
+
 	public $value;
+
 	public $class_name;
+
 	public $html;
 
 	protected $option = '<option value="%1$s"%3$s>%2$s</option>';
@@ -28,12 +30,14 @@ class SelectOption
 	/**
 	 * Option constructor
 	 *
-	 * @param string	$name		Option name
-	 * @param string	$value		Option value
-	 * @param string	$class_name	Element class name
-	 * @param string	$html		Extra HTML attributes
+	 * @param string $name        	
+	 * @param string $value        	
+	 * @param string $class_name
+	 *        	name
+	 * @param string $html
+	 *        	attributes
 	 */
-	public function __construct($name, $value, $class_name='', $html='')
+	public function __construct($name, $value, $class_name = '', $html = '')
 	{
 		$this->name = $name;
 		$this->value = $value;
@@ -46,18 +50,20 @@ class SelectOption
 	 *
 	 * Returns option HTML code
 	 *
-	 * @param boolean	$default	Option is selected
+	 * @param boolean $default
+	 *        	selected
 	 * @return string
 	 */
 	public function render($default)
 	{
 		$attr = $this->html;
-		$attr .= $this->class_name ? ' class="'.$this->class_name.'"' : '';
-
-		if ($this->value == $default) {
+		$attr .= $this->class_name ? ' class="' . $this->class_name . '"' : '';
+		
+		if ($this->value == $default)
+		{
 			$attr .= ' selected="selected"';
 		}
-
-		return sprintf($this->option, $this->value, $this->name,$attr).PHP_EOL;
+		
+		return sprintf($this->option, $this->value, $this->name, $attr) . PHP_EOL;
 	}
 }

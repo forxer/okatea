@@ -2,198 +2,232 @@
 
 <database>
 
-<!-- INSTALL -->
+	<!-- INSTALL -->
 
 	<!-- mod_catalog_products -->
-	<action id="mod_catalog_products" label="Create table %s" string="mod_catalog_products">
-		<test eq="neq" value="{{PREFIX}}mod_catalog_products" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_catalog_products">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_products'</test>
+	<action id="mod_catalog_products" label="Create table %s"
+		string="mod_catalog_products">
+		<test eq="neq" value="{{PREFIX}}mod_catalog_products" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_catalog_products">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_products'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_catalog_products` (
-			`id` 				SERIAL,
-			`category_id` 		INT(10) 		UNSIGNED	NOT NULL,
-			`visibility` 		TINYINT(1) 		UNSIGNED	NOT NULL,
-			`title` 			VARCHAR(255) 				NOT NULL,
-			`subtitle` 			VARCHAR(255) 				NOT NULL,
-			`title_tag` 		VARCHAR(255) 				NULL,
-			`slug` 				VARCHAR(255) 				NOT NULL,
-			`content` 			TEXT 						NOT NULL,
-			`content_short` 	TEXT 						NOT NULL,
-			`price` 			DECIMAL(10,2) 	UNSIGNED	NULL,
-			`price_promo` 		DECIMAL(10,2) 	UNSIGNED	NULL,
+		`id` SERIAL,
+		`category_id` INT(10) UNSIGNED NOT NULL,
+		`visibility` TINYINT(1) UNSIGNED NOT NULL,
+		`title` VARCHAR(255) NOT NULL,
+		`subtitle` VARCHAR(255) NOT NULL,
+		`title_tag` VARCHAR(255) NULL,
+		`slug` VARCHAR(255) NOT NULL,
+		`content` TEXT NOT NULL,
+		`content_short` TEXT NOT NULL,
+		`price` DECIMAL(10,2) UNSIGNED NULL,
+		`price_promo` DECIMAL(10,2) UNSIGNED NULL,
 
-			`created_at` 		DATETIME 					NOT NULL,
-			`updated_at` 		DATETIME 					NOT NULL,
+		`created_at` DATETIME NOT NULL,
+		`updated_at` DATETIME NOT NULL,
 
-			`meta_description` 	VARCHAR(255) 				NULL,
-			`meta_keywords` 	TEXT 						NULL,
+		`meta_description` VARCHAR(255) NULL,
+		`meta_keywords` TEXT NULL,
 
-			`images` 			TEXT 						NULL,
-			`files` 			TEXT 						NULL,
-			`words` 			TEXT 						NULL,
+		`images` TEXT NULL,
+		`files` TEXT NULL,
+		`words` TEXT NULL,
 
-			`promo` 			TINYINT(1) 		UNSIGNED	NULL,
-			`promo_start` 		DATE						NULL,
-			`promo_end` 		DATE						NULL,
+		`promo` TINYINT(1) UNSIGNED NULL,
+		`promo_start` DATE NULL,
+		`promo_end` DATE NULL,
 
-			`nouvo` 			TINYINT(1) 		UNSIGNED	NULL,
-			`nouvo_start` 		DATE						NULL,
-			`nouvo_end` 		DATE						NULL,
+		`nouvo` TINYINT(1) UNSIGNED NULL,
+		`nouvo_start` DATE NULL,
+		`nouvo_end` DATE NULL,
 
-			`favo` 				TINYINT(1) 		UNSIGNED	NULL,
-			`favo_start` 		DATE						NULL,
-			`favo_end` 			DATE						NULL,
+		`favo` TINYINT(1) UNSIGNED NULL,
+		`favo_start` DATE NULL,
+		`favo_end` DATE NULL,
 
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `{{PREFIX}}mod_catalog_products_u_slug` (`slug`),
-			KEY `{{PREFIX}}mod_catalog_products_idx_category_id` (`category_id`),
-			KEY `{{PREFIX}}mod_catalog_products_idx_visibility` (`visibility`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `{{PREFIX}}mod_catalog_products_u_slug` (`slug`),
+		KEY `{{PREFIX}}mod_catalog_products_idx_category_id` (`category_id`),
+		KEY `{{PREFIX}}mod_catalog_products_idx_visibility` (`visibility`)
+		)
+		ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- mod_catalog_categories -->
-	<action id="mod_catalog_categories" label="Create table %s" string="{{PREFIX}}mod_catalog_categories">
-		<test eq="neq" value="{{PREFIX}}mod_catalog_categories" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_catalog_categories">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_categories'</test>
+	<action id="mod_catalog_categories" label="Create table %s"
+		string="{{PREFIX}}mod_catalog_categories">
+		<test eq="neq" value="{{PREFIX}}mod_catalog_categories" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_catalog_categories">SHOW TABLES LIKE '{{PREFIX}}mod_catalog_categories'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_catalog_categories` (
-			`id` 			INT(10) 			UNSIGNED	NOT NULL AUTO_INCREMENT,
-			`active` 		TINYINT(1) 			UNSIGNED	NOT NULL,
-			`name` 			VARCHAR(255) 					NOT NULL,
-			`slug` 			VARCHAR(255) 					NOT NULL,
-			`ord` 			INT(10) 			UNSIGNED	NOT NULL,
-			`parent_id` 	INT(10) 			UNSIGNED	NOT NULL,
-			`nleft` 		INT(10) 			UNSIGNED	NOT NULL,
-			`nright` 		INT(10) 			UNSIGNED	NOT NULL,
-			`level` 		INT(10) 			UNSIGNED	NOT NULL,
+		`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`active` TINYINT(1) UNSIGNED NOT NULL,
+		`name` VARCHAR(255) NOT NULL,
+		`slug` VARCHAR(255) NOT NULL,
+		`ord` INT(10) UNSIGNED NOT NULL,
+		`parent_id` INT(10) UNSIGNED NOT NULL,
+		`nleft` INT(10) UNSIGNED NOT NULL,
+		`nright` INT(10) UNSIGNED NOT NULL,
+		`level` INT(10) UNSIGNED NOT NULL,
 
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `{{PREFIX}}mod_catalog_categories_u_slug` (`slug`),
-			KEY `{{PREFIX}}mod_catalog_categories_idx_active` (`active`),
-			KEY `{{PREFIX}}mod_catalog_categories_idx_ord` (`ord`),
-			KEY `{{PREFIX}}mod_catalog_categories_idx_parent_id` (`parent_id`),
-			KEY `{{PREFIX}}mod_catalog_categories_idx_nright` (`nright`),
-			KEY `{{PREFIX}}mod_catalog_categories_idx_level` (`level`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `{{PREFIX}}mod_catalog_categories_u_slug` (`slug`),
+		KEY `{{PREFIX}}mod_catalog_categories_idx_active` (`active`),
+		KEY `{{PREFIX}}mod_catalog_categories_idx_ord` (`ord`),
+		KEY `{{PREFIX}}mod_catalog_categories_idx_parent_id` (`parent_id`),
+		KEY `{{PREFIX}}mod_catalog_categories_idx_nright` (`nright`),
+		KEY `{{PREFIX}}mod_catalog_categories_idx_level` (`level`)
+		) ENGINE=MyISAM
+		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
-	<action id="change_mod_catalog_products_metadescription" label="Change field %s" string="{{PREFIX}}mod_catalog_products.metadescription" process="update">
+	<action id="change_mod_catalog_products_metadescription" label="Change field %s"
+		string="{{PREFIX}}mod_catalog_products.metadescription" process="update">
 		<test eq="eq" value="metadescription" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.metadescription" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'metadescription'
+			string="{{PREFIX}}mod_catalog_products.metadescription" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'metadescription'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` CHANGE `metadescription` `meta_description` VARCHAR(255) NULL
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` CHANGE `metadescription`
+		`meta_description` VARCHAR(255) NULL
 	</action>
 
-	<action id="change_mod_catalog_products_metakeywords" label="Change field %s" string="{{PREFIX}}mod_catalog_products.metakeywords" process="update">
+	<action id="change_mod_catalog_products_metakeywords" label="Change field %s"
+		string="{{PREFIX}}mod_catalog_products.metakeywords" process="update">
 		<test eq="eq" value="metakeywords" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.metakeywords" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'metakeywords'
+			string="{{PREFIX}}mod_catalog_products.metakeywords" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'metakeywords'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` CHANGE `metakeywords` `meta_keywords` VARCHAR(255) NULL
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` CHANGE `metakeywords`
+		`meta_keywords` VARCHAR(255) NULL
 	</action>
 
-	<action id="add_mod_catalog_products_words" label="Add field %s" string="{{PREFIX}}mod_catalog_products.words" process="update">
+	<action id="add_mod_catalog_products_words" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.words" process="update">
 		<test eq="neq" value="words" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.words" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'words'
+			string="{{PREFIX}}mod_catalog_products.words" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'words'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `words` TEXT NULL AFTER `files`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `words` TEXT NULL
+		AFTER `files`
 	</action>
 
-	<action id="add_mod_catalog_products_price_promo" label="Add field %s" string="{{PREFIX}}mod_catalog_products.price_promo" process="update">
+	<action id="add_mod_catalog_products_price_promo" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.price_promo" process="update">
 		<test eq="neq" value="price_promo" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.price_promo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'price_promo'
+			string="{{PREFIX}}mod_catalog_products.price_promo" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'price_promo'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `price_promo` TEXT NULL AFTER `price`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `price_promo` TEXT
+		NULL AFTER `price`
 	</action>
 
-	<action id="add_mod_catalog_products_promo" label="Add field %s" string="{{PREFIX}}mod_catalog_products.promo" process="update">
+	<action id="add_mod_catalog_products_promo" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.promo" process="update">
 		<test eq="neq" value="promo" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.promo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo'
+			string="{{PREFIX}}mod_catalog_products.promo" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo` TEXT NULL AFTER `words`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo` TEXT NULL
+		AFTER `words`
 	</action>
 
-	<action id="add_mod_catalog_products_promo_start" label="Add field %s" string="{{PREFIX}}mod_catalog_products.promo_start" process="update">
+	<action id="add_mod_catalog_products_promo_start" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.promo_start" process="update">
 		<test eq="neq" value="promo_start" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.promo_start" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo_start'
+			string="{{PREFIX}}mod_catalog_products.promo_start" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo_start'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo_start` TEXT NULL AFTER `promo`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo_start` TEXT
+		NULL AFTER `promo`
 	</action>
 
-	<action id="add_mod_catalog_products_promo_end" label="Add field %s" string="{{PREFIX}}mod_catalog_products.promo_end" process="update">
+	<action id="add_mod_catalog_products_promo_end" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.promo_end" process="update">
 		<test eq="neq" value="promo_end" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.promo_end" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo_end'
+			string="{{PREFIX}}mod_catalog_products.promo_end" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'promo_end'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo_end` TEXT NULL AFTER `promo_start`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `promo_end` TEXT NULL
+		AFTER `promo_start`
 	</action>
 
-	<action id="add_mod_catalog_products_nouvo" label="Add field %s" string="{{PREFIX}}mod_catalog_products.nouvo" process="update">
+	<action id="add_mod_catalog_products_nouvo" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.nouvo" process="update">
 		<test eq="neq" value="nouvo" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.nouvo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo'
+			string="{{PREFIX}}mod_catalog_products.nouvo" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo` TEXT NULL AFTER `promo_end`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo` TEXT NULL
+		AFTER `promo_end`
 	</action>
 
-	<action id="add_mod_catalog_products_nouvo_start" label="Add field %s" string="{{PREFIX}}mod_catalog_products.nouvo_start" process="update">
+	<action id="add_mod_catalog_products_nouvo_start" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.nouvo_start" process="update">
 		<test eq="neq" value="nouvo_start" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.nouvo_start" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo_start'
+			string="{{PREFIX}}mod_catalog_products.nouvo_start" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo_start'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo_start` TEXT NULL AFTER `nouvo`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo_start` TEXT
+		NULL AFTER `nouvo`
 	</action>
 
-	<action id="add_mod_catalog_products_nouvo_end" label="Add field %s" string="{{PREFIX}}mod_catalog_products.nouvo_end" process="update">
+	<action id="add_mod_catalog_products_nouvo_end" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.nouvo_end" process="update">
 		<test eq="neq" value="nouvo_end" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.nouvo_end" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo_end'
+			string="{{PREFIX}}mod_catalog_products.nouvo_end" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'nouvo_end'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo_end` TEXT NULL AFTER `nouvo_start`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `nouvo_end` TEXT NULL
+		AFTER `nouvo_start`
 	</action>
 
-	<action id="add_mod_catalog_products_favo" label="Add field %s" string="{{PREFIX}}mod_catalog_products.favo" process="update">
+	<action id="add_mod_catalog_products_favo" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.favo" process="update">
 		<test eq="neq" value="favo" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.favo" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo'
+			string="{{PREFIX}}mod_catalog_products.favo" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo` TEXT NULL AFTER `nouvo_end`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo` TEXT NULL
+		AFTER `nouvo_end`
 	</action>
 
-	<action id="add_mod_catalog_products_favo_start" label="Add field %s" string="{{PREFIX}}mod_catalog_products.favo_start" process="update">
+	<action id="add_mod_catalog_products_favo_start" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.favo_start" process="update">
 		<test eq="neq" value="favo_start" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.favo_start" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo_start'
+			string="{{PREFIX}}mod_catalog_products.favo_start" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo_start'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo_start` TEXT NULL AFTER `favo`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo_start` TEXT
+		NULL AFTER `favo`
 	</action>
 
-	<action id="add_mod_catalog_products_favo_end" label="Add field %s" string="{{PREFIX}}mod_catalog_products.favo_end" process="update">
+	<action id="add_mod_catalog_products_favo_end" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.favo_end" process="update">
 		<test eq="neq" value="favo_end" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.favo_end" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo_end'
+			string="{{PREFIX}}mod_catalog_products.favo_end" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'favo_end'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo_end` TEXT NULL AFTER `favo_start`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `favo_end` TEXT NULL
+		AFTER `favo_start`
 	</action>
 
-	<action id="add_mod_catalog_products_subtitle" label="Add field %s" string="{{PREFIX}}mod_catalog_products.subtitle" process="update">
+	<action id="add_mod_catalog_products_subtitle" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.subtitle" process="update">
 		<test eq="neq" value="subtitle" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.subtitle" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'subtitle'
+			string="{{PREFIX}}mod_catalog_products.subtitle" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'subtitle'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `subtitle` TEXT NULL AFTER `title`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `subtitle` TEXT NULL
+		AFTER `title`
 	</action>
 
-	<action id="add_mod_catalog_products_content_short" label="Add field %s" string="{{PREFIX}}mod_catalog_products.content_short" process="update">
+	<action id="add_mod_catalog_products_content_short" label="Add field %s"
+		string="{{PREFIX}}mod_catalog_products.content_short" process="update">
 		<test eq="neq" value="content_short" label="Field %s exists"
-		string="{{PREFIX}}mod_catalog_products.content_short" type="wrn">
-		SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'content_short'
+			string="{{PREFIX}}mod_catalog_products.content_short" type="wrn">
+			SHOW COLUMNS FROM `{{PREFIX}}mod_catalog_products` LIKE 'content_short'
 		</test>
-		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `content_short` TEXT NULL AFTER `content`
+		ALTER TABLE `{{PREFIX}}mod_catalog_products` ADD `content_short` TEXT
+		NULL AFTER `content`
 	</action>
 </database>

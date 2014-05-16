@@ -4,14 +4,14 @@
 
 	<!-- spamrule -->
 	<action id="mod_spamrule" label="Create table %s" string="{{PREFIX}}mod_spamrule">
-		<test eq="neq" value="{{PREFIX}}mod_spamrule" label="Table %s exists" type="wrn"
-		string="{{PREFIX}}mod_spamrule">SHOW TABLES LIKE '{{PREFIX}}mod_spamrule'</test>
+		<test eq="neq" value="{{PREFIX}}mod_spamrule" label="Table %s exists"
+			type="wrn" string="{{PREFIX}}mod_spamrule">SHOW TABLES LIKE '{{PREFIX}}mod_spamrule'</test>
 
 		CREATE TABLE IF NOT EXISTS `{{PREFIX}}mod_spamrule` (
-			`rule_id` 			BIGINT(20) 	UNSIGNED	NOT NULL,
-			`rule_type` 		VARCHAR(16) 			COLLATE utf8_bin NOT NULL DEFAULT 'word',
-			`rule_content` 		VARCHAR(128) 			COLLATE utf8_bin NOT NULL,
-			PRIMARY KEY (`rule_id`)
+		`rule_id` BIGINT(20) UNSIGNED NOT NULL,
+		`rule_type` VARCHAR(16) COLLATE utf8_bin NOT NULL DEFAULT 'word',
+		`rule_content` VARCHAR(128) COLLATE utf8_bin NOT NULL,
+		PRIMARY KEY (`rule_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 	</action>

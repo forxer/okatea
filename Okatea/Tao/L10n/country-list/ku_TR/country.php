@@ -1,3 +1,5 @@
-<?php return array (
-  'TR' => 'Tirkiye',
+<?php
+
+return array(
+	'TR' => 'Tirkiye'
 );

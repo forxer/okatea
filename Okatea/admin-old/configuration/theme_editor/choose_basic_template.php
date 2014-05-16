@@ -64,7 +64,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 <form action="configuration.php" method="post">
 
-	<p class="field col"><label for="p_basic_template"><?php _e('c_a_te_basic_template') ?></label>
+	<p class="field col">
+		<label for="p_basic_template"><?php _e('c_a_te_basic_template') ?></label>
 	<?php echo form::select('p_basic_template', array_merge(array('&nbsp;'=>null), $aTemplatesDirs), $sBasicTemplate)?></p>
 
 	<p><?php echo form::hidden('action', 'theme_editor') ?>
@@ -72,7 +73,8 @@ require OKT_ADMIN_HEADER_FILE; ?>
 	<?php echo form::hidden('new_template', 1) ?>
 	<?php echo form::hidden('form_sent', 1) ?>
 	<?php echo Page::formtoken() ?>
-	<input type="submit" name="save" value="<?php _e('c_c_next') ?>" /></p>
+	<input type="submit" name="save" value="<?php _e('c_c_next') ?>" />
+	</p>
 </form>
 
 <?php # Pied-de-page

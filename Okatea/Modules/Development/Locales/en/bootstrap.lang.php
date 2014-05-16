@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $GLOBALS['okt_l10n']['m_development_bootstrap_title'] = 'Module bootstrap';
 $GLOBALS['okt_l10n']['m_development_bootstrap_tab_simple'] = 'Simple';
 $GLOBALS['okt_l10n']['m_development_bootstrap_tab_simple_title'] = 'Module bootstrap simple';

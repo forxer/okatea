@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Buttons
@@ -21,73 +20,85 @@ $okt->page->js->addReady('
 
 <h4><?php _e('c_a_config_advanced_modules_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $aPageData['values']['repositories']['modules']['enabled']) ?>
-<label for="p_modules_repositories_enabled"><?php _e('c_a_config_advanced_enable_modules_repo') ?></label></p>
+<p><?php echo form::checkbox('p_modules_repositories_enabled', 1, $aPageData['values']['repositories']['modules']['enabled'])?>
+<label for="p_modules_repositories_enabled"><?php _e('c_a_config_advanced_enable_modules_repo') ?></label>
+</p>
 
 <table class="common">
-	<thead><tr>
-		<th scope="col"><?php _e('c_a_config_advanced_repo_name') ?></th>
-		<th scope="col"><?php _e('c_a_config_advanced_repo_url') ?></th>
-	</tr></thead>
+	<thead>
+		<tr>
+			<th scope="col"><?php _e('c_a_config_advanced_repo_name') ?></th>
+			<th scope="col"><?php _e('c_a_config_advanced_repo_url') ?></th>
+		</tr>
+	</thead>
 	<tbody>
-	<?php $line_count = 0;
-	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name=>$repo_url) :
-		$odd_even = $line_count%2 == 0 ? 'even' : 'odd';
-		$line_count++;
-	?>
+	<?php
+	
+$line_count = 0;
+	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name => $repo_url)
+	:
+		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';
+		$line_count ++;
+		?>
 	<tr>
-		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
-		</th>
-		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
-		</td>
-	</tr>
+			<th scope="row" class="<?php echo $odd_even ?> fake-td">
+				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
+			</th>
+			<td class="<?php echo $odd_even ?>">
+				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
+			</td>
+		</tr>
 	<?php endforeach; ?>
 	<tr>
-		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.($line_count+1)), 40, 255) ?></p>
-		</th>
-		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
-		</td>
-	</tr>
+			<th scope="row" class="<?php echo $odd_even ?> fake-td">
+				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.($line_count+1)), 40, 255) ?></p>
+			</th>
+			<td class="<?php echo $odd_even ?>">
+				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
+			</td>
+		</tr>
 	</tbody>
 </table>
 
 
 <h4><?php _e('c_a_config_advanced_themes_repositories') ?></h4>
 
-<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $aPageData['values']['repositories']['themes']['enabled']) ?>
-<label for="p_themes_repositories_enabled"><?php _e('c_a_config_advanced_enable_themes_repo') ?></label></p>
+<p><?php echo form::checkbox('p_themes_repositories_enabled', 1, $aPageData['values']['repositories']['themes']['enabled'])?>
+<label for="p_themes_repositories_enabled"><?php _e('c_a_config_advanced_enable_themes_repo') ?></label>
+</p>
 
 <table class="common">
-	<thead><tr>
-		<th scope="col"><?php _e('c_a_config_advanced_repo_name') ?></th>
-		<th scope="col"><?php _e('c_a_config_advanced_repo_url') ?></th>
-	</tr></thead>
+	<thead>
+		<tr>
+			<th scope="col"><?php _e('c_a_config_advanced_repo_name') ?></th>
+			<th scope="col"><?php _e('c_a_config_advanced_repo_url') ?></th>
+		</tr>
+	</thead>
 	<tbody>
-	<?php $line_count = 0;
-	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name=>$repo_url) :
-		$odd_even = $line_count%2 == 0 ? 'even' : 'odd';
-		$line_count++;
-	?>
+	<?php
+	
+$line_count = 0;
+	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name => $repo_url)
+	:
+		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';
+		$line_count ++;
+		?>
 	<tr>
-		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
-		</th>
-		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
-		</td>
-	</tr>
+			<th scope="row" class="<?php echo $odd_even ?> fake-td">
+				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
+			</th>
+			<td class="<?php echo $odd_even ?>">
+				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
+			</td>
+		</tr>
 	<?php endforeach; ?>
 	<tr>
-		<th scope="row" class="<?php echo $odd_even ?> fake-td">
-			<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.($line_count+1)), 40, 255) ?></p>
-		</th>
-		<td class="<?php echo $odd_even ?>">
-			<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
-		</td>
-	</tr>
+			<th scope="row" class="<?php echo $odd_even ?> fake-td">
+				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.($line_count+1)), 40, 255) ?></p>
+			</th>
+			<td class="<?php echo $odd_even ?>">
+				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
+			</td>
+		</tr>
 	</tbody>
 </table>

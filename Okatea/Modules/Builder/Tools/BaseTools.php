@@ -5,15 +5,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Okatea\Modules\Builder\Tools;
 
 use Symfony\Component\Filesystem\Filesystem;
 
 class BaseTools
 {
+
 	/**
 	 * Okatea application instance.
+	 * 
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
@@ -25,17 +26,18 @@ class BaseTools
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
-
-		$this->sTempDir = $this->okt->options->root_dir.'/_tmp';
-		$this->sPackageDir = $this->okt->options->root_dir.'/packages';
+		
+		$this->sTempDir = $this->okt->options->root_dir . '/_tmp';
+		$this->sPackageDir = $this->okt->options->root_dir . '/packages';
 	}
 
 	public function getTempDir($sDirPath = null)
 	{
-		if (null === $sDirPath) {
+		if (null === $sDirPath)
+		{
 			return $this->sTempDir;
 		}
-
+		
 		return str_replace($this->okt->options->get('root_dir'), $this->sTempDir, $sDirPath);
 	}
 

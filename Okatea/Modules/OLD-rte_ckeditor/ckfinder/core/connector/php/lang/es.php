@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 // For licensing, see LICENSE.html or http://ckfinder.com/license
 
-//  Defines the object for the Spanish language.
 
-$GLOBALS['CKFLang'] = array (
+//  Defines the object for the Spanish language.
+$GLOBALS['CKFLang'] = array(
 	'ErrorUnknown' => 'No ha sido posible completar la solicitud. (Error %1)',
-	'Errors' => array (
+	'Errors' => array(
 		'10' => 'Comando incorrecto.',
 		'11' => 'El tipo de recurso no ha sido especificado en la solicitud.',
 		'12' => 'El tipo de recurso solicitado no es válido.',
@@ -31,6 +31,6 @@ $GLOBALS['CKFLang'] = array (
 		'300' => 'Ha fallado el mover el(los) fichero(s).',
 		'301' => 'Ha fallado el copiar el(los) fichero(s).',
 		'500' => 'El navegador de archivos está deshabilitado por razones de seguridad. Por favor, contacte con el administrador de su sistema y compruebe el fichero de configuración de CKFinder.',
-		'501' => 'El soporte para iconos está deshabilitado.',
+		'501' => 'El soporte para iconos está deshabilitado.'
 	)
 );
