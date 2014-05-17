@@ -85,7 +85,7 @@ $okt->page->css->addCss('
 	</div>
 	<div class="buttonsetB">
 		<?php
-		
+
 		echo $view->render('Common/Search', array(
 			'sFormAction' => $view->generateUrl('Pages_index'),
 			'sSearchLabel' => __('m_pages_list_Search'),
@@ -157,7 +157,7 @@ if (! $rsPages->isEmpty())
 			</thead>
 			<tbody>
 		<?php
-	
+
 	$count_line = 0;
 	while ($rsPages->fetch())
 	:
@@ -183,9 +183,9 @@ if (! $rsPages->isEmpty())
 		# droits d'accès
 		if ($okt->module('Pages')->config->enable_group_perms)
 		:
-			
+
 			$aGroupsAccess = array();
-			$aPerms = $okt->module('Pages')->getPagePermissions($rsPages->id);
+			$aPerms = $okt->module('Pages')->pages->getPagePermissions($rsPages->id);
 			foreach ($aPerms as $iPerm)
 			{
 				$aGroupsAccess[] = $view->escape($aGroups[$iPerm]);
@@ -234,7 +234,7 @@ if (! $rsPages->isEmpty())
 		</tbody>
 		</table>
 	<?php
-	
+
 	echo $view->render('Common/FormListBatches', array(
 		'sFormId' => 'pages-list',
 		'sActionsLabel' => __('m_pages_list_pages_action'),

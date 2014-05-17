@@ -67,7 +67,7 @@ $aDefaultParams = array(
 $aParams = ! empty($aParams) ? array_merge($aDefaultParams, $aParams) : $aDefaultParams;
 
 # récupération des pages pour l'encart
-$rsInsertPages = $okt->module('Pages')->getPages($aParams, $okt->module('Pages')->config->insert_truncat_char);
+$rsInsertPages = $okt->module('Pages')->pages->getPages($aParams, $okt->module('Pages')->config->insert_truncat_char);
 
 # fin Okatea : traitements avant affichage ?>
 

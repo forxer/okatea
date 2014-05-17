@@ -20,12 +20,12 @@ class Helpers
 	public static function getCategories()
 	{
 		global $okt;
-		
+
 		if (! $okt->module('Pages')->config->categories['enable'])
 		{
 			return null;
 		}
-		
+
 		# on récupèrent l'éventuel identifiant de la catégorie en cours
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action))
@@ -38,20 +38,20 @@ class Helpers
 			{
 				$iCurrentCat = $okt->controller->rsPage->category_id;
 			}
-			
+
 			unset($aVars);
 		}
-		
+
 		$rsCategories = $okt->module('Pages')->categories->getCategories(array(
 			'active' => 1,
 			'language' => $okt->user->language,
 			'with_count' => false
 		));
-		
+
 		$iRefLevel = $iLevel = $rsCategories->level - 1;
-		
+
 		$return = '';
-		
+
 		while ($rsCategories->fetch())
 		{
 			# ouverture niveau
@@ -64,17 +64,17 @@ class Helpers
 			{
 				$return .= str_repeat('</li></ul>', - ($rsCategories->level - $iLevel));
 			}
-			
+
 			# nouvelle ligne
 			if ($rsCategories->level <= $iLevel)
 			{
 				$return .= '</li><li id="rub' . $rsCategories->id . '">';
 			}
-			
+
 			$return .= '<a href="' . $okt->router->generate('pagesCategory', array(
 				'slug' => $rsCategories->slug
 			)) . '">';
-			
+
 			if ($iCurrentCat == $rsCategories->id)
 			{
 				$return .= '<strong>' . Escaper::html($rsCategories->title) . '</strong>';
@@ -83,17 +83,17 @@ class Helpers
 			{
 				$return .= Escaper::html($rsCategories->title);
 			}
-			
+
 			$return .= '</a>';
-			
+
 			$iLevel = $rsCategories->level;
 		}
-		
+
 		if ($iRefLevel - $iLevel < 0)
 		{
 			$return .= str_repeat('</li></ul>', - ($iRefLevel - $iLevel));
 		}
-		
+
 		return $return;
 	}
 
@@ -119,30 +119,30 @@ class Helpers
 	public static function getPagesByCatId($iCatId, $sBlockFormat = '<ul>%s</ul>', $sItemFormat = '<li>%s</li>', $sItemActiveFormat = '<li class="active"><strong>%s</strong></li>', $sLinkFormat = '<a href="%s">%s</a>', $sItemsGlue = '', $aCustomParams = array())
 	{
 		global $okt;
-		
+
 		# on récupèrent l'éventuel identifiant de la page en cours
 		$iCurrentPage = null;
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action) && $okt->page->action == 'item' && isset($okt->controller->rsPage))
 		{
 			$iCurrentPage = $okt->controller->rsPage->id;
 		}
-		
+
 		$aParams = array_merge(array(
 			'active' => 1,
 			'language' => $okt->user->language,
 			'category_id' => $iCatId
 		), $aCustomParams);
-		
+
 		# on récupèrent les pages
-		$rsPages = $okt->module('Pages')->getPages($aParams);
-		
+		$rsPages = $okt->module('Pages')->pages->getPages($aParams);
+
 		# on construient le HTML avec les données
 		$aItems = array();
-		
+
 		while ($rsPages->fetch())
 		{
 			$sItem = sprintf($sLinkFormat, Escaper::html($rsPages->url), Escaper::html($rsPages->title));
-			
+
 			if ($rsPages->id == $iCurrentPage)
 			{
 				$aItems[] = sprintf($sItemActiveFormat, $sItem);
@@ -152,7 +152,7 @@ class Helpers
 				$aItems[] = sprintf($sItemFormat, $sItem);
 			}
 		}
-		
+
 		return sprintf($sBlockFormat, implode($sItemsGlue, $aItems));
 	}
 
@@ -176,12 +176,12 @@ class Helpers
 	public static function getSubCatsByCatId($iCatId, $sBlockFormat = '<ul>%s</ul>', $sItemFormat = '<li>%s</li>', $sItemActiveFormat = '<li class="active"><strong>%s</strong></li>', $sLinkFormat = '<a href="%s">%s</a>', $sItemsGlue = '')
 	{
 		global $okt;
-		
+
 		if (! $okt->module('Pages')->config->categories['enable'])
 		{
 			return null;
 		}
-		
+
 		# on récupèrent l'éventuel identifiant de la catégorie en cours
 		$iCurrentCat = null;
 		if (isset($okt->page->module) && $okt->page->module == 'pages' && isset($okt->page->action))
@@ -195,19 +195,19 @@ class Helpers
 				$iCurrentCat = $okt->controller->rsPage->category_id;
 			}
 		}
-		
+
 		# on récupèrent les sous-catégories
 		$rsChildren = $okt->module('Pages')->categories->getChildren($iCatId, false, $okt->user->language);
-		
+
 		# on construient le HTML avec les données
 		$aChildren = array();
-		
+
 		while ($rsChildren->fetch())
 		{
 			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array(
 				'slug' => $rsChildren->slug
 			)), Escaper::html($rsChildren->title));
-			
+
 			if ($rsChildren->id == $iCurrentCat)
 			{
 				$aChildren[] = sprintf($sItemActiveFormat, $sChildren);
@@ -217,7 +217,7 @@ class Helpers
 				$aChildren[] = sprintf($sItemFormat, $sChildren);
 			}
 		}
-		
+
 		return sprintf($sBlockFormat, implode($sItemsGlue, $aChildren));
 	}
 }

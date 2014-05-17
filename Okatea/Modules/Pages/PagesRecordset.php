@@ -10,7 +10,7 @@ namespace Okatea\Modules\Pages;
 use Okatea\Tao\Database\Recordset as BaseRecordset;
 use Okatea\Tao\Misc\Utilities;
 
-class Recordset extends BaseRecordset
+class PagesRecordset extends BaseRecordset
 {
 
 	/**
@@ -44,7 +44,7 @@ class Recordset extends BaseRecordset
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -59,7 +59,7 @@ class Recordset extends BaseRecordset
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -71,30 +71,30 @@ class Recordset extends BaseRecordset
 	public function isReadable()
 	{
 		static $aPerms = array();
-		
+
 		# si on as un "cache" on l'utilisent
 		if (isset($aPerms[$this->id]))
 		{
 			return $aPerms[$this->id];
 		}
-		
+
 		# si les permissions sont désactivées alors on as le droit
 		if (! $this->okt->module('Pages')->config->enable_group_perms)
 		{
 			$aPerms[$this->id] = true;
 			return true;
 		}
-		
+
 		# si on est superadmin on as droit à tout
 		if ($this->okt->user->is_superadmin)
 		{
 			$aPerms[$this->id] = true;
 			return true;
 		}
-		
+
 		# récupération des permissions de la page
-		$aPerms = $this->okt->module('Pages')->getPagePermissions($this->id);
-		
+		$aPerms = $this->okt->module('Pages')->pages->getPagePermissions($this->id);
+
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
 		if (in_array(0, $aPerms) || in_array($this->okt->user->group_id, $aPerms))
@@ -102,7 +102,7 @@ class Recordset extends BaseRecordset
 			$aPerms[$this->id] = true;
 			return true;
 		}
-		
+
 		# toutes éventualités testées, on as pas le droit
 		$aPerms[$this->id] = false;
 		return false;
@@ -111,7 +111,7 @@ class Recordset extends BaseRecordset
 	/**
 	 * Retourne l'URL publique d'une page
 	 *
-	 * @param string $sLanguage        	
+	 * @param string $sLanguage
 	 * @return string
 	 */
 	public function getPageUrl($sLanguage = null)
@@ -120,7 +120,7 @@ class Recordset extends BaseRecordset
 		{
 			return null;
 		}
-		
+
 		return $this->okt->router->generate('pagesItem', array(
 			'slug' => $this->slug
 		), $sLanguage);
@@ -129,7 +129,7 @@ class Recordset extends BaseRecordset
 	/**
 	 * Retourne l'URL publique d'une rubrique
 	 *
-	 * @param string $sLanguage        	
+	 * @param string $sLanguage
 	 * @return string
 	 */
 	public function getCategoryUrl($sLanguage = null)
@@ -138,7 +138,7 @@ class Recordset extends BaseRecordset
 		{
 			return null;
 		}
-		
+
 		return $this->okt->router->generate('pagesCategory', array(
 			'slug' => $this->category_slug
 		), $sLanguage);
@@ -152,14 +152,14 @@ class Recordset extends BaseRecordset
 	public function getFilesInfo()
 	{
 		$files = array();
-		
+
 		if (! $this->okt->module('Pages')->config->files['enable'])
 		{
 			return $files;
 		}
-		
+
 		$files_array = array_filter((array) unserialize($this->files));
-		
+
 		$j = 1;
 		for ($i = 1; $i <= $this->okt->module('Pages')->config->files['number']; $i ++)
 		{
@@ -167,9 +167,9 @@ class Recordset extends BaseRecordset
 			{
 				continue;
 			}
-			
+
 			$mime_type = \files::getMimeType($this->okt->module('Pages')->upload_dir . '/files/' . $files_array[$i]['filename']);
-			
+
 			$files[$j ++] = array_merge(stat($this->okt->module('Pages')->upload_dir . '/files/' . $files_array[$i]['filename']), array(
 				'url' => $this->okt->module('Pages')->upload_url . 'files/' . $files_array[$i]['filename'],
 				'filename' => $files_array[$i]['filename'],
@@ -179,7 +179,7 @@ class Recordset extends BaseRecordset
 				'ext' => pathinfo($this->okt->module('Pages')->upload_dir . '/files/' . $files_array[$i]['filename'], PATHINFO_EXTENSION)
 			));
 		}
-		
+
 		return $files;
 	}
 
@@ -194,7 +194,7 @@ class Recordset extends BaseRecordset
 		{
 			return array();
 		}
-		
+
 		return $this->getImagesArray();
 	}
 
@@ -210,9 +210,9 @@ class Recordset extends BaseRecordset
 		{
 			return array();
 		}
-		
+
 		$a = $this->getImagesArray();
-		
+
 		return isset($a[1]) ? $a[1] : array();
 	}
 

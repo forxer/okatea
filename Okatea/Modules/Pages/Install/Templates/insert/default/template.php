@@ -45,7 +45,7 @@ if (empty($mPageIdentifier))
 }
 
 # récupération de la page pour l'encart
-$rsInsertPage = $okt->module('Pages')->getPage($mPageIdentifier);
+$rsInsertPage = $okt->module('Pages')->pages->getPage($mPageIdentifier);
 
 # troncature du contenu ?
 if ($okt->module('Pages')->config->insert_truncat_char > 0)

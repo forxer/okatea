@@ -44,23 +44,23 @@ class Module extends BaseModule
 		$this->okt->addPerm('pages_remove', __('m_pages_perm_remove'), 'pages');
 		$this->okt->addPerm('pages_display', __('m_pages_perm_display'), 'pages');
 		$this->okt->addPerm('pages_config', __('m_pages_perm_config'), 'pages');
-		
+
 		# tables
 		$this->t_pages = $this->db->prefix . 'mod_pages';
 		$this->t_pages_locales = $this->db->prefix . 'mod_pages_locales';
 		$this->t_permissions = $this->db->prefix . 'mod_pages_permissions';
 		$this->t_categories = $this->db->prefix . 'mod_pages_categories';
 		$this->t_categories_locales = $this->db->prefix . 'mod_pages_categories_locales';
-		
+
 		# déclencheurs
 		$this->triggers = new Triggers();
-		
+
 		# config
 		$this->config = $this->okt->newConfig('conf_pages');
-		
+
 		# pages manager
-		$this->pages = new Pages();
-		
+		$this->pages = new Pages($this->okt, $this->t_pages, $this->t_pages_locales, $this->t_categories, $this->t_categories_locales);
+
 		# rubriques
 		if ($this->config->categories['enable'])
 		{
@@ -99,7 +99,7 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu->add(__('c_a_menu_display'), $this->okt->adminRouter->generate('Pages_display'), $this->okt->request->attributes->get('_route') === 'Pages_display', 10, $this->okt->checkPerm('pages_display'));
 			$this->okt->page->pagesSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('Pages_config'), $this->okt->request->attributes->get('_route') === 'Pages_config', 20, $this->okt->checkPerm('pages_config'));
 		}
-		
+
 		$this->okt->triggers->registerTrigger('adminConfigSiteInit', array(
 			$this,
 			'adminConfigSiteInit'
@@ -112,7 +112,7 @@ class Module extends BaseModule
 			$this,
 			'handleWebsiteHomePage'
 		));
-		
+
 		$this->okt->triggers->registerTrigger('websiteAdminBarItems', array(
 			$this,
 			'websiteAdminBarItems'
@@ -131,8 +131,8 @@ class Module extends BaseModule
 	public function adminConfigSiteInit($aPageData)
 	{
 		$aPageData['home_page_items'][__('m_pages_config_homepage_item')] = 'pagesItem';
-		
-		$rsPages = $this->getPagesRecordset();
+
+		$rsPages = $this->pages->getPagesRecordset();
 		$aPages = array();
 		while ($rsPages->fetch())
 		{
@@ -141,7 +141,7 @@ class Module extends BaseModule
 				'title' => $rsPages->title
 			);
 		}
-		
+
 		foreach ($this->okt->config->home_page['item'] as $language => $item)
 		{
 			if ($item == 'pagesItem' && ! empty($aPages[$language]))
@@ -152,11 +152,11 @@ class Module extends BaseModule
 				}
 			}
 		}
-		
+
 		$this->okt->page->js->addScript('
 			var pages = ' . json_encode($aPages) . ';
 		');
-		
+
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
 			$this->okt->page->js->addReady('
@@ -182,9 +182,9 @@ class Module extends BaseModule
 	/**
 	 * Ajout d'éléments à la barre admin côté publique.
 	 *
-	 * @param arrayObject $aPrimaryAdminBar        	
-	 * @param arrayObject $aSecondaryAdminBar        	
-	 * @param arrayObject $aBasesUrl        	
+	 * @param arrayObject $aPrimaryAdminBar
+	 * @param arrayObject $aSecondaryAdminBar
+	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
 	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
@@ -198,7 +198,7 @@ class Module extends BaseModule
 				'intitle' => __('m_pages_ab_page')
 			);
 		}
-		
+
 		# modification de la page en cours
 		if (isset($this->okt->page->module) && $this->okt->page->module == 'pages' && isset($this->okt->page->action) && $this->okt->page->action == 'item')
 		{
@@ -224,14 +224,14 @@ class Module extends BaseModule
 		{
 			return true;
 		}
-		
+
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
 		if (in_array(0, $this->config->perms) || in_array($this->okt->user->group_id, $this->config->perms))
 		{
 			return true;
 		}
-		
+
 		# toutes éventualités testées, on as pas le droit
 		return false;
 	}
@@ -288,12 +288,12 @@ class Module extends BaseModule
 	public function getCategoryTplPath($sCategoryTemplate = null)
 	{
 		$sTemplate = $this->config->templates['list']['default'];
-		
+
 		if (! empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
 		{
 			$sTemplate = $sCategoryTemplate;
 		}
-		
+
 		return 'Pages/list/' . $sTemplate . '/template';
 	}
 
@@ -305,7 +305,7 @@ class Module extends BaseModule
 	public function getItemTplPath($sPageTemplate = null, $sCatPageTemplate = null)
 	{
 		$sTemplate = $this->config->templates['item']['default'];
-		
+
 		if (! empty($sPageTemplate) && in_array($sPageTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sPageTemplate;
@@ -314,7 +314,7 @@ class Module extends BaseModule
 		{
 			$sTemplate = $sCatPageTemplate;
 		}
-		
+
 		return 'Pages/item/' . $sTemplate . '/template';
 	}
 
@@ -323,21 +323,21 @@ class Module extends BaseModule
 	 */
 	public function indexAllPages()
 	{
-		$rsPages = $this->getPages(array(
+		$rsPages = $this->pages->getPages(array(
 			'active' => 2
 		));
-		
+
 		while ($rsPages->fetch())
 		{
 			$words = $rsPages->title . ' ' . $rsPages->subtitle . ' ' . $rsPages->content . ' ';
-			
+
 			$words = implode(' ', Modifiers::splitWords($words));
-			
+
 			$query = 'UPDATE ' . $this->t_pages . ' SET ' . 'words=\'' . $this->db->escapeStr($words) . '\' ' . 'WHERE id=' . (integer) $rsPages->id;
-			
+
 			$this->db->execute($query);
 		}
-		
+
 		return true;
 	}
 }

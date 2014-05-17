@@ -32,48 +32,48 @@ class Controller extends BaseController
 				return $this->serve404();
 			}
 		}
-		
+
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
 			'language' => $this->okt->user->language
 		);
-		
+
 		$sSearch = $this->request->query->get('search');
-		
+
 		if ($sSearch)
 		{
 			$aPagesParams['search'] = $sSearch;
 		}
-		
+
 		# initialisation des filtres
 		$this->okt->module('Pages')->filtersStart('public');
-		
+
 		# ré-initialisation filtres
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->module('Pages')->filters->initFilters();
 			return $this->redirect($this->generateUrl('pagesList'));
 		}
-		
+
 		# initialisation des filtres
 		$this->okt->module('Pages')->filters->setPagesParams($aPagesParams);
 		$this->okt->module('Pages')->filters->getFilters();
-		
+
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->module('Pages')->pages->getPagesCount($aPagesParams);
-		
+
 		$oPagesPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPages, $this->okt->module('Pages')->filters->params->nb_per_page);
-		
+
 		$iNumPages = $oPagesPager->getNbPages();
-		
+
 		$this->okt->module('Pages')->filters->normalizePage($iNumPages);
-		
+
 		$aPagesParams['limit'] = (($this->okt->module('Pages')->filters->params->page - 1) * $this->okt->module('Pages')->filters->params->nb_per_page) . ',' . $this->okt->module('Pages')->filters->params->nb_per_page;
-		
+
 		# récupération des pages
-		$this->rsPagesList = $this->okt->module('Pages')->getPages($aPagesParams);
-		
+		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages($aPagesParams);
+
 		# meta description
 		if (! empty($this->okt->module('Pages')->config->meta_description[$this->okt->user->language]))
 		{
@@ -83,7 +83,7 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
-		
+
 		# meta keywords
 		if (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language]))
 		{
@@ -93,29 +93,29 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
-		
+
 		# ajout du numéro de page au title
 		if ($this->okt->module('Pages')->filters->params->page > 1)
 		{
 			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->module('Pages')->filters->params->page));
 		}
-		
+
 		# title tag du module
 		$this->page->addTitleTag($this->okt->module('Pages')
 			->getTitle());
-		
+
 		# titre de la page
 		$this->page->setTitle($this->okt->module('Pages')
 			->getName());
-		
+
 		# titre SEO de la page
 		$this->page->setTitleSeo($this->okt->module('Pages')
 			->getNameSeo());
-		
+
 		# raccourcis
 		$this->rsPagesList->numPages = $iNumPages;
 		$this->rsPagesList->pager = $oPagesPager;
-		
+
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
 			->getListTplPath(), array(
@@ -128,14 +128,14 @@ class Controller extends BaseController
 	 */
 	public function pagesFeed()
 	{
-		$this->rsPagesList = $this->okt->module('Pages')->getPages(array(
+		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages(array(
 			'active' => 1,
 			'limit' => 20
 		));
-		
+
 		$response = Response::create();
 		$response->headers->set('Content-Type', 'application/rss+xml');
-		
+
 		return $this->render($this->okt->module('Pages')
 			->getFeedTplPath(), array(
 			'rsPagesList' => $this->rsPagesList
@@ -152,25 +152,25 @@ class Controller extends BaseController
 		{
 			return $this->serve404();
 		}
-		
+
 		# récupération de la rubrique en fonction du slug
 		if (! $sCategorySlug = $this->request->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
-		
+
 		# récupération de la rubrique
 		$this->rsCategory = $this->okt->module('Pages')->categories->getCategories(array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
 			'slug' => $sCategorySlug
 		));
-		
+
 		if ($this->rsCategory->isEmpty())
 		{
 			return $this->serve404();
 		}
-		
+
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible())
 		{
@@ -185,48 +185,48 @@ class Controller extends BaseController
 				return $this->serve404();
 			}
 		}
-		
+
 		# formatage description rubrique
 		if (! $this->okt->module('Pages')->config->categories['rte'])
 		{
 			$this->rsCategory->content = Modifiers::nlToP($this->rsCategory->content);
 		}
-		
+
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
 			'language' => $this->okt->user->language,
 			'category_id' => $this->rsCategory->id
 		);
-		
+
 		# initialisation des filtres
 		$this->okt->module('Pages')->filtersStart('public');
-		
+
 		# ré-initialisation filtres
 		if ($this->request->query->has('init_pages_filters'))
 		{
 			$this->okt->module('Pages')->filters->initFilters();
 			return $this->redirect($this->generateUrl('pagesList'));
 		}
-		
+
 		# initialisation des filtres
 		$this->okt->module('Pages')->filters->setPagesParams($aPagesParams);
 		$this->okt->module('Pages')->filters->getFilters();
-		
+
 		# initialisation de la pagination
 		$iNumFilteredPages = $this->okt->module('Pages')->pages->getPagesCount($aPagesParams);
-		
+
 		$oPagesPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPages, $this->okt->module('Pages')->filters->params->nb_per_page);
-		
+
 		$iNumPages = $oPagesPager->getNbPages();
-		
+
 		$this->okt->module('Pages')->filters->normalizePage($iNumPages);
-		
+
 		$aPagesParams['limit'] = (($this->okt->module('Pages')->filters->params->page - 1) * $this->okt->module('Pages')->filters->params->nb_per_page) . ',' . $this->okt->module('Pages')->filters->params->nb_per_page;
-		
+
 		# récupération des pages
-		$this->rsPagesList = $this->okt->module('Pages')->getPages($aPagesParams);
-		
+		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages($aPagesParams);
+
 		# meta description
 		if (! empty($this->rsCategory->meta_description))
 		{
@@ -240,7 +240,7 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
-		
+
 		# meta keywords
 		if (! empty($this->rsCategory->meta_keywords))
 		{
@@ -254,36 +254,36 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
-		
+
 		# ajout du numéro de page au title
 		if ($this->okt->module('Pages')->filters->params->page > 1)
 		{
 			$this->page->addTitleTag(sprintf(__('c_c_Page_%s'), $this->okt->module('Pages')->filters->params->page));
 		}
-		
+
 		# title tag du module
 		$this->page->addTitleTag((! empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
-		
+
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
 		$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
-		
+
 		while ($rsPath->fetch())
 		{
 			$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array(
 				'slug' => $rsPath->slug
 			)));
 		}
-		
+
 		# titre de la page
 		$this->page->setTitle($this->rsCategory->title);
-		
+
 		# titre SEO de la page
 		$this->page->setTitleSeo($this->rsCategory->title_seo);
-		
+
 		# raccourcis
 		$this->rsPagesList->numPages = $iNumPages;
 		$this->rsPagesList->pager = $oPagesPager;
-		
+
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
 			->getCategoryTplPath($this->rsCategory->tpl), array(
@@ -302,15 +302,15 @@ class Controller extends BaseController
 		{
 			return $this->serve404();
 		}
-		
+
 		# récupération de la page
-		$this->rsPage = $this->okt->module('Pages')->getPage($sPageSlug, 1);
-		
+		$this->rsPage = $this->okt->module('Pages')->pages->getPage($sPageSlug, 1);
+
 		if ($this->rsPage->isEmpty())
 		{
 			return $this->serve404();
 		}
-		
+
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
 		{
@@ -323,7 +323,7 @@ class Controller extends BaseController
 				return $this->serve404();
 			}
 		}
-		
+
 		# meta description
 		if (! empty($this->rsPage->meta_description))
 		{
@@ -337,7 +337,7 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->page->getSiteMetaDesc();
 		}
-		
+
 		# meta keywords
 		if (! empty($this->rsPage->meta_keywords))
 		{
@@ -351,13 +351,13 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->page->getSiteMetaKeywords();
 		}
-		
+
 		# si les rubriques sont activées
 		if ($this->okt->module('Pages')->config->categories['enable'] && $this->rsPage->category_id)
 		{
 			# title tag de la rubrique
 			$this->page->addTitleTag($this->rsPage->category_title);
-			
+
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsPage->category_id, true, $this->okt->user->language);
 			while ($rsPath->fetch())
@@ -367,19 +367,19 @@ class Controller extends BaseController
 				)));
 			}
 		}
-		
+
 		# title tag de la page
 		$this->page->addTitleTag(($this->rsPage->title_tag == '' ? $this->rsPage->title : $this->rsPage->title_tag));
-		
+
 		# titre de la page
 		$this->page->setTitle($this->rsPage->title);
-		
+
 		# titre SEO de la page
 		$this->page->setTitleSeo($this->rsPage->title_seo);
-		
+
 		# fil d'ariane de la page
 		$this->page->breadcrumb->add($this->rsPage->title, $this->rsPage->url);
-		
+
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
 			->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(
@@ -394,15 +394,15 @@ class Controller extends BaseController
 		{
 			return $this->serve404();
 		}
-		
+
 		# récupération de la page
-		$this->rsPage = $this->okt->module('Pages')->getPage($mPageId, 1);
-		
+		$this->rsPage = $this->okt->module('Pages')->pages->getPage($mPageId, 1);
+
 		if ($this->rsPage->isEmpty())
 		{
 			return $this->serve404();
 		}
-		
+
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
 		{
@@ -415,16 +415,16 @@ class Controller extends BaseController
 				return $this->serve404();
 			}
 		}
-		
+
 		# title tag de la page
 		$this->page->addTitleTag(($this->rsPage->title_tag == '' ? $this->rsPage->title : $this->rsPage->title_tag));
-		
+
 		# titre de la page
 		$this->page->setTitle($this->rsPage->title);
-		
+
 		# titre SEO de la page
 		$this->page->setTitleSeo($this->rsPage->title_seo);
-		
+
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
 			->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(
