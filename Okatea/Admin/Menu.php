@@ -17,7 +17,7 @@ class Menu
 
 	/**
 	 * Identifiant du bloc.
-	 * 
+	 *
 	 * @access protected
 	 * @var string
 	 */
@@ -25,7 +25,7 @@ class Menu
 
 	/**
 	 * Chaines modèles HTML du bloc.
-	 * 
+	 *
 	 * @access protected
 	 * @var array
 	 */
@@ -33,14 +33,14 @@ class Menu
 
 	/**
 	 * La pile d'éléments
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $items;
 
 	/**
 	 * Le nombre d'élément dans la pile.
-	 * 
+	 *
 	 * @access private
 	 * @var integer
 	 */

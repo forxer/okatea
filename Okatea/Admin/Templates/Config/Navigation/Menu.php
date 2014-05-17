@@ -75,6 +75,9 @@ if ($iMenuId)
 		
 		
 		
+		
+		
+		
 		<p class="field col">
 			<label for="p_tpl"><?php _e('c_a_config_navigation_menu_tpl') ?></label>
 		<?php echo form::select('p_tpl', $aTplChoices, $aMenuData['tpl'])?></p>

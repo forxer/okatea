@@ -12,25 +12,32 @@
 		CREATE TABLE `{{PREFIX}}mod_news` (
 		`id` SERIAL,
 
-		`user_id` BIGINT(20) UNSIGNED NULL,
+		`user_id` BIGINT(20)
+		UNSIGNED NULL,
 		`category_id` BIGINT(20) UNSIGNED NULL,
 
-		`active` TINYINT(1) UNSIGNED NULL,
+		`active`
+		TINYINT(1) UNSIGNED NULL,
 		`selected` TINYINT(1) UNSIGNED NULL,
 
 		`created_at` DATETIME NULL,
 		`updated_at` DATETIME NULL,
 
-		`images` TEXT NULL,
+		`images` TEXT
+		NULL,
 		`files` TEXT NULL,
 
 		`tpl` VARCHAR(255) NULL,
 
 		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}mod_news_idx_user_id` (`user_id`),
-		KEY `{{PREFIX}}mod_news_idx_category_id` (`category_id`),
-		KEY `{{PREFIX}}mod_news_idx_active` (`active`),
-		KEY `{{PREFIX}}mod_news_idx_selected` (`selected`)
+		KEY
+		`{{PREFIX}}mod_news_idx_user_id` (`user_id`),
+		KEY
+		`{{PREFIX}}mod_news_idx_category_id` (`category_id`),
+		KEY
+		`{{PREFIX}}mod_news_idx_active` (`active`),
+		KEY
+		`{{PREFIX}}mod_news_idx_selected` (`selected`)
 		) ENGINE=MyISAM DEFAULT
 		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
@@ -41,23 +48,28 @@
 			type="wrn" string="{{PREFIX}}mod_news_locales">SHOW TABLES LIKE '{{PREFIX}}mod_news_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_news_locales` (
-		`post_id` BIGINT(20) UNSIGNED NOT NULL,
+		`post_id` BIGINT(20)
+		UNSIGNED NOT NULL,
 		`language` CHAR(5) NOT NULL,
 
-		`title` VARCHAR(255) NULL,
+		`title` VARCHAR(255)
+		NULL,
 		`subtitle` VARCHAR(255) NULL,
 		`title_tag` VARCHAR(255) NULL,
 		`title_seo` VARCHAR(255) NULL,
 		`slug` VARCHAR(255) NULL,
-		`content` LONGTEXT NULL,
+		`content`
+		LONGTEXT NULL,
 
 		`meta_description` VARCHAR(255) NULL,
-		`meta_keywords` TEXT NULL,
+		`meta_keywords`
+		TEXT NULL,
 
 		`words` TEXT NULL,
 
 		PRIMARY KEY (`post_id`,`language`),
-		KEY `{{PREFIX}}mod_news_locales_idx_slug` (`slug`)
+		KEY
+		`{{PREFIX}}mod_news_locales_idx_slug` (`slug`)
 		) ENGINE=MyISAM DEFAULT
 		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
@@ -69,11 +81,14 @@
 			type="wrn" string="{{PREFIX}}mod_news_permissions">SHOW TABLES LIKE '{{PREFIX}}mod_news_permissions'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_news_permissions` (
-		`post_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-		`group_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+		`post_id` BIGINT(20)
+		UNSIGNED NOT NULL DEFAULT 0,
+		`group_id` BIGINT(20) UNSIGNED NOT NULL
+		DEFAULT 0,
 
 		PRIMARY KEY (`post_id`,`group_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8
+		) ENGINE=MyISAM DEFAULT
+		CHARSET=utf8
 		COLLATE utf8_general_ci ;
 	</action>
 
@@ -84,22 +99,30 @@
 			type="wrn" string="{{PREFIX}}mod_news_categories">SHOW TABLES LIKE '{{PREFIX}}mod_news_categories'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_news_categories` (
-		`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`id` BIGINT(20) UNSIGNED
+		NOT NULL AUTO_INCREMENT,
 		`active` TINYINT(1) UNSIGNED NOT NULL,
-		`ord` INT(10) UNSIGNED NOT NULL,
+		`ord`
+		INT(10) UNSIGNED NOT NULL,
 		`parent_id` INT(10) UNSIGNED NOT NULL,
 		`nleft` INT(10) UNSIGNED NOT NULL,
 		`nright` INT(10) UNSIGNED NOT NULL,
 		`level` INT(10) UNSIGNED NOT NULL,
 		`tpl` VARCHAR(255) NULL,
-		`items_tpl` VARCHAR(255) NULL,
+		`items_tpl`
+		VARCHAR(255) NULL,
 
 		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}mod_news_categories_idx_active` (`active`),
-		KEY `{{PREFIX}}mod_news_categories_idx_ord` (`ord`),
-		KEY `{{PREFIX}}mod_news_categories_idx_parent_id` (`parent_id`),
-		KEY `{{PREFIX}}mod_news_categories_idx_nright` (`nright`),
-		KEY `{{PREFIX}}mod_news_categories_idx_level` (`level`)
+		KEY
+		`{{PREFIX}}mod_news_categories_idx_active` (`active`),
+		KEY
+		`{{PREFIX}}mod_news_categories_idx_ord` (`ord`),
+		KEY
+		`{{PREFIX}}mod_news_categories_idx_parent_id` (`parent_id`),
+		KEY
+		`{{PREFIX}}mod_news_categories_idx_nright` (`nright`),
+		KEY
+		`{{PREFIX}}mod_news_categories_idx_level` (`level`)
 		) ENGINE=MyISAM
 		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
@@ -112,19 +135,23 @@
 			'{{PREFIX}}mod_news_categories_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_news_categories_locales` (
-		`category_id` INT(10) UNSIGNED NOT NULL,
+		`category_id`
+		INT(10) UNSIGNED NOT NULL,
 		`language` CHAR(5) NOT NULL,
 
-		`title` VARCHAR(255) NULL,
+		`title`
+		VARCHAR(255) NULL,
 		`title_tag` VARCHAR(255) NULL,
-		`title_seo` VARCHAR(255) NULL,
+		`title_seo`
+		VARCHAR(255) NULL,
 		`slug` VARCHAR(255) NULL,
 		`content` LONGTEXT NULL,
 		`meta_description` VARCHAR(255) NULL,
 		`meta_keywords` TEXT NULL,
 
 		PRIMARY KEY (`category_id`,`language`),
-		KEY `{{PREFIX}}mod_news_categories_locales_idx_slug` (`slug`)
+		KEY
+		`{{PREFIX}}mod_news_categories_locales_idx_slug` (`slug`)
 		)
 		ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>

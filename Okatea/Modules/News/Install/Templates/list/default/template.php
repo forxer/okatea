@@ -2,25 +2,25 @@
 use Okatea\Tao\L10n\DateTime;
 ?>
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du JS de scrollToTopOfPage
 $okt->page->js->addFile($okt->options->public_url . '/plugins/easing/jquery.easing.min.js');
 $okt->page->js->addFile($okt->options->public_url . '/plugins/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
@@ -34,13 +34,13 @@ $okt->page->js->addReady('
 # fin Okatea : ajout du JS de scrollToTopOfPage ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du modal
 $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
 
 
-<?php 
+<?php
 # début Okatea : javascript pour afficher les filtres s'ils sont repliés
 if ($okt->module('News')->config->enable_filters && ! $okt->module('News')->filters->params->show_filters)
 {
@@ -61,12 +61,12 @@ if ($okt->module('News')->config->enable_filters && ! $okt->module('News')->filt
 # fin Okatea : javascript pour afficher les filtres s'ils sont repliés ?>
 
 
-<?php 
+<?php
 # début Okatea : on ajoutent des éléments à l'en-tête HTML
 $view['slots']->start('head')?>
 
-	<?php 
-# début Okatea : si les filtres ont été utilisés, on index pas
+	<?php
+	# début Okatea : si les filtres ont été utilisés, on index pas
 	if ($okt->module('News')->filters->params->show_filters)
 	:
 		?>
@@ -84,14 +84,14 @@ $view['slots']->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 
-<?php 
+<?php
 # début Okatea : si les filtres sont activés
 if ($okt->module('News')->config->enable_filters)
 :
 	?>
 
-	<?php 
-# début Okatea : lien d'affichage des filtres
+	<?php
+	# début Okatea : lien d'affichage des filtres
 	if (! $okt->module('News')->filters->params->show_filters)
 	:
 		?>
@@ -121,7 +121,7 @@ if ($okt->module('News')->config->enable_filters)
 <?php endif; # fin Okatea : si les filtres sont activés ?>
 
 
-<?php 
+<?php
 # début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
 if ($rsPostsList->isEmpty())
 :
@@ -132,11 +132,12 @@ if ($rsPostsList->isEmpty())
 </p>
 
 
+
 <?php endif;
 # fin Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message ?>
 
 
-<?php 
+<?php
 # début Okatea : si il y a des actualités on affiche la liste
 if (! $rsPostsList->isEmpty())
 :
@@ -144,8 +145,8 @@ if (! $rsPostsList->isEmpty())
 
 <div id="news_list">
 
-	<?php 
-# début Okatea : boucle sur la liste des actualités
+	<?php
+	# début Okatea : boucle sur la liste des actualités
 	while ($rsPostsList->fetch())
 	:
 		?>
@@ -160,8 +161,8 @@ if (! $rsPostsList->isEmpty())
 		</h2>
 		<?php # fin Okatea : affichage du titre ?>
 
-		<?php 
-# début Okatea : affichage du sous-titre
+		<?php
+		# début Okatea : affichage du sous-titre
 		if ($rsPostsList->subtitle != '')
 		:
 			?>
@@ -170,32 +171,32 @@ if (! $rsPostsList->isEmpty())
 		</p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
-		<?php 
-# début Okatea : affichage des infos
+		<?php
+		# début Okatea : affichage des infos
 		if ($okt->module('News')->config->public_display_date || $okt->module('News')->config->public_display_author || $okt->module('News')->config->categories['enable'])
 		:
 			?>
 		<p class="post-infos">
 			<?php _e('m_news_published')?>
 
-			<?php 
-# début Okatea : affichage date de l'article
+			<?php
+			# début Okatea : affichage date de l'article
 			if ($okt->module('News')->config->public_display_date)
 			:
 				?>
 			<?php printf(__('m_news_on_%s'), DateTime::full($rsPostsList->created_at))?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
-			<?php 
-# début Okatea : affichage l'auteur de l'article
+			<?php
+			# début Okatea : affichage l'auteur de l'article
 			if ($okt->module('News')->config->public_display_author)
 			:
 				?>
 			<?php printf(__('m_news_by_%s'), $view->escape($rsPostsList->author))?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
-			<?php 
-# début Okatea : affichage rubrique
+			<?php
+			# début Okatea : affichage rubrique
 			if ($okt->module('News')->config->categories['enable'] && $rsPostsList->category_title)
 			:
 				?>
@@ -210,8 +211,8 @@ if (! $rsPostsList->isEmpty())
 		<?php # début Okatea : affichage du contenu ?>
 		<div class="post-content">
 
-		<?php 
-# début Okatea : si on as PAS accès en lecture à l'article
+		<?php
+		# début Okatea : si on as PAS accès en lecture à l'article
 		if (! $rsPostsList->isReadable())
 		:
 			?>
@@ -221,14 +222,14 @@ if (! $rsPostsList->isEmpty())
 		<?php endif; # début Okatea : si on as PAS accès en lecture à l'article ?>
 
 
-		<?php 
-# début Okatea : si on as accès en lecture à l'article
+		<?php
+		# début Okatea : si on as accès en lecture à l'article
 		if ($rsPostsList->isReadable())
 		:
 			?>
 
-			<?php 
-# début Okatea : affichage image
+			<?php
+			# début Okatea : affichage image
 			if (! empty($rsPostsList->images) && isset($rsPostsList->images[1]) && isset($rsPostsList->images[1]['min_url']))
 			:
 				?>
@@ -244,8 +245,8 @@ if (! $rsPostsList->isEmpty())
 			<?php endif; # fin Okatea : affichage image ?>
 
 
-			<?php 
-# début Okatea : affichage texte tronqué
+			<?php
+			# début Okatea : affichage texte tronqué
 			if ($okt->module('News')->config->public_truncat_char > 0)
 			:
 				?>
@@ -259,8 +260,8 @@ if (! $rsPostsList->isEmpty())
 			<?php endif; # fin Okatea : affichage texte tronqué ?>
 
 
-			<?php 
-# début Okatea : affichage texte pas tronqué
+			<?php
+			# début Okatea : affichage texte pas tronqué
 			if (! $okt->module('News')->config->public_truncat_char)
 			:
 				?>
@@ -286,8 +287,8 @@ if (! $rsPostsList->isEmpty())
 <!-- #news_list -->
 
 
-<?php 
-# début Okatea : affichage pagination
+<?php
+	# début Okatea : affichage pagination
 	if ($rsPostsList->numPages > 1)
 	:
 		?>
@@ -297,8 +298,9 @@ if (! $rsPostsList->isEmpty())
 </ul>
 
 
+
 	<?php endif;
-	# fin Okatea : affichage pagination 	?>
+	# fin Okatea : affichage pagination 		?>
 
 
 <p class="scrollTop-wrapper">

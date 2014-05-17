@@ -23,7 +23,7 @@ use Okatea\Tao\L10n\DateTime;
 	<tbody>
 	<?php
 	
-$iCountLine = 0;
+	$iCountLine = 0;
 	foreach ($oCacheFiles as $oFileInfo)
 	:
 		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
@@ -44,14 +44,14 @@ $iCountLine = 0;
 		</tr>
 	<?php
 		
-$iCountLine ++;
+		$iCountLine ++;
 	endforeach
 	;
 	?>
 
 	<?php
 	
-foreach ($oPublicCacheFiles as $oFileInfo)
+	foreach ($oPublicCacheFiles as $oFileInfo)
 	:
 		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
 		?>
@@ -71,7 +71,7 @@ foreach ($oPublicCacheFiles as $oFileInfo)
 		</tr>
 	<?php
 		
-$iCountLine ++;
+		$iCountLine ++;
 	endforeach
 	;
 	?>

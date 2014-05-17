@@ -88,7 +88,7 @@ $okt->page->css->addCss('
 	<div class="buttonsetB">
 		<?php
 		
-echo $view->render('Common/Search', array(
+		echo $view->render('Common/Search', array(
 			'sFormAction' => $view->generateUrl('News_index'),
 			'sSearchLabel' => __('m_news_list_Search'),
 			'sSearch' => $sSearch,
@@ -118,7 +118,7 @@ echo $view->render('Common/Search', array(
 
 <div id="postsList">
 
-<?php 
+<?php
 # Affichage du compte d'articles
 if ($iNumFilteredPosts == 0)
 :
@@ -134,7 +134,7 @@ if ($iNumFilteredPosts == 0)
 	<?php endif; ?>
 <?php endif; ?>
 
-<?php 
+<?php
 # Si on as des articles à afficher
 if (! $rsPosts->isEmpty())
 :
@@ -179,8 +179,8 @@ if (! $rsPosts->isEmpty())
 					</td>
 			<?php endif; ?>
 
-			<?php 
-# droits d'accès
+			<?php
+		# droits d'accès
 		if ($okt->module('News')->config->enable_group_perms)
 		:
 			
@@ -206,6 +206,8 @@ if (! $rsPosts->isEmpty())
 				<p><?php printf(__('m_news_list_sheduled_%s'), DateTime::full($rsPosts->created_at))?>
 			<?php else : ?>
 				
+						
+						
 						
 						<p><?php printf(($rsPosts->active == 2 ? __('m_news_list_added_%s') : __('m_news_list_published_%s')), DateTime::full($rsPosts->created_at))?>
 				<?php if ($rsPosts->updated_at > $rsPosts->created_at) : ?>
@@ -286,11 +288,12 @@ if (! $rsPosts->isEmpty())
 		</table>
 	<?php
 	
-echo $view->render('Common/FormListBatches', array(
+	echo $view->render('Common/FormListBatches', array(
 		'sFormId' => 'posts-list',
 		'sActionsLabel' => __('m_news_list_posts_action'),
-		'aActionsChoices'     => $aActionsChoices
-	)); ?>
+		'aActionsChoices' => $aActionsChoices
+	));
+	?>
 </form>
 
 <?php if ($iNumPages > 1) : ?>

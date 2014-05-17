@@ -21,8 +21,8 @@ use Okatea\Tao\Misc\Utilities;
 				<label for="p_images_<?php echo $i ?>"><?php printf(__('m_news_post_image_%s'), $i) ?></label>
 			<?php echo form::file('p_images_'.$i) ?></p>
 
-			<?php 
-# il y a une image ?
+			<?php
+	# il y a une image ?
 	if (! empty($aPostData['images'][$i]))
 	:
 		

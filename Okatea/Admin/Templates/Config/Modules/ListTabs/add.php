@@ -82,7 +82,7 @@ $okt->page->toggleWithLegend('add_module_repo_title', 'add_module_repo_content',
 			<tbody>
 			<?php
 			
-$line_count = 0;
+			$line_count = 0;
 			foreach ($modules as $module)
 			:
 				$td_class = $line_count % 2 == 0 ? 'even' : 'odd';

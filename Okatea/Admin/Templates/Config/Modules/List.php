@@ -22,8 +22,8 @@ $okt->page->loader('.lazy-load');
 		<li><a href="#tab-installed"><span><?php _e('c_a_modules_installed_modules') ?></span></a></li>
 		<li><a href="#tab-uninstalled"><span><?php _e('c_a_modules_uninstalled_modules') ?></span></a></li>
 		<li><a href="#tab-add"><span><?php _e('c_a_modules_add_module') ?></span></a></li>
-		<?php 
-# des modules à mettre à jour ?
+		<?php
+		# des modules à mettre à jour ?
 		if (! empty($aUpdatablesModules))
 		:
 			?>
@@ -31,30 +31,30 @@ $okt->page->loader('.lazy-load');
 		<?php endif; ?>
 	</ul>
 
-	<?php 
-# render installed modules tab
+	<?php
+	# render installed modules tab
 	echo $view->render('Config/Modules/ListTabs/installed', array(
 		'aInstalledModules' => $aInstalledModules,
 		'aAllModules' => $aAllModules
 	));
 	?>
 
-	<?php 
-# render uninstalled modules tab
+	<?php
+	# render uninstalled modules tab
 	echo $view->render('Config/Modules/ListTabs/uninstalled', array(
 		'aUninstalledModules' => $aUninstalledModules
 	));
 	?>
 
-	<?php 
-# render add module tab
+	<?php
+	# render add module tab
 	echo $view->render('Config/Modules/ListTabs/add', array(
 		'aModulesRepositories' => $aModulesRepositories
 	));
 	?>
 
-	<?php 
-# render updatables modules tab
+	<?php
+	# render updatables modules tab
 	echo $view->render('Config/Modules/ListTabs/updatables', array(
 		'aUpdatablesModules' => $aUpdatablesModules
 	));

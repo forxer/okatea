@@ -93,9 +93,9 @@ class Navigation extends Controller
 			}
 		}
 		
-		return $this->render('Config/Navigation/Index', array()
+		return $this->render('Config/Navigation/Index', array())
 
-		);
+		;
 	}
 
 	protected function menu()

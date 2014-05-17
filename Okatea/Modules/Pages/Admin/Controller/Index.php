@@ -72,7 +72,7 @@ class Index extends Controller
 		$this->okt->module('Pages')->filters->getFilters();
 		
 		# Initialisation de la pagination
-		$iNumFilteredPosts = $this->okt->module('Pages')->getPagesCount($aParams);
+		$iNumFilteredPosts = $this->okt->module('Pages')->pages->getPagesCount($aParams);
 		
 		$oPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPosts, $this->okt->module('Pages')->filters->params->nb_per_page);
 		

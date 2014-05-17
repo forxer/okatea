@@ -39,7 +39,7 @@ use Okatea\Tao\Misc\Utilities;
 	<tbody>
 	<?php
 	
-$count_line = 0;
+	$count_line = 0;
 	while ($aMysqlInfos['table_infos']->fetch())
 	:
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
@@ -54,7 +54,7 @@ $count_line = 0;
 		</tr>
 	<?php
 		
-$count_line ++;
+		$count_line ++;
 	endwhile
 	;
 	?>
@@ -79,7 +79,7 @@ $count_line ++;
 	<tbody>
 	<?php
 	
-$count_line = 0;
+	$count_line = 0;
 	while ($aMysqlInfos['db_infos']->fetch())
 	:
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
@@ -117,7 +117,7 @@ $count_line = 0;
 		</tr>
 	<?php
 		
-$count_line ++;
+		$count_line ++;
 	endwhile
 	;
 	?>

@@ -22,8 +22,8 @@ $view->extend('layout');
 <?php endif; ?>
 
 <div class="ui-helper-clearfix">
-	<?php 
-# lecteur de flux d'actualités
+	<?php
+	# lecteur de flux d'actualités
 	if ($bFeedSuccess)
 	:
 		?>
@@ -75,6 +75,7 @@ $view->extend('layout');
 </div>
 <![endif]-->
 
-<?php 
+<?php
 # -- CORE TRIGGER : adminIndexHtmlContent
-$okt->triggers->callTrigger('adminIndexHtmlContent'); ?>
+$okt->triggers->callTrigger('adminIndexHtmlContent');
+?>

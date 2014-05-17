@@ -2,25 +2,25 @@
 use Okatea\Tao\L10n\DateTime;
 ?>
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du JS de scrollToTopOfPage
 $okt->page->js->addFile($okt->options->public_url . '/plugins/easing/jquery.easing.min.js');
 $okt->page->js->addFile($okt->options->public_url . '/plugins/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
@@ -34,7 +34,7 @@ $okt->page->js->addReady('
 # fin Okatea : ajout du JS de scrollToTopOfPage ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du modal
 $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 # fin Okatea : ajout du modal ?>
@@ -47,8 +47,8 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 		<!-- <h1 id="post-title"><?php echo $view->escape($rsPost->title) ?></h1> -->
 		<?php # fin Okatea : affichage du titre ?>
 
-		<?php 
-# début Okatea : affichage du sous-titre
+		<?php
+		# début Okatea : affichage du sous-titre
 		if ($rsPost->subtitle != '')
 		:
 			?>
@@ -57,32 +57,32 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 		</p>
 		<?php endif; # fin Okatea : affichage du sous-titre ?>
 
-		<?php 
-# début Okatea : affichage des infos
+		<?php
+		# début Okatea : affichage des infos
 		if ($okt->module('News')->config->public_display_date || $okt->module('News')->config->public_display_author || $okt->module('News')->config->categories['enable'])
 		:
 			?>
 		<p id="post-infos">
 			<?php _e('m_news_published')?>
 
-			<?php 
-# début Okatea : affichage date de l'article
+			<?php
+			# début Okatea : affichage date de l'article
 			if ($okt->module('News')->config->public_display_date)
 			:
 				?>
 			<?php printf(__('m_news_on_%s'), DateTime::full($rsPost->created_at))?>
 			<?php endif; # fin Okatea : affichage date de l'article ?>
 
-			<?php 
-# début Okatea : affichage l'auteur de l'article
+			<?php
+			# début Okatea : affichage l'auteur de l'article
 			if ($okt->module('News')->config->public_display_author)
 			:
 				?>
 			<?php printf(__('m_news_by_%s'),$view->escape($rsPost->author))?>
 			<?php endif; # fin Okatea : affichage l'auteur de l'article ?>
 
-			<?php 
-# début Okatea : affichage rubrique
+			<?php
+			# début Okatea : affichage rubrique
 			if ($okt->module('News')->config->categories['enable'] && $rsPost->category_title)
 			:
 				?>
@@ -98,21 +98,21 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 	<div id="post-body">
 
-		<?php 
-# début Okatea : si les images sont activées
+		<?php
+		# début Okatea : si les images sont activées
 		if ($okt->module('News')->config->images['enable'] && ! empty($rsPost->images))
 		:
 			?>
 		<p id="post-images" class="modal-box">
 
-			<?php 
-# début Okatea : boucle sur les images
+			<?php
+			# début Okatea : boucle sur les images
 			foreach ($rsPost->images as $i => $image)
 			:
 				?>
 
-				<?php 
-# si c'est la première image on affiche la miniature
+				<?php
+				# si c'est la première image on affiche la miniature
 				if ($i == 1 && isset($image['min_url']))
 				:
 					?>
@@ -127,8 +127,9 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 			<br />
 
 				
-				<?php 
-# si c'est pas la première image on affiche le square
+				
+				<?php
+				# si c'est pas la première image on affiche le square
 				elseif (isset($image['square_url']))
 				:
 					?>
@@ -161,15 +162,15 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 	<div id="post-footer">
 
-		<?php 
-# début Okatea : si les fichiers sont activées
+		<?php
+		# début Okatea : si les fichiers sont activées
 		if ($okt->module('News')->config->files['enable'])
 		:
 			?>
 		<div id="post-files" class="three-cols">
 
-			<?php 
-# début Okatea : boucle sur les fichiers
+			<?php
+			# début Okatea : boucle sur les fichiers
 			foreach ($rsPost->files as $i => $file)
 			:
 				?>

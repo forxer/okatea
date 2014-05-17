@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->module('News')->getPosts(array(
 	'active' => 1, # articles visibles
@@ -12,19 +12,19 @@ $rsInsertPosts = $okt->module('News')->getPosts(array(
 # fin Okatea : récupération des news pour l'encart ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : jQuery Cycle
 $okt->page->js->addFile($okt->options->public_url . '/plugins/cycle/jquery.cycle.min.js');
 $okt->page->js->addReady('
@@ -39,8 +39,8 @@ $okt->page->js->addReady('
 
 <div id="news-insert">
 
-	<?php 
-# début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
+	<?php
+	# début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
 	if ($rsInsertPosts->isEmpty())
 	:
 		?>
@@ -52,22 +52,22 @@ $okt->page->js->addReady('
 	<?php endif; # fin Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message ?>
 
 
-	<?php 
-# début Okatea : si il y a des actualités on affiche la liste
+	<?php
+	# début Okatea : si il y a des actualités on affiche la liste
 	if (! $rsInsertPosts->isEmpty())
 	:
 		?>
 
 	<div id="news-list-insert">
 
-		<?php 
-# début Okatea : boucle sur la liste des actualités
+		<?php
+		# début Okatea : boucle sur la liste des actualités
 		while ($rsInsertPosts->fetch())
 		:
 			?>
 
-		<?php 
-# début Okatea : affichage de l'article si on as accès en lecture
+		<?php
+			# début Okatea : affichage de l'article si on as accès en lecture
 			if ($rsInsertPosts->isReadable())
 			:
 				?>
@@ -83,8 +83,8 @@ $okt->page->js->addReady('
 			<?php # début Okatea : affichage du contenu ?>
 			<div class="post-content">
 
-			<?php 
-# début Okatea : si on as PAS accès en lecture à l'article
+			<?php
+				# début Okatea : si on as PAS accès en lecture à l'article
 				if (! $rsInsertPosts->isReadable())
 				:
 					?>
@@ -94,14 +94,14 @@ $okt->page->js->addReady('
 			<?php endif; # début Okatea : si on as PAS accès en lecture à l'article ?>
 
 
-			<?php 
-# début Okatea : si on as accès en lecture à l'article
+			<?php
+				# début Okatea : si on as accès en lecture à l'article
 				if ($rsInsertPosts->isReadable())
 				:
 					?>
 
-				<?php 
-# début Okatea : affichage texte tronqué
+				<?php
+					# début Okatea : affichage texte tronqué
 					if ($okt->module('News')->config->insert_truncat_char > 0)
 					:
 						?>
@@ -117,8 +117,8 @@ $okt->page->js->addReady('
 				<?php endif; # fin Okatea : affichage texte tronqué ?>
 
 
-				<?php 
-# début Okatea : affichage texte pas tronqué
+				<?php
+					# début Okatea : affichage texte pas tronqué
 					if (! $okt->module('News')->config->insert_truncat_char)
 					:
 						?>

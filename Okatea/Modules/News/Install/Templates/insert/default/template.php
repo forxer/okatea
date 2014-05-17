@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->module('News')->getPosts(array(
 	'active' => 1, # articles visibles
@@ -12,7 +12,7 @@ $rsInsertPosts = $okt->module('News')->getPosts(array(
 # fin Okatea : récupération des news pour l'encart ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
@@ -20,7 +20,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 <div id="news-insert">
 
-<?php 
+<?php
 # début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
 if ($rsInsertPosts->isEmpty())
 :
@@ -33,7 +33,7 @@ if ($rsInsertPosts->isEmpty())
 <?php endif; # fin Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message ?>
 
 
-<?php 
+<?php
 # début Okatea : si il y a des actualités on affiche la liste
 if (! $rsInsertPosts->isEmpty())
 :
@@ -41,8 +41,8 @@ if (! $rsInsertPosts->isEmpty())
 
 <div id="news-list-insert">
 
-	<?php 
-# début Okatea : boucle sur la liste des actualités
+	<?php
+	# début Okatea : boucle sur la liste des actualités
 	while ($rsInsertPosts->fetch())
 	:
 		?>
@@ -60,8 +60,8 @@ if (! $rsInsertPosts->isEmpty())
 		<?php # début Okatea : affichage du contenu ?>
 		<div class="post-content">
 
-		<?php 
-# début Okatea : si on as PAS accès en lecture à l'article
+		<?php
+		# début Okatea : si on as PAS accès en lecture à l'article
 		if (! $rsInsertPosts->isReadable())
 		:
 			?>
@@ -71,14 +71,14 @@ if (! $rsInsertPosts->isEmpty())
 		<?php endif; # début Okatea : si on as PAS accès en lecture à l'article ?>
 
 
-		<?php 
-# début Okatea : si on as accès en lecture à l'article
+		<?php
+		# début Okatea : si on as accès en lecture à l'article
 		if ($rsInsertPosts->isReadable())
 		:
 			?>
 
-			<?php 
-# début Okatea : affichage image
+			<?php
+			# début Okatea : affichage image
 			$post_image = $rsInsertPosts->getFirstImageInfo();
 			if (! empty($post_image) && isset($post_image['square_url']))
 			:
@@ -94,8 +94,8 @@ if (! $rsInsertPosts->isEmpty())
 			<?php endif; # fin Okatea : affichage image ?>
 
 
-			<?php 
-# début Okatea : affichage texte tronqué
+			<?php
+			# début Okatea : affichage texte tronqué
 			if ($okt->module('News')->config->insert_truncat_char > 0)
 			:
 				?>
@@ -111,8 +111,8 @@ if (! $rsInsertPosts->isEmpty())
 			<?php endif; # fin Okatea : affichage texte tronqué ?>
 
 
-			<?php 
-# début Okatea : affichage texte pas tronqué
+			<?php
+			# début Okatea : affichage texte pas tronqué
 			if (! $okt->module('News')->config->insert_truncat_char)
 			:
 				?>

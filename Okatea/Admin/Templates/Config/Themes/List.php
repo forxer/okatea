@@ -37,8 +37,8 @@ $okt->page->css->addCss('
 		<li><a href="#tab-installed"><span><?php _e('c_a_themes_installed_themes') ?></span></a></li>
 		<li><a href="#tab-uninstalled"><span><?php _e('c_a_themes_uninstalled_themes') ?></span></a></li>
 		<li><a href="#tab-add"><span><?php _e('c_a_themes_add_theme') ?></span></a></li>
-		<?php 
-# des themes à mettre à jour ?
+		<?php
+		# des themes à mettre à jour ?
 		if (! empty($aUpdatablesThemes))
 		:
 			?>
@@ -46,30 +46,30 @@ $okt->page->css->addCss('
 		<?php endif; ?>
 	</ul>
 
-	<?php 
-# render installed themes tab
+	<?php
+	# render installed themes tab
 	echo $view->render('Config/Themes/ListTabs/installed', array(
 		'aInstalledThemes' => $aInstalledThemes,
 		'aAllThemes' => $aAllThemes
 	));
 	?>
 
-	<?php 
-# render uninstalled themes tab
+	<?php
+	# render uninstalled themes tab
 	echo $view->render('Config/Themes/ListTabs/uninstalled', array(
 		'aUninstalledThemes' => $aUninstalledThemes
 	));
 	?>
 
-	<?php 
-# render add theme tab
+	<?php
+	# render add theme tab
 	echo $view->render('Config/Themes/ListTabs/add', array(
 		'aThemesRepositories' => $aThemesRepositories
 	));
 	?>
 
-	<?php 
-# render updatables themes tab
+	<?php
+	# render updatables themes tab
 	echo $view->render('Config/Themes/ListTabs/updatables', array(
 		'aUpdatablesThemes' => $aUpdatablesThemes
 	));

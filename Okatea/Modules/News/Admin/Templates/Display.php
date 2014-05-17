@@ -141,7 +141,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 				<p><?php _e('m_news_display_currently_used')?> : <em><?php
 				
-$aChoices = array_merge(array(
+				$aChoices = array_merge(array(
 					'' => __('c_c_none_f')
 				), $okt->page->getLblList());
 				echo $aChoices[$okt->module('News')->config->lightbox_type]?></em>

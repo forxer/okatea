@@ -19,8 +19,8 @@ use Okatea\Tao\Misc\Utilities;
 			<label for="p_files_<?php echo $i ?>"><?php printf(__('m_news_post_file_%s'), $i)?> </label>
 		<?php echo form::file('p_files_'.$i) ?></p>
 
-		<?php 
-# il y a un fichier ?
+		<?php
+	# il y a un fichier ?
 	if (! empty($aPostData['files'][$i]))
 	:
 		

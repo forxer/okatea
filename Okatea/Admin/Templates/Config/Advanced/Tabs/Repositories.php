@@ -34,7 +34,7 @@ $okt->page->js->addReady('
 	<tbody>
 	<?php
 	
-$line_count = 0;
+	$line_count = 0;
 	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name => $repo_url)
 	:
 		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';
@@ -77,7 +77,7 @@ $line_count = 0;
 	<tbody>
 	<?php
 	
-$line_count = 0;
+	$line_count = 0;
 	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name => $repo_url)
 	:
 		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';

@@ -124,8 +124,7 @@ foreach ($aInstalledThemes as $aTheme)
 					<p>
 				<?php echo $aTheme['version']?>
 				<?php if (version_compare($aAllThemes[$aTheme['id']]['version'], $aTheme['version'], '>')) : ?>
-				<br />
-						<a
+				<br /> <a
 							href="<?php echo $view->generateUrl('config_themes') ?>?update=<?php echo $aTheme['id']; ?>"
 							class="icon plugin_error">Mettre à jour à la version <?php echo $aAllThemes[$aTheme['id']]['version'] ?></a>
 				<?php endif; ?>

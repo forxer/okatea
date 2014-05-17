@@ -275,7 +275,7 @@ if ($aCategoryData['cat']['id'])
 		<ul id="sortable" class="ui-sortable">
 		<?php
 	
-$i = 1;
+	$i = 1;
 	while ($aCategoryData['extra']['rsSiblings']->fetch())
 	:
 		?>

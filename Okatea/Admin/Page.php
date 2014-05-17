@@ -25,49 +25,49 @@ class Page extends BasePage
 
 	/**
 	 * Le fil d'ariane
-	 * 
+	 *
 	 * @var object breadcrumb
 	 */
 	public $breadcrumb;
 
 	/**
 	 * Les messages flash.
-	 * 
+	 *
 	 * @var object
 	 */
 	public $flash;
 
 	/**
 	 * La pile de messages d'information.
-	 * 
+	 *
 	 * @var object
 	 */
 	public $infos;
 
 	/**
 	 * La pile de messages de confirmation.
-	 * 
+	 *
 	 * @var object
 	 */
 	public $success;
 
 	/**
 	 * La pile de messages d'avertissements
-	 * 
+	 *
 	 * @var object
 	 */
 	public $warnings;
 
 	/**
 	 * La pile de messages d'erreurs.
-	 * 
+	 *
 	 * @var object
 	 */
 	public $errors;
 
 	/**
 	 * La pile des jeux de boutons
-	 * 
+	 *
 	 * @var array
 	 */
 	public $buttonset = array();
@@ -76,14 +76,14 @@ class Page extends BasePage
 
 	/**
 	 * Format du HTML du menu principal
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $formatHtmlMainMenu = array();
 
 	/**
 	 * Format du HTML des sous-menu
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $formatHtmlSubMenu = array();

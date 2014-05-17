@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 # début Okatea : récupération des news pour l'encart
 $rsInsertPosts = $okt->module('News')->getPosts(array(
 	'active' => 1, # articles visibles
@@ -12,7 +12,7 @@ $rsInsertPosts = $okt->module('News')->getPosts(array(
 # fin Okatea : récupération des news pour l'encart ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
@@ -20,8 +20,8 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 <div id="news-insert">
 
-	<?php 
-# début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
+	<?php
+	# début Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message
 	if ($rsInsertPosts->isEmpty())
 	:
 		?>
@@ -33,22 +33,22 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 	<?php endif; # fin Okatea : si il n'y a PAS d'actualité à afficher on peut indiquer un message ?>
 
 
-	<?php 
-# début Okatea : si il y a des actualités on affiche la liste
+	<?php
+	# début Okatea : si il y a des actualités on affiche la liste
 	if (! $rsInsertPosts->isEmpty())
 	:
 		?>
 
 	<ul id="news-list-insert">
 
-		<?php 
-# début Okatea : boucle sur la liste des actualités
+		<?php
+		# début Okatea : boucle sur la liste des actualités
 		while ($rsInsertPosts->fetch())
 		:
 			?>
 
-		<?php 
-# début Okatea : si on as accès en lecture à l'article, affichage du titre
+		<?php
+			# début Okatea : si on as accès en lecture à l'article, affichage du titre
 			if ($rsInsertPosts->isReadable())
 			:
 				?>

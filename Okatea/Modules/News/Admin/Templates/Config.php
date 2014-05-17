@@ -75,7 +75,7 @@ $okt->page->updatePermissionsCheckboxes();
 					<?php foreach ($aGroups as $g_id=>$g_title) : ?>
 					<li><label for="p_perm_g_<?php echo $g_id ?>"><?php
 						
-echo form::checkbox(array(
+						echo form::checkbox(array(
 							'p_perms[]',
 							'p_perm_g_' . $g_id
 						), $g_id, in_array($g_id, $okt->module('News')->config->perms))?> <?php echo $g_title ?></label></li>

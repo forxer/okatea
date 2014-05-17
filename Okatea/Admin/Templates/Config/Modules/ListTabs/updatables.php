@@ -7,7 +7,7 @@
  */
 ?>
 
-<?php 
+<?php
 # des modules à mettre à jour ?
 if (! empty($aUpdatablesModules))
 :
@@ -28,7 +28,7 @@ if (! empty($aUpdatablesModules))
 		<tbody>
 		<?php
 	
-foreach ($aUpdatablesModules as $updatable)
+	foreach ($aUpdatablesModules as $updatable)
 	:
 		$td_class = $line_count % 2 == 0 ? 'even' : 'odd';
 		$line_count ++;

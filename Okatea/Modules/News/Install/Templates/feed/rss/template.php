@@ -16,14 +16,14 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <!-- <pubDate>{{tpl:BlogUpdateDate rfc822="1"}}</pubDate> --> <!-- <copyright>{{tpl:BlogCopyrightNotice encode_xml="1"}}</copyright> -->
 <docs>http://blogs.law.harvard.edu/tech/rss</docs> <generator>Okatea</generator>
 
-	<?php 
-# début Okatea : boucle sur la liste des actualités
+	<?php
+	# début Okatea : boucle sur la liste des actualités
 	while ($rsPostsList->fetch())
 	:
 		?>
 
-		<?php 
-# début Okatea : si on as accès en lecture à l'article
+		<?php
+		# début Okatea : si on as accès en lecture à l'article
 		if ($rsPostsList->isReadable())
 		:
 			?>
@@ -43,7 +43,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 
 			<?php
 			
-$image = $rsPostsList->getFirstImageInfo();
+			$image = $rsPostsList->getFirstImageInfo();
 			if (! empty($image) && isset($image['square_url']))
 			:
 				?>

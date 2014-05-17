@@ -55,7 +55,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<p>
 		<label for="p_log_admin_ttl_months"><?php
 		
-printf(__('c_a_config_advanced_logadmin_ttl_%s_months'), form::text('p_log_admin_ttl_months', 3, 255, $view->escape($aPageData['values']['log_admin']['ttl_months'])))?></label>
+		printf(__('c_a_config_advanced_logadmin_ttl_%s_months'), form::text('p_log_admin_ttl_months', 3, 255, $view->escape($aPageData['values']['log_admin']['ttl_months'])))?></label>
 	</p>
 
 </fieldset>
@@ -74,6 +74,8 @@ printf(__('c_a_config_advanced_logadmin_ttl_%s_months'), form::text('p_log_admin
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($aPageData['values']['news_feed']['url'][$aLanguage['code']]) ? $view->escape($aPageData['values']['news_feed']['url'][$aLanguage['code']]) : ''))?>
 	<?php endforeach; ?>
+
+
 
 
 

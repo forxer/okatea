@@ -229,8 +229,8 @@ if (! empty($sSearch))
 
 			<p><?php printf(__('c_a_themes_version_%s'), $aTheme['version'])?>
 
-			<?php 
-# buton set
+			<?php
+		# buton set
 		$aActions = array();
 		if ($aTheme['is_active'])
 		{
@@ -279,6 +279,9 @@ if (! empty($sSearch))
 		
 		?>
 
+			
+			
+			
 			
 			
 			

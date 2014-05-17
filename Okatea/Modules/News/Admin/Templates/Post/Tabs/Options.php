@@ -51,8 +51,8 @@ $okt->page->datePicker();
 	</p>
 	<?php endif; ?>
 
-	<?php 
-# si les permissions de groupe sont activées
+	<?php
+	# si les permissions de groupe sont activées
 	if ($okt->module('News')->config->enable_group_perms)
 	:
 		?>

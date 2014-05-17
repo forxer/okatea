@@ -19,7 +19,7 @@ class Recordset extends BaseRecordset
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;

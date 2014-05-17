@@ -91,7 +91,7 @@ $okt->page->js->addReady('
 			<ul id="sortable" class="ui-sortable">
 			<?php
 			
-$i = 1;
+			$i = 1;
 			while ($rsLanguages->fetch())
 			:
 				?>

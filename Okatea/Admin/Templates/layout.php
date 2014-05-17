@@ -64,23 +64,23 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 					<h2 id="breadcrumb"><?php echo $okt->page->breadcrumb->getBreadcrumb('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
-			<?php 
-# affichage des éventuels messages d'erreurs
+			<?php
+			# affichage des éventuels messages d'erreurs
 			echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>');
 			?>
 
-			<?php 
-# affichage des éventuels messages d'avertissements
+			<?php
+			# affichage des éventuels messages d'avertissements
 			echo $okt->page->warnings->getWarnings('<div class="warnings_box ui-corner-all">%s</div>');
 			?>
 
-			<?php 
-# affichage des éventuels messages de confirmation
+			<?php
+			# affichage des éventuels messages de confirmation
 			echo $okt->page->success->getSuccess('<div class="success_box ui-corner-all">%s</div>');
 			?>
 
-			<?php 
-# affichage des éventuels messages d'information
+			<?php
+			# affichage des éventuels messages d'information
 			echo $okt->page->infos->getInfos('<div class="infos_box ui-corner-all">%s</div>');
 			?>
 
@@ -110,7 +110,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 <nav><?php echo $okt->page->getMainMenuHtml(); ?></nav>
 <?php endif; ?>
 
-<?php 
+<?php
 # init footer content
 $aFooterContent = new ArrayObject();
 
@@ -150,7 +150,9 @@ $aFooterContent = array_filter((array) $aFooterContent);
 
 <?php echo $okt->page->js?>
 
-<?php # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
-$okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag'); ?>
+<?php 
+# -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
+$okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag');
+?>
 </body>
 </html>

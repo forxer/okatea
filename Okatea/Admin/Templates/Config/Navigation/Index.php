@@ -64,7 +64,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 	<tbody>
 	<?php
 	
-$count_line = 0;
+	$count_line = 0;
 	while ($rsMenus->fetch())
 	:
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';

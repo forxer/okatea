@@ -114,8 +114,7 @@ foreach ($aInstalledModules as $aModule)
 					<p>
 				<?php echo $aModule['version']?>
 				<?php if (version_compare($aAllModules[$aModule['id']]['version'], $aModule['version'], '>')) : ?>
-				<br />
-						<a
+				<br /> <a
 							href="<?php echo $view->generateUrl('config_modules') ?>?update=<?php echo $aModule['id']; ?>"
 							class="icon plugin_error">Mettre à jour à la version <?php echo $aAllModules[$aModule['id']]['version'] ?></a>
 				<?php endif; ?>

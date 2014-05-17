@@ -82,7 +82,7 @@ $okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', a
 			<tbody>
 			<?php
 			
-$line_count = 0;
+			$line_count = 0;
 			foreach ($themes as $theme)
 			:
 				$td_class = $line_count % 2 == 0 ? 'even' : 'odd';

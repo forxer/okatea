@@ -79,7 +79,7 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_items_%s_menu'), $r
 	<ul id="sortable" class="ui-sortable">
 	<?php
 	
-$i = 1;
+	$i = 1;
 	while ($rsItems->fetch())
 	:
 		?>

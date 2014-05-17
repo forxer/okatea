@@ -37,7 +37,7 @@ if ($iNumGroup > 1)
 
 		<?php
 		
-foreach ($aPermissions as $group)
+		foreach ($aPermissions as $group)
 		:
 			if (empty($group['perms']))
 				continue;

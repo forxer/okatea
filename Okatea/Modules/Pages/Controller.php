@@ -61,7 +61,7 @@ class Controller extends BaseController
 		$this->okt->module('Pages')->filters->getFilters();
 		
 		# initialisation de la pagination
-		$iNumFilteredPages = $this->okt->module('Pages')->getPagesCount($aPagesParams);
+		$iNumFilteredPages = $this->okt->module('Pages')->pages->getPagesCount($aPagesParams);
 		
 		$oPagesPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPages, $this->okt->module('Pages')->filters->params->nb_per_page);
 		
@@ -214,7 +214,7 @@ class Controller extends BaseController
 		$this->okt->module('Pages')->filters->getFilters();
 		
 		# initialisation de la pagination
-		$iNumFilteredPages = $this->okt->module('Pages')->getPagesCount($aPagesParams);
+		$iNumFilteredPages = $this->okt->module('Pages')->pages->getPagesCount($aPagesParams);
 		
 		$oPagesPager = new Pager($this->okt, $this->okt->module('Pages')->filters->params->page, $iNumFilteredPages, $this->okt->module('Pages')->filters->params->nb_per_page);
 		

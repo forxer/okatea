@@ -24,7 +24,7 @@
 		<tbody>
 		<?php
 	
-foreach ($aUpdatablesThemes as $updatable)
+	foreach ($aUpdatablesThemes as $updatable)
 	:
 		$td_class = $line_count % 2 == 0 ? 'even' : 'odd';
 		$line_count ++;

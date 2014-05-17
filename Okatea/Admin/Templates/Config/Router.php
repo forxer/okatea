@@ -53,8 +53,8 @@ $okt->page->tabs();
 				</tr>
 			</thead>
 			<tbody>
-			<?php 
-# boucle sur les routes
+			<?php
+			# boucle sur les routes
 			
 
 			$count_line = 0;
@@ -139,8 +139,8 @@ $okt->page->tabs();
 				</tr>
 			</thead>
 			<tbody>
-			<?php 
-# boucle sur les routes
+			<?php
+			# boucle sur les routes
 			
 
 			$count_line = 0;

@@ -67,7 +67,7 @@ echo $okt->page->getButtonSet('users');
 		<?php foreach ($aPageData['tabs'] as $aTabInfos) : ?>
 		<li><a href="#<?php
 			
-echo $aTabInfos['id']?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
+			echo $aTabInfos['id']?>"><span><?php echo $aTabInfos['title'] ?></span></a></li>
 		<?php endforeach; ?>
 	</ul>
 

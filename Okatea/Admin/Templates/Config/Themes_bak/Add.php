@@ -71,7 +71,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 				<tbody>
 				<?php
 				
-$line_count = 0;
+				$line_count = 0;
 				foreach ($aThemes as $aTheme)
 				:
 					$td_class = $line_count % 2 == 0 ? 'even' : 'odd';

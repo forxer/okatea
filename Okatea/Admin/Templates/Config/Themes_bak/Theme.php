@@ -136,8 +136,8 @@ $okt->page->css->addCss('
 		<form
 			action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
 			method="post">
-			<?php 
-# affichage champs definitions.less
+			<?php
+		# affichage champs definitions.less
 		echo $oDefinitionsLessEditor->getHtmlFields($aCurrentDefinitionsLess, 4);
 		?>
 

@@ -5,33 +5,46 @@
 	<action id="firstcategorie" label="Creation des rubriques exemples">
 		INSERT INTO
 		`{{PREFIX}}mod_news_categories`
-		(`id`, `active`, `ord`, `parent_id`, `nleft`, `nright`, `level`)
+		(`id`, `active`, `ord`, `parent_id`,
+		`nleft`, `nright`, `level`)
 		VALUES
 		(1, 1, 1, 0, 1, 8, 1),
-		(2, 1, 1, 1, 2, 5, 2),
+		(2, 1, 1, 1, 2,
+		5, 2),
 		(3, 1, 1, 2, 3, 4, 3),
 		(4, 1, 2, 1, 6, 7, 2),
-		(5, 1, 2, 0, 9, 10, 1),
+		(5, 1, 2, 0, 9, 10,
+		1),
 		(6, 1, 3, 0, 11, 12, 1);
 	</action>
 
 	<action id="firstcategorielocales" label="Creation des locales des rubriques exemples">
 		INSERT INTO
 		`{{PREFIX}}mod_news_categories_locales`
-		(`category_id`, `language`, `title`, `slug`, `content`)
+		(`category_id`, `language`,
+		`title`, `slug`, `content`)
 		VALUES
-		(1, 'fr', 'Rubrique 1', 'rubrique-1', NULL),
+		(1, 'fr', 'Rubrique 1', 'rubrique-1',
+		NULL),
 		(2, 'fr', 'Rubrique 1.1', 'rubrique-1/rubrique-11', NULL),
-		(3, 'fr', 'Rubrique 1.1.1', 'rubrique-1/rubrique-11/rubrique-111', NULL),
+		(3,
+		'fr', 'Rubrique 1.1.1', 'rubrique-1/rubrique-11/rubrique-111', NULL),
 		(4, 'fr', 'Rubrique 1.2', 'rubrique-1/rubrique-12', NULL),
-		(5, 'fr', 'Rubrique 2', 'rubrique-2', NULL),
-		(6, 'fr', 'Rubrique 3', 'rubrique-3', NULL),
+		(5, 'fr',
+		'Rubrique 2', 'rubrique-2', NULL),
+		(6, 'fr', 'Rubrique 3',
+		'rubrique-3', NULL),
 		(1, 'en', 'Category 1', 'category-1', NULL),
-		(2, 'en', 'Category 1.1', 'category-1/category-11', NULL),
-		(3, 'en', 'Category 1.1.1', 'category-1/category-11/category-111', NULL),
-		(4, 'en', 'Category 1.2', 'category-1/category-12', NULL),
-		(5, 'en', 'Category 2', 'category-2', NULL),
-		(6, 'en', 'Category 3', 'category-3', NULL);
+		(2,
+		'en', 'Category 1.1', 'category-1/category-11', NULL),
+		(3, 'en',
+		'Category 1.1.1', 'category-1/category-11/category-111', NULL),
+		(4,
+		'en', 'Category 1.2', 'category-1/category-12', NULL),
+		(5, 'en',
+		'Category 2', 'category-2', NULL),
+		(6, 'en', 'Category 3',
+		'category-3', NULL);
 	</action>
 
 	<!-- news exemples -->
@@ -40,9 +53,11 @@
 		(`id`, `user_id`, `category_id`, `active`, `selected`, `created_at`,
 		`updated_at`, `images`, `files`, `tpl`)
 		VALUES
-		(1, 3, 1, 1, 0, '2012-11-06 15:56:22', '2012-11-06 15:56:22', NULL, NULL,
+		(1, 3, 1, 1, 0,
+		'2012-11-06 15:56:22', '2012-11-06 15:56:22', NULL, NULL,
 		NULL),
-		(2, 2, 1, 1, 0, '2012-11-07 13:37:48', '2012-11-07 13:37:48',
+		(2, 2,
+		1, 1, 0, '2012-11-07 13:37:48', '2012-11-07 13:37:48',
 		'a:5:{i:1;a:23:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:53:"D:\\www\\okatea_project\\upload/modules/News/img/2/1.jpg";s:7:"img_url";s:47:"/okatea_project/upload/modules/News/img/2/1.jpg";s:9:"img_width";i:600;s:10:"img_height";i:440;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="600"
 		height="440"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:57:"D:\\www\\okatea_project\\upload/modules/News/img/2/min-1.jpg";s:7:"min_url";s:51:"/okatea_project/upload/modules/News/img/2/min-1.jpg";s:9:"min_width";i:200;s:10:"min_height";i:146;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200"
 		height="146"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/2/sq-1.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/2/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
@@ -60,9 +75,11 @@
 		height="135"";s:11:"square_name";s:8:"sq-5.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/2/sq-5.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/2/sq-5.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
 		height="60"";s:3:"alt";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}s:5:"title";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}}}',
 		NULL, NULL),
-		(3, 2, 1, 0, 0, '2012-11-23 10:57:18', '2012-11-23 10:57:18', NULL, NULL,
+		(3, 2, 1, 0, 0, '2012-11-23 10:57:18', '2012-11-23
+		10:57:18', NULL, NULL,
 		NULL),
-		(4, 3, 1, 1, 0, '2012-12-05 21:57:18', '2012-12-05 21:57:18',
+		(4, 3, 1, 1, 0, '2012-12-05 21:57:18',
+		'2012-12-05 21:57:18',
 		'a:3:{i:1;a:23:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:53:"D:\\www\\okatea_project\\upload/modules/News/img/4/1.jpg";s:7:"img_url";s:47:"/okatea_project/upload/modules/News/img/4/1.jpg";s:9:"img_width";i:800;s:10:"img_height";i:597;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="800"
 		height="597"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:57:"D:\\www\\okatea_project\\upload/modules/News/img/4/min-1.jpg";s:7:"min_url";s:51:"/okatea_project/upload/modules/News/img/4/min-1.jpg";s:9:"min_width";i:200;s:10:"min_height";i:148;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200"
 		height="148"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/4/sq-1.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/4/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
@@ -74,16 +91,20 @@
 		height="132"";s:11:"square_name";s:8:"sq-3.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/4/sq-3.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/4/sq-3.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
 		height="60"";s:3:"alt";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}s:5:"title";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}}}',
 		NULL, NULL),
-		(5, 2, 1, 2, 0, '2012-12-12 12:12:12', '2012-12-12 12:12:12', NULL, NULL,
+		(5, 2, 1, 2, 0, '2012-12-12 12:12:12', '2012-12-12
+		12:12:12', NULL, NULL,
 		NULL),
-		(6, 3, 3, 3, 0, '2018-06-25 15:58:52', '2012-12-06 15:58:52', NULL, NULL,
+		(6, 3, 3, 3, 0, '2018-06-25 15:58:52',
+		'2012-12-06 15:58:52', NULL, NULL,
 		NULL),
-		(7, 2, 5, 1, 0, '2012-12-18 16:07:20', '2012-12-18 16:07:20',
+		(7, 2, 5, 1, 0, '2012-12-18
+		16:07:20', '2012-12-18 16:07:20',
 		'a:1:{i:1;a:21:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:53:"D:\\www\\okatea_project\\upload/modules/News/img/7/1.jpg";s:7:"img_url";s:47:"/okatea_project/upload/modules/News/img/7/1.jpg";s:9:"img_width";i:528;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="528"
 		height="600"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:57:"D:\\www\\okatea_project\\upload/modules/News/img/7/min-1.jpg";s:7:"min_url";s:51:"/okatea_project/upload/modules/News/img/7/min-1.jpg";s:9:"min_width";i:132;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="132"
 		height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/7/sq-1.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/7/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
 		height="60"";}}', NULL, NULL),
-		(8, 3, 3, 1, 1, '2012-12-27 14:17:51', '2012-12-27 14:17:51',
+		(8, 3, 3, 1, 1, '2012-12-27 14:17:51',
+		'2012-12-27 14:17:51',
 		'a:4:{i:1;a:23:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:53:"D:\\www\\okatea_project\\upload/modules/News/img/8/1.jpg";s:7:"img_url";s:47:"/okatea_project/upload/modules/News/img/8/1.jpg";s:9:"img_width";i:450;s:10:"img_height";i:338;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="450"
 		height="338"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:57:"D:\\www\\okatea_project\\upload/modules/News/img/8/min-1.jpg";s:7:"min_url";s:51:"/okatea_project/upload/modules/News/img/8/min-1.jpg";s:9:"min_width";i:200;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="200"
 		height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/8/sq-1.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/8/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
@@ -98,7 +119,8 @@
 		height="125"";s:11:"square_name";s:8:"sq-4.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/8/sq-4.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/8/sq-4.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
 		height="60"";s:3:"alt";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}s:5:"title";a:2:{s:2:"fr";s:0:"";s:2:"en";s:0:"";}}}',
 		NULL, NULL),
-		(9, 2, 0, 1, 0, '2012-12-27 14:51:19', '2012-12-27 14:51:19',
+		(9, 2, 0, 1, 0, '2012-12-27 14:51:19', '2012-12-27
+		14:51:19',
 		'a:1:{i:1;a:23:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:53:"D:\\www\\okatea_project\\upload/modules/News/img/9/1.jpg";s:7:"img_url";s:47:"/okatea_project/upload/modules/News/img/9/1.jpg";s:9:"img_width";i:216;s:10:"img_height";i:216;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="216"
 		height="216"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:57:"D:\\www\\okatea_project\\upload/modules/News/img/9/min-1.jpg";s:7:"min_url";s:51:"/okatea_project/upload/modules/News/img/9/min-1.jpg";s:9:"min_width";i:150;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="150"
 		height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:56:"D:\\www\\okatea_project\\upload/modules/News/img/9/sq-1.jpg";s:10:"square_url";s:50:"/okatea_project/upload/modules/News/img/9/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
@@ -110,112 +132,216 @@
 	<action id="firstnewslocales" label="Creation des locales des articles exemples">
 		INSERT INTO
 		`{{PREFIX}}mod_news_locales`
-		(`post_id`, `language`, `title`, `subtitle`, `title_tag`, `title_seo`, `slug`,
-		`content`, `meta_description`, `meta_keywords`, `words`)
+		(`post_id`, `language`, `title`,
+		`subtitle`, `title_tag`, `title_seo`, `slug`,
+		`content`,
+		`meta_description`, `meta_keywords`, `words`)
 		VALUES
-		(1, 'fr', 'Article exemple 1', '', '', '', 'article-exemple-1', 'Lorem
-		ipsum dolor sit amet, FR consectetur adipiscing elit. Phasellus et
-		nisi sit amet libero laoreet dignissim non eu sem. Proin ultricies
-		ultricies facilisis. Nulla tincidunt pellentesque tellus, at interdum
-		ipsum vestibulum quis. Pellentesque habitant morbi tristique senectus
-		et netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
-		suscipit vel, semper pulvinar mauris. Aenean fermentum accumsan velit,
-		id egestas ante molestie quis. Sed dapibus libero ac justo tempor sit
-		amet fringilla odio adipiscing. Donec at orci et libero vehicula
-		malesuada. Etiam vehicula eleifend sagittis. Duis vehicula dolor
-		scelerisque leo varius hendrerit. Maecenas condimentum justo a nisl
-		euismod et volutpat nunc hendrerit. Aliquam erat volutpat. Duis non
-		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam tristique
-		mi vitae magna luctus adipiscing. Donec fringilla dolor tortor. Aenean
-		neque lorem, posuere ac dictum sed, ullamcorper ac orci. Fusce et
-		lectus lacus. Integer condimentum, erat quis pulvinar blandit, massa
-		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut vel
-		eros vel metus fringilla gravida.\r\n\r\nCras sollicitudin posuere
-		consectetur. Nam rutrum nibh at metus auctor a egestas quam
-		condimentum. Sed in orci orci, eu dignissim quam. Vestibulum ante
-		ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-		Curae; Duis pulvinar purus ut sem viverra consectetur. Aliquam tempus,
-		libero non adipiscing vestibulum, velit ligula sollicitudin dui, eget
-		egestas arcu tortor eget nisi. Vestibulum suscipit, elit sit amet
-		suscipit porttitor, neque libero suscipit massa, et porta risus orci
-		quis lorem.\r\n\r\nVivamus ut tempus felis. Sed id scelerisque augue.
-		In viverra magna vitae metus convallis euismod. Morbi ultrices
-		interdum neque in dictum. Nulla tincidunt libero et tellus convallis
-		suscipit. Nunc sodales feugiat dictum. Vivamus vestibulum mauris non
-		tellus ultrices pretium. Proin purus ante, porta eu fermentum a,
-		congue quis erat. Vestibulum at felis quam. Fusce molestie, ipsum id
-		sodales tristique, arcu leo sodales mauris, sed lobortis felis mi sit
-		amet lectus. Praesent euismod, lectus eu malesuada viverra, neque mi
-		blandit augue, condimentum porta nulla quam ac nisl. Praesent id neque
-		id magna fringilla fringilla non quis turpis. Nunc sagittis varius
-		elit, a rutrum sem euismod sed. Donec enim velit, fermentum vel
-		laoreet vitae, luctus non nunc. Mauris imperdiet sapien a lacus semper
-		cursus. Quisque imperdiet libero ac sapien volutpat venenatis.', '',
-		'', 'page exemple lorem ipsum dolor sit amet consectetur adipiscing
-		elit phasellus nisi libero laoreet dignissim non sem proin ultricies
-		facilisis nulla tincidunt pellentesque tellus interdum vestibulum quis
-		habitant morbi tristique senectus netus malesuada fames turpis egestas
-		vel sollicitudin justo suspendisse potenti est tortor placerat nec
-		rhoncus congue fringilla ante lacus semper feugiat praesent dui sed
-		gravida class aptent taciti sociosqu litora torquent per conubia
-		nostra inceptos himenaeos curabitur odio varius aliquam cras erat
-		posuere risus maecenas urna blandit consequat fermentum donec mattis
-		tempus enim porta etiam arcu eget bibendum ligula condimentum iaculis
-		volutpat hac habitasse platea dictumst mauris nunc felis velit leo
-		ullamcorper quisque eleifend integer cursus magna faucibus suscipit
-		pulvinar aenean accumsan molestie dapibus tempor orci vehicula
-		sagittis duis scelerisque hendrerit nisl euismod lacinia nibh nullam
-		vitae luctus neque dictum fusce lectus massa lobortis eros metus nam
-		rutrum auctor quam primis ultrices cubilia curae purus viverra
-		porttitor vivamus augue convallis sodales pretium imperdiet sapien
+		(1, 'fr', 'Article
+		exemple 1', '', '', '', 'article-exemple-1', 'Lorem
+		ipsum dolor sit
+		amet, FR consectetur adipiscing elit. Phasellus et
+		nisi sit amet libero
+		laoreet dignissim non eu sem. Proin ultricies
+		ultricies facilisis.
+		Nulla tincidunt pellentesque tellus, at interdum
+		ipsum vestibulum quis.
+		Pellentesque habitant morbi tristique senectus
+		et netus et malesuada
+		fames ac turpis egestas. Nulla vel sollicitudin
+		justo. Suspendisse
+		potenti. Proin est tortor, placerat nec rhoncus
+		quis, congue quis
+		tellus. Proin fringilla ante quis lacus semper
+		feugiat. Praesent a dui
+		sed justo sollicitudin gravida. Class aptent
+		taciti sociosqu ad litora
+		torquent per conubia nostra, per inceptos
+		himenaeos. Curabitur dui
+		odio, varius nec adipiscing nec, aliquam nec
+		lorem. Cras at erat dui,
+		ut posuere risus. Maecenas malesuada posuere
+		facilisis. Maecenas urna
+		mi, blandit malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec
+		mattis urna non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu,
+		vestibulum sed fringilla in, interdum eget
+		libero. Morbi bibendum sem
+		in ligula condimentum nec tincidunt sem
+		iaculis. Curabitur blandit
+		volutpat risus eget fringilla. In hac
+		habitasse platea dictumst. Mauris
+		ac nunc felis, eu volutpat velit.
+		Etiam eu leo a velit tempus
+		ullamcorper. Praesent eu tellus tortor.
+		Quisque et sem vel nulla
+		iaculis eleifend feugiat in leo. Integer
+		tempus eleifend
+		cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
+		suscipit vel, semper
+		pulvinar mauris. Aenean fermentum accumsan velit,
+		id egestas ante
+		molestie quis. Sed dapibus libero ac justo tempor sit
+		amet fringilla
+		odio adipiscing. Donec at orci et libero vehicula
+		malesuada. Etiam
+		vehicula eleifend sagittis. Duis vehicula dolor
+		scelerisque leo varius
+		hendrerit. Maecenas condimentum justo a nisl
+		euismod et volutpat nunc
+		hendrerit. Aliquam erat volutpat. Duis non
+		nisl nec ante rhoncus
+		pellentesque eget lacinia nibh. Nullam tristique
+		mi vitae magna luctus
+		adipiscing. Donec fringilla dolor tortor. Aenean
+		neque lorem, posuere
+		ac dictum sed, ullamcorper ac orci. Fusce et
+		lectus lacus. Integer
+		condimentum, erat quis pulvinar blandit, massa
+		ligula lobortis lorem,
+		id volutpat risus lacus semper eros. Ut vel
+		eros vel metus fringilla
+		gravida.\r\n\r\nCras sollicitudin posuere
+		consectetur. Nam rutrum nibh
+		at metus auctor a egestas quam
+		condimentum. Sed in orci orci, eu
+		dignissim quam. Vestibulum ante
+		ipsum primis in faucibus orci luctus et
+		ultrices posuere cubilia
+		Curae; Duis pulvinar purus ut sem viverra
+		consectetur. Aliquam tempus,
+		libero non adipiscing vestibulum, velit
+		ligula sollicitudin dui, eget
+		egestas arcu tortor eget nisi. Vestibulum
+		suscipit, elit sit amet
+		suscipit porttitor, neque libero suscipit
+		massa, et porta risus orci
+		quis lorem.\r\n\r\nVivamus ut tempus felis.
+		Sed id scelerisque augue.
+		In viverra magna vitae metus convallis
+		euismod. Morbi ultrices
+		interdum neque in dictum. Nulla tincidunt
+		libero et tellus convallis
+		suscipit. Nunc sodales feugiat dictum.
+		Vivamus vestibulum mauris non
+		tellus ultrices pretium. Proin purus
+		ante, porta eu fermentum a,
+		congue quis erat. Vestibulum at felis quam.
+		Fusce molestie, ipsum id
+		sodales tristique, arcu leo sodales mauris,
+		sed lobortis felis mi sit
+		amet lectus. Praesent euismod, lectus eu
+		malesuada viverra, neque mi
+		blandit augue, condimentum porta nulla quam
+		ac nisl. Praesent id neque
+		id magna fringilla fringilla non quis
+		turpis. Nunc sagittis varius
+		elit, a rutrum sem euismod sed. Donec enim
+		velit, fermentum vel
+		laoreet vitae, luctus non nunc. Mauris imperdiet
+		sapien a lacus semper
+		cursus. Quisque imperdiet libero ac sapien
+		volutpat venenatis.', '',
+		'', 'page exemple lorem ipsum dolor sit amet
+		consectetur adipiscing
+		elit phasellus nisi libero laoreet dignissim non
+		sem proin ultricies
+		facilisis nulla tincidunt pellentesque tellus
+		interdum vestibulum quis
+		habitant morbi tristique senectus netus
+		malesuada fames turpis egestas
+		vel sollicitudin justo suspendisse
+		potenti est tortor placerat nec
+		rhoncus congue fringilla ante lacus
+		semper feugiat praesent dui sed
+		gravida class aptent taciti sociosqu
+		litora torquent per conubia
+		nostra inceptos himenaeos curabitur odio
+		varius aliquam cras erat
+		posuere risus maecenas urna blandit consequat
+		fermentum donec mattis
+		tempus enim porta etiam arcu eget bibendum
+		ligula condimentum iaculis
+		volutpat hac habitasse platea dictumst
+		mauris nunc felis velit leo
+		ullamcorper quisque eleifend integer cursus
+		magna faucibus suscipit
+		pulvinar aenean accumsan molestie dapibus
+		tempor orci vehicula
+		sagittis duis scelerisque hendrerit nisl euismod
+		lacinia nibh nullam
+		vitae luctus neque dictum fusce lectus massa
+		lobortis eros metus nam
+		rutrum auctor quam primis ultrices cubilia
+		curae purus viverra
+		porttitor vivamus augue convallis sodales pretium
+		imperdiet sapien
 		venenatis'),
-		(1, 'en', 'Example post 1', '', '', '', 'example-post-1', 'Lorem ipsum
-		dolor sit amet, EN consectetur adipiscing elit. Phasellus et nisi sit
-		amet libero laoreet dignissim non eu sem. Proin ultricies ultricies
-		facilisis. Nulla tincidunt pellentesque tellus, at interdum ipsum
-		vestibulum quis. Pellentesque habitant morbi tristique senectus et
-		netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
-		suscipit vel, semper pulvinar mauris. Aenean fermentum accumsan velit,
-		id egestas ante molestie quis. Sed dapibus libero ac justo tempor sit
-		amet fringilla odio adipiscing. Donec at orci et libero vehicula
-		malesuada. Etiam vehicula eleifend sagittis. Duis vehicula dolor
-		scelerisque leo varius hendrerit. Maecenas condimentum justo a nisl
-		euismod et volutpat nunc hendrerit. Aliquam erat volutpat. Duis non
-		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam tristique
-		mi vitae magna luctus adipiscing. Donec fringilla dolor tortor. Aenean
-		neque lorem, posuere ac dictum sed, ullamcorper ac orci. Fusce et
-		lectus lacus. Integer condimentum, erat quis pulvinar blandit, massa
-		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut vel
+		(1, 'en', 'Example post 1', '', '', '',
+		'example-post-1', 'Lorem ipsum
+		dolor sit amet, EN consectetur
+		adipiscing elit. Phasellus et nisi sit
+		amet libero laoreet dignissim
+		non eu sem. Proin ultricies ultricies
+		facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum ipsum
+		vestibulum quis. Pellentesque
+		habitant morbi tristique senectus et
+		netus et malesuada fames ac turpis
+		egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti. Proin est
+		tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin fringilla
+		ante quis lacus semper
+		feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class aptent
+		taciti sociosqu ad litora torquent per conubia
+		nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere risus.
+		Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum,
+		faucibus nec
+		suscipit vel, semper pulvinar mauris. Aenean fermentum
+		accumsan velit,
+		id egestas ante molestie quis. Sed dapibus libero ac
+		justo tempor sit
+		amet fringilla odio adipiscing. Donec at orci et
+		libero vehicula
+		malesuada. Etiam vehicula eleifend sagittis. Duis
+		vehicula dolor
+		scelerisque leo varius hendrerit. Maecenas condimentum
+		justo a nisl
+		euismod et volutpat nunc hendrerit. Aliquam erat volutpat.
+		Duis non
+		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam
+		tristique
+		mi vitae magna luctus adipiscing. Donec fringilla dolor
+		tortor. Aenean
+		neque lorem, posuere ac dictum sed, ullamcorper ac orci.
+		Fusce et
+		lectus lacus. Integer condimentum, erat quis pulvinar blandit,
+		massa
+		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut
+		vel
 		eros vel metus fringilla gravida.\r\n\r\nCras sollicitudin posuere
 		consectetur. Nam rutrum nibh at metus auctor a egestas quam
 		condimentum. Sed in orci orci, eu dignissim quam. Vestibulum ante
@@ -256,28 +382,50 @@
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
 
-		(2, 'fr', 'Article exemple 2', '', '', '', 'article-exemple-2', 'Lorem
-		ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et nisi
-		sit amet libero laoreet dignissim non eu sem. Proin ultricies
-		ultricies facilisis. Nulla tincidunt pellentesque tellus, at interdum
-		ipsum vestibulum quis. Pellentesque habitant morbi tristique senectus
-		et netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.', '', '', 'page exemple lorem ipsum dolor sit
-		amet consectetur adipiscing elit phasellus nisi libero laoreet
+		(2, 'fr', 'Article exemple 2', '', '', '',
+		'article-exemple-2', 'Lorem
+		ipsum dolor sit amet, consectetur
+		adipiscing elit. Phasellus et nisi
+		sit amet libero laoreet dignissim
+		non eu sem. Proin ultricies
+		ultricies facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum
+		ipsum vestibulum quis. Pellentesque
+		habitant morbi tristique senectus
+		et netus et malesuada fames ac turpis
+		egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti. Proin est
+		tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin fringilla
+		ante quis lacus semper
+		feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class aptent
+		taciti sociosqu ad litora torquent per conubia
+		nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere risus.
+		Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.', '', '', 'page exemple lorem
+		ipsum dolor sit
+		amet consectetur adipiscing elit phasellus nisi libero
+		laoreet
 		dignissim non sem proin ultricies facilisis nulla tincidunt
 		pellentesque tellus interdum vestibulum quis habitant morbi tristique
 		senectus netus malesuada fames turpis egestas vel sollicitudin justo
@@ -289,28 +437,50 @@
 		eget bibendum ligula condimentum iaculis volutpat hac habitasse platea
 		dictumst mauris nunc felis velit leo ullamcorper quisque eleifend
 		integer cursus'),
-		(2, 'en', 'Example post 2', '', '', '', 'example-post-2', 'Lorem ipsum
-		dolor sit amet, consectetur adipiscing elit. Phasellus et nisi sit
-		amet libero laoreet dignissim non eu sem. Proin ultricies ultricies
-		facilisis. Nulla tincidunt pellentesque tellus, at interdum ipsum
-		vestibulum quis. Pellentesque habitant morbi tristique senectus et
-		netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.', '', '', 'example page lorem ipsum dolor sit
-		amet consectetur adipiscing elit phasellus nisi libero laoreet
+		(2, 'en', 'Example post 2', '', '', '',
+		'example-post-2', 'Lorem ipsum
+		dolor sit amet, consectetur adipiscing
+		elit. Phasellus et nisi sit
+		amet libero laoreet dignissim non eu sem.
+		Proin ultricies ultricies
+		facilisis. Nulla tincidunt pellentesque
+		tellus, at interdum ipsum
+		vestibulum quis. Pellentesque habitant morbi
+		tristique senectus et
+		netus et malesuada fames ac turpis egestas. Nulla
+		vel sollicitudin
+		justo. Suspendisse potenti. Proin est tortor, placerat
+		nec rhoncus
+		quis, congue quis tellus. Proin fringilla ante quis lacus
+		semper
+		feugiat. Praesent a dui sed justo sollicitudin gravida. Class
+		aptent
+		taciti sociosqu ad litora torquent per conubia nostra, per
+		inceptos
+		himenaeos. Curabitur dui odio, varius nec adipiscing nec,
+		aliquam nec
+		lorem. Cras at erat dui, ut posuere risus. Maecenas
+		malesuada posuere
+		facilisis. Maecenas urna mi, blandit malesuada
+		consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna non dui
+		tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.', '', '', 'example page lorem
+		ipsum dolor sit
+		amet consectetur adipiscing elit phasellus nisi libero
+		laoreet
 		dignissim non sem proin ultricies facilisis nulla tincidunt
 		pellentesque tellus interdum vestibulum quis habitant morbi tristique
 		senectus netus malesuada fames turpis egestas vel sollicitudin justo
@@ -323,28 +493,50 @@
 		dictumst mauris nunc felis velit leo ullamcorper quisque eleifend
 		integer cursus'),
 
-		(3, 'fr', 'Article exemple 3', '', '', 'Article exemple 3 titre SEO',
-		'article-exemple-3', 'FR Lorem ipsum dolor sit amet, consectetur
-		adipiscing elit. Phasellus et nisi sit amet libero laoreet dignissim
-		non eu sem. Proin ultricies ultricies facilisis. Nulla tincidunt
-		pellentesque tellus, at interdum ipsum vestibulum quis. Pellentesque
-		habitant morbi tristique senectus et netus et malesuada fames ac
-		turpis egestas. Nulla vel sollicitudin justo. Suspendisse potenti.
-		Proin est tortor, placerat nec rhoncus quis, congue quis tellus. Proin
-		fringilla ante quis lacus semper feugiat. Praesent a dui sed justo
-		sollicitudin gravida. Class aptent taciti sociosqu ad litora torquent
-		per conubia nostra, per inceptos himenaeos. Curabitur dui odio, varius
-		nec adipiscing nec, aliquam nec lorem. Cras at erat dui, ut posuere
-		risus. Maecenas malesuada posuere facilisis. Maecenas urna mi, blandit
-		malesuada consequat fermentum, varius eu est.\r\n\r\nDonec mattis urna
-		non dui tempus ac feugiat enim porta. Etiam tortor arcu, vestibulum
-		sed fringilla in, interdum eget libero. Morbi bibendum sem in ligula
-		condimentum nec tincidunt sem iaculis. Curabitur blandit volutpat
-		risus eget fringilla. In hac habitasse platea dictumst. Mauris ac nunc
-		felis, eu volutpat velit. Etiam eu leo a velit tempus ullamcorper.
-		Praesent eu tellus tortor. Quisque et sem vel nulla iaculis eleifend
-		feugiat in leo. Integer tempus eleifend cursus.', '', '', 'article
-		exemple lorem ipsum dolor sit amet consectetur adipiscing elit
+		(3, 'fr', 'Article exemple 3', '', '', 'Article
+		exemple 3 titre SEO',
+		'article-exemple-3', 'FR Lorem ipsum dolor sit
+		amet, consectetur
+		adipiscing elit. Phasellus et nisi sit amet libero
+		laoreet dignissim
+		non eu sem. Proin ultricies ultricies facilisis.
+		Nulla tincidunt
+		pellentesque tellus, at interdum ipsum vestibulum quis.
+		Pellentesque
+		habitant morbi tristique senectus et netus et malesuada
+		fames ac
+		turpis egestas. Nulla vel sollicitudin justo. Suspendisse
+		potenti.
+		Proin est tortor, placerat nec rhoncus quis, congue quis
+		tellus. Proin
+		fringilla ante quis lacus semper feugiat. Praesent a dui
+		sed justo
+		sollicitudin gravida. Class aptent taciti sociosqu ad litora
+		torquent
+		per conubia nostra, per inceptos himenaeos. Curabitur dui
+		odio, varius
+		nec adipiscing nec, aliquam nec lorem. Cras at erat dui,
+		ut posuere
+		risus. Maecenas malesuada posuere facilisis. Maecenas urna
+		mi, blandit
+		malesuada consequat fermentum, varius eu est.\r\n\r\nDonec
+		mattis urna
+		non dui tempus ac feugiat enim porta. Etiam tortor arcu,
+		vestibulum
+		sed fringilla in, interdum eget libero. Morbi bibendum sem
+		in ligula
+		condimentum nec tincidunt sem iaculis. Curabitur blandit
+		volutpat
+		risus eget fringilla. In hac habitasse platea dictumst. Mauris
+		ac nunc
+		felis, eu volutpat velit. Etiam eu leo a velit tempus
+		ullamcorper.
+		Praesent eu tellus tortor. Quisque et sem vel nulla
+		iaculis eleifend
+		feugiat in leo. Integer tempus eleifend cursus.', '',
+		'', 'article
+		exemple lorem ipsum dolor sit amet consectetur adipiscing
+		elit
 		phasellus nisi libero laoreet dignissim non sem proin ultricies
 		facilisis nulla tincidunt pellentesque tellus interdum vestibulum quis
 		habitant morbi tristique senectus netus malesuada fames turpis egestas
@@ -356,72 +548,137 @@
 		tempus enim porta etiam arcu eget bibendum ligula condimentum iaculis
 		volutpat hac habitasse platea dictumst mauris nunc felis velit leo
 		ullamcorper quisque eleifend integer cursus'),
-		(3, 'en', 'Example post 3', '', '', 'Example post 3 SEO title',
-		'example-post-3', 'EN Lorem ipsum dolor sit amet, consectetur
-		adipiscing elit. Phasellus et nisi sit amet libero laoreet dignissim
-		non eu sem. Proin ultricies ultricies facilisis. Nulla tincidunt
-		pellentesque tellus, at interdum ipsum vestibulum quis. Pellentesque
-		habitant morbi tristique senectus et netus et malesuada fames ac
-		turpis egestas. Nulla vel sollicitudin justo. Suspendisse potenti.
-		Proin est tortor, placerat nec rhoncus quis, congue quis tellus. Proin
-		fringilla ante quis lacus semper feugiat. Praesent a dui sed justo
-		sollicitudin gravida. Class aptent taciti sociosqu ad litora torquent
-		per conubia nostra, per inceptos himenaeos. Curabitur dui odio, varius
-		nec adipiscing nec, aliquam nec lorem. Cras at erat dui, ut posuere
-		risus. Maecenas malesuada posuere facilisis. Maecenas urna mi, blandit
-		malesuada consequat fermentum, varius eu est.\r\n\r\nDonec mattis urna
-		non dui tempus ac feugiat enim porta. Etiam tortor arcu, vestibulum
-		sed fringilla in, interdum eget libero. Morbi bibendum sem in ligula
-		condimentum nec tincidunt sem iaculis. Curabitur blandit volutpat
-		risus eget fringilla. In hac habitasse platea dictumst. Mauris ac nunc
-		felis, eu volutpat velit. Etiam eu leo a velit tempus ullamcorper.
-		Praesent eu tellus tortor. Quisque et sem vel nulla iaculis eleifend
-		feugiat in leo. Integer tempus eleifend cursus.', '', '', 'example
-		post lorem ipsum dolor sit amet consectetur adipiscing elit phasellus
-		nisi libero laoreet dignissim non sem proin ultricies facilisis nulla
-		tincidunt pellentesque tellus interdum vestibulum quis habitant morbi
-		tristique senectus netus malesuada fames turpis egestas vel
-		sollicitudin justo suspendisse potenti est tortor placerat nec rhoncus
-		congue fringilla ante lacus semper feugiat praesent dui sed gravida
-		class aptent taciti sociosqu litora torquent per conubia nostra
-		inceptos himenaeos curabitur odio varius aliquam cras erat posuere
-		risus maecenas urna blandit consequat fermentum donec mattis tempus
-		enim porta etiam arcu eget bibendum ligula condimentum iaculis
-		volutpat hac habitasse platea dictumst mauris nunc felis velit leo
-		ullamcorper quisque eleifend integer cursus'),
+		(3, 'en', 'Example post
+		3', '', '', 'Example post 3 SEO title',
+		'example-post-3', 'EN Lorem
+		ipsum dolor sit amet, consectetur
+		adipiscing elit. Phasellus et nisi
+		sit amet libero laoreet dignissim
+		non eu sem. Proin ultricies ultricies
+		facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum ipsum
+		vestibulum quis. Pellentesque
+		habitant morbi tristique senectus et
+		netus et malesuada fames ac
+		turpis egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti.
+		Proin est tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin
+		fringilla ante quis lacus semper
+		feugiat. Praesent a dui sed justo
+		sollicitudin gravida. Class aptent
+		taciti sociosqu ad litora torquent
+		per conubia nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius
+		nec adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere
+		risus. Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum
+		sed fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat
+		risus eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc
+		felis, eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper.
+		Praesent eu tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend
+		feugiat in leo. Integer
+		tempus eleifend cursus.', '', '', 'example
+		post lorem ipsum dolor sit
+		amet consectetur adipiscing elit phasellus
+		nisi libero laoreet
+		dignissim non sem proin ultricies facilisis nulla
+		tincidunt
+		pellentesque tellus interdum vestibulum quis habitant morbi
+		tristique
+		senectus netus malesuada fames turpis egestas vel
+		sollicitudin justo
+		suspendisse potenti est tortor placerat nec rhoncus
+		congue fringilla
+		ante lacus semper feugiat praesent dui sed gravida
+		class aptent taciti
+		sociosqu litora torquent per conubia nostra
+		inceptos himenaeos
+		curabitur odio varius aliquam cras erat posuere
+		risus maecenas urna
+		blandit consequat fermentum donec mattis tempus
+		enim porta etiam arcu
+		eget bibendum ligula condimentum iaculis
+		volutpat hac habitasse platea
+		dictumst mauris nunc felis velit leo
+		ullamcorper quisque eleifend
+		integer cursus'),
 
-		(4, 'fr', 'Article exemple 4', '', '', '', 'article-exemple-4', 'Lorem
-		ipsum dolor sit amet, FR consectetur adipiscing elit. Phasellus et
-		nisi sit amet libero laoreet dignissim non eu sem. Proin ultricies
-		ultricies facilisis. Nulla tincidunt pellentesque tellus, at interdum
-		ipsum vestibulum quis. Pellentesque habitant morbi tristique senectus
-		et netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
-		suscipit vel, semper pulvinar mauris. Aenean fermentum accumsan velit,
-		id egestas ante molestie quis. Sed dapibus libero ac justo tempor sit
-		amet fringilla odio adipiscing. Donec at orci et libero vehicula
-		malesuada. Etiam vehicula eleifend sagittis. Duis vehicula dolor
-		scelerisque leo varius hendrerit. Maecenas condimentum justo a nisl
-		euismod et volutpat nunc hendrerit. Aliquam erat volutpat. Duis non
-		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam tristique
-		mi vitae magna luctus adipiscing. Donec fringilla dolor tortor. Aenean
-		neque lorem, posuere ac dictum sed, ullamcorper ac orci. Fusce et
-		lectus lacus. Integer condimentum, erat quis pulvinar blandit, massa
-		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut vel
+		(4, 'fr', 'Article exemple 4', '', '', '',
+		'article-exemple-4', 'Lorem
+		ipsum dolor sit amet, FR consectetur
+		adipiscing elit. Phasellus et
+		nisi sit amet libero laoreet dignissim
+		non eu sem. Proin ultricies
+		ultricies facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum
+		ipsum vestibulum quis. Pellentesque
+		habitant morbi tristique senectus
+		et netus et malesuada fames ac turpis
+		egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti. Proin est
+		tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin fringilla
+		ante quis lacus semper
+		feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class aptent
+		taciti sociosqu ad litora torquent per conubia
+		nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere risus.
+		Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum,
+		faucibus nec
+		suscipit vel, semper pulvinar mauris. Aenean fermentum
+		accumsan velit,
+		id egestas ante molestie quis. Sed dapibus libero ac
+		justo tempor sit
+		amet fringilla odio adipiscing. Donec at orci et
+		libero vehicula
+		malesuada. Etiam vehicula eleifend sagittis. Duis
+		vehicula dolor
+		scelerisque leo varius hendrerit. Maecenas condimentum
+		justo a nisl
+		euismod et volutpat nunc hendrerit. Aliquam erat volutpat.
+		Duis non
+		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam
+		tristique
+		mi vitae magna luctus adipiscing. Donec fringilla dolor
+		tortor. Aenean
+		neque lorem, posuere ac dictum sed, ullamcorper ac orci.
+		Fusce et
+		lectus lacus. Integer condimentum, erat quis pulvinar blandit,
+		massa
+		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut
+		vel
 		eros vel metus fringilla gravida.\r\n\r\nCras sollicitudin posuere
 		consectetur. Nam rutrum nibh at metus auctor a egestas quam
 		condimentum. Sed in orci orci, eu dignissim quam. Vestibulum ante
@@ -461,11 +718,16 @@
 		rutrum auctor quam primis ultrices cubilia curae purus viverra
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
-		(4, 'en', 'Example post 4', '', '', '', 'example-post-4', 'Lorem ipsum
-		dolor sit amet, EN consectetur adipiscing elit. Phasellus et nisi sit
-		amet libero laoreet dignissim non eu sem. Proin ultricies ultricies
-		facilisis. Nulla tincidunt pellentesque tellus, at interdum ipsum
-		vestibulum quis. Pellentesque habitant morbi tristique senectus et
+		(4, 'en', 'Example post 4', '', '', '', 'example-post-4',
+		'Lorem ipsum
+		dolor sit amet, EN consectetur adipiscing elit. Phasellus
+		et nisi sit
+		amet libero laoreet dignissim non eu sem. Proin ultricies
+		ultricies
+		facilisis. Nulla tincidunt pellentesque tellus, at interdum
+		ipsum
+		vestibulum quis. Pellentesque habitant morbi tristique senectus
+		et
 		netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
 		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
 		quis, congue quis tellus. Proin fringilla ante quis lacus semper
@@ -533,38 +795,70 @@
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
 
-		(5, 'fr', 'Article exemple 5', '', '', '', 'article-exemple-5', 'Lorem
-		ipsum dolor sit amet, FR consectetur adipiscing elit. Phasellus et
-		nisi sit amet libero laoreet dignissim non eu sem. Proin ultricies
-		ultricies facilisis. Nulla tincidunt pellentesque tellus, at interdum
-		ipsum vestibulum quis. Pellentesque habitant morbi tristique senectus
-		et netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
-		suscipit vel, semper pulvinar mauris. Aenean fermentum accumsan velit,
-		id egestas ante molestie quis. Sed dapibus libero ac justo tempor sit
-		amet fringilla odio adipiscing. Donec at orci et libero vehicula
-		malesuada. Etiam vehicula eleifend sagittis. Duis vehicula dolor
-		scelerisque leo varius hendrerit. Maecenas condimentum justo a nisl
-		euismod et volutpat nunc hendrerit. Aliquam erat volutpat. Duis non
-		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam tristique
-		mi vitae magna luctus adipiscing. Donec fringilla dolor tortor. Aenean
-		neque lorem, posuere ac dictum sed, ullamcorper ac orci. Fusce et
-		lectus lacus. Integer condimentum, erat quis pulvinar blandit, massa
-		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut vel
+		(5, 'fr', 'Article exemple 5', '', '', '',
+		'article-exemple-5', 'Lorem
+		ipsum dolor sit amet, FR consectetur
+		adipiscing elit. Phasellus et
+		nisi sit amet libero laoreet dignissim
+		non eu sem. Proin ultricies
+		ultricies facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum
+		ipsum vestibulum quis. Pellentesque
+		habitant morbi tristique senectus
+		et netus et malesuada fames ac turpis
+		egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti. Proin est
+		tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin fringilla
+		ante quis lacus semper
+		feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class aptent
+		taciti sociosqu ad litora torquent per conubia
+		nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere risus.
+		Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum,
+		faucibus nec
+		suscipit vel, semper pulvinar mauris. Aenean fermentum
+		accumsan velit,
+		id egestas ante molestie quis. Sed dapibus libero ac
+		justo tempor sit
+		amet fringilla odio adipiscing. Donec at orci et
+		libero vehicula
+		malesuada. Etiam vehicula eleifend sagittis. Duis
+		vehicula dolor
+		scelerisque leo varius hendrerit. Maecenas condimentum
+		justo a nisl
+		euismod et volutpat nunc hendrerit. Aliquam erat volutpat.
+		Duis non
+		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam
+		tristique
+		mi vitae magna luctus adipiscing. Donec fringilla dolor
+		tortor. Aenean
+		neque lorem, posuere ac dictum sed, ullamcorper ac orci.
+		Fusce et
+		lectus lacus. Integer condimentum, erat quis pulvinar blandit,
+		massa
+		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut
+		vel
 		eros vel metus fringilla gravida.\r\n\r\nCras sollicitudin posuere
 		consectetur. Nam rutrum nibh at metus auctor a egestas quam
 		condimentum. Sed in orci orci, eu dignissim quam. Vestibulum ante
@@ -604,11 +898,16 @@
 		rutrum auctor quam primis ultrices cubilia curae purus viverra
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
-		(5, 'en', 'Example post 5', '', '', '', 'example-post-5', 'Lorem ipsum
-		dolor sit amet, EN consectetur adipiscing elit. Phasellus et nisi sit
-		amet libero laoreet dignissim non eu sem. Proin ultricies ultricies
-		facilisis. Nulla tincidunt pellentesque tellus, at interdum ipsum
-		vestibulum quis. Pellentesque habitant morbi tristique senectus et
+		(5, 'en', 'Example post 5', '', '', '', 'example-post-5',
+		'Lorem ipsum
+		dolor sit amet, EN consectetur adipiscing elit. Phasellus
+		et nisi sit
+		amet libero laoreet dignissim non eu sem. Proin ultricies
+		ultricies
+		facilisis. Nulla tincidunt pellentesque tellus, at interdum
+		ipsum
+		vestibulum quis. Pellentesque habitant morbi tristique senectus
+		et
 		netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
 		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
 		quis, congue quis tellus. Proin fringilla ante quis lacus semper
@@ -676,38 +975,70 @@
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
 
-		(6, 'fr', 'Article exemple 6', '', '', '', 'article-exemple-6', 'Lorem
-		ipsum dolor sit amet, FR consectetur adipiscing elit. Phasellus et
-		nisi sit amet libero laoreet dignissim non eu sem. Proin ultricies
-		ultricies facilisis. Nulla tincidunt pellentesque tellus, at interdum
-		ipsum vestibulum quis. Pellentesque habitant morbi tristique senectus
-		et netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
-		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
-		quis, congue quis tellus. Proin fringilla ante quis lacus semper
-		feugiat. Praesent a dui sed justo sollicitudin gravida. Class aptent
-		taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-		himenaeos. Curabitur dui odio, varius nec adipiscing nec, aliquam nec
-		lorem. Cras at erat dui, ut posuere risus. Maecenas malesuada posuere
-		facilisis. Maecenas urna mi, blandit malesuada consequat fermentum,
-		varius eu est.\r\n\r\nDonec mattis urna non dui tempus ac feugiat enim
-		porta. Etiam tortor arcu, vestibulum sed fringilla in, interdum eget
-		libero. Morbi bibendum sem in ligula condimentum nec tincidunt sem
-		iaculis. Curabitur blandit volutpat risus eget fringilla. In hac
-		habitasse platea dictumst. Mauris ac nunc felis, eu volutpat velit.
-		Etiam eu leo a velit tempus ullamcorper. Praesent eu tellus tortor.
-		Quisque et sem vel nulla iaculis eleifend feugiat in leo. Integer
-		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum, faucibus nec
-		suscipit vel, semper pulvinar mauris. Aenean fermentum accumsan velit,
-		id egestas ante molestie quis. Sed dapibus libero ac justo tempor sit
-		amet fringilla odio adipiscing. Donec at orci et libero vehicula
-		malesuada. Etiam vehicula eleifend sagittis. Duis vehicula dolor
-		scelerisque leo varius hendrerit. Maecenas condimentum justo a nisl
-		euismod et volutpat nunc hendrerit. Aliquam erat volutpat. Duis non
-		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam tristique
-		mi vitae magna luctus adipiscing. Donec fringilla dolor tortor. Aenean
-		neque lorem, posuere ac dictum sed, ullamcorper ac orci. Fusce et
-		lectus lacus. Integer condimentum, erat quis pulvinar blandit, massa
-		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut vel
+		(6, 'fr', 'Article exemple 6', '', '', '',
+		'article-exemple-6', 'Lorem
+		ipsum dolor sit amet, FR consectetur
+		adipiscing elit. Phasellus et
+		nisi sit amet libero laoreet dignissim
+		non eu sem. Proin ultricies
+		ultricies facilisis. Nulla tincidunt
+		pellentesque tellus, at interdum
+		ipsum vestibulum quis. Pellentesque
+		habitant morbi tristique senectus
+		et netus et malesuada fames ac turpis
+		egestas. Nulla vel sollicitudin
+		justo. Suspendisse potenti. Proin est
+		tortor, placerat nec rhoncus
+		quis, congue quis tellus. Proin fringilla
+		ante quis lacus semper
+		feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class aptent
+		taciti sociosqu ad litora torquent per conubia
+		nostra, per inceptos
+		himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec, aliquam nec
+		lorem. Cras at erat dui, ut posuere risus.
+		Maecenas malesuada posuere
+		facilisis. Maecenas urna mi, blandit
+		malesuada consequat fermentum,
+		varius eu est.\r\n\r\nDonec mattis urna
+		non dui tempus ac feugiat enim
+		porta. Etiam tortor arcu, vestibulum sed
+		fringilla in, interdum eget
+		libero. Morbi bibendum sem in ligula
+		condimentum nec tincidunt sem
+		iaculis. Curabitur blandit volutpat risus
+		eget fringilla. In hac
+		habitasse platea dictumst. Mauris ac nunc felis,
+		eu volutpat velit.
+		Etiam eu leo a velit tempus ullamcorper. Praesent eu
+		tellus tortor.
+		Quisque et sem vel nulla iaculis eleifend feugiat in
+		leo. Integer
+		tempus eleifend cursus.\r\n\r\nPraesent magna ipsum,
+		faucibus nec
+		suscipit vel, semper pulvinar mauris. Aenean fermentum
+		accumsan velit,
+		id egestas ante molestie quis. Sed dapibus libero ac
+		justo tempor sit
+		amet fringilla odio adipiscing. Donec at orci et
+		libero vehicula
+		malesuada. Etiam vehicula eleifend sagittis. Duis
+		vehicula dolor
+		scelerisque leo varius hendrerit. Maecenas condimentum
+		justo a nisl
+		euismod et volutpat nunc hendrerit. Aliquam erat volutpat.
+		Duis non
+		nisl nec ante rhoncus pellentesque eget lacinia nibh. Nullam
+		tristique
+		mi vitae magna luctus adipiscing. Donec fringilla dolor
+		tortor. Aenean
+		neque lorem, posuere ac dictum sed, ullamcorper ac orci.
+		Fusce et
+		lectus lacus. Integer condimentum, erat quis pulvinar blandit,
+		massa
+		ligula lobortis lorem, id volutpat risus lacus semper eros. Ut
+		vel
 		eros vel metus fringilla gravida.\r\n\r\nCras sollicitudin posuere
 		consectetur. Nam rutrum nibh at metus auctor a egestas quam
 		condimentum. Sed in orci orci, eu dignissim quam. Vestibulum ante
@@ -747,11 +1078,16 @@
 		rutrum auctor quam primis ultrices cubilia curae purus viverra
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
-		(6, 'en', 'Example post 6', '', '', '', 'example-post-6', 'Lorem ipsum
-		dolor sit amet, EN consectetur adipiscing elit. Phasellus et nisi sit
-		amet libero laoreet dignissim non eu sem. Proin ultricies ultricies
-		facilisis. Nulla tincidunt pellentesque tellus, at interdum ipsum
-		vestibulum quis. Pellentesque habitant morbi tristique senectus et
+		(6, 'en', 'Example post 6', '', '', '', 'example-post-6',
+		'Lorem ipsum
+		dolor sit amet, EN consectetur adipiscing elit. Phasellus
+		et nisi sit
+		amet libero laoreet dignissim non eu sem. Proin ultricies
+		ultricies
+		facilisis. Nulla tincidunt pellentesque tellus, at interdum
+		ipsum
+		vestibulum quis. Pellentesque habitant morbi tristique senectus
+		et
 		netus et malesuada fames ac turpis egestas. Nulla vel sollicitudin
 		justo. Suspendisse potenti. Proin est tortor, placerat nec rhoncus
 		quis, congue quis tellus. Proin fringilla ante quis lacus semper
@@ -819,20 +1155,34 @@
 		porttitor vivamus augue convallis sodales pretium imperdiet sapien
 		venenatis'),
 
-		(7, 'fr', 'Tao', 'Cavalier King Charles', '', 'Tao, le chien fumeur',
-		'tao', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		Phasellus et nisi sit amet libero laoreet dignissim non eu sem. Proin
-		ultricies ultricies facilisis. Nulla tincidunt pellentesque tellus, at
-		interdum ipsum vestibulum quis. Pellentesque habitant morbi tristique
-		senectus et netus et malesuada fames ac turpis egestas. Nulla vel
-		sollicitudin justo. Suspendisse potenti. Proin est tortor, placerat
-		nec rhoncus quis, congue quis tellus. Proin fringilla ante quis lacus
-		semper feugiat. Praesent a dui sed justo sollicitudin gravida. Class
-		aptent taciti sociosqu ad litora torquent per conubia nostra, per
-		inceptos himenaeos. Curabitur dui odio, varius nec adipiscing nec,
-		aliquam nec lorem. Cras at erat dui, ut posuere risus. Maecenas
-		malesuada posuere facilisis. Maecenas urna mi, blandit malesuada
-		consequat fermentum, varius eu est.', '', '', 'tao cavalier king
+		(7, 'fr', 'Tao', 'Cavalier King Charles', '', 'Tao, le
+		chien fumeur',
+		'tao', 'Lorem ipsum dolor sit amet, consectetur
+		adipiscing elit.
+		Phasellus et nisi sit amet libero laoreet dignissim
+		non eu sem. Proin
+		ultricies ultricies facilisis. Nulla tincidunt
+		pellentesque tellus, at
+		interdum ipsum vestibulum quis. Pellentesque
+		habitant morbi tristique
+		senectus et netus et malesuada fames ac turpis
+		egestas. Nulla vel
+		sollicitudin justo. Suspendisse potenti. Proin est
+		tortor, placerat
+		nec rhoncus quis, congue quis tellus. Proin fringilla
+		ante quis lacus
+		semper feugiat. Praesent a dui sed justo sollicitudin
+		gravida. Class
+		aptent taciti sociosqu ad litora torquent per conubia
+		nostra, per
+		inceptos himenaeos. Curabitur dui odio, varius nec
+		adipiscing nec,
+		aliquam nec lorem. Cras at erat dui, ut posuere risus.
+		Maecenas
+		malesuada posuere facilisis. Maecenas urna mi, blandit
+		malesuada
+		consequat fermentum, varius eu est.', '', '', 'tao cavalier
+		king
 		charles lorem ipsum dolor sit amet consectetur adipiscing elit
 		phasellus nisi libero laoreet dignissim non sem proin ultricies
 		facilisis nulla tincidunt pellentesque tellus interdum vestibulum quis
@@ -842,75 +1192,143 @@
 		gravida class aptent taciti sociosqu litora torquent per conubia
 		nostra inceptos himenaeos curabitur odio varius aliquam cras erat
 		posuere risus maecenas urna blandit consequat fermentum'),
-		(7, 'en', 'Tao', 'Cavalier King Charles', '', 'Tao, the dog who smoked',
-		'tao', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		Phasellus et nisi sit amet libero laoreet dignissim non eu sem. Proin
-		ultricies ultricies facilisis. Nulla tincidunt pellentesque tellus, at
-		interdum ipsum vestibulum quis. Pellentesque habitant morbi tristique
-		senectus et netus et malesuada fames ac turpis egestas. Nulla vel
-		sollicitudin justo. Suspendisse potenti. Proin est tortor, placerat
-		nec rhoncus quis, congue quis tellus. Proin fringilla ante quis lacus
-		semper feugiat. Praesent a dui sed justo sollicitudin gravida. Class
-		aptent taciti sociosqu ad litora torquent per conubia nostra, per
-		inceptos himenaeos. Curabitur dui odio, varius nec adipiscing nec,
-		aliquam nec lorem. Cras at erat dui, ut posuere risus. Maecenas
-		malesuada posuere facilisis. Maecenas urna mi, blandit malesuada
-		consequat fermentum, varius eu est.', '', '', 'tao cavalier king
-		charles lorem ipsum dolor sit amet consectetur adipiscing elit
-		phasellus nisi libero laoreet dignissim non sem proin ultricies
-		facilisis nulla tincidunt pellentesque tellus interdum vestibulum quis
-		habitant morbi tristique senectus netus malesuada fames turpis egestas
-		vel sollicitudin justo suspendisse potenti est tortor placerat nec
-		rhoncus congue fringilla ante lacus semper feugiat praesent dui sed
-		gravida class aptent taciti sociosqu litora torquent per conubia
-		nostra inceptos himenaeos curabitur odio varius aliquam cras erat
-		posuere risus maecenas urna blandit consequat fermentum'),
+		(7, 'en',
+		'Tao', 'Cavalier King Charles', '', 'Tao, the dog who smoked',
+		'tao',
+		'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+		Phasellus et
+		nisi sit amet libero laoreet dignissim non eu sem. Proin
+		ultricies
+		ultricies facilisis. Nulla tincidunt pellentesque tellus, at
+		interdum
+		ipsum vestibulum quis. Pellentesque habitant morbi tristique
+		senectus
+		et netus et malesuada fames ac turpis egestas. Nulla vel
+		sollicitudin
+		justo. Suspendisse potenti. Proin est tortor, placerat
+		nec rhoncus
+		quis, congue quis tellus. Proin fringilla ante quis lacus
+		semper
+		feugiat. Praesent a dui sed justo sollicitudin gravida. Class
+		aptent
+		taciti sociosqu ad litora torquent per conubia nostra, per
+		inceptos
+		himenaeos. Curabitur dui odio, varius nec adipiscing nec,
+		aliquam nec
+		lorem. Cras at erat dui, ut posuere risus. Maecenas
+		malesuada posuere
+		facilisis. Maecenas urna mi, blandit malesuada
+		consequat fermentum,
+		varius eu est.', '', '', 'tao cavalier king
+		charles lorem ipsum dolor
+		sit amet consectetur adipiscing elit
+		phasellus nisi libero laoreet
+		dignissim non sem proin ultricies
+		facilisis nulla tincidunt
+		pellentesque tellus interdum vestibulum quis
+		habitant morbi tristique
+		senectus netus malesuada fames turpis egestas
+		vel sollicitudin justo
+		suspendisse potenti est tortor placerat nec
+		rhoncus congue fringilla
+		ante lacus semper feugiat praesent dui sed
+		gravida class aptent taciti
+		sociosqu litora torquent per conubia
+		nostra inceptos himenaeos
+		curabitur odio varius aliquam cras erat
+		posuere risus maecenas urna
+		blandit consequat fermentum'),
 
-		(8, 'fr', 'Un bidule dans la nuit', 'Têtes Raides en concert', '', '',
-		'un-bidule-dans-la-nuit', 'On ne ressort pas comme on est entré dans
-		la salle d''un concert des Têtes Raides.\r\n\r\nJe reviens du meilleur
-		concert que je n''ai jamais vu… bon faut avouer que je ne suis pas
-		très foule et je ne suis donc pas allé à beaucoup de concert dans ma
-		p''tite vie. Faut aussi dire que les Têtes Raides je suis fan
-		j''écoute avec délectation depuis plusieurs années, évidement j''ai
-		tous leurs albums et je me rue chez le disquaire à la sortie d''un
-		nouveau. Je ne sais trop pourquoi je n''avais pas vraiment envie
-		d''aller à leur concert, depuis tous ce temps que je les écoutes j''en
-		ai raté des spectacles, aujourd''hui je mesure ma bêtise. Sans doute
-		qu''au fond de moi j''avais peur d''être déçu, mais il n''en est rien,
-		les Têtes ont largement été à la hauteur de mes espérances.\r\n\r\nQui
-		sont les Têtes Raides ? Auteurs, compositeurs, interprètes. Des
-		musiciens bourrés de talent. Arrivez comme une sorte d''OVNI dans le
-		paysage musical français[1], ils ont ouverts la voie à bien d''autres
-		groupes. C''est bien le groupe auquel vous ne collerez pas
-		d''étiquette ; "non monsieur, non madame", les Têtes Raides n''ont pas
-		de genre, ils sont un genre à eux tous seuls. Du rock au tango en
-		passant par le reggae et la valse, ils sont eux-mêmes et excellent
-		dans leur art. Le style musical donne une couleur au texte, le tableau
-		de mots prend forme en musique, et finalement le morceau prend vie sur
-		scène. Magique.\r\n\r\nCe soir le spectacle était globalement assez
-		rock car le dernier album est ainsi. Dès les premières notes se dégage
-		une puissance contrôlée. Bien sûr nous avons aussi eu le plaisir de
-		retrouver d''anciennes chansons toujours aussi efficaces avec leurs
-		mélodies raffinées. Tantôt critique, tantôt drôle, les chansons sont à
-		la fois des invitations à la réflexion à la fois des moments de
-		plaisir. Et quel plaisir ce soir que d''avoir reçu ce que le groupe
-		avait a partager ce soir. Généreux, après le troisième rappels, les
-		Têtes en étaient à 2 heures 30 de concert ; pour même pas 25 euros
-		c''est quand même autre chose que des vieux mp3 téléchargés on ne sais
-		où …\r\n\r\nAvant le concert des personnes autour de moi
-		s''interrogeaient : "tu crois que c''est leur dernier album qu''on
-		entend là ?" ; "c''est bizarre comme nom ça Têtes Raides" ; "bon on
-		verra bien…" et les mêmes qui à la fin étaient debout pour applaudir
-		et en redemandaient encore.', '', '', 'bidule dans nuit ressort pas
-		comme est entré salle concert des têtes raides reviens meilleur que
-		jamais vu… bon faut avouer suis très foule donc allé beaucoup tite vie
-		aussi dire les fan écoute avec délectation depuis plusieurs années
-		évidement tous leurs albums rue chez disquaire sortie nouveau sais
-		trop pourquoi avais vraiment envie aller leur temps écoutes raté
-		spectacles aujourd hui mesure bêtise sans doute fond moi peur être
-		déçu mais rien ont largement été hauteur mes espérances qui sont
-		auteurs compositeurs interprètes musiciens bourrés talent arrivez une
+		(8, 'fr', 'Un bidule dans la nuit',
+		'Têtes Raides en concert', '', '',
+		'un-bidule-dans-la-nuit', 'On ne
+		ressort pas comme on est entré dans
+		la salle d''un concert des Têtes
+		Raides.\r\n\r\nJe reviens du meilleur
+		concert que je n''ai jamais vu…
+		bon faut avouer que je ne suis pas
+		très foule et je ne suis donc pas
+		allé à beaucoup de concert dans ma
+		p''tite vie. Faut aussi dire que les
+		Têtes Raides je suis fan
+		j''écoute avec délectation depuis plusieurs
+		années, évidement j''ai
+		tous leurs albums et je me rue chez le
+		disquaire à la sortie d''un
+		nouveau. Je ne sais trop pourquoi je
+		n''avais pas vraiment envie
+		d''aller à leur concert, depuis tous ce
+		temps que je les écoutes j''en
+		ai raté des spectacles, aujourd''hui je
+		mesure ma bêtise. Sans doute
+		qu''au fond de moi j''avais peur d''être
+		déçu, mais il n''en est rien,
+		les Têtes ont largement été à la hauteur
+		de mes espérances.\r\n\r\nQui
+		sont les Têtes Raides ? Auteurs,
+		compositeurs, interprètes. Des
+		musiciens bourrés de talent. Arrivez
+		comme une sorte d''OVNI dans le
+		paysage musical français[1], ils ont
+		ouverts la voie à bien d''autres
+		groupes. C''est bien le groupe auquel
+		vous ne collerez pas
+		d''étiquette ; "non monsieur, non madame", les
+		Têtes Raides n''ont pas
+		de genre, ils sont un genre à eux tous seuls.
+		Du rock au tango en
+		passant par le reggae et la valse, ils sont
+		eux-mêmes et excellent
+		dans leur art. Le style musical donne une
+		couleur au texte, le tableau
+		de mots prend forme en musique, et
+		finalement le morceau prend vie sur
+		scène. Magique.\r\n\r\nCe soir le
+		spectacle était globalement assez
+		rock car le dernier album est ainsi.
+		Dès les premières notes se dégage
+		une puissance contrôlée. Bien sûr
+		nous avons aussi eu le plaisir de
+		retrouver d''anciennes chansons
+		toujours aussi efficaces avec leurs
+		mélodies raffinées. Tantôt
+		critique, tantôt drôle, les chansons sont à
+		la fois des invitations à
+		la réflexion à la fois des moments de
+		plaisir. Et quel plaisir ce soir
+		que d''avoir reçu ce que le groupe
+		avait a partager ce soir. Généreux,
+		après le troisième rappels, les
+		Têtes en étaient à 2 heures 30 de
+		concert ; pour même pas 25 euros
+		c''est quand même autre chose que des
+		vieux mp3 téléchargés on ne sais
+		où …\r\n\r\nAvant le concert des
+		personnes autour de moi
+		s''interrogeaient : "tu crois que c''est leur
+		dernier album qu''on
+		entend là ?" ; "c''est bizarre comme nom ça Têtes
+		Raides" ; "bon on
+		verra bien…" et les mêmes qui à la fin étaient debout
+		pour applaudir
+		et en redemandaient encore.', '', '', 'bidule dans nuit
+		ressort pas
+		comme est entré salle concert des têtes raides reviens
+		meilleur que
+		jamais vu… bon faut avouer suis très foule donc allé
+		beaucoup tite vie
+		aussi dire les fan écoute avec délectation depuis
+		plusieurs années
+		évidement tous leurs albums rue chez disquaire sortie
+		nouveau sais
+		trop pourquoi avais vraiment envie aller leur temps
+		écoutes raté
+		spectacles aujourd hui mesure bêtise sans doute fond moi
+		peur être
+		déçu mais rien ont largement été hauteur mes espérances qui
+		sont
+		auteurs compositeurs interprètes musiciens bourrés talent arrivez
+		une
 		sorte ovni paysage musical français ils ouverts voie bien autres
 		groupes groupe auquel vous collerez étiquette non monsieur madame
 		genre eux seuls rock tango passant par reggae valse mêmes excellent
@@ -924,57 +1342,106 @@
 		vieux mp3 téléchargés avant personnes autour interrogeaient crois
 		entend bizarre nom verra bien… fin debout applaudir redemandaient
 		encore'),
-		(8, 'en', 'A contraption in the night', 'Têtes Raides in concert', '',
-		'', 'a-contraption-in-the-night', 'It is not clear as we entered the
-		room of a concert Heads Straight.\r\n\r\nI back the best concert I''ve
-		ever seen ... well I must admit that I am not very crowd and I''m not
-		gone to many concerts in my little life. Must also say that I am a fan
-		Heads Straight I listen with pleasure for many years, of course I have
-		all their albums and I rush to the record store to the output of a new
-		one. I do not know why I did not really want to go to their concert,
-		since all this time I listen I missed shows, now I realize my mistake.
-		No doubt that deep down I was afraid of being disappointed, but he is
-		nothing, Heads were largely up to my expectations.\r\n\r\nWho are the
-		Heads Straight? Authors, composers, performers. Talented musicians.
-		Arrive as a kind of UFO in the French musical landscape [1], they open
-		the way to many other groups. This is the group to which you do not
-		stick the label "no sir, no ma''am," Heads Straight did not like that,
-		they''re kind to them alone. Rock to tango through reggae and waltz,
-		they are themselves and excel in their art. The musical style gives
-		color to text, the table of words takes form in music, and finally the
-		piece comes to life on stage. Magic.\r\n\r\nTonight the show was
-		overall pretty rock for the last album is. From the first notes exudes
-		a controlled power. Of course we also had the pleasure to meet old
-		songs still effective with their refined melodies. Sometimes critical,
-		sometimes funny, the songs are both invitations to reflect both
-		moments of pleasure. And what a pleasure this evening to have received
-		that the group had to share tonight. Generous after the third
-		reminder, the heads were at 2:30 concert, for not even 25 euros it''s
-		still something that is old mp3 download do not know where
-		...\r\n\r\nBefore the concert people around me wondered: "Do you think
-		that this is their last album you hear that?" , "It''s strange as the
-		name that heads Straight", "well we''ll see ..." and the same people
-		who were standing at the end to applaud and still wanted more.', '',
-		'', 'contraption the night not clear entered room concert heads
-		straight back best ever seen well must admit that very crowd and gone
-		many concerts little life also say fan listen with pleasure for years
-		course have all their albums rush record store output new one know why
-		did really want since this time missed shows now realize mistake doubt
-		deep down was afraid being disappointed but nothing were largely
-		expectations who are authors composers performers talented musicians
-		arrive kind ufo french musical landscape they open way other groups
-		group which you stick label sir like them alone rock tango through
-		reggae waltz themselves excel art style gives color text table words
-		takes form music finally piece comes stage magic tonight show overall
-		pretty last album from first notes exudes controlled power had meet
-		old songs still effective refined melodies sometimes critical funny
-		both invitations reflect moments what evening received share generous
-		after third reminder even euros something mp3 download where before
-		people around wondered think hear strange name see same standing end
+		(8, 'en', 'A contraption in the night', 'Têtes Raides in
+		concert', '',
+		'', 'a-contraption-in-the-night', 'It is not clear as we
+		entered the
+		room of a concert Heads Straight.\r\n\r\nI back the best
+		concert I''ve
+		ever seen ... well I must admit that I am not very crowd
+		and I''m not
+		gone to many concerts in my little life. Must also say
+		that I am a fan
+		Heads Straight I listen with pleasure for many years,
+		of course I have
+		all their albums and I rush to the record store to the
+		output of a new
+		one. I do not know why I did not really want to go to
+		their concert,
+		since all this time I listen I missed shows, now I
+		realize my mistake.
+		No doubt that deep down I was afraid of being
+		disappointed, but he is
+		nothing, Heads were largely up to my
+		expectations.\r\n\r\nWho are the
+		Heads Straight? Authors, composers,
+		performers. Talented musicians.
+		Arrive as a kind of UFO in the French
+		musical landscape [1], they open
+		the way to many other groups. This is
+		the group to which you do not
+		stick the label "no sir, no ma''am,"
+		Heads Straight did not like that,
+		they''re kind to them alone. Rock to
+		tango through reggae and waltz,
+		they are themselves and excel in their
+		art. The musical style gives
+		color to text, the table of words takes
+		form in music, and finally the
+		piece comes to life on stage.
+		Magic.\r\n\r\nTonight the show was
+		overall pretty rock for the last
+		album is. From the first notes exudes
+		a controlled power. Of course we
+		also had the pleasure to meet old
+		songs still effective with their
+		refined melodies. Sometimes critical,
+		sometimes funny, the songs are
+		both invitations to reflect both
+		moments of pleasure. And what a
+		pleasure this evening to have received
+		that the group had to share
+		tonight. Generous after the third
+		reminder, the heads were at 2:30
+		concert, for not even 25 euros it''s
+		still something that is old mp3
+		download do not know where
+		...\r\n\r\nBefore the concert people around
+		me wondered: "Do you think
+		that this is their last album you hear
+		that?" , "It''s strange as the
+		name that heads Straight", "well we''ll
+		see ..." and the same people
+		who were standing at the end to applaud
+		and still wanted more.', '',
+		'', 'contraption the night not clear
+		entered room concert heads
+		straight back best ever seen well must admit
+		that very crowd and gone
+		many concerts little life also say fan listen
+		with pleasure for years
+		course have all their albums rush record store
+		output new one know why
+		did really want since this time missed shows
+		now realize mistake doubt
+		deep down was afraid being disappointed but
+		nothing were largely
+		expectations who are authors composers performers
+		talented musicians
+		arrive kind ufo french musical landscape they open
+		way other groups
+		group which you stick label sir like them alone rock
+		tango through
+		reggae waltz themselves excel art style gives color text
+		table words
+		takes form music finally piece comes stage magic tonight
+		show overall
+		pretty last album from first notes exudes controlled power
+		had meet
+		old songs still effective refined melodies sometimes critical
+		funny
+		both invitations reflect moments what evening received share
+		generous
+		after third reminder even euros something mp3 download where
+		before
+		people around wondered think hear strange name see same standing
+		end
 		applaud wanted more'),
 
-		(9, 'fr', 'Accessibilité numérique', '', '', '',
-		'accessibilite-numerique', 'Dans un billet intitulé Sensibiliser les
+		(9, 'fr', 'Accessibilité numérique', '', '',
+		'',
+		'accessibilite-numerique', 'Dans un billet intitulé Sensibiliser
+		les
 		Français Sébastien écrit cette phrase :\r\n\r\n Un handicap est le
 		résultat d''une rencontre entre une déficience et une incapacité de la
 		société à répondre à celle-ci\r\n\r\nC''est très juste et c''est
@@ -1048,12 +1515,18 @@
 		quel degré bêtise arrivé exprès nous font partie cible seulement
 		argument bidon car présent milieux âges pire deviens responsable
 		subissent nombre visiteurs'),
-		(9, 'en', 'eAccessibility', '', '', '', 'eaccessibility', 'In a post
-		titled Educate French Sébastien wrote this sentence:\r\n\r\n
-		Disability is the result of a meeting between a deficiency and an
-		inability of the company to meet this\r\n\r\nThat is very true and it
-		is always the "philosophy" that I had towards people with
-		disabilities. To know that they are not disabled but are they dating
+		(9, 'en', 'eAccessibility', '', '', '',
+		'eaccessibility', 'In a post
+		titled Educate French Sébastien wrote this
+		sentence:\r\n\r\n
+		Disability is the result of a meeting between a
+		deficiency and an
+		inability of the company to meet this\r\n\r\nThat is
+		very true and it
+		is always the "philosophy" that I had towards people
+		with
+		disabilities. To know that they are not disabled but are they
+		dating
 		situations that are disabling. It is very important to have this
 		notion in mind to place people at the center of the problem rather
 		than their differences from the "standard".\r\n\r\nAn example: a

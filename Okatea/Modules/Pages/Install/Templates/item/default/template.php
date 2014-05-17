@@ -80,6 +80,8 @@ $okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 			
 			
 			
+			
+			
 			<?php
 			# si c'est pas la première image on affiche le square
 			elseif (isset($image['square_url']))
