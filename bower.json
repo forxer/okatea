@@ -16,7 +16,7 @@
 		"lightbox2": 				"lokesh/lightbox2",
 		"normalize-css": 			"2.*",
 		"passfield": 				"antelle/passfield",
-		"plupload": 				"https://github.com/moxiecode/plupload/archive/v1.5.8.tar.gz",
+		"plupload": 				"moxiecode/plupload",
 		"select2": 					"ivaynberg/select2",
 		"spectrum": 				"bgrins/spectrum",
 		"world-flags-sprite": 		"lafeber/world-flags-sprite"

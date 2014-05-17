@@ -59,7 +59,7 @@ class Cleaner extends BaseTools
 		'lightbox2' => 'releases sass .jshintrc jsTestDriver.jstd .npmignore config.rb Gemfile* index.html',
 		'normalize-css' => '',
 		'passfield' => '.idea lib build.sh release-notes.md',
-		'plupload' => 'examples release.sh',
+		'plupload' => 'examples',
 		'select2' => '',
 		'spectrum' => 'build docs example index.html',
 		'world-flags-sprite' => ''
@@ -115,7 +115,7 @@ class Cleaner extends BaseTools
 	public function setToRemove()
 	{
 		$this->aToRemove = array();
-		
+
 		$this->cache(false);
 		$this->config(false);
 		$this->logs(false);
@@ -136,17 +136,17 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->in($this->getTempDir($this->okt->options->cache_dir))
 			->notName('.gitkeep');
-		
+
 		foreach ($finder as $files)
 		{
 			$this->aToRemove[] = $files->getRealpath();
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
@@ -159,7 +159,7 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->files()
@@ -167,12 +167,12 @@ class Cleaner extends BaseTools
 			->notName('__okatea_core.yml')
 			->notName('conf_site.yml')
 			->notName('connexion.dist.php');
-		
+
 		foreach ($finder as $files)
 		{
 			$this->aToRemove[] = $files->getRealpath();
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
@@ -185,17 +185,17 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->in($this->getTempDir($this->okt->options->logs_dir))
 			->notName('.gitkeep');
-		
+
 		foreach ($finder as $files)
 		{
 			$this->aToRemove[] = $files->getRealpath();
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
@@ -208,7 +208,7 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$sPublicDir = $this->getTempDir($this->okt->options->public_dir);
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
@@ -216,12 +216,12 @@ class Cleaner extends BaseTools
 			->in($sPublicDir . '/modules')
 			->in($sPublicDir . '/themes')
 			->notName('index.html');
-		
+
 		foreach ($finder as $files)
 		{
 			$this->aToRemove[] = $files->getRealpath();
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
@@ -234,32 +234,32 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$sComponentsDir = $this->getTempDir($this->okt->options->public_dir) . '/components';
-		
+
 		foreach ($this->aComponentsRules as $sPackageDir => $rule)
 		{
 			if (! file_exists($sComponentsDir . '/' . $sPackageDir))
 			{
 				continue;
 			}
-			
+
 			$aPatterns = array_merge($this->aCommonRules, explode(' ', $rule));
-			
+
 			foreach ($aPatterns as $pattern)
 			{
 				$finder = (new Finder())->ignoreVCS(false)
 					->ignoreDotFiles(false)
 					->in($sComponentsDir . '/' . $sPackageDir)
 					->name($pattern);
-				
+
 				foreach ($finder as $files)
 				{
 					$this->aToRemove[] = $files->getRealpath();
 				}
 			}
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
@@ -272,32 +272,32 @@ class Cleaner extends BaseTools
 		{
 			$this->aToRemove = array();
 		}
-		
+
 		$sVendorDir = $this->getTempDir() . '/vendor';
-		
+
 		foreach ($this->aVendorRules as $sPackageDir => $rule)
 		{
 			if (! file_exists($sVendorDir . '/' . $sPackageDir))
 			{
 				continue;
 			}
-			
+
 			$aPatterns = array_merge($this->aCommonRules, explode(' ', $rule));
-			
+
 			foreach ($aPatterns as $pattern)
 			{
 				$finder = (new Finder())->ignoreVCS(false)
 					->ignoreDotFiles(false)
 					->in($sVendorDir . '/' . $sPackageDir)
 					->name($pattern);
-				
+
 				foreach ($finder as $files)
 				{
 					$this->aToRemove[] = $files->getRealpath();
 				}
 			}
 		}
-		
+
 		if ($bProcess)
 		{
 			$this->remove();
