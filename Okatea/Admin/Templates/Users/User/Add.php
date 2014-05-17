@@ -5,6 +5,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $view->extend('layout');
 
 # Titre de la page
@@ -41,8 +43,7 @@ $okt->page->js->addReady('
 	action="<?php echo $view->generateUrl('Users_add') ?>" method="post">
 
 	<?php
-	
-echo $view->render('Users/User/UserForm', array(
+	echo $view->render('Users/User/UserForm', array(
 		'aPageData' => $aPageData,
 		'aLanguages' => $aLanguages,
 		'aCivilities' => $aCivilities

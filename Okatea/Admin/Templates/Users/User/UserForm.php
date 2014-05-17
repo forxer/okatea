@@ -14,8 +14,8 @@ use Okatea\Tao\L10n\Date;
 	<legend><?php _e('c_c_users_Identity')?></legend>
 
 	<div class="three-cols">
-	<?php 
-# affichage des champs "username" et "email" fusionnés
+	<?php
+	# affichage des champs "username" et "email" fusionnés
 	if ($okt->config->users['registration']['merge_username_email'])
 	:
 		?>
@@ -25,8 +25,8 @@ use Okatea\Tao\L10n\Date;
 		<?php echo form::text('email', 40, 255, $view->escape($aPageData['user']['email'])) ?></p>
 	<?php endif; ?>
 
-	<?php 
-# affichage des champs "username" et "email" distincts
+	<?php
+	# affichage des champs "username" et "email" distincts
 	if (! $okt->config->users['registration']['merge_username_email'])
 	:
 		?>

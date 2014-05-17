@@ -5,6 +5,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+use Okatea\Tao\Forms\Statics\FormElements as form;
+
 $aDefaultGravatarImages = array(
 	null => 'c_a_users_config_gravatar_default_image_gravatar',
 	'mm' => 'c_a_users_config_gravatar_default_image_mm',

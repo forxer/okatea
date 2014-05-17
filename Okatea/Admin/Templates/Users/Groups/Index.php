@@ -46,7 +46,7 @@ $okt->page->setButtonset('usersGroups', array(
 	<tbody>
 	<?php
 	
-$count_line = 0;
+	$count_line = 0;
 	while ($rsGroups->fetch())
 	:
 		
@@ -108,6 +108,8 @@ $count_line = 0;
 					<li>
 			<?php endif; ?>
 			
+				
+				
 				
 				</ul>
 			</td>

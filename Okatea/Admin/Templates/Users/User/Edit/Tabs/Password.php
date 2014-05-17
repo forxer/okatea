@@ -15,7 +15,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<?php
 	
-echo $view->render('Users/User/PasswordForm', array(
+	echo $view->render('Users/User/PasswordForm', array(
 		'aPageData' => $aPageData
 	));
 	?>

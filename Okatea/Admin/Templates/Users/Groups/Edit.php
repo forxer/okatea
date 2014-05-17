@@ -52,7 +52,7 @@ $okt->page->setButtonset('usersGroups', array(
 
 	<?php
 	
-echo $view->render('Users/Groups/GroupForm', array(
+	echo $view->render('Users/Groups/GroupForm', array(
 		'iGroupId' => $iGroupId,
 		'aGroupData' => $aGroupData,
 		'aPermissions' => $aPermissions

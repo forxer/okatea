@@ -57,7 +57,7 @@ $okt->page->css->addCss('
 
 			<?php
 			
-echo $view->render('Users/User/UserForm', array(
+			echo $view->render('Users/User/UserForm', array(
 				'aPageData' => $aPageData,
 				'aLanguages' => $aLanguages,
 				'aCivilities' => $aCivilities
@@ -80,7 +80,7 @@ echo $view->render('Users/User/UserForm', array(
 
 			<?php
 		
-echo $view->render('Users/User/PasswordForm', array(
+		echo $view->render('Users/User/PasswordForm', array(
 			'aPageData' => $aPageData
 		));
 		?>

@@ -15,7 +15,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<?php
 	
-echo $view->render('Users/User/UserForm', array(
+	echo $view->render('Users/User/UserForm', array(
 		'aPageData' => $aPageData,
 		'aLanguages' => $aLanguages,
 		'aCivilities' => $aCivilities

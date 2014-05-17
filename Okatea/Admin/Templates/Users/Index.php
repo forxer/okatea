@@ -81,7 +81,7 @@ if ($okt->config->users['gravatar']['enabled'])
 	<div class="buttonsetB">
 		<?php
 		
-echo $view->render('Common/Search', array(
+		echo $view->render('Common/Search', array(
 			'sFormAction' => $view->generateUrl('Users_index'),
 			'sSearchLabel' => __('c_a_users_list_Search'),
 			'sSearch' => $sSearch,
@@ -144,7 +144,7 @@ echo $view->render('Common/Search', array(
 		<tbody>
 		<?php
 	
-$iCountLine = 0;
+	$iCountLine = 0;
 	while ($rsUsers->fetch())
 	:
 		
@@ -249,11 +249,12 @@ $iCountLine = 0;
 	</table>
 	<?php
 	
-echo $view->render('Common/FormListBatches', array(
+	echo $view->render('Common/FormListBatches', array(
 		'sFormId' => 'users-list',
 		'sActionsLabel' => __('c_a_users_list_users_action'),
-		'aActionsChoices'     => $aActionsChoices
-	)); ?>
+		'aActionsChoices' => $aActionsChoices
+	));
+	?>
 </form>
 
 

@@ -63,7 +63,7 @@ if (! $okt->languages->unique)
 
 		<?php
 			
-foreach ($aPermissions as $aPermsGroup)
+			foreach ($aPermissions as $aPermsGroup)
 			:
 				
 				if (empty($aPermsGroup['perms']))

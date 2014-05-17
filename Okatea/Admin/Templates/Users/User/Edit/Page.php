@@ -57,7 +57,7 @@ $okt->page->tabs();
 
 ?>
 
-<?php 
+<?php
 # buttons set
 echo $okt->page->getButtonSet('users');
 ?>
