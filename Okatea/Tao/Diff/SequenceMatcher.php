@@ -243,7 +243,7 @@ class SequenceMatcher
 	/**
 	 * Checks if a particular character is in the junk dictionary
 	 * for the list of junk characters.
-	 * 
+	 *
 	 * @param
 	 *        	$b
 	 * @return boolean True if the character is considered junk. False if not.

@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AC' => 'Ascension Island',
 	'AD' => '𐐈𐑌𐐼𐐱𐑉𐐲',

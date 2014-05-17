@@ -150,7 +150,7 @@ $aFooterContent = array_filter((array) $aFooterContent);
 
 <?php echo $okt->page->js?>
 
-<?php 
+<?php
 # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
 $okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag');
 ?>

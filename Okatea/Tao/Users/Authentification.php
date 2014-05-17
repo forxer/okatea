@@ -18,105 +18,105 @@ class Authentification
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oDb;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oError;
 
 	/**
 	 * Core users table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sUsersTable;
 
 	/**
 	 * Core users groups table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsTable;
 
 	/**
 	 * Core users groups locales table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsL10nTable;
 
 	/**
 	 * Le nom du cookie d'authentification.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCookieName;
 
 	/**
 	 * Le nom du cookie de redirection après authentification.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCookieFromName;
 
 	/**
 	 * Le nom du cookie de langue.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCookieLangName;
 
 	/**
 	 * Le chemin du cookie d'authentification.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCookiePath;
 
 	/**
 	 * Le domaine du cookie d'authentification.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCookieDomain;
 
 	/**
 	 * Cookie d'authentification sur protocole sécurisé.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $bCookieSecure;
 
 	/**
 	 * Durée de la session de visite en secondes (1800 = 30 minutes).
-	 * 
+	 *
 	 * @var integer
 	 */
 	protected $iVisitTimeout = 1800;
 
 	/**
 	 * Durée d'enregistrement du cookie de session de visite (1209600 = 14 jours).
-	 * 
+	 *
 	 * @var integer
 	 */
 	protected $iVisitRememberTime = 1209600;
 
 	/**
 	 * Informations utilisateur courant sous forme de recordset.
-	 * 
+	 *
 	 * @var object recordset
 	 */
 	public $infos = null;

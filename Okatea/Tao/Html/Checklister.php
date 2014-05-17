@@ -15,28 +15,28 @@ class Checklister
 
 	/**
 	 * Liste des vérifications.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $check;
 
 	/**
 	 * URL de l'image ok.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $img_on;
 
 	/**
 	 * URL de l'image erreur.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $img_off;
 
 	/**
 	 * URL de l'image avertissement.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $img_wrn;

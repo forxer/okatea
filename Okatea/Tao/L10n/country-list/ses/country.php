@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andoora',
 	'AE' => 'Laaraw Imaarawey Margantey',

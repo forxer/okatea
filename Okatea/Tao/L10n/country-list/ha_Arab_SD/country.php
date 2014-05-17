@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andora',
 	'AE' => 'Haɗaɗɗiyar Daular Larabawa',

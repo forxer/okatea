@@ -42,7 +42,7 @@ class Mailer
 
 	/**
 	 * Define the transport method
-	 * 
+	 *
 	 * @param object $okt        	
 	 */
 	protected function setTransport()

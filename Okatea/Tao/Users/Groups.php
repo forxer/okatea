@@ -16,35 +16,35 @@ class Groups
 
 	/**
 	 * Group identifier of unverified users.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const UNVERIFIED = 0;
 
 	/**
 	 * Group identifier of super-administrator users.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const SUPERADMIN = 1;
 
 	/**
 	 * Group identifier of administrator users.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const ADMIN = 2;
 
 	/**
 	 * Group identifier of guest users.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const GUEST = 3;
 
 	/**
 	 * Group identifier of member users.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const MEMBER = 4;
@@ -59,42 +59,42 @@ class Groups
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oDb;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oError;
 
 	/**
 	 * Core users table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sUsersTable;
 
 	/**
 	 * Core users groups table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsTable;
 
 	/**
 	 * Core users groups locales table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsL10nTable;

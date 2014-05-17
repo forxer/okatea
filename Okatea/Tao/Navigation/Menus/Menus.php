@@ -18,42 +18,42 @@ class Menus
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * L'objet gestionnaire de base de données.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * L'objet gestionnaire d'erreurs
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le nom de la table menus
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_menus;
 
 	/**
 	 * Le nom de la table des éléments des menus
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_items;
 
 	/**
 	 * Le nom de la table des locales des éléments des menus
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_items_locales;

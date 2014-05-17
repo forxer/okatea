@@ -12,56 +12,56 @@ class Collection
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The type of extensions.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $type;
 
 	/**
 	 * The directory path extensions.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $path;
 
 	/**
 	 * Cache manager object.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
 	 * Extensions cache identifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCacheId;
 
 	/**
 	 * Extensions class name pattern.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sExtensionClassPatern;
 
 	/**
 	 * List of loaded extensions.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aLoaded;
 
 	/**
 	 * Base installer class
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sInstallerClass = '\\Okatea\Tao\\Extensions\\Manage\\Installer';

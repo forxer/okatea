@@ -114,7 +114,7 @@ $okt->page->tabs();
 	<!-- #tabered -->
 
 	<p><?php echo form::hidden('config_sent', 1)?>
-	<?php echo $okt->page->formtoken() ?>
+	<?php echo $okt->page->formtoken()?>
 	<input type="submit" value="<?php _e('c_c_action_save') ?>" />
 	</p>
 </form>

@@ -19,77 +19,77 @@ class Collection
 
 	/**
 	 * Le chemin du répertoir des modules
-	 * 
+	 *
 	 * @var string
 	 */
 	public $path;
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le nom de la table modules
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_extensions;
 
 	/**
 	 * La liste des modules installés
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $list = array();
 
 	/**
 	 * La liste complète des modules (y compris non installés)
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $complete_list = array();
 
 	/**
 	 * L'objet gestionnaire de cache
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
 	 * L'identifiant du cache des modules
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $cache_id;
 
 	/**
 	 * L'identifiant du cache des dépots
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $cache_repo_id;
 
 	/**
 	 * L'identifiant du module éventuellement actif
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sActiveModule;

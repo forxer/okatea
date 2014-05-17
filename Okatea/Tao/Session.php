@@ -15,7 +15,7 @@ class Session extends BaseSession
 
 	/**
 	 * The namespace for the session variable and form inputs.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sTokenNamespace;

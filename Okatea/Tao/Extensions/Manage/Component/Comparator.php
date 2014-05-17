@@ -94,7 +94,8 @@ class Comparator extends ComponentBase
 				//'ignoreWhitespace' => true,
 				//'ignoreCase' => true,
 			)()
-;
+
+			;
 			
 			$diff = new DiffEngine($a, $b, $options);
 			$opCodes = $diff->getGroupedOpcodes();

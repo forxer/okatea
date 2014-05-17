@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'GH' => 'Gaana',
 	'NE' => 'Nijer',

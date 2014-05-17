@@ -59,9 +59,7 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	public function supports($resource, $type = null)
 	{

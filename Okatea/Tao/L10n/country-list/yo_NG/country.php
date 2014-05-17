@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'BW' => 'BW',
 	'NG' => 'NG',

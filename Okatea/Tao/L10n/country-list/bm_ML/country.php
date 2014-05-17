@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andɔr',
 	'AE' => 'Arabu mara kafoli',

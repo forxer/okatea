@@ -18,42 +18,42 @@ class Users
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oDb;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oError;
 
 	/**
 	 * Core users table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sUsersTable;
 
 	/**
 	 * Core users groups table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsTable;
 
 	/**
 	 * Core users groups locales table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sGroupsL10nTable;
@@ -235,7 +235,7 @@ class Users
 
 	/**
 	 * Vérifie qu'il n'y a pas de flood à l'inscription en vérifiant l'IP.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function checkRegistrationFlood()

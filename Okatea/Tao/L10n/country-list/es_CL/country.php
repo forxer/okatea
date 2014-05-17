@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AN' => 'Antillas Holandesas',
 	'AZ' => 'Azerbayán',

@@ -17,63 +17,63 @@ class Languages
 
 	/**
 	 * Liste des langues
-	 * 
+	 *
 	 * @var array
 	 */
 	public $list;
 
 	/**
 	 * Nombre de langues
-	 * 
+	 *
 	 * @var integer
 	 */
 	public $num;
 
 	/**
 	 * Langue unique
-	 * 
+	 *
 	 * @var boolean
 	 */
 	public $unique;
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * L'objet gestionnaire de base de données.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * L'objet gestionnaire d'erreurs
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le nom de la table languages
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_languages;
 
 	/**
 	 * L'objet gestionnaire de cache
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
 	 * L'identifiant du cache
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $cache_id;

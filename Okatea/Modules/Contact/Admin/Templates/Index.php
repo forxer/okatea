@@ -37,7 +37,7 @@ $okt->page->addGlobalTitle(__('m_contact_recipients'));
 
 		<?php
 		
-$iLineCount = 0;
+		$iLineCount = 0;
 		
 		foreach ($aRecipientsTo as $sRecipient)
 		:
@@ -58,7 +58,7 @@ $iLineCount = 0;
 
 		<?php
 		
-$iLineCount = 0;
+		$iLineCount = 0;
 		
 		foreach ($aRecipientsCc as $sRecipient)
 		:
@@ -79,7 +79,7 @@ $iLineCount = 0;
 
 		<?php
 		
-$iLineCount = 0;
+		$iLineCount = 0;
 		
 		foreach ($aRecipientsBcc as $sRecipient)
 		:

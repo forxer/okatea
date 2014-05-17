@@ -32,7 +32,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 
 ?>
 
-<?php 
+<?php
 # buttons set
 echo $okt->page->getButtonSet('fieldBtSt');
 ?>
@@ -41,7 +41,7 @@ echo $okt->page->getButtonSet('fieldBtSt');
 	method="post" id="field-definition-form">
 	<?php
 	
-echo $view->render('Contact/Admin/Templates/Fields/DefinitionForm', array(
+	echo $view->render('Contact/Admin/Templates/Fields/DefinitionForm', array(
 		'aFieldData' => $aFieldData
 	))?>
 </form>

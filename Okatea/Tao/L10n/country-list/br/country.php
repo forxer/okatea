@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AC' => 'Enez Ascension',
 	'AD' => 'Andorra',

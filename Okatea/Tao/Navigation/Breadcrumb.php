@@ -14,42 +14,42 @@ class Breadcrumb
 
 	/**
 	 * Pile d'éléments
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $stack;
 
 	/**
 	 * Nombre d'éléments
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $iNum;
 
 	/**
 	 * Format du bloc HTML
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sHtmlBlock = '<p class="breadcrumb">%s</p>';
 
 	/**
 	 * Format d'un élément
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sHtmlItem = '%s';
 
 	/**
 	 * Format d'un lien
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sHtmlLink = '<a href="%s">%s</a>';
 
 	/**
 	 * Séparateur d'éléments
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sHtmlSeparator = ' &rsaquo; ';

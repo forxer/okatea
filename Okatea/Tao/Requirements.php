@@ -14,14 +14,14 @@ class Requirements
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The prerequisites list.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aRequirements = array();

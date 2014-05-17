@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'HK' => 'Hong Kong',
 	'MO' => 'Macao',

@@ -81,9 +81,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	public function getIds()
 	{
@@ -91,9 +89,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doFetch($id)
 	{
@@ -106,9 +102,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doContains($id)
 	{
@@ -116,9 +110,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doSave($id, $data, $lifeTime = 0)
 	{
@@ -130,9 +122,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doDelete($id)
 	{
@@ -144,9 +134,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doFlush()
 	{
@@ -156,9 +144,7 @@ class SingleFileCache extends CacheProvider
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	protected function doGetStats()
 	{

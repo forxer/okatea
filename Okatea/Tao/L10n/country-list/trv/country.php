@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AQ' => 'alang Nanci',
 	'BA' => 'alang Posniya',

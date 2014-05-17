@@ -20,21 +20,21 @@ class ImageUpload
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Référence de l'objet gestionnaire d'erreurs.
-	 * 
+	 *
 	 * @var object oktError
 	 */
 	protected $error;
 
 	/**
 	 * Le tableau des données de configuration.
-	 * 
+	 *
 	 * @var array
 	 */
 	public $aConfig = array(
@@ -80,7 +80,7 @@ class ImageUpload
 
 	/**
 	 * Liste des extensions autorisées.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected static $aAllowedExts = array(
@@ -92,7 +92,7 @@ class ImageUpload
 
 	/**
 	 * Liste des types d'images autorisés.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected static $aAllowedTypes = array(

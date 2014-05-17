@@ -24,7 +24,7 @@ class Date extends Carbon
 
 	/**
 	 * Define locale to use.
-	 * 
+	 *
 	 * @param string $sLocale        	
 	 */
 	public static function setUserLocale($sLocale)
@@ -34,7 +34,7 @@ class Date extends Carbon
 
 	/**
 	 * Define timezone to use.
-	 * 
+	 *
 	 * @param string $sTimezone        	
 	 */
 	public static function setUserTimezone($sTimezone)

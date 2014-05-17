@@ -25,14 +25,14 @@ class Page
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Les CSS de la page
-	 * 
+	 *
 	 * @var object htmlCss
 	 */
 	public $css;
@@ -44,91 +44,91 @@ class Page
 
 	/**
 	 * Le JS de la page
-	 * 
+	 *
 	 * @var object htmlJs
 	 */
 	public $js;
 
 	/**
 	 * Le contenu des meta keywords de la page
-	 * 
+	 *
 	 * @var string
 	 */
 	public $meta_keywords = null;
 
 	/**
 	 * Le contenu de la meta description de la page
-	 * 
+	 *
 	 * @var string
 	 */
 	public $meta_description = null;
 
 	/**
 	 * L'élément title de la page
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sTitleTag = '';
 
 	/**
 	 * La pile pour la construction de l'élément title de la page
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aTitleTagStack = array();
 
 	/**
 	 * L'ID de la page
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sPageId;
 
 	/**
 	 * Le titre de la page
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sTitle = '';
 
 	/**
 	 * Le titre SEO de la page (typiquement le h1)
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sTitleSeo = '';
 
 	/**
 	 * L'ID du module en cours
-	 * 
+	 *
 	 * @var string
 	 */
 	public $module;
 
 	/**
 	 * La pile des RTE disponibles
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $rteList = array();
 
 	/**
 	 * La pile des LBL disponibles
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $lblList = array();
 
 	/**
 	 * La pile des Captcha disponibles
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $captchaList = array();
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
-	 * 
+	 *
 	 * @var string
 	 */
 	public $sPart;
@@ -1179,7 +1179,7 @@ class Page
 
 	/**
 	 * Indique si une LBL donnée existe
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function lblExists($lblId)

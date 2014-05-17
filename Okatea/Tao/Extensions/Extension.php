@@ -12,35 +12,35 @@ class Extension
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le chemin du répertoire des extensions
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sExtensionsPath;
 
 	/**
 	 * Les informations concernant l'extension
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $infos;

@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'BR' => 'Brazil',
 	'CN' => 'China',

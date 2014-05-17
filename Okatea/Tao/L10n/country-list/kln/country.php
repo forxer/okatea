@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Emetab Andorra',
 	'AE' => 'Emetab kibagenge nebo arabuk',

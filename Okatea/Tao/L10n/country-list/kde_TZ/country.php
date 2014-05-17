@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andola',
 	'AE' => 'Dimiliki dya Vakulungwa va Chalabu',

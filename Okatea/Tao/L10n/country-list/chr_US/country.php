@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'BR' => 'ᏆᏏᎵᎢ',
 	'CA' => 'ᎨᎾᏓ',

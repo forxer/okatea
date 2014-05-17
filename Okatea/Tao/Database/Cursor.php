@@ -155,7 +155,7 @@ class Cursor
 
 	/**
 	 * Field unset
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __unset($n)

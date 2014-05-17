@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andola',
 	'AE' => 'Falme za Kialabu',

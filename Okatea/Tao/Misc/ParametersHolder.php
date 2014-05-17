@@ -15,7 +15,7 @@ class ParametersHolder
 
 	/**
 	 * La pile de paramètres
-	 * 
+	 *
 	 * @var array
 	 */
 	private $parameters = array();

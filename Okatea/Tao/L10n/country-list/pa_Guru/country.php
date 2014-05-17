@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'IN' => 'ਭਾਰਤ',
 	'TO' => 'TO',

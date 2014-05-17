@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AE' => 'Emiratos Arabe Unite',
 	'AF' => 'Afghanistan',

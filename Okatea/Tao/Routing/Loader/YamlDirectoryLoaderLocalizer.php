@@ -109,9 +109,7 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 	}
 
 	/**
-	 *
 	 * @ERROR!!!
-	 *
 	 */
 	public function supports($resource, $type = null)
 	{

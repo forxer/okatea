@@ -15,28 +15,28 @@ class Repositories
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Cache manager object.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
 	 * Repository cache identifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCacheId;

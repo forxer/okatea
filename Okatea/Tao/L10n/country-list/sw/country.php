@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AE' => 'Muugano wa Falme za Nchi za Kiarabu',
 	'AG' => 'Antigua na Barbuda',

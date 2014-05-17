@@ -15,6 +15,7 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * Diverse and varied utilities .
+ *
  * ..
  */
 class Utilities
@@ -150,7 +151,7 @@ class Utilities
 	 * Transforme un nombre formaté en un nombre manipulable par le système.
 	 *
 	 * @TODO: à revoir, moche...
-	 * 
+	 *
 	 * @param
 	 *        	string	number		Le nombre à formater
 	 * @return string

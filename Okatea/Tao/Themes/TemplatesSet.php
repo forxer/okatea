@@ -19,42 +19,42 @@ class TemplatesSet
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Le chemin de base du template
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sBase;
 
 	/**
 	 * La famille du template
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sTplFamily;
 
 	/**
 	 * L'URL de base de la page de configuration.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sBaseUrl;
 
 	/**
 	 * Le prefixe des noms des champs du formulaire.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sFormPrefix = 'p_';
 
 	/**
 	 * La configuration du template
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aConfig;

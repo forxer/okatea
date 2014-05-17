@@ -14,14 +14,14 @@ class Module extends Extension
 
 	/**
 	 * Chemin du répertoire upload du module.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $upload_dir;
 
 	/**
 	 * URL du répertoire upload du module.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $upload_url;

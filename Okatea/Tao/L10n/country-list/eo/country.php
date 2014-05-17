@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andoro',
 	'AE' => 'Unuiĝintaj Arabaj Emirlandos',

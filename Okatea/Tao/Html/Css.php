@@ -17,42 +17,42 @@ class Css
 
 	/**
 	 * Pile de fichiers CSS
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aFilesStack = array();
 
 	/**
 	 * Pile de fichiers LESS CSS
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aLessFilesStack = array();
 
 	/**
 	 * Pile de fichiers CSS en Comentaires Conditionnels
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aCCFilesStack = array();
 
 	/**
 	 * Pile des conditions des Comentaires Conditionnels
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aCCCondStack = array();
 
 	/**
 	 * Pile de code CSS
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aCssStack = array();
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sPart = null;

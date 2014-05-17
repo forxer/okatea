@@ -17,49 +17,49 @@ class Js
 
 	/**
 	 * Pile de fichiers JS
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aFilesStack = array();
 
 	/**
 	 * Pile de fichiers JS en Comentaires Conditionnels
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aCCFilesStack = array();
 
 	/**
 	 * Pile des conditions des Comentaires Conditionnels
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aCCCondStack = array();
 
 	/**
 	 * Pile de code JS
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aScriptStack = array();
 
 	/**
 	 * Pile de code JS de début
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aScriptStartStack = array();
 
 	/**
 	 * Pile de code JS "on ready"
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aReadyStack = array();
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sPart = null;

@@ -70,7 +70,8 @@ class XmlSql
 				'sql' => null
 			//				'process' 	=> 'install'
 			
-		);
+		)
+		;
 	}
 
 	/**

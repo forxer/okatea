@@ -1,35 +1,35 @@
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : Google Maps API
 $okt->page->js->addFile('http://maps.google.com/maps/api/js?sensor=false');
 # fin Okatea : Google Maps API ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du plugin Gmap3
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery-gmap3/gmap3.js');
 # fin Okatea : ajout du plugin Gmap3 ?>
 
 
-<?php 
+<?php
 # début Okatea : Gmap3 loader
 $sJsGmap3Loader = '$("#google_map").gmap3({
 	map: {
@@ -59,7 +59,7 @@ $sJsGmap3Loader = '$("#google_map").gmap3({
 # fin Okatea : Gmap3 loader ?>
 
 
-<?php 
+<?php
 # début Okatea : affichage du plan dans la page
 $okt->page->js->addReady($sJsGmap3Loader);
 # fin Okatea : affichage du plan dans la page ?>

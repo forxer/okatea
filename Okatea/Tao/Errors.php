@@ -15,7 +15,7 @@ class Errors
 
 	/**
 	 * La pile d'erreurs
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aErrors;
@@ -50,7 +50,7 @@ class Errors
 	 * alias de notEmpty
 	 *
 	 * @ref self::notEmpty()
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function hasError()

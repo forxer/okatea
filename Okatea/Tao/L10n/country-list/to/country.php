@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AG' => 'Anitikua mo Palaputa',
 	'AI' => 'Anikuila',

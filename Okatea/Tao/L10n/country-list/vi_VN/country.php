@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Andorra',
 	'AE' => 'Các Tiểu Vương quốc A-rập Thống nhất',

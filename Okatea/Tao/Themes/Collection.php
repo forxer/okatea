@@ -21,63 +21,63 @@ class Collection
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le chemin du répertoire des thèmes
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sPath;
 
 	/**
 	 * La liste des thèmes
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aThemes = null;
 
 	/**
 	 * L'objet gestionnaire de cache
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
 	 * L'identifiant du cache des thèmes
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $cache_id;
 
 	/**
 	 * L'identifiant du cache des dépots
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $cache_repo_id;
 
 	/**
 	 * L'identifiant du theme en cours d'inscription
-	 * 
+	 *
 	 * @var string
 	 */
 	private $_id = null;

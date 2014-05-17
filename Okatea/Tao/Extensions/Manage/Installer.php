@@ -26,63 +26,63 @@ class Installer extends Extension
 
 	/**
 	 * A checklist utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Html\CheckList
 	 */
 	public $checklist;
 
 	/**
 	 * Assets files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\AssetsFiles
 	 */
 	protected $assetsFiles;
 
 	/**
 	 * Files comparator utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\Comparator
 	 */
 	protected $comparator;
 
 	/**
 	 * Configuration files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\ConfigFiles
 	 */
 	protected $configFiles;
 
 	/**
 	 * Public routes files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesFiles;
 
 	/**
 	 * Admin routes files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\RoutesFiles
 	 */
 	protected $routesAdminFiles;
 
 	/**
 	 * Templates files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\TemplatesFiles
 	 */
 	protected $templatesFiles;
 
 	/**
 	 * Upload files utility.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage\Component\UploadsFiles
 	 */
 	protected $uploadsFiles;
 
 	/**
 	 * Extensions manager instance.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Manage
 	 */
 	protected $manager;

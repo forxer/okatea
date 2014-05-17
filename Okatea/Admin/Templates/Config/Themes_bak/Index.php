@@ -285,6 +285,9 @@ if (! empty($sSearch))
 			
 			
 			
+			
+			
+			
 			<div class="themeActions">
 				<?php echo implode("\n",$aActions)?>
 			</div>

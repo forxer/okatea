@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'andura',
 	'AE' => 'limarat',

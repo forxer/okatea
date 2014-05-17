@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Anndoora',
 	'AE' => 'Emiraat Araab Denntuɗe',

@@ -293,8 +293,8 @@ $okt->page->loader('.lazy-load');
 
 			</fieldset>
 
-			<p><?php echo form::hidden('advanced', 1) ?>
-			<?php echo $okt->page->formtoken() ?>
+			<p><?php echo form::hidden('advanced', 1)?>
+			<?php echo $okt->page->formtoken()?>
 			<input type="submit"
 					value="<?php _e('m_development_bootstrap_submit_value') ?>" />
 			</p>

@@ -15,7 +15,7 @@ class Collection extends BaseCollection
 
 	/**
 	 * Default theme identifier.
-	 * 
+	 *
 	 * @var integer
 	 */
 	const DEFAULT_THEME = 'DefaultTheme';

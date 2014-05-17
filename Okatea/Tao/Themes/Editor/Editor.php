@@ -21,98 +21,98 @@ class Editor
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Instance du gestionnaire de thèmes.
-	 * 
+	 *
 	 * @var Okatea\Tao\Themes\Collection
 	 */
 	protected $oThemes;
 
 	/**
 	 * Liste des thèmes
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aThemes;
 
 	/**
 	 * Le nom du répertoire des thèmes.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sThemesDir;
 
 	/**
 	 * Le chemin du répertoire des thèmes.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sThemesPath;
 
 	/**
 	 * L'identifiant du thème en cours d'édition.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sThemeId = null;
 
 	/**
 	 * Les infos du thème en cours d'édition.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aThemeInfos = array();
 
 	/**
 	 * Le chemin du thème en cours d'édition.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sThemePath = null;
 
 	/**
 	 * L'URL du thème en cours d'édition.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sThemeUrl = null;
 
 	/**
 	 * La liste des fichiers du thème en cours d'édition.
-	 * 
+	 *
 	 * @var ThemeFilesIterator
 	 */
 	protected $oThemeFiles = null;
 
 	/**
 	 * Le nom du fichier en cours d'édition.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sFilename = null;
 
 	/**
 	 * Les infos du fichier en cours d'édition.
-	 * 
+	 *
 	 * @var \SplFileInfo
 	 */
 	protected $oFileInfos = null;
 
 	/**
 	 * L'extension du fichier en cours d'édition.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sFileExtension = null;
 
 	/**
 	 * La liste des fichiers backup du fichier en cours d'édition.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aBackupFiles = array();
@@ -238,6 +238,7 @@ class Editor
 		//				&& $f->getFilename() != 'layout.php'
 						&& $f && 
 ->getFilename() != '_define.php')
+				
 				{
 					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath . '/' . $aTheme['id'] . '/Templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
 				}

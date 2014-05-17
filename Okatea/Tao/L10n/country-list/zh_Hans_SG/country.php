@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AC' => '阿森松岛',
 	'AD' => '安道尔',

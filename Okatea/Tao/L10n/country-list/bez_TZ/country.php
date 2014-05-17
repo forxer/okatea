@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'AD' => 'Huandola',
 	'AE' => 'Hufalme dza Hihalabu',

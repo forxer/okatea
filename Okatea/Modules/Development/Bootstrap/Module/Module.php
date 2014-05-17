@@ -303,6 +303,7 @@ class Module
 			'mit' => array()
 		//	 	'mpl11' 	=> array(),
 		//	 	'bsd' 		=> array(),
+		
 		;
 		
 		$this->templates[$this->licence . '_block'] = 'licences/' . $this->licence . '/block.tpl';
@@ -329,6 +330,7 @@ class Module
 			)
 		//	 	'mpl11' 	=> array(),
 		//	 	'bsd' 		=> array(),
+		
 		;
 		
 		$this->templates[$this->licence] = 'licences/' . $this->licence . '/licence.tpl';

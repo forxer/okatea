@@ -62,7 +62,7 @@ if (! $okt->languages->unique)
 
 ?>
 
-<?php 
+<?php
 # buttons set
 echo $okt->page->getButtonSet('fieldBtSt');
 ?>
@@ -99,7 +99,7 @@ echo $okt->page->getButtonSet('fieldBtSt');
 
 	<?php
 	
-$iValueCount = $iNumValues + 1;
+	$iValueCount = $iNumValues + 1;
 	foreach ($okt->languages->list as $aLanguage)
 	:
 		?>

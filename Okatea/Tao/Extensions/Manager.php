@@ -16,56 +16,56 @@ class Manager
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * The database manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * The errors manager instance.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * The name of the extensions table.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_extensions;
 
 	/**
 	 * The type of extensions.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $type;
 
 	/**
 	 * The directory path extensions.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $path;
 
 	/**
 	 * List of all extensions in the file system.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aAll;
 
 	/**
 	 * Extensions collection instance.
-	 * 
+	 *
 	 * @var Okatea\Tao\Extensions\Collection
 	 */
 	protected $collection;

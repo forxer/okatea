@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	'BD' => 'Bangladesh',
 	'BN' => 'Brunei',

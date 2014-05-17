@@ -18,35 +18,35 @@ class FileUpload
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * Référence de l'objet gestionnaire d'erreurs
-	 * 
+	 *
 	 * @var object oktError
 	 */
 	protected $error;
 
 	/**
 	 * La configuration de l'upload des fichiers
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $config = null;
 
 	/**
 	 * Le chemin du répertoire des fichiers
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $upload_dir;
 
 	/**
 	 * L'URL du répertoire des fichiers
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $upload_url;

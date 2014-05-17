@@ -1,23 +1,23 @@
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : liste des champs obligatoires pour la validation JS
 $aJsValidateRules = new ArrayObject();
 while ($okt->module('Contact')->rsFields->fetch())
@@ -30,13 +30,13 @@ while ($okt->module('Contact')->rsFields->fetch())
 # fin Okatea : liste des champs obligatoires pour la validation JS ?>
 
 
-<?php 
+<?php
 # -- CORE TRIGGER : publicModuleContactJsValidateRules
 $okt->triggers->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->module('Contact')->config->captcha);
 ?>
 
 
-<?php 
+<?php
 # début Okatea : validation JS
 if (! empty($aJsValidateRules))
 {
@@ -52,30 +52,30 @@ if (! empty($aJsValidateRules))
 # fin Okatea : validation JS ?>
 
 
-<?php 
+<?php
 # -- CORE TRIGGER : publicModuleContactBeforeDisplayPage
 $okt->triggers->callTrigger('publicModuleContactBeforeDisplayPage');
 ?>
 
 
-<?php 
+<?php
 # début Okatea : nécessaire pour la google map
 if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Contact')->config->google_map['display'] != 'other_page')
 :
 	?>
 
-	<?php 
-# début Okatea : Google Maps API
+	<?php
+	# début Okatea : Google Maps API
 	$okt->page->js->addFile('http://maps.google.com/maps/api/js?sensor=false');
-	# fin Okatea : Google Maps API 	?>
+	# fin Okatea : Google Maps API 		?>
 
-	<?php 
-# début Okatea : ajout du plugin Gmap3
+	<?php
+	# début Okatea : ajout du plugin Gmap3
 	$okt->page->js->addFile($okt->options->public_url . '/components/jquery-gmap3/gmap3.js');
-	# fin Okatea : ajout du plugin Gmap3 	?>
+	# fin Okatea : ajout du plugin Gmap3 		?>
 
-	<?php 
-# début Okatea : Gmap3 loader
+	<?php
+	# début Okatea : Gmap3 loader
 	$sJsGmap3Loader = '$("#google_map").gmap3({
 		map: {
 			address: "' . $view->escapeJs($okt->module('Contact')
@@ -94,18 +94,19 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 			}
 		}
 	});';
-	# fin Okatea : Gmap3 loader 	?>
+	# fin Okatea : Gmap3 loader 		?>
 
-	<?php 
-# début Okatea : affichage du plan dans la page
+	<?php
+	# début Okatea : affichage du plan dans la page
 	if ($okt->module('Contact')->config->google_map['display'] == 'inside')
 	:
 		$okt->page->js->addReady($sJsGmap3Loader);
 	
-	endif; # fin Okatea : affichage du plan dans la page 	?>
+	
+	endif; # fin Okatea : affichage du plan dans la page 		?>
 
-	<?php 
-# début Okatea : affichage du plan dans UI dialog
+	<?php
+	# début Okatea : affichage du plan dans UI dialog
 	if ($okt->module('Contact')->config->google_map['display'] == 'link')
 	:
 		
@@ -133,13 +134,14 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 			});
 		');
 	
+	
 
-	endif; # fin Okatea : affichage du plan dans UI dialog 	?>
+	endif; # fin Okatea : affichage du plan dans UI dialog 		?>
 
 <?php endif; # fin Okatea : nécessaire pour la google map ?>
 
 
-<?php 
+<?php
 # début Okatea : on ajoutent des éléments à l'en-tête HTML
 $view['slots']->start('head')?>
 
@@ -153,7 +155,7 @@ $view['slots']->stop();
 # fin Okatea : on ajoutent des éléments à l'en-tête HTML ?>
 
 
-<?php 
+<?php
 # début Okatea : affichage des éventuelles erreurs
 if ($okt->error->notEmpty())
 :
@@ -164,7 +166,7 @@ if ($okt->error->notEmpty())
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
 
-<?php 
+<?php
 # début Okatea : si le mail est envoyé on affiche une confirmation
 if (! empty($_GET['sended']))
 :
@@ -173,7 +175,7 @@ if (! empty($_GET['sended']))
 <?php endif; # fin Okatea : si le mail est envoyé on affiche une confirmation ?>
 
 
-<?php 
+<?php
 # début Okatea : si le mail n'est PAS envoyé on affiche le formulaire
 if (empty($_GET['sended']))
 :
@@ -181,8 +183,8 @@ if (empty($_GET['sended']))
 <form action="<?php echo $view->generateUrl('contactPage') ?>"
 	method="post" id="contact-form">
 
-	<?php 
-# début Okatea : boucle sur les champs
+	<?php
+	# début Okatea : boucle sur les champs
 	while ($okt->module('Contact')->rsFields->fetch())
 	:
 		?>
@@ -191,8 +193,8 @@ if (empty($_GET['sended']))
 
 	<?php endwhile; # fin Okatea : boucle sur les champs ?>
 
-	<?php 
-# -- CORE TRIGGER : publicModuleContactTplFormBottom
+	<?php
+	# -- CORE TRIGGER : publicModuleContactTplFormBottom
 	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt->module('Contact')->config->captcha);
 	?>
 
@@ -207,8 +209,8 @@ if (empty($_GET['sended']))
 	<?php # début Okatea : affichage du nom commercial ou de la raison sociale ?>
 	<p>
 		<strong>
-		<?php 
-# début Okatea : si on as un nom commercial (ou une raison sociale), on l'affiche
+		<?php
+	# début Okatea : si on as un nom commercial (ou une raison sociale), on l'affiche
 	if (! empty($okt->config->company['com_name']))
 	:
 		?>
@@ -223,12 +225,12 @@ if (empty($_GET['sended']))
 	<?php # début Okatea : affichage de l'adresse ?>
 	<p><?php
 	
-echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->address['street_2'] != '' ? ' - ' . $okt->config->address['street_2'] : '') . ' - ' . $okt->config->address['code'] . ' ' . $okt->config->address['city'] . ' ' . $okt->config->address['country']);
+	echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->address['street_2'] != '' ? ' - ' . $okt->config->address['street_2'] : '') . ' - ' . $okt->config->address['code'] . ' ' . $okt->config->address['city'] . ' ' . $okt->config->address['country']);
 	?></p>
 	<?php # fin Okatea : affichage de l'adresse ?>
 
-	<?php 
-# début Okatea : affichage du numéro de téléphone
+	<?php
+	# début Okatea : affichage du numéro de téléphone
 	if (! empty($okt->config->address['tel']))
 	:
 		?>
@@ -237,8 +239,8 @@ echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->addres
 			:</span> <?php echo $view->escape($okt->config->address['tel']) ?></p>
 	<?php endif; # fin Okatea : affichage du numéro de téléphone ?>
 
-	<?php 
-# début Okatea : affichage du numéro de mobile
+	<?php
+	# début Okatea : affichage du numéro de mobile
 	if (! empty($okt->config->address['mobile']))
 	:
 		?>
@@ -246,8 +248,8 @@ echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->addres
 		<span class="label"><?php _e('m_contact_mobile') ?> :</span> <?php echo $view->escape($okt->config->address['mobile']) ?></p>
 	<?php endif; # fin Okatea : affichage du numéro de mobile ?>
 
-	<?php 
-# début Okatea : affichage du numéro de fax
+	<?php
+	# début Okatea : affichage du numéro de fax
 	if (! empty($okt->config->address['fax']))
 	:
 		?>
@@ -264,14 +266,14 @@ echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->addres
 	<?php # fin Okatea : affichage de l'image de l'email ?>
 </div>
 
-<?php 
-# début Okatea : affichage du template de la map si le plan est à afficher dans la page contact et si le plan d'accès est activé
+<?php
+	# début Okatea : affichage du template de la map si le plan est à afficher dans la page contact et si le plan d'accès est activé
 	if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Contact')->config->google_map['display'] != 'other_page')
 	:
 		?>
 
-	<?php 
-# début Okatea : lien pour afficher le plan dans UI dialog
+	<?php
+		# début Okatea : lien pour afficher le plan dans UI dialog
 		if ($okt->module('Contact')->config->google_map['display'] == 'link')
 		:
 			?>

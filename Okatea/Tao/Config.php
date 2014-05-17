@@ -17,28 +17,28 @@ class Config
 
 	/**
 	 * Le chemin du fichier source
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sSourceFile;
 
 	/**
 	 * L'objet de mise en cache
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oCache = null;
 
 	/**
 	 * L'identifiant du cache
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sCacheId;
 
 	/**
 	 * Les données
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $aData;

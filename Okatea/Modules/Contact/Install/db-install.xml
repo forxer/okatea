@@ -12,15 +12,18 @@
 
 		CREATE TABLE `{{PREFIX}}mod_contact_fields` (
 		`id` SERIAL,
-		`status` TINYINT(1) UNSIGNED NOT NULL,
+		`status`
+		TINYINT(1) UNSIGNED NOT NULL,
 		`type` TINYINT(1) UNSIGNED NOT NULL,
 		`ord` INT(10) UNSIGNED NOT NULL,
 		`html_id` VARCHAR(255) NOT NULL,
 		`options` TEXT NULL,
 
 		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}mod_contact_fields_idx_status` (`status`),
-		KEY `{{PREFIX}}mod_contact_fields_idx_ord` (`ord`)
+		KEY
+		`{{PREFIX}}mod_contact_fields_idx_status` (`status`),
+		KEY
+		`{{PREFIX}}mod_contact_fields_idx_ord` (`ord`)
 		) ENGINE=MyISAM DEFAULT
 		CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
@@ -33,15 +36,19 @@
 			'{{PREFIX}}mod_contact_fields_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}mod_contact_fields_locales` (
-		`field_id` INT(11) NOT NULL,
+		`field_id`
+		INT(11) NOT NULL,
 		`language` VARCHAR(10) NOT NULL,
-		`title` VARCHAR(255) NOT NULL,
+		`title` VARCHAR(255)
+		NOT NULL,
 		`value` TEXT NULL,
 		`description` TEXT NULL,
 
-		PRIMARY KEY (`field_id`,`language`)
+		PRIMARY KEY
+		(`field_id`,`language`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8
-		COLLATE utf8_general_ci ;
+		COLLATE
+		utf8_general_ci ;
 	</action>
 
 	<!-- DATA -->
@@ -50,11 +57,13 @@
 		string="civilite" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="civilite"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'civilite'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(1, 1, 4, 1, 'civilite', NULL)
 	</action>
@@ -63,13 +72,16 @@
 		string="civilite" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="civilite"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Civilité'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(1, 'fr', 'Civilité',
+		(1, 'fr',
+		'Civilité',
 		'a:3:{i:1;s:6:"Madame";i:2;s:12:"Mademoiselle";i:3;s:8:"Monsieur";}',
 		NULL),
 		(1, 'en', 'Civility',
@@ -80,11 +92,13 @@
 		string="nom" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="nom"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'nom'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(2, 1, 1, 2, 'nom', NULL)
 	</action>
@@ -93,13 +107,16 @@
 		string="nom" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="nom"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Nom'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(2, 'fr', 'Nom', '', NULL),
+		(2, 'fr', 'Nom', '',
+		NULL),
 		(2, 'en', 'Name', '', NULL)
 	</action>
 
@@ -108,11 +125,13 @@
 		string="prenom" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="prenom"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'prenom'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(3, 1, 1, 3, 'prenom', NULL)
 	</action>
@@ -121,13 +140,16 @@
 		string="prenom" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="prenom"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Prénom'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(3, 'fr', 'Prénom', '', NULL),
+		(3, 'fr', 'Prénom',
+		'', NULL),
 		(3, 'en', 'First name', '', NULL)
 	</action>
 
@@ -135,11 +157,13 @@
 		string="e_mail" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="e_mail"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'e_mail'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(4, 2, 1, 4, 'e_mail', NULL)
 	</action>
@@ -148,13 +172,16 @@
 		string="e_mail" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="e_mail"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'E-mail'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(4, 'fr', 'E-mail', '', NULL),
+		(4, 'fr', 'E-mail',
+		'', NULL),
 		(4, 'en', 'E-mail', '', NULL)
 	</action>
 
@@ -162,11 +189,13 @@
 		string="telephone" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="telephone"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'telephone'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(5, 1, 1, 5, 'telephone', NULL)
 	</action>
@@ -175,13 +204,16 @@
 		label="Add locale line %s" string="telephone" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="telephone"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Téléphone'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(5, 'fr', 'Téléphone', '', NULL),
+		(5, 'fr',
+		'Téléphone', '', NULL),
 		(5, 'en', 'Phone', '', NULL)
 	</action>
 
@@ -189,11 +221,13 @@
 		string="sujet" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="sujet"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'sujet'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(6, 2, 1, 6, 'sujet', NULL)
 	</action>
@@ -202,13 +236,16 @@
 		string="sujet" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="sujet"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Sujet'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(6, 'fr', 'Sujet', '', NULL),
+		(6, 'fr', 'Sujet',
+		'', NULL),
 		(6, 'en', 'Subject', '', NULL)
 	</action>
 
@@ -216,11 +253,13 @@
 		string="message" process="install">
 		<test eq="neq" value="1" label="Line %s exists" string="message"
 			type="wrn">
-			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE `html_id` =
+			SELECT COUNT(id) FROM `{{PREFIX}}mod_contact_fields` WHERE
+			`html_id` =
 			'message'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields`
-		(`id`, `status`, `type`, `ord`, `html_id`, `options`)
+		(`id`, `status`, `type`,
+		`ord`, `html_id`, `options`)
 		VALUES
 		(7, 2, 2, 7, 'message', NULL)
 	</action>
@@ -229,14 +268,18 @@
 		string="message" process="install">
 		<test eq="neq" value="1" label="Locale line %s exists" string="message"
 			type="wrn">
-			SELECT COUNT(field_id) FROM `{{PREFIX}}mod_contact_fields_locales` WHERE
+			SELECT COUNT(field_id) FROM
+			`{{PREFIX}}mod_contact_fields_locales` WHERE
 			`title` = 'Message'
 		</test>
 		INSERT INTO `{{PREFIX}}mod_contact_fields_locales`
-		(`field_id`, `language`, `title`, `value`, `description`)
+		(`field_id`,
+		`language`, `title`, `value`, `description`)
 		VALUES
-		(7, 'fr', 'Message', 'Saisissez votre message', NULL),
-		(7, 'en', 'Message', 'Enter your message', NULL)
+		(7, 'fr', 'Message',
+		'Saisissez votre message', NULL),
+		(7, 'en', 'Message', 'Enter your
+		message', NULL)
 	</action>
 
 </database>

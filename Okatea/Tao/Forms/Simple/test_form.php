@@ -10,10 +10,8 @@ $form = new Form(array(
 ));
 
 $form->html('<fieldset>')
-	->
-html('<legend>Bla bla bla</legend>')
-	->
-text(array(
+	->html('<legend>Bla bla bla</legend>')
+	->text(array(
 	'label' => 'Un premier champ texte'
 ), array(
 	'id' => 'text1',
@@ -21,8 +19,7 @@ text(array(
 	'size' => 60,
 	'maxlength' => 100
 ))
-	->
-text(array(
+	->text(array(
 	'label' => 'Un deuxième champ texte'
 ), array(
 	'id' => 'text2',
@@ -30,8 +27,7 @@ text(array(
 	'size' => 40,
 	'maxlength' => 50
 ))
-	->
-password(array(
+	->password(array(
 	'label' => 'Mot de passe'
 ), array(
 	'id' => 'password',
@@ -39,14 +35,10 @@ password(array(
 	'size' => 60,
 	'maxlength' => 50
 ))
-	->
-html('</fieldset>')
-	->
-html('<fieldset>')
-	->
-html('<legend>Bli bli bli</legend>')
-	->
-textarea(array(
+	->html('</fieldset>')
+	->html('<fieldset>')
+	->html('<legend>Bli bli bli</legend>')
+	->textarea(array(
 	'label' => 'Un  textarea'
 ), array(
 	'id' => 'textarea',
@@ -54,7 +46,6 @@ textarea(array(
 	'cols' => 60,
 	'rows' => 6
 ))
-	->
-html('</fieldset>');
+	->html('</fieldset>');
 
 echo $form->render();

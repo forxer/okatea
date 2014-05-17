@@ -18,28 +18,28 @@ class LogAdmin
 
 	/**
 	 * L'objet core.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * L'objet gestionnaire de base de données.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $db;
 
 	/**
 	 * L'objet gestionnaire d'erreurs.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * Le nom de la table log admin.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $t_log;

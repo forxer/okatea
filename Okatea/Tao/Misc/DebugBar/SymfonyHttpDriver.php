@@ -18,11 +18,13 @@ class SymfonyHttpDriver implements HttpDriverInterface
 {
 
 	/**
+	 *
 	 * @var \Symfony\Component\HttpFoundation\Session\Session
 	 */
 	protected $session;
 
 	/**
+	 *
 	 * @var \Symfony\Component\HttpFoundation\Response
 	 */
 	protected $response;

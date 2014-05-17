@@ -19,56 +19,56 @@ class ImageUploadConfig
 
 	/**
 	 * Okatea application instance.
-	 * 
+	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
 
 	/**
 	 * L'objet gestionnaire d'erreurs.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $error;
 
 	/**
 	 * L'objet oktImageUpload.
-	 * 
+	 *
 	 * @var object
 	 */
 	protected $oImageUpload;
 
 	/**
 	 * L'URL de base de la page de configuration.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sBaseUrl;
 
 	/**
 	 * Le prefixe des noms des champs du formulaire.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $sFormPrefix = 'p_';
 
 	/**
 	 * Gestion d'une seule image ou non.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $bUnique = false;
 
 	/**
 	 * Avec filigrane ?
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $bWithWatermark = true;
 
 	/**
 	 * Nombre max d'image
-	 * 
+	 *
 	 * @var integer
 	 */
 	protected $iMaxFileUploads = null;

@@ -17,77 +17,77 @@ class MySqli
 
 	/**
 	 * Type de retour de la fonction connexion permettant le renvoi du dernier ID généré.
-	 * 
+	 *
 	 * @see execute()
 	 */
 	const LAST_ID = 1;
 
 	/**
 	 * Type de retour de la fonction connexion permettant le renvoi du nombre de ligne affecté.
-	 * 
+	 *
 	 * @see execute()
 	 */
 	const NUM_ROW = 2;
 
 	/**
 	 * Dernière erreur de la base de données.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $error;
 
 	/**
 	 * Numéro de la dernière erreur.
-	 * 
+	 *
 	 * @var integer
 	 */
 	protected $errno;
 
 	/**
 	 * Nom d'utilisateur de la base de données.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $db_user;
 
 	/**
 	 * Mot de passe de la base de données.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $db_pwd;
 
 	/**
 	 * Hote de la base de données.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $db_host;
 
 	/**
 	 * Nom de la base de données.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $db_name;
 
 	/**
 	 * Prefixe des tables.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $prefix;
 
 	/**
 	 * Nombre de requêtes lancées.
-	 * 
+	 *
 	 * @var integer
 	 */
 	public $nb_q;
 
 	/**
 	 * Résultat de la dernière requête.
-	 * 
+	 *
 	 * @var mixed
 	 */
 	public $query_result;

@@ -17,6 +17,7 @@ use Okatea\Tao\Misc\Utilities;
  * @class iniFile
  * @ingroup okt_classes_tools
  * @brief Permet de manipuler un fichier de configuration de type .
+ *
  * ini
  *
  * Pour charger un fichier ini et transformer ses données en constantes,
@@ -38,7 +39,7 @@ class IniFile
 
 	/**
 	 * Le contenu du fichier de configuration
-	 * 
+	 *
 	 * @var string
 	 * @access private
 	 */
@@ -46,7 +47,7 @@ class IniFile
 
 	/**
 	 * Le modèle des lignes de configuration
-	 * 
+	 *
 	 * @var string
 	 * @access private
 	 */

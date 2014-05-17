@@ -67,7 +67,7 @@ $okt->page->js->addReady('
 
 ?>
 
-<?php 
+<?php
 # buttons set
 echo $okt->page->getButtonSet('fieldsBtSt');
 ?>
@@ -83,7 +83,7 @@ echo $okt->page->getButtonSet('fieldsBtSt');
 	<ul id="sortable" class="ui-sortable">
 	<?php
 	
-$i = 1;
+	$i = 1;
 	while ($rsFields->fetch())
 	:
 		?>
