@@ -82,19 +82,19 @@ class NestedTreei18n
 		$this->okt = $okt;
 		$this->db = $okt->db;
 		$this->error = $okt->error;
-		
+
 		$this->sTable = $sTable;
 		$this->sTablePrefix = 't';
-		
+
 		$this->sTableLocales = $sTableLocales;
 		$this->sTableLocalesPrefix = 'l';
-		
+
 		$this->aFields = array_merge($addFields, array(
 			'id' => $idField,
 			'parent' => $parentField
 		));
 		$this->aLocalesFields = $addLocalesFields;
-		
+
 		$this->sSortField = $sSortField;
 		$this->sJoinField = $sJoinField;
 		$this->sLanguageField = $sLanguageField;
@@ -113,12 +113,12 @@ class NestedTreei18n
 			'nright',
 			'level'
 		));
-		
+
 		if ($in_array)
 		{
 			return array_merge($fields, $this->aLocalesFields);
 		}
-		
+
 		$fields = array_map(array(
 			$this,
 			'prependTAlias'
@@ -127,7 +127,7 @@ class NestedTreei18n
 			$this,
 			'prependLAlias'
 		), $this->aLocalesFields);
-		
+
 		return implode(', ', array_merge($fields, $localesFields));
 	}
 
@@ -157,17 +157,17 @@ class NestedTreei18n
 	public function getNode($id)
 	{
 		$query = sprintf('SELECT %s FROM %s WHERE %s = %d', $this->getFields(), $this->getFrom(), $this->sTablePrefix . '.' . $this->aFields['id'], $id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return null;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return null;
 		}
-		
+
 		return $rs;
 	}
 
@@ -193,7 +193,7 @@ class NestedTreei18n
 	public function getDescendants($id = 0, $bIncludeSelf = false, $bChildrenOnly = false, $sLanguageCode = null)
 	{
 		$node = $this->getNode($id);
-		
+
 		if ($node === null)
 		{
 			$nleft = 0;
@@ -206,13 +206,13 @@ class NestedTreei18n
 			$nright = $node->f('nright');
 			$parent_id = $node->f($this->aFields['id']);
 		}
-		
+
 		$sLanguageWhere = '';
 		if (! is_null($sLanguageCode))
 		{
 			$sLanguageWhere = 'AND ' . $this->prependLAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\' ';
 		}
-		
+
 		if ($bChildrenOnly)
 		{
 			if ($bIncludeSelf)
@@ -239,12 +239,12 @@ class NestedTreei18n
 				$query = sprintf('SELECT %s FROM %s ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom());
 			}
 		}
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -284,12 +284,12 @@ class NestedTreei18n
 	public function getPath($id = 0, $bIncludeSelf = false, $sLanguageCode = null)
 	{
 		$node = $this->getNode($id);
-		
+
 		if ($node === null)
 		{
 			return false;
 		}
-		
+
 		if ($bIncludeSelf)
 		{
 			$sWhere = 'nleft <= %d AND nright >= %d';
@@ -298,19 +298,19 @@ class NestedTreei18n
 		{
 			$sWhere = 'nleft < %d AND nright > %d';
 		}
-		
+
 		if (! is_null($sLanguageCode))
 		{
 			$sWhere .= ' AND ' . $this->prependLAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\'';
 		}
-		
+
 		$query = sprintf('SELECT %s FROM %s WHERE ' . $sWhere . ' ORDER BY level', $this->getFields(), $this->getFrom(), $node->nleft, $node->nright);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -328,24 +328,24 @@ class NestedTreei18n
 	public function isDescendantOf($descendant_id, $ancestor_id)
 	{
 		$node = $this->getNode($ancestor_id);
-		
+
 		if ($node === null)
 		{
 			return false;
 		}
-		
+
 		$query = sprintf('SELECT count(*) AS is_descendant FROM %s WHERE %s = %d AND nleft > %d AND nright < %d', $this->getFrom(), $this->aFields['id'], $descendant_id, $node->nleft, $node->nright);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return (boolean) ($rs->is_descendant > 0);
 	}
 
@@ -363,17 +363,17 @@ class NestedTreei18n
 	public function isChildOf($child_id, $parent_id)
 	{
 		$query = sprintf('SELECT count(*) AS is_child FROM %s WHERE %s = %d AND %s = %d', $this->getFrom(), $this->aFields['id'], $child_id, $this->aFields['parent'], $parent_id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return (boolean) ($rs->is_child > 0);
 	}
 
@@ -389,29 +389,29 @@ class NestedTreei18n
 		if ($id == 0)
 		{
 			$query = sprintf('SELECT COUNT(%s) AS num_descendants FROM %s', $this->aFields['id'], $this->sTable);
-			
+
 			if (($rs = $this->db->select($query)) === false)
 			{
 				return - 1;
 			}
-			
+
 			if ($rs->isEmpty())
 			{
 				return - 1;
 			}
-			
+
 			return (integer) $rs->num_descendants;
 		}
 		else
 		{
 			$node = $this->getNode($id);
-			
+
 			if ($node !== null)
 			{
 				return (integer) (($node->nright - $node->nleft - 1) / 2);
 			}
 		}
-		
+
 		return - 1;
 	}
 
@@ -425,17 +425,17 @@ class NestedTreei18n
 	public function numChildren($id)
 	{
 		$query = sprintf('SELECT COUNT(%s) AS num_children FROM %s WHERE %s = %d', $this->aFields['id'], $this->sTable, $this->aFields['parent'], $id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return - 1;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return - 1;
 		}
-		
+
 		return (integer) $rs->num_children;
 	}
 
@@ -448,36 +448,36 @@ class NestedTreei18n
 	{
 		$idField = $this->aFields['id'];
 		$parentField = $this->aFields['parent'];
-		
+
 		$query = sprintf('SELECT %s FROM %s ORDER BY %s', $this->getFields(), $this->getFrom(), $this->sSortField);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return array();
 		}
-		
+
 		// create a root node to hold child data about first level items
 		$arr = array();
 		$arr[0] = array(
 			$idField => 0,
 			'children' => array()
 		);
-		
+
 		// populate the array and create an empty children array
 		$fields = $this->getFields(true);
-		
+
 		while ($rs->fetch())
 		{
 			$arr[$rs->f($idField)] = array();
-			
+
 			foreach ($fields as $field)
 			{
 				$arr[$rs->f($idField)][$field] = $rs->f($field);
 			}
-			
+
 			$arr[$rs->f($idField)]['children'] = array();
 		}
-		
+
 		// now process the array and build the child data
 		foreach ($arr as $id => $row)
 		{
@@ -486,8 +486,59 @@ class NestedTreei18n
 				$arr[$row[$parentField]]['children'][$id] = $id;
 			}
 		}
-		
+
 		return $arr;
+	}
+
+	/**
+	 * Fetch the tree data into a multidimensional array
+	 *
+	 * @return array The tree with the node's child data
+	 */
+	public function getStructuredTree()
+	{
+		$idField = $this->aFields['id'];
+
+		$query = sprintf('SELECT %s FROM %s ORDER BY %s', $this->getFields(), $this->getFrom(), $this->sSortField);
+
+		if (($rs = $this->db->select($query)) === false)
+		{
+			return array();
+		}
+
+		$data = array();
+
+		# populate the array
+		$fields = $this->getFields(true);
+
+		while ($rs->fetch())
+		{
+			$data[$rs->f($idField)] = array();
+
+			foreach ($fields as $field)
+			{
+				$data[$rs->f($idField)][$field] = $rs->f($field);
+			}
+		}
+
+		# build the structured tree
+		$tree = array();
+		foreach ($data as &$value)
+		{
+			if ($parent = $value['parent_id'])
+			{
+				$data[$parent]['children'][] = &$value;
+			}
+			else
+			{
+				$tree[] = &$value;
+			}
+		}
+		unset($value);
+		$data = $tree;
+		unset($tree);
+
+		return $data;
 	}
 
 	/**
@@ -496,17 +547,17 @@ class NestedTreei18n
 	public function rebuild()
 	{
 		$data = $this->getTreeWithChildren();
-		
+
 		$n = 0; // need a variable to hold the running n tally
-		$level = 0; // need a variable to hold the running level tally
-		
+		//	$level = 0; // need a variable to hold the running level tally
+
 
 		// invoke the recursive function. Start it processing
 		// on the fake "root node" generated in getTreeWithChildren().
 		// because this node doesn't really exist in the database, we
 		// give it an initial nleft value of 0 and an level of 0.
-		$this->_generateTreeData($data, 0, 0, $n);
-		
+		$this->generateTreeData($data, 0, 0, $n);
+
 		// at this point the the root node will have nleft of 0, level of 0
 		// and nright of (tree size * 2 + 1)
 		foreach ($data as $id => $row)
@@ -516,9 +567,9 @@ class NestedTreei18n
 			{
 				continue;
 			}
-			
+
 			$query = sprintf('UPDATE %s SET level = %d, nleft = %d, nright = %d WHERE %s = %d', $this->getFrom(), $row['level'], $row['nleft'], $row['nright'], $this->aFields['id'], $id);
-			
+
 			$this->db->execute($query);
 		}
 	}
@@ -544,16 +595,16 @@ class NestedTreei18n
 	 * @param
 	 *        	int &$n A reference to the running tally for the n-value
 	 */
-	private function _generateTreeData(&$arr, $id, $level, &$n)
+	protected function generateTreeData(&$arr, $id, $level, &$n)
 	{
 		$arr[$id]['level'] = $level;
 		$arr[$id]['nleft'] = $n ++;
-		
+
 		// loop over the node's children and process their data
 		// before assigning the nright value
 		foreach ($arr[$id]['children'] as $child_id)
 		{
-			$this->_generateTreeData($arr, $child_id, $level + 1, $n);
+			$this->generateTreeData($arr, $child_id, $level + 1, $n);
 		}
 		$arr[$id]['nright'] = $n ++;
 	}
