@@ -47,21 +47,23 @@ class Cleaner extends BaseTools
 	protected $aComponentsRules = array(
 		'codemirror' => '',
 		'ghostdown' => '*.html',
+		'gmap3' => '',
+		'html5shiv' => '',
 		'jquery' => 'src',
 		'jquery-color' => '.jshintrc',
 		'jquery-cookie' => '',
 		'jquery-cycle2' => 'src core',
-		'jquery-gmap3' => 'demo examples jquery',
 		'jquery-mousewheel' => 'ChangeLog.md',
-		'jquery-roundabout' => '',
 		'jquery-stringtoslug' => 'samples.html',
-		'jquery-validation' => 'build additional .bower.json',
-		'lightbox2' => 'releases sass .jshintrc jsTestDriver.jstd .npmignore config.rb Gemfile* index.html',
+		'jquery-ui' => '',
+		'jquery-validation' => 'build src',
+		'lightbox2' => 'releases sass index.html',
 		'normalize-css' => '',
 		'passfield' => '.idea lib build.sh release-notes.md',
 		'plupload' => 'examples',
+		'roundabout' => '',
 		'select2' => '',
-		'spectrum' => 'build docs example index.html',
+		'spectrum' => 'index.html',
 		'world-flags-sprite' => ''
 	);
 
