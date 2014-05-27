@@ -3,83 +3,54 @@
 
 	<!-- rubriques exemples -->
 	<action id="firstcategorie" label="Creation des rubriques exemples">
-		INSERT INTO
-		`{{PREFIX}}mod_pages_categories`
-		(`id`, `active`, `ord`, `parent_id`,
-		`nleft`, `nright`, `level`)
+		INSERT INTO `{{PREFIX}}mod_pages_categories`
+			(`id`, `active`, `ord`, `parent_id`, `nleft`, `nright`, `level`)
 		VALUES
-		(1, 1, 1, 0, 1, 8, 1),
-		(2, 1, 1, 1, 2,
-		5, 2),
-		(3, 1, 1, 2, 3, 4, 3),
-		(4, 1, 2, 1, 6, 7, 2),
-		(5, 1, 2, 0, 9, 10,
-		1),
-		(6, 1, 3, 0, 11, 12, 1);
+			(1, 1, 1, 0, 1, 8, 1),
+			(2, 1, 1, 1, 2, 5, 2),
+			(3, 1, 1, 2, 3, 4, 3),
+			(4, 1, 2, 1, 6, 7, 2),
+			(5, 1, 2, 0, 9, 10, 1),
+			(6, 1, 3, 0, 11, 12, 1)
+		;
 	</action>
 
 	<action id="firstcategorielocales" label="Creation des locales des rubriques exemples">
-		INSERT INTO
-		`{{PREFIX}}mod_pages_categories_locales`
-		(`category_id`, `language`,
-		`title`, `slug`, `content`)
+		INSERT INTO `{{PREFIX}}mod_pages_categories_locales`
+			(`category_id`, `language`, `title`, `slug`, `content`)
 		VALUES
-		(1, 'fr', 'Rubrique 1', 'rubrique-1',
-		NULL),
-		(2, 'fr', 'Rubrique 1.1', 'rubrique-1/rubrique-11', NULL),
-		(3,
-		'fr', 'Rubrique 1.1.1', 'rubrique-1/rubrique-11/rubrique-111', NULL),
-		(4, 'fr', 'Rubrique 1.2', 'rubrique-1/rubrique-12', NULL),
-		(5, 'fr',
-		'Rubrique 2', 'rubrique-2', NULL),
-		(6, 'fr', 'Rubrique 3',
-		'rubrique-3', NULL),
-		(1, 'en', 'Category 1', 'category-1', NULL),
-		(2,
-		'en', 'Category 1.1', 'category-1/category-11', NULL),
-		(3, 'en',
-		'Category 1.1.1', 'category-1/category-11/category-111', NULL),
-		(4,
-		'en', 'Category 1.2', 'category-1/category-12', NULL),
-		(5, 'en',
-		'Category 2', 'category-2', NULL),
-		(6, 'en', 'Category 3',
-		'category-3', NULL);
+			(1, 'fr', 'Rubrique 1', 'rubrique-1', NULL),
+			(2, 'fr', 'Rubrique 1.1', 'rubrique-1/rubrique-11', NULL),
+			(3, 'fr', 'Rubrique 1.1.1', 'rubrique-1/rubrique-11/rubrique-111', NULL),
+			(4, 'fr', 'Rubrique 1.2', 'rubrique-1/rubrique-12', NULL),
+			(5, 'fr', 'Rubrique 2', 'rubrique-2', NULL),
+			(6, 'fr', 'Rubrique 3', 'rubrique-3', NULL),
+			(1, 'en', 'Category 1', 'category-1', NULL),
+			(2, 'en', 'Category 1.1', 'category-1/category-11', NULL),
+			(3, 'en', 'Category 1.1.1', 'category-1/category-11/category-111', NULL),
+			(4, 'en', 'Category 1.2', 'category-1/category-12', NULL),
+			(5, 'en', 'Category 2', 'category-2', NULL),
+			(6, 'en', 'Category 3', 'category-3', NULL)
+		;
 	</action>
 
 	<!-- pages exemples -->
 	<action id="firstpages" label="Creation des pages exemples">
 		INSERT INTO `{{PREFIX}}mod_pages`
-		(`id`, `user_id`, `category_id`, `active`, `created_at`, `updated_at`,
-		`images`, `files`)
+			(`id`, `user_id`, `category_id`, `active`, `created_at`, `updated_at`, `images`, `files`)
 		VALUES
-		(1, 0, 1, 1, '2012-11-06 15:56:22',
-		'2012-11-06 15:56:22', NULL, NULL),
-		(2, 0, 1, 1, '2012-11-06 15:57:18',
-		'2012-11-06 16:08:07', NULL,
-		NULL),
-		(3, 0, 3, 1, '2012-11-06 15:58:52',
-		'2012-11-06 15:58:52', NULL, NULL),
-		(4, 0, 5, 1, '2012-11-06 16:07:20',
-		'2012-11-06 16:07:20',
-		'a:1:{i:1;a:22:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:54:"D:\\www\\okatea_project\\upload/modules/pages/img/4/1.jpg";s:7:"img_url";s:48:"/okatea_project/upload/modules/pages/img/4/1.jpg";s:9:"img_width";i:528;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="528"
-		height="600"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:58:"D:\\www\\okatea_project\\upload/modules/pages/img/4/min-1.jpg";s:7:"min_url";s:52:"/okatea_project/upload/modules/pages/img/4/min-1.jpg";s:9:"min_width";i:132;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="132"
-		height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:57:"D:\\www\\okatea_project\\upload/modules/pages/img/4/sq-1.jpg";s:10:"square_url";s:51:"/okatea_project/upload/modules/pages/img/4/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60"
-		height="60"";s:3:"alt";s:0:"";}}', NULL)
+			(1, 0, 1, 1, '2012-11-06 15:56:22', '2012-11-06 15:56:22', NULL, NULL),
+			(2, 0, 1, 1, '2012-11-06 15:57:18', '2012-11-06 16:08:07', NULL, NULL),
+			(3, 0, 3, 1, '2012-11-06 15:58:52', '2012-11-06 15:58:52', NULL, NULL),
+			(4, 0, 5, 1, '2012-11-06 16:07:20', '2012-11-06 16:07:20', 'a:1:{i:1;a:22:{s:8:"img_name";s:5:"1.jpg";s:8:"img_file";s:54:"D:\\www\\okatea_project\\upload/modules/pages/img/4/1.jpg";s:7:"img_url";s:48:"/okatea_project/upload/modules/pages/img/4/1.jpg";s:9:"img_width";i:528;s:10:"img_height";i:600;s:8:"img_type";s:10:"image/jpeg";s:8:"img_attr";s:24:"width="528" height="600"";s:8:"min_name";s:9:"min-1.jpg";s:8:"min_file";s:58:"D:\\www\\okatea_project\\upload/modules/pages/img/4/min-1.jpg";s:7:"min_url";s:52:"/okatea_project/upload/modules/pages/img/4/min-1.jpg";s:9:"min_width";i:132;s:10:"min_height";i:150;s:8:"min_type";s:10:"image/jpeg";s:8:"min_attr";s:24:"width="132" height="150"";s:11:"square_name";s:8:"sq-1.jpg";s:11:"square_file";s:57:"D:\\www\\okatea_project\\upload/modules/pages/img/4/sq-1.jpg";s:10:"square_url";s:51:"/okatea_project/upload/modules/pages/img/4/sq-1.jpg";s:12:"square_width";i:60;s:13:"square_height";i:60;s:11:"square_type";s:10:"image/jpeg";s:11:"square_attr";s:22:"width="60" height="60"";s:3:"alt";s:0:"";}}', NULL)
 		;
 	</action>
 
 	<action id="firstpageslocales" label="Creation des locales des pages exemples">
-		INSERT INTO
-		`{{PREFIX}}mod_pages_locales`
-		(`page_id`, `language`, `title`,
-		`subtitle`, `title_tag`, `title_seo`, `slug`,
-		`content`,
-		`meta_description`, `meta_keywords`, `words`)
+		INSERT INTO `{{PREFIX}}mod_pages_locales`
+			(`page_id`, `language`, `title`, `subtitle`, `title_tag`, `title_seo`, `slug`, `content`, `meta_description`, `meta_keywords`, `words`)
 		VALUES
-		(1, 'fr', 'Page
-		exemple 1', '', '', '', 'page-exemple-1', 'Lorem ipsum
-		dolor sit amet,
+		(1, 'fr', 'Page exemple 1', '', '', '', 'page-exemple-1', 'Lorem ipsum dolor sit amet,
 		FR consectetur adipiscing elit. Phasellus et nisi sit
 		amet libero
 		laoreet dignissim non eu sem. Proin ultricies ultricies
@@ -625,12 +596,12 @@
 	<action id="firstperms" label="Creation des permissions exemples">
 		INSERT INTO
 		`{{PREFIX}}mod_pages_permissions`
-		(`page_id`, `group_id`)
+			(`page_id`, `group_id`)
 		VALUES
-		(1, 0),
-		(2, 0),
-		(3, 2),
-		(4, 0)
+			(1, 0),
+			(2, 0),
+			(3, 2),
+			(4, 0)
 		;
 	</action>
 

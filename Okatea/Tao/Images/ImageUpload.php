@@ -303,7 +303,7 @@ class ImageUpload extends ApplicationShortcuts
 				$aImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sOutput);
 
 				# stockage du nom original
-				$aImages[$j]['original_name'] = $sUploadedFile['name'];
+				$aImages[$j]['original_name'] = $oUploadedFile->getBasename();
 
 				# ajout d'un éventuel texte alternatif
 				$aImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
@@ -315,7 +315,7 @@ class ImageUpload extends ApplicationShortcuts
 			}
 			catch (\Exception $e)
 			{
-				$this->error->set('Problème avec l’image ' . $i . ' : ' . __($e->getMessage()));
+				$this->error->set('Problem with image ' . $i . ' : ' . __($e->getMessage()));
 			}
 		}
 
@@ -415,7 +415,7 @@ class ImageUpload extends ApplicationShortcuts
 			}
 			catch (\Exception $e)
 			{
-				$this->okt->error->set('Problème avec l’image ' . $i . ' : ' . $e->getMessage());
+				$this->okt->error->set('Problem with image ' . $i . ' : ' . $e->getMessage());
 			}
 		}
 

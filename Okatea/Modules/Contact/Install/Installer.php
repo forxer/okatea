@@ -5,9 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use Okatea\Tao\Extensions\Modules\Manage\Installer;
 
-class Contact_installer extends Installer
+namespace Okatea\Modules\Contact\Install;
+
+use Okatea\Tao\Extensions\Modules\Manage\Installer as BaseInstaller;
+
+class Installer extends BaseInstaller
 {
 
 	public function install()

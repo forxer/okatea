@@ -153,7 +153,7 @@ class PagesImages extends ImageUpload
 
 			foreach ($aImages as $key => $image)
 			{
-				$this->getImageUpload()->buildThumbnails($rsPages->id, $image['img_name']);
+				$this->buildThumbnails($rsPages->id, $image['img_name']);
 
 				$aImagesList[$key] = array_merge($aImages[$key], $this->buildImageInfos($rsPages->id, $image['img_name']));
 			}

@@ -7,34 +7,14 @@
  */
 namespace Okatea\Tao\Misc;
 
+use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 
 /**
  * Une classe internationalisées pour gérer des arbres imbriqués.
  */
-class NestedTreei18n
+class NestedTreei18n extends ApplicationShortcuts
 {
-
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
 
 	protected $sTable;
 
@@ -79,9 +59,7 @@ class NestedTreei18n
 	 */
 	public function __construct($okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', $addFields = array(), $addLocalesFields = array())
 	{
-		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
+		parent::__construct($okt);
 
 		$this->sTable = $sTable;
 		$this->sTablePrefix = 't';

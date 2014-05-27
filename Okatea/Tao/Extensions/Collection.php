@@ -78,11 +78,11 @@ class Collection
 	public function __construct($okt, $sPath)
 	{
 		$this->okt = $okt;
-		
+
 		$this->cache = $okt->cacheConfig;
-		
+
 		$this->type = 'extension';
-		
+
 		$this->path = $sPath;
 	}
 
@@ -99,19 +99,19 @@ class Collection
 		{
 			$this->generateCacheList();
 		}
-		
+
 		$aList = $this->cache->fetch($this->sCacheId);
-		
+
 		# first pass to instanciate extensions
 		foreach ($aList as $sExtensionId => $aExtensionInfos)
 		{
 			$sExtensionClass = sprintf($this->sExtensionClassPatern, $sExtensionId);
-			
+
 			$this->aLoaded[$sExtensionId] = new $sExtensionClass($this->okt, $this->path);
-			
+
 			$this->aLoaded[$sExtensionId]->setInfos($aExtensionInfos);
 		}
-		
+
 		# second pass to initialize extensions so they can interact each others
 		foreach ($aList as $sExtensionId => $aExtensionInfos)
 		{
@@ -143,7 +143,7 @@ class Collection
 	/**
 	 * Indicates whether a given extension is in the list of loaded extensions.
 	 *
-	 * @param string $sExtensionId        	
+	 * @param string $sExtensionId
 	 * @return boolean
 	 */
 	public function isLoaded($sExtensionId)
@@ -154,20 +154,20 @@ class Collection
 	/**
 	 * Indicates whether a given extension is installed.
 	 *
-	 * @param string $sExtensionId        	
+	 * @param string $sExtensionId
 	 * @return boolean
 	 */
 	public function isInstalled($sExtensionId)
 	{
 		$this->aInstalledThemes = $this->getManager()->getInstalled();
-		
+
 		return isset($this->aInstalledThemes[$sExtensionId]);
 	}
 
 	/**
 	 * Returns the instance of a given extension.
 	 *
-	 * @param string $sExtensionId        	
+	 * @param string $sExtensionId
 	 * @throws Exception
 	 * @return object Okatea\Tao\Extensions\Extension
 	 */
@@ -177,7 +177,7 @@ class Collection
 		{
 			throw new \RuntimeException(__('The extension specified (' . $sExtensionId . ') does not appear to be a valid loaded extension.'));
 		}
-		
+
 		return $this->aLoaded[$sExtensionId];
 	}
 
@@ -189,11 +189,11 @@ class Collection
 	public function generateCacheList()
 	{
 		$aLoaded = array();
-		
+
 		$rsExtensions = $this->getManager()->getFromDatabase(array(
 			'status' => 1
 		));
-		
+
 		while ($rsExtensions->fetch())
 		{
 			$aLoaded[$rsExtensions->f('id')] = array(
@@ -206,14 +206,14 @@ class Collection
 				'status' => $rsExtensions->f('status')
 			);
 		}
-		
+
 		return $this->cache->save($this->sCacheId, $aLoaded);
 	}
 
 	/**
 	 * Sort an array of extensions alphabetically.
 	 *
-	 * @param array $aExtensions        	
+	 * @param array $aExtensions
 	 * @return void
 	 */
 	public static function sort(array &$aExtensions)
@@ -227,7 +227,7 @@ class Collection
 	/**
 	 * Return repositories data about a list of given repositories.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	public function getRepositoriesData(array $aRepositories = array())
@@ -253,36 +253,31 @@ class Collection
 	/**
 	 * Return installer instance for a given extension.
 	 *
-	 * @param string $sExtensionId        	
+	 * @param string $sExtensionId
 	 * @return string
 	 */
 	public function getInstaller($sExtensionId)
 	{
-		$sClassName = $this->getInstallerClass($sExtensionId);
-		
-		return new $sClassName($this->okt, $this->path, $sExtensionId);
+		$sInstallerClass = $this->getInstallerClass($sExtensionId);
+
+		return new $sInstallerClass($this->okt, $this->path, $sExtensionId);
 	}
 
 	/**
 	 * Looking for an install class of a given extension.
 	 *
-	 * @param string $sExtensionId        	
+	 * @param string $sExtensionId
 	 * @return string
 	 */
 	public function getInstallerClass($sExtensionId)
 	{
-		if (file_exists($this->path . '/' . $sExtensionId . '/Install/installer.php'))
+		$sInstallerClass = 'Okatea\\Modules\\' . $sExtensionId . '\\Install\\Installer';
+
+		if (class_exists($sInstallerClass) && is_subclass_of($sInstallerClass, $this->sInstallerClass))
 		{
-			require_once $this->path . '/' . $sExtensionId . '/Install/installer.php';
-			
-			$sInstallerClass = $sExtensionId . '_installer';
-			
-			if (class_exists($sInstallerClass, false) && is_subclass_of($sInstallerClass, $this->sInstallerClass))
-			{
-				return $sInstallerClass;
-			}
+			return $sInstallerClass;
 		}
-		
+
 		return $this->sInstallerClass;
 	}
 }

@@ -3,15 +3,17 @@
  * @ingroup okt_module_pages
  * @brief La classe d'installation du Module Pages.
  */
-use Okatea\Tao\Extensions\Modules\Manage\Installer;
+namespace Okatea\Modules\Pages\Install;
 
-class Pages_installer extends Installer
+use Okatea\Tao\Extensions\Modules\Manage\Installer as BaseInstaller;
+
+class Installer extends BaseInstaller
 {
 
 	public function installTestSet()
 	{
 		$this->checklist->addItem('regenerate_thumbnails', $this->okt->module('Pages')
-			->regenMinImages(), 'Regeneration of thumbnails', 'Cannot regenerate thumbnails');
+			->pages->getImageUpload()->regenMinImages(), 'Regeneration of thumbnails', 'Cannot regenerate thumbnails');
 	}
 
 	public function install()

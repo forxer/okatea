@@ -12,8 +12,8 @@ use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
+use Okatea\Tao\L10n\Date;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
@@ -570,7 +570,7 @@ class Pages extends ApplicationShortcuts
 	 */
 	public function addPage($oCursor, array $aPageLocalesData, array $aPagePermsData = array())
 	{
-		$sDate = date('Y-m-d H:i:s');
+		$sDate = Date::now('UTC')->toMysqlString();
 		$oCursor->created_at = $sDate;
 		$oCursor->updated_at = $sDate;
 
@@ -592,7 +592,7 @@ class Pages extends ApplicationShortcuts
 		}
 
 		# ajout des fichiers
-		if ($this->addFiles($iNewId) === false)
+		if ($this->getFileUpload()->add($iNewId) === false)
 		{
 			throw new RuntimeException('Unable to insert files page');
 		}
@@ -623,7 +623,7 @@ class Pages extends ApplicationShortcuts
 		}
 
 		# modification dans la DB
-		$oCursor->updated_at = $this->db->now();
+		$oCursor->updated_at = Date::now('UTC')->toMysqlString();
 
 		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
@@ -637,7 +637,7 @@ class Pages extends ApplicationShortcuts
 		}
 
 		# modification des fichiers
-		if ($this->updFiles($oCursor->id) === false)
+		if ($this->getFileUpload()->update($oCursor->id) === false)
 		{
 			throw new RuntimeException('Unable to update files page');
 		}
@@ -768,7 +768,7 @@ class Pages extends ApplicationShortcuts
 			throw new RuntimeException('Unable to delete images page.');
 		}
 
-		if ($this->deleteFiles($iPageId) === false)
+		if ($this->getFileUpload()->deleteAll($iPageId) === false)
 		{
 			throw new RuntimeException('Unable to delete files page.');
 		}
@@ -1071,111 +1071,7 @@ class Pages extends ApplicationShortcuts
 	 */
 	protected function getFileUpload()
 	{
-		return new FileUpload($this->okt, $this->okt->module('Pages')->config->files, $this->upload_dir . '/files', $this->upload_url . '/files');
-	}
-
-	/**
-	 * Ajout de fichier(s) à une page donnée
-	 *
-	 * @param
-	 *        	$iPageId
-	 * @return boolean
-	 */
-	public function addFiles($iPageId)
-	{
-		if (! $this->okt->module('Pages')->config->files['enable'])
-		{
-			return null;
-		}
-
-		$aFiles = $this->getFileUpload()->addFiles($iPageId);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		return $this->updPageFiles($iPageId, $aFiles);
-	}
-
-	/**
-	 * Modification de fichier(s) d'une page donnée
-	 *
-	 * @param
-	 *        	$iPageId
-	 * @return boolean
-	 */
-	public function updFiles($iPageId)
-	{
-		if (! $this->okt->module('Pages')->config->files['enable'])
-		{
-			return null;
-		}
-
-		$aCurrentFiles = $this->getPageFiles($iPageId);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		$aFiles = $this->getFileUpload()->updFiles($iPageId, $aCurrentFiles);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		return $this->updPageFiles($iPageId, $aFiles);
-	}
-
-	/**
-	 * Suppression d'un fichier donné d'une page donnée
-	 *
-	 * @param
-	 *        	$iPageId
-	 * @param
-	 *        	$file_id
-	 * @return boolean
-	 */
-	public function deleteFile($iPageId, $file_id)
-	{
-		$aCurrentFiles = $this->getPageFiles($iPageId);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		$aNewFiles = $this->getFileUpload()->deleteFile($iPageId, $aCurrentFiles, $file_id);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		return $this->updPageFiles($iPageId, $aNewFiles);
-	}
-
-	/**
-	 * Suppression des fichiers d'une page donnée
-	 *
-	 * @param
-	 *        	$iPageId
-	 * @return boolean
-	 */
-	public function deleteFiles($iPageId)
-	{
-		$aCurrentFiles = $this->getPageFiles($iPageId);
-
-		if (! $this->error->isEmpty())
-		{
-			return false;
-		}
-
-		$this->getFileUpload()->deleteAllFiles($aCurrentFiles);
-
-		return $this->updPageFiles($iPageId);
+		return new PagesFiles($this->okt);
 	}
 
 	/**

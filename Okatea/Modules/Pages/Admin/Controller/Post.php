@@ -152,7 +152,7 @@ class Post extends Controller
 		# suppression d'une image
 		if ($this->request->query->has('delete_image'))
 		{
-			$this->okt->module('Pages')->deleteImage($this->aPageData['post']['id'], $this->request->query->get('delete_image'));
+			$this->okt->module('Pages')->pages->getImageUpload()->delete($this->aPageData['post']['id'], $this->request->query->get('delete_image'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
