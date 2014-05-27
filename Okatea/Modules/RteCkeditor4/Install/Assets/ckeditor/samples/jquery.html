@@ -5,20 +5,22 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 -->
 <html>
 <head>
-<meta charset="utf-8">
-<title>jQuery Adapter &mdash; CKEditor Sample</title>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="../ckeditor.js"></script>
-<script src="../adapters/jquery.js"></script>
-<link href="sample.css" rel="stylesheet">
-<style>
-#editable {
-	padding: 10px;
-	float: left;
-}
-</style>
-<script>
+	<meta charset="utf-8">
+	<title>jQuery Adapter &mdash; CKEditor Sample</title>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="../ckeditor.js"></script>
+	<script src="../adapters/jquery.js"></script>
+	<link href="sample.css" rel="stylesheet">
+	<style>
+
+		#editable
+		{
+			padding: 10px;
+			float: left;
+		}
+
+	</style>
+	<script>
 
 		CKEDITOR.disableAutoInline = true;
 
@@ -35,32 +37,24 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 </head>
 <body>
 	<h1 class="samples">
-		<a href="index.html" id="a-test">CKEditor Samples</a> &raquo; Create
-		Editors with jQuery
+		<a href="index.html" id="a-test">CKEditor Samples</a> &raquo; Create Editors with jQuery
 	</h1>
 	<form action="sample_posteddata.php" method="post">
 		<div class="description">
 			<p>
-				This sample shows how to use the <a
-					href="http://docs.ckeditor.com/#!/guide/dev_jquery">jQuery
-					adapter</a>. Note that you have to include both CKEditor and jQuery
-				scripts before including the adapter.
+				This sample shows how to use the <a href="http://docs.ckeditor.com/#!/guide/dev_jquery">jQuery adapter</a>.
+				Note that you have to include both CKEditor and jQuery scripts before including the adapter.
 			</p>
 
-			<pre class="samples">
+<pre class="samples">
 &lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="/ckeditor/ckeditor.js"&gt;&lt;/script&gt;
 &lt;script src="/ckeditor/adapters/jquery.js"&gt;&lt;/script&gt;
 </pre>
 
-			<p>
-				Then you can replace HTML elements with a CKEditor instance using
-				the
-				<code>ckeditor()</code>
-				method.
-			</p>
+			<p>Then you can replace HTML elements with a CKEditor instance using the <code>ckeditor()</code> method.</p>
 
-			<pre class="samples">
+<pre class="samples">
 $( document ).ready( function() {
 	$( 'textarea#editor1' ).ckeditor();
 } );
@@ -70,47 +64,10 @@ $( document ).ready( function() {
 		<h2 class="samples">Inline Example</h2>
 
 		<div id="editable" contenteditable="true">
-			<p>
-				<img alt="Saturn V carrying Apollo 11" class="right"
-					src="assets/sample.jpg" /><b>Apollo 11</b> was the spaceflight that
-				landed the first humans, Americans <a
-					href="http://en.wikipedia.org/wiki/Neil_Armstrong"
-					title="Neil Armstrong">Neil Armstrong</a> and <a
-					href="http://en.wikipedia.org/wiki/Buzz_Aldrin" title="Buzz Aldrin">Buzz
-					Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong
-				became the first to step onto the lunar surface 6 hours later on
-				July 21 at 02:56 UTC.
-			</p>
-			<p>
-				Armstrong spent about <s>three and a half</s> two and a half hours
-				outside the spacecraft, Aldrin slightly less; and together they
-				collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to
-				Earth. A third member of the mission, <a
-					href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)"
-					title="Michael Collins (astronaut)">Michael Collins</a>, piloted
-				the <a
-					href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module"
-					title="Apollo Command/Service Module">command</a> spacecraft alone
-				in lunar orbit until Armstrong and Aldrin returned to it for the
-				trip back to Earth.
-			<p>Broadcast on live TV to a world-wide audience, Armstrong
-				stepped onto the lunar surface and described the event as:</p>
-			<blockquote>
-				<p>One small step for [a] man, one giant leap for mankind.</p>
-			</blockquote>
-			<p>
-				Apollo 11 effectively ended the <a
-					href="http://en.wikipedia.org/wiki/Space_Race" title="Space Race">Space
-					Race</a> and fulfilled a national goal proposed in 1961 by the late
-				U.S. President <a
-					href="http://en.wikipedia.org/wiki/John_F._Kennedy"
-					title="John F. Kennedy">John F. Kennedy</a> in a speech before the
-				United States Congress:
-			</p>
-			<blockquote>
-				<p>[...] before this decade is out, of landing a man on the Moon
-					and returning him safely to the Earth.</p>
-			</blockquote>
+			<p><img alt="Saturn V carrying Apollo 11" class="right" src="assets/sample.jpg"/><b>Apollo 11</b> was the spaceflight that landed the first humans, Americans <a href="http://en.wikipedia.org/wiki/Neil_Armstrong" title="Neil Armstrong">Neil Armstrong</a> and <a href="http://en.wikipedia.org/wiki/Buzz_Aldrin" title="Buzz Aldrin">Buzz Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.</p>
+			<p>Armstrong spent about <s>three and a half</s> two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to Earth. A third member of the mission, <a href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)" title="Michael Collins (astronaut)">Michael Collins</a>, piloted the <a href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module" title="Apollo Command/Service Module">command</a> spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.
+			<p>Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:</p>
+			<blockquote><p>One small step for [a] man, one giant leap for mankind.</p></blockquote> <p>Apollo 11 effectively ended the <a href="http://en.wikipedia.org/wiki/Space_Race" title="Space Race">Space Race</a> and fulfilled a national goal proposed in 1961 by the late U.S. President <a href="http://en.wikipedia.org/wiki/John_F._Kennedy" title="John F. Kennedy">John F. Kennedy</a> in a speech before the United States Congress:</p> <blockquote><p>[...] before this decade is out, of landing a man on the Moon and returning him safely to the Earth.</p></blockquote>
 		</div>
 
 		<br style="clear: both">
@@ -122,23 +79,21 @@ $( document ).ready( function() {
 		</textarea>
 
 		<p style="overflow: hidden">
-			<input style="float: left" type="submit" value="Submit"> <span
-				style="float: right"> <input type="text" id="val"
-				value="I'm using jQuery val()!" size="30"> <input
-				onclick="setValue();" type="button" value="Set value">
+			<input style="float: left" type="submit" value="Submit">
+			<span style="float: right">
+				<input type="text" id="val" value="I'm using jQuery val()!" size="30">
+				<input onclick="setValue();" type="button" value="Set value">
 			</span>
 		</p>
 	</form>
 	<div id="footer">
 		<hr>
 		<p>
-			CKEditor - The text editor for the Internet - <a class="samples"
-				href="http://ckeditor.com/">http://ckeditor.com</a>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2014, <a class="samples"
-				href="http://cksource.com/">CKSource</a> - Frederico Knabben. All
-			rights reserved.
+			Copyright &copy; 2003-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Knabben. All rights reserved.
 		</p>
 	</div>
 </body>

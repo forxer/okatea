@@ -5,11 +5,11 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 -->
 <html>
 <head>
-<meta charset="utf-8">
-<title>API Usage &mdash; CKEditor Sample</title>
-<script src="../ckeditor.js"></script>
-<link href="sample.css" rel="stylesheet">
-<script>
+	<meta charset="utf-8">
+	<title>API Usage &mdash; CKEditor Sample</title>
+	<script src="../ckeditor.js"></script>
+	<link href="sample.css" rel="stylesheet">
+	<script>
 
 // The instanceReady event is fired, when an instance of CKEditor has finished
 // its initialization.
@@ -122,27 +122,26 @@ function onBlur() {
 </head>
 <body>
 	<h1 class="samples">
-		<a href="index.html">CKEditor Samples</a> &raquo; Using CKEditor
-		JavaScript API
+		<a href="index.html">CKEditor Samples</a> &raquo; Using CKEditor JavaScript API
 	</h1>
 	<div class="description">
-		<p>
-			This sample shows how to use the <a class="samples"
-				href="http://docs.ckeditor.com/#!/api/CKEDITOR.editor">CKEditor
-				JavaScript API</a> to interact with the editor at runtime.
-		</p>
-		<p>For details on how to create this setup check the source code
-			of this sample page.</p>
+	<p>
+		This sample shows how to use the
+		<a class="samples" href="http://docs.ckeditor.com/#!/api/CKEDITOR.editor">CKEditor JavaScript API</a>
+		to interact with the editor at runtime.
+	</p>
+	<p>
+		For details on how to create this setup check the source code of this sample page.
+	</p>
 	</div>
 
 	<!-- This <div> holds alert messages to be display in the sample page. -->
 	<div id="alerts">
 		<noscript>
 			<p>
-				<strong>CKEditor requires JavaScript to run</strong>. In a browser
-				with no JavaScript support, like yours, you should still see the
-				contents (HTML data) and you should be able to edit it normally,
-				without a rich editor interface.
+				<strong>CKEditor requires JavaScript to run</strong>. In a browser with no JavaScript
+				support, like yours, you should still see the contents (HTML data) and you should
+				be able to edit it normally, without a rich editor interface.
 			</p>
 		</noscript>
 	</div>
@@ -168,40 +167,40 @@ function onBlur() {
 			});
 		</script>
 
-		<p id="eMessage"></p>
+		<p id="eMessage">
+		</p>
 
 		<div id="eButtons" style="display: none">
-			<input id="exec-bold" onclick="ExecuteCommand('bold');" type="button"
-				value="Execute &quot;bold&quot; Command"> <input
-				id="exec-link" onclick="ExecuteCommand('link');" type="button"
-				value="Execute &quot;link&quot; Command"> <input
-				onclick="Focus();" type="button" value="Focus"> <br>
-			<br> <input onclick="InsertHTML();" type="button"
-				value="Insert HTML"> <input onclick="SetContents();"
-				type="button" value="Set Editor Contents"> <input
-				onclick="GetContents();" type="button"
-				value="Get Editor Contents (HTML)"> <br>
+			<input id="exec-bold" onclick="ExecuteCommand('bold');" type="button" value="Execute &quot;bold&quot; Command">
+			<input id="exec-link" onclick="ExecuteCommand('link');" type="button" value="Execute &quot;link&quot; Command">
+			<input onclick="Focus();" type="button" value="Focus">
+			<br><br>
+			<input onclick="InsertHTML();" type="button" value="Insert HTML">
+			<input onclick="SetContents();" type="button" value="Set Editor Contents">
+			<input onclick="GetContents();" type="button" value="Get Editor Contents (HTML)">
+			<br>
 			<textarea cols="100" id="htmlArea" rows="3">&lt;h2&gt;Test&lt;/h2&gt;&lt;p&gt;This is some &lt;a href="/Test1.html"&gt;sample&lt;/a&gt; HTML code.&lt;/p&gt;</textarea>
-			<br> <br> <input onclick="InsertText();" type="button"
-				value="Insert Text"> <br>
+			<br>
+			<br>
+			<input onclick="InsertText();" type="button" value="Insert Text">
+			<br>
 			<textarea cols="100" id="txtArea" rows="3">   First line with some leading whitespaces.
 
 Second line of text preceded by two line breaks.</textarea>
-			<br> <br> <input onclick="CheckDirty();" type="button"
-				value="checkDirty()"> <input onclick="ResetDirty();"
-				type="button" value="resetDirty()">
+			<br>
+			<br>
+			<input onclick="CheckDirty();" type="button" value="checkDirty()">
+			<input onclick="ResetDirty();" type="button" value="resetDirty()">
 		</div>
 	</form>
 	<div id="footer">
 		<hr>
 		<p>
-			CKEditor - The text editor for the Internet - <a class="samples"
-				href="http://ckeditor.com/">http://ckeditor.com</a>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2014, <a class="samples"
-				href="http://cksource.com/">CKSource</a> - Frederico Knabben. All
-			rights reserved.
+			Copyright &copy; 2003-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Knabben. All rights reserved.
 		</p>
 	</div>
 </body>

@@ -1,5 +1,4 @@
-<?php 
-/* <body><pre>
+<?php /* <body><pre>
 
 -------------------------------------------------------------------------------------------
   CKEditor - Posted Data
@@ -14,6 +13,4 @@
   For licensing, see LICENSE.md or <a href="http://ckeditor.com/license">http://ckeditor.com/license</a>
 -------------------------------------------------------------------------------------------
 
-</pre><div style="display:none"></body> */
-include "assets/posteddata.php";
-?>
+</pre><div style="display:none"></body> */ include "assets/posteddata.php"; ?>
