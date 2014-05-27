@@ -7,29 +7,10 @@
  */
 namespace Okatea\Tao\Extensions;
 
-class Extension
+use Okatea\Tao\ApplicationShortcuts;
+
+class Extension extends ApplicationShortcuts
 {
-
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
 
 	/**
 	 * Le chemin du répertoire des extensions
@@ -56,12 +37,10 @@ class Extension
 	 */
 	public function __construct($okt, $sExtensionsPath)
 	{
-		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
-		
+		parent::__construct($okt);
+
 		$this->sExtensionsPath = $sExtensionsPath;
-		
+
 		$this->infos = array(
 			'id' => null,
 			'root' => null,
@@ -88,7 +67,7 @@ class Extension
 	/**
 	 * Retourne une information de l'extension.
 	 *
-	 * @param string $sKey        	
+	 * @param string $sKey
 	 * @return mixed
 	 */
 	public function getInfo($sKey)
@@ -97,15 +76,15 @@ class Extension
 		{
 			return $this->infos[$sKey];
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Définit une information donnée d'une extension
 	 *
-	 * @param string $sKey        	
-	 * @param mixed $mValue        	
+	 * @param string $sKey
+	 * @param mixed $mValue
 	 * @return void
 	 */
 	public function setInfo($sKey, $mValue)
@@ -116,7 +95,7 @@ class Extension
 	/**
 	 * Définit les informations d'une extension
 	 *
-	 * @param array $aInfos        	
+	 * @param array $aInfos
 	 * @return void
 	 */
 	public function setInfos(array $aInfos = array())
@@ -135,11 +114,11 @@ class Extension
 	public function setInfosFromDefineFile()
 	{
 		$define = $this->sExtensionsPath . '/' . $this->id() . '/_define.php';
-		
+
 		if (file_exists($define))
 		{
 			$aInfos = require $define;
-			
+
 			$this->setInfos($aInfos);
 			$this->setInfo('root', $this->sExtensionsPath . '/' . $this->id());
 		}
@@ -178,7 +157,7 @@ class Extension
 	public function init()
 	{
 		$this->okt->l10n->loadFile($this->root() . '/Locales/%s/main');
-		
+
 		$this->prepend();
 	}
 
@@ -188,7 +167,7 @@ class Extension
 		{
 			$this->okt->l10n->loadFile($this->root() . '/Locales/%s/admin');
 		}
-		
+
 		$this->{'prepend_' . $ns}();
 	}
 

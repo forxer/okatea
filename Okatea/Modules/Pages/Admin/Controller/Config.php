@@ -25,7 +25,7 @@ class Config extends Controller
 		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.config');
 
 		# Gestion des images
-		$oImageUploadConfig = new ImageUploadConfig($this->okt, $this->okt->module('Pages')->getImageUpload());
+		$oImageUploadConfig = new ImageUploadConfig($this->okt, $this->okt->module('Pages')->pages->getImageUpload());
 		$oImageUploadConfig->setBaseUrl($this->generateUrl('Pages_config') . '?');
 
 		# Gestionnaires de templates
@@ -40,7 +40,7 @@ class Config extends Controller
 		# régénération des miniatures
 		if ($this->okt->request->query->has('minregen'))
 		{
-			$this->okt->module('Pages')->regenMinImages();
+			$this->okt->module('Pages')->pages->getImageUpload()->regenMinImages();
 
 			$this->okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
 

@@ -59,7 +59,7 @@ class Module extends BaseModule
 		$this->config = $this->okt->newConfig('conf_pages');
 
 		# pages manager
-		$this->pages = new Pages($this->okt, $this->t_pages, $this->t_pages_locales, $this->t_categories, $this->t_categories_locales);
+		$this->pages = new Pages($this->okt, $this->t_pages, $this->t_pages_locales, $this->t_permissions, $this->t_categories, $this->t_categories_locales);
 
 		# rubriques
 		if ($this->config->categories['enable'])

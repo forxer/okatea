@@ -36,9 +36,9 @@ class XmlSql
 	/**
 	 * Constructor.
 	 *
-	 * @param mysql $db        	
-	 * @param string $xml        	
-	 * @param checkList $checklist        	
+	 * @param mysql $db
+	 * @param string $xml
+	 * @param checkList $checklist
 	 * @return void
 	 */
 	public function __construct($db, $xml, $checklist, $process = null)
@@ -48,12 +48,12 @@ class XmlSql
 		$this->checklist = $checklist;
 		$this->job = array();
 		$this->_current_tag_cdata = '';
-		
+
 		if ($process !== null)
 		{
 			$this->process = $process;
 		}
-		
+
 		$this->_subtable = array(
 			'test' => array(
 				'sql' => null,
@@ -69,9 +69,8 @@ class XmlSql
 				'type' => null,
 				'sql' => null
 			//				'process' 	=> 'install'
-			
-		)
-		;
+			)
+		);
 	}
 
 	/**
@@ -86,30 +85,30 @@ class XmlSql
 	public function execute()
 	{
 		$this->parse();
-		
+
 		$test = true;
-		
+
 		foreach ($this->job as $k => $v)
 		{
 			if ($test === null)
 			{
 				$test = true;
 			}
-			
+
 			if (! empty($v['request']['process']) && $v['request']['process'] !== $this->process)
 			{
 				continue;
 			}
-			
+
 			$ok = $err = '';
 			$silent = false;
-			
+
 			# Si $test n'est pas faux et qu'on a un test SQL et une action non silencieuse
 			if ($test !== false && $v['test']['sql'] !== null && $v['test']['value'] !== null && $v['request']['type'] != 'silent')
 			{
 				$req = $v['test']['sql'];
 				$err = sprintf($v['test']['label'], $v['test']['string']);
-				
+
 				if (($rs = $this->db->select($req)) === false)
 				{
 					$test = false;
@@ -125,21 +124,21 @@ class XmlSql
 					{
 						$test = ($rs->f(0) == $v['test']['value']);
 					}
-					
+
 					if ($test == false && $v['test']['type'] == 'wrn')
 					{
 						$test = null;
 					}
 				}
 			}
-			
+
 			# Si le test est passé, on tente la requête
 			if ($test === true)
 			{
 				$ok = sprintf($v['request']['label'], $v['request']['string']);
-				
+
 				$req = $v['request']['sql'];
-				
+
 				if ($this->db->execute($req) === false)
 				{
 					$test = false;
@@ -149,7 +148,7 @@ class XmlSql
 				{
 					$test = true;
 				}
-				
+
 				if ($v['request']['type'] == 'silent')
 				{
 					$silent = true;
@@ -161,13 +160,13 @@ class XmlSql
 			{
 				$err = sprintf($v['request']['label'], $v['request']['string']);
 			}
-			
+
 			if (! $silent)
 			{
 				$this->checklist->addItem($k, $test, $ok, $err);
 			}
 		}
-		
+
 		return $test;
 	}
 
@@ -192,22 +191,22 @@ class XmlSql
 		{
 			$id = $this->_action = $attr['id'];
 			$this->job[$id] = $this->_subtable;
-			
+
 			if (! empty($attr['label']))
 			{
 				$this->job[$id]['request']['label'] = $attr['label'];
 			}
-			
+
 			if (! empty($attr['string']))
 			{
 				$this->job[$id]['request']['string'] = $attr['string'];
 			}
-			
+
 			if (! empty($attr['type']))
 			{
 				$this->job[$id]['request']['type'] = $attr['type'];
 			}
-			
+
 			if (! empty($attr['process']))
 			{
 				$this->job[$id]['request']['process'] = $attr['process'];
@@ -216,27 +215,27 @@ class XmlSql
 		elseif ($tag == 'test')
 		{
 			$id = $this->_action;
-			
+
 			if (! empty($attr['eq']))
 			{
 				$this->job[$id]['test']['eq'] = $attr['eq'];
 			}
-			
+
 			if (! empty($attr['value']))
 			{
 				$this->job[$id]['test']['value'] = $attr['value'];
 			}
-			
+
 			if (! empty($attr['label']))
 			{
 				$this->job[$id]['test']['label'] = $attr['label'];
 			}
-			
+
 			if (! empty($attr['string']))
 			{
 				$this->job[$id]['test']['string'] = $attr['string'];
 			}
-			
+
 			if (! empty($attr['type']))
 			{
 				$this->job[$id]['test']['type'] = $attr['type'];
@@ -256,7 +255,7 @@ class XmlSql
 		{
 			$this->job[$this->_action]['test']['sql'] = trim($this->_current_tag_cdata);
 		}
-		
+
 		$this->_current_tag_cdata = '';
 	}
 

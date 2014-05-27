@@ -8,6 +8,7 @@
 namespace Okatea\Modules\Pages;
 
 use ArrayObject;
+use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
@@ -17,29 +18,8 @@ use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
 
-class Pages
+class Pages extends ApplicationShortcuts
 {
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
-
 	protected $t_pages;
 
 	protected $t_pages_locales;
@@ -47,6 +27,8 @@ class Pages
 	protected $t_categories;
 
 	protected $t_categories_locales;
+
+	protected $t_permissions;
 
 	/**
 	 *
@@ -57,14 +39,13 @@ class Pages
 	 * @param string $t_categories
 	 * @param string $t_categories_locales
 	 */
-	public function __construct($okt, $t_pages, $t_pages_locales, $t_categories, $t_categories_locales)
+	public function __construct($okt, $t_pages, $t_pages_locales, $_pages_permissions, $t_categories, $t_categories_locales)
 	{
-		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
+		parent::__construct($okt);
 
 		$this->t_pages = $t_pages;
 		$this->t_pages_locales = $t_pages_locales;
+		$this->t_permissions = $_pages_permissions;
 		$this->t_categories = $t_categories;
 		$this->t_categories_locales = $t_categories_locales;
 	}
@@ -605,7 +586,7 @@ class Pages
 		$this->setPageL10n($iNewId, $aPageLocalesData);
 
 		# ajout des images
-		if ($this->addImages($iNewId) === false)
+		if ($this->getImageUpload()->add($iNewId) === false)
 		{
 			throw new RuntimeException('Unable to insert images page');
 		}
@@ -650,7 +631,7 @@ class Pages
 		}
 
 		# modification des images
-		if ($this->updImages($oCursor->id) === false)
+		if ($this->getImageUpload()->update($oCursor->id) === false)
 		{
 			throw new RuntimeException('Unable to update images page');
 		}
@@ -782,7 +763,7 @@ class Pages
 			return false;
 		}
 
-		if ($this->deleteImages($iPageId) === false)
+		if ($this->getImageUpload()->deleteAll($iPageId) === false)
 		{
 			throw new RuntimeException('Unable to delete images page.');
 		}
@@ -1013,8 +994,75 @@ class Pages
 		return true;
 	}
 
+
+	/* Gestion des images des pages
+	----------------------------------------------------------*/
+
+	/**
+	 * Retourne une instance de la classe de gestion des images.
+	 *
+	 * @return object oktImageUpload
+	 */
+	public function getImageUpload()
+	{
+		return new PagesImages($this->okt);
+	}
+
+	/**
+	 * Récupère la liste des images d'une page donnée
+	 *
+	 * @param
+	 *        	$iPageId
+	 * @return array
+	 */
+	public function getImagesFromDb($iPageId)
+	{
+		if (! $this->pageExists($iPageId))
+		{
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
+		}
+
+		$rsPage = $this->getPagesRecordset(array(
+			'id' => $iPageId
+		));
+
+		$aImages = $rsPage->images ? unserialize($rsPage->images) : array();
+
+		return $aImages;
+	}
+
+	/**
+	 * Met à jours la liste des images d'une page donnée
+	 *
+	 * @param array $iPageId
+	 * @param
+	 *        	$aImages
+	 * @return boolean
+	 */
+	public function updImagesInDb($iPageId, $aImages = array())
+	{
+		if (! $this->pageExists($iPageId))
+		{
+			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
+			return false;
+		}
+
+		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+
+		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
+
+		if (! $this->db->execute($sQuery))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+
 	/* Gestion des fichiers des pages
-						----------------------------------------------------------*/
+	----------------------------------------------------------*/
 
 	/**
 	 * Retourne une instance de la classe fileUpload

@@ -11,30 +11,21 @@ use Okatea\Tao\Images\ImageUpload;
 
 class PagesImages extends ImageUpload
 {
-	public function __construct()
+	protected $modulePages;
+
+	protected $pages;
+
+	public function __construct($okt)
 	{
-		parent::__construct($this->okt, $this->okt->module('Pages')->config->images);
+		parent::__construct($okt, $okt->module('Pages')->config->images);
+
+		$this->modulePages = $this->okt->module('Pages');
+		$this->pages = $this->okt->module('Pages')->pages;
 
 		$this->setConfig(array(
-			'upload_dir' => $this->okt->module('Pages')->upload_dir . '/img',
-			'upload_url' => $this->okt->module('Pages')->upload_url . '/img'
+			'upload_dir' => $this->modulePages->upload_dir . '/img',
+			'upload_url' => $this->modulePages->upload_url . '/img'
 		));
-	}
-
-	/**
-	 * Retourne une instance de la classe oktImageUpload
-	 *
-	 * @return object oktImageUpload
-	 */
-	public function getImageUpload()
-	{
-		$o = new ImageUpload($this->okt, $this->okt->module('Pages')->config->images);
-		$o->setConfig(array(
-			'upload_dir' => $this->upload_dir . '/img',
-			'upload_url' => $this->upload_url . '/img'
-		));
-
-		return $o;
 	}
 
 	/**
@@ -44,21 +35,21 @@ class PagesImages extends ImageUpload
 	 *        	$iPageId
 	 * @return boolean
 	 */
-	public function addImages($iPageId)
+	public function add($iPageId)
 	{
-		if (! $this->okt->module('Pages')->config->images['enable'])
+		if (! $this->modulePages->config->images['enable'])
 		{
 			return null;
 		}
 
-		$aImages = $this->getImageUpload()->addImages($iPageId);
+		$aImages = $this->addImages($iPageId);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		return $this->updImagesInDb($iPageId, $aImages);
+		return $this->pages->updImagesInDb($iPageId, $aImages);
 	}
 
 	/**
@@ -68,28 +59,28 @@ class PagesImages extends ImageUpload
 	 *        	$iPageId
 	 * @return boolean
 	 */
-	public function updImages($iPageId)
+	public function update($iPageId)
 	{
-		if (! $this->okt->module('Pages')->config->images['enable'])
+		if (! $this->modulePages->config->images['enable'])
 		{
 			return null;
 		}
 
-		$aCurrentImages = $this->getImagesFromDb($iPageId);
+		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		$aImages = $this->getImageUpload()->updImages($iPageId, $aCurrentImages);
+		$aImages = $this->updImages($iPageId, $aCurrentImages);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		return $this->updImagesInDb($iPageId, $aImages);
+		return $this->pages->updImagesInDb($iPageId, $aImages);
 	}
 
 	/**
@@ -101,23 +92,23 @@ class PagesImages extends ImageUpload
 	 *        	$img_id
 	 * @return boolean
 	 */
-	public function deleteImage($iPageId, $img_id)
+	public function delete($iPageId, $img_id)
 	{
-		$aCurrentImages = $this->getImagesFromDb($iPageId);
+		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		$aNewImages = $this->getImageUpload()->deleteImage($iPageId, $aCurrentImages, $img_id);
+		$aNewImages = $this->deleteImage($iPageId, $aCurrentImages, $img_id);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		return $this->updImagesInDb($iPageId, $aNewImages);
+		return $this->pages->updImagesInDb($iPageId, $aNewImages);
 	}
 
 	/**
@@ -127,18 +118,18 @@ class PagesImages extends ImageUpload
 	 *        	$iPageId
 	 * @return boolean
 	 */
-	public function deleteImages($iPageId)
+	public function deleteAll($iPageId)
 	{
-		$aCurrentImages = $this->getImagesFromDb($iPageId);
+		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
 
-		$this->getImageUpload()->deleteAllImages($iPageId, $aCurrentImages);
+		$this->deleteAllImages($iPageId, $aCurrentImages);
 
-		return $this->updImagesInDb($iPageId);
+		return $this->pages->updImagesInDb($iPageId);
 	}
 
 	/**
@@ -151,7 +142,7 @@ class PagesImages extends ImageUpload
 		@ini_set('memory_limit', - 1);
 		set_time_limit(0);
 
-		$rsPages = $this->getPages(array(
+		$rsPages = $this->pages->getPages(array(
 			'active' => 2
 		));
 
@@ -164,62 +155,10 @@ class PagesImages extends ImageUpload
 			{
 				$this->getImageUpload()->buildThumbnails($rsPages->id, $image['img_name']);
 
-				$aImagesList[$key] = array_merge($aImages[$key], $this->getImageUpload()->buildImageInfos($rsPages->id, $image['img_name']));
+				$aImagesList[$key] = array_merge($aImages[$key], $this->buildImageInfos($rsPages->id, $image['img_name']));
 			}
 
-			$this->updImagesInDb($rsPages->id, $aImagesList);
-		}
-
-		return true;
-	}
-
-	/**
-	 * Récupère la liste des images d'une page donnée
-	 *
-	 * @param
-	 *        	$iPageId
-	 * @return array
-	 */
-	public function getImagesFromDb($iPageId)
-	{
-		if (! $this->pageExists($iPageId))
-		{
-			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
-			return false;
-		}
-
-		$rsPage = $this->getPagesRecordset(array(
-			'id' => $iPageId
-		));
-
-		$aImages = $rsPage->images ? unserialize($rsPage->images) : array();
-
-		return $aImages;
-	}
-
-	/**
-	 * Met à jours la liste des images d'une page donnée
-	 *
-	 * @param array $iPageId
-	 * @param
-	 *        	$aImages
-	 * @return boolean
-	 */
-	public function updImagesInDb($iPageId, $aImages = array())
-	{
-		if (! $this->pageExists($iPageId))
-		{
-			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
-			return false;
-		}
-
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
-
-		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
-
-		if (! $this->db->execute($sQuery))
-		{
-			return false;
+			$this->pages->updImagesInDb($rsPages->id, $aImagesList);
 		}
 
 		return true;
