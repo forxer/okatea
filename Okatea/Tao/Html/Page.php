@@ -141,12 +141,12 @@ class Page
 	public function __construct($okt, $sPart = null)
 	{
 		$this->okt = $okt;
-		
+
 		$this->css = new Css($sPart);
 		$this->js = new Js($sPart);
-		
+
 		$this->breadcrumb = new Breadcrumb();
-		
+
 		$this->sPart = $sPart;
 	}
 
@@ -158,14 +158,14 @@ class Page
 		return $this->okt->session->getTokenInputField();
 		return '<input type="hidden" name="csrf_token" id="csrf_token" value="' . $this->okt->session->get('csrf_token') . '" />';
 	}
-	
+
 	/* Gestion de l'élément title des pages
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Get title tag
 	 *
-	 * @param string $sTitleTagSep        	
+	 * @param string $sTitleTagSep
 	 * @return string
 	 */
 	public function titleTag($sTitleTagSep = ' - ')
@@ -176,7 +176,7 @@ class Page
 	/**
 	 * Add title tag
 	 *
-	 * @param string $sTitle        	
+	 * @param string $sTitle
 	 * @return void
 	 */
 	public function addTitleTag($sTitle)
@@ -193,7 +193,7 @@ class Page
 	{
 		$this->aTitleTagStack = array();
 	}
-	
+
 	/* Gestion de l'id de la page
 	----------------------------------------------------------*/
 	public function pageId($str)
@@ -210,7 +210,7 @@ class Page
 	{
 		return ! empty($this->sPageId);
 	}
-	
+
 	/* Gestion du titre de la page
 	----------------------------------------------------------*/
 	public function setTitle($str)
@@ -232,7 +232,7 @@ class Page
 	{
 		return ! empty($this->sTitle);
 	}
-	
+
 	/* Gestion du titre SEO de la page
 	----------------------------------------------------------*/
 	public function setTitleSeo($str)
@@ -254,25 +254,25 @@ class Page
 	{
 		return ! empty($this->sTitleSeo);
 	}
-	
+
 	/* Infos globales du site
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le chemon de base des URL
 	 *
-	 * @param string $sLanguage        	
+	 * @param string $sLanguage
 	 * @return string
 	 */
 	public function getBaseUrl($sLanguage = null)
 	{
 		$str = $this->okt->config->app_path;
-		
+
 		if (! $this->okt->languages->unique)
 		{
 			$str .= ($sLanguage !== null ? $sLanguage : $this->okt->user->language) . '/';
 		}
-		
+
 		return $str;
 	}
 
@@ -400,29 +400,29 @@ class Page
 			return $sDefault;
 		}
 	}
-	
+
 	/* UI widgets
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Met en place l'accordion dans la page (UI accordion)
 	 *
 	 * Voir http://jqueryui.com/demos/accordion/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function accordion(array $aCustomOptions = array(), $sElement = '#accordion')
 	{
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').accordion(' . json_encode($aOptions) . ');
 		');
@@ -434,8 +434,8 @@ class Page
 	 * Voir http://jqueryui.com/demos/datepicker/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function datePicker(array $aCustomOptions = array(), $sElement = '.datepicker')
@@ -445,14 +445,14 @@ class Page
 			'changeMonth' => true,
 			'changeYear' => true
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addFile($this->okt->options->public_url . '/plugins/jquery-ui/i18n/jquery-ui-i18n.min.js');
-		
+
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\'' . $this->okt->user->language . '\']); ' . 'jQuery(\'' . $sElement . '\').datepicker(' . json_encode($aOptions) . ');
 		');
@@ -464,19 +464,19 @@ class Page
 	 * Voir http://jqueryui.com/demos/dialog/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function dialog(array $aCustomOptions = array(), $sElement = '.dialog')
 	{
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').dialog(' . json_encode($aOptions) . ');
 		');
@@ -488,8 +488,8 @@ class Page
 	 * Voir http://jqueryui.com/demos/tabs/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function tabs(array $aCustomOptions = array(), $sElement = '#tabered')
@@ -499,12 +499,12 @@ class Page
 			'hide' => true,
 			'heightStyle' => 'content'
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addScript('
 			var tabsOptions = ' . json_encode($aOptions) . ';
 
@@ -523,12 +523,12 @@ class Page
 				};
 			}
 		');
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').tabs(tabsOptions);
 		');
 	}
-	
+
 	/* Others widgets
 	----------------------------------------------------------*/
 	public function langSwitcher($target, $placeholder)
@@ -537,7 +537,7 @@ class Page
 			var target = $("' . $target . '");
 			var buttons = new Array;
 		');
-		
+
 		$i = 0;
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
@@ -550,7 +550,7 @@ class Page
 				});
 			');
 		}
-		
+
 		$this->js->addScript('
 			// on ajoute ces boutons là où il faut
 			buttons.reverse();
@@ -590,7 +590,7 @@ class Page
 				});
 			}
 		');
-		
+
 		$this->js->addReady('
 			switch_language("' . $this->okt->user->language . '");
 		');
@@ -602,22 +602,22 @@ class Page
 	 * Voir http://fredhq.com/projects/roundabout/#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function roundabout(array $aCustomOptions = array(), $sElement = '.roundabout')
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/easing/jquery.easing.min.js');
-		$this->js->addFile($this->okt->options->public_url . '/components/jquery-roundabout/jquery.roundabout.min.js');
-		
+		$this->js->addFile($this->okt->options->public_url . '/components/roundabout/jquery.roundabout.min.js');
+
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').roundabout(' . json_encode($aOptions) . ');
 		');
@@ -629,22 +629,22 @@ class Page
 	 * Voir http://docs.jquery.com/Plugins/Treeview/treeview#options
 	 * pour la liste des options possibles
 	 *
-	 * @param array $aCustomOptions        	
-	 * @param string $sElement        	
+	 * @param array $aCustomOptions
+	 * @param string $sElement
 	 * @return void
 	 */
 	public function treeview(array $aCustomOptions = array(), $sElement = '.browser')
 	{
 		$this->css->addFile($this->okt->options->public_url . '/plugins/treeview/jquery.treeview.css');
 		$this->js->addFile($this->okt->options->public_url . '/plugins/treeview/jquery.treeview.min.js');
-		
+
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').treeview(' . json_encode($aOptions) . ');
 		');
@@ -669,7 +669,7 @@ class Page
 			});
 
 		');
-		
+
 		$this->js->addReady('
 			updatePermissionsCheckboxes();
 		');
@@ -678,7 +678,7 @@ class Page
 	public function loader($sElement)
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/blockUI/jquery.blockUI.min.js');
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').click(function() {
 				$.blockUI({
@@ -693,14 +693,14 @@ class Page
 	public function cycle($sElement = '#diaporama', array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/cycle/jquery.cycle.min.js');
-		
+
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').cycle(' . json_encode($aOptions) . ');
 		');
@@ -709,14 +709,14 @@ class Page
 	public function cycleLite($sElement = '#diaporama', array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/cycle/jquery.cycle.lite.min.js');
-		
+
 		$aOptions = array();
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').cycle(' . json_encode($aOptions) . ');
 		');
@@ -738,18 +738,18 @@ class Page
 	public function strToSlug($command, $target, array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url . '/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
-		
+
 		$aOptions = array(
 			'setEvents' => 'keyup keydown blur',
 			'getPut' => $target,
 			'space' => '-'
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery("' . $command . '").stringToSlug(' . json_encode($aOptions) . ');
 		');
@@ -758,7 +758,7 @@ class Page
 	public function toggleWithLegend($command, $target, array $aCustomOptions = array())
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
-		
+
 		$aOptions = array(
 			'img_on_src' => $this->okt->options->public_url . '/img/ico/plus.png',
 			'img_on_alt' => Escaper::js(__('c_c_action_show')),
@@ -771,12 +771,12 @@ class Page
 			'cookie' => false,
 			'reverse_cookie' => false // Reverse cookie behavior
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addReady('
 			jQuery("#' . $command . '").toggleWithLegend(jQuery("#' . $target . '"),' . json_encode($aOptions) . ');
 		');
@@ -785,17 +785,17 @@ class Page
 	public function openLinkInDialog($sElement = '#kink_id', array $aCustomOptions = array(), $htmlID = null)
 	{
 		static $loaded = null;
-		
+
 		$aOptions = array(
 			'width' => 700,
 			'height' => 500
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		if (is_null($loaded))
 		{
 			$this->js->addScript('
@@ -864,7 +864,7 @@ class Page
 	public function checkboxHelper($sFormId, $helper_id)
 	{
 		$this->js->addFile($this->okt->options->public_url . '/plugins/checkboxes/jquery.checkboxes.min.js');
-		
+
 		$this->js->addReady('
 			$(\'<a href="#" id="' . $helper_id . '-button-select-all">' . __('c_c_select_all') . '</a>\')
 			.click(function(event) {
@@ -913,20 +913,20 @@ class Page
 			'lang' => $this->okt->user->language,
 			'fields' => array()
 		);
-		
+
 		if (! empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
-		
+
 		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/jquery.validate.min.js');
 		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/additional-methods.min.js');
-		
+
 		if (file_exists($this->okt->options->get('public_dir') . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js'))
 		{
 			$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js');
 		}
-		
+
 		$this->getValidateJs($aOptions['selector'], $aOptions['fields']);
 	}
 
@@ -936,15 +936,15 @@ class Page
 		{
 			$sLanguage = $this->okt->user->language;
 		}
-		
+
 		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/jquery.validate.min.js');
 		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/additional-methods.min.js');
-		
+
 		if (file_exists($this->okt->options->get('public_dir') . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js'))
 		{
 			$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js');
 		}
-		
+
 		$this->getValidateJs($sFormId, $aFields);
 	}
 
@@ -954,7 +954,7 @@ class Page
 		{
 			$aRules = array();
 			$aMessages = array();
-			
+
 			foreach ($aFields as $aField)
 			{
 				if (is_array($aField['rules']))
@@ -965,7 +965,7 @@ class Page
 				{
 					$aRules[] = $aField['id'] . ': { ' . $aField['rules'] . ' }';
 				}
-				
+
 				if (! empty($aField['messages']))
 				{
 					if (is_array($aField['messages']))
@@ -978,7 +978,7 @@ class Page
 					}
 				}
 			}
-			
+
 			$this->js->addReady('
 				var validator = jQuery("#' . $sFormId . '").validate({
 					rules: {
@@ -1006,16 +1006,16 @@ class Page
 			');
 		}
 	}
-	
+
 	/* Gestion des RTE (Rich Text Editor) switchables
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajout d'un RTE
 	 *
-	 * @param string $id        	
-	 * @param string $name        	
-	 * @param callback $callback        	
+	 * @param string $id
+	 * @param string $name
+	 * @param callback $callback
 	 * @return void
 	 */
 	public function addRte($id, $name, $callback)
@@ -1033,9 +1033,9 @@ class Page
 	/**
 	 * Application d'un RTE donné
 	 *
-	 * @param string $retId        	
-	 * @param string $sElement        	
-	 * @param array $aOptions        	
+	 * @param string $retId
+	 * @param string $sElement
+	 * @param array $aOptions
 	 * @return void
 	 */
 	public function applyRte($retId, $sElement = null, array $aOptions = array())
@@ -1052,24 +1052,24 @@ class Page
 	/**
 	 * Retourne la liste des RTE disponibles
 	 *
-	 * @param boolean $bFlip        	
+	 * @param boolean $bFlip
 	 * @return array
 	 */
 	public function getRteList($bFlip = false)
 	{
 		$res = array();
-		
+
 		foreach ($this->rteList as $id => $rte)
 		{
 			$res[$id] = $rte['name'];
 		}
-		
+
 		if ($bFlip)
 		{
 			$res = array_flip($res);
 			ksort($res);
 		}
-		
+
 		return $res;
 	}
 
@@ -1082,17 +1082,17 @@ class Page
 	{
 		return ! empty($this->rteList);
 	}
-	
+
 	/* Gestion des LBL (LightBox Like) switchables
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajout d'une LBL
 	 *
-	 * @param string $id        	
-	 * @param string $name        	
-	 * @param callback $callback        	
-	 * @param string $jsLoader        	
+	 * @param string $id
+	 * @param string $name
+	 * @param callback $callback
+	 * @param string $jsLoader
 	 * @return void
 	 */
 	public function addLbl($id, $name, $callback, $jsLoader = null)
@@ -1111,10 +1111,10 @@ class Page
 	/**
 	 * Application d'une LBL donnée
 	 *
-	 * @param string $lblId        	
-	 * @param string $sElement        	
-	 * @param string $conteneur        	
-	 * @param array $aOptions        	
+	 * @param string $lblId
+	 * @param string $sElement
+	 * @param string $conteneur
+	 * @param array $aOptions
 	 * @return void
 	 */
 	public function applyLbl($lblId, $sElement = 'a.modal', $conteneur = ".modal-box", array $aOptions = array())
@@ -1132,7 +1132,7 @@ class Page
 	/**
 	 * Retourne le javascript pour charger (ou recharger) la LBL
 	 *
-	 * @param string $lblId        	
+	 * @param string $lblId
 	 * @return void
 	 */
 	public function getLblJsLoader($lblId)
@@ -1146,24 +1146,24 @@ class Page
 	/**
 	 * Retourne la liste des LBL disponibles
 	 *
-	 * @param boolean $bFlip        	
+	 * @param boolean $bFlip
 	 * @return array
 	 */
 	public function getLblList($bFlip = false)
 	{
 		$res = array();
-		
+
 		foreach ($this->lblList as $id => $lbl)
 		{
 			$res[$id] = $lbl['name'];
 		}
-		
+
 		if ($bFlip)
 		{
 			$res = array_flip($res);
 			ksort($res);
 		}
-		
+
 		return $res;
 	}
 
@@ -1186,16 +1186,16 @@ class Page
 	{
 		return isset($this->lblList[$lblId]);
 	}
-	
+
 	/* Gestion des Captcha switchables
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajout d'un Captcha
 	 *
-	 * @param string $sId        	
-	 * @param string $sName        	
-	 * @param array $aBehaviors        	
+	 * @param string $sId
+	 * @param string $sName
+	 * @param array $aBehaviors
 	 * @return void
 	 */
 	public function addCaptcha($sId, $sName, $aBehaviors)
@@ -1213,49 +1213,49 @@ class Page
 	/**
 	 * Retourne la liste des Captcha disponibles
 	 *
-	 * @param boolean $bFlip        	
+	 * @param boolean $bFlip
 	 * @return array
 	 */
 	public function getCaptchaList($bFlip = false)
 	{
 		$res = array();
-		
+
 		foreach ($this->captchaList as $id => $captcha)
 		{
 			$res[$id] = $captcha['name'];
 		}
-		
+
 		if ($bFlip)
 		{
 			$res = array_flip($res);
 			ksort($res);
 		}
-		
+
 		return $res;
 	}
 
 	/**
 	 * Chargement d'un captcha donné
 	 *
-	 * @param string $captchaId        	
+	 * @param string $captchaId
 	 * @return void
 	 */
 	public function loadCaptcha($captchaId)
 	{
 		static $loaded = null;
-		
+
 		if (is_null($loaded))
 		{
 			$loaded = array();
 		}
-		
+
 		if (isset($this->captchaList[$captchaId]) && ! in_array($captchaId, $loaded))
 		{
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior => $callback)
 			{
 				$this->okt->triggers->registerTrigger($behavior, $callback);
 			}
-			
+
 			$loaded[] = $captchaId;
 		}
 	}
@@ -1269,10 +1269,10 @@ class Page
 	{
 		return ! empty($this->captchaList);
 	}
-	
+
 	/* Others things...
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne la liste des thèmes UI présents.
 	 *
@@ -1283,14 +1283,14 @@ class Page
 	public static function getUiThemes($bForce = false)
 	{
 		global $okt;
-		
+
 		static $aThemes = null;
-		
+
 		if (! is_null($aThemes) && ! $bForce)
 		{
 			return $aThemes;
 		}
-		
+
 		$aThemes = array();
 		foreach (new DirectoryIterator($okt->options->public_dir . '/plugins/jquery-ui/themes') as $oFileInfo)
 		{
@@ -1298,10 +1298,10 @@ class Page
 			{
 				continue;
 			}
-			
+
 			$aThemes[] = $oFileInfo->getFilename();
 		}
-		
+
 		return $aThemes;
 	}
 
