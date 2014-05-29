@@ -17,7 +17,7 @@ class AssetsFiles extends ComponentBase
 	public function __construct($okt, $extension, $sDestinationPattern)
 	{
 		parent::__construct($okt, $extension);
-		
+
 		$this->sDestination = sprintf($sDestinationPattern, $this->extension->id());
 	}
 
@@ -29,20 +29,25 @@ class AssetsFiles extends ComponentBase
 	public function process()
 	{
 		$sAssetsDir = $this->extension->root() . '/Install/Assets';
-		
+
 		if (! is_dir($sAssetsDir))
 		{
 			return null;
 		}
-		
+
 		$oFiles = $this->getFiles();
-		
+
 		if (empty($oFiles))
 		{
 			return null;
 		}
-		
-		$this->checklist->addItem('assets', $this->mirror($sAssetsDir, $this->sDestination, $oFiles), 'Create assets files', 'Cannot create assets files');
+
+		$this->checklist->addItem(
+			'assets',
+			$this->mirror($sAssetsDir, $this->sDestination, $oFiles),
+			'Create assets files',
+			'Cannot create assets files'
+		);
 	}
 
 	/**
@@ -54,23 +59,27 @@ class AssetsFiles extends ComponentBase
 		{
 			return null;
 		}
-		
-		$this->checklist->addItem('remove_assets', $this->getFs()
-			->remove($this->sDestination), 'Remove assets files', 'Cannot remove assets files');
+
+		$this->checklist->addItem(
+			'remove_assets',
+			$this->getFs()->remove($this->sDestination),
+			'Remove assets files',
+			'Cannot remove assets files'
+		);
 	}
 
 	protected function getFiles()
 	{
 		$sPath = $this->extension->root() . '/Install/Assets';
-		
+
 		if (is_dir($sPath))
 		{
 			$finder = $this->getFinder();
 			$finder->in($sPath);
-			
+
 			return $finder;
 		}
-		
+
 		return null;
 	}
 

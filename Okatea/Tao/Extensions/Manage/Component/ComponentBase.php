@@ -7,32 +7,12 @@
  */
 namespace Okatea\Tao\Extensions\Manage\Component;
 
+use Okatea\Tao\ApplicationShortcuts;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
-abstract class ComponentBase
+abstract class ComponentBase extends ApplicationShortcuts
 {
-
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
 
 	protected $extension;
 
@@ -42,10 +22,8 @@ abstract class ComponentBase
 
 	public function __construct($okt, $extension)
 	{
-		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
-		
+		parent::__construct($okt);
+
 		$this->extension = $extension;
 		$this->checklist = $extension->checklist;
 	}
@@ -56,7 +34,7 @@ abstract class ComponentBase
 		{
 			$this->fs = new Filesystem();
 		}
-		
+
 		return $this->fs;
 	}
 

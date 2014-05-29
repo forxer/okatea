@@ -14,9 +14,9 @@ try
 {
 	# Let the music play
 	$okt = new Okatea($oktAutoloader, require __DIR__ . '/oktOptions.php');
-	
+
 	$okt->run();
-	
+
 	# -- CORE TRIGGER : websiteFinal
 	$okt->triggers->callTrigger('websiteFinal');
 }
