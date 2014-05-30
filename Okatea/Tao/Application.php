@@ -253,8 +253,8 @@ class Application
 	/**
 	 * Constructor.
 	 *
-	 * @param Composer\Autoload\ClassLoader $autoloader        	
-	 * @param string $sRootPath        	
+	 * @param Composer\Autoload\ClassLoader $autoloader
+	 * @param string $sRootPath
 	 *
 	 * @return void
 	 */
@@ -262,44 +262,44 @@ class Application
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
-		
+
 		$this->options = new ApplicationOptions($aOptions);
-		
+
 		Utf8Bootup::initAll(); // Enables the portablity layer and configures PHP for UTF-8
 		Utf8Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
 		Utf8Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
-		
+
 
 		$this->getLogger();
-		
+
 		$this->getConfig();
-		
+
 		$this->httpFoundation();
-		
+
 		$this->start();
 	}
 
 	public function run()
 	{
 		$this->db = $this->database();
-		
+
 		$this->languages = new Languages($this);
-		
+
 		$this->router = new Router($this, $this->options->get('config_dir') . '/Routes', $this->options->get('cache_dir') . '/routing', $this->options->get('debug'), $this->logger);
-		
+
 		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
-		
+
 		$this->l10n = new Localization($this->user->language, $this->config->language, $this->user->timezone);
-		
+
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
-		
+
 		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
-		
+
 		$this->themes = new ThemesCollection($this, $this->options->get('themes_dir'));
-		
+
 		$this->triggers = new Triggers();
-		
+
 		$this->navigation = new Menus($this);
 	}
 
@@ -315,28 +315,28 @@ class Application
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
-		
+
 		# Init MB ext
 		/* Done by patchwork UTF8
 		mb_internal_encoding('UTF-8');
 		mb_regex_encoding('UTF-8');
 		*/
-		
+
 		# Default timezone (crushed later by user settings)
-		//		date_default_timezone_set('Europe/Paris');
-		
+		//date_default_timezone_set('Europe/Paris');
+
 
 		$this->error = new Errors();
-		
+
 		# print errors in debug mode
 		if ($this->options->get('debug'))
 		{
 			Debug::enable();
 			DebugErrorHandler::setLogger($this->logger);
-			
-			//			$this->debugbar = new DebugBar($this);
+
+			//$this->debugbar = new DebugBar($this);
 		}
-		
+
 		# otherwise log them
 		else
 		{
@@ -363,23 +363,23 @@ class Application
 		{
 			throw new \RuntimeException('Unable to find database connection file !');
 		}
-		
+
 		require $this->options->get('config_dir') . '/connection.php';
-		
+
 		$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
-		
+
 		if ($db->hasError())
 		{
 			throw new \RuntimeException('Unable to connect to database. ' . $db->error());
 		}
-		
+
 		return $db;
 	}
 
 	protected function httpFoundation()
 	{
 		$this->request = Request::createFromGlobals();
-		
+
 		$this->session = new Session(new NativeSessionStorage(array(
 			'cookie_lifetime' => 0,
 			'cookie_path' => $this->config->app_path,
@@ -388,7 +388,7 @@ class Application
 			'use_trans_sid' => false,
 			'use_only_cookies' => true
 		), new \SessionHandler()), null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
-		
+
 		$this->request->setSession($this->session);
 	}
 
@@ -424,7 +424,7 @@ class Application
 			$this->requestContext = new RequestContext();
 			$this->requestContext->fromRequest($this->request);
 		}
-		
+
 		return $this->requestContext;
 	}
 
@@ -441,7 +441,7 @@ class Application
 				new MemoryPeakUsageProcessor()
 			));
 		}
-		
+
 		return $this->logger;
 	}
 
@@ -451,7 +451,7 @@ class Application
 		{
 			$this->users = new Users($this);
 		}
-		
+
 		return $this->users;
 	}
 
@@ -461,13 +461,13 @@ class Application
 		{
 			$this->groups = new Groups($this);
 		}
-		
+
 		return $this->groups;
 	}
-	
+
 	/* Permissions
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne la pile de permissions
 	 *
@@ -521,7 +521,7 @@ class Application
 	/**
 	 * Vérifie que l'utilisateur courant a la permission demandée.
 	 *
-	 * @param string $permissions        	
+	 * @param string $permissions
 	 * @return boolean
 	 */
 	public function checkPerm($permissions)
@@ -534,14 +534,14 @@ class Application
 		{
 			return true;
 		}
-		
+
 		return in_array($permissions, $this->user->perms);
 	}
 
 	public function getPermsForDisplay()
 	{
 		$aPermissions = array();
-		
+
 		foreach ($this->getPerms() as $k => $v)
 		{
 			if (! is_array($v))
@@ -553,7 +553,7 @@ class Application
 						'perms' => array()
 					);
 				}
-				
+
 				if ($this->checkPerm($k))
 				{
 					$aPermissions['others']['perms'][$k] = $v;
@@ -565,7 +565,7 @@ class Application
 					'libelle' => $v['libelle'],
 					'perms' => array()
 				);
-				
+
 				foreach ($v['perms'] as $perm => $libelle)
 				{
 					if ($this->checkPerm($perm))
@@ -575,15 +575,15 @@ class Application
 				}
 			}
 		}
-		
+
 		asort($aPermissions);
-		
+
 		return $aPermissions;
 	}
-	
+
 	/* Templates engine
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le moteur de templates.
 	 *
@@ -593,10 +593,10 @@ class Application
 	{
 		# initialisation
 		$tpl = new Templating($this->aTplDirectories);
-		
+
 		# assignation par défaut
 		$tpl->addGlobal('okt', $this);
-		
+
 		return $tpl;
 	}
 
@@ -630,10 +630,10 @@ class Application
 	{
 		return $this->aTplDirectories;
 	}
-	
+
 	/* Utilitaires fichiers de configuration
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne la configuration du site.
 	 *
@@ -642,12 +642,12 @@ class Application
 	public function getConfig()
 	{
 		$this->cacheConfig = new SingleFileCache($this->options->get('cache_dir') . '/static.php');
-		
+
 		$this->config = $this->newConfig('conf_site');
-		
+
 		# URL du dossier des fichiers publics
 		$this->options->set('public_url', $this->config->getData('app_path') . 'oktPublic');
-		
+
 		# URL du dossier upload depuis la racine
 		$this->options->set('upload_url', $this->config->getData('app_path') . 'oktPublic/upload');
 	}
@@ -655,7 +655,7 @@ class Application
 	/**
 	 * Créer et retourne un objet de configuration
 	 *
-	 * @param string $file        	
+	 * @param string $file
 	 * @return object oktConfig
 	 */
 	public function newConfig($file)
@@ -674,7 +674,7 @@ class Application
 	{
 		return $this->modules->getInstance($sModuleId);
 	}
-	
+
 	/* Divers...
 	----------------------------------------------------------*/
 	public function performCommonContentReplacements($string)
@@ -690,7 +690,7 @@ class Application
 			//	'theme_url' => $this->theme->url,
 			'website_title' => $this->config->title[$this->user->language],
 			'website_desc' => $this->config->desc[$this->user->language],
-			
+
 			'address_street' => $this->config->address['street'],
 			'address_street_2' => $this->config->address['street_2'],
 			'address_code' => $this->config->address['code'],
@@ -700,17 +700,17 @@ class Application
 			'address_tel' => $this->config->address['tel'],
 			'address_mobile' => $this->config->address['mobile'],
 			'address_fax' => $this->config->address['fax'],
-			
+
 			'gps_lat' => $this->config->gps['lat'],
 			'gps_long' => $this->config->gps['long'],
-			
+
 			'company_name' => $this->config->company['name'],
 			'company_com_name' => $this->config->company['com_name'],
 			'company_siret' => $this->config->company['siret'],
-			
+
 			'leader_name' => $this->config->leader['name'],
 			'leader_firstname' => $this->config->leader['firstname'],
-			
+
 			'email_to' => $this->config->email['to'],
 			'email_from' => $this->config->email['from'],
 			'email_name' => $this->config->email['name']
@@ -720,7 +720,7 @@ class Application
 	public function getImagesReplacementsVariables($aImages)
 	{
 		$aReplacements = array();
-		
+
 		foreach ($aImages as $iImageId => $aImageInfos)
 		{
 			foreach ($aImageInfos as $sImageKeyInfo => $sImageValueInfo)
@@ -730,17 +730,17 @@ class Application
 					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this->user->language];
 					continue;
 				}
-				
+
 				if ($sImageKeyInfo == 'title' && isset($sImageValueInfo[$this->user->language]))
 				{
 					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this->user->language];
 					continue;
 				}
-				
+
 				$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo;
 			}
 		}
-		
+
 		return $aReplacements;
 	}
 
@@ -759,29 +759,29 @@ class Application
 		{
 			return $str;
 		}
-		
+
 		if ($this->htmlpurifier === null)
 		{
 			$sCacheFile = $this->options->get('cache_dir') . '/htmlpurifier';
-			
+
 			(new Filesystem())->mkdir($sCacheFile);
-			
+
 			$config = \HTMLPurifier_Config::createDefault();
-			
+
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 			$config->set('Cache.SerializerPath', $this->options->get('cache_dir') . '/HTMLPurifier');
-			
+
 			$config->set('HTML.SafeEmbed', true);
 			$config->set('HTML.SafeObject', true);
 			$config->set('Output.FlashCompat', true);
-			
+
 			$config->set('HTML.SafeIframe', true);
 			$config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/)%');
-			
+
 			# autorise les ID
 			# http://htmlpurifier.org/docs/enduser-id.html
 			$config->set('Attr.EnableID', true);
-			
+
 			# modification de la définition
 			# http://htmlpurifier.org/docs/enduser-customize.html
 			$config->set('HTML.DefinitionID', 'okatea');
@@ -790,10 +790,10 @@ class Application
 			{
 				# autorise l'attribut target sur les liens
 				$def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
-				
+
 				# autorise l'attribut usemap sur les images
 				$def->addAttribute('img', 'usemap', 'CDATA');
-				
+
 				# autorise l'élément map
 				$map = $def->addElement('map', 				// name
 'Block', 				// content set
@@ -807,7 +807,7 @@ array( // attributes
 				$map->excludes = array(
 					'map' => true
 				);
-				
+
 				# autorise l'élément area
 				$area = $def->addElement('area', 				// name
 'Block', 				// content set
@@ -841,13 +841,13 @@ array( // attributes
 					'area' => true
 				);
 			}
-			
+
 			# get it now !
 			$this->htmlpurifier = new \HTMLPurifier($config);
 		}
-		
+
 		$str = $this->htmlpurifier->purify($str);
-		
+
 		return $str;
 	}
 }

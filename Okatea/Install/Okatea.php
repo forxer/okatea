@@ -168,7 +168,8 @@ class Okatea extends Application
 	 */
 	protected function loadExtensions()
 	{
-		$finder = (new Finder())->files()
+		$finder = (new Finder())
+			->files()
 			->in(__DIR__ . '/Extensions')
 			->name('Extension.php');
 
