@@ -19,22 +19,22 @@ class Controller extends BaseController
 	public function __construct($okt)
 	{
 		parent::__construct($okt);
-		
+
 		# Ajout des fichiers CSS de l'admin
-		$this->page->css->addFile($this->okt->options->public_url . '/plugins/jquery-ui/themes/' . $this->okt->config->jquery_ui['admin'] . '/jquery-ui.css');
+		$this->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt->config->jquery_ui['admin'] . '/jquery-ui.min.css');
 		$this->page->css->addFile($this->okt->options->public_url . '/css/init.css');
 		$this->page->css->addFile($this->okt->options->public_url . '/css/admin.css');
 		$this->page->css->addFile($this->okt->options->public_url . '/css/famfamfam.css');
-		
+
 		# Ajout des fichiers JS de l'admin
 		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-cookie/jquery.cookie.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/plugins/jquery-ui/jquery-ui.min.js');
+		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
 		$this->page->js->addFile($this->okt->options->public_url . '/js/common_admin.js');
-		
+
 		# Title tag
 		$this->page->addTitleTag($this->page->getSiteTitleTag(null, $this->page->getSiteTitle()));
-		
+
 		# Fil d'ariane administration
 		$this->page->addAriane(__('Administration'), $this->generateUrl('home'));
 	}
@@ -48,9 +48,9 @@ class Controller extends BaseController
 	 *        	An array of parameters
 	 * @param Boolean|string $referenceType
 	 *        	The type of reference (one of the constants in UrlGeneratorInterface)
-	 *        	
+	 *
 	 * @return string The generated URL
-	 *        
+	 *
 	 * @see UrlGeneratorInterface
 	 */
 	public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)

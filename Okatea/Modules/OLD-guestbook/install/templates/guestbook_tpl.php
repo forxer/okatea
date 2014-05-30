@@ -4,25 +4,25 @@ use Okatea\Tao\Html\Modifiers;
 
 ?>
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de la CSS spécifique au module
 $okt->page->css->addFile($okt->theme->url . '/modules/guestbook/styles.css');
 # fin Okatea : ajout de la CSS spécifique au module ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : champs requis pour la validation JS
 $aJsValidateRules = new ArrayObject();
 
@@ -50,14 +50,14 @@ $aJsValidateRules[] = 'msg: { required: true }';
 # fin Okatea : champs requis pour la validation JS ?>
 
 
-<?php 
+<?php
 # -- CORE TRIGGER : publicModuleGuestbookJsValidateRules
 $okt->triggers->callTrigger('publicModuleGuestbookJsValidateRules', $aJsValidateRules, $okt->guestbook->config->captcha);
 ?>
 
 
 
-<?php 
+<?php
 # début Okatea : validation JS
 if (! empty($aJsValidateRules))
 {
@@ -73,14 +73,14 @@ if (! empty($aJsValidateRules))
 # fin Okatea : validation JS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout jQuery UI
-$okt->page->js->addFile($okt->options->public_url . '/plugins/jquery-ui/jquery-ui.min.js');
-$okt->page->css->addFile($okt->options->public_url . '/plugins/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
 # fin Okatea : ajout jQuery UI ?>
 
 
-<?php 
+<?php
 # début Okatea : jQuery UI dialog pour le formulaire d'ajout
 $okt->page->js->addReady('
 	$(function() {
@@ -105,7 +105,7 @@ $okt->page->js->addReady('
 # début Okatea : jQuery UI dialog pour le formulaire d'ajout ?>
 
 
-<?php 
+<?php
 # debut : affichage du message de confirmation d'ajout d'une signature
 if (! empty($_GET['added']))
 :
@@ -114,7 +114,7 @@ if (! empty($_GET['added']))
 <div class="success_box">
 	<p><?php _e('m_guestbook_thank_you') ?></p>
 
-	<?php 
+	<?php
 /* message si la validation avant publication est activée */
 	if ($okt->guestbook->config->validation)
 	:
@@ -136,7 +136,7 @@ if (! empty($_GET['added']))
 <div id="guestbook-add">
 	<h3><?php _e('m_guestbook_add') ?></h3>
 
-	<?php 
+	<?php
 # debut : affichage des éventuelles erreurs
 	if ($okt->error->notEmpty())
 	:
@@ -153,7 +153,7 @@ if (! empty($_GET['added']))
 
 		<p><?php _e('m_guestbook_thank_you_filling_form') ?></p>
 
-		<?php 
+		<?php
 # début champ langue
 		if (! $okt->languages->unique && $okt->guestbook->config->chp_language)
 		:
@@ -167,7 +167,7 @@ if (! empty($_GET['added']))
 		<?php endif; # fin champ langue ?>
 
 
-		<?php 
+		<?php
 # début : champ nom
 		if ($okt->guestbook->config->chp_nom)
 		:
@@ -183,7 +183,7 @@ if (! empty($_GET['added']))
 		<?php endif; # fin : champ nom ?>
 
 
-		<?php 
+		<?php
 # début : champ email
 		if ($okt->guestbook->config->chp_mail)
 		:
@@ -199,7 +199,7 @@ if (! empty($_GET['added']))
 		<?php endif; # fin : champ email ?>
 
 
-		<?php 
+		<?php
 # début : champ URL
 		if ($okt->guestbook->config->chp_url)
 		:
@@ -215,7 +215,7 @@ if (! empty($_GET['added']))
 		<?php endif; # fin : champ URL ?>
 
 
-		<?php 
+		<?php
 # début : champ note
 		if ($okt->guestbook->config->chp_note)
 		:
@@ -227,7 +227,7 @@ if (! empty($_GET['added']))
 				<option value="nc"
 					<?php if ($aSigData['note'] == 'nc') { echo ' selected="selected"'; } ?>>-NC-</option>
 			<?php
-			
+
 for ($i = 0; $i <= 20; $i ++)
 			{
 				echo '<option value="' . $i . '"' . ($aSigData['note'] != 'nc' && $aSigData['note'] == $i ? ' selected="selected"' : '') . '>' . $i . '/20</option>' . PHP_EOL;
@@ -252,7 +252,7 @@ for ($i = 0; $i <= 20; $i ++)
 		<?php # fin : champ message ?>
 
 
-		<?php 
+		<?php
 # -- CORE TRIGGER : publicModuleGuestbookTplFormBottom
 		$okt->triggers->callTrigger('publicModuleGuestbookTplFormBottom', $okt->guestbook->config->captcha);
 		?>
@@ -271,7 +271,7 @@ for ($i = 0; $i <= 20; $i ++)
 
 
 <div class="signatures-list">
-<?php 
+<?php
 # debut : boucle sur les signatures à afficher
 while ($signaturesList->fetch())
 :
@@ -291,7 +291,7 @@ while ($signaturesList->fetch())
 		<?php /* date */ ?>
 		<li class="date"><?php printf(__('m_guestbook_on_%s'), dt::dt2str(__('%A, %B %d, %Y, %H:%M'), $signaturesList->date_sign)) ?></li>
 
-		<?php 
+		<?php
 /* email */
 	if ($okt->guestbook->config->chp_mail && $signaturesList->email != '')
 	:
@@ -302,7 +302,7 @@ while ($signaturesList->fetch())
 					alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_email')) ?>" /></a></li>
 		<?php endif; ?>
 
-		<?php 
+		<?php
 /* URL */
 	if ($okt->guestbook->config->chp_url && ($signaturesList->url != '' && $signaturesList->url != 'http://'))
 	:
@@ -313,7 +313,7 @@ while ($signaturesList->fetch())
 					alt="<?php echo $view->escapeHtmlAttr(__('m_guestbook_website')) ?>" /></a></li>
 		<?php endif; ?>
 
-		<?php 
+		<?php
 /* note */
 	if ($signaturesList->note)
 	:
@@ -335,7 +335,7 @@ endwhile
 <!-- #signatures-list -->
 
 
-<?php 
+<?php
 # debut : affichage pagination
 if ($signaturesList->numPages > 1)
 :
@@ -347,13 +347,13 @@ if ($signaturesList->numPages > 1)
 <?php endif;
 # fin : affichage pagination ?>
 
-<?php 
+<?php
 # début affichage liens vers les autres langues
 if (! $okt->languages->unique)
 :
 	?>
 <p><?php
-	
+
 foreach ($aLanguages as $sLanguage => $sCode)
 	:
 		if ($okt->user->language != $sCode)

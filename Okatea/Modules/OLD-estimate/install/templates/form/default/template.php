@@ -1,38 +1,38 @@
 
 <?php use Okatea\Tao\Forms\Statics\FormElements as form; ?>
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery UI
-$okt->page->js->addFile($okt->options->public_url . '/plugins/jquery-ui/jquery-ui.min.js');
-$okt->page->css->addFile($okt->options->public_url . '/plugins/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
 # fin Okatea : ajout de jQuery UI ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du datepicker
 $okt->page->datePicker();
 # fin Okatea : ajout du datepicker ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du JS de gestion du formulaire de demande de devis
 $okt->page->js->addFile($okt->theme->url . '/modules/estimate/estimate.form.js');
 
@@ -80,7 +80,7 @@ $okt->page->js->addReady('
 <!-- <h1><?php echo $view->escape($okt->estimate->getName()) ?></h1> -->
 
 
-<?php 
+<?php
 # début Okatea : affichage des éventuelles erreurs
 if ($okt->error->notEmpty())
 :
@@ -91,7 +91,7 @@ if ($okt->error->notEmpty())
 <?php endif; # fin Okatea : affichage des éventuelles erreurs ?>
 
 
-<?php 
+<?php
 # début Okatea : si la demande a bien été enregistrée, on affiche un message de confirmation
 if (! empty($_GET['added']))
 :
@@ -105,7 +105,7 @@ if (! empty($_GET['added']))
 </div>
 
 
-<?php 
+<?php
 # début Okatea : sinon on affichent le formulaire de demande de devis
 else
 :
@@ -177,7 +177,7 @@ else
 		<p class="infos">Veuillez choisir les matériels pour lequel porte ce devis.
 		<?php if ($okt->estimate->config->enable_accessories) : ?>Vous pouvez ajouter des accessoires pour chacun des matériels.<?php endif; ?></p>
 
-		<?php 
+		<?php
 # boucle sur les produits
 	for ($i = 1; $i <= $iNumProducts; $i ++)
 	:
@@ -204,35 +204,35 @@ else
 			<div id="accessories_wrapper_<?php echo $i ?>"
 				class="accessories_wrapper">
 
-				<?php 
+				<?php
 # boucle sur les accessoires
 			$iNumAccessories = $okt->estimate->config->default_accessories_number;
 			$bHasAccessories = false;
-			
+
 			if (! empty($aFormData['products'][$i]) && ! empty($aFormData['accessories'][$i]))
 			{
 				$iNumAccessories = count($aFormData['accessories'][$i]);
 				$bHasAccessories = true;
 			}
-			
+
 			if ($iNumAccessories < $okt->estimate->config->default_accessories_number)
 			{
 				$iNumAccessories = $okt->estimate->config->default_accessories_number;
 			}
-			
+
 			for ($j = 1; $j <= $iNumAccessories; $j ++)
 			:
-				
+
 				$aValues = array();
-				
+
 				if (! empty($aFormData['products'][$i]) && ! empty($aProductsAccessories[$aFormData['products'][$i]]))
 				{
 					$aValues = array_flip($aProductsAccessories[$aFormData['products'][$i]]);
 				}
-				
+
 				$sValue = ($bHasAccessories && ! empty($aFormData['accessories'][$i][$j]) ? $aFormData['accessories'][$i][$j] : '');
 				$sQuantity = ($bHasAccessories && ! empty($aFormData['accessory_quantity'][$i][$j]) ? $aFormData['accessory_quantity'][$i][$j] : '');
-				
+
 				?>
 				<div id="accessory_wrapper_<?php echo $i ?>_<?php echo $j ?>"
 					class="accessory_wrapper">
@@ -261,7 +261,7 @@ else
 		<label for="p_comment">Commentaire</label>
 	<?php echo form::textarea('p_comment', 60, 8, $view->escape($aFormData['comment'])) ?></p>
 
-	<?php 
+	<?php
 # -- CORE TRIGGER : publicModuleEstimateTplFormBottom
 	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt->estimate->config->captcha);
 	?>

@@ -451,7 +451,7 @@ class Page
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
-		$this->js->addFile($this->okt->options->public_url . '/plugins/jquery-ui/i18n/jquery-ui-i18n.min.js');
+		$this->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\'' . $this->okt->user->language . '\']); ' . 'jQuery(\'' . $sElement . '\').datepicker(' . json_encode($aOptions) . ');
@@ -1292,9 +1292,9 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new DirectoryIterator($okt->options->public_dir . '/plugins/jquery-ui/themes') as $oFileInfo)
+		foreach (new DirectoryIterator($okt->options->public_dir . '/components/jquery-ui/themes') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt->options->public_dir . '/plugins/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.css'))
+			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt->options->public_dir . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
 			{
 				continue;
 			}

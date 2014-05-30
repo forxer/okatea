@@ -101,19 +101,19 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 	if ($okt->module('Contact')->config->google_map['display'] == 'inside')
 	:
 		$okt->page->js->addReady($sJsGmap3Loader);
-	
-	
+
+
 	endif; # fin Okatea : affichage du plan dans la page 		?>
 
 	<?php
 	# début Okatea : affichage du plan dans UI dialog
 	if ($okt->module('Contact')->config->google_map['display'] == 'link')
 	:
-		
+
 		# ajout jQuery UI
-		$okt->page->js->addFile($okt->options->public_url . '/plugins/jquery-ui/jquery-ui.min.js');
-		$okt->page->css->addFile($okt->options->public_url . '/plugins/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.css');
-		
+		$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+		$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
+
 		$okt->page->js->addReady('
 			$("#google_map").dialog({
 				autoOpen: false,
@@ -133,8 +133,8 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 				' . $sJsGmap3Loader . '
 			});
 		');
-	
-	
+
+
 
 	endif; # fin Okatea : affichage du plan dans UI dialog 		?>
 
@@ -224,7 +224,7 @@ if (empty($_GET['sended']))
 
 	<?php # début Okatea : affichage de l'adresse ?>
 	<p><?php
-	
+
 	echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->address['street_2'] != '' ? ' - ' . $okt->config->address['street_2'] : '') . ' - ' . $okt->config->address['code'] . ' ' . $okt->config->address['city'] . ' ' . $okt->config->address['country']);
 	?></p>
 	<?php # fin Okatea : affichage de l'adresse ?>

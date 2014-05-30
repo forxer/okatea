@@ -3,32 +3,32 @@ use Okatea\Tao\Html\Modifiers;
 
 ?>
 
-<?php 
+<?php
 # début Okatea : ce template étend le layout
 $view->extend('layout');
 # fin Okatea : ce template étend le layout ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du CHEMIN du fichier LESS
 $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 # fin Okatea : ajout du CHEMIN du fichier LESS ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout de jQuery UI
-$okt->page->js->addFile($okt->options->public_url . '/plugins/jquery-ui/jquery-ui.min.js');
-$okt->page->css->addFile($okt->options->public_url . '/plugins/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
 # fin Okatea : ajout de jQuery UI ?>
 
 
-<?php 
+<?php
 # début Okatea : ajout du JS propre à la page
 $okt->page->js->addReady('
 	$("#send_estimate").button({
@@ -66,7 +66,7 @@ $okt->page->js->addReady('
 
 		<?php else : ?>
 		<p><?php
-			
+
 printf(__('From %s to %s'), dt::dt2str(__('%A, %B %d, %Y'), $view->escape($aEstimateData['start_date'])), dt::dt2str(__('%A, %B %d, %Y'), $view->escape($aEstimateData['end_date'])));
 			?></p>
 
