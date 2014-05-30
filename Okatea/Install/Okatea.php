@@ -65,17 +65,17 @@ class Okatea extends Application
 	{
 		# Autoloader shortcut
 		$this->autoloader = $autoloader;
-		
+
 		$this->options = new ApplicationOptions($aOptions);
-		
+
 		$this->getLogger();
-		
+
 		$this->triggers = new Triggers();
-		
+
 		$this->getConfig();
-		
+
 		$this->httpFoundation();
-		
+
 		$this->start();
 	}
 
@@ -85,77 +85,76 @@ class Okatea extends Application
 		{
 			$this->oldVersion = $this->session->get('okt_old_version');
 		}
-		
+
 		if ($this->request->query->has('old_version'))
 		{
 			$this->oldVersion = $this->request->query->get('old_version');
 			$this->session->set('okt_old_version', $this->oldVersion);
 		}
-		
+
 		# Initialisation localisation
 		if (! $this->session->has('okt_install_language'))
 		{
 			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
 		}
-		
-		$this->l10n = new Localization($this->session->get('okt_install_language'), 'fr', 'Europe/Paris');
-		
+
+		$this->l10n = new Localization($this->session->get('okt_install_language'), $this->session->get('okt_install_language'), 'Europe/Paris');
+
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
-		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/date');
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
 		$this->l10n->loadFile(__DIR__ . '/Locales/%s/install');
-		
+
 		# Install or update ?
 		if (! $this->session->has('okt_install_process_type'))
 		{
 			$this->session->set('okt_install_process_type', 'install');
-			
+
 			if (file_exists($this->options->get('config_dir') . '/connection.php'))
 			{
 				$this->session->set('okt_install_process_type', 'update');
 			}
 		}
-		
+
 		$this->loadExtensions();
-		
+
 		# -- CORE TRIGGER : installBeforeStartRouter
 		$this->triggers->callTrigger('installBeforeStartRouter');
-		
+
 		$this->router = new Router($this, __DIR__ . '/Routing/RouteProvider.php');
-		
+
 		# -- CORE TRIGGER : installBeforeLoadPageHelpers
 		$this->triggers->callTrigger('installBeforeLoadPageHelpers');
-		
+
 		$this->loadPageHelpers();
-		
+
 		# -- CORE TRIGGER : installBeforeMatchRequest
 		$this->triggers->callTrigger('installBeforeMatchRequest');
-		
+
 		$this->matchRequest();
-		
+
 		# -- CORE TRIGGER : installBeforeLoadStepper
 		$this->triggers->callTrigger('installBeforeLoadStepper');
-		
+
 		$this->loadStepper();
-		
+
 		# -- CORE TRIGGER : installBeforeLoadTplEngine
 		$this->triggers->callTrigger('installBeforeLoadTplEngine');
-		
+
 		$this->loadTplEngine();
-		
+
 		# -- CORE TRIGGER : installBeforeCallController
 		$this->triggers->callTrigger('installBeforeCallController');
-		
+
 		$this->callController();
-		
+
 		# -- CORE TRIGGER : installBeforePrepareResponse
 		$this->triggers->callTrigger('installBeforePrepareResponse');
-		
+
 		$this->response->prepare($this->request);
-		
+
 		# -- CORE TRIGGER : installBeforeSendResponse
 		$this->triggers->callTrigger('installBeforeSendResponse');
-		
+
 		$this->response->send();
 	}
 
@@ -172,16 +171,16 @@ class Okatea extends Application
 		$finder = (new Finder())->files()
 			->in(__DIR__ . '/Extensions')
 			->name('Extension.php');
-		
+
 		foreach ($finder as $file)
 		{
 			if (! file_exists(dirname($file->getRealPath()) . '/_disabled'))
 			{
 				$sExtensionId = $file->getRelativePath();
-				
-				$class = 'Okatea\\Install\\Extensions\\' . $sExtensionId . '\\Extension';
-				
-				$this->extensions[$sExtensionId] = new $class($this);
+
+				$sExtensionClass = 'Okatea\\Install\\Extensions\\' . $sExtensionId . '\\Extension';
+
+				$this->extensions[$sExtensionId] = new $sExtensionClass($this);
 				$this->extensions[$sExtensionId]->load();
 			}
 		}
@@ -247,7 +246,7 @@ class Okatea extends Application
 			__DIR__ . '/Templates/%name%.php',
 			__DIR__ . '/Extensions/%name%.php'
 		]);
-		
+
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);
 	}
@@ -255,7 +254,7 @@ class Okatea extends Application
 	protected function callController()
 	{
 		$this->response = $this->router->callController();
-		
+
 		if (null === $this->response || false === $this->response)
 		{
 			$this->response->headers->set('Content-Type', 'text/plain');

@@ -52,24 +52,19 @@ $okt->triggers->callTrigger('installBeforeSendHtml');
 
 			<?php $view['slots']->output('_content'); ?>
 
-		</section>
-			<!-- #content -->
+		</section><!-- #content -->
 
 			<footer>
-				<p id="footer"
-					class="clearb ui-widget ui-corner-all ui-state-default">
-			Okatea<?php if ($okt->getVersion()) { echo ' version <strong>'.$okt->getVersion().'</strong> '; } ?>
-			</p>
-				<!-- #footer -->
+				<p id="footer" class="clearb ui-widget ui-corner-all ui-state-default">
+					Okatea<?php if ($okt->getVersion()) { echo ' version <strong>'.$okt->getVersion().'</strong> '; } ?>
+				</p><!-- #footer -->
 			</footer>
-		</div>
-		<!-- #main -->
-	</div>
-	<!-- #page -->
+		</div><!-- #main -->
+	</div><!-- #page -->
 
 <?php echo $okt->page->js?>
 
-<?php 
+<?php
 # -- CORE TRIGGER : installBeforeHtmlBodyEndTag
 $okt->triggers->callTrigger('installBeforeHtmlBodyEndTag'); ?>
 </body>
