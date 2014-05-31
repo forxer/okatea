@@ -24,8 +24,8 @@ $okt->page->loader('.lazy-load');
 	<?php endforeach; ?>
 	</ul>
 
-	<p><?php echo $okt->page->formtoken()?>
-	<input type="submit" class="lazy-load"
-			value="<?php _e('c_c_action_delete') ?>" />
+	<p>
+		<?php echo $okt->page->formtoken()?>
+		<input type="submit" class="lazy-load" value="<?php _e('c_c_action_delete') ?>" />
 	</p>
 </form>

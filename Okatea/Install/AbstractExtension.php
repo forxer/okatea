@@ -24,18 +24,18 @@ abstract class AbstractExtension
 	protected function insertStepAfter($stepper, $sAfterStep, array $aStep)
 	{
 		$aNewSteps = [];
-		
+
 		$iCurrentPosition = 0;
 		foreach ($stepper->aStepsList as $aStepInfo)
 		{
-			$aNewSteps[$iCurrentPosition ++] = $aStepInfo;
-			
+			$aNewSteps[$iCurrentPosition++] = $aStepInfo;
+
 			if ($aStepInfo['step'] === $sAfterStep)
 			{
-				$aNewSteps[$iCurrentPosition ++] = $aStep;
+				$aNewSteps[$iCurrentPosition++] = $aStep;
 			}
 		}
-		
+
 		$stepper->aStepsList = new ArrayObject($aNewSteps);
 	}
 }

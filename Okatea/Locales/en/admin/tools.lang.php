@@ -11,7 +11,7 @@ $GLOBALS['okt_l10n']['c_a_tools_cache'] = 'Cache';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup'] = 'Cleanup';
 $GLOBALS['okt_l10n']['c_a_tools_backup'] = 'Backup';
 $GLOBALS['okt_l10n']['c_a_tools_htaccess'] = '.htaccess';
-$GLOBALS['okt_l10n']['c_a_tools_logadmin'] = 'Log admin';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall'] = 'Uninstall';
 
 # cache
 $GLOBALS['okt_l10n']['c_a_tools_cache_title'] = 'Purge cache';
@@ -28,7 +28,7 @@ $GLOBALS['okt_l10n']['c_a_tools_cache_confirm_delete'] = 'Are you sure you want 
 $GLOBALS['okt_l10n']['c_a_tools_cache_delete_all'] = 'Delete all files';
 $GLOBALS['okt_l10n']['c_a_tools_cache_confirm_delete_all'] = 'Are you sure you want to delete all these elements? This action is irreversible.';
 
-# Cleanup
+# cleanup
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_title'] = 'Cleanup';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_desc'] = 'This tool allows you to delete unnecessary files.';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_%s_cleaned'] = 'Cleaning, %s files were deleted.';
@@ -64,3 +64,10 @@ $GLOBALS['okt_l10n']['c_a_tools_htaccess_content'] = 'Content of .htaccess file'
 
 $GLOBALS['okt_l10n']['c_a_tools_htaccess_confirm_delete'] = 'Are you sure you want to delete this file? All data will be permanently deleted.';
 $GLOBALS['okt_l10n']['c_a_tools_htaccess_delete'] = 'delete the .htaccess file';
+
+# uninstall
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_title'] = 'Uninstall the system';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_warning'] = '<strong>Warning!</strong> This tool will remove all of this installation. You should make a backup before doing this.';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_system'] = 'Uninstall the system';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_confirm'] = 'Are you sure you want to uninstall the system? All data of this installation will be permanently deleted.';
+

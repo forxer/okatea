@@ -22,12 +22,11 @@ use Okatea\Tao\L10n\DateTime;
 	</thead>
 	<tbody>
 	<?php
-	
+
 	$iCountLine = 0;
-	foreach ($oCacheFiles as $oFileInfo)
-	:
+	foreach ($oCacheFiles as $oFileInfo) :
 		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
-		?>
+	?>
 	<tr>
 			<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
 			<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('okt_dir')).'/'.basename($okt->options->get('cache_dir')) ?></td>
@@ -43,18 +42,12 @@ use Okatea\Tao\L10n\DateTime;
 			</td>
 		</tr>
 	<?php
-		
 		$iCountLine ++;
-	endforeach
-	;
-	?>
+	endforeach; ?>
 
-	<?php
-	
-	foreach ($oPublicCacheFiles as $oFileInfo)
-	:
+	<?php foreach ($oPublicCacheFiles as $oFileInfo) :
 		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
-		?>
+	?>
 	<tr>
 			<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
 			<td class="<?php echo $sTdClass ?>"><?php echo $okt->config->app_path.basename($okt->options->get('public_dir')).'/cache'?></td>
@@ -70,11 +63,8 @@ use Okatea\Tao\L10n\DateTime;
 			</td>
 		</tr>
 	<?php
-		
 		$iCountLine ++;
-	endforeach
-	;
-	?>
+	endforeach; ?>
 	</tbody>
 </table>
 

@@ -11,7 +11,7 @@ $GLOBALS['okt_l10n']['c_a_tools_cache'] = 'Cache';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup'] = 'Nettoyage';
 $GLOBALS['okt_l10n']['c_a_tools_backup'] = 'Sauvegarde';
 $GLOBALS['okt_l10n']['c_a_tools_htaccess'] = '.htaccess';
-$GLOBALS['okt_l10n']['c_a_tools_logadmin'] = 'Log admin';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall'] = 'Désinstallation';
 
 # cache
 $GLOBALS['okt_l10n']['c_a_tools_cache_title'] = 'Purge du cache';
@@ -28,7 +28,7 @@ $GLOBALS['okt_l10n']['c_a_tools_cache_confirm_delete'] = 'Êtes-vous sûr de vou
 $GLOBALS['okt_l10n']['c_a_tools_cache_delete_all'] = 'Supprimer tous les fichiers';
 $GLOBALS['okt_l10n']['c_a_tools_cache_confirm_delete_all'] = 'Êtes-vous sûr de vouloir supprimer tous ces éléments ? Cette action est irréversible.';
 
-# Cleanup
+# cleanup
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_title'] = 'Nettoyage';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_desc'] = 'Cet outil permet de supprimer les fichiers inutiles.';
 $GLOBALS['okt_l10n']['c_a_tools_cleanup_%s_cleaned'] = 'Nettoyage terminé, %s fichiers ont été supprimés.';
@@ -65,3 +65,8 @@ $GLOBALS['okt_l10n']['c_a_tools_htaccess_content'] = 'Contenu du fichier .htacce
 $GLOBALS['okt_l10n']['c_a_tools_htaccess_confirm_delete'] = 'Êtes-vous sûr de vouloir supprimer ce fichier ? Toutes les données seront définitivement supprimées.';
 $GLOBALS['okt_l10n']['c_a_tools_htaccess_delete'] = 'supprimer le fichier .htaccess';
 
+# uninstall
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_title'] = 'Désinstallation du système';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_warning'] = '<strong>Attention !</strong> Cet outil va supprimer l’intégralité de cette installation. Vous devriez réaliser une sauvegarde avant de faire cela.';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_system'] = 'Désinstaller le système';
+$GLOBALS['okt_l10n']['c_a_tools_uninstall_confirm'] = 'Êtes-vous sûr de vouloir désinstaller le système ? Toutes les données de cette installation seront définitivement supprimées.';

@@ -20,6 +20,7 @@ use Okatea\Install\Routing\Router;
 use Okatea\Tao\Application;
 use Okatea\Tao\ApplicationOptions;
 use Okatea\Tao\Errors;
+use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\Misc\FlashMessages;
 use Okatea\Tao\Session;
@@ -161,6 +162,18 @@ class Okatea extends Application
 	public function getDb()
 	{
 		return $this->database();
+	}
+
+	/**
+	 * Load modules public or admin part.
+	 *
+	 * @return void
+	 */
+	protected function startModules()
+	{
+		$this->okt->db = $this->getDb();
+
+		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
 	}
 
 	/**
