@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Modules\Development\Bootstrap\Module\Module as BootstrapModule;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Module title tag
 $okt->page->addTitleTag(__('Development'));

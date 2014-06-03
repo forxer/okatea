@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-$view->extend('layout');
+$view->extend('Layout');
 
 $okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_themes_install_theme_%s'), $oInstallTheme->name()));

@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Groups;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));

@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Misc\Utilities;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Module title tag
 $okt->page->addTitleTag(__('Development'));

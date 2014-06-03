@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Html\Stack;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_config_router_internal_router'));

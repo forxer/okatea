@@ -8,7 +8,7 @@
 use Okatea\Modules\Contact\Fields;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Page title and breadcrumb
 $okt->page->addTitleTag($okt->module('Contact')

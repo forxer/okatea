@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Module title tag
 $okt->page->addTitleTag($okt->module('Contact')

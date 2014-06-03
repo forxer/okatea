@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Themes\Collection as ThemesCollection;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # infos page
 $okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));

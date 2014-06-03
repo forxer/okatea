@@ -23,7 +23,7 @@ $okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
 # fil d'ariane
 $okt->page->breadcrumb->add(__('c_c_user_profile'), $this->generateUrl('usersProfile'));
 
-$view->extend('layout');
+$view->extend('Layout');
 
 ?>
 

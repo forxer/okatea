@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Sortable
 $okt->page->js->addReady('

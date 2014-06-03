@@ -23,7 +23,7 @@ $okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
 # fil d'ariane
 $okt->page->breadcrumb->add(__('c_c_auth_login'), $this->okt->router->generateLoginUrl());
 
-$view->extend('layout');
+$view->extend('Layout');
 
 ?>
 

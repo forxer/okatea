@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Misc\Utilities;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 ?>
 

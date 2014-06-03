@@ -568,7 +568,20 @@ class Tools extends Controller
 			Utilities::deleteOktCacheFiles(true);
 			Utilities::deleteOktPublicCacheFiles(true);
 
-			return $this->redirect($this->okt->config->app_path.'install');
+			# destroy session data
+			$this->session->clear();
+			$this->session->invalidate();
+
+			# prepare redirect to install screen response
+			$response = $this->redirect($this->okt->config->app_path.'install');
+
+			# remove cookies
+			foreach ($this->request->cookies->keys() as $cookie)
+			{
+				$response->headers->clearCookie($cookie, $this->okt->config->app_path);
+			}
+
+			return $response;
 		}
 
 		return false;

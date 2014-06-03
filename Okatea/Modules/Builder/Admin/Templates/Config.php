@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # module title tag
 $okt->page->addGlobalTitle(__('m_builder_menu'), $view->generateUrl('Builder_index'));

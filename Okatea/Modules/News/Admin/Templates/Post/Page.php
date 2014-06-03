@@ -9,7 +9,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\L10n\DateTime;
 use Carbon\Carbon;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # Module title tag
 $okt->page->addTitleTag($okt->module('News')

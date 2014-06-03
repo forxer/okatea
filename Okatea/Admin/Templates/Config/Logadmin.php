@@ -9,7 +9,7 @@ use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\LogAdmin;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # button set
 $okt->page->setButtonset('logsBtSt', array(

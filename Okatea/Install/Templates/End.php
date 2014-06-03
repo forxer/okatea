@@ -7,7 +7,7 @@
  */
 use Symfony\Component\Filesystem\Filesystem;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 ?>
 

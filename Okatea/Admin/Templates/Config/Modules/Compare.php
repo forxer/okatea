@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-$view->extend('layout');
+$view->extend('Layout');
 
 $okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateUrl('config_modules'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_modules_file_comparison_module_%s'), $oInstallModule->name()));

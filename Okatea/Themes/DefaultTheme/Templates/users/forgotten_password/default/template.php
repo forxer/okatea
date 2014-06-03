@@ -23,7 +23,7 @@ $okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
 # fil d'ariane
 $okt->page->breadcrumb->add(__('c_c_auth_request_password'), $view->generateUrl('usersForgetPassword'));
 
-$view->extend('layout');
+$view->extend('Layout');
 
 ?>
 

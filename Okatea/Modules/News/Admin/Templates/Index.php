@@ -9,7 +9,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\L10n\DateTime;
 use Okatea\Tao\Users\Authentification;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # module title tag
 $okt->page->addTitleTag($okt->module('News')

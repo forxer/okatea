@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-$view->extend('layout');
+$view->extend('Layout');
 
 $okt->page->addTitleTag($okt->page->getSiteTitleTag(null, $okt->page->getSiteTitle()));
 $okt->page->addTitleTag(__('c_c_doc_not_fount'));

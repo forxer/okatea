@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$view->extend('layout');
+$view->extend('Layout');
 
 # infos page
 $okt->page->addGlobalTitle(__('c_a_themes_management'));
