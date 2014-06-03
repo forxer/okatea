@@ -9,13 +9,16 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('Layout');
 
+# Toggle With Legend
+$okt->page->toggleWithLegend('config_advanced_title', 'config_advanced_content');
+
 ?>
 
-<form
-	action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>"
-	method="post">
+<form action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
-<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<h3><?php _e('c_a_config_tab_general') ?></h3>
+
+	<?php foreach ($okt->languages->list as $aLanguage) : ?>
 
 	<div class="two-cols">
 		<p class="col field" lang="<?php echo $aLanguage['code'] ?>">
@@ -30,20 +33,34 @@ $view->extend('Layout');
 			<?php echo form::text(array('p_desc['.$aLanguage['code'].']','p_desc_'.$aLanguage['code']), 60, 255, (isset($aValues['desc'][$aLanguage['code']]) ? $view->escape($aValues['desc'][$aLanguage['code']]) : '')) ?></p>
 	</div>
 
-<?php endforeach; ?>
+	<?php endforeach; ?>
 
-	<div class="two-cols">
-		<p class="col field">
-			<label for="p_app_path"><?php printf(__('c_a_config_advanced_app_path'), $okt->request->getSchemeAndHttpHost()) ?></label>
-		<?php echo form::text('p_app_path', 40, 255, $view->escape($aValues['app_path'])) ?></p>
+	<h3><?php _e('c_a_config_email_config') ?></h3>
 
-		<p class="col field">
-			<label for="p_domain"><?php _e('c_a_config_advanced_domain') ?></label>
-		<?php echo $okt->request->getScheme() ?>://<?php echo form::text('p_domain', 40, 255, $view->escape($aValues['domain'])) ?></p>
+	<div id="config_email_content" class="two-cols">
+		<p class="col field"><label for="p_email_to" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_email_to') ?></label>
+		<?php echo form::text('p_email_to', 60, 255, $view->escape($aValues['email']['to'])) ?></p>
+
+		<p class="col field"><label for="p_email_from" title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_a_config_email_from') ?></label>
+		<?php echo form::text('p_email_from', 60, 255, $view->escape($aValues['email']['from'])) ?></p>
 	</div>
 
-	<p>
-		<input type="submit" value="<?php _e('c_c_next') ?>" /> <input
-			type="hidden" name="sended" value="1" />
-	</p>
+	<div class="two-cols">
+		<p class="col field"><label for="p_email_name"><?php _e('c_a_config_email_name') ?></label>
+		<?php echo form::text('p_email_name', 60, 255, $view->escape($aValues['email']['name'])) ?></p>
+	</div>
+
+
+	<h3 id="config_advanced_title"><?php _e('c_a_config_advanced') ?></h3>
+
+	<div id="config_advanced_content" class="two-cols">
+		<p class="col field"><label for="p_app_path"><?php printf(__('c_a_config_advanced_app_path'), $okt->request->getSchemeAndHttpHost()) ?></label>
+		<?php echo form::text('p_app_path', 40, 255, $view->escape($aValues['app_path'])) ?></p>
+
+		<p class="col field"><label for="p_domain"><?php printf(__('c_a_config_advanced_domain'), $okt->request->getScheme().'://') ?></label>
+		<?php echo form::text('p_domain', 40, 255, $view->escape($aValues['domain'])) ?></p>
+	</div>
+
+	<p><?php echo form::hidden('sended', 1) ?>
+	<input type="submit" value="<?php _e('c_c_next') ?>" /></p>
 </form>

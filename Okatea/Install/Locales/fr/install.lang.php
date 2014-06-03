@@ -70,8 +70,8 @@ $GLOBALS['okt_l10n']['i_db_conf_db_error_dev_must_username'] = 'Vous devez saisi
 $GLOBALS['okt_l10n']['i_connexion_title'] = 'Connexion à la base de données';
 $GLOBALS['okt_l10n']['i_connexion_success'] = 'Connexion à la base de données réussie. Cliquez sur suivant pour mettre à jours les tables.';
 
-# db
-$GLOBALS['okt_l10n']['i_db_title'] = 'Création des tables';
+# db tables
+$GLOBALS['okt_l10n']['i_db_tables_title'] = 'Création des tables de la base de données';
 $GLOBALS['okt_l10n']['i_db_warning'] = '<strong>Avertissement :</strong> le système de vérification à émis des alertes mais cela ne devrait pas poser de problèmes.';
 $GLOBALS['okt_l10n']['i_db_big_loose'] = 'Des erreurs bloquantes se sont produites, impossible de continuer l’installation.';
 

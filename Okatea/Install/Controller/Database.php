@@ -33,6 +33,7 @@ class Database extends Controller
 		}
 
 		return $this->render('Database', [
+			'title' => __('i_db_tables_title'),
 			'oChecklist' => $oChecklist
 		]);
 	}

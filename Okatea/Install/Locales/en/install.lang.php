@@ -70,8 +70,8 @@ $GLOBALS['okt_l10n']['i_db_conf_db_error_dev_must_username'] = 'You must enter a
 $GLOBALS['okt_l10n']['i_connexion_title'] = 'Connecting to the database';
 $GLOBALS['okt_l10n']['i_connexion_success'] = 'Connecting to the database successfully. Click next to update the tables.';
 
-# db
-$GLOBALS['okt_l10n']['i_db_title'] = 'Creating tables';
+# db tables
+$GLOBALS['okt_l10n']['i_db_tables_title'] = 'Creating tables of the database';
 $GLOBALS['okt_l10n']['i_db_warning'] = '<strong>Warning:</strong> the system audit issued alerts but this should not pose any problems.';
 $GLOBALS['okt_l10n']['i_db_big_loose'] = 'Fatal errors occurred, unable to continue the installation.';
 

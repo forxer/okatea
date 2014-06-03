@@ -23,7 +23,8 @@ class Controller extends BaseController
 
 		$aValues = [
 			'title' => $this->okt->config->title,
-			'desc' => $this->okt->config->desc
+			'desc' => $this->okt->config->desc,
+			'email' => $this->okt->config->email
 		];
 
 		$aValues['app_path'] = str_replace('install', '', dirname($this->request->getRequestUri()));
