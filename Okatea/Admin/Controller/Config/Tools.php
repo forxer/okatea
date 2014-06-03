@@ -536,7 +536,7 @@ class Tools extends Controller
 
 	protected function uninstallHandleRequest()
 	{
-		if ($this->request->query->has('uninstall') && $this->bCanUninstall)
+		if ($this->request->request->has('uninstall') && $this->bCanUninstall)
 		{
 			# uninstall modules
 			foreach ($this->okt->modules->getManager()->getInstalled() as $aModuleInfos)
