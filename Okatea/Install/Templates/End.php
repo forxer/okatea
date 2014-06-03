@@ -13,7 +13,7 @@ $view->extend('layout');
 
 <p><?php _e('i_end_'.$okt->session->get('okt_install_process_type').'_congrat') ?></p>
 
-<p><?php printf(__('i_end_connect'),'./../admin/login?user_id='.$user.'&amp;user_pwd='.$password) ?></p>
+<p><?php printf(__('i_end_connect'), './../admin/login?user_id='.$user.'&amp;user_pwd='.$password) ?></p>
 
 
 <?php

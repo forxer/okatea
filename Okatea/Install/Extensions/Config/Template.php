@@ -11,9 +11,7 @@ $view->extend('layout');
 
 ?>
 
-<form
-	action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>"
-	method="post">
+<form action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
 	<div class="two-cols">
 		<p class="col field">
@@ -26,7 +24,7 @@ $view->extend('layout');
 	</div>
 
 	<p>
-		<input type="submit" value="<?php _e('c_c_next') ?>" /> <input
-			type="hidden" name="sended" value="1" />
+		<input type="submit" value="<?php _e('c_c_next') ?>" />
+		<input type="hidden" name="sended" value="1" />
 	</p>
 </form>

@@ -23,34 +23,34 @@ class Stepper
 	public function __construct($aSteps, $sCurrentStep = null)
 	{
 		$this->sCurrentStep = $sCurrentStep !== null ? $sCurrentStep : $this->defaultStepName;
-		
+
 		$this->iNumSteps = count($aSteps);
-		
+
 		foreach ($aSteps as $i => $aStep)
 		{
 			$this->aSteps[$i] = array(
 				'step' => $aStep['step'],
 				'title' => $aStep['title'],
-				
+
 				'past' => false,
 				'current' => false,
 				'last' => false
 			);
-			
+
 			if ($aStep['step'] === $this->sCurrentStep)
 			{
 				$this->aSteps[$i]['current'] = true;
 				$this->iCurrentStepPosition = $i;
 			}
 		}
-		
+
 		foreach ($this->aSteps as $i => $aStep)
 		{
 			if ($i < $this->iCurrentStepPosition)
 			{
 				$this->aSteps[$i]['past'] = true;
 			}
-			
+
 			if ($i === $this->iNumSteps - 1)
 			{
 				$this->aSteps[$i]['last'] = true;
@@ -58,14 +58,27 @@ class Stepper
 		}
 	}
 
+	public function stepExists($sStep)
+	{
+		foreach ($this->aSteps as $aStep)
+		{
+			if ($aStep['step'] == $sStep)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function display()
 	{
 		$str = '<div class="ui-widget-content ui-corner-all" id="ariane">' . '	<ul class="step10">';
-		
+
 		foreach ($this->aSteps as $i => $step)
 		{
 			$str .= '<li';
-			
+
 			if ($step['current'])
 			{
 				$str .= ' class="active"';
@@ -74,19 +87,19 @@ class Stepper
 			{
 				$str .= ' class="past"';
 			}
-			
+
 			if ($step['last'])
 			{
 				$str .= ' id="lastStep"';
 			}
-			
+
 			$url = ! empty($step['url']) ? $step['url'] : '#';
-			
+
 			$str .= '><span><a href="' . $url . '">' . ($i + 1) . '</a></span><a href="' . $url . '">' . $step['title'] . '</a></li>';
 		}
-		
+
 		$str .= '	</ul>' . '	<div class="clearer"></div>' . '</div>';
-		
+
 		return $str;
 	}
 

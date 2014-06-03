@@ -120,14 +120,35 @@ ul.checklistlegend li {
 	margin-right: 2em;
 }
 
-#themes_list_choice,#modules_list_choice {
-	-webkit-column-count: 4;
-	-moz-column-count: 4;
-	column-count: 4;
+#themes_list_choice,
+#modules_list_choice {
+	-webkit-column-count: 3;
+	-moz-column-count: 3;
+	column-count: 3;
 	-webkit-column-gap: 2em;
 	-moz-column-gap: 2em;
 	column-gap: 2em;
 }
+
+#themes_list_choice .extension,
+#modules_list_choice .extension {
+	margin-bottom: 2em;
+	background-color: #f1f1f1;
+	margin: 1px solid #f1f1f1;
+	border-radius: 5px;
+	padding: 0.8em;
+}
+	#themes_list_choice .left,
+	#modules_list_choice .left {
+		float: left;
+		margin-right: 1em;
+	}
+	#themes_list_choice h3,
+	#modules_list_choice h3 {
+		margin-top: 0;
+	}
+
+
 
 /* Stepper
 ----------------------------------------------------------*/
@@ -271,7 +292,7 @@ input,textarea,select {
 }
 
 select {
-	
+
 }
 
 option {

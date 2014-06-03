@@ -2,21 +2,22 @@
 repository_url: http://repository.okatea.org/packages/
 
 modules:
-  repository_url: http://repository.okatea.org/themes/
+  repository_url: http://repository.okatea.org/modules/
   repository:
     - Builder
     - Contact
     - Development
     - News
     - Pages
-    - RteTinymce4
+    - RteCkeditor4
     - RteTinymce3
     - RteTinymce4
   package:
+    - Contact
     - Pages
 
 themes:
-  repository_url: http://repository.okatea.org/modules/
+  repository_url: http://repository.okatea.org/themes/
   repository:
     - DefaultTheme
     - HTML5Boilerplate

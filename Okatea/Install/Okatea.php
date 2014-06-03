@@ -169,9 +169,9 @@ class Okatea extends Application
 	 *
 	 * @return void
 	 */
-	protected function startModules()
+	public function startModules()
 	{
-		$this->okt->db = $this->getDb();
+		$this->db = $this->database();
 
 		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
 	}

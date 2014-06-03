@@ -19,7 +19,6 @@ $GLOBALS['okt_l10n']['i_step_db'] = 'tables';
 $GLOBALS['okt_l10n']['i_step_supa'] = 'utilisateurs';
 $GLOBALS['okt_l10n']['i_step_theme'] = 'thème';
 $GLOBALS['okt_l10n']['i_step_colors'] = 'couleurs';
-$GLOBALS['okt_l10n']['i_step_modules'] = 'modules';
 $GLOBALS['okt_l10n']['i_step_pages'] = 'pages';
 $GLOBALS['okt_l10n']['i_step_merge_config'] = 'fusion configuration';
 $GLOBALS['okt_l10n']['i_step_end'] = 'fin';
@@ -90,9 +89,6 @@ $GLOBALS['okt_l10n']['i_theme_title'] = 'Choix du thème';
 
 # colors
 $GLOBALS['okt_l10n']['i_colors_title'] = 'Couleurs du thème';
-
-# modules
-$GLOBALS['okt_l10n']['i_modules_title'] = 'Installation des premiers modules';
 
 # pages
 $GLOBALS['okt_l10n']['i_pages_title'] = 'Créations des premieres pages';
