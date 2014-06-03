@@ -40,7 +40,7 @@ class Controller extends BaseController
 
 		if ($this->request->request->has('sended'))
 		{
-			$aModules = $this->request->request->get('p_modules', null, true);
+			$aModules = $this->request->request->get('p_modules', array(), true);
 
 			foreach ($aModules as $sModuleId)
 			{

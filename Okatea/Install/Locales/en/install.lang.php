@@ -37,8 +37,13 @@ $GLOBALS['okt_l10n']['i_checks_big_loose'] = 'The configuration server has major
 
 # db conf
 $GLOBALS['okt_l10n']['i_db_conf_title'] = 'Connecting to the database';
-$GLOBALS['okt_l10n']['i_db_conf_create_db'] = 'The database was created.';
-$GLOBALS['okt_l10n']['i_db_conf_ok'] = 'Connection to database successful, connection file created. Click Next to create the tables.';
+$GLOBALS['okt_l10n']['i_db_conf_create_db_ok'] = 'The database was created.';
+$GLOBALS['okt_l10n']['i_db_conf_create_db_ko'] = 'Unable to create the database.';
+$GLOBALS['okt_l10n']['i_db_conf_connection_file_ok'] = 'The connection file was created.';
+$GLOBALS['okt_l10n']['i_db_conf_connection_file_ko'] = 'Unable to create the connection file.';
+$GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connection to database successful.';
+$GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Failed to connect to the database.';
+$GLOBALS['okt_l10n']['i_db_conf_next'] = 'Click Next to create the tables.';
 $GLOBALS['okt_l10n']['i_db_conf_environement_choice'] = 'Test the connection on the environment:';
 $GLOBALS['okt_l10n']['i_db_conf_environement_prod'] = 'production';
 $GLOBALS['okt_l10n']['i_db_conf_environement_dev'] = 'development';

@@ -14,7 +14,6 @@ use Okatea\Tao\Html\Checklister;
 
 class Database extends Controller
 {
-
 	public function page()
 	{
 		$this->okt->startDatabase();

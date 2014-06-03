@@ -299,23 +299,9 @@ class Application
 
 		$this->startRouter();
 
-		$this->user = new Visitor(
-			$this,
-			$this->options->get('cookie_auth_name'),
-			$this->options->get('cookie_auth_from'),
-			$this->config->app_path,
-			$this->request->getHttpHost(),
-			$this->request->isSecure()
-		);
+		$this->startUser();
 
-		$this->l10n = new Localization(
-			$this->user->language,
-			$this->config->language,
-			$this->user->timezone
-		);
-
-		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
-		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
+		$this->startLocalization();
 
 		$this->startModules();
 
@@ -473,6 +459,21 @@ class Application
 		}
 	}
 
+	public function startUser()
+	{
+		if (null === $this->user)
+		{
+			$this->user = new Visitor(
+				$this,
+				$this->options->get('cookie_auth_name'),
+				$this->options->get('cookie_auth_from'),
+				$this->config->app_path,
+				$this->request->getHttpHost(),
+				$this->request->isSecure()
+			);
+		}
+	}
+
 	public function startModules()
 	{
 		if (null === $this->modules)
@@ -483,6 +484,21 @@ class Application
 				$this,
 				$this->options->get('modules_dir')
 			);
+		}
+	}
+
+	public function startLocalization()
+	{
+		if (null === $this->l10n)
+		{
+			$this->l10n = new Localization(
+				$this->user->language,
+				$this->config->language,
+				$this->user->timezone
+			);
+
+			$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
+			$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
 		}
 	}
 

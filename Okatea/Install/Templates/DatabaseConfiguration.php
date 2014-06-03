@@ -39,27 +39,21 @@ $okt->page->js->addReady('
 ');
 ?>
 
-<?php if ($bDatabaseConfigurationOk && $okt->error->isEmpty()) : ?>
+<?php if (!is_null($oChecklist) && $okt->error->isEmpty()) : ?>
 
-<form
-	action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>"
-	method="post">
+<form action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>" method="post">
 
-		<?php if ($bDatabaseCreateDb) : ?>
-		<p><?php _e('i_db_conf_create_db') ?></p>
-		<?php endif; ?>
+	<?php echo $oChecklist->getHTML(); ?>
 
-		<p><?php _e('i_db_conf_ok') ?></p>
+	<?php if ($oChecklist->checkAll()) : ?>
+	<p><?php _e('i_db_conf_next') ?></p>
 
-	<p>
-		<input type="submit" value="<?php _e('c_c_next') ?>" />
-	</p>
+	<p><input type="submit" value="<?php _e('c_c_next') ?>" /></p>
+	<?php endif; ?>
 </form>
 
 <?php else : ?>
-<form
-	action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>"
-	method="post">
+<form action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
 	<p><?php _e('i_db_conf_environement_choice') ?></p>
 	<ul class="checklist">
@@ -136,8 +130,8 @@ $okt->page->js->addReady('
 	</div>
 
 	<p>
-		<input type="submit" value="<?php _e('c_c_next') ?>" /> <input
-			type="hidden" name="sended" value="1" />
+		<input type="submit" value="<?php _e('c_c_next') ?>" />
+		<input type="hidden" name="sended" value="1" />
 	</p>
 </form>
 <?php endif; ?>

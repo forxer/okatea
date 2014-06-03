@@ -18,24 +18,44 @@ class Controller extends BaseController
 		$this->okt->startLanguages();
 
 		# locales
+		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/site');
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/advanced');
 
 		$aValues = [
-			'app_path' => str_replace('install', '', dirname($this->request->getRequestUri())),
-			'domain' => $this->request->getHttpHost()
+			'title' => $this->okt->config->title,
+			'desc' => $this->okt->config->desc
 		];
+
+		$aValues['app_path'] = str_replace('install', '', dirname($this->request->getRequestUri()));
+		$aValues['domain'] = $this->request->getHttpHost();
 
 		if ($this->request->request->has('sended'))
 		{
+			$p_title = $this->request->request->get('p_title', array());
+
+			foreach ($p_title as $sLanguageCode => $sTitle)
+			{
+				if (empty($sTitle))
+				{
+					if ($this->okt->languages->unique) {
+						$this->okt->error->set(__('c_a_config_please_enter_website_title'));
+					}
+					else {
+						$this->okt->error->set(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
+					}
+				}
+			}
+
 			$aValues = [
-				'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
-				'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
+				'title' 	=> $p_title,
+				'desc' 		=> $this->request->request->get('p_desc', array()),
+				'app_path' 	=> Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
+				'domain' 	=> Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
 			];
 
 			# save configuration
 			if ($this->okt->error->isEmpty())
 			{
-				$this->okt->getConfig();
 				$this->okt->config->write($aValues);
 
 				return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));

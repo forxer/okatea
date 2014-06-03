@@ -14,6 +14,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # new way to load locales
 # use Carbon and Intl for displaying localized dates
 # removed dotclear/clearbricks
+! installation interface improvements
 ! use of patchwork/utf8
 ! reintroduced Contact module
 ! new CKEditor module

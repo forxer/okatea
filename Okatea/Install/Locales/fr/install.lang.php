@@ -37,8 +37,13 @@ $GLOBALS['okt_l10n']['i_checks_big_loose'] = 'La configuration serveur présente
 
 # db conf
 $GLOBALS['okt_l10n']['i_db_conf_title'] = 'Connexion à la base de données';
-$GLOBALS['okt_l10n']['i_db_conf_create_db'] = 'La base de données a été créée.';
-$GLOBALS['okt_l10n']['i_db_conf_ok'] = 'Connexion à la base de données réussie, fichier de connexion créé. Cliquez sur suivant pour créer les tables.';
+$GLOBALS['okt_l10n']['i_db_conf_create_db_ok'] = 'La base de données a été créée.';
+$GLOBALS['okt_l10n']['i_db_conf_create_db_ko'] = 'Impossible de créer la base de données.';
+$GLOBALS['okt_l10n']['i_db_conf_connection_file_ok'] = 'Le fichier de connexion a été créé.';
+$GLOBALS['okt_l10n']['i_db_conf_connection_file_ko'] = 'Impossible de créer le fichier de connexion.';
+$GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connexion à la base de données réussie.';
+$GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Échec de la connexion à la base de données.';
+$GLOBALS['okt_l10n']['i_db_conf_next'] = 'Cliquez sur suivant pour créer les tables.';
 $GLOBALS['okt_l10n']['i_db_conf_environement_choice'] = 'Tester la connexion sur l’environnement de :';
 $GLOBALS['okt_l10n']['i_db_conf_environement_prod'] = 'production';
 $GLOBALS['okt_l10n']['i_db_conf_environement_dev'] = 'développement';
