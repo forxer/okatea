@@ -13,12 +13,9 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	action="<?php echo $view->generateUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>"
 	method="post">
 
-	<?php
-	
-	echo $view->render('Users/User/PasswordForm', array(
+	<?php echo $view->render('Users/User/PasswordForm', array(
 		'aPageData' => $aPageData
-	));
-	?>
+	)); ?>
 
 	<p class="field col">
 		<label><?php echo form::checkbox('send_password_mail', 1, 0)?>

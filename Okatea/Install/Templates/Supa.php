@@ -9,6 +9,13 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('Layout');
 
+$okt->page->css->addFile($okt->options->public_url . '/components/passfield/css/passfield.css');
+$okt->page->js->addFile($okt->options->public_url . '/components/passfield/js/locales.js');
+$okt->page->js->addFile($okt->options->public_url . '/components/passfield/js/passfield.js');
+$okt->page->js->addReady('
+	$("#sudo_password, #admin_password").passField({ /*options*/ });
+');
+
 $okt->page->css->addCss('
 	#sudo_part {
 		font-size: 1.1em;

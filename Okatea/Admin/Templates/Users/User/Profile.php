@@ -47,30 +47,22 @@ $okt->page->css->addCss('
 		</p>
 		<?php endif; ?>
 
-	</div>
-	<!-- #tab-show-profil -->
+	</div><!-- #tab-show-profil -->
 
 	<div id="tab-user-form">
-		<form id="edit-user-form"
-			action="<?php echo $view->generateUrl('User_profile') ?>"
-			method="post">
+		<form id="edit-user-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
 
-			<?php
-			
-			echo $view->render('Users/User/UserForm', array(
+			<?php echo $view->render('Users/User/UserForm', array(
 				'aPageData' => $aPageData,
 				'aLanguages' => $aLanguages,
 				'aCivilities' => $aCivilities
-			));
-			?>
+			)); ?>
 
 			<p><?php echo form::hidden('form_sent', 1)?>
 			<?php echo $okt->page->formtoken(); ?>
-			<input type="submit" value="<?php _e('c_c_action_Edit') ?>" />
-			</p>
+			<input type="submit" value="<?php _e('c_c_action_Edit') ?>" /></p>
 		</form>
-	</div>
-	<!-- #tab-user-form -->
+	</div><!-- #tab-user-form -->
 
 	<?php if ($okt->checkPerm('change_password')) : ?>
 	<div id="tab-password-form">
@@ -79,7 +71,7 @@ $okt->page->css->addCss('
 			method="post">
 
 			<?php
-		
+
 		echo $view->render('Users/User/PasswordForm', array(
 			'aPageData' => $aPageData
 		));
