@@ -7,17 +7,14 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\L10n\DateTime;
-use Okatea\Tao\Users\Authentification;
 
 $view->extend('Layout');
 
 # module title tag
-$okt->page->addTitleTag($okt->module('News')
-	->getTitle());
+$okt->page->addTitleTag($okt->module('News')->getTitle());
 
 # module start breadcrumb
-$okt->page->addAriane($okt->module('News')
-	->getName(), $view->generateUrl('News_index'));
+$okt->page->addAriane($okt->module('News')->getName(), $view->generateUrl('News_index'));
 
 # Buttons set
 $okt->page->setButtonset('newsBtSt', array(
@@ -87,7 +84,7 @@ $okt->page->css->addCss('
 	</div>
 	<div class="buttonsetB">
 		<?php
-		
+
 		echo $view->render('Common/Search', array(
 			'sFormAction' => $view->generateUrl('News_index'),
 			'sSearchLabel' => __('m_news_list_Search'),
@@ -183,7 +180,7 @@ if (! $rsPosts->isEmpty())
 		# droits d'accès
 		if ($okt->module('News')->config->enable_group_perms)
 		:
-			
+
 			$aGroupsAccess = array();
 			$aPerms = $okt->module('News')->getPostPermissions($rsPosts->id);
 			foreach ($aPerms as $iPerm)
@@ -205,10 +202,10 @@ if (! $rsPosts->isEmpty())
 			<?php if ($rsPosts->active == 3) : ?>
 				<p><?php printf(__('m_news_list_sheduled_%s'), DateTime::full($rsPosts->created_at))?>
 			<?php else : ?>
-				
-						
-						
-						
+
+
+
+
 						<p><?php printf(($rsPosts->active == 2 ? __('m_news_list_added_%s') : __('m_news_list_published_%s')), DateTime::full($rsPosts->created_at))?>
 				<?php if ($rsPosts->updated_at > $rsPosts->created_at) : ?>
 				<span class="note"><?php printf(__('m_news_list_edited_%s'), DateTime::full($rsPosts->updated_at)) ?></span>
@@ -287,7 +284,7 @@ if (! $rsPosts->isEmpty())
 		</tbody>
 		</table>
 	<?php
-	
+
 	echo $view->render('Common/FormListBatches', array(
 		'sFormId' => 'posts-list',
 		'sActionsLabel' => __('m_news_list_posts_action'),

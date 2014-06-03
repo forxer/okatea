@@ -30,7 +30,7 @@ class Extension extends AbstractExtension
 
 	public function addStep($stepper)
 	{
-		$this->insertStepAfter($stepper, 'supa', [
+		$this->insertStepAfter($stepper, 'database', [
 			'step' => 'configuration',
 			'title' => __('i_step_config')
 		]);

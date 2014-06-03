@@ -24,11 +24,11 @@ class Utilities
 	 * Utilitaires sur les fichiers
 	 *
 	 */
-	
+
 	/**
 	 * Indique si un répertoire contient des fichiers
 	 *
-	 * @param string $sDir        	
+	 * @param string $sDir
 	 * @return boolean
 	 */
 	public static function dirHasFiles($sDir)
@@ -37,9 +37,9 @@ class Utilities
 		{
 			return false;
 		}
-		
+
 		$bReturn = false;
-		
+
 		foreach (new DirectoryIterator($sDir) as $oFileInfo)
 		{
 			if (! $oFileInfo->isDot())
@@ -48,7 +48,7 @@ class Utilities
 				break;
 			}
 		}
-		
+
 		return $bReturn;
 	}
 
@@ -68,26 +68,26 @@ class Utilities
 		{
 			throw new \Exception(__('c_c_upload_error_1'));
 		}
-		
+
 		switch ($aFile['error'])
 		{
 			default:
 			case UPLOAD_ERR_OK:
 				return true;
-			
+
 			case UPLOAD_ERR_INI_SIZE:
 			case UPLOAD_ERR_FORM_SIZE:
 				throw new \Exception(__('c_c_upload_error_2'));
-			
+
 			case UPLOAD_ERR_PARTIAL:
 				throw new \Exception(__('c_c_upload_error_3'));
-			
+
 			case UPLOAD_ERR_NO_FILE:
 				throw new \Exception(__('c_c_upload_error_4'));
-			
+
 			case UPLOAD_ERR_NO_TMP_DIR:
 				throw new \Exception(__('c_c_upload_error_5'));
-			
+
 			case UPLOAD_ERR_CANT_WRITE:
 				throw new \Exception(__('c_c_upload_error_6'));
 		}
@@ -115,10 +115,10 @@ class Utilities
 		{
 			$sPath = dirname($sPath);
 		}
-		
+
 		$aPathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sPath))));
 		$aBasePathComponents = array_filter(explode('/', str_replace('\\', '/', realpath($sBasePath))));
-		
+
 		foreach ($aPathComponents as $i => $k)
 		{
 			if (! isset($aBasePathComponents[$i]) || $aBasePathComponents[$i] != $k)
@@ -127,12 +127,12 @@ class Utilities
 			}
 		}
 	}
-	
+
 	/*
 	 * Utilitaires sur les chiffres
 	 *
 	 */
-	
+
 	/**
 	 * Vérifie si $val est un entier.
 	 * Contrairement à la fonction PHP cette fonction va retourner vrai pour '42'
@@ -160,17 +160,17 @@ class Utilities
 	{
 		$number = str_replace(__('c_c_number_thousands_separator'), '', $number);
 		$number = str_replace(__('c_c_number_decimals_separator'), '.', $number);
-		
+
 		if (! is_numeric($number))
 		{
 			return null;
 		}
-		
+
 		if (! $allow_negative && $number < 0)
 		{
 			$number = - $number;
 		}
-		
+
 		return $number;
 	}
 
@@ -233,7 +233,7 @@ class Utilities
 		{
 			return $ht;
 		}
-		
+
 		return ($ht + ($ht * $taux) / 100);
 	}
 
@@ -270,7 +270,7 @@ class Utilities
 	public static function getMonthlyPaymentsOfTAEG($k, $ti, $ta, $n)
 	{
 		$t = (floatval($ti) + floatval($ta)) / 100;
-		
+
 		return (floatval($k) * $t / 12) / (1 - pow(1 + $t / 12, - intval($n)));
 	}
 
@@ -292,31 +292,31 @@ class Utilities
 	public static function getMaxUploadSize()
 	{
 		static $iMaxUploadSize = null;
-		
+
 		if ($iMaxUploadSize === null)
 		{
 			$iMaxUploadSize = self::str2bytes(ini_get('upload_max_filesize'));
 			$iMaxPostSize = self::str2bytes(ini_get('post_max_size'));
-			
+
 			if ($iMaxPostSize < $iMaxUploadSize)
 			{
 				$iMaxUploadSize = $iMaxPostSize;
 			}
 		}
-		
+
 		return $iMaxUploadSize;
 	}
 
 	/**
 	 * Human localized readable file size.
 	 *
-	 * @param integer $size        	
+	 * @param integer $size
 	 * @return array
 	 */
 	public static function l10nFileSize($size, $dec = 2)
 	{
 		$aSize = self::getSize($size);
-		
+
 		return sprintf(__('c_c_x_bytes_size_in_' . $aSize['unit']), self::formatNumber($aSize['size'], $dec));
 	}
 
@@ -332,7 +332,7 @@ class Utilities
 		$v = trim($v);
 		$last = strtolower(substr($v, - 1, 1));
 		$v = (float) substr($v, 0, - 1);
-		
+
 		switch ($last)
 		{
 			case 'g':
@@ -342,7 +342,7 @@ class Utilities
 			case 'k':
 				$v *= 1024;
 		}
-		
+
 		return $v;
 	}
 
@@ -355,7 +355,7 @@ class Utilities
 	 * 'unit' => string ('bytes', 'KB', 'MB'...)
 	 * );
 	 *
-	 * @param integer $size        	
+	 * @param integer $size
 	 * @return array;
 	 */
 	public static function getSize($size)
@@ -364,7 +364,7 @@ class Utilities
 		static $mb = 1048576;
 		static $gb = 1073741824;
 		static $tb = 1099511627776;
-		
+
 		if ($size < $kb)
 		{
 			return array(
@@ -406,22 +406,22 @@ class Utilities
 	 * Calcul le nombre de d'heures, de minutes et de secondes
 	 * à partir d'un nombre de seconde.
 	 *
-	 * @param integer $iSeconds        	
+	 * @param integer $iSeconds
 	 * @return array
 	 */
 	public static function secondsToTime($iSeconds)
 	{
 		# extract hours
 		$iHours = floor($iSeconds / 3600);
-		
+
 		# extract minutes
 		$iDivisorForMinutes = $iSeconds % 3600;
 		$iMinutes = floor($iDivisorForMinutes / 60);
-		
+
 		# extract the remaining seconds
 		$iDivisorForSeconds = $iDivisorForMinutes % 60;
 		$iSeconds = ceil($iDivisorForSeconds);
-		
+
 		# return the final array
 		return array(
 			'h' => (integer) $iHours,
@@ -434,7 +434,7 @@ class Utilities
 	 * Retourne le nombre de d'heures, de minutes et de secondes
 	 * à partir d'un nombre de seconde pour l'afficher.
 	 *
-	 * @param integer $iSeconds        	
+	 * @param integer $iSeconds
 	 * @return string
 	 */
 	public static function displayableSecondsToTime($iSeconds)
@@ -443,40 +443,40 @@ class Utilities
 		{
 			return '&lt; 1 ' . __('c_c_second');
 		}
-		
+
 		$a = self::secondsToTime($iSeconds);
-		
+
 		$s = '';
-		
+
 		if ($a['h'] > 0)
 		{
 			$s .= $a['h'] . ' ' . ($a['h'] > 1 ? __('c_c_hours') : __('c_c_hour')) . ', ';
 		}
-		
+
 		if ($a['m'] > 0 || $a['h'] > 0)
 		{
 			$s .= $a['m'] . ' ' . ($a['m'] > 1 ? __('c_c_minutes') : __('c_c_minute')) . ' et ';
 		}
-		
+
 		if ($a['s'] > 0 || $a['m'] > 0 || $a['h'] > 0)
 		{
 			$s .= $a['s'] . ' ' . __('c_c_seconds');
 		}
-		
+
 		return $s;
 	}
-	
+
 	/*
 	 * Utilitaires sur les textes
 	 *
 	 */
-	
+
 	/**
 	 * Check email address
 	 *
 	 * Returns true if $email is a valid email address.
 	 *
-	 * @param string $sEmail        	
+	 * @param string $sEmail
 	 * @return boolean
 	 */
 	public static function isEmail($sEmail)
@@ -488,8 +488,8 @@ class Utilities
 	 * Retourne une chaine de caractère incrémentée
 	 * en fonction d'une liste donnée
 	 *
-	 * @param array $list        	
-	 * @param string $url        	
+	 * @param array $list
+	 * @param string $url
 	 * @return string
 	 */
 	public static function getIncrementedString($list, $str, $prefix = '')
@@ -503,7 +503,7 @@ class Utilities
 		}
 		natsort($list);
 		$t_url = end($list);
-		
+
 		if (preg_match('/^(' . preg_quote($str, '/') . ')(' . preg_quote($prefix, '/') . '+)([0-9]+)$/', $t_url, $m))
 		{
 			$i = (integer) $m[3];
@@ -512,7 +512,7 @@ class Utilities
 		{
 			$i = 1;
 		}
-		
+
 		return $str . $prefix . ($i + 1);
 	}
 
@@ -521,70 +521,70 @@ class Utilities
 		$handle = fopen($sFilename, 'rb');
 		$imgbinary = fread($handle, filesize($sFilename));
 		fclose($handle);
-		
+
 		if (null === $sMimeType)
 		{
 			$sMimeType = getimagesize($sFilename)['mime'];
 		}
-		
+
 		return 'data:' . $sMimeType . ';base64,' . base64_encode($imgbinary);
 	}
 
 	/**
 	 * Force le téléchargement d'un fichier $fileName
 	 *
-	 * @param string $fileName        	
+	 * @param string $fileName
 	 */
 	public static function forceDownload($fileName = null)
 	{
 		# désactive le temps max d'exécution
 		set_time_limit(0);
-		
+
 		# on a bien une demande de téléchargement de fichier
 		if (empty($fileName))
 		{
 			header('HTTP/1.1 404 Not Found');
 			exit();
 		}
-		
+
 		$name = basename($fileName);
-		
+
 		# vérifie l'existence et l'accès en lecture au fichier
 		if (! is_file($fileName) || ! is_readable($fileName))
 		{
 			header('HTTP/1.1 404 Not Found');
 			exit();
 		}
-		
+
 		# calcul la taille total du fichier
 		$size = filesize($fileName);
-		
+
 		# désactivation compression GZip
 		if (ini_get('zlib.output_compression'))
 		{
 			ini_set('zlib.output_compression', 'Off');
 		}
-		
+
 		# fermeture de la session
 		session_write_close();
-		
+
 		# désactive la mise en cache
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Cache-Control: post-check=0,pre-check=0');
 		header('Cache-Control: max-age=0');
 		header('Pragma: no-cache');
 		header('Expires: 0');
-		
+
 		# force le téléchargement du fichier avec un beau nom
 		header('Content-Type: application/force-download');
 		header('Content-Disposition: attachment; filename="' . $name . '"');
-		
+
 		# on indique au client la prise en charge de l'envoi de données par portion.
 		header("Accept-Ranges: bytes");
-		
+
 		# par défaut, on commence au début du fichier
 		$start = 0;
-		
+
 		# par défaut, on termine à la fin du fichier (envoi complet)
 		$end = $size - 1;
 		if (isset($_SERVER['HTTP_RANGE']))
@@ -595,7 +595,7 @@ class Utilities
 				header('HTTP/1.1 416 Requested Range Not Satisfiable');
 				exit();
 			}
-			
+
 			# modification de $start et $end et on vérifie leur validité
 			$start = ! empty($m[1]) ? (integer) $m[1] : null;
 			$end = ! empty($m[2]) ? (integer) $m[2] : $end;
@@ -604,95 +604,95 @@ class Utilities
 				header('HTTP/1.1 416 Requested Range Not Satisfiable');
 				exit();
 			}
-			
+
 			# si $start n'est pas spécifié, on commence à $size - $end
 			if ($start === null)
 			{
 				$start = $size - $end;
 				$end -= 1;
 			}
-			
+
 			# indique l'envoi d'un contenu partiel
 			header('HTTP/1.1 206 Partial Content');
-			
+
 			# décrit quelle plage de données est envoyée
 			header('Content-Range: ' . $start . '-' . $end . '/' . $size);
 		}
-		
+
 		# on indique bien la taille des données envoyées
 		header('Content-Length: ' . ($end - $start + 1));
-		
+
 		# ouverture du fichier en lecture et en mode binaire
 		$f = fopen($fileName, 'rb');
-		
+
 		# on se positionne au bon endroit ($start)
 		fseek($f, $start);
-		
+
 		# cette variable sert à connaître le nombre d'octet envoyé.
 		$remainingSize = $end - $start + 1;
-		
+
 		# calcul la taille des lots de données je choisi 4ko ou $remainingSize si plus petit que 4ko
 		$length = $remainingSize < 4096 ? $remainingSize : 4096;
-		
+
 		while (($datas = fread($f, $length)) !== false)
 		{
 			# envoie des données vers le client
 			echo $datas;
-			
+
 			# on a envoyé $length octets, on le soustrait alors du nombre d'octets restant
 			$remainingSize -= $length;
-			
+
 			# si tout est envoyé, on quitte la boucle
 			if ($remainingSize <= 0)
 			{
 				break;
 			}
-			
+
 			# si reste moins de $length octets à envoyer, on le rédefinit en conséquence
 			if ($remainingSize < $length)
 			{
 				$length = $remainingSize;
 			}
 		}
-		
+
 		fclose($f);
 	}
 
 	/**
 	 * Retourne le type de media en fonction du type mime
 	 *
-	 * @param string $mime_type        	
+	 * @param string $mime_type
 	 * @return string
 	 */
 	public static function getMediaType($mime_type)
 	{
 		$type_prefix = explode('/', $mime_type);
 		$type_prefix = $type_prefix[0];
-		
+
 		$media_type = null;
-		
+
 		switch ($type_prefix)
 		{
 			case 'image':
 				$media_type = 'image';
 				break;
-			
+
 			case 'audio':
 				$media_type = 'audio';
 				break;
-			
+
 			case 'text':
 				$media_type = 'text';
 				break;
-			
+
 			case 'video':
 				$media_type = 'video';
 				break;
-			
+
 			default:
 				$media_type = 'blank';
 		}
-		
+
 		switch ($mime_type)
 		{
 			case 'application/msword':
@@ -701,23 +701,23 @@ class Utilities
 			case 'application/postscript':
 				$media_type = 'document';
 				break;
-			
+
 			case 'application/pdf':
 				$media_type = 'pdf';
 				break;
-			
+
 			case 'application/msexcel':
 			case 'application/vnd.oasis.opendocument.spreadsheet':
 			case 'application/vnd.sun.xml.calc':
 				$media_type = 'spreadsheet';
 				break;
-			
+
 			case 'application/mspowerpoint':
 			case 'application/vnd.oasis.opendocument.presentation':
 			case 'application/vnd.sun.xml.impress':
 				$media_type = 'presentation';
 				break;
-			
+
 			case 'application/x-debian-package':
 			case 'application/x-gzip':
 			case 'application/x-java-archive':
@@ -728,23 +728,23 @@ class Utilities
 			case 'application/zip':
 				$media_type = 'package';
 				break;
-			
+
 			case 'application/octet-stream':
 				$media_type = 'executable';
 				break;
 			case 'application/x-shockwave-flash':
 				$media_type = 'video';
 				break;
-			
+
 			case 'application/ogg':
 				$media_type = 'audio';
 				break;
-			
+
 			case 'text/html':
 				$media_type = 'html';
 				break;
 		}
-		
+
 		return $media_type;
 	}
 
@@ -757,7 +757,7 @@ class Utilities
 	{
 		$time = explode(' ', microtime());
 		$exec_time = sprintf('%.3f', ((float) $time[0] + (float) $time[1]) - OKT_START_TIME);
-		
+
 		return $exec_time;
 	}
 
@@ -769,18 +769,18 @@ class Utilities
 	public static function getOktCacheFiles($bForce = false)
 	{
 		global $okt;
-		
+
 		static $oCacheFiles = null;
-		
+
 		if (null !== $oCacheFiles && ! $bForce)
 		{
 			return $oCacheFiles;
 		}
-		
-		$oCacheFiles = new Finder();
-		$oCacheFiles->in($okt->options->get('cache_dir'));
-		$oCacheFiles->sortByName();
-		
+
+		$oCacheFiles = (new Finder())
+			->in($okt->options->get('cache_dir'))
+			->sortByName();
+
 		return $oCacheFiles;
 	}
 
@@ -802,18 +802,19 @@ class Utilities
 	public static function getOktPublicCacheFiles($bForce = false)
 	{
 		global $okt;
-		
+
 		static $oCacheFiles = null;
-		
+
 		if (null !== $oCacheFiles && ! $bForce)
 		{
 			return $oCacheFiles;
 		}
-		
-		$oCacheFiles = new Finder();
-		$oCacheFiles->in($okt->options->public_dir . '/cache')->notName('index.html');
-		$oCacheFiles->sortByName();
-		
+
+		$oCacheFiles = (new Finder())
+			->in($okt->options->public_dir . '/cache')
+			->notName('index.html')
+			->sortByName();
+
 		return $oCacheFiles;
 	}
 
@@ -841,7 +842,7 @@ class Utilities
 	public static function random_key($len, $readable = false, $hash = false)
 	{
 		$key = '';
-		
+
 		if ($hash)
 		{
 			$key = substr(sha1(uniqid(rand(), true)), 0, $len);
@@ -849,7 +850,7 @@ class Utilities
 		elseif ($readable)
 		{
 			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			
+
 			for ($i = 0; $i < $len; ++ $i)
 			{
 				$key .= substr($chars, (mt_rand() % strlen($chars)), 1);
@@ -862,14 +863,14 @@ class Utilities
 				$key .= chr(mt_rand(33, 126));
 			}
 		}
-		
+
 		return $key;
 	}
 
 	/**
 	 * Format un chemin d'application en supprimant et/ou laissant les slash de début et de fin.
 	 *
-	 * @param string $sPath        	
+	 * @param string $sPath
 	 * @param boolean $bStartingSlash
 	 *        	(true)
 	 * @param boolean $bTrailingSlash
@@ -880,19 +881,19 @@ class Utilities
 	{
 		$sPath = preg_replace('|/+$|', '', $sPath);
 		$sPath = preg_replace('|^/+|', '', $sPath);
-		
+
 		if ($bStartingSlash)
 		{
 			$sPath = '/' . $sPath;
 		}
-		
+
 		if ($bTrailingSlash)
 		{
 			$sPath = $sPath . '/';
 		}
-		
+
 		$sPath = preg_replace('|/+|', '/', $sPath);
-		
+
 		return $sPath;
 	}
 }

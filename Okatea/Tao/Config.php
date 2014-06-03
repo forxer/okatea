@@ -14,7 +14,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Config
 {
-
 	/**
 	 * Le chemin du fichier source
 	 *
@@ -47,17 +46,17 @@ class Config
 	 * Constructeur.
 	 * Charge les données.
 	 *
-	 * @param SingleFileCache $oCache        	
-	 * @param string $sSourceFile        	
+	 * @param SingleFileCache $oCache
+	 * @param string $sSourceFile
 	 * @return void
 	 */
 	public function __construct($oCache, $sSourceFile)
 	{
 		$this->oCache = $oCache;
-		
+
 		$this->sSourceFile = $sSourceFile . '.yml';
 		$this->sCacheId = basename($sSourceFile);
-		
+
 		$this->loadData();
 	}
 
@@ -87,7 +86,7 @@ class Config
 		{
 			return $this->aData;
 		}
-		
+
 		return $this->getData($sName);
 	}
 
@@ -97,9 +96,9 @@ class Config
 		{
 			return $this->aData[$sName];
 		}
-		
+
 		trigger_error('There is no config data for ' . $sName . ' key.', E_USER_NOTICE);
-		
+
 		return null;
 	}
 
@@ -109,7 +108,7 @@ class Config
 		{
 			$this->generateCacheFile();
 		}
-		
+
 		$this->aData = $this->oCache->fetch($this->sCacheId);
 	}
 
@@ -126,25 +125,25 @@ class Config
 	public function write($aData)
 	{
 		$aData = array_merge($this->loadSource(), $aData);
-		
+
 		file_put_contents($this->sSourceFile, Yaml::dump($aData, 4));
-		
+
 		$this->generateCacheFile();
 	}
 
 	public function writeCurrent()
 	{
 		file_put_contents($this->sSourceFile, Yaml::dump($this->aData, 4));
-		
+
 		$this->generateCacheFile();
 	}
 
 	public function merge()
 	{
 		$aData = array_merge($this->oCache->fetch($this->sCacheId), $this->loadSource());
-		
+
 		file_put_contents($this->sSourceFile, Yaml::dump($aData));
-		
+
 		$this->generateCacheFile();
 	}
 }

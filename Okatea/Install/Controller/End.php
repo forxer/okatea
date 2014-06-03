@@ -20,17 +20,17 @@ class End extends Controller
 		{
 			copy($this->okt->options->get('root_dir') . '/.htaccess.oktDist', $this->okt->options->get('root_dir') . '/.htaccess');
 		}
-		
+
 		# install default theme
-		$this->okt->db = $this->okt->getDb();
-		
+		$this->okt->startDatabase();
+
 		$this->okt->themes = new ThemesCollection($this->okt, $this->okt->options->get('themes_dir'));
-		
+
 		$oInstallTheme = $this->okt->themes->getInstaller('DefaultTheme');
 		$oInstallTheme->doInstall();
-		
+
 		$this->okt->themes->getManager()->enableExtension('DefaultTheme');
-		
+
 		# render HTML
 		return $this->render('End', [
 			'title' => __('i_end_' . $this->session->get('okt_install_process_type') . '_title'),

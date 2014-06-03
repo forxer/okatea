@@ -16,28 +16,30 @@ class SingleFileCache extends CacheProvider
 {
 
 	/**
+	 * Single cache file path.
 	 *
 	 * @var string $file
 	 */
 	protected $file;
 
 	/**
+	 * Data to cache.
 	 *
 	 * @var array $data
 	 */
-	protected $data = null;
+	protected $data;
 
 	/**
 	 * Construct the file cache
 	 *
 	 * @param string $file
 	 *        	- the location where the cache file will be stored
-	 * @param array $aData        	
+	 * @param array $aData
 	 */
-	public function __construct($file, $aData = array())
+	public function __construct($file, array $aData = array())
 	{
 		$this->file = $file;
-		
+
 		if (! file_exists($this->file))
 		{
 			$this->data = $aData;
@@ -52,7 +54,7 @@ class SingleFileCache extends CacheProvider
 	/**
 	 * Load file data
 	 *
-	 * @param boolean $bForce        	
+	 * @param boolean $bForce
 	 * @return array
 	 */
 	protected function loadData($bForce = false)
@@ -61,12 +63,12 @@ class SingleFileCache extends CacheProvider
 		{
 			return $this->data;
 		}
-		
+
 		if (($json = file_get_contents($this->file)) === false)
 		{
 			return null;
 		}
-		
+
 		return json_decode($json, true);
 	}
 
@@ -97,7 +99,7 @@ class SingleFileCache extends CacheProvider
 		{
 			return $this->data[$id];
 		}
-		
+
 		return false;
 	}
 
@@ -115,9 +117,9 @@ class SingleFileCache extends CacheProvider
 	protected function doSave($id, $data, $lifeTime = 0)
 	{
 		$this->data[$id] = $data;
-		
+
 		$this->writeData();
-		
+
 		return true;
 	}
 
@@ -127,9 +129,9 @@ class SingleFileCache extends CacheProvider
 	protected function doDelete($id)
 	{
 		unset($this->data[$id]);
-		
+
 		$this->writeData();
-		
+
 		return true;
 	}
 
@@ -139,7 +141,7 @@ class SingleFileCache extends CacheProvider
 	protected function doFlush()
 	{
 		$this->data = array();
-		
+
 		return true;
 	}
 

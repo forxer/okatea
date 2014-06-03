@@ -12,7 +12,7 @@ class ApplicationShortcuts
 	/**
 	 * Okatea application instance.
 	 *
-	 * @var object Okatea\Tao\Application
+	 * @var Okatea\Tao\Application
 	 */
 	protected $okt;
 
@@ -35,15 +35,14 @@ class ApplicationShortcuts
 	 *
 	 * @param object $okt
 	 *        	Okatea application instance.
-	 * @param string $t_pages
-	 * @param string $t_pages_locales
-	 * @param string $t_categories
-	 * @param string $t_categories_locales
 	 */
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
+
+		$okt->startDatabase();
 		$this->db = $okt->db;
+
 		$this->error = $okt->error;
 	}
 }

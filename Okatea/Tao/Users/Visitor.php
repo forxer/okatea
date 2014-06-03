@@ -7,36 +7,15 @@
  */
 namespace Okatea\Tao\Users;
 
+use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Users;
 
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.
  */
-class Authentification
+class Visitor extends ApplicationShortcuts
 {
-
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oDb;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oError;
-
 	/**
 	 * Core users table.
 	 *
@@ -138,32 +117,30 @@ class Authentification
 	 */
 	public function __construct($okt, $sCookieName = 'otk_auth', $sCookieFromName = 'otk_auth_from', $sCookiePath = '/', $sCookieDomain = '', $bCookieSecure = false)
 	{
-		$this->okt = $okt;
-		$this->oDb = $okt->db;
-		$this->oError = $okt->error;
-		
-		$this->sUsersTable = $this->oDb->prefix . 'core_users';
-		$this->sGroupsTable = $this->oDb->prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $this->oDb->prefix . 'core_users_groups_locales';
-		
+		parent::__construct($okt);
+
+		$this->sUsersTable = $this->db->prefix . 'core_users';
+		$this->sGroupsTable = $this->db->prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $this->db->prefix . 'core_users_groups_locales';
+
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
-		
+
 		$this->sCookieName = $sCookieName;
 		$this->sCookieFromName = $sCookieFromName;
 		$this->sCookiePath = $sCookiePath;
 		$this->sCookieDomain = $sCookieDomain;
 		$this->bCookieSecure = $bCookieSecure;
-		
+
 		$this->authentication();
-		
+
 		$this->initLanguage($this->okt->options->get('cookie_language'));
 	}
 
 	/**
 	 * Retourne une information de l'utilisateur courant.
 	 *
-	 * @param string $sKey        	
+	 * @param string $sKey
 	 * @return mixed
 	 */
 	public function __get($sKey)
@@ -174,8 +151,8 @@ class Authentification
 	/**
 	 * Change la valeur d'une information de l'utilisateur courant.
 	 *
-	 * @param string $sKey        	
-	 * @param string $mValue        	
+	 * @param string $sKey
+	 * @param string $mValue
 	 * @return void
 	 */
 	public function __set($sKey, $mValue)
@@ -205,7 +182,7 @@ class Authentification
 	{
 		$iTsNow = time();
 		$iTsExpire = $iTsNow + $this->iVisitRememberTime;
-		
+
 		# Nous supposons qu'il est un invité
 		$aCookie = array(
 			'user_id' => 1,
@@ -213,35 +190,35 @@ class Authentification
 			'expiration_time' => 0,
 			'expire_hash' => 'Guest'
 		);
-		
+
 		# Si un cookie est disponible, on récupère le hash user_id et le mot de passe de lui
 		if (isset($_COOKIE[$this->sCookieName]))
 		{
 			list ($aCookie['user_id'], $aCookie['password_hash'], $aCookie['expiration_time'], $aCookie['expire_hash']) = explode('|', base64_decode($_COOKIE[$this->sCookieName]));
 		}
-		
+
 		# Si c'est un cookie d'un utilisateur connecté il ne devrait pas avoir déjà expiré
 		if (intval($aCookie['user_id']) > 1 && intval($aCookie['expiration_time']) > $iTsNow)
 		{
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
-			
+
 			# Nous validons maintenans le hash du cookie
 			if ($aCookie['expire_hash'] !== sha1($this->infos->f('password') . intval($aCookie['expiration_time'])))
 			{
 				$this->setDefaultUser();
 			}
-			
+
 			# Si nous sommes retournés à l'utilisateur par défaut, la connexion a échouée
 			if ($this->infos->f('id') == '1')
 			{
 				$this->setAuthCookie(base64_encode('1|' . Utilities::random_key(8, false, true) . '|' . $iTsExpire . '|' . Utilities::random_key(8, false, true)), $iTsExpire);
 				return;
 			}
-			
+
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
 			$this->setAuthCookie(base64_encode($this->infos->f('id') . '|' . $this->infos->f('password') . '|' . $iTsExpire . '|' . sha1($this->infos->f('password') . $iTsExpire)), $iTsExpire);
-			
+
 			$this->infos->set('is_guest', false);
 			$this->infos->set('is_admin', ($this->infos->f('group_id') == Groups::SUPERADMIN || $this->infos->f('group_id') == Groups::ADMIN));
 			$this->infos->set('is_superadmin', ($this->infos->f('group_id') == Groups::SUPERADMIN));
@@ -251,10 +228,10 @@ class Authentification
 		{
 			$this->setDefaultUser();
 		}
-		
+
 		# Store common name
 		$this->infos->set('usedname', Users::getUserDisplayName($this->infos->username, $this->infos->lastname, $this->infos->firstname, $this->infos->displayname));
-		
+
 		# And finally, store perms array
 		if ($this->infos->f('perms') != '' && ! is_array($this->infos->perms))
 		{
@@ -277,22 +254,26 @@ class Authentification
 	 */
 	public function authenticateUser($mUser, $sPasswordHash)
 	{
-		$sQuery = 'SELECT u.*, g.* ' . 'FROM ' . $this->sUsersTable . ' AS u ' . 'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' . 'WHERE u.status = 1 AND ';
-		
+		$sQuery =
+			'SELECT u.*, g.* ' .
+			'FROM ' . $this->sUsersTable . ' AS u ' .
+				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
+			'WHERE u.status = 1 AND ';
+
 		if (Utilities::isInt($mUser))
 		{
 			$sQuery .= 'u.id=' . (integer) $mUser . ' ';
 		}
 		else
 		{
-			$sQuery .= 'u.username=\'' . $this->oDb->escapeStr($mUser) . '\' ';
+			$sQuery .= 'u.username=\'' . $this->db->escapeStr($mUser) . '\' ';
 		}
-		
-		if (($rs = $this->oDb->select($sQuery)) === false)
+
+		if (($rs = $this->db->select($sQuery)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty() || ($sPasswordHash != $rs->f('password')))
 		{
 			$this->setDefaultUser();
@@ -311,15 +292,19 @@ class Authentification
 	public function setDefaultUser()
 	{
 		$sRemoteAddr = $this->okt->request->getClientIp();
-		
+
 		# Fetch guest user
-		$sQuery = 'SELECT u.*, g.* ' . 'FROM ' . $this->sUsersTable . ' AS u ' . 'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' . 'WHERE u.id=1';
-		
-		if (($rs = $this->oDb->select($sQuery)) === false)
+		$sQuery =
+			'SELECT u.*, g.* ' .
+			'FROM ' . $this->sUsersTable . ' AS u ' .
+				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
+			'WHERE u.id=1';
+
+		if (($rs = $this->db->select($sQuery)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return false;
@@ -328,7 +313,7 @@ class Authentification
 		{
 			$this->infos = $rs;
 		}
-		
+
 		$this->infos->set('timezone', $this->okt->config->timezone);
 		$this->infos->set('language', $this->okt->config->language);
 		$this->infos->set('is_guest', true);
@@ -339,54 +324,54 @@ class Authentification
 	/**
 	 * Perform login.
 	 *
-	 * @param string $sUsername        	
-	 * @param string $sPassword        	
-	 * @param bollean $save_pass        	
+	 * @param string $sUsername
+	 * @param string $sPassword
+	 * @param bollean $save_pass
 	 * @return boolean
 	 */
 	public function login($sUsername, $sPassword, $save_pass = false)
 	{
-		$sQuery = 'SELECT id, group_id, password ' . 'FROM ' . $this->sUsersTable . ' ' . 'WHERE username=\'' . $this->oDb->escapeStr($sUsername) . '\' ';
-		
-		if (($rs = $this->oDb->select($sQuery)) === false)
+		$sQuery = 'SELECT id, group_id, password ' . 'FROM ' . $this->sUsersTable . ' ' . 'WHERE username=\'' . $this->db->escapeStr($sUsername) . '\' ';
+
+		if (($rs = $this->db->select($sQuery)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
-			$this->oError->set(__('c_c_auth_unknown_user'));
+			$this->error->set(__('c_c_auth_unknown_user'));
 			return false;
 		}
-		
+
 		$sPasswordHash = $rs->password;
-		
+
 		if (! password_verify($sPassword, $sPasswordHash))
 		{
-			$this->oError->set(__('c_c_auth_wrong_password'));
+			$this->error->set(__('c_c_auth_wrong_password'));
 			return false;
 		}
 		elseif (password_needs_rehash($sPasswordHash, PASSWORD_DEFAULT))
 		{
 			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
-			
-			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'password=\'' . $this->oDb->escapeStr($sPasswordHash) . '\' ' . 'WHERE id=' . $rs->id;
-			
-			if (! $this->oDb->execute($sQuery))
+
+			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'password=\'' . $this->db->escapeStr($sPasswordHash) . '\' ' . 'WHERE id=' . $rs->id;
+
+			if (! $this->db->execute($sQuery))
 			{
 				return false;
 			}
 		}
-		
+
 		if ($rs->group_id == Groups::UNVERIFIED)
 		{
-			$this->oError->set(__('c_c_auth_account_awaiting_validation'));
+			$this->error->set(__('c_c_auth_account_awaiting_validation'));
 			return false;
 		}
-		
+
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
 		$this->setAuthCookie(base64_encode($rs->id . '|' . $sPasswordHash . '|' . $iTsExpire . '|' . sha1($sPasswordHash . $iTsExpire)), $iTsExpire);
-		
+
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
@@ -397,10 +382,10 @@ class Authentification
 				'message' => __('c_c_log_admin_message_by_form')
 			));
 		}
-		
+
 		# -- CORE TRIGGER : userLogin
 		$this->okt->triggers->callTrigger('userLogin', $rs);
-		
+
 		return true;
 	}
 
@@ -415,15 +400,15 @@ class Authentification
 		if ($this->infos->f('logged') != '')
 		{
 			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'last_visit=' . $this->infos->f('logged') . ' ' . 'WHERE id=' . $this->infos->f('id');
-			
-			if (! $this->oDb->execute($sQuery))
+
+			if (! $this->db->execute($sQuery))
 			{
 				return false;
 			}
 		}
-		
+
 		$this->setAuthCookie('', 0);
-		
+
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
@@ -433,32 +418,32 @@ class Authentification
 				'code' => 11
 			));
 		}
-		
+
 		return true;
 	}
-	
+
 	/* Language methods
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Initialisation de la langue de l'utilisateur.
 	 *
-	 * @param string $sCookieName        	
+	 * @param string $sCookieName
 	 * @return void
 	 */
 	public function initLanguage($sCookieName = 'otk_language')
 	{
 		$this->sCookieLangName = $sCookieName;
-		
+
 		$this->infos->set('language', $this->getDefaultLang());
-		
+
 		$this->setUserLang($this->infos->f('language'));
 	}
 
 	/**
 	 * Change la langue de l'utilisateur.
 	 *
-	 * @param string $sLanguage        	
+	 * @param string $sLanguage
 	 * @return void
 	 */
 	public function setUserLang($sLanguage)
@@ -467,25 +452,25 @@ class Authentification
 		{
 			return false;
 		}
-		
+
 		if (! $this->okt->languages->isActive($sLanguage))
 		{
 			return false;
 		}
-		
+
 		$this->infos->set('language', $sLanguage);
 		$this->setLangCookie($sLanguage);
-		
+
 		if (! $this->infos->f('is_guest'))
 		{
-			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'language=\'' . $this->oDb->escapeStr($sLanguage) . '\' ' . 'WHERE id=' . (integer) $this->infos->f('id');
-			
-			if (! $this->oDb->execute($sQuery))
+			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'WHERE id=' . (integer) $this->infos->f('id');
+
+			if (! $this->db->execute($sQuery))
 			{
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -497,7 +482,7 @@ class Authentification
 	protected function getDefaultLang()
 	{
 		$sLang = null;
-		
+
 		if (isset($_COOKIE[$this->sCookieLangName]))
 		{
 			$sLang = $_COOKIE[$this->sCookieLangName];
@@ -506,7 +491,7 @@ class Authentification
 		{
 			$sLang = $this->okt->request->getPreferredLanguage();
 		}
-		
+
 		if ($this->okt->languages->isActive($sLang))
 		{
 			return $sLang;
@@ -516,14 +501,14 @@ class Authentification
 			return $this->okt->config->language;
 		}
 	}
-	
+
 	/* Utils
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Définit la durée de la session en secondes.
 	 *
-	 * @param integer $iVisitTimeout        	
+	 * @param integer $iVisitTimeout
 	 * @return void
 	 */
 	public function setVisitTimeout($iVisitTimeout)
@@ -534,7 +519,7 @@ class Authentification
 	/**
 	 * Définit la durée d'enregistrement du cookie.
 	 *
-	 * @param integer $iVisitRememberTime        	
+	 * @param integer $iVisitRememberTime
 	 * @return void
 	 */
 	public function setVisitRememberTime($iVisitRememberTime)
@@ -583,7 +568,7 @@ class Authentification
 		{
 			$iExpire = time() + $this->iVisitRememberTime;
 		}
-		
+
 		setcookie($this->sCookieLangName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
 	}
 }

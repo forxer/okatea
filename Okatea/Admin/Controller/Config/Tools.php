@@ -578,7 +578,7 @@ class Tools extends Controller
 			# remove cookies
 			foreach ($this->request->cookies->keys() as $cookie)
 			{
-				$response->headers->clearCookie($cookie, $this->okt->config->app_path);
+				$response->headers->clearCookie($cookie, $this->okt->config->app_path, $this->request->getHttpHost());
 			}
 
 			return $response;

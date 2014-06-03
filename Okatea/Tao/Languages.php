@@ -7,14 +7,14 @@
  */
 namespace Okatea\Tao;
 
+use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 
 /**
  * Le gestionnnaire de langues.
  */
-class Languages
+class Languages extends ApplicationShortcuts
 {
-
 	/**
 	 * Liste des langues
 	 *
@@ -35,27 +35,6 @@ class Languages
 	 * @var boolean
 	 */
 	public $unique;
-
-	/**
-	 * Okatea application instance.
-	 *
-	 * @var object Okatea\Tao\Application
-	 */
-	protected $okt;
-
-	/**
-	 * L'objet gestionnaire de base de données.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * L'objet gestionnaire d'erreurs
-	 *
-	 * @var object
-	 */
-	protected $error;
 
 	/**
 	 * Le nom de la table languages
@@ -81,20 +60,18 @@ class Languages
 	/**
 	 * Constructor.
 	 *
-	 * @param Okatea\Tao\Application $okt        	
+	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
 	public function __construct($okt)
 	{
-		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
-		
+		parent::__construct($okt);
+
 		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'languages';
-		
+
 		$this->t_languages = $okt->db->prefix . 'core_languages';
-		
+
 		$this->load();
 	}
 
@@ -109,9 +86,9 @@ class Languages
 		{
 			$this->generateCacheList();
 		}
-		
+
 		$this->list = $this->cache->fetch($this->cache_id);
-		
+
 		$this->num = count($this->list);
 		$this->unique = (boolean) ($this->num == 1);
 	}
@@ -130,7 +107,7 @@ class Languages
 	/**
 	 * Retourne l'identifiant d'une langue selon son code.
 	 *
-	 * @param string $code        	
+	 * @param string $code
 	 * @return integer
 	 */
 	public function getIdByCode($code)
@@ -141,7 +118,7 @@ class Languages
 	/**
 	 * Retourne le d'une langue selon son identifiant.
 	 *
-	 * @param string $iLanguageId        	
+	 * @param string $iLanguageId
 	 * @return integer
 	 */
 	public function getCodeById($iLanguageId)
@@ -163,11 +140,11 @@ class Languages
 	public function generateCacheList()
 	{
 		$aLanguagesList = array();
-		
+
 		$list = $this->getLanguages(array(
 			'active' => 1
 		));
-		
+
 		while ($list->fetch())
 		{
 			$aLanguagesList[$list->f('code')] = array(
@@ -177,7 +154,7 @@ class Languages
 				'img' => $list->f('img')
 			);
 		}
-		
+
 		return $this->cache->save($this->cache_id, $aLanguagesList);
 	}
 
@@ -191,27 +168,27 @@ class Languages
 	public function getLanguages($params = array(), $count_only = false)
 	{
 		$reqPlus = '';
-		
+
 		if (! empty($params['id']))
 		{
 			$reqPlus .= ' AND id=' . (integer) $params['id'] . ' ';
 		}
-		
+
 		if (! empty($params['title']))
 		{
 			$reqPlus .= ' AND title=\'' . $this->db->escapeStr($params['title']) . '\' ';
 		}
-		
+
 		if (! empty($params['code']))
 		{
 			$reqPlus .= ' AND code=\'' . $this->db->escapeStr($params['code']) . '\' ';
 		}
-		
+
 		if (! empty($params['active']))
 		{
 			$reqPlus .= ' AND active=' . (integer) $params['active'] . ' ';
 		}
-		
+
 		if ($count_only)
 		{
 			$query = 'SELECT COUNT(id) AS num_languages ' . 'FROM ' . $this->t_languages . ' ' . 'WHERE 1 ' . $reqPlus;
@@ -219,7 +196,7 @@ class Languages
 		else
 		{
 			$query = 'SELECT id, title, code, img, active, ord ' . 'FROM ' . $this->t_languages . ' ' . 'WHERE 1 ' . $reqPlus;
-			
+
 			if (! empty($params['order']))
 			{
 				$query .= 'ORDER BY ' . $params['order'] . ' ';
@@ -228,18 +205,18 @@ class Languages
 			{
 				$query .= 'ORDER BY ord ASC ';
 			}
-			
+
 			if (! empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
 		}
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		if ($count_only)
 		{
 			return (integer) $rs->num_languages;
@@ -253,7 +230,7 @@ class Languages
 	/**
 	 * Retourne, sous forme de recordset, une langue donnée.
 	 *
-	 * @param integer $iLanguageId        	
+	 * @param integer $iLanguageId
 	 * @return Okatea\Tao\Database\Recordset
 	 */
 	public function getLanguage($iLanguageId)
@@ -266,7 +243,7 @@ class Languages
 	/**
 	 * Indique si une langue donnée existe.
 	 *
-	 * @param integer $iLanguageId        	
+	 * @param integer $iLanguageId
 	 * @param
 	 *        	boolean
 	 */
@@ -276,14 +253,14 @@ class Languages
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Ajout d'une langue.
 	 *
-	 * @param array $aData        	
+	 * @param array $aData
 	 * @return integer
 	 */
 	public function addLanguage(array $aData = array())
@@ -295,45 +272,45 @@ class Languages
 			return false;
 		}
 		$max_ord = $rs->f(0);
-		
+
 		$query = 'INSERT INTO ' . $this->t_languages . ' ( ' . 'title, code, img, active, ord ' . ' ) VALUES ( ' . '\'' . $this->db->escapeStr($aData['title']) . '\', ' . '\'' . $this->db->escapeStr(strip_tags($aData['code'])) . '\', ' . '\'' . $this->db->escapeStr($aData['img']) . '\', ' . (integer) $aData['active'] . ', ' . (integer) ($max_ord + 1) . '); ';
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		$iNewId = $this->db->getLastID();
-		
+
 		$this->afterProcess();
-		
+
 		return $iNewId;
 	}
 
 	/**
 	 * Mise à jour d'une langue.
 	 *
-	 * @param array $aData        	
+	 * @param array $aData
 	 * @return boolean
 	 */
 	public function updLanguage(array $aData = array())
 	{
 		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'title=\'' . $this->db->escapeStr($aData['title']) . '\', ' . 'code=\'' . $this->db->escapeStr(strip_tags($aData['code'])) . '\', ' . 'img=\'' . $this->db->escapeStr($aData['img']) . '\', ' . 'active=' . (integer) $aData['active'] . ' ' . 'WHERE id=' . (integer) $aData['id'];
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		$this->afterProcess();
-		
+
 		return true;
 	}
 
 	/**
 	 * Vérifie les données envoyées dans les formulaires.
 	 *
-	 * @param array $aData        	
+	 * @param array $aData
 	 * @return boolean
 	 */
 	public function checkPostData(array $aData = array())
@@ -342,19 +319,19 @@ class Languages
 		{
 			$this->error->set(__('c_a_config_l10n_error_need_title'));
 		}
-		
+
 		if (empty($aData['code']))
 		{
 			$this->error->set(__('c_a_config_l10n_error_need_code'));
 		}
-		
+
 		return $this->error->isEmpty();
 	}
 
 	/**
 	 * Switch le statut d'une langue donnée.
 	 *
-	 * @param integer $iLanguageId        	
+	 * @param integer $iLanguageId
 	 * @return boolean
 	 */
 	public function switchLangStatus($iLanguageId)
@@ -363,24 +340,24 @@ class Languages
 		{
 			return false;
 		}
-		
+
 		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iLanguageId;
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		$this->afterProcess();
-		
+
 		return true;
 	}
 
 	/**
 	 * Définit le statut d'une langue donnée.
 	 *
-	 * @param integer $iLanguageId        	
-	 * @param integer $iStatus        	
+	 * @param integer $iLanguageId
+	 * @param integer $iStatus
 	 * @return boolean
 	 */
 	public function setLangStatus($iLanguageId, $iStatus)
@@ -389,18 +366,18 @@ class Languages
 		{
 			return false;
 		}
-		
+
 		$iStatus = ($iStatus == 1) ? 1 : 0;
-		
+
 		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'active = ' . $iStatus . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		$this->afterProcess();
-		
+
 		return true;
 	}
 
@@ -409,25 +386,25 @@ class Languages
 	 *
 	 * @param integer $iLanguageId
 	 *        	langue
-	 * @param integer $iOrd        	
+	 * @param integer $iOrd
 	 * @return boolean
 	 */
 	public function updLanguageOrder($iLanguageId, $iOrd)
 	{
 		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'ord=' . (integer) $iOrd . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Suppression d'une langue.
 	 *
-	 * @param integer $iLanguageId        	
+	 * @param integer $iLanguageId
 	 * @return boolean
 	 */
 	public function delLanguage($iLanguageId)
@@ -436,25 +413,25 @@ class Languages
 		{
 			return false;
 		}
-		
+
 		$query = 'DELETE FROM ' . $this->t_languages . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-		
+
 		if (! $this->db->execute($query))
 		{
 			return false;
 		}
-		
+
 		$this->db->optimize($this->t_languages);
-		
+
 		$this->afterProcess();
-		
+
 		return true;
 	}
 
 	protected function afterProcess()
 	{
 		$this->generateCacheList();
-		
+
 		$this->okt->router->touchResources();
 	}
 }

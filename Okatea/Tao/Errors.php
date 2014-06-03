@@ -12,7 +12,6 @@ namespace Okatea\Tao;
  */
 class Errors
 {
-
 	/**
 	 * La pile d'erreurs
 	 *
@@ -71,8 +70,8 @@ class Errors
 	/**
 	 * Ajoute une erreur dans la pile des erreurs.
 	 *
-	 * @param mixed $mMessage        	
-	 * @param string $sDbError        	
+	 * @param mixed $mMessage
+	 * @param string $sDbError
 	 * @return void
 	 */
 	public function set($mMessage, $sDbError = '')
@@ -125,7 +124,7 @@ class Errors
 						$res .= "\t" . '<li><span class="errmsg">' . $v['message'] . '</span>' . ($v['db'] != '' ? '<br /><span class="errsql">' . $v['db'] . '</span>' : '') . '</li>' . PHP_EOL;
 					}
 					$res .= "</ul>\n";
-					
+
 					return $res;
 				}
 				else

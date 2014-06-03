@@ -28,7 +28,6 @@ use Okatea\Tao\Triggers;
 
 class Okatea extends Application
 {
-
 	/**
 	 * Tableau des codes de langues disponibles pour l'interface d'installation.
 	 *
@@ -69,13 +68,13 @@ class Okatea extends Application
 
 		$this->options = new ApplicationOptions($aOptions);
 
-		$this->getLogger();
+		$this->startLogger();
 
 		$this->triggers = new Triggers();
 
-		$this->getConfig();
+		$this->startConfig();
 
-		$this->httpFoundation();
+		$this->startHttpFoundation();
 
 		$this->start();
 	}
@@ -157,23 +156,6 @@ class Okatea extends Application
 		$this->triggers->callTrigger('installBeforeSendResponse');
 
 		$this->response->send();
-	}
-
-	public function getDb()
-	{
-		return $this->database();
-	}
-
-	/**
-	 * Load modules public or admin part.
-	 *
-	 * @return void
-	 */
-	public function startModules()
-	{
-		$this->db = $this->database();
-
-		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
 	}
 
 	/**

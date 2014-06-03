@@ -17,22 +17,22 @@ class Database extends Controller
 
 	public function page()
 	{
-		$db = $this->okt->getDb();
-		
+		$this->okt->startDatabase();
+
 		$oChecklist = new Checklister();
-		
+
 		foreach (new DirectoryIterator($this->okt->options->get('okt_dir') . '/Install/SqlSchema/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml')
 			{
 				continue;
 			}
-			
-			$xsql = new XmlSql($db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->session->get('okt_install_process_type'));
-			$xsql->replace('{{PREFIX}}', $db->prefix);
+
+			$xsql = new XmlSql($this->okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->session->get('okt_install_process_type'));
+			$xsql->replace('{{PREFIX}}', $this->okt->db->prefix);
 			$xsql->execute();
 		}
-		
+
 		return $this->render('Database', [
 			'oChecklist' => $oChecklist
 		]);

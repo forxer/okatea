@@ -77,34 +77,34 @@ class Supa extends Controller
 			# si pas d'erreur on ajoutent les utilisateurs
 			if ($this->okt->error->isEmpty())
 			{
-				$db = $this->okt->getDb();
+				$this->okt->startDatabase();
 
 				$iCurrentTimestamp = time();
 
 				# insertion invité id 1
 				$query =
-					'INSERT INTO `' . $db->prefix . 'core_users` (`id`, `username`, `group_id`, `password`) ' .
+					'INSERT INTO `' . $this->okt->db->prefix . 'core_users` (`id`, `username`, `group_id`, `password`) ' .
 					'VALUES ( 1, \'Guest\', 3, \'Guest\' );';
 
-				$db->query($query);
+				$this->okt->db->query($query);
 
 				# insertion superadmin (id 2)
 				$query =
-					'INSERT INTO `' . $db->prefix . 'core_users` (' .
+					'INSERT INTO `' . $this->okt->db->prefix . 'core_users` (' .
 						'`id`, `username`, `group_id`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`' .
 					') VALUES ( ' .
 						'2, ' .
-						'\'' . $db->escapeStr($aUsersData['sudo']['username']) . '\', ' .
+						'\'' . $this->okt->db->escapeStr($aUsersData['sudo']['username']) . '\', ' .
 						'1, ' .
-						'\'' . $db->escapeStr(password_hash($aUsersData['sudo']['password'], PASSWORD_DEFAULT)) . '\', ' .
+						'\'' . $this->okt->db->escapeStr(password_hash($aUsersData['sudo']['password'], PASSWORD_DEFAULT)) . '\', ' .
 						'\'fr\', ' .
 						'\'Europe/Paris\', ' .
-						'\'' . $db->escapeStr($aUsersData['sudo']['email']) . '\', ' .
+						'\'' . $this->okt->db->escapeStr($aUsersData['sudo']['email']) . '\', ' .
 						$iCurrentTimestamp . ', ' .
 						$iCurrentTimestamp . ' ' .
 					');';
 
-				$db->query($query);
+				$this->okt->db->query($query);
 
 				$this->session->set('okt_install_sudo_user', $aUsersData['sudo']['username']);
 				$this->session->set('okt_install_sudo_password', $aUsersData['sudo']['password']);
@@ -114,21 +114,21 @@ class Supa extends Controller
 				if (!empty($aUsersData['admin']['username']) && !empty($aUsersData['admin']['password']) && !empty($aUsersData['admin']['email']))
 				{
 					$query =
-						'INSERT INTO `' . $db->prefix . 'core_users` (' .
+						'INSERT INTO `' . $this->okt->db->prefix . 'core_users` (' .
 							'`id`, `username`, `group_id`, `password`, `language`, `timezone`, `email`, `registered`, `last_visit`' .
 						') VALUES ( ' .
 							'3, ' .
-							'\'' . $db->escapeStr($aUsersData['admin']['username']) . '\', ' .
+							'\'' . $this->okt->db->escapeStr($aUsersData['admin']['username']) . '\', ' .
 							'2, ' .
-							'\'' . $db->escapeStr(password_hash($aUsersData['admin']['password'], PASSWORD_DEFAULT)) . '\', ' .
+							'\'' . $this->okt->db->escapeStr(password_hash($aUsersData['admin']['password'], PASSWORD_DEFAULT)) . '\', ' .
 							'\'fr\', ' .
 							'\'Europe/Paris\', ' .
-							'\'' . $db->escapeStr($aUsersData['admin']['email']) . '\', ' .
+							'\'' . $this->okt->db->escapeStr($aUsersData['admin']['email']) . '\', ' .
 							$iCurrentTimestamp . ', ' .
 							$iCurrentTimestamp . ' ' .
 						');';
 
-					$db->query($query);
+					$this->okt->db->query($query);
 				}
 
 				return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));

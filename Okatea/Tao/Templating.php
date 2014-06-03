@@ -26,15 +26,15 @@ class Templating extends PhpEngine
 	public function __construct($okt, $aTplDirectories)
 	{
 		$this->okt = $okt;
-		
+
 		$loader = new FilesystemLoader($aTplDirectories);
-		
+
 		$loader->setLogger($this->okt->logger);
-		
+
 		parent::__construct(new TemplateNameParser(), $loader);
-		
+
 		$this->set(new SlotsHelper());
-		
+
 		$this->addEscapers();
 	}
 
@@ -47,7 +47,7 @@ class Templating extends PhpEngine
 	 *        	An array of parameters to pass to the view
 	 * @param Response $response
 	 *        	A Response instance
-	 *        	
+	 *
 	 * @return Response A Response instance
 	 */
 	public function renderResponse($view, array $parameters = array(), Response $response = null)
@@ -56,9 +56,9 @@ class Templating extends PhpEngine
 		{
 			$response = new Response();
 		}
-		
+
 		$response->setContent($this->render($view, $parameters));
-		
+
 		return $response;
 	}
 
@@ -75,7 +75,7 @@ class Templating extends PhpEngine
 	public function addEscapers()
 	{
 		$that = $this;
-		
+
 		$this->setEscaper('html', array(
 			'Okatea\Tao\Html\Escaper',
 			'html'

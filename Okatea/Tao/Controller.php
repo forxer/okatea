@@ -18,7 +18,6 @@ use Okatea\Tao\Application;
  */
 class Controller
 {
-
 	protected $okt;
 
 	protected $request;
@@ -33,7 +32,7 @@ class Controller
 	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
-		
+
 		# shortcuts
 		$this->request = & $okt->request;
 		$this->session = & $okt->session;
@@ -49,7 +48,7 @@ class Controller
 	 *        	The status code to use for the Response
 	 * @param array $headers
 	 *        	The headers (Location is always set to the given url)
-	 *        	
+	 *
 	 * @return RedirectResponse
 	 */
 	public function redirect($url, $status = 302, $headers = array())
@@ -67,7 +66,7 @@ class Controller
 	 *
 	 * @param string|Symfony\Component\Templating\TemplateReferenceInterface $view
 	 *        	A template name or a TemplateReferenceInterface instance
-	 *        	
+	 *
 	 * @return Boolean true if the template view exists, false otherwise
 	 */
 	public function viewExists($view)
@@ -82,7 +81,7 @@ class Controller
 	 *        	The view name
 	 * @param array $parameters
 	 *        	An array of parameters to pass to the view
-	 *        	
+	 *
 	 * @return string The rendered view
 	 */
 	public function renderView($view, array $parameters = array())
@@ -99,7 +98,7 @@ class Controller
 	 *        	An array of parameters to pass to the view
 	 * @param Response $response
 	 *        	A response instance
-	 *        	
+	 *
 	 * @return Response A Response instance
 	 */
 	public function render($view, array $parameters = array(), Response $response = null)
@@ -108,7 +107,7 @@ class Controller
 		{
 			$response = new Response();
 		}
-		
+
 		return $this->okt->tpl->renderResponse($view, $parameters, $response);
 	}
 
@@ -121,25 +120,25 @@ class Controller
 	 *        	An array of parameters to pass to the view
 	 * @param StreamedResponse $response
 	 *        	A response instance
-	 *        	
+	 *
 	 * @return StreamedResponse A StreamedResponse instance
 	 */
 	public function stream($view, array $parameters = array(), StreamedResponse $response = null)
 	{
 		$templating = $this->okt->tpl;
-		
+
 		$callback = function () use($templating, $view, $parameters)
 		{
 			$templating->stream($view, $parameters);
 		};
-		
+
 		if (null === $response)
 		{
 			return new StreamedResponse($callback);
 		}
-		
+
 		$response->setCallback($callback);
-		
+
 		return $response;
 	}
 
@@ -150,7 +149,7 @@ class Controller
 	{
 		$response = new Response();
 		$response->setStatusCode(Response::HTTP_UNAUTHORIZED);
-		
+
 		return $this->render('401', array(), $response);
 	}
 
@@ -161,7 +160,7 @@ class Controller
 	{
 		$response = new Response();
 		$response->setStatusCode(Response::HTTP_NOT_FOUND);
-		
+
 		return $this->render('404', array(), $response);
 	}
 
@@ -173,7 +172,7 @@ class Controller
 		$response = new Response();
 		$response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
 		$response->headers->set('Retry-After', 3600);
-		
+
 		return $this->render('503', array(), $response);
 	}
 
@@ -186,9 +185,9 @@ class Controller
 	{
 		$pathInfo = $this->request->getPathInfo();
 		$requestUri = $this->request->getRequestUri();
-		
+
 		$url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
-		
+
 		return $this->redirect($url, Response::HTTP_MOVED_PERMANENTLY);
 	}
 }

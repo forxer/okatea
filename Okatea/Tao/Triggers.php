@@ -12,7 +12,6 @@ namespace Okatea\Tao;
  */
 class Triggers
 {
-
 	/**
 	 * La pile qui contient les déclencheurs.
 	 *
@@ -112,7 +111,7 @@ class Triggers
 		{
 			return null;
 		}
-		
+
 		if (empty($sTrigger))
 		{
 			return $this->aStack;
@@ -121,7 +120,7 @@ class Triggers
 		{
 			return $this->aStack[$sTrigger];
 		}
-		
+
 		return null;
 	}
 
@@ -163,16 +162,16 @@ class Triggers
 		{
 			return null;
 		}
-		
+
 		$args = func_get_args();
 		array_shift($args);
-		
+
 		$sReturn = '';
 		foreach ($this->aStack[$sTrigger] as $f)
 		{
 			$sReturn .= call_user_func_array($f, $args);
 		}
-		
+
 		return $sReturn;
 	}
 }

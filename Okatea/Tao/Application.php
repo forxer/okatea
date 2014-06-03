@@ -27,9 +27,9 @@ use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
-use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
+use Okatea\Tao\Users\Visitor;
 use Okatea\Website\Router;
 use Patchwork\Utf8\Bootup as Utf8Bootup;
 use Symfony\Component\Debug\Debug;
@@ -50,7 +50,6 @@ use Symfony\Component\Routing\RequestContext;
  */
 class Application
 {
-
 	const VERSION = '2.0-beta5';
 
 	/**
@@ -217,7 +216,7 @@ class Application
 	/**
 	 * Le gestionnaire d'utilisateur en cours.
 	 *
-	 * @var Okatea\Tao\Authentification
+	 * @var Okatea\Tao\Visitor
 	 */
 	public $user;
 
@@ -254,13 +253,12 @@ class Application
 	 * Constructor.
 	 *
 	 * @param Composer\Autoload\ClassLoader $autoloader
-	 * @param string $sRootPath
+	 * @param array $aOptions
 	 *
 	 * @return void
 	 */
 	public function __construct($autoloader, array $aOptions = array())
 	{
-		# Autoloader shortcut
 		$this->autoloader = $autoloader;
 
 		$this->options = new ApplicationOptions($aOptions);
@@ -269,43 +267,63 @@ class Application
 		Utf8Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
 		Utf8Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
 
+		$this->startLogger();
 
-		$this->getLogger();
+		$this->startConfig();
 
-		$this->getConfig();
-
-		$this->httpFoundation();
+		$this->startHttpFoundation();
 
 		$this->start();
 	}
 
+	/**
+	 * Return application version.
+	 *
+	 * @return string
+	 */
+	public function getVersion()
+	{
+		return self::VERSION;
+	}
+
+	/**
+	 * Run main application.
+	 *
+	 * @return void
+	 */
 	public function run()
 	{
-		$this->db = $this->database();
+		$this->startDatabase();
 
-		$this->languages = new Languages($this);
+		$this->startLanguages();
 
-		$this->router = new Router($this, $this->options->get('config_dir') . '/Routes', $this->options->get('cache_dir') . '/routing', $this->options->get('debug'), $this->logger);
+		$this->startRouter();
 
-		$this->user = new Authentification($this, $this->options->get('cookie_auth_name'), $this->options->get('cookie_auth_from'), $this->config->app_path, '', $this->request->isSecure());
+		$this->user = new Visitor(
+			$this,
+			$this->options->get('cookie_auth_name'),
+			$this->options->get('cookie_auth_from'),
+			$this->config->app_path,
+			$this->request->getHttpHost(),
+			$this->request->isSecure()
+		);
 
-		$this->l10n = new Localization($this->user->language, $this->config->language, $this->user->timezone);
+		$this->l10n = new Localization(
+			$this->user->language,
+			$this->config->language,
+			$this->user->timezone
+		);
 
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
 
-		$this->modules = new ModulesCollection($this, $this->options->get('modules_dir'));
+		$this->startModules();
 
-		$this->themes = new ThemesCollection($this, $this->options->get('themes_dir'));
+		$this->startThemes();
 
 		$this->triggers = new Triggers();
 
 		$this->navigation = new Menus($this);
-	}
-
-	public function getVersion()
-	{
-		return self::VERSION;
 	}
 
 	/**
@@ -316,16 +334,6 @@ class Application
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
 
-		# Init MB ext
-		/* Done by patchwork UTF8
-		mb_internal_encoding('UTF-8');
-		mb_regex_encoding('UTF-8');
-		*/
-
-		# Default timezone (crushed later by user settings)
-		//date_default_timezone_set('Europe/Paris');
-
-
 		$this->error = new Errors();
 
 		# print errors in debug mode
@@ -333,21 +341,30 @@ class Application
 		{
 			Debug::enable();
 			DebugErrorHandler::setLogger($this->logger);
-
-			//$this->debugbar = new DebugBar($this);
 		}
 
 		# otherwise log them
 		else
 		{
-			$phpLoggerAll = new Logger('php_error', array(
-				new FingersCrossedHandler(new StreamHandler($this->options->get('logs_dir') . '/php_errors.log', Logger::INFO), Logger::WARNING)
-			), array(
-				new IntrospectionProcessor(),
-				new WebProcessor(),
-				new MemoryUsageProcessor(),
-				new MemoryPeakUsageProcessor()
-			));
+			$phpLoggerAll = new Logger(
+				'php_error',
+				[
+					new FingersCrossedHandler(
+						new StreamHandler(
+							$this->options->get('logs_dir') . '/php_errors.log',
+							Logger::INFO
+						),
+						Logger::WARNING
+					)
+				],
+				[
+					new IntrospectionProcessor(),
+					new WebProcessor(),
+					new MemoryUsageProcessor(),
+					new MemoryPeakUsageProcessor()
+				]
+			);
+
 			ErrorHandler::register($phpLoggerAll);
 		}
 	}
@@ -357,43 +374,132 @@ class Application
 	 *
 	 * @return object
 	 */
-	protected function database()
+	public function startDatabase()
 	{
-		if (! file_exists($this->options->get('config_dir') . '/connection.php'))
+		if (null === $this->db)
 		{
-			throw new \RuntimeException('Unable to find database connection file !');
+			if (! file_exists($this->options->get('config_dir') . '/connection.php'))
+			{
+				throw new \RuntimeException('Unable to find database connection file !');
+			}
+
+			require $this->options->get('config_dir') . '/connection.php';
+
+			$this->db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
+
+			if ($this->db->hasError())
+			{
+				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
+			}
 		}
-
-		require $this->options->get('config_dir') . '/connection.php';
-
-		$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
-
-		if ($db->hasError())
-		{
-			throw new \RuntimeException('Unable to connect to database. ' . $db->error());
-		}
-
-		return $db;
 	}
 
-	protected function httpFoundation()
+	public function startLanguages()
 	{
-		$this->request = Request::createFromGlobals();
+		if (null === $this->languages)
+		{
+			$this->languages = new Languages($this);
+		}
+	}
 
-		$this->session = new Session(new NativeSessionStorage(array(
-			'cookie_lifetime' => 0,
-			'cookie_path' => $this->config->app_path,
-			'cookie_secure' => $this->request->isSecure(),
-			'cookie_httponly' => true,
-			'use_trans_sid' => false,
-			'use_only_cookies' => true
-		), new \SessionHandler()), null, new FlashMessages('okt_flashes'), $this->options->get('csrf_token_name'));
+	public function startHttpFoundation()
+	{
+		if (null === $this->request)
+		{
+			$this->request = Request::createFromGlobals();
 
-		$this->request->setSession($this->session);
+			$this->session = new Session(
+				new NativeSessionStorage(
+					[
+						'cookie_lifetime' 	=> 0,
+						'cookie_path' 		=> $this->config->app_path,
+						'cookie_secure' 	=> $this->request->isSecure(),
+						'cookie_httponly' 	=> true,
+						'use_trans_sid' 	=> false,
+						'use_only_cookies' 	=> true
+					],
+					new \SessionHandler()
+				),
+				null,
+				new FlashMessages('okt_flashes'),
+				$this->options->get('csrf_token_name')
+			);
+
+			$this->request->setSession($this->session);
+		}
+	}
+
+	public function startRouter()
+	{
+		if (null === $this->router)
+		{
+			$this->router = new Router(
+				$this,
+				$this->options->get('config_dir') . '/Routes',
+				$this->options->get('cache_dir') . '/routing',
+				$this->options->get('debug'),
+				$this->logger
+			);
+		}
+	}
+
+	public function startAdminRouter()
+	{
+		if (null === $this->adminRouter)
+		{
+			$this->adminRouter = new adminRouter(
+				$this,
+				$this->options->get('config_dir') . '/RoutesAdmin',
+				$this->options->get('cache_dir') . '/routing/admin',
+				$this->options->get('debug'),
+				$this->logger
+			);
+		}
+	}
+
+	public function startLogger()
+	{
+		if (null === $this->logger)
+		{
+			$this->logger = new Logger('okatea', array(
+					new FirePHPHandler()
+				),
+				array(
+					new IntrospectionProcessor(),
+					new WebProcessor(),
+					new MemoryUsageProcessor(),
+					new MemoryPeakUsageProcessor()
+			));
+		}
+	}
+
+	public function startModules()
+	{
+		if (null === $this->modules)
+		{
+			$this->startDatabase();
+
+			$this->modules = new ModulesCollection(
+				$this,
+				$this->options->get('modules_dir')
+			);
+		}
+	}
+
+	public function startThemes()
+	{
+		if (null === $this->themes)
+		{
+			$this->startDatabase();
+			$this->themes = new ThemesCollection(
+				$this,
+				$this->options->get('themes_dir')
+			);
+		}
 	}
 
 	/**
-	 * Load modules public or admin part.
+	 * Load public or admin modules parts.
 	 *
 	 * @return void
 	 */
@@ -403,18 +509,13 @@ class Application
 	}
 
 	/**
-	 * Load themes public or admin part.
+	 * Load public or admin themes parts.
 	 *
 	 * @return void
 	 */
 	protected function loadThemes($sPart)
 	{
 		$this->themes->load($sPart);
-	}
-
-	public function loadAdminRouter()
-	{
-		$this->adminRouter = new adminRouter($this, $this->options->get('config_dir') . '/RoutesAdmin', $this->options->get('cache_dir') . '/routing/admin', $this->options->get('debug'), $this->logger);
 	}
 
 	public function getRequestContext()
@@ -426,23 +527,6 @@ class Application
 		}
 
 		return $this->requestContext;
-	}
-
-	public function getLogger()
-	{
-		if (null === $this->logger)
-		{
-			$this->logger = new Logger('okatea', array(
-				new FirePHPHandler()
-			), array(
-				new IntrospectionProcessor(),
-				new WebProcessor(),
-				new MemoryUsageProcessor(),
-				new MemoryPeakUsageProcessor()
-			));
-		}
-
-		return $this->logger;
 	}
 
 	public function getUsers()
@@ -639,9 +723,11 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function getConfig()
+	public function startConfig()
 	{
 		$this->cacheConfig = new SingleFileCache($this->options->get('cache_dir') . '/static.php');
+
+	//	$this->cacheConfig->setNamespace('StaticCache');
 
 		$this->config = $this->newConfig('conf_site');
 

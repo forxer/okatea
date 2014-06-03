@@ -38,30 +38,30 @@ class Okatea extends Application
 	public function run()
 	{
 		parent::run();
-		
-		$this->loadAdminRouter();
-		
+
+		$this->startAdminRouter();
+
 		$this->loadLogAdmin();
-		
+
 		$this->loadPageHelpers();
-		
+
 		$this->matchRequest();
-		
+
 		if ($this->checkUser() === true)
 		{
 			$this->defineAdminPerms();
-			
+
 			$this->buildAdminMenu();
-			
+
 			$this->loadTplEngine();
-			
+
 			$this->loadThemes('admin');
-			
+
 			$this->loadModules('admin');
-			
+
 			$this->callController();
 		}
-		
+
 		$this->sendResponse();
 	}
 
@@ -89,10 +89,10 @@ class Okatea extends Application
 	{
 		$this->setTplDirectory(__DIR__ . '/Templates/%name%.php');
 		$this->setTplDirectory($this->options->get('modules_dir') . '/%name%.php');
-		
+
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);
-		
+
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);
 	}
@@ -103,62 +103,62 @@ class Okatea extends Application
 		if (! $this->options->get('debug') && count($this->request->request) > 0 && (! $this->request->request->has($this->options->get('csrf_token_name')) || ! $this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
 		{
 			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
-			
+
 			$this->user->logout();
-			
+
 			$this->logAdmin->critical(array(
 				'user_id' => $this->user->infos->f('id'),
 				'username' => $this->user->infos->f('username'),
 				'message' => 'Security CSRF blocking',
 				'code' => 0
 			));
-			
+
 			$this->response = new RedirectResponse($this->adminRouter->generate('login'));
-			
+
 			return false;
 		}
-		
+
 		# Vérification de l'utilisateur en cours sur les parties de l'administration où l'utilisateur doit être identifié
 		if ($this->request->attributes->get('_route') !== 'login' && $this->request->attributes->get('_route') !== 'forget_password')
 		{
 			# on stocke l'URL de la page dans un cookie
 			$this->user->setAuthFromCookie($this->request->getUri());
-			
+
 			# si c'est un invité, il n'a rien à faire ici
 			if ($this->user->is_guest)
 			{
 				$this->page->flash->warning(__('c_c_auth_not_logged_in'));
-				
+
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
-				
+
 				return false;
 			}
-			
+
 			# il faut au minimum la permission d'utilisation de l'interface d'administration
 			elseif (! $this->checkPerm('usage'))
 			{
 				$this->page->flash->error(__('c_c_auth_restricted_access'));
-				
+
 				$this->user->logout();
-				
+
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
-				
+
 				return false;
 			}
-			
+
 			# enfin, si on est en maintenance, il faut être superadmin
 			elseif ($this->config->maintenance['admin'] && ! $this->user->is_superadmin)
 			{
 				$this->page->flash->error(__('c_c_auth_maintenance_admin'));
-				
+
 				$this->user->logout();
-				
+
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
-				
+
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -168,7 +168,7 @@ class Okatea extends Application
 		{
 			return null;
 		}
-		
+
 		if ($this->config->admin_menu_position != 'top')
 		{
 			Page::$formatHtmlMainMenu = array(
@@ -178,7 +178,7 @@ class Okatea extends Application
 				'separator' => '',
 				'emptyBlock' => '<div%s>&nbsp;</div>'
 			);
-			
+
 			Page::$formatHtmlSubMenu = array(
 				'block' => '<div%2$s><ul class="sub-menu">%1$s</ul></div>',
 				'item' => '<li%3$s class=""><span class="ui-icon ui-icon-arrow-1-e"></span><a href="%2$s">%1$s</a>%4$s</li>',
@@ -204,10 +204,10 @@ class Okatea extends Application
 				'emptyBlock' => '<div%s>&nbsp;</div>'
 			);
 		}
-		
+
 		# Menu principal
 		$this->page->mainMenu = new AdminMenu('mainMenu-' . $this->config->admin_menu_position, Page::$formatHtmlMainMenu);
-		
+
 		# Accueil
 		$this->page->mainMenu->add(
 			/* titre*/ 		__('c_a_menu_home'),
@@ -219,7 +219,7 @@ class Okatea extends Application
 			/* Sub */		($this->page->homeSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
 			/* Icon */		$this->options->public_url . '/img/admin/start-here.png');
 		$this->page->homeSubMenu->add(__('c_a_menu_roundabout'), $this->adminRouter->generate('home'), $this->request->attributes->get('_route') === 'home', 10, true);
-		
+
 		# Users
 		$this->page->mainMenu->add(__('c_a_menu_users'), $this->adminRouter->generate('Users_index'), $this->request->attributes->get('_route') === 'Users_index', 9000000, ($this->checkPerm('users')), null, ($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->options->public_url . '/img/admin/users.png');
 		$this->page->usersSubMenu->add(__('c_a_menu_management'), $this->adminRouter->generate('Users_index'), in_array($this->request->attributes->get('_route'), array(
@@ -250,7 +250,7 @@ class Okatea extends Application
 			*/
 		$this->page->usersSubMenu->add(__('c_a_menu_display'), $this->adminRouter->generate('Users_display'), $this->request->attributes->get('_route') === 'Users_display', 90, $this->checkPerm('users_display'));
 		$this->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->adminRouter->generate('Users_config'), $this->request->attributes->get('_route') === 'Users_config', 100, $this->checkPerm('users_config'));
-		
+
 		# Configuration
 		$this->page->mainMenu->add(__('c_a_menu_configuration'), $this->adminRouter->generate('config_general'), $this->request->attributes->get('_route') === 'config_general', 10000000, $this->checkPerm('configsite'), null, ($this->page->configSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->options->public_url . '/img/admin/network-server.png');
 		$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_general'), $this->request->attributes->get('_route') === 'config_general', 10, $this->checkPerm('configsite'));
@@ -279,7 +279,7 @@ class Okatea extends Application
 	protected function defineAdminPerms()
 	{
 		$this->addPerm('usage', __('c_a_def_perm_usage'));
-		
+
 		$this->addPermGroup('users', __('c_a_def_perm_users_group'));
 		$this->addPerm('users', __('c_a_def_perm_users_global'), 'users');
 		$this->addPerm('users_edit', __('c_a_def_perm_users_edit'), 'users');
@@ -290,7 +290,7 @@ class Okatea extends Application
 		$this->addPerm('users_export', __('c_a_def_perm_users_export'), 'users');
 		$this->addPerm('users_display', __('c_a_def_perm_users_display'), 'users');
 		$this->addPerm('users_config', __('c_a_def_perm_users_config'), 'users');
-		
+
 		$this->addPermGroup('configuration', __('c_a_def_perm_config'));
 		$this->addPerm('configsite', __('c_a_config_router_route_controller'), 'configuration');
 		$this->addPerm('display', __('c_a_def_perm_config_display'), 'configuration');
@@ -311,7 +311,7 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : adminBeforeMatchRequest
 		$this->triggers->callTrigger('adminBeforeMatchRequest');
-		
+
 		try
 		{
 			$this->request->attributes->add($this->adminRouter->matchRequest($this->request));
@@ -332,12 +332,12 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : adminBeforeCallController
 		$this->triggers->callTrigger('adminBeforeCallController');
-		
+
 		# Special case : user lang switch
 		if (null !== $sLanguage = $this->request->query->get('lang'))
 		{
 			$this->user->setUserLang($sLanguage);
-			
+
 			$this->response = new RedirectResponse($this->adminRouter->generate($this->request->attributes->get('_route')));
 		}
 		# else, call the controller
@@ -345,7 +345,7 @@ class Okatea extends Application
 		{
 			$this->response = $this->adminRouter->callController();
 		}
-		
+
 		if (null === $this->response || false === $this->response)
 		{
 			$this->response = new Response();
@@ -359,12 +359,12 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : adminBeforePrepareResponse
 		$this->triggers->callTrigger('adminBeforePrepareResponse');
-		
+
 		$this->response->prepare($this->request);
-		
+
 		# -- CORE TRIGGER : adminBeforeSendResponse
 		$this->triggers->callTrigger('adminBeforeSendResponse');
-		
+
 		$this->response->send();
 	}
 }
