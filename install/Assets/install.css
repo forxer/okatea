@@ -125,26 +125,24 @@ ul.checklistlegend li {
 	-webkit-column-count: 3;
 	-moz-column-count: 3;
 	column-count: 3;
-	-webkit-column-gap: 2em;
-	-moz-column-gap: 2em;
-	column-gap: 2em;
+	-webkit-column-gap: 1em;
+	-moz-column-gap: 1em;
+	column-gap: 1em;
 }
+	#themes_list_choice li,
+	#modules_list_choice li {
+		margin: 0;
+	}
 
-#themes_list_choice .extension,
-#modules_list_choice .extension {
-	margin-bottom: 2em;
-	background-color: #f1f1f1;
-	margin: 1px solid #f1f1f1;
-	border-radius: 5px;
+.extension {
+	margin-bottom: 1em;
 	padding: 0.8em;
 }
-	#themes_list_choice .left,
-	#modules_list_choice .left {
+	.extension .left {
 		float: left;
 		margin-right: 1em;
 	}
-	#themes_list_choice h3,
-	#modules_list_choice h3 {
+	.extension h3 {
 		margin-top: 0;
 	}
 

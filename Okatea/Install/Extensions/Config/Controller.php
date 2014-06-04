@@ -8,6 +8,7 @@
 namespace Okatea\Install\Extensions\Config;
 
 use Okatea\Install\Controller as BaseController;
+use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Misc\Utilities;
 
 class Controller extends BaseController
@@ -47,9 +48,34 @@ class Controller extends BaseController
 				}
 			}
 
+			$p_email_to = $this->request->request->get('p_email_to');
+			if (empty($p_email_to))
+			{
+				$this->okt->error->set(__('c_a_config_please_enter_email_to'));
+			}
+			elseif (! Utilities::isEmail($p_email_to))
+			{
+				$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
+			}
+
+			$p_email_from = $this->request->request->get('p_email_from');
+			if (empty($p_email_from))
+			{
+				$this->okt->error->set(__('c_a_config_please_enter_email_from'));
+			}
+			elseif (! Utilities::isEmail($p_email_from))
+			{
+				$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
+			}
+
 			$aValues = [
 				'title' 	=> $p_title,
 				'desc' 		=> $this->request->request->get('p_desc', array()),
+				'email' => array(
+					'to' => $p_email_to,
+					'from' => $p_email_from,
+					'name' => $this->request->request->get('p_email_name')
+				),
 				'app_path' 	=> Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
 				'domain' 	=> Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
 			];
