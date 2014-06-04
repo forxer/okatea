@@ -122,12 +122,9 @@ ul.checklistlegend li {
 
 #themes_list_choice,
 #modules_list_choice {
-	-webkit-column-count: 3;
-	-moz-column-count: 3;
-	column-count: 3;
-	-webkit-column-gap: 1em;
-	-moz-column-gap: 1em;
-	column-gap: 1em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 	#themes_list_choice li,
 	#modules_list_choice li {
@@ -135,7 +132,7 @@ ul.checklistlegend li {
 	}
 
 .extension {
-	margin-bottom: 1em;
+	margin: 0.5em;
 	padding: 0.8em;
 }
 	.extension .left {

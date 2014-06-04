@@ -23,7 +23,7 @@ $okt->page->js->addReady('
 		}
 	}
 
-	$(\'input[name="p_modules[]"]\').each(function(){
+	$(\'input[name="p_themes[]"]\').each(function(){
 		toggleSelected($(this));
 	}).change(function(){
 		toggleSelected($(this));
@@ -35,7 +35,7 @@ $okt->page->js->addReady('
 		$(this).removeClass("ui-state-hover");
 	})
 	.click(function(){
-		var checkbox = $(this).find(\'input[name="p_modules[]"]\');
+		var checkbox = $(this).find(\'input[name="p_themes[]"]\');
 		checkbox.prop("checked", !checkbox.prop("checked"));
 		$(this).toggleClass("ui-state-highlight");
 	})
@@ -44,26 +44,26 @@ $okt->page->js->addReady('
 ');
 ?>
 
-<p><?php _e('i_modules_infos') ?></p>
+<p><?php _e('i_themes_infos') ?></p>
 
 <form action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
-	<ul id="modules_list_choice" class="three-cols">
-		<?php foreach ($aModulesList as $aModuleInfos) : ?>
+	<ul id="themes_list_choice" class="three-cols">
+		<?php foreach ($aThemesList as $aThemeInfos) : ?>
 		<li class="col"><div class="extension ui-state-default ui-corner-all">
 
-			<?php if (file_exists($okt->options->get('modules_dir').'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png')) : ?>
-				<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('modules_dir').'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png', 'image/png'); ?>"
+			<?php if (file_exists($okt->options->get('themes_dir').'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png')) : ?>
+				<img src="<?php echo Utilities::base64EncodeImage($okt->options->get('themes_dir').'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png', 'image/png'); ?>"
 				width="32" height="32" alt="" class="left" />
 			<?php else: ?>
-				<img src="<?php echo $okt->options->public_url ?>/img/admin/module.png"
+				<img src="<?php echo $okt->options->public_url ?>/img/admin/theme.png"
 				width="32" height="32" alt="" class="left" />
 			<?php endif; ?>
 
-			<h3><label for="p_modules_<?php echo $aModuleInfos['id'] ?>"><?php echo form::checkbox(array('p_modules[]','p_modules_'.$aModuleInfos['id']), $aModuleInfos['id'], in_array($aModuleInfos['id'], $aDefaultModules)) ?>
-			<?php _e($aModuleInfos['name_l10n']) ?></label></h3>
+			<h3><label for="p_themes_<?php echo $aThemeInfos['id'] ?>"><?php echo form::checkbox(array('p_themes[]','p_themes_'.$aThemeInfos['id']), $aThemeInfos['id'], in_array($aThemeInfos['id'], $aDefaultThemes)) ?>
+			<?php _e($aThemeInfos['name_l10n']) ?></label></h3>
 
-			<p><?php _e($aModuleInfos['desc_l10n']) ?></p>
+			<p><?php _e($aThemeInfos['desc_l10n']) ?></p>
 		</div></li>
 		<?php endforeach; ?>
 	</ul>
