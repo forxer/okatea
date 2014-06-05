@@ -74,7 +74,15 @@ class Controller extends BaseController
 				'email' => array(
 					'to' => $p_email_to,
 					'from' => $p_email_from,
-					'name' => $this->request->request->get('p_email_name')
+					'name' => $this->request->request->get('p_email_name'),
+					'transport' => 'mail',
+					'smtp' => [
+						'host' => '',
+						'port' => 25,
+						'username' => '',
+						'password' => ''
+					],
+					'sendmail' => ''
 				),
 				'app_path' 	=> Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
 				'domain' 	=> Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)

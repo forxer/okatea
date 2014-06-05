@@ -50,7 +50,7 @@ use Symfony\Component\Routing\RequestContext;
  */
 class Application
 {
-	const VERSION = '2.0-beta5';
+	const VERSION = '2.0-beta6';
 
 	/**
 	 * L'instance de l'autoloader.
@@ -263,9 +263,7 @@ class Application
 
 		$this->options = new ApplicationOptions($aOptions);
 
-		Utf8Bootup::initAll(); // Enables the portablity layer and configures PHP for UTF-8
-		Utf8Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
-		Utf8Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
+		$this->startUtf8();
 
 		$this->startLogger();
 
@@ -273,7 +271,9 @@ class Application
 
 		$this->startHttpFoundation();
 
-		$this->start();
+		$this->startDebug();
+
+		$this->startTriggers();
 	}
 
 	/**
@@ -307,15 +307,22 @@ class Application
 
 		$this->startThemes();
 
-		$this->triggers = new Triggers();
-
 		$this->navigation = new Menus($this);
 	}
 
-	/**
-	 * Make common operations on start.
-	 */
-	protected function start()
+	protected function startUtf8()
+	{
+		# Enables the portablity layer and configures PHP for UTF-8
+		Utf8Bootup::initAll();
+
+		# Redirects to an UTF-8 encoded URL if it's not already the case
+		Utf8Bootup::filterRequestUri();
+
+		# Normalizes HTTP inputs to UTF-8 NFC
+		Utf8Bootup::filterRequestInputs();
+	}
+
+	protected function startDebug()
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
@@ -352,6 +359,14 @@ class Application
 			);
 
 			ErrorHandler::register($phpLoggerAll);
+		}
+	}
+
+	public function startTriggers()
+	{
+		if (null === $this->triggers)
+		{
+			$this->triggers = new Triggers();
 		}
 	}
 

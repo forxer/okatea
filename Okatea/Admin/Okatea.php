@@ -17,7 +17,6 @@ use Okatea\Tao\LogAdmin;
 
 class Okatea extends Application
 {
-
 	/**
 	 * L'utilitaire de contenu de page.
 	 *

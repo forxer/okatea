@@ -61,24 +61,6 @@ class Okatea extends Application
 
 	public $extensions = array();
 
-	public function __construct($autoloader, array $aOptions = array())
-	{
-		# Autoloader shortcut
-		$this->autoloader = $autoloader;
-
-		$this->options = new ApplicationOptions($aOptions);
-
-		$this->startLogger();
-
-		$this->triggers = new Triggers();
-
-		$this->startConfig();
-
-		$this->startHttpFoundation();
-
-		$this->start();
-	}
-
 	public function run()
 	{
 		if ($this->session->has('okt_old_version'))
