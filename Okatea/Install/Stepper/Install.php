@@ -17,29 +17,35 @@ class Install extends BaseStepper
 	public function __construct($okt, $sCurrentStep)
 	{
 		$this->aStepsList = [
-			0 => [
+			[
 				'step' => 'start',
-				'title' => __('i_step_start')
+				'title' => __('i_step_start'),
+				'position' => 0
 			],
-			100 => [
+			[
 				'step' => 'checks',
-				'title' => __('i_step_checks')
+				'title' => __('i_step_checks'),
+				'position' => 100
 			],
-			200 => [
+			[
 				'step' => 'db_conf',
-				'title' => __('i_step_db_conf')
+				'title' => __('i_step_db_conf'),
+				'position' => 200
 			],
-			300 => [
+			[
 				'step' => 'database',
-				'title' => __('i_step_db')
+				'title' => __('i_step_db'),
+				'position' => 300
 			],
-			500 => [
+			[
 				'step' => 'supa',
-				'title' => __('i_step_supa')
+				'title' => __('i_step_supa'),
+				'position' => 400
 			],
-			1000 => [
+			[
 				'step' => 'end',
-				'title' => __('i_step_end')
+				'title' => __('i_step_end'),
+				'position' => 1000
 			]
 		];
 

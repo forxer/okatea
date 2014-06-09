@@ -21,6 +21,11 @@ abstract class AbstractExtension
 
 	abstract public function load();
 
+	protected function addStep($stepper, array $aStep)
+	{
+		$stepper->aStepsList[] = $aStep;
+	}
+
 	protected function insertStepAfter($stepper, $sAfterStep, array $aStep)
 	{
 		$aNewSteps = [];

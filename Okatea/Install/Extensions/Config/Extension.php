@@ -19,7 +19,7 @@ class Extension extends AbstractExtension
 
 		$this->okt->triggers->registerTrigger('installBeforeBuildInstallStepper', array(
 			$this,
-			'addStep'
+			'insertStep'
 		));
 
 		$this->okt->triggers->registerTrigger('installBeforeLoadPageHelpers', array(
@@ -28,11 +28,12 @@ class Extension extends AbstractExtension
 		));
 	}
 
-	public function addStep($stepper)
+	public function insertStep($stepper)
 	{
-		$this->insertStepAfter($stepper, 'database', [
+		$this->addStep($stepper, [
 			'step' => 'configuration',
-			'title' => __('i_step_config')
+			'title' => __('i_step_config'),
+			'position' => 310
 		]);
 	}
 

@@ -9,7 +9,6 @@ namespace Okatea\Tao\Html;
 
 class Stepper
 {
-
 	protected $aSteps = array();
 
 	protected $iNumSteps = null;
@@ -24,19 +23,27 @@ class Stepper
 	{
 		$this->sCurrentStep = $sCurrentStep !== null ? $sCurrentStep : $this->defaultStepName;
 
+		$aSteps = array_values($aSteps);
+
 		$this->iNumSteps = count($aSteps);
 
 		foreach ($aSteps as $i => $aStep)
 		{
 			$this->aSteps[$i] = array(
-				'step' => $aStep['step'],
-				'title' => $aStep['title'],
+				'step' 		=> $aStep['step'],
+				'title' 	=> $aStep['title'],
+				'position' 	=> $aStep['position'],
 
-				'past' => false,
-				'current' => false,
-				'last' => false
+				'past' 		=> false,
+				'current' 	=> false,
+				'last' 		=> false
 			);
+		}
 
+		$this->sort();
+
+		foreach ($this->aSteps as $i => $aStep)
+		{
 			if ($aStep['step'] === $this->sCurrentStep)
 			{
 				$this->aSteps[$i]['current'] = true;
@@ -116,5 +123,24 @@ class Stepper
 	public function getNextStep()
 	{
 		return isset($this->aSteps[($this->iCurrentStepPosition + 1)]['step']) ? $this->aSteps[($this->iCurrentStepPosition + 1)]['step'] : null;
+	}
+
+	/**
+	 * Sort step by position.
+	 *
+	 * @return void
+	 */
+	protected function sort()
+	{
+		uasort($this->aSteps, function ($a, $b)
+		{
+			if ($a['position'] == $b['position']) {
+				return 0;
+			}
+
+			return ($a['position'] < $b['position']) ? -1 : 1;
+		});
+
+		$this->aSteps = array_values($this->aSteps);
 	}
 }
