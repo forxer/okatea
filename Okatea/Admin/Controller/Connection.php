@@ -9,7 +9,7 @@ namespace Okatea\Admin\Controller;
 
 use Okatea\Admin\Controller;
 
-class Connexion extends Controller
+class Connection extends Controller
 {
 
 	public function login()
@@ -19,40 +19,40 @@ class Connexion extends Controller
 		{
 			return $this->redirect($this->generateUrl('home'));
 		}
-		
+
 		# identification
 		$sUserId = $this->request->request->get('user_id', $this->request->query->get('user_id'));
 		$sUserPwd = $this->request->request->get('user_pwd', $this->request->query->get('user_pwd'));
-		
+
 		if (! empty($sUserId) && ! empty($sUserPwd))
 		{
 			$bUserRemember = $this->request->request->has('user_remember') ? true : false;
-			
+
 			if ($this->okt->user->login($sUserId, $sUserPwd, $bUserRemember))
 			{
 				$redir = $this->generateUrl('home');
-				
+
 				if ($this->request->cookies->has($this->okt->options->get('cookie_auth_from')))
 				{
 					if ($this->request->cookies->get($this->okt->options->get('cookie_auth_from')) != $this->request->getUri())
 					{
 						$redir = $this->request->cookies->get($this->okt->options->get('cookie_auth_from'));
 					}
-					
+
 					$this->okt->user->setAuthFromCookie('', 0);
 				}
-				
+
 				return $this->redirect($redir);
 			}
 		}
-		
+
 		$this->page->pageId('connexion');
-		
+
 		$this->page->breadcrumb->reset();
-		
+
 		$this->page->display_menu = false;
-		
-		return $this->render('Connexion/Login', array(
+
+		return $this->render('Connection/Login', array(
 			'sUserId' => $sUserId
 		));
 	}
@@ -60,9 +60,9 @@ class Connexion extends Controller
 	public function logout()
 	{
 		$this->okt->user->setAuthFromCookie('');
-		
+
 		$this->okt->user->logout();
-		
+
 		return $this->Redirect($this->generateUrl('login'));
 	}
 
@@ -73,10 +73,10 @@ class Connexion extends Controller
 		{
 			return $this->redirect($this->generateUrl('home'));
 		}
-		
+
 		$bPasswordUpdated = false;
 		$bPasswordSended = false;
-		
+
 		if ($this->request->query->has('key') && $this->request->query->has('uid'))
 		{
 			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey($this->request->query->getInt('key'), $this->request->query->get('key'));
@@ -85,14 +85,14 @@ class Connexion extends Controller
 		{
 			$bPasswordSended = $this->okt->getUsers()->forgetPassword($this->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('forget_password', array(), true));
 		}
-		
+
 		$this->page->pageId('connexion');
-		
+
 		$this->page->breadcrumb->reset();
-		
+
 		$this->page->display_menu = false;
-		
-		return $this->render('Connexion/ForgetPassword', array(
+
+		return $this->render('Connection/ForgetPassword', array(
 			'bPasswordUpdated' => $bPasswordUpdated,
 			'bPasswordSended' => $bPasswordSended
 		));

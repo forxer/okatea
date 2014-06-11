@@ -30,15 +30,15 @@ home:
 
 login:
     path:     /login
-    defaults: { controller: 'Okatea\Admin\Controller\Connexion::login' }
+    defaults: { controller: 'Okatea\Admin\Controller\Connection::login' }
 
 logout:
     path:     /logout
-    defaults: { controller: 'Okatea\Admin\Controller\Connexion::logout' }
+    defaults: { controller: 'Okatea\Admin\Controller\Connection::logout' }
 
 forget_password:
     path:     /forget-password
-    defaults: { controller: 'Okatea\Admin\Controller\Connexion::forget_password' }
+    defaults: { controller: 'Okatea\Admin\Controller\Connection::forget_password' }
 
 
 #
