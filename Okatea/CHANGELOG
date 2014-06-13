@@ -11,9 +11,11 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 2.0-beta6
+! installation interface improvements
+- Connexion -> Connection
 
 
-2.0-beta5
+2.0-beta5 (2014-06-04)
 # new way to load locales
 # use Carbon and Intl for displaying localized dates
 # removed dotclear/clearbricks
