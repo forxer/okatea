@@ -1,0 +1,18 @@
+CHANGELOG and HISTORY ( we try )                           module Media Manager
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+= KEY ====================
+	# Breaks back-compat
+	! Feature
+	- Bugfix
+		+ Sub-comment
+	. Internal change
+==========================
+
+
+2.0-rc1
+# support for Okatea 2.0
+
+
+1.0
+! first public release
