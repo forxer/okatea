@@ -10,15 +10,15 @@
 			type="wrn" string="{{PREFIX}}core_nav_menus">SHOW TABLES LIKE '{{PREFIX}}core_nav_menus'</test>
 
 		CREATE TABLE `{{PREFIX}}core_nav_menus` (
-		`id` SERIAL,
-		`title` VARCHAR(255) NOT NULL DEFAULT '',
-		`active` TINYINT(1) UNSIGNED NOT NULL,
-		`tpl` VARCHAR(255) NULL,
+			`id` SERIAL,
+			`title` VARCHAR(255) NOT NULL DEFAULT '',
+			`active` TINYINT(1) UNSIGNED NOT NULL,
+			`tpl` VARCHAR(255) NULL,
 
-		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}core_nav_menus_items_idx_active` (`active`)
-		) ENGINE=MyISAM
-		DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}core_nav_menus_items_idx_active` (`active`)
+
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- core_nav_items -->
@@ -27,18 +27,18 @@
 			type="wrn" string="{{PREFIX}}core_nav_items">SHOW TABLES LIKE '{{PREFIX}}core_nav_items'</test>
 
 		CREATE TABLE `{{PREFIX}}core_nav_items` (
-		`id` SERIAL,
-		`menu_id` BIGINT(20) UNSIGNED NOT NULL,
-		`active` TINYINT(1) UNSIGNED NOT NULL,
-		`type` TINYINT(1) UNSIGNED NOT NULL,
-		`ord` BIGINT(20) UNSIGNED NOT NULL,
+			`id` SERIAL,
+			`menu_id` BIGINT(20) UNSIGNED NOT NULL,
+			`active` TINYINT(1) UNSIGNED NOT NULL,
+			`type` TINYINT(1) UNSIGNED NOT NULL,
+			`ord` BIGINT(20) UNSIGNED NOT NULL,
 
-		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}core_nav_items_idx_menu_id` (`menu_id`),
-		KEY `{{PREFIX}}core_nav_items_idx_active` (`active`),
-		KEY `{{PREFIX}}core_nav_items_idx_ord` (`ord`)
-		) ENGINE=MyISAM DEFAULT
-		CHARSET=utf8 COLLATE utf8_general_ci ;
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}core_nav_items_idx_menu_id` (`menu_id`),
+			KEY `{{PREFIX}}core_nav_items_idx_active` (`active`),
+			KEY `{{PREFIX}}core_nav_items_idx_ord` (`ord`)
+
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 	<!-- core_nav_items_locales -->
@@ -48,15 +48,15 @@
 			type="wrn" string="{{PREFIX}}core_nav_items_locales">SHOW TABLES LIKE '{{PREFIX}}core_nav_items_locales'</test>
 
 		CREATE TABLE `{{PREFIX}}core_nav_items_locales` (
-		`item_id` BIGINT(20) UNSIGNED NOT NULL,
-		`language` CHAR(5) NOT NULL,
+			`item_id` BIGINT(20) UNSIGNED NOT NULL,
+			`language` CHAR(5) NOT NULL,
 
-		`title` VARCHAR(255) NOT NULL DEFAULT '',
-		`url` VARCHAR(255) NOT NULL DEFAULT '',
+			`title` VARCHAR(255) NOT NULL DEFAULT '',
+			`url` VARCHAR(255) NOT NULL DEFAULT '',
 
-		PRIMARY KEY (`item_id`,`language`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8
-		COLLATE utf8_general_ci ;
+			PRIMARY KEY (`item_id`,`language`)
+
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ;
 	</action>
 
 
@@ -83,21 +83,22 @@
 	<action id="firstitemslocales" label="Creation des locales des premiers éléments de menu"
 		process="install">
 		INSERT INTO `{{PREFIX}}core_nav_items_locales`
-		(`item_id`, `language`, `title`, `url`)
+			(`item_id`, `language`, `title`, `url`)
 		VALUES
-		(1, 'fr', 'Accueil', ''),
-		(1, 'en', 'Home', ''),
-		(2, 'fr', 'À propos', 'page/a-propos'),
-		(2, 'en', 'About', 'page/about'),
-		(3, 'fr', 'Contact', 'contact'),
-		(3, 'en', 'Contact', 'contact');
+			(1, 'fr', 'Accueil', ''),
+			(1, 'en', 'Home', ''),
+			(2, 'fr', 'À propos', 'page/a-propos'),
+			(2, 'en', 'About', 'page/about'),
+			(3, 'fr', 'Contact', 'contact'),
+			(3, 'en', 'Contact', 'contact')
+		;
 	</action>
 
 
-	<!-- UPDATE <action id="add_core_nav_items_type" label="Add field %s" string="{{PREFIX}}core_nav_items.type" 
-		process="update"> <test eq="neq" value="type" label="Field %s exists" string="{{PREFIX}}core_nav_items.type" 
-		type="wrn"> SHOW COLUMNS FROM `{{PREFIX}}core_nav_items` LIKE 'type' </test> 
-		ALTER TABLE `{{PREFIX}}core_nav_items` ADD `type` TINYINT(1) UNSIGNED NOT 
+	<!-- UPDATE <action id="add_core_nav_items_type" label="Add field %s" string="{{PREFIX}}core_nav_items.type"
+		process="update"> <test eq="neq" value="type" label="Field %s exists" string="{{PREFIX}}core_nav_items.type"
+		type="wrn"> SHOW COLUMNS FROM `{{PREFIX}}core_nav_items` LIKE 'type' </test>
+		ALTER TABLE `{{PREFIX}}core_nav_items` ADD `type` TINYINT(1) UNSIGNED NOT
 		NULL AFTER `active` </action> -->
 
 </database>

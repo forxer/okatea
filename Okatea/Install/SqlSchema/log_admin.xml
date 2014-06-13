@@ -9,24 +9,25 @@
 			type="wrn" string="{{PREFIX}}core_log_admin">SHOW TABLES LIKE '{{PREFIX}}core_log_admin'</test>
 
 		CREATE TABLE IF NOT EXISTS `{{PREFIX}}core_log_admin` (
-		`id` SERIAL,
-		`user_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
-		`username` VARCHAR(255) NOT NULL DEFAULT '',
-		`ip` VARCHAR(39) NOT NULL DEFAULT '0.0.0.0',
-		`date` DATETIME NOT NULL,
-		`type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-		`component` VARCHAR(40) NOT NULL DEFAULT '',
-		`code` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-		`message` VARCHAR(255) NOT NULL DEFAULT '',
+			`id` SERIAL,
+			`user_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+			`username` VARCHAR(255) NOT NULL DEFAULT '',
+			`ip` VARCHAR(39) NOT NULL DEFAULT '0.0.0.0',
+			`date` DATETIME NOT NULL,
+			`type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+			`component` VARCHAR(40) NOT NULL DEFAULT '',
+			`code` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+			`message` VARCHAR(255) NOT NULL DEFAULT '',
 
-		PRIMARY KEY (`id`),
-		KEY `{{PREFIX}}core_log_admin_user_id_idx` (`user_id`),
-		KEY `{{PREFIX}}core_log_admin_username_idx` (`username`),
-		KEY `{{PREFIX}}core_log_admin_ip_idx` (`ip`),
-		KEY `{{PREFIX}}core_log_admin_date_idx` (`date`),
-		KEY `{{PREFIX}}core_log_admin_user_type_idx` (`type`),
-		KEY `{{PREFIX}}core_log_admin_component_idx` (`component`),
-		KEY `{{PREFIX}}core_log_admin_user_code_idx` (`code`)
+			PRIMARY KEY (`id`),
+			KEY `{{PREFIX}}core_log_admin_user_id_idx` (`user_id`),
+			KEY `{{PREFIX}}core_log_admin_username_idx` (`username`),
+			KEY `{{PREFIX}}core_log_admin_ip_idx` (`ip`),
+			KEY `{{PREFIX}}core_log_admin_date_idx` (`date`),
+			KEY `{{PREFIX}}core_log_admin_user_type_idx` (`type`),
+			KEY `{{PREFIX}}core_log_admin_component_idx` (`component`),
+			KEY `{{PREFIX}}core_log_admin_user_code_idx` (`code`)
+
 		) ENGINE=MyISAM
 		DEFAULT CHARSET=utf8 COLLATE utf8_bin ;
 	</action>
