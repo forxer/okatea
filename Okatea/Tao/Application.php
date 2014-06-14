@@ -88,6 +88,13 @@ class Application
 	public $db;
 
 	/**
+	 * Le gestionnaire de base de données via Doctrine DBAL.
+	 *
+	 * @var Doctrine\DBAL\Connection
+	 */
+	public $conn;
+
+	/**
 	 * Le gestionnaire de base de données.
 	 *
 	 * @var Okatea\Tao\Misc\DebugBar\DebugBar
@@ -379,20 +386,41 @@ class Application
 	{
 		if (null === $this->db)
 		{
-			if (! file_exists($this->options->get('config_dir') . '/connection.php'))
-			{
+			$sConnectionFilename = $this->options->get('config_dir') . '/connection.php';
+
+			if (! file_exists($sConnectionFilename)) {
 				throw new \RuntimeException('Unable to find database connection file !');
 			}
 
-			require $this->options->get('config_dir') . '/connection.php';
+			require $sConnectionFilename;
 
 			$this->db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
 
-			if ($this->db->hasError())
-			{
+			if ($this->db->hasError()) {
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
 		}
+
+		/*
+		if (null === $this->conn)
+		{
+			$sConnectionFilename = $this->options->get('config_dir') . '/connection.php';
+
+			if (! file_exists($sConnectionFilename)) {
+				throw new \RuntimeException('Unable to find database connection file !');
+			}
+
+			require $sConnectionFilename;
+
+			$this->conn = \Doctrine\DBAL\DriverManager::getConnection([
+				'dbname' 	=> $sDbName,
+				'user' 		=> $sDbUser,
+				'password' 	=> $sDbPassword,
+				'host' 		=> $sDbHost,
+				'driver' 	=> 'pdo_mysql',
+			], new \Doctrine\DBAL\Configuration());
+		}
+		*/
 	}
 
 	public function startLanguages()
