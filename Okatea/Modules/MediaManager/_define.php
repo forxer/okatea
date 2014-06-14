@@ -6,8 +6,8 @@
  * file that was distributed with this source code.
  */
 return array(
-	'name' => 'Media Manager',
-	'desc' => 'Allow to add a media manager system.',
+	'name' => 'Medias Manager',
+	'desc' => 'Allow to add a media manager.',
 	'version' => '2.0-rc1',
 	'author' => 'okatea.org'
 );

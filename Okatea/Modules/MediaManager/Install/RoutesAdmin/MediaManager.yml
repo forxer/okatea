@@ -1,0 +1,12 @@
+
+Media_manager_index:
+    path:     /media-manager
+    defaults: { controller: 'Okatea\Modules\MediaManager\Admin\Controller\Index::page' }
+
+Media_manager_display:
+    path:     /media-manager/display
+    defaults: { controller: 'Okatea\Modules\MediaManager\Admin\Controller\Display::page' }
+
+Media_manager_config:
+    path:     /media-manager/configuration
+    defaults: { controller: 'Okatea\Modules\MediaManager\Admin\Controller\Config::page' }
