@@ -16,7 +16,6 @@ namespace Okatea\Tao\Database;
  */
 class XmlSql
 {
-
 	protected $job;
 
 	protected $xml;

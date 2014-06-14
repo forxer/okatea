@@ -14,7 +14,6 @@ use Okatea\Tao\Html\Escaper;
  */
 class MySqli
 {
-
 	/**
 	 * Type de retour de la fonction connexion permettant le renvoi du dernier ID généré.
 	 *
@@ -137,19 +136,19 @@ class MySqli
 	{
 		$this->error = '';
 		$this->nb_q = 0;
-		
+
 		$this->log = array();
-		
+
 		$this->start_time = 0;
 		$this->total_time = 0;
-		
+
 		$this->db_user = $user;
 		$this->db_pwd = $pwd;
 		$this->db_host = $alias;
 		$this->db_name = $dbname;
-		
+
 		$this->prefix = $dbprefix;
-		
+
 		if (($this->con_id = mysqli_connect($this->db_host, $this->db_user, $this->db_pwd)) === false)
 		{
 			$this->seterror();
@@ -171,7 +170,7 @@ class MySqli
 	public function setDatabase($dbname)
 	{
 		$db = mysqli_select_db($this->con_id, $dbname);
-		
+
 		if (! $db)
 		{
 			$this->seterror();
@@ -195,10 +194,10 @@ class MySqli
 		if ($this->con_id)
 		{
 			mysqli_close($this->con_id);
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -210,9 +209,9 @@ class MySqli
 	/**
 	 * Enregistre une entrée dans le log de requêtes
 	 *
-	 * @param string $query        	
-	 * @param string $time        	
-	 * @param string $comment        	
+	 * @param string $query
+	 * @param string $time
+	 * @param string $comment
 	 * @return void
 	 */
 	private function log($query, $time)
@@ -235,7 +234,7 @@ class MySqli
 		{
 			return $this->log[$num];
 		}
-		
+
 		return $this->log;
 	}
 
@@ -247,7 +246,7 @@ class MySqli
 	public function getLastLog($value = null)
 	{
 		$logline = $this->getLog((integer) (count($this->log) - 1));
-		
+
 		return (! empty($logline[$value]) ? $logline[$value] : $logline);
 	}
 
@@ -294,7 +293,7 @@ class MySqli
 		{
 			return $this->errno . ' - ' . $this->error;
 		}
-		
+
 		return false;
 	}
 
@@ -319,17 +318,17 @@ class MySqli
 	{
 		$time = explode(' ', microtime());
 		$time = sprintf('%.5f', ((float) $time[0] + (float) $time[1]) - $this->start_time);
-		
+
 		$this->start_time = 0;
 		$this->regTime($time);
-		
+
 		return $time;
 	}
 
 	/**
 	 * Enregistre un temps au temps total d'execution
 	 *
-	 * @param float $time        	
+	 * @param float $time
 	 * @return void
 	 */
 	private function regTime($time)
@@ -364,7 +363,7 @@ class MySqli
 		{
 			throw new \RuntimeException('Unable to retrieve tables ' . $this->db->error());
 		}
-		
+
 		$tables = array();
 		if ($db_prefix)
 		{
@@ -383,7 +382,7 @@ class MySqli
 				$tables[] = $t['tables_in_' . $this->db_name];
 			}
 		}
-		
+
 		return $tables;
 	}
 
@@ -411,18 +410,18 @@ class MySqli
 		{
 			return false;
 		}
-		
+
 		if (! class_exists($class))
 		{
 			$class = 'Okatea\Tao\Database\Recordset';
 		}
-		
+
 		$this->startTime();
 		$cur = mysqli_query($this->con_id, $query);
 		$exec_time = $this->getTime();
-		
+
 		$this->log($query, $exec_time);
-		
+
 		if ($cur)
 		{
 			# Insertion dans le reccordset
@@ -431,17 +430,17 @@ class MySqli
 			while ($res = mysqli_fetch_row($cur))
 			{
 				$nRes = count($res);
-				
+
 				for ($j = 0; $j < $nRes; $j ++)
 				{
 					$oFieldInfo = mysqli_fetch_field_direct($cur, $j);
-					
+
 					$arryRes[$i][strtolower($oFieldInfo->name)] = $res[$j];
 				}
-				
+
 				$i ++;
 			}
-			
+
 			return new $class($arryRes);
 		}
 		else
@@ -465,19 +464,19 @@ class MySqli
 		{
 			return false;
 		}
-		
+
 		$this->startTime();
 		$cur = mysqli_query($this->con_id, $query);
 		$exec_time = $this->getTime();
-		
+
 		$this->log($query, $exec_time);
-		
+
 		if (! $cur)
 		{
 			$this->seterror();
 			return false;
 		}
-		
+
 		if ($type === self::NUM_ROW)
 		{
 			return $this->affectedRows();
@@ -507,15 +506,15 @@ class MySqli
 		{
 			return false;
 		}
-		
+
 		$this->startTime();
-		
+
 		$this->query_result = mysqli_query($this->con_id, $query);
-		
+
 		$exec_time = $this->getTime();
-		
+
 		$this->log($query, $exec_time);
-		
+
 		if ($this->query_result)
 		{
 			return $this->query_result;
@@ -543,7 +542,7 @@ class MySqli
 			$query = file_get_contents($file);
 			$query = trim($query);
 			$query = str_replace('{{DB_PREFIX}}', $this->prefix, $query);
-			
+
 			if (! empty($query))
 			{
 				return $this->execute($query);
@@ -554,8 +553,8 @@ class MySqli
 	/**
 	 * Retourne un champ d'un résultat MySQL.
 	 *
-	 * @param integer $row        	
-	 * @param mixed $col        	
+	 * @param integer $row
+	 * @param mixed $col
 	 * @see mysql_result
 	 * @return mixed
 	 */
@@ -574,12 +573,12 @@ class MySqli
 	public function optimize($table)
 	{
 		$strReq = 'OPTIMIZE TABLE ' . $table . ' ';
-		
+
 		if ($this->execute($strReq) === false)
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -726,7 +725,7 @@ class MySqli
 			"PASSWORD",
 			"STR_TO_DATE"
 		);
-		
+
 		foreach ($aMYSQL_FONCTION as $fonc)
 		{
 			if (strpos($value, $fonc . '(') !== false)
@@ -734,14 +733,14 @@ class MySqli
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
 	/**
 	 * Protect string
 	 *
-	 * @param string $str        	
+	 * @param string $str
 	 * @return string
 	 */
 	public function quote($str)
@@ -752,19 +751,19 @@ class MySqli
 	/**
 	 * Query builder
 	 *
-	 * @param array $query        	
-	 * @param string $rsClass        	
+	 * @param array $query
+	 * @param string $rsClass
 	 * @return
 	 *
 	 */
 	public function builder($query, $rsClass = 'Recordset')
 	{
 		$sql = '';
-		
+
 		if (isset($query['SELECT']))
 		{
 			$sql .= 'SELECT ' . $query['SELECT'] . ' FROM ' . $query['FROM'];
-			
+
 			if (isset($query['JOINS']))
 			{
 				foreach ($query['JOINS'] as $cur_join)
@@ -773,27 +772,27 @@ class MySqli
 				}
 				$sql .= implode('', array_unique($aJoins));
 			}
-			
+
 			if (! empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
-			
+
 			if (! empty($query['GROUP BY']))
 			{
 				$sql .= ' GROUP BY ' . $query['GROUP BY'];
 			}
-			
+
 			if (! empty($query['HAVING']))
 			{
 				$sql .= ' HAVING ' . $query['HAVING'];
 			}
-			
+
 			if (! empty($query['ORDER BY']))
 			{
 				$sql .= ' ORDER BY ' . $query['ORDER BY'];
 			}
-			
+
 			if (! empty($query['LIMIT']))
 			{
 				$sql .= ' LIMIT ' . $query['LIMIT'];
@@ -803,18 +802,18 @@ class MySqli
 		elseif (isset($query['INSERT']))
 		{
 			$sql .= 'INSERT INTO ' . $query['INTO'];
-			
+
 			if (! empty($query['INSERT']))
 			{
 				$sql .= ' (' . $query['INSERT'] . ')';
 			}
-			
+
 			$sql .= ' VALUES(' . $query['VALUES'] . ')';
 		}
 		elseif (isset($query['UPDATE']))
 		{
 			$sql .= 'UPDATE ' . $query['UPDATE'] . ' SET ' . $query['SET'];
-			
+
 			if (! empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
@@ -823,20 +822,20 @@ class MySqli
 		elseif (isset($query['DELETE']))
 		{
 			$sql .= 'DELETE FROM ' . $query['DELETE'];
-			
+
 			if (! empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
 		}
-		
+
 		return $this->execute($sql);
 	}
 
 	public static function formatDateTime($sDate = null, $sOrder = 'ymdhis')
 	{
 		$sDate = trim($sDate);
-		
+
 		if (empty($sDate))
 		{
 			return null;
@@ -844,16 +843,16 @@ class MySqli
 		else
 		{
 			$aResult = preg_split('/[^\d]/', $sDate);
-			
+
 			$nCount = count($aResult);
-			
+
 			if ($nCount < 6)
 			{
 				$aResult = $aResult + array_fill($nCount, 6 - $nCount, '00');
 			}
-			
+
 			$aResult = array_combine(str_split($sOrder), $aResult);
-			
+
 			return ($aResult['y'] . '-' . $aResult['m'] . '-' . $aResult['d'] . ' ' . $aResult['h'] . ':' . $aResult['i'] . ':' . $aResult['s']);
 		}
 	}
@@ -879,7 +878,7 @@ class MySqli
 	public function getVersion()
 	{
 		$result = $this->query('SELECT VERSION()');
-		
+
 		return array(
 			'name' => 'MySQL Standard',
 			'version' => preg_replace('/^([^-]+).*$/', '\\1', $this->result($result))
@@ -907,7 +906,7 @@ class MySqli
 	public function indexExists($table_name, $index_name)
 	{
 		$exists = false;
-		
+
 		$result = $this->query('SHOW INDEX FROM ' . $table_name);
 		while ($cur_index = $this->fetchAssoc($result))
 		{
@@ -917,7 +916,7 @@ class MySqli
 				break;
 			}
 		}
-		
+
 		return $exists;
 	}
 
@@ -927,7 +926,7 @@ class MySqli
 		$str = addcslashes($str, '%_');
 		$str = trim($str);
 		$str = Escaper::html($str);
-		
+
 		return $str;
 	}
 }

@@ -16,7 +16,6 @@ namespace Okatea\Tao\Database;
  */
 class Cursor
 {
-
 	protected $db;
 
 	protected $data = array();
@@ -44,7 +43,7 @@ class Cursor
 	 * @see dbLayer::openCursor()
 	 * @param
 	 *        	dbLayer	&$con		Connection object
-	 * @param string $table        	
+	 * @param string $table
 	 */
 	public function __construct($db, $table)
 	{
@@ -57,7 +56,7 @@ class Cursor
 	 *
 	 * Changes working table and resets data
 	 *
-	 * @param string $table        	
+	 * @param string $table
 	 */
 	public function setTable($table)
 	{
@@ -75,8 +74,8 @@ class Cursor
 	 * command. String values will be automatically escaped.
 	 *
 	 * @see __set()
-	 * @param string $n        	
-	 * @param mixed $v        	
+	 * @param string $n
+	 * @param mixed $v
 	 */
 	public function setField($n, $v)
 	{
@@ -88,7 +87,7 @@ class Cursor
 	 *
 	 * Remove a field from data set.
 	 *
-	 * @param string $n        	
+	 * @param string $n
 	 */
 	public function unsetField($n)
 	{
@@ -117,7 +116,7 @@ class Cursor
 		{
 			return $this->data[$n];
 		}
-		
+
 		return null;
 	}
 
@@ -179,11 +178,11 @@ class Cursor
 	private function formatFields()
 	{
 		$data = array();
-		
+
 		foreach ($this->data as $k => $v)
 		{
 			$k = $this->db->escapeSystem($k);
-			
+
 			if ($v === null)
 			{
 				$data[$k] = 'NULL';
@@ -201,7 +200,7 @@ class Cursor
 				$data[$k] = $v;
 			}
 		}
-		
+
 		return $data;
 	}
 
@@ -215,9 +214,9 @@ class Cursor
 	public function getInsert()
 	{
 		$data = $this->formatFields();
-		
+
 		$insReq = 'INSERT INTO ' . $this->db->escapeSystem($this->table) . " (\n" . implode(",\n", array_keys($data)) . "\n) VALUES (\n" . implode(",\n", array_values($data)) . "\n) ";
-		
+
 		return $insReq;
 	}
 
@@ -225,16 +224,16 @@ class Cursor
 	{
 		$data = $this->formatFields();
 		$fields = array();
-		
+
 		$insReq = 'INSERT INTO ' . $this->db->escapeSystem($this->table) . " (\n" . implode(",\n", array_keys($data)) . "\n) VALUES (\n" . implode(",\n", array_values($data)) . "\n) \n" . 'ON DUPLICATE KEY UPDATE ';
-		
+
 		foreach ($data as $k => $v)
 		{
 			$fields[] = $k . ' = ' . $v . "";
 		}
-		
+
 		$insReq .= implode(",\n", $fields);
-		
+
 		return $insReq;
 	}
 
@@ -243,24 +242,24 @@ class Cursor
 	 *
 	 * Returns the generated UPDATE query
 	 *
-	 * @param string $where        	
+	 * @param string $where
 	 * @return string
 	 */
 	public function getUpdate($where)
 	{
 		$data = $this->formatFields();
 		$fields = array();
-		
+
 		$updReq = 'UPDATE ' . $this->db->escapeSystem($this->table) . " SET \n";
-		
+
 		foreach ($data as $k => $v)
 		{
 			$fields[] = $k . ' = ' . $v . "";
 		}
-		
+
 		$updReq .= implode(",\n", $fields);
 		$updReq .= "\n" . $where;
-		
+
 		return $updReq;
 	}
 
@@ -275,15 +274,15 @@ class Cursor
 		{
 			throw new \RuntimeException('No table name.');
 		}
-		
+
 		$insReq = $this->getInsert();
-		
+
 		if (! $this->db->execute($insReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $insReq);
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -293,15 +292,15 @@ class Cursor
 		{
 			throw new \RuntimeException('No table name.');
 		}
-		
+
 		$insReq = $this->getInsertUpdate();
-		
+
 		if (! $this->db->execute($insReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $insReq);
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -310,7 +309,7 @@ class Cursor
 	 *
 	 * Executes the generated UPDATE query
 	 *
-	 * @param string $where        	
+	 * @param string $where
 	 */
 	public function update($where)
 	{
@@ -318,15 +317,15 @@ class Cursor
 		{
 			throw new \RuntimeException('No table name.');
 		}
-		
+
 		$updReq = $this->getUpdate($where);
-		
+
 		if (! $this->db->execute($updReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $updReq);
 			return false;
 		}
-		
+
 		return true;
 	}
 }

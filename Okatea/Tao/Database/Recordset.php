@@ -23,39 +23,39 @@ namespace Okatea\Tao\Database;
 class Recordset
 {
 	/**
-	 * Tableau contenant les données
-	 * @access private
+	 * Tableau contenant les données.
+	 *
 	 * @var array
 	 */
-	private $arry_data;
+	protected $aData;
 
 	/**
-	 * Emplacement du curseur
-	 * @access private
+	 * Emplacement du curseur.
+	 *
 	 * @var integer
 	 */
-	private $int_index;
+	protected $iIndex;
 
 	/**
-	 * Nombre d'enregistrements
-	 * @access private
+	 * Nombre d'enregistrements.
+	 *
 	 * @var integer
 	 */
-	private $int_row_count;
+	protected $iRowCount;
 
 	/**
-	 * Nombre de colonnes
-	 * @access private
+	 * Nombre de colonnes.
+	 *
 	 * @var integer
 	 */
-	private $int_col_count;
+	protected $iColCount;
 
 	/**
-	 * Indice de déplacement utilisé localement
-	 * @access private
+	 * Indice de déplacement utilisé localement.
+	 *
 	 * @var integer
 	 */
-	private $fetch_index;
+	private $iFetchIndex;
 
 
 	/**
@@ -87,19 +87,19 @@ class Recordset
 	 */
 	public function __construct($data)
 	{
-		$this->int_index = 0;
-		$this->fetch_index = NULL;
+		$this->iIndex = 0;
+		$this->iFetchIndex = NULL;
 
 		if (is_array($data))
 		{
-			$this->arry_data = $data;
-			$this->int_row_count = count($this->arry_data);
+			$this->aData = $data;
+			$this->iRowCount = count($this->aData);
 
-			if ($this->int_row_count == 0) {
-				$this->int_col_count = 0;
+			if ($this->iRowCount == 0) {
+				$this->iColCount = 0;
 			}
 			else {
-				$this->int_col_count = count($this->arry_data[0]);
+				$this->iColCount = count($this->aData[0]);
 			}
 		}
 	}
@@ -112,20 +112,20 @@ class Recordset
 	 */
 	public function field($c)
 	{
-		if (!empty($this->arry_data))
+		if (!empty($this->aData))
 		{
 			if (is_integer($c))
 			{
-				$T = array_values($this->arry_data[$this->int_index]);
+				$T = array_values($this->aData[$this->iIndex]);
 				return (isset($T[($c)])) ? $T[($c)] : false;
 			}
 			else {
 				$c = strtolower($c);
-				if (isset($this->arry_data[$this->int_index][$c])) {
-	//				if (!is_array($this->arry_data[$this->int_index][$c]))
-	//					return trim($this->arry_data[$this->int_index][$c]);
+				if (isset($this->aData[$this->iIndex][$c])) {
+	//				if (!is_array($this->aData[$this->iIndex][$c]))
+	//					return trim($this->aData[$this->iIndex][$c]);
 	//				else
-						return $this->arry_data[$this->int_index][$c];
+						return $this->aData[$this->iIndex][$c];
 				}
 
 				return false;
@@ -142,21 +142,21 @@ class Recordset
 	 */
 	public function fieldLine($c,$l)
 	{
-		if (!empty($this->arry_data))
+		if (!empty($this->aData))
 		{
 			if (is_integer($c))
 			{
-				$T = array_values($this->arry_data[$l]);
+				$T = array_values($this->aData[$l]);
 				return (isset($T[($c)])) ? $T[($c)] : false;
 			}
 			else {
 				$c = strtolower($c);
-				if (isset($this->arry_data[$l][$c]))
+				if (isset($this->aData[$l][$c]))
 				{
-					if (!is_array($this->arry_data[$l][$c]))
-						return trim($this->arry_data[$l][$c]);
+					if (!is_array($this->aData[$l][$c]))
+						return trim($this->aData[$l][$c]);
 					else
-						return $this->arry_data[$l][$c];
+						return $this->aData[$l][$c];
 				}
 
 				return false;
@@ -204,7 +204,7 @@ class Recordset
 	public function setField($c,$v)
 	{
 		$c = strtolower($c);
-		$this->arry_data[$this->int_index][$c] = $v;
+		$this->aData[$this->iIndex][$c] = $v;
 	}
 
 	public function set($c,$v)
@@ -230,7 +230,7 @@ class Recordset
 	*/
 	public function exists($c)
 	{
-		return isset($this->arry_data[$this->int_index][$c]);
+		return isset($this->aData[$this->iIndex][$c]);
 	}
 
 	/**
@@ -243,7 +243,7 @@ class Recordset
 	*/
 	public function __isset($c)
 	{
-		return isset($this->arry_data[$this->int_index][$c]);
+		return isset($this->aData[$this->iIndex][$c]);
 	}
 
 	/**
@@ -254,7 +254,7 @@ class Recordset
 	*/
 	public function __unset($c)
 	{
-		unset($this->arry_data[$this->int_index][$c]);
+		unset($this->aData[$this->iIndex][$c]);
 	}
 
 	/*
@@ -265,12 +265,12 @@ class Recordset
 	public function unsetLine($l=null)
 	{
 		if (is_null($l)) {
-			$l = $this->int_index;
+			$l = $this->iIndex;
 		}
 
-		unset($this->arry_data[$l]);
-		$this->int_row_count = count($this->arry_data);
-		$this->arry_data = array_values($this->arry_data);
+		unset($this->aData[$l]);
+		$this->iRowCount = count($this->aData);
+		$this->aData = array_values($this->aData);
 	}
 	*/
 
@@ -281,7 +281,7 @@ class Recordset
 	 */
 	public function moveStart()
 	{
-		$this->int_index = 0;
+		$this->iIndex = 0;
 		return true;
 	}
 
@@ -292,7 +292,7 @@ class Recordset
 	 */
 	public function moveEnd()
 	{
-		$this->int_index = ($this->int_row_count-1);
+		$this->iIndex = ($this->iRowCount-1);
 		return true;
 	}
 
@@ -304,9 +304,9 @@ class Recordset
 	 */
 	public function moveNext()
 	{
-		if (!empty($this->arry_data) && !$this->EOF())
+		if (!empty($this->aData) && !$this->EOF())
 		{
-			$this->int_index++;
+			$this->iIndex++;
 			return true;
 		}
 		return false;
@@ -320,9 +320,9 @@ class Recordset
 	 */
 	public function movePrev()
 	{
-		if (!empty($this->arry_data) && $this->int_index > 0)
+		if (!empty($this->aData) && $this->iIndex > 0)
 		{
-			$this->int_index--;
+			$this->iIndex--;
 			return true;
 		}
 		return false;
@@ -337,9 +337,9 @@ class Recordset
 	 */
 	public function move($index)
 	{
-		if (!empty($this->arry_data) && $this->int_index >= 0 && $index < $this->int_row_count)
+		if (!empty($this->aData) && $this->iIndex >= 0 && $index < $this->iRowCount)
 		{
-			$this->int_index = $index;
+			$this->iIndex = $index;
 			return true;
 		}
 		return false;
@@ -347,7 +347,7 @@ class Recordset
 
 	public function index()
 	{
-		return $this->int_index;
+		return $this->iIndex;
 	}
 
 	/**
@@ -360,21 +360,21 @@ class Recordset
 	 */
 	public function fetch()
 	{
-		if ($this->fetch_index === null)
+		if ($this->iFetchIndex === null)
 		{
-			$this->fetch_index = 0;
-			$this->int_index = -1;
+			$this->iFetchIndex = 0;
+			$this->iIndex = -1;
 		}
 
-		if ($this->fetch_index+1 > $this->int_row_count)
+		if ($this->iFetchIndex+1 > $this->iRowCount)
 		{
-			$this->fetch_index = null;
-			$this->int_index = 0;
+			$this->iFetchIndex = null;
+			$this->iIndex = 0;
 			return false;
 		}
 
-		$this->fetch_index++;
-		$this->int_index++;
+		$this->iFetchIndex++;
+		$this->iIndex++;
 
 		return true;
 	}
@@ -386,7 +386,7 @@ class Recordset
 	 */
 	public function BOF()
 	{
-		return ($this->int_index == -1 || $this->int_row_count == 0);
+		return ($this->iIndex == -1 || $this->iRowCount == 0);
 	}
 
 	/**
@@ -396,7 +396,7 @@ class Recordset
 	 */
 	public function EOF()
 	{
-		return ($this->int_index == $this->int_row_count);
+		return ($this->iIndex == $this->iRowCount);
 	}
 
 	/**
@@ -406,7 +406,7 @@ class Recordset
 	 */
 	public function isEmpty()
 	{
-		return ($this->int_row_count == 0);
+		return ($this->iRowCount == 0);
 	}
 
 	/**
@@ -417,10 +417,10 @@ class Recordset
 	public function getData($id=null)
 	{
 		if ($id === null) {
-			return $this->arry_data;
+			return $this->aData;
 		}
 		else {
-			return $this->arry_data[$id];
+			return $this->aData[$id];
 		}
 	}
 
@@ -436,7 +436,7 @@ class Recordset
 	 */
 	public function nbRow()
 	{
-		return $this->int_row_count;
+		return $this->iRowCount;
 	}
 
 }
