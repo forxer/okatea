@@ -7,6 +7,7 @@
  */
 namespace Okatea\Tao;
 
+use Doctrine\DBAL\DriverManager as Dbal;
 use Monolog\Logger;
 use Monolog\ErrorHandler;
 use Monolog\Handler\StreamHandler;
@@ -86,6 +87,13 @@ class Application
 	 * @var Okatea\Tao\Database\MySqli
 	 */
 	public $db;
+
+	/**
+	 * Le préfix des tables de la base de données.
+	 *
+	 * @var string
+	 */
+	public $db_prefix;
 
 	/**
 	 * Le gestionnaire de base de données via Doctrine DBAL.
@@ -401,7 +409,6 @@ class Application
 			}
 		}
 
-		/*
 		if (null === $this->conn)
 		{
 			$sConnectionFilename = $this->options->get('config_dir') . '/connection.php';
@@ -412,15 +419,16 @@ class Application
 
 			require $sConnectionFilename;
 
-			$this->conn = \Doctrine\DBAL\DriverManager::getConnection([
+			$this->db_prefix = $sDbPrefix;
+
+			$this->conn = Dbal::getConnection([
 				'dbname' 	=> $sDbName,
 				'user' 		=> $sDbUser,
 				'password' 	=> $sDbPassword,
 				'host' 		=> $sDbHost,
-				'driver' 	=> 'pdo_mysql',
-			], new \Doctrine\DBAL\Configuration());
+				'driver' 	=> $sDbDriver,
+			]);
 		}
-		*/
 	}
 
 	public function startLanguages()

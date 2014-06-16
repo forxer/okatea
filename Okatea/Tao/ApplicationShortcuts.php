@@ -19,9 +19,16 @@ class ApplicationShortcuts
 	/**
 	 * The database manager instance.
 	 *
-	 * @var object
+	 * @var Okatea\Tao\Database\MySqli
 	 */
 	protected $db;
+
+	/**
+	 * The database connection instance.
+	 *
+	 * @var object
+	 */
+	protected $conn;
 
 	/**
 	 * The errors manager instance.
@@ -42,6 +49,7 @@ class ApplicationShortcuts
 
 		$okt->startDatabase();
 		$this->db = $okt->db;
+		$this->conn = $okt->conn;
 
 		$this->error = $okt->error;
 	}

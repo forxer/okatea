@@ -96,9 +96,9 @@ class Visitor extends ApplicationShortcuts
 	/**
 	 * Informations utilisateur courant sous forme de recordset.
 	 *
-	 * @var object recordset
+	 * @var array
 	 */
-	public $infos = null;
+	public $infos = array();
 
 	/**
 	 * Constructeur.
@@ -119,9 +119,9 @@ class Visitor extends ApplicationShortcuts
 	{
 		parent::__construct($okt);
 
-		$this->sUsersTable = $this->db->prefix . 'core_users';
-		$this->sGroupsTable = $this->db->prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $this->db->prefix . 'core_users_groups_locales';
+		$this->sUsersTable = $this->okt->db_prefix . 'core_users';
+		$this->sGroupsTable = $this->okt->db_prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $this->okt->db_prefix . 'core_users_groups_locales';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
@@ -145,7 +145,11 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function __get($sKey)
 	{
-		return $this->infos->f($sKey);
+		if (isset($this->infos[$sKey])) {
+			return $this->infos[$sKey];
+		}
+
+		return null;
 	}
 
 	/**
@@ -157,19 +161,16 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function __set($sKey, $mValue)
 	{
-		return $this->infos->setField($sKey, $mValue);
+		return $this->infos[$sKey] = $mValue;
 	}
 
 	/**
 	 * Retourne toutes les informations d'un utilisateur.
-	 *
-	 * @param
-	 *        	$id
 	 * @return array
 	 */
-	public function getData($id = null)
+	public function getData()
 	{
-		return $this->infos->getData($id);
+		return $this->infos;
 	}
 
 	/**
@@ -203,13 +204,13 @@ class Visitor extends ApplicationShortcuts
 			$this->authenticateUser(intval($aCookie['user_id']), $aCookie['password_hash']);
 
 			# Nous validons maintenans le hash du cookie
-			if ($aCookie['expire_hash'] !== sha1($this->infos->f('password') . intval($aCookie['expiration_time'])))
+			if ($aCookie['expire_hash'] !== sha1($this->infos['password'] . intval($aCookie['expiration_time'])))
 			{
 				$this->setDefaultUser();
 			}
 
 			# Si nous sommes retournés à l'utilisateur par défaut, la connexion a échouée
-			if ($this->infos->f('id') == '1')
+			if ($this->infos['id'] == '1')
 			{
 				$this->setAuthCookie(base64_encode('1|' . Utilities::random_key(8, false, true) . '|' . $iTsExpire . '|' . Utilities::random_key(8, false, true)), $iTsExpire);
 				return;
@@ -217,11 +218,13 @@ class Visitor extends ApplicationShortcuts
 
 			# Envoit d'un nouveau cookie mis à jour avec un nouveau timestamp d'expiration
 			$iTsExpire = (intval($aCookie['expiration_time']) > $iTsNow + $this->iVisitTimeout) ? $iTsNow + $this->iVisitRememberTime : $iTsNow + $this->iVisitTimeout;
-			$this->setAuthCookie(base64_encode($this->infos->f('id') . '|' . $this->infos->f('password') . '|' . $iTsExpire . '|' . sha1($this->infos->f('password') . $iTsExpire)), $iTsExpire);
+			$this->setAuthCookie(base64_encode($this->infos['id'] . '|' . $this->infos['password'] . '|' . $iTsExpire . '|' . sha1($this->infos['password'] . $iTsExpire)), $iTsExpire);
 
-			$this->infos->set('is_guest', false);
-			$this->infos->set('is_admin', ($this->infos->f('group_id') == Groups::SUPERADMIN || $this->infos->f('group_id') == Groups::ADMIN));
-			$this->infos->set('is_superadmin', ($this->infos->f('group_id') == Groups::SUPERADMIN));
+			$this->infos['logged'] = $iTsNow;
+
+			$this->infos['is_guest'] = false;
+			$this->infos['is_admin'] = ($this->infos['group_id'] == Groups::SUPERADMIN || $this->infos['group_id'] == Groups::ADMIN);
+			$this->infos['is_superadmin'] = ($this->infos['group_id'] == Groups::SUPERADMIN);
 		}
 		# sinon l'utilisateur n'est plus connecté
 		else
@@ -230,57 +233,46 @@ class Visitor extends ApplicationShortcuts
 		}
 
 		# Store common name
-		$this->infos->set('usedname', Users::getUserDisplayName($this->infos->username, $this->infos->lastname, $this->infos->firstname, $this->infos->displayname));
+		$this->infos['usedname'] = Users::getUserDisplayName($this->infos['username'], $this->infos['lastname'], $this->infos['firstname'], $this->infos['displayname']);
 
 		# And finally, store perms array
-		if ($this->infos->f('perms') != '' && ! is_array($this->infos->perms))
+		if (!is_array($this->infos['perms']))
 		{
-			$this->infos->set('perms', json_decode($this->infos->perms));
-		}
-		elseif (! is_array($this->infos->f('perms')))
-		{
-			$this->infos->set('perms', array());
+			if (!empty($this->infos['perms']))
+			{
+				$this->infos['perms'] = json_decode($this->infos['perms']);
+			}
+			else
+			{
+				$this->infos['perms'] = array();
+			}
 		}
 	}
 
 	/**
 	 * Méthode d'authentification de l'utilisateur courant.
 	 *
-	 * @param
-	 *        	$mUser
-	 * @param
-	 *        	$sPasswordHash
+	 * @param integer $iUserId
+	 * @param string $sPasswordHash
 	 * @return void
 	 */
-	public function authenticateUser($mUser, $sPasswordHash)
+	public function authenticateUser($iUserId, $sPasswordHash)
 	{
 		$sQuery =
 			'SELECT u.*, g.* ' .
 			'FROM ' . $this->sUsersTable . ' AS u ' .
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
-			'WHERE u.status = 1 AND ';
+			'WHERE u.status = 1 AND u.id = :user_id';
 
-		if (Utilities::isInt($mUser))
-		{
-			$sQuery .= 'u.id=' . (integer) $mUser . ' ';
-		}
-		else
-		{
-			$sQuery .= 'u.username=\'' . $this->db->escapeStr($mUser) . '\' ';
-		}
+		$user = $this->conn->fetchAssoc($sQuery, array('user_id' => $iUserId));
 
-		if (($rs = $this->db->select($sQuery)) === false)
-		{
-			return false;
-		}
-
-		if ($rs->isEmpty() || ($sPasswordHash != $rs->f('password')))
+		if ($user === false || $sPasswordHash != $user['password'])
 		{
 			$this->setDefaultUser();
 		}
 		else
 		{
-			$this->infos = $rs;
+			$this->infos = $user;
 		}
 	}
 
@@ -291,34 +283,26 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setDefaultUser()
 	{
-		$sRemoteAddr = $this->okt->request->getClientIp();
-
-		# Fetch guest user
 		$sQuery =
 			'SELECT u.*, g.* ' .
 			'FROM ' . $this->sUsersTable . ' AS u ' .
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
-			'WHERE u.id=1';
+			'WHERE u.id = 1';
 
-		if (($rs = $this->db->select($sQuery)) === false)
+		$user = $this->conn->fetchAssoc($sQuery);
+
+		if ($user === false)
 		{
 			return false;
 		}
 
-		if ($rs->isEmpty())
-		{
-			return false;
-		}
-		else
-		{
-			$this->infos = $rs;
-		}
+		$this->infos = $user;
 
-		$this->infos->set('timezone', $this->okt->config->timezone);
-		$this->infos->set('language', $this->okt->config->language);
-		$this->infos->set('is_guest', true);
-		$this->infos->set('is_admin', false);
-		$this->infos->set('is_superadmin', false);
+		$this->infos['timezone'] = $this->okt->config->timezone;
+		$this->infos['language'] = $this->okt->config->language;
+		$this->infos['is_guest'] = true;
+		$this->infos['is_admin'] = false;
+		$this->infos['is_superadmin'] = false;
 	}
 
 	/**
@@ -331,22 +315,17 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function login($sUsername, $sPassword, $save_pass = false)
 	{
-		$sQuery = 'SELECT id, group_id, password ' . 'FROM ' . $this->sUsersTable . ' ' . 'WHERE username=\'' . $this->db->escapeStr($sUsername) . '\' ';
+		$user = $this->conn->fetchAssoc('SELECT id, group_id, password FROM ' . $this->sUsersTable . ' WHERE username = ?', array($sUsername));
 
-		if (($rs = $this->db->select($sQuery)) === false)
-		{
-			return false;
-		}
-
-		if ($rs->isEmpty())
+		if ($user === false)
 		{
 			$this->error->set(__('c_c_auth_unknown_user'));
 			return false;
 		}
 
-		$sPasswordHash = $rs->password;
+		$sPasswordHash = $user['password'];
 
-		if (! password_verify($sPassword, $sPasswordHash))
+		if (!password_verify($sPassword, $sPasswordHash))
 		{
 			$this->error->set(__('c_c_auth_wrong_password'));
 			return false;
@@ -355,28 +334,23 @@ class Visitor extends ApplicationShortcuts
 		{
 			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
 
-			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'password=\'' . $this->db->escapeStr($sPasswordHash) . '\' ' . 'WHERE id=' . $rs->id;
-
-			if (! $this->db->execute($sQuery))
-			{
-				return false;
-			}
+			$this->conn->update($this->sUsersTable, array('password' => $sPasswordHash), array('id' => $user['id']));
 		}
 
-		if ($rs->group_id == Groups::UNVERIFIED)
+		if ($user['group_id'] == Groups::UNVERIFIED)
 		{
 			$this->error->set(__('c_c_auth_account_awaiting_validation'));
 			return false;
 		}
 
 		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
-		$this->setAuthCookie(base64_encode($rs->id . '|' . $sPasswordHash . '|' . $iTsExpire . '|' . sha1($sPasswordHash . $iTsExpire)), $iTsExpire);
+		$this->setAuthCookie(base64_encode($user['id'] . '|' . $sPasswordHash . '|' . $iTsExpire . '|' . sha1($sPasswordHash . $iTsExpire)), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
 			$this->okt->logAdmin->add(array(
-				'user_id' => $rs->id,
+				'user_id' => $user['id'],
 				'username' => $sUsername,
 				'code' => 10,
 				'message' => __('c_c_log_admin_message_by_form')
@@ -384,7 +358,7 @@ class Visitor extends ApplicationShortcuts
 		}
 
 		# -- CORE TRIGGER : userLogin
-		$this->okt->triggers->callTrigger('userLogin', $rs);
+		$this->okt->triggers->callTrigger('userLogin');
 
 		return true;
 	}
@@ -397,14 +371,9 @@ class Visitor extends ApplicationShortcuts
 	public function logout()
 	{
 		# Update last_visit (make sure there's something to update it with)
-		if ($this->infos->f('logged') != '')
+		if (!empty($this->infos['logged']))
 		{
-			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'last_visit=' . $this->infos->f('logged') . ' ' . 'WHERE id=' . $this->infos->f('id');
-
-			if (! $this->db->execute($sQuery))
-			{
-				return false;
-			}
+			$this->conn->update($this->sUsersTable, array('last_visit' => $this->infos['logged']), array('id' => $this->infos['id']));
 		}
 
 		$this->setAuthCookie('', 0);
@@ -413,8 +382,8 @@ class Visitor extends ApplicationShortcuts
 		if (isset($this->okt->logAdmin))
 		{
 			$this->okt->logAdmin->add(array(
-				'user_id' => $this->infos->f('id'),
-				'username' => $this->infos->f('username'),
+				'user_id' => $this->infos['id'],
+				'username' => $this->infos['username'],
 				'code' => 11
 			));
 		}
@@ -435,9 +404,9 @@ class Visitor extends ApplicationShortcuts
 	{
 		$this->sCookieLangName = $sCookieName;
 
-		$this->infos->set('language', $this->getDefaultLang());
+		$this->infos['language'] = $this->getDefaultLang();
 
-		$this->setUserLang($this->infos->f('language'));
+		$this->setUserLang($this->infos['language']);
 	}
 
 	/**
@@ -448,7 +417,7 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setUserLang($sLanguage)
 	{
-		if ($this->infos->f('language') === $sLanguage)
+		if ($this->infos['language'] === $sLanguage)
 		{
 			return false;
 		}
@@ -458,17 +427,12 @@ class Visitor extends ApplicationShortcuts
 			return false;
 		}
 
-		$this->infos->set('language', $sLanguage);
+		$this->infos['language'] = $sLanguage;
 		$this->setLangCookie($sLanguage);
 
-		if (! $this->infos->f('is_guest'))
+		if (! $this->infos['is_guest'])
 		{
-			$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'WHERE id=' . (integer) $this->infos->f('id');
-
-			if (! $this->db->execute($sQuery))
-			{
-				return false;
-			}
+			$this->conn->update($this->sUsersTable, array('language' => $sLanguage), array('id' => $this->infos['id']));
 		}
 
 		return true;

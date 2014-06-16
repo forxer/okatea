@@ -9,10 +9,9 @@ namespace Okatea\Tao;
 
 class ApplicationOptions
 {
-
 	protected $aOptions = array();
 
-	public function __construct($aOptions)
+	public function __construct(array $aOptions = array())
 	{
 		$this->setOptions($aOptions);
 	}
@@ -42,7 +41,7 @@ class ApplicationOptions
 
 	public function has($sKey)
 	{
-		return ! empty($this->aOptions[$sKey]);
+		return isset($this->aOptions[$sKey]);
 	}
 
 	public function __get($sKey)
