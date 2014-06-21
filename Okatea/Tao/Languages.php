@@ -70,7 +70,7 @@ class Languages extends ApplicationShortcuts
 		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'languages';
 
-		$this->t_languages = $okt->db->prefix . 'core_languages';
+		$this->t_languages = $okt->db_prefix . 'core_languages';
 
 		$this->load();
 	}

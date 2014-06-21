@@ -12,7 +12,6 @@ use Okatea\Tao\Html\Modifiers;
 
 class Module
 {
-
 	protected $id;
 
 	protected $urlId;
@@ -46,34 +45,34 @@ class Module
 		'db-install' => 'Install/db-install.tpl',
 		'db-truncate' => 'Install/db-truncate.tpl',
 		'db-uninstall' => 'Install/db-uninstall.tpl',
-		
+
 		'public_list' => 'Install/public/list.tpl',
 		'public_item' => 'Install/public/item.tpl',
-		
+
 		'tpl_base' => 'Install/Templates/base.tpl',
 		'tpl_list' => 'Install/Templates/list.tpl',
 		'tpl_item' => 'Install/Templates/item.tpl',
-		
+
 		'preview_icon' => 'Install/Assets/preview.png',
 		'common_css' => 'Install/Assets/styles.tpl',
-		
+
 		'admin_index' => 'inc/admin/index.tpl',
 		'admin_display' => 'inc/admin/display.tpl',
 		'admin_config' => 'inc/admin/config.tpl',
 		'admin_item' => 'inc/admin/item.tpl',
-		
+
 		'public_prepend_list' => 'inc/public/list.tpl',
 		'public_prepend_item' => 'inc/public/item.tpl',
-		
+
 		'controller' => 'inc/class.controller.tpl',
 		'filters' => 'inc/class.filters.tpl',
 		'recordset' => 'inc/recordset.tpl',
-		
+
 		'locales_main_en' => 'Locales/locales_main_en.tpl',
 		'locales_main_fr' => 'Locales/locales_main_fr.tpl',
 		'locales_admin_en' => 'Locales/locales_admin_en.tpl',
 		'locales_admin_fr' => 'Locales/locales_admin_fr.tpl',
-		
+
 		'define' => '_define.tpl',
 		'admin' => 'admin.tpl',
 		'changelog' => 'changelog.tpl',
@@ -106,17 +105,9 @@ class Module
 		'none' => 'None'
 	);
 
-	/**
-	 * Constructor
-	 *
-	 * public function __construct()
-	 * {
-	 * }
-	 */
-	
 	/* Building methods
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Bootstrap the module
 	 */
@@ -134,31 +125,31 @@ class Module
 		$this->urlIdFr = Modifiers::strToLowerUrl($this->nameFr);
 		$this->upperId = strtoupper($this->id);
 		$this->camelCaseId = Modifiers::strToCamelCase($this->id);
-		
+
 		$this->dir = $this->modules_dir . '/' . $this->id;
-		
+
 		$this->makeHeader();
-		
+
 		$this->common_replacements = array(
 			'##header##' => $this->header,
-			
+
 			'##module_id##' => $this->id,
 			'##module_url_id##' => $this->urlId,
 			'##module_url_id_fr##' => $this->urlIdFr,
 			'##module_upper_id##' => $this->upperId,
 			'##module_camel_case_id##' => $this->camelCaseId,
-			
+
 			'##module_name##' => $this->name,
 			'##module_description##' => $this->description,
 			'##module_name_fr##' => $this->nameFr,
 			'##module_description_fr##' => $this->descriptionFr,
-			
+
 			'##module_author##' => $this->author,
 			'##module_version##' => $this->version,
-			
+
 			'##date##' => date('Y-m-d'),
 			'##year##' => date('Y'),
-			
+
 			'##l10n_en_1##' => $this->locales['en'][1],
 			'##l10n_en_2##' => $this->locales['en'][2],
 			'##l10n_en_3##' => $this->locales['en'][3],
@@ -169,7 +160,7 @@ class Module
 			'##l10n_en_8##' => $this->locales['en'][8],
 			'##l10n_en_9##' => $this->locales['en'][9],
 			'##l10n_en_10##' => $this->locales['en'][10],
-			
+
 			'##l10n_fr_1##' => $this->locales['fr'][1],
 			'##l10n_fr_2##' => $this->locales['fr'][2],
 			'##l10n_fr_3##' => $this->locales['fr'][3],
@@ -180,7 +171,7 @@ class Module
 			'##l10n_fr_8##' => $this->locales['fr'][8],
 			'##l10n_fr_9##' => $this->locales['fr'][9],
 			'##l10n_fr_10##' => $this->locales['fr'][10],
-			
+
 			'##l10n_fr_fem##' => ($this->locales['fem'] ? 'e' : '')
 		);
 	}
@@ -188,11 +179,11 @@ class Module
 	protected function makeHeader()
 	{
 		$this->makeLicenceBlock();
-		
+
 		$replacements = $this->getReplacements(array(
 			'##licence_bloc##' => ($this->licence == 'none' ? '' : $this->licence_block)
 		));
-		
+
 		$this->header = $this->replace($this->getTpl('header'), $replacements);
 	}
 
@@ -204,7 +195,7 @@ class Module
 		$replacements = $this->getReplacements(array(
 			'##licence##' => $this->getLicenceBlock()
 		));
-		
+
 		$this->licence_block = $this->replace($this->getTpl('licence_block'), $replacements);
 	}
 
@@ -217,19 +208,19 @@ class Module
 		{
 			throw new \Exception(sprintf(__('m_development_bootstrap_module_allready_exists'), $this->id));
 		}
-		
+
 		\files::makeDir($this->dir);
 		\files::makeDir($this->dir . '/Install', true);
 		\files::makeDir($this->dir . '/Install/Assets', true);
 		\files::makeDir($this->dir . '/Install/public', true);
 		\files::makeDir($this->dir . '/Install/Templates', true);
 		//		\files::makeDir($this->dir.'/Install/TestSet',true);
-		
+
 
 		\files::makeDir($this->dir . '/inc', true);
 		\files::makeDir($this->dir . '/inc/admin', true);
 		\files::makeDir($this->dir . '/inc/public', true);
-		
+
 		\files::makeDir($this->dir . '/Locales', true);
 		\files::makeDir($this->dir . '/Locales/fr', true);
 		\files::makeDir($this->dir . '/Locales/en', true);
@@ -241,44 +232,44 @@ class Module
 	protected function makeFiles()
 	{
 		$replacements = $this->getReplacements();
-		
+
 		$this->makeFile('db-install', $this->dir . '/Install/db-install.xml', $replacements);
 		$this->makeFile('db-truncate', $this->dir . '/Install/db-truncate.xml', $replacements);
 		$this->makeFile('db-uninstall', $this->dir . '/Install/db-uninstall.xml', $replacements);
 		$this->makeFile('config', $this->dir . '/Install/conf_' . $this->id . '.yml', $replacements);
-		
+
 		copy($this->getTplPath('preview_icon'), $this->dir . '/Install/Assets/preview.png');
 		$this->makeFile('common_css', $this->dir . '/Install/Assets/styles.css', $replacements);
-		
+
 		$this->makeFile('public_list', $this->dir . '/Install/public/oktPublic_' . $this->id . '_list.php', $replacements);
 		$this->makeFile('public_item', $this->dir . '/Install/public/oktPublic_' . $this->id . '_item.php', $replacements);
-		
+
 		$this->makeFile('tpl_list', $this->dir . '/Install/Templates/' . $this->id . '_list_tpl.php', $replacements);
 		$this->makeFile('tpl_item', $this->dir . '/Install/Templates/' . $this->id . '_item_tpl.php', $replacements);
-		
+
 		$this->makeFile('admin_index', $this->dir . '/Admin/index.php', $replacements);
 		$this->makeFile('admin_display', $this->dir . '/Admin/display.php', $replacements);
 		$this->makeFile('admin_config', $this->dir . '/Admin/config.php', $replacements);
 		$this->makeFile('admin_item', $this->dir . '/Admin/item.php', $replacements);
-		
+
 		$this->makeFile('public_prepend_list', $this->dir . '/inc/public/list.php', $replacements);
 		$this->makeFile('public_prepend_item', $this->dir . '/inc/public/item.php', $replacements);
-		
+
 		$this->makeFile('filters', $this->dir . '/inc/class.' . $this->id . '.filters.php', $replacements);
 		$this->makeFile('recordset', $this->dir . '/inc/class.' . $this->id . '.recordset.php', $replacements);
-		
+
 		$this->makeFile('locales_main_en', $this->dir . '/Locales/en/main.lang.php', $replacements);
 		$this->makeFile('locales_main_fr', $this->dir . '/Locales/fr/main.lang.php', $replacements);
 		$this->makeFile('locales_admin_en', $this->dir . '/Locales/en/admin.lang.php', $replacements);
 		$this->makeFile('locales_admin_fr', $this->dir . '/Locales/fr/admin.lang.php', $replacements);
-		
+
 		$this->makeFile('define', $this->dir . '/_define.php', $replacements);
 		$this->makeFile('admin', $this->dir . '/admin.php', $replacements);
 		$this->makeFile('changelog', $this->dir . '/CHANGELOG', $replacements);
 		$this->makeFile('index', $this->dir . '/index.php', $replacements);
 		$this->makeFile('module', $this->dir . '/module.php', $replacements);
 	}
-	
+
 	/* Licences methods
 	----------------------------------------------------------*/
 	static public function getLicencesList($reverse = false)
@@ -292,7 +283,7 @@ class Module
 		{
 			return '#';
 		}
-		
+
 		$block_replacements = array(
 			//		'asf20' 	=> array(),
 			//		'art' 		=> array(),
@@ -303,9 +294,9 @@ class Module
 			'mit' => array()
 		//	 	'mpl11' 	=> array(),
 		//	 	'bsd' 		=> array(),
-		
-		;
-		
+
+		);
+
 		$this->templates[$this->licence . '_block'] = 'licences/' . $this->licence . '/block.tpl';
 		return $this->tplReplace($this->licence . '_block', $block_replacements[$this->licence]);
 	}
@@ -316,7 +307,7 @@ class Module
 		{
 			return null;
 		}
-		
+
 		$licence_replacements = array(
 			//		'asf20' 	=> array(),
 			//		'art' 		=> array(),
@@ -330,13 +321,13 @@ class Module
 			)
 		//	 	'mpl11' 	=> array(),
 		//	 	'bsd' 		=> array(),
-		
-		;
-		
+
+		);
+
 		$this->templates[$this->licence] = 'licences/' . $this->licence . '/licence.tpl';
 		$this->makeFile($this->licence, $this->dir . '/LICENCE', $licence_replacements[$this->licence]);
 	}
-	
+
 	/* getters/setters
 	----------------------------------------------------------*/
 	public function getName()
@@ -420,7 +411,7 @@ class Module
 		{
 			$this->licence = 'other';
 		}
-		
+
 		return $this;
 	}
 
@@ -456,10 +447,10 @@ class Module
 		$this->modules_dir = $modules_dir;
 		return $this;
 	}
-	
+
 	/* Templates and replacement methods
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Return content of a template file
 	 *
@@ -473,7 +464,7 @@ class Module
 		{
 			throw new \Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'), $this->templates[$tpl], $this->templates_dir));
 		}
-		
+
 		return file_get_contents($this->getTplPath($tpl));
 	}
 
@@ -490,8 +481,8 @@ class Module
 	/**
 	 * Make replacements
 	 *
-	 * @param string $str        	
-	 * @param array $replacements        	
+	 * @param string $str
+	 * @param array $replacements
 	 * @return string
 	 */
 	protected function replace($str, $replacements)
@@ -504,7 +495,7 @@ class Module
 	 *
 	 * @param string $template_name
 	 *        	ID
-	 * @param array $replacements        	
+	 * @param array $replacements
 	 * @return string
 	 */
 	protected function tplReplace($template_name, $replacements = array())
@@ -515,9 +506,9 @@ class Module
 	/**
 	 * Make a file base on a template
 	 *
-	 * @param string $template_name        	
-	 * @param string $destination        	
-	 * @param array $replacements        	
+	 * @param string $template_name
+	 * @param string $destination
+	 * @param array $replacements
 	 * @return integer
 	 */
 	protected function makeFile($template_name, $destination, $replacements = array())
@@ -528,7 +519,7 @@ class Module
 	/**
 	 * Merge common replacement with other and return it
 	 *
-	 * @param array $other_replacements        	
+	 * @param array $other_replacements
 	 * @return array
 	 */
 	protected function getReplacements($other_replacements = array())
@@ -539,9 +530,9 @@ class Module
 	protected function getId()
 	{
 		$id = Modifiers::strToUnderscored($this->name);
-		
+
 		$id = preg_replace('/^([0-9_])*([a-zA-Z0-9_\x7f-\xff]+)$/', '$2', $id);
-		
+
 		return $id;
 	}
 }

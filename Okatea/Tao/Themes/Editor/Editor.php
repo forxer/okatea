@@ -18,7 +18,6 @@ use Okatea\Tao\Themes\Editor\Iterator\ThemeDirsForSelect;
  */
 class Editor
 {
-
 	/**
 	 * Okatea application instance.
 	 *
@@ -120,28 +119,28 @@ class Editor
 	/**
 	 * Constructor.
 	 *
-	 * @param Okatea\Tao\Application $okt        	
-	 * @param string $sThemesPath        	
+	 * @param Okatea\Tao\Application $okt
+	 * @param string $sThemesPath
 	 * @return void
 	 */
 	public function __construct($okt, $sThemesPath)
 	{
 		$this->okt = $okt;
-		
+
 		$this->sThemesPath = $sThemesPath;
 		$this->sThemesDir = basename($sThemesPath);
-		
+
 		$this->oThemes = new Collection($okt, $sThemesPath);
 		$this->aThemes = $this->oThemes->getThemesAdminList();
 	}
-	
+
 	/* Méthodes pour l'édition d'un thème
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Chargement d'un thème donné dans l'éditeur.
 	 *
-	 * @param string $sThemeId        	
+	 * @param string $sThemeId
 	 * @return void
 	 */
 	public function loadTheme($sThemeId)
@@ -150,11 +149,11 @@ class Editor
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_theme_%s_not_exists'), $sThemeId));
 		}
-		
+
 		$this->sThemeId = $sThemeId;
-		
+
 		$this->aThemeInfos = $this->aThemes[$this->sThemeId];
-		
+
 		$this->sThemePath = $this->sThemesPath . '/' . $this->sThemeId;
 		$this->sThemeUrl = $this->okt->config->app_path . $this->sThemesDir . '/' . $this->sThemeId;
 	}
@@ -228,23 +227,22 @@ class Editor
 		foreach ($this->aThemes as $aTheme)
 		{
 			//		$this->aTemplatesPath[$aTheme['name']] = array();
-			
+
 
 			$i = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->sThemesPath . '/' . $aTheme['id'] . '/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
-			
+
 			foreach ($i as $f)
 			{
 				if ($f->isFile() && $f->getExtension() == 'php'
 		//				&& $f->getFilename() != 'layout.php'
-						&& $f && 
-->getFilename() != '_define.php')
-				
+						&& $f->getFilename() != '_define.php')
+
 				{
 					$this->aTemplatesPath[$aTheme['name']][str_replace($this->sThemesPath . '/' . $aTheme['id'] . '/Templates', '', $f->getPathname())] = str_replace($this->sThemesPath, '', $f->getPathname());
 				}
 			}
 		}
-		
+
 		return $this->aTemplatesPath;
 	}
 
@@ -277,14 +275,14 @@ class Editor
 	{
 		return $this->sThemeUrl;
 	}
-	
+
 	/* Méthodes pour l'édition d'un fichier
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Chargement d'un fichier donné dans l'éditeur.
 	 *
-	 * @param string $sThemeId        	
+	 * @param string $sThemeId
 	 * @return void
 	 */
 	public function loadFile($sFilename)
@@ -293,13 +291,13 @@ class Editor
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sFilename));
 		}
-		
+
 		$this->sFilename = $sFilename;
-		
+
 		$this->oFileInfos = new SplFileInfo($this->sThemePath . $this->sFilename);
-		
+
 		$this->sFileExtension = $this->oFileInfos->getExtension();
-		
+
 		$this->loadBackupFiles();
 	}
 
@@ -342,9 +340,9 @@ class Editor
 	{
 		$sBasename = str_replace('.' . $this->sFileExtension, '', $this->sFilename);
 		$sPatern = $sBasename . '_????-??-??-??-??-??.' . $this->sFileExtension . '.bak';
-		
+
 		$this->aBackupFiles = glob($this->sThemePath . $sPatern);
-		
+
 		foreach ($this->aBackupFiles as $k => $sFile)
 		{
 			$this->aBackupFiles[$k] = str_replace($this->sThemePath, '', $sFile);
@@ -364,8 +362,8 @@ class Editor
 	/**
 	 * Enregistre un nouveau contenu pour le fichier en cours d'édition.
 	 *
-	 * @param string $sContent        	
-	 * @param boolean $bMPakeBakcup        	
+	 * @param string $sContent
+	 * @param boolean $bMPakeBakcup
 	 */
 	public function saveFile($sContent, $bMPakeBakcup)
 	{
@@ -373,7 +371,7 @@ class Editor
 		{
 			$this->makeBackup();
 		}
-		
+
 		return file_put_contents($this->sThemePath . $this->sFilename, $sContent);
 	}
 
@@ -383,14 +381,14 @@ class Editor
 	public function makeBackup()
 	{
 		$sBackupFilename = str_replace('.' . $this->sFileExtension, date('_Y-m-d-H-i-s') . '.' . $this->sFileExtension . '.bak', $this->sFilename);
-		
+
 		copy($this->sThemePath . $this->sFilename, $this->sThemePath . $sBackupFilename);
 	}
 
 	/**
 	 * Restauration d'une copie de sauvegarde.
 	 *
-	 * @param string $sBackupFile        	
+	 * @param string $sBackupFile
 	 */
 	public function restoreBackupFile($sBackupFile)
 	{
@@ -398,11 +396,11 @@ class Editor
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
-		
+
 		$this->makeBackup();
-		
+
 		file_put_contents($this->sThemePath . $this->sFilename, file_get_contents($this->sThemePath . $sBackupFile));
-		
+
 		$this->deleteBackupFile($sBackupFile);
 	}
 
@@ -412,7 +410,7 @@ class Editor
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
-		
+
 		unlink($this->sThemePath . $sBackupFile);
 	}
 
@@ -424,7 +422,7 @@ class Editor
 	public function getCodeMirrorMode()
 	{
 		$sMode = null;
-		
+
 		if ($this->sFileExtension == 'php')
 		{
 			$sMode = 'application/x-httpd-php';
@@ -449,7 +447,7 @@ class Editor
 		{
 			$sMode = 'text/x-yaml';
 		}
-		
+
 		return $sMode;
 	}
 }
