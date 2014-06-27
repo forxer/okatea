@@ -36,7 +36,7 @@ class SingleFileCache extends CacheProvider
 	 *        	- the location where the cache file will be stored
 	 * @param array $aData
 	 */
-	public function __construct($file, array $aData = array())
+	public function __construct($file, array $aData = [])
 	{
 		$this->file = $file;
 
@@ -140,7 +140,7 @@ class SingleFileCache extends CacheProvider
 	 */
 	protected function doFlush()
 	{
-		$this->data = array();
+		$this->data = [];
 
 		return true;
 	}

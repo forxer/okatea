@@ -98,7 +98,7 @@ class Visitor extends ApplicationShortcuts
 	 *
 	 * @var array
 	 */
-	public $infos = array();
+	public $infos = [];
 
 	/**
 	 * Constructeur.
@@ -185,12 +185,12 @@ class Visitor extends ApplicationShortcuts
 		$iTsExpire = $iTsNow + $this->iVisitRememberTime;
 
 		# Nous supposons qu'il est un invité
-		$aCookie = array(
+		$aCookie = [
 			'user_id' => 1,
 			'password_hash' => 'Guest',
 			'expiration_time' => 0,
 			'expire_hash' => 'Guest'
-		);
+		];
 
 		# Si un cookie est disponible, on récupère le hash user_id et le mot de passe de lui
 		if (isset($_COOKIE[$this->sCookieName]))
@@ -238,13 +238,11 @@ class Visitor extends ApplicationShortcuts
 		# And finally, store perms array
 		if (!is_array($this->infos['perms']))
 		{
-			if (!empty($this->infos['perms']))
-			{
+			if (!empty($this->infos['perms'])) {
 				$this->infos['perms'] = json_decode($this->infos['perms']);
 			}
-			else
-			{
-				$this->infos['perms'] = array();
+			else {
+				$this->infos['perms'] = [];
 			}
 		}
 	}
@@ -264,14 +262,12 @@ class Visitor extends ApplicationShortcuts
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
 			'WHERE u.status = 1 AND u.id = :user_id';
 
-		$user = $this->conn->fetchAssoc($sQuery, array('user_id' => $iUserId));
+		$user = $this->conn->fetchAssoc($sQuery, ['user_id' => $iUserId]);
 
-		if ($user === false || $sPasswordHash != $user['password'])
-		{
+		if ($user === false || $sPasswordHash != $user['password']) {
 			$this->setDefaultUser();
 		}
-		else
-		{
+		else {
 			$this->infos = $user;
 		}
 	}
@@ -315,7 +311,7 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function login($sUsername, $sPassword, $save_pass = false)
 	{
-		$user = $this->conn->fetchAssoc('SELECT id, group_id, password FROM ' . $this->sUsersTable . ' WHERE username = ?', array($sUsername));
+		$user = $this->conn->fetchAssoc('SELECT id, group_id, password FROM ' . $this->sUsersTable . ' WHERE username = ?', [$sUsername]);
 
 		if ($user === false)
 		{
@@ -334,7 +330,14 @@ class Visitor extends ApplicationShortcuts
 		{
 			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
 
-			$this->conn->update($this->sUsersTable, array('password' => $sPasswordHash), array('id' => $user['id']));
+			$this->conn->update($this->sUsersTable,
+				[
+					'password' => $sPasswordHash
+				],
+				[
+					'id' => $user['id']
+				]
+			);
 		}
 
 		if ($user['group_id'] == Groups::UNVERIFIED)
@@ -349,12 +352,12 @@ class Visitor extends ApplicationShortcuts
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
-			$this->okt->logAdmin->add(array(
+			$this->okt->logAdmin->add([
 				'user_id' => $user['id'],
 				'username' => $sUsername,
 				'code' => 10,
 				'message' => __('c_c_log_admin_message_by_form')
-			));
+			]);
 		}
 
 		# -- CORE TRIGGER : userLogin
@@ -373,7 +376,14 @@ class Visitor extends ApplicationShortcuts
 		# Update last_visit (make sure there's something to update it with)
 		if (!empty($this->infos['logged']))
 		{
-			$this->conn->update($this->sUsersTable, array('last_visit' => $this->infos['logged']), array('id' => $this->infos['id']));
+			$this->conn->update($this->sUsersTable,
+				[
+					'last_visit' => $this->infos['logged']
+				],
+				[
+					'id' => $this->infos['id']
+				]
+			);
 		}
 
 		$this->setAuthCookie('', 0);
@@ -381,11 +391,11 @@ class Visitor extends ApplicationShortcuts
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
-			$this->okt->logAdmin->add(array(
+			$this->okt->logAdmin->add([
 				'user_id' => $this->infos['id'],
 				'username' => $this->infos['username'],
 				'code' => 11
-			));
+			]);
 		}
 
 		return true;
@@ -432,7 +442,14 @@ class Visitor extends ApplicationShortcuts
 
 		if (! $this->infos['is_guest'])
 		{
-			$this->conn->update($this->sUsersTable, array('language' => $sLanguage), array('id' => $this->infos['id']));
+			$this->conn->update($this->sUsersTable,
+				[
+					'language' => $sLanguage
+				],
+				[
+					'id' => $this->infos['id']
+				]
+			);
 		}
 
 		return true;
