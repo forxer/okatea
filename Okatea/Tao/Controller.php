@@ -51,12 +51,12 @@ class Controller
 	 *
 	 * @return RedirectResponse
 	 */
-	public function redirect($url, $status = 302, $headers = array())
+	public function redirect($url, $status = 302, $headers = [])
 	{
 		return new RedirectResponse($url, $status, $headers);
 	}
 
-	public function jsonResponse($data = null, $status = 200, array $headers = array())
+	public function jsonResponse($data = null, $status = 200, array $headers = [])
 	{
 		return new JsonResponse($data, $status, $headers);
 	}
@@ -84,7 +84,7 @@ class Controller
 	 *
 	 * @return string The rendered view
 	 */
-	public function renderView($view, array $parameters = array())
+	public function renderView($view, array $parameters = [])
 	{
 		return $this->okt->tpl->render($view, $parameters);
 	}
@@ -101,7 +101,7 @@ class Controller
 	 *
 	 * @return Response A Response instance
 	 */
-	public function render($view, array $parameters = array(), Response $response = null)
+	public function render($view, array $parameters = [], Response $response = null)
 	{
 		if (null === $response)
 		{
@@ -123,7 +123,7 @@ class Controller
 	 *
 	 * @return StreamedResponse A StreamedResponse instance
 	 */
-	public function stream($view, array $parameters = array(), StreamedResponse $response = null)
+	public function stream($view, array $parameters = [], StreamedResponse $response = null)
 	{
 		$templating = $this->okt->tpl;
 
@@ -150,7 +150,7 @@ class Controller
 		$response = new Response();
 		$response->setStatusCode(Response::HTTP_UNAUTHORIZED);
 
-		return $this->render('401', array(), $response);
+		return $this->render('401', [], $response);
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Controller
 		$response = new Response();
 		$response->setStatusCode(Response::HTTP_NOT_FOUND);
 
-		return $this->render('404', array(), $response);
+		return $this->render('404', [], $response);
 	}
 
 	/**
@@ -173,7 +173,7 @@ class Controller
 		$response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
 		$response->headers->set('Retry-After', 3600);
 
-		return $this->render('503', array(), $response);
+		return $this->render('503', [], $response);
 	}
 
 	/**

@@ -139,20 +139,20 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function generateCacheList()
 	{
-		$aLanguagesList = array();
+		$aLanguagesList = [];
 
-		$list = $this->getLanguages(array(
+		$list = $this->getLanguages([
 			'active' => 1
-		));
+		]);
 
 		while ($list->fetch())
 		{
-			$aLanguagesList[$list->f('code')] = array(
+			$aLanguagesList[$list->f('code')] = [
 				'id' => (integer) $list->f('id'),
 				'title' => $list->f('title'),
 				'code' => $list->f('code'),
 				'img' => $list->f('img')
-			);
+			];
 		}
 
 		return $this->cache->save($this->cache_id, $aLanguagesList);
@@ -165,7 +165,7 @@ class Languages extends ApplicationShortcuts
 	 *        	array	params			Paramètres de requete
 	 * @return Okatea\Tao\Database\Recordset
 	 */
-	public function getLanguages($params = array(), $count_only = false)
+	public function getLanguages($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 
@@ -214,7 +214,7 @@ class Languages extends ApplicationShortcuts
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 
 		if ($count_only)
@@ -235,9 +235,9 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function getLanguage($iLanguageId)
 	{
-		return $this->getLanguages(array(
+		return $this->getLanguages([
 			'id' => $iLanguageId
-		));
+		]);
 	}
 
 	/**
@@ -263,7 +263,7 @@ class Languages extends ApplicationShortcuts
 	 * @param array $aData
 	 * @return integer
 	 */
-	public function addLanguage(array $aData = array())
+	public function addLanguage(array $aData = [])
 	{
 		$query = 'SELECT MAX(ord) FROM ' . $this->t_languages;
 		$rs = $this->db->select($query);
@@ -293,7 +293,7 @@ class Languages extends ApplicationShortcuts
 	 * @param array $aData
 	 * @return boolean
 	 */
-	public function updLanguage(array $aData = array())
+	public function updLanguage(array $aData = [])
 	{
 		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'title=\'' . $this->db->escapeStr($aData['title']) . '\', ' . 'code=\'' . $this->db->escapeStr(strip_tags($aData['code'])) . '\', ' . 'img=\'' . $this->db->escapeStr($aData['img']) . '\', ' . 'active=' . (integer) $aData['active'] . ' ' . 'WHERE id=' . (integer) $aData['id'];
 
@@ -313,7 +313,7 @@ class Languages extends ApplicationShortcuts
 	 * @param array $aData
 	 * @return boolean
 	 */
-	public function checkPostData(array $aData = array())
+	public function checkPostData(array $aData = [])
 	{
 		if (empty($aData['title']))
 		{

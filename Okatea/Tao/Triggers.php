@@ -17,7 +17,7 @@ class Triggers
 	 *
 	 * @var array
 	 */
-	protected $aStack = array();
+	protected $aStack = [];
 
 	/**
 	 * Construtor.
@@ -28,7 +28,7 @@ class Triggers
 	 */
 	public function __construct()
 	{
-		$this->aStack = array();
+		$this->aStack = [];
 	}
 
 	/**

@@ -20,7 +20,6 @@ use Okatea\Tao\Html\Escaper;
  */
 class Templating extends PhpEngine
 {
-
 	protected $okt;
 
 	public function __construct($okt, $aTplDirectories)
@@ -50,7 +49,7 @@ class Templating extends PhpEngine
 	 *
 	 * @return Response A Response instance
 	 */
-	public function renderResponse($view, array $parameters = array(), Response $response = null)
+	public function renderResponse($view, array $parameters = [], Response $response = null)
 	{
 		if (null === $response)
 		{
@@ -76,17 +75,19 @@ class Templating extends PhpEngine
 	{
 		$that = $this;
 
-		$this->setEscaper('html', array(
+		$this->setEscaper('html', [
 			'Okatea\Tao\Html\Escaper',
 			'html'
-		));
-		$this->setEscaper('html_attr', array(
+		]);
+
+		$this->setEscaper('html_attr', [
 			'Okatea\Tao\Html\Escaper',
 			'attribute'
-		));
-		$this->setEscaper('js', array(
+		]);
+
+		$this->setEscaper('js', [
 			'Okatea\Tao\Html\Escaper',
 			'js'
-		));
+		]);
 	}
 }

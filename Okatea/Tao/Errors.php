@@ -32,7 +32,7 @@ class Errors
 	 */
 	public function reset()
 	{
-		$this->aErrors = array();
+		$this->aErrors = [];
 	}
 
 	/**
@@ -80,18 +80,18 @@ class Errors
 		{
 			foreach ($mMessage as $m)
 			{
-				$this->aErrors[] = array(
+				$this->aErrors[] = [
 					'message' => $m,
 					'db' => $sDbError
-				);
+				];
 			}
 		}
 		else
 		{
-			$this->aErrors[] = array(
+			$this->aErrors[] = [
 				'message' => $mMessage,
 				'db' => $sDbError
-			);
+			];
 		}
 	}
 

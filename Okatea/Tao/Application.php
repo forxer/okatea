@@ -254,7 +254,7 @@ class Application
 	 *
 	 * @var array
 	 */
-	protected $permsStack = array();
+	protected $aPermsStack = [];
 
 	/**
 	 * La liste des répertoires où le moteur de templates
@@ -262,7 +262,7 @@ class Application
 	 *
 	 * @var array
 	 */
-	protected $aTplDirectories = array();
+	protected $aTplDirectories = [];
 
 	/**
 	 * Constructor.
@@ -272,7 +272,7 @@ class Application
 	 *
 	 * @return void
 	 */
-	public function __construct($autoloader, array $aOptions = array())
+	public function __construct($autoloader, array $aOptions = [])
 	{
 		$this->autoloader = $autoloader;
 
@@ -498,15 +498,16 @@ class Application
 	{
 		if (null === $this->logger)
 		{
-			$this->logger = new Logger('okatea', array(
+			$this->logger = new Logger('okatea', [
 					new FirePHPHandler()
-				),
-				array(
+				],
+				[
 					new IntrospectionProcessor(),
 					new WebProcessor(),
 					new MemoryUsageProcessor(),
 					new MemoryPeakUsageProcessor()
-			));
+				]
+			);
 		}
 	}
 
@@ -626,7 +627,7 @@ class Application
 	 */
 	public function getPerms()
 	{
-		return $this->permsStack;
+		return $this->aPermsStack;
 	}
 
 	/**
@@ -642,13 +643,11 @@ class Application
 	 */
 	public function addPerm($perm, $libelle, $group = null)
 	{
-		if ($group)
-		{
-			$this->permsStack[$group]['perms'][$perm] = $libelle;
+		if ($group) {
+			$this->aPermsStack[$group]['perms'][$perm] = $libelle;
 		}
-		else
-		{
-			$this->permsStack[$perm] = $libelle;
+		else {
+			$this->aPermsStack[$perm] = $libelle;
 		}
 	}
 
@@ -663,10 +662,10 @@ class Application
 	 */
 	public function addPermGroup($group, $libelle)
 	{
-		$this->permsStack[$group] = array(
+		$this->aPermsStack[$group] = [
 			'libelle' => $libelle,
-			'perms' => array()
-		);
+			'perms' => []
+		];
 	}
 
 	/**
@@ -677,12 +676,10 @@ class Application
 	 */
 	public function checkPerm($permissions)
 	{
-		if ($permissions == 'is_superadmin')
-		{
+		if ($permissions == 'is_superadmin') {
 			return $this->user->is_superadmin;
 		}
-		elseif ($this->user->is_superadmin)
-		{
+		elseif ($this->user->is_superadmin) {
 			return true;
 		}
 
@@ -691,7 +688,7 @@ class Application
 
 	public function getPermsForDisplay()
 	{
-		$aPermissions = array();
+		$aPermissions = [];
 
 		foreach ($this->getPerms() as $k => $v)
 		{
@@ -699,23 +696,22 @@ class Application
 			{
 				if (! isset($aPermissions['others']))
 				{
-					$aPermissions['others'] = array(
+					$aPermissions['others'] = [
 						'libelle' => '',
-						'perms' => array()
-					);
+						'perms' => []
+					];
 				}
 
-				if ($this->checkPerm($k))
-				{
+				if ($this->checkPerm($k)) {
 					$aPermissions['others']['perms'][$k] = $v;
 				}
 			}
 			else
 			{
-				$aPermissions[$k] = array(
+				$aPermissions[$k] = [
 					'libelle' => $v['libelle'],
-					'perms' => array()
-				);
+					'perms' => []
+				];
 
 				foreach ($v['perms'] as $perm => $libelle)
 				{
@@ -837,7 +833,7 @@ class Application
 
 	public function getCommonContentReplacementsVariables()
 	{
-		return array(
+		return [
 			'app_path' => $this->config->app_path,
 			'user_language' => $this->user->language,
 			//	'theme_url' => $this->theme->url,
@@ -867,12 +863,12 @@ class Application
 			'email_to' => $this->config->email['to'],
 			'email_from' => $this->config->email['from'],
 			'email_name' => $this->config->email['name']
-		);
+		];
 	}
 
 	public function getImagesReplacementsVariables($aImages)
 	{
-		$aReplacements = array();
+		$aReplacements = [];
 
 		foreach ($aImages as $iImageId => $aImageInfos)
 		{
@@ -948,51 +944,56 @@ class Application
 				$def->addAttribute('img', 'usemap', 'CDATA');
 
 				# autorise l'élément map
-				$map = $def->addElement('map', 				// name
-'Block', 				// content set
-'Flow', 				// allowed children
-'Common', 				// attribute collection
-array( // attributes
-					'name' => 'CDATA',
-					'id' => 'ID',
-					'title' => 'CDATA'
-				));
-				$map->excludes = array(
-					'map' => true
+				$map = $def->addElement(
+					'map', 					// name
+					'Block', 				// content set
+					'Flow', 				// allowed children
+					'Common', 				// attribute collection
+					[ // attributes
+						'name' => 'CDATA',
+						'id' => 'ID',
+						'title' => 'CDATA'
+					]
 				);
+				$map->excludes = [
+					'map' => true
+				];
 
 				# autorise l'élément area
-				$area = $def->addElement('area', 				// name
-'Block', 				// content set
-'Empty', 				// don't allow children
-'Common', 				// attribute collection
-array( // attributes
-					'name' => 'CDATA',
-					'id' => 'ID',
-					'alt' => 'Text',
-					'coords' => 'CDATA',
-					'accesskey' => 'Character',
-					'nohref' => new \HTMLPurifier_AttrDef_Enum(array(
-						'nohref'
-					)),
-					'href' => 'URI',
-					'shape' => new \HTMLPurifier_AttrDef_Enum(array(
-						'rect',
-						'circle',
-						'poly',
-						'default'
-					)),
-					'tabindex' => 'Number',
-					'target' => new \HTMLPurifier_AttrDef_Enum(array(
-						'_blank',
-						'_self',
-						'_target',
-						'_top'
-					))
-				));
-				$area->excludes = array(
-					'area' => true
+				$area = $def->addElement(
+					'area', 				// name
+					'Block', 				// content set
+					'Empty', 				// don't allow children
+					'Common', 				// attribute collection
+					[
+						// attributes
+						'name' => 'CDATA',
+						'id' => 'ID',
+						'alt' => 'Text',
+						'coords' => 'CDATA',
+						'accesskey' => 'Character',
+						'nohref' => new \HTMLPurifier_AttrDef_Enum(array(
+							'nohref'
+						)),
+						'href' => 'URI',
+						'shape' => new \HTMLPurifier_AttrDef_Enum(array(
+							'rect',
+							'circle',
+							'poly',
+							'default'
+						)),
+						'tabindex' => 'Number',
+						'target' => new \HTMLPurifier_AttrDef_Enum(array(
+							'_blank',
+							'_self',
+							'_target',
+							'_top'
+						))
+					]
 				);
+				$area->excludes = [
+					'area' => true
+				];
 			}
 
 			# get it now !

@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 class Session extends BaseSession
 {
-
 	/**
 	 * The namespace for the session variable and form inputs.
 	 *
@@ -23,16 +22,16 @@ class Session extends BaseSession
 	public function __construct(SessionStorageInterface $storage = null, $attributes = null, $flashes = null, $sTokenNamespace = 'okt_csrf')
 	{
 		parent::__construct($storage, $attributes, $flashes);
-		
-		$this->storage->setOptions(array(
+
+		$this->storage->setOptions([
 			'use_trans_sid' => '0',
 			'use_only_cookies' => '1'
-		));
-		
+		]);
+
 		$this->start();
-		
+
 		$this->sTokenNamespace = $sTokenNamespace;
-		
+
 		$this->setToken();
 	}
 
@@ -49,15 +48,15 @@ class Session extends BaseSession
 	/**
 	 * Verify if supplied token matches the stored token.
 	 *
-	 * @param string $userToken        	
+	 * @param string $userToken
 	 * @return boolean
 	 */
 	public function isValidToken($userToken)
 	{
 		$bIsValid = ($userToken === $this->getToken());
-		
+
 		$this->generateToken();
-		
+
 		return $bIsValid;
 	}
 
@@ -81,7 +80,7 @@ class Session extends BaseSession
 	protected function setToken()
 	{
 		$storedToken = $this->getToken();
-		
+
 		if ($storedToken === '')
 		{
 			$this->generateToken();
@@ -101,7 +100,7 @@ class Session extends BaseSession
 	protected function generateToken()
 	{
 		$sToken = sha1(uniqid(mt_rand(), true));
-		
+
 		$this->set($this->sTokenNamespace, $sToken);
 	}
 }

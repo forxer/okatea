@@ -38,17 +38,17 @@ class Update
 
 	protected $sCacheFile;
 
-	protected $aVersionInfo = array(
+	protected $aVersionInfo = [
 		'version' => null,
 		'href' => null,
 		'checksum' => null,
 		'info' => null,
 		'notify' => true
-	);
+	];
 
 	protected $sCacheTtl = '-6 hours';
 
-	protected $aForcedFiles = array();
+	protected $aForcedFiles = [];
 
 	/**
 	 * Constructor.
@@ -341,7 +341,7 @@ class Update
 		$oZip->close();
 		unset($opts, $cur_digests, $new_digests, $oZip);
 
-		$aNotReadable = array();
+		$aNotReadable = [];
 
 		if (! empty($this->aForcedFiles))
 		{
@@ -425,8 +425,8 @@ class Update
 			$aNewFiles = array_merge($aNewFiles, $this->aForcedFiles);
 		}
 
-		$aZipFiles = array();
-		$aNotWritable = array();
+		$aZipFiles = [];
+		$aNotWritable = [];
 
 		foreach ($aNewFiles as $file)
 		{
@@ -481,22 +481,22 @@ class Update
 		$cur_md5 = $cur_path = $cur_digests;
 		$new_md5 = $new_path = $new_digests;
 
-		array_walk($cur_md5, array(
+		array_walk($cur_md5, [
 			$this,
 			'parseLine'
-		), 1);
-		array_walk($cur_path, array(
+		], 1);
+		array_walk($cur_path, [
 			$this,
 			'parseLine'
-		), 2);
-		array_walk($new_md5, array(
+		], 2);
+		array_walk($new_md5, [
 			$this,
 			'parseLine'
-		), 1);
-		array_walk($new_path, array(
+		], 1);
+		array_walk($new_path, [
 			$this,
 			'parseLine'
-		), 2);
+		], 2);
 
 		$cur = array_combine($cur_md5, $cur_path);
 		$new = array_combine($new_md5, $new_path);
@@ -529,7 +529,7 @@ class Update
 		$opts = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
 		$contents = file($sDigestsFile, $opts);
 
-		$changes = array();
+		$changes = [];
 
 		foreach ($contents as $digest)
 		{

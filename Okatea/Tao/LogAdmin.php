@@ -80,7 +80,7 @@ class LogAdmin
 	 *        	Paramètres de requete
 	 * @return Okatea\Tao\Database\Recordset
 	 */
-	public function getLogs($aParams = array(), $bCountOnly = false)
+	public function getLogs(array $aParams = [], $bCountOnly = false)
 	{
 		$reqPlus = '';
 		$reqWhere = '';
@@ -160,17 +160,14 @@ class LogAdmin
 			}
 		}
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return new Recordset(array());
+		if (($rs = $this->db->select($query)) === false) {
+			return new Recordset([]);
 		}
 
-		if ($bCountOnly)
-		{
+		if ($bCountOnly) {
 			return (integer) $rs->num_logs_admin;
 		}
-		else
-		{
+		else {
 			return $rs;
 		}
 	}
@@ -181,7 +178,7 @@ class LogAdmin
 	 * @param array $aParams
 	 * @return boolean
 	 */
-	public function add($aParams = array())
+	public function add(array $aParams = [])
 	{
 		if (empty($aParams['user_id']))
 		{
@@ -234,7 +231,7 @@ class LogAdmin
 	 * @param array $aParams
 	 * @return boolean
 	 */
-	public function info($aParams = array())
+	public function info(array $aParams = [])
 	{
 		$aParams['type'] = 0;
 		return $this->add($aParams);
@@ -246,7 +243,7 @@ class LogAdmin
 	 * @param array $aParams
 	 * @return boolean
 	 */
-	public function warning($aParams = array())
+	public function warning(array $aParams = [])
 	{
 		$aParams['type'] = 10;
 		return $this->add($aParams);
@@ -258,7 +255,7 @@ class LogAdmin
 	 * @param array $aParams
 	 * @return boolean
 	 */
-	public function critical($aParams = array())
+	public function critical(array $aParams = [])
 	{
 		$aParams['type'] = 20;
 		return $this->add($aParams);
@@ -270,7 +267,7 @@ class LogAdmin
 	 * @param array $aParams
 	 * @return boolean
 	 */
-	public function error($aParams = array())
+	public function error(array $aParams = [])
 	{
 		$aParams['type'] = 30;
 		return $this->add($aParams);
@@ -335,15 +332,14 @@ class LogAdmin
 	 */
 	public static function getTypes($bFlip = false)
 	{
-		$aTypes = array(
+		$aTypes = [
 			0 => __('c_c_log_admin_type_0'), # info
 			10 => __('c_c_log_admin_type_10'), # warning
 			20 => __('c_c_log_admin_type_20'), # critique
 			30 => __('c_c_log_admin_type_30') # error
-		);
+		];
 
-		if ($bFlip)
-		{
+		if ($bFlip) {
 			$aTypes = array_flip($aTypes);
 		}
 
@@ -358,7 +354,7 @@ class LogAdmin
 	 */
 	public static function getCodes($bFlip = false)
 	{
-		$aCodes = array(
+		$aCodes = [
 			0 => __('c_c_log_admin_code_0'), # autre
 
 
@@ -380,10 +376,9 @@ class LogAdmin
 			40 => __('c_c_log_admin_code_40'), # ajout
 			41 => __('c_c_log_admin_code_41'), # modification
 			42 => __('c_c_log_admin_code_42') # suppression
-		);
+		];
 
-		if ($bFlip)
-		{
+		if ($bFlip) {
 			$aCodes = array_flip($aCodes);
 		}
 

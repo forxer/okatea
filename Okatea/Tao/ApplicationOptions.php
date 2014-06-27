@@ -9,14 +9,14 @@ namespace Okatea\Tao;
 
 class ApplicationOptions
 {
-	protected $aOptions = array();
+	protected $aOptions = [];
 
-	public function __construct(array $aOptions = array())
+	public function __construct(array $aOptions = [])
 	{
 		$this->setOptions($aOptions);
 	}
 
-	public function setOptions(array $aOptions = array())
+	public function setOptions(array $aOptions = [])
 	{
 		$this->aOptions = $aOptions + $this->aOptions;
 	}
