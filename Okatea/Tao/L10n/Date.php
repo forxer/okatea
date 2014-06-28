@@ -15,7 +15,6 @@ use Okatea\Tao\Misc\Utilities;
 
 class Date extends Carbon
 {
-
 	protected static $sLocale = 'en';
 
 	protected static $sTimezone = 'UTC';
@@ -25,7 +24,7 @@ class Date extends Carbon
 	/**
 	 * Define locale to use.
 	 *
-	 * @param string $sLocale        	
+	 * @param string $sLocale
 	 */
 	public static function setUserLocale($sLocale)
 	{
@@ -35,7 +34,7 @@ class Date extends Carbon
 	/**
 	 * Define timezone to use.
 	 *
-	 * @param string $sTimezone        	
+	 * @param string $sTimezone
 	 */
 	public static function setUserTimezone($sTimezone)
 	{
@@ -50,8 +49,8 @@ class Date extends Carbon
 	/**
 	 * Format the date/time value as a string in completely specified style (Tuesday, April 12, 1952 AD or 3:30:42pm PST)
 	 *
-	 * @param mixed $mDate        	
-	 * @param boolean $bWithTime        	
+	 * @param mixed $mDate
+	 * @param boolean $bWithTime
 	 * @return string
 	 */
 	public static function full($mDate = null, $bWithTime = false)
@@ -62,8 +61,8 @@ class Date extends Carbon
 	/**
 	 * Format the date/time value as a string in long style (January 12, 1952 or 3:30:32pm)
 	 *
-	 * @param mixed $mDate        	
-	 * @param boolean $bWithTime        	
+	 * @param mixed $mDate
+	 * @param boolean $bWithTime
 	 * @return string
 	 */
 	public static function long($mDate = null, $bWithTime = false)
@@ -74,8 +73,8 @@ class Date extends Carbon
 	/**
 	 * Format the date/time value as a string in medium style (Jan 12, 1952)
 	 *
-	 * @param mixed $mDate        	
-	 * @param boolean $bWithTime        	
+	 * @param mixed $mDate
+	 * @param boolean $bWithTime
 	 * @return string
 	 */
 	public static function medium($mDate = null, $bWithTime = false)
@@ -84,10 +83,11 @@ class Date extends Carbon
 	}
 
 	/**
-	 * Format the date/time value as a string in most abbreviated style, only essential data (12/13/52 or 3:30pm)
+	 * Format the date/time value as a string in most abbreviated style,
+	 * only essential data (12/13/52 or 3:30pm)
 	 *
-	 * @param mixed $mDate        	
-	 * @param boolean $bWithTime        	
+	 * @param mixed $mDate
+	 * @param boolean $bWithTime
 	 * @return string
 	 */
 	public static function short($mDate = null, $bWithTime = false)
@@ -109,73 +109,66 @@ class Date extends Carbon
 		if (null === self::$aTz)
 		{
 			self::$aTz = require __DIR__ . '/Timezones.php';
-			
-			foreach (self::$aTz as $sTz)
-			{
+
+			foreach (self::$aTz as $sTz) {
 				self::$aTz[$sTz] = str_replace('_', ' ', $sTz);
 			}
 		}
-		
+
 		$res = self::$aTz;
-		
-		if ($bFlip)
-		{
+
+		if ($bFlip) {
 			$res = array_flip($res);
 		}
-		
+
 		if ($bGroups)
 		{
 			$tmp = array();
-			
+
 			foreach ($res as $k => $v)
 			{
 				$g = explode('/', $k);
 				$tmp[$g[0]][$k] = $v;
 			}
-			
+
 			$res = $tmp;
 		}
-		
+
 		return $res;
 	}
 
 	/**
 	 *
-	 * @param mixed $mDate        	
+	 * @param mixed $mDate
 	 * @return Carbon\Carbon>|\DateTime
 	 */
 	protected static function getDate($mDate)
 	{
-		if (null === $mDate)
-		{
+		if (null === $mDate) {
 			return parent::now()->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
-		elseif ($mDate instanceof DateTime)
-		{
+		elseif ($mDate instanceof DateTime) {
 			return $mDate->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
-		elseif (Utilities::isInt($mDate))
-		{
+		elseif (Utilities::isInt($mDate)) {
 			return parent::createFromTimestamp($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
-		else
-		{
+		else {
 			return parent::parse($mDate)->setTimezone(new DateTimeZone(self::$sTimezone));
 		}
 	}
 
 	/**
 	 *
-	 * @param boolean $bWithTime        	
+	 * @param boolean $bWithTime
 	 * @return number|string
 	 */
 	protected static function getTimeType($bWithTime = false)
 	{
-		if ($bWithTime)
-		{
+		if ($bWithTime) {
 			return IntlDateFormatter::SHORT;
 		}
-		
+
 		return IntlDateFormatter::NONE;
 	}
 }

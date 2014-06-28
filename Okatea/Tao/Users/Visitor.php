@@ -186,16 +186,21 @@ class Visitor extends ApplicationShortcuts
 
 		# Nous supposons qu'il est un invité
 		$aCookie = [
-			'user_id' => 1,
-			'password_hash' => 'Guest',
-			'expiration_time' => 0,
-			'expire_hash' => 'Guest'
+			'user_id' 			=> 1,
+			'password_hash' 	=> 'Guest',
+			'expiration_time' 	=> 0,
+			'expire_hash' 		=> 'Guest'
 		];
 
 		# Si un cookie est disponible, on récupère le hash user_id et le mot de passe de lui
 		if (isset($_COOKIE[$this->sCookieName]))
 		{
-			list ($aCookie['user_id'], $aCookie['password_hash'], $aCookie['expiration_time'], $aCookie['expire_hash']) = explode('|', base64_decode($_COOKIE[$this->sCookieName]));
+			list (
+				$aCookie['user_id'],
+				$aCookie['password_hash'],
+				$aCookie['expiration_time'],
+				$aCookie['expire_hash']
+			) = explode('|', base64_decode($_COOKIE[$this->sCookieName]));
 		}
 
 		# Si c'est un cookie d'un utilisateur connecté il ne devrait pas avoir déjà expiré
@@ -227,8 +232,7 @@ class Visitor extends ApplicationShortcuts
 			$this->infos['is_superadmin'] = ($this->infos['group_id'] == Groups::SUPERADMIN);
 		}
 		# sinon l'utilisateur n'est plus connecté
-		else
-		{
+		else {
 			$this->setDefaultUser();
 		}
 
@@ -254,7 +258,7 @@ class Visitor extends ApplicationShortcuts
 	 * @param string $sPasswordHash
 	 * @return void
 	 */
-	public function authenticateUser($iUserId, $sPasswordHash)
+	protected function authenticateUser($iUserId, $sPasswordHash)
 	{
 		$sQuery =
 			'SELECT u.*, g.* ' .
@@ -262,7 +266,12 @@ class Visitor extends ApplicationShortcuts
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
 			'WHERE u.status = 1 AND u.id = :user_id';
 
-		$user = $this->conn->fetchAssoc($sQuery, ['user_id' => $iUserId]);
+		$user = $this->conn->fetchAssoc(
+			$sQuery,
+			[
+				'user_id' => $iUserId
+			]
+		);
 
 		if ($user === false || $sPasswordHash != $user['password']) {
 			$this->setDefaultUser();
@@ -287,8 +296,7 @@ class Visitor extends ApplicationShortcuts
 
 		$user = $this->conn->fetchAssoc($sQuery);
 
-		if ($user === false)
-		{
+		if ($user === false) {
 			return false;
 		}
 
@@ -306,12 +314,22 @@ class Visitor extends ApplicationShortcuts
 	 *
 	 * @param string $sUsername
 	 * @param string $sPassword
-	 * @param bollean $save_pass
+	 * @param boolean $bSavePass
 	 * @return boolean
 	 */
-	public function login($sUsername, $sPassword, $save_pass = false)
+	public function login($sUsername, $sPassword, $bSavePass = false)
 	{
-		$user = $this->conn->fetchAssoc('SELECT id, group_id, password FROM ' . $this->sUsersTable . ' WHERE username = ?', [$sUsername]);
+		$sQuery =
+			'SELECT id, group_id, password FROM ' .
+			$this->sUsersTable .
+			' WHERE username = :username';
+
+		$user = $this->conn->fetchAssoc(
+			$sQuery,
+			[
+				'username' => $sUsername
+			]
+		);
 
 		if ($user === false)
 		{
@@ -346,17 +364,17 @@ class Visitor extends ApplicationShortcuts
 			return false;
 		}
 
-		$iTsExpire = ($save_pass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
+		$iTsExpire = ($bSavePass) ? time() + $this->iVisitRememberTime : time() + $this->iVisitTimeout;
 		$this->setAuthCookie(base64_encode($user['id'] . '|' . $sPasswordHash . '|' . $iTsExpire . '|' . sha1($sPasswordHash . $iTsExpire)), $iTsExpire);
 
 		# log admin
 		if (isset($this->okt->logAdmin))
 		{
 			$this->okt->logAdmin->add([
-				'user_id' => $user['id'],
-				'username' => $sUsername,
-				'code' => 10,
-				'message' => __('c_c_log_admin_message_by_form')
+				'user_id' 	=> $user['id'],
+				'username' 	=> $sUsername,
+				'code' 		=> 10,
+				'message' 	=> __('c_c_log_admin_message_by_form')
 			]);
 		}
 
@@ -376,7 +394,8 @@ class Visitor extends ApplicationShortcuts
 		# Update last_visit (make sure there's something to update it with)
 		if (!empty($this->infos['logged']))
 		{
-			$this->conn->update($this->sUsersTable,
+			$this->conn->update(
+				$this->sUsersTable,
 				[
 					'last_visit' => $this->infos['logged']
 				],
@@ -392,9 +411,9 @@ class Visitor extends ApplicationShortcuts
 		if (isset($this->okt->logAdmin))
 		{
 			$this->okt->logAdmin->add([
-				'user_id' => $this->infos['id'],
-				'username' => $this->infos['username'],
-				'code' => 11
+				'user_id' 	=> $this->infos['id'],
+				'username' 	=> $this->infos['username'],
+				'code' 		=> 11
 			]);
 		}
 
@@ -427,13 +446,11 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setUserLang($sLanguage)
 	{
-		if ($this->infos['language'] === $sLanguage)
-		{
+		if ($this->infos['language'] === $sLanguage) {
 			return false;
 		}
 
-		if (! $this->okt->languages->isActive($sLanguage))
-		{
+		if (! $this->okt->languages->isActive($sLanguage)) {
 			return false;
 		}
 
@@ -442,7 +459,8 @@ class Visitor extends ApplicationShortcuts
 
 		if (! $this->infos['is_guest'])
 		{
-			$this->conn->update($this->sUsersTable,
+			$this->conn->update(
+				$this->sUsersTable,
 				[
 					'language' => $sLanguage
 				],
@@ -464,21 +482,17 @@ class Visitor extends ApplicationShortcuts
 	{
 		$sLang = null;
 
-		if (isset($_COOKIE[$this->sCookieLangName]))
-		{
+		if (isset($_COOKIE[$this->sCookieLangName])) {
 			$sLang = $_COOKIE[$this->sCookieLangName];
 		}
-		else
-		{
+		else {
 			$sLang = $this->okt->request->getPreferredLanguage();
 		}
 
-		if ($this->okt->languages->isActive($sLang))
-		{
+		if ($this->okt->languages->isActive($sLang)) {
 			return $sLang;
 		}
-		else
-		{
+		else {
 			return $this->okt->config->language;
 		}
 	}
@@ -519,7 +533,15 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setAuthCookie($sValue, $iExpire)
 	{
-		setcookie($this->sCookieName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
+		setcookie(
+			$this->sCookieName,
+			$sValue,
+			$iExpire,
+			$this->sCookiePath,
+			$this->sCookieDomain,
+			$this->bCookieSecure,
+			true
+		);
 	}
 
 	/**
@@ -531,7 +553,15 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setAuthFromCookie($sValue)
 	{
-		setcookie($this->sCookieFromName, $sValue, 0, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
+		setcookie(
+			$this->sCookieFromName,
+			$sValue,
+			0,
+			$this->sCookiePath,
+			$this->sCookieDomain,
+			$this->bCookieSecure,
+			true
+		);
 	}
 
 	/**
@@ -545,11 +575,18 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function setLangCookie($sValue, $iExpire = null)
 	{
-		if ($iExpire === null)
-		{
+		if ($iExpire === null) {
 			$iExpire = time() + $this->iVisitRememberTime;
 		}
 
-		setcookie($this->sCookieLangName, $sValue, $iExpire, $this->sCookiePath, $this->sCookieDomain, $this->bCookieSecure, true);
+		setcookie(
+			$this->sCookieLangName,
+			$sValue,
+			$iExpire,
+			$this->sCookiePath,
+			$this->sCookieDomain,
+			$this->bCookieSecure,
+			true
+		);
 	}
 }

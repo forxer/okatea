@@ -9,7 +9,6 @@ namespace Okatea\Tao\L10n;
 
 class DateTime
 {
-
 	public static function full($mDate = null)
 	{
 		return Date::full($mDate, true);

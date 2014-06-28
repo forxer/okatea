@@ -40,21 +40,20 @@ class Errors
 	 *
 	 * @return boolean
 	 */
-	public function notEmpty()
+	public function hasError()
 	{
 		return ! empty($this->aErrors);
 	}
 
 	/**
-	 * alias de notEmpty
+	 * Alias de hasError()
 	 *
-	 * @ref self::notEmpty()
-	 *
+	 * @ref self::hasError()
 	 * @return boolean
 	 */
-	public function hasError()
+	public function notEmpty()
 	{
-		return $this->notEmpty();
+		return $this->hasError();
 	}
 
 	/**
@@ -81,16 +80,16 @@ class Errors
 			foreach ($mMessage as $m)
 			{
 				$this->aErrors[] = [
-					'message' => $m,
-					'db' => $sDbError
+					'message' 	=> $m,
+					'db' 		=> $sDbError
 				];
 			}
 		}
 		else
 		{
 			$this->aErrors[] = [
-				'message' => $mMessage,
-				'db' => $sDbError
+				'message' 	=> $mMessage,
+				'db' 		=> $sDbError
 			];
 		}
 	}
@@ -119,10 +118,12 @@ class Errors
 				if ($nb_err > 1)
 				{
 					$res = '<ul>' . PHP_EOL;
+
 					foreach ($this->aErrors as $v)
 					{
 						$res .= "\t" . '<li><span class="errmsg">' . $v['message'] . '</span>' . ($v['db'] != '' ? '<br /><span class="errsql">' . $v['db'] . '</span>' : '') . '</li>' . PHP_EOL;
 					}
+
 					$res .= "</ul>\n";
 
 					return $res;
@@ -133,8 +134,7 @@ class Errors
 				}
 			}
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}

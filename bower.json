@@ -11,7 +11,7 @@
 		"jquery-cycle2": 			"2.*",
 		"jquery-mousewheel": 		"3.*",
 		"jquery-stringtoslug": 		"leocaseiro/jQuery-Plugin-stringToSlug",
-		"jquery-ui": 				"1.*",
+		"jquery-ui": 				"1.10.4",
 		"jquery-validation": 		"1.*",
 		"lightbox2": 				"2.*",
 		"normalize-css": 			"2.*",

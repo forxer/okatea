@@ -12,7 +12,6 @@ namespace Okatea\Tao\L10n;
  */
 class Localization
 {
-
 	protected $sLanguage;
 
 	protected $sDefaultLanguage;
@@ -22,19 +21,19 @@ class Localization
 	/**
 	 * Set default l10n configuration.
 	 *
-	 * @param string $sLanguage        	
-	 * @param string $sDefaultLanguage        	
-	 * @param string $sTimeZone        	
+	 * @param string $sLanguage
+	 * @param string $sDefaultLanguage
+	 * @param string $sTimeZone
 	 */
 	public function __construct($sLanguage, $sDefaultLanguage, $sTimeZone)
 	{
 		$this->sLanguage = $sLanguage;
-		
+
 		$this->sDefaultLanguage = $sDefaultLanguage;
-		
+
 		Date::setUserLocale($sLanguage);
 		Date::setUserTimezone($sTimeZone);
-		
+
 		$GLOBALS['okt_l10n'] = array();
 		$this->aLoaded = array();
 	}
@@ -52,37 +51,33 @@ class Localization
 	 */
 	public function loadFile($sFilename, $sLanguage = null, $bForce = false)
 	{
-		if (null === $sLanguage)
-		{
+		if (null === $sLanguage) {
 			$sLanguage = $this->sLanguage;
 		}
-		
+
 		$sFileToLoad = sprintf($sFilename, $sLanguage) . '.lang.php';
-		
+
 		if (! file_exists($sFileToLoad))
 		{
-			if ($sLanguage === $this->sDefaultLanguage)
-			{
+			if ($sLanguage === $this->sDefaultLanguage) {
 				return false;
 			}
-			
+
 			$sFileToLoad = sprintf($sFilename, $this->sDefaultLanguage) . '.lang.php';
-			
-			if (! file_exists($sFileToLoad))
-			{
+
+			if (! file_exists($sFileToLoad)) {
 				return false;
 			}
 		}
-		
-		if (in_array($sFileToLoad, $this->aLoaded) && ! $bForce)
-		{
+
+		if (in_array($sFileToLoad, $this->aLoaded) && ! $bForce) {
 			return null;
 		}
-		
+
 		require $sFileToLoad;
-		
+
 		$this->aLoaded[] = $sFileToLoad;
-		
+
 		return true;
 	}
 }
