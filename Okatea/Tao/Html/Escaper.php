@@ -9,7 +9,6 @@ namespace Okatea\Tao\Html;
 
 class Escaper
 {
-
 	/**
 	 * HTML escape
 	 *
@@ -53,11 +52,11 @@ class Escaper
 		{
 			return $value;
 		}
-		
+
 		$value = htmlspecialchars($value, ENT_NOQUOTES | ENT_SUBSTITUTE);
 		$value = str_replace("'", "\'", $value);
 		$value = str_replace('"', '\"', $value);
-		
+
 		return $value;
 	}
 }
