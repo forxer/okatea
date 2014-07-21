@@ -340,11 +340,11 @@ class Languages extends ApplicationShortcuts
 			return false;
 		}
 
-		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iLanguageId;
-
-		if (! $this->db->execute($query)) {
-			return false;
-		}
+		$this->conn->update(
+			$this->t_languages,
+			array('active' => '1-active'),
+			array('id' => $iLanguageId)
+		);
 
 		$this->afterProcess();
 
@@ -366,11 +366,11 @@ class Languages extends ApplicationShortcuts
 
 		$iStatus = ($iStatus == 1) ? 1 : 0;
 
-		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'active = ' . $iStatus . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-
-		if (! $this->db->execute($query)) {
-			return false;
-		}
+		$this->conn->update(
+			$this->t_languages,
+			array('active' => $iStatus),
+			array('id' => $iLanguageId)
+		);
 
 		$this->afterProcess();
 
@@ -386,11 +386,15 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function updLanguageOrder($iLanguageId, $iOrd)
 	{
-		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'ord=' . (integer) $iOrd . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-
-		if (! $this->db->execute($query)) {
+		if (! $this->languageExists($iLanguageId)) {
 			return false;
 		}
+
+		$this->conn->update(
+			$this->t_languages,
+			array('ord' => $iOrd),
+			array('id' => $iLanguageId)
+		);
 
 		return true;
 	}
@@ -406,14 +410,7 @@ class Languages extends ApplicationShortcuts
 		if (! $this->languageExists($iLanguageId)) {
 			return false;
 		}
-
-		$query = 'DELETE FROM ' . $this->t_languages . ' ' . 'WHERE id=' . (integer) $iLanguageId;
-
-		if (! $this->db->execute($query)) {
-			return false;
-		}
-
-		$this->db->optimize($this->t_languages);
+		$this->conn->delete($this->t_languages, array('id' => $iLanguageId));
 
 		$this->afterProcess();
 

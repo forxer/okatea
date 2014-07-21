@@ -11,11 +11,10 @@ use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 
 /**
- * Une classe internationalisées pour gérer des arbres imbriqués.
+ * A class to handle internationalized nested trees.
  */
 class NestedTreei18n extends ApplicationShortcuts
 {
-
 	protected $sTable;
 
 	protected $tablePrefix;
@@ -36,26 +35,16 @@ class NestedTreei18n extends ApplicationShortcuts
 	 * Constructor.
 	 * Set the database table name and necessary field names
 	 *
-	 * @param object $okt
-	 *        	of core application
-	 * @param string $sTable
-	 *        	Name of the tree database table
-	 * @param string $sTableLocales
-	 *        	Name of the locales database table
-	 * @param string $idField
-	 *        	Name of the primary key ID field
-	 * @param string $parentField
-	 *        	Name of the parent ID field
-	 * @param string $sSortField
-	 *        	Name of the field to sort data
-	 * @param string $sJoinField
-	 *        	Name of the join field
-	 * @param string $sLanguageField
-	 *        	Name of the language field
-	 * @param array $addFields
-	 *        	fields to be selecteds
-	 * @param array $addLocalesFields
-	 *        	Others localized fields
+	 * @param object $okt of core application
+	 * @param string $sTable Name of the tree database table
+	 * @param string $sTableLocales Name of the locales database table
+	 * @param string $idField Name of the primary key ID field
+	 * @param string $parentField Name of the parent ID field
+	 * @param string $sSortField Name of the field to sort data
+	 * @param string $sJoinField Name of the join field
+	 * @param string $sLanguageField Name of the language field
+	 * @param array $addFields fields to be selecteds
+	 * @param array $addLocalesFields Others localized fields
 	 */
 	public function __construct($okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', $addFields = array(), $addLocalesFields = array())
 	{
@@ -79,10 +68,10 @@ class NestedTreei18n extends ApplicationShortcuts
 	}
 
 	/**
-	 * A utility function to return an array of the fields
-	 * that need to be selected in SQL select queries
+	 * A utility function to return a string of the fields
+	 * that need to be selected in SQL select queries.
 	 *
-	 * @return array An indexed array of fields to select
+	 * @return string
 	 */
 	protected function getFields($in_array = false)
 	{
@@ -92,8 +81,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			'level'
 		));
 
-		if ($in_array)
-		{
+		if ($in_array) {
 			return array_merge($fields, $this->aLocalesFields);
 		}
 
@@ -101,6 +89,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			$this,
 			'prependTAlias'
 		), $fields);
+
 		$localesFields = array_map(array(
 			$this,
 			'prependLAlias'
@@ -121,28 +110,27 @@ class NestedTreei18n extends ApplicationShortcuts
 
 	protected function getFrom()
 	{
-		return $this->sTable . ' AS ' . $this->sTablePrefix . ' ' . 'JOIN ' . $this->sTableLocales . ' AS ' . $this->sTableLocalesPrefix . ' ' . 'ON ' . $this->sTablePrefix . '.id = ' . $this->sTableLocalesPrefix . '.' . $this->sJoinField;
+		return
+		$this->sTable . ' AS ' . $this->sTablePrefix . ' ' .
+		'JOIN ' . $this->sTableLocales . ' AS ' . $this->sTableLocalesPrefix . ' ' .
+		'ON ' . $this->sTablePrefix . '.id = ' . $this->sTableLocalesPrefix . '.' . $this->sJoinField;
 	}
 
 	/**
 	 * Fetch the node data for the node identified by $id
 	 *
-	 * @param int $id
-	 *        	The ID of the node to fetch
-	 * @return object An object containing the node's
-	 *         data, or null if node not found
+	 * @param int $id The ID of the node to fetch
+	 * @return array An array containing the node's data, or null if node not found
 	 */
 	public function getNode($id)
 	{
 		$query = sprintf('SELECT %s FROM %s WHERE %s = %d', $this->getFields(), $this->getFrom(), $this->sTablePrefix . '.' . $this->aFields['id'], $id);
 
-		if (($rs = $this->db->select($query)) === false)
-		{
+		if (($rs = $this->db->select($query)) === false) {
 			return null;
 		}
 
-		if ($rs->isEmpty())
-		{
+		if ($rs->isEmpty()) {
 			return null;
 		}
 

@@ -141,7 +141,7 @@ $okt->page->js->addReady('
 
 				<p class="field col">
 					<label for="p_language"><?php _e('c_a_config_l10n_default_language') ?></label>
-				<?php echo form::select('p_language', $aLanguages, $okt->config->language) ?></p>
+				<?php echo form::select('p_language', $aLanguagesForSelect, $okt->config->language) ?></p>
 
 				<p class="field col">
 					<label for="p_timezone"><?php _e('c_a_config_l10n_default_timezone') ?></label>

@@ -10,11 +10,12 @@ namespace Okatea\Tao\Misc;
 use Okatea\Tao\Database\Recordset;
 
 /**
- * Une classe pour gérer des arbres imbriqués
+ * A class to handle nested trees.
+ *
+ * @deprecated since 2.0 ; as everything should be fully internationalized, use rather NestedTreei18n
  */
 class NestedTree
 {
-
 	protected $okt;
 
 	protected $error;
@@ -48,7 +49,7 @@ class NestedTree
 		$this->db = $okt->db;
 		$this->error = $okt->error;
 		$this->table = $table;
-		
+
 		$this->fields = array_merge($addFields, array(
 			'id' => $idField,
 			'parent' => $parentField
@@ -69,12 +70,12 @@ class NestedTree
 			'nright',
 			'level'
 		));
-		
+
 		if ($in_array)
 		{
 			return $array;
 		}
-		
+
 		return implode(', ', $array);
 	}
 
@@ -89,17 +90,17 @@ class NestedTree
 	public function getNode($id)
 	{
 		$query = sprintf('select %s from %s where %s = %d', $this->getFields(), $this->table, $this->fields['id'], $id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return null;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return null;
 		}
-		
+
 		return $rs;
 	}
 
@@ -135,7 +136,7 @@ class NestedTree
 			$nright = $node->f('nright');
 			$parent_id = $node->f($this->fields['id']);
 		}
-		
+
 		if ($childrenOnly)
 		{
 			if ($includeSelf)
@@ -162,12 +163,12 @@ class NestedTree
 				$query = sprintf('select %s from %s order by nleft', $this->getFields(), $this->table);
 			}
 		}
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -207,7 +208,7 @@ class NestedTree
 		{
 			return false;
 		}
-		
+
 		if ($includeSelf)
 		{
 			$query = sprintf('select %s from %s where nleft <= %d and nright >= %d order by level', $this->getFields(), $this->table, $node->nleft, $node->nright);
@@ -216,12 +217,12 @@ class NestedTree
 		{
 			$query = sprintf('select %s from %s where nleft < %d and nright > %d order by level', $this->getFields(), $this->table, $node->nleft, $node->nright);
 		}
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -243,19 +244,19 @@ class NestedTree
 		{
 			return false;
 		}
-		
+
 		$query = sprintf('select count(*) as is_descendant from %s where %s = %d and nleft > %d and nright < %d', $this->table, $this->fields['id'], $descendant_id, $node->nleft, $node->nright);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return (boolean) ($rs->is_descendant > 0);
 	}
 
@@ -273,17 +274,17 @@ class NestedTree
 	public function isChildOf($child_id, $parent_id)
 	{
 		$query = sprintf('select count(*) as is_child from %s where %s = %d and %s = %d', $this->table, $this->fields['id'], $child_id, $this->fields['parent'], $parent_id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return false;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return (boolean) ($rs->is_child > 0);
 	}
 
@@ -299,17 +300,17 @@ class NestedTree
 		if ($id == 0)
 		{
 			$query = sprintf('select count(*) as num_descendants from %s', $this->table);
-			
+
 			if (($rs = $this->db->select($query)) === false)
 			{
 				return - 1;
 			}
-			
+
 			if ($rs->isEmpty())
 			{
 				return - 1;
 			}
-			
+
 			return (integer) $rs->num_descendants;
 		}
 		else
@@ -320,7 +321,7 @@ class NestedTree
 				return (integer) (($node->nright - $node->nleft - 1) / 2);
 			}
 		}
-		
+
 		return - 1;
 	}
 
@@ -334,17 +335,17 @@ class NestedTree
 	public function numChildren($id)
 	{
 		$query = sprintf('select count(*) as num_children from %s where %s = %d', $this->table, $this->fields['parent'], $id);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return - 1;
 		}
-		
+
 		if ($rs->isEmpty())
 		{
 			return - 1;
 		}
-		
+
 		return (integer) $rs->num_children;
 	}
 
@@ -357,36 +358,36 @@ class NestedTree
 	{
 		$idField = $this->fields['id'];
 		$parentField = $this->fields['parent'];
-		
+
 		$query = sprintf('select %s from %s order by %s', $this->getFields(), $this->table, $this->sortField);
-		
+
 		if (($rs = $this->db->select($query)) === false)
 		{
 			return array();
 		}
-		
+
 		// create a root node to hold child data about first level items
 		$arr = array();
 		$arr[0] = array(
 			$idField => 0,
 			'children' => array()
 		);
-		
+
 		// populate the array and create an empty children array
 		$fields = $this->getFields(true);
-		
+
 		while ($rs->fetch())
 		{
 			$arr[$rs->f($idField)] = array();
-			
+
 			foreach ($fields as $field)
 			{
 				$arr[$rs->f($idField)][$field] = $rs->f($field);
 			}
-			
+
 			$arr[$rs->f($idField)]['children'] = array();
 		}
-		
+
 		// now process the array and build the child data
 		foreach ($arr as $id => $row)
 		{
@@ -395,7 +396,7 @@ class NestedTree
 				$arr[$row[$parentField]]['children'][$id] = $id;
 			}
 		}
-		
+
 		return $arr;
 	}
 
@@ -405,17 +406,17 @@ class NestedTree
 	public function rebuild()
 	{
 		$data = $this->getTreeWithChildren();
-		
+
 		$n = 0; // need a variable to hold the running n tally
 		$level = 0; // need a variable to hold the running level tally
-		
+
 
 		// invoke the recursive function. Start it processing
 		// on the fake "root node" generated in getTreeWithChildren().
 		// because this node doesn't really exist in the database, we
 		// give it an initial nleft value of 0 and an level of 0.
 		$this->_generateTreeData($data, 0, 0, $n);
-		
+
 		// at this point the the root node will have nleft of 0, level of 0
 		// and nright of (tree size * 2 + 1)
 		foreach ($data as $id => $row)
@@ -425,9 +426,9 @@ class NestedTree
 			{
 				continue;
 			}
-			
+
 			$query = sprintf('update %s set level = %d, nleft = %d, nright = %d where %s = %d', $this->table, $row['level'], $row['nleft'], $row['nright'], $this->fields['id'], $id);
-			
+
 			$this->db->execute($query);
 		}
 	}
@@ -457,7 +458,7 @@ class NestedTree
 	{
 		$arr[$id]['level'] = $level;
 		$arr[$id]['nleft'] = $n ++;
-		
+
 		// loop over the node's children and process their data
 		// before assigning the nright value
 		foreach ($arr[$id]['children'] as $child_id)
