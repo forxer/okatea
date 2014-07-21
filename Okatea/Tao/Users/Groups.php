@@ -13,7 +13,6 @@ use Okatea\Tao\Misc\Utilities;
 
 class Groups
 {
-
 	/**
 	 * Group identifier of unverified users.
 	 *

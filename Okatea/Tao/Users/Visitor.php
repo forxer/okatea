@@ -103,16 +103,11 @@ class Visitor extends ApplicationShortcuts
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt
-	 *        	application instance.
-	 * @param string $sCookieName
-	 *        	Le nom du cookie d'authentification (otk_auth)
-	 * @param string $sCookiePath
-	 *        	Le chemin du cookie d'authentification ('/')
-	 * @param string $sCookieDomain
-	 *        	Le domaine du cookie d'authentification ('')
-	 * @param boolean $bCookieSecure
-	 *        	Cookie d'authentification sur protocole sécurisé (false)
+	 * @param object $okt application instance.
+	 * @param string $sCookieName Le nom du cookie d'authentification (otk_auth)
+	 * @param string $sCookiePath Le chemin du cookie d'authentification ('/')
+	 * @param string $sCookieDomain Le domaine du cookie d'authentification ('')
+	 * @param boolean $bCookieSecure Cookie d'authentification sur protocole sécurisé (false)
 	 * @return void
 	 */
 	public function __construct($okt, $sCookieName = 'otk_auth', $sCookieFromName = 'otk_auth_from', $sCookiePath = '/', $sCookieDomain = '', $bCookieSecure = false)
@@ -525,10 +520,8 @@ class Visitor extends ApplicationShortcuts
 	/**
 	 * Set a cookie
 	 *
-	 * @param
-	 *        	$sValue
-	 * @param
-	 *        	$iExpire
+	 * @param $sValue
+	 * @param $iExpire
 	 * @return void
 	 */
 	public function setAuthCookie($sValue, $iExpire)

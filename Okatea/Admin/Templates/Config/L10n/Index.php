@@ -18,10 +18,10 @@ $okt->page->setButtonset('l10nBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => true,
-			'title' => __('c_a_config_l10n_add_language'),
-			'url' => $view->generateUrl('config_l10n_add_language'),
-			'ui-icon' => 'plusthick'
+			'permission' 	=> true,
+			'title' 		=> __('c_a_config_l10n_add_language'),
+			'url' 			=> $view->generateUrl('config_l10n_add_language'),
+			'ui-icon' 		=> 'plusthick'
 		)
 	)
 ));
@@ -82,66 +82,55 @@ $okt->page->js->addReady('
 		<li><a href="#tab-config"><span><?php _e('c_a_config_l10n_tab_config') ?></span></a></li>
 	</ul>
 
-
 	<div id="tab-list">
 		<h3><?php _e('c_a_config_l10n_tab_list') ?></h3>
 
 		<form action="<?php echo $view->generateUrl('config_l10n') ?>"
 			method="post" id="ordering">
 			<ul id="sortable" class="ui-sortable">
-			<?php
-			
-			$i = 1;
-			while ($rsLanguages->fetch())
-			:
-				?>
-			<li id="ord_<?php echo $rsLanguages->id ?>" class="ui-state-default"><label
-					for="p_order_<?php echo $rsLanguages->id ?>"> <span
-						class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+			<?php foreach ($aLanguages as $i => $aLanguage) : ?>
+			<li id="ord_<?php echo $aLanguage['id'] ?>" class="ui-state-default"><label
+				for="p_order_<?php echo $aLanguage['id'] ?>"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
-				<?php if (file_exists($okt->options->public_dir.'/img/flags/'.$rsLanguages->img)) : ?>
-				<img
-						src="<?php echo $okt->options->public_url.'/img/flags/'.$rsLanguages->img ?>"
-						alt="" />
+				<?php if (file_exists($okt->options->public_dir.'/img/flags/'.$aLanguage['img'])) : ?>
+				<img src="<?php echo $okt->options->public_url.'/img/flags/'.$aLanguage['img'] ?>" alt="" />
 				<?php endif; ?>
 
-				<?php echo $view->escape($rsLanguages->title) ?></label>
+				<?php echo $view->escape($aLanguage['title']) ?></label>
 
-				<?php echo form::text(array('p_order['.$rsLanguages->id.']','p_order_'.$rsLanguages->id), 5, 10, $i++)?>
+				<?php echo form::text(array('p_order['.$aLanguage['id'].']','p_order_'.$aLanguage['id']), 5, 10, $i+1)?>
 
-				- <?php echo $rsLanguages->code?>
+				- <?php echo $aLanguage['code']?>
 
-				<?php if ($rsLanguages->active) : ?>
+				<?php if ($aLanguage['active']) : ?>
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?disable=<?php echo $rsLanguages->id ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $rsLanguages->title)) ?>"
+					href="<?php echo $view->generateUrl('config_l10n') ?>?disable=<?php echo $aLanguage['id'] ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $aLanguage['title'])) ?>"
 					class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 				<?php else : ?>
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?enable=<?php echo $rsLanguages->id ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $rsLanguages->title)) ?>"
+					href="<?php echo $view->generateUrl('config_l10n') ?>?enable=<?php echo $aLanguage['id'] ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $aLanguage['title'])) ?>"
 					class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 				<?php endif; ?>
 
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n_edit_language', array('language_id'=>$rsLanguages->id)) ?>"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $rsLanguages->title)) ?>"
+					href="<?php echo $view->generateUrl('config_l10n_edit_language', array('language_id'=>$aLanguage['id'])) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $aLanguage['title'])) ?>"
 					class="icon pencil"><?php _e('c_c_action_Edit') ?></a> - <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?delete=<?php echo $rsLanguages->id ?>"
+					href="<?php echo $view->generateUrl('config_l10n') ?>?delete=<?php echo $aLanguage['id'] ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_l10n_confirm_delete')) ?>')"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $rsLanguages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $aLanguage['title'])) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 			</ul>
 			<p><?php echo form::hidden('ordered', 1); ?>
 			<?php echo form::hidden('order_languages', 1); ?>
 			<?php echo $okt->page->formtoken(); ?>
-			<input type="submit" id="save_order"
-					value="<?php _e('c_c_action_save_order') ?>" />
+			<input type="submit" id="save_order" value="<?php _e('c_c_action_save_order') ?>" />
 			</p>
 		</form>
-	</div>
-	<!-- #tab-list -->
+	</div><!-- #tab-list -->
 
 	<div id="tab-config">
 		<form action="<?php echo $view->generateUrl('config_l10n') ?>"
@@ -169,8 +158,6 @@ $okt->page->js->addReady('
 			<input type="submit" value="<?php _e('c_c_action_save') ?>" />
 			</p>
 		</form>
-	</div>
-	<!-- #tab-config -->
+	</div><!-- #tab-config -->
 
-</div>
-<!-- #tabered -->
+</div><!-- #tabered -->

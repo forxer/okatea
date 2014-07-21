@@ -427,6 +427,7 @@ class Application
 				'password' 	=> $sDbPassword,
 				'host' 		=> $sDbHost,
 				'driver' 	=> $sDbDriver,
+				'charset' 	=> 'utf8'
 			]);
 		}
 	}

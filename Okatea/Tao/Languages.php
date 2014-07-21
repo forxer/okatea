@@ -11,47 +11,47 @@ use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 
 /**
- * Le gestionnnaire de langues.
+ * The Okatea language manager.
  */
 class Languages extends ApplicationShortcuts
 {
 	/**
-	 * Liste des langues
+	 * List of languages.
 	 *
 	 * @var array
 	 */
 	public $list;
 
 	/**
-	 * Nombre de langues
+	 * Number of languages.
 	 *
 	 * @var integer
 	 */
 	public $num;
 
 	/**
-	 * Langue unique
+	 * Single language.
 	 *
 	 * @var boolean
 	 */
 	public $unique;
 
 	/**
-	 * Le nom de la table languages
+	 * The name of the language table.
 	 *
 	 * @var string
 	 */
 	protected $t_languages;
 
 	/**
-	 * L'objet gestionnaire de cache
+	 * The cache manager object.
 	 *
 	 * @var object
 	 */
 	protected $cache;
 
 	/**
-	 * L'identifiant du cache
+	 * The cache identifier.
 	 *
 	 * @var string
 	 */
@@ -76,7 +76,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Charge la liste des langues actives.
+	 * Load the list of active languages.
 	 *
 	 * @return void
 	 */
@@ -93,7 +93,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Indique si une langue donnée est active.
+	 * Indicates whether a given language is active.
 	 *
 	 * @param string $sLanguage
 	 * @return boolean
@@ -104,7 +104,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Retourne l'identifiant d'une langue selon son code.
+	 * Returns the identifier of a language according to its code.
 	 *
 	 * @param string $code
 	 * @return integer
@@ -115,7 +115,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Retourne le code d'une langue selon son identifiant.
+	 * Returns the language code according to its identifier.
 	 *
 	 * @param string $iLanguageId
 	 * @return integer
@@ -131,7 +131,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Génère le fichier cache de la liste des langues actives.
+	 * Generates cache list of active languages.
 	 *
 	 * @return boolean
 	 */
@@ -143,13 +143,13 @@ class Languages extends ApplicationShortcuts
 			'active' => 1
 		]);
 
-		while ($list->fetch())
+		foreach ($list as $language)
 		{
-			$aLanguagesList[$list['code']] = [
-				'id'        => (integer) $list['id'],
-				'title'     => $list['title'],
-				'code'      => $list['code'],
-				'img'       => $list['img']
+			$aLanguagesList[$language['code']] = [
+				'id'        => (integer) $language['id'],
+				'title'     => $language['title'],
+				'code'      => $language['code'],
+				'img'       => $language['img']
 			];
 		}
 
@@ -157,9 +157,9 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Retourne la liste des langues selon des paramètres donnés.
+	 * Returns a list of languages ​​according to given parameters.
 	 *
-	 * @param array	$aParams Paramètres de requete
+	 * @param array	$aParams
 	 * @param boolean $bCountOnly
 	 * @return array|integer
 	 */
@@ -168,7 +168,7 @@ class Languages extends ApplicationShortcuts
 		$queryBuilder = $this->conn->createQueryBuilder();
 
 		$queryBuilder
-			->where('NUll = NULL');
+			->where('true = true');
 
 		if (!empty($aParams['id']))
 		{
@@ -225,96 +225,84 @@ class Languages extends ApplicationShortcuts
 			}
 		}
 
-		if (($rs = $this->db->select($query)) === false) {
-			return new Recordset([]);
+		if ($bCountOnly) {
+			return (integer) $queryBuilder->execute()->fetchColumn();
 		}
 
-		if ($bCountOnly) {
-			return (integer) $rs->num_languages;
-		}
-		else {
-			return $rs;
-		}
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
-	 * Retourne, sous forme de recordset, une langue donnée.
+	 * Returns information of a given language.
 	 *
 	 * @param integer $iLanguageId
-	 * @return Okatea\Tao\Database\Recordset
+	 * @return array
 	 */
 	public function getLanguage($iLanguageId)
 	{
-		return $this->getLanguages([
-			'id' => $iLanguageId
-		]);
+		$aLanguage = $this->conn->fetchAssoc(
+			'SELECT * FROM '.$this->t_languages.' WHERE id = ?',
+			array($iLanguageId)
+		);
+
+		return $aLanguage;
 	}
 
 	/**
-	 * Indique si une langue donnée existe.
+	 * Indicates whether a given language exists.
 	 *
 	 * @param integer $iLanguageId
-	 * @param
-	 *            boolean
+	 * @param boolean
 	 */
 	public function languageExists($iLanguageId)
 	{
-		if ($this->getLanguage($iLanguageId)->isEmpty()) {
-			return false;
-		}
+		$aLanguage = $this->getLanguage($iLanguageId);
 
-		return true;
+		return $aLanguage ? true : false;
 	}
 
 	/**
-	 * Ajout d'une langue.
+	 * Adding a language.
 	 *
 	 * @param array $aData
 	 * @return integer
 	 */
 	public function addLanguage(array $aData = [])
 	{
-		$query = 'SELECT MAX(ord) FROM ' . $this->t_languages;
-		$rs = $this->db->select($query);
+		$iMaxOrd = $this->conn->fetchColumn('SELECT MAX(ord) FROM ' . $this->t_languages);
 
-		if ($rs->isEmpty()) {
-			return false;
-		}
-		$max_ord = $rs->f(0);
-
-		$query =
-		'INSERT INTO ' . $this->t_languages . ' ' .
-		'( ' . 'title, code, img, active, ord ' . ' ) VALUES ( ' .
-		'\'' . $this->db->escapeStr($aData['title']) . '\', ' .
-		'\'' . $this->db->escapeStr(strip_tags($aData['code'])) . '\', ' .
-		'\'' . $this->db->escapeStr($aData['img']) . '\', ' .
-		(integer) $aData['active'] . ', ' .
-		(integer) ($max_ord + 1) . '); ';
-
-		if (! $this->db->execute($query)) {
-			return false;
-		}
-
-		$iNewId = $this->db->getLastID();
+		$this->conn->insert($this->t_languages, array(
+			'title' 	=> $aData['title'],
+			'code' 		=> $aData['code'],
+			'img' 		=> $aData['img'],
+			'active'	=> (integer) $aData['active'],
+			'ord' 		=> (integer) ($iMaxOrd + 1)
+		));
 
 		$this->afterProcess();
 
-		return $iNewId;
+		return $this->conn->lastInsertId();
 	}
 
 	/**
-	 * Mise à jour d'une langue.
+	 * Update a language.
 	 *
 	 * @param array $aData
 	 * @return boolean
 	 */
 	public function updLanguage(array $aData = [])
 	{
-		$query = 'UPDATE ' . $this->t_languages . ' SET ' . 'title=\'' . $this->db->escapeStr($aData['title']) . '\', ' . 'code=\'' . $this->db->escapeStr(strip_tags($aData['code'])) . '\', ' . 'img=\'' . $this->db->escapeStr($aData['img']) . '\', ' . 'active=' . (integer) $aData['active'] . ' ' . 'WHERE id=' . (integer) $aData['id'];
-
-		if (! $this->db->execute($query)) {
-			return false;
-		}
+		$this->conn->update($this->t_languages,
+			array(
+				'title' 	=> $aData['title'],
+				'code' 		=> $aData['code'],
+				'img' 		=> $aData['img'],
+				'active' 	=> (integer) $aData['active']
+			),
+			array(
+				'id' => (integer) $aData['id']
+			)
+		);
 
 		$this->afterProcess();
 
@@ -322,7 +310,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Vérifie les données envoyées dans les formulaires.
+	 * Verifies the data sent in the forms.
 	 *
 	 * @param array $aData
 	 * @return boolean
@@ -341,7 +329,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Switch le statut d'une langue donnée.
+	 * Switch the status of a given language.
 	 *
 	 * @param integer $iLanguageId
 	 * @return boolean
@@ -364,7 +352,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Définit le statut d'une langue donnée.
+	 * Sets the status of a given language.
 	 *
 	 * @param integer $iLanguageId
 	 * @param integer $iStatus
@@ -390,10 +378,9 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Met à jour la position d'une langue donnée.
+	 * Updates the position of a given language.
 	 *
 	 * @param integer $iLanguageId
-	 *            langue
 	 * @param integer $iOrd
 	 * @return boolean
 	 */
@@ -409,7 +396,7 @@ class Languages extends ApplicationShortcuts
 	}
 
 	/**
-	 * Suppression d'une langue.
+	 * Deleting a given language.
 	 *
 	 * @param integer $iLanguageId
 	 * @return boolean

@@ -413,8 +413,7 @@ class ImageUpload extends ApplicationShortcuts
 
 				$j ++;
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt->error->set('Problem with image ' . $i . ' : ' . $e->getMessage());
 			}
 		}
@@ -483,48 +482,46 @@ class ImageUpload extends ApplicationShortcuts
 
 			$sNewName = $j . '.' . $sExtension;
 
-			if (file_exists($sCurrentImagesDir . '/' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/o-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/o-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/o-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/o-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/min-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/min-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/min-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/min-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/min2-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/min2-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/min2-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/min2-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/min3-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/min3-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/min3-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/min3-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/min4-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/min4-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/min4-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/min4-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/min5-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/min5-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/min5-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/min5-' . $sNewName);
 			}
 
-			if (file_exists($sCurrentImagesDir . '/sq-' . $aCurrentImages[$i]['img_name']))
-			{
+			if (file_exists($sCurrentImagesDir . '/sq-' . $aCurrentImages[$i]['img_name'])) {
 				rename($sCurrentImagesDir . '/sq-' . $aCurrentImages[$i]['img_name'], $sCurrentImagesDir . '/sq-' . $sNewName);
 			}
 
 			# récupération des infos des images
 			$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sNewName);
+
+			# ajout d'un éventuel texte alternatif
+			$aNewImages[$j]['alt'] = $aCurrentImages[$j]['alt'];
+
+			# ajout d'un éventuel titre
+			$aNewImages[$j]['title'] = $aCurrentImages[$j]['title'];
 
 			$j ++;
 		}
@@ -540,12 +537,9 @@ class ImageUpload extends ApplicationShortcuts
 	/**
 	 * Création des miniatures d'un élément donné.
 	 *
-	 * @param integer $iItemId
-	 *        	de l'élément
-	 * @param string $sOutput
-	 *        	fichier de sortie
-	 * @param string $sExtension
-	 *        	du fichier
+	 * @param integer $iItemId de l'élément
+	 * @param string $sOutput fichier de sortie
+	 * @param string $sExtension du fichier
 	 * @return void
 	 */
 	public function buildThumbnails($iItemId, $sOutput, $sExtension = null)
@@ -554,18 +548,15 @@ class ImageUpload extends ApplicationShortcuts
 		$sCurrentImagesDir = $this->getCurrentUploadDir($iItemId);
 
 		# extension du fichier
-		if (is_null($sExtension))
-		{
+		if (is_null($sExtension)) {
 			$sExtension = pathinfo($sOutput, PATHINFO_EXTENSION);
 		}
 
 		# fichier source ?
-		if (file_exists($sCurrentImagesDir . '/o-' . $sOutput))
-		{
+		if (file_exists($sCurrentImagesDir . '/o-' . $sOutput)) {
 			$sSourceFile = $sCurrentImagesDir . '/o-' . $sOutput;
 		}
-		else
-		{
+		else {
 			$sSourceFile = $sCurrentImagesDir . '/' . $sOutput;
 		}
 
@@ -594,10 +585,8 @@ class ImageUpload extends ApplicationShortcuts
 	/**
 	 * Upload d'un filigrane.
 	 *
-	 * @param string $sFormInputName
-	 *        	Le nom du champs du formulaire
-	 * @param string $sFilename
-	 *        	Le nom du fichier destination sans l'extension
+	 * @param string $sFormInputName Le nom du champs du formulaire
+	 * @param string $sFilename Le nom du fichier destination sans l'extension
 	 * @return string Le nom de l'image
 	 */
 	public function uploadWatermark($sFormInputName, $sFilename)
