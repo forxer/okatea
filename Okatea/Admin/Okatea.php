@@ -106,10 +106,10 @@ class Okatea extends Application
 			$this->user->logout();
 
 			$this->logAdmin->critical(array(
-				'user_id' => $this->user->infos->f('id'),
-				'username' => $this->user->infos->f('username'),
-				'message' => 'Security CSRF blocking',
-				'code' => 0
+				'user_id' 	=> $this->user->infos['id'],
+				'username' 	=> $this->user->infos['username'],
+				'message' 	=> 'Security CSRF blocking',
+				'code' 		=> 0
 			));
 
 			$this->response = new RedirectResponse($this->adminRouter->generate('login'));

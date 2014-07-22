@@ -87,23 +87,23 @@ class NestedTreei18n extends ApplicationShortcuts
 
 		$fields = array_map(array(
 			$this,
-			'prependTAlias'
+			'prependTableAlias'
 		), $fields);
 
 		$localesFields = array_map(array(
 			$this,
-			'prependLAlias'
+			'prependLocalesAlias'
 		), $this->aLocalesFields);
 
 		return implode(', ', array_merge($fields, $localesFields));
 	}
 
-	protected function prependTAlias($v)
+	protected function prependTableAlias($v)
 	{
 		return $this->sTablePrefix . '.' . $v;
 	}
 
-	protected function prependLAlias($v)
+	protected function prependLocalesAlias($v)
 	{
 		return $this->sTableLocalesPrefix . '.' . $v;
 	}
@@ -113,7 +113,7 @@ class NestedTreei18n extends ApplicationShortcuts
 		return
 		$this->sTable . ' AS ' . $this->sTablePrefix . ' ' .
 		'JOIN ' . $this->sTableLocales . ' AS ' . $this->sTableLocalesPrefix . ' ' .
-		'ON ' . $this->sTablePrefix . '.id = ' . $this->sTableLocalesPrefix . '.' . $this->sJoinField;
+		'ON ' . $this->prependTableAlias('id') . ' = ' . $this->prependLocalesAlias($this->sJoinField);
 	}
 
 	/**
@@ -124,7 +124,13 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getNode($id)
 	{
-		$query = sprintf('SELECT %s FROM %s WHERE %s = %d', $this->getFields(), $this->getFrom(), $this->sTablePrefix . '.' . $this->aFields['id'], $id);
+		$query = sprintf(
+			'SELECT %s FROM %s WHERE %s = %d',
+			$this->getFields(),
+			$this->getFrom(),
+			$this->prependTableAlias($this->aFields['id']),
+			$id
+		);
 
 		if (($rs = $this->db->select($query)) === false) {
 			return null;
@@ -176,7 +182,7 @@ class NestedTreei18n extends ApplicationShortcuts
 		$sLanguageWhere = '';
 		if (! is_null($sLanguageCode))
 		{
-			$sLanguageWhere = 'AND ' . $this->prependLAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\' ';
+			$sLanguageWhere = 'AND ' . $this->prependLocalesAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\' ';
 		}
 
 		if ($bChildrenOnly)
@@ -267,7 +273,7 @@ class NestedTreei18n extends ApplicationShortcuts
 
 		if (! is_null($sLanguageCode))
 		{
-			$sWhere .= ' AND ' . $this->prependLAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\'';
+			$sWhere .= ' AND ' . $this->prependLocalesAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\'';
 		}
 
 		$query = sprintf('SELECT %s FROM %s WHERE ' . $sWhere . ' ORDER BY level', $this->getFields(), $this->getFrom(), $node->nleft, $node->nright);

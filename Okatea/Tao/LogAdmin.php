@@ -182,12 +182,12 @@ class LogAdmin
 	{
 		if (empty($aParams['user_id']))
 		{
-			$aParams['user_id'] = $this->okt->user->infos->f('id');
+			$aParams['user_id'] = $this->okt->user->infos['id'];
 		}
 
 		if (empty($aParams['username']))
 		{
-			$aParams['username'] = $this->okt->user->infos->f('username');
+			$aParams['username'] = $this->okt->user->infos['username'];
 		}
 
 		if (empty($aParams['component']))
