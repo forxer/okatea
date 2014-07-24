@@ -47,7 +47,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['estimate_id']))
 		
 		http::redirect('module.php?m=estimate&action=index');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 		$okt->page->action = 'index';

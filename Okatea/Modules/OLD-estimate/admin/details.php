@@ -49,7 +49,7 @@ if (! empty($_GET['treated']))
 		
 		http::redirect('module.php?m=estimate&action=details&estimate_id=' . $iEstimateId);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -73,7 +73,7 @@ if (! empty($_GET['untreated']))
 		
 		http::redirect('module.php?m=estimate&action=details&estimate_id=' . $iEstimateId);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

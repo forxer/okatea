@@ -22,7 +22,6 @@ use Okatea\Tao\Html\Page as BasePage;
  */
 class Page extends BasePage
 {
-
 	/**
 	 * Le fil d'ariane
 	 *

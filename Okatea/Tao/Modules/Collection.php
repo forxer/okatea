@@ -758,7 +758,7 @@ class Collection
 			
 			return $return;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}

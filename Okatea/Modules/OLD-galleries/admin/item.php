@@ -132,7 +132,7 @@ if (! empty($_GET['switch_status']) && ! empty($aItemData['item']['id']))
 		
 		http::redirect('module.php?m=galleries&action=edit&item_id=' . $aItemData['item']['id'] . '&switched=1');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -210,7 +210,7 @@ if (! empty($_POST['sended']))
 				
 				http::redirect('module.php?m=galleries&action=edit&item_id=' . $aItemData['item']['id'] . '&updated=1');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->set($e->getMessage());
 			}
@@ -240,7 +240,7 @@ if (! empty($_POST['sended']))
 				
 				http::redirect('module.php?m=galleries&action=edit&item_id=' . $aItemData['item']['id']);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->set($e->getMessage());
 			}

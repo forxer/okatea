@@ -83,7 +83,7 @@ class oktFilterIP extends oktSpamFilter
 				
 				http::redirect($url . '&ip_type=' . $ip_type);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -100,7 +100,7 @@ class oktFilterIP extends oktSpamFilter
 				
 				http::redirect($url . '&ip_type=' . $ip_type);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}

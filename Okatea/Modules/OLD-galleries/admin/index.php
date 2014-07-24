@@ -47,7 +47,7 @@ if (! empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 		
 		http::redirect('module.php?m=galleries');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

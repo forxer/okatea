@@ -50,7 +50,7 @@ if (! empty($_GET['treated']))
 		
 		http::redirect('module.php?m=estimate&action=index');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -74,7 +74,7 @@ if (! empty($_GET['untreated']))
 		
 		http::redirect('module.php?m=estimate&action=index');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -142,7 +142,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 			http::redirect('module.php?m=estimate&action=index');
 		}
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

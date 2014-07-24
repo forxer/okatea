@@ -94,7 +94,7 @@ try
 		throw new Exception('you do not have sufficient permissions to write to this folder: ');
 	}
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	$okt->error->set($e->getMessage());
 }
@@ -116,7 +116,7 @@ if (! empty($_GET['zipdl']) && $okt->checkPerm('media_admin'))
 		unset($zip);
 		exit();
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -133,7 +133,7 @@ if ($dir && ! empty($_POST['newdir']))
 		
 		http::redirect($page_url . '&d=' . rawurlencode($d));
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -155,7 +155,7 @@ if ($dir && ! empty($_FILES['upfile']))
 		
 		http::redirect($page_url . '&d=' . rawurlencode($d));
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -174,7 +174,7 @@ if ($dir && ! empty($_POST['rmyes']) && ! empty($_POST['remove']))
 		
 		http::redirect($page_url . '&d=' . rawurlencode($d));
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -191,7 +191,7 @@ if ($dir && $okt->user->is_superadmin && ! empty($_POST['rebuild']))
 		
 		http::redirect($page_url . '&d=' . rawurlencode($d));
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

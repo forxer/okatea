@@ -178,7 +178,7 @@ class Okatea extends Application
 		{
 			$this->page->serve404();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);

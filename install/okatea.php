@@ -27,7 +27,7 @@ try
 	# -- CORE TRIGGER : installFinal
 	$okt->triggers->callTrigger('installFinal');
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	oktFatalScreen($e->getMessage());
 }

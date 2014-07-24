@@ -127,7 +127,7 @@ try
 		http::redirect('module.php?m=antispam');
 	}
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	$okt->error->set($e->getMessage());
 }

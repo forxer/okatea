@@ -20,7 +20,7 @@ $oktAutoloader = require __DIR__ . '/../vendor/autoload.php';
 	# -- CORE TRIGGER : adminFinal
 	$okt->triggers->callTrigger('adminFinal');
 //}
-//catch (Exception $e)
+//catch (\Exception $e)
 //{
 //	oktFatalScreen($e->getMessage());
 //}

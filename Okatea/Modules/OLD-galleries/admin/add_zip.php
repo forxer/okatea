@@ -133,7 +133,7 @@ if (! empty($_POST['sended']))
 		
 		files::deltree($sTempDir);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

@@ -48,7 +48,7 @@ class Post extends Controller
 					'post_id' => $this->aPostData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -150,7 +150,7 @@ class Post extends Controller
 					'post_id' => $this->aPostData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -234,7 +234,7 @@ class Post extends Controller
 					'post_id' => $this->aPostData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}

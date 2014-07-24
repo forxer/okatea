@@ -42,7 +42,7 @@ if (! empty($_GET['switch_status']))
 		
 		http::redirect('module.php?m=galleries&action=items&gallery_id=' . $gallery_id);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -59,7 +59,7 @@ if (! empty($_GET['delete']) && $okt->checkPerm('galleries_remove'))
 		
 		http::redirect('module.php?m=galleries&action=items&gallery_id=' . $gallery_id);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -104,7 +104,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['items']) && is_array($_POST['i
 			throw new Exception('no valid action selected');
 		}
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

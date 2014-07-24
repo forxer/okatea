@@ -109,7 +109,7 @@ class Update extends Controller
 					return $this->redirect($sBaseSelfUrl);
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -153,7 +153,7 @@ class Update extends Controller
 				
 				return $this->redirect($this->okt->config->app_path . 'install/?old_version=' . $sOkateaVersion);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$sMessage = $e->getMessage();
 				if ($e->getCode() == Updater::ERR_FILES_CHANGED)

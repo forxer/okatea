@@ -463,7 +463,7 @@ class TemplatesSet
 			unset($zip);
 			exit();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->okt->error->set($e->getMessage());
 			return false;

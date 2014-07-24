@@ -46,7 +46,7 @@ class Category extends Controller
 					'category_id' => $this->aCategoryData['cat']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -120,7 +120,7 @@ class Category extends Controller
 					
 					$this->okt->module('Pages')->categories->rebuild();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					die($e->getMessage());
 				}
@@ -153,7 +153,7 @@ class Category extends Controller
 						'category_id' => $this->aCategoryData['cat']['id']
 					)));
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$this->okt->error->set($e->getMessage());
 				}
@@ -178,7 +178,7 @@ class Category extends Controller
 					'category_id' => $this->aCategoryData['cat']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -210,7 +210,7 @@ class Category extends Controller
 					'category_id' => $this->aCategoryData['cat']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}

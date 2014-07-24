@@ -69,7 +69,7 @@ class Navigation extends Controller
 				
 				return $this->redirect($this->generateUrl('config_navigation'));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -87,7 +87,7 @@ class Navigation extends Controller
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=index');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -160,7 +160,7 @@ class Navigation extends Controller
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$this->okt->error->set($e->getMessage());
 					}
@@ -187,7 +187,7 @@ class Navigation extends Controller
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$this->okt->error->set($e->getMessage());
 					}
@@ -260,7 +260,7 @@ class Navigation extends Controller
 					return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -278,7 +278,7 @@ class Navigation extends Controller
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -296,7 +296,7 @@ class Navigation extends Controller
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -314,7 +314,7 @@ class Navigation extends Controller
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -428,7 +428,7 @@ class Navigation extends Controller
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $aItemData['item']['id']);
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$this->okt->error->set($e->getMessage());
 					}
@@ -454,7 +454,7 @@ class Navigation extends Controller
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $iItemId);
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$this->okt->error->set($e->getMessage());
 					}

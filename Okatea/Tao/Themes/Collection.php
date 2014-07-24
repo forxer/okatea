@@ -357,7 +357,7 @@ class Collection
 			
 			return $sId;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw new \Exception($e->getMessage());
 		}
@@ -628,7 +628,7 @@ class Collection
 				return false;
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -669,7 +669,7 @@ class Collection
 			
 			return $return;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}

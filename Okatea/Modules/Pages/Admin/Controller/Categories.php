@@ -72,7 +72,7 @@ class Categories extends Controller
 			
 			return $this->redirect($this->generateUrl('Pages_categories'));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->okt->error->set($e->getMessage());
 			return false;
@@ -103,7 +103,7 @@ class Categories extends Controller
 			
 			return $this->redirect($this->generateUrl('Pages_categories'));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->okt->error->set($e->getMessage());
 			return false;

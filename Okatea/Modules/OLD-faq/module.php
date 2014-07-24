@@ -778,7 +778,7 @@ class module_faq extends Module
 					$aFiles[$aLanguage['code']][] = basename($sDestination);
 					$j ++;
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$this->okt->error->set('Problème avec le fichier ' . ($i + 1) . ' dans la langue ' . $aLanguage['code'] . ' : ' . $e->getMessage());
 				}
@@ -850,7 +850,7 @@ class module_faq extends Module
 					$aNewFiles[$aLanguage['code']][] = basename($sDestination);
 					$j ++;
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$this->okt->error->set('Pour le fichier ' . $i . ' dans la langue ' . $aLanguage['code'] . ' : ' . $e->getMessage());
 				}

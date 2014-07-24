@@ -208,7 +208,7 @@ class Bootstrap extends Controller
 			
 			$this->redirect($this->generateUrl('Development_bootstrap'));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->okt->error->set($e->getMessage());
 			return false;

@@ -74,7 +74,7 @@ class oktFilterIpLookup extends oktSpamFilter
 				$this->okt->blog->settings->put('antispam_dnsbls', $_POST['bls'], 'string', 'Antispam DNSBL servers', true, false);
 				http::redirect($url . '&upd=1');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->add($e->getMessage());
 			}

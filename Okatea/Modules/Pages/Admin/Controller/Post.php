@@ -50,7 +50,7 @@ class Post extends Controller
 					'page_id' => $this->aPageData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -143,7 +143,7 @@ class Post extends Controller
 					'page_id' => $this->aPageData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -212,7 +212,7 @@ class Post extends Controller
 					'page_id' => $this->aPageData['post']['id']
 				)));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}

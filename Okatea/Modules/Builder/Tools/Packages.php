@@ -49,7 +49,7 @@ class Packages extends BaseTools
 				$aRepositoryInfos = $response->json();
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 		

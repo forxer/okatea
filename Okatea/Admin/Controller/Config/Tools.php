@@ -400,7 +400,7 @@ class Tools extends Controller
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}

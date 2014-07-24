@@ -761,13 +761,13 @@ class oktMedia extends filemanager
 					$cur->insert();
 					$media_id = $this->db->getLastID();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					@unlink($name);
 					throw $e;
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				throw $e;
 			}
@@ -1027,7 +1027,7 @@ class oktMedia extends filemanager
 			}
 			$img->close();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			if ($cur === null)
 			{ # Called only if cursor is null (public call)
@@ -1052,7 +1052,7 @@ class oktMedia extends filemanager
 				{
 					parent::moveFile(sprintf($thumb_old, $suffix), sprintf($thumb_new, $suffix));
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}
@@ -1070,7 +1070,7 @@ class oktMedia extends filemanager
 			{
 				parent::removeFile(sprintf($thumb, $suffix));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}

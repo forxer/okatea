@@ -23,7 +23,7 @@ class Filesystem extends BaseFilesystem
 			parent::copy($originFile, $targetFile, $override);
 			return true;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -36,7 +36,7 @@ class Filesystem extends BaseFilesystem
 			parent::mirror($originDir, $targetDir, $iterator, $options);
 			return true;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -49,7 +49,7 @@ class Filesystem extends BaseFilesystem
 			parent::remove($files);
 			return true;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}

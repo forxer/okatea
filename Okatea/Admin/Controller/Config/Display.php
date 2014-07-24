@@ -140,7 +140,7 @@ class Display extends Controller
 
 					$this->request->request->set('p_jquery_ui_admin_theme', 'custom');
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$fs->remove($sTempDir);
 					$this->okt->error->set($e->getMessage());

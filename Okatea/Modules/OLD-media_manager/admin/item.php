@@ -50,7 +50,7 @@ try
 	}
 	ksort($dirs_combo);
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	$okt->error->set($e->getMessage());
 }
@@ -68,7 +68,7 @@ if ($file && ! empty($_FILES['upfile']) && $file->editable && $core_media_writab
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -104,7 +104,7 @@ if ($file && ! empty($_POST['media_file']) && $file->editable && $core_media_wri
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -121,7 +121,7 @@ if (! empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -138,7 +138,7 @@ if (! empty($_POST['unzip']) && $file->type == 'application/zip' && $file->edita
 		
 		http::redirect($media_page_url . '&d=' . $unzip_dir);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}

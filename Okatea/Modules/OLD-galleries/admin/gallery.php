@@ -152,7 +152,7 @@ if (! empty($_GET['ajax_update_order']))
 			
 			$okt->galleries->tree->rebuild();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			die($e->getMessage());
 		}
@@ -185,7 +185,7 @@ if (! empty($_POST['order_galleries']))
 			
 			http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$okt->error->set($e->getMessage());
 		}
@@ -208,7 +208,7 @@ if (! empty($_GET['switch_status']) && ! empty($iGalleryId))
 		
 		http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId . '&switched=1');
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$okt->error->set($e->getMessage());
 	}
@@ -289,7 +289,7 @@ if (! empty($_POST['sended']))
 				
 				http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->set($e->getMessage());
 			}
@@ -319,7 +319,7 @@ if (! empty($_POST['sended']))
 				
 				http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->set($e->getMessage());
 			}

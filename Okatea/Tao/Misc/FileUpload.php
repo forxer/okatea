@@ -142,7 +142,7 @@ class FileUpload
 				
 				$j ++;
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->error->set('Problème avec le fichier ' . $i . ' : ' . $e->getMessage());
 			}
@@ -220,7 +220,7 @@ class FileUpload
 				
 				$j ++;
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set('Problème avec le fichier ' . $i . ' : ' . $e->getMessage());
 			}

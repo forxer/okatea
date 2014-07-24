@@ -659,7 +659,7 @@ class Themes extends Controller
 				
 				return $this->redirect($this->generateUrl('config_themes'));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 				return false;

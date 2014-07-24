@@ -285,24 +285,24 @@ class NestedTreei18n extends ApplicationShortcuts
 	{
 		$node = $this->getNode($ancestor_id);
 
-		if ($node === null)
-		{
+		if ($node === null) {
 			return false;
 		}
 
-		$query = sprintf('SELECT count(*) AS is_descendant FROM %s WHERE %s = %d AND nleft > %d AND nright < %d', $this->getFrom(), $this->aFields['id'], $descendant_id, $node['nleft'], $node['nright']);
+		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder
+			->select('count('.$this->aFields['id'].') AS is_descendant')
+			->from($this->sTable, $this->sTableAlias)
+			->where($this->aFields['id'] . ' = :descendant_id')
+			->andWhere('nleft > :nleft')
+			->andWhere('nright < :nright')
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return false;
-		}
+			->setParameter('descendant_id', $descendant_id)
+			->setParameter('nleft', $node['nleft'])
+			->setParameter('nright', $node['nright'])
+		;
 
-		if ($rs->isEmpty())
-		{
-			return false;
-		}
-
-		return (boolean) ($rs->is_descendant > 0);
+		return (boolean) ($queryBuilder->execute()->fetchColumn() > 0);
 	}
 
 	/**
@@ -318,19 +318,18 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function isChildOf($child_id, $parent_id)
 	{
-		$query = sprintf('SELECT count(*) AS is_child FROM %s WHERE %s = %d AND %s = %d', $this->getFrom(), $this->aFields['id'], $child_id, $this->aFields['parent'], $parent_id);
+		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder
+			->select('count('.$this->aFields['id'].') AS is_child')
+			->from($this->sTable, $this->sTableAlias)
+			->where($this->aFields['id'] . ' = :child_id')
+			->andWhere($this->aFields['parent'] . ' = :parent_id')
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return false;
-		}
+			->setParameter('child_id', $child_id)
+			->setParameter('parent_id', $parent_id)
+		;
 
-		if ($rs->isEmpty())
-		{
-			return false;
-		}
-
-		return (boolean) ($rs->is_child > 0);
+		return (boolean) ($queryBuilder->execute()->fetchColumn() > 0);
 	}
 
 	/**
@@ -344,26 +343,19 @@ class NestedTreei18n extends ApplicationShortcuts
 	{
 		if ($id == 0)
 		{
-			$query = sprintf('SELECT COUNT(%s) AS num_descendants FROM %s', $this->aFields['id'], $this->sTable);
+			$queryBuilder = $this->conn->createQueryBuilder();
+			$queryBuilder
+				->select('count('.$this->aFields['id'].') AS is_child')
+				->from($this->sTable, $this->sTableAlias)
+			;
 
-			if (($rs = $this->db->select($query)) === false)
-			{
-				return - 1;
-			}
-
-			if ($rs->isEmpty())
-			{
-				return - 1;
-			}
-
-			return (integer) $rs->num_descendants;
+			return (integer) $queryBuilder->execute()->fetchColumn();
 		}
 		else
 		{
 			$node = $this->getNode($id);
 
-			if ($node !== null)
-			{
+			if (null !== $node) {
 				return (integer) (($node['nright'] - $node['nleft'] - 1) / 2);
 			}
 		}
@@ -376,23 +368,19 @@ class NestedTreei18n extends ApplicationShortcuts
 	 *
 	 * @param int $id
 	 *        	The ID of the node to search for. Pass 0 to count the first level items
-	 * @return int The number of descendants the node has, or -1 if the node isn't found.
+	 * @return int The number of descendants the node has.
 	 */
 	public function numChildren($id)
 	{
-		$query = sprintf('SELECT COUNT(%s) AS num_children FROM %s WHERE %s = %d', $this->aFields['id'], $this->sTable, $this->aFields['parent'], $id);
+		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder
+			->select('count('.$this->aFields['id'].') AS num_children')
+			->from($this->sTable, $this->sTableAlias)
+			->where($this->aFields['parent'] . ' = :parent_id')
+			->setParameter('parent_id', $id)
+		;
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return - 1;
-		}
-
-		if ($rs->isEmpty())
-		{
-			return - 1;
-		}
-
-		return (integer) $rs->num_children;
+		return (integer) $queryBuilder->execute()->fetchColumn();
 	}
 
 	/**
@@ -402,44 +390,35 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getTreeWithChildren()
 	{
-		$idField = $this->aFields['id'];
-		$parentField = $this->aFields['parent'];
-
-		$query = sprintf('SELECT %s FROM %s ORDER BY %s', $this->getFields(), $this->getFrom(), $this->sSortField);
-
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return array();
-		}
+		$leaves = $this->conn->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
 
 		// create a root node to hold child data about first level items
-		$arr = array();
-		$arr[0] = array(
-			$idField => 0,
-			'children' => array()
-		);
+		$arr = [];
+		$arr[0] = [
+			$this->aFields['id'] => 0,
+			'children' => []
+		];
 
 		// populate the array and create an empty children array
 		$fields = $this->getFieldsList();
 
-		while ($rs->fetch())
+		foreach ($leaves as $leaf)
 		{
-			$arr[$rs->f($idField)] = array();
+			$arr[$leaf[$this->aFields['id']]] = [];
 
 			foreach ($fields as $field)
 			{
-				$arr[$rs->f($idField)][$field] = $rs->f($field);
+				$arr[$leaf[$this->aFields['id']]][$field] = $leaf[$field];
 			}
 
-			$arr[$rs->f($idField)]['children'] = array();
+			$arr[$leaf[$this->aFields['id']]]['children'] = [];
 		}
 
 		// now process the array and build the child data
 		foreach ($arr as $id => $row)
 		{
-			if (isset($row[$parentField]))
-			{
-				$arr[$row[$parentField]]['children'][$id] = $id;
+			if (isset($row[$this->aFields['parent']])) {
+				$arr[$row[$this->aFields['parent']]]['children'][$id] = $id;
 			}
 		}
 
@@ -453,46 +432,36 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getStructuredTree()
 	{
-		$idField = $this->aFields['id'];
-
-		$query = sprintf('SELECT %s FROM %s ORDER BY %s', $this->getFields(), $this->getFrom(), $this->sSortField);
-
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return array();
-		}
+		$leaves = $this->conn->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
 
 		$data = array();
 
 		# populate the array
 		$fields = $this->getFieldsList();
 
-		while ($rs->fetch())
+		foreach ($leaves as $leaf)
 		{
-			$data[$rs->f($idField)] = array();
+			$data[$leaf[$this->aFields['id']]] = array();
 
-			foreach ($fields as $field)
-			{
-				$data[$rs->f($idField)][$field] = $rs->f($field);
+			foreach ($fields as $field) {
+				$data[$leaf[$this->aFields['id']]][$field] = $leaf[$field];
 			}
 		}
 
 		# build the structured tree
-		$tree = array();
+		$_tree = array();
 		foreach ($data as &$value)
 		{
-			if ($parent = $value['parent_id'])
-			{
+			if ($parent = $value['parent_id']) {
 				$data[$parent]['children'][] = &$value;
 			}
-			else
-			{
-				$tree[] = &$value;
+			else {
+				$_tree[] = &$value;
 			}
 		}
 		unset($value);
-		$data = $tree;
-		unset($tree);
+		$data = $_tree;
+		unset($_tree);
 
 		return $data;
 	}
@@ -514,19 +483,24 @@ class NestedTreei18n extends ApplicationShortcuts
 		// give it an initial nleft value of 0 and an level of 0.
 		$this->generateTreeData($data, 0, 0, $n);
 
-		// at this point the the root node will have nleft of 0, level of 0
+		// at this point the root node will have nleft of 0, level of 0
 		// and nright of (tree size * 2 + 1)
 		foreach ($data as $id => $row)
 		{
 			// skip the root node
-			if ($id == 0)
-			{
+			if ($id == 0) {
 				continue;
 			}
 
-			$query = sprintf('UPDATE %s SET level = %d, nleft = %d, nright = %d WHERE %s = %d', $this->getFrom(), $row['level'], $row['nleft'], $row['nright'], $this->aFields['id'], $id);
-
-			$this->db->execute($query);
+			$this->conn->update(
+				$this->sTable,
+				array(
+					'level' => $row['level'],
+					'nleft' => $row['nleft'],
+					'nright' => $row['nright']
+				),
+				array($this->aFields['id'] => $id)
+			);
 		}
 	}
 
@@ -554,7 +528,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	protected function generateTreeData(&$arr, $id, $level, &$n)
 	{
 		$arr[$id]['level'] = $level;
-		$arr[$id]['nleft'] = $n ++;
+		$arr[$id]['nleft'] = $n++;
 
 		// loop over the node's children and process their data
 		// before assigning the nright value
@@ -562,7 +536,8 @@ class NestedTreei18n extends ApplicationShortcuts
 		{
 			$this->generateTreeData($arr, $child_id, $level + 1, $n);
 		}
-		$arr[$id]['nright'] = $n ++;
+
+		$arr[$id]['nright'] = $n++;
 	}
 
 	/**

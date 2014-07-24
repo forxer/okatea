@@ -85,7 +85,7 @@ class oktFilterWords extends oktSpamFilter
 				
 				http::redirect($url);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->okt->error->set($e->getMessage());
 			}
@@ -102,7 +102,7 @@ class oktFilterWords extends oktSpamFilter
 				
 				http::redirect($url);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->add($e->getMessage());
 			}
@@ -119,7 +119,7 @@ class oktFilterWords extends oktSpamFilter
 				
 				http::redirect($url);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$okt->error->add($e->getMessage());
 			}
@@ -336,7 +336,7 @@ class oktFilterWords extends oktSpamFilter
 			{
 				$this->addRule($w, true);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}

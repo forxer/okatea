@@ -25,7 +25,7 @@ class moduleInstall_antispam extends ModuleInstall
 			$_o->defaultWordsList();
 			$done = true;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$done = null;
 		}
