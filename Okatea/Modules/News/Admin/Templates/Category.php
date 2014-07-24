@@ -75,11 +75,11 @@ $okt->page->addGlobalTitle(__('m_news_cats_categories'), $view->generateUrl('New
 if ($aCategoryData['cat']['id'])
 {
 	$path = $okt->module('News')->categories->getPath($aCategoryData['cat']['id'], true, $okt->user->language);
-	
-	while ($path->fetch())
+
+	foreach ($path as $categoryPath)
 	{
-		$okt->page->addGlobalTitle($path->title, $view->generateUrl('News_category', array(
-			'category_id' => $path->id
+		$okt->page->addGlobalTitle($categoryPath['title'], $view->generateUrl('News_category', array(
+			'category_id' => $categoryPath['id']
 		)));
 	}
 }
@@ -265,7 +265,7 @@ if ($aCategoryData['cat']['id'])
 </form>
 
 
-<?php if ($aCategoryData['cat']['id'] && !$aCategoryData['extra']['rsSiblings']->isEmpty()) : ?>
+<?php if ($aCategoryData['cat']['id'] && !empty($aCategoryData['extra']['aSiblings'])) : ?>
 <form
 	action="<?php echo !empty($aCategoryData['cat']['id']) ? $view->generateUrl('News_category', array('category_id' => $aCategoryData['cat']['id'])) : $view->generateUrl('News_category_add'); ?>"
 	method="post">
@@ -274,18 +274,17 @@ if ($aCategoryData['cat']['id'])
 
 		<ul id="sortable" class="ui-sortable">
 		<?php
-	
+
 	$i = 1;
-	while ($aCategoryData['extra']['rsSiblings']->fetch())
-	:
+	foreach ($aCategoryData['extra']['aSiblings'] as $aSibling) :
 		?>
-			<li id="ord_<?php echo $aCategoryData['extra']['rsSiblings']->id; ?>"
+			<li id="ord_<?php echo $aSibling['id']; ?>"
 				class="ui-state-default"><label
-				for="order_<?php echo $aCategoryData['extra']['rsSiblings']->id ?>">
+				for="order_<?php echo $aSibling['id'] ?>">
 					<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-			<?php echo $view->escape($aCategoryData['extra']['rsSiblings']->title) ?></label>
-			<?php echo form::text(array('p_order['.$aCategoryData['extra']['rsSiblings']->id.']','p_order_'.$aCategoryData['extra']['rsSiblings']->id), 5, 10, $i++) ?></li>
-		<?php endwhile; ?>
+			<?php echo $view->escape($aSibling['title']) ?></label>
+			<?php echo form::text(array('p_order['.$aSibling['id'].']','p_order_'.$aSibling['id']), 5, 10, $i++) ?></li>
+		<?php endforeach; ?>
 		</ul>
 	</div>
 	<!-- #tab_siblings -->

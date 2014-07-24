@@ -11,7 +11,6 @@ use Okatea\Tao\Misc\Utilities;
 
 class DebugBar
 {
-
 	/**
 	 * Okatea application instance.
 	 *
@@ -33,7 +32,7 @@ class DebugBar
 	 */
 	protected $aDebugBarData;
 
-	public function __construct($okt, $aConfig)
+	public function __construct($okt, array $aConfig)
 	{
 		$this->okt = $okt;
 		$this->aConfig = $aConfig;
@@ -46,17 +45,17 @@ class DebugBar
 	 */
 	public function loadInAdminPart()
 	{
-		if (! $this->okt->options->get('debug') || ! $this->aConfig['admin'])
-		{
+		if (! $this->okt->options->get('debug') || ! $this->aConfig['admin']) {
 			return false;
 		}
 
-		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag', array(
+		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag', [
 			$this,
 			'addHtmlByBehavior'
-		));
+		]);
 
-		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt->config->jquery_ui['admin'] . '/jquery-ui.min.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' .
+			$this->okt->config->jquery_ui['admin'] . '/jquery-ui.min.css');
 
 		$this->addFiles();
 	}
@@ -68,15 +67,14 @@ class DebugBar
 	 */
 	public function loadInPublicPart()
 	{
-		if (! $this->okt->options->get('debug') || ! $this->aConfig['public'])
-		{
+		if (! $this->okt->options->get('debug') || ! $this->aConfig['public']) {
 			return false;
 		}
 
-		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag', array(
+		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag', [
 			$this,
 			'addHtmlByBehavior'
-		));
+		]);
 
 		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
 
@@ -190,8 +188,8 @@ class DebugBar
 	 */
 	public function setData()
 	{
-		$this->aDebugBarData = array();
-		$this->aDebugBarData['num_data'] = array();
+		$this->aDebugBarData = [];
+		$this->aDebugBarData['num_data'] = [];
 
 		if ($this->aConfig['tabs']['super_globales'])
 		{
@@ -210,7 +208,7 @@ class DebugBar
 			$this->aDebugBarData['definedConstants'] = self::getDefinedConstants();
 			$this->aDebugBarData['configVars'] = $this->okt->config->get();
 			$this->aDebugBarData['userVars'] = $this->okt->user->getData(0);
-			$this->aDebugBarData['l10nVars'] = (! empty($__l10n) ? $__l10n : array());
+			$this->aDebugBarData['l10nVars'] = (! empty($GLOBALS['okt_l10n']) ? $GLOBALS['okt_l10n'] : []);
 
 			$this->aDebugBarData['num_data']['definedVars'] = count($this->aDebugBarData['definedVars']);
 			$this->aDebugBarData['num_data']['definedConstants'] = count($this->aDebugBarData['definedConstants']);
@@ -219,8 +217,7 @@ class DebugBar
 			$this->aDebugBarData['num_data']['l10nVars'] = count($this->aDebugBarData['l10nVars']);
 		}
 
-		if ($this->aConfig['tabs']['db'])
-		{
+		if ($this->aConfig['tabs']['db']) {
 			$this->aDebugBarData['num_data']['queries'] = $this->okt->db->nbQueries();
 		}
 
@@ -231,27 +228,9 @@ class DebugBar
 			$this->aDebugBarData['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 		}
 
-		$aRequestAttributes = $this->okt->request->attributes->all();
-
-		$this->aDebugBarData['route'] = '';
-		if (! empty($aRequestAttributes['_route']))
-		{
-			$this->aDebugBarData['route'] = $aRequestAttributes['_route'];
-			unset($aRequestAttributes['_route']);
-		}
-
-		$this->aDebugBarData['controller'] = '';
-		if (! empty($aRequestAttributes['controller']))
-		{
-			$this->aDebugBarData['controller'] = $aRequestAttributes['controller'];
-			unset($aRequestAttributes['controller']);
-		}
-
-		$this->aDebugBarData['requestAttributes'] = array();
-		if (! empty($aRequestAttributes))
-		{
-			$this->aDebugBarData['requestAttributes'] = $aRequestAttributes;
-		}
+		$this->aDebugBarData['route'] = $this->okt->request->attributes->get('_route');
+		$this->aDebugBarData['controller'] = $this->okt->request->attributes->get('controller');
+		$this->aDebugBarData['requestParameters'] = $this->okt->request->attributes->get('requestParameters');
 	}
 
 	/**
@@ -268,7 +247,7 @@ class DebugBar
 
 	protected function getHtmlBlock()
 	{
-		$aItems = array();
+		$aItems = [];
 
 		$sBaseUrl = '';
 
@@ -337,7 +316,7 @@ class DebugBar
 		{
 			$sListitems .= '<li><a href="#superglobal_attributes">Attributes - ' . $this->aDebugBarData['num_data']['attributes'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_attributes">Attributess</h3>' . '<div><pre>' . var_export($this->okt->request->attributes->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_attributes">Attributes</h3>' . '<div><pre>' . var_export($this->okt->request->attributes->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['files'] > 0)
@@ -451,7 +430,7 @@ class DebugBar
 			<ul>
 				<li>Route&nbsp;: ' . $this->aDebugBarData['route'] . '</li>
 				<li>Controller&nbsp;: ' . $this->aDebugBarData['controller'] . '</li>
-				<li>Autre(s) attribut(s)&nbsp;: <ul><li>' . implode('</li><li>', $this->aDebugBarData['requestAttributes']) . '</li></ul></li></ul>
+				<li>Autre(s) attribut(s)&nbsp;: <ul><li>' . implode('</li><li>', $this->aDebugBarData['requestParameters']) . '</li></ul></li></ul>
 			<ul>
 				<li>$okt->page->module&nbsp;: ' . (! empty($this->okt->page->module) ? $this->okt->page->module : '') . '</li>
 				<li>$okt->page->action&nbsp;: ' . (! empty($this->okt->page->action) ? $this->okt->page->action : '') . '</li>
@@ -475,7 +454,7 @@ class DebugBar
 	 */
 	public static function getDefinedVars()
 	{
-		return array_values(array_diff(array_keys($GLOBALS), array(
+		return array_values(array_diff(array_keys($GLOBALS), [
 			'GLOBALS',
 			'_GET',
 			'_POST',
@@ -485,7 +464,7 @@ class DebugBar
 			'_SERVER',
 			'_ENV',
 			'_SESSION'
-		)));
+		]));
 	}
 
 	/**

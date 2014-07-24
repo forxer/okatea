@@ -7,6 +7,8 @@
  */
 namespace Okatea\Tao;
 
+use Okatea\Tao\Application;
+
 class ApplicationShortcuts
 {
 	/**
@@ -40,10 +42,9 @@ class ApplicationShortcuts
 	/**
 	 * Constructor;
 	 *
-	 * @param object $okt
-	 *        	Okatea application instance.
+	 * @param object $okt Okatea application instance.
 	 */
-	public function __construct($okt)
+	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
 

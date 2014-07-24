@@ -10,8 +10,8 @@ use Okatea\Website\Okatea;
 # Lunch composer autoload
 $oktAutoloader = require __DIR__ . '/vendor/autoload.php';
 
-try
-{
+//try
+//{
 	# Let the music play
 	$okt = new Okatea($oktAutoloader, require __DIR__ . '/oktOptions.php');
 
@@ -19,8 +19,8 @@ try
 
 	# -- CORE TRIGGER : websiteFinal
 	$okt->triggers->callTrigger('websiteFinal');
-}
-catch (Exception $e)
-{
-	oktFatalScreen($e->getMessage());
-}
+//}
+//catch (Exception $e)
+//{
+//	oktFatalScreen($e->getMessage());
+//}

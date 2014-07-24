@@ -17,11 +17,11 @@ class NestedTreei18n extends ApplicationShortcuts
 {
 	protected $sTable;
 
-	protected $tablePrefix;
+	protected $sTableAlias;
 
 	protected $sTableLocales;
 
-	protected $sTableLocalesPrefix;
+	protected $sTableLocalesAlias;
 
 	protected $aFields;
 
@@ -45,75 +45,27 @@ class NestedTreei18n extends ApplicationShortcuts
 	 * @param string $sLanguageField Name of the language field
 	 * @param array $addFields fields to be selecteds
 	 * @param array $addLocalesFields Others localized fields
+	 * @return void
 	 */
-	public function __construct($okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', $addFields = array(), $addLocalesFields = array())
+	public function __construct($okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', array $addFields = [], array $addLocalesFields = [])
 	{
 		parent::__construct($okt);
 
 		$this->sTable = $sTable;
-		$this->sTablePrefix = 't';
+		$this->sTableAlias = 't';
 
 		$this->sTableLocales = $sTableLocales;
-		$this->sTableLocalesPrefix = 'l';
+		$this->sTableLocalesAlias = 'l';
 
-		$this->aFields = array_merge($addFields, array(
-			'id' => $idField,
-			'parent' => $parentField
-		));
+		$this->aFields = array_merge($addFields, [
+			'id' 		=> $idField,
+			'parent' 	=> $parentField
+		]);
 		$this->aLocalesFields = $addLocalesFields;
 
 		$this->sSortField = $sSortField;
 		$this->sJoinField = $sJoinField;
 		$this->sLanguageField = $sLanguageField;
-	}
-
-	/**
-	 * A utility function to return a string of the fields
-	 * that need to be selected in SQL select queries.
-	 *
-	 * @return string
-	 */
-	protected function getFields($in_array = false)
-	{
-		$fields = array_merge($this->aFields, array(
-			'nleft',
-			'nright',
-			'level'
-		));
-
-		if ($in_array) {
-			return array_merge($fields, $this->aLocalesFields);
-		}
-
-		$fields = array_map(array(
-			$this,
-			'prependTableAlias'
-		), $fields);
-
-		$localesFields = array_map(array(
-			$this,
-			'prependLocalesAlias'
-		), $this->aLocalesFields);
-
-		return implode(', ', array_merge($fields, $localesFields));
-	}
-
-	protected function prependTableAlias($v)
-	{
-		return $this->sTablePrefix . '.' . $v;
-	}
-
-	protected function prependLocalesAlias($v)
-	{
-		return $this->sTableLocalesPrefix . '.' . $v;
-	}
-
-	protected function getFrom()
-	{
-		return
-		$this->sTable . ' AS ' . $this->sTablePrefix . ' ' .
-		'JOIN ' . $this->sTableLocales . ' AS ' . $this->sTableLocalesPrefix . ' ' .
-		'ON ' . $this->prependTableAlias('id') . ' = ' . $this->prependLocalesAlias($this->sJoinField);
 	}
 
 	/**
@@ -124,23 +76,18 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getNode($id)
 	{
-		$query = sprintf(
-			'SELECT %s FROM %s WHERE %s = %d',
-			$this->getFields(),
-			$this->getFrom(),
-			$this->prependTableAlias($this->aFields['id']),
-			$id
+		$node = $this->conn->fetchAssoc(
+			'SELECT ' . $this->getFields() . ' ' .
+			'FROM ' . $this->getFrom() . ' ' .
+			'WHERE ' . $this->prependTableAlias($this->aFields['id']) . ' = ?',
+			array($id)
 		);
 
-		if (($rs = $this->db->select($query)) === false) {
+		if (empty($node)) {
 			return null;
 		}
 
-		if ($rs->isEmpty()) {
-			return null;
-		}
-
-		return $rs;
+		return $node;
 	}
 
 	/**
@@ -174,50 +121,72 @@ class NestedTreei18n extends ApplicationShortcuts
 		}
 		else
 		{
-			$nleft = $node->f('nleft');
-			$nright = $node->f('nright');
-			$parent_id = $node->f($this->aFields['id']);
+			$nleft = $node['nleft'];
+			$nright = $node['nright'];
+			$parent_id = $node[$this->aFields['id']];
 		}
 
-		$sLanguageWhere = '';
-		if (! is_null($sLanguageCode))
-		{
-			$sLanguageWhere = 'AND ' . $this->prependLocalesAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\' ';
-		}
+		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder
+			->select($this->getFieldsList(true))
+			->from($this->sTable, $this->sTableAlias)
+			->innerJoin(
+				$this->sTableAlias,
+				$this->sTableLocales,
+				$this->sTableLocalesAlias,
+				$this->prependTableAlias('id') . ' = ' . $this->prependLocalesAlias($this->sJoinField)
+			)
+			->orderBy($this->prependTableAlias('nleft'))
+		;
 
 		if ($bChildrenOnly)
 		{
 			if ($bIncludeSelf)
 			{
-				$query = sprintf('SELECT %s FROM %s WHERE (%s = %d OR %s = %d) ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom(), $this->aFields['id'], $parent_id, $this->aFields['parent'], $parent_id);
+				$queryBuilder
+					->where($this->aFields['id'] . ' = :parent_id')
+					->orWhere($this->aFields['parent'] . ' = :parent_id')
+				;
 			}
 			else
 			{
-				$query = sprintf('SELECT %s FROM %s WHERE %s = %d ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom(), $this->aFields['parent'], $parent_id);
+				$queryBuilder
+					->where($this->aFields['parent'] . ' = :parent_id')
+				;
 			}
 		}
 		else
 		{
 			if ($nleft > 0 && $bIncludeSelf)
 			{
-				$query = sprintf('SELECT %s FROM %s WHERE nleft >= %d AND nright <= %d ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom(), $nleft, $nright);
+				$queryBuilder
+					->where('nleft >= :nleft')
+					->andWhere('nright <= :nright')
+				;
 			}
 			elseif ($nleft > 0)
 			{
-				$query = sprintf('SELECT %s FROM %s WHERE nleft > %d AND nright < %d ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom(), $nleft, $nright);
-			}
-			else
-			{
-				$query = sprintf('SELECT %s FROM %s ' . $sLanguageWhere . 'ORDER BY nleft', $this->getFields(), $this->getFrom());
+				$queryBuilder
+					->where('nleft > :nleft')
+					->andWhere('nright < :nright')
+				;
 			}
 		}
 
-		if (($rs = $this->db->select($query)) === false)
+		if (! is_null($sLanguageCode))
 		{
-			return new Recordset(array());
+			$queryBuilder
+				->andWhere($this->prependLocalesAlias($this->sLanguageField) . ' = :language');
 		}
 
-		return $rs;
+		$queryBuilder
+			->setParameter('parent_id', $parent_id)
+			->setParameter('nleft', $nleft)
+			->setParameter('nright', $nright)
+			->setParameter('language', $sLanguageCode)
+		;
+
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
@@ -257,33 +226,48 @@ class NestedTreei18n extends ApplicationShortcuts
 	{
 		$node = $this->getNode($id);
 
-		if ($node === null)
-		{
+		if ($node === null) {
 			return false;
 		}
 
+		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder
+			->select($this->getFieldsList(true))
+			->from($this->sTable, $this->sTableAlias)
+			->innerJoin(
+				$this->sTableAlias,
+				$this->sTableLocales,
+				$this->sTableLocalesAlias,
+				$this->prependTableAlias('id') . ' = ' . $this->prependLocalesAlias($this->sJoinField)
+			)
+			->orderBy($this->prependTableAlias('level'));
+
 		if ($bIncludeSelf)
 		{
-			$sWhere = 'nleft <= %d AND nright >= %d';
+			$queryBuilder
+				->where('nleft <= :nleft')
+				->andWhere('nright >= :nright');
 		}
 		else
 		{
-			$sWhere = 'nleft < %d AND nright > %d';
+			$queryBuilder
+				->where('nleft < :nleft')
+				->andWhere('nright > :nright');
 		}
 
 		if (! is_null($sLanguageCode))
 		{
-			$sWhere .= ' AND ' . $this->prependLocalesAlias($this->sLanguageField) . '=\'' . $sLanguageCode . '\'';
+			$queryBuilder
+				->andWhere($this->prependLocalesAlias($this->sLanguageField) . ' = :language');
 		}
 
-		$query = sprintf('SELECT %s FROM %s WHERE ' . $sWhere . ' ORDER BY level', $this->getFields(), $this->getFrom(), $node->nleft, $node->nright);
+		$queryBuilder
+			->setParameter('nleft', $node['nleft'])
+			->setParameter('nright', $node['nright'])
+			->setParameter('language', $sLanguageCode)
+		;
 
-		if (($rs = $this->db->select($query)) === false)
-		{
-			return new Recordset(array());
-		}
-
-		return $rs;
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
@@ -306,7 +290,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			return false;
 		}
 
-		$query = sprintf('SELECT count(*) AS is_descendant FROM %s WHERE %s = %d AND nleft > %d AND nright < %d', $this->getFrom(), $this->aFields['id'], $descendant_id, $node->nleft, $node->nright);
+		$query = sprintf('SELECT count(*) AS is_descendant FROM %s WHERE %s = %d AND nleft > %d AND nright < %d', $this->getFrom(), $this->aFields['id'], $descendant_id, $node['nleft'], $node['nright']);
 
 		if (($rs = $this->db->select($query)) === false)
 		{
@@ -380,7 +364,7 @@ class NestedTreei18n extends ApplicationShortcuts
 
 			if ($node !== null)
 			{
-				return (integer) (($node->nright - $node->nleft - 1) / 2);
+				return (integer) (($node['nright'] - $node['nleft'] - 1) / 2);
 			}
 		}
 
@@ -436,7 +420,7 @@ class NestedTreei18n extends ApplicationShortcuts
 		);
 
 		// populate the array and create an empty children array
-		$fields = $this->getFields(true);
+		$fields = $this->getFieldsList();
 
 		while ($rs->fetch())
 		{
@@ -481,7 +465,7 @@ class NestedTreei18n extends ApplicationShortcuts
 		$data = array();
 
 		# populate the array
-		$fields = $this->getFields(true);
+		$fields = $this->getFieldsList();
 
 		while ($rs->fetch())
 		{
@@ -579,5 +563,61 @@ class NestedTreei18n extends ApplicationShortcuts
 			$this->generateTreeData($arr, $child_id, $level + 1, $n);
 		}
 		$arr[$id]['nright'] = $n ++;
+	}
+
+	/**
+	 * A utility function to return an array of the fields
+	 * that need to be selected in SQL select queries.
+	 *
+	 * @param boolean $bPrependAliases Prepend aliases to field names.
+	 * @return array
+	 */
+	protected function getFieldsList($bPrependAliases = false)
+	{
+		$fields = array_merge($this->aFields, [
+			'nleft',
+			'nright',
+			'level'
+		]);
+
+		$localesFields = $this->aLocalesFields;
+
+		if ($bPrependAliases)
+		{
+			$fields = array_map([$this, 'prependTableAlias'], $fields);
+
+			$localesFields = array_map([$this, 'prependLocalesAlias'], $localesFields);
+		}
+
+		return array_merge($fields, $localesFields);
+	}
+
+	/**
+	 * A utility function to return a string of the fields
+	 * that need to be selected in SQL select queries.
+	 *
+	 * @param boolean $bPrependAliases Prepend aliases to field names.
+	 * @return string
+	 */
+	protected function getFields($bPrependAliases = true)
+	{
+		return implode(', ', $this->getFieldsList($bPrependAliases));
+	}
+
+	protected function prependTableAlias($v)
+	{
+		return $this->sTableAlias . '.' . $v;
+	}
+
+	protected function prependLocalesAlias($v)
+	{
+		return $this->sTableLocalesAlias . '.' . $v;
+	}
+
+	protected function getFrom()
+	{
+		return $this->sTable . ' AS ' . $this->sTableAlias . ' ' .
+			'JOIN ' . $this->sTableLocales . ' AS ' . $this->sTableLocalesAlias . ' ' .
+			'ON ' . $this->prependTableAlias('id') . ' = ' . $this->prependLocalesAlias($this->sJoinField);
 	}
 }

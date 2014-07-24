@@ -313,7 +313,15 @@ class Okatea extends Application
 
 		try
 		{
-			$this->request->attributes->add($this->adminRouter->matchRequest($this->request));
+			$matchRequest = $this->adminRouter->matchRequest($this->request);
+
+			$attributes = [];
+			$attributes['requestParameters'] = array_diff($matchRequest, [
+				'controller' 	=> $matchRequest['controller'],
+				'_route' 		=> $matchRequest['_route']
+			]);
+
+			$this->request->attributes->add(array_merge($matchRequest, $attributes));
 		}
 		catch (ResourceNotFoundException $e)
 		{
@@ -337,7 +345,7 @@ class Okatea extends Application
 		{
 			$this->user->setUserLang($sLanguage);
 
-			$this->response = new RedirectResponse($this->adminRouter->generate($this->request->attributes->get('_route')));
+			$this->response = new RedirectResponse($this->adminRouter->generate($this->request->attributes->get('_route'), $this->request->attributes->get('requestParameters')));
 		}
 		# else, call the controller
 		else
