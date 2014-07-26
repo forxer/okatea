@@ -65,7 +65,7 @@ class Navigation extends Controller
 			{
 				$this->okt->navigation->switchMenuStatus($iMenuIdSwitchStatus);
 				
-				$this->page->flash->success(__('c_a_config_navigation_menu_switched'));
+				$this->flash->success(__('c_a_config_navigation_menu_switched'));
 				
 				return $this->redirect($this->generateUrl('config_navigation'));
 			}
@@ -83,7 +83,7 @@ class Navigation extends Controller
 			{
 				$this->okt->navigation->delMenu($iMenuIdDelete);
 				
-				$this->page->flash->success(__('c_a_config_navigation_menu_deleted'));
+				$this->flash->success(__('c_a_config_navigation_menu_deleted'));
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=index');
 			}
@@ -156,7 +156,7 @@ class Navigation extends Controller
 							'message' => 'menu #' . $iMenuId
 						));
 						
-						$this->page->flash->success(__('c_a_config_navigation_menu_updated'));
+						$this->flash->success(__('c_a_config_navigation_menu_updated'));
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
@@ -183,7 +183,7 @@ class Navigation extends Controller
 							'message' => 'menu #' . $iMenuId
 						));
 						
-						$this->page->flash->success(__('c_a_config_navigation_menu_added'));
+						$this->flash->success(__('c_a_config_navigation_menu_added'));
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
@@ -255,7 +255,7 @@ class Navigation extends Controller
 						$this->okt->navigation->updItemOrder($id, $ord);
 					}
 					
-					$this->page->flash->success(__('c_a_config_navigation_items_neworder'));
+					$this->flash->success(__('c_a_config_navigation_items_neworder'));
 					
 					return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 				}
@@ -274,7 +274,7 @@ class Navigation extends Controller
 			{
 				$this->okt->navigation->setItemStatus($iItemIdEnable, 1);
 				
-				$this->page->flash->success(__('c_a_config_navigation_item_enabled'));
+				$this->flash->success(__('c_a_config_navigation_item_enabled'));
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
@@ -292,7 +292,7 @@ class Navigation extends Controller
 			{
 				$this->okt->navigation->setItemStatus($iItemIdDisable, 0);
 				
-				$this->page->flash->success(__('c_a_config_navigation_item_disabled'));
+				$this->flash->success(__('c_a_config_navigation_item_disabled'));
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
@@ -310,7 +310,7 @@ class Navigation extends Controller
 			{
 				$this->okt->navigation->delItem($iItemIdDelete);
 				
-				$this->page->flash->success(__('c_a_config_navigation_item_deleted'));
+				$this->flash->success(__('c_a_config_navigation_item_deleted'));
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
@@ -424,7 +424,7 @@ class Navigation extends Controller
 							'message' => 'item #' . $aItemData['item']['id']
 						));
 						
-						$this->page->flash->success(__('c_a_config_navigation_item_updated'));
+						$this->flash->success(__('c_a_config_navigation_item_updated'));
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $aItemData['item']['id']);
 					}
@@ -450,7 +450,7 @@ class Navigation extends Controller
 							'message' => 'item #' . $iItemId
 						));
 						
-						$this->page->flash->success(__('c_a_config_navigation_item_added'));
+						$this->flash->success(__('c_a_config_navigation_item_added'));
 						
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $iItemId);
 					}
@@ -483,7 +483,7 @@ class Navigation extends Controller
 					'navigation_tpl' => $p_tpl
 				));
 				
-				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->flash->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=config');
 			}

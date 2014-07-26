@@ -46,7 +46,7 @@ if (! empty($_GET['item_minregen']))
 {
 	$okt->galleries->items->regenMinImages();
 	
-	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+	$okt->flash->success(__('c_c_confirm_thumb_regenerated'));
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
@@ -54,7 +54,7 @@ if (! empty($_GET['gallery_minregen']))
 {
 	$okt->galleries->tree->regenMinImages();
 	
-	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+	$okt->flash->success(__('c_c_confirm_thumb_regenerated'));
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
@@ -66,7 +66,7 @@ if (! empty($_GET['item_delete_watermark']))
 		'images' => $oItemImageUploadConfig->removeWatermak()
 	));
 	
-	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+	$okt->flash->success(__('c_c_confirm_watermark_deleted'));
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
@@ -76,7 +76,7 @@ if (! empty($_GET['gallery_delete_watermark']))
 		'images_gal' => $oGalleryImageUploadConfig->removeWatermak()
 	));
 	
-	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+	$okt->flash->success(__('c_c_confirm_watermark_deleted'));
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
@@ -139,7 +139,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->galleries->config->write($aNewConf);
 		
-		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=galleries&action=config');
 	}

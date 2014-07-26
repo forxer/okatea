@@ -42,7 +42,7 @@ class Config extends Controller
 		{
 			$this->okt->module('News')->regenMinImages();
 			
-			$this->okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+			$this->okt->flash->success(__('c_c_confirm_thumb_regenerated'));
 			
 			return $this->redirect($this->generateUrl('News_config'));
 		}
@@ -54,7 +54,7 @@ class Config extends Controller
 				'images' => $oImageUploadConfig->removeWatermak()
 			));
 			
-			$this->okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+			$this->okt->flash->success(__('c_c_confirm_watermark_deleted'));
 			
 			return $this->redirect($this->generateUrl('News_config'));
 		}
@@ -142,7 +142,7 @@ class Config extends Controller
 				
 				$this->okt->module('News')->config->write($aNewConf);
 				
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('News_config'));
 			}

@@ -50,7 +50,7 @@ if (! empty($_GET['delete_accessory']))
 {
 	if ($okt->estimate->accessories->delAccessory($_GET['delete_accessory']) !== false)
 	{
-		$okt->page->flash->success(__('m_estimate_accessory_deleted'));
+		$okt->flash->success(__('m_estimate_accessory_deleted'));
 		
 		http::redirect($sRedirectUrl);
 	}

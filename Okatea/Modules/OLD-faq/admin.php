@@ -20,7 +20,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['questions_id']) && $okt->c
 {
 	if ($okt->faq->deleteQuestion($_GET['questions_id']))
 	{
-		$okt->page->flash->success(__('m_faq_question_deleted'));
+		$okt->flash->success(__('m_faq_question_deleted'));
 		
 		http::redirect('module.php?m=faq&action=index');
 	}

@@ -503,7 +503,7 @@ class Themes extends Controller
 		
 		if ($fs->remove($this->okt->options->get('themes_dir') . '/' . $sThemeId))
 		{
-			$this->okt->page->flash->success(__('c_a_themes_successfully_deleted'));
+			$this->okt->flash->success(__('c_a_themes_successfully_deleted'));
 			
 			$this->okt->logAdmin->warning(array(
 				'code' => 42,
@@ -532,7 +532,7 @@ class Themes extends Controller
 		
 		$this->okt->themes->generateCacheList();
 		
-		$this->okt->page->flash->success(__('c_a_themes_common_files_replaced'));
+		$this->okt->flash->success(__('c_a_themes_common_files_replaced'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -650,11 +650,11 @@ class Themes extends Controller
 				
 				if ($ret_code == 2)
 				{
-					$this->okt->page->flash->success(__('c_a_themes_theme_successfully_upgraded'));
+					$this->okt->flash->success(__('c_a_themes_theme_successfully_upgraded'));
 				}
 				else
 				{
-					$this->okt->page->flash->success(__('c_a_themes_theme_successfully_added'));
+					$this->okt->flash->success(__('c_a_themes_theme_successfully_added'));
 				}
 				
 				return $this->redirect($this->generateUrl('config_themes'));
@@ -694,7 +694,7 @@ class Themes extends Controller
 			include $sTplScheme;
 		}
 		
-		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -720,7 +720,7 @@ class Themes extends Controller
 			'themes' => $aThemesConfig
 		));
 		
-		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -746,7 +746,7 @@ class Themes extends Controller
 			'themes' => $aThemesConfig
 		));
 		
-		$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}

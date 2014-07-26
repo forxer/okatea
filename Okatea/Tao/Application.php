@@ -20,12 +20,12 @@ use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
 use Okatea\Tao\Database\MySqli;
-use Okatea\Tao\L10n\Localization;
-use Okatea\Tao\Misc\DebugBar\DebugBar;
-use Okatea\Tao\Misc\FlashMessages;
-use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+use Okatea\Tao\FlashMessages;
+use Okatea\Tao\L10n\Localization;
+use Okatea\Tao\Misc\DebugBar\DebugBar;
+use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
@@ -213,6 +213,13 @@ class Application
 	 * @var Okatea\Tao\Session
 	 */
 	public $session;
+
+	/**
+	 * Les messages flash.
+	 *
+	 * @var Okatea\Tao\FlashMessages
+	 */
+	public $flash;
 
 	/**
 	 * Le moteur de templates.
@@ -464,6 +471,8 @@ class Application
 			);
 
 			$this->request->setSession($this->session);
+
+			$this->flash = $this->session->getFlashBag();
 		}
 	}
 

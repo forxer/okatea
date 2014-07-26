@@ -282,7 +282,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir') . '/' . $sCacheFile);
 
-			$this->page->flash->success(__('c_a_tools_cache_confirm'));
+			$this->flash->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -293,7 +293,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->public_dir . '/cache/' . $sPublicCacheFile);
 
-			$this->page->flash->success(__('c_a_tools_cache_confirm'));
+			$this->flash->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -305,7 +305,7 @@ class Tools extends Controller
 
 			Utilities::deleteOktPublicCacheFiles();
 
-			$this->page->flash->success(__('c_a_tools_cache_confirms'));
+			$this->flash->success(__('c_a_tools_cache_confirms'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -351,7 +351,7 @@ class Tools extends Controller
 					$fs->remove($finder);
 				}
 
-				$this->page->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
+				$this->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -396,7 +396,7 @@ class Tools extends Controller
 				fclose($fp);
 				$zip->close();
 
-				$this->page->flash->success(__('c_a_tools_backup_done'));
+				$this->flash->success(__('c_a_tools_backup_done'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -461,7 +461,7 @@ class Tools extends Controller
 			fwrite($fp, $return);
 			fclose($fp);
 
-			$this->page->flash->success(__('c_a_tools_backup_done'));
+			$this->flash->success(__('c_a_tools_backup_done'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -472,7 +472,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt->options->get('root_dir') . '/' . $sBackupFileToDelete);
 
-			$this->page->flash->success(__('c_a_tools_backup_deleted'));
+			$this->flash->success(__('c_a_tools_backup_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -505,7 +505,7 @@ class Tools extends Controller
 			{
 				file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', file_get_contents($this->okt->options->get('root_dir') . '/.htaccess.oktDist'));
 
-				$this->page->flash->success(__('c_a_tools_htaccess_created'));
+				$this->flash->success(__('c_a_tools_htaccess_created'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -516,7 +516,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt->options->get('root_dir') . '/.htaccess');
 
-			$this->page->flash->success(__('c_a_tools_htaccess_deleted'));
+			$this->flash->success(__('c_a_tools_htaccess_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -526,7 +526,7 @@ class Tools extends Controller
 		{
 			file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', $this->request->request->get('p_htaccess_content'));
 
-			$this->page->flash->success(__('c_a_tools_htaccess_edited'));
+			$this->flash->success(__('c_a_tools_htaccess_edited'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}

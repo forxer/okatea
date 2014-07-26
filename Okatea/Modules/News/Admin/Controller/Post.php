@@ -42,7 +42,7 @@ class Post extends Controller
 					'message' => 'post #' . $this->aPostData['post']['id']
 				));
 				
-				$this->page->flash->success(__('m_news_post_added'));
+				$this->flash->success(__('m_news_post_added'));
 				
 				return $this->redirect($this->generateUrl('News_post', array(
 					'post_id' => $this->aPostData['post']['id']
@@ -69,7 +69,7 @@ class Post extends Controller
 		
 		if (null === $this->aPostData['post']['id'] || $rsPost->isEmpty())
 		{
-			$this->page->flash->error(sprintf(__('m_news_post_%s_not_exists'), $this->aPostData['post']['id']));
+			$this->flash->error(sprintf(__('m_news_post_%s_not_exists'), $this->aPostData['post']['id']));
 			
 			return $this->serve404();
 		}
@@ -168,7 +168,7 @@ class Post extends Controller
 				'message' => 'post #' . $this->aPostData['post']['id']
 			));
 			
-			$this->page->flash->success(__('m_news_post_published'));
+			$this->flash->success(__('m_news_post_published'));
 			
 			return $this->redirect($this->generateUrl('News_post', array(
 				'post_id' => $this->aPostData['post']['id']
@@ -228,7 +228,7 @@ class Post extends Controller
 					'message' => 'post #' . $this->aPostData['post']['id']
 				));
 				
-				$this->page->flash->success(__('m_news_post_updated'));
+				$this->flash->success(__('m_news_post_updated'));
 				
 				return $this->redirect($this->generateUrl('News_post', array(
 					'post_id' => $this->aPostData['post']['id']

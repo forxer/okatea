@@ -59,7 +59,7 @@ class Permissions extends Controller
 				$this->okt->getGroups()->updGroupPerms($group_id, $group_perms);
 			}
 			
-			$this->page->flash->success(__('c_a_config_permissions_updated'));
+			$this->flash->success(__('c_a_config_permissions_updated'));
 			
 			return $this->redirect($this->generateUrl('config_permissions'));
 		}

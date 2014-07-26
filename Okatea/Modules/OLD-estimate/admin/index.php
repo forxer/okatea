@@ -46,7 +46,7 @@ if (! empty($_GET['treated']))
 			'message' => 'estimate #' . $_GET['treated']
 		));
 		
-		$okt->page->flash->success(__('m_estimate_list_marked_as_treated'));
+		$okt->flash->success(__('m_estimate_list_marked_as_treated'));
 		
 		http::redirect('module.php?m=estimate&action=index');
 	}
@@ -70,7 +70,7 @@ if (! empty($_GET['untreated']))
 			'message' => 'estimate #' . $_GET['untreated']
 		));
 		
-		$okt->page->flash->success(__('m_estimate_list_marked_as_untreated'));
+		$okt->flash->success(__('m_estimate_list_marked_as_untreated'));
 		
 		http::redirect('module.php?m=estimate&action=index');
 	}
@@ -101,7 +101,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				));
 			}
 			
-			$okt->page->flash->success(__('m_estimate_list_marked_as_treateds'));
+			$okt->flash->success(__('m_estimate_list_marked_as_treateds'));
 			
 			http::redirect('module.php?m=estimate&action=index');
 		}
@@ -119,7 +119,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				));
 			}
 			
-			$okt->page->flash->success(__('m_estimate_list_marked_as_untreateds'));
+			$okt->flash->success(__('m_estimate_list_marked_as_untreateds'));
 			
 			http::redirect('module.php?m=estimate&action=index');
 		}
@@ -137,7 +137,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				));
 			}
 			
-			$okt->page->flash->success(__('m_estimate_list_deleteds'));
+			$okt->flash->success(__('m_estimate_list_deleteds'));
 			
 			http::redirect('module.php?m=estimate&action=index');
 		}

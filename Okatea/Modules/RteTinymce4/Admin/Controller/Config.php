@@ -27,7 +27,7 @@ class Config extends Controller
 				'content_css' => $this->request->request->get('p_content_css')
 			));
 			
-			$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+			$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 			
 			$this->redirect($this->generateUrl('RteTinymce4_config'));
 		}

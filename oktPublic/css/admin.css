@@ -90,7 +90,7 @@
 			#breadcrumb a:hover {
 				text-decoration: underline;
 			}
-		#messages .errors_box, #messages .warnings_box, #messages .success_box, #messages .infos_box {
+		#messages .error_box, #messages .warning_box, #messages .success_box, #messages .info_box {
 			position: absolute;
 			top: 2.5em;
 			right: 3em;
@@ -661,28 +661,28 @@ img.preload {
 }
 
 /* boites d'erreurs, d'avertissements et de messages */
-.errors_box, .warnings_box, .success_box {
+.errors_bo, .warning_box, .success_box {
 	margin: 0.6em;
 	padding: 0.2em 0.6em;
 	text-align: center;
 }
-.errors_box p, .warnings_box p, .success_box p {
+.error_box p, .warning_box p, .success_box p {
 	margin: 0;
 }
-.errors_box ul, .warnings_box ul, .success_box ul {
+.error_box ul, .warning_box ul, .success_box ul {
 	margin: 0;
 	padding-left: 1em;
 	text-align: left;
 }
 
 /* boite erreur */
-.errors_box {
+.error_box {
 	border: 1px solid red;
 	background-color: #FFEEEE;
 }
 
 /* boite avertissement */
-.warnings_box {
+.warning_box {
 	border: 1px solid #FFFF00;
 	background-color: #FFFFEE;
 }

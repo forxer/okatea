@@ -20,7 +20,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['product_id']))
 {
 	if ($okt->catalog->deleteProd($_GET['product_id']))
 	{
-		$okt->page->flash->success(__('Le produit a été supprimé.'));
+		$okt->flash->success(__('Le produit a été supprimé.'));
 		
 		http::redirect('module.php?m=catalog&action=index');
 	}

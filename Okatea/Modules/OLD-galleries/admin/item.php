@@ -150,7 +150,7 @@ if (! empty($_GET['delete_image']) && ! empty($aItemData['item']['id']))
 		'message' => 'item #' . $aItemData['item']['id']
 	));
 	
-	$okt->page->flash->success(__('m_galleries_item_updated'));
+	$okt->flash->success(__('m_galleries_item_updated'));
 	
 	http::redirect('module.php?m=galleries&action=edit&item_id=' . $aItemData['item']['id']);
 }
@@ -236,7 +236,7 @@ if (! empty($_POST['sended']))
 					'message' => 'item #' . $aItemData['item']['id']
 				));
 				
-				$okt->page->flash->success(__('m_galleries_item_added'));
+				$okt->flash->success(__('m_galleries_item_added'));
 				
 				http::redirect('module.php?m=galleries&action=edit&item_id=' . $aItemData['item']['id']);
 			}

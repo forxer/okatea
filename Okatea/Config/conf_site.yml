@@ -46,8 +46,8 @@ email:
     smtp:
         host: ''
         port: 25
-        username: ''
-        password: ''
+        username: sudo
+        password: sudo
     sendmail: ''
 language: fr
 timezone: Europe/Paris

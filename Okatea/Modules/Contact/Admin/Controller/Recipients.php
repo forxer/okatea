@@ -68,7 +68,7 @@ class Recipients extends Controller
 				
 				$this->okt->module('Contact')->config->write($aNewConf);
 				
-				$this->okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('Contact_index'));
 			}

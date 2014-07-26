@@ -14,61 +14,59 @@ use Okatea\Tao\Misc\Utilities;
 
 class General extends Controller
 {
-
 	protected $aPageData;
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('configsite'))
-		{
+		if (! $this->okt->checkPerm('configsite')) {
 			return $this->serve401();
 		}
-		
+
 		# Locales
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/site');
-		
+
 		# Données de la page
 		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();
-		
+
 		$this->generalInit();
-		
+
 		$this->companyInit();
-		
+
 		$this->emailsInit();
-		
+
 		$this->seoInit();
-		
+
 		# -- TRIGGER CORE : adminConfigSiteInit
 		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
-		
+
 		if ($this->request->request->has('form_sent'))
 		{
 			$this->generalHandleRequest();
-			
+
 			$this->companyHandleRequest();
-			
+
 			$this->emailsHandleRequest();
-			
+
 			$this->seoHandleRequest();
-			
+
 			# -- TRIGGER CORE : adminConfigSiteHandleRequest
 			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
-			
+
 			# save configuration
 			if ($this->okt->error->isEmpty())
 			{
 				$this->okt->config->write($this->aPageData['values']);
-				
-				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
-				
+
+				$this->flash->success(__('c_c_confirm_configuration_updated'));
+
 				return $this->redirect($this->generateUrl('config_general'));
 			}
 		}
-		
+
 		# Construction des onglets
 		$this->aPageData['tabs'] = new ArrayObject();
-		
+
 		# onglet général
 		$this->aPageData['tabs'][10] = array(
 			'id' => 'tab_general',
@@ -77,7 +75,7 @@ class General extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet société
 		$this->aPageData['tabs'][20] = array(
 			'id' => 'tab_company',
@@ -86,7 +84,7 @@ class General extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet emails
 		$this->aPageData['tabs'][30] = array(
 			'id' => 'tab_emails',
@@ -95,7 +93,7 @@ class General extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet seo
 		$this->aPageData['tabs'][40] = array(
 			'id' => 'tab_seo',
@@ -104,12 +102,12 @@ class General extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# -- TRIGGER CORE : adminConfigSiteBuildTabs
 		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->aPageData);
-		
+
 		$this->aPageData['tabs']->ksort();
-		
+
 		return $this->render('Config/General/Page', array(
 			'aPageData' => $this->aPageData
 		));
@@ -121,7 +119,7 @@ class General extends Controller
 			' ' => null
 		);
 		$this->aPageData['home_page_details'] = array();
-		
+
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'title' => $this->okt->config->title,
 			'desc' => $this->okt->config->desc,
@@ -193,7 +191,7 @@ class General extends Controller
 	protected function generalHandleRequest()
 	{
 		$p_title = $this->request->request->get('p_title', array());
-		
+
 		foreach ($p_title as $sLanguageCode => $sTitle)
 		{
 			if (empty($sTitle))
@@ -208,7 +206,7 @@ class General extends Controller
 				}
 			}
 		}
-		
+
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'title' => $p_title,
 			'desc' => $this->request->request->get('p_desc', array()),
@@ -260,7 +258,7 @@ class General extends Controller
 		{
 			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 		}
-		
+
 		$p_email_from = $this->request->request->get('p_email_from');
 		if (empty($p_email_from))
 		{
@@ -270,7 +268,7 @@ class General extends Controller
 		{
 			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
 		}
-		
+
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'email' => array(
 				'to' => $p_email_to,

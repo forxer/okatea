@@ -572,7 +572,7 @@ class Modules extends Controller
 		
 		if ($fs->remove($this->okt->options->get('modules_dir') . '/' . $sModuleId))
 		{
-			$this->okt->page->flash->success(__('c_a_modules_successfully_deleted'));
+			$this->okt->flash->success(__('c_a_modules_successfully_deleted'));
 			
 			$this->okt->logAdmin->warning(array(
 				'code' => 42,
@@ -601,7 +601,7 @@ class Modules extends Controller
 		
 		$this->okt->modules->generateCacheList();
 		
-		$this->okt->page->flash->success(__('c_a_modules_templates_files_replaced'));
+		$this->okt->flash->success(__('c_a_modules_templates_files_replaced'));
 		
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -620,7 +620,7 @@ class Modules extends Controller
 		
 		$this->okt->modules->generateCacheList();
 		
-		$this->okt->page->flash->success(__('c_a_modules_assets_files_replaced'));
+		$this->okt->flash->success(__('c_a_modules_assets_files_replaced'));
 		
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -738,11 +738,11 @@ class Modules extends Controller
 				
 				if ($ret_code == 2)
 				{
-					$this->okt->page->flash->success(__('c_a_modules_module_successfully_upgraded'));
+					$this->okt->flash->success(__('c_a_modules_module_successfully_upgraded'));
 				}
 				else
 				{
-					$this->okt->page->flash->success(__('c_a_modules_module_successfully_added'));
+					$this->okt->flash->success(__('c_a_modules_module_successfully_added'));
 				}
 				
 				return $this->redirect($this->generateUrl('config_modules'));

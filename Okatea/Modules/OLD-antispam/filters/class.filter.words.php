@@ -81,7 +81,7 @@ class oktFilterWords extends oktSpamFilter
 			{
 				$this->defaultWordsList();
 				
-				$okt->page->flash->success(__('m_antispam_Words_successfully_added'));
+				$okt->flash->success(__('m_antispam_Words_successfully_added'));
 				
 				http::redirect($url);
 			}
@@ -98,7 +98,7 @@ class oktFilterWords extends oktSpamFilter
 			{
 				$this->addRule($_POST['swa']);
 				
-				$okt->page->flash->success(__('m_antispam_Word_successfully_added'));
+				$okt->flash->success(__('m_antispam_Word_successfully_added'));
 				
 				http::redirect($url);
 			}
@@ -115,7 +115,7 @@ class oktFilterWords extends oktSpamFilter
 			{
 				$this->removeRule($_POST['swd']);
 				
-				$okt->page->flash->success(__('m_antispam_Words_successfully_removed'));
+				$okt->flash->success(__('m_antispam_Words_successfully_removed'));
 				
 				http::redirect($url);
 			}

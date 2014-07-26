@@ -35,7 +35,7 @@ if (! empty($_POST['sended']))
 {
 	$okt->galleries->items->regenMinImages($iGalleryId);
 	
-	$okt->page->flash->success(__('m_galleries_items_added'));
+	$okt->flash->success(__('m_galleries_items_added'));
 	
 	http::redirect('module.php?m=galleries&action=items&gallery_id=' . $iGalleryId);
 }

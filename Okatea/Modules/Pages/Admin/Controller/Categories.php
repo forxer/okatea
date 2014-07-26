@@ -99,7 +99,7 @@ class Categories extends Controller
 				'message' => 'category #' . $iCategoryId
 			));
 			
-			$this->okt->page->flash->success(__('m_pages_cat_deleted'));
+			$this->okt->flash->success(__('m_pages_cat_deleted'));
 			
 			return $this->redirect($this->generateUrl('Pages_categories'));
 		}

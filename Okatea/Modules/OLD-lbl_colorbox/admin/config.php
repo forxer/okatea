@@ -42,7 +42,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->lbl_colorbox->config->write($aNewConf);
 		
-		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=lbl_colorbox&action=config');
 	}

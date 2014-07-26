@@ -282,7 +282,7 @@ class Index extends Controller
 			# -- CORE TRIGGER : adminUsersAfterDeleteProcess
 			$this->okt->triggers->callTrigger('adminUsersAfterDeleteProcess', $iUserId);
 			
-			$this->okt->page->flash->success(__('c_a_users_user_deleted'));
+			$this->okt->flash->success(__('c_a_users_user_deleted'));
 			
 			return $this->redirect($this->generateUrl('Users_index'));
 		}

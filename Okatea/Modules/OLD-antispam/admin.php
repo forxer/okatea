@@ -122,7 +122,7 @@ try
 		
 		oktAntispam::$filters->saveFilterOpts($filters_opt);
 		
-		$okt->page->flash->success(__('m_antispam_Filters_configuration_successfully_saved'));
+		$okt->flash->success(__('m_antispam_Filters_configuration_successfully_saved'));
 		
 		http::redirect('module.php?m=antispam');
 	}

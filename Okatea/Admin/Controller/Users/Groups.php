@@ -29,7 +29,7 @@ class Groups extends Controller
 
 			if ($this->okt->getGroups()->deleteGroup($iGroupIdToDelete))
 			{
-				$this->okt->page->flash->success(__('c_a_users_group_deleted'));
+				$this->okt->flash->success(__('c_a_users_group_deleted'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}
@@ -107,7 +107,7 @@ class Groups extends Controller
 			{
 				if (($iGroupId = $this->okt->getGroups()->addGroup($aGroupData)) !== false)
 				{
-					$this->okt->page->flash->success(__('c_a_users_group_added'));
+					$this->okt->flash->success(__('c_a_users_group_added'));
 
 					return $this->redirect($this->generateUrl('Users_groups_edit', array(
 						'group_id' => $iGroupId
@@ -191,7 +191,7 @@ class Groups extends Controller
 			{
 				if ($this->okt->getGroups()->updGroup($iGroupId, $aGroupData))
 				{
-					$this->okt->page->flash->success(__('c_a_users_group_edited'));
+					$this->okt->flash->success(__('c_a_users_group_edited'));
 
 					return $this->redirect($this->generateUrl('Users_groups_edit', array(
 						'group_id' => $iGroupId

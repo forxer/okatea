@@ -27,7 +27,7 @@ if (! empty($_GET['minregen']))
 {
 	$okt->faq->regenMinImages();
 	
-	$okt->page->flash->success(__('c_c_confirm_thumb_regenerated'));
+	$okt->flash->success(__('c_c_confirm_thumb_regenerated'));
 	
 	http::redirect('module.php?m=faq&action=config');
 }
@@ -39,7 +39,7 @@ if (! empty($_GET['delete_watermark']))
 		'images' => $oImageUploadConfig->removeWatermak()
 	));
 	
-	$okt->page->flash->success(__('c_c_confirm_watermark_deleted'));
+	$okt->flash->success(__('c_c_confirm_watermark_deleted'));
 	
 	http::redirect('module.php?m=faq&action=config');
 }
@@ -91,7 +91,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->faq->config->write($faq_conf);
 		
-		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=faq&action=config');
 	}

@@ -16,12 +16,6 @@ if ($okt->error->notEmpty())
 	}
 }
 
-# populates messages from flash messages queues
-$okt->page->infos->setItems($okt->page->flash->get('infos'));
-$okt->page->success->setItems($okt->page->flash->get('success'));
-$okt->page->warnings->setItems($okt->page->flash->get('warnings'));
-$okt->page->errors->setItems($okt->page->flash->get('errors'));
-
 # Init and get user bars
 $aUserBars = $okt->page->getUserBars();
 
@@ -61,16 +55,36 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 					<h2 id="breadcrumb"><?php echo $okt->page->breadcrumb->getBreadcrumb('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
 					<?php # affichage des éventuels messages d'erreurs
-					echo $okt->page->errors->getErrors('<div class="errors_box ui-corner-all">%s</div>'); ?>
+					if ($okt->flash->hasError()) :
+						$view->render('Common/Messages', [
+							'type'        => Okatea\Tao\FlashMessages::TYPE_ERROR,
+							'messages'    => $okt->flash->getError()
+						]);
+					endif; ?>
 
 					<?php # affichage des éventuels messages d'avertissements
-					echo $okt->page->warnings->getWarnings('<div class="warnings_box ui-corner-all">%s</div>'); ?>
+					if ($okt->flash->hasWarning()) :
+						$view->render('Common/Messages', [
+							'type'        => Okatea\Tao\FlashMessages::TYPE_WARNING,
+							'messages'    => $okt->flash->getWarning()
+						]);
+					endif; ?>
 
 					<?php # affichage des éventuels messages de confirmation
-					echo $okt->page->success->getSuccess('<div class="success_box ui-corner-all">%s</div>'); ?>
+					if ($okt->flash->hasSuccess()) :
+						$view->render('Common/Messages', [
+							'type'        => Okatea\Tao\FlashMessages::TYPE_SUCCESS,
+							'messages'    => $okt->flash->getSuccess()
+						]);
+					endif; ?>
 
 					<?php # affichage des éventuels messages d'information
-					echo $okt->page->infos->getInfos('<div class="infos_box ui-corner-all">%s</div>'); ?>
+					if ($okt->flash->hasInfo()) :
+						$view->render('Common/Messages', [
+							'type'        => Okatea\Tao\FlashMessages::TYPE_INFO,
+							'messages'    => $okt->flash->getInfo()
+						]);
+					endif; ?>
 				</div><!-- #messages -->
 				<div id="welcome">
 					<?php if (!empty($aUserBars['first'])) : ?><p><?php echo implode(' - ', $aUserBars['first']) ?></p><?php endif; ?>

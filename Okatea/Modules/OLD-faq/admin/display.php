@@ -48,7 +48,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->faq->config->write($question_conf);
 		
-		$okt->page->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt->flash->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=faq&action=display');
 	}

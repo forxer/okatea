@@ -58,7 +58,7 @@ class Advanced extends Controller
 			{
 				$this->okt->config->write($this->aPageData['values']);
 				
-				$this->page->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->flash->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('config_advanced'));
 			}

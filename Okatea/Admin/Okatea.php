@@ -101,7 +101,7 @@ class Okatea extends Application
 		# Validation du CSRF token si un formulaire est envoyé
 		if (! $this->options->get('debug') && count($this->request->request) > 0 && (! $this->request->request->has($this->options->get('csrf_token_name')) || ! $this->session->isValidToken($this->request->request->get($this->options->get('csrf_token_name')))))
 		{
-			$this->page->flash->error(__('c_c_auth_bad_csrf_token'));
+			$this->flash->error(__('c_c_auth_bad_csrf_token'));
 
 			$this->user->logout();
 
@@ -126,7 +126,7 @@ class Okatea extends Application
 			# si c'est un invité, il n'a rien à faire ici
 			if ($this->user->is_guest)
 			{
-				$this->page->flash->warning(__('c_c_auth_not_logged_in'));
+				$this->flash->warning(__('c_c_auth_not_logged_in'));
 
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
 
@@ -136,7 +136,7 @@ class Okatea extends Application
 			# il faut au minimum la permission d'utilisation de l'interface d'administration
 			elseif (! $this->checkPerm('usage'))
 			{
-				$this->page->flash->error(__('c_c_auth_restricted_access'));
+				$this->flash->error(__('c_c_auth_restricted_access'));
 
 				$this->user->logout();
 
@@ -148,7 +148,7 @@ class Okatea extends Application
 			# enfin, si on est en maintenance, il faut être superadmin
 			elseif ($this->config->maintenance['admin'] && ! $this->user->is_superadmin)
 			{
-				$this->page->flash->error(__('c_c_auth_maintenance_admin'));
+				$this->flash->error(__('c_c_auth_maintenance_admin'));
 
 				$this->user->logout();
 

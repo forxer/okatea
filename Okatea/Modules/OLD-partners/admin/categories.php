@@ -122,7 +122,7 @@ if (! empty($_GET['delete']))
 {
 	if ($okt->partners->delCategory(intval($_GET['delete'])))
 	{
-		$okt->page->flash->success(__('m_partners_category_deleted'));
+		$okt->flash->success(__('m_partners_category_deleted'));
 		
 		http::redirect('module.php?m=partners&action=categories');
 	}
@@ -143,7 +143,7 @@ if (! empty($_POST['add_category']))
 	{
 		if (($neo_id = $okt->partners->addCategory(1, $add_category_name, $add_category_parent)) !== false)
 		{
-			$okt->page->flash->success(__('m_partners_category_added'));
+			$okt->flash->success(__('m_partners_category_added'));
 			
 			http::redirect('module.php?m=partners&action=categories');
 		}
@@ -171,7 +171,7 @@ if (! empty($_POST['edit_category']) && $category_id)
 		
 		if ($okt->partners->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_parent) !== false)
 		{
-			$okt->page->flash->success(__('m_partners_category_edited'));
+			$okt->flash->success(__('m_partners_category_edited'));
 			
 			http::redirect('module.php?m=partners&action=categories');
 		}
@@ -209,7 +209,7 @@ if (! empty($_POST['ordered']) && ! empty($order))
 	
 	$okt->partners->rebuildTree();
 	
-	$okt->page->flash->success(__('m_partners_category_order_edited'));
+	$okt->flash->success(__('m_partners_category_order_edited'));
 	
 	http::redirect('module.php?m=partners&action=categories&category_id=' . $category_id);
 }

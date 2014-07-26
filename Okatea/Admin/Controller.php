@@ -12,7 +12,6 @@ use Okatea\Tao\Controller as BaseController;
 
 class Controller extends BaseController
 {
-
 	/**
 	 * Constructor.
 	 */
