@@ -406,19 +406,19 @@ class Page extends BasePage
 	public static function getCommonJs()
 	{
 		return '
-			var infos_box = jQuery("#messages div.infos_box");
+			var info_box = jQuery("#messages div.info_box");
 			var success_box = jQuery("#messages div.success_box");
-			var warnings_box = jQuery("#messages div.warnings_box");
-			var errors_box = jQuery("#messages div.errors_box");
+			var warning_box = jQuery("#messages div.warning_box");
+			var error_box = jQuery("#messages div.error_box");
 
-			infos_box.css("display","none");
+			info_box.css("display","none");
 			success_box.css("display","none");
-			warnings_box.css("display","none");
-			errors_box.css("display","none");
+			warning_box.css("display","none");
+			error_box.css("display","none");
 
-			if (infos_box.length)
+			if (info_box.length)
 			{
-				jInfos(infos_box.html(),{
+				jInfo(info_box.html(),{
 					autoHide: true,
 					clickOverlay: true,
 					MinWidth: 300,
@@ -452,9 +452,9 @@ class Page extends BasePage
 				});
 			}
 
-			if (warnings_box.length)
+			if (warning_box.length)
 			{
-				jWarning(warnings_box.html(),{
+				jWarning(warning_box.html(),{
 					autoHide: true,
 					clickOverlay: true,
 					MinWidth: 300,
@@ -470,9 +470,9 @@ class Page extends BasePage
 				});
 			}
 
-			if (errors_box.length)
+			if (error_box.length)
 			{
-				jError(errors_box.html(),{
+				jError(error_box.html(),{
 					autoHide: false,
 					clickOverlay: true,
 					MinWidth: 300,

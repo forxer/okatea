@@ -275,9 +275,9 @@
 	};
 
 	/** Init method **/
-	jInfos = function(msg,options) {
-		if($.jNotify._isReadable('jInfos'))
-			$.jNotify.init(msg,options,'jInfos');
+	jInfo = function(msg,options) {
+		if($.jNotify._isReadable('jInfo'))
+			$.jNotify.init(msg,options,'jInfo');
 	};
 
 	jSuccess = function(msg,options) {

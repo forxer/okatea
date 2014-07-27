@@ -7,15 +7,6 @@
  */
 use Okatea\Tao\Misc\Utilities;
 
-# récupération des erreurs du core
-if ($okt->error->notEmpty())
-{
-	foreach ($okt->error->get(false) as $error)
-	{
-		$okt->page->errors->set($error['message']);
-	}
-}
-
 # Init and get user bars
 $aUserBars = $okt->page->getUserBars();
 
@@ -56,7 +47,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 					<?php # affichage des éventuels messages d'erreurs
 					if ($okt->flash->hasError()) :
-						$view->render('Common/Messages', [
+						echo $view->render('Common/Messages', [
 							'type'        => Okatea\Tao\FlashMessages::TYPE_ERROR,
 							'messages'    => $okt->flash->getError()
 						]);
@@ -64,7 +55,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 					<?php # affichage des éventuels messages d'avertissements
 					if ($okt->flash->hasWarning()) :
-						$view->render('Common/Messages', [
+						echo $view->render('Common/Messages', [
 							'type'        => Okatea\Tao\FlashMessages::TYPE_WARNING,
 							'messages'    => $okt->flash->getWarning()
 						]);
@@ -72,7 +63,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 					<?php # affichage des éventuels messages de confirmation
 					if ($okt->flash->hasSuccess()) :
-						$view->render('Common/Messages', [
+						echo $view->render('Common/Messages', [
 							'type'        => Okatea\Tao\FlashMessages::TYPE_SUCCESS,
 							'messages'    => $okt->flash->getSuccess()
 						]);
@@ -80,7 +71,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 
 					<?php # affichage des éventuels messages d'information
 					if ($okt->flash->hasInfo()) :
-						$view->render('Common/Messages', [
+						echo $view->render('Common/Messages', [
 							'type'        => Okatea\Tao\FlashMessages::TYPE_INFO,
 							'messages'    => $okt->flash->getInfo()
 						]);

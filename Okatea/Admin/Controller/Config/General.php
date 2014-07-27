@@ -54,7 +54,7 @@ class General extends Controller
 			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 			# save configuration
-			if ($this->okt->error->isEmpty())
+			if (!$this->flash->hasError())
 			{
 				$this->okt->config->write($this->aPageData['values']);
 
@@ -196,13 +196,11 @@ class General extends Controller
 		{
 			if (empty($sTitle))
 			{
-				if ($this->okt->languages->unique)
-				{
-					$this->okt->error->set(__('c_a_config_please_enter_website_title'));
+				if ($this->okt->languages->unique) {
+					$this->flash->error(__('c_a_config_please_enter_website_title'));
 				}
-				else
-				{
-					$this->okt->error->set(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
+				else {
+					$this->flash->error(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
 				}
 			}
 		}
@@ -250,23 +248,19 @@ class General extends Controller
 	protected function emailsHandleRequest()
 	{
 		$p_email_to = $this->request->request->get('p_email_to');
-		if (empty($p_email_to))
-		{
-			$this->okt->error->set(__('c_a_config_please_enter_email_to'));
+		if (empty($p_email_to)) {
+			$this->flash->error(__('c_a_config_please_enter_email_to'));
 		}
-		elseif (! Utilities::isEmail($p_email_to))
-		{
-			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
+		elseif (! Utilities::isEmail($p_email_to)) {
+			$this->flash->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 		}
 
 		$p_email_from = $this->request->request->get('p_email_from');
-		if (empty($p_email_from))
-		{
-			$this->okt->error->set(__('c_a_config_please_enter_email_from'));
+		if (empty($p_email_from)) {
+			$this->flash->error(__('c_a_config_please_enter_email_from'));
 		}
-		elseif (! Utilities::isEmail($p_email_from))
-		{
-			$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
+		elseif (! Utilities::isEmail($p_email_from)) {
+			$this->flash->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
 		}
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
