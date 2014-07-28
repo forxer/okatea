@@ -15,13 +15,11 @@ use Okatea\Tao\Users\Groups;
 
 class Config extends Controller
 {
-
 	protected $aPageData;
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('users_config'))
-		{
+		if (! $this->okt->checkPerm('users_config')) {
 			return $this->serve401();
 		}
 		
@@ -41,26 +39,22 @@ class Config extends Controller
 				{
 					if (! empty($sUser))
 					{
-						if (! $this->okt->getUsers()->userExists($sUser))
-						{
-							$this->okt->error->set(sprintf(__('c_c_users_error_recipients_%s_not_exists'), Escaper::html($sUser)));
+						if (! $this->okt->getUsers()->userExists($sUser)) {
+							$this->flash->error(sprintf(__('c_c_users_error_recipients_%s_not_exists'), Escaper::html($sUser)));
 						}
-						else
-						{
+						else {
 							$mail_new_registration_recipients[] = $sUser;
 						}
 					}
 				}
 				
-				if (empty($mail_new_registration_recipients))
-				{
-					$this->okt->error->set(__('c_c_users_error_specify_at_least_one_recipients'));
+				if (empty($mail_new_registration_recipients)) {
+					$this->flash->error(__('c_c_users_error_specify_at_least_one_recipients'));
 				}
 			}
 			
 			$sGravatarDefaultImage = $this->okt->request->request->get('p_users_gravatar_default_image');
-			if (empty($sGravatarDefaultImage))
-			{
+			if (empty($sGravatarDefaultImage)) {
 				$sGravatarDefaultImage = null;
 			}
 			
@@ -103,7 +97,7 @@ class Config extends Controller
 			# -- CORE TRIGGER : adminUsersConfigProcess
 			$this->okt->triggers->callTrigger('adminUsersConfigProcess', $this->aPageData);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$this->okt->config->write($this->aPageData['config']);
 				

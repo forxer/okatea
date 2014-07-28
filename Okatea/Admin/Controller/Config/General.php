@@ -54,7 +54,7 @@ class General extends Controller
 			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 			# save configuration
-			if (!$this->flash->hasError())
+			if (! $this->flash->hasError())
 			{
 				$this->okt->config->write($this->aPageData['values']);
 

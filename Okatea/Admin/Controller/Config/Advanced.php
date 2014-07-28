@@ -13,60 +13,58 @@ use Okatea\Tao\Misc\Utilities;
 
 class Advanced extends Controller
 {
-
 	protected $aPageData;
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('is_superadmin'))
-		{
+		if (! $this->okt->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
-		
+
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/advanced');
-		
+
 		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();
-		
+
 		$this->othersInit();
-		
+
 		$this->pathUrlInit();
-		
+
 		$this->repositoriesInit();
-		
+
 		$this->updateInit();
-		
+
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigInit
 		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->aPageData);
-		
+
 		# save configuration
-		if ($this->request->request->has('form_sent') && $this->okt->error->isEmpty())
+		if ($this->request->request->has('form_sent') && ! $this->flash->hasError())
 		{
 			$this->othersHandleRequest();
-			
+
 			$this->pathUrlHandleRequest();
-			
+
 			$this->repositoriesHandleRequest();
-			
+
 			$this->updateHandleRequest();
-			
+
 			# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigHandleRequest
 			$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
-			
+
 			# save configuration
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$this->okt->config->write($this->aPageData['values']);
-				
+
 				$this->flash->success(__('c_c_confirm_configuration_updated'));
-				
+
 				return $this->redirect($this->generateUrl('config_advanced'));
 			}
 		}
-		
+
 		# Construction des onglets
 		$this->aPageData['tabs'] = new ArrayObject();
-		
+
 		# onglet chemin et URL
 		$this->aPageData['tabs'][10] = array(
 			'id' => 'tab_path_url',
@@ -75,7 +73,7 @@ class Advanced extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet dépôts
 		$this->aPageData['tabs'][20] = array(
 			'id' => 'tab_repositories',
@@ -84,7 +82,7 @@ class Advanced extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet mises à jour
 		$this->aPageData['tabs'][30] = array(
 			'id' => 'tab_update',
@@ -93,7 +91,7 @@ class Advanced extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# onglet autres
 		$this->aPageData['tabs'][40] = array(
 			'id' => 'tab_others',
@@ -102,12 +100,12 @@ class Advanced extends Controller
 				'aPageData' => $this->aPageData
 			))
 		);
-		
+
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigBuildTabs
 		$this->okt->triggers->callTrigger('adminAdvancedConfigBuildTabs', $this->aPageData);
-		
+
 		$this->aPageData['tabs']->ksort();
-		
+
 		return $this->render('Config/Advanced/Page', array(
 			'aPageData' => $this->aPageData
 		));
@@ -120,23 +118,23 @@ class Advanced extends Controller
 				'public' => $this->okt->config->maintenance['public'],
 				'admin' => $this->okt->config->maintenance['admin']
 			),
-			
+
 			'htmlpurifier_disabled' => $this->okt->config->htmlpurifier_disabled,
-			
+
 			'user_visit' => array(
 				'timeout' => $this->okt->config->user_visit['timeout'],
 				'remember_time' => $this->okt->config->user_visit['remember_time']
 			),
-			
+
 			'log_admin' => array(
 				'ttl_months' => $this->okt->config->log_admin['ttl_months']
 			),
-			
+
 			'news_feed' => array(
 				'enabled' => $this->okt->config->news_feed['enabled'],
 				'url' => $this->okt->config->news_feed['url']
 			),
-			
+
 			'slug_type' => $this->okt->config->slug_type
 		));
 	}
@@ -183,23 +181,23 @@ class Advanced extends Controller
 				'public' => $this->request->request->has('p_maintenance_public'),
 				'admin' => $this->request->request->has('p_maintenance_admin')
 			),
-			
+
 			'htmlpurifier_disabled' => $this->request->request->has('p_htmlpurifier_disabled'),
-			
+
 			'user_visit' => array(
 				'timeout' => $this->request->request->getInt('p_user_visit_timeout', 1800),
 				'remember_time' => $this->request->request->getInt('p_user_visit_remember_time', 1209600)
 			),
-			
+
 			'log_admin' => array(
 				'ttl_months' => $this->request->request->getInt('p_log_admin_ttl_months', 3)
 			),
-			
+
 			'news_feed' => array(
 				'enabled' => $this->request->request->has('p_news_feed_enabled'),
 				'url' => $this->request->request->get('p_news_feed_url', array())
 			),
-			
+
 			'slug_type' => $this->request->request->get('p_slug_type', 'ascii')
 		));
 	}

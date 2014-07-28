@@ -42,7 +42,7 @@ class Display extends Controller
 				)
 			);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$this->okt->config->write($this->aPageData['config']);
 				

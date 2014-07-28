@@ -33,13 +33,6 @@ class ApplicationShortcuts
 	protected $conn;
 
 	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
-
-	/**
 	 * Constructor;
 	 *
 	 * @param object $okt Okatea application instance.
@@ -51,7 +44,5 @@ class ApplicationShortcuts
 		$okt->startDatabase();
 		$this->db = $okt->db;
 		$this->conn = $okt->conn;
-
-		$this->error = $okt->error;
 	}
 }

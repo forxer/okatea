@@ -33,7 +33,7 @@ class Config extends Controller
 			// ...
 			
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'captcha' => $this->request->request->get('p_captcha'),

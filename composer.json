@@ -39,6 +39,7 @@
 		"monolog/monolog" : "~1.10",
 		"nesbot/carbon" : "~1",
 		"patchwork/utf8" : "~1.1",
+		"pimple/pimple" : "~3.0",
 		"raveren/kint" : "~0.9",
 		"simplepie/simplepie" : "~1.3",
 		"swiftmailer/swiftmailer" : "~5",

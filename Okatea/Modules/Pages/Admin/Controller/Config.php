@@ -73,7 +73,7 @@ class Config extends Controller
 				);
 			}
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'enable_metas' => $this->okt->request->request->has('p_enable_metas'),

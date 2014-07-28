@@ -39,7 +39,7 @@ class Display extends Controller
 
 			$p_lightbox_type = $this->request->request->get('p_lightbox_type');
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'admin_filters_style' => $p_admin_filters_style,

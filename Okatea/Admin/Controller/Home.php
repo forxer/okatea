@@ -14,7 +14,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Home extends Controller
 {
-
 	protected $sNewVersion;
 
 	protected $aRoundAboutItems;
@@ -34,14 +33,14 @@ class Home extends Controller
 		$this->updateNotification();
 
 		if ($this->okt->options->get('debug')) {
-			$this->page->warnings->set(__('c_a_public_debug_mode_enabled'));
+			$this->flash->warning(__('c_a_public_debug_mode_enabled'));
 		}
 
 		return $this->render('Home', array(
-			'sNewVersion' => $this->sNewVersion,
-			'bFeedSuccess' => $this->bFeedSuccess,
-			'feed' => $this->feed,
-			'aRoundAboutItems' => (array) $this->aRoundAboutItems
+			'sNewVersion'        => $this->sNewVersion,
+			'bFeedSuccess'       => $this->bFeedSuccess,
+			'feed'               => $this->feed,
+			'aRoundAboutItems'   => (array) $this->aRoundAboutItems
 		));
 	}
 

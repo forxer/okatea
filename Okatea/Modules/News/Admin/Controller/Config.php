@@ -101,7 +101,7 @@ class Config extends Controller
 			$p_meta_description = $this->request->request->get('p_meta_description', array());
 			$p_meta_keywords = $this->request->request->get('p_meta_keywords', array());
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'enable_metas' => (boolean) $p_enable_metas,

@@ -15,11 +15,9 @@ use Okatea\Tao\Html\Escaper;
 
 class Index extends Controller
 {
-
 	public function page()
 	{
-		if (! $this->okt->checkPerm('users'))
-		{
+		if (! $this->okt->checkPerm('users')) {
 			return $this->serve401();
 		}
 		
@@ -222,7 +220,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt->error->set($e->getMessage());
+			$this->flash->error($e->getMessage());
 			return false;
 		}
 	}
@@ -251,7 +249,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt->error->set($e->getMessage());
+			$this->flash->error($e->getMessage());
 			return false;
 		}
 	}
@@ -288,7 +286,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt->error->set($e->getMessage());
+			$this->flash->error($e->getMessage());
 			return false;
 		}
 	}
@@ -358,7 +356,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt->error->set($e->getMessage());
+			$this->flash->error($e->getMessage());
 			return false;
 		}
 	}

@@ -331,7 +331,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->okt->error->set(__('c_a_themes_not_installed'));
+			$this->flash->error(__('c_a_themes_not_installed'));
 		}
 		
 		# log admin
@@ -374,7 +374,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->okt->error->set(__('c_a_themes_not_updated'));
+			$this->flash->error(__('c_a_themes_not_updated'));
 		}
 		
 		Utilities::deleteOktCacheFiles();
@@ -420,7 +420,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->okt->error->set(__('c_a_themes_not_uninstalled'));
+			$this->flash->error(__('c_a_themes_not_uninstalled'));
 		}
 		
 		$this->okt->logAdmin->critical(array(
@@ -476,7 +476,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->okt->error->set(__('c_a_themes_not_correctly_reinstalled.'));
+			$this->flash->error(__('c_a_themes_not_correctly_reinstalled.'));
 		}
 		
 		# log admin
@@ -514,7 +514,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->okt->error->set(__('c_a_themes_not_deleted.'));
+			$this->flash->error(__('c_a_themes_not_deleted.'));
 		}
 	}
 
@@ -661,7 +661,7 @@ class Themes extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt->error->set($e->getMessage());
+				$this->flash->error($e->getMessage());
 				return false;
 			}
 		}

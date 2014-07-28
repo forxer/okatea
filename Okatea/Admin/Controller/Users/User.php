@@ -17,7 +17,6 @@ use Okatea\Tao\Users\Users;
 
 class User extends Controller
 {
-
 	protected $aPageData;
 
 	protected $iUserId;
@@ -60,7 +59,7 @@ class User extends Controller
 				'language' => $this->request->request->get('language')
 			);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 				{
@@ -103,7 +102,7 @@ class User extends Controller
 				'language' => $this->request->request->get('language')
 			);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if (($iUserId = $this->okt->getUsers()->addUser($this->aPageData['user'])) !== false)
 				{
@@ -443,7 +442,7 @@ class User extends Controller
 		//		}
 		
 
-		if ($this->okt->error->isEmpty())
+		if (! $this->flash->hasError())
 		{
 			if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 			{

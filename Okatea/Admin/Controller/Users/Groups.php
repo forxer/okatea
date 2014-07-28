@@ -89,11 +89,11 @@ class Groups extends Controller
 				{
 					if ($this->okt->languages->unique)
 					{
-						$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+						$this->flash->error(__('c_a_users_must_enter_group_title'));
 					}
 					else
 					{
-						$this->okt->error->set(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->flash->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
@@ -103,7 +103,7 @@ class Groups extends Controller
 				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if (($iGroupId = $this->okt->getGroups()->addGroup($aGroupData)) !== false)
 				{
@@ -173,11 +173,11 @@ class Groups extends Controller
 				{
 					if ($this->okt->languages->unique)
 					{
-						$this->okt->error->set(__('c_a_users_must_enter_group_title'));
+						$this->flash->error(__('c_a_users_must_enter_group_title'));
 					}
 					else
 					{
-						$this->okt->error->set(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->flash->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
@@ -187,7 +187,7 @@ class Groups extends Controller
 				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if ($this->okt->getGroups()->updGroup($iGroupId, $aGroupData))
 				{

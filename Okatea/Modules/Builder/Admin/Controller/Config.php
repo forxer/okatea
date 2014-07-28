@@ -26,7 +26,7 @@ class Config extends Controller
 		# save config
 		if ($this->request->request->has('config_sent'))
 		{
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'repository_url' => $this->request->request->get('repository_url'),

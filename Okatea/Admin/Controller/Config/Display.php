@@ -14,11 +14,9 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Display extends Controller
 {
-
 	public function page()
 	{
-		if (! $this->okt->checkPerm('display'))
-		{
+		if (! $this->okt->checkPerm('display')) {
 			return $this->serve401();
 		}
 
@@ -46,8 +44,7 @@ class Display extends Controller
 
 		foreach ($aAllowedAdminThemes as $theme)
 		{
-			if ($theme == $this->okt->config->jquery_ui['admin'])
-			{
+			if ($theme == $this->okt->config->jquery_ui['admin']) {
 				$aAllowedAdminThemes[$theme] = $theme . __('c_a_config_display_current_theme');
 			}
 		}
@@ -68,8 +65,7 @@ class Display extends Controller
 					$fs = new Filesystem();
 
 					# on supprime l'éventuel répertoire temporaire s'il existe déjà
-					if (is_dir($sTempDir))
-					{
+					if (is_dir($sTempDir)) {
 						$fs->remove($sTempDir);
 					}
 
@@ -79,16 +75,14 @@ class Display extends Controller
 					Utilities::uploadStatus($sUploadedFile);
 
 					# vérification de l'extension
-					if ($sExtension != 'zip')
-					{
+					if ($sExtension != 'zip') {
 						throw new \Exception(__('c_a_config_display_not_zip_file'));
 					}
 
 					# création répertoire temporaire
 					$fs->mkdir($sTempDir);
 
-					if (! move_uploaded_file($sUploadedFile['tmp_name'], $sZipFilename))
-					{
+					if (! move_uploaded_file($sUploadedFile['tmp_name'], $sZipFilename)) {
 						throw new \Exception(__('c_a_config_display_unable_move_file'));
 					}
 
@@ -143,7 +137,7 @@ class Display extends Controller
 				catch (\Exception $e)
 				{
 					$fs->remove($sTempDir);
-					$this->okt->error->set($e->getMessage());
+					$this->flash->error($e->getMessage());
 				}
 			}
 
@@ -155,7 +149,7 @@ class Display extends Controller
 				$p_jquery_ui_admin_theme = $this->okt->config->jquery_ui['admin'];
 			}
 
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConfig = array(
 					'jquery_ui' => array(

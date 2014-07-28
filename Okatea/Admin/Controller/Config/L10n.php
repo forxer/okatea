@@ -346,7 +346,7 @@ class L10n extends Controller
 	{
 		if ($this->request->request->has('config_sent'))
 		{
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$this->okt->config->write(array(
 					'language' => $this->request->request->get('p_language'),

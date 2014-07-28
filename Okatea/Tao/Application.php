@@ -33,6 +33,7 @@ use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Visitor;
 use Okatea\Website\Router;
 use Patchwork\Utf8\Bootup as Utf8Bootup;
+use Pimple\Container;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
@@ -40,6 +41,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Routing\RequestContext;
+use Pimple\Tests\Fixtures\PimpleServiceProvider;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -49,7 +51,7 @@ use Symfony\Component\Routing\RequestContext;
  * sorte une "super-classe" qui gère les autres pour un accès plus facile
  * à travers l'application.
  */
-class Application
+class Application extends Container
 {
 	const VERSION = '2.0-beta6';
 
@@ -281,6 +283,8 @@ class Application
 	 */
 	public function __construct($autoloader, array $aOptions = [])
 	{
+		parent::__construct();
+
 		$this->autoloader = $autoloader;
 
 		$this->options = new ApplicationOptions($aOptions);

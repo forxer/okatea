@@ -11,12 +11,10 @@ use Okatea\Admin\Controller;
 
 class Connection extends Controller
 {
-
 	public function login()
 	{
 		# allready logged
-		if (! $this->okt->user->is_guest)
-		{
+		if (! $this->okt->user->is_guest) {
 			return $this->redirect($this->generateUrl('home'));
 		}
 
@@ -69,8 +67,7 @@ class Connection extends Controller
 	public function forget_password()
 	{
 		# allready logged
-		if (! $this->okt->user->is_guest)
-		{
+		if (! $this->okt->user->is_guest) {
 			return $this->redirect($this->generateUrl('home'));
 		}
 

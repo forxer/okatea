@@ -370,7 +370,7 @@ class Tools extends Controller
 			$fp = fopen($this->okt->options->get('root_dir') . '/' . $sFilename, 'wb');
 			if ($fp === false)
 			{
-				$this->okt->error->set(__('c_a_tools_backup_unable_write_file'));
+				$this->flash->error(__('c_a_tools_backup_unable_write_file'));
 			}
 
 			try
@@ -402,7 +402,7 @@ class Tools extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt->error->set($e->getMessage());
+				$this->flash->error($e->getMessage());
 			}
 		}
 
@@ -495,11 +495,11 @@ class Tools extends Controller
 		{
 			if ($this->bHtaccessExists)
 			{
-				$this->okt->error->set(__('c_a_tools_htaccess_allready_exists'));
+				$this->flash->error(__('c_a_tools_htaccess_allready_exists'));
 			}
 			elseif (! $this->bHtaccessDistExists)
 			{
-				$this->okt->error->set(__('c_a_tools_htaccess_template_not_exists'));
+				$this->flash->error(__('c_a_tools_htaccess_template_not_exists'));
 			}
 			else
 			{

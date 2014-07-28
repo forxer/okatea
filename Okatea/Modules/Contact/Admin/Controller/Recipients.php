@@ -58,7 +58,7 @@ class Recipients extends Controller
 				}
 			}
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'recipients_to' => $aRecipientsTo,

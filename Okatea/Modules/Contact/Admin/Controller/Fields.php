@@ -68,7 +68,7 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false)
 				{
@@ -131,7 +131,7 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false)
 				{

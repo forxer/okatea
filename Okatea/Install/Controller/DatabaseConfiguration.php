@@ -119,7 +119,7 @@ class DatabaseConfiguration extends Controller
 			$aParamsToTest = $aDatabaseParams[$aDatabaseParams['env']];
 
 			# Tentative de connexion à la base de données
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$con_id = mysqli_connect($aParamsToTest['host'], $aParamsToTest['user'], $aParamsToTest['password']);
 
@@ -155,7 +155,7 @@ class DatabaseConfiguration extends Controller
 			}
 
 			# Nouvelle tentative de connexion à la base de données en utilisant la class interne
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$db = new MySqli($aParamsToTest['user'], $aParamsToTest['password'], $aParamsToTest['host'], $aParamsToTest['name'], $aParamsToTest['prefix']);
 

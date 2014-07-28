@@ -31,7 +31,7 @@ class Debugbar extends Controller
 			
 			$p_holmes = ! empty($_POST['p_holmes']) ? true : false;
 			
-			if ($this->okt->error->isEmpty())
+			if (! $this->flash->hasError())
 			{
 				$aNewConf = array(
 					'debug_bar' => array(
