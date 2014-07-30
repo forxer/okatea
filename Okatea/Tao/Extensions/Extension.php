@@ -7,10 +7,16 @@
  */
 namespace Okatea\Tao\Extensions;
 
-use Okatea\Tao\ApplicationShortcuts;
+use Okatea\Tao\Application;
 
-class Extension extends ApplicationShortcuts
+class Extension
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
 
 	/**
 	 * Le chemin du répertoire des extensions
@@ -29,29 +35,29 @@ class Extension extends ApplicationShortcuts
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt
-	 *        	Okatea application instance.
-	 * @param string $sExtensionsPath
-	 *        	Le chemin du répertoire des extensions.
+	 * @param Application $okt Okatea application instance.
+	 * @param string $sExtensionsPath Le chemin du répertoire des extensions.
 	 * @return void
 	 */
-	public function __construct($okt, $sExtensionsPath)
+	public function __construct(Application $okt, $sExtensionsPath)
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
+
+		$this->db = $okt->db;
 
 		$this->sExtensionsPath = $sExtensionsPath;
 
-		$this->infos = array(
-			'id' => null,
-			'root' => null,
-			'name' => null,
-			'version' => null,
-			'desc' => null,
-			'author' => null,
-			'status' => null,
-			'priority' => 1000,
-			'updatable' => true
-		);
+		$this->infos = [
+			'id' 			=> null,
+			'root' 			=> null,
+			'name' 			=> null,
+			'version' 		=> null,
+			'desc' 			=> null,
+			'author' 		=> null,
+			'status' 		=> null,
+			'priority' 		=> 1000,
+			'updatable' 	=> true
+		];
 	}
 
 	/**
@@ -72,8 +78,7 @@ class Extension extends ApplicationShortcuts
 	 */
 	public function getInfo($sKey)
 	{
-		if (isset($this->infos[$sKey]))
-		{
+		if (isset($this->infos[$sKey])) {
 			return $this->infos[$sKey];
 		}
 
@@ -100,8 +105,7 @@ class Extension extends ApplicationShortcuts
 	 */
 	public function setInfos(array $aInfos = array())
 	{
-		foreach ($aInfos as $sKey => $mValue)
-		{
+		foreach ($aInfos as $sKey => $mValue) {
 			$this->setInfo($sKey, $mValue);
 		}
 	}
@@ -144,13 +148,13 @@ class Extension extends ApplicationShortcuts
 	public function register(array $aParams = array())
 	{
 		$this->setInfos(array(
-			'root' => $this->sExtensionsPath . '/' . $this->id(),
-			'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->id),
-			'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
-			'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
-			'author' => (! empty($aParams['author']) ? $aParams['author'] : null),
-			'priority' => (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
-			'updatable' => (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
+			'root' 			=> $this->sExtensionsPath . '/' . $this->id(),
+			'name' 			=> (! empty($aParams['name']) ? $aParams['name'] : $this->id),
+			'desc' 			=> (! empty($aParams['desc']) ? $aParams['desc'] : null),
+			'version' 		=> (! empty($aParams['version']) ? $aParams['version'] : null),
+			'author' 		=> (! empty($aParams['author']) ? $aParams['author'] : null),
+			'priority' 		=> (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
+			'updatable' 	=> (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
 		));
 	}
 
@@ -163,8 +167,7 @@ class Extension extends ApplicationShortcuts
 
 	public function initNs($ns)
 	{
-		if ($ns === 'admin')
-		{
+		if ($ns === 'admin') {
 			$this->okt->l10n->loadFile($this->root() . '/Locales/%s/admin');
 		}
 

@@ -11,7 +11,6 @@ use Okatea\Tao\Html\Escaper;
 
 class Breadcrumb
 {
-
 	/**
 	 * Pile d'éléments
 	 *
@@ -71,7 +70,7 @@ class Breadcrumb
 			'label' => $label,
 			'url' => $url
 		);
-		
+
 		++ $this->iNum;
 	}
 
@@ -91,7 +90,7 @@ class Breadcrumb
 		{
 			return false;
 		}
-		
+
 		$this->sHtmlBlock = $sHtmlBlock;
 	}
 
@@ -101,7 +100,7 @@ class Breadcrumb
 		{
 			return false;
 		}
-		
+
 		$this->sHtmlItem = $sHtmlItem;
 	}
 
@@ -111,7 +110,7 @@ class Breadcrumb
 		{
 			return false;
 		}
-		
+
 		$this->sHtmlLink = $sHtmlLink;
 	}
 
@@ -121,20 +120,20 @@ class Breadcrumb
 		{
 			return false;
 		}
-		
+
 		$this->sHtmlSeparator = $sHtmlSeparator;
 	}
 
 	public function getBreadcrumb($sHtmlBlock = null, $sHtmlItem = null, $sHtmlLink = null, $sHtmlSeparator = null)
 	{
 		$this->setHtmlBlock($sHtmlBlock);
-		
+
 		$this->setHtmlItem($sHtmlItem);
-		
+
 		$this->setHtmlLink($sHtmlLink);
-		
+
 		$this->setHtmlSeparator($sHtmlSeparator);
-		
+
 		return $this->buildBreadcrumb();
 	}
 
@@ -144,9 +143,9 @@ class Breadcrumb
 		{
 			return null;
 		}
-		
+
 		$res = array();
-		
+
 		for ($i = 0; $i < $this->iNum; $i ++)
 		{
 			if (empty($this->stack[$i]['url']) || $i === $this->iNum - 1)
@@ -158,12 +157,12 @@ class Breadcrumb
 				$res[] = sprintf($this->sHtmlItem, sprintf($this->sHtmlLink, Escaper::html($this->stack[$i]['url']), Escaper::html($this->stack[$i]['label'])));
 			}
 		}
-		
+
 		if (empty($res))
 		{
 			return null;
 		}
-		
+
 		return sprintf($this->sHtmlBlock, implode($this->sHtmlSeparator, $res));
 	}
 }

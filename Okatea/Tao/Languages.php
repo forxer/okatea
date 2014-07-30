@@ -7,14 +7,20 @@
  */
 namespace Okatea\Tao;
 
-use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Database\Recordset;
 
 /**
  * The Okatea language manager.
  */
-class Languages extends ApplicationShortcuts
+class Languages
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
+
 	/**
 	 * List of languages.
 	 *
@@ -63,14 +69,14 @@ class Languages extends ApplicationShortcuts
 	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
-	public function __construct($okt)
+	public function __construct(Application $okt)
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
 		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'languages';
 
-		$this->t_languages = $okt->db_prefix . 'core_languages';
+		$this->t_languages = $okt->config->database_prefix . 'core_languages';
 
 		$this->load();
 	}
@@ -165,7 +171,7 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function getLanguages(array $aParams = [], $bCountOnly = false)
 	{
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
 		$queryBuilder
 			->where('true = true');
@@ -240,7 +246,7 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function getLanguage($iLanguageId)
 	{
-		$aLanguage = $this->conn->fetchAssoc(
+		$aLanguage = $this->okt['db']->fetchAssoc(
 			'SELECT * FROM '.$this->t_languages.' WHERE id = ?',
 			array($iLanguageId)
 		);
@@ -269,9 +275,9 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function addLanguage(array $aData = [])
 	{
-		$iMaxOrd = $this->conn->fetchColumn('SELECT MAX(ord) FROM ' . $this->t_languages);
+		$iMaxOrd = $this->okt['db']->fetchColumn('SELECT MAX(ord) FROM ' . $this->t_languages);
 
-		$this->conn->insert($this->t_languages, array(
+		$this->okt['db']->insert($this->t_languages, array(
 			'title' 	=> $aData['title'],
 			'code' 		=> $aData['code'],
 			'img' 		=> $aData['img'],
@@ -281,7 +287,7 @@ class Languages extends ApplicationShortcuts
 
 		$this->afterProcess();
 
-		return $this->conn->lastInsertId();
+		return $this->okt['db']->lastInsertId();
 	}
 
 	/**
@@ -292,7 +298,7 @@ class Languages extends ApplicationShortcuts
 	 */
 	public function updLanguage(array $aData = [])
 	{
-		$this->conn->update($this->t_languages,
+		$this->okt['db']->update($this->t_languages,
 			array(
 				'title' 	=> $aData['title'],
 				'code' 		=> $aData['code'],
@@ -318,14 +324,14 @@ class Languages extends ApplicationShortcuts
 	public function checkPostData(array $aData = [])
 	{
 		if (empty($aData['title'])) {
-			$this->error->set(__('c_a_config_l10n_error_need_title'));
+			$this->flash->error(__('c_a_config_l10n_error_need_title'));
 		}
 
 		if (empty($aData['code'])) {
-			$this->error->set(__('c_a_config_l10n_error_need_code'));
+			$this->flash->error(__('c_a_config_l10n_error_need_code'));
 		}
 
-		return $this->error->isEmpty();
+		return !$this->flash->hasError();
 	}
 
 	/**
@@ -340,7 +346,7 @@ class Languages extends ApplicationShortcuts
 			return false;
 		}
 
-		$this->conn->update(
+		$this->okt['db']->update(
 			$this->t_languages,
 			array('active' => '1-active'),
 			array('id' => $iLanguageId)
@@ -366,7 +372,7 @@ class Languages extends ApplicationShortcuts
 
 		$iStatus = ($iStatus == 1) ? 1 : 0;
 
-		$this->conn->update(
+		$this->okt['db']->update(
 			$this->t_languages,
 			array('active' => $iStatus),
 			array('id' => $iLanguageId)
@@ -390,7 +396,7 @@ class Languages extends ApplicationShortcuts
 			return false;
 		}
 
-		$this->conn->update(
+		$this->okt['db']->update(
 			$this->t_languages,
 			array('ord' => $iOrd),
 			array('id' => $iLanguageId)
@@ -410,7 +416,7 @@ class Languages extends ApplicationShortcuts
 		if (! $this->languageExists($iLanguageId)) {
 			return false;
 		}
-		$this->conn->delete($this->t_languages, array('id' => $iLanguageId));
+		$this->okt['db']->delete($this->t_languages, array('id' => $iLanguageId));
 
 		$this->afterProcess();
 

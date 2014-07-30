@@ -16,25 +16,11 @@ use Okatea\Tao\Database\Recordset;
 class LogAdmin
 {
 	/**
-	 * L'objet core.
+	 * Okatea application instance.
 	 *
-	 * @var object Okatea\Tao\Application
+	 * @var Okatea\Tao\Application
 	 */
 	protected $okt;
-
-	/**
-	 * L'objet gestionnaire de base de données.
-	 *
-	 * @var object
-	 */
-	protected $db;
-
-	/**
-	 * L'objet gestionnaire d'erreurs.
-	 *
-	 * @var object
-	 */
-	protected $error;
 
 	/**
 	 * Le nom de la table log admin.
@@ -51,13 +37,13 @@ class LogAdmin
 	 * @param Okatea\Tao\Application $okt
 	 * @return void
 	 */
-	public function __construct($okt)
+	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
-		$this->db = $okt->db;
-		$this->error = $okt->error;
 
-		$this->t_log = $this->db->prefix . 'core_log_admin';
+		$this->db = $okt->db;
+
+		$this->t_log = $okt->config->database_prefix . 'core_log_admin';
 	}
 
 	/**
@@ -180,45 +166,37 @@ class LogAdmin
 	 */
 	public function add(array $aParams = [])
 	{
-		if (empty($aParams['user_id']))
-		{
+		if (empty($aParams['user_id'])) {
 			$aParams['user_id'] = $this->okt->user->infos['id'];
 		}
 
-		if (empty($aParams['username']))
-		{
+		if (empty($aParams['username'])) {
 			$aParams['username'] = $this->okt->user->infos['username'];
 		}
 
-		if (empty($aParams['component']))
-		{
+		if (empty($aParams['component'])) {
 			$aParams['component'] = 'core';
 		}
 
-		if (empty($aParams['ip']))
-		{
+		if (empty($aParams['ip'])) {
 			$aParams['ip'] = $this->okt->request->getClientIp();
 		}
 
-		if (empty($aParams['type']))
-		{
+		if (empty($aParams['type'])) {
 			$aParams['type'] = 0;
 		}
 
-		if (empty($aParams['code']))
-		{
+		if (empty($aParams['code'])) {
 			$aParams['code'] = 0;
 		}
 
-		if (empty($aParams['message']))
-		{
+		if (empty($aParams['message'])) {
 			$aParams['message'] = '';
 		}
 
 		$query = 'INSERT INTO ' . $this->t_log . ' ( ' . 'user_id, username, ip, date, type, component, code, message ' . ' ) VALUES ( ' . (integer) $aParams['user_id'] . ', ' . '\'' . $this->db->escapeStr($aParams['username']) . '\', ' . '\'' . $this->db->escapeStr($aParams['ip']) . '\', ' . 'NOW(), ' . (integer) $aParams['type'] . ', ' . '\'' . $this->db->escapeStr($aParams['component']) . '\', ' . (integer) $aParams['code'] . ', ' . '\'' . $this->db->escapeStr($aParams['message']) . '\' ' . '); ';
 
-		if (! $this->db->execute($query))
-		{
+		if (! $this->db->execute($query)) {
 			return false;
 		}
 
@@ -234,6 +212,7 @@ class LogAdmin
 	public function info(array $aParams = [])
 	{
 		$aParams['type'] = 0;
+
 		return $this->add($aParams);
 	}
 
@@ -246,6 +225,7 @@ class LogAdmin
 	public function warning(array $aParams = [])
 	{
 		$aParams['type'] = 10;
+
 		return $this->add($aParams);
 	}
 
@@ -258,6 +238,7 @@ class LogAdmin
 	public function critical(array $aParams = [])
 	{
 		$aParams['type'] = 20;
+
 		return $this->add($aParams);
 	}
 
@@ -270,6 +251,7 @@ class LogAdmin
 	public function error(array $aParams = [])
 	{
 		$aParams['type'] = 30;
+
 		return $this->add($aParams);
 	}
 
@@ -282,8 +264,7 @@ class LogAdmin
 	{
 		$sSqlQuery = 'DELETE FROM ' . $this->t_log;
 
-		if ($iNnumMonths > 0)
-		{
+		if ($iNnumMonths > 0) {
 			$sSqlQuery .= ' WHERE date < \'' . date('Y-m-d H:i:s', strtotime('-' . $iNnumMonths . ' months')) . '\' ';
 		}
 
@@ -316,8 +297,7 @@ class LogAdmin
 	 */
 	public function logExist($idLog)
 	{
-		if (empty($idLog) || $this->getLogs($idLog)->isEmpty())
-		{
+		if (empty($idLog) || $this->getLogs($idLog)->isEmpty()) {
 			return false;
 		}
 
@@ -395,8 +375,7 @@ class LogAdmin
 	{
 		static $aLogAdminTypes = null;
 
-		if (is_null($aLogAdminTypes))
-		{
+		if (null === $aLogAdminTypes) {
 			$aLogAdminTypes = self::getTypes();
 		}
 

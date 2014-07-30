@@ -7,12 +7,18 @@
  */
 namespace Okatea\Tao\Extensions\Manage\Component;
 
-use Okatea\Tao\ApplicationShortcuts;
+use Okatea\Tao\Application;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
-abstract class ComponentBase extends ApplicationShortcuts
+abstract class ComponentBase
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
 
 	protected $extension;
 
@@ -20,9 +26,9 @@ abstract class ComponentBase extends ApplicationShortcuts
 
 	protected $fs;
 
-	public function __construct($okt, $extension)
+	public function __construct(Application $okt, $extension)
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
 		$this->extension = $extension;
 		$this->checklist = $extension->checklist;
@@ -30,8 +36,7 @@ abstract class ComponentBase extends ApplicationShortcuts
 
 	protected function getFs()
 	{
-		if (null === $this->fs)
-		{
+		if (null === $this->fs) {
 			$this->fs = new Filesystem();
 		}
 

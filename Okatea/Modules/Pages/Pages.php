@@ -8,7 +8,7 @@
 namespace Okatea\Modules\Pages;
 
 use ArrayObject;
-use Okatea\Tao\ApplicationShortcuts;
+use Okatea\Tao\Application;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
@@ -18,8 +18,15 @@ use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
 
-class Pages extends ApplicationShortcuts
+class Pages
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
+
 	protected $t_pages;
 
 	protected $t_pages_locales;
@@ -32,16 +39,15 @@ class Pages extends ApplicationShortcuts
 
 	/**
 	 *
-	 * @param object $okt
-	 *        	Okatea application instance.
+	 * @param object $okt Okatea application instance.
 	 * @param string $t_pages
 	 * @param string $t_pages_locales
 	 * @param string $t_categories
 	 * @param string $t_categories_locales
 	 */
-	public function __construct($okt, $t_pages, $t_pages_locales, $_pages_permissions, $t_categories, $t_categories_locales)
+	public function __construct(Application $okt, $t_pages, $t_pages_locales, $_pages_permissions, $t_categories, $t_categories_locales)
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
 		$this->t_pages = $t_pages;
 		$this->t_pages_locales = $t_pages_locales;
@@ -53,10 +59,8 @@ class Pages extends ApplicationShortcuts
 	/**
 	 * Retourne une liste de pages sous forme de recordset selon des paramètres donnés.
 	 *
-	 * @param array $aParams
-	 *        	Paramètres de requete
-	 * @param boolean $bCountOnly
-	 *        	Ne renvoi qu'un nombre de pages
+	 * @param array $aParams Paramètres de requete
+	 * @param boolean $bCountOnly Ne renvoi qu'un nombre de pages
 	 * @return integer|Okatea\Modules\Pages\PagesRecordset
 	 */
 	public function getPagesRecordset(array $aParams = array(), $bCountOnly = false)

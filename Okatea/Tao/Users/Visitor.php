@@ -7,15 +7,21 @@
  */
 namespace Okatea\Tao\Users;
 
-use Okatea\Tao\ApplicationShortcuts;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Users\Users;
 
 /**
  * Le gestionnaire d'authentification de l'utilisateur en cours.
  */
-class Visitor extends ApplicationShortcuts
+class Visitor
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
+
 	/**
 	 * Core users table.
 	 *
@@ -112,11 +118,11 @@ class Visitor extends ApplicationShortcuts
 	 */
 	public function __construct($okt, $sCookieName = 'otk_auth', $sCookieFromName = 'otk_auth_from', $sCookiePath = '/', $sCookieDomain = '', $bCookieSecure = false)
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
-		$this->sUsersTable = $this->okt->db_prefix . 'core_users';
-		$this->sGroupsTable = $this->okt->db_prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $this->okt->db_prefix . 'core_users_groups_locales';
+		$this->sUsersTable = $okt->config->database_prefix . 'core_users';
+		$this->sGroupsTable = $okt->config->database_prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $okt->config->database_prefix . 'core_users_groups_locales';
 
 		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
 		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
@@ -261,7 +267,7 @@ class Visitor extends ApplicationShortcuts
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
 			'WHERE u.status = 1 AND u.id = :user_id';
 
-		$user = $this->conn->fetchAssoc(
+		$user = $this->okt['db']->fetchAssoc(
 			$sQuery,
 			[
 				'user_id' => $iUserId
@@ -289,7 +295,7 @@ class Visitor extends ApplicationShortcuts
 				'INNER JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' .
 			'WHERE u.id = 1';
 
-		$user = $this->conn->fetchAssoc($sQuery);
+		$user = $this->okt['db']->fetchAssoc($sQuery);
 
 		if ($user === false) {
 			return false;
@@ -319,7 +325,7 @@ class Visitor extends ApplicationShortcuts
 			$this->sUsersTable .
 			' WHERE username = :username';
 
-		$user = $this->conn->fetchAssoc(
+		$user = $this->okt['db']->fetchAssoc(
 			$sQuery,
 			[
 				'username' => $sUsername
@@ -343,7 +349,7 @@ class Visitor extends ApplicationShortcuts
 		{
 			$sPasswordHash = password_hash($sPassword, PASSWORD_DEFAULT);
 
-			$this->conn->update($this->sUsersTable,
+			$this->okt['db']->update($this->sUsersTable,
 				[
 					'password' => $sPasswordHash
 				],
@@ -389,7 +395,7 @@ class Visitor extends ApplicationShortcuts
 		# Update last_visit (make sure there's something to update it with)
 		if (!empty($this->infos['logged']))
 		{
-			$this->conn->update(
+			$this->okt['db']->update(
 				$this->sUsersTable,
 				[
 					'last_visit' => $this->infos['logged']
@@ -454,7 +460,7 @@ class Visitor extends ApplicationShortcuts
 
 		if (! $this->infos['is_guest'])
 		{
-			$this->conn->update(
+			$this->okt['db']->update(
 				$this->sUsersTable,
 				[
 					'language' => $sLanguage

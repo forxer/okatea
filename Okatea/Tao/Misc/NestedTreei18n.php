@@ -7,14 +7,21 @@
  */
 namespace Okatea\Tao\Misc;
 
-use Okatea\Tao\ApplicationShortcuts;
+use Okatea\Tao\Application;
 use Okatea\Tao\Database\Recordset;
 
 /**
  * A class to handle internationalized nested trees.
  */
-class NestedTreei18n extends ApplicationShortcuts
+class NestedTreei18n
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
+	protected $okt;
+
 	protected $sTable;
 
 	protected $sTableAlias;
@@ -47,9 +54,9 @@ class NestedTreei18n extends ApplicationShortcuts
 	 * @param array $addLocalesFields Others localized fields
 	 * @return void
 	 */
-	public function __construct($okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', array $addFields = [], array $addLocalesFields = [])
+	public function __construct(Application $okt, $sTable, $sTableLocales, $idField, $parentField, $sSortField, $sJoinField = 'category_id', $sLanguageField = 'language', array $addFields = [], array $addLocalesFields = [])
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
 		$this->sTable = $sTable;
 		$this->sTableAlias = 't';
@@ -76,7 +83,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getNode($id)
 	{
-		$node = $this->conn->fetchAssoc(
+		$node = $this->okt['db']->fetchAssoc(
 			'SELECT ' . $this->getFields() . ' ' .
 			'FROM ' . $this->getFrom() . ' ' .
 			'WHERE ' . $this->prependTableAlias($this->aFields['id']) . ' = ?',
@@ -126,7 +133,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			$parent_id = $node[$this->aFields['id']];
 		}
 
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 		$queryBuilder
 			->select($this->getFieldsList(true))
 			->from($this->sTable, $this->sTableAlias)
@@ -230,7 +237,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			return false;
 		}
 
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 		$queryBuilder
 			->select($this->getFieldsList(true))
 			->from($this->sTable, $this->sTableAlias)
@@ -289,7 +296,7 @@ class NestedTreei18n extends ApplicationShortcuts
 			return false;
 		}
 
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 		$queryBuilder
 			->select('count('.$this->aFields['id'].') AS is_descendant')
 			->from($this->sTable, $this->sTableAlias)
@@ -318,7 +325,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function isChildOf($child_id, $parent_id)
 	{
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 		$queryBuilder
 			->select('count('.$this->aFields['id'].') AS is_child')
 			->from($this->sTable, $this->sTableAlias)
@@ -343,7 +350,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	{
 		if ($id == 0)
 		{
-			$queryBuilder = $this->conn->createQueryBuilder();
+			$queryBuilder = $this->okt['db']->createQueryBuilder();
 			$queryBuilder
 				->select('count('.$this->aFields['id'].') AS is_child')
 				->from($this->sTable, $this->sTableAlias)
@@ -372,7 +379,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function numChildren($id)
 	{
-		$queryBuilder = $this->conn->createQueryBuilder();
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 		$queryBuilder
 			->select('count('.$this->aFields['id'].') AS num_children')
 			->from($this->sTable, $this->sTableAlias)
@@ -390,7 +397,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getTreeWithChildren()
 	{
-		$leaves = $this->conn->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
+		$leaves = $this->okt['db']->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
 
 		// create a root node to hold child data about first level items
 		$arr = [];
@@ -432,7 +439,7 @@ class NestedTreei18n extends ApplicationShortcuts
 	 */
 	public function getStructuredTree()
 	{
-		$leaves = $this->conn->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
+		$leaves = $this->okt['db']->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
 
 		$data = array();
 
@@ -492,7 +499,7 @@ class NestedTreei18n extends ApplicationShortcuts
 				continue;
 			}
 
-			$this->conn->update(
+			$this->okt['db']->update(
 				$this->sTable,
 				array(
 					'level' => $row['level'],

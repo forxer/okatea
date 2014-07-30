@@ -81,8 +81,7 @@ class Session extends BaseSession
 	{
 		$storedToken = $this->getToken();
 
-		if ($storedToken === '')
-		{
+		if ($storedToken === '') {
 			$this->generateToken();
 		}
 	}

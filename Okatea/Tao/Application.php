@@ -7,7 +7,6 @@
  */
 namespace Okatea\Tao;
 
-use Doctrine\DBAL\DriverManager as Dbal;
 use Monolog\Logger;
 use Monolog\ErrorHandler;
 use Monolog\Handler\StreamHandler;
@@ -19,6 +18,7 @@ use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
+use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
@@ -41,7 +41,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Routing\RequestContext;
-use Pimple\Tests\Fixtures\PimpleServiceProvider;
 
 /**
  * Classe définissant le coeur de l'application (core).
@@ -98,25 +97,11 @@ class Application extends Container
 	public $db_prefix;
 
 	/**
-	 * Le gestionnaire de base de données via Doctrine DBAL.
-	 *
-	 * @var Doctrine\DBAL\Connection
-	 */
-	public $conn;
-
-	/**
 	 * Le gestionnaire de base de données.
 	 *
 	 * @var Okatea\Tao\Misc\DebugBar\DebugBar
 	 */
 	public $debugbar;
-
-	/**
-	 * Le gestionnaire d'erreurs.
-	 *
-	 * @var Okatea\Tao\Errors
-	 */
-	public $error;
 
 	/**
 	 * Le gestionnaire des groupes utilisateurs.
@@ -300,6 +285,8 @@ class Application extends Container
 		$this->startDebug();
 
 		$this->startTriggers();
+
+		$this->register(new DatabaseServiceProvider());
 	}
 
 	/**
@@ -352,8 +339,6 @@ class Application extends Container
 	{
 		# Register start time
 		define('OKT_START_TIME', microtime(true));
-
-		$this->error = new Errors();
 
 		# print errors in debug mode
 		if ($this->options->get('debug'))
@@ -418,28 +403,6 @@ class Application extends Container
 			if ($this->db->hasError()) {
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
-		}
-
-		if (null === $this->conn)
-		{
-			$sConnectionFilename = $this->options->get('config_dir') . '/connection.php';
-
-			if (! file_exists($sConnectionFilename)) {
-				throw new \RuntimeException('Unable to find database connection file !');
-			}
-
-			require $sConnectionFilename;
-
-			$this->db_prefix = $sDbPrefix;
-
-			$this->conn = Dbal::getConnection([
-				'dbname' 	=> $sDbName,
-				'user' 		=> $sDbUser,
-				'password' 	=> $sDbPassword,
-				'host' 		=> $sDbHost,
-				'driver' 	=> $sDbDriver,
-				'charset' 	=> 'utf8'
-			]);
 		}
 	}
 

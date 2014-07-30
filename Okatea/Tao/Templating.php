@@ -40,19 +40,15 @@ class Templating extends PhpEngine
 	/**
 	 * Renders a view and returns a Response.
 	 *
-	 * @param string $view
-	 *        	The view name
-	 * @param array $parameters
-	 *        	An array of parameters to pass to the view
-	 * @param Response $response
-	 *        	A Response instance
+	 * @param string $view The view name
+	 * @param array $parameters An array of parameters to pass to the view
+	 * @param Response $response A Response instance
 	 *
 	 * @return Response A Response instance
 	 */
 	public function renderResponse($view, array $parameters = [], Response $response = null)
 	{
-		if (null === $response)
-		{
+		if (null === $response) {
 			$response = new Response();
 		}
 
@@ -73,8 +69,6 @@ class Templating extends PhpEngine
 
 	public function addEscapers()
 	{
-		$that = $this;
-
 		$this->setEscaper('html', [
 			'Okatea\Tao\Html\Escaper',
 			'html'

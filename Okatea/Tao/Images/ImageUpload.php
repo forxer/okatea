@@ -9,14 +9,14 @@ namespace Okatea\Tao\Images;
 
 use Imagine\Gd\Imagine;
 use Imagine\Image;
-use Okatea\Tao\ApplicationShortcuts;
+use Okatea\Tao\Application;
 use Okatea\Tao\Misc\Utilities;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Outil pour l'upload des images.
  */
-class ImageUpload extends ApplicationShortcuts
+class ImageUpload
 {
 	/**
 	 * Le tableau des données de configuration.
@@ -96,9 +96,9 @@ class ImageUpload extends ApplicationShortcuts
 	 * @param array $aConfig
 	 * @return void
 	 */
-	public function __construct($okt, $aConfig = array())
+	public function __construct(Application $okt, $aConfig = array())
 	{
-		parent::__construct($okt);
+		$this->okt = $okt;
 
 		$this->setConfig($aConfig);
 	}

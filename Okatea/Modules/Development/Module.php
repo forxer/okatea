@@ -22,10 +22,10 @@ class Module extends BaseModule
 		$this->okt->addPerm('development_debug_bar', __('m_development_perm_debug_bar'), 'development');
 		$this->okt->addPerm('development_bootstrap', __('m_development_perm_bootstrap'), 'development');
 		$this->okt->addPerm('development_counting', __('m_development_perm_counting'), 'development');
-		
+
 		# Config
 		$this->config = $this->okt->newConfig('conf_development');
-		
+
 		# Initialisation debug bar
 		$this->debugBar = new DebugBar($this->okt, $this->config->debug_bar);
 	}
@@ -42,16 +42,12 @@ class Module extends BaseModule
 			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_bootstrap'), $this->okt->adminRouter->generate('Development_bootstrap'), $this->okt->request->attributes->get('_route') === 'Development_bootstrap', 3, $this->okt->checkPerm('development_bootstrap'));
 			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_counting'), $this->okt->adminRouter->generate('Development_counting'), $this->okt->request->attributes->get('_route') === 'Development_counting', 4, $this->okt->checkPerm('development_counting'));
 		}
-		
+
 		# Message admin home
-		if ($this->okt->user->is_superadmin)
-		{
-			$this->okt->triggers->registerTrigger('adminIndexHtmlContent', array(
-				$this,
-				'adminIndexHtmlContent'
-			));
+		if ($this->okt->user->is_superadmin) {
+			$this->okt->flash->warning(__('m_development_adminIndexHtmlContent'));
 		}
-		
+
 		# Add admin debug bar
 		$this->debugBar->loadInAdminPart();
 	}
@@ -60,7 +56,7 @@ class Module extends BaseModule
 	{
 		# Add public debug bar
 		$this->debugBar->loadInPublicPart();
-		
+
 		# Ajout d'éléments à la barre admin
 		if ($this->okt->user->is_superadmin)
 		{
@@ -72,22 +68,11 @@ class Module extends BaseModule
 	}
 
 	/**
-	 * Ajout d'un avertissement sur la page d'accueil de l'admin.
-	 *
-	 * @param Okatea\Tao\Application $okt        	
-	 * @return void
-	 */
-	public function adminIndexHtmlContent()
-	{
-		echo '<div class="ui-widget" style="width: 700px; margin:0 auto 20px auto;">' . '<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 5px 8px;">' . '<p class="ui-helper-clearfix "><span class="ui-icon ui-icon-info" style="float: left; margin: 2px 8px 0 0;"></span>' . '<span style="float: left;">' . __('m_development_adminIndexHtmlContent') . '</span></p>' . '</div>' . '</div>';
-	}
-
-	/**
 	 * Ajout d'un avertissement sur la barre admin côté publique.
 	 *
-	 * @param arrayObject $aPrimaryAdminBar        	
-	 * @param arrayObject $aSecondaryAdminBar        	
-	 * @param arrayObject $aBasesUrl        	
+	 * @param arrayObject $aPrimaryAdminBar
+	 * @param arrayObject $aSecondaryAdminBar
+	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
 	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)

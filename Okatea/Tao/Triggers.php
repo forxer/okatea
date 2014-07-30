@@ -34,14 +34,12 @@ class Triggers
 	/**
 	 * Ajout de plusieurs nouveaux callables à la pile de déclencheurs.
 	 *
-	 * @param array $aTriggers
-	 *        	Tableaux des déclencheurs à ajouter
+	 * @param array $aTriggers Tableaux des déclencheurs à ajouter
 	 * @return void
 	 */
-	public function registerTriggers($aTriggers)
+	public function registerTriggers(array $aTriggers = [])
 	{
-		foreach ($aTriggers as $sTrigger => $mCallable)
-		{
+		foreach ($aTriggers as $sTrigger => $mCallable) {
 			$this->registerTrigger($sTrigger, $mCallable);
 		}
 	}
@@ -49,16 +47,13 @@ class Triggers
 	/**
 	 * Ajoute un nouveau callable à la pile de déclencheurs.
 	 *
-	 * @param string $sTrigger
-	 *        	Nom du déclencheur
-	 * @param callable $mCallable
-	 *        	Le "callable" (callback) à appeller
+	 * @param string $sTrigger Nom du déclencheur
+	 * @param callable $mCallable Le "callable" (callback) à appeller
 	 * @return void
 	 */
 	public function registerTrigger($sTrigger, $mCallable)
 	{
-		if (is_callable($mCallable))
-		{
+		if (is_callable($mCallable)) {
 			$this->aStack[$sTrigger][] = $mCallable;
 		}
 	}
@@ -77,8 +72,7 @@ class Triggers
 	/**
 	 * Test si un déclencheur particulier existe dans la pile de déclencheurs.
 	 *
-	 * @param string $sTrigger
-	 *        	Nom du déclencheur
+	 * @param string $sTrigger Nom du déclencheur
 	 * @return boolean
 	 */
 	public function hasTrigger($sTrigger)
@@ -101,23 +95,20 @@ class Triggers
 	 * Permet de récupérer la pile des déclencheurs
 	 * (ou un déclencheur si le paramètre est précisé).
 	 *
-	 * @param string $sTrigger
-	 *        	Nom du déclencheur
+	 * @param string $sTrigger Nom du déclencheur
 	 * @return array
 	 */
 	public function getTriggers($sTrigger = null)
 	{
-		if (empty($this->aStack))
-		{
+		if (empty($this->aStack)) {
 			return null;
 		}
 
-		if (empty($sTrigger))
-		{
+		if (null === $sTrigger) {
 			return $this->aStack;
 		}
-		elseif ($this->hasTrigger($sTrigger))
-		{
+
+		if ($this->hasTrigger($sTrigger)) {
 			return $this->aStack[$sTrigger];
 		}
 
@@ -127,8 +118,7 @@ class Triggers
 	/**
 	 * Permet de récupérer un déclencheur.
 	 *
-	 * @param string $sTrigger
-	 *        	Nom du déclencheur
+	 * @param string $sTrigger Nom du déclencheur
 	 * @return array
 	 */
 	public function getTrigger($sTrigger)
@@ -152,14 +142,12 @@ class Triggers
 	 * un déclencheur donné et retourne les résultats concaténés
 	 * de chaques callables.
 	 *
-	 * @param string $sTrigger
-	 *        	Nom du déclencheur
+	 * @param string $sTrigger Nom du déclencheur
 	 * @return string
 	 */
 	public function callTrigger($sTrigger)
 	{
-		if (! $this->hasTrigger($sTrigger))
-		{
+		if (!$this->hasTrigger($sTrigger)) {
 			return null;
 		}
 
@@ -167,8 +155,7 @@ class Triggers
 		array_shift($args);
 
 		$sReturn = '';
-		foreach ($this->aStack[$sTrigger] as $f)
-		{
+		foreach ($this->aStack[$sTrigger] as $f) {
 			$sReturn .= call_user_func_array($f, $args);
 		}
 

@@ -53,14 +53,10 @@ class Update
 	/**
 	 * Constructor.
 	 *
-	 * @param string $sUrl
-	 *        	Versions file URL
-	 * @param string $sSubject
-	 *        	Subject to check
-	 * @param string $sVersion
-	 *        	Version type
-	 * @param string $sCacheDir
-	 *        	Directory cache path
+	 * @param string $sUrl Versions file URL
+	 * @param string $sSubject Subject to check
+	 * @param string $sVersion Version type
+	 * @param string $sCacheDir Directory cache path
 	 */
 	public function __construct($sUrl, $sSubject, $sVersion, $sCacheDir)
 	{
@@ -74,8 +70,7 @@ class Update
 	 * Checks for Okatea updates.
 	 * Returns latest version if available or false.
 	 *
-	 * @param
-	 *        	version		string	Current version to compare
+	 * @param string $sVersion Current version to compare
 	 * @return string version if available
 	 */
 	public function check($sVersion)
@@ -84,8 +79,7 @@ class Update
 
 		$v = $this->getVersion();
 
-		if ($v && version_compare($sVersion, $v, '<'))
-		{
+		if ($v && version_compare($sVersion, $v, '<')) {
 			return $v;
 		}
 
@@ -103,8 +97,7 @@ class Update
 			$c = file_get_contents($this->sCacheFile);
 			$c = json_decode($c);
 
-			if (is_array($c))
-			{
+			if (is_array($c)) {
 				$this->aVersionInfo = $c;
 				return;
 			}
@@ -115,8 +108,7 @@ class Update
 		$bCanWrite = (! is_dir($sCacheDir) && is_writable(dirname($sCacheDir))) || (! file_exists($this->sCacheFile) && is_writable($sCacheDir)) || is_writable($this->sCacheFile);
 
 		# If we can't write file, don't bug host with queries
-		if (! $bCanWrite)
-		{
+		if (! $bCanWrite) {
 			return;
 		}
 
@@ -135,26 +127,21 @@ class Update
 			{
 				$aJson = $response->json();
 
-				if (! empty($aJson[$this->sVersion]))
-				{
+				if (! empty($aJson[$this->sVersion])) {
 					$this->aVersionInfo = $aJson[$this->sVersion];
 				}
-				else
-				{
+				else {
 					return false;
 				}
 			}
-			elseif ($sExtension == 'xml')
-			{
+			elseif ($sExtension == 'xml') {
 				$this->readXmlVersion($response->getBody());
 			}
-			else
-			{
+			else {
 				return false;
 			}
 		}
-		else
-		{
+		else {
 			return false;
 		}
 
@@ -209,8 +196,7 @@ class Update
 	 */
 	public function setNotify($n)
 	{
-		if (! is_writable($this->sCacheFile))
-		{
+		if (! is_writable($this->sCacheFile)) {
 			return;
 		}
 
@@ -228,8 +214,7 @@ class Update
 	 */
 	public function checkIntegrity($sDigestsFile, $sRoot)
 	{
-		if (! $sDigestsFile)
-		{
+		if (! $sDigestsFile) {
 			throw new \Exception(__('c_a_update_digests_not_found'));
 		}
 
@@ -255,13 +240,11 @@ class Update
 	{
 		$sUrl = $this->getFileURL();
 
-		if (! $sUrl)
-		{
+		if (! $sUrl) {
 			throw new \Exception(__('c_a_update_no_file_to_download'));
 		}
 
-		if (! is_writable(dirname($sDest)))
-		{
+		if (! is_writable(dirname($sDest))) {
 			throw new \Exception(__('c_a_update_root_directory_not_writable'));
 		}
 
@@ -297,39 +280,33 @@ class Update
 	 */
 	public function backup($sZipFile, $sZipDigests, $sRoot, $sRootDigests, $sDest)
 	{
-		if (! is_readable($sZipFile))
-		{
+		if (! is_readable($sZipFile)) {
 			throw new \Exception(__('c_a_update_archive_not_found'));
 		}
 
-		if (! is_readable($sRootDigests))
-		{
+		if (! is_readable($sRootDigests)) {
 			@unlink($sZipFile);
 			throw new \Exception(__('c_a_update_unable_read_digests'));
 		}
 
 		# Stop everything if a backup already exists and can not be overrided
-		if (! is_writable(dirname($sDest)) && ! file_exists($sDest))
-		{
+		if (! is_writable(dirname($sDest)) && ! file_exists($sDest)) {
 			throw new \Exception(__('c_a_update_root_directory_not_writable'));
 		}
 
-		if (file_exists($sDest) && ! is_writable($sDest))
-		{
+		if (file_exists($sDest) && ! is_writable($sDest)) {
 			return false;
 		}
 
 		$b_fp = @fopen($sDest, 'wb');
-		if ($b_fp === false)
-		{
+		if ($b_fp === false) {
 			return false;
 		}
 
 		$oZip = new \fileUnzip($sZipFile);
 		$b_zip = new \fileZip($b_fp);
 
-		if (! $oZip->hasFile($sZipDigests))
-		{
+		if (! $oZip->hasFile($sZipDigests)) {
 			@unlink($sZipFile);
 			throw new \Exception(__('c_a_update_downloaded_file_not_valid_archive'));
 		}
@@ -343,15 +320,13 @@ class Update
 
 		$aNotReadable = [];
 
-		if (! empty($this->aForcedFiles))
-		{
+		if (! empty($this->aForcedFiles)) {
 			$aNewFiles = array_merge($aNewFiles, $this->aForcedFiles);
 		}
 
 		foreach ($aNewFiles as $file)
 		{
-			if (! $file || ! file_exists($sRoot . '/' . $file))
-			{
+			if (! $file || ! file_exists($sRoot . '/' . $file)) {
 				continue;
 			}
 
@@ -385,13 +360,11 @@ class Update
 	 */
 	public function performUpgrade($sZipFile, $sZipDigests, $sZipRoot, $sRoot, $sRootDigests)
 	{
-		if (! is_readable($sZipFile))
-		{
+		if (! is_readable($sZipFile)) {
 			throw new \Exception(__('Archive not found.'));
 		}
 
-		if (! is_readable($sRootDigests))
-		{
+		if (! is_readable($sRootDigests)) {
 			@unlink($sZipFile);
 			throw new \Exception(__('Unable to read current digests file.'));
 		}
@@ -409,8 +382,7 @@ class Update
 		{
 			$sFile = str_replace($sZipRoot . '/', '', $sFile);
 
-			if (substr($sFile, 0, 7) == 'install')
-			{
+			if (substr($sFile, 0, 7) == 'install') {
 				$this->setForcedFile($sFile);
 			}
 		}
@@ -420,8 +392,7 @@ class Update
 		$new_digests = explode("\n", $oZip->unzip($sZipDigests));
 		$aNewFiles = self::getNewFiles($cur_digests, $new_digests);
 
-		if (! empty($this->aForcedFiles))
-		{
+		if (! empty($this->aForcedFiles)) {
 			$aNewFiles = array_merge($aNewFiles, $this->aForcedFiles);
 		}
 
@@ -430,8 +401,7 @@ class Update
 
 		foreach ($aNewFiles as $file)
 		{
-			if (! $file)
-			{
+			if (! $file) {
 				continue;
 			}
 
@@ -467,8 +437,7 @@ class Update
 		{
 			$oZip->unzip($sZipRoot . '/' . $file, $sRoot . '/' . $file);
 
-			if ($can_touch)
-			{
+			if ($can_touch) {
 				@touch($sRoot . '/' . $file);
 			}
 		}
@@ -521,8 +490,7 @@ class Update
 
 	protected function md5sum($sRoot, $sDigestsFile)
 	{
-		if (! is_readable($sDigestsFile))
-		{
+		if (! is_readable($sDigestsFile)) {
 			throw new \Exception(__('c_a_update_unable_read_digests'));
 		}
 
@@ -533,8 +501,7 @@ class Update
 
 		foreach ($contents as $digest)
 		{
-			if (! preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m))
-			{
+			if (! preg_match('#^([\da-f]{32})\s+(.+?)$#', $digest, $m)) {
 				continue;
 			}
 
@@ -549,8 +516,7 @@ class Update
 		}
 
 		# No checksum found in digests file
-		if (empty($md5))
-		{
+		if (empty($md5)) {
 			throw new \Exception(__('c_a_update_invalid_digests'));
 		}
 
@@ -559,8 +525,7 @@ class Update
 
 	protected function parseLine(&$v, $k, $n)
 	{
-		if (! preg_match('#^([\da-f]{32})\s+(.+?)$#', $v, $m))
-		{
+		if (! preg_match('#^([\da-f]{32})\s+(.+?)$#', $v, $m)) {
 			return;
 		}
 
@@ -579,8 +544,7 @@ class Update
 			$filecontent = str_replace("\r\n", "\n", $filecontent);
 			$filecontent = str_replace("\r", "\n", $filecontent);
 
-			if (md5($filecontent) === $md5)
-			{
+			if (md5($filecontent) === $md5) {
 				return true;
 			}
 		}
@@ -592,8 +556,7 @@ class Update
 	{
 		global $okt;
 
-		if (is_null($oChecklist) || ! ($oChecklist instanceof CheckList))
-		{
+		if (is_null($oChecklist) || ! ($oChecklist instanceof CheckList)) {
 			$oChecklist = new Checklister();
 		}
 
@@ -601,15 +564,13 @@ class Update
 
 		$oChecklist->addItem('okt', $bOktTest, 'Valid Okatea instance founded', 'Unable to find valid Okatea instance');
 
-		if (! $bOktTest)
-		{
+		if (! $bOktTest) {
 			return false;
 		}
 
 		foreach (new DirectoryIterator($okt->options->inc_dir . '/Install/SqlSchema/') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml')
-			{
+			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml') {
 				continue;
 			}
 

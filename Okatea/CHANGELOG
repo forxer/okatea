@@ -11,6 +11,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 
 2.0-beta6
+# introduce Pimple DIC
+# introduce Doctrine DBAL
 ! installation interface improvements
 - Connexion -> Connection
 
