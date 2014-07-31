@@ -11,7 +11,7 @@ use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
 use Okatea\Tao\Database\Recordset;
 
 /**
- * Le gestionnnaire de log administration.
+ * Administration log management.
  */
 class LogAdmin
 {
@@ -23,7 +23,7 @@ class LogAdmin
 	protected $okt;
 
 	/**
-	 * Le nom de la table log admin.
+	 * The log admin table name.
 	 *
 	 * @var string
 	 */
@@ -47,115 +47,158 @@ class LogAdmin
 	}
 
 	/**
-	 * Initialisation des filtres.
+	 * Filters initialization.
 	 *
 	 * @return void
 	 */
 	public function filtersStart()
 	{
-		if ($this->filters === null || ! ($this->filters instanceof logAdminFilters))
+		if (null === $this->filters || !($this->filters instanceof logAdminFilters))
 		{
 			$this->filters = new LogAdminFilters($this->okt, $this);
 		}
 	}
 
 	/**
-	 * Retourne, sous forme de recordset, la liste des logs admin.
+	 * Returns a list of admin log ​​according to given parameters.
 	 *
 	 * @param array $aParams
-	 *        	Paramètres de requete
-	 * @return Okatea\Tao\Database\Recordset
+	 * @param boolean $bCountOnly
+	 * @return array|integer
 	 */
 	public function getLogs(array $aParams = [], $bCountOnly = false)
 	{
-		$reqPlus = '';
-		$reqWhere = '';
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
-		if (! empty($aParams['id']))
+		$queryBuilder
+			->where('true = true');
+
+		if (!empty($aParams['id']))
 		{
-			$reqPlus .= ' AND id=' . (integer) $aParams['id'] . ' ';
+			$queryBuilder
+				->andWhere('id = :id')
+				->setParameter('id', $aParams['id']);
 		}
 
-		if (! empty($aParams['user_id']))
+		if (!empty($aParams['user_id']))
 		{
-			$reqPlus .= ' AND user_id=' . (integer) $aParams['user_id'] . ' ';
+			$queryBuilder
+				->andWhere('user_id = :user_id')
+				->setParameter('id', $aParams['user_id']);
 		}
 
-		if (! empty($aParams['username']))
+		if (!empty($aParams['username']))
 		{
-			$reqPlus .= ' AND username=\'' . $this->db->escapeStr($aParams['username']) . '\' ';
+			$queryBuilder
+				->andWhere('username = :username')
+				->setParameter('username', $aParams['username']);
 		}
 
-		if (! empty($aParams['component']))
+		if (!empty($aParams['component']))
 		{
-			$reqPlus .= ' AND component=\'' . $this->db->escapeStr($aParams['component']) . '\' ';
+			$queryBuilder
+				->andWhere('component = :component')
+				->setParameter('component', $aParams['component']);
 		}
 
-		if (! empty($aParams['ip']))
+		if (!empty($aParams['ip']))
 		{
-			$reqPlus .= ' AND ip=\'' . $this->db->escapeStr($aParams['ip']) . '\' ';
+			$queryBuilder
+				->andWhere('ip = :ip')
+				->setParameter('ip', $aParams['ip']);
 		}
 
 		if (isset($aParams['type']) && array_key_exists($aParams['type'], self::getTypes()))
 		{
-			$reqPlus .= ' AND type=' . (integer) $aParams['type'] . ' ';
-		}
-		else
-		{
-			$reqPlus .= ' ';
+			$queryBuilder
+				->andWhere('type = :type')
+				->setParameter('type', $aParams['type']);
 		}
 
 		if (isset($aParams['code']) && array_key_exists($aParams['code'], self::getCodes()))
 		{
-			$reqPlus .= ' AND code=' . (integer) $aParams['code'] . ' ';
+			$queryBuilder
+				->andWhere('code = :type')
+				->setParameter('code', $aParams['code']);
 		}
 
-		if (! empty($aParams['date_max']) && ! empty($aParams['date_min']))
+	/* @TODO : */
+	/*
+		if (!empty($aParams['date_max']) && !empty($aParams['date_min']))
 		{
 			$reqPlus .= ' AND date BETWEEN \'' . date('Y-m-d H:i:s', strtotime($aParams['date_min'])) . '\'' . ' AND \'' . date('Y-m-d H:i:s', strtotime($aParams['date_max'])) . '\' ';
 		}
-		elseif (! empty($aParams['date_min']))
+		elseif (!empty($aParams['date_min']))
 		{
 			$reqPlus .= ' AND date > \'' . date('Y-m-d H:i:s', strtotime($aParams['date_min'])) . '\' ';
 		}
-		elseif (! empty($aParams['date_max']))
+		elseif (!empty($aParams['date_max']))
 		{
 			$reqPlus .= ' AND date < \'' . date('Y-m-d H:i:s', strtotime($aParams['date_max'])) . '\' ';
 		}
+	*/
 
 		if ($bCountOnly)
 		{
-			$query = 'SELECT COUNT(id) AS num_logs_admin ' . 'FROM ' . $this->t_log . ' ' . 'WHERE 1 ' . $reqPlus;
+			$queryBuilder
+				->select('COUNT(id) AS num_logs_admin')
+				->from($this->t_log);
 		}
 		else
 		{
-			$query = 'SELECT id, user_id, username, ip, date, type, component, code, message ' . 'FROM ' . $this->t_log . ' ' . 'WHERE 1 ' . $reqPlus;
+			$queryBuilder
+				->select('id', 'user_id', 'username', 'ip', 'date', 'type', 'component', 'code', 'message')
+				->from($this->t_log);
 
-			if (! empty($aParams['order']))
-			{
-				$query .= 'ORDER BY ' . $aParams['order'] . ' ' . $aParams['order_direction'] . ' ';
+			if (!empty($aParams['order'])) {
+				$queryBuilder->orderBy($aParams['order'], $aParams['order_direction']);
 			}
-			else
-			{
-				$query .= 'ORDER BY date DESC ';
+			else {
+				$queryBuilder->orderBy('date', 'DESC');
 			}
 
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
-				$query .= 'LIMIT ' . $aParams['limit'] . ' ';
+				$queryBuilder
+					->setFirstResult(0)
+					->setMaxResults($aParams['limit']);
 			}
-		}
-
-		if (($rs = $this->db->select($query)) === false) {
-			return new Recordset([]);
 		}
 
 		if ($bCountOnly) {
-			return (integer) $rs->num_logs_admin;
+			return (integer) $queryBuilder->execute()->fetchColumn();
 		}
-		else {
-			return $rs;
-		}
+
+		return $queryBuilder->execute()->fetchAll();
+	}
+
+	/**
+	 * Returns information of a given admin log.
+	 *
+	 * @param integer $iLanguageId
+	 * @return array
+	 */
+	public function getLog($idLog)
+	{
+		$aLog = $this->okt['db']->fetchAssoc(
+			'SELECT * FROM '.$this->t_log.' WHERE id = ?',
+			array($idLog)
+		);
+
+		return $aLog;
+	}
+
+	/**
+	 * Indicates whether a given admin log exists.
+	 *
+	 * @param integer $idLog
+	 * @return boolean
+	 */
+	public function logExist($idLog)
+	{
+		$aLog = $this->getLog($idLog);
+
+		return $aLog ? true : false;
 	}
 
 	/**
@@ -196,7 +239,7 @@ class LogAdmin
 
 		$query = 'INSERT INTO ' . $this->t_log . ' ( ' . 'user_id, username, ip, date, type, component, code, message ' . ' ) VALUES ( ' . (integer) $aParams['user_id'] . ', ' . '\'' . $this->db->escapeStr($aParams['username']) . '\', ' . '\'' . $this->db->escapeStr($aParams['ip']) . '\', ' . 'NOW(), ' . (integer) $aParams['type'] . ', ' . '\'' . $this->db->escapeStr($aParams['component']) . '\', ' . (integer) $aParams['code'] . ', ' . '\'' . $this->db->escapeStr($aParams['message']) . '\' ' . '); ';
 
-		if (! $this->db->execute($query)) {
+		if (!$this->db->execute($query)) {
 			return false;
 		}
 
@@ -268,12 +311,10 @@ class LogAdmin
 			$sSqlQuery .= ' WHERE date < \'' . date('Y-m-d H:i:s', strtotime('-' . $iNnumMonths . ' months')) . '\' ';
 		}
 
-		if (! $this->db->execute($sSqlQuery))
+		if (!$this->db->execute($sSqlQuery))
 		{
 			return false;
 		}
-
-		$this->db->optimize($this->t_log);
 
 		return true;
 	}
@@ -287,21 +328,6 @@ class LogAdmin
 	public function deleteLogsDate($iNnumMonths)
 	{
 		return $this->deleteLogs($iNnumMonths);
-	}
-
-	/**
-	 * Teste l'existance d'un log.
-	 *
-	 * @param integer $idLog
-	 * @return boolean
-	 */
-	public function logExist($idLog)
-	{
-		if (empty($idLog) || $this->getLogs($idLog)->isEmpty()) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
