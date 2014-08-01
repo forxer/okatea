@@ -16,6 +16,9 @@ use Okatea\Tao\Misc\BaseFilters;
  */
 class LogAdmin extends BaseFilters
 {
+	const DEFAULT_NB_PER_PAGE = 30;
+	const DEFAULT_ORDER_BY = 'date';
+	const DEFAULT_ORDER_DIRECTION = 'DESC';
 
 	protected $logAdmin;
 
@@ -30,13 +33,13 @@ class LogAdmin extends BaseFilters
 	public function __construct($okt, $logAdmin)
 	{
 		$oConfig = new ArrayObject();
-		$oConfig->admin_default_nb_per_page = 30;
-		$oConfig->admin_default_order_by = 'date';
-		$oConfig->admin_default_order_direction = 'DESC';
+		$oConfig->admin_default_nb_per_page = self::DEFAULT_NB_PER_PAGE;
+		$oConfig->admin_default_order_by = self::DEFAULT_ORDER_BY;
+		$oConfig->admin_default_order_direction = self::DEFAULT_ORDER_DIRECTION;
 		$oConfig->admin_filters_style = 'dialog';
-		
+
 		parent::__construct($okt, 'logAdmin', $oConfig, 'admin');
-		
+
 		$this->logAdmin = $logAdmin;
 		$this->logAdmin->oConfig = $oConfig;
 	}
@@ -51,7 +54,7 @@ class LogAdmin extends BaseFilters
 			'order_by' => $this->config->admin_default_order_by,
 			'order_direction' => $this->config->admin_default_order_direction
 		);
-		
+
 		parent::setDefaultParams();
 	}
 
@@ -76,22 +79,22 @@ class LogAdmin extends BaseFilters
 			'action' => 'code',
 			'IP' => 'ip'
 		);
-		
+
 		# dates
 		$this->setFilterDates();
-		
+
 		# types
 		$this->setFilterType();
-		
+
 		# action
 		$this->setFilterAction();
-		
+
 		# page
 		$this->setFilterPage();
-		
+
 		# number per page
 		$this->setFilterNbPerPage();
-		
+
 		# ordre et sens du tri
 		$this->setFilterOrderBy();
 	}
@@ -112,27 +115,27 @@ class LogAdmin extends BaseFilters
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_by');
 		}
-		
+
 		switch ($this->params->order_by)
 		{
 			default:
 			case 'type':
 				$this->aLogParams['order'] = 'type';
 				break;
-			
+
 			case 'code':
 				$this->aLogParams['order'] = 'code';
 				break;
-			
+
 			case 'date':
 				$this->aLogParams['order'] = 'date';
 				break;
-			
+
 			case 'ip':
 				$this->aLogParams['order'] = 'ip';
 				break;
 		}
-		
+
 		$this->fields['order_by'] = array(
 			$this->form_id . '_order_by',
 			__('c_c_sorting_Sorted_by'),
@@ -141,7 +144,7 @@ class LogAdmin extends BaseFilters
 				$this->form_id . '_order_by'
 			), $this->order_by_array, $this->params->order_by, $this->getActiveClass('order_by'))
 		);
-		
+
 		# sens du tri
 		if ($this->request->query->has('order_direction'))
 		{
@@ -156,9 +159,9 @@ class LogAdmin extends BaseFilters
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_direction');
 		}
-		
+
 		$this->aLogParams['order_direction'] = $this->params->order_direction;
-		
+
 		$this->fields['order_direction'] = array(
 			$this->form_id . '_order_direction',
 			__('c_c_sorting_Sort_direction'),
@@ -187,9 +190,9 @@ class LogAdmin extends BaseFilters
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_min');
 		}
-		
+
 		$this->aLogParams['date_min'] = $this->params->date_min;
-		
+
 		$this->fields['date_min'] = array(
 			$this->form_id . 'date_min',
 			__('c_a_config_logadmin_Date_min'),
@@ -198,7 +201,7 @@ class LogAdmin extends BaseFilters
 				$this->form_id . '_date_min'
 			), 15, 0, $this->params->date_min, 'datepicker', $this->getActiveClass('date_min'))
 		);
-		
+
 		if ($this->request->query->has('date_max'))
 		{
 			$this->params->date_max = $this->request->query->get('date_max');
@@ -212,9 +215,9 @@ class LogAdmin extends BaseFilters
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_max');
 		}
-		
+
 		$this->aLogParams['date_max'] = $this->params->date_max;
-		
+
 		$this->fields['date_max'] = array(
 			$this->form_id . 'date_max',
 			__('c_a_config_logadmin_Date_max'),
@@ -231,13 +234,13 @@ class LogAdmin extends BaseFilters
 		$this->type_array = array_merge(array(
 			'tous les types' => '1'
 		), array_flip($this->logAdmin->getTypes()));
-		
+
 		if (! isset($this->aLogParams['type']))
 		{
 			$this->setIntFilter('type');
 			$this->aLogParams['type'] = $this->params->type;
 		}
-		
+
 		$this->fields['type'] = array(
 			$this->form_id . '_type',
 			__('c_a_config_logadmin_type'),
@@ -254,13 +257,13 @@ class LogAdmin extends BaseFilters
 		$this->action_array = array_merge(array(
 			'toutes les actions' => '1'
 		), array_flip($this->logAdmin->getCodes()));
-		
+
 		if (! isset($this->aLogParams['code']))
 		{
 			$this->setIntFilter('code');
 			$this->aLogParams['code'] = $this->params->code;
 		}
-		
+
 		$this->fields['code'] = array(
 			$this->form_id . '_code',
 			__('c_a_config_logadmin_code'),
@@ -270,10 +273,10 @@ class LogAdmin extends BaseFilters
 			), $this->action_array, $this->params->code, $this->getActiveClass('code'))
 		);
 	}
-	
+
 	/* HTML
 	------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le HTML des filtres
 	 *
@@ -282,37 +285,37 @@ class LogAdmin extends BaseFilters
 	public function getFiltersFields($bloc_format = '<div class="four-cols">%s</div>', $item_format = '<p class="col field"><label for="%s">%s</label>%s</p>')
 	{
 		$return = '';
-		
+
 		$block = '';
-		
+
 		$block .= $this->getFilter('date_min', $item_format);
 		$block .= $this->getFilter('date_max', $item_format);
-		
+
 		$return .= sprintf($bloc_format, $block);
-		
+
 		$block = '';
-		
+
 		$block .= $this->getFilter('type', $item_format);
 		$block .= $this->getFilter('code', $item_format);
-		
+
 		$return .= sprintf($bloc_format, $block);
-		
+
 		$block = '';
-		
+
 		$block .= $this->getFilter('order_by', $item_format);
 		$block .= $this->getFilter('order_direction', $item_format);
 		$block .= $this->getFilter('nb_per_page', $item_format);
-		
+
 		$return .= sprintf($bloc_format, $block);
-		
+
 		return $return;
 	}
 
 	/**
 	 * Retourne le HTML d'un filtre
 	 *
-	 * @param $id string        	
-	 * @param $item_format string        	
+	 * @param $id string
+	 * @param $item_format string
 	 * @return string
 	 */
 	public function getFilter($id, $item_format = '<p class="col field"><label for="%s">%s</label>%s</p>')

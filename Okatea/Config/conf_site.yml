@@ -39,13 +39,13 @@ leader:
     name: ''
     firstname: ''
 database_configuration:
-    host: 'localhost'
-    dbname: 'okatea'
-    user: 'root'
+    host: localhost
+    dbname: okatea
+    user: root
     password: ''
-    driver: 'pdo_mysql'
-    charset: 'utf8'
-database_prefix: 'okt_'
+    driver: pdo_mysql
+    charset: utf8
+database_prefix: okt_
 email:
     to: contact@okatea.org
     from: contact@okatea.org
@@ -93,13 +93,12 @@ user_visit:
     timeout: 1800
     remember_time: 1209600
 log_admin:
-    ttl_months: 3
+    ttl_months: 1
 news_feed:
     enabled: false
     url:
         fr: 'http://okatea.org/fr/actualites/rss'
         en: 'http://okatea.org/en/news/rss'
-        es: ''
 navigation_tpl:
     default: default
     usables: {  }

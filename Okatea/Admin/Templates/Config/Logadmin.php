@@ -80,12 +80,13 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 			<input type="submit"
 				name="<?php echo $okt->logAdmin->filters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_display')?>" /> <a
-				href="<?php $view->generateUrl('config_logadmin') ?>?init_filters=1"><?php _e('c_c_reset_filters')?></a>
+				href="<?php $view->generateUrl('config_logadmin') ?>?init_filters=1"><?php
+				_e('c_c_reset_filters')?></a>
 		</p>
 	</fieldset>
 </form>
 
-<?php if ($rsLogAdmin->isEmpty()) : ?>
+<?php if (empty($aLogAdmin)) : ?>
 <p>
 	<em><?php _e('c_a_config_logadmin_no_log') ?></em>
 </p>
@@ -105,17 +106,17 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 		</tr>
 	</thead>
 	<tbody>
-	<?php while($rsLogAdmin->fetch()) :?>
-	<tr class="type_<?php echo $rsLogAdmin->type ?>">
-			<td><?php echo LogAdmin::getHtmlType($rsLogAdmin->type) ?></td>
-			<td><?php echo $rsLogAdmin->user_id ?> - <?php echo $rsLogAdmin->username ?></td>
-			<td><?php echo $rsLogAdmin->ip ?></td>
-			<td><?php echo DateTime::full($rsLogAdmin->date) ?></td>
-			<td><?php echo $rsLogAdmin->component ?></td>
-			<td><?php echo $rsLogAdmin->code.' - '.$aLogAdminCodes[$rsLogAdmin->code] ?></td>
-			<td><?php echo $rsLogAdmin->message ?></td>
+	<?php foreach($aLogAdmin as $aLog) :?>
+	<tr class="type_<?php echo $aLog['type'] ?>">
+			<td><?php echo LogAdmin::getHtmlType($aLog['type']) ?></td>
+			<td><?php echo $aLog['user_id'] ?> - <?php echo $aLog['username'] ?></td>
+			<td><?php echo $aLog['ip'] ?></td>
+			<td><?php echo DateTime::full($aLog['date']) ?></td>
+			<td><?php echo $aLog['component'] ?></td>
+			<td><?php echo $aLog['code'].' - '.$aLogAdminCodes[$aLog['code']] ?></td>
+			<td><?php echo $aLog['message'] ?></td>
 		</tr>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 	</tbody>
 </table>
 

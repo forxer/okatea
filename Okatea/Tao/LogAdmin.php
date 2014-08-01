@@ -9,12 +9,32 @@ namespace Okatea\Tao;
 
 use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
 use Okatea\Tao\Database\Recordset;
+use Okatea\Tao\L10n\Date;
 
 /**
  * Administration log management.
  */
 class LogAdmin
 {
+	const TYPE_INFO = 0;
+	const TYPE_WARNING = 10;
+	const TYPE_CRITICAL = 20;
+	const TYPE_ERROR = 30;
+
+	const CODE_UNKNOWN = 0;
+	const CODE_LOGIN = 10;
+	const CODE_LOGOUT = 11;
+	const CODE_INSTALL = 20;
+	const CODE_UPDATE = 21;
+	const CODE_UNINSTALL = 22;
+	const CODE_REINSTALL = 23;
+	const CODE_ACTIVATION = 30;
+	const CODE_DEACTIVATION = 31;
+	const CODE_SWITCH_STATUS = 32;
+	const CODE_ADD = 40;
+	const CODE_CHANGE = 41;
+	const CODE_DELETE = 42;
+
 	/**
 	 * Okatea application instance.
 	 *
@@ -29,6 +49,11 @@ class LogAdmin
 	 */
 	protected $t_log;
 
+	/**
+	 * Log admin filters.
+	 *
+	 * @var Okatea\Admin\Filters\LogAdmin
+	 */
 	public $filters = null;
 
 	/**
@@ -122,21 +147,34 @@ class LogAdmin
 				->setParameter('code', $aParams['code']);
 		}
 
-	/* @TODO : */
-	/*
-		if (!empty($aParams['date_max']) && !empty($aParams['date_min']))
+		if (!empty($aParams['date_min']) && !empty($aParams['date_max']))
 		{
-			$reqPlus .= ' AND date BETWEEN \'' . date('Y-m-d H:i:s', strtotime($aParams['date_min'])) . '\'' . ' AND \'' . date('Y-m-d H:i:s', strtotime($aParams['date_max'])) . '\' ';
+			$queryBuilder
+				->andWhere(
+					$queryBuilder->expr()->andX(
+						$queryBuilder->expr()->gte('date', ':date_min'),
+						$queryBuilder->expr()->lte('date', ':date_max')
+					)
+				)
+				->setParameter('date_min', Date::parse($aParams['date_min']), 'datetime')
+				->setParameter('date_max', Date::parse($aParams['date_max']), 'datetime');
 		}
 		elseif (!empty($aParams['date_min']))
 		{
-			$reqPlus .= ' AND date > \'' . date('Y-m-d H:i:s', strtotime($aParams['date_min'])) . '\' ';
+			$queryBuilder
+				->andWhere(
+					$queryBuilder->expr()->gte('date', ':date')
+				)
+				->setParameter('date', Date::parse($aParams['date_min']), 'datetime');
 		}
 		elseif (!empty($aParams['date_max']))
 		{
-			$reqPlus .= ' AND date < \'' . date('Y-m-d H:i:s', strtotime($aParams['date_max'])) . '\' ';
+			$queryBuilder
+				->andWhere(
+					$queryBuilder->expr()->lte('date', ':date')
+				)
+				->setParameter('date', Date::parse($aParams['date_max']), 'datetime');
 		}
-	*/
 
 		if ($bCountOnly)
 		{
@@ -154,15 +192,20 @@ class LogAdmin
 				$queryBuilder->orderBy($aParams['order'], $aParams['order_direction']);
 			}
 			else {
-				$queryBuilder->orderBy('date', 'DESC');
+				$queryBuilder->orderBy(LogAdminFilters::DEFAULT_ORDER_BY, LogAdminFilters::DEFAULT_ORDER_DIRECTION);
 			}
 
-			if (!empty($aParams['limit']))
-			{
-				$queryBuilder
-					->setFirstResult(0)
-					->setMaxResults($aParams['limit']);
+			if (!isset($aParams['first'])) {
+				$aParams['first'] = 0;
 			}
+
+			if (!isset($aParams['max'])) {
+				$aParams['max'] = LogAdminFilters::DEFAULT_NB_PER_PAGE;
+			}
+
+			$queryBuilder
+				->setFirstResult($aParams['first'])
+				->setMaxResults($aParams['max']);
 		}
 
 		if ($bCountOnly) {
@@ -202,7 +245,7 @@ class LogAdmin
 	}
 
 	/**
-	 * Ajout d'un log admin.
+	 * Add an admin log.
 	 *
 	 * @param array $aParams
 	 * @return boolean
@@ -226,97 +269,97 @@ class LogAdmin
 		}
 
 		if (empty($aParams['type'])) {
-			$aParams['type'] = 0;
+			$aParams['type'] = self::TYPE_INFO;
 		}
 
 		if (empty($aParams['code'])) {
-			$aParams['code'] = 0;
+			$aParams['code'] = self::CODE_UNKNOWN;
 		}
 
 		if (empty($aParams['message'])) {
 			$aParams['message'] = '';
 		}
 
-		$query = 'INSERT INTO ' . $this->t_log . ' ( ' . 'user_id, username, ip, date, type, component, code, message ' . ' ) VALUES ( ' . (integer) $aParams['user_id'] . ', ' . '\'' . $this->db->escapeStr($aParams['username']) . '\', ' . '\'' . $this->db->escapeStr($aParams['ip']) . '\', ' . 'NOW(), ' . (integer) $aParams['type'] . ', ' . '\'' . $this->db->escapeStr($aParams['component']) . '\', ' . (integer) $aParams['code'] . ', ' . '\'' . $this->db->escapeStr($aParams['message']) . '\' ' . '); ';
+		$aParams['date'] = Date::now()->toMysqlString();
 
-		if (!$this->db->execute($query)) {
-			return false;
-		}
-
-		return true;
+		return $this->okt['db']->insert($this->t_log, $aParams);
 	}
 
 	/**
-	 * Ajout d'un log admin de type info.
+	 * Adding an admin log type info.
 	 *
 	 * @param array $aParams
 	 * @return boolean
 	 */
 	public function info(array $aParams = [])
 	{
-		$aParams['type'] = 0;
+		$aParams['type'] = self::TYPE_INFO;
 
 		return $this->add($aParams);
 	}
 
 	/**
-	 * Ajout d'un log admin de type warning.
+	 * Adding an admin log type warning.
 	 *
 	 * @param array $aParams
 	 * @return boolean
 	 */
 	public function warning(array $aParams = [])
 	{
-		$aParams['type'] = 10;
+		$aParams['type'] = self::TYPE_WARNING;
 
 		return $this->add($aParams);
 	}
 
 	/**
-	 * Ajout d'un log admin de type critical.
+	 * Adding an admin log type critical.
 	 *
 	 * @param array $aParams
 	 * @return boolean
 	 */
 	public function critical(array $aParams = [])
 	{
-		$aParams['type'] = 20;
+		$aParams['type'] = self::TYPE_CRITICAL;
 
 		return $this->add($aParams);
 	}
 
 	/**
-	 * Ajout d'un log admin de type error.
+	 * Adding an admin log type error.
 	 *
 	 * @param array $aParams
 	 * @return boolean
 	 */
 	public function error(array $aParams = [])
 	{
-		$aParams['type'] = 30;
+		$aParams['type'] = self::TYPE_ERROR;
 
 		return $this->add($aParams);
 	}
 
 	/**
-	 * Suppression de tous les logs.
+	 * Delete all logs.
 	 *
 	 * @return boolean
 	 */
 	public function deleteLogs($iNnumMonths = null)
 	{
-		$sSqlQuery = 'DELETE FROM ' . $this->t_log;
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
-		if ($iNnumMonths > 0) {
-			$sSqlQuery .= ' WHERE date < \'' . date('Y-m-d H:i:s', strtotime('-' . $iNnumMonths . ' months')) . '\' ';
-		}
+		$queryBuilder->delete($this->t_log);
 
-		if (!$this->db->execute($sSqlQuery))
+		$iNnumMonths = intval($iNnumMonths);
+
+		if ($iNnumMonths > 0)
 		{
-			return false;
+			$queryBuilder
+				->where(
+					$queryBuilder->expr()->lte('date', ':date')
+				)
+				->setParameter('date', Date::now()->subMonths($iNnumMonths), 'datetime');
 		}
 
-		return true;
+		return $queryBuilder->execute();
 	}
 
 	/**
@@ -331,7 +374,7 @@ class LogAdmin
 	}
 
 	/**
-	 * Retourne la liste des types de logs.
+	 * Returns a list of the types of logs.
 	 *
 	 * @param boolean $bFlip
 	 * @return array
@@ -339,10 +382,10 @@ class LogAdmin
 	public static function getTypes($bFlip = false)
 	{
 		$aTypes = [
-			0 => __('c_c_log_admin_type_0'), # info
-			10 => __('c_c_log_admin_type_10'), # warning
-			20 => __('c_c_log_admin_type_20'), # critique
-			30 => __('c_c_log_admin_type_30') # error
+			self::TYPE_INFO      => __('c_c_log_admin_type_0'),
+			self::TYPE_WARNING   => __('c_c_log_admin_type_10'),
+			self::TYPE_CRITICAL  => __('c_c_log_admin_type_20'),
+			self::TYPE_ERROR     => __('c_c_log_admin_type_30')
 		];
 
 		if ($bFlip) {
@@ -353,7 +396,7 @@ class LogAdmin
 	}
 
 	/**
-	 * Retourne la liste des codes de logs.
+	 * Returns a list of the code of logs.
 	 *
 	 * @param boolean $bFlip
 	 * @return array
@@ -361,27 +404,23 @@ class LogAdmin
 	public static function getCodes($bFlip = false)
 	{
 		$aCodes = [
-			0 => __('c_c_log_admin_code_0'), # autre
+			self::CODE_UNKNOWN           => __('c_c_log_admin_code_0'), # autre
 
+			self::CODE_LOGIN             => __('c_c_log_admin_code_10'), # connexion
+			self::CODE_LOGOUT            => __('c_c_log_admin_code_11'), # déconnexion
 
-			10 => __('c_c_log_admin_code_10'), # connexion
-			11 => __('c_c_log_admin_code_11'), # déconnexion
+			self::CODE_INSTALL           => __('c_c_log_admin_code_20'), # installation
+			self::CODE_UPDATE            => __('c_c_log_admin_code_21'), # mise à jour
+			self::CODE_UNINSTALL         => __('c_c_log_admin_code_22'), # désinstallation
+			self::CODE_REINSTALL         => __('c_c_log_admin_code_23'), # ré-installation
 
+			self::CODE_ACTIVATION        => __('c_c_log_admin_code_30'), # activation
+			self::CODE_DEACTIVATION      => __('c_c_log_admin_code_31'), # désactivation
+			self::CODE_SWITCH_STATUS     => __('c_c_log_admin_code_32'), # switch status
 
-			20 => __('c_c_log_admin_code_20'), # installation
-			21 => __('c_c_log_admin_code_21'), # mise à jour
-			22 => __('c_c_log_admin_code_22'), # désinstallation
-			23 => __('c_c_log_admin_code_23'), # ré-installation
-
-
-			30 => __('c_c_log_admin_code_30'), # activation
-			31 => __('c_c_log_admin_code_31'), # désactivation
-			32 => __('c_c_log_admin_code_32'), # switch status
-
-
-			40 => __('c_c_log_admin_code_40'), # ajout
-			41 => __('c_c_log_admin_code_41'), # modification
-			42 => __('c_c_log_admin_code_42') # suppression
+			self::CODE_ADD               => __('c_c_log_admin_code_40'), # ajout
+			self::CODE_CHANGE            => __('c_c_log_admin_code_41'), # modification
+			self::CODE_DELETE            => __('c_c_log_admin_code_42') # suppression
 		];
 
 		if ($bFlip) {
@@ -410,16 +449,16 @@ class LogAdmin
 		switch ($iType)
 		{
 			default:
-			case 0:
+			case self::TYPE_INFO:
 				$sReturn .= '<span class="icon information"></span>';
 				break;
 
-			case 10:
+			case self::TYPE_WARNING:
 				$sReturn .= '<span class="icon error"></span>';
 				break;
 
-			case 20:
-			case 30:
+			case self::TYPE_CRITICAL:
+			case self::TYPE_ERROR:
 				$sReturn .= '<span class="icon exclamation"></span>';
 				break;
 		}
