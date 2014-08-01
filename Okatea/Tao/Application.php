@@ -18,7 +18,6 @@ use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
-use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
@@ -27,6 +26,8 @@ use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
+use Okatea\Tao\Services\Database as DatabaseServiceProvider;
+use Okatea\Tao\Services\Logger as LoggerServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
@@ -274,19 +275,18 @@ class Application extends Container
 
 		$this->options = new ApplicationOptions($aOptions);
 
-		$this->startUtf8();
-
-		$this->startLogger();
+		$this->Utf8Bootup();
 
 		$this->startConfig();
+
+		$this->register(new DatabaseServiceProvider());
+		$this->register(new LoggerServiceProvider());
 
 		$this->startHttpFoundation();
 
 		$this->startDebug();
 
 		$this->startTriggers();
-
-		$this->register(new DatabaseServiceProvider());
 	}
 
 	/**
@@ -323,7 +323,7 @@ class Application extends Container
 		$this->navigation = new Menus($this);
 	}
 
-	protected function startUtf8()
+	protected function Utf8Bootup()
 	{
 		# Enables the portablity layer and configures PHP for UTF-8
 		Utf8Bootup::initAll();
@@ -344,7 +344,7 @@ class Application extends Container
 		if ($this->options->get('debug'))
 		{
 			Debug::enable();
-			DebugErrorHandler::setLogger($this->logger);
+			DebugErrorHandler::setLogger($this['logger']);
 		}
 
 		# otherwise log them
@@ -452,7 +452,7 @@ class Application extends Container
 				$this->options->get('config_dir') . '/Routes',
 				$this->options->get('cache_dir') . '/routing',
 				$this->options->get('debug'),
-				$this->logger
+				$this['logger']
 			);
 		}
 	}
@@ -466,24 +466,7 @@ class Application extends Container
 				$this->options->get('config_dir') . '/RoutesAdmin',
 				$this->options->get('cache_dir') . '/routing/admin',
 				$this->options->get('debug'),
-				$this->logger
-			);
-		}
-	}
-
-	public function startLogger()
-	{
-		if (null === $this->logger)
-		{
-			$this->logger = new Logger('okatea', [
-					new FirePHPHandler()
-				],
-				[
-					new IntrospectionProcessor(),
-					new WebProcessor(),
-					new MemoryUsageProcessor(),
-					new MemoryPeakUsageProcessor()
-				]
+				$this['logger']
 			);
 		}
 	}

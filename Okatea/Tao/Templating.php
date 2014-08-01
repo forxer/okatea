@@ -28,7 +28,7 @@ class Templating extends PhpEngine
 
 		$loader = new FilesystemLoader($aTplDirectories);
 
-		$loader->setLogger($this->okt->logger);
+		$loader->setLogger($this->okt['logger']);
 
 		parent::__construct(new TemplateNameParser(), $loader);
 
