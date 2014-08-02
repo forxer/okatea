@@ -38,7 +38,7 @@ class Advanced extends Controller
 		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->aPageData);
 
 		# save configuration
-		if ($this->request->request->has('form_sent') && ! $this->okt['flash']->hasError())
+		if ($this->okt['request']->request->has('form_sent') && ! $this->okt['flash']->hasError())
 		{
 			$this->othersHandleRequest();
 
@@ -178,35 +178,35 @@ class Advanced extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'maintenance' => array(
-				'public' => $this->request->request->has('p_maintenance_public'),
-				'admin' => $this->request->request->has('p_maintenance_admin')
+				'public' => $this->okt['request']->request->has('p_maintenance_public'),
+				'admin' => $this->okt['request']->request->has('p_maintenance_admin')
 			),
 
-			'htmlpurifier_disabled' => $this->request->request->has('p_htmlpurifier_disabled'),
+			'htmlpurifier_disabled' => $this->okt['request']->request->has('p_htmlpurifier_disabled'),
 
 			'user_visit' => array(
-				'timeout' => $this->request->request->getInt('p_user_visit_timeout', 1800),
-				'remember_time' => $this->request->request->getInt('p_user_visit_remember_time', 1209600)
+				'timeout' => $this->okt['request']->request->getInt('p_user_visit_timeout', 1800),
+				'remember_time' => $this->okt['request']->request->getInt('p_user_visit_remember_time', 1209600)
 			),
 
 			'log_admin' => array(
-				'ttl_months' => $this->request->request->getInt('p_log_admin_ttl_months', 3)
+				'ttl_months' => $this->okt['request']->request->getInt('p_log_admin_ttl_months', 3)
 			),
 
 			'news_feed' => array(
-				'enabled' => $this->request->request->has('p_news_feed_enabled'),
-				'url' => $this->request->request->get('p_news_feed_url', array())
+				'enabled' => $this->okt['request']->request->has('p_news_feed_enabled'),
+				'url' => $this->okt['request']->request->get('p_news_feed_url', array())
 			),
 
-			'slug_type' => $this->request->request->get('p_slug_type', 'ascii')
+			'slug_type' => $this->okt['request']->request->get('p_slug_type', 'ascii')
 		));
 	}
 
 	protected function pathUrlHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'app_path' => Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
-			'domain' => Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
+			'app_path' => Utilities::formatAppPath($this->okt['request']->request->get('p_app_path', '/')),
+			'domain' => Utilities::formatAppPath($this->okt['request']->request->get('p_domain', ''), false, false)
 		));
 	}
 
@@ -215,12 +215,12 @@ class Advanced extends Controller
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'repositories' => array(
 				'themes' => array(
-					'enabled' => $this->request->request->has('p_themes_repositories_enabled'),
-					'list' => array_filter(array_combine($this->request->request->get('p_themes_repositories_names', array()), $this->request->request->get('p_themes_repositories_urls', array())))
+					'enabled' => $this->okt['request']->request->has('p_themes_repositories_enabled'),
+					'list' => array_filter(array_combine($this->okt['request']->request->get('p_themes_repositories_names', array()), $this->okt['request']->request->get('p_themes_repositories_urls', array())))
 				),
 				'modules' => array(
-					'enabled' => $this->request->request->has('p_modules_repositories_enabled'),
-					'list' => array_filter(array_combine($this->request->request->get('p_modules_repositories_names', array()), $this->request->request->get('p_modules_repositories_urls', array())))
+					'enabled' => $this->okt['request']->request->has('p_modules_repositories_enabled'),
+					'list' => array_filter(array_combine($this->okt['request']->request->get('p_modules_repositories_names', array()), $this->okt['request']->request->get('p_modules_repositories_urls', array())))
 				)
 			)
 		));
@@ -230,9 +230,9 @@ class Advanced extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'updates' => array(
-				'enabled' => $this->request->request->has('p_updates_enabled'),
-				'url' => $this->request->request->get('p_updates_url'),
-				'type' => $this->request->request->get('p_updates_type')
+				'enabled' => $this->okt['request']->request->has('p_updates_enabled'),
+				'url' => $this->okt['request']->request->get('p_updates_url'),
+				'type' => $this->okt['request']->request->get('p_updates_type')
 			)
 		));
 	}

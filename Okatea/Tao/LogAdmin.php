@@ -265,7 +265,7 @@ class LogAdmin
 		}
 
 		if (empty($aParams['ip'])) {
-			$aParams['ip'] = $this->okt->request->getClientIp();
+			$aParams['ip'] = $this->okt['request']->getClientIp();
 		}
 
 		if (empty($aParams['type'])) {

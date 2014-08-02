@@ -31,7 +31,7 @@ class Builder extends Controller
 			return $this->serve401();
 		}
 		
-		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->request->attributes->get('step'));
+		$this->stepper = new Stepper($this->generateUrl('Builder_index'), $this->okt['request']->attributes->get('step'));
 		
 		$this->tools = new BaseTools($this->okt);
 		
@@ -55,9 +55,9 @@ class Builder extends Controller
 			$sPackageType = 'dev';
 		}
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$this->okt['session']->set('release_type', $this->request->request->get('type'));
+			$this->okt['session']->set('release_type', $this->okt['request']->request->get('type'));
 			
 			return $this->redirect($this->generateUrl('Builder_index', array(
 				'step' => $this->stepper->getNextStep()
@@ -72,7 +72,7 @@ class Builder extends Controller
 
 	protected function copy()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			
@@ -90,7 +90,7 @@ class Builder extends Controller
 
 	protected function cleanup()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			
@@ -110,9 +110,9 @@ class Builder extends Controller
 	{
 		$sChangelog = $this->tools->getTempDir($this->okt->options->okt_dir) . '/CHANGELOG';
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			file_put_contents($sChangelog, $this->request->request->get('changelog_editor'));
+			file_put_contents($sChangelog, $this->okt['request']->request->get('changelog_editor'));
 			
 			return $this->redirect($this->generateUrl('Builder_index', array(
 				'step' => $this->stepper->getNextStep()
@@ -129,11 +129,11 @@ class Builder extends Controller
 		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir) . '/conf_site.yml';
 		$sOptionsFile = $this->tools->getTempDir() . '/oktOptions.php';
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			file_put_contents($sConfigFile, $this->request->request->get('config_editor'));
+			file_put_contents($sConfigFile, $this->okt['request']->request->get('config_editor'));
 			
-			file_put_contents($sOptionsFile, $this->request->request->get('options_editor'));
+			file_put_contents($sOptionsFile, $this->okt['request']->request->get('options_editor'));
 			
 			return $this->redirect($this->generateUrl('Builder_index', array(
 				'step' => $this->stepper->getNextStep()
@@ -148,7 +148,7 @@ class Builder extends Controller
 
 	protected function modules()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			
@@ -166,7 +166,7 @@ class Builder extends Controller
 
 	protected function themes()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			
@@ -184,7 +184,7 @@ class Builder extends Controller
 
 	protected function digests()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			
@@ -202,7 +202,7 @@ class Builder extends Controller
 
 	protected function packages()
 	{
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->setMaxRessources();
 			

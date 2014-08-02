@@ -144,11 +144,11 @@ class Users extends BaseFilters
 
 	protected function setFilterOrderBy()
 	{
-		if ($this->request->query->has('order_direction'))
+		if ($this->okt['request']->query->has('order_direction'))
 		{
 			$this->params->show_filters = true;
 			
-			if (strtolower($this->request->query->get('order_direction')) === 'desc')
+			if (strtolower($this->okt['request']->query->get('order_direction')) === 'desc')
 			{
 				$this->params->order_direction = 'desc';
 			}
@@ -167,9 +167,9 @@ class Users extends BaseFilters
 			$this->setActiveFilter('order_direction');
 		}
 		
-		if ($this->request->query->has('order_by'))
+		if ($this->okt['request']->query->has('order_by'))
 		{
-			$this->params->order_by = $this->request->query->get('order_by');
+			$this->params->order_by = $this->okt['request']->query->get('order_by');
 			$this->okt['session']->set($this->sess_prefix . 'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_by');

@@ -59,7 +59,7 @@ class Category extends Controller
 	{
 		$this->init();
 		
-		$this->aCategoryData['cat']['id'] = $this->request->attributes->getInt('category_id');
+		$this->aCategoryData['cat']['id'] = $this->okt['request']->attributes->getInt('category_id');
 		
 		$rsCategory = $this->okt->module('Pages')->categories->getCategory($this->aCategoryData['cat']['id']);
 		
@@ -104,9 +104,9 @@ class Category extends Controller
 		$this->aCategoryData['extra']['iNumPosts'] = $rsCategory->num_posts;
 		
 		# AJAX : changement de l'ordre des rubriques voisines
-		if ($this->request->query->has('ajax_update_order'))
+		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$order = $this->request->query->get('ord', array());
+			$order = $this->okt['request']->query->get('ord', array());
 			
 			if (! empty($order))
 			{
@@ -130,9 +130,9 @@ class Category extends Controller
 		}
 		
 		# POST : changement de l'ordre des rubriques voisines
-		if ($this->request->request->has('order_categories'))
+		if ($this->okt['request']->request->has('order_categories'))
 		{
-			$order = $this->request->request->get('p_order', array());
+			$order = $this->okt['request']->request->get('p_order', array());
 			
 			asort($order);
 			$order = array_keys($order);
@@ -161,7 +161,7 @@ class Category extends Controller
 		}
 		
 		# switch status
-		if ($this->request->query->has('switch_status'))
+		if ($this->okt['request']->query->has('switch_status'))
 		{
 			try
 			{
@@ -263,32 +263,32 @@ class Category extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->request->request->has('sended'))
+		if (! $this->okt['request']->request->has('sended'))
 		{
 			return false;
 		}
 		
-		$this->aCategoryData['cat']['active'] = $this->request->request->getInt('p_active');
-		$this->aCategoryData['cat']['parent_id'] = $this->request->request->getInt('p_parent_id');
-		$this->aCategoryData['cat']['tpl'] = $this->request->request->get('p_tpl');
-		$this->aCategoryData['cat']['items_tpl'] = $this->request->request->get('p_items_tpl');
+		$this->aCategoryData['cat']['active'] = $this->okt['request']->request->getInt('p_active');
+		$this->aCategoryData['cat']['parent_id'] = $this->okt['request']->request->getInt('p_parent_id');
+		$this->aCategoryData['cat']['tpl'] = $this->okt['request']->request->get('p_tpl');
+		$this->aCategoryData['cat']['items_tpl'] = $this->okt['request']->request->get('p_items_tpl');
 		
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
+			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
 			
 			if ($this->okt->module('Pages')->config->categories['descriptions'])
 			{
-				$this->aCategoryData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['content'] = $this->okt['request']->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
 			}
 			
 			if ($this->okt->module('Pages')->config->enable_metas)
 			{
-				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
-				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
-				$this->aCategoryData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
-				$this->aCategoryData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
-				$this->aCategoryData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['title_seo'] = $this->okt['request']->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['title_tag'] = $this->okt['request']->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['meta_description'] = $this->okt['request']->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['meta_keywords'] = $this->okt['request']->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
+				$this->aCategoryData['locales'][$aLanguage['code']]['slug'] = $this->okt['request']->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
 			}
 		}
 		

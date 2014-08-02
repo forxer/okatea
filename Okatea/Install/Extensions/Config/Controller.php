@@ -28,12 +28,12 @@ class Controller extends BaseController
 			'email' => $this->okt['config']->email
 		];
 
-		$aValues['app_path'] = str_replace('install', '', dirname($this->request->getRequestUri()));
-		$aValues['domain'] = $this->request->getHttpHost();
+		$aValues['app_path'] = str_replace('install', '', dirname($this->okt['request']->getRequestUri()));
+		$aValues['domain'] = $this->okt['request']->getHttpHost();
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
-			$p_title = $this->request->request->get('p_title', array());
+			$p_title = $this->okt['request']->request->get('p_title', array());
 
 			foreach ($p_title as $sLanguageCode => $sTitle)
 			{
@@ -48,7 +48,7 @@ class Controller extends BaseController
 				}
 			}
 
-			$p_email_to = $this->request->request->get('p_email_to');
+			$p_email_to = $this->okt['request']->request->get('p_email_to');
 			if (empty($p_email_to))
 			{
 				$this->okt->error->set(__('c_a_config_please_enter_email_to'));
@@ -58,7 +58,7 @@ class Controller extends BaseController
 				$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 			}
 
-			$p_email_from = $this->request->request->get('p_email_from');
+			$p_email_from = $this->okt['request']->request->get('p_email_from');
 			if (empty($p_email_from))
 			{
 				$this->okt->error->set(__('c_a_config_please_enter_email_from'));
@@ -70,11 +70,11 @@ class Controller extends BaseController
 
 			$aValues = [
 				'title' 	=> $p_title,
-				'desc' 		=> $this->request->request->get('p_desc', array()),
+				'desc' 		=> $this->okt['request']->request->get('p_desc', array()),
 				'email' => array(
 					'to' => $p_email_to,
 					'from' => $p_email_from,
-					'name' => $this->request->request->get('p_email_name'),
+					'name' => $this->okt['request']->request->get('p_email_name'),
 					'transport' => 'mail',
 					'smtp' => [
 						'host' => '',
@@ -84,8 +84,8 @@ class Controller extends BaseController
 					],
 					'sendmail' => ''
 				),
-				'app_path' 	=> Utilities::formatAppPath($this->request->request->get('p_app_path', '/')),
-				'domain' 	=> Utilities::formatAppPath($this->request->request->get('p_domain', ''), false, false)
+				'app_path' 	=> Utilities::formatAppPath($this->okt['request']->request->get('p_app_path', '/')),
+				'domain' 	=> Utilities::formatAppPath($this->okt['request']->request->get('p_domain', ''), false, false)
 			];
 
 			# save configuration

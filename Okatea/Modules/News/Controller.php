@@ -39,7 +39,7 @@ class Controller extends BaseController
 			'language' => $this->okt->user->language
 		);
 
-		$sSearch = $this->request->query->get('search');
+		$sSearch = $this->okt['request']->query->get('search');
 
 		if ($sSearch)
 		{
@@ -50,7 +50,7 @@ class Controller extends BaseController
 		$this->okt->module('News')->filtersStart('public');
 
 		# ré-initialisation filtres
-		if ($this->request->query->has('init_news_filters'))
+		if ($this->okt['request']->query->has('init_news_filters'))
 		{
 			$this->okt->module('News')->filters->initFilters();
 			return $this->redirect($this->generateUrl('newsList'));
@@ -169,7 +169,7 @@ class Controller extends BaseController
 		}
 
 		# récupération de la rubrique en fonction du slug
-		if (! $sCategorySlug = $this->request->attributes->get('slug'))
+		if (! $sCategorySlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -218,7 +218,7 @@ class Controller extends BaseController
 		$this->okt->module('News')->filtersStart('public');
 
 		# ré-initialisation filtres
-		if ($this->request->query->has('init_news_filters'))
+		if ($this->okt['request']->query->has('init_news_filters'))
 		{
 			$this->okt->module('News')->filters->initFilters();
 			return $this->redirect($this->generateUrl('newsList'));
@@ -320,7 +320,7 @@ class Controller extends BaseController
 	public function newsItem()
 	{
 		# récupération de l'article en fonction du slug
-		if (! $sPostSlug = $this->request->attributes->get('slug'))
+		if (! $sPostSlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

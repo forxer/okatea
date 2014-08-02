@@ -35,9 +35,9 @@ class Controller extends BaseController
 
 		$aValues = [];
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
-			$aThemes = $this->request->request->get('p_themes', array(), true);
+			$aThemes = $this->okt['request']->request->get('p_themes', array(), true);
 
 			array_unshift($aThemes, 'DefaultTheme');
 

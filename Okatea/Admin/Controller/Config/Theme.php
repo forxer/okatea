@@ -20,7 +20,7 @@ class Theme extends Controller
 			return $this->serve401();
 		}
 		
-		$sThemeId = $this->request->attributes->get('theme_id');
+		$sThemeId = $this->okt['request']->attributes->get('theme_id');
 		
 		if (! $this->okt->themes->isLoaded($sThemeId))
 		{
@@ -43,7 +43,7 @@ class Theme extends Controller
 		{
 			$bHasDevNotes = true;
 			
-			$bEditDevNotes = $this->request->query->has('edit_notes');
+			$bEditDevNotes = $this->okt['request']->query->has('edit_notes');
 			
 			$sDevNotesMd = file_get_contents($sDevNotesFilename);
 			
@@ -69,7 +69,7 @@ class Theme extends Controller
 		{
 			if ($bHasDevNotes)
 			{
-				file_put_contents($sDevNotesFilename, $this->request->request->get('notes_content'));
+				file_put_contents($sDevNotesFilename, $this->okt['request']->request->get('notes_content'));
 			}
 			
 			return $this->redirect($this->generateUrl('config_theme', array(

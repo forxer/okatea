@@ -8,9 +8,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:atom="http://www.w3.org/2005/Atom"> <channel>
 <title><?php echo $view->escape($okt->page->getSiteTitle().' - '.$okt->module('Pages')->getTitle()) ?></title>
-<link><?php echo $view->escape($okt->request->getSchemeAndHttpHost().$view->generateUrl('pagesList')) ?></link>
+<link><?php echo $view->escape($okt['request']->getSchemeAndHttpHost().$view->generateUrl('pagesList')) ?></link>
 <atom:link
-	href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$view->generateUrl('pagesFeed')) ?>"
+	href="<?php echo $view->escape($okt['request']->getSchemeAndHttpHost().$view->generateUrl('pagesFeed')) ?>"
 	rel="self" type="application/rss+xml" /> <description><?php echo $view->escape($okt->page->getSiteDescription()) ?></description>
 <language><?php echo $view->escape($okt['config']->language) ?></language>
 <!-- <pubDate>{{tpl:BlogUpdateDate rfc822="1"}}</pubDate> --> <!-- <copyright>{{tpl:BlogCopyrightNotice encode_xml="1"}}</copyright> -->
@@ -29,7 +29,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 			?>
 		<item>
 <title><?php echo $view->escape($rsPagesList->title) ?></title>
-<link><?php echo $view->escape($okt->request->getSchemeAndHttpHost().$rsPagesList->url) ?></link>
+<link><?php echo $view->escape($okt['request']->getSchemeAndHttpHost().$rsPagesList->url) ?></link>
 <!--
 			<guid isPermaLink="false">{{tpl:EntryFeedID}}</guid>
 			--> <pubDate><?php echo Date::parse($rsPagesList->created_at)->toRSSString() ?></pubDate>

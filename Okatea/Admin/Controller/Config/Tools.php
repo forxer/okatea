@@ -276,7 +276,7 @@ class Tools extends Controller
 	protected function cacheHandleRequest()
 	{
 		# Suppression d'un fichier cache
-		$sCacheFile = $this->request->query->get('cache_file');
+		$sCacheFile = $this->okt['request']->query->get('cache_file');
 		if ($sCacheFile)
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir') . '/' . $sCacheFile);
@@ -287,7 +287,7 @@ class Tools extends Controller
 		}
 
 		# Suppression d'un fichier cache public
-		$sPublicCacheFile = $this->request->query->get('public_cache_file');
+		$sPublicCacheFile = $this->okt['request']->query->get('public_cache_file');
 		if ($sPublicCacheFile)
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->public_dir . '/cache/' . $sPublicCacheFile);
@@ -298,7 +298,7 @@ class Tools extends Controller
 		}
 
 		# Suppression des fichiers cache
-		if ($this->request->query->has('all_cache_file'))
+		if ($this->okt['request']->query->has('all_cache_file'))
 		{
 			Utilities::deleteOktCacheFiles();
 
@@ -315,7 +315,7 @@ class Tools extends Controller
 	protected function cleanupHandleRequest()
 	{
 		# suppression des fichiers
-		$aNeedToDelete = $this->request->request->get('cleanup');
+		$aNeedToDelete = $this->okt['request']->request->get('cleanup');
 		if ($aNeedToDelete)
 		{
 			$aToDelete = array();
@@ -362,7 +362,7 @@ class Tools extends Controller
 	protected function backupHandleRequest()
 	{
 		# création d'un fichier de backup
-		if ($this->request->query->has('make_backup'))
+		if ($this->okt['request']->query->has('make_backup'))
 		{
 			$sFilename = $this->sBackupFilenameBase . '-' . date('Y-m-d-H-i') . '.zip';
 
@@ -406,7 +406,7 @@ class Tools extends Controller
 		}
 
 		# création d'un fichier de backup de la base de données
-		if ($this->request->query->has('make_db_backup'))
+		if ($this->okt['request']->query->has('make_db_backup'))
 		{
 			$return = '';
 			$tables = $this->okt->db->getTables();
@@ -466,7 +466,7 @@ class Tools extends Controller
 		}
 
 		# suppression d'un fichier de backup
-		$sBackupFileToDelete = $this->request->query->get('delete_backup_file');
+		$sBackupFileToDelete = $this->okt['request']->query->get('delete_backup_file');
 		if ($sBackupFileToDelete && (in_array($sBackupFileToDelete, $this->aBackupFiles) || in_array($sBackupFileToDelete, $this->aDbBackupFiles)))
 		{
 			@unlink($this->okt->options->get('root_dir') . '/' . $sBackupFileToDelete);
@@ -477,7 +477,7 @@ class Tools extends Controller
 		}
 
 		# téléchargement d'un fichier de backup
-		$sBackupFileToDownload = $this->request->query->get('dl_backup');
+		$sBackupFileToDownload = $this->okt['request']->query->get('dl_backup');
 		if ($sBackupFileToDownload && (in_array($sBackupFileToDownload, $this->aBackupFiles) || in_array($sBackupFileToDownload, $this->aDbBackupFiles)))
 		{
 			Utilities::forceDownload($this->okt->options->get('root_dir') . '/' . $sBackupFileToDownload);
@@ -490,7 +490,7 @@ class Tools extends Controller
 	protected function htaccessHandleRequest()
 	{
 		# création du fichier .htaccess
-		if ($this->request->query->has('create_htaccess'))
+		if ($this->okt['request']->query->has('create_htaccess'))
 		{
 			if ($this->bHtaccessExists)
 			{
@@ -511,7 +511,7 @@ class Tools extends Controller
 		}
 
 		# suppression du fichier .htaccess
-		if ($this->request->query->has('delete_htaccess'))
+		if ($this->okt['request']->query->has('delete_htaccess'))
 		{
 			@unlink($this->okt->options->get('root_dir') . '/.htaccess');
 
@@ -521,9 +521,9 @@ class Tools extends Controller
 		}
 
 		# modification du fichier .htaccess
-		if ($this->request->request->has('htaccess_form_sent'))
+		if ($this->okt['request']->request->has('htaccess_form_sent'))
 		{
-			file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', $this->request->request->get('p_htaccess_content'));
+			file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', $this->okt['request']->request->get('p_htaccess_content'));
 
 			$this->okt['flash']->success(__('c_a_tools_htaccess_edited'));
 
@@ -535,7 +535,7 @@ class Tools extends Controller
 
 	protected function uninstallHandleRequest()
 	{
-		if ($this->request->request->has('uninstall') && $this->bCanUninstall)
+		if ($this->okt['request']->request->has('uninstall') && $this->bCanUninstall)
 		{
 			# uninstall modules
 			foreach ($this->okt->modules->getManager()->getInstalled() as $aModuleInfos)
@@ -575,9 +575,9 @@ class Tools extends Controller
 			$response = $this->redirect($this->okt['config']->app_path.'install');
 
 			# remove cookies
-			foreach ($this->request->cookies->keys() as $cookie)
+			foreach ($this->okt['request']->cookies->keys() as $cookie)
 			{
-				$response->headers->clearCookie($cookie, $this->okt['config']->app_path, $this->request->getHttpHost());
+				$response->headers->clearCookie($cookie, $this->okt['config']->app_path, $this->okt['request']->getHttpHost());
 			}
 
 			return $response;

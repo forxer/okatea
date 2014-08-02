@@ -38,7 +38,7 @@ class Config extends Controller
 		$oTemplatesFeed = new TemplatesSet($this->okt, $this->okt->module('News')->config->templates['feed'], 'News/feed', 'feed', $this->generateUrl('News_config') . '?');
 		
 		# régénération des miniatures
-		if ($this->request->query->has('minregen'))
+		if ($this->okt['request']->query->has('minregen'))
 		{
 			$this->okt->module('News')->regenMinImages();
 			
@@ -48,7 +48,7 @@ class Config extends Controller
 		}
 		
 		# suppression filigrane
-		if ($this->request->request->has('delete_watermark'))
+		if ($this->okt['request']->request->has('delete_watermark'))
 		{
 			$this->okt->module('News')->config->write(array(
 				'images' => $oImageUploadConfig->removeWatermak()
@@ -60,14 +60,14 @@ class Config extends Controller
 		}
 		
 		# enregistrement configuration
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$p_enable_metas = $this->request->request->has('p_enable_metas');
-			$p_enable_filters = $this->request->request->has('p_enable_filters');
+			$p_enable_metas = $this->okt['request']->request->has('p_enable_metas');
+			$p_enable_filters = $this->okt['request']->request->has('p_enable_filters');
 			
-			if ($this->request->request->has('p_perms'))
+			if ($this->okt['request']->request->has('p_perms'))
 			{
-				$p_perms = array_map('intval', $this->request->request->get('p_perms'));
+				$p_perms = array_map('intval', $this->okt['request']->request->get('p_perms'));
 			}
 			else
 			{
@@ -76,13 +76,13 @@ class Config extends Controller
 				);
 			}
 			
-			$p_enable_group_perms = $this->request->request->has('p_enable_group_perms');
+			$p_enable_group_perms = $this->okt['request']->request->has('p_enable_group_perms');
 			
-			$p_enable_rte = $this->request->request->get('p_enable_rte');
+			$p_enable_rte = $this->okt['request']->request->get('p_enable_rte');
 			
-			$p_categories_enable = $this->request->request->has('p_categories_enable');
-			$p_categories_descriptions = $this->request->request->has('p_categories_descriptions');
-			$p_categories_rte = $this->request->request->get('p_categories_rte');
+			$p_categories_enable = $this->okt['request']->request->has('p_categories_enable');
+			$p_categories_descriptions = $this->okt['request']->request->has('p_categories_descriptions');
+			$p_categories_rte = $this->okt['request']->request->get('p_categories_rte');
 			
 			$p_tpl_list = $oTemplatesList->getPostConfig();
 			$p_tpl_item = $oTemplatesItem->getPostConfig();
@@ -91,15 +91,15 @@ class Config extends Controller
 			
 			$aImagesConfig = $oImageUploadConfig->getPostConfig();
 			
-			$p_enable_files = $this->request->request->has('p_enable_files');
-			$p_number_files = $this->request->request->getInt('p_number_files');
-			$p_allowed_exts = $this->request->request->get('p_allowed_exts');
+			$p_enable_files = $this->okt['request']->request->has('p_enable_files');
+			$p_number_files = $this->okt['request']->request->getInt('p_number_files');
+			$p_allowed_exts = $this->okt['request']->request->get('p_allowed_exts');
 			
-			$p_name = $this->request->request->get('p_name', array());
-			$p_name_seo = $this->request->request->get('p_name_seo', array());
-			$p_title = $this->request->request->get('p_title', array());
-			$p_meta_description = $this->request->request->get('p_meta_description', array());
-			$p_meta_keywords = $this->request->request->get('p_meta_keywords', array());
+			$p_name = $this->okt['request']->request->get('p_name', array());
+			$p_name_seo = $this->okt['request']->request->get('p_name_seo', array());
+			$p_title = $this->okt['request']->request->get('p_title', array());
+			$p_meta_description = $this->okt['request']->request->get('p_meta_description', array());
+			$p_meta_keywords = $this->okt['request']->request->get('p_meta_keywords', array());
 			
 			if (! $this->okt['flash']->hasError())
 			{

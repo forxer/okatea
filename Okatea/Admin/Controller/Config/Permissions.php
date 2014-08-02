@@ -48,9 +48,9 @@ class Permissions extends Controller
 			$aPerms[$rsGroups->group_id] = $rsGroups->perms ? json_decode($rsGroups->perms) : array();
 		}
 		
-		if ($this->request->request->has('sended_form'))
+		if ($this->okt['request']->request->has('sended_form'))
 		{
-			$perms = $this->request->request->get('perms');
+			$perms = $this->okt['request']->request->get('perms');
 			
 			foreach ($aGroups as $group_id => $group_title)
 			{

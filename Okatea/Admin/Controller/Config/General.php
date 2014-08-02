@@ -40,7 +40,7 @@ class General extends Controller
 		# -- TRIGGER CORE : adminConfigSiteInit
 		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
 
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->generalHandleRequest();
 
@@ -190,7 +190,7 @@ class General extends Controller
 
 	protected function generalHandleRequest()
 	{
-		$p_title = $this->request->request->get('p_title', array());
+		$p_title = $this->okt['request']->request->get('p_title', array());
 
 		foreach ($p_title as $sLanguageCode => $sTitle)
 		{
@@ -207,10 +207,10 @@ class General extends Controller
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'title' => $p_title,
-			'desc' => $this->request->request->get('p_desc', array()),
+			'desc' => $this->okt['request']->request->get('p_desc', array()),
 			'home_page' => array(
-				'item' => $this->request->request->get('p_home_page_item', array()),
-				'details' => $this->request->request->get('p_home_page_details', array())
+				'item' => $this->okt['request']->request->get('p_home_page_item', array()),
+				'details' => $this->okt['request']->request->get('p_home_page_details', array())
 			)
 		));
 	}
@@ -219,35 +219,35 @@ class General extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'company' => array(
-				'name' => $this->request->request->get('p_company_name'),
-				'com_name' => $this->request->request->get('p_company_com_name'),
-				'siret' => $this->request->request->get('p_company_siret')
+				'name' => $this->okt['request']->request->get('p_company_name'),
+				'com_name' => $this->okt['request']->request->get('p_company_com_name'),
+				'siret' => $this->okt['request']->request->get('p_company_siret')
 			),
-			'schedule' => $this->request->request->get('p_schedule', array()),
+			'schedule' => $this->okt['request']->request->get('p_schedule', array()),
 			'leader' => array(
-				'name' => $this->request->request->get('p_leader_name'),
-				'firstname' => $this->request->request->get('p_leader_firstname')
+				'name' => $this->okt['request']->request->get('p_leader_name'),
+				'firstname' => $this->okt['request']->request->get('p_leader_firstname')
 			),
 			'address' => array(
-				'street' => $this->request->request->get('p_address_street'),
-				'street_2' => $this->request->request->get('p_address_street_2'),
-				'code' => $this->request->request->get('p_address_code'),
-				'city' => $this->request->request->get('p_address_city'),
-				'country' => $this->request->request->get('p_address_country'),
-				'tel' => $this->request->request->get('p_address_tel'),
-				'mobile' => $this->request->request->get('p_address_mobile'),
-				'fax' => $this->request->request->get('p_address_fax')
+				'street' => $this->okt['request']->request->get('p_address_street'),
+				'street_2' => $this->okt['request']->request->get('p_address_street_2'),
+				'code' => $this->okt['request']->request->get('p_address_code'),
+				'city' => $this->okt['request']->request->get('p_address_city'),
+				'country' => $this->okt['request']->request->get('p_address_country'),
+				'tel' => $this->okt['request']->request->get('p_address_tel'),
+				'mobile' => $this->okt['request']->request->get('p_address_mobile'),
+				'fax' => $this->okt['request']->request->get('p_address_fax')
 			),
 			'gps' => array(
-				'lat' => $this->request->request->get('p_gps_lat'),
-				'long' => $this->request->request->get('p_gps_long')
+				'lat' => $this->okt['request']->request->get('p_gps_lat'),
+				'long' => $this->okt['request']->request->get('p_gps_long')
 			)
 		));
 	}
 
 	protected function emailsHandleRequest()
 	{
-		$p_email_to = $this->request->request->get('p_email_to');
+		$p_email_to = $this->okt['request']->request->get('p_email_to');
 		if (empty($p_email_to)) {
 			$this->okt['flash']->error(__('c_a_config_please_enter_email_to'));
 		}
@@ -255,7 +255,7 @@ class General extends Controller
 			$this->okt['flash']->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 		}
 
-		$p_email_from = $this->request->request->get('p_email_from');
+		$p_email_from = $this->okt['request']->request->get('p_email_from');
 		if (empty($p_email_from)) {
 			$this->okt['flash']->error(__('c_a_config_please_enter_email_from'));
 		}
@@ -267,15 +267,15 @@ class General extends Controller
 			'email' => array(
 				'to' => $p_email_to,
 				'from' => $p_email_from,
-				'name' => $this->request->request->get('p_email_name'),
-				'transport' => $this->request->request->get('p_email_transport', 'mail'),
+				'name' => $this->okt['request']->request->get('p_email_name'),
+				'transport' => $this->okt['request']->request->get('p_email_transport', 'mail'),
 				'smtp' => array(
-					'host' => $this->request->request->get('p_email_smtp_host'),
-					'port' => $this->request->request->getInt('p_email_smtp_port', 25),
-					'username' => $this->request->request->get('p_email_smtp_username'),
-					'password' => $this->request->request->get('p_email_smtp_password')
+					'host' => $this->okt['request']->request->get('p_email_smtp_host'),
+					'port' => $this->okt['request']->request->getInt('p_email_smtp_port', 25),
+					'username' => $this->okt['request']->request->get('p_email_smtp_username'),
+					'password' => $this->okt['request']->request->get('p_email_smtp_password')
 				),
-				'sendmail' => $this->request->request->get('p_email_sendmail')
+				'sendmail' => $this->okt['request']->request->get('p_email_sendmail')
 			)
 		));
 	}
@@ -283,9 +283,9 @@ class General extends Controller
 	protected function seoHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'title_tag' => $this->request->request->get('p_title_tag', array()),
-			'meta_description' => $this->request->request->get('p_meta_description', array()),
-			'meta_keywords' => $this->request->request->get('p_meta_keywords', array())
+			'title_tag' => $this->okt['request']->request->get('p_title_tag', array()),
+			'meta_description' => $this->okt['request']->request->get('p_meta_description', array()),
+			'meta_keywords' => $this->okt['request']->request->get('p_meta_keywords', array())
 		));
 	}
 }

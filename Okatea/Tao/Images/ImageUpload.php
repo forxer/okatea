@@ -263,14 +263,14 @@ class ImageUpload
 		{
 			$aImages[$j] = '';
 
-			if (! $this->okt->request->files->has(sprintf($this->aConfig['files_patern'], $i)))
+			if (! $this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
 			{
 				continue;
 			}
 
 			try
 			{
-				$oUploadedFile = $this->okt->request->files->get(sprintf($this->aConfig['files_patern'], $i));
+				$oUploadedFile = $this->okt['request']->files->get(sprintf($this->aConfig['files_patern'], $i));
 
 				if (null === $oUploadedFile)
 				{
@@ -306,10 +306,10 @@ class ImageUpload
 				$aImages[$j]['original_name'] = $oUploadedFile->getBasename();
 
 				# ajout d'un éventuel texte alternatif
-				$aImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
+				$aImages[$j]['alt'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
 				# ajout d'un éventuel titre
-				$aImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
+				$aImages[$j]['title'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 				$j ++;
 			}
@@ -337,15 +337,15 @@ class ImageUpload
 
 		for ($i = 1; $i <= $this->aConfig['number']; $i ++)
 		{
-			if (! $this->okt->request->files->has(sprintf($this->aConfig['files_patern'], $i)))
+			if (! $this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
 			{
 				if (isset($aCurrentImages[$i]))
 				{
 					$aNewImages[$j] = $aCurrentImages[$i];
 
-					$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
+					$aNewImages[$j]['alt'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
-					$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
+					$aNewImages[$j]['title'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 					$j ++;
 				}
@@ -354,7 +354,7 @@ class ImageUpload
 
 			try
 			{
-				$oUploadedFile = $this->okt->request->files->get(sprintf($this->aConfig['files_patern'], $i));
+				$oUploadedFile = $this->okt['request']->files->get(sprintf($this->aConfig['files_patern'], $i));
 
 				if (null === $oUploadedFile)
 				{
@@ -362,9 +362,9 @@ class ImageUpload
 					{
 						$aNewImages[$j] = $aCurrentImages[$i];
 
-						$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
+						$aNewImages[$j]['alt'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
-						$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
+						$aNewImages[$j]['title'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 						$j ++;
 					}
@@ -406,10 +406,10 @@ class ImageUpload
 				$aNewImages[$j] = self::getImagesFilesInfos($sCurrentImagesDir, $sCurrentImagesUrl, $sOutput);
 
 				# ajout d'un éventuel texte alternatif
-				$aNewImages[$j]['alt'] = $this->okt->request->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
+				$aNewImages[$j]['alt'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_alt_patern'], $i), '');
 
 				# ajout d'un éventuel title
-				$aNewImages[$j]['title'] = $this->okt->request->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
+				$aNewImages[$j]['title'] = $this->okt['request']->request->get(sprintf($this->aConfig['files_title_patern'], $i), '');
 
 				$j ++;
 			}

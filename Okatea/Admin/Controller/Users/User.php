@@ -41,22 +41,22 @@ class User extends Controller
 			'language' => $this->okt->user->language
 		);
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->aPageData['user'] = array(
 				'id' => $this->okt->user->id,
 				'status' => 1,
 				'group_id' => $this->okt->user->group_id,
-				'civility' => $this->request->request->getInt('civility'),
-				'username' => $this->request->request->get('username'),
-				'lastname' => $this->request->request->get('lastname'),
-				'firstname' => $this->request->request->get('firstname'),
-				'displayname' => $this->request->request->get('displayname'),
+				'civility' => $this->okt['request']->request->getInt('civility'),
+				'username' => $this->okt['request']->request->get('username'),
+				'lastname' => $this->okt['request']->request->get('lastname'),
+				'firstname' => $this->okt['request']->request->get('firstname'),
+				'displayname' => $this->okt['request']->request->get('displayname'),
 				'password' => '',
 				'password_confirm' => '',
-				'email' => $this->request->request->get('email'),
-				'timezone' => $this->request->request->get('timezone'),
-				'language' => $this->request->request->get('language')
+				'email' => $this->okt['request']->request->get('email'),
+				'timezone' => $this->okt['request']->request->get('timezone'),
+				'language' => $this->okt['request']->request->get('language')
 			);
 			
 			if (! $this->okt['flash']->hasError())
@@ -86,20 +86,20 @@ class User extends Controller
 		
 		$this->init();
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->aPageData['user'] = array(
-				'civility' => $this->request->request->getInt('civility'),
-				'status' => $this->request->request->getInt('status'),
-				'username' => $this->request->request->get('username'),
-				'lastname' => $this->request->request->get('lastname'),
-				'firstname' => $this->request->request->get('firstname'),
-				'displayname' => $this->request->request->get('displayname'),
-				'password' => $this->request->request->get('password'),
-				'password_confirm' => $this->request->request->get('password_confirm'),
-				'email' => $this->request->request->get('email'),
-				'timezone' => $this->request->request->get('timezone'),
-				'language' => $this->request->request->get('language')
+				'civility' => $this->okt['request']->request->getInt('civility'),
+				'status' => $this->okt['request']->request->getInt('status'),
+				'username' => $this->okt['request']->request->get('username'),
+				'lastname' => $this->okt['request']->request->get('lastname'),
+				'firstname' => $this->okt['request']->request->get('firstname'),
+				'displayname' => $this->okt['request']->request->get('displayname'),
+				'password' => $this->okt['request']->request->get('password'),
+				'password_confirm' => $this->okt['request']->request->get('password_confirm'),
+				'email' => $this->okt['request']->request->get('email'),
+				'timezone' => $this->okt['request']->request->get('timezone'),
+				'language' => $this->okt['request']->request->get('language')
 			);
 			
 			if (! $this->okt['flash']->hasError())
@@ -140,7 +140,7 @@ class User extends Controller
 		
 		$this->init();
 		
-		$this->iUserId = $this->request->attributes->getInt('user_id');
+		$this->iUserId = $this->okt['request']->attributes->getInt('user_id');
 		
 		$rsUser = $this->okt->getUsers()->getUser($this->iUserId);
 		
@@ -316,7 +316,7 @@ class User extends Controller
 
 	protected function validateUser()
 	{
-		if (! $this->request->query->has('validate'))
+		if (! $this->okt['request']->query->has('validate'))
 		{
 			return false;
 		}
@@ -332,7 +332,7 @@ class User extends Controller
 			
 			$aMailParams = array(
 				'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-				'site_url' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+				'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 				'user' => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname'])
 			);
 			
@@ -360,7 +360,7 @@ class User extends Controller
 
 	protected function updateUserPassword()
 	{
-		if (! $this->request->request->has('change_password') || ! $this->okt->checkPerm('change_password'))
+		if (! $this->okt['request']->request->has('change_password') || ! $this->okt->checkPerm('change_password'))
 		{
 			return false;
 		}
@@ -369,12 +369,12 @@ class User extends Controller
 			'id' => $this->aPageData['user']['id']
 		);
 		
-		$aParams['password'] = $this->request->request->get('password');
-		$aParams['password_confirm'] = $this->request->request->get('password_confirm');
+		$aParams['password'] = $this->okt['request']->request->get('password');
+		$aParams['password_confirm'] = $this->okt['request']->request->get('password_confirm');
 		
 		if ($this->okt->getUsers()->changeUserPassword($aParams))
 		{
-			if ($this->request->request->has('send_password_mail'))
+			if ($this->okt['request']->request->has('send_password_mail'))
 			{
 				# Initialisation du mailer et envoi du mail
 				$oMail = new Mailer($this->okt);
@@ -385,7 +385,7 @@ class User extends Controller
 				
 				$aMailParams = array(
 					'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-					'site_url' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+					'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 					'user' => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname']),
 					'password' => $aParams['password']
 				);
@@ -415,25 +415,25 @@ class User extends Controller
 
 	protected function updateUser()
 	{
-		if (! $this->request->request->has('form_sent'))
+		if (! $this->okt['request']->request->has('form_sent'))
 		{
 			return false;
 		}
 		
 		$this->aPageData['user'] = array(
 			'id' => $this->iUserId,
-			'group_id' => $this->request->request->getInt('group_id'),
-			'civility' => $this->request->request->getInt('civility'),
-			'status' => $this->request->request->getInt('status'),
-			'username' => $this->request->request->get('username'),
-			'lastname' => $this->request->request->get('lastname'),
-			'firstname' => $this->request->request->get('firstname'),
-			'displayname' => $this->request->request->get('displayname'),
-			'password' => $this->request->request->get('password'),
-			'password_confirm' => $this->request->request->get('password_confirm'),
-			'email' => $this->request->request->get('email'),
-			'timezone' => $this->request->request->get('timezone'),
-			'language' => $this->request->request->get('language')
+			'group_id' => $this->okt['request']->request->getInt('group_id'),
+			'civility' => $this->okt['request']->request->getInt('civility'),
+			'status' => $this->okt['request']->request->getInt('status'),
+			'username' => $this->okt['request']->request->get('username'),
+			'lastname' => $this->okt['request']->request->get('lastname'),
+			'firstname' => $this->okt['request']->request->get('firstname'),
+			'displayname' => $this->okt['request']->request->get('displayname'),
+			'password' => $this->okt['request']->request->get('password'),
+			'password_confirm' => $this->okt['request']->request->get('password_confirm'),
+			'email' => $this->okt['request']->request->get('email'),
+			'timezone' => $this->okt['request']->request->get('timezone'),
+			'language' => $this->okt['request']->request->get('language')
 		);
 		
 		# peuplement et vérification des champs personnalisés obligatoires

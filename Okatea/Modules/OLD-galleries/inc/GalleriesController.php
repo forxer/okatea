@@ -80,7 +80,7 @@ class GalleriesController extends Controller
 		$this->page->action = 'gallery';
 		
 		# récupération de la galerie en fonction du slug
-		if (! $slug = $this->request->attributes->get('slug'))
+		if (! $slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -219,7 +219,7 @@ class GalleriesController extends Controller
 	public function galleriesItem()
 	{
 		# récupération de l'élément en fonction du slug
-		if (! $slug = $this->request->attributes->get('slug'))
+		if (! $slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

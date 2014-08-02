@@ -23,24 +23,24 @@ class Router extends BaseRouter
 	 *
 	 * @var Application
 	 */
-	protected $app;
+	protected $okt;
 
-	public function __construct(Application $app, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
+	public function __construct(Application $okt, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
 	{
-		$this->app = $app;
-		
+		$this->okt = $okt;
+
 		# restrict to the default language if we have only one language
-		if ($this->app->languages->unique)
+		if ($this->okt->languages->unique)
 		{
-			$ressources_dir .= '/' . $this->app['config']->language;
+			$ressources_dir .= '/' . $this->okt['config']->language;
 		}
-		
-		parent::__construct(new YamlDirectoryLoaderLocalizer($app, new FileLocator($ressources_dir)), $ressources_dir, array(
+
+		parent::__construct(new YamlDirectoryLoaderLocalizer($okt, new FileLocator($ressources_dir)), $ressources_dir, array(
 			'cache_dir' => $cache_dir,
 			'debug' => $debug,
 			'generator_cache_class' => 'OkateaUrlGenerator',
 			'matcher_cache_class' => 'OkateaUrlMatcher'
-		), $app->getRequestContext(), $logger);
+		), $okt['requestContext'], $logger);
 	}
 
 	/**
@@ -50,18 +50,18 @@ class Router extends BaseRouter
 	 */
 	public function generate($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if (! $this->app->languages->unique)
+		if (! $this->okt->languages->unique)
 		{
 			if (null === $language)
 			{
-				$name = $name . '-' . $this->app->user->language;
+				$name = $name . '-' . $this->okt->user->language;
 			}
 			else
 			{
 				$name = $name . '-' . $language;
 			}
 		}
-		
+
 		return $this->getGenerator()->generate($name, $parameters, $referenceType);
 	}
 
@@ -70,10 +70,10 @@ class Router extends BaseRouter
 	 *
 	 * @TODO : need to extends Symfony\Component\Routing\Generator\UrlGenerator
 	 *
-	 * @param string $name        	
-	 * @param mixed $parameters        	
-	 * @param string $language        	
-	 * @param Boolean|string $referenceType        	
+	 * @param string $name
+	 * @param mixed $parameters
+	 * @param string $language
+	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
 	public function generateFromAdmin($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
@@ -84,15 +84,15 @@ class Router extends BaseRouter
 	/**
 	 * Retourne l'URL de la page de connexion.
 	 *
-	 * @param string $sRedirectUrl        	
-	 * @param mixed $parameters        	
-	 * @param string $language        	
-	 * @param Boolean|string $referenceType        	
+	 * @param string $sRedirectUrl
+	 * @param mixed $parameters
+	 * @param string $language
+	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
 	public function generateLoginUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if ($this->app['config']->users['pages']['log_reg'])
+		if ($this->okt['config']->users['pages']['log_reg'])
 		{
 			$sLoginUrl = $this->generate('usersLoginRegister');
 		}
@@ -100,27 +100,27 @@ class Router extends BaseRouter
 		{
 			$sLoginUrl = $this->generate('usersLogin');
 		}
-		
+
 		if (! is_null($sRedirectUrl))
 		{
-			$this->app->session->set('okt_redirect_url', $sRedirectUrl);
+			$this->okt->session->set('okt_redirect_url', $sRedirectUrl);
 		}
-		
+
 		return $sLoginUrl;
 	}
 
 	/**
 	 * Retourne l'URL de la page d'inscription.
 	 *
-	 * @param string $sRedirectUrl        	
-	 * @param mixed $parameters        	
-	 * @param string $language        	
-	 * @param Boolean|string $referenceType        	
+	 * @param string $sRedirectUrl
+	 * @param mixed $parameters
+	 * @param string $language
+	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
 	public function generateRegisterUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if ($this->app['config']->users['pages']['log_reg'])
+		if ($this->okt['config']->users['pages']['log_reg'])
 		{
 			$sRegisterUrl = $this->generate('usersLoginRegister');
 		}
@@ -128,12 +128,12 @@ class Router extends BaseRouter
 		{
 			$sRegisterUrl = $this->generate('usersRegister');
 		}
-		
+
 		if (! is_null($sRedirectUrl))
 		{
-			$this->app->session->set('okt_redirect_url', $sRedirectUrl);
+			$this->okt->session->set('okt_redirect_url', $sRedirectUrl);
 		}
-		
+
 		return $sRegisterUrl;
 	}
 
@@ -147,7 +147,7 @@ class Router extends BaseRouter
 		{
 			$aResources[] = (string) $oResource;
 		}
-		
+
 		$fs = new Filesystem();
 		$fs->touch($aResources);
 	}

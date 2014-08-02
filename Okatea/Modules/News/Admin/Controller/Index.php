@@ -90,7 +90,7 @@ class Index extends Controller
 			$aParams['user_id'] = $this->okt->user->id;
 		}
 		
-		$sSearch = $this->request->query->get('search');
+		$sSearch = $this->okt['request']->query->get('search');
 		
 		if ($sSearch)
 		{
@@ -160,10 +160,10 @@ class Index extends Controller
 
 	protected function getPostsJson()
 	{
-		$json = $this->request->query->get('json');
-		$term = $this->request->query->get('term');
+		$json = $this->okt['request']->query->get('json');
+		$term = $this->okt['request']->query->get('term');
 		
-		if (! $json || ! $term || ! $this->request->isXmlHttpRequest())
+		if (! $json || ! $term || ! $this->okt['request']->isXmlHttpRequest())
 		{
 			return false;
 		}
@@ -184,7 +184,7 @@ class Index extends Controller
 
 	protected function initFilters()
 	{
-		if ($this->request->query->has('init_filters'))
+		if ($this->okt['request']->query->has('init_filters'))
 		{
 			$this->okt->module('News')->filters->initFilters();
 			
@@ -196,7 +196,7 @@ class Index extends Controller
 
 	protected function deletePost()
 	{
-		$iPostId = $this->request->query->getInt('delete');
+		$iPostId = $this->okt['request']->query->getInt('delete');
 		
 		if (! $iPostId || ! $this->okt->checkPerm('news_delete'))
 		{
@@ -221,7 +221,7 @@ class Index extends Controller
 
 	protected function switchPostStatus()
 	{
-		$iPostId = $this->request->query->getInt('switch_status');
+		$iPostId = $this->okt['request']->query->getInt('switch_status');
 		
 		if (! $iPostId)
 		{
@@ -244,7 +244,7 @@ class Index extends Controller
 
 	protected function switchPostSelect()
 	{
-		$iPostId = $this->request->query->getInt('switch_selected');
+		$iPostId = $this->okt['request']->query->getInt('switch_selected');
 		
 		if (! $iPostId)
 		{
@@ -267,7 +267,7 @@ class Index extends Controller
 
 	protected function selectPost()
 	{
-		$iPostId = $this->request->query->getInt('select');
+		$iPostId = $this->okt['request']->query->getInt('select');
 		
 		if (! $iPostId)
 		{
@@ -292,7 +292,7 @@ class Index extends Controller
 
 	protected function unselectPost()
 	{
-		$iPostId = $this->request->query->getInt('deselect');
+		$iPostId = $this->okt['request']->query->getInt('deselect');
 		
 		if (! $iPostId)
 		{
@@ -317,7 +317,7 @@ class Index extends Controller
 
 	protected function publishPost()
 	{
-		$iPostId = $this->request->query->getInt('publish');
+		$iPostId = $this->okt['request']->query->getInt('publish');
 		
 		if (! $iPostId)
 		{
@@ -342,8 +342,8 @@ class Index extends Controller
 
 	protected function batches()
 	{
-		$sAction = $this->request->request->get('action');
-		$aPostsId = $this->request->request->get('posts');
+		$sAction = $this->okt['request']->request->get('action');
+		$aPostsId = $this->okt['request']->request->get('posts');
 		
 		if (! $sAction || ! $aPostsId || ! is_array($aPostsId))
 		{

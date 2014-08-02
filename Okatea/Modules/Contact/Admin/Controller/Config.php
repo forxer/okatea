@@ -28,7 +28,7 @@ class Config extends Controller
 		
 		$oTemplatesMap = new TemplatesSet($this->okt, $this->okt->module('Contact')->config->templates['map'], 'Contact/map', 'map', $this->generateUrl('Contact_config') . '?');
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			// ...
 			
@@ -36,35 +36,35 @@ class Config extends Controller
 			if (! $this->okt['flash']->hasError())
 			{
 				$aNewConf = array(
-					'captcha' => $this->request->request->get('p_captcha'),
-					'from_to' => $this->request->request->get('p_from_to'),
+					'captcha' => $this->okt['request']->request->get('p_captcha'),
+					'from_to' => $this->okt['request']->request->get('p_from_to'),
 					
-					'email_color' => $this->request->request->get('p_email_color', '000000'),
-					'email_size' => $this->request->request->getInt('p_email_size', 12),
+					'email_color' => $this->okt['request']->request->get('p_email_color', '000000'),
+					'email_size' => $this->okt['request']->request->getInt('p_email_size', 12),
 					
 					'templates' => array(
 						'contact' => $oTemplatesContact->getPostConfig(),
 						'map' => $oTemplatesMap->getPostConfig()
 					),
 					
-					'name' => $this->request->request->get('p_name', array()),
-					'name_seo' => $this->request->request->get('p_name_seo', array()),
-					'title' => $this->request->request->get('p_title', array()),
-					'meta_description' => $this->request->request->get('p_meta_description', array()),
-					'meta_keywords' => $this->request->request->get('p_meta_keywords', array()),
+					'name' => $this->okt['request']->request->get('p_name', array()),
+					'name_seo' => $this->okt['request']->request->get('p_name_seo', array()),
+					'title' => $this->okt['request']->request->get('p_title', array()),
+					'meta_description' => $this->okt['request']->request->get('p_meta_description', array()),
+					'meta_keywords' => $this->okt['request']->request->get('p_meta_keywords', array()),
 					
-					'name_map' => $this->request->request->get('p_name_map', array()),
-					'name_seo_map' => $this->request->request->get('p_name_seo_map', array()),
-					'title_map' => $this->request->request->get('p_title_map', array()),
-					'meta_description_map' => $this->request->request->get('p_meta_description_map', array()),
-					'meta_keywords_map' => $this->request->request->get('p_meta_keywords_map', array()),
+					'name_map' => $this->okt['request']->request->get('p_name_map', array()),
+					'name_seo_map' => $this->okt['request']->request->get('p_name_seo_map', array()),
+					'title_map' => $this->okt['request']->request->get('p_title_map', array()),
+					'meta_description_map' => $this->okt['request']->request->get('p_meta_description_map', array()),
+					'meta_keywords_map' => $this->okt['request']->request->get('p_meta_keywords_map', array()),
 					
 					'google_map' => array(
-						'enable' => $this->request->request->has('p_enable_google_map'),
-						'display' => $this->request->request->get('p_google_map_display', 'inside'),
+						'enable' => $this->okt['request']->request->has('p_enable_google_map'),
+						'display' => $this->okt['request']->request->get('p_google_map_display', 'inside'),
 						'options' => array(
-							'zoom' => $this->request->request->getInt('p_google_map_zoom', 14),
-							'mode' => $this->request->request->get('p_google_map_mode', 'SATELLITE')
+							'zoom' => $this->okt['request']->request->getInt('p_google_map_zoom', 14),
+							'mode' => $this->okt['request']->request->get('p_google_map_mode', 'SATELLITE')
 						)
 					)
 				);

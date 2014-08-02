@@ -28,11 +28,11 @@ class Recipients extends Controller
 		$aRecipientsCc = ! empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : array();
 		$aRecipientsBcc = ! empty($this->okt->module('Contact')->config->recipients_bcc) ? $this->okt->module('Contact')->config->recipients_bcc : array();
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$aRecipientsTo = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_to', array()))));
-			$aRecipientsCc = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_cc', array()))));
-			$aRecipientsBcc = array_unique(array_filter(array_map('trim', $this->request->request->get('p_recipients_bcc', array()))));
+			$aRecipientsTo = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_to', array()))));
+			$aRecipientsCc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_cc', array()))));
+			$aRecipientsBcc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_bcc', array()))));
 			
 			foreach ($aRecipientsTo as $mail)
 			{

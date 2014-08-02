@@ -24,21 +24,21 @@ class Config extends Controller
 		}
 		
 		# save config
-		if ($this->request->request->has('config_sent'))
+		if ($this->okt['request']->request->has('config_sent'))
 		{
 			if (! $this->okt['flash']->hasError())
 			{
 				$aNewConf = array(
-					'repository_url' => $this->request->request->get('repository_url'),
+					'repository_url' => $this->okt['request']->request->get('repository_url'),
 					'modules' => array(
-						'repository_url' => $this->request->request->get('modules_repository_url'),
-						'repository' => $this->request->request->get('modules_repository', array()),
-						'package' => $this->request->request->get('modules_package', array())
+						'repository_url' => $this->okt['request']->request->get('modules_repository_url'),
+						'repository' => $this->okt['request']->request->get('modules_repository', array()),
+						'package' => $this->okt['request']->request->get('modules_package', array())
 					),
 					'themes' => array(
-						'repository_url' => $this->request->request->get('themes_repository_url'),
-						'repository' => $this->request->request->get('themes_repository', array()),
-						'package' => $this->request->request->get('themes_package', array())
+						'repository_url' => $this->okt['request']->request->get('themes_repository_url'),
+						'repository' => $this->okt['request']->request->get('themes_repository', array()),
+						'package' => $this->okt['request']->request->get('themes_package', array())
 					)
 				);
 				

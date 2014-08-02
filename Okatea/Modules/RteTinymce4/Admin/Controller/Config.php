@@ -19,12 +19,12 @@ class Config extends Controller
 			return $this->serve401();
 		}
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->okt->module('RteTinymce4')->config->write(array(
-				'width' => $this->request->request->get('p_width'),
-				'height' => $this->request->request->get('p_height'),
-				'content_css' => $this->request->request->get('p_content_css')
+				'width' => $this->okt['request']->request->get('p_width'),
+				'height' => $this->okt['request']->request->get('p_height'),
+				'content_css' => $this->okt['request']->request->get('p_content_css')
 			));
 			
 			$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));

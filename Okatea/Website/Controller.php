@@ -51,7 +51,7 @@ class Controller extends BaseController
 	 */
 	public function isHomePageRoute()
 	{
-		return substr($this->request->attributes->get('_route'), 0, 8) === 'homePage';
+		return substr($this->okt['request']->attributes->get('_route'), 0, 8) === 'homePage';
 	}
 
 	public function homePage()
@@ -60,7 +60,7 @@ class Controller extends BaseController
 		if (! $this->okt->languages->unique)
 		{
 			# recherche d'un code ISO de langue
-			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->request->getPathInfo(), $m))
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m))
 			{
 				$sLanguage = $m[1];
 			}
@@ -125,7 +125,7 @@ class Controller extends BaseController
 		{
 			$sLanguage = null;
 			# recherche d'un code ISO de langue
-			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->request->getPathInfo(), $m))
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m))
 			{
 				$sLanguage = $m[1];
 			}

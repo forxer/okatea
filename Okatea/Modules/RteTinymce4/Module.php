@@ -34,7 +34,7 @@ class Module extends BaseModule
 		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('TinyMCE 4'), $this->okt->adminRouter->generate('RteTinymce4_config'), $this->okt->request->attributes->get('_route') === 'RteTinymce4_config', 40, $this->okt->checkPerm('rte_tinymce_4_config'), null);
+			$this->okt->page->configSubMenu->add(__('TinyMCE 4'), $this->okt->adminRouter->generate('RteTinymce4_config'), $this->okt['request']->attributes->get('_route') === 'RteTinymce4_config', 40, $this->okt->checkPerm('rte_tinymce_4_config'), null);
 		}
 	}
 
@@ -45,7 +45,7 @@ class Module extends BaseModule
 		$aOptions = array();
 		
 		$aOptions[] = 'relative_urls: true';
-		$aOptions[] = 'document_base_url: "' . Escaper::js($okt->request->getSchemeAndHttpHost() . $okt['config']->app_path) . '"';
+		$aOptions[] = 'document_base_url: "' . Escaper::js($okt['request']->getSchemeAndHttpHost() . $okt['config']->app_path) . '"';
 		
 		# selector
 		$aOptions[] = 'selector: "' . $sSelector . '"';

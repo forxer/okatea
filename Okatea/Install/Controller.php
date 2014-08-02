@@ -21,10 +21,10 @@ class Controller extends BaseController
 		parent::__construct($okt);
 
 		# URL du dossier des fichiers publics
-		$this->okt->options->set('public_url', $this->request->getBasePath() . '/../oktPublic');
+		$this->okt->options->set('public_url', $this->okt['request']->getBasePath() . '/../oktPublic');
 
 		# URL du dossier upload depuis la racine
-		$this->okt->options->set('upload_url', $this->request->getBasePath() . '/../oktPublic/upload');
+		$this->okt->options->set('upload_url', $this->okt['request']->getBasePath() . '/../oktPublic/upload');
 
 		$this->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/redmond/jquery-ui.min.css');
 		$this->page->css->addFile($this->okt->options->public_url . '/css/init.css');

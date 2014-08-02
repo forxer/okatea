@@ -22,20 +22,20 @@ class Router extends BaseRouter
 	 *
 	 * @var Application
 	 */
-	protected $app;
+	protected $okt;
 
 	/**
 	 */
-	public function __construct(Application $app, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
+	public function __construct(Application $okt, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
 	{
-		$this->app = $app;
-		
+		$this->okt = $okt;
+
 		parent::__construct(new YamlDirectoryLoader(new FileLocator($ressources_dir)), $ressources_dir, array(
 			'cache_dir' => $cache_dir,
 			'debug' => $debug,
 			'generator_cache_class' => 'OkateaAdminUrlGenerator',
 			'matcher_cache_class' => 'OkateaAdminUrlMatcher'
-		), $app->getRequestContext(), $logger);
+		), $okt['requestContext'], $logger);
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Router extends BaseRouter
 	 */
 	public function generateFromWebsite($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
 	{
-		return str_replace($this->app['config']->app_path, $this->app['config']->app_path . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
+		return str_replace($this->okt['config']->app_path, $this->okt['config']->app_path . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
 	}
 
 	/**

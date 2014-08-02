@@ -14,7 +14,7 @@ class Start extends Controller
 
 	public function page()
 	{
-		$sSwitchLanguage = $this->request->query->get('switch_language');
+		$sSwitchLanguage = $this->okt['request']->query->get('switch_language');
 
 		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->availablesLocales))
 		{

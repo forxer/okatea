@@ -51,7 +51,7 @@ class Display extends Controller
 
 		$aAllowedAdminThemes = array_flip($aAllowedAdminThemes);
 
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			# traitement d'un éventuel theme uploadé
 			if (isset($_FILES['p_upload_theme']) && ! empty($_FILES['p_upload_theme']['tmp_name']))
@@ -132,7 +132,7 @@ class Display extends Controller
 
 					$fs->remove($sTempDir);
 
-					$this->request->request->set('p_jquery_ui_admin_theme', 'custom');
+					$this->okt['request']->request->set('p_jquery_ui_admin_theme', 'custom');
 				}
 				catch (\Exception $e)
 				{
@@ -142,7 +142,7 @@ class Display extends Controller
 			}
 
 			# enregistrement de la configuration
-			$p_jquery_ui_admin_theme = $this->request->request->get('p_jquery_ui_admin_theme', 'base');
+			$p_jquery_ui_admin_theme = $this->okt['request']->request->get('p_jquery_ui_admin_theme', 'base');
 
 			if (! in_array($p_jquery_ui_admin_theme, $aAllowedAdminThemes) && $p_jquery_ui_admin_theme != 'custom')
 			{
@@ -153,11 +153,11 @@ class Display extends Controller
 			{
 				$aNewConfig = array(
 					'jquery_ui' => array(
-						'public' => $this->request->request->get('p_jquery_ui_public_theme', 'base'),
+						'public' => $this->okt['request']->request->get('p_jquery_ui_public_theme', 'base'),
 						'admin' => $p_jquery_ui_admin_theme
 					),
-					'enable_admin_bar' => $this->request->request->has('p_enable_admin_bar'),
-					'admin_menu_position' => $this->request->request->get('p_admin_menu_position', 'top')
+					'enable_admin_bar' => $this->okt['request']->request->has('p_enable_admin_bar'),
+					'admin_menu_position' => $this->okt['request']->request->get('p_admin_menu_position', 'top')
 				);
 
 				$this->okt['config']->write($aNewConfig);

@@ -171,7 +171,7 @@ class Okatea extends Application
 
 		try
 		{
-			$this->request->attributes->add($this['router']->matchRequest($this->request));
+			$this['request']->attributes->add($this['router']->matchRequest($this['request']));
 		}
 		catch (ResourceNotFoundException $e)
 		{
@@ -197,7 +197,7 @@ class Okatea extends Application
 			$this->response = new Response();
 			$this->response->headers->set('Content-Type', 'text/plain');
 			$this->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
-			$this->response->setContent('Unable to load controller ' . $this->request->attributes->get('controller'));
+			$this->response->setContent('Unable to load controller ' . $this['request']->attributes->get('controller'));
 		}
 	}
 
@@ -206,7 +206,7 @@ class Okatea extends Application
 		# -- CORE TRIGGER : publicBeforePrepareResponse
 		$this->triggers->callTrigger('publicBeforePrepareResponse');
 
-		$this->response->prepare($this->request);
+		$this->response->prepare($this['request']);
 
 		# -- CORE TRIGGER : publicBeforeSendResponse
 		$this->triggers->callTrigger('publicBeforeSendResponse');

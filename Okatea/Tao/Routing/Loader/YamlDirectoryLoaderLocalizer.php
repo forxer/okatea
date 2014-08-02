@@ -27,11 +27,11 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 	 *
 	 * @var Application
 	 */
-	protected $app;
+	protected $okt;
 
-	public function __construct(Application $app, FileLocatorInterface $locator)
+	public function __construct(Application $okt, FileLocatorInterface $locator)
 	{
-		$this->app = $app;
+		$this->okt = $okt;
 		
 		parent::__construct($locator);
 	}
@@ -97,7 +97,7 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 		$methods = isset($config['methods']) ? $config['methods'] : array();
 		$condition = isset($config['condition']) ? $config['condition'] : null;
 		
-		if (! $this->app->languages->unique)
+		if (! $this->okt->languages->unique)
 		{
 			$name .= '-' . $this->language;
 			$config['path'] = '/' . $this->language . $config['path'];

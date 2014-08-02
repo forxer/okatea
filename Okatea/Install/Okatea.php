@@ -13,7 +13,6 @@ use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Page;
 use Okatea\Install\Routing\Router;
@@ -68,16 +67,16 @@ class Okatea extends Application
 			$this->oldVersion = $this['session']->get('okt_old_version');
 		}
 
-		if ($this->request->query->has('old_version'))
+		if ($this->okt['request']->query->has('old_version'))
 		{
-			$this->oldVersion = $this->request->query->get('old_version');
+			$this->oldVersion = $this->okt['request']->query->get('old_version');
 			$this['session']->set('okt_old_version', $this->oldVersion);
 		}
 
 		# Initialisation localisation
 		if (! $this['session']->has('okt_install_language'))
 		{
-			$this['session']->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
+			$this['session']->set('okt_install_language', $this->okt['request']->getPreferredLanguage($this->availablesLocales));
 		}
 
 		$this->l10n = new Localization($this['session']->get('okt_install_language'), $this['session']->get('okt_install_language'), 'Europe/Paris');
@@ -132,7 +131,7 @@ class Okatea extends Application
 		# -- CORE TRIGGER : installBeforePrepareResponse
 		$this->triggers->callTrigger('installBeforePrepareResponse');
 
-		$this->response->prepare($this->request);
+		$this->response->prepare($this->okt['request']);
 
 		# -- CORE TRIGGER : installBeforeSendResponse
 		$this->triggers->callTrigger('installBeforeSendResponse');
@@ -181,7 +180,7 @@ class Okatea extends Application
 	{
 		try
 		{
-			$this->request->attributes->add($this->router->matchRequest($this->request));
+			$this->okt['request']->attributes->add($this->router->matchRequest($this->okt['request']));
 		}
 		catch (ResourceNotFoundException $e)
 		{
@@ -204,11 +203,11 @@ class Okatea extends Application
 	{
 		if ($this['session']->get('okt_install_process_type') == 'install')
 		{
-			$this->stepper = new Stepper\Install($this, $this->request->attributes->get('_route'));
+			$this->stepper = new Stepper\Install($this, $this->okt['request']->attributes->get('_route'));
 		}
 		else
 		{
-			$this->stepper = new Stepper\Update($this, $this->request->attributes->get('_route'));
+			$this->stepper = new Stepper\Update($this, $this->okt['request']->attributes->get('_route'));
 		}
 	}
 

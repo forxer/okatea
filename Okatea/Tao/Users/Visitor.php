@@ -487,7 +487,7 @@ class Visitor
 			$sLang = $_COOKIE[$this->sCookieLangName];
 		}
 		else {
-			$sLang = $this->okt->request->getPreferredLanguage();
+			$sLang = $this->okt['request']->getPreferredLanguage();
 		}
 
 		if ($this->okt->languages->isActive($sLang)) {

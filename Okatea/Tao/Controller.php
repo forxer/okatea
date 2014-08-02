@@ -20,10 +20,6 @@ class Controller
 {
 	protected $okt;
 
-	protected $request;
-
-	protected $session;
-
 	protected $page;
 
 	/**
@@ -33,20 +29,15 @@ class Controller
 	{
 		$this->okt = $okt;
 
-		# shortcuts
-		$this->request = & $okt->request;
 		$this->page = & $okt->page;
 	}
 
 	/**
 	 * Returns a RedirectResponse to the given URL.
 	 *
-	 * @param string $url
-	 *        	The URL to redirect to
-	 * @param integer $status
-	 *        	The status code to use for the Response
-	 * @param array $headers
-	 *        	The headers (Location is always set to the given url)
+	 * @param string $url The URL to redirect to
+	 * @param integer $status The status code to use for the Response
+	 * @param array $headers The headers (Location is always set to the given url)
 	 *
 	 * @return RedirectResponse
 	 */
@@ -182,8 +173,8 @@ class Controller
 	 */
 	public function removeTrailingSlash()
 	{
-		$pathInfo = $this->request->getPathInfo();
-		$requestUri = $this->request->getRequestUri();
+		$pathInfo = $this->okt['request']->getPathInfo();
+		$requestUri = $this->okt['request']->getRequestUri();
 
 		$url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
 

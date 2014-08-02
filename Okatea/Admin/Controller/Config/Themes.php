@@ -229,7 +229,7 @@ class Themes extends Controller
 
 	protected function showChangelog()
 	{
-		$sThemeId = $this->request->query->get('show_changelog');
+		$sThemeId = $this->okt['request']->query->get('show_changelog');
 		$sChangelogFile = $this->okt->options->get('themes_dir') . '/' . $sThemeId . '/CHANGELOG';
 		
 		if (! $sThemeId || ! file_exists($sChangelogFile))
@@ -244,7 +244,7 @@ class Themes extends Controller
 
 	protected function showNotes()
 	{
-		$sThemeId = $this->request->query->get('show_notes');
+		$sThemeId = $this->okt['request']->query->get('show_notes');
 		$sNotesFile = $this->okt->options->get('themes_dir') . '/' . $sThemeId . '/notes.md';
 		
 		if (! $sThemeId || ! file_exists($sNotesFile))
@@ -259,7 +259,7 @@ class Themes extends Controller
 
 	protected function enableTheme()
 	{
-		$sThemeId = $this->request->query->get('enable');
+		$sThemeId = $this->okt['request']->query->get('enable');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes))
 		{
@@ -282,7 +282,7 @@ class Themes extends Controller
 
 	protected function disableTheme()
 	{
-		$sThemeId = $this->request->query->get('disable');
+		$sThemeId = $this->okt['request']->query->get('disable');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId)
 		{
@@ -305,7 +305,7 @@ class Themes extends Controller
 
 	protected function installTheme()
 	{
-		$sThemeId = $this->request->query->get('install');
+		$sThemeId = $this->okt['request']->query->get('install');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aUninstalledThemes))
 		{
@@ -347,7 +347,7 @@ class Themes extends Controller
 
 	protected function updateTheme()
 	{
-		$sThemeId = $this->request->query->get('update');
+		$sThemeId = $this->okt['request']->query->get('update');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes))
 		{
@@ -399,7 +399,7 @@ class Themes extends Controller
 
 	protected function uninstallTheme()
 	{
-		$sThemeId = $this->request->query->get('uninstall');
+		$sThemeId = $this->okt['request']->query->get('uninstall');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId)
 		{
@@ -435,7 +435,7 @@ class Themes extends Controller
 
 	protected function reinstallTheme()
 	{
-		$sThemeId = $this->request->query->get('reinstall');
+		$sThemeId = $this->okt['request']->query->get('reinstall');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId)
 		{
@@ -492,7 +492,7 @@ class Themes extends Controller
 
 	protected function removeTheme()
 	{
-		$sThemeId = $this->request->query->get('delete');
+		$sThemeId = $this->okt['request']->query->get('delete');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aUninstalledThemes) || ThemesCollection::DEFAULT_THEME == $sThemeId)
 		{
@@ -520,7 +520,7 @@ class Themes extends Controller
 
 	protected function replaceAssetsFiles()
 	{
-		$sThemeId = $this->request->query->get('common');
+		$sThemeId = $this->okt['request']->query->get('common');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes))
 		{
@@ -539,7 +539,7 @@ class Themes extends Controller
 
 	protected function packageAndSendTheme()
 	{
-		$sThemeId = $this->request->query->get('download');
+		$sThemeId = $this->okt['request']->query->get('download');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aAllThemes))
 		{
@@ -573,7 +573,7 @@ class Themes extends Controller
 
 	protected function compareFiles()
 	{
-		$sThemeId = $this->request->query->get('compare');
+		$sThemeId = $this->okt['request']->query->get('compare');
 		
 		if (! $sThemeId || ! array_key_exists($sThemeId, $this->aInstalledThemes))
 		{
@@ -590,14 +590,14 @@ class Themes extends Controller
 
 	protected function themeUpload()
 	{
-		$upload_pkg = $this->request->request->get('upload_pkg');
-		$pkg_file = $this->request->files->get('pkg_file');
+		$upload_pkg = $this->okt['request']->request->get('upload_pkg');
+		$pkg_file = $this->okt['request']->files->get('pkg_file');
 		
-		$fetch_pkg = $this->request->request->get('fetch_pkg');
-		$pkg_url = $this->request->request->get('pkg_url');
+		$fetch_pkg = $this->okt['request']->request->get('fetch_pkg');
+		$pkg_url = $this->okt['request']->request->get('pkg_url');
 		
-		$repository = $this->request->query->get('repository');
-		$theme = $this->request->query->get('theme');
+		$repository = $this->okt['request']->query->get('repository');
+		$theme = $this->okt['request']->query->get('theme');
 		
 		# Plugin upload
 		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $theme && $this->okt['config']->repositories['themes']['enabled']))
@@ -671,7 +671,7 @@ class Themes extends Controller
 
 	protected function useTheme()
 	{
-		$sUseThemeId = $this->request->query->get('use');
+		$sUseThemeId = $this->okt['request']->query->get('use');
 		if (! $sUseThemeId)
 		{
 			return false;
@@ -701,7 +701,7 @@ class Themes extends Controller
 
 	protected function useMobileTheme()
 	{
-		$sUseMobileThemeId = $this->request->query->get('use_mobile');
+		$sUseMobileThemeId = $this->okt['request']->query->get('use_mobile');
 		
 		if (! $sUseMobileThemeId)
 		{
@@ -727,7 +727,7 @@ class Themes extends Controller
 
 	protected function useTabletTheme()
 	{
-		$sUseTabletThemeId = $this->request->query->get('use_tablet');
+		$sUseTabletThemeId = $this->okt['request']->query->get('use_tablet');
 		
 		if (! $sUseTabletThemeId)
 		{

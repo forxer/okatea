@@ -458,7 +458,7 @@ class Controller extends BaseController
 	 */
 	protected function defineRedirectUrl()
 	{
-		$sRequestRedirectUrl = $this->request->request->get('redirect', $this->request->query->get('redirect'));
+		$sRequestRedirectUrl = $this->okt['request']->request->get('redirect', $this->okt['request']->query->get('redirect'));
 		
 		if (! empty($sRequestRedirectUrl))
 		{
@@ -666,7 +666,7 @@ class Controller extends BaseController
 				
 				$oMail->useFile(__DIR__ . '/../Locales/' . $rsUser->language . '/Templates/' . $template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-					'SITE_URL' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+					'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 					'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
@@ -699,9 +699,9 @@ class Controller extends BaseController
 					{
 						$oMail->useFile(__DIR__ . '/../Locales/' . $rsAdministrators->language . '/Templates/' . $template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-							'SITE_URL' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+							'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 							'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
-							'PROFIL' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path . 'admin/module.php?m=users&action=edit&id=' . $rsUser->id
+							'PROFIL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path . 'admin/module.php?m=users&action=edit&id=' . $rsUser->id
 						));
 						
 						$oMail->message->setTo($rsAdministrators->email);

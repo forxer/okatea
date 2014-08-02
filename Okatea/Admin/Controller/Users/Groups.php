@@ -23,9 +23,9 @@ class Groups extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir') . '/%s/admin/users');
 
-		if ($this->okt->request->query->has('delete_id'))
+		if ($this->okt['request']->query->has('delete_id'))
 		{
-			$iGroupIdToDelete = $this->okt->request->query->get('delete_id');
+			$iGroupIdToDelete = $this->okt['request']->query->get('delete_id');
 
 			if ($this->okt->getGroups()->deleteGroup($iGroupIdToDelete))
 			{
@@ -78,12 +78,12 @@ class Groups extends Controller
 
 		$aGroupData['perms'] = array();
 
-		if ($this->okt->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
-				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
@@ -98,9 +98,9 @@ class Groups extends Controller
 				}
 			}
 
-			if ($this->okt->request->request->has('perms'))
+			if ($this->okt['request']->request->has('perms'))
 			{
-				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
+				$aGroupData['perms'] = array_keys($this->okt['request']->request->get('perms'));
 			}
 
 			if (! $this->okt['flash']->hasError())
@@ -131,7 +131,7 @@ class Groups extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir') . '/%s/admin/users');
 
-		$iGroupId = $this->request->attributes->getInt('group_id');
+		$iGroupId = $this->okt['request']->attributes->getInt('group_id');
 
 		if (empty($iGroupId))
 		{
@@ -162,12 +162,12 @@ class Groups extends Controller
 
 		$aGroupData['perms'] = $rsGroup->perms ? json_decode($rsGroup->perms) : array();
 
-		if ($this->okt->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
-				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
+				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
@@ -182,9 +182,9 @@ class Groups extends Controller
 				}
 			}
 
-			if ($this->okt->request->request->has('perms'))
+			if ($this->okt['request']->request->has('perms'))
 			{
-				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
+				$aGroupData['perms'] = array_keys($this->okt['request']->request->get('perms'));
 			}
 
 			if (! $this->okt['flash']->hasError())

@@ -14,7 +14,7 @@ class Controller extends BaseController
 
 	public function page()
 	{
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
 			
 			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));

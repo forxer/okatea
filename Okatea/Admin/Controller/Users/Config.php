@@ -26,14 +26,14 @@ class Config extends Controller
 		$this->init();
 		
 		# enregistrement configuration
-		if ($this->okt->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$mail_new_registration = $this->okt->request->request->has('p_mail_new_registration');
+			$mail_new_registration = $this->okt['request']->request->has('p_mail_new_registration');
 			$mail_new_registration_recipients = array();
 			
 			if ($mail_new_registration)
 			{
-				$aMailNewRegistrationRecipients = $this->okt->request->request->get('p_mail_new_registration_recipients', array());
+				$aMailNewRegistrationRecipients = $this->okt['request']->request->get('p_mail_new_registration_recipients', array());
 				
 				foreach ($aMailNewRegistrationRecipients as $sUser)
 				{
@@ -53,35 +53,35 @@ class Config extends Controller
 				}
 			}
 			
-			$sGravatarDefaultImage = $this->okt->request->request->get('p_users_gravatar_default_image');
+			$sGravatarDefaultImage = $this->okt['request']->request->get('p_users_gravatar_default_image');
 			if (empty($sGravatarDefaultImage)) {
 				$sGravatarDefaultImage = null;
 			}
 			
 			$this->aPageData['config'] = array(
 				'users' => array(
-					'custom_fields_enabled' => $this->okt->request->request->has('p_users_custom_fields_enabled'),
+					'custom_fields_enabled' => $this->okt['request']->request->has('p_users_custom_fields_enabled'),
 					'gravatar' => array(
-						'enabled' => $this->okt->request->request->has('p_users_gravatar_enabled'),
+						'enabled' => $this->okt['request']->request->has('p_users_gravatar_enabled'),
 						'default_image' => $sGravatarDefaultImage,
-						'rating' => $this->okt->request->request->get('p_users_gravatar_rating')
+						'rating' => $this->okt['request']->request->get('p_users_gravatar_rating')
 					),
 					'pages' => array(
-						'login' => $this->okt->request->request->has('p_enable_login_page'),
-						'register' => $this->okt->request->request->has('p_enable_register_page'),
-						'log_reg' => $this->okt->request->request->has('p_enable_log_reg_page'),
-						'forget_password' => $this->okt->request->request->has('p_enable_forget_password_page'),
-						'profile' => $this->okt->request->request->has('p_enable_profile_page')
+						'login' => $this->okt['request']->request->has('p_enable_login_page'),
+						'register' => $this->okt['request']->request->has('p_enable_register_page'),
+						'log_reg' => $this->okt['request']->request->has('p_enable_log_reg_page'),
+						'forget_password' => $this->okt['request']->request->has('p_enable_forget_password_page'),
+						'profile' => $this->okt['request']->request->has('p_enable_profile_page')
 					),
 					'registration' => array(
-						'merge_username_email' => $this->okt->request->request->has('p_merge_username_email'),
+						'merge_username_email' => $this->okt['request']->request->has('p_merge_username_email'),
 						'mail_new_registration' => $mail_new_registration,
 						'mail_new_registration_recipients' => $mail_new_registration_recipients,
-						'validation_email' => $this->okt->request->request->has('p_validation_email'),
-						'validation_admin' => $this->okt->request->request->has('p_validation_admin'),
-						'auto_log_after_registration' => $this->okt->request->request->has('p_auto_log_after_registration'),
-						'user_choose_group' => $this->okt->request->request->has('p_user_choose_group'),
-						'default_group' => $this->okt->request->request->getInt('p_default_group')
+						'validation_email' => $this->okt['request']->request->has('p_validation_email'),
+						'validation_admin' => $this->okt['request']->request->has('p_validation_admin'),
+						'auto_log_after_registration' => $this->okt['request']->request->has('p_auto_log_after_registration'),
+						'user_choose_group' => $this->okt['request']->request->has('p_user_choose_group'),
+						'default_group' => $this->okt['request']->request->getInt('p_default_group')
 					),
 					'templates' => array(
 						'forgotten_password' => $this->oTemplatesForgottenPassword->getPostConfig(),

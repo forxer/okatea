@@ -10,6 +10,7 @@ namespace Okatea\Tao\Routing;
 use Okatea\Website\Router;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Symfony\Component\Routing\RequestContext;
 
 class RouterServiceProvider implements ServiceProviderInterface
 {
@@ -23,6 +24,13 @@ class RouterServiceProvider implements ServiceProviderInterface
 				$okt->options->get('debug'),
 				$okt['logger']
 			);
+		};
+
+		$okt['requestContext'] = function($okt) {
+			$requestContext = new RequestContext();
+			$requestContext->fromRequest($okt['request']);
+
+			return $requestContext;
 		};
 	}
 }

@@ -25,7 +25,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 					[
 						'cookie_lifetime' 	=> 0,
 						'cookie_path' 		=> $okt['config']->app_path,
-						'cookie_secure' 	=> $okt->request->isSecure(),
+						'cookie_secure' 	=> $okt['request']->isSecure(),
 						'cookie_httponly' 	=> true,
 						'use_trans_sid' 	=> false,
 						'use_only_cookies' 	=> true

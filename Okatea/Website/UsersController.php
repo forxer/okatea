@@ -167,13 +167,13 @@ class UsersController extends BaseController
 		$bPasswordUpdated = false;
 		$bPasswordSended = false;
 
-		if ($this->request->query->has('key') && $this->request->query->has('uid'))
+		if ($this->okt['request']->query->has('key') && $this->okt['request']->query->has('uid'))
 		{
-			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey($this->request->query->getInt('key'), $this->request->query->get('key'));
+			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey($this->okt['request']->query->getInt('key'), $this->okt['request']->query->get('key'));
 		}
-		elseif ($this->request->request->has('email'))
+		elseif ($this->okt['request']->request->has('email'))
 		{
-			$bPasswordSended = $this->okt->getUsers()->forgetPassword($this->request->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('usersForgetPassword', array(), true));
+			$bPasswordSended = $this->okt->getUsers()->forgetPassword($this->okt['request']->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('usersForgetPassword', array(), true));
 		}
 
 		# affichage du template
@@ -367,7 +367,7 @@ class UsersController extends BaseController
 	 */
 	protected function defineRedirectUrl()
 	{
-		$sRequestRedirectUrl = $this->request->request->get('redirect', $this->request->query->get('redirect'));
+		$sRequestRedirectUrl = $this->okt['request']->request->get('redirect', $this->okt['request']->query->get('redirect'));
 
 		if (! empty($sRequestRedirectUrl))
 		{
@@ -503,16 +503,16 @@ class UsersController extends BaseController
 		{
 			$this->aUserRegisterData = array(
 				'status' => ! $this->okt['config']->users['registration']['validation_email'],
-				'username' => $this->request->request->get('add_username'),
-				'lastname' => $this->request->request->get('add_lastname'),
-				'firstname' => $this->request->request->get('add_firstname'),
-				'password' => $this->request->request->get('add_password'),
-				'password_confirm' => $this->request->request->get('add_password_confirm'),
-				'email' => $this->request->request->get('add_email'),
-				'group_id' => $this->request->request->get('add_group_id'),
-				'timezone' => $this->request->request->get('add_timezone', $this->okt['config']->timezone),
-				'language' => $this->request->request->get('add_language'),
-				'civility' => $this->request->request->get('add_civility')
+				'username' => $this->okt['request']->request->get('add_username'),
+				'lastname' => $this->okt['request']->request->get('add_lastname'),
+				'firstname' => $this->okt['request']->request->get('add_firstname'),
+				'password' => $this->okt['request']->request->get('add_password'),
+				'password_confirm' => $this->okt['request']->request->get('add_password_confirm'),
+				'email' => $this->okt['request']->request->get('add_email'),
+				'group_id' => $this->okt['request']->request->get('add_group_id'),
+				'timezone' => $this->okt['request']->request->get('add_timezone', $this->okt['config']->timezone),
+				'language' => $this->okt['request']->request->get('add_language'),
+				'civility' => $this->okt['request']->request->get('add_civility')
 			);
 
 			if (! $this->okt['config']->users['registration']['user_choose_group'] || empty($this->aUserRegisterData['group_id']) || ! in_array($this->aUserRegisterData['group_id'], $this->okt->getGroups()))
@@ -568,7 +568,7 @@ class UsersController extends BaseController
 
 				$aMailParams = array(
 					'site_title' => $this->page->getSiteTitle($rsUser->language),
-					'site_url' => $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+					'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 					'user' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 					'username' => $rsUser->username,
 					'password' => $this->aUserRegisterData['password'],

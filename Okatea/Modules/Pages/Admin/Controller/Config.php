@@ -38,7 +38,7 @@ class Config extends Controller
 		$oTemplatesFeed = new TemplatesSet($this->okt, $this->okt->module('Pages')->config->templates['feed'], 'Pages/feed', 'feed', $this->generateUrl('Pages_config') . '?');
 
 		# régénération des miniatures
-		if ($this->okt->request->query->has('minregen'))
+		if ($this->okt['request']->query->has('minregen'))
 		{
 			$this->okt->module('Pages')->pages->getImageUpload()->regenMinImages();
 
@@ -48,7 +48,7 @@ class Config extends Controller
 		}
 
 		# suppression filigrane
-		if ($this->okt->request->query->has('delete_watermark'))
+		if ($this->okt['request']->query->has('delete_watermark'))
 		{
 			$this->okt->module('Pages')->config->write(array(
 				'images' => $oImageUploadConfig->removeWatermak()
@@ -60,11 +60,11 @@ class Config extends Controller
 		}
 
 		# enregistrement configuration
-		if ($this->okt->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			if ($this->request->request->has('p_perms'))
+			if ($this->okt['request']->request->has('p_perms'))
 			{
-				$p_perms = array_map('intval', $this->request->request->get('p_perms'));
+				$p_perms = array_map('intval', $this->okt['request']->request->get('p_perms'));
 			}
 			else
 			{
@@ -76,26 +76,26 @@ class Config extends Controller
 			if (! $this->okt['flash']->hasError())
 			{
 				$aNewConf = array(
-					'enable_metas' => $this->okt->request->request->has('p_enable_metas'),
-					'enable_filters' => $this->okt->request->request->has('p_enable_filters'),
+					'enable_metas' => $this->okt['request']->request->has('p_enable_metas'),
+					'enable_filters' => $this->okt['request']->request->has('p_enable_filters'),
 
 					'perms' => (array) $p_perms,
-					'enable_group_perms' => $this->okt->request->request->has('p_enable_group_perms'),
+					'enable_group_perms' => $this->okt['request']->request->has('p_enable_group_perms'),
 
 					'categories' => array(
-						'enable' => $this->okt->request->request->has('p_categories_enable'),
-						'descriptions' => $this->okt->request->request->has('p_categories_descriptions'),
-						'rte' => $this->okt->request->request->get('p_categories_rte', '')
+						'enable' => $this->okt['request']->request->has('p_categories_enable'),
+						'descriptions' => $this->okt['request']->request->has('p_categories_descriptions'),
+						'rte' => $this->okt['request']->request->get('p_categories_rte', '')
 					),
 
-					'enable_rte' => $this->okt->request->request->get('p_enable_rte', ''),
+					'enable_rte' => $this->okt['request']->request->get('p_enable_rte', ''),
 
 					'images' => $oImageUploadConfig->getPostConfig(),
 
 					'files' => array(
-						'enable' => $this->okt->request->request->has('p_enable_files'),
-						'number' => $this->okt->request->request->getInt('p_number_files', 0),
-						'allowed_exts' => $this->okt->request->request->get('p_allowed_exts')
+						'enable' => $this->okt['request']->request->has('p_enable_files'),
+						'number' => $this->okt['request']->request->getInt('p_number_files', 0),
+						'allowed_exts' => $this->okt['request']->request->get('p_allowed_exts')
 					),
 
 					'templates' => array(
@@ -105,11 +105,11 @@ class Config extends Controller
 						'feed' => $oTemplatesFeed->getPostConfig()
 					),
 
-					'name' => $this->okt->request->request->get('p_name', array()),
-					'name_seo' => $this->okt->request->request->get('p_name_seo', array()),
-					'title' => $this->okt->request->request->get('p_title', array()),
-					'meta_description' => $this->okt->request->request->get('p_meta_description', array()),
-					'meta_keywords' => $this->okt->request->request->get('p_meta_keywords', array())
+					'name' => $this->okt['request']->request->get('p_name', array()),
+					'name_seo' => $this->okt['request']->request->get('p_name_seo', array()),
+					'title' => $this->okt['request']->request->get('p_title', array()),
+					'meta_description' => $this->okt['request']->request->get('p_meta_description', array()),
+					'meta_keywords' => $this->okt['request']->request->get('p_meta_keywords', array())
 				);
 
 				$this->okt->module('Pages')->config->write($aNewConf);

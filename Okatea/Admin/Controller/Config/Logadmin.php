@@ -29,7 +29,7 @@ class Logadmin extends Controller
 		$this->okt->logAdmin->deleteLogsDate($this->okt['config']->log_admin['ttl_months']);
 
 		# Suppression manuelle des logs
-		if ($this->request->query->get('truncate'))
+		if ($this->okt['request']->query->get('truncate'))
 		{
 			$this->okt->logAdmin->deleteLogs();
 
@@ -39,7 +39,7 @@ class Logadmin extends Controller
 		}
 
 		# Ré-initialisation filtres
-		if ($this->request->query->get('init_filters'))
+		if ($this->okt['request']->query->get('init_filters'))
 		{
 			$this->okt->logAdmin->filters->initFilters();
 			return $this->redirect($this->generateUrl('config_logadmin'));

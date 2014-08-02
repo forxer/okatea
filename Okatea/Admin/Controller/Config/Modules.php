@@ -204,7 +204,7 @@ class Modules extends Controller
 
 	protected function showChangelog()
 	{
-		$sModuleId = $this->request->query->get('show_changelog');
+		$sModuleId = $this->okt['request']->query->get('show_changelog');
 		$sChangelogFile = $this->okt->options->get('modules_dir') . '/' . $sModuleId . '/CHANGELOG';
 
 		if (! $sModuleId || ! file_exists($sChangelogFile))
@@ -219,7 +219,7 @@ class Modules extends Controller
 
 	protected function enableModule()
 	{
-		$sModuleId = $this->request->query->get('enable');
+		$sModuleId = $this->okt['request']->query->get('enable');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -242,7 +242,7 @@ class Modules extends Controller
 
 	protected function disableModule()
 	{
-		$sModuleId = $this->request->query->get('disable');
+		$sModuleId = $this->okt['request']->query->get('disable');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -265,7 +265,7 @@ class Modules extends Controller
 
 	protected function installModule()
 	{
-		$sModuleId = $this->request->query->get('install');
+		$sModuleId = $this->okt['request']->query->get('install');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aUninstalledModules))
 		{
@@ -307,7 +307,7 @@ class Modules extends Controller
 
 	protected function updateModule()
 	{
-		$sModuleId = $this->request->query->get('update');
+		$sModuleId = $this->okt['request']->query->get('update');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -359,7 +359,7 @@ class Modules extends Controller
 
 	protected function uninstallModule()
 	{
-		$sModuleId = $this->request->query->get('uninstall');
+		$sModuleId = $this->okt['request']->query->get('uninstall');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -395,7 +395,7 @@ class Modules extends Controller
 
 	protected function reinstallModule()
 	{
-		$sModuleId = $this->request->query->get('reinstall');
+		$sModuleId = $this->okt['request']->query->get('reinstall');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -452,7 +452,7 @@ class Modules extends Controller
 
 	protected function installTestSet()
 	{
-		$sModuleId = $this->request->query->get('testset');
+		$sModuleId = $this->okt['request']->query->get('testset');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -493,7 +493,7 @@ class Modules extends Controller
 
 	protected function installDefaultData()
 	{
-		$sModuleId = $this->request->query->get('defaultdata');
+		$sModuleId = $this->okt['request']->query->get('defaultdata');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -527,7 +527,7 @@ class Modules extends Controller
 
 	protected function removeModuleContent()
 	{
-		$sModuleId = $this->request->query->get('empty');
+		$sModuleId = $this->okt['request']->query->get('empty');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -560,7 +560,7 @@ class Modules extends Controller
 
 	protected function removeModule()
 	{
-		$sModuleId = $this->request->query->get('delete');
+		$sModuleId = $this->okt['request']->query->get('delete');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aUninstalledModules))
 		{
@@ -588,7 +588,7 @@ class Modules extends Controller
 
 	protected function replaceTemplatesFiles()
 	{
-		$sModuleId = $this->request->query->get('templates');
+		$sModuleId = $this->okt['request']->query->get('templates');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -607,7 +607,7 @@ class Modules extends Controller
 
 	protected function replaceAssetsFiles()
 	{
-		$sModuleId = $this->request->query->get('assets');
+		$sModuleId = $this->okt['request']->query->get('assets');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -626,7 +626,7 @@ class Modules extends Controller
 
 	protected function packageAndSendModule()
 	{
-		$sModuleId = $this->request->query->get('download');
+		$sModuleId = $this->okt['request']->query->get('download');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aAllModules))
 		{
@@ -660,7 +660,7 @@ class Modules extends Controller
 
 	protected function compareFiles()
 	{
-		$sModuleId = $this->request->query->get('compare');
+		$sModuleId = $this->okt['request']->query->get('compare');
 
 		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
 		{
@@ -677,14 +677,14 @@ class Modules extends Controller
 
 	protected function moduleUpload()
 	{
-		$upload_pkg = $this->request->request->get('upload_pkg');
-		$pkg_file = $this->request->files->get('pkg_file');
+		$upload_pkg = $this->okt['request']->request->get('upload_pkg');
+		$pkg_file = $this->okt['request']->files->get('pkg_file');
 
-		$fetch_pkg = $this->request->request->get('fetch_pkg');
-		$pkg_url = $this->request->request->get('pkg_url');
+		$fetch_pkg = $this->okt['request']->request->get('fetch_pkg');
+		$pkg_url = $this->okt['request']->request->get('pkg_url');
 
-		$repository = $this->request->query->get('repository');
-		$module = $this->request->query->get('module');
+		$repository = $this->okt['request']->query->get('repository');
+		$module = $this->okt['request']->query->get('module');
 
 		# Plugin upload
 		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $module && $this->okt['config']->repositories['modules']['enabled']))

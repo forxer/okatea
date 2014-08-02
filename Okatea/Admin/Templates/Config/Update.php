@@ -18,7 +18,7 @@ if (! empty($sMessage))
 {
 	echo '<div class="errors_box ui-corner-all">' . $sMessage . '</div>';
 }
-elseif (! $okt->request->query->has('update_db'))
+elseif (! $okt['request']->query->has('update_db'))
 {
 	if (! $bDigestIsReadable)
 	{
@@ -28,7 +28,7 @@ elseif (! $okt->request->query->has('update_db'))
 	echo '<p><a href="' . $sBaseSelfUrl . '&amp;update_db=1" class="icon database_refresh">' . __('c_a_update_database') . '</a></p>';
 }
 
-if ($okt->request->query->has('update_db'))
+if ($okt['request']->query->has('update_db'))
 {
 	echo $oChecklist->getHTML();
 	

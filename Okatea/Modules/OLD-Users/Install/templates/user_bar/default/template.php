@@ -40,7 +40,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 	:
 		?>
 		- <a
-			href="<?php echo $view->escape(UsersHelpers::getLoginUrl($okt->request->getUri())) ?>"><?php
+			href="<?php echo $view->escape(UsersHelpers::getLoginUrl($okt['request']->getUri())) ?>"><?php
 		_e('c_c_auth_login')?></a>
 		<?php endif; # fin Okatea : lien page connexion ?>
 

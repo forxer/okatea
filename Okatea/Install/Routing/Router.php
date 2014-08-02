@@ -22,19 +22,19 @@ class Router extends BaseRouter
 	 *
 	 * @var Application
 	 */
-	protected $app;
+	protected $okt;
 
 	/**
 	 */
-	public function __construct(Application $app, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
+	public function __construct(Application $okt, $ressources_dir, $cache_dir = null, $debug = false, LoggerInterface $logger = null)
 	{
-		$this->app = $app;
-		
+		$this->okt = $okt;
+
 		parent::__construct(new PhpFileLoader(new FileLocator($ressources_dir)), $ressources_dir, [
 			'cache_dir' => $cache_dir,
 			'debug' => $debug,
 			'generator_cache_class' => 'OkateaInstallUrlGenerator',
 			'matcher_cache_class' => 'OkateaInstallUrlMatcher'
-		], $app->getRequestContext(), $logger);
+		], $okt['requestContext'], $logger);
 	}
 }

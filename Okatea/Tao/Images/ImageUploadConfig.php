@@ -143,7 +143,7 @@ class ImageUploadConfig
 	 */
 	public function getPostConfig()
 	{
-		$bEnableImages = $this->okt->request->request->has($this->sFormPrefix . 'enable_images') ? true : false;
+		$bEnableImages = $this->okt['request']->request->has($this->sFormPrefix . 'enable_images') ? true : false;
 		
 		if ($this->bUnique)
 		{
@@ -151,7 +151,7 @@ class ImageUploadConfig
 		}
 		else
 		{
-			$iNumberImages = $this->okt->request->request->getInt($this->sFormPrefix . 'number_images', 0);
+			$iNumberImages = $this->okt['request']->request->getInt($this->sFormPrefix . 'number_images', 0);
 			
 			if (! empty($this->iMaxFileUploads) && $iNumberImages > $this->iMaxFileUploads)
 			{
@@ -159,38 +159,38 @@ class ImageUploadConfig
 			}
 		}
 		
-		$iWidth = $this->okt->request->request->getInt($this->sFormPrefix . 'width', 0);
-		$iHeight = $this->okt->request->request->getInt($this->sFormPrefix . 'height', 0);
-		$sResizeType = $this->okt->request->request->get($this->sFormPrefix . 'resize_type', 'ratio');
+		$iWidth = $this->okt['request']->request->getInt($this->sFormPrefix . 'width', 0);
+		$iHeight = $this->okt['request']->request->getInt($this->sFormPrefix . 'height', 0);
+		$sResizeType = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type', 'ratio');
 		
-		$iWidthMin = $this->okt->request->request->getInt($this->sFormPrefix . 'width_min', 0);
-		$iHeightMin = $this->okt->request->request->getInt($this->sFormPrefix . 'height_min', 0);
-		$sResizeTypeMin = $this->okt->request->request->get($this->sFormPrefix . 'resize_type_min', 'ratio');
+		$iWidthMin = $this->okt['request']->request->getInt($this->sFormPrefix . 'width_min', 0);
+		$iHeightMin = $this->okt['request']->request->getInt($this->sFormPrefix . 'height_min', 0);
+		$sResizeTypeMin = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type_min', 'ratio');
 		
-		$iWidthMin2 = $this->okt->request->request->getInt($this->sFormPrefix . 'width_min_2', 0);
-		$iHeightMin2 = $this->okt->request->request->getInt($this->sFormPrefix . 'height_min_2', 0);
-		$sResizeTypeMin2 = $this->okt->request->request->get($this->sFormPrefix . 'resize_type_min_2', 'ratio');
+		$iWidthMin2 = $this->okt['request']->request->getInt($this->sFormPrefix . 'width_min_2', 0);
+		$iHeightMin2 = $this->okt['request']->request->getInt($this->sFormPrefix . 'height_min_2', 0);
+		$sResizeTypeMin2 = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type_min_2', 'ratio');
 		
-		$iWidthMin3 = $this->okt->request->request->getInt($this->sFormPrefix . 'width_min_3', 0);
-		$iHeightMin3 = $this->okt->request->request->getInt($this->sFormPrefix . 'height_min_3', 0);
-		$sResizeTypeMin3 = $this->okt->request->request->get($this->sFormPrefix . 'resize_type_min_3', 'ratio');
+		$iWidthMin3 = $this->okt['request']->request->getInt($this->sFormPrefix . 'width_min_3', 0);
+		$iHeightMin3 = $this->okt['request']->request->getInt($this->sFormPrefix . 'height_min_3', 0);
+		$sResizeTypeMin3 = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type_min_3', 'ratio');
 		
-		$iWidthMin4 = $this->okt->request->request->getInt($this->sFormPrefix . 'width_min_4', 0);
-		$iHeightMin4 = $this->okt->request->request->getInt($this->sFormPrefix . 'height_min_4', 0);
-		$sResizeTypeMin4 = $this->okt->request->request->get($this->sFormPrefix . 'resize_type_min_4', 'ratio');
+		$iWidthMin4 = $this->okt['request']->request->getInt($this->sFormPrefix . 'width_min_4', 0);
+		$iHeightMin4 = $this->okt['request']->request->getInt($this->sFormPrefix . 'height_min_4', 0);
+		$sResizeTypeMin4 = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type_min_4', 'ratio');
 		
-		$iWidthMin5 = $this->okt->request->request->getInt($this->sFormPrefix . 'width_min_5', 0);
-		$iHeightMin5 = $this->okt->request->request->getInt($this->sFormPrefix . 'height_min_5', 0);
-		$sResizeTypeMin5 = $this->okt->request->request->get($this->sFormPrefix . 'resize_type_min_5', 'ratio');
+		$iWidthMin5 = $this->okt['request']->request->getInt($this->sFormPrefix . 'width_min_5', 0);
+		$iHeightMin5 = $this->okt['request']->request->getInt($this->sFormPrefix . 'height_min_5', 0);
+		$sResizeTypeMin5 = $this->okt['request']->request->get($this->sFormPrefix . 'resize_type_min_5', 'ratio');
 		
-		$sSquareSize = $this->okt->request->request->getInt($this->sFormPrefix . 'square_size', 0);
+		$sSquareSize = $this->okt['request']->request->getInt($this->sFormPrefix . 'square_size', 0);
 		
 		if ($this->bWithWatermark)
 		{
 			$sUploadedWatermarkFile = $this->oImageUpload->uploadWatermark($this->sFormPrefix . 'watermark_file', 'watermark');
 			$sWatermarkFile = ($sUploadedWatermarkFile != '' ? $sUploadedWatermarkFile : $this->oImageUpload->aConfig['watermark_file']);
 			
-			$sWatermarkPosition = $this->okt->request->request->get($this->sFormPrefix . 'watermark_position', 'cc');
+			$sWatermarkPosition = $this->okt['request']->request->get($this->sFormPrefix . 'watermark_position', 'cc');
 		}
 		else
 		{

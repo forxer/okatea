@@ -62,7 +62,7 @@ class Fields extends Controller
 		
 		$this->initFieldData();
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->populateFieldDataFromPost();
 			
@@ -97,7 +97,7 @@ class Fields extends Controller
 		
 		$this->initFieldData();
 		
-		$this->aFieldData['id'] = $this->request->attributes->getInt('field_id');
+		$this->aFieldData['id'] = $this->okt['request']->attributes->getInt('field_id');
 		
 		$rsField = $this->okt->module('Contact')->fields->getField($this->aFieldData['id']);
 		
@@ -125,7 +125,7 @@ class Fields extends Controller
 			}
 		}
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->populateFieldDataFromPost();
 			
@@ -158,7 +158,7 @@ class Fields extends Controller
 		
 		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
 		
-		$iFieldId = $this->request->attributes->get('field_id');
+		$iFieldId = $this->okt['request']->attributes->get('field_id');
 		
 		$rsField = $this->okt->module('Contact')->fields->getFields(array(
 			'id' => $iFieldId,
@@ -187,9 +187,9 @@ class Fields extends Controller
 			}
 		}
 		
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$aValues = $this->request->request->get('p_value');
+			$aValues = $this->okt['request']->request->get('p_value');
 			
 			if ($this->okt->module('Contact')->fields->setFieldValues($iFieldId, $aValues) !== false)
 			{
@@ -211,9 +211,9 @@ class Fields extends Controller
 
 	protected function deleteField()
 	{
-		if ($this->request->query->has('delete'))
+		if ($this->okt['request']->query->has('delete'))
 		{
-			$this->okt->module('Contact')->fields->deleteField($this->request->query->get('delete'));
+			$this->okt->module('Contact')->fields->deleteField($this->okt['request']->query->get('delete'));
 			
 			$this->okt['flash']->success(__('m_contact_fields_field_deleted'));
 			
@@ -225,9 +225,9 @@ class Fields extends Controller
 
 	protected function updateFieldsOrderByAjax()
 	{
-		if ($this->request->query->has('ajax_update_order'))
+		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aFieldsOrder = $this->request->query->get('ord', array());
+			$aFieldsOrder = $this->okt['request']->query->get('ord', array());
 			
 			if (! empty($aFieldsOrder))
 			{
@@ -246,9 +246,9 @@ class Fields extends Controller
 
 	protected function updateFieldsOrderByPost()
 	{
-		if ($this->request->request->has('order_languages'))
+		if ($this->okt['request']->request->has('order_languages'))
 		{
-			$aFieldsOrder = $this->request->request->get('p_order', array());
+			$aFieldsOrder = $this->okt['request']->request->get('p_order', array());
 			
 			asort($aFieldsOrder);
 			
@@ -291,14 +291,14 @@ class Fields extends Controller
 
 	protected function populateFieldDataFromPost()
 	{
-		$this->aFieldData['type'] = $this->request->request->getInt('field_type');
-		$this->aFieldData['status'] = $this->request->request->getInt('field_status');
-		$this->aFieldData['html_id'] = $this->request->request->get('field_html_id');
+		$this->aFieldData['type'] = $this->okt['request']->request->getInt('field_type');
+		$this->aFieldData['status'] = $this->okt['request']->request->getInt('field_status');
+		$this->aFieldData['html_id'] = $this->okt['request']->request->get('field_html_id');
 		
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aFieldData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('field_title[' . $aLanguage['code'] . ']', null, true);
-			$this->aFieldData['locales'][$aLanguage['code']]['description'] = $this->request->request->get('field_description[' . $aLanguage['code'] . ']', null, true);
+			$this->aFieldData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('field_title[' . $aLanguage['code'] . ']', null, true);
+			$this->aFieldData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('field_description[' . $aLanguage['code'] . ']', null, true);
 		}
 	}
 }

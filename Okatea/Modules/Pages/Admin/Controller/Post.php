@@ -63,7 +63,7 @@ class Post extends Controller
 	{
 		$this->init();
 
-		$this->aPageData['post']['id'] = $this->request->attributes->getInt('page_id');
+		$this->aPageData['post']['id'] = $this->okt['request']->attributes->getInt('page_id');
 
 		$rsPage = $this->okt->module('Pages')->pages->getPagesRecordset(array(
 			'id' => $this->aPageData['post']['id'],
@@ -126,7 +126,7 @@ class Post extends Controller
 		}
 
 		# switch page status
-		if ($this->request->query->has('switch_status'))
+		if ($this->okt['request']->query->has('switch_status'))
 		{
 			try
 			{
@@ -150,9 +150,9 @@ class Post extends Controller
 		}
 
 		# suppression d'une image
-		if ($this->request->query->has('delete_image'))
+		if ($this->okt['request']->query->has('delete_image'))
 		{
-			$this->okt->module('Pages')->pages->getImageUpload()->delete($this->aPageData['post']['id'], $this->request->query->get('delete_image'));
+			$this->okt->module('Pages')->pages->getImageUpload()->delete($this->aPageData['post']['id'], $this->okt['request']->query->get('delete_image'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -169,9 +169,9 @@ class Post extends Controller
 		}
 
 		# suppression d'un fichier
-		if ($this->request->query->has('delete_file'))
+		if ($this->okt['request']->query->has('delete_file'))
 		{
-			$this->okt->module('Pages')->deleteFile($this->aPageData['post']['id'], $this->request->query->get('delete_file'));
+			$this->okt->module('Pages')->deleteFile($this->aPageData['post']['id'], $this->okt['request']->query->get('delete_file'));
 
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -273,32 +273,32 @@ class Post extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->request->request->has('sended'))
+		if (! $this->okt['request']->request->has('sended'))
 		{
 			return false;
 		}
 
-		$this->aPageData['post']['category_id'] = $this->request->request->getInt('p_category_id');
-		$this->aPageData['post']['active'] = $this->request->request->getInt('p_active');
-		$this->aPageData['post']['tpl'] = $this->request->request->get('p_tpl');
+		$this->aPageData['post']['category_id'] = $this->okt['request']->request->getInt('p_category_id');
+		$this->aPageData['post']['active'] = $this->okt['request']->request->getInt('p_active');
+		$this->aPageData['post']['tpl'] = $this->okt['request']->request->get('p_tpl');
 
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aPageData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
-			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $this->request->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
-			$this->aPageData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
+			$this->aPageData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
+			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $this->okt['request']->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
+			$this->aPageData['locales'][$aLanguage['code']]['content'] = $this->okt['request']->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
 
 			if ($this->okt->module('Pages')->config->enable_metas)
 			{
-				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
-				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
-				$this->aPageData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
-				$this->aPageData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
-				$this->aPageData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['title_seo'] = $this->okt['request']->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['title_tag'] = $this->okt['request']->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['meta_description'] = $this->okt['request']->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['meta_keywords'] = $this->okt['request']->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
+				$this->aPageData['locales'][$aLanguage['code']]['slug'] = $this->okt['request']->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
 			}
 		}
 
-		$this->aPageData['perms'] = $this->request->request->get('perms', array());
+		$this->aPageData['perms'] = $this->okt['request']->request->get('perms', array());
 
 		# -- TRIGGER MODULE PAGES : adminPopulateData
 		$this->okt->module('Pages')->triggers->callTrigger('adminPopulateData', $this->aPageData);

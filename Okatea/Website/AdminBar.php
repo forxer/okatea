@@ -168,7 +168,7 @@ class AdminBar
 				)
 			);
 			
-			$aRequestAttributes = $this->okt->request->attributes->all();
+			$aRequestAttributes = $this->okt['request']->attributes->all();
 			
 			if (! empty($aRequestAttributes['_route']))
 			{

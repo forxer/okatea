@@ -35,8 +35,6 @@ class BaseFilters
 	{
 		$this->okt = $okt;
 
-		$this->request = $this->okt->request;
-
 		$this->id = $id;
 
 		$this->config = $config;
@@ -130,9 +128,9 @@ class BaseFilters
 
 	protected function setFilter($name)
 	{
-		if ($this->request->query->has($name))
+		if ($this->okt['request']->query->has($name))
 		{
-			$this->params->$name = $this->request->query->get($name);
+			$this->params->$name = $this->okt['request']->query->get($name);
 			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
 
 			$this->setActiveFilter($name);
@@ -147,9 +145,9 @@ class BaseFilters
 
 	protected function setIntFilter($name)
 	{
-		if ($this->request->query->has($name) /*&& $this->request->query->getInt($name) != -1 */)
+		if ($this->okt['request']->query->has($name) /*&& $this->okt['request']->query->getInt($name) != -1 */)
 		{
-			$this->params->$name = $this->request->query->getInt($name);
+			$this->params->$name = $this->okt['request']->query->getInt($name);
 			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
 
 			$this->setActiveFilter($name);
@@ -164,14 +162,14 @@ class BaseFilters
 
 	protected function setCheckboxFilter($name)
 	{
-		if ($this->request->query->has($name))
+		if ($this->okt['request']->query->has($name))
 		{
-			$this->params->$name = $this->request->query->getInt($name);
+			$this->params->$name = $this->okt['request']->query->getInt($name);
 			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
 
 			$this->setActiveFilter($name);
 		}
-		elseif ($this->request->query->has($this->getFilterSubmitName()))
+		elseif ($this->okt['request']->query->has($this->getFilterSubmitName()))
 		{
 			$this->params->$name = 0;
 			if ($this->okt['session']->has($this->sess_prefix . $name))
@@ -222,9 +220,9 @@ class BaseFilters
 
 	protected function setFilterPage()
 	{
-		if ($this->request->attributes->has('page') || $this->request->query->has('page'))
+		if ($this->okt['request']->attributes->has('page') || $this->okt['request']->query->has('page'))
 		{
-			$this->params->page = $this->request->attributes->getInt('page', $this->request->query->getInt('page'));
+			$this->params->page = $this->okt['request']->attributes->getInt('page', $this->okt['request']->query->getInt('page'));
 
 			$this->okt['session']->set($this->sess_prefix . 'page', $this->params->page);
 		}

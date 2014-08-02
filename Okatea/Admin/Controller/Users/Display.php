@@ -33,12 +33,12 @@ class Display extends Controller
 		);
 		
 		# enregistrement configuration
-		if ($this->okt->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->aPageData['config'] = array(
 				'users_filters' => array(
-					'public_default_nb_per_page' => $this->okt->request->request->getInt('p_public_default_nb_per_page', 10),
-					'admin_default_nb_per_page' => $this->okt->request->request->getInt('p_admin_default_nb_per_page', 10)
+					'public_default_nb_per_page' => $this->okt['request']->request->getInt('p_public_default_nb_per_page', 10),
+					'admin_default_nb_per_page' => $this->okt['request']->request->getInt('p_admin_default_nb_per_page', 10)
 				)
 			);
 			

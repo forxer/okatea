@@ -50,7 +50,7 @@ class DebugBar extends BaseDebugBar
 	public function shouldCollect($name, $default = false)
 	{
 		return true;
-		//	return $this->app['config']->get('laravel-debugbar::config.collectors.'.$name, $default);
+		//	return $this->okt['config']->get('laravel-debugbar::config.collectors.'.$name, $default);
 	}
 
 	/**

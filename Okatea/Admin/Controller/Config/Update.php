@@ -27,7 +27,7 @@ class Update extends Controller
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/update');
 
 		# mise à jour de la base de données
-		if ($this->request->query->has('update_db'))
+		if ($this->okt['request']->query->has('update_db'))
 		{
 			$oChecklist = new Checklister();
 
@@ -42,7 +42,7 @@ class Update extends Controller
 
 		$bDigestIsReadable = is_readable($this->okt->options->get('digests'));
 
-		if (! $bDigestIsReadable && ! $this->request->query->has('update_db'))
+		if (! $bDigestIsReadable && ! $this->okt['request']->query->has('update_db'))
 		{
 			$this->okt['flash']->error(__('c_a_update_unable_read_digests'));
 		}
@@ -54,16 +54,16 @@ class Update extends Controller
 		$zip_file = $new_v ? $this->okt->options->get('root_dir') . '/' . basename($updater->getFileURL()) : '';
 
 		# Hide "update me" message
-		if ($this->request->query->has('hide_msg'))
+		if ($this->okt['request']->query->has('hide_msg'))
 		{
 			$updater->setNotify(false);
 
 			return $this->redirect($this->generateUrl('home'));
 		}
 
-		$sBaseSelfUrl = $this->generateUrl('config_update') . '?do_not_check=' . ($this->request->query->has('do_not_check') ? '1' : '0');
+		$sBaseSelfUrl = $this->generateUrl('config_update') . '?do_not_check=' . ($this->okt['request']->query->has('do_not_check') ? '1' : '0');
 
-		$sStep = $this->request->query->get('step', '');
+		$sStep = $this->okt['request']->query->get('step', '');
 		$sStep = in_array($sStep, array(
 			'check',
 			'download',
@@ -85,12 +85,12 @@ class Update extends Controller
 		}
 
 		# Revert or delete backup file
-		$b_file = $this->request->request->get('backup_file');
+		$b_file = $this->okt['request']->request->get('backup_file');
 		if ($b_file && in_array($b_file, $aArchives))
 		{
 			try
 			{
-				if ($this->request->request->has('b_del'))
+				if ($this->okt['request']->request->has('b_del'))
 				{
 					if (! @unlink($this->okt->options->get('root_dir') . '/' . $b_file))
 					{
@@ -100,7 +100,7 @@ class Update extends Controller
 					return $this->redirect($sBaseSelfUrl);
 				}
 
-				if ($this->request->request->has('b_revert'))
+				if ($this->okt['request']->request->has('b_revert'))
 				{
 					$zip = new \fileUnzip($this->okt->options->get('root_dir') . '/' . $b_file);
 					$zip->unzipAll($this->okt->options->get('root_dir') . '/');
@@ -123,7 +123,7 @@ class Update extends Controller
 				$updater->setForcedFiles($this->okt->options->get('digests'));
 
 				# check integrity
-				if (! $this->request->query->has('do_not_check'))
+				if (! $this->okt['request']->query->has('do_not_check'))
 				{
 					$updater->checkIntegrity($this->okt->options->get('digests'), $this->okt->options->get('root_dir'));
 				}

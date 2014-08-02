@@ -48,7 +48,7 @@ class Pager extends BasePager
 		}
 		else
 		{
-			$url = $this->okt->request->getBasePath() . $this->okt->request->getPathInfo();
+			$url = $this->okt['request']->getBasePath() . $this->okt['request']->getPathInfo();
 		}
 		
 		# Escape page_url for sprintf

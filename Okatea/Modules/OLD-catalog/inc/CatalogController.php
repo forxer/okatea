@@ -293,7 +293,7 @@ class CatalogController extends Controller
 		$this->page->action = 'item';
 		
 		# Récupération du produit en fonction du slug
-		if (! $slug = $this->request->attributes->get('slug'))
+		if (! $slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

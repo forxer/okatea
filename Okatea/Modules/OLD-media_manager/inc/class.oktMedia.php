@@ -97,7 +97,7 @@ class oktMedia extends filemanager
 		}
 		else
 		{
-			$root_url = rawurldecode($this->okt->request->getSchemeAndHttpHost() . path::clean($okt->options->upload_url . '/media_manager'));
+			$root_url = rawurldecode($this->okt['request']->getSchemeAndHttpHost() . path::clean($okt->options->upload_url . '/media_manager'));
 		}
 		
 		if (! is_dir($root))

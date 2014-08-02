@@ -39,7 +39,7 @@ class Controller extends BaseController
 			'language' => $this->okt->user->language
 		);
 
-		$sSearch = $this->request->query->get('search');
+		$sSearch = $this->okt['request']->query->get('search');
 
 		if ($sSearch)
 		{
@@ -50,7 +50,7 @@ class Controller extends BaseController
 		$this->okt->module('Pages')->filtersStart('public');
 
 		# ré-initialisation filtres
-		if ($this->request->query->has('init_pages_filters'))
+		if ($this->okt['request']->query->has('init_pages_filters'))
 		{
 			$this->okt->module('Pages')->filters->initFilters();
 			return $this->redirect($this->generateUrl('pagesList'));
@@ -154,7 +154,7 @@ class Controller extends BaseController
 		}
 
 		# récupération de la rubrique en fonction du slug
-		if (! $sCategorySlug = $this->request->attributes->get('slug'))
+		if (! $sCategorySlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -203,7 +203,7 @@ class Controller extends BaseController
 		$this->okt->module('Pages')->filtersStart('public');
 
 		# ré-initialisation filtres
-		if ($this->request->query->has('init_pages_filters'))
+		if ($this->okt['request']->query->has('init_pages_filters'))
 		{
 			$this->okt->module('Pages')->filters->initFilters();
 			return $this->redirect($this->generateUrl('pagesList'));
@@ -298,7 +298,7 @@ class Controller extends BaseController
 	public function pagesItem()
 	{
 		# récupération de la page en fonction du slug
-		if (! $sPageSlug = $this->request->attributes->get('slug'))
+		if (! $sPageSlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

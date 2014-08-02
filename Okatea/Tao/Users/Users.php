@@ -239,7 +239,7 @@ class Users
 	 */
 	public function checkRegistrationFlood()
 	{
-		$sQuery = 'SELECT 1 FROM ' . $this->sUsersTable . ' AS u ' . 'WHERE u.registration_ip=\'' . $this->oDb->escapeStr($this->okt->request->getClientIp()) . '\' ' . 'AND u.registered>' . (time() - 3600);
+		$sQuery = 'SELECT 1 FROM ' . $this->sUsersTable . ' AS u ' . 'WHERE u.registration_ip=\'' . $this->oDb->escapeStr($this->okt['request']->getClientIp()) . '\' ' . 'AND u.registered>' . (time() - 3600);
 
 		if (($rs = $this->oDb->select($sQuery)) === false)
 		{
@@ -760,7 +760,7 @@ class Users
 
 		$aMailParams = [
 			'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-			'site_url' => $this->okt->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
+			'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 			'user' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 			'password' => $sNewPassword,
 			'validate_url' => $sActivateUrl . '?uid=' . $rsUser->id . '&key=' . rawurlencode($sNewPasswordKey)

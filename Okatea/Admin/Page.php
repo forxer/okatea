@@ -185,7 +185,7 @@ class Page extends BasePage
 		# languages switcher
 		if ($this->okt['config']->admin_lang_switcher && ! $this->okt->languages->unique)
 		{
-			$sBaseUri = $this->okt->request->getUri();
+			$sBaseUri = $this->okt['request']->getUri();
 			$sBaseUri .= strpos($sBaseUri, '?') ? '&' : '?';
 
 			$iCount = 50;
@@ -498,11 +498,11 @@ class Page extends BasePage
 
 	public function serve404()
 	{
-		$this->okt->request->attributes->set('controller', 'Okatea\Admin\Controller::serve404');
+		$this->okt['request']->attributes->set('controller', 'Okatea\Admin\Controller::serve404');
 	}
 
 	public function serve503()
 	{
-		$this->okt->request->attributes->set('controller', 'Okatea\Admin\Controller::serve503');
+		$this->okt['request']->attributes->set('controller', 'Okatea\Admin\Controller::serve503');
 	}
 }

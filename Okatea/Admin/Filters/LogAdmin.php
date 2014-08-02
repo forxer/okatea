@@ -102,9 +102,9 @@ class LogAdmin extends BaseFilters
 	protected function setFilterOrderBy()
 	{
 		# ordre du tri
-		if ($this->request->query->has('order_by'))
+		if ($this->okt['request']->query->has('order_by'))
 		{
-			$this->params->order_by = $this->request->query->get('order_by');
+			$this->params->order_by = $this->okt['request']->query->get('order_by');
 			$this->okt['session']->set($this->sess_prefix . 'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_by');
@@ -146,9 +146,9 @@ class LogAdmin extends BaseFilters
 		);
 
 		# sens du tri
-		if ($this->request->query->has('order_direction'))
+		if ($this->okt['request']->query->has('order_direction'))
 		{
-			$this->params->order_direction = $this->request->query->get('order_direction');
+			$this->params->order_direction = $this->okt['request']->query->get('order_direction');
 			$this->okt['session']->set($this->sess_prefix . 'order_direction', $this->params->order_direction);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_direction');
@@ -177,9 +177,9 @@ class LogAdmin extends BaseFilters
 
 	protected function setFilterDates()
 	{
-		if ($this->request->query->has('date_min'))
+		if ($this->okt['request']->query->has('date_min'))
 		{
-			$this->params->date_min = $this->request->query->get('date_min');
+			$this->params->date_min = $this->okt['request']->query->get('date_min');
 			$this->okt['session']->set($this->sess_prefix . 'date_min', $this->params->date_min);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_min');
@@ -202,9 +202,9 @@ class LogAdmin extends BaseFilters
 			), 15, 0, $this->params->date_min, 'datepicker', $this->getActiveClass('date_min'))
 		);
 
-		if ($this->request->query->has('date_max'))
+		if ($this->okt['request']->query->has('date_max'))
 		{
-			$this->params->date_max = $this->request->query->get('date_max');
+			$this->params->date_max = $this->okt['request']->query->get('date_max');
 			$this->okt['session']->set($this->sess_prefix . 'date_max', $this->params->date_max);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_max');

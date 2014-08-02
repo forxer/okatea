@@ -28,18 +28,18 @@ class Supa extends Controller
 			]
 		];
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
 			$aUsersData = [
 				'sudo' => [
-					'username' => $this->request->request->get('sudo_username'),
-					'password' => $this->request->request->get('sudo_password'),
-					'email' => $this->request->request->get('sudo_email')
+					'username' => $this->okt['request']->request->get('sudo_username'),
+					'password' => $this->okt['request']->request->get('sudo_password'),
+					'email' => $this->okt['request']->request->get('sudo_email')
 				],
 				'admin' => [
-					'username' => $this->request->request->get('admin_username'),
-					'password' => $this->request->request->get('admin_password'),
-					'email' => $this->request->request->get('admin_email')
+					'username' => $this->okt['request']->request->get('admin_username'),
+					'password' => $this->okt['request']->request->get('admin_password'),
+					'email' => $this->okt['request']->request->get('admin_email')
 				]
 			];
 

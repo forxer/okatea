@@ -36,7 +36,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 		<?php # début Okatea : lien page connexion
 		if ($okt['config']->users['pages']['login']) : ?>
 		- <a
-			href="<?php echo $okt['router']->generateLoginUrl($okt->request->getUri()) ?>"><?php
+			href="<?php echo $okt['router']->generateLoginUrl($okt['request']->getUri()) ?>"><?php
 		_e('c_c_auth_login')?></a>
 		<?php endif; # fin Okatea : lien page connexion ?>
 

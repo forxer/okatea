@@ -38,9 +38,9 @@ class Controller extends BaseController
 
 		$aValues = [];
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
-			$aModules = $this->request->request->get('p_modules', array(), true);
+			$aModules = $this->okt['request']->request->get('p_modules', array(), true);
 
 			foreach ($aModules as $sModuleId)
 			{

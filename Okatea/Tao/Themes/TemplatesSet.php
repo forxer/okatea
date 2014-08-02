@@ -95,9 +95,9 @@ class TemplatesSet
 		
 		# get template id from query
 		$sTtplId = null;
-		if ($this->okt->request->query->has('tpl_id'))
+		if ($this->okt['request']->query->has('tpl_id'))
 		{
-			$sTtplId = rawurldecode($this->okt->request->query->get('tpl_id'));
+			$sTtplId = rawurldecode($this->okt['request']->query->get('tpl_id'));
 			
 			if (! array_key_exists($sTtplId, $this->getTplInfos()))
 			{
@@ -107,9 +107,9 @@ class TemplatesSet
 		
 		# get template family from query
 		$sTtplFamily = null;
-		if ($this->okt->request->query->has('tpl_family'))
+		if ($this->okt['request']->query->has('tpl_family'))
 		{
-			$sTtplFamily = rawurldecode($this->okt->request->query->get('tpl_family'));
+			$sTtplFamily = rawurldecode($this->okt['request']->query->get('tpl_family'));
 			
 			if ($sTtplFamily != $this->sTplFamily)
 			{
@@ -118,13 +118,13 @@ class TemplatesSet
 		}
 		
 		# téléchargement d'un template
-		if ($this->okt->request->query->has('tpl_download') && $sTtplId && $sTtplFamily)
+		if ($this->okt['request']->query->has('tpl_download') && $sTtplId && $sTtplFamily)
 		{
 			$this->dowloadTemplate($sTtplId);
 		}
 		
 		# suppression d'un template
-		if ($this->okt->request->query->has('tpl_delete') && $sTtplId && $sTtplFamily)
+		if ($this->okt['request']->query->has('tpl_delete') && $sTtplId && $sTtplFamily)
 		{
 			$this->deleteTemplate($sTtplId);
 			
@@ -355,8 +355,8 @@ class TemplatesSet
 	 */
 	public function getPostConfig()
 	{
-		$p_tpl_default = $this->okt->request->request->get($this->sFormPrefix . 'tpl_default_' . $this->sTplFamily);
-		$p_tpl_usables = $this->okt->request->request->get($this->sFormPrefix . 'tpl_usables_' . $this->sTplFamily, array());
+		$p_tpl_default = $this->okt['request']->request->get($this->sFormPrefix . 'tpl_default_' . $this->sTplFamily);
+		$p_tpl_usables = $this->okt['request']->request->get($this->sFormPrefix . 'tpl_usables_' . $this->sTplFamily, array());
 		
 		return array(
 			'default' => $p_tpl_default,

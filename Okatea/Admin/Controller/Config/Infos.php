@@ -134,7 +134,7 @@ class Infos extends Controller
 
 			$this->aNotes['md'] = file_get_contents($this->aNotes['file']);
 
-			$this->aNotes['edit'] = $this->request->query->get('edit_notes');
+			$this->aNotes['edit'] = $this->okt['request']->query->get('edit_notes');
 
 			$this->aNotes['html'] = $this->okt->HTMLfilter(\Parsedown::instance()->parse($this->aNotes['md']));
 		}
@@ -161,7 +161,7 @@ class Infos extends Controller
 	protected function mysqlInit()
 	{
 		$this->aMysqlInfos = array(
-			'table' => $this->request->query->get('table')
+			'table' => $this->okt['request']->query->get('table')
 		);
 
 		$rs = $this->okt->db->select('SELECT VERSION() AS db_version');
@@ -207,7 +207,7 @@ class Infos extends Controller
 	protected function notesHandleRequest()
 	{
 		# création du fichier de notes
-		if ($this->request->query->has('create_notes') && ! $this->aNotes['has'])
+		if ($this->okt['request']->query->has('create_notes') && ! $this->aNotes['has'])
 		{
 			file_put_contents($this->aNotes['file'], '');
 
@@ -215,11 +215,11 @@ class Infos extends Controller
 		}
 
 		# enregistrement notes
-		if ($this->request->request->has('save_notes'))
+		if ($this->okt['request']->request->has('save_notes'))
 		{
 			if ($this->aNotes['has'])
 			{
-				file_put_contents($this->aNotes['file'], $this->request->request->get('notes_content'));
+				file_put_contents($this->aNotes['file'], $this->okt['request']->request->get('notes_content'));
 			}
 
 			return $this->redirect($this->generateUrl('config_infos'));
@@ -232,7 +232,7 @@ class Infos extends Controller
 	{
 		# affichage changelog Okatea
 		$sChangelogFile = $this->okt->options->get('okt_dir') . '/CHANGELOG';
-		if ($this->request->query->has('show_changelog') && file_exists($sChangelogFile))
+		if ($this->okt['request']->query->has('show_changelog') && file_exists($sChangelogFile))
 		{
 			echo '<pre class="changelog">' . file_get_contents($sChangelogFile) . '</pre>';
 			die();
@@ -244,7 +244,7 @@ class Infos extends Controller
 	protected function phpHandleRequest()
 	{
 		# affichage phpinfo()
-		if ($this->request->query->has('phpinfo'))
+		if ($this->okt['request']->query->has('phpinfo'))
 		{
 			phpinfo();
 			exit();
@@ -256,7 +256,7 @@ class Infos extends Controller
 	protected function mysqlHandleRequest()
 	{
 		# optimisation d'une table
-		$optimize = $this->request->query->get('optimize');
+		$optimize = $this->okt['request']->query->get('optimize');
 
 		if ($optimize)
 		{
@@ -270,7 +270,7 @@ class Infos extends Controller
 		}
 
 		# vidange d'une table
-		$truncate = $this->request->query->get('truncate');
+		$truncate = $this->okt['request']->query->get('truncate');
 
 		if ($truncate)
 		{
@@ -284,7 +284,7 @@ class Infos extends Controller
 		}
 
 		# suppression d'une table
-		$drop = $this->request->query->get('drop');
+		$drop = $this->okt['request']->query->get('drop');
 
 		if ($drop)
 		{

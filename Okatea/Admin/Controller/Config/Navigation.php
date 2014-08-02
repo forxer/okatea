@@ -27,7 +27,7 @@ class Navigation extends Controller
 		# titre et fil d'ariane
 		$this->page->addGlobalTitle(__('c_a_config_navigation'), $this->generateUrl('config_navigation'));
 
-		$sDo = $this->request->query->get('do');
+		$sDo = $this->okt['request']->query->get('do');
 		if (! $sDo || $sDo === 'index')
 		{
 			return $this->index();
@@ -57,7 +57,7 @@ class Navigation extends Controller
 	protected function index()
 	{
 		# switch statut
-		$iMenuIdSwitchStatus = $this->request->query->getInt('switch_status');
+		$iMenuIdSwitchStatus = $this->okt['request']->query->getInt('switch_status');
 
 		if ($iMenuIdSwitchStatus)
 		{
@@ -76,7 +76,7 @@ class Navigation extends Controller
 		}
 
 		# suppression d'un menu
-		$iMenuIdDelete = $this->request->query->getInt('delete_menu');
+		$iMenuIdDelete = $this->okt['request']->query->getInt('delete_menu');
 		if ($iMenuIdDelete)
 		{
 			try
@@ -109,7 +109,7 @@ class Navigation extends Controller
 		);
 
 		# menu update ?
-		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
+		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 		if ($iMenuId)
 		{
 			$rsMenu = $this->okt->navigation->getMenu($iMenuId);
@@ -130,12 +130,12 @@ class Navigation extends Controller
 		}
 
 		# add/update a menu
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
 			$aMenuData = array(
-				'title' => $this->request->request->get('p_title', ''),
-				'active' => $this->request->request->has('p_active') ? 1 : 0,
-				'tpl' => $this->request->request->get('p_tpl', '')
+				'title' => $this->okt['request']->request->get('p_title', ''),
+				'active' => $this->okt['request']->request->has('p_active') ? 1 : 0,
+				'tpl' => $this->okt['request']->request->get('p_tpl', '')
 			);
 
 			# update menu
@@ -210,7 +210,7 @@ class Navigation extends Controller
 
 	protected function items()
 	{
-		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
+		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 
 		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
 
@@ -220,9 +220,9 @@ class Navigation extends Controller
 		}
 
 		# AJAX : changement de l'ordre des éléments
-		if ($this->request->query->has('ajax_update_order'))
+		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aItemsOrder = $this->request->query->get('ord', array());
+			$aItemsOrder = $this->okt['request']->query->get('ord', array());
 
 			if (! empty($aItemsOrder))
 			{
@@ -237,11 +237,11 @@ class Navigation extends Controller
 		}
 
 		# POST : changement de l'ordre des langues
-		if ($this->request->request->has('order_items'))
+		if ($this->okt['request']->request->has('order_items'))
 		{
 			try
 			{
-				$aItemsOrder = $this->request->query->get('p_order', array());
+				$aItemsOrder = $this->okt['request']->query->get('p_order', array());
 
 				asort($aItemsOrder);
 
@@ -267,7 +267,7 @@ class Navigation extends Controller
 		}
 
 		# activation d'un élément
-		$iItemIdEnable = $this->request->query->getInt('enable');
+		$iItemIdEnable = $this->okt['request']->query->getInt('enable');
 		if ($iItemIdEnable)
 		{
 			try
@@ -285,7 +285,7 @@ class Navigation extends Controller
 		}
 
 		# désactivation d'un élément
-		$iItemIdDisable = $this->request->query->getInt('disable');
+		$iItemIdDisable = $this->okt['request']->query->getInt('disable');
 		if ($iItemIdDisable)
 		{
 			try
@@ -303,7 +303,7 @@ class Navigation extends Controller
 		}
 
 		# suppression d'un élément
-		$iItemIdDelete = $this->request->query->getInt('delete');
+		$iItemIdDelete = $this->okt['request']->query->getInt('delete');
 		if ($iItemIdDelete)
 		{
 			try
@@ -335,7 +335,7 @@ class Navigation extends Controller
 
 	protected function item()
 	{
-		$iMenuId = $this->request->query->getInt('menu_id', $this->request->request->getInt('menu_id'));
+		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 
 		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
 
@@ -348,7 +348,7 @@ class Navigation extends Controller
 		$aItemData = new ArrayObject();
 
 		$aItemData['item'] = array();
-		$aItemData['item']['id'] = $this->request->query->getInt('item_id', $this->request->request->getInt('item_id'));
+		$aItemData['item']['id'] = $this->okt['request']->query->getInt('item_id', $this->okt['request']->request->getInt('item_id'));
 
 		$aItemData['item']['menu_id'] = $iMenuId;
 		$aItemData['item']['active'] = 1;
@@ -397,15 +397,15 @@ class Navigation extends Controller
 		}
 
 		#  ajout / modifications d'un élément
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
-			$aItemData['item']['active'] = $this->request->request->has('p_active') ? 1 : 0;
-			$aItemData['item']['type'] = $this->request->request->has('p_type') ? 1 : 0;
+			$aItemData['item']['active'] = $this->okt['request']->request->has('p_active') ? 1 : 0;
+			$aItemData['item']['type'] = $this->okt['request']->request->has('p_type') ? 1 : 0;
 
 			foreach ($this->okt->languages->list as $aLanguage)
 			{
-				$aItemData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
-				$aItemData['locales'][$aLanguage['code']]['url'] = $this->request->request->get('p_url[' . $aLanguage['code'] . ']', '', true);
+				$aItemData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
+				$aItemData['locales'][$aLanguage['code']]['url'] = $this->okt['request']->request->get('p_url[' . $aLanguage['code'] . ']', '', true);
 			}
 
 			# update item
@@ -473,7 +473,7 @@ class Navigation extends Controller
 	{
 		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
 			$p_tpl = $oTemplates->getPostConfig();
 

@@ -193,13 +193,13 @@ class DebugBar
 
 		if ($this->aConfig['tabs']['super_globales'])
 		{
-			$this->aDebugBarData['num_data']['get'] = count($this->okt->request->query);
-			$this->aDebugBarData['num_data']['post'] = count($this->okt->request->request);
-			$this->aDebugBarData['num_data']['cookies'] = count($this->okt->request->cookies);
-			$this->aDebugBarData['num_data']['attributes'] = count($this->okt->request->attributes);
-			$this->aDebugBarData['num_data']['files'] = count($this->okt->request->files);
+			$this->aDebugBarData['num_data']['get'] = count($this->okt['request']->query);
+			$this->aDebugBarData['num_data']['post'] = count($this->okt['request']->request);
+			$this->aDebugBarData['num_data']['cookies'] = count($this->okt['request']->cookies);
+			$this->aDebugBarData['num_data']['attributes'] = count($this->okt['request']->attributes);
+			$this->aDebugBarData['num_data']['files'] = count($this->okt['request']->files);
 			$this->aDebugBarData['num_data']['session'] = count($this->okt['session']);
-			$this->aDebugBarData['num_data']['server'] = count($this->okt->request->server);
+			$this->aDebugBarData['num_data']['server'] = count($this->okt['request']->server);
 		}
 
 		if ($this->aConfig['tabs']['app'])
@@ -228,9 +228,9 @@ class DebugBar
 			$this->aDebugBarData['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 		}
 
-		$this->aDebugBarData['route'] = $this->okt->request->attributes->get('_route');
-		$this->aDebugBarData['controller'] = $this->okt->request->attributes->get('controller');
-		$this->aDebugBarData['requestParameters'] = $this->okt->request->attributes->get('requestParameters');
+		$this->aDebugBarData['route'] = $this->okt['request']->attributes->get('_route');
+		$this->aDebugBarData['controller'] = $this->okt['request']->attributes->get('controller');
+		$this->aDebugBarData['requestParameters'] = $this->okt['request']->attributes->get('requestParameters');
 	}
 
 	/**
@@ -295,35 +295,35 @@ class DebugBar
 		{
 			$sListitems .= '<li><a href="#superglobal_get">Get - ' . $this->aDebugBarData['num_data']['get'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_get">Get</h3>' . '<div><pre>' . var_export($this->okt->request->query->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_get">Get</h3>' . '<div><pre>' . var_export($this->okt['request']->query->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['post'] > 0)
 		{
 			$sListitems .= '<li><a href="#superglobal_post">Post - ' . $this->aDebugBarData['num_data']['post'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_post">Post</h3>' . '<div><pre>' . var_export($this->okt->request->request->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_post">Post</h3>' . '<div><pre>' . var_export($this->okt['request']->request->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['cookies'] > 0)
 		{
 			$sListitems .= '<li><a href="#superglobal_cookies">Cookies - ' . $this->aDebugBarData['num_data']['cookies'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_cookies">Cookies</h3>' . '<div><pre>' . var_export($this->okt->request->cookies->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_cookies">Cookies</h3>' . '<div><pre>' . var_export($this->okt['request']->cookies->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['attributes'] > 0)
 		{
 			$sListitems .= '<li><a href="#superglobal_attributes">Attributes - ' . $this->aDebugBarData['num_data']['attributes'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_attributes">Attributes</h3>' . '<div><pre>' . var_export($this->okt->request->attributes->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_attributes">Attributes</h3>' . '<div><pre>' . var_export($this->okt['request']->attributes->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['files'] > 0)
 		{
 			$sListitems .= '<li><a href="#superglobal_files">Files - ' . $this->aDebugBarData['num_data']['files'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_files">Files</h3>' . '<div><pre>' . var_export($this->okt->request->files->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_files">Files</h3>' . '<div><pre>' . var_export($this->okt['request']->files->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['session'] > 0)
@@ -337,12 +337,12 @@ class DebugBar
 		{
 			$sListitems .= '<li><a href="#superglobal_server">Server - ' . $this->aDebugBarData['num_data']['server'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_server">Server</h3>' . '<div><pre>' . var_export($this->okt->request->server->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_server">Server</h3>' . '<div><pre>' . var_export($this->okt['request']->server->all(), true) . '</pre></div>';
 		}
 
 		$sListitems .= '<li><a href="#superglobal_others">Others utilities values</a></li>';
 
-		$sTabContent .= '<h3 id="superglobal_others">Others utilities values</h3>' . '<div>' . '<p><code>$okt->request->getClientIps()</code> : ' . var_export($this->okt->request->getClientIps(), true) . '</p>' . '<p><code>$okt->request->getClientIp()</code> : ' . $this->okt->request->getClientIp() . '</p>' . '<p><code>$okt->request->getScriptName()</code> : ' . $this->okt->request->getScriptName() . '</p>' . '<p><code>$okt->request->getPathInfo()</code>  : ' . $this->okt->request->getPathInfo() . '</p>' . '<p><code>$okt->request->getBasePath()</code> : ' . $this->okt->request->getBasePath() . '</p>' . '<p><code>$okt->request->getBaseUrl()</code> : ' . $this->okt->request->getBaseUrl() . '</p>' . '<p><code>$okt->request->getScheme()</code> : ' . $this->okt->request->getScheme() . '</p>' . '<p><code>$okt->request->getPort()</code> : ' . $this->okt->request->getPort() . '</p>' . '<p><code>$okt->request->getUser()</code> : ' . $this->okt->request->getUser() . '</p>' . '<p><code>$okt->request->getPassword()</code> : ' . $this->okt->request->getPassword() . '</p>' . '<p><code>$okt->request->getUserInfo()</code> : ' . $this->okt->request->getUserInfo() . '</p>' . '<p><code>$okt->request->getHttpHost()</code> : ' . $this->okt->request->getHttpHost() . '</p>' . '<p><code>$okt->request->getRequestUri()</code> : ' . $this->okt->request->getRequestUri() . '</p>' . '<p><code>$okt->request->getSchemeAndHttpHost()</code> : ' . $this->okt->request->getSchemeAndHttpHost() . '</p>' . '<p><code>$okt->request->getUri()</code> : ' . $this->okt->request->getUri() . '</p>' . '<p><code>$okt->request->getUriForPath(\'/un/chemin\')</code> : ' . $this->okt->request->getUriForPath('/un/chemin') . '</p>' . '<p><code>$okt->request->getQueryString()</code> : ' . $this->okt->request->getQueryString() . '</p>' . '<p><code>$okt->request->isSecure()</code> : ' . var_export($this->okt->request->isSecure(), true) . '</p>' . '<p><code>$okt->request->getHost()</code>  : ' . $this->okt->request->getHost() . '</p>' . '<p><code>$okt->request->getMethod()</code>  : ' . $this->okt->request->getMethod() . '</p>' . '<p><code>$okt->request->getRealMethod()</code>  : ' . $this->okt->request->getRealMethod() . '</p>' . '<p><code>$okt->request->getMimeType(\'html\')</code>  : ' . $this->okt->request->getMimeType('html') . '</p>' . '<p><code>$okt->request->getFormat(\'application/json\')</code>  : ' . $this->okt->request->getFormat('application/json') . '</p>' . '<p><code>$okt->request->getRequestFormat()</code>  : ' . $this->okt->request->getRequestFormat() . '</p>' . '<p><code>$okt->request->getContentType()</code>  : ' . $this->okt->request->getContentType() . '</p>' . '<p><code>$okt->request->getETags()</code>  : ' . var_export($this->okt->request->getETags(), true) . '</p>' . '<p><code>$okt->request->isNoCache()</code>  : ' . var_export($this->okt->request->isNoCache(), true) . '</p>' . '<p><code>$okt->request->getPreferredLanguage()</code>  : ' . var_export($this->okt->request->getPreferredLanguage(), true) . '</p>' . '<p><code>$okt->request->getLanguages()</code>  : ' . var_export($this->okt->request->getLanguages(), true) . '</p>' . '<p><code>$okt->request->getCharsets()</code>  : ' . var_export($this->okt->request->getCharsets(), true) . '</p>' . '<p><code>$okt->request->getEncodings()</code>  : ' . var_export($this->okt->request->getEncodings(), true) . '</p>' . '<p><code>$okt->request->getAcceptableContentTypes()</code>  : ' . var_export($this->okt->request->getAcceptableContentTypes(), true) . '</p>' . '<p><code>$okt->request->isXmlHttpRequest()</code>  : ' . var_export($this->okt->request->isXmlHttpRequest(), true) . '</p>' . '</div>';
+		$sTabContent .= '<h3 id="superglobal_others">Others utilities values</h3>' . '<div>' . '<p><code>$okt['request']->getClientIps()</code> : ' . var_export($this->okt['request']->getClientIps(), true) . '</p>' . '<p><code>$okt['request']->getClientIp()</code> : ' . $this->okt['request']->getClientIp() . '</p>' . '<p><code>$okt['request']->getScriptName()</code> : ' . $this->okt['request']->getScriptName() . '</p>' . '<p><code>$okt['request']->getPathInfo()</code>  : ' . $this->okt['request']->getPathInfo() . '</p>' . '<p><code>$okt['request']->getBasePath()</code> : ' . $this->okt['request']->getBasePath() . '</p>' . '<p><code>$okt['request']->getBaseUrl()</code> : ' . $this->okt['request']->getBaseUrl() . '</p>' . '<p><code>$okt['request']->getScheme()</code> : ' . $this->okt['request']->getScheme() . '</p>' . '<p><code>$okt['request']->getPort()</code> : ' . $this->okt['request']->getPort() . '</p>' . '<p><code>$okt['request']->getUser()</code> : ' . $this->okt['request']->getUser() . '</p>' . '<p><code>$okt['request']->getPassword()</code> : ' . $this->okt['request']->getPassword() . '</p>' . '<p><code>$okt['request']->getUserInfo()</code> : ' . $this->okt['request']->getUserInfo() . '</p>' . '<p><code>$okt['request']->getHttpHost()</code> : ' . $this->okt['request']->getHttpHost() . '</p>' . '<p><code>$okt['request']->getRequestUri()</code> : ' . $this->okt['request']->getRequestUri() . '</p>' . '<p><code>$okt['request']->getSchemeAndHttpHost()</code> : ' . $this->okt['request']->getSchemeAndHttpHost() . '</p>' . '<p><code>$okt['request']->getUri()</code> : ' . $this->okt['request']->getUri() . '</p>' . '<p><code>$okt['request']->getUriForPath(\'/un/chemin\')</code> : ' . $this->okt['request']->getUriForPath('/un/chemin') . '</p>' . '<p><code>$okt['request']->getQueryString()</code> : ' . $this->okt['request']->getQueryString() . '</p>' . '<p><code>$okt['request']->isSecure()</code> : ' . var_export($this->okt['request']->isSecure(), true) . '</p>' . '<p><code>$okt['request']->getHost()</code>  : ' . $this->okt['request']->getHost() . '</p>' . '<p><code>$okt['request']->getMethod()</code>  : ' . $this->okt['request']->getMethod() . '</p>' . '<p><code>$okt['request']->getRealMethod()</code>  : ' . $this->okt['request']->getRealMethod() . '</p>' . '<p><code>$okt['request']->getMimeType(\'html\')</code>  : ' . $this->okt['request']->getMimeType('html') . '</p>' . '<p><code>$okt['request']->getFormat(\'application/json\')</code>  : ' . $this->okt['request']->getFormat('application/json') . '</p>' . '<p><code>$okt['request']->getRequestFormat()</code>  : ' . $this->okt['request']->getRequestFormat() . '</p>' . '<p><code>$okt['request']->getContentType()</code>  : ' . $this->okt['request']->getContentType() . '</p>' . '<p><code>$okt['request']->getETags()</code>  : ' . var_export($this->okt['request']->getETags(), true) . '</p>' . '<p><code>$okt['request']->isNoCache()</code>  : ' . var_export($this->okt['request']->isNoCache(), true) . '</p>' . '<p><code>$okt['request']->getPreferredLanguage()</code>  : ' . var_export($this->okt['request']->getPreferredLanguage(), true) . '</p>' . '<p><code>$okt['request']->getLanguages()</code>  : ' . var_export($this->okt['request']->getLanguages(), true) . '</p>' . '<p><code>$okt['request']->getCharsets()</code>  : ' . var_export($this->okt['request']->getCharsets(), true) . '</p>' . '<p><code>$okt['request']->getEncodings()</code>  : ' . var_export($this->okt['request']->getEncodings(), true) . '</p>' . '<p><code>$okt['request']->getAcceptableContentTypes()</code>  : ' . var_export($this->okt['request']->getAcceptableContentTypes(), true) . '</p>' . '<p><code>$okt['request']->isXmlHttpRequest()</code>  : ' . var_export($this->okt['request']->isXmlHttpRequest(), true) . '</p>' . '</div>';
 
 		return '<div id="debugGlobales">' . '<ul>' . $sListitems . '</ul>' . $sTabContent . '</div><!-- #debugGlobales -->';
 	}

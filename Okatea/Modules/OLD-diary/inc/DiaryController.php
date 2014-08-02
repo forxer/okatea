@@ -24,9 +24,9 @@ class DiaryController extends Controller
 		$iYear = ! empty($_GET['year']) ? intval($_GET['year']) : null;
 		$iMonth = ! empty($_GET['month']) ? intval($_GET['month']) : null;
 		
-		if ($this->request->attributes->has('date'))
+		if ($this->okt['request']->attributes->has('date'))
 		{
-			$aDate = explode('/', $this->request->attributes->get('date'));
+			$aDate = explode('/', $this->okt['request']->attributes->get('date'));
 			
 			$iYear = ! empty($aDate[0]) ? intval($aDate[0]) : null;
 			$iMonth = ! empty($aDate[1]) ? intval($aDate[1]) : null;
@@ -121,7 +121,7 @@ class DiaryController extends Controller
 		$this->page->action = 'event';
 		
 		# récupération de l'élément en fonction du slug
-		if (! $slug = $this->request->attributes->get('slug'))
+		if (! $slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

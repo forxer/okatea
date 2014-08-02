@@ -57,7 +57,7 @@ class Index extends Controller
 		$oFilters = new UsersFilters($this->okt, 'admin');
 		
 		# Ré-initialisation filtres
-		if ($this->request->query->has('init_filters'))
+		if ($this->okt['request']->query->has('init_filters'))
 		{
 			$oFilters->initFilters();
 			return $this->redirect($this->generateUrl('Users_index'));
@@ -77,7 +77,7 @@ class Index extends Controller
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 		
-		$sSearch = $this->request->query->get('search');
+		$sSearch = $this->okt['request']->query->get('search');
 		
 		if ($sSearch)
 		{
@@ -153,9 +153,9 @@ class Index extends Controller
 
 	protected function getUsersJson()
 	{
-		$term = $this->request->query->get('term');
+		$term = $this->okt['request']->query->get('term');
 		
-		if (! $this->request->isXmlHttpRequest() || ! $this->request->query->has('json') || empty($term))
+		if (! $this->okt['request']->isXmlHttpRequest() || ! $this->okt['request']->query->has('json') || empty($term))
 		{
 			return false;
 		}
@@ -198,7 +198,7 @@ class Index extends Controller
 
 	protected function enableUser()
 	{
-		$iUserId = $this->request->query->getInt('enable');
+		$iUserId = $this->okt['request']->query->getInt('enable');
 		
 		if (empty($iUserId))
 		{
@@ -227,7 +227,7 @@ class Index extends Controller
 
 	protected function disableUser()
 	{
-		$iUserId = $this->request->query->getInt('disable');
+		$iUserId = $this->okt['request']->query->getInt('disable');
 		
 		if (empty($iUserId))
 		{
@@ -256,7 +256,7 @@ class Index extends Controller
 
 	protected function deleteUser()
 	{
-		$iUserId = $this->request->query->getInt('delete');
+		$iUserId = $this->okt['request']->query->getInt('delete');
 		
 		if (! $iUserId || ! $this->okt->checkPerm('users_delete'))
 		{
@@ -293,8 +293,8 @@ class Index extends Controller
 
 	protected function batches()
 	{
-		$sAction = $this->request->request->get('action');
-		$aUsersIds = $this->request->request->get('users');
+		$sAction = $this->okt['request']->request->get('action');
+		$aUsersIds = $this->okt['request']->request->get('users');
 		
 		if (! $sAction || empty($aUsersIds) || ! is_array($aUsersIds))
 		{

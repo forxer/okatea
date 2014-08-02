@@ -79,8 +79,8 @@ class Bootstrap extends Controller
 
 	protected function handleRequest()
 	{
-		$bSimple = $this->request->request->has('simple');
-		$bAdvanced = $this->request->request->has('advanced');
+		$bSimple = $this->okt['request']->request->has('simple');
+		$bAdvanced = $this->okt['request']->request->has('advanced');
 		
 		# Bootstrap a module
 		if (! $bSimple && ! $bAdvanced)
@@ -89,43 +89,43 @@ class Bootstrap extends Controller
 		}
 		
 		$this->aBootstrapData = array(
-			'name' => $this->request->request->get('bootstrap_module_name'),
-			'name_fr' => $this->request->request->get('bootstrap_module_name_fr'),
-			'version' => $this->request->request->get('bootstrap_module_version'),
-			'description' => $this->request->request->get('bootstrap_module_description'),
-			'description_fr' => $this->request->request->get('bootstrap_module_description_fr'),
-			'author' => $this->request->request->get('bootstrap_module_author'),
+			'name' => $this->okt['request']->request->get('bootstrap_module_name'),
+			'name_fr' => $this->okt['request']->request->get('bootstrap_module_name_fr'),
+			'version' => $this->okt['request']->request->get('bootstrap_module_version'),
+			'description' => $this->okt['request']->request->get('bootstrap_module_description'),
+			'description_fr' => $this->okt['request']->request->get('bootstrap_module_description_fr'),
+			'author' => $this->okt['request']->request->get('bootstrap_module_author'),
 			
-			'licence' => $this->request->request->get('bootstrap_module_licence'),
+			'licence' => $this->okt['request']->request->get('bootstrap_module_licence'),
 			
 			'locales' => array(
 				'en' => array(
-					1 => $this->request->request->get('bootstrap_module_l10n_1_en'),
-					2 => $this->request->request->get('bootstrap_module_l10n_2_en'),
-					3 => $this->request->request->get('bootstrap_module_l10n_3_en'),
-					4 => $this->request->request->get('bootstrap_module_l10n_4_en'),
-					5 => $this->request->request->get('bootstrap_module_l10n_5_en'),
-					6 => $this->request->request->get('bootstrap_module_l10n_6_en'),
-					7 => $this->request->request->get('bootstrap_module_l10n_7_en'),
-					8 => $this->request->request->get('bootstrap_module_l10n_8_en'),
-					9 => $this->request->request->get('bootstrap_module_l10n_9_en'),
-					10 => $this->request->request->get('bootstrap_module_l10n_10_en')
+					1 => $this->okt['request']->request->get('bootstrap_module_l10n_1_en'),
+					2 => $this->okt['request']->request->get('bootstrap_module_l10n_2_en'),
+					3 => $this->okt['request']->request->get('bootstrap_module_l10n_3_en'),
+					4 => $this->okt['request']->request->get('bootstrap_module_l10n_4_en'),
+					5 => $this->okt['request']->request->get('bootstrap_module_l10n_5_en'),
+					6 => $this->okt['request']->request->get('bootstrap_module_l10n_6_en'),
+					7 => $this->okt['request']->request->get('bootstrap_module_l10n_7_en'),
+					8 => $this->okt['request']->request->get('bootstrap_module_l10n_8_en'),
+					9 => $this->okt['request']->request->get('bootstrap_module_l10n_9_en'),
+					10 => $this->okt['request']->request->get('bootstrap_module_l10n_10_en')
 				),
 				'fr' => array(
-					1 => $this->request->request->get('bootstrap_module_l10n_1_fr'),
-					2 => $this->request->request->get('bootstrap_module_l10n_2_fr'),
-					3 => $this->request->request->get('bootstrap_module_l10n_3_fr'),
-					4 => $this->request->request->get('bootstrap_module_l10n_4_fr'),
-					5 => $this->request->request->get('bootstrap_module_l10n_5_fr'),
-					6 => $this->request->request->get('bootstrap_module_l10n_6_fr'),
-					7 => $this->request->request->get('bootstrap_module_l10n_7_fr'),
-					8 => $this->request->request->get('bootstrap_module_l10n_8_fr'),
-					9 => $this->request->request->get('bootstrap_module_l10n_9_fr'),
-					10 => $this->request->request->get('bootstrap_module_l10n_10_fr')
+					1 => $this->okt['request']->request->get('bootstrap_module_l10n_1_fr'),
+					2 => $this->okt['request']->request->get('bootstrap_module_l10n_2_fr'),
+					3 => $this->okt['request']->request->get('bootstrap_module_l10n_3_fr'),
+					4 => $this->okt['request']->request->get('bootstrap_module_l10n_4_fr'),
+					5 => $this->okt['request']->request->get('bootstrap_module_l10n_5_fr'),
+					6 => $this->okt['request']->request->get('bootstrap_module_l10n_6_fr'),
+					7 => $this->okt['request']->request->get('bootstrap_module_l10n_7_fr'),
+					8 => $this->okt['request']->request->get('bootstrap_module_l10n_8_fr'),
+					9 => $this->okt['request']->request->get('bootstrap_module_l10n_9_fr'),
+					10 => $this->okt['request']->request->get('bootstrap_module_l10n_10_fr')
 				)
 			),
 			
-			'l10n_fem' => $this->request->request->has('bootstrap_module_l10n_fem')
+			'l10n_fem' => $this->okt['request']->request->has('bootstrap_module_l10n_fem')
 		);
 		
 		try

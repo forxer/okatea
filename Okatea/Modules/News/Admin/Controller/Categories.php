@@ -48,7 +48,7 @@ class Categories extends Controller
 
 	protected function switchCategoryStatus()
 	{
-		$iCategoryId = $this->request->query->getInt('switch_status');
+		$iCategoryId = $this->okt['request']->query->getInt('switch_status');
 		
 		if (! $iCategoryId)
 		{
@@ -77,7 +77,7 @@ class Categories extends Controller
 
 	protected function deleteCategory()
 	{
-		$iCategoryId = $this->request->query->getInt('delete');
+		$iCategoryId = $this->okt['request']->query->getInt('delete');
 		
 		if (! $iCategoryId)
 		{

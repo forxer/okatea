@@ -35,26 +35,26 @@ class DatabaseConfiguration extends Controller
 			]
 		];
 
-		if ($this->request->request->has('sended'))
+		if ($this->okt['request']->request->has('sended'))
 		{
 			$this->checklist = new Checklister();
 
 			# Données environnement de production
 			$aDatabaseParams = [
-				'env' => $this->request->request->get('connect'),
+				'env' => $this->okt['request']->request->get('connect'),
 				'prod' => [
-					'host' => $this->request->request->get('prod_host'),
-					'name' => $this->request->request->get('prod_name'),
-					'user' => $this->request->request->get('prod_user'),
-					'password' => $this->request->request->get('prod_password'),
-					'prefix' => $this->request->request->get('prod_prefix')
+					'host' => $this->okt['request']->request->get('prod_host'),
+					'name' => $this->okt['request']->request->get('prod_name'),
+					'user' => $this->okt['request']->request->get('prod_user'),
+					'password' => $this->okt['request']->request->get('prod_password'),
+					'prefix' => $this->okt['request']->request->get('prod_prefix')
 				],
 				'dev' => [
-					'host' => $this->request->request->get('dev_host'),
-					'name' => $this->request->request->get('dev_name'),
-					'user' => $this->request->request->get('dev_user'),
-					'password' => $this->request->request->get('dev_password'),
-					'prefix' => $this->request->request->get('dev_prefix')
+					'host' => $this->okt['request']->request->get('dev_host'),
+					'name' => $this->okt['request']->request->get('dev_name'),
+					'user' => $this->okt['request']->request->get('dev_user'),
+					'password' => $this->okt['request']->request->get('dev_password'),
+					'prefix' => $this->okt['request']->request->get('dev_prefix')
 				]
 			];
 

@@ -28,6 +28,7 @@ use Okatea\Tao\LoggerServiceProvider;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
+use Okatea\Tao\RequestServiceProvider;
 use Okatea\Tao\Routing\RouterServiceProvider;
 use Okatea\Tao\Session\SessionServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
@@ -39,18 +40,8 @@ use Pimple\Container;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RequestContext;
 
-/**
- * Classe définissant le coeur de l'application (core).
- *
- * La classe principale de l'application se charge d'initialiser les
- * autres classes requises au bon fonctionnement. C'est en quelque
- * sorte une "super-classe" qui gère les autres pour un accès plus facile
- * à travers l'application.
- */
 class Application extends Container
 {
 	const VERSION = '2.0-beta6';
@@ -82,13 +73,6 @@ class Application extends Container
 	 * @var string
 	 */
 	public $db_prefix;
-
-	/**
-	 * Le gestionnaire de base de données.
-	 *
-	 * @var Okatea\Tao\Misc\DebugBar\DebugBar
-	 */
-	public $debugbar;
 
 	/**
 	 * Le gestionnaire des groupes utilisateurs.
@@ -140,20 +124,6 @@ class Application extends Container
 	public $options;
 
 	/**
-	 * La requete en cours.
-	 *
-	 * @var Symfony\Component\HttpFoundation\Request
-	 */
-	public $request;
-
-	/**
-	 * Le contexte de le requete en cours.
-	 *
-	 * @var Symfony\Component\Routing\RequestContext
-	 */
-	public $requestContext;
-
-	/**
 	 * La réponse qui va être renvoyée.
 	 *
 	 * @var Symfony\Component\HttpFoundation\Response
@@ -166,20 +136,6 @@ class Application extends Container
 	 * @var Okatea\Tao\Routing\AdminRouter
 	 */
 	public $adminRouter;
-
-	/**
-	 * Le gestionnaire de session.
-	 *
-	 * @var Okatea\Tao\Session
-	 */
-	public $session;
-
-	/**
-	 * Les messages flash.
-	 *
-	 * @var Okatea\Tao\FlashMessages
-	 */
-	public $flash;
 
 	/**
 	 * Le moteur de templates.
@@ -250,14 +206,19 @@ class Application extends Container
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
 		$this->register(new LoggerServiceProvider());
+		$this->register(new RequestServiceProvider());
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
 
 		$this->Utf8Bootup();
 
-		$this->startConfig();
+		$this['request']->setSession($this['session']);
 
-		$this->startHttpFoundation();
+		# URL du dossier des fichiers publics
+		$this->options->set('public_url', $this['config']->getData('app_path') . 'oktPublic');
+
+		# URL du dossier upload depuis la racine
+		$this->options->set('upload_url', $this['config']->getData('app_path') . 'oktPublic/upload');
 
 		$this->startDebug();
 
@@ -387,16 +348,6 @@ class Application extends Container
 		}
 	}
 
-	public function startHttpFoundation()
-	{
-		if (null === $this->request)
-		{
-			$this->request = Request::createFromGlobals();
-
-			$this->request->setSession($this['session']);
-		}
-	}
-
 	public function startAdminRouter()
 	{
 		if (null === $this->adminRouter)
@@ -420,8 +371,8 @@ class Application extends Container
 				$this->options->get('cookie_auth_name'),
 				$this->options->get('cookie_auth_from'),
 				$this['config']->app_path,
-				$this->request->getHttpHost(),
-				$this->request->isSecure()
+				$this['request']->getHttpHost(),
+				$this['request']->isSecure()
 			);
 		}
 	}
@@ -483,17 +434,6 @@ class Application extends Container
 		$this->themes->load($sPart);
 	}
 
-	public function getRequestContext()
-	{
-		if (null === $this->requestContext)
-		{
-			$this->requestContext = new RequestContext();
-			$this->requestContext->fromRequest($this->request);
-		}
-
-		return $this->requestContext;
-	}
-
 	public function getUsers()
 	{
 		if (null === $this->users)
@@ -530,12 +470,9 @@ class Application extends Container
 	/**
 	 * Ajout d'une permission
 	 *
-	 * @param $perm Identifiant
-	 *        	de la permission
-	 * @param $libelle Intitulé
-	 *        	de la permission
-	 * @param $group Groupe
-	 *        	de la permission (null)
+	 * @param string $perm Identifiant de la permission
+	 * @param string $libelle Intitulé de la permission
+	 * @param string $group Groupe de la permission (null)
 	 * @return void
 	 */
 	public function addPerm($perm, $libelle, $group = null)
@@ -549,12 +486,10 @@ class Application extends Container
 	}
 
 	/**
-	 * Ajout d'un groupe de permissions
+	 * Ajout d'un groupe de permissions.
 	 *
-	 * @param
-	 *        	$group
-	 * @param
-	 *        	$libelle
+	 * @param string $group
+	 * @param string $libelle
 	 * @return void
 	 */
 	public function addPermGroup($group, $libelle)
@@ -675,22 +610,8 @@ class Application extends Container
 		return $this->aTplDirectories;
 	}
 
-	/* Utilitaires fichiers de configuration
+	/* Divers...
 	----------------------------------------------------------*/
-
-	/**
-	 * Retourne la configuration du site.
-	 *
-	 * @return void
-	 */
-	public function startConfig()
-	{
-		# URL du dossier des fichiers publics
-		$this->options->set('public_url', $this['config']->getData('app_path') . 'oktPublic');
-
-		# URL du dossier upload depuis la racine
-		$this->options->set('upload_url', $this['config']->getData('app_path') . 'oktPublic/upload');
-	}
 
 	/**
 	 * Créer et retourne un objet de configuration
@@ -704,10 +625,9 @@ class Application extends Container
 	}
 
 	/**
-	 * Retourne un objet module
+	 * Retourne un objet module.
 	 *
-	 * @param
-	 *        	$sModuleId
+	 * @param string $sModuleId
 	 * @return object Okatea\Tao\Extensions\Modules\Module
 	 */
 	public function module($sModuleId)
@@ -715,8 +635,6 @@ class Application extends Container
 		return $this->modules->getInstance($sModuleId);
 	}
 
-	/* Divers...
-	----------------------------------------------------------*/
 	public function performCommonContentReplacements($string)
 	{
 		return SimpleReplacements::parse($string, $this->getCommonContentReplacementsVariables());

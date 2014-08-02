@@ -61,7 +61,7 @@ class Post extends Controller
 	{
 		$this->init();
 		
-		$this->aPostData['post']['id'] = $this->request->attributes->getInt('post_id');
+		$this->aPostData['post']['id'] = $this->okt['request']->attributes->getInt('post_id');
 		
 		$rsPost = $this->okt->module('News')->getPostsRecordset(array(
 			'id' => $this->aPostData['post']['id']
@@ -133,7 +133,7 @@ class Post extends Controller
 		}
 		
 		# switch post status
-		if ($this->request->query->has('switch_status') && $this->aPermissions['bCanEditPost'])
+		if ($this->okt['request']->query->has('switch_status') && $this->aPermissions['bCanEditPost'])
 		{
 			try
 			{
@@ -157,7 +157,7 @@ class Post extends Controller
 		}
 		
 		# publication de l'article
-		if ($this->request->query->has('publish') && $this->aPermissions['bCanPublish'])
+		if ($this->okt['request']->query->has('publish') && $this->aPermissions['bCanPublish'])
 		{
 			$this->okt->module('News')->publishPost($this->aPostData['post']['id']);
 			
@@ -176,9 +176,9 @@ class Post extends Controller
 		}
 		
 		# suppression d'une image
-		if ($this->request->query->has('delete_image') && $this->aPermissions['bCanEditPost'])
+		if ($this->okt['request']->query->has('delete_image') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->module('News')->deleteImage($this->aPostData['post']['id'], $this->request->query->get('delete_image'));
+			$this->okt->module('News')->deleteImage($this->aPostData['post']['id'], $this->okt['request']->query->get('delete_image'));
 			
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -193,9 +193,9 @@ class Post extends Controller
 		}
 		
 		# suppression d'un fichier
-		if ($this->request->query->has('delete_file') && $this->aPermissions['bCanEditPost'])
+		if ($this->okt['request']->query->has('delete_file') && $this->aPermissions['bCanEditPost'])
 		{
-			$this->okt->module('News')->deleteFile($this->aPostData['post']['id'], $this->request->query->get('delete_file'));
+			$this->okt->module('News')->deleteFile($this->aPostData['post']['id'], $this->okt['request']->query->get('delete_file'));
 			
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -316,19 +316,19 @@ class Post extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->request->request->has('sended') || ! $this->aPermissions['bCanEditPost'])
+		if (! $this->okt['request']->request->has('sended') || ! $this->aPermissions['bCanEditPost'])
 		{
 			return false;
 		}
 		
-		$this->aPostData['post']['category_id'] = $this->request->request->getInt('p_category_id');
-		$this->aPostData['post']['active'] = $this->request->request->getInt('p_active');
-		$this->aPostData['post']['selected'] = $this->request->request->getInt('p_selected');
-		$this->aPostData['post']['tpl'] = $this->request->request->get('p_tpl');
+		$this->aPostData['post']['category_id'] = $this->okt['request']->request->getInt('p_category_id');
+		$this->aPostData['post']['active'] = $this->okt['request']->request->getInt('p_active');
+		$this->aPostData['post']['selected'] = $this->okt['request']->request->getInt('p_selected');
+		$this->aPostData['post']['tpl'] = $this->okt['request']->request->get('p_tpl');
 		
-		$this->aPostData['extra']['date'] = $this->request->request->get('p_date');
-		$this->aPostData['extra']['hours'] = $this->request->request->getInt('p_hours');
-		$this->aPostData['extra']['minutes'] = $this->request->request->getInt('p_minutes');
+		$this->aPostData['extra']['date'] = $this->okt['request']->request->get('p_date');
+		$this->aPostData['extra']['hours'] = $this->okt['request']->request->getInt('p_hours');
+		$this->aPostData['extra']['minutes'] = $this->okt['request']->request->getInt('p_minutes');
 		
 		if (! empty($this->aPostData['extra']['date']))
 		{
@@ -337,21 +337,21 @@ class Post extends Controller
 		
 		foreach ($this->okt->languages->list as $aLanguage)
 		{
-			$this->aPostData['locales'][$aLanguage['code']]['title'] = $this->request->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
-			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = $this->request->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
-			$this->aPostData['locales'][$aLanguage['code']]['content'] = $this->request->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
+			$this->aPostData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
+			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = $this->okt['request']->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
+			$this->aPostData['locales'][$aLanguage['code']]['content'] = $this->okt['request']->request->get('p_content[' . $aLanguage['code'] . ']', null, true);
 			
 			if ($this->okt->module('News')->config->enable_metas)
 			{
-				$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = $this->request->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
-				$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = $this->request->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
-				$this->aPostData['locales'][$aLanguage['code']]['meta_description'] = $this->request->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
-				$this->aPostData['locales'][$aLanguage['code']]['meta_keywords'] = $this->request->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
-				$this->aPostData['locales'][$aLanguage['code']]['slug'] = $this->request->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['title_seo'] = $this->okt['request']->request->get('p_title_seo[' . $aLanguage['code'] . ']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['title_tag'] = $this->okt['request']->request->get('p_title_tag[' . $aLanguage['code'] . ']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['meta_description'] = $this->okt['request']->request->get('p_meta_description[' . $aLanguage['code'] . ']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['meta_keywords'] = $this->okt['request']->request->get('p_meta_keywords[' . $aLanguage['code'] . ']', null, true);
+				$this->aPostData['locales'][$aLanguage['code']]['slug'] = $this->okt['request']->request->get('p_slug[' . $aLanguage['code'] . ']', null, true);
 			}
 		}
 		
-		$this->aPostData['perms'] = $this->request->request->get('perms', array());
+		$this->aPostData['perms'] = $this->okt['request']->request->get('perms', array());
 		
 		# -- TRIGGER MODULE NEWS : adminPopulateData
 		$this->okt->module('News')->triggers->callTrigger('adminPopulateData', $this->aPostData);

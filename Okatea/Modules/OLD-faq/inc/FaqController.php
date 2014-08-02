@@ -125,7 +125,7 @@ class FaqController extends Controller
 		$this->page->action = 'question';
 		
 		# récupération de la question en fonction du slug
-		if (! $slug = $this->request->attributes->get('slug'))
+		if (! $slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}

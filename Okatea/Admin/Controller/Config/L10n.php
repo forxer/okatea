@@ -72,7 +72,7 @@ class L10n extends Controller
 
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/l10n');
 
-		$iLanguageId = $this->request->attributes->getInt('language_id');
+		$iLanguageId = $this->okt['request']->attributes->getInt('language_id');
 
 		$aLanguage = $this->okt->languages->getLanguage($iLanguageId);
 
@@ -88,14 +88,14 @@ class L10n extends Controller
 			'active' 	=> $aLanguage['active']
 		);
 
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$aUpdLanguageData = array(
 				'id' 		=> $iLanguageId,
-				'title' 	=> $this->request->request->get('edit_title'),
-				'code' 		=> $this->request->request->get('edit_code'),
-				'img' 		=> $this->request->request->get('edit_img'),
-				'active' 	=> $this->request->request->getInt('edit_active')
+				'title' 	=> $this->okt['request']->request->get('edit_title'),
+				'code' 		=> $this->okt['request']->request->get('edit_code'),
+				'img' 		=> $this->okt['request']->request->get('edit_img'),
+				'active' 	=> $this->okt['request']->request->getInt('edit_active')
 			);
 
 			if ($this->okt->languages->checkPostData($aUpdLanguageData))
@@ -133,13 +133,13 @@ class L10n extends Controller
 			'active' 	=> 1
 		);
 
-		if ($this->request->request->has('form_sent'))
+		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$aAddLanguageData = array(
-				'title' 	=> $this->request->request->get('add_title'),
-				'code' 		=> $this->request->request->get('add_code'),
-				'img' 		=> $this->request->request->get('add_img'),
-				'active' 	=> $this->request->request->getInt('add_active', 0)
+				'title' 	=> $this->okt['request']->request->get('add_title'),
+				'code' 		=> $this->okt['request']->request->get('add_code'),
+				'img' 		=> $this->okt['request']->request->get('add_img'),
+				'active' 	=> $this->okt['request']->request->getInt('add_active', 0)
 			);
 
 			if ($this->okt->languages->checkPostData($aAddLanguageData))
@@ -214,9 +214,9 @@ class L10n extends Controller
 
 	protected function switchLanguageStatus()
 	{
-		if ($this->request->query->has('switch_status'))
+		if ($this->okt['request']->query->has('switch_status'))
 		{
-			$this->okt->languages->switchLangStatus($this->request->query->get('switch_status'));
+			$this->okt->languages->switchLangStatus($this->okt['request']->query->get('switch_status'));
 
 			return $this->redirect($this->generateUrl('config_l10n'));
 		}
@@ -226,9 +226,9 @@ class L10n extends Controller
 
 	protected function enableLanguage()
 	{
-		if ($this->request->query->has('enable'))
+		if ($this->okt['request']->query->has('enable'))
 		{
-			$this->okt->languages->setLangStatus($this->request->query->get('enable'), 1);
+			$this->okt->languages->setLangStatus($this->okt['request']->query->get('enable'), 1);
 
 			$this->okt['flash']->success(__('c_a_config_l10n_enabled'));
 
@@ -240,9 +240,9 @@ class L10n extends Controller
 
 	protected function disableLanguage()
 	{
-		if ($this->request->query->has('disable'))
+		if ($this->okt['request']->query->has('disable'))
 		{
-			$this->okt->languages->setLangStatus($this->request->query->get('disable'), 0);
+			$this->okt->languages->setLangStatus($this->okt['request']->query->get('disable'), 0);
 
 			$this->okt['flash']->success(__('c_a_config_l10n_disabled'));
 
@@ -254,9 +254,9 @@ class L10n extends Controller
 
 	protected function deleteLanguage()
 	{
-		if ($this->request->query->has('delete'))
+		if ($this->okt['request']->query->has('delete'))
 		{
-			$this->okt->languages->delLanguage($this->request->query->get('delete'));
+			$this->okt->languages->delLanguage($this->okt['request']->query->get('delete'));
 
 			$this->okt['flash']->success(__('c_a_config_l10n_deleted'));
 
@@ -268,13 +268,13 @@ class L10n extends Controller
 
 	protected function addLanguage()
 	{
-		if ($this->request->request->has('add_languages'))
+		if ($this->okt['request']->request->has('add_languages'))
 		{
 			$this->aAddLanguageData = array(
-				'title' => $this->request->request->get('add_title'),
-				'code' => $this->request->request->get('add_code'),
-				'img' => $this->request->request->get('add_img'),
-				'active' => $this->request->request->getInt('add_active', 0)
+				'title' => $this->okt['request']->request->get('add_title'),
+				'code' => $this->okt['request']->request->get('add_code'),
+				'img' => $this->okt['request']->request->get('add_img'),
+				'active' => $this->okt['request']->request->getInt('add_active', 0)
 			);
 
 			if ($this->okt->languages->checkPostData($this->aAddLanguageData))
@@ -292,9 +292,9 @@ class L10n extends Controller
 
 	protected function updateLanguagesOrderByAjax()
 	{
-		if ($this->request->query->has('ajax_update_order'))
+		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aLanguagesOrder = $this->request->query->get('ord', array());
+			$aLanguagesOrder = $this->okt['request']->query->get('ord', array());
 
 			if (! empty($aLanguagesOrder))
 			{
@@ -315,9 +315,9 @@ class L10n extends Controller
 
 	protected function updateLanguagesOrderByPost()
 	{
-		if ($this->request->request->has('order_languages'))
+		if ($this->okt['request']->request->has('order_languages'))
 		{
-			$aLanguagesOrder = $this->request->request->get('p_order', array());
+			$aLanguagesOrder = $this->okt['request']->request->get('p_order', array());
 
 			asort($aLanguagesOrder);
 
@@ -344,14 +344,14 @@ class L10n extends Controller
 
 	protected function updateConfiguration()
 	{
-		if ($this->request->request->has('config_sent'))
+		if ($this->okt['request']->request->has('config_sent'))
 		{
 			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt['config']->write(array(
-					'language' => $this->request->request->get('p_language'),
-					'timezone' => $this->request->request->get('p_timezone'),
-					'admin_lang_switcher' => $this->request->request->has('p_admin_lang_switcher')
+					'language' => $this->okt['request']->request->get('p_language'),
+					'timezone' => $this->okt['request']->request->get('p_timezone'),
+					'admin_lang_switcher' => $this->okt['request']->request->has('p_admin_lang_switcher')
 				));
 
 				$this->okt->languages->generateCacheList();

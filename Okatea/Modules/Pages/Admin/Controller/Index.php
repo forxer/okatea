@@ -59,7 +59,7 @@ class Index extends Controller
 		# Initialisation des filtres
 		$aParams = array();
 
-		$sSearch = $this->request->query->get('search');
+		$sSearch = $this->okt['request']->query->get('search');
 
 		if ($sSearch)
 		{
@@ -116,9 +116,9 @@ class Index extends Controller
 
 	protected function getPagesJson()
 	{
-		$term = $this->request->query->get('term');
+		$term = $this->okt['request']->query->get('term');
 
-		if (! $this->request->isXmlHttpRequest() || ! $this->request->query->has('json') || empty($term))
+		if (! $this->okt['request']->isXmlHttpRequest() || ! $this->okt['request']->query->has('json') || empty($term))
 		{
 			return false;
 		}
@@ -139,7 +139,7 @@ class Index extends Controller
 
 	protected function initFilters()
 	{
-		if ($this->request->query->has('init_filters'))
+		if ($this->okt['request']->query->has('init_filters'))
 		{
 			$this->okt->module('Pages')->filters->initFilters();
 
@@ -151,7 +151,7 @@ class Index extends Controller
 
 	protected function deletePost()
 	{
-		$iPostId = $this->request->query->getInt('delete');
+		$iPostId = $this->okt['request']->query->getInt('delete');
 
 		if (! $iPostId || ! $this->okt->checkPerm('pages_remove'))
 		{
@@ -176,7 +176,7 @@ class Index extends Controller
 
 	protected function switchPostStatus()
 	{
-		$iPostId = $this->request->query->getInt('switch_status');
+		$iPostId = $this->okt['request']->query->getInt('switch_status');
 
 		if (! $iPostId)
 		{
@@ -199,8 +199,8 @@ class Index extends Controller
 
 	protected function batches()
 	{
-		$sAction = $this->request->request->get('action');
-		$aPagesId = $this->request->request->get('pages');
+		$sAction = $this->okt['request']->request->get('action');
+		$aPagesId = $this->okt['request']->request->get('pages');
 
 		if (! $sAction || ! $aPagesId || ! is_array($aPagesId))
 		{
