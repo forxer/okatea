@@ -105,7 +105,7 @@ else
 	<ul>
 		<?php 
 # début Okatea : lien page connexion
-	if ($okt->config->users['pages']['login'])
+	if ($okt['config']->users['pages']['login'])
 	:
 		?>
 		<li><a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php
@@ -114,7 +114,7 @@ else
 
 		<?php 
 # début Okatea : lien page inscription
-	if ($okt->config->users['pages']['register'])
+	if ($okt['config']->users['pages']['register'])
 	:
 		?>
 		<li><a href="<?php echo $view->generateUrl('usersRegister') ?>"><?php

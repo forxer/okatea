@@ -12,27 +12,12 @@ use SimpleXMLElement;
 
 class Repositories
 {
-
 	/**
 	 * Okatea application instance.
 	 *
 	 * @var object Okatea\Tao\Application
 	 */
 	protected $okt;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
-
-	/**
-	 * Cache manager object.
-	 *
-	 * @var object
-	 */
-	protected $cache;
 
 	/**
 	 * Repository cache identifier.
@@ -44,49 +29,47 @@ class Repositories
 	public function __construct($okt, $sCacheId)
 	{
 		$this->okt = $okt;
-		$this->error = $okt->error;
-		
-		$this->cache = $okt->cacheConfig;
+
 		$this->sCacheId = $sCacheId;
 	}
 
 	/**
 	 * Returns data about repositories of extensions.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	public function getData(array $aRepositories = array())
 	{
-		if (! $this->cache->contains($this->sCacheId))
+		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
 		{
 			$this->saveCache($aRepositories);
 		}
-		
-		return $this->cache->fetch($this->sCacheId);
+
+		return $this->okt['cacheConfig']->fetch($this->sCacheId);
 	}
 
 	/**
 	 * Records in the cache data about repositories.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return boolean
 	 */
 	protected function saveCache(array $aRepositories = array())
 	{
-		return $this->cache->save($this->sCacheId, $this->readData($aRepositories));
+		return $this->okt['cacheConfig']->save($this->sCacheId, $this->readData($aRepositories));
 	}
 
 	/**
 	 * Read data about repositories in the cache.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	protected function readData($aRepositories)
 	{
 		$aModulesRepositories = array();
-		
+
 		foreach ($aRepositories as $sRepositoryId => $sRepositoryUrl)
 		{
 			if (($infos = $this->getRepositoryData($sRepositoryUrl)) !== false)
@@ -94,33 +77,33 @@ class Repositories
 				$aModulesRepositories[$sRepositoryId] = $infos;
 			}
 		}
-		
+
 		return $aModulesRepositories;
 	}
 
 	/**
 	 * Returns data about a given repository.
 	 *
-	 * @param array $sRepositoryUrl        	
+	 * @param array $sRepositoryUrl
 	 * @return array
 	 */
 	protected function getRepositoryData($sRepositoryUrl)
 	{
 		$sRepositoryUrl = str_replace('%VERSION%', $this->okt->getVersion(), $sRepositoryUrl);
-		
+
 		if (filter_var($sRepositoryUrl, FILTER_VALIDATE_URL) === false)
 		{
 			return false;
 		}
-		
+
 		$response = (new Client())->get($sRepositoryUrl, [
 			'exceptions' => false
 		]);
-		
+
 		if (200 == $response->getStatusCode())
 		{
 			$sExtension = pathinfo($sRepositoryUrl, PATHINFO_EXTENSION);
-			
+
 			if ($sExtension == 'json')
 			{
 				return $response->json();
@@ -143,13 +126,13 @@ class Repositories
 	/**
 	 * Read XML data about a given repository.
 	 *
-	 * @param sting $str        	
+	 * @param sting $str
 	 * @return array
 	 */
 	protected function readRepositoryXmlData($str)
 	{
 		$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
-		
+
 		$return = array();
 		foreach ($xml->module as $module)
 		{
@@ -165,12 +148,12 @@ class Repositories
 				);
 			}
 		}
-		
+
 		if (empty($return))
 		{
 			return false;
 		}
-		
+
 		return $return;
 	}
 }

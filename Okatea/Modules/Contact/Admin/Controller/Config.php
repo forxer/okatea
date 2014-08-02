@@ -22,7 +22,7 @@ class Config extends Controller
 		
 		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.config');
 		
-		$bGoogleMapNotEnablable = ($this->okt->config->address['street'] == '' || $this->okt->config->address['code'] == '' || $this->okt->config->address['city'] == '');
+		$bGoogleMapNotEnablable = ($this->okt['config']->address['street'] == '' || $this->okt['config']->address['code'] == '' || $this->okt['config']->address['city'] == '');
 		
 		$oTemplatesContact = new TemplatesSet($this->okt, $this->okt->module('Contact')->config->templates['contact'], 'Contact/contact', 'contact', $this->generateUrl('Contact_config') . '?');
 		

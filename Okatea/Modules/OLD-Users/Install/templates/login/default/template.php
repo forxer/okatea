@@ -67,7 +67,7 @@ if ($okt->error->notEmpty())
 	method="post">
 
 	<p class="field">
-		<label for="user_id"><?php if ($okt->config->users_registration['merge_username_email']) { _e('c_c_Email'); } else { _e('c_c_user_Username'); } ?></label>
+		<label for="user_id"><?php if ($okt['config']->users_registration['merge_username_email']) { _e('c_c_Email'); } else { _e('c_c_user_Username'); } ?></label>
 		<input name="user_id" id="user_id" type="text" maxlength="225"
 			value="<?php echo $view->escape($user_id) ?>" />
 	</p>

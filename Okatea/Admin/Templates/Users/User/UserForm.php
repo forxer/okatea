@@ -16,7 +16,7 @@ use Okatea\Tao\L10n\Date;
 	<div class="three-cols">
 	<?php
 	# affichage des champs "username" et "email" fusionnés
-	if ($okt->config->users['registration']['merge_username_email'])
+	if ($okt['config']->users['registration']['merge_username_email'])
 	:
 		?>
 		<p class="field col">
@@ -26,7 +26,7 @@ use Okatea\Tao\L10n\Date;
 	<?php endif; ?>
 
 	<?php # affichage des champs "username" et "email" distincts
-	if (! $okt->config->users['registration']['merge_username_email']) : ?>
+	if (! $okt['config']->users['registration']['merge_username_email']) : ?>
 		<p class="field col">
 			<label for="username" title="<?php _e('c_c_required_field') ?>"
 				class="required"><?php _e('c_c_user_Username') ?></label>

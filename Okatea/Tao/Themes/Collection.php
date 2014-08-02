@@ -18,7 +18,6 @@ use SimpleXMLElement;
  */
 class Collection
 {
-
 	/**
 	 * Okatea application instance.
 	 *
@@ -55,25 +54,18 @@ class Collection
 	protected $aThemes = null;
 
 	/**
-	 * L'objet gestionnaire de cache
-	 *
-	 * @var object
-	 */
-	protected $cache;
-
-	/**
 	 * L'identifiant du cache des thèmes
 	 *
 	 * @var string
 	 */
-	protected $cache_id;
+	protected $sCacheId;
 
 	/**
 	 * L'identifiant du cache des dépots
 	 *
 	 * @var string
 	 */
-	protected $cache_repo_id;
+	protected $sCacheRepoId;
 
 	/**
 	 * L'identifiant du theme en cours d'inscription
@@ -87,31 +79,30 @@ class Collection
 	 *
 	 * @param Okatea\Tao\Application $okt
 	 *        	Okatea application instance.
-	 * @param string $sPath        	
+	 * @param string $sPath
 	 */
 	public function __construct($okt, $sPath)
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
 		$this->error = $okt->error;
-		
-		$this->cache = $okt->cacheConfig;
-		$this->cache_id = 'themes';
-		$this->cache_repo_id = 'themes_repositories';
-		
+
+		$this->sCacheId = 'themes';
+		$this->sCacheRepoId = 'themes_repositories';
+
 		$this->sPath = $sPath;
 	}
 
 	/**
 	 * Retourne la liste des thèmes disponibles.
 	 *
-	 * @param boolean $bForce        	
+	 * @param boolean $bForce
 	 * @return array
 	 */
 	public static function getThemes($bForce = false)
 	{
 		static $aThemes = null;
-		
+
 		if (is_array($aThemes) && ! $bForce)
 		{
 			return $aThemes;
@@ -119,17 +110,17 @@ class Collection
 		else
 		{
 			global $okt;
-			
+
 			$oThemes = new self($okt, $okt->options->get('themes_dir'));
-			
+
 			$aList = $oThemes->getThemesList();
-			
+
 			$aThemes = array();
 			foreach ($aList as $id => $infos)
 			{
 				$aThemes[$id] = $infos['name'];
 			}
-			
+
 			return $aThemes;
 		}
 	}
@@ -147,7 +138,7 @@ class Collection
 	/**
 	 * Calcul la liste des thèmes disponibles.
 	 *
-	 * @param boolean $bForce        	
+	 * @param boolean $bForce
 	 * @return array
 	 */
 	public function getThemesList($bForce = false)
@@ -164,14 +155,14 @@ class Collection
 				{
 					continue;
 				}
-				
+
 				$this->_id = $oFileInfo->getFilename();
-				
+
 				require $oFileInfo->getPathname() . '/_define.php';
-				
+
 				$this->_id = null;
 			}
-			
+
 			return $this->aThemes;
 		}
 	}
@@ -184,7 +175,7 @@ class Collection
 	public function getThemesAdminList()
 	{
 		$aThemes = $this->getThemesList();
-		
+
 		foreach ($aThemes as $iThemeId => $aTheme)
 		{
 			# search indexes
@@ -192,9 +183,9 @@ class Collection
 			$aThemes[$iThemeId]['index'] = array_map('strtolower', $aThemes[$iThemeId]['index']);
 			$aThemes[$iThemeId]['index'] = array_unique($aThemes[$iThemeId]['index']);
 			array_unshift($aThemes[$iThemeId]['index'], $iThemeId);
-			
+
 			# is active ?
-			if ($aTheme['id'] == $this->okt->config->themes['desktop'])
+			if ($aTheme['id'] == $this->okt['config']->themes['desktop'])
 			{
 				$aThemes[$iThemeId]['is_active'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'active');
@@ -204,9 +195,9 @@ class Collection
 			{
 				$aThemes[$iThemeId]['is_active'] = false;
 			}
-			
+
 			# is mobile ?
-			if ($aTheme['id'] == $this->okt->config->themes['mobile'])
+			if ($aTheme['id'] == $this->okt['config']->themes['mobile'])
 			{
 				$aThemes[$iThemeId]['is_mobile'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'mobile');
@@ -218,9 +209,9 @@ class Collection
 			{
 				$aThemes[$iThemeId]['is_mobile'] = false;
 			}
-			
+
 			# is tablet ?
-			if ($aTheme['id'] == $this->okt->config->themes['tablet'])
+			if ($aTheme['id'] == $this->okt['config']->themes['tablet'])
 			{
 				$aThemes[$iThemeId]['is_tablet'] = true;
 				array_unshift($aThemes[$iThemeId]['index'], 'tablet');
@@ -232,7 +223,7 @@ class Collection
 			{
 				$aThemes[$iThemeId]['is_tablet'] = false;
 			}
-			
+
 			# has screenshot ?
 			if (file_exists($this->sPath . '/' . $aTheme['id'] . '/screenshot.jpg'))
 			{
@@ -242,7 +233,7 @@ class Collection
 			{
 				$aThemes[$iThemeId]['screenshot'] = false;
 			}
-			
+
 			# has config ?
 			if (file_exists($this->sPath . '/' . $aTheme['id'] . '/admin/config.php'))
 			{
@@ -253,14 +244,14 @@ class Collection
 				$aThemes[$iThemeId]['has_config'] = false;
 			}
 		}
-		
+
 		return $aThemes;
 	}
 
 	/**
 	 * Enregistrement d'un thème.
 	 *
-	 * @param array $aParams        	
+	 * @param array $aParams
 	 * @return void
 	 */
 	public function register($aParams = array())
@@ -291,7 +282,7 @@ class Collection
 	/**
 	 * Permet de créer un thème vierge.
 	 *
-	 * @param string $sId        	
+	 * @param string $sId
 	 */
 	public function bootstrapTheme($sName, $sId = null)
 	{
@@ -299,16 +290,16 @@ class Collection
 		{
 			$sId = Modifiers::strToLowerUrl($sName, false);
 		}
-		
+
 		$this->getThemesList();
-		
+
 		if (isset($this->aThemes[$sId]))
 		{
 			return $sId;
 		}
-		
+
 		$sThemePath = $this->sPath . '/' . $sId;
-		
+
 		$aSearch = array(
 			'{{theme_id}}',
 			'{{theme_name}}'
@@ -317,7 +308,7 @@ class Collection
 			$sId,
 			Escaper::html($sName)
 		);
-		
+
 		try
 		{
 			# required files
@@ -326,35 +317,35 @@ class Collection
 			file_put_contents($sThemePath . '/index.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.tpl')));
 			file_put_contents($sThemePath . '/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/oktTheme.tpl')));
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/locked_files.txt', $sThemePath . '/locked_files.txt');
-			
+
 			# css files
 			\files::makeDir($sThemePath . '/css');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/definitions.less.tpl', $sThemePath . '/css/definitions.less');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/css/index.html');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/overload.less.tpl', $sThemePath . '/css/overload.less');
-			
+
 			# images files
 			\files::makeDir($sThemePath . '/images');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/images/index.html');
-			
+
 			# js
 			\files::makeDir($sThemePath . '/js');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/js/index.html');
-			
+
 			# locales files
 			\files::makeDir($sThemePath . '/Locales');
 			\files::makeDir($sThemePath . '/Locales/fr');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Locales/fr/index.html');
-			
+
 			# modules files
 			\files::makeDir($sThemePath . '/modules');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/modules/index.html');
-			
+
 			# templates files
 			\files::makeDir($sThemePath . '/Templates');
 			copy($this->okt->options->get('okt_dir') . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Templates/index.html');
 			copy($this->okt->options->get('themes_dir') . '/default/Templates/layout.php', $sThemePath . '/Templates/layout.php');
-			
+
 			return $sId;
 		}
 		catch (\Exception $e)
@@ -366,16 +357,16 @@ class Collection
 	/**
 	 * Install a theme from a zip file
 	 *
-	 * @param string $zip_file        	
-	 * @param Okatea\Tao\Themes\Collection $oThemes        	
+	 * @param string $zip_file
+	 * @param Okatea\Tao\Themes\Collection $oThemes
 	 */
 	public static function installPackage($zip_file, Collection $oThemes)
 	{
 		$zip = new \fileUnzip($zip_file);
 		$zip->getList(false, '#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
-		
+
 		$zip_root_dir = $zip->getRootDir();
-		
+
 		if ($zip_root_dir !== false)
 		{
 			$target = dirname($zip_file);
@@ -390,23 +381,23 @@ class Collection
 			$define = '_define.php';
 			$has_define = $zip->hasFile($define);
 		}
-		
+
 		if ($zip->isEmpty())
 		{
 			$zip->close();
 			unlink($zip_file);
 			throw new \Exception(__('Empty theme zip file.'));
 		}
-		
+
 		if (! $has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
 			throw new \Exception(__('The zip file does not appear to be a valid theme.'));
 		}
-		
+
 		$ret_code = 1;
-		
+
 		if (is_dir($destination))
 		{
 			throw new \Exception(__('The theme allready exists, you can not update a theme.'));
@@ -462,21 +453,21 @@ class Collection
 			}
 			*/
 		}
-		
+
 		$zip->unzipAll($target);
 		$zip->close();
 		unlink($zip_file);
-		
+
 		return $ret_code;
 	}
-	
+
 	/* Méthodes utilitaires.
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Tri les thèmes par ordre alphabétique.
 	 *
-	 * @param array $aThemes        	
+	 * @param array $aThemes
 	 * @return void
 	 */
 	public static function sortThemes(array &$aThemes)
@@ -487,8 +478,8 @@ class Collection
 	/**
 	 * Fonction de callback de tri des thèmes
 	 *
-	 * @param string $a        	
-	 * @param string $b        	
+	 * @param string $a
+	 * @param string $b
 	 */
 	protected static function sortThemesListCallable($a, $b)
 	{
@@ -498,7 +489,7 @@ class Collection
 	/**
 	 * Fonction de "pluralisation" des thèmes
 	 *
-	 * @param integer $count        	
+	 * @param integer $count
 	 * @return string
 	 */
 	public static function pluralizethemesCount($iCount)
@@ -511,25 +502,25 @@ class Collection
 		{
 			return sprintf(__('c_a_themes_%s_themes'), $iCount);
 		}
-		
+
 		return __('c_a_themes_no_theme');
 	}
 
 	public static function getLockedFiles($sThemeId)
 	{
 		global $okt;
-		
+
 		$aLockedFiles = array();
-		
+
 		$sThemePath = $okt->options->get('themes_dir') . '/' . $sThemeId . '/';
-		
+
 		if (! file_exists($sThemePath . 'locked_files.txt'))
 		{
 			return $aLockedFiles;
 		}
-		
+
 		$aFiles = file($sThemePath . 'locked_files.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		
+
 		foreach ($aFiles as $sFile)
 		{
 			if (! file_exists($sThemePath . $sFile))
@@ -545,44 +536,44 @@ class Collection
 				$aLockedFiles[] = $sThemePath . $sFile;
 			}
 		}
-		
+
 		return $aLockedFiles;
 	}
-	
+
 	/* Méthodes de gestion des dépôts de thèmes.
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne les informations concernant les dépôts de thèmes.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	public function getRepositoriesInfos($aRepositories = array())
 	{
-		if (! $this->cache->contains($this->cache_repo_id))
+		if (! $this->okt['cacheConfig']->contains($this->sCacheRepoId))
 		{
 			$this->saveRepositoriesInfosCache($aRepositories);
 		}
-		
-		return $this->cache->fetch($this->cache_repo_id);
+
+		return $this->okt['cacheConfig']->fetch($this->sCacheRepoId);
 	}
 
 	/**
 	 * Enregistre les infos des dépôts dans le cache
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return boolean
 	 */
 	protected function saveRepositoriesInfosCache($aRepositories)
 	{
-		return $this->cache->save($this->cache_repo_id, $this->readRepositoriesInfos($aRepositories));
+		return $this->okt['cacheConfig']->save($this->sCacheRepoId, $this->readRepositoriesInfos($aRepositories));
 	}
 
 	/**
 	 * Lit les informations concernant les dépôts de thème et les retournes.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	protected function readRepositoriesInfos($aRepositories)
@@ -595,14 +586,14 @@ class Collection
 				$aThemesRepositories[$repository_id] = $infos;
 			}
 		}
-		
+
 		return $aThemesRepositories;
 	}
 
 	/**
 	 * Retourne les informations d'un dépôt de themes donné.
 	 *
-	 * @param array $repository_url        	
+	 * @param array $repository_url
 	 * @return array
 	 */
 	protected function getRepositoryInfos($repository_url)
@@ -610,15 +601,15 @@ class Collection
 		try
 		{
 			$repository_url = str_replace('%VERSION%', $this->okt->getVersion(), $repository_url);
-			
+
 			if (filter_var($repository_url, FILTER_VALIDATE_URL) === false)
 			{
 				return false;
 			}
-			
+
 			$client = new HttpClient();
 			$response = $client->get($repository_url)->send();
-			
+
 			if ($response->isSuccessful())
 			{
 				return $this->readRepositoryInfos($response->getBody(true));
@@ -637,7 +628,7 @@ class Collection
 	/**
 	 * Lit les informations XML d'un dépôt de themes donné et les retournes.
 	 *
-	 * @param sting $str        	
+	 * @param sting $str
 	 * @return array
 	 */
 	protected function readRepositoryInfos($str)
@@ -645,7 +636,7 @@ class Collection
 		try
 		{
 			$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
-			
+
 			$return = array();
 			foreach ($xml->theme as $theme)
 			{
@@ -661,12 +652,12 @@ class Collection
 					);
 				}
 			}
-			
+
 			if (empty($return))
 			{
 				return false;
 			}
-			
+
 			return $return;
 		}
 		catch (\Exception $e)

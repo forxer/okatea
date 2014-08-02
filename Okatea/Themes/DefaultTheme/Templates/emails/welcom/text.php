@@ -15,11 +15,11 @@
 <?php printf(__('c_c_emails_Username_%s'), $view->escape($username))?>
 <?php printf(__('c_c_emails_Password_%s'), $view->escape($password))?>
 
-<?php if ($okt->config->users['registration']['validation_email']) : ?>
+<?php if ($okt['config']->users['registration']['validation_email']) : ?>
 <?php printf(__('c_c_emails_validate_account_%s'), $validate_url)?>
 <?php endif; ?>
 
-<?php if ($okt->config->users['registration']['validation_admin']) : ?>
+<?php if ($okt['config']->users['registration']['validation_admin']) : ?>
 <?php _e('c_c_emails_admin_will_validate_account')?>
 <?php endif; ?>
 

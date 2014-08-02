@@ -166,9 +166,9 @@ class Modules extends Controller
 
 		# Modules repositories list
 		$this->aModulesRepositories = array();
-		if ($this->okt->config->repositories['modules']['enabled'])
+		if ($this->okt['config']->repositories['modules']['enabled'])
 		{
-			$this->aModulesRepositories = $this->okt->modules->getRepositoriesData($this->okt->config->repositories['modules']['list']);
+			$this->aModulesRepositories = $this->okt->modules->getRepositoriesData($this->okt['config']->repositories['modules']['list']);
 		}
 
 		# List of updates available on any repositories
@@ -687,7 +687,7 @@ class Modules extends Controller
 		$module = $this->request->query->get('module');
 
 		# Plugin upload
-		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $module && $this->okt->config->repositories['modules']['enabled']))
+		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $module && $this->okt['config']->repositories['modules']['enabled']))
 		{
 			try
 			{

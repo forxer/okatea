@@ -142,7 +142,7 @@ class Module extends BaseModule
 			);
 		}
 
-		foreach ($this->okt->config->home_page['item'] as $language => $item)
+		foreach ($this->okt['config']->home_page['item'] as $language => $item)
 		{
 			if ($item == 'pagesItem' && ! empty($aPages[$language]))
 			{

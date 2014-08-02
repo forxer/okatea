@@ -73,7 +73,7 @@ $aJsValidateRules = new ArrayObject(array(
 	)
 ));
 
-if ($okt->config->users['custom_fields_enabled'])
+if ($okt['config']->users['custom_fields_enabled'])
 {
 	while ($rsUserFields->fetch())
 	{
@@ -111,7 +111,7 @@ if ($okt->error->notEmpty())
 
 <?php 
 # début Okatea : affichage des champs personnalisés non-modifiables par l'utilisateur
-if ($okt->config->users['custom_fields_enabled'])
+if ($okt['config']->users['custom_fields_enabled'])
 :
 	?>
 <div id="user-infos">
@@ -137,7 +137,7 @@ if ($okt->config->users['custom_fields_enabled'])
 		<div class="three-cols">
 		<?php 
 # début Okatea : affichage des champs "username" et "email" fusionnés
-		if ($okt->config->users['registration']['merge_username_email'])
+		if ($okt['config']->users['registration']['merge_username_email'])
 		:
 			?>
 			<p class="field col">
@@ -148,7 +148,7 @@ if ($okt->config->users['custom_fields_enabled'])
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-		if (! $okt->config->users['registration']['merge_username_email'])
+		if (! $okt['config']->users['registration']['merge_username_email'])
 		:
 			?>
 			<p class="field col">
@@ -202,7 +202,7 @@ if ($okt->config->users['custom_fields_enabled'])
 
 	<?php 
 # début Okatea : affichage des champs personnalisés si ils sont activés
-	if ($okt->config->users['custom_fields_enabled'])
+	if ($okt['config']->users['custom_fields_enabled'])
 	:
 		?>
 	<div class="two-cols">

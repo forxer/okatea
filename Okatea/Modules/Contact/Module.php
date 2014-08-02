@@ -74,16 +74,16 @@ class Module extends BaseModule
 			
 			if (empty($this->aRecipientsTo))
 			{
-				if (! empty($this->okt->config->email['name']))
+				if (! empty($this->okt['config']->email['name']))
 				{
 					$this->aRecipientsTo = array(
-						$this->okt->config->email['to'] => Escaper::html($this->okt->config->email['name'])
+						$this->okt['config']->email['to'] => Escaper::html($this->okt['config']->email['name'])
 					);
 				}
 				else
 				{
 					$this->aRecipientsTo = array(
-						$this->okt->config->email['to']
+						$this->okt['config']->email['to']
 					);
 				}
 			}
@@ -399,7 +399,7 @@ class Module extends BaseModule
 	 */
 	public function setBodyFromPostedData()
 	{
-		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt->request->getSchemeAndHttpHost() . $this->okt->config->app_path . ']' . PHP_EOL . PHP_EOL;
+		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt->request->getSchemeAndHttpHost() . $this->okt['config']->app_path . ']' . PHP_EOL . PHP_EOL;
 		
 		$sSenderName = $this->getSenderName();
 		if (! empty($sSenderName))
@@ -476,13 +476,13 @@ class Module extends BaseModule
 	 */
 	public function getAdressForGmap()
 	{
-		if ($this->okt->config->gps['lat'] != '' && $this->okt->config->gps['long'] != '')
+		if ($this->okt['config']->gps['lat'] != '' && $this->okt['config']->gps['long'] != '')
 		{
-			return $this->okt->config->gps['lat'] . ', ' . $this->okt->config->gps['long'];
+			return $this->okt['config']->gps['lat'] . ', ' . $this->okt['config']->gps['long'];
 		}
 		else
 		{
-			$sAdressForGmap = $this->okt->config->address['street'] . ' ' . (! empty($this->okt->config->address['street_2']) ? $this->okt->config->address['street_2'] . ' ' : '') . $this->okt->config->address['code'] . ' ' . $this->okt->config->address['city'] . ' ' . $this->okt->config->address['country'];
+			$sAdressForGmap = $this->okt['config']->address['street'] . ' ' . (! empty($this->okt['config']->address['street_2']) ? $this->okt['config']->address['street_2'] . ' ' : '') . $this->okt['config']->address['code'] . ' ' . $this->okt['config']->address['city'] . ' ' . $this->okt['config']->address['country'];
 			
 			return str_replace(',', '', $sAdressForGmap);
 		}
@@ -501,7 +501,7 @@ class Module extends BaseModule
 		imagesavealpha($image_in, true);
 		
 		# Calcul de l'espace que prendra le texte
-		$aParam = imageftbbox($size, 0, $font, $this->okt->config->email['to']);
+		$aParam = imageftbbox($size, 0, $font, $this->okt['config']->email['to']);
 		$dest_w = $aParam[4] - $aParam[6] + 2;
 		$dest_h = $aParam[1] - $aParam[7] + 2;
 		
@@ -519,7 +519,7 @@ class Module extends BaseModule
 		}
 		
 		$txt_color = imagecolorallocate($image_out, hexdec(substr($email_color, 0, 2)), hexdec(substr($email_color, 2, 2)), hexdec(substr($email_color, 4, 2)));
-		imagettftext($image_out, $size, 0, 0, 12, $txt_color, $font, $this->okt->config->email['to']);
+		imagettftext($image_out, $size, 0, 0, 12, $txt_color, $font, $this->okt['config']->email['to']);
 		
 		# Génération du src de l'image et destruction des ressources
 		ob_start();

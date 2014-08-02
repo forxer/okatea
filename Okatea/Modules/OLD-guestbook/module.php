@@ -263,7 +263,7 @@ class module_guestbook extends Module
 		
 		if (empty($data['language']))
 		{
-			$data['language'] = $this->okt->config->language;
+			$data['language'] = $this->okt['config']->language;
 		}
 		
 		return $data;

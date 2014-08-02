@@ -56,7 +56,7 @@ class General extends Controller
 			# save configuration
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write($this->aPageData['values']);
+				$this->okt['config']->write($this->aPageData['values']);
 
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
@@ -121,11 +121,11 @@ class General extends Controller
 		$this->aPageData['home_page_details'] = array();
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'title' => $this->okt->config->title,
-			'desc' => $this->okt->config->desc,
+			'title' => $this->okt['config']->title,
+			'desc' => $this->okt['config']->desc,
 			'home_page' => array(
-				'item' => $this->okt->config->home_page['item'],
-				'details' => $this->okt->config->home_page['details']
+				'item' => $this->okt['config']->home_page['item'],
+				'details' => $this->okt['config']->home_page['details']
 			)
 		));
 	}
@@ -134,28 +134,28 @@ class General extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'company' => array(
-				'name' => $this->okt->config->company['name'],
-				'com_name' => $this->okt->config->company['com_name'],
-				'siret' => $this->okt->config->company['siret']
+				'name' => $this->okt['config']->company['name'],
+				'com_name' => $this->okt['config']->company['com_name'],
+				'siret' => $this->okt['config']->company['siret']
 			),
-			'schedule' => $this->okt->config->schedule,
+			'schedule' => $this->okt['config']->schedule,
 			'leader' => array(
-				'name' => $this->okt->config->leader['name'],
-				'firstname' => $this->okt->config->leader['firstname']
+				'name' => $this->okt['config']->leader['name'],
+				'firstname' => $this->okt['config']->leader['firstname']
 			),
 			'address' => array(
-				'street' => $this->okt->config->address['street'],
-				'street_2' => $this->okt->config->address['street_2'],
-				'code' => $this->okt->config->address['code'],
-				'city' => $this->okt->config->address['city'],
-				'country' => $this->okt->config->address['country'],
-				'tel' => $this->okt->config->address['tel'],
-				'mobile' => $this->okt->config->address['mobile'],
-				'fax' => $this->okt->config->address['fax']
+				'street' => $this->okt['config']->address['street'],
+				'street_2' => $this->okt['config']->address['street_2'],
+				'code' => $this->okt['config']->address['code'],
+				'city' => $this->okt['config']->address['city'],
+				'country' => $this->okt['config']->address['country'],
+				'tel' => $this->okt['config']->address['tel'],
+				'mobile' => $this->okt['config']->address['mobile'],
+				'fax' => $this->okt['config']->address['fax']
 			),
 			'gps' => array(
-				'lat' => $this->okt->config->gps['lat'],
-				'long' => $this->okt->config->gps['long']
+				'lat' => $this->okt['config']->gps['lat'],
+				'long' => $this->okt['config']->gps['long']
 			)
 		));
 	}
@@ -164,17 +164,17 @@ class General extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'email' => array(
-				'to' => $this->okt->config->email['to'],
-				'from' => $this->okt->config->email['from'],
-				'name' => $this->okt->config->email['name'],
-				'transport' => $this->okt->config->email['transport'],
+				'to' => $this->okt['config']->email['to'],
+				'from' => $this->okt['config']->email['from'],
+				'name' => $this->okt['config']->email['name'],
+				'transport' => $this->okt['config']->email['transport'],
 				'smtp' => array(
-					'host' => $this->okt->config->email['smtp']['host'],
-					'port' => $this->okt->config->email['smtp']['port'],
-					'username' => $this->okt->config->email['smtp']['username'],
-					'password' => $this->okt->config->email['smtp']['password']
+					'host' => $this->okt['config']->email['smtp']['host'],
+					'port' => $this->okt['config']->email['smtp']['port'],
+					'username' => $this->okt['config']->email['smtp']['username'],
+					'password' => $this->okt['config']->email['smtp']['password']
 				),
-				'sendmail' => $this->okt->config->email['sendmail']
+				'sendmail' => $this->okt['config']->email['sendmail']
 			)
 		));
 	}
@@ -182,9 +182,9 @@ class General extends Controller
 	protected function seoInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'title_tag' => $this->okt->config->title_tag,
-			'meta_description' => $this->okt->config->meta_description,
-			'meta_keywords' => $this->okt->config->meta_keywords
+			'title_tag' => $this->okt['config']->title_tag,
+			'meta_description' => $this->okt['config']->meta_description,
+			'meta_keywords' => $this->okt['config']->meta_keywords
 		));
 	}
 

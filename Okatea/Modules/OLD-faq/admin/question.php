@@ -400,7 +400,7 @@ require OKT_ADMIN_HEADER_FILE;
 				<p>
 						<img
 							src="<?php
-						echo $okt->config->app_path . 'oktCommon/img/media/' . $files_infos[$aLanguage['code']][$i]['type'] . '.png'?>"
+						echo $okt['config']->app_path . 'oktCommon/img/media/' . $files_infos[$aLanguage['code']][$i]['type'] . '.png'?>"
 							alt="<?php echo $files_infos[$aLanguage['code']][$i]['type'] ?>" />
 				<?php echo $files_infos[$aLanguage['code']][$i]['filename']?>
 				- <?php echo $files_infos[$aLanguage['code']][$i]['type'] ?> (<?php echo $files_infos[$aLanguage['code']][$i]['mime'] ?>)

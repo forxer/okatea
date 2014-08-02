@@ -50,13 +50,6 @@ class Languages
 	protected $t_languages;
 
 	/**
-	 * The cache manager object.
-	 *
-	 * @var object
-	 */
-	protected $cache;
-
-	/**
 	 * The cache identifier.
 	 *
 	 * @var string
@@ -73,10 +66,9 @@ class Languages
 	{
 		$this->okt = $okt;
 
-		$this->cache = $okt->cacheConfig;
 		$this->cache_id = 'languages';
 
-		$this->t_languages = $okt->config->database_prefix . 'core_languages';
+		$this->t_languages = $okt['config']->database_prefix . 'core_languages';
 
 		$this->load();
 	}
@@ -88,11 +80,11 @@ class Languages
 	 */
 	public function load()
 	{
-		if (! $this->cache->contains($this->cache_id)) {
+		if (! $this->okt['cacheConfig']->contains($this->cache_id)) {
 			$this->generateCacheList();
 		}
 
-		$this->list = $this->cache->fetch($this->cache_id);
+		$this->list = $this->okt['cacheConfig']->fetch($this->cache_id);
 
 		$this->num = count($this->list);
 		$this->unique = (boolean) ($this->num == 1);
@@ -159,7 +151,7 @@ class Languages
 			];
 		}
 
-		return $this->cache->save($this->cache_id, $aLanguagesList);
+		return $this->okt['cacheConfig']->save($this->cache_id, $aLanguagesList);
 	}
 
 	/**

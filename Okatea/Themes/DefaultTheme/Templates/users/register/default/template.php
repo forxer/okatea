@@ -87,7 +87,7 @@ $aJsValidateRules = new ArrayObject(array(
 	)
 ));
 
-if ($okt->config->users['custom_fields_enabled'])
+if ($okt['config']->users['custom_fields_enabled'])
 {
 	while ($rsUserFields->fetch())
 	{
@@ -145,7 +145,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" fusionnés
-	if ($okt->config->users['registration']['merge_username_email'])
+	if ($okt['config']->users['registration']['merge_username_email'])
 	:
 		?>
 			<p class="field col">
@@ -157,7 +157,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-	if (! $okt->config->users['registration']['merge_username_email'])
+	if (! $okt['config']->users['registration']['merge_username_email'])
 	:
 		?>
 			<p class="field col">
@@ -171,7 +171,7 @@ if (! empty($_REQUEST['registered']))
 			<?php echo form::text('add_email', 35, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" distincts ?>
 
-			<?php if ($okt->config->users['registration']['user_choose_group']) : ?>
+			<?php if ($okt['config']->users['registration']['user_choose_group']) : ?>
 			<p class="field col">
 				<label for="add_group_id"><?php _e('c_c_Group') ?></label>
 			<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>
@@ -234,7 +234,7 @@ if (! empty($_REQUEST['registered']))
 
 	<?php 
 # début Okatea : affichage des champs personnalisés si ils sont activés
-	if ($okt->config->users['custom_fields_enabled'])
+	if ($okt['config']->users['custom_fields_enabled'])
 	:
 		?>
 	<div class="two-cols">
@@ -255,7 +255,7 @@ if (! empty($_REQUEST['registered']))
 	<ul>
 		<?php 
 # début Okatea : lien page connexion
-	if ($okt->config->users['pages']['login'])
+	if ($okt['config']->users['pages']['login'])
 	:
 		?>
 		<li><a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php
@@ -264,7 +264,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : lien page mot de passe oublié
-	if ($okt->config->users['pages']['forget_password'])
+	if ($okt['config']->users['pages']['forget_password'])
 	:
 		?>
 		<li><a href="<?php echo $view->generateUrl('usersForgetPassword') ?>"><?php

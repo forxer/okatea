@@ -26,7 +26,7 @@ class Logadmin extends Controller
 		$this->okt->logAdmin->filtersStart();
 
 		# Suppression automatique des logs
-		$this->okt->logAdmin->deleteLogsDate($this->okt->config->log_admin['ttl_months']);
+		$this->okt->logAdmin->deleteLogsDate($this->okt['config']->log_admin['ttl_months']);
 
 		# Suppression manuelle des logs
 		if ($this->request->query->get('truncate'))

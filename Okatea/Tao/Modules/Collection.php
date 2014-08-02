@@ -39,13 +39,6 @@ class Collection
 	protected $db;
 
 	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $error;
-
-	/**
 	 * Le nom de la table modules
 	 *
 	 * @var string
@@ -67,25 +60,18 @@ class Collection
 	protected $complete_list = array();
 
 	/**
-	 * L'objet gestionnaire de cache
-	 *
-	 * @var object
-	 */
-	protected $cache;
-
-	/**
 	 * L'identifiant du cache des modules
 	 *
 	 * @var string
 	 */
-	protected $cache_id;
+	protected $sCacheId;
 
 	/**
 	 * L'identifiant du cache des dépots
 	 *
 	 * @var string
 	 */
-	protected $cache_repo_id;
+	protected $sCacheRepoId;
 
 	/**
 	 * L'identifiant du module éventuellement actif
@@ -97,24 +83,20 @@ class Collection
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt
-	 *        	instance.
-	 * @param string $path
-	 *        	chemin du répertoire des modules à charger.
+	 * @param object $okt instance.
+	 * @param string $path chemin du répertoire des modules à charger.
 	 * @return void
 	 */
 	public function __construct($okt, $path)
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
-		$this->error = $okt->error;
-		
-		$this->cache = $okt->cacheConfig;
-		$this->cache_id = 'modules';
-		$this->cache_repo_id = 'modules_repositories';
-		
+
+		$this->sCacheId = 'modules';
+		$this->sCacheRepoId = 'modules_repositories';
+
 		$this->t_extensions = $okt->db->prefix . 'core_extensions';
-		
+
 		$this->path = $path;
 	}
 
@@ -127,22 +109,22 @@ class Collection
 	 */
 	public function loadModules($ns = null)
 	{
-		if (! $this->cache->contains($this->cache_id))
+		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
 		{
 			$this->generateCacheList();
 		}
-		
-		$aModulesList = $this->cache->fetch($this->cache_id);
-		
+
+		$aModulesList = $this->okt['cacheConfig']->fetch($this->sCacheId);
+
 		foreach ($aModulesList as $sModuleId => $module_infos)
 		{
 			$sModuleClass = 'Okatea\\Modules\\' . $sModuleId . '\\Module';
-			
+
 			$this->list[$sModuleId] = new $sModuleClass($this->okt);
-			
+
 			$this->list[$sModuleId]->setInfos($module_infos);
 		}
-		
+
 		foreach ($aModulesList as $sModuleId => $module_infos)
 		{
 			$this->list[$sModuleId]->init();
@@ -156,11 +138,11 @@ class Collection
 	public function generateCacheList()
 	{
 		$aModulesList = array();
-		
+
 		$rsModules = $this->getModulesFromDB(array(
 			'status' => 1
 		));
-		
+
 		while ($rsModules->fetch())
 		{
 			$aModulesList[$rsModules->f('id')] = array(
@@ -173,8 +155,8 @@ class Collection
 				'status' => $rsModules->f('status')
 			);
 		}
-		
-		return $this->cache->save($this->cache_id, $aModulesList);
+
+		return $this->okt['cacheConfig']->save($this->sCacheId, $aModulesList);
 	}
 
 	/**
@@ -200,7 +182,7 @@ class Collection
 	/**
 	 * Indique si un module donné existe dans la liste des modules actifs.
 	 *
-	 * @param string $sModuleId        	
+	 * @param string $sModuleId
 	 * @return boolean
 	 */
 	public function loaded($sModuleId)
@@ -211,7 +193,7 @@ class Collection
 	/**
 	 * Retourne la liste complète des modules.
 	 *
-	 * @param string $sModuleId        	
+	 * @param string $sModuleId
 	 */
 	public function getCompleteList($sModuleId = null)
 	{
@@ -219,7 +201,7 @@ class Collection
 		{
 			return $this->complete_list[$sModuleId];
 		}
-		
+
 		return $this->complete_list;
 	}
 
@@ -236,7 +218,7 @@ class Collection
 	/**
 	 * Retourne l'instance d'un module handler donné.
 	 *
-	 * @param string $sModuleId        	
+	 * @param string $sModuleId
 	 * @throws Exception
 	 */
 	public function getModuleObject($sModuleId)
@@ -245,7 +227,7 @@ class Collection
 		{
 			throw new \Exception(__('The module specified (' . $sModuleId . ') does not appear to be a valid installed module.'));
 		}
-		
+
 		return $this->list[$sModuleId];
 	}
 
@@ -275,29 +257,29 @@ class Collection
 		{
 			return false;
 		}
-		
+
 		if (($d = dir($this->path)) === false)
 		{
 			return false;
 		}
-		
+
 		while (($entry = $d->read()) !== false)
 		{
 			$full_entry = $this->path . '/' . $entry;
-			
+
 			if ($entry != '.' && $entry != '..' && $entry != '.svn' && is_dir($full_entry) && file_exists($full_entry . '/_define.php'))
 			{
 				$this->id = $entry;
 				$this->mroot = $full_entry;
-				
+
 				require $full_entry . '/_define.php';
-				
+
 				$this->id = null;
 				$this->mroot = null;
 			}
 		}
 		$d->close();
-		
+
 		return $this->complete_list;
 	}
 
@@ -345,24 +327,24 @@ class Collection
 	public function getModulesFromDB($params = array())
 	{
 		$reqPlus = 'WHERE type=\'module\' ';
-		
+
 		if (! empty($params['mod_id']))
 		{
 			$reqPlus .= 'AND id=\'' . $this->db->escapeStr($params['mod_id']) . '\' ';
 		}
-		
+
 		if (! empty($params['status']))
 		{
 			$reqPlus .= 'AND status=' . (integer) $params['status'] . ' ';
 		}
-		
+
 		$strReq = 'SELECT id, name, description, author, ' . 'version, priority, updatable, status ' . 'FROM ' . $this->t_extensions . ' ' . $reqPlus . 'ORDER BY priority ASC, id ASC ';
-		
+
 		if (($rs = $this->db->select($strReq)) === false)
 		{
 			return new Recordset(array());
 		}
-		
+
 		return $rs;
 	}
 
@@ -374,9 +356,9 @@ class Collection
 	public function getInstalledModules()
 	{
 		$rsInstalledModules = $this->getModulesFromDB();
-		
+
 		$aInstalledModules = array();
-		
+
 		while ($rsInstalledModules->fetch())
 		{
 			$aInstalledModules[$rsInstalledModules->id] = array(
@@ -393,14 +375,14 @@ class Collection
 				'updatable' => $rsInstalledModules->updatable
 			);
 		}
-		
+
 		return $aInstalledModules;
 	}
 
 	/**
 	 * Retourne les informations d'un module donné.
 	 *
-	 * @param string $sModuleId        	
+	 * @param string $sModuleId
 	 * @return recordset
 	 */
 	public function getModule($sModuleId)
@@ -413,120 +395,120 @@ class Collection
 	/**
 	 * Ajout d'un module à la base de données.
 	 *
-	 * @param string $id        	
-	 * @param string $version        	
-	 * @param string $name        	
-	 * @param string $desc        	
-	 * @param string $author        	
-	 * @param integer $priority        	
-	 * @param integer $status        	
+	 * @param string $id
+	 * @param string $version
+	 * @param string $name
+	 * @param string $desc
+	 * @param string $author
+	 * @param integer $priority
+	 * @param integer $status
 	 * @return booolean
 	 */
 	public function addModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
 	{
 		$query = 'INSERT INTO ' . $this->t_extensions . ' (' . 'id, name, description, author, ' . 'version, priority, status, type' . ') VALUES (' . '\'' . $this->db->escapeStr($id) . '\', ' . '\'' . $this->db->escapeStr($name) . '\', ' . '\'' . $this->db->escapeStr($desc) . '\', ' . '\'' . $this->db->escapeStr($author) . '\', ' . '\'' . $this->db->escapeStr($version) . '\', ' . (integer) $priority . ', ' . (integer) $status . ', ' . '\'module\'' . ') ';
-		
+
 		if ($this->db->execute($query) === false)
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Modification d'un module.
 	 *
-	 * @param string $id        	
-	 * @param string $version        	
-	 * @param string $name        	
-	 * @param string $desc        	
-	 * @param string $author        	
-	 * @param integer $priority        	
-	 * @param integer $status        	
+	 * @param string $id
+	 * @param string $version
+	 * @param string $name
+	 * @param string $desc
+	 * @param string $author
+	 * @param integer $priority
+	 * @param integer $status
 	 * @return boolean
 	 */
 	public function updModule($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = null)
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'name=\'' . $this->db->escapeStr($name) . '\', ' . 'description=\'' . $this->db->escapeStr($desc) . '\', ' . 'author=\'' . $this->db->escapeStr($author) . '\', ' . 'version=\'' . $this->db->escapeStr($version) . '\', ' . 'priority=' . (integer) $priority . ', ' . 'status=' . ($status === null ? 'status' : (integer) $status) . ' ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
-		
+
 		if ($this->db->execute($query) === false)
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Activation d'un module.
 	 *
-	 * @param string $id        	
+	 * @param string $id
 	 * @return boolean
 	 */
 	public function enableModule($id)
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=1 ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
-		
+
 		if ($this->db->execute($query) === false)
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Désactivation d'un module.
 	 *
-	 * @param string $id        	
+	 * @param string $id
 	 * @return boolean
 	 */
 	public function disableModule($id)
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=0 ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
-		
+
 		if ($this->db->execute($query) === false)
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Suppression d'un module.
 	 *
-	 * @param string $id        	
+	 * @param string $id
 	 * @return boolean
 	 */
 	public function deleteModule($id)
 	{
 		$query = 'DELETE FROM ' . $this->t_extensions . ' ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
-		
+
 		if ($this->db->execute($query) === false)
 		{
 			return false;
 		}
-		
+
 		$this->db->optimize($this->t_extensions);
-		
+
 		return true;
 	}
 
 	/**
 	 * Install a module from a zip file.
 	 *
-	 * @param string $zip_file        	
-	 * @param Collection $modules        	
+	 * @param string $zip_file
+	 * @param Collection $modules
 	 */
 	public static function installPackage($zip_file, $modules)
 	{
 		$zip = new \fileUnzip($zip_file);
 		$zip->getList(false, '#(^|/)(__MACOSX|\.svn|\.DS_Store|Thumbs\.db)(/|$)#');
-		
+
 		$zip_root_dir = $zip->getRootDir();
-		
+
 		if ($zip_root_dir !== false)
 		{
 			$target = dirname($zip_file);
@@ -541,40 +523,40 @@ class Collection
 			$define = '_define.php';
 			$has_define = $zip->hasFile($define);
 		}
-		
+
 		if ($zip->isEmpty())
 		{
 			$zip->close();
 			unlink($zip_file);
 			throw new \Exception(__('Empty module zip file.'));
 		}
-		
+
 		if (! $has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
 			throw new \Exception(__('The zip file does not appear to be a valid module.'));
 		}
-		
+
 		$ret_code = 1;
-		
+
 		if (is_dir($destination))
 		{
 			copy($target . '/_define.php', $target . '/_define.php.bak');
-			
+
 			# test for update
 			$sandbox = clone $modules;
 			$zip->unzip($define, $target . '/_define.php');
-			
+
 			$sandbox->resetCompleteList();
 			$sandbox->requireDefine($target, basename($destination));
 			unlink($target . '/_define.php');
 			$new_modules = $sandbox->getCompleteList();
 			$old_modules = $modules->getModulesFromFileSystem();
-			
+
 			$modules->disableModule(basename($destination));
 			$modules->generateCacheList();
-			
+
 			if (! empty($new_modules))
 			{
 				$tmp = array_keys($new_modules);
@@ -593,12 +575,12 @@ class Collection
 				{
 					$zip->close();
 					unlink($zip_file);
-					
+
 					if (file_exists($target . '/_define.php.bak'))
 					{
 						rename($target . '/_define.php.bak', $target . '/_define.php');
 					}
-					
+
 					throw new \Exception(sprintf(__('Unable to upgrade "%s". (same version)'), basename($destination)));
 				}
 			}
@@ -606,79 +588,79 @@ class Collection
 			{
 				$zip->close();
 				unlink($zip_file);
-				
+
 				if (file_exists($target . '/_define.php.bak'))
 				{
 					rename($target . '/_define.php.bak', $target . '/_define.php');
 				}
-				
+
 				throw new \Exception(sprintf(__('Unable to read new _define.php file')));
 			}
 		}
-		
+
 		$zip->unzipAll($target);
 		$zip->close();
 		unlink($zip_file);
-		
+
 		return $ret_code;
 	}
 
 	/**
 	 * Recherche et utilisation d'une classe d'installation d'un module donné.
 	 *
-	 * @param string $sModuleId        	
+	 * @param string $sModuleId
 	 * @return string
 	 */
 	public function getInstallClass($sModuleId)
 	{
 		$return = '\\Okatea\Tao\\Modules\\Manage\\Process';
-		
+
 		if (file_exists($this->path . '/' . $sModuleId . '/install/module_install.php'))
 		{
 			require_once $this->path . '/' . $sModuleId . '/install/module_install.php';
-			
+
 			$class_install = 'moduleInstall_' . $sModuleId;
-			
+
 			if (class_exists($class_install, false) && is_subclass_of($class_install, '\\Okatea\Tao\\Modules\\Manage\\Process'))
 			{
 				$return = $class_install;
 			}
 		}
-		
+
 		return $return;
 	}
 
 	/**
 	 * Retourne les informations concernant les dépôts de modules.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	public function getRepositoriesInfos($aRepositories = array())
 	{
-		if (! $this->cache->contains($this->cache_repo_id))
+		if (! $this->okt['cacheConfig']->contains($this->sCacheRepoId))
 		{
 			$this->saveRepositoriesInfosCache($aRepositories);
 		}
-		
-		return $this->cache->fetch($this->cache_repo_id);
+
+		return $this->okt['cacheConfig']->fetch($this->sCacheRepoId);
 	}
 
 	/**
 	 * Enregistre les infos des dépôts dans le cache.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return boolean
 	 */
 	protected function saveRepositoriesInfosCache($aRepositories)
 	{
-		return $this->cache->save($this->cache_repo_id, $this->readRepositoriesInfos($aRepositories));
+		return $this->okt['cacheConfig']->save($this->sCacheRepoId, $this->readRepositoriesInfos($aRepositories));
 	}
 
 	/**
 	 * Lit les informations concernant les dépôts de modules et les retournes.
 	 *
-	 * @param array $aRepositories        	
+	 * @param array $aRepositories
 	 * @return array
 	 */
 	protected function readRepositoriesInfos($aRepositories)
@@ -691,28 +673,28 @@ class Collection
 				$aModulesRepositories[$repository_id] = $infos;
 			}
 		}
-		
+
 		return $aModulesRepositories;
 	}
 
 	/**
 	 * Retourne les informations d'un dépôt de modules donné.
 	 *
-	 * @param array $repository_url        	
+	 * @param array $repository_url
 	 * @return array
 	 */
 	protected function getRepositoryInfos($repository_url)
 	{
 		$repository_url = str_replace('%VERSION%', $this->okt->getVersion(), $repository_url);
-		
+
 		if (filter_var($repository_url, FILTER_VALIDATE_URL) === false)
 		{
 			return false;
 		}
-		
+
 		$client = new HttpClient();
 		$response = $client->get($repository_url)->send();
-		
+
 		if ($response->isSuccessful())
 		{
 			return $this->readRepositoryInfos($response->getBody(true));
@@ -726,7 +708,7 @@ class Collection
 	/**
 	 * Lit les informations XML d'un dépôt de modules donné et les retournes.
 	 *
-	 * @param sting $str        	
+	 * @param sting $str
 	 * @return array
 	 */
 	protected function readRepositoryInfos($str)
@@ -734,7 +716,7 @@ class Collection
 		try
 		{
 			$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
-			
+
 			$return = array();
 			foreach ($xml->module as $module)
 			{
@@ -750,12 +732,12 @@ class Collection
 					);
 				}
 			}
-			
+
 			if (empty($return))
 			{
 				return false;
 			}
-			
+
 			return $return;
 		}
 		catch (\Exception $e)
@@ -763,14 +745,14 @@ class Collection
 			throw $e;
 		}
 	}
-	
+
 	/* Méthodes utilitaires.
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Fonction de "pluralisation" des modules.
 	 *
-	 * @param integer $count        	
+	 * @param integer $count
 	 * @return string
 	 */
 	public static function pluralizeModuleCount($count)
@@ -783,14 +765,14 @@ class Collection
 		{
 			return sprintf(__('c_a_modules_%s_modules'), $count);
 		}
-		
+
 		return __('c_a_modules_no_module');
 	}
 
 	/**
 	 * Tri les modules par ordre alphabétique.
 	 *
-	 * @param array $aModules        	
+	 * @param array $aModules
 	 * @return void
 	 */
 	public static function sortModules(array &$aModules)
@@ -801,8 +783,8 @@ class Collection
 	/**
 	 * Fonction de callback de tri des modules.
 	 *
-	 * @param string $a        	
-	 * @param string $b        	
+	 * @param string $a
+	 * @param string $b
 	 * @return number
 	 */
 	protected static function sortModulesListCallable($a, $b)

@@ -213,7 +213,7 @@ class Css
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
 		
-		return str_replace($okt->options->public_dir, $okt->config->app_path . basename($okt->options->get('public_dir')), $outputFile);
+		return str_replace($okt->options->public_dir, $okt['config']->app_path . basename($okt->options->get('public_dir')), $outputFile);
 	}
 	
 	/* Pile de fichiers CC

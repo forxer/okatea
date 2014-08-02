@@ -44,7 +44,7 @@ class Display extends Controller
 
 		foreach ($aAllowedAdminThemes as $theme)
 		{
-			if ($theme == $this->okt->config->jquery_ui['admin']) {
+			if ($theme == $this->okt['config']->jquery_ui['admin']) {
 				$aAllowedAdminThemes[$theme] = $theme . __('c_a_config_display_current_theme');
 			}
 		}
@@ -146,7 +146,7 @@ class Display extends Controller
 
 			if (! in_array($p_jquery_ui_admin_theme, $aAllowedAdminThemes) && $p_jquery_ui_admin_theme != 'custom')
 			{
-				$p_jquery_ui_admin_theme = $this->okt->config->jquery_ui['admin'];
+				$p_jquery_ui_admin_theme = $this->okt['config']->jquery_ui['admin'];
 			}
 
 			if (! $this->okt['flash']->hasError())
@@ -160,7 +160,7 @@ class Display extends Controller
 					'admin_menu_position' => $this->request->request->get('p_admin_menu_position', 'top')
 				);
 
-				$this->okt->config->write($aNewConfig);
+				$this->okt['config']->write($aNewConfig);
 
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 

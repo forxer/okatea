@@ -19,7 +19,7 @@
 
 	<?php # début Okatea : élément base pour la ré-écriture d'URL ?>
 	<base
-	href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$okt->config->app_path) ?>" />
+	href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$okt['config']->app_path) ?>" />
 	<?php # fin Okatea : élément base pour la ré-écriture d'URL ?>
 
 	<?php 

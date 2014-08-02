@@ -298,7 +298,7 @@ class Users
 
 			if ($dupe)
 			{
-				if ($this->okt->config->users['registration']['merge_username_email'])
+				if ($this->okt['config']->users['registration']['merge_username_email'])
 				{
 					$this->oError->set(__('c_c_users_error_email_already_exist'));
 				}
@@ -389,18 +389,18 @@ class Users
 			return false;
 		}
 
-		if ($this->okt->config->users['registration']['validation_admin'])
+		if ($this->okt['config']->users['registration']['validation_admin'])
 		{
 			$aParams['group_id'] = 0;
 		}
 		elseif (empty($aParams['group_id']) || ! $this->okt->getGroups()->groupExists($aParams['group_id']))
 		{
-			$aParams['group_id'] = $this->okt->config->users['registration']['default_group'];
+			$aParams['group_id'] = $this->okt['config']->users['registration']['default_group'];
 		}
 
 		$sPasswordHash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 
-		if ($this->okt->config->users['registration']['validation_email'])
+		if ($this->okt['config']->users['registration']['validation_email'])
 		{
 			$aParams['activate_string'] = $sPasswordHash;
 			$aParams['activate_key'] = Utilities::random_key(8);
@@ -607,7 +607,7 @@ class Users
 		$this->oDb->optimize($this->sUsersTable);
 
 		# delete user custom fields
-		if ($this->okt->config->users['custom_fields_enabled'])
+		if ($this->okt['config']->users['custom_fields_enabled'])
 		{
 			$this->fields->delUserValue($iUserId);
 		}
@@ -629,7 +629,7 @@ class Users
 			return false;
 		}
 
-		$sSqlQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'group_id = ' . (integer) $this->okt->config->users['registration']['default_group'] . ' ' . 'WHERE id=' . (integer) $iUserId;
+		$sSqlQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'group_id = ' . (integer) $this->okt['config']->users['registration']['default_group'] . ' ' . 'WHERE id=' . (integer) $iUserId;
 
 		if (! $this->oDb->execute($sSqlQuery))
 		{
@@ -760,7 +760,7 @@ class Users
 
 		$aMailParams = [
 			'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-			'site_url' => $this->okt->request->getSchemeAndHttpHost() . $this->okt->config->app_path,
+			'site_url' => $this->okt->request->getSchemeAndHttpHost() . $this->okt['config']->app_path,
 			'user' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 			'password' => $sNewPassword,
 			'validate_url' => $sActivateUrl . '?uid=' . $rsUser->id . '&key=' . rawurlencode($sNewPasswordKey)

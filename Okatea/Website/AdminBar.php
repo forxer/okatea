@@ -48,7 +48,7 @@ class AdminBar
 		$aPrimaryAdminBar = new ArrayObject();
 		$aSecondaryAdminBar = new ArrayObject();
 		
-		$aBasesUrl['admin'] = $this->okt->config->app_path . 'admin/';
+		$aBasesUrl['admin'] = $this->okt['config']->app_path . 'admin/';
 		$aBasesUrl['logout'] = $this->okt['router']->generate('usersLogout');
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 		
@@ -88,7 +88,7 @@ class AdminBar
 				}
 				
 				$aSecondaryAdminBar[$iStartIdx ++] = array(
-					'href' => Escaper::html($this->okt->config->app_path . $aLanguage['code'] . '/'),
+					'href' => Escaper::html($this->okt['config']->app_path . $aLanguage['code'] . '/'),
 					'title' => Escaper::html($aLanguage['title']),
 					'intitle' => '<img src="' . $this->okt->options->public_url . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" />'
 				);
@@ -112,9 +112,9 @@ class AdminBar
 			}
 			
 			# avertissement nouvelle version disponible
-			if ($this->okt->config->updates['enabled'] && is_readable($this->okt->options->get('digests')))
+			if ($this->okt['config']->updates['enabled'] && is_readable($this->okt->options->get('digests')))
 			{
-				$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
+				$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
 				$new_v = $updater->check($this->okt->getVersion());
 				
 				if ($updater->getNotify() && $new_v)
@@ -130,7 +130,7 @@ class AdminBar
 			}
 			
 			# avertissement mode maintenance est activé sur la partie publique
-			if ($this->okt->config->maintenance['public'])
+			if ($this->okt['config']->maintenance['public'])
 			{
 				$aPrimaryAdminBar[10]['items'][130] = array(
 					'href' => $aBasesUrl['admin'] . '/configuration.php?action=advanced#tab_others',
@@ -139,7 +139,7 @@ class AdminBar
 			}
 			
 			# avertissement mode maintenance est activé sur l'admin
-			if ($this->okt->config->maintenance['admin'])
+			if ($this->okt['config']->maintenance['admin'])
 			{
 				$aPrimaryAdminBar[10]['items'][140] = array(
 					'href' => $aBasesUrl['admin'] . '/configuration.php?action=advanced#tab_others',

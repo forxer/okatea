@@ -53,7 +53,7 @@ class Packages extends BaseTools
 		{
 		}
 		
-		$sReleaseType = $this->okt->session->get('release_type');
+		$sReleaseType = $this->okt['session']->get('release_type');
 		
 		$aRepositoryInfos[$sReleaseType] = array(
 			'type' => $sReleaseType,

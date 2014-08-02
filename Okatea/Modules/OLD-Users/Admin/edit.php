@@ -119,7 +119,7 @@ if (! empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId'],
-		'group_id' => $okt->config->users_registration['default_group']
+		'group_id' => $okt['config']->users_registration['default_group']
 	);
 	
 	if ($okt->users->updUser($upd_params))
@@ -130,7 +130,7 @@ if (! empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 		
 		$oMail->useFile(__DIR__ . '/../../Locales/' . $edit_language . '/Templates/validate_user.tpl', array(
 			'SITE_TITLE' => $okt->page->getSiteTitle($edit_language),
-			'SITE_URL' => $okt->request->getSchemeAndHttpHost() . $okt->config->app_path
+			'SITE_URL' => $okt->request->getSchemeAndHttpHost() . $okt['config']->app_path
 		));
 		
 		$oMail->message->setTo($edit_email);
@@ -163,7 +163,7 @@ if (! empty($_POST['change_password']) && $okt->checkPerm('change_password') && 
 			
 			$oMail->useFile(__DIR__ . '/../../Locales/' . $edit_language . '/Templates/admin_change_user_password.tpl', array(
 				'SITE_TITLE' => $okt->page->getSiteTitle($edit_language),
-				'SITE_URL' => $okt->request->getSchemeAndHttpHost() . $okt->config->app_path,
+				'SITE_URL' => $okt->request->getSchemeAndHttpHost() . $okt['config']->app_path,
 				'NEW_PASSWORD' => $upd_params['password']
 			));
 			

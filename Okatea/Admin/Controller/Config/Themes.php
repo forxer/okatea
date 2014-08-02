@@ -191,9 +191,9 @@ class Themes extends Controller
 		
 		# Themes repositories list
 		$this->aThemesRepositories = array();
-		if ($this->okt->config->repositories['themes']['enabled'])
+		if ($this->okt['config']->repositories['themes']['enabled'])
 		{
-			$this->aThemesRepositories = $this->okt->themes->getRepositoriesData($this->okt->config->repositories['themes']['list']);
+			$this->aThemesRepositories = $this->okt->themes->getRepositoriesData($this->okt['config']->repositories['themes']['list']);
 		}
 		
 		# List of updates available on any repositories
@@ -600,7 +600,7 @@ class Themes extends Controller
 		$theme = $this->request->query->get('theme');
 		
 		# Plugin upload
-		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $theme && $this->okt->config->repositories['themes']['enabled']))
+		if (($upload_pkg && $pkg_file) || ($fetch_pkg && $pkg_url) || ($repository && $theme && $this->okt['config']->repositories['themes']['enabled']))
 		{
 			try
 			{
@@ -677,12 +677,12 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt['config']->themes;
 		
 		$aThemesConfig['desktop'] = $sUseThemeId;
 		
 		# write config
-		$this->okt->config->write(array(
+		$this->okt['config']->write(array(
 			'themes' => $aThemesConfig
 		));
 		
@@ -708,15 +708,15 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt['config']->themes;
 		
-		if ($sUseMobileThemeId == $this->okt->config->themes['mobile'])
+		if ($sUseMobileThemeId == $this->okt['config']->themes['mobile'])
 		{
 			$sUseMobileThemeId = '';
 		}
 		
 		$aThemesConfig['mobile'] = $sUseMobileThemeId;
-		$this->okt->config->write(array(
+		$this->okt['config']->write(array(
 			'themes' => $aThemesConfig
 		));
 		
@@ -734,15 +734,15 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt->config->themes;
+		$aThemesConfig = $this->okt['config']->themes;
 		
-		if ($sUseTabletThemeId == $this->okt->config->themes['tablet'])
+		if ($sUseTabletThemeId == $this->okt['config']->themes['tablet'])
 		{
 			$sUseTabletThemeId = '';
 		}
 		
 		$aThemesConfig['tablet'] = $sUseTabletThemeId;
-		$this->okt->config->write(array(
+		$this->okt['config']->write(array(
 			'themes' => $aThemesConfig
 		));
 		

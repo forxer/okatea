@@ -23,7 +23,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 	<label for="p_desc_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_website_desc') : printf(__('c_a_config_website_desc_in_%s'), $view->escape($aLanguage['title'])); ?><span
 		class="lang-switcher-buttons"></span></label>
-		<?php echo form::text(array('p_desc['.$aLanguage['code'].']','p_desc_'.$aLanguage['code']), 60, 255, (isset($okt->config->desc[$aLanguage['code']]) ? $view->escape($aPageData['values']['desc'][$aLanguage['code']]) : '')) ?></p>
+		<?php echo form::text(array('p_desc['.$aLanguage['code'].']','p_desc_'.$aLanguage['code']), 60, 255, (isset($okt['config']->desc[$aLanguage['code']]) ? $view->escape($aPageData['values']['desc'][$aLanguage['code']]) : '')) ?></p>
 
 <?php endforeach; ?>
 

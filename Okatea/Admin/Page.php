@@ -107,12 +107,12 @@ class Page extends BasePage
 		{
 			$mainMenuHtml = $this->mainMenu->build();
 
-			if ($this->okt->config->admin_menu_position != 'top')
+			if ($this->okt['config']->admin_menu_position != 'top')
 			{
 				$this->accordion(array(
 					'heightStyle' => 'auto',
 					'active' => ($mainMenuHtml['active'] === null ? 0 : $mainMenuHtml['active'])
-				), '#mainMenu-' . $this->okt->config->admin_menu_position);
+				), '#mainMenu-' . $this->okt['config']->admin_menu_position);
 			}
 			else
 			{
@@ -183,7 +183,7 @@ class Page extends BasePage
 		}
 
 		# languages switcher
-		if ($this->okt->config->admin_lang_switcher && ! $this->okt->languages->unique)
+		if ($this->okt['config']->admin_lang_switcher && ! $this->okt->languages->unique)
 		{
 			$sBaseUri = $this->okt->request->getUri();
 			$sBaseUri .= strpos($sBaseUri, '?') ? '&' : '?';
@@ -203,7 +203,7 @@ class Page extends BasePage
 			unset($sBaseUri, $aLanguage);
 		}
 
-		$aUserBars['second'][100] = '<a href="' . $this->okt->config->app_path . '">' . __('c_c_go_to_website') . '</a>';
+		$aUserBars['second'][100] = '<a href="' . $this->okt['config']->app_path . '">' . __('c_c_go_to_website') . '</a>';
 
 		# -- CORE TRIGGER : adminHeaderUserBars
 		$this->okt->triggers->callTrigger('adminHeaderUserBars', $aUserBars);

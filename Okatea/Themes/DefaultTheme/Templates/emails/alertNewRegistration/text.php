@@ -10,7 +10,7 @@
 
 <?php printf(__('c_c_emails_new_user_%s_registered_on_%s'), $view->escape($user), $view->escape($site_title), $view->escape($site_url))?>
 
-<?php if ($okt->config->users['registration']['validation_admin']) : ?>
+<?php if ($okt['config']->users['registration']['validation_admin']) : ?>
 <?php printf(__('c_c_emails_validate_user_on_%s'), $user_edit_url)?>
 <?php endif; ?>
 

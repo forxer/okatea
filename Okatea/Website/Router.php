@@ -32,7 +32,7 @@ class Router extends BaseRouter
 		# restrict to the default language if we have only one language
 		if ($this->app->languages->unique)
 		{
-			$ressources_dir .= '/' . $this->app->config->language;
+			$ressources_dir .= '/' . $this->app['config']->language;
 		}
 		
 		parent::__construct(new YamlDirectoryLoaderLocalizer($app, new FileLocator($ressources_dir)), $ressources_dir, array(
@@ -92,7 +92,7 @@ class Router extends BaseRouter
 	 */
 	public function generateLoginUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if ($this->app->config->users['pages']['log_reg'])
+		if ($this->app['config']->users['pages']['log_reg'])
 		{
 			$sLoginUrl = $this->generate('usersLoginRegister');
 		}
@@ -120,7 +120,7 @@ class Router extends BaseRouter
 	 */
 	public function generateRegisterUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if ($this->app->config->users['pages']['log_reg'])
+		if ($this->app['config']->users['pages']['log_reg'])
 		{
 			$sRegisterUrl = $this->generate('usersLoginRegister');
 		}

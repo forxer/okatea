@@ -146,7 +146,7 @@ class Okatea extends Application
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
-			elseif ($this->config->maintenance['admin'] && ! $this->user->is_superadmin)
+			elseif ($this['config']->maintenance['admin'] && ! $this->user->is_superadmin)
 			{
 				$this['flash']->error(__('c_c_auth_maintenance_admin'));
 
@@ -168,7 +168,7 @@ class Okatea extends Application
 			return null;
 		}
 
-		if ($this->config->admin_menu_position != 'top')
+		if ($this['config']->admin_menu_position != 'top')
 		{
 			Page::$formatHtmlMainMenu = array(
 				'block' => '<div%2$s>%1$s</div>',
@@ -205,7 +205,7 @@ class Okatea extends Application
 		}
 
 		# Menu principal
-		$this->page->mainMenu = new AdminMenu('mainMenu-' . $this->config->admin_menu_position, Page::$formatHtmlMainMenu);
+		$this->page->mainMenu = new AdminMenu('mainMenu-' . $this['config']->admin_menu_position, Page::$formatHtmlMainMenu);
 
 		# Accueil
 		$this->page->mainMenu->add(
@@ -237,7 +237,7 @@ class Okatea extends Application
 				'module.php?m=users&amp;action=fields',
 				$this->bCurrentlyInUse && ($this->page->action === 'fields' || $this->page->action === 'field'),
 				30,
-				$this->config->enable_custom_fields && $this->checkPerm('users_custom_fields')
+				$this['config']->enable_custom_fields && $this->checkPerm('users_custom_fields')
 			);
 			$this->page->usersSubMenu->add(
 				__('m_users_Export'),
@@ -269,7 +269,7 @@ class Okatea extends Application
 		$this->page->configSubMenu->add(__('c_a_menu_permissions'), $this->adminRouter->generate('config_permissions'), $this->request->attributes->get('_route') === 'config_permissions', 100, $this->checkPerm('permissions'));
 		$this->page->configSubMenu->add(__('c_a_menu_tools'), $this->adminRouter->generate('config_tools'), $this->request->attributes->get('_route') === 'config_tools', 110, $this->checkPerm('tools'));
 		$this->page->configSubMenu->add(__('c_a_menu_infos'), $this->adminRouter->generate('config_infos'), $this->request->attributes->get('_route') === 'config_infos', 120, $this->checkPerm('infos'));
-		$this->page->configSubMenu->add(__('c_a_menu_update'), $this->adminRouter->generate('config_update'), $this->request->attributes->get('_route') === 'config_update', 130, $this->config->updates['enabled'] && $this->checkPerm('is_superadmin'));
+		$this->page->configSubMenu->add(__('c_a_menu_update'), $this->adminRouter->generate('config_update'), $this->request->attributes->get('_route') === 'config_update', 130, $this['config']->updates['enabled'] && $this->checkPerm('is_superadmin'));
 		$this->page->configSubMenu->add(__('c_a_menu_log_admin'), $this->adminRouter->generate('config_logadmin'), $this->request->attributes->get('_route') === 'config_logadmin', 140, $this->checkPerm('is_superadmin'));
 		$this->page->configSubMenu->add(__('c_a_menu_router'), $this->adminRouter->generate('config_router'), $this->request->attributes->get('_route') === 'config_router', 150, $this->checkPerm('is_superadmin'));
 		$this->page->configSubMenu->add(__('c_a_menu_advanced'), $this->adminRouter->generate('config_advanced'), $this->request->attributes->get('_route') === 'config_advanced', 160, $this->checkPerm('is_superadmin'));

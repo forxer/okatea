@@ -99,7 +99,7 @@ class Config extends Controller
 			
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write($this->aPageData['config']);
+				$this->okt['config']->write($this->aPageData['config']);
 				
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 				
@@ -117,44 +117,44 @@ class Config extends Controller
 		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(
 			'users' => array(
-				'custom_fields_enabled' => $this->okt->config->users['custom_fields_enabled'],
+				'custom_fields_enabled' => $this->okt['config']->users['custom_fields_enabled'],
 				'gravatar' => array(
-					'enabled' => $this->okt->config->users['gravatar']['enabled'],
-					'default_image' => $this->okt->config->users['gravatar']['default_image'],
-					'rating' => $this->okt->config->users['gravatar']['rating']
+					'enabled' => $this->okt['config']->users['gravatar']['enabled'],
+					'default_image' => $this->okt['config']->users['gravatar']['default_image'],
+					'rating' => $this->okt['config']->users['gravatar']['rating']
 				),
 				'pages' => array(
-					'login' => $this->okt->config->users['pages']['login'],
-					'register' => $this->okt->config->users['pages']['register'],
-					'log_reg' => $this->okt->config->users['pages']['log_reg'],
-					'forget_password' => $this->okt->config->users['pages']['forget_password'],
-					'profile' => $this->okt->config->users['pages']['profile']
+					'login' => $this->okt['config']->users['pages']['login'],
+					'register' => $this->okt['config']->users['pages']['register'],
+					'log_reg' => $this->okt['config']->users['pages']['log_reg'],
+					'forget_password' => $this->okt['config']->users['pages']['forget_password'],
+					'profile' => $this->okt['config']->users['pages']['profile']
 				),
 				'registration' => array(
-					'merge_username_email' => $this->okt->config->users['registration']['merge_username_email'],
-					'mail_new_registration' => $this->okt->config->users['registration']['mail_new_registration'],
-					'mail_new_registration_recipients' => $this->okt->config->users['registration']['mail_new_registration_recipients'],
-					'validation_email' => $this->okt->config->users['registration']['validation_email'],
-					'validation_admin' => $this->okt->config->users['registration']['validation_admin'],
-					'auto_log_after_registration' => $this->okt->config->users['registration']['auto_log_after_registration'],
-					'user_choose_group' => $this->okt->config->users['registration']['user_choose_group'],
-					'default_group' => $this->okt->config->users['registration']['default_group']
+					'merge_username_email' => $this->okt['config']->users['registration']['merge_username_email'],
+					'mail_new_registration' => $this->okt['config']->users['registration']['mail_new_registration'],
+					'mail_new_registration_recipients' => $this->okt['config']->users['registration']['mail_new_registration_recipients'],
+					'validation_email' => $this->okt['config']->users['registration']['validation_email'],
+					'validation_admin' => $this->okt['config']->users['registration']['validation_admin'],
+					'auto_log_after_registration' => $this->okt['config']->users['registration']['auto_log_after_registration'],
+					'user_choose_group' => $this->okt['config']->users['registration']['user_choose_group'],
+					'default_group' => $this->okt['config']->users['registration']['default_group']
 				)
 			)
 		);
 		
 		# Gestionnaires de templates
-		$this->oTemplatesForgottenPassword = new TemplatesSet($this->okt, $this->okt->config->users['templates']['forgotten_password'], 'users/forgotten_password', 'forgotten_password', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesForgottenPassword = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['forgotten_password'], 'users/forgotten_password', 'forgotten_password', $this->generateUrl('Users_config') . '?');
 		
-		$this->oTemplatesLogin = new TemplatesSet($this->okt, $this->okt->config->users['templates']['login'], 'users/login', 'login', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesLogin = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['login'], 'users/login', 'login', $this->generateUrl('Users_config') . '?');
 		
-		$this->oTemplatesLoginRegister = new TemplatesSet($this->okt, $this->okt->config->users['templates']['login_register'], 'users/login_register', 'login_register', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesLoginRegister = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['login_register'], 'users/login_register', 'login_register', $this->generateUrl('Users_config') . '?');
 		
-		$this->oTemplatesProfile = new TemplatesSet($this->okt, $this->okt->config->users['templates']['profile'], 'users/profile', 'profile', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesProfile = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['profile'], 'users/profile', 'profile', $this->generateUrl('Users_config') . '?');
 		
-		$this->oTemplatesRegister = new TemplatesSet($this->okt, $this->okt->config->users['templates']['register'], 'users/register', 'register', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesRegister = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['register'], 'users/register', 'register', $this->generateUrl('Users_config') . '?');
 		
-		$this->oTemplatesUserBar = new TemplatesSet($this->okt, $this->okt->config->users['templates']['user_bar'], 'users/user_bar', 'user_bar', $this->generateUrl('Users_config') . '?');
+		$this->oTemplatesUserBar = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['user_bar'], 'users/user_bar', 'user_bar', $this->generateUrl('Users_config') . '?');
 		
 		# -- CORE TRIGGER : adminUsersConfigInit
 		$this->okt->triggers->callTrigger('adminUsersConfigInit', $this->aPageData);

@@ -90,7 +90,7 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 			address: "' . $view->escapeJs($okt->module('Contact')
 		->getAdressForGmap()) . '",
 			options: {
-				content: "<div id=\"infobulle\"><strong>' . $view->escapeJs((! empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])) . '</strong><br/> ' . $view->escapeJs($okt->config->address['street']) . '<br/> ' . ($okt->config->address['street_2'] != '' ? $view->escapeJs($okt->config->address['street_2']) . '<br/>' : '') . $view->escapeJs($okt->config->address['code']) . ' ' . $view->escapeJs($okt->config->address['city']) . '<br/> ' . $view->escapeJs($okt->config->address['country']) . '</div>"
+				content: "<div id=\"infobulle\"><strong>' . $view->escapeJs((! empty($okt['config']->company['com_name']) ? $okt['config']->company['com_name'] : $okt['config']->company['name'])) . '</strong><br/> ' . $view->escapeJs($okt['config']->address['street']) . '<br/> ' . ($okt['config']->address['street_2'] != '' ? $view->escapeJs($okt['config']->address['street_2']) . '<br/>' : '') . $view->escapeJs($okt['config']->address['code']) . ' ' . $view->escapeJs($okt['config']->address['city']) . '<br/> ' . $view->escapeJs($okt['config']->address['country']) . '</div>"
 			}
 		}
 	});';
@@ -112,7 +112,7 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 
 		# ajout jQuery UI
 		$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
-		$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
+		$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
 
 		$okt->page->js->addReady('
 			$("#google_map").dialog({
@@ -211,12 +211,12 @@ if (empty($_GET['sended']))
 		<strong>
 		<?php
 	# début Okatea : si on as un nom commercial (ou une raison sociale), on l'affiche
-	if (! empty($okt->config->company['com_name']))
+	if (! empty($okt['config']->company['com_name']))
 	:
 		?>
-			<?php echo $view->escape($okt->config->company['com_name'])?>
-		<?php elseif (!empty($okt->config->company['name'])) : ?>
-			<?php echo $view->escape($okt->config->company['name'])?>
+			<?php echo $view->escape($okt['config']->company['com_name'])?>
+		<?php elseif (!empty($okt['config']->company['name'])) : ?>
+			<?php echo $view->escape($okt['config']->company['name'])?>
 		<?php endif;  # fin Okatea : si on as un nom commercial (ou une raison sociale), on l'affiche ?>
 	</strong>
 	</p>
@@ -225,43 +225,43 @@ if (empty($_GET['sended']))
 	<?php # début Okatea : affichage de l'adresse ?>
 	<p><?php
 
-	echo $view->escape($okt->config->address['street'] . ' ' . ($okt->config->address['street_2'] != '' ? ' - ' . $okt->config->address['street_2'] : '') . ' - ' . $okt->config->address['code'] . ' ' . $okt->config->address['city'] . ' ' . $okt->config->address['country']);
+	echo $view->escape($okt['config']->address['street'] . ' ' . ($okt['config']->address['street_2'] != '' ? ' - ' . $okt['config']->address['street_2'] : '') . ' - ' . $okt['config']->address['code'] . ' ' . $okt['config']->address['city'] . ' ' . $okt['config']->address['country']);
 	?></p>
 	<?php # fin Okatea : affichage de l'adresse ?>
 
 	<?php
 	# début Okatea : affichage du numéro de téléphone
-	if (! empty($okt->config->address['tel']))
+	if (! empty($okt['config']->address['tel']))
 	:
 		?>
 	<p>
 		<span class="label"><abbr title="<?php _e('c_c_Phone') ?>"><?php _e('m_contact_tel') ?></abbr>
-			:</span> <?php echo $view->escape($okt->config->address['tel']) ?></p>
+			:</span> <?php echo $view->escape($okt['config']->address['tel']) ?></p>
 	<?php endif; # fin Okatea : affichage du numéro de téléphone ?>
 
 	<?php
 	# début Okatea : affichage du numéro de mobile
-	if (! empty($okt->config->address['mobile']))
+	if (! empty($okt['config']->address['mobile']))
 	:
 		?>
 	<p>
-		<span class="label"><?php _e('m_contact_mobile') ?> :</span> <?php echo $view->escape($okt->config->address['mobile']) ?></p>
+		<span class="label"><?php _e('m_contact_mobile') ?> :</span> <?php echo $view->escape($okt['config']->address['mobile']) ?></p>
 	<?php endif; # fin Okatea : affichage du numéro de mobile ?>
 
 	<?php
 	# début Okatea : affichage du numéro de fax
-	if (! empty($okt->config->address['fax']))
+	if (! empty($okt['config']->address['fax']))
 	:
 		?>
 	<p>
-		<span class="label"><?php _e('m_contact_fax') ?> :</span> <?php echo $view->escape($okt->config->address['fax']) ?></p>
+		<span class="label"><?php _e('m_contact_fax') ?> :</span> <?php echo $view->escape($okt['config']->address['fax']) ?></p>
 	<?php endif; # fin Okatea : affichage du numéro de fax ?>
 
 	<?php # début Okatea : affichage de l'image de l'email ?>
 	<p>
 		<strong><?php _e('m_contact_email'); ?> : </strong><img
 			src="<?php echo $okt->module('Contact')->genImgMail(); ?>"
-			alt="E-mail <?php echo $view->escape($okt->config->company['name']) ?>">
+			alt="E-mail <?php echo $view->escape($okt['config']->company['name']) ?>">
 	</p>
 	<?php # fin Okatea : affichage de l'image de l'email ?>
 </div>

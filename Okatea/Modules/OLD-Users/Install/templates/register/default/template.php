@@ -126,7 +126,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" fusionnés
-	if ($okt->config->users_registration['merge_username_email'])
+	if ($okt['config']->users_registration['merge_username_email'])
 	:
 		?>
 			<p class="field col">
@@ -138,7 +138,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-	if (! $okt->config->users_registration['merge_username_email'])
+	if (! $okt['config']->users_registration['merge_username_email'])
 	:
 		?>
 			<p class="field col">
@@ -152,7 +152,7 @@ if (! empty($_REQUEST['registered']))
 			<?php echo form::text('add_email', 35, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 		<?php endif; # fin Okatea : affichage des champs "username" et "email" distincts ?>
 
-			<?php if ($okt->config->users_registration['user_choose_group']) : ?>
+			<?php if ($okt['config']->users_registration['user_choose_group']) : ?>
 			<p class="field col">
 				<label for="add_group_id"><?php _e('c_c_Group') ?></label>
 			<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>

@@ -105,19 +105,19 @@ class EstimateController extends Controller
 						if (! empty($this->config->email['name']))
 						{
 							$aRecipients = array(
-								$this->okt->config->email['to'] => html::escapeHTML($this->config->email['name'])
+								$this->okt['config']->email['to'] => html::escapeHTML($this->config->email['name'])
 							);
 						}
 						else
 						{
 							$aRecipients = array(
-								$this->okt->config->email['to']
+								$this->okt['config']->email['to']
 							);
 						}
 					}
 					
 					# construction du mail
-					$sEstimateUrl = $this->request->getSchemeAndHttpHost() . $this->okt->config->app_path . 'admin/module.php?m=estimate&action=estimate&estimate_id=' . $iEstimateId;
+					$sEstimateUrl = $this->request->getSchemeAndHttpHost() . $this->okt['config']->app_path . 'admin/module.php?m=estimate&action=estimate&estimate_id=' . $iEstimateId;
 					
 					$oMail = new Mailer($this->okt);
 					$oMail->setFrom();

@@ -21,7 +21,7 @@ class Users extends BaseFilters
 
 	public function __construct($okt, $part = 'public', $params = array())
 	{
-		parent::__construct($okt, 'users', $okt->config->users_filters, $part, $params);
+		parent::__construct($okt, 'users', $okt['config']->users_filters, $part, $params);
 		
 		$this->order_by_array = array();
 	}

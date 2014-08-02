@@ -120,7 +120,7 @@ class Home extends Controller
 
 	protected function newsFeed()
 	{
-		if (! $this->okt->config->news_feed['enabled'] || empty($this->okt->config->news_feed['url'][$this->okt->user->language]))
+		if (! $this->okt['config']->news_feed['enabled'] || empty($this->okt['config']->news_feed['url'][$this->okt->user->language]))
 		{
 			return null;
 		}
@@ -136,7 +136,7 @@ class Home extends Controller
 		$this->feed->set_cache_location($sCacheDir);
 
 		// Set which feed to process.
-		$this->feed->set_feed_url($this->okt->config->news_feed['url'][$this->okt->user->language]);
+		$this->feed->set_feed_url($this->okt['config']->news_feed['url'][$this->okt->user->language]);
 
 		// Run SimplePie.
 		$this->bFeedSuccess = $this->feed->init();
@@ -173,9 +173,9 @@ class Home extends Controller
 
 	protected function updateNotification()
 	{
-		if ($this->okt->config->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
+		if ($this->okt['config']->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
 		{
-			$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
+			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
 
 			if ($updater->getNotify() && $this->sNewVersion)

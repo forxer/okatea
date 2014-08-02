@@ -23,9 +23,9 @@ class Controller extends BaseController
 		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/advanced');
 
 		$aValues = [
-			'title' => $this->okt->config->title,
-			'desc' => $this->okt->config->desc,
-			'email' => $this->okt->config->email
+			'title' => $this->okt['config']->title,
+			'desc' => $this->okt['config']->desc,
+			'email' => $this->okt['config']->email
 		];
 
 		$aValues['app_path'] = str_replace('install', '', dirname($this->request->getRequestUri()));
@@ -91,7 +91,7 @@ class Controller extends BaseController
 			# save configuration
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write($aValues);
+				$this->okt['config']->write($aValues);
 
 				return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
 			}

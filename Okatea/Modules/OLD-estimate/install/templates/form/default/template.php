@@ -22,7 +22,7 @@ $okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jqu
 <?php
 # début Okatea : ajout de jQuery UI
 $okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
-$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
+$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
 # fin Okatea : ajout de jQuery UI ?>
 
 

@@ -29,15 +29,15 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	<div id="page">
 		<header>
 			<p id="access-link">
-				<a href="#main-<?php echo $okt->config->admin_menu_position ?>"><?php _e('c_c_go_to_content') ?></a>
-				- <a href="#mainMenu-<?php echo $okt->config->admin_menu_position ?>"><?php _e('c_c_go_to_menu') ?></a>
+				<a href="#main-<?php echo $okt['config']->admin_menu_position ?>"><?php _e('c_c_go_to_content') ?></a>
+				- <a href="#mainMenu-<?php echo $okt['config']->admin_menu_position ?>"><?php _e('c_c_go_to_menu') ?></a>
 			</p>
 			<div id="banner" class="ui-widget-header ui-corner-all">
 				<h1><?php echo $view->escape($okt->page->getSiteTitle()) ?></h1>
 				<p id="desc"><?php echo $view->escape($okt->page->getSiteDescription()) ?></p>
 			</div><!-- #banner -->
 
-			<?php if ($okt->config->admin_menu_position == 'top') : ?>
+			<?php if ($okt['config']->admin_menu_position == 'top') : ?>
 			<nav><?php echo $okt->page->getMainMenuHtml(); ?></nav>
 			<?php endif; ?>
 
@@ -84,13 +84,13 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 			</div><!-- #helpers -->
 		</header>
 
-		<div id="main-<?php echo $okt->config->admin_menu_position ?>">
+		<div id="main-<?php echo $okt['config']->admin_menu_position ?>">
 			<section id="content" class="ui-widget-content">
 				<?php $view['slots']->output('_content'); ?>
 			</section><!-- #content -->
 		</div><!-- #main -->
 
-<?php if ($okt->config->admin_menu_position != 'top') : ?>
+<?php if ($okt['config']->admin_menu_position != 'top') : ?>
 <nav><?php echo $okt->page->getMainMenuHtml(); ?></nav>
 <?php endif; ?>
 

@@ -119,7 +119,7 @@ if ($okt->users->config->enable_custom_fields)
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" fusionnés
-		if ($okt->config->users_registration['merge_username_email'])
+		if ($okt['config']->users_registration['merge_username_email'])
 		:
 			?>
 			<p class="field col">
@@ -130,7 +130,7 @@ if ($okt->users->config->enable_custom_fields)
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-		if (! $okt->config->users_registration['merge_username_email'])
+		if (! $okt['config']->users_registration['merge_username_email'])
 		:
 			?>
 			<p class="field col">

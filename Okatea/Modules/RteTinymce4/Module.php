@@ -45,7 +45,7 @@ class Module extends BaseModule
 		$aOptions = array();
 		
 		$aOptions[] = 'relative_urls: true';
-		$aOptions[] = 'document_base_url: "' . Escaper::js($okt->request->getSchemeAndHttpHost() . $okt->config->app_path) . '"';
+		$aOptions[] = 'document_base_url: "' . Escaper::js($okt->request->getSchemeAndHttpHost() . $okt['config']->app_path) . '"';
 		
 		# selector
 		$aOptions[] = 'selector: "' . $sSelector . '"';
@@ -96,7 +96,7 @@ class Module extends BaseModule
 			$aOptions[] = 'file_browser_callback: function (field_name, url, type, win) {
 					tinymce.activeEditor.windowManager.open({
 						title: "Media manager",
-						url: "' . $okt->config->app_path . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type,
+						url: "' . $okt['config']->app_path . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type,
 						width: 700,
 						height: 450
 					}, {

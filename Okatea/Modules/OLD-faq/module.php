@@ -280,9 +280,9 @@ class module_faq extends Module
 	{
 		if (! empty($this->params))
 		{
-			if (empty($this->params['title'][$this->okt->config->language]) || empty($this->params['content'][$this->okt->config->language]))
+			if (empty($this->params['title'][$this->okt['config']->language]) || empty($this->params['content'][$this->okt['config']->language]))
 			{
-				$this->error->set(sprintf(__('m_faq_error_missing_default_language_%s'), $this->okt->languages->list[$this->okt->config->language]['title']));
+				$this->error->set(sprintf(__('m_faq_error_missing_default_language_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
 			}
 		}
 	}

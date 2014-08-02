@@ -120,9 +120,9 @@ class module_recaptcha extends Module
 			{
 				$sLanguage = $okt->user->language;
 			}
-			elseif (in_array($okt->config->language, $aAcceptedLanguages))
+			elseif (in_array($okt['config']->language, $aAcceptedLanguages))
 			{
-				$sLanguage = $okt->config->language;
+				$sLanguage = $okt['config']->language;
 			}
 			else
 			{

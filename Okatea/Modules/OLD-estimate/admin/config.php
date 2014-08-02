@@ -174,7 +174,7 @@ require OKT_ADMIN_HEADER_FILE;
 				<p class="field col">
 					<label for="p_notifications_recipients"><?php _e('m_estimate_config_notifications_recipients') ?></label>
 				<?php echo form::textarea('p_notifications_recipients', 80, 3, $okt->estimate->config->notifications_recipients)?>
-				<span class="note"><?php printf(__('m_estimate_config_notifications_recipients_note_1'), html::escapeHTML($okt->config->email['to'])) ?></span>
+				<span class="note"><?php printf(__('m_estimate_config_notifications_recipients_note_1'), html::escapeHTML($okt['config']->email['to'])) ?></span>
 					<span class="note"><?php _e('m_estimate_config_notifications_recipients_note_2') ?></span>
 				</p>
 

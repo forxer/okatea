@@ -9,7 +9,6 @@ namespace Okatea\Tao\Extensions;
 
 class Collection
 {
-
 	/**
 	 * Okatea application instance.
 	 *
@@ -30,13 +29,6 @@ class Collection
 	 * @var string
 	 */
 	protected $path;
-
-	/**
-	 * Cache manager object.
-	 *
-	 * @var object
-	 */
-	protected $cache;
 
 	/**
 	 * Extensions cache identifier.
@@ -69,17 +61,13 @@ class Collection
 	/**
 	 * Constructor.
 	 *
-	 * @param object $okt
-	 *        	Okatea application instance.
-	 * @param string $sPath
-	 *        	The extensions directory path to load.
+	 * @param object $okt Okatea application instance.
+	 * @param string $sPath The extensions directory path to load.
 	 * @return void
 	 */
 	public function __construct($okt, $sPath)
 	{
 		$this->okt = $okt;
-
-		$this->cache = $okt->cacheConfig;
 
 		$this->type = 'extension';
 
@@ -95,12 +83,12 @@ class Collection
 	 */
 	public function load($ns = null)
 	{
-		if (! $this->cache->contains($this->sCacheId))
+		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
 		{
 			$this->generateCacheList();
 		}
 
-		$aList = $this->cache->fetch($this->sCacheId);
+		$aList = $this->okt['cacheConfig']->fetch($this->sCacheId);
 
 		# first pass to instanciate extensions
 		foreach ($aList as $sExtensionId => $aExtensionInfos)
@@ -207,7 +195,7 @@ class Collection
 			);
 		}
 
-		return $this->cache->save($this->sCacheId, $aLoaded);
+		return $this->okt['cacheConfig']->save($this->sCacheId, $aLoaded);
 	}
 
 	/**

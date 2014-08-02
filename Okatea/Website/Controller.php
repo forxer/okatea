@@ -73,13 +73,13 @@ class Controller extends BaseController
 		}
 		
 		$item = null;
-		if (! empty($this->okt->config->home_page['item'][$this->okt->user->language]))
+		if (! empty($this->okt['config']->home_page['item'][$this->okt->user->language]))
 		{
-			$item = $this->okt->config->home_page['item'][$this->okt->user->language];
+			$item = $this->okt['config']->home_page['item'][$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->home_page['item'][$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->home_page['item'][$this->okt['config']->language]))
 		{
-			$item = $this->okt->config->home_page['item'][$this->okt->config->language];
+			$item = $this->okt['config']->home_page['item'][$this->okt['config']->language];
 		}
 		else
 		{
@@ -87,13 +87,13 @@ class Controller extends BaseController
 		}
 		
 		$details = null;
-		if (! empty($this->okt->config->home_page['details'][$this->okt->user->language]))
+		if (! empty($this->okt['config']->home_page['details'][$this->okt->user->language]))
 		{
-			$details = $this->okt->config->home_page['details'][$this->okt->user->language];
+			$details = $this->okt['config']->home_page['details'][$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->home_page['details'][$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->home_page['details'][$this->okt['config']->language]))
 		{
-			$details = $this->okt->config->home_page['details'][$this->okt->config->language];
+			$details = $this->okt['config']->home_page['details'][$this->okt['config']->language];
 		}
 		
 		# reset title tag because we will recall the main controller

@@ -120,12 +120,12 @@ class Visitor
 	{
 		$this->okt = $okt;
 
-		$this->sUsersTable = $okt->config->database_prefix . 'core_users';
-		$this->sGroupsTable = $okt->config->database_prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $okt->config->database_prefix . 'core_users_groups_locales';
+		$this->sUsersTable = $okt['config']->database_prefix . 'core_users';
+		$this->sGroupsTable = $okt['config']->database_prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $okt['config']->database_prefix . 'core_users_groups_locales';
 
-		$this->setVisitTimeout($this->okt->config->user_visit['timeout']);
-		$this->setVisitRememberTime($this->okt->config->user_visit['remember_time']);
+		$this->setVisitTimeout($this->okt['config']->user_visit['timeout']);
+		$this->setVisitRememberTime($this->okt['config']->user_visit['remember_time']);
 
 		$this->sCookieName = $sCookieName;
 		$this->sCookieFromName = $sCookieFromName;
@@ -303,8 +303,8 @@ class Visitor
 
 		$this->infos = $user;
 
-		$this->infos['timezone'] = $this->okt->config->timezone;
-		$this->infos['language'] = $this->okt->config->language;
+		$this->infos['timezone'] = $this->okt['config']->timezone;
+		$this->infos['language'] = $this->okt['config']->language;
 		$this->infos['is_guest'] = true;
 		$this->infos['is_admin'] = false;
 		$this->infos['is_superadmin'] = false;
@@ -494,7 +494,7 @@ class Visitor
 			return $sLang;
 		}
 		else {
-			return $this->okt->config->language;
+			return $this->okt['config']->language;
 		}
 	}
 

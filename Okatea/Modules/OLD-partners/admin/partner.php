@@ -164,7 +164,7 @@ if ($okt->partners->config->chp_name)
 if ($okt->partners->config->chp_description)
 {
 	$aValidateFieldsJs[] = array(
-		'id' => '\'p_description[' . $okt->config->language . ']\'',
+		'id' => '\'p_description[' . $okt['config']->language . ']\'',
 		'rules' => 'required: ' . ($okt->partners->config->chp_description == 2 ? 'true' : 'false')
 	);
 }
@@ -172,7 +172,7 @@ if ($okt->partners->config->chp_description)
 if ($okt->partners->config->chp_url)
 {
 	$aValidateFieldsJs[] = array(
-		'id' => '\'p_url[' . $okt->config->language . ']\'',
+		'id' => '\'p_url[' . $okt['config']->language . ']\'',
 		'rules' => 'required: ' . ($okt->partners->config->chp_url == 2 ? 'true' : 'false')
 	);
 }
@@ -180,7 +180,7 @@ if ($okt->partners->config->chp_url)
 if ($okt->partners->config->chp_url_title)
 {
 	$aValidateFieldsJs[] = array(
-		'id' => '\'p_url_title[' . $okt->config->language . ']\'',
+		'id' => '\'p_url_title[' . $okt['config']->language . ']\'',
 		'rules' => 'required: ' . ($okt->partners->config->chp_url_title == 2 ? 'true' : 'false')
 	);
 }

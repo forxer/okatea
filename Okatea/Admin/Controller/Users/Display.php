@@ -27,8 +27,8 @@ class Display extends Controller
 		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(
 			'users_filters' => array(
-				'public_default_nb_per_page' => $this->okt->config->users_filters['public_default_nb_per_page'],
-				'admin_default_nb_per_page' => $this->okt->config->users_filters['admin_default_nb_per_page']
+				'public_default_nb_per_page' => $this->okt['config']->users_filters['public_default_nb_per_page'],
+				'admin_default_nb_per_page' => $this->okt['config']->users_filters['admin_default_nb_per_page']
 			)
 		);
 		
@@ -44,7 +44,7 @@ class Display extends Controller
 			
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write($this->aPageData['config']);
+				$this->okt['config']->write($this->aPageData['config']);
 				
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 				

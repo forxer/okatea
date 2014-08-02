@@ -68,7 +68,7 @@ class LogAdmin
 
 		$this->db = $okt->db;
 
-		$this->t_log = $okt->config->database_prefix . 'core_log_admin';
+		$this->t_log = $okt['config']->database_prefix . 'core_log_admin';
 	}
 
 	/**

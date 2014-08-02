@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Okatea\Tao;
+namespace Okatea\Tao\Config;
 
 use Symfony\Component\Yaml\Yaml;
 

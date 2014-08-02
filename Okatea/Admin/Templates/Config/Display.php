@@ -32,10 +32,10 @@ $okt->page->js->addScript('
 	function reloadCSS(style)
 	{
 		// theme actuel (dans la config PHP)
-		currenStyle = "' . $okt->config->jquery_ui['admin'] . '";
+		currenStyle = "' . $okt['config']->jquery_ui['admin'] . '";
 
 		// nouveau theme
-		cssLink = "<link href=\"' . $okt->config->app_path . basename($okt->options->get('public_dir')) . '/components/jquery-ui/themes/" + style + "/jquery-ui.min.css\" type=\"text/css\" rel=\"Stylesheet\" />";
+		cssLink = "<link href=\"' . $okt['config']->app_path . basename($okt->options->get('public_dir')) . '/components/jquery-ui/themes/" + style + "/jquery-ui.min.css\" type=\"text/css\" rel=\"Stylesheet\" />";
 
 		// si il y a deja une prévisualisation on ajoutent un theme
 		if ($(\'link[href*="jquery-ui.css"]\').size() > 0){
@@ -92,9 +92,9 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 
 			<p class="field">
 				<label for="p_jquery_ui_public_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
-			<?php echo form::select('p_jquery_ui_public_theme', array_combine($aUiThemes,$aUiThemes), $okt->config->jquery_ui['public']) ?></p>
+			<?php echo form::select('p_jquery_ui_public_theme', array_combine($aUiThemes,$aUiThemes), $okt['config']->jquery_ui['public']) ?></p>
 
-			<p><?php echo form::checkbox('p_enable_admin_bar', 1, $okt->config->enable_admin_bar)?>
+			<p><?php echo form::checkbox('p_enable_admin_bar', 1, $okt['config']->enable_admin_bar)?>
 			<label for="p_enable_admin_bar"><?php _e('c_a_config_display_admin_bar') ?></label>
 				<span class="note"><?php _e('c_a_config_display_admin_bar_note') ?></span>
 			</p>
@@ -106,11 +106,11 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 			<p class="field"><?php _e('c_a_config_display_menu_pos') ?></p>
 
 			<p id="sidebar_position_choice">
-				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_left'), 'left', ($okt->config->admin_menu_position == 'left'))?>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_left'), 'left', ($okt['config']->admin_menu_position == 'left'))?>
 				<label for="p_admin_menu_position_left"><?php _e('c_c_direction_Left') ?></label>
-				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_top'), 'top', $okt->config->admin_menu_position == 'top')?>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_top'), 'top', $okt['config']->admin_menu_position == 'top')?>
 				<label for="p_admin_menu_position_top"><?php _e('c_c_direction_Top') ?></label>
-				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_right'), 'right', $okt->config->admin_menu_position == 'right')?>
+				<?php echo form::radio(array('p_admin_menu_position', 'p_admin_menu_position_right'), 'right', $okt['config']->admin_menu_position == 'right')?>
 				<label for="p_admin_menu_position_right"><?php _e('c_c_direction_Right') ?></label>
 			</p>
 
@@ -119,7 +119,7 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 
 				<p class="field">
 					<label for="p_jquery_ui_admin_theme"><?php _e('c_a_config_display_choose_jquery_ui_theme') ?></label>
-				<?php echo form::select('p_jquery_ui_admin_theme', $aAllowedAdminThemes, $okt->config->jquery_ui['admin'])?>
+				<?php echo form::select('p_jquery_ui_admin_theme', $aAllowedAdminThemes, $okt['config']->jquery_ui['admin'])?>
 				<span class="note"><?php _e('c_a_config_display_choose_theme_note') ?></span>
 				</p>
 

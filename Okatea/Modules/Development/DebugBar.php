@@ -55,7 +55,7 @@ class DebugBar
 		]);
 
 		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' .
-			$this->okt->config->jquery_ui['admin'] . '/jquery-ui.min.css');
+			$this->okt['config']->jquery_ui['admin'] . '/jquery-ui.min.css');
 
 		$this->addFiles();
 	}
@@ -76,7 +76,7 @@ class DebugBar
 			'addHtmlByBehavior'
 		]);
 
-		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt->config->jquery_ui['public'] . '/jquery-ui.min.css');
+		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
 
 		$this->addFiles();
 
@@ -198,7 +198,7 @@ class DebugBar
 			$this->aDebugBarData['num_data']['cookies'] = count($this->okt->request->cookies);
 			$this->aDebugBarData['num_data']['attributes'] = count($this->okt->request->attributes);
 			$this->aDebugBarData['num_data']['files'] = count($this->okt->request->files);
-			$this->aDebugBarData['num_data']['session'] = count($this->okt->session);
+			$this->aDebugBarData['num_data']['session'] = count($this->okt['session']);
 			$this->aDebugBarData['num_data']['server'] = count($this->okt->request->server);
 		}
 
@@ -206,7 +206,7 @@ class DebugBar
 		{
 			$this->aDebugBarData['definedVars'] = self::getDefinedVars();
 			$this->aDebugBarData['definedConstants'] = self::getDefinedConstants();
-			$this->aDebugBarData['configVars'] = $this->okt->config->get();
+			$this->aDebugBarData['configVars'] = $this->okt['config']->get();
 			$this->aDebugBarData['userVars'] = $this->okt->user->getData(0);
 			$this->aDebugBarData['l10nVars'] = (! empty($GLOBALS['okt_l10n']) ? $GLOBALS['okt_l10n'] : []);
 
@@ -330,7 +330,7 @@ class DebugBar
 		{
 			$sListitems .= '<li><a href="#superglobal_session">Session - ' . $this->aDebugBarData['num_data']['session'] . '</a></li>';
 
-			$sTabContent .= '<h3 id="superglobal_session">Session</h3>' . '<div><pre>' . var_export($this->okt->session->all(), true) . '</pre></div>';
+			$sTabContent .= '<h3 id="superglobal_session">Session</h3>' . '<div><pre>' . var_export($this->okt['session']->all(), true) . '</pre></div>';
 		}
 
 		if ($this->aDebugBarData['num_data']['server'] > 0)

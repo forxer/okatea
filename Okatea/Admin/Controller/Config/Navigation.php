@@ -196,10 +196,10 @@ class Navigation extends Controller
 		}
 
 		# Liste des templates utilisables
-		$oTemplates = new TemplatesSet($this->okt, $this->okt->config->navigation_tpl, 'navigation', 'navigation');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation');
 		$aTplChoices = array_merge(array(
 			'&nbsp;' => null
-		), $oTemplates->getUsablesTemplatesForSelect($this->okt->config->navigation_tpl['usables']));
+		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']->navigation_tpl['usables']));
 
 		return $this->render('Config/Navigation/Menu', array(
 			'iMenuId' => $iMenuId,
@@ -471,7 +471,7 @@ class Navigation extends Controller
 
 	protected function config()
 	{
-		$oTemplates = new TemplatesSet($this->okt, $this->okt->config->navigation_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
 
 		if ($this->request->request->has('sended'))
 		{
@@ -479,7 +479,7 @@ class Navigation extends Controller
 
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write(array(
+				$this->okt['config']->write(array(
 					'navigation_tpl' => $p_tpl
 				));
 

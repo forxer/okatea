@@ -24,7 +24,7 @@ class Website extends Config
 			
 			$aRoutesInfos[$sName]['loaded'] = array_key_exists(($this->okt->languages->unique ? $aRoutesInfos[$sName]['basename'] : $sName), $aLoadedRoutes);
 			
-			if ($this->okt->languages->unique && $aRoutesInfos[$sName]['language'] != $this->okt->config->language)
+			if ($this->okt->languages->unique && $aRoutesInfos[$sName]['language'] != $this->okt['config']->language)
 			{
 				$aRoutesInfos[$sName]['loaded'] = false;
 			}

@@ -222,13 +222,13 @@ class TemplatesSet
 		$this->aTemplatesPath = array();
 		
 		# first, get default theme templates
-		if ($this->okt->config->themes['desktop'] != 'DefaultTheme')
+		if ($this->okt['config']->themes['desktop'] != 'DefaultTheme')
 		{
 			$this->aTemplatesPath = (array) glob($this->okt->options->get('themes_dir') . '/DefaultTheme/Templates/' . $this->sBase . '/*/template.php');
 		}
 		
 		# then, get current theme templates
-		$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt->config->themes['desktop'] . '/Templates/' . $this->sBase . '/*/template.php');
+		$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['desktop'] . '/Templates/' . $this->sBase . '/*/template.php');
 		
 		foreach ($aThemeTemplates as $sTemplatePath)
 		{
@@ -236,9 +236,9 @@ class TemplatesSet
 		}
 		
 		# if we have a mobile theme, search in it
-		if (! empty($this->okt->config->themes['mobile']))
+		if (! empty($this->okt['config']->themes['mobile']))
 		{
-			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt->config->themes['mobile'] . '/Templates/' . $this->sBase . '/*/template.php');
+			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['mobile'] . '/Templates/' . $this->sBase . '/*/template.php');
 			
 			foreach ($aThemeTemplates as $sTemplatePath)
 			{
@@ -247,9 +247,9 @@ class TemplatesSet
 		}
 		
 		# finaly, search for templates in tablet theme
-		if (! empty($this->okt->config->themes['tablet']))
+		if (! empty($this->okt['config']->themes['tablet']))
 		{
-			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt->config->themes['tablet'] . '/Templates/' . $this->sBase . '/*/template.php');
+			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['tablet'] . '/Templates/' . $this->sBase . '/*/template.php');
 			
 			foreach ($aThemeTemplates as $sTemplatePath)
 			{
@@ -412,7 +412,7 @@ class TemplatesSet
 			
 			if ($aTplInfos['is_in_default'])
 			{
-				$sReturn .= '<li><a href="configuration.php?action=theme_editor&amp;theme=' . $this->okt->config->themes['desktop'] . '&amp;new_template=1&amp;basic_template=' . rawurlencode('/' . $aTplInfos['theme'] . $aTplInfos['path_in_theme']) . '" ' . 'class="icon pencil">' . __('c_a_tpl_config_Customize') . '</a></li>';
+				$sReturn .= '<li><a href="configuration.php?action=theme_editor&amp;theme=' . $this->okt['config']->themes['desktop'] . '&amp;new_template=1&amp;basic_template=' . rawurlencode('/' . $aTplInfos['theme'] . $aTplInfos['path_in_theme']) . '" ' . 'class="icon pencil">' . __('c_a_tpl_config_Customize') . '</a></li>';
 			}
 			else
 			{

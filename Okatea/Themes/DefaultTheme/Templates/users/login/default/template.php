@@ -88,7 +88,7 @@ if ($okt->error->notEmpty())
 	action="<?php echo $view->generateUrl('usersLogin') ?>" method="post">
 
 	<p class="field">
-		<label for="user_id"><?php if ($okt->config->users['registration']['merge_username_email']) { _e('c_c_Email'); } else { _e('c_c_user_Username'); } ?></label>
+		<label for="user_id"><?php if ($okt['config']->users['registration']['merge_username_email']) { _e('c_c_Email'); } else { _e('c_c_user_Username'); } ?></label>
 		<input name="user_id" id="user_id" type="text" maxlength="225"
 			value="<?php echo $view->escape($user_id) ?>" />
 	</p>
@@ -115,7 +115,7 @@ if ($okt->error->notEmpty())
 	<ul>
 		<?php 
 # début Okatea : lien page mot de passe oublié
-		if ($okt->config->users['pages']['forget_password'])
+		if ($okt['config']->users['pages']['forget_password'])
 		:
 			?>
 		<li><a href="<?php echo $view->generateUrl('usersForgetPassword') ?>"><?php
@@ -124,7 +124,7 @@ if ($okt->error->notEmpty())
 
 		<?php 
 # début Okatea : lien page inscription
-		if ($okt->config->users['pages']['register'])
+		if ($okt['config']->users['pages']['register'])
 		:
 			?>
 		<li><a href="<?php echo $view->generateUrl('usersRegister') ?>"><?php

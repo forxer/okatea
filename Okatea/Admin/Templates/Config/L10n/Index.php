@@ -141,13 +141,13 @@ $okt->page->js->addReady('
 
 				<p class="field col">
 					<label for="p_language"><?php _e('c_a_config_l10n_default_language') ?></label>
-				<?php echo form::select('p_language', $aLanguagesForSelect, $okt->config->language) ?></p>
+				<?php echo form::select('p_language', $aLanguagesForSelect, $okt['config']->language) ?></p>
 
 				<p class="field col">
 					<label for="p_timezone"><?php _e('c_a_config_l10n_default_timezone') ?></label>
-				<?php echo form::select('p_timezone', $aTimezones, $okt->config->timezone) ?></p>
+				<?php echo form::select('p_timezone', $aTimezones, $okt['config']->timezone) ?></p>
 
-				<p class="col"><?php echo form::checkbox('p_admin_lang_switcher', 1, $okt->config->admin_lang_switcher)?>
+				<p class="col"><?php echo form::checkbox('p_admin_lang_switcher', 1, $okt['config']->admin_lang_switcher)?>
 				<label for="p_admin_lang_switcher"><?php _e('c_a_config_l10n_enable_switcher') ?></label>
 				</p>
 

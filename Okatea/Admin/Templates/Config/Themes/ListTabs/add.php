@@ -61,7 +61,7 @@ $okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', a
 	<h4 id="add_theme_repo_title"><?php _e('c_a_themes_add_theme_from_remote_repository') ?></h4>
 
 	<div id="add_theme_repo_content">
-	<?php if (!$okt->config->repositories['themes']['enabled']) : ?>
+	<?php if (!$okt['config']->repositories['themes']['enabled']) : ?>
 		<p><?php _e('c_a_themes_repositories_themes_disabled') ?></p>
 
 	<?php elseif (!empty($aThemesRepositories)) : ?>

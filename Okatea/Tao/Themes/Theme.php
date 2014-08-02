@@ -38,7 +38,7 @@ class Theme
 	{
 		$this->okt = $okt;
 		
-		$this->url = $this->okt->config->app_path . basename($this->okt->options->get('themes_dir')) . '/' . $this->okt->theme_id;
+		$this->url = $this->okt['config']->app_path . basename($this->okt->options->get('themes_dir')) . '/' . $this->okt->theme_id;
 		
 		$this->path = $this->okt->options->get('themes_dir') . '/' . $this->okt->theme_id;
 		

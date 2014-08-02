@@ -54,7 +54,7 @@ class Advanced extends Controller
 			# save configuration
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write($this->aPageData['values']);
+				$this->okt['config']->write($this->aPageData['values']);
 
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
@@ -115,35 +115,35 @@ class Advanced extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'maintenance' => array(
-				'public' => $this->okt->config->maintenance['public'],
-				'admin' => $this->okt->config->maintenance['admin']
+				'public' => $this->okt['config']->maintenance['public'],
+				'admin' => $this->okt['config']->maintenance['admin']
 			),
 
-			'htmlpurifier_disabled' => $this->okt->config->htmlpurifier_disabled,
+			'htmlpurifier_disabled' => $this->okt['config']->htmlpurifier_disabled,
 
 			'user_visit' => array(
-				'timeout' => $this->okt->config->user_visit['timeout'],
-				'remember_time' => $this->okt->config->user_visit['remember_time']
+				'timeout' => $this->okt['config']->user_visit['timeout'],
+				'remember_time' => $this->okt['config']->user_visit['remember_time']
 			),
 
 			'log_admin' => array(
-				'ttl_months' => $this->okt->config->log_admin['ttl_months']
+				'ttl_months' => $this->okt['config']->log_admin['ttl_months']
 			),
 
 			'news_feed' => array(
-				'enabled' => $this->okt->config->news_feed['enabled'],
-				'url' => $this->okt->config->news_feed['url']
+				'enabled' => $this->okt['config']->news_feed['enabled'],
+				'url' => $this->okt['config']->news_feed['url']
 			),
 
-			'slug_type' => $this->okt->config->slug_type
+			'slug_type' => $this->okt['config']->slug_type
 		));
 	}
 
 	protected function pathUrlInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'app_path' => $this->okt->config->app_path,
-			'domain' => $this->okt->config->domain
+			'app_path' => $this->okt['config']->app_path,
+			'domain' => $this->okt['config']->domain
 		));
 	}
 
@@ -152,12 +152,12 @@ class Advanced extends Controller
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'repositories' => array(
 				'themes' => array(
-					'enabled' => $this->okt->config->repositories['themes']['enabled'],
-					'list' => $this->okt->config->repositories['themes']['list']
+					'enabled' => $this->okt['config']->repositories['themes']['enabled'],
+					'list' => $this->okt['config']->repositories['themes']['list']
 				),
 				'modules' => array(
-					'enabled' => $this->okt->config->repositories['modules']['enabled'],
-					'list' => $this->okt->config->repositories['modules']['list']
+					'enabled' => $this->okt['config']->repositories['modules']['enabled'],
+					'list' => $this->okt['config']->repositories['modules']['list']
 				)
 			)
 		));
@@ -167,9 +167,9 @@ class Advanced extends Controller
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
 			'updates' => array(
-				'enabled' => $this->okt->config->updates['enabled'],
-				'url' => $this->okt->config->updates['url'],
-				'type' => $this->okt->config->updates['type']
+				'enabled' => $this->okt['config']->updates['enabled'],
+				'url' => $this->okt['config']->updates['url'],
+				'type' => $this->okt['config']->updates['type']
 			)
 		));
 	}

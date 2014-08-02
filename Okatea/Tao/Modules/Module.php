@@ -321,9 +321,9 @@ class Module
 			{
 				$sName = $this->config->name[$this->okt->user->language];
 			}
-			elseif ($this->config->name[$this->okt->config->language])
+			elseif ($this->config->name[$this->okt['config']->language])
 			{
-				$sName = $this->config->name[$this->okt->config->language];
+				$sName = $this->config->name[$this->okt['config']->language];
 			}
 		}
 		else
@@ -358,9 +358,9 @@ class Module
 			{
 				$sTitle = $this->config->title[$this->okt->user->language];
 			}
-			elseif ($this->config->title[$this->okt->config->language])
+			elseif ($this->config->title[$this->okt['config']->language])
 			{
-				$sTitle = $this->config->title[$this->okt->config->language];
+				$sTitle = $this->config->title[$this->okt['config']->language];
 			}
 		}
 		else
@@ -395,9 +395,9 @@ class Module
 			{
 				$sNameSeo = $this->config->name_seo[$this->okt->user->language];
 			}
-			elseif ($this->config->name_seo[$this->okt->config->language])
+			elseif ($this->config->name_seo[$this->okt['config']->language])
 			{
-				$sNameSeo = $this->config->name_seo[$this->okt->config->language];
+				$sNameSeo = $this->config->name_seo[$this->okt['config']->language];
 			}
 		}
 		else

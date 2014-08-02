@@ -348,7 +348,7 @@ class L10n extends Controller
 		{
 			if (! $this->okt['flash']->hasError())
 			{
-				$this->okt->config->write(array(
+				$this->okt['config']->write(array(
 					'language' => $this->request->request->get('p_language'),
 					'timezone' => $this->request->request->get('p_timezone'),
 					'admin_lang_switcher' => $this->request->request->has('p_admin_lang_switcher')

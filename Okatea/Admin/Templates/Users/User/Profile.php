@@ -39,10 +39,10 @@ $okt->page->css->addCss('
 	</ul>
 
 	<div id="tab-show-profil" class="ui-helper-clearfix">
-		<?php if ($okt->config->users['gravatar']['enabled']) : ?>
+		<?php if ($okt['config']->users['gravatar']['enabled']) : ?>
 		<p>
 			<img
-				src="<?php echo Gravatar::image($aPageData['user']['email'], 120, $okt->config->users['gravatar']['default_image'], $okt->config->users['gravatar']['rating']) ?>"
+				src="<?php echo Gravatar::image($aPageData['user']['email'], 120, $okt['config']->users['gravatar']['default_image'], $okt['config']->users['gravatar']['rating']) ?>"
 				width="120" height="120" alt="" class="avatar">
 		</p>
 		<?php endif; ?>

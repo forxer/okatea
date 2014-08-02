@@ -63,9 +63,9 @@ class Module extends Extension
 			{
 				$sName = $this->config->name[$this->okt->user->language];
 			}
-			elseif ($this->config->name[$this->okt->config->language])
+			elseif ($this->config->name[$this->okt['config']->language])
 			{
-				$sName = $this->config->name[$this->okt->config->language];
+				$sName = $this->config->name[$this->okt['config']->language];
 			}
 		}
 		else
@@ -100,9 +100,9 @@ class Module extends Extension
 			{
 				$sTitle = $this->config->title[$this->okt->user->language];
 			}
-			elseif ($this->config->title[$this->okt->config->language])
+			elseif ($this->config->title[$this->okt['config']->language])
 			{
-				$sTitle = $this->config->title[$this->okt->config->language];
+				$sTitle = $this->config->title[$this->okt['config']->language];
 			}
 		}
 		else
@@ -137,9 +137,9 @@ class Module extends Extension
 			{
 				$sNameSeo = $this->config->name_seo[$this->okt->user->language];
 			}
-			elseif ($this->config->name_seo[$this->okt->config->language])
+			elseif ($this->config->name_seo[$this->okt['config']->language])
 			{
-				$sNameSeo = $this->config->name_seo[$this->okt->config->language];
+				$sNameSeo = $this->config->name_seo[$this->okt['config']->language];
 			}
 		}
 		else

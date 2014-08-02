@@ -12,7 +12,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <atom:link
 	href="<?php echo $view->escape($okt->request->getSchemeAndHttpHost().$view->generateUrl('newsFeed')) ?>"
 	rel="self" type="application/rss+xml" /> <description><?php echo $view->escape($okt->page->getSiteDescription()) ?></description>
-<language><?php echo $view->escape($okt->config->language) ?></language>
+<language><?php echo $view->escape($okt['config']->language) ?></language>
 <!-- <pubDate>{{tpl:BlogUpdateDate rfc822="1"}}</pubDate> --> <!-- <copyright>{{tpl:BlogCopyrightNotice encode_xml="1"}}</copyright> -->
 <docs>http://blogs.law.harvard.edu/tech/rss</docs> <generator>Okatea</generator>
 

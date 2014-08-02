@@ -224,9 +224,9 @@ class Controller extends BaseController
 		{
 			$sTitle = $this->okt->module('Contact')->config->title_map[$this->okt->user->language];
 		}
-		elseif ($this->okt->module('Contact')->config->title_map[$this->okt->config->language])
+		elseif ($this->okt->module('Contact')->config->title_map[$this->okt['config']->language])
 		{
-			$sTitle = $this->okt->module('Contact')->config->title_map[$this->okt->config->language];
+			$sTitle = $this->okt->module('Contact')->config->title_map[$this->okt['config']->language];
 		}
 		$this->page->addTitleTag($sTitle);
 		
@@ -236,9 +236,9 @@ class Controller extends BaseController
 		{
 			$sName = $this->okt->module('Contact')->config->name_map[$this->okt->user->language];
 		}
-		elseif ($this->okt->module('Contact')->config->name_map[$this->okt->config->language])
+		elseif ($this->okt->module('Contact')->config->name_map[$this->okt['config']->language])
 		{
-			$sName = $this->okt->module('Contact')->config->name_map[$this->okt->config->language];
+			$sName = $this->okt->module('Contact')->config->name_map[$this->okt['config']->language];
 		}
 		$this->page->setTitle($sName);
 		
@@ -248,9 +248,9 @@ class Controller extends BaseController
 		{
 			$sNameSeo = $this->okt->module('Contact')->config->name_seo_map[$this->okt->user->language];
 		}
-		elseif ($this->okt->module('Contact')->config->name_seo_map[$this->okt->config->language])
+		elseif ($this->okt->module('Contact')->config->name_seo_map[$this->okt['config']->language])
 		{
-			$sNameSeo = $this->okt->module('Contact')->config->name_seo_map[$this->okt->config->language];
+			$sNameSeo = $this->okt->module('Contact')->config->name_seo_map[$this->okt['config']->language];
 		}
 		$this->page->setTitleSeo($sNameSeo);
 		

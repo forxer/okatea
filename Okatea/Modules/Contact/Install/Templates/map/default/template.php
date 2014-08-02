@@ -52,7 +52,7 @@ $sJsGmap3Loader = '$("#google_map").gmap3({
 		address: "' . $view->escapeJs($okt->module('Contact')
 	->getAdressForGmap()) . '",
 		options: {
-			content: "<div id=\"infobulle\"><strong>' . $view->escapeJs((! empty($okt->config->company['com_name']) ? $okt->config->company['com_name'] : $okt->config->company['name'])) . '</strong><br/> ' . $view->escapeJs($okt->config->address['street']) . '<br/> ' . ($okt->config->address['street_2'] != '' ? $view->escapeJs($okt->config->address['street_2']) . '<br/>' : '') . $view->escapeJs($okt->config->address['code']) . ' ' . $view->escapeJs($okt->config->address['city']) . '<br/> ' . $view->escapeJs($okt->config->address['country']) . '</div>"
+			content: "<div id=\"infobulle\"><strong>' . $view->escapeJs((! empty($okt['config']->company['com_name']) ? $okt['config']->company['com_name'] : $okt['config']->company['name'])) . '</strong><br/> ' . $view->escapeJs($okt['config']->address['street']) . '<br/> ' . ($okt['config']->address['street_2'] != '' ? $view->escapeJs($okt['config']->address['street_2']) . '<br/>' : '') . $view->escapeJs($okt['config']->address['code']) . ' ' . $view->escapeJs($okt['config']->address['city']) . '<br/> ' . $view->escapeJs($okt['config']->address['country']) . '</div>"
 		}
 	}
 });';

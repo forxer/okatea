@@ -140,7 +140,7 @@ if ($okt->error->notEmpty())
 
 			<?php 
 # début Okatea : lien page mot de passe oublié
-			if ($okt->config->users['pages']['forget_password'])
+			if ($okt['config']->users['pages']['forget_password'])
 			:
 				?>
 			<p>
@@ -167,7 +167,7 @@ if ($okt->error->notEmpty())
 							class="required"><?php _e('c_c_Email') ?></label>
 					<?php echo form::text('add_email', 30, 255, $view->escape($aUserRegisterData['email'])) ?></p>
 
-					<?php if ($okt->config->users['registration']['user_choose_group']) : ?>
+					<?php if ($okt['config']->users['registration']['user_choose_group']) : ?>
 					<p class="field col">
 						<label for="add_group_id"><?php _e('c_c_Group') ?></label>
 					<?php echo form::select('add_group_id', $aUsersGroups, $view->escape($aUserRegisterData['group_id'])) ?></p>

@@ -17,7 +17,8 @@ use Monolog\Processor\WebProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
-use Okatea\Tao\Cache\SingleFileCache;
+use Okatea\Tao\Config\Config;
+use Okatea\Tao\Config\ConfigServiceProvider;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
@@ -60,20 +61,6 @@ class Application extends Container
 	 * @var Composer\Autoload\ClassLoader
 	 */
 	public $autoloader;
-
-	/**
-	 * Le gestionnaire du fichier cache de configuration.
-	 *
-	 * @var Okatea\Tao\Cache\SingleFileCache
-	 */
-	public $cacheConfig;
-
-	/**
-	 * Le gestionnaire de configuration.
-	 *
-	 * @var Okatea\Tao\Config
-	 */
-	public $config;
 
 	/**
 	 * Le controller invoqué.
@@ -260,14 +247,15 @@ class Application extends Container
 
 		$this->options = new ApplicationOptions($aOptions);
 
-		$this->Utf8Bootup();
-
-		$this->startConfig();
-
+		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
 		$this->register(new LoggerServiceProvider());
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
+
+		$this->Utf8Bootup();
+
+		$this->startConfig();
 
 		$this->startHttpFoundation();
 
@@ -431,7 +419,7 @@ class Application extends Container
 				$this,
 				$this->options->get('cookie_auth_name'),
 				$this->options->get('cookie_auth_from'),
-				$this->config->app_path,
+				$this['config']->app_path,
 				$this->request->getHttpHost(),
 				$this->request->isSecure()
 			);
@@ -455,7 +443,7 @@ class Application extends Container
 		{
 			$this->l10n = new Localization(
 				$this->user->language,
-				$this->config->language,
+				$this['config']->language,
 				$this->user->timezone
 			);
 
@@ -697,17 +685,11 @@ class Application extends Container
 	 */
 	public function startConfig()
 	{
-		$this->cacheConfig = new SingleFileCache($this->options->get('cache_dir') . '/static.php');
-
-	//	$this->cacheConfig->setNamespace('StaticCache');
-
-		$this->config = $this->newConfig('conf_site');
-
 		# URL du dossier des fichiers publics
-		$this->options->set('public_url', $this->config->getData('app_path') . 'oktPublic');
+		$this->options->set('public_url', $this['config']->getData('app_path') . 'oktPublic');
 
 		# URL du dossier upload depuis la racine
-		$this->options->set('upload_url', $this->config->getData('app_path') . 'oktPublic/upload');
+		$this->options->set('upload_url', $this['config']->getData('app_path') . 'oktPublic/upload');
 	}
 
 	/**
@@ -718,7 +700,7 @@ class Application extends Container
 	 */
 	public function newConfig($file)
 	{
-		return new Config($this->cacheConfig, $this->options->get('config_dir') . '/' . $file);
+		return new Config($this['cacheConfig'], $this->options->get('config_dir') . '/' . $file);
 	}
 
 	/**
@@ -743,35 +725,35 @@ class Application extends Container
 	public function getCommonContentReplacementsVariables()
 	{
 		return [
-			'app_path' => $this->config->app_path,
+			'app_path' => $this['config']->app_path,
 			'user_language' => $this->user->language,
 			//	'theme_url' => $this->theme->url,
-			'website_title' => $this->config->title[$this->user->language],
-			'website_desc' => $this->config->desc[$this->user->language],
+			'website_title' => $this['config']->title[$this->user->language],
+			'website_desc' => $this['config']->desc[$this->user->language],
 
-			'address_street' => $this->config->address['street'],
-			'address_street_2' => $this->config->address['street_2'],
-			'address_code' => $this->config->address['code'],
-			'address_city' => $this->config->address['city'],
-			'address_country' => $this->config->address['country'],
-			'address_phone' => (! empty($this->config->address['tel']) ? $this->config->address['tel'] : $this->config->address['mobile']),
-			'address_tel' => $this->config->address['tel'],
-			'address_mobile' => $this->config->address['mobile'],
-			'address_fax' => $this->config->address['fax'],
+			'address_street' => $this['config']->address['street'],
+			'address_street_2' => $this['config']->address['street_2'],
+			'address_code' => $this['config']->address['code'],
+			'address_city' => $this['config']->address['city'],
+			'address_country' => $this['config']->address['country'],
+			'address_phone' => (! empty($this['config']->address['tel']) ? $this['config']->address['tel'] : $this['config']->address['mobile']),
+			'address_tel' => $this['config']->address['tel'],
+			'address_mobile' => $this['config']->address['mobile'],
+			'address_fax' => $this['config']->address['fax'],
 
-			'gps_lat' => $this->config->gps['lat'],
-			'gps_long' => $this->config->gps['long'],
+			'gps_lat' => $this['config']->gps['lat'],
+			'gps_long' => $this['config']->gps['long'],
 
-			'company_name' => $this->config->company['name'],
-			'company_com_name' => $this->config->company['com_name'],
-			'company_siret' => $this->config->company['siret'],
+			'company_name' => $this['config']->company['name'],
+			'company_com_name' => $this['config']->company['com_name'],
+			'company_siret' => $this['config']->company['siret'],
 
-			'leader_name' => $this->config->leader['name'],
-			'leader_firstname' => $this->config->leader['firstname'],
+			'leader_name' => $this['config']->leader['name'],
+			'leader_firstname' => $this['config']->leader['firstname'],
 
-			'email_to' => $this->config->email['to'],
-			'email_from' => $this->config->email['from'],
-			'email_name' => $this->config->email['name']
+			'email_to' => $this['config']->email['to'],
+			'email_from' => $this['config']->email['from'],
+			'email_name' => $this['config']->email['name']
 		];
 	}
 
@@ -813,7 +795,7 @@ class Application extends Container
 	 */
 	public function HTMLfilter($str)
 	{
-		if ($this->config->htmlpurifier_disabled)
+		if ($this['config']->htmlpurifier_disabled)
 		{
 			return $str;
 		}

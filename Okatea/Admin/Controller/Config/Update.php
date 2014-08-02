@@ -49,7 +49,7 @@ class Update extends Controller
 
 		$sOkateaVersion = $this->okt->getVersion();
 
-		$updater = new Updater($this->okt->config->updates['url'], 'okatea', $this->okt->config->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
+		$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
 		$new_v = $updater->check($sOkateaVersion);
 		$zip_file = $new_v ? $this->okt->options->get('root_dir') . '/' . basename($updater->getFileURL()) : '';
 
@@ -151,7 +151,7 @@ class Update extends Controller
 					'message' => 'FILES CORE ' . $new_v
 				));
 
-				return $this->redirect($this->okt->config->app_path . 'install/?old_version=' . $sOkateaVersion);
+				return $this->redirect($this->okt['config']->app_path . 'install/?old_version=' . $sOkateaVersion);
 			}
 			catch (\Exception $e)
 			{

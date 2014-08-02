@@ -120,16 +120,16 @@ class oktSpamFilters
 
 	public function saveFilterOpts($opts)
 	{
-		$this->okt->config->write(array(
+		$this->okt['config']->write(array(
 			'antispam_filters' => serialize($opts)
 		));
 	}
 
 	private function setFilterOpts()
 	{
-		if (isset($this->okt->config->antispam_filters))
+		if (isset($this->okt['config']->antispam_filters))
 		{
-			$this->filters_opt = @unserialize($this->okt->config->antispam_filters);
+			$this->filters_opt = @unserialize($this->okt['config']->antispam_filters);
 		}
 		
 		# Create default options if needed

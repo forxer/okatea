@@ -51,15 +51,15 @@ class Mailer
 		{
 			$this->message->setFrom($mFrom);
 		}
-		elseif (! empty($this->okt->config->email['name']))
+		elseif (! empty($this->okt['config']->email['name']))
 		{
 			$this->message->setFrom(array(
-				$this->okt->config->email['from'] => Escaper::html($this->okt->config->email['name'])
+				$this->okt['config']->email['from'] => Escaper::html($this->okt['config']->email['name'])
 			));
 		}
 		else
 		{
-			$this->message->setFrom($this->okt->config->email['from']);
+			$this->message->setFrom($this->okt['config']->email['from']);
 		}
 
 		return $this;
@@ -147,7 +147,7 @@ class Mailer
 	 */
 	protected function setTransport()
 	{
-		switch ($this->okt->config->email['transport'])
+		switch ($this->okt['config']->email['transport'])
 		{
 			default:
 			case 'mail':
@@ -155,25 +155,25 @@ class Mailer
 				break;
 
 			case 'smtp':
-				$this->transport = \Swift_SmtpTransport::newInstance($this->okt->config->email['smtp']['host'], $this->okt->config->email['smtp']['port']);
+				$this->transport = \Swift_SmtpTransport::newInstance($this->okt['config']->email['smtp']['host'], $this->okt['config']->email['smtp']['port']);
 
-				if (! empty($this->okt->config->email['smtp']['username']))
+				if (! empty($this->okt['config']->email['smtp']['username']))
 				{
-					$this->transport->setUsername($this->okt->config->email['smtp']['username']);
+					$this->transport->setUsername($this->okt['config']->email['smtp']['username']);
 				}
 
-				if (! empty($this->okt->config->email['smtp']['password']))
+				if (! empty($this->okt['config']->email['smtp']['password']))
 				{
-					$this->transport->setPassword($this->okt->config->email['smtp']['password']);
+					$this->transport->setPassword($this->okt['config']->email['smtp']['password']);
 				}
 				break;
 
 			case 'sendmail':
 				$command = '/usr/sbin/exim -bs';
 
-				if (! empty($this->okt->config->email['sendmail']))
+				if (! empty($this->okt['config']->email['sendmail']))
 				{
-					$command = $this->okt->config->email['sendmail'];
+					$command = $this->okt['config']->email['sendmail'];
 				}
 
 				$this->transport = \Swift_SendmailTransport::newInstance($command);

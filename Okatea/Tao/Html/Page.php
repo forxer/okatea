@@ -22,7 +22,6 @@ use Okatea\Tao\Navigation\Breadcrumb;
  */
 class Page
 {
-
 	/**
 	 * Okatea application instance.
 	 *
@@ -155,8 +154,8 @@ class Page
 	 */
 	public function formtoken()
 	{
-		return $this->okt->session->getTokenInputField();
-		return '<input type="hidden" name="csrf_token" id="csrf_token" value="' . $this->okt->session->get('csrf_token') . '" />';
+		return $this->okt['session']->getTokenInputField();
+		return '<input type="hidden" name="csrf_token" id="csrf_token" value="' . $this->okt['session']->get('csrf_token') . '" />';
 	}
 
 	/* Gestion de l'élément title des pages
@@ -266,7 +265,7 @@ class Page
 	 */
 	public function getBaseUrl($sLanguage = null)
 	{
-		$str = $this->okt->config->app_path;
+		$str = $this->okt['config']->app_path;
 
 		if (! $this->okt->languages->unique)
 		{
@@ -283,17 +282,17 @@ class Page
 	 */
 	public function getSiteTitle($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt->config->title[$sLanguage]))
+		if ($sLanguage !== null && ! empty($this->okt['config']->title[$sLanguage]))
 		{
-			return $this->okt->config->title[$sLanguage];
+			return $this->okt['config']->title[$sLanguage];
 		}
-		elseif (! empty($this->okt->config->title[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->title[$this->okt->user->language]))
 		{
-			return $this->okt->config->title[$this->okt->user->language];
+			return $this->okt['config']->title[$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->title[$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->title[$this->okt['config']->language]))
 		{
-			return $this->okt->config->title[$this->okt->config->language];
+			return $this->okt['config']->title[$this->okt['config']->language];
 		}
 		else
 		{
@@ -308,17 +307,17 @@ class Page
 	 */
 	public function getSiteDescription($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt->config->desc[$sLanguage]))
+		if ($sLanguage !== null && ! empty($this->okt['config']->desc[$sLanguage]))
 		{
-			return $this->okt->config->desc[$sLanguage];
+			return $this->okt['config']->desc[$sLanguage];
 		}
-		elseif (! empty($this->okt->config->desc[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->desc[$this->okt->user->language]))
 		{
-			return $this->okt->config->desc[$this->okt->user->language];
+			return $this->okt['config']->desc[$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->desc[$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->desc[$this->okt['config']->language]))
 		{
-			return $this->okt->config->desc[$this->okt->config->language];
+			return $this->okt['config']->desc[$this->okt['config']->language];
 		}
 		else
 		{
@@ -333,17 +332,17 @@ class Page
 	 */
 	public function getSiteTitleTag($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt->config->title_tag[$sLanguage]))
+		if ($sLanguage !== null && ! empty($this->okt['config']->title_tag[$sLanguage]))
 		{
-			return $this->okt->config->title_tag[$sLanguage];
+			return $this->okt['config']->title_tag[$sLanguage];
 		}
-		elseif (! empty($this->okt->config->title_tag[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->title_tag[$this->okt->user->language]))
 		{
-			return $this->okt->config->title_tag[$this->okt->user->language];
+			return $this->okt['config']->title_tag[$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->title_tag[$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->title_tag[$this->okt['config']->language]))
 		{
-			return $this->okt->config->title_tag[$this->okt->config->language];
+			return $this->okt['config']->title_tag[$this->okt['config']->language];
 		}
 		else
 		{
@@ -358,17 +357,17 @@ class Page
 	 */
 	public function getSiteMetaDesc($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt->config->meta_description[$sLanguage]))
+		if ($sLanguage !== null && ! empty($this->okt['config']->meta_description[$sLanguage]))
 		{
-			return $this->okt->config->meta_description[$sLanguage];
+			return $this->okt['config']->meta_description[$sLanguage];
 		}
-		elseif (! empty($this->okt->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->meta_description[$this->okt->user->language]))
 		{
-			return $this->okt->config->meta_description[$this->okt->user->language];
+			return $this->okt['config']->meta_description[$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->meta_description[$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->meta_description[$this->okt['config']->language]))
 		{
-			return $this->okt->config->meta_description[$this->okt->config->language];
+			return $this->okt['config']->meta_description[$this->okt['config']->language];
 		}
 		else
 		{
@@ -383,17 +382,17 @@ class Page
 	 */
 	public function getSiteMetaKeywords($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt->config->meta_keywords[$sLanguage]))
+		if ($sLanguage !== null && ! empty($this->okt['config']->meta_keywords[$sLanguage]))
 		{
-			return $this->okt->config->meta_keywords[$sLanguage];
+			return $this->okt['config']->meta_keywords[$sLanguage];
 		}
-		elseif (! empty($this->okt->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->meta_keywords[$this->okt->user->language]))
 		{
-			return $this->okt->config->meta_keywords[$this->okt->user->language];
+			return $this->okt['config']->meta_keywords[$this->okt->user->language];
 		}
-		elseif (! empty($this->okt->config->meta_keywords[$this->okt->config->language]))
+		elseif (! empty($this->okt['config']->meta_keywords[$this->okt['config']->language]))
 		{
-			return $this->okt->config->meta_keywords[$this->okt->config->language];
+			return $this->okt['config']->meta_keywords[$this->okt['config']->language];
 		}
 		else
 		{

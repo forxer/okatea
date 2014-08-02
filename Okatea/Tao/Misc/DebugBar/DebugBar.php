@@ -25,7 +25,7 @@ class DebugBar extends BaseDebugBar
 	{
 		$this->okt = $okt;
 		
-		$this->setHttpDriver(new SymfonyHttpDriver($this->okt->session, $this->okt->response));
+		$this->setHttpDriver(new SymfonyHttpDriver($this->okt['session'], $this->okt->response));
 		
 		$this->addCollector(new PhpInfoCollector());
 		$this->addCollector(new MessagesCollector());

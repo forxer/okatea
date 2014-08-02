@@ -16,7 +16,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 	public function register(Container $okt)
 	{
 		$okt['db'] = function($okt) {
-			return Dbal::getConnection($okt->config->database_configuration);
+			return Dbal::getConnection($okt['config']->database_configuration);
 		};
 	}
 }

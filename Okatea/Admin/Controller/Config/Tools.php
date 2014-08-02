@@ -572,12 +572,12 @@ class Tools extends Controller
 			$this->okt['session']->invalidate();
 
 			# prepare redirect to install screen response
-			$response = $this->redirect($this->okt->config->app_path.'install');
+			$response = $this->redirect($this->okt['config']->app_path.'install');
 
 			# remove cookies
 			foreach ($this->request->cookies->keys() as $cookie)
 			{
-				$response->headers->clearCookie($cookie, $this->okt->config->app_path, $this->request->getHttpHost());
+				$response->headers->clearCookie($cookie, $this->okt['config']->app_path, $this->request->getHttpHost());
 			}
 
 			return $response;

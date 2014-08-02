@@ -22,8 +22,8 @@ $add_firstname = '';
 $add_password = '';
 $add_password_confirm = '';
 $add_email = '';
-$add_timezone = $okt->config->timezone;
-$add_language = $okt->config->language;
+$add_timezone = $okt['config']->timezone;
+$add_language = $okt['config']->language;
 
 # Champs personnalisés
 if ($okt->users->config->enable_custom_fields)

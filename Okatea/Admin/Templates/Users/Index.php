@@ -65,10 +65,10 @@ $okt->page->css->addCss('
 ');
 
 # Avatars
-if ($okt->config->users['gravatar']['enabled'])
+if ($okt['config']->users['gravatar']['enabled'])
 {
-	$gravatarImage = (new GravatarImage())->setDefaultImage($okt->config->users['gravatar']['default_image'])
-		->setMaxRating($okt->config->users['gravatar']['rating'])
+	$gravatarImage = (new GravatarImage())->setDefaultImage($okt['config']->users['gravatar']['default_image'])
+		->setMaxRating($okt['config']->users['gravatar']['rating'])
 		->setSize(60);
 }
 
@@ -163,7 +163,7 @@ if ($okt->config->users['gravatar']['enabled'])
 					<p class="title">
 						<a
 							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<?php if ($okt->config->users['gravatar']['enabled']) : ?><img
+				<?php if ($okt['config']->users['gravatar']['enabled']) : ?><img
 							src="<?php
 			echo $gravatarImage->getUrl($rsUsers->email)?>"
 							width="<?php

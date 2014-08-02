@@ -74,7 +74,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 	<?php 
 # début Okatea : affichage de la barre utilisateur
-	echo $okt->tpl->render('users/user_bar/' . $okt->config->users['templates']['user_bar']['default'] . '/template');
+	echo $okt->tpl->render('users/user_bar/' . $okt['config']->users['templates']['user_bar']['default'] . '/template');
 	# fin Okatea : affichage de la barre utilisateur 	?>
 
 
@@ -166,13 +166,13 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 	<footer>
 		<ul>
-			<li><?php echo $view->escape($okt->config->company['com_name']) ?></li>
-			<li><?php echo $view->escape($okt->config->address['street']) ?></li>
-			<?php if (!empty($okt->config->address['street_2'])) : ?><li><?php echo $view->escape($okt->config->address['street_2']) ?></li><?php endif; ?>
-			<li><?php echo $view->escape($okt->config->address['code'].' '.$okt->config->address['city']) ?></li>
-			<?php if (!empty($okt->config->address['tel'])) : ?><li><abbr
-				title="<?php _e('c_c_Phone') ?>"><?php _e('c_c_Phone_abbr') ?></abbr> <?php echo $view->escape($okt->config->address['tel']) ?></li><?php endif; ?>
-			<?php if (!empty($okt->config->address['fax'])) : ?><li><?php _e('c_c_Fax') ?> <?php echo $view->escape($okt->config->address['fax']) ?></li><?php endif; ?>
+			<li><?php echo $view->escape($okt['config']->company['com_name']) ?></li>
+			<li><?php echo $view->escape($okt['config']->address['street']) ?></li>
+			<?php if (!empty($okt['config']->address['street_2'])) : ?><li><?php echo $view->escape($okt['config']->address['street_2']) ?></li><?php endif; ?>
+			<li><?php echo $view->escape($okt['config']->address['code'].' '.$okt['config']->address['city']) ?></li>
+			<?php if (!empty($okt['config']->address['tel'])) : ?><li><abbr
+				title="<?php _e('c_c_Phone') ?>"><?php _e('c_c_Phone_abbr') ?></abbr> <?php echo $view->escape($okt['config']->address['tel']) ?></li><?php endif; ?>
+			<?php if (!empty($okt['config']->address['fax'])) : ?><li><?php _e('c_c_Fax') ?> <?php echo $view->escape($okt['config']->address['fax']) ?></li><?php endif; ?>
 		</ul>
 
 		<?php 

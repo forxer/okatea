@@ -62,7 +62,7 @@ class Manager
 
 		$this->db = $okt->db;
 
-		$this->t_extensions = $okt->config->database_prefix . 'core_extensions';
+		$this->t_extensions = $okt['config']->database_prefix . 'core_extensions';
 
 		$this->type = $sType;
 

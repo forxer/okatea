@@ -273,14 +273,14 @@ class module_partners extends Module
 			# description
 			if ($this->config->chp_description > 0)
 			{
-				if ($this->config->chp_description == 2 && (empty($this->params['descriptions'][$this->okt->config->language])))
+				if ($this->config->chp_description == 2 && (empty($this->params['descriptions'][$this->okt['config']->language])))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_description_%s'), $this->okt->languages->list[$this->okt->config->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_description_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
 			{
-				$this->params['descriptions'][$this->okt->config->language] = null;
+				$this->params['descriptions'][$this->okt['config']->language] = null;
 			}
 			
 			# champ URL
@@ -294,27 +294,27 @@ class module_partners extends Module
 					}
 				}
 				
-				if ($this->config->chp_url == 2 && empty($this->params['urls'][$this->okt->config->language]))
+				if ($this->config->chp_url == 2 && empty($this->params['urls'][$this->okt['config']->language]))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_%s'), $this->okt->languages->list[$this->okt->config->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
 			{
-				$this->params['urls'][$this->okt->config->language] = null;
+				$this->params['urls'][$this->okt['config']->language] = null;
 			}
 			
 			# champ URL title
 			if ($this->config->chp_url_title > 0)
 			{
-				if ($this->config->chp_url_title == 2 && empty($this->params['urls_titles'][$this->okt->config->language]))
+				if ($this->config->chp_url_title == 2 && empty($this->params['urls_titles'][$this->okt['config']->language]))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_title_%s'), $this->okt->languages->list[$this->okt->config->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_title_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
 			{
-				$this->params['urls_titles'][$this->okt->config->language] = null;
+				$this->params['urls_titles'][$this->okt['config']->language] = null;
 			}
 		}
 	}
