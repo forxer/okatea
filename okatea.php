@@ -18,7 +18,7 @@ $oktAutoloader = require __DIR__ . '/vendor/autoload.php';
 	$okt->run();
 
 	# -- CORE TRIGGER : websiteFinal
-	$okt->triggers->callTrigger('websiteFinal');
+	$okt['triggers']->callTrigger('websiteFinal');
 //}
 //catch (\Exception $e)
 //{

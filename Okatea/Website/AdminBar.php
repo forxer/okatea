@@ -31,7 +31,7 @@ class AdminBar
 	{
 		$this->okt = $okt;
 		
-		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag', array(
+		$this->okt['triggers']->registerTrigger('publicBeforeHtmlBodyEndTag', array(
 			$this,
 			'displayWebsiteAdminBar'
 		));
@@ -53,7 +53,7 @@ class AdminBar
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 		
 		# -- CORE TRIGGER : websiteAdminBarBeforeDefaultsItems
-		$this->okt->triggers->callTrigger('websiteAdminBarBeforeDefaultsItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$this->okt['triggers']->callTrigger('websiteAdminBarBeforeDefaultsItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 		
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
@@ -198,7 +198,7 @@ class AdminBar
 		}
 		
 		# -- CORE TRIGGER : websiteAdminBarItems
-		$this->okt->triggers->callTrigger('websiteAdminBarItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
+		$this->okt['triggers']->callTrigger('websiteAdminBarItems', $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl);
 		
 		# sort items of by keys
 		$aPrimaryAdminBar->ksort();

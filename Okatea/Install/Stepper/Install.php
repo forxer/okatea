@@ -50,7 +50,7 @@ class Install extends BaseStepper
 		];
 
 		# -- CORE TRIGGER : installBeforeBuildInstallStepper
-		$okt->triggers->callTrigger('installBeforeBuildInstallStepper', $this);
+		$okt['triggers']->callTrigger('installBeforeBuildInstallStepper', $this);
 
 		parent::__construct((array) $this->aStepsList, $sCurrentStep);
 	}

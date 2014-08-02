@@ -81,7 +81,7 @@ class Home extends Controller
 		');
 
 		# -- CORE TRIGGER : adminIndexRoundaboutOptions
-		$this->okt->triggers->callTrigger('adminIndexRoundaboutOptions', $aRoundAboutOptions);
+		$this->okt['triggers']->callTrigger('adminIndexRoundaboutOptions', $aRoundAboutOptions);
 
 		$this->page->roundabout((array) $aRoundAboutOptions, '#roundabout');
 
@@ -100,7 +100,7 @@ class Home extends Controller
 		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt->adminRouter->generate('logout'), '<img src="' . $this->okt['public_url'] . '/img/admin/system-log-out.png" alt="" />');
 
 		# -- CORE TRIGGER : adminIndexaRoundAboutItems
-		$this->okt->triggers->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);
+		$this->okt['triggers']->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);
 	}
 
 	protected function konami()

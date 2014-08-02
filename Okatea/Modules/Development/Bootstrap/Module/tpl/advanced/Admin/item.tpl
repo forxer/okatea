@@ -117,12 +117,12 @@ if (!empty($_POST['sended']))
 		if (!empty($iItemId))
 		{
 			# -- CORE TRIGGER : module##module_camel_case_id##BeforeItemUpdate
-			$okt->triggers->callTrigger('module##module_camel_case_id##BeforeItemUpdate', $cursor, $aItemData, $iItemId);
+			$okt['triggers']->callTrigger('module##module_camel_case_id##BeforeItemUpdate', $cursor, $aItemData, $iItemId);
 
 			if ($okt->##module_id##->updItem($iItemId, $cursor, $aItemData))
 			{
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemUpdate
-				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemUpdate', $cursor, $aItemData, $iItemId);
+				$okt['triggers']->callTrigger('module##module_camel_case_id##AfterItemUpdate', $cursor, $aItemData, $iItemId);
 
 				$okt['flash']->success(__('m_##module_id##_confirm_edited'));
 
@@ -134,12 +134,12 @@ if (!empty($_POST['sended']))
 		else
 		{
 			# -- CORE TRIGGER : module##module_camel_case_id##BeforeItemCreate
-			$okt->triggers->callTrigger('module##module_camel_case_id##BeforeItemCreate',$cursor, $aItemData);
+			$okt['triggers']->callTrigger('module##module_camel_case_id##BeforeItemCreate',$cursor, $aItemData);
 
 			if (($iItemId = $okt->##module_id##->addItem($cursor, $aItemData)) !== false)
 			{
 				# -- CORE TRIGGER : module##module_camel_case_id##AfterItemCreate
-				$okt->triggers->callTrigger('module##module_camel_case_id##AfterItemCreate', $cursor, $aItemData, $iItemId);
+				$okt['triggers']->callTrigger('module##module_camel_case_id##AfterItemCreate', $cursor, $aItemData, $iItemId);
 
 				$okt['flash']->success(__('m_##module_id##_confirm_added'));
 

@@ -266,7 +266,7 @@ class Index extends Controller
 		try
 		{
 			# -- CORE TRIGGER : adminUsersBeforeDeleteProcess
-			$this->okt->triggers->callTrigger('adminUsersBeforeDeleteProcess', $iUserId);
+			$this->okt['triggers']->callTrigger('adminUsersBeforeDeleteProcess', $iUserId);
 			
 			$this->okt->getUsers()->deleteUser($iUserId);
 			
@@ -278,7 +278,7 @@ class Index extends Controller
 			));
 			
 			# -- CORE TRIGGER : adminUsersAfterDeleteProcess
-			$this->okt->triggers->callTrigger('adminUsersAfterDeleteProcess', $iUserId);
+			$this->okt['triggers']->callTrigger('adminUsersAfterDeleteProcess', $iUserId);
 			
 			$this->okt['flash']->success(__('c_a_users_user_deleted'));
 			

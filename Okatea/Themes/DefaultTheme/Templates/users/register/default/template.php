@@ -215,7 +215,7 @@ if (! empty($_REQUEST['registered']))
 
 	<?php 
 # -- CORE TRIGGER : adminModUsersRegisterDisplay
-	$okt->triggers->callTrigger('adminModUsersRegisterDisplay');
+	$okt['triggers']->callTrigger('adminModUsersRegisterDisplay');
 	?>
 
 	<fieldset>

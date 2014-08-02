@@ -184,7 +184,7 @@ if ($okt['config']->users['custom_fields_enabled'])
 
 	<?php 
 # -- CORE TRIGGER : adminModUsersProfileDisplay
-	$okt->triggers->callTrigger('adminModUsersProfileDisplay');
+	$okt['triggers']->callTrigger('adminModUsersProfileDisplay');
 	?>
 
 	<fieldset>

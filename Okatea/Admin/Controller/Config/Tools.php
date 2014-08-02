@@ -64,7 +64,7 @@ class Tools extends Controller
 		$this->uninstallInit();
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsInit
-		$this->okt->triggers->callTrigger('adminToolsInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminToolsInit', $this->aPageData);
 
 		if (($action = $this->cacheHandleRequest()) !== false)
 		{
@@ -92,7 +92,7 @@ class Tools extends Controller
 		}
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsHandleRequest
-		$this->okt->triggers->callTrigger('adminToolsHandleRequest', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminToolsHandleRequest', $this->aPageData);
 
 		# start building tabs
 		$this->aPageData['tabs'] = new ArrayObject();
@@ -155,7 +155,7 @@ class Tools extends Controller
 		}
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsBuildTabs
-		$this->okt->triggers->callTrigger('adminToolsBuildTabs', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminToolsBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

@@ -188,7 +188,7 @@ class EstimateController extends Controller
 		$this->page->action = 'form';
 		
 		# -- CORE TRIGGER : publicModuleEstimateControllerStart
-		$this->okt->triggers->callTrigger('publicModuleEstimateControllerStart', $this->okt->estimate->config->captcha);
+		$this->okt['triggers']->callTrigger('publicModuleEstimateControllerStart', $this->okt->estimate->config->captcha);
 		
 		# récupération des produits et des accessoires
 		$rsProducts = $this->okt->estimate->products->getProducts();
@@ -331,7 +331,7 @@ class EstimateController extends Controller
 			}
 			
 			# -- CORE TRIGGER : publicModuleEstimateControllerFormCheckValues
-			$this->okt->triggers->callTrigger('publicModuleEstimateControllerFormCheckValues', $this->okt->estimate->config->captcha);
+			$this->okt['triggers']->callTrigger('publicModuleEstimateControllerFormCheckValues', $this->okt->estimate->config->captcha);
 			
 			if (! $this->okt['flash']->hasError())
 			{

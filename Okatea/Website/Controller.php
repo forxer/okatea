@@ -100,7 +100,7 @@ class Controller extends BaseController
 		$this->okt->page->resetTitleTag();
 		
 		# -- TRIGGER : handleWebsiteHomePage
-		$this->okt->triggers->callTrigger('handleWebsiteHomePage', $item, $details);
+		$this->okt['triggers']->callTrigger('handleWebsiteHomePage', $item, $details);
 		
 		if (null === $this->okt->response || false === $this->okt->response)
 		{

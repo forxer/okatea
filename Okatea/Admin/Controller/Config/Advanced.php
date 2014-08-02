@@ -35,7 +35,7 @@ class Advanced extends Controller
 		$this->updateInit();
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigInit
-		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminAdvancedConfigInit', $this->aPageData);
 
 		# save configuration
 		if ($this->okt['request']->request->has('form_sent') && ! $this->okt['flash']->hasError())
@@ -49,7 +49,7 @@ class Advanced extends Controller
 			$this->updateHandleRequest();
 
 			# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigHandleRequest
-			$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
+			$this->okt['triggers']->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
 
 			# save configuration
 			if (! $this->okt['flash']->hasError())
@@ -102,7 +102,7 @@ class Advanced extends Controller
 		);
 
 		# -- TRIGGER CORE ADVANCED CONFIG PAGE : adminAdvancedConfigBuildTabs
-		$this->okt->triggers->callTrigger('adminAdvancedConfigBuildTabs', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminAdvancedConfigBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

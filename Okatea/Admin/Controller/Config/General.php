@@ -38,7 +38,7 @@ class General extends Controller
 		$this->seoInit();
 
 		# -- TRIGGER CORE : adminConfigSiteInit
-		$this->okt->triggers->callTrigger('adminConfigSiteInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminConfigSiteInit', $this->aPageData);
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
@@ -51,7 +51,7 @@ class General extends Controller
 			$this->seoHandleRequest();
 
 			# -- TRIGGER CORE : adminConfigSiteHandleRequest
-			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
+			$this->okt['triggers']->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 			# save configuration
 			if (! $this->okt['flash']->hasError())
@@ -104,7 +104,7 @@ class General extends Controller
 		);
 
 		# -- TRIGGER CORE : adminConfigSiteBuildTabs
-		$this->okt->triggers->callTrigger('adminConfigSiteBuildTabs', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminConfigSiteBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

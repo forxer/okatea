@@ -309,7 +309,7 @@ class Okatea extends Application
 	protected function matchRequest()
 	{
 		# -- CORE TRIGGER : adminBeforeMatchRequest
-		$this->triggers->callTrigger('adminBeforeMatchRequest');
+		$this['triggers']->callTrigger('adminBeforeMatchRequest');
 
 		try
 		{
@@ -338,7 +338,7 @@ class Okatea extends Application
 	protected function callController()
 	{
 		# -- CORE TRIGGER : adminBeforeCallController
-		$this->triggers->callTrigger('adminBeforeCallController');
+		$this['triggers']->callTrigger('adminBeforeCallController');
 
 		# Special case : user lang switch
 		if (null !== $sLanguage = $this['request']->query->get('lang'))
@@ -365,12 +365,12 @@ class Okatea extends Application
 	protected function sendResponse()
 	{
 		# -- CORE TRIGGER : adminBeforePrepareResponse
-		$this->triggers->callTrigger('adminBeforePrepareResponse');
+		$this['triggers']->callTrigger('adminBeforePrepareResponse');
 
 		$this->response->prepare($this['request']);
 
 		# -- CORE TRIGGER : adminBeforeSendResponse
-		$this->triggers->callTrigger('adminBeforeSendResponse');
+		$this['triggers']->callTrigger('adminBeforeSendResponse');
 
 		$this->response->send();
 	}

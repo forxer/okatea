@@ -44,7 +44,7 @@ class Infos extends Controller
 		$this->phpInit();
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosInit
-		$this->okt->triggers->callTrigger('adminInfosInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminInfosInit', $this->aPageData);
 
 		if (($action = $this->notesHandleRequest()) !== false) {
 			return $action;
@@ -63,7 +63,7 @@ class Infos extends Controller
 		}
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosHandleRequest
-		$this->okt->triggers->callTrigger('adminInfosHandleRequest', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminInfosHandleRequest', $this->aPageData);
 
 		# Construction des onglets
 		$this->aPageData['tabs'] = new ArrayObject();
@@ -109,7 +109,7 @@ class Infos extends Controller
 		);
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosBuildTabs
-		$this->okt->triggers->callTrigger('adminInfosBuildTabs', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminInfosBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 

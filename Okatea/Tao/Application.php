@@ -25,13 +25,13 @@ use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\LoggerServiceProvider;
-use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\RequestServiceProvider;
 use Okatea\Tao\Routing\RouterServiceProvider;
 use Okatea\Tao\Session\SessionServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
+use Okatea\Tao\Triggers\TriggersServiceProvider;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Visitor;
@@ -117,13 +117,6 @@ class Application extends Container
 	public $navigation;
 
 	/**
-	 * Les menus de navigation.
-	 *
-	 * @var Okatea\Tao\ApplicationOptions
-	 */
-	public $options;
-
-	/**
 	 * La réponse qui va être renvoyée.
 	 *
 	 * @var Symfony\Component\HttpFoundation\Response
@@ -143,13 +136,6 @@ class Application extends Container
 	 * @var Okatea\Tao\Templating
 	 */
 	public $tpl;
-
-	/**
-	 * Le gestionnaire de déclencheurs.
-	 *
-	 * @var Okatea\Tao\Triggers
-	 */
-	public $triggers;
 
 	/**
 	 * Le gestionnaire d'utilisateur en cours.
@@ -207,6 +193,7 @@ class Application extends Container
 		$this->register(new RequestServiceProvider());
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
+		$this->register(new TriggersServiceProvider());
 
 		$this->Utf8Bootup();
 
@@ -302,14 +289,6 @@ class Application extends Container
 			);
 
 			ErrorHandler::register($phpLoggerAll);
-		}
-	}
-
-	public function startTriggers()
-	{
-		if (null === $this->triggers)
-		{
-			$this->triggers = new Triggers();
 		}
 	}
 

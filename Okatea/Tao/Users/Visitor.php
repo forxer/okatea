@@ -380,7 +380,7 @@ class Visitor
 		}
 
 		# -- CORE TRIGGER : userLogin
-		$this->okt->triggers->callTrigger('userLogin');
+		$this->okt['triggers']->callTrigger('userLogin');
 
 		return true;
 	}

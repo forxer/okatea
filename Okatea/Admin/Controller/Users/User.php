@@ -187,7 +187,7 @@ class User extends Controller
 		}
 		
 		# -- CORE TRIGGER : adminUsersEditInit
-		$this->okt->triggers->callTrigger('adminUsersEditInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminUsersEditInit', $this->aPageData);
 		
 		# validate user
 		if (false !== ($mUserValidated = $this->validateUser()))
@@ -208,7 +208,7 @@ class User extends Controller
 		}
 		
 		# -- CORE TRIGGER : adminUsersEditProcess
-		$this->okt->triggers->callTrigger('adminUsersEditProcess', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminUsersEditProcess', $this->aPageData);
 		
 		$this->aPageData['tabs'] = new ArrayObject();
 		
@@ -235,7 +235,7 @@ class User extends Controller
 		}
 		
 		# -- CORE TRIGGER : adminUsersEditBuildTabs
-		$this->okt->triggers->callTrigger('adminUsersEditBuildTabs', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminUsersEditBuildTabs', $this->aPageData);
 		
 		$this->aPageData['tabs']->ksort();
 		

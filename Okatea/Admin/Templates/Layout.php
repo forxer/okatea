@@ -11,7 +11,7 @@ use Okatea\Tao\Misc\Utilities;
 $aUserBars = $okt->page->getUserBars();
 
 # -- CORE TRIGGER : adminBeforeSendHeader
-$okt->triggers->callTrigger('adminBeforeSendHeader');
+$okt['triggers']->callTrigger('adminBeforeSendHeader');
 
 ?>
 <!DOCTYPE html>
@@ -111,7 +111,7 @@ if ($okt['debug'])
 }
 
 # -- CORE TRIGGER : adminFooterContent
-$okt->triggers->callTrigger('adminFooterContent', $aFooterContent);
+$okt['triggers']->callTrigger('adminFooterContent', $aFooterContent);
 
 # sort items of footer content
 $aFooterContent->ksort();
@@ -131,6 +131,6 @@ $aFooterContent = array_filter((array) $aFooterContent);
 <?php echo $okt->page->js ?>
 
 <?php # -- CORE TRIGGER : adminBeforeHtmlBodyEndTag
-$okt->triggers->callTrigger('adminBeforeHtmlBodyEndTag'); ?>
+$okt['triggers']->callTrigger('adminBeforeHtmlBodyEndTag'); ?>
 </body>
 </html>

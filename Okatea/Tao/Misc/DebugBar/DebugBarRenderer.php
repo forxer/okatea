@@ -21,7 +21,7 @@ class DebugBarRenderer extends JavascriptRenderer
 		
 		parent::__construct($debugBar, $baseUrl, $basePath);
 		
-		$this->okt->triggers->registerTrigger('adminBeforeSendHeader', function ()
+		$this->okt['triggers']->registerTrigger('adminBeforeSendHeader', function ()
 		{
 			$this->setIncludeVendors('css');
 			
@@ -38,7 +38,7 @@ class DebugBarRenderer extends JavascriptRenderer
 			}
 		});
 		
-		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag', function ()
+		$this->okt['triggers']->registerTrigger('adminBeforeHtmlBodyEndTag', function ()
 		{
 			echo $this->render();
 		});

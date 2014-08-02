@@ -405,7 +405,7 @@ class Controller extends BaseController
 			if ($this->okt->users->updUser($aUserProfilData))
 			{
 				# -- CORE TRIGGER : adminModUsersProfileProcess
-				$this->okt->triggers->callTrigger('adminModUsersProfileProcess', $_POST);
+				$this->okt['triggers']->callTrigger('adminModUsersProfileProcess', $_POST);
 				
 				if ($this->okt->users->config->enable_custom_fields)
 				{
@@ -638,7 +638,7 @@ class Controller extends BaseController
 				$_POST['user_id'] = $new_id;
 				
 				# -- CORE TRIGGER : adminModUsersRegisterProcess
-				$this->okt->triggers->callTrigger('adminModUsersRegisterProcess', $_POST);
+				$this->okt['triggers']->callTrigger('adminModUsersRegisterProcess', $_POST);
 				
 				$rsUser = $this->okt->users->getUser($new_id);
 				

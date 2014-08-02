@@ -14,7 +14,6 @@ use Doctrine\Common\Cache\CacheProvider;
  */
 class SingleFileCache extends CacheProvider
 {
-
 	/**
 	 * Single cache file path.
 	 *
@@ -32,8 +31,7 @@ class SingleFileCache extends CacheProvider
 	/**
 	 * Construct the file cache
 	 *
-	 * @param string $file
-	 *        	- the location where the cache file will be stored
+	 * @param string $file The location where the cache file will be stored
 	 * @param array $aData
 	 */
 	public function __construct($file, array $aData = [])

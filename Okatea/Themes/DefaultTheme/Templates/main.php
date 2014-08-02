@@ -43,12 +43,12 @@
 	# fin Okatea : ajout d'éléments à l'en-tête 	?>
 
 	<?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag
-	$okt->triggers->callTrigger('publicBeforeHtmlHeadEndTag');
+	$okt['triggers']->callTrigger('publicBeforeHtmlHeadEndTag');
 	# fin Okatea :  -- CORE TRIGGER : publicBeforeHtmlHeadEndTag 	?>
 </head>
 <body>
 <?php # début Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag
-$okt->triggers->callTrigger('publicAfterHtmlBodyStartTag');
+$okt['triggers']->callTrigger('publicAfterHtmlBodyStartTag');
 # fin Okatea :  -- CORE TRIGGER : publicAfterHtmlBodyStartTag ?>
 
 <?php # début Okatea : affichage du contenu de la page
@@ -56,7 +56,7 @@ $view['slots']->output('_content');
 # fin Okatea : affichage du contenu de la page ?>
 
 <?php # début Okatea :  -- CORE TRIGGER : publicBeforeHtmlBodyEndTag
-$okt->triggers->callTrigger('publicBeforeHtmlBodyEndTag');
+$okt['triggers']->callTrigger('publicBeforeHtmlBodyEndTag');
 # fin Okatea :  -- CORE TRIGGER : publicBeforeHtmlBodyEndTag ?>
 </body>
 </html>

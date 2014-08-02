@@ -60,7 +60,7 @@ class Module extends BaseModule
 		# Ajout d'éléments à la barre admin
 		if ($this->okt->user->is_superadmin)
 		{
-			$this->okt->triggers->registerTrigger('websiteAdminBarItems', array(
+			$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 				$this,
 				'websiteAdminBarItems'
 			));

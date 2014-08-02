@@ -189,12 +189,12 @@ if (! empty($_POST['sended']))
 		if (! empty($product_id))
 		{
 			# -- CORE TRIGGER : moduleNewsBeforeProdUpdate
-			$okt->triggers->callTrigger('moduleNewsBeforeProdUpdate', $cursor, $product_id);
+			$okt['triggers']->callTrigger('moduleNewsBeforeProdUpdate', $cursor, $product_id);
 			
 			if ($okt->catalog->updProd($product_id, $cursor) !== false)
 			{
 				# -- CORE TRIGGER : moduleNewsAfterProdUpdate
-				$okt->triggers->callTrigger('moduleNewsAfterProdUpdate', $cursor, $product_id);
+				$okt['triggers']->callTrigger('moduleNewsAfterProdUpdate', $cursor, $product_id);
 				
 				$okt['flash']->success(__('Le produit a été mis à jour.'));
 				
@@ -205,12 +205,12 @@ if (! empty($_POST['sended']))
 		else
 		{
 			# -- CORE TRIGGER : moduleNewsBeforeProdCreate
-			$okt->triggers->callTrigger('moduleNewsBeforeProdCreate', $cursor);
+			$okt['triggers']->callTrigger('moduleNewsBeforeProdCreate', $cursor);
 			
 			if (($product_id = $okt->catalog->addProd($cursor)) !== false)
 			{
 				# -- CORE TRIGGER : moduleNewsAfterProdCreate
-				$okt->triggers->callTrigger('moduleNewsAfterProdCreate', $cursor);
+				$okt['triggers']->callTrigger('moduleNewsAfterProdCreate', $cursor);
 				
 				$okt['flash']->success(__('Le produit a été ajouté.'));
 				

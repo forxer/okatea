@@ -17,12 +17,12 @@ class Extension extends AbstractExtension
 	{
 		$this->okt->l10n->loadFile(__DIR__ . '/Locales/%s/config');
 
-		$this->okt->triggers->registerTrigger('installBeforeBuildInstallStepper', array(
+		$this->okt['triggers']->registerTrigger('installBeforeBuildInstallStepper', array(
 			$this,
 			'insertStep'
 		));
 
-		$this->okt->triggers->registerTrigger('installBeforeLoadPageHelpers', array(
+		$this->okt['triggers']->registerTrigger('installBeforeLoadPageHelpers', array(
 			$this,
 			'addRoute'
 		));

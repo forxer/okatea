@@ -32,7 +32,7 @@ while ($okt->module('Contact')->rsFields->fetch())
 
 <?php
 # -- CORE TRIGGER : publicModuleContactJsValidateRules
-$okt->triggers->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->module('Contact')->config->captcha);
+$okt['triggers']->callTrigger('publicModuleContactJsValidateRules', $aJsValidateRules, $okt->module('Contact')->config->captcha);
 ?>
 
 
@@ -54,7 +54,7 @@ if (! empty($aJsValidateRules))
 
 <?php
 # -- CORE TRIGGER : publicModuleContactBeforeDisplayPage
-$okt->triggers->callTrigger('publicModuleContactBeforeDisplayPage');
+$okt['triggers']->callTrigger('publicModuleContactBeforeDisplayPage');
 ?>
 
 
@@ -195,7 +195,7 @@ if (empty($_GET['sended']))
 
 	<?php
 	# -- CORE TRIGGER : publicModuleContactTplFormBottom
-	$okt->triggers->callTrigger('publicModuleContactTplFormBottom', $okt->module('Contact')->config->captcha);
+	$okt['triggers']->callTrigger('publicModuleContactTplFormBottom', $okt->module('Contact')->config->captcha);
 	?>
 
 	<p class="submit-wrapper">

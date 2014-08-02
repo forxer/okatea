@@ -73,5 +73,5 @@ $view->extend('Layout');
 
 <?php
 # -- CORE TRIGGER : adminIndexHtmlContent
-$okt->triggers->callTrigger('adminIndexHtmlContent');
+$okt['triggers']->callTrigger('adminIndexHtmlContent');
 ?>

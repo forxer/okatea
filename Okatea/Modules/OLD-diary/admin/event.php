@@ -135,12 +135,12 @@ if (! empty($_POST['sended']))
 		if (! empty($iEventId))
 		{
 			# -- CORE TRIGGER : moduleDiaryBeforeEventUpdate
-			$okt->triggers->callTrigger('moduleDiaryBeforeEventUpdate', $cursor, $aEventData, $iEventId);
+			$okt['triggers']->callTrigger('moduleDiaryBeforeEventUpdate', $cursor, $aEventData, $iEventId);
 			
 			if ($okt->diary->updEvent($iEventId, $cursor, $aEventData))
 			{
 				# -- CORE TRIGGER : moduleDiaryAfterEventUpdate
-				$okt->triggers->callTrigger('moduleDiaryAfterEventUpdate', $cursor, $aEventData, $iEventId);
+				$okt['triggers']->callTrigger('moduleDiaryAfterEventUpdate', $cursor, $aEventData, $iEventId);
 				
 				$okt['flash']->success(__('m_diary_confirm_edited'));
 				
@@ -152,12 +152,12 @@ if (! empty($_POST['sended']))
 		else
 		{
 			# -- CORE TRIGGER : moduleDiaryBeforeEventCreate
-			$okt->triggers->callTrigger('moduleDiaryBeforeEventCreate', $cursor, $aEventData);
+			$okt['triggers']->callTrigger('moduleDiaryBeforeEventCreate', $cursor, $aEventData);
 			
 			if (($iEventId = $okt->diary->addEvent($cursor, $aEventData)) !== false)
 			{
 				# -- CORE TRIGGER : moduleDiaryAfterEventCreate
-				$okt->triggers->callTrigger('moduleDiaryAfterEventCreate', $cursor, $aEventData, $iEventId);
+				$okt['triggers']->callTrigger('moduleDiaryAfterEventCreate', $cursor, $aEventData, $iEventId);
 				
 				$okt['flash']->success(__('m_diary_confirm_added'));
 				

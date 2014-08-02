@@ -100,7 +100,7 @@ class Module extends BaseModule
 			$this->okt->page->pagesSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('Pages_config'), $this->okt['request']->attributes->get('_route') === 'Pages_config', 20, $this->okt->checkPerm('pages_config'));
 		}
 
-		$this->okt->triggers->registerTrigger('adminConfigSiteInit', array(
+		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(
 			$this,
 			'adminConfigSiteInit'
 		));
@@ -108,12 +108,12 @@ class Module extends BaseModule
 
 	protected function prepend_public()
 	{
-		$this->okt->triggers->registerTrigger('handleWebsiteHomePage', array(
+		$this->okt['triggers']->registerTrigger('handleWebsiteHomePage', array(
 			$this,
 			'handleWebsiteHomePage'
 		));
 
-		$this->okt->triggers->registerTrigger('websiteAdminBarItems', array(
+		$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 			$this,
 			'websiteAdminBarItems'
 		));

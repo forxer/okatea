@@ -1252,7 +1252,7 @@ class Page
 		{
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior => $callback)
 			{
-				$this->okt->triggers->registerTrigger($behavior, $callback);
+				$this->okt['triggers']->registerTrigger($behavior, $callback);
 			}
 
 			$loaded[] = $captchaId;

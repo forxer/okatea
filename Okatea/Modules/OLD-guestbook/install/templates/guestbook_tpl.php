@@ -52,7 +52,7 @@ $aJsValidateRules[] = 'msg: { required: true }';
 
 <?php
 # -- CORE TRIGGER : publicModuleGuestbookJsValidateRules
-$okt->triggers->callTrigger('publicModuleGuestbookJsValidateRules', $aJsValidateRules, $okt->guestbook->config->captcha);
+$okt['triggers']->callTrigger('publicModuleGuestbookJsValidateRules', $aJsValidateRules, $okt->guestbook->config->captcha);
 ?>
 
 
@@ -254,7 +254,7 @@ for ($i = 0; $i <= 20; $i ++)
 
 		<?php
 # -- CORE TRIGGER : publicModuleGuestbookTplFormBottom
-		$okt->triggers->callTrigger('publicModuleGuestbookTplFormBottom', $okt->guestbook->config->captcha);
+		$okt['triggers']->callTrigger('publicModuleGuestbookTplFormBottom', $okt->guestbook->config->captcha);
 		?>
 
 

@@ -45,7 +45,7 @@ class Update extends BaseStepper
 		];
 
 		# -- CORE TRIGGER : installBeforeBuildUpdateStepper
-		$okt->triggers->callTrigger('installBeforeBuildUpdateStepper', $this->aStepsList);
+		$okt['triggers']->callTrigger('installBeforeBuildUpdateStepper', $this->aStepsList);
 
 		parent::__construct((array) $this->aStepsList, $sCurrentStep);
 	}

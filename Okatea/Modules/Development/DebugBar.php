@@ -49,7 +49,7 @@ class DebugBar
 			return false;
 		}
 
-		$this->okt->triggers->registerTrigger('adminBeforeHtmlBodyEndTag', [
+		$this->okt['triggers']->registerTrigger('adminBeforeHtmlBodyEndTag', [
 			$this,
 			'addHtmlByBehavior'
 		]);
@@ -71,7 +71,7 @@ class DebugBar
 			return false;
 		}
 
-		$this->okt->triggers->registerTrigger('publicBeforeHtmlBodyEndTag', [
+		$this->okt['triggers']->registerTrigger('publicBeforeHtmlBodyEndTag', [
 			$this,
 			'addHtmlByBehavior'
 		]);

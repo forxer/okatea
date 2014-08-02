@@ -7,7 +7,7 @@
  */
 
 # -- CORE TRIGGER : installBeforeSendHtml
-$okt->triggers->callTrigger('installBeforeSendHtml');
+$okt['triggers']->callTrigger('installBeforeSendHtml');
 
 ?>
 <!DOCTYPE html>
@@ -66,6 +66,6 @@ $okt->triggers->callTrigger('installBeforeSendHtml');
 
 <?php
 # -- CORE TRIGGER : installBeforeHtmlBodyEndTag
-$okt->triggers->callTrigger('installBeforeHtmlBodyEndTag'); ?>
+$okt['triggers']->callTrigger('installBeforeHtmlBodyEndTag'); ?>
 </body>
 </html>

@@ -89,12 +89,12 @@ class Module extends BaseModule
 
 	protected function prepend_public()
 	{
-		$this->okt->triggers->registerTrigger('websiteAdminBarBeforeDefaultsItems', array(
+		$this->okt['triggers']->registerTrigger('websiteAdminBarBeforeDefaultsItems', array(
 			'Okatea\Modules\Users\Module',
 			'websiteAdminBarBeforeDefaultsItems'
 		));
 		
-		$this->okt->triggers->registerTrigger('websiteAdminBarItems', array(
+		$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 			'Okatea\Modules\Users\Module',
 			'websiteAdminBarItems'
 		));

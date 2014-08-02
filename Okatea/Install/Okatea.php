@@ -99,42 +99,42 @@ class Okatea extends Application
 		$this->loadExtensions();
 
 		# -- CORE TRIGGER : installBeforeStartRouter
-		$this->triggers->callTrigger('installBeforeStartRouter');
+		$this['triggers']->callTrigger('installBeforeStartRouter');
 
 		$this->router = new Router($this, __DIR__ . '/Routing/RouteProvider.php');
 
 		# -- CORE TRIGGER : installBeforeLoadPageHelpers
-		$this->triggers->callTrigger('installBeforeLoadPageHelpers');
+		$this['triggers']->callTrigger('installBeforeLoadPageHelpers');
 
 		$this->loadPageHelpers();
 
 		# -- CORE TRIGGER : installBeforeMatchRequest
-		$this->triggers->callTrigger('installBeforeMatchRequest');
+		$this['triggers']->callTrigger('installBeforeMatchRequest');
 
 		$this->matchRequest();
 
 		# -- CORE TRIGGER : installBeforeLoadStepper
-		$this->triggers->callTrigger('installBeforeLoadStepper');
+		$this['triggers']->callTrigger('installBeforeLoadStepper');
 
 		$this->loadStepper();
 
 		# -- CORE TRIGGER : installBeforeLoadTplEngine
-		$this->triggers->callTrigger('installBeforeLoadTplEngine');
+		$this['triggers']->callTrigger('installBeforeLoadTplEngine');
 
 		$this->loadTplEngine();
 
 		# -- CORE TRIGGER : installBeforeCallController
-		$this->triggers->callTrigger('installBeforeCallController');
+		$this['triggers']->callTrigger('installBeforeCallController');
 
 		$this->callController();
 
 		# -- CORE TRIGGER : installBeforePrepareResponse
-		$this->triggers->callTrigger('installBeforePrepareResponse');
+		$this['triggers']->callTrigger('installBeforePrepareResponse');
 
 		$this->response->prepare($this->okt['request']);
 
 		# -- CORE TRIGGER : installBeforeSendResponse
-		$this->triggers->callTrigger('installBeforeSendResponse');
+		$this['triggers']->callTrigger('installBeforeSendResponse');
 
 		$this->response->send();
 	}

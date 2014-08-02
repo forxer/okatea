@@ -110,7 +110,7 @@ class Module extends BaseModule
 			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt->checkPerm('news_config'));
 		}
 		
-		$this->okt->triggers->registerTrigger('adminConfigSiteInit', array(
+		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(
 			$this,
 			'adminConfigSiteInit'
 		));
@@ -122,13 +122,13 @@ class Module extends BaseModule
 		$this->publishScheduledPosts();
 		
 		# Handle website home page
-		$this->okt->triggers->registerTrigger('handleWebsiteHomePage', array(
+		$this->okt['triggers']->registerTrigger('handleWebsiteHomePage', array(
 			$this,
 			'handleWebsiteHomePage'
 		));
 		
 		# Ajout d'éléments à la barre admin
-		$this->okt->triggers->registerTrigger('websiteAdminBarItems', array(
+		$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 			$this,
 			'websiteAdminBarItems'
 		));

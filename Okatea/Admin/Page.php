@@ -206,7 +206,7 @@ class Page extends BasePage
 		$aUserBars['second'][100] = '<a href="' . $this->okt['config']->app_path . '">' . __('c_c_go_to_website') . '</a>';
 
 		# -- CORE TRIGGER : adminHeaderUserBars
-		$this->okt->triggers->callTrigger('adminHeaderUserBars', $aUserBars);
+		$this->okt['triggers']->callTrigger('adminHeaderUserBars', $aUserBars);
 
 		# sort items of user bars by keys
 		ksort($aUserBars['first']);

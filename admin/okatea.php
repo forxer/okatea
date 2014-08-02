@@ -18,7 +18,7 @@ $oktAutoloader = require __DIR__ . '/../vendor/autoload.php';
 	$okt->run();
 
 	# -- CORE TRIGGER : adminFinal
-	$okt->triggers->callTrigger('adminFinal');
+	$okt['triggers']->callTrigger('adminFinal');
 //}
 //catch (\Exception $e)
 //{

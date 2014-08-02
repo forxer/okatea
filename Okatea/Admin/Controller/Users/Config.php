@@ -95,7 +95,7 @@ class Config extends Controller
 			);
 			
 			# -- CORE TRIGGER : adminUsersConfigProcess
-			$this->okt->triggers->callTrigger('adminUsersConfigProcess', $this->aPageData);
+			$this->okt['triggers']->callTrigger('adminUsersConfigProcess', $this->aPageData);
 			
 			if (! $this->okt['flash']->hasError())
 			{
@@ -157,7 +157,7 @@ class Config extends Controller
 		$this->oTemplatesUserBar = new TemplatesSet($this->okt, $this->okt['config']->users['templates']['user_bar'], 'users/user_bar', 'user_bar', $this->generateUrl('Users_config') . '?');
 		
 		# -- CORE TRIGGER : adminUsersConfigInit
-		$this->okt->triggers->callTrigger('adminUsersConfigInit', $this->aPageData);
+		$this->okt['triggers']->callTrigger('adminUsersConfigInit', $this->aPageData);
 	}
 
 	protected function display()
@@ -234,7 +234,7 @@ class Config extends Controller
 		);
 		
 		# -- CORE TRIGGER : adminUsersEditDisplayTabs
-		$this->okt->triggers->callTrigger('adminUsersConfigTabs', $this->aPageData['Tabs']);
+		$this->okt['triggers']->callTrigger('adminUsersConfigTabs', $this->aPageData['Tabs']);
 		
 		$this->aPageData['Tabs']->ksort();
 		

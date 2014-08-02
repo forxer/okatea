@@ -109,7 +109,7 @@ else
 }
 
 # -- CORE TRIGGER : adminModUsersEditInit
-$okt->triggers->callTrigger('adminModUsersEditInit', $aEditPageInfos);
+$okt['triggers']->callTrigger('adminModUsersEditInit', $aEditPageInfos);
 
 /* Traitements
 ----------------------------------------------------------*/
@@ -252,7 +252,7 @@ if (! empty($_POST['form_sent']) && ! isset($_POST['do']) && $okt->checkPerm('us
 }
 
 # -- CORE TRIGGER : adminModUsersEditProcess
-$okt->triggers->callTrigger('adminModUsersEditProcess', $aEditPageInfos);
+$okt['triggers']->callTrigger('adminModUsersEditProcess', $aEditPageInfos);
 
 /* Affichage
 ----------------------------------------------------------*/
@@ -454,7 +454,7 @@ if ($okt->checkPerm('users_edit'))
 }
 
 # -- CORE TRIGGER : adminModUsersEditDisplayTabs
-$okt->triggers->callTrigger('adminModUsersEditDisplayTabs', $aEditPageInfos, $aEditTabs);
+$okt['triggers']->callTrigger('adminModUsersEditDisplayTabs', $aEditPageInfos, $aEditTabs);
 
 $aEditTabs->ksort();
 

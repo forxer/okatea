@@ -25,7 +25,7 @@ try
 	$okt->run();
 	
 	# -- CORE TRIGGER : installFinal
-	$okt->triggers->callTrigger('installFinal');
+	$okt['triggers']->callTrigger('installFinal');
 }
 catch (\Exception $e)
 {

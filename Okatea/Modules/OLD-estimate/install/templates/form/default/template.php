@@ -263,7 +263,7 @@ else
 
 	<?php
 # -- CORE TRIGGER : publicModuleEstimateTplFormBottom
-	$okt->triggers->callTrigger('publicModuleEstimateTplFormBottom', $okt->estimate->config->captcha);
+	$okt['triggers']->callTrigger('publicModuleEstimateTplFormBottom', $okt->estimate->config->captcha);
 	?>
 
 	<p class="submit-wrapper">
