@@ -38,7 +38,7 @@ class Advanced extends Controller
 		$this->okt->triggers->callTrigger('adminAdvancedConfigInit', $this->aPageData);
 
 		# save configuration
-		if ($this->request->request->has('form_sent') && ! $this->flash->hasError())
+		if ($this->request->request->has('form_sent') && ! $this->okt['flash']->hasError())
 		{
 			$this->othersHandleRequest();
 
@@ -52,11 +52,11 @@ class Advanced extends Controller
 			$this->okt->triggers->callTrigger('adminAdvancedConfigHandleRequest', $this->aPageData);
 
 			# save configuration
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt->config->write($this->aPageData['values']);
 
-				$this->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('config_advanced'));
 			}

@@ -33,7 +33,7 @@ class Logadmin extends Controller
 		{
 			$this->okt->logAdmin->deleteLogs();
 
-			$this->flash->success(__('c_a_config_logadmin_truncated'));
+			$this->okt['flash']->success(__('c_a_config_logadmin_truncated'));
 
 			return $this->redirect($this->generateUrl('config_logadmin'));
 		}

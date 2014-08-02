@@ -35,9 +35,7 @@ class Controller
 
 		# shortcuts
 		$this->request = & $okt->request;
-		$this->session = & $okt->session;
 		$this->page = & $okt->page;
-		$this->flash = & $okt->flash;
 	}
 
 	/**

@@ -23,6 +23,6 @@ class GuestbookHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('guestbook');
+		return $okt['router']->generate('guestbook');
 	}
 }

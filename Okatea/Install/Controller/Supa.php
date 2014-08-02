@@ -75,7 +75,7 @@ class Supa extends Controller
 			}
 
 			# si pas d'erreur on ajoutent les utilisateurs
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt->startDatabase();
 
@@ -106,9 +106,9 @@ class Supa extends Controller
 
 				$this->okt->db->query($query);
 
-				$this->session->set('okt_install_sudo_user', $aUsersData['sudo']['username']);
-				$this->session->set('okt_install_sudo_password', $aUsersData['sudo']['password']);
-				$this->session->set('okt_install_sudo_email', $aUsersData['sudo']['password']);
+				$this->okt['session']->set('okt_install_sudo_user', $aUsersData['sudo']['username']);
+				$this->okt['session']->set('okt_install_sudo_password', $aUsersData['sudo']['password']);
+				$this->okt['session']->set('okt_install_sudo_email', $aUsersData['sudo']['password']);
 
 				# insertion admin id 3
 				if (!empty($aUsersData['admin']['username']) && !empty($aUsersData['admin']['password']) && !empty($aUsersData['admin']['email']))

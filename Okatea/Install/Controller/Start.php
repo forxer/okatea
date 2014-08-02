@@ -18,7 +18,7 @@ class Start extends Controller
 
 		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->availablesLocales))
 		{
-			$this->session->set('okt_install_language', $sSwitchLanguage);
+			$this->okt['session']->set('okt_install_language', $sSwitchLanguage);
 
 			return $this->redirect($this->generateUrl('start'));
 		}

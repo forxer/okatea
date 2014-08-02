@@ -333,7 +333,7 @@ class EstimateController extends Controller
 			# -- CORE TRIGGER : publicModuleEstimateControllerFormCheckValues
 			$this->okt->triggers->callTrigger('publicModuleEstimateControllerFormCheckValues', $this->okt->estimate->config->captcha);
 			
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$_SESSION['okt_mod_estimate_form_data'] = $this->aFormData;
 				return $this->redirect(EstimateHelpers::getSummaryUrl());

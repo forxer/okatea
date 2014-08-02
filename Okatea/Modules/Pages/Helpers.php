@@ -71,7 +71,7 @@ class Helpers
 				$return .= '</li><li id="rub' . $rsCategories->id . '">';
 			}
 
-			$return .= '<a href="' . $okt->router->generate('pagesCategory', array(
+			$return .= '<a href="' . $okt['router']->generate('pagesCategory', array(
 				'slug' => $rsCategories->slug
 			)) . '">';
 
@@ -204,7 +204,7 @@ class Helpers
 
 		while ($rsChildren->fetch())
 		{
-			$sChildren = sprintf($sLinkFormat, $okt->router->generate('pagesCategory', array(
+			$sChildren = sprintf($sLinkFormat, $okt['router']->generate('pagesCategory', array(
 				'slug' => $rsChildren->slug
 			)), Escaper::html($rsChildren->title));
 

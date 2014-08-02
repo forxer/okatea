@@ -1,0 +1,28 @@
+<?php
+/*
+ * This file is part of Okatea.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace Okatea\Tao\Routing;
+
+use Okatea\Website\Router;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+
+class RouterServiceProvider implements ServiceProviderInterface
+{
+	public function register(Container $okt)
+	{
+		$okt['router'] = function($okt) {
+			return new Router(
+				$okt,
+				$okt->options->get('config_dir') . '/Routes',
+				$okt->options->get('cache_dir') . '/routing',
+				$okt->options->get('debug'),
+				$okt['logger']
+			);
+		};
+	}
+}

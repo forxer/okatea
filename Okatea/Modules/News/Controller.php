@@ -25,7 +25,7 @@ class Controller extends BaseController
 		{
 			if ($this->okt->user->is_guest)
 			{
-				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsList')));
+				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('newsList')));
 			}
 			else
 			{
@@ -191,7 +191,7 @@ class Controller extends BaseController
 		{
 			if ($this->okt->user->is_guest)
 			{
-				return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('newsCategory', array(
+				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('newsCategory', array(
 					'slug' => $this->rsCategory->slug
 				))));
 			}
@@ -338,7 +338,7 @@ class Controller extends BaseController
 		{
 			if ($this->okt->user->is_guest)
 			{
-				return $this->redirect($this->okt->router->generateLoginUrl($this->rsPost->url));
+				return $this->redirect($this->okt['router']->generateLoginUrl($this->rsPost->url));
 			}
 			else
 			{

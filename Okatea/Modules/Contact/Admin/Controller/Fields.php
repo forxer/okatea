@@ -68,11 +68,11 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false)
 				{
-					$this->flash->success(__('m_contact_fields_field_added'));
+					$this->okt['flash']->success(__('m_contact_fields_field_added'));
 					
 					return $this->redirect($this->generateUrl('Contact_field_values', array(
 						'field_id' => $this->aFieldData['id']
@@ -131,11 +131,11 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false)
 				{
-					$this->flash->success(__('m_contact_fields_field_updated'));
+					$this->okt['flash']->success(__('m_contact_fields_field_updated'));
 					
 					return $this->redirect($this->generateUrl('Contact_field', array(
 						'field_id' => $this->aFieldData['id']
@@ -193,7 +193,7 @@ class Fields extends Controller
 			
 			if ($this->okt->module('Contact')->fields->setFieldValues($iFieldId, $aValues) !== false)
 			{
-				$this->flash->success(__('m_contact_fields_field_updated'));
+				$this->okt['flash']->success(__('m_contact_fields_field_updated'));
 				
 				return $this->redirect($this->generateUrl('Contact_field_values', array(
 					'field_id' => $iFieldId
@@ -215,7 +215,7 @@ class Fields extends Controller
 		{
 			$this->okt->module('Contact')->fields->deleteField($this->request->query->get('delete'));
 			
-			$this->flash->success(__('m_contact_fields_field_deleted'));
+			$this->okt['flash']->success(__('m_contact_fields_field_deleted'));
 			
 			return $this->redirect($this->generateUrl('Contact_fields'));
 		}
@@ -262,7 +262,7 @@ class Fields extends Controller
 					$this->okt->module('Contact')->fields->updFieldOrder($id, $ord);
 				}
 				
-				$this->flash->success(__('m_contact_fields_neworder'));
+				$this->okt['flash']->success(__('m_contact_fields_neworder'));
 				
 				return $this->redirect($this->generateUrl('Contact_fields'));
 			}

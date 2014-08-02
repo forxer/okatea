@@ -17,7 +17,7 @@ if ($okt->page->action === 'delete' && !empty($_GET['item_id']) && $okt->checkPe
 {
 	if ($okt->##module_id##->delItem($_GET['item_id']))
 	{
-		$okt->flash->success(__('m_##module_id##_confirm_deleted'));
+		$okt['flash']->success(__('m_##module_id##_confirm_deleted'));
 
 		http::redirect('module.php?m=##module_id##&action=index');
 	}

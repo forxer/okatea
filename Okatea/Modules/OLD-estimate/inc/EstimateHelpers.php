@@ -23,7 +23,7 @@ class EstimateHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('estimateForm');
+		return $okt['router']->generate('estimateForm');
 	}
 
 	/**
@@ -41,6 +41,6 @@ class EstimateHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('estimateSummary');
+		return $okt['router']->generate('estimateSummary');
 	}
 }

@@ -63,37 +63,37 @@ class Okatea extends Application
 
 	public function run()
 	{
-		if ($this->session->has('okt_old_version'))
+		if ($this['session']->has('okt_old_version'))
 		{
-			$this->oldVersion = $this->session->get('okt_old_version');
+			$this->oldVersion = $this['session']->get('okt_old_version');
 		}
 
 		if ($this->request->query->has('old_version'))
 		{
 			$this->oldVersion = $this->request->query->get('old_version');
-			$this->session->set('okt_old_version', $this->oldVersion);
+			$this['session']->set('okt_old_version', $this->oldVersion);
 		}
 
 		# Initialisation localisation
-		if (! $this->session->has('okt_install_language'))
+		if (! $this['session']->has('okt_install_language'))
 		{
-			$this->session->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
+			$this['session']->set('okt_install_language', $this->request->getPreferredLanguage($this->availablesLocales));
 		}
 
-		$this->l10n = new Localization($this->session->get('okt_install_language'), $this->session->get('okt_install_language'), 'Europe/Paris');
+		$this->l10n = new Localization($this['session']->get('okt_install_language'), $this['session']->get('okt_install_language'), 'Europe/Paris');
 
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
 		$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
 		$this->l10n->loadFile(__DIR__ . '/Locales/%s/install');
 
 		# Install or update ?
-		if (! $this->session->has('okt_install_process_type'))
+		if (! $this['session']->has('okt_install_process_type'))
 		{
-			$this->session->set('okt_install_process_type', 'install');
+			$this['session']->set('okt_install_process_type', 'install');
 
 			if (file_exists($this->options->get('config_dir') . '/connection.php'))
 			{
-				$this->session->set('okt_install_process_type', 'update');
+				$this['session']->set('okt_install_process_type', 'update');
 			}
 		}
 
@@ -202,7 +202,7 @@ class Okatea extends Application
 	 */
 	protected function loadStepper()
 	{
-		if ($this->session->get('okt_install_process_type') == 'install')
+		if ($this['session']->get('okt_install_process_type') == 'install')
 		{
 			$this->stepper = new Stepper\Install($this, $this->request->attributes->get('_route'));
 		}

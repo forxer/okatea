@@ -49,7 +49,7 @@ class AdminBar
 		$aSecondaryAdminBar = new ArrayObject();
 		
 		$aBasesUrl['admin'] = $this->okt->config->app_path . 'admin/';
-		$aBasesUrl['logout'] = $this->okt->router->generate('usersLogout');
+		$aBasesUrl['logout'] = $this->okt['router']->generate('usersLogout');
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 		
 		# -- CORE TRIGGER : websiteAdminBarBeforeDefaultsItems

@@ -45,7 +45,7 @@ class Display extends Controller
 				'lightbox_type' => $this->request->request->get('p_lightbox_type')
 			));
 			
-			$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+			$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 			
 			return $this->redirect($this->generateUrl('News_display'));
 		}

@@ -105,13 +105,13 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('order_by'))
 		{
 			$this->params->order_by = $this->request->query->get('order_by');
-			$this->session->set($this->sess_prefix . 'order_by', $this->params->order_by);
+			$this->okt['session']->set($this->sess_prefix . 'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_by');
 		}
-		elseif ($this->session->has($this->sess_prefix . 'order_by'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'order_by'))
 		{
-			$this->params->order_by = $this->session->get($this->sess_prefix . 'order_by');
+			$this->params->order_by = $this->okt['session']->get($this->sess_prefix . 'order_by');
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_by');
 		}
@@ -149,13 +149,13 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('order_direction'))
 		{
 			$this->params->order_direction = $this->request->query->get('order_direction');
-			$this->session->set($this->sess_prefix . 'order_direction', $this->params->order_direction);
+			$this->okt['session']->set($this->sess_prefix . 'order_direction', $this->params->order_direction);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_direction');
 		}
-		elseif ($this->session->has($this->sess_prefix . 'order_direction'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'order_direction'))
 		{
-			$this->params->order_direction = $this->session->get($this->sess_prefix . 'order_direction');
+			$this->params->order_direction = $this->okt['session']->get($this->sess_prefix . 'order_direction');
 			$this->params->show_filters = true;
 			$this->setActiveFilter('order_direction');
 		}
@@ -180,13 +180,13 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('date_min'))
 		{
 			$this->params->date_min = $this->request->query->get('date_min');
-			$this->session->set($this->sess_prefix . 'date_min', $this->params->date_min);
+			$this->okt['session']->set($this->sess_prefix . 'date_min', $this->params->date_min);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_min');
 		}
-		elseif ($this->session->has($this->sess_prefix . 'date_min'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'date_min'))
 		{
-			$this->params->date_min = $this->session->get($this->sess_prefix . 'date_min');
+			$this->params->date_min = $this->okt['session']->get($this->sess_prefix . 'date_min');
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_min');
 		}
@@ -205,13 +205,13 @@ class LogAdmin extends BaseFilters
 		if ($this->request->query->has('date_max'))
 		{
 			$this->params->date_max = $this->request->query->get('date_max');
-			$this->session->set($this->sess_prefix . 'date_max', $this->params->date_max);
+			$this->okt['session']->set($this->sess_prefix . 'date_max', $this->params->date_max);
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_max');
 		}
-		elseif ($this->session->has($this->sess_prefix . 'date_max'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'date_max'))
 		{
-			$this->params->date_max = $this->session->get($this->sess_prefix . 'date_max');
+			$this->params->date_max = $this->okt['session']->get($this->sess_prefix . 'date_max');
 			$this->params->show_filters = true;
 			$this->setActiveFilter('date_max');
 		}

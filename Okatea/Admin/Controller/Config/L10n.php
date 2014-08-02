@@ -102,7 +102,7 @@ class L10n extends Controller
 			{
 				$this->okt->languages->updLanguage($aUpdLanguageData);
 
-				$this->flash->success(__('c_a_config_l10n_edited'));
+				$this->okt['flash']->success(__('c_a_config_l10n_edited'));
 
 				return $this->redirect($this->generateUrl('config_l10n_edit_language', array(
 					'language_id' => $iLanguageId
@@ -146,7 +146,7 @@ class L10n extends Controller
 			{
 				$iLanguageId = $this->okt->languages->addLanguage($aAddLanguageData);
 
-				$this->flash->success(__('c_a_config_l10n_added'));
+				$this->okt['flash']->success(__('c_a_config_l10n_added'));
 
 				return $this->redirect($this->generateUrl('config_l10n_edit_language', array(
 					'language_id' => $iLanguageId
@@ -230,7 +230,7 @@ class L10n extends Controller
 		{
 			$this->okt->languages->setLangStatus($this->request->query->get('enable'), 1);
 
-			$this->flash->success(__('c_a_config_l10n_enabled'));
+			$this->okt['flash']->success(__('c_a_config_l10n_enabled'));
 
 			return $this->redirect($this->generateUrl('config_l10n'));
 		}
@@ -244,7 +244,7 @@ class L10n extends Controller
 		{
 			$this->okt->languages->setLangStatus($this->request->query->get('disable'), 0);
 
-			$this->flash->success(__('c_a_config_l10n_disabled'));
+			$this->okt['flash']->success(__('c_a_config_l10n_disabled'));
 
 			return $this->redirect($this->generateUrl('config_l10n'));
 		}
@@ -258,7 +258,7 @@ class L10n extends Controller
 		{
 			$this->okt->languages->delLanguage($this->request->query->get('delete'));
 
-			$this->flash->success(__('c_a_config_l10n_deleted'));
+			$this->okt['flash']->success(__('c_a_config_l10n_deleted'));
 
 			return $this->redirect($this->generateUrl('config_l10n'));
 		}
@@ -281,7 +281,7 @@ class L10n extends Controller
 			{
 				$this->okt->languages->addLanguage($this->aAddLanguageData);
 
-				$this->flash->success(__('c_a_config_l10n_added'));
+				$this->okt['flash']->success(__('c_a_config_l10n_added'));
 
 				return $this->redirect($this->generateUrl('config_l10n'));
 			}
@@ -333,7 +333,7 @@ class L10n extends Controller
 
 				$this->okt->languages->generateCacheList();
 
-				$this->flash->success(__('c_a_config_l10n_neworder'));
+				$this->okt['flash']->success(__('c_a_config_l10n_neworder'));
 
 				return $this->redirect($this->generateUrl('config_l10n'));
 			}
@@ -346,7 +346,7 @@ class L10n extends Controller
 	{
 		if ($this->request->request->has('config_sent'))
 		{
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt->config->write(array(
 					'language' => $this->request->request->get('p_language'),
@@ -356,7 +356,7 @@ class L10n extends Controller
 
 				$this->okt->languages->generateCacheList();
 
-				$this->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('config_l10n'));
 			}

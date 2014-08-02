@@ -30,11 +30,11 @@ class Helpers
 		
 		if ($okt->users->config->enable_log_reg_page)
 		{
-			$sLoginUrl .= $okt->router->generate('usersLoginRegister');
+			$sLoginUrl .= $okt['router']->generate('usersLoginRegister');
 		}
 		else
 		{
-			$sLoginUrl .= $okt->router->generate('usersLogin');
+			$sLoginUrl .= $okt['router']->generate('usersLogin');
 		}
 		
 		if (! is_null($sRedirectUrl))
@@ -60,7 +60,7 @@ class Helpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('usersProfile');
+		return $okt['router']->generate('usersProfile');
 	}
 
 	/**
@@ -83,11 +83,11 @@ class Helpers
 		
 		if ($okt->users->config->enable_log_reg_page)
 		{
-			$sRegisterUrl .= $okt->router->generate('usersLoginRegister');
+			$sRegisterUrl .= $okt['router']->generate('usersLoginRegister');
 		}
 		else
 		{
-			$sRegisterUrl .= $okt->router->generate('usersRegister');
+			$sRegisterUrl .= $okt['router']->generate('usersRegister');
 		}
 		
 		if (! is_null($sRedirectUrl))

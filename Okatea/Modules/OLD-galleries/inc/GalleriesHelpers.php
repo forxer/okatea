@@ -23,7 +23,7 @@ class GalleriesHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('galleriesList');
+		return $okt['router']->generate('galleriesList');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class GalleriesHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('galleriesGallery', array(
+		return $okt['router']->generate('galleriesGallery', array(
 			'slug' => $sSlug
 		));
 	}
@@ -73,7 +73,7 @@ class GalleriesHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('galleriesItem', array(
+		return $okt['router']->generate('galleriesItem', array(
 			'slug' => $sSlug
 		));
 	}

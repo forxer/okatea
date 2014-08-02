@@ -111,7 +111,7 @@ class Module extends BaseModule
 	 */
 	public static function websiteAdminBarBeforeDefaultsItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
-		$aBasesUrl['logout'] = $okt->router->generate('usersLogout');
+		$aBasesUrl['logout'] = $okt['router']->generate('usersLogout');
 		
 		$aBasesUrl['profil'] = $aBasesUrl['admin'] . '/module.php?m=users&amp;action=profil&amp;id=' . $okt->user->id;
 	}

@@ -57,7 +57,7 @@ class Builder extends Controller
 		
 		if ($this->request->request->has('form_sent'))
 		{
-			$this->session->set('release_type', $this->request->request->get('type'));
+			$this->okt['session']->set('release_type', $this->request->request->get('type'));
 			
 			return $this->redirect($this->generateUrl('Builder_index', array(
 				'step' => $this->stepper->getNextStep()
@@ -222,7 +222,7 @@ class Builder extends Controller
 	{
 		$this->setMaxRessources();
 		
-		$this->session->remove('release_type');
+		$this->okt['session']->remove('release_type');
 		
 		$this->tools->removeTempDir();
 		

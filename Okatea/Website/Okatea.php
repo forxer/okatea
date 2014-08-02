@@ -51,30 +51,30 @@ class Okatea extends Application
 	public function run()
 	{
 		parent::run();
-		
+
 		$this->theme_id = $this->getTheme();
-		
+
 		$this->loadPageHelpers();
-		
+
 		$this->loadThemes('public');
-		
+
 		$this->loadTheme();
-		
+
 		$this->loadTplEngine();
-		
+
 		if ($this->config->maintenance['public'] && ! $this->user->is_superadmin)
 		{
 			$this->page->serve503();
 		}
-		
+
 		$this->loadModules('public');
-		
+
 		$this->loadAdminBar();
-		
+
 		$this->matchRequest();
-		
+
 		$this->callController();
-		
+
 		$this->sendResponse();
 	}
 
@@ -86,17 +86,17 @@ class Okatea extends Application
 	protected function getTheme()
 	{
 		$sOktTheme = $this->config->themes['desktop'];
-		
-		if ($this->session->has('okt_theme'))
+
+		if ($this['session']->has('okt_theme'))
 		{
-			$sOktTheme = $this->session->get('okt_theme');
+			$sOktTheme = $this['session']->get('okt_theme');
 		}
 		elseif (! empty($this->config->themes['mobile']) || ! empty($this->config->themes['tablet']))
 		{
 			$oMobileDetect = new \Mobile_Detect();
 			$isMobile = $oMobileDetect->isMobile() && ! empty($this->config->themes['mobile']);
 			$isTablet = $oMobileDetect->isTablet() && ! empty($this->config->themes['tablet']);
-			
+
 			if ($isMobile && ! $isTablet)
 			{
 				$sOktTheme = $this->config->themes['mobile'];
@@ -105,10 +105,10 @@ class Okatea extends Application
 			{
 				$sOktTheme = $this->config->themes['tablet'];
 			}
-			
-			$this->session->set('okt_theme', $sOktTheme);
+
+			$this['session']->set('okt_theme', $sOktTheme);
 		}
-		
+
 		return $sOktTheme;
 	}
 
@@ -131,10 +131,10 @@ class Okatea extends Application
 	{
 		$this->setTplDirectory($this->options->get('themes_dir') . '/' . $this->theme_id . '/Templates/%name%.php');
 		$this->setTplDirectory($this->options->get('themes_dir') . '/DefaultTheme/Templates/%name%.php');
-		
+
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);
-		
+
 		# assignation par défaut
 		$this->tpl->addGlobal('okt', $this);
 	}
@@ -169,10 +169,10 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : publicBeforeMatchRequest
 		$this->triggers->callTrigger('publicBeforeMatchRequest');
-		
+
 		try
 		{
-			$this->request->attributes->add($this->router->matchRequest($this->request));
+			$this->request->attributes->add($this['router']->matchRequest($this->request));
 		}
 		catch (ResourceNotFoundException $e)
 		{
@@ -190,9 +190,9 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : publicBeforeCallController
 		$this->triggers->callTrigger('publicBeforeCallController');
-		
-		$this->response = $this->router->callController();
-		
+
+		$this->response = $this['router']->callController();
+
 		if (null === $this->response || false === $this->response)
 		{
 			$this->response = new Response();
@@ -206,12 +206,12 @@ class Okatea extends Application
 	{
 		# -- CORE TRIGGER : publicBeforePrepareResponse
 		$this->triggers->callTrigger('publicBeforePrepareResponse');
-		
+
 		$this->response->prepare($this->request);
-		
+
 		# -- CORE TRIGGER : publicBeforeSendResponse
 		$this->triggers->callTrigger('publicBeforeSendResponse');
-		
+
 		$this->response->send();
 	}
 }

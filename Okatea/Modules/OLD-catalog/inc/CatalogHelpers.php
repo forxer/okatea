@@ -23,7 +23,7 @@ class CatalogHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('catalogList');
+		return $okt['router']->generate('catalogList');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class CatalogHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('catalogProduct', array(
+		return $okt['router']->generate('catalogProduct', array(
 			'slug' => $sSlug
 		));
 	}
@@ -73,7 +73,7 @@ class CatalogHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('catalogCategory', array(
+		return $okt['router']->generate('catalogCategory', array(
 			'slug' => $sSlug
 		));
 	}

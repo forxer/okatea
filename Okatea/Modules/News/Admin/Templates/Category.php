@@ -54,7 +54,7 @@ if ($aCategoryData['cat']['id'])
 	$okt->page->addButton('newsCatsBtSt', array(
 		'permission' => ($aCategoryData['cat']['active'] ? true : false),
 		'title' => __('c_c_action_Show'),
-		'url' => $okt->router->generateFromAdmin('newsCategory', array(
+		'url' => $okt['router']->generateFromAdmin('newsCategory', array(
 			'slug' => $aCategoryData['locales'][$okt->user->language]['slug']
 		), null, true),
 		'ui-icon' => 'extlink'

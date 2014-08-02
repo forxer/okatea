@@ -261,10 +261,10 @@ class Infos extends Controller
 		if ($optimize)
 		{
 			if ($this->okt->db->optimize($optimize) === false) {
-				$this->flash->error($this->okt->db->error());
+				$this->okt['flash']->error($this->okt->db->error());
 			}
 
-			$this->flash->success(__('c_a_infos_mysql_table_optimized'));
+			$this->okt['flash']->success(__('c_a_infos_mysql_table_optimized'));
 
 			return $this->redirect($this->generateUrl('config_infos'));
 		}
@@ -275,10 +275,10 @@ class Infos extends Controller
 		if ($truncate)
 		{
 			if ($this->okt->db->execute('TRUNCATE `' . $truncate . '`') === false) {
-				$this->flash->error($this->okt->db->error());
+				$this->okt['flash']->error($this->okt->db->error());
 			}
 
-			$this->flash->success(__('c_a_infos_mysql_table_truncated'));
+			$this->okt['flash']->success(__('c_a_infos_mysql_table_truncated'));
 
 			return $this->redirect($this->generateUrl('config_infos'));
 		}
@@ -290,10 +290,10 @@ class Infos extends Controller
 		{
 			if ($this->okt->db->execute('DROP TABLE `' . $drop . '`') === false)
 			{
-				$this->flash->error($this->okt->db->error());
+				$this->okt['flash']->error($this->okt->db->error());
 			}
 
-			$this->flash->success(__('c_a_infos_mysql_table_droped'));
+			$this->okt['flash']->success(__('c_a_infos_mysql_table_droped'));
 
 			return $this->redirect($this->generateUrl('config_infos'));
 		}

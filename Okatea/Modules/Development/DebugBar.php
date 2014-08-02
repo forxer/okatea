@@ -251,8 +251,8 @@ class DebugBar
 
 		$sBaseUrl = '';
 
-		//		if (isset($this->okt->router) && $this->okt->router->getFindedRoute() !== null) {
-		//			$sBaseUrl = $this->okt->page->getBaseUrl().$this->okt->router->getPath();
+		//		if (isset($this->okt['router']) && $this->okt['router']->getFindedRoute() !== null) {
+		//			$sBaseUrl = $this->okt->page->getBaseUrl().$this->okt['router']->getPath();
 		//		}
 
 

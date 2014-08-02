@@ -23,7 +23,7 @@ class FaqHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('faqList');
+		return $okt['router']->generate('faqList');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class FaqHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('faqQuestion', array(
+		return $okt['router']->generate('faqQuestion', array(
 			'slug' => $sSlug
 		));
 	}

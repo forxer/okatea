@@ -95,7 +95,7 @@ class Categories extends Controller
 				'message' => 'category #' . $iCategoryId
 			));
 			
-			$this->okt->flash->success(__('m_news_cat_deleted'));
+			$this->okt['flash']->success(__('m_news_cat_deleted'));
 			
 			return $this->redirect($this->generateUrl('News_categories'));
 		}

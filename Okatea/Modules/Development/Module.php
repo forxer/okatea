@@ -45,7 +45,7 @@ class Module extends BaseModule
 
 		# Message admin home
 		if ($this->okt->user->is_superadmin) {
-			$this->okt->flash->warning(__('m_development_adminIndexHtmlContent'));
+			$this->okt['flash']->warning(__('m_development_adminIndexHtmlContent'));
 		}
 
 		# Add admin debug bar

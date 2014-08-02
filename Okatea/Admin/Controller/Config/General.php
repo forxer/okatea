@@ -54,11 +54,11 @@ class General extends Controller
 			$this->okt->triggers->callTrigger('adminConfigSiteHandleRequest', $this->aPageData);
 
 			# save configuration
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt->config->write($this->aPageData['values']);
 
-				$this->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('config_general'));
 			}
@@ -197,10 +197,10 @@ class General extends Controller
 			if (empty($sTitle))
 			{
 				if ($this->okt->languages->unique) {
-					$this->flash->error(__('c_a_config_please_enter_website_title'));
+					$this->okt['flash']->error(__('c_a_config_please_enter_website_title'));
 				}
 				else {
-					$this->flash->error(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
+					$this->okt['flash']->error(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
 				}
 			}
 		}
@@ -249,18 +249,18 @@ class General extends Controller
 	{
 		$p_email_to = $this->request->request->get('p_email_to');
 		if (empty($p_email_to)) {
-			$this->flash->error(__('c_a_config_please_enter_email_to'));
+			$this->okt['flash']->error(__('c_a_config_please_enter_email_to'));
 		}
 		elseif (! Utilities::isEmail($p_email_to)) {
-			$this->flash->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
+			$this->okt['flash']->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 		}
 
 		$p_email_from = $this->request->request->get('p_email_from');
 		if (empty($p_email_from)) {
-			$this->flash->error(__('c_a_config_please_enter_email_from'));
+			$this->okt['flash']->error(__('c_a_config_please_enter_email_from'));
 		}
 		elseif (! Utilities::isEmail($p_email_from)) {
-			$this->flash->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
+			$this->okt['flash']->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
 		}
 
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(

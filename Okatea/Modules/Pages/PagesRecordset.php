@@ -121,7 +121,7 @@ class PagesRecordset extends BaseRecordset
 			return null;
 		}
 
-		return $this->okt->router->generate('pagesItem', array(
+		return $this->okt['router']->generate('pagesItem', array(
 			'slug' => $this->slug
 		), $sLanguage);
 	}
@@ -139,7 +139,7 @@ class PagesRecordset extends BaseRecordset
 			return null;
 		}
 
-		return $this->okt->router->generate('pagesCategory', array(
+		return $this->okt['router']->generate('pagesCategory', array(
 			'slug' => $this->category_slug
 		), $sLanguage);
 	}

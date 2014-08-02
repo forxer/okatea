@@ -5,15 +5,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Okatea\Tao;
+namespace Okatea\Tao\Session;
 
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-//use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
+//use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 /**
  * The class to handle the usual flash messages.
  */
-class FlashMessages extends FlashBag
+class FlashMessages extends AutoExpireFlashBag
 {
 	const TYPE_INFO = 'info';
 	const TYPE_SUCCESS = 'success';

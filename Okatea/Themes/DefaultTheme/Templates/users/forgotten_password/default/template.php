@@ -65,7 +65,7 @@ if ($password_sended)
 
 <p><?php _e('c_c_auth_email_sent_with_instructions') ?></p>
 <p>
-	<a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a>
+	<a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a>
 </p>
 
 
@@ -77,7 +77,7 @@ elseif ($password_updated)
 
 <p><?php _e('c_c_auth_password_updated') ?></p>
 <p>
-	<a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a>
+	<a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php _e('c_c_auth_login') ?></a>
 </p>
 
 
@@ -108,7 +108,7 @@ else
 	if ($okt->config->users['pages']['login'])
 	:
 		?>
-		<li><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php
+		<li><a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php
 		_e('c_c_auth_login')?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 

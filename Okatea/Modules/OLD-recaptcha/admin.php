@@ -42,7 +42,7 @@ if (! empty($_POST['config_send']))
 		
 		$okt->recaptcha->config->write($aNewConf);
 		
-		$okt->flash->success(__('Les clés ont été éditées.'));
+		$okt['flash']->success(__('Les clés ont été éditées.'));
 		
 		http::redirect('module.php?m=recaptcha&action=index');
 	}

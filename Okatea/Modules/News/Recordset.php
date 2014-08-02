@@ -217,7 +217,7 @@ class Recordset extends BaseRecordset
 			return null;
 		}
 		
-		return $this->okt->router->generate('newsItem', array(
+		return $this->okt['router']->generate('newsItem', array(
 			'slug' => $this->slug
 		), $sLanguage);
 	}
@@ -235,7 +235,7 @@ class Recordset extends BaseRecordset
 			return null;
 		}
 		
-		return $this->okt->router->generate('newsCategory', array(
+		return $this->okt['router']->generate('newsCategory', array(
 			'slug' => $this->category_slug
 		), $sLanguage);
 	}

@@ -19,20 +19,20 @@ use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Cache\SingleFileCache;
 use Okatea\Tao\Database\MySqli;
+use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
-use Okatea\Tao\FlashMessages;
 use Okatea\Tao\L10n\Localization;
+use Okatea\Tao\LoggerServiceProvider;
 use Okatea\Tao\Misc\DebugBar\DebugBar;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
-use Okatea\Tao\Services\Database as DatabaseServiceProvider;
-use Okatea\Tao\Services\Logger as LoggerServiceProvider;
+use Okatea\Tao\Routing\RouterServiceProvider;
+use Okatea\Tao\Session\SessionServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Users\Groups;
 use Okatea\Tao\Users\Users;
 use Okatea\Tao\Users\Visitor;
-use Okatea\Website\Router;
 use Patchwork\Utf8\Bootup as Utf8Bootup;
 use Pimple\Container;
 use Symfony\Component\Debug\Debug;
@@ -40,7 +40,6 @@ use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Routing\RequestContext;
 
 /**
@@ -126,13 +125,6 @@ class Application extends Container
 	public $languages;
 
 	/**
-	 * Logger instance.
-	 *
-	 * @var Psr\Log\LoggerInterface
-	 */
-	public $logger;
-
-	/**
 	 * Le gestionnaire de modules.
 	 *
 	 * @var Okatea\Tao\Extensions\Modules\Collection
@@ -180,13 +172,6 @@ class Application extends Container
 	 * @var Symfony\Component\HttpFoundation\Response
 	 */
 	public $response;
-
-	/**
-	 * Le routeur interne.
-	 *
-	 * @var Okatea\Tao\Routing\Router
-	 */
-	public $router;
 
 	/**
 	 * Le routeur interne de l'administration.
@@ -281,6 +266,8 @@ class Application extends Container
 
 		$this->register(new DatabaseServiceProvider());
 		$this->register(new LoggerServiceProvider());
+		$this->register(new RouterServiceProvider());
+		$this->register(new SessionServiceProvider());
 
 		$this->startHttpFoundation();
 
@@ -309,8 +296,6 @@ class Application extends Container
 		$this->startDatabase();
 
 		$this->startLanguages();
-
-		$this->startRouter();
 
 		$this->startUser();
 
@@ -420,40 +405,7 @@ class Application extends Container
 		{
 			$this->request = Request::createFromGlobals();
 
-			$this->session = new Session(
-				new NativeSessionStorage(
-					[
-						'cookie_lifetime' 	=> 0,
-						'cookie_path' 		=> $this->config->app_path,
-						'cookie_secure' 	=> $this->request->isSecure(),
-						'cookie_httponly' 	=> true,
-						'use_trans_sid' 	=> false,
-						'use_only_cookies' 	=> true
-					],
-					new \SessionHandler()
-				),
-				null,
-				new FlashMessages('okt_flashes'),
-				$this->options->get('csrf_token_name')
-			);
-
-			$this->request->setSession($this->session);
-
-			$this->flash = $this->session->getFlashBag();
-		}
-	}
-
-	public function startRouter()
-	{
-		if (null === $this->router)
-		{
-			$this->router = new Router(
-				$this,
-				$this->options->get('config_dir') . '/Routes',
-				$this->options->get('cache_dir') . '/routing',
-				$this->options->get('debug'),
-				$this['logger']
-			);
+			$this->request->setSession($this['session']);
 		}
 	}
 
@@ -490,8 +442,6 @@ class Application extends Container
 	{
 		if (null === $this->modules)
 		{
-			$this->startDatabase();
-
 			$this->modules = new ModulesCollection(
 				$this,
 				$this->options->get('modules_dir')
@@ -518,7 +468,6 @@ class Application extends Container
 	{
 		if (null === $this->themes)
 		{
-			$this->startDatabase();
 			$this->themes = new ThemesCollection(
 				$this,
 				$this->options->get('themes_dir')

@@ -36,7 +36,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->galleries->config->write($aNewConf);
 		
-		$okt->flash->success(__('c_c_confirm_configuration_updated'));
+		$okt['flash']->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=galleries&action=display');
 	}

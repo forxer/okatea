@@ -44,7 +44,7 @@ class Update extends Controller
 
 		if (! $bDigestIsReadable && ! $this->request->query->has('update_db'))
 		{
-			$this->flash->error(__('c_a_update_unable_read_digests'));
+			$this->okt['flash']->error(__('c_a_update_unable_read_digests'));
 		}
 
 		$sOkateaVersion = $this->okt->getVersion();
@@ -111,7 +111,7 @@ class Update extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->flash->error($e->getMessage());
+				$this->okt['flash']->error($e->getMessage());
 			}
 		}
 
@@ -174,7 +174,7 @@ class Update extends Controller
 					$sMessage .= '<ul><li><strong>' . implode('</strong></li><li><strong>', $e->bad_files) . '</strong></li></ul>';
 				}
 
-				$this->flash->error(__('c_a_update_error_occurred'));
+				$this->okt['flash']->error(__('c_a_update_error_occurred'));
 			}
 		}
 

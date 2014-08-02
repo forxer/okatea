@@ -29,7 +29,7 @@ class Groups extends Controller
 
 			if ($this->okt->getGroups()->deleteGroup($iGroupIdToDelete))
 			{
-				$this->okt->flash->success(__('c_a_users_group_deleted'));
+				$this->okt['flash']->success(__('c_a_users_group_deleted'));
 
 				return $this->redirect($this->generateUrl('Users_groups'));
 			}
@@ -89,11 +89,11 @@ class Groups extends Controller
 				{
 					if ($this->okt->languages->unique)
 					{
-						$this->flash->error(__('c_a_users_must_enter_group_title'));
+						$this->okt['flash']->error(__('c_a_users_must_enter_group_title'));
 					}
 					else
 					{
-						$this->flash->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->okt['flash']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
@@ -103,11 +103,11 @@ class Groups extends Controller
 				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if (($iGroupId = $this->okt->getGroups()->addGroup($aGroupData)) !== false)
 				{
-					$this->okt->flash->success(__('c_a_users_group_added'));
+					$this->okt['flash']->success(__('c_a_users_group_added'));
 
 					return $this->redirect($this->generateUrl('Users_groups_edit', array(
 						'group_id' => $iGroupId
@@ -173,11 +173,11 @@ class Groups extends Controller
 				{
 					if ($this->okt->languages->unique)
 					{
-						$this->flash->error(__('c_a_users_must_enter_group_title'));
+						$this->okt['flash']->error(__('c_a_users_must_enter_group_title'));
 					}
 					else
 					{
-						$this->flash->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->okt['flash']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
@@ -187,11 +187,11 @@ class Groups extends Controller
 				$aGroupData['perms'] = array_keys($this->okt->request->request->get('perms'));
 			}
 
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if ($this->okt->getGroups()->updGroup($iGroupId, $aGroupData))
 				{
-					$this->okt->flash->success(__('c_a_users_group_edited'));
+					$this->okt['flash']->success(__('c_a_users_group_edited'));
 
 					return $this->redirect($this->generateUrl('Users_groups_edit', array(
 						'group_id' => $iGroupId

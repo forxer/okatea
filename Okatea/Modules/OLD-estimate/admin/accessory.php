@@ -101,7 +101,7 @@ if (! empty($_POST['form_sent']))
 				$iProductId = $aAccessoryData['product_id'];
 			}
 			
-			$okt->flash->success(__('m_estimate_accessory_modified'));
+			$okt['flash']->success(__('m_estimate_accessory_modified'));
 			
 			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
 		}
@@ -119,7 +119,7 @@ if (! empty($_POST['form_sent']))
 				'message' => 'accessory #' . $iAccessoryId
 			));
 			
-			$okt->flash->success(__('m_estimate_accessory_added'));
+			$okt['flash']->success(__('m_estimate_accessory_added'));
 			
 			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
 		}

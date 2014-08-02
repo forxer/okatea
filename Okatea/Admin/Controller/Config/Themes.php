@@ -331,7 +331,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->flash->error(__('c_a_themes_not_installed'));
+			$this->okt['flash']->error(__('c_a_themes_not_installed'));
 		}
 		
 		# log admin
@@ -374,7 +374,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->flash->error(__('c_a_themes_not_updated'));
+			$this->okt['flash']->error(__('c_a_themes_not_updated'));
 		}
 		
 		Utilities::deleteOktCacheFiles();
@@ -420,7 +420,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->flash->error(__('c_a_themes_not_uninstalled'));
+			$this->okt['flash']->error(__('c_a_themes_not_uninstalled'));
 		}
 		
 		$this->okt->logAdmin->critical(array(
@@ -476,7 +476,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->flash->error(__('c_a_themes_not_correctly_reinstalled.'));
+			$this->okt['flash']->error(__('c_a_themes_not_correctly_reinstalled.'));
 		}
 		
 		# log admin
@@ -503,7 +503,7 @@ class Themes extends Controller
 		
 		if ($fs->remove($this->okt->options->get('themes_dir') . '/' . $sThemeId))
 		{
-			$this->okt->flash->success(__('c_a_themes_successfully_deleted'));
+			$this->okt['flash']->success(__('c_a_themes_successfully_deleted'));
 			
 			$this->okt->logAdmin->warning(array(
 				'code' => 42,
@@ -514,7 +514,7 @@ class Themes extends Controller
 		}
 		else
 		{
-			$this->flash->error(__('c_a_themes_not_deleted.'));
+			$this->okt['flash']->error(__('c_a_themes_not_deleted.'));
 		}
 	}
 
@@ -532,7 +532,7 @@ class Themes extends Controller
 		
 		$this->okt->themes->generateCacheList();
 		
-		$this->okt->flash->success(__('c_a_themes_common_files_replaced'));
+		$this->okt['flash']->success(__('c_a_themes_common_files_replaced'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -650,18 +650,18 @@ class Themes extends Controller
 				
 				if ($ret_code == 2)
 				{
-					$this->okt->flash->success(__('c_a_themes_theme_successfully_upgraded'));
+					$this->okt['flash']->success(__('c_a_themes_theme_successfully_upgraded'));
 				}
 				else
 				{
-					$this->okt->flash->success(__('c_a_themes_theme_successfully_added'));
+					$this->okt['flash']->success(__('c_a_themes_theme_successfully_added'));
 				}
 				
 				return $this->redirect($this->generateUrl('config_themes'));
 			}
 			catch (\Exception $e)
 			{
-				$this->flash->error($e->getMessage());
+				$this->okt['flash']->error($e->getMessage());
 				return false;
 			}
 		}
@@ -694,7 +694,7 @@ class Themes extends Controller
 			include $sTplScheme;
 		}
 		
-		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -720,7 +720,7 @@ class Themes extends Controller
 			'themes' => $aThemesConfig
 		));
 		
-		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}
@@ -746,7 +746,7 @@ class Themes extends Controller
 			'themes' => $aThemesConfig
 		));
 		
-		$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+		$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 		
 		return $this->redirect($this->generateUrl('config_themes'));
 	}

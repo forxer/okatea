@@ -39,7 +39,7 @@ $okt->page->setButtonset('newsBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_show'),
-			'url' => $okt->router->generateFromAdmin('newsList'),
+			'url' => $okt['router']->generateFromAdmin('newsList'),
 			'ui-icon' => 'extlink'
 		)
 	)

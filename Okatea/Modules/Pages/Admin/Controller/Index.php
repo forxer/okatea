@@ -166,7 +166,7 @@ class Index extends Controller
 				'message' => 'page #' . $iPostId
 			));
 
-			$this->okt->flash->success(__('m_pages_list_page_deleted'));
+			$this->okt['flash']->success(__('m_pages_list_page_deleted'));
 
 			return $this->redirect($this->generateUrl('Pages_index'));
 		}

@@ -16,7 +16,6 @@ use Okatea\Website\Controller as BaseController;
 
 class UsersController extends BaseController
 {
-
 	protected $sRedirectUrl;
 
 	protected $sUserId = '';
@@ -198,7 +197,7 @@ class UsersController extends BaseController
 		# invité non convié
 		if ($this->okt->user->is_guest)
 		{
-			return $this->redirect($this->okt->router->generateLoginUrl($this->generateUrl('usersProfile')));
+			return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('usersProfile')));
 		}
 
 		# données utilisateur
@@ -373,11 +372,11 @@ class UsersController extends BaseController
 		if (! empty($sRequestRedirectUrl))
 		{
 			$sRedirectUrl = rawurldecode($sRequestRedirectUrl);
-			$this->session->set('okt_redirect_url', $sRedirectUrl);
+			$this->okt['session']->set('okt_redirect_url', $sRedirectUrl);
 		}
-		elseif ($this->session->has('okt_redirect_url'))
+		elseif ($this->okt['session']->has('okt_redirect_url'))
 		{
-			$sRedirectUrl = $this->session->get('okt_redirect_url');
+			$sRedirectUrl = $this->okt['session']->get('okt_redirect_url');
 		}
 		else
 		{
@@ -392,9 +391,9 @@ class UsersController extends BaseController
 	 */
 	protected function unsetSessionRedirectUrl()
 	{
-		if ($this->session->has('okt_redirect_url'))
+		if ($this->okt['session']->has('okt_redirect_url'))
 		{
-			$this->session->remove('okt_redirect_url');
+			$this->okt['session']->remove('okt_redirect_url');
 		}
 	}
 
@@ -573,7 +572,7 @@ class UsersController extends BaseController
 					'user' => Users::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname, $rsUser->displayname),
 					'username' => $rsUser->username,
 					'password' => $this->aUserRegisterData['password'],
-					'validate_url' => $this->okt->router->generateRegisterUrl(null, array(), null, true) . '?uid=' . $rsUser->id . '&key=' . rawurlencode($rsUser->activate_key)
+					'validate_url' => $this->okt['router']->generateRegisterUrl(null, array(), null, true) . '?uid=' . $rsUser->id . '&key=' . rawurlencode($rsUser->activate_key)
 				);
 
 				$oMail->setSubject(sprintf(__('c_c_emails_welcom_on_%s'), $aMailParams['site_title']));

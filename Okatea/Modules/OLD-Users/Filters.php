@@ -159,23 +159,23 @@ class Filters extends BaseFilters
 				$this->params->order_direction = 'asc';
 			}
 			
-			$this->session->set($this->sess_prefix . 'order_direction', $this->params->order_direction);
+			$this->okt['session']->set($this->sess_prefix . 'order_direction', $this->params->order_direction);
 		}
-		elseif ($this->session->has($this->sess_prefix . 'order_direction'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'order_direction'))
 		{
 			$this->params->show_filters = true;
-			$this->params->order_direction = $this->session->get($this->sess_prefix . 'order_direction');
+			$this->params->order_direction = $this->okt['session']->get($this->sess_prefix . 'order_direction');
 		}
 		
 		if (isset($_GET['order_by']))
 		{
 			$this->params->order_by = $_GET['order_by'];
-			$this->session->set($this->sess_prefix . 'order_by', $this->params->order_by);
+			$this->okt['session']->set($this->sess_prefix . 'order_by', $this->params->order_by);
 			$this->params->show_filters = true;
 		}
-		elseif ($this->session->has($this->sess_prefix . 'order_by'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'order_by'))
 		{
-			$this->params->order_by = $this->session->get($this->sess_prefix . 'order_by');
+			$this->params->order_by = $this->okt['session']->get($this->sess_prefix . 'order_by');
 			$this->params->show_filters = true;
 		}
 		

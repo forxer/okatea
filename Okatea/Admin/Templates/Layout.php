@@ -46,34 +46,34 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 					<h2 id="breadcrumb"><?php echo $okt->page->breadcrumb->getBreadcrumb('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
 					<?php # affichage des éventuels messages d'erreurs
-					if ($okt->flash->hasError()) :
+					if ($okt['flash']->hasError()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\FlashMessages::TYPE_ERROR,
-							'messages'    => $okt->flash->getError()
+							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_ERROR,
+							'messages'    => $okt['flash']->getError()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages d'avertissements
-					if ($okt->flash->hasWarning()) :
+					if ($okt['flash']->hasWarning()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\FlashMessages::TYPE_WARNING,
-							'messages'    => $okt->flash->getWarning()
+							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_WARNING,
+							'messages'    => $okt['flash']->getWarning()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages de confirmation
-					if ($okt->flash->hasSuccess()) :
+					if ($okt['flash']->hasSuccess()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\FlashMessages::TYPE_SUCCESS,
-							'messages'    => $okt->flash->getSuccess()
+							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_SUCCESS,
+							'messages'    => $okt['flash']->getSuccess()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages d'information
-					if ($okt->flash->hasInfo()) :
+					if ($okt['flash']->hasInfo()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\FlashMessages::TYPE_INFO,
-							'messages'    => $okt->flash->getInfo()
+							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_INFO,
+							'messages'    => $okt['flash']->getInfo()
 						]);
 					endif; ?>
 				</div><!-- #messages -->

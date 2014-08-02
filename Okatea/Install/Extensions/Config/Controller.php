@@ -89,7 +89,7 @@ class Controller extends BaseController
 			];
 
 			# save configuration
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$this->okt->config->write($aValues);
 

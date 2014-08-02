@@ -27,7 +27,7 @@ class Database extends Controller
 				continue;
 			}
 
-			$xsql = new XmlSql($this->okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->session->get('okt_install_process_type'));
+			$xsql = new XmlSql($this->okt->db, file_get_contents($oFileInfo->getPathname()), $oChecklist, $this->okt['session']->get('okt_install_process_type'));
 			$xsql->replace('{{PREFIX}}', $this->okt->db->prefix);
 			$xsql->execute();
 		}

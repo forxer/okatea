@@ -134,7 +134,7 @@ if (! empty($_POST['sended']))
 		
 		$okt->partners->updPartner($params);
 		
-		$okt->flash->success(__('m_partners_updated'));
+		$okt['flash']->success(__('m_partners_updated'));
 		
 		http::redirect('module.php?m=partners&action=edit&partner_id=' . $partner_id);
 	}
@@ -144,7 +144,7 @@ if (! empty($_POST['sended']))
 	{
 		$partner_id = $okt->partners->addPartner($params);
 		
-		$okt->flash->success(__('m_partners_added'));
+		$okt['flash']->success(__('m_partners_added'));
 		
 		http::redirect('module.php?m=partners&action=edit&partner_id=' . $partner_id);
 	}

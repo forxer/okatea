@@ -80,7 +80,7 @@ class Controller extends BaseController
 			$this->okt->triggers->callTrigger('publicModuleContactControllerFormCheckValues', $this->okt->module('Contact')->config->captcha);
 			
 			# si on as pas d'erreur on se préparent à envoyer le mail
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$oMail = new Mailer($this->okt);
 				

@@ -39,7 +39,7 @@ class Extension extends AbstractExtension
 
 	public function addRoute()
 	{
-		$this->okt->router->getRouteCollection()->add('themes', new Route('/themes', array(
+		$this->okt['router']->getRouteCollection()->add('themes', new Route('/themes', array(
 			'controller' => 'Okatea\Install\Extensions\Themes\Controller::page'
 		)));
 	}

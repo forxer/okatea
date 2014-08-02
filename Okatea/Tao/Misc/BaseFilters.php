@@ -15,7 +15,6 @@ use Okatea\Tao\Misc\ParametersHolder;
  */
 class BaseFilters
 {
-
 	protected $id;
 
 	protected $form_id;
@@ -35,23 +34,21 @@ class BaseFilters
 	public function __construct($okt, $id, $config, $part, $params = array())
 	{
 		$this->okt = $okt;
-		
+
 		$this->request = $this->okt->request;
-		
-		$this->session = $this->okt->session;
-		
+
 		$this->id = $id;
-		
+
 		$this->config = $config;
-		
+
 		$this->setPart($part);
-		
+
 		$this->setDefaultParams();
-		
+
 		$params = array_merge($this->defaults_params, $params);
-		
+
 		$this->params = new ParametersHolder($params);
-		
+
 		$this->actives_filters = array();
 	}
 
@@ -70,16 +67,16 @@ class BaseFilters
 		if ($part === 'admin')
 		{
 			$this->part = 'admin';
-			
+
 			$this->sess_prefix = 'sess_' . $this->id . '_fltr_admin_';
 		}
 		else
 		{
 			$this->part = 'public';
-			
+
 			$this->sess_prefix = 'sess_' . $this->id . '_fltr_public_';
 		}
-		
+
 		$this->form_id = 'filters_form_' . $this->part . '_' . $this->id;
 	}
 
@@ -110,14 +107,14 @@ class BaseFilters
 	public function initFilters()
 	{
 		$leng = strlen($this->sess_prefix);
-		
-		foreach ($this->session->all() as $k => $v)
+
+		foreach ($this->okt['session']->all() as $k => $v)
 		{
 			$cur_prefix = substr($k, 0, $leng);
-			
+
 			if ($cur_prefix == $this->sess_prefix)
 			{
-				$this->session->remove($k);
+				$this->okt['session']->remove($k);
 			}
 		}
 	}
@@ -126,7 +123,7 @@ class BaseFilters
 	{
 		# page
 		$this->setFilterPage();
-		
+
 		# number per page
 		$this->setFilterNbPerPage();
 	}
@@ -136,14 +133,14 @@ class BaseFilters
 		if ($this->request->query->has($name))
 		{
 			$this->params->$name = $this->request->query->get($name);
-			$this->session->set($this->sess_prefix . $name, $this->params->$name);
-			
+			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
+
 			$this->setActiveFilter($name);
 		}
-		elseif ($this->session->has($this->sess_prefix . $name))
+		elseif ($this->okt['session']->has($this->sess_prefix . $name))
 		{
-			$this->params->$name = $this->session->get($this->sess_prefix . $name);
-			
+			$this->params->$name = $this->okt['session']->get($this->sess_prefix . $name);
+
 			$this->setActiveFilter($name);
 		}
 	}
@@ -153,14 +150,14 @@ class BaseFilters
 		if ($this->request->query->has($name) /*&& $this->request->query->getInt($name) != -1 */)
 		{
 			$this->params->$name = $this->request->query->getInt($name);
-			$this->session->set($this->sess_prefix . $name, $this->params->$name);
-			
+			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
+
 			$this->setActiveFilter($name);
 		}
-		elseif ($this->session->has($this->sess_prefix . $name))
+		elseif ($this->okt['session']->has($this->sess_prefix . $name))
 		{
-			$this->params->$name = $this->session->get($this->sess_prefix . $name);
-			
+			$this->params->$name = $this->okt['session']->get($this->sess_prefix . $name);
+
 			$this->setActiveFilter($name);
 		}
 	}
@@ -170,22 +167,22 @@ class BaseFilters
 		if ($this->request->query->has($name))
 		{
 			$this->params->$name = $this->request->query->getInt($name);
-			$this->session->set($this->sess_prefix . $name, $this->params->$name);
-			
+			$this->okt['session']->set($this->sess_prefix . $name, $this->params->$name);
+
 			$this->setActiveFilter($name);
 		}
 		elseif ($this->request->query->has($this->getFilterSubmitName()))
 		{
 			$this->params->$name = 0;
-			if ($this->session->has($this->sess_prefix . $name))
+			if ($this->okt['session']->has($this->sess_prefix . $name))
 			{
-				$this->session->delete($this->sess_prefix . $name);
+				$this->okt['session']->delete($this->sess_prefix . $name);
 			}
 		}
-		elseif ($this->session->has($this->sess_prefix . $name))
+		elseif ($this->okt['session']->has($this->sess_prefix . $name))
 		{
-			$this->params->$name = $this->session->get($this->sess_prefix . $name);
-			
+			$this->params->$name = $this->okt['session']->get($this->sess_prefix . $name);
+
 			$this->setActiveFilter($name);
 		}
 	}
@@ -196,10 +193,10 @@ class BaseFilters
 		{
 			$this->params->show_filters = true;
 			$this->actives_filters[] = $name;
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -214,7 +211,7 @@ class BaseFilters
 		{
 			return $class;
 		}
-		
+
 		return '';
 	}
 
@@ -228,12 +225,12 @@ class BaseFilters
 		if ($this->request->attributes->has('page') || $this->request->query->has('page'))
 		{
 			$this->params->page = $this->request->attributes->getInt('page', $this->request->query->getInt('page'));
-			
-			$this->session->set($this->sess_prefix . 'page', $this->params->page);
+
+			$this->okt['session']->set($this->sess_prefix . 'page', $this->params->page);
 		}
-		elseif ($this->session->has($this->sess_prefix . 'page'))
+		elseif ($this->okt['session']->has($this->sess_prefix . 'page'))
 		{
-			$this->params->page = $this->session->get($this->sess_prefix . 'page');
+			$this->params->page = $this->okt['session']->get($this->sess_prefix . 'page');
 		}
 		else
 		{
@@ -244,12 +241,12 @@ class BaseFilters
 	public function normalizePage($num_pages)
 	{
 		$num_pages = intval($num_pages);
-		
+
 		if ($num_pages > 0 && $this->params->page > $num_pages)
 		{
 			$this->params->page = $num_pages;
-			
-			$this->session->set($this->sess_prefix . 'page', $this->params->page);
+
+			$this->okt['session']->set($this->sess_prefix . 'page', $this->params->page);
 		}
 	}
 
@@ -259,9 +256,9 @@ class BaseFilters
 		{
 			return null;
 		}
-		
+
 		$this->setIntFilter('nb_per_page');
-		
+
 		$this->fields['nb_per_page'] = array(
 			$this->form_id . '_nb_per_page',
 			__('c_c_sorting_Number_per_page'),
@@ -271,10 +268,10 @@ class BaseFilters
 			), 3, 3, $this->params->nb_per_page, $this->getActiveClass('nb_per_page'))
 		);
 	}
-	
+
 	/* HTML
 	------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le HTML des filtres
 	 *
@@ -283,20 +280,20 @@ class BaseFilters
 	public function getFiltersFields($bloc_format = '<div class="four-cols">%s</div>', $item_format = '<p class="col field"><label for="%s">%s</label>%s</p>')
 	{
 		$block = '';
-		
+
 		foreach ($this->fields as $field_id => $field)
 		{
 			$block .= sprintf($item_format, $this->fields[$id][0], $this->fields[$id][1], $this->fields[$id][2]);
 		}
-		
+
 		return sprintf($bloc_format, $block);
 	}
 
 	/**
 	 * Retourne le HTML d'un filtre
 	 *
-	 * @param $id string        	
-	 * @param $item_format string        	
+	 * @param $id string
+	 * @param $item_format string
 	 * @return string
 	 */
 	public function getFilter($id, $item_format = '<p class="col field"><label for="%s">%s</label>%s</p>')

@@ -92,7 +92,7 @@ if (! empty($_GET['delete']))
 {
 	if ($okt->catalog->delCategory(intval($_GET['delete'])))
 	{
-		$okt->flash->success(__('Catégorie supprimée.'));
+		$okt['flash']->success(__('Catégorie supprimée.'));
 		
 		http::redirect('module.php?m=catalog&action=categories');
 	}
@@ -115,7 +115,7 @@ if (! empty($_POST['add_category']))
 		
 		if (($neo_id = $okt->catalog->addCategory(1, $add_category_name, $add_category_slug, $add_category_parent)) !== false)
 		{
-			$okt->flash->success(__('La catégorie a été ajoutée.'));
+			$okt['flash']->success(__('La catégorie a été ajoutée.'));
 			
 			http::redirect('module.php?m=catalog&action=categories');
 		}
@@ -144,7 +144,7 @@ if (! empty($_POST['edit_category']) && $category_id)
 		
 		if ($okt->catalog->updCategory($category_id, $edit_category_active, $edit_category_name, $edit_category_slug, $edit_category_parent) !== false)
 		{
-			$okt->flash->success(__('La catégorie a été  mise à jour.'));
+			$okt['flash']->success(__('La catégorie a été  mise à jour.'));
 			
 			http::redirect('module.php?m=catalog&action=categories');
 		}
@@ -182,7 +182,7 @@ if (! empty($_POST['ordered']) && ! empty($order))
 	
 	$okt->catalog->rebuildTree();
 	
-	$okt->flash->success(__('L’ordre des catégories a été mis à jour.'));
+	$okt['flash']->success(__('L’ordre des catégories a été mis à jour.'));
 	
 	http::redirect('module.php?m=catalog&action=categories&category_id=' . $category_id);
 }

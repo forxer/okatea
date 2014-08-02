@@ -23,7 +23,7 @@ class DiaryHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('diaryList');
+		return $okt['router']->generate('diaryList');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class DiaryHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('diaryEvent', array(
+		return $okt['router']->generate('diaryEvent', array(
 			'slug' => $sSlug
 		));
 	}

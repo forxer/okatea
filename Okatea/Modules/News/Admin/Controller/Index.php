@@ -211,7 +211,7 @@ class Index extends Controller
 				'message' => 'post #' . $iPostId
 			));
 			
-			$this->okt->flash->success(__('m_news_list_post_deleted'));
+			$this->okt['flash']->success(__('m_news_list_post_deleted'));
 			
 			return $this->redirect($this->generateUrl('News_index'));
 		}
@@ -282,7 +282,7 @@ class Index extends Controller
 				'message' => 'post #' . $iPostId
 			));
 			
-			$this->okt->flash->success(__('m_news_list_post_selected'));
+			$this->okt['flash']->success(__('m_news_list_post_selected'));
 			
 			return $this->redirect($this->generateUrl('News_index'));
 		}
@@ -307,7 +307,7 @@ class Index extends Controller
 				'message' => 'post #' . $iPostId
 			));
 			
-			$this->okt->flash->success(__('m_news_list_post_deselected'));
+			$this->okt['flash']->success(__('m_news_list_post_deselected'));
 			
 			return $this->redirect($this->generateUrl('News_index'));
 		}
@@ -332,7 +332,7 @@ class Index extends Controller
 				'message' => 'post #' . $iPostId
 			));
 			
-			$this->okt->flash->success(__('m_news_list_post_published'));
+			$this->okt['flash']->success(__('m_news_list_post_published'));
 			
 			return $this->redirect($this->generateUrl('News_index'));
 		}
@@ -394,7 +394,7 @@ class Index extends Controller
 				}
 			}
 			
-			$this->okt->flash->success(__('m_news_list_posts_published'));
+			$this->okt['flash']->success(__('m_news_list_posts_published'));
 		}
 		elseif ($sAction === 'selected')
 		{
@@ -410,7 +410,7 @@ class Index extends Controller
 				}
 			}
 			
-			$this->okt->flash->success(__('m_news_list_posts_selected'));
+			$this->okt['flash']->success(__('m_news_list_posts_selected'));
 		}
 		elseif ($sAction === 'unselected')
 		{
@@ -426,7 +426,7 @@ class Index extends Controller
 				}
 			}
 			
-			$this->okt->flash->success(__('m_news_list_posts_deselected'));
+			$this->okt['flash']->success(__('m_news_list_posts_deselected'));
 		}
 		elseif ($sAction === 'delete' && $this->okt->checkPerm('news_delete'))
 		{
@@ -442,7 +442,7 @@ class Index extends Controller
 				}
 			}
 			
-			$this->okt->flash->success(__('m_news_list_posts_deleted'));
+			$this->okt['flash']->success(__('m_news_list_posts_deleted'));
 		}
 		
 		return $this->redirect($this->generateUrl('News_index'));

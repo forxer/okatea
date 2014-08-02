@@ -78,7 +78,7 @@ if (! empty($aPostData['post']['id']))
 		$okt->page->addButton('newsBtSt', array(
 			'permission' => ($aPostData['post']['active'] ? true : false),
 			'title' => __('c_c_action_Show'),
-			'url' => $okt->router->generateFromAdmin('newsItem', array(
+			'url' => $okt['router']->generateFromAdmin('newsItem', array(
 				'slug' => $aPostData['locales'][$okt->user->language]['slug']
 			), null, true),
 			'ui-icon' => 'extlink'

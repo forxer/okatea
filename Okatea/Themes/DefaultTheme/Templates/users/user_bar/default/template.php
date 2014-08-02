@@ -36,13 +36,13 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 		<?php # début Okatea : lien page connexion
 		if ($okt->config->users['pages']['login']) : ?>
 		- <a
-			href="<?php echo $okt->router->generateLoginUrl($okt->request->getUri()) ?>"><?php
+			href="<?php echo $okt['router']->generateLoginUrl($okt->request->getUri()) ?>"><?php
 		_e('c_c_auth_login')?></a>
 		<?php endif; # fin Okatea : lien page connexion ?>
 
 		<?php # début Okatea : lien page inscription
 		if ($okt->config->users['pages']['register']) : ?>
-		- <a href="<?php echo $okt->router->generateregisterUrl() ?>"><?php
+		- <a href="<?php echo $okt['router']->generateregisterUrl() ?>"><?php
 		_e('c_c_auth_register')?></a>
 		<?php endif; # fin Okatea : lien page inscription ?>
 

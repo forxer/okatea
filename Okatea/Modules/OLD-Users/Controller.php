@@ -463,11 +463,11 @@ class Controller extends BaseController
 		if (! empty($sRequestRedirectUrl))
 		{
 			$sRedirectURL = rawurldecode($sRequestRedirectUrl);
-			$this->session->set('okt_sess_redirect', $sRedirectURL);
+			$this->okt['session']->set('okt_sess_redirect', $sRedirectURL);
 		}
-		elseif ($this->session->has('okt_sess_redirect'))
+		elseif ($this->okt['session']->has('okt_sess_redirect'))
 		{
-			$sRedirectURL = $this->session->get('okt_sess_redirect');
+			$sRedirectURL = $this->okt['session']->get('okt_sess_redirect');
 		}
 		else
 		{
@@ -482,9 +482,9 @@ class Controller extends BaseController
 	 */
 	protected function unsetSessionRedirectUrl()
 	{
-		if ($this->session->has('okt_sess_redirect'))
+		if ($this->okt['session']->has('okt_sess_redirect'))
 		{
-			$this->session->remove('okt_sess_redirect');
+			$this->okt['session']->remove('okt_sess_redirect');
 		}
 	}
 

@@ -33,7 +33,7 @@ class Home extends Controller
 		$this->updateNotification();
 
 		if ($this->okt->options->get('debug')) {
-			$this->flash->warning(__('c_a_public_debug_mode_enabled'));
+			$this->okt['flash']->warning(__('c_a_public_debug_mode_enabled'));
 		}
 
 		return $this->render('Home', array(

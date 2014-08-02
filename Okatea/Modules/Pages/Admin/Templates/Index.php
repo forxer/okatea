@@ -40,7 +40,7 @@ $okt->page->setButtonset('pagesBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_show'),
-			'url' => $okt->router->generateFromAdmin('pagesList'),
+			'url' => $okt['router']->generateFromAdmin('pagesList'),
 			'ui-icon' => 'extlink'
 		)
 	)

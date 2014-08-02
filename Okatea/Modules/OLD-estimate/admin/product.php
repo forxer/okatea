@@ -89,7 +89,7 @@ if (! empty($_POST['form_sent']))
 				'message' => 'product #' . $iProductId
 			));
 			
-			$okt->flash->success(__('m_estimate_product_modified'));
+			$okt['flash']->success(__('m_estimate_product_modified'));
 			
 			http::redirect('module.php?m=estimate&action=product&product_id=' . $iProductId);
 		}
@@ -107,7 +107,7 @@ if (! empty($_POST['form_sent']))
 				'message' => 'product #' . $iProductId
 			));
 			
-			$okt->flash->success(__('m_estimate_product_added'));
+			$okt['flash']->success(__('m_estimate_product_added'));
 			
 			http::redirect('module.php?m=estimate&action=product&product_id=' . $iProductId);
 		}

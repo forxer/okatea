@@ -16,7 +16,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Tools extends Controller
 {
-
 	protected $aPageData;
 
 	protected $oCacheFiles;
@@ -282,7 +281,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir') . '/' . $sCacheFile);
 
-			$this->flash->success(__('c_a_tools_cache_confirm'));
+			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -293,7 +292,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt->options->public_dir . '/cache/' . $sPublicCacheFile);
 
-			$this->flash->success(__('c_a_tools_cache_confirm'));
+			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -305,7 +304,7 @@ class Tools extends Controller
 
 			Utilities::deleteOktPublicCacheFiles();
 
-			$this->flash->success(__('c_a_tools_cache_confirms'));
+			$this->okt['flash']->success(__('c_a_tools_cache_confirms'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -351,7 +350,7 @@ class Tools extends Controller
 					$fs->remove($finder);
 				}
 
-				$this->flash->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
+				$this->okt['flash']->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -370,7 +369,7 @@ class Tools extends Controller
 			$fp = fopen($this->okt->options->get('root_dir') . '/' . $sFilename, 'wb');
 			if ($fp === false)
 			{
-				$this->flash->error(__('c_a_tools_backup_unable_write_file'));
+				$this->okt['flash']->error(__('c_a_tools_backup_unable_write_file'));
 			}
 
 			try
@@ -396,13 +395,13 @@ class Tools extends Controller
 				fclose($fp);
 				$zip->close();
 
-				$this->flash->success(__('c_a_tools_backup_done'));
+				$this->okt['flash']->success(__('c_a_tools_backup_done'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
 			catch (\Exception $e)
 			{
-				$this->flash->error($e->getMessage());
+				$this->okt['flash']->error($e->getMessage());
 			}
 		}
 
@@ -461,7 +460,7 @@ class Tools extends Controller
 			fwrite($fp, $return);
 			fclose($fp);
 
-			$this->flash->success(__('c_a_tools_backup_done'));
+			$this->okt['flash']->success(__('c_a_tools_backup_done'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -472,7 +471,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt->options->get('root_dir') . '/' . $sBackupFileToDelete);
 
-			$this->flash->success(__('c_a_tools_backup_deleted'));
+			$this->okt['flash']->success(__('c_a_tools_backup_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -495,17 +494,17 @@ class Tools extends Controller
 		{
 			if ($this->bHtaccessExists)
 			{
-				$this->flash->error(__('c_a_tools_htaccess_allready_exists'));
+				$this->okt['flash']->error(__('c_a_tools_htaccess_allready_exists'));
 			}
 			elseif (! $this->bHtaccessDistExists)
 			{
-				$this->flash->error(__('c_a_tools_htaccess_template_not_exists'));
+				$this->okt['flash']->error(__('c_a_tools_htaccess_template_not_exists'));
 			}
 			else
 			{
 				file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', file_get_contents($this->okt->options->get('root_dir') . '/.htaccess.oktDist'));
 
-				$this->flash->success(__('c_a_tools_htaccess_created'));
+				$this->okt['flash']->success(__('c_a_tools_htaccess_created'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -516,7 +515,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt->options->get('root_dir') . '/.htaccess');
 
-			$this->flash->success(__('c_a_tools_htaccess_deleted'));
+			$this->okt['flash']->success(__('c_a_tools_htaccess_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -526,7 +525,7 @@ class Tools extends Controller
 		{
 			file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', $this->request->request->get('p_htaccess_content'));
 
-			$this->flash->success(__('c_a_tools_htaccess_edited'));
+			$this->okt['flash']->success(__('c_a_tools_htaccess_edited'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -569,8 +568,8 @@ class Tools extends Controller
 			Utilities::deleteOktPublicCacheFiles(true);
 
 			# destroy session data
-			$this->session->clear();
-			$this->session->invalidate();
+			$this->okt['session']->clear();
+			$this->okt['session']->invalidate();
 
 			# prepare redirect to install screen response
 			$response = $this->redirect($this->okt->config->app_path.'install');

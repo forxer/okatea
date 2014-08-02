@@ -21,7 +21,7 @@ $okt->page->meta_description = $okt->page->getSiteMetaDesc();
 $okt->page->meta_keywords = $okt->page->getSiteMetaKeywords();
 
 # fil d'ariane
-$okt->page->breadcrumb->add(__('c_c_auth_register'), $this->okt->router->generateLoginUrl());
+$okt->page->breadcrumb->add(__('c_c_auth_register'), $this->okt['router']->generateLoginUrl());
 
 $view->extend('Layout');
 
@@ -258,7 +258,7 @@ if (! empty($_REQUEST['registered']))
 	if ($okt->config->users['pages']['login'])
 	:
 		?>
-		<li><a href="<?php echo $okt->router->generateLoginUrl() ?>"><?php
+		<li><a href="<?php echo $okt['router']->generateLoginUrl() ?>"><?php
 		_e('c_c_auth_login')?></a></li>
 		<?php endif; # fin Okatea : lien page connexion ?>
 

@@ -15,7 +15,7 @@ class Checks extends Controller
 
 	public function page()
 	{
-		$oRequirements = new Requirements($this->okt, $this->session->get('okt_install_language'));
+		$oRequirements = new Requirements($this->okt, $this->okt['session']->get('okt_install_language'));
 		
 		$aResults = $oRequirements->getResultsFromHtmlCheckList();
 		

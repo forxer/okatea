@@ -41,7 +41,7 @@ class Controller extends BaseController
 	 */
 	public function generateUrl($route, $parameters = array(), $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
 	{
-		return $this->okt->router->generate($route, $parameters, $language = null, $referenceType);
+		return $this->okt['router']->generate($route, $parameters, $language = null, $referenceType);
 	}
 
 	/**

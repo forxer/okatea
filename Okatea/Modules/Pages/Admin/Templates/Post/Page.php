@@ -68,7 +68,7 @@ if (! empty($aPageData['post']['id']))
 		$okt->page->addButton('pagesBtSt', array(
 			'permission' => ($aPageData['post']['active'] ? true : false),
 			'title' => __('c_c_action_Show'),
-			'url' => $okt->router->generateFromAdmin('pagesItem', array(
+			'url' => $okt['router']->generateFromAdmin('pagesItem', array(
 				'slug' => $aPageData['locales'][$okt->user->language]['slug']
 			), null, true),
 			'ui-icon' => 'extlink'

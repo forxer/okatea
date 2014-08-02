@@ -31,7 +31,7 @@ class SymfonyHttpDriver implements HttpDriverInterface
 
 	public function __construct($session, $response = null)
 	{
-		$this->session = $session;
+		$this->okt['session'] = $session;
 		$this->response = $response;
 	}
 
@@ -51,8 +51,8 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function isSessionStarted()
 	{
-		$this->session->start();
-		return $this->session->isStarted();
+		$this->okt['session']->start();
+		return $this->okt['session']->isStarted();
 	}
 
 	/**
@@ -60,7 +60,7 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function setSessionValue($name, $value)
 	{
-		$this->session->set($name, $value);
+		$this->okt['session']->set($name, $value);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function hasSessionValue($name)
 	{
-		return $this->session->has($name);
+		return $this->okt['session']->has($name);
 	}
 
 	/**
@@ -76,7 +76,7 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function getSessionValue($name)
 	{
-		return $this->session->get($name);
+		return $this->okt['session']->get($name);
 	}
 
 	/**
@@ -84,6 +84,6 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function deleteSessionValue($name)
 	{
-		$this->session->remove($name);
+		$this->okt['session']->remove($name);
 	}
 }

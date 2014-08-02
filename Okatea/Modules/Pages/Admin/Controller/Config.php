@@ -42,7 +42,7 @@ class Config extends Controller
 		{
 			$this->okt->module('Pages')->pages->getImageUpload()->regenMinImages();
 
-			$this->okt->flash->success(__('c_c_confirm_thumb_regenerated'));
+			$this->okt['flash']->success(__('c_c_confirm_thumb_regenerated'));
 
 			return $this->redirect($this->generateUrl('Pages_config'));
 		}
@@ -54,7 +54,7 @@ class Config extends Controller
 				'images' => $oImageUploadConfig->removeWatermak()
 			));
 
-			$this->okt->flash->success(__('c_c_confirm_watermark_deleted'));
+			$this->okt['flash']->success(__('c_c_confirm_watermark_deleted'));
 
 			return $this->redirect($this->generateUrl('Pages_config'));
 		}
@@ -73,7 +73,7 @@ class Config extends Controller
 				);
 			}
 
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$aNewConf = array(
 					'enable_metas' => $this->okt->request->request->has('p_enable_metas'),
@@ -114,7 +114,7 @@ class Config extends Controller
 
 				$this->okt->module('Pages')->config->write($aNewConf);
 
-				$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('Pages_config'));
 			}

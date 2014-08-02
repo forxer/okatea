@@ -196,7 +196,7 @@ if (! empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdUpdate
 				$okt->triggers->callTrigger('moduleNewsAfterProdUpdate', $cursor, $product_id);
 				
-				$okt->flash->success(__('Le produit a été mis à jour.'));
+				$okt['flash']->success(__('Le produit a été mis à jour.'));
 				
 				http::redirect('module.php?m=catalog&action=edit&product_id=' . $product_id);
 			}
@@ -212,7 +212,7 @@ if (! empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleNewsAfterProdCreate
 				$okt->triggers->callTrigger('moduleNewsAfterProdCreate', $cursor);
 				
-				$okt->flash->success(__('Le produit a été ajouté.'));
+				$okt['flash']->success(__('Le produit a été ajouté.'));
 				
 				http::redirect('module.php?m=catalog&action=edit&product_id=' . $product_id);
 			}

@@ -324,14 +324,14 @@ class Languages
 	public function checkPostData(array $aData = [])
 	{
 		if (empty($aData['title'])) {
-			$this->flash->error(__('c_a_config_l10n_error_need_title'));
+			$this->okt['flash']->error(__('c_a_config_l10n_error_need_title'));
 		}
 
 		if (empty($aData['code'])) {
-			$this->flash->error(__('c_a_config_l10n_error_need_code'));
+			$this->okt['flash']->error(__('c_a_config_l10n_error_need_code'));
 		}
 
-		return !$this->flash->hasError();
+		return !$this->okt['flash']->hasError();
 	}
 
 	/**
@@ -432,6 +432,6 @@ class Languages
 	{
 		$this->generateCacheList();
 
-		$this->okt->router->touchResources();
+		$this->okt['router']->touchResources();
 	}
 }

@@ -23,6 +23,6 @@ class PartnersHelpers
 			$sLanguage = $okt->user->language;
 		}
 		
-		return $okt->router->generate('partners');
+		return $okt['router']->generate('partners');
 	}
 }

@@ -59,11 +59,11 @@ class User extends Controller
 				'language' => $this->request->request->get('language')
 			);
 			
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 				{
-					$this->flash->success(__('c_a_users_profil_edited'));
+					$this->okt['flash']->success(__('c_a_users_profil_edited'));
 					
 					return $this->redirect($this->generateUrl('User_profile'));
 				}
@@ -102,7 +102,7 @@ class User extends Controller
 				'language' => $this->request->request->get('language')
 			);
 			
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				if (($iUserId = $this->okt->getUsers()->addUser($this->aPageData['user'])) !== false)
 				{
@@ -115,7 +115,7 @@ class User extends Controller
 					}
 					*/
 					
-					$this->flash->success(__('c_a_users_user_added'));
+					$this->okt['flash']->success(__('c_a_users_user_added'));
 					
 					return $this->redirect($this->generateUrl('Users_edit', array(
 						'user_id' => $iUserId
@@ -348,7 +348,7 @@ class User extends Controller
 			
 			$oMail->send();
 			
-			$this->flash->success(__('m_users_validated_user'));
+			$this->okt['flash']->success(__('m_users_validated_user'));
 			
 			return $this->redirect($this->generateUrl('Users_edit', array(
 				'user_id' => $this->aPageData['user']['id']
@@ -403,7 +403,7 @@ class User extends Controller
 				$oMail->send();
 			}
 			
-			$this->flash->success(__('c_a_users_user_edited'));
+			$this->okt['flash']->success(__('c_a_users_user_edited'));
 			
 			return $this->redirect($this->generateUrl('Users_edit', array(
 				'user_id' => $this->aPageData['user']['id']
@@ -442,7 +442,7 @@ class User extends Controller
 		//		}
 		
 
-		if (! $this->flash->hasError())
+		if (! $this->okt['flash']->hasError())
 		{
 			if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
 			{
@@ -455,7 +455,7 @@ class User extends Controller
 				}
 				*/
 				
-				$this->flash->success(__('c_a_users_user_edited'));
+				$this->okt['flash']->success(__('c_a_users_user_edited'));
 				
 				return $this->redirect($this->generateUrl('Users_edit', array(
 					'user_id' => $this->iUserId

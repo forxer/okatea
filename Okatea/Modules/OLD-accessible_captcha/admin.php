@@ -59,7 +59,7 @@ if (! empty($_POST['manage_questions']))
 		}
 	}
 	
-	$okt->flash->success(__('Configuration captcha edited.'));
+	$okt['flash']->success(__('Configuration captcha edited.'));
 	
 	http::redirect('module.php?m=accessible_captcha&action=index');
 }
@@ -75,7 +75,7 @@ if (! empty($_POST['config_send']))
 		
 		$okt->accessible_captcha->config->write($aNewConf);
 		
-		$okt->flash->success(__('Configuration captcha edited.'));
+		$okt['flash']->success(__('Configuration captcha edited.'));
 		
 		http::redirect('module.php?m=accessible_captcha&action=index');
 	}

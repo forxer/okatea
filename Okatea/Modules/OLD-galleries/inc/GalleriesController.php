@@ -105,9 +105,9 @@ class GalleriesController extends Controller
 		if (! empty($this->rsGallery->password))
 		{
 			# il y a un mot de passe en session
-			if ($this->session->has('okt_gallery_password_' . $this->rsGallery->id))
+			if ($this->okt['session']->has('okt_gallery_password_' . $this->rsGallery->id))
 			{
-				if ($this->session->get('okt_gallery_password_' . $this->rsGallery->id) != $this->rsGallery->password)
+				if ($this->okt['session']->get('okt_gallery_password_' . $this->rsGallery->id) != $this->rsGallery->password)
 				{
 					$this->okt->error->set('Le mot de passe ne correspond pas à celui de la galerie.');
 					$this->bGalleryRequirePassword = true;
@@ -126,7 +126,7 @@ class GalleriesController extends Controller
 				}
 				else
 				{
-					$this->session->set('okt_gallery_password_' . $this->rsGallery->id, $p_password);
+					$this->okt['session']->set('okt_gallery_password_' . $this->rsGallery->id, $p_password);
 					return $this->redirect(html::escapeHTML($this->rsGallery->getGalleryUrl()));
 				}
 			}

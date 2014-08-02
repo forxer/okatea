@@ -33,7 +33,7 @@ class Config extends Controller
 			// ...
 			
 
-			if (! $this->flash->hasError())
+			if (! $this->okt['flash']->hasError())
 			{
 				$aNewConf = array(
 					'captcha' => $this->request->request->get('p_captcha'),
@@ -71,7 +71,7 @@ class Config extends Controller
 				
 				$this->okt->module('Contact')->config->write($aNewConf);
 				
-				$this->okt->flash->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('Contact_config'));
 			}

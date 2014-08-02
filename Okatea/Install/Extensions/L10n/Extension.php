@@ -38,7 +38,7 @@ class Extension extends AbstractExtension
 
 	public function addRoute()
 	{
-		$this->okt->router->getRouteCollection()->add('localization', new Route('/localization', array(
+		$this->okt['router']->getRouteCollection()->add('localization', new Route('/localization', array(
 			'controller' => 'Okatea\Install\Extensions\L10n\Controller::page'
 		)));
 	}
