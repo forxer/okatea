@@ -34,7 +34,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 				),
 				null,
 				$okt['flash'],
-				$okt->options->get('csrf_token_name')
+				$okt['csrf_token_name']
 			);
 		};
 	}

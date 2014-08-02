@@ -12,11 +12,11 @@ $view->extend('main');
 
 
 # JS
-$okt->page->js->addFile($okt->options->get('public_url') . '/components/jquery/dist/jquery.min.js');
-$okt->page->js->addCCFile($okt->options->get('public_url') . '/components/html5shiv/dist/html5shiv.js', 'lt IE 9');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addCCFile($okt['public_url'] . '/components/html5shiv/dist/html5shiv.js', 'lt IE 9');
 
 # CSS
-$okt->page->css->addFile($okt->options->get('public_url') . '/components/normalize-css/normalize.css');
+$okt->page->css->addFile($okt['public_url'] . '/components/normalize-css/normalize.css');
 $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 
 ?>
@@ -49,7 +49,7 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 				id="lang_switcher_<?php echo $view->escape($aLanguage['code']) ?>"><a
 				href="<?php echo $view->generateUrl('homePage', array(), $aLanguage['code'])  ?>"
 				title="<?php echo $view->escape($aLanguage['title']) ?>"><img
-					src="<?php echo $okt->options->public_url.'/img/flags/'.$aLanguage['img'] ?>"
+					src="<?php echo $okt['public_url'].'/img/flags/'.$aLanguage['img'] ?>"
 					alt="<?php echo $view->escape($aLanguage['title']) ?>" /></a></li>
 			<?php endforeach; ?>
 		</ul>
@@ -132,7 +132,7 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 
 	<footer>
 		<div id="bottom">
-			<p id="bottom-line"><?php printf(__('c_c_proudly_propulsed_%s'), $okt->options->get('software_name')) ?></p>
+			<p id="bottom-line"><?php printf(__('c_c_proudly_propulsed_%s'), $okt['software_name']) ?></p>
 		</div>
 	</footer>
 </div>

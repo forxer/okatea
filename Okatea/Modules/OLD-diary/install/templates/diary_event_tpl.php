@@ -13,7 +13,7 @@ $okt->page->css->addFile($okt->theme->url . '/modules/diary/styles.css');
 
 <?php 
 # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -122,7 +122,7 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 
 		<p class="col">
 			<a href="<?php echo $file['url'] ?>"><img
-				src="<?php echo $okt->options->public_url.'/img/media/'.$file['type'].'.png' ?>"
+				src="<?php echo $okt['public_url'].'/img/media/'.$file['type'].'.png' ?>"
 				alt="<?php echo $view->escape($file['title']) ?>" /></a>
 		<?php echo $view->escape($file['title']) ?> (<?php echo $file['mime'] ?>)
 		- <?php echo Okatea\Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>

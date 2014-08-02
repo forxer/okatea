@@ -233,7 +233,7 @@ if ($dir && ! empty($_GET['remove']))
 if ($popup)
 {
 	/*
-	$okt->page->js->addFile($okt->options->modules_url.'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
+	$okt->page->js->addFile($okt['modules_url'].'/rte_tinymce/tinyMCE_jquery/tiny_mce_popup.js');
 
 	$okt->page->js->addReady('
 	var FileBrowserDialogue = {
@@ -292,7 +292,7 @@ if (! $dir)
 
 if ($popup)
 {
-	echo '<p><strong>' . sprintf(__('Choose a file to insert by clicking on %s.'), '<img src="' . $okt->options->public_url . '/img/ico/plus.png" alt="' . __('Attach this file') . '" />') . '</strong></p>';
+	echo '<p><strong>' . sprintf(__('Choose a file to insert by clicking on %s.'), '<img src="' . $okt['public_url'] . '/img/ico/plus.png" alt="' . __('Attach this file') . '" />') . '</strong></p>';
 }
 
 $items = array_values(array_merge($dir['dirs'], $dir['files']));
@@ -425,7 +425,7 @@ function mediaItemLine($f, $i)
 	
 	if ($popup && ! $f->d)
 	{
-		$res .= '<a href="' . $link . '"><img src="' . $okt->options->public_url . '/img/ico/plus.png" alt="' . __('Insert this file') . '" ' . 'title="' . __('Insert this file') . '" /></a> ';
+		$res .= '<a href="' . $link . '"><img src="' . $okt['public_url'] . '/img/ico/plus.png" alt="' . __('Insert this file') . '" ' . 'title="' . __('Insert this file') . '" /></a> ';
 	}
 	
 	if ($f->del)

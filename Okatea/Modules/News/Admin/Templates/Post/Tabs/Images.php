@@ -39,7 +39,7 @@ use Okatea\Tao\Misc\Utilities;
 		}
 		else
 		{
-			$sCurImageUrl = $okt->options->public_url . '/img/media/image.png';
+			$sCurImageUrl = $okt['public_url'] . '/img/media/image.png';
 			$sCurImageAttr = ' width="48" height="48" ';
 		}
 		

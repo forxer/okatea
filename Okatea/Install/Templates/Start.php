@@ -16,12 +16,12 @@ $view->extend('Layout');
 	<li><a
 		href="<?php echo $view->generateUrl('start') ?>?switch_language=fr"
 		<?php if ($okt['session']->get('okt_install_language') == 'fr') echo ' class="current"'; ?>><img
-			src="<?php echo $okt->options->public_url ?>/img/flags/fr.png" alt="" />
+			src="<?php echo $okt['public_url'] ?>/img/flags/fr.png" alt="" />
 			français</a></li>
 	<li><a
 		href="<?php echo $view->generateUrl('start') ?>?switch_language=en"
 		<?php if ($okt['session']->get('okt_install_language') == 'en') echo ' class="current"'; ?>><img
-			src="<?php echo $okt->options->public_url ?>/img/flags/en.png" alt="" />
+			src="<?php echo $okt['public_url'] ?>/img/flags/en.png" alt="" />
 			english</a></li>
 </ul>
 

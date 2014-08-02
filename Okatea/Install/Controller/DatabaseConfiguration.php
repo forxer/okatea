@@ -18,7 +18,7 @@ class DatabaseConfiguration extends Controller
 	public function page()
 	{
 		$aDatabaseParams = [
-			'env' => $this->okt->options->env,
+			'env' => $this->okt['env'],
 			'prod' => [
 				'host' => '',
 				'name' => '',
@@ -166,8 +166,8 @@ class DatabaseConfiguration extends Controller
 				else
 				{
 					# Création du fichier des paramètres de connexion
-					$sConnectionFile = $this->okt->options->get('config_dir') . '/connection.php';
-					$config = file_get_contents($this->okt->options->get('config_dir') . '/connection.dist.php');
+					$sConnectionFile = $this->okt['config_dir'] . '/connection.php';
+					$config = file_get_contents($this->okt['config_dir'] . '/connection.dist.php');
 
 					$config = str_replace([
 						'%%DB_PROD_HOST%%',

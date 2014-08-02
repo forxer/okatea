@@ -450,7 +450,7 @@ class Page
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
-		$this->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/i18n/jquery-ui-i18n.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-ui/ui/minified/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
 			$.datepicker.setDefaults($.datepicker.regional[\'' . $this->okt->user->language . '\']); ' . 'jQuery(\'' . $sElement . '\').datepicker(' . json_encode($aOptions) . ');
@@ -542,7 +542,7 @@ class Page
 		{
 			$this->js->addScript('
 				buttons[' . $i ++ . '] = $(\'<a href="#" class="lang-switcher-button" data-lang-code="' . $aLanguage['code'] . '">\'
-				+ \'<img src="' . $this->okt->options->public_url . '/img/flags/' . Escaper::attribute($aLanguage['img']) . '" ' . 'title="' . Escaper::attribute($aLanguage['title']) . ' (' . Escaper::attribute($aLanguage['code']) . ')" ' . 'alt="' . Escaper::attribute($aLanguage['title']) . '" /></a>\')
+				+ \'<img src="' . $this->okt['public_url'] . '/img/flags/' . Escaper::attribute($aLanguage['img']) . '" ' . 'title="' . Escaper::attribute($aLanguage['title']) . ' (' . Escaper::attribute($aLanguage['code']) . ')" ' . 'alt="' . Escaper::attribute($aLanguage['title']) . '" /></a>\')
 				.click(function(e) {
 					switch_language(\'' . $aLanguage['code'] . '\');
 					e.preventDefault();
@@ -607,8 +607,8 @@ class Page
 	 */
 	public function roundabout(array $aCustomOptions = array(), $sElement = '.roundabout')
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/easing/jquery.easing.min.js');
-		$this->js->addFile($this->okt->options->public_url . '/components/roundabout/jquery.roundabout.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/easing/jquery.easing.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/roundabout/jquery.roundabout.min.js');
 
 		$aOptions = array();
 
@@ -634,8 +634,8 @@ class Page
 	 */
 	public function treeview(array $aCustomOptions = array(), $sElement = '.browser')
 	{
-		$this->css->addFile($this->okt->options->public_url . '/plugins/treeview/jquery.treeview.css');
-		$this->js->addFile($this->okt->options->public_url . '/plugins/treeview/jquery.treeview.min.js');
+		$this->css->addFile($this->okt['public_url'] . '/plugins/treeview/jquery.treeview.css');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/treeview/jquery.treeview.min.js');
 
 		$aOptions = array();
 
@@ -676,14 +676,14 @@ class Page
 
 	public function loader($sElement)
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/blockUI/jquery.blockUI.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/blockUI/jquery.blockUI.min.js');
 
 		$this->js->addReady('
 			jQuery(\'' . $sElement . '\').click(function() {
 				$.blockUI({
 					theme:    true,
 					title:    "' . __('c_c_Please_wait') . '",
-					message:  "<p><img src=\"' . $this->okt->options->public_url . '/img/ajax-loader/big-circle-ball.gif\" alt=\"\" style=\"float: left; margin: 0 1em 1em 0\" /> ' . __('c_c_Please_wait_txt') . '</p>"
+					message:  "<p><img src=\"' . $this->okt['public_url'] . '/img/ajax-loader/big-circle-ball.gif\" alt=\"\" style=\"float: left; margin: 0 1em 1em 0\" /> ' . __('c_c_Please_wait_txt') . '</p>"
 				});
 			});
 		');
@@ -691,7 +691,7 @@ class Page
 
 	public function cycle($sElement = '#diaporama', array $aCustomOptions = array())
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/cycle/jquery.cycle.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/cycle/jquery.cycle.min.js');
 
 		$aOptions = array();
 
@@ -707,7 +707,7 @@ class Page
 
 	public function cycleLite($sElement = '#diaporama', array $aCustomOptions = array())
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/cycle/jquery.cycle.lite.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/cycle/jquery.cycle.lite.min.js');
 
 		$aOptions = array();
 
@@ -736,7 +736,7 @@ class Page
 
 	public function strToSlug($command, $target, array $aCustomOptions = array())
 	{
-		$this->js->addFile($this->okt->options->public_url . '/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
 
 		$aOptions = array(
 			'setEvents' => 'keyup keydown blur',
@@ -756,12 +756,12 @@ class Page
 
 	public function toggleWithLegend($command, $target, array $aCustomOptions = array())
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
 		$aOptions = array(
-			'img_on_src' => $this->okt->options->public_url . '/img/ico/plus.png',
+			'img_on_src' => $this->okt['public_url'] . '/img/ico/plus.png',
 			'img_on_alt' => Escaper::js(__('c_c_action_show')),
-			'img_off_src' => $this->okt->options->public_url . '/img/ico/minus.png',
+			'img_off_src' => $this->okt['public_url'] . '/img/ico/minus.png',
 			'img_off_alt' => Escaper::js(__('c_c_action_hide')),
 			'hide' => true,
 			'speed' => 0,
@@ -834,7 +834,7 @@ class Page
 						.width((jQuery(this).width()-14) + "px");
 
 					var imgE = document.createElement("img");
-					imgE.src = "' . $this->okt->options->public_url . '/img/ico/lock.png";
+					imgE.src = "' . $this->okt['public_url'] . '/img/ico/lock.png";
 					imgE.style.position = "absolute";
 					imgE.style.top = "1.7em";
 					imgE.style.left = ($(this).width()+4) + "px";
@@ -862,7 +862,7 @@ class Page
 
 	public function checkboxHelper($sFormId, $helper_id)
 	{
-		$this->js->addFile($this->okt->options->public_url . '/plugins/checkboxes/jquery.checkboxes.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/plugins/checkboxes/jquery.checkboxes.min.js');
 
 		$this->js->addReady('
 			$(\'<a href="#" id="' . $helper_id . '-button-select-all">' . __('c_c_select_all') . '</a>\')
@@ -901,8 +901,8 @@ class Page
 
 	public function autocomplete()
 	{
-		$this->css->addFile($this->okt->options->public_url . '/css/autocomplete/jquery.autocomplete.css');
-		$this->js->addFile($this->okt->options->public_url . '/js/autocomplete/jquery.autocomplete.min.js');
+		$this->css->addFile($this->okt['public_url'] . '/css/autocomplete/jquery.autocomplete.css');
+		$this->js->addFile($this->okt['public_url'] . '/js/autocomplete/jquery.autocomplete.min.js');
 	}
 
 	public function validateForm(array $aCustomOptions = array())
@@ -918,12 +918,12 @@ class Page
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
 
-		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/jquery.validate.min.js');
-		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/additional-methods.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/jquery.validate.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/additional-methods.min.js');
 
-		if (file_exists($this->okt->options->get('public_dir') . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js'))
+		if (file_exists($this->okt['public_dir'] . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js'))
 		{
-			$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js');
+			$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js');
 		}
 
 		$this->getValidateJs($aOptions['selector'], $aOptions['fields']);
@@ -936,12 +936,12 @@ class Page
 			$sLanguage = $this->okt->user->language;
 		}
 
-		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/jquery.validate.min.js');
-		$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/dist/additional-methods.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/jquery.validate.min.js');
+		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/additional-methods.min.js');
 
-		if (file_exists($this->okt->options->get('public_dir') . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js'))
+		if (file_exists($this->okt['public_dir'] . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js'))
 		{
-			$this->js->addFile($this->okt->options->get('public_url') . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js');
+			$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js');
 		}
 
 		$this->getValidateJs($sFormId, $aFields);
@@ -1291,9 +1291,9 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new DirectoryIterator($okt->options->public_dir . '/components/jquery-ui/themes') as $oFileInfo)
+		foreach (new DirectoryIterator($okt['public_dir'] . '/components/jquery-ui/themes') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt->options->public_dir . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
+			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt['public_dir'] . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
 			{
 				continue;
 			}

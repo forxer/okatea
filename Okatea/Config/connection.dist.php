@@ -11,7 +11,7 @@
  */
 if (! isset($env))
 {
-	$env = $this->options->get('env');
+	$env = $this['env'];
 }
 
 # Development environment

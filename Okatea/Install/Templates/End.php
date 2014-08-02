@@ -23,8 +23,8 @@ $okt['session']->clear();
 $okt['session']->invalidate();
 
 # remove install dir
-if ($okt->options->get('env') === 'prod')
+if ($okt['env'] === 'prod')
 {
-	(new Filesystem())->remove($okt->options->get('root_dir') . '/install/');
+	(new Filesystem())->remove($okt['root_dir'] . '/install/');
 }
 

@@ -60,8 +60,8 @@ class Comparator extends ComponentBase
 	{
 		$sSourceFile = $sSourceDir . $sFile;
 
-		$sSourceBase = str_replace($this->okt->options->get('root_dir'), '', $sSourceDir);
-		$sDestBase = str_replace($this->okt->options->get('root_dir'), '', $sDestDir);
+		$sSourceBase = str_replace($this->okt['root_dir'], '', $sSourceDir);
+		$sDestBase = str_replace($this->okt['root_dir'], '', $sDestDir);
 
 		$sBaseSourceFile = $sSourceBase . $sFile;
 

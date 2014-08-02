@@ -168,11 +168,11 @@ class Module extends BaseModule
 		global $okt;
 		
 		$common_options = array(
-			'script_url' => $okt->options->get('public_url') . '/modules/RteTinymce3/tiny_mce/tiny_mce.js'
+			'script_url' => $okt['public_url'] . '/modules/RteTinymce3/tiny_mce/tiny_mce.js'
 		);
 		
 		# language
-		if (file_exists($okt->options->get('public_dir') . '/modules/RteTinymce3/tiny_mce/langs/' . $okt->user->language . '.js'))
+		if (file_exists($okt['public_dir'] . '/modules/RteTinymce3/tiny_mce/langs/' . $okt->user->language . '.js'))
 		{
 			$common_options['language'] = $okt->user->language;
 		}
@@ -197,7 +197,7 @@ class Module extends BaseModule
 		
 		$final_options = array_merge($options, $common_options, $user_options);
 		
-		$okt->page->js->addFile($okt->options->get('public_url') . '/modules/RteTinymce3/tiny_mce/jquery.tinymce.js');
+		$okt->page->js->addFile($okt['public_url'] . '/modules/RteTinymce3/tiny_mce/jquery.tinymce.js');
 		
 		$okt->page->js->addReady('
 			jQuery("' . $element . '").tinymce(' . json_encode($final_options) . ');

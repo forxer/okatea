@@ -29,12 +29,12 @@ class DebugBarRenderer extends JavascriptRenderer
 			
 			foreach ($cssFiles as $file)
 			{
-				$this->okt->page->css->addFile($this->okt->options->public_url . '/plugins/debugbar/' . $file);
+				$this->okt->page->css->addFile($this->okt['public_url'] . '/plugins/debugbar/' . $file);
 			}
 			
 			foreach ($jsFiles as $file)
 			{
-				$this->okt->page->js->addFile($this->okt->options->public_url . '/plugins/debugbar/' . $file);
+				$this->okt->page->js->addFile($this->okt['public_url'] . '/plugins/debugbar/' . $file);
 			}
 		});
 		

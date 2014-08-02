@@ -16,7 +16,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
 	public function register(Container $okt)
 	{
 		$okt['cacheConfig'] = function($okt) {
-			return new SingleFileCache($okt->options->get('cache_dir') . '/static.php');
+			return new SingleFileCache($okt['cache_dir'] . '/static.php');
 		};
 
 		$okt['config'] = function($okt) {

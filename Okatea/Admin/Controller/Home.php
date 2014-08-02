@@ -32,7 +32,7 @@ class Home extends Controller
 
 		$this->updateNotification();
 
-		if ($this->okt->options->get('debug')) {
+		if ($this->okt['debug']) {
 			$this->okt['flash']->warning(__('c_a_public_debug_mode_enabled'));
 		}
 
@@ -95,9 +95,9 @@ class Home extends Controller
 			$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, $item['title'], $item['url'], ($item['icon'] ? '<img src="' . $item['icon'] . '" alt="" />' : ''));
 		}
 
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), $this->okt->adminRouter->generate('User_profile'), '<img src="' . $this->okt->options->public_url . '/img/admin/contact-new.png" alt="" />');
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), $this->okt->adminRouter->generate('User_profile'), '<img src="' . $this->okt['public_url'] . '/img/admin/contact-new.png" alt="" />');
 
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt->adminRouter->generate('logout'), '<img src="' . $this->okt->options->public_url . '/img/admin/system-log-out.png" alt="" />');
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt->adminRouter->generate('logout'), '<img src="' . $this->okt['public_url'] . '/img/admin/system-log-out.png" alt="" />');
 
 		# -- CORE TRIGGER : adminIndexaRoundAboutItems
 		$this->okt->triggers->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);
@@ -129,7 +129,7 @@ class Home extends Controller
 		$this->feed = new \SimplePie();
 
 		# set cache directory
-		$sCacheDir = $this->okt->options->get('cache_dir') . '/feeds/';
+		$sCacheDir = $this->okt['cache_dir'] . '/feeds/';
 
 		(new Filesystem())->mkdir($sCacheDir);
 
@@ -173,14 +173,14 @@ class Home extends Controller
 
 	protected function updateNotification()
 	{
-		if ($this->okt['config']->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt->options->get('digests')))
+		if ($this->okt['config']->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt['digests']))
 		{
-			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
+			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_dir'] . '/versions');
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
 
 			if ($updater->getNotify() && $this->sNewVersion)
 			{
-				$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/update');
+				$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
 			}
 		}
 	}

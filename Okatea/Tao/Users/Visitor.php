@@ -135,7 +135,7 @@ class Visitor
 
 		$this->authentication();
 
-		$this->initLanguage($this->okt->options->get('cookie_language'));
+		$this->initLanguage($this->okt['cookie_language']);
 	}
 
 	/**

@@ -104,7 +104,7 @@ class module_galleries extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->galleriesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=galleries', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('galleries'), null, $this->okt->page->galleriesSubMenu, $this->okt->options->public_url . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=galleries', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('galleries'), null, $this->okt->page->galleriesSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_management'), 'module.php?m=galleries&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'gallery' || $this->okt->page->action === 'items' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_item'), 'module.php?m=galleries&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt->checkPerm('galleries_add'));
 			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_items'), 'module.php?m=galleries&amp;action=add_multiples', $this->bCurrentlyInUse && ($this->okt->page->action === 'add_multiples'), 3, $this->config->enable_multiple_upload && $this->okt->checkPerm('galleries_add'));

@@ -95,7 +95,7 @@ foreach ($aInstalledThemes as $aTheme)
 				<?php if ($aTheme['icon']) : ?>
 				<p>
 						<img
-							src="<?php echo  $okt->options->get('public_url').'/themes/'.$aTheme['id'].'/'.$aTheme['icon'] ?>"
+							src="<?php echo  $okt['public_url'].'/themes/'.$aTheme['id'].'/'.$aTheme['icon'] ?>"
 							alt="" width="64" height="64">
 					</p>
 				<?php else : ?>

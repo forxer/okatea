@@ -72,7 +72,7 @@ class module_catalog extends Module
 		{
 			$this->okt->page->catalogSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=catalog', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('catalog'), null, $this->okt->page->catalogSubMenu, $this->okt->options->public_url . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=catalog', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('catalog'), null, $this->okt->page->catalogSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->catalogSubMenu->add('Gestion', 'module.php?m=catalog&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->catalogSubMenu->add('Ajouter un produit', 'module.php?m=catalog&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, ($this->config->categories_enable && $this->okt->checkPerm('catalog_add')));
 			$this->okt->page->catalogSubMenu->add('Catégories', 'module.php?m=catalog&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 5, ($this->config->categories_enable && $this->okt->checkPerm('catalog_categories')));

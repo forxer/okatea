@@ -20,11 +20,11 @@ class Theme extends Extension
 	{
 		parent::init();
 		
-		$this->public_path = $this->okt->options->get('public_dir') . '/themes/' . $this->id();
-		$this->public_url = $this->okt->options->get('public_url') . '/themes/' . $this->id();
+		$this->public_path = $this->okt['public_dir'] . '/themes/' . $this->id();
+		$this->public_url = $this->okt['public_url'] . '/themes/' . $this->id();
 		
 		$this->setLessVariables(array(
-			'public_url' => "'" . $this->okt->options->get('public_url') . "'",
+			'public_url' => "'" . $this->okt['public_url'] . "'",
 			'theme_url' => "'" . $this->public_url . "'"
 		));
 	}

@@ -16,9 +16,9 @@ class End extends Controller
 	public function page()
 	{
 		# create .htaccess
-		if (! file_exists($this->okt->options->get('root_dir') . '/.htaccess') && file_exists($this->okt->options->get('root_dir') . '/.htaccess.oktDist'))
+		if (! file_exists($this->okt['root_dir'] . '/.htaccess') && file_exists($this->okt['root_dir'] . '/.htaccess.oktDist'))
 		{
-			copy($this->okt->options->get('root_dir') . '/.htaccess.oktDist', $this->okt->options->get('root_dir') . '/.htaccess');
+			copy($this->okt['root_dir'] . '/.htaccess.oktDist', $this->okt['root_dir'] . '/.htaccess');
 		}
 
 		# render HTML

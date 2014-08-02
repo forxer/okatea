@@ -77,7 +77,7 @@ $okt->page->css->addCss('
 		<div id="theme-screenshot">
 				<?php if ($aThemeInfos['screenshot']) : ?>
 				<img
-				src="<?php echo $okt['config']->app_path.basename($okt->options->get('themes_dir')).'/'.$aThemeInfos['id'].'/screenshot.jpg' ?>"
+				src="<?php echo $okt['config']->app_path.basename($okt['themes_dir']).'/'.$aThemeInfos['id'].'/screenshot.jpg' ?>"
 				width="100%" height="100%" alt="" />
 				<?php else : ?>
 				<div id="no-screenshot">

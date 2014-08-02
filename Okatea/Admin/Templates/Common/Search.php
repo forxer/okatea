@@ -29,13 +29,13 @@ $okt->page->css->addCss('
 	margin: 0;
 }
 #search {
-	background: transparent url(' . $okt->options->public_url . '/img/admin/preview.png) no-repeat center right;
+	background: transparent url(' . $okt['public_url'] . '/img/admin/preview.png) no-repeat center right;
 }
 ');
 
 if (! empty($sSearch))
 {
-	$okt->page->js->addFile($okt->options->public_url . '/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
+	$okt->page->js->addFile($okt['public_url'] . '/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
 		$("#search").putCursorAtEnd();
 	');

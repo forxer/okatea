@@ -13,7 +13,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 <?php
 # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -25,7 +25,7 @@ $okt->page->js->addFile('http://maps.google.com/maps/api/js?sensor=false');
 
 <?php
 # début Okatea : ajout du plugin Gmap3
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery-gmap3/gmap3.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery-gmap3/gmap3.js');
 # fin Okatea : ajout du plugin Gmap3 ?>
 
 

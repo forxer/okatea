@@ -68,11 +68,11 @@ class module_rte_ckeditor extends Module
 				]",
 			
 			'filebrowserBrowseUrl' => '/ckfinder/ckfinder.html',
-			'filebrowserImageBrowseUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Images',
-			'filebrowserFlashBrowseUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Flash',
-			'filebrowserUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-			'filebrowserImageUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-			'filebrowserFlashUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+			'filebrowserImageBrowseUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Images',
+			'filebrowserFlashBrowseUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Flash',
+			'filebrowserUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+			'filebrowserImageUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+			'filebrowserFlashUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
 		)
 		;
 		
@@ -93,11 +93,11 @@ class module_rte_ckeditor extends Module
 			'language' => $okt->user->language,
 			'scayt_autoStartup' => false,
 			'filebrowserBrowseUrl' => '/ckfinder/ckfinder.html',
-			'filebrowserImageBrowseUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Images',
-			'filebrowserFlashBrowseUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Flash',
-			'filebrowserUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-			'filebrowserImageUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-			'filebrowserFlashUploadUrl' => $this->okt->options->modules_url . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+			'filebrowserImageBrowseUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Images',
+			'filebrowserFlashBrowseUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Flash',
+			'filebrowserUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+			'filebrowserImageUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+			'filebrowserFlashUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
 		);
 		
 		if (! empty($user_options))
@@ -114,8 +114,8 @@ class module_rte_ckeditor extends Module
 		
 		$aElements = explode(',', $element);
 		
-		$okt->page->js->addFile($this->okt->options->modules_url . '/rte_ckeditor/ckeditor/ckeditor.js');
-		$okt->page->js->addFile($this->okt->options->modules_url . '/rte_ckeditor/ckeditor/adapters/jquery.js');
+		$okt->page->js->addFile($this->okt['modules_url'] . '/rte_ckeditor/ckeditor/ckeditor.js');
+		$okt->page->js->addFile($this->okt['modules_url'] . '/rte_ckeditor/ckeditor/adapters/jquery.js');
 		foreach ($aElements as $sElement)
 			$okt->page->js->addReady('
 			jQuery("' . $sElement . '").ckeditor( function() { /* callback code */ }, ' . json_encode($options) . ' );

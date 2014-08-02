@@ -155,19 +155,19 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 				<p class="modal-box">
 					<a class="modal" rel="test_images"
 						title="<?php _e('m_news_display_example_1') ?>"
-						href="<?php echo $okt->options->public_url ?>/img/sample/chutes_la_nuit.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/chutes_la_nuit.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes_la_nuit.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-chutes_la_nuit.jpg" />
 					</a> <a class="modal" rel="test_images"
 						title="<?php _e('m_news_display_example_2') ?>"
-						href="<?php echo $okt->options->public_url ?>/img/sample/les_chutes.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/les_chutes.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-les_chutes.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-les_chutes.jpg" />
 					</a> <a class="modal" rel="test_images"
 						title="<?php _e('m_news_display_example_3') ?>"
-						href="<?php echo $okt->options->public_url ?>/img/sample/chutes.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/chutes.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-chutes.jpg" />
 					</a>
 				</p>
 			</fieldset>

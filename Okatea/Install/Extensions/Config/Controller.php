@@ -19,8 +19,8 @@ class Controller extends BaseController
 		$this->okt->startLanguages();
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/site');
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/advanced');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/site');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/advanced');
 
 		$aValues = [
 			'title' => $this->okt['config']->title,

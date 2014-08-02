@@ -197,11 +197,9 @@ class Application extends Container
 	 */
 	public function __construct($autoloader, array $aOptions = [])
 	{
-		parent::__construct();
+		parent::__construct($aOptions);
 
 		$this->autoloader = $autoloader;
-
-		$this->options = new ApplicationOptions($aOptions);
 
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
@@ -215,10 +213,10 @@ class Application extends Container
 		$this['request']->setSession($this['session']);
 
 		# URL du dossier des fichiers publics
-		$this->options->set('public_url', $this['config']->getData('app_path') . 'oktPublic');
+		$this['public_url'] = $this['config']->getData('app_path') . 'oktPublic';
 
 		# URL du dossier upload depuis la racine
-		$this->options->set('upload_url', $this['config']->getData('app_path') . 'oktPublic/upload');
+		$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
 
 		$this->startDebug();
 
@@ -275,7 +273,7 @@ class Application extends Container
 		define('OKT_START_TIME', microtime(true));
 
 		# print errors in debug mode
-		if ($this->options->get('debug'))
+		if ($this['debug'])
 		{
 			Debug::enable();
 			DebugErrorHandler::setLogger($this['logger']);
@@ -289,7 +287,7 @@ class Application extends Container
 				[
 					new FingersCrossedHandler(
 						new StreamHandler(
-							$this->options->get('logs_dir') . '/php_errors.log',
+							$this['logs_dir'] . '/php_errors.log',
 							Logger::INFO
 						),
 						Logger::WARNING
@@ -324,7 +322,7 @@ class Application extends Container
 	{
 		if (null === $this->db)
 		{
-			$sConnectionFilename = $this->options->get('config_dir') . '/connection.php';
+			$sConnectionFilename = $this['config_dir'] . '/connection.php';
 
 			if (! file_exists($sConnectionFilename)) {
 				throw new \RuntimeException('Unable to find database connection file !');
@@ -354,9 +352,9 @@ class Application extends Container
 		{
 			$this->adminRouter = new adminRouter(
 				$this,
-				$this->options->get('config_dir') . '/RoutesAdmin',
-				$this->options->get('cache_dir') . '/routing/admin',
-				$this->options->get('debug'),
+				$this['config_dir'] . '/RoutesAdmin',
+				$this['cache_dir'] . '/routing/admin',
+				$this['debug'],
 				$this['logger']
 			);
 		}
@@ -368,8 +366,8 @@ class Application extends Container
 		{
 			$this->user = new Visitor(
 				$this,
-				$this->options->get('cookie_auth_name'),
-				$this->options->get('cookie_auth_from'),
+				$this['cookie_auth_name'],
+				$this['cookie_auth_from'],
 				$this['config']->app_path,
 				$this['request']->getHttpHost(),
 				$this['request']->isSecure()
@@ -383,7 +381,7 @@ class Application extends Container
 		{
 			$this->modules = new ModulesCollection(
 				$this,
-				$this->options->get('modules_dir')
+				$this['modules_dir']
 			);
 		}
 	}
@@ -398,8 +396,8 @@ class Application extends Container
 				$this->user->timezone
 			);
 
-			$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/main');
-			$this->l10n->loadFile($this->options->get('locales_dir') . '/%s/users');
+			$this->l10n->loadFile($this['locales_dir'] . '/%s/main');
+			$this->l10n->loadFile($this['locales_dir'] . '/%s/users');
 		}
 	}
 
@@ -409,7 +407,7 @@ class Application extends Container
 		{
 			$this->themes = new ThemesCollection(
 				$this,
-				$this->options->get('themes_dir')
+				$this['themes_dir']
 			);
 		}
 	}
@@ -621,7 +619,7 @@ class Application extends Container
 	 */
 	public function newConfig($file)
 	{
-		return new Config($this['cacheConfig'], $this->options->get('config_dir') . '/' . $file);
+		return new Config($this['cacheConfig'], $this['config_dir'] . '/' . $file);
 	}
 
 	/**
@@ -720,14 +718,14 @@ class Application extends Container
 
 		if ($this->htmlpurifier === null)
 		{
-			$sCacheFile = $this->options->get('cache_dir') . '/htmlpurifier';
+			$sCacheFile = $this['cache_dir'] . '/htmlpurifier';
 
 			(new Filesystem())->mkdir($sCacheFile);
 
 			$config = \HTMLPurifier_Config::createDefault();
 
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-			$config->set('Cache.SerializerPath', $this->options->get('cache_dir') . '/HTMLPurifier');
+			$config->set('Cache.SerializerPath', $this['cache_dir'] . '/HTMLPurifier');
 
 			$config->set('HTML.SafeEmbed', true);
 			$config->set('HTML.SafeObject', true);

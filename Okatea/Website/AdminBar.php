@@ -36,10 +36,10 @@ class AdminBar
 			'displayWebsiteAdminBar'
 		));
 		
-		$this->okt->page->css->addFile($this->okt->options->public_url . '/css/admin-bar.css');
-		$this->okt->page->js->addFile($this->okt->options->public_url . '/js/admin-bar.js');
+		$this->okt->page->css->addFile($this->okt['public_url'] . '/css/admin-bar.css');
+		$this->okt->page->js->addFile($this->okt['public_url'] . '/js/admin-bar.js');
 		
-		$this->okt->adminRouter = new AdminRouter($this->okt, $this->okt->options->get('config_dir') . '/RoutesAdmin', $this->okt->options->get('cache_dir') . '/routing/admin', $this->okt->options->get('debug'));
+		$this->okt->adminRouter = new AdminRouter($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['cache_dir'] . '/routing/admin', $this->okt['debug']);
 	}
 
 	public function displayWebsiteAdminBar()
@@ -57,7 +57,7 @@ class AdminBar
 		
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
-			'intitle' => '<img src="' . $this->okt->options->public_url . '/img/notify/error.png" width="22" height="22" alt="' . __('c_c_warning') . '" />',
+			'intitle' => '<img src="' . $this->okt['public_url'] . '/img/notify/error.png" width="22" height="22" alt="' . __('c_c_warning') . '" />',
 			'items' => array()
 		);
 		
@@ -90,7 +90,7 @@ class AdminBar
 				$aSecondaryAdminBar[$iStartIdx ++] = array(
 					'href' => Escaper::html($this->okt['config']->app_path . $aLanguage['code'] . '/'),
 					'title' => Escaper::html($aLanguage['title']),
-					'intitle' => '<img src="' . $this->okt->options->public_url . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" />'
+					'intitle' => '<img src="' . $this->okt['public_url'] . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" />'
 				);
 			}
 		}
@@ -104,7 +104,7 @@ class AdminBar
 		if ($this->okt->checkPerm('is_superadmin'))
 		{
 			# avertissement mode debug activé
-			if ($this->okt->options->get('debug'))
+			if ($this->okt['debug'])
 			{
 				$aPrimaryAdminBar[10]['items'][110] = array(
 					'intitle' => __('c_a_public_debug_mode_enabled')
@@ -112,15 +112,15 @@ class AdminBar
 			}
 			
 			# avertissement nouvelle version disponible
-			if ($this->okt['config']->updates['enabled'] && is_readable($this->okt->options->get('digests')))
+			if ($this->okt['config']->updates['enabled'] && is_readable($this->okt['digests']))
 			{
-				$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt->options->get('cache_dir') . '/versions');
+				$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_dir'] . '/versions');
 				$new_v = $updater->check($this->okt->getVersion());
 				
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin.update');
+					$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin.update');
 					
 					$aPrimaryAdminBar[10]['items'][120] = array(
 						'href' => $aBasesUrl['admin'] . '/configuration.php?action=update',
@@ -154,7 +154,7 @@ class AdminBar
 			$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
 			
 			$aSecondaryAdminBar[1000] = array(
-				'intitle' => '<img src="' . $this->okt->options->public_url . '/img/ico/terminal.gif" width="16" height="16" alt="" />',
+				'intitle' => '<img src="' . $this->okt['public_url'] . '/img/ico/terminal.gif" width="16" height="16" alt="" />',
 				'items' => array(
 					array(
 						'intitle' => 'Temps d\'execution du script&nbsp;: ' . $aExecInfos['execTime'] . ' s'

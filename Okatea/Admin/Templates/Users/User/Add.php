@@ -28,9 +28,9 @@ $okt->page->setButtonset('users', array(
 	)
 ));
 
-$okt->page->css->addFile($okt->options->public_url . '/components/passfield/css/passfield.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/passfield/js/locales.js');
-$okt->page->js->addFile($okt->options->public_url . '/components/passfield/js/passfield.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/passfield/css/passfield.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/passfield/js/locales.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/passfield/js/passfield.js');
 $okt->page->js->addReady('
 	$("#password").passField({ /*options*/ });
 ');

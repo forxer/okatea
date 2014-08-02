@@ -65,7 +65,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = $okt->options->upload_url . '/ckfinder/';
+$baseUrl = $okt['upload_url'] . '/ckfinder/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the

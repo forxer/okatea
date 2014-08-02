@@ -34,7 +34,7 @@ class TemplatesFiles extends ComponentBase
 			return null;
 		}
 		
-		$this->checklist->addItem('templates_files', $this->mirror($sTemplatesDir, $this->okt->options->get('themes_dir') . '/' . ThemesCollection::DEFAULT_THEME . '/Templates/' . $this->extension->id(), $oFiles), 'Create templates files', 'Cannot create templates files');
+		$this->checklist->addItem('templates_files', $this->mirror($sTemplatesDir, $this->okt['themes_dir'] . '/' . ThemesCollection::DEFAULT_THEME . '/Templates/' . $this->extension->id(), $oFiles), 'Create templates files', 'Cannot create templates files');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class TemplatesFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('themes_dir') . '/' . ThemesCollection::DEFAULT_THEME . '/Templates/' . $this->extension->id();
+		$sPath = $this->okt['themes_dir'] . '/' . ThemesCollection::DEFAULT_THEME . '/Templates/' . $this->extension->id();
 		
 		if (! is_dir($sPath))
 		{

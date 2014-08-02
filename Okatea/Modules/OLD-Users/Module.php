@@ -59,7 +59,7 @@ class Module extends BaseModule
 		# on ajoutent un item au menu principal
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->mainMenu->add(__('Users'), null, null, 5000, ($this->okt->checkPerm('users')), null, ($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->okt->options->public_url . '/modules/Users/module_icon.png');
+			$this->okt->page->mainMenu->add(__('Users'), null, null, 5000, ($this->okt->checkPerm('users')), null, ($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->okt['public_url'] . '/modules/Users/module_icon.png');
 			$this->okt->page->usersSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('Users_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Users_index',
 				'Users_user_add',

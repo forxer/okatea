@@ -28,7 +28,7 @@ class ConfigFiles extends ComponentBase
 		
 		foreach ($oFiles as $oFile)
 		{
-			$sConfigFile = $this->okt->options->get('config_dir') . '/' . $oFile->getFilename();
+			$sConfigFile = $this->okt['config_dir'] . '/' . $oFile->getFilename();
 			
 			if (file_exists($sConfigFile))
 			{
@@ -58,9 +58,9 @@ class ConfigFiles extends ComponentBase
 			$sBasename = $oFile->getBasename($oFile->getExtension());
 			
 			# si le fichier cache existe on le supprime
-			if (file_exists($this->okt->options->get('cache_dir') . '/' . $oFile->getFilename() . '.php'))
+			if (file_exists($this->okt['cache_dir'] . '/' . $oFile->getFilename() . '.php'))
 			{
-				$this->checklist->addItem('cached_config_file_' . $sBasename, unlink($this->okt->options->get('cache_dir') . '/' . $oFile->getFilename() . '.php'), 'Remove cached config file ' . $oFile->getFilename() . '.php', 'Cannot remove cached config file ' . $oFile->getFilename() . '.php');
+				$this->checklist->addItem('cached_config_file_' . $sBasename, unlink($this->okt['cache_dir'] . '/' . $oFile->getFilename() . '.php'), 'Remove cached config file ' . $oFile->getFilename() . '.php', 'Cannot remove cached config file ' . $oFile->getFilename() . '.php');
 			}
 			else
 			{
@@ -68,9 +68,9 @@ class ConfigFiles extends ComponentBase
 			}
 			
 			# si le fichier config existe on le supprime
-			if (file_exists($this->okt->options->get('config_dir') . '/' . $oFile->getFilename()))
+			if (file_exists($this->okt['config_dir'] . '/' . $oFile->getFilename()))
 			{
-				$this->checklist->addItem('config_file_' . $sBasename, unlink($this->okt->options->get('config_dir') . '/' . $oFile->getFilename()), 'Remove config file ' . $oFile->getFilename(), 'Cannot remove config file ' . $oFile->getFilename());
+				$this->checklist->addItem('config_file_' . $sBasename, unlink($this->okt['config_dir'] . '/' . $oFile->getFilename()), 'Remove config file ' . $oFile->getFilename(), 'Cannot remove config file ' . $oFile->getFilename());
 			}
 			else
 			{

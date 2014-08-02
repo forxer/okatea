@@ -53,8 +53,8 @@ class Module extends BaseModule
 		
 		$aOptions = array();
 		
-		$okt->page->js->addFile($okt->options->get('public_url') . '/modules/RteCkeditor4/ckeditor/ckeditor.js');
-		$okt->page->js->addFile($okt->options->get('public_url') . '/modules/RteCkeditor4/ckeditor/adapters/jquery.js');
+		$okt->page->js->addFile($okt['public_url'] . '/modules/RteCkeditor4/ckeditor/ckeditor.js');
+		$okt->page->js->addFile($okt['public_url'] . '/modules/RteCkeditor4/ckeditor/adapters/jquery.js');
 		
 		$okt->page->js->addScript('
 

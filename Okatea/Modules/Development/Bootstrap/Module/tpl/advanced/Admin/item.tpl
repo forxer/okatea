@@ -293,7 +293,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 							$cur_image_attr = $aItemImages[$i]['square_attr'];
 						}
 						else {
-							$cur_image_url = $okt->options->public_url.'/img/media/image.png';
+							$cur_image_url = $okt['public_url'].'/img/media/image.png';
 							$cur_image_attr = ' width="48" height="48" ';
 						}
 
@@ -338,7 +338,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 				<?php # il y a un fichier ?
 				if (!empty($aItemFiles[$i])) : ?>
-					<p><a href="<?php echo $aItemFiles[$i]['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$aItemFiles[$i]['type'].'.png' ?>" alt="<?php echo $aItemFiles[$i]['filename'] ?>" /></a>
+					<p><a href="<?php echo $aItemFiles[$i]['url'] ?>"><img src="<?php echo $okt['public_url'].'/img/media/'.$aItemFiles[$i]['type'].'.png' ?>" alt="<?php echo $aItemFiles[$i]['filename'] ?>" /></a>
 					<?php echo $aItemFiles[$i]['type'] ?> (<?php echo $aItemFiles[$i]['mime'] ?>)
 					- <?php echo Utilities::l10nFileSize($aItemFiles[$i]['size']) ?></p>
 

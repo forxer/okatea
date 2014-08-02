@@ -40,8 +40,8 @@ $okt->page->js->addReady('
 	$("#p_mail_new_registration").change(function(){handleMailNewRegistrationOptionStatus();});
 ');
 
-$okt->page->css->addFile($okt->options->public_url . '/components/select2/select2.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/select2/select2.min.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/select2/select2.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/select2/select2.min.js');
 $okt->page->js->addReady('
 	$("#p_mail_new_registration_recipients").select2({
 		width: "200px",

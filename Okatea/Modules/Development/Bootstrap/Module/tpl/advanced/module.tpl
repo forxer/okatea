@@ -62,7 +62,7 @@ class module_##module_id## extends Module
 				$this->okt->checkPerm('##module_id##'),
 				null,
 				$this->okt->page->##module_camel_case_id##SubMenu,
-				$this->okt->options->public_url.'/modules/'.$this->id().'/module_icon.png'
+				$this->okt['public_url'].'/modules/'.$this->id().'/module_icon.png'
 			);
 
 				$this->okt->page->##module_camel_case_id##SubMenu->add(

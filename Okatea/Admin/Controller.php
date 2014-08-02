@@ -20,16 +20,16 @@ class Controller extends BaseController
 		parent::__construct($okt);
 
 		# Ajout des fichiers CSS de l'admin
-		$this->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt['config']->jquery_ui['admin'] . '/jquery-ui.min.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/init.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/admin.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/famfamfam.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/components/jquery-ui/themes/' . $this->okt['config']->jquery_ui['admin'] . '/jquery-ui.min.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/init.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/admin.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/famfamfam.css');
 
 		# Ajout des fichiers JS de l'admin
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery/dist/jquery.min.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-cookie/jquery.cookie.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/js/common_admin.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery/dist/jquery.min.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery-cookie/jquery.cookie.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/js/common_admin.js');
 
 		# Title tag
 		$this->page->addTitleTag($this->page->getSiteTitleTag(null, $this->page->getSiteTitle()));

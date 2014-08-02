@@ -12,7 +12,6 @@ use Okatea\Tao\Controller as BaseController;
 
 class Controller extends BaseController
 {
-
 	/**
 	 * Constructor.
 	 */
@@ -21,22 +20,22 @@ class Controller extends BaseController
 		parent::__construct($okt);
 
 		# URL du dossier des fichiers publics
-		$this->okt->options->set('public_url', $this->okt['request']->getBasePath() . '/../oktPublic');
+		$this->okt['public_url'] = $this->okt['request']->getBasePath() . '/../oktPublic';
 
 		# URL du dossier upload depuis la racine
-		$this->okt->options->set('upload_url', $this->okt['request']->getBasePath() . '/../oktPublic/upload');
+		$this->okt['upload_url'] = $this->okt['request']->getBasePath() . '/../oktPublic/upload';
 
-		$this->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/redmond/jquery-ui.min.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/init.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/admin.css');
-		$this->page->css->addFile($this->okt->options->public_url . '/css/famfamfam.css');
-		$this->page->css->addCSS(file_get_contents($this->okt->options->get('root_dir') . '/install/Assets/install.css'));
+		$this->page->css->addFile($this->okt['public_url'] . '/components/jquery-ui/themes/redmond/jquery-ui.min.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/init.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/admin.css');
+		$this->page->css->addFile($this->okt['public_url'] . '/css/famfamfam.css');
+		$this->page->css->addCSS(file_get_contents($this->okt['root_dir'] . '/install/Assets/install.css'));
 
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery/dist/jquery.min.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-cookie/jquery.cookie.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/js/common_admin.js');
-		$this->page->js->addFile($this->okt->options->public_url . '/plugins/blockUI/jquery.blockUI.min.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery/dist/jquery.min.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery-cookie/jquery.cookie.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/js/common_admin.js');
+		$this->page->js->addFile($this->okt['public_url'] . '/plugins/blockUI/jquery.blockUI.min.js');
 	}
 
 	/**

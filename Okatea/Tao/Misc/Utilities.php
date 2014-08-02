@@ -778,7 +778,7 @@ class Utilities
 		}
 
 		$oCacheFiles = (new Finder())
-			->in($okt->options->get('cache_dir'))
+			->in($okt['cache_dir'])
 			->sortByName();
 
 		return $oCacheFiles;
@@ -811,7 +811,7 @@ class Utilities
 		}
 
 		$oCacheFiles = (new Finder())
-			->in($okt->options->public_dir . '/cache')
+			->in($okt['public_dir'] . '/cache')
 			->notName('index.html')
 			->sortByName();
 

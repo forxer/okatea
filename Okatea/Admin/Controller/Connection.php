@@ -30,11 +30,11 @@ class Connection extends Controller
 			{
 				$redir = $this->generateUrl('home');
 
-				if ($this->okt['request']->cookies->has($this->okt->options->get('cookie_auth_from')))
+				if ($this->okt['request']->cookies->has($this->okt['cookie_auth_from']))
 				{
-					if ($this->okt['request']->cookies->get($this->okt->options->get('cookie_auth_from')) != $this->okt['request']->getUri())
+					if ($this->okt['request']->cookies->get($this->okt['cookie_auth_from']) != $this->okt['request']->getUri())
 					{
-						$redir = $this->okt['request']->cookies->get($this->okt->options->get('cookie_auth_from'));
+						$redir = $this->okt['request']->cookies->get($this->okt['cookie_auth_from']);
 					}
 
 					$this->okt->user->setAuthFromCookie('', 0);

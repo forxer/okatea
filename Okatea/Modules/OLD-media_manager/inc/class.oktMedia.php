@@ -82,22 +82,22 @@ class oktMedia extends filemanager
 		$this->t_media = $this->db->prefix . 'mod_media';
 		$this->t_users = $this->db->prefix . 'core_users';
 		
-		$this->icon_img = $okt->options->public_url . '/img/media/%s.png';
+		$this->icon_img = $okt['public_url'] . '/img/media/%s.png';
 		
-		$root = $this->okt->options->get('upload_dir') . '/media_manager';
+		$root = $this->okt['upload_dir'] . '/media_manager';
 		
 		if (! is_dir($root))
 		{
 			files::makeDir($root, true);
 		}
 		
-		if (preg_match('#^http(s)?://#', $okt->options->upload_url . '/media_manager'))
+		if (preg_match('#^http(s)?://#', $okt['upload_url'] . '/media_manager'))
 		{
-			$root_url = rawurldecode($okt->options->upload_url . '/media_manager');
+			$root_url = rawurldecode($okt['upload_url'] . '/media_manager');
 		}
 		else
 		{
-			$root_url = rawurldecode($this->okt['request']->getSchemeAndHttpHost() . path::clean($okt->options->upload_url . '/media_manager'));
+			$root_url = rawurldecode($this->okt['request']->getSchemeAndHttpHost() . path::clean($okt['upload_url'] . '/media_manager'));
 		}
 		
 		if (! is_dir($root))
@@ -110,7 +110,7 @@ class oktMedia extends filemanager
 		parent::__construct($root, $root_url);
 		$this->chdir('');
 		
-		$this->path = $okt->options->upload_url . '/media_manager/';
+		$this->path = $okt['upload_url'] . '/media_manager/';
 		
 		//		$this->addExclusion(DC_RC_PATH);
 		//		$this->addExclusion(__DIR__.'/../');

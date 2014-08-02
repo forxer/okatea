@@ -58,16 +58,16 @@ $okt->page->css->addCss('
 ');
 
 # ghostdown for notes
-$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.js');
-$okt->page->css->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/jquery.ghostdown.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/ghostdown/ghostdown.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/ghostdown/ghostdown.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/ghostdown/jquery.ghostdown.js');
 $okt->page->js->addReady('
 	$(".editor").ghostDown();
 ');
 
 # lightbox2 for screenshot
-$okt->page->js->addFile($okt->options->public_url . '/components/lightbox2/js/lightbox-2.6.min.js');
-$okt->page->css->addFile($okt->options->public_url . '/components/lightbox2/css/lightbox.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/lightbox2/js/lightbox-2.6.min.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/lightbox2/css/lightbox.css');
 
 ?>
 
@@ -90,9 +90,9 @@ $okt->page->css->addFile($okt->options->public_url . '/components/lightbox2/css/
 		<div id="theme-screenshot">
 			<?php if ($aThemeInfos['screenshot']) : ?>
 			<a
-				href="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
+				href="<?php echo $okt['public_url'].'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
 				data-lightbox="screenshot"> <img
-				src="<?php echo $okt->options->get('public_url').'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
+				src="<?php echo $okt['public_url'].'/themes/'.$aThemeInfos['id'].'/screenshot.png' ?>"
 				width="100%" height="100%" alt="" />
 			</a>
 			<?php else : ?>

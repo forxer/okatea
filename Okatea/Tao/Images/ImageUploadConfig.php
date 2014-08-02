@@ -87,7 +87,7 @@ class ImageUploadConfig
 		
 		$this->oImageUpload = $oImageUpload;
 		
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/images.config');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/images.config');
 		
 		$this->iMaxFileUploads = ini_get('max_file_uploads');
 	}
@@ -405,7 +405,7 @@ class ImageUploadConfig
 		
 		if (is_file($this->oImageUpload->getWatermarkUploadDir() . $this->oImageUpload->aConfig['watermark_file']))
 		{
-			$return .= '<p><img src="' . $this->oImageUpload->getWatermarkUploadUrl() . $this->oImageUpload->aConfig['watermark_file'] . '" alt="" ' . 'style="background: transparent url(' . $this->okt->options->public_url . '/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>' . 
+			$return .= '<p><img src="' . $this->oImageUpload->getWatermarkUploadUrl() . $this->oImageUpload->aConfig['watermark_file'] . '" alt="" ' . 'style="background: transparent url(' . $this->okt['public_url'] . '/img/admin/bg-transparency-symbol.png) repeat 0 0" /></p>' . 
 
 			'<p><a href="' . $this->sBaseUrl . 'delete_watermark=1" ' . 'onclick="return window.confirm(\'' . Escaper::js(__('a_image_config_watermark_confirm')) . '\')" ' . 'class="icon delete">' . __('a_image_config_watermark_delete') . '</a></p>';
 		}

@@ -28,15 +28,15 @@ class Theme extends Controller
 		}
 		
 		# Themes locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/themes');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
 		
 		# theme infos
 		$aThemeInfos = $this->okt->themes->getInstance($sThemeId)->getInfos();
 		
-		$aThemeInfos['screenshot'] = file_exists($this->okt->options->get('public_dir') . '/themes/' . $sThemeId . '/screenshot.png');
+		$aThemeInfos['screenshot'] = file_exists($this->okt['public_dir'] . '/themes/' . $sThemeId . '/screenshot.png');
 		
 		# Notes de développement
-		$sDevNotesFilename = $this->okt->options->get('themes_dir') . '/' . $sThemeId . '/notes.md';
+		$sDevNotesFilename = $this->okt['themes_dir'] . '/' . $sThemeId . '/notes.md';
 		$bHasDevNotes = $bEditDevNotes = false;
 		$sDevNotesMd = $sDevNotesHtml = null;
 		if (file_exists($sDevNotesFilename))
@@ -51,7 +51,7 @@ class Theme extends Controller
 		}
 		
 		# Definitions LESS
-		$sDefinitionsLessFilename = $this->okt->options->get('public_dir') . '/themes/' . $sThemeId . '/css/definitions.less';
+		$sDefinitionsLessFilename = $this->okt['public_dir'] . '/themes/' . $sThemeId . '/css/definitions.less';
 		
 		$bHasDefinitionsLess = false;
 		$oDefinitionsLessEditor = null;

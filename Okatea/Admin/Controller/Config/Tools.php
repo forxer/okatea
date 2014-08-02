@@ -48,7 +48,7 @@ class Tools extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/tools');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/tools');
 
 		# Données de la page
 		$this->aPageData = new ArrayObject();
@@ -220,7 +220,7 @@ class Tools extends Controller
 		$this->aBackupFiles = array();
 		$this->aDbBackupFiles = array();
 
-		foreach (new DirectoryIterator($this->okt->options->get('root_dir')) as $oFileInfo)
+		foreach (new DirectoryIterator($this->okt['root_dir']) as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || ! $oFileInfo->isFile())
 			{
@@ -248,14 +248,14 @@ class Tools extends Controller
 		$this->sHtaccessContent = '';
 
 		$this->bHtaccessExists = false;
-		if (file_exists($this->okt->options->get('root_dir') . '/.htaccess'))
+		if (file_exists($this->okt['root_dir'] . '/.htaccess'))
 		{
 			$this->bHtaccessExists = true;
-			$this->sHtaccessContent = file_get_contents($this->okt->options->get('root_dir') . '/.htaccess');
+			$this->sHtaccessContent = file_get_contents($this->okt['root_dir'] . '/.htaccess');
 		}
 
 		$this->bHtaccessDistExists = false;
-		if (file_exists($this->okt->options->get('root_dir') . '/.htaccess.oktDist'))
+		if (file_exists($this->okt['root_dir'] . '/.htaccess.oktDist'))
 		{
 			$this->bHtaccessDistExists = true;
 		}
@@ -265,8 +265,8 @@ class Tools extends Controller
 	{
 		$this->bCanUninstall = false;
 
-		if ($this->okt->options->get('debug')
-			&& $this->okt->options->get('env') === 'dev'
+		if ($this->okt['debug']
+			&& $this->okt['env'] === 'dev'
 			&& $this->okt->checkPerm('is_superadmin'))
 		{
 			$this->bCanUninstall = true;
@@ -279,7 +279,7 @@ class Tools extends Controller
 		$sCacheFile = $this->okt['request']->query->get('cache_file');
 		if ($sCacheFile)
 		{
-			$fs = (new Filesystem())->remove($this->okt->options->get('cache_dir') . '/' . $sCacheFile);
+			$fs = (new Filesystem())->remove($this->okt['cache_dir'] . '/' . $sCacheFile);
 
 			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
 
@@ -290,7 +290,7 @@ class Tools extends Controller
 		$sPublicCacheFile = $this->okt['request']->query->get('public_cache_file');
 		if ($sPublicCacheFile)
 		{
-			$fs = (new Filesystem())->remove($this->okt->options->public_dir . '/cache/' . $sPublicCacheFile);
+			$fs = (new Filesystem())->remove($this->okt['public_dir'] . '/cache/' . $sPublicCacheFile);
 
 			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
 
@@ -333,7 +333,7 @@ class Tools extends Controller
 				ini_set('memory_limit', - 1);
 				set_time_limit(0);
 
-				$finder = (new Finder())->in($this->okt->options->get('root_dir'))
+				$finder = (new Finder())->in($this->okt['root_dir'])
 					->exclude('/vendor')
 					->ignoreVCS(false);
 
@@ -366,7 +366,7 @@ class Tools extends Controller
 		{
 			$sFilename = $this->sBackupFilenameBase . '-' . date('Y-m-d-H-i') . '.zip';
 
-			$fp = fopen($this->okt->options->get('root_dir') . '/' . $sFilename, 'wb');
+			$fp = fopen($this->okt['root_dir'] . '/' . $sFilename, 'wb');
 			if ($fp === false)
 			{
 				$this->okt['flash']->error(__('c_a_tools_backup_unable_write_file'));
@@ -389,7 +389,7 @@ class Tools extends Controller
 				$zip->addExclusion('#(^|/)stats$#');
 				$zip->addExclusion('#(^|/)' . preg_quote($this->sBackupFilenameBase, '#') . '(.*?).zip$#');
 
-				$zip->addDirectory($this->okt->options->get('root_dir'), $this->sBackupFilenameBase, true);
+				$zip->addDirectory($this->okt['root_dir'], $this->sBackupFilenameBase, true);
 
 				$zip->write();
 				fclose($fp);
@@ -456,7 +456,7 @@ class Tools extends Controller
 			$sFilename = $this->sDbBackupFilenameBase . '-' . date('Y-m-d-H-i') . '.sql';
 
 			# save the file
-			$fp = fopen($this->okt->options->get('root_dir') . '/' . $sFilename, 'wb');
+			$fp = fopen($this->okt['root_dir'] . '/' . $sFilename, 'wb');
 			fwrite($fp, $return);
 			fclose($fp);
 
@@ -469,7 +469,7 @@ class Tools extends Controller
 		$sBackupFileToDelete = $this->okt['request']->query->get('delete_backup_file');
 		if ($sBackupFileToDelete && (in_array($sBackupFileToDelete, $this->aBackupFiles) || in_array($sBackupFileToDelete, $this->aDbBackupFiles)))
 		{
-			@unlink($this->okt->options->get('root_dir') . '/' . $sBackupFileToDelete);
+			@unlink($this->okt['root_dir'] . '/' . $sBackupFileToDelete);
 
 			$this->okt['flash']->success(__('c_a_tools_backup_deleted'));
 
@@ -480,7 +480,7 @@ class Tools extends Controller
 		$sBackupFileToDownload = $this->okt['request']->query->get('dl_backup');
 		if ($sBackupFileToDownload && (in_array($sBackupFileToDownload, $this->aBackupFiles) || in_array($sBackupFileToDownload, $this->aDbBackupFiles)))
 		{
-			Utilities::forceDownload($this->okt->options->get('root_dir') . '/' . $sBackupFileToDownload);
+			Utilities::forceDownload($this->okt['root_dir'] . '/' . $sBackupFileToDownload);
 			exit();
 		}
 
@@ -502,7 +502,7 @@ class Tools extends Controller
 			}
 			else
 			{
-				file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', file_get_contents($this->okt->options->get('root_dir') . '/.htaccess.oktDist'));
+				file_put_contents($this->okt['root_dir'] . '/.htaccess', file_get_contents($this->okt['root_dir'] . '/.htaccess.oktDist'));
 
 				$this->okt['flash']->success(__('c_a_tools_htaccess_created'));
 
@@ -513,7 +513,7 @@ class Tools extends Controller
 		# suppression du fichier .htaccess
 		if ($this->okt['request']->query->has('delete_htaccess'))
 		{
-			@unlink($this->okt->options->get('root_dir') . '/.htaccess');
+			@unlink($this->okt['root_dir'] . '/.htaccess');
 
 			$this->okt['flash']->success(__('c_a_tools_htaccess_deleted'));
 
@@ -523,7 +523,7 @@ class Tools extends Controller
 		# modification du fichier .htaccess
 		if ($this->okt['request']->request->has('htaccess_form_sent'))
 		{
-			file_put_contents($this->okt->options->get('root_dir') . '/.htaccess', $this->okt['request']->request->get('p_htaccess_content'));
+			file_put_contents($this->okt['root_dir'] . '/.htaccess', $this->okt['request']->request->get('p_htaccess_content'));
 
 			$this->okt['flash']->success(__('c_a_tools_htaccess_edited'));
 
@@ -558,9 +558,9 @@ class Tools extends Controller
 			}
 
 			# remove db connection file
-			if (file_exists($this->okt->options->get('config_dir') . '/connection.php'))
+			if (file_exists($this->okt['config_dir'] . '/connection.php'))
 			{
-				unlink($this->okt->options->get('config_dir') . '/connection.php');
+				unlink($this->okt['config_dir'] . '/connection.php');
 			}
 
 			# clear all cache files

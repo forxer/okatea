@@ -68,7 +68,7 @@ class module_partners extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->partnersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=partners', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('partners'), null, $this->okt->page->partnersSubMenu, $this->okt->options->public_url . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=partners', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('partners'), null, $this->okt->page->partnersSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->partnersSubMenu->add(__('c_a_menu_management'), 'module.php?m=partners&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->partnersSubMenu->add(__('m_partners_add_partner'), 'module.php?m=partners&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt->checkPerm('partners_add'));
 			$this->okt->page->partnersSubMenu->add(__('m_partners_Categories'), 'module.php?m=partners&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 3, ($this->config->enable_categories && $this->okt->checkPerm('partners_add')));

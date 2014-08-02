@@ -92,8 +92,8 @@ $okt->page->js->addReady('
 			<li id="ord_<?php echo $aLanguage['id'] ?>" class="ui-state-default"><label
 				for="p_order_<?php echo $aLanguage['id'] ?>"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 
-				<?php if (file_exists($okt->options->public_dir.'/img/flags/'.$aLanguage['img'])) : ?>
-				<img src="<?php echo $okt->options->public_url.'/img/flags/'.$aLanguage['img'] ?>" alt="" />
+				<?php if (file_exists($okt['public_dir'].'/img/flags/'.$aLanguage['img'])) : ?>
+				<img src="<?php echo $okt['public_url'].'/img/flags/'.$aLanguage['img'] ?>" alt="" />
 				<?php endif; ?>
 
 				<?php echo $view->escape($aLanguage['title']) ?></label>

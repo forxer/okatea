@@ -30,7 +30,7 @@ class Infos extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/infos');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/infos');
 
 		# Données de la page
 		$this->aPageData = new ArrayObject();
@@ -121,7 +121,7 @@ class Infos extends Controller
 	protected function notesInit()
 	{
 		$this->aNotes = array(
-			'file' => $this->okt->options->get('root_dir') . '/notes.md',
+			'file' => $this->okt['root_dir'] . '/notes.md',
 			'has' => false,
 			'edit' => false,
 			'md' => null,
@@ -231,7 +231,7 @@ class Infos extends Controller
 	protected function okateaHandleRequest()
 	{
 		# affichage changelog Okatea
-		$sChangelogFile = $this->okt->options->get('okt_dir') . '/CHANGELOG';
+		$sChangelogFile = $this->okt['okt_dir'] . '/CHANGELOG';
 		if ($this->okt['request']->query->has('show_changelog') && file_exists($sChangelogFile))
 		{
 			echo '<pre class="changelog">' . file_get_contents($sChangelogFile) . '</pre>';

@@ -67,7 +67,7 @@ class module_estimate extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->estimateSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add(__('m_estimate_menu_Estimates'), 'module.php?m=estimate', $this->bCurrentlyInUse, 30, $this->okt->checkPerm('estimate'), null, $this->okt->page->estimateSubMenu, $this->okt->options->public_url . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add(__('m_estimate_menu_Estimates'), 'module.php?m=estimate', $this->bCurrentlyInUse, 30, $this->okt->checkPerm('estimate'), null, $this->okt->page->estimateSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Estimates_list'), 'module.php?m=estimate&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'), 1);
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Products'), 'module.php?m=estimate&amp;action=products', $this->bCurrentlyInUse && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'), 2, $this->okt->checkPerm('estimate_products'));
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Accessories'), 'module.php?m=estimate&amp;action=accessories', $this->bCurrentlyInUse && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'), 3, $this->config->enable_accessories && $this->okt->checkPerm('estimate_accessories'));

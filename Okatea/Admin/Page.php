@@ -197,7 +197,7 @@ class Page extends BasePage
 					continue;
 				}
 
-				$aUserBars['second'][$iCount ++] = '<a href="' . $sBaseUri . 'lang=' . Escaper::html($aLanguage['code']) . '" title="' . Escaper::html($aLanguage['title']) . '">' . '<img src="' . $this->okt->options->public_url . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" /></a>';
+				$aUserBars['second'][$iCount ++] = '<a href="' . $sBaseUri . 'lang=' . Escaper::html($aLanguage['code']) . '" title="' . Escaper::html($aLanguage['title']) . '">' . '<img src="' . $this->okt['public_url'] . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" /></a>';
 			}
 
 			unset($sBaseUri, $aLanguage);

@@ -91,7 +91,7 @@ class TemplatesSet
 		
 		$this->loadTemplatesInfos();
 		
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/templates.config');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/templates.config');
 		
 		# get template id from query
 		$sTtplId = null;
@@ -224,11 +224,11 @@ class TemplatesSet
 		# first, get default theme templates
 		if ($this->okt['config']->themes['desktop'] != 'DefaultTheme')
 		{
-			$this->aTemplatesPath = (array) glob($this->okt->options->get('themes_dir') . '/DefaultTheme/Templates/' . $this->sBase . '/*/template.php');
+			$this->aTemplatesPath = (array) glob($this->okt['themes_dir'] . '/DefaultTheme/Templates/' . $this->sBase . '/*/template.php');
 		}
 		
 		# then, get current theme templates
-		$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['desktop'] . '/Templates/' . $this->sBase . '/*/template.php');
+		$aThemeTemplates = (array) glob($this->okt['themes_dir'] . '/' . $this->okt['config']->themes['desktop'] . '/Templates/' . $this->sBase . '/*/template.php');
 		
 		foreach ($aThemeTemplates as $sTemplatePath)
 		{
@@ -238,7 +238,7 @@ class TemplatesSet
 		# if we have a mobile theme, search in it
 		if (! empty($this->okt['config']->themes['mobile']))
 		{
-			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['mobile'] . '/Templates/' . $this->sBase . '/*/template.php');
+			$aThemeTemplates = (array) glob($this->okt['themes_dir'] . '/' . $this->okt['config']->themes['mobile'] . '/Templates/' . $this->sBase . '/*/template.php');
 			
 			foreach ($aThemeTemplates as $sTemplatePath)
 			{
@@ -249,7 +249,7 @@ class TemplatesSet
 		# finaly, search for templates in tablet theme
 		if (! empty($this->okt['config']->themes['tablet']))
 		{
-			$aThemeTemplates = (array) glob($this->okt->options->get('themes_dir') . '/' . $this->okt['config']->themes['tablet'] . '/Templates/' . $this->sBase . '/*/template.php');
+			$aThemeTemplates = (array) glob($this->okt['themes_dir'] . '/' . $this->okt['config']->themes['tablet'] . '/Templates/' . $this->sBase . '/*/template.php');
 			
 			foreach ($aThemeTemplates as $sTemplatePath)
 			{
@@ -274,7 +274,7 @@ class TemplatesSet
 			$sDir = dirname($sTplPath);
 			
 			$sThemeId = self::getThemeIdFromTplPath($sTplPath);
-			$sThemePath = $this->okt->options->get('themes_dir') . '/' . $sThemeId;
+			$sThemePath = $this->okt['themes_dir'] . '/' . $sThemeId;
 			
 			$sTplPathInTheme = str_replace($sThemePath, '', $sTplPath);
 			
@@ -326,7 +326,7 @@ class TemplatesSet
 	{
 		global $okt;
 		
-		return Utilities::getNextSubDir($sTplPath, $okt->options->get('themes_dir'));
+		return Utilities::getNextSubDir($sTplPath, $okt['themes_dir']);
 	}
 
 	/**

@@ -341,7 +341,7 @@ include OKT_ADMIN_HEADER_FILE;
 				}
 				else
 				{
-					$logo_url = $okt->options->public_url . '/img/media/image.png';
+					$logo_url = $okt['public_url'] . '/img/media/image.png';
 					$logo_attr = ' width="48" height="48" ';
 				}
 				

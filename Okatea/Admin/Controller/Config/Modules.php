@@ -145,7 +145,7 @@ class Modules extends Controller
 	protected function init()
 	{
 		# Modules management locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/admin/modules');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/modules');
 
 		# Retrieving the list of modules in the file system (all modules)
 		$this->aAllModules = $this->okt->modules->getManager()->getAll();
@@ -205,7 +205,7 @@ class Modules extends Controller
 	protected function showChangelog()
 	{
 		$sModuleId = $this->okt['request']->query->get('show_changelog');
-		$sChangelogFile = $this->okt->options->get('modules_dir') . '/' . $sModuleId . '/CHANGELOG';
+		$sChangelogFile = $this->okt['modules_dir'] . '/' . $sModuleId . '/CHANGELOG';
 
 		if (! $sModuleId || ! file_exists($sChangelogFile))
 		{
@@ -569,7 +569,7 @@ class Modules extends Controller
 
 		$fs = new Filesystem();
 
-		if ($fs->remove($this->okt->options->get('modules_dir') . '/' . $sModuleId))
+		if ($fs->remove($this->okt['modules_dir'] . '/' . $sModuleId))
 		{
 			$this->okt['flash']->success(__('c_a_modules_successfully_deleted'));
 
@@ -633,7 +633,7 @@ class Modules extends Controller
 			return false;
 		}
 
-		$sModulePath = $this->okt->options->get('modules_dir') . '/' . $sModuleId;
+		$sModulePath = $this->okt['modules_dir'] . '/' . $sModuleId;
 
 		if (! is_readable($sModulePath))
 		{
@@ -698,7 +698,7 @@ class Modules extends Controller
 						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
-					$pkg_file->move($this->okt->options->get('modules_dir'));
+					$pkg_file->move($this->okt['modules_dir']);
 				}
 				else
 				{
@@ -713,7 +713,7 @@ class Modules extends Controller
 						$url = urldecode($pkg_url);
 					}
 
-					$dest = $this->okt->options->get('modules_dir') . '/' . basename($url);
+					$dest = $this->okt['modules_dir'] . '/' . basename($url);
 
 					if (array_key_exists(basename($url), $this->aUninstalledModules))
 					{

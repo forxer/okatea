@@ -172,7 +172,7 @@ $okt->page->js->addReady('
 
 			$.ajax({
 				data: result,
-				url: "' . $okt->options->modules_url . '/galleries/service_ordering_items.php",
+				url: "' . $okt['modules_url'] . '/galleries/service_ordering_items.php",
 				success: function(data) {
 					$("#ajaxloader").fadeOut(400);
 				},
@@ -209,7 +209,7 @@ $okt->page->css->addCSS('
 	}
 	#ajaxloader {
 		display: none;
-		background: transparent url(' . $okt->options->public_url . '/img/ajax-loader/indicator-big.gif) no-repeat center;
+		background: transparent url(' . $okt['public_url'] . '/img/ajax-loader/indicator-big.gif) no-repeat center;
 		width: 32px;
 		height: 32px;
 	}

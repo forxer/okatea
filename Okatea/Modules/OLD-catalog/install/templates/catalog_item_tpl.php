@@ -13,14 +13,14 @@ $okt->page->css->addFile($okt->theme->url . '/modules/catalog/styles.css');
 
 <?php 
 # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
 <?php 
 # début Okatea : ajout du JS de scrollToTopOfPage
-$okt->page->js->addFile($okt->options->public_url . '/plugins/easing/jquery.easing.min.js');
-$okt->page->js->addFile($okt->options->public_url . '/plugins/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/plugins/easing/jquery.easing.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/plugins/scrollToTopOfPage/jquery.scrollToTopOfPage.min.js');
 $okt->page->js->addReady('
 	$("a.scrollTop").scrollToTopOfPage({
 		"top": 300,					// hauteur avant affichage du lien
@@ -188,7 +188,7 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 
 			<p class="col">
 				<a href="<?php echo $file['url'] ?>"><img
-					src="<?php echo $okt->options->public_url.'/img/media/'.$file['type'].'.png' ?>"
+					src="<?php echo $okt['public_url'].'/img/media/'.$file['type'].'.png' ?>"
 					alt="<?php echo $view->escape($file['title']) ?>" /></a>
 			<?php echo $view->escape($file['title']) ?> (<?php echo $file['mime'] ?>)
 			- <?php echo Okatea\Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>

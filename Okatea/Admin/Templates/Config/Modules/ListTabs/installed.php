@@ -88,13 +88,13 @@ foreach ($aInstalledModules as $aModule)
 				<?php if ($aModule['status']): ?>
 					<a href="module.php?m=<?php echo $aModule['id'] ?>">
 				<?php endif; ?>
-					<?php if (file_exists($okt->options->get('public_dir').'/modules/'.$aModule['id'].'/module_icon.png')) : ?>
+					<?php if (file_exists($okt['public_dir'].'/modules/'.$aModule['id'].'/module_icon.png')) : ?>
 					<img
-							src="<?php echo $okt->options->public_url.'/modules/'.$aModule['id'] ?>/module_icon.png"
+							src="<?php echo $okt['public_url'].'/modules/'.$aModule['id'] ?>/module_icon.png"
 							width="32" height="32" alt="" />
 					<?php else: ?>
 					<img
-							src="<?php echo $okt->options->public_url ?>/img/admin/module.png"
+							src="<?php echo $okt['public_url'] ?>/img/admin/module.png"
 							width="32" height="32" alt="" />
 					<?php endif; ?>
 				<?php if ($aModule['status']): ?>

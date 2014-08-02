@@ -87,7 +87,7 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		$this->setTplDirectory(__DIR__ . '/Templates/%name%.php');
-		$this->setTplDirectory($this->options->get('modules_dir') . '/%name%.php');
+		$this->setTplDirectory($this['modules_dir'] . '/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);
@@ -99,7 +99,7 @@ class Okatea extends Application
 	protected function checkUser()
 	{
 		# Validation du CSRF token si un formulaire est envoyé
-		if (! $this->options->get('debug') && count($this['request']->request) > 0 && (! $this['request']->request->has($this->options->get('csrf_token_name')) || ! $this['session']->isValidToken($this['request']->request->get($this->options->get('csrf_token_name')))))
+		if (! $this['debug'] && count($this['request']->request) > 0 && (! $this['request']->request->has($this['csrf_token_name']) || ! $this['session']->isValidToken($this['request']->request->get($this['csrf_token_name']))))
 		{
 			$this['flash']->error(__('c_c_auth_bad_csrf_token'));
 
@@ -216,11 +216,11 @@ class Okatea extends Application
 			/* visible ? */	true,
 			/* ID */ 		null,
 			/* Sub */		($this->page->homeSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)),
-			/* Icon */		$this->options->public_url . '/img/admin/start-here.png');
+			/* Icon */		$this['public_url'] . '/img/admin/start-here.png');
 		$this->page->homeSubMenu->add(__('c_a_menu_roundabout'), $this->adminRouter->generate('home'), $this['request']->attributes->get('_route') === 'home', 10, true);
 
 		# Users
-		$this->page->mainMenu->add(__('c_a_menu_users'), $this->adminRouter->generate('Users_index'), $this['request']->attributes->get('_route') === 'Users_index', 9000000, ($this->checkPerm('users')), null, ($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->options->public_url . '/img/admin/users.png');
+		$this->page->mainMenu->add(__('c_a_menu_users'), $this->adminRouter->generate('Users_index'), $this['request']->attributes->get('_route') === 'Users_index', 9000000, ($this->checkPerm('users')), null, ($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this['public_url'] . '/img/admin/users.png');
 		$this->page->usersSubMenu->add(__('c_a_menu_management'), $this->adminRouter->generate('Users_index'), in_array($this['request']->attributes->get('_route'), array(
 			'Users_index',
 			'Users_add',
@@ -251,7 +251,7 @@ class Okatea extends Application
 		$this->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->adminRouter->generate('Users_config'), $this['request']->attributes->get('_route') === 'Users_config', 100, $this->checkPerm('users_config'));
 
 		# Configuration
-		$this->page->mainMenu->add(__('c_a_menu_configuration'), $this->adminRouter->generate('config_general'), $this['request']->attributes->get('_route') === 'config_general', 10000000, $this->checkPerm('configsite'), null, ($this->page->configSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->options->public_url . '/img/admin/network-server.png');
+		$this->page->mainMenu->add(__('c_a_menu_configuration'), $this->adminRouter->generate('config_general'), $this['request']->attributes->get('_route') === 'config_general', 10000000, $this->checkPerm('configsite'), null, ($this->page->configSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this['public_url'] . '/img/admin/network-server.png');
 		$this->page->configSubMenu->add(__('c_a_menu_general'), $this->adminRouter->generate('config_general'), $this['request']->attributes->get('_route') === 'config_general', 10, $this->checkPerm('configsite'));
 		$this->page->configSubMenu->add(__('c_a_menu_display'), $this->adminRouter->generate('config_display'), $this['request']->attributes->get('_route') === 'config_display', 20, $this->checkPerm('display'));
 		$this->page->configSubMenu->add(__('c_a_menu_localization'), $this->adminRouter->generate('config_l10n'), in_array($this['request']->attributes->get('_route'), array(

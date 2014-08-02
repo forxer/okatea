@@ -141,7 +141,7 @@ class Cleaner extends BaseTools
 
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
-			->in($this->getTempDir($this->okt->options->cache_dir))
+			->in($this->getTempDir($this->okt['cache_dir']))
 			->notName('.gitkeep');
 
 		foreach ($finder as $files)
@@ -165,7 +165,7 @@ class Cleaner extends BaseTools
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->files()
-			->in($this->getTempDir($this->okt->options->config_dir))
+			->in($this->getTempDir($this->okt['config_dir']))
 			->notName('__okatea_core.yml')
 			->notName('conf_site.yml')
 			->notName('connection.dist.php');
@@ -190,7 +190,7 @@ class Cleaner extends BaseTools
 
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
-			->in($this->getTempDir($this->okt->options->logs_dir))
+			->in($this->getTempDir($this->okt['logs_dir']))
 			->notName('.gitkeep');
 
 		foreach ($finder as $files)
@@ -211,7 +211,7 @@ class Cleaner extends BaseTools
 			$this->aToRemove = array();
 		}
 
-		$sPublicDir = $this->getTempDir($this->okt->options->public_dir);
+		$sPublicDir = $this->getTempDir($this->okt['public_dir']);
 		$finder = (new Finder())->ignoreVCS(false)
 			->ignoreDotFiles(false)
 			->in($sPublicDir . '/cache')
@@ -237,7 +237,7 @@ class Cleaner extends BaseTools
 			$this->aToRemove = array();
 		}
 
-		$sComponentsDir = $this->getTempDir($this->okt->options->public_dir) . '/components';
+		$sComponentsDir = $this->getTempDir($this->okt['public_dir']) . '/components';
 
 		foreach ($this->aComponentsRules as $sPackageDir => $rule)
 		{

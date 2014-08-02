@@ -118,7 +118,7 @@ class Module
 	 */
 	public function setInfosFromDefineFile()
 	{
-		$define_file = $this->okt->options->get('modules_dir') . '/' . $this->id() . '/_define.php';
+		$define_file = $this->okt['modules_dir'] . '/' . $this->id() . '/_define.php';
 		
 		if (file_exists($define_file))
 		{
@@ -146,7 +146,7 @@ class Module
 	public function register(array $aParams = array())
 	{
 		$this->setInfos(array(
-			'root' => $this->okt->options->get('modules_dir') . '/' . $this->id(),
+			'root' => $this->okt['modules_dir'] . '/' . $this->id(),
 			'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->_id),
 			'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
 			'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
@@ -165,8 +165,8 @@ class Module
 		$this->prepend();
 		
 		# répertoire upload
-		$this->upload_dir = $this->okt->options->get('upload_dir') . '/' . $this->getInfo('id');
-		$this->upload_url = $this->okt->options->get('upload_url') . '/' . $this->getInfo('id');
+		$this->upload_dir = $this->okt['upload_dir'] . '/' . $this->getInfo('id');
+		$this->upload_url = $this->okt['upload_url'] . '/' . $this->getInfo('id');
 	}
 
 	final public function initNs($ns)

@@ -27,12 +27,12 @@ $okt->page->setButtonset('l10nBtSt', array(
 	)
 ));
 
-$okt->page->css->addFile($okt->options->public_url . '/components/select2/select2.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/select2/select2.min.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/select2/select2.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/select2/select2.min.js');
 $okt->page->js->addReady('
 
 	function format(flag) {
-		return \'<img class="flag" src="' . $okt->options->public_url . '/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
+		return \'<img class="flag" src="' . $okt['public_url'] . '/img/flags/\' + flag.id + \'" /> <strong>\' + flag.text + \'</strong> - \' + flag.id
 	}
 
 	$("#add_img").select2({

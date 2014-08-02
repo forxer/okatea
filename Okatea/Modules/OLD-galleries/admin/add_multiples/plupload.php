@@ -58,16 +58,16 @@ $rsGalleries = $okt->galleries->tree->getGalleries(array(
 ));
 
 # plupload
-$okt->page->css->addFile($okt->options->public_url . '/components/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/plupload/js/plupload.full.js');
-$okt->page->js->addFile($okt->options->public_url . '/components/plupload/js/jquery.ui.plupload/jquery.ui.plupload.js');
-$okt->page->js->addFile($okt->options->public_url . '/components/plupload/js/i18n/' . $okt->user->language . '.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/plupload.full.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/jquery.ui.plupload/jquery.ui.plupload.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/i18n/' . $okt->user->language . '.js');
 
 $okt->page->js->addReady('
 
 	$("#uploader").plupload({
 		runtimes: "html5,html4",
-		url: "' . $okt->options->modules_url . '/galleries/service_multiple_upload_plupload.php",
+		url: "' . $okt['modules_url'] . '/galleries/service_multiple_upload_plupload.php",
 		filters: [ {title : "Image Files", extensions : "jpg,gif,png"} ],
 		unique_names: false,
 		preinit: attachCallbacks

@@ -12,10 +12,10 @@ $this->extend('main');
 
 
 # Ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 
 # CSS
-$okt->page->css->addFile($okt->options->public_url . '/css/init.css');
+$okt->page->css->addFile($okt['public_url'] . '/css/init.css');
 $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 ?>
 
@@ -49,7 +49,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 					id="lang_switcher_<?php echo $view->escape($aLanguage['code']) ?>"><a
 					href="<?php echo $view->escape($aLanguage['code']) ?>"
 					title="<?php echo $view->escape($aLanguage['title']) ?>"><img
-						src="<?php echo $okt->options->public_url.'/img/flags/'.$aLanguage['img'] ?>"
+						src="<?php echo $okt['public_url'].'/img/flags/'.$aLanguage['img'] ?>"
 						alt="<?php echo $view->escape($aLanguage['title']) ?>" /></a></li>
 				<?php endforeach; ?>
 			</ul>

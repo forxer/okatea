@@ -355,7 +355,7 @@ class Controller extends BaseController
 		if (! empty($_REQUEST['cookies']))
 		{
 			$aCookies = array_keys($_COOKIE);
-			unset($aCookies[$okt->options->get('cookie_auth_name')]);
+			unset($aCookies[$okt['cookie_auth_name']]);
 			
 			foreach ($aCookies as $c)
 			{

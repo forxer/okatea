@@ -33,7 +33,7 @@ class UploadsFiles extends ComponentBase
 			return null;
 		}
 		
-		$this->checklist->addItem('upload_files', $this->mirror($sUploadsDir, $this->okt->options->get('upload_dir') . '/' . $this->extension->id(), $oFiles), 'Create upload files', 'Cannot create upload files');
+		$this->checklist->addItem('upload_files', $this->mirror($sUploadsDir, $this->okt['upload_dir'] . '/' . $this->extension->id(), $oFiles), 'Create upload files', 'Cannot create upload files');
 	}
 
 	/**
@@ -41,7 +41,7 @@ class UploadsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		$sPath = $this->okt->options->get('upload_dir') . '/' . $this->extension->id();
+		$sPath = $this->okt['upload_dir'] . '/' . $this->extension->id();
 		
 		if (! is_dir($sPath))
 		{

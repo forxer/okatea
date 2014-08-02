@@ -19,9 +19,9 @@ class RouterServiceProvider implements ServiceProviderInterface
 		$okt['router'] = function($okt) {
 			return new Router(
 				$okt,
-				$okt->options->get('config_dir') . '/Routes',
-				$okt->options->get('cache_dir') . '/routing',
-				$okt->options->get('debug'),
+				$okt['config_dir'] . '/Routes',
+				$okt['cache_dir'] . '/routing',
+				$okt['debug'],
 				$okt['logger']
 			);
 		};

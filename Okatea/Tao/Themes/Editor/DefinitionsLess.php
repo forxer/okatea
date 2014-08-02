@@ -29,7 +29,7 @@ class DefinitionsLess
 		$this->sPostPrefix = $sPostPrefix;
 		
 		# locales
-		$this->okt->l10n->loadFile($this->okt->options->locales_dir . '/%s/definitions.less.editor');
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/definitions.less.editor');
 	}
 
 	/**
@@ -156,14 +156,14 @@ class DefinitionsLess
 	{
 		# Tableau de couleurs actuellement utilisées
 		$aPaletteColors = self::getPaletteFromFileset(array(
-			$this->okt->options->get('themes_dir') . '/' . $sThemeId . '/css/style.css',
-			$this->okt->options->get('themes_dir') . '/' . $sThemeId . '/css/styles.css',
-			$this->okt->options->get('themes_dir') . '/' . $sThemeId . '/css/definitions.less'
+			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/style.css',
+			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/styles.css',
+			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/definitions.less'
 		));
 		
 		# Color picker
-		$oPage->css->addFile($this->okt->options->public_url . '/components/spectrum/spectrum.css');
-		$oPage->js->addFile($this->okt->options->public_url . '/components/spectrum/spectrum.js');
+		$oPage->css->addFile($this->okt['public_url'] . '/components/spectrum/spectrum.css');
+		$oPage->js->addFile($this->okt['public_url'] . '/components/spectrum/spectrum.js');
 		
 		$oPage->js->addReady('
 			$(".colorpicker").spectrum({

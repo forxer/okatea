@@ -13,7 +13,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 <?php
 # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -71,7 +71,7 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 
 	<?php
 	# début Okatea : ajout du plugin Gmap3
-	$okt->page->js->addFile($okt->options->public_url . '/components/jquery-gmap3/gmap3.js');
+	$okt->page->js->addFile($okt['public_url'] . '/components/jquery-gmap3/gmap3.js');
 	# fin Okatea : ajout du plugin Gmap3 		?>
 
 	<?php
@@ -111,8 +111,8 @@ if ($okt->module('Contact')->config->google_map['enable'] && $okt->module('Conta
 	:
 
 		# ajout jQuery UI
-		$okt->page->js->addFile($okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
-		$okt->page->css->addFile($okt->options->public_url . '/components/jquery-ui/themes/' . $okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
+		$okt->page->js->addFile($okt['public_url'] . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+		$okt->page->css->addFile($okt['public_url'] . '/components/jquery-ui/themes/' . $okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
 
 		$okt->page->js->addReady('
 			$("#google_map").dialog({

@@ -7,9 +7,9 @@
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.js');
-$okt->page->css->addFile($okt->options->public_url . '/components/ghostdown/ghostdown.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/ghostdown/jquery.ghostdown.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/ghostdown/ghostdown.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/ghostdown/ghostdown.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/ghostdown/jquery.ghostdown.js');
 $okt->page->js->addReady('
 	$(".editor").ghostDown();
 ');

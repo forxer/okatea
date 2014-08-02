@@ -30,8 +30,8 @@ class Module extends Extension
 	{
 		parent::init();
 		
-		$this->upload_dir = $this->okt->options->get('upload_dir') . '/' . $this->getInfo('id');
-		$this->upload_url = $this->okt->options->get('upload_url') . '/' . $this->getInfo('id');
+		$this->upload_dir = $this->okt['upload_dir'] . '/' . $this->getInfo('id');
+		$this->upload_url = $this->okt['upload_url'] . '/' . $this->getInfo('id');
 	}
 
 	final public function initNs($ns)

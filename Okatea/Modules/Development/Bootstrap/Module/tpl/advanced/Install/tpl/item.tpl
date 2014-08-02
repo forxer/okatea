@@ -10,7 +10,7 @@ $okt->page->css->addFile($okt->theme->url.'/modules/##module_id##/styles.css');
 
 
 <?php # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url .'/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] .'/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -83,7 +83,7 @@ if ($okt->##module_id##->config->files['enable']) : ?>
 	<?php # début Okatea : boucle sur les fichiers
 	foreach ($rsItem->files as $i=>$file) : ?>
 
-	<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo $okt->options->public_url.'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
+	<p class="col"><a href="<?php echo $file['url'] ?>"><img src="<?php echo $okt['public_url'].'/img/media/'.$file['type'].'.png' ?>" alt="<?php echo html::escapeHTML($file['title']) ?>" /></a>
 	<?php echo html::escapeHTML($file['title']) ?> (<?php echo $file['mime'] ?>)
 	- <?php echo Utilities::l10nFileSize($file['size']) ?></p>
 

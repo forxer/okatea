@@ -24,7 +24,7 @@ class Counting extends Controller
 		
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$oCountig = new CountingFilesAndLines($this->okt->options->get('root_dir'));
+			$oCountig = new CountingFilesAndLines($this->okt['root_dir']);
 		}
 		
 		return $this->render('Development/Admin/Templates/Counting', array(

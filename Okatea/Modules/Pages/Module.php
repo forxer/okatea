@@ -85,7 +85,7 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), $this->okt->adminRouter->generate('Pages_index'), $this->okt['request']->attributes->get('_route') === 'Pages_index', 20, $this->okt->checkPerm('pages'), null, $this->okt->page->pagesSubMenu, $this->okt->options->public_url . '/modules/Pages/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), $this->okt->adminRouter->generate('Pages_index'), $this->okt['request']->attributes->get('_route') === 'Pages_index', 20, $this->okt->checkPerm('pages'), null, $this->okt->page->pagesSubMenu, $this->okt['public_url'] . '/modules/Pages/module_icon.png');
 			$this->okt->page->pagesSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('Pages_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Pages_index',
 				'Pages_post'

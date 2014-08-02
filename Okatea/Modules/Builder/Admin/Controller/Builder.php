@@ -108,7 +108,7 @@ class Builder extends Controller
 
 	protected function changelog()
 	{
-		$sChangelog = $this->tools->getTempDir($this->okt->options->okt_dir) . '/CHANGELOG';
+		$sChangelog = $this->tools->getTempDir($this->okt['okt_dir']) . '/CHANGELOG';
 		
 		if ($this->okt['request']->request->has('form_sent'))
 		{
@@ -126,7 +126,7 @@ class Builder extends Controller
 
 	protected function config()
 	{
-		$sConfigFile = $this->tools->getTempDir($this->okt->options->config_dir) . '/conf_site.yml';
+		$sConfigFile = $this->tools->getTempDir($this->okt['config_dir']) . '/conf_site.yml';
 		$sOptionsFile = $this->tools->getTempDir() . '/oktOptions.php';
 		
 		if ($this->okt['request']->request->has('form_sent'))

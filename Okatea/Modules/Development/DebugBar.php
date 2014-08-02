@@ -45,7 +45,7 @@ class DebugBar
 	 */
 	public function loadInAdminPart()
 	{
-		if (! $this->okt->options->get('debug') || ! $this->aConfig['admin']) {
+		if (! $this->okt['debug'] || ! $this->aConfig['admin']) {
 			return false;
 		}
 
@@ -54,7 +54,7 @@ class DebugBar
 			'addHtmlByBehavior'
 		]);
 
-		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' .
+		$this->okt->page->css->addFile($this->okt['public_url'] . '/components/jquery-ui/themes/' .
 			$this->okt['config']->jquery_ui['admin'] . '/jquery-ui.min.css');
 
 		$this->addFiles();
@@ -67,7 +67,7 @@ class DebugBar
 	 */
 	public function loadInPublicPart()
 	{
-		if (! $this->okt->options->get('debug') || ! $this->aConfig['public']) {
+		if (! $this->okt['debug'] || ! $this->aConfig['public']) {
 			return false;
 		}
 
@@ -76,7 +76,7 @@ class DebugBar
 			'addHtmlByBehavior'
 		]);
 
-		$this->okt->page->css->addFile($this->okt->options->public_url . '/components/jquery-ui/themes/' . $this->okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
+		$this->okt->page->css->addFile($this->okt['public_url'] . '/components/jquery-ui/themes/' . $this->okt['config']->jquery_ui['public'] . '/jquery-ui.min.css');
 
 		$this->addFiles();
 
@@ -103,8 +103,8 @@ class DebugBar
 	 */
 	public function addFiles()
 	{
-		$this->okt->page->js->addFile($this->okt->options->public_url . '/components/jquery/dist/jquery.min.js');
-		$this->okt->page->js->addFile($this->okt->options->public_url . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
+		$this->okt->page->js->addFile($this->okt['public_url'] . '/components/jquery/dist/jquery.min.js');
+		$this->okt->page->js->addFile($this->okt['public_url'] . '/components/jquery-ui/ui/minified/jquery-ui.min.js');
 
 		$this->okt->page->js->addReady('
 
@@ -173,7 +173,7 @@ class DebugBar
 
 		if ($this->aConfig['holmes'])
 		{
-			$this->okt->page->css->addFile($this->okt->options->public_url . '/css/holmes/holmes.min.css');
+			$this->okt->page->css->addFile($this->okt['public_url'] . '/css/holmes/holmes.min.css');
 
 			$this->okt->page->js->addReady('
 				$("body").addClass("holmes-debug");
@@ -436,7 +436,7 @@ class DebugBar
 				<li>$okt->page->action&nbsp;: ' . (! empty($this->okt->page->action) ? $this->okt->page->action : '') . '</li>
 			</ul>
 			<ul>
-				<li><a href="' . $this->okt->options->public_url . '/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
+				<li><a href="' . $this->okt['public_url'] . '/img/ico/sprites.html" id="sprites_link">Sprites</a></li>
 			</ul>
 		</div><!-- #debugTools -->';
 

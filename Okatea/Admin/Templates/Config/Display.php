@@ -35,7 +35,7 @@ $okt->page->js->addScript('
 		currenStyle = "' . $okt['config']->jquery_ui['admin'] . '";
 
 		// nouveau theme
-		cssLink = "<link href=\"' . $okt['config']->app_path . basename($okt->options->get('public_dir')) . '/components/jquery-ui/themes/" + style + "/jquery-ui.min.css\" type=\"text/css\" rel=\"Stylesheet\" />";
+		cssLink = "<link href=\"' . $okt['config']->app_path . basename($okt['public_dir']) . '/components/jquery-ui/themes/" + style + "/jquery-ui.min.css\" type=\"text/css\" rel=\"Stylesheet\" />";
 
 		// si il y a deja une prévisualisation on ajoutent un theme
 		if ($(\'link[href*="jquery-ui.css"]\').size() > 0){

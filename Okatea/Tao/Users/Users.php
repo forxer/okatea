@@ -756,7 +756,7 @@ class Users
 
 		$oMail->setFrom();
 
-		$this->okt->l10n->loadFile($this->okt->options->get('locales_dir') . '/%s/emails', $rsUser->language);
+		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/emails', $rsUser->language);
 
 		$aMailParams = [
 			'site_title' => $this->okt->page->getSiteTitle($rsUser->language),

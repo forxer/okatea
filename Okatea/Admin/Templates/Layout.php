@@ -23,7 +23,7 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 	<meta name="ROBOTS" content="NOARCHIVE,NOINDEX,NOFOLLOW" />
 	<title><?php echo $view->escape($okt->page->titleTag(' - ')) ?></title>
 	<?php echo $okt->page->css?>
-	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt->options->public_url ?>/components/html5shiv/dist/html5shiv.js"></script><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="<?php echo $okt['public_url'] ?>/components/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </head>
 <body <?php if ($okt->page->hasPageId()) : ?>id="adminpage-<?php echo $okt->page->getPageId() ?>" <?php endif; ?>>
 	<div id="page">
@@ -97,17 +97,17 @@ $okt->triggers->callTrigger('adminBeforeSendHeader');
 <?php # init footer content
 $aFooterContent = new ArrayObject();
 
-$sSoftware = $okt->options->get('software_name');
-if ($okt->options->has('software_url'))
+$sSoftware = $okt['software_name'];
+if (!empty($okt['software_url']))
 {
-	$sSoftware = '<a href="' . $okt->options->get('software_url') . '">' . $okt->options->get('software_name') . '</a>';
+	$sSoftware = '<a href="' . $okt['software_url'] . '">' . $okt['software_name'] . '</a>';
 }
 
 $aFooterContent[10] = sprintf(__('c_c_proudly_propulsed_%s'), $sSoftware);
 
-if ($okt->options->get('debug'))
+if ($okt['debug'])
 {
-	$aFooterContent[20] = ' - ' . sprintf(__('c_c_version_%s'), $okt->getVersion()) . ' - ' . sprintf(__('c_c_env_%s'), __('c_c_env_' . $okt->options->get('env'))) . ' - ' . Utilities::formatNumber(Utilities::getExecutionTime(), 3) . ' s - ' . Utilities::l10nFileSize(memory_get_usage());
+	$aFooterContent[20] = ' - ' . sprintf(__('c_c_version_%s'), $okt->getVersion()) . ' - ' . sprintf(__('c_c_env_%s'), __('c_c_env_' . $okt['env'])) . ' - ' . Utilities::formatNumber(Utilities::getExecutionTime(), 3) . ' s - ' . Utilities::l10nFileSize(memory_get_usage());
 }
 
 # -- CORE TRIGGER : adminFooterContent
@@ -122,7 +122,7 @@ $aFooterContent = array_filter((array) $aFooterContent);
 ?>
 	<footer>
 		<p id="footer" class="clearb ui-widget ui-corner-all ui-state-default">
-			<img src="<?php echo $okt->options->public_url ?>/img/ajax-loader/big-circle-ball.gif" alt="" class="preload" />
+			<img src="<?php echo $okt['public_url'] ?>/img/ajax-loader/big-circle-ball.gif" alt="" class="preload" />
 			<?php echo implode('&nbsp;', $aFooterContent) ?>
 		</p>
 	</footer>

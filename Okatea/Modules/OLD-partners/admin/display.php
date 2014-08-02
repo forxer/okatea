@@ -83,17 +83,17 @@ $aChoices = array_merge(array(
 
 				<p class="modal-box">
 					<a class="modal" rel="test_images"
-						href="<?php echo $okt->options->public_url ?>/img/sample/chutes_la_nuit.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/chutes_la_nuit.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes_la_nuit.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-chutes_la_nuit.jpg" />
 					</a> <a class="modal" rel="test_images"
-						href="<?php echo $okt->options->public_url ?>/img/sample/les_chutes.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/les_chutes.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-les_chutes.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-les_chutes.jpg" />
 					</a> <a class="modal" rel="test_images"
-						href="<?php echo $okt->options->public_url ?>/img/sample/chutes.jpg">
+						href="<?php echo $okt['public_url'] ?>/img/sample/chutes.jpg">
 						<img width="60" height="60" alt=""
-						src="<?php echo $okt->options->public_url ?>/img/sample/sq-chutes.jpg" />
+						src="<?php echo $okt['public_url'] ?>/img/sample/sq-chutes.jpg" />
 					</a>
 				</p>
 			</fieldset>

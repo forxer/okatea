@@ -20,7 +20,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 <?php
 # début Okatea : ajout de jQuery
-$okt->page->js->addFile($okt->options->public_url . '/components/jquery/dist/jquery.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 # fin Okatea : ajout de jQuery ?>
 
 
@@ -32,7 +32,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 <?php
 # début Okatea : jQuery Cycle
-$okt->page->js->addFile($okt->options->public_url . '/plugins/cycle/jquery.cycle.min.js');
+$okt->page->js->addFile($okt['public_url'] . '/plugins/cycle/jquery.cycle.min.js');
 $okt->page->js->addReady('
 	$("#news-list-insert").cycle({
 		fx: "fade",

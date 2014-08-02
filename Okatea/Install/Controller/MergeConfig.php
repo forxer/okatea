@@ -18,8 +18,8 @@ class MergeConfig extends Controller
 	{
 		$bConfigMerged = false;
 		
-		$sConfigFile = $this->okt->options->get('config_dir') . '/conf_site.yml';
-		$sConfigFileBak = $this->okt->options->get('config_dir') . '/conf_site.yml.bak';
+		$sConfigFile = $this->okt['config_dir'] . '/conf_site.yml';
+		$sConfigFileBak = $this->okt['config_dir'] . '/conf_site.yml.bak';
 		
 		if (file_exists($sConfigFileBak))
 		{

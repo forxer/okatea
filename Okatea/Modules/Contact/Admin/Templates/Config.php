@@ -36,8 +36,8 @@ if (! $okt->languages->unique)
 $okt->page->loader('.lazy-load');
 
 # Color picker
-$okt->page->css->addFile($okt->options->public_url . '/components/spectrum/spectrum.css');
-$okt->page->js->addFile($okt->options->public_url . '/components/spectrum/spectrum.js');
+$okt->page->css->addFile($okt['public_url'] . '/components/spectrum/spectrum.css');
+$okt->page->js->addFile($okt['public_url'] . '/components/spectrum/spectrum.js');
 
 $okt->page->js->addReady('
 	$("#p_email_color").spectrum({

@@ -38,12 +38,12 @@ class Theme
 	{
 		$this->okt = $okt;
 		
-		$this->url = $this->okt['config']->app_path . basename($this->okt->options->get('themes_dir')) . '/' . $this->okt->theme_id;
+		$this->url = $this->okt['config']->app_path . basename($this->okt['themes_dir']) . '/' . $this->okt->theme_id;
 		
-		$this->path = $this->okt->options->get('themes_dir') . '/' . $this->okt->theme_id;
+		$this->path = $this->okt['themes_dir'] . '/' . $this->okt->theme_id;
 		
 		$this->setLessVariables(array(
-			'public_url' => "'" . $this->okt->options->get('public_url') . "'",
+			'public_url' => "'" . $this->okt['public_url'] . "'",
 			'theme_url' => "'" . $this->url . "'"
 		));
 		

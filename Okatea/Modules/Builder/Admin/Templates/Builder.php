@@ -7,7 +7,7 @@
  */
 $view->extend('Layout');
 
-$okt->page->css->addFile($okt->options->public_url . '/modules/Builder/builder.css');
+$okt->page->css->addFile($okt['public_url'] . '/modules/Builder/builder.css');
 
 # module title tag
 $okt->page->addGlobalTitle(__('m_builder_menu'));

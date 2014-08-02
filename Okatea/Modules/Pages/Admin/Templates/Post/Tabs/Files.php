@@ -39,7 +39,7 @@ use Okatea\Tao\Misc\Utilities;
 
 			<p>
 			<a href="<?php echo $aPageData['files'][$i]['url'] ?>"><img
-				src="<?php echo $okt->options->public_url.'/img/media/'.$aPageData['files'][$i]['type'].'.png' ?>"
+				src="<?php echo $okt['public_url'].'/img/media/'.$aPageData['files'][$i]['type'].'.png' ?>"
 				alt="" /></a>
 			<?php echo $aPageData['files'][$i]['type'] ?> (<?php echo $aPageData['files'][$i]['mime'] ?>)
 			- <?php echo Utilities::l10nFileSize($aPageData['files'][$i]['size']) ?></p>

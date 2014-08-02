@@ -353,7 +353,7 @@ require OKT_ADMIN_HEADER_FILE;
 					}
 					else
 					{
-						$cur_image_url = $okt->options->public_url . '/img/media/image.png';
+						$cur_image_url = $okt['public_url'] . '/img/media/image.png';
 						$cur_image_attr = ' width="48" height="48" ';
 					}
 					
@@ -414,7 +414,7 @@ require OKT_ADMIN_HEADER_FILE;
 					?>
 					<p>
 						<a href="<?php echo $aEventFiles[$i]['url'] ?>"><img
-							src="<?php echo $okt->options->public_url.'/img/media/'.$aEventFiles[$i]['type'].'.png' ?>"
+							src="<?php echo $okt['public_url'].'/img/media/'.$aEventFiles[$i]['type'].'.png' ?>"
 							alt="<?php echo $aEventFiles[$i]['filename'] ?>" /></a>
 					<?php echo $aEventFiles[$i]['type'] ?> (<?php echo $aEventFiles[$i]['mime'] ?>)
 					- <?php echo Utilities::l10nFileSize($aEventFiles[$i]['size']) ?></p>

@@ -278,7 +278,7 @@ class UsersController extends BaseController
 		if (! empty($_REQUEST['cookies']))
 		{
 			$aCookies = array_keys($_COOKIE);
-			unset($aCookies[$okt->options->get('cookie_auth_name')]);
+			unset($aCookies[$okt['cookie_auth_name']]);
 
 			foreach ($aCookies as $c)
 			{
@@ -564,7 +564,7 @@ class UsersController extends BaseController
 
 				$oMail->setFrom();
 
-				$this->okt->l10n->loadFile($this->okt->options->get('locales_dir') . '/%s/emails', $rsUser->language);
+				$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/emails', $rsUser->language);
 
 				$aMailParams = array(
 					'site_title' => $this->page->getSiteTitle($rsUser->language),
@@ -608,7 +608,7 @@ class UsersController extends BaseController
 						$aMailParams['site_title'] = $this->page->getSiteTitle($rsRecipient->language);
 						$aMailParams['admin'] = Users::getUserDisplayName($rsRecipient->username, $rsRecipient->lastname, $rsRecipient->firstname, $rsRecipient->displayname);
 
-						$this->okt->l10n->loadFile($this->okt->options->get('locales_dir') . '/%s/emails', $rsRecipient->language);
+						$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/emails', $rsRecipient->language);
 
 						$oMail->setSubject(sprintf(__('c_c_emails_registration_on_%s'), $aMailParams['site_title']));
 						$oMail->setBody($this->renderView('emails/alertNewRegistration/text', $aMailParams), 'text/plain');

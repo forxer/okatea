@@ -22,7 +22,7 @@ class Packages extends BaseTools
 		
 		$this->sRepositoryUrl = $this->okt->module('Builder')->config->repository_url . '/packages';
 		
-		$this->sPackageFilename = $this->okt->options->software_name . '_' . $this->okt->getVersion() . '.zip';
+		$this->sPackageFilename = $this->okt['software_name'] . '_' . $this->okt->getVersion() . '.zip';
 	}
 
 	public function process()

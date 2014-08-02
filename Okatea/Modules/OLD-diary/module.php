@@ -58,7 +58,7 @@ class module_diary extends Module
 		{
 			$this->okt->page->diarySubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=diary', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('diary'), null, $this->okt->page->diarySubMenu, $this->okt->options->public_url . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=diary', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('diary'), null, $this->okt->page->diarySubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			
 			$this->okt->page->diarySubMenu->add(__('m_diary_menu_management'), 'module.php?m=diary&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 10);
 			

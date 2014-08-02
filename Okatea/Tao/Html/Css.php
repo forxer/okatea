@@ -182,7 +182,7 @@ class Css
 	{
 		global $okt;
 		
-		$outputFile = $okt->options->public_dir . '/cache/' . md5($inputFile) . '.css';
+		$outputFile = $okt['public_dir'] . '/cache/' . md5($inputFile) . '.css';
 		$cacheFile = $outputFile . '.cache';
 		
 		if (file_exists($cacheFile))
@@ -199,8 +199,8 @@ class Css
 		$less->setPreserveComments(true);
 		
 		$less->setImportDir(array(
-			$okt->options->get('public_dir') . '/themes/' . $okt->theme->id() . '/css/',
-			$okt->options->get('public_dir') . '/css/less/'
+			$okt['public_dir'] . '/themes/' . $okt->theme->id() . '/css/',
+			$okt['public_dir'] . '/css/less/'
 		));
 		
 		$less->setVariables($okt->theme->getLessVariables());
@@ -213,7 +213,7 @@ class Css
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
 		
-		return str_replace($okt->options->public_dir, $okt['config']->app_path . basename($okt->options->get('public_dir')), $outputFile);
+		return str_replace($okt['public_dir'], $okt['config']->app_path . basename($okt['public_dir']), $outputFile);
 	}
 	
 	/* Pile de fichiers CC

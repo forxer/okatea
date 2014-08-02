@@ -46,7 +46,7 @@ unset($rsUser);
 if (! empty($_REQUEST['delete_cookies']))
 {
 	$aCookies = array_keys($_COOKIE);
-	unset($aCookies[$okt->options->get('cookie_auth_name')]);
+	unset($aCookies[$okt['cookie_auth_name']]);
 	
 	foreach ($aCookies as $c)
 	{
