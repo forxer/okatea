@@ -61,9 +61,9 @@ foreach ($aInstalledModules as $aModule)
 			
 			# title
 			$module_title = $aModule['name_l10n'];
-			if ($aModule['status'] && $okt->adminRouter->routeExists($aModule['id'] . '_index'))
+			if ($aModule['status'] && $okt['adminRouter']->routeExists($aModule['id'] . '_index'))
 			{
-				$module_title = '<a href="' . $okt->adminRouter->generate($aModule['id'] . '_index') . '">' . $module_title . '</a>';
+				$module_title = '<a href="' . $okt['adminRouter']->generate($aModule['id'] . '_index') . '">' . $module_title . '</a>';
 			}
 			
 			# links
@@ -73,13 +73,13 @@ foreach ($aInstalledModules as $aModule)
 				$module_links[] = '<a href="' . $view->generateUrl('config_modules') . '?show_changelog=' . $aModule['id'] . '"' . ' id="' . $aModule['id'] . '_changelog_link">' . __('c_a_modules_changelog') . '</a>';
 			}
 			
-			if ($okt->adminRouter->routeExists($aModule['id'] . '_display'))
+			if ($okt['adminRouter']->routeExists($aModule['id'] . '_display'))
 			{
-				$module_links[] = '<a href="' . $okt->adminRouter->generate($aModule['id'] . '_display') . '">' . __('c_a_modules_display') . '</a>';
+				$module_links[] = '<a href="' . $okt['adminRouter']->generate($aModule['id'] . '_display') . '">' . __('c_a_modules_display') . '</a>';
 			}
-			if ($okt->adminRouter->routeExists($aModule['id'] . '_config'))
+			if ($okt['adminRouter']->routeExists($aModule['id'] . '_config'))
 			{
-				$module_links[] = '<a href="' . $okt->adminRouter->generate($aModule['id'] . '_config') . '">' . __('c_a_modules_config') . '</a>';
+				$module_links[] = '<a href="' . $okt['adminRouter']->generate($aModule['id'] . '_config') . '">' . __('c_a_modules_config') . '</a>';
 			}
 			?>
 		<tr>

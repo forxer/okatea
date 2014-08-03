@@ -60,7 +60,7 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 	<div id="page">
 
 		<nav id="main-navigation">
-			<?php echo $okt->navigation->render('menu')?>
+			<?php echo $okt['menus']->render('menu')?>
 		</nav>
 
 		<div id="navigation-helpers">

@@ -168,10 +168,10 @@ class Page extends BasePage
 		if (! $this->okt['visitor']->is_guest)
 		{
 			# profil link
-			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'), '<a href="' . $this->okt->adminRouter->generate('User_profile') . '">' . Escaper::html($this->okt['visitor']->usedname) . '</a>');
+			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'), '<a href="' . $this->okt['adminRouter']->generate('User_profile') . '">' . Escaper::html($this->okt['visitor']->usedname) . '</a>');
 
 			# log off link
-			$aUserBars['first'][90] = '<a href="' . $this->okt->adminRouter->generate('logout') . '">' . __('c_c_user_log_off_action') . '</a>';
+			$aUserBars['first'][90] = '<a href="' . $this->okt['adminRouter']->generate('logout') . '">' . __('c_c_user_log_off_action') . '</a>';
 
 			# last visit info
 			$aUserBars['second'][10] = sprintf(__('c_c_user_last_visit_on_%s'), DateTime::full($this->okt['visitor']->last_visit));

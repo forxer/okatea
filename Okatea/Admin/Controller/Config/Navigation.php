@@ -63,7 +63,7 @@ class Navigation extends Controller
 		{
 			try
 			{
-				$this->okt->navigation->switchMenuStatus($iMenuIdSwitchStatus);
+				$this->okt['menus']->switchMenuStatus($iMenuIdSwitchStatus);
 
 				$this->okt['flash']->success(__('c_a_config_navigation_menu_switched'));
 
@@ -81,7 +81,7 @@ class Navigation extends Controller
 		{
 			try
 			{
-				$this->okt->navigation->delMenu($iMenuIdDelete);
+				$this->okt['menus']->delMenu($iMenuIdDelete);
 
 				$this->okt['flash']->success(__('c_a_config_navigation_menu_deleted'));
 
@@ -112,7 +112,7 @@ class Navigation extends Controller
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 		if ($iMenuId)
 		{
-			$rsMenu = $this->okt->navigation->getMenu($iMenuId);
+			$rsMenu = $this->okt['menus']->getMenu($iMenuId);
 
 			if ($rsMenu->isEmpty())
 			{
@@ -143,11 +143,11 @@ class Navigation extends Controller
 			{
 				$aMenuData['id'] = $iMenuId;
 
-				if ($this->okt->navigation->checkPostMenuData($aMenuData) !== false)
+				if ($this->okt['menus']->checkPostMenuData($aMenuData) !== false)
 				{
 					try
 					{
-						$this->okt->navigation->updMenu($aMenuData);
+						$this->okt['menus']->updMenu($aMenuData);
 
 						# log admin
 						$this->okt->logAdmin->info(array(
@@ -170,11 +170,11 @@ class Navigation extends Controller
 			# add menu
 			else
 			{
-				if ($this->okt->navigation->checkPostMenuData($aMenuData) !== false)
+				if ($this->okt['menus']->checkPostMenuData($aMenuData) !== false)
 				{
 					try
 					{
-						$iMenuId = $this->okt->navigation->addMenu($aMenuData);
+						$iMenuId = $this->okt['menus']->addMenu($aMenuData);
 
 						# log admin
 						$this->okt->logAdmin->info(array(
@@ -196,10 +196,10 @@ class Navigation extends Controller
 		}
 
 		# Liste des templates utilisables
-		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']['menus']_tpl, 'navigation', 'navigation');
 		$aTplChoices = array_merge(array(
 			'&nbsp;' => null
-		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']->navigation_tpl['usables']));
+		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']['menus']_tpl['usables']));
 
 		return $this->render('Config/Navigation/Menu', array(
 			'iMenuId' => $iMenuId,
@@ -212,7 +212,7 @@ class Navigation extends Controller
 	{
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 
-		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
+		$rsMenu = $this->okt['menus']->getMenu($iMenuId);
 
 		if (empty($iMenuId) || $rsMenu->isEmpty())
 		{
@@ -229,7 +229,7 @@ class Navigation extends Controller
 				foreach ($aItemsOrder as $ord => $id)
 				{
 					$ord = ((integer) $ord) + 1;
-					$this->okt->navigation->updItemOrder($id, $ord);
+					$this->okt['menus']->updItemOrder($id, $ord);
 				}
 			}
 
@@ -252,7 +252,7 @@ class Navigation extends Controller
 					foreach ($aItemsOrder as $ord => $id)
 					{
 						$ord = ((integer) $ord) + 1;
-						$this->okt->navigation->updItemOrder($id, $ord);
+						$this->okt['menus']->updItemOrder($id, $ord);
 					}
 
 					$this->okt['flash']->success(__('c_a_config_navigation_items_neworder'));
@@ -272,7 +272,7 @@ class Navigation extends Controller
 		{
 			try
 			{
-				$this->okt->navigation->setItemStatus($iItemIdEnable, 1);
+				$this->okt['menus']->setItemStatus($iItemIdEnable, 1);
 
 				$this->okt['flash']->success(__('c_a_config_navigation_item_enabled'));
 
@@ -290,7 +290,7 @@ class Navigation extends Controller
 		{
 			try
 			{
-				$this->okt->navigation->setItemStatus($iItemIdDisable, 0);
+				$this->okt['menus']->setItemStatus($iItemIdDisable, 0);
 
 				$this->okt['flash']->success(__('c_a_config_navigation_item_disabled'));
 
@@ -308,7 +308,7 @@ class Navigation extends Controller
 		{
 			try
 			{
-				$this->okt->navigation->delItem($iItemIdDelete);
+				$this->okt['menus']->delItem($iItemIdDelete);
 
 				$this->okt['flash']->success(__('c_a_config_navigation_item_deleted'));
 
@@ -320,7 +320,7 @@ class Navigation extends Controller
 			}
 		}
 
-		$rsItems = $this->okt->navigation->getItems(array(
+		$rsItems = $this->okt['menus']->getItems(array(
 			'menu_id' => $iMenuId,
 			'language' => $this->okt['visitor']->language,
 			'active' => 2
@@ -337,7 +337,7 @@ class Navigation extends Controller
 	{
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 
-		$rsMenu = $this->okt->navigation->getMenu($iMenuId);
+		$rsMenu = $this->okt['menus']->getMenu($iMenuId);
 
 		if (empty($iMenuId) || $rsMenu->isEmpty())
 		{
@@ -367,7 +367,7 @@ class Navigation extends Controller
 		# item update ?
 		if ($aItemData['item']['id'])
 		{
-			$rsItem = $this->okt->navigation->getItem($aItemData['item']['id']);
+			$rsItem = $this->okt['menus']->getItem($aItemData['item']['id']);
 
 			if ($rsItem->isEmpty())
 			{
@@ -380,7 +380,7 @@ class Navigation extends Controller
 				$aItemData['item']['active'] = $rsItem->active;
 				$aItemData['item']['type'] = $rsItem->type;
 
-				$rsItemI18n = $this->okt->navigation->getItemL10n($aItemData['item']['id']);
+				$rsItemI18n = $this->okt['menus']->getItemL10n($aItemData['item']['id']);
 
 				foreach ($this->okt['languages']->list as $aLanguage)
 				{
@@ -411,11 +411,11 @@ class Navigation extends Controller
 			# update item
 			if (! empty($aItemData['item']['id']))
 			{
-				if ($this->okt->navigation->checkPostItemData($aItemData) !== false)
+				if ($this->okt['menus']->checkPostItemData($aItemData) !== false)
 				{
 					try
 					{
-						$this->okt->navigation->updItem($aItemData);
+						$this->okt['menus']->updItem($aItemData);
 
 						# log admin
 						$this->okt->logAdmin->info(array(
@@ -437,11 +437,11 @@ class Navigation extends Controller
 			# add item
 			else
 			{
-				if ($this->okt->navigation->checkPostItemData($aItemData) !== false)
+				if ($this->okt['menus']->checkPostItemData($aItemData) !== false)
 				{
 					try
 					{
-						$iItemId = $this->okt->navigation->addItem($aItemData);
+						$iItemId = $this->okt['menus']->addItem($aItemData);
 
 						# log admin
 						$this->okt->logAdmin->info(array(
@@ -471,7 +471,7 @@ class Navigation extends Controller
 
 	protected function config()
 	{
-		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']['menus']_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
 
 		if ($this->okt['request']->request->has('sended'))
 		{

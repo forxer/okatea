@@ -60,12 +60,12 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->mainMenu->add(__('Users'), null, null, 5000, ($this->okt->checkPerm('users')), null, ($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->okt['public_url'] . '/modules/Users/module_icon.png');
-			$this->okt->page->usersSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('Users_index'), in_array($this->okt['request']->attributes->get('_route'), array(
+			$this->okt->page->usersSubMenu->add(__('c_a_menu_management'), $this->okt['adminRouter']->generate('Users_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Users_index',
 				'Users_user_add',
 				'Users_user'
 			)), 10, $this->okt->checkPerm('users'));
-			$this->okt->page->usersSubMenu->add(__('m_users_Groups'), $this->okt->adminRouter->generate('Users_groups'), $this->okt['request']->attributes->get('_route') === 'Users_groups', 20, $this->okt->checkPerm('groups'));
+			$this->okt->page->usersSubMenu->add(__('m_users_Groups'), $this->okt['adminRouter']->generate('Users_groups'), $this->okt['request']->attributes->get('_route') === 'Users_groups', 20, $this->okt->checkPerm('groups'));
 			/*
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Custom_fields'),
@@ -82,8 +82,8 @@ class Module extends BaseModule
 					$this->okt->checkPerm('users_export')
 				);
 				*/
-			$this->okt->page->usersSubMenu->add(__('c_a_menu_display'), $this->okt->adminRouter->generate('Users_display'), $this->okt['request']->attributes->get('_route') === 'Users_display', 90, $this->okt->checkPerm('users_display'));
-			$this->okt->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('Users_config'), $this->okt['request']->attributes->get('_route') === 'Users_config', 100, $this->okt->checkPerm('users_config'));
+			$this->okt->page->usersSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('Users_display'), $this->okt['request']->attributes->get('_route') === 'Users_display', 90, $this->okt->checkPerm('users_display'));
+			$this->okt->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('Users_config'), $this->okt['request']->attributes->get('_route') === 'Users_config', 100, $this->okt->checkPerm('users_config'));
 		}
 	}
 

@@ -7,7 +7,7 @@
  */
 $view->extend('Layout');
 
-$rsMenus = $okt->navigation->getMenus(array(
+$rsMenus = $okt['menus']->getMenus(array(
 	'active' => 2
 ));
 
@@ -15,7 +15,7 @@ while ($rsMenus->fetch())
 {
 	if ($rsMenus->num_items > 0)
 	{
-		$rsMenus->items = $okt->navigation->getItems(array(
+		$rsMenus->items = $okt['menus']->getItems(array(
 			'menu_id' => $rsMenus->id,
 			'language' => $okt['visitor']->language,
 			'active' => 2

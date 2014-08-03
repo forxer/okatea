@@ -94,19 +94,19 @@ class Module extends BaseModule
 		{
 			$this->okt->page->newsSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 
-			$this->okt->page->mainMenu->add($this->getName(), $this->okt->adminRouter->generate('News_index'), $this->okt['request']->attributes->get('_route') === 'News_index', 15, ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')), null, $this->okt->page->newsSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->newsSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('News_index'), in_array($this->okt['request']->attributes->get('_route'), array(
+			$this->okt->page->mainMenu->add($this->getName(), $this->okt['adminRouter']->generate('News_index'), $this->okt['request']->attributes->get('_route') === 'News_index', 15, ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')), null, $this->okt->page->newsSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->newsSubMenu->add(__('c_a_menu_management'), $this->okt['adminRouter']->generate('News_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'News_index',
 				'News_post'
 			)), 10);
-			$this->okt->page->newsSubMenu->add(__('m_news_menu_add_post'), $this->okt->adminRouter->generate('News_post_add'), $this->okt['request']->attributes->get('_route') === 'News_post_add', 20);
-			$this->okt->page->newsSubMenu->add(__('m_news_menu_categories'), $this->okt->adminRouter->generate('News_categories'), in_array($this->okt['request']->attributes->get('_route'), array(
+			$this->okt->page->newsSubMenu->add(__('m_news_menu_add_post'), $this->okt['adminRouter']->generate('News_post_add'), $this->okt['request']->attributes->get('_route') === 'News_post_add', 20);
+			$this->okt->page->newsSubMenu->add(__('m_news_menu_categories'), $this->okt['adminRouter']->generate('News_categories'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'News_categories',
 				'News_category',
 				'News_category_add'
 			)), 30, ($this->config->categories['enable'] && $this->okt->checkPerm('news_categories')));
-			$this->okt->page->newsSubMenu->add(__('c_a_menu_display'), $this->okt->adminRouter->generate('News_display'), $this->okt['request']->attributes->get('_route') === 'News_display', 40, $this->okt->checkPerm('news_display'));
-			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt->checkPerm('news_config'));
+			$this->okt->page->newsSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('News_display'), $this->okt['request']->attributes->get('_route') === 'News_display', 40, $this->okt->checkPerm('news_display'));
+			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt->checkPerm('news_config'));
 		}
 
 		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(
@@ -176,7 +176,7 @@ class Module extends BaseModule
 		if ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin'))
 		{
 			$aPrimaryAdminBar[200]['items'][200] = array(
-				'href' => $this->okt->adminRouter->generateFromWebsite('News_post_add'),
+				'href' => $this->okt['adminRouter']->generateFromWebsite('News_post_add'),
 				'title' => __('m_news_ab_post_title'),
 				'intitle' => __('m_news_ab_post')
 			);
@@ -188,7 +188,7 @@ class Module extends BaseModule
 			if (isset($this->okt->controller->rsPost) && $this->okt->controller->rsPost->isEditable())
 			{
 				$aPrimaryAdminBar[300] = array(
-					'href' => $this->okt->adminRouter->generateFromWebsite('News_post', array(
+					'href' => $this->okt['adminRouter']->generateFromWebsite('News_post', array(
 						'post_id' => $this->okt->controller->rsPost->id
 					)),
 					'intitle' => __('m_news_ab_edit_post')

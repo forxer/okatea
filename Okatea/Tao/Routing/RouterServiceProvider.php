@@ -7,6 +7,7 @@
  */
 namespace Okatea\Tao\Routing;
 
+use Okatea\Admin\Router as adminRouter;
 use Okatea\Website\Router;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -21,6 +22,16 @@ class RouterServiceProvider implements ServiceProviderInterface
 				$okt,
 				$okt['config_dir'] . '/Routes',
 				$okt['cache_dir'] . '/routing',
+				$okt['debug'],
+				$okt['logger']
+			);
+		};
+
+		$okt['adminRouter'] = function($okt) {
+			return new adminRouter(
+				$okt,
+				$okt['config_dir'] . '/RoutesAdmin',
+				$okt['cache_dir'] . '/routing/admin',
 				$okt['debug'],
 				$okt['logger']
 			);

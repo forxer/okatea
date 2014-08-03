@@ -84,19 +84,19 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->pagesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), $this->okt->adminRouter->generate('Pages_index'), $this->okt['request']->attributes->get('_route') === 'Pages_index', 20, $this->okt->checkPerm('pages'), null, $this->okt->page->pagesSubMenu, $this->okt['public_url'] . '/modules/Pages/module_icon.png');
-			$this->okt->page->pagesSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('Pages_index'), in_array($this->okt['request']->attributes->get('_route'), array(
+			$this->okt->page->mainMenu->add($this->getName(), $this->okt['adminRouter']->generate('Pages_index'), $this->okt['request']->attributes->get('_route') === 'Pages_index', 20, $this->okt->checkPerm('pages'), null, $this->okt->page->pagesSubMenu, $this->okt['public_url'] . '/modules/Pages/module_icon.png');
+			$this->okt->page->pagesSubMenu->add(__('c_a_menu_management'), $this->okt['adminRouter']->generate('Pages_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Pages_index',
 				'Pages_post'
 			)), 1);
-			$this->okt->page->pagesSubMenu->add(__('m_pages_menu_add_page'), $this->okt->adminRouter->generate('Pages_post_add'), $this->okt['request']->attributes->get('_route') === 'Pages_post_add', 2, $this->okt->checkPerm('pages_add'));
-			$this->okt->page->pagesSubMenu->add(__('m_pages_menu_categories'), $this->okt->adminRouter->generate('Pages_categories'), in_array($this->okt['request']->attributes->get('_route'), array(
+			$this->okt->page->pagesSubMenu->add(__('m_pages_menu_add_page'), $this->okt['adminRouter']->generate('Pages_post_add'), $this->okt['request']->attributes->get('_route') === 'Pages_post_add', 2, $this->okt->checkPerm('pages_add'));
+			$this->okt->page->pagesSubMenu->add(__('m_pages_menu_categories'), $this->okt['adminRouter']->generate('Pages_categories'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Pages_categories',
 				'Pages_category',
 				'Pages_category_add'
 			)), 3, ($this->config->categories['enable'] && $this->okt->checkPerm('pages_categories')));
-			$this->okt->page->pagesSubMenu->add(__('c_a_menu_display'), $this->okt->adminRouter->generate('Pages_display'), $this->okt['request']->attributes->get('_route') === 'Pages_display', 10, $this->okt->checkPerm('pages_display'));
-			$this->okt->page->pagesSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('Pages_config'), $this->okt['request']->attributes->get('_route') === 'Pages_config', 20, $this->okt->checkPerm('pages_config'));
+			$this->okt->page->pagesSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('Pages_display'), $this->okt['request']->attributes->get('_route') === 'Pages_display', 10, $this->okt->checkPerm('pages_display'));
+			$this->okt->page->pagesSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('Pages_config'), $this->okt['request']->attributes->get('_route') === 'Pages_config', 20, $this->okt->checkPerm('pages_config'));
 		}
 
 		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(

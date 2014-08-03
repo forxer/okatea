@@ -95,9 +95,9 @@ class Home extends Controller
 			$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, $item['title'], $item['url'], ($item['icon'] ? '<img src="' . $item['icon'] . '" alt="" />' : ''));
 		}
 
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), $this->okt->adminRouter->generate('User_profile'), '<img src="' . $this->okt['public_url'] . '/img/admin/contact-new.png" alt="" />');
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_profile'), $this->okt['adminRouter']->generate('User_profile'), '<img src="' . $this->okt['public_url'] . '/img/admin/contact-new.png" alt="" />');
 
-		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt->adminRouter->generate('logout'), '<img src="' . $this->okt['public_url'] . '/img/admin/system-log-out.png" alt="" />');
+		$this->aRoundAboutItems[] = sprintf($sRoundAboutItemFormat, __('c_c_user_Log_off_action'), $this->okt['adminRouter']->generate('logout'), '<img src="' . $this->okt['public_url'] . '/img/admin/system-log-out.png" alt="" />');
 
 		# -- CORE TRIGGER : adminIndexaRoundAboutItems
 		$this->okt['triggers']->callTrigger('adminIndexaRoundAboutItems', $this->aRoundAboutItems);

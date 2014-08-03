@@ -8,7 +8,6 @@
 namespace Okatea\Tao;
 
 use Monolog\ErrorHandler;
-use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Config\Config;
 use Okatea\Tao\Config\ConfigServiceProvider;
 use Okatea\Tao\Database\MySqli;
@@ -65,39 +64,11 @@ class Application extends Container
 	public $db_prefix;
 
 	/**
-	 * Le gestionnaire de modules.
-	 *
-	 * @var Okatea\Tao\Extensions\Modules\Collection
-	 */
-	public $modules;
-
-	/**
-	 * Le gestionnaire de themes.
-	 *
-	 * @var Okatea\Tao\Extensions\Themes\Collection
-	 */
-	public $themes;
-
-	/**
-	 * Les menus de navigation.
-	 *
-	 * @var Okatea\Tao\Navigation\Menus\Menus
-	 */
-	public $navigation;
-
-	/**
 	 * La réponse qui va être renvoyée.
 	 *
 	 * @var Symfony\Component\HttpFoundation\Response
 	 */
 	public $response;
-
-	/**
-	 * Le routeur interne de l'administration.
-	 *
-	 * @var Okatea\Tao\Routing\AdminRouter
-	 */
-	public $adminRouter;
 
 	/**
 	 * Le moteur de templates.
@@ -156,8 +127,16 @@ class Application extends Container
 		$this->register(new TriggersServiceProvider());
 		$this->register(new UsersServiceProvider());
 
-		$this->Utf8Bootup();
+		# Enables the portablity layer and configures PHP for UTF-8
+		Utf8Bootup::initAll();
 
+		# Redirects to an UTF-8 encoded URL if it's not already the case
+		Utf8Bootup::filterRequestUri();
+
+		# Normalizes HTTP inputs to UTF-8 NFC
+		Utf8Bootup::filterRequestInputs();
+
+		# Start session
 		$this['request']->setSession($this['session']);
 
 		# URL du dossier des fichiers publics
@@ -198,20 +177,6 @@ class Application extends Container
 
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/main');
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/users');
-
-		$this->navigation = new Menus($this);
-	}
-
-	protected function Utf8Bootup()
-	{
-		# Enables the portablity layer and configures PHP for UTF-8
-		Utf8Bootup::initAll();
-
-		# Redirects to an UTF-8 encoded URL if it's not already the case
-		Utf8Bootup::filterRequestUri();
-
-		# Normalizes HTTP inputs to UTF-8 NFC
-		Utf8Bootup::filterRequestInputs();
 	}
 
 	/**
@@ -236,20 +201,6 @@ class Application extends Container
 			if ($this->db->hasError()) {
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
-		}
-	}
-
-	public function startAdminRouter()
-	{
-		if (null === $this->adminRouter)
-		{
-			$this->adminRouter = new adminRouter(
-				$this,
-				$this['config_dir'] . '/RoutesAdmin',
-				$this['cache_dir'] . '/routing/admin',
-				$this['debug'],
-				$this['logger']
-			);
 		}
 	}
 

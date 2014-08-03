@@ -59,7 +59,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage menu haut
-		echo $okt->navigation->render('MenuTop');
+		echo $okt['menus']->render('MenuTop');
 		# fin Okatea : affichage menu haut 		?>
 
 	</header>
@@ -81,7 +81,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 	<div id="sidebar">
 		<?php 
 # début Okatea : affichage menu milieu
-		echo $okt->navigation->render('MenuMiddle');
+		echo $okt['menus']->render('MenuMiddle');
 		# fin Okatea : affichage menu milieu 		?>
 
 		<?php 
@@ -177,7 +177,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage menu milieu
-		echo $okt->navigation->render('MenuBottom');
+		echo $okt['menus']->render('MenuBottom');
 		# fin Okatea : affichage menu milieu ?>
 
 	</footer>

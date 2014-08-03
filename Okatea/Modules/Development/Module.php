@@ -36,11 +36,11 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->DevelopmentSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add(__('m_development_menu_development'), $this->okt->adminRouter->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 25061978, $this->okt->checkPerm('development_usage'), null, $this->okt->page->DevelopmentSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_development'), $this->okt->adminRouter->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 1, $this->okt->checkPerm('development_usage'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_debugbar'), $this->okt->adminRouter->generate('Development_debugbar'), $this->okt['request']->attributes->get('_route') === 'Development_debugbar', 2, $this->okt->checkPerm('development_debug_bar'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_bootstrap'), $this->okt->adminRouter->generate('Development_bootstrap'), $this->okt['request']->attributes->get('_route') === 'Development_bootstrap', 3, $this->okt->checkPerm('development_bootstrap'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_counting'), $this->okt->adminRouter->generate('Development_counting'), $this->okt['request']->attributes->get('_route') === 'Development_counting', 4, $this->okt->checkPerm('development_counting'));
+			$this->okt->page->mainMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 25061978, $this->okt->checkPerm('development_usage'), null, $this->okt->page->DevelopmentSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 1, $this->okt->checkPerm('development_usage'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_debugbar'), $this->okt['adminRouter']->generate('Development_debugbar'), $this->okt['request']->attributes->get('_route') === 'Development_debugbar', 2, $this->okt->checkPerm('development_debug_bar'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_bootstrap'), $this->okt['adminRouter']->generate('Development_bootstrap'), $this->okt['request']->attributes->get('_route') === 'Development_bootstrap', 3, $this->okt->checkPerm('development_bootstrap'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_counting'), $this->okt['adminRouter']->generate('Development_counting'), $this->okt['request']->attributes->get('_route') === 'Development_counting', 4, $this->okt->checkPerm('development_counting'));
 		}
 
 		# Message admin home
@@ -78,7 +78,7 @@ class Module extends BaseModule
 	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		$aPrimaryAdminBar[10]['items'][100] = array(
-			'href' => $this->okt->adminRouter->generateFromWebsite('config_modules'),
+			'href' => $this->okt['adminRouter']->generateFromWebsite('config_modules'),
 			'title' => __('m_development_ab_module_enable_title'),
 			'intitle' => __('m_development_ab_module_enable')
 		);

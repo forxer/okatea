@@ -107,13 +107,13 @@ class Menus
 		));
 
 		# affichage du template
-		$sTemplate = $this->okt['config']->navigation_tpl['default'];
+		$sTemplate = $this->okt['config']['menus']_tpl['default'];
 
-		if (! empty($sUserTpl) && in_array($sUserTpl, $this->okt['config']->navigation_tpl['usables']))
+		if (! empty($sUserTpl) && in_array($sUserTpl, $this->okt['config']['menus']_tpl['usables']))
 		{
 			$sTemplate = $sUserTpl;
 		}
-		elseif (! empty($rsMenu->tpl) && in_array($rsMenu->tpl, $this->okt['config']->navigation_tpl['usables']))
+		elseif (! empty($rsMenu->tpl) && in_array($rsMenu->tpl, $this->okt['config']['menus']_tpl['usables']))
 		{
 			$sTemplate = $rsMenu->tpl;
 		}

@@ -30,7 +30,7 @@ class Router extends Controller
 		$aWebsiteRoutesInfos = $oWebsiteHelpersConfig->getRoutesInfos();
 
 		# Informations sur les routes de l'adminbistration
-		$oAdminHelpersConfig = new Config($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt->adminRouter->getRouteCollection()->all());
+		$oAdminHelpersConfig = new Config($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['adminRouter']->getRouteCollection()->all());
 
 		$aAdminRoutesInfos = $oAdminHelpersConfig->getRoutesInfos();
 

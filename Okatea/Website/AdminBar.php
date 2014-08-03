@@ -39,7 +39,7 @@ class AdminBar
 		$this->okt->page->css->addFile($this->okt['public_url'] . '/css/admin-bar.css');
 		$this->okt->page->js->addFile($this->okt['public_url'] . '/js/admin-bar.js');
 		
-		$this->okt->adminRouter = new AdminRouter($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['cache_dir'] . '/routing/admin', $this->okt['debug']);
+		$this->okt['adminRouter'] = new AdminRouter($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['cache_dir'] . '/routing/admin', $this->okt['debug']);
 	}
 
 	public function displayWebsiteAdminBar()

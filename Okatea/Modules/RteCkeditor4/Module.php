@@ -37,7 +37,7 @@ class Module extends BaseModule
 		{
 			$this->okt->page->configSubMenu->add(
 				__('TinyMCE 4'),
-				$this->okt->adminRouter->generate('RteTinymce4_config'),
+				$this->okt['adminRouter']->generate('RteTinymce4_config'),
 				$this->okt['request']->attributes->get('_route') === 'RteTinymce4_config',
 				40,
 				$this->okt->checkPerm('rte_ckeditor_4_config'),

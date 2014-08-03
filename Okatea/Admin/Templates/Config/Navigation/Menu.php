@@ -71,7 +71,7 @@ if ($iMenuId)
 				class="required"><?php _e('c_a_config_navigation_menu_title') ?></label>
 		<?php echo form::text('p_title', 100, 255, $view->escape($aMenuData['title']))?>
 
-		<?php if (!empty($okt['config']->navigation_tpl['usables'])) : ?>
+		<?php if (!empty($okt['config']['menus']_tpl['usables'])) : ?>
 		
 		
 		
@@ -103,10 +103,10 @@ if ($iMenuId)
 <div class="note">
 	<p><?php _e('c_a_config_navigation_menu_usage') ?></p>
 	<p><?php _e('c_a_config_navigation_menu_usage_by_id') ?><br />
-		<code><?php echo $view->escape('<?php echo $okt->navigation->render('.$iMenuId.') ?>') ?></code>
+		<code><?php echo $view->escape('<?php echo $okt['menus']->render('.$iMenuId.') ?>') ?></code>
 	</p>
 	<p><?php _e('c_a_config_navigation_menu_usage_by_title') ?><br />
-		<code><?php echo $view->escape('<?php echo $okt->navigation->render(\''.$aMenuData['title'].'\') ?>') ?></code>
+		<code><?php echo $view->escape('<?php echo $okt['menus']->render(\''.$aMenuData['title'].'\') ?>') ?></code>
 	</p>
 </div>
 <?php endif; ?>

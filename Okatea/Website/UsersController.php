@@ -592,7 +592,7 @@ class UsersController extends BaseController
 				{
 					$this->okt->startAdminRouter();
 
-					$aMailParams['user_edit_url'] = $this->okt->adminRouter->generateFromWebsite('Users_edit', array(
+					$aMailParams['user_edit_url'] = $this->okt['adminRouter']->generateFromWebsite('Users_edit', array(
 						'user_id' => $iNewUserId
 					), true);
 

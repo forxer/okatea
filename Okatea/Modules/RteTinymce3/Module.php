@@ -46,7 +46,7 @@ class Module extends BaseModule
 		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('TinyMCE 3'), $this->okt->adminRouter->generate('RteTinymce3_config'), $this->okt['request']->attributes->get('_route') === 'RteTinymce3_config', 40, $this->okt->checkPerm('rte_tinymce_3_config'), null);
+			$this->okt->page->configSubMenu->add(__('TinyMCE 3'), $this->okt['adminRouter']->generate('RteTinymce3_config'), $this->okt['request']->attributes->get('_route') === 'RteTinymce3_config', 40, $this->okt->checkPerm('rte_tinymce_3_config'), null);
 		}
 	}
 

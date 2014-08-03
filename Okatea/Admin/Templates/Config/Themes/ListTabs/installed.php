@@ -81,13 +81,13 @@ foreach ($aInstalledThemes as $aTheme)
 			{
 				$theme_links[] = '<a href="' . $view->generateUrl('config_themes') . '?show_notes=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_notes_link">' . __('c_a_themes_notes') . '</a>';
 			}
-			if ($okt->adminRouter->routeExists($aTheme['id'] . '_display'))
+			if ($okt['adminRouter']->routeExists($aTheme['id'] . '_display'))
 			{
-				$theme_links[] = '<a href="' . $okt->adminRouter->generate($aTheme['id'] . '_display') . '">' . __('c_a_themes_display') . '</a>';
+				$theme_links[] = '<a href="' . $okt['adminRouter']->generate($aTheme['id'] . '_display') . '">' . __('c_a_themes_display') . '</a>';
 			}
-			if ($okt->adminRouter->routeExists($aTheme['id'] . '_config'))
+			if ($okt['adminRouter']->routeExists($aTheme['id'] . '_config'))
 			{
-				$theme_links[] = '<a href="' . $okt->adminRouter->generate($aTheme['id'] . '_config') . '">' . __('c_a_themes_config') . '</a>';
+				$theme_links[] = '<a href="' . $okt['adminRouter']->generate($aTheme['id'] . '_config') . '">' . __('c_a_themes_config') . '</a>';
 			}
 			?>
 		<tr>
