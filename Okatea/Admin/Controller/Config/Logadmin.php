@@ -20,7 +20,7 @@ class Logadmin extends Controller
 		}
 
 		# Locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/logadmin');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/logadmin');
 
 		# Filtres
 		$this->okt->logAdmin->filtersStart();

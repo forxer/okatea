@@ -39,7 +39,7 @@ class AdminBar
 		$this->okt->page->css->addFile($this->okt['public_url'] . '/css/admin-bar.css');
 		$this->okt->page->js->addFile($this->okt['public_url'] . '/js/admin-bar.js');
 		
-		$this->okt['adminRouter'] = new AdminRouter($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['cache_dir'] . '/routing/admin', $this->okt['debug']);
+		$this->okt['adminRouter'] = new AdminRouter($this->okt, $this->okt['config_path'] . '/RoutesAdmin', $this->okt['cache_path'] . '/routing/admin', $this->okt['debug']);
 	}
 
 	public function displayWebsiteAdminBar()
@@ -48,7 +48,7 @@ class AdminBar
 		$aPrimaryAdminBar = new ArrayObject();
 		$aSecondaryAdminBar = new ArrayObject();
 		
-		$aBasesUrl['admin'] = $this->okt['config']->app_path . 'admin/';
+		$aBasesUrl['admin'] = $this->okt['app_url'] . 'admin/';
 		$aBasesUrl['logout'] = $this->okt['router']->generate('usersLogout');
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 		
@@ -88,7 +88,7 @@ class AdminBar
 				}
 				
 				$aSecondaryAdminBar[$iStartIdx ++] = array(
-					'href' => Escaper::html($this->okt['config']->app_path . $aLanguage['code'] . '/'),
+					'href' => Escaper::html($this->okt['app_url'] . $aLanguage['code'] . '/'),
 					'title' => Escaper::html($aLanguage['title']),
 					'intitle' => '<img src="' . $this->okt['public_url'] . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" />'
 				);
@@ -112,15 +112,15 @@ class AdminBar
 			}
 			
 			# avertissement nouvelle version disponible
-			if ($this->okt['config']->updates['enabled'] && is_readable($this->okt['digests']))
+			if ($this->okt['config']->updates['enabled'] && is_readable($this->okt['digests_path']))
 			{
-				$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_dir'] . '/versions');
+				$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_path'] . '/versions');
 				$new_v = $updater->check($this->okt->getVersion());
 				
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin.update');
+					$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin.update');
 					
 					$aPrimaryAdminBar[10]['items'][120] = array(
 						'href' => $aBasesUrl['admin'] . '/configuration.php?action=update',

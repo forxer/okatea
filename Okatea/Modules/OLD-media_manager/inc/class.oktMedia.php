@@ -84,7 +84,7 @@ class oktMedia extends filemanager
 		
 		$this->icon_img = $okt['public_url'] . '/img/media/%s.png';
 		
-		$root = $this->okt['upload_dir'] . '/media_manager';
+		$root = $this->okt['upload_path'] . '/media_manager';
 		
 		if (! is_dir($root))
 		{

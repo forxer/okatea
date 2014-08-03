@@ -21,7 +21,7 @@ class Display extends Controller
 		}
 
 		# Locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/display');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/display');
 
 		# Liste des thèmes
 		$aUiThemes = Page::getUiThemes();
@@ -57,7 +57,7 @@ class Display extends Controller
 			if (isset($_FILES['p_upload_theme']) && ! empty($_FILES['p_upload_theme']['tmp_name']))
 			{
 				$sUploadedFile = $_FILES['p_upload_theme'];
-				$sTempDir = $this->okt['root_dir'] . '/temp/';
+				$sTempDir = $this->okt['app_path'] . '/temp/';
 				$sZipFilename = $sTempDir . $sUploadedFile['name'];
 
 				try
@@ -124,7 +124,7 @@ class Display extends Controller
 					$oZip->unzipAll($sTempDir);
 					$oZip->close();
 
-					$sFinalPath = $this->okt['public_dir'] . '/components/jquery-ui/themes/custom';
+					$sFinalPath = $this->okt['public_path'] . '/components/jquery-ui/themes/custom';
 
 					$fs->mirror($sTempDir . $zip_root_dir . '/css/custom-theme', $sFinalPath);
 					$fs->rename($sFinalPath . '/' . basename($sTargetDir) . '.css', $sFinalPath . '/jquery-ui.css');

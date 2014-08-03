@@ -14,12 +14,12 @@ $aUsableCSS = array(
 	$okt->theme->url.'/css/editor.css',
 	$okt->theme->url.'/css/custom.css',
 */
-	$okt['config']->app_path . 'css/style.css',
-	$okt['config']->app_path . 'css/styles.css',
-	$okt['config']->app_path . 'css/editor.css',
-	$okt['config']->app_path . 'css/custom.css',
-	$okt['config']->app_path . 'editor.css',
-	$okt['config']->app_path . 'custom.css'
+	$okt['app_url'] . 'css/style.css',
+	$okt['app_url'] . 'css/styles.css',
+	$okt['app_url'] . 'css/editor.css',
+	$okt['app_url'] . 'css/custom.css',
+	$okt['app_url'] . 'editor.css',
+	$okt['app_url'] . 'custom.css'
 );
 ?>
 

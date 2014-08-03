@@ -145,7 +145,7 @@ class Themes extends Controller
 	protected function init()
 	{
 		# Themes management locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/themes');
 		
 		# Retrieving the list of themes in the file system (all themes)
 		$this->aAllThemes = $this->okt['themes']->getManager()->getAll();
@@ -158,7 +158,7 @@ class Themes extends Controller
 			# Searching for icons
 			$this->aInstalledThemes[$sThemeId]['icon'] = null;
 			
-			$sInstallDirPath = $this->okt['public_dir'] . '/themes/' . $sThemeId;
+			$sInstallDirPath = $this->okt['public_path'] . '/themes/' . $sThemeId;
 			
 			if (! is_dir($sInstallDirPath))
 			{
@@ -230,7 +230,7 @@ class Themes extends Controller
 	protected function showChangelog()
 	{
 		$sThemeId = $this->okt['request']->query->get('show_changelog');
-		$sChangelogFile = $this->okt['themes_dir'] . '/' . $sThemeId . '/CHANGELOG';
+		$sChangelogFile = $this->okt['themes_path'] . '/' . $sThemeId . '/CHANGELOG';
 		
 		if (! $sThemeId || ! file_exists($sChangelogFile))
 		{
@@ -245,14 +245,14 @@ class Themes extends Controller
 	protected function showNotes()
 	{
 		$sThemeId = $this->okt['request']->query->get('show_notes');
-		$sNotesFile = $this->okt['themes_dir'] . '/' . $sThemeId . '/notes.md';
+		$sNotesFile = $this->okt['themes_path'] . '/' . $sThemeId . '/notes.md';
 		
 		if (! $sThemeId || ! file_exists($sNotesFile))
 		{
 			return false;
 		}
 		
-		$sNotesContent = \Parsedown::instance()->parse(file_get_contents($this->okt['themes_dir'] . '/' . $sThemeId . '/notes.md'));
+		$sNotesContent = \Parsedown::instance()->parse(file_get_contents($this->okt['themes_path'] . '/' . $sThemeId . '/notes.md'));
 		
 		return (new Response())->setContent($sNotesContent);
 	}
@@ -501,7 +501,7 @@ class Themes extends Controller
 		
 		$fs = new Filesystem();
 		
-		if ($fs->remove($this->okt['themes_dir'] . '/' . $sThemeId))
+		if ($fs->remove($this->okt['themes_path'] . '/' . $sThemeId))
 		{
 			$this->okt['flash']->success(__('c_a_themes_successfully_deleted'));
 			
@@ -546,7 +546,7 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$sThemePath = $this->okt['themes_dir'] . '/' . $sThemeId;
+		$sThemePath = $this->okt['themes_path'] . '/' . $sThemeId;
 		
 		if (! is_readable($sThemePath))
 		{
@@ -611,7 +611,7 @@ class Themes extends Controller
 						throw new \Exception(__('c_a_themes_theme_already_exists_not_installed_install_before_update'));
 					}
 					
-					$pkg_file->move($this->okt['themes_dir']);
+					$pkg_file->move($this->okt['themes_path']);
 				}
 				else
 				{
@@ -626,7 +626,7 @@ class Themes extends Controller
 						$url = urldecode($pkg_url);
 					}
 					
-					$dest = $this->okt['themes_dir'] . '/' . basename($url);
+					$dest = $this->okt['themes_path'] . '/' . basename($url);
 					
 					if (array_key_exists(basename($url), $this->aUninstalledThemes))
 					{
@@ -687,7 +687,7 @@ class Themes extends Controller
 		));
 		
 		# modules config sheme
-		$sTplScheme = $this->okt['themes_dir'] . '/' . $sUseThemeId . '/modules_config_scheme.php';
+		$sTplScheme = $this->okt['themes_path'] . '/' . $sUseThemeId . '/modules_config_scheme.php';
 		
 		if (file_exists($sTplScheme))
 		{

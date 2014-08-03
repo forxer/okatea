@@ -45,7 +45,7 @@ class Router extends BaseRouter
 	 */
 	public function generateFromWebsite($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
 	{
-		return str_replace($this->okt['config']->app_path, $this->okt['config']->app_path . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
+		return str_replace($this->okt['app_url'], $this->okt['app_url'] . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
 	}
 
 	/**

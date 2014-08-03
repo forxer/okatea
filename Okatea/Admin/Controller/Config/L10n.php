@@ -20,7 +20,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/l10n');
 
 		if (($action = $this->enableLanguage()) !== false) {
 			return $action;
@@ -70,7 +70,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/l10n');
 
 		$iLanguageId = $this->okt['request']->attributes->getInt('language_id');
 
@@ -122,7 +122,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/l10n');
 
 		$aAddLanguageData = array(
 			'language' 	=> '',
@@ -155,7 +155,7 @@ class L10n extends Controller
 		}
 
 		# fetch languages infos
-		$sLanguagesListInfos = $this->okt['root_dir'] . '/vendor/forxer/languages-list/languages.php';
+		$sLanguagesListInfos = $this->okt['app_path'] . '/vendor/forxer/languages-list/languages.php';
 
 		$aLanguagesList = array(
 			' ' => null
@@ -173,7 +173,7 @@ class L10n extends Controller
 		}
 
 		# fetch country infos
-		$sCountryListInfos = $this->okt['okt_dir'] . '/Tao/L10n/country-list/' . $this->okt['visitor']->language . '/country.php';
+		$sCountryListInfos = $this->okt['okt_path'] . '/Tao/L10n/country-list/' . $this->okt['visitor']->language . '/country.php';
 
 		$aCountryList = array(
 			' ' => null
@@ -199,7 +199,7 @@ class L10n extends Controller
 	protected function getIconsList()
 	{
 		$aFlags = array();
-		foreach (new DirectoryIterator($this->okt['public_dir'] . '/img/flags/') as $oFileInfo)
+		foreach (new DirectoryIterator($this->okt['public_path'] . '/img/flags/') as $oFileInfo)
 		{
 			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
 				continue;

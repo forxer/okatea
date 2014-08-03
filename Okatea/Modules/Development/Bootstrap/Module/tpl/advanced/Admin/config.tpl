@@ -191,10 +191,10 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			<fieldset>
 				<legend>Schéma des URL</legend>
 
-				<p class="field"><label for="p_public_list_url">URL de la liste des éléments depuis <code><?php echo $okt['request']->getSchemeAndHttpHost().$okt['config']->app_path ?></code></label>
+				<p class="field"><label for="p_public_list_url">URL de la liste des éléments depuis <code><?php echo $okt['request']->getSchemeAndHttpHost().$okt['app_url'] ?></code></label>
 				<?php echo form::text('p_public_list_url', 40, 255, html::escapeHTML($okt->##module_id##->config->public_list_url)) ?></p>
 
-				<p class="field"><label for="p_public_item_url">URL d’un élément depuis <code><?php echo $okt['request']->getSchemeAndHttpHost().$okt['config']->app_path ?></code></label>
+				<p class="field"><label for="p_public_item_url">URL d’un élément depuis <code><?php echo $okt['request']->getSchemeAndHttpHost().$okt['app_url'] ?></code></label>
 				<?php echo form::text('p_public_item_url', 40, 255, html::escapeHTML($okt->##module_id##->config->public_item_url)) ?></p>
 
 			</fieldset>

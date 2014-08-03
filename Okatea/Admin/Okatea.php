@@ -36,8 +36,6 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
-		parent::run();
-
 		$this->loadLogAdmin();
 
 		$this->loadPageHelpers();
@@ -52,9 +50,9 @@ class Okatea extends Application
 
 			$this->loadTplEngine();
 
-			$this->loadThemes('admin');
+			$this['themes']->load('admin');
 
-			$this->loadModules('admin');
+			$this['modules']->load('admin');
 
 			$this->callController();
 		}
@@ -85,7 +83,7 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		$this->setTplDirectory(__DIR__ . '/Templates/%name%.php');
-		$this->setTplDirectory($this['modules_dir'] . '/%name%.php');
+		$this->setTplDirectory($this['modules_path'] . '/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);

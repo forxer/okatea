@@ -111,7 +111,7 @@ class Collection
 		{
 			global $okt;
 
-			$oThemes = new self($okt, $okt['themes_dir']);
+			$oThemes = new self($okt, $okt['themes_path']);
 
 			$aList = $oThemes->getThemesList();
 
@@ -313,38 +313,38 @@ class Collection
 		{
 			# required files
 			\files::makeDir($sThemePath);
-			file_put_contents($sThemePath . '/_define.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/_define.tpl')));
-			file_put_contents($sThemePath . '/index.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.tpl')));
-			file_put_contents($sThemePath . '/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/oktTheme.tpl')));
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/locked_files.txt', $sThemePath . '/locked_files.txt');
+			file_put_contents($sThemePath . '/_define.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_path'] . '/admin/configuration/themes/Templates/_define.tpl')));
+			file_put_contents($sThemePath . '/index.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.tpl')));
+			file_put_contents($sThemePath . '/oktTheme.php', str_replace($aSearch, $aReplace, file_get_contents($this->okt['okt_path'] . '/admin/configuration/themes/Templates/oktTheme.tpl')));
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/locked_files.txt', $sThemePath . '/locked_files.txt');
 
 			# css files
 			\files::makeDir($sThemePath . '/css');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/definitions.less.tpl', $sThemePath . '/css/definitions.less');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/css/index.html');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/overload.less.tpl', $sThemePath . '/css/overload.less');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/definitions.less.tpl', $sThemePath . '/css/definitions.less');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/css/index.html');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/overload.less.tpl', $sThemePath . '/css/overload.less');
 
 			# images files
 			\files::makeDir($sThemePath . '/images');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/images/index.html');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/images/index.html');
 
 			# js
 			\files::makeDir($sThemePath . '/js');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/js/index.html');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/js/index.html');
 
 			# locales files
 			\files::makeDir($sThemePath . '/Locales');
 			\files::makeDir($sThemePath . '/Locales/fr');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Locales/fr/index.html');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Locales/fr/index.html');
 
 			# modules files
 			\files::makeDir($sThemePath . '/modules');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/modules/index.html');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/modules/index.html');
 
 			# templates files
 			\files::makeDir($sThemePath . '/Templates');
-			copy($this->okt['okt_dir'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Templates/index.html');
-			copy($this->okt['themes_dir'] . '/default/Templates/layout.php', $sThemePath . '/Templates/layout.php');
+			copy($this->okt['okt_path'] . '/admin/configuration/themes/Templates/index.html.tpl', $sThemePath . '/Templates/index.html');
+			copy($this->okt['themes_path'] . '/default/Templates/layout.php', $sThemePath . '/Templates/layout.php');
 
 			return $sId;
 		}
@@ -512,7 +512,7 @@ class Collection
 
 		$aLockedFiles = array();
 
-		$sThemePath = $okt['themes_dir'] . '/' . $sThemeId . '/';
+		$sThemePath = $okt['themes_path'] . '/' . $sThemeId . '/';
 
 		if (! file_exists($sThemePath . 'locked_files.txt'))
 		{

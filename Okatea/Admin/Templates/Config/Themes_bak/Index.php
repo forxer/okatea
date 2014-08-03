@@ -218,7 +218,7 @@ if (! empty($sSearch))
 			<div class="theme-screenshot">
 				<?php if ($aTheme['screenshot']) : ?>
 				<img
-					src="<?php echo $okt['config']->app_path.basename($okt['themes_dir']).'/'.$aTheme['id'].'/screenshot.jpg' ?>"
+					src="<?php echo $okt['app_url'].basename($okt['themes_path']).'/'.$aTheme['id'].'/screenshot.jpg' ?>"
 					width="100%" height="100%" alt="" />
 				<?php else : ?>
 				<em class="note center"><?php _e('c_a_themes_no_screenshot') ?></em>
@@ -265,7 +265,7 @@ if (! empty($sSearch))
 			'theme_id' => $aTheme['id']
 		)) . '" class="button-config">' . __('c_a_themes_config') . '</a>';
 		
-		if (file_exists($okt['themes_dir'] . '/' . $aTheme['id'] . '/notes.md'))
+		if (file_exists($okt['themes_path'] . '/' . $aTheme['id'] . '/notes.md'))
 		{
 			$aActions[60] = '<a href="' . $view->generateUrl('config_themes') . '?notes=' . $aTheme['id'] . '" class="button-notes">' . __('c_a_themes_notes') . '</a>';
 		}

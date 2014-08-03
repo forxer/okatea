@@ -129,7 +129,7 @@ class Home extends Controller
 		$this->feed = new \SimplePie();
 
 		# set cache directory
-		$sCacheDir = $this->okt['cache_dir'] . '/feeds/';
+		$sCacheDir = $this->okt['cache_path'] . '/feeds/';
 
 		(new Filesystem())->mkdir($sCacheDir);
 
@@ -173,14 +173,14 @@ class Home extends Controller
 
 	protected function updateNotification()
 	{
-		if ($this->okt['config']->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt['digests']))
+		if ($this->okt['config']->updates['enabled'] && $this->okt->checkPerm('is_superadmin') && is_readable($this->okt['digests_path']))
 		{
-			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_dir'] . '/versions');
+			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_path'] . '/versions');
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
 
 			if ($updater->getNotify() && $this->sNewVersion)
 			{
-				$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
+				$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/update');
 			}
 		}
 	}

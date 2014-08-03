@@ -265,7 +265,7 @@ class Page
 	 */
 	public function getBaseUrl($sLanguage = null)
 	{
-		$str = $this->okt['config']->app_path;
+		$str = $this->okt['app_url'];
 
 		if (! $this->okt['languages']->unique)
 		{
@@ -921,7 +921,7 @@ class Page
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/jquery.validate.min.js');
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/additional-methods.min.js');
 
-		if (file_exists($this->okt['public_dir'] . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js'))
+		if (file_exists($this->okt['public_path'] . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js'))
 		{
 			$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/src/localization/messages_' . $aOptions['lang'] . '.js');
 		}
@@ -939,7 +939,7 @@ class Page
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/jquery.validate.min.js');
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/additional-methods.min.js');
 
-		if (file_exists($this->okt['public_dir'] . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js'))
+		if (file_exists($this->okt['public_path'] . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js'))
 		{
 			$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/src/localization/messages_' . $sLanguage . '.js');
 		}
@@ -1291,9 +1291,9 @@ class Page
 		}
 
 		$aThemes = array();
-		foreach (new DirectoryIterator($okt['public_dir'] . '/components/jquery-ui/themes') as $oFileInfo)
+		foreach (new DirectoryIterator($okt['public_path'] . '/components/jquery-ui/themes') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt['public_dir'] . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
+			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt['public_path'] . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
 			{
 				continue;
 			}

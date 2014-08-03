@@ -51,7 +51,7 @@ class Installer extends BaseInstaller
 	public function compareFiles()
 	{
 		# compare templates
-		$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_dir'] . '/DefaultTheme/Templates/');
+		$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_path'] . '/DefaultTheme/Templates/');
 		
 		foreach ($this->okt['themes']->getLoaded() as $sThemeId => $sTheme)
 		{
@@ -60,18 +60,18 @@ class Installer extends BaseInstaller
 				continue;
 			}
 			
-			$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_dir'] . '/' . $sThemeId . '/Templates/', true);
+			$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_path'] . '/' . $sThemeId . '/Templates/', true);
 		}
 		
 		# compare assets
-		$this->getComparator()->folder($this->root() . '/Install/Assets/', $this->okt['public_dir'] . '/modules/' . $this->id() . '/');
+		$this->getComparator()->folder($this->root() . '/Install/Assets/', $this->okt['public_path'] . '/modules/' . $this->id() . '/');
 	}
 
 	protected function getAssetsFiles()
 	{
 		if (null === $this->assetsFiles)
 		{
-			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_dir'] . '/modules/%s');
+			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_path'] . '/modules/%s');
 		}
 		
 		return $this->assetsFiles;

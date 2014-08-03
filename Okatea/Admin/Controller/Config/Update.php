@@ -24,7 +24,7 @@ class Update extends Controller
 		}
 
 		# locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/update');
 
 		# mise à jour de la base de données
 		if ($this->okt['request']->query->has('update_db'))
@@ -40,7 +40,7 @@ class Update extends Controller
 			));
 		}
 
-		$bDigestIsReadable = is_readable($this->okt['digests']);
+		$bDigestIsReadable = is_readable($this->okt['digests_path']);
 
 		if (! $bDigestIsReadable && ! $this->okt['request']->query->has('update_db'))
 		{
@@ -49,9 +49,9 @@ class Update extends Controller
 
 		$sOkateaVersion = $this->okt->getVersion();
 
-		$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_dir'] . '/versions');
+		$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_path'] . '/versions');
 		$new_v = $updater->check($sOkateaVersion);
-		$zip_file = $new_v ? $this->okt['root_dir'] . '/' . basename($updater->getFileURL()) : '';
+		$zip_file = $new_v ? $this->okt['app_path'] . '/' . basename($updater->getFileURL()) : '';
 
 		# Hide "update me" message
 		if ($this->okt['request']->query->has('hide_msg'))
@@ -74,7 +74,7 @@ class Update extends Controller
 
 		# find backup archives files
 		$finder = (new Finder())->files()
-			->in($this->okt['root_dir'])
+			->in($this->okt['app_path'])
 			->depth('== 0')
 			->name('/^backup-([0-9A-Za-z\.-]+).zip$/');
 
@@ -92,7 +92,7 @@ class Update extends Controller
 			{
 				if ($this->okt['request']->request->has('b_del'))
 				{
-					if (! @unlink($this->okt['root_dir'] . '/' . $b_file))
+					if (! @unlink($this->okt['app_path'] . '/' . $b_file))
 					{
 						throw new \Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Escaper::html($b_file)));
 					}
@@ -102,9 +102,9 @@ class Update extends Controller
 
 				if ($this->okt['request']->request->has('b_revert'))
 				{
-					$zip = new \fileUnzip($this->okt['root_dir'] . '/' . $b_file);
-					$zip->unzipAll($this->okt['root_dir'] . '/');
-					@unlink($this->okt['root_dir'] . '/' . $b_file);
+					$zip = new \fileUnzip($this->okt['app_path'] . '/' . $b_file);
+					$zip->unzipAll($this->okt['app_path'] . '/');
+					@unlink($this->okt['app_path'] . '/' . $b_file);
 
 					return $this->redirect($sBaseSelfUrl);
 				}
@@ -120,12 +120,12 @@ class Update extends Controller
 		{
 			try
 			{
-				$updater->setForcedFiles($this->okt['digests']);
+				$updater->setForcedFiles($this->okt['digests_path']);
 
 				# check integrity
 				if (! $this->okt['request']->query->has('do_not_check'))
 				{
-					$updater->checkIntegrity($this->okt['digests'], $this->okt['root_dir']);
+					$updater->checkIntegrity($this->okt['digests_path'], $this->okt['app_path']);
 				}
 
 				# download
@@ -137,13 +137,13 @@ class Update extends Controller
 				}
 
 				# backup config site separatly
-				copy($this->okt['config_dir'] . '/conf_site.yaml', $this->okt['config_dir'] . '/conf_site.yaml.bak');
+				copy($this->okt['config_path'] . '/conf_site.yaml', $this->okt['config_path'] . '/conf_site.yaml.bak');
 
 				# backup old files
-				$updater->backup($zip_file, 'okatea/Okatea/digests', $this->okt['root_dir'], $this->okt['digests'], $this->okt['root_dir'] . '/backup-' . $sOkateaVersion . '.zip');
+				$updater->backup($zip_file, 'okatea/Okatea/digests', $this->okt['app_path'], $this->okt['digests_path'], $this->okt['app_path'] . '/backup-' . $sOkateaVersion . '.zip');
 
 				# upgrade
-				$updater->performUpgrade($zip_file, 'okatea/Okatea/digests', 'okatea', $this->okt['root_dir'], $this->okt['digests']);
+				$updater->performUpgrade($zip_file, 'okatea/Okatea/digests', 'okatea', $this->okt['app_path'], $this->okt['digests_path']);
 
 				# log admin
 				$this->okt->logAdmin->critical(array(
@@ -151,7 +151,7 @@ class Update extends Controller
 					'message' => 'FILES CORE ' . $new_v
 				));
 
-				return $this->redirect($this->okt['config']->app_path . 'install/?old_version=' . $sOkateaVersion);
+				return $this->redirect($this->okt['app_url'] . 'install/?old_version=' . $sOkateaVersion);
 			}
 			catch (\Exception $e)
 			{

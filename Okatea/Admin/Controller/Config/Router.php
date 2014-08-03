@@ -22,15 +22,15 @@ class Router extends Controller
 		}
 
 		# Locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/router');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/router');
 
 		# Informations sur les routes du site
-		$oWebsiteHelpersConfig = new Website($this->okt, $this->okt['config_dir'] . '/Routes', $this->okt['router']->getRouteCollection()->all());
+		$oWebsiteHelpersConfig = new Website($this->okt, $this->okt['config_path'] . '/Routes', $this->okt['router']->getRouteCollection()->all());
 
 		$aWebsiteRoutesInfos = $oWebsiteHelpersConfig->getRoutesInfos();
 
 		# Informations sur les routes de l'adminbistration
-		$oAdminHelpersConfig = new Config($this->okt, $this->okt['config_dir'] . '/RoutesAdmin', $this->okt['adminRouter']->getRouteCollection()->all());
+		$oAdminHelpersConfig = new Config($this->okt, $this->okt['config_path'] . '/RoutesAdmin', $this->okt['adminRouter']->getRouteCollection()->all());
 
 		$aAdminRoutesInfos = $oAdminHelpersConfig->getRoutesInfos();
 

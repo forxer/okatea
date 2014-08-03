@@ -52,8 +52,8 @@ $okt->page->js->addReady('
 		<?php foreach ($aModulesList as $aModuleInfos) : ?>
 		<li class="col"><div class="extension ui-state-default ui-corner-all">
 
-			<?php if (file_exists($okt['modules_dir'].'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png')) : ?>
-				<img src="<?php echo Utilities::base64EncodeImage($okt['modules_dir'].'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png', 'image/png'); ?>"
+			<?php if (file_exists($okt['modules_path'].'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png')) : ?>
+				<img src="<?php echo Utilities::base64EncodeImage($okt['modules_path'].'/'.$aModuleInfos['id'].'/Install/Assets/module_icon.png', 'image/png'); ?>"
 				width="32" height="32" alt="" class="left" />
 			<?php else: ?>
 				<img src="<?php echo $okt['public_url'] ?>/img/admin/module.png"

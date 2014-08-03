@@ -19,7 +19,7 @@ class UsersServiceProvider implements ServiceProviderInterface
 				$okt,
 				$okt['cookie_auth_name'],
 				$okt['cookie_auth_from'],
-				$okt['config']->app_path,
+				$okt['app_url'],
 				$okt['request']->getHttpHost(),
 				$okt['request']->isSecure()
 			);

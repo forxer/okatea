@@ -371,7 +371,7 @@ class Installer extends Extension
 	{
 		if (null === $this->assetsFiles)
 		{
-			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_dir'] . '/extensions/%s');
+			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_path'] . '/extensions/%s');
 		}
 		
 		return $this->assetsFiles;

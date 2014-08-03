@@ -16,7 +16,7 @@ class Modules extends Extensions
 		
 		$this->sPackagesDir = $this->sPackageDir . '/modules/' . $this->okt->getVersion();
 		
-		$this->sTempDir = $this->getTempDir($this->okt['modules_dir']);
+		$this->sTempDir = $this->getTempDir($this->okt['modules_path']);
 		
 		$this->aConfig = $this->okt->module('Builder')->config['modules'];
 	}

@@ -112,7 +112,7 @@ class Config extends Controller
 
 	protected function init()
 	{
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/users');
 		
 		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(

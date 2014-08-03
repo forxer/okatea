@@ -20,8 +20,8 @@ class RouterServiceProvider implements ServiceProviderInterface
 		$okt['router'] = function($okt) {
 			return new Router(
 				$okt,
-				$okt['config_dir'] . '/Routes',
-				$okt['cache_dir'] . '/routing',
+				$okt['config_path'] . '/Routes',
+				$okt['cache_path'] . '/routing',
 				$okt['debug'],
 				$okt['logger']
 			);
@@ -30,8 +30,8 @@ class RouterServiceProvider implements ServiceProviderInterface
 		$okt['adminRouter'] = function($okt) {
 			return new adminRouter(
 				$okt,
-				$okt['config_dir'] . '/RoutesAdmin',
-				$okt['cache_dir'] . '/routing/admin',
+				$okt['config_path'] . '/RoutesAdmin',
+				$okt['cache_path'] . '/routing/admin',
 				$okt['debug'],
 				$okt['logger']
 			);

@@ -399,7 +399,7 @@ class Module extends BaseModule
 	 */
 	public function setBodyFromPostedData()
 	{
-		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_path . ']' . PHP_EOL . PHP_EOL;
+		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . ']' . PHP_EOL . PHP_EOL;
 		
 		$sSenderName = $this->getSenderName();
 		if (! empty($sSenderName))
@@ -490,9 +490,9 @@ class Module extends BaseModule
 
 	public function genImgMail()
 	{
-		$font = $this->okt['public_dir'] . '/fonts/OpenSans/OpenSans-Regular.ttf';
+		$font = $this->okt['public_path'] . '/fonts/OpenSans/OpenSans-Regular.ttf';
 		$size = ($this->config->email_size * 72) / 96;
-		$image_src = $this->okt['public_dir'] . '/img/misc/empty.png';
+		$image_src = $this->okt['public_path'] . '/img/misc/empty.png';
 		
 		# Génération de l'image de base
 		list ($width_orig, $height_orig) = getimagesize($image_src);

@@ -172,7 +172,7 @@ class Module extends BaseModule
 		);
 		
 		# language
-		if (file_exists($okt['public_dir'] . '/modules/RteTinymce3/tiny_mce/langs/' . $okt['visitor']->language . '.js'))
+		if (file_exists($okt['public_path'] . '/modules/RteTinymce3/tiny_mce/langs/' . $okt['visitor']->language . '.js'))
 		{
 			$common_options['language'] = $okt['visitor']->language;
 		}
@@ -216,7 +216,7 @@ class Module extends BaseModule
 		$okt->page->js->addScript('
 			function filebrowser(field_name, url, type, win) {
 
-				fileBrowserURL = "' . $okt['config']->app_path . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type;
+				fileBrowserURL = "' . $okt['app_url'] . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type;
 
 				tinyMCE.activeEditor.windowManager.open({
 						title: "Media manager",

@@ -38,7 +38,7 @@ class module_##module_id## extends Module
 
 		# configuration
 		$this->config = $this->okt->newConfig('conf_##module_id##');
-		$this->config->url = $this->okt['config']->app_path.$this->config->public_list_url;
+		$this->config->url = $this->okt['app_url'].$this->config->public_list_url;
 
 		# tables
 		$this->table = $this->db->prefix.'mod_##module_id##';

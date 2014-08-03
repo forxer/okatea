@@ -856,7 +856,7 @@ class ImageUpload
 	 */
 	public function getCurrentUploadDir($iItemId)
 	{
-		return $this->aConfig['upload_dir'] . '/' . $iItemId;
+		return $this->aConfig['upload_path'] . '/' . $iItemId;
 	}
 
 	/**
@@ -877,7 +877,7 @@ class ImageUpload
 	 */
 	public function getWatermarkUploadDir()
 	{
-		return $this->aConfig['upload_dir'] . '/watermark';
+		return $this->aConfig['upload_path'] . '/watermark';
 	}
 
 	/**

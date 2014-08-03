@@ -200,7 +200,7 @@ class Bootstrap extends Controller
 				),
 				'fem' => $this->aBootstrapData['l10n_fem']
 			))
-				->setModulesDir($this->okt['modules_dir']);
+				->setModulesDir($this->okt['modules_path']);
 			
 			$bootstraper->build();
 			

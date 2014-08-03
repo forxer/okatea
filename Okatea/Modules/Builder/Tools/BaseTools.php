@@ -27,8 +27,8 @@ class BaseTools
 	{
 		$this->okt = $okt;
 		
-		$this->sTempDir = $this->okt['root_dir'] . '/_tmp';
-		$this->sPackageDir = $this->okt['root_dir'] . '/packages';
+		$this->sTempDir = $this->okt['app_path'] . '/_tmp';
+		$this->sPackageDir = $this->okt['app_path'] . '/packages';
 	}
 
 	public function getTempDir($sDirPath = null)
@@ -38,7 +38,7 @@ class BaseTools
 			return $this->sTempDir;
 		}
 		
-		return str_replace($this->okt['root_dir'], $this->sTempDir, $sDirPath);
+		return str_replace($this->okt['app_path'], $this->sTempDir, $sDirPath);
 	}
 
 	public function removeTempDir()

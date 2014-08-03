@@ -21,7 +21,7 @@ class Advanced extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/advanced');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/advanced');
 
 		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();
@@ -142,7 +142,7 @@ class Advanced extends Controller
 	protected function pathUrlInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'app_path' => $this->okt['config']->app_path,
+			'app_path' => $this->okt['app_url'],
 			'domain' => $this->okt['config']->domain
 		));
 	}

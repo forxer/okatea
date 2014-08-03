@@ -166,8 +166,8 @@ class DatabaseConfiguration extends Controller
 				else
 				{
 					# Création du fichier des paramètres de connexion
-					$sConnectionFile = $this->okt['config_dir'] . '/connection.php';
-					$config = file_get_contents($this->okt['config_dir'] . '/connection.dist.php');
+					$sConnectionFile = $this->okt['config_path'] . '/connection.php';
+					$config = file_get_contents($this->okt['config_path'] . '/connection.dist.php');
 
 					$config = str_replace([
 						'%%DB_PROD_HOST%%',

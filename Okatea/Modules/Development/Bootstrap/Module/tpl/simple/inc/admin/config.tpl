@@ -100,7 +100,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 
 			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_##module_id##_config_url_from_%s'), '<code>'.$okt['request']->getSchemeAndHttpHost().$okt['config']->app_path.($okt['languages']->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_##module_id##_config_url_from_%s'), '<code>'.$okt['request']->getSchemeAndHttpHost().$okt['app_url'].($okt['languages']->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->public_url[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->public_url[$aLanguage['code']]) : '')) ?></p>
 
 			<?php endforeach; ?>

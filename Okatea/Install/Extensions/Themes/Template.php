@@ -52,8 +52,8 @@ $okt->page->js->addReady('
 		<?php foreach ($aThemesList as $aThemeInfos) : ?>
 		<li class="col"><div class="extension ui-state-default ui-corner-all">
 
-			<?php if (file_exists($okt['themes_dir'].'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png')) : ?>
-				<img src="<?php echo Utilities::base64EncodeImage($okt['themes_dir'].'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png', 'image/png'); ?>"
+			<?php if (file_exists($okt['themes_path'].'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png')) : ?>
+				<img src="<?php echo Utilities::base64EncodeImage($okt['themes_path'].'/'.$aThemeInfos['id'].'/Install/Assets/theme_icon.png', 'image/png'); ?>"
 				width="32" height="32" alt="" class="left" />
 			<?php else: ?>
 				<img src="<?php echo $okt['public_url'] ?>/img/admin/theme.png"

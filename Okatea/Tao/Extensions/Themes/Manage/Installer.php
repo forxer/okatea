@@ -51,14 +51,14 @@ class Installer extends BaseInstaller
 
 	public function compareFiles()
 	{
-		$this->getComparator()->folder($this->root() . '/Install/Assets/', $this->okt['public_dir'] . '/themes/' . $this->id() . '/');
+		$this->getComparator()->folder($this->root() . '/Install/Assets/', $this->okt['public_path'] . '/themes/' . $this->id() . '/');
 	}
 
 	protected function getAssetsFiles()
 	{
 		if (null === $this->assetsFiles)
 		{
-			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_dir'] . '/themes/%s');
+			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_path'] . '/themes/%s');
 		}
 		
 		return $this->assetsFiles;

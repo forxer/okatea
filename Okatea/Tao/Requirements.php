@@ -29,7 +29,7 @@ class Requirements
 	{
 		$this->okt = $okt;
 
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/pre-requisites', $sLanguage);
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/pre-requisites', $sLanguage);
 
 		/* Groups
 		----------------------------------------------------------*/
@@ -49,7 +49,7 @@ class Requirements
 		/* PHP requirements
 		----------------------------------------------------------*/
 
-		$sPhpVersionRequired = require $this->okt['okt_dir'] . '/php_version_required.php';
+		$sPhpVersionRequired = require $this->okt['okt_path'] . '/php_version_required.php';
 
 		$this->aRequirements[0]['requirements'][] = [
 			'id' => 'php_version',
@@ -161,51 +161,51 @@ class Requirements
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktConf',
-			'test' => is_writable($this->okt['config_dir']),
-			'msg_ok' => sprintf(__('pr_okatea_conf_ok'), $this->okt['config_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_conf_ko'), $this->okt['config_dir'])
+			'test' => is_writable($this->okt['config_path']),
+			'msg_ok' => sprintf(__('pr_okatea_conf_ok'), $this->okt['config_path']),
+			'msg_ko' => sprintf(__('pr_okatea_conf_ko'), $this->okt['config_path'])
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'conf_site',
-			'test' => is_writable($this->okt['config_dir'] . '/conf_site.yml'),
-			'msg_ok' => sprintf(__('pr_conf_site_ok'), $this->okt['config_dir'] . '/conf_site.yml'),
-			'msg_ko' => sprintf(__('pr_conf_site_ko'), $this->okt['config_dir'] . '/conf_site.yml')
+			'test' => is_writable($this->okt['config_path'] . '/conf_site.yml'),
+			'msg_ok' => sprintf(__('pr_conf_site_ok'), $this->okt['config_path'] . '/conf_site.yml'),
+			'msg_ko' => sprintf(__('pr_conf_site_ko'), $this->okt['config_path'] . '/conf_site.yml')
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktCache',
-			'test' => is_writable($this->okt['cache_dir']) ? true : null,
-			'msg_ok' => sprintf(__('pr_okatea_cache_ok'), $this->okt['cache_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_cache_ko'), $this->okt['cache_dir'])
+			'test' => is_writable($this->okt['cache_path']) ? true : null,
+			'msg_ok' => sprintf(__('pr_okatea_cache_ok'), $this->okt['cache_path']),
+			'msg_ko' => sprintf(__('pr_okatea_cache_ko'), $this->okt['cache_path'])
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktLog',
-			'test' => is_writable($this->okt['logs_dir']) ? true : null,
-			'msg_ok' => sprintf(__('pr_okatea_log_ok'), $this->okt['logs_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_log_ko'), $this->okt['logs_dir'])
+			'test' => is_writable($this->okt['logs_path']) ? true : null,
+			'msg_ok' => sprintf(__('pr_okatea_log_ok'), $this->okt['logs_path']),
+			'msg_ko' => sprintf(__('pr_okatea_log_ko'), $this->okt['logs_path'])
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktModules',
-			'test' => is_writable($this->okt['modules_dir']) ? true : null,
-			'msg_ok' => sprintf(__('pr_okatea_modules_ok'), $this->okt['modules_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_modules_ko'), $this->okt['modules_dir'])
+			'test' => is_writable($this->okt['modules_path']) ? true : null,
+			'msg_ok' => sprintf(__('pr_okatea_modules_ok'), $this->okt['modules_path']),
+			'msg_ko' => sprintf(__('pr_okatea_modules_ko'), $this->okt['modules_path'])
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktPublic',
-			'test' => is_writable($this->okt['public_dir']) ? true : null,
-			'msg_ok' => sprintf(__('pr_okatea_public_ok'), $this->okt['public_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_public_ko'), $this->okt['public_dir'])
+			'test' => is_writable($this->okt['public_path']) ? true : null,
+			'msg_ok' => sprintf(__('pr_okatea_public_ok'), $this->okt['public_path']),
+			'msg_ko' => sprintf(__('pr_okatea_public_ko'), $this->okt['public_path'])
 		];
 
 		$this->aRequirements[1]['requirements'][] = [
 			'id' => 'oktThemes',
-			'test' => is_writable($this->okt['themes_dir']) ? true : null,
-			'msg_ok' => sprintf(__('pr_okatea_themes_ok'), $this->okt['themes_dir']),
-			'msg_ko' => sprintf(__('pr_okatea_themes_ko'), $this->okt['themes_dir'])
+			'test' => is_writable($this->okt['themes_path']) ? true : null,
+			'msg_ok' => sprintf(__('pr_okatea_themes_ok'), $this->okt['themes_path']),
+			'msg_ko' => sprintf(__('pr_okatea_themes_ko'), $this->okt['themes_path'])
 		];
 	}
 

@@ -20,7 +20,7 @@ class Theme extends Extension
 	{
 		parent::init();
 		
-		$this->public_path = $this->okt['public_dir'] . '/themes/' . $this->id();
+		$this->public_path = $this->okt['public_path'] . '/themes/' . $this->id();
 		$this->public_url = $this->okt['public_url'] . '/themes/' . $this->id();
 		
 		$this->setLessVariables(array(

@@ -31,7 +31,7 @@ use Symfony\Component\Debug\ErrorHandler as DebugErrorHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 
-class Application extends Container
+abstract class Application extends Container
 {
 	const VERSION = '2.0-beta6';
 
@@ -109,13 +109,18 @@ class Application extends Container
 	 */
 	public function __construct($autoloader, array $aOptions = [])
 	{
-		# Register start time
 		define('OKT_START_TIME', microtime(true));
 
-		parent::__construct($aOptions);
+		parent::__construct(require __DIR__ . '/DefaultsOptions');
+
+		# Import customs options if oktOptions.custom.php file exists
+		foreach ($aOptions as $key => $value) {
+			$this->offsetSet($key, $value);
+		}
 
 		$this->autoloader = $autoloader;
 
+		# Registers common services
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
 		$this->register(new ExtensionsServiceProvider());
@@ -140,10 +145,10 @@ class Application extends Container
 		$this['request']->setSession($this['session']);
 
 		# URL du dossier des fichiers publics
-		$this['public_url'] = $this['config']->getData('app_path') . 'oktPublic';
+	//	$this['public_url'] = $this['config']->getData('app_path') . 'oktPublic';
 
 		# URL du dossier upload depuis la racine
-		$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
+	//	$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
 
 		# Print errors in debug mode
 		if ($this['debug']) {
@@ -154,7 +159,18 @@ class Application extends Container
 		else {
 			ErrorHandler::register($this['phpLogger']);
 		}
+
+		$this->startDatabase();
+
+		# Load main locales files
+		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
+		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
 	}
+
+	/**
+	 * Run application.
+	 */
+	abstract public function run();
 
 	/**
 	 * Return application version.
@@ -167,19 +183,6 @@ class Application extends Container
 	}
 
 	/**
-	 * Run main application.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		$this->startDatabase();
-
-		$this['l10n']->loadFile($this['locales_dir'] . '/%s/main');
-		$this['l10n']->loadFile($this['locales_dir'] . '/%s/users');
-	}
-
-	/**
 	 * Make database connexion.
 	 *
 	 * @return object
@@ -188,7 +191,7 @@ class Application extends Container
 	{
 		if (null === $this->db)
 		{
-			$sConnectionFilename = $this['config_dir'] . '/connection.php';
+			$sConnectionFilename = $this['config_path'] . '/connection.php';
 
 			if (! file_exists($sConnectionFilename)) {
 				throw new \RuntimeException('Unable to find database connection file !');
@@ -202,26 +205,6 @@ class Application extends Container
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
 		}
-	}
-
-	/**
-	 * Load public or admin modules parts.
-	 *
-	 * @return void
-	 */
-	protected function loadModules($sPart)
-	{
-		$this['modules']->load($sPart);
-	}
-
-	/**
-	 * Load public or admin themes parts.
-	 *
-	 * @return void
-	 */
-	protected function loadThemes($sPart)
-	{
-		$this['themes']->load($sPart);
 	}
 
 	/* Permissions
@@ -352,10 +335,8 @@ class Application extends Container
 	/**
 	 * Ajoute à la pile un répertoire de templates.
 	 *
-	 * @param string $sDirectoryPath
-	 *        	Le chemin du répertoire
-	 * @param boolean $bPriority
-	 *        	Ajoute en haut de la pile
+	 * @param string $sDirectoryPath Le chemin du répertoire
+	 * @param boolean $bPriority Ajoute en haut de la pile
 	 * @return void
 	 */
 	public function setTplDirectory($sDirectoryPath, $bPriority = false)
@@ -391,7 +372,7 @@ class Application extends Container
 	 */
 	public function newConfig($file)
 	{
-		return new Config($this['cacheConfig'], $this['config_dir'] . '/' . $file);
+		return new Config($this['cacheConfig'], $this['config_path'] . '/' . $file);
 	}
 
 	/**
@@ -413,7 +394,7 @@ class Application extends Container
 	public function getCommonContentReplacementsVariables()
 	{
 		return [
-			'app_path' => $this['config']->app_path,
+			'app_path' => $this['app_url'],
 			'user_language' => $this['visitor']->language,
 			//	'theme_url' => $this->theme->url,
 			'website_title' => $this['config']->title[$this['visitor']->language],
@@ -490,14 +471,14 @@ class Application extends Container
 
 		if ($this->htmlpurifier === null)
 		{
-			$sCacheFile = $this['cache_dir'] . '/htmlpurifier';
+			$sCacheFile = $this['cache_path'] . '/htmlpurifier';
 
 			(new Filesystem())->mkdir($sCacheFile);
 
 			$config = \HTMLPurifier_Config::createDefault();
 
 			$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
-			$config->set('Cache.SerializerPath', $this['cache_dir'] . '/HTMLPurifier');
+			$config->set('Cache.SerializerPath', $this['cache_path'] . '/HTMLPurifier');
 
 			$config->set('HTML.SafeEmbed', true);
 			$config->set('HTML.SafeObject', true);

@@ -40,7 +40,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
 				[
 					new FingersCrossedHandler(
 						new StreamHandler(
-							$okt['logs_dir'] . '/php_errors.log',
+							$okt['logs_path'] . '/php_errors.log',
 							Logger::INFO
 						),
 						Logger::WARNING

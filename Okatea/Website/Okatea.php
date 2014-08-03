@@ -49,13 +49,11 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
-		parent::run();
-
 		$this->theme_id = $this->getTheme();
 
 		$this->loadPageHelpers();
 
-		$this->loadThemes('public');
+		$this['themes']->load('public');
 
 		$this->loadTheme();
 
@@ -66,7 +64,7 @@ class Okatea extends Application
 			$this->page->serve503();
 		}
 
-		$this->loadModules('public');
+		$this['modules']->load('public');
 
 		$this->loadAdminBar();
 
@@ -128,8 +126,8 @@ class Okatea extends Application
 	 */
 	protected function loadTplEngine()
 	{
-		$this->setTplDirectory($this['themes_dir'] . '/' . $this->theme_id . '/Templates/%name%.php');
-		$this->setTplDirectory($this['themes_dir'] . '/DefaultTheme/Templates/%name%.php');
+		$this->setTplDirectory($this['themes_path'] . '/' . $this->theme_id . '/Templates/%name%.php');
+		$this->setTplDirectory($this['themes_path'] . '/DefaultTheme/Templates/%name%.php');
 
 		# initialisation
 		$this->tpl = new Templating($this, $this->aTplDirectories);

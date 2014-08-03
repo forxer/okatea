@@ -29,7 +29,7 @@ class Controller extends BaseController
 		$this->page->css->addFile($this->okt['public_url'] . '/css/init.css');
 		$this->page->css->addFile($this->okt['public_url'] . '/css/admin.css');
 		$this->page->css->addFile($this->okt['public_url'] . '/css/famfamfam.css');
-		$this->page->css->addCSS(file_get_contents($this->okt['root_dir'] . '/install/Assets/install.css'));
+		$this->page->css->addCSS(file_get_contents($this->okt['app_path'] . '/install/Assets/install.css'));
 
 		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery/dist/jquery.min.js');
 		$this->page->js->addFile($this->okt['public_url'] . '/components/jquery-cookie/jquery.cookie.js');

@@ -19,14 +19,14 @@ class ExtensionsServiceProvider implements ServiceProviderInterface
 		$okt['modules'] = function($okt) {
 			return new ModulesCollection(
 				$okt,
-				$okt['modules_dir']
+				$okt['modules_path']
 			);
 		};
 
 		$okt['themes'] = function($okt) {
 			return new ThemesCollection(
 				$okt,
-				$okt['themes_dir']
+				$okt['themes_path']
 			);
 		};
 	}

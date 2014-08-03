@@ -42,6 +42,6 @@ class Digests extends BaseTools
 			$this->sDigests .= md5_file($file->getRealpath()) . ' .' . $file->getRelativePathname() . "\n";
 		}
 		
-		file_put_contents($this->getTempDir($this->okt['digests']), $this->sDigests);
+		file_put_contents($this->getTempDir($this->okt['digests_path']), $this->sDigests);
 	}
 }

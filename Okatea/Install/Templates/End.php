@@ -25,6 +25,6 @@ $okt['session']->invalidate();
 # remove install dir
 if ($okt['env'] === 'prod')
 {
-	(new Filesystem())->remove($okt['root_dir'] . '/install/');
+	(new Filesystem())->remove($okt['app_path'] . '/install/');
 }
 

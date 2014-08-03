@@ -23,7 +23,7 @@ class General extends Controller
 		}
 
 		# Locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/site');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/site');
 
 		# Données de la page
 		$this->aPageData = new ArrayObject();

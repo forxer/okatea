@@ -40,7 +40,7 @@ class RoutesFiles extends ComponentBase
 		
 		foreach ($oFiles as $oFile)
 		{
-			$sRouteFile = $this->okt['config_dir'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
+			$sRouteFile = $this->okt['config_path'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
 			
 			if (file_exists($sRouteFile))
 			{
@@ -67,7 +67,7 @@ class RoutesFiles extends ComponentBase
 		
 		foreach ($oFiles as $oFile)
 		{
-			$sFilePath = $this->okt['config_dir'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
+			$sFilePath = $this->okt['config_path'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
 			
 			if (file_exists($sFilePath))
 			{

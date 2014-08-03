@@ -29,7 +29,7 @@ class DefinitionsLess
 		$this->sPostPrefix = $sPostPrefix;
 		
 		# locales
-		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/definitions.less.editor');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/definitions.less.editor');
 	}
 
 	/**
@@ -156,9 +156,9 @@ class DefinitionsLess
 	{
 		# Tableau de couleurs actuellement utilisées
 		$aPaletteColors = self::getPaletteFromFileset(array(
-			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/style.css',
-			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/styles.css',
-			$this->okt['themes_dir'] . '/' . $sThemeId . '/css/definitions.less'
+			$this->okt['themes_path'] . '/' . $sThemeId . '/css/style.css',
+			$this->okt['themes_path'] . '/' . $sThemeId . '/css/styles.css',
+			$this->okt['themes_path'] . '/' . $sThemeId . '/css/definitions.less'
 		));
 		
 		# Color picker

@@ -24,15 +24,15 @@ class Copier extends BaseTools
 		$fs->remove($this->getTempDir());
 		$fs->mkdir($this->getTempDir());
 		
-		$fs->mirror($this->okt['root_dir'] . '/admin', $this->getTempDir() . '/admin');
-		$fs->mirror($this->okt['root_dir'] . '/install', $this->getTempDir() . '/install');
-		$fs->mirror($this->okt['root_dir'] . '/Okatea', $this->getTempDir() . '/Okatea');
-		$fs->mirror($this->okt['root_dir'] . '/oktPublic', $this->getTempDir() . '/oktPublic');
-		$fs->mirror($this->okt['root_dir'] . '/vendor', $this->getTempDir() . '/vendor');
+		$fs->mirror($this->okt['app_path'] . '/admin', $this->getTempDir() . '/admin');
+		$fs->mirror($this->okt['app_path'] . '/install', $this->getTempDir() . '/install');
+		$fs->mirror($this->okt['app_path'] . '/Okatea', $this->getTempDir() . '/Okatea');
+		$fs->mirror($this->okt['app_path'] . '/oktPublic', $this->getTempDir() . '/oktPublic');
+		$fs->mirror($this->okt['app_path'] . '/vendor', $this->getTempDir() . '/vendor');
 		
-		$fs->copy($this->okt['root_dir'] . '/.htaccess.oktDist', $this->getTempDir() . '/.htaccess.oktDist');
-		$fs->copy($this->okt['root_dir'] . '/LICENSE', $this->getTempDir() . '/LICENSE');
-		$fs->copy($this->okt['root_dir'] . '/okatea.php', $this->getTempDir() . '/okatea.php');
-		$fs->copy($this->okt['root_dir'] . '/oktOptions.php', $this->getTempDir() . '/oktOptions.php');
+		$fs->copy($this->okt['app_path'] . '/.htaccess.oktDist', $this->getTempDir() . '/.htaccess.oktDist');
+		$fs->copy($this->okt['app_path'] . '/LICENSE', $this->getTempDir() . '/LICENSE');
+		$fs->copy($this->okt['app_path'] . '/okatea.php', $this->getTempDir() . '/okatea.php');
+		$fs->copy($this->okt['app_path'] . '/oktOptions.php', $this->getTempDir() . '/oktOptions.php');
 	}
 }
