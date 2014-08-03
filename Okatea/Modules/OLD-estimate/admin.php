@@ -22,7 +22,7 @@ $okt->page->addTitleTag(__('m_estimate_main_title'));
 $okt->page->addAriane(__('m_estimate_main_title'), 'module.php?m=estimate');
 
 # Test si le module users est installé
-if (! $okt->modules->isLoaded('users'))
+if (! $okt['modules']->isLoaded('users'))
 {
 	$okt['flash']->error(__('m_estimate_mod_users_exist'));
 	

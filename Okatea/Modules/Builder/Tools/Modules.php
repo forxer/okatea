@@ -18,6 +18,6 @@ class Modules extends Extensions
 		
 		$this->sTempDir = $this->getTempDir($this->okt['modules_dir']);
 		
-		$this->aConfig = $this->okt->module('Builder')->config->modules;
+		$this->aConfig = $this->okt->module('Builder')->config['modules'];
 	}
 }

@@ -22,7 +22,7 @@ class Theme extends Controller
 		
 		$sThemeId = $this->okt['request']->attributes->get('theme_id');
 		
-		if (! $this->okt->themes->isLoaded($sThemeId))
+		if (! $this->okt['themes']->isLoaded($sThemeId))
 		{
 			return $this->serve404();
 		}
@@ -31,7 +31,7 @@ class Theme extends Controller
 		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
 		
 		# theme infos
-		$aThemeInfos = $this->okt->themes->getInstance($sThemeId)->getInfos();
+		$aThemeInfos = $this->okt['themes']->getInstance($sThemeId)->getInfos();
 		
 		$aThemeInfos['screenshot'] = file_exists($this->okt['public_dir'] . '/themes/' . $sThemeId . '/screenshot.png');
 		

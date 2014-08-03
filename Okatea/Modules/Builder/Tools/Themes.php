@@ -18,6 +18,6 @@ class Themes extends Extensions
 		
 		$this->sTempDir = $this->getTempDir($this->okt['themes_dir']);
 		
-		$this->aConfig = $this->okt->module('Builder')->config->themes;
+		$this->aConfig = $this->okt->module('Builder')->config['themes'];
 	}
 }

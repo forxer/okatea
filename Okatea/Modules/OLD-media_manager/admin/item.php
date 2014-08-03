@@ -241,7 +241,7 @@ if ($popup)
 
 	*/
 	
-	if ($okt->modules->isLoaded('rte_tinymce_4'))
+	if ($okt['modules']->isLoaded('rte_tinymce_4'))
 	{
 		$okt->page->js->addReady('
 			var windowManager = top.tinymce.activeEditor.windowManager;
@@ -373,7 +373,7 @@ if ($popup)
 			form::radio(array('alignment'),$k,$v[1]).' '.$v[0].'</label><br /> ';
 		}
 
-		$public_player_style = unserialize($core->blog->settings->themes->mp3player_style);
+		$public_player_style = unserialize($core->blog->settings['themes']->mp3player_style);
 		$public_player = oktMedia::mp3player($file->file_url,$core->blog->getQmarkURL().'player_mp3.swf',$public_player_style);
 		echo form::hidden('public_player',html::escapeHTML($public_player));
 		echo '</p>';
@@ -408,7 +408,7 @@ if ($popup)
 			form::radio(array('alignment'),$k,$v[1]).' '.$v[0].'</label><br /> ';
 		}
 
-		$public_player_style = unserialize($core->blog->settings->themes->flvplayer_style);
+		$public_player_style = unserialize($core->blog->settings['themes']->flvplayer_style);
 		$public_player = dcMedia::flvplayer($file->file_url,$core->blog->getQmarkURL().'pf=player_flv.swf',$public_player_style);
 		echo form::hidden('public_player',html::escapeHTML($public_player));
 		echo '</p>';

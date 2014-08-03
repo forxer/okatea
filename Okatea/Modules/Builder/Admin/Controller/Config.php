@@ -60,7 +60,7 @@ class Config extends Controller
 	{
 		if (null === $this->aModules)
 		{
-			$this->aModules = $this->okt->modules->getManager()->getAll();
+			$this->aModules = $this->okt['modules']->getManager()->getAll();
 			
 			$this->setExtensionsL10n($this->aModules);
 		}
@@ -72,7 +72,7 @@ class Config extends Controller
 	{
 		if (null === $this->aThemes)
 		{
-			$this->aThemes = $this->okt->themes->getManager()->getAll();
+			$this->aThemes = $this->okt['themes']->getManager()->getAll();
 			
 			$this->setExtensionsL10n($this->aThemes);
 		}

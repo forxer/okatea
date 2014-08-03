@@ -23,7 +23,7 @@ class Controller extends BaseController
 		];
 
 		# Retrieving the list of modules in the file system (all modules)
-		$this->aModulesList = $this->okt->modules->getManager()->getAll();
+		$this->aModulesList = $this->okt['modules']->getManager()->getAll();
 
 		# Load modules main locales files
 		foreach ($this->aModulesList as $aModuleInfos)
@@ -48,9 +48,9 @@ class Controller extends BaseController
 					continue;
 				}
 
-				$this->okt->modules->getInstaller($sModuleId)->doInstall();
+				$this->okt['modules']->getInstaller($sModuleId)->doInstall();
 
-				$this->okt->modules->getManager()->enableExtension($sModuleId);
+				$this->okt['modules']->getManager()->enableExtension($sModuleId);
 			}
 
 			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));

@@ -32,7 +32,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 		<div id="search">
 			<?php 
 # début Okatea : affichage de la boite de recherche de véhicules
-			if ($okt->modules->isLoaded('vehicles'))
+			if ($okt['modules']->isLoaded('vehicles'))
 			:
 				echo $okt->tpl->render('vehicles_search_tpl');
 			
@@ -86,7 +86,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : si le module news est présent, affichage de l'encart
-		if ($okt->modules->isLoaded('news'))
+		if ($okt['modules']->isLoaded('news'))
 		:
 			echo $this->render($okt->module('News')
 				->getInsertTplPath());
@@ -96,7 +96,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage des pages de la rubrique id 1
-		if ($okt->modules->isLoaded('pages'))
+		if ($okt['modules']->isLoaded('pages'))
 		:
 			echo pagesHelpers::getPagesByCatId(1);
 		
@@ -104,7 +104,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage des sous-rubriques de la rubrique id 1
-		if ($okt->modules->isLoaded('pages'))
+		if ($okt['modules']->isLoaded('pages'))
 		:
 			echo pagesHelpers::getSubCatsByCatId(1);
 		
@@ -112,7 +112,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage de l'arbre des rubriques
-		if ($okt->modules->isLoaded('pages'))
+		if ($okt['modules']->isLoaded('pages'))
 		:
 			echo pagesHelpers::getCategories();
 		
@@ -121,7 +121,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage des news de la rubrique id 1
-		if ($okt->modules->isLoaded('news'))
+		if ($okt['modules']->isLoaded('news'))
 		:
 			echo newsHelpers::getPostsByCatId(1);
 		
@@ -129,7 +129,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage des sous-rubriques de la rubrique id 1
-		if ($okt->modules->isLoaded('news'))
+		if ($okt['modules']->isLoaded('news'))
 		:
 			echo newsHelpers::getSubCatsByCatId(1);
 		
@@ -137,7 +137,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 		<?php 
 # début Okatea : affichage de l'arbre des rubriques
-		if ($okt->modules->isLoaded('news'))
+		if ($okt['modules']->isLoaded('news'))
 		:
 			echo newsHelpers::getCategories();
 		

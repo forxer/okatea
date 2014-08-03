@@ -20,7 +20,7 @@ class Installer extends BaseInstaller
 	 */
 	protected function getManager()
 	{
-		return $this->okt->modules->getManager();
+		return $this->okt['modules']->getManager();
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Installer extends BaseInstaller
 		# compare templates
 		$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_dir'] . '/DefaultTheme/Templates/');
 		
-		foreach ($this->okt->themes->getLoaded() as $sThemeId => $sTheme)
+		foreach ($this->okt['themes']->getLoaded() as $sThemeId => $sTheme)
 		{
 			if ($sThemeId == 'DefaultTheme')
 			{

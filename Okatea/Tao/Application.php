@@ -13,8 +13,7 @@ use Okatea\Tao\Config\Config;
 use Okatea\Tao\Config\ConfigServiceProvider;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Database\DatabaseServiceProvider;
-use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
-use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+use Okatea\Tao\Extensions\ExtensionsServiceProvider;
 use Okatea\Tao\L10n\L10nServiceProvider;
 use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\LoggerServiceProvider;
@@ -148,6 +147,7 @@ class Application extends Container
 
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
+		$this->register(new ExtensionsServiceProvider());
 		$this->register(new L10nServiceProvider());
 		$this->register(new LoggerServiceProvider());
 		$this->register(new RequestServiceProvider());
@@ -198,10 +198,6 @@ class Application extends Container
 
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/main');
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/users');
-
-		$this->startModules();
-
-		$this->startThemes();
 
 		$this->navigation = new Menus($this);
 	}
@@ -257,28 +253,6 @@ class Application extends Container
 		}
 	}
 
-	public function startModules()
-	{
-		if (null === $this->modules)
-		{
-			$this->modules = new ModulesCollection(
-				$this,
-				$this['modules_dir']
-			);
-		}
-	}
-
-	public function startThemes()
-	{
-		if (null === $this->themes)
-		{
-			$this->themes = new ThemesCollection(
-				$this,
-				$this['themes_dir']
-			);
-		}
-	}
-
 	/**
 	 * Load public or admin modules parts.
 	 *
@@ -286,7 +260,7 @@ class Application extends Container
 	 */
 	protected function loadModules($sPart)
 	{
-		$this->modules->load($sPart);
+		$this['modules']->load($sPart);
 	}
 
 	/**
@@ -296,7 +270,7 @@ class Application extends Container
 	 */
 	protected function loadThemes($sPart)
 	{
-		$this->themes->load($sPart);
+		$this['themes']->load($sPart);
 	}
 
 	/* Permissions
@@ -477,7 +451,7 @@ class Application extends Container
 	 */
 	public function module($sModuleId)
 	{
-		return $this->modules->getInstance($sModuleId);
+		return $this['modules']->getInstance($sModuleId);
 	}
 
 	public function performCommonContentReplacements($string)

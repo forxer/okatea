@@ -126,7 +126,7 @@ class Module
 		$this->upperId = strtoupper($this->id);
 		$this->camelCaseId = Modifiers::strToCamelCase($this->id);
 
-		$this->dir = $this->modules_dir . '/' . $this->id;
+		$this->dir = $this['modules']_dir . '/' . $this->id;
 
 		$this->makeHeader();
 
@@ -439,12 +439,12 @@ class Module
 
 	public function getModulesDir()
 	{
-		return $this->modules_dir;
+		return $this['modules']_dir;
 	}
 
 	public function setModulesDir($modules_dir)
 	{
-		$this->modules_dir = $modules_dir;
+		$this['modules']_dir = $modules_dir;
 		return $this;
 	}
 

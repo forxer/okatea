@@ -104,7 +104,7 @@ class Module extends BaseModule
 			'apply_source_formatting' => true
 		);
 		
-		if ($okt->modules->isLoaded('media_manager'))
+		if ($okt['modules']->isLoaded('media_manager'))
 		{
 			self::addMediaManager($options);
 		}
@@ -155,7 +155,7 @@ class Module extends BaseModule
 			'apply_source_formatting' => true
 		);
 		
-		if ($okt->modules->isLoaded('media_manager'))
+		if ($okt['modules']->isLoaded('media_manager'))
 		{
 			self::addMediaManager($options);
 		}

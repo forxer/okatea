@@ -104,7 +104,7 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 
 				<?php 
 # début Okatea : si le module okatea.org est présent, affichage de l'encart téléchargement
-				if ($okt->modules->isLoaded('okatea_dot_org'))
+				if ($okt['modules']->isLoaded('okatea_dot_org'))
 				:
 					?>
 					<?php echo $view->render($okt->okatea_dot_org->getDownloadInsertTplPath()); ?>
@@ -112,7 +112,7 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 
 				<?php 
 # début Okatea : si le module news est présent, affichage de l'encart
-				if ($okt->modules->isLoaded('News'))
+				if ($okt['modules']->isLoaded('News'))
 				:
 					?>
 				<div id="latest-news">

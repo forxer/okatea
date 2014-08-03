@@ -20,7 +20,7 @@ class Controller extends BaseController
 		];
 
 		# Retrieving the list of themes in the file system (all themes)
-		$this->aThemesList = $this->okt->themes->getManager()->getAll();
+		$this->aThemesList = $this->okt['themes']->getManager()->getAll();
 
 		# Load themes main locales files
 		foreach ($this->aThemesList as $aThemeInfos)
@@ -47,9 +47,9 @@ class Controller extends BaseController
 					continue;
 				}
 
-				$this->okt->themes->getInstaller($sThemeId)->doInstall();
+				$this->okt['themes']->getInstaller($sThemeId)->doInstall();
 
-				$this->okt->themes->getManager()->enableExtension($sThemeId);
+				$this->okt['themes']->getManager()->enableExtension($sThemeId);
 			}
 
 			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));

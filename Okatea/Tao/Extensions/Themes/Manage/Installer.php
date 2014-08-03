@@ -21,7 +21,7 @@ class Installer extends BaseInstaller
 	 */
 	protected function getManager()
 	{
-		return $this->okt->themes->getManager();
+		return $this->okt['themes']->getManager();
 	}
 
 	/**

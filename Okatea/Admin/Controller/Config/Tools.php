@@ -538,15 +538,15 @@ class Tools extends Controller
 		if ($this->okt['request']->request->has('uninstall') && $this->bCanUninstall)
 		{
 			# uninstall modules
-			foreach ($this->okt->modules->getManager()->getInstalled() as $aModuleInfos)
+			foreach ($this->okt['modules']->getManager()->getInstalled() as $aModuleInfos)
 			{
-				$this->okt->modules->getInstaller($aModuleInfos['id'])->doUninstall();
+				$this->okt['modules']->getInstaller($aModuleInfos['id'])->doUninstall();
 			}
 
 			# uninstall themes
-			foreach ($this->okt->themes->getManager()->getInstalled() as $aThemeInfos)
+			foreach ($this->okt['themes']->getManager()->getInstalled() as $aThemeInfos)
 			{
-				$this->okt->themes->getInstaller($aThemeInfos['id'])->doUninstall();
+				$this->okt['themes']->getInstaller($aThemeInfos['id'])->doUninstall();
 			}
 
 			# delete all tables from db

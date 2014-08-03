@@ -36,11 +36,11 @@ $okt->page->tabs();
 
 				<p class="field">
 					<label for="modules_repository_url">URL du dépôt de modules</label>
-				<?php echo form::text('modules_repository_url', 40, 255, $view->escape($okt->module('Builder')->config->modules['repository_url'])) ?></p>
+				<?php echo form::text('modules_repository_url', 40, 255, $view->escape($okt->module('Builder')->config['modules']['repository_url'])) ?></p>
 
 				<p class="field">
 					<label for="themes_repository_url">URL du dépôt de thèmes</label>
-				<?php echo form::text('themes_repository_url', 40, 255, $view->escape($okt->module('Builder')->config->themes['repository_url'])) ?></p>
+				<?php echo form::text('themes_repository_url', 40, 255, $view->escape($okt->module('Builder')->config['themes']['repository_url'])) ?></p>
 
 			</fieldset>
 		</div>
@@ -69,8 +69,8 @@ $okt->page->tabs();
 						<th scope="row" class="fake-td"><?php echo $aModuleInfos['name_l10n'] ?></th>
 						<td><?php echo $sModuleId ?></td>
 						<td><?php echo $aModuleInfos['version'] ?></td>
-						<td class="center small"><?php echo form::checkbox(array('modules_repository[]', 'modules_repository_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules['repository'])) ?></td>
-						<td class="center small"><?php echo form::checkbox(array('modules_package[]', 'modules_package_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config->modules['package'])) ?></td>
+						<td class="center small"><?php echo form::checkbox(array('modules_repository[]', 'modules_repository_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config['modules']['repository'])) ?></td>
+						<td class="center small"><?php echo form::checkbox(array('modules_package[]', 'modules_package_'.$sModuleId), $sModuleId, in_array($sModuleId, $okt->module('Builder')->config['modules']['package'])) ?></td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
@@ -101,8 +101,8 @@ $okt->page->tabs();
 						<th scope="row" class="fake-td"><?php echo $aThemeInfos['name_l10n'] ?></th>
 						<td><?php echo $sThemeId ?></td>
 						<td><?php echo $aThemeInfos['version'] ?></td>
-						<td class="center small"><?php echo form::checkbox(array('themes_repository[]', 'themes_repository_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes['repository'])) ?></td>
-						<td class="center small"><?php echo form::checkbox(array('themes_package[]', 'themes_package_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config->themes['package'])) ?></td>
+						<td class="center small"><?php echo form::checkbox(array('themes_repository[]', 'themes_repository_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config['themes']['repository'])) ?></td>
+						<td class="center small"><?php echo form::checkbox(array('themes_package[]', 'themes_package_'.$sThemeId), $sThemeId, in_array($sThemeId, $okt->module('Builder')->config['themes']['package'])) ?></td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>

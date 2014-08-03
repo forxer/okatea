@@ -148,10 +148,10 @@ class Themes extends Controller
 		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
 		
 		# Retrieving the list of themes in the file system (all themes)
-		$this->aAllThemes = $this->okt->themes->getManager()->getAll();
+		$this->aAllThemes = $this->okt['themes']->getManager()->getAll();
 		
 		# Retrieving the list of themes in the database (the themes installed)
-		$this->aInstalledThemes = $this->okt->themes->getManager()->getInstalled();
+		$this->aInstalledThemes = $this->okt['themes']->getManager()->getInstalled();
 		
 		foreach ($this->aInstalledThemes as $sThemeId => $aThemeInfos)
 		{
@@ -193,7 +193,7 @@ class Themes extends Controller
 		$this->aThemesRepositories = array();
 		if ($this->okt['config']->repositories['themes']['enabled'])
 		{
-			$this->aThemesRepositories = $this->okt->themes->getRepositoriesData($this->okt['config']->repositories['themes']['list']);
+			$this->aThemesRepositories = $this->okt['themes']->getRepositoriesData($this->okt['config']->repositories['themes']['list']);
 		}
 		
 		# List of updates available on any repositories
@@ -266,7 +266,7 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$this->okt->themes->getManager()->enableExtension($sThemeId);
+		$this->okt['themes']->getManager()->enableExtension($sThemeId);
 		
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
@@ -289,7 +289,7 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$this->okt->themes->getManager()->disableExtension($sThemeId);
+		$this->okt['themes']->getManager()->disableExtension($sThemeId);
 		
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
@@ -315,11 +315,11 @@ class Themes extends Controller
 		@ini_set('memory_limit', - 1);
 		set_time_limit(0);
 		
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		$oInstallTheme->doInstall();
 		
 		# activation du theme
-		$oInstallTheme->checklist->addItem('enable_theme', $this->okt->themes->getManager()
+		$oInstallTheme->checklist->addItem('enable_theme', $this->okt['themes']->getManager()
 			->enableExtension($sThemeId), 'Enable theme', 'Cannot enable theme');
 		
 		# vidange du cache global
@@ -355,17 +355,17 @@ class Themes extends Controller
 		}
 		
 		# D'abord on active le theme
-		if (! $this->okt->themes->isLoaded($sThemeId))
+		if (! $this->okt['themes']->isLoaded($sThemeId))
 		{
-			$this->okt->themes->getManager()->enableExtension($sThemeId);
+			$this->okt['themes']->getManager()->enableExtension($sThemeId);
 			
-			$this->okt->themes->generateCacheList();
+			$this->okt['themes']->generateCacheList();
 			
 			return $this->redirect($this->generateUrl('config_themes') . '?update=' . $sThemeId);
 		}
 		
 		# Ensuite on met à jour
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		$oInstallTheme->doUpdate();
 		
 		if ($oInstallTheme->checklist->checkAll())
@@ -409,7 +409,7 @@ class Themes extends Controller
 		@ini_set('memory_limit', - 1);
 		set_time_limit(0);
 		
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		$oInstallTheme->doUninstall();
 		
 		Utilities::deleteOktCacheFiles();
@@ -446,16 +446,16 @@ class Themes extends Controller
 		set_time_limit(0);
 		
 		# il faut d'abord désactiver le theme
-		if ($this->okt->themes->isLoaded($sThemeId))
+		if ($this->okt['themes']->isLoaded($sThemeId))
 		{
-			$this->okt->themes->getManager()->disableExtension($sThemeId);
+			$this->okt['themes']->getManager()->disableExtension($sThemeId);
 			
-			$this->okt->themes->generateCacheList();
+			$this->okt['themes']->generateCacheList();
 			
 			return $this->redirect($this->generateUrl('config_themes') . '?reinstall=' . $sThemeId);
 		}
 		
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		
 		# désinstallation
 		$oInstallTheme->doUninstall();
@@ -464,7 +464,7 @@ class Themes extends Controller
 		$oInstallTheme->doInstall();
 		
 		# activation du theme
-		$oInstallTheme->checklist->addItem('enable_theme', $this->okt->themes->getManager()
+		$oInstallTheme->checklist->addItem('enable_theme', $this->okt['themes']->getManager()
 			->enableExtension($sThemeId), 'Enable theme', 'Cannot enable theme');
 		
 		# vidange du cache global
@@ -527,10 +527,10 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		$oInstallTheme->forceReplaceAssets();
 		
-		$this->okt->themes->generateCacheList();
+		$this->okt['themes']->generateCacheList();
 		
 		$this->okt['flash']->success(__('c_a_themes_common_files_replaced'));
 		
@@ -580,7 +580,7 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$oInstallTheme = $this->okt->themes->getInstaller($sThemeId);
+		$oInstallTheme = $this->okt['themes']->getInstaller($sThemeId);
 		$oInstallTheme->compareFiles();
 		
 		return $this->render('Config/Themes/Compare', array(
@@ -646,7 +646,7 @@ class Themes extends Controller
 					}
 				}
 				
-				$ret_code = $this->okt->themes->installPackage($dest);
+				$ret_code = $this->okt['themes']->installPackage($dest);
 				
 				if ($ret_code == 2)
 				{
@@ -677,7 +677,7 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt['config']->themes;
+		$aThemesConfig = $this->okt['config']['themes'];
 		
 		$aThemesConfig['desktop'] = $sUseThemeId;
 		
@@ -708,9 +708,9 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt['config']->themes;
+		$aThemesConfig = $this->okt['config']['themes'];
 		
-		if ($sUseMobileThemeId == $this->okt['config']->themes['mobile'])
+		if ($sUseMobileThemeId == $this->okt['config']['themes']['mobile'])
 		{
 			$sUseMobileThemeId = '';
 		}
@@ -734,9 +734,9 @@ class Themes extends Controller
 			return false;
 		}
 		
-		$aThemesConfig = $this->okt['config']->themes;
+		$aThemesConfig = $this->okt['config']['themes'];
 		
-		if ($sUseTabletThemeId == $this->okt['config']->themes['tablet'])
+		if ($sUseTabletThemeId == $this->okt['config']['themes']['tablet'])
 		{
 			$sUseTabletThemeId = '';
 		}
