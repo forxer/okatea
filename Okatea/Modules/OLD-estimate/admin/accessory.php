@@ -12,8 +12,8 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# chargement des locales
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.accessories');
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.products');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.accessories');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.products');
 
 /* Initialisations
 ----------------------------------------------------------*/

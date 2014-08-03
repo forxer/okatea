@@ -23,7 +23,7 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
 		
 		if (($action = $this->deleteField()) !== false)
 		{
@@ -58,7 +58,7 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
 		
 		$this->initFieldData();
 		
@@ -93,7 +93,7 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
 		
 		$this->initFieldData();
 		
@@ -156,7 +156,7 @@ class Fields extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.fields');
 		
 		$iFieldId = $this->okt['request']->attributes->get('field_id');
 		

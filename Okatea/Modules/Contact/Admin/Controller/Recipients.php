@@ -22,7 +22,7 @@ class Recipients extends Controller
 		}
 		
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.recipients');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.recipients');
 		
 		$aRecipientsTo = ! empty($this->okt->module('Contact')->config->recipients_to) ? $this->okt->module('Contact')->config->recipients_to : array();
 		$aRecipientsCc = ! empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : array();

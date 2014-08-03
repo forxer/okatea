@@ -13,7 +13,7 @@ if (! defined('ON_MODULE'))
 ----------------------------------------------------------*/
 	
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.list');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.list');
 
 /* Traitements
 ----------------------------------------------------------*/

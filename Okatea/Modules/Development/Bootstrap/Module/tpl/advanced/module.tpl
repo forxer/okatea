@@ -20,7 +20,7 @@ class module_##module_id## extends Module
 	protected function prepend()
 	{
 		# chargement des principales locales
-		$this->okt->l10n->loadFile(__DIR__.'/Locales/%s/main');
+		$this->okt['l10n']->loadFile(__DIR__.'/Locales/%s/main');
 
 		# autoload
 		$this->okt->autoloader->addClassMap(array(
@@ -47,7 +47,7 @@ class module_##module_id## extends Module
 	protected function prepend_admin()
 	{
 		# chargement des locales admin
-		$this->okt->l10n->loadFile(__DIR__.'/Locales/%s/admin');
+		$this->okt['l10n']->loadFile(__DIR__.'/Locales/%s/admin');
 
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)

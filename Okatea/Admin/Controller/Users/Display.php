@@ -22,7 +22,7 @@ class Display extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
 		
 		$this->aPageData = new ArrayObject(array());
 		$this->aPageData['config'] = array(

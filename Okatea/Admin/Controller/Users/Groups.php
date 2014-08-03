@@ -21,7 +21,7 @@ class Groups extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
 
 		if ($this->okt['request']->query->has('delete_id'))
 		{
@@ -63,7 +63,7 @@ class Groups extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
 
 		$aGroupData = new ArrayObject();
 
@@ -129,7 +129,7 @@ class Groups extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/users');
 
 		$iGroupId = $this->okt['request']->attributes->getInt('group_id');
 

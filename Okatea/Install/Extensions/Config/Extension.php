@@ -15,7 +15,7 @@ class Extension extends AbstractExtension
 
 	public function load()
 	{
-		$this->okt->l10n->loadFile(__DIR__ . '/Locales/%s/config');
+		$this->okt['l10n']->loadFile(__DIR__ . '/Locales/%s/config');
 
 		$this->okt['triggers']->registerTrigger('installBeforeBuildInstallStepper', array(
 			$this,

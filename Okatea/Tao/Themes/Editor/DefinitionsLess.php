@@ -29,7 +29,7 @@ class DefinitionsLess
 		$this->sPostPrefix = $sPostPrefix;
 		
 		# locales
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/definitions.less.editor');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/definitions.less.editor');
 	}
 
 	/**

@@ -120,7 +120,7 @@ class AdminBar
 				if ($updater->getNotify() && $new_v)
 				{
 					# locales
-					$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin.update');
+					$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin.update');
 					
 					$aPrimaryAdminBar[10]['items'][120] = array(
 						'href' => $aBasesUrl['admin'] . '/configuration.php?action=update',

@@ -20,7 +20,7 @@ class Config extends Controller
 			return $this->serve401();
 		}
 		
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.config');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.config');
 		
 		$bGoogleMapNotEnablable = ($this->okt['config']->address['street'] == '' || $this->okt['config']->address['code'] == '' || $this->okt['config']->address['city'] == '');
 		

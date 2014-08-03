@@ -18,7 +18,7 @@ if (! defined('ON_MODULE'))
 ----------------------------------------------------------*/
 	
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.gallery');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.gallery');
 
 # Récupération de la liste complète des galeries
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(

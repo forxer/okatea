@@ -21,7 +21,7 @@ class Display extends Controller
 		}
 
 		# Locales
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/display');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/display');
 
 		# Liste des thèmes
 		$aUiThemes = Page::getUiThemes();

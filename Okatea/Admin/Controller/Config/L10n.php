@@ -20,7 +20,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
 
 		if (($action = $this->enableLanguage()) !== false) {
 			return $action;
@@ -70,7 +70,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
 
 		$iLanguageId = $this->okt['request']->attributes->getInt('language_id');
 
@@ -122,7 +122,7 @@ class L10n extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/l10n');
 
 		$aAddLanguageData = array(
 			'language' 	=> '',

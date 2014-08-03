@@ -87,7 +87,7 @@ class ImageUploadConfig
 		
 		$this->oImageUpload = $oImageUpload;
 		
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/images.config');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/images.config');
 		
 		$this->iMaxFileUploads = ini_get('max_file_uploads');
 	}

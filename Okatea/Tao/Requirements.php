@@ -29,7 +29,7 @@ class Requirements
 	{
 		$this->okt = $okt;
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/pre-requisites', $sLanguage);
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/pre-requisites', $sLanguage);
 
 		/* Groups
 		----------------------------------------------------------*/

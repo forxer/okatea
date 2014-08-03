@@ -91,7 +91,7 @@ class TemplatesSet
 		
 		$this->loadTemplatesInfos();
 		
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/templates.config');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/templates.config');
 		
 		# get template id from query
 		$sTtplId = null;

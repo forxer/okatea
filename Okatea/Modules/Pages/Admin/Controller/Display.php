@@ -20,7 +20,7 @@ class Display extends Controller
 		}
 
 		# Chargement des locales
-		$this->okt->l10n->loadFile(__DIR__ . '/../../Locales/%s/admin.display');
+		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.display');
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{

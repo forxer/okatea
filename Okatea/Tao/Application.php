@@ -75,13 +75,6 @@ class Application extends Container
 	public $groups;
 
 	/**
-	 * Le gestionnaire de langues.
-	 *
-	 * @var Okatea\Tao\Localization
-	 */
-	public $l10n;
-
-	/**
 	 * Le gestionnaire de modules.
 	 *
 	 * @var Okatea\Tao\Extensions\Modules\Collection
@@ -169,6 +162,9 @@ class Application extends Container
 	 */
 	public function __construct($autoloader, array $aOptions = [])
 	{
+		# Register start time
+		define('OKT_START_TIME', microtime(true));
+
 		parent::__construct($aOptions);
 
 		$this->autoloader = $autoloader;
@@ -192,7 +188,15 @@ class Application extends Container
 		# URL du dossier upload depuis la racine
 		$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
 
-		$this->startDebug();
+		# Print errors in debug mode
+		if ($this['debug']) {
+			Debug::enable();
+			DebugErrorHandler::setLogger($this['logger']);
+		}
+		# otherwise log them
+		else {
+			ErrorHandler::register($this['phpLogger']);
+		}
 	}
 
 	/**
@@ -216,7 +220,8 @@ class Application extends Container
 
 		$this->startUser();
 
-		$this->startLocalization();
+		$this['l10n']->loadFile($this['locales_dir'] . '/%s/main');
+		$this['l10n']->loadFile($this['locales_dir'] . '/%s/users');
 
 		$this->startModules();
 
@@ -235,22 +240,6 @@ class Application extends Container
 
 		# Normalizes HTTP inputs to UTF-8 NFC
 		Utf8Bootup::filterRequestInputs();
-	}
-
-	protected function startDebug()
-	{
-		# Register start time
-		define('OKT_START_TIME', microtime(true));
-
-		# print errors in debug mode
-		if ($this['debug']) {
-			Debug::enable();
-			DebugErrorHandler::setLogger($this['logger']);
-		}
-		# otherwise log them
-		else {
-			ErrorHandler::register($this['phpLogger']);
-		}
 	}
 
 	/**
@@ -315,21 +304,6 @@ class Application extends Container
 				$this,
 				$this['modules_dir']
 			);
-		}
-	}
-
-	public function startLocalization()
-	{
-		if (null === $this->l10n)
-		{
-			$this->l10n = new Localization(
-				$this->user->language,
-				$this['config']->language,
-				$this->user->timezone
-			);
-
-			$this->l10n->loadFile($this['locales_dir'] . '/%s/main');
-			$this->l10n->loadFile($this['locales_dir'] . '/%s/users');
 		}
 	}
 

@@ -24,7 +24,7 @@ class Update extends Controller
 		}
 
 		# locales
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
 
 		# mise à jour de la base de données
 		if ($this->okt['request']->query->has('update_db'))

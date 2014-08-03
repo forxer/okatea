@@ -17,7 +17,7 @@ if (! defined('ON_MODULE'))
 ----------------------------------------------------------*/
 	
 # chargement des locales
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.config');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.config');
 
 # Gestionnaires de templates
 $oTemplatesForm = new TemplatesSet($okt, $okt->estimate->config->templates['form'], 'estimate/form', 'form');

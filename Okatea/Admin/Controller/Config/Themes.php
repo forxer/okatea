@@ -145,7 +145,7 @@ class Themes extends Controller
 	protected function init()
 	{
 		# Themes management locales
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/themes');
 		
 		# Retrieving the list of themes in the file system (all themes)
 		$this->aAllThemes = $this->okt->themes->getManager()->getAll();
@@ -174,7 +174,7 @@ class Themes extends Controller
 		foreach ($this->aUninstalledThemes as $sThemeId => $aThemeInfos)
 		{
 			# Load uninstalled themes main locales files
-			$this->okt->l10n->loadFile($aThemeInfos['root'] . '/Locales/%s/main');
+			$this->okt['l10n']->loadFile($aThemeInfos['root'] . '/Locales/%s/main');
 			
 			$this->aUninstalledThemes[$sThemeId]['name_l10n'] = __($aThemeInfos['name']);
 			

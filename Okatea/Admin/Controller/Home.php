@@ -180,7 +180,7 @@ class Home extends Controller
 
 			if ($updater->getNotify() && $this->sNewVersion)
 			{
-				$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
+				$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/update');
 			}
 		}
 	}

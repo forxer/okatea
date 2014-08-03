@@ -21,7 +21,7 @@ class Advanced extends Controller
 			return $this->serve401();
 		}
 
-		$this->okt->l10n->loadFile($this->okt['locales_dir'] . '/%s/admin/advanced');
+		$this->okt['l10n']->loadFile($this->okt['locales_dir'] . '/%s/admin/advanced');
 
 		$this->aPageData = new ArrayObject();
 		$this->aPageData['values'] = array();

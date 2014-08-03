@@ -15,7 +15,7 @@ if (! defined('ON_MODULE'))
 ----------------------------------------------------------*/
 	
 # Chargement des locales
-$okt->l10n->loadFile(__DIR__ . '/../Locales/%s/admin.zip');
+$okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.zip');
 
 $iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
