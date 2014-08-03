@@ -393,7 +393,7 @@ class Users
 		{
 			$aParams['group_id'] = 0;
 		}
-		elseif (empty($aParams['group_id']) || ! $this->okt->getGroups()->groupExists($aParams['group_id']))
+		elseif (empty($aParams['group_id']) || ! $this->okt['groups']->groupExists($aParams['group_id']))
 		{
 			$aParams['group_id'] = $this->okt['config']->users['registration']['default_group'];
 		}

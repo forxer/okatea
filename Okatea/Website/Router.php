@@ -54,7 +54,7 @@ class Router extends BaseRouter
 		{
 			if (null === $language)
 			{
-				$name = $name . '-' . $this->okt->user->language;
+				$name = $name . '-' . $this->okt['visitor']->language;
 			}
 			else
 			{

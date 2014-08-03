@@ -7,7 +7,7 @@ $rsInsertPosts = $okt->module('News')->getPosts(array(
 	//	'created_after' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a moins d'un mois
 	//	'created_before' => date('Y-m-d H:i:s',strtotime('-1 month')), # articles créés il y a plus d'un mois
 	'limit' => 10, # limitation du nombre d'articles
-	'language' => $okt->user->language # langue de l'utilisateur en cours
+	'language' => $okt['visitor']->language # langue de l'utilisateur en cours
 ), $okt->module('News')->config->insert_truncat_char);
 # fin Okatea : récupération des news pour l'encart ?>
 
@@ -86,10 +86,10 @@ if (! $rsInsertPosts->isEmpty())
 
 			<div class="modal-box">
 					<a href="<?php echo $post_image['img_url']?>"
-						title="<?php echo $view->escapeHtmlAttr((isset($post_image['title'][$okt->user->language]) ? $post_image['title'][$okt->user->language] : $rsInsertPosts->title)) ?>"
+						title="<?php echo $view->escapeHtmlAttr((isset($post_image['title'][$okt['visitor']->language]) ? $post_image['title'][$okt['visitor']->language] : $rsInsertPosts->title)) ?>"
 						class="modal"><img src="<?php echo $post_image['square_url'] ?>"
 						<?php echo $post_image['square_attr']?>
-						alt="<?php echo $view->escapeHtmlAttr((isset($post_image['alt'][$okt->user->language]) ? $post_image['alt'][$okt->user->language] : $rsInsertPosts->title)) ?>" /></a>
+						alt="<?php echo $view->escapeHtmlAttr((isset($post_image['alt'][$okt['visitor']->language]) ? $post_image['alt'][$okt['visitor']->language] : $rsInsertPosts->title)) ?>" /></a>
 				</div>
 			<?php endif; # fin Okatea : affichage image ?>
 

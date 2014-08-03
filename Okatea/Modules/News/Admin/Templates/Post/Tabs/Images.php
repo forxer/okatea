@@ -67,7 +67,7 @@ use Okatea\Tao\Misc\Utilities;
 				<p>
 				<a href="<?php echo $aPostData['images'][$i]['img_url']?>"
 					rel="post_images"
-					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_post_image_title_attr_%s'),$aPostData['locales'][$okt->user->language]['title'], $i)) ?>"
+					title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_post_image_title_attr_%s'),$aPostData['locales'][$okt['visitor']->language]['title'], $i)) ?>"
 					class="modal"><img src="<?php echo $sCurImageUrl ?>"
 					<?php echo $sCurImageAttr ?> alt="" /></a>
 			</p>

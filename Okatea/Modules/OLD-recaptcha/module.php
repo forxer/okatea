@@ -116,9 +116,9 @@ class module_recaptcha extends Module
 				'tr'
 			);
 			
-			if (in_array($okt->user->language, $aAcceptedLanguages))
+			if (in_array($okt['visitor']->language, $aAcceptedLanguages))
 			{
-				$sLanguage = $okt->user->language;
+				$sLanguage = $okt['visitor']->language;
 			}
 			elseif (in_array($okt['config']->language, $aAcceptedLanguages))
 			{

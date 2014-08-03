@@ -39,7 +39,7 @@ class Config extends Controller
 				{
 					if (! empty($sUser))
 					{
-						if (! $this->okt->getUsers()->userExists($sUser)) {
+						if (! $this->okt['users']->userExists($sUser)) {
 							$this->okt['flash']->error(sprintf(__('c_c_users_error_recipients_%s_not_exists'), Escaper::html($sUser)));
 						}
 						else {
@@ -163,7 +163,7 @@ class Config extends Controller
 	protected function display()
 	{
 		# Liste des utilisateurs pour les destinataires de nouvelle inscription
-		$rsUsers = $this->okt->getUsers()->getUsers(array(
+		$rsUsers = $this->okt['users']->getUsers(array(
 			'group_id' => array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN
@@ -177,8 +177,8 @@ class Config extends Controller
 		}
 		
 		# Liste des groupes par défaut
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language,
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,

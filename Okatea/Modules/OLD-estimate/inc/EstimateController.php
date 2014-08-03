@@ -123,7 +123,7 @@ class EstimateController extends Controller
 					$oMail->setFrom();
 					$oMail->message->setTo($aRecipients);
 					
-					$oMail->useFile(dirname(__FILE__) . '/../Locales/' . $this->okt->user->language . '/mails_tpl/admin_notification.tpl', array(
+					$oMail->useFile(dirname(__FILE__) . '/../Locales/' . $this->okt['visitor']->language . '/mails_tpl/admin_notification.tpl', array(
 						'SITE_TITLE' => html::escapeHTML($this->page->getSiteTitle()),
 						'USER_FIRSTNAME' => $aFormatedData['firstname'],
 						'USER_LASTNAME' => $aFormatedData['lastname'],
@@ -138,9 +138,9 @@ class EstimateController extends Controller
 		}
 		
 		# meta description
-		if (! empty($this->okt->estimate->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -148,9 +148,9 @@ class EstimateController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -341,28 +341,28 @@ class EstimateController extends Controller
 		}
 		
 		# pré-remplissage des données utilisateur si loggué
-		if (! $this->okt->user->is_guest)
+		if (! $this->okt['visitor']->is_guest)
 		{
 			if (empty($this->aFormData['lastname']))
 			{
-				$this->aFormData['lastname'] = $this->okt->user->lastname;
+				$this->aFormData['lastname'] = $this->okt['visitor']->lastname;
 			}
 			
 			if (empty($this->aFormData['firstname']))
 			{
-				$this->aFormData['firstname'] = $this->okt->user->firstname;
+				$this->aFormData['firstname'] = $this->okt['visitor']->firstname;
 			}
 			
 			if (empty($this->aFormData['email']))
 			{
-				$this->aFormData['email'] = $this->okt->user->email;
+				$this->aFormData['email'] = $this->okt['visitor']->email;
 			}
 		}
 		
 		# meta description
-		if (! empty($this->okt->estimate->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -370,9 +370,9 @@ class EstimateController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{

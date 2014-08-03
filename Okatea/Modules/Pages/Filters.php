@@ -41,7 +41,7 @@ class Filters extends BaseFilters
 		
 		if ($this->part === 'admin')
 		{
-			$this->defaults_params['language'] = $this->okt->user->language;
+			$this->defaults_params['language'] = $this->okt['visitor']->language;
 			$this->defaults_params['order_by'] = $this->config->admin_default_order_by;
 			$this->defaults_params['order_direction'] = $this->config->admin_default_order_direction;
 		}
@@ -142,7 +142,7 @@ class Filters extends BaseFilters
 		
 		$rubriques_list = $this->pages->categories->getCategories(array(
 			'active' => 2,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		$sField = '<select id="' . $this->form_id . '_category_id" name="category_id" class="select ' . $this->getActiveClass('category_id') . '">' . '<option value="0">' . __('c_c_All_f') . '</option>';

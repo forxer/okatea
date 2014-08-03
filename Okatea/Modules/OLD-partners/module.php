@@ -108,7 +108,7 @@ class module_partners extends Module
 		
 		if (empty($params['language']))
 		{
-			$params['language'] = $this->okt->user->language;
+			$params['language'] = $this->okt['visitor']->language;
 		}
 		
 		$reqPlus .= 'AND pl.language=\'' . $this->db->escapeStr($params['language']) . '\' ';

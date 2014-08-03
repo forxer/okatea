@@ -71,7 +71,7 @@ if (! empty($_GET['delete']) && $okt->checkPerm('galleries_manage'))
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
 	'active' => 2,
 	'with_count' => true,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 # Modal
@@ -250,7 +250,7 @@ else
 		
 		echo '</p>';
 		
-		if ((! $rsGalleriesList->locked && $okt->checkPerm('galleries_manage')) || $okt->user->is_superadmin)
+		if ((! $rsGalleriesList->locked && $okt->checkPerm('galleries_manage')) || $okt['visitor']->is_superadmin)
 		{
 			echo '<p>';
 			
@@ -272,7 +272,7 @@ else
 				echo ' - <span class="icon key"></span>' . __('m_galleries_list_protected_password');
 			}
 			
-			if ($okt->user->is_superadmin && $rsGalleriesList->locked)
+			if ($okt['visitor']->is_superadmin && $rsGalleriesList->locked)
 			{
 				echo ' - <span class="icon lock"></span>' . __('m_galleries_list_locked');
 			}

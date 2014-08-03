@@ -59,9 +59,9 @@ class Module extends Extension
 		}
 		elseif (is_array($this->config->name))
 		{
-			if (isset($this->config->name[$this->okt->user->language]))
+			if (isset($this->config->name[$this->okt['visitor']->language]))
 			{
-				$sName = $this->config->name[$this->okt->user->language];
+				$sName = $this->config->name[$this->okt['visitor']->language];
 			}
 			elseif ($this->config->name[$this->okt['config']->language])
 			{
@@ -96,9 +96,9 @@ class Module extends Extension
 		}
 		elseif (is_array($this->config->title))
 		{
-			if (isset($this->config->title[$this->okt->user->language]))
+			if (isset($this->config->title[$this->okt['visitor']->language]))
 			{
-				$sTitle = $this->config->title[$this->okt->user->language];
+				$sTitle = $this->config->title[$this->okt['visitor']->language];
 			}
 			elseif ($this->config->title[$this->okt['config']->language])
 			{
@@ -133,9 +133,9 @@ class Module extends Extension
 		}
 		elseif (is_array($this->config->name_seo))
 		{
-			if (isset($this->config->name_seo[$this->okt->user->language]))
+			if (isset($this->config->name_seo[$this->okt['visitor']->language]))
 			{
-				$sNameSeo = $this->config->name_seo[$this->okt->user->language];
+				$sNameSeo = $this->config->name_seo[$this->okt['visitor']->language];
 			}
 			elseif ($this->config->name_seo[$this->okt['config']->language])
 			{

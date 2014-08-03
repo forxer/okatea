@@ -55,7 +55,7 @@ if ($aCategoryData['cat']['id'])
 		'permission' => ($aCategoryData['cat']['active'] ? true : false),
 		'title' => __('c_c_action_Show'),
 		'url' => $okt['router']->generateFromAdmin('newsCategory', array(
-			'slug' => $aCategoryData['locales'][$okt->user->language]['slug']
+			'slug' => $aCategoryData['locales'][$okt['visitor']->language]['slug']
 		), null, true),
 		'ui-icon' => 'extlink'
 	));
@@ -74,7 +74,7 @@ $okt->page->addGlobalTitle(__('m_news_cats_categories'), $view->generateUrl('New
 
 if ($aCategoryData['cat']['id'])
 {
-	$path = $okt->module('News')->categories->getPath($aCategoryData['cat']['id'], true, $okt->user->language);
+	$path = $okt->module('News')->categories->getPath($aCategoryData['cat']['id'], true, $okt['visitor']->language);
 
 	foreach ($path as $categoryPath)
 	{

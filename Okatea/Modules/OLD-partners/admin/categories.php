@@ -15,7 +15,7 @@ if (! defined('ON_MODULE'))
 	# récupération de la liste complète des catégories
 $categories_list = $okt->partners->getCategories(array(
 	'active' => 2,
-	'language' => $okt->user->language,
+	'language' => $okt['visitor']->language,
 	'with_count' => true
 ));
 
@@ -36,7 +36,7 @@ while ($categories_list->fetch())
 	$rsCategoryLocales = $okt->partners->getCategoryLocales($id);
 	while ($rsCategoryLocales->fetch())
 	{
-		if ($rsCategoryLocales->language == $okt->user->language)
+		if ($rsCategoryLocales->language == $okt['visitor']->language)
 		{
 			$aCategories[$id]['name'] = $rsCategoryLocales->name;
 			break;
@@ -223,7 +223,7 @@ $okt->page->addGlobalTitle(__('m_partners_Categories'));
 # Validation javascript
 $okt->page->validate('add-category-form', array(
 	array(
-		'id' => '\'add_category_name[' . $okt->user->language . ']\'',
+		'id' => '\'add_category_name[' . $okt['visitor']->language . ']\'',
 		'rules' => array(
 			'required: true',
 			'minlength: 2'
@@ -232,7 +232,7 @@ $okt->page->validate('add-category-form', array(
 ));
 $okt->page->validate('edit-category-form', array(
 	array(
-		'id' => '\'edit_category_name[' . $okt->user->language . ']\'',
+		'id' => '\'edit_category_name[' . $okt['visitor']->language . ']\'',
 		'rules' => array(
 			'required: true',
 			'minlength: 2'
@@ -346,7 +346,7 @@ require OKT_ADMIN_HEADER_FILE;
 				<p class="field" lang="<?php echo $aLanguage['code']?>">
 					<label for="add_category_name"
 						title="<?php _e('c_c_required_field') ?>"
-						<?php if($aLanguage['code'] == $okt->user->language) :?>
+						<?php if($aLanguage['code'] == $okt['visitor']->language) :?>
 						class="required" <?php endif;?>><?php _e('c_c_Name') ?><span
 						class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('add_category_name['.$aLanguage['code'].']','add_category_name'.$aLanguage['code']), 60, 255) ?></p>
@@ -490,7 +490,7 @@ while ($categories_list->fetch())
 				<p class="field" lang="<?php echo $aLanguage['code']?>">
 					<label for="edit_category_name"
 						title="<?php _e('c_c_required_field') ?>"
-						<?php if($aLanguage['code'] == $okt->user->language) :?>
+						<?php if($aLanguage['code'] == $okt['visitor']->language) :?>
 						class="required" <?php endif;?>><?php _e('c_c_Name')?><span
 						class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('edit_category_name['.$aLanguage['code'].']', 'edit_category_name'.$aLanguage['code']), 50, 255, html::escapeHTML($edit_category_name[$aLanguage['code']])) ?></p>

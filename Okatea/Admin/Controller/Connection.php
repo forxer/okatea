@@ -14,7 +14,7 @@ class Connection extends Controller
 	public function login()
 	{
 		# allready logged
-		if (! $this->okt->user->is_guest) {
+		if (! $this->okt['visitor']->is_guest) {
 			return $this->redirect($this->generateUrl('home'));
 		}
 
@@ -26,7 +26,7 @@ class Connection extends Controller
 		{
 			$bUserRemember = $this->okt['request']->request->has('user_remember') ? true : false;
 
-			if ($this->okt->user->login($sUserId, $sUserPwd, $bUserRemember))
+			if ($this->okt['visitor']->login($sUserId, $sUserPwd, $bUserRemember))
 			{
 				$redir = $this->generateUrl('home');
 
@@ -37,7 +37,7 @@ class Connection extends Controller
 						$redir = $this->okt['request']->cookies->get($this->okt['cookie_auth_from']);
 					}
 
-					$this->okt->user->setAuthFromCookie('', 0);
+					$this->okt['visitor']->setAuthFromCookie('', 0);
 				}
 
 				return $this->redirect($redir);
@@ -57,9 +57,9 @@ class Connection extends Controller
 
 	public function logout()
 	{
-		$this->okt->user->setAuthFromCookie('');
+		$this->okt['visitor']->setAuthFromCookie('');
 
-		$this->okt->user->logout();
+		$this->okt['visitor']->logout();
 
 		return $this->Redirect($this->generateUrl('login'));
 	}
@@ -67,7 +67,7 @@ class Connection extends Controller
 	public function forget_password()
 	{
 		# allready logged
-		if (! $this->okt->user->is_guest) {
+		if (! $this->okt['visitor']->is_guest) {
 			return $this->redirect($this->generateUrl('home'));
 		}
 
@@ -76,11 +76,11 @@ class Connection extends Controller
 
 		if ($this->okt['request']->query->has('key') && $this->okt['request']->query->has('uid'))
 		{
-			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey($this->okt['request']->query->getInt('key'), $this->okt['request']->query->get('key'));
+			$bPasswordUpdated = $this->okt['users']->validatePasswordKey($this->okt['request']->query->getInt('key'), $this->okt['request']->query->get('key'));
 		}
 		elseif ($this->okt['request']->request->has('email'))
 		{
-			$bPasswordSended = $this->okt->getUsers()->forgetPassword($this->okt['request']->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('forget_password', array(), true));
+			$bPasswordSended = $this->okt['users']->forgetPassword($this->okt['request']->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('forget_password', array(), true));
 		}
 
 		$this->page->pageId('connexion');

@@ -99,7 +99,7 @@ class Category extends Controller
 		}
 		
 		# rubriques voisines
-		$this->aCategoryData['extra']['rsSiblings'] = $this->okt->module('Pages')->categories->getChildren($rsCategory->parent_id, false, $this->okt->user->language);
+		$this->aCategoryData['extra']['rsSiblings'] = $this->okt->module('Pages')->categories->getChildren($rsCategory->parent_id, false, $this->okt['visitor']->language);
 		
 		$this->aCategoryData['extra']['iNumPosts'] = $rsCategory->num_posts;
 		
@@ -228,7 +228,7 @@ class Category extends Controller
 		$this->rsCategories = $this->okt->module('Pages')->categories->getCategories(array(
 			'active' => 2,
 			'with_count' => true,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		$this->aCategoryData['cat'] = new ArrayObject();

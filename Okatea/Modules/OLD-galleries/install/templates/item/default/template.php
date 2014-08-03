@@ -51,7 +51,7 @@ $okt->page->js->addReady('
 	<p>
 		<img src="<?php echo $rsItem->image['img_url'] ?>"
 			<?php echo $rsItem->image['img_attr']?>
-			alt="<?php echo $view->escapeHtmlAttr((isset($rsItem->image['alt']) && isset($rsItem->image['alt'][$okt->user->language]) ? $rsItem->image['alt'][$okt->user->language] : $rsItem->title)) ?>" />
+			alt="<?php echo $view->escapeHtmlAttr((isset($rsItem->image['alt']) && isset($rsItem->image['alt'][$okt['visitor']->language]) ? $rsItem->image['alt'][$okt['visitor']->language] : $rsItem->title)) ?>" />
 	</p>
 
 	<?php endif; # fin Okatea : affichage image ?>

@@ -20,7 +20,7 @@ class FaqHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('faqList');
@@ -44,7 +44,7 @@ class FaqHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('faqQuestion', array(

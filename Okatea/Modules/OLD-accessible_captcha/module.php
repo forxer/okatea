@@ -134,7 +134,7 @@ class module_accessible_captcha extends Module
 	{
 		$this->captcha_questions = array();
 		
-		$rs = $this->get($this->okt->user->language);
+		$rs = $this->get($this->okt['visitor']->language);
 		
 		if (! $rs->isEmpty())
 		{

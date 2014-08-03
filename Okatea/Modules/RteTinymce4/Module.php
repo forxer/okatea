@@ -54,8 +54,8 @@ class Module extends BaseModule
 		$aOptions[] = 'theme: "modern"';
 		
 		# language
-		$sLanguageCode = strtolower($okt->user->language);
-		$sSpecificLanguageCode = strtolower($okt->user->language) . '_' . strtoupper($okt->user->language);
+		$sLanguageCode = strtolower($okt['visitor']->language);
+		$sSpecificLanguageCode = strtolower($okt['visitor']->language) . '_' . strtoupper($okt['visitor']->language);
 		
 		if (file_exists($okt['public_dir'] . '/modules/RteTinymce4/tinymce/langs/' . $sLanguageCode . '.js'))
 		{

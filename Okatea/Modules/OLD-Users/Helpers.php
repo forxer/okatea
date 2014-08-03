@@ -23,7 +23,7 @@ class Helpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		$sLoginUrl = $okt->page->getBaseUrl();
@@ -57,7 +57,7 @@ class Helpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('usersProfile');
@@ -76,7 +76,7 @@ class Helpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		$sRegisterUrl = $okt->page->getBaseUrl();

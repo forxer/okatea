@@ -65,17 +65,17 @@ class Controller extends BaseController
 				$sLanguage = $m[1];
 			}
 			
-			if ($sLanguage != $this->okt->user->language)
+			if ($sLanguage != $this->okt['visitor']->language)
 			{
-				$this->okt->user->setUserLang($sLanguage);
+				$this->okt['visitor']->setUserLang($sLanguage);
 				return $this->redirect($this->generateUrl('homePage', array(), $sLanguage));
 			}
 		}
 		
 		$item = null;
-		if (! empty($this->okt['config']->home_page['item'][$this->okt->user->language]))
+		if (! empty($this->okt['config']->home_page['item'][$this->okt['visitor']->language]))
 		{
-			$item = $this->okt['config']->home_page['item'][$this->okt->user->language];
+			$item = $this->okt['config']->home_page['item'][$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->home_page['item'][$this->okt['config']->language]))
 		{
@@ -87,9 +87,9 @@ class Controller extends BaseController
 		}
 		
 		$details = null;
-		if (! empty($this->okt['config']->home_page['details'][$this->okt->user->language]))
+		if (! empty($this->okt['config']->home_page['details'][$this->okt['visitor']->language]))
 		{
-			$details = $this->okt['config']->home_page['details'][$this->okt->user->language];
+			$details = $this->okt['config']->home_page['details'][$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->home_page['details'][$this->okt['config']->language]))
 		{
@@ -132,7 +132,7 @@ class Controller extends BaseController
 			
 			if (null === $sLanguage)
 			{
-				return $this->redirect($this->generateUrl('homePage', array(), $this->okt->user->language), 301);
+				return $this->redirect($this->generateUrl('homePage', array(), $this->okt['visitor']->language), 301);
 			}
 		}
 		

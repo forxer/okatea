@@ -86,7 +86,7 @@ class PagesRecordset extends BaseRecordset
 		}
 
 		# si on est superadmin on as droit à tout
-		if ($this->okt->user->is_superadmin)
+		if ($this->okt['visitor']->is_superadmin)
 		{
 			$aPerms[$this->id] = true;
 			return true;
@@ -97,7 +97,7 @@ class PagesRecordset extends BaseRecordset
 
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
-		if (in_array(0, $aPerms) || in_array($this->okt->user->group_id, $aPerms))
+		if (in_array(0, $aPerms) || in_array($this->okt['visitor']->group_id, $aPerms))
 		{
 			$aPerms[$this->id] = true;
 			return true;

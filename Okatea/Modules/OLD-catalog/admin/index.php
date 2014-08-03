@@ -97,7 +97,7 @@ $okt->page->js->addReady('
 					url: "module.php?m=catalog&action=index",
 					data: {
 						oktAjaxLoad: 1,
-						csrf_token: "' . $okt->user->csrf_token . '",
+						csrf_token: "' . $okt['visitor']->csrf_token . '",
 						search: field.val()
 					},
 					beforeSend: function() {

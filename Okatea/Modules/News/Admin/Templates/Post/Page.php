@@ -73,13 +73,13 @@ if (! empty($aPostData['post']['id']))
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_news_post_delete_confirm')) . '\')'
 	));
 	# bouton vers l'article côté public si publié
-	if (! empty($aPostData['locales'][$okt->user->language]['slug']))
+	if (! empty($aPostData['locales'][$okt['visitor']->language]['slug']))
 	{
 		$okt->page->addButton('newsBtSt', array(
 			'permission' => ($aPostData['post']['active'] ? true : false),
 			'title' => __('c_c_action_Show'),
 			'url' => $okt['router']->generateFromAdmin('newsItem', array(
-				'slug' => $aPostData['locales'][$okt->user->language]['slug']
+				'slug' => $aPostData['locales'][$okt['visitor']->language]['slug']
 			), null, true),
 			'ui-icon' => 'extlink'
 		));

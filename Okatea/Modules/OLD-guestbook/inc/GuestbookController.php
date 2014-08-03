@@ -25,7 +25,7 @@ class GuestbookController extends Controller
 		$this->okt['triggers']->callTrigger('publicModuleGuestbookControllerStart', $this->okt->guestbook->config->captcha);
 		
 		$aSigData = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'message' => '',
 			'nom' => '',
 			'email' => '',
@@ -37,7 +37,7 @@ class GuestbookController extends Controller
 		if (! empty($_POST['sign']))
 		{
 			$aSigData = array(
-				'language' => isset($_POST['language']) ? $_POST['language'] : $this->okt->user->language,
+				'language' => isset($_POST['language']) ? $_POST['language'] : $this->okt['visitor']->language,
 				'message' => isset($_POST['msg']) ? $_POST['msg'] : null,
 				'nom' => isset($_POST['nom']) ? $_POST['nom'] : null,
 				'email' => isset($_POST['email']) ? $_POST['email'] : null,
@@ -90,7 +90,7 @@ class GuestbookController extends Controller
 		$aGuestbookParams = array(
 			'is_not_spam' => true,
 			'is_visible' => true,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 		
 		# initialisation de la pagination
@@ -134,9 +134,9 @@ class GuestbookController extends Controller
 		}
 		
 		# meta description
-		if (! empty($this->okt->guestbook->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->guestbook->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -144,9 +144,9 @@ class GuestbookController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->guestbook->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->guestbook->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{

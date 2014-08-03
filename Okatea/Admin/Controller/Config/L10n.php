@@ -173,7 +173,7 @@ class L10n extends Controller
 		}
 
 		# fetch country infos
-		$sCountryListInfos = $this->okt['okt_dir'] . '/Tao/L10n/country-list/' . $this->okt->user->language . '/country.php';
+		$sCountryListInfos = $this->okt['okt_dir'] . '/Tao/L10n/country-list/' . $this->okt['visitor']->language . '/country.php';
 
 		$aCountryList = array(
 			' ' => null

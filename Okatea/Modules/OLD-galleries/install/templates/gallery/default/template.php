@@ -112,10 +112,10 @@ else
 			<a href="<?php echo $view->escape($rsSubGalleries->url) ?>"><img
 				src="<?php echo $rsSubGalleries->image['min_url']?>"
 				<?php echo $rsSubGalleries->image['min_attr']?>
-				<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?>
-				title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt->user->language]) ?>"
+				<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt['visitor']->language])) : ?>
+				title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt['visitor']->language]) ?>"
 				<?php endif; ?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && $rsSubGalleries->image['alt'][$okt->user->language] ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && $rsSubGalleries->image['alt'][$okt['visitor']->language] ? $rsSubGalleries->image['alt'][$okt['visitor']->language] : $rsSubGalleries->title)) ?>" /></a>
 		</p>
 				<?php else : ?>
 				<p class="modal-box">
@@ -123,10 +123,10 @@ else
 				class="modal"><img
 				src="<?php echo $rsSubGalleries->image['min_url']?>"
 				<?php echo $rsSubGalleries->image['min_attr']?>
-				<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt->user->language])) : ?>
-				title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt->user->language]) ?>"
+				<?php if (isset($rsSubGalleries->image['title']) && isset($rsSubGalleries->image['title'][$okt['visitor']->language])) : ?>
+				title="<?php echo $view->escapeHtmlAttr($rsSubGalleries->image['title'][$okt['visitor']->language]) ?>"
 				<?php endif; ?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && isset($rsSubGalleries->image['alt'][$okt->user->language]) ? $rsSubGalleries->image['alt'][$okt->user->language] : $rsSubGalleries->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsSubGalleries->image['alt']) && isset($rsSubGalleries->image['alt'][$okt['visitor']->language]) ? $rsSubGalleries->image['alt'][$okt['visitor']->language] : $rsSubGalleries->title)) ?>" /></a>
 		</p>
 				<?php endif; ?>
 
@@ -192,7 +192,7 @@ else
 				title="<?php echo $view->escapeHtmlAttr($rsItems->title) ?>"><img
 				src="<?php echo $rsItems->image['min_url']?>"
 				<?php echo $rsItems->image['min_attr']?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt['visitor']->language]) ? $rsItems->image['alt'][$okt['visitor']->language] : $rsItems->title)) ?>" /></a>
 		</p>
 				<?php else : ?>
 				<p class="modal-box">
@@ -201,7 +201,7 @@ else
 				class="modal" rel="gallery"><img
 				src="<?php echo $rsItems->image['min_url']?>"
 				<?php echo $rsItems->image['min_attr']?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt->user->language]) ? $rsItems->image['alt'][$okt->user->language] : $rsItems->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsItems->image['alt']) && isset($rsItems->image['alt'][$okt['visitor']->language]) ? $rsItems->image['alt'][$okt['visitor']->language] : $rsItems->title)) ?>" /></a>
 		</p>
 				<?php endif; ?>
 

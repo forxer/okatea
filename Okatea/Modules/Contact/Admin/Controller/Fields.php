@@ -41,7 +41,7 @@ class Fields extends Controller
 		}
 		
 		$rsFields = $this->okt->module('Contact')->fields->getFields(array(
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		return $this->render('Contact/Admin/Templates/Fields/Index', array(
@@ -162,7 +162,7 @@ class Fields extends Controller
 		
 		$rsField = $this->okt->module('Contact')->fields->getFields(array(
 			'id' => $iFieldId,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		if (null === $iFieldId || $rsField->isEmpty())

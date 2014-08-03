@@ -86,7 +86,7 @@ if (! empty($_REQUEST['partner_id']))
 # Récupération de la liste complète des catégorties
 $rsCategories = $okt->partners->getCategories(array(
 	'visibility' => 2,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 /* Traitements
@@ -269,7 +269,7 @@ include OKT_ADMIN_HEADER_FILE;
 				<?php if($okt->partners->config->chp_description > 0) :?>
 					<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_description_<?php echo $aLanguage['code'] ?>"
-					<?php if($okt->partners->config->chp_description == 2 && $aLanguage['code'] == $okt->user->language) :?>
+					<?php if($okt->partners->config->chp_description == 2 && $aLanguage['code'] == $okt['visitor']->language) :?>
 					class="required" <?php endif;?>><?php _e('c_c_Description')?><span
 					class="lang-switcher-buttons"></span></label>
 					<?php echo form::textarea(array('p_description['.$aLanguage['code'].']','p_description_'.$aLanguage['code']), 57, 10, $p_description[$aLanguage['code']],'richTextEditor') ?></p>
@@ -278,7 +278,7 @@ include OKT_ADMIN_HEADER_FILE;
 				<?php if($okt->partners->config->chp_url > 0 ) :?>
 					<p class="field" lang="<?php echo $aLanguage['code']?>">
 				<label for="p_url_<?php echo $aLanguage['code'] ?>"
-					<?php if($okt->partners->config->chp_url == 2 && $aLanguage['code'] == $okt->user->language) :?>
+					<?php if($okt->partners->config->chp_url == 2 && $aLanguage['code'] == $okt['visitor']->language) :?>
 					class="required" <?php endif;?>><?php _e('m_partners_website')?><span
 					class="lang-switcher-buttons"></span></label>
 					<?php echo form::text(array('p_url['.$aLanguage['code'].']','p_url_'.$aLanguage['code']), 60, 255, html::escapeHTML($p_url[$aLanguage['code']]))?>
@@ -289,7 +289,7 @@ include OKT_ADMIN_HEADER_FILE;
 				<?php if($okt->partners->config->chp_url_title > 0 ) :?>
 					<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_url_title_<?php echo $aLanguage['code'] ?>"
-					<?php if($okt->partners->config->chp_url_title == 2 && $aLanguage['code'] == $okt->user->language) :?>
+					<?php if($okt->partners->config->chp_url_title == 2 && $aLanguage['code'] == $okt['visitor']->language) :?>
 					class="required" <?php endif;?>><?php _e('m_partners_website_title')?><span
 					class="lang-switcher-buttons"></span></label>
 					<?php echo form::text(array('p_url_title['.$aLanguage['code'].']','p_url_title_'.$aLanguage['code']), 60, 255, html::escapeHTML($p_url_title[$aLanguage['code']])) ?></p>

@@ -103,11 +103,11 @@ class Okatea extends Application
 		{
 			$this['flash']->error(__('c_c_auth_bad_csrf_token'));
 
-			$this->user->logout();
+			$this['visitor']->logout();
 
 			$this->logAdmin->critical(array(
-				'user_id' 	=> $this->user->infos['id'],
-				'username' 	=> $this->user->infos['username'],
+				'user_id' 	=> $this['visitor']->infos['id'],
+				'username' 	=> $this['visitor']->infos['username'],
 				'message' 	=> 'Security CSRF blocking',
 				'code' 		=> 0
 			));
@@ -121,10 +121,10 @@ class Okatea extends Application
 		if ($this['request']->attributes->get('_route') !== 'login' && $this['request']->attributes->get('_route') !== 'forget_password')
 		{
 			# on stocke l'URL de la page dans un cookie
-			$this->user->setAuthFromCookie($this['request']->getUri());
+			$this['visitor']->setAuthFromCookie($this['request']->getUri());
 
 			# si c'est un invité, il n'a rien à faire ici
-			if ($this->user->is_guest)
+			if ($this['visitor']->is_guest)
 			{
 				$this['flash']->warning(__('c_c_auth_not_logged_in'));
 
@@ -138,7 +138,7 @@ class Okatea extends Application
 			{
 				$this['flash']->error(__('c_c_auth_restricted_access'));
 
-				$this->user->logout();
+				$this['visitor']->logout();
 
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
 
@@ -146,11 +146,11 @@ class Okatea extends Application
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
-			elseif ($this['config']->maintenance['admin'] && ! $this->user->is_superadmin)
+			elseif ($this['config']->maintenance['admin'] && ! $this['visitor']->is_superadmin)
 			{
 				$this['flash']->error(__('c_c_auth_maintenance_admin'));
 
-				$this->user->logout();
+				$this['visitor']->logout();
 
 				$this->response = new RedirectResponse($this->adminRouter->generate('login'));
 
@@ -343,7 +343,7 @@ class Okatea extends Application
 		# Special case : user lang switch
 		if (null !== $sLanguage = $this['request']->query->get('lang'))
 		{
-			$this->user->setUserLang($sLanguage);
+			$this['visitor']->setUserLang($sLanguage);
 
 			$this->response = new RedirectResponse($this->adminRouter->generate($this['request']->attributes->get('_route'), $this['request']->attributes->get('requestParameters')));
 		}

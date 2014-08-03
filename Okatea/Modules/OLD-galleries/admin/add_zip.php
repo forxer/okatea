@@ -160,7 +160,7 @@ $okt->page->addGlobalTitle(__('m_galleries_zip_main_title'));
 
 # Récupération de la liste complète des galeries
 $rsGalleries = $okt->galleries->tree->getGalleries(array(
-	'language' => $okt->user->language,
+	'language' => $okt['visitor']->language,
 	'active' => 2
 ));
 

@@ -118,11 +118,11 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 					?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPostsList->title)) ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt['visitor']->language]) ? $image['title'][$okt['visitor']->language] : $rsPostsList->title)) ?>"
 				class="modal center" rel="news-images"> <img
 				src="<?php echo $image['min_url'] ?>"
 				<?php echo $image['min_attr']?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt['visitor']->language]) ? $image['alt'][$okt['visitor']->language] : $rsPost->title)) ?>" /></a>
 
 			<br />
 
@@ -135,11 +135,11 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 					?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsPostsList->title)) ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title'][$okt['visitor']->language]) ? $image['title'][$okt['visitor']->language] : $rsPostsList->title)) ?>"
 				class="modal" rel="news-images"> <img
 				src="<?php echo $image['square_url'] ?>"
 				<?php echo $image['square_attr']?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsPost->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt'][$okt['visitor']->language]) ? $image['alt'][$okt['visitor']->language] : $rsPost->title)) ?>" /></a>
 
 				<?php endif; ?>
 
@@ -179,7 +179,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 				<a href="<?php echo $file['url'] ?>"><img
 					src="<?php echo $okt['public_url'].'/img/media/'.$file['type'].'.png' ?>"
 					alt="" /></a>
-			<?php echo !empty($file['title'][$okt->user->language]) ? $view->escape($file['title'][$okt->user->language]) : ''; ?> (<?php echo $file['mime'] ?>)
+			<?php echo !empty($file['title'][$okt['visitor']->language]) ? $view->escape($file['title'][$okt['visitor']->language]) : ''; ?> (<?php echo $file['mime'] ?>)
 			- <?php echo Okatea\Tao\Misc\Utilities::l10nFileSize($file['size']) ?></p>
 
 			<?php endforeach; # fin Okatea : boucle sur les fichiers ?>

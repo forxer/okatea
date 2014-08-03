@@ -322,7 +322,7 @@ class Navigation extends Controller
 
 		$rsItems = $this->okt->navigation->getItems(array(
 			'menu_id' => $iMenuId,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'active' => 2
 		));
 

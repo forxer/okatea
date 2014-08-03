@@ -50,7 +50,7 @@ if ($okt->users->config->enable_custom_fields)
 	# Liste des champs
 	$rsFields = $okt->users->fields->getFields(array(
 		'status' => true,
-		'language' => $okt->user->language
+		'language' => $okt['visitor']->language
 	));
 	
 	# Valeurs des champs
@@ -88,13 +88,13 @@ if ($okt->users->config->enable_custom_fields)
 }
 
 # un super admin ne peut etre modifié par un non super admin
-if ($edit_group_id == Authentification::superadmin_group_id && ! $okt->user->is_superadmin)
+if ($edit_group_id == Authentification::superadmin_group_id && ! $okt['visitor']->is_superadmin)
 {
 	http::redirect('module.php?m=users');
 }
 
 # un admin ne peut etre modifié par un non admin
-if ($edit_group_id == Authentification::admin_group_id && ! $okt->user->is_admin)
+if ($edit_group_id == Authentification::admin_group_id && ! $okt['visitor']->is_admin)
 {
 	http::redirect('module.php?m=users');
 }
@@ -275,7 +275,7 @@ $rs = $okt->users->getGroups();
 $groups_array = array();
 while ($rs->fetch())
 {
-	if ($rs->group_id == Authentification::superadmin_group_id && ! $okt->user->is_superadmin)
+	if ($rs->group_id == Authentification::superadmin_group_id && ! $okt['visitor']->is_superadmin)
 	{
 		continue;
 	}

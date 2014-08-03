@@ -181,7 +181,7 @@ if ($dir && ! empty($_POST['rmyes']) && ! empty($_POST['remove']))
 }
 
 # Rebuild directory
-if ($dir && $okt->user->is_superadmin && ! empty($_POST['rebuild']))
+if ($dir && $okt['visitor']->is_superadmin && ! empty($_POST['rebuild']))
 {
 	try
 	{

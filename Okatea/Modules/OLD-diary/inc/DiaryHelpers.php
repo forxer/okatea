@@ -20,7 +20,7 @@ class DiaryHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('diaryList');
@@ -44,7 +44,7 @@ class DiaryHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('diaryEvent', array(

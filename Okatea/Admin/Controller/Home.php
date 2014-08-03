@@ -120,7 +120,7 @@ class Home extends Controller
 
 	protected function newsFeed()
 	{
-		if (! $this->okt['config']->news_feed['enabled'] || empty($this->okt['config']->news_feed['url'][$this->okt->user->language]))
+		if (! $this->okt['config']->news_feed['enabled'] || empty($this->okt['config']->news_feed['url'][$this->okt['visitor']->language]))
 		{
 			return null;
 		}
@@ -136,7 +136,7 @@ class Home extends Controller
 		$this->feed->set_cache_location($sCacheDir);
 
 		// Set which feed to process.
-		$this->feed->set_feed_url($this->okt['config']->news_feed['url'][$this->okt->user->language]);
+		$this->feed->set_feed_url($this->okt['config']->news_feed['url'][$this->okt['visitor']->language]);
 
 		// Run SimplePie.
 		$this->bFeedSuccess = $this->feed->init();

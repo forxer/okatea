@@ -60,7 +60,7 @@ Exemples :
 $aDefaultParams = array(
 	'active' => 1, # pages visibles
 	'limit' => 10, # limitation du nombre de pages
-	'language' => $okt->user->language # langue de l'utilisateur en cours
+	'language' => $okt['visitor']->language # langue de l'utilisateur en cours
 );
 
 # prise en compte des éventuels paramètres personnalisés
@@ -175,11 +175,11 @@ if (! $rsInsertPages->isEmpty())
 						?>
 
 					<a href="<?php echo $image['img_url'] ?>"
-					title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsInsertPages->title)) ?>"
+					title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt['visitor']->language]) ? $image['title'][$okt['visitor']->language] : $rsInsertPages->title)) ?>"
 					class="modal center" rel="page-images"> <img
 					src="<?php echo $image['square_url'] ?>"
 					<?php echo $image['square_attr']?>
-					alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsInsertPages->title)) ?>" /></a>
+					alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt['visitor']->language]) ? $image['alt'][$okt['visitor']->language] : $rsInsertPages->title)) ?>" /></a>
 
 					<?php endif; # fin Okatea : affichage de la première image uniquement, et ce au format square ?>
 

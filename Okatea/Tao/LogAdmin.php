@@ -253,11 +253,11 @@ class LogAdmin
 	public function add(array $aParams = [])
 	{
 		if (empty($aParams['user_id'])) {
-			$aParams['user_id'] = $this->okt->user->infos['id'];
+			$aParams['user_id'] = $this->okt['visitor']->infos['id'];
 		}
 
 		if (empty($aParams['username'])) {
-			$aParams['username'] = $this->okt->user->infos['username'];
+			$aParams['username'] = $this->okt['visitor']->infos['username'];
 		}
 
 		if (empty($aParams['component'])) {

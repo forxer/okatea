@@ -44,7 +44,7 @@ class Module extends BaseModule
 		}
 
 		# Message admin home
-		if ($this->okt->user->is_superadmin) {
+		if ($this->okt['visitor']->is_superadmin) {
 			$this->okt['flash']->warning(__('m_development_adminIndexHtmlContent'));
 		}
 
@@ -58,7 +58,7 @@ class Module extends BaseModule
 		$this->debugBar->loadInPublicPart();
 
 		# Ajout d'éléments à la barre admin
-		if ($this->okt->user->is_superadmin)
+		if ($this->okt['visitor']->is_superadmin)
 		{
 			$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 				$this,

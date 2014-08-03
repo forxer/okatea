@@ -20,7 +20,7 @@ class PartnersController extends Controller
 		
 		# récupération des partenaires
 		$rsPartners = $this->okt->partners->getPartners(array(
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# title tag du module

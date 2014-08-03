@@ -138,7 +138,7 @@ if (! empty($_POST['ordered']) && ! empty($order))
 # Liste des catégories
 $rsCategories = $okt->faq->getCategories(array(
 	'active' => 2,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 # Titre de la page

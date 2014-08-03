@@ -67,12 +67,12 @@ class Index extends Controller
 		
 		$aParams['group_id_not'][] = Groups::GUEST;
 		
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			$aParams['group_id_not'][] = Groups::SUPERADMIN;
 		}
 		
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
@@ -90,7 +90,7 @@ class Index extends Controller
 		$oFilters->getFilters();
 		
 		# initialisation de la pagination
-		$iNumFilteredUsers = $this->okt->getUsers()->getUsers($aParams, true);
+		$iNumFilteredUsers = $this->okt['users']->getUsers($aParams, true);
 		
 		$pager = new Pager($this->okt, $oFilters->params->page, $iNumFilteredUsers, $oFilters->params->nb_per_page);
 		
@@ -101,11 +101,11 @@ class Index extends Controller
 		$aParams['limit'] = (($oFilters->params->page - 1) * $oFilters->params->nb_per_page) . ',' . $oFilters->params->nb_per_page;
 		
 		# liste des utilisateurs
-		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
+		$rsUsers = $this->okt['users']->getUsers($aParams);
 		
 		# liste des groupes
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language
 		));
 		$aGroups = array();
 		while ($rsGroups->fetch())
@@ -125,7 +125,7 @@ class Index extends Controller
 		}
 		
 		# nombre d'utilisateur en attente de validation
-		$iNumUsersWaitingValidation = $this->okt->getUsers()->getUsers(array(
+		$iNumUsersWaitingValidation = $this->okt['users']->getUsers(array(
 			'group_id' => Groups::UNVERIFIED
 		), true);
 		
@@ -166,17 +166,17 @@ class Index extends Controller
 		
 		$aParams['group_id_not'][] = Groups::GUEST;
 		
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			$aParams['group_id_not'][] = Groups::SUPERADMIN;
 		}
 		
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 		
-		$rsUsers = $this->okt->getUsers()->getUsers($aParams);
+		$rsUsers = $this->okt['users']->getUsers($aParams);
 		
 		$aResults = array();
 		while ($rsUsers->fetch())
@@ -207,7 +207,7 @@ class Index extends Controller
 		
 		try
 		{
-			$this->okt->getUsers()->setUserStatus($iUserId, 1);
+			$this->okt['users']->setUserStatus($iUserId, 1);
 			
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -236,7 +236,7 @@ class Index extends Controller
 		
 		try
 		{
-			$this->okt->getUsers()->setUserStatus($iUserId, 0);
+			$this->okt['users']->setUserStatus($iUserId, 0);
 			
 			# log admin
 			$this->okt->logAdmin->info(array(
@@ -268,7 +268,7 @@ class Index extends Controller
 			# -- CORE TRIGGER : adminUsersBeforeDeleteProcess
 			$this->okt['triggers']->callTrigger('adminUsersBeforeDeleteProcess', $iUserId);
 			
-			$this->okt->getUsers()->deleteUser($iUserId);
+			$this->okt['users']->deleteUser($iUserId);
 			
 			# log admin
 			$this->okt->logAdmin->warning(array(
@@ -309,7 +309,7 @@ class Index extends Controller
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$this->okt->getUsers()->setUserStatus($iUserId, 1);
+					$this->okt['users']->setUserStatus($iUserId, 1);
 					
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -325,7 +325,7 @@ class Index extends Controller
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$this->okt->getUsers()->setUserStatus($iUserId, 0);
+					$this->okt['users']->setUserStatus($iUserId, 0);
 					
 					# log admin
 					$this->okt->logAdmin->info(array(
@@ -341,7 +341,7 @@ class Index extends Controller
 			{
 				foreach ($aUsersIds as $iUserId)
 				{
-					$this->okt->getUsers()->deleteUser($iUserId);
+					$this->okt['users']->deleteUser($iUserId);
 					
 					# log admin
 					$this->okt->logAdmin->warning(array(

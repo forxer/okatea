@@ -50,7 +50,7 @@ class UsersController extends BaseController
 		}
 
 		# allready logged ?
-		if (! $this->okt->user->is_guest)
+		if (! $this->okt['visitor']->is_guest)
 		{
 			return $this->performRedirect();
 		}
@@ -72,7 +72,7 @@ class UsersController extends BaseController
 	 */
 	public function logout()
 	{
-		$this->okt->user->logout();
+		$this->okt['visitor']->logout();
 
 		return $this->performRedirect();
 	}
@@ -89,7 +89,7 @@ class UsersController extends BaseController
 		}
 
 		# allready logged ?
-		if (! $this->okt->user->is_guest)
+		if (! $this->okt['visitor']->is_guest)
 		{
 			return $this->performRedirect();
 		}
@@ -99,7 +99,7 @@ class UsersController extends BaseController
 		# affichage du template
 		return $this->render('users/register/' . $this->okt['config']->users['templates']['register']['default'] . '/template', array(
 			'aUsersGroups' => $this->getGroups(array(
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			)),
 			'aTimezone' => Date::getTimezonesList(true, true),
 			'aLanguages' => $this->getLanguages(),
@@ -122,7 +122,7 @@ class UsersController extends BaseController
 		}
 
 		# allready logged ?
-		if (! $this->okt->user->is_guest)
+		if (! $this->okt['visitor']->is_guest)
 		{
 			return $this->performRedirect();
 		}
@@ -137,7 +137,7 @@ class UsersController extends BaseController
 		# affichage du template
 		return $this->render('users/login_register/' . $this->okt['config']->users['templates']['login_register']['default'] . '/template', array(
 			'aUsersGroups' => $this->getGroups(array(
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			)),
 			'aTimezone' => Date::getTimezonesList(true, true),
 			'aLanguages' => $this->getLanguages(),
@@ -159,7 +159,7 @@ class UsersController extends BaseController
 		}
 
 		# allready logged ?
-		if (! $this->okt->user->is_guest)
+		if (! $this->okt['visitor']->is_guest)
 		{
 			return $this->performRedirect();
 		}
@@ -169,11 +169,11 @@ class UsersController extends BaseController
 
 		if ($this->okt['request']->query->has('key') && $this->okt['request']->query->has('uid'))
 		{
-			$bPasswordUpdated = $this->okt->getUsers()->validatePasswordKey($this->okt['request']->query->getInt('key'), $this->okt['request']->query->get('key'));
+			$bPasswordUpdated = $this->okt['users']->validatePasswordKey($this->okt['request']->query->getInt('key'), $this->okt['request']->query->get('key'));
 		}
 		elseif ($this->okt['request']->request->has('email'))
 		{
-			$bPasswordSended = $this->okt->getUsers()->forgetPassword($this->okt['request']->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('usersForgetPassword', array(), true));
+			$bPasswordSended = $this->okt['users']->forgetPassword($this->okt['request']->request->filter('email', null, false, FILTER_SANITIZE_EMAIL), $this->generateUrl('usersForgetPassword', array(), true));
 		}
 
 		# affichage du template
@@ -195,25 +195,25 @@ class UsersController extends BaseController
 		}
 
 		# invité non convié
-		if ($this->okt->user->is_guest)
+		if ($this->okt['visitor']->is_guest)
 		{
 			return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('usersProfile')));
 		}
 
 		# données utilisateur
-		//		$rsUser = $this->okt->getUsers()->getUser($this->okt->user->id);
+		//		$rsUser = $this->okt['users']->getUser($this->okt['visitor']->id);
 
 
 		$aUserProfilData = array(
-			'id' => $this->okt->user->id,
-			'username' => $this->okt->user->username,
-			'email' => $this->okt->user->email,
-			'civility' => $this->okt->user->civility,
-			'lastname' => $this->okt->user->lastname,
-			'firstname' => $this->okt->user->firstname,
-			'displayname' => $this->okt->user->displayname,
-			'language' => $this->okt->user->language,
-			'timezone' => $this->okt->user->timezone,
+			'id' => $this->okt['visitor']->id,
+			'username' => $this->okt['visitor']->username,
+			'email' => $this->okt['visitor']->email,
+			'civility' => $this->okt['visitor']->civility,
+			'lastname' => $this->okt['visitor']->lastname,
+			'firstname' => $this->okt['visitor']->firstname,
+			'displayname' => $this->okt['visitor']->displayname,
+			'language' => $this->okt['visitor']->language,
+			'timezone' => $this->okt['visitor']->timezone,
 			'password' => '',
 			'password_confirm' => ''
 		);
@@ -227,21 +227,21 @@ class UsersController extends BaseController
 
 		if ($this->okt['config']->users['custom_fields_enabled'])
 		{
-			$this->rsAdminFields = $this->okt->getUsers()->fields->getFields(array(
+			$this->rsAdminFields = $this->okt['users']->fields->getFields(array(
 				'status' => true,
 				'admin_editable' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 
 			# Liste des champs utilisateur
-			$this->rsUserFields = $this->okt->getUsers()->fields->getFields(array(
+			$this->rsUserFields = $this->okt['users']->fields->getFields(array(
 				'status' => true,
 				'user_editable' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->getUsers()->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt['users']->fields->getUserValues($this->okt['visitor']->id);
 
 			while ($rsFieldsValues->fetch())
 			{
@@ -295,7 +295,7 @@ class UsersController extends BaseController
 			$aUserProfilData['password'] = ! empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
 			$aUserProfilData['password_confirm'] = ! empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 
-			$this->okt->getUsers()->changeUserPassword($aUserProfilData);
+			$this->okt['users']->changeUserPassword($aUserProfilData);
 
 			return $this->redirect($this->generateUrl('usersProfile'));
 		}
@@ -304,7 +304,7 @@ class UsersController extends BaseController
 		if (! empty($_POST['form_sent']))
 		{
 			$aUserProfilData = array(
-				'id' => $this->okt->user->id,
+				'id' => $this->okt['visitor']->id,
 				'username' => isset($_POST['edit_username']) ? $_POST['edit_username'] : '',
 				'email' => isset($_POST['edit_email']) ? $_POST['edit_email'] : '',
 				'civility' => isset($_POST['edit_civility']) ? $_POST['edit_civility'] : '',
@@ -323,10 +323,10 @@ class UsersController extends BaseController
 			# peuplement et vérification des champs personnalisés obligatoires
 			if ($this->okt['config']->users['custom_fields_enabled'])
 			{
-				$this->okt->getUsers()->fields->getPostData($this->rsUserFields, $aPostedData);
+				$this->okt['users']->fields->getPostData($this->rsUserFields, $aPostedData);
 			}
 
-			if ($this->okt->getUsers()->updUser($aUserProfilData))
+			if ($this->okt['users']->updUser($aUserProfilData))
 			{
 				# -- CORE TRIGGER : adminModUsersProfileProcess
 				$this->okt['triggers']->callTrigger('adminModUsersProfileProcess', $_POST);
@@ -335,7 +335,7 @@ class UsersController extends BaseController
 				{
 					while ($this->rsUserFields->fetch())
 					{
-						$this->okt->getUsers()->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
+						$this->okt['users']->fields->setUserValues($this->okt['visitor']->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
 					}
 				}
 
@@ -420,7 +420,7 @@ class UsersController extends BaseController
 			$this->sUserId = $_POST['user_id'];
 			$user_remember = ! empty($_POST['user_remember']) ? true : false;
 
-			if ($this->okt->user->login($this->sUserId, $_POST['user_pwd'], $user_remember))
+			if ($this->okt['visitor']->login($this->sUserId, $_POST['user_pwd'], $user_remember))
 			{
 				return true;
 			}
@@ -457,15 +457,15 @@ class UsersController extends BaseController
 			$aPostedData = array();
 
 			# Liste des champs
-			$this->rsUserFields = $this->okt->getUsers()->fields->getFields(array(
+			$this->rsUserFields = $this->okt['users']->fields->getFields(array(
 				'status' => true,
 				'user_editable' => true,
 				'register' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->getUsers()->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt['users']->fields->getUserValues($this->okt['visitor']->id);
 			$aFieldsValues = array();
 			while ($rsFieldsValues->fetch())
 			{
@@ -515,7 +515,7 @@ class UsersController extends BaseController
 				'civility' => $this->okt['request']->request->get('add_civility')
 			);
 
-			if (! $this->okt['config']->users['registration']['user_choose_group'] || empty($this->aUserRegisterData['group_id']) || ! in_array($this->aUserRegisterData['group_id'], $this->okt->getGroups()))
+			if (! $this->okt['config']->users['registration']['user_choose_group'] || empty($this->aUserRegisterData['group_id']) || ! in_array($this->aUserRegisterData['group_id'], $this->okt['groups']))
 			{
 				$this->aUserRegisterData['group_id'] = $this->okt['config']->users['registration']['default_group'];
 			}
@@ -542,20 +542,20 @@ class UsersController extends BaseController
 				}
 			}
 
-			if (($iNewUserId = $this->okt->getUsers()->addUser($this->aUserRegisterData)) !== false)
+			if (($iNewUserId = $this->okt['users']->addUser($this->aUserRegisterData)) !== false)
 			{
 				$this->aUserRegisterData['id'] = $iNewUserId;
 
 				# -- CORE TRIGGER : adminModUsersRegisterProcess
 				$this->okt['triggers']->callTrigger('adminModUsersRegisterProcess', $_POST);
 
-				$rsUser = $this->okt->getUsers()->getUser($iNewUserId);
+				$rsUser = $this->okt['users']->getUser($iNewUserId);
 
 				if ($this->okt['config']->users['custom_fields_enabled'])
 				{
 					while ($this->rsUserFields->fetch())
 					{
-						$this->okt->getUsers()->fields->setUserValues($iNewUserId, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
+						$this->okt['users']->fields->setUserValues($iNewUserId, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
 					}
 				}
 
@@ -598,7 +598,7 @@ class UsersController extends BaseController
 
 					foreach ($this->okt['config']->users['registration']['mail_new_registration_recipients'] as $sUser)
 					{
-						$rsRecipient = $this->okt->getUsers()->getUser($sUser);
+						$rsRecipient = $this->okt['users']->getUser($sUser);
 
 						if ($rsRecipient === false || $rsRecipient->isEmpty())
 						{
@@ -627,7 +627,7 @@ class UsersController extends BaseController
 				# eventuel connexion du nouvel utilisateur
 				if (! $this->okt['config']->users['registration']['validation_email'] && ! $this->okt['config']->users['registration']['validation_admin'] && $this->okt['config']->users['registration']['auto_log_after_registration'])
 				{
-					$this->okt->user->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
+					$this->okt['visitor']->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
 				}
 
 				$this->performRedirect();
@@ -649,8 +649,8 @@ class UsersController extends BaseController
 
 		$aUsersGroups = array();
 
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language,
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::ADMIN,

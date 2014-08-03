@@ -34,7 +34,7 @@ class module_rte_ckeditor extends Module
 		$options = array(
 			'customConfig' => '',
 			'toolbar' => 'Basic',
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'scayt_autoStartup' => false
 		);
 		
@@ -52,7 +52,7 @@ class module_rte_ckeditor extends Module
 		
 		$options = array(
 			'customConfig' => '',
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'scayt_autoStartup' => false,
 			'plain/text' => "toolbar : [
 					['Cut','Copy','Paste','PasteText','PasteFromWord'],
@@ -90,7 +90,7 @@ class module_rte_ckeditor extends Module
 		
 		$options = array(
 			'customConfig' => '',
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'scayt_autoStartup' => false,
 			'filebrowserBrowseUrl' => '/ckfinder/ckfinder.html',
 			'filebrowserImageBrowseUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/ckfinder.html?Type=Images',

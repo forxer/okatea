@@ -152,7 +152,7 @@ $okt->page->addButton('galleriesBtSt', array(
 
 # Récupération des éléments
 $rsItems = $okt->galleries->items->getItems(array(
-	'language' => $okt->user->language,
+	'language' => $okt['visitor']->language,
 	'gallery_id' => $gallery_id,
 	'active' => 2
 ));

@@ -172,9 +172,9 @@ class Module extends BaseModule
 		);
 		
 		# language
-		if (file_exists($okt['public_dir'] . '/modules/RteTinymce3/tiny_mce/langs/' . $okt->user->language . '.js'))
+		if (file_exists($okt['public_dir'] . '/modules/RteTinymce3/tiny_mce/langs/' . $okt['visitor']->language . '.js'))
 		{
-			$common_options['language'] = $okt->user->language;
+			$common_options['language'] = $okt['visitor']->language;
 		}
 		
 		# content CSS

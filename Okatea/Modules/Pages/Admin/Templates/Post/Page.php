@@ -63,13 +63,13 @@ if (! empty($aPageData['post']['id']))
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_pages_page_delete_confirm')) . '\')'
 	));
 	# bouton vers la page côté public si publié
-	if (! empty($aPageData['locales'][$okt->user->language]['slug']))
+	if (! empty($aPageData['locales'][$okt['visitor']->language]['slug']))
 	{
 		$okt->page->addButton('pagesBtSt', array(
 			'permission' => ($aPageData['post']['active'] ? true : false),
 			'title' => __('c_c_action_Show'),
 			'url' => $okt['router']->generateFromAdmin('pagesItem', array(
-				'slug' => $aPageData['locales'][$okt->user->language]['slug']
+				'slug' => $aPageData['locales'][$okt['visitor']->language]['slug']
 			), null, true),
 			'ui-icon' => 'extlink'
 		));

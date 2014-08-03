@@ -23,7 +23,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('News')->isPublicAccessible())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('newsList')));
 			}
@@ -36,7 +36,7 @@ class Controller extends BaseController
 		# initialisation paramètres
 		$aNewsParams = array(
 			'active' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 
 		$sSearch = $this->okt['request']->query->get('search');
@@ -77,9 +77,9 @@ class Controller extends BaseController
 		$this->rsPostsList = $this->okt->module('News')->getPosts($aNewsParams);
 
 		# meta description
-		if (! empty($this->okt->module('News')->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->module('News')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -87,9 +87,9 @@ class Controller extends BaseController
 		}
 
 		# meta keywords
-		if (! empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -144,7 +144,7 @@ class Controller extends BaseController
 	{
 		$this->rsPostsList = $this->okt->module('News')->getPosts(array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'limit' => 20
 		));
 
@@ -177,7 +177,7 @@ class Controller extends BaseController
 		# récupération de la rubrique
 		$this->rsCategory = $this->okt->module('News')->categories->getCategories(array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'slug' => $sCategorySlug
 		));
 
@@ -189,7 +189,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('News')->isPublicAccessible())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('newsCategory', array(
 					'slug' => $this->rsCategory->slug
@@ -210,7 +210,7 @@ class Controller extends BaseController
 		# initialisation paramètres
 		$aNewsParams = array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'category_id' => $this->rsCategory->id
 		);
 
@@ -247,9 +247,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
-		elseif (! empty($this->okt->module('News')->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('News')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -261,9 +261,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -286,7 +286,7 @@ class Controller extends BaseController
 				->getName(), $this->generateUrl('newsList'));
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			$path = $this->okt->module('News')->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
+			$path = $this->okt->module('News')->categories->getPath($this->rsCategory->id, true, $this->okt['visitor']->language);
 
 			foreach ($path as $categoryPath)
 			{
@@ -336,7 +336,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('News')->isPublicAccessible() || ! $this->rsPost->isReadable())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->rsPost->url));
 			}
@@ -351,9 +351,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->rsPost->meta_description;
 		}
-		elseif (! empty($this->okt->module('News')->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('News')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('News')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -365,9 +365,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->rsPost->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('News')->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('News')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -394,7 +394,7 @@ class Controller extends BaseController
 			# ajout de la hiérarchie des rubriques au fil d'ariane
 			if (! $this->isHomePageRoute())
 			{
-				$path = $this->okt->module('News')->categories->getPath($this->rsPost->category_id, true, $this->okt->user->language);
+				$path = $this->okt->module('News')->categories->getPath($this->rsPost->category_id, true, $this->okt['visitor']->language);
 
 				foreach ($path as $categoryPath)
 				{

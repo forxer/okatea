@@ -20,7 +20,7 @@ class CatalogHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('catalogList');
@@ -44,7 +44,7 @@ class CatalogHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('catalogProduct', array(
@@ -70,7 +70,7 @@ class CatalogHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('catalogCategory', array(

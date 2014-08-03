@@ -23,16 +23,16 @@ class GalleriesController extends Controller
 		$this->rsGalleriesList = $this->okt->galleries->tree->getGalleries(array(
 			'active' => 1,
 			'parent_id' => 0,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# formatage des données avant affichage
 		$this->okt->galleries->tree->prepareGalleries($this->rsGalleriesList);
 		
 		# meta description
-		if (! empty($this->okt->galleries->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -40,9 +40,9 @@ class GalleriesController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -89,7 +89,7 @@ class GalleriesController extends Controller
 		$this->rsGallery = $this->okt->galleries->tree->getGalleries(array(
 			'slug' => $slug,
 			'active' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		if ($this->rsGallery->isEmpty())
@@ -142,7 +142,7 @@ class GalleriesController extends Controller
 		$this->rsSubGalleriesList = $this->okt->galleries->tree->getGalleries(array(
 			'active' => 1,
 			'parent_id' => $this->rsGallery->id,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# formatage des données avant affichage
@@ -152,7 +152,7 @@ class GalleriesController extends Controller
 		$this->rsItems = $this->okt->galleries->items->getItems(array(
 			'gallery_id' => $this->rsGallery->id,
 			'active' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# meta description
@@ -160,9 +160,9 @@ class GalleriesController extends Controller
 		{
 			$this->page->meta_description = $this->rsGallery->meta_description;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -174,9 +174,9 @@ class GalleriesController extends Controller
 		{
 			$this->page->meta_description = $this->rsGallery->meta_keywords;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -191,7 +191,7 @@ class GalleriesController extends Controller
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 			
-			$rsPath = $this->okt->galleries->tree->getPath($this->rsGallery->id, true, $this->okt->user->language);
+			$rsPath = $this->okt->galleries->tree->getPath($this->rsGallery->id, true, $this->okt['visitor']->language);
 			while ($rsPath->fetch())
 			{
 				$this->page->breadcrumb->add($rsPath->title, GalleriesHelpers::getGalleryUrl($rsPath->slug));
@@ -228,7 +228,7 @@ class GalleriesController extends Controller
 		$this->rsItem = $this->okt->galleries->items->getItems(array(
 			'slug' => $slug,
 			'active' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		if ($this->rsItem->isEmpty())
@@ -260,9 +260,9 @@ class GalleriesController extends Controller
 		{
 			$this->page->meta_description = $this->rsItem->meta_description;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -274,9 +274,9 @@ class GalleriesController extends Controller
 		{
 			$this->page->meta_keywords = $this->rsItem->meta_keywords;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -288,7 +288,7 @@ class GalleriesController extends Controller
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 			
-			$rsPath = $this->okt->galleries->tree->getPath($this->rsItem->gallery_id, true, $this->okt->user->language);
+			$rsPath = $this->okt->galleries->tree->getPath($this->rsItem->gallery_id, true, $this->okt['visitor']->language);
 			while ($rsPath->fetch())
 			{
 				$this->page->addTitleTag($rsPath->title);

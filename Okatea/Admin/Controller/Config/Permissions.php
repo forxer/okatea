@@ -27,19 +27,19 @@ class Permissions extends Controller
 		$aPerms = array();
 		
 		$aParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::SUPERADMIN,
 				Groups::GUEST
 			)
 		);
 		
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 		
-		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
+		$rsGroups = $this->okt['groups']->getGroups($aParams);
 		
 		while ($rsGroups->fetch())
 		{
@@ -56,7 +56,7 @@ class Permissions extends Controller
 			{
 				$group_perms = ! empty($perms[$group_id]) ? array_keys($perms[$group_id]) : array();
 				
-				$this->okt->getGroups()->updGroupPerms($group_id, $group_perms);
+				$this->okt['groups']->updGroupPerms($group_id, $group_perms);
 			}
 			
 			$this->okt['flash']->success(__('c_a_config_permissions_updated'));

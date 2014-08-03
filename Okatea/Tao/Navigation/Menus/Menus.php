@@ -79,7 +79,7 @@ class Menus
 	{
 		# récupération du menu
 		$aMenuParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'active' => 1
 		);
 
@@ -102,7 +102,7 @@ class Menus
 		# récupération des éléments
 		$rsItems = $this->getItems(array(
 			'menu_id' => $rsMenu->id,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'active' => 1
 		));
 

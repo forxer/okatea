@@ -220,7 +220,7 @@ if ($do == 'value')
 	<?php if (UsersCustomFields::getFormType($aFieldData['type']) == 'simple') : ?>
 
 		<p>
-		Valeur par défaut du champ intitulé <strong><?php echo html::escapeHTML($aFieldData['title'][$okt->user->language]) ?></strong>
+		Valeur par défaut du champ intitulé <strong><?php echo html::escapeHTML($aFieldData['title'][$okt['visitor']->language]) ?></strong>
 		de type <em><?php echo $aTypes[$aFieldData['type']] ?></em>
 	</p>
 
@@ -233,12 +233,12 @@ if ($do == 'value')
 
 	<?php else : ?>
 
-		<p><?php printf(__('m_users_value_of_field_named_%s_of_type_%s'), '<strong>'.html::escapeHTML($aFieldData['title'][$okt->user->language]).'</strong>', '<em>'.$aTypes[$aFieldData['type']].'</em>')?></p>
+		<p><?php printf(__('m_users_value_of_field_named_%s_of_type_%s'), '<strong>'.html::escapeHTML($aFieldData['title'][$okt['visitor']->language]).'</strong>', '<em>'.$aTypes[$aFieldData['type']].'</em>')?></p>
 
 		<?php
 		
 $line_count = 0;
-		foreach ($value[$okt->user->language] as $val)
+		foreach ($value[$okt['visitor']->language] as $val)
 		:
 			$line_count ++;
 			?>
@@ -247,7 +247,7 @@ $line_count = 0;
 			
 foreach ($okt['languages']->list as $aLanguage)
 			:
-				if ($aLanguage['code'] != $okt->user->language)
+				if ($aLanguage['code'] != $okt['visitor']->language)
 				{
 					$key = $line_count - 1;
 					$sVal = array_key_exists($key, $value[$aLanguage['code']]) ? $value[$aLanguage['code']][$key] : '';

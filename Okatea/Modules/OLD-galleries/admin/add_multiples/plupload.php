@@ -61,7 +61,7 @@ $rsGalleries = $okt->galleries->tree->getGalleries(array(
 $okt->page->css->addFile($okt['public_url'] . '/components/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css');
 $okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/plupload.full.js');
 $okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/jquery.ui.plupload/jquery.ui.plupload.js');
-$okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/i18n/' . $okt->user->language . '.js');
+$okt->page->js->addFile($okt['public_url'] . '/components/plupload/js/i18n/' . $okt['visitor']->language . '.js');
 
 $okt->page->js->addReady('
 

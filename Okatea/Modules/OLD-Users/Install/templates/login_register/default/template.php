@@ -90,7 +90,7 @@ if ($okt->error->notEmpty())
 <div id="forms-log-reg" class="one-third-two-thirds">
 	<div class="one-third">
 		<form id="login-form" class="userform"
-			action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>"
+			action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt['visitor']->language]) ?>"
 			method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_login') ?></legend>
@@ -135,7 +135,7 @@ if ($okt->error->notEmpty())
 	<!-- .one-third -->
 	<div class="two-thirds">
 		<form id="register-form" class="userform"
-			action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt->user->language]) ?>"
+			action="<?php echo $view->escape($okt->page->getBaseUrl().$okt->users->config->public_log_reg_url[$okt['visitor']->language]) ?>"
 			method="post">
 			<fieldset>
 				<legend><?php _e('c_c_auth_register') ?></legend>

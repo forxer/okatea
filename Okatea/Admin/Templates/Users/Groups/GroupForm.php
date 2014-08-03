@@ -51,12 +51,12 @@ if (! $okt['languages']->unique)
 
 		<?php if ($iGroupId === Groups::SUPERADMIN) : ?>
 			<p>
-			<em><?php printf(__('c_a_users_groups_error_permissions_sudo'), $aGroupData['locales'][$okt->user->language]['title'], $iGroupId) ?></em>
+			<em><?php printf(__('c_a_users_groups_error_permissions_sudo'), $aGroupData['locales'][$okt['visitor']->language]['title'], $iGroupId) ?></em>
 		</p>
 
 		<?php elseif ($iGroupId === Groups::GUEST) : ?>
 			<p>
-			<em><?php printf(__('c_a_users_groups_error_permissions_guest'), $aGroupData['locales'][$okt->user->language]['title'], $iGroupId) ?></em>
+			<em><?php printf(__('c_a_users_groups_error_permissions_guest'), $aGroupData['locales'][$okt['visitor']->language]['title'], $iGroupId) ?></em>
 		</p>
 
 		<?php else : ?>

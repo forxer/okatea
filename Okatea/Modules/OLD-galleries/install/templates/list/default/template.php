@@ -84,10 +84,10 @@ if (! $rsGalleriesList->isEmpty())
 			<a href="<?php echo $view->escape($rsGalleriesList->url) ?>"><img
 				src="<?php echo $rsGalleriesList->image['min_url'] ?>"
 				<?php echo $rsGalleriesList->image['min_attr']?>
-				<?php if (isset($rsGalleriesList->image['title']) && isset($rsGalleriesList->image['title'][$okt->user->language])) : ?>
-				title="<?php echo $view->escapeHtmlAttr($rsGalleriesList->image['title'][$okt->user->language]) ?>"
+				<?php if (isset($rsGalleriesList->image['title']) && isset($rsGalleriesList->image['title'][$okt['visitor']->language])) : ?>
+				title="<?php echo $view->escapeHtmlAttr($rsGalleriesList->image['title'][$okt['visitor']->language]) ?>"
 				<?php endif; ?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsGalleriesList->image['alt']) && isset($rsGalleriesList->image['alt'][$okt->user->language]) ? $rsGalleriesList->image['alt'][$okt->user->language] : $rsGalleriesList->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsGalleriesList->image['alt']) && isset($rsGalleriesList->image['alt'][$okt['visitor']->language]) ? $rsGalleriesList->image['alt'][$okt['visitor']->language] : $rsGalleriesList->title)) ?>" /></a>
 		</p>
 			<?php else : ?>
 			<p class="modal-box">
@@ -95,10 +95,10 @@ if (! $rsGalleriesList->isEmpty())
 				class="modal"><img
 				src="<?php echo $rsGalleriesList->image['min_url'] ?>"
 				<?php echo $rsGalleriesList->image['min_attr']?>
-				<?php if (isset($rsGalleriesList->image['title']) && isset($rsGalleriesList->image['title'][$okt->user->language])) : ?>
-				title="<?php echo $view->escapeHtmlAttr($rsGalleriesList->image['title'][$okt->user->language]) ?>"
+				<?php if (isset($rsGalleriesList->image['title']) && isset($rsGalleriesList->image['title'][$okt['visitor']->language])) : ?>
+				title="<?php echo $view->escapeHtmlAttr($rsGalleriesList->image['title'][$okt['visitor']->language]) ?>"
 				<?php endif; ?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($rsGalleriesList->image['alt']) && isset($rsGalleriesList->image['alt'][$okt->user->language]) ? $rsGalleriesList->image['alt'][$okt->user->language] : $rsGalleriesList->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($rsGalleriesList->image['alt']) && isset($rsGalleriesList->image['alt'][$okt['visitor']->language]) ? $rsGalleriesList->image['alt'][$okt['visitor']->language] : $rsGalleriesList->title)) ?>" /></a>
 		</p>
 			<?php endif; ?>
 

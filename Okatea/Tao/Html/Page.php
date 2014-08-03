@@ -269,7 +269,7 @@ class Page
 
 		if (! $this->okt['languages']->unique)
 		{
-			$str .= ($sLanguage !== null ? $sLanguage : $this->okt->user->language) . '/';
+			$str .= ($sLanguage !== null ? $sLanguage : $this->okt['visitor']->language) . '/';
 		}
 
 		return $str;
@@ -286,9 +286,9 @@ class Page
 		{
 			return $this->okt['config']->title[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->title[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->title[$this->okt['visitor']->language]))
 		{
-			return $this->okt['config']->title[$this->okt->user->language];
+			return $this->okt['config']->title[$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->title[$this->okt['config']->language]))
 		{
@@ -311,9 +311,9 @@ class Page
 		{
 			return $this->okt['config']->desc[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->desc[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->desc[$this->okt['visitor']->language]))
 		{
-			return $this->okt['config']->desc[$this->okt->user->language];
+			return $this->okt['config']->desc[$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->desc[$this->okt['config']->language]))
 		{
@@ -336,9 +336,9 @@ class Page
 		{
 			return $this->okt['config']->title_tag[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->title_tag[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->title_tag[$this->okt['visitor']->language]))
 		{
-			return $this->okt['config']->title_tag[$this->okt->user->language];
+			return $this->okt['config']->title_tag[$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->title_tag[$this->okt['config']->language]))
 		{
@@ -361,9 +361,9 @@ class Page
 		{
 			return $this->okt['config']->meta_description[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->meta_description[$this->okt['visitor']->language]))
 		{
-			return $this->okt['config']->meta_description[$this->okt->user->language];
+			return $this->okt['config']->meta_description[$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->meta_description[$this->okt['config']->language]))
 		{
@@ -386,9 +386,9 @@ class Page
 		{
 			return $this->okt['config']->meta_keywords[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt['config']->meta_keywords[$this->okt['visitor']->language]))
 		{
-			return $this->okt['config']->meta_keywords[$this->okt->user->language];
+			return $this->okt['config']->meta_keywords[$this->okt['visitor']->language];
 		}
 		elseif (! empty($this->okt['config']->meta_keywords[$this->okt['config']->language]))
 		{
@@ -453,7 +453,7 @@ class Page
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-ui/ui/minified/i18n/jquery-ui-i18n.min.js');
 
 		$this->js->addReady('
-			$.datepicker.setDefaults($.datepicker.regional[\'' . $this->okt->user->language . '\']); ' . 'jQuery(\'' . $sElement . '\').datepicker(' . json_encode($aOptions) . ');
+			$.datepicker.setDefaults($.datepicker.regional[\'' . $this->okt['visitor']->language . '\']); ' . 'jQuery(\'' . $sElement . '\').datepicker(' . json_encode($aOptions) . ');
 		');
 	}
 
@@ -591,7 +591,7 @@ class Page
 		');
 
 		$this->js->addReady('
-			switch_language("' . $this->okt->user->language . '");
+			switch_language("' . $this->okt['visitor']->language . '");
 		');
 	}
 
@@ -909,7 +909,7 @@ class Page
 	{
 		$aOptions = array(
 			'selector' => 'form',
-			'lang' => $this->okt->user->language,
+			'lang' => $this->okt['visitor']->language,
 			'fields' => array()
 		);
 
@@ -933,7 +933,7 @@ class Page
 	{
 		if (null === $sLanguage)
 		{
-			$sLanguage = $this->okt->user->language;
+			$sLanguage = $this->okt['visitor']->language;
 		}
 
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-validation/dist/jquery.validate.min.js');

@@ -375,7 +375,7 @@ class Post extends Controller
 		{
 			$rsCategories = $this->okt->module('News')->categories->getCategories(array(
 				'active' => 2,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 		}
 		

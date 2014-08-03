@@ -33,7 +33,7 @@ if ($okt->users->config->enable_custom_fields)
 	# Liste des champs
 	$rsFields = $okt->users->fields->getFields(array(
 		'status' => true,
-		'language' => $okt->user->language
+		'language' => $okt['visitor']->language
 	));
 	
 	# Initialisation des données des champs

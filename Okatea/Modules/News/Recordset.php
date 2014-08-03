@@ -57,7 +57,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user is owner of the entrie
-		if ($this->user_id == $this->okt->user->id)
+		if ($this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -85,7 +85,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user is usage and owner of the entrie
-		if ($this->okt->checkPerm('news_usage') && $this->user_id == $this->okt->user->id)
+		if ($this->okt->checkPerm('news_usage') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -113,7 +113,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user is usage and owner of the entrie
-		if ($this->okt->checkPerm('news_publish') && $this->user_id == $this->okt->user->id)
+		if ($this->okt->checkPerm('news_publish') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -141,7 +141,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user has delete rights and is owner of the entrie
-		if ($this->okt->checkPerm('news_delete') && $this->user_id == $this->okt->user->id)
+		if ($this->okt->checkPerm('news_delete') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -172,7 +172,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# si on est superadmin on as droit à tout
-		if ($this->okt->user->is_superadmin)
+		if ($this->okt['visitor']->is_superadmin)
 		{
 			$aPerms[$this->id] = true;
 			return true;
@@ -183,7 +183,7 @@ class Recordset extends BaseRecordset
 		
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
-		if (in_array(0, $aPerms) || in_array($this->okt->user->group_id, $aPerms))
+		if (in_array(0, $aPerms) || in_array($this->okt['visitor']->group_id, $aPerms))
 		{
 			$aPerms[$this->id] = true;
 			return true;

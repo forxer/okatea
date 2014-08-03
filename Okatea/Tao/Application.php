@@ -25,9 +25,7 @@ use Okatea\Tao\Routing\RouterServiceProvider;
 use Okatea\Tao\Session\SessionServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers\TriggersServiceProvider;
-use Okatea\Tao\Users\Groups;
-use Okatea\Tao\Users\Users;
-use Okatea\Tao\Users\Visitor;
+use Okatea\Tao\Users\UsersServiceProvider;
 use Patchwork\Utf8\Bootup as Utf8Bootup;
 use Pimple\Container;
 use Symfony\Component\Debug\Debug;
@@ -66,13 +64,6 @@ class Application extends Container
 	 * @var string
 	 */
 	public $db_prefix;
-
-	/**
-	 * Le gestionnaire des groupes utilisateurs.
-	 *
-	 * @var Okatea\Tao\Users\Groups
-	 */
-	public $groups;
 
 	/**
 	 * Le gestionnaire de modules.
@@ -115,20 +106,6 @@ class Application extends Container
 	 * @var Okatea\Tao\Templating
 	 */
 	public $tpl;
-
-	/**
-	 * Le gestionnaire d'utilisateur en cours.
-	 *
-	 * @var Okatea\Tao\Visitor
-	 */
-	public $user;
-
-	/**
-	 * Le gestionnaire des utilisateurs.
-	 *
-	 * @var Okatea\Tao\Users\Users
-	 */
-	public $users;
 
 	/**
 	 * L'objet HTMLPurifier si il est instancié, sinon null.
@@ -177,6 +154,7 @@ class Application extends Container
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
 		$this->register(new TriggersServiceProvider());
+		$this->register(new UsersServiceProvider());
 
 		$this->Utf8Bootup();
 
@@ -217,8 +195,6 @@ class Application extends Container
 	public function run()
 	{
 		$this->startDatabase();
-
-		$this->startUser();
 
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/main');
 		$this['l10n']->loadFile($this['locales_dir'] . '/%s/users');
@@ -281,21 +257,6 @@ class Application extends Container
 		}
 	}
 
-	public function startUser()
-	{
-		if (null === $this->user)
-		{
-			$this->user = new Visitor(
-				$this,
-				$this['cookie_auth_name'],
-				$this['cookie_auth_from'],
-				$this['config']->app_path,
-				$this['request']->getHttpHost(),
-				$this['request']->isSecure()
-			);
-		}
-	}
-
 	public function startModules()
 	{
 		if (null === $this->modules)
@@ -336,26 +297,6 @@ class Application extends Container
 	protected function loadThemes($sPart)
 	{
 		$this->themes->load($sPart);
-	}
-
-	public function getUsers()
-	{
-		if (null === $this->users)
-		{
-			$this->users = new Users($this);
-		}
-
-		return $this->users;
-	}
-
-	public function getGroups()
-	{
-		if (null === $this->groups)
-		{
-			$this->groups = new Groups($this);
-		}
-
-		return $this->groups;
 	}
 
 	/* Permissions
@@ -413,13 +354,13 @@ class Application extends Container
 	public function checkPerm($permissions)
 	{
 		if ($permissions == 'is_superadmin') {
-			return $this->user->is_superadmin;
+			return $this['visitor']->is_superadmin;
 		}
-		elseif ($this->user->is_superadmin) {
+		elseif ($this['visitor']->is_superadmin) {
 			return true;
 		}
 
-		return in_array($permissions, $this->user->perms);
+		return in_array($permissions, $this['visitor']->perms);
 	}
 
 	public function getPermsForDisplay()
@@ -548,10 +489,10 @@ class Application extends Container
 	{
 		return [
 			'app_path' => $this['config']->app_path,
-			'user_language' => $this->user->language,
+			'user_language' => $this['visitor']->language,
 			//	'theme_url' => $this->theme->url,
-			'website_title' => $this['config']->title[$this->user->language],
-			'website_desc' => $this['config']->desc[$this->user->language],
+			'website_title' => $this['config']->title[$this['visitor']->language],
+			'website_desc' => $this['config']->desc[$this['visitor']->language],
 
 			'address_street' => $this['config']->address['street'],
 			'address_street_2' => $this['config']->address['street_2'],
@@ -587,15 +528,15 @@ class Application extends Container
 		{
 			foreach ($aImageInfos as $sImageKeyInfo => $sImageValueInfo)
 			{
-				if ($sImageKeyInfo == 'alt' && isset($sImageValueInfo[$this->user->language]))
+				if ($sImageKeyInfo == 'alt' && isset($sImageValueInfo[$this['visitor']->language]))
 				{
-					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this->user->language];
+					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this['visitor']->language];
 					continue;
 				}
 
-				if ($sImageKeyInfo == 'title' && isset($sImageValueInfo[$this->user->language]))
+				if ($sImageKeyInfo == 'title' && isset($sImageValueInfo[$this['visitor']->language]))
 				{
-					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this->user->language];
+					$aReplacements['image_' . $iImageId . '_' . $sImageKeyInfo] = $sImageValueInfo[$this['visitor']->language];
 					continue;
 				}
 

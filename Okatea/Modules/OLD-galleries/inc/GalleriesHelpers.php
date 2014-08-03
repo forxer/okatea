@@ -20,7 +20,7 @@ class GalleriesHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('galleriesList');
@@ -44,7 +44,7 @@ class GalleriesHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('galleriesGallery', array(
@@ -70,7 +70,7 @@ class GalleriesHelpers
 		
 		if (is_null($sLanguage))
 		{
-			$sLanguage = $okt->user->language;
+			$sLanguage = $okt['visitor']->language;
 		}
 		
 		return $okt['router']->generate('galleriesItem', array(

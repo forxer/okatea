@@ -41,7 +41,7 @@ if (! empty($_GET['init_filters']))
 
 # initialisation des filtres
 $params = array(
-	'language' => $okt->user->language,
+	'language' => $okt['visitor']->language,
 	'active' => 2
 );
 $okt->faq->filters->setQuestionsParams($params);

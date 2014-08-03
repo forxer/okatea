@@ -14,16 +14,16 @@ class ##module_camel_case_id##Controller extends Controller
 	public function ##module_camel_case_id##Page()
 	{
 		# meta description
-		if ($this->okt->##module_id##->config->meta_description[$this->okt->user->language] != '') {
-			$this->okt->page->meta_description = $this->okt->##module_id##->config->meta_description[$this->okt->user->language];
+		if ($this->okt->##module_id##->config->meta_description[$this->okt['visitor']->language] != '') {
+			$this->okt->page->meta_description = $this->okt->##module_id##->config->meta_description[$this->okt['visitor']->language];
 		}
 		else {
 			$this->okt->page->meta_description = Utilities::getSiteMetaDesc();
 		}
 
 		# meta keywords
-		if ($this->okt->##module_id##->config->meta_keywords[$this->okt->user->language] != '') {
-			$this->okt->page->meta_keywords = $this->okt->##module_id##->config->meta_keywords[$this->okt->user->language];
+		if ($this->okt->##module_id##->config->meta_keywords[$this->okt['visitor']->language] != '') {
+			$this->okt->page->meta_keywords = $this->okt->##module_id##->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else {
 			$this->okt->page->meta_keywords = Utilities::getSiteMetaKeywords();

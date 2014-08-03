@@ -138,11 +138,11 @@ if (! $rsInsertPage->isEmpty())
 					?>
 
 				<a href="<?php echo $image['img_url'] ?>"
-				title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt->user->language]) ? $image['title'][$okt->user->language] : $rsInsertPage->title)) ?>"
+				title="<?php echo $view->escapeHtmlAttr((isset($image['title']) && isset($image['title'][$okt['visitor']->language]) ? $image['title'][$okt['visitor']->language] : $rsInsertPage->title)) ?>"
 				class="modal center" rel="page-images"> <img
 				src="<?php echo $image['square_url'] ?>"
 				<?php echo $image['square_attr']?>
-				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt->user->language]) ? $image['alt'][$okt->user->language] : $rsInsertPage->title)) ?>" /></a>
+				alt="<?php echo $view->escapeHtmlAttr((isset($image['alt']) && isset($image['alt'][$okt['visitor']->language]) ? $image['alt'][$okt['visitor']->language] : $rsInsertPage->title)) ?>" /></a>
 
 				<?php endif; # fin Okatea : affichage de la première image uniquement, et ce au format square ?>
 

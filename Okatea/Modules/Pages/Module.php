@@ -219,14 +219,14 @@ class Module extends BaseModule
 	public function isPublicAccessible()
 	{
 		# si on est superadmin on as droit à tout
-		if ($this->okt->user->is_superadmin)
+		if ($this->okt['visitor']->is_superadmin)
 		{
 			return true;
 		}
 
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
-		if (in_array(0, $this->config->perms) || in_array($this->okt->user->group_id, $this->config->perms))
+		if (in_array(0, $this->config->perms) || in_array($this->okt['visitor']->group_id, $this->config->perms))
 		{
 			return true;
 		}

@@ -271,7 +271,7 @@ class oktMedia extends filemanager
 			
 			$f->media_image = false;
 			
-			if (! $this->okt->checkPerm('media_admin') && $this->okt->user->id != $f->media_user_id)
+			if (! $this->okt->checkPerm('media_admin') && $this->okt['visitor']->id != $f->media_user_id)
 			{
 				$f->del = false;
 				$f->editable = false;
@@ -431,9 +431,9 @@ class oktMedia extends filemanager
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
-			if ($this->okt->user->id != 1)
+			if ($this->okt['visitor']->id != 1)
 			{
-				$strReq .= 'OR m.user_id = ' . (integer) $this->okt->user->id;
+				$strReq .= 'OR m.user_id = ' . (integer) $this->okt['visitor']->id;
 			}
 			$strReq .= ') ';
 		}
@@ -529,9 +529,9 @@ class oktMedia extends filemanager
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
-			if ($this->okt->user->id != 1)
+			if ($this->okt['visitor']->id != 1)
 			{
-				$strReq .= 'OR m.user_id = ' . (integer) $this->okt->user->id . ' ';
+				$strReq .= 'OR m.user_id = ' . (integer) $this->okt['visitor']->id . ' ';
 			}
 			$strReq .= ') ';
 		}
@@ -633,7 +633,7 @@ class oktMedia extends filemanager
 	 */
 	public function rebuild($pwd = '')
 	{
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			throw new Exception(__('You are not a super administrator.'));
 		}
@@ -733,7 +733,7 @@ class oktMedia extends filemanager
 		{
 			try
 			{
-				$cur->user_id = (string) $this->okt->user->id;
+				$cur->user_id = (string) $this->okt['visitor']->id;
 				$cur->media_path = (string) $this->path;
 				$cur->media_file = (string) $media_file;
 				$cur->media_dir = (string) dirname($media_file);
@@ -810,7 +810,7 @@ class oktMedia extends filemanager
 			throw new Exception('No file ID');
 		}
 		
-		if (! $this->okt->checkPerm('media_admin') && $this->okt->user->id != $file->media_user_id)
+		if (! $this->okt->checkPerm('media_admin') && $this->okt['visitor']->id != $file->media_user_id)
 		{
 			throw new Exception(__('You are not the file owner.'));
 		}
@@ -918,7 +918,7 @@ class oktMedia extends filemanager
 		
 		if (! $this->okt->checkPerm('media_admin'))
 		{
-			$strReq .= 'AND user_id = ' . (integer) $this->okt->user->id . ' ';
+			$strReq .= 'AND user_id = ' . (integer) $this->okt['visitor']->id . ' ';
 		}
 		
 		$this->db->execute($strReq);
@@ -1106,7 +1106,7 @@ class oktMedia extends filemanager
 			$media_ts = strtotime($meta['DateTimeOriginal']);
 			if ($media_ts !== false)
 			{
-				$o = dt::getTimeOffset($this->okt->user->timezone, $media_ts);
+				$o = dt::getTimeOffset($this->okt['visitor']->timezone, $media_ts);
 				$c->media_dt = dt::str('%Y-%m-%d %H:%M:%S', $media_ts + $o);
 			}
 		}

@@ -242,7 +242,7 @@ if ($okt->faq->config->enable_categories)
 {
 	$rsCategories = $okt->faq->getCategories(array(
 		'active' => 1,
-		'language' => $okt->user->language
+		'language' => $okt['visitor']->language
 	));
 	
 	$aCategoriesChoice = array(

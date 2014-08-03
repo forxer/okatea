@@ -293,7 +293,7 @@ class GalleriesItems
 	public function getItem($mItemId, $iActive = 2)
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'active' => $iActive
 		);
 		

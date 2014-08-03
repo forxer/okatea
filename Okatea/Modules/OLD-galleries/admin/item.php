@@ -255,7 +255,7 @@ if (! empty($_POST['sended']))
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
 	'active' => 2,
 	'with_count' => false,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 # Liste des templates utilisables
@@ -297,7 +297,7 @@ if (! empty($aItemData['item']['id']))
 	$okt->page->addButton('galleriesBtSt', array(
 		'permission' => ($aItemData['item']['active'] ? true : false),
 		'title' => __('c_c_action_Show'),
-		'url' => GalleriesHelpers::getItemUrl($aItemData['locales'][$okt->user->language]['slug']),
+		'url' => GalleriesHelpers::getItemUrl($aItemData['locales'][$okt['visitor']->language]['slug']),
 		'ui-icon' => 'extlink'
 	));
 }

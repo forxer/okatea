@@ -61,7 +61,7 @@ class Okatea extends Application
 
 		$this->loadTplEngine();
 
-		if ($this['config']->maintenance['public'] && ! $this->user->is_superadmin)
+		if ($this['config']->maintenance['public'] && ! $this['visitor']->is_superadmin)
 		{
 			$this->page->serve503();
 		}
@@ -155,7 +155,7 @@ class Okatea extends Application
 	 */
 	protected function loadAdminBar()
 	{
-		if (null === $this->websiteAdminBar && $this->user->is_superadmin || ($this->user->is_admin && $this['config']->enable_admin_bar))
+		if (null === $this->websiteAdminBar && $this['visitor']->is_superadmin || ($this['visitor']->is_admin && $this['config']->enable_admin_bar))
 		{
 			$this->websiteAdminBar = new AdminBar($this);
 		}

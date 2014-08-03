@@ -27,7 +27,7 @@ class Groups extends Controller
 		{
 			$iGroupIdToDelete = $this->okt['request']->query->get('delete_id');
 
-			if ($this->okt->getGroups()->deleteGroup($iGroupIdToDelete))
+			if ($this->okt['groups']->deleteGroup($iGroupIdToDelete))
 			{
 				$this->okt['flash']->success(__('c_a_users_group_deleted'));
 
@@ -36,20 +36,20 @@ class Groups extends Controller
 		}
 
 		$aParams = array(
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			$aParams['group_id_not'][] = UsersGroups::SUPERADMIN;
 		}
 
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aParams['group_id_not'][] = UsersGroups::ADMIN;
 		}
 
-		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
+		$rsGroups = $this->okt['groups']->getGroups($aParams);
 
 		return $this->render('Users/Groups/Index', array(
 			'rsGroups' => $rsGroups
@@ -105,7 +105,7 @@ class Groups extends Controller
 
 			if (! $this->okt['flash']->hasError())
 			{
-				if (($iGroupId = $this->okt->getGroups()->addGroup($aGroupData)) !== false)
+				if (($iGroupId = $this->okt['groups']->addGroup($aGroupData)) !== false)
 				{
 					$this->okt['flash']->success(__('c_a_users_group_added'));
 
@@ -143,8 +143,8 @@ class Groups extends Controller
 			$this->okt->page->warnings->set(__('c_a_users_edit_native_group'));
 		}
 
-		$rsGroup = $this->okt->getGroups()->getGroup($iGroupId);
-		$rsGroupL10n = $this->okt->getGroups()->getGroupL10n($iGroupId);
+		$rsGroup = $this->okt['groups']->getGroup($iGroupId);
+		$rsGroupL10n = $this->okt['groups']->getGroupL10n($iGroupId);
 
 		$aGroupData = new ArrayObject();
 
@@ -189,7 +189,7 @@ class Groups extends Controller
 
 			if (! $this->okt['flash']->hasError())
 			{
-				if ($this->okt->getGroups()->updGroup($iGroupId, $aGroupData))
+				if ($this->okt['groups']->updGroup($iGroupId, $aGroupData))
 				{
 					$this->okt['flash']->success(__('c_a_users_group_edited'));
 

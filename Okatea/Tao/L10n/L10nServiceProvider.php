@@ -20,9 +20,9 @@ class L10nServiceProvider implements ServiceProviderInterface
 
 		$okt['l10n'] = function($okt) {
 			return new Localization(
-				$okt->user->language,
+				$okt['visitor']->language,
 				$okt['config']->language,
-				$okt->user->timezone
+				$okt['visitor']->timezone
 			);
 		};
 	}

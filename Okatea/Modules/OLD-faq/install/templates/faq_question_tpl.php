@@ -114,14 +114,14 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 
 		<?php 
 # début Okatea : si les fichiers sont activées
-		if ($okt->faq->config->files['enable'] && ! empty($faqQuestion->files[$okt->user->language]))
+		if ($okt->faq->config->files['enable'] && ! empty($faqQuestion->files[$okt['visitor']->language]))
 		:
 			?>
 		<div id="question-files" class="three-cols">
 
 			<?php 
 # début Okatea : boucle sur les fichiers
-			foreach ($faqQuestion->files[$okt->user->language] as $i => $file)
+			foreach ($faqQuestion->files[$okt['visitor']->language] as $i => $file)
 			:
 				?>
 

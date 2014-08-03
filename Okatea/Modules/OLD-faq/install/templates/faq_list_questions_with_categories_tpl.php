@@ -85,7 +85,7 @@ if ($okt->faq->config->enable_filters)
 		<p class="center">
 			<input type="submit" value="<?php _e('c_c_action_display') ?>"
 				name="<?php echo $okt->faq->filters->getFilterSubmitName() ?>" /> <a
-				href="<?php echo $view->escape(FaqHelpers::getFaqUrl()) ?>?language=<?php echo $okt->user->language; ?>&amp;init_filters=1"
+				href="<?php echo $view->escape(FaqHelpers::getFaqUrl()) ?>?language=<?php echo $okt['visitor']->language; ?>&amp;init_filters=1"
 				rel="nofollow" class="italic"><?php _e('m_faq_display_filters_init') ?></a>
 		</p>
 

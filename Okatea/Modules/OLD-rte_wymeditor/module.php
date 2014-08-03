@@ -40,7 +40,7 @@ class module_rte_wymeditor extends Module
 		global $okt;
 		
 		$options = array(
-			'lang' => $okt->user->language,
+			'lang' => $okt['visitor']->language,
 			//			'stylesheet' => 'styles.css',
 			'skin' => 'compact',
 			'updateSelector' => 'input:submit.button',

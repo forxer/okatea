@@ -205,14 +205,14 @@ class Module extends BaseModule
 	public function isPublicAccessible()
 	{
 		# si on est superadmin on as droit à tout
-		if ($this->okt->user->is_superadmin)
+		if ($this->okt['visitor']->is_superadmin)
 		{
 			return true;
 		}
 
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
-		if (in_array(0, $this->config->perms) || in_array($this->okt->user->group_id, $this->config->perms))
+		if (in_array(0, $this->config->perms) || in_array($this->okt['visitor']->group_id, $this->config->perms))
 		{
 			return true;
 		}
@@ -506,7 +506,7 @@ class Module extends BaseModule
 	public function getPost($mPostId, $iActive = null)
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 
 		if (! is_null($iActive))
@@ -793,7 +793,7 @@ class Module extends BaseModule
 		# insertion dans la DB
 		$this->preparePostCursor($oCursor);
 
-		$oCursor->user_id = $this->okt->user->id;
+		$oCursor->user_id = $this->okt['visitor']->id;
 
 		if (! $oCursor->insert())
 		{
@@ -1308,19 +1308,19 @@ class Module extends BaseModule
 	public function getUsersGroupsForPerms($bWithAdmin = false, $bWithAll = false)
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
 			)
 		);
 
-		if (! $this->okt->user->is_admin && ! $bWithAdmin)
+		if (! $this->okt['visitor']->is_admin && ! $bWithAdmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
+		$rsGroups = $this->okt['groups']->getGroups($aParams);
 
 		$aGroups = array();
 
@@ -1388,7 +1388,7 @@ class Module extends BaseModule
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aGroupsIds[] = Groups::ADMIN;
 		}
@@ -1398,8 +1398,8 @@ class Module extends BaseModule
 
 		# liste des groupes existants réellement dans la base de données
 		# (sauf invités et superadmin)
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language,
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::GUEST,
 				Groups::SUPERADMIN

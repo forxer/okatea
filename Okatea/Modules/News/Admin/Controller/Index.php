@@ -87,7 +87,7 @@ class Index extends Controller
 		
 		if (! $this->okt->checkPerm('news_contentadmin') && ! $this->okt->checkPerm('news_show_all'))
 		{
-			$aParams['user_id'] = $this->okt->user->id;
+			$aParams['user_id'] = $this->okt['visitor']->id;
 		}
 		
 		$sSearch = $this->okt['request']->query->get('search');
@@ -169,7 +169,7 @@ class Index extends Controller
 		}
 		
 		$rsPosts = $this->okt->module('News')->getPostsRecordset(array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'search' => $term
 		));
 		

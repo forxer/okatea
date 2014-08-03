@@ -94,7 +94,7 @@ class Controller extends BaseController
 		$this->page->action = 'logout';
 		
 		# déconnexion et redirection
-		$this->okt->user->logout();
+		$this->okt['visitor']->logout();
 		
 		$this->performRedirect();
 	}
@@ -210,7 +210,7 @@ class Controller extends BaseController
 		}
 		
 		# allready logged
-		if (! $this->okt->user->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
+		if (! $this->okt['visitor']->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
 		{
 			$this->performRedirect();
 		}
@@ -220,7 +220,7 @@ class Controller extends BaseController
 		
 		if (! empty($_POST['form_sent']) && ! empty($_POST['email']))
 		{
-			if ($this->okt->user->forgetPassword($_POST['email'], $this->generateUrl('usersForgetPassword', null, true)))
+			if ($this->okt['visitor']->forgetPassword($_POST['email'], $this->generateUrl('usersForgetPassword', null, true)))
 			{
 				$password_sended = true;
 			}
@@ -231,7 +231,7 @@ class Controller extends BaseController
 			$uid = intval($_GET['uid']);
 			$key = $_GET['key'];
 			
-			if ($this->okt->user->validatePasswordKey($uid, $key))
+			if ($this->okt['visitor']->validatePasswordKey($uid, $key))
 			{
 				$password_updated = true;
 			}
@@ -275,16 +275,16 @@ class Controller extends BaseController
 		}
 		
 		# invité non convié
-		if ($this->okt->user->is_guest)
+		if ($this->okt['visitor']->is_guest)
 		{
 			return $this->redirect(UsersHelpers::getLoginUrl($this->generateUrl('usersProfile')));
 		}
 		
 		# données utilisateur
-		$rsUser = $this->okt->users->getUser($this->okt->user->id);
+		$rsUser = $this->okt->users->getUser($this->okt['visitor']->id);
 		
 		$aUserProfilData = array(
-			'id' => $this->okt->user->id,
+			'id' => $this->okt['visitor']->id,
 			'username' => $rsUser->username,
 			'email' => $rsUser->email,
 			'civility' => $rsUser->civility,
@@ -307,18 +307,18 @@ class Controller extends BaseController
 			$this->rsAdminFields = $this->okt->users->fields->getFields(array(
 				'status' => true,
 				'admin_editable' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 			
 			# Liste des champs utilisateur
 			$this->rsUserFields = $this->okt->users->fields->getFields(array(
 				'status' => true,
 				'user_editable' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 			
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt['visitor']->id);
 			
 			while ($rsFieldsValues->fetch())
 			{
@@ -381,7 +381,7 @@ class Controller extends BaseController
 		if (! empty($_POST['form_sent']))
 		{
 			$aUserProfilData = array(
-				'id' => $this->okt->user->id,
+				'id' => $this->okt['visitor']->id,
 				'username' => isset($_POST['edit_username']) ? $_POST['edit_username'] : '',
 				'email' => isset($_POST['edit_email']) ? $_POST['edit_email'] : '',
 				'civility' => isset($_POST['edit_civility']) ? $_POST['edit_civility'] : '',
@@ -411,7 +411,7 @@ class Controller extends BaseController
 				{
 					while ($this->rsUserFields->fetch())
 					{
-						$this->okt->users->fields->setUserValues($this->okt->user->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
+						$this->okt->users->fields->setUserValues($this->okt['visitor']->id, $this->rsUserFields->id, $aPostedData[$this->rsUserFields->id]);
 					}
 				}
 				
@@ -502,7 +502,7 @@ class Controller extends BaseController
 	 */
 	protected function handleGuest()
 	{
-		if (! $this->okt->user->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
+		if (! $this->okt['visitor']->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
 		{
 			$this->performRedirect();
 		}
@@ -522,7 +522,7 @@ class Controller extends BaseController
 			$this->sUserId = $_REQUEST['user_id'];
 			$user_remember = ! empty($_POST['user_remember']) ? true : false;
 			
-			if ($this->okt->user->login($this->sUserId, $_REQUEST['user_pwd'], $user_remember))
+			if ($this->okt['visitor']->login($this->sUserId, $_REQUEST['user_pwd'], $user_remember))
 			{
 				$this->performRedirect();
 			}
@@ -562,11 +562,11 @@ class Controller extends BaseController
 				'status' => true,
 				'user_editable' => true,
 				'register' => true,
-				'language' => $this->okt->user->language
+				'language' => $this->okt['visitor']->language
 			));
 			
 			# Valeurs des champs
-			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt->user->id);
+			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt['visitor']->id);
 			$aFieldsValues = array();
 			while ($rsFieldsValues->fetch())
 			{
@@ -713,7 +713,7 @@ class Controller extends BaseController
 				# eventuel connexion du nouvel utilisateur
 				if (! $this->okt['config']->users_registration['validate_users_registration'] && $this->okt['config']->users_registration['auto_log_after_registration'])
 				{
-					$this->okt->user->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
+					$this->okt['visitor']->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
 				}
 				
 				$this->performRedirect();

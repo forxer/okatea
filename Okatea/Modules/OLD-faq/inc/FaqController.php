@@ -23,7 +23,7 @@ class FaqController extends Controller
 		# paramètres de base de selection des articles
 		$aFaqParams = array(
 			'visibility' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 		
 		# initialisation des filtres
@@ -158,9 +158,9 @@ class FaqController extends Controller
 		{
 			$this->page->meta_description = $this->rsQuestion->metadescription;
 		}
-		elseif (! empty($this->okt->faq->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->faq->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -172,9 +172,9 @@ class FaqController extends Controller
 		{
 			$this->page->meta_keywords = $this->rsQuestion->meta_keywords;
 		}
-		elseif (! empty($this->okt->faq->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->faq->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{

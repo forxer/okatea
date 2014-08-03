@@ -30,7 +30,7 @@ class Categories extends Controller
 		$rsCategories = $this->okt->module('Pages')->categories->getCategories(array(
 			'active' => 2,
 			'with_count' => true,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# switch statut

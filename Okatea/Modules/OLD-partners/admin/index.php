@@ -63,7 +63,7 @@ if (!empty($_POST['ordered']) && !empty($order))
 # récupération des partenaires
 $rsPartners = $okt->partners->getPartners(array(
 	'active' => 2,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 

@@ -207,7 +207,7 @@ class DebugBar
 			$this->aDebugBarData['definedVars'] = self::getDefinedVars();
 			$this->aDebugBarData['definedConstants'] = self::getDefinedConstants();
 			$this->aDebugBarData['configVars'] = $this->okt['config']->get();
-			$this->aDebugBarData['userVars'] = $this->okt->user->getData(0);
+			$this->aDebugBarData['userVars'] = $this->okt['visitor']->getData(0);
 			$this->aDebugBarData['l10nVars'] = (! empty($GLOBALS['okt_l10n']) ? $GLOBALS['okt_l10n'] : []);
 
 			$this->aDebugBarData['num_data']['definedVars'] = count($this->aDebugBarData['definedVars']);

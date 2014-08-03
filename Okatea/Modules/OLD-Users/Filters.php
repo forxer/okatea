@@ -125,7 +125,7 @@ class Filters extends BaseFilters
 		);
 		while ($rs->fetch())
 		{
-			if ($rs->group_id == Authentification::guest_group_id || $rs->group_id == Authentification::superadmin_group_id && ! $GLOBALS['okt']->user->is_superadmin)
+			if ($rs->group_id == Authentification::guest_group_id || $rs->group_id == Authentification::superadmin_group_id && ! $GLOBALS['okt']['user']->is_superadmin)
 			{
 				continue;
 			}

@@ -113,7 +113,7 @@ class Module extends BaseModule
 	{
 		$aBasesUrl['logout'] = $okt['router']->generate('usersLogout');
 		
-		$aBasesUrl['profil'] = $aBasesUrl['admin'] . '/module.php?m=users&amp;action=profil&amp;id=' . $okt->user->id;
+		$aBasesUrl['profil'] = $aBasesUrl['admin'] . '/module.php?m=users&amp;action=profil&amp;id=' . $okt['visitor']->id;
 	}
 
 	/**

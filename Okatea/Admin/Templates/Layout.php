@@ -15,7 +15,7 @@ $okt['triggers']->callTrigger('adminBeforeSendHeader');
 
 ?>
 <!DOCTYPE html>
-<html class="" lang="<?php echo $okt->user->language ?>">
+<html class="" lang="<?php echo $okt['visitor']->language ?>">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

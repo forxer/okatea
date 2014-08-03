@@ -26,27 +26,27 @@ class User extends Controller
 		$this->init();
 		
 		$this->aPageData['user'] = array(
-			'id' => $this->okt->user->id,
-			'group_id' => $this->okt->user->group_id,
-			'civility' => $this->okt->user->civility,
-			'status' => $this->okt->user->status,
-			'username' => $this->okt->user->username,
-			'lastname' => $this->okt->user->lastname,
-			'firstname' => $this->okt->user->firstname,
-			'displayname' => $this->okt->user->displayname,
+			'id' => $this->okt['visitor']->id,
+			'group_id' => $this->okt['visitor']->group_id,
+			'civility' => $this->okt['visitor']->civility,
+			'status' => $this->okt['visitor']->status,
+			'username' => $this->okt['visitor']->username,
+			'lastname' => $this->okt['visitor']->lastname,
+			'firstname' => $this->okt['visitor']->firstname,
+			'displayname' => $this->okt['visitor']->displayname,
 			'password' => '',
 			'password_confirm' => '',
-			'email' => $this->okt->user->email,
-			'timezone' => $this->okt->user->timezone,
-			'language' => $this->okt->user->language
+			'email' => $this->okt['visitor']->email,
+			'timezone' => $this->okt['visitor']->timezone,
+			'language' => $this->okt['visitor']->language
 		);
 		
 		if ($this->okt['request']->request->has('form_sent'))
 		{
 			$this->aPageData['user'] = array(
-				'id' => $this->okt->user->id,
+				'id' => $this->okt['visitor']->id,
 				'status' => 1,
-				'group_id' => $this->okt->user->group_id,
+				'group_id' => $this->okt['visitor']->group_id,
 				'civility' => $this->okt['request']->request->getInt('civility'),
 				'username' => $this->okt['request']->request->get('username'),
 				'lastname' => $this->okt['request']->request->get('lastname'),
@@ -61,7 +61,7 @@ class User extends Controller
 			
 			if (! $this->okt['flash']->hasError())
 			{
-				if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
+				if ($this->okt['users']->updUser($this->aPageData['user']) !== false)
 				{
 					$this->okt['flash']->success(__('c_a_users_profil_edited'));
 					
@@ -104,13 +104,13 @@ class User extends Controller
 			
 			if (! $this->okt['flash']->hasError())
 			{
-				if (($iUserId = $this->okt->getUsers()->addUser($this->aPageData['user'])) !== false)
+				if (($iUserId = $this->okt['users']->addUser($this->aPageData['user'])) !== false)
 				{
 					/*
 					if ($this->okt['config']->users->custom_fields_enabled)
 					{
 						while ($rsFields->fetch()) {
-							$okt->getUsers()->fields->setUserValues($iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
+							$okt['users']->fields->setUserValues($iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
 						}
 					}
 					*/
@@ -142,7 +142,7 @@ class User extends Controller
 		
 		$this->iUserId = $this->okt['request']->attributes->getInt('user_id');
 		
-		$rsUser = $this->okt->getUsers()->getUser($this->iUserId);
+		$rsUser = $this->okt['users']->getUser($this->iUserId);
 		
 		if (0 === $this->iUserId || 1 === $this->iUserId || $rsUser->isEmpty())
 		{
@@ -166,13 +166,13 @@ class User extends Controller
 		);
 		
 		# un super admin ne peut etre modifié par un non super admin
-		if ($this->aPageData['user']['group_id'] == Groups::SUPERADMIN && ! $this->okt->user->is_superadmin)
+		if ($this->aPageData['user']['group_id'] == Groups::SUPERADMIN && ! $this->okt['visitor']->is_superadmin)
 		{
 			return $this->serve401();
 		}
 		
 		# un admin ne peut etre modifié par un non admin / super admin
-		if ($this->aPageData['user']['group_id'] == Groups::ADMIN && ! $this->okt->user->is_admin)
+		if ($this->aPageData['user']['group_id'] == Groups::ADMIN && ! $this->okt['visitor']->is_admin)
 		{
 			return $this->serve401();
 		}
@@ -288,22 +288,22 @@ class User extends Controller
 	protected function getGroups()
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 		
 		$aParams['group_id_not'][] = Groups::GUEST;
 		
-		if (! $this->okt->user->is_superadmin)
+		if (! $this->okt['visitor']->is_superadmin)
 		{
 			$aParams['group_id_not'][] = Groups::SUPERADMIN;
 		}
 		
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 		
-		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
+		$rsGroups = $this->okt['groups']->getGroups($aParams);
 		
 		$aGroups = array();
 		while ($rsGroups->fetch())
@@ -321,7 +321,7 @@ class User extends Controller
 			return false;
 		}
 		
-		if ($this->okt->getUsers()->validateUser($this->aPageData['user']['id']))
+		if ($this->okt['users']->validateUser($this->aPageData['user']['id']))
 		{
 			# Initialisation du mailer et envoi du mail
 			$oMail = new Mailer($this->okt);
@@ -372,7 +372,7 @@ class User extends Controller
 		$aParams['password'] = $this->okt['request']->request->get('password');
 		$aParams['password_confirm'] = $this->okt['request']->request->get('password_confirm');
 		
-		if ($this->okt->getUsers()->changeUserPassword($aParams))
+		if ($this->okt['users']->changeUserPassword($aParams))
 		{
 			if ($this->okt['request']->request->has('send_password_mail'))
 			{
@@ -438,19 +438,19 @@ class User extends Controller
 		
 		# peuplement et vérification des champs personnalisés obligatoires
 		//		if ($this->okt['config']->users->custom_fields_enabled) {
-		//			$okt->getUsers()->fields->getPostData($rsFields, $aPostedData);
+		//			$okt['users']->fields->getPostData($rsFields, $aPostedData);
 		//		}
 		
 
 		if (! $this->okt['flash']->hasError())
 		{
-			if ($this->okt->getUsers()->updUser($this->aPageData['user']) !== false)
+			if ($this->okt['users']->updUser($this->aPageData['user']) !== false)
 			{
 				/*
 				if ($this->okt['config']->users->custom_fields_enabled)
 				{
 					while ($rsFields->fetch()) {
-						$okt->getUsers()->fields->setUserValues($this->iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
+						$okt['users']->fields->setUserValues($this->iUserId, $rsFields->id, $aPostedData[$rsFields->id]);
 					}
 				}
 				*/

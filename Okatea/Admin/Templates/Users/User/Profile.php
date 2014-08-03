@@ -11,7 +11,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle($view->escape($okt->user->usedname));
+$okt->page->addGlobalTitle($view->escape($okt['visitor']->usedname));
 
 # Tabs
 $okt->page->tabs();
@@ -31,7 +31,7 @@ $okt->page->css->addCss('
 
 <div id="tabered">
 	<ul>
-		<li><a href="#tab-show-profil"><?php echo $view->escape($okt->user->usedname) ?></a></li>
+		<li><a href="#tab-show-profil"><?php echo $view->escape($okt['visitor']->usedname) ?></a></li>
 		<li><a href="#tab-user-form"><?php _e('c_c_action_Edit')?></a></li>
 		<?php if ($okt->checkPerm('change_password')) : ?>
 		<li><a href="#tab-password-form"><?php _e('c_c_user_Password')?></a></li>

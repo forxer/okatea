@@ -20,7 +20,7 @@ class module_##module_id## extends Module
 		# config
 		$this->config = $this->okt->newConfig('conf_##module_id##');
 
-		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt->user->language];
+		$this->config->url = $this->okt->page->getBaseUrl().$this->config->public_url[$this->okt['visitor']->language];
 
 		# définition des routes
 		$this->okt['router']->addRoute('##module_camel_case_id##Page', new Route(

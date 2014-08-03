@@ -98,7 +98,7 @@ $okt->page->js->addReady('
 
 <p class="field">
 	<label><?php echo form::checkbox('p_users_gravatar_enabled', 1, $aPageData['config']['users']['gravatar']['enabled'])?>
-	<?php printf(__('c_a_users_config_enable_gravatar_%s'), '<a href="https://'.$okt->user->language.'.gravatar.com/">Gravatar</a>') ?></label>
+	<?php printf(__('c_a_users_config_enable_gravatar_%s'), '<a href="https://'.$okt['visitor']->language.'.gravatar.com/">Gravatar</a>') ?></label>
 </p>
 
 <div class="two-cols">

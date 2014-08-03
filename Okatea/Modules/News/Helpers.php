@@ -88,7 +88,7 @@ class Helpers
 		
 		$rsCategories = $okt->module('News')->categories->getCategories(array(
 			'active' => 1,
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'with_count' => false
 		));
 		
@@ -173,7 +173,7 @@ class Helpers
 		
 		$aParams = array_merge(array(
 			'active' => 1,
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'category_id' => $iCatId
 		), $aCustomParams);
 		
@@ -241,7 +241,7 @@ class Helpers
 		}
 		
 		# on récupèrent les sous-catégories
-		$rsChildren = $okt->module('News')->categories->getChildren($iCatId, false, $okt->user->language);
+		$rsChildren = $okt->module('News')->categories->getChildren($iCatId, false, $okt['visitor']->language);
 		
 		# on construient le HTML avec les données
 		$aChildren = array();

@@ -356,7 +356,7 @@ if (! $okt['languages']->unique)
 
 foreach ($aLanguages as $sLanguage => $sCode)
 	:
-		if ($okt->user->language != $sCode)
+		if ($okt['visitor']->language != $sCode)
 		:
 			?>
 <a

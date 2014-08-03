@@ -24,7 +24,7 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.gallery');
 $rsGalleriesList = $okt->galleries->tree->getGalleries(array(
 	'active' => 2,
 	'with_count' => true,
-	'language' => $okt->user->language
+	'language' => $okt['visitor']->language
 ));
 
 $iGalleryId = null;
@@ -81,7 +81,7 @@ if (! empty($_REQUEST['gallery_id']))
 	else
 	{
 		# si vérouillé et pas super-admin on renvoi sur la liste
-		if ($rsGallery->locked && ! $okt->user->is_superadmin)
+		if ($rsGallery->locked && ! $okt['visitor']->is_superadmin)
 		{
 			http::redirect('module.php?m=galleries&action=index');
 		}
@@ -122,7 +122,7 @@ if (! empty($_REQUEST['gallery_id']))
 		$aGalleryData['image'] = $rsGallery->getImagesInfo();
 		
 		# galeries voisines
-		$aGalleryData['siblings'] = $okt->galleries->tree->getChildren($rsGallery->parent_id, false, $okt->user->language);
+		$aGalleryData['siblings'] = $okt->galleries->tree->getChildren($rsGallery->parent_id, false, $okt['visitor']->language);
 		
 		$aGalleryData['num_items'] = $rsGallery->num_items;
 		$aGalleryData['num_total_items'] = $rsGallery->num_total;
@@ -236,7 +236,7 @@ if (! empty($_POST['sended']))
 {
 	$aGalleryData['db']['id'] = $iGalleryId;
 	$aGalleryData['db']['active'] = ! empty($_POST['p_active']) ? 1 : 0;
-	$aGalleryData['db']['locked'] = ! empty($_POST['p_locked']) && $okt->user->is_superadmin ? 1 : 0;
+	$aGalleryData['db']['locked'] = ! empty($_POST['p_locked']) && $okt['visitor']->is_superadmin ? 1 : 0;
 	$aGalleryData['db']['parent_id'] = ! empty($_POST['p_parent_id']) ? intval($_POST['p_parent_id']) : 0;
 	$aGalleryData['db']['password'] = ! empty($_POST['p_password']) ? $_POST['p_password'] : '';
 	$aGalleryData['db']['tpl'] = ! empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
@@ -431,7 +431,7 @@ if ($iGalleryId)
 	$okt->page->addButton('galleriesGaleryBtSt', array(
 		'permission' => ($aGalleryData['db']['active'] ? true : false),
 		'title' => __('c_c_action_Show'),
-		'url' => GalleriesHelpers::getGalleryUrl($aGalleryData['locales'][$okt->user->language]['slug']),
+		'url' => GalleriesHelpers::getGalleryUrl($aGalleryData['locales'][$okt['visitor']->language]['slug']),
 		'ui-icon' => 'extlink'
 	));
 }
@@ -439,7 +439,7 @@ if ($iGalleryId)
 # Titre de la page
 if ($iGalleryId)
 {
-	$path = $okt->galleries->tree->getPath($iGalleryId, true, $okt->user->language);
+	$path = $okt->galleries->tree->getPath($iGalleryId, true, $okt['visitor']->language);
 	
 	while ($path->fetch())
 	{
@@ -660,7 +660,7 @@ require OKT_ADMIN_HEADER_FILE;
 					<label><?php echo form::checkbox('p_active', 1, $aGalleryData['db']['active']) ?> <?php _e('c_c_status_Online') ?></label>
 				</p>
 
-				<?php if ($okt->user->is_superadmin) : ?>
+				<?php if ($okt['visitor']->is_superadmin) : ?>
 				<p class="field col">
 					<label><?php echo form::checkbox('p_locked', 1, $aGalleryData['db']['locked']) ?> <?php _e('m_galleries_gallery_locked') ?></label>
 				</p>

@@ -23,7 +23,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('pagesList')));
 			}
@@ -36,7 +36,7 @@ class Controller extends BaseController
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		);
 
 		$sSearch = $this->okt['request']->query->get('search');
@@ -75,9 +75,9 @@ class Controller extends BaseController
 		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages($aPagesParams);
 
 		# meta description
-		if (! empty($this->okt->module('Pages')->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -85,9 +85,9 @@ class Controller extends BaseController
 		}
 
 		# meta keywords
-		if (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -162,7 +162,7 @@ class Controller extends BaseController
 		# récupération de la rubrique
 		$this->rsCategory = $this->okt->module('Pages')->categories->getCategories(array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'slug' => $sCategorySlug
 		));
 
@@ -174,7 +174,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->generateUrl('pagesCategory', array(
 					'slug' => $this->rsCategory->slug
@@ -195,7 +195,7 @@ class Controller extends BaseController
 		# initialisation paramètres
 		$aPagesParams = array(
 			'active' => 1,
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'category_id' => $this->rsCategory->id
 		);
 
@@ -232,9 +232,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -246,9 +246,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -265,7 +265,7 @@ class Controller extends BaseController
 		$this->page->addTitleTag((! empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
-		$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsCategory->id, true, $this->okt->user->language);
+		$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsCategory->id, true, $this->okt['visitor']->language);
 
 		while ($rsPath->fetch())
 		{
@@ -314,7 +314,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->rsPage->url));
 			}
@@ -329,9 +329,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_description = $this->rsPage->meta_description;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -343,9 +343,9 @@ class Controller extends BaseController
 		{
 			$this->page->meta_keywords = $this->rsPage->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -359,7 +359,7 @@ class Controller extends BaseController
 			$this->page->addTitleTag($this->rsPage->category_title);
 
 			# ajout de la hiérarchie des rubriques au fil d'ariane
-			$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsPage->category_id, true, $this->okt->user->language);
+			$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsPage->category_id, true, $this->okt['visitor']->language);
 			while ($rsPath->fetch())
 			{
 				$this->page->breadcrumb->add($rsPath->title, $this->generateUrl('pagesCategory', array(
@@ -406,7 +406,7 @@ class Controller extends BaseController
 		# permission de lecture ?
 		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
 		{
-			if ($this->okt->user->is_guest)
+			if ($this->okt['visitor']->is_guest)
 			{
 				return $this->redirect($this->okt['router']->generateLoginUrl($this->rsPage->url));
 			}

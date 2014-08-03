@@ -17,7 +17,7 @@ while ($rsMenus->fetch())
 	{
 		$rsMenus->items = $okt->navigation->getItems(array(
 			'menu_id' => $rsMenus->id,
-			'language' => $okt->user->language,
+			'language' => $okt['visitor']->language,
 			'active' => 2
 		));
 	}

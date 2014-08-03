@@ -18,7 +18,7 @@ if (! defined('ON_MODULE'))
 # récupération des infos utilisateur
 $user_id = ! empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
 
-if ($user_id === null || $user_id != $okt->user->id)
+if ($user_id === null || $user_id != $okt['visitor']->id)
 {
 	http::redirect('index.php');
 }
@@ -165,7 +165,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 		<p><?php printf(__('c_c_user_hello_%s'), html::escapeHTML($sUserCN)) ?>.</p>
 
-		<p><?php printf(__('c_c_user_last_visit_on_%s'), dt::str('%A %d %B %Y %H:%M',$okt->user->last_visit)); ?>.</p>
+		<p><?php printf(__('c_c_user_last_visit_on_%s'), dt::str('%A %d %B %Y %H:%M',$okt['visitor']->last_visit)); ?>.</p>
 
 		<p><?php printf(__('m_users_%s_cookies_registered'), $iNumCookies)?> - <a
 				href="module.php?m=users&amp;action=profil&amp;id=<?php echo $user_id ?>&amp;delete_cookies=1"><?php _e('m_users_delete_cookies')?></a>

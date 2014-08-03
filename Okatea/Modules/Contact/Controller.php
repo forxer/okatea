@@ -26,7 +26,7 @@ class Controller extends BaseController
 		# liste des champs
 		$this->okt->module('Contact')->rsFields = $this->okt->module('Contact')->fields->getFields(array(
 			'status' => true,
-			'language' => $this->okt->user->language
+			'language' => $this->okt['visitor']->language
 		));
 		
 		# -- CORE TRIGGER : publicModuleContactControllerBeforeFieldsValues
@@ -141,9 +141,9 @@ class Controller extends BaseController
 		}
 		
 		# meta description
-		if (! empty($this->okt->module('Contact')->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->module('Contact')->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -151,9 +151,9 @@ class Controller extends BaseController
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->module('Contact')->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->module('Contact')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -199,9 +199,9 @@ class Controller extends BaseController
 		$this->page->action = 'map';
 		
 		# meta description
-		if (! empty($this->okt->module('Contact')->config->meta_description_map[$this->okt->user->language]))
+		if (! empty($this->okt->module('Contact')->config->meta_description_map[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description_map[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description_map[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -209,9 +209,9 @@ class Controller extends BaseController
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->module('Contact')->config->meta_keywords_map[$this->okt->user->language]))
+		if (! empty($this->okt->module('Contact')->config->meta_keywords_map[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords_map[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords_map[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -220,9 +220,9 @@ class Controller extends BaseController
 		
 		# title tag de la page
 		$sTitle = null;
-		if (isset($this->okt->module('Contact')->config->title_map[$this->okt->user->language]))
+		if (isset($this->okt->module('Contact')->config->title_map[$this->okt['visitor']->language]))
 		{
-			$sTitle = $this->okt->module('Contact')->config->title_map[$this->okt->user->language];
+			$sTitle = $this->okt->module('Contact')->config->title_map[$this->okt['visitor']->language];
 		}
 		elseif ($this->okt->module('Contact')->config->title_map[$this->okt['config']->language])
 		{
@@ -232,9 +232,9 @@ class Controller extends BaseController
 		
 		# titre de la page
 		$sName = null;
-		if (isset($this->okt->module('Contact')->config->name_map[$this->okt->user->language]))
+		if (isset($this->okt->module('Contact')->config->name_map[$this->okt['visitor']->language]))
 		{
-			$sName = $this->okt->module('Contact')->config->name_map[$this->okt->user->language];
+			$sName = $this->okt->module('Contact')->config->name_map[$this->okt['visitor']->language];
 		}
 		elseif ($this->okt->module('Contact')->config->name_map[$this->okt['config']->language])
 		{
@@ -244,9 +244,9 @@ class Controller extends BaseController
 		
 		# titre SEO de la page
 		$sNameSeo = null;
-		if (isset($this->okt->module('Contact')->config->name_seo_map[$this->okt->user->language]))
+		if (isset($this->okt->module('Contact')->config->name_seo_map[$this->okt['visitor']->language]))
 		{
-			$sNameSeo = $this->okt->module('Contact')->config->name_seo_map[$this->okt->user->language];
+			$sNameSeo = $this->okt->module('Contact')->config->name_seo_map[$this->okt['visitor']->language];
 		}
 		elseif ($this->okt->module('Contact')->config->name_seo_map[$this->okt['config']->language])
 		{

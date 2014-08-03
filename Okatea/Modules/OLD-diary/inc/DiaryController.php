@@ -71,9 +71,9 @@ class DiaryController extends Controller
 		$this->oCalendar->setDatesEvents($aDatesEvents);
 		
 		# meta description
-		if (! empty($this->okt->diary->config->meta_description[$this->okt->user->language]))
+		if (! empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -81,9 +81,9 @@ class DiaryController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->diary->config->meta_keywords[$this->okt->user->language]))
+		if (! empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -142,9 +142,9 @@ class DiaryController extends Controller
 		{
 			$this->page->meta_description = $rsEvent->meta_description;
 		}
-		elseif (! empty($this->okt->diary->config->meta_description[$this->okt->user->language]))
+		elseif (! empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt->user->language];
+			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt['visitor']->language];
 		}
 		else
 		{
@@ -156,9 +156,9 @@ class DiaryController extends Controller
 		{
 			$this->page->meta_keywords = $rsEvent->meta_keywords;
 		}
-		elseif (! empty($this->okt->diary->config->meta_keywords[$this->okt->user->language]))
+		elseif (! empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
 		{
-			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt->user->language];
+			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt['visitor']->language];
 		}
 		else
 		{

@@ -124,7 +124,7 @@ class Index extends Controller
 		}
 
 		$rsPages = $this->okt->module('Pages')->pages->getPagesRecordset(array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'search' => $term
 		));
 

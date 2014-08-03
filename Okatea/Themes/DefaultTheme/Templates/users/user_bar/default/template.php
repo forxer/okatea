@@ -8,10 +8,10 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 
 <div id="userbar">
-<?php if (!$okt->user->infos->is_guest) : ?>
+<?php if (!$okt['visitor']->infos->is_guest) : ?>
 
 	<p>
-		<?php printf(__('c_c_user_hello_%s'), $view->escape($okt->user->usedname))?>
+		<?php printf(__('c_c_user_hello_%s'), $view->escape($okt['visitor']->usedname))?>
 
 		<?php # début Okatea : lien page profil
 		if ($okt['config']->users['pages']['profile']) : ?>
@@ -25,7 +25,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 	</p>
 
 	<?php # début Okatea : date de dernière visite ?>
-	<p><?php printf(__('c_c_user_last_visit_on_%s'), DateTime::full($okt->user->last_visit)) ?></p>
+	<p><?php printf(__('c_c_user_last_visit_on_%s'), DateTime::full($okt['visitor']->last_visit)) ?></p>
 	<?php # fin Okatea : date de dernière visite ?>
 
 <?php else : ?>

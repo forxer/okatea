@@ -114,8 +114,8 @@ class Users extends BaseFilters
 			$this->get_users_params['group_id'] = $this->params->group_id;
 		}
 		
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language
 		));
 		
 		$groups_array = array(
@@ -124,7 +124,7 @@ class Users extends BaseFilters
 		);
 		while ($rsGroups->fetch())
 		{
-			if ($rsGroups->group_id == Groups::GUEST || $rsGroups->group_id == Groups::ADMIN && ! $this->okt->user->is_admin || $rsGroups->group_id == Groups::SUPERADMIN && ! $this->okt->user->is_superadmin)
+			if ($rsGroups->group_id == Groups::GUEST || $rsGroups->group_id == Groups::ADMIN && ! $this->okt['visitor']->is_admin || $rsGroups->group_id == Groups::SUPERADMIN && ! $this->okt['visitor']->is_superadmin)
 			{
 				continue;
 			}

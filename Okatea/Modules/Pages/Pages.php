@@ -291,7 +291,7 @@ class Pages
 	public function getPage($mPageId, $iActive = 2)
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'active' => $iActive
 		);
 
@@ -815,19 +815,19 @@ class Pages
 	public function getUsersGroupsForPerms($bWithAdmin = false, $bWithAll = false)
 	{
 		$aParams = array(
-			'language' => $this->okt->user->language,
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
 			)
 		);
 
-		if (! $this->okt->user->is_admin && ! $bWithAdmin)
+		if (! $this->okt['visitor']->is_admin && ! $bWithAdmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
+		$rsGroups = $this->okt['groups']->getGroups($aParams);
 
 		$aGroups = array();
 
@@ -895,7 +895,7 @@ class Pages
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
-		if (! $this->okt->user->is_admin)
+		if (! $this->okt['visitor']->is_admin)
 		{
 			$aGroupsIds[] = Groups::ADMIN;
 		}
@@ -905,8 +905,8 @@ class Pages
 
 		# liste des groupes existants réellement dans la base de données
 		# (sauf invités et superadmin)
-		$rsGroups = $this->okt->getGroups()->getGroups(array(
-			'language' => $this->okt->user->language,
+		$rsGroups = $this->okt['groups']->getGroups(array(
+			'language' => $this->okt['visitor']->language,
 			'group_id_not' => array(
 				Groups::GUEST,
 				Groups::SUPERADMIN
