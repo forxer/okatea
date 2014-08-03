@@ -47,7 +47,7 @@ class L10n extends Controller
 		}
 
 		# Liste des langues
-		$aLanguages = $this->okt->languages->getLanguages();
+		$aLanguages = $this->okt['languages']->getLanguages();
 
 		$aLanguagesForSelect = array();
 		foreach ($aLanguages as $language) {
@@ -74,7 +74,7 @@ class L10n extends Controller
 
 		$iLanguageId = $this->okt['request']->attributes->getInt('language_id');
 
-		$aLanguage = $this->okt->languages->getLanguage($iLanguageId);
+		$aLanguage = $this->okt['languages']->getLanguage($iLanguageId);
 
 		if (!$iLanguageId || !$aLanguage) {
 			return $this->serve404();
@@ -98,9 +98,9 @@ class L10n extends Controller
 				'active' 	=> $this->okt['request']->request->getInt('edit_active')
 			);
 
-			if ($this->okt->languages->checkPostData($aUpdLanguageData))
+			if ($this->okt['languages']->checkPostData($aUpdLanguageData))
 			{
-				$this->okt->languages->updLanguage($aUpdLanguageData);
+				$this->okt['languages']->updLanguage($aUpdLanguageData);
 
 				$this->okt['flash']->success(__('c_a_config_l10n_edited'));
 
@@ -142,9 +142,9 @@ class L10n extends Controller
 				'active' 	=> $this->okt['request']->request->getInt('add_active', 0)
 			);
 
-			if ($this->okt->languages->checkPostData($aAddLanguageData))
+			if ($this->okt['languages']->checkPostData($aAddLanguageData))
 			{
-				$iLanguageId = $this->okt->languages->addLanguage($aAddLanguageData);
+				$iLanguageId = $this->okt['languages']->addLanguage($aAddLanguageData);
 
 				$this->okt['flash']->success(__('c_a_config_l10n_added'));
 
@@ -216,7 +216,7 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->query->has('switch_status'))
 		{
-			$this->okt->languages->switchLangStatus($this->okt['request']->query->get('switch_status'));
+			$this->okt['languages']->switchLangStatus($this->okt['request']->query->get('switch_status'));
 
 			return $this->redirect($this->generateUrl('config_l10n'));
 		}
@@ -228,7 +228,7 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->query->has('enable'))
 		{
-			$this->okt->languages->setLangStatus($this->okt['request']->query->get('enable'), 1);
+			$this->okt['languages']->setLangStatus($this->okt['request']->query->get('enable'), 1);
 
 			$this->okt['flash']->success(__('c_a_config_l10n_enabled'));
 
@@ -242,7 +242,7 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->query->has('disable'))
 		{
-			$this->okt->languages->setLangStatus($this->okt['request']->query->get('disable'), 0);
+			$this->okt['languages']->setLangStatus($this->okt['request']->query->get('disable'), 0);
 
 			$this->okt['flash']->success(__('c_a_config_l10n_disabled'));
 
@@ -256,7 +256,7 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->query->has('delete'))
 		{
-			$this->okt->languages->delLanguage($this->okt['request']->query->get('delete'));
+			$this->okt['languages']->delLanguage($this->okt['request']->query->get('delete'));
 
 			$this->okt['flash']->success(__('c_a_config_l10n_deleted'));
 
@@ -277,9 +277,9 @@ class L10n extends Controller
 				'active' => $this->okt['request']->request->getInt('add_active', 0)
 			);
 
-			if ($this->okt->languages->checkPostData($this->aAddLanguageData))
+			if ($this->okt['languages']->checkPostData($this->aAddLanguageData))
 			{
-				$this->okt->languages->addLanguage($this->aAddLanguageData);
+				$this->okt['languages']->addLanguage($this->aAddLanguageData);
 
 				$this->okt['flash']->success(__('c_a_config_l10n_added'));
 
@@ -301,10 +301,10 @@ class L10n extends Controller
 				foreach ($aLanguagesOrder as $ord => $id)
 				{
 					$ord = ((integer) $ord) + 1;
-					$this->okt->languages->updLanguageOrder($id, $ord);
+					$this->okt['languages']->updLanguageOrder($id, $ord);
 				}
 
-				$this->okt->languages->generateCacheList();
+				$this->okt['languages']->generateCacheList();
 			}
 
 			exit();
@@ -328,10 +328,10 @@ class L10n extends Controller
 				foreach ($aLanguagesOrder as $ord => $id)
 				{
 					$ord = ((integer) $ord) + 1;
-					$this->okt->languages->updLanguageOrder($id, $ord);
+					$this->okt['languages']->updLanguageOrder($id, $ord);
 				}
 
-				$this->okt->languages->generateCacheList();
+				$this->okt['languages']->generateCacheList();
 
 				$this->okt['flash']->success(__('c_a_config_l10n_neworder'));
 
@@ -354,7 +354,7 @@ class L10n extends Controller
 					'admin_lang_switcher' => $this->okt['request']->request->has('p_admin_lang_switcher')
 				));
 
-				$this->okt->languages->generateCacheList();
+				$this->okt['languages']->generateCacheList();
 
 				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
 

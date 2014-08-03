@@ -33,20 +33,20 @@ else
 }
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#item-form', '.lang-switcher-buttons');
 }
 
 # Build possibles URL labels
 $aUrlLabel = array();
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$sBaseUrl = '<code>' . $okt->page->getBaseUrl($aLanguage['code']) . '</code>';
 	
 	$aUrlLabel[$aLanguage['code']] = array();
 	
-	if ($okt->languages->unique)
+	if ($okt['languages']->unique)
 	{
 		$aUrlLabel[$aLanguage['code']][0] = sprintf(__('c_a_config_navigation_item_url_from_%s'), $sBaseUrl);
 		$aUrlLabel[$aLanguage['code']][1] = sprintf(__('c_a_config_navigation_item_url'));
@@ -90,11 +90,11 @@ $okt->page->js->addReady('
 		</p>
 	</div>
 
-	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
 	<div class="two-cols">
 		<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
-			<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span
+			<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_a_config_navigation_item_title') : printf(__('c_a_config_navigation_item_title_in_%s'), $aLanguage['title']) ?> <span
 				class="lang-switcher-buttons"></span></label>
 		<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, $view->escape($aItemData['locales'][$aLanguage['code']]['title'])) ?></p>
 

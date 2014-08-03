@@ -68,9 +68,9 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<?php _e('c_a_config_advanced_news_feed_enabled') ?></label>
 	</p>
 
-	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="p_news_feed_url_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_a_config_advanced_news_feed_url') : printf(__('c_a_config_advanced_news_feed_url_in_%s'), $view->escape($aLanguage['title'])); ?><span
+		<label for="p_news_feed_url_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_a_config_advanced_news_feed_url') : printf(__('c_a_config_advanced_news_feed_url_in_%s'), $view->escape($aLanguage['title'])); ?><span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($aPageData['values']['news_feed']['url'][$aLanguage['code']]) ? $view->escape($aPageData['values']['news_feed']['url'][$aLanguage['code']]) : ''))?>
 	<?php endforeach; ?>

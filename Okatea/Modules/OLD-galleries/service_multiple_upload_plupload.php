@@ -39,7 +39,7 @@ $gallery_id = isset($_REQUEST['gallery_id']) ? $_REQUEST['gallery_id'] : 0;
 
 $aItemLocalesData = array();
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$aItemLocalesData[$aLanguage['code']] = array();
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
@@ -52,7 +52,7 @@ if (empty($gallery_id))
 
 $rsGalleryLocales = $okt->galleries->tree->getGalleryL10n($gallery_id);
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	while ($rsGalleryLocales->fetch())
 	{

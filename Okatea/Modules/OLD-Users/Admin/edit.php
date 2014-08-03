@@ -258,7 +258,7 @@ $okt['triggers']->callTrigger('adminModUsersEditProcess', $aEditPageInfos);
 ----------------------------------------------------------*/
 
 # Langues
-$rs = $okt->languages->getLanguages();
+$rs = $okt['languages']->getLanguages();
 $aLanguages = array();
 while ($rs->fetch())
 {

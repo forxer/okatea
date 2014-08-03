@@ -104,7 +104,7 @@ class GuestbookController extends Controller
 		$signaturesList = $this->okt->guestbook->getSig($aGuestbookParams);
 		
 		$aLanguages = array();
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$aLanguages[$aLanguage['title']] = $aLanguage['code'];
 		}

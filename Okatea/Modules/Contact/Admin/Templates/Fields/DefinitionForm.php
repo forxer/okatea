@@ -9,7 +9,7 @@ use Okatea\Modules\Contact\Fields;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#field-definition-form', '.lang-switcher-buttons');
 }
@@ -17,10 +17,10 @@ if (! $okt->languages->unique)
 ?>
 
 <div class="two-cols">
-	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 	<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
 		<label for="field_title_<?php echo $aLanguage['code'] ?>"
-			title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt->languages->unique ? _e('m_contact_field_title') : printf(__('m_contact_field_title_in_%s'), $aLanguage['title']) ?> <span
+			title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt['languages']->unique ? _e('m_contact_field_title') : printf(__('m_contact_field_title_in_%s'), $aLanguage['title']) ?> <span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('field_title['.$aLanguage['code'].']', 'field_title_'.$aLanguage['code']), 60, 255, $view->escape($aFieldData['locales'][$aLanguage['code']]['title'])) ?></p>
 	<?php endforeach; ?>
@@ -42,9 +42,9 @@ if (! $okt->languages->unique)
 </div>
 
 <div class="two-cols">
-	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 	<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="field_description_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_contact_field_description') : printf(__('m_contact_field_description_in_%s'), $aLanguage['title']) ?> <span
+		<label for="field_description_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('m_contact_field_description') : printf(__('m_contact_field_description_in_%s'), $aLanguage['title']) ?> <span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::textarea(array('field_description['.$aLanguage['code'].']', 'field_description_'.$aLanguage['code']), 58, 5, $view->escape($aFieldData['locales'][$aLanguage['code']]['description'])) ?></p>
 	<?php endforeach; ?>

@@ -162,7 +162,7 @@ class Filters extends BaseFilters
 
 	protected function setFilterLanguage()
 	{
-		if ($this->part !== 'admin' || $this->okt->languages->unique)
+		if ($this->part !== 'admin' || $this->okt['languages']->unique)
 		{
 			return null;
 		}
@@ -174,7 +174,7 @@ class Filters extends BaseFilters
 		}
 		
 		$aSelectLanguagesValues = array();
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$aSelectLanguagesValues[Escaper::html($aLanguage['title'])] = Escaper::html($aLanguage['code']);
 		}

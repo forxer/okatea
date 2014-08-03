@@ -451,7 +451,7 @@ class Visitor
 			return false;
 		}
 
-		if (! $this->okt->languages->isActive($sLanguage)) {
+		if (! $this->okt['languages']->isActive($sLanguage)) {
 			return false;
 		}
 
@@ -490,7 +490,7 @@ class Visitor
 			$sLang = $this->okt['request']->getPreferredLanguage();
 		}
 
-		if ($this->okt->languages->isActive($sLang)) {
+		if ($this->okt['languages']->isActive($sLang)) {
 			return $sLang;
 		}
 		else {

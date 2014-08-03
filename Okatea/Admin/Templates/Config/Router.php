@@ -99,12 +99,12 @@ $okt->page->tabs();
 				?>
 			<tr id="route_<?php echo $sRouteName ?>">
 					<th class="<?php echo $td_class ?> fake-td" scope="row"><p
-							class="title"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basename'] : $sRouteName; ?></p></th>
+							class="title"><?php echo $okt['languages']->unique ? $aWebsiteRouteInfos['basename'] : $sRouteName; ?></p></th>
 					<td class="<?php echo $td_class ?>">
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '')?>
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '')?>
 				</td>
-					<td class="<?php echo $td_class ?>"><?php echo $okt->languages->unique ? $aWebsiteRouteInfos['basepath'] : $aWebsiteRouteInfos['path']; ?></td>
+					<td class="<?php echo $td_class ?>"><?php echo $okt['languages']->unique ? $aWebsiteRouteInfos['basepath'] : $aWebsiteRouteInfos['path']; ?></td>
 					<td class="<?php echo $td_class ?>"><?php echo $aWebsiteRouteInfos['controller']; ?></td>
 					<td class="<?php echo $td_class ?>"><?php $oDefaults = new Stack($aWebsiteRouteInfos['defaults']); echo $oDefaults; ?></td>
 					<td class="<?php echo $td_class ?>"><?php $oRequirements = new Stack($aWebsiteRouteInfos['requirements']); echo $oRequirements; ?></td>
@@ -180,7 +180,7 @@ $okt->page->tabs();
 				?>
 			<tr id="route_<?php echo $sRouteName ?>">
 					<th class="<?php echo $td_class ?> fake-td" scope="row"><p
-							class="title"><?php echo $okt->languages->unique ? $aAdminRouteInfos['basename'] : $sRouteName; ?></p></th>
+							class="title"><?php echo $okt['languages']->unique ? $aAdminRouteInfos['basename'] : $sRouteName; ?></p></th>
 					<td class="<?php echo $td_class ?>">
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName]) ? '<p><strong>'.$GLOBALS['okt_l10n']['c_a_route_name_'.$sShortName].'</strong></p>'  : '')?>
 					<?php echo (isset($GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName]) ? '<p>'.$GLOBALS['okt_l10n']['c_a_route_desc_'.$sShortName].'</p>' : '')?>

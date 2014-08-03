@@ -69,7 +69,7 @@ class Groups extends Controller
 
 		$aGroupData['locales'] = array();
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$aGroupData['locales'][$aLanguage['code']] = array();
 			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
@@ -80,14 +80,14 @@ class Groups extends Controller
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			foreach ($this->okt->languages->list as $aLanguage)
+			foreach ($this->okt['languages']->list as $aLanguage)
 			{
 				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
 				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
-					if ($this->okt->languages->unique)
+					if ($this->okt['languages']->unique)
 					{
 						$this->okt['flash']->error(__('c_a_users_must_enter_group_title'));
 					}
@@ -152,7 +152,7 @@ class Groups extends Controller
 
 		while ($rsGroupL10n->fetch())
 		{
-			if (isset($this->okt->languages->list[$rsGroupL10n->language]))
+			if (isset($this->okt['languages']->list[$rsGroupL10n->language]))
 			{
 				$aGroupData['locales'][$rsGroupL10n->language] = array();
 				$aGroupData['locales'][$rsGroupL10n->language]['title'] = $rsGroupL10n->title;
@@ -164,14 +164,14 @@ class Groups extends Controller
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			foreach ($this->okt->languages->list as $aLanguage)
+			foreach ($this->okt['languages']->list as $aLanguage)
 			{
 				$aGroupData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
 				$aGroupData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('p_description[' . $aLanguage['code'] . ']', '', true);
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
-					if ($this->okt->languages->unique)
+					if ($this->okt['languages']->unique)
 					{
 						$this->okt['flash']->error(__('c_a_users_must_enter_group_title'));
 					}

@@ -11,11 +11,10 @@ use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Html\Modifiers;
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
-use Okatea\Tao\Triggers;
+use Okatea\Tao\Triggers\Triggers;
 
 class Module extends BaseModule
 {
-
 	public $config;
 
 	public $categories;
@@ -157,7 +156,7 @@ class Module extends BaseModule
 			var pages = ' . json_encode($aPages) . ';
 		');
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->okt->page->js->addReady('
 				$("#p_home_page_item_' . $aLanguage['code'] . '").change(function(){

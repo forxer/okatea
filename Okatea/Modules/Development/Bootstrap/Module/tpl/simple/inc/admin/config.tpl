@@ -58,7 +58,7 @@ if (!empty($_POST['form_sent']))
 $okt->page->addGlobalTitle(__('m_##module_id##_configuration'));
 
 # Lang switcher
-if (!$okt->languages->unique) {
+if (!$okt['languages']->unique) {
 	$okt->page->langSwitcher('#tabered','.lang-switcher-buttons');
 }
 
@@ -74,21 +74,21 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<fieldset>
 			<legend><?php _e('c_c_seo_identity_meta') ?></legend>
 
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_intitle') : printf(__('c_c_seo_module_intitle_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_module_intitle') : printf(__('c_c_seo_module_intitle_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_name['.$aLanguage['code'].']','p_name_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->name[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->name[$aLanguage['code']]) : '')) ?></p>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_title_tag') : printf(__('c_c_seo_module_title_tag_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_module_title_tag') : printf(__('c_c_seo_module_title_tag_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->title[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->title[$aLanguage['code']]) : '')) ?></p>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_meta_desc') : printf(__('c_c_seo_meta_desc_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_meta_desc') : printf(__('c_c_seo_meta_desc_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->meta_description[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->meta_description[$aLanguage['code']]) : '')) ?></p>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_module_title_seo') : printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_name_seo_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_module_title_seo') : printf(__('c_c_seo_module_title_seo_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_name_seo['.$aLanguage['code'].']','p_name_seo_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->name_seo[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->name_seo[$aLanguage['code']]) : '')) ?></p>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'), html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 57, 5, (isset($okt->##module_id##->config->meta_keywords[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->meta_keywords[$aLanguage['code']]) : '')) ?></p>
 
 			<?php endforeach; ?>
@@ -98,9 +98,9 @@ require OKT_ADMIN_HEADER_FILE; ?>
 		<fieldset>
 			<legend><?php _e('c_c_seo_schema_url') ?></legend>
 
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
-			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_##module_id##_config_url_from_%s'), '<code>'.$okt['request']->getSchemeAndHttpHost().$okt['config']->app_path.($okt->languages->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
+			<p class="field" lang="<?php echo $aLanguage['code'] ?>"><label for="p_public_url_<?php echo $aLanguage['code'] ?>"><?php printf(__('m_##module_id##_config_url_from_%s'), '<code>'.$okt['request']->getSchemeAndHttpHost().$okt['config']->app_path.($okt['languages']->unique ? '' : $aLanguage['code'].'/').'</code>', html::escapeHTML($aLanguage['title'])) ?><span class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_public_url['.$aLanguage['code'].']','p_public_url_'.$aLanguage['code']), 60, 255, (isset($okt->##module_id##->config->public_url[$aLanguage['code']]) ? html::escapeHTML($okt->##module_id##->config->public_url[$aLanguage['code']]) : '')) ?></p>
 
 			<?php endforeach; ?>

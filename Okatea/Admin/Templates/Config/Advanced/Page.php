@@ -13,7 +13,7 @@ $view->extend('Layout');
 $okt->page->addGlobalTitle(__('c_a_config_advanced'));
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

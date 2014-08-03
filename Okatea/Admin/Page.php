@@ -183,14 +183,14 @@ class Page extends BasePage
 		}
 
 		# languages switcher
-		if ($this->okt['config']->admin_lang_switcher && ! $this->okt->languages->unique)
+		if ($this->okt['config']->admin_lang_switcher && ! $this->okt['languages']->unique)
 		{
 			$sBaseUri = $this->okt['request']->getUri();
 			$sBaseUri .= strpos($sBaseUri, '?') ? '&' : '?';
 
 			$iCount = 50;
 
-			foreach ($this->okt->languages->list as $aLanguage)
+			foreach ($this->okt['languages']->list as $aLanguage)
 			{
 				if ($aLanguage['code'] === $this->okt->user->language)
 				{

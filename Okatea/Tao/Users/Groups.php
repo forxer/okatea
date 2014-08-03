@@ -388,7 +388,7 @@ class Groups
 	 */
 	protected function setGroupL10n($iGroupId, $aData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$oCursor = $this->oDb->openCursor($this->sGroupsL10nTable);
 

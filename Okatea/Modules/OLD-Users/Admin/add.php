@@ -115,7 +115,7 @@ if (! empty($_POST['add_user']))
 ----------------------------------------------------------*/
 
 # Langues
-$rs = $okt->languages->getLanguages();
+$rs = $okt['languages']->getLanguages();
 $aLanguages = array();
 while ($rs->fetch())
 {

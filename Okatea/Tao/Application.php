@@ -7,15 +7,7 @@
  */
 namespace Okatea\Tao;
 
-use Monolog\Logger;
 use Monolog\ErrorHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\FingersCrossedHandler;
-use Monolog\Handler\FirePHPHandler;
-use Monolog\Processor\IntrospectionProcessor;
-use Monolog\Processor\WebProcessor;
-use Monolog\Processor\MemoryUsageProcessor;
-use Monolog\Processor\MemoryPeakUsageProcessor;
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Tao\Config\Config;
 use Okatea\Tao\Config\ConfigServiceProvider;
@@ -23,6 +15,7 @@ use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+use Okatea\Tao\L10n\L10nServiceProvider;
 use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\LoggerServiceProvider;
 use Okatea\Tao\Misc\Utilities;
@@ -87,13 +80,6 @@ class Application extends Container
 	 * @var Okatea\Tao\Localization
 	 */
 	public $l10n;
-
-	/**
-	 * Le gestionnaire de langues.
-	 *
-	 * @var Okatea\Tao\Languages
-	 */
-	public $languages;
 
 	/**
 	 * Le gestionnaire de modules.
@@ -189,6 +175,7 @@ class Application extends Container
 
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
+		$this->register(new L10nServiceProvider());
 		$this->register(new LoggerServiceProvider());
 		$this->register(new RequestServiceProvider());
 		$this->register(new RouterServiceProvider());
@@ -206,8 +193,6 @@ class Application extends Container
 		$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
 
 		$this->startDebug();
-
-		$this->startTriggers();
 	}
 
 	/**
@@ -228,8 +213,6 @@ class Application extends Container
 	public function run()
 	{
 		$this->startDatabase();
-
-		$this->startLanguages();
 
 		$this->startUser();
 
@@ -260,35 +243,13 @@ class Application extends Container
 		define('OKT_START_TIME', microtime(true));
 
 		# print errors in debug mode
-		if ($this['debug'])
-		{
+		if ($this['debug']) {
 			Debug::enable();
 			DebugErrorHandler::setLogger($this['logger']);
 		}
-
 		# otherwise log them
-		else
-		{
-			$phpLoggerAll = new Logger(
-				'php_error',
-				[
-					new FingersCrossedHandler(
-						new StreamHandler(
-							$this['logs_dir'] . '/php_errors.log',
-							Logger::INFO
-						),
-						Logger::WARNING
-					)
-				],
-				[
-					new IntrospectionProcessor(),
-					new WebProcessor(),
-					new MemoryUsageProcessor(),
-					new MemoryPeakUsageProcessor()
-				]
-			);
-
-			ErrorHandler::register($phpLoggerAll);
+		else {
+			ErrorHandler::register($this['phpLogger']);
 		}
 	}
 
@@ -314,14 +275,6 @@ class Application extends Container
 			if ($this->db->hasError()) {
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
-		}
-	}
-
-	public function startLanguages()
-	{
-		if (null === $this->languages)
-		{
-			$this->languages = new Languages($this);
 		}
 	}
 

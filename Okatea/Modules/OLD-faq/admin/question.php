@@ -30,7 +30,7 @@ if ($okt->faq->config->enable_metas)
 	$p_slug = array();
 }
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$p_title[$aLanguage['code']] = '';
 	$p_content[$aLanguage['code']] = '';
@@ -65,7 +65,7 @@ if (! empty($_REQUEST['questions_id']))
 	));
 	$question_i18n = $okt->faq->getQuestionL10n($questions_id);
 	
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	{
 		$p_title[$aLanguage['code']] = '';
 		$p_content[$aLanguage['code']] = '';
@@ -232,7 +232,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 $okt->page->applyRte($okt->faq->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -282,7 +282,7 @@ require OKT_ADMIN_HEADER_FILE;
 		<div id="tab_question">
 			<h3><?php _e('m_faq_question') ?></h3>
 
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php _e('m_faq_title')?> <span
@@ -386,7 +386,7 @@ require OKT_ADMIN_HEADER_FILE;
 					class="lang-switcher-buttons"></span>
 			</h3>
 
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 			<div class="two-cols" lang="<?php echo $aLanguage['code'] ?>">
 				<?php for ($i=0;$i<$okt->faq->config->files['number'];$i++) : ?>
 				<div class="col">
@@ -421,7 +421,7 @@ require OKT_ADMIN_HEADER_FILE;
 		<div id="tab_seo">
 			<h3><?php _e('c_c_seo_help') ?></h3>
 
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_title_tag_<?php echo $aLanguage['code'] ?>"><?php _e('m_faq_title_tag')?> <span

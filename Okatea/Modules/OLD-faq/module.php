@@ -282,7 +282,7 @@ class module_faq extends Module
 		{
 			if (empty($this->params['title'][$this->okt['config']->language]) || empty($this->params['content'][$this->okt['config']->language]))
 			{
-				$this->error->set(sprintf(__('m_faq_error_missing_default_language_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
+				$this->error->set(sprintf(__('m_faq_error_missing_default_language_%s'), $this->okt['languages']->list[$this->okt['config']->language]['title']));
 			}
 		}
 	}
@@ -710,7 +710,7 @@ class module_faq extends Module
 
 	protected function setPostL10n()
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$query = 'INSERT INTO ' . $this->t_faq_cat_locales . ' ' . '(cat_id, language, title) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ' ';
 			
@@ -737,7 +737,7 @@ class module_faq extends Module
 		
 		$aFiles = array();
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$aFiles[$aLanguage['code']] = array();
 			$j = 1;
@@ -799,7 +799,7 @@ class module_faq extends Module
 		
 		$aNewFiles = array();
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$aNewFiles[$aLanguage['code']] = array();
 			$j = 1;
@@ -1158,7 +1158,7 @@ class module_faq extends Module
 	 */
 	protected function setQuestionL10n()
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->params['content'][$aLanguage['code']] = $this->okt->HTMLfilter($this->params['content'][$aLanguage['code']]);
 			$words = implode(' ', Modifiers::splitWords($this->params['title'][$aLanguage['code']] . ' ' . $this->params['content'][$aLanguage['code']]));

@@ -77,10 +77,10 @@ class AdminBar
 			'intitle' => sprintf(__('c_c_user_hello_%s'), Escaper::html(Users::getUserDisplayName($this->okt->user->username, $this->okt->user->lastname, $this->okt->user->firstname, $this->okt->user->displayname)))
 		);
 		
-		if (! $this->okt->languages->unique)
+		if (! $this->okt['languages']->unique)
 		{
 			$iStartIdx = 150;
-			foreach ($this->okt->languages->list as $aLanguage)
+			foreach ($this->okt['languages']->list as $aLanguage)
 			{
 				if ($aLanguage['code'] == $this->okt->user->language)
 				{

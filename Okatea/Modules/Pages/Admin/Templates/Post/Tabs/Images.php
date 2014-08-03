@@ -48,17 +48,17 @@ use Okatea\Tao\Misc\Utilities;
 		
 		?>
 
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
+				<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label
-					for="p_images_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('m_pages_page_image_title_%s'), $i) : printf(__('m_pages_page_image_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
+					for="p_images_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_page_image_title_%s'), $i) : printf(__('m_pages_page_image_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_title_'.$i.'['.$aLanguage['code'].']','p_images_title_'.$i.'_'.$aLanguage['code']), 40, 255, (isset($aCurImageTitle[$aLanguage['code']]) ? $view->escape($aCurImageTitle[$aLanguage['code']]) : '')) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label
-					for="p_images_alt_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('m_pages_page_image_alt_text_%s'), $i) : printf(__('m_pages_page_image_alt_text_%s_in_%s'), $i, $aLanguage['title']) ?> <span
+					for="p_images_alt_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_page_image_alt_text_%s'), $i) : printf(__('m_pages_page_image_alt_text_%s_in_%s'), $i, $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_alt_'.$i.'['.$aLanguage['code'].']','p_images_alt_'.$i.'_'.$aLanguage['code']), 40, 255, (isset($aCurImageAlt[$aLanguage['code']]) ? $view->escape($aCurImageAlt[$aLanguage['code']]) : '')) ?></p>
 
@@ -81,16 +81,16 @@ use Okatea\Tao\Misc\Utilities;
 
 			<?php else : ?>
 
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
+				<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label
-					for="p_images_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('m_pages_page_image_title_%s'), $i) : printf(__('m_pages_page_image_title_%s_in_%s'), $i,$aLanguage['title']) ?> <span
+					for="p_images_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_page_image_title_%s'), $i) : printf(__('m_pages_page_image_title_%s_in_%s'), $i,$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_title_'.$i.'['.$aLanguage['code'].']','p_images_title_'.$i.'_'.$aLanguage['code']), 40, 255, '') ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label
-					for="p_images_alt_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? printf(__('m_pages_page_image_alt_text_%s'), $i) : printf(__('m_pages_page_image_alt_text_%s_in_%s'), $i,$aLanguage['title']) ?> <span
+					for="p_images_alt_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_page_image_alt_text_%s'), $i) : printf(__('m_pages_page_image_alt_text_%s_in_%s'), $i,$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_alt_'.$i.'['.$aLanguage['code'].']','p_images_alt_'.$i.'_'.$aLanguage['code']), 40, 255, '') ?></p>
 				<?php endforeach; ?>

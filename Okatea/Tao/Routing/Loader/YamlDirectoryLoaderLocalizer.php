@@ -97,7 +97,7 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 		$methods = isset($config['methods']) ? $config['methods'] : array();
 		$condition = isset($config['condition']) ? $config['condition'] : null;
 		
-		if (! $this->okt->languages->unique)
+		if (! $this->okt['languages']->unique)
 		{
 			$name .= '-' . $this->language;
 			$config['path'] = '/' . $this->language . $config['path'];

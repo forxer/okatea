@@ -471,7 +471,7 @@ class Pages
 	 */
 	protected function setPageL10n($iPageId, $aPageLocalesData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (empty($aPageLocalesData[$aLanguage['code']]['title']))
 			{
@@ -668,7 +668,7 @@ class Pages
 	public function checkPostData($aPageData)
 	{
 		$bHasAtLeastOneTitle = false;
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (empty($aPageData['locales'][$aLanguage['code']]['title']))
 			{
@@ -683,7 +683,7 @@ class Pages
 
 		if (! $bHasAtLeastOneTitle)
 		{
-			if ($this->okt->languages->unique)
+			if ($this->okt['languages']->unique)
 			{
 				$this->error->set(__('m_pages_page_must_enter_title'));
 			}

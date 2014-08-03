@@ -267,7 +267,7 @@ class Page
 	{
 		$str = $this->okt['config']->app_path;
 
-		if (! $this->okt->languages->unique)
+		if (! $this->okt['languages']->unique)
 		{
 			$str .= ($sLanguage !== null ? $sLanguage : $this->okt->user->language) . '/';
 		}
@@ -538,7 +538,7 @@ class Page
 		');
 
 		$i = 0;
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->js->addScript('
 				buttons[' . $i ++ . '] = $(\'<a href="#" class="lang-switcher-button" data-lang-code="' . $aLanguage['code'] . '">\'

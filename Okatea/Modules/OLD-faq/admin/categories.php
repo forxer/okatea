@@ -19,7 +19,7 @@ $iCategoryId = ! empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id
 
 $add_title = array();
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$add_title[$aLanguage['code']] = '';
 }
@@ -60,7 +60,7 @@ if ($do == 'edit' && $iCategoryId > 0)
 	$rsCategory = $okt->faq->getCategory($iCategoryId);
 	$rsCategoryI18n = $okt->faq->getCategoryL10n($iCategoryId);
 	
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	{
 		$edit_title[$aLanguage['code']] = '';
 		
@@ -148,7 +148,7 @@ $okt->page->addGlobalTitle(__('m_faq_sections'));
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -191,7 +191,7 @@ require OKT_ADMIN_HEADER_FILE;
 		<form id="edit-cat-form" action="module.php" method="post">
 			<h3><?php _e('m_faq_edit_section')?></h3>
 
-	<?php foreach ($okt->languages->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="edit_title_<?php echo $aLanguage['code'] ?>"
 					title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_faq_section_intitle') ?> <span
@@ -281,7 +281,7 @@ $i = 1;
 		<form id="add-cat-form" action="module.php" method="post">
 			<h3><?php _e('m_faq_add_section')?></h3>
 
-		<?php foreach ($okt->languages->list as $aLanguage) : ?>
+		<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 		<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="add_title_<?php echo $aLanguage['code'] ?>"
 					title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('m_faq_section_intitle') ?> <span

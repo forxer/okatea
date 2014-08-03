@@ -109,7 +109,7 @@ if (! empty($_POST['form_sent']))
 ----------------------------------------------------------*/
 
 # langues
-$rs = $okt->languages->getLanguages();
+$rs = $okt['languages']->getLanguages();
 $aLanguages = array();
 while ($rs->fetch())
 {

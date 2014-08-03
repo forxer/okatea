@@ -155,7 +155,7 @@ if (! empty($_GET['added']))
 
 		<?php
 # début champ langue
-		if (! $okt->languages->unique && $okt->guestbook->config->chp_language)
+		if (! $okt['languages']->unique && $okt->guestbook->config->chp_language)
 		:
 			?>
 
@@ -349,7 +349,7 @@ if ($signaturesList->numPages > 1)
 
 <?php
 # début affichage liens vers les autres langues
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 :
 	?>
 <p><?php

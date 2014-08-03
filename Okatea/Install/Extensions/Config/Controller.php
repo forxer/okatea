@@ -39,11 +39,11 @@ class Controller extends BaseController
 			{
 				if (empty($sTitle))
 				{
-					if ($this->okt->languages->unique) {
+					if ($this->okt['languages']->unique) {
 						$this->okt->error->set(__('c_a_config_please_enter_website_title'));
 					}
 					else {
-						$this->okt->error->set(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt->languages->list[$sLanguageCode]['title']));
+						$this->okt->error->set(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt['languages']->list[$sLanguageCode]['title']));
 					}
 				}
 			}

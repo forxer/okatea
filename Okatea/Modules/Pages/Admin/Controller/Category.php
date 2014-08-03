@@ -77,7 +77,7 @@ class Category extends Controller
 		
 		$rsCategoryI18n = $this->okt->module('Pages')->categories->getCategoryL10n($this->aCategoryData['cat']['id']);
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			while ($rsCategoryI18n->fetch())
 			{
@@ -239,7 +239,7 @@ class Category extends Controller
 		$this->aCategoryData['cat']['tpl'] = '';
 		$this->aCategoryData['cat']['items_tpl'] = '';
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->aCategoryData['locales'][$aLanguage['code']] = array();
 			
@@ -273,7 +273,7 @@ class Category extends Controller
 		$this->aCategoryData['cat']['tpl'] = $this->okt['request']->request->get('p_tpl');
 		$this->aCategoryData['cat']['items_tpl'] = $this->okt['request']->request->get('p_items_tpl');
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
 			

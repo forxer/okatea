@@ -24,7 +24,7 @@ $aAnswers = array();
 
 # Boucle sur la liste des langues disponibles
 # afin d'initialiser ces tableaux
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$aQuestions[$aLanguage['code']] = '';
 	$aAnswers[$aLanguage['code']] = '';
@@ -36,7 +36,7 @@ foreach ($okt->languages->list as $aLanguage)
 # Formulaire envoyé
 if (! empty($_POST['manage_questions']))
 {
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	{
 		$aQuestions[$aLanguage['code']] = ! empty($_POST['questions'][$aLanguage['code']]) ? $_POST['questions'][$aLanguage['code']] : array();
 		$aAnswers[$aLanguage['code']] = ! empty($_POST['reponses'][$aLanguage['code']]) ? $_POST['reponses'][$aLanguage['code']] : array();
@@ -110,13 +110,13 @@ require OKT_ADMIN_HEADER_FILE;
 
 	<?php 
 # Boucle sur les langues
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	:
 		?>
 
 	<fieldset>
 		<legend><?php
-		if ($okt->languages->unique)
+		if ($okt['languages']->unique)
 		{
 			_e('Questions and answers');
 		}

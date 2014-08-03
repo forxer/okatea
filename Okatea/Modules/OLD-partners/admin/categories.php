@@ -57,7 +57,7 @@ $category_id = ! empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id
 if ($category_id)
 {
 	# infos de la catégorie à modifier
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	{
 		$category = $okt->partners->getCategories(array(
 			'id' => $category_id,
@@ -244,7 +244,7 @@ $okt->page->validate('edit-category-form', array(
 $okt->page->tabs(array(), '.tabered');
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('.tabered', '.lang-switcher-buttons');
 }
@@ -342,7 +342,7 @@ require OKT_ADMIN_HEADER_FILE;
 				<li><a href="#tab-parent"><?php _e('m_partners_Relative')?></a></li>
 			</ul>
 			<div id="tab-name">
-				<?php foreach ($okt->languages->list as $aLanguage) :?>
+				<?php foreach ($okt['languages']->list as $aLanguage) :?>
 				<p class="field" lang="<?php echo $aLanguage['code']?>">
 					<label for="add_category_name"
 						title="<?php _e('c_c_required_field') ?>"
@@ -486,7 +486,7 @@ while ($categories_list->fetch())
 				<li><a href="#tab-options"><?php _e('m_partners_Options')?></a></li>
 			</ul>
 			<div id="tab-edit-name">
-				<?php foreach ($okt->languages->list as $aLanguage) : ?>
+				<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 				<p class="field" lang="<?php echo $aLanguage['code']?>">
 					<label for="edit_category_name"
 						title="<?php _e('c_c_required_field') ?>"

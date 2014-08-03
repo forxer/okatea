@@ -28,7 +28,7 @@ $aFieldData = array(
 );
 $value = array();
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$aFieldData['title'][$aLanguage['code']] = '';
 	$aFieldData['description'][$aLanguage['code']] = '';
@@ -49,7 +49,7 @@ if (! is_null($iFieldId))
 		'html_id' => $rsField->html_id
 	);
 	
-	foreach ($okt->languages->list as $aLanguage)
+	foreach ($okt['languages']->list as $aLanguage)
 	{
 		$aFieldData['title'][$aLanguage['code']] = '';
 		$aFieldData['description'][$aLanguage['code']] = '';
@@ -91,7 +91,7 @@ if (! empty($_POST['form_sent']))
 		}
 		else
 		{
-			foreach ($okt->languages->list as $aLanguage)
+			foreach ($okt['languages']->list as $aLanguage)
 			{
 				$value[$aLanguage['code']] = ! empty($_POST['p_value'][$aLanguage['code']]) && is_array($_POST['p_value'][$aLanguage['code']]) ? array_filter(array_map('trim', $_POST['p_value'][$aLanguage['code']])) : '';
 			}
@@ -116,7 +116,7 @@ if (! empty($_POST['form_sent']))
 			'description' => (! empty($_POST['p_description']) ? $_POST['p_description'] : array())
 		);
 		
-		foreach ($okt->languages->list as $aLanguage)
+		foreach ($okt['languages']->list as $aLanguage)
 		{
 			if (empty($aFieldData['title'][$aLanguage['code']]))
 			{
@@ -175,7 +175,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 $aTypes = UsersCustomFields::getFieldsTypes();
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#form', '.lang-switcher-buttons');
 }
@@ -224,7 +224,7 @@ if ($do == 'value')
 		de type <em><?php echo $aTypes[$aFieldData['type']] ?></em>
 	</p>
 
-		<?php foreach ($okt->languages->list as $aLanguage) : ?>
+		<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 		<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 		<label for="p_value_<?php echo $aLanguage['code'] ?>">Valeur<span
 			class="lang-switcher-buttons"></span></label>
@@ -245,7 +245,7 @@ $line_count = 0;
 
 		<?php
 			
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 			:
 				if ($aLanguage['code'] != $okt->user->language)
 				{
@@ -266,7 +266,7 @@ foreach ($okt->languages->list as $aLanguage)
 
 		<?php endforeach; ?>
 
-		<?php foreach ($okt->languages->list as $aLanguage) : ?>
+		<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 		<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 		<label for="p_value_<?php echo ($line_count+1) ?>"><?php _e('m_users_Add_a_value')?><span
 			class="lang-switcher-buttons"></span></label>
@@ -295,7 +295,7 @@ else
 <form action="module.php" method="post" id="form">
 
 	<div class="two-cols">
-		<?php foreach ($okt->languages->list as $aLanguage): ?>
+		<?php foreach ($okt['languages']->list as $aLanguage): ?>
 		<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
 			<label for="p_title_<?php echo $aLanguage['code'] ?>"
 				title="<?php _e('c_c_required_field') ?>" class="required"><?php _e('c_c_Title')?><span
@@ -320,7 +320,7 @@ else
 	</div>
 	<div class="two-cols">
 		<div class="col">
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 			<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_description_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_Description')?><span
 					class="lang-switcher-buttons"></span></label>

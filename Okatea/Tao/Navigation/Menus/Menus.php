@@ -525,11 +525,11 @@ class Menus
 	 */
 	public function checkPostItemData($aData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (empty($aData['locales'][$aLanguage['code']]['title']))
 			{
-				if ($this->okt->languages->unique)
+				if ($this->okt['languages']->unique)
 				{
 					$this->okt['flash']->error(__('c_a_config_navigation_must_enter_title'));
 				}
@@ -541,7 +541,7 @@ class Menus
 			/*
 			if (empty($aData['locales'][$aLanguage['code']]['url']))
 			{
-				if ($this->okt->languages->unique) {
+				if ($this->okt['languages']->unique) {
 					$this->okt['flash']->error(__('c_a_config_navigation_must_enter_url'));
 				}
 				else {
@@ -646,7 +646,7 @@ class Menus
 	 */
 	protected function setItemL10n($iItemId, $aData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$oCursor = $this->db->openCursor($this->t_items_locales);
 

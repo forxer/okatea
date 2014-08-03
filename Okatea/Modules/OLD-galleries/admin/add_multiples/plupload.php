@@ -21,7 +21,7 @@ $iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id'])
 
 $aItemLocalesData = array();
 
-foreach ($okt->languages->list as $aLanguage)
+foreach ($okt['languages']->list as $aLanguage)
 {
 	$aItemLocalesData[$aLanguage['code']] = array();
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
@@ -119,7 +119,7 @@ $okt->page->js->addReady('
 ');
 
 # Lang switcher
-if (! $okt->languages->unique)
+if (! $okt['languages']->unique)
 {
 	$okt->page->langSwitcher('#items-title', '.lang-switcher-buttons');
 }
@@ -137,10 +137,10 @@ require OKT_ADMIN_HEADER_FILE;
 
 	<div class="two-cols">
 		<div id="items-title" class="col">
-			<?php foreach ($okt->languages->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt->languages->unique ? _e('m_galleries_plupload_items_title') : printf(__('m_galleries_plupload_items_title_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('m_galleries_plupload_items_title') : printf(__('m_galleries_plupload_items_title_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemLocalesData[$aLanguage['code']]['title'])) ?></p>
 

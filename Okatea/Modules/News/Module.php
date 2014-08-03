@@ -18,13 +18,12 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Misc\FileUpload;
 use Okatea\Tao\Extensions\Modules\Module as BaseModule;
 use Okatea\Tao\Themes\SimpleReplacements;
-use Okatea\Tao\Triggers;
+use Okatea\Tao\Triggers\Triggers;
 use Okatea\Tao\Users\Groups;
 use RuntimeException;
 
 class Module extends BaseModule
 {
-
 	public $config;
 
 	public $categories;
@@ -55,7 +54,7 @@ class Module extends BaseModule
 		$this->okt->addPerm('news_categories', __('m_news_perm_categories'), 'news');
 		$this->okt->addPerm('news_display', __('m_news_perm_display'), 'news');
 		$this->okt->addPerm('news_config', __('m_news_perm_config'), 'news');
-		
+
 		# tables
 		$this->t_news = $this->db->prefix . 'mod_news';
 		$this->t_news_locales = $this->db->prefix . 'mod_news_locales';
@@ -63,13 +62,13 @@ class Module extends BaseModule
 		$this->t_categories_locales = $this->db->prefix . 'mod_news_categories_locales';
 		$this->t_permissions = $this->db->prefix . 'mod_news_permissions';
 		$this->t_users = $this->db->prefix . 'core_users';
-		
+
 		# déclencheurs
 		$this->triggers = new Triggers();
-		
+
 		# config
 		$this->config = $this->okt->newConfig('conf_news');
-		
+
 		# rubriques
 		if ($this->config->categories['enable'])
 		{
@@ -94,7 +93,7 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->newsSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			
+
 			$this->okt->page->mainMenu->add($this->getName(), $this->okt->adminRouter->generate('News_index'), $this->okt['request']->attributes->get('_route') === 'News_index', 15, ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')), null, $this->okt->page->newsSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->newsSubMenu->add(__('c_a_menu_management'), $this->okt->adminRouter->generate('News_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'News_index',
@@ -109,7 +108,7 @@ class Module extends BaseModule
 			$this->okt->page->newsSubMenu->add(__('c_a_menu_display'), $this->okt->adminRouter->generate('News_display'), $this->okt['request']->attributes->get('_route') === 'News_display', 40, $this->okt->checkPerm('news_display'));
 			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt->adminRouter->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt->checkPerm('news_config'));
 		}
-		
+
 		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(
 			$this,
 			'adminConfigSiteInit'
@@ -120,13 +119,13 @@ class Module extends BaseModule
 	{
 		# Publication des articles différés
 		$this->publishScheduledPosts();
-		
+
 		# Handle website home page
 		$this->okt['triggers']->registerTrigger('handleWebsiteHomePage', array(
 			$this,
 			'handleWebsiteHomePage'
 		));
-		
+
 		# Ajout d'éléments à la barre admin
 		$this->okt['triggers']->registerTrigger('websiteAdminBarItems', array(
 			$this,
@@ -146,8 +145,8 @@ class Module extends BaseModule
 	public function adminConfigSiteInit($aPageData)
 	{
 		$aPageData['home_page_items'][__('m_news_config_homepage_newsList')] = 'newsList';
-		
-		foreach ($this->okt->languages->list as $aLanguage)
+
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->okt->page->js->addReady('
 				$("#p_home_page_item_' . $aLanguage['code'] . '").change(function(){
@@ -166,9 +165,9 @@ class Module extends BaseModule
 	/**
 	 * Ajout d'éléments à la barre admin côté publique.
 	 *
-	 * @param arrayObject $aPrimaryAdminBar        	
-	 * @param arrayObject $aSecondaryAdminBar        	
-	 * @param arrayObject $aBasesUrl        	
+	 * @param arrayObject $aPrimaryAdminBar
+	 * @param arrayObject $aSecondaryAdminBar
+	 * @param arrayObject $aBasesUrl
 	 * @return void
 	 */
 	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
@@ -182,7 +181,7 @@ class Module extends BaseModule
 				'intitle' => __('m_news_ab_post')
 			);
 		}
-		
+
 		# modification de l'article en cours
 		if (isset($this->okt->page->module) && $this->okt->page->module == 'news' && isset($this->okt->page->action) && $this->okt->page->action == 'item')
 		{
@@ -210,14 +209,14 @@ class Module extends BaseModule
 		{
 			return true;
 		}
-		
+
 		# si on a le groupe id 0 (zero) alors tous le monde a droit
 		# sinon il faut etre dans le bon groupe
 		if (in_array(0, $this->config->perms) || in_array($this->okt->user->group_id, $this->config->perms))
 		{
 			return true;
 		}
-		
+
 		# toutes éventualités testées, on as pas le droit
 		return false;
 	}
@@ -235,10 +234,10 @@ class Module extends BaseModule
 			$this->filters = new Filters($this->okt, $part);
 		}
 	}
-	
+
 	/* Gestion des articles d'actualité
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne une liste d'articles sous forme de recordset selon des paramètres donnés.
 	 *
@@ -251,42 +250,42 @@ class Module extends BaseModule
 	public function getPostsRecordset($aParams = array(), $bCountOnly = false)
 	{
 		$sReqPlus = '';
-		
+
 		if (! empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND p.id=' . (integer) $aParams['id'] . ' ';
 		}
-		
+
 		if (! empty($aParams['user_id']))
 		{
 			$sReqPlus .= ' AND p.user_id=' . (integer) $aParams['user_id'] . ' ';
 		}
-		
+
 		if (! empty($aParams['category_id']))
 		{
 			$sReqPlus .= ' AND p.category_id=' . (integer) $aParams['category_id'] . ' ';
 		}
-		
+
 		if (! empty($aParams['selected']))
 		{
 			$sReqPlus .= ' AND p.selected=' . (integer) $aParams['selected'] . ' ';
 		}
-		
+
 		if (! empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND pl.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
-		
+
 		if (! empty($aParams['created_after']))
 		{
 			$sReqPlus .= ' AND created_at>=\'' . $this->db->escapeStr($aParams['created_after']) . '\' ';
 		}
-		
+
 		if (! empty($aParams['created_before']))
 		{
 			$sReqPlus .= ' AND created_at<=\'' . $this->db->escapeStr($aParams['created_before']) . '\' ';
 		}
-		
+
 		if (! empty($aParams['pending']))
 		{
 			$sReqPlus .= 'AND p.active=2 ';
@@ -314,11 +313,11 @@ class Module extends BaseModule
 				$sReqPlus .= 'AND p.active=3 ';
 			}
 		}
-		
+
 		if (! empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
-			
+
 			if (! empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
@@ -328,7 +327,7 @@ class Module extends BaseModule
 				$sReqPlus .= ' AND ' . implode(' AND ', $aWords) . ' ';
 			}
 		}
-		
+
 		if ($bCountOnly)
 		{
 			$sQuery = 'SELECT COUNT(p.id) AS num_posts ' . $this->getSqlFrom($aParams) . 'WHERE 1 ' . $sReqPlus;
@@ -336,13 +335,13 @@ class Module extends BaseModule
 		else
 		{
 			$sQuery = 'SELECT ' . $this->getSelectFields($aParams) . ' ' . $this->getSqlFrom($aParams) . 'WHERE 1 ' . $sReqPlus;
-			
+
 			$sDirection = 'DESC';
 			if (! empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
 			{
 				$sDirection = 'ASC';
 			}
-			
+
 			if (! empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY p.selected DESC, ' . $aParams['order'] . ' ' . $sDirection . ' ';
@@ -351,13 +350,13 @@ class Module extends BaseModule
 			{
 				$sQuery .= 'ORDER BY p.selected DESC, p.created_at ' . $sDirection . ' ';
 			}
-			
+
 			if (! empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
 		}
-		
+
 		if (($rsPosts = $this->db->select($sQuery, 'Okatea\Modules\News\Recordset')) === false)
 		{
 			if ($bCountOnly)
@@ -371,7 +370,7 @@ class Module extends BaseModule
 				return $rsPosts;
 			}
 		}
-		
+
 		if ($bCountOnly)
 		{
 			return (integer) $rsPosts->num_posts;
@@ -419,19 +418,19 @@ class Module extends BaseModule
 			'rl.slug AS category_slug',
 			'r.items_tpl AS category_items_tpl'
 		);
-		
+
 		$oFields = new ArrayObject($aFields);
-		
+
 		# -- TRIGGER MODULE NEWS : getPostsSelectFields
 		$this->triggers->callTrigger('getPostsSelectFields', $oFields);
-		
+
 		return implode(', ', (array) $oFields);
 	}
 
 	/**
 	 * Retourne la chaine FROM en fonction de paramètres.
 	 *
-	 * @param array $aParams        	
+	 * @param array $aParams
 	 * @return string
 	 */
 	protected function getSqlFrom($aParams)
@@ -456,12 +455,12 @@ class Module extends BaseModule
 				'LEFT OUTER JOIN ' . $this->t_categories_locales . ' AS rl ON r.id=rl.category_id ' . 'AND rl.language=\'' . $this->db->escapeStr($aParams['language']) . '\' '
 			);
 		}
-		
+
 		$oFrom = new ArrayObject($aFrom);
-		
+
 		# -- TRIGGER MODULE NEWS : getPostsSqlFrom
 		$this->triggers->callTrigger('getPostsSqlFrom', $oFrom);
-		
+
 		return implode(' ', (array) $oFrom);
 	}
 
@@ -478,9 +477,9 @@ class Module extends BaseModule
 	public function getPosts($aParams = array(), $iTruncatChar = null)
 	{
 		$rs = $this->getPostsRecordset($aParams);
-		
+
 		$this->preparePosts($rs, $iTruncatChar);
-		
+
 		return $rs;
 	}
 
@@ -501,7 +500,7 @@ class Module extends BaseModule
 	 *
 	 * @param integer $mPostId
 	 *        	Identifiant numérique ou slug de l'article.
-	 * @param integer $iActive        	
+	 * @param integer $iActive
 	 * @return object recordset
 	 */
 	public function getPost($mPostId, $iActive = null)
@@ -509,12 +508,12 @@ class Module extends BaseModule
 		$aParams = array(
 			'language' => $this->okt->user->language
 		);
-		
+
 		if (! is_null($iActive))
 		{
 			$aParams['active'] = $iActive;
 		}
-		
+
 		if (Utilities::isInt($mPostId))
 		{
 			$aParams['id'] = $mPostId;
@@ -523,11 +522,11 @@ class Module extends BaseModule
 		{
 			$aParams['slug'] = $mPostId;
 		}
-		
+
 		$rs = $this->getPostsRecordset($aParams);
-		
+
 		$this->preparePost($rs);
-		
+
 		return $rs;
 	}
 
@@ -546,33 +545,33 @@ class Module extends BaseModule
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Retourne les localisations d'un article donné.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return recordset
 	 */
 	public function getPostL10n($iPostId)
 	{
 		$query = 'SELECT * FROM ' . $this->t_news_locales . ' ' . 'WHERE post_id=' . (integer) $iPostId;
-		
+
 		if (($rsPostLocales = $this->db->select($query)) === false)
 		{
 			$rsPostLocales = new Recordset(array());
 			return $rsPostLocales;
 		}
-		
+
 		return $rsPostLocales;
 	}
 
 	/**
 	 * Formatage des données d'un Recordset en vue d'un affichage d'une liste.
 	 *
-	 * @param Recordset $rsPosts        	
+	 * @param Recordset $rsPosts
 	 * @param integer $iTruncatChar
 	 *        	(null)
 	 * @return void
@@ -594,17 +593,17 @@ class Module extends BaseModule
 		{
 			$iNumCharBeforeTruncate = 0;
 		}
-		
+
 		$iCountLine = 0;
 		while ($rsPosts->fetch())
 		{
 			# odd/even
 			$rsPosts->odd_even = ($iCountLine % 2 == 0 ? 'even' : 'odd');
 			$iCountLine ++;
-			
+
 			# formatages génériques
 			$this->commonPreparation($rsPosts);
-			
+
 			# troncature
 			if ($iNumCharBeforeTruncate > 0)
 			{
@@ -617,7 +616,7 @@ class Module extends BaseModule
 	/**
 	 * Formatage des données d'un Recordset en vue d'un affichage d'un article.
 	 *
-	 * @param Recordset $rsPost        	
+	 * @param Recordset $rsPost
 	 * @return void
 	 */
 	public function preparePost(Recordset $rsPost)
@@ -629,52 +628,52 @@ class Module extends BaseModule
 	/**
 	 * Formatages des données d'un Recordset communs aux listes et aux éléments.
 	 *
-	 * @param Recordset $rsPost        	
+	 * @param Recordset $rsPost
 	 * @return void
 	 */
 	protected function commonPreparation(Recordset $rsPost)
 	{
 		# url post
 		$rsPost->url = $rsPost->getPostUrl();
-		
+
 		# url rubrique
 		if ($this->config->categories['enable'])
 			$rsPost->category_url = $rsPost->getCategoryUrl();
-			
+
 			# author
 		$rsPost->author = $rsPost->getPostAuthor();
-		
+
 		# récupération des images
 		$rsPost->images = $rsPost->getImagesInfo();
-		
+
 		# récupération des fichiers
 		$rsPost->files = $rsPost->getFilesInfo();
-		
+
 		# contenu
 		if (! $this->config->enable_rte)
 		{
 			$rsPost->content = Modifiers::nlToP($rsPost->content);
 		}
-		
+
 		# perform content replacements
 		SimpleReplacements::setStartString('');
 		SimpleReplacements::setEndString('');
-		
+
 		$aReplacements = array_merge($this->okt->getCommonContentReplacementsVariables(), $this->okt->getImagesReplacementsVariables($rsPost->images));
-		
+
 		$rsPost->content = SimpleReplacements::parse($rsPost->content, $aReplacements);
 	}
 
 	/**
 	 * Créer une instance de cursor pour un article et la retourne.
 	 *
-	 * @param array $aPostData        	
+	 * @param array $aPostData
 	 * @return object cursor
 	 */
 	public function openPostCursor($aPostData = null)
 	{
 		$oCursor = $this->db->openCursor($this->t_news);
-		
+
 		if (! empty($aPostData))
 		{
 			foreach ($aPostData as $k => $v)
@@ -682,44 +681,44 @@ class Module extends BaseModule
 				$oCursor->{$k} = $v;
 			}
 		}
-		
+
 		return $oCursor;
 	}
 
 	/**
 	 * Ajout/modification des textes internationnalisés de l'article.
 	 *
-	 * @param integer $iPostId        	
-	 * @param array $aPostLocalesData        	
+	 * @param integer $iPostId
+	 * @param array $aPostLocalesData
 	 */
 	protected function setPostL10n($iPostId, $aPostLocalesData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$oCursor = $this->db->openCursor($this->t_news_locales);
-			
+
 			$oCursor->post_id = $iPostId;
-			
+
 			$oCursor->language = $aLanguage['code'];
-			
+
 			foreach ($aPostLocalesData[$aLanguage['code']] as $k => $v)
 			{
 				$oCursor->{$k} = $v;
 			}
-			
+
 			$oCursor->content = $this->okt->HTMLfilter($oCursor->content);
-			
+
 			$oCursor->words = implode(' ', array_unique(Modifiers::splitWords($oCursor->title . ' ' . $oCursor->subtitle . ' ' . $oCursor->content)));
-			
+
 			$oCursor->meta_description = strip_tags($oCursor->meta_description);
-			
+
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
-			
+
 			if (! $oCursor->insertUpdate())
 			{
 				throw new RuntimeException('Unable to insert/update post locales into database');
 			}
-			
+
 			$this->setPostSlug($iPostId, $aLanguage['code']);
 		}
 	}
@@ -727,8 +726,8 @@ class Module extends BaseModule
 	/**
 	 * Création du slug d'un article donné dans une langue donnée.
 	 *
-	 * @param integer $iPostId        	
-	 * @param string $sLanguage        	
+	 * @param integer $iPostId
+	 * @param string $sLanguage
 	 * @return boolean
 	 */
 	protected function setPostSlug($iPostId, $sLanguage)
@@ -737,13 +736,13 @@ class Module extends BaseModule
 			'id' => $iPostId,
 			'language' => $sLanguage
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if (empty($rsPost->slug))
 		{
 			$sUrl = $rsPost->title;
@@ -752,88 +751,88 @@ class Module extends BaseModule
 		{
 			$sUrl = $rsPost->slug;
 		}
-		
+
 		$sUrl = Modifiers::strToSlug($sUrl, false);
-		
+
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select('SELECT slug FROM ' . $this->t_news_locales . ' ' . 'WHERE slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'AND post_id <> ' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC');
-		
+
 		if (! $rsTakenSlugs->isEmpty())
 		{
 			$rsCurrentSlugs = $this->db->select('SELECT slug FROM ' . $this->t_news_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sUrl) . '%\' ' . 'AND post_id <> ' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ');
-			
+
 			$a = array();
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
 			}
-			
+
 			$sUrl = Utilities::getIncrementedString($a, $sUrl, '-');
 		}
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'WHERE post_id=' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Ajout d'un article.
 	 *
-	 * @param cursor $oCursor        	
-	 * @param array $aPostLocalesData        	
-	 * @param array $aPostPermsData        	
+	 * @param cursor $oCursor
+	 * @param array $aPostLocalesData
+	 * @param array $aPostPermsData
 	 * @return integer
 	 */
 	public function addPost($oCursor, array $aPostLocalesData, array $aPostPermsData = array())
 	{
 		# insertion dans la DB
 		$this->preparePostCursor($oCursor);
-		
+
 		$oCursor->user_id = $this->okt->user->id;
-		
+
 		if (! $oCursor->insert())
 		{
 			throw new RuntimeException('Unable to insert post into database');
 		}
-		
+
 		# récupération de l'ID
 		$iNewId = $this->db->getLastID();
-		
+
 		# ajout des textes internationnalisés
 		$this->setPostL10n($iNewId, $aPostLocalesData);
-		
+
 		# ajout des images
 		if ($this->addImages($iNewId) === false)
 		{
 			throw new RuntimeException('Unable to insert images post');
 		}
-		
+
 		# ajout des fichiers
 		if ($this->addFiles($iNewId) === false)
 		{
 			throw new RuntimeException('Unable to insert files post');
 		}
-		
+
 		# ajout permissions
 		if (! $this->setPostPermissions($iNewId, $aPostPermsData))
 		{
 			throw new RuntimeException('Unable to set post permissions');
 		}
-		
+
 		return $iNewId;
 	}
 
 	/**
 	 * Mise à jour d'un article.
 	 *
-	 * @param cursor $oCursor        	
-	 * @param array $aPostLocalesData        	
-	 * @param array $aPostPermsData        	
+	 * @param cursor $oCursor
+	 * @param array $aPostLocalesData
+	 * @param array $aPostPermsData
 	 * @return boolean
 	 */
 	public function updPost($oCursor, array $aPostLocalesData, array $aPostPermsData = array())
@@ -841,60 +840,60 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $oCursor->id
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $oCursor->id));
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		# modification dans la DB
 		$this->preparePostCursor($oCursor, $rsPost);
-		
+
 		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new RuntimeException('Unable to update post into database');
 		}
-		
+
 		# modification des images
 		if ($this->updImages($oCursor->id) === false)
 		{
 			throw new RuntimeException('Unable to update images post');
 		}
-		
+
 		# modification des fichiers
 		if ($this->updFiles($oCursor->id) === false)
 		{
 			throw new RuntimeException('Unable to update files post');
 		}
-		
+
 		# modification permissions
 		if (! $this->setPostPermissions($oCursor->id, $aPostPermsData))
 		{
 			throw new RuntimeException('Unable to set post permissions');
 		}
-		
+
 		# modification des textes internationnalisés
 		$this->setPostL10n($oCursor->id, $aPostLocalesData);
-		
+
 		return true;
 	}
 
 	/**
 	 * Réalise les opérations communes sur le cursor pour l'insertion et la modification.
 	 *
-	 * @param cursor $oCursor        	
+	 * @param cursor $oCursor
 	 */
 	protected function preparePostCursor($oCursor, $rsPost = null)
 	{
 		$sDate = Date::now('UTC')->toMysqlString();
-		
+
 		if (empty($oCursor->created_at))
 		{
 			$oCursor->created_at = $sDate;
@@ -903,9 +902,9 @@ class Module extends BaseModule
 		{
 			$oCursor->created_at = Date::parse($oCursor->created_at)->toMysqlString();
 		}
-		
+
 		$oCursor->updated_at = $sDate;
-		
+
 		if (Date::parse($oCursor->created_at)->isFuture())
 		{
 			$oCursor->active = 3;
@@ -933,7 +932,7 @@ class Module extends BaseModule
 	public function checkPostData($aPostData, $aPostLocalesData, $aPostPermsData)
 	{
 		$bHasAtLeastOneTitle = false;
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (empty($aPostLocalesData[$aLanguage['code']]['title']))
 			{
@@ -945,10 +944,10 @@ class Module extends BaseModule
 				break;
 			}
 		}
-		
+
 		if (! $bHasAtLeastOneTitle)
 		{
-			if ($this->okt->languages->unique)
+			if ($this->okt['languages']->unique)
 			{
 				$this->error->set(__('m_news_post_must_enter_title'));
 			}
@@ -957,22 +956,22 @@ class Module extends BaseModule
 				$this->error->set(__('m_news_post_must_enter_at_least_one_title'));
 			}
 		}
-		
+
 		if ($this->config->enable_group_perms && empty($aPostPermsData))
 		{
 			$this->error->set(__('m_news_post_must_set_perms'));
 		}
-		
+
 		# -- TRIGGER MODULE NEWS : checkPostData
 		$this->triggers->callTrigger('checkPostData', $aPostData, $aPostLocalesData, $aPostPermsData);
-		
+
 		return $this->error->isEmpty();
 	}
 
 	/**
 	 * Switch le statut de visibilité d'un article donné.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return boolean
 	 */
 	public function switchPostStatus($iPostId)
@@ -980,39 +979,39 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		if ($rsPost->active == 2)
 		{
 			$this->error->set(__('m_news_post_not_yet_validated'));
 			return false;
 		}
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Masquage d'un article.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @throws Exception
 	 * @return boolean
 	 */
@@ -1021,33 +1020,33 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if ($rsPost->active != 1)
 		{
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		$this->setPostStatus($iPostId, 0);
-		
+
 		return true;
 	}
 
 	/**
 	 * Modification du statut d'un article à "visible".
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @throws Exception
 	 * @return boolean
 	 */
@@ -1056,33 +1055,33 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if ($rsPost->active != 0)
 		{
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		$this->setPostStatus($iPostId, 1);
-		
+
 		return true;
 	}
 
 	/**
 	 * Publication d'un article en attente de publication.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @throws Exception
 	 * @return boolean
 	 */
@@ -1091,32 +1090,32 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if ($rsPost->active != 2)
 		{
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		if (! $rsPost->isPublishable())
 		{
 			$this->error->set(__('m_news_post_not_publishable'));
 			return false;
 		}
-		
+
 		$this->setPostStatus($iPostId, 1);
-		
+
 		return true;
 	}
 
@@ -1130,14 +1129,14 @@ class Module extends BaseModule
 		$rsPosts = $this->getPostsRecordset(array(
 			'scheduled' => true
 		));
-		
+
 		if ($rsPosts->isEmpty())
 		{
 			return null;
 		}
-		
+
 		$iNow = time();
-		
+
 		while ($rsPosts->fetch())
 		{
 			if ($iNow > strtotime($rsPosts->created_at))
@@ -1145,33 +1144,33 @@ class Module extends BaseModule
 				$this->setPostStatus($rsPosts->id, 1);
 			}
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Définit le statut de visibilité d'un article donné.
 	 *
-	 * @param integer $iPostId        	
-	 * @param integer $iStatus        	
+	 * @param integer $iPostId
+	 * @param integer $iStatus
 	 * @return boolean
 	 */
 	protected function setPostStatus($iPostId, $iStatus)
 	{
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'active = ' . (integer) $iStatus . ' ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Switch la selection d'un article donné.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return boolean
 	 */
 	public function switchPostSelected($iPostId)
@@ -1179,34 +1178,34 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'selected = 1-selected ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Définit la selection d'un article donné.
 	 *
-	 * @param integer $iPostId        	
-	 * @param boolean $bSelected        	
+	 * @param integer $iPostId
+	 * @param boolean $bSelected
 	 * @return boolean
 	 */
 	public function setPostSelected($iPostId, $bSelected)
@@ -1214,33 +1213,33 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if (! $rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'selected = ' . ($bSelected ? '1' : '0') . ' ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Suppression d'un article.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return boolean
 	 */
 	public function deletePost($iPostId)
@@ -1248,55 +1247,55 @@ class Module extends BaseModule
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		if ($rsPost->isEmpty())
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		if (! $rsPost->isDeletable())
 		{
 			$this->error->set(__('m_news_post_not_deletable'));
 			return false;
 		}
-		
+
 		if ($this->deleteImages($iPostId) === false)
 		{
 			throw new RuntimeException('Unable to delete images post.');
 		}
-		
+
 		if ($this->deleteFiles($iPostId) === false)
 		{
 			throw new RuntimeException('Unable to delete files post.');
 		}
-		
+
 		$sQuery = 'DELETE FROM ' . $this->t_news . ' ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove post from database.');
 		}
-		
+
 		$this->db->optimize($this->t_news);
-		
+
 		$sQuery = 'DELETE FROM ' . $this->t_news_locales . ' ' . 'WHERE post_id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove post locales from database.');
 		}
-		
+
 		$this->db->optimize($this->t_news_locales);
-		
+
 		$this->deletePostPermissions($iPostId);
-		
+
 		return true;
 	}
-	
+
 	/* Gestion des permissions des articles
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne la liste des groupes pour les permissions.
 	 *
@@ -1315,33 +1314,33 @@ class Module extends BaseModule
 				Groups::SUPERADMIN
 			)
 		);
-		
+
 		if (! $this->okt->user->is_admin && ! $bWithAdmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
-		
+
 		$rsGroups = $this->okt->getGroups()->getGroups($aParams);
-		
+
 		$aGroups = array();
-		
+
 		if ($bWithAll)
 		{
 			$aGroups[] = __('c_c_All');
 		}
-		
+
 		while ($rsGroups->fetch())
 		{
 			$aGroups[$rsGroups->group_id] = Escaper::html($rsGroups->title);
 		}
-		
+
 		return $aGroups;
 	}
 
 	/**
 	 * Retourne les permissions d'un article donné sous forme de tableau.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return array
 	 */
 	public function getPostPermissions($iPostId)
@@ -1350,28 +1349,28 @@ class Module extends BaseModule
 		{
 			return array();
 		}
-		
+
 		$sQuery = 'SELECT post_id, group_id ' . 'FROM ' . $this->t_permissions . ' ' . 'WHERE post_id=' . (integer) $iPostId . ' ';
-		
+
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
 			return array();
 		}
-		
+
 		$aPerms = array();
 		while ($rs->fetch())
 		{
 			$aPerms[] = $rs->group_id;
 		}
-		
+
 		return $aPerms;
 	}
 
 	/**
 	 * Met à jour les permissions d'un article donné.
 	 *
-	 * @param integer $iPostId        	
-	 * @param array $aGroupsIds        	
+	 * @param integer $iPostId
+	 * @param array $aGroupsIds
 	 * @return boolean
 	 */
 	protected function setPostPermissions($iPostId, $aGroupsIds)
@@ -1380,23 +1379,23 @@ class Module extends BaseModule
 		{
 			return $this->setDefaultPostPermissions($iPostId);
 		}
-		
+
 		if (! $this->postExists($iPostId))
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
 		if (! $this->okt->user->is_admin)
 		{
 			$aGroupsIds[] = Groups::ADMIN;
 		}
-		
+
 		# qu'une seule ligne par groupe pleaz
 		$aGroupsIds = array_unique((array) $aGroupsIds);
-		
+
 		# liste des groupes existants réellement dans la base de données
 		# (sauf invités et superadmin)
 		$rsGroups = $this->okt->getGroups()->getGroups(array(
@@ -1406,17 +1405,17 @@ class Module extends BaseModule
 				Groups::SUPERADMIN
 			)
 		));
-		
+
 		$aGroups = array();
 		while ($rsGroups->fetch())
 		{
 			$aGroups[] = $rsGroups->group_id;
 		}
 		unset($rsGroups);
-		
+
 		# suppression de toutes les permissions éventuellement existantes
 		$this->deletePostPermissions($iPostId);
-		
+
 		# mise en base de données
 		$return = true;
 		foreach ($aGroupsIds as $iGroupId)
@@ -1426,14 +1425,14 @@ class Module extends BaseModule
 				$return = $return && $this->setPostPermission($iPostId, $iGroupId);
 			}
 		}
-		
+
 		return $return;
 	}
 
 	/**
 	 * Met les permissions par défaut d'un article donné.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return boolean
 	 */
 	protected function setDefaultPostPermissions($iPostId)
@@ -1443,10 +1442,10 @@ class Module extends BaseModule
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
 		}
-		
+
 		# suppression de toutes les permissions éventuellement existantes
 		$this->deletePostPermissions($iPostId);
-		
+
 		# mise en base de données de la permission "tous" (0)
 		return $this->setPostPermission($iPostId, 0);
 	}
@@ -1463,38 +1462,38 @@ class Module extends BaseModule
 	protected function setPostPermission($iPostId, $iGroupId)
 	{
 		$sQuery = 'INSERT INTO ' . $this->t_permissions . ' ' . '(post_id, group_id) ' . 'VALUES (' . (integer) $iPostId . ', ' . (integer) $iGroupId . ' ' . ') ';
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to insert post permissions into database');
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Supprime les permissions d'un article donné.
 	 *
-	 * @param integer $iPostId        	
+	 * @param integer $iPostId
 	 * @return boolean
 	 */
 	public function deletePostPermissions($iPostId)
 	{
 		$sQuery = 'DELETE FROM ' . $this->t_permissions . ' ' . 'WHERE post_id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to delete post permissions from database');
 		}
-		
+
 		$this->db->optimize($this->t_permissions);
-		
+
 		return true;
 	}
-	
+
 	/* Gestion des images des articles
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne une instance de la classe oktImageUpload
 	 *
@@ -1507,7 +1506,7 @@ class Module extends BaseModule
 			'upload_dir' => $this->upload_dir . '/img',
 			'upload_url' => $this->upload_url . '/img'
 		));
-		
+
 		return $o;
 	}
 
@@ -1524,14 +1523,14 @@ class Module extends BaseModule
 		{
 			return null;
 		}
-		
+
 		$aImages = $this->getImageUpload()->addImages($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updImagesInDb($iPostId, $aImages);
 	}
 
@@ -1548,21 +1547,21 @@ class Module extends BaseModule
 		{
 			return null;
 		}
-		
+
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$aImages = $this->getImageUpload()->updImages($iPostId, $aCurrentImages);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updImagesInDb($iPostId, $aImages);
 	}
 
@@ -1578,19 +1577,19 @@ class Module extends BaseModule
 	public function deleteImage($iPostId, $img_id)
 	{
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$aNewImages = $this->getImageUpload()->deleteImage($iPostId, $aCurrentImages, $img_id);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updImagesInDb($iPostId, $aNewImages);
 	}
 
@@ -1604,14 +1603,14 @@ class Module extends BaseModule
 	public function deleteImages($iPostId)
 	{
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$this->getImageUpload()->deleteAllImages($iPostId, $aCurrentImages);
-		
+
 		return $this->updImagesInDb($iPostId);
 	}
 
@@ -1624,24 +1623,24 @@ class Module extends BaseModule
 	{
 		@ini_set('memory_limit', - 1);
 		set_time_limit(0);
-		
+
 		$rsPosts = $this->getPostsRecordset();
-		
+
 		while ($rsPosts->fetch())
 		{
 			$aImages = $rsPosts->getImagesInfo();
 			$aImagesList = array();
-			
+
 			foreach ($aImages as $key => $image)
 			{
 				$this->getImageUpload()->buildThumbnails($rsPosts->id, $image['img_name']);
-				
+
 				$aImagesList[$key] = array_merge($aImages[$key], $this->getImageUpload()->buildImageInfos($rsPosts->id, $image['img_name']));
 			}
-			
+
 			$this->updImagesInDb($rsPosts->id, $aImagesList);
 		}
-		
+
 		return true;
 	}
 
@@ -1659,21 +1658,21 @@ class Module extends BaseModule
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
-		
+
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		$aImages = $rsPost->images ? unserialize($rsPost->images) : array();
-		
+
 		return $aImages;
 	}
 
 	/**
 	 * Met à jours la liste des images d'un article donné.
 	 *
-	 * @param integer $iPostId        	
-	 * @param array $aImages        	
+	 * @param integer $iPostId
+	 * @param array $aImages
 	 * @return boolean
 	 */
 	public function updImagesInDb($iPostId, $aImages = array())
@@ -1683,22 +1682,22 @@ class Module extends BaseModule
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
-		
+
 		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/* Gestion des fichiers des articles
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne une instance de la classe fileUpload
 	 *
@@ -1722,14 +1721,14 @@ class Module extends BaseModule
 		{
 			return null;
 		}
-		
+
 		$aFiles = $this->getFileUpload()->addFiles($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updPostFiles($iPostId, $aFiles);
 	}
 
@@ -1746,21 +1745,21 @@ class Module extends BaseModule
 		{
 			return null;
 		}
-		
+
 		$aCurrentFiles = $this->getPostFiles($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$aFiles = $this->getFileUpload()->updFiles($iPostId, $aCurrentFiles);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updPostFiles($iPostId, $aFiles);
 	}
 
@@ -1776,19 +1775,19 @@ class Module extends BaseModule
 	public function deleteFile($iPostId, $file_id)
 	{
 		$aCurrentFiles = $this->getPostFiles($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$aNewFiles = $this->getFileUpload()->deleteFile($iPostId, $aCurrentFiles, $file_id);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		return $this->updPostFiles($iPostId, $aNewFiles);
 	}
 
@@ -1802,14 +1801,14 @@ class Module extends BaseModule
 	public function deleteFiles($iPostId)
 	{
 		$aCurrentFiles = $this->getPostFiles($iPostId);
-		
+
 		if (! $this->error->isEmpty())
 		{
 			return false;
 		}
-		
+
 		$this->getFileUpload()->deleteAllFiles($aCurrentFiles);
-		
+
 		return $this->updPostFiles($iPostId);
 	}
 
@@ -1827,21 +1826,21 @@ class Module extends BaseModule
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
-		
+
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $iPostId
 		));
-		
+
 		$aFiles = $rsPost->files ? unserialize($rsPost->files) : array();
-		
+
 		return $aFiles;
 	}
 
 	/**
 	 * Met à jours la liste des fichiers d'un article donné
 	 *
-	 * @param integer $iPostId        	
-	 * @param array $aFiles        	
+	 * @param integer $iPostId
+	 * @param array $aFiles
 	 * @return boolean
 	 */
 	public function updPostFiles($iPostId, $aFiles = array())
@@ -1851,22 +1850,22 @@ class Module extends BaseModule
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
-		
+
 		$aFiles = ! empty($aFiles) ? serialize($aFiles) : NULL;
-		
+
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'files=' . (! is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
-		
+
 		if (! $this->db->execute($sQuery))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/* Utilitaires
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le chemin du template de la liste des actualités.
 	 *
@@ -1905,12 +1904,12 @@ class Module extends BaseModule
 	public function getCategoryTplPath($sCategoryTemplate = null)
 	{
 		$sTemplate = $this->config->templates['list']['default'];
-		
+
 		if (! empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
 		{
 			$sTemplate = $sCategoryTemplate;
 		}
-		
+
 		return 'News/list/' . $sTemplate . '/template';
 	}
 
@@ -1922,7 +1921,7 @@ class Module extends BaseModule
 	public function getItemTplPath($sPostTemplate = null, $sCatPostTemplate = null)
 	{
 		$sTemplate = $this->config->templates['item']['default'];
-		
+
 		if (! empty($sPostTemplate) && in_array($sPostTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sPostTemplate;
@@ -1931,7 +1930,7 @@ class Module extends BaseModule
 		{
 			$sTemplate = $sCatPostTemplate;
 		}
-		
+
 		return 'News/item/' . $sTemplate . '/template';
 	}
 
@@ -1941,18 +1940,18 @@ class Module extends BaseModule
 	public function indexAllPosts()
 	{
 		$rsPosts = $this->db->select('SELECT post_id, language, title, subtitle, content FROM ' . $this->t_news_locales);
-		
+
 		while ($rsPosts->fetch())
 		{
 			$words = $rsPosts->title . ' ' . $rsPosts->subtitle . ' ' . $rsPosts->content . ' ';
-			
+
 			$words = implode(' ', Modifiers::splitWords($words));
-			
+
 			$query = 'UPDATE ' . $this->t_news . ' SET ' . 'words=\'' . $this->db->escapeStr($words) . '\' ' . 'WHERE post_id=' . (integer) $rsPosts->id . ' ' . 'AND language=\'' . $this->db->escapeStr($rsPosts->language) . '\' ';
-			
+
 			$this->db->execute($query);
 		}
-		
+
 		return true;
 	}
 }

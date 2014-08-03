@@ -275,7 +275,7 @@ class module_partners extends Module
 			{
 				if ($this->config->chp_description == 2 && (empty($this->params['descriptions'][$this->okt['config']->language])))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_description_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_description_%s'), $this->okt['languages']->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
@@ -290,13 +290,13 @@ class module_partners extends Module
 				{
 					if (! empty($v) && ($this->params['urls'][$k] = filter_var($v, FILTER_VALIDATE_URL)) === false)
 					{
-						$this->error->set(sprintf(__('m_partners_error_invalid_url_%s'), $this->okt->languages->list[$k]['title']));
+						$this->error->set(sprintf(__('m_partners_error_invalid_url_%s'), $this->okt['languages']->list[$k]['title']));
 					}
 				}
 				
 				if ($this->config->chp_url == 2 && empty($this->params['urls'][$this->okt['config']->language]))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_%s'), $this->okt['languages']->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
@@ -309,7 +309,7 @@ class module_partners extends Module
 			{
 				if ($this->config->chp_url_title == 2 && empty($this->params['urls_titles'][$this->okt['config']->language]))
 				{
-					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_title_%s'), $this->okt->languages->list[$this->okt['config']->language]['title']));
+					$this->error->set(sprintf(__('m_partners_error_missing_default_language_url_title_%s'), $this->okt['languages']->list[$this->okt['config']->language]['title']));
 				}
 			}
 			else
@@ -1170,7 +1170,7 @@ class module_partners extends Module
 	 */
 	protected function setPartnerInter()
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->params['descriptions'][$aLanguage['code']] = $this->okt->HTMLfilter($this->params['descriptions'][$aLanguage['code']]);
 			$query = 'INSERT INTO ' . $this->t_partners_locales . ' ' . '(partner_id,language,description,url,url_title) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['descriptions'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['descriptions'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['urls'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['urls_titles'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls_titles'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'description=' . (empty($this->params['descriptions'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['descriptions'][$aLanguage['code']]) . '\'') . ', ' . 'url=' . (empty($this->params['urls'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls'][$aLanguage['code']]) . '\'') . ', ' . 'url_title=' . (empty($this->params['urls_titles'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls_titles'][$aLanguage['code']]) . '\'') . ' ';

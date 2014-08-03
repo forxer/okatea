@@ -254,7 +254,7 @@ class CustomFields
 			return false;
 		}
 		
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (! $rsField->isSimpleField())
 			{
@@ -279,7 +279,7 @@ class CustomFields
 	 */
 	protected function setFieldL10n()
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, title, description) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['description'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . 'description=' . (empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['description'][$aLanguage['code']]) . '\'');
 			

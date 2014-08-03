@@ -339,7 +339,7 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	protected function setGalleryL10n($iGalleryId, $aGalleryLocalesData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$oCursor = $this->db->openCursor($this->t_galleries_locales);
 			
@@ -445,11 +445,11 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function checkPostData($aGalleryData, $aGalleryLocalesData)
 	{
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			if (empty($aGalleryLocalesData[$aLanguage['code']]['title']))
 			{
-				if ($this->okt->languages->unique)
+				if ($this->okt['languages']->unique)
 				{
 					$this->error->set(__('m_galleries_error_you_must_enter_title'));
 				}

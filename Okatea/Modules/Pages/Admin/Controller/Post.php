@@ -85,7 +85,7 @@ class Post extends Controller
 
 		$rsPageI18n = $this->okt->module('Pages')->pages->getPageL10n($this->aPageData['post']['id']);
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			while ($rsPageI18n->fetch())
 			{
@@ -240,7 +240,7 @@ class Post extends Controller
 
 		$this->aPageData['locales'] = array();
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->aPageData['locales'][$aLanguage['code']] = array();
 
@@ -282,7 +282,7 @@ class Post extends Controller
 		$this->aPageData['post']['active'] = $this->okt['request']->request->getInt('p_active');
 		$this->aPageData['post']['tpl'] = $this->okt['request']->request->get('p_tpl');
 
-		foreach ($this->okt->languages->list as $aLanguage)
+		foreach ($this->okt['languages']->list as $aLanguage)
 		{
 			$this->aPageData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
 			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = $this->okt['request']->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
