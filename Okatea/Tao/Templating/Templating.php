@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Okatea\Tao;
+namespace Okatea\Tao\Templating;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Templating\Helper\SlotsHelper;
 use Okatea\Tao\Html\Escaper;
 
 /**
- * Le système de templating étendu de sfTemplateEngine.
+ * Le système de templating étendu de Symfony\Component\Templating\PhpEngine.
  */
 class Templating extends PhpEngine
 {

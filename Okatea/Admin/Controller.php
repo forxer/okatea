@@ -41,34 +41,16 @@ class Controller extends BaseController
 	/**
 	 * Generates a URL from the given parameters.
 	 *
-	 * @param string $route
-	 *        	The name of the route
-	 * @param mixed $parameters
-	 *        	An array of parameters
-	 * @param Boolean|string $referenceType
-	 *        	The type of reference (one of the constants in UrlGeneratorInterface)
+	 * @param string $route The name of the route
+	 * @param mixed $parameters An array of parameters
+	 * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
 	 *
 	 * @return string The generated URL
 	 *
 	 * @see UrlGeneratorInterface
 	 */
-	public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	public function generateUrl($route, $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
 	{
 		return $this->okt['adminRouter']->generate($route, $parameters, $referenceType);
-	}
-
-	public function serve401()
-	{
-		return parent::serve401();
-	}
-
-	public function serve404()
-	{
-		return parent::serve404();
-	}
-
-	public function serve503()
-	{
-		return parent::serve503();
 	}
 }

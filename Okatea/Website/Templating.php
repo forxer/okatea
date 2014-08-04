@@ -8,33 +8,22 @@
 namespace Okatea\Website;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Okatea\Tao\Templating as BaseTemplating;
+use Okatea\Tao\Templating\Templating as BaseTemplating;
 
 class Templating extends BaseTemplating
 {
-
-	protected $okt;
-
-	public function __construct($okt, $aTplDirectories)
-	{
-		parent::__construct($okt, $aTplDirectories);
-	}
-
 	/**
 	 * Generates a URL from the given parameters.
 	 *
-	 * @param string $route
-	 *        	The name of the route
-	 * @param mixed $parameters
-	 *        	An array of parameters
-	 * @param Boolean|string $referenceType
-	 *        	The type of reference (one of the constants in UrlGeneratorInterface)
-	 *        	
+	 * @param string $route The name of the route
+	 * @param mixed $parameters An array of parameters
+	 * @param Boolean|string $referenceType sThe type of reference (one of the constants in UrlGeneratorInterface)
+	 *
 	 * @return string The generated URL
-	 *        
+	 *
 	 * @see UrlGeneratorInterface
 	 */
-	public function generateUrl($route, $parameters = array(), $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	public function generateUrl($route, $parameters = [], $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
 	{
 		return $this->okt['router']->generate($route, $parameters, $language, $referenceType);
 	}

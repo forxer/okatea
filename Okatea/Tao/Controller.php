@@ -67,10 +67,8 @@ class Controller
 	/**
 	 * Returns a rendered view.
 	 *
-	 * @param string $view
-	 *        	The view name
-	 * @param array $parameters
-	 *        	An array of parameters to pass to the view
+	 * @param string $view The view name
+	 * @param array $parameters An array of parameters to pass to the view
 	 *
 	 * @return string The rendered view
 	 */
@@ -82,19 +80,15 @@ class Controller
 	/**
 	 * Renders a view.
 	 *
-	 * @param string $view
-	 *        	The view name
-	 * @param array $parameters
-	 *        	An array of parameters to pass to the view
-	 * @param Response $response
-	 *        	A response instance
+	 * @param string $view The view name
+	 * @param array $parameters An array of parameters to pass to the view
+	 * @param Response $response A response instance
 	 *
 	 * @return Response A Response instance
 	 */
 	public function render($view, array $parameters = [], Response $response = null)
 	{
-		if (null === $response)
-		{
+		if (null === $response) {
 			$response = new Response();
 		}
 
@@ -104,12 +98,9 @@ class Controller
 	/**
 	 * Streams a view.
 	 *
-	 * @param string $view
-	 *        	The view name
-	 * @param array $parameters
-	 *        	An array of parameters to pass to the view
-	 * @param StreamedResponse $response
-	 *        	A response instance
+	 * @param string $view The view name
+	 * @param array $parameters An array of parameters to pass to the view
+	 * @param StreamedResponse $response A response instance
 	 *
 	 * @return StreamedResponse A StreamedResponse instance
 	 */
@@ -117,13 +108,11 @@ class Controller
 	{
 		$templating = $this->okt->tpl;
 
-		$callback = function () use($templating, $view, $parameters)
-		{
+		$callback = function () use($templating, $view, $parameters) {
 			$templating->stream($view, $parameters);
 		};
 
-		if (null === $response)
-		{
+		if (null === $response) {
 			return new StreamedResponse($callback);
 		}
 

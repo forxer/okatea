@@ -25,13 +25,6 @@ class Okatea extends Application
 	public $page;
 
 	/**
-	 * Le gestionnaire de log admin.
-	 *
-	 * @var Okatea\Tao\LogAdmin
-	 */
-	public $logAdmin;
-
-	/**
 	 * Run application.
 	 */
 	public function run()

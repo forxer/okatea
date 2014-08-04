@@ -13,33 +13,30 @@ use Okatea\Tao\Controller as BaseController;
 
 class Controller extends BaseController
 {
-
 	/**
 	 * Constructor.
 	 */
 	public function __construct($okt)
 	{
 		parent::__construct($okt);
-		
-		# Title tag
-		$this->okt->page->addTitleTag($this->okt->page->getSiteTitleTag(null, $this->okt->page->getSiteTitle()));
+
+		$this->okt->page->addTitleTag(
+			$this->okt->page->getSiteTitleTag(null, $this->okt->page->getSiteTitle())
+		);
 	}
 
 	/**
 	 * Generates a URL from the given parameters.
 	 *
-	 * @param string $route
-	 *        	The name of the route
-	 * @param mixed $parameters
-	 *        	An array of parameters
-	 * @param Boolean|string $referenceType
-	 *        	The type of reference (one of the constants in UrlGeneratorInterface)
-	 *        	
+	 * @param string $route The name of the route
+	 * @param mixed $parameters An array of parameters
+	 * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+	 *
 	 * @return string The generated URL
-	 *        
+	 *
 	 * @see UrlGeneratorInterface
 	 */
-	public function generateUrl($route, $parameters = array(), $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	public function generateUrl($route, $parameters = [], $language = null, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
 	{
 		return $this->okt['router']->generate($route, $parameters, $language = null, $referenceType);
 	}
@@ -60,48 +57,42 @@ class Controller extends BaseController
 		if (! $this->okt['languages']->unique)
 		{
 			# recherche d'un code ISO de langue
-			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m))
-			{
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m)) {
 				$sLanguage = $m[1];
 			}
-			
+
 			if ($sLanguage != $this->okt['visitor']->language)
 			{
 				$this->okt['visitor']->setUserLang($sLanguage);
 				return $this->redirect($this->generateUrl('homePage', array(), $sLanguage));
 			}
 		}
-		
+
 		$item = null;
-		if (! empty($this->okt['config']->home_page['item'][$this->okt['visitor']->language]))
-		{
+		if (! empty($this->okt['config']->home_page['item'][$this->okt['visitor']->language])) {
 			$item = $this->okt['config']->home_page['item'][$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->home_page['item'][$this->okt['config']->language]))
-		{
+		elseif (! empty($this->okt['config']->home_page['item'][$this->okt['config']->language])) {
 			$item = $this->okt['config']->home_page['item'][$this->okt['config']->language];
 		}
-		else
-		{
+		else {
 			return $this->serve404();
 		}
-		
+
 		$details = null;
-		if (! empty($this->okt['config']->home_page['details'][$this->okt['visitor']->language]))
-		{
+		if (!empty($this->okt['config']->home_page['details'][$this->okt['visitor']->language])) {
 			$details = $this->okt['config']->home_page['details'][$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->home_page['details'][$this->okt['config']->language]))
-		{
+		elseif (!empty($this->okt['config']->home_page['details'][$this->okt['config']->language])) {
 			$details = $this->okt['config']->home_page['details'][$this->okt['config']->language];
 		}
-		
+
 		# reset title tag because we will recall the main controller
 		$this->okt->page->resetTitleTag();
-		
+
 		# -- TRIGGER : handleWebsiteHomePage
 		$this->okt['triggers']->callTrigger('handleWebsiteHomePage', $item, $details);
-		
+
 		if (null === $this->okt->response || false === $this->okt->response)
 		{
 			$this->okt->response = new Response();
@@ -109,13 +100,8 @@ class Controller extends BaseController
 			$this->okt->response->setStatusCode(Response::HTTP_NOT_IMPLEMENTED);
 			$this->okt->response->setContent('Unable to load homePage controller for item "' . $item . '", please check your website configuration.');
 		}
-		
-		return $this->okt->response;
-	}
 
-	public function serve401()
-	{
-		return parent::serve401();
+		return $this->okt->response;
 	}
 
 	public function serve404()
@@ -125,22 +111,15 @@ class Controller extends BaseController
 		{
 			$sLanguage = null;
 			# recherche d'un code ISO de langue
-			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m))
-			{
+			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m)) {
 				$sLanguage = $m[1];
 			}
-			
-			if (null === $sLanguage)
-			{
+
+			if (null === $sLanguage) {
 				return $this->redirect($this->generateUrl('homePage', array(), $this->okt['visitor']->language), 301);
 			}
 		}
-		
-		return parent::serve404();
-	}
 
-	public function serve503()
-	{
-		return parent::serve503();
+		return parent::serve404();
 	}
 }
