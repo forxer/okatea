@@ -232,7 +232,7 @@ class Modules extends Controller
 		Utilities::deleteOktCacheFiles();
 
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 30,
 			'message' => $sModuleId
 		));
@@ -255,7 +255,7 @@ class Modules extends Controller
 		Utilities::deleteOktCacheFiles();
 
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 31,
 			'message' => $sModuleId
 		));
@@ -295,7 +295,7 @@ class Modules extends Controller
 		}
 
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 20,
 			'message' => $sModuleId
 		));
@@ -339,7 +339,7 @@ class Modules extends Controller
 
 		Utilities::deleteOktCacheFiles();
 
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 21,
 			'message' => $sModuleId
 		));
@@ -383,7 +383,7 @@ class Modules extends Controller
 			$this->okt['flash']->error(__('c_a_modules_not_uninstalled'));
 		}
 
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 22,
 			'message' => $sModuleId
 		));
@@ -440,7 +440,7 @@ class Modules extends Controller
 		}
 
 		# log admin
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 23,
 			'message' => $sModuleId
 		));
@@ -482,7 +482,7 @@ class Modules extends Controller
 			$this->okt['flash']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'message' => 'install test set ' . $sModuleId
 		));
 
@@ -516,7 +516,7 @@ class Modules extends Controller
 			$this->okt['flash']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'message' => 'install default data ' . $sModuleId
 		));
 
@@ -549,7 +549,7 @@ class Modules extends Controller
 			$this->okt['flash']->error(__('c_a_modules_not_correctly_emptied'));
 		}
 
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'message' => 'remove content of module ' . $sModuleId
 		));
 
@@ -573,7 +573,7 @@ class Modules extends Controller
 		{
 			$this->okt['flash']->success(__('c_a_modules_successfully_deleted'));
 
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'message' => $sModuleId
 			));

@@ -40,7 +40,7 @@ if (! empty($_GET['treated']))
 		$okt->estimate->markAsTreated($_GET['treated']);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'estimate',
 			'message' => 'estimate #' . $_GET['treated']
@@ -64,7 +64,7 @@ if (! empty($_GET['untreated']))
 		$okt->estimate->markAsUntreated($_GET['untreated']);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'estimate',
 			'message' => 'estimate #' . $_GET['untreated']
@@ -94,7 +94,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				$okt->estimate->markAsTreated($iEstimateId);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 30,
 					'component' => 'estimate',
 					'message' => 'estimate #' . $iEstimateId
@@ -112,7 +112,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				$okt->estimate->markAsUntreated($iEstimateId);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 31,
 					'component' => 'estimate',
 					'message' => 'estimate #' . $iEstimateId
@@ -130,7 +130,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 				$okt->estimate->deleteEstimate($iEstimateId);
 				
 				# log admin
-				$okt->logAdmin->warning(array(
+				$okt['logAdmin']->warning(array(
 					'code' => 42,
 					'component' => 'estimate',
 					'message' => 'estimate #' . $iEstimateId

@@ -205,7 +205,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->deletePost($iPostId))
 		{
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -230,7 +230,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->switchPostStatus($iPostId))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 32,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -253,7 +253,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->switchPostSelected($iPostId))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -276,7 +276,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->setPostSelected($iPostId, true))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -301,7 +301,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->setPostSelected($iPostId, false))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -326,7 +326,7 @@ class Index extends Controller
 		
 		if ($this->okt->module('News')->publishPost($iPostId))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 30,
 				'component' => 'news',
 				'message' => 'post #' . $iPostId
@@ -358,7 +358,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->showPost($iPostId, 1))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 30,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId
@@ -372,7 +372,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->hidePost($iPostId))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 31,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId
@@ -386,7 +386,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->publishPost($iPostId))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 30,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId
@@ -402,7 +402,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->setPostSelected($iPostId, 1))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 41,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId
@@ -418,7 +418,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->setPostSelected($iPostId, 0))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 41,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId
@@ -434,7 +434,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('News')->deletePost($iPostId))
 				{
-					$this->okt->logAdmin->warning(array(
+					$this->okt['logAdmin']->warning(array(
 						'code' => 42,
 						'component' => 'news',
 						'message' => 'post #' . $iPostId

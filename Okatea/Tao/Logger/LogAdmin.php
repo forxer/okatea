@@ -5,9 +5,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Okatea\Tao;
+namespace Okatea\Tao\Logger;
 
 use Okatea\Admin\Filters\LogAdmin as LogAdminFilters;
+use Okatea\Tao\Application;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\L10n\Date;
 
@@ -16,6 +17,7 @@ use Okatea\Tao\L10n\Date;
  */
 class LogAdmin
 {
+	const DEFAULT_COMPONENT = 'core';
 	const TYPE_INFO = 0;
 	const TYPE_WARNING = 10;
 	const TYPE_CRITICAL = 20;
@@ -65,8 +67,6 @@ class LogAdmin
 	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
-
-		$this->db = $okt->db;
 
 		$this->t_log = $okt['config']->database_prefix . 'core_log_admin';
 	}
@@ -261,7 +261,7 @@ class LogAdmin
 		}
 
 		if (empty($aParams['component'])) {
-			$aParams['component'] = 'core';
+			$aParams['component'] = self::DEFAULT_COMPONENT;
 		}
 
 		if (empty($aParams['ip'])) {

@@ -90,7 +90,7 @@ if (! empty($_POST['form_sent']))
 		if ($okt->estimate->accessories->updAccessory($aAccessoryData) !== false)
 		{
 			# log admin
-			$okt->logAdmin->info(array(
+			$okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'estimate',
 				'message' => 'accessory #' . $iAccessoryId
@@ -113,7 +113,7 @@ if (! empty($_POST['form_sent']))
 		if (($iAccessoryId = $okt->estimate->accessories->addAccessory($aAccessoryData)) !== false)
 		{
 			# log admin
-			$okt->logAdmin->info(array(
+			$okt['logAdmin']->info(array(
 				'code' => 40,
 				'component' => 'estimate',
 				'message' => 'accessory #' . $iAccessoryId

@@ -200,7 +200,7 @@ if (! empty($_GET['switch_status']) && ! empty($iGalleryId))
 		$okt->galleries->tree->switchGalleryStatus($iGalleryId);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'galleries',
 			'message' => 'gallery #' . $iGalleryId
@@ -220,7 +220,7 @@ if (! empty($_GET['delete_image']) && ! empty($iGalleryId))
 	$okt->galleries->tree->deleteImage($iGalleryId, $_GET['delete_image']);
 	
 	# log admin
-	$okt->logAdmin->info(array(
+	$okt['logAdmin']->info(array(
 		'code' => 41,
 		'component' => 'galleries',
 		'message' => 'gallery #' . $iGalleryId
@@ -279,7 +279,7 @@ if (! empty($_POST['sended']))
 				$okt->galleries->triggers->callTrigger('afterGalleryUpdate', $oGalleryCursor, $aGalleryData);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 41,
 					'component' => 'galleries',
 					'message' => 'gallery #' . $iGalleryId
@@ -309,7 +309,7 @@ if (! empty($_POST['sended']))
 				$okt->galleries->triggers->callTrigger('afterGalleryCreate', $oGalleryCursor, $aGalleryData);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 40,
 					'component' => 'galleries',
 					'message' => 'gallery #' . $iGalleryId

@@ -34,7 +34,7 @@ class Category extends Controller
 				$this->okt->module('Pages')->triggers->callTrigger('afterCategoryCreate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 40,
 					'component' => 'pages',
 					'message' => 'category #' . $this->aCategoryData['cat']['id']
@@ -168,7 +168,7 @@ class Category extends Controller
 				$this->okt->module('Pages')->categories->switchCategoryStatus($this->aCategoryData['cat']['id']);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 32,
 					'component' => 'pages',
 					'message' => 'category #' . $this->aCategoryData['cat']['id']
@@ -198,7 +198,7 @@ class Category extends Controller
 				$this->okt->module('Pages')->triggers->callTrigger('afterCategoryUpdate', $this->aCategoryData['cursor'], $this->aCategoryData['cat'], $this->aCategoryData['locales']);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 41,
 					'component' => 'pages',
 					'message' => 'category #' . $this->aCategoryData['cat']['id']

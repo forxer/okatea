@@ -60,7 +60,7 @@ class Categories extends Controller
 			$this->okt->module('News')->categories->switchCategoryStatus($iCategoryId);
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 32,
 				'component' => 'news',
 				'message' => 'category #' . $iCategoryId
@@ -89,7 +89,7 @@ class Categories extends Controller
 			$this->okt->module('News')->categories->delCategory($iCategoryId);
 			
 			# log admin
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'component' => 'news',
 				'message' => 'category #' . $iCategoryId

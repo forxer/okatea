@@ -39,7 +39,7 @@ if (! empty($_GET['treated']))
 		$okt->estimate->markAsTreated($iEstimateId);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'estimate',
 			'message' => 'estimate #' . $iEstimateId
@@ -63,7 +63,7 @@ if (! empty($_GET['untreated']))
 		$okt->estimate->markAsUntreated($iEstimateId);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'estimate',
 			'message' => 'estimate #' . $iEstimateId

@@ -160,7 +160,7 @@ class Index extends Controller
 
 		if ($this->okt->module('Pages')->pages->deletePage($iPostId))
 		{
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'component' => 'pages',
 				'message' => 'page #' . $iPostId
@@ -185,7 +185,7 @@ class Index extends Controller
 
 		if ($this->okt->module('Pages')->pages->switchPageStatus($iPostId))
 		{
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 32,
 				'component' => 'pages',
 				'message' => 'post #' . $iPostId
@@ -215,7 +215,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('Pages')->pages->setPageStatus($pageId, 1))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 30,
 						'component' => 'pages',
 						'message' => 'page #' . $pageId
@@ -229,7 +229,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('Pages')->pages->setPageStatus($pageId, 0))
 				{
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 31,
 						'component' => 'pages',
 						'message' => 'page #' . $pageId
@@ -243,7 +243,7 @@ class Index extends Controller
 			{
 				if ($this->okt->module('Pages')->pages->deletePage($pageId))
 				{
-					$this->okt->logAdmin->warning(array(
+					$this->okt['logAdmin']->warning(array(
 						'code' => 42,
 						'component' => 'pages',
 						'message' => 'page #' . $pageId

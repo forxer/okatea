@@ -369,9 +369,9 @@ class Visitor
 		$this->setAuthCookie(base64_encode($user['id'] . '|' . $sPasswordHash . '|' . $iTsExpire . '|' . sha1($sPasswordHash . $iTsExpire)), $iTsExpire);
 
 		# log admin
-		if (isset($this->okt->logAdmin))
+		if (isset($this->okt['logAdmin']))
 		{
-			$this->okt->logAdmin->add([
+			$this->okt['logAdmin']->add([
 				'user_id' 	=> $user['id'],
 				'username' 	=> $sUsername,
 				'code' 		=> 10,
@@ -409,9 +409,9 @@ class Visitor
 		$this->setAuthCookie('', 0);
 
 		# log admin
-		if (isset($this->okt->logAdmin))
+		if (isset($this->okt['logAdmin']))
 		{
-			$this->okt->logAdmin->add([
+			$this->okt['logAdmin']->add([
 				'user_id' 	=> $this->infos['id'],
 				'username' 	=> $this->infos['username'],
 				'code' 		=> 11

@@ -150,7 +150,7 @@ class Navigation extends Controller
 						$this->okt['menus']->updMenu($aMenuData);
 
 						# log admin
-						$this->okt->logAdmin->info(array(
+						$this->okt['logAdmin']->info(array(
 							'code' => 41,
 							'component' => 'menus',
 							'message' => 'menu #' . $iMenuId
@@ -177,7 +177,7 @@ class Navigation extends Controller
 						$iMenuId = $this->okt['menus']->addMenu($aMenuData);
 
 						# log admin
-						$this->okt->logAdmin->info(array(
+						$this->okt['logAdmin']->info(array(
 							'code' => 40,
 							'component' => 'menus',
 							'message' => 'menu #' . $iMenuId
@@ -418,7 +418,7 @@ class Navigation extends Controller
 						$this->okt['menus']->updItem($aItemData);
 
 						# log admin
-						$this->okt->logAdmin->info(array(
+						$this->okt['logAdmin']->info(array(
 							'code' => 41,
 							'component' => 'menu item',
 							'message' => 'item #' . $aItemData['item']['id']
@@ -444,7 +444,7 @@ class Navigation extends Controller
 						$iItemId = $this->okt['menus']->addItem($aItemData);
 
 						# log admin
-						$this->okt->logAdmin->info(array(
+						$this->okt['logAdmin']->info(array(
 							'code' => 40,
 							'component' => 'menu item',
 							'message' => 'item #' . $iItemId

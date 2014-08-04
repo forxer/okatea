@@ -36,8 +36,6 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
-		$this->loadLogAdmin();
-
 		$this->loadPageHelpers();
 
 		$this->matchRequest();
@@ -58,11 +56,6 @@ class Okatea extends Application
 		}
 
 		$this->sendResponse();
-	}
-
-	protected function loadLogAdmin()
-	{
-		$this->logAdmin = new LogAdmin($this);
 	}
 
 	/**
@@ -101,7 +94,7 @@ class Okatea extends Application
 
 			$this['visitor']->logout();
 
-			$this->logAdmin->critical(array(
+			$this['logAdmin']->critical(array(
 				'user_id' 	=> $this['visitor']->infos['id'],
 				'username' 	=> $this['visitor']->infos['username'],
 				'message' 	=> 'Security CSRF blocking',

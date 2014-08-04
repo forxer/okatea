@@ -37,7 +37,7 @@ if (! empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 		$okt->galleries->tree->switchGalleryStatus($_GET['switch_status']);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'galleries',
 			'message' => 'category #' . $_GET['switch_status']

@@ -124,7 +124,7 @@ if (! empty($_GET['switch_status']) && ! empty($aItemData['item']['id']))
 		$okt->galleries->items->switchItemStatus($aItemData['item']['id']);
 		
 		# log admin
-		$okt->logAdmin->info(array(
+		$okt['logAdmin']->info(array(
 			'code' => 32,
 			'component' => 'galleries',
 			'message' => 'item #' . $aItemData['item']['id']
@@ -144,7 +144,7 @@ if (! empty($_GET['delete_image']) && ! empty($aItemData['item']['id']))
 	$okt->galleries->items->deleteImage($aItemData['item']['id'], $_GET['delete_image']);
 	
 	# log admin
-	$okt->logAdmin->info(array(
+	$okt['logAdmin']->info(array(
 		'code' => 41,
 		'component' => 'galleries',
 		'message' => 'item #' . $aItemData['item']['id']
@@ -202,7 +202,7 @@ if (! empty($_POST['sended']))
 				$okt->galleries->triggers->callTrigger('adminAfterItemUpdate', $aItemData);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 41,
 					'component' => 'galleries',
 					'message' => 'item #' . $aItemData['item']['id']
@@ -230,7 +230,7 @@ if (! empty($_POST['sended']))
 				$okt->galleries->triggers->callTrigger('adminAfterItemCreate', $aItemData);
 				
 				# log admin
-				$okt->logAdmin->info(array(
+				$okt['logAdmin']->info(array(
 					'code' => 40,
 					'component' => 'galleries',
 					'message' => 'item #' . $aItemData['item']['id']

@@ -272,7 +272,7 @@ class Themes extends Controller
 		Utilities::deleteOktCacheFiles();
 		
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 30,
 			'message' => $sThemeId
 		));
@@ -295,7 +295,7 @@ class Themes extends Controller
 		Utilities::deleteOktCacheFiles();
 		
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 31,
 			'message' => $sThemeId
 		));
@@ -335,7 +335,7 @@ class Themes extends Controller
 		}
 		
 		# log admin
-		$this->okt->logAdmin->warning(array(
+		$this->okt['logAdmin']->warning(array(
 			'code' => 20,
 			'message' => $sThemeId
 		));
@@ -379,7 +379,7 @@ class Themes extends Controller
 		
 		Utilities::deleteOktCacheFiles();
 		
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 21,
 			'message' => $sThemeId
 		));
@@ -423,7 +423,7 @@ class Themes extends Controller
 			$this->okt['flash']->error(__('c_a_themes_not_uninstalled'));
 		}
 		
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 22,
 			'message' => $sThemeId
 		));
@@ -480,7 +480,7 @@ class Themes extends Controller
 		}
 		
 		# log admin
-		$this->okt->logAdmin->critical(array(
+		$this->okt['logAdmin']->critical(array(
 			'code' => 23,
 			'message' => $sThemeId
 		));
@@ -505,7 +505,7 @@ class Themes extends Controller
 		{
 			$this->okt['flash']->success(__('c_a_themes_successfully_deleted'));
 			
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'message' => $sThemeId
 			));

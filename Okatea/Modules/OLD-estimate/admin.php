@@ -37,7 +37,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['estimate_id']))
 		$okt->estimate->deleteEstimate($_GET['estimate_id']);
 		
 		# log admin
-		$okt->logAdmin->warning(array(
+		$okt['logAdmin']->warning(array(
 			'code' => 42,
 			'component' => 'estimate',
 			'message' => 'estimate #' . $_GET['estimate_id']

@@ -64,7 +64,7 @@ class Categories extends Controller
 			$this->okt->module('Pages')->categories->switchCategoryStatus($iCategoryId);
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 32,
 				'component' => 'pages',
 				'message' => 'category #' . $iCategoryId
@@ -93,7 +93,7 @@ class Categories extends Controller
 			$this->okt->module('Pages')->categories->delCategory($iCategoryId);
 			
 			# log admin
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'component' => 'pages',
 				'message' => 'category #' . $iCategoryId

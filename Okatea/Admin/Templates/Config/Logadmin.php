@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 use Okatea\Tao\L10n\DateTime;
-use Okatea\Tao\LogAdmin;
+use Okatea\Tao\Logger\LogAdmin;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('Layout');
@@ -21,7 +21,7 @@ $okt->page->setButtonset('logsBtSt', array(
 			'title' => __('c_c_display_filters'),
 			'url' => '#',
 			'ui-icon' => 'search',
-			'active' => $okt->logAdmin->filters->params->show_filters,
+			'active' => $okt['logAdmin']->filters->params->show_filters,
 			'id' => 'filter-control',
 			'class' => 'button-toggleable'
 		)
@@ -29,12 +29,12 @@ $okt->page->setButtonset('logsBtSt', array(
 ));
 
 # Filters control
-if ($okt->logAdmin->oConfig->admin_filters_style == 'slide')
+if ($okt['logAdmin']->oConfig->admin_filters_style == 'slide')
 {
 	# Slide down
-	$okt->page->filterControl($okt->logAdmin->filters->params->show_filters);
+	$okt->page->filterControl($okt['logAdmin']->filters->params->show_filters);
 }
-elseif ($okt->logAdmin->oConfig->admin_filters_style == 'dialog')
+elseif ($okt['logAdmin']->oConfig->admin_filters_style == 'dialog')
 {
 	# Display a UI dialog box
 	$okt->page->js->addReady("
@@ -74,11 +74,11 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 	<fieldset>
 		<legend><?php _e('c_a_config_logadmin_display_filters')?></legend>
 
-		<?php echo $okt->logAdmin->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
+		<?php echo $okt['logAdmin']->filters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
 
 		<p>
 			<input type="submit"
-				name="<?php echo $okt->logAdmin->filters->getFilterSubmitName() ?>"
+				name="<?php echo $okt['logAdmin']->filters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_display')?>" /> <a
 				href="<?php $view->generateUrl('config_logadmin') ?>?init_filters=1"><?php
 				_e('c_c_reset_filters')?></a>

@@ -38,7 +38,7 @@ class Post extends Controller
 				$this->okt->module('Pages')->triggers->callTrigger('afterPageCreate', $this->aPageData);
 
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 40,
 					'component' => 'pages',
 					'message' => 'page #' . $this->aPageData['post']['id']
@@ -133,7 +133,7 @@ class Post extends Controller
 				$this->okt->module('Pages')->pages->switchPageStatus($this->aPageData['post']['id']);
 
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 32,
 					'component' => 'pages',
 					'message' => 'page #' . $this->aPageData['post']['id']
@@ -155,7 +155,7 @@ class Post extends Controller
 			$this->okt->module('Pages')->pages->getImageUpload()->delete($this->aPageData['post']['id'], $this->okt['request']->query->get('delete_image'));
 
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'pages',
 				'message' => 'page #' . $this->aPageData['post']['id']
@@ -174,7 +174,7 @@ class Post extends Controller
 			$this->okt->module('Pages')->deleteFile($this->aPageData['post']['id'], $this->okt['request']->query->get('delete_file'));
 
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'pages',
 				'message' => 'page #' . $this->aPageData['post']['id']
@@ -200,7 +200,7 @@ class Post extends Controller
 				$this->okt->module('Pages')->triggers->callTrigger('afterPageUpdate', $this->aPageData);
 
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 41,
 					'component' => 'pages',
 					'message' => 'page #' . $this->aPageData['post']['id']

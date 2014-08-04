@@ -210,7 +210,7 @@ class Index extends Controller
 			$this->okt['users']->setUserStatus($iUserId, 1);
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 30,
 				'component' => 'users',
 				'message' => 'user #' . $iUserId
@@ -239,7 +239,7 @@ class Index extends Controller
 			$this->okt['users']->setUserStatus($iUserId, 0);
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 31,
 				'component' => 'users',
 				'message' => 'user #' . $iUserId
@@ -271,7 +271,7 @@ class Index extends Controller
 			$this->okt['users']->deleteUser($iUserId);
 			
 			# log admin
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
 				'component' => 'users',
 				'message' => 'user #' . $iUserId
@@ -312,7 +312,7 @@ class Index extends Controller
 					$this->okt['users']->setUserStatus($iUserId, 1);
 					
 					# log admin
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 30,
 						'component' => 'users',
 						'message' => 'user #' . $iUserId
@@ -328,7 +328,7 @@ class Index extends Controller
 					$this->okt['users']->setUserStatus($iUserId, 0);
 					
 					# log admin
-					$this->okt->logAdmin->info(array(
+					$this->okt['logAdmin']->info(array(
 						'code' => 31,
 						'component' => 'users',
 						'message' => 'user #' . $iUserId
@@ -344,7 +344,7 @@ class Index extends Controller
 					$this->okt['users']->deleteUser($iUserId);
 					
 					# log admin
-					$this->okt->logAdmin->warning(array(
+					$this->okt['logAdmin']->warning(array(
 						'code' => 42,
 						'component' => 'users',
 						'message' => 'user #' . $iUserId

@@ -30,7 +30,7 @@ class LogAdmin extends BaseFilters
 
 	protected $action_array = array();
 
-	public function __construct($okt, $logAdmin)
+	public function __construct($okt)
 	{
 		$oConfig = new ArrayObject();
 		$oConfig->admin_default_nb_per_page = self::DEFAULT_NB_PER_PAGE;
@@ -40,8 +40,7 @@ class LogAdmin extends BaseFilters
 
 		parent::__construct($okt, 'logAdmin', $oConfig, 'admin');
 
-		$this->logAdmin = $logAdmin;
-		$this->logAdmin->oConfig = $oConfig;
+		$this->okt['logAdmin']->oConfig = $oConfig;
 	}
 
 	public function setDefaultParams()
@@ -233,7 +232,7 @@ class LogAdmin extends BaseFilters
 		# tableau de tri par type
 		$this->type_array = array_merge(array(
 			'tous les types' => '1'
-		), array_flip($this->logAdmin->getTypes()));
+		), array_flip($this->okt['logAdmin']->getTypes()));
 
 		if (! isset($this->aLogParams['type']))
 		{
@@ -256,7 +255,7 @@ class LogAdmin extends BaseFilters
 		# tableau de tri par action
 		$this->action_array = array_merge(array(
 			'toutes les actions' => '1'
-		), array_flip($this->logAdmin->getCodes()));
+		), array_flip($this->okt['logAdmin']->getCodes()));
 
 		if (! isset($this->aLogParams['code']))
 		{

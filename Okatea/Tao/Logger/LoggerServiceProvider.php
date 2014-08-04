@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Okatea\Tao;
+namespace Okatea\Tao\Logger;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -23,7 +23,9 @@ class LoggerServiceProvider implements ServiceProviderInterface
 	public function register(Container $okt)
 	{
 		$okt['logger'] = function($okt) {
-			return new Logger('okatea', [
+			return new Logger(
+				'okatea',
+				[
 					new FirePHPHandler()
 				],
 				[
@@ -36,7 +38,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
 		};
 
 		$okt['phpLogger'] = function($okt) {
-			return new Logger('php_error',
+			return new Logger(
+				'php_error',
 				[
 					new FingersCrossedHandler(
 						new StreamHandler(
@@ -53,6 +56,10 @@ class LoggerServiceProvider implements ServiceProviderInterface
 					new MemoryPeakUsageProcessor()
 				]
 			);
+		};
+
+		$okt['logAdmin'] = function($okt) {
+			return new LogAdmin($okt);
 		};
 	}
 }

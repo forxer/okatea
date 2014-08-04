@@ -34,7 +34,7 @@ class Update extends Controller
 			Updater::dbUpdate($oChecklist);
 
 			# log admin
-			$this->okt->logAdmin->warning(array(
+			$this->okt['logAdmin']->warning(array(
 				'code' => 21,
 				'message' => 'DB CORE'
 			));
@@ -146,7 +146,7 @@ class Update extends Controller
 				$updater->performUpgrade($zip_file, 'okatea/Okatea/digests', 'okatea', $this->okt['app_path'], $this->okt['digests_path']);
 
 				# log admin
-				$this->okt->logAdmin->critical(array(
+				$this->okt['logAdmin']->critical(array(
 					'code' => 21,
 					'message' => 'FILES CORE ' . $new_v
 				));

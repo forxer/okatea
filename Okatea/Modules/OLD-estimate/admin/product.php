@@ -83,7 +83,7 @@ if (! empty($_POST['form_sent']))
 		if ($okt->estimate->products->updProduct($aProductData) !== false)
 		{
 			# log admin
-			$okt->logAdmin->info(array(
+			$okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'estimate',
 				'message' => 'product #' . $iProductId
@@ -101,7 +101,7 @@ if (! empty($_POST['form_sent']))
 		if (($iProductId = $okt->estimate->products->addProduct($aProductData)) !== false)
 		{
 			# log admin
-			$okt->logAdmin->info(array(
+			$okt['logAdmin']->info(array(
 				'code' => 40,
 				'component' => 'estimate',
 				'message' => 'product #' . $iProductId

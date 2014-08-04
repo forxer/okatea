@@ -15,7 +15,7 @@ use Okatea\Tao\Database\DatabaseServiceProvider;
 use Okatea\Tao\Extensions\ExtensionsServiceProvider;
 use Okatea\Tao\L10n\L10nServiceProvider;
 use Okatea\Tao\L10n\Localization;
-use Okatea\Tao\LoggerServiceProvider;
+use Okatea\Tao\Logger\LoggerServiceProvider;
 use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\RequestServiceProvider;
@@ -136,7 +136,7 @@ abstract class Application extends Container
 		# Normalizes HTTP inputs to UTF-8 NFC
 		Utf8Bootup::filterRequestInputs();
 
-		# Start session
+		# Start request and session
 		$this['request']->setSession($this['session']);
 
 		# URL du dossier des fichiers publics

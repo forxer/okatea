@@ -36,7 +36,7 @@ class Post extends Controller
 				$this->okt->module('News')->triggers->callTrigger('afterPostCreate', $this->aPostData);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 40,
 					'component' => 'news',
 					'message' => 'post #' . $this->aPostData['post']['id']
@@ -140,7 +140,7 @@ class Post extends Controller
 				$this->okt->module('News')->switchPostStatus($this->aPostData['post']['id']);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 32,
 					'component' => 'news',
 					'message' => 'post #' . $this->aPostData['post']['id']
@@ -162,7 +162,7 @@ class Post extends Controller
 			$this->okt->module('News')->publishPost($this->aPostData['post']['id']);
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $this->aPostData['post']['id']
@@ -181,7 +181,7 @@ class Post extends Controller
 			$this->okt->module('News')->deleteImage($this->aPostData['post']['id'], $this->okt['request']->query->get('delete_image'));
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $this->aPostData['post']['id']
@@ -198,7 +198,7 @@ class Post extends Controller
 			$this->okt->module('News')->deleteFile($this->aPostData['post']['id'], $this->okt['request']->query->get('delete_file'));
 			
 			# log admin
-			$this->okt->logAdmin->info(array(
+			$this->okt['logAdmin']->info(array(
 				'code' => 41,
 				'component' => 'news',
 				'message' => 'post #' . $this->aPostData['post']['id']
@@ -222,7 +222,7 @@ class Post extends Controller
 				$this->okt->module('News')->triggers->callTrigger('afterPostUpdate', $this->aPostData);
 				
 				# log admin
-				$this->okt->logAdmin->info(array(
+				$this->okt['logAdmin']->info(array(
 					'code' => 41,
 					'component' => 'news',
 					'message' => 'post #' . $this->aPostData['post']['id']
