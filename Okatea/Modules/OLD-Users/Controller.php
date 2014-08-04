@@ -666,7 +666,7 @@ class Controller extends BaseController
 				
 				$oMail->useFile(__DIR__ . '/../Locales/' . $rsUser->language . '/Templates/' . $template_file, array(
 					'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-					'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'],
+					'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url,
 					'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
 					'USERNAME' => $rsUser->username,
 					'PASSWORD' => $this->aUserRegisterData['password']
@@ -699,9 +699,9 @@ class Controller extends BaseController
 					{
 						$oMail->useFile(__DIR__ . '/../Locales/' . $rsAdministrators->language . '/Templates/' . $template_file, array(
 							'SITE_TITLE' => $this->page->getSiteTitle($rsUser->language),
-							'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'],
+							'SITE_URL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url,
 							'USER_CN' => Authentification::getUserDisplayName($rsUser->username, $rsUser->lastname, $rsUser->firstname),
-							'PROFIL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . 'admin/module.php?m=users&action=edit&id=' . $rsUser->id
+							'PROFIL' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . 'admin/module.php?m=users&action=edit&id=' . $rsUser->id
 						));
 						
 						$oMail->message->setTo($rsAdministrators->email);

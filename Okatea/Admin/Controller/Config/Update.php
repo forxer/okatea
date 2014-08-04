@@ -151,7 +151,7 @@ class Update extends Controller
 					'message' => 'FILES CORE ' . $new_v
 				));
 
-				return $this->redirect($this->okt['app_url'] . 'install/?old_version=' . $sOkateaVersion);
+				return $this->redirect($this->okt['config']->app_url . 'install/?old_version=' . $sOkateaVersion);
 			}
 			catch (\Exception $e)
 			{

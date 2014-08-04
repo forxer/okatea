@@ -265,7 +265,7 @@ class Page
 	 */
 	public function getBaseUrl($sLanguage = null)
 	{
-		$str = $this->okt['app_url'];
+		$str = $this->okt['config']->app_url;
 
 		if (! $this->okt['languages']->unique)
 		{

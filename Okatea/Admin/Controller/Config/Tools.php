@@ -333,7 +333,8 @@ class Tools extends Controller
 				ini_set('memory_limit', - 1);
 				set_time_limit(0);
 
-				$finder = (new Finder())->in($this->okt['app_path'])
+				$finder = (new Finder())
+					->in($this->okt['app_path'])
 					->exclude('/vendor')
 					->ignoreVCS(false);
 
@@ -572,12 +573,12 @@ class Tools extends Controller
 			$this->okt['session']->invalidate();
 
 			# prepare redirect to install screen response
-			$response = $this->redirect($this->okt['app_url'].'install');
+			$response = $this->redirect($this->okt['config']->app_url.'install');
 
 			# remove cookies
 			foreach ($this->okt['request']->cookies->keys() as $cookie)
 			{
-				$response->headers->clearCookie($cookie, $this->okt['app_url'], $this->okt['request']->getHttpHost());
+				$response->headers->clearCookie($cookie, $this->okt['config']->app_url, $this->okt['request']->getHttpHost());
 			}
 
 			return $response;

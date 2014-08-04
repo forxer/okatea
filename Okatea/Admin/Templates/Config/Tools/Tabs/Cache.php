@@ -29,7 +29,7 @@ use Okatea\Tao\L10n\DateTime;
 	?>
 	<tr>
 			<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
-			<td class="<?php echo $sTdClass ?>"><?php echo $okt['app_url'].basename($okt['okt_path']).'/'.basename($okt['cache_path']) ?></td>
+			<td class="<?php echo $sTdClass ?>"><?php echo $okt['config']->app_url.basename($okt['okt_path']).'/'.basename($okt['cache_path']) ?></td>
 			<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full($oFileInfo->getMTime()) ?></td>
 			<td class="<?php echo $sTdClass ?> small nowrap">
 				<ul class="actions">
@@ -50,7 +50,7 @@ use Okatea\Tao\L10n\DateTime;
 	?>
 	<tr>
 			<th class="<?php echo $sTdClass ?> fake-td"><?php echo $view->escape($oFileInfo->getRelativePathname()) ?></th>
-			<td class="<?php echo $sTdClass ?>"><?php echo $okt['app_url'].basename($okt['public_path']).'/cache'?></td>
+			<td class="<?php echo $sTdClass ?>"><?php echo $okt['config']->app_url.basename($okt['public_path']).'/cache'?></td>
 			<td class="<?php echo $sTdClass ?>"><?php echo DateTime::full($oFileInfo->getMTime()) ?></td>
 			<td class="<?php echo $sTdClass ?> small nowrap">
 				<ul class="actions">

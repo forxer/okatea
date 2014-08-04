@@ -111,12 +111,7 @@ abstract class Application extends Container
 	{
 		define('OKT_START_TIME', microtime(true));
 
-		parent::__construct(require __DIR__ . '/DefaultsOptions');
-
-		# Import customs options if oktOptions.custom.php file exists
-		foreach ($aOptions as $key => $value) {
-			$this->offsetSet($key, $value);
-		}
+		parent::__construct($aOptions);
 
 		$this->autoloader = $autoloader;
 
@@ -145,10 +140,10 @@ abstract class Application extends Container
 		$this['request']->setSession($this['session']);
 
 		# URL du dossier des fichiers publics
-	//	$this['public_url'] = $this['config']->getData('app_path') . 'oktPublic';
+		$this['public_url'] = $this['config']->getData('app_url') . basename($this['public_path']);
 
 		# URL du dossier upload depuis la racine
-	//	$this['upload_url'] = $this['config']->getData('app_path') . 'oktPublic/upload';
+	//	$this['upload_url'] = $this['config']->getData('app_url') . 'oktPublic/upload';
 
 		# Print errors in debug mode
 		if ($this['debug']) {
@@ -394,7 +389,7 @@ abstract class Application extends Container
 	public function getCommonContentReplacementsVariables()
 	{
 		return [
-			'app_path' => $this['app_url'],
+			'app_path' => $this['config']->app_url,
 			'user_language' => $this['visitor']->language,
 			//	'theme_url' => $this->theme->url,
 			'website_title' => $this['config']->title[$this['visitor']->language],

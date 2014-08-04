@@ -213,7 +213,7 @@ class Css
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
 		
-		return str_replace($okt['public_path'], $okt['app_url'] . basename($okt['public_path']), $outputFile);
+		return str_replace($okt['public_path'], $okt['config']->app_url . basename($okt['public_path']), $outputFile);
 	}
 	
 	/* Pile de fichiers CC

@@ -216,7 +216,7 @@ class Module extends BaseModule
 		$okt->page->js->addScript('
 			function filebrowser(field_name, url, type, win) {
 
-				fileBrowserURL = "' . $okt['app_url'] . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type;
+				fileBrowserURL = "' . $okt['config']->app_url . 'admin/module.php?m=media_manager&popup=1&editor=1&type=" + type;
 
 				tinyMCE.activeEditor.windowManager.open({
 						title: "Media manager",

@@ -332,7 +332,7 @@ class User extends Controller
 			
 			$aMailParams = array(
 				'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-				'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'],
+				'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url,
 				'user' => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname'])
 			);
 			
@@ -385,7 +385,7 @@ class User extends Controller
 				
 				$aMailParams = array(
 					'site_title' => $this->okt->page->getSiteTitle($rsUser->language),
-					'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'],
+					'site_url' => $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url,
 					'user' => Users::getUserDisplayName($this->aPageData['user']['username'], $this->aPageData['user']['lastname'], $this->aPageData['user']['firstname'], $this->aPageData['user']['displayname']),
 					'password' => $aParams['password']
 				);

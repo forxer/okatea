@@ -399,7 +399,7 @@ class Module extends BaseModule
 	 */
 	public function setBodyFromPostedData()
 	{
-		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . ']' . PHP_EOL . PHP_EOL;
+		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . ']' . PHP_EOL . PHP_EOL;
 		
 		$sSenderName = $this->getSenderName();
 		if (! empty($sSenderName))

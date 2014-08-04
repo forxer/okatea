@@ -203,7 +203,7 @@ class Page extends BasePage
 			unset($sBaseUri, $aLanguage);
 		}
 
-		$aUserBars['second'][100] = '<a href="' . $this->okt['app_url'] . '">' . __('c_c_go_to_website') . '</a>';
+		$aUserBars['second'][100] = '<a href="' . $this->okt['config']->app_url . '">' . __('c_c_go_to_website') . '</a>';
 
 		# -- CORE TRIGGER : adminHeaderUserBars
 		$this->okt['triggers']->callTrigger('adminHeaderUserBars', $aUserBars);

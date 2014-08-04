@@ -24,7 +24,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 				new NativeSessionStorage(
 					[
 						'cookie_lifetime' 	=> 0,
-						'cookie_path' 		=> $okt['app_url'],
+						'cookie_path' 		=> $okt['config']->app_url,
 						'cookie_secure' 	=> $okt['request']->isSecure(),
 						'cookie_httponly' 	=> true,
 						'use_trans_sid' 	=> false,

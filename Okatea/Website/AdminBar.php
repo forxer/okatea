@@ -48,7 +48,7 @@ class AdminBar
 		$aPrimaryAdminBar = new ArrayObject();
 		$aSecondaryAdminBar = new ArrayObject();
 		
-		$aBasesUrl['admin'] = $this->okt['app_url'] . 'admin/';
+		$aBasesUrl['admin'] = $this->okt['config']->app_url . 'admin/';
 		$aBasesUrl['logout'] = $this->okt['router']->generate('usersLogout');
 		$aBasesUrl['profil'] = $aBasesUrl['admin'];
 		
@@ -88,7 +88,7 @@ class AdminBar
 				}
 				
 				$aSecondaryAdminBar[$iStartIdx ++] = array(
-					'href' => Escaper::html($this->okt['app_url'] . $aLanguage['code'] . '/'),
+					'href' => Escaper::html($this->okt['config']->app_url . $aLanguage['code'] . '/'),
 					'title' => Escaper::html($aLanguage['title']),
 					'intitle' => '<img src="' . $this->okt['public_url'] . '/img/flags/' . $aLanguage['img'] . '" alt="' . Escaper::html($aLanguage['title']) . '" />'
 				);

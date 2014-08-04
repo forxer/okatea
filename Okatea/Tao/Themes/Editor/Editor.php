@@ -155,7 +155,7 @@ class Editor
 		$this->aThemeInfos = $this->aThemes[$this->sThemeId];
 
 		$this->sThemePath = $this->sThemesPath . '/' . $this->sThemeId;
-		$this->sThemeUrl = $this->okt['app_url'] . $this->sThemesDir . '/' . $this->sThemeId;
+		$this->sThemeUrl = $this->okt['config']->app_url . $this->sThemesDir . '/' . $this->sThemeId;
 	}
 
 	/**

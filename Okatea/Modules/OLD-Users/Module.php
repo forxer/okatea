@@ -1076,7 +1076,7 @@ class Module extends BaseModule
 		
 		$result = implode("\r\n", $result);
 		
-		$filename = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . '-' . date('YmdHis') . '.csv';
+		$filename = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis') . '.csv';
 		
 		header('Content-Type: text/csv; charset=UTF-8');
 		header('Content-Length: ' . mb_strlen($result));
@@ -1111,7 +1111,7 @@ class Module extends BaseModule
 		
 		$result = implode("\r\n", $result);
 		
-		$filename = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . '-' . date('YmdHis') . '.csv';
+		$filename = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis') . '.csv';
 		
 		header('Content-Type: text/csv; charset=ISO-8859-1');
 		header('Content-Length: ' . mb_strlen($result, 'ISO-8859-1'));
@@ -1122,7 +1122,7 @@ class Module extends BaseModule
 
 	protected function exportToHtml($rs, $fields)
 	{
-		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . '-' . date('YmdHis');
+		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
 		$aResult = array();
 		$aResult[] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . PHP_EOL . '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL . '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . PHP_EOL . '<title>' . $sTitle . '</title></head><body>' . PHP_EOL . '<h1>' . $sTitle . '</h1>' . PHP_EOL . '<table border="1" cellpadding="5" cellspacing="0"><thead><tr>';
@@ -1159,7 +1159,7 @@ class Module extends BaseModule
 
 	protected function exportToXls1($rs, $fields)
 	{
-		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . '-' . date('YmdHis');
+		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
 		$aResult = array();
 		$aResult[] = '<table><tr>';
@@ -1196,7 +1196,7 @@ class Module extends BaseModule
 
 	protected function exportToXls2($rs, $fields)
 	{
-		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['app_url'] . '-' . date('YmdHis');
+		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
 		$aResult = array();
 		

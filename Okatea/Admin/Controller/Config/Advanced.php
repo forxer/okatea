@@ -142,7 +142,7 @@ class Advanced extends Controller
 	protected function pathUrlInit()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'app_path' => $this->okt['app_url'],
+			'app_url' => $this->okt['config']->app_url,
 			'domain' => $this->okt['config']->domain
 		));
 	}
@@ -205,7 +205,7 @@ class Advanced extends Controller
 	protected function pathUrlHandleRequest()
 	{
 		$this->aPageData['values'] = array_merge($this->aPageData['values'], array(
-			'app_path' => Utilities::formatAppPath($this->okt['request']->request->get('p_app_path', '/')),
+			'app_url' => Utilities::formatAppPath($this->okt['request']->request->get('p_app_url', '/')),
 			'domain' => Utilities::formatAppPath($this->okt['request']->request->get('p_domain', ''), false, false)
 		));
 	}

@@ -13,7 +13,7 @@ $oktAutoloader = require __DIR__ . '/../vendor/autoload.php';
 //try
 //{
 	# Let the music play
-	$okt = new Okatea($oktAutoloader, require __DIR__ . '/oktOptions.php');
+	$okt = new Okatea($oktAutoloader, require __DIR__ . '/../oktOptions.php');
 
 	$okt->run();
 
