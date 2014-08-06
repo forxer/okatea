@@ -15,7 +15,12 @@ use Okatea\Tao\Database\Recordset;
  */
 class Languages
 {
-	const CACHE_ID = 'okt_languages';
+	/**
+	 * The cache identifier.
+	 *
+	 * @var string
+	 */
+	const CACHE_ID = 'languages';
 
 	/**
 	 * Okatea application instance.
@@ -50,14 +55,7 @@ class Languages
 	 *
 	 * @var string
 	 */
-	protected $t_languages;
-
-	/**
-	 * The cache identifier.
-	 *
-	 * @var string
-	 */
-	protected $cache_id;
+	protected $sLanguagesTable;
 
 	/**
 	 * Constructor.
@@ -69,7 +67,7 @@ class Languages
 	{
 		$this->okt = $okt;
 
-		$this->t_languages = $okt['config']->database_prefix . 'core_languages';
+		$this->sLanguagesTable = $okt['config']->database_prefix . 'core_languages';
 
 		$this->load();
 	}
@@ -188,13 +186,13 @@ class Languages
 		{
 			$queryBuilder
 				->select('COUNT(l.id) AS num_languages')
-				->from($this->t_languages, 'l');
+				->from($this->sLanguagesTable, 'l');
 		}
 		else
 		{
 			$queryBuilder
 				->select('l.id', 'l.title', 'l.code', 'l.img', 'l.active', 'l.ord')
-				->from($this->t_languages, 'l');
+				->from($this->sLanguagesTable, 'l');
 
 			if (!empty($aParams['order'])) {
 				$queryBuilder->orderBy($aParams['order']);
@@ -227,7 +225,7 @@ class Languages
 	public function getLanguage($iLanguageId)
 	{
 		$aLanguage = $this->okt['db']->fetchAssoc(
-			'SELECT * FROM '.$this->t_languages.' WHERE id = ?',
+			'SELECT * FROM '.$this->sLanguagesTable.' WHERE id = ?',
 			array($iLanguageId)
 		);
 
@@ -255,9 +253,9 @@ class Languages
 	 */
 	public function addLanguage(array $aData = [])
 	{
-		$iMaxOrd = $this->okt['db']->fetchColumn('SELECT MAX(ord) FROM ' . $this->t_languages);
+		$iMaxOrd = $this->okt['db']->fetchColumn('SELECT MAX(ord) FROM ' . $this->sLanguagesTable);
 
-		$this->okt['db']->insert($this->t_languages, array(
+		$this->okt['db']->insert($this->sLanguagesTable, array(
 			'title' 	=> $aData['title'],
 			'code' 		=> $aData['code'],
 			'img' 		=> $aData['img'],
@@ -278,7 +276,7 @@ class Languages
 	 */
 	public function updLanguage(array $aData = [])
 	{
-		$this->okt['db']->update($this->t_languages,
+		$this->okt['db']->update($this->sLanguagesTable,
 			array(
 				'title' 	=> $aData['title'],
 				'code' 		=> $aData['code'],
@@ -327,7 +325,7 @@ class Languages
 		}
 
 		$this->okt['db']->update(
-			$this->t_languages,
+			$this->sLanguagesTable,
 			array('active' => '1-active'),
 			array('id' => $iLanguageId)
 		);
@@ -353,7 +351,7 @@ class Languages
 		$iStatus = ($iStatus == 1) ? 1 : 0;
 
 		$this->okt['db']->update(
-			$this->t_languages,
+			$this->sLanguagesTable,
 			array('active' => $iStatus),
 			array('id' => $iLanguageId)
 		);
@@ -377,7 +375,7 @@ class Languages
 		}
 
 		$this->okt['db']->update(
-			$this->t_languages,
+			$this->sLanguagesTable,
 			array('ord' => $iOrd),
 			array('id' => $iLanguageId)
 		);
@@ -398,7 +396,7 @@ class Languages
 		if (! $this->languageExists($iLanguageId)) {
 			return false;
 		}
-		$this->okt['db']->delete($this->t_languages, array('id' => $iLanguageId));
+		$this->okt['db']->delete($this->sLanguagesTable, array('id' => $iLanguageId));
 
 		$this->afterProcess();
 
