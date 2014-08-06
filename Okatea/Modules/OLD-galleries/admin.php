@@ -9,13 +9,13 @@
 if (! defined('ON_MODULE'))
 	die();
 
-if (! $okt->checkPerm('galleries'))
+if (! $okt['visitor']->checkPerm('galleries'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un élément
-if ($okt->page->action === 'delete' && ! empty($_GET['item_id']) && $okt->checkPerm('galleries_remove'))
+if ($okt->page->action === 'delete' && ! empty($_GET['item_id']) && $okt['visitor']->checkPerm('galleries_remove'))
 {
 	if ($okt->galleries->items->deleteItem($_GET['item_id']))
 	{
@@ -57,23 +57,23 @@ elseif ($okt->page->action === 'edit')
 {
 	require __DIR__ . '/admin/item.php';
 }
-elseif ($okt->page->action === 'add' && $okt->checkPerm('galleries_add'))
+elseif ($okt->page->action === 'add' && $okt['visitor']->checkPerm('galleries_add'))
 {
 	require __DIR__ . '/admin/item.php';
 }
-elseif ($okt->page->action === 'add_zip' && $okt->galleries->config->enable_zip_upload && $okt->checkPerm('galleries_add'))
+elseif ($okt->page->action === 'add_zip' && $okt->galleries->config->enable_zip_upload && $okt['visitor']->checkPerm('galleries_add'))
 {
 	require __DIR__ . '/admin/add_zip.php';
 }
-elseif ($okt->page->action === 'add_multiples' && $okt->galleries->config->enable_multiple_upload && $okt->checkPerm('galleries_add') && file_exists(__DIR__ . '/admin/add_multiples/' . $okt->galleries->config->multiple_upload_type . '.php'))
+elseif ($okt->page->action === 'add_multiples' && $okt->galleries->config->enable_multiple_upload && $okt['visitor']->checkPerm('galleries_add') && file_exists(__DIR__ . '/admin/add_multiples/' . $okt->galleries->config->multiple_upload_type . '.php'))
 {
 	require __DIR__ . '/admin/add_multiples/' . $okt->galleries->config->multiple_upload_type . '.php';
 }
-elseif ($okt->page->action === 'display' && $okt->checkPerm('galleries_display'))
+elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('galleries_display'))
 {
 	require __DIR__ . '/admin/display.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('galleries_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('galleries_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

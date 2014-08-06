@@ -250,12 +250,12 @@ class Post extends Controller
 		
 		$this->aPermissions = array(
 			'bCanViewPage' => true,
-			'bCanEditPost' => ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_usage')),
-			'bCanPublish' => ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_publish')),
-			'bCanDelete' => ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('news_delete'))
+			'bCanEditPost' => ($this->okt['visitor']->checkPerm('news_contentadmin') || $this->okt['visitor']->checkPerm('news_usage')),
+			'bCanPublish' => ($this->okt['visitor']->checkPerm('news_contentadmin') || $this->okt['visitor']->checkPerm('news_publish')),
+			'bCanDelete' => ($this->okt['visitor']->checkPerm('news_contentadmin') || $this->okt['visitor']->checkPerm('news_delete'))
 		);
 		
-		$this->aPermissions['bCanDelete'] = ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'));
+		$this->aPermissions['bCanDelete'] = ($this->okt['visitor']->checkPerm('news_delete') || $this->okt['visitor']->checkPerm('news_contentadmin'));
 		
 		# Données de l'article
 		$this->aPostData = new ArrayObject();

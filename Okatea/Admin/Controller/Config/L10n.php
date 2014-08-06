@@ -16,7 +16,7 @@ class L10n extends Controller
 {
 	public function index()
 	{
-		if (! $this->okt->checkPerm('languages')) {
+		if (! $this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 
@@ -66,7 +66,7 @@ class L10n extends Controller
 
 	public function edit()
 	{
-		if (! $this->okt->checkPerm('languages')) {
+		if (! $this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 
@@ -118,7 +118,7 @@ class L10n extends Controller
 
 	public function add()
 	{
-		if (! $this->okt->checkPerm('languages')) {
+		if (! $this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 

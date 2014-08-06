@@ -29,16 +29,16 @@ class Module extends BaseModule
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPermGroup('users', __('m_users_perm_group'));
-		$this->okt->addPerm('users', __('m_users_perm_global'), 'users');
-		$this->okt->addPerm('users_edit', __('m_users_perm_edit'), 'users');
-		$this->okt->addPerm('users_delete', __('m_users_perm_delete'), 'users');
-		$this->okt->addPerm('change_password', __('m_users_perm_change_password'), 'users');
-		$this->okt->addPerm('users_groups', __('m_users_perm_groups'), 'users');
-		$this->okt->addPerm('users_custom_fields', __('m_users_perm_custom_fields'), 'users');
-		$this->okt->addPerm('users_export', __('m_users_perm_export'), 'users');
-		$this->okt->addPerm('users_display', __('m_users_perm_display'), 'users');
-		$this->okt->addPerm('users_config', __('m_users_perm_config'), 'users');
+		$this->okt['permissions']->addPermGroup('users', __('m_users_perm_group'));
+		$this->okt['permissions']->addPerm('users', __('m_users_perm_global'), 'users');
+		$this->okt['permissions']->addPerm('users_edit', __('m_users_perm_edit'), 'users');
+		$this->okt['permissions']->addPerm('users_delete', __('m_users_perm_delete'), 'users');
+		$this->okt['permissions']->addPerm('change_password', __('m_users_perm_change_password'), 'users');
+		$this->okt['permissions']->addPerm('users_groups', __('m_users_perm_groups'), 'users');
+		$this->okt['permissions']->addPerm('users_custom_fields', __('m_users_perm_custom_fields'), 'users');
+		$this->okt['permissions']->addPerm('users_export', __('m_users_perm_export'), 'users');
+		$this->okt['permissions']->addPerm('users_display', __('m_users_perm_display'), 'users');
+		$this->okt['permissions']->addPerm('users_config', __('m_users_perm_config'), 'users');
 		
 		# les tables
 		$this->t_users = $this->db->prefix . 'core_users';
@@ -59,31 +59,31 @@ class Module extends BaseModule
 		# on ajoutent un item au menu principal
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->mainMenu->add(__('Users'), null, null, 5000, ($this->okt->checkPerm('users')), null, ($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->okt['public_url'] . '/modules/Users/module_icon.png');
+			$this->okt->page->mainMenu->add(__('Users'), null, null, 5000, ($this->okt['visitor']->checkPerm('users')), null, ($this->okt->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this->okt['public_url'] . '/modules/Users/module_icon.png');
 			$this->okt->page->usersSubMenu->add(__('c_a_menu_management'), $this->okt['adminRouter']->generate('Users_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'Users_index',
 				'Users_user_add',
 				'Users_user'
-			)), 10, $this->okt->checkPerm('users'));
-			$this->okt->page->usersSubMenu->add(__('m_users_Groups'), $this->okt['adminRouter']->generate('Users_groups'), $this->okt['request']->attributes->get('_route') === 'Users_groups', 20, $this->okt->checkPerm('groups'));
+			)), 10, $this->okt['visitor']->checkPerm('users'));
+			$this->okt->page->usersSubMenu->add(__('m_users_Groups'), $this->okt['adminRouter']->generate('Users_groups'), $this->okt['request']->attributes->get('_route') === 'Users_groups', 20, $this->okt['visitor']->checkPerm('groups'));
 			/*
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Custom_fields'),
 					'module.php?m=users&amp;action=fields',
 					$this->bCurrentlyInUse && ($this->okt->page->action === 'fields' || $this->okt->page->action === 'field'),
 					30,
-					$this->config->enable_custom_fields && $this->okt->checkPerm('users_custom_fields')
+					$this->config->enable_custom_fields && $this->okt['visitor']->checkPerm('users_custom_fields')
 				);
 				$this->okt->page->usersSubMenu->add(
 					__('m_users_Export'),
 					'module.php?m=users&amp;action=export',
 					$this->bCurrentlyInUse && ($this->okt->page->action === 'export'),
 					40,
-					$this->okt->checkPerm('users_export')
+					$this->okt['visitor']->checkPerm('users_export')
 				);
 				*/
-			$this->okt->page->usersSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('Users_display'), $this->okt['request']->attributes->get('_route') === 'Users_display', 90, $this->okt->checkPerm('users_display'));
-			$this->okt->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('Users_config'), $this->okt['request']->attributes->get('_route') === 'Users_config', 100, $this->okt->checkPerm('users_config'));
+			$this->okt->page->usersSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('Users_display'), $this->okt['request']->attributes->get('_route') === 'Users_display', 90, $this->okt['visitor']->checkPerm('users_display'));
+			$this->okt->page->usersSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('Users_config'), $this->okt['request']->attributes->get('_route') === 'Users_config', 100, $this->okt['visitor']->checkPerm('users_config'));
 		}
 	}
 
@@ -128,7 +128,7 @@ class Module extends BaseModule
 	public static function websiteAdminBarItems($okt, $aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter un utilisateur
-		if ($okt->checkPerm('users'))
+		if ($okt['visitor']->checkPerm('users'))
 		{
 			$aPrimaryAdminBar[200]['items'][1000] = array(
 				'href' => $aBasesUrl['admin'] . '/module.php?m=users&amp;action=add',

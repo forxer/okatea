@@ -14,7 +14,7 @@ class Debugbar extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('development_usage') || ! $this->okt->checkPerm('development_debug_bar'))
+		if (! $this->okt['visitor']->checkPerm('development_usage') || ! $this->okt['visitor']->checkPerm('development_debug_bar'))
 		{
 			return $this->serve401();
 		}

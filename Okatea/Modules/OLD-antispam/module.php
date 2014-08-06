@@ -24,7 +24,7 @@ class module_antispam extends Module
 		));
 		
 		# permissions
-		$this->okt->addPerm('antispam', __('m_antispam_perm_global'), 'configuration');
+		$this->okt['permissions']->addPerm('antispam', __('m_antispam_perm_global'), 'configuration');
 		
 		$this->okt->spamfilters = array(
 			'oktFilterIP',
@@ -39,7 +39,7 @@ class module_antispam extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('Antispam'), 'module.php?m=antispam', $this->bCurrentlyInUse, 25, $this->okt->checkPerm('antispam'), null);
+			$this->okt->page->configSubMenu->add(__('Antispam'), 'module.php?m=antispam', $this->bCurrentlyInUse, 25, $this->okt['visitor']->checkPerm('antispam'), null);
 		}
 	}
 }

@@ -38,7 +38,7 @@ class CatalogRecordset extends Recordset
 	public function isEditable()
 	{
 		# If user is admin or contentadmin, true
-		if ($this->okt->checkPerm('catalog'))
+		if ($this->okt['visitor']->checkPerm('catalog'))
 		{
 			return true;
 		}
@@ -54,7 +54,7 @@ class CatalogRecordset extends Recordset
 	public function isDeletable()
 	{
 		# If user is admin, or contentadmin, true
-		if ($this->okt->checkPerm('catalog_remove'))
+		if ($this->okt['visitor']->checkPerm('catalog_remove'))
 		{
 			return true;
 		}

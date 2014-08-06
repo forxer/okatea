@@ -144,7 +144,7 @@ class oktSpamFilter
 
 	public function hasGUI()
 	{
-		if (! $this->okt['visitor']->is_admin || ! $this->okt->checkPerm('antispam'))
+		if (! $this->okt['visitor']->is_admin || ! $this->okt['visitor']->checkPerm('antispam'))
 		{
 			return false;
 		}

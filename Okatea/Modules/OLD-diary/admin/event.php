@@ -194,7 +194,7 @@ if (! empty($iEventId))
 	
 	# bouton de suppression si autorisé
 	$okt->page->addButton('diaryBtSt', array(
-		'permission' => $okt->checkPerm('diary_remove'),
+		'permission' => $okt['visitor']->checkPerm('diary_remove'),
 		'title' => __('c_c_action_Delete'),
 		'url' => 'module.php?m=diary&amp;action=delete&amp;event_id=' . $iEventId,
 		'ui-icon' => 'closethick',

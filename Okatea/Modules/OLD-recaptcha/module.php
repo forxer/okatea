@@ -12,7 +12,7 @@ class module_recaptcha extends Module
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('recaptcha_config', __('m_recaptacha_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('recaptcha_config', __('m_recaptacha_perm_config'), 'configuration');
 		
 		# config
 		$this->config = $this->okt->newConfig('conf_recaptcha');
@@ -57,7 +57,7 @@ class module_recaptcha extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('reCaptcha'), 'module.php?m=recaptcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt->checkPerm('recaptcha_config'), null);
+			$this->okt->page->configSubMenu->add(__('reCaptcha'), 'module.php?m=recaptcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('recaptcha_config'), null);
 		}
 	}
 	

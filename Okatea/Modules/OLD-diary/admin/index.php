@@ -229,7 +229,7 @@ $count_line = 0;
 							title="<?php printf(__('m_diary_edit_event_%s'),html::escapeHTML($rsEvents->title)) ?>"
 							class="icon pencil"><?php _e('c_c_action_Edit') ?></a></li>
 
-			<?php if ($okt->checkPerm('diary_remove')) : ?>
+			<?php if ($okt['visitor']->checkPerm('diary_remove')) : ?>
 			<li><a
 							href="module.php?m=diary&amp;action=delete&amp;event_id=<?php echo $rsEvents->id ?>"
 							onclick="return window.confirm('<?php echo html::escapeJS(__('m_diary_confirm_deleting')) ?>')"

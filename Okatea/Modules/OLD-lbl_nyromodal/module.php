@@ -16,7 +16,7 @@ class module_lbl_nyromodal extends Module
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('nyromodal_config', __('m_lbl_nyromodal_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('nyromodal_config', __('m_lbl_nyromodal_perm_config'), 'configuration');
 		
 		# configuration
 		$this->config = $this->okt->newConfig('conf_lbl_nyromodal');
@@ -32,7 +32,7 @@ class module_lbl_nyromodal extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('m_lbl_nyromodal_menu_config'), 'module.php?m=lbl_nyromodal&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt->checkPerm('nyromodal_config'), null);
+			$this->okt->page->configSubMenu->add(__('m_lbl_nyromodal_menu_config'), 'module.php?m=lbl_nyromodal&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt['visitor']->checkPerm('nyromodal_config'), null);
 		}
 	}
 

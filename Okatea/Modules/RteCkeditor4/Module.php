@@ -18,7 +18,7 @@ class Module extends BaseModule
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('rte_ckeditor_4_config', __('m_rte_ckeditor_4_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('rte_ckeditor_4_config', __('m_rte_ckeditor_4_perm_config'), 'configuration');
 		
 		# configuration
 		//$this->config = $this->okt->newConfig('conf_rte_ckeditor_4');
@@ -40,7 +40,7 @@ class Module extends BaseModule
 				$this->okt['adminRouter']->generate('RteTinymce4_config'),
 				$this->okt['request']->attributes->get('_route') === 'RteTinymce4_config',
 				40,
-				$this->okt->checkPerm('rte_ckeditor_4_config'),
+				$this->okt['visitor']->checkPerm('rte_ckeditor_4_config'),
 				null
 			);
 		}

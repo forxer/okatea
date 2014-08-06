@@ -47,7 +47,7 @@ class module_accessible_captcha extends Module
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('accessible_captcha_config', __('m_accessible_captcha_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('accessible_captcha_config', __('m_accessible_captcha_perm_config'), 'configuration');
 		
 		# config
 		$this->config = $this->okt->newConfig('conf_accessible_captcha');
@@ -119,7 +119,7 @@ class module_accessible_captcha extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('Accessible Captcha'), 'module.php?m=accessible_captcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt->checkPerm('accessible_captcha_config'), null);
+			$this->okt->page->configSubMenu->add(__('Accessible Captcha'), 'module.php?m=accessible_captcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('accessible_captcha_config'), null);
 		}
 	}
 	

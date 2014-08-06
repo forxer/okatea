@@ -14,7 +14,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('rte_tinymce_4_config'))
+		if (! $this->okt['visitor']->checkPerm('rte_tinymce_4_config'))
 		{
 			return $this->serve401();
 		}

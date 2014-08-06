@@ -211,7 +211,7 @@ else
 		'active' => $p_active
 	));
 	$okt->page->addButton('faqBtSt', array(
-		'permission' => $okt->checkPerm('faq_remove'),
+		'permission' => $okt['visitor']->checkPerm('faq_remove'),
 		'title' => __('c_c_action_delete'),
 		'url' => 'module.php?m=faq&amp;action=delete&amp;questions_id=' . $questions_id,
 		'ui-icon' => 'closethick',

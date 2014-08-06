@@ -45,15 +45,15 @@ class Module extends BaseModule
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPermGroup('news', __('m_news_perm_group'));
-		$this->okt->addPerm('news_usage', __('m_news_perm_global'), 'news');
-		$this->okt->addPerm('news_show_all', __('m_news_perm_show_all'), 'news');
-		$this->okt->addPerm('news_publish', __('m_news_perm_publish'), 'news');
-		$this->okt->addPerm('news_delete', __('m_news_perm_delete'), 'news');
-		$this->okt->addPerm('news_contentadmin', __('m_news_perm_contentadmin'), 'news');
-		$this->okt->addPerm('news_categories', __('m_news_perm_categories'), 'news');
-		$this->okt->addPerm('news_display', __('m_news_perm_display'), 'news');
-		$this->okt->addPerm('news_config', __('m_news_perm_config'), 'news');
+		$this->okt['permissions']->addPermGroup('news', __('m_news_perm_group'));
+		$this->okt['permissions']->addPerm('news_usage', __('m_news_perm_global'), 'news');
+		$this->okt['permissions']->addPerm('news_show_all', __('m_news_perm_show_all'), 'news');
+		$this->okt['permissions']->addPerm('news_publish', __('m_news_perm_publish'), 'news');
+		$this->okt['permissions']->addPerm('news_delete', __('m_news_perm_delete'), 'news');
+		$this->okt['permissions']->addPerm('news_contentadmin', __('m_news_perm_contentadmin'), 'news');
+		$this->okt['permissions']->addPerm('news_categories', __('m_news_perm_categories'), 'news');
+		$this->okt['permissions']->addPerm('news_display', __('m_news_perm_display'), 'news');
+		$this->okt['permissions']->addPerm('news_config', __('m_news_perm_config'), 'news');
 
 		# tables
 		$this->t_news = $this->db->prefix . 'mod_news';
@@ -94,7 +94,7 @@ class Module extends BaseModule
 		{
 			$this->okt->page->newsSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 
-			$this->okt->page->mainMenu->add($this->getName(), $this->okt['adminRouter']->generate('News_index'), $this->okt['request']->attributes->get('_route') === 'News_index', 15, ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin')), null, $this->okt->page->newsSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), $this->okt['adminRouter']->generate('News_index'), $this->okt['request']->attributes->get('_route') === 'News_index', 15, ($this->okt['visitor']->checkPerm('news_usage') || $this->okt['visitor']->checkPerm('news_contentadmin')), null, $this->okt->page->newsSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->newsSubMenu->add(__('c_a_menu_management'), $this->okt['adminRouter']->generate('News_index'), in_array($this->okt['request']->attributes->get('_route'), array(
 				'News_index',
 				'News_post'
@@ -104,9 +104,9 @@ class Module extends BaseModule
 				'News_categories',
 				'News_category',
 				'News_category_add'
-			)), 30, ($this->config->categories['enable'] && $this->okt->checkPerm('news_categories')));
-			$this->okt->page->newsSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('News_display'), $this->okt['request']->attributes->get('_route') === 'News_display', 40, $this->okt->checkPerm('news_display'));
-			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt->checkPerm('news_config'));
+			)), 30, ($this->config->categories['enable'] && $this->okt['visitor']->checkPerm('news_categories')));
+			$this->okt->page->newsSubMenu->add(__('c_a_menu_display'), $this->okt['adminRouter']->generate('News_display'), $this->okt['request']->attributes->get('_route') === 'News_display', 40, $this->okt['visitor']->checkPerm('news_display'));
+			$this->okt->page->newsSubMenu->add(__('c_a_menu_configuration'), $this->okt['adminRouter']->generate('News_config'), $this->okt['request']->attributes->get('_route') === 'News_config', 50, $this->okt['visitor']->checkPerm('news_config'));
 		}
 
 		$this->okt['triggers']->registerTrigger('adminConfigSiteInit', array(
@@ -173,7 +173,7 @@ class Module extends BaseModule
 	public function websiteAdminBarItems($aPrimaryAdminBar, $aSecondaryAdminBar, $aBasesUrl)
 	{
 		# lien ajouter un article
-		if ($this->okt->checkPerm('news_usage') || $this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_usage') || $this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			$aPrimaryAdminBar[200]['items'][200] = array(
 				'href' => $this->okt['adminRouter']->generateFromWebsite('News_post_add'),

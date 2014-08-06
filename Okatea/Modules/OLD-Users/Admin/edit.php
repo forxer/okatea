@@ -115,7 +115,7 @@ $okt['triggers']->callTrigger('adminModUsersEditInit', $aEditPageInfos);
 ----------------------------------------------------------*/
 
 # Validation de l'utilisateur
-if (! empty($_GET['valide']) && $okt->checkPerm('users_edit'))
+if (! empty($_GET['valide']) && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId'],
@@ -144,7 +144,7 @@ if (! empty($_GET['valide']) && $okt->checkPerm('users_edit'))
 }
 
 # Formulaire de changement de mot de passe
-if (! empty($_POST['change_password']) && $okt->checkPerm('change_password') && $okt->checkPerm('users_edit'))
+if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password') && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId']
@@ -178,7 +178,7 @@ if (! empty($_POST['change_password']) && $okt->checkPerm('change_password') && 
 }
 
 # Formulaire de modification de l'utilisateur envoyé
-if (! empty($_POST['form_sent']) && ! isset($_POST['do']) && $okt->checkPerm('users_edit'))
+if (! empty($_POST['form_sent']) && ! isset($_POST['do']) && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId']
@@ -354,7 +354,7 @@ $okt->page->addButton('users', array(
 	'ui-icon' => 'check'
 ));
 $okt->page->addButton('users', array(
-	'permission' => $okt->checkPerm('users_delete'),
+	'permission' => $okt['visitor']->checkPerm('users_delete'),
 	'title' => __('c_c_action_Delete'),
 	'url' => 'module.php?m=users&amp;action=index&amp;delete=' . $aEditPageInfos['iUserId'],
 	'ui-icon' => 'closethick',
@@ -364,7 +364,7 @@ $okt->page->addButton('users', array(
 # Construction des onglets
 $aEditTabs = new ArrayObject();
 
-if ($okt->checkPerm('users_edit'))
+if ($okt['visitor']->checkPerm('users_edit'))
 {
 	$aEditTabs[10] = array(
 		'id' => 'tab-edit-user',
@@ -426,7 +426,7 @@ if ($okt->checkPerm('users_edit'))
 			<p>' . form::hidden('form_sent', 1) . form::hidden('m', 'users') . form::hidden('action', 'edit') . form::hidden('id', $aEditPageInfos['iUserId']) . Page::formtoken() . '<input type="submit" value="' . __('c_c_action_Edit') . '" /></p>
 		</form>';
 	
-	if ($okt->checkPerm('change_password'))
+	if ($okt['visitor']->checkPerm('change_password'))
 	{
 		$aEditTabs[100] = array(
 			'id' => 'tab-change-password',

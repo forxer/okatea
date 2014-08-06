@@ -45,7 +45,7 @@ class Recordset extends BaseRecordset
 	public function isShowable()
 	{
 		# If user is admin or contentadmin, true
-		if ($this->okt->checkPerm('news_contentadmin') || $this->okt->checkPerm('m_news_perm_show_all'))
+		if ($this->okt['visitor']->checkPerm('news_contentadmin') || $this->okt['visitor']->checkPerm('m_news_perm_show_all'))
 		{
 			return true;
 		}
@@ -73,7 +73,7 @@ class Recordset extends BaseRecordset
 	public function isEditable()
 	{
 		# If user is admin or contentadmin, true
-		if ($this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			return true;
 		}
@@ -85,7 +85,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user is usage and owner of the entrie
-		if ($this->okt->checkPerm('news_usage') && $this->user_id == $this->okt['visitor']->id)
+		if ($this->okt['visitor']->checkPerm('news_usage') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -101,7 +101,7 @@ class Recordset extends BaseRecordset
 	public function isPublishable()
 	{
 		# If user is admin or contentadmin, true
-		if ($this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			return true;
 		}
@@ -113,7 +113,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user is usage and owner of the entrie
-		if ($this->okt->checkPerm('news_publish') && $this->user_id == $this->okt['visitor']->id)
+		if ($this->okt['visitor']->checkPerm('news_publish') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}
@@ -129,7 +129,7 @@ class Recordset extends BaseRecordset
 	public function isDeletable()
 	{
 		# If user is admin, or contentadmin, true
-		if ($this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			return true;
 		}
@@ -141,7 +141,7 @@ class Recordset extends BaseRecordset
 		}
 		
 		# If user has delete rights and is owner of the entrie
-		if ($this->okt->checkPerm('news_delete') && $this->user_id == $this->okt['visitor']->id)
+		if ($this->okt['visitor']->checkPerm('news_delete') && $this->user_id == $this->okt['visitor']->id)
 		{
 			return true;
 		}

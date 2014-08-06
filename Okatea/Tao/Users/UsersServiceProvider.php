@@ -32,5 +32,9 @@ class UsersServiceProvider implements ServiceProviderInterface
 		$okt['groups'] = function($okt) {
 			return new Groups($okt);
 		};
+
+		$okt['permissions'] = function($okt) {
+			return new Permissions($okt);
+		};
 	}
 }

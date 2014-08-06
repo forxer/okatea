@@ -17,10 +17,10 @@ class module_media_manager extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('media_manager', __('m_media_manager_perm_group'));
-		$this->okt->addPerm('media', __('m_media_manager_perm_own'), 'media_manager');
-		$this->okt->addPerm('media_admin', __('m_media_manager_perm_all'), 'media_manager');
-		//			$this->okt->addPerm('media_config', __('m_media_manager_perm_config'),'media_manager');
+		$this->okt['permissions']->addPermGroup('media_manager', __('m_media_manager_perm_group'));
+		$this->okt['permissions']->addPerm('media', __('m_media_manager_perm_own'), 'media_manager');
+		$this->okt['permissions']->addPerm('media_admin', __('m_media_manager_perm_all'), 'media_manager');
+		//			$this->okt['permissions']->addPerm('media_config', __('m_media_manager_perm_config'),'media_manager');
 		
 
 		# config
@@ -32,14 +32,14 @@ class module_media_manager extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->homeSubMenu->add(__('Media manager'), 'module.php?m=media_manager', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, ($this->okt->checkPerm('media') || $this->okt->checkPerm('media_admin')), null);
+			$this->okt->page->homeSubMenu->add(__('Media manager'), 'module.php?m=media_manager', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, ($this->okt['visitor']->checkPerm('media') || $this->okt['visitor']->checkPerm('media_admin')), null);
 			/*
 			$this->okt->page->configSubMenu->add(
 				__('Media manager'),
 				'module.php?m=media_manager&amp;action=config',
 				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				30,
-				$this->okt->checkPerm('media_config'),
+				$this->okt['visitor']->checkPerm('media_config'),
 				null
 			);
 */

@@ -17,7 +17,7 @@ class Bootstrap extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('development_usage') || ! $this->okt->checkPerm('development_bootstrap'))
+		if (! $this->okt['visitor']->checkPerm('development_usage') || ! $this->okt['visitor']->checkPerm('development_bootstrap'))
 		{
 			return $this->serve401();
 		}

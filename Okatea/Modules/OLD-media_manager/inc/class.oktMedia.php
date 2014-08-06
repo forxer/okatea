@@ -271,7 +271,7 @@ class oktMedia extends filemanager
 			
 			$f->media_image = false;
 			
-			if (! $this->okt->checkPerm('media_admin') && $this->okt['visitor']->id != $f->media_user_id)
+			if (! $this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $f->media_user_id)
 			{
 				$f->del = false;
 				$f->editable = false;
@@ -427,7 +427,7 @@ class oktMedia extends filemanager
 		
 		$strReq = 'SELECT m.media_file, m.media_id, m.media_path, m.media_title, m.media_meta, m.media_dt, ' . 'm.media_creadt, m.media_upddt, m.media_private, m.user_id, ' . 'u.username, u.lastname, u.firstname ' . 'FROM ' . $this->t_media . ' AS m ' . 'LEFT JOIN ' . $this->t_users . ' AS u ON u.id=m.user_id ' . "WHERE media_path = '" . $this->path . "' " . "AND media_dir = '" . $this->db->escapeStr($media_dir) . "' ";
 		
-		if (! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
@@ -494,7 +494,7 @@ class oktMedia extends filemanager
 		}
 		
 		# Check files that don't exist in database and create them
-		if ($this->okt->checkPerm('media') || $this->okt->checkPerm('media_admin'))
+		if ($this->okt['visitor']->checkPerm('media') || $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			foreach ($p_dir['files'] as $f)
 			{
@@ -525,7 +525,7 @@ class oktMedia extends filemanager
 	{
 		$strReq = 'SELECT m.media_id, m.media_path, m.media_title, ' . 'm.media_file, m.media_meta, m.media_dt, m.media_creadt, ' . 'm.media_upddt, m.media_private, m.user_id, ' . 'u.username, u.lastname, u.firstname ' . 'FROM ' . $this->t_media . ' AS m ' . 'LEFT JOIN ' . $this->t_users . ' AS u ON u.id=m.user_id ' . "WHERE m.media_path = '" . $this->path . "' " . 'AND m.media_id = ' . (integer) $id . ' ';
 		
-		if (! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
@@ -709,7 +709,7 @@ class oktMedia extends filemanager
 	 */
 	public function createFile($name, $title = null, $private = false, $dt = null)
 	{
-		if (! $this->okt->checkPerm('media') && ! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -798,7 +798,7 @@ class oktMedia extends filemanager
 	 */
 	public function updateFile($file, $newFile)
 	{
-		if (! $this->okt->checkPerm('media') && ! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -810,7 +810,7 @@ class oktMedia extends filemanager
 			throw new Exception('No file ID');
 		}
 		
-		if (! $this->okt->checkPerm('media_admin') && $this->okt['visitor']->id != $file->media_user_id)
+		if (! $this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $file->media_user_id)
 		{
 			throw new Exception(__('You are not the file owner.'));
 		}
@@ -865,7 +865,7 @@ class oktMedia extends filemanager
 	 */
 	public function uploadFile($tmp, $name, $title = null, $private = false, $overwrite = false)
 	{
-		if (! $this->okt->checkPerm('media') && ! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -887,7 +887,7 @@ class oktMedia extends filemanager
 	 */
 	public function uploadBits($name, $bits)
 	{
-		if (! $this->okt->checkPerm('media') && ! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -907,7 +907,7 @@ class oktMedia extends filemanager
 	 */
 	public function removeFile($f)
 	{
-		if (! $this->okt->checkPerm('media') && ! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -916,7 +916,7 @@ class oktMedia extends filemanager
 		
 		$strReq = 'DELETE FROM ' . $this->t_media . ' ' . "WHERE media_path = '" . $this->db->escapeStr($this->path) . "' " . "AND media_file = '" . $this->db->escapeStr($media_file) . "' ";
 		
-		if (! $this->okt->checkPerm('media_admin'))
+		if (! $this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND user_id = ' . (integer) $this->okt['visitor']->id . ' ';
 		}

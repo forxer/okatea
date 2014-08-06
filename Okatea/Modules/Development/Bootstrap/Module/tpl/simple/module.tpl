@@ -39,7 +39,7 @@ class module_##module_id## extends Module
 				'module.php?m=##module_id##&amp;action=config',
 				$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 				22,
-				$this->okt->checkPerm('is_superadmin'),
+				$this->okt['visitor']->checkPerm('is_superadmin'),
 				null
 			);
 		}

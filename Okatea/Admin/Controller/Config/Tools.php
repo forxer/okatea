@@ -42,7 +42,7 @@ class Tools extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('tools'))
+		if (! $this->okt['visitor']->checkPerm('tools'))
 		{
 			return $this->serve401();
 		}
@@ -267,7 +267,7 @@ class Tools extends Controller
 
 		if ($this->okt['debug']
 			&& $this->okt['env'] === 'dev'
-			&& $this->okt->checkPerm('is_superadmin'))
+			&& $this->okt['visitor']->checkPerm('is_superadmin'))
 		{
 			$this->bCanUninstall = true;
 		}

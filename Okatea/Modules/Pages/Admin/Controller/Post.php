@@ -18,7 +18,7 @@ class Post extends Controller
 
 	public function add()
 	{
-		if (! $this->okt->checkPerm('pages_add'))
+		if (! $this->okt['visitor']->checkPerm('pages_add'))
 		{
 			return $this->serve401();
 		}

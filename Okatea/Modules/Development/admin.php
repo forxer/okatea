@@ -21,15 +21,15 @@ if ((! $okt->page->action || $okt->page->action === 'index'))
 {
 	require __DIR__ . '/admin/index.php';
 }
-elseif ($okt->page->action === 'debug_bar' && $okt->checkPerm('development_debug_bar'))
+elseif ($okt->page->action === 'debug_bar' && $okt['visitor']->checkPerm('development_debug_bar'))
 {
 	require __DIR__ . '/admin/debug_bar.php';
 }
-elseif ($okt->page->action === 'bootstrap' && $okt->checkPerm('development_bootstrap'))
+elseif ($okt->page->action === 'bootstrap' && $okt['visitor']->checkPerm('development_bootstrap'))
 {
 	require __DIR__ . '/admin/bootstrap.php';
 }
-elseif ($okt->page->action === 'counting' && $okt->checkPerm('development_counting'))
+elseif ($okt->page->action === 'counting' && $okt['visitor']->checkPerm('development_counting'))
 {
 	require __DIR__ . '/admin/counting.php';
 }

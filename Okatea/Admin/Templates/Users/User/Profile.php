@@ -33,7 +33,7 @@ $okt->page->css->addCss('
 	<ul>
 		<li><a href="#tab-show-profil"><?php echo $view->escape($okt['visitor']->usedname) ?></a></li>
 		<li><a href="#tab-user-form"><?php _e('c_c_action_Edit')?></a></li>
-		<?php if ($okt->checkPerm('change_password')) : ?>
+		<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 		<li><a href="#tab-password-form"><?php _e('c_c_user_Password')?></a></li>
 		<?php endif; ?>
 	</ul>
@@ -64,7 +64,7 @@ $okt->page->css->addCss('
 		</form>
 	</div><!-- #tab-user-form -->
 
-	<?php if ($okt->checkPerm('change_password')) : ?>
+	<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 	<div id="tab-password-form">
 		<form id="change-password-form"
 			action="<?php echo $view->generateUrl('User_profile') ?>"

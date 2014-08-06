@@ -10,7 +10,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt->checkPerm('users') && $okt->page->action !== 'profil')
+if (! $okt['visitor']->checkPerm('users') && $okt->page->action !== 'profil')
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
@@ -57,27 +57,27 @@ else
 	{
 		require __DIR__ . '/admin/edit.php';
 	}
-	elseif ($okt->page->action === 'groups' && $okt->checkPerm('users_groups'))
+	elseif ($okt->page->action === 'groups' && $okt['visitor']->checkPerm('users_groups'))
 	{
 		require __DIR__ . '/admin/groups.php';
 	}
-	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields'))
+	elseif ($okt->page->action === 'fields' && $okt->users->config->enable_custom_fields && $okt['visitor']->checkPerm('users_custom_fields'))
 	{
 		require __DIR__ . '/admin/fields.php';
 	}
-	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt->checkPerm('users_custom_fields'))
+	elseif ($okt->page->action === 'field' && $okt->users->config->enable_custom_fields && $okt['visitor']->checkPerm('users_custom_fields'))
 	{
 		require __DIR__ . '/admin/field.php';
 	}
-	elseif ($okt->page->action === 'export' && $okt->checkPerm('users_export'))
+	elseif ($okt->page->action === 'export' && $okt['visitor']->checkPerm('users_export'))
 	{
 		require __DIR__ . '/admin/export.php';
 	}
-	elseif ($okt->page->action === 'display' && $okt->checkPerm('users_display'))
+	elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('users_display'))
 	{
 		require __DIR__ . '/admin/display.php';
 	}
-	elseif ($okt->page->action === 'config' && $okt->checkPerm('users_config'))
+	elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('users_config'))
 	{
 		require __DIR__ . '/admin/config.php';
 	}

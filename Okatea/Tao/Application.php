@@ -36,14 +36,14 @@ abstract class Application extends Container
 	const VERSION = '2.0-beta6';
 
 	/**
-	 * L'instance de l'autoloader.
+	 * The instance of the autoloader.
 	 *
 	 * @var Composer\Autoload\ClassLoader
 	 */
 	public $autoloader;
 
 	/**
-	 * Le controller invoqué.
+	 * The invoked controller.
 	 *
 	 * @var Okatea\Tao\Controller
 	 */
@@ -52,6 +52,7 @@ abstract class Application extends Container
 	/**
 	 * Le gestionnaire de base de données.
 	 *
+	 * @deprecated
 	 * @var Okatea\Tao\Database\MySqli
 	 */
 	public $db;
@@ -59,19 +60,20 @@ abstract class Application extends Container
 	/**
 	 * Le préfix des tables de la base de données.
 	 *
+	 * @deprecated
 	 * @var string
 	 */
 	public $db_prefix;
 
 	/**
-	 * La réponse qui va être renvoyée.
+	 * The response will be returned.
 	 *
 	 * @var Symfony\Component\HttpFoundation\Response
 	 */
 	public $response;
 
 	/**
-	 * Le moteur de templates.
+	 * The template engine.
 	 *
 	 * @var Okatea\Tao\Templating
 	 */
@@ -83,13 +85,6 @@ abstract class Application extends Container
 	 * @var mixed
 	 */
 	protected $htmlpurifier;
-
-	/**
-	 * La pile qui contient les permissions.
-	 *
-	 * @var array
-	 */
-	protected $aPermsStack = [];
 
 	/**
 	 * La liste des répertoires où le moteur de templates
@@ -200,112 +195,6 @@ abstract class Application extends Container
 				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
 			}
 		}
-	}
-
-	/* Permissions
-	----------------------------------------------------------*/
-
-	/**
-	 * Retourne la pile de permissions
-	 *
-	 * @return array
-	 */
-	public function getPerms()
-	{
-		return $this->aPermsStack;
-	}
-
-	/**
-	 * Ajout d'une permission
-	 *
-	 * @param string $perm Identifiant de la permission
-	 * @param string $libelle Intitulé de la permission
-	 * @param string $group Groupe de la permission (null)
-	 * @return void
-	 */
-	public function addPerm($perm, $libelle, $group = null)
-	{
-		if ($group) {
-			$this->aPermsStack[$group]['perms'][$perm] = $libelle;
-		}
-		else {
-			$this->aPermsStack[$perm] = $libelle;
-		}
-	}
-
-	/**
-	 * Ajout d'un groupe de permissions.
-	 *
-	 * @param string $group
-	 * @param string $libelle
-	 * @return void
-	 */
-	public function addPermGroup($group, $libelle)
-	{
-		$this->aPermsStack[$group] = [
-			'libelle' => $libelle,
-			'perms' => []
-		];
-	}
-
-	/**
-	 * Vérifie que l'utilisateur courant a la permission demandée.
-	 *
-	 * @param string $permissions
-	 * @return boolean
-	 */
-	public function checkPerm($permissions)
-	{
-		if ($permissions == 'is_superadmin') {
-			return $this['visitor']->is_superadmin;
-		}
-		elseif ($this['visitor']->is_superadmin) {
-			return true;
-		}
-
-		return in_array($permissions, $this['visitor']->perms);
-	}
-
-	public function getPermsForDisplay()
-	{
-		$aPermissions = [];
-
-		foreach ($this->getPerms() as $k => $v)
-		{
-			if (! is_array($v))
-			{
-				if (! isset($aPermissions['others']))
-				{
-					$aPermissions['others'] = [
-						'libelle' => '',
-						'perms' => []
-					];
-				}
-
-				if ($this->checkPerm($k)) {
-					$aPermissions['others']['perms'][$k] = $v;
-				}
-			}
-			else
-			{
-				$aPermissions[$k] = [
-					'libelle' => $v['libelle'],
-					'perms' => []
-				];
-
-				foreach ($v['perms'] as $perm => $libelle)
-				{
-					if ($this->checkPerm($perm))
-					{
-						$aPermissions[$k]['perms'][$perm] = $libelle;
-					}
-				}
-			}
-		}
-
-		asort($aPermissions);
-
-		return $aPermissions;
 	}
 
 	/* Templates engine

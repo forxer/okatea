@@ -32,7 +32,7 @@ class module_images_sets extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('Images sets'), 'module.php?m=images_sets&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 42, $this->okt->checkPerm('is_superadmin'), null);
+			$this->okt->page->configSubMenu->add(__('Images sets'), 'module.php?m=images_sets&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 42, $this->okt['visitor']->checkPerm('is_superadmin'), null);
 		}
 	}
 

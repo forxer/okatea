@@ -100,7 +100,7 @@ class AdminBar
 		);
 
 		# infos super-admin
-		if ($this->okt->checkPerm('is_superadmin'))
+		if ($this->okt['visitor']->checkPerm('is_superadmin'))
 		{
 			# avertissement mode debug activé
 			if ($this->okt['debug'])

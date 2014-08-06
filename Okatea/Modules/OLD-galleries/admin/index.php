@@ -30,7 +30,7 @@ if (! empty($_REQUEST['regenerate_thumbnails']))
 }
 
 # Switch statut
-if (! empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
+if (! empty($_GET['switch_status']) && $okt['visitor']->checkPerm('galleries_manage'))
 {
 	try
 	{
@@ -54,7 +54,7 @@ if (! empty($_GET['switch_status']) && $okt->checkPerm('galleries_manage'))
 }
 
 # Suppression d'une galerie
-if (! empty($_GET['delete']) && $okt->checkPerm('galleries_manage'))
+if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_manage'))
 {
 	if ($okt->galleries->tree->deleteGallery(intval($_GET['delete'])))
 	{
@@ -93,7 +93,7 @@ $okt->page->css->addCSS('
 
 # bouton ajout de galerie
 $okt->page->addButton('galleriesBtSt', array(
-	'permission' => $okt->checkPerm('galleries_manage'),
+	'permission' => $okt['visitor']->checkPerm('galleries_manage'),
 	'title' => __('m_galleries_menu_add_gallery'),
 	'url' => 'module.php?m=galleries&amp;action=gallery',
 	'ui-icon' => 'plusthick',
@@ -102,7 +102,7 @@ $okt->page->addButton('galleriesBtSt', array(
 /*
 # bouton ajout d'élément
 $okt->page->addButton('galleriesBtSt',array(
-	'permission' 	=> ($okt->page->action !== 'add') && $okt->checkPerm('galleries_add'),
+	'permission' 	=> ($okt->page->action !== 'add') && $okt['visitor']->checkPerm('galleries_add'),
 	'title' 		=> __('m_galleries_menu_add_item'),
 	'url' 			=> 'module.php?m=galleries&amp;action=add',
 	'ui-icon' 		=> 'image'
@@ -110,7 +110,7 @@ $okt->page->addButton('galleriesBtSt',array(
 
 # bouton ajout de plusieurs éléments
 $okt->page->addButton('galleriesBtSt',array(
-	'permission' 	=> ($okt->page->action !== 'add') && $okt->galleries->config->enable_multiple_upload && $okt->checkPerm('galleries_add'),
+	'permission' 	=> ($okt->page->action !== 'add') && $okt->galleries->config->enable_multiple_upload && $okt['visitor']->checkPerm('galleries_add'),
 	'title' 		=> __('m_galleries_menu_add_items'),
 	'url' 			=> 'module.php?m=galleries&amp;action=add_multiples',
 	'ui-icon' 		=> 'folder-collapsed'
@@ -118,7 +118,7 @@ $okt->page->addButton('galleriesBtSt',array(
 
 # bouton ajout depuis un fichier ZIP
 $okt->page->addButton('galleriesBtSt',array(
-	'permission' 	=> ($okt->page->action !== 'add') && $okt->galleries->config->enable_zip_upload && $okt->checkPerm('galleries_add'),
+	'permission' 	=> ($okt->page->action !== 'add') && $okt->galleries->config->enable_zip_upload && $okt['visitor']->checkPerm('galleries_add'),
 	'title' 		=> __('m_galleries_menu_add_zip'),
 	'url' 			=> 'module.php?m=galleries&amp;action=add_zip',
 	'ui-icon' 		=> 'script'
@@ -228,7 +228,7 @@ else
 		
 		echo '<p><strong>' . html::escapeHTML($rsGalleriesList->title) . '</strong> - ' . $sNumItems . $sManageLink;
 		
-		if ($okt->checkPerm('galleries_add'))
+		if ($okt['visitor']->checkPerm('galleries_add'))
 		{
 			echo ' - <a href="module.php?m=galleries&amp;action=add&amp;gallery_id=' . $rsGalleriesList->id . '" ' . 'title="' . sprintf(__('m_galleries_list_add_item_to_gallery_%s'), html::escapeHTML($rsGalleriesList->name)) . '" ' . 'class="icon picture_add">' . __('m_galleries_list_add_item') . '</a>';
 			
@@ -242,7 +242,7 @@ else
 				echo ' - <a href="module.php?m=galleries&amp;action=add_zip&amp;gallery_id=' . $rsGalleriesList->id . '" ' . 'title="' . sprintf(__('m_galleries_list_add_zip_to_gallery_%s'), html::escapeHTML($rsGalleriesList->name)) . '" ' . 'class="icon page_white_zip">' . __('m_galleries_list_add_zip') . '</a>';
 			}
 			
-			if ($okt->checkPerm('is_superadmin'))
+			if ($okt['visitor']->checkPerm('is_superadmin'))
 			{
 				echo ' - <a href="module.php?m=galleries&amp;action=index&amp;regenerate_thumbnails=' . $rsGalleriesList->id . '" ' . 'title="' . sprintf(__('m_galleries_list_regenerate_thumbnails_of_gallery_%s'), html::escapeHTML($rsGalleriesList->name)) . '" ' . 'class="icon arrow_refresh_small lazy-load">' . __('m_galleries_list_regenerate_thumbnails') . '</a>';
 			}
@@ -250,7 +250,7 @@ else
 		
 		echo '</p>';
 		
-		if ((! $rsGalleriesList->locked && $okt->checkPerm('galleries_manage')) || $okt['visitor']->is_superadmin)
+		if ((! $rsGalleriesList->locked && $okt['visitor']->checkPerm('galleries_manage')) || $okt['visitor']->is_superadmin)
 		{
 			echo '<p>';
 			

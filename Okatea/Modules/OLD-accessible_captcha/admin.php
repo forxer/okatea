@@ -12,7 +12,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt->checkPerm('accessible_captcha_config'))
+if (! $okt['visitor']->checkPerm('accessible_captcha_config'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }

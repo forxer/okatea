@@ -16,7 +16,7 @@ class Groups extends Controller
 
 	public function index()
 	{
-		if (! $this->okt->checkPerm('users_groups'))
+		if (! $this->okt['visitor']->checkPerm('users_groups'))
 		{
 			return $this->serve401();
 		}
@@ -58,7 +58,7 @@ class Groups extends Controller
 
 	public function add()
 	{
-		if (! $this->okt->checkPerm('users_groups'))
+		if (! $this->okt['visitor']->checkPerm('users_groups'))
 		{
 			return $this->serve401();
 		}
@@ -118,13 +118,13 @@ class Groups extends Controller
 
 		return $this->render('Users/Groups/Add', array(
 			'aGroupData' => $aGroupData,
-			'aPermissions' => $this->okt->getPermsForDisplay()
+			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
 		));
 	}
 
 	public function edit()
 	{
-		if (! $this->okt->checkPerm('users_groups'))
+		if (! $this->okt['visitor']->checkPerm('users_groups'))
 		{
 			return $this->serve401();
 		}
@@ -203,7 +203,7 @@ class Groups extends Controller
 		return $this->render('Users/Groups/Edit', array(
 			'iGroupId' => $iGroupId,
 			'aGroupData' => $aGroupData,
-			'aPermissions' => $this->okt->getPermsForDisplay()
+			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
 		));
 	}
 }

@@ -38,11 +38,11 @@ class module_estimate extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('estimate', __('m_estimate_perm_group'));
-		$this->okt->addPerm('estimate', __('m_estimate_perm_global'), 'estimate');
-		$this->okt->addPerm('estimate_products', __('m_estimate_perm_products'), 'estimate');
-		$this->okt->addPerm('estimate_accessories', __('m_estimate_perm_accessories'), 'estimate');
-		$this->okt->addPerm('estimate_config', 'Configuration', 'estimate');
+		$this->okt['permissions']->addPermGroup('estimate', __('m_estimate_perm_group'));
+		$this->okt['permissions']->addPerm('estimate', __('m_estimate_perm_global'), 'estimate');
+		$this->okt['permissions']->addPerm('estimate_products', __('m_estimate_perm_products'), 'estimate');
+		$this->okt['permissions']->addPerm('estimate_accessories', __('m_estimate_perm_accessories'), 'estimate');
+		$this->okt['permissions']->addPerm('estimate_config', 'Configuration', 'estimate');
 		
 		# les tables
 		$this->t_estimate = $this->db->prefix . 'mod_estimate';
@@ -67,11 +67,11 @@ class module_estimate extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->estimateSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add(__('m_estimate_menu_Estimates'), 'module.php?m=estimate', $this->bCurrentlyInUse, 30, $this->okt->checkPerm('estimate'), null, $this->okt->page->estimateSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add(__('m_estimate_menu_Estimates'), 'module.php?m=estimate', $this->bCurrentlyInUse, 30, $this->okt['visitor']->checkPerm('estimate'), null, $this->okt->page->estimateSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Estimates_list'), 'module.php?m=estimate&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'), 1);
-			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Products'), 'module.php?m=estimate&amp;action=products', $this->bCurrentlyInUse && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'), 2, $this->okt->checkPerm('estimate_products'));
-			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Accessories'), 'module.php?m=estimate&amp;action=accessories', $this->bCurrentlyInUse && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'), 3, $this->config->enable_accessories && $this->okt->checkPerm('estimate_accessories'));
-			$this->okt->page->estimateSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=estimate&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 10, $this->okt->checkPerm('estimate_config'));
+			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Products'), 'module.php?m=estimate&amp;action=products', $this->bCurrentlyInUse && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'), 2, $this->okt['visitor']->checkPerm('estimate_products'));
+			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Accessories'), 'module.php?m=estimate&amp;action=accessories', $this->bCurrentlyInUse && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'), 3, $this->config->enable_accessories && $this->okt['visitor']->checkPerm('estimate_accessories'));
+			$this->okt->page->estimateSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=estimate&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 10, $this->okt['visitor']->checkPerm('estimate_config'));
 		}
 	}
 

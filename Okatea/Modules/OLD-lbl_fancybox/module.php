@@ -16,7 +16,7 @@ class module_lbl_fancybox extends Module
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('fancybox_config', __('m_lbl_fancybox_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('fancybox_config', __('m_lbl_fancybox_perm_config'), 'configuration');
 		
 		# configuration
 		$this->config = $this->okt->newConfig('conf_lbl_fancybox');
@@ -32,7 +32,7 @@ class module_lbl_fancybox extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('m_lbl_fancybox_menu_config'), 'module.php?m=lbl_fancybox&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt->checkPerm('fancybox_config'), null);
+			$this->okt->page->configSubMenu->add(__('m_lbl_fancybox_menu_config'), 'module.php?m=lbl_fancybox&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt['visitor']->checkPerm('fancybox_config'), null);
 		}
 	}
 

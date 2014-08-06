@@ -10,7 +10,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt->checkPerm('guestbook'))
+if (! $okt['visitor']->checkPerm('guestbook'))
 {
 	http::redirect('index.php');
 }
@@ -70,11 +70,11 @@ elseif ($okt->page->action === 'edit')
 {
 	require __DIR__ . '/admin/edit.php';
 }
-elseif ($okt->page->action === 'display' && $okt->checkPerm('guestbook_display'))
+elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('guestbook_display'))
 {
 	require __DIR__ . '/admin/display.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('guestbook_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('guestbook_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

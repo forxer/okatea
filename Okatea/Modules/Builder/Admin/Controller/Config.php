@@ -18,7 +18,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('okatea_builder'))
+		if (! $this->okt['visitor']->checkPerm('okatea_builder'))
 		{
 			return $this->serve401();
 		}

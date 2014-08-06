@@ -29,12 +29,12 @@ class module_##module_id## extends Module
 		));
 
 		# permissions
-		$this->okt->addPermGroup('##module_id##', __('m_##module_id##_perm_group'));
-			$this->okt->addPerm('##module_id##', __('m_##module_id##_perm_global'), '##module_id##');
-			$this->okt->addPerm('##module_id##_add', __('m_##module_id##_perm_add'), '##module_id##');
-			$this->okt->addPerm('##module_id##_remove', __('m_##module_id##_perm_remove'), '##module_id##');
-			$this->okt->addPerm('##module_id##_display', __('m_##module_id##_perm_display'), '##module_id##');
-			$this->okt->addPerm('##module_id##_config', __('m_##module_id##_perm_config'), '##module_id##');
+		$this->okt['permissions']->addPermGroup('##module_id##', __('m_##module_id##_perm_group'));
+			$this->okt['permissions']->addPerm('##module_id##', __('m_##module_id##_perm_global'), '##module_id##');
+			$this->okt['permissions']->addPerm('##module_id##_add', __('m_##module_id##_perm_add'), '##module_id##');
+			$this->okt['permissions']->addPerm('##module_id##_remove', __('m_##module_id##_perm_remove'), '##module_id##');
+			$this->okt['permissions']->addPerm('##module_id##_display', __('m_##module_id##_perm_display'), '##module_id##');
+			$this->okt['permissions']->addPerm('##module_id##_config', __('m_##module_id##_perm_config'), '##module_id##');
 
 		# configuration
 		$this->config = $this->okt->newConfig('conf_##module_id##');
@@ -59,7 +59,7 @@ class module_##module_id## extends Module
 				'module.php?m=##module_id##',
 				$this->bCurrentlyInUse,
 				20,
-				$this->okt->checkPerm('##module_id##'),
+				$this->okt['visitor']->checkPerm('##module_id##'),
 				null,
 				$this->okt->page->##module_camel_case_id##SubMenu,
 				$this->okt['public_url'].'/modules/'.$this->id().'/module_icon.png'
@@ -77,7 +77,7 @@ class module_##module_id## extends Module
 					'module.php?m=##module_id##&amp;action=add',
 					$this->bCurrentlyInUse && ($this->okt->page->action === 'add'),
 					20,
-					$this->okt->checkPerm('##module_id##_add')
+					$this->okt['visitor']->checkPerm('##module_id##_add')
 				);
 
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
@@ -85,7 +85,7 @@ class module_##module_id## extends Module
 					'module.php?m=##module_id##&amp;action=display',
 					$this->bCurrentlyInUse && ($this->okt->page->action === 'display'),
 					200,
-					$this->okt->checkPerm('##module_id##_display')
+					$this->okt['visitor']->checkPerm('##module_id##_display')
 				);
 
 				$this->okt->page->##module_camel_case_id##SubMenu->add(
@@ -93,7 +93,7 @@ class module_##module_id## extends Module
 					'module.php?m=##module_id##&amp;action=config',
 					$this->bCurrentlyInUse && ($this->okt->page->action === 'config'),
 					300,
-					$this->okt->checkPerm('##module_id##_config')
+					$this->okt['visitor']->checkPerm('##module_id##_config')
 				);
 		}
 

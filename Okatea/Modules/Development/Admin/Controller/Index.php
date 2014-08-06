@@ -14,7 +14,7 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('development_usage'))
+		if (! $this->okt['visitor']->checkPerm('development_usage'))
 		{
 			return $this->serve401();
 		}

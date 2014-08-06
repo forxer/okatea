@@ -38,13 +38,13 @@ class module_galleries extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('galleries', __('m_galleries_perm_group'));
-		$this->okt->addPerm('galleries', __('m_galleries_perm_global'), 'galleries');
-		$this->okt->addPerm('galleries_manage', __('m_galleries_perm_manage'), 'galleries');
-		$this->okt->addPerm('galleries_add', __('m_galleries_perm_add'), 'galleries');
-		$this->okt->addPerm('galleries_remove', __('m_galleries_perm_remove'), 'galleries');
-		$this->okt->addPerm('galleries_display', __('m_galleries_perm_display'), 'galleries');
-		$this->okt->addPerm('galleries_config', __('m_galleries_perm_config'), 'galleries');
+		$this->okt['permissions']->addPermGroup('galleries', __('m_galleries_perm_group'));
+		$this->okt['permissions']->addPerm('galleries', __('m_galleries_perm_global'), 'galleries');
+		$this->okt['permissions']->addPerm('galleries_manage', __('m_galleries_perm_manage'), 'galleries');
+		$this->okt['permissions']->addPerm('galleries_add', __('m_galleries_perm_add'), 'galleries');
+		$this->okt['permissions']->addPerm('galleries_remove', __('m_galleries_perm_remove'), 'galleries');
+		$this->okt['permissions']->addPerm('galleries_display', __('m_galleries_perm_display'), 'galleries');
+		$this->okt['permissions']->addPerm('galleries_config', __('m_galleries_perm_config'), 'galleries');
 		
 		# tables
 		$this->t_galleries = $this->db->prefix . 'mod_galleries';
@@ -104,13 +104,13 @@ class module_galleries extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->galleriesSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=galleries', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('galleries'), null, $this->okt->page->galleriesSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=galleries', $this->bCurrentlyInUse, 20, $this->okt['visitor']->checkPerm('galleries'), null, $this->okt->page->galleriesSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_management'), 'module.php?m=galleries&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'gallery' || $this->okt->page->action === 'items' || $this->okt->page->action === 'edit'), 1);
-			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_item'), 'module.php?m=galleries&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt->checkPerm('galleries_add'));
-			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_items'), 'module.php?m=galleries&amp;action=add_multiples', $this->bCurrentlyInUse && ($this->okt->page->action === 'add_multiples'), 3, $this->config->enable_multiple_upload && $this->okt->checkPerm('galleries_add'));
-			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_zip'), 'module.php?m=galleries&amp;action=add_zip', $this->bCurrentlyInUse && ($this->okt->page->action === 'add_zip'), 4, $this->config->enable_zip_upload && $this->okt->checkPerm('galleries_add'));
-			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_display'), 'module.php?m=galleries&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt->checkPerm('galleries_display'));
-			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=galleries&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt->checkPerm('galleries_config'));
+			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_item'), 'module.php?m=galleries&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt['visitor']->checkPerm('galleries_add'));
+			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_items'), 'module.php?m=galleries&amp;action=add_multiples', $this->bCurrentlyInUse && ($this->okt->page->action === 'add_multiples'), 3, $this->config->enable_multiple_upload && $this->okt['visitor']->checkPerm('galleries_add'));
+			$this->okt->page->galleriesSubMenu->add(__('m_galleries_menu_add_zip'), 'module.php?m=galleries&amp;action=add_zip', $this->bCurrentlyInUse && ($this->okt->page->action === 'add_zip'), 4, $this->config->enable_zip_upload && $this->okt['visitor']->checkPerm('galleries_add'));
+			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_display'), 'module.php?m=galleries&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('galleries_display'));
+			$this->okt->page->galleriesSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=galleries&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt['visitor']->checkPerm('galleries_config'));
 		}
 	}
 	

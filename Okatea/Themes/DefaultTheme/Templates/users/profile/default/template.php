@@ -219,7 +219,7 @@ if ($okt['config']->users['custom_fields_enabled'])
 	<?php echo form::hidden('form_sent', 1) ?></p>
 </form>
 
-<?php if ($okt->checkPerm('change_password')) : ?>
+<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 <h2><?php _e('c_c_users_Update_paswword') ?></h2>
 <form class="userform" id="change-password-form"
 	action="<?php echo $view->generateUrl('usersProfile') ?>" method="post">

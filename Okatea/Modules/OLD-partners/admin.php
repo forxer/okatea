@@ -10,13 +10,13 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt->checkPerm('partners'))
+if (! $okt['visitor']->checkPerm('partners'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un partenaire
-if ($okt->page->action === 'delete' && ! empty($_GET['partner_id']) && $okt->checkPerm('partners_remove'))
+if ($okt->page->action === 'delete' && ! empty($_GET['partner_id']) && $okt['visitor']->checkPerm('partners_remove'))
 {
 	if ($okt->partners->deletePartner($_GET['partner_id']))
 	{
@@ -42,7 +42,7 @@ $okt->page->setButtonset('partnersBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add') && $okt->checkPerm('partners_add'),
+			'permission' => ($okt->page->action !== 'add') && $okt['visitor']->checkPerm('partners_add'),
 			'title' => __('m_partners_add_partner'),
 			'url' => 'module.php?m=partners&amp;action=add',
 			'ui-icon' => 'plusthick',
@@ -52,7 +52,7 @@ $okt->page->setButtonset('partnersBtSt', array(
 ));
 
 # inclusion du fichier requis en fonction de l'action demandée
-if ($okt->page->action === 'add' && $okt->checkPerm('partners_add'))
+if ($okt->page->action === 'add' && $okt['visitor']->checkPerm('partners_add'))
 {
 	require __DIR__ . '/admin/partner.php';
 }
@@ -60,15 +60,15 @@ elseif ($okt->page->action === 'edit')
 {
 	require __DIR__ . '/admin/partner.php';
 }
-elseif ($okt->page->action === 'categories' && $okt->partners->config->enable_categories && $okt->checkPerm('partners_add'))
+elseif ($okt->page->action === 'categories' && $okt->partners->config->enable_categories && $okt['visitor']->checkPerm('partners_add'))
 {
 	require __DIR__ . '/admin/categories.php';
 }
-elseif ($okt->page->action === 'display' && $okt->checkPerm('partners'))
+elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('partners'))
 {
 	require __DIR__ . '/admin/display.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('partners_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('partners_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

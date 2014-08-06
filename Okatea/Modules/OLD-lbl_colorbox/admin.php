@@ -10,7 +10,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# inclusion du fichier requis en fonction de l'action demandée
-if ($okt->page->action === 'config' && $okt->checkPerm('colorbox_config'))
+if ($okt->page->action === 'config' && $okt['visitor']->checkPerm('colorbox_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

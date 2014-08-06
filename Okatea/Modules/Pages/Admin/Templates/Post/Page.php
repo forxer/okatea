@@ -30,7 +30,7 @@ $okt->page->setButtonset('pagesBtSt', array(
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
-			'permission' => $okt->checkPerm('pages_add'),
+			'permission' => $okt['visitor']->checkPerm('pages_add'),
 			'title' => __('m_pages_menu_add_page'),
 			'url' => $view->generateUrl('Pages_post_add'),
 			'ui-icon' => 'plusthick',
@@ -56,7 +56,7 @@ if (! empty($aPageData['post']['id']))
 	));
 	# bouton de suppression si autorisé
 	$okt->page->addButton('pagesBtSt', array(
-		'permission' => $okt->checkPerm('pages_remove'),
+		'permission' => $okt['visitor']->checkPerm('pages_remove'),
 		'title' => __('c_c_action_Delete'),
 		'url' => $view->generateUrl('Pages_index') . '?delete=' . $aPageData['post']['id'],
 		'ui-icon' => 'closethick',

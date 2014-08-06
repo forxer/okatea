@@ -100,7 +100,7 @@ catch (\Exception $e)
 }
 
 # Zip download
-if (! empty($_GET['zipdl']) && $okt->checkPerm('media_admin'))
+if (! empty($_GET['zipdl']) && $okt['visitor']->checkPerm('media_admin'))
 {
 	try
 	{
@@ -377,7 +377,7 @@ if ($core_media_writable)
 }
 
 # Get zip directory
-if ($okt->checkPerm('media_admin'))
+if ($okt['visitor']->checkPerm('media_admin'))
 {
 	echo '<p><a href="' . html::escapeURL($page_url) . '&amp;zipdl=1" class="icon package">' . __('Download this directory as a zip file') . '</a></p>';
 }

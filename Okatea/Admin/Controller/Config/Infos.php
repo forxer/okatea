@@ -25,7 +25,7 @@ class Infos extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('infos')) {
+		if (! $this->okt['visitor']->checkPerm('infos')) {
 			return $this->serve401();
 		}
 

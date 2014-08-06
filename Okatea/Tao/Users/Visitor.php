@@ -311,6 +311,24 @@ class Visitor
 	}
 
 	/**
+	 * Checks that the current user has the requested permission.
+	 *
+	 * @param string $sPermission
+	 * @return boolean
+	 */
+	public function checkPerm($sPermission)
+	{
+		if ($sPermission == 'is_superadmin') {
+			return $this->infos['is_superadmin'];
+		}
+		elseif ($this->infos['is_superadmin']) {
+			return true;
+		}
+
+		return in_array($sPermission, $this->infos['perms']);
+	}
+
+	/**
 	 * Perform login.
 	 *
 	 * @param string $sUsername

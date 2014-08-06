@@ -16,7 +16,7 @@ class module_lbl_pirobox extends Module
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('pirobox_config', __('m_lbl_pirobox_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('pirobox_config', __('m_lbl_pirobox_perm_config'), 'configuration');
 		
 		# configuration
 		$this->config = $this->okt->newConfig('conf_lbl_pirobox');
@@ -32,7 +32,7 @@ class module_lbl_pirobox extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('m_lbl_pirobox_menu_config'), 'module.php?m=lbl_pirobox&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt->checkPerm('pirobox_config'), null);
+			$this->okt->page->configSubMenu->add(__('m_lbl_pirobox_menu_config'), 'module.php?m=lbl_pirobox&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 25, $this->okt['visitor']->checkPerm('pirobox_config'), null);
 		}
 	}
 

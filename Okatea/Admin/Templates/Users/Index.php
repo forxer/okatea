@@ -204,7 +204,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 					<ul class="actions">
 
 						<li>
-					<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt->checkPerm('users_edit')) : ?>
+					<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt['visitor']->checkPerm('users_edit')) : ?>
 						<a
 							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
@@ -226,14 +226,14 @@ if ($okt['config']->users['gravatar']['enabled'])
 					<?php endif; ?>
 					</li>
 
-					<?php if ($okt->checkPerm('users_edit')) : ?>
+					<?php if ($okt['visitor']->checkPerm('users_edit')) : ?>
 					<li><a
 							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
 							class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 					<?php endif; ?>
 
-					<?php if ($okt->checkPerm('users_delete')) : ?>
+					<?php if ($okt['visitor']->checkPerm('users_delete')) : ?>
 					<li><a
 							href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"

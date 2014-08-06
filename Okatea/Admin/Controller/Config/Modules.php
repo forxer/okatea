@@ -30,7 +30,7 @@ class Modules extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('modules'))
+		if (! $this->okt['visitor']->checkPerm('modules'))
 		{
 			return $this->serve401();
 		}

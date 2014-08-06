@@ -45,13 +45,13 @@ class module_faq extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('faq', __('m_faq_perm_group'));
-		$this->okt->addPerm('faq', __('m_faq_perm_global'), 'faq');
-		$this->okt->addPerm('faq_add', __('m_faq_perm_add'), 'faq');
-		$this->okt->addPerm('faq_remove', __('m_faq_perm_remove'), 'faq');
-		$this->okt->addPerm('faq_categories', __('m_faq_perm_categories'), 'faq');
-		$this->okt->addPerm('faq_display', __('m_faq_perm_display'), 'faq');
-		$this->okt->addPerm('faq_config', __('m_faq_perm_config'), 'faq');
+		$this->okt['permissions']->addPermGroup('faq', __('m_faq_perm_group'));
+		$this->okt['permissions']->addPerm('faq', __('m_faq_perm_global'), 'faq');
+		$this->okt['permissions']->addPerm('faq_add', __('m_faq_perm_add'), 'faq');
+		$this->okt['permissions']->addPerm('faq_remove', __('m_faq_perm_remove'), 'faq');
+		$this->okt['permissions']->addPerm('faq_categories', __('m_faq_perm_categories'), 'faq');
+		$this->okt['permissions']->addPerm('faq_display', __('m_faq_perm_display'), 'faq');
+		$this->okt['permissions']->addPerm('faq_config', __('m_faq_perm_config'), 'faq');
 		
 		# tables
 		$this->t_faq = $this->db->prefix . 'mod_faq';
@@ -71,12 +71,12 @@ class module_faq extends Module
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->faqSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=faq', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('faq'), null, $this->okt->page->faqSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=faq', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('faq'), null, $this->okt->page->faqSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->faqSubMenu->add(__('c_a_menu_management'), 'module.php?m=faq&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
-			$this->okt->page->faqSubMenu->add(__('m_faq_add_question'), 'module.php?m=faq&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt->checkPerm('faq_add'));
-			$this->okt->page->faqSubMenu->add(__('m_faq_sections'), 'module.php?m=faq&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 3, ($this->config->enable_categories && $this->okt->checkPerm('faq_categories')));
-			$this->okt->page->faqSubMenu->add(__('c_a_menu_display'), 'module.php?m=faq&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt->checkPerm('faq_display'));
-			$this->okt->page->faqSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=faq&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt->checkPerm('faq_config'));
+			$this->okt->page->faqSubMenu->add(__('m_faq_add_question'), 'module.php?m=faq&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt['visitor']->checkPerm('faq_add'));
+			$this->okt->page->faqSubMenu->add(__('m_faq_sections'), 'module.php?m=faq&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 3, ($this->config->enable_categories && $this->okt['visitor']->checkPerm('faq_categories')));
+			$this->okt->page->faqSubMenu->add(__('c_a_menu_display'), 'module.php?m=faq&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('faq_display'));
+			$this->okt->page->faqSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=faq&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt['visitor']->checkPerm('faq_config'));
 		}
 	}
 

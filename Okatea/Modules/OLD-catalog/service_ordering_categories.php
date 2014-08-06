@@ -8,7 +8,7 @@
 # inclusion du preprend public général
 require_once __DIR__ . '/../../oktInc/admin/prepend.php';
 
-if (! $okt->checkPerm('catalog_categories'))
+if (! $okt['visitor']->checkPerm('catalog_categories'))
 {
 	exit();
 }

@@ -390,7 +390,7 @@ if ($iGalleryId)
 	));
 	# bouton ajout d'élément
 	$okt->page->addButton('galleriesGaleryBtSt', array(
-		'permission' => $okt->checkPerm('galleries_add'),
+		'permission' => $okt['visitor']->checkPerm('galleries_add'),
 		'title' => __('m_galleries_menu_add_item'),
 		'url' => 'module.php?m=galleries&amp;action=add',
 		'ui-icon' => 'image'
@@ -398,7 +398,7 @@ if ($iGalleryId)
 	
 	# bouton ajout de plusieurs éléments
 	$okt->page->addButton('galleriesGaleryBtSt', array(
-		'permission' => $okt->galleries->config->enable_multiple_upload && $okt->checkPerm('galleries_add'),
+		'permission' => $okt->galleries->config->enable_multiple_upload && $okt['visitor']->checkPerm('galleries_add'),
 		'title' => __('m_galleries_menu_add_items'),
 		'url' => 'module.php?m=galleries&amp;action=add_multiples',
 		'ui-icon' => 'folder-collapsed'
@@ -406,7 +406,7 @@ if ($iGalleryId)
 	
 	# bouton ajout depuis un fichier ZIP
 	$okt->page->addButton('galleriesGaleryBtSt', array(
-		'permission' => $okt->galleries->config->enable_zip_upload && $okt->checkPerm('galleries_add'),
+		'permission' => $okt->galleries->config->enable_zip_upload && $okt['visitor']->checkPerm('galleries_add'),
 		'title' => __('m_galleries_menu_add_zip'),
 		'url' => 'module.php?m=galleries&amp;action=add_zip',
 		'ui-icon' => 'script'

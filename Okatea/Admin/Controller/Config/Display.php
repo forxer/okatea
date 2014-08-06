@@ -16,7 +16,7 @@ class Display extends Controller
 {
 	public function page()
 	{
-		if (! $this->okt->checkPerm('display')) {
+		if (! $this->okt['visitor']->checkPerm('display')) {
 			return $this->serve401();
 		}
 

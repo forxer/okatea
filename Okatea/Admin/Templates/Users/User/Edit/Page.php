@@ -43,7 +43,7 @@ $okt->page->setButtonset('users', array(
 			'ui-icon' => 'check'
 		),
 		array(
-			'permission' => $okt->checkPerm('users_delete'),
+			'permission' => $okt['visitor']->checkPerm('users_delete'),
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateUrl('Users_index') . '?delete=' . $aPageData['user']['id'],
 			'ui-icon' => 'closethick',

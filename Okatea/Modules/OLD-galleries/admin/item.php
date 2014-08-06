@@ -287,7 +287,7 @@ if (! empty($aItemData['item']['id']))
 	));
 	# bouton de suppression si autorisé
 	$okt->page->addButton('galleriesBtSt', array(
-		'permission' => $okt->checkPerm('galleries_remove'),
+		'permission' => $okt['visitor']->checkPerm('galleries_remove'),
 		'title' => __('c_c_action_Delete'),
 		'url' => 'module.php?m=galleries&amp;action=delete&amp;item_id=' . $aItemData['item']['id'],
 		'ui-icon' => 'closethick',

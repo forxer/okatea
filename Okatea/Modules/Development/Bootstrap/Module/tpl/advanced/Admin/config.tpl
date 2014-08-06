@@ -219,7 +219,7 @@ RewriteRule ^<?php echo html::escapeHTML($okt->##module_id##->config->public_lis
 # end Okatea module ##module_name##
 </pre>
 
-			<?php if ($okt->checkPerm('tools')) : ?>
+			<?php if ($okt['visitor']->checkPerm('tools')) : ?>
 			<p><?php printf(__('c_c_seo_go_to_htaccess_modification_tool'), 'configuration.php?action=tools#tab-htaccess') ?></p>
 			<?php endif; ?>
 

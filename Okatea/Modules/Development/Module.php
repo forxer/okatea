@@ -17,11 +17,11 @@ class Module extends BaseModule
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPermGroup('development', __('m_development_perm_group'));
-		$this->okt->addPerm('development_usage', __('m_development_perm_usage'), 'development');
-		$this->okt->addPerm('development_debug_bar', __('m_development_perm_debug_bar'), 'development');
-		$this->okt->addPerm('development_bootstrap', __('m_development_perm_bootstrap'), 'development');
-		$this->okt->addPerm('development_counting', __('m_development_perm_counting'), 'development');
+		$this->okt['permissions']->addPermGroup('development', __('m_development_perm_group'));
+		$this->okt['permissions']->addPerm('development_usage', __('m_development_perm_usage'), 'development');
+		$this->okt['permissions']->addPerm('development_debug_bar', __('m_development_perm_debug_bar'), 'development');
+		$this->okt['permissions']->addPerm('development_bootstrap', __('m_development_perm_bootstrap'), 'development');
+		$this->okt['permissions']->addPerm('development_counting', __('m_development_perm_counting'), 'development');
 
 		# Config
 		$this->config = $this->okt->newConfig('conf_development');
@@ -36,11 +36,11 @@ class Module extends BaseModule
 		if ($this->okt->page->display_menu)
 		{
 			$this->okt->page->DevelopmentSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
-			$this->okt->page->mainMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 25061978, $this->okt->checkPerm('development_usage'), null, $this->okt->page->DevelopmentSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 1, $this->okt->checkPerm('development_usage'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_debugbar'), $this->okt['adminRouter']->generate('Development_debugbar'), $this->okt['request']->attributes->get('_route') === 'Development_debugbar', 2, $this->okt->checkPerm('development_debug_bar'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_bootstrap'), $this->okt['adminRouter']->generate('Development_bootstrap'), $this->okt['request']->attributes->get('_route') === 'Development_bootstrap', 3, $this->okt->checkPerm('development_bootstrap'));
-			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_counting'), $this->okt['adminRouter']->generate('Development_counting'), $this->okt['request']->attributes->get('_route') === 'Development_counting', 4, $this->okt->checkPerm('development_counting'));
+			$this->okt->page->mainMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 25061978, $this->okt['visitor']->checkPerm('development_usage'), null, $this->okt->page->DevelopmentSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_development'), $this->okt['adminRouter']->generate('Development_index'), $this->okt['request']->attributes->get('_route') === 'Development_index', 1, $this->okt['visitor']->checkPerm('development_usage'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_debugbar'), $this->okt['adminRouter']->generate('Development_debugbar'), $this->okt['request']->attributes->get('_route') === 'Development_debugbar', 2, $this->okt['visitor']->checkPerm('development_debug_bar'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_bootstrap'), $this->okt['adminRouter']->generate('Development_bootstrap'), $this->okt['request']->attributes->get('_route') === 'Development_bootstrap', 3, $this->okt['visitor']->checkPerm('development_bootstrap'));
+			$this->okt->page->DevelopmentSubMenu->add(__('m_development_menu_counting'), $this->okt['adminRouter']->generate('Development_counting'), $this->okt['request']->attributes->get('_route') === 'Development_counting', 4, $this->okt['visitor']->checkPerm('development_counting'));
 		}
 
 		# Message admin home

@@ -60,7 +60,7 @@ if (! empty($_REQUEST['delete_cookies']))
 }
 
 # Formulaire de changement de mot de passe
-if (! empty($_POST['change_password']) && $okt->checkPerm('change_password'))
+if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password'))
 {
 	$upd_params = array(
 		'id' => $user_id
@@ -156,7 +156,7 @@ require OKT_ADMIN_HEADER_FILE;
 	<ul>
 		<li><a href="#tab-user-profil"><span><?php echo html::escapeHTML($edit_username) ?></span></a></li>
 		<li><a href="#tab-edit-user"><span><?php _e('c_c_action_Edit')?></span></a></li>
-		<?php if ($okt->checkPerm('change_password')) : ?>
+		<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 		<li><a href="#tab-change-password"><span><?php _e('c_c_user_Password')?></span></a></li>
 		<?php endif; ?>
 	</ul>
@@ -235,7 +235,7 @@ require OKT_ADMIN_HEADER_FILE;
 	</div>
 	<!-- #tab-edit-user -->
 
-	<?php if ($okt->checkPerm('change_password')) : ?>
+	<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 	<div id="tab-change-password">
 		<h3><?php _e('c_c_user_Password')?></h3>
 		<form id="change-password-form" action="module.php" method="post">

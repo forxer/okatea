@@ -10,13 +10,13 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt->checkPerm('diary'))
+if (! $okt['visitor']->checkPerm('diary'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un élément
-if ($okt->page->action === 'delete' && ! empty($_GET['event_id']) && $okt->checkPerm('diary_remove'))
+if ($okt->page->action === 'delete' && ! empty($_GET['event_id']) && $okt['visitor']->checkPerm('diary_remove'))
 {
 	if ($okt->diary->delEvent($_GET['event_id']))
 	{
@@ -36,7 +36,7 @@ $okt->page->setButtonset('diaryBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add') && $okt->checkPerm('diary_add'),
+			'permission' => ($okt->page->action !== 'add') && $okt['visitor']->checkPerm('diary_add'),
 			'title' => __('m_diary_add_event'),
 			'url' => 'module.php?m=diary&amp;action=add',
 			'ui-icon' => 'plusthick',
@@ -56,7 +56,7 @@ if (! $okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }
-elseif ($okt->page->action === 'add' && $okt->checkPerm('diary_add'))
+elseif ($okt->page->action === 'add' && $okt['visitor']->checkPerm('diary_add'))
 {
 	require __DIR__ . '/admin/event.php';
 }
@@ -64,11 +64,11 @@ elseif ($okt->page->action === 'edit')
 {
 	require __DIR__ . '/admin/event.php';
 }
-elseif ($okt->page->action === 'display' && $okt->checkPerm('diary_display'))
+elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('diary_display'))
 {
 	require __DIR__ . '/admin/display.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('diary_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('diary_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

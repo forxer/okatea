@@ -367,7 +367,7 @@ class Controller extends BaseController
 		}
 		
 		# Formulaire de changement de mot de passe
-		if (! empty($_POST['change_password']) && $this->okt->checkPerm('change_password'))
+		if (! empty($_POST['change_password']) && $this->okt['visitor']->checkPerm('change_password'))
 		{
 			$aUserProfilData['password'] = ! empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
 			$aUserProfilData['password_confirm'] = ! empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';

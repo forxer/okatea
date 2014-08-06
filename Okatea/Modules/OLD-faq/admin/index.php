@@ -167,7 +167,7 @@ $count_line = 0;
 						title="<?php printf(__('m_faq_edit_question_%s'), html::escapeHTML($list->title)) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
-				<?php if ($okt->checkPerm('faq_remove')) : ?>
+				<?php if ($okt['visitor']->checkPerm('faq_remove')) : ?>
 				<li><a
 						href="module.php?m=faq&amp;action=delete&amp;questions_id=<?php echo $list->id ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('m_faq_delete_confirm')) ?>')"

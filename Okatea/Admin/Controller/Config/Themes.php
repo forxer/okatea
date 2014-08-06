@@ -30,7 +30,7 @@ class Themes extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('themes'))
+		if (! $this->okt['visitor']->checkPerm('themes'))
 		{
 			return $this->serve401();
 		}

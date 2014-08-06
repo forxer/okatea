@@ -7,7 +7,7 @@
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-if (! $okt->checkPerm('antispam'))
+if (! $okt['visitor']->checkPerm('antispam'))
 {
 	http::redirect('index.php');
 }

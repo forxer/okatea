@@ -14,7 +14,7 @@ class Categories extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->module('News')->config->categories['enable'] || ! $this->okt->checkPerm('news_categories'))
+		if (! $this->okt->module('News')->config->categories['enable'] || ! $this->okt['visitor']->checkPerm('news_categories'))
 		{
 			return $this->serve401();
 		}

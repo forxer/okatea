@@ -23,7 +23,7 @@ $okt->page->setButtonset('pagesBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => $okt->checkPerm('pages_add'),
+			'permission' => $okt['visitor']->checkPerm('pages_add'),
 			'title' => __('m_pages_menu_add_page'),
 			'url' => $view->generateUrl('Pages_post_add'),
 			'ui-icon' => 'plusthick'
@@ -220,7 +220,7 @@ if (! $rsPages->isEmpty())
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
 								class="icon pencil"><?php _e('c_c_action_edit') ?></a></li>
 
-					<?php if ($okt->checkPerm('pages_remove')) : ?>
+					<?php if ($okt['visitor']->checkPerm('pages_remove')) : ?>
 					<li><a
 								href="<?php echo $view->generateurl('Pages_index') ?>?delete=<?php echo $rsPages->id ?>"
 								onclick="return window.confirm('<?php echo $view->escapeJs(__('m_pages_list_page_delete_confirm')) ?>')"

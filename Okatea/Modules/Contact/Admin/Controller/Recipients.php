@@ -16,7 +16,7 @@ class Recipients extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('contact_usage') || ! $this->okt->checkPerm('contact_recipients'))
+		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_recipients'))
 		{
 			return $this->serve401();
 		}

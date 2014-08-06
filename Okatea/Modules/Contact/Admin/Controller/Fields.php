@@ -18,7 +18,7 @@ class Fields extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('contact_usage') || ! $this->okt->checkPerm('contact_fields'))
+		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -53,7 +53,7 @@ class Fields extends Controller
 
 	public function addField()
 	{
-		if (! $this->okt->checkPerm('contact_usage') || ! $this->okt->checkPerm('contact_fields'))
+		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -88,7 +88,7 @@ class Fields extends Controller
 
 	public function field()
 	{
-		if (! $this->okt->checkPerm('contact_usage') || ! $this->okt->checkPerm('contact_fields'))
+		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -151,7 +151,7 @@ class Fields extends Controller
 
 	public function fieldValues()
 	{
-		if (! $this->okt->checkPerm('contact_usage') || ! $this->okt->checkPerm('contact_fields'))
+		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}

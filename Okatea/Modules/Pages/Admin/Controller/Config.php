@@ -16,7 +16,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('pages_config'))
+		if (! $this->okt['visitor']->checkPerm('pages_config'))
 		{
 			return $this->serve401();
 		}

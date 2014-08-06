@@ -10,7 +10,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt->checkPerm('catalog'))
+if (! $okt['visitor']->checkPerm('catalog'))
 {
 	http::redirect('index.php');
 }
@@ -42,7 +42,7 @@ $okt->page->setButtonset('catalogBtSt', array(
 	'type' => '', #  buttonset-single | buttonset-multi | ''
 	'buttons' => array(
 		array(
-			'permission' => ($okt->page->action !== 'add' && $okt->checkPerm('catalog_add')),
+			'permission' => ($okt->page->action !== 'add' && $okt['visitor']->checkPerm('catalog_add')),
 			'title' => 'Ajouter un produit',
 			'url' => 'module.php?m=catalog&amp;action=add',
 			'ui-icon' => 'plusthick',
@@ -60,15 +60,15 @@ elseif ($okt->page->action === 'add' || $okt->page->action === 'edit')
 {
 	require __DIR__ . '/admin/product.php';
 }
-elseif ($okt->page->action === 'categories' && $okt->catalog->config->categories_enable && $okt->checkPerm('catalog_categories'))
+elseif ($okt->page->action === 'categories' && $okt->catalog->config->categories_enable && $okt['visitor']->checkPerm('catalog_categories'))
 {
 	require __DIR__ . '/admin/categories.php';
 }
-elseif ($okt->page->action === 'display' && $okt->checkPerm('catalog_display'))
+elseif ($okt->page->action === 'display' && $okt['visitor']->checkPerm('catalog_display'))
 {
 	require __DIR__ . '/admin/display.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('catalog_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('catalog_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

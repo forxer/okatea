@@ -37,12 +37,12 @@ class module_diary extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('diary', __('m_diary_perm_group'));
-		$this->okt->addPerm('diary', __('m_diary_perm_global'), 'diary');
-		$this->okt->addPerm('diary_add', __('m_diary_perm_add'), 'diary');
-		$this->okt->addPerm('diary_remove', __('m_diary_perm_remove'), 'diary');
-		$this->okt->addPerm('diary_display', __('m_diary_perm_display'), 'diary');
-		$this->okt->addPerm('diary_config', __('m_diary_perm_config'), 'diary');
+		$this->okt['permissions']->addPermGroup('diary', __('m_diary_perm_group'));
+		$this->okt['permissions']->addPerm('diary', __('m_diary_perm_global'), 'diary');
+		$this->okt['permissions']->addPerm('diary_add', __('m_diary_perm_add'), 'diary');
+		$this->okt['permissions']->addPerm('diary_remove', __('m_diary_perm_remove'), 'diary');
+		$this->okt['permissions']->addPerm('diary_display', __('m_diary_perm_display'), 'diary');
+		$this->okt['permissions']->addPerm('diary_config', __('m_diary_perm_config'), 'diary');
 		
 		# tables
 		$this->table = $this->db->prefix . 'mod_diary';
@@ -58,15 +58,15 @@ class module_diary extends Module
 		{
 			$this->okt->page->diarySubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=diary', $this->bCurrentlyInUse, 20, $this->okt->checkPerm('diary'), null, $this->okt->page->diarySubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=diary', $this->bCurrentlyInUse, 20, $this->okt['visitor']->checkPerm('diary'), null, $this->okt->page->diarySubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			
 			$this->okt->page->diarySubMenu->add(__('m_diary_menu_management'), 'module.php?m=diary&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 10);
 			
-			$this->okt->page->diarySubMenu->add(__('m_diary_menu_add_event'), 'module.php?m=diary&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 20, $this->okt->checkPerm('diary_add'));
+			$this->okt->page->diarySubMenu->add(__('m_diary_menu_add_event'), 'module.php?m=diary&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 20, $this->okt['visitor']->checkPerm('diary_add'));
 			
-			$this->okt->page->diarySubMenu->add(__('m_diary_menu_display'), 'module.php?m=diary&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 200, $this->okt->checkPerm('diary_display'));
+			$this->okt->page->diarySubMenu->add(__('m_diary_menu_display'), 'module.php?m=diary&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 200, $this->okt['visitor']->checkPerm('diary_display'));
 			
-			$this->okt->page->diarySubMenu->add(__('m_diary_menu_config'), 'module.php?m=diary&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 300, $this->okt->checkPerm('diary_config'));
+			$this->okt->page->diarySubMenu->add(__('m_diary_menu_config'), 'module.php?m=diary&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 300, $this->okt['visitor']->checkPerm('diary_config'));
 		}
 	}
 

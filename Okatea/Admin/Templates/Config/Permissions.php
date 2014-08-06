@@ -36,15 +36,15 @@ if ($iNumGroup > 1)
 			<h3><?php printf(__('c_a_config_permissions_group_%s'), $view->escape($group_title)) ?></h3>
 
 		<?php
-		
+
 		foreach ($aPermissions as $group)
 		:
 			if (empty($group['perms']))
 				continue;
 			?>
 
-			<?php if (!empty($group['libelle'])) : ?>
-			<h4><?php echo $group['libelle'] ?></h4>
+			<?php if (!empty($group['title'])) : ?>
+			<h4><?php echo $group['title'] ?></h4>
 			<?php endif; ?>
 
 			<ul class="checklist">

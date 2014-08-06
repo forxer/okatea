@@ -209,7 +209,7 @@ require OKT_ADMIN_HEADER_FILE; ?>
 			class="icon pencil"><?php _e('c_c_action_Edit') ?></a>
 			</li>
 
-			<?php if ($okt->checkPerm('##module_id##_remove')) : ?>
+			<?php if ($okt['visitor']->checkPerm('##module_id##_remove')) : ?>
 			<li>
 			<a href="module.php?m=##module_id##&amp;action=delete&amp;item_id=<?php echo $rsItems->id ?>"
 			onclick="return window.confirm('<?php echo html::escapeJS(__('m_##module_id##_confirm_deleting')) ?>')"

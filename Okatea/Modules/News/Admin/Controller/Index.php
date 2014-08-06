@@ -15,7 +15,7 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('news_usage') && ! $this->okt->checkPerm('news_contentadmin'))
+		if (! $this->okt['visitor']->checkPerm('news_usage') && ! $this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			return $this->serve401();
 		}
@@ -85,7 +85,7 @@ class Index extends Controller
 		# Initialisation des filtres
 		$aParams = array();
 		
-		if (! $this->okt->checkPerm('news_contentadmin') && ! $this->okt->checkPerm('news_show_all'))
+		if (! $this->okt['visitor']->checkPerm('news_contentadmin') && ! $this->okt['visitor']->checkPerm('news_show_all'))
 		{
 			$aParams['user_id'] = $this->okt['visitor']->id;
 		}
@@ -132,7 +132,7 @@ class Index extends Controller
 			)
 		);
 		
-		if ($this->okt->checkPerm('news_publish') || $this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_publish') || $this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			$aActionsChoices[__('m_news_list_status')][__('c_c_action_publish')] = 'publish';
 		}
@@ -142,7 +142,7 @@ class Index extends Controller
 			__('c_c_action_deselect') => 'unselected'
 		);
 		
-		if ($this->okt->checkPerm('news_delete') || $this->okt->checkPerm('news_contentadmin'))
+		if ($this->okt['visitor']->checkPerm('news_delete') || $this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			$aActionsChoices[__('c_c_action_Delete')][__('c_c_action_delete')] = 'delete';
 		}
@@ -198,7 +198,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('delete');
 		
-		if (! $iPostId || ! $this->okt->checkPerm('news_delete'))
+		if (! $iPostId || ! $this->okt['visitor']->checkPerm('news_delete'))
 		{
 			return false;
 		}
@@ -428,7 +428,7 @@ class Index extends Controller
 			
 			$this->okt['flash']->success(__('m_news_list_posts_deselected'));
 		}
-		elseif ($sAction === 'delete' && $this->okt->checkPerm('news_delete'))
+		elseif ($sAction === 'delete' && $this->okt['visitor']->checkPerm('news_delete'))
 		{
 			foreach ($aPostsId as $iPostId)
 			{

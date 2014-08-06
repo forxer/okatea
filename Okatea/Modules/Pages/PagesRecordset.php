@@ -40,7 +40,7 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function isEditable()
 	{
-		if ($this->okt->checkPerm('pages'))
+		if ($this->okt['visitor']->checkPerm('pages'))
 		{
 			return true;
 		}
@@ -55,7 +55,7 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function isDeletable()
 	{
-		if ($this->okt->checkPerm('pages_remove'))
+		if ($this->okt['visitor']->checkPerm('pages_remove'))
 		{
 			return true;
 		}

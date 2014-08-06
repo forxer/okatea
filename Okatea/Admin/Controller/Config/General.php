@@ -18,7 +18,7 @@ class General extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('configsite')) {
+		if (! $this->okt['visitor']->checkPerm('configsite')) {
 			return $this->serve401();
 		}
 

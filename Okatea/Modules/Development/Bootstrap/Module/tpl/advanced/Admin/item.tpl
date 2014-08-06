@@ -177,7 +177,7 @@ if (!empty($iItemId))
 
 	# bouton de suppression si autorisé
 	$okt->page->addButton('##module_id##BtSt',array(
-		'permission' 	=> $okt->checkPerm('##module_id##_remove'),
+		'permission' 	=> $okt['visitor']->checkPerm('##module_id##_remove'),
 		'title' 		=> __('c_c_action_Delete'),
 		'url' 			=> 'module.php?m=##module_id##&amp;action=delete&amp;item_id='.$iItemId,
 		'ui-icon' 		=> 'closethick',

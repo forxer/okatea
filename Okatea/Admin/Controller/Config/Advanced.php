@@ -17,7 +17,7 @@ class Advanced extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('is_superadmin')) {
+		if (! $this->okt['visitor']->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
 

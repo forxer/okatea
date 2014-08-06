@@ -79,7 +79,7 @@ class User extends Controller
 
 	public function add()
 	{
-		if (! $this->okt->checkPerm('users'))
+		if (! $this->okt['visitor']->checkPerm('users'))
 		{
 			return $this->serve401();
 		}
@@ -133,7 +133,7 @@ class User extends Controller
 
 	public function edit()
 	{
-		if (! $this->okt->checkPerm('users_edit'))
+		if (! $this->okt['visitor']->checkPerm('users_edit'))
 		{
 			return $this->serve401();
 		}
@@ -223,7 +223,7 @@ class User extends Controller
 			))
 		);
 		
-		if ($this->okt->checkPerm('change_password'))
+		if ($this->okt['visitor']->checkPerm('change_password'))
 		{
 			$this->aPageData['tabs'][100] = array(
 				'id' => 'tab-change-password',
@@ -360,7 +360,7 @@ class User extends Controller
 
 	protected function updateUserPassword()
 	{
-		if (! $this->okt['request']->request->has('change_password') || ! $this->okt->checkPerm('change_password'))
+		if (! $this->okt['request']->request->has('change_password') || ! $this->okt['visitor']->checkPerm('change_password'))
 		{
 			return false;
 		}

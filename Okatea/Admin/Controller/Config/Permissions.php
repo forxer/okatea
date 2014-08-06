@@ -15,7 +15,7 @@ class Permissions extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('permissions'))
+		if (! $this->okt['visitor']->checkPerm('permissions'))
 		{
 			return $this->serve401();
 		}
@@ -67,7 +67,7 @@ class Permissions extends Controller
 		return $this->render('Config/Permissions', array(
 			'aGroups' => $aGroups,
 			'aPerms' => $aPerms,
-			'aPermissions' => $this->okt->getPermsForDisplay()
+			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
 		));
 	}
 }

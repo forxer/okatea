@@ -14,7 +14,7 @@ class Categories extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('pages_categories'))
+		if (! $this->okt['visitor']->checkPerm('pages_categories'))
 		{
 			return $this->serve401();
 		}

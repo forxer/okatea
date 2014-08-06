@@ -15,7 +15,7 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->checkPerm('pages_usage'))
+		if (! $this->okt['visitor']->checkPerm('pages_usage'))
 		{
 			return $this->serve401();
 		}
@@ -98,7 +98,7 @@ class Index extends Controller
 			__('c_c_action_hide') => 'hide'
 		);
 
-		if ($this->okt->checkPerm('pages_remove'))
+		if ($this->okt['visitor']->checkPerm('pages_remove'))
 		{
 			$aActionsChoices[__('c_c_action_delete')] = 'delete';
 		}
@@ -153,7 +153,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('delete');
 
-		if (! $iPostId || ! $this->okt->checkPerm('pages_remove'))
+		if (! $iPostId || ! $this->okt['visitor']->checkPerm('pages_remove'))
 		{
 			return false;
 		}
@@ -237,7 +237,7 @@ class Index extends Controller
 				}
 			}
 		}
-		elseif ($sAction === 'delete' && $this->okt->checkPerm('pages_remove'))
+		elseif ($sAction === 'delete' && $this->okt['visitor']->checkPerm('pages_remove'))
 		{
 			foreach ($aPagesId as $pageId)
 			{

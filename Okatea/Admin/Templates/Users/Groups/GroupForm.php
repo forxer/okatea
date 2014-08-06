@@ -62,16 +62,16 @@ if (! $okt['languages']->unique)
 		<?php else : ?>
 
 		<?php
-			
+
 			foreach ($aPermissions as $aPermsGroup)
 			:
-				
+
 				if (empty($aPermsGroup['perms']))
 					continue;
 				?>
 
-			<?php if (!empty($aPermsGroup['libelle'])) : ?>
-			<h4><?php echo $aPermsGroup['libelle'] ?></h4>
+			<?php if (!empty($aPermsGroup['title'])) : ?>
+			<h4><?php echo $aPermsGroup['title'] ?></h4>
 			<?php endif; ?>
 
 			<ul class="checklist">

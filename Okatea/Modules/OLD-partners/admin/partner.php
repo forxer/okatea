@@ -217,7 +217,7 @@ else
 		'active' => $p_active
 	));
 	$okt->page->addButton('partnersBtSt', array(
-		'permission' => $okt->checkPerm('partners_remove'),
+		'permission' => $okt['visitor']->checkPerm('partners_remove'),
 		'title' => __('c_c_action_delete'),
 		'url' => 'module.php?m=partners&amp;action=delete&amp;partner_id=' . $partner_id,
 		'ui-icon' => 'closethick',

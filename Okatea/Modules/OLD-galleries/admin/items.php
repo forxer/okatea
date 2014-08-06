@@ -49,7 +49,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # suppression d'un élément
-if (! empty($_GET['delete']) && $okt->checkPerm('galleries_remove'))
+if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_remove'))
 {
 	try
 	{
@@ -124,21 +124,21 @@ $okt->page->addButton('galleriesBtSt', array(
 	'ui-icon' => 'arrowreturnthick-1-w'
 ));
 $okt->page->addButton('galleriesBtSt', array(
-	'permission' => ($okt->page->action !== 'add') && $okt->checkPerm('galleries_add'),
+	'permission' => ($okt->page->action !== 'add') && $okt['visitor']->checkPerm('galleries_add'),
 	'title' => __('m_galleries_menu_add_item'),
 	'url' => 'module.php?m=galleries&amp;action=add' . ($gallery_id ? '&amp;gallery_id=' . $gallery_id : ''),
 	'ui-icon' => 'image'
 ));
 # bouton ajout de plusieurs éléments
 $okt->page->addButton('galleriesBtSt', array(
-	'permission' => ($okt->page->action !== 'add') && $okt->galleries->config->enable_multiple_upload && $okt->checkPerm('galleries_add'),
+	'permission' => ($okt->page->action !== 'add') && $okt->galleries->config->enable_multiple_upload && $okt['visitor']->checkPerm('galleries_add'),
 	'title' => __('m_galleries_menu_add_items'),
 	'url' => 'module.php?m=galleries&amp;action=add_multiples' . ($gallery_id ? '&amp;gallery_id=' . $gallery_id : ''),
 	'ui-icon' => 'folder-collapsed'
 ));
 # bouton ajout depuis un fichier ZIP
 $okt->page->addButton('galleriesBtSt', array(
-	'permission' => ($okt->page->action !== 'add') && $okt->galleries->config->enable_zip_upload && $okt->checkPerm('galleries_add'),
+	'permission' => ($okt->page->action !== 'add') && $okt->galleries->config->enable_zip_upload && $okt['visitor']->checkPerm('galleries_add'),
 	'title' => __('m_galleries_menu_add_zip'),
 	'url' => 'module.php?m=galleries&amp;action=add_zip' . ($gallery_id ? '&amp;gallery_id=' . $gallery_id : ''),
 	'ui-icon' => 'script'
@@ -289,7 +289,7 @@ require OKT_ADMIN_HEADER_FILE;
 						title="<?php printf(__('m_galleries_edit_%s'),html::escapeHTML($rsItems->title)) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
-			<?php if ($okt->checkPerm('galleries_remove')) : ?>
+			<?php if ($okt['visitor']->checkPerm('galleries_remove')) : ?>
 			<li><a
 						href="module.php?m=galleries&amp;action=items&amp;delete=<?php echo $rsItems->id.($gallery_id ? '&amp;gallery_id='.$gallery_id : '') ?>"
 						onclick="return window.confirm('<?php echo html::escapeJS(__('m_galleries_item_delete_confirm')) ?>')"

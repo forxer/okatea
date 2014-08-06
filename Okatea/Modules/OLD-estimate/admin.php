@@ -10,7 +10,7 @@ if (! defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt->checkPerm('estimate'))
+if (! $okt['visitor']->checkPerm('estimate'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
@@ -63,23 +63,23 @@ elseif ($okt->page->action === 'details')
 {
 	require __DIR__ . '/admin/details.php';
 }
-elseif ($okt->page->action === 'products' && $okt->checkPerm('estimate_products'))
+elseif ($okt->page->action === 'products' && $okt['visitor']->checkPerm('estimate_products'))
 {
 	require __DIR__ . '/admin/products.php';
 }
-elseif ($okt->page->action === 'product' && $okt->checkPerm('estimate_products'))
+elseif ($okt->page->action === 'product' && $okt['visitor']->checkPerm('estimate_products'))
 {
 	require __DIR__ . '/admin/product.php';
 }
-elseif ($okt->page->action === 'accessories' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories'))
+elseif ($okt->page->action === 'accessories' && $okt->estimate->config->enable_accessories && $okt['visitor']->checkPerm('estimate_accessories'))
 {
 	require __DIR__ . '/admin/accessories.php';
 }
-elseif ($okt->page->action === 'accessory' && $okt->estimate->config->enable_accessories && $okt->checkPerm('estimate_accessories'))
+elseif ($okt->page->action === 'accessory' && $okt->estimate->config->enable_accessories && $okt['visitor']->checkPerm('estimate_accessories'))
 {
 	require __DIR__ . '/admin/accessory.php';
 }
-elseif ($okt->page->action === 'config' && $okt->checkPerm('estimate_config'))
+elseif ($okt->page->action === 'config' && $okt['visitor']->checkPerm('estimate_config'))
 {
 	require __DIR__ . '/admin/config.php';
 }

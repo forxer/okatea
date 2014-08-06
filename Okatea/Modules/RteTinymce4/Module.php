@@ -18,7 +18,7 @@ class Module extends BaseModule
 	protected function prepend()
 	{
 		# permissions
-		$this->okt->addPerm('rte_tinymce_4_config', __('m_rte_tinymce_4_perm_config'), 'configuration');
+		$this->okt['permissions']->addPerm('rte_tinymce_4_config', __('m_rte_tinymce_4_perm_config'), 'configuration');
 		
 		# configuration
 		$this->config = $this->okt->newConfig('conf_rte_tinymce_4');
@@ -34,7 +34,7 @@ class Module extends BaseModule
 		# on ajoutent un item au menu configuration
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('TinyMCE 4'), $this->okt['adminRouter']->generate('RteTinymce4_config'), $this->okt['request']->attributes->get('_route') === 'RteTinymce4_config', 40, $this->okt->checkPerm('rte_tinymce_4_config'), null);
+			$this->okt->page->configSubMenu->add(__('TinyMCE 4'), $this->okt['adminRouter']->generate('RteTinymce4_config'), $this->okt['request']->attributes->get('_route') === 'RteTinymce4_config', 40, $this->okt['visitor']->checkPerm('rte_tinymce_4_config'), null);
 		}
 	}
 

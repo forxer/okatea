@@ -27,10 +27,10 @@ class module_guestbook extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('guestbook', __('m_guestbook_perm_group'));
-		$this->okt->addPerm('guestbook', __('m_guestbook_perm_global'), 'guestbook');
-		$this->okt->addPerm('guestbook_display', __('m_guestbook_perm_display'), 'guestbook');
-		$this->okt->addPerm('guestbook_config', __('m_guestbook_perm_config'), 'guestbook');
+		$this->okt['permissions']->addPermGroup('guestbook', __('m_guestbook_perm_group'));
+		$this->okt['permissions']->addPerm('guestbook', __('m_guestbook_perm_global'), 'guestbook');
+		$this->okt['permissions']->addPerm('guestbook_display', __('m_guestbook_perm_display'), 'guestbook');
+		$this->okt['permissions']->addPerm('guestbook_config', __('m_guestbook_perm_config'), 'guestbook');
 		
 		# config
 		$this->config = $this->okt->newConfig('conf_guestbook');
@@ -46,10 +46,10 @@ class module_guestbook extends Module
 		{
 			$this->okt->page->guestbookSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=guestbook', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('guestbook'), null, $this->okt->page->guestbookSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=guestbook', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('guestbook'), null, $this->okt->page->guestbookSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->guestbookSubMenu->add(__('c_a_menu_management'), 'module.php?m=guestbook&amp;action=index', $this->bCurrentlyInUse && ($this->okt->page->action !== 'display' && $this->okt->page->action !== 'config'), 1);
-			$this->okt->page->guestbookSubMenu->add(__('c_a_menu_display'), 'module.php?m=guestbook&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 2, $this->okt->checkPerm('guestbook_display'));
-			$this->okt->page->guestbookSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=guestbook&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 3, $this->okt->checkPerm('guestbook_config'));
+			$this->okt->page->guestbookSubMenu->add(__('c_a_menu_display'), 'module.php?m=guestbook&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 2, $this->okt['visitor']->checkPerm('guestbook_display'));
+			$this->okt->page->guestbookSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=guestbook&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 3, $this->okt['visitor']->checkPerm('guestbook_config'));
 		}
 	}
 

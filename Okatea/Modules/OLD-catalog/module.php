@@ -38,13 +38,13 @@ class module_catalog extends Module
 		));
 		
 		# permissions
-		$this->okt->addPermGroup('catalog', __('m_catalog_perm_group'));
-		$this->okt->addPerm('catalog', __('m_catalog_perm_global'), 'catalog');
-		$this->okt->addPerm('catalog_categories', __('m_catalog_perm_categories'), 'catalog');
-		$this->okt->addPerm('catalog_add', __('m_catalog_perm_add'), 'catalog');
-		$this->okt->addPerm('catalog_remove', __('m_catalog_perm_remove'), 'catalog');
-		$this->okt->addPerm('catalog_display', __('m_catalog_perm_display'), 'catalog');
-		$this->okt->addPerm('catalog_config', __('m_catalog_perm_config'), 'catalog');
+		$this->okt['permissions']->addPermGroup('catalog', __('m_catalog_perm_group'));
+		$this->okt['permissions']->addPerm('catalog', __('m_catalog_perm_global'), 'catalog');
+		$this->okt['permissions']->addPerm('catalog_categories', __('m_catalog_perm_categories'), 'catalog');
+		$this->okt['permissions']->addPerm('catalog_add', __('m_catalog_perm_add'), 'catalog');
+		$this->okt['permissions']->addPerm('catalog_remove', __('m_catalog_perm_remove'), 'catalog');
+		$this->okt['permissions']->addPerm('catalog_display', __('m_catalog_perm_display'), 'catalog');
+		$this->okt['permissions']->addPerm('catalog_config', __('m_catalog_perm_config'), 'catalog');
 		
 		# tables
 		$this->t_products = $this->db->prefix . 'mod_catalog_products';
@@ -72,12 +72,12 @@ class module_catalog extends Module
 		{
 			$this->okt->page->catalogSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
-			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=catalog', $this->bCurrentlyInUse, 10, $this->okt->checkPerm('catalog'), null, $this->okt->page->catalogSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
+			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=catalog', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('catalog'), null, $this->okt->page->catalogSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			$this->okt->page->catalogSubMenu->add('Gestion', 'module.php?m=catalog&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
-			$this->okt->page->catalogSubMenu->add('Ajouter un produit', 'module.php?m=catalog&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, ($this->config->categories_enable && $this->okt->checkPerm('catalog_add')));
-			$this->okt->page->catalogSubMenu->add('Catégories', 'module.php?m=catalog&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 5, ($this->config->categories_enable && $this->okt->checkPerm('catalog_categories')));
-			$this->okt->page->catalogSubMenu->add('Affichage', 'module.php?m=catalog&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt->checkPerm('catalog_display'));
-			$this->okt->page->catalogSubMenu->add('Configuration', 'module.php?m=catalog&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt->checkPerm('catalog_config'));
+			$this->okt->page->catalogSubMenu->add('Ajouter un produit', 'module.php?m=catalog&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, ($this->config->categories_enable && $this->okt['visitor']->checkPerm('catalog_add')));
+			$this->okt->page->catalogSubMenu->add('Catégories', 'module.php?m=catalog&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 5, ($this->config->categories_enable && $this->okt['visitor']->checkPerm('catalog_categories')));
+			$this->okt->page->catalogSubMenu->add('Affichage', 'module.php?m=catalog&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('catalog_display'));
+			$this->okt->page->catalogSubMenu->add('Configuration', 'module.php?m=catalog&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 20, $this->okt['visitor']->checkPerm('catalog_config'));
 		}
 	}
 
@@ -407,7 +407,7 @@ class module_catalog extends Module
 	 */
 	public function updProd($product_id, $cursor)
 	{
-		if (! $this->okt->checkPerm('catalog'))
+		if (! $this->okt['visitor']->checkPerm('catalog'))
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
@@ -467,7 +467,7 @@ class module_catalog extends Module
 	 */
 	public function deleteProd($product_id)
 	{
-		if (! $this->okt->checkPerm('catalog_remove'))
+		if (! $this->okt['visitor']->checkPerm('catalog_remove'))
 		{
 			$this->error->set('Vous ne pouvez pas supprimer les produits.');
 			return false;
@@ -531,7 +531,7 @@ class module_catalog extends Module
 	 */
 	public function switchProdStatus($product_id)
 	{
-		if (! $this->okt->checkPerm('catalog'))
+		if (! $this->okt['visitor']->checkPerm('catalog'))
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
