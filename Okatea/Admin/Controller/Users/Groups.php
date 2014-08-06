@@ -99,7 +99,7 @@ class Groups extends Controller
 
 			if (! $this->okt['flashMessages']->hasError())
 			{
-				if (($iGroupId = $this->okt['groups']->addGroup($aGroupData)) !== false)
+				if (($iGroupId = $this->okt['groups']->addGroup((array)$aGroupData)) !== false)
 				{
 					$this->okt['flashMessages']->success(__('c_a_users_group_added'));
 
@@ -179,7 +179,7 @@ class Groups extends Controller
 
 			if (!$this->okt['messages']->hasError())
 			{
-				if ($this->okt['groups']->updGroup($iGroupId, $aGroupData))
+				if ($this->okt['groups']->updGroup($iGroupId, (array)$aGroupData))
 				{
 					$this->okt['flashMessages']->success(__('c_a_users_group_edited'));
 
