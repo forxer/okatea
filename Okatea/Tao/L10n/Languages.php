@@ -317,14 +317,14 @@ class Languages
 	public function checkPostData(array $aData = [])
 	{
 		if (empty($aData['title'])) {
-			$this->okt['flash']->error(__('c_a_config_l10n_error_need_title'));
+			$this->okt['flashMessages']->error(__('c_a_config_l10n_error_need_title'));
 		}
 
 		if (empty($aData['code'])) {
-			$this->okt['flash']->error(__('c_a_config_l10n_error_need_code'));
+			$this->okt['flashMessages']->error(__('c_a_config_l10n_error_need_code'));
 		}
 
-		return !$this->okt['flash']->hasError();
+		return !$this->okt['flashMessages']->hasError();
 	}
 
 	/**

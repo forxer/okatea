@@ -46,34 +46,34 @@ $okt['triggers']->callTrigger('adminBeforeSendHeader');
 					<h2 id="breadcrumb"><?php echo $okt->page->breadcrumb->getBreadcrumb('<span class="ui-icon ui-icon-carat-1-e" style="display:inline-block;vertical-align: bottom;"></span> %s') ?></h2>
 
 					<?php # affichage des éventuels messages d'erreurs
-					if ($okt['flash']->hasError()) :
+					if ($okt['messages']->hasError()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_ERROR,
-							'messages'    => $okt['flash']->getError()
+							'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_ERROR,
+							'messages'    => $okt['messages']->getError()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages d'avertissements
-					if ($okt['flash']->hasWarning()) :
+					if ($okt['messages']->hasWarning()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_WARNING,
-							'messages'    => $okt['flash']->getWarning()
+							'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_WARNING,
+							'messages'    => $okt['messages']->getWarning()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages de confirmation
-					if ($okt['flash']->hasSuccess()) :
+					if ($okt['messages']->hasSuccess()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_SUCCESS,
-							'messages'    => $okt['flash']->getSuccess()
+							'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_SUCCESS,
+							'messages'    => $okt['messages']->getSuccess()
 						]);
 					endif; ?>
 
 					<?php # affichage des éventuels messages d'information
-					if ($okt['flash']->hasInfo()) :
+					if ($okt['messages']->hasInfo()) :
 						echo $view->render('Common/Messages', [
-							'type'        => Okatea\Tao\Session\FlashMessages::TYPE_INFO,
-							'messages'    => $okt['flash']->getInfo()
+							'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_INFO,
+							'messages'    => $okt['messages']->getInfo()
 						]);
 					endif; ?>
 				</div><!-- #messages -->

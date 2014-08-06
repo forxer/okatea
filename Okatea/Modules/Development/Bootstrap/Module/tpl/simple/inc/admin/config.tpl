@@ -44,7 +44,7 @@ if (!empty($_POST['form_sent']))
 
 		$okt->##module_id##->config->write($aNewConf);
 
-		$okt['flash']->success(__('c_c_confirm_configuration_updated'));
+		$okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
 		http::redirect('module.php?m=##module_id##&action=config');
 	}

@@ -105,7 +105,7 @@ if (! empty($_POST['add_user']))
 			}
 		}
 		
-		$okt['flash']->success(__('m_users_user_added'));
+		$okt['flashMessages']->success(__('m_users_user_added'));
 		
 		http::redirect('module.php?m=users&action=edit&id=' . $new_id);
 	}

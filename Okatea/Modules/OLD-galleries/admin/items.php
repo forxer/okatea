@@ -38,7 +38,7 @@ if (! empty($_GET['switch_status']))
 	{
 		$okt->galleries->items->switchItemStatus($_GET['switch_status']);
 		
-		$okt['flash']->success(__('m_galleries_items_item_switched'));
+		$okt['flashMessages']->success(__('m_galleries_items_item_switched'));
 		
 		http::redirect('module.php?m=galleries&action=items&gallery_id=' . $gallery_id);
 	}
@@ -55,7 +55,7 @@ if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_remove'))
 	{
 		$okt->galleries->items->deleteItem($_GET['delete']);
 		
-		$okt['flash']->success(__('m_galleries_items_item_deleted'));
+		$okt['flashMessages']->success(__('m_galleries_items_item_deleted'));
 		
 		http::redirect('module.php?m=galleries&action=items&gallery_id=' . $gallery_id);
 	}

@@ -38,7 +38,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->lbl_pirobox->config->write($aNewConf);
 		
-		$okt['flash']->success(__('c_c_confirm_configuration_updated'));
+		$okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=lbl_pirobox&action=config');
 	}

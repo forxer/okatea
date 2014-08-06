@@ -204,7 +204,7 @@ class Bootstrap extends Controller
 			
 			$bootstraper->build();
 			
-			$this->okt['flash']->success(__('m_development_bootstrap_success'));
+			$this->okt['flashMessages']->success(__('m_development_bootstrap_success'));
 			
 			$this->redirect($this->generateUrl('Development_bootstrap'));
 		}

@@ -15,10 +15,6 @@ class SessionServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $okt)
 	{
-		$okt['flash'] = function($okt) {
-			return new FlashMessages('okt_flashes');
-		};
-
 		$okt['session'] = function($okt) {
 			return new Session(
 				new NativeSessionStorage(
@@ -33,7 +29,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 					new \SessionHandler()
 				),
 				null,
-				$okt['flash'],
+				$okt['flashMessages'],
 				$okt['csrf_token_name']
 			);
 		};

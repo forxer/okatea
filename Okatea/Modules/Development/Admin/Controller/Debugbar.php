@@ -31,7 +31,7 @@ class Debugbar extends Controller
 			
 			$p_holmes = ! empty($_POST['p_holmes']) ? true : false;
 			
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'debug_bar' => array(
@@ -49,7 +49,7 @@ class Debugbar extends Controller
 				
 				$this->okt->module('Development')->config->write($aNewConf);
 				
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 				
 				$this->redirect($this->generateUrl('Development_debugbar'));
 			}

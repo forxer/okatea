@@ -142,7 +142,7 @@ if (! empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleDiaryAfterEventUpdate
 				$okt['triggers']->callTrigger('moduleDiaryAfterEventUpdate', $cursor, $aEventData, $iEventId);
 				
-				$okt['flash']->success(__('m_diary_confirm_edited'));
+				$okt['flashMessages']->success(__('m_diary_confirm_edited'));
 				
 				http::redirect('module.php?m=diary&action=edit&event_id=' . $iEventId);
 			}
@@ -159,7 +159,7 @@ if (! empty($_POST['sended']))
 				# -- CORE TRIGGER : moduleDiaryAfterEventCreate
 				$okt['triggers']->callTrigger('moduleDiaryAfterEventCreate', $cursor, $aEventData, $iEventId);
 				
-				$okt['flash']->success(__('m_diary_confirm_added'));
+				$okt['flashMessages']->success(__('m_diary_confirm_added'));
 				
 				http::redirect('module.php?m=diary&action=edit&event_id=' . $iEventId);
 			}

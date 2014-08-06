@@ -128,7 +128,7 @@ class TemplatesSet
 		{
 			$this->deleteTemplate($sTtplId);
 			
-			$this->okt['flash']->success(__('c_a_tpl_config_tpl_deleted'));
+			$this->okt['flashMessages']->success(__('c_a_tpl_config_tpl_deleted'));
 			
 			$this->redirect($this->sBaseUrl . 'tpl_family=' . rawurlencode($this->sTplFamily) . '&tpl_deleted=1');
 		}

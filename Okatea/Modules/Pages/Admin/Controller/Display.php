@@ -39,7 +39,7 @@ class Display extends Controller
 
 			$p_lightbox_type = $this->okt['request']->request->get('p_lightbox_type');
 
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'admin_filters_style' => $p_admin_filters_style,
@@ -60,7 +60,7 @@ class Display extends Controller
 
 				$this->okt->module('Pages')->config->write($aNewConf);
 
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('Pages_display'));
 			}

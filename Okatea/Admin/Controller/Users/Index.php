@@ -220,7 +220,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt['flash']->error($e->getMessage());
+			$this->okt['flashMessages']->error($e->getMessage());
 			return false;
 		}
 	}
@@ -249,7 +249,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt['flash']->error($e->getMessage());
+			$this->okt['flashMessages']->error($e->getMessage());
 			return false;
 		}
 	}
@@ -280,13 +280,13 @@ class Index extends Controller
 			# -- CORE TRIGGER : adminUsersAfterDeleteProcess
 			$this->okt['triggers']->callTrigger('adminUsersAfterDeleteProcess', $iUserId);
 			
-			$this->okt['flash']->success(__('c_a_users_user_deleted'));
+			$this->okt['flashMessages']->success(__('c_a_users_user_deleted'));
 			
 			return $this->redirect($this->generateUrl('Users_index'));
 		}
 		catch (\Exception $e)
 		{
-			$this->okt['flash']->error($e->getMessage());
+			$this->okt['flashMessages']->error($e->getMessage());
 			return false;
 		}
 	}
@@ -356,7 +356,7 @@ class Index extends Controller
 		}
 		catch (\Exception $e)
 		{
-			$this->okt['flash']->error($e->getMessage());
+			$this->okt['flashMessages']->error($e->getMessage());
 			return false;
 		}
 	}

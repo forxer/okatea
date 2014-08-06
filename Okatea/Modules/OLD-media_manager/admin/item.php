@@ -64,7 +64,7 @@ if ($file && ! empty($_FILES['upfile']) && $file->editable && $core_media_writab
 		
 		$okt->media->uploadFile($_FILES['upfile']['tmp_name'], $file->basename, null, false, true);
 		
-		$okt['flash']->success(__('File has been successfully updated.'));
+		$okt['flashMessages']->success(__('File has been successfully updated.'));
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
@@ -100,7 +100,7 @@ if ($file && ! empty($_POST['media_file']) && $file->editable && $core_media_wri
 	{
 		$okt->media->updateFile($file, $newFile);
 		
-		$okt['flash']->success(__('File has been successfully updated.'));
+		$okt['flashMessages']->success(__('File has been successfully updated.'));
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
@@ -117,7 +117,7 @@ if (! empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable
 	{
 		$okt->media->imageThumbCreate(null, $file->basename);
 		
-		$okt['flash']->success(__('Thumbnails have been successfully updated.'));
+		$okt['flashMessages']->success(__('Thumbnails have been successfully updated.'));
 		
 		http::redirect($page_url . '&id=' . $id);
 	}
@@ -134,7 +134,7 @@ if (! empty($_POST['unzip']) && $file->type == 'application/zip' && $file->edita
 	{
 		$unzip_dir = $okt->media->inflateZipFile($file, $_POST['inflate_mode'] == 'new');
 		
-		$okt['flash']->success(__('Zip file has been successfully extracted.'));
+		$okt['flashMessages']->success(__('Zip file has been successfully extracted.'));
 		
 		http::redirect($media_page_url . '&d=' . $unzip_dir);
 	}

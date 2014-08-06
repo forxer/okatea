@@ -50,7 +50,7 @@ if (! empty($_GET['minregen']))
 {
 	$okt->catalog->regenMinImages();
 	
-	$okt['flash']->success(__('c_c_confirm_thumb_regenerated'));
+	$okt['flashMessages']->success(__('c_c_confirm_thumb_regenerated'));
 	
 	http::redirect('module.php?m=catalog&action=config');
 }
@@ -62,7 +62,7 @@ if (! empty($_GET['delete_watermark']))
 		'images' => $oImageUploadConfig->removeWatermak()
 	));
 	
-	$okt['flash']->success(__('c_c_confirm_watermark_deleted'));
+	$okt['flashMessages']->success(__('c_c_confirm_watermark_deleted'));
 	
 	http::redirect('module.php?m=catalog&action=config');
 }
@@ -127,7 +127,7 @@ if (! empty($_POST['form_sent']))
 		
 		$okt->catalog->config->write($aNewConf);
 		
-		$okt['flash']->success(__('c_c_confirm_configuration_updated'));
+		$okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 		
 		http::redirect('module.php?m=catalog&action=config');
 	}

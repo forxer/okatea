@@ -20,7 +20,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['event_id']) && $okt['visit
 {
 	if ($okt->diary->delEvent($_GET['event_id']))
 	{
-		$okt['flash']->success(__('m_diary_confirm_deleted'));
+		$okt['flashMessages']->success(__('m_diary_confirm_deleted'));
 		
 		http::redirect('module.php?m=diary&action=index');
 	}

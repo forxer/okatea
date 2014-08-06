@@ -40,7 +40,7 @@ class Config extends Controller
 					if (! empty($sUser))
 					{
 						if (! $this->okt['users']->userExists($sUser)) {
-							$this->okt['flash']->error(sprintf(__('c_c_users_error_recipients_%s_not_exists'), Escaper::html($sUser)));
+							$this->okt['flashMessages']->error(sprintf(__('c_c_users_error_recipients_%s_not_exists'), Escaper::html($sUser)));
 						}
 						else {
 							$mail_new_registration_recipients[] = $sUser;
@@ -49,7 +49,7 @@ class Config extends Controller
 				}
 				
 				if (empty($mail_new_registration_recipients)) {
-					$this->okt['flash']->error(__('c_c_users_error_specify_at_least_one_recipients'));
+					$this->okt['flashMessages']->error(__('c_c_users_error_specify_at_least_one_recipients'));
 				}
 			}
 			
@@ -97,11 +97,11 @@ class Config extends Controller
 			# -- CORE TRIGGER : adminUsersConfigProcess
 			$this->okt['triggers']->callTrigger('adminUsersConfigProcess', $this->aPageData);
 			
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$this->okt['config']->write($this->aPageData['config']);
 				
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('Users_config'));
 			}

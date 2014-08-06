@@ -75,7 +75,7 @@ class Supa extends Controller
 			}
 
 			# si pas d'erreur on ajoutent les utilisateurs
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$this->okt->startDatabase();
 

@@ -181,7 +181,7 @@ if (! empty($_POST['order_galleries']))
 			
 			$okt->galleries->tree->rebuild();
 			
-			$okt['flash']->success(__('m_galleries_gallery_order_update'));
+			$okt['flashMessages']->success(__('m_galleries_gallery_order_update'));
 			
 			http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 		}
@@ -226,7 +226,7 @@ if (! empty($_GET['delete_image']) && ! empty($iGalleryId))
 		'message' => 'gallery #' . $iGalleryId
 	));
 	
-	$okt['flash']->success(__('m_galleries_gallery_updated'));
+	$okt['flashMessages']->success(__('m_galleries_gallery_updated'));
 	
 	http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 }
@@ -285,7 +285,7 @@ if (! empty($_POST['sended']))
 					'message' => 'gallery #' . $iGalleryId
 				));
 				
-				$okt['flash']->success(__('m_galleries_gallery_updated'));
+				$okt['flashMessages']->success(__('m_galleries_gallery_updated'));
 				
 				http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 			}
@@ -315,7 +315,7 @@ if (! empty($_POST['sended']))
 					'message' => 'gallery #' . $iGalleryId
 				));
 				
-				$okt['flash']->success(__('m_galleries_gallery_added'));
+				$okt['flashMessages']->success(__('m_galleries_gallery_added'));
 				
 				http::redirect('module.php?m=galleries&action=gallery&gallery_id=' . $iGalleryId);
 			}

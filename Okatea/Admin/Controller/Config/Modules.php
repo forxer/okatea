@@ -291,7 +291,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_installed'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_installed'));
 		}
 
 		# log admin
@@ -334,7 +334,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_updated'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_updated'));
 		}
 
 		Utilities::deleteOktCacheFiles();
@@ -380,7 +380,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_uninstalled'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_uninstalled'));
 		}
 
 		$this->okt['logAdmin']->critical(array(
@@ -436,7 +436,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_correctly_reinstalled.'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_correctly_reinstalled.'));
 		}
 
 		# log admin
@@ -479,7 +479,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_test_set_not_correctly_installed'));
+			$this->okt['flashMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
 		$this->okt['logAdmin']->critical(array(
@@ -513,7 +513,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_test_set_not_correctly_installed'));
+			$this->okt['flashMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
 		$this->okt['logAdmin']->warning(array(
@@ -546,7 +546,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_correctly_emptied'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_correctly_emptied'));
 		}
 
 		$this->okt['logAdmin']->critical(array(
@@ -571,7 +571,7 @@ class Modules extends Controller
 
 		if ($fs->remove($this->okt['modules_path'] . '/' . $sModuleId))
 		{
-			$this->okt['flash']->success(__('c_a_modules_successfully_deleted'));
+			$this->okt['flashMessages']->success(__('c_a_modules_successfully_deleted'));
 
 			$this->okt['logAdmin']->warning(array(
 				'code' => 42,
@@ -582,7 +582,7 @@ class Modules extends Controller
 		}
 		else
 		{
-			$this->okt['flash']->error(__('c_a_modules_not_deleted.'));
+			$this->okt['flashMessages']->error(__('c_a_modules_not_deleted.'));
 		}
 	}
 
@@ -600,7 +600,7 @@ class Modules extends Controller
 
 		$this->okt['modules']->generateCacheList();
 
-		$this->okt['flash']->success(__('c_a_modules_templates_files_replaced'));
+		$this->okt['flashMessages']->success(__('c_a_modules_templates_files_replaced'));
 
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -619,7 +619,7 @@ class Modules extends Controller
 
 		$this->okt['modules']->generateCacheList();
 
-		$this->okt['flash']->success(__('c_a_modules_assets_files_replaced'));
+		$this->okt['flashMessages']->success(__('c_a_modules_assets_files_replaced'));
 
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -737,18 +737,18 @@ class Modules extends Controller
 
 				if ($ret_code == 2)
 				{
-					$this->okt['flash']->success(__('c_a_modules_module_successfully_upgraded'));
+					$this->okt['flashMessages']->success(__('c_a_modules_module_successfully_upgraded'));
 				}
 				else
 				{
-					$this->okt['flash']->success(__('c_a_modules_module_successfully_added'));
+					$this->okt['flashMessages']->success(__('c_a_modules_module_successfully_added'));
 				}
 
 				return $this->redirect($this->generateUrl('config_modules'));
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 				return false;
 			}
 		}

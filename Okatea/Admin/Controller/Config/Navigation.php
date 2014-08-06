@@ -65,13 +65,13 @@ class Navigation extends Controller
 			{
 				$this->okt['menus']->switchMenuStatus($iMenuIdSwitchStatus);
 
-				$this->okt['flash']->success(__('c_a_config_navigation_menu_switched'));
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_switched'));
 
 				return $this->redirect($this->generateUrl('config_navigation'));
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -83,13 +83,13 @@ class Navigation extends Controller
 			{
 				$this->okt['menus']->delMenu($iMenuIdDelete);
 
-				$this->okt['flash']->success(__('c_a_config_navigation_menu_deleted'));
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_deleted'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=index');
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -116,7 +116,7 @@ class Navigation extends Controller
 
 			if ($rsMenu->isEmpty())
 			{
-				$this->okt['flash']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+				$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 				$iMenuId = null;
 			}
 			else
@@ -156,13 +156,13 @@ class Navigation extends Controller
 							'message' => 'menu #' . $iMenuId
 						));
 
-						$this->okt['flash']->success(__('c_a_config_navigation_menu_updated'));
+						$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_updated'));
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flash']->error($e->getMessage());
+						$this->okt['flashMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -183,13 +183,13 @@ class Navigation extends Controller
 							'message' => 'menu #' . $iMenuId
 						));
 
-						$this->okt['flash']->success(__('c_a_config_navigation_menu_added'));
+						$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_added'));
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flash']->error($e->getMessage());
+						$this->okt['flashMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -255,14 +255,14 @@ class Navigation extends Controller
 						$this->okt['menus']->updItemOrder($id, $ord);
 					}
 
-					$this->okt['flash']->success(__('c_a_config_navigation_items_neworder'));
+					$this->okt['flashMessages']->success(__('c_a_config_navigation_items_neworder'));
 
 					return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 				}
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -274,13 +274,13 @@ class Navigation extends Controller
 			{
 				$this->okt['menus']->setItemStatus($iItemIdEnable, 1);
 
-				$this->okt['flash']->success(__('c_a_config_navigation_item_enabled'));
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_enabled'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -292,13 +292,13 @@ class Navigation extends Controller
 			{
 				$this->okt['menus']->setItemStatus($iItemIdDisable, 0);
 
-				$this->okt['flash']->success(__('c_a_config_navigation_item_disabled'));
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_disabled'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -310,13 +310,13 @@ class Navigation extends Controller
 			{
 				$this->okt['menus']->delItem($iItemIdDelete);
 
-				$this->okt['flash']->success(__('c_a_config_navigation_item_deleted'));
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_deleted'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -371,7 +371,7 @@ class Navigation extends Controller
 
 			if ($rsItem->isEmpty())
 			{
-				$this->okt['flash']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
+				$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
 				$aItemData['item']['id'] = null;
 			}
 			else
@@ -424,13 +424,13 @@ class Navigation extends Controller
 							'message' => 'item #' . $aItemData['item']['id']
 						));
 
-						$this->okt['flash']->success(__('c_a_config_navigation_item_updated'));
+						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_updated'));
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $aItemData['item']['id']);
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flash']->error($e->getMessage());
+						$this->okt['flashMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -450,13 +450,13 @@ class Navigation extends Controller
 							'message' => 'item #' . $iItemId
 						));
 
-						$this->okt['flash']->success(__('c_a_config_navigation_item_added'));
+						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_added'));
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $iItemId);
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flash']->error($e->getMessage());
+						$this->okt['flashMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -477,13 +477,13 @@ class Navigation extends Controller
 		{
 			$p_tpl = $oTemplates->getPostConfig();
 
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$this->okt['config']->write(array(
 					'navigation_tpl' => $p_tpl
 				));
 
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=config');
 			}

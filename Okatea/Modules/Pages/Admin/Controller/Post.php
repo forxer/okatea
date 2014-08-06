@@ -44,7 +44,7 @@ class Post extends Controller
 					'message' => 'page #' . $this->aPageData['post']['id']
 				));
 
-				$this->okt['flash']->success(__('m_pages_page_added'));
+				$this->okt['flashMessages']->success(__('m_pages_page_added'));
 
 				return $this->redirect($this->generateUrl('Pages_post', array(
 					'page_id' => $this->aPageData['post']['id']
@@ -72,7 +72,7 @@ class Post extends Controller
 
 		if (null === $this->aPageData['post']['id'] || $rsPage->isEmpty())
 		{
-			$this->okt['flash']->error(sprintf(__('m_pages_page_%s_not_exists'), $this->aPageData['post']['id']));
+			$this->okt['flashMessages']->error(sprintf(__('m_pages_page_%s_not_exists'), $this->aPageData['post']['id']));
 
 			return $this->serve404();
 		}
@@ -161,7 +161,7 @@ class Post extends Controller
 				'message' => 'page #' . $this->aPageData['post']['id']
 			));
 
-			$this->okt['flash']->success(__('m_pages_page_updated'));
+			$this->okt['flashMessages']->success(__('m_pages_page_updated'));
 
 			return $this->redirect($this->generateUrl('Pages_post', array(
 				'page_id' => $this->aPageData['post']['id']
@@ -180,7 +180,7 @@ class Post extends Controller
 				'message' => 'page #' . $this->aPageData['post']['id']
 			));
 
-			$this->okt['flash']->success(__('m_pages_page_updated'));
+			$this->okt['flashMessages']->success(__('m_pages_page_updated'));
 
 			return $this->redirect($this->generateUrl('Pages_post', array(
 				'page_id' => $this->aPageData['post']['id']
@@ -206,7 +206,7 @@ class Post extends Controller
 					'message' => 'page #' . $this->aPageData['post']['id']
 				));
 
-				$this->okt['flash']->success(__('m_pages_page_updated'));
+				$this->okt['flashMessages']->success(__('m_pages_page_updated'));
 
 				return $this->redirect($this->generateUrl('Pages_post', array(
 					'page_id' => $this->aPageData['post']['id']

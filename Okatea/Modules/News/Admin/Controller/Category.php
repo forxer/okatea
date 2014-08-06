@@ -39,7 +39,7 @@ class Category extends Controller
 					'message' => 'category #' . $this->aCategoryData['cat']['id']
 				));
 
-				$this->okt['flash']->success(__('m_news_cat_added'));
+				$this->okt['flashMessages']->success(__('m_news_cat_added'));
 
 				return $this->redirect($this->generateUrl('News_category', array(
 					'category_id' => $this->aCategoryData['cat']['id']
@@ -64,7 +64,7 @@ class Category extends Controller
 
 		if (0 === $this->aCategoryData['cat']['id'] || $rsCategory->isEmpty())
 		{
-			$this->okt['flash']->error(sprintf(__('m_news_cat_%s_not_exists'), $this->aCategoryData['cat']['id']));
+			$this->okt['flashMessages']->error(sprintf(__('m_news_cat_%s_not_exists'), $this->aCategoryData['cat']['id']));
 
 			return $this->serve404();
 		}
@@ -203,7 +203,7 @@ class Category extends Controller
 					'message' => 'category #' . $this->aCategoryData['cat']['id']
 				));
 
-				$this->okt['flash']->success(__('m_news_cat_updated'));
+				$this->okt['flashMessages']->success(__('m_news_cat_updated'));
 
 				return $this->redirect($this->generateUrl('News_category', array(
 					'category_id' => $this->aCategoryData['cat']['id']

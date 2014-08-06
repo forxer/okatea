@@ -64,20 +64,6 @@ class Groups
 	protected $okt;
 
 	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oDb;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oError;
-
-	/**
 	 * Core users table.
 	 *
 	 * @var string
@@ -101,21 +87,17 @@ class Groups
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
-		$this->oDb = $okt->db;
-		$this->oError = $okt->error;
 
-		$this->sUsersTable = $this->oDb->prefix . 'core_users';
-		$this->sGroupsTable = $this->oDb->prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $this->oDb->prefix . 'core_users_groups_locales';
+		$this->sUsersTable = $okt['config']->database_prefix . 'core_users';
+		$this->sGroupsTable = $okt['config']->database_prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $okt['config']->database_prefix . 'core_users_groups_locales';
 	}
 
 	/**
 	 * Retourne les informations de plusieurs groupes
 	 *
-	 * @param
-	 *        	$param
-	 * @param
-	 *        	$bCountOnly
+	 * @param array $param
+	 * @param boolean $bCountOnly
 	 * @return recordset
 	 */
 	public function getGroups(array $aParams = [], $bCountOnly = false)

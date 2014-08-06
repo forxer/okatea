@@ -281,7 +281,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt['cache_path'] . '/' . $sCacheFile);
 
-			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
+			$this->okt['flashMessages']->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -292,7 +292,7 @@ class Tools extends Controller
 		{
 			$fs = (new Filesystem())->remove($this->okt['public_path'] . '/cache/' . $sPublicCacheFile);
 
-			$this->okt['flash']->success(__('c_a_tools_cache_confirm'));
+			$this->okt['flashMessages']->success(__('c_a_tools_cache_confirm'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -304,7 +304,7 @@ class Tools extends Controller
 
 			Utilities::deleteOktPublicCacheFiles();
 
-			$this->okt['flash']->success(__('c_a_tools_cache_confirms'));
+			$this->okt['flashMessages']->success(__('c_a_tools_cache_confirms'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -351,7 +351,7 @@ class Tools extends Controller
 					$fs->remove($finder);
 				}
 
-				$this->okt['flash']->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
+				$this->okt['flashMessages']->success(sprintf(__('c_a_tools_cleanup_%s_cleaned'), $iNumFindedFiles));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -370,7 +370,7 @@ class Tools extends Controller
 			$fp = fopen($this->okt['app_path'] . '/' . $sFilename, 'wb');
 			if ($fp === false)
 			{
-				$this->okt['flash']->error(__('c_a_tools_backup_unable_write_file'));
+				$this->okt['flashMessages']->error(__('c_a_tools_backup_unable_write_file'));
 			}
 
 			try
@@ -396,13 +396,13 @@ class Tools extends Controller
 				fclose($fp);
 				$zip->close();
 
-				$this->okt['flash']->success(__('c_a_tools_backup_done'));
+				$this->okt['flashMessages']->success(__('c_a_tools_backup_done'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flash']->error($e->getMessage());
+				$this->okt['flashMessages']->error($e->getMessage());
 			}
 		}
 
@@ -461,7 +461,7 @@ class Tools extends Controller
 			fwrite($fp, $return);
 			fclose($fp);
 
-			$this->okt['flash']->success(__('c_a_tools_backup_done'));
+			$this->okt['flashMessages']->success(__('c_a_tools_backup_done'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -472,7 +472,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt['app_path'] . '/' . $sBackupFileToDelete);
 
-			$this->okt['flash']->success(__('c_a_tools_backup_deleted'));
+			$this->okt['flashMessages']->success(__('c_a_tools_backup_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -495,17 +495,17 @@ class Tools extends Controller
 		{
 			if ($this->bHtaccessExists)
 			{
-				$this->okt['flash']->error(__('c_a_tools_htaccess_allready_exists'));
+				$this->okt['flashMessages']->error(__('c_a_tools_htaccess_allready_exists'));
 			}
 			elseif (! $this->bHtaccessDistExists)
 			{
-				$this->okt['flash']->error(__('c_a_tools_htaccess_template_not_exists'));
+				$this->okt['flashMessages']->error(__('c_a_tools_htaccess_template_not_exists'));
 			}
 			else
 			{
 				file_put_contents($this->okt['app_path'] . '/.htaccess', file_get_contents($this->okt['app_path'] . '/.htaccess.oktDist'));
 
-				$this->okt['flash']->success(__('c_a_tools_htaccess_created'));
+				$this->okt['flashMessages']->success(__('c_a_tools_htaccess_created'));
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
@@ -516,7 +516,7 @@ class Tools extends Controller
 		{
 			@unlink($this->okt['app_path'] . '/.htaccess');
 
-			$this->okt['flash']->success(__('c_a_tools_htaccess_deleted'));
+			$this->okt['flashMessages']->success(__('c_a_tools_htaccess_deleted'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}
@@ -526,7 +526,7 @@ class Tools extends Controller
 		{
 			file_put_contents($this->okt['app_path'] . '/.htaccess', $this->okt['request']->request->get('p_htaccess_content'));
 
-			$this->okt['flash']->success(__('c_a_tools_htaccess_edited'));
+			$this->okt['flashMessages']->success(__('c_a_tools_htaccess_edited'));
 
 			return $this->redirect($this->generateUrl('config_tools'));
 		}

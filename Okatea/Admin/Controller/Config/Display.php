@@ -137,7 +137,7 @@ class Display extends Controller
 				catch (\Exception $e)
 				{
 					$fs->remove($sTempDir);
-					$this->okt['flash']->error($e->getMessage());
+					$this->okt['flashMessages']->error($e->getMessage());
 				}
 			}
 
@@ -149,7 +149,7 @@ class Display extends Controller
 				$p_jquery_ui_admin_theme = $this->okt['config']->jquery_ui['admin'];
 			}
 
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$aNewConfig = array(
 					'jquery_ui' => array(
@@ -162,7 +162,7 @@ class Display extends Controller
 
 				$this->okt['config']->write($aNewConfig);
 
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
 				return $this->redirect($this->generateUrl('config_display'));
 			}

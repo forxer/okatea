@@ -44,8 +44,8 @@ class Module extends BaseModule
 		}
 
 		# Message admin home
-		if ($this->okt['visitor']->is_superadmin) {
-			$this->okt['flash']->warning(__('m_development_adminIndexHtmlContent'));
+		if ($this->okt['visitor']->is_superadmin && $this->okt['request']->attributes->get('_route') == 'home') {
+			$this->okt['instantMessages']->warning(__('m_development_adminIndexHtmlContent'));
 		}
 
 		# Add admin debug bar

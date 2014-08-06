@@ -49,7 +49,7 @@ if ($do == 'add')
 	
 	$iCategoryId = $okt->faq->addCategory($add_params);
 	
-	$okt['flash']->success(__('m_faq_section_added'));
+	$okt['flashMessages']->success(__('m_faq_section_added'));
 	
 	http::redirect('module.php?m=faq&action=categories');
 }
@@ -88,7 +88,7 @@ if ($do == 'edit' && $iCategoryId > 0)
 		
 		$okt->faq->updCategory($edit_params);
 		
-		$okt['flash']->success(__('m_faq_section_updated'));
+		$okt['flashMessages']->success(__('m_faq_section_updated'));
 		
 		http::redirect('module.php?m=faq&action=categories');
 	}
@@ -99,7 +99,7 @@ if ($do == 'delete' && $iCategoryId > 0)
 {
 	$okt->faq->delCategory($iCategoryId);
 	
-	$okt['flash']->success(__('m_faq_section_deleted'));
+	$okt['flashMessages']->success(__('m_faq_section_deleted'));
 	
 	http::redirect('module.php?m=faq&action=categories');
 }

@@ -42,11 +42,11 @@ class Display extends Controller
 				)
 			);
 			
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$this->okt['config']->write($this->aPageData['config']);
 				
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('Users_display'));
 			}

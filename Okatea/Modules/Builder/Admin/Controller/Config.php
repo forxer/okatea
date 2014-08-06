@@ -26,7 +26,7 @@ class Config extends Controller
 		# save config
 		if ($this->okt['request']->request->has('config_sent'))
 		{
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'repository_url' => $this->okt['request']->request->get('repository_url'),
@@ -44,7 +44,7 @@ class Config extends Controller
 				
 				$this->okt->module('Builder')->config->write($aNewConf);
 				
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('Builder_config'));
 			}

@@ -7,24 +7,17 @@
  */
 namespace Okatea\Tao\Session;
 
+use Okatea\Tao\Messages\MessagesInterface;
 //use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 /**
  * The class to handle the usual flash messages.
  */
-class FlashMessages extends AutoExpireFlashBag
+class FlashMessages extends AutoExpireFlashBag implements MessagesInterface
 {
-	const TYPE_INFO = 'info';
-	const TYPE_SUCCESS = 'success';
-	const TYPE_WARNING = 'warning';
-	const TYPE_ERROR = 'error';
-
 	/**
-	 * Add a message type "info" to the stack.
-	 *
-	 * @param string $sMessage The message
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function info($sMessage)
 	{
@@ -32,29 +25,26 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Gets and clears message type "info" from the stack.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function getInfo()
+	public function getInfo(array $aDefault = [])
 	{
-		return $this->get(self::TYPE_INFO, []);
+		return $this->get(self::TYPE_INFO, $aDefault);
 	}
 
 	/**
 	 * Gets messages of type "info" (read only).
 	 *
+	 * @param array  $aDefault Default value if "info" does not exist.
 	 * @return array
 	 */
-	public function peekInfo()
+	public function peekInfo(array $aDefault = [])
 	{
-		return $this->peek(self::TYPE_INFO, []);
+		return $this->peek(self::TYPE_INFO, $aDefault);
 	}
 
 	/**
-	 * Returns true if message type "info" exists, false if not.
-	 *
-	 * @return boolean
+	 * {@inheritdoc}
 	 */
 	public function hasInfo()
 	{
@@ -62,11 +52,7 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Add a message type "success" to the stack.
-	 *
-	 * @param string $sMessage
-	 *        	The message
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function success($sMessage)
 	{
@@ -74,29 +60,26 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Gets and clears message type "success" from the stack.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function getSuccess()
+	public function getSuccess(array $aDefault = [])
 	{
-		return $this->get(self::TYPE_SUCCESS, []);
+		return $this->get(self::TYPE_SUCCESS, $aDefault);
 	}
 
 	/**
 	 * Gets messages of type "success" (read only).
 	 *
+	 * @param array  $aDefault Default value if "success" does not exist.
 	 * @return array
 	 */
-	public function peekSuccess()
+	public function peekSuccess(array $aDefault = [])
 	{
-		return $this->peek(self::TYPE_SUCCESS, []);
+		return $this->peek(self::TYPE_SUCCESS, $aDefault);
 	}
 
 	/**
-	 * Returns true if message type "success" exists, false if not.
-	 *
-	 * @return boolean
+	 * {@inheritdoc}
 	 */
 	public function hasSuccess()
 	{
@@ -104,11 +87,7 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Add a message type "warning" to the stack.
-	 *
-	 * @param string $sMessage
-	 *        	The message
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function warning($sMessage)
 	{
@@ -116,29 +95,26 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Gets and clears message type "warning" from the stack.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function getWarning()
+	public function getWarning(array $aDefault = [])
 	{
-		return $this->get(self::TYPE_WARNING, []);
+		return $this->get(self::TYPE_WARNING, $aDefault);
 	}
 
 	/**
 	 * Gets messages of type "warning" (read only).
 	 *
+	 * @param array  $aDefault Default value if "warning" does not exist.
 	 * @return array
 	 */
-	public function peekWarning()
+	public function peekWarning(array $aDefault = [])
 	{
-		return $this->peek(self::TYPE_WARNING, []);
+		return $this->peek(self::TYPE_WARNING, $aDefault);
 	}
 
 	/**
-	 * Returns true if message type "warning" exists, false if not.
-	 *
-	 * @return boolean
+	 * {@inheritdoc}
 	 */
 	public function hasWarning()
 	{
@@ -146,11 +122,7 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Add a message type "error" to the stack.
-	 *
-	 * @param string $sMessage
-	 *        	The message
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function error($sMessage)
 	{
@@ -158,29 +130,26 @@ class FlashMessages extends AutoExpireFlashBag
 	}
 
 	/**
-	 * Gets and clears message type "error" from the stack.
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	public function getError()
+	public function getError(array $aDefault = [])
 	{
-		return $this->get(self::TYPE_ERROR, []);
+		return $this->get(self::TYPE_ERROR, $aDefault);
 	}
 
 	/**
 	 * Gets messages of type "error" (read only).
 	 *
+	 * @param array  $aDefault Default value if "error" does not exist.
 	 * @return array
 	 */
-	public function peekError()
+	public function peekError(array $aDefault = [])
 	{
-		return $this->peek(self::TYPE_ERROR, []);
+		return $this->peek(self::TYPE_ERROR, $aDefault);
 	}
 
 	/**
-	 * Returns true if message type "error" exists, false if not.
-	 *
-	 * @return boolean
+	 * {@inheritdoc}
 	 */
 	public function hasError()
 	{

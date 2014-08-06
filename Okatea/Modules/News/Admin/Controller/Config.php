@@ -42,7 +42,7 @@ class Config extends Controller
 		{
 			$this->okt->module('News')->regenMinImages();
 			
-			$this->okt['flash']->success(__('c_c_confirm_thumb_regenerated'));
+			$this->okt['flashMessages']->success(__('c_c_confirm_thumb_regenerated'));
 			
 			return $this->redirect($this->generateUrl('News_config'));
 		}
@@ -54,7 +54,7 @@ class Config extends Controller
 				'images' => $oImageUploadConfig->removeWatermak()
 			));
 			
-			$this->okt['flash']->success(__('c_c_confirm_watermark_deleted'));
+			$this->okt['flashMessages']->success(__('c_c_confirm_watermark_deleted'));
 			
 			return $this->redirect($this->generateUrl('News_config'));
 		}
@@ -101,7 +101,7 @@ class Config extends Controller
 			$p_meta_description = $this->okt['request']->request->get('p_meta_description', array());
 			$p_meta_keywords = $this->okt['request']->request->get('p_meta_keywords', array());
 			
-			if (! $this->okt['flash']->hasError())
+			if (! $this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'enable_metas' => (boolean) $p_enable_metas,
@@ -142,7 +142,7 @@ class Config extends Controller
 				
 				$this->okt->module('News')->config->write($aNewConf);
 				
-				$this->okt['flash']->success(__('c_c_confirm_configuration_updated'));
+				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 				
 				return $this->redirect($this->generateUrl('News_config'));
 			}

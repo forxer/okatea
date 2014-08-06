@@ -256,7 +256,7 @@ class Menus
 	public function checkPostMenuData($aData)
 	{
 		if (empty($aData['title'])) {
-			$this->okt['flash']->error(__('c_a_config_navigation_must_enter_title'));
+			$this->okt['flashMessages']->error(__('c_a_config_navigation_must_enter_title'));
 		}
 
 		return $this->error->isEmpty();
@@ -531,21 +531,21 @@ class Menus
 			{
 				if ($this->okt['languages']->unique)
 				{
-					$this->okt['flash']->error(__('c_a_config_navigation_must_enter_title'));
+					$this->okt['flashMessages']->error(__('c_a_config_navigation_must_enter_title'));
 				}
 				else
 				{
-					$this->okt['flash']->error(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
+					$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
 				}
 			}
 			/*
 			if (empty($aData['locales'][$aLanguage['code']]['url']))
 			{
 				if ($this->okt['languages']->unique) {
-					$this->okt['flash']->error(__('c_a_config_navigation_must_enter_url'));
+					$this->okt['flashMessages']->error(__('c_a_config_navigation_must_enter_url'));
 				}
 				else {
-					$this->okt['flash']->error(sprintf(__('c_a_config_navigation_must_enter_url_in_%s'), $aLanguage['title']));
+					$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_must_enter_url_in_%s'), $aLanguage['title']));
 				}
 			}
 */

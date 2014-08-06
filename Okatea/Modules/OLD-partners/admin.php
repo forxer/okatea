@@ -20,7 +20,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['partner_id']) && $okt['vis
 {
 	if ($okt->partners->deletePartner($_GET['partner_id']))
 	{
-		$okt['flash']->success(__('m_partners_deleted'));
+		$okt['flashMessages']->success(__('m_partners_deleted'));
 		
 		http::redirect('module.php?m=partners&action=index');
 	}

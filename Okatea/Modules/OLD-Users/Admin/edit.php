@@ -137,7 +137,7 @@ if (! empty($_GET['valide']) && $okt['visitor']->checkPerm('users_edit'))
 		
 		$oMail->send();
 		
-		$okt['flash']->success(__('m_users_validated_user'));
+		$okt['flashMessages']->success(__('m_users_validated_user'));
 		
 		http::redirect('module.php?m=users&action=edit&id=' . $aEditPageInfos['iUserId']);
 	}
@@ -171,7 +171,7 @@ if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_pas
 			$oMail->send();
 		}
 		
-		$okt['flash']->success(__('m_users_user_edited'));
+		$okt['flashMessages']->success(__('m_users_user_edited'));
 		
 		http::redirect('module.php?m=users&action=edit&id=' . $aEditPageInfos['iUserId']);
 	}
@@ -245,7 +245,7 @@ if (! empty($_POST['form_sent']) && ! isset($_POST['do']) && $okt['visitor']->ch
 			}
 		}
 		
-		$okt['flash']->success(__('m_users_user_edited'));
+		$okt['flashMessages']->success(__('m_users_user_edited'));
 		
 		http::redirect('module.php?m=users&action=edit&id=' . $aEditPageInfos['iUserId']);
 	}
