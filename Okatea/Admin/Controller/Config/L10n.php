@@ -303,8 +303,6 @@ class L10n extends Controller
 					$ord = ((integer) $ord) + 1;
 					$this->okt['languages']->updLanguageOrder($id, $ord);
 				}
-
-				$this->okt['languages']->generateCacheList();
 			}
 
 			exit();
@@ -331,8 +329,6 @@ class L10n extends Controller
 					$this->okt['languages']->updLanguageOrder($id, $ord);
 				}
 
-				$this->okt['languages']->generateCacheList();
-
 				$this->okt['flashMessages']->success(__('c_a_config_l10n_neworder'));
 
 				return $this->redirect($this->generateUrl('config_l10n'));
@@ -353,8 +349,6 @@ class L10n extends Controller
 					'timezone' => $this->okt['request']->request->get('p_timezone'),
 					'admin_lang_switcher' => $this->okt['request']->request->has('p_admin_lang_switcher')
 				));
-
-				$this->okt['languages']->generateCacheList();
 
 				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
