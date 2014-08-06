@@ -143,7 +143,7 @@ abstract class Application extends Container
 		$this['public_url'] = $this['config']->getData('app_url') . basename($this['public_path']);
 
 		# URL du dossier upload depuis la racine
-	//	$this['upload_url'] = $this['config']->getData('app_url') . 'oktPublic/upload';
+		$this['upload_url'] = $this['config']->getData('app_url') . basename($this['public_path']) . '/' . basename($this['upload_path']);
 
 		# Print errors in debug mode
 		if ($this['debug']) {

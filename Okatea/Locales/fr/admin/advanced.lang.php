@@ -13,7 +13,7 @@ $GLOBALS['okt_l10n']['c_a_config_advanced_tab_minify'] = 'Minify';
 $GLOBALS['okt_l10n']['c_a_config_advanced_tab_update'] = 'Mise à jour';
 $GLOBALS['okt_l10n']['c_a_config_advanced_tab_others'] = 'Autres options';
 
-$GLOBALS['okt_l10n']['c_a_config_advanced_app_path'] = 'Chemins de l’application depuis <code>%s</code>';
+$GLOBALS['okt_l10n']['c_a_config_advanced_app_url'] = 'Chemins de l’application depuis <code>%s</code>';
 $GLOBALS['okt_l10n']['c_a_config_advanced_domain'] = 'Nom de domaine depuis <code>%s</code>';
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_repo_name'] = 'Nom du dépot';

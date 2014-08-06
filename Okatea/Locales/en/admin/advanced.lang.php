@@ -13,7 +13,7 @@ $GLOBALS['okt_l10n']['c_a_config_advanced_tab_minify'] = 'Minify';
 $GLOBALS['okt_l10n']['c_a_config_advanced_tab_update'] = 'Update';
 $GLOBALS['okt_l10n']['c_a_config_advanced_tab_others'] = 'Other options';
 
-$GLOBALS['okt_l10n']['c_a_config_advanced_app_path'] = 'Application path from <code>%s</code>';
+$GLOBALS['okt_l10n']['c_a_config_advanced_app_url'] = 'Application path from <code>%s</code>';
 $GLOBALS['okt_l10n']['c_a_config_advanced_domain'] = 'Domain name from <code>%s</code>';
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_repo_name'] = 'Repository name';
