@@ -12,18 +12,16 @@ $view->extend('Layout');
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_config_permissions'));
 
-$iNumGroup = count($aGroups);
-
-if ($iNumGroup > 1)
-{
+if (count($aGroups) > 1) {
 	$okt->page->tabs();
 }
+
 ?>
 
 <form action="<?php echo $view->generateAdminUrl('config_permissions') ?>"
 	method="post">
 	<div id="tabered">
-	<?php if ($iNumGroup > 1) : ?>
+	<?php if (count($aGroups) > 1) : ?>
 	<ul>
 		<?php foreach ($aGroups as $group_id=>$group_title) : ?>
 		<li><a href="#tab-group-<?php echo $group_id ?>"><span><?php echo $view->escape($group_title) ?></span></a></li>

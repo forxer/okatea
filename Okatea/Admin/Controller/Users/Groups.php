@@ -13,11 +13,9 @@ use Okatea\Tao\Users\Groups as UsersGroups;
 
 class Groups extends Controller
 {
-
 	public function index()
 	{
-		if (! $this->okt['visitor']->checkPerm('users_groups'))
-		{
+		if (!$this->okt['visitor']->checkPerm('users_groups')) {
 			return $this->serve401();
 		}
 
@@ -39,20 +37,18 @@ class Groups extends Controller
 			'language' => $this->okt['visitor']->language
 		);
 
-		if (! $this->okt['visitor']->is_superadmin)
-		{
+		if (!$this->okt['visitor']->is_superadmin) {
 			$aParams['group_id_not'][] = UsersGroups::SUPERADMIN;
 		}
 
-		if (! $this->okt['visitor']->is_admin)
-		{
+		if (!$this->okt['visitor']->is_admin) {
 			$aParams['group_id_not'][] = UsersGroups::ADMIN;
 		}
 
-		$rsGroups = $this->okt['groups']->getGroups($aParams);
+		$aGroups = $this->okt['groups']->getGroups($aParams);
 
 		return $this->render('Users/Groups/Index', array(
-			'rsGroups' => $rsGroups
+			'aGroups' => $aGroups
 		));
 	}
 
@@ -87,12 +83,10 @@ class Groups extends Controller
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
-					if ($this->okt['languages']->hasUniqueLanguage())
-					{
+					if ($this->okt['languages']->hasUniqueLanguage()) {
 						$this->okt['flashMessages']->error(__('c_a_users_must_enter_group_title'));
 					}
-					else
-					{
+					else {
 						$this->okt['flashMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
@@ -133,34 +127,32 @@ class Groups extends Controller
 
 		$iGroupId = $this->okt['request']->attributes->getInt('group_id');
 
-		if (empty($iGroupId))
-		{
+		if (empty($iGroupId)) {
 			return $this->serve404();
 		}
 
-		if (in_array($iGroupId, UsersGroups::$native))
-		{
-			$this->okt->page->warnings->set(__('c_a_users_edit_native_group'));
+		if (in_array($iGroupId, UsersGroups::$native)) {
+			$this->okt['instantMessages']->warning(__('c_a_users_edit_native_group'));
 		}
 
-		$rsGroup = $this->okt['groups']->getGroup($iGroupId);
-		$rsGroupL10n = $this->okt['groups']->getGroupL10n($iGroupId);
+		$aGroup = $this->okt['groups']->getGroup($iGroupId);
+		$aGroupL10ns = $this->okt['groups']->getGroupL10n($iGroupId);
 
 		$aGroupData = new ArrayObject();
 
 		$aGroupData['locales'] = array();
 
-		while ($rsGroupL10n->fetch())
+		foreach ($aGroupL10ns as $aGroupl10n)
 		{
-			if (isset($this->okt['languages']->getList()[$rsGroupL10n->language]))
+			if (isset($this->okt['languages']->getList()[$aGroupl10n['language']]))
 			{
-				$aGroupData['locales'][$rsGroupL10n->language] = array();
-				$aGroupData['locales'][$rsGroupL10n->language]['title'] = $rsGroupL10n->title;
-				$aGroupData['locales'][$rsGroupL10n->language]['description'] = $rsGroupL10n->description;
+				$aGroupData['locales'][$aGroupl10n['language']] = array();
+				$aGroupData['locales'][$aGroupl10n['language']]['title'] = $aGroupl10n['title'];
+				$aGroupData['locales'][$aGroupl10n['language']]['description'] = $aGroupl10n['description'];
 			}
 		}
 
-		$aGroupData['perms'] = $rsGroup->perms ? json_decode($rsGroup->perms) : array();
+		$aGroupData['perms'] = $aGroup['perms'] ? json_decode($aGroup['perms']) : array();
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
@@ -171,12 +163,10 @@ class Groups extends Controller
 
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
-					if ($this->okt['languages']->hasUniqueLanguage())
-					{
+					if ($this->okt['languages']->hasUniqueLanguage()) {
 						$this->okt['flashMessages']->error(__('c_a_users_must_enter_group_title'));
 					}
-					else
-					{
+					else {
 						$this->okt['flashMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
@@ -187,7 +177,7 @@ class Groups extends Controller
 				$aGroupData['perms'] = array_keys($this->okt['request']->request->get('perms'));
 			}
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['messages']->hasError())
 			{
 				if ($this->okt['groups']->updGroup($iGroupId, $aGroupData))
 				{

@@ -154,7 +154,7 @@ foreach ($aInstalledThemes as $aTheme)
 				<td class="<?php echo $td_class ?> small nowrap">
 					<ul class="actions">
 						<li>
-						<?php if ($aTheme['id'] == $this->okt['config']->themes['desktop']) : ?>
+						<?php if ($aTheme['id'] == $okt['config']->themes['desktop']) : ?>
 						<span class="icon tick"></span><?php _e('c_a_themes_current')?>
 						<?php else : ?>
 						<a
@@ -163,7 +163,7 @@ foreach ($aInstalledThemes as $aTheme)
 						<?php endif; ?>
 					</li>
 						<li>
-						<?php if ($aTheme['id'] == $this->okt['config']->themes['mobile']) : ?>
+						<?php if ($aTheme['id'] == $okt['config']->themes['mobile']) : ?>
 						<a
 							href="<?php echo $view->generateAdminUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>"
 							class="icon tick"><?php _e('c_a_themes_current_mobile') ?></a>
@@ -174,7 +174,7 @@ foreach ($aInstalledThemes as $aTheme)
 						<?php endif; ?>
 					</li>
 						<li>
-						<?php if ($aTheme['id'] == $this->okt['config']->themes['tablet']) : ?>
+						<?php if ($aTheme['id'] == $okt['config']->themes['tablet']) : ?>
 						<a
 							href="<?php echo $view->generateAdminUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>"
 							class="icon tick"><?php _e('c_a_themes_current_tablet') ?></a>

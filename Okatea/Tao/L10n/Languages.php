@@ -152,6 +152,7 @@ class Languages
 		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
 		$queryBuilder
+			->from($this->sLanguagesTable, 'l')
 			->where('true = true');
 
 		if (!empty($aParams['id']))
@@ -185,14 +186,12 @@ class Languages
 		if ($bCountOnly)
 		{
 			$queryBuilder
-				->select('COUNT(l.id) AS num_languages')
-				->from($this->sLanguagesTable, 'l');
+				->select('COUNT(l.id) AS num_languages');
 		}
 		else
 		{
 			$queryBuilder
-				->select('l.id', 'l.title', 'l.code', 'l.img', 'l.active', 'l.ord')
-				->from($this->sLanguagesTable, 'l');
+				->select('l.id', 'l.title', 'l.code', 'l.img', 'l.active', 'l.ord');
 
 			if (!empty($aParams['order'])) {
 				$queryBuilder->orderBy($aParams['order']);
@@ -224,12 +223,11 @@ class Languages
 	 */
 	public function getLanguage($iLanguageId)
 	{
-		$aLanguage = $this->okt['db']->fetchAssoc(
-			'SELECT * FROM '.$this->sLanguagesTable.' WHERE id = ?',
-			array($iLanguageId)
-		);
+		$aLanguage = $this->getLanguages([
+			'id' => $iLanguageId
+		]);
 
-		return $aLanguage;
+		return isset($aLanguage[0]) ? $aLanguage[0] : null;
 	}
 
 	/**
@@ -240,9 +238,7 @@ class Languages
 	 */
 	public function languageExists($iLanguageId)
 	{
-		$aLanguage = $this->getLanguage($iLanguageId);
-
-		return $aLanguage ? true : false;
+		return $this->getLanguage($iLanguageId) ? true : false;
 	}
 
 	/**

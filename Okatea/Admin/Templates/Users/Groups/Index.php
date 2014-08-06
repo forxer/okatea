@@ -45,11 +45,10 @@ $okt->page->setButtonset('usersGroups', array(
 	</thead>
 	<tbody>
 	<?php
-	
+
 	$count_line = 0;
-	while ($rsGroups->fetch())
-	:
-		
+	foreach ($aGroups as $aGroup) :
+
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 		$count_line ++;
 		?>
@@ -57,31 +56,31 @@ $okt->page->setButtonset('usersGroups', array(
 			<th scope="row" class="<?php echo $td_class ?> fake-td">
 				<p class="title">
 					<a
-						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
-			<?php echo $view->escape($rsGroups->title) ?></a>
+						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $aGroup['group_id'])) ?>">
+			<?php echo $view->escape($aGroup['title']) ?></a>
 				</p>
 			</th>
 			<td class="<?php echo $td_class ?>" style="min-width: 40%">
-				<p class="note"><?php echo $view->escape($rsGroups->description) ?></p>
+				<p class="note"><?php echo $view->escape($aGroup['description']) ?></p>
 			</td>
 			<td class="<?php echo $td_class ?> small nowrap">
-			<?php if ($rsGroups->group_id != Groups::GUEST) : ?>
+			<?php if ($aGroup['group_id'] != Groups::GUEST) : ?>
 			<p>
 					<a
-						href="<?php echo $view->generateAdminUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_group_%s_show_users'), $rsGroups->title)); ?>">
+						href="<?php echo $view->generateAdminUrl('Users_index') ?>?group_id=<?php echo $aGroup['group_id'] ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_group_%s_show_users'), $aGroup['title'])); ?>">
 			<?php
-			if ($rsGroups->num_users <= 0)
+			if ($aGroup['num_users'] <= 0)
 			{
 				_e('c_a_users_group_no_user');
 			}
-			elseif ($rsGroups->num_users == 1)
+			elseif ($aGroup['num_users'] == 1)
 			{
 				_e('c_a_users_group_one_user');
 			}
 			else
 			{
-				printf(__('c_a_users_group_%s_users'), $rsGroups->num_users);
+				printf(__('c_a_users_group_%s_users'), $aGroup['num_users']);
 			}
 			?></a>
 				</p>
@@ -90,34 +89,34 @@ $okt->page->setButtonset('usersGroups', array(
 			<td class="<?php echo $td_class ?> small nowrap">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_group_%s'), $rsGroups->title)) ?>"
+						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $aGroup['group_id'])) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_group_%s'), $aGroup['title'])) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
-			<?php if (in_array($rsGroups->group_id, Groups::$native) || $rsGroups->num_users > 0) : ?>
+			<?php if (in_array($aGroup['group_id'], Groups::$native) || $aGroup['num_users'] > 0) : ?>
 				<li class="disabled nowrap"
 						title="<?php _e('c_c_users_error_cannot_remove_group') ?>"><span
 						class="icon delete"></span><?php _e('c_c_action_Delete')?></li>
 			<?php else : ?>
 				<li><a
-						href="<?php echo $view->generateAdminUrl('Users_groups') ?>?delete_id=<?php echo $rsGroups->group_id ?>"
+						href="<?php echo $view->generateAdminUrl('Users_groups') ?>?delete_id=<?php echo $aGroup['group_id'] ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_group_deletion')) ?>')"
-						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_group_%s'), $rsGroups->title)) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_group_%s'), $aGroup['title'])) ?>"
 						class="icon delete"><?php _e('c_c_action_Delete') ?></a>
-					
+
 					<li>
 			<?php endif; ?>
-			
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
+
 				</ul>
 			</td>
 		</tr>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 	</tbody>
 </table>

@@ -7,7 +7,6 @@
  */
 namespace Okatea\Tao\Users;
 
-use RuntimeException;
 use Okatea\Tao\Database\Recordset;
 use Okatea\Tao\Misc\Utilities;
 
@@ -94,92 +93,96 @@ class Groups
 	}
 
 	/**
-	 * Retourne les informations de plusieurs groupes
+	 * Returns a list of users groups ​​according to given parameters.
 	 *
-	 * @param array $param
+	 * @param array	$aParams
 	 * @param boolean $bCountOnly
-	 * @return recordset
+	 * @return array|integer
 	 */
 	public function getGroups(array $aParams = [], $bCountOnly = false)
 	{
-		$sReqPlus = '';
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
+
+		$queryBuilder
+			->from($this->sGroupsTable, 'g')
+			->leftJoin('g', $this->sUsersTable, 'u', 'g.group_id = u.group_id')
+			->leftJoin('g', $this->sGroupsL10nTable, 'gl', 'g.group_id = gl.group_id')
+			->where('true = true');
 
 		if (isset($aParams['group_id']))
 		{
 			if (is_array($aParams['group_id']))
 			{
-				$aParams['group_id'] = array_map('intval', $aParams['group_id']);
-				$sReqPlus .= 'AND g.group_id IN (' . implode(',', $aParams['group_id']) . ') ';
+				$queryBuilder->andWhere(
+					$queryBuilder->expr()->in('g.group_id', array_map('intval', $aParams['group_id']))
+				);
 			}
 			else
 			{
-				$sReqPlus .= 'AND g.group_id=' . (integer) $aParams['group_id'] . ' ';
+				$queryBuilder
+					->andWhere('g.group_id = :group_id')
+					->setParameter('group_id', (integer)$aParams['group_id']);
 			}
 		}
 
-		if (! empty($aParams['group_id_not']))
+		if (isset($aParams['group_id_not']))
 		{
 			if (is_array($aParams['group_id_not']))
 			{
-				$aParams['group_id_not'] = array_map('intval', $aParams['group_id_not']);
-				$sReqPlus .= 'AND g.group_id NOT IN (' . implode(',', $aParams['group_id_not']) . ') ';
+				$queryBuilder->andWhere(
+					$queryBuilder->expr()->notIn('g.group_id', array_map('intval', $aParams['group_id_not']))
+				);
 			}
 			else
 			{
-				$sReqPlus .= 'AND g.group_id<>' . (integer) $aParams['group_id_not'] . ' ';
+				$queryBuilder
+					->andWhere('g.group_id <> :group_id_not')
+					->setParameter('group_id_not', (integer)$aParams['group_id_not']);
 			}
 		}
 
-		if (! empty($aParams['title']))
+		if (!empty($aParams['title']))
 		{
-			$sReqPlus .= 'AND gl.title=\'' . $this->oDb->escapeStr($aParams['title']) . '\' ';
+			$queryBuilder
+				->andWhere('gl.title = :title')
+				->setParameter('title', $aParams['title']);
 		}
 
-		if (! empty($aParams['language']))
+		if (!empty($aParams['language']))
 		{
-			$sReqPlus .= 'AND gl.language=\'' . $this->oDb->escapeStr($aParams['language']) . '\' ';
+			$queryBuilder
+				->andWhere('gl.language = :language')
+				->setParameter('language', $aParams['language']);
 		}
 
 		if ($bCountOnly)
 		{
-			$sQuery = 'SELECT COUNT(g.group_id) AS num_groups ' . 'FROM ' . $this->sGroupsTable . ' AS g ' . 'LEFT JOIN ' . $this->sUsersTable . ' AS u ON u.group_id=g.group_id ' . 'LEFT JOIN ' . $this->sGroupsL10nTable . ' AS gl ON g.group_id=gl.group_id ' . 'WHERE ' . $sReqPlus;
+			$queryBuilder->select('COUNT(g.group_id) AS num_groups');
 		}
 		else
 		{
-			$sQuery = 'SELECT g.group_id, g.perms, gl.title, gl.description, count(u.id) AS num_users ' . 'FROM ' . $this->sGroupsTable . ' AS g ' . 'LEFT JOIN ' . $this->sGroupsL10nTable . ' AS gl ON g.group_id=gl.group_id ' . 'LEFT JOIN ' . $this->sUsersTable . ' AS u ON u.group_id=g.group_id ' . 'WHERE 1 ' . $sReqPlus . ' ' . 'GROUP BY g.group_id ';
+			$queryBuilder
+				->select('g.group_id', 'g.perms', 'gl.title', 'gl.description', 'count(u.id) AS num_users')
+				->groupBy('g.group_id')
+			;
 
-			if (! empty($aParams['order']))
-			{
-				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ';
+			if (!empty($aParams['order']) && !empty($aParams['order_direction'])) {
+				$queryBuilder->orderBy($aParams['order'], $aParams['order_direction']);
 			}
-			else
-			{
-				$sQuery .= 'ORDER BY g.group_id ASC ';
-			}
-
-			if (! empty($aParams['limit']))
-			{
-				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
+			else {
+				$queryBuilder->orderBy('g.group_id', 'ASC');
 			}
 		}
 
-		if (($rs = $this->oDb->select($sQuery)) === false)
-		{
-			return new Recordset([]);
+		if ($bCountOnly) {
+			return (integer) $queryBuilder->execute()->fetchColumn();
 		}
 
-		if ($bCountOnly)
-		{
-			return (integer) $rs->num_groups;
-		}
-		else
-		{
-			return $rs;
-		}
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
-	 * Retourne les infos d'un groupe donné.
+	 * Returns information of a given group.
 	 *
 	 * @param mixed $mGroupId
 	 * @return recordset
@@ -188,73 +191,85 @@ class Groups
 	{
 		$aParams = [];
 
-		if (Utilities::isInt($mGroupId))
-		{
+		if (Utilities::isInt($mGroupId)) {
 			$aParams['group_id'] = $mGroupId;
 		}
-		else
-		{
+		else {
 			$aParams['title'] = $mGroupId;
 		}
 
-		return $this->getGroups($aParams);
+		$aGroup = $this->getGroups($aParams);
+
+		return isset($aGroup[0]) ? $aGroup[0] : null;
 	}
 
 	/**
-	 * Indique si un groupe existe.
+	 * Indicates whether a specified group exists.
 	 *
 	 * @param integer $iGroupId
 	 * @return boolean
 	 */
 	public function groupExists($iGroupId)
 	{
-		if ($this->getGroup($iGroupId)->isEmpty())
-		{
-			return false;
-		}
-
-		return true;
+		return $this->getGroup($iGroupId) ? true : false;
 	}
 
 	/**
-	 * Retourne les localisations d'un groupe donné.
+	 * Returns the localized data of a given group.
 	 *
 	 * @param integer $iItemId
 	 * @return Recordset
 	 */
 	public function getGroupL10n($iGroupId)
 	{
-		$query = 'SELECT * FROM ' . $this->sGroupsL10nTable . ' ' . 'WHERE group_id=' . (integer) $iGroupId;
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
-		if (($rs = $this->oDb->select($query)) === false)
-		{
-			$rs = new Recordset([]);
-			return $rs;
-		}
+		$queryBuilder
+			->select('*')
+			->from($this->sGroupsL10nTable)
+			->where('group_id = :group_id')
+			->setParameter('group_id', (integer) $iGroupId)
+		;
 
-		return $rs;
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
-	 * Ajout d'un groupe.
+	 * Indicates whether the localized data for a given group and a given language exist.
+	 *
+	 * @param integer $iGroupId
+	 * @param string $sLanguage
+	 * @return boolean
+	 */
+	public function groupL10nExists($iGroupId, $sLanguage)
+	{
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
+
+		$queryBuilder
+			->select('COUNT(group_id)')
+			->from($this->sGroupsL10nTable)
+			->where('group_id = :group_id')
+			->andWhere('language = :language')
+			->setParameter('group_id', (integer) $iGroupId)
+			->setParameter('language', $sLanguage)
+		;
+
+		$iNumRow = (integer) $queryBuilder->execute()->fetchColumn();
+
+		return $iNumRow >= 1;
+	}
+
+	/**
+	 * Add a group.
 	 *
 	 * @param array $aData
 	 * @return integer
 	 */
-	public function addGroup($aData)
+	public function addGroup(array $aData)
 	{
-		$sQuery = 'INSERT INTO ' . $this->sGroupsTable . ' ( ' .
+		$this->okt['db']->insert($this->sGroupsTable, []);
 
-		') VALUES ( ' .
-
-		'); ';
-
-		if (! $this->oDb->execute($sQuery))
-		{
-			throw new RuntimeException('Unable to add group into database.');
-		}
-
-		$iGroupId = $this->oDb->getLastID();
+		$iGroupId = $this->okt['db']->lastInsertId();
 
 		$this->setGroupL10n($iGroupId, $aData['locales']);
 
@@ -264,30 +279,19 @@ class Groups
 	}
 
 	/**
-	 * Mise à jour d'un groupe.
+	 * Update a group.
 	 *
 	 * @param integer $iGroupId
 	 * @param array $aData
 	 * @return boolean
 	 */
-	public function updGroup($iGroupId, $aData)
+	public function updGroup($iGroupId, array $aData)
 	{
-		if (! $this->groupExists($iGroupId))
+		if (!$this->groupExists($iGroupId))
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
-
-		/*
-		$sQuery =
-		'UPDATE '.$this->sGroupsTable.' SET '.
-			'title=\''.$this->oDb->escapeStr($title).'\' '.
-		'WHERE group_id='.(integer)$iGroupId;
-
-		if (!$this->oDb->execute($sQuery)) {
-			return false;
-		}
-		*/
 
 		$this->setGroupL10n($iGroupId, $aData['locales']);
 
@@ -297,7 +301,7 @@ class Groups
 	}
 
 	/**
-	 * Mise à jour des permissions d'un groupe.
+	 * Update permissions of a given group.
 	 *
 	 * @param integer $iGroupId
 	 * @param array $aPerms
@@ -305,65 +309,66 @@ class Groups
 	 */
 	public function updGroupPerms($iGroupId, $aPerms = null)
 	{
-		if (! $this->groupExists($iGroupId))
+		if (!$this->groupExists($iGroupId))
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 
-		$sQuery = 'UPDATE ' . $this->sGroupsTable . ' SET ' . 'perms=' . (is_array($aPerms) ? '\'' . $this->oDb->escapeStr(json_encode($aPerms)) . '\'' : 'NULL') . ' ' . 'WHERE group_id=' . (integer) $iGroupId;
-
-		if (! $this->oDb->execute($sQuery))
+		if (is_array($aPerms))
 		{
-			throw new RuntimeException('Unable to update group permissions into database.');
+			$this->okt['db']->update($this->sGroupsTable,
+				[
+					'perms' => json_encode($aPerms)
+				],
+				[
+					'group_id' => $iGroupId
+				]
+			);
 		}
 
 		return true;
 	}
 
 	/**
-	 * Suppression d'un groupe.
+	 * Delete a given group.
 	 *
-	 * @param
-	 *        	$iGroupId
+	 * @param integer $iGroupId
 	 * @return boolean
 	 */
 	public function deleteGroup($iGroupId)
 	{
-		$rsGroup = $this->getGroups([
-			'group_id' => $iGroupId
-		]);
+		$aGroup = $this->getGroup($iGroupId);
 
-		if ($rsGroup->isEmpty())
+		if (!$aGroup)
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_group_%s_not_exists'), $iGroupId));
 			return false;
 		}
 		elseif (in_array($iGroupId, self::$native))
 		{
-			$this->okt->error->set(__('c_c_users_error_cannot_remove_group'));
+			$this->okt['instantMessages']->error(__('c_c_users_error_cannot_remove_group'));
 			return false;
 		}
-		elseif ($rsGroup->num_users > 0)
+		elseif ($aGroup['num_users'] > 0)
 		{
-			$this->oError->set(__('c_c_users_error_users_in_group_cannot_remove'));
+			$this->okt['instantMessages']->error(__('c_c_users_error_users_in_group_cannot_remove'));
 			return false;
 		}
 
-		$sQuery = 'DELETE FROM ' . $this->sGroupsTable . ' ' . 'WHERE group_id=' . (integer) $iGroupId;
+		$aDeleteParam = [
+			'group_id' => (integer) $iGroupId
+		];
 
-		if (! $this->oDb->execute($sQuery))
-		{
-			throw new RuntimeException('Unable to remove group from database.');
-		}
+		$this->okt['db']->delete($this->sGroupsL10nTable, $aDeleteParam);
 
-		$this->oDb->optimize($this->sGroupsTable);
+		$this->okt['db']->delete($this->sGroupsTable, $aDeleteParam);
 
 		return true;
 	}
 
 	/**
-	 * Ajout/modification des textes internationnalisés d'un groupe donné.
+	 * Add/Edit localized data of a given group.
 	 *
 	 * @param integer $iGroupId
 	 * @param array $aData
@@ -372,20 +377,22 @@ class Groups
 	{
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$oCursor = $this->oDb->openCursor($this->sGroupsL10nTable);
-
-			$oCursor->group_id = $iGroupId;
-
-			$oCursor->language = $aLanguage['code'];
-
-			foreach ($aData[$aLanguage['code']] as $k => $v)
+			if ($this->groupL10nExists($iGroupId, $aLanguage['code']))
 			{
-				$oCursor->$k = $v;
+				$this->okt['db']->update($this->sGroupsL10nTable,
+					$aData[$aLanguage['code']],
+					[
+						'group_id' => (integer)$iGroupId,
+						'language' => $aLanguage['code']
+					]
+				);
 			}
-
-			if (! $oCursor->insertUpdate())
+			else
 			{
-				throw new RuntimeException('Unable to insert group locales in database for ' . $aLanguage['code'] . ' language.');
+				$aData[$aLanguage['code']]['group_id'] = $iGroupId;
+				$aData[$aLanguage['code']]['language'] = $aLanguage['code'];
+
+				$this->okt['db']->insert($this->sGroupsL10nTable, $aData[$aLanguage['code']]);
 			}
 		}
 	}

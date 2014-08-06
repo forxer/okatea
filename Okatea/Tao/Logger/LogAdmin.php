@@ -96,6 +96,7 @@ class LogAdmin
 		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
 		$queryBuilder
+			->from($this->t_log)
 			->where('true = true');
 
 		if (!empty($aParams['id']))
@@ -179,20 +180,22 @@ class LogAdmin
 		if ($bCountOnly)
 		{
 			$queryBuilder
-				->select('COUNT(id) AS num_logs_admin')
-				->from($this->t_log);
+				->select('COUNT(id)');
 		}
 		else
 		{
 			$queryBuilder
-				->select('id', 'user_id', 'username', 'ip', 'date', 'type', 'component', 'code', 'message')
-				->from($this->t_log);
+				->select('id', 'user_id', 'username', 'ip', 'date', 'type', 'component', 'code', 'message');
 
-			if (!empty($aParams['order'])) {
-				$queryBuilder->orderBy($aParams['order'], $aParams['order_direction']);
+			if (!empty($aParams['order']))
+			{
+				$queryBuilder
+					->orderBy($aParams['order'], $aParams['order_direction']);
 			}
-			else {
-				$queryBuilder->orderBy(LogAdminFilters::DEFAULT_ORDER_BY, LogAdminFilters::DEFAULT_ORDER_DIRECTION);
+			else
+			{
+				$queryBuilder
+					->orderBy(LogAdminFilters::DEFAULT_ORDER_BY, LogAdminFilters::DEFAULT_ORDER_DIRECTION);
 			}
 
 			if (!isset($aParams['first'])) {
@@ -223,14 +226,11 @@ class LogAdmin
 	 */
 	public function getLog($idLog)
 	{
-		$aLog = $this->okt['db']->fetchAssoc(
-			'SELECT * FROM '.$this->t_log.' WHERE id = ?',
-			[
-				$idLog
-			]
-		);
+		$aLog = $this->getLogs([
+			'id' => $idLog
+		]);
 
-		return $aLog;
+		return isset($aLog[0]) ? $aLog[0] : null;
 	}
 
 	/**
@@ -241,9 +241,7 @@ class LogAdmin
 	 */
 	public function logExist($idLog)
 	{
-		$aLog = $this->getLog($idLog);
-
-		return $aLog ? true : false;
+		return $this->getLog($idLog) ? true : false;
 	}
 
 	/**
