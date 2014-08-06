@@ -15,7 +15,7 @@ class RequestServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $okt)
 	{
-		$okt['request'] = function($okt) {
+		$okt['request'] = function() {
 			return Request::createFromGlobals();
 		};
 	}

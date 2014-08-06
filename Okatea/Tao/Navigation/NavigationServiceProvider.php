@@ -7,6 +7,7 @@
  */
 namespace Okatea\Tao\Navigation;
 
+use Okatea\Tao\Navigation\Menus\Menus;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

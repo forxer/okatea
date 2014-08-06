@@ -18,7 +18,7 @@ use Okatea\Tao\L10n\Localization;
 use Okatea\Tao\Logger\LoggerServiceProvider;
 use Okatea\Tao\Messages\MessagesServiceProvider;
 use Okatea\Tao\Misc\Utilities;
-use Okatea\Tao\Navigation\Menus\Menus;
+use Okatea\Tao\Navigation\NavigationServiceProvider;
 use Okatea\Tao\RequestServiceProvider;
 use Okatea\Tao\Routing\RouterServiceProvider;
 use Okatea\Tao\Session\SessionServiceProvider;
@@ -97,13 +97,14 @@ abstract class Application extends Container
 
 		$this->autoloader = $autoloader;
 
-		# Registers common services
+		# Registers common services provider
 		$this->register(new ConfigServiceProvider());
 		$this->register(new DatabaseServiceProvider());
 		$this->register(new ExtensionsServiceProvider());
 		$this->register(new L10nServiceProvider());
 		$this->register(new LoggerServiceProvider());
 		$this->register(new MessagesServiceProvider());
+		$this->register(new NavigationServiceProvider());
 		$this->register(new RequestServiceProvider());
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
@@ -198,7 +199,7 @@ abstract class Application extends Container
 	}
 
 	/**
-	 * Retourne un objet module.
+	 * Return a given module instance.
 	 *
 	 * @param string $sModuleId
 	 * @return object Okatea\Tao\Extensions\Modules\Module

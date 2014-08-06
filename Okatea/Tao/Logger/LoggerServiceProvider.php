@@ -7,8 +7,6 @@
  */
 namespace Okatea\Tao\Logger;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FingersCrossedHandler;
@@ -17,6 +15,8 @@ use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\WebProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class LoggerServiceProvider implements ServiceProviderInterface
 {

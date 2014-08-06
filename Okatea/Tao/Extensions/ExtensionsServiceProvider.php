@@ -7,10 +7,10 @@
  */
 namespace Okatea\Tao\Extensions;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class ExtensionsServiceProvider implements ServiceProviderInterface
 {

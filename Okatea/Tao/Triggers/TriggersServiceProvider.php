@@ -14,7 +14,7 @@ class TriggersServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $okt)
 	{
-		$okt['triggers'] = function($okt) {
+		$okt['triggers'] = function() {
 			return new Triggers();
 		};
 	}
