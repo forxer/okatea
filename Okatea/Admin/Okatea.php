@@ -7,13 +7,12 @@
 */
 namespace Okatea\Admin;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Menu as AdminMenu;
 use Okatea\Admin\Page;
 use Okatea\Tao\Application;
-use Okatea\Tao\LogAdmin;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class Okatea extends Application
 {
@@ -29,6 +28,11 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
+		$this['tpl_directories'] = [
+			__DIR__ . '/Templates/%name%.php',
+			$this['modules_path'] . '/%name%.php'
+		];
+
 		$this->loadPageHelpers();
 
 		$this->matchRequest();
@@ -38,8 +42,6 @@ class Okatea extends Application
 			$this->defineAdminPerms();
 
 			$this->buildAdminMenu();
-
-			$this->loadTplEngine();
 
 			$this['themes']->load('admin');
 
@@ -59,23 +61,6 @@ class Okatea extends Application
 	protected function loadPageHelpers()
 	{
 		$this->page = new Page($this);
-	}
-
-	/**
-	 * Load templates engine.
-	 *
-	 * return void
-	 */
-	protected function loadTplEngine()
-	{
-		$this->setTplDirectory(__DIR__ . '/Templates/%name%.php');
-		$this->setTplDirectory($this['modules_path'] . '/%name%.php');
-
-		# initialisation
-		$this->tpl = new Templating($this, $this->aTplDirectories);
-
-		# assignation par défaut
-		$this->tpl->addGlobal('okt', $this);
 	}
 
 	protected function checkUser()

@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_display'));
@@ -21,7 +21,7 @@ $okt->page->tabs();
 ?>
 
 
-<form action="<?php $view->generateUrl('Users_display') ?>"
+<form action="<?php $view->generateAdminUrl('Users_display') ?>"
 	method="post">
 	<div id="tabered">
 		<ul>

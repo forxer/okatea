@@ -17,7 +17,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_navigation') . '?do=index',
+			'url' => $view->generateAdminUrl('config_navigation') . '?do=index',
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -30,7 +30,7 @@ $okt->page->addGlobalTitle(__('c_a_config_navigation_config'));
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
 <form
-	action="<?php echo $view->generateUrl('config_navigation') ?>?do=config"
+	action="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=config"
 	method="post">
 
 	<?php echo $oTemplates->getHtmlConfigUsablesTemplates(); ?>

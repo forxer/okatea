@@ -75,11 +75,11 @@ foreach ($aInstalledThemes as $aTheme)
 			$theme_links = array();
 			if (file_exists($aTheme['root'] . '/CHANGELOG'))
 			{
-				$theme_links[] = '<a href="' . $view->generateUrl('config_themes') . '?show_changelog=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_changelog_link">' . __('c_a_themes_changelog') . '</a>';
+				$theme_links[] = '<a href="' . $view->generateAdminUrl('config_themes') . '?show_changelog=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_changelog_link">' . __('c_a_themes_changelog') . '</a>';
 			}
 			if (file_exists($aTheme['root'] . '/notes.md'))
 			{
-				$theme_links[] = '<a href="' . $view->generateUrl('config_themes') . '?show_notes=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_notes_link">' . __('c_a_themes_notes') . '</a>';
+				$theme_links[] = '<a href="' . $view->generateAdminUrl('config_themes') . '?show_notes=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_notes_link">' . __('c_a_themes_notes') . '</a>';
 			}
 			if ($okt['adminRouter']->routeExists($aTheme['id'] . '_display'))
 			{
@@ -108,7 +108,7 @@ foreach ($aInstalledThemes as $aTheme)
 					<p class="title">
 				<?php if ($aTheme['status']) : ?>
 				<a
-							href="<?php echo $view->generateUrl('config_theme', array('theme_id' => $aTheme['id'])) ?>">
+							href="<?php echo $view->generateAdminUrl('config_theme', array('theme_id' => $aTheme['id'])) ?>">
 				<?php echo $aTheme['name_l10n'] ?></a>
 				<?php else : ?>
 				<?php echo $aTheme['name_l10n']?>
@@ -125,7 +125,7 @@ foreach ($aInstalledThemes as $aTheme)
 				<?php echo $aTheme['version']?>
 				<?php if (version_compare($aAllThemes[$aTheme['id']]['version'], $aTheme['version'], '>')) : ?>
 				<br /> <a
-							href="<?php echo $view->generateUrl('config_themes') ?>?update=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?update=<?php echo $aTheme['id']; ?>"
 							class="icon plugin_error">Mettre à jour à la version <?php echo $aAllThemes[$aTheme['id']]['version'] ?></a>
 				<?php endif; ?>
 				</p>
@@ -134,20 +134,20 @@ foreach ($aInstalledThemes as $aTheme)
 					<ul class="actions">
 					<?php if (file_exists($aTheme['root'].'/Install/Assets/')) : ?>
 					<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?common=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?common=<?php echo $aTheme['id']; ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_common_files_confirm')) ?>')"
 							class="icon folder_page"><?php _e('c_a_themes_replace_common_files') ?></a></li>
 					<?php endif; ?>
 
 					<?php if (file_exists($aTheme['root'].'/Install/public/')) : ?>
 					<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?public=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?public=<?php echo $aTheme['id']; ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_replace_public_files_confirm')) ?>')"
 							class="icon script"><?php _e('c_a_themes_replace_public_files') ?></a></li>
 					<?php endif; ?>
 
 					<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?compare=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?compare=<?php echo $aTheme['id']; ?>"
 							class="icon page_copy"><?php _e('c_a_themes_compare_files') ?></a></li>
 					</ul>
 				</td>
@@ -158,29 +158,29 @@ foreach ($aInstalledThemes as $aTheme)
 						<span class="icon tick"></span><?php _e('c_a_themes_current')?>
 						<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes').'?use='.$aTheme['id'] ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes').'?use='.$aTheme['id'] ?>"
 							class="icon cross"><?php _e('c_a_themes_use_desktop') ?></a>
 						<?php endif; ?>
 					</li>
 						<li>
 						<?php if ($aTheme['id'] == $this->okt['config']['themes']['mobile']) : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>"
 							class="icon tick"><?php _e('c_a_themes_current_mobile') ?></a>
 						<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes').'?use_mobile='.$aTheme['id'] ?>"
 							class="icon cross"><?php _e('c_a_themes_use_mobile') ?></a>
 						<?php endif; ?>
 					</li>
 						<li>
 						<?php if ($aTheme['id'] == $this->okt['config']['themes']['tablet']) : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>"
 							class="icon tick"><?php _e('c_a_themes_current_tablet') ?></a>
 						<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes').'?use_tablet='.$aTheme['id'] ?>"
 							class="icon cross"><?php _e('c_a_themes_use_tablet') ?></a>
 						<?php endif; ?>
 					</li>
@@ -189,7 +189,7 @@ foreach ($aInstalledThemes as $aTheme)
 				<td class="<?php echo $td_class ?> small nowrap">
 					<ul class="actions">
 						<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?download=<?php echo $aTheme['id']; ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),$aTheme['name_l10n'])) ?>"
 							class="icon package_go"><?php _e('c_c_action_Download') ?></a></li>
 						<li>
@@ -198,12 +198,12 @@ foreach ($aInstalledThemes as $aTheme)
 					<?php else : ?>
 						<?php if (!$aTheme['status']) : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes') ?>?enable=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?enable=<?php echo $aTheme['id']; ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'),$aTheme['name_l10n'])) ?>"
 							class="icon picture_empty"><?php _e('c_c_action_Enable') ?></a>
 						<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes') ?>?disable=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?disable=<?php echo $aTheme['id']; ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'),$aTheme['name_l10n'])) ?>"
 							class="icon picture"><?php _e('c_c_action_Disable') ?></a>
 						<?php endif; ?>
@@ -214,7 +214,7 @@ foreach ($aInstalledThemes as $aTheme)
 						<span class="icon picture_go"></span><?php _e('c_c_action_Re-install')?>
 					<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes') ?>?reinstall=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?reinstall=<?php echo $aTheme['id']; ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_reinstall_theme_confirm')) ?>')"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Re-install_%s'),$aTheme['name_l10n'])) ?>"
 							class="icon picture_go"><?php _e('c_c_action_Re-install') ?></a>
@@ -225,7 +225,7 @@ foreach ($aInstalledThemes as $aTheme)
 						<span class="icon picture_delete"></span><?php _e('c_c_action_Uninstall')?>
 					<?php else : ?>
 						<a
-							href="<?php echo $view->generateUrl('config_themes') ?>?uninstall=<?php echo $aTheme['id']; ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?uninstall=<?php echo $aTheme['id']; ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_remove_theme_confirm')) ?>')"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Uninstall_%s'),$aTheme['name_l10n'])) ?>"
 							class="icon picture_delete"><?php _e('c_c_action_Uninstall') ?></a>

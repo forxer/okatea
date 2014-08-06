@@ -19,7 +19,7 @@ $okt->page->loader('.lazy-load');
 
 		<p>
 			<a
-				href="<?php echo $view->generateUrl('config_tools') ?>?make_backup=1"
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?make_backup=1"
 				class="icon page_save lazy-load"><?php _e('c_a_tools_backup_perform') ?></a>
 		</p>
 
@@ -29,9 +29,9 @@ $okt->page->loader('.lazy-load');
 		<ul>
 		<?php foreach ($aBackupFiles as $sBackupFile) : ?>
 			<li><a
-				href="<?php echo $view->generateUrl('config_tools') ?>?dl_backup=<?php echo $sBackupFile ?>"><?php echo $sBackupFile ?></a>
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?dl_backup=<?php echo $sBackupFile ?>"><?php echo $sBackupFile ?></a>
 				- [<a
-				href="<?php echo $view->generateUrl('config_tools') ?>?delete_backup_file=<?php echo $view->escape($sBackupFile) ?>"
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?delete_backup_file=<?php echo $view->escape($sBackupFile) ?>"
 				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_backup_confirm_delete')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($sBackupFile)) ?>"><?php _e('c_c_action_delete') ?></a>]</li>
 		<?php endforeach; ?>
@@ -44,7 +44,7 @@ $okt->page->loader('.lazy-load');
 
 		<p>
 			<a
-				href="<?php echo $view->generateUrl('config_tools') ?>?make_db_backup=1"
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?make_db_backup=1"
 				class="icon database_save lazy-load"><?php _e('c_a_tools_backup_perform') ?></a>
 		</p>
 
@@ -54,9 +54,9 @@ $okt->page->loader('.lazy-load');
 		<ul>
 		<?php foreach ($aDbBackupFiles as $sBackupFile) : ?>
 			<li><a
-				href="<?php echo $view->generateUrl('config_tools') ?>?dl_backup=<?php echo $sBackupFile ?>"><?php echo $sBackupFile ?></a>
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?dl_backup=<?php echo $sBackupFile ?>"><?php echo $sBackupFile ?></a>
 				- [<a
-				href="<?php echo $view->generateUrl('config_tools') ?>?delete_backup_file=<?php echo $view->escape($sBackupFile) ?>"
+				href="<?php echo $view->generateAdminUrl('config_tools') ?>?delete_backup_file=<?php echo $view->escape($sBackupFile) ?>"
 				onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_backup_confirm_delete')) ?>')"
 				title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($sBackupFile)) ?>"><?php _e('c_c_action_delete') ?></a>]</li>
 		<?php endforeach; ?>

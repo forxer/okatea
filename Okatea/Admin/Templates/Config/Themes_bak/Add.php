@@ -11,7 +11,7 @@ use Okatea\Tao\Themes\Collection as ThemesCollection;
 $view->extend('Layout');
 
 # infos page
-$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateAdminUrl('config_themes'));
 $okt->page->addGlobalTitle(__('c_a_themes_add'));
 
 # button set
@@ -22,7 +22,7 @@ $okt->page->setButtonset('themesBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_themes'),
+			'url' => $view->generateAdminUrl('config_themes'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -84,7 +84,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 					</th>
 						<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($aTheme['version']) ?></td>
 						<td class="<?php echo $td_class; ?> center"><a
-							href="<?php echo $view->generateUrl('config_theme_add') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($aTheme['id']) ?>"
+							href="<?php echo $view->generateAdminUrl('config_theme_add') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($aTheme['id']) ?>"
 							class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
 						<td class="<?php echo $td_class; ?> center"><a
 							href="<?php echo $aTheme['href'] ?>"><?php _e('c_c_action_Download') ?></a></td>
@@ -108,7 +108,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 
 			<?php # zip URL ?>
 			<form class="col"
-				action="<?php echo $view->generateUrl('config_theme_add') ?>"
+				action="<?php echo $view->generateAdminUrl('config_theme_add') ?>"
 				method="post">
 				<fieldset>
 					<legend><?php _e('c_a_themes_download_zip_file') ?></legend>
@@ -127,7 +127,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 
 			<?php # zip file ?>
 			<form class="col"
-				action="<?php echo $view->generateUrl('config_theme_add') ?>"
+				action="<?php echo $view->generateAdminUrl('config_theme_add') ?>"
 				method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend><?php _e('c_a_themes_upload_zip_file') ?></legend>
@@ -153,7 +153,7 @@ $okt->page->strToSlug('#bootstrap_theme_name', '#bootstrap_theme_id');
 		<div id="add_theme_bootstrap_content">
 			<p><?php _e('c_a_themes_bootstrap_feature_description') ?></p>
 
-			<form action="<?php echo $view->generateUrl('config_theme_add') ?>"
+			<form action="<?php echo $view->generateAdminUrl('config_theme_add') ?>"
 				method="post">
 
 				<div class="two-cols">

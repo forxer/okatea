@@ -15,7 +15,7 @@ $okt->page->addTitleTag($okt->module('Pages')
 
 # Start breadcrumb
 $okt->page->addAriane($okt->module('Pages')
-	->getName(), $view->generateUrl('Pages_index'));
+	->getName(), $view->generateAdminUrl('Pages_index'));
 
 # Buttons set
 $okt->page->setButtonset('pagesBtSt', array(
@@ -25,7 +25,7 @@ $okt->page->setButtonset('pagesBtSt', array(
 		array(
 			'permission' => $okt['visitor']->checkPerm('pages_add'),
 			'title' => __('m_pages_menu_add_page'),
-			'url' => $view->generateUrl('Pages_post_add'),
+			'url' => $view->generateAdminUrl('Pages_post_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
@@ -87,10 +87,10 @@ $okt->page->css->addCss('
 		<?php
 
 		echo $view->render('Common/Search', array(
-			'sFormAction' => $view->generateUrl('Pages_index'),
+			'sFormAction' => $view->generateAdminUrl('Pages_index'),
 			'sSearchLabel' => __('m_pages_list_Search'),
 			'sSearch' => $sSearch,
-			'sAutocompleteSrc' => $view->generateUrl('Pages_index') . '?json=1'
+			'sAutocompleteSrc' => $view->generateAdminUrl('Pages_index') . '?json=1'
 		));
 		?>
 	</div>
@@ -168,7 +168,7 @@ if (! $rsPages->isEmpty())
 					<th scope="row" class="<?php echo $td_class ?> fake-td">
 						<p><?php echo form::checkbox(array('pages[]'), $rsPages->id)?>
 				<a
-								href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
+								href="<?php echo $view->generateAdminUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"><?php
 		echo $view->escape($rsPages->title)?></a>
 						</p>
 					</th>
@@ -205,18 +205,18 @@ if (! $rsPages->isEmpty())
 						<ul class="actions">
 					<?php if ($rsPages->active) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
+								href="<?php echo $view->generateAdminUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 								class="icon tick"><?php _e('c_c_action_visible') ?></a></li>
 					<?php else : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
+								href="<?php echo $view->generateAdminUrl('Pages_index') ?>?switch_status=<?php echo $rsPages->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_switch_visibility_%s'), $rsPages->title)) ?>"
 								class="icon cross"><?php _e('c_c_action_hidden_fem') ?></a></li>
 					<?php endif; ?>
 
 					<li><a
-								href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"
+								href="<?php echo $view->generateAdminUrl('Pages_post', array('page_id' => $rsPages->id)) ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_pages_list_edit_%s'), $rsPages->title)) ?>"
 								class="icon pencil"><?php _e('c_c_action_edit') ?></a></li>
 

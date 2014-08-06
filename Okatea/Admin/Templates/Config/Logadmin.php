@@ -69,7 +69,7 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 <?php echo $okt->page->getButtonSet('logsBtSt'); ?>
 
 <?php # formulaire des filtres ?>
-<form action="<?php $view->generateUrl('config_logadmin') ?>"
+<form action="<?php $view->generateAdminUrl('config_logadmin') ?>"
 	method="get" id="filters-form">
 	<fieldset>
 		<legend><?php _e('c_a_config_logadmin_display_filters')?></legend>
@@ -80,7 +80,7 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 			<input type="submit"
 				name="<?php echo $okt['logAdmin']->filters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_display')?>" /> <a
-				href="<?php $view->generateUrl('config_logadmin') ?>?init_filters=1"><?php
+				href="<?php $view->generateAdminUrl('config_logadmin') ?>?init_filters=1"><?php
 				_e('c_c_reset_filters')?></a>
 		</p>
 	</fieldset>
@@ -126,7 +126,7 @@ $okt->page->addGlobalTitle(__('c_a_config_logadmin_title'));
 
 
 <p>
-	<a href="<?php $view->generateUrl('config_logadmin') ?>?truncate=1"
+	<a href="<?php $view->generateAdminUrl('config_logadmin') ?>?truncate=1"
 		class="icon cross"
 		onclick="return window.confirm('<?php
 	echo $view->escapeJs(__('c_a_config_logadmin_confirm_truncate'))?>')"><?php _e('c_a_config_logadmin_truncate') ?></a>

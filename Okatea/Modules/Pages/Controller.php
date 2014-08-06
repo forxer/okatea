@@ -286,7 +286,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
-			->getCategoryTplPath($this->rsCategory->tpl), array(
+			->getCategoryTplPath($this->rsCategory['tpl']), array(
 			'rsPagesList' => $this->rsPagesList,
 			'rsCategory' => $this->rsCategory
 		));
@@ -382,7 +382,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
-			->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(
+			->getItemTplPath($this->rsPage['tpl'], $this->rsPage->category_items_tpl), array(
 			'rsPage' => $this->rsPage
 		));
 	}
@@ -427,7 +427,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		return $this->render($this->okt->module('Pages')
-			->getItemTplPath($this->rsPage->tpl, $this->rsPage->category_items_tpl), array(
+			->getItemTplPath($this->rsPage['tpl'], $this->rsPage->category_items_tpl), array(
 			'rsPage' => $this->rsPage
 		));
 	}

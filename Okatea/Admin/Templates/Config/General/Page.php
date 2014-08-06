@@ -24,7 +24,7 @@ $okt->page->tabs();
 ?>
 
 <form id="config-site-form"
-	action="<?php $view->generateUrl('config_general') ?>" method="post">
+	action="<?php $view->generateAdminUrl('config_general') ?>" method="post">
 	<div id="tabered">
 		<ul>
 			<?php foreach ($aPageData['tabs'] as $aTabInfos) : ?>

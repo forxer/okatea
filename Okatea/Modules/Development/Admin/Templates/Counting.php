@@ -13,7 +13,7 @@ $view->extend('Layout');
 $okt->page->addTitleTag(__('Development'));
 
 # Start breadcrumb
-$okt->page->addAriane(__('Development'), $view->generateUrl('Development_index'));
+$okt->page->addAriane(__('Development'), $view->generateAdminUrl('Development_index'));
 
 ?>
 
@@ -27,7 +27,7 @@ $okt->page->addAriane(__('Development'), $view->generateUrl('Development_index')
 </ul>
 <?php endif; ?>
 
-<form action="<?php echo $view->generateUrl('Development_counting') ?>"
+<form action="<?php echo $view->generateAdminUrl('Development_counting') ?>"
 	method="post">
 	<p>
 		<input type="hidden" name="form_sent" value="1" />

@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 $okt->page->addGlobalTitle(__('c_a_users_Add_user'));
 
@@ -22,7 +22,7 @@ $okt->page->setButtonset('users', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Users_index'),
+			'url' => $view->generateAdminUrl('Users_index'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -40,7 +40,7 @@ $okt->page->js->addReady('
 <?php echo $okt->page->getButtonSet('users'); ?>
 
 <form id="add-user-form"
-	action="<?php echo $view->generateUrl('Users_add') ?>" method="post">
+	action="<?php echo $view->generateAdminUrl('Users_add') ?>" method="post">
 
 	<?php
 	echo $view->render('Users/User/UserForm', array(

@@ -60,17 +60,17 @@ use Okatea\Tao\Misc\Utilities;
 				<td class="<?php echo $td_class ?> small">
 					<ul class="actions">
 						<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?install=<?php echo $id ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?install=<?php echo $id ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Install_%s'),__($aTheme['name']))) ?>"
 							class="icon picture_add"><?php _e('c_c_action_Install') ?></a></li>
 
 						<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?download=<?php echo $id ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?download=<?php echo $id ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Download_%s'),__($aTheme['name']))) ?>"
 							class="icon package_go"><?php _e('c_c_action_Download') ?></a></li>
 
 						<li><a
-							href="<?php echo $view->generateUrl('config_themes') ?>?delete=<?php echo $id ?>"
+							href="<?php echo $view->generateAdminUrl('config_themes') ?>?delete=<?php echo $id ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_themes_delete_theme_confirm')) ?>')"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'),__($aTheme['name']))) ?>"
 							class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>

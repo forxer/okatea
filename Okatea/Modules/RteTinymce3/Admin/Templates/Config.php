@@ -24,7 +24,7 @@ $aUsableCSS = array(
 ?>
 
 
-<form action="<?php echo $view->generateUrl('RteTinymce3_config'); ?>"
+<form action="<?php echo $view->generateAdminUrl('RteTinymce3_config'); ?>"
 	method="post">
 
 	<div class="two-cols">

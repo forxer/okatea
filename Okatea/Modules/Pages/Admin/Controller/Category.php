@@ -72,7 +72,7 @@ class Category extends Controller
 		
 		$this->aCategoryData['cat']['active'] = $rsCategory->active;
 		$this->aCategoryData['cat']['parent_id'] = $rsCategory->parent_id;
-		$this->aCategoryData['cat']['tpl'] = $rsCategory->tpl;
+		$this->aCategoryData['cat']['tpl'] = $rsCategory['tpl'];
 		$this->aCategoryData['cat']['items_tpl'] = $rsCategory->items_tpl;
 		
 		$rsCategoryI18n = $this->okt->module('Pages')->categories->getCategoryL10n($this->aCategoryData['cat']['id']);

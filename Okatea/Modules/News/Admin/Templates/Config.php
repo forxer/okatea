@@ -15,7 +15,7 @@ $okt->page->addTitleTag($okt->module('News')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('News')
-	->getName(), $view->generateUrl('News_index'));
+	->getName(), $view->generateAdminUrl('News_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_configuration'));
@@ -40,7 +40,7 @@ $okt->page->updatePermissionsCheckboxes();
 
 ?>
 
-<form action="<?php $view->generateUrl('News_config') ?>" method="post"
+<form action="<?php $view->generateAdminUrl('News_config') ?>" method="post"
 	enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>

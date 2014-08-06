@@ -17,7 +17,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_navigation') . '?do=items&amp;menu_id=' . $iMenuId,
+			'url' => $view->generateAdminUrl('config_navigation') . '?do=items&amp;menu_id=' . $iMenuId,
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -77,7 +77,7 @@ $okt->page->js->addReady('
 <?php echo $okt->page->getButtonSet('navigationBtSt'); ?>
 
 <form id="item-form"
-	action="<?php echo $view->generateUrl('config_navigation') ?>?do=item"
+	action="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=item"
 	method="post">
 
 	<div class="two-cols">

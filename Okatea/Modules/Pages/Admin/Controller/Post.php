@@ -79,7 +79,7 @@ class Post extends Controller
 
 		$this->aPageData['post']['category_id'] = $rsPage->category_id;
 		$this->aPageData['post']['active'] = $rsPage->active;
-		$this->aPageData['post']['tpl'] = $rsPage->tpl;
+		$this->aPageData['post']['tpl'] = $rsPage['tpl'];
 		$this->aPageData['post']['created_at'] = $rsPage->created_at;
 		$this->aPageData['post']['updated_at'] = $rsPage->updated_at;
 

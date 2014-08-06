@@ -20,7 +20,7 @@ if ($iNumGroup > 1)
 }
 ?>
 
-<form action="<?php echo $view->generateUrl('config_permissions') ?>"
+<form action="<?php echo $view->generateAdminUrl('config_permissions') ?>"
 	method="post">
 	<div id="tabered">
 	<?php if ($iNumGroup > 1) : ?>

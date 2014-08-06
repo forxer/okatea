@@ -225,7 +225,9 @@ class LogAdmin
 	{
 		$aLog = $this->okt['db']->fetchAssoc(
 			'SELECT * FROM '.$this->t_log.' WHERE id = ?',
-			array($idLog)
+			[
+				$idLog
+			]
 		);
 
 		return $aLog;

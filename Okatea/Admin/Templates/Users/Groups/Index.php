@@ -10,7 +10,7 @@ use Okatea\Tao\Users\Groups;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_users_groups'));
@@ -23,7 +23,7 @@ $okt->page->setButtonset('usersGroups', array(
 		array(
 			'permission' => true,
 			'title' => __('c_a_users_add_group'),
-			'url' => $view->generateUrl('Users_groups_add'),
+			'url' => $view->generateAdminUrl('Users_groups_add'),
 			'ui-icon' => 'plusthick'
 		)
 	)
@@ -57,7 +57,7 @@ $okt->page->setButtonset('usersGroups', array(
 			<th scope="row" class="<?php echo $td_class ?> fake-td">
 				<p class="title">
 					<a
-						href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
+						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>">
 			<?php echo $view->escape($rsGroups->title) ?></a>
 				</p>
 			</th>
@@ -68,7 +68,7 @@ $okt->page->setButtonset('usersGroups', array(
 			<?php if ($rsGroups->group_id != Groups::GUEST) : ?>
 			<p>
 					<a
-						href="<?php echo $view->generateUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
+						href="<?php echo $view->generateAdminUrl('Users_index') ?>?group_id=<?php echo $rsGroups->group_id ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_group_%s_show_users'), $rsGroups->title)); ?>">
 			<?php
 			if ($rsGroups->num_users <= 0)
@@ -90,7 +90,7 @@ $okt->page->setButtonset('usersGroups', array(
 			<td class="<?php echo $td_class ?> small nowrap">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>"
+						href="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $rsGroups->group_id)) ?>"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_group_%s'), $rsGroups->title)) ?>"
 						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 
@@ -100,7 +100,7 @@ $okt->page->setButtonset('usersGroups', array(
 						class="icon delete"></span><?php _e('c_c_action_Delete')?></li>
 			<?php else : ?>
 				<li><a
-						href="<?php echo $view->generateUrl('Users_groups') ?>?delete_id=<?php echo $rsGroups->group_id ?>"
+						href="<?php echo $view->generateAdminUrl('Users_groups') ?>?delete_id=<?php echo $rsGroups->group_id ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_group_deletion')) ?>')"
 						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_group_%s'), $rsGroups->title)) ?>"
 						class="icon delete"><?php _e('c_c_action_Delete') ?></a>

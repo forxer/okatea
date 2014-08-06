@@ -87,7 +87,7 @@ $okt->page->datePicker();
 			<?php if ($aPermissions['bCanPublish']) :  ?>
 				<p class="field col">
 		<a
-			href="<?php echo $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?publish=1' ?>"
+			href="<?php echo $view->generateAdminUrl('News_post', array('post_id' => $aPostData['post']['id'])).'?publish=1' ?>"
 			class="icon time"><?php _e('m_news_post_publish_post') ?></a>
 	</p>
 			<?php else : ?>

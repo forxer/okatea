@@ -74,7 +74,7 @@ use Okatea\Tao\Misc\Utilities;
 
 			<p>
 				<a
-					href="<?php echo $view->generateUrl('Pages_post', array('page_id' => $aPageData['post']['id'])) ?>?delete_image=<?php echo $i ?>"
+					href="<?php echo $view->generateAdminUrl('Pages_post', array('page_id' => $aPageData['post']['id'])) ?>?delete_image=<?php echo $i ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(_e('m_pages_page_delete_image_confirm')) ?>')"
 					class="icon delete"><?php _e('m_pages_page_delete_image') ?></a>
 			</p>

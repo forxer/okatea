@@ -18,11 +18,11 @@ $okt->page->css->addCss('
 <h3><?php _e('c_a_tools_htaccess_title') ?></h3>
 
 <?php if (!$bHtaccessExists && $bHtaccessDistExists) : ?>
-<p><span class="icon error"></span> <?php printf(__('c_a_tools_htaccess_not_exists_can_create'), $view->generateUrl('config_tools').'?create_htaccess=1')?></p>
+<p><span class="icon error"></span> <?php printf(__('c_a_tools_htaccess_not_exists_can_create'), $view->generateAdminUrl('config_tools').'?create_htaccess=1')?></p>
 
 <?php else : ?>
 
-<form id="tool-htaccess-form" action="<?php echo $view->generateUrl('config_tools') ?>" method="post">
+<form id="tool-htaccess-form" action="<?php echo $view->generateAdminUrl('config_tools') ?>" method="post">
 
 	<p class="field"><label for="p_htaccess_content"><?php _e('c_a_tools_htaccess_content') ?></label>
 	<?php echo form::textarea('p_htaccess_content', 80, 20, $sHtaccessContent)?></p>
@@ -36,7 +36,7 @@ $okt->page->css->addCss('
 
 <p>
 	<span class="icon delete"></span><a
-		href="<?php echo $view->generateUrl('config_tools') ?>?delete_htaccess=1"
+		href="<?php echo $view->generateAdminUrl('config_tools') ?>?delete_htaccess=1"
 		onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_htaccess_confirm_delete')) ?>')"><?php _e('c_a_tools_htaccess_delete') ?></a>
 </p>
 <?php endif; ?>

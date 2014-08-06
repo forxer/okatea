@@ -14,7 +14,7 @@ $view->extend('Layout');
 $okt->page->addTitleTag($okt->module('News')->getTitle());
 
 # module start breadcrumb
-$okt->page->addAriane($okt->module('News')->getName(), $view->generateUrl('News_index'));
+$okt->page->addAriane($okt->module('News')->getName(), $view->generateAdminUrl('News_index'));
 
 # Buttons set
 $okt->page->setButtonset('newsBtSt', array(
@@ -24,7 +24,7 @@ $okt->page->setButtonset('newsBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('News_post_add'),
+			'url' => $view->generateAdminUrl('News_post_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
@@ -86,17 +86,17 @@ $okt->page->css->addCss('
 		<?php
 
 		echo $view->render('Common/Search', array(
-			'sFormAction' => $view->generateUrl('News_index'),
+			'sFormAction' => $view->generateAdminUrl('News_index'),
 			'sSearchLabel' => __('m_news_list_Search'),
 			'sSearch' => $sSearch,
-			'sAutocompleteSrc' => $view->generateUrl('News_index') . '?json=1'
+			'sAutocompleteSrc' => $view->generateAdminUrl('News_index') . '?json=1'
 		));
 		?>
 	</div>
 </div>
 
 <?php # formulaire des filtres ?>
-<form action="<?php echo $view->generateUrl('News_index') ?>"
+<form action="<?php echo $view->generateAdminUrl('News_index') ?>"
 	method="get" id="filters-form">
 	<fieldset>
 		<legend><?php _e('m_news_display_filters') ?></legend>
@@ -107,7 +107,7 @@ $okt->page->css->addCss('
 			<input type="submit"
 				name="<?php echo $okt->module('News')->filters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_display') ?>" /> <a
-				href="<?php echo $view->generateUrl('News_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+				href="<?php echo $view->generateAdminUrl('News_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
 		</p>
 
 	</fieldset>
@@ -137,7 +137,7 @@ if (! $rsPosts->isEmpty())
 :
 	?>
 
-<form action="<?php echo $view->generateUrl('News_index') ?>"
+<form action="<?php echo $view->generateAdminUrl('News_index') ?>"
 		method="post" id="posts-list">
 
 		<table class="common">
@@ -165,7 +165,7 @@ if (! $rsPosts->isEmpty())
 				<?php if ($rsPosts->active == 2) : ?><span class="icon time"></span><?php endif; ?>
 				<?php if ($rsPosts->active == 3) : ?><span class="icon clock"></span><?php endif; ?>
 				<a
-								href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"><?php
+								href="<?php echo $view->generateAdminUrl('News_post', array('post_id' => $rsPosts->id)) ?>"><?php
 		echo $view->escape($rsPosts->title)?></a>
 						</p>
 					</th>
@@ -222,20 +222,20 @@ if (! $rsPosts->isEmpty())
 						<ul class="actions">
 				<?php if ($rsPosts->active == 0) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
 								class="icon cross"><?php _e('c_c_action_Hidden') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 1) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?switch_status=<?php echo $rsPosts->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_switch_visibility_%s'), $rsPosts->title)) ?>"
 								class="icon tick"><?php _e('c_c_action_Visible') ?></a></li>
 
 				<?php elseif ($rsPosts->active == 2) : ?>
 					<?php if ($rsPosts->isPublishable()) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?publish=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?publish=<?php echo $rsPosts->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_publish_%s'), $rsPosts->title)) ?>"
 								class="icon time"><?php _e('c_c_action_Publish') ?></a></li>
 					<?php else : ?>
@@ -248,31 +248,31 @@ if (! $rsPosts->isEmpty())
 
 				<?php if ($rsPosts->selected) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?deselect=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?deselect=<?php echo $rsPosts->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_deselect_%s'), $rsPosts->title))?>"
 								class="icon award_star_delete"><?php _e('c_c_action_Deselect')?></a></li>
 				<?php else : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?select=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?select=<?php echo $rsPosts->id ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_select_%s'), $rsPosts->title)) ?>"
 								class="icon award_star_add"><?php _e('c_c_action_Select')?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isEditable()) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
+								href="<?php echo $view->generateAdminUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_edit_%s'), $rsPosts->title)) ?>"
 								class="icon pencil"><?php _e('c_c_action_Edit') ?></a></li>
 				<?php else : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
+								href="<?php echo $view->generateAdminUrl('News_post', array('post_id' => $rsPosts->id)) ?>"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_show_%s'), $rsPosts->title)) ?>"
 								class="icon application_form"><?php _e('c_c_action_Show') ?></a></li>
 				<?php endif; ?>
 
 				<?php if ($rsPosts->isDeletable()) : ?>
 					<li><a
-								href="<?php echo $view->generateUrl('News_index') ?>?delete=<?php echo $rsPosts->id ?>"
+								href="<?php echo $view->generateAdminUrl('News_index') ?>?delete=<?php echo $rsPosts->id ?>"
 								onclick="return window.confirm('<?php echo $view->escapeJs(__('m_news_list_post_delete_confirm')) ?>')"
 								title="<?php echo $view->escapeHtmlAttr(sprintf(__('m_news_list_delete_%s'), $rsPosts->title)) ?>"
 								class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>

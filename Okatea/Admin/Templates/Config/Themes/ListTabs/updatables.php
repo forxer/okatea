@@ -37,7 +37,7 @@
 				<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($updatable['repository']) ?></td>
 				<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($updatable['version']) ?></td>
 				<td class="<?php echo $td_class; ?> small nowrap"><a
-					href="<?php echo $view->generateUrl('config_themes') ?>?repository=<?php
+					href="<?php echo $view->generateAdminUrl('config_themes') ?>?repository=<?php
 		echo urlencode($updatable['repository'])?>&amp;theme=<?php echo urlencode($updatable['id']) ?>"
 					class="lazy-load"><?php
 		_e('c_c_action_Download')?></a></td>

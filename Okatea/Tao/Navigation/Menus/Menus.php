@@ -113,12 +113,12 @@ class Menus
 		{
 			$sTemplate = $sUserTpl;
 		}
-		elseif (! empty($rsMenu->tpl) && in_array($rsMenu->tpl, $this->okt['config']['menus']_tpl['usables']))
+		elseif (! empty($rsMenu['tpl']) && in_array($rsMenu['tpl'], $this->okt['config']['menus']_tpl['usables']))
 		{
-			$sTemplate = $rsMenu->tpl;
+			$sTemplate = $rsMenu['tpl'];
 		}
 
-		return $this->okt->tpl->render('navigation/' . $sTemplate . '/template', array(
+		return $this->okt['tpl']->render('navigation/' . $sTemplate . '/template', array(
 			'rsMenu' => $rsMenu,
 			'rsItems' => $rsItems
 		));

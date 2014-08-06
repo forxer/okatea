@@ -47,7 +47,7 @@ use Okatea\Tao\Misc\Utilities;
 			<?php if ($aPermissions['bCanEditPost']) : ?>
 			<p>
 			<a
-				href="<?php echo $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])) ?>?delete_file=<?php echo $i ?>"
+				href="<?php echo $view->generateAdminUrl('News_post', array('post_id' => $aPostData['post']['id'])) ?>?delete_file=<?php echo $i ?>"
 				onclick="return window.confirm('<?php echo $view->escapeJs(_e('m_news_post_delete_file_confirm')) ?>')"
 				class="icon delete"><?php _e('m_news_post_delete_file')?></a>
 		</p>

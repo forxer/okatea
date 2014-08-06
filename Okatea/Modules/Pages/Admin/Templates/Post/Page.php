@@ -16,7 +16,7 @@ $okt->page->addTitleTag($okt->module('Pages')
 
 # Start breadcrumb
 $okt->page->addAriane($okt->module('Pages')
-	->getName(), $view->generateUrl('Pages_index'));
+	->getName(), $view->generateAdminUrl('Pages_index'));
 
 # button set
 $okt->page->setButtonset('pagesBtSt', array(
@@ -26,13 +26,13 @@ $okt->page->setButtonset('pagesBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Pages_index'),
+			'url' => $view->generateAdminUrl('Pages_index'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
 			'permission' => $okt['visitor']->checkPerm('pages_add'),
 			'title' => __('m_pages_menu_add_page'),
-			'url' => $view->generateUrl('Pages_post_add'),
+			'url' => $view->generateAdminUrl('Pages_post_add'),
 			'ui-icon' => 'plusthick',
 			'active' => empty($aPageData['post']['id'])
 		)
@@ -48,7 +48,7 @@ if (! empty($aPageData['post']['id']))
 	$okt->page->addButton('pagesBtSt', array(
 		'permission' => true,
 		'title' => ($aPageData['post']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
-		'url' => $view->generateUrl('Pages_post', array(
+		'url' => $view->generateAdminUrl('Pages_post', array(
 			'page_id' => $aPageData['post']['id']
 		)) . '?switch_status=1',
 		'ui-icon' => ($aPageData['post']['active'] ? 'volume-on' : 'volume-off'),
@@ -58,7 +58,7 @@ if (! empty($aPageData['post']['id']))
 	$okt->page->addButton('pagesBtSt', array(
 		'permission' => $okt['visitor']->checkPerm('pages_remove'),
 		'title' => __('c_c_action_Delete'),
-		'url' => $view->generateUrl('Pages_index') . '?delete=' . $aPageData['post']['id'],
+		'url' => $view->generateAdminUrl('Pages_index') . '?delete=' . $aPageData['post']['id'],
 		'ui-icon' => 'closethick',
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_pages_page_delete_confirm')) . '\')'
 	));
@@ -118,7 +118,7 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 
 
 <form id="page-form"
-	action="<?php echo !empty($aPageData['post']['id']) ? $view->generateUrl('Pages_post', array('page_id' => $aPageData['post']['id'])) : $view->generateUrl('Pages_post_add'); ?>"
+	action="<?php echo !empty($aPageData['post']['id']) ? $view->generateAdminUrl('Pages_post', array('page_id' => $aPageData['post']['id'])) : $view->generateAdminUrl('Pages_post_add'); ?>"
 	method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>

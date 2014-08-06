@@ -26,14 +26,14 @@ $okt->page->js->addReady('
 
 <p>
 	<a
-		href="<?php echo $view->generateUrl('config_infos') ?>?create_notes=1"><?php _e('c_a_infos_create_notes_file') ?></a>
+		href="<?php echo $view->generateAdminUrl('config_infos') ?>?create_notes=1"><?php _e('c_a_infos_create_notes_file') ?></a>
 </p>
 
 <?php else : ?>
 
 	<?php if ($aNotes['edit']) : ?>
 
-<form action="<?php echo $view->generateUrl('config_infos') ?>"
+<form action="<?php echo $view->generateAdminUrl('config_infos') ?>"
 	method="post">
 	<div class="features">
 		<section class="editor">
@@ -68,7 +68,7 @@ $okt->page->js->addReady('
 
 		<?php echo $aNotes['html']?>
 <p>
-	<a href="<?php echo $view->generateUrl('config_infos') ?>?edit_notes=1"
+	<a href="<?php echo $view->generateAdminUrl('config_infos') ?>?edit_notes=1"
 		class="button"><?php _e('c_c_action_edit') ?></a>
 </p>
 

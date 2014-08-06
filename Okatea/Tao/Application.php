@@ -22,7 +22,7 @@ use Okatea\Tao\Navigation\Menus\Menus;
 use Okatea\Tao\RequestServiceProvider;
 use Okatea\Tao\Routing\RouterServiceProvider;
 use Okatea\Tao\Session\SessionServiceProvider;
-use Okatea\Tao\Templating\Templating;
+use Okatea\Tao\Templating\TemplatingServiceProvider;
 use Okatea\Tao\Themes\SimpleReplacements;
 use Okatea\Tao\Triggers\TriggersServiceProvider;
 use Okatea\Tao\Users\UsersServiceProvider;
@@ -75,26 +75,11 @@ abstract class Application extends Container
 	public $response;
 
 	/**
-	 * The template engine.
-	 *
-	 * @var Okatea\Tao\Templating
-	 */
-	public $tpl;
-
-	/**
 	 * L'objet HTMLPurifier si il est instancié, sinon null.
 	 *
 	 * @var mixed
 	 */
 	protected $htmlpurifier;
-
-	/**
-	 * La liste des répertoires où le moteur de templates
-	 * doit chercher le template à interpréter.
-	 *
-	 * @var array
-	 */
-	protected $aTplDirectories = [];
 
 	/**
 	 * Constructor.
@@ -122,6 +107,7 @@ abstract class Application extends Container
 		$this->register(new RequestServiceProvider());
 		$this->register(new RouterServiceProvider());
 		$this->register(new SessionServiceProvider());
+		$this->register(new TemplatingServiceProvider());
 		$this->register(new TriggersServiceProvider());
 		$this->register(new UsersServiceProvider());
 
@@ -199,57 +185,6 @@ abstract class Application extends Container
 			}
 		}
 	}
-
-	/* Templates engine
-	----------------------------------------------------------*/
-
-	/**
-	 * Retourne le moteur de templates.
-	 *
-	 * @return void
-	 */
-	public function getTplEngine()
-	{
-		# initialisation
-		$tpl = new Templating($this->aTplDirectories);
-
-		# assignation par défaut
-		$tpl->addGlobal('okt', $this);
-
-		return $tpl;
-	}
-
-	/**
-	 * Ajoute à la pile un répertoire de templates.
-	 *
-	 * @param string $sDirectoryPath Le chemin du répertoire
-	 * @param boolean $bPriority Ajoute en haut de la pile
-	 * @return void
-	 */
-	public function setTplDirectory($sDirectoryPath, $bPriority = false)
-	{
-		if ($bPriority)
-		{
-			return array_unshift($this->aTplDirectories, $sDirectoryPath);
-		}
-		else
-		{
-			return array_push($this->aTplDirectories, $sDirectoryPath);
-		}
-	}
-
-	/**
-	 * Retourne la pile des répertoires de templates.
-	 *
-	 * @return array
-	 */
-	public function getTplDirectories()
-	{
-		return $this->aTplDirectories;
-	}
-
-	/* Divers...
-	----------------------------------------------------------*/
 
 	/**
 	 * Créer et retourne un objet de configuration
@@ -419,23 +354,23 @@ abstract class Application extends Container
 						'alt' => 'Text',
 						'coords' => 'CDATA',
 						'accesskey' => 'Character',
-						'nohref' => new \HTMLPurifier_AttrDef_Enum(array(
+						'nohref' => new \HTMLPurifier_AttrDef_Enum([
 							'nohref'
-						)),
+						]),
 						'href' => 'URI',
-						'shape' => new \HTMLPurifier_AttrDef_Enum(array(
+						'shape' => new \HTMLPurifier_AttrDef_Enum([
 							'rect',
 							'circle',
 							'poly',
 							'default'
-						)),
+						]),
 						'tabindex' => 'Number',
-						'target' => new \HTMLPurifier_AttrDef_Enum(array(
+						'target' => new \HTMLPurifier_AttrDef_Enum([
 							'_blank',
 							'_self',
 							'_target',
 							'_top'
-						))
+						])
 					]
 				);
 				$area->excludes = [

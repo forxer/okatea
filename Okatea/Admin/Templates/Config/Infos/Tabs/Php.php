@@ -11,7 +11,7 @@
 
 <ul>
 	<li><a
-		href="<?php echo $view->generateUrl('config_infos') ?>?phpinfo=1">PHP
+		href="<?php echo $view->generateAdminUrl('config_infos') ?>?phpinfo=1">PHP
 			info</a></li>
 	<li><?php _e('c_a_infos_php_version')?> <?php echo $aPhpInfos['version'] ?></li>
 	<li><?php _e('c_a_infos_php_zend')?> <?php echo $aPhpInfos['zend_version'] ?></li>

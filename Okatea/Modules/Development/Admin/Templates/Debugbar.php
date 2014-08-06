@@ -13,14 +13,14 @@ $view->extend('Layout');
 $okt->page->addTitleTag(__('Development'));
 
 # Start breadcrumb
-$okt->page->addAriane(__('Development'), $view->generateUrl('Development_index'));
+$okt->page->addAriane(__('Development'), $view->generateAdminUrl('Development_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_development_menu_debugbar'));
 
 ?>
 
-<form action="<?php echo $view->generateUrl('Development_debugbar') ?>"
+<form action="<?php echo $view->generateAdminUrl('Development_debugbar') ?>"
 	method="post">
 
 	<fieldset>

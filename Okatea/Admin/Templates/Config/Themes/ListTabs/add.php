@@ -25,7 +25,7 @@ $okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', a
 
 	<div id="add_theme_zip_content" class="two-cols">
 		<form class="col"
-			action="<?php echo $view->generateUrl('config_themes') ?>"
+			action="<?php echo $view->generateAdminUrl('config_themes') ?>"
 			method="post">
 			<fieldset>
 				<legend><?php _e('c_a_themes_download_zip_file') ?></legend>
@@ -41,7 +41,7 @@ $okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', a
 			</p>
 		</form>
 		<form class="col"
-			action="<?php echo $view->generateUrl('config_themes') ?>"
+			action="<?php echo $view->generateAdminUrl('config_themes') ?>"
 			method="post" enctype="multipart/form-data">
 			<fieldset>
 				<legend><?php _e('c_a_themes_upload_zip_file') ?></legend>
@@ -95,7 +95,7 @@ $okt->page->toggleWithLegend('add_theme_repo_title', 'add_theme_repo_content', a
 				</th>
 					<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($theme['version']) ?></td>
 					<td class="<?php echo $td_class; ?> center"><a
-						href="<?php echo $view->generateUrl('config_themes') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($theme['id']) ?>"
+						href="<?php echo $view->generateAdminUrl('config_themes') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;theme=<?php echo urlencode($theme['id']) ?>"
 						class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
 					<td class="<?php echo $td_class; ?> center"><a
 						href="<?php echo $theme['href'] ?>"><?php _e('c_c_action_Download') ?></a></td>

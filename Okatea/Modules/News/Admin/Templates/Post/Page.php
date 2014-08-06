@@ -17,7 +17,7 @@ $okt->page->addTitleTag($okt->module('News')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('News')
-	->getName(), $view->generateUrl('News_index'));
+	->getName(), $view->generateAdminUrl('News_index'));
 
 # button set
 $okt->page->setButtonset('newsBtSt', array(
@@ -27,13 +27,13 @@ $okt->page->setButtonset('newsBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('News_index'),
+			'url' => $view->generateAdminUrl('News_index'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
 			'permission' => true,
 			'title' => __('m_news_menu_add_post'),
-			'url' => $view->generateUrl('News_post_add'),
+			'url' => $view->generateAdminUrl('News_post_add'),
 			'ui-icon' => 'plusthick',
 			'active' => empty($aPostData['post']['id'])
 		)
@@ -49,7 +49,7 @@ if (! empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt', array(
 		'permission' => ($aPostData['post']['active'] <= 1 && $aPermissions['bCanEditPost'] && $aPermissions['bCanPublish']),
 		'title' => ($aPostData['post']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
-		'url' => $view->generateUrl('News_post', array(
+		'url' => $view->generateAdminUrl('News_post', array(
 			'post_id' => $aPostData['post']['id']
 		)) . '?switch_status=1',
 		'ui-icon' => ($aPostData['post']['active'] ? 'volume-on' : 'volume-off'),
@@ -59,7 +59,7 @@ if (! empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt', array(
 		'permission' => ($aPostData['post']['active'] == 2 && $aPermissions['bCanPublish']),
 		'title' => __('c_c_action_Publish'),
-		'url' => $view->generateUrl('News_post', array(
+		'url' => $view->generateAdminUrl('News_post', array(
 			'post_id' => $aPostData['post']['id']
 		)) . '?publish=1',
 		'ui-icon' => 'clock'
@@ -68,7 +68,7 @@ if (! empty($aPostData['post']['id']))
 	$okt->page->addButton('newsBtSt', array(
 		'permission' => $aPermissions['bCanDelete'],
 		'title' => __('c_c_action_Delete'),
-		'url' => $view->generateUrl('News_index') . '?delete=' . $aPostData['post']['id'],
+		'url' => $view->generateAdminUrl('News_index') . '?delete=' . $aPostData['post']['id'],
 		'ui-icon' => 'closethick',
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_news_post_delete_confirm')) . '\')'
 	));
@@ -132,7 +132,7 @@ $okt->page->updatePermissionsCheckboxes('perm_g_');
 
 
 <form id="post-form"
-	action="<?php echo !empty($aPostData['post']['id']) ? $view->generateUrl('News_post', array('post_id' => $aPostData['post']['id'])) : $view->generateUrl('News_post_add'); ?>"
+	action="<?php echo !empty($aPostData['post']['id']) ? $view->generateAdminUrl('News_post', array('post_id' => $aPostData['post']['id'])) : $view->generateAdminUrl('News_post_add'); ?>"
 	method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>

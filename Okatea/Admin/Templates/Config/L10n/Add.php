@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_config_l10n'), $view->generateUrl('config_l10n'));
+$okt->page->addGlobalTitle(__('c_a_config_l10n'), $view->generateAdminUrl('config_l10n'));
 $okt->page->addGlobalTitle(__('c_a_config_l10n_add_language'));
 
 # button set
@@ -21,7 +21,7 @@ $okt->page->setButtonset('l10nBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_l10n'),
+			'url' => $view->generateAdminUrl('config_l10n'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -85,7 +85,7 @@ $okt->page->js->addReady('
 <?php echo $okt->page->getButtonSet('l10nBtSt'); ?>
 
 <form id="add-language-form"
-	action="<?php echo $view->generateUrl('config_l10n_add_language') ?>"
+	action="<?php echo $view->generateAdminUrl('config_l10n_add_language') ?>"
 	method="post">
 	<h3><?php _e('c_a_config_l10n_add_language') ?></h3>
 

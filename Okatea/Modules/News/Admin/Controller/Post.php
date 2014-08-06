@@ -81,7 +81,7 @@ class Post extends Controller
 		$this->aPostData['post']['category_id'] = $rsPost->category_id;
 		$this->aPostData['post']['active'] = $rsPost->active;
 		$this->aPostData['post']['selected'] = $rsPost->selected;
-		$this->aPostData['post']['tpl'] = $rsPost->tpl;
+		$this->aPostData['post']['tpl'] = $rsPost['tpl'];
 		$this->aPostData['post']['created_at'] = $rsPost->created_at;
 		$this->aPostData['post']['updated_at'] = $rsPost->updated_at;
 		

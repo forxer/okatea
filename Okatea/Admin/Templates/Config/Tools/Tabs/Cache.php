@@ -34,7 +34,7 @@ use Okatea\Tao\L10n\DateTime;
 			<td class="<?php echo $sTdClass ?> small nowrap">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateUrl('config_tools') ?>?cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
+						href="<?php echo $view->generateAdminUrl('config_tools') ?>?cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
 						title="<?php printf(__('c_c_action_Delete_%s'), $view->escape($oFileInfo->getRelativePathname())) ?>"
 						class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
@@ -55,7 +55,7 @@ use Okatea\Tao\L10n\DateTime;
 			<td class="<?php echo $sTdClass ?> small nowrap">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateUrl('config_tools') ?>?public_cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
+						href="<?php echo $view->generateAdminUrl('config_tools') ?>?public_cache_file=<?php echo $view->escape($oFileInfo->getRelativePathname()) ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete')) ?>')"
 						title="<?php printf(__('c_c_action_Delete_%s'),$view->escape($oFileInfo->getRelativePathname())) ?>"
 						class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
@@ -70,7 +70,7 @@ use Okatea\Tao\L10n\DateTime;
 
 <p>
 	<a
-		href="<?php echo $view->generateUrl('config_tools') ?>?all_cache_file=1"
+		href="<?php echo $view->generateAdminUrl('config_tools') ?>?all_cache_file=1"
 		onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_tools_cache_confirm_delete_all')) ?>')"
 		class="icon cross"><?php _e('c_a_tools_cache_delete_all') ?></a>
 </p>

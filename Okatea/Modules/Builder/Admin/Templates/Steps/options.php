@@ -121,7 +121,7 @@ $okt->page->js->addScript('
 ?>
 
 <form
-	action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>"
+	action="<?php echo $view->generateAdminUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>"
 	method="post">
 
 	<p><?php _e('m_builder_step_options_1') ?></p>

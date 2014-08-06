@@ -12,7 +12,7 @@ $view->extend('Builder/Admin/Templates/Builder');
 ?>
 
 <form
-	action="<?php echo $view->generateUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>"
+	action="<?php echo $view->generateAdminUrl('Builder_index', array('step' => $stepper->getCurrentStep())) ?>"
 	method="post">
 
 	<p><?php _e('m_builder_step_digests_1') ?></p>

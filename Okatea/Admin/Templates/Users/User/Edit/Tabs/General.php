@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 ?>
 
 <form id="edit-user-form"
-	action="<?php echo $view->generateUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>"
+	action="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>"
 	method="post">
 
 	<?php
@@ -27,7 +27,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<?php if ($aPageData['bWaitingValidation']) : ?>
 		<p class="col"><?php _e('c_a_users_user_in_wait_of_validation')?>
 		<a
-				href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>?validate=1">
+				href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $aPageData['user']['id'])) ?>?validate=1">
 		<?php _e('c_a_users_validate_this_user') ?></a>
 		</p>
 	<?php else : ?>

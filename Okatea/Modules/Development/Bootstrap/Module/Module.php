@@ -298,7 +298,7 @@ class Module
 		);
 
 		$this->templates[$this->licence . '_block'] = 'licences/' . $this->licence . '/block.tpl';
-		return $this->tplReplace($this->licence . '_block', $block_replacements[$this->licence]);
+		return $this['tpl']Replace($this->licence . '_block', $block_replacements[$this->licence]);
 	}
 
 	public function makeLicenceFile()
@@ -460,7 +460,7 @@ class Module
 	 */
 	protected function getTpl($tpl)
 	{
-		if (! $this->tplExists($tpl))
+		if (! $this['tpl']Exists($tpl))
 		{
 			throw new \Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'), $this->templates[$tpl], $this->templates_dir));
 		}
@@ -513,7 +513,7 @@ class Module
 	 */
 	protected function makeFile($template_name, $destination, $replacements = array())
 	{
-		return file_put_contents($destination, $this->tplReplace($template_name, $replacements));
+		return file_put_contents($destination, $this['tpl']Replace($template_name, $replacements));
 	}
 
 	/**

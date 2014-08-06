@@ -29,7 +29,7 @@ $okt->page->setButtonset('themesBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Add'),
-			'url' => $view->generateUrl('config_theme_add'),
+			'url' => $view->generateAdminUrl('config_theme_add'),
 			'ui-icon' => 'plusthick'
 		)
 	)
@@ -159,7 +159,7 @@ $okt->page->openLinkInDialog('.button-notes', array(
 # Autocomplétion du formulaire de recherche
 $okt->page->js->addReady('
 	$("#search").autocomplete({
-		source: "' . $view->generateUrl('config_themes') . '?json=1",
+		source: "' . $view->generateAdminUrl('config_themes') . '?json=1",
 		minLength: 2
 	});
 ');
@@ -179,7 +179,7 @@ if (! empty($sSearch))
 		<?php echo $okt->page->getButtonSet('themesBtSt'); ?>
 	</div>
 	<div class="buttonsetB">
-		<form action="<?php echo $view->generateUrl('config_themes') ?>"
+		<form action="<?php echo $view->generateAdminUrl('config_themes') ?>"
 			method="get" id="search_form" class="search_form">
 			<p>
 				<label for="search"><?php _e('c_c_action_Search') ?></label>
@@ -192,7 +192,7 @@ if (! empty($sSearch))
 </div>
 
 <?php # formulaire des filtres ?>
-<form action="<?php echo $view->generateUrl('config_themes') ?>"
+<form action="<?php echo $view->generateAdminUrl('config_themes') ?>"
 	method="get" id="filters-form">
 	<fieldset>
 		<?php echo $oFilters->getFiltersFields('<div class="three-cols">%s</div>'); ?>
@@ -200,7 +200,7 @@ if (! empty($sSearch))
 			<input type="submit"
 				name="<?php echo $oFilters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_display') ?>" /> <a
-				href="<?php echo $view->generateUrl('config_themes') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+				href="<?php echo $view->generateAdminUrl('config_themes') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
 		</p>
 	</fieldset>
 </form>
@@ -238,41 +238,41 @@ if (! empty($sSearch))
 		}
 		else
 		{
-			$aActions[10] = '<a href="' . $view->generateUrl('config_themes') . '?use=' . $aTheme['id'] . '" class="button-use" title="' . __('c_a_themes_use_this_theme') . '">' . __('c_a_themes_use') . '</a>';
+			$aActions[10] = '<a href="' . $view->generateAdminUrl('config_themes') . '?use=' . $aTheme['id'] . '" class="button-use" title="' . __('c_a_themes_use_this_theme') . '">' . __('c_a_themes_use') . '</a>';
 		}
 		
 		if ($aTheme['is_mobile'])
 		{
-			$aActions[20] = '<a href="' . $view->generateUrl('config_themes') . '?use_mobile=' . $aTheme['id'] . '" class="button-mobile-used">' . __('c_a_themes_current_mobile') . '</a>';
+			$aActions[20] = '<a href="' . $view->generateAdminUrl('config_themes') . '?use_mobile=' . $aTheme['id'] . '" class="button-mobile-used">' . __('c_a_themes_current_mobile') . '</a>';
 		}
 		else
 		{
-			$aActions[20] = '<a href="' . $view->generateUrl('config_themes') . '?use_mobile=' . $aTheme['id'] . '" class="button-use-mobile">' . __('c_a_themes_use_mobile') . '</a>';
+			$aActions[20] = '<a href="' . $view->generateAdminUrl('config_themes') . '?use_mobile=' . $aTheme['id'] . '" class="button-use-mobile">' . __('c_a_themes_use_mobile') . '</a>';
 		}
 		
 		if ($aTheme['is_tablet'])
 		{
-			$aActions[30] = '<a href="' . $view->generateUrl('config_themes') . '?use_tablet=' . $aTheme['id'] . '" class="button-tablet-used">' . __('c_a_themes_current_tablet') . '</a>';
+			$aActions[30] = '<a href="' . $view->generateAdminUrl('config_themes') . '?use_tablet=' . $aTheme['id'] . '" class="button-tablet-used">' . __('c_a_themes_current_tablet') . '</a>';
 		}
 		else
 		{
-			$aActions[30] = '<a href="' . $view->generateUrl('config_themes') . '?use_tablet=' . $aTheme['id'] . '" class="button-use-tablet">' . __('c_a_themes_use_tablet') . '</a>';
+			$aActions[30] = '<a href="' . $view->generateAdminUrl('config_themes') . '?use_tablet=' . $aTheme['id'] . '" class="button-use-tablet">' . __('c_a_themes_use_tablet') . '</a>';
 		}
 		
 		$aActions[40] = '<a href="configuration.php?action=theme_editor&amp;theme=' . $aTheme['id'] . '" class="button-edit"></span>' . __('c_c_action_Edit') . '</a>';
 		
-		$aActions[50] = '<a href="' . $view->generateUrl('config_theme', array(
+		$aActions[50] = '<a href="' . $view->generateAdminUrl('config_theme', array(
 			'theme_id' => $aTheme['id']
 		)) . '" class="button-config">' . __('c_a_themes_config') . '</a>';
 		
 		if (file_exists($okt['themes_path'] . '/' . $aTheme['id'] . '/notes.md'))
 		{
-			$aActions[60] = '<a href="' . $view->generateUrl('config_themes') . '?notes=' . $aTheme['id'] . '" class="button-notes">' . __('c_a_themes_notes') . '</a>';
+			$aActions[60] = '<a href="' . $view->generateAdminUrl('config_themes') . '?notes=' . $aTheme['id'] . '" class="button-notes">' . __('c_a_themes_notes') . '</a>';
 		}
 		
 		if (! $aTheme['is_active'] && ! $aTheme['is_mobile'] && ! $aTheme['is_tablet'])
 		{
-			$aActions[90] = '<a href="' . $view->generateUrl('config_themes') . '?delete=' . $aTheme['id'] . '" class="button-delete" onclick="return window.confirm(\'' . $view->escapeJs(__('c_a_themes_delete_confirm')) . '\')"></span>' . __('c_c_action_Delete') . '</a>';
+			$aActions[90] = '<a href="' . $view->generateAdminUrl('config_themes') . '?delete=' . $aTheme['id'] . '" class="button-delete" onclick="return window.confirm(\'' . $view->escapeJs(__('c_a_themes_delete_confirm')) . '\')"></span>' . __('c_c_action_Delete') . '</a>';
 		}
 		
 		ksort($aActions);

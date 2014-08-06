@@ -14,8 +14,8 @@ $view->extend('Layout');
 	<h3><?php _e('c_a_update') ?></h3>
 	<p><?php printf(__('c_a_update_okatea_%s_available'), $sNewVersion) ?></p>
 	<ul>
-		<li><strong><a href="<?php echo $view->generateUrl('config_update') ?>"><?php sprintf(__('c_a_update_upgrade_now'), $sNewVersion) ?></a></strong></li>
-		<li><a href="<?php echo $view->generateUrl('config_update') ?>?hide_msg=1"><?php _e('c_a_update_remind_later') ?></a></li>
+		<li><strong><a href="<?php echo $view->generateAdminUrl('config_update') ?>"><?php sprintf(__('c_a_update_upgrade_now'), $sNewVersion) ?></a></strong></li>
+		<li><a href="<?php echo $view->generateAdminUrl('config_update') ?>?hide_msg=1"><?php _e('c_a_update_remind_later') ?></a></li>
 	</ul>
 </div>
 <?php endif; ?>

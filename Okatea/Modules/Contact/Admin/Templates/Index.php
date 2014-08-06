@@ -15,14 +15,14 @@ $okt->page->addTitleTag($okt->module('Contact')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('Contact')
-	->getName(), $view->generateUrl('Contact_index'));
+	->getName(), $view->generateAdminUrl('Contact_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_contact_recipients'));
 
 ?>
 
-<form action="<?php $view->generateUrl('Contact_index') ?>"
+<form action="<?php $view->generateAdminUrl('Contact_index') ?>"
 	method="post">
 
 	<p><?php _e('m_contact_recipients_page_description') ?></p>

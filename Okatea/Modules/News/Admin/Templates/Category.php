@@ -17,7 +17,7 @@ $okt->page->setButtonset('newsCatsBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('News_categories'),
+			'url' => $view->generateAdminUrl('News_categories'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -29,14 +29,14 @@ if ($aCategoryData['cat']['id'])
 	$okt->page->addButton('newsCatsBtSt', array(
 		'permission' => true,
 		'title' => __('m_news_cats_add_category'),
-		'url' => $view->generateUrl('News_category_add'),
+		'url' => $view->generateAdminUrl('News_category_add'),
 		'ui-icon' => 'plusthick'
 	));
 	# bouton switch statut
 	$okt->page->addButton('newsCatsBtSt', array(
 		'permission' => true,
 		'title' => ($aCategoryData['cat']['active'] ? __('c_c_status_Online') : __('c_c_status_Offline')),
-		'url' => $view->generateUrl('News_category', array(
+		'url' => $view->generateAdminUrl('News_category', array(
 			'category_id' => $aCategoryData['cat']['id']
 		)) . '?switch_status=1',
 		'ui-icon' => ($aCategoryData['cat']['active'] ? 'volume-on' : 'volume-off'),
@@ -46,7 +46,7 @@ if ($aCategoryData['cat']['id'])
 	$okt->page->addButton('newsCatsBtSt', array(
 		'permission' => ($aCategoryData['extra']['iNumPosts'] == 0),
 		'title' => __('c_c_action_Delete'),
-		'url' => $view->generateUrl('News_categories') . '?delete=' . $aCategoryData['cat']['id'],
+		'url' => $view->generateAdminUrl('News_categories') . '?delete=' . $aCategoryData['cat']['id'],
 		'ui-icon' => 'closethick',
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_news_cats_delete_confirm')) . '\')'
 	));
@@ -67,10 +67,10 @@ $okt->page->addTitleTag($okt->module('News')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('News')
-	->getName(), $view->generateUrl('News_index'));
+	->getName(), $view->generateAdminUrl('News_index'));
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('m_news_cats_categories'), $view->generateUrl('News_categories'));
+$okt->page->addGlobalTitle(__('m_news_cats_categories'), $view->generateAdminUrl('News_categories'));
 
 if ($aCategoryData['cat']['id'])
 {
@@ -78,7 +78,7 @@ if ($aCategoryData['cat']['id'])
 
 	foreach ($path as $categoryPath)
 	{
-		$okt->page->addGlobalTitle($categoryPath['title'], $view->generateUrl('News_category', array(
+		$okt->page->addGlobalTitle($categoryPath['title'], $view->generateAdminUrl('News_category', array(
 			'category_id' => $categoryPath['id']
 		)));
 	}
@@ -123,7 +123,7 @@ if ($aCategoryData['cat']['id'])
 
 				$.ajax({
 					data: result,
-					url: "' . $view->generateUrl('News_category', array(
+					url: "' . $view->generateAdminUrl('News_category', array(
 		'category_id' => $aCategoryData['cat']['id']
 	)) . '?ajax_update_order=1",
 					success: function(data) {
@@ -150,7 +150,7 @@ if ($aCategoryData['cat']['id'])
 <?php echo $okt->page->getButtonSet('newsCatsBtSt'); ?>
 
 <form
-	action="<?php echo !empty($aCategoryData['cat']['id']) ? $view->generateUrl('News_category', array('category_id' => $aCategoryData['cat']['id'])) : $view->generateUrl('News_category_add'); ?>"
+	action="<?php echo !empty($aCategoryData['cat']['id']) ? $view->generateAdminUrl('News_category', array('category_id' => $aCategoryData['cat']['id'])) : $view->generateAdminUrl('News_category_add'); ?>"
 	method="post">
 
 	<div id="tabered">
@@ -267,7 +267,7 @@ if ($aCategoryData['cat']['id'])
 
 <?php if ($aCategoryData['cat']['id'] && !empty($aCategoryData['extra']['aSiblings'])) : ?>
 <form
-	action="<?php echo !empty($aCategoryData['cat']['id']) ? $view->generateUrl('News_category', array('category_id' => $aCategoryData['cat']['id'])) : $view->generateUrl('News_category_add'); ?>"
+	action="<?php echo !empty($aCategoryData['cat']['id']) ? $view->generateAdminUrl('News_category', array('category_id' => $aCategoryData['cat']['id'])) : $view->generateAdminUrl('News_category_add'); ?>"
 	method="post">
 	<div id="tab_siblings">
 		<h3><?php _e('m_news_cat_order_title') ?></h3>

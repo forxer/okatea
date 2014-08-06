@@ -15,7 +15,7 @@ $okt->page->loader('.lazy-load');
 
 <p><?php _e('c_a_tools_cleanup_desc') ?></p>
 
-<form action="<?php echo $view->generateUrl('config_tools') ?>"
+<form action="<?php echo $view->generateAdminUrl('config_tools') ?>"
 	method="post">
 
 	<ul class="checklist">

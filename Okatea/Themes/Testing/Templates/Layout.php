@@ -34,7 +34,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 # début Okatea : affichage de la boite de recherche de véhicules
 			if ($okt['modules']->isLoaded('vehicles'))
 			:
-				echo $okt->tpl->render('vehicles_search_tpl');
+				echo $okt['tpl']->render('vehicles_search_tpl');
 			
 			endif; # fin Okatea : affichage de la boite de recherche de véhicules 			?>
 
@@ -74,7 +74,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 	<?php 
 # début Okatea : affichage de la barre utilisateur
-	echo $okt->tpl->render('users/user_bar/' . $okt['config']->users['templates']['user_bar']['default'] . '/template');
+	echo $okt['tpl']->render('users/user_bar/' . $okt['config']->users['templates']['user_bar']['default'] . '/template');
 	# fin Okatea : affichage de la barre utilisateur 	?>
 
 

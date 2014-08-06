@@ -20,7 +20,7 @@ $okt->page->setButtonset('l10nBtSt', array(
 		array(
 			'permission' 	=> true,
 			'title' 		=> __('c_a_config_l10n_add_language'),
-			'url' 			=> $view->generateUrl('config_l10n_add_language'),
+			'url' 			=> $view->generateAdminUrl('config_l10n_add_language'),
 			'ui-icon' 		=> 'plusthick'
 		)
 	)
@@ -41,7 +41,7 @@ $okt->page->js->addReady('
 
 			$.ajax({
 				data: result,
-				url: "' . $view->generateUrl('config_l10n') . '?ajax_update_order=1",
+				url: "' . $view->generateAdminUrl('config_l10n') . '?ajax_update_order=1",
 				success: function(data) {
 					$("#page").css("cursor", "default");
 					$("#sortable").css("cursor", "move");
@@ -85,7 +85,7 @@ $okt->page->js->addReady('
 	<div id="tab-list">
 		<h3><?php _e('c_a_config_l10n_tab_list') ?></h3>
 
-		<form action="<?php echo $view->generateUrl('config_l10n') ?>"
+		<form action="<?php echo $view->generateAdminUrl('config_l10n') ?>"
 			method="post" id="ordering">
 			<ul id="sortable" class="ui-sortable">
 			<?php foreach ($aLanguages as $i => $aLanguage) : ?>
@@ -104,21 +104,21 @@ $okt->page->js->addReady('
 
 				<?php if ($aLanguage['active']) : ?>
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?disable=<?php echo $aLanguage['id'] ?>"
+					href="<?php echo $view->generateAdminUrl('config_l10n') ?>?disable=<?php echo $aLanguage['id'] ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Disable_%s'), $aLanguage['title'])) ?>"
 					class="icon tick"><?php _e('c_c_action_Disable') ?></a>
 				<?php else : ?>
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?enable=<?php echo $aLanguage['id'] ?>"
+					href="<?php echo $view->generateAdminUrl('config_l10n') ?>?enable=<?php echo $aLanguage['id'] ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Enable_%s'), $aLanguage['title'])) ?>"
 					class="icon cross"><?php _e('c_c_action_Enable') ?></a>
 				<?php endif; ?>
 
 				- <a
-					href="<?php echo $view->generateUrl('config_l10n_edit_language', array('language_id'=>$aLanguage['id'])) ?>"
+					href="<?php echo $view->generateAdminUrl('config_l10n_edit_language', array('language_id'=>$aLanguage['id'])) ?>"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Edit_%s'), $aLanguage['title'])) ?>"
 					class="icon pencil"><?php _e('c_c_action_Edit') ?></a> - <a
-					href="<?php echo $view->generateUrl('config_l10n') ?>?delete=<?php echo $aLanguage['id'] ?>"
+					href="<?php echo $view->generateAdminUrl('config_l10n') ?>?delete=<?php echo $aLanguage['id'] ?>"
 					onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_l10n_confirm_delete')) ?>')"
 					title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_c_action_Delete_%s'), $aLanguage['title'])) ?>"
 					class="icon delete"><?php _e('c_c_action_Delete') ?></a></li>
@@ -133,7 +133,7 @@ $okt->page->js->addReady('
 	</div><!-- #tab-list -->
 
 	<div id="tab-config">
-		<form action="<?php echo $view->generateUrl('config_l10n') ?>"
+		<form action="<?php echo $view->generateAdminUrl('config_l10n') ?>"
 			method="post">
 			<h3><?php _e('c_a_config_l10n_tab_config') ?></h3>
 

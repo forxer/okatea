@@ -35,7 +35,7 @@ class Builder extends Controller
 		
 		$this->tools = new BaseTools($this->okt);
 		
-		$this->okt->tpl->addGlobal('stepper', $this->stepper);
+		$this->okt['tpl']->addGlobal('stepper', $this->stepper);
 		
 		return $this->{$this->stepper->getCurrentStep()}();
 	}

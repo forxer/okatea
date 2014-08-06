@@ -61,7 +61,7 @@ class Controller
 	 */
 	public function viewExists($view)
 	{
-		return $this->okt->tpl->exists($view);
+		return $this->okt['tpl']->exists($view);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Controller
 	 */
 	public function renderView($view, array $parameters = [])
 	{
-		return $this->okt->tpl->render($view, $parameters);
+		return $this->okt['tpl']->render($view, $parameters);
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Controller
 			$response = new Response();
 		}
 
-		return $this->okt->tpl->renderResponse($view, $parameters, $response);
+		return $this->okt['tpl']->renderResponse($view, $parameters, $response);
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Controller
 	 */
 	public function stream($view, array $parameters = [], StreamedResponse $response = null)
 	{
-		$templating = $this->okt->tpl;
+		$templating = $this->okt['tpl'];
 
 		$callback = function () use($templating, $view, $parameters) {
 			$templating->stream($view, $parameters);

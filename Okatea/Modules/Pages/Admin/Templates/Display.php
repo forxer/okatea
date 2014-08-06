@@ -15,7 +15,7 @@ $okt->page->addTitleTag($okt->module('Pages')
 
 # Start breadcrumb
 $okt->page->addAriane($okt->module('Pages')
-	->getName(), $view->generateUrl('Pages_index'));
+	->getName(), $view->generateAdminUrl('Pages_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_display'));
@@ -28,7 +28,7 @@ $okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 
 ?>
 
-<form action="<?php echo $view->generateUrl('Pages_display') ?>"
+<form action="<?php echo $view->generateAdminUrl('Pages_display') ?>"
 	method="post">
 	<div id="tabered">
 		<ul>

@@ -90,7 +90,7 @@ if (! empty($_REQUEST['gallery_id']))
 		$aGalleryData['db']['locked'] = $rsGallery->locked;
 		$aGalleryData['db']['parent_id'] = $rsGallery->parent_id;
 		$aGalleryData['db']['password'] = $rsGallery->password;
-		$aGalleryData['db']['tpl'] = $rsGallery->tpl;
+		$aGalleryData['db']['tpl'] = $rsGallery['tpl'];
 		$aGalleryData['db']['items_tpl'] = $rsGallery->items_tpl;
 		$aGalleryData['db']['created_at'] = $rsGallery->created_at;
 		$aGalleryData['db']['updated_at'] = $rsGallery->updated_at;

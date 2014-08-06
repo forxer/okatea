@@ -24,14 +24,14 @@ Exemples :
 - Pour afficher l'encart avec les paramètres par défaut :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath());
+	echo $okt['tpl']->render($okt->module('Pages')->getInsertTplPath());
 	# fin Okatea : affichage encart pages ?>
 
 
 - Pour afficher l'encart avec seulement 5 pages dans l'encart :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
+	echo $okt['tpl']->render($okt->module('Pages')->getInsertTplPath(), array(
 		'aParams' => array(
 			'limit' => 5,
 		)
@@ -41,7 +41,7 @@ Exemples :
 - Pour afficher l'encart avec seulement 5 pages dans l'encart et ce en anglais :
 
 	<?php # début Okatea : affichage encart pages
-	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
+	echo $okt['tpl']->render($okt->module('Pages')->getInsertTplPath(), array(
 		'aParams' => array(
 			'limit' => 5,
 			'language' => 'en'

@@ -26,7 +26,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_navigation') . '?do=index',
+			'url' => $view->generateAdminUrl('config_navigation') . '?do=index',
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -38,7 +38,7 @@ if ($iMenuId)
 	$okt->page->addButton('navigationBtSt', array(
 		'permission' => true,
 		'title' => __('c_a_config_navigation_add_menu'),
-		'url' => $view->generateUrl('config_navigation') . '?do=menu',
+		'url' => $view->generateAdminUrl('config_navigation') . '?do=menu',
 		'ui-icon' => 'plusthick'
 	));
 	
@@ -46,7 +46,7 @@ if ($iMenuId)
 	$okt->page->addButton('navigationBtSt', array(
 		'permission' => true,
 		'title' => __('c_a_config_navigation_manage_items'),
-		'url' => $view->generateUrl('config_navigation') . '?do=items&amp;menu_id=' . $iMenuId,
+		'url' => $view->generateAdminUrl('config_navigation') . '?do=items&amp;menu_id=' . $iMenuId,
 		'ui-icon' => 'pencil'
 	));
 }
@@ -62,7 +62,7 @@ if ($iMenuId)
 <?php endif; ?>
 
 <form id="menu-form"
-	action="<?php echo $view->generateUrl('config_navigation') ?>?do=menu"
+	action="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=menu"
 	method="post">
 
 	<div class="two-cols">

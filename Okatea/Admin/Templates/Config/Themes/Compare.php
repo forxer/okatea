@@ -7,7 +7,7 @@
  */
 $view->extend('Layout');
 
-$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateAdminUrl('config_themes'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_themes_file_comparison_theme_%s'), $oInstallTheme->name()));
 
 $okt->page->css->addCss('
@@ -106,5 +106,5 @@ $okt->page->css->addCss('
 
 <p class="ui-helper-clearfix">
 	<a class="button"
-		href="<?php echo $view->generateUrl('config_themes') ?>"><?php _e('Continue') ?></a>
+		href="<?php echo $view->generateAdminUrl('config_themes') ?>"><?php _e('Continue') ?></a>
 </p>

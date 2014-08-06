@@ -10,14 +10,14 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # module title tag
-$okt->page->addGlobalTitle(__('m_builder_menu'), $view->generateUrl('Builder_index'));
+$okt->page->addGlobalTitle(__('m_builder_menu'), $view->generateAdminUrl('Builder_index'));
 
 # tabs
 $okt->page->tabs();
 
 ?>
 
-<form action="<?php echo $view->generateUrl('Builder_config'); ?>"
+<form action="<?php echo $view->generateAdminUrl('Builder_config'); ?>"
 	method="post">
 	<div id="tabered">
 		<ul>

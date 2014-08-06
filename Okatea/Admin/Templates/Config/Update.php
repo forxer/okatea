@@ -58,7 +58,7 @@ elseif ($bDigestIsReadable && ! $sStep)
 	{
 		echo '<h3>' . __('c_a_update_backup_files') . '</h3>' . '<p>' . __('c_a_update_backup_instructions') . '</p>';
 		
-		echo '<form action="' . $view->generateUrl('config_update') . '" method="post">';
+		echo '<form action="' . $view->generateAdminUrl('config_update') . '" method="post">';
 		
 		foreach ($aArchives as $v)
 		{

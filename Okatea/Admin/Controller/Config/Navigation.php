@@ -124,7 +124,7 @@ class Navigation extends Controller
 				$aMenuData = array(
 					'title' => $rsMenu->title,
 					'active' => $rsMenu->active,
-					'tpl' => $rsMenu->tpl
+					'tpl' => $rsMenu['tpl']
 				);
 			}
 		}

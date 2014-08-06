@@ -25,7 +25,7 @@ $okt->page->toggleWithLegend('add_module_repo_title', 'add_module_repo_content',
 
 	<div id="add_module_zip_content" class="two-cols">
 		<form class="col"
-			action="<?php echo $view->generateUrl('config_modules') ?>"
+			action="<?php echo $view->generateAdminUrl('config_modules') ?>"
 			method="post">
 			<fieldset>
 				<legend><?php _e('c_a_modules_download_zip_file') ?></legend>
@@ -41,7 +41,7 @@ $okt->page->toggleWithLegend('add_module_repo_title', 'add_module_repo_content',
 			</p>
 		</form>
 		<form class="col"
-			action="<?php echo $view->generateUrl('config_modules') ?>"
+			action="<?php echo $view->generateAdminUrl('config_modules') ?>"
 			method="post" enctype="multipart/form-data">
 			<fieldset>
 				<legend><?php _e('c_a_modules_upload_zip_file') ?></legend>
@@ -95,7 +95,7 @@ $okt->page->toggleWithLegend('add_module_repo_title', 'add_module_repo_content',
 				</th>
 					<td class="<?php echo $td_class; ?> center"><?php echo $view->escape($module['version']) ?></td>
 					<td class="<?php echo $td_class; ?> center"><a
-						href="<?php echo $view->generateUrl('config_modules') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;module=<?php echo urlencode($module['id']) ?>"
+						href="<?php echo $view->generateAdminUrl('config_modules') ?>?repository=<?php echo urlencode($repo_name) ?>&amp;module=<?php echo urlencode($module['id']) ?>"
 						class="lazy-load"><?php _e('c_c_action_Add') ?></a></td>
 					<td class="<?php echo $td_class; ?> center"><a
 						href="<?php echo $module['href'] ?>"><?php _e('c_c_action_Download') ?></a></td>

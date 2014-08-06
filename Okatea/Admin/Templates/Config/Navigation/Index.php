@@ -31,13 +31,13 @@ $okt->page->setButtonset('navigationBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_a_config_navigation_add_menu'),
-			'url' => $view->generateUrl('config_navigation') . '?do=menu',
+			'url' => $view->generateAdminUrl('config_navigation') . '?do=menu',
 			'ui-icon' => 'plusthick'
 		),
 		array(
 			'permission' => true,
 			'title' => __('c_a_config_navigation_config'),
-			'url' => $view->generateUrl('config_navigation') . '?do=config',
+			'url' => $view->generateAdminUrl('config_navigation') . '?do=config',
 			'ui-icon' => 'gear'
 		)
 	)
@@ -77,7 +77,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 		?>
 	<tr>
 			<th class="<?php echo $td_class ?> fake-td" scope="row"><a
-				href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
+				href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"><?php
 		echo $view->escape($rsMenus->title)?></a></th>
 
 			<td class="<?php echo $td_class ?> nowrap">
@@ -85,22 +85,22 @@ $okt->page->setButtonset('navigationBtSt', array(
 					<li>
 				<?php if ($rsMenus->active) : ?>
 				<a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
 						title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
 				<a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $rsMenus->id ?>"
 						title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
 				</li>
 					<li><a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=menu&amp;menu_id=<?php echo $rsMenus->id ?>"
 						title="<?php printf(__('c_c_action_Edit_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon pencil"><?php _e('c_c_action_edit')?></a></li>
 					<li><a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;delete_menu=<?php echo $rsMenus->id ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_config_navigation_menu_delete_confirm')) ?>')"
 						title="<?php printf(__('c_c_action_Delete_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon delete"><?php _e('c_c_action_delete')?></a></li>
@@ -130,12 +130,12 @@ $okt->page->setButtonset('navigationBtSt', array(
 			<td class="<?php echo $td_class ?>">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=items&amp;menu_id=<?php echo $rsMenus->id ?>"
 						title="<?php printf(__('c_a_config_navigation_manage_items_menu_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon application_view_list"><?php _e('c_a_config_navigation_manage_items')?></a>
 					</li>
 					<li><a
-						href="<?php echo $view->generateUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=item&amp;menu_id=<?php echo $rsMenus->id ?>"
 						title="<?php printf(__('c_a_config_navigation_add_item_to_%s'), $view->escapeHtmlAttr($rsMenus->title)) ?>"
 						class="icon application_add"><?php _e('c_a_config_navigation_add_item')?></a>
 					</li>

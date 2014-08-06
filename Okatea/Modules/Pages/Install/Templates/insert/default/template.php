@@ -14,7 +14,7 @@ Exemples :
 - Pour afficher la page identifiant 4 :
 
 	<?php # début Okatea : affichage encart page id 4
-	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
+	echo $okt['tpl']->render($okt->module('Pages')->getInsertTplPath(), array(
 		'mPageIdentifier' => 4
 	)); # fin Okatea : affichage encart page id 4 ?>
 
@@ -22,7 +22,7 @@ Exemples :
 - Pour afficher la page ayant pour slug 'ma-page' :
 
 	<?php # début Okatea : affichage encart page slug 'ma-page'
-	echo $okt->tpl->render($okt->module('Pages')->getInsertTplPath(), array(
+	echo $okt['tpl']->render($okt->module('Pages')->getInsertTplPath(), array(
 		'mPageIdentifier' => 'ma-page'
 	)); # fin Okatea : affichage encart page slug 'ma-page' ?>
 

@@ -15,7 +15,7 @@ $okt->page->addTitleTag($okt->module('Contact')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('Contact')
-	->getName(), $view->generateUrl('Contact_index'));
+	->getName(), $view->generateAdminUrl('Contact_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_contact_config_configuration'));
@@ -62,7 +62,7 @@ $okt->page->js->addReady('
 ');
 ?>
 
-<form action="<?php $view->generateUrl('Contact_config') ?>"
+<form action="<?php $view->generateAdminUrl('Contact_config') ?>"
 	method="post">
 	<div id="tabered">
 		<ul>
@@ -126,7 +126,7 @@ $okt->page->js->addReady('
 				<?php _e('m_contact_config_enable_access_map') ?></label>
 
 				<?php if ($bGoogleMapNotEnablable) : ?>
-				<span class="note"><?php printf(__('m_contact_config_enable_access_map_note'), $view->generateUrl('config_general')) ?></span>
+				<span class="note"><?php printf(__('m_contact_config_enable_access_map_note'), $view->generateAdminUrl('config_general')) ?></span>
 				<?php endif; ?></p>
 
 			</fieldset>

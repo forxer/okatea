@@ -17,7 +17,7 @@ $okt->page->setButtonset('themesBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('config_themes'),
+			'url' => $view->generateAdminUrl('config_themes'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -33,7 +33,7 @@ if ($bHasDefinitionsLess)
 }
 
 # infos page
-$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateUrl('config_themes'));
+$okt->page->addGlobalTitle(__('c_a_themes_management'), $view->generateAdminUrl('config_themes'));
 $okt->page->addGlobalTitle($aThemeInfos['name']);
 
 # CSS
@@ -106,7 +106,7 @@ $okt->page->css->addCss('
 
 		<?php if ($bEditDevNotes) : ?>
 			<form
-			action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
+			action="<?php $view->generateAdminUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
 			method="post">
 
 			<p><?php echo form::textarea('notes_content', 80, 20, $sDevNotesMd)?></p>
@@ -120,7 +120,7 @@ $okt->page->css->addCss('
 			<?php echo $sDevNotesHtml?>
 			<p>
 			<a
-				href="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>?edit_notes=1"
+				href="<?php $view->generateAdminUrl('config_theme', array('theme_id' => $sThemeId)) ?>?edit_notes=1"
 				class="button"><?php _e('c_c_action_edit') ?></a>
 		</p>
 		<?php endif; ?>
@@ -134,7 +134,7 @@ $okt->page->css->addCss('
 		<h3>definitions.less</h3>
 
 		<form
-			action="<?php $view->generateUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
+			action="<?php $view->generateAdminUrl('config_theme', array('theme_id' => $sThemeId)) ?>"
 			method="post">
 			<?php
 		# affichage champs definitions.less

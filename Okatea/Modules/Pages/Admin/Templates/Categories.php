@@ -13,10 +13,10 @@ $okt->page->addTitleTag($okt->module('Pages')
 
 # Start breadcrumb
 $okt->page->addAriane($okt->module('Pages')
-	->getName(), $view->generateUrl('Pages_index'));
+	->getName(), $view->generateAdminUrl('Pages_index'));
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('m_pages_cats_categories'), $view->generateUrl('Pages_categories'));
+$okt->page->addGlobalTitle(__('m_pages_cats_categories'), $view->generateAdminUrl('Pages_categories'));
 
 # button set
 $okt->page->setButtonset('pagesCatsBtSt', array(
@@ -26,7 +26,7 @@ $okt->page->setButtonset('pagesCatsBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('m_pages_cats_add_category'),
-			'url' => $view->generateUrl('Pages_category_add'),
+			'url' => $view->generateAdminUrl('Pages_category_add'),
 			'ui-icon' => 'plusthick'
 		)
 	)
@@ -93,7 +93,7 @@ $okt->page->setButtonset('pagesCatsBtSt', array(
 		
 		if ($rsCategories->num_pages == 0)
 		{
-			$sDeleteLink = ' - <a href="' . $view->generateUrl('Pages_categories') . '?delete=' . $rsCategories->id . '" ' . 'class="icon delete" ' . 'onclick="return window.confirm(\'' . $view->escapeJs(__('m_pages_cats_delete_confirm')) . '\')">' . __('c_c_action_Delete') . '</a></p>';
+			$sDeleteLink = ' - <a href="' . $view->generateAdminUrl('Pages_categories') . '?delete=' . $rsCategories->id . '" ' . 'class="icon delete" ' . 'onclick="return window.confirm(\'' . $view->escapeJs(__('m_pages_cats_delete_confirm')) . '\')">' . __('c_c_action_Delete') . '</a></p>';
 		}
 		else
 		{
@@ -106,14 +106,14 @@ $okt->page->setButtonset('pagesCatsBtSt', array(
 		
 		if ($rsCategories->active)
 		{
-			echo '<a href="' . $view->generateUrl('Pages_categories') . '?switch_status=' . $rsCategories->id . '" ' . 'class="icon tick">' . __('c_c_action_visible') . '</a>';
+			echo '<a href="' . $view->generateAdminUrl('Pages_categories') . '?switch_status=' . $rsCategories->id . '" ' . 'class="icon tick">' . __('c_c_action_visible') . '</a>';
 		}
 		else
 		{
-			echo '<a href="' . $view->generateUrl('Pages_categories') . '?switch_status=' . $rsCategories->id . '" ' . 'class="icon cross">' . __('c_c_action_hidden_fem') . '</a>';
+			echo '<a href="' . $view->generateAdminUrl('Pages_categories') . '?switch_status=' . $rsCategories->id . '" ' . 'class="icon cross">' . __('c_c_action_hidden_fem') . '</a>';
 		}
 		
-		echo ' - <a href="' . $view->generateUrl('Pages_category', array(
+		echo ' - <a href="' . $view->generateAdminUrl('Pages_category', array(
 			'category_id' => $rsCategories->id
 		)) . '" ' . 'title="' . $view->escapeHtmlAttr(sprintf(__('m_pages_cats_edit_%s'), $rsCategories->title)) . '" ' . 'class="icon pencil">' . __('c_c_action_Edit') . '</a>';
 		

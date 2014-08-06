@@ -50,7 +50,7 @@ $okt->page->css->addCss('
 	</div><!-- #tab-show-profil -->
 
 	<div id="tab-user-form">
-		<form id="edit-user-form" action="<?php echo $view->generateUrl('User_profile') ?>" method="post">
+		<form id="edit-user-form" action="<?php echo $view->generateAdminUrl('User_profile') ?>" method="post">
 
 			<?php echo $view->render('Users/User/UserForm', array(
 				'aPageData' => $aPageData,
@@ -67,7 +67,7 @@ $okt->page->css->addCss('
 	<?php if ($okt['visitor']->checkPerm('change_password')) : ?>
 	<div id="tab-password-form">
 		<form id="change-password-form"
-			action="<?php echo $view->generateUrl('User_profile') ?>"
+			action="<?php echo $view->generateAdminUrl('User_profile') ?>"
 			method="post">
 
 			<?php

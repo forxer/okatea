@@ -11,7 +11,7 @@ $view->extend('Layout');
 $okt->page->addTitleTag(__('Development'));
 
 # Start breadcrumb
-$okt->page->addAriane(__('Development'), $view->generateUrl('Development_index'));
+$okt->page->addAriane(__('Development'), $view->generateAdminUrl('Development_index'));
 
 ?>
 

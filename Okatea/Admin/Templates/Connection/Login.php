@@ -15,7 +15,7 @@ $okt->page->js->addReady('
 
 ?>
 
-<form action="<?php echo $view->generateUrl('login') ?>" method="post">
+<form action="<?php echo $view->generateAdminUrl('login') ?>" method="post">
 
 	<p class="field">
 		<label for="user_id" title="<?php _e('c_c_required_field') ?>"
@@ -43,6 +43,6 @@ $okt->page->js->addReady('
 	<p class="note"><?php _e('c_c_auth_must_accept_cookies_private_area') ?></p>
 
 	<p>
-		<a href="<?php echo $view->generateUrl('forget_password') ?>"><?php _e('c_c_auth_forgot_password') ?></a>
+		<a href="<?php echo $view->generateAdminUrl('forget_password') ?>"><?php _e('c_c_auth_forgot_password') ?></a>
 	</p>
 </form>

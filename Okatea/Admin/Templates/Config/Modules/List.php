@@ -7,7 +7,7 @@
  */
 $view->extend('Layout');
 
-$okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateUrl('config_modules'));
+$okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateAdminUrl('config_modules'));
 
 # Tabs
 $okt->page->tabs();

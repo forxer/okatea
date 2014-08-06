@@ -11,9 +11,9 @@ $view->extend('Layout');
 $okt->page->addTitleTag($okt->module('Contact')
 	->getTitle());
 $okt->page->addAriane($okt->module('Contact')
-	->getName(), $view->generateUrl('Contact_index'));
+	->getName(), $view->generateAdminUrl('Contact_index'));
 
-$okt->page->addGlobalTitle(__('m_contact_fields'), $view->generateUrl('Contact_fields'));
+$okt->page->addGlobalTitle(__('m_contact_fields'), $view->generateAdminUrl('Contact_fields'));
 $okt->page->addGlobalTitle(__('m_contact_fields_add_field'));
 
 # button set
@@ -24,7 +24,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Contact_fields'),
+			'url' => $view->generateAdminUrl('Contact_fields'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		)
 	)
@@ -37,7 +37,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 echo $okt->page->getButtonSet('fieldBtSt');
 ?>
 
-<form action="<?php echo $view->generateUrl('Contact_field_add') ?>"
+<form action="<?php echo $view->generateAdminUrl('Contact_field_add') ?>"
 	method="post" id="field-definition-form">
 	<?php
 	

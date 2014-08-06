@@ -76,7 +76,8 @@ class Manager
 	 */
 	public function getFromFileSystem()
 	{
-		$finder = (new Finder())->files()
+		$finder = (new Finder())
+			->files()
 			->in($this->path)
 			->depth('== 1')
 			->name('_define.php');

@@ -14,7 +14,7 @@ $view->extend('Layout');
 $okt->page->addTitleTag(__('Development'));
 
 # Start breadcrumb
-$okt->page->addAriane(__('Development'), $view->generateUrl('Development_index'));
+$okt->page->addAriane(__('Development'), $view->generateAdminUrl('Development_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_development_bootstrap_title'));
@@ -39,7 +39,7 @@ $okt->page->loader('.lazy-load');
 		<h4 id="add_module_bootstrap_title"><?php _e('m_development_bootstrap_tab_simple_title') ?></h4>
 
 		<form class="col"
-			action="<?php echo $view->generateUrl('Development_bootstrap') ?>"
+			action="<?php echo $view->generateAdminUrl('Development_bootstrap') ?>"
 			method="post">
 
 			<fieldset>
@@ -98,7 +98,7 @@ $okt->page->loader('.lazy-load');
 		<h4 id="add_module_bootstrap_title"><?php _e('m_development_bootstrap_tab_advanced_title') ?></h4>
 
 		<form class="col"
-			action="<?php echo $view->generateUrl('Development_bootstrap') ?>"
+			action="<?php echo $view->generateAdminUrl('Development_bootstrap') ?>"
 			method="post">
 
 			<fieldset>

@@ -308,7 +308,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		return $this->render($this->okt->module('News')
-			->getCategoryTplPath($this->rsCategory->tpl), array(
+			->getCategoryTplPath($this->rsCategory['tpl']), array(
 			'rsPostsList' => $this->rsPostsList,
 			'rsCategory' => $this->rsCategory
 		));
@@ -422,7 +422,7 @@ class Controller extends BaseController
 
 		# affichage du template
 		return $this->render($this->okt->module('News')
-			->getItemTplPath($this->rsPost->tpl, $this->rsPost->category_items_tpl), array(
+			->getItemTplPath($this->rsPost['tpl'], $this->rsPost->category_items_tpl), array(
 			'rsPost' => $this->rsPost
 		));
 	}

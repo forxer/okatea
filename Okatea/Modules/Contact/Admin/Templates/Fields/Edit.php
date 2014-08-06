@@ -13,9 +13,9 @@ $view->extend('Layout');
 $okt->page->addTitleTag($okt->module('Contact')
 	->getTitle());
 $okt->page->addAriane($okt->module('Contact')
-	->getName(), $view->generateUrl('Contact_index'));
+	->getName(), $view->generateAdminUrl('Contact_index'));
 
-$okt->page->addGlobalTitle(__('m_contact_fields'), $view->generateUrl('Contact_fields'));
+$okt->page->addGlobalTitle(__('m_contact_fields'), $view->generateAdminUrl('Contact_fields'));
 $okt->page->addGlobalTitle(__('m_contact_fields_edit_field'));
 
 # button set
@@ -26,19 +26,19 @@ $okt->page->setButtonset('fieldBtSt', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Contact_fields'),
+			'url' => $view->generateAdminUrl('Contact_fields'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
 			'permission' => true,
 			'title' => __('m_contact_fields_add_field'),
-			'url' => $view->generateUrl('Contact_field_add'),
+			'url' => $view->generateAdminUrl('Contact_field_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
 			'permission' => true,
 			'title' => __('m_contact_fields_edit_values'),
-			'url' => $view->generateUrl('Contact_field_values', array(
+			'url' => $view->generateAdminUrl('Contact_field_values', array(
 				'field_id' => $aFieldData['id']
 			)),
 			'ui-icon' => 'pencil'
@@ -46,7 +46,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 		array(
 			'permission' => ! in_array($aFieldData['id'], Fields::getUnDeletableFields()),
 			'title' => __('c_c_action_Delete'),
-			'url' => $view->generateUrl('Contact_fields') . '?delete=' . $aFieldData['id'],
+			'url' => $view->generateAdminUrl('Contact_fields') . '?delete=' . $aFieldData['id'],
 			'ui-icon' => 'closethick',
 			'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_contact_fields_confirm_field_deletion')) . '\')'
 		)
@@ -61,7 +61,7 @@ echo $okt->page->getButtonSet('fieldBtSt');
 ?>
 
 <form
-	action="<?php echo $view->generateUrl('Contact_field', array('field_id' => $aFieldData['id'])) ?>"
+	action="<?php echo $view->generateAdminUrl('Contact_field', array('field_id' => $aFieldData['id'])) ?>"
 	method="post" id="field-definition-form">
 	<?php
 	

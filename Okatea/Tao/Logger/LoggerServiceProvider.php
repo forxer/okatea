@@ -22,7 +22,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
 {
 	public function register(Container $okt)
 	{
-		$okt['logger'] = function($okt) {
+		$okt['logger'] = function() {
 			return new Logger(
 				'okatea',
 				[

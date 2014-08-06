@@ -21,7 +21,7 @@ use Okatea\Tao\Misc\Utilities;
 <h4><?php printf(__('c_a_infos_mysql_table_info_%s'),$view->escape($aMysqlInfos['table'])) ?></h4>
 
 <p>
-	<a href="<?php echo $view->generateUrl('config_infos') ?>"
+	<a href="<?php echo $view->generateAdminUrl('config_infos') ?>"
 		class="icon arrow_undo"><?php _e('c_c_action_Go_back') ?></a>
 </p>
 
@@ -86,7 +86,7 @@ use Okatea\Tao\Misc\Utilities;
 		?>
 	<tr>
 			<th scope="row" class="<?php echo $td_class ?> fake-td"><a
-				href="<?php echo $view->generateUrl('config_infos') ?>?table=<?php echo $aMysqlInfos['db_infos']->name ?>"><?php echo $aMysqlInfos['db_infos']->name ?></a></th>
+				href="<?php echo $view->generateAdminUrl('config_infos') ?>?table=<?php echo $aMysqlInfos['db_infos']->name ?>"><?php echo $aMysqlInfos['db_infos']->name ?></a></th>
 			<td class="<?php echo $td_class ?>"><?php echo $aMysqlInfos['db_infos']->engine ?></td>
 			<td class="<?php echo $td_class ?>"><?php echo $aMysqlInfos['db_infos']->collation ?></td>
 			<td class="<?php echo $td_class ?>"><?php echo $aMysqlInfos['db_infos']->update_time ?></td>
@@ -96,18 +96,18 @@ use Okatea\Tao\Misc\Utilities;
 			<td class="<?php echo $td_class ?>">
 				<ul class="actions">
 					<li><a
-						href="<?php echo $view->generateUrl('config_infos') ?>?optimize=<?php echo $aMysqlInfos['db_infos']->name ?>"
+						href="<?php echo $view->generateAdminUrl('config_infos') ?>?optimize=<?php echo $aMysqlInfos['db_infos']->name ?>"
 						title="<?php printf(__('c_a_infos_mysql_optimize_%s'),$aMysqlInfos['db_infos']->name) ?>"
 						class="icon database_refresh"><?php _e('c_a_infos_mysql_optimize') ?></a>
 					</li>
 					<li><a
-						href="<?php echo $view->generateUrl('config_infos') ?>?truncate=<?php echo $aMysqlInfos['db_infos']->name ?>"
+						href="<?php echo $view->generateAdminUrl('config_infos') ?>?truncate=<?php echo $aMysqlInfos['db_infos']->name ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_infos_mysql_confirm_empty')) ?>')"
 						title="<?php printf(__('c_a_infos_mysql_empty_%s'),$aMysqlInfos['db_infos']->name) ?>"
 						class="icon database_lightning"><?php _e('c_a_infos_mysql_empty') ?></a>
 					</li>
 					<li><a
-						href="<?php echo $view->generateUrl('config_infos') ?>?drop=<?php echo $aMysqlInfos['db_infos']->name ?>"
+						href="<?php echo $view->generateAdminUrl('config_infos') ?>?drop=<?php echo $aMysqlInfos['db_infos']->name ?>"
 						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_infos_mysql_confirm_delete')) ?>')"
 						title="<?php printf(__('c_c_action_Delete_%s'), $aMysqlInfos['db_infos']->name) ?>"
 						class="icon database_delete"><?php _e('c_c_action_Delete') ?></a>

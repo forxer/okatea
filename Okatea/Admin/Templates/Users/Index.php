@@ -13,7 +13,7 @@ use Okatea\Tao\Users\Groups;
 $view->extend('Layout');
 
 # titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 # Buttons set
 $okt->page->setButtonset('users', array(
@@ -23,7 +23,7 @@ $okt->page->setButtonset('users', array(
 		array(
 			'permission' => true,
 			'title' => __('c_a_users_Add_user'),
-			'url' => $view->generateUrl('Users_add'),
+			'url' => $view->generateAdminUrl('Users_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
@@ -82,17 +82,17 @@ if ($okt['config']->users['gravatar']['enabled'])
 		<?php
 		
 		echo $view->render('Common/Search', array(
-			'sFormAction' => $view->generateUrl('Users_index'),
+			'sFormAction' => $view->generateAdminUrl('Users_index'),
 			'sSearchLabel' => __('c_a_users_list_Search'),
 			'sSearch' => $sSearch,
-			'sAutocompleteSrc' => $view->generateUrl('Users_index') . '?json=1'
+			'sAutocompleteSrc' => $view->generateAdminUrl('Users_index') . '?json=1'
 		));
 		?>
 	</div>
 </div>
 
 <?php # formulaire des filtres ?>
-<form action="<?php echo $view->generateUrl('Users_index') ?>"
+<form action="<?php echo $view->generateAdminUrl('Users_index') ?>"
 	method="get" id="filters-form">
 	<fieldset>
 		<legend><?php _e('c_a_users_users_display_filters')?></legend>
@@ -103,7 +103,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 			<input type="submit"
 				name="<?php echo $filters->getFilterSubmitName() ?>"
 				value="<?php _e('c_c_action_Display') ?>" /> <a
-				href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters')?></a>
+				href="<?php echo $view->generateAdminUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters')?></a>
 		</p>
 	</fieldset>
 </form>
@@ -117,7 +117,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 <p><?php _e('c_a_users_no_filtered_user')?>
 	<a href="#" class="filter-control"><?php _e('c_a_users_users_edit_filters') ?></a>
 	- <a
-		href="<?php echo $view->generateUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+		href="<?php echo $view->generateAdminUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
 </p>
 <?php else : ?>
 <p><?php _e('c_a_users_no_user') ?></p>
@@ -162,7 +162,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 
 					<p class="title">
 						<a
-							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
+							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
 				<?php if ($okt['config']->users['gravatar']['enabled']) : ?><img
 							src="<?php
 			echo $gravatarImage->getUrl($rsUsers->email)?>"
@@ -206,7 +206,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 						<li>
 					<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt['visitor']->checkPerm('users_edit')) : ?>
 						<a
-							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
+							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
 							class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 						<?php else : ?>
@@ -217,25 +217,25 @@ if ($okt['config']->users['gravatar']['enabled'])
 						<li>
 					<?php if ($rsUsers->status) : ?>
 					<a
-							href="<?php echo $view->generateUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
+							href="<?php echo $view->generateAdminUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
 							class="icon tick"><?php _e('c_c_status_Active')?></a>
 					<?php else : ?>
 					<a
-							href="<?php echo $view->generateUrl('Users_index') ?>?enable=<?php echo $rsUsers->id ?>"
+							href="<?php echo $view->generateAdminUrl('Users_index') ?>?enable=<?php echo $rsUsers->id ?>"
 							class="icon cross"><?php _e('c_c_status_Inactive')?></a>
 					<?php endif; ?>
 					</li>
 
 					<?php if ($okt['visitor']->checkPerm('users_edit')) : ?>
 					<li><a
-							href="<?php echo $view->generateUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
+							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
 							class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 					<?php endif; ?>
 
 					<?php if ($okt['visitor']->checkPerm('users_delete')) : ?>
 					<li><a
-							href="<?php echo $view->generateUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
+							href="<?php echo $view->generateAdminUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
 							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"
 							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $rsUsers->username)); ?>"
 							class="icon delete"><?php _e('c_c_action_Delete')?></a></li>

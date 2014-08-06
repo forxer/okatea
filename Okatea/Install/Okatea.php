@@ -219,13 +219,13 @@ class Okatea extends Application
 	protected function loadTplEngine()
 	{
 		# initialisation
-		$this->tpl = new Templating($this, [
+		$this['tpl'] = new Templating($this, [
 			__DIR__ . '/Templates/%name%.php',
 			__DIR__ . '/Extensions/%name%.php'
 		]);
 
 		# assignation par défaut
-		$this->tpl->addGlobal('okt', $this);
+		$this['tpl']->addGlobal('okt', $this);
 	}
 
 	protected function callController()

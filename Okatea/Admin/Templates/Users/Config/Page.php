@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 # titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 # infos page
 $okt->page->addGlobalTitle(__('c_a_menu_configuration'));
@@ -29,7 +29,7 @@ if (! $okt['languages']->unique)
 
 ?>
 
-<form action="<?php echo $view->generateUrl('Users_config') ?>"
+<form action="<?php echo $view->generateAdminUrl('Users_config') ?>"
 	method="post">
 	<div id="tabered">
 		<ul>

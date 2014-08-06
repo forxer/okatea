@@ -7,12 +7,12 @@
  */
 namespace Okatea\Website;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Tao\Application;
 use Okatea\Website\AdminBar;
 use Okatea\Website\Page;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class Okatea extends Application
 {
@@ -49,6 +49,11 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
+		$this['tpl_directories'] = [
+			$this['themes_path'] . '/' . $this->theme_id . '/Templates/%name%.php',
+			$this['themes_path'] . '/DefaultTheme/Templates/%name%.php'
+		];
+
 		$this->theme_id = $this->getTheme();
 
 		$this->loadPageHelpers();
@@ -56,8 +61,6 @@ class Okatea extends Application
 		$this['themes']->load('public');
 
 		$this->loadTheme();
-
-		$this->loadTplEngine();
 
 		if ($this['config']->maintenance['public'] && ! $this['visitor']->is_superadmin)
 		{
@@ -117,23 +120,6 @@ class Okatea extends Application
 	protected function loadTheme()
 	{
 		$this->theme = $this['themes']->getInstance($this->theme_id);
-	}
-
-	/**
-	 * Load templates engine.
-	 *
-	 * return void
-	 */
-	protected function loadTplEngine()
-	{
-		$this->setTplDirectory($this['themes_path'] . '/' . $this->theme_id . '/Templates/%name%.php');
-		$this->setTplDirectory($this['themes_path'] . '/DefaultTheme/Templates/%name%.php');
-
-		# initialisation
-		$this->tpl = new Templating($this, $this->aTplDirectories);
-
-		# assignation par défaut
-		$this->tpl->addGlobal('okt', $this);
 	}
 
 	/**

@@ -80,7 +80,7 @@ $okt->page->addGlobalTitle(__('c_a_config_display'));
 
 ?>
 
-<form action="<?php $view->generateUrl('config_display') ?>"
+<form action="<?php $view->generateAdminUrl('config_display') ?>"
 	method="post" enctype="multipart/form-data">
 	<div id="tabered">
 		<ul>

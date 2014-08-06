@@ -77,7 +77,7 @@ if (! empty($_REQUEST['item_id']))
 		
 		$aItemData['item']['gallery_id'] = $rsItem->gallery_id;
 		$aItemData['item']['active'] = $rsItem->active;
-		$aItemData['item']['tpl'] = $rsItem->tpl;
+		$aItemData['item']['tpl'] = $rsItem['tpl'];
 		$aItemData['item']['created_at'] = $rsItem->created_at;
 		$aItemData['item']['updated_at'] = $rsItem->updated_at;
 		

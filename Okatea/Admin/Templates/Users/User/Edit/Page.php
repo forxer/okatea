@@ -8,7 +8,7 @@
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
 
 $okt->page->addGlobalTitle(sprintf(__('c_a_users_user_%s'), $aPageData['user']['username']));
 
@@ -25,19 +25,19 @@ $okt->page->setButtonset('users', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Users_index'),
+			'url' => $view->generateAdminUrl('Users_index'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
 			'permission' => true,
 			'title' => __('c_a_users_Add_user'),
-			'url' => $view->generateUrl('Users_add'),
+			'url' => $view->generateAdminUrl('Users_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
 			'permission' => $aPageData['bWaitingValidation'],
 			'title' => __('c_a_users_validate_this_user'),
-			'url' => $view->generateUrl('Users_edit', array(
+			'url' => $view->generateAdminUrl('Users_edit', array(
 				'user_id' => $aPageData['user']['id']
 			)) . '?validate=1',
 			'ui-icon' => 'check'
@@ -45,7 +45,7 @@ $okt->page->setButtonset('users', array(
 		array(
 			'permission' => $okt['visitor']->checkPerm('users_delete'),
 			'title' => __('c_c_action_Delete'),
-			'url' => $view->generateUrl('Users_index') . '?delete=' . $aPageData['user']['id'],
+			'url' => $view->generateAdminUrl('Users_index') . '?delete=' . $aPageData['user']['id'],
 			'ui-icon' => 'closethick',
 			'onclick' => 'return window.confirm(\'' . $view->escapeJS(__('c_a_users_confirm_user_deletion')) . '\')'
 		)

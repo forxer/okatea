@@ -11,8 +11,8 @@ use Okatea\Tao\Users\Groups;
 $view->extend('Layout');
 
 # Titre de la page
-$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateUrl('Users_index'));
-$okt->page->addGlobalTitle(__('c_a_menu_users_groups'), $view->generateUrl('Users_groups'));
+$okt->page->addGlobalTitle(__('c_a_menu_users'), $view->generateAdminUrl('Users_index'));
+$okt->page->addGlobalTitle(__('c_a_menu_users_groups'), $view->generateAdminUrl('Users_groups'));
 $okt->page->addGlobalTitle(__('c_a_users_edit_group'));
 
 # button set
@@ -23,19 +23,19 @@ $okt->page->setButtonset('usersGroups', array(
 		array(
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
-			'url' => $view->generateUrl('Users_groups'),
+			'url' => $view->generateAdminUrl('Users_groups'),
 			'ui-icon' => 'arrowreturnthick-1-w'
 		),
 		array(
 			'permission' => true,
 			'title' => __('c_a_users_add_group'),
-			'url' => $view->generateUrl('Users_groups_add'),
+			'url' => $view->generateAdminUrl('Users_groups_add'),
 			'ui-icon' => 'plusthick'
 		),
 		array(
 			'permission' => ! in_array($iGroupId, Groups::$native),
 			'title' => __('c_c_action_Delete'),
-			'url' => $view->generateUrl('Users_groups') . '?delete_id=' . $iGroupId,
+			'url' => $view->generateAdminUrl('Users_groups') . '?delete_id=' . $iGroupId,
 			'ui-icon' => 'closethick',
 			'onclick' => 'return window.confirm(\'' . $view->escapeJS(__('c_a_users_confirm_group_deletion')) . '\')'
 		)
@@ -47,7 +47,7 @@ $okt->page->setButtonset('usersGroups', array(
 <?php echo $okt->page->getButtonSet('usersGroups'); ?>
 
 <form
-	action="<?php echo $view->generateUrl('Users_groups_edit', array('group_id' => $iGroupId)) ?>"
+	action="<?php echo $view->generateAdminUrl('Users_groups_edit', array('group_id' => $iGroupId)) ?>"
 	method="post" id="group-form">
 
 	<?php

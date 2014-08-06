@@ -7,7 +7,7 @@
  */
 $view->extend('Layout');
 
-$okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateUrl('config_modules'));
+$okt->page->addGlobalTitle(__('c_a_modules_management'), $view->generateAdminUrl('config_modules'));
 $okt->page->addGlobalTitle(sprintf(__('c_a_modules_install_default_data_%s'), $oInstallModule->name()));
 
 ?>
@@ -21,5 +21,5 @@ $okt->page->addGlobalTitle(sprintf(__('c_a_modules_install_default_data_%s'), $o
 
 <p class="ui-helper-clearfix">
 	<a class="button"
-		href="<?php echo $view->generateUrl('config_modules') ?>"><?php _e('Continue') ?></a>
+		href="<?php echo $view->generateAdminUrl('config_modules') ?>"><?php _e('Continue') ?></a>
 </p>

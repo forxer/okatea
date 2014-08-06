@@ -12,7 +12,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 <h3><?php _e('c_a_tools_uninstall_title') ?></h3>
 
 
-<form id="tool-uninstall-form" action="<?php echo $view->generateUrl('config_tools') ?>" method="post">
+<form id="tool-uninstall-form" action="<?php echo $view->generateAdminUrl('config_tools') ?>" method="post">
 
 	<p><span class="icon error"></span> <?php _e('c_a_tools_uninstall_warning') ?></p>
 

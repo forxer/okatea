@@ -15,7 +15,7 @@ $okt->page->addTitleTag($okt->module('News')
 
 # Module start breadcrumb
 $okt->page->addAriane($okt->module('News')
-	->getName(), $view->generateUrl('News_index'));
+	->getName(), $view->generateAdminUrl('News_index'));
 
 # Titre de la page
 $okt->page->addGlobalTitle(__('c_a_menu_display'));
@@ -28,7 +28,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 ?>
 
-<form action="<?php echo $view->generateUrl('News_display') ?>"
+<form action="<?php echo $view->generateAdminUrl('News_display') ?>"
 	method="post">
 	<div id="tabered">
 		<ul>
