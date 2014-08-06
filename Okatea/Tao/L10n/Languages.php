@@ -15,6 +15,8 @@ use Okatea\Tao\Database\Recordset;
  */
 class Languages
 {
+	const CACHE_ID = 'okt_languages';
+
 	/**
 	 * Okatea application instance.
 	 *
@@ -67,43 +69,39 @@ class Languages
 	{
 		$this->okt = $okt;
 
-		$this->cache_id = 'languages';
-
 		$this->t_languages = $okt['config']->database_prefix . 'core_languages';
 
 		$this->load();
 	}
 
+	/**
+	 * Returns a list of active languages​​.
+	 *
+	 * @return array
+	 */
 	public function getList()
 	{
 		return $this->aList;
 	}
 
+	/**
+	 * Returns the number of active languages​​.
+	 *
+	 * @return integer
+	 */
 	public function getNumberOfLanguages()
 	{
 		return $this->iNumberOfLanguages;
 	}
 
+	/**
+	 * Specifies whether the system has only one active language.
+	 *
+	 * @return boolean
+	 */
 	public function hasUniqueLanguage()
 	{
 		return $this->bUnique;
-	}
-
-	/**
-	 * Load the list of active languages.
-	 *
-	 * @return void
-	 */
-	public function load()
-	{
-		if (!$this->okt['cacheConfig']->contains($this->cache_id)) {
-			$this->generateCacheList();
-		}
-
-		$this->aList = $this->okt['cacheConfig']->fetch($this->cache_id);
-
-		$this->iNumberOfLanguages = count($this->aList);
-		$this->bUnique = (boolean) ($this->iNumberOfLanguages === 1);
 	}
 
 	/**
@@ -120,12 +118,12 @@ class Languages
 	/**
 	 * Returns the identifier of a language according to its code.
 	 *
-	 * @param string $code
+	 * @param string $sLanguageCode
 	 * @return integer
 	 */
-	public function getIdByCode($code)
+	public function getIdByCode($sLanguageCode)
 	{
-		return isset($this->aList[$code]) ? $this->aList[$code]['id'] : false;
+		return isset($this->aList[$sLanguageCode]) ? $this->aList[$sLanguageCode]['id'] : false;
 	}
 
 	/**
@@ -136,38 +134,12 @@ class Languages
 	 */
 	public function getCodeById($iLanguageId)
 	{
-		foreach ($this->aList as $lang)
+		foreach ($this->aList as $aLanguage)
 		{
-			if ($lang['id'] == $iLanguageId) {
-				return $lang['code'];
+			if ($aLanguage['id'] == $iLanguageId) {
+				return $aLanguage['code'];
 			}
 		}
-	}
-
-	/**
-	 * Generates cache list of active languages.
-	 *
-	 * @return boolean
-	 */
-	public function generateCacheList()
-	{
-		$aLanguagesList = [];
-
-		$aList = $this->getLanguages([
-			'active' => 1
-		]);
-
-		foreach ($aList as $language)
-		{
-			$aLanguagesList[$language['code']] = [
-				'id'        => (integer) $language['id'],
-				'title'     => $language['title'],
-				'code'      => $language['code'],
-				'img'       => $language['img']
-			];
-		}
-
-		return $this->okt['cacheConfig']->save($this->cache_id, $aLanguagesList);
 	}
 
 	/**
@@ -410,6 +382,8 @@ class Languages
 			array('id' => $iLanguageId)
 		);
 
+		$this->afterProcess();
+
 		return true;
 	}
 
@@ -429,6 +403,49 @@ class Languages
 		$this->afterProcess();
 
 		return true;
+	}
+
+	/**
+	 * Load the list of active languages.
+	 *
+	 * @return void
+	 */
+	protected function load()
+	{
+		if (!$this->okt['cacheConfig']->contains(self::CACHE_ID)) {
+			$this->generateCacheList();
+		}
+
+		$this->aList = $this->okt['cacheConfig']->fetch(self::CACHE_ID);
+
+		$this->iNumberOfLanguages = count($this->aList);
+		$this->bUnique = (boolean) ($this->iNumberOfLanguages === 1);
+	}
+
+	/**
+	 * Generates cache list of active languages.
+	 *
+	 * @return boolean
+	 */
+	protected function generateCacheList()
+	{
+		$aLanguagesList = [];
+
+		$aList = $this->getLanguages([
+			'active' => 1
+		]);
+
+		foreach ($aList as $aLanguage)
+		{
+			$aLanguagesList[$aLanguage['code']] = [
+				'id'        => (integer) $aLanguage['id'],
+				'title'     => $aLanguage['title'],
+				'code'      => $aLanguage['code'],
+				'img'       => $aLanguage['img']
+			];
+		}
+
+		return $this->okt['cacheConfig']->save(self::CACHE_ID, $aLanguagesList);
 	}
 
 	/**
