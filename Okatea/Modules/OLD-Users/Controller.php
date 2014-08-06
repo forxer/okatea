@@ -756,7 +756,7 @@ class Controller extends BaseController
 	 */
 	protected function getLanguages()
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aLanguages[html::escapeHTML($aLanguage['title'])] = $aLanguage['code'];
 		}

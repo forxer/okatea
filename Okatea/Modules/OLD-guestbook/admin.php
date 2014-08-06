@@ -36,7 +36,7 @@ $show_list = array(
 # Liste des langues disponibles
 $aLanguagesList = array_merge(array(
 	__('c_c_All_f') => 'all'
-), $okt['languages']->list);
+), $okt['languages']->getList());
 
 # liste des statuts possibles
 $status_list = array(

@@ -27,21 +27,21 @@ class Languages
 	 *
 	 * @var array
 	 */
-	public $list;
+	protected $aList;
 
 	/**
 	 * Number of languages.
 	 *
 	 * @var integer
 	 */
-	public $num;
+	protected $iNumberOfLanguages;
 
 	/**
 	 * Single language.
 	 *
 	 * @var boolean
 	 */
-	public $unique;
+	protected $bUnique;
 
 	/**
 	 * The name of the language table.
@@ -74,6 +74,21 @@ class Languages
 		$this->load();
 	}
 
+	public function getList()
+	{
+		return $this->aList;
+	}
+
+	public function getNumberOfLanguages()
+	{
+		return $this->iNumberOfLanguages;
+	}
+
+	public function hasUniqueLanguage()
+	{
+		return $this->bUnique;
+	}
+
 	/**
 	 * Load the list of active languages.
 	 *
@@ -81,14 +96,14 @@ class Languages
 	 */
 	public function load()
 	{
-		if (! $this->okt['cacheConfig']->contains($this->cache_id)) {
+		if (!$this->okt['cacheConfig']->contains($this->cache_id)) {
 			$this->generateCacheList();
 		}
 
-		$this->list = $this->okt['cacheConfig']->fetch($this->cache_id);
+		$this->aList = $this->okt['cacheConfig']->fetch($this->cache_id);
 
-		$this->num = count($this->list);
-		$this->unique = (boolean) ($this->num == 1);
+		$this->iNumberOfLanguages = count($this->aList);
+		$this->bUnique = (boolean) ($this->iNumberOfLanguages === 1);
 	}
 
 	/**
@@ -99,7 +114,7 @@ class Languages
 	 */
 	public function isActive($sLanguage)
 	{
-		return array_key_exists($sLanguage, $this->list);
+		return array_key_exists($sLanguage, $this->aList);
 	}
 
 	/**
@@ -110,7 +125,7 @@ class Languages
 	 */
 	public function getIdByCode($code)
 	{
-		return isset($this->list[$code]) ? $this->list[$code]['id'] : false;
+		return isset($this->aList[$code]) ? $this->aList[$code]['id'] : false;
 	}
 
 	/**
@@ -121,7 +136,7 @@ class Languages
 	 */
 	public function getCodeById($iLanguageId)
 	{
-		foreach ($this->list as $lang)
+		foreach ($this->aList as $lang)
 		{
 			if ($lang['id'] == $iLanguageId) {
 				return $lang['code'];
@@ -138,11 +153,11 @@ class Languages
 	{
 		$aLanguagesList = [];
 
-		$list = $this->getLanguages([
+		$aList = $this->getLanguages([
 			'active' => 1
 		]);
 
-		foreach ($list as $language)
+		foreach ($aList as $language)
 		{
 			$aLanguagesList[$language['code']] = [
 				'id'        => (integer) $language['id'],

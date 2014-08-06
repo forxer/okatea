@@ -156,7 +156,7 @@ class Module extends BaseModule
 			var pages = ' . json_encode($aPages) . ';
 		');
 
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->okt->page->js->addReady('
 				$("#p_home_page_item_' . $aLanguage['code'] . '").change(function(){

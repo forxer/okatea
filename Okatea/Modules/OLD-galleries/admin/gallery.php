@@ -44,7 +44,7 @@ $aGalleryData['db']['updated_at'] = '';
 
 $aGalleryData['locales'] = array();
 
-foreach ($okt['languages']->list as $aLanguage)
+foreach ($okt['languages']->getList() as $aLanguage)
 {
 	$aGalleryData['locales'][$aLanguage['code']] = array();
 	
@@ -97,7 +97,7 @@ if (! empty($_REQUEST['gallery_id']))
 		
 		$rsGalleryI18n = $okt->galleries->tree->getGalleryL10n($iGalleryId);
 		
-		foreach ($okt['languages']->list as $aLanguage)
+		foreach ($okt['languages']->getList() as $aLanguage)
 		{
 			while ($rsGalleryI18n->fetch())
 			{
@@ -242,7 +242,7 @@ if (! empty($_POST['sended']))
 	$aGalleryData['db']['tpl'] = ! empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
 	$aGalleryData['db']['items_tpl'] = ! empty($_POST['p_items_tpl']) ? $_POST['p_items_tpl'] : null;
 	
-	foreach ($okt['languages']->list as $aLanguage)
+	foreach ($okt['languages']->getList() as $aLanguage)
 	{
 		$aGalleryData['locales'][$aLanguage['code']]['title'] = ! empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
 		$aGalleryData['locales'][$aLanguage['code']]['content'] = ! empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
@@ -461,7 +461,7 @@ $okt->page->tabs();
 $okt->page->applyRte($okt->galleries->config->enable_gal_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -535,16 +535,16 @@ require OKT_ADMIN_HEADER_FILE;
 		<div id="tab_gallery">
 			<h3><?php _e('m_galleries_gallery_gallery_title') ?></h3>
 
-			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 				<label for="p_title_<?php echo $aLanguage['code'] ?>"
-					title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt['languages']->unique ? _e('m_galleries_gallery_title') : printf(__('m_galleries_gallery_title_in_%s'),$aLanguage['title']) ?> <span
+					title="<?php _e('c_c_required_field') ?>" class="required"><?php $okt['languages']->hasUniqueLanguage() ? _e('m_galleries_gallery_title') : printf(__('m_galleries_gallery_title_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['title'])) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_content_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('m_galleries_gallery_description') : printf(__('m_galleries_gallery_description_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_content_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('m_galleries_gallery_description') : printf(__('m_galleries_gallery_description_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_content['.$aLanguage['code'].']','p_content_'.$aLanguage['code']), 97, 15, $aGalleryData['locales'][$aLanguage['code']]['content'],'richTextEditor') ?></p>
 
@@ -587,15 +587,15 @@ require OKT_ADMIN_HEADER_FILE;
 				
 				?>
 
-				<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+				<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_images_title_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? __('m_galleries_gallery_image_title') : printf(__('m_galleries_gallery_image_title_in_%s'), $aLanguage['title']) ?> <span
+				<label for="p_images_title_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? __('m_galleries_gallery_image_title') : printf(__('m_galleries_gallery_image_title_in_%s'), $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_title_1['.$aLanguage['code'].']','p_images_title_1_'.$aLanguage['code']), 40, 255, (isset($aCurImageTitle[$aLanguage['code']]) ? html::escapeHTML($aCurImageTitle[$aLanguage['code']]) : '')) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_images_alt_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? __('m_galleries_gallery_image_alt_text') : printf(__('m_galleries_gallery_image_alt_text_in_%s'), $aLanguage['title']) ?> <span
+				<label for="p_images_alt_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? __('m_galleries_gallery_image_alt_text') : printf(__('m_galleries_gallery_image_alt_text_in_%s'), $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_alt_1['.$aLanguage['code'].']','p_images_alt_1_'.$aLanguage['code']), 40, 255, (isset($aCurImageAlt[$aLanguage['code']]) ? html::escapeHTML($aCurImageAlt[$aLanguage['code']]) : '')) ?></p>
 
@@ -618,14 +618,14 @@ require OKT_ADMIN_HEADER_FILE;
 
 			<?php else : ?>
 
-				<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+				<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_images_title_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? __('m_galleries_gallery_image_title') : printf(__('m_galleries_gallery_image_title_in_%s'), $aLanguage['title']) ?> <span
+				<label for="p_images_title_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? __('m_galleries_gallery_image_title') : printf(__('m_galleries_gallery_image_title_in_%s'), $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_title_1['.$aLanguage['code'].']', 'p_images_title_1_'.$aLanguage['code']), 40, 255, '') ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_images_alt_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? __('m_galleries_gallery_image_alt_text') : printf(__('m_galleries_gallery_image_alt_text_in_%s'), $aLanguage['title']) ?> <span
+				<label for="p_images_alt_1_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? __('m_galleries_gallery_image_alt_text') : printf(__('m_galleries_gallery_image_alt_text_in_%s'), $aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_images_alt_1['.$aLanguage['code'].']', 'p_images_alt_1_'.$aLanguage['code']), 40, 255, '') ?></p>
 				<?php endforeach; ?>
@@ -688,31 +688,31 @@ require OKT_ADMIN_HEADER_FILE;
 		<div id="tab_seo">
 			<h3><?php _e('c_c_seo_help') ?></h3>
 
-			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_title_tag_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_title_tag') : printf(__('c_c_seo_title_tag_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_title_tag_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_c_seo_title_tag') : printf(__('c_c_seo_title_tag_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title_tag['.$aLanguage['code'].']','p_title_tag_'.$aLanguage['code']), 60, 255, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['title_tag'])) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_meta_desc') : printf(__('c_c_seo_meta_desc_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_meta_description_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_c_seo_meta_desc') : printf(__('c_c_seo_meta_desc_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_meta_description['.$aLanguage['code'].']','p_meta_description_'.$aLanguage['code']), 60, 255, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['meta_description'])) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_title_seo_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_title_seo') : printf(__('c_c_seo_title_seo_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_title_seo_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_c_seo_title_seo') : printf(__('c_c_seo_title_seo_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_title_seo['.$aLanguage['code'].']','p_title_seo_'.$aLanguage['code']), 60, 255, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['title_seo'])) ?></p>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-				<label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'),$aLanguage['title']) ?> <span
+				<label for="p_meta_keywords_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_c_seo_meta_keywords') : printf(__('c_c_seo_meta_keywords_in_%s'),$aLanguage['title']) ?> <span
 					class="lang-switcher-buttons"></span></label>
 			<?php echo form::textarea(array('p_meta_keywords['.$aLanguage['code'].']','p_meta_keywords_'.$aLanguage['code']), 58, 5, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['meta_keywords'])) ?></p>
 
 			<div class="lockable" lang="<?php echo $aLanguage['code'] ?>">
 				<p class="field">
-					<label for="p_slug_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_c_seo_url') : printf(__('c_c_seo_url_in_%s'),$aLanguage['title']) ?> <span
+					<label for="p_slug_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_c_seo_url') : printf(__('c_c_seo_url_in_%s'),$aLanguage['title']) ?> <span
 						class="lang-switcher-buttons"></span></label>
 				<?php echo form::text(array('p_slug['.$aLanguage['code'].']','p_slug_'.$aLanguage['code']), 60, 255, html::escapeHTML($aGalleryData['locales'][$aLanguage['code']]['slug']))?>
 				<span class="lockable-note"><?php _e('c_c_seo_warning_edit_url') ?></span>

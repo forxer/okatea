@@ -22,7 +22,7 @@ $p_description = array();
 $p_url = array();
 $p_url_title = array();
 
-foreach ($okt['languages']->list as $aLanguage)
+foreach ($okt['languages']->getList() as $aLanguage)
 {
 	$p_description[$aLanguage['code']] = '';
 	$p_url[$aLanguage['code']] = '';
@@ -49,7 +49,7 @@ if (! empty($_REQUEST['partner_id']))
 	));
 	$partners_inter = $okt->partners->getPartnerInter($partner_id);
 	
-	foreach ($okt['languages']->list as $aLanguage)
+	foreach ($okt['languages']->getList() as $aLanguage)
 	{
 		$p_description[$aLanguage['code']] = '';
 		$p_url[$aLanguage['code']] = '';
@@ -235,7 +235,7 @@ $okt->page->applyLbl($okt->partners->config->lightbox_type);
 $okt->page->applyRte($okt->partners->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -264,7 +264,7 @@ include OKT_ADMIN_HEADER_FILE;
 			<?php echo form::text('p_name', 40, 255, html::escapeHTML($p_name)) ?></p>
 			<?php endif; ?>
 
-			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 				<?php if($okt->partners->config->chp_description > 0) :?>
 					<p class="field" lang="<?php echo $aLanguage['code'] ?>">

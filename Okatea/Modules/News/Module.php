@@ -146,7 +146,7 @@ class Module extends BaseModule
 	{
 		$aPageData['home_page_items'][__('m_news_config_homepage_newsList')] = 'newsList';
 
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->okt->page->js->addReady('
 				$("#p_home_page_item_' . $aLanguage['code'] . '").change(function(){
@@ -693,7 +693,7 @@ class Module extends BaseModule
 	 */
 	protected function setPostL10n($iPostId, $aPostLocalesData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$oCursor = $this->db->openCursor($this->t_news_locales);
 
@@ -932,7 +932,7 @@ class Module extends BaseModule
 	public function checkPostData($aPostData, $aPostLocalesData, $aPostPermsData)
 	{
 		$bHasAtLeastOneTitle = false;
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (empty($aPostLocalesData[$aLanguage['code']]['title']))
 			{
@@ -947,7 +947,7 @@ class Module extends BaseModule
 
 		if (! $bHasAtLeastOneTitle)
 		{
-			if ($this->okt['languages']->unique)
+			if ($this->okt['languages']->hasUniqueLanguage())
 			{
 				$this->error->set(__('m_news_post_must_enter_title'));
 			}

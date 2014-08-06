@@ -270,7 +270,7 @@ class User extends Controller
 	{
 		$aLanguages = array();
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aLanguages[Escaper::html($aLanguage['title'])] = $aLanguage['code'];
 		}

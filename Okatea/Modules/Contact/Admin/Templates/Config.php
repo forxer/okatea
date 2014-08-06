@@ -27,7 +27,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -183,7 +183,7 @@ $okt->page->js->addReady('
 					<fieldset>
 						<legend><?php _e('c_c_seo_identity_meta') ?></legend>
 
-						<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+						<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 						<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 							<label for="p_name_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), $view->escape($aLanguage['title'])) ?><span
 								class="lang-switcher-buttons"></span></label>
@@ -220,7 +220,7 @@ $okt->page->js->addReady('
 					<fieldset>
 						<legend><?php _e('c_c_seo_identity_meta') ?></legend>
 
-						<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+						<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 						<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 							<label for="p_name_map_<?php echo $aLanguage['code'] ?>"><?php printf(__('c_c_seo_module_intitle_in_%s'), $view->escape($aLanguage['title'])) ?><span
 								class="lang-switcher-buttons"></span></label>

@@ -55,7 +55,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 ));
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#field-values-form', '.lang-switcher-buttons');
 }
@@ -75,9 +75,9 @@ echo $okt->page->getButtonSet('fieldBtSt');
 
 	<p><?php printf(__('m_contact_fields_default_value_of_field_named_%s_of_type_%s'), '<strong>'.$view->escape($rsField->title).'</strong>', '<em>'.$aTypes[$rsField->type].'</em>') ?></p>
 
-	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="p_value_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('m_contact_fields_default_value') : printf(__('m_contact_fields_default_value_in_%s'), $aLanguage['title']) ?> <span
+		<label for="p_value_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('m_contact_fields_default_value') : printf(__('m_contact_fields_default_value_in_%s'), $aLanguage['title']) ?> <span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_value['.$aLanguage['code'].']','p_value_'.$aLanguage['code']), 60, 255, (!empty($aValues[$aLanguage['code']]) ? $view->escape($aValues[$aLanguage['code']]) : '')) ?></p>
 	<?php endforeach; ?>
@@ -88,9 +88,9 @@ echo $okt->page->getButtonSet('fieldBtSt');
 
 	<?php for ($iValueCount = 1; $iValueCount <= $iNumValues; $iValueCount++) : ?>
 
-		<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+		<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 		<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="p_value_<?php echo $aLanguage['code'].'_'.$iValueCount ?>"><?php $okt['languages']->unique ? printf(__('m_contact_fields_value_%s'), $iValueCount) : printf(__('m_contact_fields_value_%s_in_%s'), $iValueCount, $aLanguage['title']) ?> <span
+		<label for="p_value_<?php echo $aLanguage['code'].'_'.$iValueCount ?>"><?php $okt['languages']->hasUniqueLanguage() ? printf(__('m_contact_fields_value_%s'), $iValueCount) : printf(__('m_contact_fields_value_%s_in_%s'), $iValueCount, $aLanguage['title']) ?> <span
 			class="lang-switcher-buttons"></span></label>
 		<?php echo form::text(array('p_value['.$aLanguage['code'].']['.$iValueCount.']', 'p_value_'.$aLanguage['code'].'_'.$iValueCount), 60, 255, (!empty($aValues[$aLanguage['code']]) && !empty($aValues[$aLanguage['code']][$iValueCount]) ? $view->escape($aValues[$aLanguage['code']][$iValueCount]) : '')) ?></p>
 		<?php endforeach; ?>
@@ -100,11 +100,11 @@ echo $okt->page->getButtonSet('fieldBtSt');
 	<?php
 	
 	$iValueCount = $iNumValues + 1;
-	foreach ($okt['languages']->list as $aLanguage)
+	foreach ($okt['languages']->getList() as $aLanguage)
 	:
 		?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="p_value_<?php echo $aLanguage['code'].'_'.$iValueCount ?>"><?php $okt['languages']->unique ? printf(__('m_contact_fields_value_%s'), $iValueCount) : printf(__('m_contact_fields_value_%s_in_%s'), $iValueCount, $aLanguage['title']) ?> <span
+		<label for="p_value_<?php echo $aLanguage['code'].'_'.$iValueCount ?>"><?php $okt['languages']->hasUniqueLanguage() ? printf(__('m_contact_fields_value_%s'), $iValueCount) : printf(__('m_contact_fields_value_%s_in_%s'), $iValueCount, $aLanguage['title']) ?> <span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::text(array('p_value['.$aLanguage['code'].']['.$iValueCount.']', 'p_value_'.$aLanguage['code'].'_'.$iValueCount), 60, 255, (!empty($aValues[$aLanguage['code']]) && !empty($aValues[$aLanguage['code']][$iValueCount]) ? $view->escape($aValues[$aLanguage['code']][$iValueCount]) : '')) ?></p>
 	<?php endforeach; ?>

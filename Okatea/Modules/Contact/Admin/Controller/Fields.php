@@ -113,7 +113,7 @@ class Fields extends Controller
 		
 		$rsFieldL10n = $this->okt->module('Contact')->fields->getFieldL10n($this->aFieldData['id']);
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			while ($rsFieldL10n->fetch())
 			{
@@ -281,7 +281,7 @@ class Fields extends Controller
 		$this->aFieldData['html_id'] = '';
 		$this->aFieldData['locales'] = array();
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->aFieldData['locales'][$aLanguage['code']] = array();
 			$this->aFieldData['locales'][$aLanguage['code']]['title'] = '';
@@ -295,7 +295,7 @@ class Fields extends Controller
 		$this->aFieldData['status'] = $this->okt['request']->request->getInt('field_status');
 		$this->aFieldData['html_id'] = $this->okt['request']->request->get('field_html_id');
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->aFieldData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('field_title[' . $aLanguage['code'] . ']', null, true);
 			$this->aFieldData['locales'][$aLanguage['code']]['description'] = $this->okt['request']->request->get('field_description[' . $aLanguage['code'] . ']', null, true);

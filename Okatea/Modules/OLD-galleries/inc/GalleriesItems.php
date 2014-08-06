@@ -439,7 +439,7 @@ class GalleriesItems
 	 */
 	protected function setItemL10n($iItemId, $aItemLocalesData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (empty($aItemLocalesData[$aLanguage['code']]['title']))
 			{
@@ -605,7 +605,7 @@ class GalleriesItems
 	public function checkPostData($aItemData)
 	{
 		$bHasAtLeastOneTitle = false;
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (empty($aItemData['locales'][$aLanguage['code']]['title']))
 			{
@@ -620,7 +620,7 @@ class GalleriesItems
 		
 		if (! $bHasAtLeastOneTitle)
 		{
-			if ($this->okt['languages']->unique)
+			if ($this->okt['languages']->hasUniqueLanguage())
 			{
 				$this->error->set(__('m_galleries_item_must_enter_title'));
 			}

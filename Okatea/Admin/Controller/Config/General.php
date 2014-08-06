@@ -196,11 +196,11 @@ class General extends Controller
 		{
 			if (empty($sTitle))
 			{
-				if ($this->okt['languages']->unique) {
+				if ($this->okt['languages']->hasUniqueLanguage()) {
 					$this->okt['flashMessages']->error(__('c_a_config_please_enter_website_title'));
 				}
 				else {
-					$this->okt['flashMessages']->error(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt['languages']->list[$sLanguageCode]['title']));
+					$this->okt['flashMessages']->error(sprintf(__('c_a_config_please_enter_website_title_in_%s'), $this->okt['languages']->getList()[$sLanguageCode]['title']));
 				}
 			}
 		}

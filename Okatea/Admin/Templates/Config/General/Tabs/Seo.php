@@ -11,7 +11,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 <h3><?php _e('c_a_config_tab_seo') ?></h3>
 
-<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 <p class="field" lang="<?php echo $aLanguage['code'] ?>">
 	<label for="p_title_tag_<?php echo $aLanguage['code'] ?>"><?php _e('c_a_config_title_tag') ?><span

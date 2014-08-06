@@ -103,7 +103,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -191,7 +191,7 @@ include OKT_ADMIN_HEADER_FILE;
 			<h3><?php _e('c_c_seo_help') ?></h3>
 			<fieldset>
 				<legend><?php _e('c_c_seo_identity_meta')?></legend>
-				<?php foreach ($okt['languages']->list as $aLanguage) :?>
+				<?php foreach ($okt['languages']->getList() as $aLanguage) :?>
 				<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 					<label for="p_name_<?php echo $aLanguage['code'] ?>"><?php _e('c_c_seo_module_intitle') ?><span
 						class="lang-switcher-buttons"></span></label>

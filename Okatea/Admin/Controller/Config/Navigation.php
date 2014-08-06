@@ -356,7 +356,7 @@ class Navigation extends Controller
 
 		$aItemData['locales'] = array();
 
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aItemData['locales'][$aLanguage['code']] = array();
 
@@ -382,7 +382,7 @@ class Navigation extends Controller
 
 				$rsItemI18n = $this->okt['menus']->getItemL10n($aItemData['item']['id']);
 
-				foreach ($this->okt['languages']->list as $aLanguage)
+				foreach ($this->okt['languages']->getList() as $aLanguage)
 				{
 					while ($rsItemI18n->fetch())
 					{
@@ -402,7 +402,7 @@ class Navigation extends Controller
 			$aItemData['item']['active'] = $this->okt['request']->request->has('p_active') ? 1 : 0;
 			$aItemData['item']['type'] = $this->okt['request']->request->has('p_type') ? 1 : 0;
 
-			foreach ($this->okt['languages']->list as $aLanguage)
+			foreach ($this->okt['languages']->getList() as $aLanguage)
 			{
 				$aItemData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', '', true);
 				$aItemData['locales'][$aLanguage['code']]['url'] = $this->okt['request']->request->get('p_url[' . $aLanguage['code'] . ']', '', true);

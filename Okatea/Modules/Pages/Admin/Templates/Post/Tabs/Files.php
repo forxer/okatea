@@ -27,11 +27,11 @@ use Okatea\Tao\Misc\Utilities;
 		$aCurFileTitle = isset($aPageData['files'][$i]['title']) ? $aPageData['files'][$i]['title'] : array();
 		?>
 
-			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 			<label
-				for="p_files_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_post_file_title_%s'), $i) : printf(__('m_pages_post_file_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
+				for="p_files_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? printf(__('m_pages_post_file_title_%s'), $i) : printf(__('m_pages_post_file_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
 				class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_files_title_'.$i.'['.$aLanguage['code'].']','p_files_title_'.$i.'_'.$aLanguage['code']), 40, 255, (isset($aCurFileTitle[$aLanguage['code']]) ? $view->escape($aCurFileTitle[$aLanguage['code']]) : '')) ?></p>
 
@@ -55,10 +55,10 @@ use Okatea\Tao\Misc\Utilities;
 
 		<?php else : ?>
 
-			<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 			<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 			<label
-				for="p_files_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? printf(__('m_pages_post_file_title_%s'), $i) : printf(__('m_pages_post_file_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
+				for="p_files_title_<?php echo $i ?>_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? printf(__('m_pages_post_file_title_%s'), $i) : printf(__('m_pages_post_file_title_%s_in_%s'), $i, $aLanguage['title']) ?> <span
 				class="lang-switcher-buttons"></span></label>
 			<?php echo form::text(array('p_files_title_'.$i.'['.$aLanguage['code'].']','p_files_title_'.$i.'_'.$aLanguage['code']), 40, 255, '') ?></p>
 			<?php endforeach; ?>

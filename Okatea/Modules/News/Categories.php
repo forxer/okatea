@@ -244,7 +244,7 @@ class Categories extends NestedTreei18n
 	 */
 	protected function setCategoryL10n($iCategoryId, $aCategoryLocalesData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$oCursor = $this->db->openCursor($this->t_categories_locales);
 
@@ -350,11 +350,11 @@ class Categories extends NestedTreei18n
 	 */
 	public function checkPostData($aCategoryData, $aCategoryLocalesData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (empty($aCategoryLocalesData[$aLanguage['code']]['title']))
 			{
-				if ($this->okt['languages']->unique)
+				if ($this->okt['languages']->hasUniqueLanguage())
 				{
 					$this->error->set(__('m_news_cat_must_enter_title'));
 				}

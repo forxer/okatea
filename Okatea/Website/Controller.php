@@ -54,7 +54,7 @@ class Controller extends BaseController
 	public function homePage()
 	{
 		# Special case : user lang switch
-		if (! $this->okt['languages']->unique)
+		if (! $this->okt['languages']->hasUniqueLanguage())
 		{
 			# recherche d'un code ISO de langue
 			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m)) {
@@ -107,7 +107,7 @@ class Controller extends BaseController
 	public function serve404()
 	{
 		# Special case : language not specified in URL
-		if (! $this->okt['languages']->unique)
+		if (! $this->okt['languages']->hasUniqueLanguage())
 		{
 			$sLanguage = null;
 			# recherche d'un code ISO de langue

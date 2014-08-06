@@ -30,7 +30,7 @@ class Router extends BaseRouter
 		$this->okt = $okt;
 
 		# restrict to the default language if we have only one language
-		if ($this->okt['languages']->unique)
+		if ($this->okt['languages']->hasUniqueLanguage())
 		{
 			$ressources_dir .= '/' . $this->okt['config']->language;
 		}
@@ -50,7 +50,7 @@ class Router extends BaseRouter
 	 */
 	public function generate($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if (! $this->okt['languages']->unique)
+		if (! $this->okt['languages']->hasUniqueLanguage())
 		{
 			if (null === $language)
 			{

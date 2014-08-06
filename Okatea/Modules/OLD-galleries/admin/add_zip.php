@@ -21,7 +21,7 @@ $iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id'])
 
 $aItemLocalesData = array();
 
-foreach ($okt['languages']->list as $aLanguage)
+foreach ($okt['languages']->getList() as $aLanguage)
 {
 	$aItemLocalesData[$aLanguage['code']] = array();
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
@@ -42,7 +42,7 @@ if (! empty($_POST['sended']))
 		
 		$rsGalleryLocales = $okt->galleries->tree->getGalleryL10n($iGalleryId);
 		
-		foreach ($okt['languages']->list as $aLanguage)
+		foreach ($okt['languages']->getList() as $aLanguage)
 		{
 			while ($rsGalleryLocales->fetch())
 			{
@@ -165,7 +165,7 @@ $rsGalleries = $okt->galleries->tree->getGalleries(array(
 ));
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#items-title', '.lang-switcher-buttons');
 }
@@ -183,10 +183,10 @@ require OKT_ADMIN_HEADER_FILE;
 	enctype="multipart/form-data">
 
 	<div id="items-title" class="two-cols">
-		<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+		<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 		<p class="field col" lang="<?php echo $aLanguage['code'] ?>">
-			<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('m_galleries_zip_items_title') : printf(__('m_galleries_zip_items_title_in_%s'),$aLanguage['title']) ?> <span
+			<label for="p_title_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('m_galleries_zip_items_title') : printf(__('m_galleries_zip_items_title_in_%s'),$aLanguage['title']) ?> <span
 				class="lang-switcher-buttons"></span></label>
 		<?php echo form::text(array('p_title['.$aLanguage['code'].']','p_title_'.$aLanguage['code']), 100, 255, html::escapeHTML($aItemLocalesData[$aLanguage['code']]['title'])) ?></p>
 

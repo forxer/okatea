@@ -264,11 +264,11 @@ class Fields
 			$this->error->set(__('m_contact_field_error_type'));
 		}
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (empty($aFieldData['locales'][$aLanguage['code']]['title']))
 			{
-				if ($this->okt['languages']->unique)
+				if ($this->okt['languages']->hasUniqueLanguage())
 				{
 					$this->error->set(__('m_contact_field_error_title'));
 				}
@@ -297,7 +297,7 @@ class Fields
 			return false;
 		}
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (! $rsField->isSimpleField())
 			{
@@ -322,7 +322,7 @@ class Fields
 	 */
 	protected function setFieldL10n()
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, title, description) ' . 'VALUES (' . (integer) $this->aFieldData['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']) . '\'') . ', ' . (empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']) . '\'') . ', ' . 'description=' . (empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']) . '\'');
 			

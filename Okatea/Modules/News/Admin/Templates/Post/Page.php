@@ -104,7 +104,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 $okt->page->applyRte($okt->module('News')->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->unique)
+if (! $okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

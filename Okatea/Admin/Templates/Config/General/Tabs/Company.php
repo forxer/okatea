@@ -49,10 +49,10 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 <fieldset>
 	<legend><?php _e('c_a_config_schedule') ?></legend>
 
-	<?php foreach ($okt['languages']->list as $aLanguage) : ?>
+	<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
-		<label for="p_schedule_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->unique ? _e('c_a_config_schedule') : printf(__('c_a_config_schedule_in_%s'), $view->escape($aLanguage['title'])); ?><span
+		<label for="p_schedule_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_a_config_schedule') : printf(__('c_a_config_schedule_in_%s'), $view->escape($aLanguage['title'])); ?><span
 			class="lang-switcher-buttons"></span></label>
 	<?php echo form::textarea(array('p_schedule['.$aLanguage['code'].']','p_schedule_'.$aLanguage['code']), 60, 5, (isset($aPageData['values']['schedule'][$aLanguage['code']]) ? $view->escape($aPageData['values']['schedule'][$aLanguage['code']]) : '')) ?></p>
 

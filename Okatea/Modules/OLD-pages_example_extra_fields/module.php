@@ -93,7 +93,7 @@ class module_pages_example_extra_fields extends Module
 		$aPageData['post']['required'] = ! empty($rsPage) ? $rsPage->required : null;
 		
 		# initialisation des champs "multilangue" et "editor"
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aPageData['locales'][$aLanguage['code']]['multilangue'] = null;
 			$aPageData['locales'][$aLanguage['code']]['editor'] = null;
@@ -101,7 +101,7 @@ class module_pages_example_extra_fields extends Module
 		
 		if (! is_null($rsPageI18n))
 		{
-			foreach ($this->okt['languages']->list as $aLanguage)
+			foreach ($this->okt['languages']->getList() as $aLanguage)
 			{
 				while ($rsPageI18n->fetch())
 				{
@@ -133,7 +133,7 @@ class module_pages_example_extra_fields extends Module
 		$aPageData['post']['required'] = ! empty($_POST['p_required']) ? $_POST['p_required'] : null;
 		
 		# récupération des champs "multilangue" et "editor"
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aPageData['locales'][$aLanguage['code']]['multilangue'] = ! empty($_POST['p_multilangue'][$aLanguage['code']]) ? $_POST['p_multilangue'][$aLanguage['code']] : '';
 			$aPageData['locales'][$aLanguage['code']]['editor'] = ! empty($_POST['p_editor'][$aLanguage['code']]) ? $_POST['p_editor'][$aLanguage['code']] : '';
@@ -163,7 +163,7 @@ class module_pages_example_extra_fields extends Module
 	 */
 	public function beforePageUpdate($aPageData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (! empty($aPageData['locales'][$aLanguage['code']]['editor']))
 			{
@@ -180,7 +180,7 @@ class module_pages_example_extra_fields extends Module
 	 */
 	public function beforePageCreate($aPageData)
 	{
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			if (! empty($aPageData['locales'][$aLanguage['code']]['editor']))
 			{
@@ -208,14 +208,14 @@ class module_pages_example_extra_fields extends Module
 		$aPageData['tabs'][40]['content'] .= '<p class="field col"><label for="p_required" title="' . __('c_c_required_field') . '" class="required">' . __('m_pages_example_extra_fields_required_label') . '</label>' . form::text('p_required', 20, 255, $aPageData['post']['required']) . '</p>';
 		
 		# ajout des champs "multilangue" et "editor" à l'onglet "Contenu"
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aPageData['tabs'][10]['content'] .= '<p class="field" lang="' . $aLanguage['code'] . '"><label for="p_multilangue_' . $aLanguage['code'] . '">' . ($this->okt['languages']->unique ? __('m_pages_example_extra_fields_multilangue_label') : sprintf(__('m_pages_example_extra_fields_multilangue_label_in_%s'), $aLanguage['title'])) . ' <span class="lang-switcher-buttons"></span></label>' . form::text(array(
+			$aPageData['tabs'][10]['content'] .= '<p class="field" lang="' . $aLanguage['code'] . '"><label for="p_multilangue_' . $aLanguage['code'] . '">' . ($this->okt['languages']->hasUniqueLanguage() ? __('m_pages_example_extra_fields_multilangue_label') : sprintf(__('m_pages_example_extra_fields_multilangue_label_in_%s'), $aLanguage['title'])) . ' <span class="lang-switcher-buttons"></span></label>' . form::text(array(
 				'p_multilangue[' . $aLanguage['code'] . ']',
 				'p_multilangue_' . $aLanguage['code']
 			), 100, 255, html::escapeHTML($aPageData['locales'][$aLanguage['code']]['multilangue'])) . '</p>';
 			
-			$aPageData['tabs'][10]['content'] .= '<p class="field" lang="' . $aLanguage['code'] . '"><label for="p_editor_' . $aLanguage['code'] . '">' . ($this->okt['languages']->unique ? __('m_pages_example_extra_fields_editor_label') : sprintf(__('m_pages_example_extra_fields_editor_label_in_%s'), $aLanguage['title'])) . ' <span class="lang-switcher-buttons"></span></label>' . form::textarea(array(
+			$aPageData['tabs'][10]['content'] .= '<p class="field" lang="' . $aLanguage['code'] . '"><label for="p_editor_' . $aLanguage['code'] . '">' . ($this->okt['languages']->hasUniqueLanguage() ? __('m_pages_example_extra_fields_editor_label') : sprintf(__('m_pages_example_extra_fields_editor_label_in_%s'), $aLanguage['title'])) . ' <span class="lang-switcher-buttons"></span></label>' . form::textarea(array(
 				'p_editor[' . $aLanguage['code'] . ']',
 				'p_editor_' . $aLanguage['code']
 			), 97, 15, $aPageData['locales'][$aLanguage['code']]['editor'], 'richTextEditor') . '</p>';

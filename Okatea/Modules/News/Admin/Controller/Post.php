@@ -92,7 +92,7 @@ class Post extends Controller
 		
 		$rsPostI18n = $this->okt->module('News')->getPostL10n($this->aPostData['post']['id']);
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			while ($rsPostI18n->fetch())
 			{
@@ -283,7 +283,7 @@ class Post extends Controller
 		
 		$this->aPostData['locales'] = array();
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->aPostData['locales'][$aLanguage['code']] = array();
 			
@@ -335,7 +335,7 @@ class Post extends Controller
 			$this->aPostData['post']['created_at'] = $this->aPostData['extra']['date'] . ' ' . (! empty($this->aPostData['extra']['hours']) ? $this->aPostData['extra']['hours'] : date('H')) . ':' . (! empty($this->aPostData['extra']['minutes']) ? $this->aPostData['extra']['minutes'] : date('i'));
 		}
 		
-		foreach ($this->okt['languages']->list as $aLanguage)
+		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$this->aPostData['locales'][$aLanguage['code']]['title'] = $this->okt['request']->request->get('p_title[' . $aLanguage['code'] . ']', null, true);
 			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = $this->okt['request']->request->get('p_subtitle[' . $aLanguage['code'] . ']', null, true);
