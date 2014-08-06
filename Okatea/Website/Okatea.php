@@ -85,25 +85,25 @@ class Okatea extends Application
 	 */
 	protected function getTheme()
 	{
-		$sOktTheme = $this['config']['themes']['desktop'];
+		$sOktTheme = $this['config']->themes['desktop'];
 
 		if ($this['session']->has('okt_theme'))
 		{
 			$sOktTheme = $this['session']->get('okt_theme');
 		}
-		elseif (! empty($this['config']['themes']['mobile']) || ! empty($this['config']['themes']['tablet']))
+		elseif (! empty($this['config']->themes['mobile']) || ! empty($this['config']->themes['tablet']))
 		{
 			$oMobileDetect = new \Mobile_Detect();
-			$isMobile = $oMobileDetect->isMobile() && ! empty($this['config']['themes']['mobile']);
-			$isTablet = $oMobileDetect->isTablet() && ! empty($this['config']['themes']['tablet']);
+			$isMobile = $oMobileDetect->isMobile() && ! empty($this['config']->themes['mobile']);
+			$isTablet = $oMobileDetect->isTablet() && ! empty($this['config']->themes['tablet']);
 
 			if ($isMobile && ! $isTablet)
 			{
-				$sOktTheme = $this['config']['themes']['mobile'];
+				$sOktTheme = $this['config']->themes['mobile'];
 			}
 			elseif ($isTablet)
 			{
-				$sOktTheme = $this['config']['themes']['tablet'];
+				$sOktTheme = $this['config']->themes['tablet'];
 			}
 
 			$this['session']->set('okt_theme', $sOktTheme);
