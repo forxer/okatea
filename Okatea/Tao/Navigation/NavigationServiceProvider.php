@@ -8,6 +8,7 @@
 namespace Okatea\Tao\Navigation;
 
 use Okatea\Tao\Navigation\Menus\Menus;
+use Okatea\Tao\Navigation\Menus\Items;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -17,6 +18,10 @@ class NavigationServiceProvider implements ServiceProviderInterface
 	{
 		$okt['menus'] = function($okt) {
 			return new Menus($okt);
+		};
+
+		$okt['menusItems'] = function($okt) {
+			return new Items($okt);
 		};
 	}
 }

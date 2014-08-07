@@ -7,50 +7,50 @@
  */
 namespace Okatea\Tao\Config;
 
+use Okatea\Tao\Cache\SingleFileCache;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Gestion des fichiers de configuration.
+ * Management of configuration files.
  */
 class Config
 {
 	/**
-	 * Le chemin du fichier source
+	 * The path of the source file.
 	 *
 	 * @var string
 	 */
 	protected $sSourceFile;
 
 	/**
-	 * L'objet de mise en cache
+	 * Single file cache instance.
 	 *
-	 * @var object
+	 * @var Okatea\Tao\Cache\SingleFileCache
 	 */
 	protected $oCache = null;
 
 	/**
-	 * L'identifiant du cache
+	 * The cache identifier.
 	 *
 	 * @var string
 	 */
 	protected $sCacheId;
 
 	/**
-	 * Les données
+	 * The config data.
 	 *
 	 * @var array
 	 */
-	protected $aData;
+	protected $aData = [];
 
 	/**
-	 * Constructeur.
-	 * Charge les données.
+	 * Constructor. Load data.
 	 *
 	 * @param SingleFileCache $oCache
 	 * @param string $sSourceFile
 	 * @return void
 	 */
-	public function __construct($oCache, $sSourceFile)
+	public function __construct(SingleFileCache $oCache, $sSourceFile)
 	{
 		$this->oCache = $oCache;
 
@@ -60,11 +60,24 @@ class Config
 		$this->loadData();
 	}
 
+	/**
+	 * Return a given data.
+	 *
+	 * @param string $sName
+	 * @return mixed
+	 */
 	public function __get($sName)
 	{
 		return $this->getData($sName);
 	}
 
+	/**
+	 * Set a given data.
+	 *
+	 * @param string $sName
+	 * @param mixed $mValue
+	 * @return void
+	 */
 	public function __set($sName, $mValue)
 	{
 		$this->aData[$sName] = $mValue;
@@ -82,8 +95,7 @@ class Config
 
 	public function get($sName = null)
 	{
-		if ($sName === null)
-		{
+		if ($sName === null) {
 			return $this->aData;
 		}
 
@@ -92,8 +104,7 @@ class Config
 
 	public function getData($sName)
 	{
-		if (isset($this->aData[$sName]))
-		{
+		if (isset($this->aData[$sName])) {
 			return $this->aData[$sName];
 		}
 
@@ -104,8 +115,7 @@ class Config
 
 	protected function loadData()
 	{
-		if (! $this->oCache->contains($this->sCacheId))
-		{
+		if (!$this->oCache->contains($this->sCacheId)) {
 			$this->generateCacheFile();
 		}
 

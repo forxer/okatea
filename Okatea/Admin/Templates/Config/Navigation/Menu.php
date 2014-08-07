@@ -71,7 +71,7 @@ if ($iMenuId)
 				class="required"><?php _e('c_a_config_navigation_menu_title') ?></label>
 		<?php echo form::text('p_title', 100, 255, $view->escape($aMenuData['title']))?>
 
-		<?php if (!empty($okt['config']['menus']_tpl['usables'])) : ?>
+		<?php if (!empty($okt['config']->navigation_tpl['usables'])) : ?>
 		
 		
 		

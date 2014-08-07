@@ -215,7 +215,7 @@ class Groups
 	}
 
 	/**
-	 * Returns the localized data of a given group.
+	 * Returns the internationalized data of a given group.
 	 *
 	 * @param integer $iItemId
 	 * @return Recordset
@@ -235,7 +235,7 @@ class Groups
 	}
 
 	/**
-	 * Indicates whether the localized data for a given group and a given language exist.
+	 * Indicates whether the internationalized data for a given group and a given language exist.
 	 *
 	 * @param integer $iGroupId
 	 * @param string $sLanguage
@@ -368,7 +368,7 @@ class Groups
 	}
 
 	/**
-	 * Add/Edit localized data of a given group.
+	 * Add/Edit internationalized data of a given group.
 	 *
 	 * @param integer $iGroupId
 	 * @param array $aData

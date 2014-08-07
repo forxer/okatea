@@ -38,7 +38,7 @@ class SingleFileCache extends CacheProvider
 	{
 		$this->file = $file;
 
-		if (! file_exists($this->file))
+		if (!file_exists($this->file))
 		{
 			$this->data = $aData;
 			$this->writeData();
@@ -57,8 +57,7 @@ class SingleFileCache extends CacheProvider
 	 */
 	protected function loadData($bForce = false)
 	{
-		if (is_array($this->data) && ! $bForce)
-		{
+		if (is_array($this->data) && !$bForce) {
 			return $this->data;
 		}
 

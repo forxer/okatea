@@ -159,7 +159,7 @@ class Languages
 		{
 			$queryBuilder
 				->andWhere('l.id = :id')
-				->setParameter('id', $aParams['id']);
+				->setParameter('id', (integer)$aParams['id']);
 		}
 
 		if (!empty($aParams['title']))
@@ -251,13 +251,13 @@ class Languages
 	{
 		$iMaxOrd = $this->okt['db']->fetchColumn('SELECT MAX(ord) FROM ' . $this->sLanguagesTable);
 
-		$this->okt['db']->insert($this->sLanguagesTable, array(
+		$this->okt['db']->insert($this->sLanguagesTable, [
 			'title' 	=> $aData['title'],
 			'code' 		=> $aData['code'],
 			'img' 		=> $aData['img'],
 			'active'	=> (integer) $aData['active'],
 			'ord' 		=> (integer) ($iMaxOrd + 1)
-		));
+		]);
 
 		$this->afterProcess();
 
@@ -272,16 +272,20 @@ class Languages
 	 */
 	public function updLanguage(array $aData = [])
 	{
+		if (!$this->languageExists($aData['id'])) {
+			return false;
+		}
+
 		$this->okt['db']->update($this->sLanguagesTable,
-			array(
+			[
 				'title' 	=> $aData['title'],
 				'code' 		=> $aData['code'],
 				'img' 		=> $aData['img'],
 				'active' 	=> (integer) $aData['active']
-			),
-			array(
+			],
+			[
 				'id' => (integer) $aData['id']
-			)
+			]
 		);
 
 		$this->afterProcess();
@@ -298,14 +302,14 @@ class Languages
 	public function checkPostData(array $aData = [])
 	{
 		if (empty($aData['title'])) {
-			$this->okt['flashMessages']->error(__('c_a_config_l10n_error_need_title'));
+			$this->okt['instantMessages']->error(__('c_a_config_l10n_error_need_title'));
 		}
 
 		if (empty($aData['code'])) {
-			$this->okt['flashMessages']->error(__('c_a_config_l10n_error_need_code'));
+			$this->okt['instantMessages']->error(__('c_a_config_l10n_error_need_code'));
 		}
 
-		return !$this->okt['flashMessages']->hasError();
+		return !$this->okt['instantMessages']->hasError();
 	}
 
 	/**
@@ -316,14 +320,14 @@ class Languages
 	 */
 	public function switchLangStatus($iLanguageId)
 	{
-		if (! $this->languageExists($iLanguageId)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
 		$this->okt['db']->update(
 			$this->sLanguagesTable,
-			array('active' => '1-active'),
-			array('id' => $iLanguageId)
+			['active' => '1-active'],
+			['id' => $iLanguageId]
 		);
 
 		$this->afterProcess();
@@ -340,7 +344,7 @@ class Languages
 	 */
 	public function setLangStatus($iLanguageId, $iStatus)
 	{
-		if (! $this->languageExists($iLanguageId)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
@@ -348,8 +352,8 @@ class Languages
 
 		$this->okt['db']->update(
 			$this->sLanguagesTable,
-			array('active' => $iStatus),
-			array('id' => $iLanguageId)
+			['active' => $iStatus],
+			['id' => $iLanguageId]
 		);
 
 		$this->afterProcess();
@@ -366,14 +370,14 @@ class Languages
 	 */
 	public function updLanguageOrder($iLanguageId, $iOrd)
 	{
-		if (! $this->languageExists($iLanguageId)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
 
 		$this->okt['db']->update(
 			$this->sLanguagesTable,
-			array('ord' => $iOrd),
-			array('id' => $iLanguageId)
+			['ord' => $iOrd],
+			['id' => $iLanguageId]
 		);
 
 		$this->afterProcess();
@@ -389,10 +393,11 @@ class Languages
 	 */
 	public function delLanguage($iLanguageId)
 	{
-		if (! $this->languageExists($iLanguageId)) {
+		if (!$this->languageExists($iLanguageId)) {
 			return false;
 		}
-		$this->okt['db']->delete($this->sLanguagesTable, array('id' => $iLanguageId));
+
+		$this->okt['db']->delete($this->sLanguagesTable, ['id' => $iLanguageId]);
 
 		$this->afterProcess();
 

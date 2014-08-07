@@ -41,12 +41,9 @@ class Localization
 	/**
 	 * Load a translations file.
 	 *
-	 * @param string $sFilename
-	 *        	The file to be loaded.
-	 * @param string $sLanguage
-	 *        	Force loading specific language.
-	 * @param string $bForce
-	 *        	Force loading file.
+	 * @param string $sFilename The file to be loaded.
+	 * @param string $sLanguage Force loading specific language.
+	 * @param string $bForce Force loading file.
 	 * @return boolean|null
 	 */
 	public function loadFile($sFilename, $sLanguage = null, $bForce = false)
@@ -57,7 +54,7 @@ class Localization
 
 		$sFileToLoad = sprintf($sFilename, $sLanguage) . '.lang.php';
 
-		if (! file_exists($sFileToLoad))
+		if (!file_exists($sFileToLoad))
 		{
 			if ($sLanguage === $this->sDefaultLanguage) {
 				return false;
@@ -65,12 +62,12 @@ class Localization
 
 			$sFileToLoad = sprintf($sFilename, $this->sDefaultLanguage) . '.lang.php';
 
-			if (! file_exists($sFileToLoad)) {
+			if (!file_exists($sFileToLoad)) {
 				return false;
 			}
 		}
 
-		if (in_array($sFileToLoad, $this->aLoaded) && ! $bForce) {
+		if (in_array($sFileToLoad, $this->aLoaded) && !$bForce) {
 			return null;
 		}
 

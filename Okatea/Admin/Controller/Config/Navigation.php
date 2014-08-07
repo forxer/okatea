@@ -13,11 +13,9 @@ use Okatea\Tao\Themes\TemplatesSet;
 
 class Navigation extends Controller
 {
-
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('is_superadmin'))
-		{
+		if (!$this->okt['visitor']->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
 
@@ -28,28 +26,23 @@ class Navigation extends Controller
 		$this->page->addGlobalTitle(__('c_a_config_navigation'), $this->generateUrl('config_navigation'));
 
 		$sDo = $this->okt['request']->query->get('do');
-		if (! $sDo || $sDo === 'index')
-		{
+
+		if (!$sDo || $sDo === 'index') {
 			return $this->index();
 		}
-		elseif ($sDo === 'menu')
-		{
+		elseif ($sDo === 'menu') {
 			return $this->menu();
 		}
-		elseif ($sDo === 'items')
-		{
+		elseif ($sDo === 'items') {
 			return $this->items();
 		}
-		elseif ($sDo === 'item')
-		{
+		elseif ($sDo === 'item') {
 			return $this->item();
 		}
-		elseif ($sDo === 'config')
-		{
+		elseif ($sDo === 'config') {
 			return $this->config();
 		}
-		else
-		{
+		else {
 			return $this->serve404();
 		}
 	}
@@ -71,7 +64,7 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -89,24 +82,40 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
-		return $this->render('Config/Navigation/Index', array());
+		$aMenus = $this->okt['menus']->getMenus([
+			'active' => 2
+		]);
 
+		foreach ($aMenus as $i=>$aMenu)
+		{
+			if ($aMenu['num_items'] > 0)
+			{
+				$aMenus[$i]['items'] = $this->okt['menusItems']->getItems([
+					'menu_id' 	=> $aMenu['id'],
+					'language' 	=> $this->okt['visitor']->language,
+					'active' 	=> 2
+				]);
+			}
+		}
 
+		return $this->render('Config/Navigation/Index', [
+			'aMenus' => $aMenus
+		]);
 	}
 
 	protected function menu()
 	{
 		$iMenuId = null;
 
-		$aMenuData = array(
+		$aMenuData = [
 			'title' => '',
 			'active' => 1,
 			'tpl' => ''
-		);
+		];
 
 		# menu update ?
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
@@ -116,45 +125,43 @@ class Navigation extends Controller
 
 			if ($rsMenu->isEmpty())
 			{
-				$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+				$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 				$iMenuId = null;
 			}
 			else
 			{
-				$aMenuData = array(
-					'title' => $rsMenu->title,
-					'active' => $rsMenu->active,
-					'tpl' => $rsMenu['tpl']
-				);
+				$aMenuData = [
+					'title' 	=> $rsMenu->title,
+					'active' 	=> $rsMenu->active,
+					'tpl' 		=> $rsMenu['tpl']
+				];
 			}
 		}
 
 		# add/update a menu
 		if ($this->okt['request']->request->has('sended'))
 		{
-			$aMenuData = array(
-				'title' => $this->okt['request']->request->get('p_title', ''),
-				'active' => $this->okt['request']->request->has('p_active') ? 1 : 0,
-				'tpl' => $this->okt['request']->request->get('p_tpl', '')
-			);
+			$aMenuData = [
+				'title' 	=> $this->okt['request']->request->get('p_title', ''),
+				'active' 	=> $this->okt['request']->request->has('p_active') ? 1 : 0,
+				'tpl' 		=> $this->okt['request']->request->get('p_tpl', '')
+			];
 
 			# update menu
-			if (! empty($iMenuId))
+			if (!empty($iMenuId))
 			{
-				$aMenuData['id'] = $iMenuId;
-
 				if ($this->okt['menus']->checkPostMenuData($aMenuData) !== false)
 				{
 					try
 					{
-						$this->okt['menus']->updMenu($aMenuData);
+						$this->okt['menus']->updMenu($iMenuId, $aMenuData);
 
 						# log admin
-						$this->okt['logAdmin']->info(array(
-							'code' => 41,
-							'component' => 'menus',
-							'message' => 'menu #' . $iMenuId
-						));
+						$this->okt['logAdmin']->info([
+							'code' 			=> 41,
+							'component' 	=> 'menus',
+							'message' 		=> 'menu #' . $iMenuId
+						]);
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_updated'));
 
@@ -162,7 +169,7 @@ class Navigation extends Controller
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flashMessages']->error($e->getMessage());
+						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -177,11 +184,11 @@ class Navigation extends Controller
 						$iMenuId = $this->okt['menus']->addMenu($aMenuData);
 
 						# log admin
-						$this->okt['logAdmin']->info(array(
-							'code' => 40,
-							'component' => 'menus',
-							'message' => 'menu #' . $iMenuId
-						));
+						$this->okt['logAdmin']->info([
+							'code' 			=> 40,
+							'component' 	=> 'menus',
+							'message' 		=> 'menu #' . $iMenuId
+						]);
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_added'));
 
@@ -189,17 +196,17 @@ class Navigation extends Controller
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flashMessages']->error($e->getMessage());
+						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
 			}
 		}
 
 		# Liste des templates utilisables
-		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']['menus']_tpl, 'navigation', 'navigation');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation');
 		$aTplChoices = array_merge(array(
 			'&nbsp;' => null
-		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']['menus']_tpl['usables']));
+		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']->navigation_tpl['usables']));
 
 		return $this->render('Config/Navigation/Menu', array(
 			'iMenuId' => $iMenuId,
@@ -214,8 +221,7 @@ class Navigation extends Controller
 
 		$rsMenu = $this->okt['menus']->getMenu($iMenuId);
 
-		if (empty($iMenuId) || $rsMenu->isEmpty())
-		{
+		if (empty($iMenuId) || $rsMenu->isEmpty()) {
 			return $this->redirect($this->generateUrl('config_navigation'));
 		}
 
@@ -224,7 +230,7 @@ class Navigation extends Controller
 		{
 			$aItemsOrder = $this->okt['request']->query->get('ord', array());
 
-			if (! empty($aItemsOrder))
+			if (!empty($aItemsOrder))
 			{
 				foreach ($aItemsOrder as $ord => $id)
 				{
@@ -247,7 +253,7 @@ class Navigation extends Controller
 
 				$aItemsOrder = array_keys($aItemsOrder);
 
-				if (! empty($aItemsOrder))
+				if (!empty($aItemsOrder))
 				{
 					foreach ($aItemsOrder as $ord => $id)
 					{
@@ -262,7 +268,7 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -280,7 +286,7 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -298,7 +304,7 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -316,21 +322,21 @@ class Navigation extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
-		$rsItems = $this->okt['menus']->getItems(array(
-			'menu_id' => $iMenuId,
-			'language' => $this->okt['visitor']->language,
-			'active' => 2
-		));
+		$rsItems = $this->okt['menusItems']->getItems([
+			'menu_id' 	=> $iMenuId,
+			'language' 	=> $this->okt['visitor']->language,
+			'active' 	=> 2
+		]);
 
-		return $this->render('Config/Navigation/Items', array(
-			'iMenuId' => $iMenuId,
-			'rsMenu' => $rsMenu,
-			'rsItems' => $rsItems
-		));
+		return $this->render('Config/Navigation/Items', [
+			'iMenuId' 	=> $iMenuId,
+			'rsMenu' 	=> $rsMenu,
+			'rsItems' 	=> $rsItems
+		]);
 	}
 
 	protected function item()
@@ -371,7 +377,7 @@ class Navigation extends Controller
 
 			if ($rsItem->isEmpty())
 			{
-				$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
+				$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
 				$aItemData['item']['id'] = null;
 			}
 			else
@@ -409,7 +415,7 @@ class Navigation extends Controller
 			}
 
 			# update item
-			if (! empty($aItemData['item']['id']))
+			if (!empty($aItemData['item']['id']))
 			{
 				if ($this->okt['menus']->checkPostItemData($aItemData) !== false)
 				{
@@ -419,9 +425,9 @@ class Navigation extends Controller
 
 						# log admin
 						$this->okt['logAdmin']->info(array(
-							'code' => 41,
-							'component' => 'menu item',
-							'message' => 'item #' . $aItemData['item']['id']
+							'code' 			=> 41,
+							'component' 	=> 'menu item',
+							'message' 		=> 'item #' . $aItemData['item']['id']
 						));
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_updated'));
@@ -430,7 +436,7 @@ class Navigation extends Controller
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flashMessages']->error($e->getMessage());
+						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -456,7 +462,7 @@ class Navigation extends Controller
 					}
 					catch (\Exception $e)
 					{
-						$this->okt['flashMessages']->error($e->getMessage());
+						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
 			}
@@ -471,13 +477,13 @@ class Navigation extends Controller
 
 	protected function config()
 	{
-		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']['menus']_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
+		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation', $this->generateUrl('config_navigation') . '?do=config&amp;');
 
 		if ($this->okt['request']->request->has('sended'))
 		{
 			$p_tpl = $oTemplates->getPostConfig();
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$this->okt['config']->write(array(
 					'navigation_tpl' => $p_tpl
