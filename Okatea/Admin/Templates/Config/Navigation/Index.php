@@ -65,12 +65,12 @@ $okt->page->setButtonset('navigationBtSt', array(
 					<li>
 				<?php if ($aMenu['active']) : ?>
 				<a
-						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $aMenu['id'] ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;disable=<?php echo $aMenu['id'] ?>"
 						title="<?php printf(__('c_c_action_Hide_%s'), $view->escapeHtmlAttr($aMenu['title'])) ?>"
 						class="icon tick"><?php _e('c_c_action_visible')?></a>
 				<?php else : ?>
 				<a
-						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;switch_status=<?php echo $aMenu['id'] ?>"
+						href="<?php echo $view->generateAdminUrl('config_navigation') ?>?do=index&amp;enable=<?php echo $aMenu['id'] ?>"
 						title="<?php printf(__('c_c_action_Display_%s'), $view->escapeHtmlAttr($aMenu['title'])) ?>"
 						class="icon cross"><?php _e('c_c_action_hidden')?></a>
 				<?php endif; ?>
@@ -98,11 +98,11 @@ $okt->page->setButtonset('navigationBtSt', array(
 				<p><?php echo sprintf(__('c_a_config_navigation_%s_items'), $aMenu['num_items']) ?></p>
 			<?php endif; ?>
 
-			<?php if (isset($aMenu['items']) && !$aMenu['items']->isEmpty()) : ?>
+			<?php if (!empty($aMenu['items'])) : ?>
 			<ul>
-				<?php while ($aMenu['items']->fetch()) : ?>
-				<li><?php echo $view->escape($aMenu['items']->title) ?></li>
-				<?php endwhile; ?>
+				<?php foreach ($aMenu['items'] as $aItem) : ?>
+				<li><?php echo $view->escape($aItem['title']) ?></li>
+				<?php endforeach; ?>
 			</ul>
 			<?php endif; ?>
 		</td>
@@ -122,7 +122,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 				</ul>
 			</td>
 		</tr>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 	</tbody>
 </table>
 <?php endif; ?>

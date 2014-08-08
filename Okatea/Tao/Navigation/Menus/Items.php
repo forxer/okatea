@@ -123,7 +123,7 @@ class Items
 	 */
 	public function getItem($iItemId, $iActive = 2)
 	{
-		$aItem = $this->items([
+		$aItem = $this->getItems([
 			'id' 		=> $iItemId,
 			'active' 	=> $iActive
 		]);
@@ -195,25 +195,12 @@ class Items
 	 */
 	public function addItem($aData)
 	{
-		$oCursor = $this->openItemCursor($aData['item']);
+		$iMaxOrd = (integer) $this->okt['db']->fetchColumn('SELECT MAX(ord) FROM ' . $this->sItemsTable);
+		$aData['item']['ord'] = $iMaxOrd + 1;
 
-		$sQuery = 'SELECT MAX(ord) FROM ' . $this->sItemsTable;
-		$rs = $this->db->select($sQuery);
+		$this->okt['db']->insert($this->sItemsTable, $aData['item']);
 
-		if ($rs->isEmpty())
-		{
-			throw new \Exception('Unable to retrieve max ord from database.');
-		}
-
-		$max_ord = $rs->f(0);
-		$oCursor->ord = (integer) ($max_ord + 1);
-
-		if (!$oCursor->insert())
-		{
-			throw new \Exception('Unable to insert item into database.');
-		}
-
-		$iItemId = $this->db->getLastID();
+		$iItemId = $this->okt['db']->lastInsertId();
 
 		$this->setItemL10n($iItemId, $aData['locales']);
 
@@ -221,32 +208,31 @@ class Items
 	}
 
 	/**
-	 * Modification d'un élément.
+	 * Update an item
 	 *
 	 * @param array $aData
 	 * @return integer
 	 */
-	public function updItem($aData)
+	public function updItem($iItemId, $aData)
 	{
-		if (!$this->itemExists($aData['item']['id']))
-		{
-			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aData['item']['id']));
+		if (!$this->itemExists($iItemId)) {
+			$this->okt['instantMessages']->error(__('c_a_config_navigation_item_%s_not_exists'), $iItemId);
+			return false;
 		}
 
-		$oCursor = $this->openItemCursor($aData['item']);
+		$this->okt['db']->update(
+			$this->sItemsTable,
+			$aData['item'],
+			[ 'id' => (integer) $iItemId ]
+		);
 
-		if (!$oCursor->update('WHERE id=' . (integer) $aData['item']['id']))
-		{
-			throw new \Exception('Unable to update item into database.');
-		}
-
-		$this->setItemL10n($aData['item']['id'], $aData['locales']);
+		$this->setItemL10n($iItemId, $aData['locales']);
 
 		return true;
 	}
 
 	/**
-	 * Vérifie les données envoyées en POST pour l'ajout ou la modification d'un élément.
+	 * Check the POST data sent to adding or editing an item menu.
 	 *
 	 * @param array $aData
 	 * @return boolean
@@ -257,13 +243,11 @@ class Items
 		{
 			if (empty($aData['locales'][$aLanguage['code']]['title']))
 			{
-				if ($this->okt['languages']->hasUniqueLanguage())
-				{
-					$this->okt['flashMessages']->error(__('c_a_config_navigation_must_enter_title'));
+				if ($this->okt['languages']->hasUniqueLanguage()) {
+					$this->okt['instantMessages']->error(__('c_a_config_navigation_must_enter_title'));
 				}
-				else
-				{
-					$this->okt['flashMessages']->error(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
+				else {
+					$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_must_enter_title_in_%s'), $aLanguage['title']));
 				}
 			}
 			/*
@@ -279,45 +263,31 @@ class Items
 */
 		}
 
-		return $this->error->isEmpty();
+		return !$this->okt['instantMessages']->hasError();
 	}
 
 	/**
-	 * Suppression d'un élément donné.
+	 * Deleting a given item.
 	 *
 	 * @param integer $iItemId
 	 * @return boolean
 	 */
 	public function delItem($iItemId)
 	{
-		if (!$this->itemExists($iItemId))
-		{
-			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+		if (!$this->itemExists($iItemId)) {
+			$this->okt['instantMessages']->error(__('c_a_config_navigation_item_%s_not_exists'), $iItemId);
+			return false;
 		}
 
-		$sQuery = 'DELETE FROM ' . $this->sItemsTable . ' ' . 'WHERE id=' . (integer) $iItemId;
+		$this->okt['db']->delete($this->sItemsLocalesTable, [ 'item_id' => (integer) $iItemId ]);
 
-		if (!$this->db->execute($sQuery))
-		{
-			throw new \Exception('Unable to delete item from database.');
-		}
-
-		$this->db->optimize($this->sItemsTable);
-
-		$sQuery = 'DELETE FROM ' . $this->sItemsLocalesTable . ' ' . 'WHERE item_id=' . (integer) $iItemId;
-
-		if (!$this->db->execute($sQuery))
-		{
-			throw new \Exception('Unable to delete item locales from database.');
-		}
-
-		$this->db->optimize($this->sItemsLocalesTable);
+		$this->okt['db']->delete($this->sItemsTable, [ 'id' => (integer) $iItemId ]);
 
 		return true;
 	}
 
 	/**
-	 * Définit le statut d'un élément donné.
+	 * Sets the status of a given item.
 	 *
 	 * @param integer $iItemId
 	 * @param integer $iStatus
@@ -325,25 +295,24 @@ class Items
 	 */
 	public function setItemStatus($iItemId, $iStatus)
 	{
-		if (!$this->itemExists($iItemId))
-		{
-			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+		if (!$this->itemExists($iItemId)) {
+			$this->okt['instantMessages']->error(__('c_a_config_navigation_item_%s_not_exists'), $iItemId);
+			return false;
 		}
 
 		$iStatus = ($iStatus == 1) ? 1 : 0;
 
-		$query = 'UPDATE ' . $this->sItemsTable . ' SET ' . 'active = ' . $iStatus . ' ' . 'WHERE id=' . (integer) $iItemId;
-
-		if (!$this->db->execute($query))
-		{
-			throw new \Exception('Unable to update item in database.');
-		}
+		$this->okt['db']->update(
+			$this->sItemsTable,
+			['active' => $iStatus],
+			['id' => $iItemId]
+		);
 
 		return true;
 	}
 
 	/**
-	 * Met à jour la position d'un élément donné.
+	 * Updates the position of a given item.
 	 *
 	 * @param integer $iItemId
 	 * @param integer $iPosition
@@ -352,20 +321,21 @@ class Items
 	public function updItemOrder($iItemId, $iPosition)
 	{
 		if (!$this->itemExists($iItemId)) {
-			throw new \Exception(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+			$this->okt['instantMessages']->error(__('c_a_config_navigation_item_%s_not_exists'), $iItemId);
+			return false;
 		}
 
-		$query = 'UPDATE ' . $this->sItemsTable . ' SET ' . 'ord=' . (integer) $iPosition . ' ' . 'WHERE id=' . (integer) $iItemId;
-
-		if (!$this->db->execute($query)) {
-			throw new \Exception('Unable to update item in database.');
-		}
+		$this->okt['db']->update(
+			$this->sItemsTable,
+			['ord' => (integer) $iPosition],
+			['id' => $iItemId]
+		);
 
 		return true;
 	}
 
 	/**
-	 * Ajout/modification des textes internationnalisés de l'élément.
+	 * Add/Edit internationalized data of a given item.
 	 *
 	 * @param integer $iItemId
 	 * @param array $aData
@@ -374,39 +344,23 @@ class Items
 	{
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$oCursor = $this->db->openCursor($this->sItemsLocalesTable);
-
-			$oCursor->item_id = $iItemId;
-
-			$oCursor->language = $aLanguage['code'];
-
-			foreach ($aData[$aLanguage['code']] as $k => $v) {
-				$oCursor->$k = $v;
+			if ($this->itemL10nExists($iItemId, $aLanguage['code']))
+			{
+				$this->okt['db']->update($this->sItemsLocalesTable,
+					$aData[$aLanguage['code']],
+					[
+						'item_id' => (integer)$iItemId,
+						'language' => $aLanguage['code']
+					]
+				);
 			}
+			else
+			{
+				$aData[$aLanguage['code']]['item_id'] = $iItemId;
+				$aData[$aLanguage['code']]['language'] = $aLanguage['code'];
 
-			if (!$oCursor->insertUpdate()) {
-				throw new \Exception('Unable to insert item locales in database for ' . $aLanguage['code'] . ' language.');
-			}
-		}
-	}
-
-	/**
-	 * Créer une instance de cursor pour les éléments et la retourne.
-	 *
-	 * @param array $aData
-	 * @return object cursor
-	 */
-	protected function openItemCursor(array $aData = [])
-	{
-		$oCursor = $this->db->openCursor($this->sItemsTable);
-
-		if (!empty($aData))
-		{
-			foreach ($aData as $k => $v) {
-				$oCursor->$k = $v;
+				$this->okt['db']->insert($this->sItemsLocalesTable, $aData[$aLanguage['code']]);
 			}
 		}
-
-		return $oCursor;
 	}
 }

@@ -9,28 +9,26 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 $view->extend('Layout');
 
-if (! empty($iMenuId))
-{
+if (!empty($iMenuId)) {
 	$okt->page->addGlobalTitle(__('c_a_config_navigation_edit_menu'));
 }
-else
-{
+else {
 	$okt->page->addGlobalTitle(__('c_a_config_navigation_add_menu'));
 }
 
 # button set
-$okt->page->setButtonset('navigationBtSt', array(
+$okt->page->setButtonset('navigationBtSt', [
 	'id' => 'navigation-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
-	'buttons' => array(
-		array(
+	'buttons' => [
+		[
 			'permission' => true,
 			'title' => __('c_c_action_Go_back'),
 			'url' => $view->generateAdminUrl('config_navigation') . '?do=index',
 			'ui-icon' => 'arrowreturnthick-1-w'
-		)
-	)
-));
+		]
+	]
+]);
 
 if ($iMenuId)
 {
@@ -41,7 +39,7 @@ if ($iMenuId)
 		'url' => $view->generateAdminUrl('config_navigation') . '?do=menu',
 		'ui-icon' => 'plusthick'
 	));
-	
+
 	# bouton manage items
 	$okt->page->addButton('navigationBtSt', array(
 		'permission' => true,
@@ -72,15 +70,7 @@ if ($iMenuId)
 		<?php echo form::text('p_title', 100, 255, $view->escape($aMenuData['title']))?>
 
 		<?php if (!empty($okt['config']->navigation_tpl['usables'])) : ?>
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		<p class="field col">
 			<label for="p_tpl"><?php _e('c_a_config_navigation_menu_tpl') ?></label>
 		<?php echo form::select('p_tpl', $aTplChoices, $aMenuData['tpl'])?></p>
@@ -103,10 +93,10 @@ if ($iMenuId)
 <div class="note">
 	<p><?php _e('c_a_config_navigation_menu_usage') ?></p>
 	<p><?php _e('c_a_config_navigation_menu_usage_by_id') ?><br />
-		<code><?php echo $view->escape('<?php echo $okt['menus']->render('.$iMenuId.') ?>') ?></code>
+		<code><?php echo $view->escape('<?php echo $okt[\'menus\']->render('.$iMenuId.') ?>') ?></code>
 	</p>
 	<p><?php _e('c_a_config_navigation_menu_usage_by_title') ?><br />
-		<code><?php echo $view->escape('<?php echo $okt['menus']->render(\''.$aMenuData['title'].'\') ?>') ?></code>
+		<code><?php echo $view->escape('<?php echo $okt[\'menus\']->render(\''.$aMenuData['title'].'\') ?>') ?></code>
 	</p>
 </div>
 <?php endif; ?>

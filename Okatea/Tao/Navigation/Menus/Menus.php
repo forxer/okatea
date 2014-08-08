@@ -194,6 +194,40 @@ class Menus
 	}
 
 	/**
+	 * Disable a given menu.
+	 *
+	 * @param integer $iMenuId
+	 * @return boolean
+	 */
+	public function disableMenu($iMenuId)
+	{
+		if (!$this->menuExists($iMenuId)) {
+			$this->okt['instantMessage']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+		}
+
+		$this->okt['db']->update($this->sMenusTable, ['active' => 0], ['id' => (integer) $iMenuId]);
+
+		return true;
+	}
+
+	/**
+	 * Enable a given menu.
+	 *
+	 * @param integer $iMenuId
+	 * @return boolean
+	 */
+	public function enableMenu($iMenuId)
+	{
+		if (!$this->menuExists($iMenuId)) {
+			$this->okt['instantMessage']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
+		}
+
+		$this->okt['db']->update($this->sMenusTable, ['active' => 1], ['id' => (integer) $iMenuId]);
+
+		return true;
+	}
+
+	/**
 	 * Deleting a given menu.
 	 *
 	 * @param integer $iMenuId

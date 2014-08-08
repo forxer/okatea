@@ -49,26 +49,43 @@ class Navigation extends Controller
 
 	protected function index()
 	{
-		# switch statut
-		$iMenuIdSwitchStatus = $this->okt['request']->query->getInt('switch_status');
+		# disable a menu
+		$iMenuIdDisable = $this->okt['request']->query->getInt('disable');
 
-		if ($iMenuIdSwitchStatus)
+		if ($iMenuIdDisable)
 		{
 			try
 			{
-				$this->okt['menus']->switchMenuStatus($iMenuIdSwitchStatus);
+				$this->okt['menus']->disableMenu($iMenuIdDisable);
 
 				$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_switched'));
 
 				return $this->redirect($this->generateUrl('config_navigation'));
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
-		# suppression d'un menu
+		# enable a menu
+		$iMenuIdEnalble = $this->okt['request']->query->getInt('enable');
+
+		if ($iMenuIdEnalble)
+		{
+			try
+			{
+				$this->okt['menus']->enableMenu($iMenuIdEnalble);
+
+				$this->okt['flashMessages']->success(__('c_a_config_navigation_menu_switched'));
+
+				return $this->redirect($this->generateUrl('config_navigation'));
+			}
+			catch (\Exception $e) {
+				$this->okt['instantMessages']->error($e->getMessage());
+			}
+		}
+
+		# delete a menu
 		$iMenuIdDelete = $this->okt['request']->query->getInt('delete_menu');
 		if ($iMenuIdDelete)
 		{
@@ -80,8 +97,7 @@ class Navigation extends Controller
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=index');
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
@@ -112,18 +128,19 @@ class Navigation extends Controller
 		$iMenuId = null;
 
 		$aMenuData = [
-			'title' => '',
-			'active' => 1,
-			'tpl' => ''
+			'title'      => '',
+			'active'     => 1,
+			'tpl'        => ''
 		];
 
 		# menu update ?
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
+
 		if ($iMenuId)
 		{
-			$rsMenu = $this->okt['menus']->getMenu($iMenuId);
+			$aMenu = $this->okt['menus']->getMenu($iMenuId);
 
-			if ($rsMenu->isEmpty())
+			if (empty($aMenu))
 			{
 				$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_menu_%s_not_exists'), $iMenuId));
 				$iMenuId = null;
@@ -131,9 +148,9 @@ class Navigation extends Controller
 			else
 			{
 				$aMenuData = [
-					'title' 	=> $rsMenu->title,
-					'active' 	=> $rsMenu->active,
-					'tpl' 		=> $rsMenu['tpl']
+					'title' 	=> $aMenu['title'],
+					'active' 	=> $aMenu['active'],
+					'tpl' 		=> $aMenu['tpl']
 				];
 			}
 		}
@@ -167,8 +184,7 @@ class Navigation extends Controller
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
-					catch (\Exception $e)
-					{
+					catch (\Exception $e) {
 						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
@@ -194,8 +210,7 @@ class Navigation extends Controller
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=menu&menu_id=' . $iMenuId);
 					}
-					catch (\Exception $e)
-					{
+					catch (\Exception $e) {
 						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
@@ -204,50 +219,51 @@ class Navigation extends Controller
 
 		# Liste des templates utilisables
 		$oTemplates = new TemplatesSet($this->okt, $this->okt['config']->navigation_tpl, 'navigation', 'navigation');
-		$aTplChoices = array_merge(array(
-			'&nbsp;' => null
-		), $oTemplates->getUsablesTemplatesForSelect($this->okt['config']->navigation_tpl['usables']));
+		$aTplChoices = array_merge(
+			[ '&nbsp;' => null ],
+			$oTemplates->getUsablesTemplatesForSelect($this->okt['config']->navigation_tpl['usables'])
+		);
 
-		return $this->render('Config/Navigation/Menu', array(
-			'iMenuId' => $iMenuId,
-			'aMenuData' => $aMenuData,
-			'aTplChoices' => $aTplChoices
-		));
+		return $this->render('Config/Navigation/Menu', [
+			'iMenuId'        => $iMenuId,
+			'aMenuData'      => $aMenuData,
+			'aTplChoices'    => $aTplChoices
+		]);
 	}
 
 	protected function items()
 	{
 		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
 
-		$rsMenu = $this->okt['menus']->getMenu($iMenuId);
+		$aMenu = $this->okt['menus']->getMenu($iMenuId);
 
-		if (empty($iMenuId) || $rsMenu->isEmpty()) {
+		if (empty($iMenuId) || empty($aMenu)) {
 			return $this->redirect($this->generateUrl('config_navigation'));
 		}
 
 		# AJAX : changement de l'ordre des éléments
 		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aItemsOrder = $this->okt['request']->query->get('ord', array());
+			$aItemsOrder = $this->okt['request']->query->get('ord', []);
 
 			if (!empty($aItemsOrder))
 			{
 				foreach ($aItemsOrder as $ord => $id)
 				{
 					$ord = ((integer) $ord) + 1;
-					$this->okt['menus']->updItemOrder($id, $ord);
+					$this->okt['menusItems']->updItemOrder($id, $ord);
 				}
 			}
 
 			exit();
 		}
 
-		# POST : changement de l'ordre des langues
+		# POST : changement de l'ordre des éléments
 		if ($this->okt['request']->request->has('order_items'))
 		{
 			try
 			{
-				$aItemsOrder = $this->okt['request']->query->get('p_order', array());
+				$aItemsOrder = $this->okt['request']->query->get('p_order', []);
 
 				asort($aItemsOrder);
 
@@ -258,7 +274,7 @@ class Navigation extends Controller
 					foreach ($aItemsOrder as $ord => $id)
 					{
 						$ord = ((integer) $ord) + 1;
-						$this->okt['menus']->updItemOrder($id, $ord);
+						$this->okt['menusItems']->updItemOrder($id, $ord);
 					}
 
 					$this->okt['flashMessages']->success(__('c_a_config_navigation_items_neworder'));
@@ -266,67 +282,58 @@ class Navigation extends Controller
 					return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 				}
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
 		# activation d'un élément
 		$iItemIdEnable = $this->okt['request']->query->getInt('enable');
+
 		if ($iItemIdEnable)
 		{
 			try
 			{
-				$this->okt['menus']->setItemStatus($iItemIdEnable, 1);
+				$this->okt['menusItems']->setItemStatus($iItemIdEnable, 1);
 
 				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_enabled'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
 		# désactivation d'un élément
 		$iItemIdDisable = $this->okt['request']->query->getInt('disable');
+
 		if ($iItemIdDisable)
 		{
 			try
 			{
-				$this->okt['menus']->setItemStatus($iItemIdDisable, 0);
+				$this->okt['menusItems']->setItemStatus($iItemIdDisable, 0);
 
 				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_disabled'));
 
 				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 			}
-			catch (\Exception $e)
-			{
+			catch (\Exception $e) {
 				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
 		# suppression d'un élément
 		$iItemIdDelete = $this->okt['request']->query->getInt('delete');
-		if ($iItemIdDelete)
+
+		if ($iItemIdDelete && $this->okt['menusItems']->delItem($iItemIdDelete))
 		{
-			try
-			{
-				$this->okt['menus']->delItem($iItemIdDelete);
+			$this->okt['flashMessages']->success(__('c_a_config_navigation_item_deleted'));
 
-				$this->okt['flashMessages']->success(__('c_a_config_navigation_item_deleted'));
-
-				return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
-			}
-			catch (\Exception $e)
-			{
-				$this->okt['instantMessages']->error($e->getMessage());
-			}
+			return $this->redirect($this->generateUrl('config_navigation') . '?do=items&menu_id=' . $iMenuId);
 		}
 
-		$rsItems = $this->okt['menusItems']->getItems([
+		$aItems = $this->okt['menusItems']->getItems([
 			'menu_id' 	=> $iMenuId,
 			'language' 	=> $this->okt['visitor']->language,
 			'active' 	=> 2
@@ -334,68 +341,72 @@ class Navigation extends Controller
 
 		return $this->render('Config/Navigation/Items', [
 			'iMenuId' 	=> $iMenuId,
-			'rsMenu' 	=> $rsMenu,
-			'rsItems' 	=> $rsItems
+			'aMenu' 	=> $aMenu,
+			'aItems' 	=> $aItems
 		]);
 	}
 
 	protected function item()
 	{
-		$iMenuId = $this->okt['request']->query->getInt('menu_id', $this->okt['request']->request->getInt('menu_id'));
+		$iMenuId =
+			$this->okt['request']->query->getInt('menu_id',
+				$this->okt['request']->request->getInt('menu_id'));
 
-		$rsMenu = $this->okt['menus']->getMenu($iMenuId);
+		$aMenu = $this->okt['menus']->getMenu($iMenuId);
 
-		if (empty($iMenuId) || $rsMenu->isEmpty())
-		{
+		if (empty($iMenuId) || empty($aMenu)) {
 			return $this->redirect($this->generateUrl('config_navigation'));
 		}
 
-		# Données de l'élément
+		# Item data
+		$iItemId =
+			$this->okt['request']->query->getInt('item_id',
+				$this->okt['request']->request->getInt('item_id'));
+
 		$aItemData = new ArrayObject();
 
-		$aItemData['item'] = array();
-		$aItemData['item']['id'] = $this->okt['request']->query->getInt('item_id', $this->okt['request']->request->getInt('item_id'));
+		$aItemData['item'] = [];
 
 		$aItemData['item']['menu_id'] = $iMenuId;
 		$aItemData['item']['active'] = 1;
 		$aItemData['item']['type'] = 0;
 
-		$aItemData['locales'] = array();
+		$aItemData['locales'] = [];
 
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aItemData['locales'][$aLanguage['code']] = array();
+			$aItemData['locales'][$aLanguage['code']] = [];
 
 			$aItemData['locales'][$aLanguage['code']]['title'] = '';
 			$aItemData['locales'][$aLanguage['code']]['url'] = '';
 		}
 
 		# item update ?
-		if ($aItemData['item']['id'])
+		if ($iItemId)
 		{
-			$rsItem = $this->okt['menus']->getItem($aItemData['item']['id']);
+			$aItem = $this->okt['menusItems']->getItem($iItemId);
 
-			if ($rsItem->isEmpty())
+			if (empty($aItem))
 			{
-				$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $aItemData['item']['id']));
-				$aItemData['item']['id'] = null;
+				$this->okt['instantMessages']->error(sprintf(__('c_a_config_navigation_item_%s_not_exists'), $iItemId));
+				$iItemId = null;
 			}
 			else
 			{
-				$aItemData['item']['menu_id'] = $rsItem->menu_id;
-				$aItemData['item']['active'] = $rsItem->active;
-				$aItemData['item']['type'] = $rsItem->type;
+				$aItemData['item']['menu_id'] = $aItem['menu_id'];
+				$aItemData['item']['active'] = $aItem['active'];
+				$aItemData['item']['type'] = $aItem['type'];
 
-				$rsItemI18n = $this->okt['menus']->getItemL10n($aItemData['item']['id']);
+				$aItemI10n = $this->okt['menusItems']->getItemL10n($iItemId);
 
 				foreach ($this->okt['languages']->getList() as $aLanguage)
 				{
-					while ($rsItemI18n->fetch())
+					foreach ($aItemI10n as $aL10n)
 					{
-						if ($rsItemI18n->language == $aLanguage['code'])
+						if ($aL10n['language'] == $aLanguage['code'])
 						{
-							$aItemData['locales'][$aLanguage['code']]['title'] = $rsItemI18n->title;
-							$aItemData['locales'][$aLanguage['code']]['url'] = $rsItemI18n->url;
+							$aItemData['locales'][$aLanguage['code']]['title'] = $aL10n['title'];
+							$aItemData['locales'][$aLanguage['code']]['url'] = $aL10n['url'];
 						}
 					}
 				}
@@ -415,64 +426,58 @@ class Navigation extends Controller
 			}
 
 			# update item
-			if (!empty($aItemData['item']['id']))
+			if (!empty($iItemId))
 			{
-				if ($this->okt['menus']->checkPostItemData($aItemData) !== false)
+				if ($this->okt['menusItems']->checkPostItemData($aItemData) !== false)
 				{
-					try
+					if ($this->okt['menusItems']->updItem($iItemId, $aItemData))
 					{
-						$this->okt['menus']->updItem($aItemData);
-
 						# log admin
 						$this->okt['logAdmin']->info(array(
 							'code' 			=> 41,
 							'component' 	=> 'menu item',
-							'message' 		=> 'item #' . $aItemData['item']['id']
+							'message' 		=> 'item #' . $iItemId
 						));
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_updated'));
 
-						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $aItemData['item']['id']);
-					}
-					catch (\Exception $e)
-					{
-						$this->okt['instantMessages']->error($e->getMessage());
+						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $iItemId);
 					}
 				}
 			}
 			# add item
 			else
 			{
-				if ($this->okt['menus']->checkPostItemData($aItemData) !== false)
+				if ($this->okt['menusItems']->checkPostItemData($aItemData) !== false)
 				{
 					try
 					{
-						$iItemId = $this->okt['menus']->addItem($aItemData);
+						$iItemId = $this->okt['menusItems']->addItem($aItemData);
 
 						# log admin
-						$this->okt['logAdmin']->info(array(
-							'code' => 40,
-							'component' => 'menu item',
-							'message' => 'item #' . $iItemId
-						));
+						$this->okt['logAdmin']->info([
+							'code'       => 40,
+							'component'  => 'menu item',
+							'message'    => 'item #' . $iItemId
+						]);
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_added'));
 
 						return $this->redirect($this->generateUrl('config_navigation') . '?do=item&menu_id=' . $iMenuId . '&item_id=' . $iItemId);
 					}
-					catch (\Exception $e)
-					{
+					catch (\Exception $e) {
 						$this->okt['instantMessages']->error($e->getMessage());
 					}
 				}
 			}
 		}
 
-		return $this->render('Config/Navigation/Item', array(
-			'iMenuId' => $iMenuId,
-			'rsMenu' => $rsMenu,
-			'aItemData' => $aItemData
-		));
+		return $this->render('Config/Navigation/Item', [
+			'iMenuId'    => $iMenuId,
+			'iItemId'    => $iItemId,
+			'aMenu'      => $aMenu,
+			'aItemData'  => $aItemData
+		]);
 	}
 
 	protected function config()
@@ -485,9 +490,9 @@ class Navigation extends Controller
 
 			if (!$this->okt['flashMessages']->hasError())
 			{
-				$this->okt['config']->write(array(
+				$this->okt['config']->write([
 					'navigation_tpl' => $p_tpl
-				));
+				]);
 
 				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 
@@ -495,8 +500,8 @@ class Navigation extends Controller
 			}
 		}
 
-		return $this->render('Config/Navigation/Config', array(
+		return $this->render('Config/Navigation/Config', [
 			'oTemplates' => $oTemplates
-		));
+		]);
 	}
 }

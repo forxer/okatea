@@ -23,13 +23,13 @@ $okt->page->setButtonset('navigationBtSt', array(
 	)
 ));
 
-if (! empty($aItemData['item']['id']))
+if (! empty($iItemId))
 {
-	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_edit_item_of_%s'), $rsMenu->title));
+	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_edit_item_of_%s'), $aMenu['title']));
 }
 else
 {
-	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_add_item_to_%s'), $rsMenu->title));
+	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_add_item_to_%s'), $aMenu['title']));
 }
 
 # Lang switcher
@@ -43,9 +43,9 @@ $aUrlLabel = array();
 foreach ($okt['languages']->getList() as $aLanguage)
 {
 	$sBaseUrl = '<code>' . $okt->page->getBaseUrl($aLanguage['code']) . '</code>';
-	
+
 	$aUrlLabel[$aLanguage['code']] = array();
-	
+
 	if ($okt['languages']->hasUniqueLanguage())
 	{
 		$aUrlLabel[$aLanguage['code']][0] = sprintf(__('c_a_config_navigation_item_url_from_%s'), $sBaseUrl);
@@ -107,7 +107,7 @@ $okt->page->js->addReady('
 	<?php endforeach; ?>
 
 	<p><?php echo form::hidden('menu_id', $iMenuId); ?>
-	<?php echo !empty($aItemData['item']['id']) ? form::hidden('item_id', $aItemData['item']['id']) : ''; ?>
+	<?php echo !empty($iItemId) ? form::hidden('item_id', $iItemId) : ''; ?>
 	<?php echo form::hidden('sended', 1); ?>
 	<?php echo $okt->page->formtoken(); ?>
 	<input type="submit" value="<?php  _e('c_c_action_save'); ?>" />
