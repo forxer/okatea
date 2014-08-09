@@ -11,7 +11,6 @@ use Okatea\Admin\Controller;
 
 class ThemesEditor extends Controller
 {
-
 	public function page()
 	{
 	}

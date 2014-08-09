@@ -433,11 +433,11 @@ class Navigation extends Controller
 					if ($this->okt['menusItems']->updItem($iItemId, $aItemData))
 					{
 						# log admin
-						$this->okt['logAdmin']->info(array(
+						$this->okt['logAdmin']->info([
 							'code' 			=> 41,
 							'component' 	=> 'menu item',
 							'message' 		=> 'item #' . $iItemId
-						));
+						]);
 
 						$this->okt['flashMessages']->success(__('c_a_config_navigation_item_updated'));
 

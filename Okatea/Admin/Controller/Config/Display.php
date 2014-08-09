@@ -16,7 +16,7 @@ class Display extends Controller
 {
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('display')) {
+		if (!$this->okt['visitor']->checkPerm('display')) {
 			return $this->serve401();
 		}
 
@@ -26,7 +26,7 @@ class Display extends Controller
 		# Liste des thèmes
 		$aUiThemes = Page::getUiThemes();
 
-		$aNotAllowedAdminThemes = array(
+		$aNotAllowedAdminThemes = [
 			'dark-hive',
 			'dot-luv',
 			'eggplant',
@@ -36,7 +36,7 @@ class Display extends Controller
 			'trontastic',
 			'ui-darkness',
 			'vader'
-		);
+		];
 
 		$aAllowedAdminThemes = array_diff($aUiThemes, $aNotAllowedAdminThemes);
 
@@ -54,7 +54,7 @@ class Display extends Controller
 		if ($this->okt['request']->request->has('form_sent'))
 		{
 			# traitement d'un éventuel theme uploadé
-			if (isset($_FILES['p_upload_theme']) && ! empty($_FILES['p_upload_theme']['tmp_name']))
+			if (isset($_FILES['p_upload_theme']) && !empty($_FILES['p_upload_theme']['tmp_name']))
 			{
 				$sUploadedFile = $_FILES['p_upload_theme'];
 				$sTempDir = $this->okt['app_path'] . '/temp/';
@@ -82,7 +82,7 @@ class Display extends Controller
 					# création répertoire temporaire
 					$fs->mkdir($sTempDir);
 
-					if (! move_uploaded_file($sUploadedFile['tmp_name'], $sZipFilename)) {
+					if (!move_uploaded_file($sUploadedFile['tmp_name'], $sZipFilename)) {
 						throw new \Exception(__('c_a_config_display_unable_move_file'));
 					}
 
@@ -114,7 +114,7 @@ class Display extends Controller
 						throw new \Exception(__('c_a_config_display_empty_zip_file'));
 					}
 
-					if (! $hasCssFile)
+					if (!$hasCssFile)
 					{
 						$oZip->close();
 						$fs->remove($sTempDir);
@@ -137,28 +137,29 @@ class Display extends Controller
 				catch (\Exception $e)
 				{
 					$fs->remove($sTempDir);
-					$this->okt['flashMessages']->error($e->getMessage());
+					$this->okt['instantMessages']->error($e->getMessage());
 				}
 			}
 
 			# enregistrement de la configuration
 			$p_jquery_ui_admin_theme = $this->okt['request']->request->get('p_jquery_ui_admin_theme', 'base');
 
-			if (! in_array($p_jquery_ui_admin_theme, $aAllowedAdminThemes) && $p_jquery_ui_admin_theme != 'custom')
+			if (!in_array($p_jquery_ui_admin_theme, $aAllowedAdminThemes)
+				&& $p_jquery_ui_admin_theme != 'custom')
 			{
 				$p_jquery_ui_admin_theme = $this->okt['config']->jquery_ui['admin'];
 			}
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['instantMessages']->hasError())
 			{
-				$aNewConfig = array(
-					'jquery_ui' => array(
+				$aNewConfig = [
+					'jquery_ui' => [
 						'public' => $this->okt['request']->request->get('p_jquery_ui_public_theme', 'base'),
 						'admin' => $p_jquery_ui_admin_theme
-					),
+					],
 					'enable_admin_bar' => $this->okt['request']->request->has('p_enable_admin_bar'),
 					'admin_menu_position' => $this->okt['request']->request->get('p_admin_menu_position', 'top')
-				);
+				];
 
 				$this->okt['config']->write($aNewConfig);
 
@@ -168,9 +169,9 @@ class Display extends Controller
 			}
 		}
 
-		return $this->render('Config/Display', array(
-			'aUiThemes' => $aUiThemes,
-			'aAllowedAdminThemes' => $aAllowedAdminThemes
-		));
+		return $this->render('Config/Display', [
+			'aUiThemes'              => $aUiThemes,
+			'aAllowedAdminThemes'    => $aAllowedAdminThemes
+		]);
 	}
 }

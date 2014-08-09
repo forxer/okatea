@@ -21,16 +21,16 @@ class Permissions extends Controller
 		# locales
 		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/permissions');
 
-		$aGroups = array();
-		$aPerms = array();
+		$aGroups = [];
+		$aPerms = [];
 
-		$aParams = array(
+		$aParams = [
 			'language' => $this->okt['visitor']->language,
-			'group_id_not' => array(
+			'group_id_not' => [
 				Groups::SUPERADMIN,
 				Groups::GUEST
-			)
-		);
+			]
+		];
 
 		if (!$this->okt['visitor']->is_superadmin) {
 			$aParams['group_id_not'][] = Groups::ADMIN;
@@ -49,7 +49,7 @@ class Permissions extends Controller
 
 			foreach ($aGroups as $group_id => $group_title)
 			{
-				$group_perms = ! empty($perms[$group_id]) ? array_keys($perms[$group_id]) : array();
+				$group_perms = ! empty($perms[$group_id]) ? array_keys($perms[$group_id]) : [];
 
 				$this->okt['groups']->updGroupPerms($group_id, $group_perms);
 			}
@@ -59,10 +59,10 @@ class Permissions extends Controller
 			return $this->redirect($this->generateUrl('config_permissions'));
 		}
 
-		return $this->render('Config/Permissions', array(
-			'aGroups' => $aGroups,
-			'aPerms' => $aPerms,
-			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
-		));
+		return $this->render('Config/Permissions', [
+			'aGroups'        => $aGroups,
+			'aPerms'         => $aPerms,
+			'aPermissions'   => $this->okt['permissions']->getPermsForDisplay()
+		]);
 	}
 }

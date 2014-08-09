@@ -15,11 +15,9 @@ use Symfony\Component\Finder\Finder;
 
 class Update extends Controller
 {
-
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('is_superadmin'))
-		{
+		if (!$this->okt['visitor']->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
 
@@ -34,17 +32,16 @@ class Update extends Controller
 			Updater::dbUpdate($oChecklist);
 
 			# log admin
-			$this->okt['logAdmin']->warning(array(
-				'code' => 21,
-				'message' => 'DB CORE'
-			));
+			$this->okt['logAdmin']->warning([
+				'code'      => 21,
+				'message'   => 'DB CORE'
+			]);
 		}
 
 		$bDigestIsReadable = is_readable($this->okt['digests_path']);
 
-		if (! $bDigestIsReadable && ! $this->okt['request']->query->has('update_db'))
-		{
-			$this->okt['flashMessages']->error(__('c_a_update_unable_read_digests'));
+		if (!$bDigestIsReadable && !$this->okt['request']->query->has('update_db')) {
+			$this->okt['instantMessages']->error(__('c_a_update_unable_read_digests'));
 		}
 
 		$sOkateaVersion = $this->okt->getVersion();
@@ -64,23 +61,23 @@ class Update extends Controller
 		$sBaseSelfUrl = $this->generateUrl('config_update') . '?do_not_check=' . ($this->okt['request']->query->has('do_not_check') ? '1' : '0');
 
 		$sStep = $this->okt['request']->query->get('step', '');
-		$sStep = in_array($sStep, array(
+		$sStep = in_array($sStep, [
 			'check',
 			'download',
 			'backup',
 			'unzip',
 			'done'
-		)) ? $sStep : '';
+		]) ? $sStep : '';
 
 		# find backup archives files
-		$finder = (new Finder())->files()
+		$finder = (new Finder())
+			->files()
 			->in($this->okt['app_path'])
 			->depth('== 0')
 			->name('/^backup-([0-9A-Za-z\.-]+).zip$/');
 
-		$aArchives = array();
-		foreach ($finder as $file)
-		{
+		$aArchives = [];
+		foreach ($finder as $file) {
 			$aArchives[] = $file->getFilename();
 		}
 
@@ -92,8 +89,7 @@ class Update extends Controller
 			{
 				if ($this->okt['request']->request->has('b_del'))
 				{
-					if (! @unlink($this->okt['app_path'] . '/' . $b_file))
-					{
+					if (!@unlink($this->okt['app_path'] . '/' . $b_file)) {
 						throw new \Exception(sprintf(__('c_a_update_unable_delete_file_%s'), Escaper::html($b_file)));
 					}
 
@@ -109,9 +105,8 @@ class Update extends Controller
 					return $this->redirect($sBaseSelfUrl);
 				}
 			}
-			catch (\Exception $e)
-			{
-				$this->okt['flashMessages']->error($e->getMessage());
+			catch (\Exception $e) {
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -123,16 +118,14 @@ class Update extends Controller
 				$updater->setForcedFiles($this->okt['digests_path']);
 
 				# check integrity
-				if (! $this->okt['request']->query->has('do_not_check'))
-				{
+				if (!$this->okt['request']->query->has('do_not_check')) {
 					$updater->checkIntegrity($this->okt['digests_path'], $this->okt['app_path']);
 				}
 
 				# download
 				$updater->download($zip_file);
 
-				if (! $updater->checkDownload($zip_file))
-				{
+				if (!$updater->checkDownload($zip_file)) {
 					throw new \Exception(sprintf(__('c_a_update_downloaded_archive_corrupted'), 'href="' . $sBaseSelfUrl . '&step=download"'));
 				}
 
@@ -146,45 +139,42 @@ class Update extends Controller
 				$updater->performUpgrade($zip_file, 'okatea/Okatea/digests', 'okatea', $this->okt['app_path'], $this->okt['digests_path']);
 
 				# log admin
-				$this->okt['logAdmin']->critical(array(
-					'code' => 21,
-					'message' => 'FILES CORE ' . $new_v
-				));
+				$this->okt['logAdmin']->critical([
+					'code'         => 21,
+					'message'      => 'FILES CORE ' . $new_v
+				]);
 
 				return $this->redirect($this->okt['config']->app_url . 'install/?old_version=' . $sOkateaVersion);
 			}
 			catch (\Exception $e)
 			{
 				$sMessage = $e->getMessage();
-				if ($e->getCode() == Updater::ERR_FILES_CHANGED)
-				{
+
+				if ($e->getCode() == Updater::ERR_FILES_CHANGED) {
 					$sMessage = __('c_a_update_following_files_modified');
 				}
-				elseif ($e->getCode() == Updater::ERR_FILES_UNREADABLE)
-				{
+				elseif ($e->getCode() == Updater::ERR_FILES_UNREADABLE) {
 					$sMessage = sprintf(__('c_a_update_following_files_not_readable'), '<strong>backup-' . $sOkateaVersion . '.zip</strong>');
 				}
-				elseif ($e->getCode() == Updater::ERR_FILES_UNWRITALBE)
-				{
+				elseif ($e->getCode() == Updater::ERR_FILES_UNWRITALBE) {
 					$sMessage = __('c_a_update_following_files_cannot_be_written');
 				}
 
-				if (isset($e->bad_files))
-				{
+				if (isset($e->bad_files)) {
 					$sMessage .= '<ul><li><strong>' . implode('</strong></li><li><strong>', $e->bad_files) . '</strong></li></ul>';
 				}
 
-				$this->okt['flashMessages']->error(__('c_a_update_error_occurred'));
+				$this->okt['instantMessages']->error(__('c_a_update_error_occurred'));
 			}
 		}
 
-		return $this->render('Config/Update', array(
-			'oChecklist' => isset($oChecklist) ? $oChecklist : null,
-			'bDigestIsReadable' => $bDigestIsReadable,
-			'sStep' => $sStep,
-			'sMessage' => isset($sMessage) ? $sMessage : null,
-			'aArchives' => $aArchives,
-			'sBaseSelfUrl' => $sBaseSelfUrl
-		));
+		return $this->render('Config/Update', [
+			'oChecklist'         => isset($oChecklist) ? $oChecklist : null,
+			'bDigestIsReadable'  => $bDigestIsReadable,
+			'sStep'              => $sStep,
+			'sMessage'           => isset($sMessage) ? $sMessage : null,
+			'aArchives'          => $aArchives,
+			'sBaseSelfUrl'       => $sBaseSelfUrl
+		]);
 	}
 }

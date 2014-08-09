@@ -13,11 +13,9 @@ use Okatea\Tao\Routing\Helpers\Website;
 
 class Router extends Controller
 {
-
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('is_superadmin'))
-		{
+		if (!$this->okt['visitor']->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
 
@@ -34,9 +32,9 @@ class Router extends Controller
 
 		$aAdminRoutesInfos = $oAdminHelpersConfig->getRoutesInfos();
 
-		return $this->render('Config/Router', array(
-			'aWebsiteRoutesInfos' => $aWebsiteRoutesInfos,
-			'aAdminRoutesInfos' => $aAdminRoutesInfos
-		));
+		return $this->render('Config/Router', [
+			'aWebsiteRoutesInfos'    => $aWebsiteRoutesInfos,
+			'aAdminRoutesInfos'      => $aAdminRoutesInfos
+		]);
 	}
 }

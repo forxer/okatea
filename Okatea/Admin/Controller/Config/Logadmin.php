@@ -14,8 +14,7 @@ class Logadmin extends Controller
 {
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('is_superadmin'))
-		{
+		if (!$this->okt['visitor']->checkPerm('is_superadmin')) {
 			return $this->serve401();
 		}
 
@@ -46,7 +45,7 @@ class Logadmin extends Controller
 		}
 
 		# Initialisation des filtres
-		$aParams = array();
+		$aParams = [];
 		$this->okt['logAdmin']->filters->setLogsParams($aParams);
 
 		# Création des filtres
@@ -62,10 +61,10 @@ class Logadmin extends Controller
 		# Récupération des logs
 		$aLogAdmin = $this->okt['logAdmin']->getLogs($aParams);
 
-		return $this->render('Config/Logadmin', array(
+		return $this->render('Config/Logadmin', [
 			'aLogAdmin'  => $aLogAdmin,
 			'oPager'     => $oPager,
 			'iNumPages'  => $iNumPages
-		));
+		]);
 	}
 }

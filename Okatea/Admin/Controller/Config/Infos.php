@@ -25,7 +25,7 @@ class Infos extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('infos')) {
+		if (!$this->okt['visitor']->checkPerm('infos')) {
 			return $this->serve401();
 		}
 
@@ -69,64 +69,64 @@ class Infos extends Controller
 		$this->aPageData['tabs'] = new ArrayObject();
 
 		# onglet notes
-		$this->aPageData['tabs'][10] = array(
+		$this->aPageData['tabs'][10] = [
 			'id' => 'tab-notes',
 			'title' => __('c_a_infos_install_notes'),
-			'content' => $this->renderView('Config/Infos/Tabs/Notes', array(
+			'content' => $this->renderView('Config/Infos/Tabs/Notes', [
 				'aPageData' => $this->aPageData,
 				'aNotes' => $this->aNotes
-			))
-		);
+			])
+		];
 
 		# onglet okatea
-		$this->aPageData['tabs'][20] = array(
+		$this->aPageData['tabs'][20] = [
 			'id' => 'tab-okatea',
 			'title' => __('c_a_infos_okatea'),
-			'content' => $this->renderView('Config/Infos/Tabs/Okatea', array(
+			'content' => $this->renderView('Config/Infos/Tabs/Okatea', [
 				'aPageData' => $this->aPageData,
 				'aOkateaInfos' => $this->aOkateaInfos
-			))
-		);
+			])
+		];
 
 		# onglet php
-		$this->aPageData['tabs'][30] = array(
+		$this->aPageData['tabs'][30] = [
 			'id' => 'tab-php',
 			'title' => __('c_a_infos_php'),
-			'content' => $this->renderView('Config/Infos/Tabs/Php', array(
+			'content' => $this->renderView('Config/Infos/Tabs/Php', [
 				'aPageData' => $this->aPageData,
 				'aPhpInfos' => $this->aPhpInfos
-			))
-		);
+			])
+		];
 
 		# onglet mysql
-		$this->aPageData['tabs'][40] = array(
+		$this->aPageData['tabs'][40] = [
 			'id' => 'tab-mysql',
 			'title' => __('c_a_infos_mysql'),
-			'content' => $this->renderView('Config/Infos/Tabs/Mysql', array(
+			'content' => $this->renderView('Config/Infos/Tabs/Mysql', [
 				'aPageData' => $this->aPageData,
 				'aMysqlInfos' => $this->aMysqlInfos
-			))
-		);
+			])
+		];
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosBuildTabs
 		$this->okt['triggers']->callTrigger('adminInfosBuildTabs', $this->aPageData);
 
 		$this->aPageData['tabs']->ksort();
 
-		return $this->render('Config/Infos/Page', array(
+		return $this->render('Config/Infos/Page', [
 			'aPageData' => $this->aPageData
-		));
+		]);
 	}
 
 	protected function notesInit()
 	{
-		$this->aNotes = array(
-			'file' => $this->okt['app_path'] . '/notes.md',
-			'has' => false,
-			'edit' => false,
-			'md' => null,
-			'html' => null
-		);
+		$this->aNotes = [
+			'file'   => $this->okt['app_path'] . '/notes.md',
+			'has'    => false,
+			'edit'   => false,
+			'md'     => null,
+			'html'   => null
+		];
 
 		if (file_exists($this->aNotes['file']))
 		{
@@ -142,12 +142,12 @@ class Infos extends Controller
 
 	protected function okateaInit()
 	{
-		$this->aOkateaInfos = array(
-			'version' => $this->okt->getVersion(),
-			'pass_test' => true,
-			'warning_empty' => true,
-			'requirements' => null
-		);
+		$this->aOkateaInfos = [
+			'version'        => $this->okt->getVersion(),
+			'pass_test'      => true,
+			'warning_empty'  => true,
+			'requirements'   => null
+		];
 
 		$oRequirements = new Requirements($this->okt);
 
@@ -160,9 +160,9 @@ class Infos extends Controller
 
 	protected function mysqlInit()
 	{
-		$this->aMysqlInfos = array(
+		$this->aMysqlInfos = [
 			'table' => $this->okt['request']->query->get('table')
-		);
+		];
 
 		$rs = $this->okt->db->select('SELECT VERSION() AS db_version');
 		$this->aMysqlInfos['db_version'] = $rs->db_version;
@@ -191,12 +191,12 @@ class Infos extends Controller
 	protected function phpInit()
 	{
 		# PHP infos
-		$this->aPhpInfos = array();
+		$this->aPhpInfos = [];
 		$this->aPhpInfos['version'] = function_exists('phpversion') ? phpversion() : 'n/a';
 		$this->aPhpInfos['zend_version'] = function_exists('zend_version') ? zend_version() : 'n/a';
 		$this->aPhpInfos['sapi_type'] = function_exists('php_sapi_name') ? php_sapi_name() : 'n/a';
 		$this->aPhpInfos['apache_version'] = function_exists('apache_get_version') ? apache_get_version() : 'n/a';
-		$this->aPhpInfos['extensions'] = (function_exists('get_loaded_extensions') ? (array) get_loaded_extensions() : array());
+		$this->aPhpInfos['extensions'] = (function_exists('get_loaded_extensions') ? (array) get_loaded_extensions() : []);
 
 		foreach ($this->aPhpInfos['extensions'] as $k => $e)
 		{
@@ -207,7 +207,7 @@ class Infos extends Controller
 	protected function notesHandleRequest()
 	{
 		# création du fichier de notes
-		if ($this->okt['request']->query->has('create_notes') && ! $this->aNotes['has'])
+		if ($this->okt['request']->query->has('create_notes') && !$this->aNotes['has'])
 		{
 			file_put_contents($this->aNotes['file'], '');
 
@@ -217,8 +217,7 @@ class Infos extends Controller
 		# enregistrement notes
 		if ($this->okt['request']->request->has('save_notes'))
 		{
-			if ($this->aNotes['has'])
-			{
+			if ($this->aNotes['has']) {
 				file_put_contents($this->aNotes['file'], $this->okt['request']->request->get('notes_content'));
 			}
 
@@ -261,12 +260,14 @@ class Infos extends Controller
 		if ($optimize)
 		{
 			if ($this->okt->db->optimize($optimize) === false) {
-				$this->okt['flashMessages']->error($this->okt->db->error());
+				$this->okt['instantMessages']->error($this->okt->db->error());
 			}
+			else
+			{
+				$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_optimized'));
 
-			$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_optimized'));
-
-			return $this->redirect($this->generateUrl('config_infos'));
+				return $this->redirect($this->generateUrl('config_infos'));
+			}
 		}
 
 		# vidange d'une table
@@ -275,12 +276,14 @@ class Infos extends Controller
 		if ($truncate)
 		{
 			if ($this->okt->db->execute('TRUNCATE `' . $truncate . '`') === false) {
-				$this->okt['flashMessages']->error($this->okt->db->error());
+				$this->okt['instantMessages']->error($this->okt->db->error());
 			}
+			else
+			{
+				$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_truncated'));
 
-			$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_truncated'));
-
-			return $this->redirect($this->generateUrl('config_infos'));
+				return $this->redirect($this->generateUrl('config_infos'));
+			}
 		}
 
 		# suppression d'une table
@@ -288,14 +291,15 @@ class Infos extends Controller
 
 		if ($drop)
 		{
-			if ($this->okt->db->execute('DROP TABLE `' . $drop . '`') === false)
-			{
-				$this->okt['flashMessages']->error($this->okt->db->error());
+			if ($this->okt->db->execute('DROP TABLE `' . $drop . '`') === false) {
+				$this->okt['instantMessages']->error($this->okt->db->error());
 			}
+			else
+			{
+				$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_droped'));
 
-			$this->okt['flashMessages']->success(__('c_a_infos_mysql_table_droped'));
-
-			return $this->redirect($this->generateUrl('config_infos'));
+				return $this->redirect($this->generateUrl('config_infos'));
+			}
 		}
 
 		return false;

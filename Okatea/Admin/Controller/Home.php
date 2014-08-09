@@ -36,12 +36,12 @@ class Home extends Controller
 			$this->okt['instantMessages']->warning(__('c_a_public_debug_mode_enabled'));
 		}
 
-		return $this->render('Home', array(
+		return $this->render('Home', [
 			'sNewVersion'        => $this->sNewVersion,
 			'bFeedSuccess'       => $this->bFeedSuccess,
 			'feed'               => $this->feed,
 			'aRoundAboutItems'   => (array) $this->aRoundAboutItems
-		));
+		]);
 	}
 
 	protected function roundAbout()
@@ -120,12 +120,13 @@ class Home extends Controller
 
 	protected function newsFeed()
 	{
-		if (! $this->okt['config']->news_feed['enabled'] || empty($this->okt['config']->news_feed['url'][$this->okt['visitor']->language]))
+		if (!$this->okt['config']->news_feed['enabled']
+			|| empty($this->okt['config']->news_feed['url'][$this->okt['visitor']->language]))
 		{
 			return null;
 		}
 
-		// We'll process this feed with all of the default options.
+		# We'll process this feed with all of the default options.
 		$this->feed = new \SimplePie();
 
 		# set cache directory
@@ -135,13 +136,14 @@ class Home extends Controller
 
 		$this->feed->set_cache_location($sCacheDir);
 
-		// Set which feed to process.
+		# Set which feed to process
 		$this->feed->set_feed_url($this->okt['config']->news_feed['url'][$this->okt['visitor']->language]);
 
-		// Run SimplePie.
+		# Run SimplePie
 		$this->bFeedSuccess = $this->feed->init();
 
-		// This makes sure that the content is sent to the browser as text/html and the UTF-8 character set (since we didn't change it).
+		# This makes sure that the content is sent to the browser
+		# as text/html and the UTF-8 character set (since we didn't change it).
 		$this->feed->handle_content_type();
 
 		$this->page->css->addCss('
@@ -175,11 +177,16 @@ class Home extends Controller
 	{
 		if ($this->okt['config']->updates['enabled'] && $this->okt['visitor']->checkPerm('is_superadmin') && is_readable($this->okt['digests_path']))
 		{
-			$updater = new Updater($this->okt['config']->updates['url'], 'okatea', $this->okt['config']->updates['type'], $this->okt['cache_path'] . '/versions');
+			$updater = new Updater(
+				$this->okt['config']->updates['url'],
+				'okatea',
+				$this->okt['config']->updates['type'],
+				$this->okt['cache_path'] . '/versions'
+			);
+
 			$this->sNewVersion = $updater->check($this->okt->getVersion());
 
-			if ($updater->getNotify() && $this->sNewVersion)
-			{
+			if ($updater->getNotify() && $this->sNewVersion) {
 				$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/update');
 			}
 		}

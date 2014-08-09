@@ -30,116 +30,99 @@ class Modules extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('modules'))
-		{
+		if (!$this->okt['visitor']->checkPerm('modules')) {
 			return $this->serve401();
 		}
 
 		$this->init();
 
-		# Affichage changelog
-		if (($showChangelog = $this->showChangelog()) !== false)
-		{
+		# Show changelog
+		if (($showChangelog = $this->showChangelog()) !== false) {
 			return $showChangelog;
 		}
 
 		# Enable a module
-		if (($enableModule = $this->enableModule()) !== false)
-		{
+		if (($enableModule = $this->enableModule()) !== false) {
 			return $enableModule;
 		}
 
 		# Disable a module
-		if (($disableModule = $this->disableModule()) !== false)
-		{
+		if (($disableModule = $this->disableModule()) !== false) {
 			return $disableModule;
 		}
 
 		# Install a module
-		if (($installModule = $this->installModule()) !== false)
-		{
+		if (($installModule = $this->installModule()) !== false) {
 			return $installModule;
 		}
 
 		# Update a module
-		if (($updateModule = $this->updateModule()) !== false)
-		{
+		if (($updateModule = $this->updateModule()) !== false) {
 			return $updateModule;
 		}
 
 		# Uninstall a module
-		if (($uninstallModule = $this->uninstallModule()) !== false)
-		{
+		if (($uninstallModule = $this->uninstallModule()) !== false) {
 			return $uninstallModule;
 		}
 
 		# Re-install a module
-		if (($reinstallModule = $this->reinstallModule()) !== false)
-		{
+		if (($reinstallModule = $this->reinstallModule()) !== false) {
 			return $reinstallModule;
 		}
 
 		# Install test set of a module
-		if (($installTestSet = $this->installTestSet()) !== false)
-		{
+		if (($installTestSet = $this->installTestSet()) !== false) {
 			return $installTestSet;
 		}
 
 		# Install default data of a module
-		if (($installDefaultData = $this->installDefaultData()) !== false)
-		{
+		if (($installDefaultData = $this->installDefaultData()) !== false) {
 			return $installDefaultData;
 		}
 
 		# Remove content of a module
-		if (($removeModuleContent = $this->removeModuleContent()) !== false)
-		{
+		if (($removeModuleContent = $this->removeModuleContent()) !== false) {
 			return $removeModuleContent;
 		}
 
 		# Remove a module
-		if (($removeModule = $this->removeModule()) !== false)
-		{
+		if (($removeModule = $this->removeModule()) !== false) {
 			return $removeModule;
 		}
 
 		# Replace templates files of a module by its default ones
-		if (($replaceTemplatesFiles = $this->replaceTemplatesFiles()) !== false)
-		{
+		if (($replaceTemplatesFiles = $this->replaceTemplatesFiles()) !== false) {
 			return $replaceTemplatesFiles;
 		}
 
 		# Replace assets files of a module by its default ones
-		if (($replaceAssetsFiles = $this->replaceAssetsFiles()) !== false)
-		{
+		if (($replaceAssetsFiles = $this->replaceAssetsFiles()) !== false) {
 			return $replaceAssetsFiles;
 		}
 
 		# Package and send a module
-		if (($packageAndSendModule = $this->packageAndSendModule()) !== false)
-		{
+		if (($packageAndSendModule = $this->packageAndSendModule()) !== false) {
 			return $packageAndSendModule;
 		}
 
 		# Compare module files
-		if (($compareFiles = $this->compareFiles()) !== false)
-		{
+		if (($compareFiles = $this->compareFiles()) !== false) {
 			return $compareFiles;
 		}
 
 		# Add a module to the system
-		if (($moduleUpload = $this->moduleUpload()) !== false)
-		{
+		if (($moduleUpload = $this->moduleUpload()) !== false) {
 			return $moduleUpload;
 		}
 
-		return $this->render('Config/Modules/List', array(
-			'aAllModules' => $this->aAllModules,
-			'aInstalledModules' => $this->aInstalledModules,
-			'aUninstalledModules' => $this->aUninstalledModules,
-			'aUpdatablesModules' => $this->aUpdatablesModules,
-			'aModulesRepositories' => $this->aModulesRepositories
-		));
+		return $this->render('Config/Modules/List', [
+			'aAllModules'            => $this->aAllModules,
+			'aInstalledModules'      => $this->aInstalledModules,
+			'aUninstalledModules'    => $this->aUninstalledModules,
+			'aUpdatablesModules'     => $this->aUpdatablesModules,
+			'aModulesRepositories'   => $this->aModulesRepositories
+		]);
 	}
 
 	protected function init()
@@ -165,14 +148,13 @@ class Modules extends Controller
 		}
 
 		# Modules repositories list
-		$this->aModulesRepositories = array();
-		if ($this->okt['config']->repositories['modules']['enabled'])
-		{
+		$this->aModulesRepositories = [];
+		if ($this->okt['config']->repositories['modules']['enabled']) {
 			$this->aModulesRepositories = $this->okt['modules']->getRepositoriesData($this->okt['config']->repositories['modules']['list']);
 		}
 
 		# List of updates available on any repositories
-		$this->aUpdatablesModules = array();
+		$this->aUpdatablesModules = [];
 		foreach ($this->aModulesRepositories as $repo_name => $modules)
 		{
 			foreach ($modules as $module)
@@ -181,13 +163,13 @@ class Modules extends Controller
 
 				if (isset($this->aAllModules[$module['id']]) && $this->aAllModules[$module['id']]['updatable'] && version_compare($this->aAllModules[$module['id']]['version'], $module['version'], '<'))
 				{
-					$this->aUpdatablesModules[$module['id']] = array(
-						'id' => $module['id'],
-						'name' => $module['name'],
-						'version' => $module['version'],
-						'info' => $module['info'],
-						'repository' => $repo_name
-					);
+					$this->aUpdatablesModules[$module['id']] = [
+						'id'          => $module['id'],
+						'name'        => $module['name'],
+						'version'     => $module['version'],
+						'info'        => $module['info'],
+						'repository'  => $repo_name
+					];
 				}
 			}
 		}
@@ -196,8 +178,7 @@ class Modules extends Controller
 		ModulesCollection::sort($this->aInstalledModules);
 		ModulesCollection::sort($this->aUninstalledModules);
 
-		foreach ($this->aModulesRepositories as $repo_name => $modules)
-		{
+		foreach ($this->aModulesRepositories as $repo_name => $modules) {
 			ModulesCollection::sort($this->aModulesRepositories[$repo_name]);
 		}
 	}
@@ -207,8 +188,7 @@ class Modules extends Controller
 		$sModuleId = $this->okt['request']->query->get('show_changelog');
 		$sChangelogFile = $this->okt['modules_path'] . '/' . $sModuleId . '/CHANGELOG';
 
-		if (! $sModuleId || ! file_exists($sChangelogFile))
-		{
+		if (!$sModuleId || !file_exists($sChangelogFile)) {
 			return false;
 		}
 
@@ -221,8 +201,7 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('enable');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -232,10 +211,10 @@ class Modules extends Controller
 		Utilities::deleteOktCacheFiles();
 
 		# log admin
-		$this->okt['logAdmin']->warning(array(
-			'code' => 30,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->warning([
+			'code'       => 30,
+			'message'    => $sModuleId
+		]);
 
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -244,8 +223,7 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('disable');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -255,10 +233,10 @@ class Modules extends Controller
 		Utilities::deleteOktCacheFiles();
 
 		# log admin
-		$this->okt['logAdmin']->warning(array(
-			'code' => 31,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->warning([
+			'code'       => 31,
+			'message'    => $sModuleId
+		]);
 
 		return $this->redirect($this->generateUrl('config_modules'));
 	}
@@ -267,8 +245,7 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('install');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aUninstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aUninstalledModules)) {
 			return false;
 		}
 
@@ -279,43 +256,44 @@ class Modules extends Controller
 		$oInstallModule->doInstall();
 
 		# activation du module
-		$oInstallModule->checklist->addItem('enable_module', $this->okt['modules']->getManager()
-			->enableExtension($sModuleId), 'Enable module', 'Cannot enable module');
+		$oInstallModule->checklist->addItem(
+			'enable_module',
+			$this->okt['modules']->getManager()->enableExtension($sModuleId),
+			'Enable module',
+			'Cannot enable module'
+		);
 
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_correctly_installed'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_correctly_installed'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_installed'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_installed'));
 		}
 
 		# log admin
-		$this->okt['logAdmin']->warning(array(
-			'code' => 20,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->warning([
+			'code'       => 20,
+			'message'    => $sModuleId
+		]);
 
-		return $this->render('Config/Modules/Install', array(
+		return $this->render('Config/Modules/Install', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function updateModule()
 	{
 		$sModuleId = $this->okt['request']->query->get('update');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
 		# D'abord on active le module
-		if (! $this->okt['modules']->isLoaded($sModuleId))
+		if (!$this->okt['modules']->isLoaded($sModuleId))
 		{
 			$this->okt['modules']->getManager()->enableExtension($sModuleId);
 
@@ -328,41 +306,39 @@ class Modules extends Controller
 		$oInstallModule = $this->okt['modules']->getInstaller($sModuleId);
 		$oInstallModule->doUpdate();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_correctly_updated'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_correctly_updated'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_updated'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_updated'));
 		}
 
 		Utilities::deleteOktCacheFiles();
 
-		$this->okt['logAdmin']->critical(array(
-			'code' => 21,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->critical([
+			'code'       => 21,
+			'message'    => $sModuleId
+		]);
 
 		$sNextUrl = $this->generateUrl('config_modules');
 
-		if (file_exists($oInstallModule->root() . '/Install/Templates/') || file_exists($oInstallModule->root() . '/Install/Assets/'))
+		if (file_exists($oInstallModule->root() . '/Install/Templates/')
+			|| file_exists($oInstallModule->root() . '/Install/Assets/'))
 		{
 			$sNextUrl .= '?compare=' . $oInstallModule->id();
 		}
 
-		return $this->render('Config/Modules/Update', array(
+		return $this->render('Config/Modules/Update', [
 			'oInstallModule' => $oInstallModule,
-			'sNextUrl' => $sNextUrl
-		));
+			'sNextUrl'       => $sNextUrl
+		]);
 	}
 
 	protected function uninstallModule()
 	{
 		$sModuleId = $this->okt['request']->query->get('uninstall');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -374,31 +350,28 @@ class Modules extends Controller
 
 		Utilities::deleteOktCacheFiles();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_correctly_uninstalled'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_correctly_uninstalled'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_uninstalled'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_uninstalled'));
 		}
 
-		$this->okt['logAdmin']->critical(array(
-			'code' => 22,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->critical([
+			'code'       => 22,
+			'message'    => $sModuleId
+		]);
 
-		return $this->render('Config/Modules/Uninstall', array(
+		return $this->render('Config/Modules/Uninstall', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function reinstallModule()
 	{
 		$sModuleId = $this->okt['request']->query->get('reinstall');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -424,38 +397,39 @@ class Modules extends Controller
 		$oInstallModule->doInstall();
 
 		# activation du module
-		$oInstallModule->checklist->addItem('enable_module', $this->okt['modules']->getManager()
-			->enableExtension($sModuleId), 'Enable module', 'Cannot enable module');
+		$oInstallModule->checklist->addItem(
+			'enable_module',
+			$this->okt['modules']->getManager()->enableExtension($sModuleId),
+			'Enable module',
+			'Cannot enable module'
+		);
 
 		# vidange du cache global
 		Utilities::deleteOktCacheFiles();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_correctly_reinstalled'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_correctly_reinstalled'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_correctly_reinstalled.'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_correctly_reinstalled.'));
 		}
 
 		# log admin
-		$this->okt['logAdmin']->critical(array(
-			'code' => 23,
-			'message' => $sModuleId
-		));
+		$this->okt['logAdmin']->critical([
+			'code'       => 23,
+			'message'    => $sModuleId
+		]);
 
-		return $this->render('Config/Modules/Reinstall', array(
+		return $this->render('Config/Modules/Reinstall', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function installTestSet()
 	{
 		$sModuleId = $this->okt['request']->query->get('testset');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -473,30 +447,27 @@ class Modules extends Controller
 		# et ensuite on installent le jeu de test
 		$oInstallModule->doInstallTestSet();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_test_set_correctly_installed'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_test_set_correctly_installed'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		$this->okt['logAdmin']->critical(array(
+		$this->okt['logAdmin']->critical([
 			'message' => 'install test set ' . $sModuleId
-		));
+		]);
 
-		return $this->render('Config/Modules/InstallTestSet', array(
+		return $this->render('Config/Modules/InstallTestSet', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function installDefaultData()
 	{
 		$sModuleId = $this->okt['request']->query->get('defaultdata');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -507,30 +478,27 @@ class Modules extends Controller
 
 		$oInstallModule->doInstallDefaultData();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_test_set_correctly_installed'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_test_set_correctly_installed'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_test_set_not_correctly_installed'));
 		}
 
-		$this->okt['logAdmin']->warning(array(
+		$this->okt['logAdmin']->warning([
 			'message' => 'install default data ' . $sModuleId
-		));
+		]);
 
-		return $this->render('Config/Modules/InstallDefaultData', array(
+		return $this->render('Config/Modules/InstallDefaultData', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function removeModuleContent()
 	{
 		$sModuleId = $this->okt['request']->query->get('empty');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -540,30 +508,27 @@ class Modules extends Controller
 		$oInstallModule = $this->okt['modules']->getInstaller($sModuleId);
 		$oInstallModule->doEmpty();
 
-		if ($oInstallModule->checklist->checkAll())
-		{
-			$this->okt->page->success->set(__('c_a_modules_correctly_emptied'));
+		if ($oInstallModule->checklist->checkAll()) {
+			$this->okt['flashMessages']->success(__('c_a_modules_correctly_emptied'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_correctly_emptied'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_correctly_emptied'));
 		}
 
-		$this->okt['logAdmin']->critical(array(
+		$this->okt['logAdmin']->critical([
 			'message' => 'remove content of module ' . $sModuleId
-		));
+		]);
 
-		return $this->render('Config/Modules/RemoveContent', array(
+		return $this->render('Config/Modules/RemoveContent', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function removeModule()
 	{
 		$sModuleId = $this->okt['request']->query->get('delete');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aUninstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aUninstalledModules)) {
 			return false;
 		}
 
@@ -573,16 +538,15 @@ class Modules extends Controller
 		{
 			$this->okt['flashMessages']->success(__('c_a_modules_successfully_deleted'));
 
-			$this->okt['logAdmin']->warning(array(
-				'code' => 42,
-				'message' => $sModuleId
-			));
+			$this->okt['logAdmin']->warning([
+				'code'      => 42,
+				'message'   => $sModuleId
+			]);
 
 			return $this->redirect($this->generateUrl('config_modules'));
 		}
-		else
-		{
-			$this->okt['flashMessages']->error(__('c_a_modules_not_deleted.'));
+		else {
+			$this->okt['instantMessages']->error(__('c_a_modules_not_deleted.'));
 		}
 	}
 
@@ -590,8 +554,7 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('templates');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -609,8 +572,7 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('assets');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
@@ -628,15 +590,13 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('download');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aAllModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aAllModules)) {
 			return false;
 		}
 
 		$sModulePath = $this->okt['modules_path'] . '/' . $sModuleId;
 
-		if (! is_readable($sModulePath))
-		{
+		if (!is_readable($sModulePath)) {
 			return false;
 		}
 
@@ -662,17 +622,16 @@ class Modules extends Controller
 	{
 		$sModuleId = $this->okt['request']->query->get('compare');
 
-		if (! $sModuleId || ! array_key_exists($sModuleId, $this->aInstalledModules))
-		{
+		if (!$sModuleId || !array_key_exists($sModuleId, $this->aInstalledModules)) {
 			return false;
 		}
 
 		$oInstallModule = $this->okt['modules']->getInstaller($sModuleId);
 		$oInstallModule->compareFiles();
 
-		return $this->render('Config/Modules/Compare', array(
+		return $this->render('Config/Modules/Compare', [
 			'oInstallModule' => $oInstallModule
-		));
+		]);
 	}
 
 	protected function moduleUpload()
@@ -693,8 +652,7 @@ class Modules extends Controller
 			{
 				if ($upload_pkg)
 				{
-					if (array_key_exists($pkg_file->getClientOriginalName(), $this->aUninstalledModules))
-					{
+					if (array_key_exists($pkg_file->getClientOriginalName(), $this->aUninstalledModules)) {
 						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
@@ -708,15 +666,13 @@ class Modules extends Controller
 						$module = urldecode($module);
 						$url = urldecode($this->aModulesRepositories[$repository][$module]['href']);
 					}
-					else
-					{
+					else {
 						$url = urldecode($pkg_url);
 					}
 
 					$dest = $this->okt['modules_path'] . '/' . basename($url);
 
-					if (array_key_exists(basename($url), $this->aUninstalledModules))
-					{
+					if (array_key_exists(basename($url), $this->aUninstalledModules)) {
 						throw new \Exception(__('c_a_modules_module_already_exists_not_installed_install_before_update'));
 					}
 
@@ -724,23 +680,20 @@ class Modules extends Controller
 					{
 						$response = (new Client())->get($url, [
 							'exceptions' => false,
-							'save_to' => $dest
+							'save_to'    => $dest
 						]);
 					}
-					catch (\Exception $e)
-					{
+					catch (\Exception $e) {
 						throw new \Exception(__('An error occurred while downloading the file.'));
 					}
 				}
 
 				$ret_code = $this->okt['modules']->installPackage($dest);
 
-				if ($ret_code == 2)
-				{
+				if ($ret_code == 2) {
 					$this->okt['flashMessages']->success(__('c_a_modules_module_successfully_upgraded'));
 				}
-				else
-				{
+				else {
 					$this->okt['flashMessages']->success(__('c_a_modules_module_successfully_added'));
 				}
 
@@ -748,7 +701,7 @@ class Modules extends Controller
 			}
 			catch (\Exception $e)
 			{
-				$this->okt['flashMessages']->error($e->getMessage());
+				$this->okt['instantMessages']->error($e->getMessage());
 				return false;
 			}
 		}

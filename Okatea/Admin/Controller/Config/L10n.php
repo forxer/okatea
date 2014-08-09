@@ -16,7 +16,7 @@ class L10n extends Controller
 {
 	public function index()
 	{
-		if (! $this->okt['visitor']->checkPerm('languages')) {
+		if (!$this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 
@@ -49,7 +49,7 @@ class L10n extends Controller
 		# Liste des langues
 		$aLanguages = $this->okt['languages']->getLanguages();
 
-		$aLanguagesForSelect = array();
+		$aLanguagesForSelect = [];
 		foreach ($aLanguages as $language) {
 			$aLanguagesForSelect[Escaper::html($language['title'])] = $language['code'];
 		}
@@ -57,16 +57,16 @@ class L10n extends Controller
 		# Liste des fuseaux horraires
 		$aTimezones = Date::getTimezonesList(true, true);
 
-		return $this->render('Config/L10n/Index', array(
-			'aLanguages' => $aLanguages,
-			'aLanguagesForSelect' => $aLanguagesForSelect,
-			'aTimezones' => $aTimezones
-		));
+		return $this->render('Config/L10n/Index', [
+			'aLanguages'             => $aLanguages,
+			'aLanguagesForSelect'    => $aLanguagesForSelect,
+			'aTimezones'             => $aTimezones
+		]);
 	}
 
 	public function edit()
 	{
-		if (! $this->okt['visitor']->checkPerm('languages')) {
+		if (!$this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 
@@ -80,23 +80,23 @@ class L10n extends Controller
 			return $this->serve404();
 		}
 
-		$aUpdLanguageData = array(
+		$aUpdLanguageData = [
 			'id' 		=> $iLanguageId,
 			'title' 	=> $aLanguage['title'],
 			'code' 		=> $aLanguage['code'],
 			'img' 		=> $aLanguage['img'],
 			'active' 	=> $aLanguage['active']
-		);
+		];
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$aUpdLanguageData = array(
+			$aUpdLanguageData = [
 				'id' 		=> $iLanguageId,
 				'title' 	=> $this->okt['request']->request->get('edit_title'),
 				'code' 		=> $this->okt['request']->request->get('edit_code'),
 				'img' 		=> $this->okt['request']->request->get('edit_img'),
 				'active' 	=> $this->okt['request']->request->getInt('edit_active')
-			);
+			];
 
 			if ($this->okt['languages']->checkPostData($aUpdLanguageData))
 			{
@@ -104,43 +104,43 @@ class L10n extends Controller
 
 				$this->okt['flashMessages']->success(__('c_a_config_l10n_edited'));
 
-				return $this->redirect($this->generateUrl('config_l10n_edit_language', array(
+				return $this->redirect($this->generateUrl('config_l10n_edit_language', [
 					'language_id' => $iLanguageId
-				)));
+				]));
 			}
 		}
 
-		return $this->render('Config/L10n/Edit', array(
+		return $this->render('Config/L10n/Edit', [
 			'aUpdLanguageData' => $aUpdLanguageData,
 			'aFlags' => $this->getIconsList()
-		));
+		]);
 	}
 
 	public function add()
 	{
-		if (! $this->okt['visitor']->checkPerm('languages')) {
+		if (!$this->okt['visitor']->checkPerm('languages')) {
 			return $this->serve401();
 		}
 
 		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/l10n');
 
-		$aAddLanguageData = array(
+		$aAddLanguageData = [
 			'language' 	=> '',
 			'country' 	=> '',
 			'title' 	=> '',
 			'code' 		=> '',
 			'img' 		=> '',
 			'active' 	=> 1
-		);
+		];
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$aAddLanguageData = array(
+			$aAddLanguageData = [
 				'title' 	=> $this->okt['request']->request->get('add_title'),
 				'code' 		=> $this->okt['request']->request->get('add_code'),
 				'img' 		=> $this->okt['request']->request->get('add_img'),
 				'active' 	=> $this->okt['request']->request->getInt('add_active', 0)
-			);
+			];
 
 			if ($this->okt['languages']->checkPostData($aAddLanguageData))
 			{
@@ -148,24 +148,22 @@ class L10n extends Controller
 
 				$this->okt['flashMessages']->success(__('c_a_config_l10n_added'));
 
-				return $this->redirect($this->generateUrl('config_l10n_edit_language', array(
+				return $this->redirect($this->generateUrl('config_l10n_edit_language', [
 					'language_id' => $iLanguageId
-				)));
+				]));
 			}
 		}
 
 		# fetch languages infos
 		$sLanguagesListInfos = $this->okt['app_path'] . '/vendor/forxer/languages-list/languages.php';
 
-		$aLanguagesList = array(
-			' ' => null
-		);
+		$aLanguagesList = [ ' ' => null ];
+
 		if (file_exists($sLanguagesListInfos))
 		{
 			$aLanguagesListInfos = require $sLanguagesListInfos;
 
-			foreach ($aLanguagesListInfos as $aLanguageInfo)
-			{
+			foreach ($aLanguagesListInfos as $aLanguageInfo) {
 				$aLanguagesList[$aLanguageInfo['Native name']] = $aLanguageInfo['639-1'];
 			}
 
@@ -175,9 +173,7 @@ class L10n extends Controller
 		# fetch country infos
 		$sCountryListInfos = $this->okt['okt_path'] . '/Tao/L10n/country-list/' . $this->okt['visitor']->language . '/country.php';
 
-		$aCountryList = array(
-			' ' => null
-		);
+		$aCountryList = [ ' ' => null ];
 
 		if (file_exists($sCountryListInfos))
 		{
@@ -188,20 +184,20 @@ class L10n extends Controller
 			unset($aCountryListInfos);
 		}
 
-		return $this->render('Config/L10n/Add', array(
-			'aAddLanguageData' => $aAddLanguageData,
-			'aLanguagesList' => $aLanguagesList,
-			'aCountryList' => $aCountryList,
-			'aFlags' => $this->getIconsList()
-		));
+		return $this->render('Config/L10n/Add', [
+			'aAddLanguageData'   => $aAddLanguageData,
+			'aLanguagesList'     => $aLanguagesList,
+			'aCountryList'       => $aCountryList,
+			'aFlags'             => $this->getIconsList()
+		]);
 	}
 
 	protected function getIconsList()
 	{
-		$aFlags = array();
+		$aFlags = [];
 		foreach (new DirectoryIterator($this->okt['public_path'] . '/img/flags/') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
+			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'png') {
 				continue;
 			}
 
@@ -270,12 +266,12 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->request->has('add_languages'))
 		{
-			$this->aAddLanguageData = array(
-				'title' => $this->okt['request']->request->get('add_title'),
-				'code' => $this->okt['request']->request->get('add_code'),
-				'img' => $this->okt['request']->request->get('add_img'),
-				'active' => $this->okt['request']->request->getInt('add_active', 0)
-			);
+			$this->aAddLanguageData = [
+				'title'     => $this->okt['request']->request->get('add_title'),
+				'code'      => $this->okt['request']->request->get('add_code'),
+				'img'       => $this->okt['request']->request->get('add_img'),
+				'active'    => $this->okt['request']->request->getInt('add_active', 0)
+			];
 
 			if ($this->okt['languages']->checkPostData($this->aAddLanguageData))
 			{
@@ -294,9 +290,9 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aLanguagesOrder = $this->okt['request']->query->get('ord', array());
+			$aLanguagesOrder = $this->okt['request']->query->get('ord', []);
 
-			if (! empty($aLanguagesOrder))
+			if (!empty($aLanguagesOrder))
 			{
 				foreach ($aLanguagesOrder as $ord => $id)
 				{
@@ -315,13 +311,13 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->request->has('order_languages'))
 		{
-			$aLanguagesOrder = $this->okt['request']->request->get('p_order', array());
+			$aLanguagesOrder = $this->okt['request']->request->get('p_order', []);
 
 			asort($aLanguagesOrder);
 
 			$aLanguagesOrder = array_keys($aLanguagesOrder);
 
-			if (! empty($aLanguagesOrder))
+			if (!empty($aLanguagesOrder))
 			{
 				foreach ($aLanguagesOrder as $ord => $id)
 				{
@@ -342,13 +338,13 @@ class L10n extends Controller
 	{
 		if ($this->okt['request']->request->has('config_sent'))
 		{
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['instantMessages']->hasError())
 			{
-				$this->okt['config']->write(array(
-					'language' => $this->okt['request']->request->get('p_language'),
-					'timezone' => $this->okt['request']->request->get('p_timezone'),
-					'admin_lang_switcher' => $this->okt['request']->request->has('p_admin_lang_switcher')
-				));
+				$this->okt['config']->write([
+					'language'             => $this->okt['request']->request->get('p_language'),
+					'timezone'             => $this->okt['request']->request->get('p_timezone'),
+					'admin_lang_switcher'  => $this->okt['request']->request->has('p_admin_lang_switcher')
+				]);
 
 				$this->okt['flashMessages']->success(__('c_c_confirm_configuration_updated'));
 

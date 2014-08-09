@@ -42,8 +42,7 @@ class Tools extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('tools'))
-		{
+		if (!$this->okt['visitor']->checkPerm('tools')) {
 			return $this->serve401();
 		}
 
@@ -66,28 +65,23 @@ class Tools extends Controller
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsInit
 		$this->okt['triggers']->callTrigger('adminToolsInit', $this->aPageData);
 
-		if (($action = $this->cacheHandleRequest()) !== false)
-		{
+		if (($action = $this->cacheHandleRequest()) !== false) {
 			return $action;
 		}
 
-		if (($action = $this->cleanupHandleRequest()) !== false)
-		{
+		if (($action = $this->cleanupHandleRequest()) !== false) {
 			return $action;
 		}
 
-		if (($action = $this->backupHandleRequest()) !== false)
-		{
+		if (($action = $this->backupHandleRequest()) !== false) {
 			return $action;
 		}
 
-		if (($action = $this->htaccessHandleRequest()) !== false)
-		{
+		if (($action = $this->htaccessHandleRequest()) !== false) {
 			return $action;
 		}
 
-		if (($action = $this->uninstallHandleRequest()) !== false)
-		{
+		if (($action = $this->uninstallHandleRequest()) !== false) {
 			return $action;
 		}
 
@@ -98,60 +92,60 @@ class Tools extends Controller
 		$this->aPageData['tabs'] = new ArrayObject();
 
 		# cache tab
-		$this->aPageData['tabs'][10] = array(
+		$this->aPageData['tabs'][10] = [
 			'id' => 'tab-cache',
 			'title' => __('c_a_tools_cache'),
-			'content' => $this->renderView('Config/Tools/Tabs/Cache', array(
+			'content' => $this->renderView('Config/Tools/Tabs/Cache', [
 				'aPageData' => $this->aPageData,
 				'oCacheFiles' => $this->oCacheFiles,
 				'oPublicCacheFiles' => $this->oPublicCacheFiles
-			))
-		);
+			])
+		];
 
 		# cleanup tab
-		$this->aPageData['tabs'][20] = array(
+		$this->aPageData['tabs'][20] = [
 			'id' => 'tab-cleanup',
 			'title' => __('c_a_tools_cleanup'),
-			'content' => $this->renderView('Config/Tools/Tabs/Cleanup', array(
+			'content' => $this->renderView('Config/Tools/Tabs/Cleanup', [
 				'aPageData' => $this->aPageData,
 				'aCleanableFiles' => $this->aCleanableFiles
-			))
-		);
+			])
+		];
 
 		# backup tab
-		$this->aPageData['tabs'][30] = array(
+		$this->aPageData['tabs'][30] = [
 			'id' => 'tab-backup',
 			'title' => __('c_a_tools_backup'),
-			'content' => $this->renderView('Config/Tools/Tabs/Backup', array(
+			'content' => $this->renderView('Config/Tools/Tabs/Backup', [
 				'aPageData' => $this->aPageData,
 				'aBackupFiles' => $this->aBackupFiles,
 				'aDbBackupFiles' => $this->aDbBackupFiles
-			))
-		);
+			])
+		];
 
 		# htaccess tab
-		$this->aPageData['tabs'][40] = array(
+		$this->aPageData['tabs'][40] = [
 			'id' => 'tab-htaccess',
 			'title' => __('c_a_tools_htaccess'),
-			'content' => $this->renderView('Config/Tools/Tabs/Htaccess', array(
+			'content' => $this->renderView('Config/Tools/Tabs/Htaccess', [
 				'aPageData' => $this->aPageData,
 				'bHtaccessExists' => $this->bHtaccessExists,
 				'bHtaccessDistExists' => $this->bHtaccessDistExists,
 				'sHtaccessContent' => $this->sHtaccessContent
-			))
-		);
+			])
+		];
 
 		# uninstall tab
 		if ($this->bCanUninstall)
 		{
-			$this->aPageData['tabs'][50] = array(
+			$this->aPageData['tabs'][50] = [
 				'id' => 'tab-uninstall',
 				'title' => __('c_a_tools_uninstall'),
-				'content' => $this->renderView('Config/Tools/Tabs/Uninstall', array(
+				'content' => $this->renderView('Config/Tools/Tabs/Uninstall', [
 					'aPageData' => $this->aPageData,
 					'bCanUninstall' => $this->bCanUninstall
-				))
-			);
+				])
+			];
 		}
 
 		# -- TRIGGER CORE TOOLS PAGE : adminToolsBuildTabs
@@ -159,9 +153,9 @@ class Tools extends Controller
 
 		$this->aPageData['tabs']->ksort();
 
-		return $this->render('Config/Tools/Page', array(
+		return $this->render('Config/Tools/Page', [
 			'aPageData' => $this->aPageData
-		));
+		]);
 	}
 
 	protected function cacheInit()
@@ -176,7 +170,7 @@ class Tools extends Controller
 	protected function cleanupInit()
 	{
 		# liste des fichiers supprimables
-		$this->aCleanableFiles = array(
+		$this->aCleanableFiles = [
 
 			'.DS_Store',
 
@@ -207,7 +201,7 @@ class Tools extends Controller
 			'.bzr',
 			'.git',
 			'.hg'
-		);
+		];
 	}
 
 	protected function backupInit()
@@ -217,13 +211,12 @@ class Tools extends Controller
 		$this->sDbBackupFilenameBase = 'db-backup';
 
 		# liste des fichiers de backup
-		$this->aBackupFiles = array();
-		$this->aDbBackupFiles = array();
+		$this->aBackupFiles = [];
+		$this->aDbBackupFiles = [];
 
 		foreach (new DirectoryIterator($this->okt['app_path']) as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isFile())
-			{
+			if ($oFileInfo->isDot() || !$oFileInfo->isFile()) {
 				continue;
 			}
 
@@ -255,8 +248,7 @@ class Tools extends Controller
 		}
 
 		$this->bHtaccessDistExists = false;
-		if (file_exists($this->okt['app_path'] . '/.htaccess.oktDist'))
-		{
+		if (file_exists($this->okt['app_path'] . '/.htaccess.oktDist')) {
 			$this->bHtaccessDistExists = true;
 		}
 	}
@@ -277,9 +269,10 @@ class Tools extends Controller
 	{
 		# Suppression d'un fichier cache
 		$sCacheFile = $this->okt['request']->query->get('cache_file');
+
 		if ($sCacheFile)
 		{
-			$fs = (new Filesystem())->remove($this->okt['cache_path'] . '/' . $sCacheFile);
+			(new Filesystem())->remove($this->okt['cache_path'] . '/' . $sCacheFile);
 
 			$this->okt['flashMessages']->success(__('c_a_tools_cache_confirm'));
 
@@ -288,9 +281,10 @@ class Tools extends Controller
 
 		# Suppression d'un fichier cache public
 		$sPublicCacheFile = $this->okt['request']->query->get('public_cache_file');
+
 		if ($sPublicCacheFile)
 		{
-			$fs = (new Filesystem())->remove($this->okt['public_path'] . '/cache/' . $sPublicCacheFile);
+			(new Filesystem())->remove($this->okt['public_path'] . '/cache/' . $sPublicCacheFile);
 
 			$this->okt['flashMessages']->success(__('c_a_tools_cache_confirm'));
 
@@ -318,17 +312,16 @@ class Tools extends Controller
 		$aNeedToDelete = $this->okt['request']->request->get('cleanup');
 		if ($aNeedToDelete)
 		{
-			$aToDelete = array();
+			$aToDelete = [];
 
 			foreach ($aNeedToDelete as $cleanup)
 			{
-				if (isset($this->aCleanableFiles[$cleanup]))
-				{
+				if (isset($this->aCleanableFiles[$cleanup])) {
 					$aToDelete[] = $this->aCleanableFiles[$cleanup];
 				}
 			}
 
-			if (! empty($aToDelete))
+			if (!empty($aToDelete))
 			{
 				ini_set('memory_limit', - 1);
 				set_time_limit(0);
@@ -338,8 +331,7 @@ class Tools extends Controller
 					->exclude('/vendor')
 					->ignoreVCS(false);
 
-				foreach ($aToDelete as $sToDelete)
-				{
+				foreach ($aToDelete as $sToDelete) {
 					$finder->name($sToDelete);
 				}
 
@@ -368,14 +360,14 @@ class Tools extends Controller
 			$sFilename = $this->sBackupFilenameBase . '-' . date('Y-m-d-H-i') . '.zip';
 
 			$fp = fopen($this->okt['app_path'] . '/' . $sFilename, 'wb');
-			if ($fp === false)
-			{
-				$this->okt['flashMessages']->error(__('c_a_tools_backup_unable_write_file'));
+
+			if ($fp === false) {
+				$this->okt['instantMessages']->error(__('c_a_tools_backup_unable_write_file'));
 			}
 
 			try
 			{
-				//		@ini_set('memory_limit',-1);
+				// @ini_set('memory_limit',-1);
 				set_time_limit(0);
 
 				$zip = new \fileZip($fp);
@@ -400,9 +392,8 @@ class Tools extends Controller
 
 				return $this->redirect($this->generateUrl('config_tools'));
 			}
-			catch (\Exception $e)
-			{
-				$this->okt['flashMessages']->error($e->getMessage());
+			catch (\Exception $e) {
+				$this->okt['instantMessages']->error($e->getMessage());
 			}
 		}
 
@@ -430,8 +421,7 @@ class Tools extends Controller
 
 						for ($j = 0; $j < $num_fields; $j ++)
 						{
-							if (is_null($row[$j]))
-							{
+							if (is_null($row[$j])) {
 								$return .= 'NULL';
 							}
 							else
@@ -441,8 +431,7 @@ class Tools extends Controller
 								$return .= '"' . $row[$j] . '"';
 							}
 
-							if ($j < ($num_fields - 1))
-							{
+							if ($j < ($num_fields - 1)) {
 								$return .= ', ';
 							}
 						}
@@ -479,6 +468,7 @@ class Tools extends Controller
 
 		# téléchargement d'un fichier de backup
 		$sBackupFileToDownload = $this->okt['request']->query->get('dl_backup');
+
 		if ($sBackupFileToDownload && (in_array($sBackupFileToDownload, $this->aBackupFiles) || in_array($sBackupFileToDownload, $this->aDbBackupFiles)))
 		{
 			Utilities::forceDownload($this->okt['app_path'] . '/' . $sBackupFileToDownload);
@@ -493,13 +483,11 @@ class Tools extends Controller
 		# création du fichier .htaccess
 		if ($this->okt['request']->query->has('create_htaccess'))
 		{
-			if ($this->bHtaccessExists)
-			{
-				$this->okt['flashMessages']->error(__('c_a_tools_htaccess_allready_exists'));
+			if ($this->bHtaccessExists) {
+				$this->okt['instantMessages']->error(__('c_a_tools_htaccess_allready_exists'));
 			}
-			elseif (! $this->bHtaccessDistExists)
-			{
-				$this->okt['flashMessages']->error(__('c_a_tools_htaccess_template_not_exists'));
+			elseif (!$this->bHtaccessDistExists) {
+				$this->okt['instantMessages']->error(__('c_a_tools_htaccess_template_not_exists'));
 			}
 			else
 			{
@@ -539,28 +527,24 @@ class Tools extends Controller
 		if ($this->okt['request']->request->has('uninstall') && $this->bCanUninstall)
 		{
 			# uninstall modules
-			foreach ($this->okt['modules']->getManager()->getInstalled() as $aModuleInfos)
-			{
+			foreach ($this->okt['modules']->getManager()->getInstalled() as $aModuleInfos) {
 				$this->okt['modules']->getInstaller($aModuleInfos['id'])->doUninstall();
 			}
 
 			# uninstall themes
-			foreach ($this->okt['themes']->getManager()->getInstalled() as $aThemeInfos)
-			{
+			foreach ($this->okt['themes']->getManager()->getInstalled() as $aThemeInfos) {
 				$this->okt['themes']->getInstaller($aThemeInfos['id'])->doUninstall();
 			}
 
 			# delete all tables from db
 			$rDbTables = $this->okt->db->query('SHOW TABLES LIKE \''.$this->okt->db->prefix.'%\'');
 
-			while ($row = $rDbTables->fetch_row())
-			{
+			while ($row = $rDbTables->fetch_row()) {
 				$this->okt->db->execute('DROP TABLE `' . $row[0] . '`');
 			}
 
 			# remove db connection file
-			if (file_exists($this->okt['config_path'] . '/connection.php'))
-			{
+			if (file_exists($this->okt['config_path'] . '/connection.php')) {
 				unlink($this->okt['config_path'] . '/connection.php');
 			}
 
@@ -576,8 +560,7 @@ class Tools extends Controller
 			$response = $this->redirect($this->okt['config']->app_url.'install');
 
 			# remove cookies
-			foreach ($this->okt['request']->cookies->keys() as $cookie)
-			{
+			foreach ($this->okt['request']->cookies->keys() as $cookie) {
 				$response->headers->clearCookie($cookie, $this->okt['config']->app_url, $this->okt['request']->getHttpHost());
 			}
 
