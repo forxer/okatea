@@ -33,9 +33,9 @@ class Groups extends Controller
 			}
 		}
 
-		$aParams = array(
+		$aParams = [
 			'language' => $this->okt['visitor']->language
-		);
+		];
 
 		if (!$this->okt['visitor']->is_superadmin) {
 			$aParams['group_id_not'][] = UsersGroups::SUPERADMIN;
@@ -47,15 +47,14 @@ class Groups extends Controller
 
 		$aGroups = $this->okt['groups']->getGroups($aParams);
 
-		return $this->render('Users/Groups/Index', array(
+		return $this->render('Users/Groups/Index', [
 			'aGroups' => $aGroups
-		));
+		]);
 	}
 
 	public function add()
 	{
-		if (! $this->okt['visitor']->checkPerm('users_groups'))
-		{
+		if (!$this->okt['visitor']->checkPerm('users_groups')) {
 			return $this->serve401();
 		}
 
@@ -63,16 +62,16 @@ class Groups extends Controller
 
 		$aGroupData = new ArrayObject();
 
-		$aGroupData['locales'] = array();
+		$aGroupData['locales'] = [];
 
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aGroupData['locales'][$aLanguage['code']] = array();
+			$aGroupData['locales'][$aLanguage['code']] = [];
 			$aGroupData['locales'][$aLanguage['code']]['title'] = '';
 			$aGroupData['locales'][$aLanguage['code']]['description'] = '';
 		}
 
-		$aGroupData['perms'] = array();
+		$aGroupData['perms'] = [];
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
@@ -84,42 +83,40 @@ class Groups extends Controller
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
 					if ($this->okt['languages']->hasUniqueLanguage()) {
-						$this->okt['flashMessages']->error(__('c_a_users_must_enter_group_title'));
+						$this->okt['instantMessages']->error(__('c_a_users_must_enter_group_title'));
 					}
 					else {
-						$this->okt['flashMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->okt['instantMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
 
-			if ($this->okt['request']->request->has('perms'))
-			{
+			if ($this->okt['request']->request->has('perms')) {
 				$aGroupData['perms'] = array_keys($this->okt['request']->request->get('perms'));
 			}
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['instantMessages']->hasError())
 			{
 				if (($iGroupId = $this->okt['groups']->addGroup((array)$aGroupData)) !== false)
 				{
 					$this->okt['flashMessages']->success(__('c_a_users_group_added'));
 
-					return $this->redirect($this->generateUrl('Users_groups_edit', array(
+					return $this->redirect($this->generateUrl('Users_groups_edit', [
 						'group_id' => $iGroupId
-					)));
+					]));
 				}
 			}
 		}
 
-		return $this->render('Users/Groups/Add', array(
-			'aGroupData' => $aGroupData,
-			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
-		));
+		return $this->render('Users/Groups/Add', [
+			'aGroupData' 	=> $aGroupData,
+			'aPermissions' 	=> $this->okt['permissions']->getPermsForDisplay()
+		]);
 	}
 
 	public function edit()
 	{
-		if (! $this->okt['visitor']->checkPerm('users_groups'))
-		{
+		if (!$this->okt['visitor']->checkPerm('users_groups')) {
 			return $this->serve401();
 		}
 
@@ -140,19 +137,19 @@ class Groups extends Controller
 
 		$aGroupData = new ArrayObject();
 
-		$aGroupData['locales'] = array();
+		$aGroupData['locales'] = [];
 
 		foreach ($aGroupL10ns as $aGroupl10n)
 		{
 			if (isset($this->okt['languages']->getList()[$aGroupl10n['language']]))
 			{
-				$aGroupData['locales'][$aGroupl10n['language']] = array();
+				$aGroupData['locales'][$aGroupl10n['language']] = [];
 				$aGroupData['locales'][$aGroupl10n['language']]['title'] = $aGroupl10n['title'];
 				$aGroupData['locales'][$aGroupl10n['language']]['description'] = $aGroupl10n['description'];
 			}
 		}
 
-		$aGroupData['perms'] = $aGroup['perms'] ? json_decode($aGroup['perms']) : array();
+		$aGroupData['perms'] = $aGroup['perms'] ? json_decode($aGroup['perms']) : [];
 
 		if ($this->okt['request']->request->has('form_sent'))
 		{
@@ -164,16 +161,15 @@ class Groups extends Controller
 				if (empty($aGroupData['locales'][$aLanguage['code']]['title']))
 				{
 					if ($this->okt['languages']->hasUniqueLanguage()) {
-						$this->okt['flashMessages']->error(__('c_a_users_must_enter_group_title'));
+						$this->okt['instantMessages']->error(__('c_a_users_must_enter_group_title'));
 					}
 					else {
-						$this->okt['flashMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
+						$this->okt['instantMessages']->error(sprintf(__('c_a_users_must_enter_group_title_in_%s'), $aLanguage['title']));
 					}
 				}
 			}
 
-			if ($this->okt['request']->request->has('perms'))
-			{
+			if ($this->okt['request']->request->has('perms')) {
 				$aGroupData['perms'] = array_keys($this->okt['request']->request->get('perms'));
 			}
 
@@ -183,17 +179,17 @@ class Groups extends Controller
 				{
 					$this->okt['flashMessages']->success(__('c_a_users_group_edited'));
 
-					return $this->redirect($this->generateUrl('Users_groups_edit', array(
+					return $this->redirect($this->generateUrl('Users_groups_edit', [
 						'group_id' => $iGroupId
-					)));
+					]));
 				}
 			}
 		}
 
-		return $this->render('Users/Groups/Edit', array(
-			'iGroupId' => $iGroupId,
-			'aGroupData' => $aGroupData,
-			'aPermissions' => $this->okt['permissions']->getPermsForDisplay()
-		));
+		return $this->render('Users/Groups/Edit', [
+			'iGroupId' 		=> $iGroupId,
+			'aGroupData' 	=> $aGroupData,
+			'aPermissions' 	=> $this->okt['permissions']->getPermsForDisplay()
+		]);
 	}
 }
