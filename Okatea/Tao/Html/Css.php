@@ -115,8 +115,7 @@ class Css
 	 */
 	public function getHtmlFiles()
 	{
-		if (($aFiles = $this->getFilesStack()) === false)
-		{
+		if (($aFiles = $this->getFilesStack()) === false) {
 			return false;
 		}
 
@@ -169,8 +168,7 @@ class Css
 		}
 
 		$sHtml = '';
-		foreach ($aFiles as $sFile)
-		{
+		foreach ($aFiles as $sFile) {
 			$sHtml .= self::formatHtmlCssFile($this->autoCompileLess($sFile));
 		}
 
@@ -184,12 +182,10 @@ class Css
 		$outputFile = $okt['public_path'] . '/cache/' . md5($inputFile) . '.css';
 		$cacheFile = $outputFile . '.cache';
 
-		if (file_exists($cacheFile))
-		{
+		if (file_exists($cacheFile)) {
 			$cache = unserialize(file_get_contents($cacheFile));
 		}
-		else
-		{
+		else {
 			$cache = $inputFile;
 		}
 
@@ -249,14 +245,12 @@ class Css
 	 */
 	public function getHtmlCCFiles()
 	{
-		if (($files = $this->getCCFilesStack()) === false)
-		{
+		if (($files = $this->getCCFilesStack()) === false) {
 			return false;
 		}
 
 		$str = '';
-		foreach ($files as $i => $file)
-		{
+		foreach ($files as $i => $file) {
 			$str .= self::formatCCFile($file, $this->aCCCondStack[$i]);
 		}
 
@@ -285,8 +279,7 @@ class Css
 	 */
 	public function getInlineCss()
 	{
-		if (!empty($this->aCssStack))
-		{
+		if (!empty($this->aCssStack)) {
 			return self::formatCss(implode("\n\n", $this->aCssStack));
 		}
 	}
@@ -297,14 +290,10 @@ class Css
 	/**
 	 * Formate et retourne un lien CSS d'entête HTML
 	 *
-	 * @param string $src
-	 *        	l'URL du fichier
-	 * @param string $media
-	 *        	L'attribut media (screen)
-	 * @param string $rel
-	 *        	L'attribut rel (stylesheet)
-	 * @param string $format
-	 *        	La chaîne de format ('<link type="text/css" href="%s" rel="%s" media="%s" />')
+	 * @param string $src l'URL du fichier
+	 * @param string $media L'attribut media (screen)
+	 * @param string $rel L'attribut rel (stylesheet)
+	 * @param string $format La chaîne de format ('<link type="text/css" href="%s" rel="%s" media="%s" />')
 	 * @return string
 	 */
 	public static function formatHtmlCssFile($src, $media = 'screen', $rel = 'stylesheet', $format = "<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")
@@ -316,16 +305,11 @@ class Css
 	 * Retourne le HTML de l'en-tête pour ajouter un fichier
 	 * CSS en comentaire conditionnel
 	 *
-	 * @param string $src
-	 *        	L'URL du fichier javascript
-	 * @param string $condition
-	 *        	La condition
-	 * @param string $media
-	 *        	L'attribut media (screen)
-	 * @param string $rel
-	 *        	L'attribut rel (stylesheet)
-	 * @param string $format
-	 *        	format de la chaine ('<link type="text/css" href="%s" rel="%s" media="%s" />')
+	 * @param string $src L'URL du fichier javascript
+	 * @param string $condition La condition
+	 * @param string $media L'attribut media (screen)
+	 * @param string $rel L'attribut rel (stylesheet)
+	 * @param string $format format de la chaine ('<link type="text/css" href="%s" rel="%s" media="%s" />')
 	 * @return string
 	 */
 	public static function formatCCFile($src, $condition, $media = 'screen', $rel = 'stylesheet', $format = "<link type=\"text/css\" href=\"%s\" rel=\"%s\" media=\"%s\" />\n")

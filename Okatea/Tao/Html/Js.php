@@ -14,7 +14,6 @@ use Okatea\Tao\Html\Escaper;
  */
 class Js
 {
-
 	/**
 	 * Pile de fichiers JS
 	 *
@@ -88,25 +87,23 @@ class Js
 	{
 		return $this->getJs();
 	}
-	
+
 	/* Pile de fichiers
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute un fichier à la pile des fichiers JS.
 	 *
-	 * @param string $sSrc        	
-	 * @param boolean $bToBegin        	
+	 * @param string $sSrc
+	 * @param boolean $bToBegin
 	 * @return void
 	 */
 	public function addFile($sSrc, $bToBegin = false)
 	{
-		if ($bToBegin)
-		{
+		if ($bToBegin) {
 			array_unshift($this->aFilesStack, $sSrc);
 		}
-		else
-		{
+		else {
 			$this->aFilesStack[] = $sSrc;
 		}
 	}
@@ -119,7 +116,7 @@ class Js
 	public function getFilesStack()
 	{
 		$this->aFilesStack = array_unique($this->aFilesStack);
-		
+
 		return (!empty($this->aFilesStack) ? $this->aFilesStack : false);
 	}
 
@@ -130,27 +127,25 @@ class Js
 	 */
 	public function getHtmlFiles()
 	{
-		if (($aFiles = $this->getFilesStack()) === false)
-		{
+		if (($aFiles = $this->getFilesStack()) === false) {
 			return false;
 		}
-		
+
 		$sHtml = '';
-		foreach ($aFiles as $sFile)
-		{
+		foreach ($aFiles as $sFile) {
 			$sHtml .= self::formatFile($sFile);
 		}
-		
+
 		return $sHtml;
 	}
-	
+
 	/* Pile de fichiers CC
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute un fichier CC à la pile des fichiers JS.
 	 *
-	 * @param $src string        	
+	 * @param $src string
 	 * @return void
 	 */
 	public function addCCFile($src, $condition = 'IE')
@@ -167,7 +162,7 @@ class Js
 	public function getCCFilesStack()
 	{
 		$this->aCCFilesStack = array_unique($this->aCCFilesStack);
-		
+
 		return (!empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
 	}
 
@@ -178,38 +173,34 @@ class Js
 	 */
 	public function getHtmlCCFiles()
 	{
-		if (($files = $this->getCCFilesStack()) === false)
-		{
+		if (($files = $this->getCCFilesStack()) === false) {
 			return false;
 		}
-		
+
 		$str = '';
-		foreach ($files as $i => $file)
-		{
+		foreach ($files as $i => $file) {
 			$str .= self::formatCCFile($file, $this->aCCCondStack[$i]);
 		}
-		
+
 		return $str;
 	}
-	
+
 	/* Pile de script de début
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute du code javascript en ligne de début à la pile.
 	 *
-	 * @param string $sJsCode        	
-	 * @param boolean $bToBegin        	
+	 * @param string $sJsCode
+	 * @param boolean $bToBegin
 	 * @return void
 	 */
 	public function addScriptStart($sJsCode, $bToBegin = false)
 	{
-		if ($bToBegin)
-		{
+		if ($bToBegin) {
 			array_unshift($this->aScriptStartStack, $sJsCode);
 		}
-		else
-		{
+		else {
 			$this->aScriptStartStack[] = $sJsCode;
 		}
 	}
@@ -221,30 +212,27 @@ class Js
 	 */
 	public function getScriptStart()
 	{
-		if (!empty($this->aScriptStartStack))
-		{
+		if (!empty($this->aScriptStartStack)) {
 			return self::formatScript(implode("\n\n", $this->aScriptStartStack));
 		}
 	}
-	
+
 	/* Pile de script
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute du code javascript en ligne à la pile.
 	 *
-	 * @param string $sJsCode        	
-	 * @param boolean $bToBegin        	
+	 * @param string $sJsCode
+	 * @param boolean $bToBegin
 	 * @return void
 	 */
 	public function addScript($sJsCode, $bToBegin = false)
 	{
-		if ($bToBegin)
-		{
+		if ($bToBegin) {
 			array_unshift($this->aScriptStack, $sJsCode);
 		}
-		else
-		{
+		else {
 			$this->aScriptStack[] = $sJsCode;
 		}
 	}
@@ -256,30 +244,27 @@ class Js
 	 */
 	public function getScript()
 	{
-		if (!empty($this->aScriptStack))
-		{
+		if (!empty($this->aScriptStack)) {
 			return self::formatScript(implode("\n\n", $this->aScriptStack));
 		}
 	}
-	
+
 	/* Pile de script à exécuter lorsque la page est chargée
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute du code javascript au "on ready" de jQuery.
 	 *
-	 * @param string $sJsCode        	
-	 * @param boolean $bToBegin        	
+	 * @param string $sJsCode
+	 * @param boolean $bToBegin
 	 * @return void
 	 */
 	public function addReady($sJsCode, $bToBegin = false)
 	{
-		if ($bToBegin)
-		{
+		if ($bToBegin) {
 			array_unshift($this->aReadyStack, $sJsCode);
 		}
-		else
-		{
+		else {
 			$this->aReadyStack[] = $sJsCode;
 		}
 	}
@@ -291,22 +276,19 @@ class Js
 	 */
 	public function getReady()
 	{
-		if (!empty($this->aReadyStack))
-		{
+		if (!empty($this->aReadyStack)) {
 			return self::formatReady(implode("\n\n", $this->aReadyStack));
 		}
 	}
-	
+
 	/* Formatage du javascript pour le HTML
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Retourne le HTML de l'en-tête pour ajouter un fichier javascript
 	 *
-	 * @param string $src
-	 *        	L'URL du fichier javascript
-	 * @param string $format
-	 *        	format de la chaine
+	 * @param string $src L'URL du fichier javascript
+	 * @param string $format format de la chaine
 	 * @return string
 	 */
 	public static function formatFile($src, $format = "<script type=\"text/javascript\" src=\"%s\"></script>\n")
@@ -318,12 +300,9 @@ class Js
 	 * Retourne le HTML de l'en-tête pour ajouter un fichier
 	 * javascript en comentaire conditionnel
 	 *
-	 * @param string $src
-	 *        	L'URL du fichier javascript
-	 * @param string $condition
-	 *        	La condition
-	 * @param string $format
-	 *        	format de la chaine
+	 * @param string $src L'URL du fichier javascript
+	 * @param string $condition La condition
+	 * @param string $format format de la chaine
 	 * @return string
 	 */
 	public static function formatCCFile($src, $condition, $format = "<script type=\"text/javascript\" src=\"%s\"></script>\n")
@@ -347,8 +326,7 @@ class Js
 	 * Retourne le HTML de l'en-tête pour ajouter
 	 * du javascript lors de l'évènement "document.onload"
 	 *
-	 * @param string $js
-	 *        	Le javascript
+	 * @param string $js Le javascript
 	 * @return string
 	 */
 	public static function formatReady($js)

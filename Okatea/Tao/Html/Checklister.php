@@ -17,28 +17,7 @@ class Checklister
 	 *
 	 * @var array
 	 */
-	protected $check;
-
-	/**
-	 * URL de l'image ok.
-	 *
-	 * @var string
-	 */
-	public $img_on;
-
-	/**
-	 * URL de l'image erreur.
-	 *
-	 * @var string
-	 */
-	public $img_off;
-
-	/**
-	 * URL de l'image avertissement.
-	 *
-	 * @var string
-	 */
-	public $img_wrn;
+	protected $aChecks;
 
 	/**
 	 * Constucteur.
@@ -47,7 +26,7 @@ class Checklister
 	 */
 	public function __construct()
 	{
-		$this->check = [];
+		$this->aChecks = [];
 	}
 
 	/**
@@ -65,7 +44,7 @@ class Checklister
 	 */
 	public function addItem($name, $test, $on, $off)
 	{
-		$this->check[$name] = array(
+		$this->aChecks[$name] = array(
 			'test' => (($test === null) ? null : (boolean) $test),
 			'on' => $on,
 			'off' => $off
@@ -79,7 +58,7 @@ class Checklister
 	 */
 	public function checkAll()
 	{
-		foreach ($this->check as $v)
+		foreach ($this->aChecks as $v)
 		{
 			if ($v['test'] === false) {
 				return false;
@@ -96,8 +75,8 @@ class Checklister
 	 */
 	public function checkItem($name)
 	{
-		if (!empty($this->check[$name])) {
-			return $this->check[$name]['test'];
+		if (!empty($this->aChecks[$name])) {
+			return $this->aChecks[$name]['test'];
 		}
 		else {
 			return false;
@@ -111,7 +90,7 @@ class Checklister
 	 */
 	public function checkWarnings()
 	{
-		foreach ($this->check as $v)
+		foreach ($this->aChecks as $v)
 		{
 			if ($v['test'] === null) {
 				return true;
@@ -133,7 +112,7 @@ class Checklister
 	public function getHTML($bloc = '<ul class="checklist">%s</ul>', $item = '<li>%s</li>')
 	{
 		$res = '';
-		foreach ($this->check as $k => $v)
+		foreach ($this->aChecks as $v)
 		{
 			if ($v['test'] === null) {
 				$res .= sprintf($item, '<span class="icon error"></span> ' . $v['off']);
