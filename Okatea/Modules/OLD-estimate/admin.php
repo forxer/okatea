@@ -6,11 +6,11 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt['visitor']->checkPerm('estimate'))
+if (!$okt['visitor']->checkPerm('estimate'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
@@ -22,7 +22,7 @@ $okt->page->addTitleTag(__('m_estimate_main_title'));
 $okt->page->addAriane(__('m_estimate_main_title'), 'module.php?m=estimate');
 
 # Test si le module users est installé
-if (! $okt['modules']->isLoaded('users'))
+if (!$okt['modules']->isLoaded('users'))
 {
 	$okt['flashMessages']->error(__('m_estimate_mod_users_exist'));
 	
@@ -30,7 +30,7 @@ if (! $okt['modules']->isLoaded('users'))
 }
 
 # Suppression d'une demande de devis
-if ($okt->page->action === 'delete' && ! empty($_GET['estimate_id']))
+if ($okt->page->action === 'delete' && !empty($_GET['estimate_id']))
 {
 	try
 	{
@@ -55,7 +55,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['estimate_id']))
 }
 
 # inclusion du fichier requis en fonction de l'action demandée
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

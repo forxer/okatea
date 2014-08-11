@@ -14,7 +14,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('rte_tinymce_3_config'))
+		if (!$this->okt['visitor']->checkPerm('rte_tinymce_3_config'))
 		{
 			return $this->serve401();
 		}
@@ -32,6 +32,6 @@ class Config extends Controller
 			$this->redirect($this->generateUrl('RteTinymce3_config'));
 		}
 		
-		return $this->render('RteTinymce3/Admin/Templates/Config', array());
+		return $this->render('RteTinymce3/Admin/Templates/Config', []);
 	}
 }

@@ -7,7 +7,7 @@
 use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
-if (! $okt['visitor']->checkPerm('antispam'))
+if (!$okt['visitor']->checkPerm('antispam'))
 {
 	http::redirect('index.php');
 }
@@ -27,14 +27,14 @@ $filter_gui = false;
 try
 {
 	# Show filter configuration GUI
-	if (! empty($_GET['f']))
+	if (!empty($_GET['f']))
 	{
-		if (! isset($filters[$_GET['f']]))
+		if (!isset($filters[$_GET['f']]))
 		{
 			throw new Exception(__('m_antispam_Filter_does_not_exists'));
 		}
 		
-		if (! $filters[$_GET['f']]->hasGUI())
+		if (!$filters[$_GET['f']]->hasGUI())
 		{
 			throw new Exception(__('m_antispam_Filter_no_user_interface'));
 		}
@@ -62,7 +62,7 @@ try
 	}
 	
 	# Remove all spam
-	if (! empty($_POST['delete_all']))
+	if (!empty($_POST['delete_all']))
 	{
 		oktAntispam::delAllSpam($okt);
 		http::redirect($p_url . '&del=1');
@@ -71,7 +71,7 @@ try
 	# Update filters
 	if (isset($_POST['filters_upd']))
 	{
-		$filters_opt = array();
+		$filters_opt = [];
 		$i = 0;
 		foreach ($filters as $fid => $f)
 		{
@@ -92,13 +92,13 @@ try
 		}
 		
 		# Order filters
-		if (! empty($_POST['f_order']) && empty($_POST['filters_order']))
+		if (!empty($_POST['f_order']) && empty($_POST['filters_order']))
 		{
 			$order = $_POST['f_order'];
 			asort($order);
 			$order = array_keys($order);
 		}
-		elseif (! empty($_POST['filters_order']))
+		elseif (!empty($_POST['filters_order']))
 		{
 			$order = explode(',', trim($_POST['filters_order'], ','));
 		}

@@ -35,7 +35,7 @@ if ($rsInsertPosts->isEmpty())
 
 <?php
 # début Okatea : si il y a des actualités on affiche la liste
-if (! $rsInsertPosts->isEmpty())
+if (!$rsInsertPosts->isEmpty())
 :
 	?>
 
@@ -62,7 +62,7 @@ if (! $rsInsertPosts->isEmpty())
 
 		<?php
 		# début Okatea : si on as PAS accès en lecture à l'article
-		if (! $rsInsertPosts->isReadable())
+		if (!$rsInsertPosts->isReadable())
 		:
 			?>
 
@@ -80,7 +80,7 @@ if (! $rsInsertPosts->isEmpty())
 			<?php
 			# début Okatea : affichage image
 			$post_image = $rsInsertPosts->getFirstImageInfo();
-			if (! empty($post_image) && isset($post_image['square_url']))
+			if (!empty($post_image) && isset($post_image['square_url']))
 			:
 				?>
 
@@ -113,7 +113,7 @@ if (! $rsInsertPosts->isEmpty())
 
 			<?php
 			# début Okatea : affichage texte pas tronqué
-			if (! $okt->module('News')->config->insert_truncat_char)
+			if (!$okt->module('News')->config->insert_truncat_char)
 			:
 				?>
 

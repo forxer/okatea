@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -57,7 +57,7 @@ class CKFinder_Connector_CommandHandler_CreateFolder extends CKFinder_Connector_
 		}
 		
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -70,13 +70,13 @@ class CKFinder_Connector_CommandHandler_CreateFolder extends CKFinder_Connector_
 			$sNewFolderName = CKFinder_Connector_Utils_FileSystem::convertToAscii($sNewFolderName);
 		}
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFolderName($sNewFolderName) || $_resourceTypeConfig->checkIsHiddenFolder($sNewFolderName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFolderName($sNewFolderName) || $_resourceTypeConfig->checkIsHiddenFolder($sNewFolderName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
 		
 		$sServerDir = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $sNewFolderName);
-		if (! is_writeable($this->_currentFolder->getServerPath()))
+		if (!is_writeable($this->_currentFolder->getServerPath()))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
@@ -99,7 +99,7 @@ class CKFinder_Connector_CommandHandler_CreateFolder extends CKFinder_Connector_
 			$bCreated = @mkdir($sServerDir);
 		}
 		
-		if (! $bCreated)
+		if (!$bCreated)
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}

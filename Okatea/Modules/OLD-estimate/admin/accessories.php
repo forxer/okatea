@@ -7,7 +7,7 @@
 use Okatea\Tao\Misc\Utilities;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# chargement des locales
@@ -16,13 +16,13 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.accessories');
 /* Initialisations
 ----------------------------------------------------------*/
 
-$iProductId = ! empty($_REQUEST['product_id']) ? intval($_REQUEST['product_id']) : null;
+$iProductId = !empty($_REQUEST['product_id']) ? intval($_REQUEST['product_id']) : null;
 
 $sRedirectUrl = 'module.php?m=estimate&amp;action=accessories';
 
-if (! empty($iProductId))
+if (!empty($iProductId))
 {
-	if (! $okt->estimate->products->productExists($iProductId))
+	if (!$okt->estimate->products->productExists($iProductId))
 	{
 		$okt->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $iProductId));
 		$iProductId = null;
@@ -37,7 +37,7 @@ if (! empty($iProductId))
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	if ($okt->estimate->accessories->switchAccessoryStatus($_GET['switch_status']) !== false)
 	{
@@ -46,7 +46,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # suppression d'un accessoire
-if (! empty($_GET['delete_accessory']))
+if (!empty($_GET['delete_accessory']))
 {
 	if ($okt->estimate->accessories->delAccessory($_GET['delete_accessory']) !== false)
 	{
@@ -122,7 +122,7 @@ $count_line = 0;
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 		$count_line ++;
 		
-		if (! $rsAccessories->active)
+		if (!$rsAccessories->active)
 		{
 			$td_class = ' disabled';
 		}

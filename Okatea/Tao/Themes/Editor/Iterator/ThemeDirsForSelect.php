@@ -21,7 +21,7 @@ class ThemeDirsForSelect extends \RecursiveIteratorIterator
 		$oFile = $this->current();
 		
 		// Display leaf node
-		if (! $this->callHasChildren())
+		if (!$this->callHasChildren())
 		{
 			return;
 		}

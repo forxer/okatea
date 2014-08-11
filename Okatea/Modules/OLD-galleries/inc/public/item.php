@@ -10,7 +10,7 @@ use Okatea\Tao\Html\Modifiers;
 require_once __DIR__ . '/../../../../oktInc/public/prepend.php';
 
 # récupération de la galerie en fonction du slug
-$slug = ! empty($_GET['slug']) ? $_GET['slug'] : null;
+$slug = !empty($_GET['slug']) ? $_GET['slug'] : null;
 
 # Récupération des éléments de la galerie
 $rsItem = $okt->galleries->getItems(array(

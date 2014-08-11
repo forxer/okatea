@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -118,7 +118,7 @@ class CKFinder_Connector_Core_FolderHandler
 			$this->_clientPath = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding((string) $_GET["currentFolder"]);
 		}
 		
-		if (! strlen($this->_clientPath))
+		if (!strlen($this->_clientPath))
 		{
 			$this->_clientPath = "/";
 		}
@@ -145,7 +145,7 @@ class CKFinder_Connector_Core_FolderHandler
 	 */
 	public function &getResourceTypeConfig()
 	{
-		if (! isset($this->_resourceTypeConfig))
+		if (!isset($this->_resourceTypeConfig))
 		{
 			$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 			$this->_resourceTypeConfig = $_config->getResourceTypeConfig($this->_resourceTypeName);
@@ -248,9 +248,9 @@ class CKFinder_Connector_Core_FolderHandler
 			// Return the resource type directory combined with the required path.
 			$this->_thumbsServerPath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_thumbsServerPath, ltrim($this->_clientPath, '/'));
 			
-			if (! is_dir($this->_thumbsServerPath))
+			if (!is_dir($this->_thumbsServerPath))
 			{
-				if (! CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively($this->_thumbsServerPath))
+				if (!CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively($this->_thumbsServerPath))
 				{
 				/**
 				 *

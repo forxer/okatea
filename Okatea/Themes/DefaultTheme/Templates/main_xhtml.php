@@ -24,7 +24,7 @@
 
 	<?php 
 # début Okatea : affichage meta description
-	if (! empty($okt->page->meta_description))
+	if (!empty($okt->page->meta_description))
 	:
 		?>
 	<meta name="description"
@@ -33,7 +33,7 @@
 
 	<?php 
 # début Okatea : affichage meta keywords
-	if (! empty($okt->page->meta_keywords))
+	if (!empty($okt->page->meta_keywords))
 	:
 		?>
 	<meta name="keywords"

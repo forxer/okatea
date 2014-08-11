@@ -99,7 +99,7 @@ class TemplatesSet
 		{
 			$sTtplId = rawurldecode($this->okt['request']->query->get('tpl_id'));
 
-			if (! array_key_exists($sTtplId, $this->getTplInfos()))
+			if (!array_key_exists($sTtplId, $this->getTplInfos()))
 			{
 				$sTtplId = null;
 			}
@@ -183,7 +183,7 @@ class TemplatesSet
 	 */
 	public function getTemplatesForSelect()
 	{
-		$aTemplatesList = array();
+		$aTemplatesList = [];
 		foreach ($this->aTemplatesInfos as $aTemplateInfos)
 		{
 			$aTemplatesList[$aTemplateInfos['name']] = $aTemplateInfos['id'];
@@ -199,7 +199,7 @@ class TemplatesSet
 	 */
 	public function getUsablesTemplatesForSelect($aUsablesTemplates)
 	{
-		$aTemplatesList = array();
+		$aTemplatesList = [];
 
 		foreach ($aUsablesTemplates as $sTemplateId)
 		{
@@ -219,7 +219,7 @@ class TemplatesSet
 	 */
 	protected function loadTemplatesPaths()
 	{
-		$this->aTemplatesPath = array();
+		$this->aTemplatesPath = [];
 
 		# first, get default theme templates
 		if ($this->okt['config']->themes['desktop'] != 'DefaultTheme')
@@ -236,7 +236,7 @@ class TemplatesSet
 		}
 
 		# if we have a mobile theme, search in it
-		if (! empty($this->okt['config']->themes['mobile']))
+		if (!empty($this->okt['config']->themes['mobile']))
 		{
 			$aThemeTemplates = (array) glob($this->okt['themes_path'] . '/' . $this->okt['config']->themes['mobile'] . '/Templates/' . $this->sBase . '/*/template.php');
 
@@ -247,7 +247,7 @@ class TemplatesSet
 		}
 
 		# finaly, search for templates in tablet theme
-		if (! empty($this->okt['config']->themes['tablet']))
+		if (!empty($this->okt['config']->themes['tablet']))
 		{
 			$aThemeTemplates = (array) glob($this->okt['themes_path'] . '/' . $this->okt['config']->themes['tablet'] . '/Templates/' . $this->sBase . '/*/template.php');
 
@@ -265,7 +265,7 @@ class TemplatesSet
 	 */
 	protected function loadTemplatesInfos()
 	{
-		$this->aTemplatesInfos = array();
+		$this->aTemplatesInfos = [];
 
 		foreach ($this->aTemplatesPath as $sTplPath)
 		{
@@ -282,11 +282,11 @@ class TemplatesSet
 
 			$this->aTemplatesInfos[$sId] = array(
 				'id' => $sId,
-				'name' => (! empty($this->aCurrent['name']) ? $this->aCurrent['name'] : self::tplIdToName($sId)),
-				'desc' => (! empty($this->aCurrent['desc']) ? $this->aCurrent['desc'] : null),
-				'version' => (! empty($this->aCurrent['version']) ? $this->aCurrent['version'] : null),
-				'author' => (! empty($this->aCurrent['author']) ? $this->aCurrent['author'] : null),
-				'tags' => (! empty($this->aCurrent['tags']) ? $this->aCurrent['tags'] : null),
+				'name' => (!empty($this->aCurrent['name']) ? $this->aCurrent['name'] : self::tplIdToName($sId)),
+				'desc' => (!empty($this->aCurrent['desc']) ? $this->aCurrent['desc'] : null),
+				'version' => (!empty($this->aCurrent['version']) ? $this->aCurrent['version'] : null),
+				'author' => (!empty($this->aCurrent['author']) ? $this->aCurrent['author'] : null),
+				'tags' => (!empty($this->aCurrent['tags']) ? $this->aCurrent['tags'] : null),
 				'dir' => $sDir,
 				'path' => $sTplPath,
 				'path_in_theme' => $sTplPathInTheme,
@@ -306,7 +306,7 @@ class TemplatesSet
 	 */
 	public function getTemplateInfos($sDir)
 	{
-		$this->aCurrent = array();
+		$this->aCurrent = [];
 
 		if (file_exists($sDir . '/_define.php'))
 		{
@@ -356,7 +356,7 @@ class TemplatesSet
 	public function getPostConfig()
 	{
 		$p_tpl_default = $this->okt['request']->request->get($this->sFormPrefix . 'tpl_default_' . $this->sTplFamily);
-		$p_tpl_usables = $this->okt['request']->request->get($this->sFormPrefix . 'tpl_usables_' . $this->sTplFamily, array());
+		$p_tpl_usables = $this->okt['request']->request->get($this->sFormPrefix . 'tpl_usables_' . $this->sTplFamily, []);
 
 		return array(
 			'default' => $p_tpl_default,
@@ -381,12 +381,12 @@ class TemplatesSet
 
 			'<tr>' . '<td class="fake-th"><p><label for="' . $this->sFormPrefix . 'tpl_default_' . $this->sTplFamily . '_' . $aTplInfos['id'] . '">' . $aTplInfos['name'] . '</label></p></td>' . '<td>';
 
-			if (! empty($aTplInfos['desc']))
+			if (!empty($aTplInfos['desc']))
 			{
 				$sReturn .= '<p>' . $aTplInfos['desc'] . '</p>';
 			}
 
-			if (! empty($aTplInfos['tags']))
+			if (!empty($aTplInfos['tags']))
 			{
 				$sReturn .= '<p><em>' . $aTplInfos['tags'] . '</em></p>';
 			}
@@ -444,7 +444,7 @@ class TemplatesSet
 
 		$sFilename = $aTplInfos['id'] . '.zip';
 
-		if (! is_dir($aTplInfos['dir']) || ! is_readable($aTplInfos['dir']))
+		if (!is_dir($aTplInfos['dir']) || !is_readable($aTplInfos['dir']))
 		{
 			return false;
 		}
@@ -481,7 +481,7 @@ class TemplatesSet
 		$aTemplatesInfos = $this->getTplInfos();
 		$aTplInfos = $aTemplatesInfos[$sId];
 
-		if (! is_dir($aTplInfos['dir']) || ! is_writable($aTplInfos['dir']))
+		if (!is_dir($aTplInfos['dir']) || !is_writable($aTplInfos['dir']))
 		{
 			return false;
 		}

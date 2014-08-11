@@ -12,11 +12,11 @@ class FaqFilters extends BaseFilters
 
 	protected $faq;
 
-	protected $get_faq_params = array();
+	protected $get_faq_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $faq, $part = 'public', $params = array())
+	public function __construct($okt, $faq, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'faq', $faq->config, $part, $params);
 		
@@ -49,7 +49,7 @@ class FaqFilters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setQuestionsParams(&$questions_params = array())
+	public function setQuestionsParams(&$questions_params = [])
 	{
 		$this->get_questions_params = & $questions_params;
 	}
@@ -64,7 +64,7 @@ class FaqFilters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		
 		$this->order_by_array[__('c_c_title')] = 'title';
 		

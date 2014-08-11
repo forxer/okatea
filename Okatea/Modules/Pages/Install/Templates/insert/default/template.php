@@ -76,7 +76,7 @@ $okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 
 <?php
 # début Okatea : si il y a une page à afficher
-if (! $rsInsertPage->isEmpty())
+if (!$rsInsertPage->isEmpty())
 :
 	?>
 <div id="page_insert">
@@ -101,7 +101,7 @@ if (! $rsInsertPage->isEmpty())
 
 	<?php
 	# début Okatea : si on as PAS accès en lecture à la page
-	if (! $rsInsertPage->isReadable())
+	if (!$rsInsertPage->isReadable())
 	:
 		?>
 
@@ -120,7 +120,7 @@ if (! $rsInsertPage->isEmpty())
 
 		<?php
 		# début Okatea : si les images sont activées
-		if ($okt->module('Pages')->config->images['enable'] && ! empty($rsInsertPage->images))
+		if ($okt->module('Pages')->config->images['enable'] && !empty($rsInsertPage->images))
 		:
 			?>
 		<p class="page-images modal-box">
@@ -172,7 +172,7 @@ if (! $rsInsertPage->isEmpty())
 
 		<?php
 		# début Okatea : affichage texte pas tronqué
-		if (! $okt->module('Pages')->config->insert_truncat_char)
+		if (!$okt->module('Pages')->config->insert_truncat_char)
 		:
 			?>
 

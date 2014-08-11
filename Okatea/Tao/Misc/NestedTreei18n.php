@@ -180,7 +180,7 @@ class NestedTreei18n
 			}
 		}
 
-		if (! is_null($sLanguageCode))
+		if (!is_null($sLanguageCode))
 		{
 			$queryBuilder
 				->andWhere($this->prependLocalesAlias($this->sLanguageField) . ' = :language');
@@ -262,7 +262,7 @@ class NestedTreei18n
 				->andWhere('nright > :nright');
 		}
 
-		if (! is_null($sLanguageCode))
+		if (!is_null($sLanguageCode))
 		{
 			$queryBuilder
 				->andWhere($this->prependLocalesAlias($this->sLanguageField) . ' = :language');
@@ -441,14 +441,14 @@ class NestedTreei18n
 	{
 		$leaves = $this->okt['db']->fetchAll('SELECT ' . $this->getFields() . ' FROM ' . $this->getFrom() . ' ORDER BY ' . $this->sSortField);
 
-		$data = array();
+		$data = [];
 
 		# populate the array
 		$fields = $this->getFieldsList();
 
 		foreach ($leaves as $leaf)
 		{
-			$data[$leaf[$this->aFields['id']]] = array();
+			$data[$leaf[$this->aFields['id']]] = [];
 
 			foreach ($fields as $field) {
 				$data[$leaf[$this->aFields['id']]][$field] = $leaf[$field];
@@ -456,7 +456,7 @@ class NestedTreei18n
 		}
 
 		# build the structured tree
-		$_tree = array();
+		$_tree = [];
 		foreach ($data as &$value)
 		{
 			if ($parent = $value['parent_id']) {

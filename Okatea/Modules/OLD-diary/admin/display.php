@@ -8,28 +8,28 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_admin_filters_style = ! empty($_POST['p_admin_filters_style']) ? $_POST['p_admin_filters_style'] : 'dialog';
+	$p_admin_filters_style = !empty($_POST['p_admin_filters_style']) ? $_POST['p_admin_filters_style'] : 'dialog';
 	
-	$p_public_filters_year = ! empty($_POST['p_public_filters_year']) ? true : false;
-	$p_public_filters_month = ! empty($_POST['p_public_filters_month']) ? true : false;
+	$p_public_filters_year = !empty($_POST['p_public_filters_year']) ? true : false;
+	$p_public_filters_month = !empty($_POST['p_public_filters_month']) ? true : false;
 	
-	$p_public_default_order_by = ! empty($_POST['p_public_default_order_by']) ? $_POST['p_public_default_order_by'] : 'id';
-	$p_public_default_order_direction = ! empty($_POST['p_public_default_order_direction']) ? $_POST['p_public_default_order_direction'] : 'DESC';
-	$p_public_default_nb_per_page = ! empty($_POST['p_public_default_nb_per_page']) ? intval($_POST['p_public_default_nb_per_page']) : 10;
+	$p_public_default_order_by = !empty($_POST['p_public_default_order_by']) ? $_POST['p_public_default_order_by'] : 'id';
+	$p_public_default_order_direction = !empty($_POST['p_public_default_order_direction']) ? $_POST['p_public_default_order_direction'] : 'DESC';
+	$p_public_default_nb_per_page = !empty($_POST['p_public_default_nb_per_page']) ? intval($_POST['p_public_default_nb_per_page']) : 10;
 	
-	$p_admin_default_order_by = ! empty($_POST['p_admin_default_order_by']) ? $_POST['p_admin_default_order_by'] : 'id';
-	$p_admin_default_order_direction = ! empty($_POST['p_admin_default_order_direction']) ? $_POST['p_admin_default_order_direction'] : 'DESC';
-	$p_admin_default_nb_per_page = ! empty($_POST['p_admin_default_nb_per_page']) ? intval($_POST['p_admin_default_nb_per_page']) : 10;
+	$p_admin_default_order_by = !empty($_POST['p_admin_default_order_by']) ? $_POST['p_admin_default_order_by'] : 'id';
+	$p_admin_default_order_direction = !empty($_POST['p_admin_default_order_direction']) ? $_POST['p_admin_default_order_direction'] : 'DESC';
+	$p_admin_default_nb_per_page = !empty($_POST['p_admin_default_nb_per_page']) ? intval($_POST['p_admin_default_nb_per_page']) : 10;
 	
-	$p_lightbox_type = ! empty($_POST['p_lightbox_type']) ? $_POST['p_lightbox_type'] : '';
+	$p_lightbox_type = !empty($_POST['p_lightbox_type']) ? $_POST['p_lightbox_type'] : '';
 	
 	$aFiltersValues = array_merge($okt->diary->config->filters, array(
 		'public' => array(

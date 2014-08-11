@@ -5797,7 +5797,7 @@ tinymce.dom.TreeWalker = function(start_node, root_node) {
 				switch (na) {
 					case 'opacity':
 						// IE specific opacity
-						if (isIE && ! tinymce.isIE11) {
+						if (isIE && !tinymce.isIE11) {
 							s.filter = v === '' ? '' : "alpha(opacity=" + (v * 100) + ")";
 
 							if (!n.currentStyle || !n.currentStyle.hasLayout)
@@ -5809,7 +5809,7 @@ tinymce.dom.TreeWalker = function(start_node, root_node) {
 						break;
 
 					case 'float':
-						(isIE && ! tinymce.isIE11) ? s.styleFloat = v : s.cssFloat = v;
+						(isIE && !tinymce.isIE11) ? s.styleFloat = v : s.cssFloat = v;
 						break;
 					
 					default:
@@ -8158,7 +8158,7 @@ tinymce.dom.TreeWalker = function(start_node, root_node) {
 			if (!t.win.getSelection)
 				t.tridentSel = new tinymce.dom.TridentSelection(t);
 
-			if (tinymce.isIE && ! tinymce.isIE11 && dom.boxModel)
+			if (tinymce.isIE && !tinymce.isIE11 && dom.boxModel)
 				this._fixIESelection();
 
 			// Prevent leaks
@@ -8775,7 +8775,7 @@ tinymce.dom.TreeWalker = function(start_node, root_node) {
 			}
 
 			// We have W3C ranges and it's IE then fake control selection since IE9 doesn't handle that correctly yet
-			if (tinymce.isIE && ! tinymce.isIE11 && rng && rng.setStart && doc.selection.createRange().item) {
+			if (tinymce.isIE && !tinymce.isIE11 && rng && rng.setStart && doc.selection.createRange().item) {
 				elm = doc.selection.createRange().item(0);
 				rng = doc.createRange();
 				rng.setStartBefore(elm);
@@ -12118,7 +12118,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 					ed.render();
 
 					// Fix IE memory leaks
-					if (tinymce.isIE && ! tinymce.isIE11) {
+					if (tinymce.isIE && !tinymce.isIE11) {
 						w.attachEvent('onunload', clr);
 					}
 
@@ -12868,7 +12868,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 					body = self.getBody();
 
 					// Check for setActive since it doesn't scroll to the element
-					if (body.setActive && ! tinymce.isIE11) {
+					if (body.setActive && !tinymce.isIE11) {
 						body.setActive();
 					} else {
 						body.focus();

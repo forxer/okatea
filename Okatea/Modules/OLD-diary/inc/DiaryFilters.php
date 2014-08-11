@@ -10,11 +10,11 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 class DiaryFilters extends BaseFilters
 {
 
-	protected $get_events_params = array();
+	protected $get_events_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $oConfig, $part = 'public', $params = array())
+	public function __construct($okt, $oConfig, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'diary', $oConfig, $part, $params);
 	}
@@ -48,7 +48,7 @@ class DiaryFilters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setParams(&$params = array())
+	public function setParams(&$params = [])
 	{
 		$this->get_events_params = & $params;
 	}
@@ -63,7 +63,7 @@ class DiaryFilters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		$this->order_by_array['date de création'] = 'created_at';
 		
 		if ($this->part === 'admin')
@@ -93,7 +93,7 @@ class DiaryFilters extends BaseFilters
 			return null;
 		}
 		
-		if (! isset($this->get_events_params['visibility']))
+		if (!isset($this->get_events_params['visibility']))
 		{
 			$this->setIntFilter('visibility');
 			$this->get_events_params['visibility'] = $this->params->visibility;
@@ -199,13 +199,13 @@ class DiaryFilters extends BaseFilters
 
 	protected function setFilterYear()
 	{
-		if (isset($this->config->filters) && ! $this->config->filters[$this->part]['year'])
+		if (isset($this->config->filters) && !$this->config->filters[$this->part]['year'])
 		{
 			return null;
 		}
 		
 		$year = date('Y');
-		$aYear = array();
+		$aYear = [];
 		
 		for ($i = - 2; $i < 6; $i ++)
 		{
@@ -226,7 +226,7 @@ class DiaryFilters extends BaseFilters
 
 	protected function setFilterMonth()
 	{
-		if (isset($this->config->filters) && ! $this->config->filters[$this->part]['month'])
+		if (isset($this->config->filters) && !$this->config->filters[$this->part]['month'])
 		{
 			return null;
 		}

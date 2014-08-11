@@ -50,7 +50,7 @@ $okt->page->setButtonset('newsCatsBtSt', array(
 	{
 		$attr = ' id="rub' . $rsCategories->id . '"';
 		
-		if (! $rsCategories->active)
+		if (!$rsCategories->active)
 		{
 			$attr .= ' class="disabled"';
 		}

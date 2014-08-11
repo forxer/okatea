@@ -25,7 +25,7 @@ class Stack
 	 *        	Les éléments de la pile
 	 * @return void
 	 */
-	public function __construct($aItems = array())
+	public function __construct($aItems = [])
 	{
 		$this->reset();
 		
@@ -42,7 +42,7 @@ class Stack
 	 */
 	public function reset()
 	{
-		$this->aStack = array();
+		$this->aStack = [];
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Stack
 	 */
 	public function setItems($aItems)
 	{
-		if (! is_array($aItems))
+		if (!is_array($aItems))
 		{
 			return null;
 		}
@@ -79,7 +79,7 @@ class Stack
 	 */
 	public function hasItem()
 	{
-		return ! empty($this->aStack);
+		return !empty($this->aStack);
 	}
 
 	public function __toString()
@@ -101,7 +101,7 @@ class Stack
 	 */
 	public function getHTML()
 	{
-		if (! $this->hasItem())
+		if (!$this->hasItem())
 		{
 			return null;
 		}

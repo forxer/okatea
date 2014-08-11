@@ -119,7 +119,7 @@ $GLOBALS['okt_l10n']['i_merge_config_not'] = 'The configuration data have not be
 $GLOBALS['okt_l10n']['i_end_install_title'] = 'This is the end... of the installation';
 $GLOBALS['okt_l10n']['i_end_update_title'] = 'This is the end... of the update';
 
-$GLOBALS['okt_l10n']['i_end_install_congrat'] = 'Congratulations! You have successfully installed the system.';
-$GLOBALS['okt_l10n']['i_end_update_congrat'] = 'Congratulations! You have successfully updated the system.';
+$GLOBALS['okt_l10n']['i_end_install_congrat'] = 'Congratulations!You have successfully installed the system.';
+$GLOBALS['okt_l10n']['i_end_update_congrat'] = 'Congratulations!You have successfully updated the system.';
 
 $GLOBALS['okt_l10n']['i_end_connect'] = 'Log into <a href="%s">the administration interface</a> to configure the system.';

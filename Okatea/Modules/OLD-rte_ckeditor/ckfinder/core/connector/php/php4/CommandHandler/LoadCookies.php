@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,7 +56,7 @@ class CKFinder_Connector_CommandHandler_LoadCookies extends CKFinder_Connector_C
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -66,7 +66,7 @@ class CKFinder_Connector_CommandHandler_LoadCookies extends CKFinder_Connector_C
 		$i = 0;
 		foreach ($_COOKIE as $name => $value)
 		{
-			if (! is_array($value) && strpos($name, "CKFinder_") !== 0)
+			if (!is_array($value) && strpos($name, "CKFinder_") !== 0)
 			{
 				$oCookieNode[$i] = new Ckfinder_Connector_Utils_XmlNode("Cookie");
 				$oCookiesNode->addChild($oCookieNode[$i]);

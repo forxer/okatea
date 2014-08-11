@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\SelectOption;
 use Okatea\Tao\Html\Modifiers;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# récupération de la liste complète des catégories
@@ -24,7 +24,7 @@ $add_category_name = '';
 $add_category_parent = 0;
 
 # initialisation modification
-$category_id = ! empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null;
+$category_id = !empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null;
 if ($category_id)
 {
 	# infos de la catégorie à modifier
@@ -45,7 +45,7 @@ if ($category_id)
 		'Premier niveau' => 0
 	);
 	
-	$p = array();
+	$p = [];
 	while ($childrens->fetch())
 	{
 		$p[$childrens->id] = 1;
@@ -54,7 +54,7 @@ if ($category_id)
 	
 	while ($categories_list->fetch())
 	{
-		if (! isset($p[$categories_list->id]))
+		if (!isset($p[$categories_list->id]))
 		{
 			$edit_allowed_parents[] = new SelectOption(str_repeat('&nbsp;&nbsp;', $categories_list->level - 1) . '&bull; ' . html::escapeHTML($categories_list->name), $categories_list->id);
 		}
@@ -63,7 +63,7 @@ if ($category_id)
 	
 	# hiérarchie
 	$path = $okt->catalog->getPath($category_id, true);
-	$edit_category_path = array();
+	$edit_category_path = [];
 	while ($path->fetch())
 	{
 		$edit_category_path[] = html::escapeHTML($path->name);
@@ -79,7 +79,7 @@ if ($category_id)
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	if ($okt->catalog->switchCategoryStatus($_GET['switch_status']))
 	{
@@ -88,7 +88,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # suppression d’une catégorie
-if (! empty($_GET['delete']))
+if (!empty($_GET['delete']))
 {
 	if ($okt->catalog->delCategory(intval($_GET['delete'])))
 	{
@@ -99,10 +99,10 @@ if (! empty($_GET['delete']))
 }
 
 # ajout d’une catégorie
-if (! empty($_POST['add_category']))
+if (!empty($_POST['add_category']))
 {
-	$add_category_name = ! empty($_POST['add_category_name']) ? $_POST['add_category_name'] : '';
-	$add_category_parent = ! empty($_POST['add_category_parent']) ? intval($_POST['add_category_parent']) : 0;
+	$add_category_name = !empty($_POST['add_category_name']) ? $_POST['add_category_name'] : '';
+	$add_category_parent = !empty($_POST['add_category_parent']) ? intval($_POST['add_category_parent']) : 0;
 	
 	if (empty($add_category_name))
 	{
@@ -127,11 +127,11 @@ if (! empty($_POST['add_category']))
 }
 
 # modification d’une catégorie
-if (! empty($_POST['edit_category']) && $category_id)
+if (!empty($_POST['edit_category']) && $category_id)
 {
-	$edit_category_active = ! empty($_POST['edit_category_active']) ? 1 : 0;
-	$edit_category_name = ! empty($_POST['edit_category_name']) ? $_POST['edit_category_name'] : '';
-	$edit_category_parent = ! empty($_POST['edit_category_parent']) ? intval($_POST['edit_category_parent']) : 0;
+	$edit_category_active = !empty($_POST['edit_category_active']) ? 1 : 0;
+	$edit_category_name = !empty($_POST['edit_category_name']) ? $_POST['edit_category_name'] : '';
+	$edit_category_parent = !empty($_POST['edit_category_parent']) ? intval($_POST['edit_category_parent']) : 0;
 	
 	if (empty($edit_category_name))
 	{
@@ -156,14 +156,14 @@ if (! empty($_POST['edit_category']) && $category_id)
 }
 
 # changement de l’ordre des categories voisines
-$order = array();
-if (empty($_POST['categories_order']) && ! empty($_POST['order']))
+$order = [];
+if (empty($_POST['categories_order']) && !empty($_POST['order']))
 {
 	$order = $_POST['order'];
 	asort($order);
 	$order = array_keys($order);
 }
-elseif (! empty($_POST['categories_order']))
+elseif (!empty($_POST['categories_order']))
 {
 	$order = explode(',', $_POST['categories_order']);
 	foreach ($order as $k => $v)
@@ -172,7 +172,7 @@ elseif (! empty($_POST['categories_order']))
 	}
 }
 
-if (! empty($_POST['ordered']) && ! empty($order))
+if (!empty($_POST['ordered']) && !empty($order))
 {
 	foreach ($order as $ord => $id)
 	{
@@ -348,7 +348,7 @@ while ($categories_list->fetch())
 	{
 		$attr = ' id="rub' . $categories_list->id . '"';
 		
-		if (! $categories_list->active)
+		if (!$categories_list->active)
 		{
 			$attr .= ' class="disabled"';
 		}

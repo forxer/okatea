@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -25,7 +25,7 @@ $oImageUploadConfig->setWithWatermark(false);
 ----------------------------------------------------------*/
 
 # régénération des miniatures
-if (! empty($_GET['minregen']))
+if (!empty($_GET['minregen']))
 {
 	$okt->partners->regenMinLogos();
 	
@@ -35,7 +35,7 @@ if (! empty($_GET['minregen']))
 }
 
 # suppression filigrane
-if (! empty($_GET['delete_watermark']))
+if (!empty($_GET['delete_watermark']))
 {
 	$okt->partners->config->write(array(
 		'images' => $oImageUploadConfig->removeWatermak()
@@ -49,24 +49,24 @@ if (! empty($_GET['delete_watermark']))
 }
 
 # formulaire envoyé
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_enable_categories = ! empty($_POST['p_enable_categories']) ? true : false;
-	$p_enable_rte = ! empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
+	$p_enable_categories = !empty($_POST['p_enable_categories']) ? true : false;
+	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 	
-	$p_chp_name = ! empty($_POST['p_chp_name']) ? intval($_POST['p_chp_name']) : 0;
-	$p_chp_description = ! empty($_POST['p_chp_description']) ? intval($_POST['p_chp_description']) : 0;
-	$p_chp_url = ! empty($_POST['p_chp_url']) ? intval($_POST['p_chp_url']) : 0;
-	$p_chp_url_title = ! empty($_POST['p_chp_url_title']) ? intval($_POST['p_chp_url_title']) : 0;
-	$p_chp_logo = ! empty($_POST['p_chp_logo']) ? intval($_POST['p_chp_logo']) : 0;
+	$p_chp_name = !empty($_POST['p_chp_name']) ? intval($_POST['p_chp_name']) : 0;
+	$p_chp_description = !empty($_POST['p_chp_description']) ? intval($_POST['p_chp_description']) : 0;
+	$p_chp_url = !empty($_POST['p_chp_url']) ? intval($_POST['p_chp_url']) : 0;
+	$p_chp_url_title = !empty($_POST['p_chp_url_title']) ? intval($_POST['p_chp_url_title']) : 0;
+	$p_chp_logo = !empty($_POST['p_chp_logo']) ? intval($_POST['p_chp_logo']) : 0;
 	
 	$aImagesConfig = $oImageUploadConfig->getPostConfig();
 	
-	$p_name = ! empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : array();
-	$p_name_seo = ! empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : array();
-	$p_title = ! empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = ! empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = ! empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : [];
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : [];
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : [];
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : [];
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : [];
 	
 	if ($okt->error->isEmpty())
 	{
@@ -110,7 +110,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

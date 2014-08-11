@@ -79,14 +79,14 @@ $utilsSecurity->getRidOfMagicQuotes();
 /**
  * $config must be initialised
  */
-$config = array();
-$config['Hooks'] = array();
-$config['Plugins'] = array();
+$config = [];
+$config['Hooks'] = [];
+$config['Plugins'] = [];
 
 /**
  * Fix cookies bug in Flash.
  */
-if (! empty($_GET['command']) && $_GET['command'] == 'FileUpload' && ! empty($_POST))
+if (!empty($_GET['command']) && $_GET['command'] == 'FileUpload' && !empty($_POST))
 {
 	foreach ($_POST as $key => $val)
 	{

@@ -62,7 +62,7 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 		
 		foreach ($files as $file)
 		{
-			if (! $file->isFile() || '.yml' !== substr($file->getFilename(), - 4))
+			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), - 4))
 			{
 				continue;
 			}
@@ -89,15 +89,15 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 	 */
 	protected function parseRoute(RouteCollection $collection, $name, array $config, $path)
 	{
-		$defaults = isset($config['defaults']) ? $config['defaults'] : array();
-		$requirements = isset($config['requirements']) ? $config['requirements'] : array();
-		$options = isset($config['options']) ? $config['options'] : array();
+		$defaults = isset($config['defaults']) ? $config['defaults'] : [];
+		$requirements = isset($config['requirements']) ? $config['requirements'] : [];
+		$options = isset($config['options']) ? $config['options'] : [];
 		$host = isset($config['host']) ? $config['host'] : '';
-		$schemes = isset($config['schemes']) ? $config['schemes'] : array();
-		$methods = isset($config['methods']) ? $config['methods'] : array();
+		$schemes = isset($config['schemes']) ? $config['schemes'] : [];
+		$methods = isset($config['methods']) ? $config['methods'] : [];
 		$condition = isset($config['condition']) ? $config['condition'] : null;
 		
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			$name .= '-' . $this->language;
 			$config['path'] = '/' . $this->language . $config['path'];
@@ -122,6 +122,6 @@ class YamlDirectoryLoaderLocalizer extends BaseYamlFileLoader
 			return false;
 		}
 		
-		return is_string($resource) && is_dir($path) && (! $type || 'yaml' === $type);
+		return is_string($resource) && is_dir($path) && (!$type || 'yaml' === $type);
 	}
 }

@@ -35,7 +35,7 @@ class module_rte_wymeditor extends Module
 	{
 	}
 
-	public static function wymeditor($element = 'textarea', $user_options = array())
+	public static function wymeditor($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -45,7 +45,7 @@ class module_rte_wymeditor extends Module
 			'skin' => 'compact',
 			'updateSelector' => 'input:submit.button',
 			/**
-			 * @TODO : ce selecteur n'est pas bon ! trop général
+			 * @TODO : ce selecteur n'est pas bon !trop général
 			 */
 			'updateEvent' => 'click',
 			'plain/text' => '
@@ -56,7 +56,7 @@ class module_rte_wymeditor extends Module
 			'
 		);
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, $user_options);
 		}

@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -18,7 +18,7 @@ if (! defined('ON_MODULE'))
 $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.items');
 
 # Récupération des infos de la galerie
-$gallery_id = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
+$gallery_id = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
 $rsGallery = $okt->galleries->tree->getGallery($gallery_id);
 
@@ -32,7 +32,7 @@ if (is_null($gallery_id) || $rsGallery->isEmpty())
 ----------------------------------------------------------*/
 
 # Switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	try
 	{
@@ -49,7 +49,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # suppression d'un élément
-if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_remove'))
+if (!empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_remove'))
 {
 	try
 	{
@@ -66,7 +66,7 @@ if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_remove'))
 }
 
 # Traitements par lots
-if (! empty($_POST['actions']) && ! empty($_POST['items']) && is_array($_POST['items']))
+if (!empty($_POST['actions']) && !empty($_POST['items']) && is_array($_POST['items']))
 {
 	try
 	{
@@ -257,7 +257,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 		<?php 
 # image
-		if (! empty($rsItems->image) && isset($rsItems->image['min_url']))
+		if (!empty($rsItems->image) && isset($rsItems->image['min_url']))
 		:
 			?>
 

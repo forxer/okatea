@@ -100,7 +100,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 		<?php
 		# début Okatea : si les images sont activées
-		if ($okt->module('News')->config->images['enable'] && ! empty($rsPost->images))
+		if ($okt->module('News')->config->images['enable'] && !empty($rsPost->images))
 		:
 			?>
 		<p id="post-images" class="modal-box">

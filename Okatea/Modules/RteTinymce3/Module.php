@@ -50,7 +50,7 @@ class Module extends BaseModule
 		}
 	}
 
-	public static function tinyMCEsimple($element = 'textarea', $user_options = array())
+	public static function tinyMCEsimple($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -61,7 +61,7 @@ class Module extends BaseModule
 		self::addCommon($element, $user_options, $options);
 	}
 
-	public static function tinyMCEadvanced($element = 'textarea', $user_options = array())
+	public static function tinyMCEadvanced($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -112,7 +112,7 @@ class Module extends BaseModule
 		self::addCommon($element, $user_options, $options);
 	}
 
-	public static function tinyMCEexperts($element = 'textarea', $user_options = array())
+	public static function tinyMCEexperts($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -163,7 +163,7 @@ class Module extends BaseModule
 		self::addCommon($element, $user_options, $options);
 	}
 
-	protected static function addCommon($element, array $user_options = array(), array $options = array())
+	protected static function addCommon($element, array $user_options = [], array $options = [])
 	{
 		global $okt;
 		

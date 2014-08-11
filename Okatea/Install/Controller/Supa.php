@@ -58,7 +58,7 @@ class Supa extends Controller
 				$this->okt->error->set(__('i_supa_must_sudo_email'));
 			}
 
-			if (! empty($aUsersData['admin']['username']) || ! empty($aUsersData['admin']['password']) || ! empty($aUsersData['admin']['email']))
+			if (!empty($aUsersData['admin']['username']) || !empty($aUsersData['admin']['password']) || !empty($aUsersData['admin']['email']))
 			{
 				if (empty($aUsersData['admin']['username']))
 				{
@@ -75,7 +75,7 @@ class Supa extends Controller
 			}
 
 			# si pas d'erreur on ajoutent les utilisateurs
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$this->okt->startDatabase();
 

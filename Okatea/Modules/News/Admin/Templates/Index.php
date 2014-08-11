@@ -133,7 +133,7 @@ if ($iNumFilteredPosts == 0)
 
 <?php
 # Si on as des articles à afficher
-if (! $rsPosts->isEmpty())
+if (!$rsPosts->isEmpty())
 :
 	?>
 
@@ -181,7 +181,7 @@ if (! $rsPosts->isEmpty())
 		if ($okt->module('News')->config->enable_group_perms)
 		:
 
-			$aGroupsAccess = array();
+			$aGroupsAccess = [];
 			$aPerms = $okt->module('News')->getPostPermissions($rsPosts->id);
 			foreach ($aPerms as $iPerm)
 			{

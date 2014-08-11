@@ -68,37 +68,37 @@ class module_guestbook extends Module
 	{
 		$reqPlus = 'WHERE 1 ';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= 'AND id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['is_visible']))
+		if (!empty($params['is_visible']))
 		{
 			$reqPlus .= 'AND visible=1 ';
 		}
 		
-		if (! empty($params['is_not_visible']))
+		if (!empty($params['is_not_visible']))
 		{
 			$reqPlus .= 'AND visible=0 ';
 		}
 		
-		if (! empty($params['is_spam']))
+		if (!empty($params['is_spam']))
 		{
 			$reqPlus .= 'AND spam_status IS NOT NULL ';
 		}
 		
-		if (! empty($params['is_not_spam']))
+		if (!empty($params['is_not_spam']))
 		{
 			$reqPlus .= 'AND spam_status IS NULL ';
 		}
 		
-		if (! empty($params['custom_where']))
+		if (!empty($params['custom_where']))
 		{
 			$reqPlus .= ' ' . $params['custom_where'] . ' ';
 		}
 		
-		if (! empty($params['language']))
+		if (!empty($params['language']))
 		{
 			$reqPlus .= 'AND language=\'' . $this->db->escapeStr($params['language']) . '\' ';
 		}
@@ -114,7 +114,7 @@ class module_guestbook extends Module
 	 * @param boolean $count_only        	
 	 * @return recordset
 	 */
-	public function getSig($params = array(), $count_only = false)
+	public function getSig($params = [], $count_only = false)
 	{
 		if ($count_only)
 		{
@@ -125,7 +125,7 @@ class module_guestbook extends Module
 			$query = 'SELECT id, language, message, nom, email, url, note, ip, ' . 'date_sign, visible, spam_status, spam_filter ' . 'FROM ' . $this->t_guestbook . ' ' . $this->getWhereClause($params);
 		}
 		
-		if (! empty($params['order']))
+		if (!empty($params['order']))
 		{
 			$query .= 'ORDER BY ' . $params['order'] . ' ';
 		}
@@ -134,7 +134,7 @@ class module_guestbook extends Module
 			$query .= 'ORDER BY date_sign DESC ';
 		}
 		
-		if (! empty($params['limit']) && ! $count_only)
+		if (!empty($params['limit']) && !$count_only)
 		{
 			$query .= 'LIMIT ' . $params['limit'] . ' ';
 		}
@@ -147,7 +147,7 @@ class module_guestbook extends Module
 			}
 			else
 			{
-				return new recordset(array());
+				return new recordset([]);
 			}
 		}
 		
@@ -210,7 +210,7 @@ class module_guestbook extends Module
 		# champ email
 		if ($this->config->chp_mail > 0)
 		{
-			if ($data['email'] != '' && ! Utilities::isEmail($data['email']))
+			if ($data['email'] != '' && !Utilities::isEmail($data['email']))
 			{
 				$this->error->set(__('m_guestbook_email_invalid'));
 			}
@@ -285,7 +285,7 @@ class module_guestbook extends Module
 			$data['is_spam'] = oktAntispam::isSpam('guestbook', $data['nom'], $data['email'], $data['url'], $data['ip'], $data['message']);
 		}
 		
-		if (! is_array($data['is_spam']))
+		if (!is_array($data['is_spam']))
 		{
 			$data['is_spam'] = array(
 				'spam_status' => null,
@@ -295,7 +295,7 @@ class module_guestbook extends Module
 		
 		$query = 'INSERT INTO ' . $this->t_guestbook . ' ( ' . 'language, message, nom, email, url, note, ip, date_sign, visible, spam_status, spam_filter ' . ') VALUES ( ' . (is_null($data['language']) ? 'NULL' : '\'' . $this->db->escapeStr($data['language']) . '\'') . ', ' . '\'' . $this->db->escapeStr($data['message']) . '\', ' . (is_null($data['nom']) ? 'NULL' : '\'' . $this->db->escapeStr($data['nom']) . '\'') . ', ' . (is_null($data['email']) ? 'NULL' : '\'' . $this->db->escapeStr($data['email']) . '\'') . ', ' . (is_null($data['url']) ? 'NULL' : '\'' . $this->db->escapeStr($data['url']) . '\'') . ', ' . (is_null($data['note']) ? 'NULL' : (integer) $data['note']) . ', ' . (is_null($data['ip']) ? 'NULL' : '\'' . $this->db->escapeStr($data['ip']) . '\'') . ', ' . (empty($data['date']) ? 'NOW()' : '\'' . $this->db->escapeStr(MySqli::formatDateTime($data['date'])) . '\'') . ', ' . (integer) $data['visible'] . ', ' . (is_null($data['is_spam']['spam_status']) ? 'NULL' : '\'' . $this->db->escapeStr($data['is_spam']['spam_status']) . '\'') . ', ' . (is_null($data['is_spam']['spam_filter']) ? 'NULL' : '\'' . $this->db->escapeStr($data['is_spam']['spam_filter']) . '\'') . ' ' . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -317,14 +317,14 @@ class module_guestbook extends Module
 	 */
 	public function updSig($data)
 	{
-		if (! $this->sigExists($data['id']))
+		if (!$this->sigExists($data['id']))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_guestbook . ' SET ' . 'language=' . (is_null($data['language']) ? 'NULL' : '\'' . $this->db->escapeStr($data['language']) . '\'') . ', ' . 'nom=' . (is_null($data['nom']) ? 'NULL' : '\'' . $this->db->escapeStr($data['nom']) . '\'') . ', ' . 'email=' . (is_null($data['email']) ? 'NULL' : '\'' . $this->db->escapeStr($data['email']) . '\'') . ', ' . 'url=' . (is_null($data['url']) ? 'NULL' : '\'' . $this->db->escapeStr($data['url']) . '\'') . ', ' . 'message=\'' . $this->db->escapeStr($data['message']) . '\', ' . 'note=' . (is_null($data['note']) ? 'NULL' : (integer) $data['note']) . ', ' . 'visible=' . (integer) $data['visible'] . ' ' . 'WHERE id=' . (integer) $data['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -347,7 +347,7 @@ class module_guestbook extends Module
 		
 		$query = 'DELETE FROM ' . $this->t_guestbook . ' ' . $this->getWhereClause($params);
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -365,14 +365,14 @@ class module_guestbook extends Module
 	 */
 	public function validateSig($id)
 	{
-		if (! $this->sigExists($id))
+		if (!$this->sigExists($id))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_guestbook . ' SET ' . 'visible=1 ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -388,14 +388,14 @@ class module_guestbook extends Module
 	 */
 	public function markSigAsSpam($id)
 	{
-		if (! $this->sigExists($id))
+		if (!$this->sigExists($id))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_guestbook . ' SET ' . 'spam_status=1, ' . 'spam_filter=\'user\' ' . 'WHERE id=' . (integer) $id . ' ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -414,14 +414,14 @@ class module_guestbook extends Module
 	 */
 	public function markSigAsNoSpam($id)
 	{
-		if (! $this->sigExists($id))
+		if (!$this->sigExists($id))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_guestbook . ' SET ' . 'spam_status=NULL, ' . 'spam_filter=NULL ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}

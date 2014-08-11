@@ -85,7 +85,7 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 
 		<?php 
 # début Okatea : si les images sont activées
-		if ($okt->catalog->config->images['enable'] && ! empty($product->images))
+		if ($okt->catalog->config->images['enable'] && !empty($product->images))
 		:
 			?>
 		<p id="product-images" class="modal-box">

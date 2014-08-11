@@ -9,7 +9,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -18,9 +18,9 @@ if (! defined('ON_MODULE'))
 $partner_id = null;
 
 $p_name = '';
-$p_description = array();
-$p_url = array();
-$p_url_title = array();
+$p_description = [];
+$p_url = [];
+$p_url_title = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
@@ -40,7 +40,7 @@ $p_created_at = '';
 $p_category_id = '';
 
 # update partner ?
-if (! empty($_REQUEST['partner_id']))
+if (!empty($_REQUEST['partner_id']))
 {
 	$partner_id = intval($_REQUEST['partner_id']);
 	$partners_infos = $okt->partners->getPartners(array(
@@ -93,30 +93,30 @@ $rsCategories = $okt->partners->getCategories(array(
 ----------------------------------------------------------*/
 
 # Switch partenaire statut
-if (! empty($_GET['switch_status']) && ! empty($partner_id))
+if (!empty($_GET['switch_status']) && !empty($partner_id))
 {
 	$okt->partners->setPartnerStatus($partner_id);
 	http::redirect('module.php?m=partners&action=edit&partner_id=' . $partner_id . '&switched=1');
 }
 
 # Suppression d'une image
-if (! empty($_GET['delete_image']) && ! empty($partner_id))
+if (!empty($_GET['delete_image']) && !empty($partner_id))
 {
 	$okt->partners->deleteLogo($partner_id, 1);
 	http::redirect('module.php?m=partners&action=edit&partner_id=' . $partner_id . '&edited=1');
 }
 
 # Formulaire envoyé
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
-	$p_active = ! empty($_POST['p_active']) ? 1 : 0;
-	$p_category_id = ! empty($_POST['p_category_id']) ? $_POST['p_category_id'] : null;
-	$p_name = ! empty($_POST['p_name']) ? $_POST['p_name'] : null;
-	$p_description = ! empty($_POST['p_description']) ? array_map('trim', $_POST['p_description']) : array();
-	$p_url = ! empty($_POST['p_url']) ? array_map('trim', $_POST['p_url']) : array();
-	$p_url_title = ! empty($_POST['p_url_title']) ? array_map('trim', $_POST['p_url_title']) : array();
+	$p_active = !empty($_POST['p_active']) ? 1 : 0;
+	$p_category_id = !empty($_POST['p_category_id']) ? $_POST['p_category_id'] : null;
+	$p_name = !empty($_POST['p_name']) ? $_POST['p_name'] : null;
+	$p_description = !empty($_POST['p_description']) ? array_map('trim', $_POST['p_description']) : [];
+	$p_url = !empty($_POST['p_url']) ? array_map('trim', $_POST['p_url']) : [];
+	$p_url_title = !empty($_POST['p_url_title']) ? array_map('trim', $_POST['p_url_title']) : [];
 	
-	$date = trim($p_date . ' ' . (! empty($p_heure) && ! empty($p_minute) ? $p_heure . ':' . $p_minute : ''));
+	$date = trim($p_date . ' ' . (!empty($p_heure) && !empty($p_minute) ? $p_heure . ':' . $p_minute : ''));
 	$params = array(
 		'active' => $p_active,
 		'category_id' => $p_category_id,
@@ -128,7 +128,7 @@ if (! empty($_POST['sended']))
 	);
 	
 	# update partner
-	if (! empty($partner_id))
+	if (!empty($partner_id))
 	{
 		$params['id'] = $partner_id;
 		
@@ -151,7 +151,7 @@ if (! empty($_POST['sended']))
 }
 
 # Réglages de la validation javascript
-$aValidateFieldsJs = array();
+$aValidateFieldsJs = [];
 
 if ($okt->partners->config->chp_name)
 {
@@ -235,7 +235,7 @@ $okt->page->applyLbl($okt->partners->config->lightbox_type);
 $okt->page->applyRte($okt->partners->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -330,7 +330,7 @@ include OKT_ADMIN_HEADER_FILE;
 
 						<?php 
 # il y a une image ?
-			if (! empty($aPartnerLogoInfos))
+			if (!empty($aPartnerLogoInfos))
 			:
 				
 				# affichage square ou icon ?

@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -20,11 +20,11 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.display');
 /* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_dysplay_clic_gal_image = ! empty($_POST['p_dysplay_clic_gal_image']) ? $_POST['p_dysplay_clic_gal_image'] : '';
-	$p_dysplay_clic_items_image = ! empty($_POST['p_dysplay_clic_items_image']) ? $_POST['p_dysplay_clic_items_image'] : '';
-	$p_lightbox_type = ! empty($_POST['p_lightbox_type']) ? $_POST['p_lightbox_type'] : '';
+	$p_dysplay_clic_gal_image = !empty($_POST['p_dysplay_clic_gal_image']) ? $_POST['p_dysplay_clic_gal_image'] : '';
+	$p_dysplay_clic_items_image = !empty($_POST['p_dysplay_clic_items_image']) ? $_POST['p_dysplay_clic_items_image'] : '';
+	$p_lightbox_type = !empty($_POST['p_lightbox_type']) ? $_POST['p_lightbox_type'] : '';
 	
 	if ($okt->error->isEmpty())
 	{

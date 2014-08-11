@@ -40,14 +40,14 @@ $okt->page->css->addLessFile($okt->theme->public_path . '/css/styles.less');
 
 		<?php 
 # début Okatea : affichage du switcher de langues
-		if (! $okt['languages']->hasUniqueLanguage())
+		if (!$okt['languages']->hasUniqueLanguage())
 		:
 			?>
 		<ul id="lang-switcher">
 			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 			<li
 				id="lang_switcher_<?php echo $view->escape($aLanguage['code']) ?>"><a
-				href="<?php echo $view->generateUrl('homePage', array(), $aLanguage['code'])  ?>"
+				href="<?php echo $view->generateUrl('homePage', [], $aLanguage['code'])  ?>"
 				title="<?php echo $view->escape($aLanguage['title']) ?>"><img
 					src="<?php echo $okt['public_url'].'/img/flags/'.$aLanguage['img'] ?>"
 					alt="<?php echo $view->escape($aLanguage['title']) ?>" /></a></li>

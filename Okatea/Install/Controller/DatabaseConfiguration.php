@@ -69,7 +69,7 @@ class DatabaseConfiguration extends Controller
 				{
 					$this->okt->error->set(__('i_db_conf_db_error_prod_must_prefix'));
 				}
-				elseif (! preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
+				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
 				{
 					$this->okt->error->set(__('i_db_conf_db_error_prod_prefix_form'));
 				}
@@ -95,7 +95,7 @@ class DatabaseConfiguration extends Controller
 				{
 					$this->okt->error->set(__('i_db_conf_db_error_dev_must_prefix'));
 				}
-				elseif (! preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
+				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
 				{
 					$this->okt->error->set(__('i_db_conf_db_error_dev_prefix_form'));
 				}
@@ -119,11 +119,11 @@ class DatabaseConfiguration extends Controller
 			$aParamsToTest = $aDatabaseParams[$aDatabaseParams['env']];
 
 			# Tentative de connexion à la base de données
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$con_id = mysqli_connect($aParamsToTest['host'], $aParamsToTest['user'], $aParamsToTest['password']);
 
-				if (! $con_id)
+				if (!$con_id)
 				{
 					$this->okt->error->set('MySQL: ' . mysqli_connect_errno() . ' ' . mysqli_connect_error());
 				}
@@ -143,7 +143,7 @@ class DatabaseConfiguration extends Controller
 
 					$db = mysqli_select_db($con_id, $aParamsToTest['name']);
 
-					if (! $db)
+					if (!$db)
 					{
 						$this->okt->error->set('MySQL: ' . mysqli_errno($con_id) . ' ' . mysqli_error($con_id));
 					}
@@ -155,7 +155,7 @@ class DatabaseConfiguration extends Controller
 			}
 
 			# Nouvelle tentative de connexion à la base de données en utilisant la class interne
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$db = new MySqli($aParamsToTest['user'], $aParamsToTest['password'], $aParamsToTest['host'], $aParamsToTest['name'], $aParamsToTest['prefix']);
 
@@ -193,7 +193,7 @@ class DatabaseConfiguration extends Controller
 					);
 
 					# aller, dernière tentative en utilisant le fichier
-					if (! file_exists($sConnectionFile))
+					if (!file_exists($sConnectionFile))
 					{
 						$this->okt->error->set('Unable to find database connection file.');
 					}

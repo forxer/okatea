@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -19,7 +19,7 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.list');
 ----------------------------------------------------------*/
 
 # Régénération des miniatures d'une galerie
-if (! empty($_REQUEST['regenerate_thumbnails']))
+if (!empty($_REQUEST['regenerate_thumbnails']))
 {
 	if ($okt->galleries->items->regenMinImages($_REQUEST['regenerate_thumbnails']))
 	{
@@ -30,7 +30,7 @@ if (! empty($_REQUEST['regenerate_thumbnails']))
 }
 
 # Switch statut
-if (! empty($_GET['switch_status']) && $okt['visitor']->checkPerm('galleries_manage'))
+if (!empty($_GET['switch_status']) && $okt['visitor']->checkPerm('galleries_manage'))
 {
 	try
 	{
@@ -54,7 +54,7 @@ if (! empty($_GET['switch_status']) && $okt['visitor']->checkPerm('galleries_man
 }
 
 # Suppression d'une galerie
-if (! empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_manage'))
+if (!empty($_GET['delete']) && $okt['visitor']->checkPerm('galleries_manage'))
 {
 	if ($okt->galleries->tree->deleteGallery(intval($_GET['delete'])))
 	{
@@ -165,7 +165,7 @@ else
 	{
 		$attr = ' id="rub' . $rsGalleriesList->id . '"';
 		
-		if (! $rsGalleriesList->active)
+		if (!$rsGalleriesList->active)
 		{
 			$attr .= ' class="disabled"';
 		}
@@ -221,7 +221,7 @@ else
 		# image
 		$image = $rsGalleriesList->getImagesInfo();
 		
-		if (! empty($image) && isset($image['square_url']))
+		if (!empty($image) && isset($image['square_url']))
 		{
 			echo '<p class="modal-box galleries_image"><a href="' . $image['img_url'] . '" title="' . html::escapeHTML($rsGalleriesList->name) . '" class="modal">' . '<img src="' . $image['square_url'] . '" ' . $image['square_attr'] . ' alt="" /></a></p>';
 		}
@@ -250,7 +250,7 @@ else
 		
 		echo '</p>';
 		
-		if ((! $rsGalleriesList->locked && $okt['visitor']->checkPerm('galleries_manage')) || $okt['visitor']->is_superadmin)
+		if ((!$rsGalleriesList->locked && $okt['visitor']->checkPerm('galleries_manage')) || $okt['visitor']->is_superadmin)
 		{
 			echo '<p>';
 			

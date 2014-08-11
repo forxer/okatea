@@ -151,7 +151,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
 		$iCountLine ++;
 		
-		if (! $rsUsers->status)
+		if (!$rsUsers->status)
 		{
 			$sTdClass .= ' disabled';
 		}
@@ -188,7 +188,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 		{
 			_e('c_a_users_wait_of_validation');
 		}
-		elseif (! empty($aGroups[$rsUsers->group_id]))
+		elseif (!empty($aGroups[$rsUsers->group_id]))
 		{
 			echo $view->escape($aGroups[$rsUsers->group_id]);
 		}

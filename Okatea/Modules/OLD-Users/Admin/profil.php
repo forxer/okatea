@@ -9,14 +9,14 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Authentification;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
 ----------------------------------------------------------*/
 	
 # récupération des infos utilisateur
-$user_id = ! empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
+$user_id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
 
 if ($user_id === null || $user_id != $okt['visitor']->id)
 {
@@ -43,7 +43,7 @@ unset($rsUser);
 ----------------------------------------------------------*/
 
 # Suppression des cookies
-if (! empty($_REQUEST['delete_cookies']))
+if (!empty($_REQUEST['delete_cookies']))
 {
 	$aCookies = array_keys($_COOKIE);
 	unset($aCookies[$okt['cookie_auth_name']]);
@@ -60,14 +60,14 @@ if (! empty($_REQUEST['delete_cookies']))
 }
 
 # Formulaire de changement de mot de passe
-if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password'))
+if (!empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password'))
 {
 	$upd_params = array(
 		'id' => $user_id
 	);
 	
-	$upd_params['password'] = ! empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
-	$upd_params['password_confirm'] = ! empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
+	$upd_params['password'] = !empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
+	$upd_params['password_confirm'] = !empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 	
 	$okt->users->changeUserPassword($upd_params);
 	
@@ -77,7 +77,7 @@ if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_pas
 }
 
 # Formulaire de modification de l'utilisateur envoyé
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	$edit_civility = isset($_POST['edit_civility']) ? intval($_POST['edit_civility']) : 0;
 	$edit_username = isset($_POST['edit_username']) ? $_POST['edit_username'] : '';
@@ -110,7 +110,7 @@ if (! empty($_POST['form_sent']))
 
 # langues
 $rs = $okt['languages']->getLanguages();
-$aLanguages = array();
+$aLanguages = [];
 while ($rs->fetch())
 {
 	$aLanguages[html::escapeHTML($rs->title)] = $rs->code;

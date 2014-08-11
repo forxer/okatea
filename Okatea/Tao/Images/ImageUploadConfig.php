@@ -153,7 +153,7 @@ class ImageUploadConfig
 		{
 			$iNumberImages = $this->okt['request']->request->getInt($this->sFormPrefix . 'number_images', 0);
 			
-			if (! empty($this->iMaxFileUploads) && $iNumberImages > $this->iMaxFileUploads)
+			if (!empty($this->iMaxFileUploads) && $iNumberImages > $this->iMaxFileUploads)
 			{
 				$iNumberImages = $this->iMaxFileUploads;
 			}
@@ -292,9 +292,9 @@ class ImageUploadConfig
 
 		'<div class="three-cols">' . '<p class="field col"><label for="' . $this->sFormPrefix . 'enable_images">' . form::checkbox($this->sFormPrefix . 'enable_images', 1, $this->oImageUpload->aConfig['enable']) . __('a_image_config_enable') . '</label></p>';
 		
-		if (! $this->bUnique)
+		if (!$this->bUnique)
 		{
-			$return .= '<p class="field col"><label for="' . $this->sFormPrefix . 'number_images">' . __('a_image_config_number') . '</label>' . form::text($this->sFormPrefix . 'number_images', 10, 255, $this->oImageUpload->aConfig['number']) . (! empty($this->iMaxFileUploads) ? '<span class="note">' . sprintf(__('a_image_config_number_note_%s') . '</span>', $this->iMaxFileUploads) : '') . '</p>';
+			$return .= '<p class="field col"><label for="' . $this->sFormPrefix . 'number_images">' . __('a_image_config_number') . '</label>' . form::text($this->sFormPrefix . 'number_images', 10, 255, $this->oImageUpload->aConfig['number']) . (!empty($this->iMaxFileUploads) ? '<span class="note">' . sprintf(__('a_image_config_number_note_%s') . '</span>', $this->iMaxFileUploads) : '') . '</p>';
 		}
 		
 		$return .= '<p class="col"><a href="' . $this->sBaseUrl . 'minregen=1" class="icon arrow_refresh_small lazy-load">' . __('a_image_config_regenerate_thumbnails') . '</a></p>' . '</div>' . 

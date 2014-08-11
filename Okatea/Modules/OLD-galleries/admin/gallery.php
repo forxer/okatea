@@ -11,7 +11,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -32,7 +32,7 @@ $iGalleryId = null;
 $aGalleryData['db'] = new ArrayObject();
 $aGalleryData['locales'] = new ArrayObject();
 
-$aGalleryData['db'] = array();
+$aGalleryData['db'] = [];
 $aGalleryData['db']['active'] = 1;
 $aGalleryData['db']['locked'] = 0;
 $aGalleryData['db']['parent_id'] = 0;
@@ -42,11 +42,11 @@ $aGalleryData['db']['items_tpl'] = '';
 $aGalleryData['db']['created_at'] = '';
 $aGalleryData['db']['updated_at'] = '';
 
-$aGalleryData['locales'] = array();
+$aGalleryData['locales'] = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
-	$aGalleryData['locales'][$aLanguage['code']] = array();
+	$aGalleryData['locales'][$aLanguage['code']] = [];
 	
 	$aGalleryData['locales'][$aLanguage['code']]['title'] = '';
 	$aGalleryData['locales'][$aLanguage['code']]['content'] = '';
@@ -61,13 +61,13 @@ foreach ($okt['languages']->getList() as $aLanguage)
 	}
 }
 
-$aGalleryData['image'] = array();
+$aGalleryData['image'] = [];
 
 $rsGallery = null;
 $rsGalleryI18n = null;
 
 # update a gallery ?
-if (! empty($_REQUEST['gallery_id']))
+if (!empty($_REQUEST['gallery_id']))
 {
 	$iGalleryId = intval($_REQUEST['gallery_id']);
 	
@@ -81,7 +81,7 @@ if (! empty($_REQUEST['gallery_id']))
 	else
 	{
 		# si vérouillé et pas super-admin on renvoi sur la liste
-		if ($rsGallery->locked && ! $okt['visitor']->is_superadmin)
+		if ($rsGallery->locked && !$okt['visitor']->is_superadmin)
 		{
 			http::redirect('module.php?m=galleries&action=index');
 		}
@@ -136,11 +136,11 @@ $okt->galleries->triggers->callTrigger('adminGalleryInit', $aGalleryData, $rsGal
 ----------------------------------------------------------*/
 
 # AJAX : changement de l'ordre des galeries voisines
-if (! empty($_GET['ajax_update_order']))
+if (!empty($_GET['ajax_update_order']))
 {
-	$order = ! empty($_GET['ord']) && is_array($_GET['ord']) ? $_GET['ord'] : array();
+	$order = !empty($_GET['ord']) && is_array($_GET['ord']) ? $_GET['ord'] : [];
 	
-	if (! empty($order))
+	if (!empty($order))
 	{
 		try
 		{
@@ -162,14 +162,14 @@ if (! empty($_GET['ajax_update_order']))
 }
 
 # POST : changement de l'ordre des galeries voisines
-if (! empty($_POST['order_galleries']))
+if (!empty($_POST['order_galleries']))
 {
-	$order = ! empty($_POST['p_order']) && is_array($_POST['p_order']) ? $_POST['p_order'] : array();
+	$order = !empty($_POST['p_order']) && is_array($_POST['p_order']) ? $_POST['p_order'] : [];
 	
 	asort($order);
 	$order = array_keys($order);
 	
-	if (! empty($order))
+	if (!empty($order))
 	{
 		try
 		{
@@ -193,7 +193,7 @@ if (! empty($_POST['order_galleries']))
 }
 
 # switch status
-if (! empty($_GET['switch_status']) && ! empty($iGalleryId))
+if (!empty($_GET['switch_status']) && !empty($iGalleryId))
 {
 	try
 	{
@@ -215,7 +215,7 @@ if (! empty($_GET['switch_status']) && ! empty($iGalleryId))
 }
 
 # suppression de l'image
-if (! empty($_GET['delete_image']) && ! empty($iGalleryId))
+if (!empty($_GET['delete_image']) && !empty($iGalleryId))
 {
 	$okt->galleries->tree->deleteImage($iGalleryId, $_GET['delete_image']);
 	
@@ -232,28 +232,28 @@ if (! empty($_GET['delete_image']) && ! empty($iGalleryId))
 }
 
 # ajout/modification de la galerie
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
 	$aGalleryData['db']['id'] = $iGalleryId;
-	$aGalleryData['db']['active'] = ! empty($_POST['p_active']) ? 1 : 0;
-	$aGalleryData['db']['locked'] = ! empty($_POST['p_locked']) && $okt['visitor']->is_superadmin ? 1 : 0;
-	$aGalleryData['db']['parent_id'] = ! empty($_POST['p_parent_id']) ? intval($_POST['p_parent_id']) : 0;
-	$aGalleryData['db']['password'] = ! empty($_POST['p_password']) ? $_POST['p_password'] : '';
-	$aGalleryData['db']['tpl'] = ! empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
-	$aGalleryData['db']['items_tpl'] = ! empty($_POST['p_items_tpl']) ? $_POST['p_items_tpl'] : null;
+	$aGalleryData['db']['active'] = !empty($_POST['p_active']) ? 1 : 0;
+	$aGalleryData['db']['locked'] = !empty($_POST['p_locked']) && $okt['visitor']->is_superadmin ? 1 : 0;
+	$aGalleryData['db']['parent_id'] = !empty($_POST['p_parent_id']) ? intval($_POST['p_parent_id']) : 0;
+	$aGalleryData['db']['password'] = !empty($_POST['p_password']) ? $_POST['p_password'] : '';
+	$aGalleryData['db']['tpl'] = !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
+	$aGalleryData['db']['items_tpl'] = !empty($_POST['p_items_tpl']) ? $_POST['p_items_tpl'] : null;
 	
 	foreach ($okt['languages']->getList() as $aLanguage)
 	{
-		$aGalleryData['locales'][$aLanguage['code']]['title'] = ! empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
-		$aGalleryData['locales'][$aLanguage['code']]['content'] = ! empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
+		$aGalleryData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
+		$aGalleryData['locales'][$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
 		
 		if ($okt->galleries->config->enable_metas)
 		{
-			$aGalleryData['locales'][$aLanguage['code']]['title_seo'] = ! empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
-			$aGalleryData['locales'][$aLanguage['code']]['title_tag'] = ! empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
-			$aGalleryData['locales'][$aLanguage['code']]['meta_description'] = ! empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
-			$aGalleryData['locales'][$aLanguage['code']]['meta_keywords'] = ! empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
-			$aGalleryData['locales'][$aLanguage['code']]['slug'] = ! empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
+			$aGalleryData['locales'][$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
+			$aGalleryData['locales'][$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
+			$aGalleryData['locales'][$aLanguage['code']]['meta_description'] = !empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
+			$aGalleryData['locales'][$aLanguage['code']]['meta_keywords'] = !empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
+			$aGalleryData['locales'][$aLanguage['code']]['slug'] = !empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
 		}
 	}
 	
@@ -266,7 +266,7 @@ if (! empty($_POST['sended']))
 		$oGalleryCursor = $okt->galleries->tree->openGalleryCursor($aGalleryData['db']);
 		
 		# update gallery
-		if (! empty($iGalleryId))
+		if (!empty($iGalleryId))
 		{
 			try
 			{
@@ -346,7 +346,7 @@ $aAllowedParents = array(
 	__('m_galleries_gallery_first_level') => 0
 );
 
-$aChildrens = array();
+$aChildrens = [];
 if ($iGalleryId)
 {
 	$rsDescendants = $okt->galleries->tree->getDescendants($iGalleryId, true);
@@ -359,7 +359,7 @@ if ($iGalleryId)
 
 while ($rsGalleriesList->fetch())
 {
-	if (! in_array($rsGalleriesList->id, $aChildrens))
+	if (!in_array($rsGalleriesList->id, $aChildrens))
 	{
 		$aAllowedParents[] = new SelectOption(str_repeat('&nbsp;&nbsp;&nbsp;', $rsGalleriesList->level - 1) . '&bull; ' . html::escapeHTML($rsGalleriesList->title), $rsGalleriesList->id);
 	}
@@ -461,7 +461,7 @@ $okt->page->tabs();
 $okt->page->applyRte($okt->galleries->config->enable_gal_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -562,7 +562,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 			<?php 
 # il y a une image ?
-			if (! empty($aGalleryData['image']))
+			if (!empty($aGalleryData['image']))
 			:
 				
 				# affichage square ou icon ?
@@ -582,8 +582,8 @@ require OKT_ADMIN_HEADER_FILE;
 					$sCurImageAttr = ' width="48" height="48" ';
 				}
 				
-				$aCurImageAlt = isset($aGalleryData['image']['alt']) ? $aGalleryData['image']['alt'] : array();
-				$aCurImageTitle = isset($aGalleryData['image']['title']) ? $aGalleryData['image']['title'] : array();
+				$aCurImageAlt = isset($aGalleryData['image']['alt']) ? $aGalleryData['image']['alt'] : [];
+				$aCurImageTitle = isset($aGalleryData['image']['title']) ? $aGalleryData['image']['title'] : [];
 				
 				?>
 

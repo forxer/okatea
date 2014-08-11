@@ -26,7 +26,7 @@ class Builder extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('okatea_builder'))
+		if (!$this->okt['visitor']->checkPerm('okatea_builder'))
 		{
 			return $this->serve401();
 		}
@@ -42,7 +42,7 @@ class Builder extends Controller
 
 	protected function start()
 	{
-		return $this->render('Builder/Admin/Templates/Steps/start', array());
+		return $this->render('Builder/Admin/Templates/Steps/start', []);
 	}
 
 	protected function version()
@@ -85,7 +85,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/copy', array());
+		return $this->render('Builder/Admin/Templates/Steps/copy', []);
 	}
 
 	protected function cleanup()
@@ -103,7 +103,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/cleanup', array());
+		return $this->render('Builder/Admin/Templates/Steps/cleanup', []);
 	}
 
 	protected function changelog()
@@ -161,7 +161,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/modules', array());
+		return $this->render('Builder/Admin/Templates/Steps/modules', []);
 	}
 
 	protected function themes()
@@ -179,7 +179,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/themes', array());
+		return $this->render('Builder/Admin/Templates/Steps/themes', []);
 	}
 
 	protected function digests()
@@ -197,7 +197,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/digests', array());
+		return $this->render('Builder/Admin/Templates/Steps/digests', []);
 	}
 
 	protected function packages()
@@ -215,7 +215,7 @@ class Builder extends Controller
 			)));
 		}
 		
-		return $this->render('Builder/Admin/Templates/Steps/packages', array());
+		return $this->render('Builder/Admin/Templates/Steps/packages', []);
 	}
 
 	protected function end()
@@ -228,7 +228,7 @@ class Builder extends Controller
 		
 		$this->restoreInitialRessources();
 		
-		return $this->render('Builder/Admin/Templates/Steps/end', array());
+		return $this->render('Builder/Admin/Templates/Steps/end', []);
 	}
 
 	protected function setMaxRessources()

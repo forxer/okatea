@@ -226,7 +226,7 @@ class Requirements
 		foreach ($this->aRequirements as $i => $group)
 		{
 			$aResults['bCheckAll'] = $aResults['bCheckAll'] && $this->aRequirements[$i]['check_' . $group['group_id']]->checkAll();
-			$aResults['bCheckWarning'] = $aResults['bCheckWarning'] && ! $this->aRequirements[$i]['check_' . $group['group_id']]->checkWarnings();
+			$aResults['bCheckWarning'] = $aResults['bCheckWarning'] && !$this->aRequirements[$i]['check_' . $group['group_id']]->checkWarnings();
 		}
 
 		return $aResults;

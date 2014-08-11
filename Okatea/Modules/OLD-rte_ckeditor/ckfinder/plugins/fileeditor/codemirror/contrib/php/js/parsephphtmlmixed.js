@@ -1,7 +1,7 @@
 ﻿/*
-Copyright (c) 2008-2009 Yahoo! Inc. All rights reserved.
+Copyright (c) 2008-2009 Yahoo!Inc. All rights reserved.
 The copyrights embodied in the content of this file are licensed by
-Yahoo! Inc. under the BSD (revised) open source license
+Yahoo!Inc. under the BSD (revised) open source license
 
 @author Dan Vlad Dascalescu <dandv@yahoo-inc.com>
 

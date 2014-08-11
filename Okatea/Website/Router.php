@@ -48,9 +48,9 @@ class Router extends BaseRouter
 	 * @ERROR!!!
 	 *
 	 */
-	public function generate($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	public function generate($name, $parameters = [], $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			if (null === $language)
 			{
@@ -76,7 +76,7 @@ class Router extends BaseRouter
 	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
-	public function generateFromAdmin($name, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	public function generateFromAdmin($name, $parameters = [], $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
 		return str_replace('/admin/', '/', $this->generate($name, $parameters, $language, $referenceType));
 	}
@@ -90,7 +90,7 @@ class Router extends BaseRouter
 	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
-	public function generateLoginUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	public function generateLoginUrl($sRedirectUrl = null, $parameters = [], $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
 		if ($this->okt['config']->users['pages']['log_reg'])
 		{
@@ -101,7 +101,7 @@ class Router extends BaseRouter
 			$sLoginUrl = $this->generate('usersLogin');
 		}
 
-		if (! is_null($sRedirectUrl))
+		if (!is_null($sRedirectUrl))
 		{
 			$this->okt->session->set('okt_redirect_url', $sRedirectUrl);
 		}
@@ -118,7 +118,7 @@ class Router extends BaseRouter
 	 * @param Boolean|string $referenceType
 	 * @return string
 	 */
-	public function generateRegisterUrl($sRedirectUrl = null, $parameters = array(), $language = null, $referenceType = self::ABSOLUTE_PATH)
+	public function generateRegisterUrl($sRedirectUrl = null, $parameters = [], $language = null, $referenceType = self::ABSOLUTE_PATH)
 	{
 		if ($this->okt['config']->users['pages']['log_reg'])
 		{
@@ -129,7 +129,7 @@ class Router extends BaseRouter
 			$sRegisterUrl = $this->generate('usersRegister');
 		}
 
-		if (! is_null($sRedirectUrl))
+		if (!is_null($sRedirectUrl))
 		{
 			$this->okt->session->set('okt_redirect_url', $sRedirectUrl);
 		}
@@ -142,7 +142,7 @@ class Router extends BaseRouter
 	 */
 	public function touchResources()
 	{
-		$aResources = array();
+		$aResources = [];
 		foreach ($this->getRouteCollection()->getResources() as $oResource)
 		{
 			$aResources[] = (string) $oResource;

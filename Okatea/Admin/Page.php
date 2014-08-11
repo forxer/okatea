@@ -34,7 +34,7 @@ class Page extends BasePage
 	 *
 	 * @var array
 	 */
-	public $buttonset = array();
+	public $buttonset = [];
 
 	public $display_menu = true;
 
@@ -43,14 +43,14 @@ class Page extends BasePage
 	 *
 	 * @var array
 	 */
-	public static $formatHtmlMainMenu = array();
+	public static $formatHtmlMainMenu = [];
 
 	/**
 	 * Format du HTML des sous-menu
 	 *
 	 * @var array
 	 */
-	public static $formatHtmlSubMenu = array();
+	public static $formatHtmlSubMenu = [];
 
 	/**
 	 * Constructeur.
@@ -160,12 +160,12 @@ class Page extends BasePage
 	public function getUserBars()
 	{
 		$aUserBars = new ArrayObject(array(
-			'first' => array(),
-			'second' => array()
+			'first' => [],
+			'second' => []
 		));
 
 		# logged in user
-		if (! $this->okt['visitor']->is_guest)
+		if (!$this->okt['visitor']->is_guest)
 		{
 			# profil link
 			$aUserBars['first'][10] = sprintf(__('c_c_user_hello_%s'), '<a href="' . $this->okt['adminRouter']->generate('User_profile') . '">' . Escaper::html($this->okt['visitor']->usedname) . '</a>');
@@ -183,7 +183,7 @@ class Page extends BasePage
 		}
 
 		# languages switcher
-		if ($this->okt['config']->admin_lang_switcher && ! $this->okt['languages']->hasUniqueLanguage())
+		if ($this->okt['config']->admin_lang_switcher && !$this->okt['languages']->hasUniqueLanguage())
 		{
 			$sBaseUri = $this->okt['request']->getUri();
 			$sBaseUri .= strpos($sBaseUri, '?') ? '&' : '?';
@@ -243,7 +243,7 @@ class Page extends BasePage
 	 *        	$direction
 	 * @return void
 	 */
-	public function addButton($sButtonSetId, $aButton = array(), $direction = 'next')
+	public function addButton($sButtonSetId, $aButton = [], $direction = 'next')
 	{
 		if ($direction == 'next')
 		{
@@ -262,7 +262,7 @@ class Page extends BasePage
 	 *        	$aButtonsSet
 	 * @return void
 	 */
-	public function setButtonset($sButtonSetId, $aButtonsSet = array())
+	public function setButtonset($sButtonSetId, $aButtonsSet = [])
 	{
 		$this->buttonset[$sButtonSetId] = $aButtonsSet;
 	}
@@ -274,7 +274,7 @@ class Page extends BasePage
 	 * @param array $aParams
 	 * @return string
 	 */
-	public function buttonset($sButtonSetId, $aParams = array())
+	public function buttonset($sButtonSetId, $aParams = [])
 	{
 		if (empty($aParams['buttons']))
 		{
@@ -282,10 +282,10 @@ class Page extends BasePage
 		}
 
 		# check perms
-		$aButons = array();
+		$aButons = [];
 		foreach ($aParams['buttons'] as $aButon)
 		{
-			if (! empty($aButon) && isset($aButon['permission']) && $aButon['permission'] !== false)
+			if (!empty($aButon) && isset($aButon['permission']) && $aButon['permission'] !== false)
 			{
 				$aButons[] = $aButon;
 			}
@@ -299,7 +299,7 @@ class Page extends BasePage
 		# construction
 		$res = '<p class="buttonset';
 
-		if (! empty($aParams['class']))
+		if (!empty($aParams['class']))
 		{
 			if (is_array($aParams['class']))
 			{
@@ -325,7 +325,7 @@ class Page extends BasePage
 
 		$i = 0;
 
-		$jsButtons = array();
+		$jsButtons = [];
 
 		foreach ($aButons as $aButon)
 		{
@@ -344,14 +344,14 @@ class Page extends BasePage
 
 			$jsButtons[$i] = '$("#' . $aButon['id'] . '").button({';
 
-			if (! empty($aButon['onclick']))
+			if (!empty($aButon['onclick']))
 			{
 				$res .= ' onclick="' . $aButon['onclick'] . '"';
 			}
 
 			$res .= ' class="button';
 
-			if (! empty($aButon['class']))
+			if (!empty($aButon['class']))
 			{
 				if (is_array($aButon['class']))
 				{
@@ -363,24 +363,24 @@ class Page extends BasePage
 				}
 			}
 
-			if (! empty($aButon['active']))
+			if (!empty($aButon['active']))
 			{
 				$res .= ' ui-state-active';
 			}
 
 			$res .= '">';
 
-			if (! empty($aButon['ui-icon']))
+			if (!empty($aButon['ui-icon']))
 			{
 				$jsButtons[$i] .= 'icons: { primary: "ui-icon-' . $aButon['ui-icon'] . '" }';
 			}
 
-			if (! empty($aButon['sprite-icon']))
+			if (!empty($aButon['sprite-icon']))
 			{
 				$res .= '<span class="icon ' . $aButon['sprite-icon'] . '"></span>';
 			}
 
-			if (! empty($aButon['title']))
+			if (!empty($aButon['title']))
 			{
 				$res .= $aButon['title'];
 			}

@@ -8,19 +8,19 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_modal = ! empty($_POST['p_modal']) ? true : false;
-	$p_closeOnEscape = ! empty($_POST['p_closeOnEscape']) ? true : false;
-	$p_closeOnClick = ! empty($_POST['p_closeOnClick']) ? true : false;
-	$p_galleryLoop = ! empty($_POST['p_galleryLoop']) ? true : false;
-	$p_galleryCounts = ! empty($_POST['p_galleryCounts']) ? true : false;
+	$p_modal = !empty($_POST['p_modal']) ? true : false;
+	$p_closeOnEscape = !empty($_POST['p_closeOnEscape']) ? true : false;
+	$p_closeOnClick = !empty($_POST['p_closeOnClick']) ? true : false;
+	$p_galleryLoop = !empty($_POST['p_galleryLoop']) ? true : false;
+	$p_galleryCounts = !empty($_POST['p_galleryCounts']) ? true : false;
 	
 	if ($okt->error->isEmpty())
 	{

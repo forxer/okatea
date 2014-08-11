@@ -15,7 +15,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_config'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_config'))
 		{
 			return $this->serve401();
 		}
@@ -33,7 +33,7 @@ class Config extends Controller
 			// ...
 			
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'captcha' => $this->okt['request']->request->get('p_captcha'),
@@ -47,17 +47,17 @@ class Config extends Controller
 						'map' => $oTemplatesMap->getPostConfig()
 					),
 					
-					'name' => $this->okt['request']->request->get('p_name', array()),
-					'name_seo' => $this->okt['request']->request->get('p_name_seo', array()),
-					'title' => $this->okt['request']->request->get('p_title', array()),
-					'meta_description' => $this->okt['request']->request->get('p_meta_description', array()),
-					'meta_keywords' => $this->okt['request']->request->get('p_meta_keywords', array()),
+					'name' => $this->okt['request']->request->get('p_name', []),
+					'name_seo' => $this->okt['request']->request->get('p_name_seo', []),
+					'title' => $this->okt['request']->request->get('p_title', []),
+					'meta_description' => $this->okt['request']->request->get('p_meta_description', []),
+					'meta_keywords' => $this->okt['request']->request->get('p_meta_keywords', []),
 					
-					'name_map' => $this->okt['request']->request->get('p_name_map', array()),
-					'name_seo_map' => $this->okt['request']->request->get('p_name_seo_map', array()),
-					'title_map' => $this->okt['request']->request->get('p_title_map', array()),
-					'meta_description_map' => $this->okt['request']->request->get('p_meta_description_map', array()),
-					'meta_keywords_map' => $this->okt['request']->request->get('p_meta_keywords_map', array()),
+					'name_map' => $this->okt['request']->request->get('p_name_map', []),
+					'name_seo_map' => $this->okt['request']->request->get('p_name_seo_map', []),
+					'title_map' => $this->okt['request']->request->get('p_title_map', []),
+					'meta_description_map' => $this->okt['request']->request->get('p_meta_description_map', []),
+					'meta_keywords_map' => $this->okt['request']->request->get('p_meta_keywords_map', []),
 					
 					'google_map' => array(
 						'enable' => $this->okt['request']->request->has('p_enable_google_map'),

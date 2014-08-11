@@ -9,7 +9,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
 $p_chp_language = $okt->guestbook->config->chp_language;
@@ -22,7 +22,7 @@ $p_validation = $okt->guestbook->config->validation;
 $p_emails_list = $okt->guestbook->config->emails_list;
 $p_autodelete_spam = $okt->guestbook->config->autodelete_spam;
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	$p_chp_language = intval($_POST['p_chp_language']);
 	$p_chp_nom = intval($_POST['p_chp_nom']);
@@ -34,7 +34,7 @@ if (! empty($_POST['form_sent']))
 	$p_emails_list = $_POST['p_emails_list'];
 	$p_autodelete_spam = intval($_POST['p_autodelete_spam']);
 	
-	if (! preg_match('/^[0-9]+$/', $p_autodelete_spam))
+	if (!preg_match('/^[0-9]+$/', $p_autodelete_spam))
 	{
 		$okt->error->set(__('m_guestbook_you_must_enter_a_valid_number'));
 	}
@@ -43,7 +43,7 @@ if (! empty($_POST['form_sent']))
 	foreach ($p_emails_list as $i => $mail)
 	{
 		$mail = trim($mail);
-		if ($mail != '' && ! Utilities::isEmail($mail))
+		if ($mail != '' && !Utilities::isEmail($mail))
 		{
 			$okt->error->set(sprintf(__('m_guestbook_address_%s_is_invalid'), $mail));
 		}
@@ -51,13 +51,13 @@ if (! empty($_POST['form_sent']))
 	}
 	$p_emails_list = implode(',', $p_emails_list);
 	
-	$p_captcha = ! empty($_POST['p_captcha']) ? $_POST['p_captcha'] : '';
+	$p_captcha = !empty($_POST['p_captcha']) ? $_POST['p_captcha'] : '';
 	
-	$p_name = ! empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : array();
-	$p_name_seo = ! empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : array();
-	$p_title = ! empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = ! empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = ! empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : [];
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : [];
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : [];
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : [];
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : [];
 	
 	if ($okt->error->isEmpty())
 	{
@@ -103,7 +103,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

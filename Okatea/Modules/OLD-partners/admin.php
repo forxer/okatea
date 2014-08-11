@@ -6,17 +6,17 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt['visitor']->checkPerm('partners'))
+if (!$okt['visitor']->checkPerm('partners'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un partenaire
-if ($okt->page->action === 'delete' && ! empty($_GET['partner_id']) && $okt['visitor']->checkPerm('partners_remove'))
+if ($okt->page->action === 'delete' && !empty($_GET['partner_id']) && $okt['visitor']->checkPerm('partners_remove'))
 {
 	if ($okt->partners->deletePartner($_GET['partner_id']))
 	{

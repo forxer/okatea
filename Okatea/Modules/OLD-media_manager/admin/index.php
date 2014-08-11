@@ -12,7 +12,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* HTML page
@@ -21,7 +21,7 @@ if (! defined('ON_MODULE'))
 $d = isset($_REQUEST['d']) ? $_REQUEST['d'] : null;
 $dir = null;
 
-$page = ! empty($_GET['page']) ? $_GET['page'] : 1;
+$page = !empty($_GET['page']) ? $_GET['page'] : 1;
 $nb_per_page = 30;
 
 # We are on home not comming from media manager
@@ -31,7 +31,7 @@ if ($d === null && isset($_SESSION['media_manager_dir']))
 	$d = $_SESSION['media_manager_dir'];
 }
 
-if (! isset($_GET['page']) && isset($_SESSION['media_manager_page']))
+if (!isset($_GET['page']) && isset($_SESSION['media_manager_page']))
 {
 	$page = $_SESSION['media_manager_page'];
 }
@@ -63,14 +63,14 @@ $sort_combo = array(
 	__('By dates, descendant') => 'date-desc'
 );
 
-if (! empty($_GET['file_sort']) && in_array($_GET['file_sort'], $sort_combo))
+if (!empty($_GET['file_sort']) && in_array($_GET['file_sort'], $sort_combo))
 {
 	$_SESSION['media_file_sort'] = $_GET['file_sort'];
 }
 
-$file_sort = ! empty($_SESSION['media_file_sort']) ? $_SESSION['media_file_sort'] : null;
+$file_sort = !empty($_SESSION['media_file_sort']) ? $_SESSION['media_file_sort'] : null;
 
-$popup = (integer) ! empty($_GET['popup']);
+$popup = (integer) !empty($_GET['popup']);
 
 $page_url = 'module.php?m=media_manager&popup=' . $popup;
 
@@ -89,7 +89,7 @@ try
 	$core_media_writable = $okt->media->writable();
 	$dir = & $okt->media->dir;
 	
-	if (! $core_media_writable)
+	if (!$core_media_writable)
 	{
 		throw new Exception('you do not have sufficient permissions to write to this folder: ');
 	}
@@ -100,7 +100,7 @@ catch (\Exception $e)
 }
 
 # Zip download
-if (! empty($_GET['zipdl']) && $okt['visitor']->checkPerm('media_admin'))
+if (!empty($_GET['zipdl']) && $okt['visitor']->checkPerm('media_admin'))
 {
 	try
 	{
@@ -123,7 +123,7 @@ if (! empty($_GET['zipdl']) && $okt['visitor']->checkPerm('media_admin'))
 }
 
 # New directory
-if ($dir && ! empty($_POST['newdir']))
+if ($dir && !empty($_POST['newdir']))
 {
 	try
 	{
@@ -140,7 +140,7 @@ if ($dir && ! empty($_POST['newdir']))
 }
 
 # Adding a file
-if ($dir && ! empty($_FILES['upfile']))
+if ($dir && !empty($_FILES['upfile']))
 {
 	try
 	{
@@ -162,7 +162,7 @@ if ($dir && ! empty($_FILES['upfile']))
 }
 
 # Removing item
-if ($dir && ! empty($_POST['rmyes']) && ! empty($_POST['remove']))
+if ($dir && !empty($_POST['rmyes']) && !empty($_POST['remove']))
 {
 	$_POST['remove'] = rawurldecode($_POST['remove']);
 	
@@ -181,7 +181,7 @@ if ($dir && ! empty($_POST['rmyes']) && ! empty($_POST['remove']))
 }
 
 # Rebuild directory
-if ($dir && $okt['visitor']->is_superadmin && ! empty($_POST['rebuild']))
+if ($dir && $okt['visitor']->is_superadmin && !empty($_POST['rebuild']))
 {
 	try
 	{
@@ -198,7 +198,7 @@ if ($dir && $okt['visitor']->is_superadmin && ! empty($_POST['rebuild']))
 }
 
 # DISPLAY confirm page for rmdir & rmfile
-if ($dir && ! empty($_GET['remove']))
+if ($dir && !empty($_GET['remove']))
 {
 	# En-tête
 	if ($popup)
@@ -284,7 +284,7 @@ else
 
 echo '<h3><a href="' . html::escapeURL($page_url . '&d=') . '">' . __('Media manager') . '</a>' . ' / ' . $okt->media->breadCrumb(html::escapeURL($page_url) . '&amp;d=%s') . '</h3>';
 
-if (! $dir)
+if (!$dir)
 {
 	require OKT_ADMIN_FOOTER_FILE;
 	exit();
@@ -416,14 +416,14 @@ function mediaItemLine($f, $i)
 	
 	$res = '<div class="' . $class . '"><a class="media-icon media-link" href="' . $link . '">' . '<img src="' . $f->media_icon . '" alt="" /></a>' . '<ul>' . '<li><a class="media-link" href="' . $link . '">' . $fname . '</a></li>';
 	
-	if (! $f->d)
+	if (!$f->d)
 	{
 		$res .= '<li>' . $f->media_title . '</li>' . '<li>' . $f->media_dtstr . ' - ' . Utilities::l10nFileSize($f->size) . ' - ' . '<a href="' . $f->file_url . '">' . __('c_c_action_open') . '</a>' . '</li>';
 	}
 	
 	$res .= '<li class="media-action">&nbsp;';
 	
-	if ($popup && ! $f->d)
+	if ($popup && !$f->d)
 	{
 		$res .= '<a href="' . $link . '"><img src="' . $okt['public_url'] . '/img/ico/plus.png" alt="' . __('Insert this file') . '" ' . 'title="' . __('Insert this file') . '" /></a> ';
 	}

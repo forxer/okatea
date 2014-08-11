@@ -49,7 +49,7 @@ class Module extends BaseModule
 		{
 			$sFilename = $this->sRepositoryPath . '/packages/index.json';
 			
-			if (! file_exists($sFilename))
+			if (!file_exists($sFilename))
 			{
 				$this->okt->error->set('json file of repository not found.');
 			}

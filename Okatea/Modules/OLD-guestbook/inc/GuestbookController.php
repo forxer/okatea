@@ -34,7 +34,7 @@ class GuestbookController extends Controller
 		);
 		
 		# formulaire envoyé
-		if (! empty($_POST['sign']))
+		if (!empty($_POST['sign']))
 		{
 			$aSigData = array(
 				'language' => isset($_POST['language']) ? $_POST['language'] : $this->okt['visitor']->language,
@@ -52,11 +52,11 @@ class GuestbookController extends Controller
 			# -- CORE TRIGGER : publicModuleGuestbookControllerFormCheckValues
 			$this->okt['triggers']->callTrigger('publicModuleGuestbookControllerFormCheckValues', $this->okt->guestbook->config->captcha);
 			
-			if (! $this->okt->error->hasError())
+			if (!$this->okt->error->hasError())
 			{
 				if ($this->okt->guestbook->addSig($aSigData))
 				{
-					if (! empty($this->okt->guestbook->config->emails_list))
+					if (!empty($this->okt->guestbook->config->emails_list))
 					{
 						$oMail = new Mailer($this->okt);
 						
@@ -94,7 +94,7 @@ class GuestbookController extends Controller
 		);
 		
 		# initialisation de la pagination
-		$iPage = ! empty($_GET['page']) ? intval($_GET['page']) : 1;
+		$iPage = !empty($_GET['page']) ? intval($_GET['page']) : 1;
 		$oGuestbookPager = new Pager($this->okt, $iPage, $this->okt->guestbook->getSig($aGuestbookParams, true), $this->okt->guestbook->config->nbparpage_public);
 		
 		$iNumPages = $oGuestbookPager->getNbPages();
@@ -103,7 +103,7 @@ class GuestbookController extends Controller
 		$aGuestbookParams['limit'] = (($iPage - 1) * $this->okt->guestbook->config->nbparpage_public) . ',' . $this->okt->guestbook->config->nbparpage_public;
 		$signaturesList = $this->okt->guestbook->getSig($aGuestbookParams);
 		
-		$aLanguages = array();
+		$aLanguages = [];
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aLanguages[$aLanguage['title']] = $aLanguage['code'];
@@ -118,7 +118,7 @@ class GuestbookController extends Controller
 			# note
 			if ($this->okt->guestbook->config->chp_note)
 			{
-				if (! is_numeric($signaturesList->note))
+				if (!is_numeric($signaturesList->note))
 				{
 					$signaturesList->note = 'nc';
 				}
@@ -134,7 +134,7 @@ class GuestbookController extends Controller
 		}
 		
 		# meta description
-		if (! empty($this->okt->guestbook->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->guestbook->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->guestbook->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -144,7 +144,7 @@ class GuestbookController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->guestbook->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->guestbook->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->guestbook->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -169,7 +169,7 @@ class GuestbookController extends Controller
 		$this->page->setTitleSeo($this->okt->guestbook->getNameSeo());
 		
 		# fil d'ariane de la page
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->guestbook->getName(), GuestbookHelpers::getGuestbookUrl());
 		}

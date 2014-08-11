@@ -44,7 +44,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 			'ui-icon' => 'pencil'
 		),
 		array(
-			'permission' => ! in_array($aFieldData['id'], Fields::getUnDeletableFields()),
+			'permission' => !in_array($aFieldData['id'], Fields::getUnDeletableFields()),
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateAdminUrl('Contact_fields') . '?delete=' . $aFieldData['id'],
 			'ui-icon' => 'closethick',

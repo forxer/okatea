@@ -11,7 +11,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -58,22 +58,22 @@ class CKFinder_Connector_ErrorHandler_FileUpload extends CKFinder_Connector_Erro
 		header('Content-Type: text/html; charset=utf-8');
 		
 		$errorMessage = CKFinder_Connector_Utils_Misc::getErrorMessage($number, $sEncodedFileName);
-		if (! $uploaded)
+		if (!$uploaded)
 		{
 			$sFileName = "";
 			$sEncodedFileName = "";
 		}
-		if (! empty($_GET['response_type']) && $_GET['response_type'] == 'txt')
+		if (!empty($_GET['response_type']) && $_GET['response_type'] == 'txt')
 		{
 			echo $sFileName . "|" . $errorMessage;
 		}
 		else
 		{
 			echo "<script type=\"text/javascript\">";
-			if (! empty($_GET['CKFinderFuncNum']))
+			if (!empty($_GET['CKFinderFuncNum']))
 			{
 				
-				if (! $uploaded)
+				if (!$uploaded)
 				{
 					$sFileUrl = "";
 					$sFileName = "";

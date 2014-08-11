@@ -58,19 +58,19 @@ class FaqRecordset extends Recordset
 	 */
 	function getFilesInfo()
 	{
-		$files_infos = array();
+		$files_infos = [];
 		$files = unserialize($this->files);
 		
 		foreach ($files as $locale => $files)
 		{
-			$files_infos[$locale] = array();
+			$files_infos[$locale] = [];
 			$i = 0;
 			foreach ($files as $file)
 			{
 				$path = $this->okt->faq->upload_dir . '/' . $file;
 				$url = $this->okt->faq->upload_url . '/' . $file;
 				
-				if (! file_exists($path))
+				if (!file_exists($path))
 				{
 					continue;
 				}
@@ -100,9 +100,9 @@ class FaqRecordset extends Recordset
 	 */
 	public function getImagesInfo()
 	{
-		if (! $this->okt->faq->config->images['enable'])
+		if (!$this->okt->faq->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		return $this->getImagesArray();
@@ -116,14 +116,14 @@ class FaqRecordset extends Recordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (! $this->okt->faq->config->images['enable'])
+		if (!$this->okt->faq->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		$a = $this->getImagesArray();
 		
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	public function getImagesArray()

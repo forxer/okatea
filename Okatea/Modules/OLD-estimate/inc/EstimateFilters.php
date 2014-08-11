@@ -12,11 +12,11 @@ class EstimateFilters extends BaseFilters
 
 	protected $estimate;
 
-	protected $get_estimates_params = array();
+	protected $get_estimates_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $part = 'public', $params = array())
+	public function __construct($okt, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'estimate', $okt->estimate->config, $part, $params);
 		
@@ -40,7 +40,7 @@ class EstimateFilters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setEstimatesParams(&$params = array())
+	public function setEstimatesParams(&$params = [])
 	{
 		$this->get_estimates_params = & $params;
 	}
@@ -53,7 +53,7 @@ class EstimateFilters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		$this->order_by_array['date de création'] = 'created_at';
 		
 		if ($this->part === 'admin')

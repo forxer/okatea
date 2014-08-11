@@ -60,7 +60,7 @@ class module_lbl_colorbox extends Module
 	 * @param array $aUserOptions        	
 	 * @return void
 	 */
-	public static function colorbox($sElement = 'a.modal', $sConteneur = '.modal-box', array $aUserOptions = array())
+	public static function colorbox($sElement = 'a.modal', $sConteneur = '.modal-box', array $aUserOptions = [])
 	{
 		global $okt;
 		
@@ -81,7 +81,7 @@ class module_lbl_colorbox extends Module
 	 * @param array $aUserOptions        	
 	 * @return array
 	 */
-	public static function getOptions($aUserOptions = array())
+	public static function getOptions($aUserOptions = [])
 	{
 		global $okt;
 		
@@ -103,7 +103,7 @@ class module_lbl_colorbox extends Module
 			'scrolling' => true
 		);
 		
-		if (! empty($aUserOptions))
+		if (!empty($aUserOptions))
 		{
 			$aOptions = array_merge($aOptions, $aUserOptions);
 		}

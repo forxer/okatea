@@ -11,7 +11,7 @@ use Okatea\Tao\Users\Authentification;
 use Okatea\Tao\Misc\Mailer;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -20,7 +20,7 @@ if (! defined('ON_MODULE'))
 $aEditPageInfos = new ArrayObject();
 
 # récupération des infos utilisateur
-$aEditPageInfos['iUserId'] = ! empty($_REQUEST['id']) ? $_REQUEST['id'] : NULL;
+$aEditPageInfos['iUserId'] = !empty($_REQUEST['id']) ? $_REQUEST['id'] : NULL;
 
 if (is_null($aEditPageInfos['iUserId']) || $aEditPageInfos['iUserId'] == 1)
 {
@@ -45,7 +45,7 @@ $edit_password_confirm = '';
 # Champs personnalisés
 if ($okt->users->config->enable_custom_fields)
 {
-	$aPostedData = array();
+	$aPostedData = [];
 	
 	# Liste des champs
 	$rsFields = $okt->users->fields->getFields(array(
@@ -55,7 +55,7 @@ if ($okt->users->config->enable_custom_fields)
 	
 	# Valeurs des champs
 	$rsFieldsValues = $okt->users->fields->getUserValues($aEditPageInfos['iUserId']);
-	$aFieldsValues = array();
+	$aFieldsValues = [];
 	while ($rsFieldsValues->fetch())
 	{
 		$aFieldsValues[$rsFieldsValues->field_id] = $rsFieldsValues->value;
@@ -69,32 +69,32 @@ if ($okt->users->config->enable_custom_fields)
 			default:
 			case 1: # Champ texte
 			case 2: # Zone de texte
-				$aPostedData[$rsFields->id] = ! empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
+				$aPostedData[$rsFields->id] = !empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
 				break;
 			
 			case 3: # Menu déroulant
-				$aPostedData[$rsFields->id] = ! empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
+				$aPostedData[$rsFields->id] = !empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
 				break;
 			
 			case 4: # Boutons radio
-				$aPostedData[$rsFields->id] = ! empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
+				$aPostedData[$rsFields->id] = !empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
 				break;
 			
 			case 5: # Cases à cocher
-				$aPostedData[$rsFields->id] = ! empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
+				$aPostedData[$rsFields->id] = !empty($aFieldsValues[$rsFields->id]) ? $aFieldsValues[$rsFields->id] : '';
 				break;
 		}
 	}
 }
 
 # un super admin ne peut etre modifié par un non super admin
-if ($edit_group_id == Authentification::superadmin_group_id && ! $okt['visitor']->is_superadmin)
+if ($edit_group_id == Authentification::superadmin_group_id && !$okt['visitor']->is_superadmin)
 {
 	http::redirect('module.php?m=users');
 }
 
 # un admin ne peut etre modifié par un non admin
-if ($edit_group_id == Authentification::admin_group_id && ! $okt['visitor']->is_admin)
+if ($edit_group_id == Authentification::admin_group_id && !$okt['visitor']->is_admin)
 {
 	http::redirect('module.php?m=users');
 }
@@ -115,7 +115,7 @@ $okt['triggers']->callTrigger('adminModUsersEditInit', $aEditPageInfos);
 ----------------------------------------------------------*/
 
 # Validation de l'utilisateur
-if (! empty($_GET['valide']) && $okt['visitor']->checkPerm('users_edit'))
+if (!empty($_GET['valide']) && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId'],
@@ -144,18 +144,18 @@ if (! empty($_GET['valide']) && $okt['visitor']->checkPerm('users_edit'))
 }
 
 # Formulaire de changement de mot de passe
-if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password') && $okt['visitor']->checkPerm('users_edit'))
+if (!empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_password') && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId']
 	);
 	
-	$upd_params['password'] = ! empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
-	$upd_params['password_confirm'] = ! empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
+	$upd_params['password'] = !empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
+	$upd_params['password_confirm'] = !empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 	
 	if ($okt->users->changeUserPassword($upd_params))
 	{
-		if (! empty($_POST['send_password_mail']))
+		if (!empty($_POST['send_password_mail']))
 		{
 			$oMail = new Mailer($okt);
 			
@@ -178,7 +178,7 @@ if (! empty($_POST['change_password']) && $okt['visitor']->checkPerm('change_pas
 }
 
 # Formulaire de modification de l'utilisateur envoyé
-if (! empty($_POST['form_sent']) && ! isset($_POST['do']) && $okt['visitor']->checkPerm('users_edit'))
+if (!empty($_POST['form_sent']) && !isset($_POST['do']) && $okt['visitor']->checkPerm('users_edit'))
 {
 	$upd_params = array(
 		'id' => $aEditPageInfos['iUserId']
@@ -259,7 +259,7 @@ $okt['triggers']->callTrigger('adminModUsersEditProcess', $aEditPageInfos);
 
 # Langues
 $rs = $okt['languages']->getLanguages();
-$aLanguages = array();
+$aLanguages = [];
 while ($rs->fetch())
 {
 	$aLanguages[html::escapeHTML($rs->title)] = $rs->code;
@@ -272,10 +272,10 @@ $aCivilities = array_merge(array(
 
 # Groupes
 $rs = $okt->users->getGroups();
-$groups_array = array();
+$groups_array = [];
 while ($rs->fetch())
 {
-	if ($rs->group_id == Authentification::superadmin_group_id && ! $okt['visitor']->is_superadmin)
+	if ($rs->group_id == Authentification::superadmin_group_id && !$okt['visitor']->is_superadmin)
 	{
 		continue;
 	}

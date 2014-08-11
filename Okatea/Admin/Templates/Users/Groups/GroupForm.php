@@ -12,7 +12,7 @@ use Okatea\Tao\Users\Groups;
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#group-form', '.lang-switcher-buttons');
 }

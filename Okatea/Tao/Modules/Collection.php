@@ -50,14 +50,14 @@ class Collection
 	 *
 	 * @var array
 	 */
-	protected $list = array();
+	protected $list = [];
 
 	/**
 	 * La liste complète des modules (y compris non installés)
 	 *
 	 * @var array
 	 */
-	protected $complete_list = array();
+	protected $complete_list = [];
 
 	/**
 	 * L'identifiant du cache des modules
@@ -109,7 +109,7 @@ class Collection
 	 */
 	public function loadModules($ns = null)
 	{
-		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
+		if (!$this->okt['cacheConfig']->contains($this->sCacheId))
 		{
 			$this->generateCacheList();
 		}
@@ -137,7 +137,7 @@ class Collection
 	 */
 	public function generateCacheList()
 	{
-		$aModulesList = array();
+		$aModulesList = [];
 
 		$rsModules = $this->getModulesFromDB(array(
 			'status' => 1
@@ -176,7 +176,7 @@ class Collection
 	 */
 	public function resetModulesList()
 	{
-		$this->list = array();
+		$this->list = [];
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Collection
 	 */
 	public function resetCompleteList()
 	{
-		$this->complete_list = array();
+		$this->complete_list = [];
 	}
 
 	/**
@@ -223,7 +223,7 @@ class Collection
 	 */
 	public function getModuleObject($sModuleId)
 	{
-		if (! $this->isLoaded($sModuleId))
+		if (!$this->isLoaded($sModuleId))
 		{
 			throw new \Exception(__('The module specified (' . $sModuleId . ') does not appear to be a valid installed module.'));
 		}
@@ -253,7 +253,7 @@ class Collection
 	 */
 	public function getModulesFromFileSystem()
 	{
-		if (! is_dir($this->path) || ! is_readable($this->path))
+		if (!is_dir($this->path) || !is_readable($this->path))
 		{
 			return false;
 		}
@@ -300,19 +300,19 @@ class Collection
 	 *        	Le tableau de paramètres
 	 * @return void
 	 */
-	public function register(array $aParams = array())
+	public function register(array $aParams = [])
 	{
 		if ($this->id)
 		{
 			$this->complete_list[$this->id] = array(
 				'id' => $this->id,
 				'root' => $this->mroot,
-				'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->id),
-				'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
-				'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
-				'author' => (! empty($aParams['author']) ? $aParams['author'] : null),
-				'priority' => (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
-				'updatable' => (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
+				'name' => (!empty($aParams['name']) ? $aParams['name'] : $this->id),
+				'desc' => (!empty($aParams['desc']) ? $aParams['desc'] : null),
+				'version' => (!empty($aParams['version']) ? $aParams['version'] : null),
+				'author' => (!empty($aParams['author']) ? $aParams['author'] : null),
+				'priority' => (!empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
+				'updatable' => (!empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
 			);
 		}
 	}
@@ -324,16 +324,16 @@ class Collection
 	 *        	Liste des paramètres
 	 * @return object recordset
 	 */
-	public function getModulesFromDB($params = array())
+	public function getModulesFromDB($params = [])
 	{
 		$reqPlus = 'WHERE type=\'module\' ';
 
-		if (! empty($params['mod_id']))
+		if (!empty($params['mod_id']))
 		{
 			$reqPlus .= 'AND id=\'' . $this->db->escapeStr($params['mod_id']) . '\' ';
 		}
 
-		if (! empty($params['status']))
+		if (!empty($params['status']))
 		{
 			$reqPlus .= 'AND status=' . (integer) $params['status'] . ' ';
 		}
@@ -342,7 +342,7 @@ class Collection
 
 		if (($rs = $this->db->select($strReq)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 
 		return $rs;
@@ -357,7 +357,7 @@ class Collection
 	{
 		$rsInstalledModules = $this->getModulesFromDB();
 
-		$aInstalledModules = array();
+		$aInstalledModules = [];
 
 		while ($rsInstalledModules->fetch())
 		{
@@ -531,7 +531,7 @@ class Collection
 			throw new \Exception(__('Empty module zip file.'));
 		}
 
-		if (! $has_define)
+		if (!$has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
@@ -557,15 +557,15 @@ class Collection
 			$modules->disableModule(basename($destination));
 			$modules->generateCacheList();
 
-			if (! empty($new_modules))
+			if (!empty($new_modules))
 			{
 				$tmp = array_keys($new_modules);
 				$id = $tmp[0];
 				$cur_module = $old_modules[$id];
-				if (! empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
+				if (!empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
 				{
 					# delete old module
-					if (! \files::deltree($destination))
+					if (!\files::deltree($destination))
 					{
 						throw new \Exception(__('An error occurred during module deletion.'));
 					}
@@ -636,9 +636,9 @@ class Collection
 	 * @param array $aRepositories
 	 * @return array
 	 */
-	public function getRepositoriesInfos($aRepositories = array())
+	public function getRepositoriesInfos($aRepositories = [])
 	{
-		if (! $this->okt['cacheConfig']->contains($this->sCacheRepoId))
+		if (!$this->okt['cacheConfig']->contains($this->sCacheRepoId))
 		{
 			$this->saveRepositoriesInfosCache($aRepositories);
 		}
@@ -665,7 +665,7 @@ class Collection
 	 */
 	protected function readRepositoriesInfos($aRepositories)
 	{
-		$aModulesRepositories = array();
+		$aModulesRepositories = [];
 		foreach ($aRepositories as $repository_id => $repository_url)
 		{
 			if (($infos = $this->getRepositoryInfos($repository_url)) !== false)
@@ -717,7 +717,7 @@ class Collection
 		{
 			$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
 
-			$return = array();
+			$return = [];
 			foreach ($xml->module as $module)
 			{
 				if (isset($module['id']))

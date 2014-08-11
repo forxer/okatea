@@ -87,7 +87,7 @@ function _recaptcha_http_post($host, $path, $data, $port = 80)
 	
 	fwrite($fs, $http_request);
 	
-	while (! feof($fs))
+	while (!feof($fs))
 		$response .= fgets($fs, 1160); // One TCP-IP packet
 	fclose($fs);
 	$response = explode("\r\n\r\n", $response, 2);
@@ -161,7 +161,7 @@ class ReCaptchaResponse
  *        	an array of extra variables to post to the server
  * @return ReCaptchaResponse
  */
-function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $extra_params = array())
+function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $extra_params = [])
 {
 	if ($privkey == null || $privkey == '')
 	{
@@ -233,7 +233,7 @@ function _recaptcha_aes_pad($val)
 /* Mailhide related code */
 function _recaptcha_aes_encrypt($val, $ky)
 {
-	if (! function_exists("mcrypt_encrypt"))
+	if (!function_exists("mcrypt_encrypt"))
 	{
 		die("To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.");
 	}

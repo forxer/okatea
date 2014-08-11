@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -74,7 +74,7 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
 		$this->_connectorNode->addChild($_oConnInfo);
 		$_oConnInfo->addAttribute("enabled", $_config->getIsEnabled() ? "true" : "false");
 		
-		if (! $_config->getIsEnabled())
+		if (!$_config->getIsEnabled())
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_CONNECTOR_DISABLED);
 		}
@@ -111,7 +111,7 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
 		// Load the resource types in an array.
 		$_aTypes = $_config->getDefaultResourceTypes();
 		
-		if (! sizeof($_aTypes))
+		if (!sizeof($_aTypes))
 		{
 			$_aTypes = $_config->getResourceTypeNames();
 		}
@@ -150,7 +150,7 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
 					continue;
 				}
 				
-				if (! isset($_GET['type']) || $_GET['type'] === $_resourceTypeName)
+				if (!isset($_GET['type']) || $_GET['type'] === $_resourceTypeName)
 				{
 					//print $_resourceTypeName;
 					$_oTypeInfo = $_config->getResourceTypeConfig($_resourceTypeName);
@@ -176,7 +176,7 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
 		}
 		
 		$config = $GLOBALS['config'];
-		if (! empty($config['Plugins']) && is_array($config['Plugins']))
+		if (!empty($config['Plugins']) && is_array($config['Plugins']))
 		{
 			$_oConnInfo->addAttribute("plugins", implode(",", $config['Plugins']));
 		}

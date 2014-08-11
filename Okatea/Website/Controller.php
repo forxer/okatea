@@ -54,7 +54,7 @@ class Controller extends BaseController
 	public function homePage()
 	{
 		# Special case : user lang switch
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			# recherche d'un code ISO de langue
 			if (preg_match('#^(?:/?([a-zA-Z]{2}(?:-[a-zA-Z]{2})*?)/?)#', $this->okt['request']->getPathInfo(), $m)) {
@@ -64,15 +64,15 @@ class Controller extends BaseController
 			if ($sLanguage != $this->okt['visitor']->language)
 			{
 				$this->okt['visitor']->setUserLang($sLanguage);
-				return $this->redirect($this->generateUrl('homePage', array(), $sLanguage));
+				return $this->redirect($this->generateUrl('homePage', [], $sLanguage));
 			}
 		}
 
 		$item = null;
-		if (! empty($this->okt['config']->home_page['item'][$this->okt['visitor']->language])) {
+		if (!empty($this->okt['config']->home_page['item'][$this->okt['visitor']->language])) {
 			$item = $this->okt['config']->home_page['item'][$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->home_page['item'][$this->okt['config']->language])) {
+		elseif (!empty($this->okt['config']->home_page['item'][$this->okt['config']->language])) {
 			$item = $this->okt['config']->home_page['item'][$this->okt['config']->language];
 		}
 		else {
@@ -107,7 +107,7 @@ class Controller extends BaseController
 	public function serve404()
 	{
 		# Special case : language not specified in URL
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			$sLanguage = null;
 			# recherche d'un code ISO de langue
@@ -116,7 +116,7 @@ class Controller extends BaseController
 			}
 
 			if (null === $sLanguage) {
-				return $this->redirect($this->generateUrl('homePage', array(), $this->okt['visitor']->language), 301);
+				return $this->redirect($this->generateUrl('homePage', [], $this->okt['visitor']->language), 301);
 			}
 		}
 

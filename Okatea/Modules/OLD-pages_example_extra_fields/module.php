@@ -13,7 +13,7 @@ class module_pages_example_extra_fields extends Module
 
 	protected function prepend()
 	{
-		if (! $this->okt['modules']->isLoaded('pages'))
+		if (!$this->okt['modules']->isLoaded('pages'))
 		{
 			return null;
 		}
@@ -84,13 +84,13 @@ class module_pages_example_extra_fields extends Module
 	public function adminPostInit($aPageData, $rsPage = null, $rsPageI18n = null)
 	{
 		# initialisation du champ "checkbox"
-		$aPageData['post']['checkbox'] = ! empty($rsPage) ? $rsPage->checkbox : 0;
+		$aPageData['post']['checkbox'] = !empty($rsPage) ? $rsPage->checkbox : 0;
 		
 		# initialisation du champ "date"
-		$aPageData['post']['date'] = ! empty($rsPage) ? $rsPage->date : null;
+		$aPageData['post']['date'] = !empty($rsPage) ? $rsPage->date : null;
 		
 		# initialisation du champ "required"
-		$aPageData['post']['required'] = ! empty($rsPage) ? $rsPage->required : null;
+		$aPageData['post']['required'] = !empty($rsPage) ? $rsPage->required : null;
 		
 		# initialisation des champs "multilangue" et "editor"
 		foreach ($this->okt['languages']->getList() as $aLanguage)
@@ -99,7 +99,7 @@ class module_pages_example_extra_fields extends Module
 			$aPageData['locales'][$aLanguage['code']]['editor'] = null;
 		}
 		
-		if (! is_null($rsPageI18n))
+		if (!is_null($rsPageI18n))
 		{
 			foreach ($this->okt['languages']->getList() as $aLanguage)
 			{
@@ -124,19 +124,19 @@ class module_pages_example_extra_fields extends Module
 	public function adminPopulateData($aPageData)
 	{
 		# récupération du champ "checkbox"
-		$aPageData['post']['checkbox'] = ! empty($_POST['p_checkbox']) ? 1 : 0;
+		$aPageData['post']['checkbox'] = !empty($_POST['p_checkbox']) ? 1 : 0;
 		
 		# récupération du champ "date"
-		$aPageData['post']['date'] = ! empty($_POST['p_date']) ? MySqli::formatDateTime($_POST['p_date']) : null;
+		$aPageData['post']['date'] = !empty($_POST['p_date']) ? MySqli::formatDateTime($_POST['p_date']) : null;
 		
 		# récupération du champ "required"
-		$aPageData['post']['required'] = ! empty($_POST['p_required']) ? $_POST['p_required'] : null;
+		$aPageData['post']['required'] = !empty($_POST['p_required']) ? $_POST['p_required'] : null;
 		
 		# récupération des champs "multilangue" et "editor"
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aPageData['locales'][$aLanguage['code']]['multilangue'] = ! empty($_POST['p_multilangue'][$aLanguage['code']]) ? $_POST['p_multilangue'][$aLanguage['code']] : '';
-			$aPageData['locales'][$aLanguage['code']]['editor'] = ! empty($_POST['p_editor'][$aLanguage['code']]) ? $_POST['p_editor'][$aLanguage['code']] : '';
+			$aPageData['locales'][$aLanguage['code']]['multilangue'] = !empty($_POST['p_multilangue'][$aLanguage['code']]) ? $_POST['p_multilangue'][$aLanguage['code']] : '';
+			$aPageData['locales'][$aLanguage['code']]['editor'] = !empty($_POST['p_editor'][$aLanguage['code']]) ? $_POST['p_editor'][$aLanguage['code']] : '';
 		}
 	}
 
@@ -165,7 +165,7 @@ class module_pages_example_extra_fields extends Module
 	{
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			if (! empty($aPageData['locales'][$aLanguage['code']]['editor']))
+			if (!empty($aPageData['locales'][$aLanguage['code']]['editor']))
 			{
 				$aPageData['locales'][$aLanguage['code']]['editor'] = $this->okt->HTMLfilter($aPageData['locales'][$aLanguage['code']]['editor']);
 			}
@@ -182,7 +182,7 @@ class module_pages_example_extra_fields extends Module
 	{
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			if (! empty($aPageData['locales'][$aLanguage['code']]['editor']))
+			if (!empty($aPageData['locales'][$aLanguage['code']]['editor']))
 			{
 				$aPageData['locales'][$aLanguage['code']]['editor'] = $this->okt->HTMLfilter($aPageData['locales'][$aLanguage['code']]['editor']);
 			}
@@ -202,7 +202,7 @@ class module_pages_example_extra_fields extends Module
 		
 		# ajout du champ "date" à l'onglet "options" avec le UI datepicker
 		$this->okt->page->datePicker();
-		$aPageData['tabs'][40]['content'] .= '<p class="field col"><label for="p_date">' . __('m_pages_example_extra_fields_date_label') . '</label>' . form::text('p_date', 20, 255, (! empty($aPageData['post']['date']) ? dt::dt2str('%d-%m-%Y', $aPageData['post']['date']) : ''), 'datepicker') . '</p>';
+		$aPageData['tabs'][40]['content'] .= '<p class="field col"><label for="p_date">' . __('m_pages_example_extra_fields_date_label') . '</label>' . form::text('p_date', 20, 255, (!empty($aPageData['post']['date']) ? dt::dt2str('%d-%m-%Y', $aPageData['post']['date']) : ''), 'datepicker') . '</p>';
 		
 		# ajout du champ "required" à l'onglet "Contenu"
 		$aPageData['tabs'][40]['content'] .= '<p class="field col"><label for="p_required" title="' . __('c_c_required_field') . '" class="required">' . __('m_pages_example_extra_fields_required_label') . '</label>' . form::text('p_required', 20, 255, $aPageData['post']['required']) . '</p>';

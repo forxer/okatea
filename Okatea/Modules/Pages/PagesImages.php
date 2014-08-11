@@ -37,14 +37,14 @@ class PagesImages extends ImageUpload
 	 */
 	public function add($iPageId)
 	{
-		if (! $this->modulePages->config->images['enable'])
+		if (!$this->modulePages->config->images['enable'])
 		{
 			return null;
 		}
 
 		$aImages = $this->addImages($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -61,21 +61,21 @@ class PagesImages extends ImageUpload
 	 */
 	public function update($iPageId)
 	{
-		if (! $this->modulePages->config->images['enable'])
+		if (!$this->modulePages->config->images['enable'])
 		{
 			return null;
 		}
 
 		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aImages = $this->updImages($iPageId, $aCurrentImages);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -96,14 +96,14 @@ class PagesImages extends ImageUpload
 	{
 		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aNewImages = $this->deleteImage($iPageId, $aCurrentImages, $img_id);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -122,7 +122,7 @@ class PagesImages extends ImageUpload
 	{
 		$aCurrentImages = $this->pages->getImagesFromDb($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -149,7 +149,7 @@ class PagesImages extends ImageUpload
 		while ($rsPages->fetch())
 		{
 			$aImages = $rsPages->getImagesInfo();
-			$aImagesList = array();
+			$aImagesList = [];
 
 			foreach ($aImages as $key => $image)
 			{

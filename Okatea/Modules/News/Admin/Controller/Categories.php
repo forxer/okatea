@@ -14,7 +14,7 @@ class Categories extends Controller
 
 	public function page()
 	{
-		if (! $this->okt->module('News')->config->categories['enable'] || ! $this->okt['visitor']->checkPerm('news_categories'))
+		if (!$this->okt->module('News')->config->categories['enable'] || !$this->okt['visitor']->checkPerm('news_categories'))
 		{
 			return $this->serve401();
 		}
@@ -50,7 +50,7 @@ class Categories extends Controller
 	{
 		$iCategoryId = $this->okt['request']->query->getInt('switch_status');
 		
-		if (! $iCategoryId)
+		if (!$iCategoryId)
 		{
 			return false;
 		}
@@ -79,7 +79,7 @@ class Categories extends Controller
 	{
 		$iCategoryId = $this->okt['request']->query->getInt('delete');
 		
-		if (! $iCategoryId)
+		if (!$iCategoryId)
 		{
 			return false;
 		}

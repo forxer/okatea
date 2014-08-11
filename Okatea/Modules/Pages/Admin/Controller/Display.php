@@ -14,7 +14,7 @@ class Display extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('pages_display'))
+		if (!$this->okt['visitor']->checkPerm('pages_display'))
 		{
 			return $this->serve401();
 		}
@@ -39,7 +39,7 @@ class Display extends Controller
 
 			$p_lightbox_type = $this->okt['request']->request->get('p_lightbox_type');
 
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'admin_filters_style' => $p_admin_filters_style,

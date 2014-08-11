@@ -51,7 +51,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 
 		<?php 
 # début Okatea : si les images sont activées
-		if ($okt->faq->config->images['enable'] && ! empty($faqQuestion->images))
+		if ($okt->faq->config->images['enable'] && !empty($faqQuestion->images))
 		:
 			?>
 		<p id="question-images" class="modal-box">
@@ -114,7 +114,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 
 		<?php 
 # début Okatea : si les fichiers sont activées
-		if ($okt->faq->config->files['enable'] && ! empty($faqQuestion->files[$okt['visitor']->language]))
+		if ($okt->faq->config->files['enable'] && !empty($faqQuestion->files[$okt['visitor']->language]))
 		:
 			?>
 		<div id="question-files" class="three-cols">

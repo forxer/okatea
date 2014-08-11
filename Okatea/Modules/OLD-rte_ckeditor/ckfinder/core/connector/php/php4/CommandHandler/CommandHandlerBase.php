@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -88,7 +88,7 @@ class CKFinder_Connector_CommandHandler_CommandHandlerBase
 	function checkConnector()
 	{
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
-		if (! $_config->getIsEnabled())
+		if (!$_config->getIsEnabled())
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_CONNECTOR_DISABLED);
 		}
@@ -127,11 +127,11 @@ class CKFinder_Connector_CommandHandler_CommandHandlerBase
 			}
 		}
 		
-		if (! is_dir($this->_currentFolder->getServerPath()))
+		if (!is_dir($this->_currentFolder->getServerPath()))
 		{
 			if ($_clientPath == "/")
 			{
-				if (! CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively($this->_currentFolder->getServerPath()))
+				if (!CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively($this->_currentFolder->getServerPath()))
 				{
 				/**
 				 *

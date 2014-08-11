@@ -6,17 +6,17 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt['visitor']->checkPerm('catalog'))
+if (!$okt['visitor']->checkPerm('catalog'))
 {
 	http::redirect('index.php');
 }
 
 # suppression d’un produit
-if ($okt->page->action === 'delete' && ! empty($_GET['product_id']))
+if ($okt->page->action === 'delete' && !empty($_GET['product_id']))
 {
 	if ($okt->catalog->deleteProd($_GET['product_id']))
 	{
@@ -52,7 +52,7 @@ $okt->page->setButtonset('catalogBtSt', array(
 ));
 
 # inclusion du fichier requis en fonction de l'action demandée
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

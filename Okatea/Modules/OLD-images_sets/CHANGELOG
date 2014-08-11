@@ -3,7 +3,7 @@ CHANGELOG and HISTORY ( we try )                             module_images_sets
 
 = KEY ====================
 	# Breaks back-compat
-	! Feature
+	!Feature
 	- Bugfix
 		+ Sub-comment
 	. Internal change
@@ -11,4 +11,4 @@ CHANGELOG and HISTORY ( we try )                             module_images_sets
 
 
 0.1
-! first public release
+!first public release

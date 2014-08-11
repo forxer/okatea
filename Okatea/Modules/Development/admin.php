@@ -7,7 +7,7 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# title tag
@@ -17,7 +17,7 @@ $okt->page->addTitleTag(__('Development'));
 $okt->page->addAriane(__('Development'), 'module.php?m=development');
 
 # inclusion du fichier requis en fonction de l'action demandée
-if ((! $okt->page->action || $okt->page->action === 'index'))
+if ((!$okt->page->action || $okt->page->action === 'index'))
 {
 	require __DIR__ . '/admin/index.php';
 }

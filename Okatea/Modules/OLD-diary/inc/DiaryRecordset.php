@@ -48,9 +48,9 @@ class DiaryRecordset extends Recordset
 	 */
 	public function getFilesInfo()
 	{
-		$files = array();
+		$files = [];
 		
-		if (! $this->okt->diary->config->files['enable'])
+		if (!$this->okt->diary->config->files['enable'])
 		{
 			return $files;
 		}
@@ -60,7 +60,7 @@ class DiaryRecordset extends Recordset
 		$j = 1;
 		for ($i = 1; $i <= $this->okt->diary->config->files['number']; $i ++)
 		{
-			if (! isset($files_array[$i]) || empty($files_array[$i]['filename']) || ! file_exists($this->okt->diary->upload_dir . '/files/' . $files_array[$i]['filename']))
+			if (!isset($files_array[$i]) || empty($files_array[$i]['filename']) || !file_exists($this->okt->diary->upload_dir . '/files/' . $files_array[$i]['filename']))
 			{
 				continue;
 			}
@@ -89,9 +89,9 @@ class DiaryRecordset extends Recordset
 	 */
 	public function getImagesInfo()
 	{
-		if (! $this->okt->diary->config->images['enable'])
+		if (!$this->okt->diary->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		return $this->getImagesArray();
@@ -105,14 +105,14 @@ class DiaryRecordset extends Recordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (! $this->okt->diary->config->images['enable'])
+		if (!$this->okt->diary->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		$a = $this->getImagesArray();
 		
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	public function getImagesArray()

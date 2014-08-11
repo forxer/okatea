@@ -23,7 +23,7 @@ class Form
 		'method' => 'post'
 	);
 
-	protected $aElements = array();
+	protected $aElements = [];
 
 	protected $iNumElements = 0;
 
@@ -33,7 +33,7 @@ class Form
 	 * @param array $aConfig        	
 	 * @return void
 	 */
-	public function __construct($aConfig = array())
+	public function __construct($aConfig = [])
 	{
 		$this->setConfig($aConfig);
 	}
@@ -125,7 +125,7 @@ class Form
 	 * @param array $aConfig        	
 	 * @param array $aAttributes        	
 	 */
-	public function text($aConfig = array(), $aAttributes = array())
+	public function text($aConfig = [], $aAttributes = [])
 	{
 		$this->addElement(new InputText($aConfig, $aAttributes));
 		
@@ -138,7 +138,7 @@ class Form
 	 * @param array $aConfig        	
 	 * @param array $aAttributes        	
 	 */
-	public function password($aConfig = array(), $aAttributes = array())
+	public function password($aConfig = [], $aAttributes = [])
 	{
 		$this->addElement(new InputPassword($aConfig, $aAttributes));
 		
@@ -151,7 +151,7 @@ class Form
 	 * @param array $aConfig        	
 	 * @param array $aAttributes        	
 	 */
-	public function hidden($aConfig = array(), $aAttributes = array())
+	public function hidden($aConfig = [], $aAttributes = [])
 	{
 		$this->addElement(new InputHidden($aConfig, $aAttributes));
 		
@@ -164,7 +164,7 @@ class Form
 	 * @param array $aConfig        	
 	 * @param array $aAttributes        	
 	 */
-	public function textarea($aConfig = array(), $aAttributes = array())
+	public function textarea($aConfig = [], $aAttributes = [])
 	{
 		$this->addElement(new Textarea($aConfig, $aAttributes));
 		

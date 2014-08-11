@@ -38,14 +38,14 @@ class PagesFiles extends FileUpload
 	 */
 	public function add($iPageId)
 	{
-		if (! $this->modulePages->config->files['enable'])
+		if (!$this->modulePages->config->files['enable'])
 		{
 			return null;
 		}
 
 		$aFiles = $this->addFiles($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -62,21 +62,21 @@ class PagesFiles extends FileUpload
 	 */
 	public function update($iPageId)
 	{
-		if (! $this->modulePages->config->files['enable'])
+		if (!$this->modulePages->config->files['enable'])
 		{
 			return null;
 		}
 
 		$aCurrentFiles = $this->pages->getPageFiles($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aFiles = $this->updFiles($iPageId, $aCurrentFiles);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -97,14 +97,14 @@ class PagesFiles extends FileUpload
 	{
 		$aCurrentFiles = $this->pages->getPageFiles($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aNewFiles = $this->deleteFile($iPageId, $aCurrentFiles, $file_id);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -123,7 +123,7 @@ class PagesFiles extends FileUpload
 	{
 		$aCurrentFiles = $this->pages->getPageFiles($iPageId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}

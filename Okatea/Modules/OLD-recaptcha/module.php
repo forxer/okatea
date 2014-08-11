@@ -57,7 +57,7 @@ class module_recaptcha extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('reCaptcha'), 'module.php?m=recaptcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('recaptcha_config'), null);
+			$this->okt->page->configSubMenu->add(__('reCaptcha'), 'module.php?m=recaptcha&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('recaptcha_config'), null);
 		}
 	}
 	
@@ -79,7 +79,7 @@ class module_recaptcha extends Module
 			
 			$resp = recaptcha_check_answer(html::escapeHTML($okt->recaptcha->config->privatekey), $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 			
-			if (! $resp->is_valid)
+			if (!$resp->is_valid)
 			{
 				$okt->error->set(__('m_recaptcha_error'));
 				return false;

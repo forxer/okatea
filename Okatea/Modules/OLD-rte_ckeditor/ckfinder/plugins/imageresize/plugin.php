@@ -12,7 +12,7 @@
 *
 * CKFinder extension: resize image according to a given size
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -29,20 +29,20 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 	 */
 	function getConfig()
 	{
-		$config = array();
+		$config = [];
 		if (isset($GLOBALS['config']['plugin_imageresize']))
 		{
 			$config = $GLOBALS['config']['plugin_imageresize'];
 		}
-		if (! isset($config['smallThumb']))
+		if (!isset($config['smallThumb']))
 		{
 			$config['smallThumb'] = "90x90";
 		}
-		if (! isset($config['mediumThumb']))
+		if (!isset($config['mediumThumb']))
 		{
 			$config['mediumThumb'] = "120x120";
 		}
-		if (! isset($config['largeThumb']))
+		if (!isset($config['largeThumb']))
 		{
 			$config['largeThumb'] = "180x180";
 		}
@@ -66,7 +66,7 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 		$this->checkRequest();
 		
 		//resizing to 1x1 is almost equal to deleting a file, that's why FILE_DELETE permissions are required
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE) || ! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE) || !$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -74,26 +74,26 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! isset($_POST["fileName"]))
+		if (!isset($_POST["fileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
 		
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_POST["fileName"]);
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $resourceTypeInfo->checkExtension($fileName, false))
+		if (!$resourceTypeInfo->checkExtension($fileName, false))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
 		$filePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $fileName);
 		
-		if (! file_exists($filePath) || ! is_file($filePath))
+		if (!file_exists($filePath) || !is_file($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
@@ -101,29 +101,29 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 		$newWidth = trim($_POST['width']);
 		$newHeight = trim($_POST['height']);
 		$quality = 80;
-		$resizeOriginal = ! empty($_POST['width']) && ! empty($_POST['height']);
+		$resizeOriginal = !empty($_POST['width']) && !empty($_POST['height']);
 		
 		if ($resizeOriginal)
 		{
-			if (! preg_match("/^\d+$/", $newWidth) || ! preg_match("/^\d+$/", $newHeight) || ! preg_match("/^\d+$/", $newWidth))
+			if (!preg_match("/^\d+$/", $newWidth) || !preg_match("/^\d+$/", $newHeight) || !preg_match("/^\d+$/", $newWidth))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 			}
-			if (! isset($_POST["newFileName"]))
+			if (!isset($_POST["newFileName"]))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 			}
 			$newFileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_POST["newFileName"]);
-			if (! $resourceTypeInfo->checkExtension($newFileName))
+			if (!$resourceTypeInfo->checkExtension($newFileName))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION);
 			}
-			if (! CKFinder_Connector_Utils_FileSystem::checkFileName($newFileName) || $resourceTypeInfo->checkIsHiddenFile($newFileName))
+			if (!CKFinder_Connector_Utils_FileSystem::checkFileName($newFileName) || $resourceTypeInfo->checkIsHiddenFile($newFileName))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 			}
 			$newFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $newFileName);
-			if (! is_writable(dirname($newFilePath)))
+			if (!is_writable(dirname($newFilePath)))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 			}
@@ -146,7 +146,7 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 		if ($resizeOriginal)
 		{
 			$result = CKFinder_Connector_CommandHandler_Thumbnail::createThumb($filePath, $newFilePath, $newWidth, $newHeight, $quality, false);
-			if (! $result)
+			if (!$result)
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 			}
@@ -161,11 +161,11 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 			'large'
 		) as $size)
 		{
-			if (! empty($_POST[$size]) && $_POST[$size] == '1')
+			if (!empty($_POST[$size]) && $_POST[$size] == '1')
 			{
 				$thumbName = $nameWithoutExt . "_" . $size . "." . $extension;
 				$newFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $thumbName);
-				if (! empty($config[$size . 'Thumb']))
+				if (!empty($config[$size . 'Thumb']))
 				{
 					if (preg_match("/^(\d+)x(\d+)$/", $config[$size . 'Thumb'], $matches))
 					{
@@ -193,7 +193,7 @@ class CKFinder_Connector_CommandHandler_ImageResize extends CKFinder_Connector_C
 			'large'
 		) as $size)
 		{
-			if (! empty($config[$size . 'Thumb']))
+			if (!empty($config[$size . 'Thumb']))
 			{
 				$imageresize->addAttribute($size . 'Thumb', $config[$size . 'Thumb']);
 			}
@@ -231,33 +231,33 @@ class CKFinder_Connector_CommandHandler_ImageResizeInfo extends CKFinder_Connect
 		$this->checkConnector();
 		$this->checkRequest();
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! isset($_GET["fileName"]))
+		if (!isset($_GET["fileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
 		
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_GET["fileName"]);
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $resourceTypeInfo->checkExtension($fileName, false))
+		if (!$resourceTypeInfo->checkExtension($fileName, false))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
 		$filePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $fileName);
 		
-		if (! file_exists($filePath) || ! is_file($filePath))
+		if (!file_exists($filePath) || !is_file($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}

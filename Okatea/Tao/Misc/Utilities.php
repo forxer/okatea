@@ -33,7 +33,7 @@ class Utilities
 	 */
 	public static function dirHasFiles($sDir)
 	{
-		if (! is_dir($sDir))
+		if (!is_dir($sDir))
 		{
 			return false;
 		}
@@ -42,7 +42,7 @@ class Utilities
 
 		foreach (new DirectoryIterator($sDir) as $oFileInfo)
 		{
-			if (! $oFileInfo->isDot())
+			if (!$oFileInfo->isDot())
 			{
 				$bReturn = true;
 				break;
@@ -64,7 +64,7 @@ class Utilities
 	 */
 	public static function uploadStatus($aFile)
 	{
-		if (! isset($aFile['error']))
+		if (!isset($aFile['error']))
 		{
 			throw new \Exception(__('c_c_upload_error_1'));
 		}
@@ -121,7 +121,7 @@ class Utilities
 
 		foreach ($aPathComponents as $i => $k)
 		{
-			if (! isset($aBasePathComponents[$i]) || $aBasePathComponents[$i] != $k)
+			if (!isset($aBasePathComponents[$i]) || $aBasePathComponents[$i] != $k)
 			{
 				return $k;
 			}
@@ -161,12 +161,12 @@ class Utilities
 		$number = str_replace(__('c_c_number_thousands_separator'), '', $number);
 		$number = str_replace(__('c_c_number_decimals_separator'), '.', $number);
 
-		if (! is_numeric($number))
+		if (!is_numeric($number))
 		{
 			return null;
 		}
 
-		if (! $allow_negative && $number < 0)
+		if (!$allow_negative && $number < 0)
 		{
 			$number = - $number;
 		}
@@ -496,7 +496,7 @@ class Utilities
 	{
 		foreach ($list as $k => $v)
 		{
-			if (! preg_match('/^(' . preg_quote($str, '/') . ')(' . preg_quote($prefix, '/') . '?)([0-9]*)$/', $v))
+			if (!preg_match('/^(' . preg_quote($str, '/') . ')(' . preg_quote($prefix, '/') . '?)([0-9]*)$/', $v))
 			{
 				unset($list[$k]);
 			}
@@ -550,7 +550,7 @@ class Utilities
 		$name = basename($fileName);
 
 		# vérifie l'existence et l'accès en lecture au fichier
-		if (! is_file($fileName) || ! is_readable($fileName))
+		if (!is_file($fileName) || !is_readable($fileName))
 		{
 			header('HTTP/1.1 404 Not Found');
 			exit();
@@ -590,16 +590,16 @@ class Utilities
 		if (isset($_SERVER['HTTP_RANGE']))
 		{
 			# l'entête doit être dans un format valide
-			if (! preg_match('#bytes=([0-9]+)?-([0-9]+)?(/[0-9]+)?#i', $_SERVER['HTTP_RANGE'], $m))
+			if (!preg_match('#bytes=([0-9]+)?-([0-9]+)?(/[0-9]+)?#i', $_SERVER['HTTP_RANGE'], $m))
 			{
 				header('HTTP/1.1 416 Requested Range Not Satisfiable');
 				exit();
 			}
 
 			# modification de $start et $end et on vérifie leur validité
-			$start = ! empty($m[1]) ? (integer) $m[1] : null;
-			$end = ! empty($m[2]) ? (integer) $m[2] : $end;
-			if (! $start && ! $end || $end !== null && $end >= $size || $end && $start && $end < $start)
+			$start = !empty($m[1]) ? (integer) $m[1] : null;
+			$end = !empty($m[2]) ? (integer) $m[2] : $end;
+			if (!$start && !$end || $end !== null && $end >= $size || $end && $start && $end < $start)
 			{
 				header('HTTP/1.1 416 Requested Range Not Satisfiable');
 				exit();
@@ -772,7 +772,7 @@ class Utilities
 
 		static $oCacheFiles = null;
 
-		if (null !== $oCacheFiles && ! $bForce)
+		if (null !== $oCacheFiles && !$bForce)
 		{
 			return $oCacheFiles;
 		}
@@ -805,7 +805,7 @@ class Utilities
 
 		static $oCacheFiles = null;
 
-		if (null !== $oCacheFiles && ! $bForce)
+		if (null !== $oCacheFiles && !$bForce)
 		{
 			return $oCacheFiles;
 		}

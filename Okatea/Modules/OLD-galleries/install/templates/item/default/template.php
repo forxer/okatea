@@ -44,7 +44,7 @@ $okt->page->js->addReady('
 
 	<?php 
 # début Okatea : affichage image
-	if (! empty($rsItem->image) && isset($rsItem->image['img_url']))
+	if (!empty($rsItem->image) && isset($rsItem->image['img_url']))
 	:
 		?>
 

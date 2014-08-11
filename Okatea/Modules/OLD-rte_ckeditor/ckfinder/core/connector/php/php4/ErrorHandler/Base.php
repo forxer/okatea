@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -44,7 +44,7 @@ class CKFinder_Connector_ErrorHandler_Base
 	 * @var array[]int
 	 * @access protected
 	 */
-	var $_skipErrorsArray = array();
+	var $_skipErrorsArray = [];
 
 	/**
 	 * Set whether all errors should be ignored

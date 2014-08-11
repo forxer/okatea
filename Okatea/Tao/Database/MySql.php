@@ -140,7 +140,7 @@ class MySql
 		$this->error = '';
 		$this->nb_q = 0;
 
-		$this->log = array();
+		$this->log = [];
 
 		$this->start_time = 0;
 		$this->total_time = 0;
@@ -174,7 +174,7 @@ class MySql
 	{
 		$db = mysql_select_db($dbname);
 
-		if (! $db)
+		if (!$db)
 		{
 			$this->seterror();
 			return false;
@@ -247,7 +247,7 @@ class MySql
 	public function getLastLog($value = null)
 	{
 		$logline = $this->getLog((integer) (count($this->log) - 1));
-		return (! empty($logline[$value]) ? $logline[$value] : $logline);
+		return (!empty($logline[$value]) ? $logline[$value] : $logline);
 	}
 
 	/**
@@ -364,7 +364,7 @@ class MySql
 			throw new \RuntimeException('Unable to retrieve tables ' . $this->db->error());
 		}
 
-		$tables = array();
+		$tables = [];
 		if ($db_prefix)
 		{
 			foreach ($tablesList->getData() as $t)
@@ -406,12 +406,12 @@ class MySql
 	 */
 	public function select($query, $class = 'Recordset')
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
 
-		if ($class == '' || ! class_exists($class))
+		if ($class == '' || !class_exists($class))
 		{
 			$class = 'Recordset';
 		}
@@ -426,7 +426,7 @@ class MySql
 		{
 			# Insertion dans le reccordset
 			$i = 0;
-			$arryRes = array();
+			$arryRes = [];
 			while ($res = mysql_fetch_row($cur))
 			{
 				$nRes = count($res);
@@ -458,7 +458,7 @@ class MySql
 	 */
 	public function execute($query, $type = null)
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
@@ -469,7 +469,7 @@ class MySql
 
 		$this->log($query, $exec_time);
 
-		if (! $cur)
+		if (!$cur)
 		{
 			$this->seterror();
 			return false;
@@ -500,7 +500,7 @@ class MySql
 	 */
 	public function query($query, $unbuffered = false)
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
@@ -548,7 +548,7 @@ class MySql
 			$query = trim($query);
 			$query = str_replace('{{DB_PREFIX}}', $this->prefix, $query);
 
-			if (! empty($query))
+			if (!empty($query))
 			{
 				return $this->execute($query);
 			}
@@ -594,7 +594,7 @@ class MySql
 	 */
 	public function fetchAll()
 	{
-		$aResult = array();
+		$aResult = [];
 
 		while ($aItem = $this->fetchAssoc())
 		{
@@ -790,27 +790,27 @@ class MySql
 				$sql .= implode('', array_unique($aJoins));
 			}
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
 
-			if (! empty($query['GROUP BY']))
+			if (!empty($query['GROUP BY']))
 			{
 				$sql .= ' GROUP BY ' . $query['GROUP BY'];
 			}
 
-			if (! empty($query['HAVING']))
+			if (!empty($query['HAVING']))
 			{
 				$sql .= ' HAVING ' . $query['HAVING'];
 			}
 
-			if (! empty($query['ORDER BY']))
+			if (!empty($query['ORDER BY']))
 			{
 				$sql .= ' ORDER BY ' . $query['ORDER BY'];
 			}
 
-			if (! empty($query['LIMIT']))
+			if (!empty($query['LIMIT']))
 			{
 				$sql .= ' LIMIT ' . $query['LIMIT'];
 			}
@@ -820,7 +820,7 @@ class MySql
 		{
 			$sql .= 'INSERT INTO ' . $query['INTO'];
 
-			if (! empty($query['INSERT']))
+			if (!empty($query['INSERT']))
 			{
 				$sql .= ' (' . $query['INSERT'] . ')';
 			}
@@ -831,7 +831,7 @@ class MySql
 		{
 			$sql .= 'UPDATE ' . $query['UPDATE'] . ' SET ' . $query['SET'];
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
@@ -840,7 +840,7 @@ class MySql
 		{
 			$sql .= 'DELETE FROM ' . $query['DELETE'];
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}

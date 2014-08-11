@@ -1,7 +1,7 @@
 <?php
 
 # paramètres personnalisés de selection des questions internationalisées
-//$aFaqCustomParams = array();
+//$aFaqCustomParams = [];
 
 
 # fichier nécessaire pour afficher une liste de questions internationalisées

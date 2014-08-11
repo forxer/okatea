@@ -62,7 +62,7 @@ tinymce.addI18n('lt',{
 "Lower Roman": "Ma\u017eosios rom\u0117n\u0173",
 "Name": "Pavadinimas",
 "Anchor": "\u017dym\u0117",
-"You have unsaved changes are you sure you want to navigate away?": "Turite nei\u0161saugot\u0173 pakeitim\u0173! Ar tikrai norite i\u0161eiti?",
+"You have unsaved changes are you sure you want to navigate away?": "Turite nei\u0161saugot\u0173 pakeitim\u0173!Ar tikrai norite i\u0161eiti?",
 "Restore last draft": "Atstatyti paskutin\u012f projekt\u0105",
 "Special character": "Specialus simbolis",
 "Source code": "Pirminis \u0161altinis",

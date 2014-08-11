@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Diff
  *
@@ -49,7 +48,6 @@ use Okatea\Tao\Diff\Renderer\AbstractRenderer;
 
 class Engine
 {
-
 	/**
 	 *
 	 * @var array The "old" sequence to use as the basis for the comparison.
@@ -72,33 +70,31 @@ class Engine
 	 *
 	 * @var array Associative array of the default options available for the diff class and their default value.
 	 */
-	private $defaultOptions = array(
+	private $defaultOptions = [
 		'context' => 3,
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
 		'ignoreCase' => false
-	);
+	];
 
 	/**
 	 *
 	 * @var array Array of the options that have been applied for generating the diff.
 	 */
-	private $options = array();
+	private $options = [];
 
 	/**
 	 * The constructor.
 	 *
-	 * @param array $a
-	 *        	Array containing the lines of the first string to compare.
-	 * @param array $b
-	 *        	Array containing the lines for the second string to compare.
-	 * @param array $options        	
+	 * @param array $a Array containing the lines of the first string to compare.
+	 * @param array $b Array containing the lines for the second string to compare.
+	 * @param array $options
 	 */
-	public function __construct(array $a, array $b, array $options = array())
+	public function __construct(array $a, array $b, array $options = [])
 	{
 		$this->a = $a;
 		$this->b = $b;
-		
+
 		$this->options = array_merge($this->defaultOptions, $options);
 	}
 
@@ -130,20 +126,17 @@ class Engine
 	 */
 	public function getA($start = 0, $end = null)
 	{
-		if ($start == 0 && $end === null)
-		{
+		if ($start == 0 && $end === null) {
 			return $this->a;
 		}
-		
-		if ($end === null)
-		{
+
+		if ($end === null) {
 			$length = 1;
 		}
-		else
-		{
+		else {
 			$length = $end - $start;
 		}
-		
+
 		return array_slice($this->a, $start, $length);
 	}
 
@@ -162,20 +155,17 @@ class Engine
 	 */
 	public function getB($start = 0, $end = null)
 	{
-		if ($start == 0 && $end === null)
-		{
+		if ($start == 0 && $end === null) {
 			return $this->b;
 		}
-		
-		if ($end === null)
-		{
+
+		if ($end === null) {
 			$length = 1;
 		}
-		else
-		{
+		else {
 			$length = $end - $start;
 		}
-		
+
 		return array_slice($this->b, $start, $length);
 	}
 
@@ -190,11 +180,10 @@ class Engine
 	 */
 	public function getGroupedOpcodes()
 	{
-		if (! is_null($this->groupedCodes))
-		{
+		if (!is_null($this->groupedCodes)) {
 			return $this->groupedCodes;
 		}
-		
+
 		$sequenceMatcher = new SequenceMatcher($this->a, $this->b, null, $this->options);
 		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes();
 		return $this->groupedCodes;

@@ -44,7 +44,7 @@ class oktFilterIP extends oktSpamFilter
 
 	public function isSpam($type, $author, $email, $site, $ip, $content, &$status)
 	{
-		if (! $ip)
+		if (!$ip)
 		{
 			return;
 		}
@@ -67,13 +67,13 @@ class oktFilterIP extends oktSpamFilter
 	{
 		# Set current type and tab
 		$ip_type = 'black';
-		if (! empty($_REQUEST['ip_type']) && $_REQUEST['ip_type'] == 'white')
+		if (!empty($_REQUEST['ip_type']) && $_REQUEST['ip_type'] == 'white')
 		{
 			$ip_type = 'white';
 		}
 		
 		# Add IP to list
-		if (! empty($_POST['addip']))
+		if (!empty($_POST['addip']))
 		{
 			try
 			{
@@ -90,7 +90,7 @@ class oktFilterIP extends oktSpamFilter
 		}
 		
 		# Remove IP from list
-		if (! empty($_POST['delip']) && is_array($_POST['delip']))
+		if (!empty($_POST['delip']) && is_array($_POST['delip']))
 		{
 			try
 			{
@@ -167,20 +167,20 @@ class oktFilterIP extends oktSpamFilter
 		$bits[0] .= str_repeat(".0", 3 - substr_count($bits[0], "."));
 		$ip = ip2long($bits[0]);
 		
-		if (! $ip || $ip == - 1)
+		if (!$ip || $ip == - 1)
 		{
 			throw new Exception('Invalid IP address');
 		}
 		
 		# Set mask
-		if (! isset($bits[1]))
+		if (!isset($bits[1]))
 		{
 			$mask = - 1;
 		}
 		elseif (strpos($bits[1], '.'))
 		{
 			$mask = ip2long($bits[1]);
-			if (! $mask)
+			if (!$mask)
 			{
 				$mask = - 1;
 			}
@@ -224,7 +224,7 @@ class oktFilterIP extends oktSpamFilter
 		
 		if (($rs = $this->db->select($strReq)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 		
 		return $rs;
@@ -236,7 +236,7 @@ class oktFilterIP extends oktSpamFilter
 		
 		if (($rs = $this->db->select($strReq)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 		
 		return $rs;

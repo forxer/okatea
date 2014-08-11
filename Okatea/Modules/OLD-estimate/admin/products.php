@@ -7,7 +7,7 @@
 use Okatea\Tao\Misc\Utilities;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -20,7 +20,7 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.products');
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	if ($okt->estimate->products->switchProductStatus($_GET['switch_status']) !== false)
 	{
@@ -29,7 +29,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # suppression d'un produit
-if (! empty($_GET['delete_product']))
+if (!empty($_GET['delete_product']))
 {
 	if ($okt->estimate->products->delProduct($_GET['delete_product']) !== false)
 	{
@@ -106,7 +106,7 @@ $count_line = 0;
 		$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 		$count_line ++;
 		
-		if (! $rsProducts->active)
+		if (!$rsProducts->active)
 		{
 			$td_class = ' disabled';
 		}

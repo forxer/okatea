@@ -14,7 +14,7 @@ class oktAntispam
 	{
 		global $okt;
 		
-		if (! isset($okt->spamfilters))
+		if (!isset($okt->spamfilters))
 		{
 			return;
 		}
@@ -99,7 +99,7 @@ class oktAntispam
 		if ((time() - $dateLastPurge) > (86400))
 		{
 			// update dateLastPurge
-			if (! $init)
+			if (!$init)
 			{
 				$okt->blog->settings->put('antispam_date_last_purge', time(), null, null, true, false);
 			}

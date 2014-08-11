@@ -27,7 +27,7 @@ class PartnersController extends Controller
 		$this->page->addTitleTag($this->okt->partners->getTitle());
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->partners->getName(), PartnersHelpers::getPartnersUrl());
 		}

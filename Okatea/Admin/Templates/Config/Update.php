@@ -14,13 +14,13 @@ $okt->page->addGlobalTitle(__('c_a_update_okatea_update'));
 
 $okt->page->loader('.lazy-load');
 
-if (! empty($sMessage))
+if (!empty($sMessage))
 {
 	echo '<div class="errors_box ui-corner-all">' . $sMessage . '</div>';
 }
-elseif (! $okt['request']->query->has('update_db'))
+elseif (!$okt['request']->query->has('update_db'))
 {
-	if (! $bDigestIsReadable)
+	if (!$bDigestIsReadable)
 	{
 		echo '<p><span class="icon error"></span>' . __('c_a_update_digest_file_not_readable') . '</p>';
 	}
@@ -41,7 +41,7 @@ if ($okt['request']->query->has('update_db'))
 		echo '<p><span class="icon error"></span> ' . __('c_a_update_database_blocking_errors_occurred') . '</p>';
 	}
 }
-elseif ($bDigestIsReadable && ! $sStep)
+elseif ($bDigestIsReadable && !$sStep)
 {
 	if (empty($new_v))
 	{
@@ -54,7 +54,7 @@ elseif ($bDigestIsReadable && ! $sStep)
 		'<p>' . __('c_a_update_to_upgrade_instructions') . '</p>' . '<form action="configuration.php" method="get">' . '<p><label for="do_not_check">' . form::checkbox('do_not_check', 1, false) . __('c_a_update_do_not_check_file_integrity') . '</label></p>' . '<p><input type="hidden" name="step" value="check" />' . '<input type="hidden" name="action" value="update" />' . '<input type="submit" class="lazy-load" value="' . __('c_a_update_action') . '" /></p>' . '</form>';
 	}
 	
-	if (! empty($aArchives))
+	if (!empty($aArchives))
 	{
 		echo '<h3>' . __('c_a_update_backup_files') . '</h3>' . '<p>' . __('c_a_update_backup_instructions') . '</p>';
 		
@@ -70,7 +70,7 @@ elseif ($bDigestIsReadable && ! $sStep)
 		echo '<p><strong>' . __('c_a_update_backup_warning') . '</strong> ' . sprintf(__('c_a_update_should_not_revert_prior_%s'), end($aArchives)) . '</p>' . '<p><input type="submit" name="b_del" value="' . __('c_a_update_delete_selected_file') . '" /> ' . '<input type="submit" name="b_revert" class="lazy-load" value="' . __('c_a_update_revert_selected_file') . '" />' . $okt->page->formtoken() . '</p>' . '</form>';
 	}
 }
-elseif ($sStep == 'done' && ! $okt->error->hasError())
+elseif ($sStep == 'done' && !$okt->error->hasError())
 {
 	echo '<p class="message">' . __('c_a_update_congratulations') . ' <strong><a href="' . $sBaseSelfUrl . '">' . __('c_a_update_finish') . '</a></strong>' . '</p>';
 }

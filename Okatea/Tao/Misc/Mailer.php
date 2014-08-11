@@ -51,7 +51,7 @@ class Mailer
 		{
 			$this->message->setFrom($mFrom);
 		}
-		elseif (! empty($this->okt['config']->email['name']))
+		elseif (!empty($this->okt['config']->email['name']))
 		{
 			$this->message->setFrom(array(
 				$this->okt['config']->email['from'] => Escaper::html($this->okt['config']->email['name'])
@@ -96,7 +96,7 @@ class Mailer
 	 * @return void
 	 * @deprecated 2.0
 	 */
-	public function useFile($template_file, $variables = array())
+	public function useFile($template_file, $variables = [])
 	{
 		$sMailText = SimpleReplacements::parseFile($template_file, $variables);
 
@@ -120,7 +120,7 @@ class Mailer
 			$this->okt->error->set(__('c_c_error_sending_email'));
 		}
 
-		if (! empty($this->failures))
+		if (!empty($this->failures))
 		{
 			foreach ($this->failures as $sMail)
 			{
@@ -157,12 +157,12 @@ class Mailer
 			case 'smtp':
 				$this->transport = \Swift_SmtpTransport::newInstance($this->okt['config']->email['smtp']['host'], $this->okt['config']->email['smtp']['port']);
 
-				if (! empty($this->okt['config']->email['smtp']['username']))
+				if (!empty($this->okt['config']->email['smtp']['username']))
 				{
 					$this->transport->setUsername($this->okt['config']->email['smtp']['username']);
 				}
 
-				if (! empty($this->okt['config']->email['smtp']['password']))
+				if (!empty($this->okt['config']->email['smtp']['password']))
 				{
 					$this->transport->setPassword($this->okt['config']->email['smtp']['password']);
 				}
@@ -171,7 +171,7 @@ class Mailer
 			case 'sendmail':
 				$command = '/usr/sbin/exim -bs';
 
-				if (! empty($this->okt['config']->email['sendmail']))
+				if (!empty($this->okt['config']->email['sendmail']))
 				{
 					$command = $this->okt['config']->email['sendmail'];
 				}

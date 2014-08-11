@@ -73,7 +73,7 @@ class module_catalog extends Module
 			$this->okt->page->catalogSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			
 			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=catalog', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('catalog'), null, $this->okt->page->catalogSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->catalogSubMenu->add('Gestion', 'module.php?m=catalog&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
+			$this->okt->page->catalogSubMenu->add('Gestion', 'module.php?m=catalog&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->catalogSubMenu->add('Ajouter un produit', 'module.php?m=catalog&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, ($this->config->categories_enable && $this->okt['visitor']->checkPerm('catalog_add')));
 			$this->okt->page->catalogSubMenu->add('Catégories', 'module.php?m=catalog&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 5, ($this->config->categories_enable && $this->okt['visitor']->checkPerm('catalog_categories')));
 			$this->okt->page->catalogSubMenu->add('Affichage', 'module.php?m=catalog&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('catalog_display'));
@@ -89,7 +89,7 @@ class module_catalog extends Module
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof CatalogFilters))
+		if ($this->filters === null || !($this->filters instanceof CatalogFilters))
 		{
 			$this->filters = new CatalogFilters($this->okt, $part);
 		}
@@ -105,26 +105,26 @@ class module_catalog extends Module
 	 * @param boolean $bCountOnly        	
 	 * @return object recordset/integer
 	 */
-	public function getProds($aParams = array(), $bCountOnly = false)
+	public function getProds($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND p.id=' . (integer) $aParams['id'] . ' ';
 		}
 		
-		if (! empty($aParams['category_id']))
+		if (!empty($aParams['category_id']))
 		{
 			$sReqPlus .= ' AND p.category_id=' . (integer) $aParams['category_id'] . ' ';
 		}
 		
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND p.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
 		
-		if (! empty($aParams['promo']) || ! empty($aParams['promo_only']))
+		if (!empty($aParams['promo']) || !empty($aParams['promo_only']))
 		{
 			if ($this->config->fields['promo'] == 2)
 			{
@@ -136,7 +136,7 @@ class module_catalog extends Module
 			}
 		}
 		
-		if (! empty($aParams['nouvo']) || ! empty($aParams['nouvo_only']))
+		if (!empty($aParams['nouvo']) || !empty($aParams['nouvo_only']))
 		{
 			if ($this->config->fields['nouvo'] == 2)
 			{
@@ -148,7 +148,7 @@ class module_catalog extends Module
 			}
 		}
 		
-		if (! empty($aParams['favo']) || ! empty($aParams['favo_only']))
+		if (!empty($aParams['favo']) || !empty($aParams['favo_only']))
 		{
 			if ($this->config->fields['favo'] == 2)
 			{
@@ -181,11 +181,11 @@ class module_catalog extends Module
 			$reqPlus .= 'AND p.visibility=1 ';
 		}
 		
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$words = Modifiers::splitWords($aParams['search']);
 			
-			if (! empty($words))
+			if (!empty($words))
 			{
 				foreach ($words as $i => $w)
 				{
@@ -232,7 +232,7 @@ class module_catalog extends Module
 			
 			$sQuery .= 'FROM ' . $this->t_products . ' AS p ' . 'LEFT JOIN ' . $this->t_categories . ' AS c ON p.category_id=c.id ' . 'WHERE 1 ' . $sReqPlus;
 			
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ';
 			}
@@ -241,7 +241,7 @@ class module_catalog extends Module
 				$sQuery .= 'ORDER BY p.created_at DESC ';
 			}
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -255,7 +255,7 @@ class module_catalog extends Module
 			}
 			else
 			{
-				$rs = new CatalogRecordset(array());
+				$rs = new CatalogRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -314,7 +314,7 @@ class module_catalog extends Module
 	{
 		$cursor = $this->db->openCursor($this->t_products);
 		
-		if (! empty($data))
+		if (!empty($data))
 		{
 			$aAllowedFields = array(
 				'id',
@@ -369,7 +369,7 @@ class module_catalog extends Module
 		
 		$cursor->words = implode(' ', array_unique(Modifiers::splitWords($cursor->title . ' ' . $cursor->subtitle . ' ' . $cursor->content_short . ' ' . $cursor->content)));
 		
-		if (! $cursor->insert())
+		if (!$cursor->insert())
 		{
 			return false;
 		}
@@ -407,7 +407,7 @@ class module_catalog extends Module
 	 */
 	public function updProd($product_id, $cursor)
 	{
-		if (! $this->okt['visitor']->checkPerm('catalog'))
+		if (!$this->okt['visitor']->checkPerm('catalog'))
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
@@ -421,7 +421,7 @@ class module_catalog extends Module
 			return false;
 		}
 		
-		if (! $rs->isEditable())
+		if (!$rs->isEditable())
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
@@ -433,7 +433,7 @@ class module_catalog extends Module
 		
 		$cursor->words = implode(' ', Modifiers::splitWords($cursor->title . ' ' . $cursor->subtitle . ' ' . $cursor->content_short . ' ' . $cursor->content));
 		
-		if (! $cursor->update('WHERE id=' . (integer) $product_id . ' '))
+		if (!$cursor->update('WHERE id=' . (integer) $product_id . ' '))
 		{
 			return false;
 		}
@@ -467,7 +467,7 @@ class module_catalog extends Module
 	 */
 	public function deleteProd($product_id)
 	{
-		if (! $this->okt['visitor']->checkPerm('catalog_remove'))
+		if (!$this->okt['visitor']->checkPerm('catalog_remove'))
 		{
 			$this->error->set('Vous ne pouvez pas supprimer les produits.');
 			return false;
@@ -481,7 +481,7 @@ class module_catalog extends Module
 			return false;
 		}
 		
-		if (! $rs->isDeletable())
+		if (!$rs->isDeletable())
 		{
 			$this->error->set('Vous ne pouvez pas supprimer ce produit.');
 			return false;
@@ -493,7 +493,7 @@ class module_catalog extends Module
 		
 		$query = 'DELETE FROM ' . $this->t_products . ' ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -515,7 +515,7 @@ class module_catalog extends Module
 			$this->error->set('Vous devez saisir un contenu.');
 		}
 		
-		if (! empty($params['price']) && ! empty($params['price_promo']) && ($params['price_promo'] >= $params['price']))
+		if (!empty($params['price']) && !empty($params['price_promo']) && ($params['price_promo'] >= $params['price']))
 		{
 			$this->error->set('Le prix promotionnel doit être inférieur au prix.');
 		}
@@ -531,7 +531,7 @@ class module_catalog extends Module
 	 */
 	public function switchProdStatus($product_id)
 	{
-		if (! $this->okt['visitor']->checkPerm('catalog'))
+		if (!$this->okt['visitor']->checkPerm('catalog'))
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
@@ -545,7 +545,7 @@ class module_catalog extends Module
 			return false;
 		}
 		
-		if (! $rs->isEditable())
+		if (!$rs->isEditable())
 		{
 			$this->error->set('Vous ne pouvez pas modifier ce produit.');
 			return false;
@@ -553,7 +553,7 @@ class module_catalog extends Module
 		
 		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'visibility=1-visibility ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -580,7 +580,7 @@ class module_catalog extends Module
 		
 		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'visibility=' . ($status == 1 ? 0 : 1) . ' ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -602,7 +602,7 @@ class module_catalog extends Module
 		
 		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'slug=\'' . $this->db->escapeStr($slug) . '\' ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -632,12 +632,12 @@ class module_catalog extends Module
 		
 		$rs = $this->db->select($query);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			$query = 'SELECT slug FROM ' . $this->t_products . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($url) . '%\' ' . 'AND id <> ' . (integer) $product_id . ' ' . 'ORDER BY slug DESC ';
 			
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch())
 			{
 				$a[] = $rs->slug;
@@ -721,7 +721,7 @@ class module_catalog extends Module
 	{
 		$aImages = $this->getImageUpload()->addImages($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -740,14 +740,14 @@ class module_catalog extends Module
 	{
 		$aCurrentImages = $this->getProdImages($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getImageUpload()->updImages($product_id, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -768,14 +768,14 @@ class module_catalog extends Module
 	{
 		$aCurrentImages = $this->getProdImages($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewImages = $this->getImageUpload()->deleteImage($product_id, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -794,7 +794,7 @@ class module_catalog extends Module
 	{
 		$aCurrentImages = $this->getProdImages($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -821,7 +821,7 @@ class module_catalog extends Module
 		while ($rsProds->fetch())
 		{
 			$aImages = $rsProds->getImagesInfo();
-			$aImagesList = array();
+			$aImagesList = [];
 			
 			foreach ($aImages as $key => $image)
 			{
@@ -845,14 +845,14 @@ class module_catalog extends Module
 	 */
 	public function getProdImages($product_id)
 	{
-		if (! $this->prodExists($product_id))
+		if (!$this->prodExists($product_id))
 		{
 			$this->error->set('Le produit #' . $product_id . ' n’existe pas.');
 			return false;
 		}
 		
 		$rsProd = $this->getProd($product_id);
-		$aProdImages = $rsProd->images ? unserialize($rsProd->images) : array();
+		$aProdImages = $rsProd->images ? unserialize($rsProd->images) : [];
 		
 		return $aProdImages;
 	}
@@ -864,19 +864,19 @@ class module_catalog extends Module
 	 * @param array $aImages        	
 	 * @return boolean
 	 */
-	public function updImagesInDb($product_id, $aImages = array())
+	public function updImagesInDb($product_id, $aImages = [])
 	{
-		if (! $this->prodExists($product_id))
+		if (!$this->prodExists($product_id))
 		{
 			$this->error->set('Le produit #' . $product_id . ' n’existe pas.');
 			return false;
 		}
 		
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+		$aImages = !empty($aImages) ? serialize($aImages) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $product_id;
+		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'images=' . (!is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -902,7 +902,7 @@ class module_catalog extends Module
 	{
 		$aFiles = $this->getFileUpload()->addFiles($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -921,14 +921,14 @@ class module_catalog extends Module
 	{
 		$aCurrentFiles = $this->getProdFiles($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aFiles = $this->getFileUpload()->updFiles($product_id, $aCurrentFiles);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -949,14 +949,14 @@ class module_catalog extends Module
 	{
 		$aCurrentFiles = $this->getProdFiles($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewFiles = $this->getFileUpload()->deleteFile($product_id, $aCurrentFiles, $file_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -975,7 +975,7 @@ class module_catalog extends Module
 	{
 		$aCurrentFiles = $this->getProdFiles($product_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -994,14 +994,14 @@ class module_catalog extends Module
 	 */
 	public function getProdFiles($product_id)
 	{
-		if (! $this->prodExists($product_id))
+		if (!$this->prodExists($product_id))
 		{
 			$this->error->set('Le produit #' . $product_id . ' n’existe pas.');
 			return false;
 		}
 		
 		$rs = $this->getProd($product_id);
-		$aProdFiles = $rs->files ? unserialize($rs->files) : array();
+		$aProdFiles = $rs->files ? unserialize($rs->files) : [];
 		
 		return $aProdFiles;
 	}
@@ -1013,19 +1013,19 @@ class module_catalog extends Module
 	 * @param array $aFiles        	
 	 * @return boolean
 	 */
-	public function updProdFiles($product_id, $aFiles = array())
+	public function updProdFiles($product_id, $aFiles = [])
 	{
-		if (! $this->prodExists($product_id))
+		if (!$this->prodExists($product_id))
 		{
 			$this->error->set('Le produit #' . $product_id . ' n’existe pas.');
 			return false;
 		}
 		
-		$aFiles = ! empty($aFiles) ? serialize($aFiles) : NULL;
+		$aFiles = !empty($aFiles) ? serialize($aFiles) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'files=' . (! is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $product_id;
+		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'files=' . (!is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $product_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1045,19 +1045,19 @@ class module_catalog extends Module
 	 *        	$count_only
 	 * @return recordset
 	 */
-	public function getCategories($params = array(), $count_only = false)
+	public function getCategories($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
 		$with_count = isset($params['with_count']) ? (boolean) $params['with_count'] : false;
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= 'AND c.id=' . (integer) $params['id'] . ' ';
 			$with_count = false;
 		}
 		
-		if (! empty($params['slug']))
+		if (!empty($params['slug']))
 		{
 			$reqPlus .= 'AND c.slug=\'' . $this->db->escapeStr($params['slug']) . '\' ';
 			$with_count = false;
@@ -1094,7 +1094,7 @@ class module_catalog extends Module
 		{
 			$query = 'SELECT c.id, c.active, c.name, c.slug, c.ord, c.parent_id, c.level, ' . 'COUNT(p.id) AS num_products ' . 'FROM ' . $this->t_categories . ' AS c ' . 'LEFT JOIN ' . $this->t_products . ' AS p ON c.id=p.category_id ' . 'WHERE 1 ' . $reqPlus . ' ' . 'GROUP BY c.id ' . 'ORDER BY nleft asc ';
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
@@ -1102,7 +1102,7 @@ class module_catalog extends Module
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		if ($count_only)
@@ -1113,8 +1113,8 @@ class module_catalog extends Module
 		{
 			if ($with_count)
 			{
-				$data = array();
-				$stack = array();
+				$data = [];
+				$stack = [];
 				$level = 0;
 				foreach (array_reverse($rs->getData()) as $category)
 				{
@@ -1205,7 +1205,7 @@ class module_catalog extends Module
 		
 		$query = 'INSERT INTO ' . $this->t_categories . ' ( ' . 'active, name, slug, parent_id, ord ' . ') VALUES ( ' . (integer) $active . ', ' . '\'' . $this->db->escapeStr($name) . '\', ' . '\'' . $this->db->escapeStr($slug) . '\', ' . (integer) $parent_id . ', ' . ($max_ord + 1) . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1228,7 +1228,7 @@ class module_catalog extends Module
 	 */
 	public function updCategory($id, $active, $name, $slug, $parent_id)
 	{
-		if (! $this->categoryExists($id))
+		if (!$this->categoryExists($id))
 		{
 			$this->error->set('La catégorie #' . $id . ' n’existe pas.');
 			return false;
@@ -1254,7 +1254,7 @@ class module_catalog extends Module
 		
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'active=' . (integer) $active . ', ' . 'name=\'' . $this->db->escapeStr($name) . '\', ' . 'slug=\'' . $this->db->escapeStr($slug) . '\', ' . 'parent_id=' . (integer) $parent_id . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1299,7 +1299,7 @@ class module_catalog extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'ord=' . (integer) $ord . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1351,7 +1351,7 @@ class module_catalog extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'active=' . (integer) $status . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1383,7 +1383,7 @@ class module_catalog extends Module
 		
 		$query = 'DELETE FROM ' . $this->t_categories . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1399,7 +1399,7 @@ class module_catalog extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'parent_id=' . (integer) $parent_id . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}

@@ -9,7 +9,7 @@
 /**
  * Configuration data connection to the database.
  */
-if (! isset($env))
+if (!isset($env))
 {
 	$env = $this['env'];
 }

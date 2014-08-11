@@ -20,42 +20,42 @@ class Js
 	 *
 	 * @var array
 	 */
-	protected $aFilesStack = array();
+	protected $aFilesStack = [];
 
 	/**
 	 * Pile de fichiers JS en Comentaires Conditionnels
 	 *
 	 * @var array
 	 */
-	protected $aCCFilesStack = array();
+	protected $aCCFilesStack = [];
 
 	/**
 	 * Pile des conditions des Comentaires Conditionnels
 	 *
 	 * @var array
 	 */
-	protected $aCCCondStack = array();
+	protected $aCCCondStack = [];
 
 	/**
 	 * Pile de code JS
 	 *
 	 * @var array
 	 */
-	protected $aScriptStack = array();
+	protected $aScriptStack = [];
 
 	/**
 	 * Pile de code JS de début
 	 *
 	 * @var array
 	 */
-	protected $aScriptStartStack = array();
+	protected $aScriptStartStack = [];
 
 	/**
 	 * Pile de code JS "on ready"
 	 *
 	 * @var array
 	 */
-	protected $aReadyStack = array();
+	protected $aReadyStack = [];
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
@@ -120,7 +120,7 @@ class Js
 	{
 		$this->aFilesStack = array_unique($this->aFilesStack);
 		
-		return (! empty($this->aFilesStack) ? $this->aFilesStack : false);
+		return (!empty($this->aFilesStack) ? $this->aFilesStack : false);
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Js
 	{
 		$this->aCCFilesStack = array_unique($this->aCCFilesStack);
 		
-		return (! empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
+		return (!empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
 	}
 
 	/**
@@ -221,7 +221,7 @@ class Js
 	 */
 	public function getScriptStart()
 	{
-		if (! empty($this->aScriptStartStack))
+		if (!empty($this->aScriptStartStack))
 		{
 			return self::formatScript(implode("\n\n", $this->aScriptStartStack));
 		}
@@ -256,7 +256,7 @@ class Js
 	 */
 	public function getScript()
 	{
-		if (! empty($this->aScriptStack))
+		if (!empty($this->aScriptStack))
 		{
 			return self::formatScript(implode("\n\n", $this->aScriptStack));
 		}
@@ -291,7 +291,7 @@ class Js
 	 */
 	public function getReady()
 	{
-		if (! empty($this->aReadyStack))
+		if (!empty($this->aReadyStack))
 		{
 			return self::formatReady(implode("\n\n", $this->aReadyStack));
 		}

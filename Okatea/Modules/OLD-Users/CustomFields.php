@@ -58,36 +58,36 @@ class CustomFields
 	 *        	array	params			Paramètres de requete
 	 * @return UsersFieldRecordset
 	 */
-	public function getFields($aParams = array())
+	public function getFields($aParams = [])
 	{
 		$reqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$reqPlus .= ' AND f.id=' . (integer) $aParams['id'] . ' ';
 		}
 		
-		if (! empty($aParams['status']))
+		if (!empty($aParams['status']))
 		{
 			$reqPlus .= ' AND f.status>0 ';
 		}
 		
-		if (! empty($aParams['register']))
+		if (!empty($aParams['register']))
 		{
 			$reqPlus .= ' AND f.register_status=1 ';
 		}
 		
-		if (! empty($aParams['user_editable']))
+		if (!empty($aParams['user_editable']))
 		{
 			$reqPlus .= ' AND f.user_editable=1 ';
 		}
 		
-		if (! empty($aParams['admin_editable']))
+		if (!empty($aParams['admin_editable']))
 		{
 			$reqPlus .= ' AND f.user_editable=0 ';
 		}
 		
-		if (! empty($aParams['language']))
+		if (!empty($aParams['language']))
 		{
 			$reqPlus .= 'AND fl.language=\'' . $this->db->escapeStr($aParams['language']) . '\' ';
 		}
@@ -96,7 +96,7 @@ class CustomFields
 		
 		if (($rs = $this->db->select($query, 'UsersFieldRecordset')) === false)
 		{
-			$rs = new UsersFieldRecordset(array());
+			$rs = new UsersFieldRecordset([]);
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -147,7 +147,7 @@ class CustomFields
 		
 		if (($rs = $this->db->select($query, 'UsersFieldRecordset')) === false)
 		{
-			$rs = new UsersFieldRecordset(array());
+			$rs = new UsersFieldRecordset([]);
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -176,7 +176,7 @@ class CustomFields
 		
 		$query = 'INSERT INTO ' . $this->t_fields . ' ( ' . 'status, register_status, user_editable, type, ord, html_id ' . ' ) VALUES ( ' . (integer) $aFieldData['status'] . ', ' . (integer) $aFieldData['register_status'] . ', ' . (integer) $aFieldData['user_editable'] . ', ' . (integer) $aFieldData['type'] . ', ' . (integer) ($max_ord + 1) . ', ' . '\'' . $this->db->escapeStr($aFieldData['html_id']) . '\' ' . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -186,7 +186,7 @@ class CustomFields
 		$this->params['id'] = $iNewId;
 		
 		# modification des textes internationalisés
-		if (! $this->setFieldL10n())
+		if (!$this->setFieldL10n())
 		{
 			return false;
 		}
@@ -209,14 +209,14 @@ class CustomFields
 	 */
 	public function updField($iFieldId, $aFieldData)
 	{
-		if (! $this->fieldExists($iFieldId))
+		if (!$this->fieldExists($iFieldId))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'status=' . (integer) $aFieldData['status'] . ', ' . 'register_status=' . (integer) $aFieldData['register_status'] . ', ' . 'user_editable=' . (integer) $aFieldData['user_editable'] . ', ' . 'type=' . (integer) $aFieldData['type'] . ', ' . 'html_id=\'' . $this->db->escapeStr($aFieldData['html_id']) . '\' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -224,7 +224,7 @@ class CustomFields
 		# modification des textes internationalisés
 		$this->params = $aFieldData;
 		$this->params['id'] = (integer) $iFieldId;
-		if (! $this->setFieldL10n())
+		if (!$this->setFieldL10n())
 		{
 			return false;
 		}
@@ -256,14 +256,14 @@ class CustomFields
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			if (! $rsField->isSimpleField())
+			if (!$rsField->isSimpleField())
 			{
 				$aValues[$aLanguage['code']] = serialize($aValues[$aLanguage['code']]);
 			}
 			
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, value) ' . 'VALUES (' . (integer) $iFieldId . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($aValues[$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($aValues[$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'value=' . (empty($aValues[$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($aValues[$aLanguage['code']]) . '\'');
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
@@ -283,7 +283,7 @@ class CustomFields
 		{
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, title, description) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['description'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . 'description=' . (empty($this->params['description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['description'][$aLanguage['code']]) . '\'');
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
@@ -301,14 +301,14 @@ class CustomFields
 	 */
 	public function updFieldOrder($iFieldId, $iOrd)
 	{
-		if (! $this->fieldExists($iFieldId))
+		if (!$this->fieldExists($iFieldId))
 		{
 			return false;
 		}
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'ord=' . (integer) $iOrd . ' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -324,14 +324,14 @@ class CustomFields
 	 */
 	public function delField($iFieldId)
 	{
-		if (! $this->fieldExists($iFieldId))
+		if (!$this->fieldExists($iFieldId))
 		{
 			return false;
 		}
 		
 		$query = 'DELETE FROM ' . $this->t_fields . ' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -353,7 +353,7 @@ class CustomFields
 	{
 		$query = 'INSERT INTO ' . $this->t_fields_values . ' ' . '(user_id, field_id, value) ' . 'VALUES (' . (integer) $iUserId . ', ' . (integer) $iFieldId . ', ' . (empty($mValue) ? 'NULL' : '\'' . $this->db->escapeStr($mValue) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'value=' . (empty($mValue) ? 'NULL' : '\'' . $this->db->escapeStr($mValue) . '\'');
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -373,7 +373,7 @@ class CustomFields
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new recordset(array());
+			$rs = new recordset([]);
 			return $rs;
 		}
 		
@@ -390,7 +390,7 @@ class CustomFields
 	{
 		$query = 'DELETE FROM ' . $this->t_fields_values . ' ' . 'WHERE user_id=' . (integer) $iUserId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -417,7 +417,7 @@ class CustomFields
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'html_id=\'' . $this->db->escapeStr($html_id) . '\' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -447,12 +447,12 @@ class CustomFields
 		
 		$rs = $this->db->select($query);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			$query = 'SELECT html_id FROM ' . $this->t_fields . ' ' . 'WHERE html_id LIKE \'' . $this->db->escapeStr($html_id) . '%\' ' . 'AND id <> ' . (integer) $iFieldId . ' ' . 'ORDER BY html_id DESC ';
 			
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch())
 			{
 				$a[] = $rs->html_id;
@@ -479,7 +479,7 @@ class CustomFields
 				default:
 				case 1: # Champ texte
 				case 2: # Zone de texte
-					$aPostedData[$rsFields->id] = ! empty($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : '';
+					$aPostedData[$rsFields->id] = !empty($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : '';
 					break;
 				
 				case 3: # Menu déroulant
@@ -491,7 +491,7 @@ class CustomFields
 					break;
 				
 				case 5: # Cases à cocher
-					$aPostedData[$rsFields->id] = ! empty($_POST[$rsFields->html_id]) && is_array($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : '';
+					$aPostedData[$rsFields->id] = !empty($_POST[$rsFields->html_id]) && is_array($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : '';
 					break;
 			}
 			

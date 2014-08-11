@@ -22,7 +22,7 @@ class Database extends Controller
 
 		foreach (new DirectoryIterator($this->okt['okt_path'] . '/Install/SqlSchema/') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml')
+			if ($oFileInfo->isDot() || !$oFileInfo->isFile() || $oFileInfo->getExtension() !== 'xml')
 			{
 				continue;
 			}

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -48,7 +48,7 @@ class CKFinder_Connector_Core_AccessControlConfig
 	 * @var array[string]string
 	 * @access private
 	 */
-	var $_aclEntries = array();
+	var $_aclEntries = [];
 
 	function CKFinder_Connector_Core_AccessControlConfig($accessControlNodes)
 	{
@@ -106,7 +106,7 @@ class CKFinder_Connector_Core_AccessControlConfig
 	 */
 	function addACLEntry($role, $resourceType, $folderPath, $allowRulesMask, $denyRulesMask)
 	{
-		if (! strlen($folderPath))
+		if (!strlen($folderPath))
 		{
 			$folderPath = '/';
 		}
@@ -142,7 +142,7 @@ class CKFinder_Connector_Core_AccessControlConfig
 		}
 		else
 		{
-			$this->_aclEntries[$folderPath] = array();
+			$this->_aclEntries[$folderPath] = [];
 		}
 		
 		$this->_aclEntries[$folderPath][$_entryKey] = array(
@@ -170,7 +170,7 @@ class CKFinder_Connector_Core_AccessControlConfig
 		{
 			$_userRole = (string) $_SESSION[$_roleSessionVar];
 		}
-		if (! is_null($_userRole) && ! strlen($_userRole))
+		if (!is_null($_userRole) && !strlen($_userRole))
 		{
 			$_userRole = null;
 		}
@@ -184,7 +184,7 @@ class CKFinder_Connector_Core_AccessControlConfig
 		{
 			if ($i >= 0)
 			{
-				if (! strlen($_pathParts[$i]))
+				if (!strlen($_pathParts[$i]))
 				{
 					continue;
 				}
@@ -218,12 +218,12 @@ class CKFinder_Connector_Core_AccessControlConfig
 	{
 		$_folderEntries = $this->_aclEntries[$path];
 		
-		$_possibleEntries = array();
+		$_possibleEntries = [];
 		
 		$_possibleEntries[0] = "*#@#*";
 		$_possibleEntries[1] = "*#@#" . $resourceType;
 		
-		if (! is_null($userRole))
+		if (!is_null($userRole))
 		{
 			$_possibleEntries[2] = $userRole . "#@#*";
 			$_possibleEntries[3] = $userRole . "#@#" . $resourceType;

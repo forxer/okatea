@@ -37,12 +37,12 @@ class oktFilterIpLookup extends oktSpamFilter
 
 	public function isSpam($type, $author, $email, $site, $ip, $content, &$status)
 	{
-		if (! $ip || long2ip(ip2long($ip)) != $ip)
+		if (!$ip || long2ip(ip2long($ip)) != $ip)
 		{
 			return;
 		}
 		
-		$match = array();
+		$match = [];
 		
 		$bls = $this->getServers();
 		$bls = preg_split('/\s*,\s*/', $bls);
@@ -55,7 +55,7 @@ class oktFilterIpLookup extends oktSpamFilter
 			}
 		}
 		
-		if (! empty($match))
+		if (!empty($match))
 		{
 			$status = substr(implode(', ', $match), 0, 128);
 			return true;

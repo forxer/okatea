@@ -105,7 +105,7 @@ class module_lbl_fancybox extends Module
 	 * @param array $aUserOptions        	
 	 * @return void
 	 */
-	public static function fancybox($element = 'a.modal', $conteneur = '.modal-box', $aUserOptions = array())
+	public static function fancybox($element = 'a.modal', $conteneur = '.modal-box', $aUserOptions = [])
 	{
 		global $okt;
 		
@@ -138,7 +138,7 @@ class module_lbl_fancybox extends Module
 	 * @param array $aUserOptions        	
 	 * @return array
 	 */
-	public static function getOptions($aUserOptions = array())
+	public static function getOptions($aUserOptions = [])
 	{
 		global $okt;
 		
@@ -177,7 +177,7 @@ class module_lbl_fancybox extends Module
 			'easingOut' => 'swing'
 		);
 		
-		if (! empty($aUserOptions))
+		if (!empty($aUserOptions))
 		{
 			$aOptions = array_merge($aOptions, (array) $aUserOptions);
 		}

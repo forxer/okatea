@@ -40,7 +40,7 @@ $okt->page->css->addFile($okt->theme->public_url . '/css/styles.css');
 
 			<?php 
 # début Okatea : affichage du switcher de langues
-			if (! $okt['languages']->hasUniqueLanguage())
+			if (!$okt['languages']->hasUniqueLanguage())
 			:
 				?>
 			<ul id="lang_switcher">

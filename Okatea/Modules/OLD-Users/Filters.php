@@ -17,17 +17,17 @@ class Filters extends BaseFilters
 
 	protected $users;
 
-	protected $get_users_params = array();
+	protected $get_users_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $part = 'public', $params = array())
+	public function __construct($okt, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'users', $okt->Users->config, $part, $params);
 		
 		$this->Users = $okt->Users;
 		
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 	}
 
 	public function setDefaultParams()
@@ -49,7 +49,7 @@ class Filters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setUsersParams(&$users_params = array())
+	public function setUsersParams(&$users_params = [])
 	{
 		$this->get_users_params = & $users_params;
 	}
@@ -89,7 +89,7 @@ class Filters extends BaseFilters
 			return null;
 		}
 		
-		if (! isset($this->get_users_params['active']))
+		if (!isset($this->get_users_params['active']))
 		{
 			$this->setIntFilter('active');
 			$this->get_users_params['active'] = $this->params->active;
@@ -125,7 +125,7 @@ class Filters extends BaseFilters
 		);
 		while ($rs->fetch())
 		{
-			if ($rs->group_id == Authentification::guest_group_id || $rs->group_id == Authentification::superadmin_group_id && ! $GLOBALS['okt']['user']->is_superadmin)
+			if ($rs->group_id == Authentification::guest_group_id || $rs->group_id == Authentification::superadmin_group_id && !$GLOBALS['okt']['user']->is_superadmin)
 			{
 				continue;
 			}

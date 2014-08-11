@@ -46,7 +46,7 @@ class PhpDirectoryLoader extends PhpFileLoader
 		
 		foreach ($files as $file)
 		{
-			if (! $file->isFile() || '.php' !== substr($file->getFilename(), - 4))
+			if (!$file->isFile() || '.php' !== substr($file->getFilename(), - 4))
 			{
 				continue;
 			}

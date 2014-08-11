@@ -18,7 +18,7 @@ class Cursor
 {
 	protected $db;
 
-	protected $data = array();
+	protected $data = [];
 
 	protected $table;
 
@@ -61,7 +61,7 @@ class Cursor
 	public function setTable($table)
 	{
 		$this->table = $table;
-		$this->data = array();
+		$this->data = [];
 	}
 
 	/**
@@ -172,12 +172,12 @@ class Cursor
 	 */
 	public function clean()
 	{
-		$this->data = array();
+		$this->data = [];
 	}
 
 	private function formatFields()
 	{
-		$data = array();
+		$data = [];
 
 		foreach ($this->data as $k => $v)
 		{
@@ -223,7 +223,7 @@ class Cursor
 	public function getInsertUpdate()
 	{
 		$data = $this->formatFields();
-		$fields = array();
+		$fields = [];
 
 		$insReq = 'INSERT INTO ' . $this->db->escapeSystem($this->table) . " (\n" . implode(",\n", array_keys($data)) . "\n) VALUES (\n" . implode(",\n", array_values($data)) . "\n) \n" . 'ON DUPLICATE KEY UPDATE ';
 
@@ -248,7 +248,7 @@ class Cursor
 	public function getUpdate($where)
 	{
 		$data = $this->formatFields();
-		$fields = array();
+		$fields = [];
 
 		$updReq = 'UPDATE ' . $this->db->escapeSystem($this->table) . " SET \n";
 
@@ -270,14 +270,14 @@ class Cursor
 	 */
 	public function insert()
 	{
-		if (! $this->table)
+		if (!$this->table)
 		{
 			throw new \RuntimeException('No table name.');
 		}
 
 		$insReq = $this->getInsert();
 
-		if (! $this->db->execute($insReq))
+		if (!$this->db->execute($insReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $insReq);
 			return false;
@@ -288,14 +288,14 @@ class Cursor
 
 	public function insertUpdate()
 	{
-		if (! $this->table)
+		if (!$this->table)
 		{
 			throw new \RuntimeException('No table name.');
 		}
 
 		$insReq = $this->getInsertUpdate();
 
-		if (! $this->db->execute($insReq))
+		if (!$this->db->execute($insReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $insReq);
 			return false;
@@ -313,14 +313,14 @@ class Cursor
 	 */
 	public function update($where)
 	{
-		if (! $this->table)
+		if (!$this->table)
 		{
 			throw new \RuntimeException('No table name.');
 		}
 
 		$updReq = $this->getUpdate($where);
 
-		if (! $this->db->execute($updReq))
+		if (!$this->db->execute($updReq))
 		{
 			throw new \RuntimeException('Unable to execute ' . $updReq);
 			return false;

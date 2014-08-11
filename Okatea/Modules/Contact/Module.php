@@ -67,14 +67,14 @@ class Module extends BaseModule
 	{
 		if (empty($this->aRecipientsTo))
 		{
-			if (! empty($this->config->recipients_to))
+			if (!empty($this->config->recipients_to))
 			{
 				$this->aRecipientsTo = (array) $this->config->recipients_to;
 			}
 			
 			if (empty($this->aRecipientsTo))
 			{
-				if (! empty($this->okt['config']->email['name']))
+				if (!empty($this->okt['config']->email['name']))
 				{
 					$this->aRecipientsTo = array(
 						$this->okt['config']->email['to'] => Escaper::html($this->okt['config']->email['name'])
@@ -112,7 +112,7 @@ class Module extends BaseModule
 	{
 		if (empty($this->aRecipientsCc))
 		{
-			$this->aRecipientsCc = ! empty($this->config->recipients_cc) ? (array) $this->config->recipients_cc : array();
+			$this->aRecipientsCc = !empty($this->config->recipients_cc) ? (array) $this->config->recipients_cc : [];
 		}
 		
 		return $this->aRecipientsCc;
@@ -138,7 +138,7 @@ class Module extends BaseModule
 	{
 		if (empty($this->aRecipientsBcc))
 		{
-			$this->aRecipientsBcc = ! empty($this->config->recipients_bcc) ? (array) $this->config->recipients_bcc : array();
+			$this->aRecipientsBcc = !empty($this->config->recipients_bcc) ? (array) $this->config->recipients_bcc : [];
 		}
 		
 		return $this->aRecipientsBcc;
@@ -190,9 +190,9 @@ class Module extends BaseModule
 	{
 		$this->mFromTo = $this->aPostedData[4];
 		
-		if (! empty($this->aPostedData[2]))
+		if (!empty($this->aPostedData[2]))
 		{
-			if (! empty($this->aPostedData[3]))
+			if (!empty($this->aPostedData[3]))
 			{
 				$this->mFromTo = array(
 					$this->aPostedData[4] => $this->aPostedData[3] . ' ' . $this->aPostedData[2]
@@ -242,9 +242,9 @@ class Module extends BaseModule
 	{
 		$this->mReplyTo = $this->aPostedData[4];
 		
-		if (! empty($this->aPostedData[2]))
+		if (!empty($this->aPostedData[2]))
 		{
-			if (! empty($this->aPostedData[3]))
+			if (!empty($this->aPostedData[3]))
 			{
 				$this->mReplyTo = array(
 					$this->aPostedData[4] => $this->aPostedData[3] . ' ' . $this->aPostedData[2]
@@ -312,12 +312,12 @@ class Module extends BaseModule
 			}
 		}
 		
-		if (! empty($this->aPostedData[2]))
+		if (!empty($this->aPostedData[2]))
 		{
 			$this->sSenderName .= $this->aPostedData[2] . ' ';
 		}
 		
-		if (! empty($this->aPostedData[3]))
+		if (!empty($this->aPostedData[3]))
 		{
 			$this->sSenderName .= $this->aPostedData[3];
 		}
@@ -356,7 +356,7 @@ class Module extends BaseModule
 	 */
 	public function setSubjectFromPostedData()
 	{
-		if (! empty($this->aPostedData[6]))
+		if (!empty($this->aPostedData[6]))
 		{
 			$this->sSubject = Escaper::html($this->aPostedData[6]);
 		}
@@ -402,14 +402,14 @@ class Module extends BaseModule
 		$this->sBody = 'Contact depuis le site internet ' . Escaper::html($this->okt->page->getSiteTitle()) . ' [' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . ']' . PHP_EOL . PHP_EOL;
 		
 		$sSenderName = $this->getSenderName();
-		if (! empty($sSenderName))
+		if (!empty($sSenderName))
 		{
 			$this->sBody .= 'Nom : ' . $sSenderName . PHP_EOL;
 		}
 		
 		$this->sBody .= 'E-mail : ' . $this->aPostedData[4] . PHP_EOL;
 		
-		if (! empty($this->aPostedData[5]))
+		if (!empty($this->aPostedData[5]))
 		{
 			$this->sBody .= 'Téléphone : ' . $this->aPostedData[5] . PHP_EOL;
 		}
@@ -427,7 +427,7 @@ class Module extends BaseModule
 				continue;
 			}
 			
-			if (! empty($this->aPostedData[$this->rsFields->id]))
+			if (!empty($this->aPostedData[$this->rsFields->id]))
 			{
 				$sFieldValue = null;
 				
@@ -446,7 +446,7 @@ class Module extends BaseModule
 						
 						if (is_array($this->aPostedData[$this->rsFields->id]))
 						{
-							$aFieldValue = array();
+							$aFieldValue = [];
 							foreach ($this->aPostedData[$this->rsFields->id] as $value)
 							{
 								if (isset($aValues[$value]))
@@ -482,7 +482,7 @@ class Module extends BaseModule
 		}
 		else
 		{
-			$sAdressForGmap = $this->okt['config']->address['street'] . ' ' . (! empty($this->okt['config']->address['street_2']) ? $this->okt['config']->address['street_2'] . ' ' : '') . $this->okt['config']->address['code'] . ' ' . $this->okt['config']->address['city'] . ' ' . $this->okt['config']->address['country'];
+			$sAdressForGmap = $this->okt['config']->address['street'] . ' ' . (!empty($this->okt['config']->address['street_2']) ? $this->okt['config']->address['street_2'] . ' ' : '') . $this->okt['config']->address['code'] . ' ' . $this->okt['config']->address['city'] . ' ' . $this->okt['config']->address['country'];
 			
 			return str_replace(',', '', $sAdressForGmap);
 		}

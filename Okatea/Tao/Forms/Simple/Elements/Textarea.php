@@ -19,5 +19,5 @@ class Textarea extends Element
 		'label' => ''
 	);
 
-	protected $aAttributes = array();
+	protected $aAttributes = [];
 }

@@ -116,7 +116,7 @@ class Cleaner extends BaseTools
 
 	public function setToRemove()
 	{
-		$this->aToRemove = array();
+		$this->aToRemove = [];
 
 		$this->cache(false);
 		$this->config(false);
@@ -136,7 +136,7 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$finder = (new Finder())->ignoreVCS(false)
@@ -159,7 +159,7 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$finder = (new Finder())->ignoreVCS(false)
@@ -185,7 +185,7 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$finder = (new Finder())->ignoreVCS(false)
@@ -208,7 +208,7 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$sPublicDir = $this->getTempDir($this->okt['public_path']);
@@ -234,14 +234,14 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$sComponentsDir = $this->getTempDir($this->okt['public_path']) . '/components';
 
 		foreach ($this->aComponentsRules as $sPackageDir => $rule)
 		{
-			if (! file_exists($sComponentsDir . '/' . $sPackageDir))
+			if (!file_exists($sComponentsDir . '/' . $sPackageDir))
 			{
 				continue;
 			}
@@ -272,14 +272,14 @@ class Cleaner extends BaseTools
 	{
 		if ($bProcess)
 		{
-			$this->aToRemove = array();
+			$this->aToRemove = [];
 		}
 
 		$sVendorDir = $this->getTempDir() . '/vendor';
 
 		foreach ($this->aVendorRules as $sPackageDir => $rule)
 		{
-			if (! file_exists($sVendorDir . '/' . $sPackageDir))
+			if (!file_exists($sVendorDir . '/' . $sPackageDir))
 			{
 				continue;
 			}

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,12 +56,12 @@ class CKFinder_Connector_CommandHandler_RenameFolder extends CKFinder_Connector_
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_RENAME))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_RENAME))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
-		if (! isset($_GET["NewFolderName"]))
+		if (!isset($_GET["NewFolderName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -74,7 +74,7 @@ class CKFinder_Connector_CommandHandler_RenameFolder extends CKFinder_Connector_
 		}
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFolderName($newFolderName) || $resourceTypeInfo->checkIsHiddenFolder($newFolderName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFolderName($newFolderName) || $resourceTypeInfo->checkIsHiddenFolder($newFolderName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -88,7 +88,7 @@ class CKFinder_Connector_CommandHandler_RenameFolder extends CKFinder_Connector_
 		$oldFolderPath = $this->_currentFolder->getServerPath();
 		$bMoved = false;
 		
-		if (! is_dir($oldFolderPath))
+		if (!is_dir($oldFolderPath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -103,14 +103,14 @@ class CKFinder_Connector_CommandHandler_RenameFolder extends CKFinder_Connector_
 		
 		$bMoved = @rename($oldFolderPath, $newFolderPath);
 		
-		if (! $bMoved)
+		if (!$bMoved)
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
 		else
 		{
 			$newThumbsServerPath = dirname($this->_currentFolder->getThumbsServerPath()) . '/' . $newFolderName . '/';
-			if (! @rename($this->_currentFolder->getThumbsServerPath(), $newThumbsServerPath))
+			if (!@rename($this->_currentFolder->getThumbsServerPath(), $newThumbsServerPath))
 			{
 				CKFinder_Connector_Utils_FileSystem::unlink($this->_currentFolder->getThumbsServerPath());
 			}

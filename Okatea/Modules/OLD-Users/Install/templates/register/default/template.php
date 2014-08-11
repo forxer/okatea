@@ -94,7 +94,7 @@ $okt->page->validate('register-form', $aJsValidateRules);
 
 <?php 
 # début Okatea : message de confirmation de l'inscription
-if (! empty($_REQUEST['registered']))
+if (!empty($_REQUEST['registered']))
 :
 	?>
 
@@ -138,7 +138,7 @@ if (! empty($_REQUEST['registered']))
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-	if (! $okt['config']->users_registration['merge_username_email'])
+	if (!$okt['config']->users_registration['merge_username_email'])
 	:
 		?>
 			<p class="field col">

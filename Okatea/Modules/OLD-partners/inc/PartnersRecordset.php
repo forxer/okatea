@@ -36,9 +36,9 @@ class PartnersRecordset extends Recordset
 	 */
 	public function getImagesInfo()
 	{
-		if (! $this->okt->partners->config->images['enable'])
+		if (!$this->okt->partners->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		return $this->getImagesArray();
@@ -52,14 +52,14 @@ class PartnersRecordset extends Recordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (! $this->okt->partners->config->images['enable'])
+		if (!$this->okt->partners->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		$a = $this->getImagesArray();
 		
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	public function getImagesArray()

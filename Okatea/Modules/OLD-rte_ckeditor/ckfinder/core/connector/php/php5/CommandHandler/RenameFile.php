@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,16 +56,16 @@ class CKFinder_Connector_CommandHandler_RenameFile extends CKFinder_Connector_Co
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
-		if (! isset($_GET["fileName"]))
+		if (!isset($_GET["fileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
-		if (! isset($_GET["newFileName"]))
+		if (!isset($_GET["newFileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -79,22 +79,22 @@ class CKFinder_Connector_CommandHandler_RenameFile extends CKFinder_Connector_Co
 		$oRenamedFileNode->addAttribute("name", CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($fileName));
 		
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
-		if (! $resourceTypeInfo->checkExtension($newFileName))
+		if (!$resourceTypeInfo->checkExtension($newFileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION);
 		}
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($newFileName) || $resourceTypeInfo->checkIsHiddenFile($newFileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($newFileName) || $resourceTypeInfo->checkIsHiddenFile($newFileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
 		
-		if (! $resourceTypeInfo->checkExtension($fileName, false))
+		if (!$resourceTypeInfo->checkExtension($fileName, false))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -109,17 +109,17 @@ class CKFinder_Connector_CommandHandler_RenameFile extends CKFinder_Connector_Co
 		
 		$bMoved = false;
 		
-		if (! file_exists($filePath))
+		if (!file_exists($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
 		
-		if (! is_writable(dirname($newFilePath)))
+		if (!is_writable(dirname($newFilePath)))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
 		
-		if (! is_writable($filePath))
+		if (!is_writable($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
@@ -131,7 +131,7 @@ class CKFinder_Connector_CommandHandler_RenameFile extends CKFinder_Connector_Co
 		
 		$bMoved = @rename($filePath, $newFilePath);
 		
-		if (! $bMoved)
+		if (!$bMoved)
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNKNOWN, "File " . CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding($fileName) . "has not been renamed");
 		}

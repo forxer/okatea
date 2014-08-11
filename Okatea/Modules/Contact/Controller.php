@@ -40,7 +40,7 @@ class Controller extends BaseController
 				default:
 				case 1: # Champ texte
 				case 2: # Zone de texte
-					$this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id] = ! empty($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) ? $_REQUEST[$this->okt->module('Contact')->rsFields->html_id] : $this->okt->module('Contact')->rsFields->value;
+					$this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id] = !empty($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) ? $_REQUEST[$this->okt->module('Contact')->rsFields->html_id] : $this->okt->module('Contact')->rsFields->value;
 					break;
 				
 				case 3: # Menu déroulant
@@ -52,7 +52,7 @@ class Controller extends BaseController
 					break;
 				
 				case 5: # Cases à cocher
-					$this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id] = ! empty($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) && is_array($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) ? $_REQUEST[$this->okt->module('Contact')->rsFields->html_id] : array();
+					$this->okt->module('Contact')->aPostedData[$this->okt->module('Contact')->rsFields->id] = !empty($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) && is_array($_REQUEST[$this->okt->module('Contact')->rsFields->html_id]) ? $_REQUEST[$this->okt->module('Contact')->rsFields->html_id] : [];
 					break;
 			}
 		}
@@ -61,7 +61,7 @@ class Controller extends BaseController
 		$this->okt['triggers']->callTrigger('publicModuleContactControllerAfterInitFieldsValues');
 		
 		# formulaire envoyé
-		if (! empty($_POST['send']))
+		if (!empty($_POST['send']))
 		{
 			# vérification des champs obligatoires
 			while ($this->okt->module('Contact')->rsFields->fetch())
@@ -70,7 +70,7 @@ class Controller extends BaseController
 				{
 					$this->okt->error->set('Vous devez renseigner le champ "' . Escaper::html($this->okt->module('Contact')->rsFields->title) . '".');
 				}
-				elseif ($this->okt->module('Contact')->rsFields->id == 4 && ! Utilities::isEmail($this->okt->module('Contact')->aPostedData[4]))
+				elseif ($this->okt->module('Contact')->rsFields->id == 4 && !Utilities::isEmail($this->okt->module('Contact')->aPostedData[4]))
 				{
 					$this->okt->error->set('Veuillez saisir une adresse email valide.');
 				}
@@ -80,7 +80,7 @@ class Controller extends BaseController
 			$this->okt['triggers']->callTrigger('publicModuleContactControllerFormCheckValues', $this->okt->module('Contact')->config->captcha);
 			
 			# si on as pas d'erreur on se préparent à envoyer le mail
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$oMail = new Mailer($this->okt);
 				
@@ -115,14 +115,14 @@ class Controller extends BaseController
 				
 				# destinataires en copie
 				$aRecipientsCc = $this->okt->module('Contact')->getRecipientsCc();
-				if (! empty($aRecipientsCc))
+				if (!empty($aRecipientsCc))
 				{
 					$oMail->message->setCc($aRecipientsCc);
 				}
 				
 				# destinataires en copie cachée
 				$aRecipientsBc = $this->okt->module('Contact')->getRecipientsBcc();
-				if (! empty($aRecipientsBc))
+				if (!empty($aRecipientsBc))
 				{
 					$oMail->message->setBcc($aRecipientsBc);
 				}
@@ -141,7 +141,7 @@ class Controller extends BaseController
 		}
 		
 		# meta description
-		if (! empty($this->okt->module('Contact')->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Contact')->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -151,7 +151,7 @@ class Controller extends BaseController
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->module('Contact')->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Contact')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -165,7 +165,7 @@ class Controller extends BaseController
 			->getTitle());
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->module('Contact')
 				->getName(), $this->generateUrl('contactPage'));
@@ -189,7 +189,7 @@ class Controller extends BaseController
 	public function contactMapPage()
 	{
 		# si la page n'est pas active -> 404
-		if (! $this->okt->module('Contact')->config->google_map['enable'])
+		if (!$this->okt->module('Contact')->config->google_map['enable'])
 		{
 			return $this->serve404();
 		}
@@ -199,7 +199,7 @@ class Controller extends BaseController
 		$this->page->action = 'map';
 		
 		# meta description
-		if (! empty($this->okt->module('Contact')->config->meta_description_map[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Contact')->config->meta_description_map[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->module('Contact')->config->meta_description_map[$this->okt['visitor']->language];
 		}
@@ -209,7 +209,7 @@ class Controller extends BaseController
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->module('Contact')->config->meta_keywords_map[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Contact')->config->meta_keywords_map[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->module('Contact')->config->meta_keywords_map[$this->okt['visitor']->language];
 		}
@@ -255,7 +255,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo($sNameSeo);
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($sName, $this->generateUrl('contactMapPage'));
 		}

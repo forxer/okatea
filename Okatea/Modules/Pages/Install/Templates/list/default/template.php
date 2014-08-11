@@ -39,7 +39,7 @@ $okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 
 <?php
 # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if (! $okt->module('Pages')->filters->params->show_filters)
+if (!$okt->module('Pages')->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#pages-filter-control").html("<a href=\"#\">' . $view->escapeJS(__('m_pages_display_filters')) . '</a>");
@@ -88,7 +88,7 @@ if ($okt->module('Pages')->config->enable_filters)
 
 	<?php
 	# début Okatea : lien d'affichage des filtres
-	if (! $okt->module('Pages')->filters->params->show_filters)
+	if (!$okt->module('Pages')->filters->params->show_filters)
 	:
 		?>
 <p id="pages-filter-control" class="filters-control"></p>
@@ -120,7 +120,7 @@ if ($okt->module('Pages')->config->enable_filters)
 
 <?php
 # début Okatea : affichage d'une éventuelle description de rubrique
-if (! empty($rsCategory->content))
+if (!empty($rsCategory->content))
 :
 	?>
 <div class="rubrique-description">
@@ -145,7 +145,7 @@ if ($rsPagesList->isEmpty())
 
 <?php
 # début Okatea : si il y a des page à afficher
-if (! $rsPagesList->isEmpty())
+if (!$rsPagesList->isEmpty())
 :
 	?>
 <div id="pages_list">
@@ -180,7 +180,7 @@ if (! $rsPagesList->isEmpty())
 
 		<?php
 		# début Okatea : si on as PAS accès en lecture à la page
-		if (! $rsPagesList->isReadable())
+		if (!$rsPagesList->isReadable())
 		:
 			?>
 
@@ -214,7 +214,7 @@ if (! $rsPagesList->isEmpty())
 
 			<?php
 			# début Okatea : affichage texte pas tronqué
-			if (! $okt->module('Pages')->config->public_truncat_char)
+			if (!$okt->module('Pages')->config->public_truncat_char)
 			:
 				?>
 

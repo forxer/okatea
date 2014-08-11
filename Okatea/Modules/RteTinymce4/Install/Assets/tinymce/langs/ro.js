@@ -55,7 +55,7 @@ tinymce.addI18n('ro',{
 "Lower Roman": "Minuscule Romane",
 "Name": "Nume",
 "Anchor": "Ancor\u0103",
-"You have unsaved changes are you sure you want to navigate away?": "Ave\u021bi modific\u0103ri nesalvate! Sunte\u0163i sigur c\u0103 dori\u0163i s\u0103 ie\u015fiti?",
+"You have unsaved changes are you sure you want to navigate away?": "Ave\u021bi modific\u0103ri nesalvate!Sunte\u0163i sigur c\u0103 dori\u0163i s\u0103 ie\u015fiti?",
 "Restore last draft": "Restaurare la ultima salvare",
 "Special character": "Caractere speciale",
 "Source code": "Codul surs\u0103",

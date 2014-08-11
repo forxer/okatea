@@ -9,7 +9,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -35,7 +35,7 @@ $aEventData = array(
 );
 
 # update event ?
-if (! empty($_REQUEST['event_id']))
+if (!empty($_REQUEST['event_id']))
 {
 	$iEventId = intval($_REQUEST['event_id']);
 	
@@ -85,45 +85,45 @@ if (! empty($_REQUEST['event_id']))
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']) && ! empty($iEventId))
+if (!empty($_GET['switch_status']) && !empty($iEventId))
 {
 	$okt->diary->switchEventStatus($iEventId);
 	http::redirect('module.php?m=diary&action=edit&event_id=' . $iEventId . '&switched=1');
 }
 
 # suppression d'une image
-if (! empty($_GET['delete_image']) && ! empty($iEventId))
+if (!empty($_GET['delete_image']) && !empty($iEventId))
 {
 	$okt->diary->deleteImage($iEventId, $_GET['delete_image']);
 	http::redirect('module.php?m=diary&action=edit&event_id=' . $iEventId . '&edited=1');
 }
 
 # suppression d'un fichier
-if (! empty($_GET['delete_file']) && ! empty($iEventId))
+if (!empty($_GET['delete_file']) && !empty($iEventId))
 {
 	$okt->diary->deleteFile($iEventId, $_GET['delete_file']);
 	http::redirect('module.php?m=diary&action=edit&event_id=' . $iEventId . '&edited=1');
 }
 
 #  ajout / modifications d'un élément
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
 	$aEventData = array(
 		'id' => $iEventId,
-		'visibility' => (! empty($_POST['p_visibility']) ? 1 : 0),
-		'title' => (! empty($_POST['p_title']) ? $_POST['p_title'] : ''),
-		'date' => (! empty($_POST['p_date']) ? $_POST['p_date'] : ''),
-		'date_end' => (! empty($_POST['p_date_end']) ? $_POST['p_date_end'] : ''),
-		'slug' => (! empty($_POST['p_slug']) ? $_POST['p_slug'] : ''),
-		'description' => (! empty($_POST['p_description']) ? $_POST['p_description'] : ''),
-		'disponibility' => (! empty($_POST['p_disponibility']) ? $_POST['p_disponibility'] : ''),
-		'color' => (! empty($_POST['p_color']) ? $_POST['p_color'] : ''),
+		'visibility' => (!empty($_POST['p_visibility']) ? 1 : 0),
+		'title' => (!empty($_POST['p_title']) ? $_POST['p_title'] : ''),
+		'date' => (!empty($_POST['p_date']) ? $_POST['p_date'] : ''),
+		'date_end' => (!empty($_POST['p_date_end']) ? $_POST['p_date_end'] : ''),
+		'slug' => (!empty($_POST['p_slug']) ? $_POST['p_slug'] : ''),
+		'description' => (!empty($_POST['p_description']) ? $_POST['p_description'] : ''),
+		'disponibility' => (!empty($_POST['p_disponibility']) ? $_POST['p_disponibility'] : ''),
+		'color' => (!empty($_POST['p_color']) ? $_POST['p_color'] : ''),
 		'created_at' => $aEventData['created_at'],
 		'updated_at' => $aEventData['updated_at'],
-		'title_seo' => (! empty($_POST['p_title_seo']) ? $_POST['p_title_seo'] : ''),
-		'title_tag' => (! empty($_POST['p_title_tag']) ? $_POST['p_title_tag'] : ''),
-		'meta_description' => (! empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : ''),
-		'meta_keywords' => (! empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '')
+		'title_seo' => (!empty($_POST['p_title_seo']) ? $_POST['p_title_seo'] : ''),
+		'title_tag' => (!empty($_POST['p_title_tag']) ? $_POST['p_title_tag'] : ''),
+		'meta_description' => (!empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : ''),
+		'meta_keywords' => (!empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '')
 	);
 	
 	# vérification des données avant modification dans la BDD
@@ -132,7 +132,7 @@ if (! empty($_POST['sended']))
 		$cursor = $okt->diary->openCursor($aEventData);
 		
 		# update event
-		if (! empty($iEventId))
+		if (!empty($iEventId))
 		{
 			# -- CORE TRIGGER : moduleDiaryBeforeEventUpdate
 			$okt['triggers']->callTrigger('moduleDiaryBeforeEventUpdate', $cursor, $aEventData, $iEventId);
@@ -179,7 +179,7 @@ $okt->page->addButton('diaryBtSt', array(
 ), 'before');
 
 # boutons modification élément
-if (! empty($iEventId))
+if (!empty($iEventId))
 {
 	$okt->page->addGlobalTitle(__('m_diary_edit_event'));
 	
@@ -229,7 +229,7 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 $okt->page->applyRte($okt->diary->config->enable_rte, '#p_description');
 
 # Réglages de la validation javascript
-$aValidateFieldsJs = array();
+$aValidateFieldsJs = [];
 
 $aValidateFieldsJs[] = array(
 	'id' => 'p_title',
@@ -342,7 +342,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 					<?php 
 # il y a une image ?
-				if (! empty($aEventImages[$i]))
+				if (!empty($aEventImages[$i]))
 				:
 					
 					# affichage square ou icon ?
@@ -409,7 +409,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 				<?php 
 # il y a un fichier ?
-				if (! empty($aEventFiles[$i]))
+				if (!empty($aEventFiles[$i]))
 				:
 					?>
 					<p>

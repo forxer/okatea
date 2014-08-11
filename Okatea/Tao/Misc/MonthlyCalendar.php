@@ -95,7 +95,7 @@ class MonthlyCalendar
 	 * @param integer $month        	
 	 * @return void
 	 */
-	public function __construct($aConfig = array(), $year = null, $month = null)
+	public function __construct($aConfig = [], $year = null, $month = null)
 	{
 		$this->setConfig($aConfig);
 		
@@ -126,8 +126,8 @@ class MonthlyCalendar
 	 */
 	public function setDate($year = null, $month = null)
 	{
-		$this->iYear = ! is_null($year) ? intval($year) : $this->iCurrentYear;
-		$this->iMonth = ! is_null($month) ? intval($month) : $this->iCurrentMonth;
+		$this->iYear = !is_null($year) ? intval($year) : $this->iCurrentYear;
+		$this->iMonth = !is_null($month) ? intval($month) : $this->iCurrentMonth;
 		
 		$this->iTimestamp = strtotime($this->iYear . '-' . $this->iMonth . '-01');
 		
@@ -315,7 +315,7 @@ class MonthlyCalendar
 				$this->bRealDay = true;
 			}
 			
-			if ($this->bRealDay && ! checkdate($this->iMonth, $this->iDay, $this->iYear))
+			if ($this->bRealDay && !checkdate($this->iMonth, $this->iDay, $this->iYear))
 			{
 				$this->bRealDay = false;
 			}
@@ -367,7 +367,7 @@ class MonthlyCalendar
 	 */
 	protected function getBodyCel()
 	{
-		$aClasses = array();
+		$aClasses = [];
 		
 		# date du jour ?
 		if ($this->isToday())
@@ -376,7 +376,7 @@ class MonthlyCalendar
 		}
 		
 		# jour inexistant ?
-		if (! $this->bRealDay)
+		if (!$this->bRealDay)
 		{
 			$aClasses[] = $this->aConfig['htmlClassDisabled'];
 		}

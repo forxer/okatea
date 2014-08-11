@@ -64,7 +64,7 @@ $aDefaultParams = array(
 );
 
 # prise en compte des éventuels paramètres personnalisés
-$aParams = ! empty($aParams) ? array_merge($aDefaultParams, $aParams) : $aDefaultParams;
+$aParams = !empty($aParams) ? array_merge($aDefaultParams, $aParams) : $aDefaultParams;
 
 # récupération des pages pour l'encart
 $rsInsertPages = $okt->module('Pages')->pages->getPages($aParams, $okt->module('Pages')->config->insert_truncat_char);
@@ -105,7 +105,7 @@ if ($rsInsertPages->isEmpty())
 
 <?php
 # début Okatea : si il y a des page à afficher
-if (! $rsInsertPages->isEmpty())
+if (!$rsInsertPages->isEmpty())
 :
 	?>
 <div id="pages_list_insert">
@@ -140,7 +140,7 @@ if (! $rsInsertPages->isEmpty())
 
 		<?php
 		# début Okatea : si on as PAS accès en lecture à la page
-		if (! $rsInsertPages->isReadable())
+		if (!$rsInsertPages->isReadable())
 		:
 			?>
 
@@ -157,7 +157,7 @@ if (! $rsInsertPages->isEmpty())
 
 			<?php
 			# début Okatea : si les images sont activées
-			if ($okt->module('Pages')->config->images['enable'] && ! empty($rsInsertPages->images))
+			if ($okt->module('Pages')->config->images['enable'] && !empty($rsInsertPages->images))
 			:
 				?>
 			<p class="page-images modal-box">
@@ -209,7 +209,7 @@ if (! $rsInsertPages->isEmpty())
 
 			<?php
 			# début Okatea : affichage texte pas tronqué
-			if (! $okt->module('Pages')->config->insert_truncat_char)
+			if (!$okt->module('Pages')->config->insert_truncat_char)
 			:
 				?>
 

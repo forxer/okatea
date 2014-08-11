@@ -23,7 +23,7 @@ use Okatea\Tao\Misc\Utilities;
 
 			<?php
 	# il y a une image ?
-	if (! empty($aPageData['images'][$i]))
+	if (!empty($aPageData['images'][$i]))
 	:
 		
 		# affichage square ou icon ?
@@ -43,8 +43,8 @@ use Okatea\Tao\Misc\Utilities;
 			$sCurImageAttr = ' width="48" height="48" ';
 		}
 		
-		$aCurImageAlt = isset($aPageData['images'][$i]['alt']) ? $aPageData['images'][$i]['alt'] : array();
-		$aCurImageTitle = isset($aPageData['images'][$i]['title']) ? $aPageData['images'][$i]['title'] : array();
+		$aCurImageAlt = isset($aPageData['images'][$i]['alt']) ? $aPageData['images'][$i]['alt'] : [];
+		$aCurImageTitle = isset($aPageData['images'][$i]['title']) ? $aPageData['images'][$i]['title'] : [];
 		
 		?>
 

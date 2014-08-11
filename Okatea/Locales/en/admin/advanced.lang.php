@@ -50,6 +50,6 @@ $GLOBALS['okt_l10n']['c_a_config_advanced_news_feed_url_in_%s'] = 'URL of news f
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_generation'] = 'Slugs generation';
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii'] = 'ASCII';
-$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii_example'] = 'example : "Hey! Hi okay?" => "hey-hi-okay"';
+$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii_example'] = 'example : "Hey!Hi okay?" => "hey-hi-okay"';
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8'] = 'UTF-8';
-$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8_example'] = 'example : "Hey! Hi okay?" => "Hey-!-Hi-okay"';
+$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8_example'] = 'example : "Hey!Hi okay?" => "Hey-!-Hi-okay"';

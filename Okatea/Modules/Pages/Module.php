@@ -31,7 +31,7 @@ class Module extends BaseModule
 
 	protected $t_permissions;
 
-	protected $aParams = array();
+	protected $aParams = [];
 
 	protected function prepend()
 	{
@@ -132,7 +132,7 @@ class Module extends BaseModule
 		$aPageData['home_page_items'][__('m_pages_config_homepage_item')] = 'pagesItem';
 
 		$rsPages = $this->pages->getPagesRecordset();
-		$aPages = array();
+		$aPages = [];
 		while ($rsPages->fetch())
 		{
 			$aPages[$rsPages->language][] = array(
@@ -143,7 +143,7 @@ class Module extends BaseModule
 
 		foreach ($this->okt['config']->home_page['item'] as $language => $item)
 		{
-			if ($item == 'pagesItem' && ! empty($aPages[$language]))
+			if ($item == 'pagesItem' && !empty($aPages[$language]))
 			{
 				foreach ($aPages[$language] as $page)
 				{
@@ -243,7 +243,7 @@ class Module extends BaseModule
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof Filters))
+		if ($this->filters === null || !($this->filters instanceof Filters))
 		{
 			$this->filters = new Filters($this->okt, $part);
 		}
@@ -288,7 +288,7 @@ class Module extends BaseModule
 	{
 		$sTemplate = $this->config->templates['list']['default'];
 
-		if (! empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
+		if (!empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
 		{
 			$sTemplate = $sCategoryTemplate;
 		}
@@ -305,11 +305,11 @@ class Module extends BaseModule
 	{
 		$sTemplate = $this->config->templates['item']['default'];
 
-		if (! empty($sPageTemplate) && in_array($sPageTemplate, $this->config->templates['item']['usables']))
+		if (!empty($sPageTemplate) && in_array($sPageTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sPageTemplate;
 		}
-		elseif (! empty($sCatPageTemplate) && in_array($sCatPageTemplate, $this->config->templates['item']['usables']))
+		elseif (!empty($sCatPageTemplate) && in_array($sCatPageTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sCatPageTemplate;
 		}

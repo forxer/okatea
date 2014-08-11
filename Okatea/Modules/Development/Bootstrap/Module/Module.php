@@ -86,7 +86,7 @@ class Module
 
 	protected $dir;
 
-	protected $common_replacements = array();
+	protected $common_replacements = [];
 
 	protected $header;
 
@@ -285,15 +285,15 @@ class Module
 		}
 
 		$block_replacements = array(
-			//		'asf20' 	=> array(),
-			//		'art' 		=> array(),
-			//	 	'epl' 		=> array(),
-			'gpl2' => array(),
-			'gpl3' => array(),
-			'lgpl' => array(),
-			'mit' => array()
-		//	 	'mpl11' 	=> array(),
-		//	 	'bsd' 		=> array(),
+			//		'asf20' 	=> [],
+			//		'art' 		=> [],
+			//	 	'epl' 		=> [],
+			'gpl2' => [],
+			'gpl3' => [],
+			'lgpl' => [],
+			'mit' => []
+		//	 	'mpl11' 	=> [],
+		//	 	'bsd' 		=> [],
 
 		);
 
@@ -309,18 +309,18 @@ class Module
 		}
 
 		$licence_replacements = array(
-			//		'asf20' 	=> array(),
-			//		'art' 		=> array(),
-			//	 	'epl' 		=> array(),
-			'gpl2' => array(),
-			'gpl3' => array(),
-			'lgpl' => array(),
+			//		'asf20' 	=> [],
+			//		'art' 		=> [],
+			//	 	'epl' 		=> [],
+			'gpl2' => [],
+			'gpl3' => [],
+			'lgpl' => [],
 			'mit' => array(
 				'#year#' => date('Y'),
 				'#author#' => $this->author
 			)
-		//	 	'mpl11' 	=> array(),
-		//	 	'bsd' 		=> array(),
+		//	 	'mpl11' 	=> [],
+		//	 	'bsd' 		=> [],
 
 		);
 
@@ -460,7 +460,7 @@ class Module
 	 */
 	protected function getTpl($tpl)
 	{
-		if (! $this['tpl']Exists($tpl))
+		if (!$this['tpl']Exists($tpl))
 		{
 			throw new \Exception(sprintf(__('m_development_bootstrap_tpl_not_exists'), $this->templates[$tpl], $this->templates_dir));
 		}
@@ -498,7 +498,7 @@ class Module
 	 * @param array $replacements
 	 * @return string
 	 */
-	protected function tplReplace($template_name, $replacements = array())
+	protected function tplReplace($template_name, $replacements = [])
 	{
 		return $this->replace($this->getTpl($template_name), $replacements);
 	}
@@ -511,7 +511,7 @@ class Module
 	 * @param array $replacements
 	 * @return integer
 	 */
-	protected function makeFile($template_name, $destination, $replacements = array())
+	protected function makeFile($template_name, $destination, $replacements = [])
 	{
 		return file_put_contents($destination, $this['tpl']Replace($template_name, $replacements));
 	}
@@ -522,7 +522,7 @@ class Module
 	 * @param array $other_replacements
 	 * @return array
 	 */
-	protected function getReplacements($other_replacements = array())
+	protected function getReplacements($other_replacements = [])
 	{
 		return array_merge($this->common_replacements, $other_replacements);
 	}

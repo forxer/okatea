@@ -29,7 +29,7 @@ if (!empty($_GET['switch_status']))
 }
 
 # changement de l'ordre des partenaires
-$order = array();
+$order = [];
 if (empty($_POST['partners_order']) && !empty($_POST['order']))
 {
 	$order = $_POST['order'];

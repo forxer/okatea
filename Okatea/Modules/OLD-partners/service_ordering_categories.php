@@ -8,12 +8,12 @@
 # inclusion du preprend public général
 require_once __DIR__ . '/../../oktInc/admin/prepend.php';
 
-if (! $okt['visitor']->checkPerm('partners'))
+if (!$okt['visitor']->checkPerm('partners'))
 {
 	exit();
 }
 
-$order = ! empty($_GET['ord']) ? $_GET['ord'] : array();
+$order = !empty($_GET['ord']) ? $_GET['ord'] : [];
 
 foreach ($order as $ord => $id)
 {

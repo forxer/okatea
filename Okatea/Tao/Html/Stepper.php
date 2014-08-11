@@ -9,7 +9,7 @@ namespace Okatea\Tao\Html;
 
 class Stepper
 {
-	protected $aSteps = array();
+	protected $aSteps = [];
 
 	protected $iNumSteps = null;
 
@@ -100,7 +100,7 @@ class Stepper
 				$str .= ' id="lastStep"';
 			}
 
-			$url = ! empty($step['url']) ? $step['url'] : '#';
+			$url = !empty($step['url']) ? $step['url'] : '#';
 
 			$str .= '><span><a href="' . $url . '">' . ($i + 1) . '</a></span><a href="' . $url . '">' . $step['title'] . '</a></li>';
 		}

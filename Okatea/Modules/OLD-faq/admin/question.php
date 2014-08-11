@@ -9,7 +9,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -17,17 +17,17 @@ if (! defined('ON_MODULE'))
 
 $questions_id = null;
 
-$p_title = array();
-$p_content = array();
-$p_files = array();
+$p_title = [];
+$p_content = [];
+$p_files = [];
 
 if ($okt->faq->config->enable_metas)
 {
-	$p_title_seo = array();
-	$p_title_tag = array();
-	$p_meta_description = array();
-	$p_meta_keywords = array();
-	$p_slug = array();
+	$p_title_seo = [];
+	$p_title_tag = [];
+	$p_meta_description = [];
+	$p_meta_keywords = [];
+	$p_slug = [];
 }
 
 foreach ($okt['languages']->getList() as $aLanguage)
@@ -44,7 +44,7 @@ foreach ($okt['languages']->getList() as $aLanguage)
 		$p_slug[$aLanguage['code']] = '';
 	}
 	
-	$p_files[$aLanguage['code']] = array();
+	$p_files[$aLanguage['code']] = [];
 	for ($i = 0; $i < $okt->faq->config->files['number']; $i ++)
 	{
 		$p_files[$aLanguage['code']][$i] = '';
@@ -55,7 +55,7 @@ $p_cat_id = null;
 $p_active = 1;
 
 # update questions ?
-if (! empty($_REQUEST['questions_id']))
+if (!empty($_REQUEST['questions_id']))
 {
 	$questions_id = intval($_REQUEST['questions_id']);
 	
@@ -113,41 +113,41 @@ if (! empty($_REQUEST['questions_id']))
 ----------------------------------------------------------*/
 
 # Switch question statut
-if (! empty($_GET['switch_status']) && ! empty($questions_id))
+if (!empty($_GET['switch_status']) && !empty($questions_id))
 {
 	$okt->faq->setQuestionStatus($questions_id);
 	http::redirect('module.php?m=faq&action=edit&questions_id=' . $questions_id . '&switched=1');
 }
 
 # Suppression d'une image
-if (! empty($_GET['delete_image']) && ! empty($questions_id))
+if (!empty($_GET['delete_image']) && !empty($questions_id))
 {
 	$okt->faq->deleteImage($questions_id, $_GET['delete_image']);
 	http::redirect('module.php?m=faq&action=edit&questions_id=' . $questions_id . '&edited=1');
 }
 
 # Suppression d'un fichier
-if (! empty($_GET['delfile']) && ! empty($questions_id))
+if (!empty($_GET['delfile']) && !empty($questions_id))
 {
 	$okt->faq->delFile($questions_id, $_GET['delfile']);
 	http::redirect('module.php?m=faq&action=edit&questions_id=' . $questions_id . '&edited=1');
 }
 
 # Formulaire envoyé
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
-	$p_active = ! empty($_POST['p_active']) ? 1 : 0;
-	$p_cat_id = ! empty($_POST['p_cat_id']) ? $_POST['p_cat_id'] : null;
-	$p_title = ! empty($_POST['p_title']) ? array_map('trim', $_POST['p_title']) : array();
-	$p_content = ! empty($_POST['p_content']) ? array_map('trim', $_POST['p_content']) : array();
+	$p_active = !empty($_POST['p_active']) ? 1 : 0;
+	$p_cat_id = !empty($_POST['p_cat_id']) ? $_POST['p_cat_id'] : null;
+	$p_title = !empty($_POST['p_title']) ? array_map('trim', $_POST['p_title']) : [];
+	$p_content = !empty($_POST['p_content']) ? array_map('trim', $_POST['p_content']) : [];
 	
 	if ($okt->faq->config->enable_metas)
 	{
-		$p_title_seo = ! empty($_POST['p_title_seo']) ? array_map('trim', $_POST['p_title_seo']) : array();
-		$p_title_tag = ! empty($_POST['p_title_tag']) ? array_map('trim', $_POST['p_title_tag']) : array();
-		$p_meta_description = ! empty($_POST['p_meta_description']) ? array_map('trim', $_POST['p_meta_description']) : array();
-		$p_meta_keywords = ! empty($_POST['p_meta_keywords']) ? array_map('trim', $_POST['p_meta_keywords']) : array();
-		$p_slug = ! empty($_POST['p_slug']) ? array_map('trim', $_POST['p_slug']) : array();
+		$p_title_seo = !empty($_POST['p_title_seo']) ? array_map('trim', $_POST['p_title_seo']) : [];
+		$p_title_tag = !empty($_POST['p_title_tag']) ? array_map('trim', $_POST['p_title_tag']) : [];
+		$p_meta_description = !empty($_POST['p_meta_description']) ? array_map('trim', $_POST['p_meta_description']) : [];
+		$p_meta_keywords = !empty($_POST['p_meta_keywords']) ? array_map('trim', $_POST['p_meta_keywords']) : [];
+		$p_slug = !empty($_POST['p_slug']) ? array_map('trim', $_POST['p_slug']) : [];
 	}
 	
 	$params = array(
@@ -167,7 +167,7 @@ if (! empty($_POST['sended']))
 	}
 	
 	# update questions
-	if (! empty($questions_id))
+	if (!empty($questions_id))
 	{
 		$params['id'] = $questions_id;
 		
@@ -232,7 +232,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 $okt->page->applyRte($okt->faq->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -329,7 +329,7 @@ require OKT_ADMIN_HEADER_FILE;
 
 					<?php 
 # il y a une image ?
-				if (! empty($post_images[$i]))
+				if (!empty($post_images[$i]))
 				:
 					
 					# affichage square ou icon ?

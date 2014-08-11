@@ -21,10 +21,10 @@ use Okatea\Tao\Misc\Utilities;
 
 		<?php
 	# il y a un fichier ?
-	if (! empty($aPostData['files'][$i]))
+	if (!empty($aPostData['files'][$i]))
 	:
 		
-		$aCurFileTitle = isset($aPageData['files'][$i]['title']) ? $aPageData['files'][$i]['title'] : array();
+		$aCurFileTitle = isset($aPageData['files'][$i]['title']) ? $aPageData['files'][$i]['title'] : [];
 		?>
 
 			<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>

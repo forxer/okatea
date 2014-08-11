@@ -103,7 +103,7 @@ class Collection
 	{
 		static $aThemes = null;
 
-		if (is_array($aThemes) && ! $bForce)
+		if (is_array($aThemes) && !$bForce)
 		{
 			return $aThemes;
 		}
@@ -115,7 +115,7 @@ class Collection
 
 			$aList = $oThemes->getThemesList();
 
-			$aThemes = array();
+			$aThemes = [];
 			foreach ($aList as $id => $infos)
 			{
 				$aThemes[$id] = $infos['name'];
@@ -143,7 +143,7 @@ class Collection
 	 */
 	public function getThemesList($bForce = false)
 	{
-		if (is_array($this->aThemes) && ! $bForce)
+		if (is_array($this->aThemes) && !$bForce)
 		{
 			return $this->aThemes;
 		}
@@ -151,7 +151,7 @@ class Collection
 		{
 			foreach (new DirectoryIterator($this->sPath) as $oFileInfo)
 			{
-				if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($oFileInfo->getPathname() . '/_define.php'))
+				if ($oFileInfo->isDot() || !$oFileInfo->isDir() || !file_exists($oFileInfo->getPathname() . '/_define.php'))
 				{
 					continue;
 				}
@@ -254,17 +254,17 @@ class Collection
 	 * @param array $aParams
 	 * @return void
 	 */
-	public function register($aParams = array())
+	public function register($aParams = [])
 	{
 		if ($this->_id)
 		{
 			$this->aThemes[$this->_id] = array(
 				'id' => $this->_id,
-				'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->_id),
-				'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
-				'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
-				'author' => (! empty($aParams['author']) ? $aParams['author'] : null),
-				'tags' => (! empty($aParams['tags']) ? $aParams['tags'] : null)
+				'name' => (!empty($aParams['name']) ? $aParams['name'] : $this->_id),
+				'desc' => (!empty($aParams['desc']) ? $aParams['desc'] : null),
+				'version' => (!empty($aParams['version']) ? $aParams['version'] : null),
+				'author' => (!empty($aParams['author']) ? $aParams['author'] : null),
+				'tags' => (!empty($aParams['tags']) ? $aParams['tags'] : null)
 			);
 		}
 	}
@@ -389,7 +389,7 @@ class Collection
 			throw new \Exception(__('Empty theme zip file.'));
 		}
 
-		if (! $has_define)
+		if (!$has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
@@ -510,11 +510,11 @@ class Collection
 	{
 		global $okt;
 
-		$aLockedFiles = array();
+		$aLockedFiles = [];
 
 		$sThemePath = $okt['themes_path'] . '/' . $sThemeId . '/';
 
-		if (! file_exists($sThemePath . 'locked_files.txt'))
+		if (!file_exists($sThemePath . 'locked_files.txt'))
 		{
 			return $aLockedFiles;
 		}
@@ -523,7 +523,7 @@ class Collection
 
 		foreach ($aFiles as $sFile)
 		{
-			if (! file_exists($sThemePath . $sFile))
+			if (!file_exists($sThemePath . $sFile))
 			{
 				continue;
 			}
@@ -549,9 +549,9 @@ class Collection
 	 * @param array $aRepositories
 	 * @return array
 	 */
-	public function getRepositoriesInfos($aRepositories = array())
+	public function getRepositoriesInfos($aRepositories = [])
 	{
-		if (! $this->okt['cacheConfig']->contains($this->sCacheRepoId))
+		if (!$this->okt['cacheConfig']->contains($this->sCacheRepoId))
 		{
 			$this->saveRepositoriesInfosCache($aRepositories);
 		}
@@ -578,7 +578,7 @@ class Collection
 	 */
 	protected function readRepositoriesInfos($aRepositories)
 	{
-		$aThemesRepositories = array();
+		$aThemesRepositories = [];
 		foreach ($aRepositories as $repository_id => $repository_url)
 		{
 			if (($infos = $this->getRepositoryInfos($repository_url)) !== false)
@@ -637,7 +637,7 @@ class Collection
 		{
 			$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
 
-			$return = array();
+			$return = [];
 			foreach ($xml->theme as $theme)
 			{
 				if (isset($theme['id']))

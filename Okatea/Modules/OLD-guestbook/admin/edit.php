@@ -8,10 +8,10 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
-if (! empty($_REQUEST['id']))
+if (!empty($_REQUEST['id']))
 {
 	$sig_id = intval($_REQUEST['id']);
 }
@@ -38,7 +38,7 @@ $aSigData = array(
 );
 
 # formulaire envoyé
-if (! empty($_POST['edit_form_sent']))
+if (!empty($_POST['edit_form_sent']))
 {
 	$aSigData = array(
 		'id' => $sig_id,
@@ -54,7 +54,7 @@ if (! empty($_POST['edit_form_sent']))
 	
 	$aSigData = $okt->guestbook->handleUserData($aSigData);
 	
-	if (! $okt->error->hasError())
+	if (!$okt->error->hasError())
 	{
 		if ($okt->guestbook->updSig($aSigData))
 		{

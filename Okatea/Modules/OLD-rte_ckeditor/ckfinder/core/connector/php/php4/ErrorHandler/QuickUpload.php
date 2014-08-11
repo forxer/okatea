@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -62,11 +62,11 @@ class CKFinder_Connector_ErrorHandler_QuickUpload extends CKFinder_Connector_Err
 		 * Having BOM character after <script> tag causes a javascript error.
 		 */
 		echo "<script type=\"text/javascript\">";
-		if (! empty($_GET['CKEditor']))
+		if (!empty($_GET['CKEditor']))
 		{
 			$errorMessage = CKFinder_Connector_Utils_Misc::getErrorMessage($number, $sEncodedFileName);
 			
-			if (! $uploaded)
+			if (!$uploaded)
 			{
 				$sFileUrl = "";
 				$sFileName = "";
@@ -78,7 +78,7 @@ class CKFinder_Connector_ErrorHandler_QuickUpload extends CKFinder_Connector_Err
 		}
 		else
 		{
-			if (! $uploaded)
+			if (!$uploaded)
 			{
 				echo "window.parent.OnUploadCompleted(" . $number . ", '', '', '') ;";
 			}

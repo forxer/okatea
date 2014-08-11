@@ -48,7 +48,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 		<?php $okt['languages']->hasUniqueLanguage() ? _e('c_a_config_website_home_page_details') : printf(__('c_a_config_website_home_page_details_in_%s'), $view->escape($aLanguage['title'])); ?><span
 				class="lang-switcher-buttons"></span>
 			</label>
-		<?php echo form::select(array('p_home_page_details['.$aLanguage['code'].']','p_home_page_details_'.$aLanguage['code']), (isset($aPageData['home_page_details'][$aLanguage['code']]) ? $aPageData['home_page_details'][$aLanguage['code']] : array()), (isset($aPageData['values']['home_page']['details'][$aLanguage['code']]) ? $aPageData['values']['home_page']['details'][$aLanguage['code']] : '')) ?></p>
+		<?php echo form::select(array('p_home_page_details['.$aLanguage['code'].']','p_home_page_details_'.$aLanguage['code']), (isset($aPageData['home_page_details'][$aLanguage['code']]) ? $aPageData['home_page_details'][$aLanguage['code']] : []), (isset($aPageData['values']['home_page']['details'][$aLanguage['code']]) ? $aPageData['values']['home_page']['details'][$aLanguage['code']] : '')) ?></p>
 	</div>
 	<?php endforeach; ?>
 

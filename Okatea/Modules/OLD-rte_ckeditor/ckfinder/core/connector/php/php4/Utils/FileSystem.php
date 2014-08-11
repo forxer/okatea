@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -51,7 +51,7 @@ class CKFinder_Connector_Utils_FileSystem
 		{
 			$path2 = "";
 		}
-		if (! strlen($path2))
+		if (!strlen($path2))
 		{
 			if (strlen($path1))
 			{
@@ -98,7 +98,7 @@ class CKFinder_Connector_Utils_FileSystem
 	{
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		
-		if (is_null($fileName) || ! strlen($fileName) || substr($fileName, - 1, 1) == "." || false !== strpos($fileName, ".."))
+		if (is_null($fileName) || !strlen($fileName) || substr($fileName, - 1, 1) == "." || false !== strpos($fileName, ".."))
 		{
 			return false;
 		}
@@ -155,7 +155,7 @@ class CKFinder_Connector_Utils_FileSystem
 	function unlink($path)
 	{
 		/*    make sure the path exists    */
-		if (! file_exists($path))
+		if (!file_exists($path))
 		{
 			return false;
 		}
@@ -182,7 +182,7 @@ class CKFinder_Connector_Utils_FileSystem
 		}
 		
 		/*    Remove the parent dir    */
-		if (! @rmdir($path))
+		if (!@rmdir($path))
 		{
 			return false;
 		}
@@ -201,12 +201,12 @@ class CKFinder_Connector_Utils_FileSystem
 	 */
 	function php4_scandir($directory)
 	{
-		if (! is_dir($directory) || (false === $fh = @opendir($directory)))
+		if (!is_dir($directory) || (false === $fh = @opendir($directory)))
 		{
 			return false;
 		}
 		
-		$files = array();
+		$files = [];
 		while (false !== ($filename = readdir($fh)))
 		{
 			$files[] = $filename;
@@ -277,7 +277,7 @@ class CKFinder_Connector_Utils_FileSystem
 		{
 			return false;
 		}
-		while (! feof($handle))
+		while (!feof($handle))
 		{
 			echo fread($handle, $chunksize);
 			@ob_flush();
@@ -554,7 +554,7 @@ class CKFinder_Connector_Utils_FileSystem
 			return $fileName;
 		}
 		
-		if (! function_exists("iconv"))
+		if (!function_exists("iconv"))
 		{
 			if (strcasecmp($encoding, "ISO-8859-1") == 0 || strcasecmp($encoding, "ISO8859-1") == 0 || strcasecmp($encoding, "Latin1") == 0)
 			{
@@ -610,7 +610,7 @@ class CKFinder_Connector_Utils_FileSystem
 			return $fileName;
 		}
 		
-		if (! function_exists("iconv"))
+		if (!function_exists("iconv"))
 		{
 			if (strcasecmp($encoding, "ISO-8859-1") == 0 || strcasecmp($encoding, "ISO8859-1") == 0 || strcasecmp($encoding, "Latin1") == 0)
 			{
@@ -703,7 +703,7 @@ class CKFinder_Connector_Utils_FileSystem
 		}
 		
 		//failed to create directory, perhaps we need to create parent directories first
-		if (! CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively(dirname($dir)))
+		if (!CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively(dirname($dir)))
 		{
 			return false;
 		}
@@ -738,7 +738,7 @@ class CKFinder_Connector_Utils_FileSystem
 	function detectHtml($filePath)
 	{
 		$fp = @fopen($filePath, 'rb');
-		if ($fp === false || ! flock($fp, LOCK_SH))
+		if ($fp === false || !flock($fp, LOCK_SH))
 		{
 			return - 1;
 		}
@@ -748,7 +748,7 @@ class CKFinder_Connector_Utils_FileSystem
 		
 		$chunk = strtolower($chunk);
 		
-		if (! $chunk)
+		if (!$chunk)
 		{
 			return false;
 		}
@@ -820,7 +820,7 @@ class CKFinder_Connector_Utils_FileSystem
 	 */
 	function isImageValid($filePath, $extension)
 	{
-		if (! @is_readable($filePath))
+		if (!@is_readable($filePath))
 		{
 			return - 1;
 		}
@@ -859,7 +859,7 @@ class CKFinder_Connector_Utils_FileSystem
 			}
 		}
 		
-		if (! in_array($extension, $imageCheckExtensions))
+		if (!in_array($extension, $imageCheckExtensions))
 		{
 			return true;
 		}
@@ -883,7 +883,7 @@ class CKFinder_Connector_Utils_FileSystem
 	 */
 	function hasChildren($serverPath)
 	{
-		if (! is_dir($serverPath) || (false === $fh = @opendir($serverPath)))
+		if (!is_dir($serverPath) || (false === $fh = @opendir($serverPath)))
 		{
 			return false;
 		}

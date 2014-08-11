@@ -44,7 +44,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 			<?php
 			
 			$image = $rsPostsList->getFirstImageInfo();
-			if (! empty($image) && isset($image['square_url']))
+			if (!empty($image) && isset($image['square_url']))
 			:
 				?>
 			<!--

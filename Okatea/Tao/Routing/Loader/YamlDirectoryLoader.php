@@ -47,7 +47,7 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 		
 		foreach ($files as $file)
 		{
-			if (! $file->isFile() || '.yml' !== substr($file->getFilename(), - 4))
+			if (!$file->isFile() || '.yml' !== substr($file->getFilename(), - 4))
 			{
 				continue;
 			}
@@ -72,6 +72,6 @@ class YamlDirectoryLoader extends BaseYamlFileLoader
 			return false;
 		}
 		
-		return is_string($resource) && is_dir($path) && (! $type || 'yaml' === $type);
+		return is_string($resource) && is_dir($path) && (!$type || 'yaml' === $type);
 	}
 }

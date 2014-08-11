@@ -10,7 +10,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -26,14 +26,14 @@ $okt->estimate->filtersStart('admin');
 ----------------------------------------------------------*/
 
 # Ré-initialisation filtres
-if (! empty($_GET['init_filters']))
+if (!empty($_GET['init_filters']))
 {
 	$okt->estimate->filters->initFilters();
 	http::redirect('module.php?m=estimate&action=index');
 }
 
 # Marque une demande comme traitée
-if (! empty($_GET['treated']))
+if (!empty($_GET['treated']))
 {
 	try
 	{
@@ -57,7 +57,7 @@ if (! empty($_GET['treated']))
 }
 
 # Marque une demande comme non traitée
-if (! empty($_GET['untreated']))
+if (!empty($_GET['untreated']))
 {
 	try
 	{
@@ -81,7 +81,7 @@ if (! empty($_GET['untreated']))
 }
 
 # Traitements par lots
-if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POST['estimates']))
+if (!empty($_POST['actions']) && !empty($_POST['estimates']) && is_array($_POST['estimates']))
 {
 	$aEstimatesIds = array_map('intval', $_POST['estimates']);
 	
@@ -152,7 +152,7 @@ if (! empty($_POST['actions']) && ! empty($_POST['estimates']) && is_array($_POS
 ----------------------------------------------------------*/
 
 # Initialisation des filtres
-$aParams = array();
+$aParams = [];
 $okt->estimate->filters->setEstimatesParams($aParams);
 
 # Création des filtres
@@ -266,7 +266,7 @@ if ($iNumFilteredEstimates == 0)
 
 <?php 
 # Si on as des demandes de devis à afficher
-if (! $rsEstimates->isEmpty())
+if (!$rsEstimates->isEmpty())
 :
 	?>
 <form action="module.php" method="post" id="estimates-list">

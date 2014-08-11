@@ -6,17 +6,17 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt['visitor']->checkPerm('diary'))
+if (!$okt['visitor']->checkPerm('diary'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un élément
-if ($okt->page->action === 'delete' && ! empty($_GET['event_id']) && $okt['visitor']->checkPerm('diary_remove'))
+if ($okt->page->action === 'delete' && !empty($_GET['event_id']) && $okt['visitor']->checkPerm('diary_remove'))
 {
 	if ($okt->diary->delEvent($_GET['event_id']))
 	{
@@ -52,7 +52,7 @@ $okt->page->addTitleTag($okt->diary->getTitle());
 $okt->page->addAriane($okt->diary->getName(), 'module.php?m=diary');
 
 # inclusion du fichier requis en fonction de l'action demandée
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

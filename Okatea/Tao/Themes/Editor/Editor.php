@@ -65,7 +65,7 @@ class Editor
 	 *
 	 * @var array
 	 */
-	protected $aThemeInfos = array();
+	protected $aThemeInfos = [];
 
 	/**
 	 * Le chemin du thème en cours d'édition.
@@ -114,7 +114,7 @@ class Editor
 	 *
 	 * @var array
 	 */
-	protected $aBackupFiles = array();
+	protected $aBackupFiles = [];
 
 	/**
 	 * Constructor.
@@ -145,7 +145,7 @@ class Editor
 	 */
 	public function loadTheme($sThemeId)
 	{
-		if (! isset($this->aThemes[$sThemeId]))
+		if (!isset($this->aThemes[$sThemeId]))
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_theme_%s_not_exists'), $sThemeId));
 		}
@@ -223,10 +223,10 @@ class Editor
 	 */
 	public function getTemplatesDirs()
 	{
-		$this->aTemplatesPath = array();
+		$this->aTemplatesPath = [];
 		foreach ($this->aThemes as $aTheme)
 		{
-			//		$this->aTemplatesPath[$aTheme['name']] = array();
+			//		$this->aTemplatesPath[$aTheme['name']] = [];
 
 
 			$i = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->sThemesPath . '/' . $aTheme['id'] . '/Templates'), \RecursiveIteratorIterator::SELF_FIRST);
@@ -287,7 +287,7 @@ class Editor
 	 */
 	public function loadFile($sFilename)
 	{
-		if (! file_exists($this->sThemePath . $sFilename))
+		if (!file_exists($this->sThemePath . $sFilename))
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sFilename));
 		}
@@ -392,7 +392,7 @@ class Editor
 	 */
 	public function restoreBackupFile($sBackupFile)
 	{
-		if (! in_array($sBackupFile, $this->aBackupFiles))
+		if (!in_array($sBackupFile, $this->aBackupFiles))
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}
@@ -406,7 +406,7 @@ class Editor
 
 	public function deleteBackupFile($sBackupFile)
 	{
-		if (! in_array($sBackupFile, $this->aBackupFiles))
+		if (!in_array($sBackupFile, $this->aBackupFiles))
 		{
 			throw new \Exception(sprintf(__('c_a_te_error_file_%s_not_exists'), $sBackupFile));
 		}

@@ -3,7 +3,7 @@ CHANGELOG and HISTORY ( we try )                      module_##module_id##
 
 = KEY ====================
 	# Breaks back-compat
-	! Feature
+	!Feature
 	- Bugfix
 		+ Sub-comment
 	. Internal change
@@ -11,4 +11,4 @@ CHANGELOG and HISTORY ( we try )                      module_##module_id##
 
 
 ##module_version##
-! first public release
+!first public release

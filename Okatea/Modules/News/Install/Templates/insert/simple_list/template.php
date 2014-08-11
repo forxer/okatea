@@ -35,7 +35,7 @@ $okt->page->css->addLessFile(__DIR__ . '/styles.less');
 
 	<?php
 	# début Okatea : si il y a des actualités on affiche la liste
-	if (! $rsInsertPosts->isEmpty())
+	if (!$rsInsertPosts->isEmpty())
 	:
 		?>
 

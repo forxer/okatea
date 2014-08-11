@@ -18,7 +18,7 @@ class Post extends Controller
 
 	public function add()
 	{
-		if (! $this->okt['visitor']->checkPerm('pages_add'))
+		if (!$this->okt['visitor']->checkPerm('pages_add'))
 		{
 			return $this->serve401();
 		}
@@ -229,7 +229,7 @@ class Post extends Controller
 		# Données de la page
 		$this->aPageData = new ArrayObject();
 
-		$this->aPageData['post'] = array();
+		$this->aPageData['post'] = [];
 		$this->aPageData['post']['id'] = null;
 
 		$this->aPageData['post']['category_id'] = 0;
@@ -238,11 +238,11 @@ class Post extends Controller
 		$this->aPageData['post']['created_at'] = '';
 		$this->aPageData['post']['updated_at'] = '';
 
-		$this->aPageData['locales'] = array();
+		$this->aPageData['locales'] = [];
 
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$this->aPageData['locales'][$aLanguage['code']] = array();
+			$this->aPageData['locales'][$aLanguage['code']] = [];
 
 			$this->aPageData['locales'][$aLanguage['code']]['title'] = '';
 			$this->aPageData['locales'][$aLanguage['code']]['subtitle'] = '';
@@ -261,8 +261,8 @@ class Post extends Controller
 		$this->aPageData['perms'] = array(
 			0
 		);
-		$this->aPageData['images'] = array();
-		$this->aPageData['files'] = array();
+		$this->aPageData['images'] = [];
+		$this->aPageData['files'] = [];
 
 		$rsPage = null;
 		$rsPageI18n = null;
@@ -273,7 +273,7 @@ class Post extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->okt['request']->request->has('sended'))
+		if (!$this->okt['request']->request->has('sended'))
 		{
 			return false;
 		}
@@ -298,7 +298,7 @@ class Post extends Controller
 			}
 		}
 
-		$this->aPageData['perms'] = $this->okt['request']->request->get('perms', array());
+		$this->aPageData['perms'] = $this->okt['request']->request->get('perms', []);
 
 		# -- TRIGGER MODULE PAGES : adminPopulateData
 		$this->okt->module('Pages')->triggers->callTrigger('adminPopulateData', $this->aPageData);

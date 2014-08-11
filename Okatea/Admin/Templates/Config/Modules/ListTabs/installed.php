@@ -7,7 +7,7 @@
  */
 use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
 
-$okt->page->dialog(array(), '.changelog_link');
+$okt->page->dialog([], '.changelog_link');
 
 # Display a UI dialog box for each module
 foreach ($aInstalledModules as $aModule)
@@ -54,7 +54,7 @@ foreach ($aInstalledModules as $aModule)
 			$line_count ++;
 			
 			# disabled ?
-			if (! $aModule['status'])
+			if (!$aModule['status'])
 			{
 				$td_class .= ' disabled';
 			}
@@ -67,7 +67,7 @@ foreach ($aInstalledModules as $aModule)
 			}
 			
 			# links
-			$module_links = array();
+			$module_links = [];
 			if (file_exists($aModule['root'] . '/CHANGELOG'))
 			{
 				$module_links[] = '<a href="' . $view->generateAdminUrl('config_modules') . '?show_changelog=' . $aModule['id'] . '"' . ' id="' . $aModule['id'] . '_changelog_link">' . __('c_a_modules_changelog') . '</a>';

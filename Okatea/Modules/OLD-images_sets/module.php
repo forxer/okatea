@@ -32,7 +32,7 @@ class module_images_sets extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('Images sets'), 'module.php?m=images_sets&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 42, $this->okt['visitor']->checkPerm('is_superadmin'), null);
+			$this->okt->page->configSubMenu->add(__('Images sets'), 'module.php?m=images_sets&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'), 42, $this->okt['visitor']->checkPerm('is_superadmin'), null);
 		}
 	}
 
@@ -47,25 +47,25 @@ class module_images_sets extends Module
 	 *        	array	params			Paramètres de requete
 	 * @return object recordset
 	 */
-	public function getImagesSets($aParams = array())
+	public function getImagesSets($aParams = [])
 	{
 		$reqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$reqPlus .= ' AND id=' . (integer) $aParams['id'] . ' ';
 		}
 		
 		$query = 'SELECT ' . 'id, title, number, width, height, resize_type, images, tpl ' . 'FROM ' . $this->t_images_sets . '  ' . 'WHERE 1 ' . $reqPlus;
 		
-		if (! empty($aParams['limit']))
+		if (!empty($aParams['limit']))
 		{
 			$query .= 'LIMIT ' . $aParams['limit'] . ' ';
 		}
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		return $rs;
@@ -111,7 +111,7 @@ class module_images_sets extends Module
 	{
 		$oCursor = $this->db->openCursor($this->t_images_sets);
 		
-		if (! empty($data) && is_array($data))
+		if (!empty($data) && is_array($data))
 		{
 			foreach ($data as $k => $v)
 			{
@@ -130,7 +130,7 @@ class module_images_sets extends Module
 	 */
 	public function addImagesSet($oCursor)
 	{
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new Exception('Unable to insert images set into database');
 		}
@@ -156,12 +156,12 @@ class module_images_sets extends Module
 	 */
 	public function updImagesSet($iSetId, $oCursor)
 	{
-		if (! $this->imagesSetExists($iSetId))
+		if (!$this->imagesSetExists($iSetId))
 		{
 			throw new Exception(sprintf(__('m_images_sets_%s_not_exists'), $iSetId));
 		}
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $iSetId . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $iSetId . ' '))
 		{
 			throw new Exception('Unable to update images set into database');
 		}

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -95,7 +95,7 @@ class CKFinder_Connector_Core_Config
 	 * @var array
 	 * @access private
 	 */
-	private $_resourceTypeConfigCache = array();
+	private $_resourceTypeConfigCache = [];
 
 	/**
 	 * Thumbnails config cache
@@ -119,7 +119,7 @@ class CKFinder_Connector_Core_Config
 	 * @access private
 	 * @var array
 	 */
-	private $_defaultResourceTypes = array();
+	private $_defaultResourceTypes = [];
 
 	/**
 	 * Filesystem encoding
@@ -240,7 +240,7 @@ class CKFinder_Connector_Core_Config
 	 *
 	 * @var array for location => root
 	 */
-	private $_xsendfileNginx = array();
+	private $_xsendfileNginx = [];
 
 	function __construct()
 	{
@@ -312,7 +312,7 @@ class CKFinder_Connector_Core_Config
 	{
 		static $folderRegex;
 		
-		if (! isset($folderRegex))
+		if (!isset($folderRegex))
 		{
 			if (is_array($this->_hideFolders) && $this->_hideFolders)
 			{
@@ -349,7 +349,7 @@ class CKFinder_Connector_Core_Config
 	{
 		static $fileRegex;
 		
-		if (! isset($fileRegex))
+		if (!isset($fileRegex))
 		{
 			if (is_array($this->_hideFiles) && $this->_hideFiles)
 			{
@@ -402,7 +402,7 @@ class CKFinder_Connector_Core_Config
 	 * Get default resource types
 	 *
 	 * @access public
-	 * @return array()
+	 * @return []
 	 */
 	public function getDefaultResourceTypes()
 	{
@@ -491,7 +491,7 @@ class CKFinder_Connector_Core_Config
 			return $this->_resourceTypeConfigCache[$resourceTypeName];
 		}
 		
-		if (! isset($GLOBALS['config']['ResourceType']) || ! is_array($GLOBALS['config']['ResourceType']))
+		if (!isset($GLOBALS['config']['ResourceType']) || !is_array($GLOBALS['config']['ResourceType']))
 		{
 			return $_null;
 		}
@@ -518,9 +518,9 @@ class CKFinder_Connector_Core_Config
 	 */
 	public function &getThumbnailsConfig()
 	{
-		if (! isset($this->_thumbnailsConfigCache))
+		if (!isset($this->_thumbnailsConfigCache))
 		{
-			$this->_thumbnailsConfigCache = new CKFinder_Connector_Core_ThumbnailsConfig(isset($GLOBALS['config']['Thumbnails']) ? $GLOBALS['config']['Thumbnails'] : array());
+			$this->_thumbnailsConfigCache = new CKFinder_Connector_Core_ThumbnailsConfig(isset($GLOBALS['config']['Thumbnails']) ? $GLOBALS['config']['Thumbnails'] : []);
 		}
 		
 		return $this->_thumbnailsConfigCache;
@@ -534,9 +534,9 @@ class CKFinder_Connector_Core_Config
 	 */
 	public function &getImagesConfig()
 	{
-		if (! isset($this->_imagesConfigCache))
+		if (!isset($this->_imagesConfigCache))
 		{
-			$this->_imagesConfigCache = new CKFinder_Connector_Core_ImagesConfig(isset($GLOBALS['config']['Images']) ? $GLOBALS['config']['Images'] : array());
+			$this->_imagesConfigCache = new CKFinder_Connector_Core_ImagesConfig(isset($GLOBALS['config']['Images']) ? $GLOBALS['config']['Images'] : []);
 		}
 		
 		return $this->_imagesConfigCache;
@@ -550,9 +550,9 @@ class CKFinder_Connector_Core_Config
 	 */
 	public function &getAccessControlConfig()
 	{
-		if (! isset($this->_accessControlConfigCache))
+		if (!isset($this->_accessControlConfigCache))
 		{
-			$this->_accessControlConfigCache = new CKFinder_Connector_Core_AccessControlConfig(isset($GLOBALS['config']['AccessControl']) ? $GLOBALS['config']['AccessControl'] : array());
+			$this->_accessControlConfigCache = new CKFinder_Connector_Core_AccessControlConfig(isset($GLOBALS['config']['AccessControl']) ? $GLOBALS['config']['AccessControl'] : []);
 		}
 		
 		return $this->_accessControlConfigCache;
@@ -655,12 +655,12 @@ class CKFinder_Connector_Core_Config
 	 */
 	public function getResourceTypeNames()
 	{
-		if (! isset($GLOBALS['config']['ResourceType']) || ! is_array($GLOBALS['config']['ResourceType']))
+		if (!isset($GLOBALS['config']['ResourceType']) || !is_array($GLOBALS['config']['ResourceType']))
 		{
-			return array();
+			return [];
 		}
 		
-		$_names = array();
+		$_names = [];
 		foreach ($GLOBALS['config']['ResourceType'] as $key => $_resourceType)
 		{
 			if (isset($_resourceType['name']))
@@ -696,7 +696,7 @@ class CKFinder_Connector_Core_Config
 	 */
 	public function getXSendfileNginx()
 	{
-		$xsendfileNginx = array();
+		$xsendfileNginx = [];
 		foreach ($this->_xsendfileNginx as $location => $root)
 		{
 			$root = (string) $root;

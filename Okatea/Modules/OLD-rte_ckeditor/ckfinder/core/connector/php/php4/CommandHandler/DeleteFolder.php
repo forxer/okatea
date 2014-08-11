@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,7 +56,7 @@ class CKFinder_Connector_CommandHandler_DeleteFolder extends CKFinder_Connector_
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_DELETE))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_DELETE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -68,12 +68,12 @@ class CKFinder_Connector_CommandHandler_DeleteFolder extends CKFinder_Connector_
 		}
 		
 		$folderServerPath = $this->_currentFolder->getServerPath();
-		if (! file_exists($folderServerPath) || ! is_dir($folderServerPath))
+		if (!file_exists($folderServerPath) || !is_dir($folderServerPath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
 		}
 		
-		if (! CKFinder_Connector_Utils_FileSystem::unlink($folderServerPath))
+		if (!CKFinder_Connector_Utils_FileSystem::unlink($folderServerPath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}

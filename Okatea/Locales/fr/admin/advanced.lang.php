@@ -50,6 +50,6 @@ $GLOBALS['okt_l10n']['c_a_config_advanced_news_feed_url_in_%s'] = 'URL du flux d
 
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_generation'] = 'Génération des slugs';
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii'] = 'ASCII';
-$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii_example'] = 'exemple : "Hé ! Salut ça va ?" => "he-salut-ca-va"';
+$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_ascii_example'] = 'exemple : "Hé !Salut ça va ?" => "he-salut-ca-va"';
 $GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8'] = 'UTF-8';
-$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8_example'] = 'exemple : "Hé ! Salut ça va ?" => "Hé-!-Salut-ça-va"';
+$GLOBALS['okt_l10n']['c_a_config_advanced_slug_type_utf8_example'] = 'exemple : "Hé !Salut ça va ?" => "Hé-!-Salut-ça-va"';

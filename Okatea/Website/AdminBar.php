@@ -57,7 +57,7 @@ class AdminBar
 		# éléments première barre
 		$aPrimaryAdminBar[10] = array(
 			'intitle' => '<img src="' . $this->okt['public_url'] . '/img/notify/error.png" width="22" height="22" alt="' . __('c_c_warning') . '" />',
-			'items' => array()
+			'items' => []
 		);
 
 		$aPrimaryAdminBar[100] = array(
@@ -67,7 +67,7 @@ class AdminBar
 
 		$aPrimaryAdminBar[200] = array(
 			'intitle' => __('c_c_action_Add'),
-			'items' => array()
+			'items' => []
 		);
 
 		# éléments seconde barre
@@ -76,7 +76,7 @@ class AdminBar
 			'intitle' => sprintf(__('c_c_user_hello_%s'), Escaper::html(Users::getUserDisplayName($this->okt['visitor']->username, $this->okt['visitor']->lastname, $this->okt['visitor']->firstname, $this->okt['visitor']->displayname)))
 		);
 
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			$iStartIdx = 150;
 			foreach ($this->okt['languages']->getList() as $aLanguage)
@@ -147,7 +147,7 @@ class AdminBar
 			}
 
 			# info execution
-			$aExecInfos = array();
+			$aExecInfos = [];
 			$aExecInfos['execTime'] = Utilities::getExecutionTime();
 			$aExecInfos['memUsage'] = Utilities::l10nFileSize(memory_get_usage());
 			$aExecInfos['peakUsage'] = Utilities::l10nFileSize(memory_get_peak_usage());
@@ -169,7 +169,7 @@ class AdminBar
 
 			$aRequestAttributes = $this->okt['request']->attributes->all();
 
-			if (! empty($aRequestAttributes['_route']))
+			if (!empty($aRequestAttributes['_route']))
 			{
 				$aSecondaryAdminBar[1000]['items'][] = array(
 					'intitle' => 'Route&nbsp;: ' . $aRequestAttributes['_route']
@@ -177,7 +177,7 @@ class AdminBar
 				unset($aRequestAttributes['_route']);
 			}
 
-			if (! empty($aRequestAttributes['controller']))
+			if (!empty($aRequestAttributes['controller']))
 			{
 				$aSecondaryAdminBar[1000]['items'][] = array(
 					'intitle' => 'Controller&nbsp;: ' . $aRequestAttributes['controller']
@@ -185,7 +185,7 @@ class AdminBar
 				unset($aRequestAttributes['controller']);
 			}
 
-			if (! empty($aRequestAttributes))
+			if (!empty($aRequestAttributes))
 			{
 				foreach ($aRequestAttributes as $k => $v)
 				{
@@ -285,11 +285,11 @@ foreach ($aSecondaryAdminBar as $aSecondaryItem)
 	{
 		if (empty($aItem['href']))
 		{
-			return '<div class="ab-item ab-empty-item"' . (! empty($aItem['title']) ? ' title="' . Escaper::attribute($aItem['title']) . '"' : '') . '>' . $aItem['intitle'] . '</div>';
+			return '<div class="ab-item ab-empty-item"' . (!empty($aItem['title']) ? ' title="' . Escaper::attribute($aItem['title']) . '"' : '') . '>' . $aItem['intitle'] . '</div>';
 		}
 		else
 		{
-			return '<a class="ab-item" href="' . $aItem['href'] . '"' . ($haspopup ? ' aria-haspopup="true"' : '') . (! empty($aItem['title']) ? ' title="' . Escaper::attribute($aItem['title']) . '"' : '') . '>' . $aItem['intitle'] . '</a>';
+			return '<a class="ab-item" href="' . $aItem['href'] . '"' . ($haspopup ? ' aria-haspopup="true"' : '') . (!empty($aItem['title']) ? ' title="' . Escaper::attribute($aItem['title']) . '"' : '') . '>' . $aItem['intitle'] . '</a>';
 		}
 	}
 }

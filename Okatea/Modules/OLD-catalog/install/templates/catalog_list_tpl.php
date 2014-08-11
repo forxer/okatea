@@ -39,7 +39,7 @@ $okt->page->applyLbl($okt->catalog->config->lightbox_type);
 
 <?php 
 # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if ($okt->catalog->config->enable_filters && ! $okt->catalog->filters->params->show_filters)
+if ($okt->catalog->config->enable_filters && !$okt->catalog->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#catalog-filter-control").html("<a href=\"#\">' . $view->escapeJs(__('m_catalog_display_filters')) . '</a>");
@@ -66,7 +66,7 @@ if ($okt->catalog->config->enable_filters)
 
 	<?php 
 # début Okatea : lien d’affichage des filtres
-	if (! $okt->catalog->filters->params->show_filters)
+	if (!$okt->catalog->filters->params->show_filters)
 	:
 		?>
 <p id="catalog-filter-control"></p>
@@ -116,7 +116,7 @@ if ($productsList->isEmpty())
 
 <?php 
 # début Okatea : si il y a des produits on affiche la liste
-if (! $productsList->isEmpty())
+if (!$productsList->isEmpty())
 :
 	?>
 
@@ -154,7 +154,7 @@ if (! $productsList->isEmpty())
 			<?php 
 # début Okatea : affichage image
 		$prod_image = $productsList->getFirstImageInfo();
-		if (! empty($prod_image) && isset($prod_image['square_url']))
+		if (!empty($prod_image) && isset($prod_image['square_url']))
 		:
 			?>
 
@@ -219,7 +219,7 @@ if (! $productsList->isEmpty())
 
 			<?php 
 # début Okatea : affichage texte pas tronqué
-		if (! $okt->catalog->config->public_truncat_char)
+		if (!$okt->catalog->config->public_truncat_char)
 		:
 			?>
 

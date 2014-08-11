@@ -45,7 +45,7 @@ class DebugBar
 	 */
 	public function loadInAdminPart()
 	{
-		if (! $this->okt['debug'] || ! $this->aConfig['admin']) {
+		if (!$this->okt['debug'] || !$this->aConfig['admin']) {
 			return false;
 		}
 
@@ -67,7 +67,7 @@ class DebugBar
 	 */
 	public function loadInPublicPart()
 	{
-		if (! $this->okt['debug'] || ! $this->aConfig['public']) {
+		if (!$this->okt['debug'] || !$this->aConfig['public']) {
 			return false;
 		}
 
@@ -208,7 +208,7 @@ class DebugBar
 			$this->aDebugBarData['definedConstants'] = self::getDefinedConstants();
 			$this->aDebugBarData['configVars'] = $this->okt['config']->get();
 			$this->aDebugBarData['userVars'] = $this->okt['visitor']->getData(0);
-			$this->aDebugBarData['l10nVars'] = (! empty($GLOBALS['okt_l10n']) ? $GLOBALS['okt_l10n'] : []);
+			$this->aDebugBarData['l10nVars'] = (!empty($GLOBALS['okt_l10n']) ? $GLOBALS['okt_l10n'] : []);
 
 			$this->aDebugBarData['num_data']['definedVars'] = count($this->aDebugBarData['definedVars']);
 			$this->aDebugBarData['num_data']['definedConstants'] = count($this->aDebugBarData['definedConstants']);
@@ -467,8 +467,8 @@ class DebugBar
 				<li>Controller&nbsp;: ' . $this->aDebugBarData['controller'] . '</li>
 				<li>Autre(s) attribut(s)&nbsp;: <ul><li>' . implode('</li><li>', $this->aDebugBarData['requestParameters']) . '</li></ul></li></ul>
 			<ul>
-				<li>$okt->page->module&nbsp;: ' . (! empty($this->okt->page->module) ? $this->okt->page->module : '') . '</li>
-				<li>$okt->page->action&nbsp;: ' . (! empty($this->okt->page->action) ? $this->okt->page->action : '') . '</li>
+				<li>$okt->page->module&nbsp;: ' . (!empty($this->okt->page->module) ? $this->okt->page->module : '') . '</li>
+				<li>$okt->page->action&nbsp;: ' . (!empty($this->okt->page->action) ? $this->okt->page->action : '') . '</li>
 			</ul>
 			<ul>
 				<li><a href="' . $this->okt['public_url'] . '/img/ico/sprites.html" id="sprites_link">Sprites</a></li>

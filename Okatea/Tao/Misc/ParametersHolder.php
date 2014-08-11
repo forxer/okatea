@@ -18,9 +18,9 @@ class ParametersHolder
 	 *
 	 * @var array
 	 */
-	private $parameters = array();
+	private $parameters = [];
 
-	public function __construct($parameters = array())
+	public function __construct($parameters = [])
 	{
 		$this->setParameters($parameters);
 	}
@@ -31,9 +31,9 @@ class ParametersHolder
 	 * @param $parameters array        	
 	 * @return void
 	 */
-	public function setParameters($parameters = array())
+	public function setParameters($parameters = [])
 	{
-		if (! empty($parameters))
+		if (!empty($parameters))
 		{
 			foreach ($parameters as $key => $value)
 			{
@@ -79,7 +79,7 @@ class ParametersHolder
 		{
 			return $this->parameters[$key];
 		}
-		elseif (! is_null($default))
+		elseif (!is_null($default))
 		{
 			return $default;
 		}
@@ -136,13 +136,13 @@ class ParametersHolder
 		
 		if ($prefix === 'set')
 		{
-			if (! $arg)
+			if (!$arg)
 			{
 				throw new \Exception(get_class($this) . ' un second argument est nécessaire pour une méthode set');
 			}
 			return $this->setParameter($key, $arg);
 		}
 		
-		throw new \Exception('notre __call ne gère que les get ou les set ! méthode indéfinie : ' . $name);
+		throw new \Exception('notre __call ne gère que les get ou les set !méthode indéfinie : ' . $name);
 	}
 }

@@ -8,7 +8,7 @@ use Okatea\Admin\Pager;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -21,7 +21,7 @@ $okt->faq->filtersStart('admin');
 ----------------------------------------------------------*/
 
 # switch question statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	if ($okt->faq->setQuestionStatus($_GET['switch_status']))
 	{
@@ -30,7 +30,7 @@ if (! empty($_GET['switch_status']))
 }
 
 # Ré-initialisation filtres
-if (! empty($_GET['init_filters']))
+if (!empty($_GET['init_filters']))
 {
 	$okt->faq->filters->initFilters();
 	http::redirect('module.php?m=faq&action=index');

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -54,7 +54,7 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
 		
 		$uploadedFile = array_shift($_FILES);
 		
-		if (! isset($uploadedFile['name']))
+		if (!isset($uploadedFile['name']))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UPLOADED_INVALID);
 		}
@@ -85,19 +85,19 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
 		$this->checkConnector();
 		$this->checkRequest();
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
 		$_resourceTypeConfig = $this->_currentFolder->getResourceTypeConfig();
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($sFileName) || $_resourceTypeConfig->checkIsHiddenFile($sFileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($sFileName) || $_resourceTypeConfig->checkIsHiddenFile($sFileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
 		
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
-		if (! $resourceTypeInfo->checkExtension($sFileName))
+		if (!$resourceTypeInfo->checkExtension($sFileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION);
 		}
@@ -106,7 +106,7 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
 		$oRegistry->set("FileUpload_fileName", $sFileName);
 		
 		$maxSize = $resourceTypeInfo->getMaxSize();
-		if (! $_config->checkSizeAfterScaling() && $maxSize && $uploadedFile['size'] > $maxSize)
+		if (!$_config->checkSizeAfterScaling() && $maxSize && $uploadedFile['size'] > $maxSize)
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UPLOADED_TOO_BIG);
 		}
@@ -114,7 +114,7 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
 		$htmlExtensions = $_config->getHtmlExtensions();
 		$sExtension = CKFinder_Connector_Utils_FileSystem::getExtension($sFileNameOrginal);
 		
-		if ($htmlExtensions && ! CKFinder_Connector_Utils_Misc::inArrayCaseInsensitive($sExtension, $htmlExtensions) && ($detectHtml = CKFinder_Connector_Utils_FileSystem::detectHtml($uploadedFile['tmp_name'])) === true)
+		if ($htmlExtensions && !CKFinder_Connector_Utils_Misc::inArrayCaseInsensitive($sExtension, $htmlExtensions) && ($detectHtml = CKFinder_Connector_Utils_FileSystem::detectHtml($uploadedFile['tmp_name'])) === true)
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UPLOADED_WRONG_HTML_FILE);
 		}
@@ -200,7 +200,7 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
 			}
 		}
 		
-		if (! $_config->checkSizeAfterScaling())
+		if (!$_config->checkSizeAfterScaling())
 		{
 			$this->_errorHandler->throwError($iErrorNumber, true, false);
 		}

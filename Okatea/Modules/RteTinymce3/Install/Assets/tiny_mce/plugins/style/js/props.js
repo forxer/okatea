@@ -400,7 +400,7 @@ function hasEqualValues(a) {
 }
 
 function toggleApplyAction() {
-	applyActionIsInsert = ! applyActionIsInsert;
+	applyActionIsInsert = !applyActionIsInsert;
 }
 
 function applyAction() {

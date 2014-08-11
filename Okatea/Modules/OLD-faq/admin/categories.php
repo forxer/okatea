@@ -8,16 +8,16 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
 ----------------------------------------------------------*/
 
-$do = ! empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
-$iCategoryId = ! empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null;
+$do = !empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
+$iCategoryId = !empty($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null;
 
-$add_title = array();
+$add_title = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
@@ -30,7 +30,7 @@ $add_active = 1;
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	$okt->faq->switchCategoryStatus($_GET['switch_status']);
 	http::redirect('module.php?m=faq&action=categories&switched=1');
@@ -39,8 +39,8 @@ if (! empty($_GET['switch_status']))
 # ajout d'une catégorie
 if ($do == 'add')
 {
-	$add_title = ! empty($_POST['add_title']) ? array_map('trim', $_POST['add_title']) : array();
-	$add_active = ! empty($_POST['add_active']) ? 1 : 0;
+	$add_title = !empty($_POST['add_title']) ? array_map('trim', $_POST['add_title']) : [];
+	$add_active = !empty($_POST['add_active']) ? 1 : 0;
 	
 	$add_params = array(
 		'title' => $add_title,
@@ -75,10 +75,10 @@ if ($do == 'edit' && $iCategoryId > 0)
 	
 	$edit_active = $rsCategory->active;
 	
-	if (! empty($_POST['form_sent']))
+	if (!empty($_POST['form_sent']))
 	{
-		$edit_title = ! empty($_POST['edit_title']) ? array_map('trim', $_POST['edit_title']) : array();
-		$edit_active = ! empty($_POST['edit_active']) ? 1 : 0;
+		$edit_title = !empty($_POST['edit_title']) ? array_map('trim', $_POST['edit_title']) : [];
+		$edit_active = !empty($_POST['edit_active']) ? 1 : 0;
 		
 		$edit_params = array(
 			'id' => $iCategoryId,
@@ -105,14 +105,14 @@ if ($do == 'delete' && $iCategoryId > 0)
 }
 
 # changement de l'ordre des langues
-$order = array();
-if (empty($_POST['categories_order']) && ! empty($_POST['order']))
+$order = [];
+if (empty($_POST['categories_order']) && !empty($_POST['order']))
 {
 	$order = $_POST['order'];
 	asort($order);
 	$order = array_keys($order);
 }
-elseif (! empty($_POST['categories_order']))
+elseif (!empty($_POST['categories_order']))
 {
 	$order = explode(',', $_POST['categories_order']);
 	foreach ($order as $k => $v)
@@ -121,7 +121,7 @@ elseif (! empty($_POST['categories_order']))
 	}
 }
 
-if (! empty($_POST['ordered']) && ! empty($order))
+if (!empty($_POST['ordered']) && !empty($order))
 {
 	foreach ($order as $ord => $id)
 	{
@@ -148,7 +148,7 @@ $okt->page->addGlobalTitle(__('m_faq_sections'));
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

@@ -105,9 +105,9 @@ class Category extends Controller
 		# AJAX : changement de l'ordre des rubriques voisines
 		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$order = $this->okt['request']->query->get('ord', array());
+			$order = $this->okt['request']->query->get('ord', []);
 
-			if (! empty($order))
+			if (!empty($order))
 			{
 				try
 				{
@@ -131,12 +131,12 @@ class Category extends Controller
 		# POST : changement de l'ordre des rubriques voisines
 		if ($this->okt['request']->request->has('order_categories'))
 		{
-			$order = $this->okt['request']->request->get('p_order', array());
+			$order = $this->okt['request']->request->get('p_order', []);
 
 			asort($order);
 			$order = array_keys($order);
 
-			if (! empty($order))
+			if (!empty($order))
 			{
 				try
 				{
@@ -240,7 +240,7 @@ class Category extends Controller
 
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$this->aCategoryData['locales'][$aLanguage['code']] = array();
+			$this->aCategoryData['locales'][$aLanguage['code']] = [];
 
 			$this->aCategoryData['locales'][$aLanguage['code']]['title'] = '';
 			$this->aCategoryData['locales'][$aLanguage['code']]['content'] = '';
@@ -262,7 +262,7 @@ class Category extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->okt['request']->request->has('sended'))
+		if (!$this->okt['request']->request->has('sended'))
 		{
 			return false;
 		}
@@ -320,7 +320,7 @@ class Category extends Controller
 			__('m_news_cat_first_level') => 0
 		);
 
-		$aChildrens = array();
+		$aChildrens = [];
 		if ($this->aCategoryData['cat']['id'])
 		{
 			$aDescendants = $this->okt->module('News')->categories->getDescendants($this->aCategoryData['cat']['id'], true);
@@ -332,7 +332,7 @@ class Category extends Controller
 
 		while ($this->rsCategories->fetch())
 		{
-			if (! in_array($this->rsCategories->id, $aChildrens))
+			if (!in_array($this->rsCategories->id, $aChildrens))
 			{
 				$aAllowedParents[] = new SelectOption(str_repeat('&nbsp;&nbsp;&nbsp;', $this->rsCategories->level - 1) . '&bull; ' . Escaper::html($this->rsCategories->title), $this->rsCategories->id);
 			}

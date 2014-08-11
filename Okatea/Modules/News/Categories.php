@@ -40,30 +40,30 @@ class Categories extends NestedTreei18n
 	 * @param boolean $bCountOnly Ne renvoi qu'un compte de rubrique
 	 * @return object Recordset/integer
 	 */
-	public function getCategories($aParams = array(), $bCountOnly = false)
+	public function getCategories($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 
 		$with_count = isset($aParams['with_count']) ? (boolean) $aParams['with_count'] : false;
 
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= 'AND r.id=' . (integer) $aParams['id'] . ' ';
 			$with_count = false;
 		}
 
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= 'AND rl.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 			$with_count = false;
 		}
 
-		if (! empty($aParams['language']))
+		if (!empty($aParams['language']))
 		{
 			$sReqPlus .= 'AND rl.language=\'' . $this->db->escapeStr($aParams['language']) . '\' ';
 		}
 
-		if (! empty($aParams['parent_id']))
+		if (!empty($aParams['parent_id']))
 		{
 			$sReqPlus .= 'AND r.parent_id=' . (integer) $aParams['parent_id'] . ' ';
 		}
@@ -99,7 +99,7 @@ class Categories extends NestedTreei18n
 		{
 			$sQuery = 'SELECT r.*, rl.*, COUNT(p.id) AS num_posts ' . 'FROM ' . $this->t_categories . ' AS r ' . 'LEFT JOIN ' . $this->t_categories_locales . ' AS rl ON r.id=rl.category_id ' . 'LEFT JOIN ' . $this->t_news . ' AS p ON r.id=p.category_id ' . 'WHERE 1 ' . $sReqPlus . ' ' . 'GROUP BY r.id ' . 'ORDER BY nleft asc ';
 
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -107,7 +107,7 @@ class Categories extends NestedTreei18n
 
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 
 		if ($bCountOnly)
@@ -118,8 +118,8 @@ class Categories extends NestedTreei18n
 		{
 			if ($with_count)
 			{
-				$aData = array();
-				$stack = array();
+				$aData = [];
+				$stack = [];
 				$level = 0;
 				foreach (array_reverse($rs->getData()) as $rubrique)
 				{
@@ -208,7 +208,7 @@ class Categories extends NestedTreei18n
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new Recordset(array());
+			$rs = new Recordset([]);
 			return $rs;
 		}
 
@@ -225,7 +225,7 @@ class Categories extends NestedTreei18n
 	{
 		$oCursor = $this->db->openCursor($this->t_categories);
 
-		if (! empty($aCategoryData))
+		if (!empty($aCategoryData))
 		{
 			foreach ($aCategoryData as $k => $v)
 			{
@@ -263,12 +263,12 @@ class Categories extends NestedTreei18n
 
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
-			if (! $oCursor->insertUpdate())
+			if (!$oCursor->insertUpdate())
 			{
 				throw new \RuntimeException('Unable to insert category locales in database for ' . $aLanguage['code'] . ' language.');
 			}
 
-			if (! $this->setCategorySlug($iCategoryId, $aLanguage['code']))
+			if (!$this->setCategorySlug($iCategoryId, $aLanguage['code']))
 			{
 				throw new \RuntimeException('Unable to insert category slug in database.');
 			}
@@ -317,12 +317,12 @@ class Categories extends NestedTreei18n
 
 		$rsTakenSlugs = $this->db->select($query);
 
-		if (! $rsTakenSlugs->isEmpty())
+		if (!$rsTakenSlugs->isEmpty())
 		{
 			$query = 'SELECT slug FROM ' . $this->t_categories_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sSlug) . '%\' ' . 'AND category_id <> ' . (integer) $iCategoryId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ';
 
 			$rsCurrentSlugs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
@@ -333,7 +333,7 @@ class Categories extends NestedTreei18n
 
 		$query = 'UPDATE ' . $this->t_categories_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sSlug) . '\' ' . 'WHERE category_id=' . (integer) $iCategoryId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
 
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			throw new \RuntimeException('Unable to update category in database.');
 		}
@@ -390,7 +390,7 @@ class Categories extends NestedTreei18n
 			}
 		}
 
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new \RuntimeException('Unable to insert category in database.');
 		}
@@ -413,7 +413,7 @@ class Categories extends NestedTreei18n
 	 */
 	public function updCategory($oCursor, $aCategoryLocalesData)
 	{
-		if (! $this->categoryExists($oCursor->id))
+		if (!$this->categoryExists($oCursor->id))
 		{
 			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $oCursor->id));
 		}
@@ -433,7 +433,7 @@ class Categories extends NestedTreei18n
 			}
 		}
 
-		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new \RuntimeException('Unable to update category in database.');
 		}
@@ -463,14 +463,14 @@ class Categories extends NestedTreei18n
 	 */
 	public function setCategoryOrder($iCategoryId, $iOrder)
 	{
-		if (! $this->categoryExists($iCategoryId))
+		if (!$this->categoryExists($iCategoryId))
 		{
 			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery = 'UPDATE ' . $this->t_categories . ' SET ' . 'ord=' . (integer) $iOrder . ' ' . 'WHERE id=' . (integer) $iCategoryId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new \RuntimeException('Unable to update category in database.');
 		}
@@ -527,14 +527,14 @@ class Categories extends NestedTreei18n
 	 */
 	public function setCategoryStatus($iCategoryId, $iStatus)
 	{
-		if (! $this->categoryExists($iCategoryId))
+		if (!$this->categoryExists($iCategoryId))
 		{
 			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery = 'UPDATE ' . $this->t_categories . ' SET ' . 'active=' . (integer) $iStatus . ' ' . 'WHERE id=' . (integer) $iCategoryId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new \RuntimeException('Unable to update category in database.');
 		}
@@ -563,7 +563,7 @@ class Categories extends NestedTreei18n
 
 		$sQuery = 'DELETE FROM ' . $this->t_categories . ' ' . 'WHERE id=' . (integer) $iCategoryId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new \RuntimeException('Unable to remove category from database.');
 		}
@@ -572,7 +572,7 @@ class Categories extends NestedTreei18n
 
 		$query = 'DELETE FROM ' . $this->t_categories_locales . ' ' . 'WHERE category_id=' . (integer) $iCategoryId;
 
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			throw new \RuntimeException('Unable to remove category locales from database.');
 		}
@@ -593,13 +593,13 @@ class Categories extends NestedTreei18n
 	 */
 	public function setParentId($iCategoryId, $iParentId)
 	{
-		if (! $this->categoryExists($iCategoryId)) {
+		if (!$this->categoryExists($iCategoryId)) {
 			throw new \Exception(sprintf(__('m_news_cat_%s_not_exists'), $iCategoryId));
 		}
 
 		$sQuery = 'UPDATE ' . $this->t_categories . ' SET ' . 'parent_id=' . (integer) $iParentId . ' ' . 'WHERE id=' . (integer) $iCategoryId;
 
-		if (! $this->db->execute($sQuery)) {
+		if (!$this->db->execute($sQuery)) {
 			throw new \RuntimeException('Unable to update category in database.');
 		}
 

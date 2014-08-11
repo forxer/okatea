@@ -41,7 +41,7 @@ class ##module_camel_case_id##Recordset extends Recordset
 	 */
 	public function getFilesInfo()
 	{
-		$files = array();
+		$files = [];
 
 		if (!$this->okt->##module_id##->config->files['enable']) {
 			return $files;
@@ -86,7 +86,7 @@ class ##module_camel_case_id##Recordset extends Recordset
 	public function getImagesInfo()
 	{
 		if (!$this->okt->##module_id##->config->images['enable']) {
-			return array();
+			return [];
 		}
 
 		return $this->getImagesArray();
@@ -101,12 +101,12 @@ class ##module_camel_case_id##Recordset extends Recordset
 	public function getFirstImageInfo()
 	{
 		if (!$this->okt->##module_id##->config->images['enable']) {
-			return array();
+			return [];
 		}
 
 		$a = $this->getImagesArray();
 
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	protected function getImagesArray()

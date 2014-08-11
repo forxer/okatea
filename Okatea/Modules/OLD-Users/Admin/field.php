@@ -8,15 +8,15 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
 ----------------------------------------------------------*/
 
-$iFieldId = ! empty($_REQUEST['field_id']) ? intval($_REQUEST['field_id']) : null;
+$iFieldId = !empty($_REQUEST['field_id']) ? intval($_REQUEST['field_id']) : null;
 
-$do = (! empty($_REQUEST['do']) && $_REQUEST['do'] == 'value') ? 'value' : 'desc';
+$do = (!empty($_REQUEST['do']) && $_REQUEST['do'] == 'value') ? 'value' : 'desc';
 
 $aFieldData = array(
 	'id' => $iFieldId,
@@ -26,7 +26,7 @@ $aFieldData = array(
 	'type' => 1,
 	'html_id' => ''
 );
-$value = array();
+$value = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
@@ -35,7 +35,7 @@ foreach ($okt['languages']->getList() as $aLanguage)
 	$value[$aLanguage['code']] = '';
 }
 
-if (! is_null($iFieldId))
+if (!is_null($iFieldId))
 {
 	$rsField = $okt->users->fields->getField($iFieldId);
 	$rsField_i18n = $okt->users->fields->getFieldL10n($iFieldId);
@@ -80,20 +80,20 @@ if (! is_null($iFieldId))
 /* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	# valeur(s) champ
 	if ($do == 'value')
 	{
 		if (UsersCustomFields::getFormType($aFieldData['type']) == 'simple')
 		{
-			$value = (! empty($_POST['p_value']) ? $_POST['p_value'] : array());
+			$value = (!empty($_POST['p_value']) ? $_POST['p_value'] : []);
 		}
 		else
 		{
 			foreach ($okt['languages']->getList() as $aLanguage)
 			{
-				$value[$aLanguage['code']] = ! empty($_POST['p_value'][$aLanguage['code']]) && is_array($_POST['p_value'][$aLanguage['code']]) ? array_filter(array_map('trim', $_POST['p_value'][$aLanguage['code']])) : '';
+				$value[$aLanguage['code']] = !empty($_POST['p_value'][$aLanguage['code']]) && is_array($_POST['p_value'][$aLanguage['code']]) ? array_filter(array_map('trim', $_POST['p_value'][$aLanguage['code']])) : '';
 			}
 		}
 		
@@ -107,13 +107,13 @@ if (! empty($_POST['form_sent']))
 	{
 		$aFieldData = array(
 			'id' => $iFieldId,
-			'status' => (! empty($_POST['p_status']) ? intval($_POST['p_status']) : ''),
-			'register_status' => (! empty($_POST['p_register_status']) ? true : false),
-			'user_editable' => (! empty($_POST['p_user_editable']) ? true : false),
-			'type' => (! empty($_POST['p_type']) ? intval($_POST['p_type']) : ''),
-			'title' => (! empty($_POST['p_title']) ? $_POST['p_title'] : array()),
-			'html_id' => (! empty($_POST['p_html_id']) ? $_POST['p_html_id'] : ''),
-			'description' => (! empty($_POST['p_description']) ? $_POST['p_description'] : array())
+			'status' => (!empty($_POST['p_status']) ? intval($_POST['p_status']) : ''),
+			'register_status' => (!empty($_POST['p_register_status']) ? true : false),
+			'user_editable' => (!empty($_POST['p_user_editable']) ? true : false),
+			'type' => (!empty($_POST['p_type']) ? intval($_POST['p_type']) : ''),
+			'title' => (!empty($_POST['p_title']) ? $_POST['p_title'] : []),
+			'html_id' => (!empty($_POST['p_html_id']) ? $_POST['p_html_id'] : ''),
+			'description' => (!empty($_POST['p_description']) ? $_POST['p_description'] : [])
 		);
 		
 		foreach ($okt['languages']->getList() as $aLanguage)
@@ -132,7 +132,7 @@ if (! empty($_POST['form_sent']))
 		if ($okt->error->isEmpty())
 		{
 			# modification
-			if (! is_null($iFieldId))
+			if (!is_null($iFieldId))
 			{
 				if ($okt->users->fields->updField($iFieldId, $aFieldData) !== false)
 				{
@@ -175,7 +175,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 $aTypes = UsersCustomFields::getFieldsTypes();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#form', '.lang-switcher-buttons');
 }

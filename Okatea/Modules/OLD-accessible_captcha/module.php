@@ -119,7 +119,7 @@ class module_accessible_captcha extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->configSubMenu->add(__('Accessible Captcha'), 'module.php?m=accessible_captcha&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('accessible_captcha_config'), null);
+			$this->okt->page->configSubMenu->add(__('Accessible Captcha'), 'module.php?m=accessible_captcha&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'), 30, $this->okt['visitor']->checkPerm('accessible_captcha_config'), null);
 		}
 	}
 	
@@ -132,11 +132,11 @@ class module_accessible_captcha extends Module
 	 */
 	public function initQuestion()
 	{
-		$this->captcha_questions = array();
+		$this->captcha_questions = [];
 		
 		$rs = $this->get($this->okt['visitor']->language);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			while ($rs->fetch())
 			{
@@ -160,7 +160,7 @@ class module_accessible_captcha extends Module
 	 */
 	public function check($question, $answer)
 	{
-		$questions_arry = array();
+		$questions_arry = [];
 		foreach ($this->captcha_questions as $k => $v)
 		{
 			$questions_arry[sha1($k)] = $v;
@@ -209,14 +209,14 @@ class module_accessible_captcha extends Module
 	{
 		$query = 'SELECT * FROM ' . $this->t_captcha . ' ';
 		
-		if (! is_null($sLanguageCode))
+		if (!is_null($sLanguageCode))
 		{
 			$query .= 'WHERE language_code = \'' . $this->db->escapeStr($sLanguageCode) . '\' ';
 		}
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 		
 		return $rs;
@@ -237,7 +237,7 @@ class module_accessible_captcha extends Module
 	{
 		$query = 'INSERT INTO ' . $this->t_captcha . ' ' . '(question, reponse, language_code) VALUES ( ' . '\'' . $this->db->escapeStr($question) . '\', ' . '\'' . $this->db->escapeStr($reponse) . '\', ' . '\'' . $this->db->escapeStr($language_code) . '\' ' . ')';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -260,7 +260,7 @@ class module_accessible_captcha extends Module
 	{
 		$query = 'UPDATE ' . $this->t_captcha . ' SET ' . 'question = \'' . $this->db->escapeStr($question) . '\', ' . 'reponse = \'' . $this->db->escapeStr($reponse) . '\' ' . 'WHERE id = ' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -279,7 +279,7 @@ class module_accessible_captcha extends Module
 	{
 		$query = 'DELETE FROM ' . $this->t_captcha . ' ' . 'WHERE id = ' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -315,10 +315,10 @@ class module_accessible_captcha extends Module
 	{
 		if ($sCaptchaId == 'accessible_captcha')
 		{
-			$p_question = ! empty($_POST['captcha_q']) ? trim($_POST['captcha_q']) : null;
-			$p_answer = ! empty($_POST['captcha']) ? trim($_POST['captcha']) : null;
+			$p_question = !empty($_POST['captcha_q']) ? trim($_POST['captcha_q']) : null;
+			$p_answer = !empty($_POST['captcha']) ? trim($_POST['captcha']) : null;
 			
-			if (! $okt->accessible_captcha->check($p_question, $p_answer))
+			if (!$okt->accessible_captcha->check($p_question, $p_answer))
 			{
 				$okt->error->set(__('The answer provided to the question is incorrect.'));
 				

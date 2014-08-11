@@ -87,7 +87,7 @@ class FileUpload
 	 */
 	private function checkFile($sExtension)
 	{
-		if (! in_array($sExtension, $this->config['allowed_exts']))
+		if (!in_array($sExtension, $this->config['allowed_exts']))
 		{
 			throw new \Exception('Type de fichier non-autorisé.');
 		}
@@ -100,7 +100,7 @@ class FileUpload
 	 */
 	public function addFiles($iItemId)
 	{
-		$aFiles = array();
+		$aFiles = [];
 		
 		$j = 1;
 		
@@ -108,7 +108,7 @@ class FileUpload
 		{
 			$aFiles[$j] = '';
 			
-			if (! isset($_FILES[sprintf($this->config['files_patern'], $i)]) || empty($_FILES[sprintf($this->config['files_patern'], $i)]['tmp_name']))
+			if (!isset($_FILES[sprintf($this->config['files_patern'], $i)]) || empty($_FILES[sprintf($this->config['files_patern'], $i)]['tmp_name']))
 			{
 				continue;
 			}
@@ -130,7 +130,7 @@ class FileUpload
 				
 				$sDestination = $this->upload_dir . '/' . $iItemId . '-' . $j . '.' . $sExtension;
 				
-				if (! move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
 				{
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
@@ -156,15 +156,15 @@ class FileUpload
 	 *
 	 * @return array
 	 */
-	public function updFiles($iItemId, $aCurrentFiles = array())
+	public function updFiles($iItemId, $aCurrentFiles = [])
 	{
-		$aNewFiles = array();
+		$aNewFiles = [];
 		
 		$j = 1;
 		
 		for ($i = 1; $i <= $this->config['number']; $i ++)
 		{
-			if (! isset($_FILES[sprintf($this->config['files_patern'], $i)]) || empty($_FILES[sprintf($this->config['files_patern'], $i)]['tmp_name']))
+			if (!isset($_FILES[sprintf($this->config['files_patern'], $i)]) || empty($_FILES[sprintf($this->config['files_patern'], $i)]['tmp_name']))
 			{
 				if (isset($aCurrentFiles[$i]))
 				{
@@ -208,7 +208,7 @@ class FileUpload
 				
 				$sDestination = $this->upload_dir . '/' . $iItemId . '-' . $j . '.' . $sExtension;
 				
-				if (! move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
 				{
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
@@ -233,7 +233,7 @@ class FileUpload
 	{
 		foreach ($aCurrentFiles as $file_id => $file)
 		{
-			if (isset($aCurrentFiles[$file_id]) && ! empty($aCurrentFiles[$file_id]['filename']) && file_exists($this->upload_dir . '/' . $aCurrentFiles[$file_id]['filename']))
+			if (isset($aCurrentFiles[$file_id]) && !empty($aCurrentFiles[$file_id]['filename']) && file_exists($this->upload_dir . '/' . $aCurrentFiles[$file_id]['filename']))
 			{
 				unlink($this->upload_dir . '/' . $aCurrentFiles[$file_id]['filename']);
 			}
@@ -250,7 +250,7 @@ class FileUpload
 	 */
 	public function deleteFile($iItemId, $aCurrentFiles, $iFileId)
 	{
-		if (! isset($aCurrentFiles[$iFileId]) || empty($aCurrentFiles[$iFileId]['filename']))
+		if (!isset($aCurrentFiles[$iFileId]) || empty($aCurrentFiles[$iFileId]['filename']))
 		{
 			$this->error->set('Le fichier n’existe pas.');
 			return false;
@@ -265,12 +265,12 @@ class FileUpload
 		# suppression du nom pour les infos de la BDD
 		unset($aCurrentFiles[$iFileId]);
 		
-		$aNewFiles = array();
+		$aNewFiles = [];
 		
 		$j = 1;
 		for ($i = 1; $i <= $this->config['number']; $i ++)
 		{
-			if (! isset($aCurrentFiles[$i]) || empty($aCurrentFiles[$i]['filename']))
+			if (!isset($aCurrentFiles[$i]) || empty($aCurrentFiles[$i]['filename']))
 			{
 				continue;
 			}

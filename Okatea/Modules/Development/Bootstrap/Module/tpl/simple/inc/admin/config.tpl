@@ -18,13 +18,13 @@ if (!defined('ON_MODULE')) die;
 # enregistrement configuration
 if (!empty($_POST['form_sent']))
 {
-	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name'])  ? $_POST['p_name'] : array();
-	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo'])  ? $_POST['p_name_seo'] : array();
-	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name'])  ? $_POST['p_name'] : [];
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo'])  ? $_POST['p_name_seo'] : [];
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : [];
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : [];
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : [];
 
-	$p_public_url = !empty($_POST['p_public_url']) && is_array($_POST['p_public_url']) ? $_POST['p_public_url'] : array();
+	$p_public_url = !empty($_POST['p_public_url']) && is_array($_POST['p_public_url']) ? $_POST['p_public_url'] : [];
 
 	foreach ($p_public_url as $lang=>$url) {
 		$p_public_url[$lang] = Utilities::formatAppPath($url,false,false);

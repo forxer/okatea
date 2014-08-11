@@ -45,7 +45,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 			'ui-icon' => 'pencil'
 		),
 		array(
-			'permission' => ! in_array($rsField->id, Fields::getUnDeletableFields()),
+			'permission' => !in_array($rsField->id, Fields::getUnDeletableFields()),
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateAdminUrl('Contact_fields') . '?delete=' . $rsField->id,
 			'ui-icon' => 'closethick',
@@ -55,7 +55,7 @@ $okt->page->setButtonset('fieldBtSt', array(
 ));
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#field-values-form', '.lang-switcher-buttons');
 }

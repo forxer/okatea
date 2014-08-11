@@ -17,7 +17,7 @@ class Bootstrap extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('development_usage') || ! $this->okt['visitor']->checkPerm('development_bootstrap'))
+		if (!$this->okt['visitor']->checkPerm('development_usage') || !$this->okt['visitor']->checkPerm('development_bootstrap'))
 		{
 			return $this->serve401();
 		}
@@ -83,7 +83,7 @@ class Bootstrap extends Controller
 		$bAdvanced = $this->okt['request']->request->has('advanced');
 		
 		# Bootstrap a module
-		if (! $bSimple && ! $bAdvanced)
+		if (!$bSimple && !$bAdvanced)
 		{
 			return false;
 		}
@@ -160,7 +160,7 @@ class Bootstrap extends Controller
 				$bootstraper->setTemplatesDir(__DIR__ . '/../../Bootstrap/Module/tpl/advanced');
 			}
 			
-			if (null === $bootstraper || ! $bootstraper instanceof Module\Module)
+			if (null === $bootstraper || !$bootstraper instanceof Module\Module)
 			{
 				throw new \Exception('There is no bootstraper instance.');
 				return false;

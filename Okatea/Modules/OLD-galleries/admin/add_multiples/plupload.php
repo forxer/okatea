@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -17,13 +17,13 @@ if (! defined('ON_MODULE'))
 # Chargement des locales
 $okt['l10n']->loadFile(__DIR__ . '/../../../Locales/%s/admin.plupload');
 
-$iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
+$iGalleryId = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
-$aItemLocalesData = array();
+$aItemLocalesData = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
-	$aItemLocalesData[$aLanguage['code']] = array();
+	$aItemLocalesData[$aLanguage['code']] = [];
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
 }
 
@@ -31,7 +31,7 @@ foreach ($okt['languages']->getList() as $aLanguage)
 ----------------------------------------------------------*/
 
 #  ajout d'éléments
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
 	$okt->galleries->items->regenMinImages($iGalleryId);
 	
@@ -119,7 +119,7 @@ $okt->page->js->addReady('
 ');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#items-title', '.lang-switcher-buttons');
 }

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -32,7 +32,7 @@ class CKFinder_Connector_Utils_Misc
 	function getErrorMessage($number, $arg = "")
 	{
 		$langCode = 'en';
-		if (! empty($_GET['langCode']) && preg_match("/^[a-z\-]+$/", $_GET['langCode']))
+		if (!empty($_GET['langCode']) && preg_match("/^[a-z\-]+$/", $_GET['langCode']))
 		{
 			if (file_exists(CKFINDER_CONNECTOR_LANG_PATH . "/" . $_GET['langCode'] . ".php"))
 				$langCode = $_GET['langCode'];
@@ -40,7 +40,7 @@ class CKFinder_Connector_Utils_Misc
 		include CKFINDER_CONNECTOR_LANG_PATH . "/" . $langCode . ".php";
 		if ($number)
 		{
-			if (! empty($GLOBALS['CKFLang']['Errors'][$number]))
+			if (!empty($GLOBALS['CKFLang']['Errors'][$number]))
 			{
 				$errorMessage = str_replace("%1", $arg, $GLOBALS['CKFLang']['Errors'][$number]);
 			}
@@ -88,7 +88,7 @@ class CKFinder_Connector_Utils_Misc
 	 */
 	function booleanValue($value)
 	{
-		if (strcasecmp("false", $value) == 0 || strcasecmp("off", $value) == 0 || ! $value)
+		if (strcasecmp("false", $value) == 0 || strcasecmp("off", $value) == 0 || !$value)
 		{
 			return false;
 		}
@@ -177,7 +177,7 @@ class CKFinder_Connector_Utils_Misc
 		{
 			return true;
 		}
-		if (! $memoryLimit)
+		if (!$memoryLimit)
 		{
 			$memoryLimit = 8;
 		}
@@ -222,7 +222,7 @@ class CKFinder_Connector_Utils_Misc
 	function returnBytes($val)
 	{
 		$val = trim($val);
-		if (! $val)
+		if (!$val)
 		{
 			return 0;
 		}
@@ -253,11 +253,11 @@ class CKFinder_Connector_Utils_Misc
 	 */
 	function inArrayCaseInsensitive($needle, $haystack)
 	{
-		if (! $haystack || ! is_array($haystack))
+		if (!$haystack || !is_array($haystack))
 		{
 			return false;
 		}
-		$lcase = array();
+		$lcase = [];
 		foreach ($haystack as $key => $val)
 		{
 			$lcase[$key] = strtolower($val);
@@ -344,7 +344,7 @@ class CKFinder_Connector_Utils_Misc
 			$BMP['decal'] = 0;
 		}
 		
-		$PALETTE = array();
+		$PALETTE = [];
 		if ($BMP['colors'] < 16777216)
 		{
 			$PALETTE = unpack('V' . $BMP['colors'], fread($f1, $BMP['colors'] * 4));
@@ -418,7 +418,7 @@ class CKFinder_Connector_Utils_Misc
 					{
 						$index = $temp[$i ++] & 0x0F;
 					}
-					$low = ! $low;
+					$low = !$low;
 					
 					imagesetpixel($res, $X ++, $Y, $PALETTE[$index + 1]);
 				}

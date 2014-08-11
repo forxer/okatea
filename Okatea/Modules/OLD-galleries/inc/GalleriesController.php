@@ -30,7 +30,7 @@ class GalleriesController extends Controller
 		$this->okt->galleries->tree->prepareGalleries($this->rsGalleriesList);
 		
 		# meta description
-		if (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -40,7 +40,7 @@ class GalleriesController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -50,7 +50,7 @@ class GalleriesController extends Controller
 		}
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 		}
@@ -80,7 +80,7 @@ class GalleriesController extends Controller
 		$this->page->action = 'gallery';
 		
 		# récupération de la galerie en fonction du slug
-		if (! $slug = $this->okt['request']->attributes->get('slug'))
+		if (!$slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -102,7 +102,7 @@ class GalleriesController extends Controller
 		
 		# un mot de passe ?
 		$this->bGalleryRequirePassword = false;
-		if (! empty($this->rsGallery->password))
+		if (!empty($this->rsGallery->password))
 		{
 			# il y a un mot de passe en session
 			if ($this->okt['session']->has('okt_gallery_password_' . $this->rsGallery->id))
@@ -115,7 +115,7 @@ class GalleriesController extends Controller
 			}
 			
 			# ou il y a un mot de passe venant du formulaire
-			elseif (! empty($_POST['okt_gallery_password']))
+			elseif (!empty($_POST['okt_gallery_password']))
 			{
 				$p_password = trim($_POST['okt_gallery_password']);
 				
@@ -156,11 +156,11 @@ class GalleriesController extends Controller
 		));
 		
 		# meta description
-		if (! empty($this->rsGallery->meta_description))
+		if (!empty($this->rsGallery->meta_description))
 		{
 			$this->page->meta_description = $this->rsGallery->meta_description;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -170,11 +170,11 @@ class GalleriesController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->rsGallery->meta_keywords))
+		if (!empty($this->rsGallery->meta_keywords))
 		{
 			$this->page->meta_description = $this->rsGallery->meta_keywords;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -184,10 +184,10 @@ class GalleriesController extends Controller
 		}
 		
 		# title tag
-		$this->page->addTitleTag((! empty($this->rsGallery->title_tag) ? $this->rsGallery->title_tag : $this->rsGallery->title));
+		$this->page->addTitleTag((!empty($this->rsGallery->title_tag) ? $this->rsGallery->title_tag : $this->rsGallery->title));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 			
@@ -219,7 +219,7 @@ class GalleriesController extends Controller
 	public function galleriesItem()
 	{
 		# récupération de l'élément en fonction du slug
-		if (! $slug = $this->okt['request']->attributes->get('slug'))
+		if (!$slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -240,7 +240,7 @@ class GalleriesController extends Controller
 		$this->page->module = 'galleries';
 		$this->page->action = 'item';
 		
-		if (empty($this->okt->galleries->config->enable_rte) && ! empty($this->rsItem->legend))
+		if (empty($this->okt->galleries->config->enable_rte) && !empty($this->rsItem->legend))
 		{
 			$this->rsItem->legend = Modifiers::nlToP($this->rsItem->legend);
 		}
@@ -256,11 +256,11 @@ class GalleriesController extends Controller
 		$this->page->addTitleTag($this->rsItem->title_tag);
 		
 		# meta description
-		if (! empty($this->rsItem->meta_description))
+		if (!empty($this->rsItem->meta_description))
 		{
 			$this->page->meta_description = $this->rsItem->meta_description;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->galleries->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->galleries->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -270,11 +270,11 @@ class GalleriesController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->rsItem->meta_keywords))
+		if (!empty($this->rsItem->meta_keywords))
 		{
 			$this->page->meta_keywords = $this->rsItem->meta_keywords;
 		}
-		elseif (! empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->galleries->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -284,7 +284,7 @@ class GalleriesController extends Controller
 		}
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->galleries->getName(), GalleriesHelpers::getGalleriesUrl());
 			
@@ -303,7 +303,7 @@ class GalleriesController extends Controller
 		$this->page->setTitle($this->rsItem->title);
 		
 		# titre SEO de la page
-		$this->page->setTitleSeo(! empty($this->rsItem->title_seo) ? $this->rsItem->title_seo : $this->rsItem->title);
+		$this->page->setTitleSeo(!empty($this->rsItem->title_seo) ? $this->rsItem->title_seo : $this->rsItem->title);
 		
 		# affichage du template
 		return $this->render('galleries/item/' . $this->okt->galleries->config->templates['item']['default'] . '/template', array(

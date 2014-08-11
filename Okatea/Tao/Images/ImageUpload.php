@@ -96,7 +96,7 @@ class ImageUpload
 	 * @param array $aConfig
 	 * @return void
 	 */
-	public function __construct(Application $okt, $aConfig = array())
+	public function __construct(Application $okt, $aConfig = [])
 	{
 		$this->okt = $okt;
 
@@ -123,7 +123,7 @@ class ImageUpload
 	 */
 	public function addImagesFromArray($iItemId, $aFilenames)
 	{
-		$aImages = array();
+		$aImages = [];
 
 		$j = 1;
 
@@ -133,7 +133,7 @@ class ImageUpload
 
 			$sFilename = $aFilenames[$i];
 
-			if (! file_exists($sFilename))
+			if (!file_exists($sFilename))
 			{
 				continue;
 			}
@@ -158,7 +158,7 @@ class ImageUpload
 
 				$sOutput = $j . '.' . $sExtension;
 
-				if (! copy($sFilename, $sCurrentImagesDir . '/' . $sOutput))
+				if (!copy($sFilename, $sCurrentImagesDir . '/' . $sOutput))
 				{
 					throw new \Exception('Impossible de copier le fichier image.');
 				}
@@ -204,7 +204,7 @@ class ImageUpload
 
 		$return = '';
 
-		if (isset($_FILES[$form_input_name]) && ! empty($_FILES[$form_input_name]['tmp_name']))
+		if (isset($_FILES[$form_input_name]) && !empty($_FILES[$form_input_name]['tmp_name']))
 		{
 			$sUploadedFile = $_FILES[$form_input_name];
 
@@ -231,7 +231,7 @@ class ImageUpload
 				# suppression de l'éventuel ancien fichier
 				(new Filesystem())->remove($sCurrentImageDir . '/' . $sOutput);
 
-				if (! move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir . $sOutput))
+				if (!move_uploaded_file($sUploadedFile['tmp_name'], $sCurrentImageDir . $sOutput))
 				{
 					throw new \Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 				}
@@ -255,7 +255,7 @@ class ImageUpload
 	 */
 	public function addImages($iItemId)
 	{
-		$aImages = array();
+		$aImages = [];
 
 		$j = 1;
 
@@ -263,7 +263,7 @@ class ImageUpload
 		{
 			$aImages[$j] = '';
 
-			if (! $this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
+			if (!$this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
 			{
 				continue;
 			}
@@ -329,15 +329,15 @@ class ImageUpload
 	 * @param array $aCurrentImages
 	 * @return array
 	 */
-	public function updImages($iItemId, $aCurrentImages = array())
+	public function updImages($iItemId, $aCurrentImages = [])
 	{
-		$aNewImages = array();
+		$aNewImages = [];
 
 		$j = 1;
 
 		for ($i = 1; $i <= $this->aConfig['number']; $i ++)
 		{
-			if (! $this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
+			if (!$this->okt['request']->files->has(sprintf($this->aConfig['files_patern'], $i)))
 			{
 				if (isset($aCurrentImages[$i]))
 				{
@@ -442,7 +442,7 @@ class ImageUpload
 	 */
 	public function deleteImage($iItemId, $aCurrentImages, $iImgId)
 	{
-		if (! isset($aCurrentImages[$iImgId]))
+		if (!isset($aCurrentImages[$iImgId]))
 		{
 			$this->error->set('L’image n’existe pas.');
 			return false;
@@ -468,12 +468,12 @@ class ImageUpload
 		# suppression du nom pour les infos de la BDD
 		unset($aCurrentImages[$iImgId]);
 
-		$aNewImages = array();
+		$aNewImages = [];
 
 		$j = 1;
 		for ($i = 1; $i <= $this->aConfig['number']; $i ++)
 		{
-			if (! isset($aCurrentImages[$i]))
+			if (!isset($aCurrentImages[$i]))
 			{
 				continue;
 			}
@@ -526,7 +526,7 @@ class ImageUpload
 			$j ++;
 		}
 
-		if (! Utilities::dirHasFiles($sCurrentImagesDir))
+		if (!Utilities::dirHasFiles($sCurrentImagesDir))
 		{
 			(new Filesystem())->remove($sCurrentImagesDir);
 		}
@@ -653,7 +653,7 @@ class ImageUpload
 
 		$image = $imagine->open($sSourceFile)->thumbnail($size, $mode);
 
-		if (! empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir() . '/' . $sWatermarkFile))
+		if (!empty($sWatermarkFile) && file_exists($this->getWatermarkUploadDir() . '/' . $sWatermarkFile))
 		{
 			$watermark = $imagine->open($this->getWatermarkUploadDir() . '/' . $sWatermarkFile);
 
@@ -697,7 +697,7 @@ class ImageUpload
 	 */
 	public static function getImagesInfos($sImagesPath, $sImagesUrl, $aImagesDb, $iNum)
 	{
-		$aImages = array();
+		$aImages = [];
 
 		$j = 1;
 		for ($i = 1; $i <= $iNum; $i ++)
@@ -737,7 +737,7 @@ class ImageUpload
 	{
 		$aImages = self::getImageFileInfos($sImagesPath, $sImagesUrl, $sImage);
 
-		if (! empty($aImages))
+		if (!empty($aImages))
 		{
 			$aImages = array_merge($aImages, self::getImageFileInfos($sImagesPath, $sImagesUrl, $sImage, 'min'));
 
@@ -800,9 +800,9 @@ class ImageUpload
 			$sKeyPrefix = 'img_';
 		}
 
-		if (! file_exists($sImagesPath . '/' . $sImage))
+		if (!file_exists($sImagesPath . '/' . $sImage))
 		{
-			return array();
+			return [];
 		}
 
 		$aInfos = getimagesize($sImagesPath . '/' . $sImage);
@@ -827,7 +827,7 @@ class ImageUpload
 	 */
 	public static function checkExtension($sExtension)
 	{
-		if (! in_array($sExtension, self::$aAllowedExts))
+		if (!in_array($sExtension, self::$aAllowedExts))
 		{
 			throw new \Exception('Type de fichier non-autorisé.');
 		}
@@ -842,7 +842,7 @@ class ImageUpload
 	 */
 	public static function checkType($sType)
 	{
-		if (! in_array($sType, self::$aAllowedTypes))
+		if (!in_array($sType, self::$aAllowedTypes))
 		{
 			throw new \Exception('Type de fichier non-autorisé.');
 		}

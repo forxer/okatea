@@ -2791,7 +2791,7 @@ WYMeditor.Lexer.prototype.parse = function(raw)
     var matched = parsed[2];
     var mode = parsed[3];
 
-    if (! this._dispatchTokens(unmatched, matched, mode)) {
+    if (!this._dispatchTokens(unmatched, matched, mode)) {
       return false;
     }
 
@@ -2803,7 +2803,7 @@ WYMeditor.Lexer.prototype.parse = function(raw)
     }
     length = raw.length;
   }
-  if (! parsed ) {
+  if (!parsed ) {
     return false;
   }
 
@@ -2826,7 +2826,7 @@ WYMeditor.Lexer.prototype._dispatchTokens = function(unmatched, matched, mode)
 {
   mode = mode || false;
 
-  if (! this._invokeParser(unmatched, WYMeditor.LEXER_UNMATCHED)) {
+  if (!this._invokeParser(unmatched, WYMeditor.LEXER_UNMATCHED)) {
     return false;
   }
 
@@ -2834,14 +2834,14 @@ WYMeditor.Lexer.prototype._dispatchTokens = function(unmatched, matched, mode)
     return this._invokeParser(matched, WYMeditor.LEXER_MATCHED);
   }
   if (this._isModeEnd(mode)) {
-    if (! this._invokeParser(matched, WYMeditor.LEXER_EXIT)) {
+    if (!this._invokeParser(matched, WYMeditor.LEXER_EXIT)) {
       return false;
     }
     return this._mode.leave();
   }
   if (this._isSpecialMode(mode)) {
     this._mode.enter(this._decodeSpecial(mode));
-    if (! this._invokeParser(matched, WYMeditor.LEXER_SPECIAL)) {
+    if (!this._invokeParser(matched, WYMeditor.LEXER_SPECIAL)) {
       return false;
     }
     return this._mode.leave();

@@ -60,16 +60,16 @@ class EstimateAccessories
 	 * @param boolean $count_only        	
 	 * @return object recordset/integer
 	 */
-	public function getAccessories($params = array(), $count_only = false)
+	public function getAccessories($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND a.id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['product_id']))
+		if (!empty($params['product_id']))
 		{
 			$reqPlus .= ' AND a.product_id=' . (integer) $params['product_id'] . ' ';
 		}
@@ -102,7 +102,7 @@ class EstimateAccessories
 		{
 			$query = 'SELECT a.id, a.product_id, a.active, a.title, ' . 'p.title AS product_title ' . 'FROM ' . $this->t_accessories . ' AS a ' . 'LEFT JOIN ' . $this->t_products . ' AS p ON p.id=a.product_id ' . 'WHERE 1 ' . $reqPlus;
 			
-			if (! empty($params['order']))
+			if (!empty($params['order']))
 			{
 				$query .= 'ORDER BY ' . $params['order'] . ' ';
 			}
@@ -111,7 +111,7 @@ class EstimateAccessories
 				$query .= 'ORDER BY p.title ASC, a.title ASC ';
 			}
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
@@ -125,7 +125,7 @@ class EstimateAccessories
 			}
 			else
 			{
-				return new recordset(array());
+				return new recordset([]);
 			}
 		}
 		
@@ -179,14 +179,14 @@ class EstimateAccessories
 	 */
 	public function addAccessory($aData)
 	{
-		if (! $this->checkPostData($aData))
+		if (!$this->checkPostData($aData))
 		{
 			return false;
 		}
 		
 		$oCursor = $this->openCursor($aData);
 		
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			return false;
 		}
@@ -202,20 +202,20 @@ class EstimateAccessories
 	 */
 	public function updAccessory($aData)
 	{
-		if (! $this->accessoryExists($aData['id']))
+		if (!$this->accessoryExists($aData['id']))
 		{
 			$this->error->set(sprintf(__('m_estimate_accessory_%s_not_exists'), $aData['id']));
 			return false;
 		}
 		
-		if (! $this->checkPostData($aData))
+		if (!$this->checkPostData($aData))
 		{
 			return false;
 		}
 		
 		$oCursor = $this->openCursor($aData);
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $aData['id']))
+		if (!$oCursor->update('WHERE id=' . (integer) $aData['id']))
 		{
 			return false;
 		}
@@ -231,7 +231,7 @@ class EstimateAccessories
 	 */
 	public function switchAccessoryStatus($id)
 	{
-		if (! $this->accessoryExists($id))
+		if (!$this->accessoryExists($id))
 		{
 			$this->error->set(sprintf(__('m_estimate_accessory_%s_not_exists'), $id));
 			return false;
@@ -239,7 +239,7 @@ class EstimateAccessories
 		
 		$query = 'UPDATE ' . $this->t_accessories . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -255,7 +255,7 @@ class EstimateAccessories
 	 */
 	public function delAccessory($id)
 	{
-		if (! $this->accessoryExists($id))
+		if (!$this->accessoryExists($id))
 		{
 			$this->error->set(sprintf(__('m_estimate_accessory_%s_not_exists'), $id));
 			return false;
@@ -263,7 +263,7 @@ class EstimateAccessories
 		
 		$query = 'DELETE FROM ' . $this->t_accessories . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -283,7 +283,7 @@ class EstimateAccessories
 	{
 		$oCursor = $this->db->openCursor($this->t_accessories);
 		
-		if (! empty($aData) && is_array($aData))
+		if (!empty($aData) && is_array($aData))
 		{
 			foreach ($aData as $k => $v)
 			{

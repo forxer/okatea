@@ -52,7 +52,7 @@ if ($rsGalleriesList->isEmpty())
 
 <?php 
 # début Okatea : si il y a des galeries on affiche la liste des galeries
-if (! $rsGalleriesList->isEmpty())
+if (!$rsGalleriesList->isEmpty())
 :
 	?>
 
@@ -75,7 +75,7 @@ if (! $rsGalleriesList->isEmpty())
 
 		<?php 
 # début Okatea : affichage image
-		if (! empty($rsGalleriesList->image) && isset($rsGalleriesList->image['min_url']))
+		if (!empty($rsGalleriesList->image) && isset($rsGalleriesList->image['min_url']))
 		:
 			?>
 

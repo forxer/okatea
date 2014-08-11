@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -30,19 +30,19 @@ $oTemplatesSummary->setBaseUrl('module.php?m=estimate&amp;action=config&amp;');
 ----------------------------------------------------------*/
 
 # enregistrement configuration
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_enable_accessories = ! empty($_POST['p_enable_accessories']) ? true : false;
+	$p_enable_accessories = !empty($_POST['p_enable_accessories']) ? true : false;
 	
-	$p_captcha = ! empty($_POST['p_captcha']) ? $_POST['p_captcha'] : '';
+	$p_captcha = !empty($_POST['p_captcha']) ? $_POST['p_captcha'] : '';
 	
-	$p_enable_notifications = ! empty($_POST['p_enable_notifications']) ? true : false;
+	$p_enable_notifications = !empty($_POST['p_enable_notifications']) ? true : false;
 	
-	$p_notifications_recipients = ! empty($_POST['p_notifications_recipients']) ? $_POST['p_notifications_recipients'] : '';
+	$p_notifications_recipients = !empty($_POST['p_notifications_recipients']) ? $_POST['p_notifications_recipients'] : '';
 	$p_notifications_recipients = array_map('trim', explode(',', $p_notifications_recipients));
 	foreach ($p_notifications_recipients as $i => $sEmail)
 	{
-		if ($sEmail != '' && ! Utilities::isEmail($sEmail))
+		if ($sEmail != '' && !Utilities::isEmail($sEmail))
 		{
 			$okt->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($sEmail)));
 		}
@@ -50,17 +50,17 @@ if (! empty($_POST['form_sent']))
 	}
 	$p_notifications_recipients = implode(',', $p_notifications_recipients);
 	
-	$p_default_products_number = ! empty($_POST['p_default_products_number']) ? intval($_POST['p_default_products_number']) : 1;
-	$p_default_accessories_number = ! empty($_POST['p_default_accessories_number']) ? intval($_POST['p_default_accessories_number']) : 1;
+	$p_default_products_number = !empty($_POST['p_default_products_number']) ? intval($_POST['p_default_products_number']) : 1;
+	$p_default_accessories_number = !empty($_POST['p_default_accessories_number']) ? intval($_POST['p_default_accessories_number']) : 1;
 	
 	$p_tpl_form = $oTemplatesForm->getPostConfig();
 	$p_tpl_summary = $oTemplatesSummary->getPostConfig();
 	
-	$p_name = ! empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : array();
-	$p_name_seo = ! empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : array();
-	$p_title = ! empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = ! empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = ! empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : [];
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : [];
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : [];
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : [];
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : [];
 	
 	if ($okt->error->isEmpty())
 	{
@@ -108,7 +108,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

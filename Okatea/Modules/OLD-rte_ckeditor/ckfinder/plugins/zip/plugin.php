@@ -12,7 +12,7 @@
 *
 * CKFinder extension: provides commands to add files into a zip archive, or extract contents from a zip.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -39,7 +39,7 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! extension_loaded('zip'))
+		if (!extension_loaded('zip'))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_COMMAND);
 		}
@@ -47,12 +47,12 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 		$this->checkConnector();
 		$this->checkRequest();
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
-		if (! isset($_POST["fileName"]))
+		if (!isset($_POST["fileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -60,24 +60,24 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_POST["fileName"]);
 		$resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! $resourceTypeInfo->checkExtension($fileName))
+		if (!$resourceTypeInfo->checkExtension($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION);
 		}
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $resourceTypeInfo->checkIsHiddenFile($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
 		$filePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $fileName);
 		
-		if (! file_exists($filePath) || ! is_file($filePath))
+		if (!file_exists($filePath) || !is_file($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
 		
-		if (! is_writable(dirname($filePath)))
+		if (!is_writable(dirname($filePath)))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
@@ -125,14 +125,14 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			{
 				$sNewFolderName = CKFinder_Connector_Utils_FileSystem::convertToAscii($sNewFolderName);
 			}
-			if (! CKFinder_Connector_Utils_FileSystem::checkFolderPath($sNewFolderName) || $resourceTypeInfo->checkIsHiddenFolder($sNewFolderName))
+			if (!CKFinder_Connector_Utils_FileSystem::checkFolderPath($sNewFolderName) || $resourceTypeInfo->checkIsHiddenFolder($sNewFolderName))
 			{
 				$this->errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_NAME;
 				$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
 				return false;
 			}
 			
-			if (! is_writeable($this->_currentFolder->getServerPath()))
+			if (!is_writeable($this->_currentFolder->getServerPath()))
 			{
 				$this->errorCode = CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED;
 				$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -154,14 +154,14 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			return false;
 		}
 		// extension
-		if (! $resourceTypeInfo->checkExtension($sFileName))
+		if (!$resourceTypeInfo->checkExtension($sFileName))
 		{
 			$this->errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION;
 			$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
 			return false;
 		}
 		// hidden file
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($sFileName) || $resourceTypeInfo->checkIsHiddenFile($sFileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($sFileName) || $resourceTypeInfo->checkIsHiddenFile($sFileName))
 		{
 			$this->errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST;
 			$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -170,7 +170,7 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 		
 		// unpack file to tmp dir for detecting html and valid image
 		$dir = CKFinder_Connector_Utils_FileSystem::getTmpDir() . '/';
-		if (file_exists($dir . $sFileName) && ! CKFinder_Connector_Utils_FileSystem::unlink($dir . $sFileName))
+		if (file_exists($dir . $sFileName) && !CKFinder_Connector_Utils_FileSystem::unlink($dir . $sFileName))
 		{
 			$this->errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST;
 			$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -181,7 +181,7 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			// html extensions
 			$htmlExtensions = $this->_config->getHtmlExtensions();
 			$sExtension = CKFinder_Connector_Utils_FileSystem::getExtension($dir . $sFileName);
-			if ($htmlExtensions && ! CKFinder_Connector_Utils_Misc::inArrayCaseInsensitive($sExtension, $htmlExtensions) && CKFinder_Connector_Utils_FileSystem::detectHtml($dir . $sFileName) === true)
+			if ($htmlExtensions && !CKFinder_Connector_Utils_Misc::inArrayCaseInsensitive($sExtension, $htmlExtensions) && CKFinder_Connector_Utils_FileSystem::detectHtml($dir . $sFileName) === true)
 			{
 				$this->errorCode = CKFINDER_CONNECTOR_ERROR_UPLOADED_INVALID;
 				$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -273,9 +273,9 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			{
 				$isDir = true;
 			}
-			if (! empty($sfilePathInfo['dirname']) && ! empty($sfilePathInfo['basename']) && ! file_exists($sfilePathInfo['dirname'] . '/' . $sfilePathInfo['basename']))
+			if (!empty($sfilePathInfo['dirname']) && !empty($sfilePathInfo['basename']) && !file_exists($sfilePathInfo['dirname'] . '/' . $sfilePathInfo['basename']))
 			{
-				if (! $canCreateFolder)
+				if (!$canCreateFolder)
 				{
 					return;
 				}
@@ -296,9 +296,9 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 		}
 		
 		// extract file
-		if (! file_exists($sfilePathInfo['dirname']))
+		if (!file_exists($sfilePathInfo['dirname']))
 		{
-			if (! $canCreateFolder)
+			if (!$canCreateFolder)
 			{
 				$this->errorCode = CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED;
 				$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -307,7 +307,7 @@ class CKFinder_Connector_CommandHandler_Unzip extends CKFinder_Connector_Command
 			CKFinder_Connector_Utils_FileSystem::createDirectoryRecursively($sfilePathInfo['dirname']);
 		}
 		$isAuthorized = (($aclMask & CKFINDER_CONNECTOR_ACL_FILE_UPLOAD) == CKFINDER_CONNECTOR_ACL_FILE_UPLOAD);
-		if (! $isAuthorized)
+		if (!$isAuthorized)
 		{
 			$this->errorCode = CKFINDER_CONNECTOR_ERROR_COPY_FAILED;
 			$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $originalFileName);
@@ -343,8 +343,8 @@ class CKFinder_Connector_CommandHandler_UnzipHere extends CKFinder_Connector_Com
 	{
 		parent::buildXml();
 		
-		$checkedFiles = array();
-		if (! empty($_POST['files']) && is_array($_POST['files']))
+		$checkedFiles = [];
+		if (!empty($_POST['files']) && is_array($_POST['files']))
 		{
 			foreach ($_POST['files'] as $file)
 			{
@@ -355,7 +355,7 @@ class CKFinder_Connector_CommandHandler_UnzipHere extends CKFinder_Connector_Com
 		for ($i = 0; $i < $this->zip->numFiles; $i ++)
 		{
 			$fileName = $this->zip->getNameIndex($i);
-			if (! empty($checkedFiles[$fileName]) && $checkedFiles[$fileName]['options'] == 'ok')
+			if (!empty($checkedFiles[$fileName]) && $checkedFiles[$fileName]['options'] == 'ok')
 			{
 				// file was sucessfully unzipped before
 				$this->appendUnzippedNode($this->unzippedNodes, $fileName);
@@ -369,7 +369,7 @@ class CKFinder_Connector_CommandHandler_UnzipHere extends CKFinder_Connector_Com
 			{
 				$fileType = 'Folder';
 				// check if we can create subfolder
-				if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
+				if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
 				{
 					$this->errorCode = CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED;
 					$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $fileName, $fileType);
@@ -385,10 +385,10 @@ class CKFinder_Connector_CommandHandler_UnzipHere extends CKFinder_Connector_Com
 			{
 				if (file_exists($extractPath . $sFileName))
 				{
-					if (! is_dir($extractPath . $sFileName))
+					if (!is_dir($extractPath . $sFileName))
 					{
 						// file was checked before
-						if (! empty($checkedFiles[$fileName]['options']))
+						if (!empty($checkedFiles[$fileName]['options']))
 						{
 							if ($checkedFiles[$fileName]['options'] == 'autorename')
 							{
@@ -397,13 +397,13 @@ class CKFinder_Connector_CommandHandler_UnzipHere extends CKFinder_Connector_Com
 							}
 							elseif ($checkedFiles[$fileName]['options'] == 'overwrite')
 							{
-								if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+								if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 								{
 									$this->errorCode = CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED;
 									$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $fileName, $fileType);
 									continue;
 								}
-								if (! CKFinder_Connector_Utils_FileSystem::unlink($extractPath . $sFileName))
+								if (!CKFinder_Connector_Utils_FileSystem::unlink($extractPath . $sFileName))
 								{
 									$this->errorCode = CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED;
 									$this->appendErrorNode($this->skippedFilesNode, $this->errorCode, $fileName, $fileType);
@@ -465,7 +465,7 @@ class CKFinder_Connector_CommandHandler_UnzipTo extends CKFinder_Connector_Comma
 	{
 		parent::buildXml();
 		
-		$extractDir = (! empty($_POST['extractDir'])) ? ltrim($_POST['extractDir'], '/') : '';
+		$extractDir = (!empty($_POST['extractDir'])) ? ltrim($_POST['extractDir'], '/') : '';
 		$extractDir = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($extractDir);
 		if (preg_match(CKFINDER_REGEX_INVALID_PATH, $extractDir))
 		{
@@ -477,11 +477,11 @@ class CKFinder_Connector_CommandHandler_UnzipTo extends CKFinder_Connector_Comma
 		$_aclConfig = $this->_config->getAccessControlConfig();
 		$aclMask = $_aclConfig->getComputedMask($this->_currentFolder->getResourceTypeName(), $extractDir);
 		
-		if (! (($aclMask & CKFINDER_CONNECTOR_ACL_FOLDER_CREATE) == CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
+		if (!(($aclMask & CKFINDER_CONNECTOR_ACL_FOLDER_CREATE) == CKFINDER_CONNECTOR_ACL_FOLDER_CREATE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
-		if (empty($_POST['force']) && file_exists($extractPath) && is_dir($extractPath) && ! CKFinder_Connector_Utils_FileSystem::isEmptyDir($extractPath))
+		if (empty($_POST['force']) && file_exists($extractPath) && is_dir($extractPath) && !CKFinder_Connector_Utils_FileSystem::isEmptyDir($extractPath))
 		{
 			$dirExists = new CKFinder_Connector_Utils_XmlNode("FolderExists");
 			$oErrorNode = new CKFinder_Connector_Utils_XmlNode("Folder");
@@ -490,26 +490,26 @@ class CKFinder_Connector_CommandHandler_UnzipTo extends CKFinder_Connector_Comma
 			$this->_connectorNode->addChild($dirExists);
 			return;
 		}
-		elseif (! empty($_POST['force']) && $_POST['force'] == 'overwrite')
+		elseif (!empty($_POST['force']) && $_POST['force'] == 'overwrite')
 		{
-			if (! (($aclMask & CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE) == CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+			if (!(($aclMask & CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE) == CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 			}
 			if ($extractDir && file_exists($extractPath) && is_dir($extractPath))
 			{
-				if (! (($aclMask & CKFINDER_CONNECTOR_ACL_FOLDER_CREATE | CKFINDER_CONNECTOR_ACL_FOLDER_DELETE) == CKFINDER_CONNECTOR_ACL_FOLDER_CREATE | CKFINDER_CONNECTOR_ACL_FOLDER_DELETE))
+				if (!(($aclMask & CKFINDER_CONNECTOR_ACL_FOLDER_CREATE | CKFINDER_CONNECTOR_ACL_FOLDER_DELETE) == CKFINDER_CONNECTOR_ACL_FOLDER_CREATE | CKFINDER_CONNECTOR_ACL_FOLDER_DELETE))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 				}
-				if (! CKFinder_Connector_Utils_FileSystem::unlink($extractPath))
+				if (!CKFinder_Connector_Utils_FileSystem::unlink($extractPath))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 				}
 			}
 		}
 		else 
-			if (! empty($_POST['force']) && $_POST['force'] !== 'merge')
+			if (!empty($_POST['force']) && $_POST['force'] !== 'merge')
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 			}
@@ -561,7 +561,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 	 */
 	protected function getConfig()
 	{
-		$config = array();
+		$config = [];
 		
 		$config['zipMaxSize'] = 'default';
 		if (isset($GLOBALS['config']['ZipMaxSize']) && (string) $GLOBALS['config']['ZipMaxSize'] != 'default')
@@ -596,18 +596,18 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		// acl
 		$aclMask = $_aclConfig->getComputedMask($this->_currentFolder->getResourceTypeName(), str_ireplace($directory, '', $pathName));
 		$isAuthorized = (($aclMask & CKFINDER_CONNECTOR_ACL_FILE_VIEW) == CKFINDER_CONNECTOR_ACL_FILE_VIEW);
-		if (! $isAuthorized)
+		if (!$isAuthorized)
 		{
 			return false;
 		}
 		
 		// if it is a folder fileName represents the dir
-		if ($file->isDir() && (! CKFinder_Connector_Utils_FileSystem::checkFolderPath($fileName) || $resourceTypeInfo->checkIsHiddenPath($fileName)))
+		if ($file->isDir() && (!CKFinder_Connector_Utils_FileSystem::checkFolderPath($fileName) || $resourceTypeInfo->checkIsHiddenPath($fileName)))
 		{
 			return false;
 		}
 		// folder name
-		if (! CKFinder_Connector_Utils_FileSystem::checkFolderPath($pathName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFolderPath($pathName))
 		{
 			return false;
 		}
@@ -619,7 +619,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		}
 		
 		// extension
-		if (! $resourceTypeInfo->checkExtension($fileName) || ! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
+		if (!$resourceTypeInfo->checkExtension($fileName) || !CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
 		{
 			return false;
 		}
@@ -637,17 +637,17 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 	 */
 	protected function getFilesRecursively($directory, $zipMaxSize)
 	{
-		$allFiles = array();
+		$allFiles = [];
 		$_zipFilesSize = 0;
 		$serverPath = str_replace('\\', '/', $directory);
 		
 		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory), RecursiveIteratorIterator::CHILD_FIRST) as $file)
 		{
-			if (! $this->checkOneFile($file))
+			if (!$this->checkOneFile($file))
 			{
 				continue;
 			}
-			if (! empty($zipMaxSize))
+			if (!empty($zipMaxSize))
 			{
 				clearstatcache();
 				$_zipFilesSize += $file->getSize();
@@ -686,7 +686,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 	 */
 	public function buildXml()
 	{
-		if (! extension_loaded('zip'))
+		if (!extension_loaded('zip'))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_COMMAND);
 		}
@@ -694,7 +694,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		$this->checkConnector();
 		$this->checkRequest();
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -703,24 +703,24 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		$currentResourceTypeConfig = $this->_currentFolder->getResourceTypeConfig();
 		$_sServerDir = $this->_currentFolder->getServerPath();
 		
-		$files = array();
+		$files = [];
 		
 		$_zipFilesSize = 0;
 		$config = $this->getConfig();
 		$zipMaxSize = $config['zipMaxSize'];
-		if (! empty($zipMaxSize) && $zipMaxSize == 'default')
+		if (!empty($zipMaxSize) && $zipMaxSize == 'default')
 		{
 			$zipMaxSize = $currentResourceTypeConfig->getMaxSize();
 		}
 		
 		$_isBasket = (isset($_POST['basket']) && $_POST['basket'] == 'true') ? true : false;
 		
-		if (! empty($_POST['files']))
+		if (!empty($_POST['files']))
 		{
 			
 			$_aclConfig = $this->_config->getAccessControlConfig();
-			$aclMasks = array();
-			$_resourceTypeConfig = array();
+			$aclMasks = [];
+			$_resourceTypeConfig = [];
 			
 			foreach ($_POST['files'] as $arr)
 			{
@@ -736,13 +736,13 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 				$path = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($arr['folder']);
 				
 				// check #1 (path)
-				if (! CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
+				if (!CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
 				{
 					continue;
 				}
 				
 				// get resource type config for current file
-				if (! isset($_resourceTypeConfig[$type]))
+				if (!isset($_resourceTypeConfig[$type]))
 				{
 					$_resourceTypeConfig[$type] = $this->_config->getResourceTypeConfig($type);
 				}
@@ -754,13 +754,13 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 				}
 				
 				// check #3 (extension)
-				if (! $_resourceTypeConfig[$type]->checkExtension($name, false))
+				if (!$_resourceTypeConfig[$type]->checkExtension($name, false))
 				{
 					continue;
 				}
 				
 				// check #4 (extension) - when moving to another resource type, double check extension
-				if ($currentResourceTypeConfig->getName() != $type && ! $currentResourceTypeConfig->checkExtension($name, false))
+				if ($currentResourceTypeConfig->getName() != $type && !$currentResourceTypeConfig->checkExtension($name, false))
 				{
 					continue;
 				}
@@ -784,26 +784,26 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 				}
 				
 				// check #7 (Access Control, need file view permission to source files)
-				if (! isset($aclMasks[$type . "@" . $path]))
+				if (!isset($aclMasks[$type . "@" . $path]))
 				{
 					$aclMasks[$type . "@" . $path] = $_aclConfig->getComputedMask($type, $path);
 				}
 				
 				$isAuthorized = (($aclMasks[$type . "@" . $path] & CKFINDER_CONNECTOR_ACL_FILE_VIEW) == CKFINDER_CONNECTOR_ACL_FILE_VIEW);
-				if (! $isAuthorized)
+				if (!$isAuthorized)
 				{
 					continue;
 				}
 				
 				$sourceFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($_resourceTypeConfig[$type]->getDirectory() . $path, $name);
 				// check #8 (invalid file name)
-				if (! file_exists($sourceFilePath) || ! is_file($sourceFilePath))
+				if (!file_exists($sourceFilePath) || !is_file($sourceFilePath))
 				{
 					continue;
 				}
 				
 				// check #9 - max file size
-				if (! empty($zipMaxSize))
+				if (!empty($zipMaxSize))
 				{
 					clearstatcache();
 					$_zipFilesSize += filesize($sourceFilePath);
@@ -820,7 +820,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		}
 		else
 		{
-			if (! is_dir($_sServerDir))
+			if (!is_dir($_sServerDir))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
 			}
@@ -842,16 +842,16 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		if (isset($_POST['download']) && $_POST['download'] == 'false')
 		{
 			$dest_dir = $_sServerDir;
-			if (isset($_POST['zipName']) && ! empty($_POST['zipName']))
+			if (isset($_POST['zipName']) && !empty($_POST['zipName']))
 			{
 				$zip_filename = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_POST['zipName']);
-				if (! $resourceTypeInfo->checkExtension($zip_filename))
+				if (!$resourceTypeInfo->checkExtension($zip_filename))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION);
 				}
 			}
 		}
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($zip_filename) || $resourceTypeInfo->checkIsHiddenFile($zip_filename))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($zip_filename) || $resourceTypeInfo->checkIsHiddenFile($zip_filename))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -862,7 +862,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		
 		$zipFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($dest_dir, $zip_filename);
 		
-		if (! is_writable(dirname($zipFilePath)))
+		if (!is_writable(dirname($zipFilePath)))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
@@ -879,7 +879,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 		// if we only want to create archive
 		else
 		{
-			if (file_exists($zipFilePath) && (! isset($_POST['fileExistsAction']) || ! in_array($_POST['fileExistsAction'], array(
+			if (file_exists($zipFilePath) && (!isset($_POST['fileExistsAction']) || !in_array($_POST['fileExistsAction'], array(
 				'autorename',
 				'overwrite'
 			))))
@@ -887,14 +887,14 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ALREADY_EXIST);
 			}
 			
-			if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
+			if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 			}
 			// check how to deal with existing file
 			if (isset($_POST['fileExistsAction']) && $_POST['fileExistsAction'] == 'autorename')
 			{
-				if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_RENAME))
+				if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_RENAME))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 				}
@@ -903,11 +903,11 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 			}
 			elseif (isset($_POST['fileExistsAction']) && $_POST['fileExistsAction'] == 'overwrite')
 			{
-				if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+				if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 				}
-				if (! CKFinder_Connector_Utils_FileSystem::unlink($zipFilePath))
+				if (!CKFinder_Connector_Utils_FileSystem::unlink($zipFilePath))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 				}
@@ -924,7 +924,7 @@ class CKFinder_Connector_CommandHandler_CreateZip extends CKFinder_Connector_Com
 			}
 			foreach ($files as $pathname => $filename)
 			{
-				if (! empty($filename))
+				if (!empty($filename))
 				{
 					if (file_exists($pathname) && is_readable($pathname))
 					{
@@ -963,7 +963,7 @@ class CKFinder_Connector_CommandHandler_DownloadZip extends CKFinder_Connector_C
 	 */
 	protected function sendZipFile()
 	{
-		if (! function_exists('ob_list_handlers') || ob_list_handlers())
+		if (!function_exists('ob_list_handlers') || ob_list_handlers())
 		{
 			@ob_end_clean();
 		}
@@ -985,14 +985,14 @@ class CKFinder_Connector_CommandHandler_DownloadZip extends CKFinder_Connector_C
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding(trim($_GET['FileName']));
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -1004,17 +1004,17 @@ class CKFinder_Connector_CommandHandler_DownloadZip extends CKFinder_Connector_C
 		
 		$dest_dir = CKFinder_Connector_Utils_FileSystem::getTmpDir();
 		$filePath = CKFinder_Connector_Utils_FileSystem::combinePaths($dest_dir, $fileName);
-		if (! file_exists($filePath) || ! is_file($filePath))
+		if (!file_exists($filePath) || !is_file($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
-		if (! is_readable($filePath))
+		if (!is_readable($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}
 		
 		$zipFileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding(trim($_GET['ZipName']));
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($zipFileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($zipFileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -1024,7 +1024,7 @@ class CKFinder_Connector_CommandHandler_DownloadZip extends CKFinder_Connector_C
 		header("Cache-Control: cache, must-revalidate");
 		header("Pragma: public");
 		header("Expires: 0");
-		$user_agent = ! empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
+		$user_agent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
 		$encodedName = str_replace("\"", "\\\"", $fileFilename);
 		if (strpos($user_agent, "MSIE") !== false)
 		{

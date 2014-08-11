@@ -31,7 +31,7 @@ if (!empty($_GET['delete']))
 }
 
 # enregistrement de l'ordre des champs
-$order = array();
+$order = [];
 if (empty($_POST['fields_order']) && !empty($_POST['order']))
 {
 	$order = $_POST['order'];

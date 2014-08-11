@@ -22,7 +22,7 @@ class Extensions extends BaseTools
 	{
 		parent::__construct($okt);
 		
-		$this->aRepositoryInfos = array();
+		$this->aRepositoryInfos = [];
 		
 		$this->sRepositoryHash = sha1($this->okt->module('Builder')->config->repository_url);
 	}
@@ -43,7 +43,7 @@ class Extensions extends BaseTools
 			$sExtensionId = $extension->getFilename();
 			$sExtensionPath = $extension->getRealpath();
 			
-			if (! file_exists($sExtensionPath . '/_define.php'))
+			if (!file_exists($sExtensionPath . '/_define.php'))
 			{
 				$fs->remove($sExtensionPath);
 				continue;
@@ -52,7 +52,7 @@ class Extensions extends BaseTools
 			$bInRepository = in_array($sExtensionId, $this->aConfig['repository']);
 			$bInPackage = in_array($sExtensionId, $this->aConfig['package']);
 			
-			if (! $bInRepository && ! $bInPackage)
+			if (!$bInRepository && !$bInPackage)
 			{
 				$fs->remove($sExtensionPath);
 				continue;
@@ -91,7 +91,7 @@ class Extensions extends BaseTools
 					}
 				}
 				
-				if (! $bInPackage)
+				if (!$bInPackage)
 				{
 					$fs->remove($sExtensionPath);
 				}

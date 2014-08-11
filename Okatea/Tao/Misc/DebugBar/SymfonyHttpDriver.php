@@ -40,7 +40,7 @@ class SymfonyHttpDriver implements HttpDriverInterface
 	 */
 	function setHeaders(array $headers)
 	{
-		if (! is_null($this->response))
+		if (!is_null($this->response))
 		{
 			$this->response->headers->add($headers);
 		}

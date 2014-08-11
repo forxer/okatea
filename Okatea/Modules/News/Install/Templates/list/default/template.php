@@ -42,7 +42,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 
 <?php
 # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if ($okt->module('News')->config->enable_filters && ! $okt->module('News')->filters->params->show_filters)
+if ($okt->module('News')->config->enable_filters && !$okt->module('News')->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#news-filters-control").html("<a href=\"#\">' . $view->escapeJS(__('m_news_display_filters')) . '</a>");
@@ -92,7 +92,7 @@ if ($okt->module('News')->config->enable_filters)
 
 	<?php
 	# début Okatea : lien d'affichage des filtres
-	if (! $okt->module('News')->filters->params->show_filters)
+	if (!$okt->module('News')->filters->params->show_filters)
 	:
 		?>
 <p id="news-filters-control" class="filters-control"></p>
@@ -139,7 +139,7 @@ if ($rsPostsList->isEmpty())
 
 <?php
 # début Okatea : si il y a des actualités on affiche la liste
-if (! $rsPostsList->isEmpty())
+if (!$rsPostsList->isEmpty())
 :
 	?>
 
@@ -213,7 +213,7 @@ if (! $rsPostsList->isEmpty())
 
 		<?php
 		# début Okatea : si on as PAS accès en lecture à l'article
-		if (! $rsPostsList->isReadable())
+		if (!$rsPostsList->isReadable())
 		:
 			?>
 
@@ -230,7 +230,7 @@ if (! $rsPostsList->isEmpty())
 
 			<?php
 			# début Okatea : affichage image
-			if (! empty($rsPostsList->images) && isset($rsPostsList->images[1]) && isset($rsPostsList->images[1]['min_url']))
+			if (!empty($rsPostsList->images) && isset($rsPostsList->images[1]) && isset($rsPostsList->images[1]['min_url']))
 			:
 				?>
 
@@ -262,7 +262,7 @@ if (! $rsPostsList->isEmpty())
 
 			<?php
 			# début Okatea : affichage texte pas tronqué
-			if (! $okt->module('News')->config->public_truncat_char)
+			if (!$okt->module('News')->config->public_truncat_char)
 			:
 				?>
 

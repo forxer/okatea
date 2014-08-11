@@ -9,7 +9,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Images\ImageUploadConfig;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -46,7 +46,7 @@ $p_chp_favo = $okt->catalog->config->fields['favo'];
 ----------------------------------------------------------*/
 
 # régénération des miniatures
-if (! empty($_GET['minregen']))
+if (!empty($_GET['minregen']))
 {
 	$okt->catalog->regenMinImages();
 	
@@ -56,7 +56,7 @@ if (! empty($_GET['minregen']))
 }
 
 # suppression filigrane
-if (! empty($_GET['delete_watermark']))
+if (!empty($_GET['delete_watermark']))
 {
 	$okt->catalog->config->write(array(
 		'images' => $oImageUploadConfig->removeWatermak()
@@ -68,31 +68,31 @@ if (! empty($_GET['delete_watermark']))
 }
 
 # enregistrement configuration
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_categories_enable = ! empty($_POST['p_categories_enable']) ? true : false;
-	$p_seo_enable = ! empty($_POST['p_seo_enable']) ? true : false;
-	$p_enable_filters = ! empty($_POST['p_enable_filters']) ? true : false;
-	$p_rte_enable = ! empty($_POST['p_rte_enable']) ? $_POST['p_rte_enable'] : '';
+	$p_categories_enable = !empty($_POST['p_categories_enable']) ? true : false;
+	$p_seo_enable = !empty($_POST['p_seo_enable']) ? true : false;
+	$p_enable_filters = !empty($_POST['p_enable_filters']) ? true : false;
+	$p_rte_enable = !empty($_POST['p_rte_enable']) ? $_POST['p_rte_enable'] : '';
 	
-	$p_chp_subtitle = ! empty($_POST['p_chp_subtitle']) ? intval($_POST['p_chp_subtitle']) : 0;
-	$p_chp_content_short = ! empty($_POST['p_chp_content_short']) ? intval($_POST['p_chp_content_short']) : 0;
-	$p_chp_price = ! empty($_POST['p_chp_price']) ? intval($_POST['p_chp_price']) : 0;
+	$p_chp_subtitle = !empty($_POST['p_chp_subtitle']) ? intval($_POST['p_chp_subtitle']) : 0;
+	$p_chp_content_short = !empty($_POST['p_chp_content_short']) ? intval($_POST['p_chp_content_short']) : 0;
+	$p_chp_price = !empty($_POST['p_chp_price']) ? intval($_POST['p_chp_price']) : 0;
 	
-	$p_chp_promo = ! empty($_POST['p_chp_promo']) ? intval($_POST['p_chp_promo']) : 0;
-	$p_chp_nouvo = ! empty($_POST['p_chp_nouvo']) ? intval($_POST['p_chp_nouvo']) : 0;
-	$p_chp_favo = ! empty($_POST['p_chp_favo']) ? intval($_POST['p_chp_favo']) : 0;
+	$p_chp_promo = !empty($_POST['p_chp_promo']) ? intval($_POST['p_chp_promo']) : 0;
+	$p_chp_nouvo = !empty($_POST['p_chp_nouvo']) ? intval($_POST['p_chp_nouvo']) : 0;
+	$p_chp_favo = !empty($_POST['p_chp_favo']) ? intval($_POST['p_chp_favo']) : 0;
 	
-	$p_enable_files = ! empty($_POST['p_enable_files']) ? true : false;
-	$p_number_files = ! empty($_POST['p_number_files']) ? intval($_POST['p_number_files']) : 0;
-	$p_allowed_exts = ! empty($_POST['p_allowed_exts']) ? $_POST['p_allowed_exts'] : '';
+	$p_enable_files = !empty($_POST['p_enable_files']) ? true : false;
+	$p_number_files = !empty($_POST['p_number_files']) ? intval($_POST['p_number_files']) : 0;
+	$p_allowed_exts = !empty($_POST['p_allowed_exts']) ? $_POST['p_allowed_exts'] : '';
 	
 	$aImagesConfig = $oImageUploadConfig->getPostConfig();
 	
-	$p_name = ! empty($_POST['p_name']) ? $_POST['p_name'] : 'Actualités';
-	$p_title = ! empty($_POST['p_title']) ? $_POST['p_title'] : '';
-	$p_meta_description = ! empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '';
-	$p_meta_keywords = ! empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '';
+	$p_name = !empty($_POST['p_name']) ? $_POST['p_name'] : 'Actualités';
+	$p_title = !empty($_POST['p_title']) ? $_POST['p_title'] : '';
+	$p_meta_description = !empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '';
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '';
 	
 	if ($okt->error->isEmpty())
 	{

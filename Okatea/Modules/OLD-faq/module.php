@@ -25,7 +25,7 @@ class module_faq extends Module
 
 	protected $t_users;
 
-	protected $params = array();
+	protected $params = [];
 
 	public $filters = null;
 
@@ -72,7 +72,7 @@ class module_faq extends Module
 		{
 			$this->okt->page->faqSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=faq', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('faq'), null, $this->okt->page->faqSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->faqSubMenu->add(__('c_a_menu_management'), 'module.php?m=faq&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
+			$this->okt->page->faqSubMenu->add(__('c_a_menu_management'), 'module.php?m=faq&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->faqSubMenu->add(__('m_faq_add_question'), 'module.php?m=faq&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt['visitor']->checkPerm('faq_add'));
 			$this->okt->page->faqSubMenu->add(__('m_faq_sections'), 'module.php?m=faq&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 3, ($this->config->enable_categories && $this->okt['visitor']->checkPerm('faq_categories')));
 			$this->okt->page->faqSubMenu->add(__('c_a_menu_display'), 'module.php?m=faq&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('faq_display'));
@@ -88,7 +88,7 @@ class module_faq extends Module
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof FaqFilters))
+		if ($this->filters === null || !($this->filters instanceof FaqFilters))
 		{
 			$this->filters = new FaqFilters($this->okt, $this, $part);
 		}
@@ -104,21 +104,21 @@ class module_faq extends Module
 	 * @param boolean $count_only        	
 	 * @return recordset
 	 */
-	public function getQuestions($params = array(), $count_only = false)
+	public function getQuestions($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND p.id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['slug']))
+		if (!empty($params['slug']))
 		{
 			$reqPlus .= ' AND pl.slug=\'' . $this->db->escapeStr($params['slug']) . '\' ';
 		}
 		
-		if (! empty($params['language']))
+		if (!empty($params['language']))
 		{
 			$reqPlus .= 'AND pl.language=\'' . $this->db->escapeStr($params['language']) . '\' ';
 			$reqPlus .= 'AND (cl.language=\'' . $this->db->escapeStr($params['language']) . '\' OR p.cat_id IS NULL) ';
@@ -146,11 +146,11 @@ class module_faq extends Module
 		}
 		
 		# mots clés
-		if (! empty($params['keyword_search']))
+		if (!empty($params['keyword_search']))
 		{
 			$words = Modifiers::splitWords($params['keyword_search']);
 			
-			if (! empty($words))
+			if (!empty($words))
 			{
 				foreach ($words as $i => $w)
 				{
@@ -177,7 +177,7 @@ class module_faq extends Module
 				$order_direction = 'DESC';
 			}
 			
-			if (! empty($params['order']))
+			if (!empty($params['order']))
 			{
 				$query .= 'ORDER BY ' . $params['order'] . ' ' . $order_direction . ' ';
 			}
@@ -186,7 +186,7 @@ class module_faq extends Module
 				$query .= 'ORDER BY c.ord ASC, ' . $this->config->public_default_order_by . ' ' . $order_direction . ' ';
 			}
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
@@ -200,7 +200,7 @@ class module_faq extends Module
 			}
 			else
 			{
-				$rs = new FaqRecordset(array());
+				$rs = new FaqRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -260,7 +260,7 @@ class module_faq extends Module
 		
 		if (($rs = $this->db->select($query, 'FaqRecordset')) === false)
 		{
-			$rs = new FaqRecordset(array());
+			$rs = new FaqRecordset([]);
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -278,7 +278,7 @@ class module_faq extends Module
 	 */
 	protected function checkParams()
 	{
-		if (! empty($this->params))
+		if (!empty($this->params))
 		{
 			if (empty($this->params['title'][$this->okt['config']->language]) || empty($this->params['content'][$this->okt['config']->language]))
 			{
@@ -297,7 +297,7 @@ class module_faq extends Module
 	 *        	'slugs' => array (optional)
 	 * @return integer
 	 */
-	public function addQuestion($params = array())
+	public function addQuestion($params = [])
 	{
 		$this->params = $params;
 		
@@ -305,18 +305,18 @@ class module_faq extends Module
 		
 		$this->addFiles();
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		# ajout de la question
-		$this->params['files'] = ! empty($this->params['files']) ? $this->params['files'] : array();
+		$this->params['files'] = !empty($this->params['files']) ? $this->params['files'] : [];
 		$this->params['files'] = serialize($this->params['files']);
 		
 		$query = 'INSERT INTO ' . $this->t_faq . ' ( ' . 'cat_id, active, files ' . ') VALUES ( ' . (empty($this->params['cat_id']) ? 'NULL' : (integer) $this->params['cat_id']) . ', ' . (integer) $this->params['active'] . ', ' . '\'' . $this->db->escapeStr($this->params['files']) . '\'' . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -332,7 +332,7 @@ class module_faq extends Module
 		}
 		
 		# ajout des textes internationalisés
-		if (! $this->setQuestionL10n())
+		if (!$this->setQuestionL10n())
 		{
 			return false;
 		}
@@ -351,11 +351,11 @@ class module_faq extends Module
 	 *        	'slugs' => array (optional)
 	 * @return boolean
 	 */
-	public function updQuestion($params = array())
+	public function updQuestion($params = [])
 	{
 		$this->params = $params;
 		
-		if (! $this->questionExists($this->params['id']))
+		if (!$this->questionExists($this->params['id']))
 		{
 			$this->error->set('La question #' . $this->params['id'] . ' n\'existe pas.');
 			return false;
@@ -367,23 +367,23 @@ class module_faq extends Module
 		# ajout des fichiers joints
 		$this->editFiles();
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$this->params['files'] = ! empty($this->params['files']) ? $this->params['files'] : array();
+		$this->params['files'] = !empty($this->params['files']) ? $this->params['files'] : [];
 		$this->params['files'] = serialize($this->params['files']);
 		
 		$query = 'UPDATE ' . $this->t_faq . ' SET ' . 'cat_id=' . (empty($this->params['cat_id']) ? 'NULL' : (integer) $this->params['cat_id']) . ', ' . 'active=' . (integer) $this->params['active'] . ', ' . 'files=\'' . $this->db->escapeStr($this->params['files']) . '\' ' . 'WHERE id=' . (integer) $this->params['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
 		
 		# modification des textes internationalisés
-		if (! $this->setQuestionL10n())
+		if (!$this->setQuestionL10n())
 		{
 			return false;
 		}
@@ -405,7 +405,7 @@ class module_faq extends Module
 	 */
 	public function deleteQuestion($id)
 	{
-		if (! $this->questionExists($id))
+		if (!$this->questionExists($id))
 		{
 			return false;
 		}
@@ -416,7 +416,7 @@ class module_faq extends Module
 		# delete questions
 		$query = 'DELETE FROM ' . $this->t_faq . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -426,7 +426,7 @@ class module_faq extends Module
 		# delete i18n
 		$query = 'DELETE FROM ' . $this->t_faq_locales . ' ' . 'WHERE faq_id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -446,7 +446,7 @@ class module_faq extends Module
 	{
 		$query = 'UPDATE ' . $this->t_faq . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $question_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -463,16 +463,16 @@ class module_faq extends Module
 	 * @param array $params        	
 	 * @return recordset
 	 */
-	public function getCategories($params = array())
+	public function getCategories($params = [])
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND c.id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['language']))
+		if (!empty($params['language']))
 		{
 			$reqPlus .= 'AND cl.language=\'' . $this->db->escapeStr($params['language']) . '\' ';
 		}
@@ -509,7 +509,7 @@ class module_faq extends Module
 			$order_direction = $this->config->public_default_order_direction;
 		}
 		
-		if (! empty($params['order']))
+		if (!empty($params['order']))
 		{
 			$query .= 'ORDER BY ' . $params['order'] . ' ' . $order_direction . ' ';
 		}
@@ -518,14 +518,14 @@ class module_faq extends Module
 			$query .= 'ORDER BY c.ord ASC, ' . $this->config->public_default_order_by . ' ' . $order_direction . ' ';
 		}
 		
-		if (! empty($params['limit']))
+		if (!empty($params['limit']))
 		{
 			$query .= 'LIMIT ' . $params['limit'] . ' ';
 		}
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		return $rs;
@@ -574,7 +574,7 @@ class module_faq extends Module
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		return $rs;
@@ -600,14 +600,14 @@ class module_faq extends Module
 		
 		$query = 'INSERT INTO ' . $this->t_faq_cat . ' ( ' . 'active, ord' . ') VALUES (' . (integer) $this->params['active'] . ',' . (integer) ($max_ord + 1) . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
 		
 		$this->params['id'] = $this->db->getLastID();
 		
-		if (! $this->setPostL10n())
+		if (!$this->setPostL10n())
 		{
 			return false;
 		}
@@ -625,7 +625,7 @@ class module_faq extends Module
 	{
 		$this->params = $params;
 		
-		if (! $this->categoryExists($this->params['id']))
+		if (!$this->categoryExists($this->params['id']))
 		{
 			$this->error->set('La catégorie n’existe pas.');
 			return false;
@@ -633,12 +633,12 @@ class module_faq extends Module
 		
 		$query = 'UPDATE ' . $this->t_faq_cat . ' SET ' . 'active=' . (integer) $this->params['active'] . ' ' . 'WHERE id=' . (integer) $this->params['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
 		
-		if (! $this->setPostL10n())
+		if (!$this->setPostL10n())
 		{
 			return false;
 		}
@@ -648,7 +648,7 @@ class module_faq extends Module
 	{
 		$query = 'DELETE FROM ' . $this->t_faq_cat . ' ' . 'WHERE id=' . (integer) $iCategoryId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -657,7 +657,7 @@ class module_faq extends Module
 		
 		$query = 'DELETE FROM ' . $this->t_faq_cat_locales . ' ' . 'WHERE cat_id=' . (integer) $iCategoryId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -673,7 +673,7 @@ class module_faq extends Module
 	 */
 	public function switchCategoryStatus($id)
 	{
-		if (! $this->categoryExists($id))
+		if (!$this->categoryExists($id))
 		{
 			$this->error->set('La catégorie n’existe pas.');
 			return false;
@@ -681,7 +681,7 @@ class module_faq extends Module
 		
 		$query = 'UPDATE ' . $this->t_faq_cat . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -700,7 +700,7 @@ class module_faq extends Module
 	{
 		$query = 'UPDATE ' . $this->t_faq_cat . ' SET ' . 'ord=' . (integer) $ord . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -714,7 +714,7 @@ class module_faq extends Module
 		{
 			$query = 'INSERT INTO ' . $this->t_faq_cat_locales . ' ' . '(cat_id, language, title) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ' ';
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
@@ -735,16 +735,16 @@ class module_faq extends Module
 	{
 		$aAllowedExts = explode(',', $this->config->files['allowed_exts']);
 		
-		$aFiles = array();
+		$aFiles = [];
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aFiles[$aLanguage['code']] = array();
+			$aFiles[$aLanguage['code']] = [];
 			$j = 1;
 			
 			for ($i = 0; $i <= $this->config->files['number']; $i ++)
 			{
-				if (! isset($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]) || empty($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]['tmp_name']))
+				if (!isset($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]) || empty($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]['tmp_name']))
 				{
 					continue;
 				}
@@ -758,19 +758,19 @@ class module_faq extends Module
 					
 					# vérification de l'extension
 					$sExtension = pathinfo($sUploadedFile['name'], PATHINFO_EXTENSION);
-					if (! in_array($sExtension, $aAllowedExts))
+					if (!in_array($sExtension, $aAllowedExts))
 					{
 						throw new Exception('Type de fichier non-autorisé.');
 					}
 					
-					if (! file_exists($this->upload_dir))
+					if (!file_exists($this->upload_dir))
 					{
 						files::makeDir($this->upload_dir, true);
 					}
 					
 					$sDestination = $this->upload_dir . '/' . Modifiers::strToLowerUrl($this->params['title'][$aLanguage['code']], false) . '-' . $aLanguage['code'] . '-' . $j . '.' . $sExtension;
 					
-					if (! move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
+					if (!move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
 					{
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 					}
@@ -797,18 +797,18 @@ class module_faq extends Module
 	{
 		$aCurrentFiles = $this->getQuestion($this->params['id'])->getFilesInfo();
 		
-		$aNewFiles = array();
+		$aNewFiles = [];
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$aNewFiles[$aLanguage['code']] = array();
+			$aNewFiles[$aLanguage['code']] = [];
 			$j = 1;
 			
 			for ($i = 0; $i <= $this->config->files['number']; $i ++)
 			{
-				if (! isset($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]) || empty($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]['tmp_name']))
+				if (!isset($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]) || empty($_FILES['p_files_' . $aLanguage['code'] . '_' . $i]['tmp_name']))
 				{
-					if (! empty($aCurrentFiles[$aLanguage['code']][$i]))
+					if (!empty($aCurrentFiles[$aLanguage['code']][$i]))
 					{
 						$aNewFiles[$aLanguage['code']][$i] = $aCurrentFiles[$aLanguage['code']][$i]['filename'];
 						$j ++;
@@ -825,24 +825,24 @@ class module_faq extends Module
 					
 					# vérification de l'extension
 					$sExtension = pathinfo($sUploadedFile['name'], PATHINFO_EXTENSION);
-					if (! in_array($sExtension, explode(',', $this->config->files['allowed_exts'])))
+					if (!in_array($sExtension, explode(',', $this->config->files['allowed_exts'])))
 					{
 						throw new Exception('Type de fichier non-autorisé.');
 					}
 					
-					if (! file_exists($this->upload_dir))
+					if (!file_exists($this->upload_dir))
 					{
 						files::makeDir($this->upload_dir, true);
 					}
 					
-					if (! empty($aCurrentFiles[$aLanguage['code']][$i]) && files::isDeletable($this->upload_dir . '/' . $aCurrentFiles[$aLanguage['code']][$i]['filename']))
+					if (!empty($aCurrentFiles[$aLanguage['code']][$i]) && files::isDeletable($this->upload_dir . '/' . $aCurrentFiles[$aLanguage['code']][$i]['filename']))
 					{
 						unlink($this->upload_dir . '/' . $aCurrentFiles[$aLanguage['code']][$i]['filename']);
 					}
 					
 					$sDestination = $this->upload_dir . '/' . Modifiers::strToLowerUrl($this->params['title'][$aLanguage['code']], false) . '-' . $aLanguage['code'] . '-' . $j . '.' . $sExtension;
 					
-					if (! move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
+					if (!move_uploaded_file($sUploadedFile['tmp_name'], $sDestination))
 					{
 						throw new Exception('Impossible de déplacer sur le serveur le fichier téléchargé.');
 					}
@@ -923,7 +923,7 @@ class module_faq extends Module
 		
 		$query = 'UPDATE ' . $this->t_faq . ' SET ' . 'files=\'' . $this->db->escapeStr(serialize($files_db)) . '\' ' . 'WHERE id=' . (integer) $question_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -961,7 +961,7 @@ class module_faq extends Module
 	{
 		$aImages = $this->getImageUpload()->addImages($question_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -980,14 +980,14 @@ class module_faq extends Module
 	{
 		$aCurrentImages = $this->getQuestionImages($question_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getImageUpload()->updImages($question_id, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1008,14 +1008,14 @@ class module_faq extends Module
 	{
 		$aCurrentImages = $this->getQuestionImages($question_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aQuestionImages = $this->getImageUpload()->deleteImage($question_id, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1036,7 +1036,7 @@ class module_faq extends Module
 	{
 		$aCurrentImages = $this->getQuestionImages($question_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1063,7 +1063,7 @@ class module_faq extends Module
 		while ($rsQuestions->fetch())
 		{
 			$aImages = $rsQuestions->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 			
 			foreach ($aImages as $key => $image)
 			{
@@ -1085,14 +1085,14 @@ class module_faq extends Module
 	 */
 	public function getQuestionImages($question_id)
 	{
-		if (! $this->questionExists($question_id))
+		if (!$this->questionExists($question_id))
 		{
 			$this->error->set('La question #' . $question_id . ' n\'existe pas.');
 			return false;
 		}
 		
 		$rsQuestion = $this->getQuestion($question_id);
-		$aQuestionImages = $rsQuestion->images ? unserialize($rsQuestion->images) : array();
+		$aQuestionImages = $rsQuestion->images ? unserialize($rsQuestion->images) : [];
 		
 		return $aQuestionImages;
 	}
@@ -1105,19 +1105,19 @@ class module_faq extends Module
 	 *        	$aImages
 	 * @return boolean
 	 */
-	public function updQuestionImages($question_id, $aImages = array())
+	public function updQuestionImages($question_id, $aImages = [])
 	{
-		if (! $this->questionExists($question_id))
+		if (!$this->questionExists($question_id))
 		{
 			$this->error->set('La question #' . $post_id . ' n\'existe pas.');
 			return false;
 		}
 		
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+		$aImages = !empty($aImages) ? serialize($aImages) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_faq . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $question_id;
+		$query = 'UPDATE ' . $this->t_faq . ' SET ' . 'images=' . (!is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $question_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1132,7 +1132,7 @@ class module_faq extends Module
 	 */
 	public function indexAllQuestions()
 	{
-		$rsQuestions = $this->getQuestions(array());
+		$rsQuestions = $this->getQuestions([]);
 		while ($rsQuestions->fetch())
 		{
 			$rsQuestionLocales = $this->getQuestionL10n($rsQuestions->id);
@@ -1165,12 +1165,12 @@ class module_faq extends Module
 			
 			$query = 'INSERT INTO ' . $this->t_faq_locales . ' ' . '(faq_id, language, title, title_tag, title_seo, slug, content, meta_description, meta_keywords, words) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['title_tag'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title_tag'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['title_seo'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title_seo'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['slugs'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['slugs'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['content'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['content'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['meta_description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['meta_description'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['meta_keywords'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['meta_keywords'][$aLanguage['code']]) . '\'') . ', ' . (empty($words) ? 'NULL' : '\'' . $this->db->escapeStr($words) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->params['title'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title'][$aLanguage['code']]) . '\'') . ', ' . 'title_tag=' . (empty($this->params['title_tag'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title_tag'][$aLanguage['code']]) . '\'') . ', ' . 'title_seo=' . (empty($this->params['title_seo'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['title_seo'][$aLanguage['code']]) . '\'') . ', ' . 'slug=' . (empty($this->params['slugs'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['slugs'][$aLanguage['code']]) . '\'') . ', ' . 'content=' . (empty($this->params['content'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['content'][$aLanguage['code']]) . '\'') . ', ' . 'meta_description=' . (empty($this->params['meta_description'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['meta_description'][$aLanguage['code']]) . '\'') . ', ' . 'meta_keywords=' . (empty($this->params['meta_keywords'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['meta_keywords'][$aLanguage['code']]) . '\'') . ', ' . 'words=' . (empty($words) ? 'NULL' : '\'' . $this->db->escapeStr($words) . '\'') . ' ';
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
 			
-			if (! $this->setQuestionSlug($this->params['id'], $aLanguage['code']))
+			if (!$this->setQuestionSlug($this->params['id'], $aLanguage['code']))
 			{
 				return false;
 			}
@@ -1206,7 +1206,7 @@ class module_faq extends Module
 		
 		$query = 'UPDATE ' . $this->t_faq_locales . ' SET ' . 'slug=' . (empty($slug) ? 'NULL' : '\'' . $this->db->escapeStr($slug) . '\'') . ' ' . 'WHERE faq_id=' . (integer) $question_id . ' ' . 'AND language=\'' . $this->db->escapeStr($lang_code) . '\' ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1245,12 +1245,12 @@ class module_faq extends Module
 		
 		$rs = $this->db->select($query);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			$query = 'SELECT slug FROM ' . $this->t_faq_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($url) . '%\' ' . 'AND faq_id <> ' . (integer) $question_id . ' ' . 'AND language=\'' . $this->db->escapeStr($lang_code) . '\' ' . 'ORDER BY slug DESC ';
 			
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch())
 			{
 				$a[] = $rs->slug;

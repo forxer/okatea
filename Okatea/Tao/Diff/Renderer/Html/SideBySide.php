@@ -139,7 +139,7 @@ class SideBySide extends ToArray
 							$html .= '<tr>';
 							$html .= '<th>' . $fromLine . '</th>';
 							$html .= '<td class="Left"><span>' . $line . '</span>&nbsp;</td>';
-							if (! isset($change['changed']['lines'][$no]))
+							if (!isset($change['changed']['lines'][$no]))
 							{
 								$toLine = '&nbsp;';
 								$changedLine = '&nbsp;';
@@ -158,7 +158,7 @@ class SideBySide extends ToArray
 					{
 						foreach ($change['changed']['lines'] as $no => $changedLine)
 						{
-							if (! isset($change['base']['lines'][$no]))
+							if (!isset($change['base']['lines'][$no]))
 							{
 								$fromLine = '&nbsp;';
 								$line = '&nbsp;';

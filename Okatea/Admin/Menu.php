@@ -55,17 +55,17 @@ class Menu
 	 *        	array	html		Eléments HTML du menu
 	 * @return void
 	 */
-	public function __construct($id = null, array $html = array())
+	public function __construct($id = null, array $html = [])
 	{
 		$this->id = $id;
-		$this->items = array();
+		$this->items = [];
 		$this->num = 0;
 		$this->setDefaultHtml($html);
 	}
 
-	protected function setDefaultHtml(array $html = array())
+	protected function setDefaultHtml(array $html = [])
 	{
-		$this->html = array();
+		$this->html = [];
 		$this->html = array_merge(array(
 			'block' => '<ul%2$s>%1$s</ul>',
 			'item' => '<li%3$s><a href="%2$s">%1$s</a>%4$s</li>',
@@ -151,7 +151,7 @@ class Menu
 				return ($a['position'] > $b['position']) ? 1 : - 1;
 			});
 			
-			$res = array();
+			$res = [];
 			$active = null;
 			
 			for ($i = 0; $i < $this->num; $i ++)

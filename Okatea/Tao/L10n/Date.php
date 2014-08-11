@@ -123,7 +123,7 @@ class Date extends Carbon
 
 		if ($bGroups)
 		{
-			$tmp = array();
+			$tmp = [];
 
 			foreach ($res as $k => $v)
 			{

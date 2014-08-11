@@ -33,7 +33,7 @@ class Controller extends BaseController
 
 		if ($this->okt['request']->request->has('sended'))
 		{
-			$p_title = $this->okt['request']->request->get('p_title', array());
+			$p_title = $this->okt['request']->request->get('p_title', []);
 
 			foreach ($p_title as $sLanguageCode => $sTitle)
 			{
@@ -53,7 +53,7 @@ class Controller extends BaseController
 			{
 				$this->okt->error->set(__('c_a_config_please_enter_email_to'));
 			}
-			elseif (! Utilities::isEmail($p_email_to))
+			elseif (!Utilities::isEmail($p_email_to))
 			{
 				$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_to)));
 			}
@@ -63,14 +63,14 @@ class Controller extends BaseController
 			{
 				$this->okt->error->set(__('c_a_config_please_enter_email_from'));
 			}
-			elseif (! Utilities::isEmail($p_email_from))
+			elseif (!Utilities::isEmail($p_email_from))
 			{
 				$this->okt->error->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($p_email_from)));
 			}
 
 			$aValues = [
 				'title' 	=> $p_title,
-				'desc' 		=> $this->okt['request']->request->get('p_desc', array()),
+				'desc' 		=> $this->okt['request']->request->get('p_desc', []),
 				'email' => array(
 					'to' => $p_email_to,
 					'from' => $p_email_from,
@@ -89,7 +89,7 @@ class Controller extends BaseController
 			];
 
 			# save configuration
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$this->okt['config']->write($aValues);
 

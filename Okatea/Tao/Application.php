@@ -173,7 +173,7 @@ abstract class Application extends Container
 		{
 			$sConnectionFilename = $this['config_path'] . '/connection.php';
 
-			if (! file_exists($sConnectionFilename)) {
+			if (!file_exists($sConnectionFilename)) {
 				throw new \RuntimeException('Unable to find database connection file !');
 			}
 
@@ -228,7 +228,7 @@ abstract class Application extends Container
 			'address_code' => $this['config']->address['code'],
 			'address_city' => $this['config']->address['city'],
 			'address_country' => $this['config']->address['country'],
-			'address_phone' => (! empty($this['config']->address['tel']) ? $this['config']->address['tel'] : $this['config']->address['mobile']),
+			'address_phone' => (!empty($this['config']->address['tel']) ? $this['config']->address['tel'] : $this['config']->address['mobile']),
 			'address_tel' => $this['config']->address['tel'],
 			'address_mobile' => $this['config']->address['mobile'],
 			'address_fax' => $this['config']->address['fax'],

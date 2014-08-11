@@ -19,11 +19,11 @@ class Filters extends BaseFilters
 
 	protected $News;
 
-	protected $get_posts_params = array();
+	protected $get_posts_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $part = 'public', $params = array())
+	public function __construct($okt, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'News', $okt->module('News')->config, $part, $params);
 		
@@ -57,7 +57,7 @@ class Filters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setPostsParams(&$aPostsParams = array())
+	public function setPostsParams(&$aPostsParams = [])
 	{
 		$this->get_posts_params = & $aPostsParams;
 	}
@@ -72,7 +72,7 @@ class Filters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		$this->order_by_array[__('m_news_filters_created')] = 'created_at';
 		
 		if ($this->part === 'admin')
@@ -108,7 +108,7 @@ class Filters extends BaseFilters
 			return null;
 		}
 		
-		if (! isset($this->get_posts_params['active']))
+		if (!isset($this->get_posts_params['active']))
 		{
 			$this->setIntFilter('active');
 			$this->get_posts_params['active'] = $this->params->active;
@@ -128,14 +128,14 @@ class Filters extends BaseFilters
 
 	protected function setFilterCategory()
 	{
-		if (! $this->config->categories['enable'])
+		if (!$this->config->categories['enable'])
 		{
 			return null;
 		}
 		
 		$this->order_by_array[__('m_news_filters_category')] = 'rubriques';
 		
-		if (! isset($this->get_posts_params['category_id']))
+		if (!isset($this->get_posts_params['category_id']))
 		{
 			$this->setIntFilter('category_id');
 			$this->get_posts_params['category_id'] = $this->params->category_id;
@@ -167,13 +167,13 @@ class Filters extends BaseFilters
 			return null;
 		}
 		
-		if (! isset($this->get_posts_params['language']))
+		if (!isset($this->get_posts_params['language']))
 		{
 			$this->setFilter('language');
 			$this->get_posts_params['language'] = $this->params->language;
 		}
 		
-		$aSelectLanguagesValues = array();
+		$aSelectLanguagesValues = [];
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
 			$aSelectLanguagesValues[Escaper::html($aLanguage['title'])] = Escaper::html($aLanguage['code']);

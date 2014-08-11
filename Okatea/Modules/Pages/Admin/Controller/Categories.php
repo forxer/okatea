@@ -14,11 +14,11 @@ class Categories extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('pages_categories'))
+		if (!$this->okt['visitor']->checkPerm('pages_categories'))
 		{
 			return $this->serve401();
 		}
-		elseif (! $this->okt->module('Pages')->config->categories['enable'])
+		elseif (!$this->okt->module('Pages')->config->categories['enable'])
 		{
 			return $this->serve404();
 		}
@@ -54,7 +54,7 @@ class Categories extends Controller
 	{
 		$iCategoryId = $this->okt['request']->query->getInt('switch_status');
 		
-		if (! $iCategoryId)
+		if (!$iCategoryId)
 		{
 			return false;
 		}
@@ -83,7 +83,7 @@ class Categories extends Controller
 	{
 		$iCategoryId = $this->okt['request']->query->getInt('delete');
 		
-		if (! $iCategoryId)
+		if (!$iCategoryId)
 		{
 			return false;
 		}

@@ -6,11 +6,11 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 class ##module_camel_case_id##Filters extends BaseFilters
 {
-	protected $get_items_params = array();
+	protected $get_items_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $oConfig, $part='public', $params=array())
+	public function __construct($okt, $oConfig, $part='public', $params=[])
 	{
 		parent::__construct($okt, '##module_id##', $oConfig, $part, $params);
 	}
@@ -39,7 +39,7 @@ class ##module_camel_case_id##Filters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setParams(&$params=array())
+	public function setParams(&$params=[])
 	{
 		$this->get_items_params =& $params;
 	}
@@ -53,7 +53,7 @@ class ##module_camel_case_id##Filters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		$this->order_by_array['date de création'] = 'created_at';
 
 		if ($this->part === 'admin') {

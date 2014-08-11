@@ -146,7 +146,7 @@ class Module extends BaseModule
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof Filters))
+		if ($this->filters === null || !($this->filters instanceof Filters))
 		{
 			$this->filters = new Filters($this->okt, $part);
 		}
@@ -165,7 +165,7 @@ class Module extends BaseModule
 	 *        	boolean	count_only	Permet de ne retourner que le compte
 	 * @return recordset
 	 */
-	public function getUsers($aParams = array(), $count_only = false)
+	public function getUsers($aParams = [], $count_only = false)
 	{
 		$sReqPlus = 'WHERE 1 ';
 		
@@ -208,7 +208,7 @@ class Module extends BaseModule
 			}
 		}
 		
-		if (! empty($aParams['group_id_not']))
+		if (!empty($aParams['group_id_not']))
 		{
 			if (is_array($aParams['group_id_not']))
 			{
@@ -221,11 +221,11 @@ class Module extends BaseModule
 			}
 		}
 		
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
 			
-			if (! empty($aWords))
+			if (!empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
 				{
@@ -260,7 +260,7 @@ class Module extends BaseModule
 		
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		if ($count_only)
@@ -284,7 +284,7 @@ class Module extends BaseModule
 	 */
 	public function getUser($user)
 	{
-		$aParams = array();
+		$aParams = [];
 		
 		if (Utilities::isInt($user))
 		{
@@ -329,7 +329,7 @@ class Module extends BaseModule
 			return false;
 		}
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			return false;
 		}
@@ -344,9 +344,9 @@ class Module extends BaseModule
 	 *        	$username
 	 * @return void
 	 */
-	public function checkUsername($aParams = array())
+	public function checkUsername($aParams = [])
 	{
-		$username = ! empty($aParams['username']) ? $aParams['username'] : null;
+		$username = !empty($aParams['username']) ? $aParams['username'] : null;
 		$username = preg_replace('#\s+#s', ' ', $username);
 		
 		if (mb_strlen($username) < 2)
@@ -373,7 +373,7 @@ class Module extends BaseModule
 		{
 			$dupe = true;
 			
-			if (! empty($aParams['id']))
+			if (!empty($aParams['id']))
 			{
 				$user = $this->getUser($aParams['id']);
 				
@@ -404,7 +404,7 @@ class Module extends BaseModule
 	 *        	$aParams
 	 * @return void
 	 */
-	public function checkEmail($aParams = array())
+	public function checkEmail($aParams = [])
 	{
 		if (empty($aParams['email']))
 		{
@@ -423,7 +423,7 @@ class Module extends BaseModule
 	 */
 	public function isEmail($sEmail)
 	{
-		if (! Utilities::isEmail($sEmail))
+		if (!Utilities::isEmail($sEmail))
 		{
 			$this->error->set(sprintf(__('c_c_error_invalid_email'), html::escapeHTML($sEmail)));
 		}
@@ -436,7 +436,7 @@ class Module extends BaseModule
 	 *        	$aParams
 	 * @return void
 	 */
-	public function checkPassword($aParams = array())
+	public function checkPassword($aParams = [])
 	{
 		if (empty($aParams['password']))
 		{
@@ -463,7 +463,7 @@ class Module extends BaseModule
 	 *        	$aParams
 	 * @return integer
 	 */
-	public function addUser($aParams = array())
+	public function addUser($aParams = [])
 	{
 		$this->checkUsername($aParams);
 		
@@ -471,7 +471,7 @@ class Module extends BaseModule
 		
 		$this->checkEmail($aParams);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -480,7 +480,7 @@ class Module extends BaseModule
 		{
 			$aParams['group_id'] = 0;
 		}
-		elseif (empty($aParams['group_id']) || ! $this->groupExists($aParams['group_id']))
+		elseif (empty($aParams['group_id']) || !$this->groupExists($aParams['group_id']))
 		{
 			$aParams['group_id'] = $this->config->default_group;
 		}
@@ -488,9 +488,9 @@ class Module extends BaseModule
 		$password_hash = password_hash($aParams['password'], PASSWORD_DEFAULT);
 		$iTime = time();
 		
-		$sQuery = 'INSERT INTO ' . $this->t_users . ' ( ' . 'group_id, civility, active, username, lastname, firstname, password, salt, email, ' . 'timezone, language, registered, registration_ip, last_visit ' . ') VALUES ( ' . (integer) $aParams['group_id'] . ', ' . (integer) $aParams['civility'] . ', ' . (integer) $aParams['active'] . ', ' . '\'' . $this->db->escapeStr($aParams['username']) . '\', ' . '\'' . $this->db->escapeStr($aParams['lastname']) . '\', ' . '\'' . $this->db->escapeStr($aParams['firstname']) . '\', ' . '\'' . $this->db->escapeStr($password_hash) . '\', ' . '\'' . $this->db->escapeStr(Utilities::random_key(12)) . '\', ' . '\'' . $this->db->escapeStr($aParams['email']) . '\', ' . '\'' . $this->db->escapeStr($aParams['timezone']) . '\', ' . '\'' . $this->db->escapeStr($aParams['language']) . '\', ' . $iTime . ', ' . (! empty($aParams['registration_ip']) ? '\'' . $this->db->escapeStr($aParams['registration_ip']) . '\', ' : '\'0.0.0.0\', ') . $iTime . '); ';
+		$sQuery = 'INSERT INTO ' . $this->t_users . ' ( ' . 'group_id, civility, active, username, lastname, firstname, password, salt, email, ' . 'timezone, language, registered, registration_ip, last_visit ' . ') VALUES ( ' . (integer) $aParams['group_id'] . ', ' . (integer) $aParams['civility'] . ', ' . (integer) $aParams['active'] . ', ' . '\'' . $this->db->escapeStr($aParams['username']) . '\', ' . '\'' . $this->db->escapeStr($aParams['lastname']) . '\', ' . '\'' . $this->db->escapeStr($aParams['firstname']) . '\', ' . '\'' . $this->db->escapeStr($password_hash) . '\', ' . '\'' . $this->db->escapeStr(Utilities::random_key(12)) . '\', ' . '\'' . $this->db->escapeStr($aParams['email']) . '\', ' . '\'' . $this->db->escapeStr($aParams['timezone']) . '\', ' . '\'' . $this->db->escapeStr($aParams['language']) . '\', ' . $iTime . ', ' . (!empty($aParams['registration_ip']) ? '\'' . $this->db->escapeStr($aParams['registration_ip']) . '\', ' : '\'0.0.0.0\', ') . $iTime . '); ';
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -508,14 +508,14 @@ class Module extends BaseModule
 	 * @param string $code        	
 	 * @return boolean
 	 */
-	public function updUser($aParams = array())
+	public function updUser($aParams = [])
 	{
-		if (! $this->userExists($aParams['id']))
+		if (!$this->userExists($aParams['id']))
 		{
 			return false;
 		}
 		
-		$sql = array();
+		$sql = [];
 		
 		if (isset($aParams['username']))
 		{
@@ -565,14 +565,14 @@ class Module extends BaseModule
 			$sql[] = 'timezone=\'' . $this->db->escapeStr($aParams['timezone']) . '\'';
 		}
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_users . ' SET ' . implode(', ', $sql) . ' ' . 'WHERE id=' . (integer) $aParams['id'];
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -587,11 +587,11 @@ class Module extends BaseModule
 	 *        	$aParams
 	 * @return boolean
 	 */
-	public function changeUserPassword($aParams = array())
+	public function changeUserPassword($aParams = [])
 	{
 		$this->checkPassword($aParams);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -600,7 +600,7 @@ class Module extends BaseModule
 		
 		$sQuery = 'UPDATE ' . $this->t_users . ' SET ' . 'password=\'' . $this->db->escapeStr($password_hash) . '\', ' . 'salt=\'' . $this->db->escapeStr(Utilities::random_key(12)) . '\' ' . 'WHERE id=' . (integer) $aParams['id'];
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -657,7 +657,7 @@ class Module extends BaseModule
 		
 		$sQuery = 'DELETE FROM ' . $this->t_users . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -689,7 +689,7 @@ class Module extends BaseModule
 	 */
 	public function switchUserStatus($iUserId)
 	{
-		if (! $this->userExists($iUserId))
+		if (!$this->userExists($iUserId))
 		{
 			$this->error->set(sprintf(__('m_users_error_user_%s_not_exists'), $iUserId));
 			return false;
@@ -697,7 +697,7 @@ class Module extends BaseModule
 		
 		$sSqlQuery = 'UPDATE ' . $this->t_users . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iUserId;
 		
-		if (! $this->db->execute($sSqlQuery))
+		if (!$this->db->execute($sSqlQuery))
 		{
 			return false;
 		}
@@ -758,7 +758,7 @@ class Module extends BaseModule
 		
 		$sSqlQuery = 'UPDATE ' . $this->t_users . ' SET ' . 'active = ' . ($iActive == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iUserId;
 		
-		if (! $this->db->execute($sSqlQuery))
+		if (!$this->db->execute($sSqlQuery))
 		{
 			return false;
 		}
@@ -778,7 +778,7 @@ class Module extends BaseModule
 	 *        	$count_only
 	 * @return recordset
 	 */
-	public function getGroups($aParams = array(), $count_only = false)
+	public function getGroups($aParams = [], $count_only = false)
 	{
 		$sReqPlus = '1 ';
 		
@@ -795,7 +795,7 @@ class Module extends BaseModule
 			}
 		}
 		
-		if (! empty($aParams['group_id_not']))
+		if (!empty($aParams['group_id_not']))
 		{
 			if (is_array($aParams['group_id_not']))
 			{
@@ -808,7 +808,7 @@ class Module extends BaseModule
 			}
 		}
 		
-		if (! empty($aParams['title']))
+		if (!empty($aParams['title']))
 		{
 			$sReqPlus .= 'AND title=\'' . $this->db->escapeStr($aParams['title']) . '\' ';
 		}
@@ -821,7 +821,7 @@ class Module extends BaseModule
 		{
 			$sQuery = 'SELECT group_id, title, perms ' . 'FROM ' . $this->t_groups . ' ' . 'WHERE ' . $sReqPlus;
 			
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ';
 			}
@@ -830,7 +830,7 @@ class Module extends BaseModule
 				$sQuery .= 'ORDER BY group_id ASC ';
 			}
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -838,7 +838,7 @@ class Module extends BaseModule
 		
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		if ($count_only)
@@ -860,7 +860,7 @@ class Module extends BaseModule
 	 */
 	public function getGroup($group)
 	{
-		$aParams = array();
+		$aParams = [];
 		
 		if (Utilities::isInt($group))
 		{
@@ -902,7 +902,7 @@ class Module extends BaseModule
 	{
 		$sQuery = 'INSERT INTO ' . $this->t_groups . ' ( ' . 'title' . ') VALUES ( ' . '\'' . $this->db->escapeStr($title) . '\' ' . '); ';
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -921,14 +921,14 @@ class Module extends BaseModule
 	 */
 	public function updGroup($group_id, $title)
 	{
-		if (! $this->groupExists($group_id))
+		if (!$this->groupExists($group_id))
 		{
 			return false;
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_groups . ' SET ' . 'title=\'' . $this->db->escapeStr($title) . '\' ' . 'WHERE group_id=' . (integer) $group_id;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -938,7 +938,7 @@ class Module extends BaseModule
 
 	public function updGroupPerms($group_id, $perms)
 	{
-		if (! $this->groupExists($group_id))
+		if (!$this->groupExists($group_id))
 		{
 			return false;
 		}
@@ -950,7 +950,7 @@ class Module extends BaseModule
 		
 		$sQuery = 'UPDATE ' . $this->t_groups . ' SET ' . 'perms=\'' . $this->db->escapeStr($perms) . '\' ' . 'WHERE group_id=' . (integer) $group_id;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -967,7 +967,7 @@ class Module extends BaseModule
 	 */
 	public function deleteGroup($group_id)
 	{
-		if (! $this->groupExists($group_id))
+		if (!$this->groupExists($group_id))
 		{
 			return false;
 		}
@@ -985,7 +985,7 @@ class Module extends BaseModule
 		{
 			$sQuery = 'DELETE FROM ' . $this->t_groups . ' ' . 'WHERE group_id=' . (integer) $group_id;
 			
-			if (! $this->db->execute($sQuery))
+			if (!$this->db->execute($sQuery))
 			{
 				return false;
 			}
@@ -1003,7 +1003,7 @@ class Module extends BaseModule
 		# build the query
 		$sQuery = 'SELECT ';
 		
-		$aQueryFields = array();
+		$aQueryFields = [];
 		foreach ($fields as $field)
 		{
 			if ($field != 'title')
@@ -1028,7 +1028,7 @@ class Module extends BaseModule
 		# get the users recordset
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			$rs = new recordset(array());
+			$rs = new recordset([]);
 		}
 		
 		$sMethod = 'exportTo' . $format;
@@ -1054,9 +1054,9 @@ class Module extends BaseModule
 	{
 		$aAllowedFields = self::getAllowedFields();
 		
-		$result = array();
+		$result = [];
 		
-		$head = array();
+		$head = [];
 		foreach ($fields as $field)
 		{
 			$head[] = '"' . $aAllowedFields[$field] . '"';
@@ -1066,7 +1066,7 @@ class Module extends BaseModule
 		
 		while ($rs->fetch())
 		{
-			$line = array();
+			$line = [];
 			foreach ($fields as $field)
 			{
 				$line[] = '"' . $rs->$field . '"';
@@ -1089,9 +1089,9 @@ class Module extends BaseModule
 	{
 		$aAllowedFields = self::getAllowedFields();
 		
-		$result = array();
+		$result = [];
 		
-		$head = array();
+		$head = [];
 		foreach ($fields as $field)
 		{
 			$head[] = '"' . mb_convert_encoding($aAllowedFields[$field], 'ISO-8859-1', 'UTF-8') . '"';
@@ -1101,7 +1101,7 @@ class Module extends BaseModule
 		
 		while ($rs->fetch())
 		{
-			$line = array();
+			$line = [];
 			foreach ($fields as $field)
 			{
 				$line[] = '"' . mb_convert_encoding($rs->$field, 'ISO-8859-1', 'UTF-8') . '"';
@@ -1124,7 +1124,7 @@ class Module extends BaseModule
 	{
 		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
-		$aResult = array();
+		$aResult = [];
 		$aResult[] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . PHP_EOL . '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL . '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . PHP_EOL . '<title>' . $sTitle . '</title></head><body>' . PHP_EOL . '<h1>' . $sTitle . '</h1>' . PHP_EOL . '<table border="1" cellpadding="5" cellspacing="0"><thead><tr>';
 		
 		$aAllowedFields = self::getAllowedFields();
@@ -1138,7 +1138,7 @@ class Module extends BaseModule
 		
 		while ($rs->fetch())
 		{
-			$aLine = array();
+			$aLine = [];
 			foreach ($fields as $field)
 			{
 				$aLine[] = html::escapeHTML($rs->$field);
@@ -1161,7 +1161,7 @@ class Module extends BaseModule
 	{
 		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
-		$aResult = array();
+		$aResult = [];
 		$aResult[] = '<table><tr>';
 		
 		$aAllowedFields = self::getAllowedFields();
@@ -1175,7 +1175,7 @@ class Module extends BaseModule
 		
 		while ($rs->fetch())
 		{
-			$aLine = array();
+			$aLine = [];
 			foreach ($fields as $field)
 			{
 				$aLine[] = html::escapeHTML(mb_convert_encoding($rs->$field, 'ISO-8859-1', 'UTF-8'));
@@ -1198,11 +1198,11 @@ class Module extends BaseModule
 	{
 		$sTitle = 'users-' . $this->okt['request']->getSchemeAndHttpHost() . $this->okt['config']->app_url . '-' . date('YmdHis');
 		
-		$aResult = array();
+		$aResult = [];
 		
 		$aAllowedFields = self::getAllowedFields();
 		
-		$aHeaders = array();
+		$aHeaders = [];
 		foreach ($fields as $field)
 		{
 			$aHeaders[] = mb_convert_encoding($aAllowedFields[$field], 'ISO-8859-1', 'UTF-8');
@@ -1211,7 +1211,7 @@ class Module extends BaseModule
 		
 		while ($rs->fetch())
 		{
-			$aLine = array();
+			$aLine = [];
 			foreach ($fields as $field)
 			{
 				$value = str_replace('"', '""', $rs->$field);
@@ -1354,16 +1354,16 @@ class Module extends BaseModule
 	 *
 	 * @return array
 	 */
-	public function getArrayUsers($aParams = array())
+	public function getArrayUsers($aParams = [])
 	{
 		$rsUsers = $this->getUsers($aParams);
 		
 		if ($rsUsers->isEmpty())
 		{
-			return array();
+			return [];
 		}
 		
-		$aUsers = array();
+		$aUsers = [];
 		
 		while ($rsUsers->fetch())
 		{
@@ -1378,16 +1378,16 @@ class Module extends BaseModule
 	 *
 	 * @return array
 	 */
-	public function getArrayGroups($aParams = array())
+	public function getArrayGroups($aParams = [])
 	{
 		$rsGroups = $this->getGroups($aParams);
 		
 		if ($rsGroups->isEmpty())
 		{
-			return array();
+			return [];
 		}
 		
-		$aGroups = array();
+		$aGroups = [];
 		
 		while ($rsGroups->fetch())
 		{

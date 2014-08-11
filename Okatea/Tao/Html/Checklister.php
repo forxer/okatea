@@ -12,7 +12,6 @@ namespace Okatea\Tao\Html;
  */
 class Checklister
 {
-
 	/**
 	 * Liste des vérifications.
 	 *
@@ -48,7 +47,7 @@ class Checklister
 	 */
 	public function __construct()
 	{
-		$this->check = array();
+		$this->check = [];
 	}
 
 	/**
@@ -82,12 +81,11 @@ class Checklister
 	{
 		foreach ($this->check as $v)
 		{
-			if ($v['test'] === false)
-			{
+			if ($v['test'] === false) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -98,12 +96,10 @@ class Checklister
 	 */
 	public function checkItem($name)
 	{
-		if (! empty($this->check[$name]))
-		{
+		if (!empty($this->check[$name])) {
 			return $this->check[$name]['test'];
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
@@ -117,12 +113,11 @@ class Checklister
 	{
 		foreach ($this->check as $v)
 		{
-			if ($v['test'] === null)
-			{
+			if ($v['test'] === null) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -140,33 +135,30 @@ class Checklister
 		$res = '';
 		foreach ($this->check as $k => $v)
 		{
-			if ($v['test'] === null)
-			{
+			if ($v['test'] === null) {
 				$res .= sprintf($item, '<span class="icon error"></span> ' . $v['off']);
 			}
-			elseif ($v['test'] == false)
-			{
+			elseif ($v['test'] == false) {
 				$res .= sprintf($item, '<span class="icon cross"></span> ' . $v['off']);
 			}
-			elseif ($v['test'])
-			{
+			elseif ($v['test']) {
 				$res .= sprintf($item, '<span class="icon tick"></span> ' . $v['on']);
 			}
 		}
-		
+
 		return sprintf($bloc, $res);
 	}
 
 	public function getLegend($bloc = '<ul class="checklistlegend">%s</ul>', $item = '<li>%s</li>')
 	{
 		$res = '';
-		
+
 		$res .= sprintf($item, '<span class="icon tick"></span> ' . __('c_c_checklist_valid'));
-		
+
 		$res .= sprintf($item, '<span class="icon error"></span> ' . __('c_c_checklist_warning'));
-		
+
 		$res .= sprintf($item, '<span class="icon cross"></span> ' . __('c_c_checklist_error'));
-		
+
 		return sprintf($bloc, $res);
 	}
 }

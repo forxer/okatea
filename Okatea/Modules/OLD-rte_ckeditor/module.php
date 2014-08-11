@@ -27,7 +27,7 @@ class module_rte_ckeditor extends Module
 		));
 	}
 
-	public static function CKEditorSimple($element = 'textarea', $user_options = array())
+	public static function CKEditorSimple($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -38,7 +38,7 @@ class module_rte_ckeditor extends Module
 			'scayt_autoStartup' => false
 		);
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, $user_options);
 		}
@@ -46,7 +46,7 @@ class module_rte_ckeditor extends Module
 		self::getCKEditorScript($element, $options);
 	}
 
-	public static function CKEditorAdvanced($element = 'textarea', $user_options = array())
+	public static function CKEditorAdvanced($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -76,7 +76,7 @@ class module_rte_ckeditor extends Module
 		)
 		;
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, $user_options);
 		}
@@ -84,7 +84,7 @@ class module_rte_ckeditor extends Module
 		self::getCKEditorScript($element, $options);
 	}
 
-	public static function CKEditorComplete($element = 'textarea', $user_options = array())
+	public static function CKEditorComplete($element = 'textarea', $user_options = [])
 	{
 		global $okt;
 		
@@ -100,7 +100,7 @@ class module_rte_ckeditor extends Module
 			'filebrowserFlashUploadUrl' => $this->okt['modules_url'] . '/rte_ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
 		);
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, $user_options);
 		}

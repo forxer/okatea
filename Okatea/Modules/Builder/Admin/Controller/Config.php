@@ -18,7 +18,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('okatea_builder'))
+		if (!$this->okt['visitor']->checkPerm('okatea_builder'))
 		{
 			return $this->serve401();
 		}
@@ -26,19 +26,19 @@ class Config extends Controller
 		# save config
 		if ($this->okt['request']->request->has('config_sent'))
 		{
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'repository_url' => $this->okt['request']->request->get('repository_url'),
 					'modules' => array(
 						'repository_url' => $this->okt['request']->request->get('modules_repository_url'),
-						'repository' => $this->okt['request']->request->get('modules_repository', array()),
-						'package' => $this->okt['request']->request->get('modules_package', array())
+						'repository' => $this->okt['request']->request->get('modules_repository', []),
+						'package' => $this->okt['request']->request->get('modules_package', [])
 					),
 					'themes' => array(
 						'repository_url' => $this->okt['request']->request->get('themes_repository_url'),
-						'repository' => $this->okt['request']->request->get('themes_repository', array()),
-						'package' => $this->okt['request']->request->get('themes_package', array())
+						'repository' => $this->okt['request']->request->get('themes_repository', []),
+						'package' => $this->okt['request']->request->get('themes_package', [])
 					)
 				);
 				

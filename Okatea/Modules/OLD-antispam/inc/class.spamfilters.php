@@ -8,9 +8,9 @@
 class oktSpamFilters
 {
 
-	private $filters = array();
+	private $filters = [];
 
-	private $filters_opt = array();
+	private $filters_opt = [];
 
 	private $okt;
 
@@ -23,7 +23,7 @@ class oktSpamFilters
 	{
 		foreach ($filters as $f)
 		{
-			if (! class_exists($f))
+			if (!class_exists($f))
 			{
 				continue;
 			}
@@ -31,7 +31,7 @@ class oktSpamFilters
 			$r = new ReflectionClass($f);
 			$p = $r->getParentClass();
 			
-			if (! $p || $p->name != 'oktSpamFilter')
+			if (!$p || $p->name != 'oktSpamFilter')
 			{
 				continue;
 			}
@@ -40,7 +40,7 @@ class oktSpamFilters
 		}
 		
 		$this->setFilterOpts();
-		if (! empty($this->filters_opt))
+		if (!empty($this->filters_opt))
 		{
 			uasort($this->filters, array(
 				$this,
@@ -58,7 +58,7 @@ class oktSpamFilters
 	{
 		foreach ($this->filters as $fid => $f)
 		{
-			if (! $f->active)
+			if (!$f->active)
 			{
 				continue;
 			}
@@ -86,7 +86,7 @@ class oktSpamFilters
 	{
 		foreach ($this->filters as $fid => $f)
 		{
-			if (! $f->active)
+			if (!$f->active)
 			{
 				continue;
 			}
@@ -133,10 +133,10 @@ class oktSpamFilters
 		}
 		
 		# Create default options if needed
-		if (! is_array($this->filters_opt))
+		if (!is_array($this->filters_opt))
 		{
-			$this->saveFilterOpts(array());
-			$this->filters_opt = array();
+			$this->saveFilterOpts([]);
+			$this->filters_opt = [];
 		}
 		
 		foreach ($this->filters_opt as $k => $o)

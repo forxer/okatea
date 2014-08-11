@@ -80,7 +80,7 @@ class SimpleReplacements
 	 */
 	public static function prepareVars($aVariables)
 	{
-		$aResult = array();
+		$aResult = [];
 		
 		foreach ((array) $aVariables as $sKey => $mValue)
 		{

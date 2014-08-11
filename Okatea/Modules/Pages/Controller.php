@@ -21,7 +21,7 @@ class Controller extends BaseController
 	public function pagesList()
 	{
 		# permission de lecture ?
-		if (! $this->okt->module('Pages')->isPublicAccessible())
+		if (!$this->okt->module('Pages')->isPublicAccessible())
 		{
 			if ($this->okt['visitor']->is_guest)
 			{
@@ -75,7 +75,7 @@ class Controller extends BaseController
 		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages($aPagesParams);
 
 		# meta description
-		if (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -85,7 +85,7 @@ class Controller extends BaseController
 		}
 
 		# meta keywords
-		if (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -148,13 +148,13 @@ class Controller extends BaseController
 	public function pagesCategory()
 	{
 		# si les rubriques ne sont pas actives -> 404
-		if (! $this->okt->module('Pages')->config->categories['enable'])
+		if (!$this->okt->module('Pages')->config->categories['enable'])
 		{
 			return $this->serve404();
 		}
 
 		# récupération de la rubrique en fonction du slug
-		if (! $sCategorySlug = $this->okt['request']->attributes->get('slug'))
+		if (!$sCategorySlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -172,7 +172,7 @@ class Controller extends BaseController
 		}
 
 		# permission de lecture ?
-		if (! $this->okt->module('Pages')->isPublicAccessible())
+		if (!$this->okt->module('Pages')->isPublicAccessible())
 		{
 			if ($this->okt['visitor']->is_guest)
 			{
@@ -187,7 +187,7 @@ class Controller extends BaseController
 		}
 
 		# formatage description rubrique
-		if (! $this->okt->module('Pages')->config->categories['rte'])
+		if (!$this->okt->module('Pages')->config->categories['rte'])
 		{
 			$this->rsCategory->content = Modifiers::nlToP($this->rsCategory->content);
 		}
@@ -228,11 +228,11 @@ class Controller extends BaseController
 		$this->rsPagesList = $this->okt->module('Pages')->pages->getPages($aPagesParams);
 
 		# meta description
-		if (! empty($this->rsCategory->meta_description))
+		if (!empty($this->rsCategory->meta_description))
 		{
 			$this->page->meta_description = $this->rsCategory->meta_description;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -242,11 +242,11 @@ class Controller extends BaseController
 		}
 
 		# meta keywords
-		if (! empty($this->rsCategory->meta_keywords))
+		if (!empty($this->rsCategory->meta_keywords))
 		{
 			$this->page->meta_keywords = $this->rsCategory->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -262,7 +262,7 @@ class Controller extends BaseController
 		}
 
 		# title tag du module
-		$this->page->addTitleTag((! empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
+		$this->page->addTitleTag((!empty($this->rsCategory->title_tag) ? $this->rsCategory->title_tag : $this->rsCategory->title));
 
 		# ajout de la hiérarchie des rubriques au fil d'ariane et au title tag
 		$rsPath = $this->okt->module('Pages')->categories->getPath($this->rsCategory->id, true, $this->okt['visitor']->language);
@@ -298,7 +298,7 @@ class Controller extends BaseController
 	public function pagesItem()
 	{
 		# récupération de la page en fonction du slug
-		if (! $sPageSlug = $this->okt['request']->attributes->get('slug'))
+		if (!$sPageSlug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -312,7 +312,7 @@ class Controller extends BaseController
 		}
 
 		# permission de lecture ?
-		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
+		if (!$this->okt->module('Pages')->isPublicAccessible() || !$this->rsPage->isReadable())
 		{
 			if ($this->okt['visitor']->is_guest)
 			{
@@ -325,11 +325,11 @@ class Controller extends BaseController
 		}
 
 		# meta description
-		if (! empty($this->rsPage->meta_description))
+		if (!empty($this->rsPage->meta_description))
 		{
 			$this->page->meta_description = $this->rsPage->meta_description;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->module('Pages')->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -339,11 +339,11 @@ class Controller extends BaseController
 		}
 
 		# meta keywords
-		if (! empty($this->rsPage->meta_keywords))
+		if (!empty($this->rsPage->meta_keywords))
 		{
 			$this->page->meta_keywords = $this->rsPage->meta_keywords;
 		}
-		elseif (! empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->module('Pages')->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -404,7 +404,7 @@ class Controller extends BaseController
 		}
 
 		# permission de lecture ?
-		if (! $this->okt->module('Pages')->isPublicAccessible() || ! $this->rsPage->isReadable())
+		if (!$this->okt->module('Pages')->isPublicAccessible() || !$this->rsPage->isReadable())
 		{
 			if ($this->okt['visitor']->is_guest)
 			{

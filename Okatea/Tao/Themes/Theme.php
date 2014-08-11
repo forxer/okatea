@@ -24,9 +24,9 @@ class Theme
 	 */
 	protected $okt;
 
-	protected $aLessVariables = array();
+	protected $aLessVariables = [];
 
-	protected $aRubriques = array();
+	protected $aRubriques = [];
 
 	/**
 	 * Constructor.
@@ -68,7 +68,7 @@ class Theme
 	 * @param array $aVars        	
 	 * @return void
 	 */
-	public function setLessVariables($aVars = array())
+	public function setLessVariables($aVars = [])
 	{
 		$this->aLessVariables = array_merge($this->aLessVariables, $aVars);
 	}

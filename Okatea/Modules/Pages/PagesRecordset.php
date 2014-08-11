@@ -70,7 +70,7 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function isReadable()
 	{
-		static $aPerms = array();
+		static $aPerms = [];
 
 		# si on as un "cache" on l'utilisent
 		if (isset($aPerms[$this->id]))
@@ -79,7 +79,7 @@ class PagesRecordset extends BaseRecordset
 		}
 
 		# si les permissions sont désactivées alors on as le droit
-		if (! $this->okt->module('Pages')->config->enable_group_perms)
+		if (!$this->okt->module('Pages')->config->enable_group_perms)
 		{
 			$aPerms[$this->id] = true;
 			return true;
@@ -151,9 +151,9 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function getFilesInfo()
 	{
-		$files = array();
+		$files = [];
 
-		if (! $this->okt->module('Pages')->config->files['enable'])
+		if (!$this->okt->module('Pages')->config->files['enable'])
 		{
 			return $files;
 		}
@@ -163,7 +163,7 @@ class PagesRecordset extends BaseRecordset
 		$j = 1;
 		for ($i = 1; $i <= $this->okt->module('Pages')->config->files['number']; $i ++)
 		{
-			if (! isset($files_array[$i]) || empty($files_array[$i]['filename']) || ! file_exists($this->okt->module('Pages')->upload_dir . '/files/' . $files_array[$i]['filename']))
+			if (!isset($files_array[$i]) || empty($files_array[$i]['filename']) || !file_exists($this->okt->module('Pages')->upload_dir . '/files/' . $files_array[$i]['filename']))
 			{
 				continue;
 			}
@@ -190,9 +190,9 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function getImagesInfo()
 	{
-		if (! $this->okt->module('Pages')->config->images['enable'])
+		if (!$this->okt->module('Pages')->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 
 		return $this->getImagesArray();
@@ -206,14 +206,14 @@ class PagesRecordset extends BaseRecordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (! $this->okt->module('Pages')->config->images['enable'])
+		if (!$this->okt->module('Pages')->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 
 		$a = $this->getImagesArray();
 
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	public function getImagesArray()

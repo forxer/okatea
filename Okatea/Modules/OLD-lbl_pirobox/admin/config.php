@@ -8,21 +8,21 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_theme = ! empty($_POST['p_theme']) ? $_POST['p_theme'] : '';
+	$p_theme = !empty($_POST['p_theme']) ? $_POST['p_theme'] : '';
 	
-	$p_my_speed = ! empty($_POST['p_my_speed']) ? $_POST['p_my_speed'] : '';
-	$p_close_speed = ! empty($_POST['p_close_speed']) ? $_POST['p_close_speed'] : '';
+	$p_my_speed = !empty($_POST['p_my_speed']) ? $_POST['p_my_speed'] : '';
+	$p_close_speed = !empty($_POST['p_close_speed']) ? $_POST['p_close_speed'] : '';
 	
-	$p_slideshow = ! empty($_POST['p_slideshow']) ? true : false;
-	$p_slideSpeed = ! empty($_POST['p_slideSpeed']) ? $_POST['p_slideSpeed'] : '';
+	$p_slideshow = !empty($_POST['p_slideshow']) ? true : false;
+	$p_slideSpeed = !empty($_POST['p_slideSpeed']) ? $_POST['p_slideSpeed'] : '';
 	
 	if ($okt->error->isEmpty())
 	{

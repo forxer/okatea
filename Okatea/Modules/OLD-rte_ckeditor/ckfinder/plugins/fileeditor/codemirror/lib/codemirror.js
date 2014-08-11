@@ -964,7 +964,7 @@ var CodeMirror = (function() {
       // Since this is all rather error prone, it is honoured with the
       // only assertion in the whole file.
       if (lineDiv.childNodes.length != showingTo - showingFrom)
-        throw new Error("BAD PATCH! " + JSON.stringify(intact) + " size=" + (showingTo - showingFrom) +
+        throw new Error("BAD PATCH!" + JSON.stringify(intact) + " size=" + (showingTo - showingFrom) +
                         " nodes=" + lineDiv.childNodes.length);
 
       function checkHeights() {

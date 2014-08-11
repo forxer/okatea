@@ -51,7 +51,7 @@ class CKEditor
 	 * $CKEditor->config['width'] = '@@screen.width * 0.8';
 	 * @endcode
 	 */
-	var $config = array();
+	var $config = [];
 
 	/**
 	 * A boolean variable indicating whether CKEditor has been initialized.
@@ -95,13 +95,13 @@ class CKEditor
 	 * An array that holds event listeners.
 	 * \private
 	 */
-	var $_events = array();
+	var $_events = [];
 
 	/**
 	 * An array that holds global event listeners.
 	 * \private
 	 */
-	var $_globalEvents = array();
+	var $_globalEvents = [];
 
 	/**
 	 * Main Constructor.
@@ -111,7 +111,7 @@ class CKEditor
 	 */
 	function CKEditor($basePath = null)
 	{
-		if (! empty($basePath))
+		if (!empty($basePath))
 		{
 			$this->basePath = $basePath;
 		}
@@ -139,7 +139,7 @@ class CKEditor
 	 *        	Advanced example:
 	 *        	@code
 	 *        	$CKEditor = new CKEditor();
-	 *        	$config = array();
+	 *        	$config = [];
 	 *        	$config['toolbar'] = array(
 	 *        	array( 'Source', '-', 'Bold', 'Italic', 'Underline', 'Strike' ),
 	 *        	array( 'Image', 'Link', 'Unlink', 'Anchor' )
@@ -150,7 +150,7 @@ class CKEditor
 	 *        	$CKEditor->editor("field1", "<p>Initial value.</p>", $config, $events);
 	 *        	@endcode
 	 */
-	function editor($name, $value = "", $config = array(), $events = array())
+	function editor($name, $value = "", $config = [], $events = [])
 	{
 		$attr = "";
 		foreach ($this->textareaAttributes as $key => $val)
@@ -158,7 +158,7 @@ class CKEditor
 			$attr .= " " . $key . '="' . str_replace('"', '&quot;', $val) . '"';
 		}
 		$out = "<textarea name=\"" . $name . "\"" . $attr . ">" . htmlspecialchars($value) . "</textarea>\n";
-		if (! $this->initialized)
+		if (!$this->initialized)
 		{
 			$out .= $this->init();
 		}
@@ -166,14 +166,14 @@ class CKEditor
 		$_config = $this->configSettings($config, $events);
 		
 		$js = $this->returnGlobalEvents();
-		if (! empty($_config))
+		if (!empty($_config))
 			$js .= "CKEDITOR.replace('" . $name . "', " . $this->jsEncode($_config) . ");";
 		else
 			$js .= "CKEDITOR.replace('" . $name . "');";
 		
 		$out .= $this->script($js);
 		
-		if (! $this->returnOutput)
+		if (!$this->returnOutput)
 		{
 			print $out;
 			$out = "";
@@ -198,10 +198,10 @@ class CKEditor
 	 *        	$CKEditor->replace("article");
 	 *        	@endcode
 	 */
-	function replace($id, $config = array(), $events = array())
+	function replace($id, $config = [], $events = [])
 	{
 		$out = "";
-		if (! $this->initialized)
+		if (!$this->initialized)
 		{
 			$out .= $this->init();
 		}
@@ -209,7 +209,7 @@ class CKEditor
 		$_config = $this->configSettings($config, $events);
 		
 		$js = $this->returnGlobalEvents();
-		if (! empty($_config))
+		if (!empty($_config))
 		{
 			$js .= "CKEDITOR.replace('" . $id . "', " . $this->jsEncode($_config) . ");";
 		}
@@ -219,7 +219,7 @@ class CKEditor
 		}
 		$out .= $this->script($js);
 		
-		if (! $this->returnOutput)
+		if (!$this->returnOutput)
 		{
 			print $out;
 			$out = "";
@@ -249,7 +249,7 @@ class CKEditor
 	function replaceAll($className = null)
 	{
 		$out = "";
-		if (! $this->initialized)
+		if (!$this->initialized)
 		{
 			$out .= $this->init();
 		}
@@ -272,7 +272,7 @@ class CKEditor
 		{
 			$classDetection = "";
 			$js .= "CKEDITOR.replaceAll( function(textarea, config) {\n";
-			if (! empty($className))
+			if (!empty($className))
 			{
 				$js .= "	var classRegex = new RegExp('(?:^| )' + '" . $className . "' + '(?:$| )');\n";
 				$js .= "	if (!classRegex.test(textarea.className))\n";
@@ -284,7 +284,7 @@ class CKEditor
 		
 		$out .= $this->script($js);
 		
-		if (! $this->returnOutput)
+		if (!$this->returnOutput)
 		{
 			print $out;
 			$out = "";
@@ -311,12 +311,12 @@ class CKEditor
 	 */
 	function addEventHandler($event, $javascriptCode)
 	{
-		if (! isset($this->_events[$event]))
+		if (!isset($this->_events[$event]))
 		{
-			$this->_events[$event] = array();
+			$this->_events[$event] = [];
 		}
 		// Avoid duplicates.
-		if (! in_array($javascriptCode, $this->_events[$event]))
+		if (!in_array($javascriptCode, $this->_events[$event]))
 		{
 			$this->_events[$event][] = $javascriptCode;
 		}
@@ -331,13 +331,13 @@ class CKEditor
 	 */
 	function clearEventHandlers($event = null)
 	{
-		if (! empty($event))
+		if (!empty($event))
 		{
-			$this->_events[$event] = array();
+			$this->_events[$event] = [];
 		}
 		else
 		{
-			$this->_events = array();
+			$this->_events = [];
 		}
 	}
 
@@ -358,12 +358,12 @@ class CKEditor
 	 */
 	function addGlobalEventHandler($event, $javascriptCode)
 	{
-		if (! isset($this->_globalEvents[$event]))
+		if (!isset($this->_globalEvents[$event]))
 		{
-			$this->_globalEvents[$event] = array();
+			$this->_globalEvents[$event] = [];
 		}
 		// Avoid duplicates.
-		if (! in_array($javascriptCode, $this->_globalEvents[$event]))
+		if (!in_array($javascriptCode, $this->_globalEvents[$event]))
 		{
 			$this->_globalEvents[$event][] = $javascriptCode;
 		}
@@ -378,13 +378,13 @@ class CKEditor
 	 */
 	function clearGlobalEventHandlers($event = null)
 	{
-		if (! empty($event))
+		if (!empty($event))
 		{
-			$this->_globalEvents[$event] = array();
+			$this->_globalEvents[$event] = [];
 		}
 		else
 		{
-			$this->_globalEvents = array();
+			$this->_globalEvents = [];
 		}
 	}
 
@@ -414,32 +414,32 @@ class CKEditor
 	 * @param $events (array)
 	 *        	Event listeners for editor instance.
 	 */
-	function configSettings($config = array(), $events = array())
+	function configSettings($config = [], $events = [])
 	{
 		$_config = $this->config;
 		$_events = $this->_events;
 		
-		if (is_array($config) && ! empty($config))
+		if (is_array($config) && !empty($config))
 		{
 			$_config = array_merge($_config, $config);
 		}
 		
-		if (is_array($events) && ! empty($events))
+		if (is_array($events) && !empty($events))
 		{
 			foreach ($events as $eventName => $code)
 			{
-				if (! isset($_events[$eventName]))
+				if (!isset($_events[$eventName]))
 				{
-					$_events[$eventName] = array();
+					$_events[$eventName] = [];
 				}
-				if (! in_array($code, $_events[$eventName]))
+				if (!in_array($code, $_events[$eventName]))
 				{
 					$_events[$eventName][] = $code;
 				}
 			}
 		}
 		
-		if (! empty($_events))
+		if (!empty($_events))
 		{
 			foreach ($_events as $eventName => $handlers)
 			{
@@ -476,23 +476,23 @@ class CKEditor
 		static $returnedEvents;
 		$out = "";
 		
-		if (! isset($returnedEvents))
+		if (!isset($returnedEvents))
 		{
-			$returnedEvents = array();
+			$returnedEvents = [];
 		}
 		
-		if (! empty($this->_globalEvents))
+		if (!empty($this->_globalEvents))
 		{
 			foreach ($this->_globalEvents as $eventName => $handlers)
 			{
 				foreach ($handlers as $handler => $code)
 				{
-					if (! isset($returnedEvents[$eventName]))
+					if (!isset($returnedEvents[$eventName]))
 					{
-						$returnedEvents[$eventName] = array();
+						$returnedEvents[$eventName] = [];
 					}
 					// Return only new events
-					if (! in_array($code, $returnedEvents[$eventName]))
+					if (!in_array($code, $returnedEvents[$eventName]))
 					{
 						$out .= ($code ? "\n" : "") . "CKEDITOR.on('" . $eventName . "', $code);";
 						$returnedEvents[$eventName][] = $code;
@@ -513,7 +513,7 @@ class CKEditor
 		static $initComplete;
 		$out = "";
 		
-		if (! empty($initComplete))
+		if (!empty($initComplete))
 		{
 			return "";
 		}
@@ -527,7 +527,7 @@ class CKEditor
 		$args = "";
 		$ckeditorPath = $this->ckeditorPath();
 		
-		if (! empty($this->timestamp) && $this->timestamp != "%" . "TIMESTAMP%")
+		if (!empty($this->timestamp) && $this->timestamp != "%" . "TIMESTAMP%")
 		{
 			$args = '?t=' . $this->timestamp;
 		}
@@ -561,7 +561,7 @@ class CKEditor
 	 */
 	function ckeditorPath()
 	{
-		if (! empty($this->basePath))
+		if (!empty($this->basePath))
 		{
 			return $this->basePath;
 		}
@@ -591,7 +591,7 @@ class CKEditor
 		$selfPath = dirname($_SERVER['PHP_SELF']);
 		$file = str_replace("\\", "/", __FILE__);
 		
-		if (! $selfPath || ! $realPath || ! $file)
+		if (!$selfPath || !$realPath || !$file)
 		{
 			return "/ckeditor/";
 		}
@@ -637,7 +637,7 @@ class CKEditor
 					'jsEncode'
 				), $val)) . ']';
 			}
-			$temp = array();
+			$temp = [];
 			foreach ($val as $k => $v)
 			{
 				$temp[] = $this->jsEncode("{$k}") . ':' . $this->jsEncode($v);

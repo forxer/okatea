@@ -27,11 +27,11 @@ class Watermark
 
 	function createWatermark($sourceFile, $watermarkFile, $marginLeft = 5, $marginBottom = 5, $quality = 90, $transparency = 100)
 	{
-		if (! file_exists($watermarkFile))
+		if (!file_exists($watermarkFile))
 		{
 			$watermarkFile = __DIR__ . "/" . $watermarkFile;
 		}
-		if (! file_exists($watermarkFile))
+		if (!file_exists($watermarkFile))
 		{
 			return false;
 		}

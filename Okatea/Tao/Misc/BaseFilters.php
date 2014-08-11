@@ -23,15 +23,15 @@ class BaseFilters
 
 	protected $part = 'public';
 
-	protected $defaults_params = array();
+	protected $defaults_params = [];
 
 	protected $sess_prefix;
 
 	public $params;
 
-	public $fields = array();
+	public $fields = [];
 
-	public function __construct($okt, $id, $config, $part, $params = array())
+	public function __construct($okt, $id, $config, $part, $params = [])
 	{
 		$this->okt = $okt;
 
@@ -47,7 +47,7 @@ class BaseFilters
 
 		$this->params = new ParametersHolder($params);
 
-		$this->actives_filters = array();
+		$this->actives_filters = [];
 	}
 
 	public function getFilterFormId()
@@ -215,7 +215,7 @@ class BaseFilters
 
 	public function hasActiveFilter()
 	{
-		return (! empty($this->actives_filters));
+		return (!empty($this->actives_filters));
 	}
 
 	protected function setFilterPage()
@@ -250,7 +250,7 @@ class BaseFilters
 
 	protected function setFilterNbPerPage()
 	{
-		if (isset($this->config->filters) && ! $this->config->filters[$this->part]['nb_per_page'])
+		if (isset($this->config->filters) && !$this->config->filters[$this->part]['nb_per_page'])
 		{
 			return null;
 		}

@@ -719,7 +719,7 @@ class JSON
 	end sub
 
 	'******************************************************************************************
-	'' @SDESCRIPTION:	STATIC! takes a given string and makes it JSON valid
+	'' @SDESCRIPTION:	STATIC!takes a given string and makes it JSON valid
 	'' @DESCRIPTION:	all characters which needs to be escaped are beeing replaced by their
 	''					unicode representation according to the
 	''					RFC4627#2.5 - http://www.ietf.org/rfc/rfc4627.txt?number=4627
@@ -759,7 +759,7 @@ class JSON
 	''					<%
 	''					set j = new JSON
 	''					j.toJSON "n", array(RS, dict, false), false
-	''					j.toJSON "n", array(array(), 2, true), false
+	''					j.toJSON "n", array([], 2, true), false
 	''					% >
 	''					</code>
 	'' @PARAM:			name [string]: name of the value (accessible with javascript afterwards). leave empty to get just the value

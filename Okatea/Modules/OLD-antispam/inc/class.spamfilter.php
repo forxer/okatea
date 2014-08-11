@@ -36,7 +36,7 @@ class oktSpamFilter
 		$this->okt = $okt;
 		$this->setInfo();
 		
-		if (! $this->name)
+		if (!$this->name)
 		{
 			$this->name = get_class($this);
 		}
@@ -144,12 +144,12 @@ class oktSpamFilter
 
 	public function hasGUI()
 	{
-		if (! $this->okt['visitor']->is_admin || ! $this->okt['visitor']->checkPerm('antispam'))
+		if (!$this->okt['visitor']->is_admin || !$this->okt['visitor']->checkPerm('antispam'))
 		{
 			return false;
 		}
 		
-		if (! $this->has_gui)
+		if (!$this->has_gui)
 		{
 			return false;
 		}
@@ -159,7 +159,7 @@ class oktSpamFilter
 
 	public function guiURL()
 	{
-		if (! $this->hasGui())
+		if (!$this->hasGui())
 		{
 			return false;
 		}

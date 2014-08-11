@@ -21,15 +21,15 @@ class DiaryController extends Controller
 		$this->page->action = 'list';
 		
 		# année et mois à afficher ?
-		$iYear = ! empty($_GET['year']) ? intval($_GET['year']) : null;
-		$iMonth = ! empty($_GET['month']) ? intval($_GET['month']) : null;
+		$iYear = !empty($_GET['year']) ? intval($_GET['year']) : null;
+		$iMonth = !empty($_GET['month']) ? intval($_GET['month']) : null;
 		
 		if ($this->okt['request']->attributes->has('date'))
 		{
 			$aDate = explode('/', $this->okt['request']->attributes->get('date'));
 			
-			$iYear = ! empty($aDate[0]) ? intval($aDate[0]) : null;
-			$iMonth = ! empty($aDate[1]) ? intval($aDate[1]) : null;
+			$iYear = !empty($aDate[0]) ? intval($aDate[0]) : null;
+			$iMonth = !empty($aDate[1]) ? intval($aDate[1]) : null;
 			
 			unset($aDate);
 		}
@@ -71,7 +71,7 @@ class DiaryController extends Controller
 		$this->oCalendar->setDatesEvents($aDatesEvents);
 		
 		# meta description
-		if (! empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -81,7 +81,7 @@ class DiaryController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -91,7 +91,7 @@ class DiaryController extends Controller
 		}
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 		}
@@ -121,7 +121,7 @@ class DiaryController extends Controller
 		$this->page->action = 'event';
 		
 		# récupération de l'élément en fonction du slug
-		if (! $slug = $this->okt['request']->attributes->get('slug'))
+		if (!$slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -138,11 +138,11 @@ class DiaryController extends Controller
 		}
 		
 		# meta description
-		if (! empty($rsEvent->meta_description))
+		if (!empty($rsEvent->meta_description))
 		{
 			$this->page->meta_description = $rsEvent->meta_description;
 		}
-		elseif (! empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->diary->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->diary->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -152,11 +152,11 @@ class DiaryController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($rsEvent->meta_keywords))
+		if (!empty($rsEvent->meta_keywords))
 		{
 			$this->page->meta_keywords = $rsEvent->meta_keywords;
 		}
-		elseif (! empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->diary->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->diary->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -166,7 +166,7 @@ class DiaryController extends Controller
 		}
 		
 		# description
-		if (! $this->okt->diary->config->enable_rte)
+		if (!$this->okt->diary->config->enable_rte)
 		{
 			$rsEvent->description = Modifiers::nlToP($rsEvent->description);
 		}
@@ -181,7 +181,7 @@ class DiaryController extends Controller
 		$this->page->addTitleTag($this->okt->diary->getTitle());
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->diary->getName(), DiaryHelpers::getDiaryUrl());
 			
@@ -189,13 +189,13 @@ class DiaryController extends Controller
 		}
 		
 		# title tag
-		$this->page->addTitleTag((! empty($rsEvent->title_tag) ? $rsEvent->title_tag : $rsEvent->title));
+		$this->page->addTitleTag((!empty($rsEvent->title_tag) ? $rsEvent->title_tag : $rsEvent->title));
 		
 		# titre de la page
 		$this->page->setTitle($rsEvent->title);
 		
 		# titre SEO de la page
-		$this->page->setTitleSeo(! empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
+		$this->page->setTitleSeo(!empty($rsEvent->title_seo) ? $rsEvent->title_seo : $rsEvent->title);
 		
 		# affichage du template
 		return $this->render('diary_event_tpl', array(

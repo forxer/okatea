@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -38,7 +38,7 @@ class CKFinder_Connector_Core_Factory
 	 */
 	function initFactory()
 	{
-		$GLOBALS['CKFinder_Connector_Factory'] = array();
+		$GLOBALS['CKFinder_Connector_Factory'] = [];
 	}
 
 	/**
@@ -64,7 +64,7 @@ class CKFinder_Connector_Core_Factory
 		
 		$className = $namespace . $baseName;
 		
-		if (! isset($GLOBALS['CKFinder_Connector_Factory'][$className]))
+		if (!isset($GLOBALS['CKFinder_Connector_Factory'][$className]))
 		{
 			require_once CKFINDER_CONNECTOR_LIB_DIR . "/" . str_replace("_", "/", $baseName) . ".php";
 			$GLOBALS['CKFinder_Connector_Factory'][$className] = & new $className();

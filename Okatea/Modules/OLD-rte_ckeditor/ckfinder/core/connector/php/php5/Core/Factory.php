@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -30,7 +30,7 @@ if (! defined('IN_CKFINDER'))
 class CKFinder_Connector_Core_Factory
 {
 
-	static $instances = array();
+	static $instances = [];
 
 	/**
 	 * Initiate factory
@@ -65,7 +65,7 @@ class CKFinder_Connector_Core_Factory
 		
 		$className = $namespace . $baseName;
 		
-		if (! isset(CKFinder_Connector_Core_Factory::$instances[$className]))
+		if (!isset(CKFinder_Connector_Core_Factory::$instances[$className]))
 		{
 			require_once CKFINDER_CONNECTOR_LIB_DIR . "/" . str_replace("_", "/", $baseName) . ".php";
 			CKFinder_Connector_Core_Factory::$instances[$className] = new $className();

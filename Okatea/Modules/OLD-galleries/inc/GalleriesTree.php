@@ -69,25 +69,25 @@ class GalleriesTree extends NestedTreei18n
 	 *        	Ne renvoi qu'un compte de galeries
 	 * @return object GalleriesRecordset/integer
 	 */
-	public function getGalleries($aParams = array(), $bCountOnly = false)
+	public function getGalleries($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 		
 		$with_count = isset($aParams['with_count']) ? (boolean) $aParams['with_count'] : false;
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= 'AND r.id=' . (integer) $aParams['id'] . ' ';
 			$with_count = false;
 		}
 		
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= 'AND rl.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 			$with_count = false;
 		}
 		
-		if (! empty($aParams['language']))
+		if (!empty($aParams['language']))
 		{
 			$sReqPlus .= 'AND rl.language=\'' . $this->db->escapeStr($aParams['language']) . '\' ';
 		}
@@ -129,7 +129,7 @@ class GalleriesTree extends NestedTreei18n
 		{
 			$sQuery = 'SELECT r.*, rl.*, COUNT(p.id) AS num_items ' . 'FROM ' . $this->t_galleries . ' AS r ' . 'LEFT JOIN ' . $this->t_galleries_locales . ' AS rl ON r.id=rl.gallery_id ' . 'LEFT JOIN ' . $this->t_items . ' AS p ON r.id=p.gallery_id ' . 'WHERE 1 ' . $sReqPlus . ' ' . 'GROUP BY r.id ' . 'ORDER BY nleft asc ';
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -137,7 +137,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		if (($rs = $this->db->select($sQuery, 'GalleriesRecordset')) === false)
 		{
-			$rs = new GalleriesRecordset(array());
+			$rs = new GalleriesRecordset([]);
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -150,8 +150,8 @@ class GalleriesTree extends NestedTreei18n
 		{
 			if ($with_count)
 			{
-				$aData = array();
-				$aStack = array();
+				$aData = [];
+				$aStack = [];
 				$iLevel = 0;
 				
 				foreach (array_reverse($rs->getData()) as $aGalleryData)
@@ -248,7 +248,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new recordset(array());
+			$rs = new recordset([]);
 			return $rs;
 		}
 		
@@ -302,7 +302,7 @@ class GalleriesTree extends NestedTreei18n
 		$rs->image = $rs->getImagesInfo();
 		
 		# contenu
-		if (! $this->okt->galleries->config->enable_gal_rte)
+		if (!$this->okt->galleries->config->enable_gal_rte)
 		{
 			$rs->content = Modifiers::nlToP($rs->content);
 		}
@@ -320,7 +320,7 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$oCursor = $this->db->openCursor($this->t_galleries);
 		
-		if (! empty($aGalleryData))
+		if (!empty($aGalleryData))
 		{
 			foreach ($aGalleryData as $k => $v)
 			{
@@ -358,12 +358,12 @@ class GalleriesTree extends NestedTreei18n
 			
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 			
-			if (! $oCursor->insertUpdate())
+			if (!$oCursor->insertUpdate())
 			{
 				throw new Exception('Unable to insert gallery locales in database for ' . $aLanguage['code'] . ' language.');
 			}
 			
-			if (! $this->setGallerySlug($iGalleryId, $aLanguage['code']))
+			if (!$this->setGallerySlug($iGalleryId, $aLanguage['code']))
 			{
 				throw new Exception('Unable to insert gallery slug in database for ' . $aLanguage['code'] . ' language.');
 			}
@@ -412,12 +412,12 @@ class GalleriesTree extends NestedTreei18n
 		
 		$rsTakenSlugs = $this->db->select($query);
 		
-		if (! $rsTakenSlugs->isEmpty())
+		if (!$rsTakenSlugs->isEmpty())
 		{
 			$query = 'SELECT slug FROM ' . $this->t_galleries_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sSlug) . '%\' ' . 'AND gallery_id <> ' . (integer) $iGalleryId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ';
 			
 			$rsCurrentSlugs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
@@ -428,7 +428,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		$query = 'UPDATE ' . $this->t_galleries_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sSlug) . '\' ' . 'WHERE gallery_id=' . (integer) $iGalleryId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			throw new Exception('Unable to update gallery in database.');
 		}
@@ -489,7 +489,7 @@ class GalleriesTree extends NestedTreei18n
 		$oCursor->created_at = $sDate;
 		$oCursor->updated_at = $sDate;
 		
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new Exception('Unable to insert gallery in database.');
 		}
@@ -500,7 +500,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		$this->rebuild();
 		
-		if (! $this->addImage($iNewId))
+		if (!$this->addImage($iNewId))
 		{
 			return false;
 		}
@@ -517,7 +517,7 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function updGallery($oCursor, $aGalleryLocalesData)
 	{
-		if (! $this->galleryExists($oCursor->id))
+		if (!$this->galleryExists($oCursor->id))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $oCursor->id));
 		}
@@ -539,7 +539,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new Exception('Unable to update gallery in database.');
 		}
@@ -574,14 +574,14 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function setGalleryPosition($iGalleryId, $iOrder)
 	{
-		if (! $this->galleryExists($iGalleryId))
+		if (!$this->galleryExists($iGalleryId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $iGalleryId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_galleries . ' SET ' . 'ord=' . (integer) $iOrder . ' ' . 'WHERE id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update gallery in database.');
 		}
@@ -638,14 +638,14 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function setGalleryStatus($iGalleryId, $iStatus)
 	{
-		if (! $this->galleryExists($iGalleryId))
+		if (!$this->galleryExists($iGalleryId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $iGalleryId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_galleries . ' SET ' . 'active=' . (integer) $iStatus . ' ' . 'WHERE id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update gallery in database.');
 		}
@@ -678,7 +678,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		$sQuery = 'DELETE FROM ' . $this->t_galleries . ' ' . 'WHERE id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to remove gallery from database.');
 		}
@@ -687,7 +687,7 @@ class GalleriesTree extends NestedTreei18n
 		
 		$query = 'DELETE FROM ' . $this->t_galleries_locales . ' ' . 'WHERE gallery_id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			throw new Exception('Unable to remove gallery locales from database.');
 		}
@@ -708,14 +708,14 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function setParentId($iGalleryId, $iParentId)
 	{
-		if (! $this->galleryExists($iGalleryId))
+		if (!$this->galleryExists($iGalleryId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $iGalleryId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_galleries . ' SET ' . 'parent_id=' . (integer) $iParentId . ' ' . 'WHERE id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update parent ID gallery in database.');
 		}
@@ -755,12 +755,12 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$aImages = $this->getImageUploadInstance()->addImages($iGalleryId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updImages($iGalleryId, $image);
 	}
@@ -776,19 +776,19 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$aCurrentImages = $this->getImages($iGalleryId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getImageUploadInstance()->updImages($iGalleryId, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updImages($iGalleryId, $image);
 	}
@@ -806,19 +806,19 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$aCurrentImages = $this->getImages($iGalleryId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewImages = $this->getImageUploadInstance()->deleteImage($iGalleryId, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aNewImages[1]) ? $aNewImages[1] : null;
+		$image = !empty($aNewImages[1]) ? $aNewImages[1] : null;
 		
 		return $this->updImages($iGalleryId, $image);
 	}
@@ -834,7 +834,7 @@ class GalleriesTree extends NestedTreei18n
 	{
 		$aCurrentImages = $this->getImages($iGalleryId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -861,9 +861,9 @@ class GalleriesTree extends NestedTreei18n
 		while ($rsGalleries->fetch())
 		{
 			$aImages = $rsGalleries->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 			
-			if (! empty($aImages['img_name']))
+			if (!empty($aImages['img_name']))
 			{
 				$this->getImageUploadInstance()->buildThumbnails($rsGalleries->id, $aImages['img_name']);
 				
@@ -885,7 +885,7 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function getImages($iGalleryId)
 	{
-		if (! $this->galleryExists($iGalleryId))
+		if (!$this->galleryExists($iGalleryId))
 		{
 			$this->error->set(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $iGalleryId));
 			return false;
@@ -902,7 +902,7 @@ class GalleriesTree extends NestedTreei18n
 		}
 		else
 		{
-			return array();
+			return [];
 		}
 	}
 
@@ -915,17 +915,17 @@ class GalleriesTree extends NestedTreei18n
 	 */
 	public function updImages($iGalleryId, $aImage = null)
 	{
-		if (! $this->galleryExists($iGalleryId))
+		if (!$this->galleryExists($iGalleryId))
 		{
 			$this->error->set(sprintf(__('m_galleries_error_gallery_%s_doesnt_exist'), $iGalleryId));
 			return false;
 		}
 		
-		$aImage = ! empty($aImage) ? serialize($aImage) : NULL;
+		$aImage = !empty($aImage) ? serialize($aImage) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_galleries . ' SET ' . 'image=' . (! is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iGalleryId;
+		$query = 'UPDATE ' . $this->t_galleries . ' SET ' . 'image=' . (!is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iGalleryId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}

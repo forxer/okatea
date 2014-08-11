@@ -25,7 +25,7 @@ class module_partners extends Module
 
 	protected $locales = null;
 
-	protected $params = array();
+	protected $params = [];
 
 	public $tree;
 
@@ -69,7 +69,7 @@ class module_partners extends Module
 		{
 			$this->okt->page->partnersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=partners', $this->bCurrentlyInUse, 10, $this->okt['visitor']->checkPerm('partners'), null, $this->okt->page->partnersSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->partnersSubMenu->add(__('c_a_menu_management'), 'module.php?m=partners&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
+			$this->okt->page->partnersSubMenu->add(__('c_a_menu_management'), 'module.php?m=partners&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 1);
 			$this->okt->page->partnersSubMenu->add(__('m_partners_add_partner'), 'module.php?m=partners&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 2, $this->okt['visitor']->checkPerm('partners_add'));
 			$this->okt->page->partnersSubMenu->add(__('m_partners_Categories'), 'module.php?m=partners&amp;action=categories', $this->bCurrentlyInUse && ($this->okt->page->action === 'categories'), 3, ($this->config->enable_categories && $this->okt['visitor']->checkPerm('partners_add')));
 			$this->okt->page->partnersSubMenu->add(__('c_a_menu_display'), 'module.php?m=partners&amp;action=display', $this->bCurrentlyInUse && ($this->okt->page->action === 'display'), 10, $this->okt['visitor']->checkPerm('partners_display'));
@@ -87,21 +87,21 @@ class module_partners extends Module
 	 * @param boolean $count_only        	
 	 * @return recordset
 	 */
-	public function getPartners($params = array(), $count_only = false)
+	public function getPartners($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND p.id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['name']))
+		if (!empty($params['name']))
 		{
 			$reqPlus .= ' AND p.name=\'' . $this->db->escapeStr($params['name']) . '\' ';
 		}
 		
-		if (! empty($params['not_null']))
+		if (!empty($params['not_null']))
 		{
 			$reqPlus .= 'AND (pl.description IS NOT NULL OR pl.url IS NOT NULL) ';
 		}
@@ -152,7 +152,7 @@ class module_partners extends Module
 				$order_direction = $params['order_direction'];
 			}
 			
-			if (! empty($params['order']))
+			if (!empty($params['order']))
 			{
 				$query .= 'ORDER BY ' . $params['order'] . ' ' . $order_direction . ' ';
 			}
@@ -165,7 +165,7 @@ class module_partners extends Module
 				$query .= 'ORDER BY p.ord ' . $order_direction . ' ';
 			}
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
@@ -180,7 +180,7 @@ class module_partners extends Module
 			}
 			else
 			{
-				$rs = new PartnersRecordset(array());
+				$rs = new PartnersRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -240,7 +240,7 @@ class module_partners extends Module
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new recordset(array());
+			$rs = new recordset([]);
 			return $rs;
 		}
 		
@@ -255,7 +255,7 @@ class module_partners extends Module
 	 */
 	protected function checkParams()
 	{
-		if (! empty($this->params))
+		if (!empty($this->params))
 		{
 			# champ name
 			if ($this->config->chp_name > 0)
@@ -288,7 +288,7 @@ class module_partners extends Module
 			{
 				foreach ($this->params['urls'] as $k => $v)
 				{
-					if (! empty($v) && ($this->params['urls'][$k] = filter_var($v, FILTER_VALIDATE_URL)) === false)
+					if (!empty($v) && ($this->params['urls'][$k] = filter_var($v, FILTER_VALIDATE_URL)) === false)
 					{
 						$this->error->set(sprintf(__('m_partners_error_invalid_url_%s'), $this->okt['languages']->getList()[$k]['title']));
 					}
@@ -333,7 +333,7 @@ class module_partners extends Module
 	 *        	
 	 * @return integer
 	 */
-	public function addPartner($params = array())
+	public function addPartner($params = [])
 	{
 		$query = 'SELECT MAX(ord) FROM ' . $this->t_partners;
 		$rs = $this->db->select($query);
@@ -346,16 +346,16 @@ class module_partners extends Module
 		$this->params = $params;
 		$this->checkParams();
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		# ajout du partenaire
-		$this->params['date'] = ! empty($this->params['date']) ? '\'' . MySqli::formatDateTime($this->params['date']) . '\'' : 'NOW()';
+		$this->params['date'] = !empty($this->params['date']) ? '\'' . MySqli::formatDateTime($this->params['date']) . '\'' : 'NOW()';
 		$query = 'INSERT INTO ' . $this->t_partners . ' ( ' . 'active, category_id, name, created_at, updated_at, ord ' . ') VALUES ( ' . (integer) $this->params['active'] . ', ' . (is_null($this->params['category_id']) ? 'NULL, ' : (integer) $this->params['category_id'] . ', ') . (empty($this->params['name']) ? 'NULL,' : '\'' . $this->db->escapeStr($this->params['name']) . '\', ') . $this->params['date'] . ', ' . 'NOW() ' . ',' . (integer) ($max_ord + 1) . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -365,12 +365,12 @@ class module_partners extends Module
 		$this->params['id'] = $iNewId;
 		
 		# ajout des textes internationalisés
-		if (! $this->setPartnerInter())
+		if (!$this->setPartnerInter())
 		{
 			return false;
 		}
 		# ajout du logo
-		if (! $this->addLogo($iNewId))
+		if (!$this->addLogo($iNewId))
 		{
 			return false;
 		}
@@ -392,10 +392,10 @@ class module_partners extends Module
 	 *        	'url_title' => array
 	 * @return boolean
 	 */
-	public function updPartner($params = array())
+	public function updPartner($params = [])
 	{
 		$this->params = $params;
-		if (! $this->partnerExists($this->params['id']))
+		if (!$this->partnerExists($this->params['id']))
 		{
 			$this->error->set('Le partenaire #' . $this->params['id'] . ' n’existe pas.');
 			return false;
@@ -404,20 +404,20 @@ class module_partners extends Module
 		# vérification des paramètres
 		$this->checkParams();
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'active=' . (integer) $this->params['active'] . ', ' . 'category_id=' . (is_null($this->params['category_id']) ? 'NULL,' : (integer) $this->params['category_id'] . ', ') . 'name=' . '\'' . $this->db->escapeStr($this->params['name']) . '\', ' . (! empty($this->params['date']) ? 'created_at=\'' . MySqli::formatDateTime($this->params['date']) . '\', ' : '') . 'updated_at=NOW() ' . 'WHERE id=' . (integer) $this->params['id'];
+		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'active=' . (integer) $this->params['active'] . ', ' . 'category_id=' . (is_null($this->params['category_id']) ? 'NULL,' : (integer) $this->params['category_id'] . ', ') . 'name=' . '\'' . $this->db->escapeStr($this->params['name']) . '\', ' . (!empty($this->params['date']) ? 'created_at=\'' . MySqli::formatDateTime($this->params['date']) . '\', ' : '') . 'updated_at=NOW() ' . 'WHERE id=' . (integer) $this->params['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
 		
 		# modification des textes internationalisés
-		if (! $this->setPartnerInter())
+		if (!$this->setPartnerInter())
 		{
 			return false;
 		}
@@ -439,7 +439,7 @@ class module_partners extends Module
 	 */
 	public function deletePartner($id)
 	{
-		if (! $this->partnerExists($id))
+		if (!$this->partnerExists($id))
 		{
 			return false;
 		}
@@ -450,7 +450,7 @@ class module_partners extends Module
 		# delete partner
 		$query = 'DELETE FROM ' . $this->t_partners . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -460,7 +460,7 @@ class module_partners extends Module
 		# delete partenaire inter
 		$query = 'DELETE FROM ' . $this->t_partners_locales . ' ' . 'WHERE partner_id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -480,7 +480,7 @@ class module_partners extends Module
 	{
 		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $partner_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -499,7 +499,7 @@ class module_partners extends Module
 	{
 		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'ord=' . (integer) $ord . ' ' . 'WHERE id=' . (integer) $partner_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -518,19 +518,19 @@ class module_partners extends Module
 	 *        	$count_only
 	 * @return recordset
 	 */
-	public function getCategories($params = array(), $count_only = false)
+	public function getCategories($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
 		$with_count = isset($params['with_count']) ? (boolean) $params['with_count'] : false;
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= 'AND c.id=' . (integer) $params['id'] . ' ';
 			$with_count = false;
 		}
 		
-		if (! empty($params['language']))
+		if (!empty($params['language']))
 		{
 			$reqPlus .= 'AND cl.language=\'' . $this->db->escapeStr($params['language']) . '\' ';
 		}
@@ -566,14 +566,14 @@ class module_partners extends Module
 		{
 			$query = 'SELECT c.id, c.active, c.ord, c.parent_id, c.level, ' . 'cl.language, cl.name, ' . 'COUNT(p.id) AS num_items ' . 'FROM ' . $this->t_categories . ' AS c ' . 'LEFT JOIN ' . $this->t_categories_locales . ' AS cl ON cl.category_id=c.id ' . 'LEFT JOIN ' . $this->t_partners . ' AS p ON c.id=p.category_id ' . 'WHERE 1 ' . $reqPlus . ' ' . 'GROUP BY c.id ' . 'ORDER BY nleft asc ';
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
 		}
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		if ($count_only)
@@ -584,8 +584,8 @@ class module_partners extends Module
 		{
 			if ($with_count)
 			{
-				$data = array();
-				$stack = array();
+				$data = [];
+				$stack = [];
 				$level = 0;
 				foreach (array_reverse($rs->getData()) as $category)
 				{
@@ -656,7 +656,7 @@ class module_partners extends Module
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new recordset(array());
+			return new recordset([]);
 		}
 		
 		return $rs;
@@ -696,7 +696,7 @@ class module_partners extends Module
 		
 		$query = 'INSERT INTO ' . $this->t_categories . ' ( ' . 'active, parent_id, ord ' . ') VALUES ( ' . (integer) $active . ', ' . (integer) $parent_id . ', ' . ($max_ord + 1) . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -707,11 +707,11 @@ class module_partners extends Module
 		
 		foreach ($names as $lang => $name)
 		{
-			if (! empty($name))
+			if (!empty($name))
 			{
 				$query = 'INSERT INTO ' . $this->t_categories_locales . ' ( ' . 'category_id, language, name ' . ') VALUES ( ' . (integer) $new_id . ', ' . '\'' . $this->db->escapeStr($lang) . '\', ' . '\'' . $this->db->escapeStr($name) . '\'' . '); ';
 				
-				if (! $this->db->execute($query))
+				if (!$this->db->execute($query))
 				{
 					return false;
 				}
@@ -731,7 +731,7 @@ class module_partners extends Module
 	 */
 	public function updCategory($id, $active, $names, $parent_id)
 	{
-		if (! $this->categoryExists($id))
+		if (!$this->categoryExists($id))
 		{
 			$this->error->set('La catégorie #' . $id . ' n’existe pas.');
 			return false;
@@ -756,7 +756,7 @@ class module_partners extends Module
 		
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'active=' . (integer) $active . ', ' . 'parent_id=' . (integer) $parent_id . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -772,11 +772,11 @@ class module_partners extends Module
 		
 		foreach ($names as $lang => $name)
 		{
-			if (! empty($name))
+			if (!empty($name))
 			{
 				$query = 'INSERT INTO ' . $this->t_categories_locales . ' ( ' . 'category_id, language, name ' . ') VALUES ( ' . (integer) $id . ', ' . '\'' . $this->db->escapeStr($lang) . '\', ' . '\'' . $this->db->escapeStr($name) . '\'' . ') ON DUPLICATE KEY UPDATE ' . 'name=\'' . $this->db->escapeStr($name) . '\'';
 				
-				if (! $this->db->execute($query))
+				if (!$this->db->execute($query))
 				{
 					return false;
 				}
@@ -797,7 +797,7 @@ class module_partners extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'ord=' . (integer) $ord . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -855,7 +855,7 @@ class module_partners extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'active=' . (integer) $status . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -887,7 +887,7 @@ class module_partners extends Module
 		
 		$query = 'DELETE FROM ' . $this->t_categories . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -904,7 +904,7 @@ class module_partners extends Module
 	{
 		$query = 'UPDATE ' . $this->t_categories . ' SET ' . 'parent_id=' . (integer) $parent_id . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -982,12 +982,12 @@ class module_partners extends Module
 	{
 		$aImages = $this->getLogoUpload()->addImages($partner_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updLogos($partner_id, $image);
 	}
@@ -1003,19 +1003,19 @@ class module_partners extends Module
 	{
 		$aCurrentImages = $this->getLogos($partner_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getLogoUpload()->updImages($partner_id, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updLogos($partner_id, $image);
 	}
@@ -1033,19 +1033,19 @@ class module_partners extends Module
 	{
 		$aCurrentImages = $this->getLogos($partner_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewImages = $this->getLogoUpload()->deleteImage($partner_id, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aNewImages[1]) ? $aNewImages[1] : null;
+		$image = !empty($aNewImages[1]) ? $aNewImages[1] : null;
 		
 		return $this->updLogos($partner_id, $image);
 	}
@@ -1061,7 +1061,7 @@ class module_partners extends Module
 	{
 		$aCurrentImages = $this->getLogos($partner_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1088,9 +1088,9 @@ class module_partners extends Module
 		while ($rsPartners->fetch())
 		{
 			$aImages = $rsPartners->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 			
-			if (! empty($aImages['img_name']))
+			if (!empty($aImages['img_name']))
 			{
 				$this->getLogoUpload()->buildThumbnails($rsPartners->id, $aImages['img_name']);
 				
@@ -1112,7 +1112,7 @@ class module_partners extends Module
 	 */
 	public function getLogos($partner_id)
 	{
-		if (! $this->partnerExists($partner_id))
+		if (!$this->partnerExists($partner_id))
 		{
 			$this->error->set('Le partenaire #' . $partner_id . ' n’existe pas.');
 			return false;
@@ -1129,7 +1129,7 @@ class module_partners extends Module
 		}
 		else
 		{
-			return array();
+			return [];
 		}
 	}
 
@@ -1142,17 +1142,17 @@ class module_partners extends Module
 	 */
 	public function updLogos($partner_id, $aImage = null)
 	{
-		if (! $this->partnerExists($partner_id))
+		if (!$this->partnerExists($partner_id))
 		{
 			$this->error->set('Le Partenaire #' . $partner_id . ' n’existe pas.');
 			return false;
 		}
 		
-		$aImage = ! empty($aImage) ? serialize($aImage) : NULL;
+		$aImage = !empty($aImage) ? serialize($aImage) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'logo=' . (! is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $partner_id;
+		$query = 'UPDATE ' . $this->t_partners . ' SET ' . 'logo=' . (!is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $partner_id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -1175,7 +1175,7 @@ class module_partners extends Module
 			$this->params['descriptions'][$aLanguage['code']] = $this->okt->HTMLfilter($this->params['descriptions'][$aLanguage['code']]);
 			$query = 'INSERT INTO ' . $this->t_partners_locales . ' ' . '(partner_id,language,description,url,url_title) ' . 'VALUES (' . (integer) $this->params['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->params['descriptions'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['descriptions'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['urls'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls'][$aLanguage['code']]) . '\'') . ', ' . (empty($this->params['urls_titles'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls_titles'][$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'description=' . (empty($this->params['descriptions'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['descriptions'][$aLanguage['code']]) . '\'') . ', ' . 'url=' . (empty($this->params['urls'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls'][$aLanguage['code']]) . '\'') . ', ' . 'url_title=' . (empty($this->params['urls_titles'][$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($this->params['urls_titles'][$aLanguage['code']]) . '\'') . ' ';
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}

@@ -469,14 +469,14 @@ class Visitor
 			return false;
 		}
 
-		if (! $this->okt['languages']->isActive($sLanguage)) {
+		if (!$this->okt['languages']->isActive($sLanguage)) {
 			return false;
 		}
 
 		$this->infos['language'] = $sLanguage;
 		$this->setLangCookie($sLanguage);
 
-		if (! $this->infos['is_guest'])
+		if (!$this->infos['is_guest'])
 		{
 			$this->okt['db']->update(
 				$this->sUsersTable,

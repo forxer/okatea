@@ -59,7 +59,7 @@ $okt['triggers']->callTrigger('publicModuleGuestbookJsValidateRules', $aJsValida
 
 <?php
 # début Okatea : validation JS
-if (! empty($aJsValidateRules))
+if (!empty($aJsValidateRules))
 {
 	$okt->page->validateForm();
 	$okt->page->js->addReady("
@@ -107,7 +107,7 @@ $okt->page->js->addReady('
 
 <?php
 # debut : affichage du message de confirmation d'ajout d'une signature
-if (! empty($_GET['added']))
+if (!empty($_GET['added']))
 :
 	?>
 
@@ -155,7 +155,7 @@ if (! empty($_GET['added']))
 
 		<?php
 # début champ langue
-		if (! $okt['languages']->hasUniqueLanguage() && $okt->guestbook->config->chp_language)
+		if (!$okt['languages']->hasUniqueLanguage() && $okt->guestbook->config->chp_language)
 		:
 			?>
 
@@ -349,7 +349,7 @@ if ($signaturesList->numPages > 1)
 
 <?php
 # début affichage liens vers les autres langues
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 :
 	?>
 <p><?php

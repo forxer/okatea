@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,7 +56,7 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -69,11 +69,11 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
 		$currentResourceTypeConfig = $this->_currentFolder->getResourceTypeConfig();
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		$_aclConfig = $_config->getAccessControlConfig();
-		$aclMasks = array();
-		$_resourceTypeConfig = array();
-		$checkedPaths = array();
+		$aclMasks = [];
+		$_resourceTypeConfig = [];
+		$checkedPaths = [];
 		
-		if (! empty($_POST['files']) && is_array($_POST['files']))
+		if (!empty($_POST['files']) && is_array($_POST['files']))
 		{
 			foreach ($_POST['files'] as $arr)
 			{
@@ -81,7 +81,7 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
 				{
 					continue;
 				}
-				if (! isset($arr['type'], $arr['folder']))
+				if (!isset($arr['type'], $arr['folder']))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
@@ -93,17 +93,17 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
 				// client path
 				$path = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($arr['folder']);
 				
-				if (! isset($_resourceTypeConfig[$type]))
+				if (!isset($_resourceTypeConfig[$type]))
 				{
 					$_resourceTypeConfig[$type] = $_config->getResourceTypeConfig($type);
 				}
 				
-				if (is_null($_resourceTypeConfig[$type]) || ! CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
+				if (is_null($_resourceTypeConfig[$type]) || !CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
 				
-				if (! $_resourceTypeConfig[$type]->checkExtension($name, false))
+				if (!$_resourceTypeConfig[$type]->checkExtension($name, false))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
@@ -123,27 +123,27 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
 				
-				if (! isset($aclMasks[$type . "@" . $path]))
+				if (!isset($aclMasks[$type . "@" . $path]))
 				{
 					$aclMasks[$type . "@" . $path] = $_aclConfig->getComputedMask($type, $path);
 				}
 				
 				$isAuthorized = (($aclMasks[$type . "@" . $path] & CKFINDER_CONNECTOR_ACL_FILE_DELETE) == CKFINDER_CONNECTOR_ACL_FILE_DELETE);
-				if (! $isAuthorized)
+				if (!$isAuthorized)
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 				}
 				
 				$filePath = $_resourceTypeConfig[$type]->getDirectory() . $path . $name;
 				
-				if (! file_exists($filePath) || ! is_file($filePath))
+				if (!file_exists($filePath) || !is_file($filePath))
 				{
 					$errorCode = CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND;
 					$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
 					continue;
 				}
 				
-				if (! CKFinder_Connector_Utils_FileSystem::unlink($filePath))
+				if (!CKFinder_Connector_Utils_FileSystem::unlink($filePath))
 				{
 					$errorCode = CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED;
 					$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);

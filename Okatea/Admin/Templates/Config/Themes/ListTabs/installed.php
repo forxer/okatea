@@ -7,9 +7,9 @@
  */
 use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 
-$okt->page->dialog(array(), '.changelog_link');
+$okt->page->dialog([], '.changelog_link');
 
-$okt->page->dialog(array(), '.notes_link');
+$okt->page->dialog([], '.notes_link');
 
 # Display a UI dialog box for each theme
 foreach ($aInstalledThemes as $aTheme)
@@ -66,13 +66,13 @@ foreach ($aInstalledThemes as $aTheme)
 			$line_count ++;
 
 			# disabled ?
-			if (! $aTheme['status'])
+			if (!$aTheme['status'])
 			{
 				$td_class .= ' disabled';
 			}
 
 			# links
-			$theme_links = array();
+			$theme_links = [];
 			if (file_exists($aTheme['root'] . '/CHANGELOG'))
 			{
 				$theme_links[] = '<a href="' . $view->generateAdminUrl('config_themes') . '?show_changelog=' . $aTheme['id'] . '"' . ' id="' . $aTheme['id'] . '_changelog_link">' . __('c_a_themes_changelog') . '</a>';

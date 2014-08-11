@@ -47,7 +47,7 @@ class module_lbl_nyromodal extends Module
 	 * @param array $user_options        	
 	 * @return void
 	 */
-	public static function nyromodal($element = 'a.modal', $conteneur = '.modal-box', $user_options = array())
+	public static function nyromodal($element = 'a.modal', $conteneur = '.modal-box', $user_options = [])
 	{
 		global $okt;
 		
@@ -92,7 +92,7 @@ class module_lbl_nyromodal extends Module
 		)
 		;
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, (array) $user_options);
 		}

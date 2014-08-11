@@ -40,7 +40,7 @@ class DefinitionsLess
 	 */
 	public function writeFileFromPost($sFilename)
 	{
-		if (! is_dir(dirname($sFilename)))
+		if (!is_dir(dirname($sFilename)))
 		{
 			\files::makeDir(dirname($sFilename), true);
 		}
@@ -59,7 +59,7 @@ class DefinitionsLess
 	 *        	Un tableau indexé de valeurs
 	 * @return string
 	 */
-	public function getFileContent($aValues = array())
+	public function getFileContent($aValues = [])
 	{
 		$aValues = array_merge($this->getDefaultValues(), $aValues);
 		
@@ -206,7 +206,7 @@ class DefinitionsLess
 	 *        	Un tableau indexé de valeurs
 	 * @return string
 	 */
-	public function getHtmlFields($aValues = array(), $iHeadStart = 3)
+	public function getHtmlFields($aValues = [], $iHeadStart = 3)
 	{
 		if (empty($aValues))
 		{
@@ -322,7 +322,7 @@ class DefinitionsLess
 
 	public function getPostValues()
 	{
-		$aValues = array();
+		$aValues = [];
 		foreach (array_keys($this->getDefaultValues()) as $sKey)
 		{
 			$aValues[$sKey] = $this->okt['request']->request->get($this->sPostPrefix . $sKey, '');
@@ -333,14 +333,14 @@ class DefinitionsLess
 
 	public function getValuesFromFile($sFilename)
 	{
-		if (! file_exists($sFilename))
+		if (!file_exists($sFilename))
 		{
 			return false;
 		}
 		
 		$aFileContent = file($sFilename);
 		
-		$aValues = array();
+		$aValues = [];
 		
 		foreach ($aFileContent as $sLine)
 		{
@@ -355,7 +355,7 @@ class DefinitionsLess
 
 	public static function getPaletteFromFileset($aFileset)
 	{
-		$aPaletteColors = array();
+		$aPaletteColors = [];
 		
 		foreach ($aFileset as $sFilename)
 		{
@@ -372,7 +372,7 @@ class DefinitionsLess
 	{
 		$aFileContent = file($sFilename);
 		
-		$aColors = array();
+		$aColors = [];
 		
 		foreach ($aFileContent as $sLine)
 		{

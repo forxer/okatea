@@ -15,7 +15,7 @@ class Counting extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('development_usage') || ! $this->okt['visitor']->checkPerm('development_counting'))
+		if (!$this->okt['visitor']->checkPerm('development_usage') || !$this->okt['visitor']->checkPerm('development_counting'))
 		{
 			return $this->serve401();
 		}

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -52,7 +52,7 @@ class CKFinder_Connector_CommandHandler_GetFolders extends CKFinder_Connector_Co
 	function buildXml()
 	{
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FOLDER_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -60,7 +60,7 @@ class CKFinder_Connector_CommandHandler_GetFolders extends CKFinder_Connector_Co
 		// Map the virtual path to the local server path.
 		$_sServerDir = $this->_currentFolder->getServerPath();
 		
-		if (! is_dir($_sServerDir))
+		if (!is_dir($_sServerDir))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
 		}
@@ -69,7 +69,7 @@ class CKFinder_Connector_CommandHandler_GetFolders extends CKFinder_Connector_Co
 		$oFoldersNode = new Ckfinder_Connector_Utils_XmlNode("Folders");
 		$this->_connectorNode->addChild($oFoldersNode);
 		
-		$files = array();
+		$files = [];
 		if ($dh = @opendir($_sServerDir))
 		{
 			while (($file = readdir($dh)) !== false)

@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# inclusion du fichier requis en fonction de l'action demandée

@@ -38,11 +38,11 @@ class Module extends BaseModule
 		}
 	}
 
-	public static function tinyMCE($sSelector = 'textarea', array $aUserOptions = array())
+	public static function tinyMCE($sSelector = 'textarea', array $aUserOptions = [])
 	{
 		global $okt;
 		
-		$aOptions = array();
+		$aOptions = [];
 		
 		$aOptions[] = 'relative_urls: true';
 		$aOptions[] = 'document_base_url: "' . Escaper::js($okt['request']->getSchemeAndHttpHost() . $okt['config']->app_url) . '"';

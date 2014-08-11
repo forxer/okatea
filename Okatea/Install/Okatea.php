@@ -58,7 +58,7 @@ class Okatea extends Application
 	 */
 	public $version;
 
-	public $extensions = array();
+	public $extensions = [];
 
 	public function run()
 	{
@@ -74,7 +74,7 @@ class Okatea extends Application
 		}
 
 		# Initialisation localisation
-		if (! $this['session']->has('okt_install_language'))
+		if (!$this['session']->has('okt_install_language'))
 		{
 			$this['session']->set('okt_install_language', $this->okt['request']->getPreferredLanguage($this->availablesLocales));
 		}
@@ -86,7 +86,7 @@ class Okatea extends Application
 		$this['l10n']->loadFile(__DIR__ . '/Locales/%s/install');
 
 		# Install or update ?
-		if (! $this['session']->has('okt_install_process_type'))
+		if (!$this['session']->has('okt_install_process_type'))
 		{
 			$this['session']->set('okt_install_process_type', 'install');
 
@@ -151,7 +151,7 @@ class Okatea extends Application
 
 		foreach ($finder as $file)
 		{
-			if (! file_exists(dirname($file->getRealPath()) . '/_disabled'))
+			if (!file_exists(dirname($file->getRealPath()) . '/_disabled'))
 			{
 				$sExtensionId = $file->getRelativePath();
 

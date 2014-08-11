@@ -19,4 +19,4 @@ $GLOBALS['okt_l10n']['m_development_perm_counting'] = 'Outil de comptage';
 
 # admin bar
 $GLOBALS['okt_l10n']['m_development_ab_module_enable'] = 'Le module développement est actif';
-$GLOBALS['okt_l10n']['m_development_ab_module_enable_title'] = 'Le module développement est actif ! Veuillez le désactiver en production.';
+$GLOBALS['okt_l10n']['m_development_ab_module_enable_title'] = 'Le module développement est actif !Veuillez le désactiver en production.';

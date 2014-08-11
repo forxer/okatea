@@ -9,7 +9,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -18,12 +18,12 @@ if (! defined('ON_MODULE'))
 # Chargement des locales
 $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.item');
 
-$iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
+$iGalleryId = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
 # Données de la page
 $aItemData = new ArrayObject();
 
-$aItemData['item'] = array();
+$aItemData['item'] = [];
 $aItemData['item']['id'] = null;
 
 $aItemData['item']['gallery_id'] = $iGalleryId;
@@ -32,11 +32,11 @@ $aItemData['item']['tpl'] = '';
 $aItemData['item']['created_at'] = '';
 $aItemData['item']['updated_at'] = '';
 
-$aItemData['locales'] = array();
+$aItemData['locales'] = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
-	$aItemData['locales'][$aLanguage['code']] = array();
+	$aItemData['locales'][$aLanguage['code']] = [];
 	
 	$aItemData['locales'][$aLanguage['code']]['title'] = '';
 	$aItemData['locales'][$aLanguage['code']]['subtitle'] = '';
@@ -52,13 +52,13 @@ foreach ($okt['languages']->getList() as $aLanguage)
 	}
 }
 
-$aItemData['image'] = array();
+$aItemData['image'] = [];
 
 $rsItem = null;
 $rsItemI18n = null;
 
 # update item ?
-if (! empty($_REQUEST['item_id']))
+if (!empty($_REQUEST['item_id']))
 {
 	$aItemData['item']['id'] = intval($_REQUEST['item_id']);
 	
@@ -117,7 +117,7 @@ $okt->galleries->triggers->callTrigger('adminItemInit', $aItemData, $rsItem, $rs
 ----------------------------------------------------------*/
 
 # switch page status
-if (! empty($_GET['switch_status']) && ! empty($aItemData['item']['id']))
+if (!empty($_GET['switch_status']) && !empty($aItemData['item']['id']))
 {
 	try
 	{
@@ -139,7 +139,7 @@ if (! empty($_GET['switch_status']) && ! empty($aItemData['item']['id']))
 }
 
 # suppression d'une image
-if (! empty($_GET['delete_image']) && ! empty($aItemData['item']['id']))
+if (!empty($_GET['delete_image']) && !empty($aItemData['item']['id']))
 {
 	$okt->galleries->items->deleteImage($aItemData['item']['id'], $_GET['delete_image']);
 	
@@ -156,27 +156,27 @@ if (! empty($_GET['delete_image']) && ! empty($aItemData['item']['id']))
 }
 
 #  ajout / modifications d'un élément
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
-	$aItemData['item']['gallery_id'] = ! empty($_POST['p_gallery_id']) ? intval($_POST['p_gallery_id']) : 0;
-	$aItemData['item']['active'] = ! empty($_POST['p_active']) ? 1 : 0;
-	$aItemData['item']['tpl'] = ! empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
+	$aItemData['item']['gallery_id'] = !empty($_POST['p_gallery_id']) ? intval($_POST['p_gallery_id']) : 0;
+	$aItemData['item']['active'] = !empty($_POST['p_active']) ? 1 : 0;
+	$aItemData['item']['tpl'] = !empty($_POST['p_tpl']) ? $_POST['p_tpl'] : null;
 	$aItemData['item']['created_at'] = $aItemData['item']['created_at'];
 	$aItemData['item']['updated_at'] = $aItemData['item']['updated_at'];
 	
 	foreach ($okt['languages']->getList() as $aLanguage)
 	{
-		$aItemData['locales'][$aLanguage['code']]['title'] = ! empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
-		$aItemData['locales'][$aLanguage['code']]['subtitle'] = ! empty($_POST['p_subtitle'][$aLanguage['code']]) ? $_POST['p_subtitle'][$aLanguage['code']] : '';
-		$aItemData['locales'][$aLanguage['code']]['content'] = ! empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
+		$aItemData['locales'][$aLanguage['code']]['title'] = !empty($_POST['p_title'][$aLanguage['code']]) ? $_POST['p_title'][$aLanguage['code']] : '';
+		$aItemData['locales'][$aLanguage['code']]['subtitle'] = !empty($_POST['p_subtitle'][$aLanguage['code']]) ? $_POST['p_subtitle'][$aLanguage['code']] : '';
+		$aItemData['locales'][$aLanguage['code']]['content'] = !empty($_POST['p_content'][$aLanguage['code']]) ? $_POST['p_content'][$aLanguage['code']] : '';
 		
 		if ($okt->galleries->config->enable_metas)
 		{
-			$aItemData['locales'][$aLanguage['code']]['title_seo'] = ! empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
-			$aItemData['locales'][$aLanguage['code']]['title_tag'] = ! empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
-			$aItemData['locales'][$aLanguage['code']]['slug'] = ! empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
-			$aItemData['locales'][$aLanguage['code']]['meta_description'] = ! empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
-			$aItemData['locales'][$aLanguage['code']]['meta_keywords'] = ! empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
+			$aItemData['locales'][$aLanguage['code']]['title_seo'] = !empty($_POST['p_title_seo'][$aLanguage['code']]) ? $_POST['p_title_seo'][$aLanguage['code']] : '';
+			$aItemData['locales'][$aLanguage['code']]['title_tag'] = !empty($_POST['p_title_tag'][$aLanguage['code']]) ? $_POST['p_title_tag'][$aLanguage['code']] : '';
+			$aItemData['locales'][$aLanguage['code']]['slug'] = !empty($_POST['p_slug'][$aLanguage['code']]) ? $_POST['p_slug'][$aLanguage['code']] : '';
+			$aItemData['locales'][$aLanguage['code']]['meta_description'] = !empty($_POST['p_meta_description'][$aLanguage['code']]) ? $_POST['p_meta_description'][$aLanguage['code']] : '';
+			$aItemData['locales'][$aLanguage['code']]['meta_keywords'] = !empty($_POST['p_meta_keywords'][$aLanguage['code']]) ? $_POST['p_meta_keywords'][$aLanguage['code']] : '';
 		}
 	}
 	
@@ -189,7 +189,7 @@ if (! empty($_POST['sended']))
 		$aItemData['cursor'] = $okt->galleries->items->openItemCursor($aItemData['item']);
 		
 		# update item
-		if (! empty($aItemData['item']['id']))
+		if (!empty($aItemData['item']['id']))
 		{
 			try
 			{
@@ -273,7 +273,7 @@ $okt->page->addButton('galleriesBtSt', array(
 ), 'before');
 
 # boutons update page
-if (! empty($aItemData['item']['id']))
+if (!empty($aItemData['item']['id']))
 {
 	$okt->page->addGlobalTitle(__('m_galleries_item_edit_an_item'));
 	
@@ -321,7 +321,7 @@ $okt->page->applyLbl($okt->galleries->config->lightbox_type);
 $okt->page->applyRte($okt->galleries->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }
@@ -399,7 +399,7 @@ ob_start();
 
 <?php 
 # il y a une image ?
-if (! empty($aItemData['image']))
+if (!empty($aItemData['image']))
 :
 	
 	# affichage square ou icon ?
@@ -419,8 +419,8 @@ if (! empty($aItemData['image']))
 		$sCurImageAttr = ' width="48" height="48" ';
 	}
 	
-	$aCurImageAlt = isset($aItemData['image']['alt']) ? $aItemData['image']['alt'] : array();
-	$aCurImageTitle = isset($aItemData['image']['title']) ? $aItemData['image']['title'] : array();
+	$aCurImageAlt = isset($aItemData['image']['alt']) ? $aItemData['image']['alt'] : [];
+	$aCurImageTitle = isset($aItemData['image']['title']) ? $aItemData['image']['title'] : [];
 	
 	?>
 

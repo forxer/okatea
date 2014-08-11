@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -67,7 +67,7 @@ abstract class CKFinder_Connector_CommandHandler_XmlCommandHandlerBase extends C
 		}
 		
 		$resourceTypeName = $this->_currentFolder->getResourceTypeName();
-		if (! empty($resourceTypeName))
+		if (!empty($resourceTypeName))
 		{
 			$this->_connectorNode->addAttribute("resourceType", $this->_currentFolder->getResourceTypeName());
 		}

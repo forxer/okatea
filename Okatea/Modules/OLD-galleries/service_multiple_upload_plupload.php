@@ -37,11 +37,11 @@ $inputFileName = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 
 $gallery_id = isset($_REQUEST['gallery_id']) ? $_REQUEST['gallery_id'] : 0;
 
-$aItemLocalesData = array();
+$aItemLocalesData = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
-	$aItemLocalesData[$aLanguage['code']] = array();
+	$aItemLocalesData[$aLanguage['code']] = [];
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
 }
 
@@ -62,7 +62,7 @@ foreach ($okt['languages']->getList() as $aLanguage)
 		}
 	}
 	
-	if (! empty($_REQUEST['p_title'][$aLanguage['code']]))
+	if (!empty($_REQUEST['p_title'][$aLanguage['code']]))
 	{
 		$aItemLocalesData[$aLanguage['code']]['title'] = $_REQUEST['p_title'][$aLanguage['code']];
 	}
@@ -114,7 +114,7 @@ $iNewId = $okt->galleries->items->addItem($okt->galleries->items->openItemCursor
 # define the target directory
 $targetDir = $okt->galleries->upload_dir . '/img/items/' . $iNewId;
 
-if (! file_exists($targetDir))
+if (!file_exists($targetDir))
 {
 	files::makeDir($targetDir, true);
 }
@@ -228,7 +228,7 @@ if (isset($aNewImagesInfos[1]))
 }
 else
 {
-	$aNewItemImages = array();
+	$aNewItemImages = [];
 }
 
 $okt->galleries->items->updImages($iNewId, $aNewItemImages);

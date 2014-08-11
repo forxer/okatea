@@ -6,16 +6,16 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
-if (! $okt['visitor']->checkPerm('galleries'))
+if (!$okt['visitor']->checkPerm('galleries'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'un élément
-if ($okt->page->action === 'delete' && ! empty($_GET['item_id']) && $okt['visitor']->checkPerm('galleries_remove'))
+if ($okt->page->action === 'delete' && !empty($_GET['item_id']) && $okt['visitor']->checkPerm('galleries_remove'))
 {
 	if ($okt->galleries->items->deleteItem($_GET['item_id']))
 	{
@@ -31,7 +31,7 @@ if ($okt->page->action === 'delete' && ! empty($_GET['item_id']) && $okt['visito
 $okt->page->setButtonset('galleriesBtSt', array(
 	'id' => 'galleries-buttonset',
 	'type' => '', #  buttonset-single | buttonset-multi | ''
-	'buttons' => array()
+	'buttons' => []
 ));
 
 # title tag
@@ -41,7 +41,7 @@ $okt->page->addTitleTag($okt->galleries->getTitle());
 $okt->page->addAriane($okt->galleries->getName(), 'module.php?m=galleries');
 
 # inclusion du fichier requis en fonction de l'action demandée
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

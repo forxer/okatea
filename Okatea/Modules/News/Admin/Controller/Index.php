@@ -15,7 +15,7 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('news_usage') && ! $this->okt['visitor']->checkPerm('news_contentadmin'))
+		if (!$this->okt['visitor']->checkPerm('news_usage') && !$this->okt['visitor']->checkPerm('news_contentadmin'))
 		{
 			return $this->serve401();
 		}
@@ -83,9 +83,9 @@ class Index extends Controller
 		$this->okt->module('News')->publishScheduledPosts();
 		
 		# Initialisation des filtres
-		$aParams = array();
+		$aParams = [];
 		
-		if (! $this->okt['visitor']->checkPerm('news_contentadmin') && ! $this->okt['visitor']->checkPerm('news_show_all'))
+		if (!$this->okt['visitor']->checkPerm('news_contentadmin') && !$this->okt['visitor']->checkPerm('news_show_all'))
 		{
 			$aParams['user_id'] = $this->okt['visitor']->id;
 		}
@@ -163,7 +163,7 @@ class Index extends Controller
 		$json = $this->okt['request']->query->get('json');
 		$term = $this->okt['request']->query->get('term');
 		
-		if (! $json || ! $term || ! $this->okt['request']->isXmlHttpRequest())
+		if (!$json || !$term || !$this->okt['request']->isXmlHttpRequest())
 		{
 			return false;
 		}
@@ -173,7 +173,7 @@ class Index extends Controller
 			'search' => $term
 		));
 		
-		$aResults = array();
+		$aResults = [];
 		while ($rsPosts->fetch())
 		{
 			$aResults[$rsPosts->title] = $rsPosts->title;
@@ -198,7 +198,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('delete');
 		
-		if (! $iPostId || ! $this->okt['visitor']->checkPerm('news_delete'))
+		if (!$iPostId || !$this->okt['visitor']->checkPerm('news_delete'))
 		{
 			return false;
 		}
@@ -223,7 +223,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('switch_status');
 		
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -246,7 +246,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('switch_selected');
 		
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -269,7 +269,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('select');
 		
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -294,7 +294,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('deselect');
 		
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -319,7 +319,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('publish');
 		
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -345,7 +345,7 @@ class Index extends Controller
 		$sAction = $this->okt['request']->request->get('action');
 		$aPostsId = $this->okt['request']->request->get('posts');
 		
-		if (! $sAction || ! $aPostsId || ! is_array($aPostsId))
+		if (!$sAction || !$aPostsId || !is_array($aPostsId))
 		{
 			return false;
 		}

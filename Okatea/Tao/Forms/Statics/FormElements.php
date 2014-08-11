@@ -16,7 +16,6 @@ namespace Okatea\Tao\Forms\Statics;
  */
 class FormElements
 {
-
 	/**
 	 * Retourne un champ de formulaire de type select.
 	 *
@@ -32,7 +31,7 @@ class FormElements
 	 *        	de l'élément
 	 * @param boolean $bDisabled
 	 *        	non le champ
-	 * @param boolean $bMultiple        	
+	 * @param boolean $bMultiple
 	 * @param string $sExtraHtml
 	 *        	en plus à mettre dans l'élément
 	 * @return string
@@ -40,7 +39,7 @@ class FormElements
 	public static function select($mNameId, $aData, $mDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $bMultiple = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<select name="' . $sName . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= ' class="select' . (null === $sClass ? '' : ' ' . $sClass) . '"';
@@ -49,11 +48,11 @@ class FormElements
 		$res .= $bMultiple ? ' multiple="multiple"' : '';
 		$res .= $sExtraHtml;
 		$res .= '>' . PHP_EOL;
-		
+
 		$res .= self::selectOptions($aData, $mDefault);
-		
+
 		$res .= '</select>' . PHP_EOL;
-		
+
 		return $res;
 	}
 
@@ -71,7 +70,7 @@ class FormElements
 		$res = '';
 		$option = '<option value="%1$s"%3$s>%2$s</option>' . PHP_EOL;
 		$optgroup = '<optgroup label="%1$s">' . PHP_EOL . '%2$s' . "</optgroup>\n";
-		
+
 		foreach ($aData as $k => $v)
 		{
 			if (is_array($v))
@@ -95,7 +94,7 @@ class FormElements
 				$res .= sprintf($option, $v, $k, $s);
 			}
 		}
-		
+
 		return $res;
 	}
 
@@ -121,7 +120,7 @@ class FormElements
 	public static function radio($mNameId, $value, $checked = '', $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="radio" name="' . $sName . '" value="' . $value . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= $checked ? ' checked="checked"' : '';
@@ -130,7 +129,7 @@ class FormElements
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
 		$res .= $sExtraHtml;
 		$res .= ' />' . PHP_EOL;
-		
+
 		return $res;
 	}
 
@@ -156,7 +155,7 @@ class FormElements
 	public static function checkbox($mNameId, $value, $checked = '', $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="checkbox" name="' . $sName . '" value="' . $value . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= $checked ? ' checked="checked"' : '';
@@ -165,7 +164,7 @@ class FormElements
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
 		$res .= $sExtraHtml;
 		$res .= ' />' . PHP_EOL;
-		
+
 		return $res;
 	}
 
@@ -193,7 +192,7 @@ class FormElements
 	public static function text($mNameId, $size, $max = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="text" size="' . $size . '" name="' . $sName . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= null === $max ? '' : ' maxlength="' . $max . '"';
@@ -203,7 +202,7 @@ class FormElements
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
 		$res .= $sExtraHtml;
 		$res .= ' />';
-		
+
 		return $res;
 	}
 
@@ -227,7 +226,7 @@ class FormElements
 	public static function file($mNameId, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="file" name="' . $sName . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= null === $sDefault ? '' : ' value="' . $sDefault . '"';
@@ -236,7 +235,7 @@ class FormElements
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
 		$res .= $sExtraHtml;
 		$res .= ' />';
-		
+
 		return $res;
 	}
 
@@ -264,7 +263,7 @@ class FormElements
 	public static function password($mNameId, $size, $max = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="password" size="' . $size . '" name="' . $sName . '"';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= null === $max ? '' : ' maxlength="' . $max . '"';
@@ -274,7 +273,7 @@ class FormElements
 		$res .= $bDisabled ? ' disabled="disabled"' : '';
 		$res .= $sExtraHtml;
 		$res .= ' />';
-		
+
 		return $res;
 	}
 
@@ -302,7 +301,7 @@ class FormElements
 	public static function textarea($mNameId, $iCols = null, $iRows = null, $sDefault = null, $sClass = null, $iTabindex = null, $bDisabled = false, $sExtraHtml = null)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<textarea';
 		$res .= null === $iCols ? '' : ' cols="' . $iCols . '"';
 		$res .= null === $iRows ? '' : ' rows="' . $iRows . '"';
@@ -314,7 +313,7 @@ class FormElements
 		$res .= $sExtraHtml . '>';
 		$res .= $sDefault;
 		$res .= '</textarea>';
-		
+
 		return $res;
 	}
 
@@ -330,11 +329,11 @@ class FormElements
 	public static function hidden($mNameId, $value)
 	{
 		self::getNameAndId($mNameId, $sName, $sId);
-		
+
 		$res = '<input type="hidden" name="' . $sName . '" value="' . $value . '" ';
 		$res .= null === $sId ? '' : ' id="' . $sId . '"';
 		$res .= ' />';
-		
+
 		return $res;
 	}
 
@@ -342,16 +341,16 @@ class FormElements
 	 * Retourne l'identifiant et le nom du champ en
 	 * fonction des paramètres passés en argument.
 	 *
-	 * @param mixed $mNameId        	
-	 * @param string $sName        	
-	 * @param string $sId        	
+	 * @param mixed $mNameId
+	 * @param string $sName
+	 * @param string $sId
 	 */
 	protected static function getNameAndId($mNameId, &$sName, &$sId)
 	{
 		if (is_array($mNameId))
 		{
 			$sName = $mNameId[0];
-			$sId = ! empty($mNameId[1]) ? $mNameId[1] : null;
+			$sId = !empty($mNameId[1]) ? $mNameId[1] : null;
 		}
 		else
 		{

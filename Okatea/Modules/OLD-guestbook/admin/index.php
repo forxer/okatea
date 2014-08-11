@@ -9,17 +9,17 @@ use Okatea\Admin\Pager;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
 $aLanguages = l10n::getISOcodes();
 
-$do = ! empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
-$id = ! empty($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
-$ids = array();
+$do = !empty($_REQUEST['do']) ? $_REQUEST['do'] : null;
+$id = !empty($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
+$ids = [];
 $multiple = false;
 
-if (! empty($_REQUEST['sigs_ids']))
+if (!empty($_REQUEST['sigs_ids']))
 {
 	foreach ($_REQUEST['sigs_ids'] as $k => $v)
 	{
@@ -150,7 +150,7 @@ elseif ($do == 'supp')
 }
 
 # supprimer tous ce qui est considéré comme SPAM
-if (! empty($_GET['delallspam']))
+if (!empty($_GET['delallspam']))
 {
 	if ($okt->guestbook->delSig(array(
 		'is_spam' => true
@@ -174,7 +174,7 @@ if ($okt['modules']->isLoaded('antispam'))
 	$sigs_actions[__('m_guestbook_Stand_out_as_acceptable')] = 'nospam';
 }
 
-$params = array();
+$params = [];
 
 # afficher ?
 switch ($show)
@@ -227,7 +227,7 @@ $params['limit'] = (($page - 1) * $okt->guestbook->config->nbparpage_admin) . ',
 $signature = $okt->guestbook->getSig($params);
 
 # nombre d’éléments au total
-$nbsign = $okt->guestbook->getSig(array(), true);
+$nbsign = $okt->guestbook->getSig([], true);
 
 # nombre d’éléments SPAM
 $nbspam = $okt->guestbook->getSig(array(
@@ -303,11 +303,11 @@ include OKT_ADMIN_HEADER_FILE;
 			<div class="signature" id="sig-<?php echo $signature->id ?>">
 
 		<?php
-		$tmp_res = array();
+		$tmp_res = [];
 		
 		if ($okt->guestbook->config->chp_note)
 		{
-			if (! is_numeric($signature->note))
+			if (!is_numeric($signature->note))
 			{
 				$signature->note = 'n/a';
 			}
@@ -336,7 +336,7 @@ include OKT_ADMIN_HEADER_FILE;
 			$tmp_res[] = '<a href="' . htmlspecialchars($signature->url) . '">' . __('m_guestbook_Website') . '</a>';
 		}
 		
-		if (! empty($tmp_res))
+		if (!empty($tmp_res))
 		{
 			echo '<div class="signature-infos ui-widget-content ui-corner-all"><h4>' . __('m_guestbook_Infos') . '</h4><ul><li>' . implode("</li><li>", $tmp_res) . '</li></ul></div>';
 		}

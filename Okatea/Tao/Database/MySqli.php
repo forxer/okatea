@@ -137,7 +137,7 @@ class MySqli
 		$this->error = '';
 		$this->nb_q = 0;
 
-		$this->log = array();
+		$this->log = [];
 
 		$this->start_time = 0;
 		$this->total_time = 0;
@@ -171,7 +171,7 @@ class MySqli
 	{
 		$db = mysqli_select_db($this->con_id, $dbname);
 
-		if (! $db)
+		if (!$db)
 		{
 			$this->seterror();
 			return false;
@@ -247,7 +247,7 @@ class MySqli
 	{
 		$logline = $this->getLog((integer) (count($this->log) - 1));
 
-		return (! empty($logline[$value]) ? $logline[$value] : $logline);
+		return (!empty($logline[$value]) ? $logline[$value] : $logline);
 	}
 
 	/**
@@ -364,7 +364,7 @@ class MySqli
 			throw new \RuntimeException('Unable to retrieve tables ' . $this->db->error());
 		}
 
-		$tables = array();
+		$tables = [];
 		if ($db_prefix)
 		{
 			foreach ($tablesList->getData() as $t)
@@ -406,12 +406,12 @@ class MySqli
 	 */
 	public function select($query, $class = 'Okatea\Tao\Database\Recordset')
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
 
-		if (! class_exists($class))
+		if (!class_exists($class))
 		{
 			$class = 'Okatea\Tao\Database\Recordset';
 		}
@@ -426,7 +426,7 @@ class MySqli
 		{
 			# Insertion dans le reccordset
 			$i = 0;
-			$arryRes = array();
+			$arryRes = [];
 			while ($res = mysqli_fetch_row($cur))
 			{
 				$nRes = count($res);
@@ -460,7 +460,7 @@ class MySqli
 	 */
 	public function execute($query, $type = null)
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
@@ -471,7 +471,7 @@ class MySqli
 
 		$this->log($query, $exec_time);
 
-		if (! $cur)
+		if (!$cur)
 		{
 			$this->seterror();
 			return false;
@@ -502,7 +502,7 @@ class MySqli
 	 */
 	public function query($query)
 	{
-		if (! $this->con_id)
+		if (!$this->con_id)
 		{
 			return false;
 		}
@@ -543,7 +543,7 @@ class MySqli
 			$query = trim($query);
 			$query = str_replace('{{DB_PREFIX}}', $this->prefix, $query);
 
-			if (! empty($query))
+			if (!empty($query))
 			{
 				return $this->execute($query);
 			}
@@ -773,27 +773,27 @@ class MySqli
 				$sql .= implode('', array_unique($aJoins));
 			}
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
 
-			if (! empty($query['GROUP BY']))
+			if (!empty($query['GROUP BY']))
 			{
 				$sql .= ' GROUP BY ' . $query['GROUP BY'];
 			}
 
-			if (! empty($query['HAVING']))
+			if (!empty($query['HAVING']))
 			{
 				$sql .= ' HAVING ' . $query['HAVING'];
 			}
 
-			if (! empty($query['ORDER BY']))
+			if (!empty($query['ORDER BY']))
 			{
 				$sql .= ' ORDER BY ' . $query['ORDER BY'];
 			}
 
-			if (! empty($query['LIMIT']))
+			if (!empty($query['LIMIT']))
 			{
 				$sql .= ' LIMIT ' . $query['LIMIT'];
 			}
@@ -803,7 +803,7 @@ class MySqli
 		{
 			$sql .= 'INSERT INTO ' . $query['INTO'];
 
-			if (! empty($query['INSERT']))
+			if (!empty($query['INSERT']))
 			{
 				$sql .= ' (' . $query['INSERT'] . ')';
 			}
@@ -814,7 +814,7 @@ class MySqli
 		{
 			$sql .= 'UPDATE ' . $query['UPDATE'] . ' SET ' . $query['SET'];
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}
@@ -823,7 +823,7 @@ class MySqli
 		{
 			$sql .= 'DELETE FROM ' . $query['DELETE'];
 
-			if (! empty($query['WHERE']))
+			if (!empty($query['WHERE']))
 			{
 				$sql .= ' WHERE ' . $query['WHERE'];
 			}

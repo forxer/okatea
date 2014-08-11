@@ -19,5 +19,5 @@ class InputText extends Element
 		'label' => ''
 	);
 
-	protected $aAttributes = array();
+	protected $aAttributes = [];
 }

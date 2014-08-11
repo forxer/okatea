@@ -68,7 +68,7 @@ class module_estimate extends Module
 		{
 			$this->okt->page->estimateSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu);
 			$this->okt->page->mainMenu->add(__('m_estimate_menu_Estimates'), 'module.php?m=estimate', $this->bCurrentlyInUse, 30, $this->okt['visitor']->checkPerm('estimate'), null, $this->okt->page->estimateSubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
-			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Estimates_list'), 'module.php?m=estimate&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'), 1);
+			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Estimates_list'), 'module.php?m=estimate&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'estimate'), 1);
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Products'), 'module.php?m=estimate&amp;action=products', $this->bCurrentlyInUse && ($this->okt->page->action === 'products' || $this->okt->page->action === 'product'), 2, $this->okt['visitor']->checkPerm('estimate_products'));
 			$this->okt->page->estimateSubMenu->add(__('m_estimate_menu_Accessories'), 'module.php?m=estimate&amp;action=accessories', $this->bCurrentlyInUse && ($this->okt->page->action === 'accessories' || $this->okt->page->action === 'accessory'), 3, $this->config->enable_accessories && $this->okt['visitor']->checkPerm('estimate_accessories'));
 			$this->okt->page->estimateSubMenu->add(__('c_a_menu_configuration'), 'module.php?m=estimate&amp;action=config', $this->bCurrentlyInUse && ($this->okt->page->action === 'config'), 10, $this->okt['visitor']->checkPerm('estimate_config'));
@@ -88,7 +88,7 @@ class module_estimate extends Module
 	 */
 	public function filtersStart($sPart = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof EstimateFilters))
+		if ($this->filters === null || !($this->filters instanceof EstimateFilters))
 		{
 			$this->filters = new EstimateFilters($this->okt, $sPart);
 		}
@@ -104,16 +104,16 @@ class module_estimate extends Module
 	 * @param boolean $bCountOnly        	
 	 * @return object recordset/integer
 	 */
-	public function getEstimatesRecordset(array $aParams = array(), $bCountOnly = false)
+	public function getEstimatesRecordset(array $aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND e.id=' . (integer) $aParams['id'] . ' ';
 		}
 		
-		if (! empty($aParams['user_id']))
+		if (!empty($aParams['user_id']))
 		{
 			$sReqPlus .= ' AND e.user_id=' . (integer) $aParams['user_id'] . ' ';
 		}
@@ -142,7 +142,7 @@ class module_estimate extends Module
 		{
 			$query = 'SELECT e.id, e.status, e.start_at, e.end_at, ' . 'e.user_id, e.content, e.created_at, e.updated_at, ' . 'u.username, u.lastname, u.firstname, u.email ' . 'FROM ' . $this->t_estimate . ' AS e ' . 'LEFT JOIN ' . $this->t_users . ' AS u ON u.id=e.user_id ' . 'WHERE 1 ' . $sReqPlus;
 			
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$query .= 'ORDER BY ' . $aParams['order'] . ' ';
 			}
@@ -151,7 +151,7 @@ class module_estimate extends Module
 				$query .= 'ORDER BY e.id DESC ';
 			}
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$query .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -165,7 +165,7 @@ class module_estimate extends Module
 			}
 			else
 			{
-				return new recordset(array());
+				return new recordset([]);
 			}
 		}
 		
@@ -187,7 +187,7 @@ class module_estimate extends Module
 	 *        	Paramètres de requete
 	 * @return object recordset
 	 */
-	public function getEstimates($aParams = array())
+	public function getEstimates($aParams = [])
 	{
 		$rs = $this->getEstimatesRecordset($aParams);
 		
@@ -203,7 +203,7 @@ class module_estimate extends Module
 	 *        	Paramètres de requete
 	 * @return integer
 	 */
-	public function getEstimatesCount($aParams = array())
+	public function getEstimatesCount($aParams = [])
 	{
 		return $this->getEstimatesRecordset($aParams, true);
 	}
@@ -301,7 +301,7 @@ class module_estimate extends Module
 		
 		$sQuery = 'INSERT INTO ' . $this->t_estimate . ' ( ' . 'status, start_at, end_at, user_id, content, created_at, updated_at ' . ') VALUES ( ' . (integer) $aData['status'] . ', ' . '\'' . $this->db->escapeStr(MySqli::formatDateTime($aData['start_date'])) . '\', ' . '\'' . $this->db->escapeStr(MySqli::formatDateTime($aData['end_date'])) . '\', ' . '0, ' . '\'' . $this->db->escapeStr(serialize($aData)) . '\', ' . '\'' . $this->db->escapeStr($sDateTime) . '\', ' . '\'' . $this->db->escapeStr($sDateTime) . '\' ' . '); ';
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -320,14 +320,14 @@ class module_estimate extends Module
 	 */
 	public function setEstimateStatus($iEstimateId, $iStatus)
 	{
-		if (! $this->estimateExists($iEstimateId))
+		if (!$this->estimateExists($iEstimateId))
 		{
 			throw new Exception(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_estimate . ' SET ' . 'updated_at=NOW(), ' . 'status = ' . ($iStatus == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iEstimateId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update estimate in database.');
 		}
@@ -365,14 +365,14 @@ class module_estimate extends Module
 	 */
 	public function deleteEstimate($iEstimateId)
 	{
-		if (! $this->estimateExists($iEstimateId))
+		if (!$this->estimateExists($iEstimateId))
 		{
 			throw new Exception(sprintf(__('m_estimate_estimate_%s_not_exists'), $iEstimateId));
 		}
 		
 		$sQuery = 'DELETE FROM ' . $this->t_estimate . ' ' . 'WHERE id=' . (integer) $iEstimateId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to remove estimate from database.');
 		}

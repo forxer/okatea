@@ -45,7 +45,7 @@ class XmlSql
 		$this->xml = $xml;
 		$this->db = $db;
 		$this->checklist = $checklist;
-		$this->job = array();
+		$this->job = [];
 		$this->_current_tag_cdata = '';
 
 		if ($process !== null)
@@ -94,7 +94,7 @@ class XmlSql
 				$test = true;
 			}
 
-			if (! empty($v['request']['process']) && $v['request']['process'] !== $this->process)
+			if (!empty($v['request']['process']) && $v['request']['process'] !== $this->process)
 			{
 				continue;
 			}
@@ -160,7 +160,7 @@ class XmlSql
 				$err = sprintf($v['request']['label'], $v['request']['string']);
 			}
 
-			if (! $silent)
+			if (!$silent)
 			{
 				$this->checklist->addItem($k, $test, $ok, $err);
 			}
@@ -186,27 +186,27 @@ class XmlSql
 	 */
 	private function _openTag($p, $tag, $attr)
 	{
-		if ($tag == 'action' && ! empty($attr['id']))
+		if ($tag == 'action' && !empty($attr['id']))
 		{
 			$id = $this->_action = $attr['id'];
 			$this->job[$id] = $this->_subtable;
 
-			if (! empty($attr['label']))
+			if (!empty($attr['label']))
 			{
 				$this->job[$id]['request']['label'] = $attr['label'];
 			}
 
-			if (! empty($attr['string']))
+			if (!empty($attr['string']))
 			{
 				$this->job[$id]['request']['string'] = $attr['string'];
 			}
 
-			if (! empty($attr['type']))
+			if (!empty($attr['type']))
 			{
 				$this->job[$id]['request']['type'] = $attr['type'];
 			}
 
-			if (! empty($attr['process']))
+			if (!empty($attr['process']))
 			{
 				$this->job[$id]['request']['process'] = $attr['process'];
 			}
@@ -215,27 +215,27 @@ class XmlSql
 		{
 			$id = $this->_action;
 
-			if (! empty($attr['eq']))
+			if (!empty($attr['eq']))
 			{
 				$this->job[$id]['test']['eq'] = $attr['eq'];
 			}
 
-			if (! empty($attr['value']))
+			if (!empty($attr['value']))
 			{
 				$this->job[$id]['test']['value'] = $attr['value'];
 			}
 
-			if (! empty($attr['label']))
+			if (!empty($attr['label']))
 			{
 				$this->job[$id]['test']['label'] = $attr['label'];
 			}
 
-			if (! empty($attr['string']))
+			if (!empty($attr['string']))
 			{
 				$this->job[$id]['test']['string'] = $attr['string'];
 			}
 
-			if (! empty($attr['type']))
+			if (!empty($attr['type']))
 			{
 				$this->job[$id]['test']['type'] = $attr['type'];
 			}

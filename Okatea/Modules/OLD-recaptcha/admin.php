@@ -8,11 +8,11 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt['visitor']->checkPerm('recaptcha_config'))
+if (!$okt['visitor']->checkPerm('recaptcha_config'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
@@ -26,11 +26,11 @@ $p_theme = $okt->recaptcha->config->theme;
 ----------------------------------------------------------*/
 
 # Configuration envoyée
-if (! empty($_POST['config_send']))
+if (!empty($_POST['config_send']))
 {
-	$p_publickey = ! empty($_POST['p_publickey']) ? $_POST['p_publickey'] : '';
-	$p_privatekey = ! empty($_POST['p_privatekey']) ? $_POST['p_privatekey'] : '';
-	$p_theme = ! empty($_POST['p_theme']) ? $_POST['p_theme'] : 'clean';
+	$p_publickey = !empty($_POST['p_publickey']) ? $_POST['p_publickey'] : '';
+	$p_privatekey = !empty($_POST['p_privatekey']) ? $_POST['p_privatekey'] : '';
+	$p_theme = !empty($_POST['p_theme']) ? $_POST['p_theme'] : 'clean';
 	
 	if ($okt->error->isEmpty())
 	{

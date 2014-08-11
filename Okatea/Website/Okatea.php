@@ -62,7 +62,7 @@ class Okatea extends Application
 
 		$this->loadTheme();
 
-		if ($this['config']->maintenance['public'] && ! $this['visitor']->is_superadmin)
+		if ($this['config']->maintenance['public'] && !$this['visitor']->is_superadmin)
 		{
 			$this->page->serve503();
 		}
@@ -91,13 +91,13 @@ class Okatea extends Application
 		{
 			$sOktTheme = $this['session']->get('okt_theme');
 		}
-		elseif (! empty($this['config']->themes['mobile']) || ! empty($this['config']->themes['tablet']))
+		elseif (!empty($this['config']->themes['mobile']) || !empty($this['config']->themes['tablet']))
 		{
 			$oMobileDetect = new \Mobile_Detect();
-			$isMobile = $oMobileDetect->isMobile() && ! empty($this['config']->themes['mobile']);
-			$isTablet = $oMobileDetect->isTablet() && ! empty($this['config']->themes['tablet']);
+			$isMobile = $oMobileDetect->isMobile() && !empty($this['config']->themes['mobile']);
+			$isTablet = $oMobileDetect->isTablet() && !empty($this['config']->themes['tablet']);
 
-			if ($isMobile && ! $isTablet)
+			if ($isMobile && !$isTablet)
 			{
 				$sOktTheme = $this['config']->themes['mobile'];
 			}

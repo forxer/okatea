@@ -10,7 +10,7 @@ use Okatea\Tao\Html\Modifiers;
 require_once __DIR__ . '/../../../../oktInc/public/prepend.php';
 
 # récupération de la galerie en fonction du slug
-$slug = ! empty($_GET['slug']) ? $_GET['slug'] : null;
+$slug = !empty($_GET['slug']) ? $_GET['slug'] : null;
 
 $rsGallery = $okt->galleries->tree->getGalleries(array(
 	'slug' => $slug,
@@ -23,7 +23,7 @@ if ($rsGallery->isEmpty())
 }
 
 # formatage description
-if (! $okt->galleries->config->enable_gal_rte && ! empty($rsGallery->description))
+if (!$okt->galleries->config->enable_gal_rte && !empty($rsGallery->description))
 {
 	$rsGallery->description = Modifiers::nlToP($rsGallery->description);
 }
@@ -33,7 +33,7 @@ $bGalleryRequirePassword = false;
 if ($rsGallery->password != '')
 {
 	# il y a un mot de passe en session
-	if (! empty($_SESSION['okt_gallery_password_' . $rsGallery->id]))
+	if (!empty($_SESSION['okt_gallery_password_' . $rsGallery->id]))
 	{
 		if ($_SESSION['okt_gallery_password_' . $rsGallery->id] != $rsGallery->password)
 		{
@@ -43,7 +43,7 @@ if ($rsGallery->password != '')
 	}
 	
 	# ou il y a un mot de passe venant du formulaire
-	elseif (! empty($_POST['okt_gallery_password']))
+	elseif (!empty($_POST['okt_gallery_password']))
 	{
 		$p_password = trim($_POST['okt_gallery_password']);
 		

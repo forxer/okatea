@@ -8,23 +8,23 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
 $p_nbparpage_admin = $okt->guestbook->config->nbparpage_admin;
 $p_nbparpage_public = $okt->guestbook->config->nbparpage_public;
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	$p_nbparpage_admin = intval($_POST['p_nbparpage_admin']);
 	$p_nbparpage_public = intval($_POST['p_nbparpage_public']);
 	
-	if (! preg_match('/^[0-9]+$/', $p_nbparpage_admin) || $p_nbparpage_admin < 1)
+	if (!preg_match('/^[0-9]+$/', $p_nbparpage_admin) || $p_nbparpage_admin < 1)
 	{
 		$okt->error->set(__('m_guestbook_valid_signature_number_for_admin'));
 	}
 	
-	if (! preg_match('/^[0-9]+$/', $p_nbparpage_public) || $p_nbparpage_public < 1)
+	if (!preg_match('/^[0-9]+$/', $p_nbparpage_public) || $p_nbparpage_public < 1)
 	{
 		$okt->error->set(__('m_guestbook_valid_signature_number_for_public'));
 	}

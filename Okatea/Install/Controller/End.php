@@ -16,7 +16,7 @@ class End extends Controller
 	public function page()
 	{
 		# create .htaccess
-		if (! file_exists($this->okt['app_path'] . '/.htaccess') && file_exists($this->okt['app_path'] . '/.htaccess.oktDist'))
+		if (!file_exists($this->okt['app_path'] . '/.htaccess') && file_exists($this->okt['app_path'] . '/.htaccess.oktDist'))
 		{
 			copy($this->okt['app_path'] . '/.htaccess.oktDist', $this->okt['app_path'] . '/.htaccess');
 		}

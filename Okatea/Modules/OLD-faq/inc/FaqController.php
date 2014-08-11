@@ -30,7 +30,7 @@ class FaqController extends Controller
 		$this->okt->faq->filtersStart();
 		
 		# ré-initialisation filtres
-		if (! empty($_GET['init_filters']))
+		if (!empty($_GET['init_filters']))
 		{
 			$this->okt->faq->filters->initFilters();
 			return $this->redirect(FaqHelpers::getFaqUrl());
@@ -62,7 +62,7 @@ class FaqController extends Controller
 			
 			$this->rsQuestionsList->url = $this->rsQuestionsList->getQuestionUrl();
 			
-			if (! $this->okt->faq->config->enable_rte)
+			if (!$this->okt->faq->config->enable_rte)
 			{
 				$this->rsQuestionsList->content = Modifiers::nlToP($this->rsQuestionsList->content);
 			}
@@ -76,7 +76,7 @@ class FaqController extends Controller
 		unset($count_line);
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 		}
@@ -125,7 +125,7 @@ class FaqController extends Controller
 		$this->page->action = 'question';
 		
 		# récupération de la question en fonction du slug
-		if (! $slug = $this->okt['request']->attributes->get('slug'))
+		if (!$slug = $this->okt['request']->attributes->get('slug'))
 		{
 			return $this->serve404();
 		}
@@ -148,17 +148,17 @@ class FaqController extends Controller
 		
 		$this->rsQuestion->url = $this->rsQuestion->getQuestionUrl();
 		
-		if (! $this->okt->faq->config->enable_rte)
+		if (!$this->okt->faq->config->enable_rte)
 		{
 			$this->rsQuestion->content = Modifiers::nlToP($this->rsQuestion->content);
 		}
 		
 		# meta description
-		if (! empty($this->rsQuestion->metadescription))
+		if (!empty($this->rsQuestion->metadescription))
 		{
 			$this->page->meta_description = $this->rsQuestion->metadescription;
 		}
-		elseif (! empty($this->okt->faq->config->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->faq->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->faq->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -168,11 +168,11 @@ class FaqController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->rsQuestion->meta_keywords))
+		if (!empty($this->rsQuestion->meta_keywords))
 		{
 			$this->page->meta_keywords = $this->rsQuestion->meta_keywords;
 		}
-		elseif (! empty($this->okt->faq->config->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt->faq->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->faq->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -191,16 +191,16 @@ class FaqController extends Controller
 		$this->page->addTitleTag($this->okt->faq->getTitle());
 		
 		# title tag du post
-		$this->page->addTitleTag((! empty($this->rsQuestion->title_tag) ? $this->rsQuestion->title_tag : $this->rsQuestion->title));
+		$this->page->addTitleTag((!empty($this->rsQuestion->title_tag) ? $this->rsQuestion->title_tag : $this->rsQuestion->title));
 		
 		# titre de la page
 		$this->page->setTitle($this->rsQuestion->title);
 		
 		# titre SEO de la page
-		$this->page->setTitleSeo(! empty($this->rsQuestion->title_seo) ? $this->rsQuestion->title_seo : $this->rsQuestion->title);
+		$this->page->setTitleSeo(!empty($this->rsQuestion->title_seo) ? $this->rsQuestion->title_seo : $this->rsQuestion->title);
 		
 		# fil d'ariane du post
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->faq->getName(), FaqHelpers::getFaqUrl());
 			

@@ -9,7 +9,7 @@ use Okatea\Admin\Pager;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -22,21 +22,21 @@ $okt->diary->filtersStart('admin');
 ----------------------------------------------------------*/
 
 # Ré-initialisation filtres
-if (! empty($_GET['init_filters']))
+if (!empty($_GET['init_filters']))
 {
 	$okt->diary->filters->initFilters();
 	http::redirect('module.php?m=diary&action=index');
 }
 
 # Switch statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	$okt->diary->switchEventStatus($_GET['switch_status']);
 	http::redirect('module.php?m=diary&action=index');
 }
 
 # Traitements par lots
-if (! empty($_POST['actions']) && ! empty($_POST['events']) && is_array($_POST['events']))
+if (!empty($_POST['actions']) && !empty($_POST['events']) && is_array($_POST['events']))
 {
 	$aEventsId = array_map('intval', $_POST['events']);
 	

@@ -9,14 +9,14 @@ use Okatea\Admin\Pager;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
 ----------------------------------------------------------*/
 	
 # loaded by AJAX ?
-$bAjaxLoaded = ! empty($_REQUEST['oktAjaxLoad']) ? true : false;
+$bAjaxLoaded = !empty($_REQUEST['oktAjaxLoad']) ? true : false;
 
 # initialisation des filtres
 $okt->catalog->filtersStart('admin');
@@ -25,14 +25,14 @@ $okt->catalog->filtersStart('admin');
 ----------------------------------------------------------*/
 
 # Switch product statut
-if (! empty($_GET['switch_status']))
+if (!empty($_GET['switch_status']))
 {
 	$okt->catalog->switchProdStatus($_GET['switch_status']);
 	http::redirect('module.php?m=catalog&action=index&switched=1');
 }
 
 # ré-initialisation filtres
-if (! empty($_GET['catalog_init_filters']))
+if (!empty($_GET['catalog_init_filters']))
 {
 	$okt->catalog->filters->initFilters();
 	http::redirect('module.php?m=catalog&action=index');
@@ -44,9 +44,9 @@ if (! empty($_GET['catalog_init_filters']))
 $sSearch = null;
 
 # initialisation des filtres
-$params = array();
+$params = [];
 
-if (! empty($_REQUEST['search']))
+if (!empty($_REQUEST['search']))
 {
 	$sSearch = trim($_REQUEST['search']);
 	$params['search'] = $sSearch;
@@ -128,9 +128,9 @@ $okt->page->css->addCss('
 ');
 
 # boutons style d’affichage
-$display_style = ! empty($_SESSION['sess_catalog_admin_dysplay_style']) ? $_SESSION['sess_catalog_admin_dysplay_style'] : $okt->catalog->config->admin_dysplay_style;
+$display_style = !empty($_SESSION['sess_catalog_admin_dysplay_style']) ? $_SESSION['sess_catalog_admin_dysplay_style'] : $okt->catalog->config->admin_dysplay_style;
 
-if (! empty($_GET['display']) && in_array($_GET['display'], array(
+if (!empty($_GET['display']) && in_array($_GET['display'], array(
 	'list',
 	'mosaic'
 )))

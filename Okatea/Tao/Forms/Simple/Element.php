@@ -17,9 +17,9 @@ abstract class Element
 		'value' => null
 	);
 
-	protected $aAttributes = array();
+	protected $aAttributes = [];
 
-	protected $aSearchReplace = array();
+	protected $aSearchReplace = [];
 
 	/**
 	 * Constructor
@@ -28,7 +28,7 @@ abstract class Element
 	 * @param array $aAttributes        	
 	 * @return void
 	 */
-	public function __construct($aConfig = array(), $aAttributes = array())
+	public function __construct($aConfig = [], $aAttributes = [])
 	{
 		$this->setConfig($aConfig);
 		$this->setAttributes($aAttributes);
@@ -75,7 +75,7 @@ abstract class Element
 	 */
 	public function getAttribute($sName)
 	{
-		if (! isset($this->aAttributes[$sName]))
+		if (!isset($this->aAttributes[$sName]))
 		{
 			return null;
 		}
@@ -163,7 +163,7 @@ abstract class Element
 	 */
 	protected function renderAttributes()
 	{
-		$aAttributes = array();
+		$aAttributes = [];
 		
 		foreach ($this->aAttributes as $sName => $sValue)
 		{

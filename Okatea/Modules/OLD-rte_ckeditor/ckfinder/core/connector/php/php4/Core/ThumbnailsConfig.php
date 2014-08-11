@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -137,7 +137,7 @@ class CKFinder_Connector_Core_ThumbnailsConfig
 		{
 			$this->_url = $thumbnailsNode['url'];
 		}
-		if (! strlen($this->_url))
+		if (!strlen($this->_url))
 		{
 			$this->_url = "/";
 		}

@@ -47,7 +47,7 @@ class module_lbl_pirobox extends Module
 	 * @param array $user_options        	
 	 * @return void
 	 */
-	public static function pirobox($element = 'a.modal', $conteneur = '.modal-box', $user_options = array())
+	public static function pirobox($element = 'a.modal', $conteneur = '.modal-box', $user_options = [])
 	{
 		global $okt;
 		
@@ -73,7 +73,7 @@ class module_lbl_pirobox extends Module
 			't_new_window' => __('Open image in a new window')
 		);
 		
-		if (! empty($user_options))
+		if (!empty($user_options))
 		{
 			$options = array_merge($options, (array) $user_options);
 		}

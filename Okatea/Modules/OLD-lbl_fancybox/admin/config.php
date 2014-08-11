@@ -8,34 +8,34 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	# titre
-	$p_titleShow = ! empty($_POST['p_titleShow']) ? true : false;
-	$p_titlePosition = ! empty($_POST['p_titlePosition']) ? $_POST['p_titlePosition'] : '';
+	$p_titleShow = !empty($_POST['p_titleShow']) ? true : false;
+	$p_titlePosition = !empty($_POST['p_titlePosition']) ? $_POST['p_titlePosition'] : '';
 	
-	$p_hideOnOverlayClick = ! empty($_POST['p_hideOnOverlayClick']) ? true : false;
-	$p_hideOnContentClick = ! empty($_POST['p_hideOnContentClick']) ? true : false;
+	$p_hideOnOverlayClick = !empty($_POST['p_hideOnOverlayClick']) ? true : false;
+	$p_hideOnContentClick = !empty($_POST['p_hideOnContentClick']) ? true : false;
 	
 	# arrière plan
-	$p_overlayShow = ! empty($_POST['p_overlayShow']) ? true : false;
-	$p_overlayOpacity = ! empty($_POST['p_overlayOpacity']) ? $_POST['p_overlayOpacity'] : 0.3;
-	$p_overlayColor = ! empty($_POST['p_overlayColor']) ? $_POST['p_overlayColor'] : '#666666';
+	$p_overlayShow = !empty($_POST['p_overlayShow']) ? true : false;
+	$p_overlayOpacity = !empty($_POST['p_overlayOpacity']) ? $_POST['p_overlayOpacity'] : 0.3;
+	$p_overlayColor = !empty($_POST['p_overlayColor']) ? $_POST['p_overlayColor'] : '#666666';
 	
 	# transitions
-	$p_cyclic = ! empty($_POST['p_cyclic']) ? true : false;
+	$p_cyclic = !empty($_POST['p_cyclic']) ? true : false;
 	
-	$p_transitionIn = ! empty($_POST['p_transitionIn']) ? $_POST['p_transitionIn'] : '';
-	$p_speedIn = ! empty($_POST['p_speedIn']) ? $_POST['p_speedIn'] : '';
+	$p_transitionIn = !empty($_POST['p_transitionIn']) ? $_POST['p_transitionIn'] : '';
+	$p_speedIn = !empty($_POST['p_speedIn']) ? $_POST['p_speedIn'] : '';
 	
-	$p_transitionOut = ! empty($_POST['p_transitionOut']) ? $_POST['p_transitionOut'] : '';
-	$p_speedOut = ! empty($_POST['p_speedOut']) ? $_POST['p_speedOut'] : '';
+	$p_transitionOut = !empty($_POST['p_transitionOut']) ? $_POST['p_transitionOut'] : '';
+	$p_speedOut = !empty($_POST['p_speedOut']) ? $_POST['p_speedOut'] : '';
 	
 	if ($okt->error->isEmpty())
 	{

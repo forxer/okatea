@@ -9,7 +9,7 @@
 
 <?php
 # des modules à mettre à jour ?
-if (! empty($aUpdatablesModules))
+if (!empty($aUpdatablesModules))
 :
 	?>
 <div id="tab-updates">

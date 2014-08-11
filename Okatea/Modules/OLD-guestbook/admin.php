@@ -6,11 +6,11 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt['visitor']->checkPerm('guestbook'))
+if (!$okt['visitor']->checkPerm('guestbook'))
 {
 	http::redirect('index.php');
 }
@@ -45,10 +45,10 @@ $status_list = array(
 	'toutes' => 'all'
 );
 
-$page = ! empty($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-$show = (! empty($_REQUEST['show']) && in_array($_REQUEST['show'], $show_list)) ? $_REQUEST['show'] : 'nospam';
-$status = (! empty($_REQUEST['status']) && in_array($_REQUEST['status'], $status_list)) ? $_REQUEST['status'] : 'all';
-$language = (! empty($_REQUEST['language']) && in_array($_REQUEST['language'], $aLanguagesList)) ? $_REQUEST['language'] : 'all';
+$page = !empty($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+$show = (!empty($_REQUEST['show']) && in_array($_REQUEST['show'], $show_list)) ? $_REQUEST['show'] : 'nospam';
+$status = (!empty($_REQUEST['status']) && in_array($_REQUEST['status'], $status_list)) ? $_REQUEST['status'] : 'all';
+$language = (!empty($_REQUEST['language']) && in_array($_REQUEST['language'], $aLanguagesList)) ? $_REQUEST['language'] : 'all';
 
 $url_params = '&amp;page=' . $page . '&amp;show=' . $show . '&amp;status=' . $status;
 
@@ -62,7 +62,7 @@ $okt->page->addTitleTag($okt->guestbook->getTitle());
 $okt->page->addAriane($okt->guestbook->getName(), 'module.php?m=guestbook');
 
 # inclusion du fichier requis
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

@@ -23,7 +23,7 @@ $okt->page->setButtonset('navigationBtSt', array(
 	)
 ));
 
-if (! empty($iItemId))
+if (!empty($iItemId))
 {
 	$okt->page->addGlobalTitle(sprintf(__('c_a_config_navigation_edit_item_of_%s'), $aMenu['title']));
 }
@@ -33,18 +33,18 @@ else
 }
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#item-form', '.lang-switcher-buttons');
 }
 
 # Build possibles URL labels
-$aUrlLabel = array();
+$aUrlLabel = [];
 foreach ($okt['languages']->getList() as $aLanguage)
 {
 	$sBaseUrl = '<code>' . $okt->page->getBaseUrl($aLanguage['code']) . '</code>';
 
-	$aUrlLabel[$aLanguage['code']] = array();
+	$aUrlLabel[$aLanguage['code']] = [];
 
 	if ($okt['languages']->hasUniqueLanguage())
 	{

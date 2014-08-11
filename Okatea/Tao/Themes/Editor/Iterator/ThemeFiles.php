@@ -60,7 +60,7 @@ class ThemeFiles extends \RecursiveIteratorIterator
 		}
 		
 		// Display leaf node
-		if (! $this->callHasChildren())
+		if (!$this->callHasChildren())
 		{
 			$sFileExtension = $oFile->getExtension();
 			

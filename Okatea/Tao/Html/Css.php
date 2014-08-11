@@ -14,41 +14,40 @@ use Okatea\Tao\Errors;
  */
 class Css
 {
-
 	/**
 	 * Pile de fichiers CSS
 	 *
 	 * @var array
 	 */
-	protected $aFilesStack = array();
+	protected $aFilesStack = [];
 
 	/**
 	 * Pile de fichiers LESS CSS
 	 *
 	 * @var array
 	 */
-	protected $aLessFilesStack = array();
+	protected $aLessFilesStack = [];
 
 	/**
 	 * Pile de fichiers CSS en Comentaires Conditionnels
 	 *
 	 * @var array
 	 */
-	protected $aCCFilesStack = array();
+	protected $aCCFilesStack = [];
 
 	/**
 	 * Pile des conditions des Comentaires Conditionnels
 	 *
 	 * @var array
 	 */
-	protected $aCCCondStack = array();
+	protected $aCCCondStack = [];
 
 	/**
 	 * Pile de code CSS
 	 *
 	 * @var array
 	 */
-	protected $aCssStack = array();
+	protected $aCssStack = [];
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
@@ -81,15 +80,15 @@ class Css
 	{
 		return $this->getCss();
 	}
-	
+
 	/* Pile de fichiers
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute un fichier à la pile des fichiers CSS
 	 *
-	 * @param $src string        	
-	 * @param $media string        	
+	 * @param $src string
+	 * @param $media string
 	 * @return void
 	 */
 	public function addFile($src, $media = 'screen')
@@ -105,8 +104,8 @@ class Css
 	public function getFilesStack()
 	{
 		$this->aFilesStack = array_unique($this->aFilesStack);
-		
-		return (! empty($this->aFilesStack) ? $this->aFilesStack : false);
+
+		return (!empty($this->aFilesStack) ? $this->aFilesStack : false);
 	}
 
 	/**
@@ -120,24 +119,24 @@ class Css
 		{
 			return false;
 		}
-		
+
 		$sHtml = '';
 		foreach ($aFiles as $sFileInfo)
 		{
 			list ($sFile, $sMedia) = explode('|', $sFileInfo);
 			$sHtml .= self::formatHtmlCssFile($sFile, $sMedia);
 		}
-		
+
 		return $sHtml;
 	}
-	
+
 	/* Pile de fichiers LESS
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute un fichier à la pile des fichiers LESS CSS
 	 *
-	 * @param $src string        	
+	 * @param $src string
 	 * @return void
 	 */
 	public function addLessFile($src)
@@ -153,8 +152,8 @@ class Css
 	public function getLessFilesStack()
 	{
 		$this->aLessFilesStack = array_unique($this->aLessFilesStack);
-		
-		return (! empty($this->aLessFilesStack) ? $this->aLessFilesStack : false);
+
+		return (!empty($this->aLessFilesStack) ? $this->aLessFilesStack : false);
 	}
 
 	/**
@@ -168,23 +167,23 @@ class Css
 		{
 			return false;
 		}
-		
+
 		$sHtml = '';
 		foreach ($aFiles as $sFile)
 		{
 			$sHtml .= self::formatHtmlCssFile($this->autoCompileLess($sFile));
 		}
-		
+
 		return $sHtml;
 	}
 
 	protected function autoCompileLess($inputFile)
 	{
 		global $okt;
-		
+
 		$outputFile = $okt['public_path'] . '/cache/' . md5($inputFile) . '.css';
 		$cacheFile = $outputFile . '.cache';
-		
+
 		if (file_exists($cacheFile))
 		{
 			$cache = unserialize(file_get_contents($cacheFile));
@@ -193,36 +192,36 @@ class Css
 		{
 			$cache = $inputFile;
 		}
-		
+
 		$less = new \lessc();
-		
+
 		$less->setPreserveComments(true);
-		
+
 		$less->setImportDir(array(
 			$okt['public_path'] . '/themes/' . $okt->theme->id() . '/css/',
 			$okt['public_path'] . '/css/less/'
 		));
-		
+
 		$less->setVariables($okt->theme->getLessVariables());
-		
+
 		$newCache = $less->cachedCompile($cache);
-		
-		if (! is_array($cache) || $newCache['updated'] > $cache['updated'])
+
+		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{
 			file_put_contents($cacheFile, serialize($newCache));
 			file_put_contents($outputFile, $newCache['compiled']);
 		}
-		
+
 		return str_replace($okt['public_path'], $okt['config']->app_url . basename($okt['public_path']), $outputFile);
 	}
-	
+
 	/* Pile de fichiers CC
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute un fichier CC à la pile des fichiers CSS.
 	 *
-	 * @param $src string        	
+	 * @param $src string
 	 * @return void
 	 */
 	public function addCCFile($src, $condition = 'IE')
@@ -239,8 +238,8 @@ class Css
 	public function getCCFilesStack()
 	{
 		$this->aCCFilesStack = array_unique($this->aCCFilesStack);
-		
-		return (! empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
+
+		return (!empty($this->aCCFilesStack) ? $this->aCCFilesStack : false);
 	}
 
 	/**
@@ -254,19 +253,19 @@ class Css
 		{
 			return false;
 		}
-		
+
 		$str = '';
 		foreach ($files as $i => $file)
 		{
 			$str .= self::formatCCFile($file, $this->aCCCondStack[$i]);
 		}
-		
+
 		return $str;
 	}
-	
+
 	/* Pile de code en ligne
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Ajoute du CSS en ligne à la pile.
 	 *
@@ -286,15 +285,15 @@ class Css
 	 */
 	public function getInlineCss()
 	{
-		if (! empty($this->aCssStack))
+		if (!empty($this->aCssStack))
 		{
 			return self::formatCss(implode("\n\n", $this->aCssStack));
 		}
 	}
-	
+
 	/* Formatage du CSS pour le HTML
 	----------------------------------------------------------*/
-	
+
 	/**
 	 * Formate et retourne un lien CSS d'entête HTML
 	 *

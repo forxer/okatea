@@ -24,7 +24,7 @@ class oktFilterLinksLookup extends oktSpamFilter
 
 	public function isSpam($type, $author, $email, $site, $ip, $content, &$status)
 	{
-		if (! $ip || long2ip(ip2long($ip)) != $ip)
+		if (!$ip || long2ip(ip2long($ip)) != $ip)
 		{
 			return;
 		}
@@ -35,7 +35,7 @@ class oktFilterLinksLookup extends oktSpamFilter
 		foreach ($urls as $u)
 		{
 			$b = parse_url($u);
-			if (! isset($b['host']) || ! $b['host'])
+			if (!isset($b['host']) || !$b['host'])
 			{
 				continue;
 			}
@@ -53,7 +53,7 @@ class oktFilterLinksLookup extends oktSpamFilter
 
 	private function getLinks($text)
 	{
-		$res = array();
+		$res = [];
 		
 		# href attribute on "a" tags
 		if (preg_match_all('/<a ([^>]+)>/ms', $text, $match, PREG_SET_ORDER))

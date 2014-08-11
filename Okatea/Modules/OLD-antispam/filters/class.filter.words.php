@@ -75,7 +75,7 @@ class oktFilterWords extends oktSpamFilter
 	public function gui($url)
 	{
 		# Create list
-		if (! empty($_POST['createlist']))
+		if (!empty($_POST['createlist']))
 		{
 			try
 			{
@@ -92,7 +92,7 @@ class oktFilterWords extends oktSpamFilter
 		}
 		
 		# Adding a word
-		if (! empty($_POST['swa']))
+		if (!empty($_POST['swa']))
 		{
 			try
 			{
@@ -109,7 +109,7 @@ class oktFilterWords extends oktSpamFilter
 		}
 		
 		# Removing spamwords
-		if (! empty($_POST['swd']) && is_array($_POST['swd']))
+		if (!empty($_POST['swd']) && is_array($_POST['swd']))
 		{
 			try
 			{
@@ -175,7 +175,7 @@ class oktFilterWords extends oktSpamFilter
 		
 		if (($rs = $this->db->select($strReq)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 		
 		return $rs;
@@ -187,10 +187,10 @@ class oktFilterWords extends oktSpamFilter
 		
 		if (($rs = $this->db->select($strReq)) === false)
 		{
-			$rs = new Recordset(array());
+			$rs = new Recordset([]);
 		}
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			throw new Exception(__('m_antispam_This_word_exists'));
 		}

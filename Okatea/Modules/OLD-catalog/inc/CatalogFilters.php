@@ -12,11 +12,11 @@ class CatalogFilters extends BaseFilters
 
 	protected $catalog;
 
-	protected $get_catalog_params = array();
+	protected $get_catalog_params = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	public function __construct($okt, $part = 'public', $params = array())
+	public function __construct($okt, $part = 'public', $params = [])
 	{
 		parent::__construct($okt, 'catalog', $okt->catalog->config, $part, $params);
 		
@@ -45,7 +45,7 @@ class CatalogFilters extends BaseFilters
 		parent::setDefaultParams();
 	}
 
-	public function setCatalogParams(&$catalog_params = array())
+	public function setCatalogParams(&$catalog_params = [])
 	{
 		$this->get_catalog_params = & $catalog_params;
 	}
@@ -60,7 +60,7 @@ class CatalogFilters extends BaseFilters
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array();
+		$this->order_by_array = [];
 		$this->order_by_array['date de création'] = 'created_at';
 		
 		if ($this->part === 'admin')
@@ -122,14 +122,14 @@ class CatalogFilters extends BaseFilters
 
 	protected function setFilterCategory()
 	{
-		if (! $this->config->categories_enable)
+		if (!$this->config->categories_enable)
 		{
 			return null;
 		}
 		
 		$this->order_by_array['catégorie'] = 'category';
 		
-		if (! isset($this->get_catalog_params['category_id']))
+		if (!isset($this->get_catalog_params['category_id']))
 		{
 			$this->setIntFilter('category_id');
 			$this->get_catalog_params['category_id'] = $this->params->category_id;
@@ -155,12 +155,12 @@ class CatalogFilters extends BaseFilters
 
 	protected function setFilterPromo()
 	{
-		if (! $this->config->filters[$this->part]['promo'])
+		if (!$this->config->filters[$this->part]['promo'])
 		{
 			return null;
 		}
 		
-		if (! isset($this->get_catalog_params['promo']))
+		if (!isset($this->get_catalog_params['promo']))
 		{
 			$this->setCheckboxFilter('promo');
 			$this->get_catalog_params['promo'] = $this->params->promo;
@@ -178,12 +178,12 @@ class CatalogFilters extends BaseFilters
 
 	protected function setFilterNouvo()
 	{
-		if (! $this->config->filters[$this->part]['nouvo'])
+		if (!$this->config->filters[$this->part]['nouvo'])
 		{
 			return null;
 		}
 		
-		if (! isset($this->get_catalog_params['nouvo']))
+		if (!isset($this->get_catalog_params['nouvo']))
 		{
 			$this->setCheckboxFilter('nouvo');
 			$this->get_catalog_params['nouvo'] = $this->params->nouvo;
@@ -201,12 +201,12 @@ class CatalogFilters extends BaseFilters
 
 	protected function setFilterFavo()
 	{
-		if (! $this->config->filters[$this->part]['favo'])
+		if (!$this->config->filters[$this->part]['favo'])
 		{
 			return null;
 		}
 		
-		if (! isset($this->get_catalog_params['favo']))
+		if (!isset($this->get_catalog_params['favo']))
 		{
 			$this->setCheckboxFilter('favo');
 			$this->get_catalog_params['favo'] = $this->params->favo;

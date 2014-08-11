@@ -24,7 +24,7 @@ class oktMedia extends filemanager
 
 	protected $file_sort = 'name-asc';
 
-	protected $file_handler = array(); // Array of callbacks
+	protected $file_handler = []; // Array of callbacks
 
 	public $thumb_tp = '%s/.%s_%s.jpg'; // Thumbnail file pattern (string)
 
@@ -86,7 +86,7 @@ class oktMedia extends filemanager
 		
 		$root = $this->okt['upload_path'] . '/media_manager';
 		
-		if (! is_dir($root))
+		if (!is_dir($root))
 		{
 			files::makeDir($root, true);
 		}
@@ -100,7 +100,7 @@ class oktMedia extends filemanager
 			$root_url = rawurldecode($this->okt['request']->getSchemeAndHttpHost() . path::clean($okt['upload_url'] . '/media_manager'));
 		}
 		
-		if (! is_dir($root))
+		if (!is_dir($root))
 		{
 			throw new Exception(sprintf(__('Directory %s does not exist.'), $root));
 		}
@@ -206,7 +206,7 @@ class oktMedia extends filemanager
 
 	protected function callFileHandler($type, $event)
 	{
-		if (! empty($this->file_handler[$type][$event]))
+		if (!empty($this->file_handler[$type][$event]))
 		{
 			$args = func_get_args();
 			array_shift($args);
@@ -248,7 +248,7 @@ class oktMedia extends filemanager
 			return null;
 		}
 		
-		if (! $this->isFileExclude($this->root . '/' . $rs->media_file) && is_file($this->root . '/' . $rs->media_file))
+		if (!$this->isFileExclude($this->root . '/' . $rs->media_file) && is_file($this->root . '/' . $rs->media_file))
 		{
 			$f = new fileItem($this->root . '/' . $rs->media_file, $this->root, $this->root_url);
 			
@@ -271,7 +271,7 @@ class oktMedia extends filemanager
 			
 			$f->media_image = false;
 			
-			if (! $this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $f->media_user_id)
+			if (!$this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $f->media_user_id)
 			{
 				$f->del = false;
 				$f->editable = false;
@@ -345,7 +345,7 @@ class oktMedia extends filemanager
 			$f->media_icon = sprintf($this->icon_img, $f->media_icon);
 			
 			# Thumbnails
-			$f->media_thumb = array();
+			$f->media_thumb = [];
 			$p = path::info($f->relname);
 			$thumb = sprintf($this->thumb_tp, $this->root . '/' . $p['dirname'], $p['base'], '%s');
 			$thumb_url = sprintf($this->thumb_tp, $this->root_url . $p['dirname'], $p['base'], '%s');
@@ -427,7 +427,7 @@ class oktMedia extends filemanager
 		
 		$strReq = 'SELECT m.media_file, m.media_id, m.media_path, m.media_title, m.media_meta, m.media_dt, ' . 'm.media_creadt, m.media_upddt, m.media_private, m.user_id, ' . 'u.username, u.lastname, u.firstname ' . 'FROM ' . $this->t_media . ' AS m ' . 'LEFT JOIN ' . $this->t_users . ' AS u ON u.id=m.user_id ' . "WHERE media_path = '" . $this->path . "' " . "AND media_dir = '" . $this->db->escapeStr($media_dir) . "' ";
 		
-		if (! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
@@ -442,7 +442,7 @@ class oktMedia extends filemanager
 		
 		parent::getDir();
 		
-		$f_res = array();
+		$f_res = [];
 		$p_dir = $this->dir;
 		
 		# If type is set, remove items from p_dir
@@ -457,7 +457,7 @@ class oktMedia extends filemanager
 			}
 		}
 		
-		$f_reg = array();
+		$f_reg = [];
 		
 		while ($rs->fetch())
 		{
@@ -476,7 +476,7 @@ class oktMedia extends filemanager
 					$f_reg[$rs->media_file] = 1;
 				}
 			}
-			elseif (! empty($p_dir['files']) && $this->relpwd == '')
+			elseif (!empty($p_dir['files']) && $this->relpwd == '')
 			{
 				# Physica file does not exist remove it from DB
 				# Because we don't want to erase everything on
@@ -498,7 +498,7 @@ class oktMedia extends filemanager
 		{
 			foreach ($p_dir['files'] as $f)
 			{
-				if (! isset($f_reg[$f->relname]))
+				if (!isset($f_reg[$f->relname]))
 				{
 					if (($id = $this->createFile($f->basename)) !== false)
 					{
@@ -525,7 +525,7 @@ class oktMedia extends filemanager
 	{
 		$strReq = 'SELECT m.media_id, m.media_path, m.media_title, ' . 'm.media_file, m.media_meta, m.media_dt, m.media_creadt, ' . 'm.media_upddt, m.media_private, m.user_id, ' . 'u.username, u.lastname, u.firstname ' . 'FROM ' . $this->t_media . ' AS m ' . 'LEFT JOIN ' . $this->t_users . ' AS u ON u.id=m.user_id ' . "WHERE m.media_path = '" . $this->path . "' " . 'AND m.media_id = ' . (integer) $id . ' ';
 		
-		if (! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND (m.media_private <> 1 ';
 			
@@ -564,7 +564,7 @@ class oktMedia extends filemanager
 		
 		$rs = $this->db->select($strReq);
 		
-		$res = array();
+		$res = [];
 		
 		while ($rs->fetch())
 		{
@@ -593,7 +593,7 @@ class oktMedia extends filemanager
 		
 		$f = $this->getPostMedia($post_id, $media_id);
 		
-		if (! empty($f))
+		if (!empty($f))
 		{
 			return;
 		}
@@ -633,7 +633,7 @@ class oktMedia extends filemanager
 	 */
 	public function rebuild($pwd = '')
 	{
-		if (! $this->okt['visitor']->is_superadmin)
+		if (!$this->okt['visitor']->is_superadmin)
 		{
 			throw new Exception(__('You are not a super administrator.'));
 		}
@@ -645,7 +645,7 @@ class oktMedia extends filemanager
 		
 		foreach ($dir['dirs'] as $d)
 		{
-			if (! $d->parent)
+			if (!$d->parent)
 			{
 				$this->rebuild($d->relname, false);
 			}
@@ -670,17 +670,17 @@ class oktMedia extends filemanager
 		
 		$delReq = 'DELETE FROM ' . $this->t_media . ' ' . 'WHERE media_id IN (%s) ';
 		
-		$del_ids = array();
+		$del_ids = [];
 		
 		while ($rs->fetch())
 		{
-			if (! is_file($this->root . '/' . $rs->media_file))
+			if (!is_file($this->root . '/' . $rs->media_file))
 			{
 				$del_ids[] = (integer) $rs->media_id;
 			}
 		}
 		
-		if (! empty($del_ids))
+		if (!empty($del_ids))
 		{
 			$this->db->execute(sprintf($delReq, implode(',', $del_ids)));
 		}
@@ -709,13 +709,13 @@ class oktMedia extends filemanager
 	 */
 	public function createFile($name, $title = null, $private = false, $dt = null)
 	{
-		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media') && !$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
 		
 		$file = $this->pwd . '/' . $name;
-		if (! file_exists($file))
+		if (!file_exists($file))
 		{
 			return false;
 		}
@@ -744,7 +744,7 @@ class oktMedia extends filemanager
 					'NOW()'
 				);
 				
-				$cur->media_title = ! $title ? (string) $name : (string) $title;
+				$cur->media_title = !$title ? (string) $name : (string) $title;
 				$cur->media_private = (integer) (boolean) $private;
 				
 				if ($dt)
@@ -798,19 +798,19 @@ class oktMedia extends filemanager
 	 */
 	public function updateFile($file, $newFile)
 	{
-		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media') && !$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
 		
 		$id = (integer) $file->media_id;
 		
-		if (! $id)
+		if (!$id)
 		{
 			throw new Exception('No file ID');
 		}
 		
-		if (! $this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $file->media_user_id)
+		if (!$this->okt['visitor']->checkPerm('media_admin') && $this->okt['visitor']->id != $file->media_user_id)
 		{
 			throw new Exception(__('You are not the file owner.'));
 		}
@@ -865,7 +865,7 @@ class oktMedia extends filemanager
 	 */
 	public function uploadFile($tmp, $name, $title = null, $private = false, $overwrite = false)
 	{
-		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media') && !$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -887,7 +887,7 @@ class oktMedia extends filemanager
 	 */
 	public function uploadBits($name, $bits)
 	{
-		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media') && !$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -907,7 +907,7 @@ class oktMedia extends filemanager
 	 */
 	public function removeFile($f)
 	{
-		if (! $this->okt['visitor']->checkPerm('media') && ! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media') && !$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			throw new Exception(__('Permission denied.'));
 		}
@@ -916,7 +916,7 @@ class oktMedia extends filemanager
 		
 		$strReq = 'DELETE FROM ' . $this->t_media . ' ' . "WHERE media_path = '" . $this->db->escapeStr($this->path) . "' " . "AND media_file = '" . $this->db->escapeStr($media_file) . "' ";
 		
-		if (! $this->okt['visitor']->checkPerm('media_admin'))
+		if (!$this->okt['visitor']->checkPerm('media_admin'))
 		{
 			$strReq .= 'AND user_id = ' . (integer) $this->okt['visitor']->id . ' ';
 		}
@@ -995,7 +995,7 @@ class oktMedia extends filemanager
 	{
 		$file = $this->pwd . '/' . $f;
 		
-		if (! file_exists($file))
+		if (!file_exists($file))
 		{
 			return false;
 		}
@@ -1019,7 +1019,7 @@ class oktMedia extends filemanager
 			foreach ($this->thumb_sizes as $suffix => $s)
 			{
 				$thumb_file = sprintf($thumb, $suffix);
-				if (! file_exists($thumb_file) && $s[0] > 0 && ($suffix == 'sq' || $w > $s[0] || $h > $s[1]))
+				if (!file_exists($thumb_file) && $s[0] > 0 && ($suffix == 'sq' || $w > $s[0] || $h > $s[1]))
 				{
 					$img->resize($s[0], $s[0], $s[1]);
 					$img->output('jpeg', $thumb_file, 80);
@@ -1080,7 +1080,7 @@ class oktMedia extends filemanager
 	{
 		$file = $this->pwd . '/' . $f;
 		
-		if (! file_exists($file))
+		if (!file_exists($file))
 		{
 			return false;
 		}
@@ -1127,12 +1127,12 @@ class oktMedia extends filemanager
 	 */
 	public static function mp3player($url, $player = null, $args = null)
 	{
-		if (! $player)
+		if (!$player)
 		{
 			$player = 'player_mp3.swf';
 		}
 		
-		if (! is_array($args))
+		if (!is_array($args))
 		{
 			$args = array(
 				'showvolume' => 1,
@@ -1158,7 +1158,7 @@ class oktMedia extends filemanager
 			$args['height'] = 20;
 		}
 		
-		$vars = array();
+		$vars = [];
 		foreach ($args as $k => $v)
 		{
 			$vars[] = $k . '=' . $v;
@@ -1169,12 +1169,12 @@ class oktMedia extends filemanager
 
 	public static function flvplayer($url, $player = null, $args = null)
 	{
-		if (! $player)
+		if (!$player)
 		{
 			$player = 'player_flv.swf';
 		}
 		
-		if (! is_array($args))
+		if (!is_array($args))
 		{
 			$args = array(
 				'margin' => 1,
@@ -1199,7 +1199,7 @@ class oktMedia extends filemanager
 			$args['height'] = 300;
 		}
 		
-		$vars = array();
+		$vars = [];
 		foreach ($args as $k => $v)
 		{
 			$vars[] = $k . '=' . $v;

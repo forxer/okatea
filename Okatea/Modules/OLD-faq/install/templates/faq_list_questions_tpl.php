@@ -39,7 +39,7 @@ $okt->page->applyLbl($okt->faq->config->lightbox_type);
 
 <?php 
 # début Okatea : javascript pour afficher les filtres s'ils sont repliés
-if ($okt->faq->config->enable_filters && ! $okt->faq->filters->params->show_filters)
+if ($okt->faq->config->enable_filters && !$okt->faq->filters->params->show_filters)
 {
 	$okt->page->js->addReady('
 		var c = $("#filter-control").html("<a href=\"#\">' . __('m_faq_display_filters') . '</a>");
@@ -66,7 +66,7 @@ if ($okt->faq->config->enable_filters)
 
 	<?php 
 # début Okatea : lien d'affichage des filtres
-	if (! $okt->faq->filters->params->show_filters)
+	if (!$okt->faq->filters->params->show_filters)
 	:
 		?>
 <p id="filter-control"></p>
@@ -136,7 +136,7 @@ else
 
 		<?php 
 # début Okatea : si on as PAS accès en lecture à la question
-		if (! $faqList->isReadable())
+		if (!$faqList->isReadable())
 		:
 			?>
 
@@ -154,7 +154,7 @@ else
 			<?php 
 # début Okatea : affichage image
 			$question_image = $faqList->getFirstImageInfo();
-			if (! empty($question_image) && isset($question_image['square_url']))
+			if (!empty($question_image) && isset($question_image['square_url']))
 			:
 				?>
 
@@ -185,7 +185,7 @@ else
 
 			<?php 
 # début Okatea : affichage texte pas tronqué
-			if (! $okt->faq->config->public_truncat_char)
+			if (!$okt->faq->config->public_truncat_char)
 			:
 				?>
 

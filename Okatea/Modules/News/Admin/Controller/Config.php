@@ -16,7 +16,7 @@ class Config extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('news_config'))
+		if (!$this->okt['visitor']->checkPerm('news_config'))
 		{
 			return $this->serve401();
 		}
@@ -95,13 +95,13 @@ class Config extends Controller
 			$p_number_files = $this->okt['request']->request->getInt('p_number_files');
 			$p_allowed_exts = $this->okt['request']->request->get('p_allowed_exts');
 			
-			$p_name = $this->okt['request']->request->get('p_name', array());
-			$p_name_seo = $this->okt['request']->request->get('p_name_seo', array());
-			$p_title = $this->okt['request']->request->get('p_title', array());
-			$p_meta_description = $this->okt['request']->request->get('p_meta_description', array());
-			$p_meta_keywords = $this->okt['request']->request->get('p_meta_keywords', array());
+			$p_name = $this->okt['request']->request->get('p_name', []);
+			$p_name_seo = $this->okt['request']->request->get('p_name_seo', []);
+			$p_title = $this->okt['request']->request->get('p_title', []);
+			$p_meta_description = $this->okt['request']->request->get('p_meta_description', []);
+			$p_meta_keywords = $this->okt['request']->request->get('p_meta_keywords', []);
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'enable_metas' => (boolean) $p_enable_metas,

@@ -3,7 +3,7 @@ CHANGELOG and HISTORY ( we try )                           module Media Manager
 
 = KEY ====================
 	# Breaks back-compat
-	! Feature
+	!Feature
 	- Bugfix
 		+ Sub-comment
 	. Internal change
@@ -15,4 +15,4 @@ CHANGELOG and HISTORY ( we try )                           module Media Manager
 
 
 1.0
-! first public release
+!first public release

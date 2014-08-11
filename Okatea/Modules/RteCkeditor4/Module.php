@@ -47,11 +47,11 @@ class Module extends BaseModule
 		*/
 	}
 
-	public static function CKEditor($sSelector = 'textarea', array $aUserOptions = array())
+	public static function CKEditor($sSelector = 'textarea', array $aUserOptions = [])
 	{
 		global $okt;
 		
-		$aOptions = array();
+		$aOptions = [];
 		
 		$okt->page->js->addFile($okt['public_url'] . '/modules/RteCkeditor4/ckeditor/ckeditor.js');
 		$okt->page->js->addFile($okt['public_url'] . '/modules/RteCkeditor4/ckeditor/adapters/jquery.js');

@@ -126,7 +126,7 @@ class module_##module_id## extends Module
 	 * @param	boolean	count_only		Ne renvoi qu'un nombre d'éléments
 	 * @return  object recordset/integer
 	 */
-	public function getItems($params=array(), $count_only=false)
+	public function getItems($params=[], $count_only=false)
 	{
 		$reqPlus = '';
 
@@ -182,7 +182,7 @@ class module_##module_id## extends Module
 				return 0;
 			}
 			else {
-				$rs = new ##module_camel_case_id##Recordset(array());
+				$rs = new ##module_camel_case_id##Recordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -553,7 +553,7 @@ class module_##module_id## extends Module
 		while ($rsItems->fetch())
 		{
 			$aImages = $rsItems->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 
 			foreach ($aImages as $key=>$image)
 			{
@@ -583,7 +583,7 @@ class module_##module_id## extends Module
 		}
 
 		$rsItem = $this->getItem($item_id);
-		$aImages = $rsItem->images ? unserialize($rsItem->images) : array();
+		$aImages = $rsItem->images ? unserialize($rsItem->images) : [];
 
 		return $aImages;
 	}
@@ -595,7 +595,7 @@ class module_##module_id## extends Module
 	 * @param $aImages
 	 * @return boolean
 	 */
-	public function updImagesInDb($item_id, $aImages=array())
+	public function updImagesInDb($item_id, $aImages=[])
 	{
 		if (!$this->itemExists($item_id)) {
 			$this->error->set(sprintf(__('m_##module_id##_item_%s_not_exists'),$item_id));
@@ -732,7 +732,7 @@ class module_##module_id## extends Module
 		}
 
 		$rsItem = $this->getItem($item_id);
-		$aFiles = $rsItem->files ? unserialize($rsItem->files) : array();
+		$aFiles = $rsItem->files ? unserialize($rsItem->files) : [];
 
 		return $aFiles;
 	}
@@ -744,7 +744,7 @@ class module_##module_id## extends Module
 	 * @param array $aFiles
 	 * @return boolean
 	 */
-	public function updFilesInDb($item_id, $aFiles=array())
+	public function updFilesInDb($item_id, $aFiles=[])
 	{
 		if (!$this->itemExists($item_id)) {
 			$this->error->set(sprintf(__('m_##module_id##_item_%s_not_exists'),$item_id));
@@ -832,7 +832,7 @@ class module_##module_id## extends Module
 			'ORDER BY slug DESC ';
 
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch()) {
 				$a[] = $rs->slug;
 			}

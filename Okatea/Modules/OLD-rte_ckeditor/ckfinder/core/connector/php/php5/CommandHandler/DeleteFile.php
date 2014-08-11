@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -56,12 +56,12 @@ class CKFinder_Connector_CommandHandler_DeleteFile extends CKFinder_Connector_Co
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
-		if (! isset($_GET["FileName"]))
+		if (!isset($_GET["FileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_NAME);
 		}
@@ -69,12 +69,12 @@ class CKFinder_Connector_CommandHandler_DeleteFile extends CKFinder_Connector_Co
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_GET["FileName"]);
 		$_resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $_resourceTypeInfo->checkIsHiddenFile($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName) || $_resourceTypeInfo->checkIsHiddenFile($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
-		if (! $_resourceTypeInfo->checkExtension($fileName, false))
+		if (!$_resourceTypeInfo->checkExtension($fileName, false))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -83,12 +83,12 @@ class CKFinder_Connector_CommandHandler_DeleteFile extends CKFinder_Connector_Co
 		
 		$bDeleted = false;
 		
-		if (! file_exists($filePath))
+		if (!file_exists($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
 		
-		if (! @unlink($filePath))
+		if (!@unlink($filePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 		}

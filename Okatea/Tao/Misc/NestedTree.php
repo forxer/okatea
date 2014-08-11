@@ -43,7 +43,7 @@ class NestedTree
 	 * @param array $addFields
 	 *        	to be selecteds
 	 */
-	public function __construct($okt, $table, $idField, $parentField, $sortField, $addFields = array())
+	public function __construct($okt, $table, $idField, $parentField, $sortField, $addFields = [])
 	{
 		$this->okt = $okt;
 		$this->db = $okt->db;
@@ -166,7 +166,7 @@ class NestedTree
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 
 		return $rs;
@@ -220,7 +220,7 @@ class NestedTree
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 
 		return $rs;
@@ -363,14 +363,14 @@ class NestedTree
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return array();
+			return [];
 		}
 
 		// create a root node to hold child data about first level items
-		$arr = array();
+		$arr = [];
 		$arr[0] = array(
 			$idField => 0,
-			'children' => array()
+			'children' => []
 		);
 
 		// populate the array and create an empty children array
@@ -378,14 +378,14 @@ class NestedTree
 
 		while ($rs->fetch())
 		{
-			$arr[$rs->f($idField)] = array();
+			$arr[$rs->f($idField)] = [];
 
 			foreach ($fields as $field)
 			{
 				$arr[$rs->f($idField)][$field] = $rs->f($field);
 			}
 
-			$arr[$rs->f($idField)]['children'] = array();
+			$arr[$rs->f($idField)]['children'] = [];
 		}
 
 		// now process the array and build the child data

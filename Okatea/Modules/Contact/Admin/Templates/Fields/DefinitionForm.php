@@ -9,7 +9,7 @@ use Okatea\Modules\Contact\Fields;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#field-definition-form', '.lang-switcher-buttons');
 }

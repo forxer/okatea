@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -17,13 +17,13 @@ if (! defined('ON_MODULE'))
 # Chargement des locales
 $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.zip');
 
-$iGalleryId = ! empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
+$iGalleryId = !empty($_REQUEST['gallery_id']) ? intval($_REQUEST['gallery_id']) : null;
 
-$aItemLocalesData = array();
+$aItemLocalesData = [];
 
 foreach ($okt['languages']->getList() as $aLanguage)
 {
-	$aItemLocalesData[$aLanguage['code']] = array();
+	$aItemLocalesData[$aLanguage['code']] = [];
 	$aItemLocalesData[$aLanguage['code']]['title'] = '';
 }
 
@@ -31,11 +31,11 @@ foreach ($okt['languages']->getList() as $aLanguage)
 ----------------------------------------------------------*/
 
 #  ajout d'éléments
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
 	try
 	{
-		if (! $iGalleryId)
+		if (!$iGalleryId)
 		{
 			throw new Exception(__('m_galleries_zip_error_must_gallery_id'));
 		}
@@ -52,7 +52,7 @@ if (! empty($_POST['sended']))
 				}
 			}
 			
-			if (! empty($_POST['p_title'][$aLanguage['code']]))
+			if (!empty($_POST['p_title'][$aLanguage['code']]))
 			{
 				$aItemLocalesData[$aLanguage['code']]['title'] = $_POST['p_title'][$aLanguage['code']];
 			}
@@ -81,7 +81,7 @@ if (! empty($_POST['sended']))
 		
 		$sZipFile = $sTempDir . $_FILES['p_zip_file']['name'];
 		
-		if (! move_uploaded_file($_FILES['p_zip_file']['tmp_name'], $sZipFile))
+		if (!move_uploaded_file($_FILES['p_zip_file']['tmp_name'], $sZipFile))
 		{
 			throw new Exception(__('m_galleries_zip_error_unable_move_uploaded_file'));
 		}
@@ -92,7 +92,7 @@ if (! empty($_POST['sended']))
 		{
 			$sFileExtension = pathinfo($sFileName, PATHINFO_EXTENSION);
 			
-			if ($aFileInfos['is_dir'] || ! in_array(strtolower($sFileExtension), array(
+			if ($aFileInfos['is_dir'] || !in_array(strtolower($sFileExtension), array(
 				'jpg',
 				'gif',
 				'png'
@@ -123,7 +123,7 @@ if (! empty($_POST['sended']))
 			}
 			else
 			{
-				$aNewItemImages = array();
+				$aNewItemImages = [];
 			}
 			
 			$okt->galleries->items->updImages($iItemId, $aNewItemImages);
@@ -165,7 +165,7 @@ $rsGalleries = $okt->galleries->tree->getGalleries(array(
 ));
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#items-title', '.lang-switcher-buttons');
 }

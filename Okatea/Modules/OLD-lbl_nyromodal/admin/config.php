@@ -8,15 +8,15 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_bgColor = ! empty($_POST['p_bgColor']) ? $_POST['p_bgColor'] : '';
+	$p_bgColor = !empty($_POST['p_bgColor']) ? $_POST['p_bgColor'] : '';
 	
 	if ($okt->error->isEmpty())
 	{

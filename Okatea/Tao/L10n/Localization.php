@@ -34,8 +34,8 @@ class Localization
 		Date::setUserLocale($sLanguage);
 		Date::setUserTimezone($sTimeZone);
 
-		$GLOBALS['okt_l10n'] = array();
-		$this->aLoaded = array();
+		$GLOBALS['okt_l10n'] = [];
+		$this->aLoaded = [];
 	}
 
 	/**

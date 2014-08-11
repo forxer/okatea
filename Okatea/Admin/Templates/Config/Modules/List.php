@@ -23,7 +23,7 @@ $okt->page->loader('.lazy-load');
 		<li><a href="#tab-uninstalled"><span><?php _e('c_a_modules_uninstalled_modules') ?></span></a></li>
 		<li><a href="#tab-add"><span><?php _e('c_a_modules_add_module') ?></span></a></li>
 		<?php # des modules à mettre à jour ?
-		if (! empty($aUpdatablesModules)) : ?>
+		if (!empty($aUpdatablesModules)) : ?>
 		<li><a href="#tab-updates"><span><?php _e('c_a_modules_new_releases') ?></span></a></li>
 		<?php endif; ?>
 	</ul>

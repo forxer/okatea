@@ -43,7 +43,7 @@ class Router extends BaseRouter
 	 *
 	 * @TODO : need to extends Symfony\Component\Routing\Generator\UrlGenerator
 	 */
-	public function generateFromWebsite($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)
+	public function generateFromWebsite($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH)
 	{
 		return str_replace($this->okt['config']->app_url, $this->okt['config']->app_url . 'admin/', $this->getGenerator()->generate($name, $parameters, $referenceType));
 	}

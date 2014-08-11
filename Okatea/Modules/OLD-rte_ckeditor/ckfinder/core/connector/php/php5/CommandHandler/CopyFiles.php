@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -61,10 +61,10 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 		$currentResourceTypeConfig = $this->_currentFolder->getResourceTypeConfig();
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		$_aclConfig = $_config->getAccessControlConfig();
-		$aclMasks = array();
-		$_resourceTypeConfig = array();
+		$aclMasks = [];
+		$_resourceTypeConfig = [];
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME | CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_RENAME | CKFINDER_CONNECTOR_ACL_FILE_UPLOAD | CKFINDER_CONNECTOR_ACL_FILE_DELETE))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -74,15 +74,15 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 		$errorCode = CKFINDER_CONNECTOR_ERROR_NONE;
 		$copied = 0;
 		$copiedAll = 0;
-		if (! empty($_POST['copied']))
+		if (!empty($_POST['copied']))
 		{
 			$copiedAll = intval($_POST['copied']);
 		}
-		$checkedPaths = array();
+		$checkedPaths = [];
 		
 		$oCopyFilesNode = new Ckfinder_Connector_Utils_XmlNode("CopyFiles");
 		
-		if (! empty($_POST['files']) && is_array($_POST['files']))
+		if (!empty($_POST['files']) && is_array($_POST['files']))
 		{
 			foreach ($_POST['files'] as $index => $arr)
 			{
@@ -90,7 +90,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 				{
 					continue;
 				}
-				if (! isset($arr['name'], $arr['type'], $arr['folder']))
+				if (!isset($arr['name'], $arr['type'], $arr['folder']))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
@@ -102,18 +102,18 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 				// client path
 				$path = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($arr['folder']);
 				// options
-				$options = (! empty($arr['options'])) ? $arr['options'] : '';
+				$options = (!empty($arr['options'])) ? $arr['options'] : '';
 				
 				$destinationFilePath = $sServerDir . $name;
 				
 				// check #1 (path)
-				if (! CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
+				if (!CKFinder_Connector_Utils_FileSystem::checkFileName($name) || preg_match(CKFINDER_REGEX_INVALID_PATH, $path))
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 				}
 				
 				// get resource type config for current file
-				if (! isset($_resourceTypeConfig[$type]))
+				if (!isset($_resourceTypeConfig[$type]))
 				{
 					$_resourceTypeConfig[$type] = $_config->getResourceTypeConfig($type);
 				}
@@ -125,7 +125,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 				}
 				
 				// check #3 (extension)
-				if (! $_resourceTypeConfig[$type]->checkExtension($name, false))
+				if (!$_resourceTypeConfig[$type]->checkExtension($name, false))
 				{
 					$errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION;
 					$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
@@ -135,7 +135,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 				// check #4 (extension) - when moving to another resource type, double check extension
 				if ($currentResourceTypeConfig->getName() != $type)
 				{
-					if (! $currentResourceTypeConfig->checkExtension($name, false))
+					if (!$currentResourceTypeConfig->checkExtension($name, false))
 					{
 						$errorCode = CKFINDER_CONNECTOR_ERROR_INVALID_EXTENSION;
 						$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
@@ -164,19 +164,19 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 				}
 				
 				// check #7 (Access Control, need file view permission to source files)
-				if (! isset($aclMasks[$type . "@" . $path]))
+				if (!isset($aclMasks[$type . "@" . $path]))
 				{
 					$aclMasks[$type . "@" . $path] = $_aclConfig->getComputedMask($type, $path);
 				}
 				
 				$isAuthorized = (($aclMasks[$type . "@" . $path] & CKFINDER_CONNECTOR_ACL_FILE_VIEW) == CKFINDER_CONNECTOR_ACL_FILE_VIEW);
-				if (! $isAuthorized)
+				if (!$isAuthorized)
 				{
 					$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 				}
 				
 				// check #8 (invalid file name)
-				if (! file_exists($sourceFilePath) || ! is_file($sourceFilePath))
+				if (!file_exists($sourceFilePath) || !is_file($sourceFilePath))
 				{
 					$errorCode = CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND;
 					$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
@@ -217,7 +217,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 								$fileName = CKFinder_Connector_Utils_FileSystem::getFileNameWithoutExtension($name) . "(" . $iCounter . ")" . "." . CKFinder_Connector_Utils_FileSystem::getExtension($name);
 								
 								$destinationFilePath = $sServerDir . $fileName;
-								if (! file_exists($destinationFilePath))
+								if (!file_exists($destinationFilePath))
 								{
 									break;
 								}
@@ -226,7 +226,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 									$iCounter ++;
 								}
 							}
-							if (! @copy($sourceFilePath, $destinationFilePath))
+							if (!@copy($sourceFilePath, $destinationFilePath))
 							{
 								$errorCode = CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED;
 								$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
@@ -247,7 +247,7 @@ class CKFinder_Connector_CommandHandler_CopyFiles extends CKFinder_Connector_Com
 					// copy() overwrites without warning
 					else
 					{
-						if (! @copy($sourceFilePath, $destinationFilePath))
+						if (!@copy($sourceFilePath, $destinationFilePath))
 						{
 							$errorCode = CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED;
 							$this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);

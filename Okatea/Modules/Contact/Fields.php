@@ -40,7 +40,7 @@ class Fields
 
 	protected $t_fields_locales;
 
-	protected $aFieldData = array();
+	protected $aFieldData = [];
 
 	protected static $aUnDeletableFields = array(
 		1,
@@ -82,21 +82,21 @@ class Fields
 	 * @param array $params        	
 	 * @return \Okatea\Modules\Contact\FieldsRecordset
 	 */
-	public function getFields(array $params = array())
+	public function getFields(array $params = [])
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND id=' . (integer) $params['id'] . ' ';
 		}
 		
-		if (! empty($params['status']))
+		if (!empty($params['status']))
 		{
 			$reqPlus .= ' AND status>0 ';
 		}
 		
-		if (! empty($params['language']))
+		if (!empty($params['language']))
 		{
 			$reqPlus .= 'AND fl.language=\'' . $this->db->escapeStr($params['language']) . '\' ';
 		}
@@ -105,7 +105,7 @@ class Fields
 		
 		if (($rs = $this->db->select($query, 'Okatea\Modules\Contact\FieldsRecordset')) === false)
 		{
-			$rs = new FieldsRecordset(array());
+			$rs = new FieldsRecordset([]);
 			$rs->setCore($this->okt);
 			return $rs;
 		}
@@ -156,7 +156,7 @@ class Fields
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			return new Recordset(array());
+			return new Recordset([]);
 		}
 		
 		return $rs;
@@ -182,7 +182,7 @@ class Fields
 		
 		$query = 'INSERT INTO ' . $this->t_fields . ' ( ' . 'status, type, ord, html_id ' . ' ) VALUES ( ' . (integer) $this->aFieldData['status'] . ', ' . (integer) $this->aFieldData['type'] . ', ' . (integer) ($max_ord + 1) . ', ' . '\'' . $this->db->escapeStr($this->aFieldData['html_id']) . '\' ' . '); ';
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -191,7 +191,7 @@ class Fields
 		$this->aFieldData['id'] = $this->db->getLastID();
 		
 		# modification des textes internationalisés
-		if (! $this->setFieldL10n())
+		if (!$this->setFieldL10n())
 		{
 			return false;
 		}
@@ -213,7 +213,7 @@ class Fields
 	 */
 	public function updField($aFieldData)
 	{
-		if (! $this->fieldExists($aFieldData['id']))
+		if (!$this->fieldExists($aFieldData['id']))
 		{
 			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $aFieldData['id']));
 			return false;
@@ -230,13 +230,13 @@ class Fields
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'status=' . (integer) $this->aFieldData['status'] . ', ' . 'type=' . (integer) $this->aFieldData['type'] . ', ' . 'html_id=\'' . $this->db->escapeStr($this->aFieldData['html_id']) . '\' ' . 'WHERE id=' . (integer) $aFieldData['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
 		
 		# modification des textes internationalisés
-		if (! $this->setFieldL10n())
+		if (!$this->setFieldL10n())
 		{
 			return false;
 		}
@@ -253,13 +253,13 @@ class Fields
 	public function checkPostData($aFieldData)
 	{
 		$aFieldData['status'] = intval($aFieldData['status']);
-		if (! array_key_exists($aFieldData['status'], self::getFieldsStatus()))
+		if (!array_key_exists($aFieldData['status'], self::getFieldsStatus()))
 		{
 			$this->error->set(__('m_contact_field_error_status'));
 		}
 		
 		$aFieldData['type'] = intval($aFieldData['type']);
-		if (! array_key_exists($aFieldData['type'], self::getFieldsTypes()))
+		if (!array_key_exists($aFieldData['type'], self::getFieldsTypes()))
 		{
 			$this->error->set(__('m_contact_field_error_type'));
 		}
@@ -299,14 +299,14 @@ class Fields
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			if (! $rsField->isSimpleField())
+			if (!$rsField->isSimpleField())
 			{
 				$aValues[$aLanguage['code']] = serialize($aValues[$aLanguage['code']]);
 			}
 			
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, value) ' . 'VALUES (' . (integer) $iFieldId . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($aValues[$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($aValues[$aLanguage['code']]) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'value=' . (empty($aValues[$aLanguage['code']]) ? 'NULL' : '\'' . $this->db->escapeStr($aValues[$aLanguage['code']]) . '\'');
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
@@ -326,7 +326,7 @@ class Fields
 		{
 			$query = 'INSERT INTO ' . $this->t_fields_locales . ' ' . '(field_id, language, title, description) ' . 'VALUES (' . (integer) $this->aFieldData['id'] . ', ' . '\'' . $this->db->escapeStr($aLanguage['code']) . '\', ' . (empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']) . '\'') . ', ' . (empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']) . '\'') . ' ' . ') ON DUPLICATE KEY UPDATE ' . 'title=' . (empty($this->aFieldData['locales'][$aLanguage['code']]['title']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['title']) . '\'') . ', ' . 'description=' . (empty($this->aFieldData['locales'][$aLanguage['code']]['description']) ? 'NULL' : '\'' . $this->db->escapeStr($this->aFieldData['locales'][$aLanguage['code']]['description']) . '\'');
 			
-			if (! $this->db->execute($query))
+			if (!$this->db->execute($query))
 			{
 				return false;
 			}
@@ -344,7 +344,7 @@ class Fields
 	 */
 	public function updFieldOrder($iFieldId, $ord)
 	{
-		if (! $this->fieldExists($iFieldId))
+		if (!$this->fieldExists($iFieldId))
 		{
 			$this->error->set(sprintf(__('m_contact_field_%s_not_exists'), $iFieldId));
 			return false;
@@ -352,7 +352,7 @@ class Fields
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'ord=' . (integer) $ord . ' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -368,19 +368,19 @@ class Fields
 	 */
 	public function deleteField($iFieldId)
 	{
-		if (! $this->fieldExists($iFieldId))
+		if (!$this->fieldExists($iFieldId))
 		{
 			return false;
 		}
 		
-		if (! $this->isDeletable($iFieldId))
+		if (!$this->isDeletable($iFieldId))
 		{
 			return false;
 		}
 		
 		$query = 'DELETE FROM ' . $this->t_fields . ' ' . 'WHERE id=' . (integer) $iFieldId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -410,7 +410,7 @@ class Fields
 		
 		$query = 'UPDATE ' . $this->t_fields . ' SET ' . 'html_id=\'' . $this->db->escapeStr($html_id) . '\' ' . 'WHERE id=' . (integer) $this->aFieldData['id'];
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -440,12 +440,12 @@ class Fields
 		
 		$rs = $this->db->select($query);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			$query = 'SELECT html_id FROM ' . $this->t_fields . ' ' . 'WHERE html_id LIKE \'' . $this->db->escapeStr($html_id) . '%\' ' . 'AND id <> ' . (integer) $iFieldId . ' ' . 'ORDER BY html_id DESC ';
 			
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch())
 			{
 				$a[] = $rs->html_id;
@@ -579,7 +579,7 @@ class Fields
 	 */
 	public function isDeletable($iFieldId)
 	{
-		return ! in_array($iFieldId, self::getUnDeletableFields());
+		return !in_array($iFieldId, self::getUnDeletableFields());
 	}
 
 	/**
@@ -611,7 +611,7 @@ class Fields
 	 */
 	public function isDisablable($iFieldId)
 	{
-		return ! in_array($iFieldId, self::getUnDisablableFields());
+		return !in_array($iFieldId, self::getUnDisablableFields());
 	}
 
 	/**

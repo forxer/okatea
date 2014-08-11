@@ -16,7 +16,7 @@ class Recipients extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_recipients'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_recipients'))
 		{
 			return $this->serve401();
 		}
@@ -24,19 +24,19 @@ class Recipients extends Controller
 		# Chargement des locales
 		$this->okt['l10n']->loadFile(__DIR__ . '/../../Locales/%s/admin.recipients');
 		
-		$aRecipientsTo = ! empty($this->okt->module('Contact')->config->recipients_to) ? $this->okt->module('Contact')->config->recipients_to : array();
-		$aRecipientsCc = ! empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : array();
-		$aRecipientsBcc = ! empty($this->okt->module('Contact')->config->recipients_bcc) ? $this->okt->module('Contact')->config->recipients_bcc : array();
+		$aRecipientsTo = !empty($this->okt->module('Contact')->config->recipients_to) ? $this->okt->module('Contact')->config->recipients_to : [];
+		$aRecipientsCc = !empty($this->okt->module('Contact')->config->recipients_cc) ? $this->okt->module('Contact')->config->recipients_cc : [];
+		$aRecipientsBcc = !empty($this->okt->module('Contact')->config->recipients_bcc) ? $this->okt->module('Contact')->config->recipients_bcc : [];
 		
 		if ($this->okt['request']->request->has('form_sent'))
 		{
-			$aRecipientsTo = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_to', array()))));
-			$aRecipientsCc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_cc', array()))));
-			$aRecipientsBcc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_bcc', array()))));
+			$aRecipientsTo = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_to', []))));
+			$aRecipientsCc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_cc', []))));
+			$aRecipientsBcc = array_unique(array_filter(array_map('trim', $this->okt['request']->request->get('p_recipients_bcc', []))));
 			
 			foreach ($aRecipientsTo as $mail)
 			{
-				if (! Utilities::isEmail($mail))
+				if (!Utilities::isEmail($mail))
 				{
 					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
@@ -44,7 +44,7 @@ class Recipients extends Controller
 			
 			foreach ($aRecipientsCc as $mail)
 			{
-				if (! Utilities::isEmail($mail))
+				if (!Utilities::isEmail($mail))
 				{
 					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
@@ -52,13 +52,13 @@ class Recipients extends Controller
 			
 			foreach ($aRecipientsBcc as $mail)
 			{
-				if (! Utilities::isEmail($mail))
+				if (!Utilities::isEmail($mail))
 				{
 					$this->okt->error->set(sprintf(__('m_contact_recipients_email_address_$s_is_invalid'), Escaper::html($mail)));
 				}
 			}
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'recipients_to' => $aRecipientsTo,

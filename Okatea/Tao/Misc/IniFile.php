@@ -124,7 +124,7 @@ class IniFile
 			$comment = '; ' . str_replace("\n", "\n; ", $comment) . "\n";
 		}
 		
-		if (! preg_match($match, $this->content))
+		if (!preg_match($match, $this->content))
 		{
 			$this->content .= "\n\n" . $comment . $name . ' = ' . $value;
 		}
@@ -160,7 +160,7 @@ class IniFile
 
 	public static function generateCacheFile($filesource, $filecache)
 	{
-		if (! file_exists($filesource))
+		if (!file_exists($filesource))
 		{
 			trigger_error('No config file', E_USER_WARNING);
 			return false;
@@ -199,7 +199,7 @@ class IniFile
 	 */
 	public static function read($file, $return = false)
 	{
-		if (! file_exists($file))
+		if (!file_exists($file))
 		{
 			trigger_error('No config file', E_USER_ERROR);
 			exit();
@@ -207,7 +207,7 @@ class IniFile
 		
 		if ($return)
 		{
-			$res = array();
+			$res = [];
 		}
 		
 		$ini_array = parse_ini_file($file);
@@ -218,7 +218,7 @@ class IniFile
 			{
 				$res[$k] = $v;
 			}
-			elseif (! defined($k))
+			elseif (!defined($k))
 			{
 				define($k, $v);
 			}

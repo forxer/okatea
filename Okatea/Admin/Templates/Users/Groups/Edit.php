@@ -33,7 +33,7 @@ $okt->page->setButtonset('usersGroups', array(
 			'ui-icon' => 'plusthick'
 		),
 		array(
-			'permission' => ! in_array($iGroupId, Groups::$native),
+			'permission' => !in_array($iGroupId, Groups::$native),
 			'title' => __('c_c_action_Delete'),
 			'url' => $view->generateAdminUrl('Users_groups') . '?delete_id=' . $iGroupId,
 			'ui-icon' => 'closethick',

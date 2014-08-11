@@ -32,7 +32,7 @@ class module_media_manager extends Module
 		# on ajoutent un item au menu admin
 		if ($this->okt->page->display_menu)
 		{
-			$this->okt->page->homeSubMenu->add(__('Media manager'), 'module.php?m=media_manager', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index'), 30, ($this->okt['visitor']->checkPerm('media') || $this->okt['visitor']->checkPerm('media_admin')), null);
+			$this->okt->page->homeSubMenu->add(__('Media manager'), 'module.php?m=media_manager', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index'), 30, ($this->okt['visitor']->checkPerm('media') || $this->okt['visitor']->checkPerm('media_admin')), null);
 			/*
 			$this->okt->page->configSubMenu->add(
 				__('Media manager'),

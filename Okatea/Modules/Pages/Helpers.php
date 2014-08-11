@@ -21,7 +21,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (! $okt->module('Pages')->config->categories['enable'])
+		if (!$okt->module('Pages')->config->categories['enable'])
 		{
 			return null;
 		}
@@ -113,10 +113,10 @@ class Helpers
 	 * @param string $sItemsGlue
 	 *        	Liant entre les différents éléments ('')
 	 * @param array $aCustomParams
-	 *        	Paramètres de sélection personnalisés (array())
+	 *        	Paramètres de sélection personnalisés ([])
 	 * @return string
 	 */
-	public static function getPagesByCatId($iCatId, $sBlockFormat = '<ul>%s</ul>', $sItemFormat = '<li>%s</li>', $sItemActiveFormat = '<li class="active"><strong>%s</strong></li>', $sLinkFormat = '<a href="%s">%s</a>', $sItemsGlue = '', $aCustomParams = array())
+	public static function getPagesByCatId($iCatId, $sBlockFormat = '<ul>%s</ul>', $sItemFormat = '<li>%s</li>', $sItemActiveFormat = '<li class="active"><strong>%s</strong></li>', $sLinkFormat = '<a href="%s">%s</a>', $sItemsGlue = '', $aCustomParams = [])
 	{
 		global $okt;
 
@@ -137,7 +137,7 @@ class Helpers
 		$rsPages = $okt->module('Pages')->pages->getPages($aParams);
 
 		# on construient le HTML avec les données
-		$aItems = array();
+		$aItems = [];
 
 		while ($rsPages->fetch())
 		{
@@ -177,7 +177,7 @@ class Helpers
 	{
 		global $okt;
 
-		if (! $okt->module('Pages')->config->categories['enable'])
+		if (!$okt->module('Pages')->config->categories['enable'])
 		{
 			return null;
 		}
@@ -200,7 +200,7 @@ class Helpers
 		$rsChildren = $okt->module('Pages')->categories->getChildren($iCatId, false, $okt['visitor']->language);
 
 		# on construient le HTML avec les données
-		$aChildren = array();
+		$aChildren = [];
 
 		while ($rsChildren->fetch())
 		{

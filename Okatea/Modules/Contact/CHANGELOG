@@ -3,7 +3,7 @@ CHANGELOG and HISTORY ( we try )                                 module_contact
 
 = KEY ====================
 	# Breaks back-compat
-	! Feature
+	!Feature
 	- Bugfix
 		+ Sub-comment
 	. Internal change
@@ -16,4 +16,4 @@ CHANGELOG and HISTORY ( we try )                                 module_contact
 
 
 1.0
-! first public release
+!first public release

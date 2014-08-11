@@ -29,7 +29,7 @@ class CountingFilesAndLines
 		'bmp'
 	);
 
-	public $aExcludeFiles = array();
+	public $aExcludeFiles = [];
 
 	public $aExcludeFolders = array(
 		'.svn',
@@ -93,7 +93,7 @@ class CountingFilesAndLines
 			
 			$sFile = $sDirectoryPath . '/' . $sFilename;
 			
-			if (is_dir($sFile) && ! in_array($sFilename, $this->aExcludeFolders))
+			if (is_dir($sFile) && !in_array($sFilename, $this->aExcludeFolders))
 			{
 				$this->iNumFolders ++;
 				$this->recursiveCounting($sFile);
@@ -104,7 +104,7 @@ class CountingFilesAndLines
 				
 				$sExtension = pathinfo($sFile, PATHINFO_EXTENSION);
 				
-				if (! in_array($sExtension, $this->aExcludeExtensions) && ! in_array($sFilename, $this->aExcludeFiles))
+				if (!in_array($sExtension, $this->aExcludeExtensions) && !in_array($sFilename, $this->aExcludeFiles))
 				{
 					$this->iNumLines += count(file($sFile));
 				}

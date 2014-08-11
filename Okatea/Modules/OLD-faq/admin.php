@@ -6,17 +6,17 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perms ?
-if (! $okt['visitor']->checkPerm('faq'))
+if (!$okt['visitor']->checkPerm('faq'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # suppression d'une question
-if ($okt->page->action === 'delete' && ! empty($_GET['questions_id']) && $okt['visitor']->checkPerm('faq_remove'))
+if ($okt->page->action === 'delete' && !empty($_GET['questions_id']) && $okt['visitor']->checkPerm('faq_remove'))
 {
 	if ($okt->faq->deleteQuestion($_GET['questions_id']))
 	{

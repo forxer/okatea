@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -38,19 +38,19 @@ class CKFinder_Connector_Utils_Security
 	{
 		if (get_magic_quotes_gpc())
 		{
-			if (! empty($_GET))
+			if (!empty($_GET))
 			{
 				$this->stripQuotes($_GET);
 			}
-			if (! empty($_POST))
+			if (!empty($_POST))
 			{
 				$this->stripQuotes($_POST);
 			}
-			if (! empty($_COOKIE))
+			if (!empty($_COOKIE))
 			{
 				$this->stripQuotes($_COOKIE);
 			}
-			if (! empty($_FILES))
+			if (!empty($_FILES))
 			{
 				while (list ($k, $v) = each($_FILES))
 				{

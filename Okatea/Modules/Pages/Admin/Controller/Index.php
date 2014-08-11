@@ -15,7 +15,7 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('pages_usage'))
+		if (!$this->okt['visitor']->checkPerm('pages_usage'))
 		{
 			return $this->serve401();
 		}
@@ -57,7 +57,7 @@ class Index extends Controller
 		}
 
 		# Initialisation des filtres
-		$aParams = array();
+		$aParams = [];
 
 		$sSearch = $this->okt['request']->query->get('search');
 
@@ -118,7 +118,7 @@ class Index extends Controller
 	{
 		$term = $this->okt['request']->query->get('term');
 
-		if (! $this->okt['request']->isXmlHttpRequest() || ! $this->okt['request']->query->has('json') || empty($term))
+		if (!$this->okt['request']->isXmlHttpRequest() || !$this->okt['request']->query->has('json') || empty($term))
 		{
 			return false;
 		}
@@ -128,7 +128,7 @@ class Index extends Controller
 			'search' => $term
 		));
 
-		$aResults = array();
+		$aResults = [];
 		while ($rsPages->fetch())
 		{
 			$aResults[$rsPages->title] = $rsPages->title;
@@ -153,7 +153,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('delete');
 
-		if (! $iPostId || ! $this->okt['visitor']->checkPerm('pages_remove'))
+		if (!$iPostId || !$this->okt['visitor']->checkPerm('pages_remove'))
 		{
 			return false;
 		}
@@ -178,7 +178,7 @@ class Index extends Controller
 	{
 		$iPostId = $this->okt['request']->query->getInt('switch_status');
 
-		if (! $iPostId)
+		if (!$iPostId)
 		{
 			return false;
 		}
@@ -202,7 +202,7 @@ class Index extends Controller
 		$sAction = $this->okt['request']->request->get('action');
 		$aPagesId = $this->okt['request']->request->get('pages');
 
-		if (! $sAction || ! $aPagesId || ! is_array($aPagesId))
+		if (!$sAction || !$aPagesId || !is_array($aPagesId))
 		{
 			return false;
 		}

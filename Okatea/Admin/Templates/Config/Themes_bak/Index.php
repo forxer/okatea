@@ -164,7 +164,7 @@ $okt->page->js->addReady('
 	});
 ');
 
-if (! empty($sSearch))
+if (!empty($sSearch))
 {
 	$okt->page->js->addFile($okt['public_url'] . '/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('
@@ -231,7 +231,7 @@ if (! empty($sSearch))
 
 			<?php
 		# buton set
-		$aActions = array();
+		$aActions = [];
 		if ($aTheme['is_active'])
 		{
 			$aActions[10] = '<a href="#" class="button-used">' . __('c_a_themes_current') . '</a>';
@@ -270,7 +270,7 @@ if (! empty($sSearch))
 			$aActions[60] = '<a href="' . $view->generateAdminUrl('config_themes') . '?notes=' . $aTheme['id'] . '" class="button-notes">' . __('c_a_themes_notes') . '</a>';
 		}
 		
-		if (! $aTheme['is_active'] && ! $aTheme['is_mobile'] && ! $aTheme['is_tablet'])
+		if (!$aTheme['is_active'] && !$aTheme['is_mobile'] && !$aTheme['is_tablet'])
 		{
 			$aActions[90] = '<a href="' . $view->generateAdminUrl('config_themes') . '?delete=' . $aTheme['id'] . '" class="button-delete" onclick="return window.confirm(\'' . $view->escapeJs(__('c_a_themes_delete_confirm')) . '\')"></span>' . __('c_c_action_Delete') . '</a>';
 		}

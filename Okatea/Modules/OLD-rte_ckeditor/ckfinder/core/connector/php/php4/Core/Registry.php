@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -36,7 +36,7 @@ class CKFinder_Connector_Core_Registry
 	 * @var array
 	 * @access private
 	 */
-	var $_store = array();
+	var $_store = [];
 
 	/**
 	 * Chacke if value has been set

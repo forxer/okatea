@@ -229,7 +229,7 @@ class Module extends BaseModule
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof Filters))
+		if ($this->filters === null || !($this->filters instanceof Filters))
 		{
 			$this->filters = new Filters($this->okt, $part);
 		}
@@ -247,50 +247,50 @@ class Module extends BaseModule
 	 *        	Ne renvoi qu'un nombre d'articles
 	 * @return object Recordset/integer
 	 */
-	public function getPostsRecordset($aParams = array(), $bCountOnly = false)
+	public function getPostsRecordset($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND p.id=' . (integer) $aParams['id'] . ' ';
 		}
 
-		if (! empty($aParams['user_id']))
+		if (!empty($aParams['user_id']))
 		{
 			$sReqPlus .= ' AND p.user_id=' . (integer) $aParams['user_id'] . ' ';
 		}
 
-		if (! empty($aParams['category_id']))
+		if (!empty($aParams['category_id']))
 		{
 			$sReqPlus .= ' AND p.category_id=' . (integer) $aParams['category_id'] . ' ';
 		}
 
-		if (! empty($aParams['selected']))
+		if (!empty($aParams['selected']))
 		{
 			$sReqPlus .= ' AND p.selected=' . (integer) $aParams['selected'] . ' ';
 		}
 
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND pl.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
 
-		if (! empty($aParams['created_after']))
+		if (!empty($aParams['created_after']))
 		{
 			$sReqPlus .= ' AND created_at>=\'' . $this->db->escapeStr($aParams['created_after']) . '\' ';
 		}
 
-		if (! empty($aParams['created_before']))
+		if (!empty($aParams['created_before']))
 		{
 			$sReqPlus .= ' AND created_at<=\'' . $this->db->escapeStr($aParams['created_before']) . '\' ';
 		}
 
-		if (! empty($aParams['pending']))
+		if (!empty($aParams['pending']))
 		{
 			$sReqPlus .= 'AND p.active=2 ';
 		}
-		elseif (! empty($aParams['scheduled']))
+		elseif (!empty($aParams['scheduled']))
 		{
 			$sReqPlus .= 'AND p.active=3 ';
 		}
@@ -314,11 +314,11 @@ class Module extends BaseModule
 			}
 		}
 
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
 
-			if (! empty($aWords))
+			if (!empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
 				{
@@ -337,12 +337,12 @@ class Module extends BaseModule
 			$sQuery = 'SELECT ' . $this->getSelectFields($aParams) . ' ' . $this->getSqlFrom($aParams) . 'WHERE 1 ' . $sReqPlus;
 
 			$sDirection = 'DESC';
-			if (! empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
+			if (!empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
 			{
 				$sDirection = 'ASC';
 			}
 
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY p.selected DESC, ' . $aParams['order'] . ' ' . $sDirection . ' ';
 			}
@@ -351,7 +351,7 @@ class Module extends BaseModule
 				$sQuery .= 'ORDER BY p.selected DESC, p.created_at ' . $sDirection . ' ';
 			}
 
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -365,7 +365,7 @@ class Module extends BaseModule
 			}
 			else
 			{
-				$rsPosts = new Recordset(array());
+				$rsPosts = new Recordset([]);
 				$rsPosts->setCore($this->okt);
 				return $rsPosts;
 			}
@@ -474,7 +474,7 @@ class Module extends BaseModule
 	 *        	(null) Nombre de caractère avant troncature du contenu
 	 * @return object Recordset
 	 */
-	public function getPosts($aParams = array(), $iTruncatChar = null)
+	public function getPosts($aParams = [], $iTruncatChar = null)
 	{
 		$rs = $this->getPostsRecordset($aParams);
 
@@ -490,7 +490,7 @@ class Module extends BaseModule
 	 *        	Paramètres de requete
 	 * @return integer
 	 */
-	public function getPostsCount($aParams = array())
+	public function getPostsCount($aParams = [])
 	{
 		return $this->getPostsRecordset($aParams, true);
 	}
@@ -509,7 +509,7 @@ class Module extends BaseModule
 			'language' => $this->okt['visitor']->language
 		);
 
-		if (! is_null($iActive))
+		if (!is_null($iActive))
 		{
 			$aParams['active'] = $iActive;
 		}
@@ -561,7 +561,7 @@ class Module extends BaseModule
 
 		if (($rsPostLocales = $this->db->select($query)) === false)
 		{
-			$rsPostLocales = new Recordset(array());
+			$rsPostLocales = new Recordset([]);
 			return $rsPostLocales;
 		}
 
@@ -579,7 +579,7 @@ class Module extends BaseModule
 	public function preparePosts(Recordset $rsPosts, $iTruncatChar = null)
 	{
 		# on utilise une troncature personnalisée à cette préparation
-		if (! is_null($iTruncatChar))
+		if (!is_null($iTruncatChar))
 		{
 			$iNumCharBeforeTruncate = (integer) $iTruncatChar;
 		}
@@ -650,7 +650,7 @@ class Module extends BaseModule
 		$rsPost->files = $rsPost->getFilesInfo();
 
 		# contenu
-		if (! $this->config->enable_rte)
+		if (!$this->config->enable_rte)
 		{
 			$rsPost->content = Modifiers::nlToP($rsPost->content);
 		}
@@ -674,7 +674,7 @@ class Module extends BaseModule
 	{
 		$oCursor = $this->db->openCursor($this->t_news);
 
-		if (! empty($aPostData))
+		if (!empty($aPostData))
 		{
 			foreach ($aPostData as $k => $v)
 			{
@@ -714,7 +714,7 @@ class Module extends BaseModule
 
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
-			if (! $oCursor->insertUpdate())
+			if (!$oCursor->insertUpdate())
 			{
 				throw new RuntimeException('Unable to insert/update post locales into database');
 			}
@@ -757,11 +757,11 @@ class Module extends BaseModule
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select('SELECT slug FROM ' . $this->t_news_locales . ' ' . 'WHERE slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'AND post_id <> ' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC');
 
-		if (! $rsTakenSlugs->isEmpty())
+		if (!$rsTakenSlugs->isEmpty())
 		{
 			$rsCurrentSlugs = $this->db->select('SELECT slug FROM ' . $this->t_news_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sUrl) . '%\' ' . 'AND post_id <> ' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ');
 
-			$a = array();
+			$a = [];
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
@@ -772,7 +772,7 @@ class Module extends BaseModule
 
 		$sQuery = 'UPDATE ' . $this->t_news_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'WHERE post_id=' . (integer) $iPostId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -788,14 +788,14 @@ class Module extends BaseModule
 	 * @param array $aPostPermsData
 	 * @return integer
 	 */
-	public function addPost($oCursor, array $aPostLocalesData, array $aPostPermsData = array())
+	public function addPost($oCursor, array $aPostLocalesData, array $aPostPermsData = [])
 	{
 		# insertion dans la DB
 		$this->preparePostCursor($oCursor);
 
 		$oCursor->user_id = $this->okt['visitor']->id;
 
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new RuntimeException('Unable to insert post into database');
 		}
@@ -819,7 +819,7 @@ class Module extends BaseModule
 		}
 
 		# ajout permissions
-		if (! $this->setPostPermissions($iNewId, $aPostPermsData))
+		if (!$this->setPostPermissions($iNewId, $aPostPermsData))
 		{
 			throw new RuntimeException('Unable to set post permissions');
 		}
@@ -835,7 +835,7 @@ class Module extends BaseModule
 	 * @param array $aPostPermsData
 	 * @return boolean
 	 */
-	public function updPost($oCursor, array $aPostLocalesData, array $aPostPermsData = array())
+	public function updPost($oCursor, array $aPostLocalesData, array $aPostPermsData = [])
 	{
 		$rsPost = $this->getPostsRecordset(array(
 			'id' => $oCursor->id
@@ -847,7 +847,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -856,7 +856,7 @@ class Module extends BaseModule
 		# modification dans la DB
 		$this->preparePostCursor($oCursor, $rsPost);
 
-		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new RuntimeException('Unable to update post into database');
 		}
@@ -874,7 +874,7 @@ class Module extends BaseModule
 		}
 
 		# modification permissions
-		if (! $this->setPostPermissions($oCursor->id, $aPostPermsData))
+		if (!$this->setPostPermissions($oCursor->id, $aPostPermsData))
 		{
 			throw new RuntimeException('Unable to set post permissions');
 		}
@@ -945,7 +945,7 @@ class Module extends BaseModule
 			}
 		}
 
-		if (! $bHasAtLeastOneTitle)
+		if (!$bHasAtLeastOneTitle)
 		{
 			if ($this->okt['languages']->hasUniqueLanguage())
 			{
@@ -986,7 +986,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -1000,7 +1000,7 @@ class Module extends BaseModule
 
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
@@ -1032,7 +1032,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -1067,7 +1067,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -1102,13 +1102,13 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
 		}
 
-		if (! $rsPost->isPublishable())
+		if (!$rsPost->isPublishable())
 		{
 			$this->error->set(__('m_news_post_not_publishable'));
 			return false;
@@ -1159,7 +1159,7 @@ class Module extends BaseModule
 	{
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'active = ' . (integer) $iStatus . ' ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
@@ -1185,7 +1185,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -1193,7 +1193,7 @@ class Module extends BaseModule
 
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'selected = 1-selected ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
@@ -1220,7 +1220,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isEditable())
+		if (!$rsPost->isEditable())
 		{
 			$this->error->set(__('m_news_post_not_editable'));
 			return false;
@@ -1228,7 +1228,7 @@ class Module extends BaseModule
 
 		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'updated_at=NOW(), ' . 'selected = ' . ($bSelected ? '1' : '0') . ' ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update post in database.');
 		}
@@ -1254,7 +1254,7 @@ class Module extends BaseModule
 			return false;
 		}
 
-		if (! $rsPost->isDeletable())
+		if (!$rsPost->isDeletable())
 		{
 			$this->error->set(__('m_news_post_not_deletable'));
 			return false;
@@ -1272,7 +1272,7 @@ class Module extends BaseModule
 
 		$sQuery = 'DELETE FROM ' . $this->t_news . ' ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove post from database.');
 		}
@@ -1281,7 +1281,7 @@ class Module extends BaseModule
 
 		$sQuery = 'DELETE FROM ' . $this->t_news_locales . ' ' . 'WHERE post_id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove post locales from database.');
 		}
@@ -1315,14 +1315,14 @@ class Module extends BaseModule
 			)
 		);
 
-		if (! $this->okt['visitor']->is_admin && ! $bWithAdmin)
+		if (!$this->okt['visitor']->is_admin && !$bWithAdmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
 		$rsGroups = $this->okt['groups']->getGroups($aParams);
 
-		$aGroups = array();
+		$aGroups = [];
 
 		if ($bWithAll)
 		{
@@ -1345,19 +1345,19 @@ class Module extends BaseModule
 	 */
 	public function getPostPermissions($iPostId)
 	{
-		if (! $this->config->enable_group_perms)
+		if (!$this->config->enable_group_perms)
 		{
-			return array();
+			return [];
 		}
 
 		$sQuery = 'SELECT post_id, group_id ' . 'FROM ' . $this->t_permissions . ' ' . 'WHERE post_id=' . (integer) $iPostId . ' ';
 
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			return array();
+			return [];
 		}
 
-		$aPerms = array();
+		$aPerms = [];
 		while ($rs->fetch())
 		{
 			$aPerms[] = $rs->group_id;
@@ -1375,12 +1375,12 @@ class Module extends BaseModule
 	 */
 	protected function setPostPermissions($iPostId, $aGroupsIds)
 	{
-		if (! $this->config->enable_group_perms || empty($aGroupsIds))
+		if (!$this->config->enable_group_perms || empty($aGroupsIds))
 		{
 			return $this->setDefaultPostPermissions($iPostId);
 		}
 
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
@@ -1388,7 +1388,7 @@ class Module extends BaseModule
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
-		if (! $this->okt['visitor']->is_admin)
+		if (!$this->okt['visitor']->is_admin)
 		{
 			$aGroupsIds[] = Groups::ADMIN;
 		}
@@ -1406,7 +1406,7 @@ class Module extends BaseModule
 			)
 		));
 
-		$aGroups = array();
+		$aGroups = [];
 		while ($rsGroups->fetch())
 		{
 			$aGroups[] = $rsGroups->group_id;
@@ -1437,7 +1437,7 @@ class Module extends BaseModule
 	 */
 	protected function setDefaultPostPermissions($iPostId)
 	{
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(sprintf(__('m_news_post_%s_not_exists'), $iPostId));
 			return false;
@@ -1463,7 +1463,7 @@ class Module extends BaseModule
 	{
 		$sQuery = 'INSERT INTO ' . $this->t_permissions . ' ' . '(post_id, group_id) ' . 'VALUES (' . (integer) $iPostId . ', ' . (integer) $iGroupId . ' ' . ') ';
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to insert post permissions into database');
 		}
@@ -1481,7 +1481,7 @@ class Module extends BaseModule
 	{
 		$sQuery = 'DELETE FROM ' . $this->t_permissions . ' ' . 'WHERE post_id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to delete post permissions from database');
 		}
@@ -1519,14 +1519,14 @@ class Module extends BaseModule
 	 */
 	public function addImages($iPostId)
 	{
-		if (! $this->config->images['enable'])
+		if (!$this->config->images['enable'])
 		{
 			return null;
 		}
 
 		$aImages = $this->getImageUpload()->addImages($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1543,21 +1543,21 @@ class Module extends BaseModule
 	 */
 	public function updImages($iPostId)
 	{
-		if (! $this->config->images['enable'])
+		if (!$this->config->images['enable'])
 		{
 			return null;
 		}
 
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aImages = $this->getImageUpload()->updImages($iPostId, $aCurrentImages);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1578,14 +1578,14 @@ class Module extends BaseModule
 	{
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aNewImages = $this->getImageUpload()->deleteImage($iPostId, $aCurrentImages, $img_id);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1604,7 +1604,7 @@ class Module extends BaseModule
 	{
 		$aCurrentImages = $this->getImagesFromDb($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1629,7 +1629,7 @@ class Module extends BaseModule
 		while ($rsPosts->fetch())
 		{
 			$aImages = $rsPosts->getImagesInfo();
-			$aImagesList = array();
+			$aImagesList = [];
 
 			foreach ($aImages as $key => $image)
 			{
@@ -1653,7 +1653,7 @@ class Module extends BaseModule
 	 */
 	public function getImagesFromDb($iPostId)
 	{
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
@@ -1663,7 +1663,7 @@ class Module extends BaseModule
 			'id' => $iPostId
 		));
 
-		$aImages = $rsPost->images ? unserialize($rsPost->images) : array();
+		$aImages = $rsPost->images ? unserialize($rsPost->images) : [];
 
 		return $aImages;
 	}
@@ -1675,19 +1675,19 @@ class Module extends BaseModule
 	 * @param array $aImages
 	 * @return boolean
 	 */
-	public function updImagesInDb($iPostId, $aImages = array())
+	public function updImagesInDb($iPostId, $aImages = [])
 	{
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
 
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+		$aImages = !empty($aImages) ? serialize($aImages) : NULL;
 
-		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
+		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'images=' . (!is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -1717,14 +1717,14 @@ class Module extends BaseModule
 	 */
 	public function addFiles($iPostId)
 	{
-		if (! $this->config->files['enable'])
+		if (!$this->config->files['enable'])
 		{
 			return null;
 		}
 
 		$aFiles = $this->getFileUpload()->addFiles($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1741,21 +1741,21 @@ class Module extends BaseModule
 	 */
 	public function updFiles($iPostId)
 	{
-		if (! $this->config->files['enable'])
+		if (!$this->config->files['enable'])
 		{
 			return null;
 		}
 
 		$aCurrentFiles = $this->getPostFiles($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aFiles = $this->getFileUpload()->updFiles($iPostId, $aCurrentFiles);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1776,14 +1776,14 @@ class Module extends BaseModule
 	{
 		$aCurrentFiles = $this->getPostFiles($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 
 		$aNewFiles = $this->getFileUpload()->deleteFile($iPostId, $aCurrentFiles, $file_id);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1802,7 +1802,7 @@ class Module extends BaseModule
 	{
 		$aCurrentFiles = $this->getPostFiles($iPostId);
 
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -1821,7 +1821,7 @@ class Module extends BaseModule
 	 */
 	public function getPostFiles($iPostId)
 	{
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
@@ -1831,7 +1831,7 @@ class Module extends BaseModule
 			'id' => $iPostId
 		));
 
-		$aFiles = $rsPost->files ? unserialize($rsPost->files) : array();
+		$aFiles = $rsPost->files ? unserialize($rsPost->files) : [];
 
 		return $aFiles;
 	}
@@ -1843,19 +1843,19 @@ class Module extends BaseModule
 	 * @param array $aFiles
 	 * @return boolean
 	 */
-	public function updPostFiles($iPostId, $aFiles = array())
+	public function updPostFiles($iPostId, $aFiles = [])
 	{
-		if (! $this->postExists($iPostId))
+		if (!$this->postExists($iPostId))
 		{
 			$this->error->set(__('m_news_post_%s_not_exists'), $iPostId);
 			return false;
 		}
 
-		$aFiles = ! empty($aFiles) ? serialize($aFiles) : NULL;
+		$aFiles = !empty($aFiles) ? serialize($aFiles) : NULL;
 
-		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'files=' . (! is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
+		$sQuery = 'UPDATE ' . $this->t_news . ' SET ' . 'files=' . (!is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPostId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -1905,7 +1905,7 @@ class Module extends BaseModule
 	{
 		$sTemplate = $this->config->templates['list']['default'];
 
-		if (! empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
+		if (!empty($sCategoryTemplate) && in_array($sCategoryTemplate, $this->config->templates['list']['usables']))
 		{
 			$sTemplate = $sCategoryTemplate;
 		}
@@ -1922,11 +1922,11 @@ class Module extends BaseModule
 	{
 		$sTemplate = $this->config->templates['item']['default'];
 
-		if (! empty($sPostTemplate) && in_array($sPostTemplate, $this->config->templates['item']['usables']))
+		if (!empty($sPostTemplate) && in_array($sPostTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sPostTemplate;
 		}
-		elseif (! empty($sCatPostTemplate) && in_array($sCatPostTemplate, $this->config->templates['item']['usables']))
+		elseif (!empty($sCatPostTemplate) && in_array($sCatPostTemplate, $this->config->templates['item']['usables']))
 		{
 			$sTemplate = $sCatPostTemplate;
 		}

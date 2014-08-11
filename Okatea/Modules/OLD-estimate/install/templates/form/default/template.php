@@ -93,7 +93,7 @@ if ($okt->error->notEmpty())
 
 <?php
 # début Okatea : si la demande a bien été enregistrée, on affiche un message de confirmation
-if (! empty($_GET['added']))
+if (!empty($_GET['added']))
 :
 	?>
 <div class="success_box">
@@ -209,7 +209,7 @@ else
 			$iNumAccessories = $okt->estimate->config->default_accessories_number;
 			$bHasAccessories = false;
 
-			if (! empty($aFormData['products'][$i]) && ! empty($aFormData['accessories'][$i]))
+			if (!empty($aFormData['products'][$i]) && !empty($aFormData['accessories'][$i]))
 			{
 				$iNumAccessories = count($aFormData['accessories'][$i]);
 				$bHasAccessories = true;
@@ -223,15 +223,15 @@ else
 			for ($j = 1; $j <= $iNumAccessories; $j ++)
 			:
 
-				$aValues = array();
+				$aValues = [];
 
-				if (! empty($aFormData['products'][$i]) && ! empty($aProductsAccessories[$aFormData['products'][$i]]))
+				if (!empty($aFormData['products'][$i]) && !empty($aProductsAccessories[$aFormData['products'][$i]]))
 				{
 					$aValues = array_flip($aProductsAccessories[$aFormData['products'][$i]]);
 				}
 
-				$sValue = ($bHasAccessories && ! empty($aFormData['accessories'][$i][$j]) ? $aFormData['accessories'][$i][$j] : '');
-				$sQuantity = ($bHasAccessories && ! empty($aFormData['accessory_quantity'][$i][$j]) ? $aFormData['accessory_quantity'][$i][$j] : '');
+				$sValue = ($bHasAccessories && !empty($aFormData['accessories'][$i][$j]) ? $aFormData['accessories'][$i][$j] : '');
+				$sQuantity = ($bHasAccessories && !empty($aFormData['accessory_quantity'][$i][$j]) ? $aFormData['accessory_quantity'][$i][$j] : '');
 
 				?>
 				<div id="accessory_wrapper_<?php echo $i ?>_<?php echo $j ?>"

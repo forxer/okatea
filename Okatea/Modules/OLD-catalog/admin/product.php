@@ -10,7 +10,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Misc\Utilities;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -55,7 +55,7 @@ if ($okt->catalog->config->seo_enable)
 }
 
 # update product ?
-if (! empty($_REQUEST['product_id']))
+if (!empty($_REQUEST['product_id']))
 {
 	$product_id = intval($_REQUEST['product_id']);
 	
@@ -124,60 +124,60 @@ if (! empty($_REQUEST['product_id']))
 ----------------------------------------------------------*/
 
 # switch product status
-if (! empty($_GET['switch_status']) && ! empty($product_id))
+if (!empty($_GET['switch_status']) && !empty($product_id))
 {
 	$okt->catalog->switchProdStatus($product_id);
 	http::redirect('module.php?m=catalog&action=edit&product_id=' . $product_id . '&switched=1');
 }
 
 # suppression d'une image
-if (! empty($_GET['delete_image']) && ! empty($product_id) && $can_edit_product)
+if (!empty($_GET['delete_image']) && !empty($product_id) && $can_edit_product)
 {
 	$okt->catalog->deleteImage($product_id, $_GET['delete_image']);
 	http::redirect('module.php?m=catalog&action=edit&product_id=' . $product_id . '&edited=1');
 }
 
 # suppression d'un fichier
-if (! empty($_GET['delete_file']) && ! empty($product_id) && $can_edit_product)
+if (!empty($_GET['delete_file']) && !empty($product_id) && $can_edit_product)
 {
 	$okt->catalog->deleteFile($product_id, $_GET['delete_file']);
 	http::redirect('module.php?m=catalog&action=edit&product_id=' . $product_id . '&edited=1');
 }
 
 # add/update product
-if (! empty($_POST['sended']))
+if (!empty($_POST['sended']))
 {
 	$product_data = array(
 		'id' => $product_id,
-		'category_id' => (! empty($_POST['p_category_id']) ? intval($_POST['p_category_id']) : 0),
-		'visibility' => (! empty($_POST['p_visibility']) ? intval($_POST['p_visibility']) : $product_data['visibility']),
-		'title' => (! empty($_POST['p_title']) ? $_POST['p_title'] : ''),
-		'subtitle' => (! empty($_POST['p_subtitle']) ? $_POST['p_subtitle'] : ''),
-		'content' => (! empty($_POST['p_content']) ? $_POST['p_content'] : ''),
-		'content_short' => (! empty($_POST['p_content_short']) ? $_POST['p_content_short'] : ''),
-		'price' => (! empty($_POST['p_price']) ? Utilities::sysNumber($_POST['p_price']) : null),
-		'price_promo' => (! empty($_POST['p_price_promo']) ? Utilities::sysNumber($_POST['p_price_promo']) : null),
+		'category_id' => (!empty($_POST['p_category_id']) ? intval($_POST['p_category_id']) : 0),
+		'visibility' => (!empty($_POST['p_visibility']) ? intval($_POST['p_visibility']) : $product_data['visibility']),
+		'title' => (!empty($_POST['p_title']) ? $_POST['p_title'] : ''),
+		'subtitle' => (!empty($_POST['p_subtitle']) ? $_POST['p_subtitle'] : ''),
+		'content' => (!empty($_POST['p_content']) ? $_POST['p_content'] : ''),
+		'content_short' => (!empty($_POST['p_content_short']) ? $_POST['p_content_short'] : ''),
+		'price' => (!empty($_POST['p_price']) ? Utilities::sysNumber($_POST['p_price']) : null),
+		'price_promo' => (!empty($_POST['p_price_promo']) ? Utilities::sysNumber($_POST['p_price_promo']) : null),
 		
 		# statut du product
-		'promo' => (! empty($_POST['p_promo']) ? intval($_POST['p_promo']) : null),
-		'promo_start' => (! empty($_POST['p_promo_start']) ? MySqli::formatDateTime($_POST['p_promo_start']) : null),
-		'promo_end' => (! empty($_POST['p_promo_end']) ? MySqli::formatDateTime($_POST['p_promo_end']) : null),
+		'promo' => (!empty($_POST['p_promo']) ? intval($_POST['p_promo']) : null),
+		'promo_start' => (!empty($_POST['p_promo_start']) ? MySqli::formatDateTime($_POST['p_promo_start']) : null),
+		'promo_end' => (!empty($_POST['p_promo_end']) ? MySqli::formatDateTime($_POST['p_promo_end']) : null),
 		
-		'nouvo' => (! empty($_POST['p_nouvo']) ? intval($_POST['p_nouvo']) : null),
-		'nouvo_start' => (! empty($_POST['p_nouvo_start']) ? MySqli::formatDateTime($_POST['p_nouvo_start']) : null),
-		'nouvo_end' => (! empty($_POST['p_nouvo_end']) ? MySqli::formatDateTime($_POST['p_nouvo_end']) : null),
+		'nouvo' => (!empty($_POST['p_nouvo']) ? intval($_POST['p_nouvo']) : null),
+		'nouvo_start' => (!empty($_POST['p_nouvo_start']) ? MySqli::formatDateTime($_POST['p_nouvo_start']) : null),
+		'nouvo_end' => (!empty($_POST['p_nouvo_end']) ? MySqli::formatDateTime($_POST['p_nouvo_end']) : null),
 		
-		'favo' => (! empty($_POST['p_favo']) ? intval($_POST['p_favo']) : null),
-		'favo_start' => (! empty($_POST['p_favo_start']) ? MySqli::formatDateTime($_POST['p_favo_start']) : null),
-		'favo_end' => (! empty($_POST['p_favo_end']) ? MySqli::formatDateTime($_POST['p_favo_end']) : null)
+		'favo' => (!empty($_POST['p_favo']) ? intval($_POST['p_favo']) : null),
+		'favo_start' => (!empty($_POST['p_favo_start']) ? MySqli::formatDateTime($_POST['p_favo_start']) : null),
+		'favo_end' => (!empty($_POST['p_favo_end']) ? MySqli::formatDateTime($_POST['p_favo_end']) : null)
 	);
 	
 	if ($okt->catalog->config->seo_enable)
 	{
-		$product_data['title_tag'] = (! empty($_POST['p_title_tag']) ? $_POST['p_title_tag'] : '');
-		$product_data['slug'] = (! empty($_POST['p_slug']) ? $_POST['p_slug'] : '');
-		$product_data['meta_description'] = (! empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '');
-		$product_data['meta_keywords'] = (! empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '');
+		$product_data['title_tag'] = (!empty($_POST['p_title_tag']) ? $_POST['p_title_tag'] : '');
+		$product_data['slug'] = (!empty($_POST['p_slug']) ? $_POST['p_slug'] : '');
+		$product_data['meta_description'] = (!empty($_POST['p_meta_description']) ? $_POST['p_meta_description'] : '');
+		$product_data['meta_keywords'] = (!empty($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : '');
 	}
 	
 	# add or update post
@@ -186,7 +186,7 @@ if (! empty($_POST['sended']))
 		$cursor = $okt->catalog->openCursor($product_data);
 		
 		# update product
-		if (! empty($product_id))
+		if (!empty($product_id))
 		{
 			# -- CORE TRIGGER : moduleNewsBeforeProdUpdate
 			$okt['triggers']->callTrigger('moduleNewsBeforeProdUpdate', $cursor, $product_id);
@@ -297,7 +297,7 @@ $okt->page->datePicker();
 $okt->page->applyRte($okt->catalog->config->rte_enable, '#p_content');
 
 # Réglages de la validation javascript
-$aValidateFieldsJs = array();
+$aValidateFieldsJs = [];
 
 $aValidateFieldsJs[] = array(
 	'id' => 'p_title',
@@ -543,7 +543,7 @@ echo $okt->page->getButtonSet('catalogBtSt');
 
 					<?php 
 # il y a une image ?
-				if (! empty($post_images[$i]))
+				if (!empty($post_images[$i]))
 				:
 					
 					# affichage square ou icon ?
@@ -610,7 +610,7 @@ echo $okt->page->getButtonSet('catalogBtSt');
 
 				<?php 
 # il y a un fichier ?
-				if (! empty($post_files[$i]))
+				if (!empty($post_files[$i]))
 				:
 					?>
 

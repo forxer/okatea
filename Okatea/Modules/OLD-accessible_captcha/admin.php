@@ -8,19 +8,19 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt['visitor']->checkPerm('accessible_captcha_config'))
+if (!$okt['visitor']->checkPerm('accessible_captcha_config'))
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
 
 # Les tableau ci-dessous contiendrons les textes localisés,
 # une langue par ligne avec le code langue comme index
-$aQuestions = array();
-$aAnswers = array();
+$aQuestions = [];
+$aAnswers = [];
 
 # Boucle sur la liste des langues disponibles
 # afin d'initialiser ces tableaux
@@ -34,16 +34,16 @@ foreach ($okt['languages']->getList() as $aLanguage)
 ----------------------------------------------------------*/
 
 # Formulaire envoyé
-if (! empty($_POST['manage_questions']))
+if (!empty($_POST['manage_questions']))
 {
 	foreach ($okt['languages']->getList() as $aLanguage)
 	{
-		$aQuestions[$aLanguage['code']] = ! empty($_POST['questions'][$aLanguage['code']]) ? $_POST['questions'][$aLanguage['code']] : array();
-		$aAnswers[$aLanguage['code']] = ! empty($_POST['reponses'][$aLanguage['code']]) ? $_POST['reponses'][$aLanguage['code']] : array();
+		$aQuestions[$aLanguage['code']] = !empty($_POST['questions'][$aLanguage['code']]) ? $_POST['questions'][$aLanguage['code']] : [];
+		$aAnswers[$aLanguage['code']] = !empty($_POST['reponses'][$aLanguage['code']]) ? $_POST['reponses'][$aLanguage['code']] : [];
 		
 		foreach ($aQuestions[$aLanguage['code']] as $cur_id => $data)
 		{
-			if (! empty($aQuestions[$aLanguage['code']][$cur_id]) && ! empty($aAnswers[$aLanguage['code']][$cur_id]))
+			if (!empty($aQuestions[$aLanguage['code']][$cur_id]) && !empty($aAnswers[$aLanguage['code']][$cur_id]))
 			{
 				$okt->accessible_captcha->edit($cur_id, $aQuestions[$aLanguage['code']][$cur_id], $aAnswers[$aLanguage['code']][$cur_id]);
 			}
@@ -53,7 +53,7 @@ if (! empty($_POST['manage_questions']))
 			}
 		}
 		
-		if (! empty($_POST['question_add'][$aLanguage['code']]) && ! empty($_POST['reponse_add'][$aLanguage['code']]))
+		if (!empty($_POST['question_add'][$aLanguage['code']]) && !empty($_POST['reponse_add'][$aLanguage['code']]))
 		{
 			$okt->accessible_captcha->add($_POST['question_add'][$aLanguage['code']], $_POST['reponse_add'][$aLanguage['code']], $aLanguage['code']);
 		}
@@ -65,13 +65,13 @@ if (! empty($_POST['manage_questions']))
 }
 
 # Configuration envoyée
-if (! empty($_POST['config_send']))
+if (!empty($_POST['config_send']))
 {
-	$p_ = ! empty($_POST['p_']) ? true : false;
+	$p_ = !empty($_POST['p_']) ? true : false;
 	
 	if ($okt->error->isEmpty())
 	{
-		$aNewConf = array();
+		$aNewConf = [];
 		
 		$okt->accessible_captcha->config->write($aNewConf);
 		

@@ -60,11 +60,11 @@ class EstimateProducts
 	 * @param boolean $count_only        	
 	 * @return object recordset/integer
 	 */
-	public function getProducts($params = array(), $count_only = false)
+	public function getProducts($params = [], $count_only = false)
 	{
 		$reqPlus = '';
 		
-		if (! empty($params['id']))
+		if (!empty($params['id']))
 		{
 			$reqPlus .= ' AND p.id=' . (integer) $params['id'] . ' ';
 		}
@@ -97,7 +97,7 @@ class EstimateProducts
 		{
 			$query = 'SELECT p.id, p.active, p.title ' . 'FROM ' . $this->t_products . ' AS p ' . 'WHERE 1 ' . $reqPlus;
 			
-			if (! empty($params['order']))
+			if (!empty($params['order']))
 			{
 				$query .= 'ORDER BY ' . $params['order'] . ' ';
 			}
@@ -106,7 +106,7 @@ class EstimateProducts
 				$query .= 'ORDER BY p.title ASC ';
 			}
 			
-			if (! empty($params['limit']))
+			if (!empty($params['limit']))
 			{
 				$query .= 'LIMIT ' . $params['limit'] . ' ';
 			}
@@ -120,7 +120,7 @@ class EstimateProducts
 			}
 			else
 			{
-				return new recordset(array());
+				return new recordset([]);
 			}
 		}
 		
@@ -174,14 +174,14 @@ class EstimateProducts
 	 */
 	public function addProduct($aData)
 	{
-		if (! $this->checkPostData($aData))
+		if (!$this->checkPostData($aData))
 		{
 			return false;
 		}
 		
 		$oCursor = $this->openCursor($aData);
 		
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			return false;
 		}
@@ -197,20 +197,20 @@ class EstimateProducts
 	 */
 	public function updProduct($aData)
 	{
-		if (! $this->productExists($aData['id']))
+		if (!$this->productExists($aData['id']))
 		{
 			$this->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $aData['id']));
 			return false;
 		}
 		
-		if (! $this->checkPostData($aData))
+		if (!$this->checkPostData($aData))
 		{
 			return false;
 		}
 		
 		$oCursor = $this->openCursor($aData);
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $aData['id']))
+		if (!$oCursor->update('WHERE id=' . (integer) $aData['id']))
 		{
 			return false;
 		}
@@ -226,7 +226,7 @@ class EstimateProducts
 	 */
 	public function switchProductStatus($id)
 	{
-		if (! $this->productExists($id))
+		if (!$this->productExists($id))
 		{
 			$this->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $id));
 			return false;
@@ -234,7 +234,7 @@ class EstimateProducts
 		
 		$query = 'UPDATE ' . $this->t_products . ' SET ' . 'active = 1-active ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -250,7 +250,7 @@ class EstimateProducts
 	 */
 	public function delProduct($id)
 	{
-		if (! $this->productExists($id))
+		if (!$this->productExists($id))
 		{
 			$this->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $id));
 			return false;
@@ -258,7 +258,7 @@ class EstimateProducts
 		
 		$query = 'DELETE FROM ' . $this->t_products . ' ' . 'WHERE id=' . (integer) $id;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -278,7 +278,7 @@ class EstimateProducts
 	{
 		$oCursor = $this->db->openCursor($this->t_products);
 		
-		if (! empty($aData) && is_array($aData))
+		if (!empty($aData) && is_array($aData))
 		{
 			foreach ($aData as $k => $v)
 			{

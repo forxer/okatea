@@ -64,31 +64,31 @@ $okt->page->tabs();
 				$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 				$count_line ++;
 				
-				if (! $aWebsiteRouteInfos['loaded'])
+				if (!$aWebsiteRouteInfos['loaded'])
 				{
 					$td_class = ' disabled';
 				}
 				
-				$aOthersOptions = array();
+				$aOthersOptions = [];
 				
-				if (! empty($aWebsiteRouteInfos['options']))
+				if (!empty($aWebsiteRouteInfos['options']))
 				{
 					$oOptions = new Stack($aWebsiteRouteInfos['options']);
 					$aOthersOptions[__('c_a_config_router_route_options')] = $oOptions->getHTML();
 				}
 				
-				if (! empty($aWebsiteRouteInfos['host']))
+				if (!empty($aWebsiteRouteInfos['host']))
 				{
 					$aOthersOptions[__('c_a_config_router_route_host')] = $aWebsiteRouteInfos['host'];
 				}
 				
-				if (! empty($aWebsiteRouteInfos['schemes']))
+				if (!empty($aWebsiteRouteInfos['schemes']))
 				{
 					$oSchemes = new Stack($aWebsiteRouteInfos['schemes']);
 					$aOthersOptions[__('c_a_config_router_route_schemes')] = $oSchemes->getHTML();
 				}
 				
-				if (! empty($aWebsiteRouteInfos['methods']))
+				if (!empty($aWebsiteRouteInfos['methods']))
 				{
 					$oMethods = new Stack($aWebsiteRouteInfos['methods']);
 					$aOthersOptions[__('c_a_config_router_route_methods')] = $oMethods->getHTML();
@@ -150,26 +150,26 @@ $okt->page->tabs();
 				$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 				$count_line ++;
 				
-				$aOthersOptions = array();
+				$aOthersOptions = [];
 				
-				if (! empty($aAdminRouteInfos['options']))
+				if (!empty($aAdminRouteInfos['options']))
 				{
 					$oOptions = new Stack($aAdminRouteInfos['options']);
 					$aOthersOptions[__('c_a_config_router_route_options')] = $oOptions->getHTML();
 				}
 				
-				if (! empty($aAdminRouteInfos['host']))
+				if (!empty($aAdminRouteInfos['host']))
 				{
 					$aOthersOptions[__('c_a_config_router_route_host')] = $aAdminRouteInfos['host'];
 				}
 				
-				if (! empty($aAdminRouteInfos['schemes']))
+				if (!empty($aAdminRouteInfos['schemes']))
 				{
 					$oSchemes = new Stack($aAdminRouteInfos['schemes']);
 					$aOthersOptions[__('c_a_config_router_route_schemes')] = $oSchemes->getHTML();
 				}
 				
-				if (! empty($aAdminRouteInfos['methods']))
+				if (!empty($aAdminRouteInfos['methods']))
 				{
 					$oMethods = new Stack($aAdminRouteInfos['methods']);
 					$aOthersOptions[__('c_a_config_router_route_methods')] = $oMethods->getHTML();

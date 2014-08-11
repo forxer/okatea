@@ -80,7 +80,7 @@ else
 
 	<?php 
 # Okatea : si il y a des sous-galeries à afficher
-	if (! $rsSubGalleries->isEmpty())
+	if (!$rsSubGalleries->isEmpty())
 	:
 		?>
 
@@ -103,7 +103,7 @@ else
 
 			<?php 
 # début Okatea : affichage image de la sous-galerie
-			if (! empty($rsSubGalleries->image) && isset($rsSubGalleries->image['min_url']))
+			if (!empty($rsSubGalleries->image) && isset($rsSubGalleries->image['min_url']))
 			:
 				?>
 
@@ -159,7 +159,7 @@ else
 
 	<?php 
 # début Okatea : si il y a des éléments on affiche la liste de ces éléments
-	if (! $rsItems->isEmpty())
+	if (!$rsItems->isEmpty())
 	:
 		?>
 
@@ -182,7 +182,7 @@ else
 
 			<?php 
 # début Okatea : affichage image
-			if (! empty($rsItems->image) && isset($rsItems->image['min_url']))
+			if (!empty($rsItems->image) && isset($rsItems->image['min_url']))
 			:
 				?>
 

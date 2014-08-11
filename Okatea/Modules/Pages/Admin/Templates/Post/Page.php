@@ -40,7 +40,7 @@ $okt->page->setButtonset('pagesBtSt', array(
 ));
 
 # boutons update page
-if (! empty($aPageData['post']['id']))
+if (!empty($aPageData['post']['id']))
 {
 	$okt->page->addGlobalTitle(__('m_pages_page_edit_a_page'));
 	
@@ -63,7 +63,7 @@ if (! empty($aPageData['post']['id']))
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_pages_page_delete_confirm')) . '\')'
 	));
 	# bouton vers la page côté public si publié
-	if (! empty($aPageData['locales'][$okt['visitor']->language]['slug']))
+	if (!empty($aPageData['locales'][$okt['visitor']->language]['slug']))
 	{
 		$okt->page->addButton('pagesBtSt', array(
 			'permission' => ($aPageData['post']['active'] ? true : false),
@@ -95,7 +95,7 @@ $okt->page->applyLbl($okt->module('Pages')->config->lightbox_type);
 $okt->page->applyRte($okt->module('Pages')->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

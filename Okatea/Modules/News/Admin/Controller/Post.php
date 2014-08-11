@@ -260,7 +260,7 @@ class Post extends Controller
 		# Données de l'article
 		$this->aPostData = new ArrayObject();
 		
-		$this->aPostData['post'] = array();
+		$this->aPostData['post'] = [];
 		$this->aPostData['post']['id'] = null;
 		
 		$this->aPostData['post']['category_id'] = 0;
@@ -271,21 +271,21 @@ class Post extends Controller
 		$this->aPostData['post']['updated_at'] = '';
 		
 		# If user can't publish
-		if (! $this->aPermissions['bCanPublish'])
+		if (!$this->aPermissions['bCanPublish'])
 		{
 			$this->aPostData['post']['active'] = 2;
 		}
 		
-		$this->aPostData['extra'] = array();
+		$this->aPostData['extra'] = [];
 		$this->aPostData['extra']['date'] = '';
 		$this->aPostData['extra']['hours'] = '';
 		$this->aPostData['extra']['minutes'] = '';
 		
-		$this->aPostData['locales'] = array();
+		$this->aPostData['locales'] = [];
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$this->aPostData['locales'][$aLanguage['code']] = array();
+			$this->aPostData['locales'][$aLanguage['code']] = [];
 			
 			$this->aPostData['locales'][$aLanguage['code']]['title'] = '';
 			$this->aPostData['locales'][$aLanguage['code']]['subtitle'] = '';
@@ -304,8 +304,8 @@ class Post extends Controller
 		$this->aPostData['perms'] = array(
 			0
 		);
-		$this->aPostData['images'] = array();
-		$this->aPostData['files'] = array();
+		$this->aPostData['images'] = [];
+		$this->aPostData['files'] = [];
 		
 		$rsPost = null;
 		$rsPostI18n = null;
@@ -316,7 +316,7 @@ class Post extends Controller
 
 	protected function populateDataFromPost()
 	{
-		if (! $this->okt['request']->request->has('sended') || ! $this->aPermissions['bCanEditPost'])
+		if (!$this->okt['request']->request->has('sended') || !$this->aPermissions['bCanEditPost'])
 		{
 			return false;
 		}
@@ -330,9 +330,9 @@ class Post extends Controller
 		$this->aPostData['extra']['hours'] = $this->okt['request']->request->getInt('p_hours');
 		$this->aPostData['extra']['minutes'] = $this->okt['request']->request->getInt('p_minutes');
 		
-		if (! empty($this->aPostData['extra']['date']))
+		if (!empty($this->aPostData['extra']['date']))
 		{
-			$this->aPostData['post']['created_at'] = $this->aPostData['extra']['date'] . ' ' . (! empty($this->aPostData['extra']['hours']) ? $this->aPostData['extra']['hours'] : date('H')) . ':' . (! empty($this->aPostData['extra']['minutes']) ? $this->aPostData['extra']['minutes'] : date('i'));
+			$this->aPostData['post']['created_at'] = $this->aPostData['extra']['date'] . ' ' . (!empty($this->aPostData['extra']['hours']) ? $this->aPostData['extra']['hours'] : date('H')) . ':' . (!empty($this->aPostData['extra']['minutes']) ? $this->aPostData['extra']['minutes'] : date('i'));
 		}
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
@@ -351,7 +351,7 @@ class Post extends Controller
 			}
 		}
 		
-		$this->aPostData['perms'] = $this->okt['request']->request->get('perms', array());
+		$this->aPostData['perms'] = $this->okt['request']->request->get('perms', []);
 		
 		# -- TRIGGER MODULE NEWS : adminPopulateData
 		$this->okt->module('News')->triggers->callTrigger('adminPopulateData', $this->aPostData);

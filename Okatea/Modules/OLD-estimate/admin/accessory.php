@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# chargement des locales
@@ -19,14 +19,14 @@ $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.products');
 ----------------------------------------------------------*/
 
 $iAccessoryId = null;
-$iProductId = ! empty($_REQUEST['product_id']) ? intval($_REQUEST['product_id']) : null;
+$iProductId = !empty($_REQUEST['product_id']) ? intval($_REQUEST['product_id']) : null;
 
 $sBackUrl = 'module.php?m=estimate&amp;action=accessories';
 $sBaseUrl = 'module.php?m=estimate&amp;action=accessory';
 
-if (! empty($iProductId))
+if (!empty($iProductId))
 {
-	if (! $okt->estimate->products->productExists($iProductId))
+	if (!$okt->estimate->products->productExists($iProductId))
 	{
 		$okt->error->set(sprintf(__('m_estimate_product_%s_not_exists'), $iProductId));
 		$iProductId = null;
@@ -39,7 +39,7 @@ if (! empty($iProductId))
 
 function appendIdsToUrl($sUrl, $iProductId, $iAccessoryId)
 {
-	return $sUrl . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : '') . (! empty($iAccessoryId) ? '&amp;accessory_id=' . $iAccessoryId : '');
+	return $sUrl . (!empty($iProductId) ? '&amp;product_id=' . $iProductId : '') . (!empty($iAccessoryId) ? '&amp;accessory_id=' . $iAccessoryId : '');
 }
 
 $aAccessoryData = array(
@@ -49,7 +49,7 @@ $aAccessoryData = array(
 );
 
 # update an accessory ?
-if (! empty($_REQUEST['accessory_id']))
+if (!empty($_REQUEST['accessory_id']))
 {
 	$iAccessoryId = intval($_REQUEST['accessory_id']);
 	
@@ -74,16 +74,16 @@ if (! empty($_REQUEST['accessory_id']))
 ----------------------------------------------------------*/
 
 #  ajout / modifications d'un accessoire
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	$aAccessoryData = array(
-		'active' => ! empty($_POST['p_active']) ? 1 : 0,
-		'title' => ! empty($_POST['p_title']) ? $_POST['p_title'] : '',
-		'product_id' => ! empty($_POST['p_product_id']) ? $_POST['p_product_id'] : null
+		'active' => !empty($_POST['p_active']) ? 1 : 0,
+		'title' => !empty($_POST['p_title']) ? $_POST['p_title'] : '',
+		'product_id' => !empty($_POST['p_product_id']) ? $_POST['p_product_id'] : null
 	);
 	
 	# update accessory
-	if (! empty($iAccessoryId))
+	if (!empty($iAccessoryId))
 	{
 		$aAccessoryData['id'] = $iAccessoryId;
 		
@@ -96,14 +96,14 @@ if (! empty($_POST['form_sent']))
 				'message' => 'accessory #' . $iAccessoryId
 			));
 			
-			if (! empty($aAccessoryData['product_id']) && ! empty($iProductId) && $aAccessoryData['product_id'] != $iProductId)
+			if (!empty($aAccessoryData['product_id']) && !empty($iProductId) && $aAccessoryData['product_id'] != $iProductId)
 			{
 				$iProductId = $aAccessoryData['product_id'];
 			}
 			
 			$okt['flashMessages']->success(__('m_estimate_accessory_modified'));
 			
-			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
+			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (!empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
 		}
 	}
 	
@@ -121,7 +121,7 @@ if (! empty($_POST['form_sent']))
 			
 			$okt['flashMessages']->success(__('m_estimate_accessory_added'));
 			
-			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
+			http::redirect($sBaseUrl . '&amp;accessory_id=' . $iAccessoryId . (!empty($iProductId) ? '&amp;product_id=' . $iProductId : ''));
 		}
 	}
 }
@@ -145,7 +145,7 @@ unset($rsProducts);
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_estimate_accessories'), 'module.php?m=estimate&action=accessories');
 
-if (! empty($iAccessoryId))
+if (!empty($iAccessoryId))
 {
 	$okt->page->addGlobalTitle(__('m_estimate_edit_accessory'));
 }
@@ -173,7 +173,7 @@ if ($iAccessoryId)
 	$okt->page->addButton('estimateAccessoryBtSt', array(
 		'permission' => true,
 		'title' => __('m_estimate_add_accessory'),
-		'url' => $sBaseUrl . (! empty($iProductId) ? '&amp;product_id=' . $iProductId : ''),
+		'url' => $sBaseUrl . (!empty($iProductId) ? '&amp;product_id=' . $iProductId : ''),
 		'ui-icon' => 'plusthick'
 	));
 }

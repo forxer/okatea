@@ -38,7 +38,7 @@ $okt->page->applyLbl($okt->diary->config->lightbox_type);
 
 	<?php 
 # début Okatea : si les images sont activées
-	if ($okt->diary->config->images['enable'] && ! empty($rsEvent->images))
+	if ($okt->diary->config->images['enable'] && !empty($rsEvent->images))
 	:
 		?>
 	<p id="diary-images" class="modal-box">

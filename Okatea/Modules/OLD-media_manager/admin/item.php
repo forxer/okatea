@@ -11,15 +11,15 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
 $file = null;
-$popup = (integer) ! empty($_GET['popup']);
+$popup = (integer) !empty($_GET['popup']);
 $page_url = 'module.php?m=media_manager&action=item&popup=' . $popup;
 $media_page_url = 'module.php?m=media_manager&popup=' . $popup;
 
-$id = ! empty($_REQUEST['id']) ? (integer) $_REQUEST['id'] : '';
+$id = !empty($_REQUEST['id']) ? (integer) $_REQUEST['id'] : '';
 
 $core_media_writable = false;
 try
@@ -40,7 +40,7 @@ try
 	$core_media_writable = $okt->media->writable();
 	
 	# Prepare directories combo box
-	$dirs_combo = array();
+	$dirs_combo = [];
 	foreach ($okt->media->getRootDirs() as $v)
 	{
 		if ($v->w)
@@ -56,7 +56,7 @@ catch (\Exception $e)
 }
 
 # Upload a new file
-if ($file && ! empty($_FILES['upfile']) && $file->editable && $core_media_writable)
+if ($file && !empty($_FILES['upfile']) && $file->editable && $core_media_writable)
 {
 	try
 	{
@@ -75,7 +75,7 @@ if ($file && ! empty($_FILES['upfile']) && $file->editable && $core_media_writab
 }
 
 # Update file
-if ($file && ! empty($_POST['media_file']) && $file->editable && $core_media_writable)
+if ($file && !empty($_POST['media_file']) && $file->editable && $core_media_writable)
 {
 	$newFile = clone $file;
 	
@@ -94,7 +94,7 @@ if ($file && ! empty($_POST['media_file']) && $file->editable && $core_media_wri
 	$newFile->media_title = $_POST['media_title'];
 	$newFile->media_dt = strtotime($_POST['media_dt']);
 	$newFile->media_dtstr = $_POST['media_dt'];
-	$newFile->media_priv = ! empty($_POST['media_private']);
+	$newFile->media_priv = !empty($_POST['media_private']);
 	
 	try
 	{
@@ -111,7 +111,7 @@ if ($file && ! empty($_POST['media_file']) && $file->editable && $core_media_wri
 }
 
 # Update thumbnails
-if (! empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable && $core_media_writable)
+if (!empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable && $core_media_writable)
 {
 	try
 	{
@@ -128,7 +128,7 @@ if (! empty($_POST['thumbs']) && $file->media_type == 'image' && $file->editable
 }
 
 # Unzip file
-if (! empty($_POST['unzip']) && $file->type == 'application/zip' && $file->editable && $core_media_writable)
+if (!empty($_POST['unzip']) && $file->type == 'application/zip' && $file->editable && $core_media_writable)
 {
 	try
 	{
@@ -148,7 +148,7 @@ if (! empty($_POST['unzip']) && $file->type == 'application/zip' && $file->edita
 function dcGetImageTitle($file, $pattern)
 {
 	return $file->media_title;
-	$res = array();
+	$res = [];
 	$pattern = preg_split('/\s*;;\s*/', $pattern);
 	$sep = ', ';
 	
@@ -321,7 +321,7 @@ if ($popup)
 			), html::escapeHTML($v), $s_checked) . ' ' . __($okt->media->thumb_sizes[$s][2]) . '</label><br /> ';
 		}
 		
-		$s_checked = (! isset($file->media_thumb['m']));
+		$s_checked = (!isset($file->media_thumb['m']));
 		echo '<label class="classic">' . form::radio(array(
 			'src'
 		), $file->file_url, $s_checked) . ' ' . __('original') . '</label><br /> ';
@@ -439,9 +439,9 @@ echo '<div id="media-details">';
 
 if ($file->media_image)
 {
-	$thumb_size = ! empty($_GET['size']) ? $_GET['size'] : 's';
+	$thumb_size = !empty($_GET['size']) ? $_GET['size'] : 's';
 	
-	if (! isset($okt->media->thumb_sizes[$thumb_size]) && $thumb_size != 'o')
+	if (!isset($okt->media->thumb_sizes[$thumb_size]) && $thumb_size != 'o')
 	{
 		$thumb_size = 's';
 	}

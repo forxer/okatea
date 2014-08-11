@@ -9,7 +9,7 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 use Okatea\Tao\Users\Authentification;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -31,7 +31,7 @@ $params = array(
 
 $rsGroups = $okt->users->getGroups($params);
 
-$aGroups = array();
+$aGroups = [];
 while ($rsGroups->fetch())
 {
 	$aGroups[$rsGroups->group_id] = $rsGroups->title;
@@ -39,18 +39,18 @@ while ($rsGroups->fetch())
 
 unset($rsGroups);
 
-$p_group = array();
-$p_field = array();
+$p_group = [];
+$p_field = [];
 $p_format = null;
 
 /* Traitements
 ----------------------------------------------------------*/
 
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_group = ! empty($_POST['p_group']) && is_array($_POST['p_group']) ? array_map('intval', $_POST['p_group']) : array();
-	$p_field = ! empty($_POST['p_field']) && is_array($_POST['p_field']) ? $_POST['p_field'] : array();
-	$p_format = ! empty($_POST['p_format']) && array_key_exists($_POST['p_format'], $aAllowedFormats) ? $_POST['p_format'] : null;
+	$p_group = !empty($_POST['p_group']) && is_array($_POST['p_group']) ? array_map('intval', $_POST['p_group']) : [];
+	$p_field = !empty($_POST['p_field']) && is_array($_POST['p_field']) ? $_POST['p_field'] : [];
+	$p_format = !empty($_POST['p_format']) && array_key_exists($_POST['p_format'], $aAllowedFormats) ? $_POST['p_format'] : null;
 	
 	# we need at least one group
 	if (empty($p_group))
@@ -61,7 +61,7 @@ if (! empty($_POST['form_sent']))
 	{
 		foreach ($p_group as $gid)
 		{
-			if (! array_key_exists($gid, $aGroups))
+			if (!array_key_exists($gid, $aGroups))
 			{
 				$okt->error->set(sprintf(__('m_users_group_%s_not_exportable'), $gid));
 			}
@@ -77,7 +77,7 @@ if (! empty($_POST['form_sent']))
 	{
 		foreach ($p_field as $field)
 		{
-			if (! array_key_exists($field, $aAllowedFields))
+			if (!array_key_exists($field, $aAllowedFields))
 			{
 				$okt->error->set(sprinf(__('m_users_data_type_%s_not_exportable'), html::escapeHTML($field)));
 			}

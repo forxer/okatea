@@ -234,12 +234,12 @@ class Modifiers
 		$string = str_replace("'", ' ', $string);
 		$string = preg_replace('/[\s]+/u', ' ', trim($string));
 		
-		if (! $bKeepSlashes)
+		if (!$bKeepSlashes)
 		{
 			$string = str_replace('/', '-', $string);
 		}
 		
-		if (! $bKeepSpaces)
+		if (!$bKeepSpaces)
 		{
 			$string = str_replace(' ', '-', $string);
 		}
@@ -277,7 +277,7 @@ class Modifiers
 			}
 			return $match[1];
 		}
-		return array();
+		return [];
 	}
 
 	/**
@@ -312,12 +312,12 @@ class Modifiers
 		{
 			$length -= min($length, mb_strlen($etc));
 			
-			if (! $bBreakWords && ! $bMiddle)
+			if (!$bBreakWords && !$bMiddle)
 			{
 				$string = preg_replace('/\s+?(\S+)?$/u', '', mb_substr($string, 0, $length + 1));
 			}
 			
-			if (! $bMiddle)
+			if (!$bMiddle)
 			{
 				return mb_substr($string, 0, $length) . $etc;
 			}

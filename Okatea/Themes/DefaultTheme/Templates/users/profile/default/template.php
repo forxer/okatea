@@ -148,7 +148,7 @@ if ($okt['config']->users['custom_fields_enabled'])
 
 		<?php 
 # début Okatea : affichage des champs "username" et "email" distincts
-		if (! $okt['config']->users['registration']['merge_username_email'])
+		if (!$okt['config']->users['registration']['merge_username_email'])
 		:
 			?>
 			<p class="field col">

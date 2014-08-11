@@ -3,7 +3,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 
 = KEY ====================
 	# Breaks back-compat
-	! Feature
+	!Feature
 	- Bugfix
 		+ Sub-comment
 	. Internal change
@@ -13,7 +13,7 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 2.0-beta6
 # introduce Pimple DIC
 # introduce Doctrine DBAL
-! installation interface improvements
+!installation interface improvements
 - Connexion -> Connection
 
 
@@ -21,10 +21,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # new way to load locales
 # use Carbon and Intl for displaying localized dates
 # removed dotclear/clearbricks
-! installation interface improvements
-! use of patchwork/utf8
-! reintroduced Contact module
-! new CKEditor module
+!installation interface improvements
+!use of patchwork/utf8
+!reintroduced Contact module
+!new CKEditor module
 - many bugs fixes
 
 
@@ -51,10 +51,10 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 # replace PHPThumb by Imagine
 # refactor flash messages device
 # change Yaml files extension .yaml to .yml
-! implement Symfony HttpFoundation
-! new Builder module to make releases packages
-! remove version file and move changelog file for security reasons
-! add the ability to customise the software name
+!implement Symfony HttpFoundation
+!new Builder module to make releases packages
+!remove version file and move changelog file for security reasons
+!add the ability to customise the software name
 
 
 2.0-beta2 (2013-12-08)
@@ -62,8 +62,8 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 where moved to oktInc/Tao and follow psr-0
 # remove oktCore::redirect
 # remove methods deprecated in 1.0
-! show debug mode enabled info
-! remove unused dev and debug panels from config page
+!show debug mode enabled info
+!remove unused dev and debug panels from config page
 . replace Clearbricks netHttp by Guzzle
 
 
@@ -77,15 +77,15 @@ where moved to oktInc/Tao and follow psr-0
 
 
 1.0 (2013-11-26)
-! improve perfs by replacing somes functions by PHP natives ones
-! add captchas to estimate module
+!improve perfs by replacing somes functions by PHP natives ones
+!add captchas to estimate module
 
 
 1.0.BETA.5 (2013-11-24)
 # new famfamfam sprites (replace previous ones)
-! new tinyMCE 4 module
-! new estimate module
-! superadmin can now remove admin logs
+!new tinyMCE 4 module
+!new estimate module
+!superadmin can now remove admin logs
 - bug fixes introduced in the previous beta
 - remove buggy switch admin view feature
 - fix jQuery UI upload custom theme
@@ -94,11 +94,11 @@ where moved to oktInc/Tao and follow psr-0
 
 1.0.BETA.4 (2013-11-14)
 # refactor variables names of emails configuration
-! can now use external links in navigation menus
-! add navigation items proper recordset
-! HTML5 Shiv 3.7.0
-! jQuery mousewheel 3.1.4
-! jQuery Spectrum Colorpicker 1.1.2
+!can now use external links in navigation menus
+!add navigation items proper recordset
+!HTML5 Shiv 3.7.0
+!jQuery mousewheel 3.1.4
+!jQuery Spectrum Colorpicker 1.1.2
 - website title and emails addresses are required
 - fix news URL
 - fix pcre bug on windows
@@ -106,13 +106,13 @@ where moved to oktInc/Tao and follow psr-0
 
 
 1.0.BETA.3 (2013-11-05)
-! new breadcrumb policy
-! introduce flash messages
-! introduce navigation menus management
-! Okatea theme changes
-! CodeMirror 3.19
-! jQuery Cookie 1.4.0
-! jQuery blockUI 2.66
+!new breadcrumb policy
+!introduce flash messages
+!introduce navigation menus management
+!Okatea theme changes
+!CodeMirror 3.19
+!jQuery Cookie 1.4.0
+!jQuery blockUI 2.66
 . deletion of old stuff
 
 
@@ -121,14 +121,14 @@ where moved to oktInc/Tao and follow psr-0
 # new registerModule signature
 # rename "modules" table in "core_modules"
 # move cache, common, conf, logs, and upload dirs
-! Okatea is released under the MIT License
-! strengthening cryptography by using new password_* natives functions
-! CodeMirror 3.15
-! jQuery select2 3.4.2
-! jQuery mousewheel 3.1.3
+!Okatea is released under the MIT License
+!strengthening cryptography by using new password_* natives functions
+!CodeMirror 3.15
+!jQuery select2 3.4.2
+!jQuery mousewheel 3.1.3
 . move VERSION and CHANGELOG files from oktDoc directory to root application
 . deletion of old stuff
 
 
 1.0.BETA.1 (2013-08-13)
-! first public release
+!first public release

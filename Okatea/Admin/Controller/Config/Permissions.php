@@ -49,7 +49,7 @@ class Permissions extends Controller
 
 			foreach ($aGroups as $group_id => $group_title)
 			{
-				$group_perms = ! empty($perms[$group_id]) ? array_keys($perms[$group_id]) : [];
+				$group_perms = !empty($perms[$group_id]) ? array_keys($perms[$group_id]) : [];
 
 				$this->okt['groups']->updGroupPerms($group_id, $group_perms);
 			}

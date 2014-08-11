@@ -134,7 +134,7 @@ if ($iNumFilteredPosts == 0)
 
 <?php
 # Si on as des pages à afficher
-if (! $rsPages->isEmpty())
+if (!$rsPages->isEmpty())
 :
 	?>
 
@@ -184,7 +184,7 @@ if (! $rsPages->isEmpty())
 		if ($okt->module('Pages')->config->enable_group_perms)
 		:
 
-			$aGroupsAccess = array();
+			$aGroupsAccess = [];
 			$aPerms = $okt->module('Pages')->pages->getPagePermissions($rsPages->id);
 			foreach ($aPerms as $iPerm)
 			{

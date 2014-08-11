@@ -10,7 +10,7 @@ use Okatea\Tao\Images\ImageUploadConfig;
 use Okatea\Tao\Themes\TemplatesSet;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -42,7 +42,7 @@ $oTemplatesItem = new TemplatesSet($okt, $okt->galleries->config->templates['ite
 ----------------------------------------------------------*/
 
 # régénération des miniatures
-if (! empty($_GET['item_minregen']))
+if (!empty($_GET['item_minregen']))
 {
 	$okt->galleries->items->regenMinImages();
 	
@@ -50,7 +50,7 @@ if (! empty($_GET['item_minregen']))
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
-if (! empty($_GET['gallery_minregen']))
+if (!empty($_GET['gallery_minregen']))
 {
 	$okt->galleries->tree->regenMinImages();
 	
@@ -60,7 +60,7 @@ if (! empty($_GET['gallery_minregen']))
 }
 
 # suppression filigrane
-if (! empty($_GET['item_delete_watermark']))
+if (!empty($_GET['item_delete_watermark']))
 {
 	$okt->galleries->config->write(array(
 		'images' => $oItemImageUploadConfig->removeWatermak()
@@ -70,7 +70,7 @@ if (! empty($_GET['item_delete_watermark']))
 	
 	http::redirect('module.php?m=galleries&action=config');
 }
-if (! empty($_GET['gallery_delete_watermark']))
+if (!empty($_GET['gallery_delete_watermark']))
 {
 	$okt->galleries->config->write(array(
 		'images_gal' => $oGalleryImageUploadConfig->removeWatermak()
@@ -82,23 +82,23 @@ if (! empty($_GET['gallery_delete_watermark']))
 }
 
 # enregistrement configuration
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
-	$p_name = ! empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : array();
-	$p_name_seo = ! empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : array();
-	$p_title = ! empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : array();
-	$p_meta_description = ! empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : array();
-	$p_meta_keywords = ! empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : array();
+	$p_name = !empty($_POST['p_name']) && is_array($_POST['p_name']) ? $_POST['p_name'] : [];
+	$p_name_seo = !empty($_POST['p_name_seo']) && is_array($_POST['p_name_seo']) ? $_POST['p_name_seo'] : [];
+	$p_title = !empty($_POST['p_title']) && is_array($_POST['p_title']) ? $_POST['p_title'] : [];
+	$p_meta_description = !empty($_POST['p_meta_description']) && is_array($_POST['p_meta_description']) ? $_POST['p_meta_description'] : [];
+	$p_meta_keywords = !empty($_POST['p_meta_keywords']) && is_array($_POST['p_meta_keywords']) ? $_POST['p_meta_keywords'] : [];
 	
-	$p_enable_metas = ! empty($_POST['p_enable_metas']) ? true : false;
-	$p_enable_gal_password = ! empty($_POST['p_enable_gal_password']) ? true : false;
-	$p_enable_gal_rte = ! empty($_POST['p_enable_gal_rte']) ? $_POST['p_enable_gal_rte'] : '';
-	$p_enable_rte = ! empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
+	$p_enable_metas = !empty($_POST['p_enable_metas']) ? true : false;
+	$p_enable_gal_password = !empty($_POST['p_enable_gal_password']) ? true : false;
+	$p_enable_gal_rte = !empty($_POST['p_enable_gal_rte']) ? $_POST['p_enable_gal_rte'] : '';
+	$p_enable_rte = !empty($_POST['p_enable_rte']) ? $_POST['p_enable_rte'] : '';
 	
-	$p_enable_zip_upload = ! empty($_POST['p_enable_zip_upload']) ? true : false;
-	$p_enable_multiple_upload = ! empty($_POST['p_enable_multiple_upload']) ? true : false;
+	$p_enable_zip_upload = !empty($_POST['p_enable_zip_upload']) ? true : false;
+	$p_enable_multiple_upload = !empty($_POST['p_enable_multiple_upload']) ? true : false;
 	
-	$p_multiple_upload_type = ! empty($_POST['p_multiple_upload_type']) ? $_POST['p_multiple_upload_type'] : 'plupload';
+	$p_multiple_upload_type = !empty($_POST['p_multiple_upload_type']) ? $_POST['p_multiple_upload_type'] : 'plupload';
 	
 	$p_images = $oItemImageUploadConfig->getPostConfig();
 	
@@ -158,7 +158,7 @@ $okt->page->lockable();
 $okt->page->tabs();
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

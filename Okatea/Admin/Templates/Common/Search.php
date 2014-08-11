@@ -8,7 +8,7 @@
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Autocomplétion du formulaire de recherche
-if (! empty($sAutocompleteSrc))
+if (!empty($sAutocompleteSrc))
 {
 	$okt->page->js->addReady('
 		$("#search").autocomplete({
@@ -33,7 +33,7 @@ $okt->page->css->addCss('
 }
 ');
 
-if (! empty($sSearch))
+if (!empty($sSearch))
 {
 	$okt->page->js->addFile($okt['public_url'] . '/plugins/putCursorAtEnd/jquery.putCursorAtEnd.min.js');
 	$okt->page->js->addReady('

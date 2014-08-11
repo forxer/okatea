@@ -14,24 +14,24 @@ class Debugbar extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('development_usage') || ! $this->okt['visitor']->checkPerm('development_debug_bar'))
+		if (!$this->okt['visitor']->checkPerm('development_usage') || !$this->okt['visitor']->checkPerm('development_debug_bar'))
 		{
 			return $this->serve401();
 		}
 		
-		if (! empty($_POST['form_sent']))
+		if (!empty($_POST['form_sent']))
 		{
-			$p_admin = ! empty($_POST['p_admin']) ? true : false;
-			$p_public = ! empty($_POST['p_public']) ? true : false;
+			$p_admin = !empty($_POST['p_admin']) ? true : false;
+			$p_public = !empty($_POST['p_public']) ? true : false;
 			
-			$p_tabs_super_globales = ! empty($_POST['p_tabs_super_globales']) ? true : false;
-			$p_tabs_app = ! empty($_POST['p_tabs_app']) ? true : false;
-			$p_tabs_db = ! empty($_POST['p_tabs_db']) ? true : false;
-			$p_tabs_tools = ! empty($_POST['p_tabs_tools']) ? true : false;
+			$p_tabs_super_globales = !empty($_POST['p_tabs_super_globales']) ? true : false;
+			$p_tabs_app = !empty($_POST['p_tabs_app']) ? true : false;
+			$p_tabs_db = !empty($_POST['p_tabs_db']) ? true : false;
+			$p_tabs_tools = !empty($_POST['p_tabs_tools']) ? true : false;
 			
-			$p_holmes = ! empty($_POST['p_holmes']) ? true : false;
+			$p_holmes = !empty($_POST['p_holmes']) ? true : false;
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$aNewConf = array(
 					'debug_bar' => array(
@@ -55,6 +55,6 @@ class Debugbar extends Controller
 			}
 		}
 		
-		return $this->render('Development/Admin/Templates/Debugbar', array());
+		return $this->render('Development/Admin/Templates/Debugbar', []);
 	}
 }

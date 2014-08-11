@@ -20,9 +20,9 @@ class Controller extends BaseController
 
 	protected $sUserId = '';
 
-	protected $aUserRegisterData = array();
+	protected $aUserRegisterData = [];
 
-	protected $aCivilities = array();
+	protected $aCivilities = [];
 
 	protected $rsAdminFields = null;
 
@@ -52,7 +52,7 @@ class Controller extends BaseController
 		$this->page->action = 'login';
 		
 		# page désactivée ?
-		if (! $this->okt->users->config->enable_login_page)
+		if (!$this->okt->users->config->enable_login_page)
 		{
 			return $this->serve404();
 		}
@@ -72,7 +72,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_login'));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add(__('c_c_auth_login'), UsersHelpers::getLoginUrl());
 		}
@@ -109,7 +109,7 @@ class Controller extends BaseController
 		$this->page->action = 'register';
 		
 		# page désactivée ?
-		if (! $this->okt->users->config->enable_register_page)
+		if (!$this->okt->users->config->enable_register_page)
 		{
 			return $this->serve404();
 		}
@@ -129,7 +129,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_register'));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add(__('c_c_auth_register'), UsersHelpers::getRegisterUrl());
 		}
@@ -156,7 +156,7 @@ class Controller extends BaseController
 		$this->page->action = 'log_reg';
 		
 		# page désactivée ?
-		if (! $this->okt->users->config->enable_login_page || ! $this->okt->users->config->enable_register_page)
+		if (!$this->okt->users->config->enable_login_page || !$this->okt->users->config->enable_register_page)
 		{
 			return $this->serve404();
 		}
@@ -178,7 +178,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_login') . ' / ' . __('c_c_auth_register'));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add(__('c_c_auth_login') . ' / ' . __('c_c_auth_register'), '');
 		}
@@ -204,13 +204,13 @@ class Controller extends BaseController
 		$this->page->action = 'forget_password';
 		
 		# page désactivée ?
-		if (! $this->okt->users->config->enable_forget_password_page)
+		if (!$this->okt->users->config->enable_forget_password_page)
 		{
 			return $this->serve404();
 		}
 		
 		# allready logged
-		if (! $this->okt['visitor']->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
+		if (!$this->okt['visitor']->is_guest && !defined('OKT_DONT_REDIRECT_IF_LOGGED'))
 		{
 			$this->performRedirect();
 		}
@@ -218,7 +218,7 @@ class Controller extends BaseController
 		$password_sended = false;
 		$password_updated = false;
 		
-		if (! empty($_POST['form_sent']) && ! empty($_POST['email']))
+		if (!empty($_POST['form_sent']) && !empty($_POST['email']))
 		{
 			if ($this->okt['visitor']->forgetPassword($_POST['email'], $this->generateUrl('usersForgetPassword', null, true)))
 			{
@@ -226,7 +226,7 @@ class Controller extends BaseController
 			}
 		}
 		
-		if (! empty($_GET['action']) && $_GET['action'] == 'validate_password' && ! empty($_GET['key']) && ! empty($_GET['uid']))
+		if (!empty($_GET['action']) && $_GET['action'] == 'validate_password' && !empty($_GET['key']) && !empty($_GET['uid']))
 		{
 			$uid = intval($_GET['uid']);
 			$key = $_GET['key'];
@@ -247,7 +247,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_auth_request_password'));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add(__('c_c_auth_request_password'), $this->generateUrl('usersForgetPassword'));
 		}
@@ -269,7 +269,7 @@ class Controller extends BaseController
 		$this->page->action = 'profile';
 		
 		# page désactivée ?
-		if (! $this->okt->users->config->enable_profile_page)
+		if (!$this->okt->users->config->enable_profile_page)
 		{
 			return $this->serve404();
 		}
@@ -299,8 +299,8 @@ class Controller extends BaseController
 		unset($rsUser);
 		
 		# Champs personnalisés
-		$aPostedData = array();
-		$aFieldsValues = array();
+		$aPostedData = [];
+		$aFieldsValues = [];
 		
 		if ($this->okt->users->config->enable_custom_fields)
 		{
@@ -333,26 +333,26 @@ class Controller extends BaseController
 					default:
 					case 1: # Champ texte
 					case 2: # Zone de texte
-						$aPostedData[$this->rsUserFields->id] = ! empty($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = !empty($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 3: # Menu déroulant
-						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 4: # Boutons radio
-						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 5: # Cases à cocher
-						$aPostedData[$this->rsUserFields->id] = ! empty($_POST[$this->rsUserFields->html_id]) && is_array($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = !empty($_POST[$this->rsUserFields->html_id]) && is_array($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 				}
 			}
 		}
 		
 		# Suppression des cookies
-		if (! empty($_REQUEST['cookies']))
+		if (!empty($_REQUEST['cookies']))
 		{
 			$aCookies = array_keys($_COOKIE);
 			unset($aCookies[$okt['cookie_auth_name']]);
@@ -367,10 +367,10 @@ class Controller extends BaseController
 		}
 		
 		# Formulaire de changement de mot de passe
-		if (! empty($_POST['change_password']) && $this->okt['visitor']->checkPerm('change_password'))
+		if (!empty($_POST['change_password']) && $this->okt['visitor']->checkPerm('change_password'))
 		{
-			$aUserProfilData['password'] = ! empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
-			$aUserProfilData['password_confirm'] = ! empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
+			$aUserProfilData['password'] = !empty($_POST['edit_password']) ? $_POST['edit_password'] : '';
+			$aUserProfilData['password_confirm'] = !empty($_POST['edit_password_confirm']) ? $_POST['edit_password_confirm'] : '';
 			
 			$this->okt->users->changeUserPassword($aUserProfilData);
 			
@@ -378,7 +378,7 @@ class Controller extends BaseController
 		}
 		
 		# Formulaire de modification de l'utilisateur envoyé
-		if (! empty($_POST['form_sent']))
+		if (!empty($_POST['form_sent']))
 		{
 			$aUserProfilData = array(
 				'id' => $this->okt['visitor']->id,
@@ -435,7 +435,7 @@ class Controller extends BaseController
 		$this->page->setTitleSeo(__('c_c_user_profile'));
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add(__('c_c_user_profile'), $this->generateUrl('usersProfile'));
 		}
@@ -460,7 +460,7 @@ class Controller extends BaseController
 	{
 		$sRequestRedirectUrl = $this->okt['request']->request->get('redirect', $this->okt['request']->query->get('redirect'));
 		
-		if (! empty($sRequestRedirectUrl))
+		if (!empty($sRequestRedirectUrl))
 		{
 			$sRedirectURL = rawurldecode($sRequestRedirectUrl);
 			$this->okt['session']->set('okt_sess_redirect', $sRedirectURL);
@@ -502,7 +502,7 @@ class Controller extends BaseController
 	 */
 	protected function handleGuest()
 	{
-		if (! $this->okt['visitor']->is_guest && ! defined('OKT_DONT_REDIRECT_IF_LOGGED'))
+		if (!$this->okt['visitor']->is_guest && !defined('OKT_DONT_REDIRECT_IF_LOGGED'))
 		{
 			$this->performRedirect();
 		}
@@ -513,14 +513,14 @@ class Controller extends BaseController
 	 */
 	protected function performLogin()
 	{
-		if (! empty($_POST['sended']) && empty($_REQUEST['user_id']) && empty($_REQUEST['user_pwd']))
+		if (!empty($_POST['sended']) && empty($_REQUEST['user_id']) && empty($_REQUEST['user_pwd']))
 		{
 			$this->okt->error->set(__('c_c_auth_please_enter_username_password'));
 		}
-		elseif (! empty($_REQUEST['user_id']) && ! empty($_REQUEST['user_pwd']))
+		elseif (!empty($_REQUEST['user_id']) && !empty($_REQUEST['user_pwd']))
 		{
 			$this->sUserId = $_REQUEST['user_id'];
-			$user_remember = ! empty($_POST['user_remember']) ? true : false;
+			$user_remember = !empty($_POST['user_remember']) ? true : false;
 			
 			if ($this->okt['visitor']->login($this->sUserId, $_REQUEST['user_pwd'], $user_remember))
 			{
@@ -555,7 +555,7 @@ class Controller extends BaseController
 		# Champs personnalisés
 		if ($this->okt->users->config->enable_custom_fields)
 		{
-			$aPostedData = array();
+			$aPostedData = [];
 			
 			# Liste des champs
 			$this->rsUserFields = $this->okt->users->fields->getFields(array(
@@ -567,7 +567,7 @@ class Controller extends BaseController
 			
 			# Valeurs des champs
 			$rsFieldsValues = $this->okt->users->fields->getUserValues($this->okt['visitor']->id);
-			$aFieldsValues = array();
+			$aFieldsValues = [];
 			while ($rsFieldsValues->fetch())
 			{
 				$aFieldsValues[$rsFieldsValues->field_id] = $rsFieldsValues->value;
@@ -581,39 +581,39 @@ class Controller extends BaseController
 					default:
 					case 1: # Champ texte
 					case 2: # Zone de texte
-						$aPostedData[$this->rsUserFields->id] = ! empty($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = !empty($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 3: # Menu déroulant
-						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 4: # Boutons radio
-						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = isset($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 					
 					case 5: # Cases à cocher
-						$aPostedData[$this->rsUserFields->id] = ! empty($_POST[$this->rsUserFields->html_id]) && is_array($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (! empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
+						$aPostedData[$this->rsUserFields->id] = !empty($_POST[$this->rsUserFields->html_id]) && is_array($_POST[$this->rsUserFields->html_id]) ? $_POST[$this->rsUserFields->html_id] : (!empty($aFieldsValues[$this->rsUserFields->id]) ? $aFieldsValues[$this->rsUserFields->id] : '');
 						break;
 				}
 			}
 		}
 		
 		# ajout d'un utilisateur
-		if (! empty($_POST['add_user']))
+		if (!empty($_POST['add_user']))
 		{
 			$this->aUserRegisterData = array(
 				'active' => 1,
-				'username' => ! empty($_POST['add_username']) ? $_POST['add_username'] : '',
-				'lastname' => ! empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '',
-				'firstname' => ! empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '',
-				'password' => ! empty($_POST['add_password']) ? $_POST['add_password'] : '',
-				'password_confirm' => ! empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '',
-				'email' => ! empty($_POST['add_email']) ? $_POST['add_email'] : '',
-				'group_id' => ($this->okt['config']->users_registration['user_choose_group'] && ! empty($_POST['add_group_id']) && in_array($_POST['add_group_id'], $this->getGroups())) ? $_POST['add_group_id'] : $this->okt['config']->users_registration['default_group'],
-				'timezone' => ! empty($_POST['add_timezone']) ? $_POST['add_timezone'] : $this->okt['config']->timezone,
-				'language' => ! empty($_POST['add_language']) && in_array($_POST['add_language'], $this->getLanguages()) ? $_POST['add_language'] : $this->okt['config']->language,
-				'civility' => ! empty($_POST['add_civility']) ? $_POST['add_civility'] : ''
+				'username' => !empty($_POST['add_username']) ? $_POST['add_username'] : '',
+				'lastname' => !empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '',
+				'firstname' => !empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '',
+				'password' => !empty($_POST['add_password']) ? $_POST['add_password'] : '',
+				'password_confirm' => !empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '',
+				'email' => !empty($_POST['add_email']) ? $_POST['add_email'] : '',
+				'group_id' => ($this->okt['config']->users_registration['user_choose_group'] && !empty($_POST['add_group_id']) && in_array($_POST['add_group_id'], $this->getGroups())) ? $_POST['add_group_id'] : $this->okt['config']->users_registration['default_group'],
+				'timezone' => !empty($_POST['add_timezone']) ? $_POST['add_timezone'] : $this->okt['config']->timezone,
+				'language' => !empty($_POST['add_language']) && in_array($_POST['add_language'], $this->getLanguages()) ? $_POST['add_language'] : $this->okt['config']->language,
+				'civility' => !empty($_POST['add_civility']) ? $_POST['add_civility'] : ''
 			);
 			
 			if ($this->okt['config']->users_registration['merge_username_email'])
@@ -711,7 +711,7 @@ class Controller extends BaseController
 				}
 				
 				# eventuel connexion du nouvel utilisateur
-				if (! $this->okt['config']->users_registration['validate_users_registration'] && $this->okt['config']->users_registration['auto_log_after_registration'])
+				if (!$this->okt['config']->users_registration['validate_users_registration'] && $this->okt['config']->users_registration['auto_log_after_registration'])
 				{
 					$this->okt['visitor']->login($this->aUserRegisterData['username'], $this->aUserRegisterData['password'], false);
 				}
@@ -733,7 +733,7 @@ class Controller extends BaseController
 			return $aUsersGroups;
 		}
 		
-		$aUsersGroups = array();
+		$aUsersGroups = [];
 		
 		$rsGroups = $this->okt->users->getGroups(array(
 			'group_id_not' => array(

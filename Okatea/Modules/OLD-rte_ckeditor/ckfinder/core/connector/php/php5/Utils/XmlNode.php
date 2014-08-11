@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -36,7 +36,7 @@ class Ckfinder_Connector_Utils_XmlNode
 	 * @access private
 	 * @var array
 	 */
-	private $_attributes = array();
+	private $_attributes = [];
 
 	/**
 	 * Array that stores child nodes
@@ -44,7 +44,7 @@ class Ckfinder_Connector_Utils_XmlNode
 	 * @access private
 	 * @var array
 	 */
-	private $_childNodes = array();
+	private $_childNodes = [];
 
 	/**
 	 * Node name
@@ -74,7 +74,7 @@ class Ckfinder_Connector_Utils_XmlNode
 	function __construct($nodeName, $nodeValue = null)
 	{
 		$this->_name = $nodeName;
-		if (! is_null($nodeValue))
+		if (!is_null($nodeValue))
 		{
 			$this->_value = $nodeValue;
 		}
@@ -191,7 +191,7 @@ class Ckfinder_Connector_Utils_XmlNode
 		}
 		
 		//if there is nothing more todo, close empty tag and exit
-		if (is_null($this->_value) && ! sizeof($this->_childNodes))
+		if (is_null($this->_value) && !sizeof($this->_childNodes))
 		{
 			$ret .= " />";
 			return $ret;
@@ -201,7 +201,7 @@ class Ckfinder_Connector_Utils_XmlNode
 		$ret .= ">";
 		
 		//print value
-		if (! is_null($this->_value))
+		if (!is_null($this->_value))
 		{
 			$ret .= $this->asUTF8(htmlspecialchars($this->_value));
 		}

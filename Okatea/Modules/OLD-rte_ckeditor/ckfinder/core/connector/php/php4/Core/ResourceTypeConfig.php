@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -68,7 +68,7 @@ class CKFinder_Connector_Core_ResourceTypeConfig
 	 * @var array[]string
 	 * @access private
 	 */
-	var $_allowedExtensions = array();
+	var $_allowedExtensions = [];
 
 	/**
 	 * Array with denied extensions
@@ -76,7 +76,7 @@ class CKFinder_Connector_Core_ResourceTypeConfig
 	 * @var array[]string
 	 * @access private
 	 */
-	var $_deniedExtensions = array();
+	var $_deniedExtensions = [];
 
 	/**
 	 * used for CKFinder_Connector_Core_Config object caching
@@ -105,7 +105,7 @@ class CKFinder_Connector_Core_ResourceTypeConfig
 			$this->_url = $resourceTypeNode["url"];
 		}
 		
-		if (! strlen($this->_url))
+		if (!strlen($this->_url))
 		{
 			$this->_url = "/";
 		}
@@ -125,7 +125,7 @@ class CKFinder_Connector_Core_ResourceTypeConfig
 			$this->_directory = $resourceTypeNode["directory"];
 		}
 		
-		if (! strlen($this->_directory))
+		if (!strlen($this->_directory))
 		{
 			$this->_directory = resolveUrl($this->_url);
 		}
@@ -268,14 +268,14 @@ class CKFinder_Connector_Core_ResourceTypeConfig
 			$this->_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		}
 		
-		$toCheck = array();
+		$toCheck = [];
 		
 		if ($this->_config->getCheckDoubleExtension())
 		{
 			$pieces = explode('.', $fileName);
 			
 			// First, check the last extension (ex. in file.php.jpg, the "jpg").
-			if (! $this->checkSingleExtension($pieces[sizeof($pieces) - 1]))
+			if (!$this->checkSingleExtension($pieces[sizeof($pieces) - 1]))
 			{
 				return false;
 			}

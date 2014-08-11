@@ -18,7 +18,7 @@ class Fields extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -53,7 +53,7 @@ class Fields extends Controller
 
 	public function addField()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -68,7 +68,7 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				if (($this->aFieldData['id'] = $this->okt->module('Contact')->fields->addField($this->aFieldData)) !== false)
 				{
@@ -88,7 +88,7 @@ class Fields extends Controller
 
 	public function field()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -131,7 +131,7 @@ class Fields extends Controller
 			
 			$this->okt->module('Contact')->fields->checkPostData($this->aFieldData);
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				if ($this->okt->module('Contact')->fields->updField($this->aFieldData) !== false)
 				{
@@ -151,7 +151,7 @@ class Fields extends Controller
 
 	public function fieldValues()
 	{
-		if (! $this->okt['visitor']->checkPerm('contact_usage') || ! $this->okt['visitor']->checkPerm('contact_fields'))
+		if (!$this->okt['visitor']->checkPerm('contact_usage') || !$this->okt['visitor']->checkPerm('contact_fields'))
 		{
 			return $this->serve401();
 		}
@@ -173,7 +173,7 @@ class Fields extends Controller
 		
 		$rsFieldL10n = $this->okt->module('Contact')->fields->getFieldL10n($iFieldId);
 		
-		$aValues = array();
+		$aValues = [];
 		
 		while ($rsFieldL10n->fetch())
 		{
@@ -227,9 +227,9 @@ class Fields extends Controller
 	{
 		if ($this->okt['request']->query->has('ajax_update_order'))
 		{
-			$aFieldsOrder = $this->okt['request']->query->get('ord', array());
+			$aFieldsOrder = $this->okt['request']->query->get('ord', []);
 			
-			if (! empty($aFieldsOrder))
+			if (!empty($aFieldsOrder))
 			{
 				foreach ($aFieldsOrder as $ord => $id)
 				{
@@ -248,13 +248,13 @@ class Fields extends Controller
 	{
 		if ($this->okt['request']->request->has('order_languages'))
 		{
-			$aFieldsOrder = $this->okt['request']->request->get('p_order', array());
+			$aFieldsOrder = $this->okt['request']->request->get('p_order', []);
 			
 			asort($aFieldsOrder);
 			
 			$aFieldsOrder = array_keys($aFieldsOrder);
 			
-			if (! empty($aFieldsOrder))
+			if (!empty($aFieldsOrder))
 			{
 				foreach ($aFieldsOrder as $ord => $id)
 				{
@@ -279,11 +279,11 @@ class Fields extends Controller
 		$this->aFieldData['status'] = 0;
 		$this->aFieldData['type'] = 1;
 		$this->aFieldData['html_id'] = '';
-		$this->aFieldData['locales'] = array();
+		$this->aFieldData['locales'] = [];
 		
 		foreach ($this->okt['languages']->getList() as $aLanguage)
 		{
-			$this->aFieldData['locales'][$aLanguage['code']] = array();
+			$this->aFieldData['locales'][$aLanguage['code']] = [];
 			$this->aFieldData['locales'][$aLanguage['code']]['title'] = '';
 			$this->aFieldData['locales'][$aLanguage['code']]['description'] = '';
 		}

@@ -8,7 +8,7 @@ use Okatea\Admin\Page;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -28,7 +28,7 @@ $add_language = $okt['config']->language;
 # Champs personnalisés
 if ($okt->users->config->enable_custom_fields)
 {
-	$aPostedData = array();
+	$aPostedData = [];
 	
 	# Liste des champs
 	$rsFields = $okt->users->fields->getFields(array(
@@ -44,7 +44,7 @@ if ($okt->users->config->enable_custom_fields)
 			default:
 			case 1: # Champ texte
 			case 2: # Zone de texte
-				$aPostedData[$rsFields->id] = ! empty($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : $rsFields->value;
+				$aPostedData[$rsFields->id] = !empty($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : $rsFields->value;
 				break;
 			
 			case 3: # Menu déroulant
@@ -56,25 +56,25 @@ if ($okt->users->config->enable_custom_fields)
 				break;
 			
 			case 5: # Cases à cocher
-				$aPostedData[$rsFields->id] = ! empty($_POST[$rsFields->html_id]) && is_array($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : array();
+				$aPostedData[$rsFields->id] = !empty($_POST[$rsFields->html_id]) && is_array($_POST[$rsFields->html_id]) ? $_POST[$rsFields->html_id] : [];
 				break;
 		}
 	}
 }
 
 # Ajout d'un utilisateur
-if (! empty($_POST['add_user']))
+if (!empty($_POST['add_user']))
 {
-	$add_civility = ! empty($_POST['add_civility']) ? intval($_POST['add_civility']) : 0;
-	$add_active = ! empty($_POST['add_active']) ? intval($_POST['add_active']) : 1;
-	$add_username = ! empty($_POST['add_username']) ? $_POST['add_username'] : '';
-	$add_lastname = ! empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '';
-	$add_firstname = ! empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '';
-	$add_password = ! empty($_POST['add_password']) ? $_POST['add_password'] : '';
-	$add_password_confirm = ! empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '';
-	$add_email = ! empty($_POST['add_email']) ? $_POST['add_email'] : '';
-	$add_timezone = ! empty($_POST['add_timezone']) ? $_POST['add_timezone'] : '';
-	$add_language = ! empty($_POST['add_language']) ? $_POST['add_language'] : '';
+	$add_civility = !empty($_POST['add_civility']) ? intval($_POST['add_civility']) : 0;
+	$add_active = !empty($_POST['add_active']) ? intval($_POST['add_active']) : 1;
+	$add_username = !empty($_POST['add_username']) ? $_POST['add_username'] : '';
+	$add_lastname = !empty($_POST['add_lastname']) ? $_POST['add_lastname'] : '';
+	$add_firstname = !empty($_POST['add_firstname']) ? $_POST['add_firstname'] : '';
+	$add_password = !empty($_POST['add_password']) ? $_POST['add_password'] : '';
+	$add_password_confirm = !empty($_POST['add_password_confirm']) ? $_POST['add_password_confirm'] : '';
+	$add_email = !empty($_POST['add_email']) ? $_POST['add_email'] : '';
+	$add_timezone = !empty($_POST['add_timezone']) ? $_POST['add_timezone'] : '';
+	$add_language = !empty($_POST['add_language']) ? $_POST['add_language'] : '';
 	
 	# peuplement et vérification des champs personnalisés obligatoires
 	if ($okt->users->config->enable_custom_fields)
@@ -116,7 +116,7 @@ if (! empty($_POST['add_user']))
 
 # Langues
 $rs = $okt['languages']->getLanguages();
-$aLanguages = array();
+$aLanguages = [];
 while ($rs->fetch())
 {
 	$aLanguages[html::escapeHTML($rs->title)] = $rs->code;

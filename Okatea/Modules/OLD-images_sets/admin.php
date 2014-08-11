@@ -6,7 +6,7 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# title tag
@@ -16,7 +16,7 @@ $okt->page->addTitleTag($okt->images_sets->getTitle());
 $okt->page->addAriane($okt->images_sets->getName(), 'module.php?m=images_sets');
 
 # inclusion du fichier requis en fonction de l'action demandée
-if (! $okt->page->action || $okt->page->action === 'index')
+if (!$okt->page->action || $okt->page->action === 'index')
 {
 	require __DIR__ . '/admin/index.php';
 }

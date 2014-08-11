@@ -89,9 +89,9 @@ class CatalogRecordset extends Recordset
 	 */
 	public function getFilesInfo()
 	{
-		$files = array();
+		$files = [];
 		
-		if (! $this->okt->catalog->config->files['enable'])
+		if (!$this->okt->catalog->config->files['enable'])
 		{
 			return $files;
 		}
@@ -101,7 +101,7 @@ class CatalogRecordset extends Recordset
 		$j = 1;
 		for ($i = 1; $i <= $this->okt->catalog->config->files['number']; $i ++)
 		{
-			if (! isset($files_array[$i]) || empty($files_array[$i]['filename']) || ! file_exists($this->okt->catalog->upload_dir . '/files/' . $files_array[$i]['filename']))
+			if (!isset($files_array[$i]) || empty($files_array[$i]['filename']) || !file_exists($this->okt->catalog->upload_dir . '/files/' . $files_array[$i]['filename']))
 			{
 				continue;
 			}
@@ -130,9 +130,9 @@ class CatalogRecordset extends Recordset
 	 */
 	public function getImagesInfo()
 	{
-		if (! $this->okt->catalog->config->images['enable'])
+		if (!$this->okt->catalog->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		return $this->getImagesArray();
@@ -146,14 +146,14 @@ class CatalogRecordset extends Recordset
 	 */
 	public function getFirstImageInfo()
 	{
-		if (! $this->okt->catalog->config->images['enable'])
+		if (!$this->okt->catalog->config->images['enable'])
 		{
-			return array();
+			return [];
 		}
 		
 		$a = $this->getImagesArray();
 		
-		return isset($a[1]) ? $a[1] : array();
+		return isset($a[1]) ? $a[1] : [];
 	}
 
 	public function getImagesArray()

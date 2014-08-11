@@ -69,7 +69,7 @@ default values used by the plugin::
 
 See the `jQuery UI resizable plugin docs`_ for a list of all options.
 
-That's it! You are now able to resize the WYMeditor vertically, horizontally or
+That's it!You are now able to resize the WYMeditor vertically, horizontally or
 both, depending on your options.
 
 ..  _jQuery UI resizable plugin docs: http://docs.jquery.com/UI/Resizables

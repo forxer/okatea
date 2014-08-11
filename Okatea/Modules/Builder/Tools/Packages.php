@@ -36,7 +36,7 @@ class Packages extends BaseTools
 			->add($this->sTempDir)
 			->close();
 		
-		$aRepositoryInfos = array();
+		$aRepositoryInfos = [];
 		
 		try
 		{

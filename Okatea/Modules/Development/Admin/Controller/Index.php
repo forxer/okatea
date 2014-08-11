@@ -14,11 +14,11 @@ class Index extends Controller
 
 	public function page()
 	{
-		if (! $this->okt['visitor']->checkPerm('development_usage'))
+		if (!$this->okt['visitor']->checkPerm('development_usage'))
 		{
 			return $this->serve401();
 		}
 		
-		return $this->render('Development/Admin/Templates/Index', array());
+		return $this->render('Development/Admin/Templates/Index', []);
 	}
 }

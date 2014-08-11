@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -30,16 +30,16 @@ class CKFinder_Connector_Core_Hooks
 	 * @param array $args        	
 	 * @return boolean (true to continue processing, false otherwise)
 	 */
-	function run($event, $args = array())
+	function run($event, $args = [])
 	{
 		$config = $GLOBALS['config'];
-		if (! isset($config['Hooks']))
+		if (!isset($config['Hooks']))
 		{
 			return true;
 		}
 		$hooks = & $config['Hooks'];
 		
-		if (! is_array($hooks) || ! array_key_exists($event, $hooks) || ! is_array($hooks[$event]))
+		if (!is_array($hooks) || !array_key_exists($event, $hooks) || !is_array($hooks[$event]))
 		{
 			return true;
 		}
@@ -178,7 +178,7 @@ class CKFinder_Connector_Core_Hooks
 						return false;
 					}
 					else 
-						if (! $ret)
+						if (!$ret)
 						{
 							return false;
 						}

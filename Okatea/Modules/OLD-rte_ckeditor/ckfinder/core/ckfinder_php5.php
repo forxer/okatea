@@ -63,11 +63,11 @@ class CKFinder
 	public function CreateHtml()
 	{
 		$className = $this->ClassName;
-		if (! empty($className))
+		if (!empty($className))
 			$className = ' class="' . $className . '"';
 		
 		$id = $this->Id;
-		if (! empty($id))
+		if (!empty($id))
 			$id = ' id="' . $id . '"';
 		
 		return '<iframe src="' . $this->_BuildUrl() . '" width="' . $this->Width . '" ' . 'height="' . $this->Height . '"' . $className . $id . ' frameborder="0" scrolling="no"></iframe>';
@@ -75,7 +75,7 @@ class CKFinder
 
 	private function _BuildUrl($url = "")
 	{
-		if (! $url)
+		if (!$url)
 			$url = $this->BasePath;
 		
 		$qs = "";
@@ -88,10 +88,10 @@ class CKFinder
 		
 		$url .= 'ckfinder.html';
 		
-		if (! empty($this->SelectFunction))
+		if (!empty($this->SelectFunction))
 			$qs .= '?action=js&amp;func=' . $this->SelectFunction;
 		
-		if (! empty($this->SelectFunctionData))
+		if (!empty($this->SelectFunctionData))
 		{
 			$qs .= $qs ? "&amp;" : "?";
 			$qs .= 'data=' . rawurlencode($this->SelectFunctionData);
@@ -103,37 +103,37 @@ class CKFinder
 			$qs .= "dts=1";
 		}
 		else 
-			if (! empty($this->SelectThumbnailFunction) || ! empty($this->SelectFunction))
+			if (!empty($this->SelectThumbnailFunction) || !empty($this->SelectFunction))
 			{
 				$qs .= $qs ? "&amp;" : "?";
-				$qs .= 'thumbFunc=' . (! empty($this->SelectThumbnailFunction) ? $this->SelectThumbnailFunction : $this->SelectFunction);
+				$qs .= 'thumbFunc=' . (!empty($this->SelectThumbnailFunction) ? $this->SelectThumbnailFunction : $this->SelectFunction);
 				
-				if (! empty($this->SelectThumbnailFunctionData))
+				if (!empty($this->SelectThumbnailFunctionData))
 					$qs .= '&amp;tdata=' . rawurlencode($this->SelectThumbnailFunctionData);
 				else 
-					if (empty($this->SelectThumbnailFunction) && ! empty($this->SelectFunctionData))
+					if (empty($this->SelectThumbnailFunction) && !empty($this->SelectFunctionData))
 						$qs .= '&amp;tdata=' . rawurlencode($this->SelectFunctionData);
 			}
 		
-		if (! empty($this->StartupPath))
+		if (!empty($this->StartupPath))
 		{
 			$qs .= ($qs ? "&amp;" : "?");
 			$qs .= "start=" . urlencode($this->StartupPath . ($this->StartupFolderExpanded ? ':1' : ':0'));
 		}
 		
-		if (! empty($this->ResourceType))
+		if (!empty($this->ResourceType))
 		{
 			$qs .= ($qs ? "&amp;" : "?");
 			$qs .= "type=" . urlencode($this->ResourceType);
 		}
 		
-		if (! $this->RememberLastFolder)
+		if (!$this->RememberLastFolder)
 		{
 			$qs .= ($qs ? "&amp;" : "?");
 			$qs .= "rlf=0";
 		}
 		
-		if (! empty($this->Id))
+		if (!empty($this->Id))
 		{
 			$qs .= ($qs ? "&amp;" : "?");
 			$qs .= "id=" . urlencode($this->Id);

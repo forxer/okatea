@@ -8,7 +8,7 @@ use Okatea\Tao\Html\Escaper;
 use Okatea\Tao\Html\Modifiers;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -17,7 +17,7 @@ if (! defined('ON_MODULE'))
 # Chargement des locales
 $okt['l10n']->loadFile(__DIR__ . '/../Locales/%s/admin.details');
 
-$iEstimateId = ! empty($_REQUEST['estimate_id']) ? intval($_REQUEST['estimate_id']) : null;
+$iEstimateId = !empty($_REQUEST['estimate_id']) ? intval($_REQUEST['estimate_id']) : null;
 
 $rsEstimate = $okt->estimate->getEstimate($iEstimateId);
 
@@ -32,7 +32,7 @@ if (is_null($iEstimateId) || $rsEstimate->isEmpty())
 ----------------------------------------------------------*/
 
 # Marque la demande comme traitée
-if (! empty($_GET['treated']))
+if (!empty($_GET['treated']))
 {
 	try
 	{
@@ -56,7 +56,7 @@ if (! empty($_GET['treated']))
 }
 
 # Marque la demande comme non traitée
-if (! empty($_GET['untreated']))
+if (!empty($_GET['untreated']))
 {
 	try
 	{

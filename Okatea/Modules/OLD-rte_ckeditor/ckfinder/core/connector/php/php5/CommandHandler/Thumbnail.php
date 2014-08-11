@@ -10,7 +10,7 @@
 * modifying or distribute this file or part of its contents. The contents of
 * this file is part of the Source Code of CKFinder.
 */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -59,17 +59,17 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
 		
 		$_thumbnails = $_config->getThumbnailsConfig();
-		if (! $_thumbnails->getIsEnabled())
+		if (!$_thumbnails->getIsEnabled())
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_THUMBNAILS_DISABLED);
 		}
 		
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
 		
-		if (! isset($_GET["FileName"]))
+		if (!isset($_GET["FileName"]))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
@@ -77,14 +77,14 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
 		$fileName = CKFinder_Connector_Utils_FileSystem::convertToFilesystemEncoding($_GET["FileName"]);
 		$_resourceTypeInfo = $this->_currentFolder->getResourceTypeConfig();
 		
-		if (! CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
+		if (!CKFinder_Connector_Utils_FileSystem::checkFileName($fileName))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
 		}
 		
 		$sourceFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $fileName);
 		
-		if ($_resourceTypeInfo->checkIsHiddenFile($fileName) || ! file_exists($sourceFilePath))
+		if ($_resourceTypeInfo->checkIsHiddenFile($fileName) || !file_exists($sourceFilePath))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
 		}
@@ -92,9 +92,9 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
 		$thumbFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getThumbsServerPath(), $fileName);
 		
 		// If the thumbnail file doesn't exists, create it now.
-		if (! file_exists($thumbFilePath))
+		if (!file_exists($thumbFilePath))
 		{
-			if (! $this->createThumb($sourceFilePath, $thumbFilePath, $_thumbnails->getMaxWidth(), $_thumbnails->getMaxHeight(), $_thumbnails->getQuality(), true, $_thumbnails->getBmpSupported()))
+			if (!$this->createThumb($sourceFilePath, $thumbFilePath, $_thumbnails->getMaxWidth(), $_thumbnails->getMaxHeight(), $_thumbnails->getQuality(), true, $_thumbnails->getBmpSupported()))
 			{
 				$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_ACCESS_DENIED);
 			}
@@ -167,7 +167,7 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
 		$sourceImageBits = isset($sourceImageAttr["bits"]) ? $sourceImageAttr["bits"] : 8;
 		$sourceImageChannels = isset($sourceImageAttr["channels"]) ? $sourceImageAttr["channels"] : 3;
 		
-		if (! $sourceImageWidth || ! $sourceImageHeight || ! $sourceImageMime)
+		if (!$sourceImageWidth || !$sourceImageHeight || !$sourceImageMime)
 		{
 			return false;
 		}

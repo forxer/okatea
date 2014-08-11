@@ -38,7 +38,7 @@ if ($rsPartners->isEmpty())
 
 <?php 
 # début Okatea : si il y a des partenaires à afficher on affiche la liste
-if (! $rsPartners->isEmpty())
+if (!$rsPartners->isEmpty())
 :
 	?>
 
@@ -72,7 +72,7 @@ if (! $rsPartners->isEmpty())
 
 		<?php 
 # début Okatea : affichage logo
-		if (! empty($rsPartners->logo))
+		if (!empty($rsPartners->logo))
 		:
 			?>
 
@@ -113,7 +113,7 @@ $aPartnerLogoInfos = $rsPartners->getImagesInfo();
 
 			<?php 
 # début Okatea : affichage URL
-		if (! empty($rsPartners->url))
+		if (!empty($rsPartners->url))
 		:
 			?>
 			<p>

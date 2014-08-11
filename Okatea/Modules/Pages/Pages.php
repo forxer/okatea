@@ -63,21 +63,21 @@ class Pages
 	 * @param boolean $bCountOnly Ne renvoi qu'un nombre de pages
 	 * @return integer|Okatea\Modules\Pages\PagesRecordset
 	 */
-	public function getPagesRecordset(array $aParams = array(), $bCountOnly = false)
+	public function getPagesRecordset(array $aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND p.id=' . (integer) $aParams['id'] . ' ';
 		}
 
-		if (! empty($aParams['category_id']))
+		if (!empty($aParams['category_id']))
 		{
 			$sReqPlus .= ' AND p.category_id=' . (integer) $aParams['category_id'] . ' ';
 		}
 
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND pl.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
@@ -102,11 +102,11 @@ class Pages
 			$sReqPlus .= 'AND p.active=1 ';
 		}
 
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
 
-			if (! empty($aWords))
+			if (!empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
 				{
@@ -125,12 +125,12 @@ class Pages
 			$sQuery = 'SELECT ' . $this->getSelectFields($aParams) . ' ' . $this->getSqlFrom($aParams) . 'WHERE 1 ' . $sReqPlus;
 
 			$sDirection = 'DESC';
-			if (! empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
+			if (!empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
 			{
 				$sDirection = 'ASC';
 			}
 
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ' . $sDirection . ' ';
 			}
@@ -139,7 +139,7 @@ class Pages
 				$sQuery .= 'ORDER BY p.created_at ' . $sDirection . ' ';
 			}
 
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -153,7 +153,7 @@ class Pages
 			}
 			else
 			{
-				$rs = new PagesRecordset(array());
+				$rs = new PagesRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -177,7 +177,7 @@ class Pages
 	 *        	Paramètres de requete
 	 * @return string
 	 */
-	protected function getSelectFields(array $aParams = array())
+	protected function getSelectFields(array $aParams = [])
 	{
 		$aFields = array(
 			'p.id',
@@ -219,7 +219,7 @@ class Pages
 	 *        	Paramètres de requete
 	 * @return string
 	 */
-	protected function getSqlFrom(array $aParams = array())
+	protected function getSqlFrom(array $aParams = [])
 	{
 		if (empty($aParams['language']))
 		{
@@ -258,7 +258,7 @@ class Pages
 	 *        	(null) Nombre de caractère avant troncature du contenu
 	 * @return object Okatea\Modules\Pages\PagesRecordset
 	 */
-	public function getPages(array $aParams = array(), $iTruncatChar = null)
+	public function getPages(array $aParams = [], $iTruncatChar = null)
 	{
 		$rs = $this->getPagesRecordset($aParams);
 
@@ -274,7 +274,7 @@ class Pages
 	 *        	Paramètres de requete
 	 * @return integer
 	 */
-	public function getPagesCount(array $aParams = array())
+	public function getPagesCount(array $aParams = [])
 	{
 		return $this->getPagesRecordset($aParams, true);
 	}
@@ -343,7 +343,7 @@ class Pages
 
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new Recordset(array());
+			$rs = new Recordset([]);
 			return $rs;
 		}
 
@@ -361,7 +361,7 @@ class Pages
 	public function preparePages(PagesRecordset $rs, $iTruncatChar = null)
 	{
 		# on utilise une troncature personnalisée à cette préparation
-		if (! is_null($iTruncatChar))
+		if (!is_null($iTruncatChar))
 		{
 			$iNumCharBeforeTruncate = (integer) $iTruncatChar;
 		}
@@ -428,7 +428,7 @@ class Pages
 		$rs->files = $rs->getFilesInfo();
 
 		# contenu
-		if (! $this->okt->module('Pages')->config->enable_rte)
+		if (!$this->okt->module('Pages')->config->enable_rte)
 		{
 			$rs->content = Modifiers::nlToP($rs->content);
 		}
@@ -452,7 +452,7 @@ class Pages
 	{
 		$oCursor = $this->db->openCursor($this->t_pages);
 
-		if (! empty($aPageData))
+		if (!empty($aPageData))
 		{
 			foreach ($aPageData as $k => $v)
 			{
@@ -497,7 +497,7 @@ class Pages
 
 			$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 
-			if (! $oCursor->insertUpdate())
+			if (!$oCursor->insertUpdate())
 			{
 				throw new RuntimeException('Unable to insert/update page locales into database');
 			}
@@ -541,11 +541,11 @@ class Pages
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select('SELECT slug FROM ' . $this->t_pages_locales . ' ' . 'WHERE slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'AND page_id <> ' . (integer) $iPageId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC');
 
-		if (! $rsTakenSlugs->isEmpty())
+		if (!$rsTakenSlugs->isEmpty())
 		{
 			$rsCurrentSlugs = $this->db->select('SELECT slug FROM ' . $this->t_pages_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sUrl) . '%\' ' . 'AND page_id <> ' . (integer) $iPageId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ');
 
-			$a = array();
+			$a = [];
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
@@ -556,7 +556,7 @@ class Pages
 
 		$sQuery = 'UPDATE ' . $this->t_pages_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'WHERE page_id=' . (integer) $iPageId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -572,13 +572,13 @@ class Pages
 	 * @param array $aPagePermsData
 	 * @return integer
 	 */
-	public function addPage($oCursor, array $aPageLocalesData, array $aPagePermsData = array())
+	public function addPage($oCursor, array $aPageLocalesData, array $aPagePermsData = [])
 	{
 		$sDate = Date::now('UTC')->toMysqlString();
 		$oCursor->created_at = $sDate;
 		$oCursor->updated_at = $sDate;
 
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new RuntimeException('Unable to insert page into database');
 		}
@@ -602,7 +602,7 @@ class Pages
 		}
 
 		# ajout permissions
-		if (! $this->setPagePermissions($iNewId, $aPagePermsData))
+		if (!$this->setPagePermissions($iNewId, $aPagePermsData))
 		{
 			throw new RuntimeException('Unable to set page permissions');
 		}
@@ -618,9 +618,9 @@ class Pages
 	 * @param array $aPagePermsData
 	 * @return boolean
 	 */
-	public function updPage($oCursor, array $aPageLocalesData, array $aPagePermsData = array())
+	public function updPage($oCursor, array $aPageLocalesData, array $aPagePermsData = [])
 	{
-		if (! $this->pageExists($oCursor->id))
+		if (!$this->pageExists($oCursor->id))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $oCursor->id));
 			return false;
@@ -629,7 +629,7 @@ class Pages
 		# modification dans la DB
 		$oCursor->updated_at = Date::now('UTC')->toMysqlString();
 
-		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new RuntimeException('Unable to update page into database');
 		}
@@ -647,7 +647,7 @@ class Pages
 		}
 
 		# modification permissions
-		if (! $this->setPagePermissions($oCursor->id, (! empty($aPagePermsData) ? $aPagePermsData : array())))
+		if (!$this->setPagePermissions($oCursor->id, (!empty($aPagePermsData) ? $aPagePermsData : [])))
 		{
 			throw new RuntimeException('Unable to set page permissions');
 		}
@@ -681,7 +681,7 @@ class Pages
 			}
 		}
 
-		if (! $bHasAtLeastOneTitle)
+		if (!$bHasAtLeastOneTitle)
 		{
 			if ($this->okt['languages']->hasUniqueLanguage())
 			{
@@ -712,7 +712,7 @@ class Pages
 	 */
 	public function switchPageStatus($iPageId)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -720,7 +720,7 @@ class Pages
 
 		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'updated_at=NOW(), ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update page in database.');
 		}
@@ -737,7 +737,7 @@ class Pages
 	 */
 	public function setPageStatus($iPageId, $status)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -745,7 +745,7 @@ class Pages
 
 		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'updated_at=NOW(), ' . 'active = ' . ($status == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to update page in database.');
 		}
@@ -761,7 +761,7 @@ class Pages
 	 */
 	public function deletePage($iPageId)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -779,7 +779,7 @@ class Pages
 
 		$sQuery = 'DELETE FROM ' . $this->t_pages . ' ' . 'WHERE id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove page from database.');
 		}
@@ -788,7 +788,7 @@ class Pages
 
 		$sQuery = 'DELETE FROM ' . $this->t_pages_locales . ' ' . 'WHERE page_id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to remove page locales from database.');
 		}
@@ -822,14 +822,14 @@ class Pages
 			)
 		);
 
-		if (! $this->okt['visitor']->is_admin && ! $bWithAdmin)
+		if (!$this->okt['visitor']->is_admin && !$bWithAdmin)
 		{
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
 		$rsGroups = $this->okt['groups']->getGroups($aParams);
 
-		$aGroups = array();
+		$aGroups = [];
 
 		if ($bWithAll)
 		{
@@ -852,19 +852,19 @@ class Pages
 	 */
 	public function getPagePermissions($iPageId)
 	{
-		if (! $this->okt->module('Pages')->config->enable_group_perms)
+		if (!$this->okt->module('Pages')->config->enable_group_perms)
 		{
-			return array();
+			return [];
 		}
 
 		$sQuery = 'SELECT page_id, group_id ' . 'FROM ' . $this->t_permissions . ' ' . 'WHERE page_id=' . (integer) $iPageId . ' ';
 
 		if (($rs = $this->db->select($sQuery)) === false)
 		{
-			return array();
+			return [];
 		}
 
-		$aPerms = array();
+		$aPerms = [];
 		while ($rs->fetch())
 		{
 			$aPerms[] = $rs->group_id;
@@ -882,12 +882,12 @@ class Pages
 	 */
 	protected function setPagePermissions($iPageId, $aGroupsIds)
 	{
-		if (! $this->okt->module('Pages')->config->enable_group_perms || empty($aGroupsIds))
+		if (!$this->okt->module('Pages')->config->enable_group_perms || empty($aGroupsIds))
 		{
 			return $this->setDefaultPagePermissions($iPageId);
 		}
 
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -895,7 +895,7 @@ class Pages
 
 		# si l'utilisateur qui définit les permissions n'est pas un admin
 		# alors on force la permission à ce groupe admin
-		if (! $this->okt['visitor']->is_admin)
+		if (!$this->okt['visitor']->is_admin)
 		{
 			$aGroupsIds[] = Groups::ADMIN;
 		}
@@ -913,7 +913,7 @@ class Pages
 			)
 		));
 
-		$aGroups = array();
+		$aGroups = [];
 		while ($rsGroups->fetch())
 		{
 			$aGroups[] = $rsGroups->group_id;
@@ -944,7 +944,7 @@ class Pages
 	 */
 	protected function setDefaultPagePermissions($iPageId)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -970,7 +970,7 @@ class Pages
 	{
 		$sQuery = 'INSERT INTO ' . $this->t_permissions . ' ' . '(page_id, group_id) ' . 'VALUES (' . (integer) $iPageId . ', ' . (integer) $iGroupId . ' ' . ') ';
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to insert page permissions into database');
 		}
@@ -988,7 +988,7 @@ class Pages
 	{
 		$sQuery = 'DELETE FROM ' . $this->t_permissions . ' ' . 'WHERE page_id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new RuntimeException('Unable to delete page permissions from database');
 		}
@@ -1021,7 +1021,7 @@ class Pages
 	 */
 	public function getImagesFromDb($iPageId)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -1031,7 +1031,7 @@ class Pages
 			'id' => $iPageId
 		));
 
-		$aImages = $rsPage->images ? unserialize($rsPage->images) : array();
+		$aImages = $rsPage->images ? unserialize($rsPage->images) : [];
 
 		return $aImages;
 	}
@@ -1044,19 +1044,19 @@ class Pages
 	 *        	$aImages
 	 * @return boolean
 	 */
-	public function updImagesInDb($iPageId, $aImages = array())
+	public function updImagesInDb($iPageId, $aImages = [])
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
 		}
 
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+		$aImages = !empty($aImages) ? serialize($aImages) : NULL;
 
-		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
+		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'images=' . (!is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -1087,7 +1087,7 @@ class Pages
 	 */
 	public function getPageFiles($iPageId)
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
@@ -1097,7 +1097,7 @@ class Pages
 			'id' => $iPageId
 		));
 
-		$aFiles = $rsPage->files ? unserialize($rsPage->files) : array();
+		$aFiles = $rsPage->files ? unserialize($rsPage->files) : [];
 
 		return $aFiles;
 	}
@@ -1109,19 +1109,19 @@ class Pages
 	 * @param array $aFiles
 	 * @return boolean
 	 */
-	public function updPageFiles($iPageId, $aFiles = array())
+	public function updPageFiles($iPageId, $aFiles = [])
 	{
-		if (! $this->pageExists($iPageId))
+		if (!$this->pageExists($iPageId))
 		{
 			$this->error->set(sprintf(__('m_pages_page_%s_not_exists'), $iPageId));
 			return false;
 		}
 
-		$aFiles = ! empty($aFiles) ? serialize($aFiles) : NULL;
+		$aFiles = !empty($aFiles) ? serialize($aFiles) : NULL;
 
-		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'files=' . (! is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
+		$sQuery = 'UPDATE ' . $this->t_pages . ' SET ' . 'files=' . (!is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iPageId;
 
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}

@@ -10,7 +10,7 @@
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
-if (! defined('IN_CKFINDER'))
+if (!defined('IN_CKFINDER'))
 	exit();
 
 /**
@@ -52,7 +52,7 @@ class CKFinder_Connector_CommandHandler_GetFiles extends CKFinder_Connector_Comm
 	function buildXml()
 	{
 		$_config = & CKFinder_Connector_Core_Factory::getInstance("Core_Config");
-		if (! $this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
+		if (!$this->_currentFolder->checkAcl(CKFINDER_CONNECTOR_ACL_FILE_VIEW))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
 		}
@@ -64,19 +64,19 @@ class CKFinder_Connector_CommandHandler_GetFiles extends CKFinder_Connector_Comm
 		$oFilesNode = new Ckfinder_Connector_Utils_XmlNode("Files");
 		$this->_connectorNode->addChild($oFilesNode);
 		
-		if (! is_dir($_sServerDir))
+		if (!is_dir($_sServerDir))
 		{
 			$this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FOLDER_NOT_FOUND);
 		}
 		
-		$files = array();
-		$thumbFiles = array();
+		$files = [];
+		$thumbFiles = [];
 		
 		if ($dh = @opendir($_sServerDir))
 		{
 			while (($file = readdir($dh)) !== false)
 			{
-				if ($file != "." && $file != ".." && ! is_dir($_sServerDir . $file))
+				if ($file != "." && $file != ".." && !is_dir($_sServerDir . $file))
 				{
 					$files[] = $file;
 				}
@@ -94,7 +94,7 @@ class CKFinder_Connector_CommandHandler_GetFiles extends CKFinder_Connector_Comm
 		{
 			$_thumbnailsConfig = $_config->getThumbnailsConfig();
 			$_thumbServerPath = '';
-			$_showThumbs = (! empty($_GET['showThumbs']) && $_GET['showThumbs'] == 1);
+			$_showThumbs = (!empty($_GET['showThumbs']) && $_GET['showThumbs'] == 1);
 			if ($_thumbnailsConfig->getIsEnabled() && ($_thumbnailsConfig->getDirectAccess() || $_showThumbs))
 			{
 				$_thumbServerPath = $this->_currentFolder->getThumbsServerPath();
@@ -110,7 +110,7 @@ class CKFinder_Connector_CommandHandler_GetFiles extends CKFinder_Connector_Comm
 				if ($filemtime !== false)
 				{
 					$filename = CKFinder_Connector_Utils_Misc::mbBasename($file);
-					if (! $resourceTypeInfo->checkExtension($filename, false))
+					if (!$resourceTypeInfo->checkExtension($filename, false))
 					{
 						continue;
 					}
@@ -122,7 +122,7 @@ class CKFinder_Connector_CommandHandler_GetFiles extends CKFinder_Connector_Comm
 					$oFilesNode->addChild($oFileNode[$i]);
 					$oFileNode[$i]->addAttribute("name", CKFinder_Connector_Utils_FileSystem::convertToConnectorEncoding(CKFinder_Connector_Utils_Misc::mbBasename($file)));
 					$oFileNode[$i]->addAttribute("date", date("YmdHi", $filemtime));
-					if (! empty($_thumbServerPath) && preg_match(CKFINDER_REGEX_IMAGES_EXT, $filename))
+					if (!empty($_thumbServerPath) && preg_match(CKFINDER_REGEX_IMAGES_EXT, $filename))
 					{
 						if (file_exists($_thumbServerPath . $filename))
 						{

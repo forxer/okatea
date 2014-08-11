@@ -41,7 +41,7 @@ $okt->page->setButtonset('newsBtSt', array(
 ));
 
 # boutons update post
-if (! empty($aPostData['post']['id']))
+if (!empty($aPostData['post']['id']))
 {
 	$okt->page->addGlobalTitle(__('m_news_post_edit_a_post'));
 	
@@ -73,7 +73,7 @@ if (! empty($aPostData['post']['id']))
 		'onclick' => 'return window.confirm(\'' . $view->escapeJs(__('m_news_post_delete_confirm')) . '\')'
 	));
 	# bouton vers l'article côté public si publié
-	if (! empty($aPostData['locales'][$okt['visitor']->language]['slug']))
+	if (!empty($aPostData['locales'][$okt['visitor']->language]['slug']))
 	{
 		$okt->page->addButton('newsBtSt', array(
 			'permission' => ($aPostData['post']['active'] ? true : false),
@@ -104,7 +104,7 @@ $okt->page->applyLbl($okt->module('News')->config->lightbox_type);
 $okt->page->applyRte($okt->module('News')->config->enable_rte, 'textarea.richTextEditor');
 
 # Lang switcher
-if (! $okt['languages']->hasUniqueLanguage())
+if (!$okt['languages']->hasUniqueLanguage())
 {
 	$okt->page->langSwitcher('#tabered', '.lang-switcher-buttons');
 }

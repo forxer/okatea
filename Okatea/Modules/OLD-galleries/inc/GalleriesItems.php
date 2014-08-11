@@ -70,21 +70,21 @@ class GalleriesItems
 	 *        	Ne renvoi qu'un nombre d'élément
 	 * @return integer/GalleriesItemsRecordset
 	 */
-	public function getItemsRecordset($aParams = array(), $bCountOnly = false)
+	public function getItemsRecordset($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND i.id=' . (integer) $aParams['id'] . ' ';
 		}
 		
-		if (! empty($aParams['gallery_id']))
+		if (!empty($aParams['gallery_id']))
 		{
 			$sReqPlus .= ' AND i.gallery_id=' . (integer) $aParams['gallery_id'] . ' ';
 		}
 		
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND il.slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
@@ -109,11 +109,11 @@ class GalleriesItems
 			$sReqPlus .= 'AND i.active=1 ';
 		}
 		
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
 			
-			if (! empty($aWords))
+			if (!empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
 				{
@@ -132,12 +132,12 @@ class GalleriesItems
 			$sQuery = 'SELECT ' . $this->getSelectFields($aParams) . ' ' . $this->getSqlFrom($aParams) . 'WHERE 1 ' . $sReqPlus;
 			
 			$sDirection = 'DESC';
-			if (! empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
+			if (!empty($aParams['order_direction']) && strtoupper($aParams['order_direction']) == 'ASC')
 			{
 				$sDirection = 'ASC';
 			}
 			
-			if (! empty($aParams['order']))
+			if (!empty($aParams['order']))
 			{
 				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ' . $sDirection . ' ';
 			}
@@ -146,7 +146,7 @@ class GalleriesItems
 				$sQuery .= 'ORDER BY i.ord ASC ';
 			}
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -160,7 +160,7 @@ class GalleriesItems
 			}
 			else
 			{
-				$rs = new GalleriesItemsRecordset(array());
+				$rs = new GalleriesItemsRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -260,7 +260,7 @@ class GalleriesItems
 	 *        	Paramètres de requete
 	 * @return object GalleriesItemsRecordset
 	 */
-	public function getItems($aParams = array())
+	public function getItems($aParams = [])
 	{
 		$rs = $this->getItemsRecordset($aParams);
 		
@@ -276,7 +276,7 @@ class GalleriesItems
 	 *        	Paramètres de requete
 	 * @return integer
 	 */
-	public function getItemsCount($aParams = array())
+	public function getItemsCount($aParams = [])
 	{
 		return $this->getItemsRecordset($aParams, true);
 	}
@@ -345,7 +345,7 @@ class GalleriesItems
 		
 		if (($rs = $this->db->select($query)) === false)
 		{
-			$rs = new recordset(array());
+			$rs = new recordset([]);
 			return $rs;
 		}
 		
@@ -402,7 +402,7 @@ class GalleriesItems
 		$rs->image = $rs->getImagesInfo();
 		
 		# contenu
-		if (! $this->config->enable_rte)
+		if (!$this->config->enable_rte)
 		{
 			$rs->content = Modifiers::nlToP($rs->content);
 		}
@@ -420,7 +420,7 @@ class GalleriesItems
 	{
 		$oCursor = $this->db->openCursor($this->t_items);
 		
-		if (! empty($aItemData))
+		if (!empty($aItemData))
 		{
 			foreach ($aItemData as $k => $v)
 			{
@@ -505,11 +505,11 @@ class GalleriesItems
 		# Let's check if URL is taken…
 		$rsTakenSlugs = $this->db->select('SELECT slug FROM ' . $this->t_items_locales . ' ' . 'WHERE slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'AND item_id <> ' . (integer) $iItemId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC');
 		
-		if (! $rsTakenSlugs->isEmpty())
+		if (!$rsTakenSlugs->isEmpty())
 		{
 			$rsCurrentSlugs = $this->db->select('SELECT slug FROM ' . $this->t_items_locales . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($sUrl) . '%\' ' . 'AND item_id <> ' . (integer) $iItemId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ' . 'ORDER BY slug DESC ');
 			
-			$a = array();
+			$a = [];
 			while ($rsCurrentSlugs->fetch())
 			{
 				$a[] = $rsCurrentSlugs->slug;
@@ -520,7 +520,7 @@ class GalleriesItems
 		
 		$sQuery = 'UPDATE ' . $this->t_items_locales . ' SET ' . 'slug=\'' . $this->db->escapeStr($sUrl) . '\' ' . 'WHERE item_id=' . (integer) $iItemId . ' ' . 'AND language=\'' . $this->db->escapeStr($sLanguage) . '\' ';
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			return false;
 		}
@@ -541,7 +541,7 @@ class GalleriesItems
 		$oCursor->created_at = $sDate;
 		$oCursor->updated_at = $sDate;
 		
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			throw new Exception('Unable to insert item into database');
 		}
@@ -570,7 +570,7 @@ class GalleriesItems
 	 */
 	public function updItem($oCursor, $aItemLocalesData)
 	{
-		if (! $this->itemExists($oCursor->id))
+		if (!$this->itemExists($oCursor->id))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $oCursor->id));
 		}
@@ -578,7 +578,7 @@ class GalleriesItems
 		# modification dans la DB
 		$oCursor->updated_at = date('Y-m-d H:i:s');
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $oCursor->id . ' '))
 		{
 			throw new Exception('Unable to update item into database');
 		}
@@ -618,7 +618,7 @@ class GalleriesItems
 			}
 		}
 		
-		if (! $bHasAtLeastOneTitle)
+		if (!$bHasAtLeastOneTitle)
 		{
 			if ($this->okt['languages']->hasUniqueLanguage())
 			{
@@ -649,14 +649,14 @@ class GalleriesItems
 	 */
 	public function switchItemStatus($iItemId)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $iItemId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_items . ' SET ' . 'updated_at=NOW(), ' . 'active = 1-active ' . 'WHERE id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update item in database.');
 		}
@@ -673,14 +673,14 @@ class GalleriesItems
 	 */
 	public function setItemStatus($iItemId, $status)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $iItemId));
 		}
 		
 		$sQuery = 'UPDATE ' . $this->t_items . ' SET ' . 'updated_at=NOW(), ' . 'active = ' . ($status == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to update item in database.');
 		}
@@ -697,14 +697,14 @@ class GalleriesItems
 	 */
 	public function setItemPosition($iItemId, $iPosition)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $iItemId));
 		}
 		
 		$query = 'UPDATE ' . $this->t_items . ' SET ' . 'ord=' . (integer) $iPosition . ' ' . 'WHERE id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -720,7 +720,7 @@ class GalleriesItems
 	 */
 	public function deleteItem($iItemId)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $iItemId));
 		}
@@ -732,7 +732,7 @@ class GalleriesItems
 		
 		$sQuery = 'DELETE FROM ' . $this->t_items . ' ' . 'WHERE id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to remove item from database.');
 		}
@@ -741,7 +741,7 @@ class GalleriesItems
 		
 		$sQuery = 'DELETE FROM ' . $this->t_items_locales . ' ' . 'WHERE item_id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($sQuery))
+		if (!$this->db->execute($sQuery))
 		{
 			throw new Exception('Unable to remove item locales from database.');
 		}
@@ -781,12 +781,12 @@ class GalleriesItems
 	{
 		$aImages = $this->getImageUploadInstance()->addImages($iItemId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updImages($iItemId, $image);
 	}
@@ -802,19 +802,19 @@ class GalleriesItems
 	{
 		$aCurrentImages = $this->getImages($iItemId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getImageUploadInstance()->updImages($iItemId, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aImages[1]) ? $aImages[1] : null;
+		$image = !empty($aImages[1]) ? $aImages[1] : null;
 		
 		return $this->updImages($iItemId, $image);
 	}
@@ -832,19 +832,19 @@ class GalleriesItems
 	{
 		$aCurrentImages = $this->getImages($iItemId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewImages = $this->getImageUploadInstance()->deleteImage($iItemId, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
-		$image = ! empty($aNewImages[1]) ? $aNewImages[1] : null;
+		$image = !empty($aNewImages[1]) ? $aNewImages[1] : null;
 		
 		return $this->updImages($iItemId, $image);
 	}
@@ -860,7 +860,7 @@ class GalleriesItems
 	{
 		$aCurrentImages = $this->getImages($iItemId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -884,7 +884,7 @@ class GalleriesItems
 			'active' => 2
 		);
 		
-		if (! is_null($gallery_id))
+		if (!is_null($gallery_id))
 		{
 			$aParams['gallery_id'] = $gallery_id;
 		}
@@ -894,9 +894,9 @@ class GalleriesItems
 		while ($rsItems->fetch())
 		{
 			$aImages = $rsItems->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 			
-			if (! empty($aImages['img_name']))
+			if (!empty($aImages['img_name']))
 			{
 				$this->getImageUploadInstance()->buildThumbnails($rsItems->id, $aImages['img_name']);
 				
@@ -918,7 +918,7 @@ class GalleriesItems
 	 */
 	public function getImages($iItemId)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $oCursor->id));
 		}
@@ -936,7 +936,7 @@ class GalleriesItems
 		}
 		else
 		{
-			return array();
+			return [];
 		}
 	}
 
@@ -949,16 +949,16 @@ class GalleriesItems
 	 */
 	public function updImages($iItemId, $aImage = null)
 	{
-		if (! $this->itemExists($iItemId))
+		if (!$this->itemExists($iItemId))
 		{
 			throw new Exception(sprintf(__('m_galleries_error_item_%s_doesnt_exist'), $oCursor->id));
 		}
 		
-		$aImage = ! empty($aImage) ? serialize($aImage) : NULL;
+		$aImage = !empty($aImage) ? serialize($aImage) : NULL;
 		
-		$query = 'UPDATE ' . $this->t_items . ' SET ' . 'image=' . (! is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iItemId;
+		$query = 'UPDATE ' . $this->t_items . ' SET ' . 'image=' . (!is_null($aImage) ? '\'' . $this->db->escapeStr($aImage) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iItemId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}

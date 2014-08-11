@@ -37,7 +37,7 @@ class Helpers
 			$sLoginUrl .= $okt['router']->generate('usersLogin');
 		}
 		
-		if (! is_null($sRedirectUrl))
+		if (!is_null($sRedirectUrl))
 		{
 			$sLoginUrl .= '?redirect=' . rawurlencode($sRedirectUrl);
 		}
@@ -90,7 +90,7 @@ class Helpers
 			$sRegisterUrl .= $okt['router']->generate('usersRegister');
 		}
 		
-		if (! is_null($sRedirectUrl))
+		if (!is_null($sRedirectUrl))
 		{
 			$sRegisterUrl .= '?redirect=' . rawurlencode($sRedirectUrl);
 		}

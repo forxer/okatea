@@ -9,7 +9,7 @@ use Okatea\Tao\Misc\Utilities;
 use Okatea\Tao\Forms\Statics\FormElements as form;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	/* Initialisations
@@ -27,7 +27,7 @@ $aProductData = array(
 );
 
 # update product ?
-if (! empty($_REQUEST['product_id']))
+if (!empty($_REQUEST['product_id']))
 {
 	$iProductId = intval($_REQUEST['product_id']);
 	
@@ -59,7 +59,7 @@ if (! empty($_REQUEST['product_id']))
 ----------------------------------------------------------*/
 
 # switch statut
-if (! empty($_GET['switch_status']) && ! empty($iProductId))
+if (!empty($_GET['switch_status']) && !empty($iProductId))
 {
 	if ($okt->estimate->products->switchProductStatus($iProductId) !== false)
 	{
@@ -68,15 +68,15 @@ if (! empty($_GET['switch_status']) && ! empty($iProductId))
 }
 
 #  ajout / modifications d'un produit
-if (! empty($_POST['form_sent']))
+if (!empty($_POST['form_sent']))
 {
 	$aProductData = array(
-		'title' => ! empty($_POST['p_title']) ? $_POST['p_title'] : '',
-		'active' => ! empty($_POST['p_active']) ? 1 : 0
+		'title' => !empty($_POST['p_title']) ? $_POST['p_title'] : '',
+		'active' => !empty($_POST['p_active']) ? 1 : 0
 	);
 	
 	# update product
-	if (! empty($iProductId))
+	if (!empty($iProductId))
 	{
 		$aProductData['id'] = $iProductId;
 		
@@ -120,7 +120,7 @@ if (! empty($_POST['form_sent']))
 # Titre de la page
 $okt->page->addGlobalTitle(__('m_estimate_products'), 'module.php?m=estimate&amp;action=products');
 
-if (! empty($iProductId))
+if (!empty($iProductId))
 {
 	$okt->page->addGlobalTitle(__('m_estimate_edit_product'));
 }
@@ -240,7 +240,7 @@ $count_line = 0;
 			$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 			$count_line ++;
 			
-			if (! $rsAccessories->active)
+			if (!$rsAccessories->active)
 			{
 				$td_class = ' disabled';
 			}

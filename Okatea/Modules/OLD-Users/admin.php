@@ -6,11 +6,11 @@
  */
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 	
 	# Perm ?
-if (! $okt['visitor']->checkPerm('users') && $okt->page->action !== 'profil')
+if (!$okt['visitor']->checkPerm('users') && $okt->page->action !== 'profil')
 {
 	http::redirect(OKT_ADMIN_LOGIN_PAGE);
 }
@@ -36,7 +36,7 @@ else
 				'ui-icon' => 'arrowreturnthick-1-w'
 			),
 			array(
-				'permission' => (! $okt->page->action || $okt->page->action === 'index' || $okt->page->action === 'edit'),
+				'permission' => (!$okt->page->action || $okt->page->action === 'index' || $okt->page->action === 'edit'),
 				'title' => __('m_users_Add_user'),
 				'url' => 'module.php?m=users&amp;action=add',
 				'ui-icon' => 'plusthick'
@@ -45,7 +45,7 @@ else
 	));
 	
 	# inclusion du fichier requis
-	if (! $okt->page->action || $okt->page->action === 'index')
+	if (!$okt->page->action || $okt->page->action === 'index')
 	{
 		require __DIR__ . '/admin/index.php';
 	}

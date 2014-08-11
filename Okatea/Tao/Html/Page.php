@@ -74,7 +74,7 @@ class Page
 	 *
 	 * @var array
 	 */
-	protected $aTitleTagStack = array();
+	protected $aTitleTagStack = [];
 
 	/**
 	 * L'ID de la page
@@ -109,21 +109,21 @@ class Page
 	 *
 	 * @var array
 	 */
-	protected $rteList = array();
+	protected $rteList = [];
 
 	/**
 	 * La pile des LBL disponibles
 	 *
 	 * @var array
 	 */
-	protected $lblList = array();
+	protected $lblList = [];
 
 	/**
 	 * La pile des Captcha disponibles
 	 *
 	 * @var array
 	 */
-	protected $captchaList = array();
+	protected $captchaList = [];
 
 	/**
 	 * La partie à afficher (traditionnellement 'admin' ou 'public')
@@ -190,7 +190,7 @@ class Page
 	 */
 	public function resetTitleTag()
 	{
-		$this->aTitleTagStack = array();
+		$this->aTitleTagStack = [];
 	}
 
 	/* Gestion de l'id de la page
@@ -207,7 +207,7 @@ class Page
 
 	public function hasPageId()
 	{
-		return ! empty($this->sPageId);
+		return !empty($this->sPageId);
 	}
 
 	/* Gestion du titre de la page
@@ -229,7 +229,7 @@ class Page
 
 	public function hasTitle()
 	{
-		return ! empty($this->sTitle);
+		return !empty($this->sTitle);
 	}
 
 	/* Gestion du titre SEO de la page
@@ -251,7 +251,7 @@ class Page
 
 	public function hasTitleSeo()
 	{
-		return ! empty($this->sTitleSeo);
+		return !empty($this->sTitleSeo);
 	}
 
 	/* Infos globales du site
@@ -267,7 +267,7 @@ class Page
 	{
 		$str = $this->okt['config']->app_url;
 
-		if (! $this->okt['languages']->hasUniqueLanguage())
+		if (!$this->okt['languages']->hasUniqueLanguage())
 		{
 			$str .= ($sLanguage !== null ? $sLanguage : $this->okt['visitor']->language) . '/';
 		}
@@ -282,15 +282,15 @@ class Page
 	 */
 	public function getSiteTitle($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt['config']->title[$sLanguage]))
+		if ($sLanguage !== null && !empty($this->okt['config']->title[$sLanguage]))
 		{
 			return $this->okt['config']->title[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->title[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt['config']->title[$this->okt['visitor']->language]))
 		{
 			return $this->okt['config']->title[$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->title[$this->okt['config']->language]))
+		elseif (!empty($this->okt['config']->title[$this->okt['config']->language]))
 		{
 			return $this->okt['config']->title[$this->okt['config']->language];
 		}
@@ -307,15 +307,15 @@ class Page
 	 */
 	public function getSiteDescription($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt['config']->desc[$sLanguage]))
+		if ($sLanguage !== null && !empty($this->okt['config']->desc[$sLanguage]))
 		{
 			return $this->okt['config']->desc[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->desc[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt['config']->desc[$this->okt['visitor']->language]))
 		{
 			return $this->okt['config']->desc[$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->desc[$this->okt['config']->language]))
+		elseif (!empty($this->okt['config']->desc[$this->okt['config']->language]))
 		{
 			return $this->okt['config']->desc[$this->okt['config']->language];
 		}
@@ -332,15 +332,15 @@ class Page
 	 */
 	public function getSiteTitleTag($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt['config']->title_tag[$sLanguage]))
+		if ($sLanguage !== null && !empty($this->okt['config']->title_tag[$sLanguage]))
 		{
 			return $this->okt['config']->title_tag[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->title_tag[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt['config']->title_tag[$this->okt['visitor']->language]))
 		{
 			return $this->okt['config']->title_tag[$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->title_tag[$this->okt['config']->language]))
+		elseif (!empty($this->okt['config']->title_tag[$this->okt['config']->language]))
 		{
 			return $this->okt['config']->title_tag[$this->okt['config']->language];
 		}
@@ -357,15 +357,15 @@ class Page
 	 */
 	public function getSiteMetaDesc($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt['config']->meta_description[$sLanguage]))
+		if ($sLanguage !== null && !empty($this->okt['config']->meta_description[$sLanguage]))
 		{
 			return $this->okt['config']->meta_description[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->meta_description[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt['config']->meta_description[$this->okt['visitor']->language]))
 		{
 			return $this->okt['config']->meta_description[$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->meta_description[$this->okt['config']->language]))
+		elseif (!empty($this->okt['config']->meta_description[$this->okt['config']->language]))
 		{
 			return $this->okt['config']->meta_description[$this->okt['config']->language];
 		}
@@ -382,15 +382,15 @@ class Page
 	 */
 	public function getSiteMetaKeywords($sLanguage = null, $sDefault = null)
 	{
-		if ($sLanguage !== null && ! empty($this->okt['config']->meta_keywords[$sLanguage]))
+		if ($sLanguage !== null && !empty($this->okt['config']->meta_keywords[$sLanguage]))
 		{
 			return $this->okt['config']->meta_keywords[$sLanguage];
 		}
-		elseif (! empty($this->okt['config']->meta_keywords[$this->okt['visitor']->language]))
+		elseif (!empty($this->okt['config']->meta_keywords[$this->okt['visitor']->language]))
 		{
 			return $this->okt['config']->meta_keywords[$this->okt['visitor']->language];
 		}
-		elseif (! empty($this->okt['config']->meta_keywords[$this->okt['config']->language]))
+		elseif (!empty($this->okt['config']->meta_keywords[$this->okt['config']->language]))
 		{
 			return $this->okt['config']->meta_keywords[$this->okt['config']->language];
 		}
@@ -413,11 +413,11 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function accordion(array $aCustomOptions = array(), $sElement = '#accordion')
+	public function accordion(array $aCustomOptions = [], $sElement = '#accordion')
 	{
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -437,7 +437,7 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function datePicker(array $aCustomOptions = array(), $sElement = '.datepicker')
+	public function datePicker(array $aCustomOptions = [], $sElement = '.datepicker')
 	{
 		$aOptions = array(
 			'dateFormat' => 'dd-mm-yy',
@@ -445,7 +445,7 @@ class Page
 			'changeYear' => true
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -467,11 +467,11 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function dialog(array $aCustomOptions = array(), $sElement = '.dialog')
+	public function dialog(array $aCustomOptions = [], $sElement = '.dialog')
 	{
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -491,7 +491,7 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function tabs(array $aCustomOptions = array(), $sElement = '#tabered')
+	public function tabs(array $aCustomOptions = [], $sElement = '#tabered')
 	{
 		$aOptions = array(
 			'show' => true,
@@ -499,7 +499,7 @@ class Page
 			'heightStyle' => 'content'
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -605,14 +605,14 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function roundabout(array $aCustomOptions = array(), $sElement = '.roundabout')
+	public function roundabout(array $aCustomOptions = [], $sElement = '.roundabout')
 	{
 		$this->js->addFile($this->okt['public_url'] . '/plugins/easing/jquery.easing.min.js');
 		$this->js->addFile($this->okt['public_url'] . '/components/roundabout/jquery.roundabout.min.js');
 
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -632,14 +632,14 @@ class Page
 	 * @param string $sElement
 	 * @return void
 	 */
-	public function treeview(array $aCustomOptions = array(), $sElement = '.browser')
+	public function treeview(array $aCustomOptions = [], $sElement = '.browser')
 	{
 		$this->css->addFile($this->okt['public_url'] . '/plugins/treeview/jquery.treeview.css');
 		$this->js->addFile($this->okt['public_url'] . '/plugins/treeview/jquery.treeview.min.js');
 
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -689,13 +689,13 @@ class Page
 		');
 	}
 
-	public function cycle($sElement = '#diaporama', array $aCustomOptions = array())
+	public function cycle($sElement = '#diaporama', array $aCustomOptions = [])
 	{
 		$this->js->addFile($this->okt['public_url'] . '/plugins/cycle/jquery.cycle.min.js');
 
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -705,13 +705,13 @@ class Page
 		');
 	}
 
-	public function cycleLite($sElement = '#diaporama', array $aCustomOptions = array())
+	public function cycleLite($sElement = '#diaporama', array $aCustomOptions = [])
 	{
 		$this->js->addFile($this->okt['public_url'] . '/plugins/cycle/jquery.cycle.lite.min.js');
 
-		$aOptions = array();
+		$aOptions = [];
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -734,7 +734,7 @@ class Page
 		');
 	}
 
-	public function strToSlug($command, $target, array $aCustomOptions = array())
+	public function strToSlug($command, $target, array $aCustomOptions = [])
 	{
 		$this->js->addFile($this->okt['public_url'] . '/components/jquery-stringtoslug/jquery.stringToSlug.min.js');
 
@@ -744,7 +744,7 @@ class Page
 			'space' => '-'
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -754,7 +754,7 @@ class Page
 		');
 	}
 
-	public function toggleWithLegend($command, $target, array $aCustomOptions = array())
+	public function toggleWithLegend($command, $target, array $aCustomOptions = [])
 	{
 		$this->js->addFile($this->okt['public_url'] . '/plugins/toggleWithLegend/jquery.toggleWithLegend.min.js');
 
@@ -771,7 +771,7 @@ class Page
 			'reverse_cookie' => false // Reverse cookie behavior
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -781,7 +781,7 @@ class Page
 		');
 	}
 
-	public function openLinkInDialog($sElement = '#kink_id', array $aCustomOptions = array(), $htmlID = null)
+	public function openLinkInDialog($sElement = '#kink_id', array $aCustomOptions = [], $htmlID = null)
 	{
 		static $loaded = null;
 
@@ -790,7 +790,7 @@ class Page
 			'height' => 500
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -905,15 +905,15 @@ class Page
 		$this->js->addFile($this->okt['public_url'] . '/js/autocomplete/jquery.autocomplete.min.js');
 	}
 
-	public function validateForm(array $aCustomOptions = array())
+	public function validateForm(array $aCustomOptions = [])
 	{
 		$aOptions = array(
 			'selector' => 'form',
 			'lang' => $this->okt['visitor']->language,
-			'fields' => array()
+			'fields' => []
 		);
 
-		if (! empty($aCustomOptions))
+		if (!empty($aCustomOptions))
 		{
 			$aOptions = array_merge($aOptions, $aCustomOptions);
 		}
@@ -929,7 +929,7 @@ class Page
 		$this->getValidateJs($aOptions['selector'], $aOptions['fields']);
 	}
 
-	public function validate($sFormId = null, array $aFields = array(), $sLanguage = null)
+	public function validate($sFormId = null, array $aFields = [], $sLanguage = null)
 	{
 		if (null === $sLanguage)
 		{
@@ -949,10 +949,10 @@ class Page
 
 	public function getValidateJs($sFormId, $aFields)
 	{
-		if (! empty($sFormId) && ! empty($aFields))
+		if (!empty($sFormId) && !empty($aFields))
 		{
-			$aRules = array();
-			$aMessages = array();
+			$aRules = [];
+			$aMessages = [];
 
 			foreach ($aFields as $aField)
 			{
@@ -965,7 +965,7 @@ class Page
 					$aRules[] = $aField['id'] . ': { ' . $aField['rules'] . ' }';
 				}
 
-				if (! empty($aField['messages']))
+				if (!empty($aField['messages']))
 				{
 					if (is_array($aField['messages']))
 					{
@@ -1037,7 +1037,7 @@ class Page
 	 * @param array $aOptions
 	 * @return void
 	 */
-	public function applyRte($retId, $sElement = null, array $aOptions = array())
+	public function applyRte($retId, $sElement = null, array $aOptions = [])
 	{
 		if (isset($this->rteList[$retId]))
 		{
@@ -1056,7 +1056,7 @@ class Page
 	 */
 	public function getRteList($bFlip = false)
 	{
-		$res = array();
+		$res = [];
 
 		foreach ($this->rteList as $id => $rte)
 		{
@@ -1079,7 +1079,7 @@ class Page
 	 */
 	public function hasRte()
 	{
-		return ! empty($this->rteList);
+		return !empty($this->rteList);
 	}
 
 	/* Gestion des LBL (LightBox Like) switchables
@@ -1116,7 +1116,7 @@ class Page
 	 * @param array $aOptions
 	 * @return void
 	 */
-	public function applyLbl($lblId, $sElement = 'a.modal', $conteneur = ".modal-box", array $aOptions = array())
+	public function applyLbl($lblId, $sElement = 'a.modal', $conteneur = ".modal-box", array $aOptions = [])
 	{
 		if (isset($this->lblList[$lblId]))
 		{
@@ -1150,7 +1150,7 @@ class Page
 	 */
 	public function getLblList($bFlip = false)
 	{
-		$res = array();
+		$res = [];
 
 		foreach ($this->lblList as $id => $lbl)
 		{
@@ -1173,7 +1173,7 @@ class Page
 	 */
 	public function hasLbl()
 	{
-		return ! empty($this->lblList);
+		return !empty($this->lblList);
 	}
 
 	/**
@@ -1199,7 +1199,7 @@ class Page
 	 */
 	public function addCaptcha($sId, $sName, $aBehaviors)
 	{
-		if (is_array($aBehaviors) && ! empty($aBehaviors))
+		if (is_array($aBehaviors) && !empty($aBehaviors))
 		{
 			$this->captchaList[$sId] = array(
 				'id' => $sId,
@@ -1217,7 +1217,7 @@ class Page
 	 */
 	public function getCaptchaList($bFlip = false)
 	{
-		$res = array();
+		$res = [];
 
 		foreach ($this->captchaList as $id => $captcha)
 		{
@@ -1245,10 +1245,10 @@ class Page
 
 		if (is_null($loaded))
 		{
-			$loaded = array();
+			$loaded = [];
 		}
 
-		if (isset($this->captchaList[$captchaId]) && ! in_array($captchaId, $loaded))
+		if (isset($this->captchaList[$captchaId]) && !in_array($captchaId, $loaded))
 		{
 			foreach ($this->captchaList[$captchaId]['behaviors'] as $behavior => $callback)
 			{
@@ -1266,7 +1266,7 @@ class Page
 	 */
 	public function hasCaptcha()
 	{
-		return ! empty($this->captchaList);
+		return !empty($this->captchaList);
 	}
 
 	/* Others things...
@@ -1285,15 +1285,15 @@ class Page
 
 		static $aThemes = null;
 
-		if (! is_null($aThemes) && ! $bForce)
+		if (!is_null($aThemes) && !$bForce)
 		{
 			return $aThemes;
 		}
 
-		$aThemes = array();
+		$aThemes = [];
 		foreach (new DirectoryIterator($okt['public_path'] . '/components/jquery-ui/themes') as $oFileInfo)
 		{
-			if ($oFileInfo->isDot() || ! $oFileInfo->isDir() || ! file_exists($okt['public_path'] . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
+			if ($oFileInfo->isDot() || !$oFileInfo->isDir() || !file_exists($okt['public_path'] . '/components/jquery-ui/themes/' . $oFileInfo->getFilename() . '/jquery-ui.min.css'))
 			{
 				continue;
 			}

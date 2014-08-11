@@ -11,7 +11,7 @@ use Monolog\Processor\WebProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 
-if (! function_exists('__'))
+if (!function_exists('__'))
 {
 
 	/**
@@ -23,7 +23,7 @@ if (! function_exists('__'))
 	}
 }
 
-if (! function_exists('_e'))
+if (!function_exists('_e'))
 {
 
 	/**
@@ -35,7 +35,7 @@ if (! function_exists('_e'))
 	}
 }
 
-if (! function_exists('console'))
+if (!function_exists('console'))
 {
 
 	/**
@@ -63,7 +63,7 @@ if (! function_exists('console'))
 	}
 }
 
-if (! function_exists('debug'))
+if (!function_exists('debug'))
 {
 
 	/**
@@ -138,7 +138,7 @@ h2 {
 </head>
 <body>
 	<div id="errorbox">
-		<h2>Fatal error! Aaaargh...</h2>
+		<h2>Fatal error!Aaaargh...</h2>
 		<div>
 		<?php
 	if (is_array($mMessage))

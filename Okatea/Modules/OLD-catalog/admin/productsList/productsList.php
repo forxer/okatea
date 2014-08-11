@@ -7,7 +7,7 @@
 use Okatea\Tao\Misc\Utilities;
 
 # Accès direct interdit
-if (! defined('ON_MODULE'))
+if (!defined('ON_MODULE'))
 	die();
 
 if ($list->isEmpty())
@@ -134,7 +134,7 @@ if ($list->isEmpty())
 		:
 			$td_class = $count_line % 2 == 0 ? 'even' : 'odd';
 			
-			$aCurrentInfos = array();
+			$aCurrentInfos = [];
 			
 			if ($okt->catalog->config->fields['promo'] && $list->is_promo)
 			{
@@ -155,7 +155,7 @@ if ($list->isEmpty())
 			echo html::escapeHTML($list->title)?></a>
 			<?php
 			
-if (! empty($aCurrentInfos))
+if (!empty($aCurrentInfos))
 			{
 				echo '<ul class="note"><li>' . implode('</li><li>', $aCurrentInfos) . '</li></ul>';
 			}

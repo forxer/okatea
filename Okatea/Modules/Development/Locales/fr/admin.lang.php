@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-$GLOBALS['okt_l10n']['m_development_adminIndexHtmlContent'] = 'Le module développement est actif ! Veuillez le désactiver en production.';
+$GLOBALS['okt_l10n']['m_development_adminIndexHtmlContent'] = 'Le module développement est actif !Veuillez le désactiver en production.';
 
 # menu
 $GLOBALS['okt_l10n']['m_development_menu_development'] = 'Développement';

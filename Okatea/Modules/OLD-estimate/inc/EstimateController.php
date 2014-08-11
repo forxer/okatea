@@ -11,7 +11,7 @@ use Okatea\Tao\Misc\Mailer;
 class EstimateController extends Controller
 {
 
-	protected $aFormData = array();
+	protected $aFormData = [];
 
 	/**
 	 * Affichage de la page de récapitulatif de demande de devis.
@@ -30,8 +30,8 @@ class EstimateController extends Controller
 		
 		# récupération des produits et des accessoires
 		$rsProducts = $this->okt->estimate->products->getProducts();
-		$aProducts = array();
-		$aProductsAccessories = array();
+		$aProducts = [];
+		$aProductsAccessories = [];
 		
 		while ($rsProducts->fetch())
 		{
@@ -43,9 +43,9 @@ class EstimateController extends Controller
 					'product_id' => $rsProducts->id
 				));
 				
-				if (! $rsAccessories->isEmpty())
+				if (!$rsAccessories->isEmpty())
 				{
-					$aProductsAccessories[$rsProducts->id] = array();
+					$aProductsAccessories[$rsProducts->id] = [];
 					while ($rsAccessories->fetch())
 					{
 						$aProductsAccessories[$rsProducts->id][$rsAccessories->id] = html::escapeHTML($rsAccessories->title);
@@ -68,10 +68,10 @@ class EstimateController extends Controller
 			$aFormatedData['products'][$iProductCounter] = array(
 				'title' => $aProducts[$iProductId],
 				'quantity' => $_SESSION['okt_mod_estimate_form_data']['product_quantity'][$iProductCounter],
-				'accessories' => array()
+				'accessories' => []
 			);
 			
-			if (! empty($_SESSION['okt_mod_estimate_form_data']['accessories'][$iProductCounter]))
+			if (!empty($_SESSION['okt_mod_estimate_form_data']['accessories'][$iProductCounter]))
 			{
 				foreach ($_SESSION['okt_mod_estimate_form_data']['accessories'][$iProductCounter] as $iAccessoryCounter => $iAccessoryId)
 				{
@@ -84,7 +84,7 @@ class EstimateController extends Controller
 		}
 		
 		# enregistrement de la demande
-		if (! empty($_GET['send']))
+		if (!empty($_GET['send']))
 		{
 			if (($iEstimateId = $this->okt->estimate->addEstimate($aFormatedData)) !== false)
 			{
@@ -93,16 +93,16 @@ class EstimateController extends Controller
 				# notifications
 				if ($this->okt->estimate->config->enable_notifications)
 				{
-					$aRecipients = array();
+					$aRecipients = [];
 					
-					if (! empty($this->okt->estimate->config->notifications_recipients))
+					if (!empty($this->okt->estimate->config->notifications_recipients))
 					{
 						$aRecipients = array_map('trim', explode(',', $this->okt->estimate->config->notifications_recipients));
 					}
 					
 					if (empty($aRecipients))
 					{
-						if (! empty($this->config->email['name']))
+						if (!empty($this->config->email['name']))
 						{
 							$aRecipients = array(
 								$this->okt['config']->email['to'] => html::escapeHTML($this->config->email['name'])
@@ -138,7 +138,7 @@ class EstimateController extends Controller
 		}
 		
 		# meta description
-		if (! empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -148,7 +148,7 @@ class EstimateController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -161,7 +161,7 @@ class EstimateController extends Controller
 		$this->page->addTitleTag($this->okt->estimate->getTitle());
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->estimate->getName(), EstimateHelpers::getFormUrl());
 		}
@@ -196,7 +196,7 @@ class EstimateController extends Controller
 		$aProductsSelect = array(
 			' ' => null
 		);
-		$aProductsAccessories = array();
+		$aProductsAccessories = [];
 		
 		while ($rsProducts->fetch())
 		{
@@ -208,9 +208,9 @@ class EstimateController extends Controller
 					'product_id' => $rsProducts->id
 				));
 				
-				if (! $rsAccessories->isEmpty())
+				if (!$rsAccessories->isEmpty())
 				{
-					$aProductsAccessories[$rsProducts->id] = array();
+					$aProductsAccessories[$rsProducts->id] = [];
 					$aProductsAccessories[$rsProducts->id][0] = ' ';
 					while ($rsAccessories->fetch())
 					{
@@ -230,59 +230,59 @@ class EstimateController extends Controller
 			'phone' => '',
 			'start_date' => '',
 			'end_date' => '',
-			'products' => array(),
-			'product_quantity' => array(),
-			'accessories' => array(),
-			'accessory_quantity' => array(),
+			'products' => [],
+			'product_quantity' => [],
+			'accessories' => [],
+			'accessory_quantity' => [],
 			'comment' => ''
 		);
 		
 		# retour de la page de récapitulatif ?
-		if (! empty($_SESSION['okt_mod_estimate_form_data']))
+		if (!empty($_SESSION['okt_mod_estimate_form_data']))
 		{
 			$this->aFormData = $_SESSION['okt_mod_estimate_form_data'];
 			unset($_SESSION['okt_mod_estimate_form_data']);
 		}
 		# ou formulaire envoyé ?
-		elseif (! empty($_POST['sended']))
+		elseif (!empty($_POST['sended']))
 		{
 			$this->aFormData = array(
-				'lastname' => ! empty($_POST['p_lastname']) ? $_POST['p_lastname'] : '',
-				'firstname' => ! empty($_POST['p_firstname']) ? $_POST['p_firstname'] : '',
-				'email' => ! empty($_POST['p_email']) ? $_POST['p_email'] : '',
-				'phone' => ! empty($_POST['p_phone']) ? $_POST['p_phone'] : '',
-				'start_date' => ! empty($_POST['p_start_date']) ? $_POST['p_start_date'] : '',
-				'end_date' => ! empty($_POST['p_end_date']) ? $_POST['p_end_date'] : '',
-				'products' => ! empty($_POST['p_product']) && is_array($_POST['p_product']) ? $_POST['p_product'] : array(),
-				'product_quantity' => ! empty($_POST['p_product_quantity']) && is_array($_POST['p_product_quantity']) ? $_POST['p_product_quantity'] : array(),
-				'accessories' => ! empty($_POST['p_accessory']) && is_array($_POST['p_accessory']) ? $_POST['p_accessory'] : array(),
-				'accessory_quantity' => ! empty($_POST['p_accessory_quantity']) && is_array($_POST['p_accessory_quantity']) ? $_POST['p_accessory_quantity'] : array(),
-				'comment' => ! empty($_POST['p_comment']) ? $_POST['p_comment'] : ''
+				'lastname' => !empty($_POST['p_lastname']) ? $_POST['p_lastname'] : '',
+				'firstname' => !empty($_POST['p_firstname']) ? $_POST['p_firstname'] : '',
+				'email' => !empty($_POST['p_email']) ? $_POST['p_email'] : '',
+				'phone' => !empty($_POST['p_phone']) ? $_POST['p_phone'] : '',
+				'start_date' => !empty($_POST['p_start_date']) ? $_POST['p_start_date'] : '',
+				'end_date' => !empty($_POST['p_end_date']) ? $_POST['p_end_date'] : '',
+				'products' => !empty($_POST['p_product']) && is_array($_POST['p_product']) ? $_POST['p_product'] : [],
+				'product_quantity' => !empty($_POST['p_product_quantity']) && is_array($_POST['p_product_quantity']) ? $_POST['p_product_quantity'] : [],
+				'accessories' => !empty($_POST['p_accessory']) && is_array($_POST['p_accessory']) ? $_POST['p_accessory'] : [],
+				'accessory_quantity' => !empty($_POST['p_accessory_quantity']) && is_array($_POST['p_accessory_quantity']) ? $_POST['p_accessory_quantity'] : [],
+				'comment' => !empty($_POST['p_comment']) ? $_POST['p_comment'] : ''
 			);
 			
 			# rebuild products and accessories arrays
 			$aTempData = array(
-				'products' => array(),
-				'product_quantity' => array(),
-				'accessories' => array(),
-				'accessory_quantity' => array()
+				'products' => [],
+				'product_quantity' => [],
+				'accessories' => [],
+				'accessory_quantity' => []
 			);
 			
 			$iTempProductCounter = 1;
 			foreach ($this->aFormData['products'] as $iProductCounter => $iProductId)
 			{
-				if (! empty($iProductId) && ! empty($this->aFormData['product_quantity'][$iProductCounter]))
+				if (!empty($iProductId) && !empty($this->aFormData['product_quantity'][$iProductCounter]))
 				{
 					$aTempData['products'][$iTempProductCounter] = $iProductId;
 					$aTempData['product_quantity'][$iTempProductCounter] = $this->aFormData['product_quantity'][$iProductCounter];
 					
-					if (! empty($this->aFormData['accessories'][$iProductCounter]))
+					if (!empty($this->aFormData['accessories'][$iProductCounter]))
 					{
 						$iTempAccessoryCounter = 1;
 						
 						foreach ($this->aFormData['accessories'][$iProductCounter] as $iAccessoryCounter => $iAccessoryId)
 						{
-							if (! empty($iAccessoryId) && ! empty($this->aFormData['accessory_quantity'][$iProductCounter][$iAccessoryCounter]))
+							if (!empty($iAccessoryId) && !empty($this->aFormData['accessory_quantity'][$iProductCounter][$iAccessoryCounter]))
 							{
 								$aTempData['accessories'][$iTempProductCounter][$iTempAccessoryCounter] = $iAccessoryId;
 								$aTempData['accessory_quantity'][$iTempProductCounter][$iTempAccessoryCounter] = $this->aFormData['accessory_quantity'][$iProductCounter][$iAccessoryCounter];
@@ -315,7 +315,7 @@ class EstimateController extends Controller
 			{
 				$this->okt->error->set(__('m_estimate_must_enter_email'));
 			}
-			elseif (! Utilities::isEmail($this->aFormData['email']))
+			elseif (!Utilities::isEmail($this->aFormData['email']))
 			{
 				$this->okt->error->set(__('m_estimate_must_enter_validate_email'));
 			}
@@ -333,7 +333,7 @@ class EstimateController extends Controller
 			# -- CORE TRIGGER : publicModuleEstimateControllerFormCheckValues
 			$this->okt['triggers']->callTrigger('publicModuleEstimateControllerFormCheckValues', $this->okt->estimate->config->captcha);
 			
-			if (! $this->okt['flashMessages']->hasError())
+			if (!$this->okt['flashMessages']->hasError())
 			{
 				$_SESSION['okt_mod_estimate_form_data'] = $this->aFormData;
 				return $this->redirect(EstimateHelpers::getSummaryUrl());
@@ -341,7 +341,7 @@ class EstimateController extends Controller
 		}
 		
 		# pré-remplissage des données utilisateur si loggué
-		if (! $this->okt['visitor']->is_guest)
+		if (!$this->okt['visitor']->is_guest)
 		{
 			if (empty($this->aFormData['lastname']))
 			{
@@ -360,7 +360,7 @@ class EstimateController extends Controller
 		}
 		
 		# meta description
-		if (! empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
+		if (!empty($this->okt->estimate->config->meta_description[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_description = $this->okt->estimate->config->meta_description[$this->okt['visitor']->language];
 		}
@@ -370,7 +370,7 @@ class EstimateController extends Controller
 		}
 		
 		# meta keywords
-		if (! empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
+		if (!empty($this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language]))
 		{
 			$this->page->meta_keywords = $this->okt->estimate->config->meta_keywords[$this->okt['visitor']->language];
 		}
@@ -383,7 +383,7 @@ class EstimateController extends Controller
 		$this->page->addTitleTag($this->okt->estimate->getTitle());
 		
 		# fil d'ariane
-		if (! $this->isHomePageRoute())
+		if (!$this->isHomePageRoute())
 		{
 			$this->page->breadcrumb->add($this->okt->estimate->getName(), EstimateHelpers::getFormUrl());
 		}

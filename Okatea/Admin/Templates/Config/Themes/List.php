@@ -39,7 +39,7 @@ $okt->page->css->addCss('
 		<li><a href="#tab-add"><span><?php _e('c_a_themes_add_theme') ?></span></a></li>
 		<?php
 		# des themes à mettre à jour ?
-		if (! empty($aUpdatablesThemes))
+		if (!empty($aUpdatablesThemes))
 		:
 			?>
 		<li><a href="#tab-updates"><span><?php _e('c_a_themes_new_releases') ?></span></a></li>

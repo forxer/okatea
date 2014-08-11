@@ -60,7 +60,7 @@ class module_diary extends Module
 			
 			$this->okt->page->mainMenu->add($this->getName(), 'module.php?m=diary', $this->bCurrentlyInUse, 20, $this->okt['visitor']->checkPerm('diary'), null, $this->okt->page->diarySubMenu, $this->okt['public_url'] . '/modules/' . $this->id() . '/module_icon.png');
 			
-			$this->okt->page->diarySubMenu->add(__('m_diary_menu_management'), 'module.php?m=diary&amp;action=index', $this->bCurrentlyInUse && (! $this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 10);
+			$this->okt->page->diarySubMenu->add(__('m_diary_menu_management'), 'module.php?m=diary&amp;action=index', $this->bCurrentlyInUse && (!$this->okt->page->action || $this->okt->page->action === 'index' || $this->okt->page->action === 'edit'), 10);
 			
 			$this->okt->page->diarySubMenu->add(__('m_diary_menu_add_event'), 'module.php?m=diary&amp;action=add', $this->bCurrentlyInUse && ($this->okt->page->action === 'add'), 20, $this->okt['visitor']->checkPerm('diary_add'));
 			
@@ -78,7 +78,7 @@ class module_diary extends Module
 	 */
 	public function filtersStart($part = 'public')
 	{
-		if ($this->filters === null || ! ($this->filters instanceof DiaryFilters))
+		if ($this->filters === null || !($this->filters instanceof DiaryFilters))
 		{
 			$this->filters = new DiaryFilters($this->okt, $this->config, $part);
 		}
@@ -96,36 +96,36 @@ class module_diary extends Module
 	 *        	boolean	count_only		Ne renvoi qu'un nombre d'éléments
 	 * @return object recordset/integer
 	 */
-	public function getEvents($aParams = array(), $bCountOnly = false)
+	public function getEvents($aParams = [], $bCountOnly = false)
 	{
 		$sReqPlus = '';
 		
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= ' AND id=' . (integer) $aParams['id'] . ' ';
 		}
 		
-		if (! empty($aParams['slug']))
+		if (!empty($aParams['slug']))
 		{
 			$sReqPlus .= ' AND slug=\'' . $this->db->escapeStr($aParams['slug']) . '\' ';
 		}
 		
-		if (! empty($aParams['after']))
+		if (!empty($aParams['after']))
 		{
 			$sReqPlus .= ' AND date>=\'' . $this->db->escapeStr($aParams['after']) . '\' ';
 		}
 		
-		if (! empty($aParams['before']))
+		if (!empty($aParams['before']))
 		{
 			$sReqPlus .= ' AND date<=\'' . $this->db->escapeStr($aParams['before']) . '\' ';
 		}
 		
-		if (! empty($aParams['between']))
+		if (!empty($aParams['between']))
 		{
 			$sReqPlus .= ' AND date>=\'' . $this->db->escapeStr($aParams['between']) . '\' ' . ' AND date_end<=\'' . $this->db->escapeStr($aParams['between']) . '\' ';
 		}
 		
-		if (! empty($aParams['disponibility']) || ! empty($aParams['disponibility']))
+		if (!empty($aParams['disponibility']) || !empty($aParams['disponibility']))
 		{
 			$sReqPlus .= ' AND disponibility=' . (integer) $aParams['disponibility'] . ' ';
 		}
@@ -158,7 +158,7 @@ class module_diary extends Module
 		{
 			$query = 'SELECT ' . 'id, visibility, title, date, date_end, slug, title_tag, title_seo, description, disponibility, color, ' . 'created_at, updated_at, images, files, meta_description, meta_keywords ' . 'FROM ' . $this->table . '  ' . 'WHERE 1 ' . $sReqPlus;
 			
-			if (! empty($aParams['limit']))
+			if (!empty($aParams['limit']))
 			{
 				$query .= 'LIMIT ' . $aParams['limit'] . ' ';
 			}
@@ -172,7 +172,7 @@ class module_diary extends Module
 			}
 			else
 			{
-				$rs = new DiaryRecordset(array());
+				$rs = new DiaryRecordset([]);
 				$rs->setCore($this->okt);
 				return $rs;
 			}
@@ -237,10 +237,10 @@ class module_diary extends Module
 			'visibility' => $iVisibility
 		));
 		
-		$aDates = array();
+		$aDates = [];
 		while ($rsEvents->fetch())
 		{
-			if (! empty($rsEvents->date_end))
+			if (!empty($rsEvents->date_end))
 			{
 				# @TODO : PHP 5.3
 				//$days = new DatePeriod(new DateTime($rsEvents->date), DateInterval::createFromDateString('1 day'), new DateTime($rsEvents->date_end));
@@ -287,7 +287,7 @@ class module_diary extends Module
 	{
 		$oCursor = $this->db->openCursor($this->table);
 		
-		if (! empty($data) && is_array($data))
+		if (!empty($data) && is_array($data))
 		{
 			foreach ($data as $k => $v)
 			{
@@ -328,7 +328,7 @@ class module_diary extends Module
 		$oCursor->meta_description = strip_tags($oCursor->meta_description);
 		$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 		
-		if (! $oCursor->insert())
+		if (!$oCursor->insert())
 		{
 			return false;
 		}
@@ -366,7 +366,7 @@ class module_diary extends Module
 	 */
 	public function updEvent($iEventId, $oCursor)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
@@ -392,7 +392,7 @@ class module_diary extends Module
 		$oCursor->meta_description = strip_tags($oCursor->meta_description);
 		$oCursor->meta_keywords = strip_tags($oCursor->meta_keywords);
 		
-		if (! $oCursor->update('WHERE id=' . (integer) $iEventId . ' '))
+		if (!$oCursor->update('WHERE id=' . (integer) $iEventId . ' '))
 		{
 			return false;
 		}
@@ -426,7 +426,7 @@ class module_diary extends Module
 	 */
 	public function delEvent($iEventId)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
@@ -444,7 +444,7 @@ class module_diary extends Module
 		
 		$query = 'DELETE FROM ' . $this->table . ' ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -462,7 +462,7 @@ class module_diary extends Module
 	 */
 	public function switchEventStatus($iEventId)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
@@ -470,7 +470,7 @@ class module_diary extends Module
 		
 		$query = 'UPDATE ' . $this->table . ' SET ' . 'updated_at=NOW(), ' . 'visibility = 1-visibility ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -487,7 +487,7 @@ class module_diary extends Module
 	 */
 	public function setEventStatus($iEventId, $visibility)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
@@ -495,7 +495,7 @@ class module_diary extends Module
 		
 		$query = 'UPDATE ' . $this->table . ' SET ' . 'updated_at=NOW(), ' . 'visibility = ' . ($visibility == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -520,7 +520,7 @@ class module_diary extends Module
 		{
 			$this->error->set('Vous devez saisir une date.');
 		}
-		elseif (! empty($aData['date_end']) && (strtotime($aData['date_end']) <= strtotime($aData['date'])))
+		elseif (!empty($aData['date_end']) && (strtotime($aData['date_end']) <= strtotime($aData['date'])))
 		{
 			$this->error->set('Vous devez saisir une date de fin postérieure à la date.');
 		}
@@ -588,7 +588,7 @@ class module_diary extends Module
 	{
 		$aImages = $this->getImageUpload()->addImages($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -606,14 +606,14 @@ class module_diary extends Module
 	{
 		$aCurrentImages = $this->getImagesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aImages = $this->getImageUpload()->updImages($iEventId, $aCurrentImages);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -632,14 +632,14 @@ class module_diary extends Module
 	{
 		$aCurrentImages = $this->getImagesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewImages = $this->getImageUpload()->deleteImage($iEventId, $aCurrentImages, $img_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -657,7 +657,7 @@ class module_diary extends Module
 	{
 		$aCurrentImages = $this->getImagesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -684,7 +684,7 @@ class module_diary extends Module
 		while ($rsEvents->fetch())
 		{
 			$aImages = $rsEvents->getImagesArray();
-			$aImagesList = array();
+			$aImagesList = [];
 			
 			foreach ($aImages as $key => $image)
 			{
@@ -705,14 +705,14 @@ class module_diary extends Module
 	 */
 	public function getImagesFromDb($iEventId)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
 		}
 		
 		$rsEvents = $this->getEvent($iEventId);
-		$aImages = $rsEvents->images ? unserialize($rsEvents->images) : array();
+		$aImages = $rsEvents->images ? unserialize($rsEvents->images) : [];
 		
 		return $aImages;
 	}
@@ -725,19 +725,19 @@ class module_diary extends Module
 	 *        	$aImages
 	 * @return boolean
 	 */
-	public function updImagesInDb($iEventId, $aImages = array())
+	public function updImagesInDb($iEventId, $aImages = [])
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
 		}
 		
-		$aImages = ! empty($aImages) ? serialize($aImages) : NULL;
+		$aImages = !empty($aImages) ? serialize($aImages) : NULL;
 		
-		$query = 'UPDATE ' . $this->table . ' SET ' . 'images=' . (! is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iEventId;
+		$query = 'UPDATE ' . $this->table . ' SET ' . 'images=' . (!is_null($aImages) ? '\'' . $this->db->escapeStr($aImages) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -768,7 +768,7 @@ class module_diary extends Module
 	{
 		$aFiles = $this->getFileUpload()->addFiles($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -786,14 +786,14 @@ class module_diary extends Module
 	{
 		$aCurrentFiles = $this->getFilesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aFiles = $this->getFileUpload()->updFiles($iEventId, $aCurrentFiles);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -812,14 +812,14 @@ class module_diary extends Module
 	{
 		$aCurrentFiles = $this->getFilesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
 		
 		$aNewFiles = $this->getFileUpload()->deleteFile($iEventId, $aCurrentFiles, $file_id);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -837,7 +837,7 @@ class module_diary extends Module
 	{
 		$aCurrentFiles = $this->getFilesFromDb($iEventId);
 		
-		if (! $this->error->isEmpty())
+		if (!$this->error->isEmpty())
 		{
 			return false;
 		}
@@ -855,14 +855,14 @@ class module_diary extends Module
 	 */
 	public function getFilesFromDb($iEventId)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
 		}
 		
 		$rsEvents = $this->getEvent($iEventId);
-		$aFiles = $rsEvents->files ? unserialize($rsEvents->files) : array();
+		$aFiles = $rsEvents->files ? unserialize($rsEvents->files) : [];
 		
 		return $aFiles;
 	}
@@ -874,19 +874,19 @@ class module_diary extends Module
 	 * @param array $aFiles        	
 	 * @return boolean
 	 */
-	public function updFilesInDb($iEventId, $aFiles = array())
+	public function updFilesInDb($iEventId, $aFiles = [])
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
 		}
 		
-		$aFiles = ! empty($aFiles) ? serialize($aFiles) : NULL;
+		$aFiles = !empty($aFiles) ? serialize($aFiles) : NULL;
 		
-		$query = 'UPDATE ' . $this->table . ' SET ' . 'files=' . (! is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iEventId;
+		$query = 'UPDATE ' . $this->table . ' SET ' . 'files=' . (!is_null($aFiles) ? '\'' . $this->db->escapeStr($aFiles) . '\'' : 'NULL') . ' ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -905,7 +905,7 @@ class module_diary extends Module
 	 */
 	protected function setEventSlug($iEventId)
 	{
-		if (! $this->eventExists($iEventId))
+		if (!$this->eventExists($iEventId))
 		{
 			$this->error->set(sprintf(__('m_diary_event_%s_not_exists'), $iEventId));
 			return false;
@@ -917,7 +917,7 @@ class module_diary extends Module
 		
 		$query = 'UPDATE ' . $this->table . ' SET ' . 'slug=\'' . $this->db->escapeStr($slug) . '\' ' . 'WHERE id=' . (integer) $iEventId;
 		
-		if (! $this->db->execute($query))
+		if (!$this->db->execute($query))
 		{
 			return false;
 		}
@@ -947,12 +947,12 @@ class module_diary extends Module
 		
 		$rs = $this->db->select($query);
 		
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			$query = 'SELECT slug FROM ' . $this->table . ' ' . 'WHERE slug LIKE \'' . $this->db->escapeStr($url) . '%\' ' . 'AND id <> ' . (integer) $iEventId . ' ' . 'ORDER BY slug DESC ';
 			
 			$rs = $this->db->select($query);
-			$a = array();
+			$a = [];
 			while ($rs->fetch())
 			{
 				$a[] = $rs->slug;

@@ -91,7 +91,7 @@ class Module
 	 * @param array $infos        	
 	 * @return void
 	 */
-	public function setInfos(array $infos = array())
+	public function setInfos(array $infos = [])
 	{
 		foreach ($infos as $name => $value)
 		{
@@ -143,16 +143,16 @@ class Module
 	 *        	Le tableau de paramètres
 	 * @return void
 	 */
-	public function register(array $aParams = array())
+	public function register(array $aParams = [])
 	{
 		$this->setInfos(array(
 			'root' => $this->okt['modules_path'] . '/' . $this->id(),
-			'name' => (! empty($aParams['name']) ? $aParams['name'] : $this->_id),
-			'desc' => (! empty($aParams['desc']) ? $aParams['desc'] : null),
-			'version' => (! empty($aParams['version']) ? $aParams['version'] : null),
-			'author' => (! empty($aParams['author']) ? $aParams['author'] : null),
-			'priority' => (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
-			'updatable' => (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
+			'name' => (!empty($aParams['name']) ? $aParams['name'] : $this->_id),
+			'desc' => (!empty($aParams['desc']) ? $aParams['desc'] : null),
+			'version' => (!empty($aParams['version']) ? $aParams['version'] : null),
+			'author' => (!empty($aParams['author']) ? $aParams['author'] : null),
+			'priority' => (!empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
+			'updatable' => (!empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
 		));
 	}
 	
@@ -311,7 +311,7 @@ class Module
 			return $sName;
 		}
 		
-		if (! isset($this->config) || ! isset($this->config->name))
+		if (!isset($this->config) || !isset($this->config->name))
 		{
 			$sName = null;
 		}
@@ -348,7 +348,7 @@ class Module
 			return $sTitle;
 		}
 		
-		if (! isset($this->config) || ! isset($this->config->title))
+		if (!isset($this->config) || !isset($this->config->title))
 		{
 			$sTitle = null;
 		}
@@ -385,7 +385,7 @@ class Module
 			return $sNameSeo;
 		}
 		
-		if (! isset($this->config) || ! isset($this->config->title))
+		if (!isset($this->config) || !isset($this->config->title))
 		{
 			$sNameSeo = null;
 		}
