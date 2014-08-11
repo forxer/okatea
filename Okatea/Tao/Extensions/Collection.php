@@ -83,8 +83,7 @@ class Collection
 	 */
 	public function load($ns = null)
 	{
-		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
-		{
+		if (!$this->okt['cacheConfig']->contains($this->sCacheId)) {
 			$this->generateCacheList();
 		}
 
@@ -125,7 +124,7 @@ class Collection
 	 */
 	public function resetLoaded()
 	{
-		$this->aLoaded = array();
+		$this->aLoaded = [];
 	}
 
 	/**
@@ -161,8 +160,7 @@ class Collection
 	 */
 	public function getInstance($sExtensionId)
 	{
-		if (! isset($this->aLoaded[$sExtensionId]))
-		{
+		if (!isset($this->aLoaded[$sExtensionId])) {
 			throw new \RuntimeException(__('The extension specified (' . $sExtensionId . ') does not appear to be a valid loaded extension.'));
 		}
 
@@ -176,23 +174,23 @@ class Collection
 	 */
 	public function generateCacheList()
 	{
-		$aLoaded = array();
+		$aLoaded = [];
 
-		$rsExtensions = $this->getManager()->getFromDatabase(array(
+		$rsExtensions = $this->getManager()->getFromDatabase([
 			'status' => 1
-		));
+		]);
 
 		while ($rsExtensions->fetch())
 		{
-			$aLoaded[$rsExtensions->f('id')] = array(
-				'id' => $rsExtensions->f('id'),
-				'root' => $this->path . '/' . $rsExtensions->f('id'),
-				'name' => $rsExtensions->f('name'),
-				'version' => $rsExtensions->f('version'),
-				'desc' => $rsExtensions->f('description'),
-				'author' => $rsExtensions->f('author'),
-				'status' => $rsExtensions->f('status')
-			);
+			$aLoaded[$rsExtensions->f('id')] = [
+				'id'        => $rsExtensions->f('id'),
+				'root'      => $this->path . '/' . $rsExtensions->f('id'),
+				'name'      => $rsExtensions->f('name'),
+				'version'   => $rsExtensions->f('version'),
+				'desc'      => $rsExtensions->f('description'),
+				'author'    => $rsExtensions->f('author'),
+				'status'    => $rsExtensions->f('status')
+			];
 		}
 
 		return $this->okt['cacheConfig']->save($this->sCacheId, $aLoaded);
@@ -206,8 +204,7 @@ class Collection
 	 */
 	public static function sort(array &$aExtensions)
 	{
-		uasort($aExtensions, function ($a, $b)
-		{
+		uasort($aExtensions, function ($a, $b) {
 			return strcasecmp($a['name_l10n'], $b['name_l10n']);
 		});
 	}
@@ -218,7 +215,7 @@ class Collection
 	 * @param array $aRepositories
 	 * @return array
 	 */
-	public function getRepositoriesData(array $aRepositories = array())
+	public function getRepositoriesData(array $aRepositories = [])
 	{
 		return (new Repositories($this->okt, $this->sCacheRepositoryId))->getData($aRepositories);
 	}
@@ -261,8 +258,7 @@ class Collection
 	{
 		$sInstallerClass = 'Okatea\\Modules\\' . $sExtensionId . '\\Install\\Installer';
 
-		if (class_exists($sInstallerClass) && is_subclass_of($sInstallerClass, $this->sInstallerClass))
-		{
+		if (class_exists($sInstallerClass) && is_subclass_of($sInstallerClass, $this->sInstallerClass)) {
 			return $sInstallerClass;
 		}
 

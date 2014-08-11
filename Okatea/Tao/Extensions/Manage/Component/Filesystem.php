@@ -15,7 +15,6 @@ use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
  */
 class Filesystem extends BaseFilesystem
 {
-
 	public function copy($originFile, $targetFile, $override = false)
 	{
 		try
@@ -29,7 +28,7 @@ class Filesystem extends BaseFilesystem
 		}
 	}
 
-	public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = array())
+	public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = [])
 	{
 		try
 		{

@@ -18,6 +18,11 @@ use Okatea\Tao\Application;
  */
 class Controller
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
 	protected $okt;
 
 	protected $page;

@@ -22,13 +22,13 @@ class LogAdmin extends BaseFilters
 
 	protected $logAdmin;
 
-	protected $aLogParams = array();
+	protected $aLogParams = [];
 
-	protected $order_by_array = array();
+	protected $order_by_array = [];
 
-	protected $type_array = array();
+	protected $type_array = [];
 
-	protected $action_array = array();
+	protected $action_array = [];
 
 	public function __construct($okt)
 	{
@@ -45,19 +45,19 @@ class LogAdmin extends BaseFilters
 
 	public function setDefaultParams()
 	{
-		$this->defaults_params = array(
+		$this->defaults_params = [
 			'date_min' => '',
 			'date_max' => '',
 			'type' => 1,
 			'code' => 1,
 			'order_by' => $this->config->admin_default_order_by,
 			'order_direction' => $this->config->admin_default_order_direction
-		);
+		];
 
 		parent::setDefaultParams();
 	}
 
-	public function setLogsParams(&$logs_params = array())
+	public function setLogsParams(&$logs_params = [])
 	{
 		$this->aLogParams = & $logs_params;
 	}
@@ -65,19 +65,17 @@ class LogAdmin extends BaseFilters
 	/**
 	 * Récupère les filtres
 	 *
-	 * @param
-	 *        	$part
 	 * @return void
 	 */
 	public function getFilters()
 	{
 		# tableau de type de tri de base
-		$this->order_by_array = array(
+		$this->order_by_array = [
 			'date' => 'date',
 			'type' => 'type',
 			'action' => 'code',
 			'IP' => 'ip'
-		);
+		];
 
 		# dates
 		$this->setFilterDates();
@@ -135,14 +133,14 @@ class LogAdmin extends BaseFilters
 				break;
 		}
 
-		$this->fields['order_by'] = array(
+		$this->fields['order_by'] = [
 			$this->form_id . '_order_by',
 			__('c_c_sorting_Sorted_by'),
-			form::select(array(
+			form::select([
 				'order_by',
 				$this->form_id . '_order_by'
-			), $this->order_by_array, $this->params->order_by, $this->getActiveClass('order_by'))
-		);
+			], $this->order_by_array, $this->params->order_by, $this->getActiveClass('order_by'))
+		];
 
 		# sens du tri
 		if ($this->okt['request']->query->has('order_direction'))
@@ -161,17 +159,17 @@ class LogAdmin extends BaseFilters
 
 		$this->aLogParams['order_direction'] = $this->params->order_direction;
 
-		$this->fields['order_direction'] = array(
+		$this->fields['order_direction'] = [
 			$this->form_id . '_order_direction',
 			__('c_c_sorting_Sort_direction'),
-			form::select(array(
+			form::select([
 				'order_direction',
 				$this->form_id . '_order_direction'
-			), array(
+			], [
 				__('c_c_sorting_descending') => 'DESC',
 				__('c_c_sorting_ascending') => 'ASC'
-			), $this->params->order_direction, $this->getActiveClass('order_direction'))
-		);
+			], $this->params->order_direction, $this->getActiveClass('order_direction'))
+		];
 	}
 
 	protected function setFilterDates()
@@ -192,14 +190,14 @@ class LogAdmin extends BaseFilters
 
 		$this->aLogParams['date_min'] = $this->params->date_min;
 
-		$this->fields['date_min'] = array(
+		$this->fields['date_min'] = [
 			$this->form_id . 'date_min',
 			__('c_a_config_logadmin_Date_min'),
-			form::text(array(
+			form::text([
 				'date_min',
 				$this->form_id . '_date_min'
-			), 15, 0, $this->params->date_min, 'datepicker', $this->getActiveClass('date_min'))
-		);
+			], 15, 0, $this->params->date_min, 'datepicker', $this->getActiveClass('date_min'))
+		];
 
 		if ($this->okt['request']->query->has('date_max'))
 		{
@@ -217,60 +215,60 @@ class LogAdmin extends BaseFilters
 
 		$this->aLogParams['date_max'] = $this->params->date_max;
 
-		$this->fields['date_max'] = array(
+		$this->fields['date_max'] = [
 			$this->form_id . 'date_max',
 			__('c_a_config_logadmin_Date_max'),
-			form::text(array(
+			form::text([
 				'date_max',
 				$this->form_id . '_date_max'
-			), 15, 0, $this->params->date_max, 'datepicker', $this->getActiveClass('date_max'))
-		);
+			], 15, 0, $this->params->date_max, 'datepicker', $this->getActiveClass('date_max'))
+		];
 	}
 
 	protected function setFilterType()
 	{
 		# tableau de tri par type
-		$this->type_array = array_merge(array(
+		$this->type_array = array_merge([
 			'tous les types' => '1'
-		), array_flip($this->okt['logAdmin']->getTypes()));
+		], array_flip($this->okt['logAdmin']->getTypes()));
 
-		if (! isset($this->aLogParams['type']))
+		if (!isset($this->aLogParams['type']))
 		{
 			$this->setIntFilter('type');
 			$this->aLogParams['type'] = $this->params->type;
 		}
 
-		$this->fields['type'] = array(
+		$this->fields['type'] = [
 			$this->form_id . '_type',
 			__('c_a_config_logadmin_type'),
-			form::select(array(
+			form::select([
 				'type',
 				$this->form_id . '_type'
-			), $this->type_array, $this->params->type, $this->getActiveClass('type'))
-		);
+			], $this->type_array, $this->params->type, $this->getActiveClass('type'))
+		];
 	}
 
 	protected function setFilterAction()
 	{
 		# tableau de tri par action
-		$this->action_array = array_merge(array(
+		$this->action_array = array_merge([
 			'toutes les actions' => '1'
-		), array_flip($this->okt['logAdmin']->getCodes()));
+		], array_flip($this->okt['logAdmin']->getCodes()));
 
-		if (! isset($this->aLogParams['code']))
+		if (!isset($this->aLogParams['code']))
 		{
 			$this->setIntFilter('code');
 			$this->aLogParams['code'] = $this->params->code;
 		}
 
-		$this->fields['code'] = array(
+		$this->fields['code'] = [
 			$this->form_id . '_code',
 			__('c_a_config_logadmin_code'),
-			form::select(array(
+			form::select([
 				'code',
 				$this->form_id . '_code'
-			), $this->action_array, $this->params->code, $this->getActiveClass('code'))
-		);
+			], $this->action_array, $this->params->code, $this->getActiveClass('code'))
+		];
 	}
 
 	/* HTML

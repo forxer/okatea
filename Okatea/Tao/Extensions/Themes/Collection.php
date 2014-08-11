@@ -12,7 +12,6 @@ use Symfony\Component\Finder\Finder;
 
 class Collection extends BaseCollection
 {
-
 	/**
 	 * Default theme identifier.
 	 *
@@ -23,43 +22,39 @@ class Collection extends BaseCollection
 	/**
 	 * Constructeur.
 	 *
-	 * @param object $okt
-	 *        	instance.
-	 * @param string $path
-	 *        	chemin du répertoire des thèmes à charger.
+	 * @param object $okt Okatea application instance.
+	 * @param string $path Chemin du répertoire des thèmes à charger.
 	 * @return void
 	 */
 	public function __construct($okt, $path)
 	{
 		parent::__construct($okt, $path);
-		
+
 		$this->type = 'theme';
-		
+
 		$this->sCacheId = 'themes';
 		$this->sCacheRepositoryId = 'themes_repositories';
-		
+
 		$this->sExtensionClassPatern = 'Okatea\\Themes\\%s\\Theme';
-		
+
 		$this->sInstallerClass = 'Okatea\\Tao\\Extensions\\Themes\\Manage\\Installer';
 	}
 
 	/**
 	 * Fonction de "pluralisation" des thèmes.
 	 *
-	 * @param integer $count        	
+	 * @param integer $count
 	 * @return string
 	 */
 	public static function pluralizeThemeCount($count)
 	{
-		if ($count == 1)
-		{
+		if ($count == 1) {
 			return __('c_a_themes_one_theme');
 		}
-		elseif ($count > 1)
-		{
+		elseif ($count > 1) {
 			return sprintf(__('c_a_themes_%s_themes'), $count);
 		}
-		
+
 		return __('c_a_themes_no_theme');
 	}
 
@@ -75,11 +70,12 @@ class Collection extends BaseCollection
 
 	protected static function findImg($sDir, $simage)
 	{
-		$finder = (new Finder())->in($sDir)
+		$finder = (new Finder())
+			->in($sDir)
 			->depth('== 0')
 			->files()
 			->name($simage . '.*');
-		
+
 		foreach ($finder as $file)
 		{
 			return $file->getFilename();

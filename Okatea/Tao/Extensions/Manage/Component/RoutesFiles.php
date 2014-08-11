@@ -11,7 +11,6 @@ use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class RoutesFiles extends ComponentBase
 {
-
 	protected $sRoutesDirectory;
 
 	public function setRoutesDirectory($sRoutesDirectory)
@@ -32,22 +31,19 @@ class RoutesFiles extends ComponentBase
 	public function process()
 	{
 		$oFiles = $this->getFiles();
-		
-		if (empty($oFiles))
-		{
+
+		if (empty($oFiles)) {
 			return null;
 		}
-		
+
 		foreach ($oFiles as $oFile)
 		{
 			$sRouteFile = $this->okt['config_path'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
-			
-			if (file_exists($sRouteFile))
-			{
+
+			if (file_exists($sRouteFile)) {
 				$this->merge($oFile, $sRouteFile);
 			}
-			else
-			{
+			else {
 				$this->copy($oFile, $sRouteFile);
 			}
 		}
@@ -59,23 +55,32 @@ class RoutesFiles extends ComponentBase
 	public function delete()
 	{
 		$oFiles = $this->getFiles();
-		
-		if (empty($oFiles))
-		{
+
+		if (empty($oFiles)) {
 			return null;
 		}
-		
+
 		foreach ($oFiles as $oFile)
 		{
 			$sFilePath = $this->okt['config_path'] . '/' . $this->getRoutesDirectory() . '/' . $oFile->getRelativePathname();
-			
+
 			if (file_exists($sFilePath))
 			{
-				$this->checklist->addItem($this->getRoutesDirectory() . '_file_' . $oFile->getRelativePath() . '_' . $oFile->getBasename($oFile->getExtension()), unlink($sFilePath), 'Remove routes file ' . $oFile->getRelativePathname(), 'Cannot remove routes file ' . $oFile->getRelativePathname());
+				$this->checklist->addItem(
+					$this->getRoutesDirectory() . '_file_' . $oFile->getRelativePath() . '_' . $oFile->getBasename($oFile->getExtension()),
+					unlink($sFilePath),
+					'Remove routes file ' . $oFile->getRelativePathname(),
+					'Cannot remove routes file ' . $oFile->getRelativePathname()
+				);
 			}
 			else
 			{
-				$this->checklist->addItem($this->getRoutesDirectory() . '_file_' . $oFile->getRelativePath() . '_' . $oFile->getBasename($oFile->getExtension()), null, 'Routes file ' . $oFile->getRelativePathname() . ' doesn\'t exists', 'Routes file ' . $oFile->getRelativePathname() . ' doesn\'t exists');
+				$this->checklist->addItem(
+					$this->getRoutesDirectory() . '_file_' . $oFile->getRelativePath() . '_' . $oFile->getBasename($oFile->getExtension()),
+					null,
+					'Routes file ' . $oFile->getRelativePathname() . ' doesn\'t exists',
+					'Routes file ' . $oFile->getRelativePathname() . ' doesn\'t exists'
+				);
 			}
 		}
 	}
@@ -85,8 +90,12 @@ class RoutesFiles extends ComponentBase
 	 */
 	protected function copy($sNewFile, $sRouteFile)
 	{
-		$this->checklist->addItem($this->getRoutesDirectory() . '_file_' . $sNewFile->getRelativePath() . '_' . $sNewFile->getBasename($sNewFile->getExtension()), $this->getFs()
-			->copy($sNewFile->getRealPath(), $sRouteFile), 'Copy routes file ' . $sNewFile->getRelativePathname(), 'Cannot copy routes file ' . $sNewFile->getRelativePathname());
+		$this->checklist->addItem(
+			$this->getRoutesDirectory() . '_file_' . $sNewFile->getRelativePath() . '_' . $sNewFile->getBasename($sNewFile->getExtension()),
+			$this->getFs()->copy($sNewFile->getRealPath(), $sRouteFile),
+			'Copy routes file ' . $sNewFile->getRelativePathname(),
+			'Cannot copy routes file ' . $sNewFile->getRelativePathname()
+		);
 	}
 
 	/**
@@ -94,33 +103,38 @@ class RoutesFiles extends ComponentBase
 	 */
 	protected function merge($sNewFile, $sRouteFile)
 	{
-		$this->checklist->addItem($this->getRoutesDirectory() . '_merging_file_' . $sNewFile->getRelativePath() . '_' . $sNewFile->getBasename($sNewFile->getExtension()), $this->doMerging($sNewFile->getRealPath(), $sRouteFile), 'Merging routes file ' . $sNewFile->getRelativePathname(), 'Cannot merging routes file ' . $sNewFile->getRelativePathname());
+		$this->checklist->addItem(
+			$this->getRoutesDirectory() . '_merging_file_' . $sNewFile->getRelativePath() . '_' . $sNewFile->getBasename($sNewFile->getExtension()),
+			$this->doMerging($sNewFile->getRealPath(), $sRouteFile),
+			'Merging routes file ' . $sNewFile->getRelativePathname(),
+			'Cannot merging routes file ' . $sNewFile->getRelativePathname()
+		);
 	}
 
 	protected function doMerging($sNewFile, $sRouteFile)
 	{
 		$aRoutes = $this->yamlParse($sRouteFile);
 		$aNewRoutes = $this->yamlParse($sNewFile);
-		
+
 		$aData = $aRoutes + $aNewRoutes;
-		
+
 		return file_put_contents($sRouteFile, $this->yamlDump($aData));
 	}
 
 	protected function getFiles()
 	{
 		$sPath = $this->extension->root() . '/Install/' . $this->getRoutesDirectory();
-		
+
 		if (is_dir($sPath))
 		{
 			$finder = $this->getFinder();
 			$finder->files()
 				->in($sPath)
 				->name('*.yml');
-			
+
 			return $finder;
 		}
-		
+
 		return null;
 	}
 }

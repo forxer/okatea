@@ -66,18 +66,18 @@ class Okatea extends Application
 	protected function checkUser()
 	{
 		# Validation du CSRF token si un formulaire est envoyé
-		if (! $this['debug'] && count($this['request']->request) > 0 && (! $this['request']->request->has($this['csrf_token_name']) || ! $this['session']->isValidToken($this['request']->request->get($this['csrf_token_name']))))
+		if (!$this['debug'] && count($this['request']->request) > 0 && (!$this['request']->request->has($this['csrf_token_name']) || !$this['session']->isValidToken($this['request']->request->get($this['csrf_token_name']))))
 		{
 			$this['flashMessages']->error(__('c_c_auth_bad_csrf_token'));
 
 			$this['visitor']->logout();
 
-			$this['logAdmin']->critical(array(
+			$this['logAdmin']->critical([
 				'user_id' 	=> $this['visitor']->infos['id'],
 				'username' 	=> $this['visitor']->infos['username'],
 				'message' 	=> 'Security CSRF blocking',
 				'code' 		=> 0
-			));
+			]);
 
 			$this->response = new RedirectResponse($this['adminRouter']->generate('login'));
 
@@ -101,7 +101,7 @@ class Okatea extends Application
 			}
 
 			# il faut au minimum la permission d'utilisation de l'interface d'administration
-			elseif (! $this['visitor']->checkPerm('usage'))
+			elseif (!$this['visitor']->checkPerm('usage'))
 			{
 				$this['flashMessages']->error(__('c_c_auth_restricted_access'));
 
@@ -113,7 +113,7 @@ class Okatea extends Application
 			}
 
 			# enfin, si on est en maintenance, il faut être superadmin
-			elseif ($this['config']->maintenance['admin'] && ! $this['visitor']->is_superadmin)
+			elseif ($this['config']->maintenance['admin'] && !$this['visitor']->is_superadmin)
 			{
 				$this['flashMessages']->error(__('c_c_auth_maintenance_admin'));
 
@@ -130,45 +130,44 @@ class Okatea extends Application
 
 	protected function buildAdminMenu()
 	{
-		if (! $this->page->display_menu)
-		{
+		if (!$this->page->display_menu) {
 			return null;
 		}
 
 		if ($this['config']->admin_menu_position != 'top')
 		{
-			Page::$formatHtmlMainMenu = array(
+			Page::$formatHtmlMainMenu = [
 				'block' => '<div%2$s>%1$s</div>',
 				'item' => '<h2%3$s><a href="%2$s">%1$s</a></h2>%4$s',
 				'active' => '<h2%3$s><a href="%2$s">%1$s</a></h2>%4$s',
 				'separator' => '',
 				'emptyBlock' => '<div%s>&nbsp;</div>'
-			);
+			];
 
-			Page::$formatHtmlSubMenu = array(
+			Page::$formatHtmlSubMenu = [
 				'block' => '<div%2$s><ul class="sub-menu">%1$s</ul></div>',
 				'item' => '<li%3$s class=""><span class="ui-icon ui-icon-arrow-1-e"></span><a href="%2$s">%1$s</a>%4$s</li>',
 				'active' => '<li%3$s class=""><span class="ui-icon ui-icon-arrowthick-1-e"></span><a href="%2$s"><strong>%1$s</strong></a>%4$s</li>',
 				'separator' => '',
 				'emptyBlock' => '<div%s>&nbsp;</div>'
-			);
+			];
 		}
 		else
 		{
-			Page::$formatHtmlMainMenu = array(
+			Page::$formatHtmlMainMenu = [
 				'block' => '<ul%2$s>%1$s</ul>',
 				'item' => '<li%3$s><a href="%2$s">%1$s</a>%4$s</li>',
 				'active' => '<li%3$s><a href="%2$s"><strong>%1$s</strong></a>%4$s</li>',
 				'separator' => '',
 				'emptyBlock' => '<div%s>&nbsp;</div>'
-			);
-			Page::$formatHtmlSubMenu = array(
+			];
+			Page::$formatHtmlSubMenu = [
 				'block' => '<ul%2$s>%1$s</ul>',
 				'item' => '<li%3$s><a href="%2$s">%1$s</a>%4$s</li>',
 				'active' => '<li%3$s><a href="%2$s"><strong>%1$s</strong></a>%4$s</li>',
 				'separator' => '',
 				'emptyBlock' => '<div%s>&nbsp;</div>'
-			);
+			];
 		}
 
 		# Menu principal
@@ -188,16 +187,16 @@ class Okatea extends Application
 
 		# Users
 		$this->page->mainMenu->add(__('c_a_menu_users'), $this['adminRouter']->generate('Users_index'), $this['request']->attributes->get('_route') === 'Users_index', 9000000, ($this['visitor']->checkPerm('users')), null, ($this->page->usersSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this['public_url'] . '/img/admin/users.png');
-		$this->page->usersSubMenu->add(__('c_a_menu_management'), $this['adminRouter']->generate('Users_index'), in_array($this['request']->attributes->get('_route'), array(
+		$this->page->usersSubMenu->add(__('c_a_menu_management'), $this['adminRouter']->generate('Users_index'), in_array($this['request']->attributes->get('_route'), [
 			'Users_index',
 			'Users_add',
 			'Users_edit'
-		)), 10, $this['visitor']->checkPerm('users'));
-		$this->page->usersSubMenu->add(__('c_a_menu_users_groups'), $this['adminRouter']->generate('Users_groups'), in_array($this['request']->attributes->get('_route'), array(
+		]), 10, $this['visitor']->checkPerm('users'));
+		$this->page->usersSubMenu->add(__('c_a_menu_users_groups'), $this['adminRouter']->generate('Users_groups'), in_array($this['request']->attributes->get('_route'), [
 			'Users_groups',
 			'Users_groups_add',
 			'Users_groups_edit'
-		)), 20, $this['visitor']->checkPerm('users_groups'));
+		]), 20, $this['visitor']->checkPerm('users_groups'));
 		/*
 			$this->page->usersSubMenu->add(
 				__('m_users_Custom_fields'),
@@ -221,17 +220,17 @@ class Okatea extends Application
 		$this->page->mainMenu->add(__('c_a_menu_configuration'), $this['adminRouter']->generate('config_general'), $this['request']->attributes->get('_route') === 'config_general', 10000000, $this['visitor']->checkPerm('configsite'), null, ($this->page->configSubMenu = new AdminMenu(null, Page::$formatHtmlSubMenu)), $this['public_url'] . '/img/admin/network-server.png');
 		$this->page->configSubMenu->add(__('c_a_menu_general'), $this['adminRouter']->generate('config_general'), $this['request']->attributes->get('_route') === 'config_general', 10, $this['visitor']->checkPerm('configsite'));
 		$this->page->configSubMenu->add(__('c_a_menu_display'), $this['adminRouter']->generate('config_display'), $this['request']->attributes->get('_route') === 'config_display', 20, $this['visitor']->checkPerm('display'));
-		$this->page->configSubMenu->add(__('c_a_menu_localization'), $this['adminRouter']->generate('config_l10n'), in_array($this['request']->attributes->get('_route'), array(
+		$this->page->configSubMenu->add(__('c_a_menu_localization'), $this['adminRouter']->generate('config_l10n'), in_array($this['request']->attributes->get('_route'), [
 			'config_l10n',
 			'config_l10n_add_language',
 			'config_l10n_edit_language'
-		)), 60, $this['visitor']->checkPerm('languages'));
+		]), 60, $this['visitor']->checkPerm('languages'));
 		$this->page->configSubMenu->add(__('c_a_menu_modules'), $this['adminRouter']->generate('config_modules'), $this['request']->attributes->get('_route') === 'config_modules', 70, $this['visitor']->checkPerm('modules'));
-		$this->page->configSubMenu->add(__('c_a_menu_themes'), $this['adminRouter']->generate('config_themes'), in_array($this['request']->attributes->get('_route'), array(
+		$this->page->configSubMenu->add(__('c_a_menu_themes'), $this['adminRouter']->generate('config_themes'), in_array($this['request']->attributes->get('_route'), [
 			'config_themes',
 			'config_theme',
 			'config_theme_add'
-		)), 80, $this['visitor']->checkPerm('themes'));
+		]), 80, $this['visitor']->checkPerm('themes'));
 		$this->page->configSubMenu->add(__('c_a_menu_navigation'), $this['adminRouter']->generate('config_navigation'), $this['request']->attributes->get('_route') === 'config_navigation', 90, $this['visitor']->checkPerm('navigation'));
 		$this->page->configSubMenu->add(__('c_a_menu_permissions'), $this['adminRouter']->generate('config_permissions'), $this['request']->attributes->get('_route') === 'config_permissions', 100, $this['visitor']->checkPerm('permissions'));
 		$this->page->configSubMenu->add(__('c_a_menu_tools'), $this['adminRouter']->generate('config_tools'), $this['request']->attributes->get('_route') === 'config_tools', 110, $this['visitor']->checkPerm('tools'));

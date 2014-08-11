@@ -60,16 +60,16 @@ class Breadcrumb
 
 	public function reset()
 	{
-		$this->stack = array();
+		$this->stack = [];
 		$this->iNum = 0;
 	}
 
 	public function add($label, $url = null)
 	{
-		$this->stack[] = array(
-			'label' => $label,
-			'url' => $url
-		);
+		$this->stack[] = [
+			'label'  => $label,
+			'url'    => $url
+		];
 
 		++ $this->iNum;
 	}
@@ -86,8 +86,7 @@ class Breadcrumb
 
 	public function setHtmlBlock($sHtmlBlock = null)
 	{
-		if (null === $sHtmlBlock)
-		{
+		if (null === $sHtmlBlock) {
 			return false;
 		}
 
@@ -96,8 +95,7 @@ class Breadcrumb
 
 	public function setHtmlItem($sHtmlItem = null)
 	{
-		if (null === $sHtmlItem)
-		{
+		if (null === $sHtmlItem) {
 			return false;
 		}
 
@@ -106,8 +104,7 @@ class Breadcrumb
 
 	public function setHtmlLink($sHtmlLink = null)
 	{
-		if (null === $sHtmlLink)
-		{
+		if (null === $sHtmlLink) {
 			return false;
 		}
 
@@ -116,8 +113,7 @@ class Breadcrumb
 
 	public function setHtmlSeparator($sHtmlSeparator = null)
 	{
-		if (null === $sHtmlSeparator)
-		{
+		if (null === $sHtmlSeparator) {
 			return false;
 		}
 
@@ -139,27 +135,23 @@ class Breadcrumb
 
 	protected function buildBreadcrumb()
 	{
-		if (null === $this->iNum || $this->iNum <= 0)
-		{
+		if (null === $this->iNum || $this->iNum <= 0) {
 			return null;
 		}
 
-		$res = array();
+		$res = [];
 
 		for ($i = 0; $i < $this->iNum; $i ++)
 		{
-			if (empty($this->stack[$i]['url']) || $i === $this->iNum - 1)
-			{
+			if (empty($this->stack[$i]['url']) || $i === $this->iNum - 1) {
 				$res[] = sprintf($this->sHtmlItem, Escaper::html($this->stack[$i]['label']));
 			}
-			else
-			{
+			else {
 				$res[] = sprintf($this->sHtmlItem, sprintf($this->sHtmlLink, Escaper::html($this->stack[$i]['url']), Escaper::html($this->stack[$i]['label'])));
 			}
 		}
 
-		if (empty($res))
-		{
+		if (empty($res)) {
 			return null;
 		}
 

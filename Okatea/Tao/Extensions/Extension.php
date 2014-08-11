@@ -103,7 +103,7 @@ class Extension
 	 * @param array $aInfos
 	 * @return void
 	 */
-	public function setInfos(array $aInfos = array())
+	public function setInfos(array $aInfos = [])
 	{
 		foreach ($aInfos as $sKey => $mValue) {
 			$this->setInfo($sKey, $mValue);
@@ -145,17 +145,17 @@ class Extension
 	 *        	Le tableau de paramètres
 	 * @return void
 	 */
-	public function register(array $aParams = array())
+	public function register(array $aParams = [])
 	{
-		$this->setInfos(array(
+		$this->setInfos([
 			'root' 			=> $this->sExtensionsPath . '/' . $this->id(),
-			'name' 			=> (! empty($aParams['name']) ? $aParams['name'] : $this->id),
-			'desc' 			=> (! empty($aParams['desc']) ? $aParams['desc'] : null),
-			'version' 		=> (! empty($aParams['version']) ? $aParams['version'] : null),
-			'author' 		=> (! empty($aParams['author']) ? $aParams['author'] : null),
-			'priority' 		=> (! empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
-			'updatable' 	=> (! empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
-		));
+			'name' 			=> (!empty($aParams['name']) ? $aParams['name'] : $this->id),
+			'desc' 			=> (!empty($aParams['desc']) ? $aParams['desc'] : null),
+			'version' 		=> (!empty($aParams['version']) ? $aParams['version'] : null),
+			'author' 		=> (!empty($aParams['author']) ? $aParams['author'] : null),
+			'priority' 		=> (!empty($aParams['priority']) ? (integer) $aParams['priority'] : 1000),
+			'updatable' 	=> (!empty($aParams['updatable']) ? (boolean) $aParams['updatable'] : true)
+		]);
 	}
 
 	public function init()

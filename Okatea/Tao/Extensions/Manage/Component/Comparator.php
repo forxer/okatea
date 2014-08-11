@@ -22,8 +22,7 @@ class Comparator extends ComponentBase
 	 */
 	public function folder($sSourceDir, $sDestDir, $bOptional = false)
 	{
-		if (! is_dir($sSourceDir))
-		{
+		if (!is_dir($sSourceDir)) {
 			return null;
 		}
 
@@ -34,13 +33,25 @@ class Comparator extends ComponentBase
 		foreach ($finder as $file)
 		{
 			$sRelativePath = $file->getRelativePath();
-			if (! empty($sRelativePath))
-			{
+			if (!empty($sRelativePath)) {
 				$sRelativePath .= '/';
 			}
 
-			$this->file($file->getFilename(), $sSourceDir . $sRelativePath, $sDestDir . $sRelativePath, false, $bOptional);
-			$this->file($file->getFilename(), $sSourceDir . $sRelativePath, $sDestDir . $sRelativePath, true, $bOptional);
+			$this->file(
+				$file->getFilename(),
+				$sSourceDir . $sRelativePath,
+				$sDestDir . $sRelativePath,
+				false,
+				$bOptional
+			);
+
+			$this->file(
+				$file->getFilename(),
+				$sSourceDir . $sRelativePath,
+				$sDestDir . $sRelativePath,
+				true,
+				$bOptional
+			);
 		}
 
 		return true;
@@ -65,18 +76,24 @@ class Comparator extends ComponentBase
 
 		$sBaseSourceFile = $sSourceBase . $sFile;
 
-		if ($bTestBackup)
-		{
+		if ($bTestBackup) {
 			$sFile .= '.bak';
 		}
 
 		$sBaseDestFile = $sDestBase . $sFile;
 
-		if (! file_exists($sDestDir . $sFile))
+		if (!file_exists($sDestDir . $sFile))
 		{
-			if (! $bTestBackup)
+			if (!$bTestBackup)
 			{
-				$this->checklist->addItem('file_exists_' . $sFile, ($bOptional ? null : false), sprintf(__('c_a_compare_file_%s_not_exists'), '<code>' . $sBaseDestFile . '</code>'), sprintf(__('c_a_compare_file_%s_not_exists'), '<code>' . $sBaseDestFile . '</code>'));
+				$this->checklist->addItem(
+					'file_exists_' . $sFile,
+					($bOptional ? null : false),
+					sprintf(__('c_a_compare_file_%s_not_exists'),
+					'<code>' . $sBaseDestFile . '</code>'),
+					sprintf(__('c_a_compare_file_%s_not_exists'),
+					'<code>' . $sBaseDestFile . '</code>')
+				);
 			}
 		}
 		else
@@ -94,18 +111,34 @@ class Comparator extends ComponentBase
 			$diff = new DiffEngine($a, $b, $options);
 			$opCodes = $diff->getGroupedOpcodes();
 
-			if (! empty($opCodes))
+			if (!empty($opCodes))
 			{
 				$renderer = new DiffRenderer();
 				$renderer->diff = $diff;
 
-				$ze_string = sprintf(__('c_a_compare_file_%s_different_%s'), '<code>' . $sBaseDestFile . '</code>', $renderer->render($sBaseSourceFile, $sBaseDestFile));
+				$ze_string = sprintf(
+					__('c_a_compare_file_%s_different_%s'),
+					'<code>' . $sBaseDestFile . '</code>',
+					$renderer->render($sBaseSourceFile, $sBaseDestFile)
+				);
 
-				$this->checklist->addItem('file_' . $sFile . '_different', null, $ze_string, $ze_string);
+				$this->checklist->addItem(
+					'file_' . $sFile . '_different',
+					null,
+					$ze_string,
+					$ze_string
+				);
 			}
 			else
 			{
-				$this->checklist->addItem('files_' . $sFile . '_identical', true, sprintf(__('c_a_compare_file_%s_identical'), '<code>' . $sDestBase . $sFile . '</code>'), sprintf(__('c_a_compare_file_%s_identical'), '<code>' . $sDestBase . $sFile . '</code>'));
+				$this->checklist->addItem(
+					'files_' . $sFile . '_identical',
+					true,
+					sprintf(__('c_a_compare_file_%s_identical'),
+					'<code>' . $sDestBase . $sFile . '</code>'),
+					sprintf(__('c_a_compare_file_%s_identical'),
+					'<code>' . $sDestBase . $sFile . '</code>')
+				);
 			}
 		}
 	}
@@ -119,6 +152,21 @@ class Comparator extends ComponentBase
 	 */
 	protected static function getComparaisonTable($th1, $th2, $body)
 	{
-		return sprintf('<table class="diff diff_sidebyside">' . PHP_EOL . "\t" . '<tr>' . PHP_EOL . "\t\t" . '<th colspan="2">' . PHP_EOL . "\t\t\t" . '%s' . PHP_EOL . "\t\t" . '</th>' . PHP_EOL . "\t\t" . '<th colspan="2">' . PHP_EOL . "\t\t\t" . '%s' . PHP_EOL . "\t\t" . '</th>' . PHP_EOL . "\t" . '</tr>' . PHP_EOL . "\t" . '%s' . PHP_EOL . '</table>' . PHP_EOL, $th1, $th2, $body);
+		return sprintf(
+			'<table class="diff diff_sidebyside">' . PHP_EOL .
+			"\t" . '<tr>' . PHP_EOL .
+			"\t\t" . '<th colspan="2">' . PHP_EOL .
+			"\t\t\t" . '%s' . PHP_EOL .
+			"\t\t" . '</th>' . PHP_EOL .
+			"\t\t" . '<th colspan="2">' . PHP_EOL .
+			"\t\t\t" . '%s' . PHP_EOL .
+			"\t\t" . '</th>' . PHP_EOL .
+			"\t" . '</tr>' . PHP_EOL .
+			"\t" . '%s' . PHP_EOL .
+			'</table>' . PHP_EOL,
+			$th1,
+			$th2,
+			$body
+		);
 	}
 }

@@ -24,8 +24,8 @@ class Session extends BaseSession
 		parent::__construct($storage, $attributes, $flashes);
 
 		$this->storage->setOptions([
-			'use_trans_sid' => '0',
-			'use_only_cookies' => '1'
+			'use_trans_sid'      => '0',
+			'use_only_cookies'   => '1'
 		]);
 
 		$this->start();

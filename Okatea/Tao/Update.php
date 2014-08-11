@@ -39,11 +39,11 @@ class Update
 	protected $sCacheFile;
 
 	protected $aVersionInfo = [
-		'version' => null,
-		'href' => null,
-		'checksum' => null,
-		'info' => null,
-		'notify' => true
+		'version'     => null,
+		'href'        => null,
+		'checksum'    => null,
+		'info'        => null,
+		'notify'      => true
 	];
 
 	protected $sCacheTtl = '-6 hours';

@@ -11,22 +11,21 @@ use Okatea\Tao\Extensions\Extension;
 
 class Theme extends Extension
 {
-
 	public $url;
 
-	protected $aLessVariables = array();
+	protected $aLessVariables = [];
 
 	final public function init()
 	{
 		parent::init();
-		
+
 		$this->public_path = $this->okt['public_path'] . '/themes/' . $this->id();
 		$this->public_url = $this->okt['public_url'] . '/themes/' . $this->id();
-		
-		$this->setLessVariables(array(
+
+		$this->setLessVariables([
 			'public_url' => "'" . $this->okt['public_url'] . "'",
 			'theme_url' => "'" . $this->public_url . "'"
-		));
+		]);
 	}
 
 	final public function initNs($ns)
@@ -37,10 +36,10 @@ class Theme extends Extension
 	/**
 	 * Définit une liste de variables LESS.
 	 *
-	 * @param array $aVars        	
+	 * @param array $aVars
 	 * @return void
 	 */
-	public function setLessVariables($aVars = array())
+	public function setLessVariables($aVars = [])
 	{
 		$this->aLessVariables = array_merge($this->aLessVariables, $aVars);
 	}
@@ -48,8 +47,8 @@ class Theme extends Extension
 	/**
 	 * Définit une variable LESS.
 	 *
-	 * @param string $sKey        	
-	 * @param string $sValue        	
+	 * @param string $sKey
+	 * @param string $sValue
 	 * @return void
 	 */
 	public function setLessVariable($sKey, $sValue)
@@ -74,11 +73,10 @@ class Theme extends Extension
 	 */
 	public function getLessVariable($sKey)
 	{
-		if (isset($this->aLessVariables[$sKey]))
-		{
+		if (isset($this->aLessVariables[$sKey])) {
 			return $this->aLessVariables[$sKey];
 		}
-		
+
 		return null;
 	}
 }

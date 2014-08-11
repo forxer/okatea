@@ -11,28 +11,26 @@ use Symfony\Component\Yaml\Yaml;
 
 class Website extends Config
 {
-
 	public function getRoutesInfos()
 	{
 		$aLoadedRoutes = $this->getLoadedRoutes();
 		$aRoutesFromFiles = $this->getRoutesFromFiles();
-		
-		$aRoutesInfos = array();
+
+		$aRoutesInfos = [];
 		foreach ($aRoutesFromFiles as $sName => $aRoute)
 		{
 			$aRoutesInfos[$sName] = array_merge($this->getEmptyRoute(), $aRoutesFromFiles[$sName]);
-			
+
 			$aRoutesInfos[$sName]['loaded'] = array_key_exists(($this->okt['languages']->hasUniqueLanguage() ? $aRoutesInfos[$sName]['basename'] : $sName), $aLoadedRoutes);
-			
-			if ($this->okt['languages']->hasUniqueLanguage() && $aRoutesInfos[$sName]['language'] != $this->okt['config']->language)
-			{
+
+			if ($this->okt['languages']->hasUniqueLanguage() && $aRoutesInfos[$sName]['language'] != $this->okt['config']->language) {
 				$aRoutesInfos[$sName]['loaded'] = false;
 			}
-			
+
 			$aRoutesInfos[$sName]['controller'] = $aRoutesInfos[$sName]['defaults']['controller'];
 			unset($aRoutesInfos[$sName]['defaults']['controller']);
 		}
-		
+
 		uasort($aRoutesInfos, function ($a, $b)
 		{
 			# put loaded routes at top
@@ -40,18 +38,17 @@ class Website extends Config
 			{
 				return $b['loaded'] - $a['loaded'];
 			}
-			
+
 			# group by filename
 			$c = strcasecmp($a['file'], $b['file']);
-			
-			if ($c !== 0)
-			{
+
+			if ($c !== 0) {
 				return $c;
 			}
-			
+
 			return 0;
 		});
-		
+
 		return $aRoutesInfos;
 	}
 
@@ -62,40 +59,38 @@ class Website extends Config
 	 */
 	public function getRoutesFromFiles()
 	{
-		if ($this->aRoutesFromFiles !== null)
-		{
+		if ($this->aRoutesFromFiles !== null) {
 			return $this->aRoutesFromFiles;
 		}
-		
+
 		$oRoutesFiles = $this->getFiles();
-		
-		if (empty($oRoutesFiles))
-		{
+
+		if (empty($oRoutesFiles)) {
 			return null;
 		}
-		
-		$this->aRoutesFromFiles = array();
-		
+
+		$this->aRoutesFromFiles = [];
+
 		foreach ($oRoutesFiles as $oFile)
 		{
 			$aRoutes = Yaml::parse(file_get_contents($oFile->getPathname()));
-			
+
 			$sLanguage = basename(dirname($oFile->getPathname()));
-			
+
 			foreach ($aRoutes as $sName => $aRoute)
 			{
 				$aRoute['file'] = $oFile->getPathname();
 				$aRoute['basename'] = $sName;
 				$aRoute['basepath'] = $aRoute['path'];
 				$aRoute['language'] = $sLanguage;
-				
+
 				$aRoute['path'] = '/' . $sLanguage . $aRoute['path'];
 				$sName .= '-' . $sLanguage;
-				
+
 				$this->aRoutesFromFiles[$sName] = $aRoute;
 			}
 		}
-		
+
 		return $this->aRoutesFromFiles;
 	}
 }

@@ -39,10 +39,9 @@ class Repositories
 	 * @param array $aRepositories
 	 * @return array
 	 */
-	public function getData(array $aRepositories = array())
+	public function getData(array $aRepositories = [])
 	{
-		if (! $this->okt['cacheConfig']->contains($this->sCacheId))
-		{
+		if (!$this->okt['cacheConfig']->contains($this->sCacheId)) {
 			$this->saveCache($aRepositories);
 		}
 
@@ -55,7 +54,7 @@ class Repositories
 	 * @param array $aRepositories
 	 * @return boolean
 	 */
-	protected function saveCache(array $aRepositories = array())
+	protected function saveCache(array $aRepositories = [])
 	{
 		return $this->okt['cacheConfig']->save($this->sCacheId, $this->readData($aRepositories));
 	}
@@ -68,12 +67,11 @@ class Repositories
 	 */
 	protected function readData($aRepositories)
 	{
-		$aModulesRepositories = array();
+		$aModulesRepositories = [];
 
 		foreach ($aRepositories as $sRepositoryId => $sRepositoryUrl)
 		{
-			if (($infos = $this->getRepositoryData($sRepositoryUrl)) !== false)
-			{
+			if (($infos = $this->getRepositoryData($sRepositoryUrl)) !== false) {
 				$aModulesRepositories[$sRepositoryId] = $infos;
 			}
 		}
@@ -91,8 +89,7 @@ class Repositories
 	{
 		$sRepositoryUrl = str_replace('%VERSION%', $this->okt->getVersion(), $sRepositoryUrl);
 
-		if (filter_var($sRepositoryUrl, FILTER_VALIDATE_URL) === false)
-		{
+		if (filter_var($sRepositoryUrl, FILTER_VALIDATE_URL) === false) {
 			return false;
 		}
 
@@ -104,16 +101,13 @@ class Repositories
 		{
 			$sExtension = pathinfo($sRepositoryUrl, PATHINFO_EXTENSION);
 
-			if ($sExtension == 'json')
-			{
+			if ($sExtension == 'json') {
 				return $response->json();
 			}
-			elseif ($sExtension == 'xml')
-			{
+			elseif ($sExtension == 'xml') {
 				return $this->readRepositoryXmlData($response->getBody());
 			}
-			else
-			{
+			else {
 				return false;
 			}
 		}
@@ -133,24 +127,23 @@ class Repositories
 	{
 		$xml = new SimpleXMLElement($str, LIBXML_NOERROR);
 
-		$return = array();
+		$return = [];
 		foreach ($xml->module as $module)
 		{
 			if (isset($module['id']))
 			{
-				$return[(string) $module['id']] = array(
-					'id' => (string) $module['id'],
-					'name' => (string) $module['name'],
-					'version' => (string) $module['version'],
-					'href' => (string) $module['href'],
-					'checksum' => (string) $module['checksum'],
-					'info' => (string) $module['info']
-				);
+				$return[(string) $module['id']] = [
+					'id'           => (string) $module['id'],
+					'name'         => (string) $module['name'],
+					'version'      => (string) $module['version'],
+					'href'         => (string) $module['href'],
+					'checksum'     => (string) $module['checksum'],
+					'info'         => (string) $module['info']
+				];
 			}
 		}
 
-		if (empty($return))
-		{
+		if (empty($return)) {
 			return false;
 		}
 

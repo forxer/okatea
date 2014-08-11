@@ -15,7 +15,6 @@ use Okatea\Tao\Misc\Pager as BasePager;
  */
 class Pager extends BasePager
 {
-
 	public $html_item = '<li class="ui-state-default">%s</li>';
 
 	public $html_cur_page = '<li class="active ui-state-active">%s</li>';
@@ -35,7 +34,7 @@ class Pager extends BasePager
 	public function __construct($okt, $env, $nb_elements, $nb_per_page = 10, $nb_pages_per_group = 10)
 	{
 		parent::__construct($okt, $env, $nb_elements, $nb_per_page, $nb_pages_per_group);
-		
+
 		$this->html_prev = '&#171;&nbsp;' . __('c_c_previous_f');
 		$this->html_next = __('c_c_next_f') . '&nbsp;&#187;';
 	}
@@ -47,22 +46,20 @@ class Pager extends BasePager
 			$this->page_url = $this->base_url;
 			return;
 		}
-		
+
 		$url = $this->okt['request']->getBasePath() . $this->okt['request']->getPathInfo();
-		
+
 		# Escape page_url for sprintf
 		$url = preg_replace('/%/', '%%', $url);
-		
+
 		# Changing page ref
-		if (preg_match('#/[0-9]+$#', $url))
-		{
+		if (preg_match('#/[0-9]+$#', $url)) {
 			$url = preg_replace('#(/)[0-9]+#', '$1%1$d', $url);
 		}
-		else
-		{
+		else {
 			$url .= '/%1$d';
 		}
-		
+
 		return Escaper::html($url);
 	}
 }

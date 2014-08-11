@@ -250,7 +250,7 @@ class Menus
 		}
 
 		# then, remove menu
-		$this->okt['db']->delete($this->sMenusTable, array('id' => (integer) $iMenuId));
+		$this->okt['db']->delete($this->sMenusTable, [ 'id' => (integer) $iMenuId ]);
 
 		return true;
 	}

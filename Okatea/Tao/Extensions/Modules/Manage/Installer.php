@@ -12,7 +12,6 @@ use Okatea\Tao\Extensions\Manage\Component\AssetsFiles;
 //use Okatea\Tao\Extensions\Themes\Collection as ThemesCollection;
 class Installer extends BaseInstaller
 {
-
 	/**
 	 * Return manager instance.
 	 *
@@ -31,38 +30,54 @@ class Installer extends BaseInstaller
 	protected function preInstall()
 	{
 		# présence du fichier /Module.php
-		$this->checklist->addItem('module_file', file_exists($this->root() . '/Module.php'), 'Module handler file exists', 'Module handler file doesn\'t exists');
-		
+		$this->checklist->addItem(
+			'module_file',
+			file_exists($this->root() . '/Module.php'),
+			'Module handler file exists',
+			'Module handler file doesn\'t exists'
+		);
+
 		# existence de la class Okatea\Modules\<id_module>\Module
 		if ($this->checklist->checkItem('module_file'))
 		{
 			include $this->root() . '/Module.php';
-			
+
 			$sClassName = 'Okatea\\Modules\\' . $this->id() . '\\Module';
-			
-			$this->checklist->addItem('module_class', class_exists($sClassName), 'Module handler class "' . $sClassName . '" exists', 'Module handler class "' . $sClassName . '" doesn\'t exists');
-			
-			$this->checklist->addItem('module_class_valid', is_subclass_of($sClassName, '\\Okatea\\Tao\\Extensions\\Modules\\Module'), 'Module handler class "' . $sClassName . '" is a valid module class', 'Module handler class "' . $sClassName . '" is not a valid module class');
+
+			$this->checklist->addItem(
+				'module_class',
+				class_exists($sClassName),
+				'Module handler class "' . $sClassName . '" exists',
+				'Module handler class "' . $sClassName . '" doesn\'t exists'
+			);
+
+			$this->checklist->addItem(
+				'module_class_valid',
+				is_subclass_of($sClassName, '\\Okatea\\Tao\\Extensions\\Modules\\Module'),
+				'Module handler class "' . $sClassName . '" is a valid module class',
+				'Module handler class "' . $sClassName . '" is not a valid module class'
+			);
 		}
-		
-		return $this->checklist->checkItem('module_file') && $this->checklist->checkItem('module_class') && $this->checklist->checkItem('module_class_valid');
+
+		return $this->checklist->checkItem('module_file')
+			&& $this->checklist->checkItem('module_class')
+			&& $this->checklist->checkItem('module_class_valid');
 	}
 
 	public function compareFiles()
 	{
 		# compare templates
 		$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_path'] . '/DefaultTheme/Templates/');
-		
+
 		foreach ($this->okt['themes']->getLoaded() as $sThemeId => $sTheme)
 		{
-			if ($sThemeId == 'DefaultTheme')
-			{
+			if ($sThemeId == 'DefaultTheme') {
 				continue;
 			}
-			
+
 			$this->getComparator()->folder($this->root() . '/Install/Templates/', $this->okt['themes_path'] . '/' . $sThemeId . '/Templates/', true);
 		}
-		
+
 		# compare assets
 		$this->getComparator()->folder($this->root() . '/Install/Assets/', $this->okt['public_path'] . '/modules/' . $this->id() . '/');
 	}
@@ -71,9 +86,13 @@ class Installer extends BaseInstaller
 	{
 		if (null === $this->assetsFiles)
 		{
-			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_path'] . '/modules/%s');
+			$this->assetsFiles = new AssetsFiles(
+				$this->okt,
+				$this,
+				$this->okt['public_path'] . '/modules/%s'
+			);
 		}
-		
+
 		return $this->assetsFiles;
 	}
 }

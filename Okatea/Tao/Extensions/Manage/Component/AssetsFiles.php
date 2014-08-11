@@ -11,7 +11,6 @@ use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class AssetsFiles extends ComponentBase
 {
-
 	protected $sDestination;
 
 	public function __construct($okt, $extension, $sDestinationPattern)
@@ -30,15 +29,13 @@ class AssetsFiles extends ComponentBase
 	{
 		$sAssetsDir = $this->extension->root() . '/Install/Assets';
 
-		if (! is_dir($sAssetsDir))
-		{
+		if (!is_dir($sAssetsDir)) {
 			return null;
 		}
 
 		$oFiles = $this->getFiles();
 
-		if (empty($oFiles))
-		{
+		if (empty($oFiles)) {
 			return null;
 		}
 
@@ -55,8 +52,7 @@ class AssetsFiles extends ComponentBase
 	 */
 	public function delete()
 	{
-		if (! is_dir($this->sDestination))
-		{
+		if (!is_dir($this->sDestination)) {
 			return null;
 		}
 

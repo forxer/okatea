@@ -41,7 +41,7 @@ trait ControllerResolverTrait
 	 */
 	public function getController(Request $request)
 	{
-		if (! $controller = $request->attributes->get('controller'))
+		if (!$controller = $request->attributes->get('controller'))
 		{
 			if (null !== $this->logger) {
 				$this->logger->warning('Unable to look for the controller as the "controller" parameter is missing');
@@ -66,7 +66,7 @@ trait ControllerResolverTrait
 
 		$callable = $this->createController($controller);
 
-		if (! is_callable($callable)) {
+		if (!is_callable($callable)) {
 			throw new InvalidArgumentException(sprintf('The controller for URI "%s" is not callable.', $request->getPathInfo()));
 		}
 
@@ -90,7 +90,7 @@ trait ControllerResolverTrait
 
 		list ($class, $method) = explode('::', $controller, 2);
 
-		if (! class_exists($class)) {
+		if (!class_exists($class)) {
 			throw new InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
 		}
 

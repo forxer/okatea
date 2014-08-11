@@ -21,6 +21,11 @@ use Symfony\Component\Templating\Helper\SlotsHelper;
  */
 class Templating extends PhpEngine
 {
+	/**
+	 * Okatea application instance.
+	 *
+	 * @var Okatea\Tao\Application
+	 */
 	protected $okt;
 
 	public function __construct($okt)

@@ -93,16 +93,12 @@ class Index extends Controller
 		$aParams['limit'] = (($oFilters->params->page - 1) * $oFilters->params->nb_per_page) . ',' . $oFilters->params->nb_per_page;
 
 		# liste des utilisateurs
-		$rsUsers = $this->okt['users']->getUsers($aParams);
+		$aUsers = $this->okt['users']->getUsers($aParams);
 
 		# liste des groupes
-		$rsGroups = $this->okt['groups']->getGroups([
+		$aGroups = $this->okt['groups']->getGroups([
 			'language' => $this->okt['visitor']->language
 		]);
-		$aGroups = [];
-		while ($rsGroups->fetch()) {
-			$aGroups[$rsGroups->group_id] = Escaper::html($rsGroups->title);
-		}
 
 		# Tableau de choix d'actions pour le traitement par lot
 		$aActionsChoices = [

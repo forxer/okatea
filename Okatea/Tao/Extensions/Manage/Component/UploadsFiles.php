@@ -11,7 +11,6 @@ use Okatea\Tao\Extensions\Manage\Component\ComponentBase;
 
 class UploadsFiles extends ComponentBase
 {
-
 	/**
 	 * Copy/replace uploads files.
 	 *
@@ -20,20 +19,26 @@ class UploadsFiles extends ComponentBase
 	public function process()
 	{
 		$sUploadsDir = $this->extension->root() . '/Install/TestSet/upload';
-		
-		if (! is_dir($sUploadsDir))
-		{
+
+		if (!is_dir($sUploadsDir)) {
 			return null;
 		}
-		
+
 		$oFiles = $this->getFiles();
-		
-		if (empty($oFiles))
-		{
+
+		if (empty($oFiles)) {
 			return null;
 		}
-		
-		$this->checklist->addItem('upload_files', $this->mirror($sUploadsDir, $this->okt['upload_path'] . '/' . $this->extension->id(), $oFiles), 'Create upload files', 'Cannot create upload files');
+
+		$this->checklist->addItem(
+			'upload_files',
+			$this->mirror(
+				$sUploadsDir, $this->okt['upload_path'] . '/' . $this->extension->id(),
+				$oFiles
+			),
+			'Create upload files',
+			'Cannot create upload files'
+		);
 	}
 
 	/**
@@ -42,28 +47,30 @@ class UploadsFiles extends ComponentBase
 	public function delete()
 	{
 		$sPath = $this->okt['upload_path'] . '/' . $this->extension->id();
-		
-		if (! is_dir($sPath))
-		{
+
+		if (!is_dir($sPath)) {
 			return null;
 		}
-		
-		$this->checklist->addItem('remove_assets', $this->getFs()
-			->remove($sPath), 'Remove upload files', 'Cannot remove upload files');
+
+		$this->checklist->addItem('remove_assets',
+			$this->getFs()->remove($sPath),
+			'Remove upload files',
+			'Cannot remove upload files'
+		);
 	}
 
 	protected function getFiles()
 	{
 		$sPath = $this->extension->root() . '/Install/TestSet/upload';
-		
+
 		if (is_dir($sPath))
 		{
 			$finder = $this->getFinder();
 			$finder->in($sPath);
-			
+
 			return $finder;
 		}
-		
+
 		return null;
 	}
 

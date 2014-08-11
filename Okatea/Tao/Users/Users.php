@@ -81,17 +81,17 @@ class Users
 	{
 		$sReqPlus = 'WHERE 1 ';
 
-		if (! empty($aParams['id']))
+		if (!empty($aParams['id']))
 		{
 			$sReqPlus .= 'AND u.id=' . (integer) $aParams['id'] . ' ';
 		}
 
-		if (! empty($aParams['username']))
+		if (!empty($aParams['username']))
 		{
 			$sReqPlus .= 'AND u.username=\'' . $this->oDb->escapeStr($aParams['username']) . '\' ';
 		}
 
-		if (! empty($aParams['email']))
+		if (!empty($aParams['email']))
 		{
 			$sReqPlus .= 'AND u.email=\'' . $this->oDb->escapeStr($aParams['email']) . '\' ';
 		}
@@ -125,7 +125,7 @@ class Users
 			}
 		}
 
-		if (! empty($aParams['group_id_not']))
+		if (!empty($aParams['group_id_not']))
 		{
 			if (is_array($aParams['group_id_not']))
 			{
@@ -138,11 +138,11 @@ class Users
 			}
 		}
 
-		if (! empty($aParams['search']))
+		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
 
-			if (! empty($aWords))
+			if (!empty($aWords))
 			{
 				foreach ($aWords as $i => $w)
 				{
@@ -246,7 +246,7 @@ class Users
 			return false;
 		}
 
-		if (! $rs->isEmpty())
+		if (!$rs->isEmpty())
 		{
 			return false;
 		}
@@ -259,7 +259,7 @@ class Users
 	 */
 	public function checkUsername(array $aParams = [])
 	{
-		$username = ! empty($aParams['username']) ? $aParams['username'] : null;
+		$username = !empty($aParams['username']) ? $aParams['username'] : null;
 		$username = preg_replace('#\s+#s', ' ', $username);
 
 		if (mb_strlen($username) < 2)
@@ -286,7 +286,7 @@ class Users
 		{
 			$dupe = true;
 
-			if (! empty($aParams['id']))
+			if (!empty($aParams['id']))
 			{
 				$user = $this->getUser($aParams['id']);
 
@@ -336,7 +336,7 @@ class Users
 	 */
 	public function isEmail($sEmail)
 	{
-		if (! Utilities::isEmail($sEmail))
+		if (!Utilities::isEmail($sEmail))
 		{
 			$this->oError->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
 		}
@@ -384,7 +384,7 @@ class Users
 
 		$this->checkEmail($aParams);
 
-		if (! $this->oError->isEmpty())
+		if (!$this->oError->isEmpty())
 		{
 			return false;
 		}
@@ -393,7 +393,7 @@ class Users
 		{
 			$aParams['group_id'] = 0;
 		}
-		elseif (empty($aParams['group_id']) || ! $this->okt['groups']->groupExists($aParams['group_id']))
+		elseif (empty($aParams['group_id']) || !$this->okt['groups']->groupExists($aParams['group_id']))
 		{
 			$aParams['group_id'] = $this->okt['config']->users['registration']['default_group'];
 		}
@@ -410,9 +410,9 @@ class Users
 
 		$iTime = time();
 
-		$sQuery = 'INSERT INTO ' . $this->sUsersTable . ' ( ' . 'group_id, civility, status, username, lastname, firstname, displayname, ' . 'password, email, timezone, language, registered, registration_ip, last_visit, ' . 'activate_string, activate_key' . ') VALUES ( ' . (integer) $aParams['group_id'] . ', ' . (integer) $aParams['civility'] . ', ' . (integer) $aParams['status'] . ', ' . '\'' . $this->oDb->escapeStr($aParams['username']) . '\', ' . (! empty($aParams['lastname']) ? '\'' . $this->oDb->escapeStr($aParams['lastname']) . '\', ' : 'null,') . (! empty($aParams['firstname']) ? '\'' . $this->oDb->escapeStr($aParams['firstname']) . '\', ' : 'null,') . (! empty($aParams['displayname']) ? '\'' . $this->oDb->escapeStr($aParams['displayname']) . '\', ' : 'null,') . '\'' . $this->oDb->escapeStr($sPasswordHash) . '\', ' . '\'' . $this->oDb->escapeStr($aParams['email']) . '\', ' . (! empty($aParams['timezone']) ? '\'' . $this->oDb->escapeStr($aParams['timezone']) . '\', ' : 'null,') . (! empty($aParams['language']) ? '\'' . $this->oDb->escapeStr($aParams['language']) . '\', ' : 'null,') . $iTime . ', ' . (! empty($aParams['registration_ip']) ? '\'' . $this->oDb->escapeStr($aParams['registration_ip']) . '\', ' : '\'0.0.0.0\', ') . $iTime . ', ' . (! empty($aParams['activate_string']) ? '\'' . $this->oDb->escapeStr($aParams['activate_string']) . '\', ' : 'null,') . (! empty($aParams['activate_key']) ? '\'' . $this->oDb->escapeStr($aParams['activate_key']) . '\' ' : 'null') . '); ';
+		$sQuery = 'INSERT INTO ' . $this->sUsersTable . ' ( ' . 'group_id, civility, status, username, lastname, firstname, displayname, ' . 'password, email, timezone, language, registered, registration_ip, last_visit, ' . 'activate_string, activate_key' . ') VALUES ( ' . (integer) $aParams['group_id'] . ', ' . (integer) $aParams['civility'] . ', ' . (integer) $aParams['status'] . ', ' . '\'' . $this->oDb->escapeStr($aParams['username']) . '\', ' . (!empty($aParams['lastname']) ? '\'' . $this->oDb->escapeStr($aParams['lastname']) . '\', ' : 'null,') . (!empty($aParams['firstname']) ? '\'' . $this->oDb->escapeStr($aParams['firstname']) . '\', ' : 'null,') . (!empty($aParams['displayname']) ? '\'' . $this->oDb->escapeStr($aParams['displayname']) . '\', ' : 'null,') . '\'' . $this->oDb->escapeStr($sPasswordHash) . '\', ' . '\'' . $this->oDb->escapeStr($aParams['email']) . '\', ' . (!empty($aParams['timezone']) ? '\'' . $this->oDb->escapeStr($aParams['timezone']) . '\', ' : 'null,') . (!empty($aParams['language']) ? '\'' . $this->oDb->escapeStr($aParams['language']) . '\', ' : 'null,') . $iTime . ', ' . (!empty($aParams['registration_ip']) ? '\'' . $this->oDb->escapeStr($aParams['registration_ip']) . '\', ' : '\'0.0.0.0\', ') . $iTime . ', ' . (!empty($aParams['activate_string']) ? '\'' . $this->oDb->escapeStr($aParams['activate_string']) . '\', ' : 'null,') . (!empty($aParams['activate_key']) ? '\'' . $this->oDb->escapeStr($aParams['activate_key']) . '\' ' : 'null') . '); ';
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			throw new \Exception('Unable to insert user into database');
 		}
@@ -520,14 +520,14 @@ class Users
 			$sql[] = 'timezone=\'' . $this->oDb->escapeStr($aParams['timezone']) . '\'';
 		}
 
-		if (! $this->oError->isEmpty())
+		if (!$this->oError->isEmpty())
 		{
 			return false;
 		}
 
 		$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . implode(', ', $sql) . ' ' . 'WHERE id=' . (integer) $aParams['id'];
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			throw new \Exception('Unable to update user in database.');
 		}
@@ -546,7 +546,7 @@ class Users
 	{
 		$this->checkPassword($aParams);
 
-		if (! $this->oError->isEmpty())
+		if (!$this->oError->isEmpty())
 		{
 			return false;
 		}
@@ -555,7 +555,7 @@ class Users
 
 		$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'password=\'' . $this->oDb->escapeStr($sPasswordHash) . '\' ' . 'WHERE id=' . (integer) $aParams['id'];
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			throw new \Exception('Unable to update user in database.');
 		}
@@ -599,7 +599,7 @@ class Users
 
 		$sQuery = 'DELETE FROM ' . $this->sUsersTable . ' ' . 'WHERE id=' . (integer) $iUserId;
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			throw new \Exception('Unable to remove user from database.');
 		}
@@ -623,7 +623,7 @@ class Users
 	 */
 	public function validateUser($iUserId)
 	{
-		if (! $this->userExists($iUserId))
+		if (!$this->userExists($iUserId))
 		{
 			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
@@ -631,7 +631,7 @@ class Users
 
 		$sSqlQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'group_id = ' . (integer) $this->okt['config']->users['registration']['default_group'] . ' ' . 'WHERE id=' . (integer) $iUserId;
 
-		if (! $this->oDb->execute($sSqlQuery))
+		if (!$this->oDb->execute($sSqlQuery))
 		{
 			throw new \Exception('Unable to update user in database.');
 		}
@@ -647,7 +647,7 @@ class Users
 	 */
 	public function switchUserStatus($iUserId)
 	{
-		if (! $this->userExists($iUserId))
+		if (!$this->userExists($iUserId))
 		{
 			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
@@ -655,7 +655,7 @@ class Users
 
 		$sSqlQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'status = 1-status ' . 'WHERE id=' . (integer) $iUserId;
 
-		if (! $this->oDb->execute($sSqlQuery))
+		if (!$this->oDb->execute($sSqlQuery))
 		{
 			throw new \Exception('Unable to update user in database.');
 		}
@@ -701,7 +701,7 @@ class Users
 
 		$sSqlQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'status = ' . ($iStatus == 1 ? 1 : 0) . ' ' . 'WHERE id=' . (integer) $iUserId;
 
-		if (! $this->oDb->execute($sSqlQuery))
+		if (!$this->oDb->execute($sSqlQuery))
 		{
 			throw new \Exception('Unable to update user in database.');
 		}
@@ -721,7 +721,7 @@ class Users
 	public function forgetPassword($sEmail, $sActivateUrl)
 	{
 		# validation de l'adresse fournie
-		if (! Utilities::isEmail($sEmail))
+		if (!Utilities::isEmail($sEmail))
 		{
 			$this->oError->set(__('c_c_auth_invalid_email'));
 			return false;
@@ -746,7 +746,7 @@ class Users
 
 		$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'activate_string=\'' . $this->oDb->escapeStr($sPasswordHash) . '\', ' . 'activate_key=\'' . $this->oDb->escapeStr($sNewPasswordKey) . '\' ' . 'WHERE id=' . (integer) $rsUser->id;
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			return false;
 		}
@@ -806,7 +806,7 @@ class Users
 
 		$sQuery = 'UPDATE ' . $this->sUsersTable . ' SET ' . 'password=\'' . $rsUser->activate_string . '\', ' . 'activate_string=NULL, ' . 'activate_key=NULL ' . 'WHERE id=' . (integer) $iUserId . ' ';
 
-		if (! $this->oDb->execute($sQuery))
+		if (!$this->oDb->execute($sQuery))
 		{
 			return false;
 		}
@@ -830,19 +830,19 @@ class Users
 	 */
 	public static function getUserDisplayName($sUsername, $sLastname = null, $sFirstname = null, $sDisplayName = null)
 	{
-		if (! empty($sDisplayName)) {
+		if (!empty($sDisplayName)) {
 			return $sDisplayName;
 		}
 
-		if (! empty($sLastname))
+		if (!empty($sLastname))
 		{
-			if (! empty($sFirstname)) {
+			if (!empty($sFirstname)) {
 				return $sFirstname . ' ' . $sLastname;
 			}
 
 			return $sLastname;
 		}
-		elseif (! empty($sFirstname)) {
+		elseif (!empty($sFirstname)) {
 			return $sFirstname;
 		}
 

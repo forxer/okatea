@@ -82,7 +82,7 @@ class Manager
 			->depth('== 1')
 			->name('_define.php');
 
-		$aExstensions = array();
+		$aExstensions = [];
 
 		foreach ($finder as $file)
 		{
@@ -90,16 +90,16 @@ class Manager
 
 			$aInfos = require $file->getRealpath();
 
-			$aExstensions[$sId] = array(
-				'id' => $sId,
-				'root' => $this->path . '/' . $sId,
-				'name' => (! empty($aInfos['name']) ? $aInfos['name'] : $sId),
-				'desc' => (! empty($aInfos['desc']) ? $aInfos['desc'] : null),
-				'version' => (! empty($aInfos['version']) ? $aInfos['version'] : null),
-				'author' => (! empty($aInfos['author']) ? $aInfos['author'] : null),
-				'priority' => (! empty($aInfos['priority']) ? (integer) $aInfos['priority'] : 1000),
-				'updatable' => (! empty($aInfos['updatable']) ? (boolean) $aInfos['updatable'] : true)
-			);
+			$aExstensions[$sId] = [
+				'id'            => $sId,
+				'root'          => $this->path . '/' . $sId,
+				'name'          => (!empty($aInfos['name']) ? $aInfos['name'] : $sId),
+				'desc'          => (!empty($aInfos['desc']) ? $aInfos['desc'] : null),
+				'version'       => (!empty($aInfos['version']) ? $aInfos['version'] : null),
+				'author'        => (!empty($aInfos['author']) ? $aInfos['author'] : null),
+				'priority'      => (!empty($aInfos['priority']) ? (integer) $aInfos['priority'] : 1000),
+				'updatable'     => (!empty($aInfos['updatable']) ? (boolean) $aInfos['updatable'] : true)
+			];
 		}
 
 		return $aExstensions;
@@ -112,8 +112,7 @@ class Manager
 	 */
 	public function getAll()
 	{
-		if (null === $this->aAll)
-		{
+		if (null === $this->aAll) {
 			$this->aAll = $this->getFromFileSystem();
 		}
 
@@ -127,7 +126,7 @@ class Manager
 	 */
 	public function resetAll()
 	{
-		$this->aAll = array();
+		$this->aAll = null;
 	}
 
 	/**
@@ -136,25 +135,22 @@ class Manager
 	 * @param array $aParams
 	 * @return object Recordset
 	 */
-	public function getFromDatabase(array $aParams = array())
+	public function getFromDatabase(array $aParams = [])
 	{
 		$reqPlus = 'WHERE type=\'' . $this->db->escapeStr($this->type) . '\' ';
 
-		if (! empty($aParams['id']))
-		{
+		if (!empty($aParams['id'])) {
 			$reqPlus .= 'AND id=\'' . $this->db->escapeStr($aParams['id']) . '\' ';
 		}
 
-		if (! empty($aParams['status']))
-		{
+		if (!empty($aParams['status'])) {
 			$reqPlus .= 'AND status=' . (integer) $aParams['status'] . ' ';
 		}
 
 		$strReq = 'SELECT id, name, description, author, version, priority, updatable, status, type ' . 'FROM ' . $this->t_extensions . ' ' . $reqPlus . 'ORDER BY priority ASC, id ASC ';
 
-		if (($rs = $this->db->select($strReq)) === false)
-		{
-			return new Recordset(array());
+		if (($rs = $this->db->select($strReq)) === false) {
+			return new Recordset([]);
 		}
 
 		return $rs;
@@ -169,23 +165,23 @@ class Manager
 	{
 		$rsInstalled = $this->getFromDatabase();
 
-		$aInstalled = array();
+		$aInstalled = [];
 
 		while ($rsInstalled->fetch())
 		{
-			$aInstalled[$rsInstalled->id] = array(
-				'id' => $rsInstalled->id,
-				'root' => $this->path . '/' . $rsInstalled->id,
-				'name' => $rsInstalled->name,
-				'name_l10n' => __($rsInstalled->name),
-				'desc' => $rsInstalled->description,
-				'desc_l10n' => __($rsInstalled->description),
-				'author' => $rsInstalled->author,
-				'version' => $rsInstalled->version,
-				'priority' => $rsInstalled->priority,
-				'status' => $rsInstalled->status,
-				'updatable' => $rsInstalled->updatable
-			);
+			$aInstalled[$rsInstalled->id] = [
+				'id'            => $rsInstalled->id,
+				'root'          => $this->path . '/' . $rsInstalled->id,
+				'name'          => $rsInstalled->name,
+				'name_l10n'     => __($rsInstalled->name),
+				'desc'          => $rsInstalled->description,
+				'desc_l10n'     => __($rsInstalled->description),
+				'author'        => $rsInstalled->author,
+				'version'       => $rsInstalled->version,
+				'priority'      => $rsInstalled->priority,
+				'status'        => $rsInstalled->status,
+				'updatable'     => $rsInstalled->updatable
+			];
 		}
 
 		return $aInstalled;
@@ -207,8 +203,7 @@ class Manager
 	{
 		$query = 'INSERT INTO ' . $this->t_extensions . ' (' . 'id, name, description, author, ' . 'version, priority, status, type' . ') VALUES (' . '\'' . $this->db->escapeStr($id) . '\', ' . '\'' . $this->db->escapeStr($name) . '\', ' . '\'' . $this->db->escapeStr($desc) . '\', ' . '\'' . $this->db->escapeStr($author) . '\', ' . '\'' . $this->db->escapeStr($version) . '\', ' . (integer) $priority . ', ' . (integer) $status . ', ' . '\'' . $this->db->escapeStr($this->type) . '\' ' . ') ';
 
-		if ($this->db->execute($query) === false)
-		{
+		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
@@ -231,8 +226,7 @@ class Manager
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'name=\'' . $this->db->escapeStr($name) . '\', ' . 'description=\'' . $this->db->escapeStr($desc) . '\', ' . 'author=\'' . $this->db->escapeStr($author) . '\', ' . 'version=\'' . $this->db->escapeStr($version) . '\', ' . 'priority=' . (integer) $priority . ', ' . 'status=' . ($status === null ? 'status' : (integer) $status) . ' ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
 
-		if ($this->db->execute($query) === false)
-		{
+		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
@@ -249,8 +243,7 @@ class Manager
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=1 ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
 
-		if ($this->db->execute($query) === false)
-		{
+		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
@@ -267,8 +260,7 @@ class Manager
 	{
 		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=0 ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
 
-		if ($this->db->execute($query) === false)
-		{
+		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
@@ -285,8 +277,7 @@ class Manager
 	{
 		$query = 'DELETE FROM ' . $this->t_extensions . ' ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
 
-		if ($this->db->execute($query) === false)
-		{
+		if ($this->db->execute($query) === false) {
 			return false;
 		}
 
@@ -330,7 +321,7 @@ class Manager
 			throw new \Exception(__('Empty module zip file.'));
 		}
 
-		if (! $has_define)
+		if (!$has_define)
 		{
 			$zip->close();
 			unlink($zip_file);
@@ -356,15 +347,15 @@ class Manager
 			$extensions->disableModule(basename($destination));
 			$extensions->generateCacheList();
 
-			if (! empty($new_modules))
+			if (!empty($new_modules))
 			{
 				$tmp = array_keys($new_modules);
 				$id = $tmp[0];
 				$cur_module = $old_modules[$id];
 
-				if (! empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
+				if (!empty($cur_module) && $new_modules[$id]['version'] != $cur_module['version'])
 				{
-					$fs = (new Filesystem())->remove($destination);
+					(new Filesystem())->remove($destination);
 
 					$ret_code = 2;
 				}

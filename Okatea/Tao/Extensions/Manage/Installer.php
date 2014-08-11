@@ -23,7 +23,6 @@ use Okatea\Tao\Users\Groups;
 
 class Installer extends Extension
 {
-
 	/**
 	 * A checklist utility.
 	 *
@@ -90,19 +89,17 @@ class Installer extends Extension
 	/**
 	 * Constructor.
 	 *
-	 * @param object $okt
-	 *        	Okatea application instance.
-	 * @param string $sExtensionsPath
-	 *        	The extensions directory path to load.
-	 * @param string $sExtensionId        	
+	 * @param object $okt Okatea application instance.
+	 * @param string $sExtensionsPath The extensions directory path to load.
+	 * @param string $sExtensionId
 	 * @return void
 	 */
 	public function __construct($okt, $sExtensionsPath, $sExtensionId)
 	{
 		parent::__construct($okt, $sExtensionsPath);
-		
+
 		$this->checklist = new Checklister();
-		
+
 		# get extension infos from define file
 		$this->setInfo('id', $sExtensionId);
 		$this->setInfosFromDefineFile();
@@ -115,32 +112,47 @@ class Installer extends Extension
 	 */
 	public function doInstall()
 	{
-		if (! $this->preInstall())
+		if (!$this->preInstall())
 		{
-			$this->checklist->addItem('install_aborted', false, 'Install aborted...', 'Install aborted...');
-			
+			$this->checklist->addItem(
+				'install_aborted',
+				false,
+				'Install aborted...',
+				'Install aborted...'
+			);
+
 			return false;
 		}
-		
+
 		# opérations communes à l'installation et la mise à jour
 		$this->commonInstallUpdate('install');
-		
+
 		# ajout d'éventuelles données par défaut à la base de données
 		$this->doInstallDefaultData();
-		
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'install'))
-		{
+		if (method_exists($this, 'install')) {
 			$this->install();
 		}
-		
+
 		# ajout de l'extension à la base de données
-		$this->checklist->addItem('add_extension_to_db', $this->getManager()
-			->addExtension($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority(), 0), 'Add extension to database', 'Cannot add extension to database');
-		
+		$this->checklist->addItem(
+			'add_extension_to_db',
+			$this->getManager()->addExtension(
+				$this->id(),
+				$this->version(),
+				$this->name(),
+				$this->desc(),
+				$this->author(),
+				$this->priority(),
+				0
+			),
+			'Add extension to database',
+			'Cannot add extension to database'
+		);
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'installEnd'))
-		{
+		if (method_exists($this, 'installEnd')) {
 			$this->installEnd();
 		}
 	}
@@ -154,20 +166,29 @@ class Installer extends Extension
 	{
 		# opérations communes à l'installation et la mise à jour
 		$this->commonInstallUpdate('update');
-		
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'update'))
-		{
+		if (method_exists($this, 'update')) {
 			$this->update();
 		}
-		
+
 		# modification dans la base de données
-		$this->checklist->addItem('update_extension_in_db', $this->getManager()
-			->updateExtension($this->id(), $this->version(), $this->name(), $this->desc(), $this->author(), $this->priority()), 'Update extension into database', 'Cannot update extension into database');
-		
+		$this->checklist->addItem(
+			'update_extension_in_db',
+			$this->getManager()->updateExtension(
+				$this->id(),
+				$this->version(),
+				$this->name(),
+				$this->desc(),
+				$this->author(),
+				$this->priority()
+			),
+			'Update extension into database',
+			'Cannot update extension into database'
+		);
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'updateEnd'))
-		{
+		if (method_exists($this, 'updateEnd')) {
 			$this->updateEnd();
 		}
 	}
@@ -179,39 +200,41 @@ class Installer extends Extension
 	 */
 	public function doUninstall()
 	{
-		if (method_exists($this, 'uninstall'))
-		{
+		if (method_exists($this, 'uninstall')) {
 			$this->uninstall();
 		}
-		
+
 		# désinstallation de la base de données
 		$this->loadDbFile($this->root() . '/Install/db-uninstall.xml');
-		
+
 		# suppression des fichiers templates
 		$this->getTemplatesFiles()->delete();
-		
+
 		# suppression des fichiers d'upload
 		$this->getUploadsFiles()->delete();
-		
+
 		# suppression des fichiers assets
 		$this->getAssetsFiles()->delete();
-		
+
 		# suppression des fichiers de config
 		$this->getConfigFiles()->delete();
-		
+
 		# suppression des fichiers de routes
 		$this->getRoutesFiles()->delete();
-		
+
 		# suppression des fichiers des routes admin
 		$this->getRoutesAdminFiles()->delete();
-		
+
 		# suppression de la base de données
-		$this->checklist->addItem('remove_extension_from_db', $this->getManager()
-			->deleteExtension($this->id()), 'Remove extension from database', 'Cannot remove extension from database');
-		
+		$this->checklist->addItem(
+			'remove_extension_from_db',
+			$this->getManager()->deleteExtension($this->id()),
+			'Remove extension from database',
+			'Cannot remove extension from database'
+		);
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'uninstallEnd'))
-		{
+		if (method_exists($this, 'uninstallEnd')) {
 			$this->uninstallEnd();
 		}
 	}
@@ -224,20 +247,18 @@ class Installer extends Extension
 	public function doEmpty()
 	{
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'truncate'))
-		{
+		if (method_exists($this, 'truncate')) {
 			$this->truncate();
 		}
-		
+
 		# vidange de la base de données
 		$this->loadDbFile($this->root() . '/Install/db-truncate.xml');
-		
+
 		# suppression des fichiers d'upload
 		$this->getUploadsFiles()->delete();
-		
+
 		# utilisation d'une méthode personnalisée si elle existe
-		if (method_exists($this, 'truncateEnd'))
-		{
+		if (method_exists($this, 'truncateEnd')) {
 			$this->truncateEnd();
 		}
 	}
@@ -251,12 +272,11 @@ class Installer extends Extension
 	{
 		# ajout d'éventuelles données à la base de données
 		$this->loadDbFile($this->root() . '/Install/TestSet/db-data.xml');
-		
+
 		# copie des éventuels fichiers upload
 		$this->getUploadsFiles()->process();
-		
-		if (method_exists($this, 'installTestSet'))
-		{
+
+		if (method_exists($this, 'installTestSet')) {
 			$this->installTestSet();
 		}
 	}
@@ -270,9 +290,8 @@ class Installer extends Extension
 	{
 		# ajout d'éventuelles données à la base de données
 		$this->loadDbFile($this->root() . '/Install/db-data.xml');
-		
-		if (method_exists($this, 'installDefaultData'))
-		{
+
+		if (method_exists($this, 'installDefaultData')) {
 			$this->installDefaultData();
 		}
 	}
@@ -290,7 +309,7 @@ class Installer extends Extension
 	/**
 	 * Installing the tables in the database from a file.
 	 *
-	 * @param string $sDbFilename        	
+	 * @param string $sDbFilename
 	 * @param string $sProcess
 	 *        	Install or update process.
 	 */
@@ -325,19 +344,19 @@ class Installer extends Extension
 	{
 		# installation/mise à jour de la base de données
 		$this->loadDbFile($this->root() . '/Install/db-install.xml', $sProcess);
-		
+
 		# copie des éventuels fichiers templates
 		$this->getTemplatesFiles()->process();
-		
+
 		# copie des éventuels fichiers assets
 		$this->getAssetsFiles()->process();
-		
+
 		# copie des éventuels fichiers de configurations
 		$this->getConfigFiles()->process();
-		
+
 		# copie des éventuels fichiers de routes
 		$this->getRoutesFiles()->process();
-		
+
 		# copie des éventuels fichiers de routes admin
 		$this->getRoutesAdminFiles()->process();
 	}
@@ -345,25 +364,25 @@ class Installer extends Extension
 	/**
 	 * Ajout de permission par défaut au groupe admin.
 	 *
-	 * @param array $aDefaultPerms        	
+	 * @param array $aDefaultPerms
 	 */
-	protected function setDefaultAdminPerms($aDefaultPerms = array())
+	protected function setDefaultAdminPerms($aDefaultPerms = [])
 	{
 		$query = 'SELECT perms FROM ' . $this->db->prefix . 'core_users_groups ' . 'WHERE group_id=' . Groups::ADMIN;
-		
+
 		$rsPerms = $this->db->select($query);
-		
-		$aCurrentPerms = array();
-		if (! $rsPerms->isEmpty())
+
+		$aCurrentPerms = [];
+		if (!$rsPerms->isEmpty())
 		{
 			$aCurrentPerms = json_decode($rsPerms->perms);
 		}
-		
+
 		$aNewPerms = array_merge($aCurrentPerms, $aDefaultPerms);
 		$aNewPerms = json_encode($aNewPerms);
-		
+
 		$query = 'UPDATE ' . $this->db->prefix . 'core_users_groups SET ' . 'perms=\'' . $this->db->escapeStr($aNewPerms) . '\' ' . 'WHERE group_id=' . Groups::ADMIN;
-		
+
 		$this->db->execute($query);
 	}
 
@@ -371,9 +390,13 @@ class Installer extends Extension
 	{
 		if (null === $this->assetsFiles)
 		{
-			$this->assetsFiles = new AssetsFiles($this->okt, $this, $this->okt['public_path'] . '/extensions/%s');
+			$this->assetsFiles = new AssetsFiles(
+				$this->okt,
+				$this,
+				$this->okt['public_path'] . '/extensions/%s'
+			);
 		}
-		
+
 		return $this->assetsFiles;
 	}
 
@@ -381,9 +404,12 @@ class Installer extends Extension
 	{
 		if (null === $this->comparator)
 		{
-			$this->comparator = new Comparator($this->okt, $this);
+			$this->comparator = new Comparator(
+				$this->okt,
+				$this
+			);
 		}
-		
+
 		return $this->comparator;
 	}
 
@@ -391,9 +417,12 @@ class Installer extends Extension
 	{
 		if (null === $this->configFiles)
 		{
-			$this->configFiles = new ConfigFiles($this->okt, $this);
+			$this->configFiles = new ConfigFiles(
+				$this->okt,
+				$this
+			);
 		}
-		
+
 		return $this->configFiles;
 	}
 
@@ -401,10 +430,13 @@ class Installer extends Extension
 	{
 		if (null === $this->routesFiles)
 		{
-			$this->routesFiles = new RoutesFiles($this->okt, $this);
+			$this->routesFiles = new RoutesFiles(
+				$this->okt,
+				$this
+			);
 			$this->routesFiles->setRoutesDirectory('Routes');
 		}
-		
+
 		return $this->routesFiles;
 	}
 
@@ -412,10 +444,13 @@ class Installer extends Extension
 	{
 		if (null === $this->routesAdminFiles)
 		{
-			$this->routesAdminFiles = new RoutesFiles($this->okt, $this);
+			$this->routesAdminFiles = new RoutesFiles(
+				$this->okt,
+				$this
+			);
 			$this->routesAdminFiles->setRoutesDirectory('RoutesAdmin');
 		}
-		
+
 		return $this->routesAdminFiles;
 	}
 
@@ -423,9 +458,12 @@ class Installer extends Extension
 	{
 		if (null === $this->templatesFiles)
 		{
-			$this->templatesFiles = new TemplatesFiles($this->okt, $this);
+			$this->templatesFiles = new TemplatesFiles(
+				$this->okt,
+				$this
+			);
 		}
-		
+
 		return $this->templatesFiles;
 	}
 
@@ -433,9 +471,12 @@ class Installer extends Extension
 	{
 		if (null === $this->uploadsFiles)
 		{
-			$this->uploadsFiles = new UploadsFiles($this->okt, $this);
+			$this->uploadsFiles = new UploadsFiles(
+				$this->okt,
+				$this
+			);
 		}
-		
+
 		return $this->uploadsFiles;
 	}
 
@@ -448,9 +489,12 @@ class Installer extends Extension
 	{
 		if (null === $this->manager)
 		{
-			return ($this->manager = new Manager($this->okt, $this->sExtensionsPath));
+			$this->manager = new Manager(
+				$this->okt,
+				$this->sExtensionsPath
+			);
 		}
-		
+
 		return $this->manager;
 	}
 }
