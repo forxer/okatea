@@ -65,7 +65,7 @@ $okt->page->js->addReady('
 
 <p class="field">
 	<label for="p_mail_new_registration_recipients"><?php _e('c_a_users_send_mail_new_registration_recipients') ?></label>
-	<?php echo form::select(array('p_mail_new_registration_recipients[]','p_mail_new_registration_recipients'), $aUsers, $aPageData['config']['users']['registration']['mail_new_registration_recipients'], null, null, false, true) ?></p>
+	<?php echo form::select(array('p_mail_new_registration_recipients[]','p_mail_new_registration_recipients'), $aRecipients, $aPageData['config']['users']['registration']['mail_new_registration_recipients'], null, null, false, true) ?></p>
 
 <p class="field">
 	<label for="p_validation_email"><?php echo form::checkbox('p_validation_email', 1, $aPageData['config']['users']['registration']['validation_email'])?>

@@ -107,7 +107,9 @@ class Groups
 			->from($this->sGroupsTable, 'g')
 			->leftJoin('g', $this->sUsersTable, 'u', 'g.group_id = u.group_id')
 			->leftJoin('g', $this->sGroupsL10nTable, 'gl', 'g.group_id = gl.group_id')
-			->where('true = true');
+			->where('true = true')
+			->groupBy('g.group_id')
+		;
 
 		if (isset($aParams['group_id']))
 		{
@@ -161,10 +163,7 @@ class Groups
 		}
 		else
 		{
-			$queryBuilder
-				->select('g.group_id', 'g.perms', 'gl.title', 'gl.description', 'count(u.id) AS num_users')
-				->groupBy('g.group_id')
-			;
+			$queryBuilder->select('g.group_id', 'g.perms', 'gl.title', 'gl.description', 'count(u.id) AS num_users');
 
 			if (!empty($aParams['order']) && !empty($aParams['order_direction'])) {
 				$queryBuilder->orderBy($aParams['order'], $aParams['order_direction']);
@@ -185,7 +184,7 @@ class Groups
 	 * Returns information of a given group.
 	 *
 	 * @param mixed $mGroupId
-	 * @return recordset
+	 * @return array
 	 */
 	public function getGroup($mGroupId)
 	{
@@ -206,12 +205,12 @@ class Groups
 	/**
 	 * Indicates whether a specified group exists.
 	 *
-	 * @param integer $iGroupId
+	 * @param mixed $mGroupId
 	 * @return boolean
 	 */
-	public function groupExists($iGroupId)
+	public function groupExists($mGroupId)
 	{
-		return $this->getGroup($iGroupId) ? true : false;
+		return $this->getGroup($mGroupId) ? true : false;
 	}
 
 	/**

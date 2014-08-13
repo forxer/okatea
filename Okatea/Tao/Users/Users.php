@@ -23,20 +23,6 @@ class Users
 	protected $okt;
 
 	/**
-	 * The database manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oDb;
-
-	/**
-	 * The errors manager instance.
-	 *
-	 * @var object
-	 */
-	protected $oError;
-
-	/**
 	 * Core users table.
 	 *
 	 * @var string
@@ -60,55 +46,66 @@ class Users
 	public function __construct($okt)
 	{
 		$this->okt = $okt;
-		$this->oDb = $okt->db;
-		$this->oError = $okt->error;
 
-		$this->sUsersTable = $this->oDb->prefix . 'core_users';
-		$this->sGroupsTable = $this->oDb->prefix . 'core_users_groups';
-		$this->sGroupsL10nTable = $this->oDb->prefix . 'core_users_groups_locales';
+		$this->sUsersTable = $okt['config']->database_prefix . 'core_users';
+		$this->sGroupsTable = $okt['config']->database_prefix . 'core_users_groups';
+		$this->sGroupsL10nTable = $okt['config']->database_prefix . 'core_users_groups_locales';
 	}
 
 	/**
-	 * Renvoie les données concernant un ou plusieurs utilisateurs.
-	 * La méthode renvoie false si elle échoue.
+	 * Returns a list of users ​​according to given parameters.
 	 *
 	 * @param array $aParams
 	 * @param boolean $bCountOnly
-	 *        	de ne retourner que le compte
-	 * @return Recordset
+	 * @return array|integer
 	 */
 	public function getUsers(array $aParams = [], $bCountOnly = false)
 	{
-		$sReqPlus = 'WHERE 1 ';
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
+
+		$queryBuilder
+			->from($this->sUsersTable, 'u')
+			->leftJoin('u', $this->sGroupsTable, 'g', 'u.group_id = g.group_id')
+			->leftJoin('g', $this->sGroupsL10nTable, 'gl', 'g.group_id = gl.group_id')
+			->where('true = true')
+			->groupBy('u.group_id')
+		;
 
 		if (!empty($aParams['id']))
 		{
-			$sReqPlus .= 'AND u.id=' . (integer) $aParams['id'] . ' ';
+			$queryBuilder
+			->andWhere('u.id = :id')
+			->setParameter('id', (integer)$aParams['id']);
 		}
 
 		if (!empty($aParams['username']))
 		{
-			$sReqPlus .= 'AND u.username=\'' . $this->oDb->escapeStr($aParams['username']) . '\' ';
+			$queryBuilder
+				->andWhere('u.username = :username')
+				->setParameter('username', $aParams['username']);
 		}
 
 		if (!empty($aParams['email']))
 		{
-			$sReqPlus .= 'AND u.email=\'' . $this->oDb->escapeStr($aParams['email']) . '\' ';
+			$queryBuilder
+				->andWhere('u.email = :email')
+				->setParameter('email', $aParams['email']);
+		}
+
+		if (!empty($aParams['registration_ip']))
+		{
+			$queryBuilder
+				->andWhere('u.registration_ip = :registration_ip')
+				->setParameter('registration_ip', $aParams['registration_ip']);
 		}
 
 		if (isset($aParams['status']))
 		{
-			if ($aParams['status'] == 0)
-			{
-				$sReqPlus .= 'AND u.status=0 ';
+			if ($aParams['status'] == 0) {
+				$queryBuilder->andWhere('u.status = 0');
 			}
-			elseif ($aParams['status'] == 1)
-			{
-				$sReqPlus .= 'AND u.status=1 ';
-			}
-			elseif ($aParams['status'] == 2)
-			{
-				$sReqPlus .= '';
+			elseif ($aParams['status'] == 1) {
+				$queryBuilder->andWhere('u.status = 1');
 			}
 		}
 
@@ -116,12 +113,15 @@ class Users
 		{
 			if (is_array($aParams['group_id']))
 			{
-				$aParams['group_id'] = array_map('intval', $aParams['group_id']);
-				$sReqPlus .= 'AND u.group_id IN (' . implode(',', $aParams['group_id']) . ') ';
+				$queryBuilder->andWhere(
+					$queryBuilder->expr()->in('u.group_id', array_map('intval', $aParams['group_id']))
+				);
 			}
 			else
 			{
-				$sReqPlus .= 'AND u.group_id=' . (integer) $aParams['group_id'] . ' ';
+				$queryBuilder
+					->andWhere('u.group_id = :group_id')
+					->setParameter('group_id', (integer)$aParams['group_id']);
 			}
 		}
 
@@ -129,15 +129,19 @@ class Users
 		{
 			if (is_array($aParams['group_id_not']))
 			{
-				$aParams['group_id_not'] = array_map('intval', $aParams['group_id_not']);
-				$sReqPlus .= 'AND u.group_id NOT IN (' . implode(',', $aParams['group_id_not']) . ') ';
+				$queryBuilder->andWhere(
+					$queryBuilder->expr()->notIn('u.group_id', array_map('intval', $aParams['group_id_not']))
+				);
 			}
 			else
 			{
-				$sReqPlus .= 'AND u.group_id<>' . (integer) $aParams['group_id_not'] . ' ';
+				$queryBuilder
+					->andWhere('u.group_id <> :group_id_not')
+					->setParameter('group_id_not', (integer)$aParams['group_id_not']);
 			}
 		}
 
+		/*
 		if (!empty($aParams['search']))
 		{
 			$aWords = Modifiers::splitWords($aParams['search']);
@@ -146,108 +150,109 @@ class Users
 			{
 				foreach ($aWords as $i => $w)
 				{
-					$aWords[$i] = 'u.username LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' . 'u.lastname LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' . 'u.firstname LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' . 'u.email LIKE \'%' . $this->oDb->escapeStr($w) . '%\' ';
+					$aWords[$i] =
+						'u.username LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' .
+						'u.lastname LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' .
+						'u.firstname LIKE \'%' . $this->oDb->escapeStr($w) . '%\' OR ' .
+						'u.email LIKE \'%' . $this->oDb->escapeStr($w) . '%\' ';
 				}
+
 				$sReqPlus .= ' AND ' . implode(' AND ', $aWords) . ' ';
 			}
 		}
+		*/
+
 
 		if ($bCountOnly)
 		{
-			$sQuery = 'SELECT COUNT(u.id) AS num_users ' . 'FROM ' . $this->sUsersTable . ' AS u ' . $sReqPlus;
+			$queryBuilder
+				->select('COUNT(u.id) AS num_users');
 		}
 		else
 		{
-			$sQuery = 'SELECT u.*, g.* ' . 'FROM ' . $this->sUsersTable . ' AS u ' . 'LEFT JOIN ' . $this->sGroupsTable . ' AS g ON g.group_id=u.group_id ' . $sReqPlus;
+			$queryBuilder
+				->select('u.*', 'g.*', 'gl.*');
 
-			if (isset($aParams['order']))
+			if (!empty($aParams['order']) && !empty($aParams['order_direction']))
 			{
-				$sQuery .= 'ORDER BY ' . $aParams['order'] . ' ';
+				$queryBuilder
+					->orderBy($aParams['order'], $aParams['order_direction']);
 			}
 			else
 			{
-				$sQuery .= 'ORDER BY u.username DESC ';
+				$queryBuilder
+					->orderBy('u.username', 'DESC');
 			}
 
-			if (isset($aParams['limit']))
-			{
-				$sQuery .= 'LIMIT ' . $aParams['limit'] . ' ';
+			if (!empty($aParams['first_result'])) {
+				$queryBuilder->setFirstResult($aParams['first_result']);
+			}
+
+			if (!empty($aParams['max_result'])) {
+				$queryBuilder->setMaxResults($aParams['max_result']);
 			}
 		}
 
-		if (($rs = $this->oDb->select($sQuery)) === false)
-		{
-			return new Recordset([]);
+		if ($bCountOnly) {
+			return (integer) $queryBuilder->execute()->fetchColumn();
 		}
 
-		if ($bCountOnly)
-		{
-			return (integer) $rs->num_users;
-		}
-		else
-		{
-			return $rs;
-		}
+		return $queryBuilder->execute()->fetchAll();
 	}
 
 	/**
-	 * Retourne les infos d'un utilisateur donné.
-	 * Le paramètre user peut être l'identifiant numérique
-	 * ou le nom d'utilisateur.
+	 * Returns information of a given user.
 	 *
-	 * @param
-	 *        	$mUserId
-	 * @return Recordset
+	 * @param mixed $mUserId
+	 * @return array
 	 */
 	public function getUser($mUserId)
 	{
 		$aParams = [];
 
-		if (Utilities::isInt($mUserId))
-		{
+		if (Utilities::isInt($mUserId)) {
 			$aParams['id'] = $mUserId;
 		}
-		else
-		{
+		else {
 			$aParams['username'] = $mUserId;
 		}
 
-		return $this->getUsers($aParams);
+		$aUser = $this->getUsers($aParams);
+
+		return isset($aUser[0]) ? $aUser[0] : null;
 	}
 
 	/**
-	 * Vérifie l'existence d'un utilisateur
+	 * Indicates whether a specified user exists.
 	 *
-	 * @param
-	 *        	$mUserId
+	 * @param mixed $mUserId
 	 * @return boolean
 	 */
 	public function userExists($mUserId)
 	{
-		if ($this->getUser($mUserId)->isEmpty())
-		{
-			return false;
-		}
-
-		return true;
+		return $this->getUser($mUserId) ? true : false;
 	}
 
 	/**
-	 * Vérifie qu'il n'y a pas de flood à l'inscription en vérifiant l'IP.
+	 * Check that there is no flood at registration by verifying the IP.
 	 *
 	 * @return boolean
 	 */
 	public function checkRegistrationFlood()
 	{
-		$sQuery = 'SELECT 1 FROM ' . $this->sUsersTable . ' AS u ' . 'WHERE u.registration_ip=\'' . $this->oDb->escapeStr($this->okt['request']->getClientIp()) . '\' ' . 'AND u.registered>' . (time() - 3600);
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
-		if (($rs = $this->oDb->select($sQuery)) === false)
-		{
-			return false;
-		}
+		$queryBuilder
+			->select('COUNT(id) AS num_users')
+			->from($this->sUsersTable)
+			->where('registration_ip = :registration_ip')
+			->andWhere('registered > :registered')
+			->setParameter('registration_ip', $this->okt['request']->getClientIp())
+			->setParameter('registered', (time() - 3600));
 
-		if (!$rs->isEmpty())
-		{
+		$iNumUser = (integer) $queryBuilder->execute()->fetchColumn();
+
+		if ($iNumUser > 0) {
 			return false;
 		}
 
@@ -255,33 +260,39 @@ class Users
 	}
 
 	/**
-	 * Vérifie la validité d'un nom d'utilisateur.
+	 * Checks the validity of a username.
+	 *
+	 * @param array $aParams
+	 * @return void
 	 */
 	public function checkUsername(array $aParams = [])
 	{
 		$username = !empty($aParams['username']) ? $aParams['username'] : null;
 		$username = preg_replace('#\s+#s', ' ', $username);
 
-		if (mb_strlen($username) < 2)
-		{
-			$this->oError->set(__('c_c_users_error_username_too_short'));
+		if (mb_strlen($username) < 2) {
+			$this->okt['instantMessages']->error(__('c_c_users_error_username_too_short'));
 		}
-		elseif (mb_strlen($username) > 255)
-		{
-			$this->oError->set(__('c_c_users_error_username_too_long'));
+		elseif (mb_strlen($username) > 255) {
+			$this->okt['instantMessages']->error(__('c_c_users_error_username_too_long'));
 		}
-		elseif (mb_strtolower($username) == 'guest')
-		{
-			$this->oError->set(__('c_c_users_error_reserved_username'));
+		elseif (mb_strtolower($username) == 'guest') {
+			$this->okt['instantMessages']->error(__('c_c_users_error_reserved_username'));
 		}
-		elseif (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $username) || preg_match('/((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))/', $username))
+
+		// don't remenber what the hell this it is...
+		/*
+		elseif (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $username)
+			|| preg_match('/((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))/', $username))
 		{
-			$this->oError->set(__('c_c_users_error_reserved_username'));
+			$this->okt['instantMessages']->error(__('c_c_users_error_reserved_username'));
 		}
 		elseif ((strpos($username, '[') !== false || strpos($username, ']') !== false) && strpos($username, '\'') !== false && strpos($username, '"') !== false)
 		{
-			$this->oError->set(__('c_c_users_error_forbidden_characters'));
+			$this->okt['instantMessages']->error(__('c_c_users_error_forbidden_characters'));
 		}
+		*/
+
 		elseif ($this->userExists($username))
 		{
 			$dupe = true;
@@ -290,90 +301,77 @@ class Users
 			{
 				$user = $this->getUser($aParams['id']);
 
-				if ($user->username == $username)
-				{
+				if ($user['username'] == $username || $user['email'] == $username) {
 					$dupe = false;
 				}
 			}
 
 			if ($dupe)
 			{
-				if ($this->okt['config']->users['registration']['merge_username_email'])
-				{
-					$this->oError->set(__('c_c_users_error_email_already_exist'));
+				if ($this->okt['config']->users['registration']['merge_username_email']) {
+					$this->okt['instantMessages']->error(__('c_c_users_error_email_already_exist'));
 				}
-				else
-				{
-					$this->oError->set(__('c_c_users_error_username_already_exist'));
+				else {
+					$this->okt['instantMessages']->error(__('c_c_users_error_username_already_exist'));
 				}
 			}
 		}
 	}
 
 	/**
-	 * Vérifie l'email
+	 * Check user email.
 	 *
-	 * @param
-	 *        	$aParams
+	 * @param array $aParams
 	 * @return void
 	 */
 	public function checkEmail(array $aParams = [])
 	{
-		if (empty($aParams['email']))
-		{
-			$this->oError->set(__('c_c_users_must_enter_email_address'));
+		if (empty($aParams['email'])) {
+			$this->okt['instantMessages']->error(__('c_c_users_must_enter_email_address'));
 		}
 
 		$this->isEmail($aParams['email']);
 	}
 
 	/**
-	 * Vérifie si l'email est valide
+	 * Checks if the email is valid.
 	 *
-	 * @param
-	 *        	$sEmail
+	 * @param string $sEmail
 	 * @return void
 	 */
 	public function isEmail($sEmail)
 	{
-		if (!Utilities::isEmail($sEmail))
-		{
-			$this->oError->set(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
+		if (!Utilities::isEmail($sEmail)) {
+			$this->okt['instantMessages']->error(sprintf(__('c_c_error_invalid_email'), Escaper::html($sEmail)));
 		}
 	}
 
 	/**
-	 * Vérifie le mot de passe et la confirmation du mot de passe.
+	 * Checks the password and confirmation password.
 	 *
-	 * @param
-	 *        	$aParams
+	 * @param array $aParams
 	 * @return void
 	 */
 	public function checkPassword(array $aParams = [])
 	{
-		if (empty($aParams['password']))
-		{
-			$this->oError->set(__('c_c_users_must_enter_password'));
+		if (empty($aParams['password'])) {
+			$this->okt['instantMessages']->error(__('c_c_users_must_enter_password'));
 		}
-		elseif (mb_strlen($aParams['password']) < 4)
-		{
-			$this->oError->set(__('c_c_users_must_enter_password_of_at_least_4_characters'));
+		elseif (mb_strlen($aParams['password']) < 4) {
+			$this->okt['instantMessages']->error(__('c_c_users_must_enter_password_of_at_least_4_characters'));
 		}
-		elseif (empty($aParams['password_confirm']))
-		{
-			$this->oError->set(__('c_c_users_must_confirm_password'));
+		elseif (empty($aParams['password_confirm'])) {
+			$this->okt['instantMessages']->error(__('c_c_users_must_confirm_password'));
 		}
-		elseif ($aParams['password'] != $aParams['password_confirm'])
-		{
-			$this->oError->set(__('c_c_users_error_passwords_do_not_match'));
+		elseif ($aParams['password'] != $aParams['password_confirm']) {
+			$this->okt['instantMessages']->error(__('c_c_users_error_passwords_do_not_match'));
 		}
 	}
 
 	/**
-	 * Ajout d'un utilisateur
+	 * Add a user.
 	 *
-	 * @param
-	 *        	$aParams
+	 * @param array $aParams
 	 * @return integer
 	 */
 	public function addUser(array $aParams = [])
@@ -384,17 +382,14 @@ class Users
 
 		$this->checkEmail($aParams);
 
-		if (!$this->oError->isEmpty())
-		{
+		if ($this->okt['messages']->hasError()) {
 			return false;
 		}
 
-		if ($this->okt['config']->users['registration']['validation_admin'])
-		{
+		if ($this->okt['config']->users['registration']['validation_admin']) {
 			$aParams['group_id'] = 0;
 		}
-		elseif (empty($aParams['group_id']) || !$this->okt['groups']->groupExists($aParams['group_id']))
-		{
+		elseif (empty($aParams['group_id']) || !$this->okt['groups']->groupExists($aParams['group_id'])) {
 			$aParams['group_id'] = $this->okt['config']->users['registration']['default_group'];
 		}
 
@@ -406,20 +401,54 @@ class Users
 			$aParams['activate_key'] = Utilities::random_key(8);
 		}
 
-		$aParams['status'] = 0;
-
 		$iTime = time();
 
-		$sQuery = 'INSERT INTO ' . $this->sUsersTable . ' ( ' . 'group_id, civility, status, username, lastname, firstname, displayname, ' . 'password, email, timezone, language, registered, registration_ip, last_visit, ' . 'activate_string, activate_key' . ') VALUES ( ' . (integer) $aParams['group_id'] . ', ' . (integer) $aParams['civility'] . ', ' . (integer) $aParams['status'] . ', ' . '\'' . $this->oDb->escapeStr($aParams['username']) . '\', ' . (!empty($aParams['lastname']) ? '\'' . $this->oDb->escapeStr($aParams['lastname']) . '\', ' : 'null,') . (!empty($aParams['firstname']) ? '\'' . $this->oDb->escapeStr($aParams['firstname']) . '\', ' : 'null,') . (!empty($aParams['displayname']) ? '\'' . $this->oDb->escapeStr($aParams['displayname']) . '\', ' : 'null,') . '\'' . $this->oDb->escapeStr($sPasswordHash) . '\', ' . '\'' . $this->oDb->escapeStr($aParams['email']) . '\', ' . (!empty($aParams['timezone']) ? '\'' . $this->oDb->escapeStr($aParams['timezone']) . '\', ' : 'null,') . (!empty($aParams['language']) ? '\'' . $this->oDb->escapeStr($aParams['language']) . '\', ' : 'null,') . $iTime . ', ' . (!empty($aParams['registration_ip']) ? '\'' . $this->oDb->escapeStr($aParams['registration_ip']) . '\', ' : '\'0.0.0.0\', ') . $iTime . ', ' . (!empty($aParams['activate_string']) ? '\'' . $this->oDb->escapeStr($aParams['activate_string']) . '\', ' : 'null,') . (!empty($aParams['activate_key']) ? '\'' . $this->oDb->escapeStr($aParams['activate_key']) . '\' ' : 'null') . '); ';
+		$aAddData = [
+			'group_id' 		=> (integer) $aParams['group_id'],
+			'civility' 		=> (integer) $aParams['civility'],
+			'status' 		=> 0,
+			'username' 		=> $aParams['username'],
+			'password' 		=> $sPasswordHash,
+			'email' 		=> $aParams['email'],
+			'registered' 	=> $iTime,
+			'last_visit' 	=> $iTime,
+		];
 
-		if (!$this->oDb->execute($sQuery))
-		{
-			throw new \Exception('Unable to insert user into database');
+		if (!empty($aParams['lastname'])) {
+			$aAddData['lastname'] = $aParams['lastname'];
 		}
 
-		$iNewId = $this->oDb->getLastID();
+		if (!empty($aParams['firstname'])) {
+			$aAddData['firstname'] = $aParams['firstname'];
+		}
 
-		return $iNewId;
+		if (!empty($aParams['displayname'])) {
+			$aAddData['displayname'] = $aParams['displayname'];
+		}
+
+		if (!empty($aParams['timezone'])) {
+			$aAddData['timezone'] = $aParams['timezone'];
+		}
+
+		if (!empty($aParams['language'])) {
+			$aAddData['language'] = $aParams['language'];
+		}
+
+		if (!empty($aParams['registration_ip'])) {
+			$aAddData['registration_ip'] = $aParams['registration_ip'];
+		}
+
+		if (!empty($aParams['activate_string'])) {
+			$aAddData['activate_string'] = $aParams['activate_string'];
+		}
+
+		if (!empty($aParams['activate_key'])) {
+			$aAddData['activate_key'] = $aParams['activate_key'];
+		}
+
+		$this->okt['db']->insert($this->sUsersTable, $aAddData);
+
+		return $this->okt['db']->lastInsertId();;
 	}
 
 	/**
@@ -435,7 +464,7 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $aParams['id']));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_user_%s_not_exists'), $aParams['id']));
 			return false;
 		}
 
@@ -451,7 +480,7 @@ class Users
 
 				if ($iCountSudo < 2)
 				{
-					$this->oError->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
+					$this->okt['instantMessages']->error(__('c_c_users_error_cannot_disable_last_super_administrator'));
 					return false;
 				}
 			}
@@ -466,7 +495,7 @@ class Users
 
 				if ($iCountSudo < 2)
 				{
-					$this->oError->set(__('c_c_users_error_cannot_change_group_last_super_administrator'));
+					$this->okt['instantMessages']->error(__('c_c_users_error_cannot_change_group_last_super_administrator'));
 					return false;
 				}
 			}
@@ -578,7 +607,7 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -592,7 +621,7 @@ class Users
 
 			if ($iCountSudo < 2)
 			{
-				$this->oError->set(__('c_c_users_error_cannot_remove_last_super_administrator'));
+				$this->okt['instantMessages']->error(__('c_c_users_error_cannot_remove_last_super_administrator'));
 				return false;
 			}
 		}
@@ -625,7 +654,7 @@ class Users
 	{
 		if (!$this->userExists($iUserId))
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -649,7 +678,7 @@ class Users
 	{
 		if (!$this->userExists($iUserId))
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -680,7 +709,7 @@ class Users
 
 		if ($rsUser->isEmpty())
 		{
-			$this->oError->set(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
+			$this->okt['instantMessages']->error(sprintf(__('c_c_users_error_user_%s_not_exists'), $iUserId));
 			return false;
 		}
 
@@ -694,7 +723,7 @@ class Users
 
 			if ($iCountSudo < 2)
 			{
-				$this->oError->set(__('c_c_users_error_cannot_disable_last_super_administrator'));
+				$this->okt['instantMessages']->error(__('c_c_users_error_cannot_disable_last_super_administrator'));
 				return false;
 			}
 		}
@@ -723,7 +752,7 @@ class Users
 		# validation de l'adresse fournie
 		if (!Utilities::isEmail($sEmail))
 		{
-			$this->oError->set(__('c_c_auth_invalid_email'));
+			$this->okt['instantMessages']->error(__('c_c_auth_invalid_email'));
 			return false;
 		}
 
@@ -734,7 +763,7 @@ class Users
 
 		if ($rsUser === false || $rsUser->isEmpty())
 		{
-			$this->oError->set(__('c_c_auth_unknown_email'));
+			$this->okt['instantMessages']->error(__('c_c_auth_unknown_email'));
 			return false;
 		}
 
@@ -794,13 +823,13 @@ class Users
 
 		if ($rsUser === false || $rsUser->isEmpty())
 		{
-			$this->oError->set(__('c_c_auth_unknown_email'));
+			$this->okt['instantMessages']->error(__('c_c_auth_unknown_email'));
 			return false;
 		}
 
 		if (rawurldecode($sKey) != $rsUser->activate_key)
 		{
-			$this->oError->set(__('c_c_auth_validation_key_not_match'));
+			$this->okt['instantMessages']->error(__('c_c_auth_validation_key_not_match'));
 			return false;
 		}
 

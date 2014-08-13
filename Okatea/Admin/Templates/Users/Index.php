@@ -80,7 +80,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 	</div>
 	<div class="buttonsetB">
 		<?php
-		
+
 		echo $view->render('Common/Search', array(
 			'sFormAction' => $view->generateAdminUrl('Users_index'),
 			'sSearchLabel' => __('c_a_users_list_Search'),
@@ -108,7 +108,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 	</fieldset>
 </form>
 
-<?php if ($rsUsers->isEmpty()) : ?>
+<?php if (empty($aUsers)) : ?>
 
 	<?php if (!empty($sSearch)) : ?>
 <p><?php _e('c_a_users_no_searched_user') ?></p>
@@ -116,8 +116,7 @@ if ($okt['config']->users['gravatar']['enabled'])
 <?php elseif ($filters->params->show_filters) : ?>
 <p><?php _e('c_a_users_no_filtered_user')?>
 	<a href="#" class="filter-control"><?php _e('c_a_users_users_edit_filters') ?></a>
-	- <a
-		href="<?php echo $view->generateAdminUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
+	- <a href="<?php echo $view->generateAdminUrl('Users_index') ?>?init_filters=1"><?php _e('c_c_reset_filters') ?></a>
 </p>
 <?php else : ?>
 <p><?php _e('c_a_users_no_user') ?></p>
@@ -126,8 +125,8 @@ if ($okt['config']->users['gravatar']['enabled'])
 
 <?php endif; ?>
 
-<?php if (!$rsUsers->isEmpty()) : ?>
-<form action="<?php echo $view->generateurl('Users_index') ?>"
+<?php if (!empty($aUsers)) : ?>
+<form action="<?php echo $view->generateAdminUrl('Users_index') ?>"
 	method="post" id="users-list">
 	<table class="common">
 		<caption><?php _e('c_a_users_users_list')?></caption>
@@ -142,113 +141,95 @@ if ($okt['config']->users['gravatar']['enabled'])
 			</tr>
 		</thead>
 		<tbody>
-		<?php
-	
-	$iCountLine = 0;
-	while ($rsUsers->fetch())
-	:
-		
-		$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
-		$iCountLine ++;
-		
-		if (!$rsUsers->status)
-		{
-			$sTdClass .= ' disabled';
-		}
+		<?php $iCountLine = 0;
+		foreach ($aUsers as $aUser) :
+
+			$sTdClass = $iCountLine % 2 == 0 ? 'even' : 'odd';
+			$iCountLine ++;
+
+			if (!$aUser['status']) {
+				$sTdClass .= ' disabled';
+			}
 		?>
 		<tr>
-				<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $rsUsers->id) ?></td>
+				<td class="<?php echo $sTdClass ?> small"><?php echo form::checkbox(array('users[]'), $aUser['id']) ?></td>
 				<th scope="row" class="<?php echo $sTdClass ?> fake-td">
 
 					<p class="title">
-						<a
-							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>">
-				<?php if ($okt['config']->users['gravatar']['enabled']) : ?><img
-							src="<?php
-			echo $gravatarImage->getUrl($rsUsers->email)?>"
-							width="<?php
-			echo $gravatarImage->getSize()?>"
-							height="<?php
-			echo $gravatarImage->getSize()?>" alt=""
-							class="avatar"><?php endif; ?>
-				<?php echo $view->escape($rsUsers->username) ?></a>
+						<a href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $aUser['id'])) ?>">
+						<?php if ($okt['config']->users['gravatar']['enabled']) : ?><img
+							src="<?php echo $gravatarImage->getUrl($aUser['email']) ?>"
+							width="<?php echo $gravatarImage->getSize() ?>"
+							height="<?php echo $gravatarImage->getSize()?>" alt=""
+							class="avatar">
+						<?php endif; ?>
+						<?php echo $view->escape($aUser['username']) ?></a>
 					</p>
 
-					<p><?php echo $view->escape($rsUsers->firstname.' '.$rsUsers->lastname)?>
-				<?php if (!empty($rsUsers->displayname)) : ?> - <?php echo $view->escape($rsUsers->displayname) ?><?php endif ?></p>
+					<p><?php echo $view->escape($aUser['firstname'].' '.$aUser['lastname'])?>
+				<?php if (!empty($aUser['displayname'])) : ?> - <?php echo $view->escape($aUser['displayname']) ?><?php endif ?></p>
 				</th>
 				<td class="<?php echo $sTdClass ?>">
 					<p>
-						<a href="mailto:<?php echo $rsUsers->email ?>"><?php echo $rsUsers->email ?></a>
+						<a href="mailto:<?php echo $aUser['email'] ?>"><?php echo $aUser['email'] ?></a>
 					</p>
 				</td>
 				<td class="<?php echo $sTdClass ?>">
-					<p><?php
-		if ($rsUsers->group_id == Groups::UNVERIFIED)
-		{
-			_e('c_a_users_wait_of_validation');
-		}
-		elseif (!empty($aGroups[$rsUsers->group_id]))
-		{
-			echo $view->escape($aGroups[$rsUsers->group_id]);
-		}
-		?></p>
+					<p><?php if ($aUser['group_id'] == Groups::UNVERIFIED) : ?>
+						<em><?php _e('c_a_users_wait_of_validation') ?></em>
+					<?php elseif (!empty($aGroups[$aUser['group_id']])) : ?>
+						<?php echo $view->escape($aGroups[$aUser['group_id']]) ?>
+					<?php endif ?></p>
 				</td>
 				<td class="<?php echo $sTdClass ?>">
-					<p><?php echo DateTime::full($rsUsers->last_visit) ?></p>
+					<p><?php echo DateTime::full($aUser['last_visit']) ?></p>
 				</td>
 				<td class="<?php echo $sTdClass ?>">
-					<p><?php echo DateTime::full($rsUsers->registered) ?></p>
+					<p><?php echo DateTime::full($aUser['registered']) ?></p>
 				</td>
 				<td class="<?php echo $sTdClass ?> nowrap">
 					<ul class="actions">
-
 						<li>
-					<?php if ($rsUsers->group_id == Groups::UNVERIFIED && $okt['visitor']->checkPerm('users_edit')) : ?>
-						<a
-							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)).'?validate=1'; ?>"
-							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $rsUsers->username)); ?>"
+						<?php if ($aUser['group_id'] == Groups::UNVERIFIED && $okt['visitor']->checkPerm('users_edit')) : ?>
+							<a href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $aUser['id'])).'?validate=1'; ?>"
+							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_validate_the_user_%s'), $aUser['username'])); ?>"
 							class="icon time"><?php _e('c_a_users_validate_the_user')?></a>
 						<?php else : ?>
-						<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
-					<?php endif; ?>
+							<span class="icon user"></span><?php _e('c_a_users_validated_user')?>
+						<?php endif; ?>
 					</li>
 
-						<li>
-					<?php if ($rsUsers->status) : ?>
-					<a
-							href="<?php echo $view->generateAdminUrl('Users_index') ?>?disable=<?php echo $rsUsers->id ?>"
-							class="icon tick"><?php _e('c_c_status_Active')?></a>
+					<li>
+					<?php if ($aUser['status']) : ?>
+						<a href="<?php echo $view->generateAdminUrl('Users_index') ?>?disable=<?php echo $aUser['id'] ?>"
+						class="icon tick"><?php _e('c_c_status_Active')?></a>
 					<?php else : ?>
-					<a
-							href="<?php echo $view->generateAdminUrl('Users_index') ?>?enable=<?php echo $rsUsers->id ?>"
-							class="icon cross"><?php _e('c_c_status_Inactive')?></a>
+						<a href="<?php echo $view->generateAdminUrl('Users_index') ?>?enable=<?php echo $aUser['id'] ?>"
+						class="icon cross"><?php _e('c_c_status_Inactive')?></a>
 					<?php endif; ?>
 					</li>
 
 					<?php if ($okt['visitor']->checkPerm('users_edit')) : ?>
-					<li><a
-							href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $rsUsers->id)) ?>"
-							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $rsUsers->username)); ?>"
-							class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
+					<li><a href="<?php echo $view->generateAdminUrl('Users_edit', array('user_id' => $aUser['id'])) ?>"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_edit_the_user_%s'), $aUser['username'])); ?>"
+						class="icon pencil"><?php _e('c_c_action_Edit')?></a></li>
 					<?php endif; ?>
 
 					<?php if ($okt['visitor']->checkPerm('users_delete')) : ?>
-					<li><a
-							href="<?php echo $view->generateAdminUrl('Users_index') ?>?delete=<?php echo $rsUsers->id ?>"
-							onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"
-							title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $rsUsers->username)); ?>"
-							class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
+					<li><a href="<?php echo $view->generateAdminUrl('Users_index') ?>?delete=<?php echo $aUser['id'] ?>"
+						onclick="return window.confirm('<?php echo $view->escapeJs(__('c_a_users_confirm_user_deletion')) ?>')"
+						title="<?php echo $view->escapeHtmlAttr(sprintf(__('c_a_users_delete_the_user_%s'), $aUser['username'])); ?>"
+						class="icon delete"><?php _e('c_c_action_Delete')?></a></li>
 					<?php endif; ?>
 
 				</ul>
 				</td>
 			</tr>
-		<?php endwhile; ?>
+		<?php endforeach; ?>
 		</tbody>
 	</table>
 	<?php
-	
+
 	echo $view->render('Common/FormListBatches', array(
 		'sFormId' => 'users-list',
 		'sActionsLabel' => __('c_a_users_list_users_action'),

@@ -73,7 +73,8 @@ class Menus
 			->from($this->sMenusTable, 'm')
 			->leftJoin('m', $this->sItemsTable, 'i', 'm.id = i.menu_id')
 			->where('true = true')
-			->groupBy('m.id');
+			->groupBy('m.id')
+		;
 
 		if (!empty($aParams['id']))
 		{

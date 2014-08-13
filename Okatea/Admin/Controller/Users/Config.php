@@ -163,21 +163,20 @@ class Config extends Controller
 	protected function display()
 	{
 		# Liste des utilisateurs pour les destinataires de nouvelle inscription
-		$rsUsers = $this->okt['users']->getUsers([
+		$aUsers = $this->okt['users']->getUsers([
 			'group_id' => [
 				Groups::SUPERADMIN,
 				Groups::ADMIN
 			]
 		]);
 
-		$aUsers = [];
-		while ($rsUsers->fetch())
-		{
-			$aUsers[Escaper::html($rsUsers->username . (!empty($rsUsers->displayname) ? ' (' . $rsUsers->displayname . ')' : ''))] = Escaper::html($rsUsers->username);
+		$aRecipients = [];
+		foreach ($aUsers as $aUser) {
+			$aRecipients[Escaper::html($aUser['username'] . (!empty($aUser['displayname']) ? ' (' . $aUser['displayname'] . ')' : ''))] = Escaper::html($aUser['username']);
 		}
 
 		# Liste des groupes par défaut
-		$rsGroups = $this->okt['groups']->getGroups([
+		$aGroups = $this->okt['groups']->getGroups([
 			'language' => $this->okt['visitor']->language,
 			'group_id_not' => [
 				Groups::SUPERADMIN,
@@ -186,10 +185,9 @@ class Config extends Controller
 			]
 		]);
 
-		$aGroups = [];
-		while ($rsGroups->fetch())
-		{
-			$aGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
+		$aGroupsSelect = [];
+		foreach ($aGroups as $aGroup) {
+			$aGroupsSelect[Escaper::html($aGroup['title'])] = $aGroup['group_id'];
 		}
 
 		# Construction des onglets
@@ -207,8 +205,8 @@ class Config extends Controller
 			'title' => __('c_a_users_Registration'),
 			'content' => $this->renderView('Users/Config/Tabs/Registration', [
 				'aPageData' => $this->aPageData,
-				'aUsers' => $aUsers,
-				'aGroups' => $aGroups
+				'aRecipients' => $aRecipients,
+				'aGroups' => $aGroupsSelect
 			])
 		];
 

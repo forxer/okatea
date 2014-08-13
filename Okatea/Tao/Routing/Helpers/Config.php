@@ -79,7 +79,7 @@ class Config
 				'schemes'       => $oRoute->getSchemes(),
 				'methods'       => $oRoute->getMethods(),
 				'condition'     => $oRoute->getCondition()
-			);
+			];
 		}
 
 		return $this->aLoadedRoutes;

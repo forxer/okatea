@@ -24,8 +24,8 @@ class Index extends Controller
 		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/users');
 
 		# json users list for autocomplete
-		if (($json = $this->getUsersJson()) !== false) {
-			return $json;
+		if (($action = $this->getUsersJson()) !== false) {
+			return $action;
 		}
 
 		# Enable user status
@@ -90,7 +90,8 @@ class Index extends Controller
 
 		$oFilters->normalizePage($iNumPages);
 
-		$aParams['limit'] = (($oFilters->params->page - 1) * $oFilters->params->nb_per_page) . ',' . $oFilters->params->nb_per_page;
+		$aParams['first_result'] = (($oFilters->params->page - 1) * $oFilters->params->nb_per_page);
+		$aParams['max_result']= $oFilters->params->nb_per_page;
 
 		# liste des utilisateurs
 		$aUsers = $this->okt['users']->getUsers($aParams);
@@ -99,6 +100,12 @@ class Index extends Controller
 		$aGroups = $this->okt['groups']->getGroups([
 			'language' => $this->okt['visitor']->language
 		]);
+
+		$aGroupsList = [];
+
+		foreach ($aGroups as $aGroup) {
+			$aGroupsList[$aGroup['group_id']] = $aGroup['title'];
+		}
 
 		# Tableau de choix d'actions pour le traitement par lot
 		$aActionsChoices = [
@@ -116,16 +123,16 @@ class Index extends Controller
 		], true);
 
 		if ($iNumUsersWaitingValidation === 1) {
-			$this->okt->page->warnings->set(__('c_a_users_one_user_in_wait_of_validation'));
+			$this->okt['instantMessages']->warning(__('c_a_users_one_user_in_wait_of_validation'));
 		}
 		elseif ($iNumUsersWaitingValidation > 1) {
-			$this->okt->page->warnings->set(sprintf(__('c_a_users_%s_users_in_wait_of_validation'), $iNumUsersWaitingValidation));
+			$this->okt['instantMessages']->warning(sprintf(__('c_a_users_%s_users_in_wait_of_validation'), $iNumUsersWaitingValidation));
 		}
 
 		return $this->render('Users/Index', [
 			'filters' 						=> $oFilters,
-			'rsUsers' 						=> $rsUsers,
-			'aGroups' 						=> $aGroups,
+			'aUsers' 						=> $aUsers,
+			'aGroups' 						=> $aGroupsList,
 			'sSearch' 						=> $sSearch,
 			'iNumFilteredUsers' 			=> $iNumFilteredUsers,
 			'iNumUsersWaitingValidation' 	=> $iNumUsersWaitingValidation,

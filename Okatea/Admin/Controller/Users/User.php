@@ -140,26 +140,26 @@ class User extends Controller
 
 		$this->iUserId = $this->okt['request']->attributes->getInt('user_id');
 
-		$rsUser = $this->okt['users']->getUser($this->iUserId);
+		$aUser = $this->okt['users']->getUser($this->iUserId);
 
-		if (0 === $this->iUserId || 1 === $this->iUserId || $rsUser->isEmpty()) {
+		if (0 === $this->iUserId || 1 === $this->iUserId || empty($aUser)) {
 			return $this->serve404();
 		}
 
 		$this->aPageData['user'] = [
 			'id' 				=> $this->iUserId,
-			'group_id' 			=> $rsUser->group_id,
-			'civility' 			=> $rsUser->civility,
-			'status' 			=> $rsUser->status,
-			'username' 			=> $rsUser->username,
-			'lastname' 			=> $rsUser->lastname,
-			'firstname' 		=> $rsUser->firstname,
-			'displayname' 		=> $rsUser->displayname,
+			'group_id' 			=> $aUser['group_id'],
+			'civility' 			=> $aUser['civility'],
+			'status' 			=> $aUser['status'],
+			'username' 			=> $aUser['username'],
+			'lastname' 			=> $aUser['lastname'],
+			'firstname' 		=> $aUser['firstname'],
+			'displayname' 		=> $aUser['displayname'],
 			'password' 			=> '',
 			'password_confirm' 	=> '',
-			'email' 			=> $rsUser->email,
-			'timezone' 			=> $rsUser->timezone,
-			'language' 			=> $rsUser->language
+			'email' 			=> $aUser['email'],
+			'timezone' 			=> $aUser['timezone'],
+			'language' 			=> $aUser['language']
 		];
 
 		# un super admin ne peut etre modifié par un non super admin
@@ -290,14 +290,14 @@ class User extends Controller
 			$aParams['group_id_not'][] = Groups::ADMIN;
 		}
 
-		$rsGroups = $this->okt['groups']->getGroups($aParams);
+		$aGroups = $this->okt['groups']->getGroups($aParams);
 
-		$aGroups = [];
-		while ($rsGroups->fetch()) {
-			$aGroups[Escaper::html($rsGroups->title)] = $rsGroups->group_id;
+		$aGroupsSelect = [];
+		foreach ($aGroups as $aGroup) {
+			$aGroupsSelect[Escaper::html($aGroup['title'])] = $aGroup['group_id'];
 		}
 
-		return $aGroups;
+		return $aGroupsSelect;
 	}
 
 	protected function validateUser()
