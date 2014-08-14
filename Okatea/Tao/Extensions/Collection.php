@@ -176,20 +176,20 @@ class Collection
 	{
 		$aLoaded = [];
 
-		$rsExtensions = $this->getManager()->getFromDatabase([
+		$aExtensions = $this->getManager()->getFromDatabase([
 			'status' => 1
 		]);
 
-		while ($rsExtensions->fetch())
+		foreach ($aExtensions as $aExtension)
 		{
-			$aLoaded[$rsExtensions->f('id')] = [
-				'id'        => $rsExtensions->f('id'),
-				'root'      => $this->path . '/' . $rsExtensions->f('id'),
-				'name'      => $rsExtensions->f('name'),
-				'version'   => $rsExtensions->f('version'),
-				'desc'      => $rsExtensions->f('description'),
-				'author'    => $rsExtensions->f('author'),
-				'status'    => $rsExtensions->f('status')
+			$aLoaded[$aExtension['id']] = [
+				'id'        => $aExtension['id'],
+				'root'      => $this->path . '/' . $aExtension['id'],
+				'name'      => $aExtension['name'],
+				'version'   => $aExtension['version'],
+				'desc'      => $aExtension['description'],
+				'author'    => $aExtension['author'],
+				'status'    => $aExtension['status']
 			];
 		}
 

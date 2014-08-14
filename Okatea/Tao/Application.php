@@ -140,8 +140,6 @@ abstract class Application extends Container
 			ErrorHandler::register($this['phpLogger']);
 		}
 
-		$this->startDatabase();
-
 		# Load main locales files
 		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
 		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
@@ -160,31 +158,6 @@ abstract class Application extends Container
 	public function getVersion()
 	{
 		return self::VERSION;
-	}
-
-	/**
-	 * Make database connexion.
-	 *
-	 * @return object
-	 */
-	public function startDatabase()
-	{
-		if (null === $this->db)
-		{
-			$sConnectionFilename = $this['config_path'] . '/connection.php';
-
-			if (!file_exists($sConnectionFilename)) {
-				throw new \RuntimeException('Unable to find database connection file !');
-			}
-
-			require $sConnectionFilename;
-
-			$this->db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
-
-			if ($this->db->hasError()) {
-				throw new \RuntimeException('Unable to connect to database. ' . $this->db->error());
-			}
-		}
 	}
 
 	/**

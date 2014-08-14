@@ -111,7 +111,7 @@ class XmlSql
 				if (($rs = $this->db->select($req)) === false)
 				{
 					$test = false;
-					$err = $this->db->error();
+					$err = $this->db->errorInfo();
 				}
 				else
 				{
@@ -138,10 +138,10 @@ class XmlSql
 
 				$req = $v['request']['sql'];
 
-				if ($this->db->execute($req) === false)
+				if ($this->db->query($req) === false)
 				{
 					$test = false;
-					$err = sprintf($v['request']['label'], $v['request']['string']) . ' - ' . $this->db->error();
+					$err = sprintf($v['request']['label'], $v['request']['string']) . ' - ' . $this->db->errorInfo();
 				}
 				else
 				{

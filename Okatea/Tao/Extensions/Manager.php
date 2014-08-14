@@ -26,7 +26,7 @@ class Manager
 	 *
 	 * @var string
 	 */
-	protected $t_extensions;
+	protected $sExtensionsTable;
 
 	/**
 	 * The type of extensions.
@@ -60,9 +60,7 @@ class Manager
 	{
 		$this->okt = $okt;
 
-		$this->db = $okt->db;
-
-		$this->t_extensions = $okt['config']->database_prefix . 'core_extensions';
+		$this->sExtensionsTable = $okt['config']->database_prefix . 'core_extensions';
 
 		$this->type = $sType;
 
@@ -133,27 +131,51 @@ class Manager
 	 * Returns a list of extensions registered in the database.
 	 *
 	 * @param array $aParams
-	 * @return object Recordset
+	 * @return array
 	 */
 	public function getFromDatabase(array $aParams = [])
 	{
-		$reqPlus = 'WHERE type=\'' . $this->db->escapeStr($this->type) . '\' ';
+		$queryBuilder = $this->okt['db']->createQueryBuilder();
 
-		if (!empty($aParams['id'])) {
-			$reqPlus .= 'AND id=\'' . $this->db->escapeStr($aParams['id']) . '\' ';
+		$queryBuilder
+			->select('id', 'name', 'description', 'author', 'version', 'priority', 'updatable', 'status', 'type')
+			->from($this->sExtensionsTable)
+			->where('type = :type')
+			->setparameter('type', $this->type)
+			->orderBy('priority', 'ASC')
+			->addOrderBy('id', 'ASC')
+		;
+
+		if (!empty($aParams['id']))
+		{
+			$queryBuilder
+				->andWhere('id = :id')
+				->setParameter('id', $aParams['id']);
 		}
 
-		if (!empty($aParams['status'])) {
-			$reqPlus .= 'AND status=' . (integer) $aParams['status'] . ' ';
+		if (!empty($aParams['status']))
+		{
+			$queryBuilder
+				->andWhere('status = :status')
+				->setParameter('status', (integer) $aParams['status']);
 		}
 
-		$strReq = 'SELECT id, name, description, author, version, priority, updatable, status, type ' . 'FROM ' . $this->t_extensions . ' ' . $reqPlus . 'ORDER BY priority ASC, id ASC ';
+		return $queryBuilder->execute()->fetchAll();
+	}
 
-		if (($rs = $this->db->select($strReq)) === false) {
-			return new Recordset([]);
-		}
+	/**
+	 * Returns informations of a given extension registered in the database.
+	 *
+	 * @param string $sExtensionId
+	 * @return array
+	 */
+	public function getExtensionFromDatabase($sExtensionId)
+	{
+		$aExtension = $this->getFromDatabase([
+			'id' => $sExtensionId
+			]);
 
-		return $rs;
+		return isset($aExtension[0]) ? $aExtension[0] : null;
 	}
 
 	/**
@@ -163,28 +185,28 @@ class Manager
 	 */
 	public function getInstalled()
 	{
-		$rsInstalled = $this->getFromDatabase();
+		$aInstalled = $this->getFromDatabase();
 
-		$aInstalled = [];
+		$aReturn = [];
 
-		while ($rsInstalled->fetch())
+		foreach ($aInstalled as $aExtension)
 		{
-			$aInstalled[$rsInstalled->id] = [
-				'id'            => $rsInstalled->id,
-				'root'          => $this->path . '/' . $rsInstalled->id,
-				'name'          => $rsInstalled->name,
-				'name_l10n'     => __($rsInstalled->name),
-				'desc'          => $rsInstalled->description,
-				'desc_l10n'     => __($rsInstalled->description),
-				'author'        => $rsInstalled->author,
-				'version'       => $rsInstalled->version,
-				'priority'      => $rsInstalled->priority,
-				'status'        => $rsInstalled->status,
-				'updatable'     => $rsInstalled->updatable
+			$aReturn[$aExtension['id']] = [
+				'id'            => $aExtension['id'],
+				'root'          => $this->path . '/' . $aExtension['id'],
+				'name'          => $aExtension['name'],
+				'name_l10n'     => __($aExtension['name']),
+				'desc'          => $aExtension['description'],
+				'desc_l10n'     => __($aExtension['description']),
+				'author'        => $aExtension['author'],
+				'version'       => $aExtension['version'],
+				'priority'      => $aExtension['priority'],
+				'status'        => $aExtension['status'],
+				'updatable'     => $aExtension['updatable']
 			];
 		}
 
-		return $aInstalled;
+		return $aReturn;
 	}
 
 	/**
@@ -201,11 +223,16 @@ class Manager
 	 */
 	public function addExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = 0)
 	{
-		$query = 'INSERT INTO ' . $this->t_extensions . ' (' . 'id, name, description, author, ' . 'version, priority, status, type' . ') VALUES (' . '\'' . $this->db->escapeStr($id) . '\', ' . '\'' . $this->db->escapeStr($name) . '\', ' . '\'' . $this->db->escapeStr($desc) . '\', ' . '\'' . $this->db->escapeStr($author) . '\', ' . '\'' . $this->db->escapeStr($version) . '\', ' . (integer) $priority . ', ' . (integer) $status . ', ' . '\'' . $this->db->escapeStr($this->type) . '\' ' . ') ';
-
-		if ($this->db->execute($query) === false) {
-			return false;
-		}
+		$this->okt['db']->insert($this->sExtensionsTable, [
+			'id' 			=> $id,
+			'name' 			=> $name,
+			'description' 	=> $desc,
+			'author'		=> $author,
+			'version' 		=> $version,
+			'priority' 		=> (integer) $priority,
+			'status' 		=> (integer) $status,
+			'type' 			=> $this->type,
+		]);
 
 		return true;
 	}
@@ -222,13 +249,27 @@ class Manager
 	 * @param integer $status
 	 * @return boolean
 	 */
-	public function updateExtension($id, $version, $name = '', $desc = '', $author = '', $priority = 1000, $status = null)
+	public function updateExtension($id, $version, $name = '', $desc = '', $author = '', $priority = null, $status = null)
 	{
-		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'name=\'' . $this->db->escapeStr($name) . '\', ' . 'description=\'' . $this->db->escapeStr($desc) . '\', ' . 'author=\'' . $this->db->escapeStr($author) . '\', ' . 'version=\'' . $this->db->escapeStr($version) . '\', ' . 'priority=' . (integer) $priority . ', ' . 'status=' . ($status === null ? 'status' : (integer) $status) . ' ' . 'WHERE id=\'' . $this->db->escapeStr($id) . '\' ';
+		$aExtension = $this->getExtensionFromDatabase($id);
 
-		if ($this->db->execute($query) === false) {
+		if (empty($aExtension)) {
 			return false;
 		}
+
+		$this->okt['db']->update($this->sExtensionsTable,
+			[
+				'name' 			=> $name ?: $aExtension['name'],
+				'description' 	=> $desc ?: $aExtension['description'],
+				'author' 		=> $author ?: $aExtension['author'],
+				'version' 		=> $version,
+				'priority' 		=> $priority ?: $aExtension['priority'],
+				'status' 		=> $status ?: $aExtension['status']
+			],
+			[
+				'id' => $id
+			]
+		);
 
 		return true;
 	}
@@ -241,11 +282,16 @@ class Manager
 	 */
 	public function enableExtension($sExtensionId)
 	{
-		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=1 ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
+		$aExtension = $this->getExtensionFromDatabase($sExtensionId);
 
-		if ($this->db->execute($query) === false) {
+		if (empty($aExtension)) {
 			return false;
 		}
+
+		$this->okt['db']->update($this->sExtensionsTable,
+			[ 'status' => 1 ],
+			[ 'id' => $sExtensionId ]
+		);
 
 		return true;
 	}
@@ -258,11 +304,16 @@ class Manager
 	 */
 	public function disableExtension($sExtensionId)
 	{
-		$query = 'UPDATE ' . $this->t_extensions . ' SET ' . 'status=0 ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
+		$aExtension = $this->getExtensionFromDatabase($sExtensionId);
 
-		if ($this->db->execute($query) === false) {
+		if (empty($aExtension)) {
 			return false;
 		}
+
+		$this->okt['db']->update($this->sExtensionsTable,
+			[ 'status' => 0 ],
+			[ 'id' => $sExtensionId ]
+		);
 
 		return true;
 	}
@@ -275,13 +326,13 @@ class Manager
 	 */
 	public function deleteExtension($sExtensionId)
 	{
-		$query = 'DELETE FROM ' . $this->t_extensions . ' ' . 'WHERE id=\'' . $this->db->escapeStr($sExtensionId) . '\' ';
+		$aExtension = $this->getExtensionFromDatabase($sExtensionId);
 
-		if ($this->db->execute($query) === false) {
+		if (empty($aExtension)) {
 			return false;
 		}
 
-		$this->db->optimize($this->t_extensions);
+		$this->okt['db']->delete($this->sExtensionsTable, ['id' => $sExtensionId]);
 
 		return true;
 	}

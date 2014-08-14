@@ -21,7 +21,7 @@ class Infos extends Controller
 
 	protected $aOkateaInfos;
 
-	protected $aMysqlInfos;
+	protected $aDbInfos;
 
 	public function page()
 	{
@@ -32,14 +32,14 @@ class Infos extends Controller
 		# locales
 		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/infos');
 
-		# Données de la page
+		# Page data
 		$this->aPageData = new ArrayObject();
 
 		$this->notesInit();
 
 		$this->okateaInit();
 
-		$this->mysqlInit();
+		$this->databaseInit();
 
 		$this->phpInit();
 
@@ -58,17 +58,17 @@ class Infos extends Controller
 			return $action;
 		}
 
-		if (($action = $this->mysqlHandleRequest()) !== false) {
+		if (($action = $this->databaseHandleRequest()) !== false) {
 			return $action;
 		}
 
 		# -- TRIGGER CORE INFOS PAGE : adminInfosHandleRequest
 		$this->okt['triggers']->callTrigger('adminInfosHandleRequest', $this->aPageData);
 
-		# Construction des onglets
+		# Build tabs
 		$this->aPageData['tabs'] = new ArrayObject();
 
-		# onglet notes
+		# Notes tab
 		$this->aPageData['tabs'][10] = [
 			'id' => 'tab-notes',
 			'title' => __('c_a_infos_install_notes'),
@@ -78,7 +78,7 @@ class Infos extends Controller
 			])
 		];
 
-		# onglet okatea
+		# Okatea tab
 		$this->aPageData['tabs'][20] = [
 			'id' => 'tab-okatea',
 			'title' => __('c_a_infos_okatea'),
@@ -88,7 +88,7 @@ class Infos extends Controller
 			])
 		];
 
-		# onglet php
+		# PHP tab
 		$this->aPageData['tabs'][30] = [
 			'id' => 'tab-php',
 			'title' => __('c_a_infos_php'),
@@ -98,13 +98,13 @@ class Infos extends Controller
 			])
 		];
 
-		# onglet mysql
+		# database tab
 		$this->aPageData['tabs'][40] = [
-			'id' => 'tab-mysql',
-			'title' => __('c_a_infos_mysql'),
-			'content' => $this->renderView('Config/Infos/Tabs/Mysql', [
+			'id' => 'tab-db',
+			'title' => __('c_a_infos_database'),
+			'content' => $this->renderView('Config/Infos/Tabs/Database', [
 				'aPageData' => $this->aPageData,
-				'aMysqlInfos' => $this->aMysqlInfos
+				'aDbInfos' => $this->aDbInfos
 			])
 		];
 
@@ -187,6 +187,16 @@ class Infos extends Controller
 			$this->aMysqlInfos['db_pertes'] += $this->aMysqlInfos['db_infos']->data_free;
 		}
 	}
+
+	protected function databaseInit()
+	{
+		$sm = $this->okt['db']->getSchemaManager();
+
+		$this->aDbInfos = [
+			'sm' => $sm
+		];
+	}
+
 
 	protected function phpInit()
 	{
@@ -301,6 +311,12 @@ class Infos extends Controller
 				return $this->redirect($this->generateUrl('config_infos'));
 			}
 		}
+
+		return false;
+	}
+
+	protected function databaseHandleRequest()
+	{
 
 		return false;
 	}

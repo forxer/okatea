@@ -116,8 +116,10 @@ users:
         profile: true
     registration:
         merge_username_email: false
-        mail_new_registration: false
-        mail_new_registration_recipients: {  }
+        mail_new_registration: true
+        mail_new_registration_recipients:
+            - sudo
+            - admin
         validation_email: true
         validation_admin: false
         auto_log_after_registration: false

@@ -43,8 +43,6 @@ class Extension
 	{
 		$this->okt = $okt;
 
-		$this->db = $okt->db;
-
 		$this->sExtensionsPath = $sExtensionsPath;
 
 		$this->infos = [
