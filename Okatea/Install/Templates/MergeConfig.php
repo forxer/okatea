@@ -10,7 +10,7 @@ $view->extend('Layout');
 ?>
 
 <form
-	action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>"
+	action="<?php echo $view->generateInstallUrl($okt->stepper->getNextStep()) ?>"
 	method="post">
 
 	<?php if ($bConfigMerged) : ?>

@@ -9,6 +9,7 @@ namespace Okatea\Tao\Routing;
 
 use Okatea\Admin\Router as adminRouter;
 use Okatea\Website\Router;
+use Okatea\Install\Routing\Router as installRouter;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\Routing\RequestContext;
@@ -34,6 +35,12 @@ class RouterServiceProvider implements ServiceProviderInterface
 				$okt['cache_path'] . '/routing/admin',
 				$okt['debug'],
 				$okt['logger']
+			);
+		};
+
+		$okt['installRouter'] = function($okt) {
+			return new installRouter(
+				$okt, $okt['okt_path'] . '/Install/Routing/RouteProvider.php'
 			);
 		};
 

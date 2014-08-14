@@ -78,6 +78,22 @@ class Templating extends PhpEngine
 	}
 
 	/**
+	 * Generates a admin URL from the given parameters.
+	 *
+	 * @param string $route The name of the route
+	 * @param mixed $parameters An array of parameters
+	 * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+	 *
+	 * @return string The generated URL
+	 *
+	 * @see UrlGeneratorInterface
+	 */
+	public function generateInstallUrl($route, $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+	{
+		return $this->okt['installRouter']->generate($route, $parameters, $referenceType);
+	}
+
+	/**
 	 * Renders a view and returns a Response.
 	 *
 	 * @param string $view The view name

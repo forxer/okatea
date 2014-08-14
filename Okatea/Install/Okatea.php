@@ -15,15 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Page;
-use Okatea\Install\Routing\Router;
 use Okatea\Tao\Application;
-use Okatea\Tao\ApplicationOptions;
-use Okatea\Tao\Errors;
-use Okatea\Tao\Extensions\Modules\Collection as ModulesCollection;
-use Okatea\Tao\L10n\Localization;
-use Okatea\Tao\Misc\FlashMessages;
-use Okatea\Tao\Session;
-use Okatea\Tao\Triggers;
 
 class Okatea extends Application
 {
@@ -62,46 +54,49 @@ class Okatea extends Application
 
 	public function run()
 	{
-		if ($this['session']->has('okt_old_version'))
-		{
+		if ($this['session']->has('okt_old_version')) {
 			$this->oldVersion = $this['session']->get('okt_old_version');
 		}
 
-		if ($this->okt['request']->query->has('old_version'))
+		if ($this['request']->query->has('old_version'))
 		{
-			$this->oldVersion = $this->okt['request']->query->get('old_version');
+			$this->oldVersion = $this['request']->query->get('old_version');
 			$this['session']->set('okt_old_version', $this->oldVersion);
 		}
 
 		# Initialisation localisation
-		if (!$this['session']->has('okt_install_language'))
-		{
-			$this['session']->set('okt_install_language', $this->okt['request']->getPreferredLanguage($this->availablesLocales));
+		if (!$this['session']->has('okt_install_language')) {
+			$this['session']->set('okt_install_language', $this['request']->getPreferredLanguage($this->availablesLocales));
 		}
 
-		$this['l10n'] = new Localization($this['session']->get('okt_install_language'), $this['session']->get('okt_install_language'), 'Europe/Paris');
+		//$this['l10n'] = new Localization($this['session']->get('okt_install_language'), $this['session']->get('okt_install_language'), 'Europe/Paris');
+
+		$this['l10n']->setLanguage($this['session']->get('okt_install_language'));
+		$this['l10n']->setLanguage($this['session']->get('okt_install_language'));
 
 		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
 		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
 		$this['l10n']->loadFile(__DIR__ . '/Locales/%s/install');
+
+		$this['tpl_directories'] = [
+			__DIR__ . '/Templates/%name%.php',
+			__DIR__ . '/Extensions/%name%.php'
+		];
 
 		# Install or update ?
 		if (!$this['session']->has('okt_install_process_type'))
 		{
 			$this['session']->set('okt_install_process_type', 'install');
 
-			if (file_exists($this['config_path'] . '/connection.php'))
-			{
+			if (file_exists($this['config_path'] . '/installed')) {
 				$this['session']->set('okt_install_process_type', 'update');
 			}
 		}
 
-		$this->loadExtensions();
+	//	$this->loadExtensions();
 
 		# -- CORE TRIGGER : installBeforeStartRouter
 		$this['triggers']->callTrigger('installBeforeStartRouter');
-
-		$this->router = new Router($this, __DIR__ . '/Routing/RouteProvider.php');
 
 		# -- CORE TRIGGER : installBeforeLoadPageHelpers
 		$this['triggers']->callTrigger('installBeforeLoadPageHelpers');
@@ -121,7 +116,7 @@ class Okatea extends Application
 		# -- CORE TRIGGER : installBeforeLoadTplEngine
 		$this['triggers']->callTrigger('installBeforeLoadTplEngine');
 
-		$this->loadTplEngine();
+	//	$this->loadTplEngine();
 
 		# -- CORE TRIGGER : installBeforeCallController
 		$this['triggers']->callTrigger('installBeforeCallController');
@@ -131,7 +126,7 @@ class Okatea extends Application
 		# -- CORE TRIGGER : installBeforePrepareResponse
 		$this['triggers']->callTrigger('installBeforePrepareResponse');
 
-		$this->response->prepare($this->okt['request']);
+		$this->response->prepare($this['request']);
 
 		# -- CORE TRIGGER : installBeforeSendResponse
 		$this['triggers']->callTrigger('installBeforeSendResponse');
@@ -180,7 +175,7 @@ class Okatea extends Application
 	{
 		try
 		{
-			$this->okt['request']->attributes->add($this->router->matchRequest($this->okt['request']));
+			$this['request']->attributes->add($this['installRouter']->matchRequest($this['request']));
 		}
 		catch (ResourceNotFoundException $e)
 		{
@@ -201,36 +196,17 @@ class Okatea extends Application
 	 */
 	protected function loadStepper()
 	{
-		if ($this['session']->get('okt_install_process_type') == 'install')
-		{
-			$this->stepper = new Stepper\Install($this, $this->okt['request']->attributes->get('_route'));
+		if ($this['session']->get('okt_install_process_type') == 'install') {
+			$this->stepper = new Stepper\Install($this, $this['request']->attributes->get('_route'));
 		}
-		else
-		{
-			$this->stepper = new Stepper\Update($this, $this->okt['request']->attributes->get('_route'));
+		else {
+			$this->stepper = new Stepper\Update($this, $this['request']->attributes->get('_route'));
 		}
-	}
-
-	/**
-	 * Load templates engine.
-	 *
-	 * return void
-	 */
-	protected function loadTplEngine()
-	{
-		# initialisation
-		$this['tpl'] = new Templating($this, [
-			__DIR__ . '/Templates/%name%.php',
-			__DIR__ . '/Extensions/%name%.php'
-		]);
-
-		# assignation par défaut
-		$this['tpl']->addGlobal('okt', $this);
 	}
 
 	protected function callController()
 	{
-		$this->response = $this->router->callController();
+		$this->response = $this['installRouter']->callController();
 
 		if (null === $this->response || false === $this->response)
 		{

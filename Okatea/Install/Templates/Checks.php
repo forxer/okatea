@@ -23,7 +23,7 @@ $view->extend('Layout');
 <?php endif; ?>
 
 <form
-	action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>"
+	action="<?php echo $view->generateInstallUrl($okt->stepper->getNextStep()) ?>"
 	method="post">
 	<p>
 		<input type="submit" value="<?php _e('c_c_next') ?>" />

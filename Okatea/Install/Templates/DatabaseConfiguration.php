@@ -41,7 +41,7 @@ $okt->page->js->addReady('
 
 <?php if (!is_null($oChecklist) && $okt->error->isEmpty()) : ?>
 
-<form action="<?php echo $view->generateUrl($okt->stepper->getNextStep()) ?>" method="post">
+<form action="<?php echo $view->generateInstallUrl($okt->stepper->getNextStep()) ?>" method="post">
 
 	<?php echo $oChecklist->getHTML(); ?>
 
@@ -53,7 +53,7 @@ $okt->page->js->addReady('
 </form>
 
 <?php else : ?>
-<form action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>" method="post">
+<form action="<?php echo $view->generateInstallUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
 	<p><?php _e('i_db_conf_environement_choice') ?></p>
 	<ul class="checklist">

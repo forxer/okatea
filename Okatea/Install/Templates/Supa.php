@@ -26,7 +26,7 @@ $okt->page->css->addCss('
 
 
 <form
-	action="<?php echo $view->generateUrl($okt->stepper->getCurrentStep()) ?>"
+	action="<?php echo $view->generateInstallUrl($okt->stepper->getCurrentStep()) ?>"
 	method="post">
 
 	<div class="two-cols">

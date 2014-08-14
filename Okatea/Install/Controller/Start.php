@@ -11,7 +11,6 @@ use Okatea\Install\Controller;
 
 class Start extends Controller
 {
-
 	public function page()
 	{
 		$sSwitchLanguage = $this->okt['request']->query->get('switch_language');
@@ -23,8 +22,6 @@ class Start extends Controller
 			return $this->redirect($this->generateUrl('start'));
 		}
 
-		return $this->render('Start', []
-
-		);
+		return $this->render('Start');
 	}
 }

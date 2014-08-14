@@ -27,15 +27,35 @@ class Localization
 	 */
 	public function __construct($sLanguage, $sDefaultLanguage, $sTimeZone)
 	{
-		$this->sLanguage = $sLanguage;
+		$this->setLanguage($sLanguage);
 
-		$this->sDefaultLanguage = $sDefaultLanguage;
+		$this->setDefaultLanguage($sDefaultLanguage);
 
 		Date::setUserLocale($sLanguage);
 		Date::setUserTimezone($sTimeZone);
 
 		$GLOBALS['okt_l10n'] = [];
 		$this->aLoaded = [];
+	}
+
+	public function setLanguage($sLanguage)
+	{
+		$this->sLanguage = $sLanguage;
+	}
+
+	public function getLanguage()
+	{
+		return $this->sLanguage;
+	}
+
+	public function setDefaultLanguage($sDefaultLanguage)
+	{
+		$this->sDefaultLanguage = $sDefaultLanguage;
+	}
+
+	public function getDefaultLanguage()
+	{
+		return $this->sDefaultLanguage;
 	}
 
 	/**

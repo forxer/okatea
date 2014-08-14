@@ -12,18 +12,17 @@ use Okatea\Install\Controller;
 
 class Checks extends Controller
 {
-
 	public function page()
 	{
 		$oRequirements = new Requirements($this->okt, $this->okt['session']->get('okt_install_language'));
-		
+
 		$aResults = $oRequirements->getResultsFromHtmlCheckList();
-		
+
 		return $this->render('Checks', [
-			'title' => __('i_checks_title'),
-			'pass_test' => $aResults['bCheckAll'],
-			'warning_empty' => $aResults['bCheckWarning'],
-			'requirements' => $oRequirements->getRequirements()
+			'title' 			=> __('i_checks_title'),
+			'pass_test' 		=> $aResults['bCheckAll'],
+			'warning_empty' 	=> $aResults['bCheckWarning'],
+			'requirements' 		=> $oRequirements->getRequirements()
 		]);
 	}
 }

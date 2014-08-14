@@ -38,6 +38,6 @@ class Templating extends BaseTemplating
 	 */
 	public function generateUrl($route, $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
 	{
-		return $this->okt->router->generate($route, $parameters, $referenceType);
+		return $this->okt['installRouter']->generate($route, $parameters, $referenceType);
 	}
 }

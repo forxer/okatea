@@ -43,12 +43,37 @@ $okt['triggers']->callTrigger('installBeforeSendHtml');
 
 			<section id="content" class="ui-widget-content ui-corner-bottom">
 
-			<?php if (!$okt->error->isEmpty()) : ?>
-			<div class="errors_box">
-					<h3><?php _e('i_errors') ?></h3>
-				<?php echo $okt->error->get(); ?>
-			</div>
-			<?php endif; ?>
+			<?php # affichage des éventuels messages d'erreurs
+			if ($okt['messages']->hasError()) :
+				echo $view->render('Messages', [
+					'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_ERROR,
+					'messages'    => $okt['messages']->getError()
+				]);
+			endif; ?>
+
+			<?php # affichage des éventuels messages d'avertissements
+			if ($okt['messages']->hasWarning()) :
+				echo $view->render('Messages', [
+					'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_WARNING,
+					'messages'    => $okt['messages']->getWarning()
+				]);
+			endif; ?>
+
+			<?php # affichage des éventuels messages de confirmation
+			if ($okt['messages']->hasSuccess()) :
+				echo $view->render('Messages', [
+					'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_SUCCESS,
+					'messages'    => $okt['messages']->getSuccess()
+				]);
+			endif; ?>
+
+			<?php # affichage des éventuels messages d'information
+			if ($okt['messages']->hasInfo()) :
+				echo $view->render('Messages', [
+					'type'        => Okatea\Tao\Messages\MessagesInterface::TYPE_INFO,
+					'messages'    => $okt['messages']->getInfo()
+				]);
+			endif; ?>
 
 			<?php $view['slots']->output('_content'); ?>
 
