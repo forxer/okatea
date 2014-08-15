@@ -17,8 +17,22 @@ class DatabaseConfiguration extends Controller
 
 	public function page()
 	{
+		$aDrivers = [
+			'pdo_mysql' 			=> 'A MySQL driver that uses the pdo_mysql PDO extension.',
+			'drizzle_pdo_mysql' 	=> 'A Drizzle driver that uses pdo_mysql PDO extension.',
+			'mysqli' 				=> 'A MySQL driver that uses the mysqli extension.',
+			'pdo_sqlite' 			=> 'An SQLite driver that uses the pdo_sqlite PDO extension.',
+			'pdo_pgsql' 			=> 'A PostgreSQL driver that uses the pdo_pgsql PDO extension.',
+			'pdo_oci' 				=> 'An Oracle driver that uses the pdo_oci PDO extension. Note that this driver caused problems in Doctrine DBAL tests. Prefer the oci8 driver if possible.',
+			'pdo_sqlsrv' 			=> 'A Microsoft SQL Server driver that uses pdo_sqlsrv PDO. Note that this driver caused problems in Doctrine DBAL tests. Prefer the sqlsrv driver if possible.',
+			'sqlsrv' 				=> 'A Microsoft SQL Server driver that uses the sqlsrv PHP extension.',
+			'oci8' 					=> 'An Oracle driver that uses the oci8 PHP extension.',
+			'sqlanywhere' 			=> 'A SAP Sybase SQL Anywhere driver that uses the sqlanywhere PHP extension.',
+		];
+
 		$aDatabaseParams = [
 			'env' => $this->okt['env'],
+			'prefix' => 'okt_',
 			'prod' => [
 				'host' => '',
 				'name' => '',
@@ -30,8 +44,7 @@ class DatabaseConfiguration extends Controller
 				'host' => 'localhost',
 				'name' => 'okatea',
 				'user' => 'root',
-				'password' => '',
-				'prefix' => 'okt_'
+				'password' => ''
 			]
 		];
 
@@ -58,60 +71,49 @@ class DatabaseConfiguration extends Controller
 				]
 			];
 
-			if ($aDatabaseParams['env'] != 'dev' && $aDatabaseParams['env'] != 'prod')
-			{
+			if ($aDatabaseParams['env'] != 'dev' && $aDatabaseParams['env'] != 'prod') {
 				$aDatabaseParams['env'] == 'dev';
 			}
 
 			if ($aDatabaseParams['env'] == 'prod')
 			{
-				if (empty($aDatabaseParams['prod']['prefix']))
-				{
+				if (empty($aDatabaseParams['prod']['prefix'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_prod_must_prefix'));
 				}
-				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
-				{
+				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_prod_prefix_form'));
 				}
 
-				if (empty($aDatabaseParams['prod']['host']))
-				{
+				if (empty($aDatabaseParams['prod']['host'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_prod_must_host'));
 				}
 
-				if (empty($aDatabaseParams['prod']['name']))
-				{
+				if (empty($aDatabaseParams['prod']['name'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_prod_must_name'));
 				}
 
-				if (empty($aDatabaseParams['prod']['user']))
-				{
+				if (empty($aDatabaseParams['prod']['user'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_prod_must_username'));
 				}
 			}
 			else
 			{
-				if (empty($aDatabaseParams['dev']['prefix']))
-				{
+				if (empty($aDatabaseParams['dev']['prefix'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_dev_must_prefix'));
 				}
-				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix']))
-				{
+				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_dev_prefix_form'));
 				}
 
-				if (empty($aDatabaseParams['dev']['host']))
-				{
+				if (empty($aDatabaseParams['dev']['host'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_dev_must_host'));
 				}
 
-				if (empty($aDatabaseParams['dev']['name']))
-				{
+				if (empty($aDatabaseParams['dev']['name'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_dev_must_name'));
 				}
 
-				if (empty($aDatabaseParams['dev']['user']))
-				{
+				if (empty($aDatabaseParams['dev']['user'])) {
 					$this->okt->error->set(__('i_db_conf_db_error_dev_must_username'));
 				}
 			}
@@ -143,12 +145,10 @@ class DatabaseConfiguration extends Controller
 
 					$db = mysqli_select_db($con_id, $aParamsToTest['name']);
 
-					if (!$db)
-					{
+					if (!$db) {
 						$this->okt->error->set('MySQL: ' . mysqli_errno($con_id) . ' ' . mysqli_error($con_id));
 					}
-					else
-					{
+					else {
 						mysqli_close($con_id);
 					}
 				}
@@ -159,8 +159,7 @@ class DatabaseConfiguration extends Controller
 			{
 				$db = new MySqli($aParamsToTest['user'], $aParamsToTest['password'], $aParamsToTest['host'], $aParamsToTest['name'], $aParamsToTest['prefix']);
 
-				if ($db->hasError())
-				{
+				if ($db->hasError()) {
 					$this->okt->error->set('Unable to connect to database', $db->error());
 				}
 				else
@@ -223,9 +222,10 @@ class DatabaseConfiguration extends Controller
 		}
 
 		return $this->render('DatabaseConfiguration', [
-			'title' => __('i_db_conf_title'),
-			'aDatabaseParams' => $aDatabaseParams,
-			'oChecklist' => $this->checklist
+			'title' 			=> __('i_db_conf_title'),
+			'$aDrivers' 		=> $aDrivers,
+			'aDatabaseParams' 	=> $aDatabaseParams,
+			'oChecklist' 		=> $this->checklist
 		]);
 	}
 }

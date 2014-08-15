@@ -39,12 +39,20 @@ leader:
     name: ''
     firstname: ''
 database_configuration:
-    host: localhost
-    dbname: okatea
-    user: root
-    password: ''
-    driver: pdo_mysql
-    charset: utf8
+    prod:
+        host: ''
+        dbname: ''
+        user: ''
+        password: ''
+        driver: ''
+        charset: ''
+    dev:
+        host: localhost
+        dbname: okatea
+        user: root
+        password: ''
+        driver: pdo_mysql
+        charset: utf8
 database_prefix: okt_
 email:
     to: contact@okatea.org
