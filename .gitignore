@@ -3,7 +3,7 @@
 /oktOptions.custom.php
 
 # oktatea config
-/Okatea/Config/connection.php
+/Okatea/Config/installed
 /Okatea/Config/conf_*.yml
 !/Okatea/Config/conf_site.yml
 /Okatea/Config/Routes/*/*.yml

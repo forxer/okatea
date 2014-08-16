@@ -14,6 +14,12 @@ class Checks extends Controller
 {
 	public function page()
 	{
+		if ($this->okt['request']->request->has('sended')) {
+			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
+		}
+
+		$this->okt['l10nInstall']->loadFile($this->okt['locales_path'] . '/%s/pre-requisites');
+
 		$oRequirements = new Requirements($this->okt, $this->okt['session']->get('okt_install_language'));
 
 		$aResults = $oRequirements->getResultsFromHtmlCheckList();

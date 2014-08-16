@@ -16,6 +16,8 @@ class Localization
 
 	protected $sDefaultLanguage;
 
+	protected $sTimeZone;
+
 	protected $aLoaded;
 
 	/**
@@ -31,8 +33,7 @@ class Localization
 
 		$this->setDefaultLanguage($sDefaultLanguage);
 
-		Date::setUserLocale($sLanguage);
-		Date::setUserTimezone($sTimeZone);
+		$this->setTimeZone($sTimeZone);
 
 		$GLOBALS['okt_l10n'] = [];
 		$this->aLoaded = [];
@@ -41,6 +42,8 @@ class Localization
 	public function setLanguage($sLanguage)
 	{
 		$this->sLanguage = $sLanguage;
+
+		Date::setUserLocale($sLanguage);
 	}
 
 	public function getLanguage()
@@ -56,6 +59,18 @@ class Localization
 	public function getDefaultLanguage()
 	{
 		return $this->sDefaultLanguage;
+	}
+
+	public function setTimeZone($sTimeZone)
+	{
+		$this->sTimeZone = $sTimeZone;
+
+		Date::setUserTimezone($sTimeZone);
+	}
+
+	public function getTimeZone()
+	{
+		return $this->sTimeZone;
 	}
 
 	/**

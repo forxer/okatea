@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
+use Okatea\Tao\Database\ConfigLayers\Drivers;
 
 $view->extend('Layout');
 
@@ -37,6 +38,9 @@ $okt->page->js->addReady('
 	focusEnvironmentPart();
 	$(\'input[name="connect"]\').click(focusEnvironmentPart);
 ');
+
+d(Drivers::getSupported());
+d(Drivers::getUnsupported());
 ?>
 
 <?php if (!is_null($oChecklist) && $okt->error->isEmpty()) : ?>
@@ -55,15 +59,33 @@ $okt->page->js->addReady('
 <?php else : ?>
 <form action="<?php echo $view->generateInstallUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
+	<p class="fake-label"><?php _e('i_db_conf_driver') ?></p>
+	<ul class="checklist">
+	<?php foreach ($aDrivers as $driver) : ?>
+		<li<?php if(!Drivers::isSupported($driver)) echo ' class="disabled"'; ?>><label for="driver_<?php echo $driver ?>"><?php echo form::radio(['driver','driver_'.$driver], $driver, $aDatabaseParams['driver'] == $driver, '', null, !Drivers::isSupported($driver)) ?>
+		<strong><?php echo $driver ?></strong></label>
+		<span class="note"><?php _e('i_db_conf_driver_'.$driver) ?></span></li>
+	<?php endforeach; ?>
+	</ul>
+
+	<p class="field"><label for="prod_prefix" title="<?php _e('c_c_required_field') ?>"
+	class="required"><?php _e('i_db_conf_db_prefix') ?></label>
+	<?php echo form::text('prefix', 40, 256, $view->escape($aDatabaseParams['prefix'])) ?></p>
+
 	<p><?php _e('i_db_conf_environement_choice') ?></p>
 	<ul class="checklist">
-		<li><label for="connect_prod"><input type="radio" name="connect"
-				id="connect_prod" value="prod"
-				<?php if ($aDatabaseParams['env'] == 'prod') echo ' checked="checked"'; ?> />
-				<strong><?php _e('i_db_conf_environement_prod') ?></strong></label></li>
-		<li><label for="connect_dev"><input type="radio" name="connect"
-				id="connect_dev" value="dev"
-				<?php if ($aDatabaseParams['env'] == 'dev') echo ' checked="checked"'; ?> /> <?php _e('i_db_conf_environement_dev') ?></label></li>
+		<li>
+			<label for="connect_prod"><input type="radio" name="connect"
+			id="connect_prod" value="prod"
+			<?php if ($aDatabaseParams['env'] == 'prod') echo ' checked="checked"'; ?> />
+			<strong><?php _e('i_db_conf_environement_prod') ?></strong></label>
+		</li>
+		<li>
+			<label for="connect_dev"><input type="radio" name="connect"
+			id="connect_dev" value="dev"
+			<?php if ($aDatabaseParams['env'] == 'dev') echo ' checked="checked"'; ?> />
+			<?php _e('i_db_conf_environement_dev') ?></label>
+		</li>
 	</ul>
 	<p class="note"><?php _e('i_db_conf_environement_note') ?></p>
 
@@ -75,26 +97,22 @@ $okt->page->js->addReady('
 				<p class="field">
 					<label for="prod_host" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_host') ?></label>
-			<?php echo form::text('prod_host', 40, 256, $view->escape($aDatabaseParams['prod']['host'])) ?></p>
+				<?php echo form::text('prod_host', 40, 256, $view->escape($aDatabaseParams['prod']['host'])) ?></p>
 
 				<p class="field">
 					<label for="prod_name" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_name') ?></label>
-			<?php echo form::text('prod_name', 40, 256, $view->escape($aDatabaseParams['prod']['name'])) ?></p>
+				<?php echo form::text('prod_name', 40, 256, $view->escape($aDatabaseParams['prod']['name'])) ?></p>
 
 				<p class="field">
 					<label for="prod_user" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_username') ?></label>
-			<?php echo form::text('prod_user', 40, 256, $view->escape($aDatabaseParams['prod']['user'])) ?></p>
+				<?php echo form::text('prod_user', 40, 256, $view->escape($aDatabaseParams['prod']['user'])) ?></p>
 
 				<p class="field">
 					<label for="prod_password"><?php _e('i_db_conf_db_password') ?></label>
-			<?php echo form::text('prod_password', 40, 256, $view->escape($aDatabaseParams['prod']['password'])) ?></p>
+				<?php echo form::text('prod_password', 40, 256, $view->escape($aDatabaseParams['prod']['password'])) ?></p>
 
-				<p class="field">
-					<label for="prod_prefix" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_prefix') ?></label>
-			<?php echo form::text('prod_prefix', 40, 256, $view->escape($aDatabaseParams['prod']['prefix'])) ?></p>
 			</fieldset>
 		</div>
 
@@ -105,26 +123,22 @@ $okt->page->js->addReady('
 				<p class="field">
 					<label for="dev_host" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_host') ?></label>
-			<?php echo form::text('dev_host', 40, 256, $view->escape($aDatabaseParams['dev']['host'])) ?></p>
+				<?php echo form::text('dev_host', 40, 256, $view->escape($aDatabaseParams['dev']['host'])) ?></p>
 
 				<p class="field">
 					<label for="dev_name" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_name') ?></label>
-			<?php echo form::text('dev_name', 40, 256, $view->escape($aDatabaseParams['dev']['name'])) ?></p>
+				<?php echo form::text('dev_name', 40, 256, $view->escape($aDatabaseParams['dev']['name'])) ?></p>
 
 				<p class="field">
 					<label for="dev_user" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_username') ?></label>
-			<?php echo form::text('dev_user', 40, 256, $view->escape($aDatabaseParams['dev']['user'])) ?></p>
+				<?php echo form::text('dev_user', 40, 256, $view->escape($aDatabaseParams['dev']['user'])) ?></p>
 
 				<p class="field">
 					<label for="dev_password"><?php _e('i_db_conf_db_password') ?></label>
-			<?php echo form::text('dev_password', 40, 256, $view->escape($aDatabaseParams['dev']['password'])) ?></p>
+				<?php echo form::text('dev_password', 40, 256, $view->escape($aDatabaseParams['dev']['password'])) ?></p>
 
-				<p class="field">
-					<label for="dev_prefix" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_prefix') ?></label>
-			<?php echo form::text('dev_prefix', 40, 256, $view->escape($aDatabaseParams['dev']['prefix'])) ?></p>
 			</fieldset>
 		</div>
 	</div>

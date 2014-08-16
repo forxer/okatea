@@ -25,11 +25,9 @@ class Requirements
 	 */
 	protected $aRequirements = [];
 
-	public function __construct($okt, $sLanguage = null)
+	public function __construct($okt)
 	{
 		$this->okt = $okt;
-
-		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/pre-requisites', $sLanguage);
 
 		/* Groups
 		----------------------------------------------------------*/

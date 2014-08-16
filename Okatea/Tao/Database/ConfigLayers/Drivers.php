@@ -10,33 +10,107 @@ namespace Okatea\Tao\Database\ConfigLayers;
 
 class Drivers
 {
-	static $drivers = [
-		'pdo_mysql' 			=> 'A MySQL driver that uses the pdo_mysql PDO extension.',
-		'drizzle_pdo_mysql' 	=> 'A Drizzle driver that uses pdo_mysql PDO extension.',
-		'mysqli' 				=> 'A MySQL driver that uses the mysqli extension.',
-		'pdo_sqlite' 			=> 'An SQLite driver that uses the pdo_sqlite PDO extension.',
-		'pdo_pgsql' 			=> 'A PostgreSQL driver that uses the pdo_pgsql PDO extension.',
-		'pdo_oci' 				=> 'An Oracle driver that uses the pdo_oci PDO extension. Note that this driver caused problems in Doctrine DBAL tests. Prefer the oci8 driver if possible.',
-		'pdo_sqlsrv' 			=> 'A Microsoft SQL Server driver that uses pdo_sqlsrv PDO. Note that this driver caused problems in Doctrine DBAL tests. Prefer the sqlsrv driver if possible.',
-		'sqlsrv' 				=> 'A Microsoft SQL Server driver that uses the sqlsrv PHP extension.',
-		'oci8' 					=> 'An Oracle driver that uses the oci8 PHP extension.',
-		'sqlanywhere' 			=> 'A SAP Sybase SQL Anywhere driver that uses the sqlanywhere PHP extension.',
-	];
+	protected static $aCustoms = [];
 
-	public function getDrivers()
+	protected static $aSupported;
+
+	/**
+	 * Return list of all drivers.
+	 *
+	 * @return array
+	 */
+	public static function getAll()
 	{
-		return array_keys(self::$drivers);
+		return array_keys(array_merge(self::getDoctrineDBALDrivers(), self::$aCustoms));
 	}
 
-	public function getL10nDrivers()
+	/**
+	 * Return list of all drivers with them support test.
+	 *
+	 * @return array
+	 */
+	public static function getAllWithTest()
 	{
-		$return = [];
+		return array_merge(self::getDoctrineDBALDrivers(), self::$aCustoms);
+	}
 
-		foreach (self::$drivers as $driver => $desc)
+	/**
+	 * Return list of drivers supported by the environment.
+	 *
+	 * @return array
+	 */
+	public static function getSupported()
+	{
+		if (null === self::$aSupported)
 		{
-			$return[$driver] => __($desc);
+			self::$aSupported = [];
+
+			foreach (self::getAllWithTest() as $sDriver => $sTest)
+			{
+				if ($sTest()) {
+					self::$aSupported[] = $sDriver;
+				}
+			}
 		}
 
-		return $return;
+		return self::$aSupported;
+	}
+
+	public static function getUnsupported()
+	{
+		return array_diff_assoc(self::getAll(), self::getSupported());
+	}
+
+	/**
+	 * Indicates whether a given driver is supy the environment.
+	 *
+	 * @param string $sDriver
+	 * @return boolean
+	 */
+	public static function isSupported($sDriver)
+	{
+		return in_array($sDriver, self::getSupported());
+	}
+
+	/**
+	 * Return the first driver of the supported drivers list.
+	 *
+	 * @return string
+	 */
+	public static function getFirstSupported()
+	{
+		return isset(self::getSupported()[0]) ? self::getSupported()[0] : null;
+	}
+
+	/**
+	 * Add a driver.
+	 *
+	 * @param string $sName
+	 * @param callable $cTest
+	 */
+	public static function addDriver($sName, callable $cTest)
+	{
+		self::$aCustoms[$sName] = $cTest;
+	}
+
+	/**
+	 * Return list of Doctrine DBAL built-in driver implementation.
+	 *
+	 * @var array
+	 */
+	protected static function getDoctrineDBALDrivers()
+	{
+		return [
+			'pdo_mysql'           => function() { return extension_loaded("pdo_mysql"); },
+			'drizzle_pdo_mysql'   => function() { return extension_loaded("pdo_mysql"); },
+			'mysqli'              => function() { return extension_loaded("mysqli"); },
+			'pdo_sqlite'          => function() { return extension_loaded("pdo_sqlite"); },
+			'pdo_pgsql'           => function() { return extension_loaded("pdo_pgsql"); },
+			'pdo_oci'             => function() { return extension_loaded("pdo_oci"); },
+			'oci8'                => function() { return extension_loaded("oci8"); },
+			'pdo_sqlsrv'          => function() { return extension_loaded("pdo_sqlsrv"); },
+			'sqlsrv'              => function() { return extension_loaded("sqlsrv"); },
+			'sqlanywhere'         => function() { return extension_loaded("sqlanywhere"); }
+		];
 	}
 }

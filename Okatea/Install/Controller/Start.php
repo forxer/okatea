@@ -13,6 +13,10 @@ class Start extends Controller
 {
 	public function page()
 	{
+		if ($this->okt['request']->request->has('sended')) {
+			return $this->redirect($this->generateUrl($this->okt->stepper->getNextStep()));
+		}
+
 		$sSwitchLanguage = $this->okt['request']->query->get('switch_language');
 
 		if ($sSwitchLanguage && in_array($sSwitchLanguage, $this->okt->availablesLocales))

@@ -543,9 +543,9 @@ class Tools extends Controller
 				$this->okt->db->execute('DROP TABLE `' . $row[0] . '`');
 			}
 
-			# remove db connection file
-			if (file_exists($this->okt['config_path'] . '/connection.php')) {
-				unlink($this->okt['config_path'] . '/connection.php');
+			# remove db installed indicator file
+			if (file_exists($this->okt['config_path'] . '/installed')) {
+				unlink($this->okt['config_path'] . '/installed');
 			}
 
 			# clear all cache files

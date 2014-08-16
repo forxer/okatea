@@ -28,7 +28,7 @@ class Controller extends BaseController
 		# Load modules main locales files
 		foreach ($this->aModulesList as $aModuleInfos)
 		{
-			$this->okt['l10n']->loadFile($aModuleInfos['root'] . '/Locales/%s/main');
+			$this->okt['l10nInstall']->loadFile($aModuleInfos['root'] . '/Locales/%s/main');
 
 			$this->aModulesList[$aModuleInfos['id']]['name_l10n'] = __($aModuleInfos['name']);
 			$this->aModulesList[$aModuleInfos['id']]['desc_l10n'] = __($aModuleInfos['desc']);

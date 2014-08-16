@@ -25,7 +25,7 @@ class Controller extends BaseController
 		# Load themes main locales files
 		foreach ($this->aThemesList as $aThemeInfos)
 		{
-			$this->okt['l10n']->loadFile($aThemeInfos['root'] . '/Locales/%s/main');
+			$this->okt['l10nInstall']->loadFile($aThemeInfos['root'] . '/Locales/%s/main');
 
 			$this->aThemesList[$aThemeInfos['id']]['name_l10n'] = __($aThemeInfos['name']);
 			$this->aThemesList[$aThemeInfos['id']]['desc_l10n'] = __($aThemeInfos['desc']);

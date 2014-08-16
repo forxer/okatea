@@ -28,6 +28,11 @@ class Okatea extends Application
 	 */
 	public function run()
 	{
+		# Load main locales files
+		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
+		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
+
+		# Define templates directories
 		$this['tpl_directories'] = [
 			__DIR__ . '/Templates/%name%.php',
 			$this['modules_path'] . '/%name%.php'

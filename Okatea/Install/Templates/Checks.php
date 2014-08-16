@@ -22,10 +22,9 @@ $view->extend('Layout');
 <p><?php _e('i_checks_warning') ?></p>
 <?php endif; ?>
 
-<form
-	action="<?php echo $view->generateInstallUrl($okt->stepper->getNextStep()) ?>"
-	method="post">
+<form action="<?php echo $view->generateInstallUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 	<p>
+		<input type="hidden" name="sended" value="1" />
 		<input type="submit" value="<?php _e('c_c_next') ?>" />
 	</p>
 </form>

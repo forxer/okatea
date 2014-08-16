@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Okatea\Admin\Page;
 use Okatea\Tao\Application;
+use Okatea\Tao\L10n\Localization;
 
 class Okatea extends Application
 {
@@ -69,15 +70,19 @@ class Okatea extends Application
 			$this['session']->set('okt_install_language', $this['request']->getPreferredLanguage($this->availablesLocales));
 		}
 
-		//$this['l10n'] = new Localization($this['session']->get('okt_install_language'), $this['session']->get('okt_install_language'), 'Europe/Paris');
+		$this['l10nInstall'] = function ($okt) {
+			return new Localization(
+				$okt['session']->get('okt_install_language'),
+				$okt['session']->get('okt_install_language'),
+				'Europe/Paris'
+			);
+		};
 
-		$this['l10n']->setLanguage($this['session']->get('okt_install_language'));
-		$this['l10n']->setLanguage($this['session']->get('okt_install_language'));
+		$this['l10nInstall']->loadFile($this['locales_path'] . '/%s/main');
+		$this['l10nInstall']->loadFile($this['locales_path'] . '/%s/users');
+		$this['l10nInstall']->loadFile(__DIR__ . '/Locales/%s/install');
 
-		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
-		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
-		$this['l10n']->loadFile(__DIR__ . '/Locales/%s/install');
-
+		# Define templates directories
 		$this['tpl_directories'] = [
 			__DIR__ . '/Templates/%name%.php',
 			__DIR__ . '/Extensions/%name%.php'

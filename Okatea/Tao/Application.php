@@ -139,10 +139,6 @@ abstract class Application extends Container
 		else {
 			ErrorHandler::register($this['phpLogger']);
 		}
-
-		# Load main locales files
-		$this['l10n']->loadFile($this['locales_path'] . '/%s/main');
-		$this['l10n']->loadFile($this['locales_path'] . '/%s/users');
 	}
 
 	/**

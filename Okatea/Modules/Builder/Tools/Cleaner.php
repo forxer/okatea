@@ -167,8 +167,7 @@ class Cleaner extends BaseTools
 			->files()
 			->in($this->getTempDir($this->okt['config_path']))
 			->notName('__okatea_core.yml')
-			->notName('conf_site.yml')
-			->notName('connection.dist.php');
+			->notName('conf_site.yml');
 
 		foreach ($finder as $files)
 		{

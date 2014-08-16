@@ -31,6 +31,7 @@ class Infos extends Controller
 
 		# locales
 		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/admin/infos');
+		$this->okt['l10n']->loadFile($this->okt['locales_path'] . '/%s/pre-requisites');
 
 		# Page data
 		$this->aPageData = new ArrayObject();

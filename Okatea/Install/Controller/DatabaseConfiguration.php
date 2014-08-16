@@ -8,6 +8,7 @@
 namespace Okatea\Install\Controller;
 
 use Okatea\Install\Controller;
+use Okatea\Tao\Database\ConfigLayers\Drivers;
 use Okatea\Tao\Database\MySqli;
 use Okatea\Tao\Html\Checklister;
 
@@ -17,21 +18,11 @@ class DatabaseConfiguration extends Controller
 
 	public function page()
 	{
-		$aDrivers = [
-			'pdo_mysql' 			=> 'A MySQL driver that uses the pdo_mysql PDO extension.',
-			'drizzle_pdo_mysql' 	=> 'A Drizzle driver that uses pdo_mysql PDO extension.',
-			'mysqli' 				=> 'A MySQL driver that uses the mysqli extension.',
-			'pdo_sqlite' 			=> 'An SQLite driver that uses the pdo_sqlite PDO extension.',
-			'pdo_pgsql' 			=> 'A PostgreSQL driver that uses the pdo_pgsql PDO extension.',
-			'pdo_oci' 				=> 'An Oracle driver that uses the pdo_oci PDO extension. Note that this driver caused problems in Doctrine DBAL tests. Prefer the oci8 driver if possible.',
-			'pdo_sqlsrv' 			=> 'A Microsoft SQL Server driver that uses pdo_sqlsrv PDO. Note that this driver caused problems in Doctrine DBAL tests. Prefer the sqlsrv driver if possible.',
-			'sqlsrv' 				=> 'A Microsoft SQL Server driver that uses the sqlsrv PHP extension.',
-			'oci8' 					=> 'An Oracle driver that uses the oci8 PHP extension.',
-			'sqlanywhere' 			=> 'A SAP Sybase SQL Anywhere driver that uses the sqlanywhere PHP extension.',
-		];
+		$aDrivers = Drivers::getAll();
 
 		$aDatabaseParams = [
 			'env' => $this->okt['env'],
+			'driver' => Drivers::getFirstSupported(),
 			'prefix' => 'okt_',
 			'prod' => [
 				'host' => '',
@@ -55,19 +46,18 @@ class DatabaseConfiguration extends Controller
 			# Données environnement de production
 			$aDatabaseParams = [
 				'env' => $this->okt['request']->request->get('connect'),
+				'prefix' => $this->okt['request']->request->get('prefix'),
 				'prod' => [
 					'host' => $this->okt['request']->request->get('prod_host'),
 					'name' => $this->okt['request']->request->get('prod_name'),
 					'user' => $this->okt['request']->request->get('prod_user'),
-					'password' => $this->okt['request']->request->get('prod_password'),
-					'prefix' => $this->okt['request']->request->get('prod_prefix')
+					'password' => $this->okt['request']->request->get('prod_password')
 				],
 				'dev' => [
 					'host' => $this->okt['request']->request->get('dev_host'),
 					'name' => $this->okt['request']->request->get('dev_name'),
 					'user' => $this->okt['request']->request->get('dev_user'),
-					'password' => $this->okt['request']->request->get('dev_password'),
-					'prefix' => $this->okt['request']->request->get('dev_prefix')
+					'password' => $this->okt['request']->request->get('dev_password')
 				]
 			];
 
@@ -75,46 +65,39 @@ class DatabaseConfiguration extends Controller
 				$aDatabaseParams['env'] == 'dev';
 			}
 
+			if (empty($aDatabaseParams['prefix'])) {
+				$this->okt['instantMessages']->error(__('i_db_conf_db_error_must_prefix'));
+			}
+			elseif (!preg_match('/^[a-z_]+$/', $aDatabaseParams['prefix'])) {
+				$this->okt['instantMessages']->error(__('i_db_conf_db_error_prefix_form'));
+			}
+
 			if ($aDatabaseParams['env'] == 'prod')
 			{
-				if (empty($aDatabaseParams['prod']['prefix'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_prod_must_prefix'));
-				}
-				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_prod_prefix_form'));
-				}
-
 				if (empty($aDatabaseParams['prod']['host'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_prod_must_host'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_host'));
 				}
 
 				if (empty($aDatabaseParams['prod']['name'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_prod_must_name'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_name'));
 				}
 
 				if (empty($aDatabaseParams['prod']['user'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_prod_must_username'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_username'));
 				}
 			}
 			else
 			{
-				if (empty($aDatabaseParams['dev']['prefix'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_dev_must_prefix'));
-				}
-				elseif (!preg_match('/^[A-Za-z0-9_]+$/', $aDatabaseParams['prod']['prefix'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_dev_prefix_form'));
-				}
-
 				if (empty($aDatabaseParams['dev']['host'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_dev_must_host'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_host'));
 				}
 
 				if (empty($aDatabaseParams['dev']['name'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_dev_must_name'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_name'));
 				}
 
 				if (empty($aDatabaseParams['dev']['user'])) {
-					$this->okt->error->set(__('i_db_conf_db_error_dev_must_username'));
+					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_username'));
 				}
 			}
 
@@ -127,7 +110,7 @@ class DatabaseConfiguration extends Controller
 
 				if (!$con_id)
 				{
-					$this->okt->error->set('MySQL: ' . mysqli_connect_errno() . ' ' . mysqli_connect_error());
+					$this->okt['instantMessages']->error('MySQL: ' . mysqli_connect_errno() . ' ' . mysqli_connect_error());
 				}
 				else
 				{
@@ -146,7 +129,7 @@ class DatabaseConfiguration extends Controller
 					$db = mysqli_select_db($con_id, $aParamsToTest['name']);
 
 					if (!$db) {
-						$this->okt->error->set('MySQL: ' . mysqli_errno($con_id) . ' ' . mysqli_error($con_id));
+						$this->okt['instantMessages']->error('MySQL: ' . mysqli_errno($con_id) . ' ' . mysqli_error($con_id));
 					}
 					else {
 						mysqli_close($con_id);
@@ -160,7 +143,7 @@ class DatabaseConfiguration extends Controller
 				$db = new MySqli($aParamsToTest['user'], $aParamsToTest['password'], $aParamsToTest['host'], $aParamsToTest['name'], $aParamsToTest['prefix']);
 
 				if ($db->hasError()) {
-					$this->okt->error->set('Unable to connect to database', $db->error());
+					$this->okt['instantMessages']->error('Unable to connect to database', $db->error());
 				}
 				else
 				{
@@ -194,7 +177,7 @@ class DatabaseConfiguration extends Controller
 					# aller, dernière tentative en utilisant le fichier
 					if (!file_exists($sConnectionFile))
 					{
-						$this->okt->error->set('Unable to find database connection file.');
+						$this->okt['instantMessages']->error('Unable to find database connection file.');
 					}
 					else
 					{
@@ -205,7 +188,7 @@ class DatabaseConfiguration extends Controller
 
 						if ($db->hasError())
 						{
-							$this->okt->error->set('Unable to connect to database', $db->error());
+							$this->okt['instantMessages']->error('Unable to connect to database', $db->error());
 						}
 						else
 						{
@@ -223,7 +206,7 @@ class DatabaseConfiguration extends Controller
 
 		return $this->render('DatabaseConfiguration', [
 			'title' 			=> __('i_db_conf_title'),
-			'$aDrivers' 		=> $aDrivers,
+			'aDrivers' 		    => $aDrivers,
 			'aDatabaseParams' 	=> $aDatabaseParams,
 			'oChecklist' 		=> $this->checklist
 		]);
