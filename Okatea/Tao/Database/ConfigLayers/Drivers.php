@@ -10,87 +10,41 @@ namespace Okatea\Tao\Database\ConfigLayers;
 
 class Drivers
 {
-	protected static $aCustoms = [];
+	protected $aDrivers = [];
 
-	protected static $aSupported;
+	public function __construct(array $aCustom = [])
+	{
+		foreach (self::getDoctrineDBALDrivers() as $sDriver => $sClass) {
+			$this->aDrivers[$sDriver] = new $sClass;
+		}
+
+		if (!empty($aCustom))
+		{
+			foreach ($aCustom as $sDriver => $sClass) {
+				$this->aDrivers[$sDriver] = new $sClass;
+			}
+		}
+	}
 
 	/**
 	 * Return list of all drivers.
 	 *
 	 * @return array
 	 */
-	public static function getAll()
+	public function getDrivers()
 	{
-		return array_keys(array_merge(self::getDoctrineDBALDrivers(), self::$aCustoms));
-	}
-
-	/**
-	 * Return list of all drivers with them support test.
-	 *
-	 * @return array
-	 */
-	public static function getAllWithTest()
-	{
-		return array_merge(self::getDoctrineDBALDrivers(), self::$aCustoms);
-	}
-
-	/**
-	 * Return list of drivers supported by the environment.
-	 *
-	 * @return array
-	 */
-	public static function getSupported()
-	{
-		if (null === self::$aSupported)
-		{
-			self::$aSupported = [];
-
-			foreach (self::getAllWithTest() as $sDriver => $sTest)
-			{
-				if ($sTest()) {
-					self::$aSupported[] = $sDriver;
-				}
-			}
-		}
-
-		return self::$aSupported;
-	}
-
-	public static function getUnsupported()
-	{
-		return array_diff_assoc(self::getAll(), self::getSupported());
-	}
-
-	/**
-	 * Indicates whether a given driver is supy the environment.
-	 *
-	 * @param string $sDriver
-	 * @return boolean
-	 */
-	public static function isSupported($sDriver)
-	{
-		return in_array($sDriver, self::getSupported());
-	}
-
-	/**
-	 * Return the first driver of the supported drivers list.
-	 *
-	 * @return string
-	 */
-	public static function getFirstSupported()
-	{
-		return isset(self::getSupported()[0]) ? self::getSupported()[0] : null;
+		return $this->aDrivers;
 	}
 
 	/**
 	 * Add a driver.
 	 *
 	 * @param string $sName
-	 * @param callable $cTest
+	 * @param string $sClass
 	 */
-	public static function addDriver($sName, callable $cTest)
+	public function addDriver($sName, $sClass)
 	{
-		self::$aCustoms[$sName] = $cTest;
+		$this->aDrivers[$sName] = new $sClass;
 	}
 
 	/**
@@ -101,16 +55,16 @@ class Drivers
 	protected static function getDoctrineDBALDrivers()
 	{
 		return [
-			'pdo_mysql'           => function() { return extension_loaded("pdo_mysql"); },
-			'drizzle_pdo_mysql'   => function() { return extension_loaded("pdo_mysql"); },
-			'mysqli'              => function() { return extension_loaded("mysqli"); },
-			'pdo_sqlite'          => function() { return extension_loaded("pdo_sqlite"); },
-			'pdo_pgsql'           => function() { return extension_loaded("pdo_pgsql"); },
-			'pdo_oci'             => function() { return extension_loaded("pdo_oci"); },
-			'oci8'                => function() { return extension_loaded("oci8"); },
-			'pdo_sqlsrv'          => function() { return extension_loaded("pdo_sqlsrv"); },
-			'sqlsrv'              => function() { return extension_loaded("sqlsrv"); },
-			'sqlanywhere'         => function() { return extension_loaded("sqlanywhere"); }
+			'pdo_mysql'           => 'Okatea\Tao\Database\ConfigLayers\Dbal\PdoMysql',
+			'drizzle_pdo_mysql'   => 'Okatea\Tao\Database\ConfigLayers\Dbal\DrizzlePdoMysql',
+			'mysqli'              => 'Okatea\Tao\Database\ConfigLayers\Dbal\Mysqli',
+			'pdo_sqlite'          => 'Okatea\Tao\Database\ConfigLayers\Dbal\PdoSqlite',
+			'pdo_pgsql'           => 'Okatea\Tao\Database\ConfigLayers\Dbal\PdoPgsql',
+			'pdo_oci'             => 'Okatea\Tao\Database\ConfigLayers\Dbal\PdoOci',
+			'oci8'                => 'Okatea\Tao\Database\ConfigLayers\Dbal\Oci8',
+			'pdo_sqlsrv'          => 'Okatea\Tao\Database\ConfigLayers\Dbal\PdoSqlsrv',
+			'sqlsrv'              => 'Okatea\Tao\Database\ConfigLayers\Dbal\Sqlsrv',
+			'sqlanywhere'         => 'Okatea\Tao\Database\ConfigLayers\Dbal\SqlAnywhere'
 		];
 	}
 }

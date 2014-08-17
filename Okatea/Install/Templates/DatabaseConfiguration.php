@@ -6,7 +6,6 @@
  * file that was distributed with this source code.
  */
 use Okatea\Tao\Forms\Statics\FormElements as form;
-use Okatea\Tao\Database\ConfigLayers\Drivers;
 
 $view->extend('Layout');
 
@@ -39,8 +38,6 @@ $okt->page->js->addReady('
 	$(\'input[name="connect"]\').click(focusEnvironmentPart);
 ');
 
-d(Drivers::getSupported());
-d(Drivers::getUnsupported());
 ?>
 
 <?php if (!is_null($oChecklist) && $okt->error->isEmpty()) : ?>
@@ -61,10 +58,10 @@ d(Drivers::getUnsupported());
 
 	<p class="fake-label"><?php _e('i_db_conf_driver') ?></p>
 	<ul class="checklist">
-	<?php foreach ($aDrivers as $driver) : ?>
-		<li<?php if(!Drivers::isSupported($driver)) echo ' class="disabled"'; ?>><label for="driver_<?php echo $driver ?>"><?php echo form::radio(['driver','driver_'.$driver], $driver, $aDatabaseParams['driver'] == $driver, '', null, !Drivers::isSupported($driver)) ?>
-		<strong><?php echo $driver ?></strong></label>
-		<span class="note"><?php _e('i_db_conf_driver_'.$driver) ?></span></li>
+	<?php foreach ($aDrivers->getDrivers() as $sDrivers => $driver) : ?>
+		<li<?php if (!$driver->isSupported()) echo ' class="disabled"'; ?>><label for="driver_<?php echo $sDrivers ?>"><?php echo form::radio(['driver','driver_'.$sDrivers], $sDrivers, $aDatabaseParams['driver'] == $sDrivers, '', null, !$driver->isSupported()) ?>
+		<strong><?php echo $sDrivers ?></strong></label>
+		<span class="note"><?php _e('i_db_conf_driver_'.$sDrivers) ?></span></li>
 	<?php endforeach; ?>
 	</ul>
 

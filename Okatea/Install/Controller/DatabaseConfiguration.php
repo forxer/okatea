@@ -18,26 +18,25 @@ class DatabaseConfiguration extends Controller
 
 	public function page()
 	{
-		$aDrivers = Drivers::getAll();
-
 		$aDatabaseParams = [
 			'env' => $this->okt['env'],
-			'driver' => Drivers::getFirstSupported(),
+			'driver' => 'pdo_mysql',
 			'prefix' => 'okt_',
 			'prod' => [
-				'host' => '',
-				'name' => '',
-				'user' => '',
-				'password' => '',
-				'prefix' => 'okt_'
+				'host' 		=> '',
+				'name' 		=> '',
+				'user' 		=> '',
+				'password' 	=> ''
 			],
 			'dev' => [
-				'host' => 'localhost',
-				'name' => 'okatea',
-				'user' => 'root',
-				'password' => ''
+				'host' 		=> 'localhost',
+				'name' 		=> 'okatea',
+				'user' 		=> 'root',
+				'password' 	=> ''
 			]
 		];
+
+		$drivers = new Drivers();
 
 		if ($this->okt['request']->request->has('sended'))
 		{
@@ -48,16 +47,16 @@ class DatabaseConfiguration extends Controller
 				'env' => $this->okt['request']->request->get('connect'),
 				'prefix' => $this->okt['request']->request->get('prefix'),
 				'prod' => [
-					'host' => $this->okt['request']->request->get('prod_host'),
-					'name' => $this->okt['request']->request->get('prod_name'),
-					'user' => $this->okt['request']->request->get('prod_user'),
-					'password' => $this->okt['request']->request->get('prod_password')
+					'host' 		=> $this->okt['request']->request->get('prod_host'),
+					'name' 		=> $this->okt['request']->request->get('prod_name'),
+					'user' 		=> $this->okt['request']->request->get('prod_user'),
+					'password' 	=> $this->okt['request']->request->get('prod_password')
 				],
 				'dev' => [
-					'host' => $this->okt['request']->request->get('dev_host'),
-					'name' => $this->okt['request']->request->get('dev_name'),
-					'user' => $this->okt['request']->request->get('dev_user'),
-					'password' => $this->okt['request']->request->get('dev_password')
+					'host' 		=> $this->okt['request']->request->get('dev_host'),
+					'name' 		=> $this->okt['request']->request->get('dev_name'),
+					'user' 		=> $this->okt['request']->request->get('dev_user'),
+					'password' 	=> $this->okt['request']->request->get('dev_password')
 				]
 			];
 
@@ -206,7 +205,7 @@ class DatabaseConfiguration extends Controller
 
 		return $this->render('DatabaseConfiguration', [
 			'title' 			=> __('i_db_conf_title'),
-			'aDrivers' 		    => $aDrivers,
+			'aDrivers'			=> $drivers,
 			'aDatabaseParams' 	=> $aDatabaseParams,
 			'oChecklist' 		=> $this->checklist
 		]);
