@@ -45,7 +45,9 @@ $GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connection to database successful.'
 $GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Failed to connect to the database.';
 $GLOBALS['okt_l10n']['i_db_conf_next'] = 'Click Next to create the tables.';
 
-$GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Database driver';
+$GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Please select the database driver to use for this installation:';
+$GLOBALS['okt_l10n']['i_db_conf_driver_show_unsupported'] = 'Display drivers currently not supported on your environment';
+
 $GLOBALS['okt_l10n']['i_db_conf_driver_pdo_mysql'] = 'A MySQL driver that uses the pdo_mysql PDO extension.';
 $GLOBALS['okt_l10n']['i_db_conf_driver_drizzle_pdo_mysql'] = 'A Drizzle driver that uses pdo_mysql PDO extension.';
 $GLOBALS['okt_l10n']['i_db_conf_driver_mysqli'] = 'A MySQL driver that uses the mysqli PHP extension.';

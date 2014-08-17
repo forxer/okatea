@@ -22,4 +22,9 @@ class SqlAnywhere implements DriverInterface
 
 		return $this->bSupported;
 	}
+
+	public function getConfigFields()
+	{
+		return [];
+	}
 }

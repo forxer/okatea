@@ -22,4 +22,9 @@ class Oci8 implements DriverInterface
 
 		return $this->bSupported;
 	}
+
+	public function getConfigFields()
+	{
+		return [];
+	}
 }

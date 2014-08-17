@@ -218,7 +218,7 @@ class DebugBar
 		}
 
 		if ($this->aConfig['tabs']['db']) {
-			$this->aDebugBarData['num_data']['queries'] = $this->okt->db->nbQueries();
+//			$this->aDebugBarData['num_data']['queries'] = $this->okt->db->nbQueries();
 		}
 
 		if ($this->aConfig['tabs']['tools'])
@@ -270,7 +270,7 @@ class DebugBar
 
 		if ($this->aConfig['tabs']['db'])
 		{
-			$aItems[] = '<a href="' . $sBaseUrl . '#debugDatabase">' . $this->aDebugBarData['num_data']['queries'] . ' requêtes</a>';
+//			$aItems[] = '<a href="' . $sBaseUrl . '#debugDatabase">' . $this->aDebugBarData['num_data']['queries'] . ' requêtes</a>';
 		}
 
 		if ($this->aConfig['tabs']['tools'])
@@ -427,7 +427,7 @@ class DebugBar
 
 	protected function getDatabasePanel()
 	{
-		$str = '<div id="debugDatabase">
+/*		$str = '<div id="debugDatabase">
 			<table class="common">
 				<thead>
 				<tr>
@@ -452,7 +452,7 @@ class DebugBar
 		</div><!-- #debugDatabase -->';
 
 		return $str;
-	}
+*/	}
 
 	protected function getToolsPanel()
 	{

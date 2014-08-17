@@ -23,4 +23,8 @@ class PdoSqlsrv implements DriverInterface
 		return $this->bSupported;
 	}
 
+	public function getConfigFields()
+	{
+		return [];
+	}
 }

@@ -45,7 +45,9 @@ $GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connexion à la base de données r�
 $GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Échec de la connexion à la base de données.';
 $GLOBALS['okt_l10n']['i_db_conf_next'] = 'Cliquez sur suivant pour créer les tables.';
 
-$GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Pilote de base de données';
+$GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Veuillez choisir le pilote de base de données à utiliser pour cette installation&nbsp;:';
+$GLOBALS['okt_l10n']['i_db_conf_driver_show_unsupported'] = 'Afficher les pilotes actuellement non-supportés sur votre environnement';
+
 $GLOBALS['okt_l10n']['i_db_conf_driver_pdo_mysql'] = 'Un pilote MySQL qui utilise l’extension PDO pdo_mysql.';
 $GLOBALS['okt_l10n']['i_db_conf_driver_drizzle_pdo_mysql'] = 'Un pilote Drizzle qui utilise l’extension PDO pdo_mysql.';
 $GLOBALS['okt_l10n']['i_db_conf_driver_mysqli'] = 'Un pilote MySQL qui utilise l’extension PHP mysqli.';

@@ -10,12 +10,12 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 $view->extend('Layout');
 
 $okt->page->css->addCss('
-	.selectedPart {
+	.selectedEnvironment {
 		border: 1px solid #F09100;
 		background-color: inherit;
 		opacity: 1;
 	}
-	.unselectedPart {
+	.unselectedEnvironment {
 		border: 1px solid #f1f1f1;
 		background-color: #f1f1f1;
 		opacity: 0.7;
@@ -23,19 +23,30 @@ $okt->page->css->addCss('
 ');
 
 $okt->page->js->addReady('
-	function focusEnvironmentPart() {
+	function focusEnvironment() {
 		if ($("#connect_prod").is(":checked")) {
-			$("#dev-part").addClass("unselectedPart").removeClass("selectedPart");
-			$("#prod-part").addClass("selectedPart").removeClass("unselectedPart");
+			$("#dev-part").addClass("unselectedEnvironment").removeClass("selectedEnvironment");
+			$("#prod-part").addClass("selectedEnvironment").removeClass("unselectedEnvironment");
 		}
 		else if ($("#connect_dev").is(":checked")) {
-			$("#dev-part").addClass("selectedPart").removeClass("unselectedPart");
-			$("#prod-part").addClass("unselectedPart").removeClass("selectedPart");
+			$("#dev-part").addClass("selectedEnvironment").removeClass("unselectedEnvironment");
+			$("#prod-part").addClass("unselectedEnvironment").removeClass("selectedEnvironment");
 		}
 	}
 
-	focusEnvironmentPart();
-	$(\'input[name="connect"]\').click(focusEnvironmentPart);
+	focusEnvironment();
+	$(\'input[name="connect"]\').click(focusEnvironment);
+
+	$("#drivers .disabled").hide();
+
+	$("#show_unsupported_drivers")
+		.html(\'<a href="#" class="icon database_add">'.__('i_db_conf_driver_show_unsupported').'</a>\')
+		.click(function(e) {
+			$("#drivers .disabled").fadeIn();
+			$(this).hide();
+			e.preventDefault();
+		});
+
 ');
 
 ?>
@@ -58,13 +69,17 @@ $okt->page->js->addReady('
 
 	<p class="fake-label"><?php _e('i_db_conf_driver') ?></p>
 	<ul class="checklist" id="drivers">
-	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
-		<li<?php if (!$driver->isSupported()) echo ' class="disabled"'; ?>><label for="driver_<?php echo $sDrivers ?>"><?php
+	<?php $iUnsupportedDriverCount = 0;
+	foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
+		<li<?php if (!$driver->isSupported()) { echo ' class="disabled"'; $iUnsupportedDriverCount++; }?>><label for="driver_<?php echo $sDrivers ?>"><?php
 		echo form::radio(['driver','driver_'.$sDrivers], $sDrivers, $aPageData['values']['driver'] == $sDrivers, '', null, !$driver->isSupported()) ?>
-		<strong><?php echo $sDrivers ?></strong></label>
+		<?php echo $sDrivers ?></label>
 		<span class="note"><?php _e('i_db_conf_driver_'.$sDrivers) ?></span></li>
-	<?php endforeach; ?>
+	<?php endforeach ?>
 	</ul>
+	<?php if ($iUnsupportedDriverCount > 0) : ?>
+	<p id="show_unsupported_drivers"></p>
+	<?php endif; ?>
 
 	<div class="two-cols">
 		<div class="col">
@@ -97,6 +112,21 @@ $okt->page->js->addReady('
 			<fieldset>
 				<legend><?php _e('i_db_conf_prod_server') ?></legend>
 
+	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
+		<?php if (!$driver->isSupported()) continue; ?>
+
+		<div id="driver_prod_<?php echo $sDrivers ?>">
+			<?php foreach ($driver->getConfigFields() as $aFields) : ?>
+			<p class="field">
+				<label for="prod_<?php echo $aFields['id'] ?>"<?php if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+				echo $aFields['label'] ?></label>
+				<?php echo form::text('prod_'.$aFields['id'], 40, 256, '') ?>
+			</p>
+			<?php endforeach ?>
+		</div>
+
+	<?php endforeach ?>
+
 				<p class="field">
 					<label for="prod_host" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_host') ?></label>
@@ -122,6 +152,21 @@ $okt->page->js->addReady('
 		<div id="dev-part" class="col">
 			<fieldset>
 				<legend><?php _e('i_db_conf_dev_server') ?></legend>
+
+	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
+		<?php if (!$driver->isSupported()) continue; ?>
+
+		<div id="driver_dev_<?php echo $sDrivers ?>">
+			<?php foreach ($driver->getConfigFields() as $aFields) : ?>
+			<p class="field">
+				<label for="dev_<?php echo $aFields['id'] ?>"<?php if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+				echo $aFields['label'] ?></label>
+				<?php echo form::text('dev_'.$aFields['id'], 40, 256, '') ?>
+			</p>
+			<?php endforeach ?>
+		</div>
+
+	<?php endforeach ?>
 
 				<p class="field">
 					<label for="dev_host" title="<?php _e('c_c_required_field') ?>"
