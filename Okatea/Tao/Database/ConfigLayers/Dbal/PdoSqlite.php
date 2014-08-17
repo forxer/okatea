@@ -23,4 +23,37 @@ class PdoSqlite implements DriverInterface
 		return $this->bSupported;
 	}
 
+	public function getConfigFields()
+	{
+		return [
+			[
+				'id' => 'user',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_username'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'password',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_password'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'path',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_sqlite_path'),
+				'default' => '',
+				'required' => false
+			],
+			[
+				'id' => 'memory',
+				'type' => 'boolean',
+				'label' => __('i_db_conf_db_sqlite_memory'),
+				'default' => false,
+				'required' => false
+			]
+		];
+	}
 }

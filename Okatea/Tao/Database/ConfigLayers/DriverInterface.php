@@ -16,4 +16,12 @@ interface DriverInterface
 	 * @return boolean
 	 */
 	public function isSupported();
+
+	/**
+	 * Return driver config fields.
+	 *
+	 * @return array
+	 */
+	public function getConfigFields();
+
 }

@@ -40,13 +40,13 @@ $okt->page->js->addReady('
 
 ?>
 
-<?php if (!is_null($oChecklist) && $okt->error->isEmpty()) : ?>
+<?php if (!is_null($aPageData['checklist']) && !$okt['messages']->hasError()) : ?>
 
 <form action="<?php echo $view->generateInstallUrl($okt->stepper->getNextStep()) ?>" method="post">
 
-	<?php echo $oChecklist->getHTML(); ?>
+	<?php echo $aPageData['checklist']->getHTML(); ?>
 
-	<?php if ($oChecklist->checkAll()) : ?>
+	<?php if ($aPageData['checklist']->checkAll()) : ?>
 	<p><?php _e('i_db_conf_next') ?></p>
 
 	<p><input type="submit" value="<?php _e('c_c_next') ?>" /></p>
@@ -57,34 +57,40 @@ $okt->page->js->addReady('
 <form action="<?php echo $view->generateInstallUrl($okt->stepper->getCurrentStep()) ?>" method="post">
 
 	<p class="fake-label"><?php _e('i_db_conf_driver') ?></p>
-	<ul class="checklist">
-	<?php foreach ($aDrivers->getDrivers() as $sDrivers => $driver) : ?>
-		<li<?php if (!$driver->isSupported()) echo ' class="disabled"'; ?>><label for="driver_<?php echo $sDrivers ?>"><?php echo form::radio(['driver','driver_'.$sDrivers], $sDrivers, $aDatabaseParams['driver'] == $sDrivers, '', null, !$driver->isSupported()) ?>
+	<ul class="checklist" id="drivers">
+	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
+		<li<?php if (!$driver->isSupported()) echo ' class="disabled"'; ?>><label for="driver_<?php echo $sDrivers ?>"><?php
+		echo form::radio(['driver','driver_'.$sDrivers], $sDrivers, $aPageData['values']['driver'] == $sDrivers, '', null, !$driver->isSupported()) ?>
 		<strong><?php echo $sDrivers ?></strong></label>
 		<span class="note"><?php _e('i_db_conf_driver_'.$sDrivers) ?></span></li>
 	<?php endforeach; ?>
 	</ul>
 
-	<p class="field"><label for="prod_prefix" title="<?php _e('c_c_required_field') ?>"
-	class="required"><?php _e('i_db_conf_db_prefix') ?></label>
-	<?php echo form::text('prefix', 40, 256, $view->escape($aDatabaseParams['prefix'])) ?></p>
-
-	<p><?php _e('i_db_conf_environement_choice') ?></p>
-	<ul class="checklist">
-		<li>
-			<label for="connect_prod"><input type="radio" name="connect"
-			id="connect_prod" value="prod"
-			<?php if ($aDatabaseParams['env'] == 'prod') echo ' checked="checked"'; ?> />
-			<strong><?php _e('i_db_conf_environement_prod') ?></strong></label>
-		</li>
-		<li>
-			<label for="connect_dev"><input type="radio" name="connect"
-			id="connect_dev" value="dev"
-			<?php if ($aDatabaseParams['env'] == 'dev') echo ' checked="checked"'; ?> />
-			<?php _e('i_db_conf_environement_dev') ?></label>
-		</li>
-	</ul>
-	<p class="note"><?php _e('i_db_conf_environement_note') ?></p>
+	<div class="two-cols">
+		<div class="col">
+		<p><?php _e('i_db_conf_environement_choice') ?></p>
+		<ul class="checklist">
+			<li>
+				<label for="connect_prod"><input type="radio" name="connect"
+				id="connect_prod" value="prod"
+				<?php if ($aPageData['values']['env'] == 'prod') echo ' checked="checked"'; ?> />
+				<strong><?php _e('i_db_conf_environement_prod') ?></strong></label>
+			</li>
+			<li>
+				<label for="connect_dev"><input type="radio" name="connect"
+				id="connect_dev" value="dev"
+				<?php if ($aPageData['values']['env'] == 'dev') echo ' checked="checked"'; ?> />
+				<?php _e('i_db_conf_environement_dev') ?></label>
+			</li>
+		</ul>
+		<p class="note"><?php _e('i_db_conf_environement_note') ?></p>
+		</div>
+		<div class="col">
+			<p class="field"><label for="prod_prefix" title="<?php _e('c_c_required_field') ?>"
+			class="required"><?php _e('i_db_conf_db_prefix') ?></label>
+			<?php echo form::text('prefix', 40, 256, $view->escape($aPageData['values']['prefix'])) ?></p>
+		</div>
+	</div>
 
 	<div class="two-cols">
 		<div id="prod-part" class="col">
@@ -94,21 +100,21 @@ $okt->page->js->addReady('
 				<p class="field">
 					<label for="prod_host" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_host') ?></label>
-				<?php echo form::text('prod_host', 40, 256, $view->escape($aDatabaseParams['prod']['host'])) ?></p>
+				<?php echo form::text('prod_host', 40, 256, $view->escape($aPageData['values']['prod']['host'])) ?></p>
 
 				<p class="field">
 					<label for="prod_name" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_name') ?></label>
-				<?php echo form::text('prod_name', 40, 256, $view->escape($aDatabaseParams['prod']['name'])) ?></p>
+				<?php echo form::text('prod_name', 40, 256, $view->escape($aPageData['values']['prod']['name'])) ?></p>
 
 				<p class="field">
 					<label for="prod_user" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_username') ?></label>
-				<?php echo form::text('prod_user', 40, 256, $view->escape($aDatabaseParams['prod']['user'])) ?></p>
+				<?php echo form::text('prod_user', 40, 256, $view->escape($aPageData['values']['prod']['user'])) ?></p>
 
 				<p class="field">
 					<label for="prod_password"><?php _e('i_db_conf_db_password') ?></label>
-				<?php echo form::text('prod_password', 40, 256, $view->escape($aDatabaseParams['prod']['password'])) ?></p>
+				<?php echo form::text('prod_password', 40, 256, $view->escape($aPageData['values']['prod']['password'])) ?></p>
 
 			</fieldset>
 		</div>
@@ -120,21 +126,21 @@ $okt->page->js->addReady('
 				<p class="field">
 					<label for="dev_host" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_host') ?></label>
-				<?php echo form::text('dev_host', 40, 256, $view->escape($aDatabaseParams['dev']['host'])) ?></p>
+				<?php echo form::text('dev_host', 40, 256, $view->escape($aPageData['values']['dev']['host'])) ?></p>
 
 				<p class="field">
 					<label for="dev_name" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_name') ?></label>
-				<?php echo form::text('dev_name', 40, 256, $view->escape($aDatabaseParams['dev']['name'])) ?></p>
+				<?php echo form::text('dev_name', 40, 256, $view->escape($aPageData['values']['dev']['name'])) ?></p>
 
 				<p class="field">
 					<label for="dev_user" title="<?php _e('c_c_required_field') ?>"
 						class="required"><?php _e('i_db_conf_db_username') ?></label>
-				<?php echo form::text('dev_user', 40, 256, $view->escape($aDatabaseParams['dev']['user'])) ?></p>
+				<?php echo form::text('dev_user', 40, 256, $view->escape($aPageData['values']['dev']['user'])) ?></p>
 
 				<p class="field">
 					<label for="dev_password"><?php _e('i_db_conf_db_password') ?></label>
-				<?php echo form::text('dev_password', 40, 256, $view->escape($aDatabaseParams['dev']['password'])) ?></p>
+				<?php echo form::text('dev_password', 40, 256, $view->escape($aPageData['values']['dev']['password'])) ?></p>
 
 			</fieldset>
 		</div>

@@ -7,6 +7,7 @@
  */
 namespace Okatea\Install\Controller;
 
+use ArrayObject;
 use Okatea\Install\Controller;
 use Okatea\Tao\Database\ConfigLayers\Drivers;
 use Okatea\Tao\Database\MySqli;
@@ -14,36 +15,41 @@ use Okatea\Tao\Html\Checklister;
 
 class DatabaseConfiguration extends Controller
 {
-	protected $checklist;
+	protected $aPageData;
 
 	public function page()
 	{
-		$aDatabaseParams = [
-			'env' => $this->okt['env'],
-			'driver' => 'pdo_mysql',
-			'prefix' => 'okt_',
-			'prod' => [
-				'host' 		=> '',
-				'name' 		=> '',
-				'user' 		=> '',
-				'password' 	=> ''
-			],
-			'dev' => [
-				'host' 		=> 'localhost',
-				'name' 		=> 'okatea',
-				'user' 		=> 'root',
-				'password' 	=> ''
+		$this->aPageData = new ArrayObject([
+			'drivers' => new Drivers(),
+			'checklist' => null,
+			'values' => [
+				'env' => $this->okt['env'],
+				'driver' => 'pdo_mysql',
+				'prefix' => 'okt_',
+				'prod' => [
+					'host' 		=> '',
+					'name' 		=> '',
+					'user' 		=> '',
+					'password' 	=> ''
+				],
+				'dev' => [
+					'host' 		=> 'localhost',
+					'name' 		=> 'okatea',
+					'user' 		=> 'root',
+					'password' 	=> ''
+				]
 			]
-		];
+		]);
 
-		$drivers = new Drivers();
+		# -- CORE TRIGGER : installDatabaseConfigurationInit
+		$this->okt['triggers']->callTrigger('installDatabaseConfigurationInit', $this->aPageData);
 
 		if ($this->okt['request']->request->has('sended'))
 		{
-			$this->checklist = new Checklister();
+			$this->aPageData['checklist'] = new Checklister();
 
 			# Données environnement de production
-			$aDatabaseParams = [
+			$this->aPageData = [
 				'env' => $this->okt['request']->request->get('connect'),
 				'prefix' => $this->okt['request']->request->get('prefix'),
 				'prod' => [
@@ -60,47 +66,47 @@ class DatabaseConfiguration extends Controller
 				]
 			];
 
-			if ($aDatabaseParams['env'] != 'dev' && $aDatabaseParams['env'] != 'prod') {
-				$aDatabaseParams['env'] == 'dev';
+			if ($this->aPageData['values']['env'] != 'dev' && $this->aPageData['values']['env'] != 'prod') {
+				$this->aPageData['values']['env'] == 'dev';
 			}
 
-			if (empty($aDatabaseParams['prefix'])) {
+			if (empty($this->aPageData['values']['prefix'])) {
 				$this->okt['instantMessages']->error(__('i_db_conf_db_error_must_prefix'));
 			}
-			elseif (!preg_match('/^[a-z_]+$/', $aDatabaseParams['prefix'])) {
+			elseif (!preg_match('/^[a-z_]+$/', $this->aPageData['values']['prefix'])) {
 				$this->okt['instantMessages']->error(__('i_db_conf_db_error_prefix_form'));
 			}
 
-			if ($aDatabaseParams['env'] == 'prod')
+			if ($this->aPageData['values']['env'] == 'prod')
 			{
-				if (empty($aDatabaseParams['prod']['host'])) {
+				if (empty($this->aPageData['values']['prod']['host'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_host'));
 				}
 
-				if (empty($aDatabaseParams['prod']['name'])) {
+				if (empty($this->aPageData['values']['prod']['name'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_name'));
 				}
 
-				if (empty($aDatabaseParams['prod']['user'])) {
+				if (empty($this->aPageData['values']['prod']['user'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_username'));
 				}
 			}
 			else
 			{
-				if (empty($aDatabaseParams['dev']['host'])) {
+				if (empty($this->aPageData['values']['dev']['host'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_host'));
 				}
 
-				if (empty($aDatabaseParams['dev']['name'])) {
+				if (empty($this->aPageData['values']['dev']['name'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_name'));
 				}
 
-				if (empty($aDatabaseParams['dev']['user'])) {
+				if (empty($this->aPageData['values']['dev']['user'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_dev_must_username'));
 				}
 			}
 
-			$aParamsToTest = $aDatabaseParams[$aDatabaseParams['env']];
+			$aParamsToTest = $this->aPageData['values'][$this->aPageData['values']['env']];
 
 			# Tentative de connexion à la base de données
 			if (!$this->okt['flashMessages']->hasError())
@@ -117,7 +123,7 @@ class DatabaseConfiguration extends Controller
 
 					if (mysqli_num_rows($result) < 1)
 					{
-						$this->checklist->addItem(
+						$this->aPageData['checklist']->addItem(
 							'create_database',
 							mysqli_query($con_id, 'CREATE DATABASE IF NOT EXISTS `' . $aParamsToTest['name'] . '`'),
 							__('i_db_conf_create_db_ok'),
@@ -156,7 +162,7 @@ class DatabaseConfiguration extends Controller
 						'%%DB_PROD_USER%%',
 						'%%DB_PROD_PASS%%',
 						'%%DB_PROD_PREFIX%%'
-					], $aDatabaseParams['prod'], $config);
+					], $this->aPageData['values']['prod'], $config);
 
 					$config = str_replace([
 						'%%DB_DEV_HOST%%',
@@ -164,9 +170,9 @@ class DatabaseConfiguration extends Controller
 						'%%DB_DEV_USER%%',
 						'%%DB_DEV_PASS%%',
 						'%%DB_DEV_PREFIX%%'
-					], $aDatabaseParams['dev'], $config);
+					], $this->aPageData['values']['dev'], $config);
 
-					$this->checklist->addItem(
+					$this->aPageData['checklist']->addItem(
 						'connection_file',
 						file_put_contents($sConnectionFile, $config),
 						__('i_db_conf_connection_file_ok'),
@@ -180,7 +186,7 @@ class DatabaseConfiguration extends Controller
 					}
 					else
 					{
-						$env = $aDatabaseParams['env'];
+						$env = $this->aPageData['values']['env'];
 						require $sConnectionFile;
 
 						$db = new MySqli($sDbUser, $sDbPassword, $sDbHost, $sDbName, $sDbPrefix);
@@ -191,7 +197,7 @@ class DatabaseConfiguration extends Controller
 						}
 						else
 						{
-							$this->checklist->addItem(
+							$this->aPageData['checklist']->addItem(
 								'connection_attempt',
 								file_put_contents($sConnectionFile, $config),
 								__('i_db_conf_conn_ok'),
@@ -205,9 +211,7 @@ class DatabaseConfiguration extends Controller
 
 		return $this->render('DatabaseConfiguration', [
 			'title' 			=> __('i_db_conf_title'),
-			'aDrivers'			=> $drivers,
-			'aDatabaseParams' 	=> $aDatabaseParams,
-			'oChecklist' 		=> $this->checklist
+			'aPageData' 		=> $this->aPageData
 		]);
 	}
 }
