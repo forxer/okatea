@@ -15,13 +15,13 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<legend><?php _e('c_a_config_advanced_maintenance_mode') ?></legend>
 
 	<p class="field">
-		<label for="p_maintenance_public"><?php echo form::checkbox('p_maintenance_public', 1, $aPageData['values']['maintenance']['public'])?>
-	<?php _e('c_a_config_advanced_enable_maintenance_public') ?></label>
+		<label for="p_maintenance_public"><?php echo form::checkbox('p_maintenance_public', 1, $aPageData['values']['maintenance']['public']) ?>
+		<?php _e('c_a_config_advanced_enable_maintenance_public') ?></label>
 	</p>
 
 	<p class="field">
-		<label for="p_maintenance_admin"><?php echo form::checkbox('p_maintenance_admin', 1, $aPageData['values']['maintenance']['admin'])?>
-	<?php _e('c_a_config_advanced_enable_maintenance_admin') ?></label>
+		<label for="p_maintenance_admin"><?php echo form::checkbox('p_maintenance_admin', 1, $aPageData['values']['maintenance']['admin']) ?>
+		<?php _e('c_a_config_advanced_enable_maintenance_admin') ?></label>
 	</p>
 
 </fieldset>
@@ -30,8 +30,8 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 	<legend><?php _e('c_a_config_advanced_htmlpurifier') ?></legend>
 
 	<p class="field">
-		<label for="p_htmlpurifier_disabled"><?php echo form::checkbox('p_htmlpurifier_disabled', 1, $aPageData['values']['htmlpurifier_disabled'])?>
-	<?php _e('c_a_config_advanced_htmlpurifier_disabled') ?></label>
+		<label for="p_htmlpurifier_disabled"><?php echo form::checkbox('p_htmlpurifier_disabled', 1, $aPageData['values']['htmlpurifier_disabled']) ?>
+		<?php _e('c_a_config_advanced_htmlpurifier_disabled') ?></label>
 	</p>
 
 </fieldset>
@@ -41,11 +41,13 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<p class="field">
 		<label for="p_user_visit_timeout"><?php _e('c_a_config_advanced_user_visit_timeout') ?></label>
-	<?php echo form::text('p_user_visit_timeout', 10, 255, $view->escape($aPageData['values']['user_visit']['timeout'])) ?></p>
+		<?php echo form::text('p_user_visit_timeout', 10, 255, $view->escape($aPageData['values']['user_visit']['timeout'])) ?>
+	</p>
 
 	<p class="field">
 		<label for="p_user_visit_remember_time"><?php _e('c_a_config_advanced_user_visit_remember_time') ?></label>
-	<?php echo form::text('p_user_visit_remember_time', 10, 255, $view->escape($aPageData['values']['user_visit']['remember_time'])) ?></p>
+		<?php echo form::text('p_user_visit_remember_time', 10, 255, $view->escape($aPageData['values']['user_visit']['remember_time'])) ?>
+	</p>
 
 </fieldset>
 
@@ -54,8 +56,8 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<p>
 		<label for="p_log_admin_ttl_months"><?php
-		
-		printf(__('c_a_config_advanced_logadmin_ttl_%s_months'), form::text('p_log_admin_ttl_months', 3, 255, $view->escape($aPageData['values']['log_admin']['ttl_months'])))?></label>
+		printf(__('c_a_config_advanced_logadmin_ttl_%s_months'),
+		form::text('p_log_admin_ttl_months', 3, 255, $view->escape($aPageData['values']['log_admin']['ttl_months']))) ?></label>
 	</p>
 
 </fieldset>
@@ -65,21 +67,15 @@ use Okatea\Tao\Forms\Statics\FormElements as form;
 
 	<p class="field">
 		<label for="p_news_feed_enabled"><?php echo form::checkbox('p_news_feed_enabled', 1, $aPageData['values']['news_feed']['enabled'])?>
-	<?php _e('c_a_config_advanced_news_feed_enabled') ?></label>
+		<?php _e('c_a_config_advanced_news_feed_enabled') ?></label>
 	</p>
 
 	<?php foreach ($okt['languages']->getList() as $aLanguage) : ?>
 	<p class="field" lang="<?php echo $aLanguage['code'] ?>">
 		<label for="p_news_feed_url_<?php echo $aLanguage['code'] ?>"><?php $okt['languages']->hasUniqueLanguage() ? _e('c_a_config_advanced_news_feed_url') : printf(__('c_a_config_advanced_news_feed_url_in_%s'), $view->escape($aLanguage['title'])); ?><span
 			class="lang-switcher-buttons"></span></label>
-	<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($aPageData['values']['news_feed']['url'][$aLanguage['code']]) ? $view->escape($aPageData['values']['news_feed']['url'][$aLanguage['code']]) : ''))?>
+			<?php echo form::text(array('p_news_feed_url['.$aLanguage['code'].']','p_news_feed_url_'.$aLanguage['code']), 60, 255, (isset($aPageData['values']['news_feed']['url'][$aLanguage['code']]) ? $view->escape($aPageData['values']['news_feed']['url'][$aLanguage['code']]) : ''))?>
 	<?php endforeach; ?>
-
-
-
-
-
-
 
 </fieldset>
 

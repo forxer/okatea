@@ -32,29 +32,25 @@ $okt->page->js->addReady('
 		</tr>
 	</thead>
 	<tbody>
-	<?php
-	
-	$line_count = 0;
-	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name => $repo_url)
-	:
-		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';
-		$line_count ++;
-		?>
+	<?php $iLineCount = 0;
+	foreach ($aPageData['values']['repositories']['modules']['list'] as $repo_name => $repo_url) :
+		$odd_even = $iLineCount % 2 == 0 ? 'even' : 'odd';
+		$iLineCount ++; ?>
 	<tr>
 			<th scope="row" class="<?php echo $odd_even ?> fake-td">
-				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
+				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.$iLineCount), 40, 255, $view->escape($repo_name)) ?></p>
 			</th>
 			<td class="<?php echo $odd_even ?>">
-				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
+				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.$iLineCount), 60, 255, $view->escape($repo_url)) ?></p>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	<tr>
 			<th scope="row" class="<?php echo $odd_even ?> fake-td">
-				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.($line_count+1)), 40, 255) ?></p>
+				<p><?php echo form::text(array('p_modules_repositories_names[]','p_modules_repositories_names_'.($iLineCount+1)), 40, 255) ?></p>
 			</th>
 			<td class="<?php echo $odd_even ?>">
-				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
+				<p><?php echo form::text(array('p_modules_repositories_urls[]','p_modules_repositories_urls_'.($iLineCount+1)), 60, 255) ?></p>
 			</td>
 		</tr>
 	</tbody>
@@ -75,29 +71,25 @@ $okt->page->js->addReady('
 		</tr>
 	</thead>
 	<tbody>
-	<?php
-	
-	$line_count = 0;
-	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name => $repo_url)
-	:
-		$odd_even = $line_count % 2 == 0 ? 'even' : 'odd';
-		$line_count ++;
-		?>
+	<?php $iLineCount = 0;
+	foreach ($aPageData['values']['repositories']['themes']['list'] as $repo_name => $repo_url) :
+		$odd_even = $iLineCount % 2 == 0 ? 'even' : 'odd';
+		$iLineCount ++; ?>
 	<tr>
 			<th scope="row" class="<?php echo $odd_even ?> fake-td">
-				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$line_count), 40, 255, $view->escape($repo_name)) ?></p>
+				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.$iLineCount), 40, 255, $view->escape($repo_name)) ?></p>
 			</th>
 			<td class="<?php echo $odd_even ?>">
-				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$line_count), 60, 255, $view->escape($repo_url)) ?></p>
+				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.$iLineCount), 60, 255, $view->escape($repo_url)) ?></p>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	<tr>
 			<th scope="row" class="<?php echo $odd_even ?> fake-td">
-				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.($line_count+1)), 40, 255) ?></p>
+				<p><?php echo form::text(array('p_themes_repositories_names[]','p_themes_repositories_names_'.($iLineCount+1)), 40, 255) ?></p>
 			</th>
 			<td class="<?php echo $odd_even ?>">
-				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.($line_count+1)), 60, 255) ?></p>
+				<p><?php echo form::text(array('p_themes_repositories_urls[]','p_themes_repositories_urls_'.($iLineCount+1)), 60, 255) ?></p>
 			</td>
 		</tr>
 	</tbody>
