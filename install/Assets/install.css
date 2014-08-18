@@ -153,7 +153,10 @@ ul.checklistlegend li {
 	column-gap : 3em;
 }
 	#drivers li {
-		break-inside: avoid-column;
+		-webkit-column-break-inside: avoid;
+		-moz-column-break-inside: avoid;
+		column-break-inside: avoid;
+		display: table;
 	}
 
 

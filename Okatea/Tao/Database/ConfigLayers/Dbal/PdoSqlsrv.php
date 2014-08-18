@@ -25,6 +25,42 @@ class PdoSqlsrv implements DriverInterface
 
 	public function getConfigFields()
 	{
-		return [];
+		return [
+			[
+				'id' => 'host',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_host'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'port',
+				'type' => 'integer',
+				'label' => __('i_db_conf_db_port'),
+				'default' => '',
+				'required' => false
+			],
+			[
+				'id' => 'user',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_username'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'password',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_password'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'dbname',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_name'),
+				'default' => '',
+				'required' => true
+			]
+		];
 	}
 }

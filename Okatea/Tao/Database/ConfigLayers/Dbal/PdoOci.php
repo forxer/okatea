@@ -25,6 +25,77 @@ class PdoOci implements DriverInterface
 
 	public function getConfigFields()
 	{
-		return [];
+		return [
+			[
+				'id' => 'host',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_host'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'port',
+				'type' => 'integer',
+				'label' => __('i_db_conf_db_port'),
+				'default' => '',
+				'required' => false
+			],
+			[
+				'id' => 'user',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_username'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'password',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_password'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'dbname',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_name'),
+				'default' => '',
+				'required' => true
+			],
+			[
+				'id' => 'charset',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_charset'),
+				'default' => 'utf8',
+				'required' => false
+			],
+			[
+				'id' => 'servicename',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_oci_servicename'),
+				'default' => '',
+				'required' => false
+			],
+			[
+				'id' => 'service',
+				'type' => 'boolean',
+				'label' => __('i_db_conf_db_oci_service'),
+				'default' => false,
+				'required' => false
+			],
+			[
+				'id' => 'pooled',
+				'type' => 'boolean',
+				'label' => __('i_db_conf_db_oci_pooled'),
+				'default' => false,
+				'required' => false
+			],
+			[
+				'id' => 'instancename',
+				'type' => 'string',
+				'label' => __('i_db_conf_db_oci_instancename'),
+				'default' => '',
+				'required' => false
+			]
+		];
 	}
 }

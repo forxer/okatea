@@ -47,6 +47,25 @@ $okt->page->js->addReady('
 			e.preventDefault();
 		});
 
+
+	function handleDrivers() {
+
+		var current_driver = $(\'input[name="driver"]:checked\').val();
+
+		$("div.driver").each(function() {
+			var driver = $(this);
+
+			if (driver.data("driver-id") == current_driver) {
+				driver.show();
+			}
+			else {
+				driver.hide();
+			}
+		});
+	}
+
+	handleDrivers();
+	$(\'input[name="driver"]\').click(handleDrivers);
 ');
 
 ?>
@@ -70,11 +89,11 @@ $okt->page->js->addReady('
 	<p class="fake-label"><?php _e('i_db_conf_driver') ?></p>
 	<ul class="checklist" id="drivers">
 	<?php $iUnsupportedDriverCount = 0;
-	foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
-		<li<?php if (!$driver->isSupported()) { echo ' class="disabled"'; $iUnsupportedDriverCount++; }?>><label for="driver_<?php echo $sDrivers ?>"><?php
-		echo form::radio(['driver','driver_'.$sDrivers], $sDrivers, $aPageData['values']['driver'] == $sDrivers, '', null, !$driver->isSupported()) ?>
-		<?php echo $sDrivers ?></label>
-		<span class="note"><?php _e('i_db_conf_driver_'.$sDrivers) ?></span></li>
+	foreach ($aPageData['drivers']->getDrivers() as $sDriver => $driver) : ?>
+		<li<?php if (!$driver->isSupported()) { echo ' class="disabled"'; $iUnsupportedDriverCount++; }?>><label for="driver_<?php echo $sDriver ?>"><?php
+		echo form::radio(['driver','driver_'.$sDriver], $sDriver, $aPageData['values']['driver'] == $sDriver, '', null, !$driver->isSupported()) ?>
+		<?php echo $sDriver ?></label>
+		<span class="note"><?php _e('i_db_conf_driver_'.$sDriver) ?></span></li>
 	<?php endforeach ?>
 	</ul>
 	<?php if ($iUnsupportedDriverCount > 0) : ?>
@@ -101,7 +120,7 @@ $okt->page->js->addReady('
 		<p class="note"><?php _e('i_db_conf_environement_note') ?></p>
 		</div>
 		<div class="col">
-			<p class="field"><label for="prod_prefix" title="<?php _e('c_c_required_field') ?>"
+			<p class="field"><label for="prefix" title="<?php _e('c_c_required_field') ?>"
 			class="required"><?php _e('i_db_conf_db_prefix') ?></label>
 			<?php echo form::text('prefix', 40, 256, $view->escape($aPageData['values']['prefix'])) ?></p>
 		</div>
@@ -112,39 +131,35 @@ $okt->page->js->addReady('
 			<fieldset>
 				<legend><?php _e('i_db_conf_prod_server') ?></legend>
 
-	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
-		<?php if (!$driver->isSupported()) continue; ?>
+				<?php foreach ($aPageData['drivers']->getDrivers() as $sDriver => $driver) : ?>
+					<?php if (!$driver->isSupported()) continue; ?>
 
-		<div id="driver_prod_<?php echo $sDrivers ?>">
-			<?php foreach ($driver->getConfigFields() as $aFields) : ?>
-			<p class="field">
-				<label for="prod_<?php echo $aFields['id'] ?>"<?php if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
-				echo $aFields['label'] ?></label>
-				<?php echo form::text('prod_'.$aFields['id'], 40, 256, '') ?>
-			</p>
-			<?php endforeach ?>
-		</div>
+					<div data-driver-id="<?php echo $sDriver ?>" class="driver">
+						<?php foreach ($driver->getConfigFields() as $aFields) : ?>
+						<p class="field">
+						<?php if ($aFields['type'] == 'integer') : ?>
+							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
+							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+							echo $aFields['label'] ?></label>
+							<?php echo form::text('prod_'.$sDriver.'_'.$aFields['id'], 10, 16, '') ?>
 
-	<?php endforeach ?>
+						<?php elseif ($aFields['type'] == 'boolean') : ?>
 
-				<p class="field">
-					<label for="prod_host" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_host') ?></label>
-				<?php echo form::text('prod_host', 40, 256, $view->escape($aPageData['values']['prod']['host'])) ?></p>
+							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"><?php
+							echo form::checkbox('prod_'.$sDriver.'_'.$aFields['id'], 1, '') ?>
+							<?php echo $aFields['label'] ?></label>
 
-				<p class="field">
-					<label for="prod_name" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_name') ?></label>
-				<?php echo form::text('prod_name', 40, 256, $view->escape($aPageData['values']['prod']['name'])) ?></p>
+						<?php else : ?>
+							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
+							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+							echo $aFields['label'] ?></label>
+							<?php echo form::text('prod_'.$sDriver.'_'.$aFields['id'], 40, 256, '') ?>
 
-				<p class="field">
-					<label for="prod_user" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_username') ?></label>
-				<?php echo form::text('prod_user', 40, 256, $view->escape($aPageData['values']['prod']['user'])) ?></p>
-
-				<p class="field">
-					<label for="prod_password"><?php _e('i_db_conf_db_password') ?></label>
-				<?php echo form::text('prod_password', 40, 256, $view->escape($aPageData['values']['prod']['password'])) ?></p>
+						<?php endif; ?>
+						</p>
+						<?php endforeach ?>
+					</div>
+				<?php endforeach ?>
 
 			</fieldset>
 		</div>
@@ -153,39 +168,35 @@ $okt->page->js->addReady('
 			<fieldset>
 				<legend><?php _e('i_db_conf_dev_server') ?></legend>
 
-	<?php foreach ($aPageData['drivers']->getDrivers() as $sDrivers => $driver) : ?>
-		<?php if (!$driver->isSupported()) continue; ?>
+				<?php foreach ($aPageData['drivers']->getDrivers() as $sDriver => $driver) : ?>
+					<?php if (!$driver->isSupported()) continue; ?>
 
-		<div id="driver_dev_<?php echo $sDrivers ?>">
-			<?php foreach ($driver->getConfigFields() as $aFields) : ?>
-			<p class="field">
-				<label for="dev_<?php echo $aFields['id'] ?>"<?php if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
-				echo $aFields['label'] ?></label>
-				<?php echo form::text('dev_'.$aFields['id'], 40, 256, '') ?>
-			</p>
-			<?php endforeach ?>
-		</div>
+					<div data-driver-id="<?php echo $sDriver ?>" class="driver">
+						<?php foreach ($driver->getConfigFields() as $aFields) : ?>
+						<p class="field">
+						<?php if ($aFields['type'] == 'integer') : ?>
+							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
+							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+							echo $aFields['label'] ?></label>
+							<?php echo form::text('dev_'.$sDriver.'_'.$aFields['id'], 10, 16, '') ?>
 
-	<?php endforeach ?>
+						<?php elseif ($aFields['type'] == 'boolean') : ?>
 
-				<p class="field">
-					<label for="dev_host" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_host') ?></label>
-				<?php echo form::text('dev_host', 40, 256, $view->escape($aPageData['values']['dev']['host'])) ?></p>
+							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"><?php
+							echo form::checkbox('dev_'.$sDriver.'_'.$aFields['id'], 1, '') ?>
+							<?php echo $aFields['label'] ?></label>
 
-				<p class="field">
-					<label for="dev_name" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_name') ?></label>
-				<?php echo form::text('dev_name', 40, 256, $view->escape($aPageData['values']['dev']['name'])) ?></p>
+						<?php else : ?>
+							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
+							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
+							echo $aFields['label'] ?></label>
+							<?php echo form::text('dev_'.$sDriver.'_'.$aFields['id'], 40, 256, '') ?>
 
-				<p class="field">
-					<label for="dev_user" title="<?php _e('c_c_required_field') ?>"
-						class="required"><?php _e('i_db_conf_db_username') ?></label>
-				<?php echo form::text('dev_user', 40, 256, $view->escape($aPageData['values']['dev']['user'])) ?></p>
-
-				<p class="field">
-					<label for="dev_password"><?php _e('i_db_conf_db_password') ?></label>
-				<?php echo form::text('dev_password', 40, 256, $view->escape($aPageData['values']['dev']['password'])) ?></p>
+						<?php endif; ?>
+						</p>
+						<?php endforeach ?>
+					</div>
+				<?php endforeach ?>
 
 			</fieldset>
 		</div>
