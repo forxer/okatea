@@ -37,12 +37,16 @@ $GLOBALS['okt_l10n']['i_checks_big_loose'] = 'The configuration server has major
 
 # db conf
 $GLOBALS['okt_l10n']['i_db_conf_title'] = 'Connecting to the database';
+
 $GLOBALS['okt_l10n']['i_db_conf_create_db_ok'] = 'The database was created.';
 $GLOBALS['okt_l10n']['i_db_conf_create_db_ko'] = 'Unable to create the database.';
+
 $GLOBALS['okt_l10n']['i_db_conf_connection_file_ok'] = 'The connection file was created.';
 $GLOBALS['okt_l10n']['i_db_conf_connection_file_ko'] = 'Unable to create the connection file.';
+
 $GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connection to database successful.';
 $GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Failed to connect to the database.';
+
 $GLOBALS['okt_l10n']['i_db_conf_next'] = 'Click Next to create the tables.';
 
 $GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Please select the database driver to use for this installation:';
@@ -65,11 +69,19 @@ $GLOBALS['okt_l10n']['i_db_conf_environement_dev'] = 'development';
 $GLOBALS['okt_l10n']['i_db_conf_environement_note'] = 'You must choose the environment in which you are installing the system.';
 $GLOBALS['okt_l10n']['i_db_conf_prod_server'] = 'Production server';
 $GLOBALS['okt_l10n']['i_db_conf_dev_server'] = 'Development server';
-$GLOBALS['okt_l10n']['i_db_conf_db_host'] = 'Database host';
-$GLOBALS['okt_l10n']['i_db_conf_db_name'] = 'Database name';
-$GLOBALS['okt_l10n']['i_db_conf_db_username'] = 'Database username';
-$GLOBALS['okt_l10n']['i_db_conf_db_password'] = 'Database password';
+
 $GLOBALS['okt_l10n']['i_db_conf_db_prefix'] = 'Database table prefix';
+$GLOBALS['okt_l10n']['i_db_conf_db_host'] = 'Hostname of the database to connect to';
+$GLOBALS['okt_l10n']['i_db_conf_db_port'] = 'Port of the database to connect to';
+$GLOBALS['okt_l10n']['i_db_conf_db_name'] = 'Name of the database/schema to connect to';
+$GLOBALS['okt_l10n']['i_db_conf_db_username'] = 'Username to use when connecting to the database';
+$GLOBALS['okt_l10n']['i_db_conf_db_password'] = 'Password to use when connecting to the database';
+$GLOBALS['okt_l10n']['i_db_conf_db_unix_socket'] = 'Password to use when connecting to the database';
+$GLOBALS['okt_l10n']['i_db_conf_db_charset'] = 'The charset used when connecting to the database.';
+$GLOBALS['okt_l10n']['i_db_conf_db_mysqli_flags'] = 'Any supported flags for mysqli found on http://www.php.net/manual/en/mysqli.real-connect.php';
+$GLOBALS['okt_l10n']['i_db_conf_db_sqlite_path'] = 'The filesystem path to the database file. Mutually exclusive with memory. path takes precedence.';
+$GLOBALS['okt_l10n']['i_db_conf_db_sqlite_memory'] = 'True if the SQLite database should be in-memory (non-persistent). Mutually exclusive with path. path takes precedence.';
+
 $GLOBALS['okt_l10n']['i_db_conf_db_error_must_prefix'] = 'You must enter a table prefix for the database.';
 $GLOBALS['okt_l10n']['i_db_conf_db_error_prefix_form'] = 'The table prefix is invalid. It can only contain lowercase letters and "_" character.';
 $GLOBALS['okt_l10n']['i_db_conf_db_error_prod_must_host'] = 'You must enter a host database for the production environment.';

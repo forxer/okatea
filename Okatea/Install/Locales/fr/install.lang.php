@@ -37,12 +37,16 @@ $GLOBALS['okt_l10n']['i_checks_big_loose'] = 'La configuration serveur présente
 
 # db conf
 $GLOBALS['okt_l10n']['i_db_conf_title'] = 'Connexion à la base de données';
+
 $GLOBALS['okt_l10n']['i_db_conf_create_db_ok'] = 'La base de données a été créée.';
 $GLOBALS['okt_l10n']['i_db_conf_create_db_ko'] = 'Impossible de créer la base de données.';
+
 $GLOBALS['okt_l10n']['i_db_conf_connection_file_ok'] = 'Le fichier de connexion a été créé.';
 $GLOBALS['okt_l10n']['i_db_conf_connection_file_ko'] = 'Impossible de créer le fichier de connexion.';
+
 $GLOBALS['okt_l10n']['i_db_conf_conn_ok'] = 'Connexion à la base de données réussie.';
 $GLOBALS['okt_l10n']['i_db_conf_conn_ko'] = 'Échec de la connexion à la base de données.';
+
 $GLOBALS['okt_l10n']['i_db_conf_next'] = 'Cliquez sur suivant pour créer les tables.';
 
 $GLOBALS['okt_l10n']['i_db_conf_driver'] = 'Veuillez choisir le pilote de base de données à utiliser pour cette installation&nbsp;:';
@@ -65,11 +69,19 @@ $GLOBALS['okt_l10n']['i_db_conf_environement_dev'] = 'développement';
 $GLOBALS['okt_l10n']['i_db_conf_environement_note'] = 'Vous devez choisir l’environnement sur lequel vous êtes en train d’installer le système.';
 $GLOBALS['okt_l10n']['i_db_conf_prod_server'] = 'Serveur de production';
 $GLOBALS['okt_l10n']['i_db_conf_dev_server'] = 'Serveur de développement';
-$GLOBALS['okt_l10n']['i_db_conf_db_host'] = 'Hôte de la base de données';
-$GLOBALS['okt_l10n']['i_db_conf_db_name'] = 'Nom de la base de données';
-$GLOBALS['okt_l10n']['i_db_conf_db_username'] = 'Nom d’utilisateur de la base de données';
-$GLOBALS['okt_l10n']['i_db_conf_db_password'] = 'Mot de passe de la base de données';
+
 $GLOBALS['okt_l10n']['i_db_conf_db_prefix'] = 'Préfixe des tables de la base de données';
+$GLOBALS['okt_l10n']['i_db_conf_db_host'] = 'Nom d’hôte de la base de données à laquelle se connecter';
+$GLOBALS['okt_l10n']['i_db_conf_db_port'] = 'Port de la base de données à laquelle se connecter';
+$GLOBALS['okt_l10n']['i_db_conf_db_name'] = 'Nom de la base de données/schéma  à laquelle se connecter';
+$GLOBALS['okt_l10n']['i_db_conf_db_username'] = 'Nom d’utilisateur à utiliser lors de la connexion à la base de données';
+$GLOBALS['okt_l10n']['i_db_conf_db_password'] = 'Mot de passe utilisé pour se connecter à la base de données';
+$GLOBALS['okt_l10n']['i_db_conf_db_unix_socket'] = 'Nom du socket utilisé pour se connecter à la base de données.';
+$GLOBALS['okt_l10n']['i_db_conf_db_charset'] = 'Le jeu de caractères utilisé lors de la connexion à la base de données.';
+$GLOBALS['okt_l10n']['i_db_conf_db_mysqli_flags'] = 'Tous les flags pris en charge pour mysqli trouvés sur http://php.net/manual/fr/mysqli.real-connect.php';
+$GLOBALS['okt_l10n']['i_db_conf_db_sqlite_path'] = 'Le chemin du système de fichiers pour le fichier de base de données. Mutuellement exclusif avec la mémoire. Le chemin est prioritaire.';
+$GLOBALS['okt_l10n']['i_db_conf_db_sqlite_memory'] = 'Vrai si la base de données SQLite doit être en mémoire (non persistant). Mutuellement exclusif avec le chemin. Le chemin est prioritaire.';
+
 $GLOBALS['okt_l10n']['i_db_conf_db_error_must_prefix'] = 'Vous devez saisir un préfixe des tables pour la base de données.';
 $GLOBALS['okt_l10n']['i_db_conf_db_error_prefix_form'] = 'Le préfixe des tables n’est pas valide. Il ne peut contenir que des lettres en minuscules et le caractère "_".';
 $GLOBALS['okt_l10n']['i_db_conf_db_error_prod_must_host'] = 'Vous devez saisir un hote de base de données pour l’environnement de production.';
