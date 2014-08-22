@@ -29,7 +29,7 @@
 		"ezyang/htmlpurifier" : "~4.6",
 		"forxer/archiver" : "dev-master",
 		"forxer/languages-list" : "dev-master",
-		"forxer/gravatar" : "~1.1",
+		"forxer/gravatar" : "~1.2",
 		"guzzlehttp/guzzle" : "~4.1",
 		"imagine/imagine" : "~0.6",
 		"ircmaxell/password-compat" : "~1.0",
