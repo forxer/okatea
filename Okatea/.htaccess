@@ -1,1 +1,17 @@
-Deny from all
+<IfModule mod_version>
+	<IfVersion >= 2.4>
+		Require all denied
+	</IfVersion>
+	<IfVersion < 2.4>
+		Deny from all
+	</IfVersion>
+</IfModule>
+<IfModule !mod_version>
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order Allow,Deny
+		Deny from all
+	</IfModule>
+</IfModule>
