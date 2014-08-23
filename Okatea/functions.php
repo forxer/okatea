@@ -13,9 +13,11 @@ use Monolog\Processor\MemoryPeakUsageProcessor;
 
 if (!function_exists('__'))
 {
-
 	/**
-	 * Translate string.
+	 * Translate a string.
+	 * 
+	 * @param string $str
+	 * @return string
 	 */
 	function __($str)
 	{
@@ -25,9 +27,11 @@ if (!function_exists('__'))
 
 if (!function_exists('_e'))
 {
-
 	/**
-	 * Translate and display string.
+	 * Translate and display a string.
+	 *
+	 * @param string $str
+	 * @return string
 	 */
 	function _e($str)
 	{
@@ -37,7 +41,6 @@ if (!function_exists('_e'))
 
 if (!function_exists('console'))
 {
-
 	/**
 	 * Push data to firebug console.
 	 *
@@ -65,15 +68,13 @@ if (!function_exists('console'))
 
 if (!function_exists('debug'))
 {
-
 	/**
 	 * Utilitaire de debug rapide.
 	 *
-	 * @param mixed $mData
-	 *        	La variable à déboguer
-	 * @param boolean $bDie
-	 *        	Kill the script after
+	 * @param mixed $mData La variable à déboguer
+	 * @param boolean $bDie Kill the script after
 	 * @return void
+	 * @deprecated use d() and dd() instead
 	 */
 	function debug($mData, $bDie = false)
 	{
@@ -81,8 +82,7 @@ if (!function_exists('debug'))
 		var_export($mData);
 		echo '</pre>';
 		
-		if ($bDie)
-		{
+		if ($bDie) {
 			die();
 		}
 	}
@@ -141,22 +141,13 @@ h2 {
 		<h2>Fatal error!Aaaargh...</h2>
 		<div>
 		<?php
-	if (is_array($mMessage))
-	{
-		echo '<ul>';
-		
-		foreach ($mMessage as $err)
-		{
-			echo '<li>' . $err . '</li>';
+		if (is_array($mMessage)) {
+			echo '<ul><li>' . implode('</li><li>', $mMessage) . '</li></ul>';
 		}
-		
-		echo '</ul>';
-	}
-	else
-	{
-		echo '<p>' . $mMessage . '</p>';
-	}
-	?>
+		else {
+			echo '<p>' . $mMessage . '</p>';
+		}
+		?>
 		</div>
 	</div>
 </body>
