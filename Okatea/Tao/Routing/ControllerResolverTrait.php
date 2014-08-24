@@ -88,7 +88,7 @@ trait ControllerResolverTrait
 			throw new InvalidArgumentException(sprintf('Unable to find controller "%s".', $controller));
 		}
 
-		list ($class, $method) = explode('::', $controller, 2);
+		list($class, $method) = explode('::', $controller, 2);
 
 		if (!class_exists($class)) {
 			throw new InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));

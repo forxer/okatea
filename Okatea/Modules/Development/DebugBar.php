@@ -230,7 +230,7 @@ class DebugBar
 
 		$this->aDebugBarData['route'] = $this->okt['request']->attributes->get('_route');
 		$this->aDebugBarData['controller'] = $this->okt['request']->attributes->get('controller');
-		$this->aDebugBarData['requestParameters'] = $this->okt['request']->attributes->get('requestParameters');
+	//    $this->aDebugBarData['requestParameters'] = $this->okt['request']->attributes->get('requestParameters');
 	}
 
 	/**
@@ -465,7 +465,7 @@ class DebugBar
 			<ul>
 				<li>Route&nbsp;: ' . $this->aDebugBarData['route'] . '</li>
 				<li>Controller&nbsp;: ' . $this->aDebugBarData['controller'] . '</li>
-				<li>Autre(s) attribut(s)&nbsp;: <ul><li>' . implode('</li><li>', $this->aDebugBarData['requestParameters']) . '</li></ul></li></ul>
+			</ul>
 			<ul>
 				<li>$okt->page->module&nbsp;: ' . (!empty($this->okt->page->module) ? $this->okt->page->module : '') . '</li>
 				<li>$okt->page->action&nbsp;: ' . (!empty($this->okt->page->action) ? $this->okt->page->action : '') . '</li>

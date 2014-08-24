@@ -7,6 +7,7 @@
  */
 namespace Okatea\Tao\Templating;
 
+use Okatea\Tao\Application;
 use Okatea\Tao\Html\Escaper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class Templating extends PhpEngine
 	 */
 	protected $okt;
 
-	public function __construct($okt)
+	public function __construct(Application $okt)
 	{
 		$this->okt = $okt;
 

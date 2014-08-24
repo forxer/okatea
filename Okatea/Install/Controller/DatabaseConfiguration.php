@@ -10,7 +10,7 @@ namespace Okatea\Install\Controller;
 use ArrayObject;
 use Okatea\Install\Controller;
 use Okatea\Tao\Database\ConfigLayers\Drivers;
-use Okatea\Tao\Database\MySqli;
+use Okatea\Tao\Database\ConfigLayers\Validator;
 use Okatea\Tao\Html\Checklister;
 
 class DatabaseConfiguration extends Controller
@@ -19,24 +19,18 @@ class DatabaseConfiguration extends Controller
 
 	public function page()
 	{
+		$drivers = new Drivers();
+
 		$this->aPageData = new ArrayObject([
-			'drivers' => new Drivers(),
-			'checklist' => null,
+			'drivers' 		=> $drivers,
+			'checklist' 	=> null,
 			'values' => [
-				'env' => $this->okt['env'],
-				'driver' => 'pdo_mysql',
-				'prefix' => 'okt_',
-				'prod' => [
-					'host' 		=> '',
-					'name' 		=> '',
-					'user' 		=> '',
-					'password' 	=> ''
-				],
-				'dev' => [
-					'host' 		=> 'localhost',
-					'name' 		=> 'okatea',
-					'user' 		=> 'root',
-					'password' 	=> ''
+				'driver' 	=> 'pdo_mysql',
+				'env' 		=> $this->okt['env'],
+				'prefix' 	=> 'okt_',
+				'config' 	=> [
+					'prod' 		=> [],
+					'dev' 		=> []
 				]
 			]
 		]);
@@ -48,23 +42,18 @@ class DatabaseConfiguration extends Controller
 		{
 			$this->aPageData['checklist'] = new Checklister();
 
-			# Données environnement de production
-			$this->aPageData = [
-				'env' => $this->okt['request']->request->get('connect'),
-				'prefix' => $this->okt['request']->request->get('prefix'),
-				'prod' => [
-					'host' 		=> $this->okt['request']->request->get('prod_host'),
-					'name' 		=> $this->okt['request']->request->get('prod_name'),
-					'user' 		=> $this->okt['request']->request->get('prod_user'),
-					'password' 	=> $this->okt['request']->request->get('prod_password')
-				],
-				'dev' => [
-					'host' 		=> $this->okt['request']->request->get('dev_host'),
-					'name' 		=> $this->okt['request']->request->get('dev_name'),
-					'user' 		=> $this->okt['request']->request->get('dev_user'),
-					'password' 	=> $this->okt['request']->request->get('dev_password')
-				]
+			$this->aPageData['values'] = [
+				'driver' 	=> $this->okt['request']->request->get('driver'),
+				'env' 		=> $this->okt['request']->request->get('connect'),
+				'prefix' 	=> $this->okt['request']->request->get('prefix')
 			];
+
+			if (empty($this->aPageData['values']['driver'])) {
+				$this->okt['instantMessages']->error(__('i_db_conf_db_error_must_driver'));
+			}
+			elseif (!$drivers->isSupported($this->aPageData['values']['driver'])) {
+				$this->okt['instantMessages']->error(__('i_db_conf_db_error_unsupported_driver'));
+			}
 
 			if ($this->aPageData['values']['env'] != 'dev' && $this->aPageData['values']['env'] != 'prod') {
 				$this->aPageData['values']['env'] == 'dev';
@@ -79,6 +68,8 @@ class DatabaseConfiguration extends Controller
 
 			if ($this->aPageData['values']['env'] == 'prod')
 			{
+				$validator = (new Validator($this->okt))->validate(getDriver($sDriver), $aData);
+
 				if (empty($this->aPageData['values']['prod']['host'])) {
 					$this->okt['instantMessages']->error(__('i_db_conf_db_error_prod_must_host'));
 				}

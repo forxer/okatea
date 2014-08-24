@@ -141,19 +141,18 @@ $okt->page->js->addReady('
 							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
 							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
 							echo $aFields['label'] ?></label>
-							<?php echo form::text('prod_'.$sDriver.'_'.$aFields['id'], 10, 16, '') ?>
+							<?php echo form::text(['config[prod]['.$aFields['id'].']', 'prod_'.$sDriver.'_'.$aFields['id']], 10, 16, '') ?>
 
 						<?php elseif ($aFields['type'] == 'boolean') : ?>
-
 							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"><?php
-							echo form::checkbox('prod_'.$sDriver.'_'.$aFields['id'], 1, '') ?>
+							echo form::checkbox(['config[prod]['.$aFields['id'].']', 'prod_'.$sDriver.'_'.$aFields['id']], 1, '') ?>
 							<?php echo $aFields['label'] ?></label>
 
 						<?php else : ?>
 							<label for="prod_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
 							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
 							echo $aFields['label'] ?></label>
-							<?php echo form::text('prod_'.$sDriver.'_'.$aFields['id'], 40, 256, '') ?>
+							<?php echo form::text(['config[prod]['.$aFields['id'].']', 'prod_'.$sDriver.'_'.$aFields['id']], 40, 256, '') ?>
 
 						<?php endif; ?>
 						</p>
@@ -178,19 +177,18 @@ $okt->page->js->addReady('
 							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
 							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
 							echo $aFields['label'] ?></label>
-							<?php echo form::text('dev_'.$sDriver.'_'.$aFields['id'], 10, 16, '') ?>
+							<?php echo form::text(['config[dev]['.$aFields['id'].']', 'dev_'.$sDriver.'_'.$aFields['id']], 10, 16, '') ?>
 
 						<?php elseif ($aFields['type'] == 'boolean') : ?>
-
 							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"><?php
-							echo form::checkbox('dev_'.$sDriver.'_'.$aFields['id'], 1, '') ?>
+							echo form::checkbox(['config[dev]['.$aFields['id'].']', 'dev_'.$sDriver.'_'.$aFields['id']], 1, '') ?>
 							<?php echo $aFields['label'] ?></label>
 
 						<?php else : ?>
 							<label for="dev_<?php echo $sDriver ?>_<?php echo $aFields['id'] ?>"<?php
 							if ($aFields['required']) : ?> title="<?php _e('c_c_required_field') ?>" class="required"<?php endif ?>><?php
 							echo $aFields['label'] ?></label>
-							<?php echo form::text('dev_'.$sDriver.'_'.$aFields['id'], 40, 256, '') ?>
+							<?php echo form::text(['config[dev]['.$aFields['id'].']', 'dev_'.$sDriver.'_'.$aFields['id']], 40, 256, '') ?>
 
 						<?php endif; ?>
 						</p>

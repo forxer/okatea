@@ -37,14 +37,42 @@ class Drivers
 	}
 
 	/**
+	 * Return a given driver instance.
+	 *
+	 * @param string $sDriver
+	 * @return DriverInterface
+	 */
+	public function getDriver($sDriver)
+	{
+		return $this->driverExists($sDriver) ? $this->aDrivers[$sDriver] : null;
+	}
+
+	public function driverExists($sDriver)
+	{
+		return isset($this->aDrivers[$sDriver]);
+	}
+
+	/**
+	 * Indicate if a given driver is supported by the environment.
+	 *
+	 * @return boolean
+	 */
+	public function isSupported($sDriver)
+	{
+		return
+			isset($this->aDrivers[$sDriver])
+			&& $this->aDrivers[$sDriver]->isSupported();
+	}
+
+	/**
 	 * Add a driver.
 	 *
-	 * @param string $sName
+	 * @param string $sDriver
 	 * @param string $sClass
 	 */
-	public function addDriver($sName, $sClass)
+	public function addDriver($sDriver, $sClass)
 	{
-		$this->aDrivers[$sName] = new $sClass;
+		$this->aDrivers[$sDriver] = new $sClass;
 	}
 
 	/**
