@@ -7,7 +7,6 @@
  */
 namespace Okatea\Tao\Templating;
 
-use Okatea\Tao\Cache\SingleFileCache;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

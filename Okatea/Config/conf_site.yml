@@ -68,7 +68,7 @@ email:
 language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
-app_url: /okatea/
+app_url: /
 domain: localhost
 htmlpurifier_disabled: false
 slug_type: ascii

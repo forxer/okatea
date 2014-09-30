@@ -74,8 +74,8 @@ class Users
 		if (!empty($aParams['id']))
 		{
 			$queryBuilder
-			->andWhere('u.id = :id')
-			->setParameter('id', (integer)$aParams['id']);
+				->andWhere('u.id = :id')
+				->setParameter('id', (integer)$aParams['id']);
 		}
 
 		if (!empty($aParams['username']))

@@ -1,5 +1,5 @@
 {
-	"name" : "okatea/okatea",
+	"name" : "forxer/okatea",
 	"description" : "Another modular CMS in PHP",
 	"type" : "project",
 	"keywords" : [
@@ -11,7 +11,7 @@
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Vincent Garnier",
-			"email" : "contact@okatea.org",
+			"email" : "forxer@gmail.org",
 			"homepage" : "http://forx.fr"
 		}
 	],
@@ -19,11 +19,10 @@
 		"email" : "contact@okatea.org",
 		"issues" : "https://github.com/forxer/okatea/issues"
 	},
-	"minimum-stability" : "dev",
+	"minimum-stability" : "stable",
 	"require" : {
 		"php" : ">=5.4.0",
-		"doctrine/common" : "2.4.*@dev",
-		"doctrine/dbal" : "2.5.*@dev",
+		"doctrine/dbal" : "~2.4",
 		"dunglas/php-socialshare" : "~0.2",
 		"erusev/parsedown" : "~1.0",
 		"ezyang/htmlpurifier" : "~4.6",
