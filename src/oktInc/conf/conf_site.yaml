@@ -1,21 +1,15 @@
 title:
-  fr: 'Projet Okatea'
-  en: 'Okatea project'
+  fr: 'Projet Okatea 1.0.x'
 desc:
   fr: 'Un autre CMS modulaire en PHP'
-  en: 'Another modular CMS in PHP'
 title_tag:
   fr: ''
-  en: ''
 meta_description:
   fr: ''
-  en: ''
 meta_keywords:
   fr: ''
-  en: ''
 schedule:
   fr: ''
-  en: ''
 address:
   street: ''
   street_2: ''
@@ -36,10 +30,10 @@ leader:
   name: ''
   firstname: ''
 email:
-  to: ''
-  from: ''
+  to: contact@okatea_1.local
+  from: contact@okatea_1.local
   name: ''
-  transport: ''
+  transport: mail
   smtp: { host: '', port: 25, username: '', password: '' }
   sendmail: ''
 theme: okatea
@@ -53,8 +47,8 @@ admin_compress_output: false
 language: fr
 timezone: Europe/Paris
 admin_lang_switcher: true
-app_path: /okatea_project/src/
-domain: ''
+app_path: /
+domain: okatea_1.local
 default_route:
   class: ''
   method: ''
