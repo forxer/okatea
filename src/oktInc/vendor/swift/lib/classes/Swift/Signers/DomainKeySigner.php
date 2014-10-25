@@ -11,8 +11,6 @@
 /**
  * DomainKey Signer used to apply DomainKeys Signature to a message
  *
- * @package    Swift
- * @subpackage Signatures
  * @author     Xavier De Cock <xdecock@gmail.com>
  */
 class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
@@ -62,14 +60,14 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     /**
      * Signer identity
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_signerIdentity;
 
     /**
      * Must we embed signed headers?
      *
-     * @var boolean
+     * @var bool
      */
     protected $_debugHeaders = false;
 
@@ -82,13 +80,6 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     private $_signedHeaders = array();
 
     /**
-     * If debugHeaders is set store debugDatas here
-     *
-     * @var string
-     */
-    private $_debugHeadersData = '';
-
-    /**
      * Stores the signature header
      *
      * @var Swift_Mime_Headers_ParameterizedHeader
@@ -98,7 +89,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     /**
      * Hash Handler
      *
-     * @var hash_ressource
+     * @var resource|null
      */
     private $_hashHandler;
 
@@ -129,8 +120,21 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     {
         $this->_privateKey = $privateKey;
         $this->_domainName = $domainName;
-        $this->_signerIdentity = '@' . $domainName;
+        $this->_signerIdentity = '@'.$domainName;
         $this->_selector = $selector;
+    }
+
+    /**
+     * Instanciate DomainKeySigner
+     *
+     * @param string $privateKey
+     * @param string $domainName
+     * @param string $selector
+     * @return Swift_Signers_DomainKeySigner
+     */
+    public static function newInstance($privateKey, $domainName, $selector)
+    {
+        return new static($privateKey, $domainName, $selector);
     }
 
     /**
@@ -144,7 +148,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $this->_hashHandler = null;
         $this->_bodyCanonIgnoreStart = 2;
         $this->_bodyCanonEmptyCounter = 0;
-        $this->_bodyCanonLastChar = NULL;
+        $this->_bodyCanonLastChar = null;
         $this->_bodyCanonSpace = false;
 
         return $this;
@@ -216,8 +220,8 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     public function unbind(Swift_InputByteStream $is)
     {
         // Don't have to mirror anything
-        foreach ($this->_bound as $k => $el) {
-            if ($el == $is) {
+        foreach ($this->_bound as $k => $stream) {
+            if ($stream === $is) {
                 unset($this->_bound[$k]);
 
                 return;
@@ -287,7 +291,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     /**
      * Enable / disable the DebugHeaders
      *
-     * @param boolean $debug
+     * @param bool    $debug
      * @return Swift_Signers_DomainKeySigner
      */
     public function setDebugHeaders($debug)
@@ -384,7 +388,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $params = array('a' => $this->_hashAlgorithm, 'b' => chunk_split(base64_encode($this->_getEncryptedHash()), 73, " "), 'c' => $this->_canon, 'd' => $this->_domainName, 'h' => implode(': ', $this->_signedHeaders), 'q' => 'dns', 's' => $this->_selector);
         $string = '';
         foreach ($params as $k => $v) {
-            $string .= $k . '=' . $v . '; ';
+            $string .= $k.'='.$v.'; ';
         }
         $string = trim($string);
         $headers->addTextHeader('DomainKey-Signature', $string);
@@ -403,7 +407,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
                 $name = strtolower(trim($exploded[0]));
                 $value = str_replace("\r\n", "", $exploded[1]);
                 $value = preg_replace("/[ \t][ \t]+/", " ", $value);
-                $header = $name . ":" . trim($value) . "\r\n";
+                $header = $name.":".trim($value)."\r\n";
             case 'simple' :
                 // Nothing to do
         }
@@ -474,7 +478,6 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
 
     private function _addToHash($string)
     {
-        echo $string;
         $this->_canonData .= $string;
         hash_update($this->_hashHandler, $string);
     }
@@ -490,14 +493,18 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $this->_canonLine = '';
     }
 
+    /**
+     * @throws Swift_SwiftException
+     * @return string
+     */
     private function _getEncryptedHash()
     {
         $signature = '';
-        $pkeyId=openssl_get_privatekey($this->_privateKey);
+        $pkeyId = openssl_get_privatekey($this->_privateKey);
         if (!$pkeyId) {
             throw new Swift_SwiftException('Unable to load DomainKey Private Key ['.openssl_error_string().']');
         }
-        if (openssl_sign($this->_canonData, $signature, $pkeyId, 'sha1')) {
+        if (openssl_sign($this->_canonData, $signature, $pkeyId, OPENSSL_ALGO_SHA1)) {
             return $signature;
         }
         throw new Swift_SwiftException('Unable to sign DomainKey Hash  ['.openssl_error_string().']');
