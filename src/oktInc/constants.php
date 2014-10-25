@@ -125,7 +125,11 @@ if (!defined('OKT_COOKIE_LANGUAGE')) {
 if (!defined('OKT_ENVIRONMENT'))
 {
 	define('OKT_ENVIRONMENT',
-		(isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === '127.0.0.1' || $_SERVER['SERVER_NAME'] === 'localhost'))
+		(isset($_SERVER['SERVER_NAME']) &&
+			($_SERVER['SERVER_NAME'] === '127.0.0.1'
+			|| $_SERVER['SERVER_NAME'] === 'localhost'
+			|| substr($_SERVER['SERVER_NAME'], -6) === '.local'
+		))
 		? 'dev'
 		: 'prod'
 	);
