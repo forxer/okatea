@@ -10,6 +10,10 @@ CHANGELOG and HISTORY ( we try )                           module_rte_tinyMCE_4
 ==========================
 
 
+1.0.2
+! TinyMCE 4.1.6
+
+
 1.0.1
 ! TinyMCE 4.0.22
 - fix embeded documents urls
