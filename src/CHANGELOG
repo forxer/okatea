@@ -10,6 +10,23 @@ CHANGELOG and HISTORY ( we try )                                         Okatea
 ==========================
 
 
+1.0.2 (2014-10-25)
+! add development environment detection for *.local in $_SERVER['SERVER_NAME']
+! CodeMiror 3.24.0
+! HTML5 Shiv 3.7.2
+! jQuery 1.11.1
+! jQuery select2 3.5.1
+! jQuery Spectrum 1.5.1
+! HTML Purifier 4.6.0
+! Mobile Detect 2.8.5
+! SwiftMailer 5.3.0
+! module_rte_tinyMCE_3 1.0.1
+	! TinyMCE 3.5.11
+	! update languages packages
+! module rte_tinymce_4 1.0.2
+	! TinyMCE 4.1.6
+
+
 1.0.1 (2014-04-18)
 ! CodeMirror 3.23
 ! jQuery 1.11.0
